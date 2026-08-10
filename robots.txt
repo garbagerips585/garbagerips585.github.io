@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://garbagerips585.com/sitemap.xml
