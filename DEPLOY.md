@@ -194,8 +194,13 @@ Two things to remember as the site grows:
 holds every playlist. Both are produced by the sync script:
 
 ```bash
-YT_API_KEY=your_key_here node scripts/sync-youtube.mjs
+node --env-file=.env scripts/sync-youtube.mjs
+node scripts/build-pages.mjs
 ```
+
+The first pulls the catalogue, the second regenerates the per-video pages
+under `public/rip/` and rewrites `sitemap.xml`. Always run them in that order:
+the generator reads what the sync wrote.
 
 To get a key: [console.cloud.google.com](https://console.cloud.google.com/) →
 create a free project → APIs & Services → Library → enable **YouTube Data API

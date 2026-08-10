@@ -40,6 +40,18 @@ shared/     taxonomy.mjs, the set/product tag rules, imported by both
 ```
 Cloudflare settings: build command `exit 0`, output directory `public`.
 
+## Every click stays on the site
+Video tiles everywhere link to that video's own page under `public/rip/`,
+never to youtube.com. The embed lives on that page. The only deliberate
+outbound links are Subscribe and the social icons.
+
+`scripts/build-pages.mjs` generates a page for EVERY video (308), so no tile
+can dead-end. Videos missing a set or product tag get `noindex` and stay out
+of the sitemap, because they would be thin pages; tag them and re-run to
+promote them. `shared/paths.mjs` owns the URL shape and the sync stamps
+`path` onto every video, so the browser, the generator and the RSS function
+cannot drift apart.
+
 ## Video data
 - `public/data/videos.json` is the whole catalogue, `playlists.json` the
   playlists. Both are written by `scripts/sync-youtube.mjs`.
