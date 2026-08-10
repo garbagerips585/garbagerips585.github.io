@@ -312,7 +312,10 @@ h1 .rip{color:var(--gold);text-shadow:var(--hard-lg)}
 .pl{position:relative;text-decoration:none;border-radius:12px;overflow:hidden;
   border:2px solid var(--trubbish-deep);background:var(--sludge-2);transition:transform .14s,border-color .14s}
 .pl:hover{transform:translateY(-4px);border-color:var(--berry)}
-.pl-thumb{position:relative;aspect-ratio:9/16;max-height:280px;overflow:hidden;background:var(--sludge-3)}
+/* Square, not 9/16: a max-height cap fights aspect-ratio and collapses the
+   box's width instead of its height. Square also reads as playlist cover art
+   rather than as another video tile. */
+.pl-thumb{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--sludge-3)}
 .pl-thumb img{width:100%;height:100%;object-fit:cover}
 .pl-body{padding:12px 14px 14px}
 .pl-title{font-family:var(--display);font-size:1rem;font-weight:400;line-height:1.2}

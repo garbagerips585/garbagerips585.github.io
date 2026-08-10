@@ -18,13 +18,18 @@ export const PRODUCT_TYPES = [
   { id: "blister", label: "Blister", pattern: /\bblister\b|\b3[- ]pack\b|three[- ]pack/i },
   { id: "tin", label: "Tin", pattern: /\btin\b/i },
   { id: "collection-box", label: "Collection Box", pattern: /\bcollection box\b|\bpremium collection\b|\bspecial collection\b/i },
-  { id: "single-pack", label: "Single Pack", pattern: /\bsingle pack\b|\bone pack\b|\b1 pack\b|\bloose pack\b/i },
+  // "Booster Pack Opening" is how the channel labels loose single packs, as
+  // distinct from a Bundle or a Box. Bundle/Box sit above this in the list, so
+  // they win when a title mentions both.
+  { id: "single-pack", label: "Single Pack", pattern: /\bsingle pack\b|\bone pack\b|\b1 pack\b|\bloose pack\b|\bbooster pack\b/i },
 ];
 
 // Set names observed in the channel's own titles, newest first. Add to this
 // list as new sets release; the matcher is a plain case-insensitive name match.
 export const CARD_SETS = [
   { id: "pitch-black", label: "Pitch Black" },
+  { id: "ascended-heroes", label: "Ascended Heroes" },
+  { id: "pokemon-go", label: "Pokemon GO", pattern: /pok[eé]mon\s+go\b/i },
   { id: "phantasmal-flames", label: "Phantasmal Flames" },
   { id: "perfect-order", label: "Perfect Order" },
   { id: "chaos-rising", label: "Chaos Rising" },

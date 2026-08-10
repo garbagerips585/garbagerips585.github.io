@@ -122,6 +122,23 @@ for (let i = 0; i < ids.length; i += 16) {
 }
 process.stdout.write("\n");
 
+// Playlist titles are a far better tag source than video titles: a video sitting
+// in "Perfect Order Booster Bundle Series" is definitively Perfect Order and
+// definitively a bundle, even when its own title only says "DID WE GET THE ZARD".
+// Used to fill gaps only, never to overwrite a tag the video stated itself.
+const fromPlaylist = new Map();
+for (const p of playlists) {
+  const tags = deriveTags({ title: p.title });
+  if (!tags.sets.length && !tags.products.length) continue;
+  for (const id of p.videoIds) {
+    const prev = fromPlaylist.get(id) || { sets: [], products: [] };
+    for (const s of tags.sets) if (!prev.sets.includes(s)) prev.sets.push(s);
+    for (const pr of tags.products) if (!prev.products.includes(pr)) prev.products.push(pr);
+    fromPlaylist.set(id, prev);
+  }
+}
+console.log(`Playlist titles supply tags for ${fromPlaylist.size} videos.`);
+
 // Hand corrections always win over the automatic matcher.
 let overrides = {};
 try {
@@ -137,6 +154,9 @@ const videos = uploads
     const description = item.snippet.description || "";
     const d = details.get(id) || {};
     const auto = deriveTags({ title, description });
+    const inherited = fromPlaylist.get(id) || { sets: [], products: [] };
+    if (!auto.sets.length) auto.sets = inherited.sets;
+    if (!auto.products.length) auto.products = inherited.products.slice(0, 1);
     const manual = overrides[id] || {};
     return {
       id,
