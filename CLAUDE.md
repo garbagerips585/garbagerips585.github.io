@@ -81,12 +81,22 @@ cannot drift apart.
 - 261 of 262 videos are vertical. The one exception is `kj7532tb0_I`.
 
 ## Current state
-Single static index.html + assets/. Sections: hero (flippable GMAX card,
-normal -> rainbow on click, 3D tilt + holo shine), Rochester skyline SVG,
-ROC ticker marquee, watch (uploads player + Shorts feed + HITS ONLY block),
-"Anatomy of a Rip" plate diagram, socials-as-diner-menu, banner strip,
-585 hometown section (oval sticker), footer. Organization JSON-LD with
-sameAs is in <head>.
+Homepage order: nav, the commissioned banner art as a full-bleed header
+band, hero copy + CTAs, ROC ticker, Rochester skyline SVG, latest six,
+Hits Only six, jump-to-a-set chips, "Anatomy of a Rip" plate diagram,
+socials-as-diner-menu, the GMAX card band (flip to rainbow rare, 3D tilt),
+585 hometown section with the oval sticker, footer.
+
+The banner art is the header, not a mid-page strip. Do not overlay copy on
+it: Trubbish sits dead centre in the source image, so any scrim wide enough
+to make text legible washes him out, and any panel large enough hides him.
+The copy goes underneath.
+
+The skyline SVG is the real Rochester skyline (Powers Building, City Hall,
+Kodak Tower, Times Square Building with the Wings of Progress, First Federal
+Plaza, Xerox Tower, Legacy Tower, the Metropolitan) with relative heights
+following the real buildings. It sits after the ticker, not against the
+banner, so the two skylines are not adjacent.
 
 Also at root: favicon.ico / favicon-32.png / apple-touch-icon.png (all
 cropped from Trubbish's face in logo-square.jpg), robots.txt, sitemap.xml.

@@ -182,11 +182,42 @@ nav.site{
   background:linear-gradient(180deg,#57C9F2 0%,#9BDFF6 45%,#D9F1F8 78%,var(--paper) 100%);
 }
 .hero>*{position:relative;z-index:1}
-/* fluffy cartoon clouds, drawn not gradient-faked */
-.hero-clouds{
-  position:absolute;top:0;left:0;width:100%;height:auto;z-index:0;
-  pointer-events:none;opacity:.92;
+
+/* ---------- the commissioned art IS the header ----------
+   Full-bleed banner behind the copy. Trubbish sits centre-left in the source
+   image, so the focal point is pushed right and the copy gets a cream scrim
+   on the left. A text-shadow alone would not carry contrast over artwork
+   this busy. */
+/* The art runs full-bleed as its own band, uncovered. Overlaying the copy on
+   it meant either washing Trubbish out with a scrim or hiding him behind a
+   panel: he sits dead centre in the source image, so there is no clear side
+   to put text on. The copy lives underneath instead. */
+.hero-art{background:none;padding:0;display:block;min-height:0}
+.hero-banner{
+  width:100%;
+  height:auto;
+  max-height:min(54vh,540px);
+  object-fit:cover;
+  object-position:center 38%;   /* keeps his face and the plate in frame */
+  border-bottom:4px solid var(--navy);
 }
+.hero-art .hero-grid{
+  grid-template-columns:1fr;
+  padding:44px 0 52px;
+  background:transparent;
+}
+.hero-art .hero-copy{max-width:44em}
+.hero-art h1{color:var(--navy);text-shadow:3px 3px 0 var(--mustard)}
+.hero-art h1 .rip{color:var(--ketchup);text-shadow:3px 3px 0 var(--mustard)}
+.hero-art .lede{color:var(--ink)}
+@media(max-width:820px){
+  .hero-banner{max-height:38vh}
+  .hero-art .hero-grid{padding:30px 0 36px}
+}
+
+/* ---------- the GMAX card, moved out of the hero ---------- */
+.card-band-grid{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:44px;align-items:center}
+@media(max-width:760px){.card-band-grid{grid-template-columns:1fr;gap:26px}}
 .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:52px;align-items:center;padding-bottom:64px}
 @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:40px;padding-bottom:48px}}
 .eyebrow{
