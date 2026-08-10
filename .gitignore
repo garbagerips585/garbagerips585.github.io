@@ -2,3 +2,8 @@
 .claude/
 Thumbs.db
 *.log
+
+# Never commit the YouTube API key.
+.env
+.env.*
+!.env.example
