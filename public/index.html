@@ -96,6 +96,26 @@
 </nav>
 
 <header class="hero" id="top">
+  <svg class="hero-clouds" viewBox="0 0 1200 260" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+    <g fill="#FFFFFF">
+      <g opacity=".95">
+        <ellipse cx="150" cy="70" rx="62" ry="30"/><ellipse cx="200" cy="56" rx="46" ry="34"/>
+        <ellipse cx="248" cy="72" rx="52" ry="26"/><rect x="150" y="66" width="100" height="30" rx="15"/>
+      </g>
+      <g opacity=".8">
+        <ellipse cx="520" cy="40" rx="48" ry="22"/><ellipse cx="560" cy="30" rx="36" ry="26"/>
+        <ellipse cx="598" cy="42" rx="40" ry="20"/><rect x="520" y="36" width="78" height="22" rx="11"/>
+      </g>
+      <g opacity=".95">
+        <ellipse cx="880" cy="86" rx="70" ry="32"/><ellipse cx="940" cy="70" rx="52" ry="38"/>
+        <ellipse cx="998" cy="88" rx="58" ry="28"/><rect x="880" y="80" width="118" height="32" rx="16"/>
+      </g>
+      <g opacity=".72">
+        <ellipse cx="1120" cy="44" rx="52" ry="24"/><ellipse cx="1164" cy="34" rx="38" ry="28"/>
+        <rect x="1120" y="40" width="44" height="24" rx="12"/>
+      </g>
+    </g>
+  </svg>
   <div class="wrap hero-grid">
     <div>
       <p class="eyebrow">Pokemon pack rips &bull; Rochester, NY</p>
@@ -127,29 +147,68 @@
     </div>
   </div>
 
-  <svg class="skyline" viewBox="0 0 1200 150" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Rochester NY skyline silhouette">
-    <g fill="#141911">
-      <rect x="0" y="112" width="1200" height="38"/>
-      <rect x="18" y="86" width="52" height="64"/><rect x="82" y="98" width="40" height="52"/>
-      <rect x="150" y="38" width="46" height="112"/><polygon points="150,38 173,16 196,38"/><rect x="171" y="4" width="4" height="16"/>
-      <rect x="210" y="92" width="58" height="58"/><rect x="286" y="76" width="34" height="74"/>
-      <rect x="352" y="58" width="40" height="92"/>
-      <polygon points="352,58 348,34 360,52"/><polygon points="392,58 396,34 384,52"/>
-      <polygon points="362,52 360,30 370,50"/><polygon points="382,52 384,30 374,50"/>
-      <rect x="410" y="100" width="70" height="50"/>
-      <rect x="512" y="22" width="58" height="128"/>
-      <polygon points="600,150 600,64 656,44 656,150"/><rect x="676" y="84" width="44" height="66"/>
-      <rect x="742" y="52" width="38" height="98"/><rect x="748" y="40" width="26" height="12"/>
-      <rect x="800" y="96" width="56" height="54"/><rect x="874" y="70" width="36" height="80"/>
-      <rect x="928" y="104" width="62" height="46"/><rect x="1008" y="82" width="42" height="68"/>
-      <rect x="1068" y="98" width="50" height="52"/><rect x="1136" y="88" width="40" height="62"/>
+  <!-- Rochester in afternoon sun, matching the commissioned art: warm lit
+       faces, cooler shaded sides, heavy cartoon outlines. -->
+  <svg class="skyline" viewBox="0 0 1200 200" preserveAspectRatio="xMidYMax slice" role="img" aria-label="The Rochester, NY skyline on a sunny afternoon">
+    <g stroke="#1B2430" stroke-width="3" stroke-linejoin="round">
+      <!-- back row, hazier -->
+      <g opacity=".55">
+        <rect x="60" y="104" width="44" height="56" fill="#CFE0E8"/>
+        <rect x="470" y="96" width="38" height="64" fill="#CFE0E8"/>
+        <rect x="990" y="100" width="46" height="60" fill="#CFE0E8"/>
+      </g>
+      <!-- left blocks -->
+      <rect x="18" y="86" width="52" height="74" fill="#E6CDA2"/><rect x="52" y="86" width="18" height="74" fill="#C4A57C"/>
+      <rect x="82" y="98" width="40" height="62" fill="#D9BE92"/><rect x="108" y="98" width="14" height="62" fill="#B99A72"/>
+      <!-- Kodak Tower -->
+      <rect x="150" y="38" width="46" height="122" fill="#EFDCBB"/>
+      <rect x="180" y="38" width="16" height="122" fill="#CBB48D"/>
+      <polygon points="148,38 173,14 198,38" fill="#B98C63"/>
+      <rect x="171" y="2" width="4" height="14" fill="#1B2430"/>
+      <!-- mid blocks -->
+      <rect x="210" y="92" width="58" height="68" fill="#DCC49E"/><rect x="248" y="92" width="20" height="68" fill="#BAA079"/>
+      <rect x="286" y="76" width="34" height="84" fill="#E6CDA2"/><rect x="308" y="76" width="12" height="84" fill="#C4A57C"/>
+      <!-- Times Square Building, Wings of Progress -->
+      <rect x="352" y="58" width="40" height="102" fill="#E2CBA6"/><rect x="378" y="58" width="14" height="102" fill="#C0A279"/>
+      <polygon points="352,58 346,30 360,52" fill="#EFD9A8"/><polygon points="392,58 398,30 384,52" fill="#D8BE8C"/>
+      <polygon points="362,52 359,26 370,50" fill="#EFD9A8"/><polygon points="382,52 385,26 374,50" fill="#D8BE8C"/>
+      <rect x="410" y="100" width="70" height="60" fill="#D2B588"/><rect x="456" y="100" width="24" height="60" fill="#B0946C"/>
+      <!-- Xerox Tower, the concrete one -->
+      <rect x="512" y="22" width="58" height="138" fill="#C6CCCE"/><rect x="548" y="22" width="22" height="138" fill="#9BA4A7"/>
+      <!-- Metropolitan, sloped top -->
+      <polygon points="600,160 600,64 656,44 656,160" fill="#B08464"/>
+      <polygon points="638,53 656,44 656,160 638,160" fill="#8E6A4F"/>
+      <rect x="676" y="84" width="44" height="76" fill="#E6CDA2"/><rect x="706" y="84" width="14" height="76" fill="#C4A57C"/>
+      <!-- First Federal -->
+      <rect x="742" y="52" width="38" height="108" fill="#DCC49E"/><rect x="766" y="52" width="14" height="108" fill="#BAA079"/>
+      <rect x="748" y="40" width="26" height="12" fill="#B98C63"/>
+      <!-- right blocks -->
+      <rect x="800" y="96" width="56" height="64" fill="#D2B588"/><rect x="836" y="96" width="20" height="64" fill="#B0946C"/>
+      <rect x="874" y="70" width="36" height="90" fill="#E6CDA2"/><rect x="896" y="70" width="14" height="90" fill="#C4A57C"/>
+      <rect x="928" y="104" width="62" height="56" fill="#D9BE92"/><rect x="966" y="104" width="24" height="56" fill="#B99A72"/>
+      <rect x="1048" y="82" width="42" height="78" fill="#DCC49E"/><rect x="1076" y="82" width="14" height="78" fill="#BAA079"/>
+      <rect x="1108" y="98" width="50" height="62" fill="#E6CDA2"/><rect x="1142" y="98" width="16" height="62" fill="#C4A57C"/>
     </g>
-    <g fill="#F5A62B" opacity=".5">
-      <rect x="160" y="60" width="5" height="7"/><rect x="178" y="80" width="5" height="7"/>
-      <rect x="526" y="44" width="5" height="7"/><rect x="546" y="70" width="5" height="7"/><rect x="534" y="100" width="5" height="7"/>
-      <rect x="362" y="76" width="5" height="7"/><rect x="376" y="98" width="5" height="7"/>
-      <rect x="616" y="84" width="5" height="7"/><rect x="638" y="110" width="5" height="7"/>
-      <rect x="754" y="70" width="5" height="7"/><rect x="886" y="90" width="5" height="7"/>
+    <!-- lit windows -->
+    <g fill="#F5A62B" opacity=".85">
+      <rect x="160" y="58" width="5" height="8"/><rect x="160" y="82" width="5" height="8"/><rect x="168" y="70" width="5" height="8"/>
+      <rect x="522" y="44" width="5" height="8"/><rect x="534" y="70" width="5" height="8"/><rect x="522" y="100" width="5" height="8"/>
+      <rect x="362" y="80" width="5" height="8"/><rect x="362" y="104" width="5" height="8"/>
+      <rect x="612" y="88" width="5" height="8"/><rect x="612" y="116" width="5" height="8"/>
+      <rect x="750" y="72" width="5" height="8"/><rect x="884" y="94" width="5" height="8"/>
+      <rect x="28" y="104" width="5" height="8"/><rect x="1118" y="116" width="5" height="8"/>
+    </g>
+    <!-- tree line and pavement -->
+    <g stroke="#1B2430" stroke-width="3" stroke-linejoin="round">
+      <ellipse cx="40" cy="164" rx="30" ry="18" fill="#6E9455"/>
+      <ellipse cx="128" cy="168" rx="26" ry="16" fill="#5E8449"/>
+      <ellipse cx="300" cy="166" rx="32" ry="18" fill="#6E9455"/>
+      <ellipse cx="500" cy="168" rx="28" ry="16" fill="#5E8449"/>
+      <ellipse cx="690" cy="165" rx="34" ry="19" fill="#6E9455"/>
+      <ellipse cx="900" cy="168" rx="27" ry="16" fill="#5E8449"/>
+      <ellipse cx="1030" cy="164" rx="33" ry="18" fill="#6E9455"/>
+      <ellipse cx="1180" cy="168" rx="26" ry="16" fill="#5E8449"/>
+      <rect x="-4" y="176" width="1208" height="28" fill="#D8CBAE"/>
     </g>
   </svg>
 </header>

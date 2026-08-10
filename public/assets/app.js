@@ -150,6 +150,7 @@
   var LABELS = {
     sets: {
       "pitch-black": "Pitch Black", "phantasmal-flames": "Phantasmal Flames",
+      "ascended-heroes": "Ascended Heroes", "pokemon-go": "Pokemon GO",
       "perfect-order": "Perfect Order", "chaos-rising": "Chaos Rising",
       "mega-evolution": "Mega Evolution", "black-bolt": "Black Bolt",
       "white-flare": "White Flare", "destined-rivals": "Destined Rivals",
@@ -170,8 +171,16 @@
       "double-rare": "Double Rare", charizard: "Charizard"
     }
   };
+  // LABELS mirrors shared/taxonomy.mjs by hand, so a set added there but not
+  // here would otherwise surface as a raw slug. Title-case the id as a
+  // fallback: "ascended-heroes" reads as "Ascended Heroes", not perfect for
+  // every name but never broken-looking.
   function labelOf(group, id) {
-    return (LABELS[group] && LABELS[group][id]) || id;
+    var hit = LABELS[group] && LABELS[group][id];
+    if (hit) return hit;
+    return String(id).split("-").map(function (w) {
+      return w.charAt(0).toUpperCase() + w.slice(1);
+    }).join(" ");
   }
 
   /* ------------------------------------------------------------ data load */
