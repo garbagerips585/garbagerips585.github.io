@@ -39,18 +39,32 @@ ROC ticker marquee, watch (uploads player + Shorts feed + HITS ONLY block),
 585 hometown section (oval sticker), footer. Organization JSON-LD with
 sameAs is in <head>.
 
+Also at root: favicon.ico / favicon-32.png / apple-touch-icon.png (all
+cropped from Trubbish's face in logo-square.jpg), robots.txt, sitemap.xml.
+assets/og-image.jpg is a 1200x630 crop of banner-trubbish.jpg, wired up as
+og:image and twitter:image. Absolute URLs throughout point at
+https://garbagerips585.com, so social previews only resolve once the domain
+is live.
+
+## Local preview
+`node .claude/server.js` (port 4585), or the "grips" entry in the parent
+Codex .claude/launch.json. .claude/ is gitignored, so it never deploys.
+
+## Deploy
+Git repo, main branch. Target is Cloudflare Pages with build command blank
+and output directory `/`. Full walkthrough in DEPLOY.md.
+
 ## TODO (rough priority)
 1. Hits Only playlist embed: search index.html for "HITS ONLY PLAYER" —
    a comment shows the swap. Need the playlist ID from Tim (list=PL...).
-2. Domain + deploy: garbagerips585.com target; Cloudflare Pages or
-   Netlify drag-and-drop. Then Search Console + sitemap.xml + robots.txt.
-3. og:image (use assets/banner-trubbish.jpg or a 1200x630 crop) + favicon
-   (Trubbish from logo-square.jpg works).
-4. About page: Rochester story, E-E-A-T, link everything.
-5. Blog for actual search traffic: set reviews, pull rates, "Pokemon card
+2. Buy garbagerips585.com, attach it in Cloudflare Pages, then verify in
+   Google Search Console and submit sitemap.xml. See DEPLOY.md.
+3. About page: Rochester story, E-E-A-T, link everything.
+4. Blog for actual search traffic: set reviews, pull rates, "Pokemon card
    shops Rochester NY" local angle. Each post embeds a video.
-6. Consider migrating to Astro if the blog grows (keep it static).
-7. Naming consistency: "GarbageRips585" (one word, on sticker) vs
+   Add each new page to sitemap.xml.
+5. Consider migrating to Astro if the blog grows (keep it static).
+6. Naming consistency: "GarbageRips585" (one word, on sticker) vs
    "Garbage Rips 585" (spaced, on YouTube). Tim to pick one for H1/metadata.
 
 ## Gotchas
