@@ -15,6 +15,7 @@ import { writeFile, readFile, mkdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { deriveTags, isShort, parseDuration } from "../shared/taxonomy.mjs";
+import { ripPath } from "../shared/paths.mjs";
 
 const CHANNEL_ID = "UCnpEGJ2G_0af1YRyW2euIZQ";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -158,9 +159,11 @@ const videos = uploads
     if (!auto.sets.length) auto.sets = inherited.sets;
     if (!auto.products.length) auto.products = inherited.products.slice(0, 1);
     const manual = overrides[id] || {};
+    const base = { id, title };
     return {
       id,
       title,
+      path: ripPath(base),
       published: (item.contentDetails.videoPublishedAt || item.snippet.publishedAt || "").slice(0, 10),
       duration: d.duration ?? 0,
       views: d.views ?? 0,

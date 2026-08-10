@@ -9,6 +9,7 @@
 // shows without re-running the sync. The site works fine if this 502s.
 
 import { deriveTags } from "../../shared/taxonomy.mjs";
+import { ripPath } from "../../shared/paths.mjs";
 
 const FEED = "https://www.youtube.com/feeds/videos.xml?channel_id=UCnpEGJ2G_0af1YRyW2euIZQ";
 
@@ -36,6 +37,7 @@ function parse(xml) {
     return {
       id,
       title,
+      path: ripPath({ id, title }),
       published: pick(/<published>([\s\S]*?)<\/published>/).slice(0, 10),
       views,
       // The canonical link distinguishes a Short from a normal watch page, so

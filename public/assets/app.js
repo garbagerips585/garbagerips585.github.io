@@ -60,24 +60,17 @@
     });
   }
 
-  // Only one player is ever live. Without this, clicking through six tiles
-  // leaves six ~540KB players resident.
-  var livePlayer = null;
-  function teardownPlayer() {
-    if (!livePlayer) return;
-    var shell = livePlayer.shell, v = livePlayer.video, opts = livePlayer.opts;
-    var fresh = makeCard(v, opts);
-    if (shell.parentNode) shell.parentNode.replaceChild(fresh.firstChild, shell);
-    livePlayer = null;
-  }
 
   function makeCard(v, opts) {
     opts = opts || {};
     var card = el("article", "vid");
 
-    var shell = el("button", "vid-shell");
-    shell.type = "button";
-    shell.setAttribute("aria-label", "Play: " + v.title);
+    // Tiles navigate to the video's own page on this site, which is where the
+    // embed lives. Nothing on a grid sends the visitor to youtube.com.
+    var href = v.path ? "/" + v.path : "/videos.html";
+    var shell = el("a", "vid-shell");
+    shell.href = href;
+    shell.setAttribute("aria-label", v.title);
 
     var img = new Image();
     img.src = thumbUrl(v.id);
@@ -105,32 +98,11 @@
     shell.appendChild(play);
 
     shell.addEventListener("pointerenter", warmPlayer, { passive: true });
-
-    // Click-to-load: a live player is ~540KB, so a grid of them would be
-    // brutal. Swapping on click also means the play counts as a real view,
-    // which a muted autoplaying preview would not.
-    shell.addEventListener("click", function () {
-      if (shell.dataset.playing) return;
-      teardownPlayer();
-      shell.dataset.playing = "1";
-      var f = document.createElement("iframe");
-      f.src = "https://www.youtube-nocookie.com/embed/" + v.id + "?autoplay=1&playsinline=1&rel=0";
-      f.title = v.title;
-      f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-      f.allowFullscreen = true;
-      // Without this, YouTube throws error 153 on some embeds.
-      f.referrerPolicy = "strict-origin-when-cross-origin";
-      shell.textContent = "";
-      shell.classList.add("playing");
-      shell.appendChild(f);
-      livePlayer = { shell: shell, video: v, opts: opts };
-    });
     card.appendChild(shell);
 
     var h3 = el("h3", "vid-title");
     var a = el("a", null, v.title);
-    a.href = "https://www.youtube.com/watch?v=" + v.id;
-    a.rel = "noopener";
+    a.href = href;
     h3.appendChild(a);
     card.appendChild(h3);
 

@@ -1,17 +1,19 @@
 #!/usr/bin/env node
-// Generate one page per fully-tagged rip, plus the sitemap.
+// Generate one page per rip, plus the sitemap.
 //
 //   node scripts/build-pages.mjs
 //
-// Needs no API key: it reads what sync-youtube.mjs already wrote. Only videos
-// carrying BOTH a set and a product tag get a page, because an untagged one
-// has nothing to say beyond the title and would be a thin page. Tag the rest
-// (see UNTAGGED.md) and re-run.
+// Needs no API key: it reads what sync-youtube.mjs already wrote. EVERY video
+// gets a page, so clicking a tile anywhere on the site never bounces the
+// visitor out to youtube.com. Videos missing a set or product tag are marked
+// noindex and kept out of the sitemap, since they are too thin to rank.
+// Tag them (see UNTAGGED.md) and re-run to promote them.
 
 import { readFile, writeFile, mkdir, rm } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { labelFor } from "../shared/taxonomy.mjs";
+import { ripPath } from "../shared/paths.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = "https://garbagerips585.com";
@@ -23,18 +25,7 @@ const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.jso
 const esc = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-// Strip emoji and punctuation so the URL stays readable and stable.
-function slugify(title) {
-  return title
-    .toLowerCase()
-    .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, "")
-    .replace(/['’]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 60)
-    .replace(/-+$/g, "");
-}
-const pathFor = (v) => `rip/${slugify(v.title)}-${v.id}.html`;
+const pathFor = (v) => v.path || ripPath(v);
 
 function isoDuration(sec) {
   if (!sec) return null;
@@ -43,6 +34,7 @@ function isoDuration(sec) {
 }
 
 const tagged = videos.filter((v) => v.sets.length && v.products.length);
+const taggedIds = new Set(tagged.map((v) => v.id));
 const byId = new Map(videos.map((v) => [v.id, v]));
 const bySet = new Map();
 for (const v of tagged) {
@@ -112,18 +104,21 @@ const niceViews = (n) =>
 
 function page(v, prev, next) {
   const setId = v.sets[0], prodId = v.products[0];
-  const setLabel = labelFor("sets", setId);
-  const prodLabel = labelFor("products", prodId);
+  // Every video gets a page so that clicking a tile never leaves the site.
+  // Untagged ones are noindex: useful to a visitor, too thin for search.
+  const isTagged = Boolean(setId && prodId);
+  const setLabel = setId ? labelFor("sets", setId) : null;
+  const prodLabel = prodId ? labelFor("products", prodId) : null;
   const desc = (descriptions[v.id] || "").trim();
-  // Meta description: first sentence-ish of the real description, else a
-  // sensible sentence built from the tags.
   const metaDesc = desc
     ? desc.replace(/\s+/g, " ").slice(0, 155).replace(/\s\S*$/, "") + "..."
-    : `${v.title} — a ${prodLabel} rip from ${setLabel}, opened on Garbage Rips 585 in Rochester, NY.`;
+    : isTagged
+    ? `${v.title} — a ${prodLabel} rip from ${setLabel}, opened on Garbage Rips 585 in Rochester, NY.`
+    : `${v.title} — a Pokemon pack rip from Garbage Rips 585 in Rochester, NY.`;
   const thumb = `https://i.ytimg.com/vi/${v.id}/oardefault.jpg`;
   const url = `${SITE}/${pathFor(v)}`;
 
-  const related = (bySet.get(setId) || []).filter((x) => x.id !== v.id).slice(0, 6);
+  const related = (setId ? bySet.get(setId) || [] : []).filter((x) => x.id !== v.id).slice(0, 6);
 
   const ld = {
     "@context": "https://schema.org",
@@ -149,8 +144,8 @@ function page(v, prev, next) {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" },
       { "@type": "ListItem", position: 2, name: "Every rip", item: `${SITE}/videos.html` },
-      { "@type": "ListItem", position: 3, name: setLabel, item: `${SITE}/videos.html?set=${setId}` },
-      { "@type": "ListItem", position: 4, name: v.title },
+      ...(setId ? [{ "@type": "ListItem", position: 3, name: setLabel, item: `${SITE}/videos.html?set=${setId}` }] : []),
+      { "@type": "ListItem", position: setId ? 4 : 3, name: v.title },
     ],
   };
 
@@ -160,7 +155,7 @@ function page(v, prev, next) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(v.title)} | Garbage Rips 585</title>
-<meta name="description" content="${esc(metaDesc)}">
+<meta name="description" content="${esc(metaDesc)}">${isTagged ? "" : '\n<meta name="robots" content="noindex,follow">'}
 <link rel="canonical" href="${url}">
 <meta property="og:title" content="${esc(v.title)}">
 <meta property="og:description" content="${esc(metaDesc)}">
@@ -189,7 +184,7 @@ ${NAV}
 
 <section class="rip tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / <a href="/videos.html">Every rip</a> / <a href="/videos.html?set=${setId}">${esc(setLabel)}</a></p>
+    <p class="crumbs"><a href="/">Home</a> / <a href="/videos.html">Every rip</a>${setId ? ` / <a href="/videos.html?set=${setId}">${esc(setLabel)}</a>` : ""}</p>
     <div class="rip-grid">
       <div>
         <div class="rip-player" id="player" data-id="${v.id}">
@@ -202,14 +197,14 @@ ${NAV}
       <div>
         <h1>${esc(v.title)}</h1>
         <div class="rip-badges">
-          <a class="chip" href="/videos.html?set=${setId}">${esc(setLabel)}</a>
-          <a class="chip prod" href="/videos.html?product=${prodId}">${esc(prodLabel)}</a>
+          ${setId ? `<a class="chip" href="/videos.html?set=${setId}">${esc(setLabel)}</a>` : ""}
+          ${prodId ? `<a class="chip prod" href="/videos.html?product=${prodId}">${esc(prodLabel)}</a>` : ""}
           ${v.pulls.map((p) => `<span class="chip">${esc(labelFor("pulls", p))}</span>`).join("\n          ")}
         </div>
         <p class="rip-meta">${niceDate(v.published)}${v.views ? " &bull; " + niceViews(v.views) : ""}</p>
         ${desc ? `<div class="rip-desc">${esc(desc)}</div>` : ""}
         <div class="rip-nav">
-          <a class="btn btn-yt btn-sm" href="https://www.youtube.com/watch?v=${v.id}">Watch on YouTube</a>
+          <a class="btn btn-yt btn-sm" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe</a>
           ${prev ? `<a class="btn btn-ghost btn-sm" href="/${pathFor(prev)}">&larr; Previous rip</a>` : ""}
           ${next ? `<a class="btn btn-ghost btn-sm" href="/${pathFor(next)}">Next rip &rarr;</a>` : ""}
         </div>
@@ -263,7 +258,7 @@ ${FOOTER}
 }
 
 // Newest first, so "previous" walks backwards in time.
-const ordered = tagged.slice().sort((a, b) => (a.published < b.published ? 1 : -1));
+const ordered = videos.slice().sort((a, b) => (a.published < b.published ? 1 : -1));
 
 await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
@@ -278,7 +273,7 @@ const urls = [
   { loc: `${SITE}/`, freq: "daily", pri: "1.0" },
   { loc: `${SITE}/videos.html`, freq: "daily", pri: "0.9" },
   { loc: `${SITE}/playlists.html`, freq: "weekly", pri: "0.7" },
-  ...ordered.map((v) => ({ loc: `${SITE}/${pathFor(v)}`, freq: "monthly", pri: "0.6", mod: v.published })),
+  ...ordered.filter((v) => taggedIds.has(v.id)).map((v) => ({ loc: `${SITE}/${pathFor(v)}`, freq: "monthly", pri: "0.6", mod: v.published })),
 ];
 await writeFile(
   join(ROOT, "public/sitemap.xml"),
@@ -293,11 +288,12 @@ await writeFile(
     `\n</urlset>\n`
 );
 
-const skipped = videos.length - tagged.length;
 console.log(`
 Wrote ${ordered.length} rip pages to public/rip/
 Wrote public/sitemap.xml with ${urls.length} urls
 
-  skipped ${skipped} videos that are missing a set or product tag
+  ${tagged.length} fully tagged, indexed and in the sitemap
+  ${videos.length - tagged.length} untagged: page still exists so a click never
+  leaves the site, but marked noindex so they are not thin pages in search
   (see UNTAGGED.md; tag them and re-run this)
 `);

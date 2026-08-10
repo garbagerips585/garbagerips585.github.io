@@ -69,7 +69,10 @@ body{
   background-size:15px 15px;
 }
 a{color:inherit}
-img{max-width:100%;display:block}
+/* height:auto is not optional here. Every img carries width/height attributes
+   (they prevent layout shift), and without this max-width shrinks the width
+   while the height attribute pins the height, squashing the image. */
+img{max-width:100%;height:auto;display:block}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
 ::selection{background:var(--mustard);color:var(--ink)}
