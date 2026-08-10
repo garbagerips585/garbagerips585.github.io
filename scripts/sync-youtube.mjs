@@ -1,0 +1,181 @@
+#!/usr/bin/env node
+// Pull the full Garbage Rips 585 catalogue from the YouTube Data API and write
+// it to data/videos.json + data/playlists.json.
+//
+//   YT_API_KEY=xxxxx node scripts/sync-youtube.mjs
+//
+// The key is read from the environment on purpose: it never lands in the repo,
+// never ships to the browser, and the deployed site stays a pile of static
+// files. Re-run this whenever you want the back catalogue refreshed.
+//
+// Quota cost is trivial (roughly 25 units of the free 10,000/day for ~300
+// videos), so running it often is fine.
+
+import { writeFile, readFile, mkdir } from "node:fs/promises";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { deriveTags, isShort, parseDuration } from "../shared/taxonomy.mjs";
+
+const CHANNEL_ID = "UCnpEGJ2G_0af1YRyW2euIZQ";
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const API = "https://www.googleapis.com/youtube/v3";
+
+const KEY = process.env.YT_API_KEY;
+if (!KEY) {
+  console.error(`
+Missing YT_API_KEY.
+
+  1. https://console.cloud.google.com/ -> create a project (free)
+  2. APIs & Services -> Library -> enable "YouTube Data API v3"
+  3. APIs & Services -> Credentials -> Create credentials -> API key
+  4. Run:  YT_API_KEY=your_key_here node scripts/sync-youtube.mjs
+
+The key stays on your machine. Nothing is committed and nothing is deployed.
+`);
+  process.exit(1);
+}
+
+async function api(path, params) {
+  const url = new URL(`${API}/${path}`);
+  for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
+  url.searchParams.set("key", KEY);
+  const res = await fetch(url);
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`${path} -> HTTP ${res.status}\n${body.slice(0, 500)}`);
+  }
+  return res.json();
+}
+
+// Walk every page of a list endpoint.
+async function paginate(path, params, cap = 5000) {
+  const items = [];
+  let pageToken;
+  do {
+    const page = await api(path, { ...params, maxResults: 50, ...(pageToken ? { pageToken } : {}) });
+    items.push(...(page.items || []));
+    pageToken = page.nextPageToken;
+    process.stdout.write(`\r  ${path}: ${items.length} items`);
+  } while (pageToken && items.length < cap);
+  process.stdout.write("\n");
+  return items;
+}
+
+console.log("Fetching channel...");
+const channel = (await api("channels", { part: "contentDetails,snippet,statistics", id: CHANNEL_ID })).items?.[0];
+if (!channel) throw new Error("Channel not found. Check CHANNEL_ID.");
+const uploadsId = channel.contentDetails.relatedPlaylists.uploads;
+
+console.log("Fetching every upload...");
+const uploads = await paginate("playlistItems", { part: "snippet,contentDetails", playlistId: uploadsId });
+
+// Durations and view counts come from a separate endpoint, 50 ids at a time.
+console.log("Fetching durations and view counts...");
+const ids = uploads.map((i) => i.contentDetails.videoId).filter(Boolean);
+const details = new Map();
+for (let i = 0; i < ids.length; i += 50) {
+  const batch = ids.slice(i, i + 50);
+  const res = await api("videos", { part: "contentDetails,statistics", id: batch.join(",") });
+  for (const v of res.items || []) {
+    details.set(v.id, {
+      duration: parseDuration(v.contentDetails?.duration),
+      views: Number(v.statistics?.viewCount || 0),
+    });
+  }
+  process.stdout.write(`\r  videos: ${details.size}/${ids.length}`);
+}
+process.stdout.write("\n");
+
+console.log("Fetching playlists...");
+const rawPlaylists = await paginate("playlists", { part: "snippet,contentDetails", channelId: CHANNEL_ID });
+
+const playlists = [];
+for (const p of rawPlaylists) {
+  const items = await paginate("playlistItems", { part: "contentDetails", playlistId: p.id });
+  playlists.push({
+    id: p.id,
+    title: p.snippet.title,
+    description: p.snippet.description || "",
+    count: items.length,
+    videoIds: items.map((i) => i.contentDetails.videoId).filter(Boolean),
+  });
+  console.log(`  ${p.snippet.title} (${items.length})`);
+}
+
+// Duration does not tell you orientation: this channel has vertical rips well
+// over 60s. The reliable signal is whether YouTube serves an "original aspect
+// ratio" thumbnail, which only exists for vertical uploads.
+console.log("Probing orientation...");
+const vertical = new Map();
+for (let i = 0; i < ids.length; i += 16) {
+  await Promise.all(
+    ids.slice(i, i + 16).map(async (id) => {
+      try {
+        const r = await fetch(`https://i.ytimg.com/vi/${id}/oardefault.jpg`, { method: "HEAD" });
+        vertical.set(id, r.ok);
+      } catch {
+        vertical.set(id, true); // network hiccup: assume vertical, it is the norm here
+      }
+    })
+  );
+  process.stdout.write(`\r  probed: ${vertical.size}/${ids.length}`);
+}
+process.stdout.write("\n");
+
+// Hand corrections always win over the automatic matcher.
+let overrides = {};
+try {
+  overrides = JSON.parse(await readFile(join(ROOT, "data/overrides.json"), "utf8"));
+} catch {
+  /* no overrides yet, that is fine */
+}
+
+const videos = uploads
+  .map((item) => {
+    const id = item.contentDetails.videoId;
+    const title = item.snippet.title || "";
+    const description = item.snippet.description || "";
+    const d = details.get(id) || {};
+    const auto = deriveTags({ title, description });
+    const manual = overrides[id] || {};
+    return {
+      id,
+      title,
+      published: (item.contentDetails.videoPublishedAt || item.snippet.publishedAt || "").slice(0, 10),
+      duration: d.duration ?? 0,
+      views: d.views ?? 0,
+      vertical: manual.vertical ?? vertical.get(id) ?? true,
+      short: isShort(d.duration),
+      sets: manual.sets ?? auto.sets,
+      products: manual.products ?? auto.products,
+      pulls: manual.pulls ?? auto.pulls,
+    };
+  })
+  .filter((v) => v.id)
+  .sort((a, b) => (a.published < b.published ? 1 : -1));
+
+await mkdir(join(ROOT, "public/data"), { recursive: true });
+await writeFile(
+  join(ROOT, "public/data/videos.json"),
+  JSON.stringify({ channelId: CHANNEL_ID, syncedAt: new Date().toISOString().slice(0, 10), videos }, null, 0) + "\n"
+);
+await writeFile(
+  join(ROOT, "public/data/playlists.json"),
+  JSON.stringify({ syncedAt: new Date().toISOString().slice(0, 10), playlists }, null, 0) + "\n"
+);
+
+const untaggedSet = videos.filter((v) => !v.sets.length).length;
+const untaggedProduct = videos.filter((v) => !v.products.length).length;
+console.log(`
+Wrote data/videos.json     ${videos.length} videos
+Wrote data/playlists.json  ${playlists.length} playlists
+
+  vertical (Shorts): ${videos.filter((v) => v.vertical).length}
+  no set tag:        ${untaggedSet}
+  no product tag:    ${untaggedProduct}
+
+Untagged videos still show up in the library, they just do not match a filter.
+Fix any of them by adding an entry to data/overrides.json, for example:
+
+  { "dQw4w9WgXcQ": { "sets": ["pitch-black"], "products": ["etb"] } }
+`);

@@ -40,11 +40,33 @@ Build settings, this is the part people get wrong:
 | Project name | `garbage-rips-585` (becomes your `.pages.dev` subdomain) |
 | Production branch | `main` |
 | Framework preset | **None** |
-| Build command | **leave completely blank** |
-| Build output directory | `/` |
+| Build command | **`exit 0`** |
+| Build output directory | **`public`** |
 
-There is no build step. If you put anything in the build command box,
-Cloudflare will try to run it and fail.
+Two things worth understanding here, because the obvious answers are wrong.
+
+**Build command is `exit 0`, not blank.** There is genuinely nothing to build,
+but Cloudflare's own docs say to use `exit 0` rather than an empty box, because
+that is what enables Pages Functions on a project with no build step.
+
+**Output directory is `public`, not `/`.** Cloudflare requires the `functions/`
+directory to sit *outside* the deployed static root. That is why the repo is
+laid out like this:
+
+```
+garbage-rips-585/
+├─ public/            <- deployed. index.html, videos.html, assets/, data/
+├─ functions/         <- serverless, NOT deployed as static files
+│  └─ api/latest.js      serves /api/latest
+├─ scripts/           <- your local sync tool, never deployed
+└─ shared/            <- tagging rules, shared by both
+```
+
+If you set the output directory to `/`, `functions/` ends up inside the static
+root and Cloudflare's behaviour there is undocumented. Use `public`.
+
+**Also: the dashboard's drag-and-drop "Direct Upload" does not support
+Functions.** You have to connect it to Git, which is what step 1 did.
 
 6. Click **Save and Deploy**.
 
@@ -161,5 +183,37 @@ deployment**.
 
 Two things to remember as the site grows:
 
-- Every new page needs an entry in `sitemap.xml`.
+- Every new page needs an entry in `public/sitemap.xml`.
 - `.claude/` is gitignored, so the local preview server never deploys.
+
+---
+
+## Refreshing the video catalogue
+
+`public/data/videos.json` holds every rip, and `public/data/playlists.json`
+holds every playlist. Both are produced by the sync script:
+
+```bash
+YT_API_KEY=your_key_here node scripts/sync-youtube.mjs
+```
+
+To get a key: [console.cloud.google.com](https://console.cloud.google.com/) →
+create a free project → APIs & Services → Library → enable **YouTube Data API
+v3** → Credentials → Create credentials → API key.
+
+The key is read from your shell environment and is never written to a file,
+never committed, and never deployed. The site itself has no key in it. Quota
+cost is about 25 units of the free 10,000/day, so run it as often as you like.
+
+Between syncs, `/api/latest` reads YouTube's public RSS feed (no key needed)
+and layers your newest uploads on top, so a rip posted an hour ago still shows
+up. That endpoint only exists in production. Locally it 404s and the site
+falls back to the committed JSON, which is the intended behaviour.
+
+If the tagger mislabels a video, correct it in `data/overrides.json`:
+
+```json
+{ "dQw4w9WgXcQ": { "sets": ["pitch-black"], "products": ["etb"] } }
+```
+
+Overrides always beat the automatic matcher, and survive the next sync.
