@@ -174,6 +174,14 @@ const videos = uploads
   .filter((v) => v.id)
   .sort((a, b) => (a.published < b.published ? 1 : -1));
 
+// Descriptions are only needed when generating the per-video pages, so they
+// live outside public/ rather than bloating the JSON every visitor downloads.
+const descriptions = Object.fromEntries(
+  uploads.map((i) => [i.contentDetails.videoId, i.snippet.description || ""]).filter(([id]) => id)
+);
+await mkdir(join(ROOT, "data"), { recursive: true });
+await writeFile(join(ROOT, "data/descriptions.json"), JSON.stringify(descriptions, null, 0) + "\n");
+
 await mkdir(join(ROOT, "public/data"), { recursive: true });
 await writeFile(
   join(ROOT, "public/data/videos.json"),
