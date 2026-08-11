@@ -669,3 +669,6 @@ footer p{font-size:.83rem;color:rgba(247,242,222,.72);max-width:60em;margin:0 au
   font-family:var(--mono);font-size:.78rem;color:var(--ink-soft);
   border-left:4px solid var(--trubbish);padding-left:12px;margin:0 0 18px;
 }
+
+/* The player mounts under the pack and plays while the pack tears away. */
+.rip-player iframe{z-index:1}

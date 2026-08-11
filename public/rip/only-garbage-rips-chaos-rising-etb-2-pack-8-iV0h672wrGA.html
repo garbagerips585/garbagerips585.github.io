@@ -223,14 +223,20 @@
   var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var opened=false;
 
+  // Must run synchronously inside the click handler. Creating the player in a
+  // timer after the animation breaks the chain from the user's gesture, and
+  // browsers then refuse to start it unmuted, which is why YouTube's own play
+  // button used to appear once the pack was open.
   function mount(){
     var f=document.createElement('iframe');
     f.src='https://www.youtube-nocookie.com/embed/'+p.dataset.id+'?autoplay=1&playsinline=1&rel=0';
     f.title="Only Garbage Rips? 😬 | Chaos Rising ETB #2 Pack #8";
-    f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    f.allow='autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
     f.allowFullscreen=true;
     f.referrerPolicy='strict-origin-when-cross-origin';
-    p.textContent=''; p.appendChild(f);
+    var poster=p.querySelector('img');
+    if(poster) poster.remove();
+    p.insertBefore(f,p.firstChild);   // behind the pack, which tears away over it
   }
 
   // Driven off animationend rather than timers that guess the CSS durations:
@@ -241,14 +247,17 @@
 
   pack.addEventListener('click',function(){
     if(opened) return; opened=true;
-    if(reduced){ mount(); return; }
+    mount();                                 // first, while the gesture is live
+    if(reduced){ pack.remove(); return; }
+
+    // Then tear the pack away over the top of the already-playing video.
     var face=pack.querySelector('.pack-l');
-    var reveal=once(mount);
+    var clear=once(function(){ pack.remove(); });
     var tear=once(function(){
       pack.classList.remove('shaking');
       pack.classList.add('tearing');
-      if(face) face.addEventListener('animationend',reveal,{once:true});
-      setTimeout(reveal,1600);
+      if(face) face.addEventListener('animationend',clear,{once:true});
+      setTimeout(clear,1600);
     });
     pack.classList.add('shaking');
     if(face) face.addEventListener('animationend',tear,{once:true});
