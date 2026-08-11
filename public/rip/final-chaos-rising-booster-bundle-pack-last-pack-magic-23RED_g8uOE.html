@@ -68,8 +68,19 @@
       <div>
         <div class="rip-player" id="player" data-id="23RED_g8uOE">
           <img src="https://i.ytimg.com/vi/23RED_g8uOE/oardefault.jpg" alt="" width="720" height="1280" fetchpriority="high">
-          <button class="vid-play" type="button" aria-label="Play: FINAL Chaos Rising Booster Bundle Pack ⚡🔥 | Last Pack Magic?! 😳">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <button class="pack" id="pack" type="button" aria-label="Rip open: FINAL Chaos Rising Booster Bundle Pack ⚡🔥 | Last Pack Magic?! 😳">
+            <span class="pack-face pack-l" aria-hidden="true">
+              <span class="pack-art"></span>
+              <span class="pack-brand">GARBAGE RIPS<small>585</small></span>
+              <span class="pack-mascot"><img src="/apple-touch-icon.png" alt="" width="180" height="180"></span>
+            </span>
+            <span class="pack-face pack-r" aria-hidden="true">
+              <span class="pack-art"></span>
+              <span class="pack-brand">GARBAGE RIPS<small>585</small></span>
+              <span class="pack-mascot"><img src="/apple-touch-icon.png" alt="" width="180" height="180"></span>
+            </span>
+            <span class="pack-flash" aria-hidden="true"></span>
+            <span class="pack-hint">RIP IT OPEN</span>
           </button>
         </div>
       </div>
@@ -183,10 +194,12 @@ LAST PACK MAGIC?! 👀🔥
 // One embed, loaded on click: keeps the page light and makes the play count
 // as a real view rather than an autoplaying one that does not.
 (function(){
-  var p=document.getElementById('player');
-  if(!p) return;
-  p.addEventListener('click',function(){
-    if(p.dataset.on) return; p.dataset.on='1';
+  var p=document.getElementById('player'), pack=document.getElementById('pack');
+  if(!p||!pack) return;
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var opened=false;
+
+  function mount(){
     var f=document.createElement('iframe');
     f.src='https://www.youtube-nocookie.com/embed/'+p.dataset.id+'?autoplay=1&playsinline=1&rel=0';
     f.title="FINAL Chaos Rising Booster Bundle Pack ⚡🔥 | Last Pack Magic?! 😳";
@@ -194,6 +207,28 @@ LAST PACK MAGIC?! 👀🔥
     f.allowFullscreen=true;
     f.referrerPolicy='strict-origin-when-cross-origin';
     p.textContent=''; p.appendChild(f);
+  }
+
+  // Driven off animationend rather than timers that guess the CSS durations:
+  // background tabs clamp setTimeout, which would desync the reveal from the
+  // tear. Each step keeps a generous fallback timer in case the animation
+  // never fires at all.
+  function once(fn){ var done=false; return function(){ if(done) return; done=true; fn(); }; }
+
+  pack.addEventListener('click',function(){
+    if(opened) return; opened=true;
+    if(reduced){ mount(); return; }
+    var face=pack.querySelector('.pack-l');
+    var reveal=once(mount);
+    var tear=once(function(){
+      pack.classList.remove('shaking');
+      pack.classList.add('tearing');
+      if(face) face.addEventListener('animationend',reveal,{once:true});
+      setTimeout(reveal,1600);
+    });
+    pack.classList.add('shaking');
+    if(face) face.addEventListener('animationend',tear,{once:true});
+    setTimeout(tear,600);
   });
 })();
 </script>

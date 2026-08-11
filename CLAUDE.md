@@ -52,6 +52,19 @@ promote them. `shared/paths.mjs` owns the URL shape and the sync stamps
 `path` onto every video, so the browser, the generator and the RSS function
 cannot drift apart.
 
+## The pack wrapper
+The player on every rip page sits under a sealed booster pack that has to be
+ripped open. This is not just decoration: YouTube's poster frame is usually
+the pulled card, so the thumbnail spoils the video before you press play.
+
+Built from two `.pack-face` halves, each holding a full copy of the pack art
+and clipped with a jagged `clip-path` so together they read as one sealed
+pack. Click runs shake (0.26s) then tear (0.62s), then the iframe mounts.
+The sequence is driven by `animationend`, not by timers matching the CSS
+durations, because background tabs clamp `setTimeout` and would desync the
+reveal from the tear. Generous fallback timers cover the case where the
+animation never fires. `prefers-reduced-motion` skips straight to the video.
+
 ## Video data
 - `public/data/videos.json` is the whole catalogue, `playlists.json` the
   playlists. Both are written by `scripts/sync-youtube.mjs`.

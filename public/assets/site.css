@@ -449,6 +449,111 @@ footer p{font-size:.83rem;color:rgba(247,242,222,.72);max-width:60em;margin:0 au
   box-shadow:0 8px 0 var(--gold-deep),0 16px 30px rgba(19,38,55,.3)}
 .rip-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .rip-player img{width:100%;height:100%;object-fit:cover}
+/* ---------- the pack wrapper ----------
+   The YouTube poster frame is usually the pulled card, which spoils the whole
+   video before you press play. So the player sits under a sealed booster pack
+   and you have to rip it open. */
+.pack{
+  position:absolute;inset:0;z-index:3;width:100%;height:100%;
+  padding:0;border:0;background:none;cursor:pointer;display:block;
+  perspective:800px;
+}
+.pack-face{
+  position:absolute;inset:0;overflow:hidden;
+  transform-origin:center center;
+  will-change:transform,opacity;
+}
+/* Each half holds a full copy of the pack art, clipped to a torn edge, so the
+   two together read as one sealed pack until it splits. */
+.pack-l{clip-path:polygon(0 0,52% 0,47% 6%,53% 13%,46% 20%,52% 27%,47% 34%,53% 41%,46% 48%,52% 55%,47% 62%,53% 69%,46% 76%,52% 83%,47% 90%,53% 96%,49% 100%,0 100%)}
+.pack-r{clip-path:polygon(52% 0,100% 0,100% 100%,49% 100%,53% 96%,47% 90%,52% 83%,46% 76%,53% 69%,47% 62%,52% 55%,46% 48%,53% 41%,47% 34%,52% 27%,46% 20%,53% 13%,47% 6%)}
+.pack-art{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(120% 70% at 50% 12%,rgba(255,255,255,.22),transparent 60%),
+    linear-gradient(160deg,#5CA046 0%,#3C7A38 38%,#24552A 72%,#173A1D 100%);
+}
+/* foil sheen */
+.pack-art::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(115deg,transparent 26%,rgba(125,249,233,.32) 40%,rgba(249,139,217,.32) 50%,rgba(255,232,107,.32) 60%,transparent 74%);
+  mix-blend-mode:screen;opacity:.75;
+}
+/* crimped seal top and bottom */
+.pack-art::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:100%;
+  background:
+    repeating-linear-gradient(90deg,rgba(0,0,0,.28) 0 4px,transparent 4px 9px) top/100% 26px no-repeat,
+    repeating-linear-gradient(90deg,rgba(0,0,0,.28) 0 4px,transparent 4px 9px) bottom/100% 26px no-repeat;
+}
+.pack-brand{
+  position:absolute;left:0;right:0;top:19%;text-align:center;padding:0 8%;
+  font-family:var(--display);color:var(--mustard);
+  font-size:clamp(1.1rem,3.2vw,1.9rem);line-height:1.05;
+  text-shadow:3px 3px 0 #14301A,-1px -1px 0 #14301A;
+  transform:rotate(-3deg);
+}
+.pack-brand small{display:block;color:var(--sky-lite);font-size:.62em;margin-top:.35em}
+.pack-mascot{
+  position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);
+  width:44%;aspect-ratio:1;border-radius:50%;overflow:hidden;
+  border:4px solid var(--mustard);box-shadow:0 6px 18px rgba(0,0,0,.45);
+}
+.pack-mascot img{width:100%;height:100%;object-fit:cover}
+.pack-hint{
+  position:absolute;left:0;right:0;bottom:11%;z-index:4;text-align:center;
+  font-family:var(--mono);font-weight:700;font-size:.72rem;letter-spacing:.18em;
+  color:var(--navy);background:var(--mustard);
+  padding:8px 0;border-top:3px solid #14301A;border-bottom:3px solid #14301A;
+  transition:background .14s;
+}
+.pack:hover .pack-hint{background:var(--sky)}
+.pack:hover .pack-face{transform:scale(1.012)}
+.pack-face{transition:transform .18s ease}
+
+/* shake, then tear */
+.pack.shaking .pack-face{animation:packShake .26s ease-in-out}
+@keyframes packShake{
+  0%,100%{transform:translateX(0) rotate(0)}
+  25%{transform:translateX(-5px) rotate(-1.2deg)}
+  50%{transform:translateX(5px) rotate(1.2deg)}
+  75%{transform:translateX(-3px) rotate(-.7deg)}
+}
+.pack.tearing{pointer-events:none}
+.pack.tearing .pack-hint{animation:packFade .2s ease forwards}
+.pack.tearing .pack-l{animation:tearL .62s cubic-bezier(.4,.05,.35,1) forwards}
+.pack.tearing .pack-r{animation:tearR .62s cubic-bezier(.4,.05,.35,1) forwards}
+@keyframes tearL{
+  0%{transform:translateX(0) rotate(0);opacity:1}
+  18%{transform:translateX(-3%) rotate(-1.5deg)}
+  100%{transform:translateX(-62%) rotate(-13deg);opacity:0}
+}
+@keyframes tearR{
+  0%{transform:translateX(0) rotate(0);opacity:1}
+  18%{transform:translateX(3%) rotate(1.5deg)}
+  100%{transform:translateX(62%) rotate(13deg);opacity:0}
+}
+@keyframes packFade{to{opacity:0}}
+/* light spilling out of the tear */
+.pack-flash{
+  position:absolute;left:50%;top:0;bottom:0;width:8%;transform:translateX(-50%);
+  z-index:2;opacity:0;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent);
+  filter:blur(6px);
+}
+.pack.tearing .pack-flash{animation:packFlash .62s ease-out forwards}
+@keyframes packFlash{
+  0%{opacity:0;width:4%}
+  35%{opacity:1;width:34%}
+  100%{opacity:0;width:120%}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .pack-face,.pack.shaking .pack-face,.pack.tearing .pack-l,.pack.tearing .pack-r,
+  .pack.tearing .pack-flash,.pack.tearing .pack-hint{animation:none;transition:none}
+  .pack:hover .pack-face{transform:none}
+}
+
 .rip h1{font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.12;margin-bottom:14px}
 .rip-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
 .rip-meta{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft);margin-bottom:20px;font-weight:700}
