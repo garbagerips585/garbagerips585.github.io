@@ -189,15 +189,15 @@ ${NAV}
       <div>
         <div class="rip-player" id="player" data-id="${v.id}">
           <img src="${thumb}" alt="" width="720" height="1280" fetchpriority="high">
-          <button class="pack" id="pack" type="button" aria-label="Rip open: ${esc(v.title)}">
+          <button class="pack${setId ? ` pack--${setId}` : ""}" id="pack" type="button" aria-label="Rip open: ${esc(v.title)}">
             <span class="pack-face pack-l" aria-hidden="true">
               <span class="pack-art"></span>
-              <span class="pack-brand">GARBAGE RIPS<small>585</small></span>
+              <span class="pack-brand">${esc(setLabel || "GARBAGE RIPS")}<small>${setLabel ? "GARBAGE RIPS 585" : "585"}</small></span>
               <span class="pack-mascot"><img src="/apple-touch-icon.png" alt="" width="180" height="180"></span>
             </span>
             <span class="pack-face pack-r" aria-hidden="true">
               <span class="pack-art"></span>
-              <span class="pack-brand">GARBAGE RIPS<small>585</small></span>
+              <span class="pack-brand">${esc(setLabel || "GARBAGE RIPS")}<small>${setLabel ? "GARBAGE RIPS 585" : "585"}</small></span>
               <span class="pack-mascot"><img src="/apple-touch-icon.png" alt="" width="180" height="180"></span>
             </span>
             <span class="pack-flash" aria-hidden="true"></span>
@@ -233,7 +233,13 @@ ${related.length ? `<section class="band tight">
     <div class="vid-grid">
       ${related.map((r) => `<article class="vid">
         <a class="vid-shell" href="/${pathFor(r)}" aria-label="${esc(r.title)}">
-          <img src="https://i.ytimg.com/vi_webp/${r.id}/oardefault.webp" alt="" loading="lazy" width="720" height="1280">
+          <span class="pack pack--tile${r.sets[0] ? ` pack--${r.sets[0]}` : ""}" aria-hidden="true">
+            <span class="pack-face pack-l">
+              <span class="pack-art"></span>
+              <span class="pack-brand">${esc(r.sets[0] ? labelFor("sets", r.sets[0]) : "GARBAGE RIPS")}<small>${r.sets[0] ? "GARBAGE RIPS 585" : "585"}</small></span>
+              <span class="pack-seal"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            </span>
+          </span>
           <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
         </a>
         <h3 class="vid-title"><a href="/${pathFor(r)}">${esc(r.title)}</a></h3>

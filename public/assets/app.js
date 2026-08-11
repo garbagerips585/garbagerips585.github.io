@@ -61,6 +61,28 @@
   }
 
 
+  /**
+   * A sealed booster pack skinned to the card set. Skins are original designs
+   * keyed to each set's colour identity (see .pack--* in site.css), not
+   * reproductions of the official pack artwork. Unknown sets fall back to the
+   * Garbage Rips green.
+   */
+  function makePack(setId, variant) {
+    var pack = el("span", "pack" + (setId ? " pack--" + setId : "") + (variant === "tile" ? " pack--tile" : ""));
+    pack.setAttribute("aria-hidden", "true");
+    var face = el("span", "pack-face pack-l");
+    face.appendChild(el("span", "pack-art"));
+    var brand = el("span", "pack-brand");
+    brand.appendChild(document.createTextNode(setId ? labelOf("sets", setId) : "GARBAGE RIPS"));
+    brand.appendChild(el("small", null, setId ? "GARBAGE RIPS 585" : "585"));
+    face.appendChild(brand);
+    var seal = el("span", "pack-seal");
+    seal.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+    face.appendChild(seal);
+    pack.appendChild(face);
+    return pack;
+  }
+
   function makeCard(v, opts) {
     opts = opts || {};
     var card = el("article", "vid");
@@ -72,26 +94,15 @@
     shell.href = href;
     shell.setAttribute("aria-label", v.title);
 
-    var img = new Image();
-    img.src = thumbUrl(v.id);
-    img.alt = "";
-    img.loading = "lazy";
-    img.width = 720;
-    img.height = 1280;
-    // The oar* paths are undocumented and 404 on the channel's one landscape
-    // upload, so walk down to a frame that always exists.
-    var step = 0;
-    img.onerror = function () {
-      if (step < THUMB_CHAIN.length) img.src = THUMB_CHAIN[step++](v.id);
-    };
-    shell.appendChild(img);
+    // Sealed pack instead of the YouTube poster frame, which is nearly always
+    // the pulled card and gives the whole video away before you open it.
+    var set = (v.sets || [])[0];
+    shell.appendChild(makePack(set, "tile"));
 
     if (opts.rank) shell.appendChild(el("span", "hits-rank", "#" + opts.rank));
 
     var prod = (v.products || [])[0];
     if (prod) shell.appendChild(el("span", "vid-chip", labelOf("products", prod)));
-    var set = (v.sets || [])[0];
-    if (set) shell.appendChild(el("span", "vid-chip set", labelOf("sets", set)));
 
     var play = el("span", "vid-play");
     play.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';

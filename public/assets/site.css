@@ -453,6 +453,28 @@ footer p{font-size:.83rem;color:rgba(247,242,222,.72);max-width:60em;margin:0 au
    The YouTube poster frame is usually the pulled card, which spoils the whole
    video before you press play. So the player sits under a sealed booster pack
    and you have to rip it open. */
+/* Per-set skins. These are original designs keyed to each set's colour
+   identity, not reproductions of the official pack artwork. Any set without a
+   skin falls back to the Garbage Rips green. */
+.pack{--pk-a:#5CA046;--pk-b:#3C7A38;--pk-c:#24552A;--pk-d:#173A1D;--pk-ink:#EFC94C;--pk-edge:#14301A}
+.pack--pitch-black{--pk-a:#6A5690;--pk-b:#4A3B63;--pk-c:#2A2140;--pk-d:#120E1C;--pk-ink:#CBBAF2;--pk-edge:#0C0914}
+.pack--phantasmal-flames{--pk-a:#8B4CB8;--pk-b:#6B3A8F;--pk-c:#3E1E5C;--pk-d:#21103A;--pk-ink:#A9F2C4;--pk-edge:#170A28}
+.pack--perfect-order{--pk-a:#3FB39B;--pk-b:#2E8B7A;--pk-c:#175A50;--pk-d:#0C3B34;--pk-ink:#A6F0DF;--pk-edge:#07241F}
+.pack--chaos-rising{--pk-a:#E0563A;--pk-b:#C2361F;--pk-c:#7E1D12;--pk-d:#4A100A;--pk-ink:#FFC48A;--pk-edge:#320A06}
+.pack--ascended-heroes{--pk-a:#EFC65C;--pk-b:#D8A93A;--pk-c:#95681A;--pk-d:#5E4110;--pk-ink:#FFF6D2;--pk-edge:#3A280A}
+.pack--journey-together{--pk-a:#5AA9E0;--pk-b:#3C8FD0;--pk-c:#1E5C8E;--pk-d:#123B5E;--pk-ink:#D6EEFF;--pk-edge:#0B2440}
+.pack--destined-rivals{--pk-a:#D6453F;--pk-b:#8E2C46;--pk-c:#3E2A63;--pk-d:#1E1838;--pk-ink:#FFD9DE;--pk-edge:#150F26}
+.pack--prismatic-evolutions{--pk-a:#7FD8E8;--pk-b:#B98BE0;--pk-c:#E08AB4;--pk-d:#5B4A8C;--pk-ink:#FFFFFF;--pk-edge:#2C2350}
+.pack--surging-sparks{--pk-a:#F2D452;--pk-b:#D9A92A;--pk-c:#8A6412;--pk-d:#543D0A;--pk-ink:#FFF8D0;--pk-edge:#33250A}
+.pack--mega-evolution{--pk-a:#D95A3C;--pk-b:#A8322E;--pk-c:#5E1A38;--pk-d:#33102A;--pk-ink:#FFD5BE;--pk-edge:#210A1C}
+.pack--pokemon-go{--pk-a:#4E93DE;--pk-b:#2F6BB8;--pk-c:#1A3F78;--pk-d:#0E274E;--pk-ink:#FFE08A;--pk-edge:#08182F}
+.pack--151{--pk-a:#D6543F;--pk-b:#B03427;--pk-c:#6E1A14;--pk-d:#42100C;--pk-ink:#FFE2B8;--pk-edge:#2A0907}
+.pack--scarlet-violet{--pk-a:#C4453F;--pk-b:#7E3480;--pk-c:#4A2258;--pk-d:#2A1436;--pk-ink:#FFE8F2;--pk-edge:#1C0D24}
+.pack--twilight-masquerade{--pk-a:#7E63A8;--pk-b:#5A4380;--pk-c:#33254E;--pk-d:#1E1630;--pk-ink:#E4D6FF;--pk-edge:#140E20}
+.pack--paradox-rift{--pk-a:#4FA8A0;--pk-b:#8E4E9E;--pk-c:#3A2A5E;--pk-d:#1E1638;--pk-ink:#CFF3EE;--pk-edge:#120C24}
+.pack--obsidian-flames{--pk-a:#5A5A66;--pk-b:#3A3A44;--pk-c:#7E2A14;--pk-d:#1C1C22;--pk-ink:#FFC08A;--pk-edge:#0E0E12}
+.pack--stellar-crown{--pk-a:#5FC7D6;--pk-b:#3A8FA8;--pk-c:#1E5470;--pk-d:#123648;--pk-ink:#E0F8FF;--pk-edge:#0A2130}
+
 .pack{
   position:absolute;inset:0;z-index:3;width:100%;height:100%;
   padding:0;border:0;background:none;cursor:pointer;display:block;
@@ -471,7 +493,7 @@ footer p{font-size:.83rem;color:rgba(247,242,222,.72);max-width:60em;margin:0 au
   position:absolute;inset:0;
   background:
     radial-gradient(120% 70% at 50% 12%,rgba(255,255,255,.22),transparent 60%),
-    linear-gradient(160deg,#5CA046 0%,#3C7A38 38%,#24552A 72%,#173A1D 100%);
+    linear-gradient(160deg,var(--pk-a) 0%,var(--pk-b) 38%,var(--pk-c) 72%,var(--pk-d) 100%);
 }
 /* foil sheen */
 .pack-art::after{
@@ -487,13 +509,16 @@ footer p{font-size:.83rem;color:rgba(247,242,222,.72);max-width:60em;margin:0 au
     repeating-linear-gradient(90deg,rgba(0,0,0,.28) 0 4px,transparent 4px 9px) bottom/100% 26px no-repeat;
 }
 .pack-brand{
-  position:absolute;left:0;right:0;top:19%;text-align:center;padding:0 8%;
-  font-family:var(--display);color:var(--mustard);
-  font-size:clamp(1.1rem,3.2vw,1.9rem);line-height:1.05;
-  text-shadow:3px 3px 0 #14301A,-1px -1px 0 #14301A;
+  position:absolute;left:0;right:0;top:16%;text-align:center;padding:0 8%;
+  font-family:var(--display);color:var(--pk-ink);
+  font-size:clamp(1rem,3vw,1.75rem);line-height:1.05;
+  text-shadow:3px 3px 0 var(--pk-edge),-1px -1px 0 var(--pk-edge);
   transform:rotate(-3deg);
 }
-.pack-brand small{display:block;color:var(--sky-lite);font-size:.62em;margin-top:.35em}
+.pack-brand small{
+  display:block;color:#fff;opacity:.86;font-size:.5em;margin-top:.5em;
+  font-family:var(--mono);letter-spacing:.16em;text-shadow:2px 2px 0 var(--pk-edge);
+}
 .pack-mascot{
   position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);
   width:44%;aspect-ratio:1;border-radius:50%;overflow:hidden;
@@ -504,9 +529,26 @@ footer p{font-size:.83rem;color:rgba(247,242,222,.72);max-width:60em;margin:0 au
   position:absolute;left:0;right:0;bottom:11%;z-index:4;text-align:center;
   font-family:var(--mono);font-weight:700;font-size:.72rem;letter-spacing:.18em;
   color:var(--navy);background:var(--mustard);
-  padding:8px 0;border-top:3px solid #14301A;border-bottom:3px solid #14301A;
+  padding:8px 0;border-top:3px solid var(--pk-edge);border-bottom:3px solid var(--pk-edge);
   transition:background .14s;
 }
+
+/* ---------- tile variant ----------
+   Grid tiles are ~170px wide, so the mascot badge and the hint strip do not
+   survive the shrink. Set name and the crimped foil carry it. */
+.pack--tile{position:absolute;inset:0;z-index:2}
+/* A tile carries a single unsplit face, so the torn clip-path that makes the
+   two halves on a rip page must not apply: it would show half a pack. */
+.pack--tile .pack-l{clip-path:none}
+.pack--tile .pack-mascot,.pack--tile .pack-hint,.pack--tile .pack-flash{display:none}
+.pack--tile .pack-brand{top:auto;bottom:12%;font-size:clamp(.72rem,1.5vw,1rem);padding:0 10%}
+.pack--tile .pack-brand small{font-size:.56em;margin-top:.4em}
+.pack--tile .pack-art::before{background:
+  repeating-linear-gradient(90deg,rgba(0,0,0,.3) 0 3px,transparent 3px 7px) top/100% 15px no-repeat,
+  repeating-linear-gradient(90deg,rgba(0,0,0,.3) 0 3px,transparent 3px 7px) bottom/100% 15px no-repeat}
+/* The tile already carries .vid-play, so the seal would be a second play
+   affordance sitting on top of the first. */
+.pack--tile .pack-seal{display:none}
 .pack:hover .pack-hint{background:var(--sky)}
 .pack:hover .pack-face{transform:scale(1.012)}
 .pack-face{transition:transform .18s ease}
