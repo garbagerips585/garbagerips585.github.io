@@ -56,6 +56,15 @@
 .pack--mega-evolution .pack-art::before,.pack--mega-evolution .pack-art::after{content:none}
 .pack--mega-evolution .pack-brand,.pack--mega-evolution .pack-mascot{display:none}
 
+.pack--paradox-rift .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/paradox-rift-garbage-rips-585-booster-pack.webp');
+  background-size:cover;
+  background-position:center;
+}
+.pack--paradox-rift .pack-art::before,.pack--paradox-rift .pack-art::after{content:none}
+.pack--paradox-rift .pack-brand,.pack--paradox-rift .pack-mascot{display:none}
+
 .pack--perfect-order .pack-art{
   background-color:#161D26;
   background-image:url('packs/perfect-order-garbage-rips-585-booster-pack.webp');
