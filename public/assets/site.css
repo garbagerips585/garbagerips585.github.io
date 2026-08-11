@@ -564,8 +564,10 @@ footer p{font-size:.83rem;color:rgba(247,242,222,.72);max-width:60em;margin:0 au
 }
 .pack-mascot img{width:100%;height:100%;object-fit:cover}
 .pack-hint{
-  position:absolute;left:0;right:0;bottom:11%;z-index:4;text-align:center;
-  font-family:var(--mono);font-weight:700;font-size:.72rem;letter-spacing:.18em;
+  /* Sits on the bottom crimp, not across the middle: at 11% it landed exactly
+     on the pack artwork's own "Garbage Rips 585" wordmark and cut it in half. */
+  position:absolute;left:0;right:0;bottom:2.5%;z-index:4;text-align:center;
+  font-family:var(--mono);font-weight:700;font-size:.66rem;letter-spacing:.1em;
   color:var(--navy);background:var(--mustard);
   padding:8px 0;border-top:3px solid var(--pk-edge);border-bottom:3px solid var(--pk-edge);
   transition:background .14s;
