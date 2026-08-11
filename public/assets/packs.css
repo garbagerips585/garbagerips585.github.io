@@ -119,6 +119,15 @@
 .pack--surging-sparks .pack-art::before,.pack--surging-sparks .pack-art::after{content:none}
 .pack--surging-sparks .pack-brand,.pack--surging-sparks .pack-mascot{display:none}
 
+.pack--temporal-forces .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/temporal-forces-garbage-rips-585-booster-pack.webp');
+  background-size:cover;
+  background-position:center;
+}
+.pack--temporal-forces .pack-art::before,.pack--temporal-forces .pack-art::after{content:none}
+.pack--temporal-forces .pack-brand,.pack--temporal-forces .pack-mascot{display:none}
+
 .pack--twilight-masquerade .pack-art{
   background-color:#161D26;
   background-image:url('packs/twilight-masquerade-garbage-rips-585-booster-pack.webp');
