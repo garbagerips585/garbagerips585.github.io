@@ -62,20 +62,35 @@ function marketPrice(card) {
   return vals.length ? Math.max(...vals) : 0;
 }
 
-/** All cards in a set, from the same cache sync-sets.mjs fills. */
+/**
+ * All cards in a set, across every page.
+ *
+ * Pages hold 250 and several sets are bigger: Ascended Heroes has 295. Reading
+ * page one only made every card numbered past the 250th invisible, which is how
+ * Mega Dragonite ex #290 came back as "no such card" when it exists.
+ */
 async function setCards(apiId) {
-  const file = join(CACHE, `${apiId}-p1.json`);
-  if (!FORCE) {
-    try {
-      return JSON.parse(await readFile(file, "utf8")).data || [];
-    } catch {
-      /* not cached */
+  const out = [];
+  for (let page = 1; page <= 6; page++) {
+    const file = join(CACHE, `${apiId}-p${page}.json`);
+    let res = null;
+    if (!FORCE) {
+      try {
+        res = JSON.parse(await readFile(file, "utf8"));
+      } catch {
+        /* not cached */
+      }
     }
+    if (!res) {
+      res = await apiGet(`cards?q=set.id:${apiId}&pageSize=250&page=${page}`);
+      await mkdir(CACHE, { recursive: true });
+      await writeFile(file, JSON.stringify(res));
+    }
+    const got = res.data || [];
+    out.push(...got);
+    if (got.length < 250 || out.length >= (res.totalCount || out.length)) break;
   }
-  const res = await apiGet(`cards?q=set.id:${apiId}&pageSize=250&page=1`);
-  await mkdir(CACHE, { recursive: true });
-  await writeFile(file, JSON.stringify(res));
-  return res.data || [];
+  return out;
 }
 
 const source = JSON.parse(await readFile(join(ROOT, "data/wanted.json"), "utf8"));

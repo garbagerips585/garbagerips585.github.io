@@ -21,9 +21,7 @@
     "",
     "`got` flips a card from hunting to caught, which is worth doing on camera."
   ],
-
   "updated": "2026-08-11",
-
   "cards": [
     {
       "set": "pitch-black",
@@ -55,6 +53,90 @@
       "number": "121",
       "rarity": "Special Illustration Rare",
       "note": "Perfect Order's SIR. Pulled everything else in the set except this.",
+      "got": false,
+      "raw": null,
+      "psa10": null,
+      "psa10AsOf": null,
+      "psa10Source": null
+    },
+    {
+      "set": "ascended-heroes",
+      "name": "Mega Dragonite ex",
+      "number": "290",
+      "rarity": "Special Illustration Rare",
+      "note": "Ascended Heroes chase. Three Feraligatr boxes deep and still nothing.",
+      "got": false,
+      "raw": null,
+      "psa10": null,
+      "psa10AsOf": null,
+      "psa10Source": null
+    },
+    {
+      "set": "phantasmal-flames",
+      "name": "Mega Charizard X ex",
+      "number": "125",
+      "rarity": "Special Illustration Rare",
+      "note": "The Charizard. Always the Charizard.",
+      "got": false,
+      "raw": null,
+      "psa10": null,
+      "psa10AsOf": null,
+      "psa10Source": null
+    },
+    {
+      "set": "mega-evolution",
+      "name": "Mega Lucario ex",
+      "number": "179",
+      "rarity": "Special Illustration Rare",
+      "note": "Best art in Mega Evolution, and it knows it.",
+      "got": false,
+      "raw": null,
+      "psa10": null,
+      "psa10AsOf": null,
+      "psa10Source": null
+    },
+    {
+      "set": "white-flare",
+      "name": "Victini",
+      "number": "172",
+      "rarity": "Rare",
+      "note": "The red Victini. Only one Victini in the whole set and it is this one.",
+      "got": false,
+      "raw": null,
+      "psa10": null,
+      "psa10AsOf": null,
+      "psa10Source": null
+    },
+    {
+      "set": "white-flare",
+      "name": "Reshiram ex",
+      "number": "166",
+      "rarity": "Special Illustration Rare",
+      "note": "White Flare would not be White Flare without it.",
+      "got": false,
+      "raw": null,
+      "psa10": null,
+      "psa10AsOf": null,
+      "psa10Source": null
+    },
+    {
+      "set": "black-bolt",
+      "name": "Seismitoad",
+      "number": "105",
+      "rarity": "Illustration Rare",
+      "note": "An IR that outruns half the ultra rares in the set.",
+      "got": false,
+      "raw": null,
+      "psa10": null,
+      "psa10AsOf": null,
+      "psa10Source": null
+    },
+    {
+      "set": "destined-rivals",
+      "name": "Team Rocket's Mewtwo ex",
+      "number": "231",
+      "rarity": "Special Illustration Rare",
+      "note": "Team Rocket Mewtwo, and the reason those packs keep getting opened.",
       "got": false,
       "raw": null,
       "psa10": null,
