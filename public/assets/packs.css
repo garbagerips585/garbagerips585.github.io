@@ -11,6 +11,15 @@
 .pack--chaos-rising .pack-art::before,.pack--chaos-rising .pack-art::after{content:none}
 .pack--chaos-rising .pack-brand,.pack--chaos-rising .pack-mascot{display:none}
 
+.pack--perfect-order .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/perfect-order.webp');
+  background-size:cover;
+  background-position:center;
+}
+.pack--perfect-order .pack-art::before,.pack--perfect-order .pack-art::after{content:none}
+.pack--perfect-order .pack-brand,.pack--perfect-order .pack-mascot{display:none}
+
 .pack--pitch-black .pack-art{
   background-color:#161D26;
   background-image:url('packs/pitch-black.webp');
