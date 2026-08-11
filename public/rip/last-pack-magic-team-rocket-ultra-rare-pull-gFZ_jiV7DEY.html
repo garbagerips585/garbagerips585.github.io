@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/ui.css">
 <link rel="stylesheet" href="/assets/packs.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"LAST PACK MAGIC! 🚀 | Team Rocket Ultra Rare Pull!","description":"We’re down to the final pack of the Mega Meganium ex Box #2 and the Last Pack Magic actually showed up! ⚡ We pulled the Team Rocket Transceiver Ultra Rare Trainer! 🚀 It’s not a Mega EX, but pulling a classic Team Rocket item is always a win for the collection. 💎 Not a bad way to close out this box! What should we rip next? 🌿🔥 #pokemon #pokemoncards #pokemontcg #pokemonshorts","thumbnailUrl":["https://i.ytimg.com/vi/gFZ_jiV7DEY/oardefault.jpg"],"uploadDate":"2026-07-11","embedUrl":"https://www.youtube.com/embed/gFZ_jiV7DEY","url":"https://garbagerips585.com/rip/last-pack-magic-team-rocket-ultra-rare-pull-gFZ_jiV7DEY.html","duration":"PT25S","interactionStatistic":{"@type":"InteractionCounter","interactionType":{"@type":"WatchAction"},"userInteractionCount":1646},"publisher":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.com/","logo":{"@type":"ImageObject","url":"https://garbagerips585.com/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.com/"},{"@type":"ListItem","position":2,"name":"Every rip","item":"https://garbagerips585.com/videos.html"},{"@type":"ListItem","position":3,"name":"LAST PACK MAGIC! 🚀 | Team Rocket Ultra Rare Pull!"}]}</script>
@@ -35,35 +35,37 @@
   <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
   <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
   <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
-  <symbol id="i-search" viewBox="0 0 24 24"><path d="M10 2a8 8 0 1 0 4.9 14.3l5.4 5.4 1.4-1.4-5.4-5.4A8 8 0 0 0 10 2zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12z"/></symbol>
-  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></symbol>
 </svg>
-<nav class="site" aria-label="Main">
-  <div class="nav-in">
-    <a class="logo" href="/">GARBAGE <span>RIPS</span> 585</a>
-    <form class="search" data-route role="search">
-      <svg aria-hidden="true"><use href="#i-search"/></svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form role="search" action="/videos.html" method="get">
       <label class="sr-only" for="navSearch">Search every rip</label>
-      <input id="navSearch" type="search" placeholder="Search rips, sets, boxes...">
+      <input id="navSearch" name="q" type="search" placeholder="Search rips" aria-label="Search every rip by set, product or card">
     </form>
-    <button class="nav-toggle" aria-expanded="false" aria-label="Menu"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
-    <ul class="nav-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="/videos.html">All Rips</a></li>
-      <li><a href="/playlists.html">Playlists</a></li>
-      <li><a href="/sets/">Card Sets</a></li>
-      <li><a href="/#five85">The 585</a></li>
-    </ul>
-    <div class="nav-social">
-      <a href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
-      <a href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
-      <a href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
-      <a href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
-    </div>
+    <a class="icon-btn" href="/videos.html" aria-label="Search all rips">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+    </a>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
   </div>
+</header>
+<nav class="menu" id="menu" aria-label="Site">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/videos.html">All rips</a></li>
+    <li><a href="/sets/">Card Pokedex</a></li>
+    <li><a href="/wanted.html">Most wanted</a></li>
+    <li><a href="/hall.html">Card Hall of Fame</a></li>
+    <li><a href="/shops.html">Card shops</a></li>
+    <li><a href="/playlists.html">Playlists</a></li>
+  </ul>
 </nav>
 
-<section class="rip tight">
+<section id="main" class="rip tight">
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / <a href="/videos.html">Every rip</a></p>
     <div class="rip-grid">
@@ -115,6 +117,14 @@
 
 <footer>
   <div class="wrap">
+    <nav class="foot-nav" aria-label="Site">
+      <a href="/videos.html">All rips</a>
+      <a href="/sets/">Card Pokedex</a>
+      <a href="/wanted.html">Most wanted</a>
+      <a href="/hall.html">Card Hall of Fame</a>
+      <a href="/shops.html">Card shops</a>
+      <a href="/playlists.html">Playlists</a>
+    </nav>
     <p class="foot-tag">Grab a fork. Let's rip.</p>
     <div class="foot-social">
       <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>

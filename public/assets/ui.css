@@ -927,3 +927,101 @@ section.band-gold .vid-meta{color:#5A3B06}
 .chaser-rar{color:#57354F}
 .chaser-pr{color:#15263A;margin-top:4px}
 .chaser-pr i{font-style:normal;color:#A8760B;display:block}
+
+
+/* --------------------------------------------------------------------------
+   Second porting pass. The first compared CLASS NAMES against ui.css, so any
+   class already mentioned in a descendant selector was treated as defined and
+   its own base rule was skipped. .rip-player .pack existed, so .rip-player's
+   own position:relative never came across and every rip page's pack escaped
+   its container and covered the viewport. This pass compares whole selectors.
+   -------------------------------------------------------------------------- */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.hl{color:var(--ketchup);text-shadow:2px 2px 0 var(--mustard)}
+.vid-shell{
+  position:relative;aspect-ratio:2/3;width:100%;border-radius:10px;overflow:hidden;
+  background:var(--navy-deep);
+  border:4px solid var(--mustard);           /* the Pokemon card border */
+  outline:2px solid var(--navy);outline-offset:-6px;
+  box-shadow:0 6px 0 var(--gold-deep),0 12px 22px rgba(19,38,55,.28);
+  display:block;padding:0;
+  transition:transform .14s ease,box-shadow .14s ease,border-color .14s ease;
+}
+.vid-shell:hover{transform:translateY(-5px);border-color:var(--sky);
+  box-shadow:0 10px 0 var(--sky-deep),0 18px 30px rgba(19,38,55,.34)}
+.vid-shell img{width:100%;height:100%;object-fit:cover}
+.vid-shell iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid-shell.playing{aspect-ratio:9/16;transform:none;outline:none}
+.vid-shell.playing:hover{transform:none}
+/* holo sweep on hover, the card-y bit */
+.vid-shell::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0;
+  background:linear-gradient(115deg,transparent 30%,rgba(125,249,233,.5) 45%,rgba(249,139,217,.5) 55%,transparent 70%);
+  mix-blend-mode:overlay;transition:opacity .18s;
+}
+.vid-shell:hover::after{opacity:1}
+.vid-shell.playing::after{display:none}
+/* Sits low rather than dead centre: on the pack artwork the middle of the tile
+   is the mascot's face, and a play button parked on it looked like a mistake.
+   At 68% it lands on the plate, below the face (ends 51%) and above the
+   wordmark (starts 83%). */
+.vid-play{
+  position:absolute;left:50%;top:68%;transform:translate(-50%,-50%);z-index:2;
+  width:54px;height:54px;border-radius:50%;background:var(--ketchup);
+  border:3px solid var(--paper-2);display:grid;place-items:center;pointer-events:none;
+  box-shadow:0 4px 12px rgba(0,0,0,.45);transition:transform .14s,background .14s;
+}
+.vid-shell:hover .vid-play{background:var(--sky);transform:translate(-50%,-50%) scale(1.12)}
+.vid-play svg{width:18px;height:18px;fill:var(--paper-2);margin-left:3px}
+.hall .vid-shell{
+  border-color:#FFF3C4;
+  box-shadow:0 6px 0 #8A5A0C,0 14px 26px rgba(61,42,6,.42);
+}
+.hall .vid-shell:hover{border-color:#fff;box-shadow:0 10px 0 #8A5A0C,0 20px 34px rgba(61,42,6,.5)}
+/* every pack on this shelf is gold, whatever set it came from */
+.hall .pack{--pk-a:#F7DE8A;--pk-b:#E8B93F;--pk-c:#A9761A;--pk-d:#6E4A0C;--pk-ink:#3D2A06;--pk-edge:#4A3208}
+/* hits: gold turns to rainbow-rare treatment */
+.hits .vid-shell{border-color:var(--berry);box-shadow:0 6px 0 #6E2159,0 12px 22px rgba(19,38,55,.3)}
+.hits .vid-shell:hover{border-color:var(--teal);box-shadow:0 10px 0 #24705F,0 18px 30px rgba(19,38,55,.34)}
+.chip[aria-pressed=true]{background:var(--sky);color:var(--navy)}
+.chip.clear{border-style:dashed;color:var(--ketchup);box-shadow:none}
+.chip.clear:hover{background:var(--ketchup);color:var(--paper)}
+.lib-count b{color:var(--ketchup)}
+/* ---------- playlist cards ---------- */
+.pl-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.squiggle{display:block;margin:6px 0 0}
+.rip-player{position:relative;aspect-ratio:9/16;border-radius:12px;overflow:hidden;
+  background:var(--navy-deep);border:4px solid var(--mustard);
+  box-shadow:0 8px 0 var(--gold-deep),0 16px 30px rgba(19,38,55,.3)}
+.rip-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.rip-player img{width:100%;height:100%;object-fit:cover}
+/* shake, then tear */
+.pack.shaking .pack-face{animation:packShake .26s ease-in-out}
+.pack.tearing{pointer-events:none}
+.pack.tearing .pack-hint{animation:packFade .2s ease forwards}
+.pack.tearing .pack-l{animation:tearL .62s cubic-bezier(.4,.05,.35,1) forwards}
+.pack.tearing .pack-r{animation:tearR .62s cubic-bezier(.4,.05,.35,1) forwards}
+/* light spilling out of the tear */
+.pack-flash{
+  position:absolute;left:50%;top:0;bottom:0;width:8%;transform:translateX(-50%);
+  z-index:2;opacity:0;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent);
+  filter:blur(6px);
+}
+.pack.tearing .pack-flash{animation:packFlash .62s ease-out forwards}
+@media(prefers-reduced-motion:reduce){.pack-face,.pack.shaking .pack-face,.pack.tearing .pack-l,.pack.tearing .pack-r,
+  .pack.tearing .pack-flash,.pack.tearing .pack-hint{animation:none;transition:none}}
+/* The player mounts under the pack and plays while the pack tears away. */
+.rip-player iframe{z-index:1}
+.set-logo .n{
+  font-family:var(--mono);font-size:.64rem;font-weight:700;color:var(--ink-soft);
+  letter-spacing:.1em;margin-top:6px;
+}
+/* ---------- set header (library page, when a set filter is on) ---------- */
+.set-header{
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  background:var(--paper-2);border:3px solid var(--navy);border-radius:14px;
+  box-shadow:0 6px 0 var(--trubbish);padding:16px 22px;margin:22px 0 0;
+}
+.set-header .txt{font-family:var(--mono);font-size:.76rem;font-weight:700;color:var(--ink-soft);letter-spacing:.08em}
+.set-header .txt b{display:block;font-family:var(--display);font-size:1.1rem;color:var(--ink);letter-spacing:0;margin-bottom:2px}

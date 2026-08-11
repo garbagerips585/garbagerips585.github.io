@@ -63,7 +63,7 @@
 
   /**
    * A sealed booster pack skinned to the card set. Skins are original designs
-   * keyed to each set's colour identity (see .pack--* in site.css), not
+   * keyed to each set's colour identity (see .pack--* in ui.css), not
    * reproductions of the official pack artwork. Unknown sets fall back to the
    * Garbage Rips green.
    */
