@@ -572,19 +572,28 @@
         var a = el("a", "pl");
         a.href = "https://www.youtube.com/playlist?list=" + p.id;
         a.rel = "noopener";
-        var th = el("div", "pl-thumb");
-        var first = (p.videoIds || [])[0];
-        if (first) {
-          var img = new Image();
-          img.src = thumbUrl(first);
-          img.alt = "";
-          img.loading = "lazy";
-          th.appendChild(img);
-        }
+        a.target = "_blank";
+        a.setAttribute("aria-label", p.title + ", " + p.count + " videos, opens on YouTube");
+
+        // The cover used YouTube's poster frame for the first video, which is
+        // nearly always the pulled card: the same spoiler the pack wrappers
+        // exist to prevent, on the one page that showed it. Use the set's
+        // wrapper instead, taken from the first video that has a set tag.
+        var th = el("span", "pl-thumb");
+        var setId = null;
+        (p.videoIds || []).some(function (id) {
+          var v = byId[id];
+          var s = v && (v.sets || [])[0];
+          if (s) { setId = s; return true; }
+          return false;
+        });
+        th.appendChild(makePack(setId || "default", "tile"));
         a.appendChild(th);
-        var body = el("div", "pl-body");
-        body.appendChild(el("h3", "pl-title", p.title));
-        body.appendChild(el("p", "pl-count", p.count + (p.count === 1 ? " video" : " videos")));
+
+        var body = el("span", "pl-body");
+        body.appendChild(el("b", "pl-title", p.title));
+        body.appendChild(el("span", "pl-count", p.count + (p.count === 1 ? " video" : " videos")));
+        body.appendChild(el("span", "pl-out", "Watch on YouTube"));
         a.appendChild(body);
         box.appendChild(a);
       });
