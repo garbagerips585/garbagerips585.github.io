@@ -11,6 +11,13 @@
 // more specific product types above the ones that would also match them.
 export const PRODUCT_TYPES = [
   { id: "upc", label: "UPC", pattern: /\bupc\b|ultra[- ]premium collection/i },
+  { id: "spc", label: "Super Premium Collection", pattern: /\bspc\b|super premium collection/i },
+  { id: "ex-premium", label: "ex Premium Collection", pattern: /\bex premium collection\b/i },
+  { id: "ex-special", label: "ex Special Collection", pattern: /\bex special collection\b/i },
+  { id: "poke-ball-tin", label: "Poke Ball Tin", pattern: /pok[eé]\s?ball tin/i },
+  { id: "japanese-pack", label: "Japanese Booster Pack", pattern: /\bjapanese\b.*\bpack\b/i },
+  { id: "korean-pack", label: "Korean Booster Pack", pattern: /\bkorean\b.*\bpack\b/i },
+  { id: "chinese-pack", label: "Chinese Booster Pack", pattern: /\bchinese\b.*\bpack\b/i },
   { id: "etb", label: "Elite Trainer Box", short: "ETB", pattern: /\betb\b|elite trainer box/i },
   { id: "booster-box", label: "Booster Box", pattern: /\bbooster box\b|\bdisplay box\b/i },
   { id: "ex-box", label: "EX Box", pattern: /\bex box\b|\bex premium\b|\bex collection\b/i },

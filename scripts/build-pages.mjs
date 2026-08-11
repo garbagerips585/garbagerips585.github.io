@@ -182,7 +182,7 @@ function page(v, prev, next) {
 ${SPRITE}
 ${NAV}
 
-<section class="rip tight">
+<section class="rip tight${v.greatest ? " hall" : ""}">
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / <a href="/videos.html">Every rip</a>${setId ? ` / <a href="/videos.html?set=${setId}">${esc(setLabel)}</a>` : ""}</p>
     <div class="rip-grid">
@@ -212,10 +212,16 @@ ${NAV}
           ${prodId ? `<a class="chip prod" href="/videos.html?product=${prodId}">${esc(prodLabel)}</a>` : ""}
           ${v.pulls.map((p) => `<span class="chip">${esc(labelFor("pulls", p))}</span>`).join("\n          ")}
         </div>
-        <p class="rip-meta">${niceDate(v.published)}${v.views ? " &bull; " + niceViews(v.views) : ""}</p>
+        <p class="rip-meta">${niceDate(v.published)}${v.views ? " &bull; " + niceViews(v.views) : ""}${v.openingType ? " &bull; " + esc(v.openingType) : ""}</p>
+        ${v.hitCard ? `<div class="hit-panel">
+          <p class="hit-label">The hit</p>
+          <p class="hit-card">${esc(v.hitCard)}</p>
+          ${v.hitRarity ? `<p class="hit-rarity">${esc(v.hitRarity)}</p>` : ""}
+        </div>` : v.hasHit === false ? `<p class="hit-none">No hit in this one. Certified Garbage Rip.</p>` : ""}
         ${desc ? `<div class="rip-desc">${esc(desc)}</div>` : ""}
         <div class="rip-nav">
           <a class="btn btn-yt btn-sm" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe</a>
+          ${v.affiliate ? `<a class="btn btn-sky btn-sm" href="${esc(v.affiliate)}" rel="nofollow sponsored noopener">Rip one yourself</a>` : ""}
           ${prev ? `<a class="btn btn-ghost btn-sm" href="/${pathFor(prev)}">&larr; Previous rip</a>` : ""}
           ${next ? `<a class="btn btn-ghost btn-sm" href="/${pathFor(next)}">Next rip &rarr;</a>` : ""}
         </div>

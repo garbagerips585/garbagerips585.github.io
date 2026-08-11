@@ -213,9 +213,31 @@
      it: videos whose title/description flagged a genuine chase pull, ranked by
      views. Same shape either way, so the UI never has to care. */
 
+  /**
+   * The Hall of Fame. Fed by a YouTube playlist whose title mentions
+   * "greatest", falling back to anything marked greatest in the manual video
+   * log. Returns null when neither exists, and the section hides itself.
+   */
+  function pickHall(videos, playlists, n) {
+    var pl = (playlists || []).filter(function (p) { return /greatest/i.test(p.title); })[0];
+    if (pl && pl.videoIds && pl.videoIds.length) {
+      var byId = {};
+      videos.forEach(function (v) { byId[v.id] = v; });
+      var list = pl.videoIds.map(function (id) { return byId[id]; }).filter(Boolean);
+      if (list.length) return { videos: list.slice(0, n), playlist: pl };
+    }
+    var flagged = videos.filter(function (v) { return v.greatest; });
+    if (flagged.length) return { videos: flagged.slice(0, n), playlist: null };
+    return null;
+  }
+
   function pickHits(videos, playlists, n) {
     var hits = null;
-    var pl = (playlists || []).filter(function (p) { return /hit/i.test(p.title); })[0];
+    // "Greatest Hits" must not win the Hits Only shelf: both titles contain
+    // "hit", and the greatest playlist is a subset of the same videos.
+    var pl = (playlists || []).filter(function (p) {
+      return /hit/i.test(p.title) && !/greatest/i.test(p.title);
+    })[0];
     if (pl && pl.videoIds && pl.videoIds.length) {
       var byId = {};
       videos.forEach(function (v) { byId[v.id] = v; });
@@ -257,6 +279,27 @@
         var note = document.getElementById("hitsNote");
         if (note && h.derived) {
           note.textContent = "Ranked by views until the Hits Only playlist is connected.";
+        }
+      }
+
+      var hallGrid = document.getElementById("hallGrid");
+      if (hallGrid) {
+        var hall = pickHall(videos, pls, 6);
+        var section = document.getElementById("hall");
+        if (!hall) {
+          // Nothing qualifies yet, so the shelf would be an empty gold band.
+          if (section) section.hidden = true;
+        } else {
+          hallGrid.textContent = "";
+          hall.videos.forEach(function (v, i) {
+            var card = makeCard(v, { rank: i + 1 });
+            var crown = el("span", "hall-crown", "👑");
+            crown.setAttribute("aria-hidden", "true");
+            card.firstChild.appendChild(crown);
+            hallGrid.appendChild(card);
+          });
+          var hl = document.getElementById("hallAll");
+          if (hl && hall.playlist) hl.href = "https://www.youtube.com/playlist?list=" + hall.playlist.id;
         }
       }
     }).catch(function () {

@@ -140,6 +140,15 @@ for (const p of playlists) {
 }
 console.log(`Playlist titles supply tags for ${fromPlaylist.size} videos.`);
 
+// Whatever Tim filled in on the video log: hit card, rarity, greatest-hit
+// flag, affiliate link. Written by scripts/import-sheet.mjs.
+let manual_ = {};
+try {
+  manual_ = JSON.parse(await readFile(join(ROOT, "data/manual.json"), "utf8"));
+} catch {
+  /* no log imported yet */
+}
+
 // Hand corrections always win over the automatic matcher.
 let overrides = {};
 try {
@@ -159,6 +168,7 @@ const videos = uploads
     if (!auto.sets.length) auto.sets = inherited.sets;
     if (!auto.products.length) auto.products = inherited.products.slice(0, 1);
     const manual = overrides[id] || {};
+    const log = manual_[id] || {};
     const base = { id, title };
     return {
       id,
@@ -172,6 +182,11 @@ const videos = uploads
       sets: manual.sets ?? auto.sets,
       products: manual.products ?? auto.products,
       pulls: manual.pulls ?? auto.pulls,
+      ...(log.hitCard ? { hitCard: log.hitCard } : {}),
+      ...(log.hitRarity ? { hitRarity: log.hitRarity } : {}),
+      ...(log.hasHit != null ? { hasHit: log.hasHit } : {}),
+      ...(log.greatest ? { greatest: true } : {}),
+      ...(log.affiliate ? { affiliate: log.affiliate } : {}),
     };
   })
   .filter((v) => v.id)
