@@ -71,7 +71,9 @@ if (col("Key") >= 0 && col("PSA 10 USD") >= 0) {
   const idx = {
     set: col("Set"), card: col("Card"), number: col("Number"), rarity: col("Rarity"),
     psa: col("PSA 10 USD"), asOf: col("PSA 10 Checked"), source: col("PSA 10 Source"),
-    wanted: col("Most Wanted"), got: col("Got It"), why: col("Why I Want It"),
+    wanted: col("Most Wanted"), hall: col("Card Hall of Fame"),
+    pulledOn: col("Pulled On"), pulledIn: col("Pulled In Video"),
+    why: col("Why I Want It"),
   };
 
   let psaDoc = { prices: {} };
@@ -79,6 +81,12 @@ if (col("Key") >= 0 && col("PSA 10 USD") >= 0) {
     psaDoc = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8"));
   } catch { /* first run */ }
   const prices = {};
+
+  const hall = [];
+  let hallDoc = { cards: [] };
+  try {
+    hallDoc = JSON.parse(await readFile(join(ROOT, "data/hall.json"), "utf8"));
+  } catch { /* first run */ }
 
   let wantedDoc = { cards: [] };
   try {
@@ -105,6 +113,19 @@ if (col("Key") >= 0 && col("PSA 10 USD") >= 0) {
       psaCount++;
     }
 
+    // A card can be both: pulled once, still chasing a second copy.
+    if (isYes(get(r, idx.hall))) {
+      const at = key.lastIndexOf("-");
+      hall.push({
+        set: key.slice(0, at),
+        name: get(r, idx.card),
+        number: key.slice(at + 1),
+        rarity: get(r, idx.rarity) || null,
+        pulledOn: /^\d{4}-\d{2}-\d{2}$/.test(get(r, idx.pulledOn)) ? get(r, idx.pulledOn) : null,
+        pulledIn: get(r, idx.pulledIn) || null,
+      });
+    }
+
     if (isYes(get(r, idx.wanted))) {
       // The key is "<set-id>-<number>", and a set id itself contains hyphens,
       // so split from the RIGHT: the last segment is always the card number.
@@ -115,7 +136,7 @@ if (col("Key") >= 0 && col("PSA 10 USD") >= 0) {
         number: key.slice(at + 1),
         rarity: get(r, idx.rarity) || null,
         note: get(r, idx.why) || null,
-        got: isYes(get(r, idx.got)),
+        got: isYes(get(r, idx.hall)),
         raw: null,
         psa10: psa,
         psa10AsOf: get(r, idx.asOf) || null,
@@ -131,20 +152,24 @@ if (col("Key") >= 0 && col("PSA 10 USD") >= 0) {
     wantedDoc.cards = wanted;
     await writeFile(join(ROOT, "data/wanted.json"), JSON.stringify(wantedDoc, null, 2) + "\n");
   }
+  hallDoc.cards = hall;
+  await writeFile(join(ROOT, "data/hall.json"), JSON.stringify(hallDoc, null, 2) + "\n");
 
   console.log(`
 Chase Cards, ${rows.length - 1} rows
 
   PSA 10 prices      ${psaCount}
-  on the hunt list   ${wanted.length}${wanted.length ? "" : "  (nothing marked Most Wanted, so wanted.json was left alone)"}
+  in the Card Hall of Fame  ${hall.length}
+  on the hunt list          ${wanted.length}${wanted.length ? "" : "  (nothing marked Most Wanted, so wanted.json was left alone)"}
 
-Wrote data/psa10.json${wanted.length ? "\nWrote data/wanted.json" : ""}
+Wrote data/psa10.json\nWrote data/hall.json${wanted.length ? "\nWrote data/wanted.json" : ""}
 `);
   if (badDates.length) {
     console.log(`PSA 10 Checked should be YYYY-MM-DD. These were ignored:\n  ${badDates.join("\n  ")}\n`);
   }
   console.log(`Now run:
   node scripts/sync-wanted.mjs && node scripts/build-wanted.mjs
+  node scripts/build-hall.mjs
   node scripts/build-set-pages.mjs
 `);
 

@@ -188,9 +188,14 @@ rows = [
                                 "under every one of those sets. More than four is rare: type the "
                                 "extras into More Sets, separated by commas.", None),
     (None, None, None),
-    ("Hall of Fame", "Mark Yes on the rips you want in the gold section at the top of the home "
-                     "page. Rank orders them, 1 first. Leave Rank blank and the site orders by "
-                     "rarity then views.", None),
+    ("Greatest Hits", "Mark Yes on the RIPS you want in the gold section at the top of the home "
+                      "page. Rank orders them, 1 first. Leave Rank blank and the site orders by "
+                      "rarity then views. These are videos.", None),
+    (None, None, None),
+    ("Card Hall of Fame", "On the Chase Cards tab. Mark Yes on the CARDS you have actually pulled. "
+                          "They get their own page, ranked by value, with the card image, the set, "
+                          "the raw near mint price and the PSA 10 price. These are cards, not "
+                          "videos, which is the whole difference between the two.", None),
     (None, None, None),
     ("PSA 10 prices", "Put in a number you have actually seen, set PSA 10 Checked to the date you "
                       "checked it (2026-08-11 format), and name the source. A graded price with no "
@@ -272,8 +277,8 @@ COLUMNS = [
     ("Has Hit", 9, "input"),
     ("Hit Card", 30, "input"),
     ("Hit Rarity", 34, "input"),
-    ("Hall of Fame", 13, "hof"),
-    ("HoF Rank", 10, "hof"),
+    ("Greatest Hits", 14, "hof"),
+    ("Greatest Hits Rank", 18, "hof"),
     ("Playlist To Add", 18, "input"),
     ("Affiliate Link", 30, "input"),
     ("Site Title", 40, "input"),
@@ -354,9 +359,9 @@ for dv_formula, cols in [
     (DV_SET, [CI["Set"], CI["Set 2"], CI["Set 3"], CI["Set 4"]]),
     (DV_OPEN, [CI["Opening Type"]]),
     (DV_RARITY, [CI["Hit Rarity"]]),
-    (DV_YESNO, [CI["Has Hit"], CI["Hall of Fame"], CI["Feature"], CI["Hide"]]),
+    (DV_YESNO, [CI["Has Hit"], CI["Greatest Hits"], CI["Feature"], CI["Hide"]]),
     (DV_PLAYLIST, [CI["Playlist To Add"]]),
-    (DV_RANK, [CI["HoF Rank"]]),
+    (DV_RANK, [CI["Greatest Hits Rank"]]),
 ]:
     d = dv(dv_formula)
     wv.add_data_validation(d)
@@ -431,8 +436,8 @@ metrics = [
     ("Opening type filled in", f'=COUNTA({L}!{CL("Opening Type")}2:{CL("Opening Type")}{last})'),
     ("Marked as a hit", f'=COUNTIF({L}!{CL("Has Hit")}2:{CL("Has Hit")}{last},"Yes")'),
     ("Hit card named", f'=COUNTA({L}!{CL("Hit Card")}2:{CL("Hit Card")}{last})'),
-    ("In the Hall of Fame", f'=COUNTIF({L}!{CL("Hall of Fame")}2:{CL("Hall of Fame")}{last},"Yes")'),
-    ("Given a HoF rank", f'=COUNTA({L}!{CL("HoF Rank")}2:{CL("HoF Rank")}{last})'),
+    ("In Greatest Hits", f'=COUNTIF({L}!{CL("Greatest Hits")}2:{CL("Greatest Hits")}{last},"Yes")'),
+    ("Given a rank", f'=COUNTA({L}!{CL("Greatest Hits Rank")}2:{CL("Greatest Hits Rank")}{last})'),
     ("Affiliate links added", f'=COUNTA({L}!{CL("Affiliate Link")}2:{CL("Affiliate Link")}{last})'),
     ("Hidden from the site", f'=COUNTIF({L}!{CL("Hide")}2:{CL("Hide")}{last},"Yes")'),
 ]
@@ -472,7 +477,9 @@ CHASE_COLS = [
     ("Number", 9, "locked"), ("Rarity", 30, "locked"), ("Raw USD", 11, "locked"),
     ("PSA 10 USD", 13, "input"), ("PSA 10 Checked", 15, "input"),
     ("PSA 10 Source", 24, "input"),
-    ("Most Wanted", 13, "hof"), ("Got It", 9, "hof"), ("Why I Want It", 44, "input"),
+    ("Most Wanted", 13, "hof"), ("Card Hall of Fame", 18, "hof"),
+    ("Pulled On", 12, "input"), ("Pulled In Video", 30, "input"),
+    ("Why I Want It", 44, "input"),
 ]
 for i, (head, width, kind) in enumerate(CHASE_COLS, start=1):
     c = wc.cell(1, i, head)
@@ -519,7 +526,7 @@ for r, (key, sname, cname, num, rar, raw) in enumerate(rows_out, start=2):
         wc.cell(r, 10, "Yes").font = GUESS_TXT
         wc.cell(r, 11, "Yes" if w.get("got") else "No").font = GUESS_TXT
         if w.get("note"):
-            wc.cell(r, 12, w["note"]).font = GUESS_TXT
+            wc.cell(r, 14, w["note"]).font = GUESS_TXT
     for col in range(1, len(CHASE_COLS) + 1):
         wc.cell(r, col).border = BOX
         if wc.cell(r, col).font.name != "Arial":
@@ -528,13 +535,16 @@ for r, (key, sname, cname, num, rar, raw) in enumerate(rows_out, start=2):
 
 dv_c = dv(DV_YESNO)
 wc.add_data_validation(dv_c)
-dv_c.add(f"J2:J{len(rows_out) + 1}")
-dv_c.add(f"K2:K{len(rows_out) + 1}")
+dv_c.add(f"J2:J{len(rows_out) + 1}")   # Most Wanted
+dv_c.add(f"K2:K{len(rows_out) + 1}")   # Card Hall of Fame
 dv_src = dv(DV_PSASRC, strict=False)
 wc.add_data_validation(dv_src)
 dv_src.add(f"I2:I{len(rows_out) + 1}")
 
 wc.cell(len(rows_out) + 3, 1,
+        "Most Wanted is a card you are still chasing. Card Hall of Fame is one you have actually "
+        "pulled, and it appears on /hall.html ranked by value, PSA 10 first and raw where there is "
+        "no graded price. A card can be both while you chase a second copy. "
         "Key is what links a row back to a card and must not be edited. PSA 10 Checked is a date "
         "like 2026-08-11: a graded price with no date is not a fact about anything.").font = NOTE
 

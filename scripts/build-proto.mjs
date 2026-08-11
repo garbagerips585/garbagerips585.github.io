@@ -167,7 +167,9 @@ const byNewest = [...videos].sort((a, b) =>
   String(b.published).localeCompare(String(a.published)) || (b.views || 0) - (a.views || 0)
 );
 
-// Hall of Fame: a real pull outranks a big view count, and views break ties
+// Greatest Hits: the RIPS worth watching, which is a different thing from the
+// Card Hall of Fame on /hall.html. That page ranks cards; this ranks videos.
+// A real pull outranks a big view count, and views break ties
 // inside a tier. This is a stand-in until the Greatest Hits playlist exists on
 // YouTube, which is what the production page will key off.
 //

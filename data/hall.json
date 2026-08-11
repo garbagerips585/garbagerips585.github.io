@@ -1,0 +1,14 @@
+{
+  "_readme": [
+    "The cards actually pulled on camera. Drives /hall.html, ranked by value.",
+    "",
+    "Filled from the Card Hall of Fame column on the Chase Cards tab of the",
+    "spreadsheet, via scripts/import-cards.mjs. Prices are not stored here:",
+    "they are looked up from data/psa10.json and public/data/sets.json at build",
+    "time, so one price update moves every page that shows that card.",
+    "",
+    "This is the opposite of data/wanted.json. Wanted is what Tim is chasing;",
+    "this is what he caught. A card can be in both while he chases a second copy."
+  ],
+  "cards": []
+}

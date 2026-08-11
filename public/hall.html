@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pokemon Card Shops in Rochester, NY | Garbage Rips 585</title>
-<meta name="description" content="Local Pokemon card shops around Rochester, New York, from the channel that rips packs from them. LingSter Games, Millennium Games.">
-<link rel="canonical" href="https://garbagerips585.com/shops.html">
-<meta property="og:title" content="Pokemon Card Shops in Rochester, NY">
+<title>Card Hall of Fame: Our Best Pokemon Pulls | Garbage Rips 585</title>
+<meta name="description" content="The best Pokemon cards ever pulled on Garbage Rips 585, ranked by value, with raw near mint and PSA 10 market prices.">
+<link rel="canonical" href="https://garbagerips585.com/hall.html">
+<meta property="og:title" content="Card Hall of Fame | Garbage Rips 585">
 <meta property="og:description" content="Pokemon card pack openings fueled by plate grease and good vibes. Watch on YouTube, TikTok, Instagram, and Facebook.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://garbagerips585.com/shops.html">
+<meta property="og:url" content="https://garbagerips585.com/hall.html">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.com/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -367,53 +367,78 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 <style>
-.shops{padding:var(--s7) 0 var(--s8)}
-.shops-lede{color:var(--ink-2);max-width:46em;margin-bottom:var(--s5)}
-.shop-list{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
-@media(max-width:980px){.shop-list{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:640px){.shop-list{grid-template-columns:1fr}}
-.shop{display:flex;flex-direction:column;gap:var(--s2);background:var(--card);
-  border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);
-  box-shadow:var(--lift)}
-.shop-head{display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap}
-.shop h3{font:400 var(--t-m)/1.15 var(--display)}
-.shop-flag{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
-  background:var(--mustard);color:var(--ink);border:1px solid var(--gold-deep);
-  padding:4px 7px;border-radius:var(--r-pill)}
-.shop-area{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.05em;
+/* --------------------------------------------------------------------------
+   Card Hall of Fame. Dark, because a hall of fame is a lit room with the
+   exhibits picked out of it, and because foil reads as foil against near-black
+   in a way it never does on cream.
+   -------------------------------------------------------------------------- */
+.chofpage{background:var(--ink);color:#F4F1E2;padding:var(--s7) 0 var(--s8);
+  background-image:radial-gradient(120% 70% at 50% 0%, rgba(224,162,31,.16), transparent 60%)}
+.chof-head{text-align:center;max-width:44em;margin:0 auto var(--s6)}
+.chof-head h1{font:400 clamp(2rem,6vw,3.1rem)/1.05 var(--display);color:var(--mustard)}
+.chof-head p{color:#B9C6D2;margin-top:var(--s3)}
+.chof-tally{display:flex;justify-content:center;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s5)}
+.chof-tally div{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);
+  border-radius:var(--r);padding:var(--s3) var(--s5);min-width:132px}
+.chof-tally b{display:block;font:400 1.5rem/1 var(--display);color:var(--mustard)}
+.chof-tally span{font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.08em;color:#9FB0C0;
   text-transform:uppercase}
-.shop-blurb{color:var(--ink-2);font-size:var(--t-sm)}
-.shop-tags{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:var(--s1)}
-.shop-tags li{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.03em;
-  background:var(--lilac-pale);color:var(--plum);padding:5px 9px;border-radius:var(--r-pill)}
-.shop-link{margin-top:auto;padding-top:var(--s3);font:700 var(--t-sm)/1 var(--body);
-  color:var(--ketchup-deep);min-height:44px;display:inline-flex;align-items:center}
-.shop-link:hover{text-decoration:underline}
-.shops-note{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);
-  border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);max-width:52em}
+
+.chof-list{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5) var(--s4);
+  counter-reset:chof}
+@media(max-width:1080px){.chof-list{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.chof-list{grid-template-columns:1fr;gap:var(--s4)}}
+.chof{position:relative;display:flex;gap:var(--s4);align-items:flex-start;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;padding:var(--s4);transition:border-color .15s,transform .15s}
+.chof:hover{border-color:rgba(224,162,31,.55);transform:translateY(-3px)}
+/* The top three get the plaque treatment. Everything below is still an
+   exhibit, just not on the podium. */
+.chof-top{border-color:rgba(224,162,31,.45);background:rgba(224,162,31,.09)}
+.chof-1{box-shadow:0 0 0 1px rgba(224,162,31,.5), 0 14px 34px rgba(0,0,0,.45)}
+.chof-rank{position:absolute;left:-10px;top:-10px;z-index:3;width:34px;height:34px;
+  border-radius:50%;display:grid;place-items:center;font:400 1rem/1 var(--display);
+  color:var(--ink);background:linear-gradient(180deg,#FBE08A,var(--gold));
+  box-shadow:0 2px 6px rgba(0,0,0,.5)}
+.chof-top .chof-rank{width:40px;height:40px;font-size:1.2rem}
+
+.chof-art{flex:none;width:clamp(96px,26vw,120px);padding:0;border:0;background:none;
+  cursor:zoom-in;border-radius:8px;overflow:hidden;line-height:0;
+  box-shadow:0 6px 18px rgba(0,0,0,.45)}
+.chof-art img{width:100%;height:auto;aspect-ratio:245/342;object-fit:contain;background:#0E1B2A}
+.chof-noart{display:grid;place-items:center;aspect-ratio:245/342;padding:10%;
+  font:400 .8rem/1.2 var(--display);color:#9FB0C0;text-align:center;background:#0E1B2A}
+.chof-body{min-width:0;flex:1}
+.chof-name{font:600 var(--t-body)/1.25 var(--body);display:block}
+.chof-set,.chof-rar,.chof-pulled{display:block;font:700 var(--t-micro)/1.5 var(--mono);
+  letter-spacing:.03em;color:#9FB0C0}
+.chof-rar{color:var(--lilac)}
+.chof-prices{display:flex;gap:var(--s4);margin-top:var(--s3);padding-top:var(--s3);
+  border-top:1px dashed rgba(255,255,255,.18)}
+.chof-prices dt{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;color:#9FB0C0;
+  text-transform:uppercase}
+.chof-prices dd{font:700 var(--t-m)/1.2 var(--body);color:#F4F1E2}
+.chof-prices .psa dd{color:var(--mustard)}
+.chof-pulled{margin-top:var(--s2)}
+.chof-empty{text-align:center;color:#B9C6D2;background:rgba(255,255,255,.05);
+  border:1px dashed rgba(255,255,255,.2);border-radius:14px;padding:var(--s7) var(--s5)}
+.chof-note{font:700 var(--t-micro)/1.7 var(--mono);color:#9FB0C0;text-align:center;
+  margin-top:var(--s7);max-width:52em;margin-inline:auto}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:200;display:none;place-items:center;padding:var(--s5);
+  background:rgba(8,14,22,.92)}
+.lb.on{display:grid}
+.lb-in{max-width:520px;width:100%;text-align:center}
+.lb-in img{width:100%;max-height:76vh;object-fit:contain;border-radius:10px}
+.lb-in h2{font:400 1.4rem/1.2 var(--display);color:#F4F1E2;margin-top:var(--s4)}
+.lb-in p{font:700 var(--t-sm)/1.6 var(--mono);color:#9FB0C0}
+.lb-in .lb-pr{color:var(--mustard);font-size:var(--t-m)}
+.lb-close{position:absolute;top:var(--s4);right:var(--s4);width:44px;height:44px;
+  border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);
+  color:#fff;font-size:1.3rem;cursor:pointer}
 </style>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "Pokemon card shops in Rochester, NY",
-  "description": "Local card shops around Rochester, New York that Garbage Rips 585 buys from.",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "LingSter Games",
-      "url": "https://lingstergames.com/collections/pokemon"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Millennium Games",
-      "url": "https://shop.millenniumgames.com/collections/pokemon-tcg"
-    }
-  ]
-}
-</script>
+
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -451,41 +476,63 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
 
 
 
-<section class="shops">
+<section class="chofpage">
   <div class="wrap">
-    <div class="brk"><h2>Card shops in <span class="hl">the 585</span></h2><span class="ln"></span></div>
-    <p class="shops-lede">Where I actually buy. Real shops around Rochester, New York, run by people
-      who know the hobby. Buy local when you can: the shop is why the local scene exists.</p>
-    <ul class="shop-list">
-      <li class="shop">
-        <div class="shop-head">
-          <h3>LingSter Games</h3>
-          
-        </div>
-        <p class="shop-area">Rochester, NY</p>
-        <p class="shop-blurb">Deep Pokemon singles and sealed, and the first stop when a set drops.</p>
-        <ul class="shop-tags"><li>Sealed product</li><li>Singles</li><li>New releases</li></ul>
-        <a class="shop-link" href="https://lingstergames.com/collections/pokemon" rel="noopener" target="_blank">
-          lingstergames.com <span aria-hidden="true">&rarr;</span>
-        </a>
-      </li>
-      <li class="shop">
-        <div class="shop-head">
-          <h3>Millennium Games</h3>
-          
-        </div>
-        <p class="shop-area">Rochester, NY</p>
-        <p class="shop-blurb">One of the biggest game stores in the area, with a Pokemon section to match.</p>
-        <ul class="shop-tags"><li>Sealed product</li><li>Singles</li><li>In store</li></ul>
-        <a class="shop-link" href="https://shop.millenniumgames.com/collections/pokemon-tcg" rel="noopener" target="_blank">
-          shop.millenniumgames.com <span aria-hidden="true">&rarr;</span>
-        </a>
-      </li>
-    </ul>
-    <p class="shops-note">NOT SPONSORED AND NOT AFFILIATE LINKS. THESE ARE SHOPS I GO TO.
-      IF YOU RUN A CARD SHOP AROUND ROCHESTER AND YOU ARE NOT ON HERE, SAY HELLO ON ANY OF THE SOCIALS.</p>
+    <div class="chof-head">
+      <h1>Card Hall of Fame</h1>
+      <p>Every card worth remembering that has come out of a pack on this channel,
+        ranked by what it is worth. Tap a card to see it full size.</p>
+      
+    </div>
+
+    <p class="chof-empty">No cards inducted yet. Mark a card <b>Card Hall of Fame</b> on the
+         Chase Cards tab of the video log and it appears here, ranked automatically.</p>
+
+    <p class="chof-note">RANKED BY PSA 10 WHERE THERE IS ONE, AND BY RAW NEAR MINT OTHERWISE.
+      A DASH MEANS NO PRICE WE ARE WILLING TO STAND BEHIND YET, NOT A CARD WORTH NOTHING.</p>
   </div>
 </section>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card">
+  <button class="lb-close" type="button" aria-label="Close">&times;</button>
+  <div class="lb-in">
+    <img id="lbImg" src="" alt="">
+    <h2 id="lbNm"></h2>
+    <p id="lbRr"></p>
+    <p class="lb-pr" id="lbPr"></p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), last=null;
+  function open(b){
+    last=b;
+    var src=b.dataset.img;
+    if(!src) return;                       // no art, nothing to enlarge
+    img.src=src; img.alt=b.dataset.name+' '+b.dataset.number;
+    document.getElementById('lbNm').textContent=b.dataset.name;
+    document.getElementById('lbRr').textContent=[b.dataset.set,b.dataset.rarity,'#'+b.dataset.number].filter(Boolean).join(' \u2022 ');
+    document.getElementById('lbPr').textContent=[
+      b.dataset.raw?'Raw NM '+b.dataset.raw:'',
+      b.dataset.psa?'PSA 10 '+b.dataset.psa:''
+    ].filter(Boolean).join('   \u2022   ');
+    lb.classList.add('on');
+    document.body.style.overflow='hidden';
+    lb.querySelector('.lb-close').focus();
+  }
+  function close(){
+    lb.classList.remove('on');
+    document.body.style.overflow='';
+    if(last) last.focus();                 // send focus back where it came from
+  }
+  document.querySelectorAll('.chof-art').forEach(function(b){
+    b.addEventListener('click',function(){open(b)});
+  });
+  lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
+})();
+</script>
 <footer>
   <div class="wrap">
     <svg class="squiggle" width="180" height="20" style="margin:0 auto 16px" aria-hidden="true"><use href="#drizzle"/></svg>
