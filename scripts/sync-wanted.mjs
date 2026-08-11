@@ -90,7 +90,9 @@ const gradedFor = (setId, number) => {
   const m = graded.prices?.[k];
   if (m) return { price: m.price ?? m, asOf: m.asOf || null, source: m.source || null };
   const a = graded.auto?.[k];
-  return a?.psa10 ? { price: a.psa10, asOf: a.asOf || null, source: a.source || null } : null;
+  // Same floor as the set guides: under ten recorded sales is not a market.
+  if (!a?.psa10 || (a.psa10Sales != null && a.psa10Sales < 10)) return null;
+  return { price: a.psa10, asOf: a.asOf || null, source: a.source || null, sales: a.psa10Sales || null };
 };
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 const setName = new Map(sets.map((s) => [s.id, s.name]));

@@ -33,9 +33,19 @@ try {
 // the spreadsheet; `auto` is what sync-prices.mjs fetched and owns. A sync must
 // never overwrite a number he checked himself, so it is read second.
 const gnum = (v) => (typeof v === "number" ? v : typeof v?.price === "number" ? v.price : null);
+// A synced price needs enough sales behind it to mean anything. Volcarona came
+// back at 15x its raw price off six recorded sales, which is an anecdote, not a
+// market. Hand-entered prices skip this test: if Tim typed it, he stands
+// behind it.
+const MIN_SALES = 10;
 const gradedPrice = (setId, number) => {
   const k = `${setId}-${number}`;
-  return gnum(psa10.prices?.[k]) ?? gnum(psa10[k]) ?? (psa10.auto?.[k]?.psa10 ?? null);
+  const manual = gnum(psa10.prices?.[k]) ?? gnum(psa10[k]);
+  if (manual) return manual;
+  const a = psa10.auto?.[k];
+  if (!a?.psa10) return null;
+  if (a.psa10Sales != null && a.psa10Sales < MIN_SALES) return null;
+  return a.psa10;
 };
 const gradedAsOf = (setId, number) => {
   const k = `${setId}-${number}`;

@@ -27,6 +27,37 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const API = "https://www.pokemonpricetracker.com/api/v2";
+
+// Our set ids -> theirs, confirmed against /v2/sets rather than matched by
+// name. Two of these are why: fuzzy matching sent Scarlet & Violet to the 151
+// set, because "scarletandviolet" is a prefix of "scarletandviolet151"; and
+// Pokemon GO missed entirely because stripping non-alphanumerics turns the
+// accented e in "Pokemon" into nothing rather than into an e.
+const SET_MAP = {
+  "pitch-black": "me05-pitch-black",
+  "chaos-rising": "me04-chaos-rising",
+  "perfect-order": "me03-perfect-order",
+  "ascended-heroes": "me-ascended-heroes",
+  "phantasmal-flames": "me02-phantasmal-flames",
+  "mega-evolution": "me01-mega-evolution",
+  "white-flare": "sv-white-flare",
+  "black-bolt": "sv-black-bolt",
+  "destined-rivals": "sv10-destined-rivals",
+  "journey-together": "sv09-journey-together",
+  "prismatic-evolutions": "sv-prismatic-evolutions",
+  "surging-sparks": "sv08-surging-sparks",
+  "stellar-crown": "sv07-stellar-crown",
+  "shrouded-fable": "sv-shrouded-fable",
+  "twilight-masquerade": "sv06-twilight-masquerade",
+  "temporal-forces": "sv05-temporal-forces",
+  "paldean-fates": "sv-paldean-fates",
+  "paradox-rift": "sv04-paradox-rift",
+  "obsidian-flames": "sv03-obsidian-flames",
+  "151": "sv-scarlet-and-violet-151",
+  "paldea-evolved": "sv02-paldea-evolved",
+  "scarlet-violet": "sv01-scarlet-and-violet-base-set",
+  "pokemon-go": "pokemon-go",
+};
 const KEY = process.env.PPT_API_KEY;
 const PROBE = process.argv.includes("--probe");
 const LIMIT = (() => {
@@ -83,28 +114,31 @@ async function apiGet(path, { tries = 4 } = {}) {
 }
 
 /**
- * Find a number in a response whose shape we have not seen.
+ * Pull the two numbers we want out of a card.
  *
- * The API's exact field names are not documented publicly, and this was
- * written without a key to inspect. Rather than guess one path and silently
- * write nulls forever, walk the object for the first plausible match and
- * report which path won, so --probe tells us what to hard-code later.
+ * PSA 10 lives at ebay.salesByGrade.psa10. Their smartMarketPrice is a
+ * weighted recent-window figure and is the one to show; medianPrice over all
+ * recorded sales is the fallback, and is preferred to averagePrice because a
+ * single silly sale moves an average and barely moves a median.
+ *
+ * Raw near mint is prices.market, the TCGplayer market price, which the
+ * variants block confirms is the Near Mint printing.
  */
-function findPrice(obj, patterns, path = "", depth = 0) {
-  if (obj == null || depth > 6) return null;
-  if (typeof obj === "number" && obj > 0) {
-    return patterns.some((p) => p.test(path)) ? { value: obj, path } : null;
-  }
-  if (typeof obj !== "object") return null;
-  for (const [k, v] of Object.entries(obj)) {
-    const hit = findPrice(v, patterns, `${path}.${k}`, depth + 1);
-    if (hit) return hit;
-  }
-  return null;
+function extract(card) {
+  const g = card?.ebay?.salesByGrade?.psa10;
+  const psa10 = g?.smartMarketPrice?.price ?? g?.medianPrice ?? null;
+  return {
+    psa10: typeof psa10 === "number" && psa10 > 0 ? Math.round(psa10 * 100) / 100 : null,
+    // How much to trust it. 539 sales at high confidence is a fact; three
+    // sales is an anecdote, and the site should be able to tell them apart.
+    psa10Confidence: g?.smartMarketPrice?.confidence || null,
+    psa10Sales: typeof g?.count === "number" ? g.count : null,
+    psa10LastSale: g?.lastSaleDate ? String(g.lastSaleDate).slice(0, 10) : null,
+    rawNm: typeof card?.prices?.market === "number" ? card.prices.market : null,
+    theirNumber: card?.cardNumber || null,
+    theirName: card?.name || null,
+  };
 }
-
-const PSA10_PATTERNS = [/psa[^a-z]*10/i, /grade[^a-z]*10/i];
-const RAW_PATTERNS = [/near.?mint/i, /\bnm\b/i, /raw/i, /ungraded/i, /market/i];
 
 /* ------------------------------------------------------------- the targets */
 
@@ -134,17 +168,21 @@ for (const w of wantedSrc.cards || []) {
 
 /* -------------------------------------------------------------------- probe */
 
+// Credits are charged per CARD RETURNED, not per request: limit=1 with eBay
+// data costs 2, limit=5 costs 10. So every query asks for exactly one card and
+// searches by card number, which the API matches and which is unambiguous
+// where a name is not: the same Pokemon often has three printings in one set.
+const query = (t) =>
+  `cards?setId=${encodeURIComponent(SET_MAP[t.setId])}` +
+  `&search=${encodeURIComponent(t.number)}&includeEbay=true&limit=1`;
+
 if (PROBE) {
-  const t = targets[0];
+  const t = targets.find((x) => SET_MAP[x.setId]) || targets[0];
   console.log(`Probing with ${t.name} #${t.number} (${t.setName})\n`);
-  const res = await apiGet(`cards?name=${encodeURIComponent(t.name)}&limit=1`);
-  console.log(JSON.stringify(res, null, 2).slice(0, 4000));
-  const card = res?.data?.[0] || res?.cards?.[0] || res;
-  const psa = findPrice(card, PSA10_PATTERNS);
-  const raw = findPrice(card, RAW_PATTERNS);
-  console.log(`\n---\nPSA 10 found at: ${psa ? `${psa.path} = ${psa.value}` : "NOT FOUND"}`);
-  console.log(`Raw NM found at: ${raw ? `${raw.path} = ${raw.value}` : "NOT FOUND"}`);
-  console.log(`\nCredits used: ${spent}. Paste this output back and the field paths get hard-coded.\n`);
+  const res = await apiGet(query(t));
+  const card = res?.data?.[0];
+  console.log(card ? JSON.stringify(extract(card), null, 2) : "no card returned");
+  console.log(`\nCredits used: ${spent * 2}\n`);
   process.exit(0);
 }
 
@@ -161,35 +199,55 @@ const today = new Date().toISOString().slice(0, 10);
 const todo = targets.slice(0, LIMIT);
 let hits = 0, misses = 0;
 const problems = [];
+const mismatches = [];
 
 console.log(`Fetching ${todo.length} of ${targets.length} cards...\n`);
 for (const t of todo) {
   process.stdout.write(`  ${t.name} #${t.number} (${t.setName})... `);
   try {
-    const res = await apiGet(
-      `cards?name=${encodeURIComponent(t.name)}&setId=${encodeURIComponent(t.setId)}&number=${encodeURIComponent(t.number)}&limit=1`
-    );
-    const card = res?.data?.[0] || res?.cards?.[0] || null;
+    if (!SET_MAP[t.setId]) {
+      console.log("set not on their side");
+      misses++;
+      continue;
+    }
+    const res = await apiGet(query(t));
+    const card = res?.data?.[0];
     if (!card) {
       console.log("no match");
       misses++;
       continue;
     }
-    const psa = findPrice(card, PSA10_PATTERNS);
-    const raw = findPrice(card, RAW_PATTERNS);
-    if (!psa && !raw) {
+    const e = extract(card);
+
+    // Their numbers look like "161/131", ours like "161". Compare the part
+    // before the slash, and refuse the row on a mismatch rather than writing a
+    // price for whichever card the search happened to return.
+    const theirs = String(e.theirNumber || "").split("/")[0].trim();
+    if (theirs !== String(t.number).trim()) {
+      console.log(`wrong card back (#${e.theirNumber} "${e.theirName}"), skipped`);
+      mismatches.push(`${t.key}: asked #${t.number}, got #${e.theirNumber}`);
+      misses++;
+      continue;
+    }
+    if (!e.psa10 && !e.rawNm) {
       console.log("matched, no prices");
       misses++;
       continue;
     }
     auto[t.key] = {
-      psa10: psa?.value ?? null,
-      rawNm: raw?.value ?? null,
+      psa10: e.psa10,
+      psa10Confidence: e.psa10Confidence,
+      psa10Sales: e.psa10Sales,
+      psa10LastSale: e.psa10LastSale,
+      rawNm: e.rawNm,
       asOf: today,
       source: "pokemonpricetracker.com",
     };
     hits++;
-    console.log(`${psa ? `PSA10 $${psa.value}` : "no PSA10"}${raw ? `, raw $${raw.value}` : ""}`);
+    console.log(
+      `${e.psa10 ? `PSA10 $${e.psa10}${e.psa10Sales ? ` (${e.psa10Sales} sales)` : ""}` : "no PSA10"}` +
+        `${e.rawNm ? `, raw $${e.rawNm}` : ""}`
+    );
   } catch (e) {
     console.log(`stopped: ${e.message}`);
     problems.push(e.message);
@@ -209,7 +267,10 @@ Wrote data/psa10.json
   fetched          ${hits}
   no data          ${misses}
   hand-entered     ${manual}  (untouched: these always win over a sync)
-  credits used     ${spent}
+  credits used     ${spent * 2}
 `);
+if (mismatches.length) {
+  console.log(`Skipped, because the search returned a different card:\n  ${mismatches.join("\n  ")}\n`);
+}
 if (problems.length) console.log(`Stopped early: ${problems.join("; ")}\n`);
 console.log("Next: node scripts/build-set-pages.mjs && node scripts/sync-wanted.mjs && node scripts/build-wanted.mjs\n");
