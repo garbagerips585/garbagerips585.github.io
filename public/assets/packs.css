@@ -56,6 +56,15 @@
 .pack--mega-evolution .pack-art::before,.pack--mega-evolution .pack-art::after{content:none}
 .pack--mega-evolution .pack-brand,.pack--mega-evolution .pack-mascot{display:none}
 
+.pack--obsidian-flames .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/obsidian-flames-garbage-rips-585-booster-pack.webp');
+  background-size:cover;
+  background-position:center;
+}
+.pack--obsidian-flames .pack-art::before,.pack--obsidian-flames .pack-art::after{content:none}
+.pack--obsidian-flames .pack-brand,.pack--obsidian-flames .pack-mascot{display:none}
+
 .pack--paradox-rift .pack-art{
   background-color:#161D26;
   background-image:url('packs/paradox-rift-garbage-rips-585-booster-pack.webp');
