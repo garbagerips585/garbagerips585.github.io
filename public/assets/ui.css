@@ -15,6 +15,24 @@
    colour than any layout could add, so everything around them stays quiet.
    ========================================================================== */
 :root{
+
+  /* Tokens the ported set-guide and rip-page rules still name. They were
+     defined in site.css's :root, which did not come across with the component
+     rules, so every ported card lost its background, border and shadow at once
+     and the pages rendered as unstyled text on cream. */
+  --hard-lg:5px 5px 0 var(--navy);
+  --ink-soft:#5A6150;
+  --navy:#1E3A54;
+  --line:#1E3A54;   /* alias: some ported rules name the keyline this way */
+  --navy-deep:#132637;
+  --paper:#F7F2DE;
+  --paper-2:#FFFCF0;
+  --paper-3:#EDE6CB;
+  --sky-deep:#0E6E96;
+  --sky-lite:#A8E4F7;
+  --sky-tint:#DCF2FB;
+  --trubbish:#6E7D4F;
+  --wrap:1180px;
   --page:#F7F5EC; --card:#FFFFFF;
   --ink:#15263A; --ink-2:#5A6E82; --hair:rgba(21,38,58,.14);
 
@@ -606,3 +624,306 @@ footer .squiggle{display:none}
 .pl-count{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.04em}
 .pl-out{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ketchup-deep);letter-spacing:.04em;
   margin-top:var(--s1)}
+
+
+/* --------------------------------------------------------------------------
+   Set guide and rip page components, ported from site.css.
+   Only the rules those 332 pages actually reference, and only where ui.css
+   did not already define the class: the chrome and the tiles come from above.
+   -------------------------------------------------------------------------- */
+.hl{color:var(--ketchup);text-shadow:2px 2px 0 var(--mustard)}
+.sec-label{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--sky-deep);margin-bottom:10px;font-weight:700;
+}
+.flower{width:14px;height:14px;fill:var(--ketchup);flex:none}
+.lede{font-size:1.1rem;max-width:38em;color:var(--ink-soft)}
+section.tight{padding:48px 0}
+/* sky-tinted band */
+section.band{background:var(--sky-tint);border-top:3px solid var(--sky);border-bottom:3px solid var(--sky)}
+/* full sky */
+section.band-sky{
+  background:linear-gradient(180deg,var(--sky) 0%,var(--sky-lite) 100%);
+  border-top:3px solid var(--navy);border-bottom:3px solid var(--navy);color:var(--navy);
+}
+section.band-sky .sec-label{color:var(--navy)}
+section.band-navy .lede{color:rgba(247,242,222,.85)}
+section.band-navy .sec-label{color:var(--mustard)}
+section.band-navy .hl{color:var(--mustard);text-shadow:2px 2px 0 var(--navy-deep)}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-weight:700;
+  padding:13px 24px;border-radius:999px;font-size:1rem;line-height:1;
+  border:2px solid var(--navy);
+  transition:transform .12s ease,box-shadow .12s ease;
+}
+.btn:hover{transform:translate(-2px,-2px)}
+.btn-yt{background:linear-gradient(180deg,var(--mustard),var(--gold));color:var(--navy);box-shadow:4px 4px 0 var(--navy)}
+.btn-yt:hover{box-shadow:6px 6px 0 var(--navy)}
+.btn-sky{background:var(--sky);color:var(--navy);box-shadow:4px 4px 0 var(--navy)}
+.btn-sky:hover{box-shadow:6px 6px 0 var(--navy)}
+.btn-ghost{background:var(--paper-2);color:var(--ink);box-shadow:4px 4px 0 var(--trubbish)}
+.btn-ghost:hover{background:#fff;box-shadow:6px 6px 0 var(--trubbish)}
+.band-navy .btn-ghost{background:transparent;color:var(--paper);border-color:var(--paper);box-shadow:4px 4px 0 var(--sky-deep)}
+.btn-sm{padding:9px 16px;font-size:.85rem}
+/* ---------- nav ---------- */
+nav.site{
+  position:sticky;top:0;z-index:60;
+  background:var(--navy);color:var(--paper);
+  border-bottom:4px solid var(--gold);
+}
+.nav-in{display:flex;align-items:center;flex-wrap:wrap;gap:18px;padding:12px 24px;max-width:var(--wrap);margin:0 auto}
+.logo{
+  font-family:var(--display);font-size:1.1rem;letter-spacing:.02em;text-decoration:none;
+  color:var(--mustard);text-shadow:2px 2px 0 var(--navy-deep);white-space:nowrap;flex:none;
+}
+.logo span{color:var(--sky)}
+.nav-links{display:flex;gap:20px;list-style:none;margin-left:auto}
+.nav-links a{text-decoration:none;font-weight:600;font-size:.93rem;color:var(--paper);opacity:.88;padding:6px 2px;border-bottom:2px solid transparent}
+.nav-links a:hover,.nav-links a[aria-current=page]{opacity:1;color:var(--mustard);border-bottom-color:var(--mustard)}
+.nav-social{display:flex;gap:10px;align-items:center}
+.nav-social a{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25)}
+.nav-social a:hover{background:var(--mustard);border-color:var(--mustard)}
+.nav-social svg{width:16px;height:16px;fill:var(--paper)}
+.nav-social a:hover svg{fill:var(--navy)}
+.nav-toggle{display:none;margin-left:auto;width:42px;height:42px;border:2px solid rgba(255,255,255,.35);border-radius:10px;place-items:center}
+.nav-toggle svg{width:20px;height:20px;fill:var(--paper)}
+@media(max-width:900px){.nav-links,.nav-social{display:none}.nav-toggle{display:grid}nav.site.open .nav-links{
+    display:flex;flex-direction:column;gap:0;
+    flex-basis:100%;order:4;margin:0;padding:4px 0 0;
+    border-top:1px solid rgba(255,255,255,.2);
+  }nav.site.open .nav-links a{display:block;padding:14px 2px;border-bottom:1px solid rgba(255,255,255,.16)}nav.site.open .nav-social{display:flex;flex-basis:100%;order:5;padding:14px 0 6px}}
+/* ---------- search ---------- */
+.search{position:relative;flex:1;max-width:330px}
+.search input{
+  width:100%;font:inherit;font-size:.9rem;color:var(--ink);
+  background:var(--paper-2);border:2px solid var(--navy-deep);
+  border-radius:999px;padding:9px 16px 9px 38px;
+}
+.search input::placeholder{color:var(--ink-soft)}
+.search input:focus{border-color:var(--mustard);outline:none;box-shadow:0 0 0 3px rgba(239,201,76,.4)}
+.search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:15px;height:15px;fill:var(--ink-soft);pointer-events:none}
+@media(max-width:900px){.search{max-width:none;order:3;flex-basis:100%}}
+.hero-art h1 .rip{color:var(--ketchup);text-shadow:3px 3px 0 var(--mustard)}
+.hero-art .lede{color:var(--ink)}
+h1 .rip{color:var(--ketchup);text-shadow:var(--hard-lg)}
+.hero-art .lede{margin:20px 0 28px;font-weight:500}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.soc{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;
+  background:var(--paper-2);border:2px solid var(--navy);box-shadow:2px 2px 0 var(--navy);transition:transform .12s}
+.soc svg{width:18px;height:18px;fill:var(--navy)}
+.soc:hover{transform:translateY(-3px) rotate(-4deg)}
+.soc.yt:hover{background:#FF0033}
+.soc.yt:hover svg{fill:#fff}
+.soc.ig:hover{background:linear-gradient(45deg,#F09433,#DC2743,#BC1888)}
+.soc.ig:hover svg{fill:#fff}
+.soc.tt:hover{background:#111}
+.soc.tt:hover svg{fill:#fff}
+.soc.fb:hover{background:#1877F2}
+.soc.fb:hover svg{fill:#fff}
+footer .soc{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);box-shadow:none}
+footer .soc svg{fill:var(--paper)}
+/* ==========================================================================
+   VIDEO CARDS — framed like a card face: gold border, white bevel, the tile
+   sitting on the diner paper. Thumbnails come from oardefault (true vertical);
+   tiles are 2:3 because a real 9:16 tile is 1.78x tall and makes a wall of
+   skinny rectangles. The player opens out to 9:16 on click so there are no bars.
+   ========================================================================== */
+.vid-grid{display:grid;gap:22px;grid-template-columns:repeat(6,1fr)}
+@media(max-width:1100px){.vid-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:760px){.vid-grid{grid-template-columns:repeat(3,1fr);gap:14px}}
+@media(max-width:520px){.vid-grid{grid-template-columns:repeat(2,1fr)}}
+.vid{display:flex;flex-direction:column;gap:9px;min-width:0}
+.vid-title{font-size:.88rem;font-weight:600;line-height:1.32;color:var(--ink);
+  display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vid-title a{text-decoration:none}
+.vid-title a:hover{color:var(--ketchup)}
+.vid-meta{font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);letter-spacing:.04em}
+.band-navy .vid-title{color:var(--paper)}
+.band-navy .vid-title a:hover{color:var(--mustard)}
+.band-navy .vid-meta{color:rgba(247,242,222,.7)}
+.vid-grid.dense{grid-template-columns:repeat(auto-fill,minmax(168px,1fr))}
+@media(max-width:520px){.vid-grid.dense{grid-template-columns:repeat(2,1fr)}}
+.vid-grid.dense .vid-chip.set{display:none}
+section.band-gold .sec-label{color:#5A3B06}
+section.band-gold .lede{color:#4A3208}
+section.band-gold .hl{color:var(--paper-2);text-shadow:3px 3px 0 #8A5A0C}
+section.band-gold .vid-title{color:#2E2007}
+section.band-gold .vid-title a:hover{color:var(--ketchup)}
+section.band-gold .vid-meta{color:#5A3B06}
+.chip.prod[aria-pressed=true]{background:var(--mustard)}
+.band-sky .chip{box-shadow:2px 2px 0 var(--navy)}
+/* ==========================================================================
+   PER-VIDEO PAGE
+   ========================================================================== */
+.rip-grid{display:grid;grid-template-columns:minmax(280px,380px) 1fr;gap:44px;align-items:start}
+@media(max-width:860px){.rip-grid{grid-template-columns:1fr;gap:28px}}
+.rip h1{font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.12;margin-bottom:14px}
+.rip-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.rip-meta{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft);margin-bottom:20px;font-weight:700}
+.rip-desc{white-space:pre-wrap;background:var(--paper-2);border:3px solid var(--navy);
+  border-radius:12px;padding:20px 22px;box-shadow:0 6px 0 var(--trubbish);font-size:.95rem}
+.crumbs{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);margin-bottom:18px;font-weight:700}
+.crumbs a{color:var(--sky-deep)}
+.rip-nav{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+@media(prefers-reduced-motion:reduce){.btn,.menu-item,.vid-shell,.soc,.pl,.vid-play,.chip,.vid-shell::after{transition:none}.btn:hover,.vid-shell:hover,.soc:hover,.pl:hover,.chip:hover{transform:none}}
+/* ---------- set logo on a video page ---------- */
+.rip-setlogo{display:block;height:clamp(34px,5vw,54px);width:auto;margin-bottom:14px}
+.sec-head .setlogo{height:clamp(30px,4.4vw,50px);width:auto;display:block;margin-bottom:6px}
+/* ==========================================================================
+   SET PAGES — "Card Pokedex"
+   Built mobile-first: almost all the traffic is phones, so every block is a
+   single column by default and only widens where there is room.
+   ========================================================================== */
+.set-hero{
+  background:linear-gradient(180deg,var(--sky-tint),var(--paper));
+  border-bottom:4px solid var(--navy);padding:26px 0 30px;
+}
+.set-hero .wrap{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
+.set-hero img.logo-big{height:clamp(56px,17vw,110px);width:auto}
+.set-hero h1{font-size:clamp(1.7rem,7vw,3rem)}
+.set-hero .kicker{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--navy);background:var(--mustard);border:2px solid var(--navy);
+  padding:5px 12px;border-radius:4px;font-weight:700;
+}
+/* quick facts: 2-up on a phone, 4-up when there is room */
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px}
+@media(min-width:700px){.facts{grid-template-columns:repeat(4,1fr);gap:14px}}
+.fact{
+  background:var(--paper-2);border:3px solid var(--navy);border-radius:12px;
+  padding:14px 12px;text-align:center;box-shadow:0 5px 0 var(--trubbish);
+}
+.fact .n{font-family:var(--display);font-size:clamp(1.3rem,5.5vw,1.9rem);color:var(--ketchup);line-height:1.05}
+.fact .l{
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-soft);margin-top:5px;font-weight:700;
+}
+.fact.wide{grid-column:1 / -1}
+/* rarity ladder */
+.rarity-list{display:flex;flex-direction:column;gap:9px;margin-top:18px}
+.rar{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center}
+.rar-name{font-weight:600;font-size:.94rem}
+.rar-n{font-family:var(--mono);font-weight:700;font-size:.86rem;color:var(--ketchup)}
+.rar-bar{
+  grid-column:1 / -1;height:12px;border-radius:999px;background:var(--paper-3);
+  border:2px solid var(--navy);overflow:hidden;
+}
+.rar-bar i{display:block;height:100%;background:var(--sky)}
+.rar.chase .rar-bar i{background:linear-gradient(90deg,var(--mustard),var(--gold))}
+.rar.chase .rar-name{color:var(--gold-deep)}
+/* chase cards */
+.chase-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+@media(min-width:620px){.chase-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.chase-grid{grid-template-columns:repeat(4,1fr)}}
+.chase-card{
+  background:var(--paper-2);border:3px solid var(--navy);border-radius:12px;
+  padding:10px;box-shadow:0 5px 0 var(--gold-deep);text-decoration:none;display:block;
+}
+.chase-card img{width:100%;height:auto;border-radius:6px}
+/* PSA 10 sits under the raw price and only appears when a graded price has
+   been checked by hand. Gold marks every graded figure on the site. */
+.chase-card .pr10{font:700 .6875rem/1.4 'Space Mono',ui-monospace,monospace;
+  color:#A8760B;letter-spacing:.03em}
+.chase-card .nm{font-weight:700;font-size:.84rem;line-height:1.25;margin-top:8px}
+.chase-card .rr{font-family:var(--mono);font-size:.6rem;color:var(--ink-soft);margin-top:2px;letter-spacing:.06em}
+.chase-card .pr{font-family:var(--display);font-size:1.15rem;color:var(--ketchup);margin-top:4px}
+.price-note{
+  font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);margin-top:14px;
+  border-left:4px solid var(--trubbish);padding-left:10px;line-height:1.5;
+}
+.no-prices{
+  background:var(--paper-2);border:3px dashed var(--trubbish);border-radius:12px;
+  padding:18px;margin-top:18px;font-size:.92rem;color:var(--ink-soft);
+}
+/* fun facts */
+.facts-list{list-style:none;display:flex;flex-direction:column;gap:11px;margin-top:16px}
+.facts-list li{
+  background:var(--paper-2);border:3px solid var(--navy);border-radius:12px;
+  padding:13px 16px;font-size:.95rem;box-shadow:0 4px 0 var(--trubbish);
+}
+.facts-list b{font-family:var(--display);font-weight:400;color:var(--ketchup)}
+/* watch-this-set callout */
+.set-watch{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin-top:20px}
+@media(min-width:760px){.set-watch{grid-template-columns:180px 1fr}}
+.set-watch .packshot{
+  aspect-ratio:2/3;border-radius:12px;overflow:hidden;border:4px solid var(--mustard);
+  outline:2px solid var(--navy);outline-offset:-6px;box-shadow:0 6px 0 var(--gold-deep);
+  background:#161D26 center/cover no-repeat;max-width:180px;margin:0 auto;
+}
+/* set index */
+.set-index{display:grid;grid-template-columns:repeat(1,1fr);gap:14px;margin-top:24px}
+@media(min-width:560px){.set-index{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:900px){.set-index{grid-template-columns:repeat(3,1fr)}}
+.set-card{
+  display:flex;align-items:center;gap:14px;text-decoration:none;
+  background:var(--paper-2);border:3px solid var(--navy);border-radius:14px;
+  padding:14px 16px;box-shadow:0 5px 0 var(--trubbish);
+  transition:transform .12s,box-shadow .12s;
+}
+.set-card:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--trubbish)}
+.set-card img{height:42px;width:auto;flex:none;max-width:110px;object-fit:contain}
+.set-card .meta{font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);font-weight:700}
+.set-card .ttl{font-family:var(--display);font-size:1rem;line-height:1.15}
+/* ---------- chase card lightbox ----------
+   Cards open large on this site rather than bouncing straight out to a
+   marketplace. The price link is still there, one tap inside. */
+.chase-card{cursor:zoom-in;width:100%;text-align:left;font:inherit;color:inherit}
+.lb{
+  position:fixed;inset:0;z-index:200;display:none;
+  background:rgba(19,38,55,.86);backdrop-filter:blur(4px);
+  padding:20px;overflow-y:auto;
+}
+.lb[open],.lb.on{display:grid;place-items:center}
+.lb-inner{
+  background:var(--paper-2);border:4px solid var(--navy);border-radius:16px;
+  box-shadow:0 12px 0 var(--gold-deep);padding:16px;max-width:420px;width:100%;
+  text-align:center;position:relative;
+}
+.lb-inner img{width:100%;height:auto;border-radius:10px;max-height:62vh;object-fit:contain}
+.lb-nm{font-family:var(--display);font-size:1.2rem;margin-top:12px;line-height:1.15}
+.lb-rr{font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);margin-top:4px;letter-spacing:.06em}
+.lb-pr{font-family:var(--display);font-size:1.8rem;color:var(--ketchup);margin-top:6px}
+.lb-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.lb-close{
+  position:absolute;top:-16px;right:-16px;width:44px;height:44px;border-radius:50%;
+  background:var(--ketchup);color:var(--paper-2);border:3px solid var(--navy);
+  font-size:1.4rem;line-height:1;display:grid;place-items:center;box-shadow:0 4px 0 var(--navy);
+}
+@media(max-width:520px){.lb{padding:14px}.lb-close{top:-12px;right:-6px}}
+/* ---------- what the pack looks like ---------- */
+.packshots{display:grid;grid-template-columns:1fr;gap:18px;margin-top:20px}
+@media(min-width:640px){.packshots{grid-template-columns:1fr 1fr}}
+.packshot-card{
+  background:var(--paper-2);border:3px solid var(--navy);border-radius:14px;
+  padding:16px;box-shadow:0 6px 0 var(--trubbish);text-align:center;
+}
+.packshot-card .ph{
+  aspect-ratio:2/3;max-width:220px;margin:0 auto;border-radius:10px;overflow:hidden;
+  border:4px solid var(--mustard);outline:2px solid var(--navy);outline-offset:-6px;
+  background:#161D26 center/cover no-repeat;
+}
+.packshot-card .ph img{width:100%;height:100%;object-fit:cover}
+.packshot-card .cap{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-soft);font-weight:700;margin-top:12px;
+}
+.packshot-card .sub{font-size:.86rem;color:var(--ink-soft);margin-top:6px;line-height:1.45}
+/* --------------------------------------------------------------------------
+   What you are chasing. The top cards from this rip's set, on the video's own
+   page, because "what was he hoping for" is the question the page raises and
+   never answered. Raw price always; PSA 10 only where we have one.
+   -------------------------------------------------------------------------- */
+.chaser-list{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+@media(max-width:700px){.chaser-list{grid-template-columns:1fr;gap:12px}}
+.chaser{display:flex;gap:14px;align-items:center;background:var(--paper,#FFF9EA);
+  border:2px solid var(--line,#1E3A54);border-radius:12px;padding:12px}
+.chaser img{width:66px;height:auto;flex:none;border-radius:5px}
+.chaser b{display:block;font-size:.9rem;line-height:1.25}
+.chaser-rar,.chaser-pr{display:block;font:700 .6875rem/1.5 'Space Mono',ui-monospace,monospace;
+  letter-spacing:.03em}
+.chaser-rar{color:#57354F}
+.chaser-pr{color:#15263A;margin-top:4px}
+.chaser-pr i{font-style:normal;color:#A8760B;display:block}

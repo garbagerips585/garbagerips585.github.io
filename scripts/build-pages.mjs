@@ -9,7 +9,7 @@
 // noindex and kept out of the sitemap, since they are too thin to rank.
 // Tag them (see UNTAGGED.md) and re-run to promote them.
 
-import { readFile, writeFile, mkdir, rm } from "node:fs/promises";
+import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { labelFor } from "../shared/taxonomy.mjs";
@@ -22,6 +22,16 @@ const OUT = join(ROOT, "public/rip");
 // Graded prices, hand-entered first and synced second, with the same
 // ten-sale floor the set guides use. One store, so a card cannot show two
 // different numbers on two different pages.
+// Which sets actually have wrapper art. Five (White Flare, Black Bolt,
+// Shrouded Fable, Paldean Fates, Paldea Evolved) have neither art nor a colour
+// skin, so naming them here would render the plain Garbage Rips green rather
+// than the generic wrapper we drew for exactly this case.
+const packsOnDisk = new Set(
+  (await readdir(join(ROOT, "public/assets/packs")))
+    .filter((f) => f.endsWith(".webp"))
+    .map((f) => f.replace(/-garbage-rips-585-booster-pack\.webp$/, ""))
+);
+
 const setData = new Map(
   JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8")).sets.map((x) => [x.id, x])
 );
@@ -145,7 +155,8 @@ function page(v, prev, next) {
 // isTagged. Reusing one variable for both pointed multi-set pages at
 // /sets/multi.html and, worse, made isTagged true for every untagged video, so
 // 39 thin pages lost their noindex and entered the sitemap.
-const packSet = v.sets.length > 1 ? "multi" : v.sets[0] || "default";
+const packSet =
+    v.sets.length > 1 ? "multi" : packsOnDisk.has(v.sets[0]) ? v.sets[0] : "default";
 const setId = v.sets[0] || null;
 const prodId = v.products[0];
   // Every video gets a page so that clicking a tile never leaves the site.
@@ -320,7 +331,7 @@ ${related.length ? `<section class="band tight">
     <div class="vid-grid">
       ${related.map((r) => `<article class="vid">
         <a class="vid-shell" href="/${pathFor(r)}" aria-label="${esc(r.title)}">
-          <span class="pack pack--tile pack--${r.sets.length > 1 ? "multi" : r.sets[0] || "default"}" aria-hidden="true">
+          <span class="pack pack--tile pack--${r.sets.length > 1 ? "multi" : packsOnDisk.has(r.sets[0]) ? r.sets[0] : "default"}" aria-hidden="true">
             <span class="pack-face pack-l">
               <span class="pack-art"></span>
               <span class="pack-brand">${esc(r.sets[0] ? labelFor("sets", r.sets[0]) : "GARBAGE RIPS")}<small>${r.sets[0] ? "GARBAGE RIPS 585" : "585"}</small></span>
