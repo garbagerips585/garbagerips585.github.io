@@ -107,6 +107,8 @@
     // multi-set wrapper rather than picking one of them and implying the rip
     // was only that set. Filtered, the set the visitor asked for still wins.
     if (!opts.preferSet && sets.length > 1) set = "multi";
+    // No set at all: the generic wrapper beats the unskinned green placeholder.
+    else if (!set) set = "default";
     shell.appendChild(makePack(set, "tile"));
 
     if (opts.rank) shell.appendChild(el("span", "hits-rank", "#" + opts.rank));

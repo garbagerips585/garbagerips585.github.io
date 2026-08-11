@@ -144,10 +144,15 @@ function tile(v, { rank = null, showSet = true } = {}) {
   // the wrapper already names the set, so the useful pair is popularity and
   // recency. On the Hall of Fame shelf the date is irrelevant, so the set
   // takes its place.
-  // A multi-set video says so rather than quietly naming one of them.
+  // Label from the real sets, never from the face. Once the generic wrapper
+  // exists faceSet returns "multi", which is an artwork choice and would read
+  // here as though there were a card set called Multi.
   const extra = all.length > 1 ? ` +${all.length - 1}` : "";
+  const label = all.length
+    ? `${(setName.get(all[0]) || all[0]).toUpperCase()}${extra}`
+    : "GARBAGE RIPS";
   const meta = showSet
-    ? `${(setName.get(set) || set || "Garbage Rips").toUpperCase()}${extra} &bull; ${compact(v.views)} VIEWS`
+    ? `${label} &bull; ${compact(v.views)} VIEWS`
     : `${compact(v.views)} VIEWS &bull; ${shortDate(v.published).toUpperCase()}`;
 
   return `      <article class="v"><a class="art" href="/${esc(v.path)}">${badge}${flag}${face}<span class="play"></span>${
@@ -336,13 +341,21 @@ console.log(`index.html and proto-wall.html rebuilt from real data:
   Hall of Fame: ${hall.map((v) => (v.pulls || []).join("/")).slice(0, 3).join(", ")}...
   logos: ${logos.size}/${sets.length}    pack art: ${packs.size} sets`);
 if (noArt.length) console.log(`  sets ripped but with no pack art: ${noArt.join(", ")}`);
-if (untagged) console.log(`  ${untagged} videos still have no set tag and fall back to the wordmark tile`);
+if (untagged) {
+  console.log(
+    `  ${untagged} videos still have no set tag and show the generic wrapper` +
+      `${packs.has("default") ? "" : " (and there is no default.png yet, so they show the wordmark)"}`
+  );
+}
 
 // The most valuable tagging work: a hit with no set tag cannot appear on the
 // Hall of Fame shelf at all, however good the pull was.
 const hiddenHits = videos.filter((v) => bestPull(v) != null && !(v.sets || []).some((s) => packs.has(s)));
 if (hiddenHits.length) {
-  console.log(`\n  ${hiddenHits.length} graded hit${hiddenHits.length === 1 ? " is" : "s are"} kept off the Hall of Fame for want of a set tag:`);
+  console.log(
+    `\n  ${hiddenHits.length} graded hit${hiddenHits.length === 1 ? " is" : "s are"} kept off the Hall of Fame for want of a set tag.` +
+      `\n  They would all show the same generic wrapper, and a shelf of identical packs is worse than a shorter one:`
+  );
   for (const v of hiddenHits.slice(0, 10)) {
     console.log(`    ${(v.pulls || []).join("/").padEnd(12)} ${v.title.slice(0, 62)}`);
   }

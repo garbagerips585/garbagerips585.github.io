@@ -103,7 +103,12 @@ const niceViews = (n) =>
   : n + " views";
 
 function page(v, prev, next) {
-  const setId = v.sets[0], prodId = v.products[0];
+  // Same rule as the home page and the library: a rip holding packs from
+// several sets wears the generic wrapper rather than one set's, and an
+// untagged rip wears it too instead of the unskinned placeholder.
+const setId =
+  v.sets.length > 1 ? "multi" : v.sets[0] || "default";
+const prodId = v.products[0];
   // Every video gets a page so that clicking a tile never leaves the site.
   // Untagged ones are noindex: useful to a visitor, too thin for search.
   const isTagged = Boolean(setId && prodId);
@@ -245,7 +250,7 @@ ${related.length ? `<section class="band tight">
     <div class="vid-grid">
       ${related.map((r) => `<article class="vid">
         <a class="vid-shell" href="/${pathFor(r)}" aria-label="${esc(r.title)}">
-          <span class="pack pack--tile${r.sets[0] ? ` pack--${r.sets[0]}` : ""}" aria-hidden="true">
+          <span class="pack pack--tile pack--${r.sets.length > 1 ? "multi" : r.sets[0] || "default"}" aria-hidden="true">
             <span class="pack-face pack-l">
               <span class="pack-art"></span>
               <span class="pack-brand">${esc(r.sets[0] ? labelFor("sets", r.sets[0]) : "GARBAGE RIPS")}<small>${r.sets[0] ? "GARBAGE RIPS 585" : "585"}</small></span>
