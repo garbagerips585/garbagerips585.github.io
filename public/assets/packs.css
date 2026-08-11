@@ -2,6 +2,15 @@
 /* A set listed here shows its artwork; every other set keeps the
    colour design in site.css. */
 
+.pack--chaos-rising .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/chaos-rising.webp');
+  background-size:cover;
+  background-position:center;
+}
+.pack--chaos-rising .pack-art::before,.pack--chaos-rising .pack-art::after{content:none}
+.pack--chaos-rising .pack-brand,.pack--chaos-rising .pack-mascot{display:none}
+
 .pack--pitch-black .pack-art{
   background-color:#161D26;
   background-image:url('packs/pitch-black.webp');
