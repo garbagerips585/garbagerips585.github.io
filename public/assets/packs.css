@@ -65,6 +65,15 @@
 .pack--pitch-black .pack-art::before,.pack--pitch-black .pack-art::after{content:none}
 .pack--pitch-black .pack-brand,.pack--pitch-black .pack-mascot{display:none}
 
+.pack--pokemon-go .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/pokemon-go-garbage-rips-585-booster-pack.webp');
+  background-size:cover;
+  background-position:center;
+}
+.pack--pokemon-go .pack-art::before,.pack--pokemon-go .pack-art::after{content:none}
+.pack--pokemon-go .pack-brand,.pack--pokemon-go .pack-mascot{display:none}
+
 .pack--prismatic-evolutions .pack-art{
   background-color:#161D26;
   background-image:url('packs/prismatic-evolutions-garbage-rips-585-booster-pack.webp');
