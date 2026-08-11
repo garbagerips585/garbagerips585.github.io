@@ -9,8 +9,8 @@
 // twenty rows, import, see them on the site, and carry on.
 //
 // Writes two files:
-//   data/overrides.json  product tags, which the tag matcher always defers to
-//   data/manual.json     hit card, rarity, greatest-hit flag, affiliate link
+//   data/overrides.json  set and product tags, which the tag matcher defers to
+//   data/manual.json     hit card, rarity, Hall of Fame, affiliate link, copy
 //
 // Then re-run sync-youtube.mjs and build-pages.mjs to see it on the site.
 
@@ -67,8 +67,20 @@ const PRODUCT_IDS = {
   "chinese booster pack": "chinese-pack",
   "blister": "blister",
   "collection box": "collection-box",
+  "ex premium collection": "ex-box",
   "other": null,
 };
+
+// The sheet offers set NAMES because nobody wants to pick "sv3pt5" from a
+// dropdown; the site tags by id. Built from sets.json so a new set needs no
+// edit here.
+const setIdByName = new Map();
+try {
+  const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
+  for (const s of sets) setIdByName.set(s.name.toLowerCase(), s.id);
+} catch {
+  console.warn("No public/data/sets.json, so the Set column will be skipped.");
+}
 
 const rows = parseCsv(await readFile(csvPath, "utf8"));
 if (!rows.length) { console.error("Empty CSV."); process.exit(1); }
@@ -83,8 +95,13 @@ if (iId === -1) {
 }
 const idx = {
   set: col("Set"), opening: col("Opening Type"), hasHit: col("Has Hit"),
-  hitCard: col("Hit Card"), rarity: col("Hit Rarity"), greatest: col("Greatest Hit"),
-  addTo: col("Playlist To Add"), affiliate: col("Affiliate Link"), notes: col("Notes"),
+  hitCard: col("Hit Card"), rarity: col("Hit Rarity"),
+  // "Greatest Hit" was the old header; "Hall of Fame" is the current one.
+  greatest: col("Hall of Fame") >= 0 ? col("Hall of Fame") : col("Greatest Hit"),
+  hofRank: col("HoF Rank"),
+  addTo: col("Playlist To Add"), affiliate: col("Affiliate Link"),
+  siteTitle: col("Site Title"), blurb: col("Short Description"),
+  feature: col("Feature"), hide: col("Hide"), notes: col("Notes"),
 };
 
 const get = (r, i) => (i >= 0 && r[i] != null ? String(r[i]).trim() : "");
@@ -94,11 +111,24 @@ let overrides = {};
 try { overrides = JSON.parse(await readFile(join(ROOT, "data/overrides.json"), "utf8")); } catch {}
 const manual = {};
 const unknownOpening = new Set();
-let counted = { opening: 0, hit: 0, card: 0, greatest: 0, affiliate: 0 };
+let counted = { set: 0, opening: 0, hit: 0, card: 0, greatest: 0, affiliate: 0, copy: 0, hidden: 0 };
+const unknownSet = new Set();
 
 for (const r of rows.slice(1)) {
   const id = get(r, iId);
   if (!id) continue;
+
+  // The single biggest lever: a video with no set cannot show its wrapper,
+  // cannot be filtered, and cannot reach the Hall of Fame.
+  const setCell = get(r, idx.set);
+  if (setCell && !/^(multiple|not a set)/i.test(setCell)) {
+    const setId = setIdByName.get(setCell.toLowerCase());
+    if (!setId) unknownSet.add(setCell);
+    else {
+      overrides[id] = { ...(overrides[id] || {}), sets: [setId] };
+      counted.set++;
+    }
+  }
 
   const opening = get(r, idx.opening);
   if (opening) {
@@ -119,6 +149,14 @@ for (const r of rows.slice(1)) {
   const rarity = get(r, idx.rarity);
   if (rarity && !/^no hit$/i.test(rarity)) m.hitRarity = rarity;
   if (isYes(get(r, idx.greatest))) { m.greatest = true; counted.greatest++; }
+  const rank = get(r, idx.hofRank);
+  if (rank && !Number.isNaN(Number(rank))) m.hofRank = Number(rank);
+  const siteTitle = get(r, idx.siteTitle);
+  if (siteTitle) { m.siteTitle = siteTitle; counted.copy++; }
+  const blurb = get(r, idx.blurb);
+  if (blurb) { m.blurb = blurb; counted.copy++; }
+  if (isYes(get(r, idx.feature))) m.feature = true;
+  if (isYes(get(r, idx.hide))) { m.hide = true; counted.hidden++; }
   const aff = get(r, idx.affiliate);
   if (aff) { m.affiliate = aff; counted.affiliate++; }
   const addTo = get(r, idx.addTo);
@@ -136,15 +174,24 @@ await writeFile(join(ROOT, "data/manual.json"), JSON.stringify(manual, null, 2) 
 console.log(`
 Read ${rows.length - 1} rows from ${csvPath}
 
+  set tags           ${counted.set}
   opening types      ${counted.opening}
   has-hit answered   ${counted.hit}
   hit cards named    ${counted.card}
-  greatest hits      ${counted.greatest}
+  hall of fame       ${counted.greatest}
   affiliate links    ${counted.affiliate}
+  custom copy        ${counted.copy}
+  hidden             ${counted.hidden}
 
 Wrote data/overrides.json  (${Object.keys(overrides).length} videos)
 Wrote data/manual.json     (${Object.keys(manual).length} videos)
 `);
+
+if (unknownSet.size) {
+  console.log("Set values I did not recognise (left untagged):");
+  for (const u of unknownSet) console.log("  " + u);
+  console.log("Pick from the dropdown on the Set column rather than typing.\n");
+}
 
 if (unknownOpening.size) {
   console.log("Opening Type values I did not recognise (left untagged):");
