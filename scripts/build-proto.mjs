@@ -175,10 +175,14 @@ function tile(v, { rank = null, showSet = true } = {}) {
     ? `${label} &bull; ${compact(v.views)} VIEWS`
     : `${compact(v.views)} VIEWS &bull; ${shortDate(v.published).toUpperCase()}`;
 
-  return `      <article class="v"><a class="art" href="/${esc(v.path)}">${badge}${flag}${face}<span class="play"></span>${
+  // The anchor holds only artwork, a rank pip and a duration, so without a
+  // label its accessible name was the duration: a screen reader read twenty
+  // links on the home page as "link, 0 colon 22". The visible title was also
+  // not clickable, only the thumbnail was.
+  return `      <article class="v"><a class="art" href="/${esc(v.path)}" aria-label="${esc(v.title)}">${badge}${flag}${face}<span class="play"></span>${
     v.duration ? `<span class="dur">${clock(v.duration)}</span>` : ""
   }</a>
-        <h3>${esc(v.title)}</h3><p>${meta}</p></article>`;
+        <h3><a href="/${esc(v.path)}">${esc(v.title)}</a></h3><p>${meta}</p></article>`;
 }
 
 /* ------------------------------------------------------------- selections - */
@@ -329,7 +333,7 @@ const wantedHtml = (wanted.cards || [])
     }</span>
         <b>${esc(c.name)}</b><p>${esc(c.setName.toUpperCase())} &bull; ${price}</p>`;
     return c.url
-      ? `      <a class="mw" href="${esc(c.url)}" rel="nofollow noopener" target="_blank">${inner}</a>`
+      ? `      <a class="mw" href="${esc(c.url)}" rel="nofollow noopener" target="_blank" aria-label="${esc(c.name)} from ${esc(c.setName)}, see on TCGplayer">${inner}</a>`
       : `      <div class="mw">${inner}</div>`;
   })
   .join("\n");

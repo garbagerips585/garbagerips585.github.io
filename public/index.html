@@ -50,6 +50,7 @@
 <link rel="stylesheet" href="/assets/ui.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="fc-flower" viewBox="0 0 24 24">
     <ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/>
@@ -79,9 +80,24 @@
     <a class="icon-btn" href="/videos.html" aria-label="Search all 308 rips">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
     </a>
+        <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
     <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
   </div>
 </header>
+<nav class="menu" id="menu" aria-label="Site">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/videos.html">All rips</a></li>
+    <li><a href="/sets/">Card Pokedex</a></li>
+    <li><a href="/wanted.html">Most wanted</a></li>
+    <li><a href="/hall.html">Card Hall of Fame</a></li>
+    <li><a href="/shops.html">Card shops</a></li>
+    <li><a href="/playlists.html">Playlists</a></li>
+  </ul>
+</nav>
+
 
 <div class="rail">
   <div class="rail-in" role="group" aria-label="Filter rips">
@@ -116,22 +132,22 @@
 <!-- COUNT_HITS:END --> hits &rarr;</a>
     </div>
     <div class="shelf"><!-- HOF:START -->
-      <article class="v"><a class="art" href="/rip/destined-rivals-pack-12-can-we-top-the-mewtwo-hbUa4l-xono.html"><span class="rank">1</span><img src="assets/packs/destined-rivals-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
-        <h3>Destined Rivals Pack #12 ⚡ | Can We TOP The Mewtwo?! 😳</h3><p>DESTINED RIVALS &bull; 1.9K VIEWS</p></article>
-      <article class="v"><a class="art" href="/rip/the-pitch-black-curse-is-real-16jOkWyE1Cs.html"><span class="rank">2</span><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
-        <h3>The &quot;Pitch Black&quot; Curse is Real! 🌒💀</h3><p>PITCH BLACK &bull; 827 VIEWS</p></article>
-      <article class="v"><a class="art" href="/rip/mega-feraligatr-ex-box-pack-1-first-pack-magic-qKiLbaLhdp8.html"><span class="rank">3</span><img src="assets/packs/ascended-heroes-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
-        <h3>Mega Feraligatr ex Box 🌊🔥 | Pack #1 (First Pack Magic?!)</h3><p>ASCENDED HEROES &bull; 1.5K VIEWS</p></article>
-      <article class="v"><a class="art" href="/rip/prismatic-evolutions-etb-pack-1-umbreon-hunt-begins-hCI0HSfly1c.html"><span class="rank">4</span><img src="assets/packs/prismatic-evolutions-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:20</span></a>
-        <h3>Prismatic Evolutions ETB ✨ | Pack #1 Umbreon Hunt Begins</h3><p>PRISMATIC EVOLUTIONS &bull; 1.3K VIEWS</p></article>
-      <article class="v"><a class="art" href="/rip/phantasmal-flames-pack-9-still-no-charizard-sir-yeX4naszsoo.html"><span class="rank">5</span><img src="assets/packs/phantasmal-flames-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
-        <h3>Phantasmal Flames Pack #9 🔥 | Still No Charizard SIR… 😬</h3><p>PHANTASMAL FLAMES &bull; 1.2K VIEWS</p></article>
-      <article class="v"><a class="art" href="/rip/first-phantasmal-flamespack-in-the-mega-zygarde-collection-p-HGlF3-fpycc.html"><span class="rank">6</span><img src="assets/packs/multi-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:20</span></a>
-        <h3>First Phantasmal Flames🔥Pack in the Mega Zygarde Collection Pack #7</h3><p>PHANTASMAL FLAMES +1 &bull; 936 VIEWS</p></article>
-      <article class="v"><a class="art" href="/rip/i-pulled-this-card-again-chaos-rising-etb-2-rlJDEb0q1d0.html"><span class="rank">7</span><img src="assets/packs/chaos-rising-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:23</span></a>
-        <h3>I Pulled This Card AGAIN! 😳 | Chaos Rising ETB #2</h3><p>CHAOS RISING &bull; 1.1K VIEWS</p></article>
-      <article class="v"><a class="art" href="/rip/mega-skarmory-ex-double-rare-pull-k6p_6HEntYw.html"><span class="rank">8</span><img src="assets/packs/perfect-order-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
-        <h3>Mega Skarmory ex Double Rare Pull! 🦅</h3><p>PERFECT ORDER &bull; 878 VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/destined-rivals-pack-12-can-we-top-the-mewtwo-hbUa4l-xono.html" aria-label="Destined Rivals Pack #12 ⚡ | Can We TOP The Mewtwo?! 😳"><span class="rank">1</span><img src="assets/packs/destined-rivals-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3><a href="/rip/destined-rivals-pack-12-can-we-top-the-mewtwo-hbUa4l-xono.html">Destined Rivals Pack #12 ⚡ | Can We TOP The Mewtwo?! 😳</a></h3><p>DESTINED RIVALS &bull; 1.9K VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/the-pitch-black-curse-is-real-16jOkWyE1Cs.html" aria-label="The &quot;Pitch Black&quot; Curse is Real! 🌒💀"><span class="rank">2</span><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
+        <h3><a href="/rip/the-pitch-black-curse-is-real-16jOkWyE1Cs.html">The &quot;Pitch Black&quot; Curse is Real! 🌒💀</a></h3><p>PITCH BLACK &bull; 827 VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/mega-feraligatr-ex-box-pack-1-first-pack-magic-qKiLbaLhdp8.html" aria-label="Mega Feraligatr ex Box 🌊🔥 | Pack #1 (First Pack Magic?!)"><span class="rank">3</span><img src="assets/packs/ascended-heroes-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
+        <h3><a href="/rip/mega-feraligatr-ex-box-pack-1-first-pack-magic-qKiLbaLhdp8.html">Mega Feraligatr ex Box 🌊🔥 | Pack #1 (First Pack Magic?!)</a></h3><p>ASCENDED HEROES &bull; 1.5K VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/prismatic-evolutions-etb-pack-1-umbreon-hunt-begins-hCI0HSfly1c.html" aria-label="Prismatic Evolutions ETB ✨ | Pack #1 Umbreon Hunt Begins"><span class="rank">4</span><img src="assets/packs/prismatic-evolutions-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:20</span></a>
+        <h3><a href="/rip/prismatic-evolutions-etb-pack-1-umbreon-hunt-begins-hCI0HSfly1c.html">Prismatic Evolutions ETB ✨ | Pack #1 Umbreon Hunt Begins</a></h3><p>PRISMATIC EVOLUTIONS &bull; 1.3K VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/phantasmal-flames-pack-9-still-no-charizard-sir-yeX4naszsoo.html" aria-label="Phantasmal Flames Pack #9 🔥 | Still No Charizard SIR… 😬"><span class="rank">5</span><img src="assets/packs/phantasmal-flames-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
+        <h3><a href="/rip/phantasmal-flames-pack-9-still-no-charizard-sir-yeX4naszsoo.html">Phantasmal Flames Pack #9 🔥 | Still No Charizard SIR… 😬</a></h3><p>PHANTASMAL FLAMES &bull; 1.2K VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/first-phantasmal-flamespack-in-the-mega-zygarde-collection-p-HGlF3-fpycc.html" aria-label="First Phantasmal Flames🔥Pack in the Mega Zygarde Collection Pack #7"><span class="rank">6</span><img src="assets/packs/multi-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:20</span></a>
+        <h3><a href="/rip/first-phantasmal-flamespack-in-the-mega-zygarde-collection-p-HGlF3-fpycc.html">First Phantasmal Flames🔥Pack in the Mega Zygarde Collection Pack #7</a></h3><p>PHANTASMAL FLAMES +1 &bull; 936 VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/i-pulled-this-card-again-chaos-rising-etb-2-rlJDEb0q1d0.html" aria-label="I Pulled This Card AGAIN! 😳 | Chaos Rising ETB #2"><span class="rank">7</span><img src="assets/packs/chaos-rising-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:23</span></a>
+        <h3><a href="/rip/i-pulled-this-card-again-chaos-rising-etb-2-rlJDEb0q1d0.html">I Pulled This Card AGAIN! 😳 | Chaos Rising ETB #2</a></h3><p>CHAOS RISING &bull; 1.1K VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/mega-skarmory-ex-double-rare-pull-k6p_6HEntYw.html" aria-label="Mega Skarmory ex Double Rare Pull! 🦅"><span class="rank">8</span><img src="assets/packs/perfect-order-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3><a href="/rip/mega-skarmory-ex-double-rare-pull-k6p_6HEntYw.html">Mega Skarmory ex Double Rare Pull! 🦅</a></h3><p>PERFECT ORDER &bull; 878 VIEWS</p></article>
 <!-- HOF:END -->
     </div>
   </div>
@@ -146,24 +162,25 @@
     </div>
     <div class="mw-shelf">
 <!-- WANTED:START -->
-      <a class="mw" href="https://prices.pokemontcg.io/tcgplayer/me5-116" rel="nofollow noopener" target="_blank"><span class="mw-art"><img src="https://images.scrydex.com/pokemon/me5-116/small" alt="Mega Darkrai ex Special Illustration Rare from Pitch Black" loading="lazy" width="245" height="342"></span>
+      <a class="mw" href="https://prices.pokemontcg.io/tcgplayer/me5-116" rel="nofollow noopener" target="_blank" aria-label="Mega Darkrai ex from Pitch Black, see on TCGplayer"><span class="mw-art"><img src="https://images.scrydex.com/pokemon/me5-116/small" alt="Mega Darkrai ex Special Illustration Rare from Pitch Black" loading="lazy" width="245" height="342"></span>
         <b>Mega Darkrai ex</b><p>PITCH BLACK &bull; CHASING</p></a>
-      <a class="mw" href="https://prices.pokemontcg.io/tcgplayer/me4-116" rel="nofollow noopener" target="_blank"><span class="mw-art"><img src="https://images.scrydex.com/pokemon/me4-116/small" alt="Mega Greninja ex Special Illustration Rare from Chaos Rising" loading="lazy" width="245" height="342"></span>
+      <a class="mw" href="https://prices.pokemontcg.io/tcgplayer/me4-116" rel="nofollow noopener" target="_blank" aria-label="Mega Greninja ex from Chaos Rising, see on TCGplayer"><span class="mw-art"><img src="https://images.scrydex.com/pokemon/me4-116/small" alt="Mega Greninja ex Special Illustration Rare from Chaos Rising" loading="lazy" width="245" height="342"></span>
         <b>Mega Greninja ex</b><p>CHAOS RISING &bull; CHASING</p></a>
-      <a class="mw" href="https://prices.pokemontcg.io/tcgplayer/me3-121" rel="nofollow noopener" target="_blank"><span class="mw-art"><img src="https://images.scrydex.com/pokemon/me3-121/small" alt="Meowth ex Special Illustration Rare from Perfect Order" loading="lazy" width="245" height="342"></span>
+      <a class="mw" href="https://prices.pokemontcg.io/tcgplayer/me3-121" rel="nofollow noopener" target="_blank" aria-label="Meowth ex from Perfect Order, see on TCGplayer"><span class="mw-art"><img src="https://images.scrydex.com/pokemon/me3-121/small" alt="Meowth ex Special Illustration Rare from Perfect Order" loading="lazy" width="245" height="342"></span>
         <b>Meowth ex</b><p>PERFECT ORDER &bull; CHASING</p></a>
       <div class="mw"><span class="mw-art"><img src="https://images.scrydex.com/pokemon/me2pt5-290/small" alt="Mega Dragonite ex Special Illustration Rare from Ascended Heroes" loading="lazy" width="245" height="342"></span>
         <b>Mega Dragonite ex</b><p>ASCENDED HEROES &bull; CHASING</p></div>
-      <a class="mw" href="https://prices.pokemontcg.io/tcgplayer/me2-125" rel="nofollow noopener" target="_blank"><span class="mw-art"><img src="https://images.pokemontcg.io/me2/125.png" alt="Mega Charizard X ex Special Illustration Rare from Phantasmal Flames" loading="lazy" width="245" height="342"></span>
+      <a class="mw" href="https://prices.pokemontcg.io/tcgplayer/me2-125" rel="nofollow noopener" target="_blank" aria-label="Mega Charizard X ex from Phantasmal Flames, see on TCGplayer"><span class="mw-art"><img src="https://images.pokemontcg.io/me2/125.png" alt="Mega Charizard X ex Special Illustration Rare from Phantasmal Flames" loading="lazy" width="245" height="342"></span>
         <b>Mega Charizard X ex</b><p>PHANTASMAL FLAMES &bull; PSA 10 $1,962</p></a>
-      <a class="mw" href="https://prices.pokemontcg.io/tcgplayer/me1-179" rel="nofollow noopener" target="_blank"><span class="mw-art"><img src="https://images.pokemontcg.io/me1/179.png" alt="Mega Lucario ex Special Illustration Rare from Mega Evolution" loading="lazy" width="245" height="342"></span>
+      <a class="mw" href="https://prices.pokemontcg.io/tcgplayer/me1-179" rel="nofollow noopener" target="_blank" aria-label="Mega Lucario ex from Mega Evolution, see on TCGplayer"><span class="mw-art"><img src="https://images.pokemontcg.io/me1/179.png" alt="Mega Lucario ex Special Illustration Rare from Mega Evolution" loading="lazy" width="245" height="342"></span>
         <b>Mega Lucario ex</b><p>MEGA EVOLUTION &bull; PSA 10 $410</p></a>
 <!-- WANTED:END -->
     </div>
   </div>
 </section>
 
-<main>
+<main id="main">
+  <h1 class="sr-only">Garbage Rips 585: Pokemon card pack rips from Rochester, New York</h1>
   <div class="wrap">
     <div class="wall">
 
@@ -171,34 +188,34 @@
 308
 <!-- COUNT_ALL:END --> &rarr;</a></div>
 <!-- LATEST:START -->
-      <article class="v"><a class="art" href="/rip/chaos-rising-etb-3-the-first-pack-reality-RZInASE6x1c.html"><img src="assets/packs/chaos-rising-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
-        <h3>Chaos Rising ETB #3: The First Pack Reality 💀</h3><p>757 VIEWS &bull; AUG 10</p></article>
-      <article class="v"><a class="art" href="/rip/the-most-disappointing-hit-pitch-black-oSPbl9reyIM.html"><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
-        <h3>The most DISAPPOINTING &quot;Hit&quot; 💀 Pitch Black</h3><p>653 VIEWS &bull; AUG 9</p></article>
-      <article class="v"><a class="art" href="/rip/did-this-bundle-have-any-hits-inTMqcQmFhM.html"><span class="hit">&starf;&starf; SIR</span><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:23</span></a>
-        <h3>Did this Bundle have ANY hits?! 📉💀</h3><p>870 VIEWS &bull; AUG 8</p></article>
-      <article class="v"><a class="art" href="/rip/pitch-black-is-savage-today-b8CfpcK7-h0.html"><span class="hit">&starf;&starf; SIR</span><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:18</span></a>
-        <h3>Pitch Black is SAVAGE Today! 🌑💀</h3><p>650 VIEWS &bull; AUG 7</p></article>
-      <article class="v"><a class="art" href="/rip/the-box-ends-with-a-garbage-rip-aa9jzXRFtrg.html"><img src="assets/packs/perfect-order-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:23</span></a>
-        <h3>The Box Ends with a Garbage Rip... 🗑️</h3><p>757 VIEWS &bull; AUG 6</p></article>
-      <article class="v"><a class="art" href="/rip/where-did-the-hits-go-pitch-black-etb-znsnYB6boh4.html"><span class="hit">&starf;&starf; SIR</span><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
-        <h3>Where did the hits go?! 📉 Pitch Black ETB</h3><p>771 VIEWS &bull; AUG 5</p></article>
+      <article class="v"><a class="art" href="/rip/chaos-rising-etb-3-the-first-pack-reality-RZInASE6x1c.html" aria-label="Chaos Rising ETB #3: The First Pack Reality 💀"><img src="assets/packs/chaos-rising-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
+        <h3><a href="/rip/chaos-rising-etb-3-the-first-pack-reality-RZInASE6x1c.html">Chaos Rising ETB #3: The First Pack Reality 💀</a></h3><p>757 VIEWS &bull; AUG 10</p></article>
+      <article class="v"><a class="art" href="/rip/the-most-disappointing-hit-pitch-black-oSPbl9reyIM.html" aria-label="The most DISAPPOINTING &quot;Hit&quot; 💀 Pitch Black"><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3><a href="/rip/the-most-disappointing-hit-pitch-black-oSPbl9reyIM.html">The most DISAPPOINTING &quot;Hit&quot; 💀 Pitch Black</a></h3><p>653 VIEWS &bull; AUG 9</p></article>
+      <article class="v"><a class="art" href="/rip/did-this-bundle-have-any-hits-inTMqcQmFhM.html" aria-label="Did this Bundle have ANY hits?! 📉💀"><span class="hit">&starf;&starf; SIR</span><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:23</span></a>
+        <h3><a href="/rip/did-this-bundle-have-any-hits-inTMqcQmFhM.html">Did this Bundle have ANY hits?! 📉💀</a></h3><p>870 VIEWS &bull; AUG 8</p></article>
+      <article class="v"><a class="art" href="/rip/pitch-black-is-savage-today-b8CfpcK7-h0.html" aria-label="Pitch Black is SAVAGE Today! 🌑💀"><span class="hit">&starf;&starf; SIR</span><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:18</span></a>
+        <h3><a href="/rip/pitch-black-is-savage-today-b8CfpcK7-h0.html">Pitch Black is SAVAGE Today! 🌑💀</a></h3><p>650 VIEWS &bull; AUG 7</p></article>
+      <article class="v"><a class="art" href="/rip/the-box-ends-with-a-garbage-rip-aa9jzXRFtrg.html" aria-label="The Box Ends with a Garbage Rip... 🗑️"><img src="assets/packs/perfect-order-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:23</span></a>
+        <h3><a href="/rip/the-box-ends-with-a-garbage-rip-aa9jzXRFtrg.html">The Box Ends with a Garbage Rip... 🗑️</a></h3><p>757 VIEWS &bull; AUG 6</p></article>
+      <article class="v"><a class="art" href="/rip/where-did-the-hits-go-pitch-black-etb-znsnYB6boh4.html" aria-label="Where did the hits go?! 📉 Pitch Black ETB"><span class="hit">&starf;&starf; SIR</span><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3><a href="/rip/where-did-the-hits-go-pitch-black-etb-znsnYB6boh4.html">Where did the hits go?! 📉 Pitch Black ETB</a></h3><p>771 VIEWS &bull; AUG 5</p></article>
 <!-- LATEST:END -->
 
       <div class="brk"><h2>Most watched</h2><span class="ln"></span><a href="/videos.html?sort=views">Sort by views &rarr;</a></div>
 <!-- WATCHED:START -->
-      <article class="v"><a class="art" href="/rip/pok-mon-go-pack-12-still-no-ditto-or-mewtwo-QXS1W_L2qbs.html"><img src="assets/packs/pokemon-go-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:23</span></a>
-        <h3>Pokémon GO Pack #12 ⚡ | STILL No Ditto or Mewtwo?! 😬</h3><p>2.6K VIEWS &bull; APR 27</p></article>
-      <article class="v"><a class="art" href="/rip/only-garbage-rips-paldea-evolved-blister-pack-pokemonshorts-evnMahizn0I.html"><img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:26</span></a>
-        <h3>Only Garbage Rips 😬 | Paldea Evolved Blister Pack #PokemonShorts #PokemonTCG #PaldeaEvolved</h3><p>2.5K VIEWS &bull; FEB 7</p></article>
-      <article class="v"><a class="art" href="/rip/only-garbage-rips-pok-mon-violet-ex-booster-pack-jO7K2zX6Rlg.html"><img src="assets/packs/scarlet-violet-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:16</span></a>
-        <h3>Only Garbage Rips 😬 | Pokémon Violet ex Booster Pack</h3><p>2.4K VIEWS &bull; FEB 14</p></article>
-      <article class="v"><a class="art" href="/rip/ascended-heroes-booster-bundle-pack-1-first-pack-magic-Qf2PmYHL8Xw.html"><img src="assets/packs/ascended-heroes-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
-        <h3>Ascended Heroes Booster Bundle ⚡ | Pack #1 (First Pack Magic?)</h3><p>2K VIEWS &bull; MAY 2</p></article>
-      <article class="v"><a class="art" href="/rip/temporal-forces-pack-1-is-this-set-any-good-mxwjJ0oXyUQ.html"><img src="assets/packs/temporal-forces-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
-        <h3>Temporal Forces Pack #1 😬 | Is This Set Any Good?</h3><p>1.9K VIEWS &bull; MAR 20</p></article>
-      <article class="v"><a class="art" href="/rip/destined-rivals-pack-12-can-we-top-the-mewtwo-hbUa4l-xono.html"><span class="hit">&starf;&starf;&starf; HYPER</span><img src="assets/packs/destined-rivals-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
-        <h3>Destined Rivals Pack #12 ⚡ | Can We TOP The Mewtwo?! 😳</h3><p>1.9K VIEWS &bull; MAY 27</p></article>
+      <article class="v"><a class="art" href="/rip/pok-mon-go-pack-12-still-no-ditto-or-mewtwo-QXS1W_L2qbs.html" aria-label="Pokémon GO Pack #12 ⚡ | STILL No Ditto or Mewtwo?! 😬"><img src="assets/packs/pokemon-go-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:23</span></a>
+        <h3><a href="/rip/pok-mon-go-pack-12-still-no-ditto-or-mewtwo-QXS1W_L2qbs.html">Pokémon GO Pack #12 ⚡ | STILL No Ditto or Mewtwo?! 😬</a></h3><p>2.6K VIEWS &bull; APR 27</p></article>
+      <article class="v"><a class="art" href="/rip/only-garbage-rips-paldea-evolved-blister-pack-pokemonshorts-evnMahizn0I.html" aria-label="Only Garbage Rips 😬 | Paldea Evolved Blister Pack #PokemonShorts #PokemonTCG #PaldeaEvolved"><img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:26</span></a>
+        <h3><a href="/rip/only-garbage-rips-paldea-evolved-blister-pack-pokemonshorts-evnMahizn0I.html">Only Garbage Rips 😬 | Paldea Evolved Blister Pack #PokemonShorts #PokemonTCG #PaldeaEvolved</a></h3><p>2.5K VIEWS &bull; FEB 7</p></article>
+      <article class="v"><a class="art" href="/rip/only-garbage-rips-pok-mon-violet-ex-booster-pack-jO7K2zX6Rlg.html" aria-label="Only Garbage Rips 😬 | Pokémon Violet ex Booster Pack"><img src="assets/packs/scarlet-violet-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:16</span></a>
+        <h3><a href="/rip/only-garbage-rips-pok-mon-violet-ex-booster-pack-jO7K2zX6Rlg.html">Only Garbage Rips 😬 | Pokémon Violet ex Booster Pack</a></h3><p>2.4K VIEWS &bull; FEB 14</p></article>
+      <article class="v"><a class="art" href="/rip/ascended-heroes-booster-bundle-pack-1-first-pack-magic-Qf2PmYHL8Xw.html" aria-label="Ascended Heroes Booster Bundle ⚡ | Pack #1 (First Pack Magic?)"><img src="assets/packs/ascended-heroes-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3><a href="/rip/ascended-heroes-booster-bundle-pack-1-first-pack-magic-Qf2PmYHL8Xw.html">Ascended Heroes Booster Bundle ⚡ | Pack #1 (First Pack Magic?)</a></h3><p>2K VIEWS &bull; MAY 2</p></article>
+      <article class="v"><a class="art" href="/rip/temporal-forces-pack-1-is-this-set-any-good-mxwjJ0oXyUQ.html" aria-label="Temporal Forces Pack #1 😬 | Is This Set Any Good?"><img src="assets/packs/temporal-forces-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
+        <h3><a href="/rip/temporal-forces-pack-1-is-this-set-any-good-mxwjJ0oXyUQ.html">Temporal Forces Pack #1 😬 | Is This Set Any Good?</a></h3><p>1.9K VIEWS &bull; MAR 20</p></article>
+      <article class="v"><a class="art" href="/rip/destined-rivals-pack-12-can-we-top-the-mewtwo-hbUa4l-xono.html" aria-label="Destined Rivals Pack #12 ⚡ | Can We TOP The Mewtwo?! 😳"><span class="hit">&starf;&starf;&starf; HYPER</span><img src="assets/packs/destined-rivals-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3><a href="/rip/destined-rivals-pack-12-can-we-top-the-mewtwo-hbUa4l-xono.html">Destined Rivals Pack #12 ⚡ | Can We TOP The Mewtwo?! 😳</a></h3><p>1.9K VIEWS &bull; MAY 27</p></article>
 <!-- WATCHED:END -->
 
 

@@ -31,6 +31,7 @@
 <link rel="stylesheet" href="/assets/ui.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="fc-flower" viewBox="0 0 24 24">
@@ -51,9 +52,24 @@
 <header class="bar">
   <div class="bar-in">
     <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
-        <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+            <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
   </div>
 </header>
+<nav class="menu" id="menu" aria-label="Site">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/videos.html">All rips</a></li>
+    <li><a href="/sets/">Card Pokedex</a></li>
+    <li><a href="/wanted.html">Most wanted</a></li>
+    <li><a href="/hall.html">Card Hall of Fame</a></li>
+    <li><a href="/shops.html">Card shops</a></li>
+    <li><a href="/playlists.html">Playlists</a></li>
+  </ul>
+</nav>
+
 
 
 
@@ -79,9 +95,9 @@
   </div>
 </div>
 
-<main>
+<main id="main">
   <div class="wrap">
-    <div class="brk"><h2>Every <span class="hl">rip</span></h2><span class="ln"></span></div>
+    <div class="brk"><h1>Every <span class="hl">rip</span></h1><span class="ln"></span></div>
 
     <div class="set-header" id="setHeader" hidden></div>
 

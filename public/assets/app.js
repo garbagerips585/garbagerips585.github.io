@@ -612,6 +612,34 @@
         location.href = "/videos.html" + (q ? "?q=" + encodeURIComponent(q) : "");
       });
     });
+    // Mobile menu. The bar has room for a brand, a search affordance and
+    // Subscribe, and nothing else, so on a phone every other page used to be a
+    // 7,000px scroll away in the footer.
+    var mb = document.getElementById("menuBtn");
+    var panel = document.getElementById("menu");
+    if (mb && panel) {
+      var setOpen = function (open) {
+        mb.setAttribute("aria-expanded", String(open));
+        panel.classList.toggle("on", open);
+      };
+      mb.addEventListener("click", function () {
+        setOpen(mb.getAttribute("aria-expanded") !== "true");
+      });
+      // Escape closes it and returns focus, which is what a keyboard user
+      // expects and what makes the button a real toggle rather than a link.
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && mb.getAttribute("aria-expanded") === "true") {
+          setOpen(false);
+          mb.focus();
+        }
+      });
+      // Following a link inside it should not leave the panel open behind the
+      // next page in browsers that restore scroll position.
+      panel.addEventListener("click", function (e) {
+        if (e.target.closest("a")) setOpen(false);
+      });
+    }
+
     var yr = document.getElementById("year");
     if (yr) yr.textContent = new Date().getFullYear();
   }

@@ -122,7 +122,7 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
 const body = `
 <section class="wanted">
   <div class="wrap">
-    <div class="brk"><h2>Most <span class="hl">wanted</span></h2><span class="ln"></span>
+    <div class="brk"><h1>Most <span class="hl">wanted</span></h1><span class="ln"></span>
       <a href="/sets/">All ${sets.length} guides &rarr;</a></div>
     <p class="w-lede">The cards I am actually chasing right now. Every pack opened on this
       channel is opened hoping for one of these. Tap a card to see it on TCGplayer.</p>
@@ -144,6 +144,10 @@ const home = await readFile(join(ROOT, "public/index.html"), "utf8");
 const head = home.slice(home.indexOf("<head>") + 6, home.indexOf("</head>"));
 const bar = home.slice(home.indexOf("<header class=\"bar\">"), home.indexOf("<div class=\"rail\">"));
 const sprite = /<svg[^>]*(?:hidden|display:none)[^>]*>[\s\S]*?<\/svg>/.exec(home)?.[0] || "";
+// The bar carries the menu button; the panel it controls lives after </header>,
+// so it has to be copied across too or the button opens nothing.
+const menuPanel = /<nav class="menu"[\s\S]*?<\/nav>/.exec(home)?.[0] || "";
+const skipLink = '<a class="skip" href="#main">Skip to content</a>';
 const footer = home.slice(home.lastIndexOf("<footer"), home.indexOf("</footer>") + 9);
 
 const swapped = head
@@ -163,9 +167,11 @@ const html = `<!DOCTYPE html>
 <head>${swapped}<style>${style}</style>
 </head>
 <body>
+${skipLink}
 ${sprite}
 
 ${bar}
+${menuPanel}
 ${body}
 ${footer}
 

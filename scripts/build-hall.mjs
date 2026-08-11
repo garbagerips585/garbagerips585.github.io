@@ -272,6 +272,10 @@ const home = await readFile(join(ROOT, "public/index.html"), "utf8");
 const head = home.slice(home.indexOf("<head>") + 6, home.indexOf("</head>"));
 const bar = home.slice(home.indexOf('<header class="bar">'), home.indexOf('<div class="rail">'));
 const sprite = /<svg[^>]*(?:hidden|display:none)[^>]*>[\s\S]*?<\/svg>/.exec(home)?.[0] || "";
+// The bar carries the menu button; the panel it controls lives after </header>,
+// so it has to be copied across too or the button opens nothing.
+const menuPanel = /<nav class="menu"[\s\S]*?<\/nav>/.exec(home)?.[0] || "";
+const skipLink = '<a class="skip" href="#main">Skip to content</a>';
 const footer = home.slice(home.lastIndexOf("<footer"), home.indexOf("</footer>") + 9);
 
 const swapped = head
@@ -292,9 +296,11 @@ await writeFile(
 ${schema ? `<script type="application/ld+json">\n${JSON.stringify(schema, null, 2)}\n</script>` : ""}
 </head>
 <body>
+${skipLink}
 ${sprite}
 
 ${bar}
+${menuPanel}
 ${body}
 ${footer}
 

@@ -18,7 +18,7 @@
   --page:#F7F5EC; --card:#FFFFFF;
   --ink:#15263A; --ink-2:#5A6E82; --hair:rgba(21,38,58,.14);
 
-  --mustard:#EFC94C; --gold:#E0A21F; --gold-deep:#A8760B;
+  --mustard:#EFC94C; --gold:#E0A21F; --gold-deep:#8A6109;
   --ketchup:#D9482B; --ketchup-deep:#A83318;
   --sky:#35BEEF; --lilac:#CAA6CA; --lilac-pale:#F0E4F1; --plum:#4E2F48;
 
@@ -63,7 +63,10 @@ a{color:inherit;text-decoration:none}
 @media(max-width:900px){.brand span{display:none}}
 .bar form{flex:1;display:flex;align-items:center;gap:var(--s2);min-width:0;
   background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
-  border-radius:var(--r-pill);padding:0 var(--s4);height:42px;max-width:440px;margin:0 auto}
+  border-radius:var(--r-pill);padding:0 var(--s4);height:44px;max-width:440px;margin:0 auto}
+/* Fill the pill. The input was 17.5px tall inside a 42px control, so tapping
+   anywhere but the text strip did nothing. */
+.bar form input{align-self:stretch}
 .bar input{flex:1;min-width:0;background:none;border:0;color:#F4F1E2;font:400 var(--t-sm)/1 var(--body)}
 .bar input::placeholder{color:#8FA0B2}
 .bar input:focus{outline:none}
@@ -82,6 +85,18 @@ a{color:inherit;text-decoration:none}
   .bar form{display:none}
   .icon-btn{display:grid}
   .sub{padding:0 var(--s3)}
+}
+/* Below 480 the brand, the search icon, the menu button and Subscribe add up
+   to 363px inside a 351px bar, and every one of them is flex:none, so the row
+   overflowed to the screen edge with no padding left. The search icon goes:
+   before the menu existed it was the only route off this page, and now the
+   menu carries All rips, which is where searching happens. */
+@media(max-width:480px){
+  .icon-btn{display:none}
+  /* The auto margin that pushed the right-hand controls over lived on the
+     search icon, so hiding it left the row packed left with 52px of dead
+     space on the right. */
+  .menu-btn{margin-left:auto}
 }
 
 /* Filter rail. Sticks under the bar so the whole catalogue stays one tap away
@@ -516,7 +531,7 @@ footer .wrap{display:flex;flex-direction:column;align-items:center;gap:var(--s4)
 .foot-social{display:flex;justify-content:center;gap:var(--s3)}
 /* 40px target with a 17px glyph: small enough to read as a footer detail,
    still a legal tap target. */
-.foot-social a{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+.foot-social a{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
   background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
   transition:background .14s,border-color .14s,transform .14s}
 .foot-social a:hover{background:rgba(255,255,255,.16);transform:translateY(-2px)}
@@ -534,3 +549,38 @@ footer .squiggle{display:none}
    padding was stacking into a band of empty navy. One gap, not two. */
 .about + footer{padding-top:var(--s5)}
 .about{padding-bottom:var(--s6)}
+
+
+/* --------------------------------------------------------------------------
+   Skip link and the mobile menu.
+
+   The home page is 7,000px tall on a phone and the only navigation was the
+   footer, so every page but this one was a full-page scroll away. Most
+   visitors arrive from a YouTube link on a phone, which made most of the site
+   unreachable in practice.
+   -------------------------------------------------------------------------- */
+.skip{position:absolute;left:var(--s3);top:-100px;z-index:200;
+  background:var(--mustard);color:var(--ink);font:700 var(--t-sm)/1 var(--body);
+  padding:var(--s3) var(--s4);border-radius:var(--r-pill);transition:top .12s}
+.skip:focus{top:var(--s3)}
+
+.menu-btn{flex:none;width:44px;height:44px;border-radius:50%;display:none;
+  place-items:center;background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);cursor:pointer;padding:0}
+.menu-btn svg{width:20px;height:20px;fill:none;stroke:#F4F1E2;stroke-width:2.2;
+  stroke-linecap:round}
+.menu-btn[aria-expanded="true"]{background:var(--mustard);border-color:var(--mustard)}
+.menu-btn[aria-expanded="true"] svg{stroke:var(--ink)}
+
+.menu{display:none;background:var(--ink);border-top:1px solid rgba(255,255,255,.12)}
+.menu.on{display:block}
+.menu ul{list-style:none;max-width:1500px;margin:0 auto;padding:var(--s2) var(--s3) var(--s4)}
+.menu a{display:flex;align-items:center;min-height:48px;padding:0 var(--s3);
+  color:#F4F1E2;font:600 var(--t-body)/1 var(--body);
+  border-bottom:1px solid rgba(255,255,255,.08)}
+.menu li:last-child a{border-bottom:0}
+.menu a:hover,.menu a:focus-visible{color:var(--mustard)}
+
+/* The bar carries its own links from tablet up, so the button is phones only. */
+@media(max-width:820px){ .menu-btn{display:grid} }
+@media(min-width:821px){ .menu{display:none!important} }
