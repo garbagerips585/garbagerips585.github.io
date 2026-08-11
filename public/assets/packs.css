@@ -20,6 +20,15 @@
 .pack--chaos-rising .pack-art::before,.pack--chaos-rising .pack-art::after{content:none}
 .pack--chaos-rising .pack-brand,.pack--chaos-rising .pack-mascot{display:none}
 
+.pack--destined-rivals .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/destined-rivals-garbage-rips-585-booster-pack.webp');
+  background-size:cover;
+  background-position:center;
+}
+.pack--destined-rivals .pack-art::before,.pack--destined-rivals .pack-art::after{content:none}
+.pack--destined-rivals .pack-brand,.pack--destined-rivals .pack-mascot{display:none}
+
 .pack--journey-together .pack-art{
   background-color:#161D26;
   background-image:url('packs/journey-together-garbage-rips-585-booster-pack.webp');
