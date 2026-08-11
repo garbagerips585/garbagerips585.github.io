@@ -103,10 +103,10 @@ a{color:inherit;text-decoration:none}
   color:var(--ink);white-space:nowrap}
 .chip .n{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
 .chip:hover{border-color:var(--ink)}
-.chip[aria-pressed="true"]{background:var(--ink);color:#F4F1E2;border-color:var(--ink)}
-.chip[aria-pressed="true"] .n{color:#9FB0C0}
+.chip[aria-current]{background:var(--ink);color:#F4F1E2;border-color:var(--ink)}
+.chip[aria-current] .n{color:#9FB0C0}
 .chip.gold{background:#FCF0CC;border-color:var(--gold)}
-.chip.gold[aria-pressed="true"]{background:var(--gold-deep);color:#fff;border-color:var(--gold-deep)}
+.chip.gold[aria-current]{background:var(--gold-deep);color:#fff;border-color:var(--gold-deep)}
 
 /* --------------------------------------------------------------------------
    Hall of Fame. The one dark surface on the site, and it is here because dark
@@ -136,7 +136,10 @@ a{color:inherit;text-decoration:none}
 .shelf .v .art{box-shadow:0 2px 4px rgba(0,0,0,.4), 0 10px 26px rgba(0,0,0,.45),
   0 0 0 1px rgba(224,162,31,.35)}
 .shelf .v h3{color:#F4F1E2}
-.shelf .v p{color:#9FB0C0}
+/* The shelf carries the set name where the wall carries a date, and the long
+   ones ("Prismatic Evolutions") overrun a 196px tile. Dropping a step and
+   losing the tracking buys 40px, which clears every set name we have. */
+.shelf .v p{color:#9FB0C0;font-size:.625rem;letter-spacing:0}
 .rank{position:absolute;left:8px;top:8px;z-index:4;width:30px;height:30px;border-radius:50%;
   display:grid;place-items:center;font:400 1rem/1 var(--display);color:var(--ink);
   background:linear-gradient(180deg,#FBE08A,var(--gold));
@@ -178,6 +181,15 @@ main{padding:var(--s4) 0 var(--s8)}
   overflow:hidden;background:#E8E4D6;box-shadow:var(--lift);
   transition:transform .15s ease, box-shadow .15s ease}
 .v .art img{width:100%;height:100%;object-fit:cover}
+/* No wrapper art for this set yet, or the video has no set tag at all. Shows
+   the set logo on a plain field rather than a broken image, and never the
+   YouTube poster frame, which is usually the pulled card and spoils the video
+   before you press play. */
+.art-none{position:absolute;inset:0;display:grid;place-items:center;padding:14%;
+  background:linear-gradient(160deg,#243549,#15263A 60%,#0E1B2A)}
+.art-none img{width:100%!important;height:auto!important;object-fit:contain!important;
+  max-height:100%}
+.art-none b{font:400 1rem/1.2 var(--display);color:var(--mustard);text-align:center}
 .v:hover .art{transform:translateY(-4px) scale(1.012)}
 .v .art::after{content:"";position:absolute;inset:0;
   background:linear-gradient(180deg,transparent 62%,rgba(10,18,28,.62));opacity:0;
@@ -199,9 +211,13 @@ main{padding:var(--s4) 0 var(--s8)}
   font:700 var(--t-micro)/1 var(--mono);letter-spacing:.04em;
   background:var(--mustard);color:var(--ink);border:1px solid var(--gold-deep);border-left:0;
   padding:5px 7px;border-radius:0 5px 5px 0;box-shadow:1px 1px 3px rgba(21,38,58,.25)}
+/* Both caption lines are fixed: two for the title, one for the meta. Without
+   the min-height a one-line title shortens its tile and the row of packs below
+   starts at a different place in every column. */
 .v h3{font:600 var(--t-sm)/1.32 var(--body);display:-webkit-box;-webkit-line-clamp:2;
-  line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.v p{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.03em}
+  line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.64em}
+.v p{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.03em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .more{grid-column:1/-1;display:flex;justify-content:center;margin-top:var(--s5)}
 .more a{font:700 var(--t-body)/1 var(--body);background:var(--card);border:2px solid var(--ink);
   border-radius:var(--r-pill);padding:0 var(--s6);height:52px;display:inline-flex;
@@ -277,24 +293,30 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
     <a class="icon-btn" href="/videos.html" aria-label="Search all 308 rips">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
     </a>
-    <a class="sub" href="#"><span>Subscribe</span></a>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
   </div>
 </header>
 
 <div class="rail">
-  <div class="rail-in">
-    <a class="chip" href="#" aria-pressed="true">Latest <span class="n">308</span></a>
-    <a class="chip gold" href="#" aria-pressed="false">Hits only <span class="n">47</span></a>
-    <a class="chip" href="#">Pitch Black <span class="n">31</span></a>
-    <a class="chip" href="#">Chaos Rising <span class="n">28</span></a>
-    <a class="chip" href="#">Perfect Order <span class="n">24</span></a>
-    <a class="chip" href="#">Prismatic Evolutions <span class="n">22</span></a>
-    <a class="chip" href="#">Destined Rivals <span class="n">19</span></a>
-    <a class="chip" href="#">Journey Together <span class="n">17</span></a>
-    <a class="chip" href="#">Single pack <span class="n">96</span></a>
-    <a class="chip" href="#">ETB <span class="n">41</span></a>
-    <a class="chip" href="#">Booster bundle <span class="n">33</span></a>
-    <a class="chip" href="#">All 23 sets &rarr;</a>
+  <div class="rail-in" role="group" aria-label="Filter rips">
+<!-- RAIL:START -->
+    <a class="chip" href="/videos.html" aria-current="page">Latest <span class="n">308</span></a>
+    <a class="chip gold" href="/videos.html?pull=1">Hits only <span class="n">60</span></a>
+    <a class="chip" href="/videos.html?set=chaos-rising">Chaos Rising <span class="n">50</span></a>
+    <a class="chip" href="/videos.html?set=ascended-heroes">Ascended Heroes <span class="n">49</span></a>
+    <a class="chip" href="/videos.html?set=perfect-order">Perfect Order <span class="n">44</span></a>
+    <a class="chip" href="/videos.html?set=pitch-black">Pitch Black <span class="n">18</span></a>
+    <a class="chip" href="/videos.html?set=phantasmal-flames">Phantasmal Flames <span class="n">16</span></a>
+    <a class="chip" href="/videos.html?set=journey-together">Journey Together <span class="n">14</span></a>
+    <a class="chip" href="/videos.html?set=prismatic-evolutions">Prismatic Evolutions <span class="n">13</span></a>
+    <a class="chip" href="/videos.html?set=destined-rivals">Destined Rivals <span class="n">12</span></a>
+    <a class="chip" href="/videos.html?product=single-pack">Single pack <span class="n">78</span></a>
+    <a class="chip" href="/videos.html?product=etb">ETB <span class="n">60</span></a>
+    <a class="chip" href="/videos.html?product=bundle">Booster bundle <span class="n">54</span></a>
+    <a class="chip" href="/videos.html?product=ex-box">ex box <span class="n">48</span></a>
+    <a class="chip" href="/videos.html?product=tin">Tin <span class="n">18</span></a>
+    <a class="chip" href="/sets/">All 23 sets &rarr;</a>
+<!-- RAIL:END -->
   </div>
 </div>
 
@@ -303,21 +325,28 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
     <div class="hof-head">
       <h2>Hall of Fame</h2>
       <span class="sub2">Best pulls, ranked</span>
-      <a href="#">All 47 hits &rarr;</a>
+      <a href="/videos.html?pull=1">All <!-- COUNT_HITS:START -->
+60
+<!-- COUNT_HITS:END --> hits &rarr;</a>
     </div>
-    <div class="shelf">
-      <article class="v"><a class="art" href="#"><span class="rank">1</span><img src="assets/packs/prismatic-evolutions-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">1:14</span></a>
-        <h3>Umbreon ex Special Illustration Rare</h3><p>PRISMATIC &bull; 4.1K VIEWS</p></article>
-      <article class="v"><a class="art" href="#"><span class="rank">2</span><img src="assets/packs/surging-sparks-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">0:56</span></a>
-        <h3>Gold Pikachu ex out of nowhere</h3><p>SURGING SPARKS &bull; 2.8K VIEWS</p></article>
-      <article class="v"><a class="art" href="#"><span class="rank">3</span><img src="assets/packs/151-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">1:08</span></a>
-        <h3>The 151 Charizard everyone wants</h3><p>151 &bull; 2.2K VIEWS</p></article>
-      <article class="v"><a class="art" href="#"><span class="rank">4</span><img src="assets/packs/twilight-masquerade-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">0:49</span></a>
-        <h3>Bloodmoon Ursaluna on the last pack</h3><p>TWILIGHT MASQUERADE &bull; 1.9K VIEWS</p></article>
-      <article class="v"><a class="art" href="#"><span class="rank">5</span><img src="assets/packs/paradox-rift-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">0:41</span></a>
-        <h3>Roaring Moon ex back to back</h3><p>PARADOX RIFT &bull; 1.4K VIEWS</p></article>
-      <article class="v"><a class="art" href="#"><span class="rank">6</span><img src="assets/packs/obsidian-flames-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">1:03</span></a>
-        <h3>Obsidian Flames finally paid off</h3><p>OBSIDIAN FLAMES &bull; 1.1K VIEWS</p></article>
+    <div class="shelf"><!-- HOF:START -->
+      <article class="v"><a class="art" href="/rip/destined-rivals-pack-12-can-we-top-the-mewtwo-hbUa4l-xono.html"><span class="rank">1</span><img src="assets/packs/destined-rivals-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3>Destined Rivals Pack #12 ⚡ | Can We TOP The Mewtwo?! 😳</h3><p>DESTINED RIVALS &bull; 1.9K VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/the-pitch-black-curse-is-real-16jOkWyE1Cs.html"><span class="rank">2</span><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
+        <h3>The &quot;Pitch Black&quot; Curse is Real! 🌒💀</h3><p>PITCH BLACK &bull; 827 VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/mega-feraligatr-ex-box-pack-1-first-pack-magic-qKiLbaLhdp8.html"><span class="rank">3</span><img src="assets/packs/ascended-heroes-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
+        <h3>Mega Feraligatr ex Box 🌊🔥 | Pack #1 (First Pack Magic?!)</h3><p>ASCENDED HEROES &bull; 1.5K VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/prismatic-evolutions-etb-pack-1-umbreon-hunt-begins-hCI0HSfly1c.html"><span class="rank">4</span><img src="assets/packs/prismatic-evolutions-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:20</span></a>
+        <h3>Prismatic Evolutions ETB ✨ | Pack #1 Umbreon Hunt Begins</h3><p>PRISMATIC EVOLUTIONS &bull; 1.3K VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/phantasmal-flames-pack-9-still-no-charizard-sir-yeX4naszsoo.html"><span class="rank">5</span><img src="assets/packs/phantasmal-flames-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
+        <h3>Phantasmal Flames Pack #9 🔥 | Still No Charizard SIR… 😬</h3><p>PHANTASMAL FLAMES &bull; 1.2K VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/i-pulled-this-card-again-chaos-rising-etb-2-rlJDEb0q1d0.html"><span class="rank">6</span><img src="assets/packs/chaos-rising-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:23</span></a>
+        <h3>I Pulled This Card AGAIN! 😳 | Chaos Rising ETB #2</h3><p>CHAOS RISING &bull; 1.1K VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/mega-skarmory-ex-double-rare-pull-k6p_6HEntYw.html"><span class="rank">7</span><img src="assets/packs/perfect-order-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3>Mega Skarmory ex Double Rare Pull! 🦅</h3><p>PERFECT ORDER &bull; 878 VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/opening-my-first-obsidian-flames-pack-RXKBcjWfqhE.html"><span class="rank">8</span><img src="assets/packs/obsidian-flames-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3>Opening My FIRST Obsidian Flames Pack 😬</h3><p>OBSIDIAN FLAMES &bull; 1.3K VIEWS</p></article>
+<!-- HOF:END -->
     </div>
   </div>
 </section>
@@ -326,51 +355,58 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
   <div class="wrap">
     <div class="wall">
 
-      <div class="brk"><h2>Latest rips</h2><span class="ln"></span><a href="#">All 308 &rarr;</a></div>
+      <div class="brk"><h2>Latest rips</h2><span class="ln"></span><a href="/videos.html">All <!-- COUNT_ALL:START -->
+308
+<!-- COUNT_ALL:END --> &rarr;</a></div>
+<!-- LATEST:START -->
+      <article class="v"><a class="art" href="/rip/chaos-rising-etb-3-the-first-pack-reality-RZInASE6x1c.html"><img src="assets/packs/chaos-rising-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
+        <h3>Chaos Rising ETB #3: The First Pack Reality 💀</h3><p>757 VIEWS &bull; AUG 10</p></article>
+      <article class="v"><a class="art" href="/rip/the-most-disappointing-hit-pitch-black-oSPbl9reyIM.html"><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3>The most DISAPPOINTING &quot;Hit&quot; 💀 Pitch Black</h3><p>653 VIEWS &bull; AUG 9</p></article>
+      <article class="v"><a class="art" href="/rip/did-this-bundle-have-any-hits-inTMqcQmFhM.html"><span class="hit">&starf;&starf; SIR</span><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:23</span></a>
+        <h3>Did this Bundle have ANY hits?! 📉💀</h3><p>870 VIEWS &bull; AUG 8</p></article>
+      <article class="v"><a class="art" href="/rip/pitch-black-is-savage-today-b8CfpcK7-h0.html"><span class="hit">&starf;&starf; SIR</span><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:18</span></a>
+        <h3>Pitch Black is SAVAGE Today! 🌑💀</h3><p>650 VIEWS &bull; AUG 7</p></article>
+      <article class="v"><a class="art" href="/rip/the-box-ends-with-a-garbage-rip-aa9jzXRFtrg.html"><img src="assets/packs/perfect-order-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:23</span></a>
+        <h3>The Box Ends with a Garbage Rip... 🗑️</h3><p>757 VIEWS &bull; AUG 6</p></article>
+      <article class="v"><a class="art" href="/rip/where-did-the-hits-go-pitch-black-etb-znsnYB6boh4.html"><span class="hit">&starf;&starf; SIR</span><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3>Where did the hits go?! 📉 Pitch Black ETB</h3><p>771 VIEWS &bull; AUG 5</p></article>
+<!-- LATEST:END -->
 
-      <article class="v"><a class="art" href="#"><img src="assets/packs/chaos-rising-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">0:58</span></a>
-        <h3>Chaos Rising ETB #3: The First Pack Reality</h3><p>CHAOS RISING &bull; 727 VIEWS</p></article>
-      <article class="v"><a class="art" href="#"><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">0:44</span></a>
-        <h3>The most DISAPPOINTING Hit</h3><p>PITCH BLACK &bull; 512 VIEWS</p></article>
-      <article class="v"><a class="art" href="#"><span class="hit">&starf;&starf; SIR</span><img src="assets/packs/prismatic-evolutions-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">1:02</span></a>
-        <h3>Did this Bundle have ANY hits?!</h3><p>PRISMATIC &bull; 1.2K VIEWS</p></article>
-      <article class="v"><a class="art" href="#"><img src="assets/packs/perfect-order-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">0:51</span></a>
-        <h3>The Box Ends with a Garbage Rip</h3><p>PERFECT ORDER &bull; 883 VIEWS</p></article>
-      <article class="v"><a class="art" href="#"><img src="assets/packs/journey-together-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">0:39</span></a>
-        <h3>Last Pack Magic?!</h3><p>JOURNEY TOGETHER &bull; 640 VIEWS</p></article>
-      <article class="v"><a class="art" href="#"><img src="assets/packs/destined-rivals-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">0:47</span></a>
-        <h3>Where is the Mega Darkrai SIR?!</h3><p>DESTINED RIVALS &bull; 445 VIEWS</p></article>
+      <div class="brk"><h2>Most watched</h2><span class="ln"></span><a href="/videos.html?sort=views">Sort by views &rarr;</a></div>
+<!-- WATCHED:START -->
+      <article class="v"><a class="art" href="/rip/pok-mon-go-pack-12-still-no-ditto-or-mewtwo-QXS1W_L2qbs.html"><img src="assets/packs/pokemon-go-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:23</span></a>
+        <h3>Pokémon GO Pack #12 ⚡ | STILL No Ditto or Mewtwo?! 😬</h3><p>2.6K VIEWS &bull; APR 27</p></article>
+      <article class="v"><a class="art" href="/rip/only-garbage-rips-paldea-evolved-blister-pack-pokemonshorts-evnMahizn0I.html"><span class="art-none"><img src="assets/logos/paldea-evolved-pokemon-tcg-set-logo.webp" alt="" loading="lazy"></span><span class="play"></span><span class="dur">0:26</span></a>
+        <h3>Only Garbage Rips 😬 | Paldea Evolved Blister Pack #PokemonShorts #PokemonTCG #PaldeaEvolved</h3><p>2.5K VIEWS &bull; FEB 7</p></article>
+      <article class="v"><a class="art" href="/rip/only-garbage-rips-pok-mon-violet-ex-booster-pack-jO7K2zX6Rlg.html"><img src="assets/packs/scarlet-violet-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:16</span></a>
+        <h3>Only Garbage Rips 😬 | Pokémon Violet ex Booster Pack</h3><p>2.4K VIEWS &bull; FEB 14</p></article>
+      <article class="v"><a class="art" href="/rip/ascended-heroes-booster-bundle-pack-1-first-pack-magic-Qf2PmYHL8Xw.html"><img src="assets/packs/ascended-heroes-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3>Ascended Heroes Booster Bundle ⚡ | Pack #1 (First Pack Magic?)</h3><p>2K VIEWS &bull; MAY 2</p></article>
+      <article class="v"><a class="art" href="/rip/temporal-forces-pack-1-is-this-set-any-good-mxwjJ0oXyUQ.html"><img src="assets/packs/temporal-forces-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
+        <h3>Temporal Forces Pack #1 😬 | Is This Set Any Good?</h3><p>1.9K VIEWS &bull; MAR 20</p></article>
+      <article class="v"><a class="art" href="/rip/destined-rivals-pack-12-can-we-top-the-mewtwo-hbUa4l-xono.html"><span class="hit">&starf;&starf;&starf; HYPER</span><img src="assets/packs/destined-rivals-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3>Destined Rivals Pack #12 ⚡ | Can We TOP The Mewtwo?! 😳</h3><p>1.9K VIEWS &bull; MAY 27</p></article>
+<!-- WATCHED:END -->
 
-      <div class="brk"><h2>Mega Evolution era</h2><span class="ln"></span><a href="#">See the set guides &rarr;</a></div>
 
-      <article class="v"><a class="art" href="#"><img src="assets/packs/mega-evolution-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">0:52</span></a>
-        <h3>First Mega Evolution box of the year</h3><p>MEGA EVOLUTION &bull; 980 VIEWS</p></article>
-      <article class="v"><a class="art" href="#"><img src="assets/packs/ascended-heroes-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">0:45</span></a>
-        <h3>Ascended Heroes bundle, no mercy</h3><p>ASCENDED HEROES &bull; 760 VIEWS</p></article>
-      <article class="v"><a class="art" href="#"><img src="assets/packs/phantasmal-flames-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">1:11</span></a>
-        <h3>Phantasmal Flames ETB, full send</h3><p>PHANTASMAL FLAMES &bull; 1.3K VIEWS</p></article>
-      <article class="v"><a class="art" href="#"><img src="assets/packs/surging-sparks-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">0:38</span></a>
-        <h3>Surging Sparks single pack special</h3><p>SURGING SPARKS &bull; 690 VIEWS</p></article>
-      <article class="v"><a class="art" href="#"><img src="assets/packs/temporal-forces-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">0:57</span></a>
-        <h3>Temporal Forces, one more time</h3><p>TEMPORAL FORCES &bull; 540 VIEWS</p></article>
-      <article class="v"><a class="art" href="#"><img src="assets/packs/pokemon-go-garbage-rips-585-booster-pack.webp" alt=""><span class="play"></span><span class="dur">0:43</span></a>
-        <h3>Pokemon GO packs are still fun</h3><p>POKEMON GO &bull; 410 VIEWS</p></article>
-
-      <div class="more"><a href="#">Load 48 more rips</a></div>
+      <div class="more"><a href="/videos.html">See all rips</a></div>
     </div>
   </div>
 </main>
 
-<!-- SETS101:START -->
 <section class="sets101">
   <div class="wrap">
     <div class="brk s101-head">
       <h2>Set 101</h2>
       <span class="ln"></span>
-      <a href="/sets/">All 23 guides &rarr;</a>
+      <a href="/sets/">All <!-- COUNT_SETS:START -->
+23
+<!-- COUNT_SETS:END --> guides &rarr;</a>
     </div>
     <p class="s101-lede">Every set I rip, explained. Card counts, what the rarities actually mean, the chase cards worth chasing, and what a pack of it goes for.</p>
     <div class="set-grid">
+<!-- SETS101:START -->
         <a class="set" href="/sets/pitch-black.html">
           <span class="set-art"><img src="assets/logos/pitch-black-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:37px"></span>
           <b>Pitch Black</b>
@@ -509,10 +545,10 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
           <span class="set-meta">88 cards · Jul 2022</span>
           <span class="set-rips">12 rips</span>
         </a>
+<!-- SETS101:END -->
     </div>
   </div>
 </section>
-<!-- SETS101:END -->
 
 <section class="about">
   <div class="about-in">
@@ -522,10 +558,10 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
       <h2>Packs get opened here like a plate at 2am</h2>
       <p>Messy, loud, and worth it. Garbage Rips 585 is one guy in Rochester, New York opening Pokemon cards on camera. Hits, heartbreak, and zero gatekeeping. Every rip ever filmed lives on this site.</p>
       <div class="socials">
-        <a href="#"><i style="--pip:#FF0033"></i>YouTube</a>
-        <a href="#"><i style="--pip:#BC1888"></i>Instagram</a>
-        <a href="#"><i style="--pip:#F4F1E2"></i>TikTok</a>
-        <a href="#"><i style="--pip:#1877F2"></i>Facebook</a>
+        <a href="https://www.youtube.com/@GarbageRips585"><i style="--pip:#FF0033"></i>YouTube</a>
+        <a href="https://www.instagram.com/garbagerips585/"><i style="--pip:#BC1888"></i>Instagram</a>
+        <a href="https://www.tiktok.com/@garbagerips585"><i style="--pip:#F4F1E2"></i>TikTok</a>
+        <a href="https://www.facebook.com/GarbageRips585"><i style="--pip:#1877F2"></i>Facebook</a>
       </div>
       <div class="roc">
         <img src="assets/roc-badge.svg" width="240" height="280" alt="ROC 585 Rochester New York badge">
