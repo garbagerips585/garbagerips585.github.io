@@ -690,3 +690,17 @@ footer p{font-size:.83rem;color:rgba(247,242,222,.72);max-width:60em;margin:0 au
   letter-spacing:.1em;margin-top:6px;
 }
 @media(max-width:640px){.set-logo{padding:8px 12px}.set-logos{gap:10px}}
+
+/* ---------- set header (library page, when a set filter is on) ---------- */
+.set-header{
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  background:var(--paper-2);border:3px solid var(--navy);border-radius:14px;
+  box-shadow:0 6px 0 var(--trubbish);padding:16px 22px;margin:22px 0 0;
+}
+.set-header img{height:clamp(38px,6vw,66px);width:auto}
+.set-header .txt{font-family:var(--mono);font-size:.76rem;font-weight:700;color:var(--ink-soft);letter-spacing:.08em}
+.set-header .txt b{display:block;font-family:var(--display);font-size:1.1rem;color:var(--ink);letter-spacing:0;margin-bottom:2px}
+
+/* ---------- set logo on a video page ---------- */
+.rip-setlogo{display:block;height:clamp(34px,5vw,54px);width:auto;margin-bottom:14px}
+.sec-head .setlogo{height:clamp(30px,4.4vw,50px);width:auto;display:block;margin-bottom:6px}

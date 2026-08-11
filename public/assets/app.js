@@ -424,6 +424,27 @@
           more.hidden = true;
         }
       }
+      // When exactly one set is selected, head the results with its logo.
+      var head = document.getElementById("setHeader");
+      if (head) {
+        if (state.sets.length === 1) {
+          var sid = state.sets[0], slabel = labelOf("sets", sid);
+          head.hidden = false;
+          head.textContent = "";
+          var limg = new Image();
+          limg.src = "assets/logos/" + sid + "-pokemon-tcg-set-logo.webp";
+          limg.alt = slabel + " Pokemon TCG set logo";
+          limg.onerror = function () { limg.remove(); };
+          head.appendChild(limg);
+          var txt = el("div", "txt");
+          txt.appendChild(el("b", null, slabel));
+          txt.appendChild(document.createTextNode(out.length + (out.length === 1 ? " rip" : " rips") + " from this set"));
+          head.appendChild(txt);
+        } else {
+          head.hidden = true;
+        }
+      }
+
       var c = document.getElementById("libCount");
       if (c) {
         c.innerHTML = "<b>" + out.length + "</b> of " + all.length + " rips" +

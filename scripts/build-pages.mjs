@@ -207,6 +207,7 @@ ${NAV}
         </div>
       </div>
       <div>
+        ${setId ? `<img class="rip-setlogo" src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="${esc(setLabel)} Pokemon TCG set logo" loading="lazy" onerror="this.remove()">` : ""}
         <h1>${esc(v.title)}</h1>
         <div class="rip-badges">
           ${setId ? `<a class="chip" href="/videos.html?set=${setId}">${esc(setLabel)}</a>` : ""}
@@ -234,7 +235,10 @@ ${NAV}
 ${related.length ? `<section class="band tight">
   <div class="wrap">
     <div class="sec-head">
-      <div><h2>More <span class="hl">${esc(setLabel)}</span></h2></div>
+      <div>
+        <img class="setlogo" src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="${esc(setLabel)} Pokemon TCG set logo" loading="lazy" onerror="this.remove()">
+        <h2>More <span class="hl">${esc(setLabel)}</span></h2>
+      </div>
       <a class="btn btn-ghost btn-sm" href="/videos.html?set=${setId}">See all &rarr;</a>
     </div>
     <div class="vid-grid">
