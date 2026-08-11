@@ -1,4 +1,5 @@
+# Staging. This is the pre-launch address; the site will live at
+# https://garbagerips585.com. Crawling is off so the temporary copy never gets indexed
+# and does not end up competing with the real domain at launch.
 User-agent: *
-Allow: /
-
-Sitemap: https://garbagerips585.com/sitemap.xml
+Disallow: /

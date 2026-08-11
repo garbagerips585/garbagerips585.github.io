@@ -13,9 +13,10 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { SITE } from "../shared/site.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const SITE = "https://garbagerips585.com";
+
 
 const esc = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");

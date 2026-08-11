@@ -12,12 +12,13 @@
 import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { SITE, robots, LIVE, DOMAIN } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { ripPath } from "../shared/paths.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const SITE = "https://garbagerips585.com";
+
 const OUT = join(ROOT, "public/rip");
 
 // Graded prices, hand-entered first and synced second, with the same
@@ -27,6 +28,25 @@ const OUT = join(ROOT, "public/rip");
 // Shrouded Fable, Paldean Fates, Paldea Evolved) have neither art nor a colour
 // skin, so naming them here would render the plain Garbage Rips green rather
 // than the generic wrapper we drew for exactly this case.
+/**
+ * The share card for a rip.
+ *
+ * This used to be the YouTube poster frame, which is nearly always the pulled
+ * card: sharing a rip page in a message showed the hit before anyone opened
+ * it, the one thing the pack wrappers exist to prevent. Each set has its own
+ * card now, showing its wrapper and nothing else.
+ */
+const ogCard = (v) => {
+  const s = (v.sets || [])[0];
+  return s && ogCards.has(s) ? `og-${s}.jpg` : "og-image.jpg";
+};
+
+const ogCards = new Set(
+  (await readdir(join(ROOT, "public/assets")))
+    .filter((f) => f.startsWith("og-") && f.endsWith(".jpg"))
+    .map((f) => f.slice(3, -4))
+);
+
 const packsOnDisk = new Set(
   (await readdir(join(ROOT, "public/assets/packs")))
     .filter((f) => f.endsWith(".webp"))
@@ -123,6 +143,8 @@ const prodId = v.products[0];
     : isTagged
     ? `${v.title} — a ${prodLabel} rip from ${setLabel}, opened on Garbage Rips 585 in Rochester, NY.`
     : `${v.title} — a Pokemon pack rip from Garbage Rips 585 in Rochester, NY.`;
+  // Still YouTube's frame for the VideoObject schema and the poster behind the
+  // pack, where it is correct. It is NOT the share image: see ogCard().
   const thumb = `https://i.ytimg.com/vi/${v.id}/oardefault.jpg`;
   const url = `${SITE}/${pathFor(v)}`;
 
@@ -199,10 +221,12 @@ const prodId = v.products[0];
 <meta property="og:type" content="video.other">
 <meta property="og:url" content="${url}">
 <meta property="og:site_name" content="Garbage Rips 585">
-<meta property="og:image" content="${thumb}">
+<meta property="og:image" content="${SITE}/assets/${ogCard(v)}?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(v.title)}">
-<meta name="twitter:image" content="${thumb}">
+<meta name="twitter:image" content="${SITE}/assets/${ogCard(v)}?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -408,7 +432,12 @@ await writeFile(
     `\n</urlset>\n`
 );
 
+// robots.txt comes from the same source as the canonicals, so the two can
+// never disagree about which address this site lives at.
+await writeFile(join(ROOT, "public/robots.txt"), robots());
+
 console.log(`
+Wrote public/robots.txt  (${LIVE ? "live: crawling allowed" : `staging: crawling disallowed, real domain will be ${DOMAIN}`})
 Wrote ${ordered.length} rip pages to public/rip/
 Wrote public/sitemap.xml with ${urls.length} urls
 

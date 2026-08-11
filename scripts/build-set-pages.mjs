@@ -12,11 +12,12 @@
 import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const SITE = "https://garbagerips585.com";
+
 const OUT = join(ROOT, "public/sets");
 
 const { sets, rarityOrder, syncedAt } = JSON.parse(
@@ -265,7 +266,7 @@ function setPage(s) {
     });
   }
 
-  return head({ title: `${s.name} Set Guide: Cards, Rarities & Chase Card Values | Garbage Rips 585`, desc, canonical: url, image: `${SITE}/assets/og-image.jpg`, ld }) + `
+  return head({ title: `${s.name} Set Guide: Cards, Rarities & Chase Card Values | Garbage Rips 585`, desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld }) + `
 <header class="set-hero" id="main">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
@@ -472,7 +473,7 @@ function indexPage() {
       })),
     },
   ];
-  return head({ title: `Pokemon TCG Set Guides: Cards, Rarities & Chase Values | Garbage Rips 585`, desc, canonical: url, image: `${SITE}/assets/og-image.jpg`, ld }) + `
+  return head({ title: `Pokemon TCG Set Guides: Cards, Rarities & Chase Values | Garbage Rips 585`, desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld }) + `
 <header class="set-hero" id="main">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>

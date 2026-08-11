@@ -24,6 +24,11 @@ CSS = ROOT / "public" / "assets" / "packs.css"
 # 810x1440 covers both places the pack renders: the rip page player needs
 # 760px across at 2x, tiles need 534. One file, no srcset gymnastics.
 TARGET = (810, 1440)
+# A tile is never wider than about 200 CSS px, so 400 covers it at 2x. The full
+# size exists for one place only: the rip page player, which is ~380 CSS px and
+# needs 760. Serving 810x1440 into a 197px tile was a 4x linear oversample and
+# put 1.6 MB of pack art on the home page.
+TILE = (400, 711)
 QUALITY = 78
 BACKDROP = "#161D26"  # shows through the transparent margin around the pack
 
@@ -52,11 +57,19 @@ for m in masters:
     im = Image.open(m)
     if im.mode != "RGBA":
         im = im.convert("RGBA")
-    im.thumbnail(TARGET, Image.LANCZOS)
+    full = im.copy()
+    full.thumbnail(TARGET, Image.LANCZOS)
     dest = OUT / f"{set_id}-garbage-rips-585-booster-pack.webp"
-    im.save(dest, "WEBP", quality=QUALITY, method=6)
+    full.save(dest, "WEBP", quality=QUALITY, method=6)
+
+    tile = im.copy()
+    tile.thumbnail(TILE, Image.LANCZOS)
+    tile_dest = OUT / f"{set_id}-garbage-rips-585-booster-pack-tile.webp"
+    tile.save(tile_dest, "WEBP", quality=QUALITY, method=6)
+
     kb = dest.stat().st_size / 1024
-    done.append((set_id, im.size, kb, m.stat().st_size / 1024))
+    tkb = tile_dest.stat().st_size / 1024
+    done.append((set_id, full.size, kb, m.stat().st_size / 1024, tile.size, tkb))
 
     sel = f".pack--{set_id}"
     rules += [
@@ -70,6 +83,11 @@ for m in masters:
         # ones would sit on top of it.
         f"{sel} .pack-art::before,{sel} .pack-art::after{{content:none}}",
         f"{sel} .pack-brand,{sel} .pack-mascot{{display:none}}",
+        # A tile is never wider than about 200 CSS px. Pointing it at the 810px
+        # file was a 4x oversample, and the library draws 48 of them at once.
+        f"{sel}.pack--tile .pack-art{{",
+        f"  background-image:url('packs/{set_id}-garbage-rips-585-booster-pack-tile.webp');",
+        "}",
         "",
     ]
 
@@ -92,7 +110,7 @@ rules += [
 CSS.write_text("\n".join(rules))
 
 print(f"Wrote {len(done)} pack image(s) to {OUT.relative_to(ROOT)}/")
-for set_id, size, kb, src_kb in done:
+for set_id, size, kb, src_kb, tsize, tkb in done:
     print(f"  {set_id:<24} {size[0]}x{size[1]}  {kb:6.1f} KB   (from {src_kb:.0f} KB)")
 print(f"\nWrote {CSS.relative_to(ROOT)}")
 

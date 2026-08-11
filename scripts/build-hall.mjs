@@ -16,9 +16,10 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { SITE } from "../shared/site.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const SITE = "https://garbagerips585.com";
+
 const MIN_SALES = 10; // same floor the set guides use
 
 const esc = (s) =>

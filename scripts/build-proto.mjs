@@ -149,8 +149,14 @@ function tile(v, { rank = null, showSet = true } = {}) {
   const all = v.sets || [];
   const set = faceSet(v);
   const hasPack = set && packs.has(set);
+  // A tile is at most ~200 CSS px, so the 400px file covers it at 2x. srcset
+  // lets a desktop browser take the big one if it ever needs it, and sizes
+  // tells it how wide the tile actually is, which it cannot work out from the
+  // markup alone.
   const face = hasPack
-    ? `<img src="assets/packs/${set}-garbage-rips-585-booster-pack.webp" alt="" loading="lazy">`
+    ? `<img src="assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp"
+        srcset="assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${set}-garbage-rips-585-booster-pack.webp 810w"
+        sizes="(max-width: 640px) 45vw, 200px" alt="" loading="lazy" width="400" height="711">`
     : packs.has("default")
       ? `<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" loading="lazy">`
       : `<span class="art-none">${
