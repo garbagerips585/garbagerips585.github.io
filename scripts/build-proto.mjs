@@ -15,7 +15,9 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const TARGET = join(ROOT, "public/proto-wall.html");
+// The live home page and the prototype share one design and one generator, so
+// the prototype can never drift into showing something the real page does not.
+const TARGETS = [join(ROOT, "public/index.html"), join(ROOT, "public/proto-wall.html")];
 
 const esc = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -251,23 +253,25 @@ const REGIONS = {
   COUNT_SETS: String(sets.length),
 };
 
-let html = await readFile(TARGET, "utf8");
-for (const [name, body] of Object.entries(REGIONS)) {
-  const start = `<!-- ${name}:START -->`;
-  const end = `<!-- ${name}:END -->`;
-  const a = html.indexOf(start);
-  const b = html.indexOf(end);
-  if (a === -1 || b === -1) {
-    console.error(`Marker ${name} not found in ${TARGET}`);
-    process.exit(1);
+for (const target of TARGETS) {
+  let html = await readFile(target, "utf8");
+  for (const [name, body] of Object.entries(REGIONS)) {
+    const start = `<!-- ${name}:START -->`;
+    const end = `<!-- ${name}:END -->`;
+    const a = html.indexOf(start);
+    const b = html.indexOf(end);
+    if (a === -1 || b === -1) {
+      console.error(`Marker ${name} not found in ${target}`);
+      process.exit(1);
+    }
+    html = html.slice(0, a + start.length) + "\n" + body + "\n" + html.slice(b);
   }
-  html = html.slice(0, a + start.length) + "\n" + body + "\n" + html.slice(b);
+  await writeFile(target, html);
 }
-await writeFile(TARGET, html);
 
 const noArt = [...new Set(videos.flatMap((v) => v.sets || []))].filter((s) => !packs.has(s));
 const untagged = videos.filter((v) => !(v.sets || []).length).length;
-console.log(`proto-wall.html rebuilt from real data:
+console.log(`index.html and proto-wall.html rebuilt from real data:
   ${videos.length} videos, ${hitCount} with a graded pull, ${sets.length} sets
   Hall of Fame: ${hall.map((v) => (v.pulls || []).join("/")).slice(0, 3).join(", ")}...
   logos: ${logos.size}/${sets.length}    pack art: ${packs.size} sets`);

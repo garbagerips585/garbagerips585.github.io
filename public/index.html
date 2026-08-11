@@ -22,12 +22,11 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="theme-color" content="#1E2419">
+<meta name="theme-color" content="#15263A">
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/packs.css">
 <script type="application/ld+json">
 {
@@ -48,9 +47,281 @@
   ]
 }
 </script>
+<style>
+/* ==========================================================================
+   PROTOTYPE D — "The Wall"
+   No hero, no intro, no scroll before the content. Nav, filter rail, then
+   packs, starting inside the first screen. The identity lives in the bar at
+   the top and the block at the bottom, and the middle of the page is nothing
+   but videos, because that is what the site is for.
+
+   The pack art is the only decoration. 18 wrappers, all different, is more
+   colour than any layout could add, so everything around them stays quiet.
+   ========================================================================== */
+:root{
+  --page:#F7F5EC; --card:#FFFFFF;
+  --ink:#15263A; --ink-2:#5A6E82; --hair:rgba(21,38,58,.14);
+
+  --mustard:#EFC94C; --gold:#E0A21F; --gold-deep:#A8760B;
+  --ketchup:#D9482B; --ketchup-deep:#A83318;
+  --sky:#35BEEF; --lilac:#CAA6CA; --lilac-pale:#F0E4F1; --plum:#4E2F48;
+
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:72px;
+  --r:10px; --r-pill:999px;
+  /* One source of truth: the bar's height is also the rail's sticky offset, so
+     a taller touch target in the bar cannot leave the rail tucked under it. */
+  --bar-h:60px;
+  --lift:0 1px 1px rgba(21,38,58,.07), 0 2px 3px rgba(21,38,58,.07),
+         0 6px 10px rgba(21,38,58,.07), 0 14px 20px rgba(21,38,58,.06);
+
+  --t-l:clamp(1.4rem,4vw,2rem); --t-m:1.15rem; --t-body:1rem;
+  --t-sm:.875rem; --t-label:.75rem; --t-micro:.6875rem;
+
+  --display:'Titan One',system-ui,sans-serif;
+  --body:'Outfit',system-ui,sans-serif;
+  --mono:'Space Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--page);color:var(--ink);font:400 17px/1.55 var(--body)}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1500px;margin:0 auto;padding:0 var(--s5)}
+@media(max-width:700px){.wrap{padding:0 var(--s3)}}
+:focus-visible{outline:3px solid var(--ketchup-deep);outline-offset:2px;
+  box-shadow:0 0 0 5px rgba(255,255,255,.95)}
+
+/* --------------------------------------------------------------------------
+   Bar. Everything the old hero was doing, compressed into 58px: who this is,
+   what it is, how to search it, and the subscribe button.
+   -------------------------------------------------------------------------- */
+.bar{position:sticky;top:0;z-index:60;background:var(--ink);color:#F4F1E2}
+.bar-in{display:flex;align-items:center;gap:var(--s4);max-width:1500px;margin:0 auto;
+  padding:var(--s2) var(--s5);min-height:var(--bar-h)}
+@media(max-width:700px){.bar-in{padding:var(--s2) var(--s3);gap:var(--s2)}}
+.brand{display:flex;align-items:baseline;gap:var(--s2);flex:none;min-height:44px;
+  align-content:center;flex-wrap:wrap}
+.brand b{font:400 1.05rem/1 var(--display);letter-spacing:.01em}
+.brand b i{font-style:normal;color:var(--mustard)}
+.brand span{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;color:#9FB0C0;
+  text-transform:uppercase}
+@media(max-width:900px){.brand span{display:none}}
+.bar form{flex:1;display:flex;align-items:center;gap:var(--s2);min-width:0;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  border-radius:var(--r-pill);padding:0 var(--s4);height:42px;max-width:440px;margin:0 auto}
+.bar input{flex:1;min-width:0;background:none;border:0;color:#F4F1E2;font:400 var(--t-sm)/1 var(--body)}
+.bar input::placeholder{color:#8FA0B2}
+.bar input:focus{outline:none}
+.sub{flex:none;background:var(--mustard);color:var(--ink);font:700 var(--t-sm)/1 var(--body);
+  border-radius:var(--r-pill);padding:0 var(--s4);height:44px;display:inline-flex;align-items:center}
+/* Below 640 there is not enough bar left for a usable field: the brand and the
+   subscribe button squeeze it to about 80px. Swap it for an icon that opens
+   the library, where the real search box lives, rather than shipping a text
+   input nobody can read their own query in. */
+.icon-btn{display:none;flex:none;width:44px;height:44px;border-radius:50%;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  place-items:center;margin-left:auto}
+.icon-btn svg{width:19px;height:19px;fill:none;stroke:#F4F1E2;stroke-width:2.2;
+  stroke-linecap:round}
+@media(max-width:640px){
+  .bar form{display:none}
+  .icon-btn{display:grid}
+  .sub{padding:0 var(--s3)}
+}
+
+/* Filter rail. Sticks under the bar so the whole catalogue stays one tap away
+   from anywhere on the page. */
+.rail{position:sticky;top:var(--bar-h);z-index:55;background:rgba(247,245,236,.96);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+.rail-in{display:flex;gap:var(--s2);overflow-x:auto;scrollbar-width:none;
+  max-width:1500px;margin:0 auto;padding:var(--s3) var(--s5)}
+.rail-in::-webkit-scrollbar{display:none}
+@media(max-width:700px){.rail-in{padding:var(--s2) var(--s3)}}
+.chip{flex:none;font:700 var(--t-label)/1 var(--body);letter-spacing:.02em;
+  background:var(--card);border:1px solid var(--hair);border-radius:var(--r-pill);
+  padding:0 var(--s4);height:44px;display:inline-flex;align-items:center;gap:6px;
+  color:var(--ink);white-space:nowrap}
+.chip .n{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-current]{background:var(--ink);color:#F4F1E2;border-color:var(--ink)}
+.chip[aria-current] .n{color:#9FB0C0}
+.chip.gold{background:#FCF0CC;border-color:var(--gold)}
+.chip.gold[aria-current]{background:var(--gold-deep);color:#fff;border-color:var(--gold-deep)}
+
+/* --------------------------------------------------------------------------
+   Hall of Fame. The one dark surface on the site, and it is here because dark
+   is what makes foil read as foil: the same wrapper that sits flat on cream
+   looks lit against near-black. A shelf rather than a grid, so the best pulls
+   get the top of the page without pushing the latest rips off the screen.
+   -------------------------------------------------------------------------- */
+.hof{background:var(--ink);color:#F4F1E2;padding:var(--s5) 0 var(--s6);
+  border-bottom:2px solid var(--gold);
+  background-image:radial-gradient(130% 90% at 50% 0%, rgba(224,162,31,.18), transparent 62%)}
+.hof-head{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s4)}
+.hof-head h2{font:400 var(--t-l)/1 var(--display);color:var(--mustard);flex:none}
+.hof-head .sub2{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.09em;color:#9FB0C0;
+  text-transform:uppercase}
+@media(max-width:560px){.hof-head .sub2{display:none}}
+.hof-head a{margin-left:auto;flex:none;font:700 var(--t-sm)/1 var(--body);color:var(--mustard);
+  min-height:44px;display:inline-flex;align-items:center}
+.hof-head a:hover{text-decoration:underline}
+.shelf{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x mandatory;
+  scrollbar-width:none;padding-bottom:var(--s2);
+  /* bleed to the screen edge so the row reads as continuing, not as cut off */
+  margin:0 calc(var(--s5) * -1);padding-inline:var(--s5);scroll-padding-left:var(--s5)}
+.shelf::-webkit-scrollbar{display:none}
+@media(max-width:700px){.shelf{margin:0 calc(var(--s3) * -1);padding-inline:var(--s3);
+  scroll-padding-left:var(--s3)}}
+.shelf .v{flex:none;width:clamp(146px,42vw,196px);scroll-snap-align:start}
+.shelf .v .art{box-shadow:0 2px 4px rgba(0,0,0,.4), 0 10px 26px rgba(0,0,0,.45),
+  0 0 0 1px rgba(224,162,31,.35)}
+.shelf .v h3{color:#F4F1E2}
+/* The shelf carries the set name where the wall carries a date, and the long
+   ones ("Prismatic Evolutions") overrun a 196px tile. Dropping a step and
+   losing the tracking buys 40px, which clears every set name we have. */
+.shelf .v p{color:#9FB0C0;font-size:.625rem;letter-spacing:0}
+.rank{position:absolute;left:8px;top:8px;z-index:4;width:30px;height:30px;border-radius:50%;
+  display:grid;place-items:center;font:400 1rem/1 var(--display);color:var(--ink);
+  background:linear-gradient(180deg,#FBE08A,var(--gold));
+  box-shadow:0 2px 5px rgba(0,0,0,.4)}
+
+/* --------------------------------------------------------------------------
+   The wall. 2 up on a phone, 6 up on a desktop.
+   -------------------------------------------------------------------------- */
+main{padding:var(--s4) 0 var(--s8)}
+.wall{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--s5) var(--s4)}
+@media(max-width:1300px){.wall{grid-template-columns:repeat(5,1fr)}}
+@media(max-width:1080px){.wall{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:820px){.wall{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.wall{grid-template-columns:repeat(2,1fr);gap:var(--s5) var(--s3)}}
+
+/* A section break is a row inside the grid, not a new banded section. The
+   content never stops to make room for a heading. */
+/* Negative bottom margin claws back most of the grid's row gap: a heading row
+   should sit against the videos it labels, not float a full row above them. */
+.brk{grid-column:1/-1;display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;
+  margin:var(--s5) 0 calc(var(--s4) * -1)}
+.brk:first-child{margin-top:0}
+/* These must be allowed to shrink. A flex:none heading in a grid-column:1/-1
+   row sets the grid's minimum width, so a long section title silently widens
+   the whole page and the document scrolls sideways. */
+.brk h2{font-family:var(--display);font-size:var(--t-l);font-weight:400;line-height:1;
+  flex:0 1 auto;min-width:0}
+.brk .ln{flex:1 1 24px;min-width:16px;height:3px;border-radius:2px;background:var(--hair)}
+.brk .ln.gold{background:linear-gradient(90deg,var(--gold),rgba(224,162,31,0))}
+.brk a{flex:none;font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep);
+  min-height:44px;display:inline-flex;align-items:center}
+.brk a:hover{text-decoration:underline}
+
+.v{display:flex;flex-direction:column;gap:var(--s2);min-width:0}
+/* The pack is the tile. No frame, no pocket, no border: a rounded crop and one
+   shadow, so eighteen different wrappers can sit side by side without the
+   layout adding a nineteenth colour. */
+.v .art{position:relative;display:block;aspect-ratio:2/3;border-radius:var(--r);
+  overflow:hidden;background:#E8E4D6;box-shadow:var(--lift);
+  transition:transform .15s ease, box-shadow .15s ease}
+.v .art img{width:100%;height:100%;object-fit:cover}
+/* No wrapper art for this set yet, or the video has no set tag at all. Shows
+   the set logo on a plain field rather than a broken image, and never the
+   YouTube poster frame, which is usually the pulled card and spoils the video
+   before you press play. */
+.art-none{position:absolute;inset:0;display:grid;place-items:center;padding:14%;
+  background:linear-gradient(160deg,#243549,#15263A 60%,#0E1B2A)}
+.art-none img{width:100%!important;height:auto!important;object-fit:contain!important;
+  max-height:100%}
+.art-none b{font:400 1rem/1.2 var(--display);color:var(--mustard);text-align:center}
+.v:hover .art{transform:translateY(-4px) scale(1.012)}
+.v .art::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 62%,rgba(10,18,28,.62));opacity:0;
+  transition:opacity .15s}
+.v:hover .art::after{opacity:1}
+/* the play affordance, only on hover, low and to the right of the mascot */
+.play{position:absolute;left:50%;top:50%;translate:-50% -50%;z-index:3;
+  width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.94);
+  display:grid;place-items:center;opacity:0;scale:.86;
+  transition:opacity .15s, scale .15s;box-shadow:0 4px 14px rgba(10,18,28,.35)}
+.v:hover .play{opacity:1;scale:1}
+.play::before{content:"";width:0;height:0;margin-left:4px;
+  border-left:16px solid var(--ink);border-top:10px solid transparent;border-bottom:10px solid transparent}
+.dur{position:absolute;right:6px;bottom:6px;z-index:3;
+  font:700 var(--t-micro)/1 var(--mono);color:#fff;background:rgba(10,18,28,.82);
+  padding:4px 6px;border-radius:5px}
+/* a hit is the only thing that earns a flag */
+.hit{position:absolute;left:0;top:10px;z-index:4;
+  font:700 var(--t-micro)/1 var(--mono);letter-spacing:.04em;
+  background:var(--mustard);color:var(--ink);border:1px solid var(--gold-deep);border-left:0;
+  padding:5px 7px;border-radius:0 5px 5px 0;box-shadow:1px 1px 3px rgba(21,38,58,.25)}
+/* Both caption lines are fixed: two for the title, one for the meta. Without
+   the min-height a one-line title shortens its tile and the row of packs below
+   starts at a different place in every column. */
+.v h3{font:600 var(--t-sm)/1.32 var(--body);display:-webkit-box;-webkit-line-clamp:2;
+  line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.64em}
+.v p{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.03em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.more{grid-column:1/-1;display:flex;justify-content:center;margin-top:var(--s5)}
+.more a{font:700 var(--t-body)/1 var(--body);background:var(--card);border:2px solid var(--ink);
+  border-radius:var(--r-pill);padding:0 var(--s6);height:52px;display:inline-flex;
+  align-items:center;box-shadow:var(--lift)}
+.more a:hover{background:var(--mustard)}
+
+/* --------------------------------------------------------------------------
+   Set 101. The reading half of the site, after the watching half. Each tile is
+   a set's own logo on a card, because a collector recognises the logo faster
+   than they read the name.
+   -------------------------------------------------------------------------- */
+.sets101{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--hair)}
+.s101-head{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;margin:0 0 var(--s3)}
+.s101-lede{color:var(--ink-2);max-width:44em;margin-bottom:var(--s5)}
+.set-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--s3)}
+@media(max-width:1300px){.set-grid{grid-template-columns:repeat(5,1fr)}}
+@media(max-width:1080px){.set-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:820px){.set-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.set-grid{grid-template-columns:repeat(2,1fr)}}
+.set{display:flex;flex-direction:column;align-items:center;gap:var(--s1);text-align:center;
+  background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s4) var(--s3) var(--s3);box-shadow:var(--lift);min-width:0;
+  transition:transform .14s, border-color .14s}
+.set:hover{transform:translateY(-3px);border-color:var(--ink)}
+/* Fixed box, not aspect-ratio: these logos are all different shapes and a
+   ratio box would size each tile differently and break the grid's baseline.
+   Each logo's own height comes in as --lh, computed at build time so every
+   logo covers about the same area. Sizing them all to one height instead
+   makes a 5:1 wordmark look half the size of a 1.3:1 one. */
+.set-art{height:60px;display:grid;place-items:center;width:100%;margin-bottom:var(--s2)}
+.set-art img{height:var(--lh,44px);width:auto;max-width:100%;object-fit:contain}
+.set-name{font:400 .95rem/1.1 var(--display);color:var(--ink)}
+.set b{font:600 var(--t-sm)/1.25 var(--body)}
+.set-meta{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.02em}
+.set-rips{font:700 var(--t-micro)/1 var(--mono);color:var(--ketchup-deep);
+  background:#FBE7E1;border-radius:var(--r-pill);padding:4px 9px;margin-top:var(--s1)}
+
+/* --------------------------------------------------------------------------
+   Who this is. At the bottom, where it belongs on a hub whose visitors came
+   for the videos.
+   -------------------------------------------------------------------------- */
+.about{background:var(--ink);color:#F4F1E2;padding:var(--s8) 0}
+.about-in{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s7);align-items:center;
+  max-width:1180px;margin:0 auto;padding:0 var(--s5)}
+@media(max-width:860px){.about-in{grid-template-columns:1fr;gap:var(--s6)}}
+.about img.banner{border-radius:14px;width:100%;aspect-ratio:16/10;object-fit:cover;
+  object-position:center 42%;box-shadow:0 18px 40px rgba(0,0,0,.4)}
+.about h2{font:400 var(--t-l)/1.1 var(--display)}
+.about p{color:#B9C6D2;margin-top:var(--s3);max-width:34em}
+.socials{display:flex;gap:var(--s2);flex-wrap:wrap;margin-top:var(--s5)}
+.socials a{display:inline-flex;align-items:center;gap:var(--s2);height:46px;padding:0 var(--s4);
+  border-radius:var(--r-pill);background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.18);font:700 var(--t-sm)/1 var(--body)}
+.socials a:hover{background:rgba(255,255,255,.16)}
+.socials i{width:12px;height:12px;border-radius:50%;background:var(--pip);flex:none}
+.roc{display:flex;align-items:center;gap:var(--s4);margin-top:var(--s6);
+  padding-top:var(--s5);border-top:1px solid rgba(255,255,255,.15)}
+.roc img{width:78px;flex:none}
+.roc p{margin:0;font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.03em;color:#9FB0C0}
+footer{padding:var(--s6) 0;text-align:center}
+footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spacing:.03em}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
-
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="fc-flower" viewBox="0 0 24 24">
     <ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/>
@@ -71,327 +342,288 @@
   <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></symbol>
 </svg>
 
-<nav class="site" aria-label="Main">
-  <div class="nav-in">
-    <a class="logo" href="/">GARBAGE <span>RIPS</span> 585</a>
-    <form class="search" data-route role="search">
-      <svg aria-hidden="true"><use href="#i-search"/></svg>
-      <label class="sr-only" for="navSearch">Search every rip</label>
-      <input id="navSearch" type="search" placeholder="Search rips, sets, boxes...">
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form role="search" onsubmit="return false">
+      <input type="search" placeholder="Search rips" aria-label="Search all 308 rips by set, product or card">
     </form>
-    <button class="nav-toggle" aria-expanded="false" aria-label="Menu"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
-    <ul class="nav-links">
-      <li><a href="#watch">Watch</a></li>
-      <li><a href="videos.html">All Rips</a></li>
-      <li><a href="playlists.html">Playlists</a></li>
-      <li><a href="/sets/">Card Sets</a></li>
-      <li><a href="#five85">The 585</a></li>
-    </ul>
-    <div class="nav-social">
-      <a href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
-      <a href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
-      <a href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
-      <a href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
-    </div>
-  </div>
-</nav>
-
-<header class="hero hero-art" id="top">
-  <img class="hero-banner" src="assets/banner-trubbish.jpg" width="1300" height="725"
-       alt="Trubbish sitting on a Rochester sidewalk beside a plate of mac salad, home fries and meat sauce, with two packs of Garbage Rips 585 cards and the downtown skyline behind">
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <p class="eyebrow">Pokemon pack rips &bull; Rochester, NY</p>
-      <h1>Grab a fork.<br>Let's <span class="rip">rip.</span></h1>
-      <p class="lede">Packs get opened here like a Garbage Plate at 2am: messy, loud, and worth it. Hits, heartbreak, and zero gatekeeping. If you have ever paid too much for cardboard, you are among friends.</p>
-      <div class="btn-row">
-        <a class="btn btn-yt" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">
-          <svg width="18" height="18" aria-hidden="true" style="fill:currentColor"><use href="#i-yt"/></svg>
-          Subscribe on YouTube
-        </a>
-        <a class="btn btn-ghost" href="videos.html">Browse every rip</a>
-      </div>
-      <div class="hero-social">
-        <span class="lbl">Also here</span>
-        <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
-        <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
-        <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
-      </div>
-    </div>
+    <a class="icon-btn" href="/videos.html" aria-label="Search all 308 rips">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+    </a>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
   </div>
 </header>
 
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-track"><span><b>&#9670;</b> ROC FORECAST: ALL FOUR SEASONS BY THURSDAY</span><span><b>&#9670;</b> EXIT 585: PLATES AFTER MIDNIGHT</span><span><b>&#9670;</b> PUBLIC MARKET SATURDAYS</span><span><b>&#9670;</b> LILAC FESTIVAL EVERY MAY</span><span><b>&#9670;</b> HIGH FALLS IS STILL FREE</span><span><b>&#9670;</b> WEGMANS RUN AFTER THIS RIP</span><span><b>&#9670;</b> GO BILLS</span><span><b>&#9670;</b> FLOUR CITY &#8594; FLOWER CITY &#8594; GARBAGE CITY (WORKING ON IT)</span><span><b>&#9670;</b> ROC FORECAST: ALL FOUR SEASONS BY THURSDAY</span><span><b>&#9670;</b> EXIT 585: PLATES AFTER MIDNIGHT</span><span><b>&#9670;</b> PUBLIC MARKET SATURDAYS</span><span><b>&#9670;</b> LILAC FESTIVAL EVERY MAY</span><span><b>&#9670;</b> HIGH FALLS IS STILL FREE</span><span><b>&#9670;</b> WEGMANS RUN AFTER THIS RIP</span><span><b>&#9670;</b> GO BILLS</span><span><b>&#9670;</b> FLOUR CITY &#8594; FLOWER CITY &#8594; GARBAGE CITY (WORKING ON IT)</span></div>
+<div class="rail">
+  <div class="rail-in" role="group" aria-label="Filter rips">
+<!-- RAIL:START -->
+    <a class="chip" href="/videos.html" aria-current="page">Latest <span class="n">308</span></a>
+    <a class="chip gold" href="/videos.html?pull=1">Hits only <span class="n">60</span></a>
+    <a class="chip" href="/videos.html?set=chaos-rising">Chaos Rising <span class="n">50</span></a>
+    <a class="chip" href="/videos.html?set=ascended-heroes">Ascended Heroes <span class="n">49</span></a>
+    <a class="chip" href="/videos.html?set=perfect-order">Perfect Order <span class="n">44</span></a>
+    <a class="chip" href="/videos.html?set=pitch-black">Pitch Black <span class="n">18</span></a>
+    <a class="chip" href="/videos.html?set=phantasmal-flames">Phantasmal Flames <span class="n">16</span></a>
+    <a class="chip" href="/videos.html?set=journey-together">Journey Together <span class="n">14</span></a>
+    <a class="chip" href="/videos.html?set=prismatic-evolutions">Prismatic Evolutions <span class="n">13</span></a>
+    <a class="chip" href="/videos.html?set=destined-rivals">Destined Rivals <span class="n">12</span></a>
+    <a class="chip" href="/videos.html?product=single-pack">Single pack <span class="n">78</span></a>
+    <a class="chip" href="/videos.html?product=etb">ETB <span class="n">60</span></a>
+    <a class="chip" href="/videos.html?product=bundle">Booster bundle <span class="n">54</span></a>
+    <a class="chip" href="/videos.html?product=ex-box">ex box <span class="n">48</span></a>
+    <a class="chip" href="/videos.html?product=tin">Tin <span class="n">18</span></a>
+    <a class="chip" href="/sets/">All 23 sets &rarr;</a>
+<!-- RAIL:END -->
+  </div>
 </div>
 
-<!-- The real Rochester skyline, left to right: Powers Building, City Hall,
-     Kodak Tower, the Times Square Building with its Wings of Progress,
-     First Federal Plaza, Xerox Tower (the tall one), Legacy Tower and the
-     Metropolitan. Relative heights follow the real buildings. -->
-<svg class="skyline" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" role="img" aria-label="The Rochester, New York skyline: the Powers Building, City Hall, Kodak Tower, the Times Square Building with its Wings of Progress, First Federal Plaza, Xerox Tower, Legacy Tower and the Metropolitan">
-  <g stroke="#1B2430" stroke-width="3" stroke-linejoin="round">
-
-    <!-- hazy back row -->
-    <g opacity=".45">
-      <rect x="196" y="140" width="40" height="45" fill="#CFE0E8"/>
-      <rect x="520" y="132" width="34" height="53" fill="#CFE0E8"/>
-      <rect x="1160" y="138" width="44" height="47" fill="#CFE0E8"/>
-    </g>
-
-    <!-- Powers Building: mansard roof and corner turret -->
-    <rect x="40" y="123" width="72" height="62" fill="#DBC6A6"/>
-    <rect x="92" y="123" width="20" height="62" fill="#B99F7C"/>
-    <polygon points="34,123 118,123 110,109 42,109" fill="#6E5A48"/>
-    <rect x="46" y="94" width="24" height="15" fill="#DBC6A6"/>
-    <polygon points="40,94 58,72 76,94" fill="#6E5A48"/>
-    <rect x="56" y="62" width="3" height="11" fill="#1B2430"/>
-
-    <!-- City Hall -->
-    <rect x="132" y="137" width="84" height="48" fill="#E6CDA2"/>
-    <rect x="192" y="137" width="24" height="48" fill="#C4A57C"/>
-    <rect x="127" y="130" width="94" height="8" fill="#B99A72"/>
-
-    <!-- Kodak Tower: stepped crown, pyramid cap, mast -->
-    <rect x="240" y="57" width="62" height="128" fill="#EFDCBB"/>
-    <rect x="282" y="57" width="20" height="128" fill="#CBB48D"/>
-    <rect x="248" y="44" width="46" height="14" fill="#E6CDA2"/>
-    <polygon points="243,44 271,17 299,44" fill="#B98C63"/>
-    <rect x="264" y="8" width="14" height="10" fill="#E6CDA2"/>
-    <rect x="270" y="0" width="3" height="9" fill="#1B2430"/>
-
-    <!-- Times Square Building: Art Deco block, Wings of Progress on the roof -->
-    <rect x="340" y="94" width="74" height="91" fill="#E2CBA6"/>
-    <rect x="392" y="94" width="22" height="91" fill="#C0A279"/>
-    <rect x="346" y="83" width="62" height="12" fill="#EFD9A8"/>
-    <g fill="#D8DEE2">
-      <polygon points="353,83 345,38 361,77"/>
-      <polygon points="368,83 365,28 379,77"/>
-      <polygon points="386,83 390,28 376,77"/>
-      <polygon points="401,83 409,38 393,77"/>
-    </g>
-
-    <!-- First Federal Plaza -->
-    <rect x="452" y="69" width="68" height="116" fill="#DCC49E"/>
-    <rect x="496" y="69" width="24" height="116" fill="#BAA079"/>
-    <rect x="457" y="60" width="58" height="9" fill="#B98C63"/>
-
-    <!-- Xerox Tower: tallest in the city, plain concrete with vertical fins -->
-    <rect x="548" y="30" width="76" height="155" fill="#C6CCCE"/>
-    <rect x="600" y="30" width="24" height="155" fill="#9BA4A7"/>
-    <g stroke="none" fill="#AAB2B5">
-      <rect x="557" y="34" width="4" height="147"/><rect x="568" y="34" width="4" height="147"/>
-      <rect x="579" y="34" width="4" height="147"/><rect x="590" y="34" width="4" height="147"/>
-    </g>
-    <rect x="537" y="166" width="98" height="19" fill="#B7BFC1"/>
-
-    <!-- Legacy Tower: stepped glass crown -->
-    <rect x="658" y="48" width="70" height="137" fill="#AFC9D8"/>
-    <rect x="706" y="48" width="22" height="137" fill="#85A7BA"/>
-    <rect x="664" y="37" width="58" height="12" fill="#C3D8E4"/>
-    <rect x="673" y="28" width="40" height="10" fill="#C3D8E4"/>
-
-    <!-- The Metropolitan: the sloped roofline -->
-    <polygon points="762,185 762,66 840,48 840,185" fill="#B08464"/>
-    <polygon points="818,53 840,48 840,185 818,185" fill="#8E6A4F"/>
-
-    <!-- mid-rises filling out the rest of downtown -->
-    <rect x="862" y="112" width="58" height="73" fill="#E6CDA2"/><rect x="900" y="112" width="20" height="73" fill="#C4A57C"/>
-    <rect x="936" y="96" width="66" height="89" fill="#DCC49E"/><rect x="980" y="96" width="22" height="89" fill="#BAA079"/>
-    <rect x="1018" y="124" width="54" height="61" fill="#D2B588"/><rect x="1054" y="124" width="18" height="61" fill="#B0946C"/>
-    <rect x="1088" y="104" width="72" height="81" fill="#E6CDA2"/><rect x="1136" y="104" width="24" height="81" fill="#C4A57C"/>
-  </g>
-
-  <!-- lit windows -->
-  <g fill="#F5A62B" opacity=".85">
-    <rect x="250" y="76" width="5" height="8"/><rect x="250" y="100" width="5" height="8"/><rect x="262" y="88" width="5" height="8"/>
-    <rect x="352" y="112" width="5" height="8"/><rect x="352" y="140" width="5" height="8"/><rect x="368" y="126" width="5" height="8"/>
-    <rect x="462" y="88" width="5" height="8"/><rect x="462" y="120" width="5" height="8"/>
-    <rect x="666" y="66" width="5" height="8"/><rect x="666" y="98" width="5" height="8"/><rect x="684" y="82" width="5" height="8"/>
-    <rect x="774" y="90" width="5" height="8"/><rect x="774" y="124" width="5" height="8"/>
-    <rect x="50" y="140" width="5" height="8"/><rect x="946" y="118" width="5" height="8"/><rect x="1098" y="130" width="5" height="8"/>
-  </g>
-
-  <!-- tree line along the river and the pavement -->
-  <g stroke="#1B2430" stroke-width="3" stroke-linejoin="round">
-    <ellipse cx="30" cy="188" rx="32" ry="18" fill="#6E9455"/>
-    <ellipse cx="180" cy="190" rx="26" ry="15" fill="#5E8449"/>
-    <ellipse cx="320" cy="189" rx="30" ry="17" fill="#6E9455"/>
-    <ellipse cx="440" cy="191" rx="25" ry="14" fill="#5E8449"/>
-    <ellipse cx="640" cy="189" rx="31" ry="17" fill="#6E9455"/>
-    <ellipse cx="750" cy="191" rx="26" ry="15" fill="#5E8449"/>
-    <ellipse cx="930" cy="189" rx="30" ry="17" fill="#6E9455"/>
-    <ellipse cx="1080" cy="191" rx="27" ry="15" fill="#5E8449"/>
-    <ellipse cx="1180" cy="189" rx="28" ry="16" fill="#6E9455"/>
-    <rect x="-4" y="199" width="1208" height="25" fill="#D8CBAE"/>
-  </g>
-</svg>
-
-<section id="watch" class="band">
+<section class="hof">
   <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Fresh out of the pack</p>
-        <h2>The latest <span class="hl">six</span></h2>
+    <div class="hof-head">
+      <h2>Hall of Fame</h2>
+      <span class="sub2">Best pulls, ranked</span>
+      <a href="/videos.html?pull=1">All <!-- COUNT_HITS:START -->
+60
+<!-- COUNT_HITS:END --> hits &rarr;</a>
+    </div>
+    <div class="shelf"><!-- HOF:START -->
+      <article class="v"><a class="art" href="/rip/destined-rivals-pack-12-can-we-top-the-mewtwo-hbUa4l-xono.html"><span class="rank">1</span><img src="assets/packs/destined-rivals-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3>Destined Rivals Pack #12 ⚡ | Can We TOP The Mewtwo?! 😳</h3><p>DESTINED RIVALS &bull; 1.9K VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/the-pitch-black-curse-is-real-16jOkWyE1Cs.html"><span class="rank">2</span><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
+        <h3>The &quot;Pitch Black&quot; Curse is Real! 🌒💀</h3><p>PITCH BLACK &bull; 827 VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/mega-feraligatr-ex-box-pack-1-first-pack-magic-qKiLbaLhdp8.html"><span class="rank">3</span><img src="assets/packs/ascended-heroes-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
+        <h3>Mega Feraligatr ex Box 🌊🔥 | Pack #1 (First Pack Magic?!)</h3><p>ASCENDED HEROES &bull; 1.5K VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/prismatic-evolutions-etb-pack-1-umbreon-hunt-begins-hCI0HSfly1c.html"><span class="rank">4</span><img src="assets/packs/prismatic-evolutions-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:20</span></a>
+        <h3>Prismatic Evolutions ETB ✨ | Pack #1 Umbreon Hunt Begins</h3><p>PRISMATIC EVOLUTIONS &bull; 1.3K VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/phantasmal-flames-pack-9-still-no-charizard-sir-yeX4naszsoo.html"><span class="rank">5</span><img src="assets/packs/phantasmal-flames-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
+        <h3>Phantasmal Flames Pack #9 🔥 | Still No Charizard SIR… 😬</h3><p>PHANTASMAL FLAMES &bull; 1.2K VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/i-pulled-this-card-again-chaos-rising-etb-2-rlJDEb0q1d0.html"><span class="rank">6</span><img src="assets/packs/chaos-rising-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:23</span></a>
+        <h3>I Pulled This Card AGAIN! 😳 | Chaos Rising ETB #2</h3><p>CHAOS RISING &bull; 1.1K VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/mega-skarmory-ex-double-rare-pull-k6p_6HEntYw.html"><span class="rank">7</span><img src="assets/packs/perfect-order-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3>Mega Skarmory ex Double Rare Pull! 🦅</h3><p>PERFECT ORDER &bull; 878 VIEWS</p></article>
+      <article class="v"><a class="art" href="/rip/opening-my-first-obsidian-flames-pack-RXKBcjWfqhE.html"><span class="rank">8</span><img src="assets/packs/obsidian-flames-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3>Opening My FIRST Obsidian Flames Pack 😬</h3><p>OBSIDIAN FLAMES &bull; 1.3K VIEWS</p></article>
+<!-- HOF:END -->
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="wrap">
+    <div class="wall">
+
+      <div class="brk"><h2>Latest rips</h2><span class="ln"></span><a href="/videos.html">All <!-- COUNT_ALL:START -->
+308
+<!-- COUNT_ALL:END --> &rarr;</a></div>
+<!-- LATEST:START -->
+      <article class="v"><a class="art" href="/rip/chaos-rising-etb-3-the-first-pack-reality-RZInASE6x1c.html"><img src="assets/packs/chaos-rising-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
+        <h3>Chaos Rising ETB #3: The First Pack Reality 💀</h3><p>757 VIEWS &bull; AUG 10</p></article>
+      <article class="v"><a class="art" href="/rip/the-most-disappointing-hit-pitch-black-oSPbl9reyIM.html"><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3>The most DISAPPOINTING &quot;Hit&quot; 💀 Pitch Black</h3><p>653 VIEWS &bull; AUG 9</p></article>
+      <article class="v"><a class="art" href="/rip/did-this-bundle-have-any-hits-inTMqcQmFhM.html"><span class="hit">&starf;&starf; SIR</span><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:23</span></a>
+        <h3>Did this Bundle have ANY hits?! 📉💀</h3><p>870 VIEWS &bull; AUG 8</p></article>
+      <article class="v"><a class="art" href="/rip/pitch-black-is-savage-today-b8CfpcK7-h0.html"><span class="hit">&starf;&starf; SIR</span><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:18</span></a>
+        <h3>Pitch Black is SAVAGE Today! 🌑💀</h3><p>650 VIEWS &bull; AUG 7</p></article>
+      <article class="v"><a class="art" href="/rip/the-box-ends-with-a-garbage-rip-aa9jzXRFtrg.html"><img src="assets/packs/perfect-order-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:23</span></a>
+        <h3>The Box Ends with a Garbage Rip... 🗑️</h3><p>757 VIEWS &bull; AUG 6</p></article>
+      <article class="v"><a class="art" href="/rip/where-did-the-hits-go-pitch-black-etb-znsnYB6boh4.html"><span class="hit">&starf;&starf; SIR</span><img src="assets/packs/pitch-black-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3>Where did the hits go?! 📉 Pitch Black ETB</h3><p>771 VIEWS &bull; AUG 5</p></article>
+<!-- LATEST:END -->
+
+      <div class="brk"><h2>Most watched</h2><span class="ln"></span><a href="/videos.html?sort=views">Sort by views &rarr;</a></div>
+<!-- WATCHED:START -->
+      <article class="v"><a class="art" href="/rip/pok-mon-go-pack-12-still-no-ditto-or-mewtwo-QXS1W_L2qbs.html"><img src="assets/packs/pokemon-go-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:23</span></a>
+        <h3>Pokémon GO Pack #12 ⚡ | STILL No Ditto or Mewtwo?! 😬</h3><p>2.6K VIEWS &bull; APR 27</p></article>
+      <article class="v"><a class="art" href="/rip/only-garbage-rips-paldea-evolved-blister-pack-pokemonshorts-evnMahizn0I.html"><span class="art-none"><img src="assets/logos/paldea-evolved-pokemon-tcg-set-logo.webp" alt="" loading="lazy"></span><span class="play"></span><span class="dur">0:26</span></a>
+        <h3>Only Garbage Rips 😬 | Paldea Evolved Blister Pack #PokemonShorts #PokemonTCG #PaldeaEvolved</h3><p>2.5K VIEWS &bull; FEB 7</p></article>
+      <article class="v"><a class="art" href="/rip/only-garbage-rips-pok-mon-violet-ex-booster-pack-jO7K2zX6Rlg.html"><img src="assets/packs/scarlet-violet-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:16</span></a>
+        <h3>Only Garbage Rips 😬 | Pokémon Violet ex Booster Pack</h3><p>2.4K VIEWS &bull; FEB 14</p></article>
+      <article class="v"><a class="art" href="/rip/ascended-heroes-booster-bundle-pack-1-first-pack-magic-Qf2PmYHL8Xw.html"><img src="assets/packs/ascended-heroes-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3>Ascended Heroes Booster Bundle ⚡ | Pack #1 (First Pack Magic?)</h3><p>2K VIEWS &bull; MAY 2</p></article>
+      <article class="v"><a class="art" href="/rip/temporal-forces-pack-1-is-this-set-any-good-mxwjJ0oXyUQ.html"><img src="assets/packs/temporal-forces-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:21</span></a>
+        <h3>Temporal Forces Pack #1 😬 | Is This Set Any Good?</h3><p>1.9K VIEWS &bull; MAR 20</p></article>
+      <article class="v"><a class="art" href="/rip/destined-rivals-pack-12-can-we-top-the-mewtwo-hbUa4l-xono.html"><span class="hit">&starf;&starf;&starf; HYPER</span><img src="assets/packs/destined-rivals-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
+        <h3>Destined Rivals Pack #12 ⚡ | Can We TOP The Mewtwo?! 😳</h3><p>1.9K VIEWS &bull; MAY 27</p></article>
+<!-- WATCHED:END -->
+
+
+      <div class="more"><a href="/videos.html">See all rips</a></div>
+    </div>
+  </div>
+</main>
+
+<section class="sets101">
+  <div class="wrap">
+    <div class="brk s101-head">
+      <h2>Set 101</h2>
+      <span class="ln"></span>
+      <a href="/sets/">All <!-- COUNT_SETS:START -->
+23
+<!-- COUNT_SETS:END --> guides &rarr;</a>
+    </div>
+    <p class="s101-lede">Every set I rip, explained. Card counts, what the rarities actually mean, the chase cards worth chasing, and what a pack of it goes for.</p>
+    <div class="set-grid">
+<!-- SETS101:START -->
+        <a class="set" href="/sets/pitch-black.html">
+          <span class="set-art"><img src="assets/logos/pitch-black-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:37px"></span>
+          <b>Pitch Black</b>
+          <span class="set-meta">120 cards · Jul 2026</span>
+          <span class="set-rips">18 rips</span>
+        </a>
+        <a class="set" href="/sets/chaos-rising.html">
+          <span class="set-art"><img src="assets/logos/chaos-rising-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:38px"></span>
+          <b>Chaos Rising</b>
+          <span class="set-meta">122 cards · May 2026</span>
+          <span class="set-rips">50 rips</span>
+        </a>
+        <a class="set" href="/sets/perfect-order.html">
+          <span class="set-art"><img src="assets/logos/perfect-order-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:47px"></span>
+          <b>Perfect Order</b>
+          <span class="set-meta">124 cards · Mar 2026</span>
+          <span class="set-rips">44 rips</span>
+        </a>
+        <a class="set" href="/sets/ascended-heroes.html">
+          <span class="set-art"><img src="assets/logos/ascended-heroes-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:50px"></span>
+          <b>Ascended Heroes</b>
+          <span class="set-meta">295 cards · Jan 2026</span>
+          <span class="set-rips">49 rips</span>
+        </a>
+        <a class="set" href="/sets/phantasmal-flames.html">
+          <span class="set-art"><img src="assets/logos/phantasmal-flames-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:47px"></span>
+          <b>Phantasmal Flames</b>
+          <span class="set-meta">130 cards · Nov 2025</span>
+          <span class="set-rips">16 rips</span>
+        </a>
+        <a class="set" href="/sets/mega-evolution.html">
+          <span class="set-art"><img src="assets/logos/mega-evolution-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:29px"></span>
+          <b>Mega Evolution</b>
+          <span class="set-meta">188 cards · Sep 2025</span>
+          <span class="set-rips">3 rips</span>
+        </a>
+        <a class="set" href="/sets/white-flare.html">
+          <span class="set-art"><img src="assets/logos/white-flare-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:55px"></span>
+          <b>White Flare</b>
+          <span class="set-meta">173 cards · Jul 2025</span>
+          
+        </a>
+        <a class="set" href="/sets/black-bolt.html">
+          <span class="set-art"><img src="assets/logos/black-bolt-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:56px"></span>
+          <b>Black Bolt</b>
+          <span class="set-meta">172 cards · Jul 2025</span>
+          
+        </a>
+        <a class="set" href="/sets/destined-rivals.html">
+          <span class="set-art"><img src="assets/logos/destined-rivals-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:43px"></span>
+          <b>Destined Rivals</b>
+          <span class="set-meta">244 cards · May 2025</span>
+          <span class="set-rips">12 rips</span>
+        </a>
+        <a class="set" href="/sets/journey-together.html">
+          <span class="set-art"><img src="assets/logos/journey-together-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:40px"></span>
+          <b>Journey Together</b>
+          <span class="set-meta">190 cards · Mar 2025</span>
+          <span class="set-rips">14 rips</span>
+        </a>
+        <a class="set" href="/sets/prismatic-evolutions.html">
+          <span class="set-art"><img src="assets/logos/prismatic-evolutions-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:48px"></span>
+          <b>Prismatic Evolutions</b>
+          <span class="set-meta">180 cards · Jan 2025</span>
+          <span class="set-rips">13 rips</span>
+        </a>
+        <a class="set" href="/sets/surging-sparks.html">
+          <span class="set-art"><img src="assets/logos/surging-sparks-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:47px"></span>
+          <b>Surging Sparks</b>
+          <span class="set-meta">252 cards · Nov 2024</span>
+          <span class="set-rips">6 rips</span>
+        </a>
+        <a class="set" href="/sets/stellar-crown.html">
+          <span class="set-art"><img src="assets/logos/stellar-crown-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:43px"></span>
+          <b>Stellar Crown</b>
+          <span class="set-meta">175 cards · Sep 2024</span>
+          
+        </a>
+        <a class="set" href="/sets/shrouded-fable.html">
+          <span class="set-art"><img src="assets/logos/shrouded-fable-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:48px"></span>
+          <b>Shrouded Fable</b>
+          <span class="set-meta">99 cards · Aug 2024</span>
+          
+        </a>
+        <a class="set" href="/sets/twilight-masquerade.html">
+          <span class="set-art"><img src="assets/logos/twilight-masquerade-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:46px"></span>
+          <b>Twilight Masquerade</b>
+          <span class="set-meta">226 cards · May 2024</span>
+          <span class="set-rips">3 rips</span>
+        </a>
+        <a class="set" href="/sets/temporal-forces.html">
+          <span class="set-art"><img src="assets/logos/temporal-forces-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:44px"></span>
+          <b>Temporal Forces</b>
+          <span class="set-meta">218 cards · Mar 2024</span>
+          <span class="set-rips">2 rips</span>
+        </a>
+        <a class="set" href="/sets/paldean-fates.html">
+          <span class="set-art"><img src="assets/logos/paldean-fates-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:52px"></span>
+          <b>Paldean Fates</b>
+          <span class="set-meta">245 cards · Jan 2024</span>
+          
+        </a>
+        <a class="set" href="/sets/paradox-rift.html">
+          <span class="set-art"><img src="assets/logos/paradox-rift-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:41px"></span>
+          <b>Paradox Rift</b>
+          <span class="set-meta">266 cards · Nov 2023</span>
+          <span class="set-rips">3 rips</span>
+        </a>
+        <a class="set" href="/sets/151.html">
+          <span class="set-art"><img src="assets/logos/151-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:58px"></span>
+          <b>151</b>
+          <span class="set-meta">207 cards · Sep 2023</span>
+          <span class="set-rips">5 rips</span>
+        </a>
+        <a class="set" href="/sets/obsidian-flames.html">
+          <span class="set-art"><img src="assets/logos/obsidian-flames-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:45px"></span>
+          <b>Obsidian Flames</b>
+          <span class="set-meta">230 cards · Aug 2023</span>
+          <span class="set-rips">1 rip</span>
+        </a>
+        <a class="set" href="/sets/paldea-evolved.html">
+          <span class="set-art"><img src="assets/logos/paldea-evolved-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:41px"></span>
+          <b>Paldea Evolved</b>
+          <span class="set-meta">279 cards · Jun 2023</span>
+          <span class="set-rips">1 rip</span>
+        </a>
+        <a class="set" href="/sets/scarlet-violet.html">
+          <span class="set-art"><img src="assets/logos/scarlet-violet-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:38px"></span>
+          <b>Scarlet &amp; Violet</b>
+          <span class="set-meta">258 cards · Mar 2023</span>
+          <span class="set-rips">5 rips</span>
+        </a>
+        <a class="set" href="/sets/pokemon-go.html">
+          <span class="set-art"><img src="assets/logos/pokemon-go-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:56px"></span>
+          <b>Pokémon GO</b>
+          <span class="set-meta">88 cards · Jul 2022</span>
+          <span class="set-rips">12 rips</span>
+        </a>
+<!-- SETS101:END -->
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-in">
+    <img class="banner" src="assets/banner-trubbish.jpg" width="1300" height="725"
+         alt="Trubbish on a Rochester sidewalk with a plate and Garbage Rips card packs">
+    <div>
+      <h2>Packs get opened here like a plate at 2am</h2>
+      <p>Messy, loud, and worth it. Garbage Rips 585 is one guy in Rochester, New York opening Pokemon cards on camera. Hits, heartbreak, and zero gatekeeping. Every rip ever filmed lives on this site.</p>
+      <div class="socials">
+        <a href="https://www.youtube.com/@GarbageRips585"><i style="--pip:#FF0033"></i>YouTube</a>
+        <a href="https://www.instagram.com/garbagerips585/"><i style="--pip:#BC1888"></i>Instagram</a>
+        <a href="https://www.tiktok.com/@garbagerips585"><i style="--pip:#F4F1E2"></i>TikTok</a>
+        <a href="https://www.facebook.com/GarbageRips585"><i style="--pip:#1877F2"></i>Facebook</a>
       </div>
-      <a class="btn btn-ghost btn-sm" href="videos.html">See all rips &rarr;</a>
-    </div>
-    <div class="vid-grid" id="latestGrid">
-      <noscript><p>Newest uploads live on <a href="https://www.youtube.com/@GarbageRips585">the channel</a>.</p></noscript>
-    </div>
-  </div>
-</section>
-
-<section class="hits">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>No heartbreak. Just sauce.</p>
-        <h2>Hits <span class="hl">only</span></h2>
-        <p class="lede" style="margin-top:10px">Skip the bulk. Every rip on this shelf ended with something worth sleeving.</p>
-      </div>
-      <a class="btn btn-sky btn-sm" id="hitsAll" href="https://www.youtube.com/@GarbageRips585/playlists">Full playlist &rarr;</a>
-    </div>
-    <div class="vid-grid" id="hitsGrid"></div>
-    <p class="vid-meta" id="hitsNote" style="margin-top:14px"></p>
-  </div>
-</section>
-
-<section class="band-gold hall" id="hall">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The rarest cardboard in the 585</p>
-        <h2>The <span class="hl">Hall of Fame</span></h2>
-        <p class="lede" style="margin-top:10px">The pulls that made the room go quiet. Rarest, most expensive, most undeserved.</p>
-      </div>
-      <a class="btn btn-ghost btn-sm" id="hallAll" href="https://www.youtube.com/@GarbageRips585/playlists">Full playlist &rarr;</a>
-    </div>
-    <div class="vid-grid" id="hallGrid"></div>
-  </div>
-</section>
-
-<section class="band-sky tight">
-  <div class="wrap">
-    <p class="sec-label" style="color:var(--paper)"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Jump straight to a set</p>
-    <div class="set-logos" id="setLogos"></div>
-    <div class="filter-row" style="margin-top:10px">
-      <a class="chip prod" href="videos.html?product=single-pack">Single Packs</a>
-      <a class="chip prod" href="videos.html?product=bundle">Bundles</a>
-      <a class="chip prod" href="videos.html?product=etb">ETBs</a>
-      <a class="chip prod" href="videos.html?product=upc">UPCs</a>
-      <a class="chip prod" href="videos.html?product=ex-box">EX Boxes</a>
-      <a class="chip prod" href="videos.html?product=booster-box">Booster Boxes</a>
-    </div>
-  </div>
-</section>
-
-<section id="plate">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The build order</p>
-    <h2>Anatomy of a <span class="hl">rip</span></h2>
-    <svg class="squiggle" width="180" height="20" aria-hidden="true"><use href="#drizzle"/></svg>
-    <p class="lede" style="margin-top:16px">A proper plate gets built in layers, bottom up, no skipping. Turns out a proper pack rip works exactly the same way.</p>
-    <div class="plate-grid">
-      <svg class="plate-art" viewBox="0 0 440 300" role="img" aria-label="Illustrated cross-section of a Rochester plate">
-        <path d="M150 74 q-9 14 0 28 q9 14 0 26" fill="none" stroke="#F1EDD2" stroke-width="4" stroke-linecap="round" opacity=".22"/>
-        <path d="M225 60 q-9 14 0 28 q9 14 0 26" fill="none" stroke="#F1EDD2" stroke-width="4" stroke-linecap="round" opacity=".22"/>
-        <path d="M296 76 q-9 14 0 28 q9 14 0 26" fill="none" stroke="#F1EDD2" stroke-width="4" stroke-linecap="round" opacity=".22"/>
-        <ellipse cx="215" cy="252" rx="196" ry="32" fill="#F1EDD2"/>
-        <ellipse cx="215" cy="246" rx="172" ry="24" fill="#E2DCBC"/>
-        <path d="M60 244 q6-38 56-42 q46-4 58 34 q2 10-8 12 q-56 8-98 2 q-9-2-8-6z" fill="#EDE3C2"/>
-        <circle cx="96" cy="222" r="5" fill="#E0D3A8"/><circle cx="118" cy="214" r="5" fill="#E0D3A8"/><circle cx="140" cy="224" r="5" fill="#E0D3A8"/><circle cx="108" cy="234" r="5" fill="#E0D3A8"/><circle cx="132" cy="236" r="5" fill="#E0D3A8"/>
-        <path d="M232 246 q4-34 52-38 q50-4 64 30 q3 10-8 12 q-58 8-100 2 q-9-2-8-6z" fill="#D8A85C"/>
-        <rect x="250" y="216" width="30" height="9" rx="3" fill="#C89347" transform="rotate(-8 265 220)"/>
-        <rect x="284" y="222" width="30" height="9" rx="3" fill="#C89347" transform="rotate(6 299 226)"/>
-        <rect x="266" y="234" width="30" height="9" rx="3" fill="#C89347" transform="rotate(-3 281 238)"/>
-        <rect x="130" y="182" width="82" height="24" rx="12" fill="#7A4A2B"/>
-        <rect x="206" y="176" width="82" height="24" rx="12" fill="#8A5532"/>
-        <path d="M120 182 q48-30 100-22 q52 8 96 24 q8 4 2 10 q-30 14-98 12 q-70-2-100-14 q-8-4 0-10z" fill="#8C3B24"/>
-        <circle cx="176" cy="184" r="4" fill="#6E2C1A"/><circle cx="238" cy="180" r="4" fill="#6E2C1A"/><circle cx="286" cy="188" r="4" fill="#6E2C1A"/>
-        <circle cx="168" cy="170" r="3.4" fill="#F1EDD2"/><circle cx="204" cy="162" r="3.4" fill="#F1EDD2"/><circle cx="244" cy="164" r="3.4" fill="#F1EDD2"/><circle cx="278" cy="172" r="3.4" fill="#F1EDD2"/><circle cx="222" cy="172" r="3.4" fill="#F1EDD2"/>
-        <path d="M136 172 q22-16 44-4 t44-4 t44-4 t40 2" fill="none" stroke="#EFC94C" stroke-width="6" stroke-linecap="round"/>
-        <g transform="rotate(12 388 216)">
-          <rect x="366" y="188" width="44" height="56" rx="8" fill="#E8C98F"/>
-          <rect x="366" y="188" width="44" height="56" rx="8" fill="none" stroke="#C89658" stroke-width="5"/>
-        </g>
-      </svg>
-      <ol class="layers">
-        <li><i style="--c:#D8A85C"></i><div><b>Home fries &amp; mac salad</b><span>The base. The bulk commons. Every rip starts here and there is no shame in the base.</span></div></li>
-        <li><i style="--c:#7A4A2B"></i><div><b>Two burgers, always two</b><span>The reverse holos. Not the dream, but they keep hope alive between packs.</span></div></li>
-        <li><i style="--c:#8C3B24"></i><div><b>Meat hot sauce</b><span>The hits. Poured generously or not at all. There is no in between and we accept this.</span></div></li>
-        <li><i style="--c:#EFC94C"></i><div><b>Mustard, onions, chaos</b><span>Chase card energy. Sometimes it is an alt art. Sometimes it is just onions.</span></div></li>
-        <li><i style="--c:#E8C98F"></i><div><b>Bread &amp; butter on the side</b><span>The sleeve and the toploader. When you finally hit, you protect it.</span></div></li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<section id="menu" class="band">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>One brand, four plates</p>
-    <h2>The <span class="hl">Menu</span></h2>
-    <div class="menu-board">
-      <a class="menu-item" href="https://www.youtube.com/@GarbageRips585">
-        <span class="mi-name">YouTube<span class="mi-desc">The main plate. Every rip lands here first.</span></span>
-        <span class="mi-dots" aria-hidden="true"></span>
-        <span class="mi-handle">@GarbageRips585</span>
-      </a>
-      <a class="menu-item" href="https://www.instagram.com/garbagerips585/">
-        <span class="mi-name">Instagram<span class="mi-desc">Reels, best pulls, and behind the rip.</span></span>
-        <span class="mi-dots" aria-hidden="true"></span>
-        <span class="mi-handle">@garbagerips585</span>
-      </a>
-      <a class="menu-item" href="https://www.tiktok.com/@garbagerips585">
-        <span class="mi-name">TikTok<span class="mi-desc">Fast rips for the scroll. Hits and heartbreak in 60 seconds.</span></span>
-        <span class="mi-dots" aria-hidden="true"></span>
-        <span class="mi-handle">@garbagerips585</span>
-      </a>
-      <a class="menu-item" href="https://www.facebook.com/GarbageRips585">
-        <span class="mi-name">Facebook<span class="mi-desc">The community table. Come talk pulls with the 585.</span></span>
-        <span class="mi-dots" aria-hidden="true"></span>
-        <span class="mi-handle">/GarbageRips585</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<section class="band tight card-band">
-  <div class="wrap">
-    <div class="card-band-grid">
-      <div>
-        <div class="card-stage">
-          <div class="holo-card" id="holoCard" role="button" tabindex="0" aria-pressed="false" aria-label="GarbageRips585 GMAX trading card. Activate to flip between the normal print and the rainbow rare.">
-            <div class="holo-shine" id="holoShine"></div>
-            <img src="assets/card-normal.jpg" alt="GarbageRips585 GMAX card, Garbodor lifting a stack of Garbage Plates over the Rochester skyline" width="640" height="896">
-            <img class="card-rainbow" src="assets/card-rainbow.jpg" alt="" width="640" height="896">
-          </div>
-        </div>
-        <p class="card-cap">212/202 &bull; tap the card to hit the rainbow rare</p>
-      </div>
-      <div>
-        <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Illegal in nine regions</p>
-        <h2>The <span class="hl">GarbageRips585</span> GMAX</h2>
-        <p class="lede" style="margin-top:10px">420 HP. Evolves from a plate. Tap it to hit the rainbow rare, because you are not pulling one in real life today.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="five85">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Hometown pride</p>
-    <h2>Proudly repping the <span class="hl">585</span></h2>
-    <div class="five85-grid">
-      <div class="five85">
-        <p>Rochester, NY. Home of Wegmans, High Falls, weather that changes its mind hourly, and the greatest late night plate of food ever assembled. Also, if you ask us, the unofficial city Pokemon lineage: Trubbish and Garbodor. Look at them. Look at us. It tracks.</p>
-        <p>This channel is Rochester energy pointed directly at booster packs. Enjoy the rip, laugh at the misses, celebrate the hits, and never let anybody tell you which cards are worth caring about.</p>
-        <div class="btn-row" style="margin-top:22px">
-          <a class="btn btn-yt" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe on YouTube</a>
-        </div>
-      </div>
-      <div class="sticker-wrap">
-        <img class="sticker" src="assets/sticker-garbodor.webp" alt="GarbageRips585 oval sticker, Garbodor holding a triple decker stack of plates topped with Pokemon packs in front of the Rochester skyline" loading="lazy" width="860" height="585">
+      <div class="roc">
+        <img src="assets/roc-badge.svg" width="240" height="280" alt="ROC 585 Rochester New York badge">
+        <p>LILACS, LAKE EFFECT, AND A PLATE AT 2AM.<br>THE PACKS COME FROM HERE. SO DOES THE GUY OPENING THEM.</p>
       </div>
     </div>
   </div>
