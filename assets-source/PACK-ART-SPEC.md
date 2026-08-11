@@ -1,8 +1,16 @@
 # Pack art spec
 
-One image per card set. Drop finished files in `public/assets/packs/` and tell
-me, and I will wire the skin system to use the artwork where it exists and fall
-back to the current colour design where it does not.
+One image per card set. Drop masters in **`assets-source/packs/`** named by set
+id, then run:
+
+```bash
+python3 scripts/build-packs.py
+```
+
+That resizes and compresses them into `public/assets/packs/` and regenerates
+`public/assets/packs.css`, which is what swaps a set's colour design for its
+artwork. A set with no master keeps its colours, so it is safe to run with one
+file or twenty. Pitch Black went from a 3.8 MB PNG to a 137 KB WebP this way.
 
 `pack-template.png` in this folder is a 1080x1920 guide with every zone marked.
 Drop it in as a top layer at low opacity while you work, then hide it.
