@@ -132,8 +132,13 @@ for (const r of rows.slice(1)) {
   const setIds = [];
   // Four dropdowns cover the real cases, and More Sets is a comma-separated
   // escape hatch for the rare box that spans more than four.
-  const cells = [idx.set, idx.set2, idx.set3, idx.set4].map((i) => get(r, i));
-  cells.push(...get(r, idx.moreSets).split(",").map((x) => x.trim()));
+  // Split every set cell on commas, not just More Sets. Four columns is how a
+  // spreadsheet file expresses "more than one", because .xlsx validation is
+  // single-select. Google Sheets can turn a column into a native multi-select
+  // chip dropdown after import, and that exports as "A, B" in one cell, so
+  // both shapes have to work.
+  const cells = [idx.set, idx.set2, idx.set3, idx.set4, idx.moreSets]
+    .flatMap((i) => get(r, i).split(",").map((x) => x.trim()));
   for (const cell of cells) {
     if (!cell || /^(multiple|not a set|none)$/i.test(cell)) continue;
     const setId = setIdByName.get(cell.toLowerCase());

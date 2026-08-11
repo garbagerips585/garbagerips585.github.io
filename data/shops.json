@@ -14,16 +14,18 @@
     "`visited` marks a shop that has appeared in a video. Set it when a rip is",
     "filmed there so the page can say so."
   ],
-
   "updated": "2026-08-11",
-
   "shops": [
     {
       "name": "LingSter Games",
       "url": "https://lingstergames.com/collections/pokemon",
       "area": "Rochester, NY",
       "blurb": "Deep Pokemon singles and sealed, and the first stop when a set drops.",
-      "goodFor": ["Sealed product", "Singles", "New releases"],
+      "goodFor": [
+        "Sealed product",
+        "Singles",
+        "New releases"
+      ],
       "visited": false
     },
     {
@@ -31,7 +33,11 @@
       "url": "https://shop.millenniumgames.com/collections/pokemon-tcg",
       "area": "Rochester, NY",
       "blurb": "One of the biggest game stores in the area, with a Pokemon section to match.",
-      "goodFor": ["Sealed product", "Singles", "In store"],
+      "goodFor": [
+        "Sealed product",
+        "Singles",
+        "In store"
+      ],
       "visited": false
     }
   ]
