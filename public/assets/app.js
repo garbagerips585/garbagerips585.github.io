@@ -96,7 +96,13 @@
 
     // Sealed pack instead of the YouTube poster frame, which is nearly always
     // the pulled card and gives the whole video away before you open it.
-    var set = (v.sets || [])[0];
+    //
+    // A video can carry more than one set (a Scarlet & Violet blister holding
+    // Journey Together packs, say). When the visitor has filtered to one set,
+    // show that set's pack rather than whichever happens to be listed first,
+    // otherwise a Scarlet & Violet filter returns a wall of other packs.
+    var sets = v.sets || [];
+    var set = opts.preferSet && sets.indexOf(opts.preferSet) > -1 ? opts.preferSet : sets[0];
     shell.appendChild(makePack(set, "tile"));
 
     if (opts.rank) shell.appendChild(el("span", "hits-rank", "#" + opts.rank));
@@ -412,7 +418,8 @@
         grid.appendChild(emptyState("Nothing in that pile", "Try clearing a filter. Even the bulk has something in it."));
       } else {
         var frag = document.createDocumentFragment();
-        out.slice(0, shown).forEach(function (v) { frag.appendChild(makeCard(v)); });
+        var prefer = state.sets.length === 1 ? state.sets[0] : null;
+        out.slice(0, shown).forEach(function (v) { frag.appendChild(makeCard(v, { preferSet: prefer })); });
         grid.appendChild(frag);
       }
       var more = document.getElementById("libMore");

@@ -119,6 +119,15 @@
 .pack--prismatic-evolutions .pack-art::before,.pack--prismatic-evolutions .pack-art::after{content:none}
 .pack--prismatic-evolutions .pack-brand,.pack--prismatic-evolutions .pack-mascot{display:none}
 
+.pack--scarlet-violet .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/scarlet-violet-garbage-rips-585-booster-pack.webp');
+  background-size:cover;
+  background-position:center;
+}
+.pack--scarlet-violet .pack-art::before,.pack--scarlet-violet .pack-art::after{content:none}
+.pack--scarlet-violet .pack-brand,.pack--scarlet-violet .pack-mascot{display:none}
+
 .pack--surging-sparks .pack-art{
   background-color:#161D26;
   background-image:url('packs/surging-sparks-garbage-rips-585-booster-pack.webp');
