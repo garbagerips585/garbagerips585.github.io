@@ -203,7 +203,9 @@ nav.site{
 }
 .hero-art .hero-grid{
   grid-template-columns:1fr;
-  padding:44px 0 52px;
+  /* padding-block only: a shorthand here would reset .wrap's 24px side
+     gutter and leave the h1 flush against both screen edges. */
+  padding-block:44px 52px;
   background:transparent;
 }
 .hero-art .hero-copy{max-width:44em}
@@ -212,7 +214,7 @@ nav.site{
 .hero-art .lede{color:var(--ink)}
 @media(max-width:820px){
   .hero-banner{max-height:38vh}
-  .hero-art .hero-grid{padding:30px 0 36px}
+  .hero-art .hero-grid{padding-block:30px 36px}
 }
 
 /* ---------- the GMAX card, moved out of the hero ---------- */
