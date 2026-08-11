@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Generate a "Set 101" page per card set, plus the /sets/ index.
+// Generate a "Card Pokedex" page per card set, plus the /sets/ index.
 //
 //   node scripts/build-set-pages.mjs
 //
@@ -273,7 +273,7 @@ function setPage(s) {
   return head({ title: `${s.name} Set Guide: Cards, Rarities & Chase Card Values | Garbage Rips 585`, desc, canonical: url, image: `${SITE}/assets/og-image.jpg`, ld }) + `
 <header class="set-hero">
   <div class="wrap">
-    <span class="kicker">Pokemon TCG &bull; Set 101</span>
+    <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     <img class="logo-big" src="${logo}" alt="${esc(s.name)} Pokemon TCG set logo" onerror="this.remove()">
     <h1>${esc(s.name)}</h1>
     <p class="lede" style="max-width:34em">Everything worth knowing about ${esc(s.name)} in one screen. Card counts, what is actually rare, and what the chase cards are going for.</p>
@@ -473,7 +473,7 @@ function indexPage() {
   return head({ title: `Pokemon TCG Set Guides: Cards, Rarities & Chase Values | Garbage Rips 585`, desc, canonical: url, image: `${SITE}/assets/og-image.jpg`, ld }) + `
 <header class="set-hero">
   <div class="wrap">
-    <span class="kicker">Pokemon TCG &bull; Set 101</span>
+    <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     <h1>Card <span class="hl">sets</span></h1>
     <p class="lede" style="max-width:34em">Every set we rip, boiled down to the facts that matter. Card counts, what is genuinely rare, and what the chase cards cost.</p>
   </div>

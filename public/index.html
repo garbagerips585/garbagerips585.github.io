@@ -264,13 +264,13 @@ main{padding:var(--s4) 0 var(--s8)}
 .more a:hover{background:var(--mustard)}
 
 /* --------------------------------------------------------------------------
-   Set 101. The reading half of the site, after the watching half. Each tile is
+   Card Pokedex. The reading half of the site, after the watching half. Each tile is
    a set's own logo on a card, because a collector recognises the logo faster
    than they read the name.
    -------------------------------------------------------------------------- */
-.sets101{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--hair)}
-.s101-head{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;margin:0 0 var(--s3)}
-.s101-lede{color:var(--ink-2);max-width:44em;margin-bottom:var(--s5)}
+.pokedex{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--hair)}
+.pdex-head{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;margin:0 0 var(--s3)}
+.pdex-lede{color:var(--ink-2);max-width:44em;margin-bottom:var(--s5)}
 .set-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--s3)}
 @media(max-width:1300px){.set-grid{grid-template-columns:repeat(5,1fr)}}
 @media(max-width:1080px){.set-grid{grid-template-columns:repeat(4,1fr)}}
@@ -453,16 +453,16 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
   </div>
 </main>
 
-<section class="sets101">
+<section class="pokedex">
   <div class="wrap">
-    <div class="brk s101-head">
-      <h2>Set 101</h2>
+    <div class="brk pdex-head">
+      <h2>Card Pokedex</h2>
       <span class="ln"></span>
       <a href="/sets/">All <!-- COUNT_SETS:START -->
 23
 <!-- COUNT_SETS:END --> guides &rarr;</a>
     </div>
-    <p class="s101-lede">Every set I rip, explained. Card counts, what the rarities actually mean, the chase cards worth chasing, and what a pack of it goes for.</p>
+    <p class="pdex-lede">Every set I rip, explained. Card counts, what the rarities actually mean, the chase cards worth chasing, and what a pack of it goes for.</p>
     <div class="set-grid">
 <!-- SETS101:START -->
         <a class="set" href="/sets/pitch-black.html">

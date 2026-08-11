@@ -5,7 +5,7 @@
 //
 // Everything the page shows comes from public/data/videos.json and sets.json:
 // the filter counts, the Hall of Fame, the newest rips, the most watched, and
-// the Set 101 band. Nothing on the page is a number anyone typed, so what the
+// the Card Pokedex band. Nothing on the page is a number anyone typed, so what the
 // prototype shows is what the real homepage will show.
 //
 // Idempotent: each region is replaced between its own pair of markers.
