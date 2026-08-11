@@ -116,7 +116,7 @@ const style = `
 `;
 
 const body = `
-<section class="shops">
+<main id="main" class="shops">
   <div class="wrap">
     <div class="brk"><h1>Card shops in <span class="hl">the 585</span></h1><span class="ln"></span></div>
     <p class="shops-lede">Where I actually buy. Real shops around Rochester, New York, run by people
@@ -127,7 +127,7 @@ ${cards}
     <p class="shops-note">NOT SPONSORED AND NOT AFFILIATE LINKS. THESE ARE SHOPS I GO TO.
       IF YOU RUN A CARD SHOP AROUND ROCHESTER AND YOU ARE NOT ON HERE, SAY HELLO ON ANY OF THE SOCIALS.</p>
   </div>
-</section>`;
+</main>`;
 
 // Share the home page's shell so this page cannot drift from the design.
 const home = await readFile(join(ROOT, "public/index.html"), "utf8");

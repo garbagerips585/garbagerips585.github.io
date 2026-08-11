@@ -93,11 +93,25 @@ const rawPlaylists = await paginate("playlists", { part: "snippet,contentDetails
 const playlists = [];
 for (const p of rawPlaylists) {
   const items = await paginate("playlistItems", { part: "contentDetails", playlistId: p.id });
+  // Keep the playlist's own cover. Tim sets these by hand and they show the
+  // sealed packaging rather than a pulled card, so unlike a video's poster
+  // frame they give nothing away and are better than any wrapper we could
+  // substitute. Widest available: maxres is 1280 wide, standard 640, high 480.
+  const t = p.snippet.thumbnails || {};
+  let cover = t.maxres || t.standard || t.high || t.medium || t.default || null;
+  // A playlist with no cover chosen yet answers with i.ytimg.com/img/
+  // no_thumbnail.jpg, a 120x90 grey placeholder. Treat that as no cover at all
+  // so the site falls back to the set's wrapper instead of shipping the grey.
+  if (cover && /no_thumbnail/.test(cover.url || "")) cover = null;
+
   playlists.push({
     id: p.id,
     title: p.snippet.title,
     description: p.snippet.description || "",
     count: items.length,
+    thumb: cover?.url || null,
+    thumbW: cover?.width || null,
+    thumbH: cover?.height || null,
     videoIds: items.map((i) => i.contentDetails.videoId).filter(Boolean),
   });
   console.log(`  ${p.snippet.title} (${items.length})`);

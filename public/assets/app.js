@@ -238,98 +238,10 @@
    * "greatest", falling back to anything marked greatest in the manual video
    * log. Returns null when neither exists, and the section hides itself.
    */
-  function pickHall(videos, playlists, n) {
-    var pl = (playlists || []).filter(function (p) { return /greatest/i.test(p.title); })[0];
-    if (pl && pl.videoIds && pl.videoIds.length) {
-      var byId = {};
-      videos.forEach(function (v) { byId[v.id] = v; });
-      var list = pl.videoIds.map(function (id) { return byId[id]; }).filter(Boolean);
-      if (list.length) return { videos: list.slice(0, n), playlist: pl };
-    }
-    var flagged = videos.filter(function (v) { return v.greatest; });
-    if (flagged.length) return { videos: flagged.slice(0, n), playlist: null };
-    return null;
-  }
 
-  function pickHits(videos, playlists, n) {
-    var hits = null;
-    // "Greatest Hits" must not win the Hits Only shelf: both titles contain
-    // "hit", and the greatest playlist is a subset of the same videos.
-    var pl = (playlists || []).filter(function (p) {
-      return /hit/i.test(p.title) && !/greatest/i.test(p.title);
-    })[0];
-    if (pl && pl.videoIds && pl.videoIds.length) {
-      var byId = {};
-      videos.forEach(function (v) { byId[v.id] = v; });
-      hits = pl.videoIds.map(function (id) { return byId[id]; }).filter(Boolean);
-    }
-    if (!hits || !hits.length) {
-      hits = videos
-        .filter(function (v) { return (v.pulls || []).length; })
-        .sort(function (a, b) { return (b.views || 0) - (a.views || 0); });
-    }
-    return { videos: hits.slice(0, n), playlist: pl || null, derived: !pl };
-  }
 
   /* ------------------------------------------------------------- homepage */
 
-  function initHome() {
-    var latestGrid = document.getElementById("latestGrid");
-    var hitsGrid = document.getElementById("hitsGrid");
-    if (!latestGrid && !hitsGrid) return;
-
-    Promise.all([loadVideos(), loadPlaylists()]).then(function (res) {
-      var videos = res[0], pls = res[1].playlists || [];
-
-      renderSetLogos(videos);
-
-      if (latestGrid) {
-        latestGrid.textContent = "";
-        videos.slice(0, 6).forEach(function (v) { latestGrid.appendChild(makeCard(v)); });
-      }
-
-      if (hitsGrid) {
-        var h = pickHits(videos, pls, 6);
-        hitsGrid.textContent = "";
-        if (!h.videos.length) {
-          hitsGrid.appendChild(emptyState("No hits tagged yet", "Run the sync and the board fills itself."));
-        } else {
-          h.videos.forEach(function (v, i) { hitsGrid.appendChild(makeCard(v, { rank: i + 1 })); });
-        }
-        var link = document.getElementById("hitsAll");
-        if (link && h.playlist) link.href = "https://www.youtube.com/playlist?list=" + h.playlist.id;
-        var note = document.getElementById("hitsNote");
-        if (note && h.derived) {
-          note.textContent = "Ranked by views until the Hits Only playlist is connected.";
-        }
-      }
-
-      var hallGrid = document.getElementById("hallGrid");
-      if (hallGrid) {
-        var hall = pickHall(videos, pls, 6);
-        var section = document.getElementById("hall");
-        if (!hall) {
-          // Nothing qualifies yet, so the shelf would be an empty gold band.
-          if (section) section.hidden = true;
-        } else {
-          hallGrid.textContent = "";
-          hall.videos.forEach(function (v, i) {
-            var card = makeCard(v, { rank: i + 1 });
-            var crown = el("span", "hall-crown", "👑");
-            crown.setAttribute("aria-hidden", "true");
-            card.firstChild.appendChild(crown);
-            hallGrid.appendChild(card);
-          });
-          var hl = document.getElementById("hallAll");
-          if (hl && hall.playlist) hl.href = "https://www.youtube.com/playlist?list=" + hall.playlist.id;
-        }
-      }
-    }).catch(function () {
-      [latestGrid, hitsGrid].forEach(function (g) {
-        if (g) { g.textContent = ""; g.appendChild(emptyState("Could not load the videos", "Head straight to the channel instead.")); }
-      });
-    });
-  }
 
   /**
    * The "jump straight to a set" band. Built from the real tag counts so a set
@@ -337,35 +249,6 @@
    * logo when one has been added. No manifest: the URL is derived from the set
    * id, and a set with no logo file falls back to a text chip on error.
    */
-  function renderSetLogos(videos) {
-    var box = document.getElementById("setLogos");
-    if (!box) return;
-    var counts = {};
-    videos.forEach(function (v) {
-      (v.sets || []).forEach(function (s) { counts[s] = (counts[s] || 0) + 1; });
-    });
-    var top = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; }).slice(0, 8);
-    box.textContent = "";
-    top.forEach(function (id) {
-      var label = labelOf("sets", id);
-      var a = el("a", "set-logo");
-      a.href = "videos.html?set=" + id;
-      var img = new Image();
-      img.src = "assets/logos/" + id + "-pokemon-tcg-set-logo.webp";
-      img.alt = label + " Pokemon TCG set logo";
-      img.loading = "lazy";
-      img.onerror = function () {
-        // No logo drawn for this set yet: degrade to the text chip.
-        a.className = "chip";
-        a.textContent = label;
-        var n = el("span", "n", counts[id]);
-        a.appendChild(n);
-      };
-      a.appendChild(img);
-      a.appendChild(el("span", "n", counts[id] + " rips"));
-      box.appendChild(a);
-    });
-  }
 
   function emptyState(big, small) {
     var d = el("div", "empty");
@@ -575,19 +458,32 @@
         a.target = "_blank";
         a.setAttribute("aria-label", p.title + ", " + p.count + " videos, opens on YouTube");
 
-        // The cover used YouTube's poster frame for the first video, which is
-        // nearly always the pulled card: the same spoiler the pack wrappers
-        // exist to prevent, on the one page that showed it. Use the set's
-        // wrapper instead, taken from the first video that has a set tag.
+        // The playlist's own cover, which Tim sets by hand and which shows the
+        // sealed packaging rather than a pulled card. That is the exception to
+        // this site's rule about YouTube imagery: a video's poster frame gives
+        // the pull away, a playlist cover does not, and it says more about what
+        // the run contains than any wrapper we could substitute.
         var th = el("span", "pl-thumb");
-        var setId = null;
-        (p.videoIds || []).some(function (id) {
-          var v = byId[id];
-          var s = v && (v.sets || [])[0];
-          if (s) { setId = s; return true; }
-          return false;
-        });
-        th.appendChild(makePack(setId || "default", "tile"));
+        if (p.thumb) {
+          var img = new Image();
+          img.src = p.thumb;
+          img.alt = "";
+          img.loading = "lazy";
+          if (p.thumbW) { img.width = p.thumbW; img.height = p.thumbH; }
+          th.appendChild(img);
+        } else {
+          // No cover set on YouTube: fall back to the wrapper of the first
+          // tagged set in the playlist.
+          var setId = null;
+          (p.videoIds || []).some(function (id) {
+            var v = byId[id];
+            var sid = v && (v.sets || [])[0];
+            if (sid) { setId = sid; return true; }
+            return false;
+          });
+          th.classList.add("pl-thumb--pack");
+          th.appendChild(makePack(setId || "default", "tile"));
+        }
         a.appendChild(th);
 
         var body = el("span", "pl-body");
@@ -653,39 +549,9 @@
     if (yr) yr.textContent = new Date().getFullYear();
   }
 
-  function initCard() {
-    var card = document.getElementById("holoCard");
-    var shine = document.getElementById("holoShine");
-    if (!card) return;
-    card.addEventListener("click", function () {
-      card.classList.toggle("flipped");
-      card.setAttribute("aria-pressed", String(card.classList.contains("flipped")));
-    });
-    card.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card.click(); }
-    });
-    if (reduced) return;
-    var stage = card.parentElement;
-    stage.addEventListener("mousemove", function (e) {
-      var r = card.getBoundingClientRect();
-      var x = (e.clientX - r.left) / r.width - 0.5;
-      var y = (e.clientY - r.top) / r.height - 0.5;
-      card.style.transform = "rotateY(" + x * 14 + "deg) rotateX(" + -y * 14 + "deg)";
-      if (shine) {
-        shine.style.opacity = 0.3 + Math.abs(x) * 0.6;
-        shine.style.backgroundPosition = x * 120 + 50 + "% 50%";
-      }
-    });
-    stage.addEventListener("mouseleave", function () {
-      card.style.transform = "rotateY(0) rotateX(0)";
-      if (shine) shine.style.opacity = 0.5;
-    });
-  }
 
   function boot() {
     initNav();
-    initCard();
-    initHome();
     initLibrary();
     initPlaylists();
   }

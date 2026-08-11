@@ -187,7 +187,7 @@ const style = `
 `;
 
 const body = `
-<section class="chofpage">
+<main id="main" class="chofpage">
   <div class="wrap">
     <div class="chof-head">
       <h1>Card Hall of Fame</h1>
@@ -210,7 +210,7 @@ ${ranked.map(plaque).join("\n")}
     <p class="chof-note">RANKED BY PSA 10 WHERE THERE IS ONE, AND BY RAW NEAR MINT OTHERWISE.
       A DASH MEANS NO PRICE WE ARE WILLING TO STAND BEHIND YET, NOT A CARD WORTH NOTHING.</p>
   </div>
-</section>
+</main>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card">
   <button class="lb-close" type="button" aria-label="Close">&times;</button>

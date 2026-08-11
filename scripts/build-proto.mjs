@@ -17,7 +17,9 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // The live home page and the prototype share one design and one generator, so
 // the prototype can never drift into showing something the real page does not.
-const TARGETS = [join(ROOT, "public/index.html"), join(ROOT, "public/proto-wall.html")];
+// The prototypes are gone: they were scratch pages that shipped to the deploy
+// root, publicly reachable and carrying no canonical or description.
+const TARGETS = [join(ROOT, "public/index.html")];
 
 const esc = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -368,7 +370,7 @@ for (const target of TARGETS) {
 
 const noArt = [...new Set(videos.flatMap((v) => v.sets || []))].filter((s) => !packs.has(s));
 const untagged = videos.filter((v) => !(v.sets || []).length).length;
-console.log(`index.html and proto-wall.html rebuilt from real data:
+console.log(`index.html rebuilt from real data:
   ${videos.length} videos, ${hitCount} with a graded pull, ${sets.length} sets
   Hall of Fame: ${hall.map((v) => (v.pulls || []).join("/")).slice(0, 3).join(", ")}...
   logos: ${logos.size}/${sets.length}    pack art: ${packs.size} sets`);

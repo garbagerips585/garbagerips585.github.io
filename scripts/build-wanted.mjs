@@ -120,7 +120,7 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
 `;
 
 const body = `
-<section class="wanted">
+<main id="main" class="wanted">
   <div class="wrap">
     <div class="brk"><h1>Most <span class="hl">wanted</span></h1><span class="ln"></span>
       <a href="/sets/">All ${sets.length} guides &rarr;</a></div>
@@ -137,7 +137,7 @@ ${caught.map((c) => cardTile(c, { hunted: false })).join("\n")}
           : `<br>PSA 10 PRICES ARE NOT LISTED FOR THESE YET. GRADED SALES COME FROM A SEPARATE FEED AND FROM CHECKING BY HAND.`
       }</p>
   </div>
-</section>`;
+</main>`;
 
 // Reuse the home page's shell so the hunt page cannot drift from the design.
 const home = await readFile(join(ROOT, "public/index.html"), "utf8");

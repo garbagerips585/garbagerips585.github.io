@@ -387,6 +387,12 @@ const urls = [
   { loc: `${SITE}/sets/`, freq: "weekly", pri: "0.9" },
   ...setPages,
   { loc: `${SITE}/playlists.html`, freq: "weekly", pri: "0.7" },
+  // Added later than the rest and missed here: all three are indexable and
+  // linked from the nav on every page, so leaving them out told search engines
+  // the opposite of what the site says.
+  { loc: `${SITE}/wanted.html`, freq: "weekly", pri: "0.8" },
+  { loc: `${SITE}/hall.html`, freq: "weekly", pri: "0.8" },
+  { loc: `${SITE}/shops.html`, freq: "monthly", pri: "0.7" },
   ...ordered.filter((v) => taggedIds.has(v.id)).map((v) => ({ loc: `${SITE}/${pathFor(v)}`, freq: "monthly", pri: "0.6", mod: v.published })),
 ];
 await writeFile(
