@@ -2,6 +2,15 @@
 /* A set listed here shows its artwork; every other set keeps the
    colour design in site.css. */
 
+.pack--151 .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/151-garbage-rips-585-booster-pack.webp');
+  background-size:cover;
+  background-position:center;
+}
+.pack--151 .pack-art::before,.pack--151 .pack-art::after{content:none}
+.pack--151 .pack-brand,.pack--151 .pack-mascot{display:none}
+
 .pack--ascended-heroes .pack-art{
   background-color:#161D26;
   background-image:url('packs/ascended-heroes-garbage-rips-585-booster-pack.webp');
