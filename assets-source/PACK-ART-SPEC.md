@@ -129,3 +129,39 @@ design, so you can ship the top three and the rest still look fine.
 
 The first four files cover 161 of 308 videos. `default.jpg` covers another 61.
 Five images gets you 72% of the site.
+
+## The two generic wrappers
+
+Two filenames are not card sets, and both are optional. Drop either into this
+folder and `build-packs.py` treats it like any other master.
+
+### `multi.png` — a video with packs from more than one set
+
+A tin with two packs from two sets, or an ex box with ten packs across four,
+is not honestly represented by any single set's wrapper. Picking one implies
+the rip was only that set. When this file exists, every video tagged with more
+than one set shows it instead.
+
+One exception, and it is deliberate: when a visitor has **filtered the library
+to a set**, that set's own wrapper still wins. Someone who asked for Chaos
+Rising should see Chaos Rising packs, not a row of generic ones.
+
+Suggested treatment: the Garbage Rips wrapper with no set logo on it, or with
+several small ones, and something that reads as "assorted" at 134px wide,
+which is how small it gets in a two-up mobile grid.
+
+### `default.png` — a video with no set tag at all
+
+The permanent fallback for an untagged video, or a set whose art has not been
+drawn yet. Without it those tiles fall back to the set logo on a plain dark
+field, or to the wordmark when there is not even a logo.
+
+### Both
+
+Same spec as every other master: **810x1440**, transparent margin around the
+pack, PNG. Named exactly `multi.png` and `default.png`, lowercase.
+
+    python3 scripts/build-packs.py     # then rebuild the pages
+
+Nothing breaks while they are missing. The site checks whether each file is
+there and quietly keeps the old behaviour when it is not.

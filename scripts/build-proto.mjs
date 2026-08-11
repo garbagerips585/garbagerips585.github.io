@@ -114,6 +114,11 @@ function bestPull(v) {
  */
 function faceSet(v) {
   const list = v.sets || [];
+  // A tin with packs from two sets, or a box with packs from four, is not
+  // honestly represented by any one of their wrappers. If the generic
+  // multi-set wrapper exists, that is the truthful tile. Until the artwork is
+  // drawn this falls through to the old behaviour rather than breaking.
+  if (list.length > 1 && packs.has("multi")) return "multi";
   return list.find((s) => packs.has(s)) || list[0] || null;
 }
 
@@ -123,7 +128,9 @@ function tile(v, { rank = null, showSet = true } = {}) {
   const hasPack = set && packs.has(set);
   const face = hasPack
     ? `<img src="assets/packs/${set}-garbage-rips-585-booster-pack.webp" alt="" loading="lazy">`
-    : `<span class="art-none">${
+    : packs.has("default")
+      ? `<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" loading="lazy">`
+      : `<span class="art-none">${
         set && logos.has(set)
           ? `<img src="assets/logos/${set}-pokemon-tcg-set-logo.webp" alt="" loading="lazy">`
           : `<b>Garbage Rips</b>`

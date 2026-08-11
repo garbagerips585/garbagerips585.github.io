@@ -103,6 +103,10 @@
     // otherwise a Scarlet & Violet filter returns a wall of other packs.
     var sets = v.sets || [];
     var set = opts.preferSet && sets.indexOf(opts.preferSet) > -1 ? opts.preferSet : sets[0];
+    // Unfiltered, a video holding packs from several sets shows the generic
+    // multi-set wrapper rather than picking one of them and implying the rip
+    // was only that set. Filtered, the set the visitor asked for still wins.
+    if (!opts.preferSet && sets.length > 1) set = "multi";
     shell.appendChild(makePack(set, "tile"));
 
     if (opts.rank) shell.appendChild(el("span", "hits-rank", "#" + opts.rank));
@@ -124,7 +128,10 @@
     card.appendChild(h3);
 
     var bits = [];
-    if (set) bits.push(labelOf("sets", set));
+    // Label from the real sets, not from whichever wrapper is being shown:
+    // "multi" is an artwork choice, not a set, and would read as one here.
+    if (sets.length > 1) bits.push(labelOf("sets", sets[0]) + " +" + (sets.length - 1));
+    else if (set) bits.push(labelOf("sets", set));
     if (v.published) bits.push(fmtDate(v.published));
     if (v.views) bits.push(fmtViews(v.views));
     card.appendChild(el("p", "vid-meta", bits.join("  ·  ")));
