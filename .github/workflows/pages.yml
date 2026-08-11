@@ -1,0 +1,42 @@
+# Publish public/ to GitHub Pages on every push to main.
+#
+# The site's deploy root is public/, and GitHub Pages' branch-based setting can
+# only serve the repo root or /docs. Deploying from Actions instead lets us keep
+# the layout the project already has, which matters because functions/ has to
+# live OUTSIDE the served directory.
+#
+# There is no build step: every page is generated locally by the scripts in
+# scripts/ and committed. This workflow only uploads what is already there.
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a running deploy finish rather than cancelling it, so a half-uploaded
+# site is never what is live.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - id: deployment
+        uses: actions/deploy-pages@v4
