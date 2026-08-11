@@ -61,10 +61,15 @@ detail you care about.
 
 | Zone | Where, in 1080x1920 coords | Appears on |
 | --- | --- | --- |
-| Play button, ~220px circle | centred, x 540 y 960 | everywhere |
+| Play button, ~220px circle | centred horizontally, **y 1090-1400** | grid tiles |
 | Product chip ("ETB", "BUNDLE") | top-left, x 0-560, y 150-300 | grid tiles |
 | Rank number ("#1") | bottom-left, x 0-230, y 1640-1770 | Hits Only shelf |
 | "RIP IT OPEN" strip, full width | y 1580-1725 | rip page only |
+
+The play button used to sit dead centre, which parked it on Trubbish's face in
+the Pitch Black art. It now sits low, over the plate: clear of the mascot
+(which ends around y 980) and clear of a bottom wordmark (which can start from
+about y 1490). Keep the band **y 1090-1400** free of detail you care about.
 
 The card set's own name is currently printed on the pack by CSS. **Once you
 supply artwork I will turn that off**, along with the Trubbish badge, so your

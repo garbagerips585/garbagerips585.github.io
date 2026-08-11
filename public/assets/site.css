@@ -300,8 +300,12 @@ footer .soc svg{fill:var(--paper)}
 .vid-shell:hover::after{opacity:1}
 .vid-shell.playing::after{display:none}
 
+/* Sits low rather than dead centre: on the pack artwork the middle of the tile
+   is the mascot's face, and a play button parked on it looked like a mistake.
+   At 68% it lands on the plate, below the face (ends 51%) and above the
+   wordmark (starts 83%). */
 .vid-play{
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;
+  position:absolute;left:50%;top:68%;transform:translate(-50%,-50%);z-index:2;
   width:54px;height:54px;border-radius:50%;background:var(--ketchup);
   border:3px solid var(--paper-2);display:grid;place-items:center;pointer-events:none;
   box-shadow:0 4px 12px rgba(0,0,0,.45);transition:transform .14s,background .14s;
