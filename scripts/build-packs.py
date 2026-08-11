@@ -53,7 +53,7 @@ for m in masters:
     if im.mode != "RGBA":
         im = im.convert("RGBA")
     im.thumbnail(TARGET, Image.LANCZOS)
-    dest = OUT / f"{set_id}.webp"
+    dest = OUT / f"{set_id}-garbage-rips-585-booster-pack.webp"
     im.save(dest, "WEBP", quality=QUALITY, method=6)
     kb = dest.stat().st_size / 1024
     done.append((set_id, im.size, kb, m.stat().st_size / 1024))
@@ -62,7 +62,7 @@ for m in masters:
     rules += [
         f"{sel} .pack-art{{",
         f"  background-color:{BACKDROP};",
-        f"  background-image:url('packs/{set_id}.webp');",
+        f"  background-image:url('packs/{set_id}-garbage-rips-585-booster-pack.webp');",
         "  background-size:cover;",
         "  background-position:center;",
         "}",

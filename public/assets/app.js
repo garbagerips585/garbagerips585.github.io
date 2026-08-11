@@ -261,6 +261,8 @@
     Promise.all([loadVideos(), loadPlaylists()]).then(function (res) {
       var videos = res[0], pls = res[1].playlists || [];
 
+      renderSetLogos(videos);
+
       if (latestGrid) {
         latestGrid.textContent = "";
         videos.slice(0, 6).forEach(function (v) { latestGrid.appendChild(makeCard(v)); });
@@ -306,6 +308,42 @@
       [latestGrid, hitsGrid].forEach(function (g) {
         if (g) { g.textContent = ""; g.appendChild(emptyState("Could not load the videos", "Head straight to the channel instead.")); }
       });
+    });
+  }
+
+  /**
+   * The "jump straight to a set" band. Built from the real tag counts so a set
+   * appears the moment videos are tagged with it, and shows the official set
+   * logo when one has been added. No manifest: the URL is derived from the set
+   * id, and a set with no logo file falls back to a text chip on error.
+   */
+  function renderSetLogos(videos) {
+    var box = document.getElementById("setLogos");
+    if (!box) return;
+    var counts = {};
+    videos.forEach(function (v) {
+      (v.sets || []).forEach(function (s) { counts[s] = (counts[s] || 0) + 1; });
+    });
+    var top = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; }).slice(0, 8);
+    box.textContent = "";
+    top.forEach(function (id) {
+      var label = labelOf("sets", id);
+      var a = el("a", "set-logo");
+      a.href = "videos.html?set=" + id;
+      var img = new Image();
+      img.src = "assets/logos/" + id + "-pokemon-tcg-set-logo.webp";
+      img.alt = label + " Pokemon TCG set logo";
+      img.loading = "lazy";
+      img.onerror = function () {
+        // No logo drawn for this set yet: degrade to the text chip.
+        a.className = "chip";
+        a.textContent = label;
+        var n = el("span", "n", counts[id]);
+        a.appendChild(n);
+      };
+      a.appendChild(img);
+      a.appendChild(el("span", "n", counts[id] + " rips"));
+      box.appendChild(a);
     });
   }
 

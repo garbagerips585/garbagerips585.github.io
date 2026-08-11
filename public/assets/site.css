@@ -672,3 +672,21 @@ footer p{font-size:.83rem;color:rgba(247,242,222,.72);max-width:60em;margin:0 au
 
 /* The player mounts under the pack and plays while the pack tears away. */
 .rip-player iframe{z-index:1}
+
+/* ---------- set logos ----------
+   Wide, wildly varying aspect ratios, so they are sized by height and left to
+   find their own width. A set with no logo file falls back to a text chip. */
+.set-logos{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:14px}
+.set-logo{
+  display:grid;place-items:center;
+  background:rgba(255,252,240,.9);border:3px solid var(--navy);border-radius:14px;
+  box-shadow:4px 4px 0 var(--navy);padding:10px 16px;
+  transition:transform .12s,box-shadow .12s;
+}
+.set-logo:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--navy)}
+.set-logo img{height:clamp(30px,4.4vw,52px);width:auto;display:block}
+.set-logo .n{
+  font-family:var(--mono);font-size:.64rem;font-weight:700;color:var(--ink-soft);
+  letter-spacing:.1em;margin-top:6px;
+}
+@media(max-width:640px){.set-logo{padding:8px 12px}.set-logos{gap:10px}}
