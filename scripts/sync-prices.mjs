@@ -62,7 +62,10 @@ const KEY = process.env.PPT_API_KEY;
 const PROBE = process.argv.includes("--probe");
 const LIMIT = (() => {
   const i = process.argv.indexOf("--limit");
-  return i > -1 ? Number(process.argv[i + 1]) || Infinity : Infinity;
+  if (i === -1) return Infinity;
+  // Number("0") is falsy, and "|| Infinity" would turn --limit 0 into "all".
+  const n = Number(process.argv[i + 1]);
+  return Number.isFinite(n) && n >= 0 ? n : Infinity;
 })();
 
 if (!KEY) {
@@ -193,15 +196,21 @@ try {
   doc = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8"));
 } catch { /* first run */ }
 doc.prices = doc.prices || {};
+doc.auto = doc.auto || {};
 const auto = {};
 
 const today = new Date().toISOString().slice(0, 10);
-const todo = targets.slice(0, LIMIT);
+// Skip what we already have, or --limit re-buys the same cards every run: on
+// the free tier day two would spend 74 of 90 credits re-pricing the 37 cards
+// day one fetched, and advance eight.
+const pending = targets.filter((t) => !doc.auto?.[t.key]);
+const todo = pending.slice(0, LIMIT);
 let hits = 0, misses = 0;
 const problems = [];
 const mismatches = [];
 
-console.log(`Fetching ${todo.length} of ${targets.length} cards...\n`);
+console.log(`${targets.length} cards total, ${targets.length - pending.length} already priced.`);
+console.log(`Fetching ${todo.length} now (${todo.length * 2} credits), ${pending.length - todo.length} left after this.\n`);
 for (const t of todo) {
   process.stdout.write(`  ${t.name} #${t.number} (${t.setName})... `);
   try {

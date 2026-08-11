@@ -72,8 +72,13 @@ const ranked = hall
   .map(resolve)
   .sort((a, b) => (b.psa10 || b.raw || 0) - (a.psa10 || a.raw || 0));
 
-const totalPsa = ranked.reduce((n, c) => n + (c.psa10 || 0), 0);
-const totalRaw = ranked.reduce((n, c) => n + (c.raw || 0), 0);
+// One total over one set of cards. Summing PSA 10 across the few cards that
+// have a graded price and raw across all of them, then showing the two side by
+// side, made the collection look as though grading had lost it money.
+// Best-known value per card: graded where we have it, raw otherwise.
+const totalValue = ranked.reduce((n, c) => n + (c.psa10 || c.raw || 0), 0);
+const gradedCards = ranked.filter((c) => c.psa10);
+const totalGraded = gradedCards.reduce((n, c) => n + c.psa10, 0);
 
 function plaque(c, i) {
   const rank = i + 1;
@@ -96,7 +101,7 @@ function plaque(c, i) {
           ${c.rarity ? `<span class="chof-rar">${esc(c.rarity)}</span>` : ""}
           <dl class="chof-prices">
             <div><dt>Raw NM</dt><dd>${c.raw ? money(c.raw) : "&mdash;"}</dd></div>
-            <div class="psa"><dt>PSA 10</dt><dd>${c.psa10 ? money(c.psa10) : "&mdash;"}</dd></div>
+            <div class="psa"><dt>PSA 10${c.psa10 && c.psa10AsOf ? ` <i>${esc(c.psa10AsOf)}</i>` : ""}</dt><dd>${c.psa10 ? money(c.psa10) : "&mdash;"}</dd></div>
           </dl>
           ${c.pulledOn || c.pulledIn
             ? `<span class="chof-pulled">Pulled${c.pulledOn ? ` ${niceDate(c.pulledOn)}` : ""}${
@@ -156,6 +161,7 @@ const style = `
 .chof-rar{color:var(--lilac)}
 .chof-prices{display:flex;gap:var(--s4);margin-top:var(--s3);padding-top:var(--s3);
   border-top:1px dashed rgba(255,255,255,.18)}
+.chof-prices dt i{font-style:normal;font-weight:400;opacity:.7}
 .chof-prices dt{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;color:#9FB0C0;
   text-transform:uppercase}
 .chof-prices dd{font:700 var(--t-m)/1.2 var(--body);color:#F4F1E2}
@@ -189,8 +195,8 @@ const body = `
         ranked by what it is worth. Tap a card to see it full size.</p>
       ${ranked.length ? `<div class="chof-tally">
         <div><b>${ranked.length}</b><span>Cards inducted</span></div>
-        ${totalPsa ? `<div><b>${money(totalPsa)}</b><span>PSA 10 total</span></div>` : ""}
-        ${totalRaw ? `<div><b>${money(totalRaw)}</b><span>Raw total</span></div>` : ""}
+        ${totalValue ? `<div><b>${money(totalValue)}</b><span>Best known value</span></div>` : ""}
+        ${gradedCards.length ? `<div><b>${money(totalGraded)}</b><span>${gradedCards.length} of ${ranked.length} graded</span></div>` : ""}
       </div>` : ""}
     </div>
 

@@ -83,8 +83,12 @@ function clock(sec) {
 const moneyish = (n) =>
   n >= 100 ? `$${Math.round(n).toLocaleString("en-US")}` : `$${n.toFixed(2)}`;
 
+// Matches niceViews() in build-pages.mjs. They disagreed above a million: this
+// one divided by 1000 forever, so a video at 1.5M views read "1500K VIEWS" on
+// its home page tile and "1.5M views" on its own page.
 function compact(n) {
   if (!n) return "0";
+  if (n >= 1e6) return `${(n / 1e6).toFixed(1).replace(/\.0$/, "")}M`;
   return n >= 1000 ? `${(n / 1000).toFixed(n < 10000 ? 1 : 0).replace(/\.0$/, "")}K` : String(n);
 }
 

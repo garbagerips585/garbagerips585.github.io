@@ -67,7 +67,6 @@ const PRODUCT_IDS = {
   "chinese booster pack": "chinese-pack",
   "blister": "blister",
   "collection box": "collection-box",
-  "ex premium collection": "ex-box",
   "other": null,
 };
 
@@ -87,6 +86,14 @@ if (!rows.length) { console.error("Empty CSV."); process.exit(1); }
 
 const header = rows[0].map((h) => h.trim().toLowerCase());
 const col = (name) => header.indexOf(name.toLowerCase());
+// Accept any of several historical names for the same column.
+const firstCol = (...names) => {
+  for (const n of names) {
+    const i = col(n);
+    if (i >= 0) return i;
+  }
+  return -1;
+};
 const iId = col("Video ID");
 if (iId === -1) {
   console.error(`No "Video ID" column found. Header was:\n  ${rows[0].join(" | ")}`);
@@ -98,9 +105,11 @@ const idx = {
   moreSets: col("More Sets"), box: col("Box / Series"),
   opening: col("Opening Type"), hasHit: col("Has Hit"),
   hitCard: col("Hit Card"), rarity: col("Hit Rarity"),
-  // "Greatest Hit" was the old header; "Hall of Fame" is the current one.
-  greatest: col("Hall of Fame") >= 0 ? col("Hall of Fame") : col("Greatest Hit"),
-  hofRank: col("HoF Rank"),
+  // The column has been called three things across three revisions of the
+  // sheet. indexOf is exact, so a stale name here silently returns -1, every
+  // row reads as "no", and the whole feature is inert with no error.
+  greatest: firstCol("Greatest Hits", "Hall of Fame", "Greatest Hit"),
+  hofRank: firstCol("Greatest Hits Rank", "HoF Rank"),
   addTo: col("Playlist To Add"), affiliate: col("Affiliate Link"),
   siteTitle: col("Site Title"), blurb: col("Short Description"),
   feature: col("Feature"), hide: col("Hide"), notes: col("Notes"),
@@ -168,7 +177,10 @@ for (const r of rows.slice(1)) {
   const card = get(r, idx.hitCard);
   if (card) { m.hitCard = card; counted.card++; }
   const rarity = get(r, idx.rarity);
-  if (rarity && !/^no hit$/i.test(rarity)) m.hitRarity = rarity;
+  // The dropdown reads "Special Illustration Rare (2 gold stars)"; the
+  // parenthetical is a hint for whoever is filling the sheet in, not something
+  // to print on a public page.
+  if (rarity && !/^no hit$/i.test(rarity)) m.hitRarity = rarity.replace(/\s*\([^)]*\)\s*$/, "").trim();
   if (isYes(get(r, idx.greatest))) { m.greatest = true; counted.greatest++; }
   const rank = get(r, idx.hofRank);
   if (rank && !Number.isNaN(Number(rank))) m.hofRank = Number(rank);

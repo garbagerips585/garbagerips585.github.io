@@ -57,6 +57,14 @@ const header = rows[0].map((h) => String(h).trim().toLowerCase());
 const col = (name) => header.indexOf(name.toLowerCase());
 const get = (r, i) => (i >= 0 && r[i] != null ? String(r[i]).trim() : "");
 const isYes = (s) => /^y(es)?$/i.test(s);
+const isDate = (s) => /^\d{4}-\d{2}-\d{2}$/.test(s);
+// "<set-id>-<number>", and set ids contain hyphens, so split from the right.
+// A key with no hyphen at all is malformed and must not yield set "15" from
+// "151"; return null and let the caller skip the row.
+const splitKey = (k) => {
+  const at = k.lastIndexOf("-");
+  return at > 0 ? { set: k.slice(0, at), number: k.slice(at + 1) } : null;
+};
 // Strip $ and thousands separators: a price pasted from a price guide arrives
 // as "$1,250.00" and Number() gives NaN for that.
 const num = (s) => {
@@ -95,6 +103,7 @@ if (col("Key") >= 0 && col("PSA 10 USD") >= 0) {
   const wanted = [];
 
   const badDates = [];
+  const badKeys = [];
   let psaCount = 0;
 
   for (const r of rows.slice(1)) {
@@ -104,42 +113,41 @@ if (col("Key") >= 0 && col("PSA 10 USD") >= 0) {
     const psa = num(get(r, idx.psa));
     if (psa) {
       const asOf = get(r, idx.asOf);
-      if (asOf && !/^\d{4}-\d{2}-\d{2}$/.test(asOf)) badDates.push(`${key}: "${asOf}"`);
+      if (asOf && !isDate(asOf)) badDates.push(`${key}: "${asOf}"`);
       prices[key] = {
         price: psa,
-        asOf: /^\d{4}-\d{2}-\d{2}$/.test(asOf) ? asOf : null,
+        asOf: isDate(asOf) ? asOf : null,
         source: get(r, idx.source) || null,
       };
       psaCount++;
     }
 
+    const parts = splitKey(key);
+    if (!parts) { badKeys.push(key); continue; }
+
     // A card can be both: pulled once, still chasing a second copy.
     if (isYes(get(r, idx.hall))) {
-      const at = key.lastIndexOf("-");
       hall.push({
-        set: key.slice(0, at),
+        set: parts.set,
         name: get(r, idx.card),
-        number: key.slice(at + 1),
+        number: parts.number,
         rarity: get(r, idx.rarity) || null,
-        pulledOn: /^\d{4}-\d{2}-\d{2}$/.test(get(r, idx.pulledOn)) ? get(r, idx.pulledOn) : null,
+        pulledOn: isDate(get(r, idx.pulledOn)) ? get(r, idx.pulledOn) : null,
         pulledIn: get(r, idx.pulledIn) || null,
       });
     }
 
     if (isYes(get(r, idx.wanted))) {
-      // The key is "<set-id>-<number>", and a set id itself contains hyphens,
-      // so split from the RIGHT: the last segment is always the card number.
-      const at = key.lastIndexOf("-");
       wanted.push({
-        set: key.slice(0, at),
+        set: parts.set,
         name: get(r, idx.card),
-        number: key.slice(at + 1),
+        number: parts.number,
         rarity: get(r, idx.rarity) || null,
         note: get(r, idx.why) || null,
         got: isYes(get(r, idx.hall)),
         raw: null,
         psa10: psa,
-        psa10AsOf: get(r, idx.asOf) || null,
+        psa10AsOf: isDate(get(r, idx.asOf)) ? get(r, idx.asOf) : null,
         psa10Source: get(r, idx.source) || null,
       });
     }
@@ -152,8 +160,13 @@ if (col("Key") >= 0 && col("PSA 10 USD") >= 0) {
     wantedDoc.cards = wanted;
     await writeFile(join(ROOT, "data/wanted.json"), JSON.stringify(wantedDoc, null, 2) + "\n");
   }
-  hallDoc.cards = hall;
-  await writeFile(join(ROOT, "data/hall.json"), JSON.stringify(hallDoc, null, 2) + "\n");
+  // Guarded like the hunt list is: a renamed or deleted "Card Hall of Fame"
+  // column makes col() return -1, every row read as "no", and an unguarded
+  // write would silently empty a page that had real entries in it.
+  if (hall.length || idx.hall >= 0) {
+    hallDoc.cards = hall;
+    await writeFile(join(ROOT, "data/hall.json"), JSON.stringify(hallDoc, null, 2) + "\n");
+  }
 
   console.log(`
 Chase Cards, ${rows.length - 1} rows
@@ -162,8 +175,11 @@ Chase Cards, ${rows.length - 1} rows
   in the Card Hall of Fame  ${hall.length}
   on the hunt list          ${wanted.length}${wanted.length ? "" : "  (nothing marked Most Wanted, so wanted.json was left alone)"}
 
-Wrote data/psa10.json\nWrote data/hall.json${wanted.length ? "\nWrote data/wanted.json" : ""}
+Wrote data/psa10.json${hall.length || idx.hall >= 0 ? "\nWrote data/hall.json" : "\nSkipped data/hall.json: no Card Hall of Fame column in this export"}${wanted.length ? "\nWrote data/wanted.json" : ""}
 `);
+  if (badKeys.length) {
+    console.log(`Rows with a malformed Key, skipped:\n  ${badKeys.join("\n  ")}\n`);
+  }
   if (badDates.length) {
     console.log(`PSA 10 Checked should be YYYY-MM-DD. These were ignored:\n  ${badDates.join("\n  ")}\n`);
   }

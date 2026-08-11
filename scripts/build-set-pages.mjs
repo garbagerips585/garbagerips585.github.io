@@ -364,7 +364,11 @@ ${s.notes?.inPrint || s.notes?.packPrice ? `
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(c.rarity || "")} &bull; ${esc(c.number)}</div>
         <div class="pr">${money(c.price)}</div>
-        ${gradedPrice(s.id, c.number) ? `<div class="pr10">PSA 10 ${money(gradedPrice(s.id, c.number))}</div>` : ""}
+        ${gradedPrice(s.id, c.number)
+          ? `<div class="pr10">PSA 10 ${money(gradedPrice(s.id, c.number))}${
+              gradedAsOf(s.id, c.number) ? `<span> &bull; ${esc(gradedAsOf(s.id, c.number))}</span>` : ""
+            }</div>`
+          : ""}
       </button>`).join("\n      ")}
     </div>
     <p class="price-note">Prices are TCGplayer market estimates${s.pricesAsOf ? `, last updated ${esc(s.pricesAsOf)}` : ""}. Singles move fast, so treat these as a ballpark rather than a quote.${affOn ? ` ${esc(aff.tcgplayer.disclosure)}` : ""}</p>

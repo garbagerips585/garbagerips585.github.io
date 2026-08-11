@@ -117,9 +117,17 @@ const FOOTER = `<footer>
 
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const niceDate = (iso) => {
-  const p = iso.split("-");
-  return `${MONTHS[+p[1] - 1]} ${+p[2]}, ${p[0]}`;
+  // Guarded: sync-youtube emits published:"" for an upload that has been made
+  // private or removed but is still listed in the uploads playlist, and
+  // "".split("-") yields MONTHS[NaN] -> the page prints "undefined NaN, ".
+  if (!iso) return "";
+  const p = String(iso).slice(0, 10).split("-");
+  const m = MONTHS[+p[1] - 1];
+  return m ? `${m} ${+p[2]}, ${p[0]}` : "";
 };
+// Matches compact() in build-proto.mjs. They disagreed above a million: one
+// had an M branch and the other divided by 1000 forever, so the same video
+// would read "1.5M views" on its page and "1500K VIEWS" on its home page tile.
 const niceViews = (n) =>
   n >= 1e6 ? (n / 1e6).toFixed(1).replace(/\.0$/, "") + "M views"
   : n >= 1e3 ? (n / 1e3).toFixed(1).replace(/\.0$/, "") + "K views"

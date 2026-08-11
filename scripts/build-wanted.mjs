@@ -77,7 +77,10 @@ function cardTile(c, { hunted = true } = {}) {
       </div>`;
 }
 
-const asOf = cards.find((c) => c.psa10AsOf)?.psa10AsOf;
+// The NEWEST date, not whichever card happens to sort first: with card A
+// checked in January and card B in August, "find" claimed every price on the
+// page was last checked in January.
+const asOf = cards.map((c) => c.psa10AsOf).filter(Boolean).sort().pop() || null;
 const anyPsa = cards.some((c) => c.psa10);
 
 const style = `

@@ -182,11 +182,23 @@ const videos = uploads
       sets: manual.sets ?? auto.sets,
       products: manual.products ?? auto.products,
       pulls: manual.pulls ?? auto.pulls,
+      // Everything the spreadsheet can say about a video. This list used to
+      // name five fields, so the other eight columns were imported into
+      // manual.json and then silently dropped here, which is why nothing ever
+      // read openingType, siteTitle, blurb, feature, hide, box or notes.
       ...(log.hitCard ? { hitCard: log.hitCard } : {}),
       ...(log.hitRarity ? { hitRarity: log.hitRarity } : {}),
       ...(log.hasHit != null ? { hasHit: log.hasHit } : {}),
       ...(log.greatest ? { greatest: true } : {}),
+      ...(log.hofRank != null ? { hofRank: log.hofRank } : {}),
       ...(log.affiliate ? { affiliate: log.affiliate } : {}),
+      ...(log.openingType ? { openingType: log.openingType } : {}),
+      ...(log.siteTitle ? { siteTitle: log.siteTitle } : {}),
+      ...(log.blurb ? { blurb: log.blurb } : {}),
+      ...(log.box ? { box: log.box } : {}),
+      ...(log.notes ? { notes: log.notes } : {}),
+      ...(log.feature ? { feature: true } : {}),
+      ...(log.hide ? { hide: true } : {}),
     };
   })
   .filter((v) => v.id)
