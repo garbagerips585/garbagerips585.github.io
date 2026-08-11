@@ -119,6 +119,15 @@
 .pack--surging-sparks .pack-art::before,.pack--surging-sparks .pack-art::after{content:none}
 .pack--surging-sparks .pack-brand,.pack--surging-sparks .pack-mascot{display:none}
 
+.pack--twilight-masquerade .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/twilight-masquerade-garbage-rips-585-booster-pack.webp');
+  background-size:cover;
+  background-position:center;
+}
+.pack--twilight-masquerade .pack-art::before,.pack--twilight-masquerade .pack-art::after{content:none}
+.pack--twilight-masquerade .pack-brand,.pack--twilight-masquerade .pack-mascot{display:none}
+
 /* Hall of Fame stays gold even for sets that have artwork. */
 .hall .pack .pack-art{background-image:none}
 .hall .pack .pack-brand{display:block}
