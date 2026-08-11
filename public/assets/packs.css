@@ -20,6 +20,15 @@
 .pack--chaos-rising .pack-art::before,.pack--chaos-rising .pack-art::after{content:none}
 .pack--chaos-rising .pack-brand,.pack--chaos-rising .pack-mascot{display:none}
 
+.pack--journey-together .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/journey-together-garbage-rips-585-booster-pack.webp');
+  background-size:cover;
+  background-position:center;
+}
+.pack--journey-together .pack-art::before,.pack--journey-together .pack-art::after{content:none}
+.pack--journey-together .pack-brand,.pack--journey-together .pack-mascot{display:none}
+
 .pack--perfect-order .pack-art{
   background-color:#161D26;
   background-image:url('packs/perfect-order-garbage-rips-585-booster-pack.webp');
