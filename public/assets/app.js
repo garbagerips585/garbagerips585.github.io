@@ -593,7 +593,9 @@
       f.addEventListener("submit", function (e) {
         e.preventDefault();
         var q = f.querySelector("input").value.trim();
-        location.href = "videos.html" + (q ? "?q=" + encodeURIComponent(q) : "");
+        // Absolute: initNav also runs on /rip/* and /sets/*, where a relative
+        // path would resolve to /rip/videos.html and 404.
+        location.href = "/videos.html" + (q ? "?q=" + encodeURIComponent(q) : "");
       });
     });
     var yr = document.getElementById("year");
