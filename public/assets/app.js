@@ -97,7 +97,7 @@
     var href = v.path ? "/" + v.path : "/videos.html";
     var art = el("a", "art");
     art.href = href;
-    art.setAttribute("aria-label", v.title);
+    art.setAttribute("aria-label", v.siteTitle || v.title);
 
     // Sealed pack instead of the YouTube poster frame, which is nearly always
     // the pulled card and gives the whole video away before you open it.
@@ -124,7 +124,7 @@
     card.appendChild(art);
 
     var h3 = el("h3");
-    var a = el("a", null, v.title);
+    var a = el("a", null, v.siteTitle || v.title);
     a.href = href;
     h3.appendChild(a);
     card.appendChild(h3);
@@ -289,7 +289,7 @@
       if (state.products.length && !state.products.some(function (s) { return (v.products || []).indexOf(s) > -1; })) return false;
       if (state.q) {
         var q = state.q.toLowerCase();
-        var hay = (v.title + " " + (v.sets || []).map(function (s) { return labelOf("sets", s); }).join(" ") +
+        var hay = (v.title + " " + (v.siteTitle || "") + " " + (v.sets || []).map(function (s) { return labelOf("sets", s); }).join(" ") +
           " " + (v.products || []).map(function (s) { return labelOf("products", s); }).join(" ")).toLowerCase();
         if (hay.indexOf(q) === -1) return false;
       }

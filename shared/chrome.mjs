@@ -19,10 +19,12 @@ export const NAV_LINKS = [
   ["/", "Home"],
   ["/videos.html", "All rips"],
   ["/sets/", "Card Pokedex"],
+  ["/expansions.html", "Every set ever"],
   ["/wanted.html", "Most wanted"],
   ["/hall.html", "Card Hall of Fame"],
   ["/shops.html", "Card shops"],
   ["/playlists.html", "Playlists"],
+  ["/about.html", "About"],
 ];
 
 export const SUBSCRIBE =
@@ -36,6 +38,20 @@ export const SOCIALS = [
 ];
 
 export const SKIP = `<a class="skip" href="#main">Skip to content</a>`;
+
+/**
+ * Web fonts.
+ *
+ * Titan One for display, Outfit for body, Space Mono for labels. Lived only in
+ * index.html's head and in each generator's own head template, which meant the
+ * two pages built from shared/chrome.mjs alone shipped with no font link at
+ * all: valid HTML, correct CSS, every heading silently falling back to the
+ * system sans. Nothing errors when a font never loads, so it renders as
+ * "the design looks a bit off" rather than as a bug.
+ */
+export const FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">`;
 
 /** Stylesheets, in the order they must load. */
 export const STYLES = `<link rel="stylesheet" href="/assets/ui.css">

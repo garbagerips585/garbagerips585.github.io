@@ -89,6 +89,13 @@ function yearsSince(iso) {
 const money = (n) =>
   n >= 100 ? `$${Math.round(n).toLocaleString("en-US")}` : `$${n.toFixed(2)}`;
 
+// Sealed product prices keep their cents at every size. money() rounds above
+// $100, which is right for a card worth "about $400" and wrong for a shelf
+// price: it turned a $149.76 Elite Trainer Box into "$150", which is a number
+// that appears on no listing anywhere.
+const priceUSD = (n) =>
+  `$${Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
 // Rarities worth chasing, for highlighting in the ladder.
 const CHASE = new Set([
   "Mega Hyper Rare", "Hyper Rare", "Special Illustration Rare",
@@ -123,6 +130,77 @@ const affLink = (url) =>
 
 const ripsBySet = {};
 for (const v of videos) for (const s of v.sets || []) ripsBySet[s] = (ripsBySet[s] || 0) + 1;
+
+// Sealed products and their TCGplayer market prices, from sync-products.mjs.
+// Optional: a set with no entry simply renders no band rather than an empty one.
+let productsBySet = {};
+try {
+  productsBySet = JSON.parse(await readFile(join(ROOT, "public/data/products.json"), "utf8")).sets || {};
+} catch {
+  /* run: node scripts/sync-products.mjs */
+}
+
+/**
+ * "What you can buy": the sealed products for this set, cheapest first.
+ *
+ * Two prices per product, because they answer different questions and people
+ * conflate them constantly. Market is what it actually sells for, which is the
+ * honest number for "is this worth it". Low is the cheapest listing right now,
+ * which is what you would pay today. Showing only one of them would mislead in
+ * one direction or the other, and on some products they are wildly apart: the
+ * Phantasmal Flames booster box reads $391 market against an $87 low.
+ *
+ * Images are hotlinked to TCGplayer's CDN. Every card links back to the
+ * listing, and the band says out loud where the numbers came from and when,
+ * because these move daily and a stale price presented as current is the one
+ * way this section could actually cost somebody money.
+ */
+function productBand(s) {
+  const entry = productsBySet[s.id];
+  if (!entry?.products?.length) return "";
+
+  const items = [...entry.products].sort((a, b) => a.market - b.market);
+  const cheapest = items[0];
+
+  const cards = items
+    .map(
+      (p) => `      <li class="prod">
+        <a class="prod-shot" href="${esc(affLink(p.url))}" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
+          <img src="${esc(p.thumb)}" srcset="${esc(p.thumb)} 200w, ${esc(p.image)} 1000w"
+               sizes="(max-width:640px) 40vw, 200px" alt="" loading="lazy" decoding="async"
+               width="200" height="200" referrerpolicy="no-referrer">
+        </a>
+        <div class="prod-body">
+          <h3><a href="${esc(affLink(p.url))}" rel="noopener" target="_blank">${esc(p.kind)}</a></h3>
+          <p class="prod-what">${esc(p.blurb)}</p>
+          <p class="prod-price"><b>${priceUSD(p.market)}</b> <span>market</span></p>
+          ${
+            p.low
+              ? `<p class="prod-low">Cheapest listing ${priceUSD(p.low)}${
+                  p.listings ? ` &bull; ${p.listings} sellers` : ""
+                }</p>`
+              : ""
+          }
+        </div>
+      </li>`
+    )
+    .join("\n");
+
+  return `<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What you can buy</p>
+    <h2>Ways to open <span class="hl">${esc(s.name)}</span></h2>
+    <p class="lede prod-lede">Every sealed ${esc(s.name)} product still being sold, cheapest first.
+      The cheapest way in is ${esc(cheapest.kind.toLowerCase())} at ${priceUSD(cheapest.market)}.</p>
+    <ul class="prod-grid">
+${cards}
+    </ul>
+    <p class="prod-note">Prices are TCGplayer market and lowest-listing prices, read on
+      ${esc(niceDate(entry.checked))}. They move every day, so treat them as a rough idea and not a quote.
+      Product photos are TCGplayer's. We are not a shop and we do not sell any of this.</p>
+  </div>
+</section>`;
+}
 
 /** Facts pulled straight out of the checklist. No pull rates: we do not have them. */
 function derivedFacts(s) {
@@ -193,6 +271,7 @@ const head = ({ title, desc, canonical, image, ld }) => `<!DOCTYPE html>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="${image}">
 <link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>
@@ -370,6 +449,8 @@ ${s.notes?.inPrint || s.notes?.packPrice ? `
     </div>
   </div>
 </section>
+
+${productBand(s)}
 
 ${rips ? `<section class="tight">
   <div class="wrap">

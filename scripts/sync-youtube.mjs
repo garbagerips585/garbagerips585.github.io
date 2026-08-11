@@ -215,7 +215,10 @@ const videos = uploads
       ...(log.hide ? { hide: true } : {}),
     };
   })
-  .filter((v) => v.id)
+  // "Hide" on the sheet means keep it off the site entirely: no page, no tile,
+  // no sitemap entry. Dropping it here rather than at each generator means one
+  // rule instead of six.
+  .filter((v) => v.id && !v.hide)
   .sort((a, b) => (a.published < b.published ? 1 : -1));
 
 // Descriptions are only needed when generating the per-video pages, so they

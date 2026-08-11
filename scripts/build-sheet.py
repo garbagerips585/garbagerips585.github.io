@@ -107,11 +107,27 @@ HOF_RANKS = [str(i) for i in range(1, 21)]
 # test. Not exhaustive on purpose: the validation is a suggestion, not a rule.
 HIT_CARDS = sorted({c["name"] for st in sets for c in (st.get("chase") or [])})
 
+# Every product id shared/taxonomy.mjs can assign, mapped to the sheet's own
+# wording. Eight were missing, so a video already tagged booster-box or
+# poke-ball-tin came up with a BLANK Opening Type instead of a prefilled guess,
+# and the whole correct-the-guess workflow silently skipped box openings.
 PRODUCT_TO_OPENING = {
-    "single-pack": "Single Booster Pack", "bundle": "Booster Bundle",
-    "etb": "ETB (Elite Trainer Box)", "upc": "UPC (Ultra Premium Collection)",
-    "tin": "Tin", "blister": "Blister", "collection-box": "Collection Box",
+    "single-pack": "Single Booster Pack",
+    "bundle": "Booster Bundle",
+    "booster-box": "Booster Box",
+    "etb": "ETB (Elite Trainer Box)",
+    "spc": "SPC (Super Premium Collection)",
+    "upc": "UPC (Ultra Premium Collection)",
+    "poke-ball-tin": "Poke Ball Tin",
+    "tin": "Tin",
+    "ex-premium": "ex Premium Collection",
+    "ex-special": "ex Special Collection",
     "ex-box": "ex Premium Collection",
+    "collection-box": "Collection Box",
+    "blister": "Blister",
+    "japanese-pack": "Japanese Booster Pack",
+    "korean-pack": "Korean Booster Pack",
+    "chinese-pack": "Chinese Booster Pack",
 }
 
 # ------------------------------------------------------------------- styling

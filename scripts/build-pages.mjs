@@ -137,7 +137,11 @@ const prodId = v.products[0];
   const isTagged = Boolean(setId && prodId);
   const setLabel = setId ? labelFor("sets", setId) : null;
   const prodLabel = prodId ? labelFor("products", prodId) : null;
-  const desc = (descriptions[v.id] || "").trim();
+  // The sheet can override both. A YouTube title is written for the algorithm
+// and a YouTube description is written for YouTube; the site can say something
+// better without changing either.
+const title = v.siteTitle || v.title;
+const desc = (v.blurb || descriptions[v.id] || "").trim();
   const metaDesc = desc
     ? desc.replace(/\s+/g, " ").slice(0, 155).replace(/\s\S*$/, "") + "..."
     : isTagged
@@ -177,6 +181,13 @@ const prodId = v.products[0];
 </section>`
     : "";
 
+  // Packs opened out of the same box, which is a stronger connection than
+  // "same set": #1 through #10 of one ETB are one sitting, and a viewer who
+  // watched pack 3 usually wants pack 4, not another Chaos Rising rip.
+  const sameBox = v.box
+    ? videos.filter((x) => x.box === v.box && x.id !== v.id).slice(0, 6)
+    : [];
+
   const related = (setId ? bySet.get(setId) || [] : []).filter((x) => x.id !== v.id).slice(0, 6);
 
   const ld = {
@@ -213,10 +224,10 @@ const prodId = v.products[0];
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(v.title)} | Garbage Rips 585</title>
+<title>${esc(title)} | Garbage Rips 585</title>
 <meta name="description" content="${esc(metaDesc)}">${isTagged ? "" : '\n<meta name="robots" content="noindex,follow">'}
 <link rel="canonical" href="${url}">
-<meta property="og:title" content="${esc(v.title)}">
+<meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(metaDesc)}">
 <meta property="og:type" content="video.other">
 <meta property="og:url" content="${url}">
@@ -225,7 +236,7 @@ const prodId = v.products[0];
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${esc(v.title)}">
+<meta name="twitter:title" content="${esc(title)}">
 <meta name="twitter:image" content="${SITE}/assets/${ogCard(v)}?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
@@ -252,16 +263,16 @@ ${MENU}
       <div>
         <div class="rip-player" id="player" data-id="${v.id}">
           <img src="${thumb}" alt="" width="720" height="1280" fetchpriority="high">
-          <button class="pack pack--${packSet}" id="pack" type="button" aria-label="Rip open: ${esc(v.title)}">
+          <button class="pack pack--${packSet}" id="pack" type="button" aria-label="Rip open: ${esc(title)}">
             <span class="pack-face pack-l" aria-hidden="true">
               <span class="pack-art"></span>
               <span class="pack-brand">${esc(setLabel || "GARBAGE RIPS")}<small>${setLabel ? "GARBAGE RIPS 585" : "585"}</small></span>
-              <span class="pack-mascot"><img src="/apple-touch-icon.png" alt="" width="180" height="180"></span>
+              <span class="pack-mascot"><img src="/assets/mascot.png" alt="" width="180" height="180"></span>
             </span>
             <span class="pack-face pack-r" aria-hidden="true">
               <span class="pack-art"></span>
               <span class="pack-brand">${esc(setLabel || "GARBAGE RIPS")}<small>${setLabel ? "GARBAGE RIPS 585" : "585"}</small></span>
-              <span class="pack-mascot"><img src="/apple-touch-icon.png" alt="" width="180" height="180"></span>
+              <span class="pack-mascot"><img src="/assets/mascot.png" alt="" width="180" height="180"></span>
             </span>
             <span class="pack-flash" aria-hidden="true"></span>
             <span class="pack-hint">CLICK TO RIP THE PACK</span>
@@ -270,7 +281,7 @@ ${MENU}
       </div>
       <div>
         ${setId ? `<img class="rip-setlogo" src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="${esc(setLabel)} Pokemon TCG set logo" loading="lazy" onerror="this.remove()">` : ""}
-        <h1>${esc(v.title)}</h1>
+        <h1>${esc(title)}</h1>
         <div class="rip-badges">
           ${setId ? `<a class="chip" href="/videos.html?set=${setId}">${esc(setLabel)}</a>` : ""}
           ${prodId ? `<a class="chip prod" href="/videos.html?product=${prodId}">${esc(prodLabel)}</a>` : ""}
@@ -294,6 +305,20 @@ ${MENU}
     </div>
   </div>
 </section>
+
+${sameBox.length ? `<section class="band tight">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><h2>More from <span class="hl">${esc(v.box)}</span></h2></div>
+    </div>
+    <div class="vid-grid">
+      ${sameBox.map((r) => `<article class="vid"><a class="vid-shell" href="/${pathFor(r)}" aria-label="${esc(r.siteTitle || r.title)}">
+        <span class="pack pack--tile pack--${r.sets.length > 1 ? "multi" : packsOnDisk.has(r.sets[0]) ? r.sets[0] : "default"}" aria-hidden="true">
+          <span class="pack-face pack-l"><span class="pack-art"></span></span></span>
+      </a><h3 class="vid-title"><a href="/${pathFor(r)}">${esc(r.siteTitle || r.title)}</a></h3></article>`).join("\n      ")}
+    </div>
+  </div>
+</section>` : ""}
 
 ${chaseBlock}
 
@@ -417,6 +442,10 @@ const urls = [
   { loc: `${SITE}/wanted.html`, freq: "weekly", pri: "0.8" },
   { loc: `${SITE}/hall.html`, freq: "weekly", pri: "0.8" },
   { loc: `${SITE}/shops.html`, freq: "monthly", pri: "0.7" },
+  { loc: `${SITE}/about.html`, freq: "monthly", pri: "0.8" },
+  // The complete set list. High priority: it is the most linkable reference
+  // page on the site and the one most likely to be found cold in search.
+  { loc: `${SITE}/expansions.html`, freq: "weekly", pri: "0.9" },
   ...ordered.filter((v) => taggedIds.has(v.id)).map((v) => ({ loc: `${SITE}/${pathFor(v)}`, freq: "monthly", pri: "0.6", mod: v.published })),
 ];
 await writeFile(

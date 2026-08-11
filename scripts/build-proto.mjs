@@ -188,16 +188,20 @@ function tile(v, { rank = null, showSet = true } = {}) {
   // label its accessible name was the duration: a screen reader read twenty
   // links on the home page as "link, 0 colon 22". The visible title was also
   // not clickable, only the thumbnail was.
-  return `      <article class="v"><a class="art" href="/${esc(v.path)}" aria-label="${esc(v.title)}">${badge}${flag}${face}<span class="play"></span>${
+  return `      <article class="v"><a class="art" href="/${esc(v.path)}" aria-label="${esc(v.siteTitle || v.title)}">${badge}${flag}${face}<span class="play"></span>${
     v.duration ? `<span class="dur">${clock(v.duration)}</span>` : ""
   }</a>
-        <h3><a href="/${esc(v.path)}">${esc(v.title)}</a></h3><p>${meta}</p></article>`;
+        <h3><a href="/${esc(v.path)}">${esc(v.siteTitle || v.title)}</a></h3><p>${meta}</p></article>`;
 }
 
 /* ------------------------------------------------------------- selections - */
 
+// "Feature" on the sheet pins a rip to the front of Latest, whatever its date:
+// a rip worth leading with is not always the newest one.
 const byNewest = [...videos].sort((a, b) =>
-  String(b.published).localeCompare(String(a.published)) || (b.views || 0) - (a.views || 0)
+  (b.feature ? 1 : 0) - (a.feature ? 1 : 0) ||
+  String(b.published).localeCompare(String(a.published)) ||
+  (b.views || 0) - (a.views || 0)
 );
 
 // Greatest Hits: the RIPS worth watching, which is a different thing from the
@@ -220,7 +224,13 @@ const hall = [];
 const perSet = {};
 for (const v of videos
   .filter((v) => bestPull(v) != null && (v.sets || []).some((s) => packs.has(s)))
-  .sort((a, b) => bestPull(a) - bestPull(b) || (b.views || 0) - (a.views || 0))) {
+  // A rank typed on the sheet wins outright; everything without one falls in
+  // behind by pull tier, then views.
+  .sort((a, b) =>
+    (a.hofRank ?? 999) - (b.hofRank ?? 999) ||
+    bestPull(a) - bestPull(b) ||
+    (b.views || 0) - (a.views || 0)
+  )) {
   const s = faceSet(v) || "_";
   if ((perSet[s] = (perSet[s] || 0) + 1) > HALL_PER_SET) continue;
   hall.push(v);

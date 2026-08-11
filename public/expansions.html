@@ -1,0 +1,1960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Every Pokemon TCG Set in Order: All 174 Expansions 1999 to 2026 | Garbage Rips 585</title>
+<meta name="description" content="The complete list of Pokemon TCG sets in release order, 1999 to 2026. All 174 English expansions with release dates and card counts, grouped by era.">
+<link rel="canonical" href="https://garbagerips585.github.io/expansions.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:title" content="Every Pokemon TCG Set in Order">
+<meta property="og:description" content="All 174 English Pokemon TCG expansions, 1999 to 2026, with release dates and card counts.">
+<meta property="og:url" content="https://garbagerips585.github.io/expansions.html">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/ui.css">
+<link rel="stylesheet" href="/assets/packs.css">
+<style>
+.xp{padding:var(--s7) 0 var(--s5)}
+.xp-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:40em;margin-bottom:var(--s5)}
+.xp-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);margin-bottom:var(--s5)}
+@media(max-width:640px){.xp-stats{grid-template-columns:repeat(2,1fr)}}
+.xp-stat{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s4);box-shadow:var(--lift)}
+.xp-stat b{display:block;font:400 var(--t-l)/1 var(--display);margin-bottom:4px}
+.xp-stat span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  letter-spacing:.06em;text-transform:uppercase}
+.xp-jump{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:var(--s4)}
+.xp-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
+  border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);
+  font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
+.xp-jump a:hover{border-color:var(--ink);background:var(--mustard)}
+.xp-copy{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 var(--s5);
+  border:2px solid var(--ink);border-radius:var(--r-pill);background:var(--mustard);
+  font:700 var(--t-body)/1 var(--body);box-shadow:var(--lift);cursor:pointer}
+.xp-copy:hover{transform:translateY(-2px)}
+
+.xp-era{padding:var(--s6) 0}
+.xp-era:nth-of-type(even){background:var(--card-2,rgba(21,38,58,.03))}
+.xp-era h2{font:400 var(--t-xl)/1.1 var(--display);margin-bottom:var(--s2)}
+.xp-count{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);letter-spacing:.08em;
+  text-transform:uppercase;vertical-align:middle;margin-left:8px}
+.xp-note{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
+
+/* The table scrolls inside this, never the page. */
+.xp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--hair);border-radius:var(--r);background:var(--card)}
+.xp-table{border-collapse:collapse;width:100%;min-width:520px;font-size:var(--t-sm)}
+.xp-table th,.xp-table td{text-align:left;padding:10px var(--s3);border-bottom:1px solid var(--hair);
+  vertical-align:middle}
+.xp-table tbody tr:last-child th,.xp-table tbody tr:last-child td{border-bottom:0}
+.xp-table thead th{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-2);background:var(--page);position:sticky;top:0;z-index:1}
+.xp-table tbody tr:hover{background:var(--lilac-pale)}
+.xp-table tbody th{font-weight:600}
+.xp-name{display:flex;align-items:center;gap:10px}
+.xp-name img{flex:none;width:20px;height:20px;object-fit:contain}
+.xp-nosym{flex:none;width:20px;height:20px;border-radius:4px;background:var(--hair)}
+.xp-table tr.mine th a{text-decoration:underline;text-decoration-color:var(--gold);
+  text-underline-offset:3px;text-decoration-thickness:2px}
+.xp-tag{font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--plum);background:var(--lilac-pale);border-radius:var(--r-pill);padding:3px 6px}
+.xp-date{white-space:nowrap;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.xp-cards{font-variant-numeric:tabular-nums;white-space:nowrap}
+.xp-cards .sec{color:var(--ink-2);font-size:var(--t-micro)}
+.xp-rips{white-space:nowrap}
+.xp-rips a{font-weight:700;color:var(--ketchup-deep)}
+.xp-rips a:hover{text-decoration:underline}
+.xp-none{color:var(--steel,#9FB0C0)}
+.xp-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
+  border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Pokemon TCG sets in release order, 1999 to 2026",
+  "description": "Release dates and card counts for all 174 English Pokemon Trading Card Game sets.",
+  "url": "https://garbagerips585.github.io/expansions.html",
+  "dateModified": "2026-08-11",
+  "creator": {
+    "@type": "Organization",
+    "name": "Garbage Rips 585",
+    "url": "https://garbagerips585.github.io/"
+  },
+  "isAccessibleForFree": true,
+  "temporalCoverage": "1999/2026"
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form role="search" action="/videos.html" method="get">
+      <label class="sr-only" for="navSearch">Search every rip</label>
+      <input id="navSearch" name="q" type="search" placeholder="Search rips" aria-label="Search every rip by set, product or card">
+    </form>
+    <a class="icon-btn" href="/videos.html" aria-label="Search all rips">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+    </a>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="Site">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/videos.html">All rips</a></li>
+    <li><a href="/sets/">Card Pokedex</a></li>
+    <li><a href="/expansions.html">Every set ever</a></li>
+    <li><a href="/wanted.html">Most wanted</a></li>
+    <li><a href="/hall.html">Card Hall of Fame</a></li>
+    <li><a href="/shops.html">Card shops</a></li>
+    <li><a href="/playlists.html">Playlists</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+  <section class="xp">
+    <div class="wrap">
+      <div class="brk"><h1>Every Pokemon TCG set, <span class="hl">in order</span></h1><span class="ln"></span></div>
+      <p class="xp-lede">All 174 English sets from 1999 to 2026, oldest first,
+        grouped by era. Release dates and card counts come straight from the Pokemon TCG API.</p>
+
+      <div class="xp-stats">
+        <div class="xp-stat"><b>174</b><span>sets</span></div>
+        <div class="xp-stat"><b>20,460</b><span>cards</span></div>
+        <div class="xp-stat"><b>17</b><span>eras</span></div>
+        <div class="xp-stat"><b>23</b><span>we have ripped</span></div>
+      </div>
+
+      <nav class="xp-jump" aria-label="Jump to an era">
+        <a href="#era-base">Base</a>
+        <a href="#era-gym">Gym</a>
+        <a href="#era-neo">Neo</a>
+        <a href="#era-other">Other</a>
+        <a href="#era-e-card">E-Card</a>
+        <a href="#era-ex">EX</a>
+        <a href="#era-np">NP</a>
+        <a href="#era-pop">POP</a>
+        <a href="#era-diamond-pearl">Diamond &amp; Pearl</a>
+        <a href="#era-platinum">Platinum</a>
+        <a href="#era-heartgold-soulsilver">HeartGold &amp; SoulSilver</a>
+        <a href="#era-black-white">Black &amp; White</a>
+        <a href="#era-xy">XY</a>
+        <a href="#era-sun-moon">Sun &amp; Moon</a>
+        <a href="#era-sword-shield">Sword &amp; Shield</a>
+        <a href="#era-scarlet-violet">Scarlet &amp; Violet</a>
+        <a href="#era-mega-evolution">Mega Evolution</a>
+      </nav>
+
+      <button class="xp-copy" type="button" id="copyAll">Copy the whole list</button>
+      <p class="xp-foot">Set names, release dates and card counts are from the Pokemon TCG API.
+        Card counts show the printed set size, with secret rares beyond it listed separately.
+        Underlined sets have a full guide on this site. Fan made reference. Not affiliated with
+        The Pokemon Company or Nintendo.</p>
+    </div>
+  </section>
+
+<section class="xp-era" id="era-base">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>1999 to 2000</p>
+    <h2>Base <span class="xp-count">6 sets</span></h2>
+    <p class="xp-note">The original Wizards of the Coast run that started it all in English.</p>
+    <div class="xp-scroll">
+      <table class="xp-table">
+        <caption class="sr-only">Base sets, oldest first</caption>
+        <thead>
+          <tr><th scope="col">Set</th><th scope="col">Released</th><th scope="col">Cards</th><th scope="col">Our rips</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/base1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Base</span>
+          </th>
+          <td class="xp-date"><time datetime="1999-01-09">Jan 9, 1999</time></td>
+          <td class="xp-cards">102</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/base2/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Jungle</span>
+          </th>
+          <td class="xp-date"><time datetime="1999-06-16">Jun 16, 1999</time></td>
+          <td class="xp-cards">64</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/basep/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Wizards Black Star Promos <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="1999-07-01">Jul 1, 1999</time></td>
+          <td class="xp-cards">53</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/base3/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Fossil</span>
+          </th>
+          <td class="xp-date"><time datetime="1999-10-10">Oct 10, 1999</time></td>
+          <td class="xp-cards">62</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/base4/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Base Set 2</span>
+          </th>
+          <td class="xp-date"><time datetime="2000-02-24">Feb 24, 2000</time></td>
+          <td class="xp-cards">130</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/base5/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Team Rocket</span>
+          </th>
+          <td class="xp-date"><time datetime="2000-04-24">Apr 24, 2000</time></td>
+          <td class="xp-cards">82 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="xp-era" id="era-gym">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2000</p>
+    <h2>Gym <span class="xp-count">2 sets</span></h2>
+    <p class="xp-note">Kanto gym leaders get their own cards, badges and all.</p>
+    <div class="xp-scroll">
+      <table class="xp-table">
+        <caption class="sr-only">Gym sets, oldest first</caption>
+        <thead>
+          <tr><th scope="col">Set</th><th scope="col">Released</th><th scope="col">Cards</th><th scope="col">Our rips</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/gym1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Gym Heroes</span>
+          </th>
+          <td class="xp-date"><time datetime="2000-08-14">Aug 14, 2000</time></td>
+          <td class="xp-cards">132</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/gym2/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Gym Challenge</span>
+          </th>
+          <td class="xp-date"><time datetime="2000-10-16">Oct 16, 2000</time></td>
+          <td class="xp-cards">132</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="xp-era" id="era-neo">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2000 to 2002</p>
+    <h2>Neo <span class="xp-count">4 sets</span></h2>
+    <p class="xp-note">Johto arrives, and with it baby Pokemon and the first Shining cards.</p>
+    <div class="xp-scroll">
+      <table class="xp-table">
+        <caption class="sr-only">Neo sets, oldest first</caption>
+        <thead>
+          <tr><th scope="col">Set</th><th scope="col">Released</th><th scope="col">Cards</th><th scope="col">Our rips</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/neo1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Neo Genesis</span>
+          </th>
+          <td class="xp-date"><time datetime="2000-12-16">Dec 16, 2000</time></td>
+          <td class="xp-cards">111</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/neo2/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Neo Discovery</span>
+          </th>
+          <td class="xp-date"><time datetime="2001-06-01">Jun 1, 2001</time></td>
+          <td class="xp-cards">75</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/neo3/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Neo Revelation</span>
+          </th>
+          <td class="xp-date"><time datetime="2001-09-21">Sep 21, 2001</time></td>
+          <td class="xp-cards">64 <span class="sec">+2</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/neo4/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Neo Destiny</span>
+          </th>
+          <td class="xp-date"><time datetime="2002-02-28">Feb 28, 2002</time></td>
+          <td class="xp-cards">105 <span class="sec">+8</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="xp-era" id="era-other">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2001 to 2022</p>
+    <h2>Other <span class="xp-count">15 sets</span></h2>
+    <p class="xp-note">Promos, tie-ins and box sets that do not sit inside a main series.</p>
+    <div class="xp-scroll">
+      <table class="xp-table">
+        <caption class="sr-only">Other sets, oldest first</caption>
+        <thead>
+          <tr><th scope="col">Set</th><th scope="col">Released</th><th scope="col">Cards</th><th scope="col">Our rips</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/si1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Southern Islands</span>
+          </th>
+          <td class="xp-date"><time datetime="2001-07-31">Jul 31, 2001</time></td>
+          <td class="xp-cards">18</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/base6/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Legendary Collection</span>
+          </th>
+          <td class="xp-date"><time datetime="2002-05-24">May 24, 2002</time></td>
+          <td class="xp-cards">110</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/bp/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Best of Game <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2002-12-01">Dec 1, 2002</time></td>
+          <td class="xp-cards">9</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ru1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Pokémon Rumble</span>
+          </th>
+          <td class="xp-date"><time datetime="2009-12-02">Dec 2, 2009</time></td>
+          <td class="xp-cards">16</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/mcd11/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">McDonald's Collection 2011 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2011-06-17">Jun 17, 2011</time></td>
+          <td class="xp-cards">12</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/mcd12/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">McDonald's Collection 2012 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2012-06-15">Jun 15, 2012</time></td>
+          <td class="xp-cards">12</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/mcd14/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">McDonald's Collection 2014 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2014-05-23">May 23, 2014</time></td>
+          <td class="xp-cards">12</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/mcd15/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">McDonald's Collection 2015 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2015-11-27">Nov 27, 2015</time></td>
+          <td class="xp-cards">12</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/mcd16/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">McDonald's Collection 2016 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2016-08-19">Aug 19, 2016</time></td>
+          <td class="xp-cards">12</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/mcd17/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">McDonald's Collection 2017 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2017-11-07">Nov 7, 2017</time></td>
+          <td class="xp-cards">12</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/mcd18/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">McDonald's Collection 2018 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2018-10-16">Oct 16, 2018</time></td>
+          <td class="xp-cards">12</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/mcd19/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">McDonald's Collection 2019 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2019-10-15">Oct 15, 2019</time></td>
+          <td class="xp-cards">12</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/fut20/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Pokémon Futsal Collection</span>
+          </th>
+          <td class="xp-date"><time datetime="2020-09-11">Sep 11, 2020</time></td>
+          <td class="xp-cards">5</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/mcd21/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">McDonald's Collection 2021 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2021-02-09">Feb 9, 2021</time></td>
+          <td class="xp-cards">25</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/mcd22/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">McDonald's Collection 2022 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2022-08-03">Aug 3, 2022</time></td>
+          <td class="xp-cards">15</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="xp-era" id="era-e-card">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2002 to 2003</p>
+    <h2>E-Card <span class="xp-count">3 sets</span></h2>
+    <p class="xp-note">Cards printed with dot code strips you could scan with the Nintendo e-Reader.</p>
+    <div class="xp-scroll">
+      <table class="xp-table">
+        <caption class="sr-only">E-Card sets, oldest first</caption>
+        <thead>
+          <tr><th scope="col">Set</th><th scope="col">Released</th><th scope="col">Cards</th><th scope="col">Our rips</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ecard1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Expedition Base Set</span>
+          </th>
+          <td class="xp-date"><time datetime="2002-09-15">Sep 15, 2002</time></td>
+          <td class="xp-cards">165</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ecard2/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Aquapolis</span>
+          </th>
+          <td class="xp-date"><time datetime="2003-01-15">Jan 15, 2003</time></td>
+          <td class="xp-cards">147 <span class="sec">+35</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ecard3/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Skyridge</span>
+          </th>
+          <td class="xp-date"><time datetime="2003-05-12">May 12, 2003</time></td>
+          <td class="xp-cards">144 <span class="sec">+38</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="xp-era" id="era-ex">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2003 to 2007</p>
+    <h2>EX <span class="xp-count">20 sets</span></h2>
+    <p class="xp-note">Nintendo takes over publishing and Pokemon-ex show up, powerful cards that give up two prizes.</p>
+    <div class="xp-scroll">
+      <table class="xp-table">
+        <caption class="sr-only">EX sets, oldest first</caption>
+        <thead>
+          <tr><th scope="col">Set</th><th scope="col">Released</th><th scope="col">Cards</th><th scope="col">Our rips</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ex1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Ruby &amp; Sapphire</span>
+          </th>
+          <td class="xp-date"><time datetime="2003-07-01">Jul 1, 2003</time></td>
+          <td class="xp-cards">109</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ex2/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Sandstorm</span>
+          </th>
+          <td class="xp-date"><time datetime="2003-09-18">Sep 18, 2003</time></td>
+          <td class="xp-cards">100</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ex3/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Dragon</span>
+          </th>
+          <td class="xp-date"><time datetime="2003-11-24">Nov 24, 2003</time></td>
+          <td class="xp-cards">97 <span class="sec">+3</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ex4/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Team Magma vs Team Aqua</span>
+          </th>
+          <td class="xp-date"><time datetime="2004-03-01">Mar 1, 2004</time></td>
+          <td class="xp-cards">95 <span class="sec">+2</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/tk1a/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">EX Trainer Kit Latias <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2004-06-01">Jun 1, 2004</time></td>
+          <td class="xp-cards">10</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/tk1b/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">EX Trainer Kit Latios <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2004-06-01">Jun 1, 2004</time></td>
+          <td class="xp-cards">10</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ex5/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Hidden Legends</span>
+          </th>
+          <td class="xp-date"><time datetime="2004-06-01">Jun 1, 2004</time></td>
+          <td class="xp-cards">101 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ex6/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">FireRed &amp; LeafGreen</span>
+          </th>
+          <td class="xp-date"><time datetime="2004-09-01">Sep 1, 2004</time></td>
+          <td class="xp-cards">112 <span class="sec">+4</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ex7/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Team Rocket Returns</span>
+          </th>
+          <td class="xp-date"><time datetime="2004-11-01">Nov 1, 2004</time></td>
+          <td class="xp-cards">109 <span class="sec">+2</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ex8/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Deoxys</span>
+          </th>
+          <td class="xp-date"><time datetime="2005-02-01">Feb 1, 2005</time></td>
+          <td class="xp-cards">107 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ex9/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Emerald</span>
+          </th>
+          <td class="xp-date"><time datetime="2005-05-01">May 1, 2005</time></td>
+          <td class="xp-cards">106 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ex10/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Unseen Forces</span>
+          </th>
+          <td class="xp-date"><time datetime="2005-08-01">Aug 1, 2005</time></td>
+          <td class="xp-cards">115 <span class="sec">+30</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ex11/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Delta Species</span>
+          </th>
+          <td class="xp-date"><time datetime="2005-10-31">Oct 31, 2005</time></td>
+          <td class="xp-cards">113 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ex12/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Legend Maker</span>
+          </th>
+          <td class="xp-date"><time datetime="2006-02-01">Feb 1, 2006</time></td>
+          <td class="xp-cards">92 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/tk2b/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">EX Trainer Kit 2 Minun <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2006-03-01">Mar 1, 2006</time></td>
+          <td class="xp-cards">12</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/tk2a/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">EX Trainer Kit 2 Plusle <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2006-03-01">Mar 1, 2006</time></td>
+          <td class="xp-cards">12</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ex13/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Holon Phantoms</span>
+          </th>
+          <td class="xp-date"><time datetime="2006-05-01">May 1, 2006</time></td>
+          <td class="xp-cards">110 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ex14/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Crystal Guardians</span>
+          </th>
+          <td class="xp-date"><time datetime="2006-08-01">Aug 1, 2006</time></td>
+          <td class="xp-cards">100</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ex15/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Dragon Frontiers</span>
+          </th>
+          <td class="xp-date"><time datetime="2006-11-01">Nov 1, 2006</time></td>
+          <td class="xp-cards">101</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/ex16/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Power Keepers</span>
+          </th>
+          <td class="xp-date"><time datetime="2007-02-02">Feb 2, 2007</time></td>
+          <td class="xp-cards">108</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="xp-era" id="era-np">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2003</p>
+    <h2>NP <span class="xp-count">1 set</span></h2>
+    <p class="xp-note">Nintendo's promo cards, handed out rather than sold in packs.</p>
+    <div class="xp-scroll">
+      <table class="xp-table">
+        <caption class="sr-only">NP sets, oldest first</caption>
+        <thead>
+          <tr><th scope="col">Set</th><th scope="col">Released</th><th scope="col">Cards</th><th scope="col">Our rips</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/np/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Nintendo Black Star Promos <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2003-10-01">Oct 1, 2003</time></td>
+          <td class="xp-cards">40</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="xp-era" id="era-pop">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2004 to 2009</p>
+    <h2>POP <span class="xp-count">9 sets</span></h2>
+    <p class="xp-note">Organised play kits from the Play! Pokemon programme, earned at events rather than bought.</p>
+    <div class="xp-scroll">
+      <table class="xp-table">
+        <caption class="sr-only">POP sets, oldest first</caption>
+        <thead>
+          <tr><th scope="col">Set</th><th scope="col">Released</th><th scope="col">Cards</th><th scope="col">Our rips</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/pop1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">POP Series 1 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2004-09-01">Sep 1, 2004</time></td>
+          <td class="xp-cards">17</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/pop2/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">POP Series 2 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2005-08-01">Aug 1, 2005</time></td>
+          <td class="xp-cards">17</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/pop3/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">POP Series 3 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2006-04-01">Apr 1, 2006</time></td>
+          <td class="xp-cards">17</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/pop4/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">POP Series 4 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2006-08-01">Aug 1, 2006</time></td>
+          <td class="xp-cards">17</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/pop5/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">POP Series 5 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2007-03-01">Mar 1, 2007</time></td>
+          <td class="xp-cards">17</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/pop6/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">POP Series 6 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2007-09-01">Sep 1, 2007</time></td>
+          <td class="xp-cards">17</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/pop7/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">POP Series 7 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2008-03-01">Mar 1, 2008</time></td>
+          <td class="xp-cards">17</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/pop8/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">POP Series 8 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2008-09-01">Sep 1, 2008</time></td>
+          <td class="xp-cards">17</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/pop9/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">POP Series 9 <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2009-03-01">Mar 1, 2009</time></td>
+          <td class="xp-cards">17</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="xp-era" id="era-diamond-pearl">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2007 to 2008</p>
+    <h2>Diamond &amp; Pearl <span class="xp-count">8 sets</span></h2>
+    <p class="xp-note">Sinnoh, and Pokemon LV.X as the new top end.</p>
+    <div class="xp-scroll">
+      <table class="xp-table">
+        <caption class="sr-only">Diamond &amp; Pearl sets, oldest first</caption>
+        <thead>
+          <tr><th scope="col">Set</th><th scope="col">Released</th><th scope="col">Cards</th><th scope="col">Our rips</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/dp1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Diamond &amp; Pearl</span>
+          </th>
+          <td class="xp-date"><time datetime="2007-05-01">May 1, 2007</time></td>
+          <td class="xp-cards">130</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/dpp/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">DP Black Star Promos <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2007-05-01">May 1, 2007</time></td>
+          <td class="xp-cards">56</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/dp2/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Mysterious Treasures</span>
+          </th>
+          <td class="xp-date"><time datetime="2007-08-01">Aug 1, 2007</time></td>
+          <td class="xp-cards">123 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/dp3/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Secret Wonders</span>
+          </th>
+          <td class="xp-date"><time datetime="2007-11-01">Nov 1, 2007</time></td>
+          <td class="xp-cards">132</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/dp4/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Great Encounters</span>
+          </th>
+          <td class="xp-date"><time datetime="2008-02-01">Feb 1, 2008</time></td>
+          <td class="xp-cards">106</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/dp5/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Majestic Dawn</span>
+          </th>
+          <td class="xp-date"><time datetime="2008-05-01">May 1, 2008</time></td>
+          <td class="xp-cards">100</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/dp6/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Legends Awakened</span>
+          </th>
+          <td class="xp-date"><time datetime="2008-08-01">Aug 1, 2008</time></td>
+          <td class="xp-cards">146</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/dp7/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Stormfront</span>
+          </th>
+          <td class="xp-date"><time datetime="2008-11-01">Nov 1, 2008</time></td>
+          <td class="xp-cards">100 <span class="sec">+6</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="xp-era" id="era-platinum">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2009</p>
+    <h2>Platinum <span class="xp-count">4 sets</span></h2>
+    <p class="xp-note">Pokemon SP, and Arceus closing out the era.</p>
+    <div class="xp-scroll">
+      <table class="xp-table">
+        <caption class="sr-only">Platinum sets, oldest first</caption>
+        <thead>
+          <tr><th scope="col">Set</th><th scope="col">Released</th><th scope="col">Cards</th><th scope="col">Our rips</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/pl1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Platinum</span>
+          </th>
+          <td class="xp-date"><time datetime="2009-02-11">Feb 11, 2009</time></td>
+          <td class="xp-cards">127 <span class="sec">+6</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/pl2/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Rising Rivals</span>
+          </th>
+          <td class="xp-date"><time datetime="2009-05-16">May 16, 2009</time></td>
+          <td class="xp-cards">111 <span class="sec">+9</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/pl3/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Supreme Victors</span>
+          </th>
+          <td class="xp-date"><time datetime="2009-08-19">Aug 19, 2009</time></td>
+          <td class="xp-cards">147 <span class="sec">+6</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/pl4/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Arceus</span>
+          </th>
+          <td class="xp-date"><time datetime="2009-11-04">Nov 4, 2009</time></td>
+          <td class="xp-cards">99 <span class="sec">+12</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="xp-era" id="era-heartgold-soulsilver">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2010 to 2011</p>
+    <h2>HeartGold &amp; SoulSilver <span class="xp-count">6 sets</span></h2>
+    <p class="xp-note">A return to Johto, with Pokemon Prime and the two card LEGEND Pokemon.</p>
+    <div class="xp-scroll">
+      <table class="xp-table">
+        <caption class="sr-only">HeartGold &amp; SoulSilver sets, oldest first</caption>
+        <thead>
+          <tr><th scope="col">Set</th><th scope="col">Released</th><th scope="col">Cards</th><th scope="col">Our rips</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/hgss1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">HeartGold &amp; SoulSilver</span>
+          </th>
+          <td class="xp-date"><time datetime="2010-02-10">Feb 10, 2010</time></td>
+          <td class="xp-cards">123 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/hsp/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">HGSS Black Star Promos <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2010-02-10">Feb 10, 2010</time></td>
+          <td class="xp-cards">25</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/hgss2/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">HS—Unleashed</span>
+          </th>
+          <td class="xp-date"><time datetime="2010-05-12">May 12, 2010</time></td>
+          <td class="xp-cards">95 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/hgss3/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">HS—Undaunted</span>
+          </th>
+          <td class="xp-date"><time datetime="2010-08-18">Aug 18, 2010</time></td>
+          <td class="xp-cards">90 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/hgss4/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">HS—Triumphant</span>
+          </th>
+          <td class="xp-date"><time datetime="2010-11-03">Nov 3, 2010</time></td>
+          <td class="xp-cards">102 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/col1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Call of Legends</span>
+          </th>
+          <td class="xp-date"><time datetime="2011-02-09">Feb 9, 2011</time></td>
+          <td class="xp-cards">95 <span class="sec">+11</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="xp-era" id="era-black-white">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2011 to 2013</p>
+    <h2>Black &amp; White <span class="xp-count">13 sets</span></h2>
+    <p class="xp-note">Unova, full art trainers, and the return of Pokemon-EX.</p>
+    <div class="xp-scroll">
+      <table class="xp-table">
+        <caption class="sr-only">Black &amp; White sets, oldest first</caption>
+        <thead>
+          <tr><th scope="col">Set</th><th scope="col">Released</th><th scope="col">Cards</th><th scope="col">Our rips</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/bwp/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">BW Black Star Promos <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2011-03-01">Mar 1, 2011</time></td>
+          <td class="xp-cards">101</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/bw1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Black &amp; White</span>
+          </th>
+          <td class="xp-date"><time datetime="2011-04-25">Apr 25, 2011</time></td>
+          <td class="xp-cards">114 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/bw2/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Emerging Powers</span>
+          </th>
+          <td class="xp-date"><time datetime="2011-08-31">Aug 31, 2011</time></td>
+          <td class="xp-cards">98</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/bw3/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Noble Victories</span>
+          </th>
+          <td class="xp-date"><time datetime="2011-11-16">Nov 16, 2011</time></td>
+          <td class="xp-cards">101 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/bw4/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Next Destinies</span>
+          </th>
+          <td class="xp-date"><time datetime="2012-02-08">Feb 8, 2012</time></td>
+          <td class="xp-cards">99 <span class="sec">+4</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/bw5/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Dark Explorers</span>
+          </th>
+          <td class="xp-date"><time datetime="2012-05-09">May 9, 2012</time></td>
+          <td class="xp-cards">108 <span class="sec">+3</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/bw6/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Dragons Exalted</span>
+          </th>
+          <td class="xp-date"><time datetime="2012-08-15">Aug 15, 2012</time></td>
+          <td class="xp-cards">124 <span class="sec">+4</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/dv1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Dragon Vault</span>
+          </th>
+          <td class="xp-date"><time datetime="2012-10-05">Oct 5, 2012</time></td>
+          <td class="xp-cards">20 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/bw7/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Boundaries Crossed</span>
+          </th>
+          <td class="xp-date"><time datetime="2012-11-07">Nov 7, 2012</time></td>
+          <td class="xp-cards">149 <span class="sec">+4</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/bw8/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Plasma Storm</span>
+          </th>
+          <td class="xp-date"><time datetime="2013-02-06">Feb 6, 2013</time></td>
+          <td class="xp-cards">135 <span class="sec">+3</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/bw9/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Plasma Freeze</span>
+          </th>
+          <td class="xp-date"><time datetime="2013-05-08">May 8, 2013</time></td>
+          <td class="xp-cards">116 <span class="sec">+6</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/bw10/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Plasma Blast</span>
+          </th>
+          <td class="xp-date"><time datetime="2013-08-14">Aug 14, 2013</time></td>
+          <td class="xp-cards">101 <span class="sec">+4</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/bw11/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Legendary Treasures</span>
+          </th>
+          <td class="xp-date"><time datetime="2013-11-06">Nov 6, 2013</time></td>
+          <td class="xp-cards">113 <span class="sec">+27</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="xp-era" id="era-xy">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2013 to 2016</p>
+    <h2>XY <span class="xp-count">16 sets</span></h2>
+    <p class="xp-note">Kalos, Mega Evolution on cardboard, and the BREAK mechanic.</p>
+    <div class="xp-scroll">
+      <table class="xp-table">
+        <caption class="sr-only">XY sets, oldest first</caption>
+        <thead>
+          <tr><th scope="col">Set</th><th scope="col">Released</th><th scope="col">Cards</th><th scope="col">Our rips</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/xyp/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">XY Black Star Promos <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2013-10-12">Oct 12, 2013</time></td>
+          <td class="xp-cards">211 <span class="sec">+5</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/xy0/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Kalos Starter Set</span>
+          </th>
+          <td class="xp-date"><time datetime="2013-11-08">Nov 8, 2013</time></td>
+          <td class="xp-cards">39</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/xy1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">XY</span>
+          </th>
+          <td class="xp-date"><time datetime="2014-02-05">Feb 5, 2014</time></td>
+          <td class="xp-cards">146</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/xy2/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Flashfire</span>
+          </th>
+          <td class="xp-date"><time datetime="2014-05-07">May 7, 2014</time></td>
+          <td class="xp-cards">106 <span class="sec">+4</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/xy3/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Furious Fists</span>
+          </th>
+          <td class="xp-date"><time datetime="2014-08-13">Aug 13, 2014</time></td>
+          <td class="xp-cards">111 <span class="sec">+3</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/xy4/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Phantom Forces</span>
+          </th>
+          <td class="xp-date"><time datetime="2014-11-05">Nov 5, 2014</time></td>
+          <td class="xp-cards">119 <span class="sec">+5</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/xy5/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Primal Clash</span>
+          </th>
+          <td class="xp-date"><time datetime="2015-02-04">Feb 4, 2015</time></td>
+          <td class="xp-cards">160 <span class="sec">+4</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/dc1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Double Crisis</span>
+          </th>
+          <td class="xp-date"><time datetime="2015-03-25">Mar 25, 2015</time></td>
+          <td class="xp-cards">34</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/xy6/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Roaring Skies</span>
+          </th>
+          <td class="xp-date"><time datetime="2015-05-06">May 6, 2015</time></td>
+          <td class="xp-cards">108 <span class="sec">+4</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/xy7/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Ancient Origins</span>
+          </th>
+          <td class="xp-date"><time datetime="2015-08-12">Aug 12, 2015</time></td>
+          <td class="xp-cards">98 <span class="sec">+2</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/xy8/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">BREAKthrough</span>
+          </th>
+          <td class="xp-date"><time datetime="2015-11-04">Nov 4, 2015</time></td>
+          <td class="xp-cards">162 <span class="sec">+3</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/xy9/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">BREAKpoint</span>
+          </th>
+          <td class="xp-date"><time datetime="2016-02-03">Feb 3, 2016</time></td>
+          <td class="xp-cards">122 <span class="sec">+4</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/g1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Generations</span>
+          </th>
+          <td class="xp-date"><time datetime="2016-02-22">Feb 22, 2016</time></td>
+          <td class="xp-cards">83 <span class="sec">+34</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/xy10/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Fates Collide</span>
+          </th>
+          <td class="xp-date"><time datetime="2016-05-02">May 2, 2016</time></td>
+          <td class="xp-cards">124 <span class="sec">+5</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/xy11/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Steam Siege</span>
+          </th>
+          <td class="xp-date"><time datetime="2016-08-03">Aug 3, 2016</time></td>
+          <td class="xp-cards">114 <span class="sec">+2</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/xy12/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Evolutions</span>
+          </th>
+          <td class="xp-date"><time datetime="2016-11-02">Nov 2, 2016</time></td>
+          <td class="xp-cards">108 <span class="sec">+5</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="xp-era" id="era-sun-moon">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2017 to 2019</p>
+    <h2>Sun &amp; Moon <span class="xp-count">18 sets</span></h2>
+    <p class="xp-note">Alola, GX attacks, and Tag Team pairs late in the run.</p>
+    <div class="xp-scroll">
+      <table class="xp-table">
+        <caption class="sr-only">Sun &amp; Moon sets, oldest first</caption>
+        <thead>
+          <tr><th scope="col">Set</th><th scope="col">Released</th><th scope="col">Cards</th><th scope="col">Our rips</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/smp/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">SM Black Star Promos <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2017-02-03">Feb 3, 2017</time></td>
+          <td class="xp-cards">248 <span class="sec">+2</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sm1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Sun &amp; Moon</span>
+          </th>
+          <td class="xp-date"><time datetime="2017-02-03">Feb 3, 2017</time></td>
+          <td class="xp-cards">149 <span class="sec">+24</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sm2/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Guardians Rising</span>
+          </th>
+          <td class="xp-date"><time datetime="2017-05-05">May 5, 2017</time></td>
+          <td class="xp-cards">145 <span class="sec">+35</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sm3/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Burning Shadows</span>
+          </th>
+          <td class="xp-date"><time datetime="2017-08-05">Aug 5, 2017</time></td>
+          <td class="xp-cards">147 <span class="sec">+30</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sm35/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Shining Legends</span>
+          </th>
+          <td class="xp-date"><time datetime="2017-10-06">Oct 6, 2017</time></td>
+          <td class="xp-cards">73 <span class="sec">+8</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sm4/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Crimson Invasion</span>
+          </th>
+          <td class="xp-date"><time datetime="2017-11-03">Nov 3, 2017</time></td>
+          <td class="xp-cards">111 <span class="sec">+15</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sm5/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Ultra Prism</span>
+          </th>
+          <td class="xp-date"><time datetime="2018-02-02">Feb 2, 2018</time></td>
+          <td class="xp-cards">156 <span class="sec">+22</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sm6/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Forbidden Light</span>
+          </th>
+          <td class="xp-date"><time datetime="2018-05-04">May 4, 2018</time></td>
+          <td class="xp-cards">131 <span class="sec">+19</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sm7/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Celestial Storm</span>
+          </th>
+          <td class="xp-date"><time datetime="2018-08-03">Aug 3, 2018</time></td>
+          <td class="xp-cards">168 <span class="sec">+19</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sm75/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Dragon Majesty</span>
+          </th>
+          <td class="xp-date"><time datetime="2018-09-07">Sep 7, 2018</time></td>
+          <td class="xp-cards">70 <span class="sec">+10</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sm8/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Lost Thunder</span>
+          </th>
+          <td class="xp-date"><time datetime="2018-11-02">Nov 2, 2018</time></td>
+          <td class="xp-cards">214 <span class="sec">+26</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sm9/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Team Up</span>
+          </th>
+          <td class="xp-date"><time datetime="2019-02-01">Feb 1, 2019</time></td>
+          <td class="xp-cards">181 <span class="sec">+17</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/det1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Detective Pikachu</span>
+          </th>
+          <td class="xp-date"><time datetime="2019-04-05">Apr 5, 2019</time></td>
+          <td class="xp-cards">18</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sm10/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Unbroken Bonds</span>
+          </th>
+          <td class="xp-date"><time datetime="2019-05-03">May 3, 2019</time></td>
+          <td class="xp-cards">214 <span class="sec">+20</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sm11/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Unified Minds</span>
+          </th>
+          <td class="xp-date"><time datetime="2019-08-02">Aug 2, 2019</time></td>
+          <td class="xp-cards">236 <span class="sec">+24</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sm115/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Hidden Fates</span>
+          </th>
+          <td class="xp-date"><time datetime="2019-08-23">Aug 23, 2019</time></td>
+          <td class="xp-cards">68 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sma/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Hidden Fates Shiny Vault</span>
+          </th>
+          <td class="xp-date"><time datetime="2019-08-23">Aug 23, 2019</time></td>
+          <td class="xp-cards">94</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sm12/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Cosmic Eclipse</span>
+          </th>
+          <td class="xp-date"><time datetime="2019-11-01">Nov 1, 2019</time></td>
+          <td class="xp-cards">236 <span class="sec">+36</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="xp-era" id="era-sword-shield">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2019 to 2023</p>
+    <h2>Sword &amp; Shield <span class="xp-count">25 sets</span></h2>
+    <p class="xp-note">Galar, the V, VMAX and VSTAR ladder, and the era the hobby went mainstream again.</p>
+    <div class="xp-scroll">
+      <table class="xp-table">
+        <caption class="sr-only">Sword &amp; Shield sets, oldest first</caption>
+        <thead>
+          <tr><th scope="col">Set</th><th scope="col">Released</th><th scope="col">Cards</th><th scope="col">Our rips</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swshp/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">SWSH Black Star Promos <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2019-11-15">Nov 15, 2019</time></td>
+          <td class="xp-cards">307</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Sword &amp; Shield</span>
+          </th>
+          <td class="xp-date"><time datetime="2020-02-07">Feb 7, 2020</time></td>
+          <td class="xp-cards">202 <span class="sec">+14</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh2/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Rebel Clash</span>
+          </th>
+          <td class="xp-date"><time datetime="2020-05-01">May 1, 2020</time></td>
+          <td class="xp-cards">192 <span class="sec">+17</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh3/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Darkness Ablaze</span>
+          </th>
+          <td class="xp-date"><time datetime="2020-08-14">Aug 14, 2020</time></td>
+          <td class="xp-cards">189 <span class="sec">+12</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh35/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Champion's Path</span>
+          </th>
+          <td class="xp-date"><time datetime="2020-09-25">Sep 25, 2020</time></td>
+          <td class="xp-cards">73 <span class="sec">+7</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh4/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Vivid Voltage</span>
+          </th>
+          <td class="xp-date"><time datetime="2020-11-13">Nov 13, 2020</time></td>
+          <td class="xp-cards">185 <span class="sec">+18</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh45/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Shining Fates</span>
+          </th>
+          <td class="xp-date"><time datetime="2021-02-19">Feb 19, 2021</time></td>
+          <td class="xp-cards">72 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh45sv/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Shining Fates Shiny Vault</span>
+          </th>
+          <td class="xp-date"><time datetime="2021-02-19">Feb 19, 2021</time></td>
+          <td class="xp-cards">122</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh5/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Battle Styles</span>
+          </th>
+          <td class="xp-date"><time datetime="2021-03-19">Mar 19, 2021</time></td>
+          <td class="xp-cards">163 <span class="sec">+20</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh6/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Chilling Reign</span>
+          </th>
+          <td class="xp-date"><time datetime="2021-06-18">Jun 18, 2021</time></td>
+          <td class="xp-cards">198 <span class="sec">+35</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh7/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Evolving Skies</span>
+          </th>
+          <td class="xp-date"><time datetime="2021-08-27">Aug 27, 2021</time></td>
+          <td class="xp-cards">203 <span class="sec">+34</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/cel25/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Celebrations</span>
+          </th>
+          <td class="xp-date"><time datetime="2021-10-08">Oct 8, 2021</time></td>
+          <td class="xp-cards">25</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/cel25c/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Celebrations: Classic Collection</span>
+          </th>
+          <td class="xp-date"><time datetime="2021-10-08">Oct 8, 2021</time></td>
+          <td class="xp-cards">25</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh8/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Fusion Strike</span>
+          </th>
+          <td class="xp-date"><time datetime="2021-11-12">Nov 12, 2021</time></td>
+          <td class="xp-cards">264 <span class="sec">+20</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh9/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Brilliant Stars</span>
+          </th>
+          <td class="xp-date"><time datetime="2022-02-25">Feb 25, 2022</time></td>
+          <td class="xp-cards">172 <span class="sec">+14</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh9tg/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Brilliant Stars Trainer Gallery</span>
+          </th>
+          <td class="xp-date"><time datetime="2022-02-25">Feb 25, 2022</time></td>
+          <td class="xp-cards">30</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh10/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Astral Radiance</span>
+          </th>
+          <td class="xp-date"><time datetime="2022-05-27">May 27, 2022</time></td>
+          <td class="xp-cards">189 <span class="sec">+27</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh10tg/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Astral Radiance Trainer Gallery</span>
+          </th>
+          <td class="xp-date"><time datetime="2022-05-27">May 27, 2022</time></td>
+          <td class="xp-cards">30</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/pgo/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/pokemon-go.html">Pokémon GO</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2022-07-01">Jul 1, 2022</time></td>
+          <td class="xp-cards">78 <span class="sec">+10</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=pokemon-go">12 rips</a></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh11/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Lost Origin</span>
+          </th>
+          <td class="xp-date"><time datetime="2022-09-09">Sep 9, 2022</time></td>
+          <td class="xp-cards">196 <span class="sec">+21</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh11tg/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Lost Origin Trainer Gallery</span>
+          </th>
+          <td class="xp-date"><time datetime="2022-09-09">Sep 9, 2022</time></td>
+          <td class="xp-cards">30</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh12/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Silver Tempest</span>
+          </th>
+          <td class="xp-date"><time datetime="2022-11-11">Nov 11, 2022</time></td>
+          <td class="xp-cards">195 <span class="sec">+20</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh12tg/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Silver Tempest Trainer Gallery</span>
+          </th>
+          <td class="xp-date"><time datetime="2022-11-11">Nov 11, 2022</time></td>
+          <td class="xp-cards">30</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh12pt5/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Crown Zenith</span>
+          </th>
+          <td class="xp-date"><time datetime="2023-01-20">Jan 20, 2023</time></td>
+          <td class="xp-cards">159 <span class="sec">+1</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/swsh12pt5gg/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Crown Zenith Galarian Gallery</span>
+          </th>
+          <td class="xp-date"><time datetime="2023-01-20">Jan 20, 2023</time></td>
+          <td class="xp-cards">70</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="xp-era" id="era-scarlet-violet">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2023 to 2025</p>
+    <h2>Scarlet &amp; Violet <span class="xp-count">18 sets</span></h2>
+    <p class="xp-note">Paldea, ex returns in lowercase, and illustration rares become the cards everybody chases.</p>
+    <div class="xp-scroll">
+      <table class="xp-table">
+        <caption class="sr-only">Scarlet &amp; Violet sets, oldest first</caption>
+        <thead>
+          <tr><th scope="col">Set</th><th scope="col">Released</th><th scope="col">Cards</th><th scope="col">Our rips</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/svp/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Scarlet &amp; Violet Black Star Promos <span class="xp-tag">promo</span></span>
+          </th>
+          <td class="xp-date"><time datetime="2023-01-01">Jan 1, 2023</time></td>
+          <td class="xp-cards">215</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sv1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/scarlet-violet.html">Scarlet &amp; Violet</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2023-03-31">Mar 31, 2023</time></td>
+          <td class="xp-cards">198 <span class="sec">+60</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=scarlet-violet">5 rips</a></td>
+        </tr>
+        <tr>
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sve/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async">Scarlet &amp; Violet Energies</span>
+          </th>
+          <td class="xp-date"><time datetime="2023-03-31">Mar 31, 2023</time></td>
+          <td class="xp-cards">8</td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sv2/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/paldea-evolved.html">Paldea Evolved</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2023-06-09">Jun 9, 2023</time></td>
+          <td class="xp-cards">193 <span class="sec">+86</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=paldea-evolved">1 rip</a></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sv3/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/obsidian-flames.html">Obsidian Flames</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2023-08-11">Aug 11, 2023</time></td>
+          <td class="xp-cards">197 <span class="sec">+33</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=obsidian-flames">1 rip</a></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sv3pt5/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/151.html">151</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2023-09-22">Sep 22, 2023</time></td>
+          <td class="xp-cards">165 <span class="sec">+42</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=151">5 rips</a></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sv4/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/paradox-rift.html">Paradox Rift</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2023-11-03">Nov 3, 2023</time></td>
+          <td class="xp-cards">182 <span class="sec">+84</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=paradox-rift">3 rips</a></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sv4pt5/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/paldean-fates.html">Paldean Fates</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2024-01-26">Jan 26, 2024</time></td>
+          <td class="xp-cards">91 <span class="sec">+154</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sv5/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/temporal-forces.html">Temporal Forces</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2024-03-22">Mar 22, 2024</time></td>
+          <td class="xp-cards">162 <span class="sec">+56</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=temporal-forces">2 rips</a></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sv6/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/twilight-masquerade.html">Twilight Masquerade</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2024-05-24">May 24, 2024</time></td>
+          <td class="xp-cards">167 <span class="sec">+59</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=twilight-masquerade">3 rips</a></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sv6pt5/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/shrouded-fable.html">Shrouded Fable</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2024-08-02">Aug 2, 2024</time></td>
+          <td class="xp-cards">64 <span class="sec">+35</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sv7/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/stellar-crown.html">Stellar Crown</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2024-09-13">Sep 13, 2024</time></td>
+          <td class="xp-cards">142 <span class="sec">+33</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sv8/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/surging-sparks.html">Surging Sparks</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2024-11-08">Nov 8, 2024</time></td>
+          <td class="xp-cards">191 <span class="sec">+61</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=surging-sparks">6 rips</a></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sv8pt5/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/prismatic-evolutions.html">Prismatic Evolutions</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2025-01-17">Jan 17, 2025</time></td>
+          <td class="xp-cards">131 <span class="sec">+49</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=prismatic-evolutions">13 rips</a></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sv9/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/journey-together.html">Journey Together</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2025-03-28">Mar 28, 2025</time></td>
+          <td class="xp-cards">159 <span class="sec">+31</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=journey-together">14 rips</a></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/sv10/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/destined-rivals.html">Destined Rivals</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2025-05-30">May 30, 2025</time></td>
+          <td class="xp-cards">182 <span class="sec">+62</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=destined-rivals">12 rips</a></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/zsv10pt5/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/black-bolt.html">Black Bolt</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2025-07-18">Jul 18, 2025</time></td>
+          <td class="xp-cards">86 <span class="sec">+86</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/rsv10pt5/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/white-flare.html">White Flare</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2025-07-18">Jul 18, 2025</time></td>
+          <td class="xp-cards">86 <span class="sec">+87</span></td>
+          <td class="xp-rips"><span class="xp-none">&mdash;</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="xp-era" id="era-mega-evolution">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2025 to 2026</p>
+    <h2>Mega Evolution <span class="xp-count">6 sets</span></h2>
+    <p class="xp-note">The current era. Mega ex, and the sets we are opening right now.</p>
+    <div class="xp-scroll">
+      <table class="xp-table">
+        <caption class="sr-only">Mega Evolution sets, oldest first</caption>
+        <thead>
+          <tr><th scope="col">Set</th><th scope="col">Released</th><th scope="col">Cards</th><th scope="col">Our rips</th></tr>
+        </thead>
+        <tbody>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/me1/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/mega-evolution.html">Mega Evolution</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2025-09-26">Sep 26, 2025</time></td>
+          <td class="xp-cards">132 <span class="sec">+56</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=mega-evolution">3 rips</a></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.pokemontcg.io/me2/symbol.png" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/phantasmal-flames.html">Phantasmal Flames</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2025-11-14">Nov 14, 2025</time></td>
+          <td class="xp-cards">94 <span class="sec">+36</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=phantasmal-flames">16 rips</a></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.scrydex.com/pokemon/me2pt5-symbol/symbol" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/ascended-heroes.html">Ascended Heroes</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2026-01-30">Jan 30, 2026</time></td>
+          <td class="xp-cards">217 <span class="sec">+78</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=ascended-heroes">49 rips</a></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.scrydex.com/pokemon/me3-symbol/symbol" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/perfect-order.html">Perfect Order</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2026-03-27">Mar 27, 2026</time></td>
+          <td class="xp-cards">88 <span class="sec">+36</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=perfect-order">44 rips</a></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.scrydex.com/pokemon/me4-symbol/symbol" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/chaos-rising.html">Chaos Rising</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2026-05-22">May 22, 2026</time></td>
+          <td class="xp-cards">86 <span class="sec">+36</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=chaos-rising">50 rips</a></td>
+        </tr>
+        <tr class="mine">
+          <th scope="row">
+            <span class="xp-name"><img src="https://images.scrydex.com/pokemon/me5-symbol/symbol" alt="" width="20" height="20" loading="lazy" decoding="async"><a href="/sets/pitch-black.html">Pitch Black</a></span>
+          </th>
+          <td class="xp-date"><time datetime="2026-07-17">Jul 17, 2026</time></td>
+          <td class="xp-cards">84 <span class="sec">+36</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=pitch-black">19 rips</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+// Copy the list as tab separated text, which pastes straight into Sheets or
+// Excel as four real columns. Built from the DOM rather than duplicated as a
+// data blob, so the copy can never disagree with what is on screen.
+document.getElementById("copyAll")?.addEventListener("click", async (e) => {
+  const btn = e.currentTarget;
+  const clean = (el) => (el?.textContent || "").replace(/\s+/g, " ").trim();
+  const lines = ["Era\tSet\tType\tReleased\tCards\tOur rips"];
+  for (const sec of document.querySelectorAll(".xp-era")) {
+    const era = clean(sec.querySelector("h2")?.firstChild);
+    for (const tr of sec.querySelectorAll("tbody tr")) {
+      const tag = tr.querySelector(".xp-tag");
+      // Read the name without the promo pill, which sits inside the same cell
+      // and would otherwise paste as part of the set's name.
+      const name = clean(tr.querySelector(".xp-name a")) ||
+        clean(tr.querySelector(".xp-name")).replace(/\s*promo$/i, "");
+      const rips = clean(tr.querySelector(".xp-rips"));
+      lines.push([
+        era,
+        name,
+        tag ? "Promo" : "Expansion",
+        clean(tr.querySelector(".xp-date")),
+        clean(tr.querySelector(".xp-cards")),
+        rips === "\u2014" ? "" : rips,
+      ].join("\t"));
+    }
+  }
+  const text = lines.join("\n");
+  let ok = false;
+  try {
+    await navigator.clipboard.writeText(text);
+    ok = true;
+  } catch {
+    // The async clipboard needs a secure context and a trusted gesture, and it
+    // is refused often enough that a fallback is worth having. Telling the user
+    // to press Cmd C is not one: nothing is selected, so it copies nothing.
+    // Selecting the text first is what makes that instruction true.
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.cssText = "position:fixed;top:0;left:0;opacity:0;pointer-events:none";
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, text.length);
+    try {
+      ok = document.execCommand("copy");
+    } catch {
+      ok = false;
+    }
+    ta.remove();
+  }
+  btn.textContent = ok ? "Copied " + (lines.length - 1) + " sets" : "Could not copy, sorry";
+  setTimeout(() => (btn.textContent = "Copy the whole list"), 2600);
+});
+</script>
+
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Site">
+      <a href="/videos.html">All rips</a>
+      <a href="/sets/">Card Pokedex</a>
+      <a href="/expansions.html">Every set ever</a>
+      <a href="/wanted.html">Most wanted</a>
+      <a href="/hall.html">Card Hall of Fame</a>
+      <a href="/shops.html">Card shops</a>
+      <a href="/playlists.html">Playlists</a>
+      <a href="/about.html">About</a>
+    </nav>
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    Set data from the Pokemon TCG API, last checked 2026-08-11.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>
