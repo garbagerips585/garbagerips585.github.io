@@ -47,6 +47,15 @@
 .pack--journey-together .pack-art::before,.pack--journey-together .pack-art::after{content:none}
 .pack--journey-together .pack-brand,.pack--journey-together .pack-mascot{display:none}
 
+.pack--mega-evolution .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/mega-evolution-garbage-rips-585-booster-pack.webp');
+  background-size:cover;
+  background-position:center;
+}
+.pack--mega-evolution .pack-art::before,.pack--mega-evolution .pack-art::after{content:none}
+.pack--mega-evolution .pack-brand,.pack--mega-evolution .pack-mascot{display:none}
+
 .pack--perfect-order .pack-art{
   background-color:#161D26;
   background-image:url('packs/perfect-order-garbage-rips-585-booster-pack.webp');
