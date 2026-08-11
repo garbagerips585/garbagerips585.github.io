@@ -29,6 +29,15 @@
 .pack--perfect-order .pack-art::before,.pack--perfect-order .pack-art::after{content:none}
 .pack--perfect-order .pack-brand,.pack--perfect-order .pack-mascot{display:none}
 
+.pack--phantasmal-flames .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/phantasmal-flames.webp');
+  background-size:cover;
+  background-position:center;
+}
+.pack--phantasmal-flames .pack-art::before,.pack--phantasmal-flames .pack-art::after{content:none}
+.pack--phantasmal-flames .pack-brand,.pack--phantasmal-flames .pack-mascot{display:none}
+
 .pack--pitch-black .pack-art{
   background-color:#161D26;
   background-image:url('packs/pitch-black.webp');
