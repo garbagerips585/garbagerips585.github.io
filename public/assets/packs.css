@@ -2,6 +2,15 @@
 /* A set listed here shows its artwork; every other set keeps the
    colour design in site.css. */
 
+.pack--ascended-heroes .pack-art{
+  background-color:#161D26;
+  background-image:url('packs/ascended-heroes.webp');
+  background-size:cover;
+  background-position:center;
+}
+.pack--ascended-heroes .pack-art::before,.pack--ascended-heroes .pack-art::after{content:none}
+.pack--ascended-heroes .pack-brand,.pack--ascended-heroes .pack-mascot{display:none}
+
 .pack--chaos-rising .pack-art{
   background-color:#161D26;
   background-image:url('packs/chaos-rising.webp');
