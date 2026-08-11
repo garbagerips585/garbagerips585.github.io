@@ -704,3 +704,101 @@ footer p{font-size:.83rem;color:rgba(247,242,222,.72);max-width:60em;margin:0 au
 /* ---------- set logo on a video page ---------- */
 .rip-setlogo{display:block;height:clamp(34px,5vw,54px);width:auto;margin-bottom:14px}
 .sec-head .setlogo{height:clamp(30px,4.4vw,50px);width:auto;display:block;margin-bottom:6px}
+
+/* ==========================================================================
+   SET PAGES — "Set 101"
+   Built mobile-first: almost all the traffic is phones, so every block is a
+   single column by default and only widens where there is room.
+   ========================================================================== */
+.set-hero{
+  background:linear-gradient(180deg,var(--sky-tint),var(--paper));
+  border-bottom:4px solid var(--navy);padding:26px 0 30px;
+}
+.set-hero .wrap{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
+.set-hero img.logo-big{height:clamp(56px,17vw,110px);width:auto}
+.set-hero h1{font-size:clamp(1.7rem,7vw,3rem)}
+.set-hero .kicker{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--navy);background:var(--mustard);border:2px solid var(--navy);
+  padding:5px 12px;border-radius:4px;font-weight:700;
+}
+
+/* quick facts: 2-up on a phone, 4-up when there is room */
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px}
+@media(min-width:700px){.facts{grid-template-columns:repeat(4,1fr);gap:14px}}
+.fact{
+  background:var(--paper-2);border:3px solid var(--navy);border-radius:12px;
+  padding:14px 12px;text-align:center;box-shadow:0 5px 0 var(--trubbish);
+}
+.fact .n{font-family:var(--display);font-size:clamp(1.3rem,5.5vw,1.9rem);color:var(--ketchup);line-height:1.05}
+.fact .l{
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-soft);margin-top:5px;font-weight:700;
+}
+.fact.wide{grid-column:1 / -1}
+
+/* rarity ladder */
+.rarity-list{display:flex;flex-direction:column;gap:9px;margin-top:18px}
+.rar{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center}
+.rar-name{font-weight:600;font-size:.94rem}
+.rar-n{font-family:var(--mono);font-weight:700;font-size:.86rem;color:var(--ketchup)}
+.rar-bar{
+  grid-column:1 / -1;height:12px;border-radius:999px;background:var(--paper-3);
+  border:2px solid var(--navy);overflow:hidden;
+}
+.rar-bar i{display:block;height:100%;background:var(--sky)}
+.rar.chase .rar-bar i{background:linear-gradient(90deg,var(--mustard),var(--gold))}
+.rar.chase .rar-name{color:var(--gold-deep)}
+
+/* chase cards */
+.chase-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+@media(min-width:620px){.chase-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.chase-grid{grid-template-columns:repeat(4,1fr)}}
+.chase-card{
+  background:var(--paper-2);border:3px solid var(--navy);border-radius:12px;
+  padding:10px;box-shadow:0 5px 0 var(--gold-deep);text-decoration:none;display:block;
+}
+.chase-card img{width:100%;height:auto;border-radius:6px}
+.chase-card .nm{font-weight:700;font-size:.84rem;line-height:1.25;margin-top:8px}
+.chase-card .rr{font-family:var(--mono);font-size:.6rem;color:var(--ink-soft);margin-top:2px;letter-spacing:.06em}
+.chase-card .pr{font-family:var(--display);font-size:1.15rem;color:var(--ketchup);margin-top:4px}
+.price-note{
+  font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);margin-top:14px;
+  border-left:4px solid var(--trubbish);padding-left:10px;line-height:1.5;
+}
+.no-prices{
+  background:var(--paper-2);border:3px dashed var(--trubbish);border-radius:12px;
+  padding:18px;margin-top:18px;font-size:.92rem;color:var(--ink-soft);
+}
+
+/* fun facts */
+.facts-list{list-style:none;display:flex;flex-direction:column;gap:11px;margin-top:16px}
+.facts-list li{
+  background:var(--paper-2);border:3px solid var(--navy);border-radius:12px;
+  padding:13px 16px;font-size:.95rem;box-shadow:0 4px 0 var(--trubbish);
+}
+.facts-list b{font-family:var(--display);font-weight:400;color:var(--ketchup)}
+
+/* watch-this-set callout */
+.set-watch{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin-top:20px}
+@media(min-width:760px){.set-watch{grid-template-columns:180px 1fr}}
+.set-watch .packshot{
+  aspect-ratio:2/3;border-radius:12px;overflow:hidden;border:4px solid var(--mustard);
+  outline:2px solid var(--navy);outline-offset:-6px;box-shadow:0 6px 0 var(--gold-deep);
+  background:#161D26 center/cover no-repeat;max-width:180px;margin:0 auto;
+}
+
+/* set index */
+.set-index{display:grid;grid-template-columns:repeat(1,1fr);gap:14px;margin-top:24px}
+@media(min-width:560px){.set-index{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:900px){.set-index{grid-template-columns:repeat(3,1fr)}}
+.set-card{
+  display:flex;align-items:center;gap:14px;text-decoration:none;
+  background:var(--paper-2);border:3px solid var(--navy);border-radius:14px;
+  padding:14px 16px;box-shadow:0 5px 0 var(--trubbish);
+  transition:transform .12s,box-shadow .12s;
+}
+.set-card:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--trubbish)}
+.set-card img{height:42px;width:auto;flex:none;max-width:110px;object-fit:contain}
+.set-card .meta{font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);font-weight:700}
+.set-card .ttl{font-family:var(--display);font-size:1rem;line-height:1.15}

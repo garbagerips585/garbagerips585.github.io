@@ -57,7 +57,7 @@ const NAV = `<nav class="site" aria-label="Main">
       <li><a href="/">Home</a></li>
       <li><a href="/videos.html">All Rips</a></li>
       <li><a href="/playlists.html">Playlists</a></li>
-      <li><a href="/#plate">The Plate</a></li>
+      <li><a href="/sets/">Card Sets</a></li>
       <li><a href="/#five85">The 585</a></li>
     </ul>
     <div class="nav-social">
@@ -330,9 +330,21 @@ for (let i = 0; i < ordered.length; i++) {
 
 // Sitemap: the three hubs plus every generated page.
 const today = videos[0]?.published || "2026-08-10";
+let setPages = [];
+try {
+  const sd = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
+  setPages = (sd.sets || []).map((s) => ({
+    loc: `${SITE}/sets/${s.id}.html`, freq: "weekly", pri: "0.8", mod: sd.syncedAt,
+  }));
+} catch {
+  /* set pages not generated yet */
+}
+
 const urls = [
   { loc: `${SITE}/`, freq: "daily", pri: "1.0" },
   { loc: `${SITE}/videos.html`, freq: "daily", pri: "0.9" },
+  { loc: `${SITE}/sets/`, freq: "weekly", pri: "0.9" },
+  ...setPages,
   { loc: `${SITE}/playlists.html`, freq: "weekly", pri: "0.7" },
   ...ordered.filter((v) => taggedIds.has(v.id)).map((v) => ({ loc: `${SITE}/${pathFor(v)}`, freq: "monthly", pri: "0.6", mod: v.published })),
 ];

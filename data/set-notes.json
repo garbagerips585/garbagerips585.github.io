@@ -1,0 +1,19 @@
+{
+  "_readme": [
+    "Things the card API cannot tell us, so a human has to. Everything here is",
+    "optional: leave a set out and its page simply omits those bits rather than",
+    "guessing.",
+    "",
+    "  inPrint    short answer shown as a fact tile, e.g. 'Yes' / 'Sealed only'",
+    "  packPrice  typical single booster price you actually see, e.g. '$4.99'",
+    "  funFacts   array of extra lines for the 101 section, in your own words",
+    "",
+    "The pages already derive their own facts from the card data (counts,",
+    "rarity ladder, chase card). These are for what only you know."
+  ],
+  "pitch-black": {
+    "inPrint": "",
+    "packPrice": "",
+    "funFacts": []
+  }
+}
