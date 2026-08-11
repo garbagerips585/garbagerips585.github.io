@@ -52,6 +52,32 @@ const CHASE = new Set([
   "Illustration Rare", "Ultra Rare", "ACE SPEC Rare", "Radiant Rare",
 ]);
 
+// Which sets have a real packshot photo. Decided at build time: an onerror
+// fallback never fires while the image is lazy and below the fold, so the
+// empty panel would sit there and then pop out mid-scroll.
+const packshots = new Set();
+try {
+  const { readdirSync } = await import("node:fs");
+  for (const f of readdirSync(join(ROOT, "public/assets/packshots"))) {
+    const m = /^(.+)-booster-pack\.webp$/.exec(f);
+    if (m) packshots.add(m[1]);
+  }
+} catch {
+  /* none yet */
+}
+
+// Affiliate config. Off by default; flip enabled in data/affiliate.json once
+// the Impact application is approved and every TCGplayer link is rewritten.
+let aff = { tcgplayer: { enabled: false } };
+try {
+  aff = JSON.parse(await readFile(join(ROOT, "data/affiliate.json"), "utf8"));
+} catch {
+  /* optional */
+}
+const affOn = Boolean(aff.tcgplayer?.enabled && aff.tcgplayer?.linkTemplate);
+const affLink = (url) =>
+  affOn ? aff.tcgplayer.linkTemplate.replace("{url}", encodeURIComponent(url)) : url;
+
 const ripsBySet = {};
 for (const v of videos) for (const s of v.sets || []) ripsBySet[s] = (ripsBySet[s] || 0) + 1;
 
@@ -293,14 +319,19 @@ ${s.notes?.inPrint || s.notes?.packPrice ? `
     <h2>Top <span class="hl">chase cards</span></h2>
     ${s.chase?.length ? `
     <div class="chase-grid">
-      ${s.chase.map((c) => `<a class="chase-card" href="${c.url || "#"}"${c.url ? ' rel="nofollow noopener"' : ""}>
-        ${c.image ? `<img src="${c.image}" alt="${esc(c.name)} ${esc(c.number)}" loading="lazy" width="245" height="342">` : ""}
+      ${s.chase.map((c) => `<button class="chase-card" type="button"
+        data-img="${esc(c.imageLarge || c.image || "")}"
+        data-name="${esc(c.name)}" data-rarity="${esc(c.rarity || "")}"
+        data-number="${esc(c.number)}" data-price="${esc(money(c.price))}"
+        data-url="${esc(c.url ? affLink(c.url) : "")}"
+        aria-label="Enlarge ${esc(c.name)}">
+        ${c.image ? `<img src="${c.image}" alt="${esc(c.name)} ${esc(c.number)}, ${esc(c.rarity || "card")}" loading="lazy" width="245" height="342">` : ""}
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(c.rarity || "")} &bull; ${esc(c.number)}</div>
         <div class="pr">${money(c.price)}</div>
-      </a>`).join("\n      ")}
+      </button>`).join("\n      ")}
     </div>
-    <p class="price-note">Prices are TCGplayer market estimates${s.pricesAsOf ? `, last updated ${esc(s.pricesAsOf)}` : ""}. Singles move fast, so treat these as a ballpark rather than a quote.</p>
+    <p class="price-note">Prices are TCGplayer market estimates${s.pricesAsOf ? `, last updated ${esc(s.pricesAsOf)}` : ""}. Singles move fast, so treat these as a ballpark rather than a quote.${affOn ? ` ${esc(aff.tcgplayer.disclosure)}` : ""}</p>
     ` : `
     <div class="no-prices">
       <strong>No market prices yet.</strong> ${esc(s.name)} is recent enough that pricing data has not landed in the card database. The card list and rarity counts above are accurate; the values will fill in as the market settles.
@@ -316,6 +347,25 @@ ${s.notes?.inPrint || s.notes?.packPrice ? `
       ${derivedFacts(s).map((f) => `<li>${f}</li>`).join("\n      ")}
       ${(s.notes?.funFacts || []).map((f) => `<li>${esc(f)}</li>`).join("\n      ")}
     </ul>
+  </div>
+</section>
+
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Know it on the shelf</p>
+    <h2>What the <span class="hl">pack</span> looks like</h2>
+    <div class="packshots"${packshots.has(s.id) ? "" : ' style="grid-template-columns:1fr;max-width:340px"'}>
+      ${packshots.has(s.id) ? `<div class="packshot-card">
+        <div class="ph"><img src="/assets/packshots/${s.id}-booster-pack.webp" alt="${esc(s.name)} booster pack" loading="lazy" width="720" height="1080"></div>
+        <p class="cap">The real ${esc(s.name)} pack</p>
+        <p class="sub">What you are looking for in the shop.</p>
+      </div>` : ""}
+      <div class="packshot-card">
+        <div class="ph pack pack--${s.id}"><span class="pack-face pack-l"><span class="pack-art"></span></span></div>
+        <p class="cap">Our version</p>
+        <p class="sub">The Garbage Rips 585 wrapper we put on every ${esc(s.name)} rip. Not a real product, just ours.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -348,7 +398,45 @@ ${rips ? `<section class="tight">
   </div>
 </section>
 
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card image">
+  <div class="lb-inner">
+    <button class="lb-close" type="button" aria-label="Close">&times;</button>
+    <img id="lbImg" src="" alt="">
+    <p class="lb-nm" id="lbNm"></p>
+    <p class="lb-rr" id="lbRr"></p>
+    <p class="lb-pr" id="lbPr"></p>
+    <div class="lb-actions"><a class="btn btn-sky btn-sm" id="lbUrl" href="#" rel="nofollow noopener" hidden>Check current price</a></div>
+  </div>
+</div>
+
 ${FOOTER}
+<script>
+(function(){
+  var lb=document.getElementById('lb'), img=document.getElementById('lbImg');
+  var last=null;
+  function open(b){
+    last=b;
+    img.src=b.dataset.img; img.alt=b.dataset.name+' '+b.dataset.number;
+    document.getElementById('lbNm').textContent=b.dataset.name;
+    document.getElementById('lbRr').textContent=[b.dataset.rarity,b.dataset.number].filter(Boolean).join(' \u2022 ');
+    document.getElementById('lbPr').textContent=b.dataset.price;
+    var u=document.getElementById('lbUrl');
+    if(b.dataset.url){u.href=b.dataset.url;u.hidden=false;}else{u.hidden=true;}
+    lb.classList.add('on');
+    document.body.style.overflow='hidden';
+    lb.querySelector('.lb-close').focus();
+  }
+  function close(){
+    lb.classList.remove('on'); document.body.style.overflow='';
+    if(last) last.focus();      // return focus where it came from
+  }
+  document.querySelectorAll('.chase-card').forEach(function(b){
+    b.addEventListener('click',function(){ if(b.dataset.img) open(b); });
+  });
+  lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
+})();
+</script>
 <script src="/assets/app.js"></script>
 </body>
 </html>

@@ -159,6 +159,7 @@ for (const [setId, apiId] of Object.entries(SET_MAP)) {
       rarity: c.rarity || null,
       price: Math.round(marketPrice(c) * 100) / 100,
       image: c.images?.small || null,
+      imageLarge: c.images?.large || null,
       url: c.tcgplayer?.url || null,
     }));
 

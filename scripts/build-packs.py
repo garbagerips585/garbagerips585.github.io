@@ -87,3 +87,31 @@ print(f"Wrote {len(done)} pack image(s) to {OUT.relative_to(ROOT)}/")
 for set_id, size, kb, src_kb in done:
     print(f"  {set_id:<24} {size[0]}x{size[1]}  {kb:6.1f} KB   (from {src_kb:.0f} KB)")
 print(f"\nWrote {CSS.relative_to(ROOT)}")
+
+# ---------------------------------------------------------------- packshots
+# Photos of the REAL retail booster packs, for the set pages. These have to be
+# pictures you took yourself of packs you own: official product photography is
+# not ours to copy. Any set without one just hides that panel.
+SHOT_SRC = ROOT / "assets-source" / "packshots"
+SHOT_OUT = ROOT / "public" / "assets" / "packshots"
+SHOT_SRC.mkdir(parents=True, exist_ok=True)
+SHOT_OUT.mkdir(parents=True, exist_ok=True)
+
+shots = sorted(
+    p for p in SHOT_SRC.iterdir()
+    if p.suffix.lower() in (".png", ".jpg", ".jpeg", ".webp") and not p.name.startswith(".")
+)
+if shots:
+    print()
+    for m in shots:
+        im = Image.open(m)
+        if im.mode not in ("RGB", "RGBA"):
+            im = im.convert("RGBA")
+        im.thumbnail((720, 1080), Image.LANCZOS)
+        dest = SHOT_OUT / f"{m.stem}-booster-pack.webp"
+        im.save(dest, "WEBP", quality=80, method=6)
+        print(f"  packshot {m.stem:<22} {im.size[0]}x{im.size[1]}  {dest.stat().st_size/1024:6.1f} KB")
+    print(f"\nWrote {len(shots)} packshot(s) to {SHOT_OUT.relative_to(ROOT)}/")
+else:
+    print(f"\nNo packshots in {SHOT_SRC.relative_to(ROOT)}/ yet.")
+    print("Drop photos of real booster packs named by set id (pitch-black.jpg).")

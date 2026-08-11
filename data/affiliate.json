@@ -1,0 +1,21 @@
+{
+  "_readme": [
+    "Affiliate link config. Nothing here is live until enabled is true.",
+    "",
+    "TCGplayer runs its affiliate program through Impact (impact.com).",
+    "Apply, and Impact gives you a deep-link format that looks roughly like:",
+    "  https://tcgplayer.pxf.io/c/<publisherId>/<campaignId>/<propertyId>?u=<destination>",
+    "",
+    "Paste that into linkTemplate with {url} where the destination goes, set",
+    "enabled to true, and re-run build-set-pages.mjs. Every TCGplayer link on",
+    "the site is rewritten. Leave enabled false and links stay plain.",
+    "",
+    "The disclosure is not optional: the FTC requires it clear and conspicuous",
+    "near the links, not buried in a footer page."
+  ],
+  "tcgplayer": {
+    "enabled": false,
+    "linkTemplate": "https://tcgplayer.pxf.io/c/PUBLISHER_ID/CAMPAIGN_ID/PROPERTY_ID?u={url}",
+    "disclosure": "Some links here are affiliate links. If you buy through one, we may earn a small commission at no extra cost to you. It does not change what we pull."
+  }
+}
