@@ -25,15 +25,22 @@ const { sets, rarityOrder, syncedAt } = JSON.parse(
 // feed carries graded sales. A card with no entry shows its raw price alone.
 let psa10 = {};
 try {
-  psa10 = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8")).prices || {};
+  psa10 = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8")) || {};
 } catch {
   /* optional */
 }
+// Two sources, and the person always wins. `prices` is what Tim typed through
+// the spreadsheet; `auto` is what sync-prices.mjs fetched and owns. A sync must
+// never overwrite a number he checked himself, so it is read second.
+const gnum = (v) => (typeof v === "number" ? v : typeof v?.price === "number" ? v.price : null);
 const gradedPrice = (setId, number) => {
-  const v = psa10[`${setId}-${number}`];
-  return typeof v === "number" ? v : typeof v?.price === "number" ? v.price : null;
+  const k = `${setId}-${number}`;
+  return gnum(psa10.prices?.[k]) ?? gnum(psa10[k]) ?? (psa10.auto?.[k]?.psa10 ?? null);
 };
-const gradedAsOf = (setId, number) => psa10[`${setId}-${number}`]?.asOf || null;
+const gradedAsOf = (setId, number) => {
+  const k = `${setId}-${number}`;
+  return psa10.prices?.[k]?.asOf || psa10[k]?.asOf || psa10.auto?.[k]?.asOf || null;
+};
 
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 

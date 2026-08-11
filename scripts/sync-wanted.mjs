@@ -6,9 +6,9 @@
 //   node scripts/sync-wanted.mjs --force   refetch every card
 //
 // What it fills in: the card image, the TCGplayer link, and the raw market
-// price. What it cannot fill in: the PSA 10 price. No free API carries graded
-// prices, so that number stays exactly as a human typed it in data/wanted.json,
-// alongside the date it was checked. Nothing here ever invents a price.
+// price. Graded prices come from data/psa10.json, which is fed either by hand
+// through the spreadsheet or by scripts/sync-prices.mjs. Nothing here ever
+// invents a price: a card with no figure shows no figure.
 //
 // Shares the cache and the backoff behaviour of sync-sets.mjs, because the API
 // answers 500/502 rather than 429 when it is unhappy.
@@ -79,6 +79,19 @@ async function setCards(apiId) {
 }
 
 const source = JSON.parse(await readFile(join(ROOT, "data/wanted.json"), "utf8"));
+// Graded prices live in one file for the whole site: hand-entered first, then
+// whatever sync-prices.mjs fetched.
+let graded = {};
+try {
+  graded = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8"));
+} catch { /* optional */ }
+const gradedFor = (setId, number) => {
+  const k = `${setId}-${number}`;
+  const m = graded.prices?.[k];
+  if (m) return { price: m.price ?? m, asOf: m.asOf || null, source: m.source || null };
+  const a = graded.auto?.[k];
+  return a?.psa10 ? { price: a.psa10, asOf: a.asOf || null, source: a.source || null } : null;
+};
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 const setName = new Map(sets.map((s) => [s.id, s.name]));
 
@@ -117,6 +130,8 @@ for (const want of source.cards || []) {
   }
 
   const raw = marketPrice(card);
+  const g = gradedFor(want.set, want.number);
+  const autoRaw = graded.auto?.[`${want.set}-${want.number}`]?.rawNm ?? null;
   out.push({
     set: want.set,
     setName: setName.get(want.set) || want.set,
@@ -130,13 +145,13 @@ for (const want of source.cards || []) {
     url: card.tcgplayer?.url || null,
     // Raw comes from the API when it has data, and from the file otherwise, so
     // a hand-checked price still shows for a set the market has not reached.
-    raw: raw || (typeof want.raw === "number" ? want.raw : null),
+    raw: raw || (typeof want.raw === "number" ? want.raw : null) || autoRaw,
     rawFrom: raw ? "tcgplayer" : typeof want.raw === "number" ? "manual" : null,
     rawAsOf: raw ? card.tcgplayer?.updatedAt || null : null,
-    // Never fetched, only ever typed in. See the note in data/wanted.json.
-    psa10: typeof want.psa10 === "number" ? want.psa10 : null,
-    psa10AsOf: want.psa10AsOf || null,
-    psa10Source: want.psa10Source || null,
+    // From data/psa10.json when it has one, else whatever this file carries.
+    psa10: g?.price ?? (typeof want.psa10 === "number" ? want.psa10 : null),
+    psa10AsOf: g?.asOf || want.psa10AsOf || null,
+    psa10Source: g?.source || want.psa10Source || null,
   });
   console.log(`${card.rarity || "?"}${raw ? `, $${raw}` : ", no market price yet"}`);
   await sleep(400);
@@ -159,9 +174,11 @@ if (noRaw.length) {
 `);
 }
 if (noPsa.length) {
-  console.log(`No PSA 10 price, and nothing can fetch one. Put a number you have
-actually seen into data/wanted.json, with the date and the source:
+  console.log(`No PSA 10 price yet for:
   ${noPsa.map((c) => `${c.name} #${c.number}`).join("\n  ")}
+
+Either run  node --env-file=.env scripts/sync-prices.mjs  to fetch them, or put
+a number you have seen into the Chase Cards tab with the date and the source.
 `);
 }
 if (problems.length) {
