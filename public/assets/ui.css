@@ -37,6 +37,8 @@
   --ink:#15263A; --ink-2:#5A6E82; --hair:rgba(21,38,58,.14);
 
   --mustard:#EFC94C; --gold:#E0A21F; --gold-deep:#8A6109;
+  /* --ketchup is a FILL, never text: 4.16 on cream and 3.69 on the sky bands,
+     both under AA. --ketchup-deep is the text colour at 6.48 and 5.75. */
   --ketchup:#D9482B; --ketchup-deep:#A83318;
   --sky:#35BEEF; --lilac:#CAA6CA; --lilac-pale:#F0E4F1; --plum:#4E2F48;
 
@@ -626,7 +628,7 @@ footer .squiggle{display:none}
    Only the rules those 332 pages actually reference, and only where ui.css
    did not already define the class: the chrome and the tiles come from above.
    -------------------------------------------------------------------------- */
-.hl{color:var(--ketchup);text-shadow:2px 2px 0 var(--mustard)}
+.hl{color:var(--ketchup-deep);text-shadow:2px 2px 0 var(--mustard)}
 .sec-label{
   display:flex;align-items:center;gap:8px;
   font-family:var(--mono);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;
@@ -669,7 +671,7 @@ section.band-sky .sec-label{color:var(--navy)}section.band-navy .sec-label{color
 .search input:focus{border-color:var(--mustard);outline:none;box-shadow:0 0 0 3px rgba(239,201,76,.4)}
 .search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:15px;height:15px;fill:var(--ink-soft);pointer-events:none}
 @media(max-width:900px){.search{max-width:none;order:3;flex-basis:100%}}.hero-art .lede{color:var(--ink)}
-h1 .rip{color:var(--ketchup);text-shadow:var(--hard-lg)}.btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+h1 .rip{color:var(--ketchup-deep);text-shadow:var(--hard-lg)}.btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .soc{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;
   background:var(--paper-2);border:2px solid var(--navy);box-shadow:2px 2px 0 var(--navy);transition:transform .12s}
 .soc svg{width:18px;height:18px;fill:var(--navy)}
@@ -698,9 +700,9 @@ footer .soc svg{fill:var(--paper)}
 .vid-title{font-size:.88rem;font-weight:600;line-height:1.32;color:var(--ink);
   display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .vid-title a{text-decoration:none}
-.vid-title a:hover{color:var(--ketchup)}
+.vid-title a:hover{color:var(--ketchup-deep)}
 .vid-meta{font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);letter-spacing:.04em}.band-navy .vid-title a:hover{color:var(--mustard)}.vid-grid.dense{grid-template-columns:repeat(auto-fill,minmax(168px,1fr))}
-@media(max-width:520px){}section.band-gold .sec-label{color:#5A3B06}section.band-gold .hl{color:var(--paper-2);text-shadow:3px 3px 0 #8A5A0C}section.band-gold .vid-title a:hover{color:var(--ketchup)}.chip.prod[aria-pressed=true]{background:var(--mustard)}
+@media(max-width:520px){}section.band-gold .sec-label{color:#5A3B06}section.band-gold .hl{color:var(--paper-2);text-shadow:3px 3px 0 #8A5A0C}section.band-gold .vid-title a:hover{color:var(--ketchup-deep)}.chip.prod[aria-pressed=true]{background:var(--mustard)}
 .band-sky .chip{box-shadow:2px 2px 0 var(--navy)}
 /* ==========================================================================
    PER-VIDEO PAGE
@@ -741,7 +743,7 @@ footer .soc svg{fill:var(--paper)}
   background:var(--paper-2);border:3px solid var(--navy);border-radius:12px;
   padding:14px 12px;text-align:center;box-shadow:0 5px 0 var(--trubbish);
 }
-.fact .n{font-family:var(--display);font-size:clamp(1.3rem,5.5vw,1.9rem);color:var(--ketchup);line-height:1.05}
+.fact .n{font-family:var(--display);font-size:clamp(1.3rem,5.5vw,1.9rem);color:var(--ketchup-deep);line-height:1.05}
 .fact .l{
   font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
   color:var(--ink-soft);margin-top:5px;font-weight:700;
@@ -751,7 +753,7 @@ footer .soc svg{fill:var(--paper)}
 .rarity-list{display:flex;flex-direction:column;gap:9px;margin-top:18px}
 .rar{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center}
 .rar-name{font-weight:600;font-size:.94rem}
-.rar-n{font-family:var(--mono);font-weight:700;font-size:.86rem;color:var(--ketchup)}
+.rar-n{font-family:var(--mono);font-weight:700;font-size:.86rem;color:var(--ketchup-deep)}
 .rar-bar{
   grid-column:1 / -1;height:12px;border-radius:999px;background:var(--paper-3);
   border:2px solid var(--navy);overflow:hidden;
@@ -774,7 +776,7 @@ footer .soc svg{fill:var(--paper)}
   color:#A8760B;letter-spacing:.03em}
 .chase-card .nm{font-weight:700;font-size:.84rem;line-height:1.25;margin-top:8px}
 .chase-card .rr{font-family:var(--mono);font-size:.6rem;color:var(--ink-soft);margin-top:2px;letter-spacing:.06em}
-.chase-card .pr{font-family:var(--display);font-size:1.15rem;color:var(--ketchup);margin-top:4px}
+.chase-card .pr{font-family:var(--display);font-size:1.15rem;color:var(--ketchup-deep);margin-top:4px}
 .price-note{
   font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);margin-top:14px;
   border-left:4px solid var(--trubbish);padding-left:10px;line-height:1.5;
@@ -789,7 +791,7 @@ footer .soc svg{fill:var(--paper)}
   background:var(--paper-2);border:3px solid var(--navy);border-radius:12px;
   padding:13px 16px;font-size:.95rem;box-shadow:0 4px 0 var(--trubbish);
 }
-.facts-list b{font-family:var(--display);font-weight:400;color:var(--ketchup)}
+.facts-list b{font-family:var(--display);font-weight:400;color:var(--ketchup-deep)}
 /* watch-this-set callout */
 .set-watch{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin-top:20px}
 @media(min-width:760px){.set-watch{grid-template-columns:180px 1fr}}
@@ -830,7 +832,7 @@ footer .soc svg{fill:var(--paper)}
 .lb-inner img{width:100%;height:auto;border-radius:10px;max-height:62vh;object-fit:contain}
 .lb-nm{font-family:var(--display);font-size:1.2rem;margin-top:12px;line-height:1.15}
 .lb-rr{font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);margin-top:4px;letter-spacing:.06em}
-.lb-pr{font-family:var(--display);font-size:1.8rem;color:var(--ketchup);margin-top:6px}
+.lb-pr{font-family:var(--display);font-size:1.8rem;color:var(--ketchup-deep);margin-top:6px}
 .lb-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
 .lb-close{
   position:absolute;top:-16px;right:-16px;width:44px;height:44px;border-radius:50%;
@@ -882,7 +884,7 @@ footer .soc svg{fill:var(--paper)}
    its container and covered the viewport. This pass compares whole selectors.
    -------------------------------------------------------------------------- */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.hl{color:var(--ketchup);text-shadow:2px 2px 0 var(--mustard)}
+.hl{color:var(--ketchup-deep);text-shadow:2px 2px 0 var(--mustard)}
 .vid-shell{
   position:relative;aspect-ratio:2/3;width:100%;border-radius:10px;overflow:hidden;
   background:var(--navy-deep);
@@ -915,7 +917,7 @@ footer .soc svg{fill:var(--paper)}
 .vid-shell:hover .vid-play{background:var(--sky);transform:translate(-50%,-50%) scale(1.12)}
 .vid-play svg{width:18px;height:18px;fill:var(--paper-2);margin-left:3px}.hall .vid-shell:hover{border-color:#fff;box-shadow:0 10px 0 #8A5A0C,0 20px 34px rgba(61,42,6,.5)}.hits .vid-shell:hover{border-color:var(--teal);box-shadow:0 10px 0 #24705F,0 18px 30px rgba(19,38,55,.34)}
 .chip[aria-pressed=true]{background:var(--sky);color:var(--navy)}.chip.clear:hover{background:var(--ketchup);color:var(--paper)}
-.lib-count b{color:var(--ketchup)}
+.lib-count b{color:var(--ketchup-deep)}
 /* ---------- playlist cards ---------- */
 .pl-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
 .squiggle{display:block;margin:6px 0 0}
@@ -971,3 +973,12 @@ footer .soc svg{fill:var(--paper)}
 /* Restored: a dead-rule sweep used \.logo\b as a pattern, and a hyphen is a
    word boundary, so it also matched .logo-big. .s101-lede went the same way. */
 .set-hero img.logo-big{height:clamp(56px,17vw,110px);width:auto}
+
+/* Section intro copy. Lost in a dead-rule sweep, which left the playlists page
+   with its intro paragraph touching the top edge of the first card: measured
+   0.0px between them. */
+.s101-lede,.w-lede,.shops-lede{color:var(--ink-2);max-width:46em;margin-bottom:var(--s5)}
+
+/* The library's search input was 20px tall inside a 48px pill, so 28px of the
+   visible control did not focus the field. */
+.libsearch input{align-self:stretch;height:100%}

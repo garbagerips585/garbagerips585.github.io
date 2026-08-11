@@ -9,7 +9,7 @@
 // price data says so rather than showing zeros, and the "fun facts" are
 // derived from the checklist, never from pull odds we do not have.
 
-import { readFile, writeFile, mkdir, rm } from "node:fs/promises";
+import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
@@ -24,6 +24,16 @@ const { sets, rarityOrder, syncedAt } = JSON.parse(
 );
 // PSA 10 prices are hand-checked and live in one file, because no free price
 // feed carries graded sales. A card with no entry shows its raw price alone.
+// Which sets have wrapper art. Five have neither art nor a colour skin, and
+// naming them rendered the base Garbage Rips green: a green booster pack as
+// the hero of a page titled "Black Bolt". Fall back to the generic wrapper.
+const packsOnDisk = new Set(
+  (await readdir(join(ROOT, "public/assets/packs")))
+    .filter((f) => f.endsWith(".webp"))
+    .map((f) => f.replace(/-garbage-rips-585-booster-pack\.webp$/, ""))
+);
+const packClass = (id) => (packsOnDisk.has(id) ? id : "default");
+
 let psa10 = {};
 try {
   psa10 = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8")) || {};
@@ -352,7 +362,7 @@ ${s.notes?.inPrint || s.notes?.packPrice ? `
         <p class="sub">What you are looking for in the shop.</p>
       </div>` : ""}
       <div class="packshot-card">
-        <div class="ph pack pack--${s.id}"><span class="pack-face pack-l"><span class="pack-art"></span></span></div>
+        <div class="ph pack pack--${packClass(s.id)}"><span class="pack-face pack-l"><span class="pack-art"></span></span></div>
         <p class="cap">Our version</p>
         <p class="sub">The Garbage Rips 585 wrapper we put on every ${esc(s.name)} rip. Not a real product, just ours.</p>
       </div>
@@ -365,7 +375,7 @@ ${rips ? `<section class="tight">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
     <h2>We ripped <span class="hl">${rips}</span> of these</h2>
     <div class="set-watch">
-      <div class="packshot pack pack--${s.id}"><span class="pack-face pack-l"><span class="pack-art"></span></span></div>
+      <div class="packshot pack pack--${packClass(s.id)}"><span class="pack-face pack-l"><span class="pack-art"></span></span></div>
       <div>
         <p class="lede">Want to see what actually comes out of ${esc(s.name)} instead of reading about it? Every ${esc(s.name)} rip on the channel is one tap away.</p>
         <div class="btn-row" style="margin-top:16px">
