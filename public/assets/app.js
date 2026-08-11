@@ -83,62 +83,67 @@
     return pack;
   }
 
+  /**
+   * One video tile, in the same markup the generated pages use, so the library
+   * and the home page share a single component instead of two that drift.
+   * See .v / .art / .play / .dur in assets/ui.css.
+   */
   function makeCard(v, opts) {
     opts = opts || {};
-    var card = el("article", "vid");
+    var card = el("article", "v");
 
     // Tiles navigate to the video's own page on this site, which is where the
     // embed lives. Nothing on a grid sends the visitor to youtube.com.
     var href = v.path ? "/" + v.path : "/videos.html";
-    var shell = el("a", "vid-shell");
-    shell.href = href;
-    shell.setAttribute("aria-label", v.title);
+    var art = el("a", "art");
+    art.href = href;
+    art.setAttribute("aria-label", v.title);
 
     // Sealed pack instead of the YouTube poster frame, which is nearly always
     // the pulled card and gives the whole video away before you open it.
     //
-    // A video can carry more than one set (a Scarlet & Violet blister holding
-    // Journey Together packs, say). When the visitor has filtered to one set,
-    // show that set's pack rather than whichever happens to be listed first,
-    // otherwise a Scarlet & Violet filter returns a wall of other packs.
+    // A video can carry more than one set (a tin holding packs from two, an ex
+    // box holding ten across four). When the visitor has filtered to one set,
+    // show that set's pack; unfiltered, show the generic multi-set wrapper
+    // rather than implying the rip was only one of them.
     var sets = v.sets || [];
     var set = opts.preferSet && sets.indexOf(opts.preferSet) > -1 ? opts.preferSet : sets[0];
-    // Unfiltered, a video holding packs from several sets shows the generic
-    // multi-set wrapper rather than picking one of them and implying the rip
-    // was only that set. Filtered, the set the visitor asked for still wins.
     if (!opts.preferSet && sets.length > 1) set = "multi";
-    // No set at all: the generic wrapper beats the unskinned green placeholder.
     else if (!set) set = "default";
-    shell.appendChild(makePack(set, "tile"));
+    art.appendChild(makePack(set, "tile"));
 
-    if (opts.rank) shell.appendChild(el("span", "hits-rank", "#" + opts.rank));
+    if (opts.rank) art.appendChild(el("span", "rank", String(opts.rank)));
 
-    var prod = (v.products || [])[0];
-    if (prod) shell.appendChild(el("span", "vid-chip", labelOf("products", prod)));
+    var pull = (v.pulls || [])[0];
+    if (pull) art.appendChild(el("span", "hit", labelOf("pulls", pull)));
 
-    var play = el("span", "vid-play");
-    play.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
-    shell.appendChild(play);
+    if (v.duration) art.appendChild(el("span", "dur", clock(v.duration)));
+    art.appendChild(el("span", "play"));
 
-    shell.addEventListener("pointerenter", warmPlayer, { passive: true });
-    card.appendChild(shell);
+    art.addEventListener("pointerenter", warmPlayer, { passive: true });
+    card.appendChild(art);
 
-    var h3 = el("h3", "vid-title");
+    var h3 = el("h3");
     var a = el("a", null, v.title);
     a.href = href;
     h3.appendChild(a);
     card.appendChild(h3);
 
+    // Label from the real sets, never from the wrapper being shown: "multi" is
+    // an artwork choice and would read here as though it were a card set.
     var bits = [];
-    // Label from the real sets, not from whichever wrapper is being shown:
-    // "multi" is an artwork choice, not a set, and would read as one here.
-    if (sets.length > 1) bits.push(labelOf("sets", sets[0]) + " +" + (sets.length - 1));
-    else if (set) bits.push(labelOf("sets", set));
-    if (v.published) bits.push(fmtDate(v.published));
-    if (v.views) bits.push(fmtViews(v.views));
-    card.appendChild(el("p", "vid-meta", bits.join("  ·  ")));
+    if (sets.length > 1) bits.push(labelOf("sets", sets[0]).toUpperCase() + " +" + (sets.length - 1));
+    else if (sets.length) bits.push(labelOf("sets", sets[0]).toUpperCase());
+    if (v.views) bits.push(fmtViews(v.views).toUpperCase());
+    else if (v.published) bits.push(fmtDate(v.published).toUpperCase());
+    card.appendChild(el("p", null, bits.join("  \u2022  ")));
 
     return card;
+  }
+
+  function clock(sec) {
+    if (!sec) return "";
+    return Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0");
   }
 
   /* ------------------------------------------------------------- taxonomy

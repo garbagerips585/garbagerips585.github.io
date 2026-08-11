@@ -324,3 +324,213 @@ main{padding:var(--s4) 0 var(--s8)}
 footer{padding:var(--s6) 0;text-align:center}
 footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spacing:.03em}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* --------------------------------------------------------------------------
+   Library page. The grid, the tiles and the bar all come from above; these are
+   only the controls that page adds.
+   -------------------------------------------------------------------------- */
+
+/* app.js draws packs as CSS-skinned spans rather than <img>, because a grid of
+   real images is hundreds of KB. The tile expects its face to fill the well. */
+.v .art .pack{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+
+.lib-bar{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;
+  margin:var(--s5) 0 var(--s4)}
+.lib-count{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;color:var(--ink-2);
+  text-transform:uppercase}
+.sortsel{margin-left:auto;font:700 var(--t-sm)/1 var(--body);color:var(--ink);
+  background:var(--card);border:1px solid var(--hair);border-radius:var(--r-pill);
+  padding:0 var(--s4);height:44px;cursor:pointer}
+.sortsel:hover{border-color:var(--ink)}
+
+/* [hidden] is display:none in the UA stylesheet, and any author rule with a
+   display beats it. Without this the empty set header renders as a stray white
+   box whenever no set filter is active, which is most of the time. */
+.set-header[hidden],.more a[hidden],[hidden]{display:none!important}
+.set-header{display:flex;align-items:center;gap:var(--s4);flex-wrap:wrap;
+  background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s4) var(--s5);box-shadow:var(--lift);margin-bottom:var(--s4)}
+.set-header img{max-height:46px;width:auto}
+.set-header p{color:var(--ink-2);font-size:var(--t-sm);margin:0}
+
+.lib-empty{text-align:center;color:var(--ink-2);background:var(--card);
+  border:1px dashed var(--hair);border-radius:var(--r);padding:var(--s7) var(--s5)}
+
+/* Screen-reader-only, for labels that would otherwise be missing. */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+
+/* --------------------------------------------------------------------------
+   The sealed booster pack, ported from site.css.
+   app.js draws these as CSS rather than images: one grid of real pack art is
+   hundreds of KB, and the library shows 48 at a time. packs.css layers the
+   real artwork on top of these shapes where a set has any.
+   -------------------------------------------------------------------------- */
+.pack{--pk-a:#F7DE8A;--pk-b:#E8B93F;--pk-c:#A9761A;--pk-d:#6E4A0C;--pk-ink:#3D2A06;--pk-edge:#4A3208}
+.hall .pack-art::after{opacity:1}
+/* ---------- the pack wrapper ----------
+   The YouTube poster frame is usually the pulled card, which spoils the whole
+   video before you press play. So the player sits under a sealed booster pack
+   and you have to rip it open. */
+/* Per-set skins. These are original designs keyed to each set's colour
+   identity, not reproductions of the official pack artwork. Any set without a
+   skin falls back to the Garbage Rips green. */
+.pack{--pk-a:#5CA046;--pk-b:#3C7A38;--pk-c:#24552A;--pk-d:#173A1D;--pk-ink:#EFC94C;--pk-edge:#14301A}
+.pack--pitch-black{--pk-a:#6A5690;--pk-b:#4A3B63;--pk-c:#2A2140;--pk-d:#120E1C;--pk-ink:#CBBAF2;--pk-edge:#0C0914}
+.pack--phantasmal-flames{--pk-a:#8B4CB8;--pk-b:#6B3A8F;--pk-c:#3E1E5C;--pk-d:#21103A;--pk-ink:#A9F2C4;--pk-edge:#170A28}
+.pack--perfect-order{--pk-a:#3FB39B;--pk-b:#2E8B7A;--pk-c:#175A50;--pk-d:#0C3B34;--pk-ink:#A6F0DF;--pk-edge:#07241F}
+.pack--chaos-rising{--pk-a:#E0563A;--pk-b:#C2361F;--pk-c:#7E1D12;--pk-d:#4A100A;--pk-ink:#FFC48A;--pk-edge:#320A06}
+.pack--ascended-heroes{--pk-a:#EFC65C;--pk-b:#D8A93A;--pk-c:#95681A;--pk-d:#5E4110;--pk-ink:#FFF6D2;--pk-edge:#3A280A}
+.pack--journey-together{--pk-a:#5AA9E0;--pk-b:#3C8FD0;--pk-c:#1E5C8E;--pk-d:#123B5E;--pk-ink:#D6EEFF;--pk-edge:#0B2440}
+.pack--destined-rivals{--pk-a:#D6453F;--pk-b:#8E2C46;--pk-c:#3E2A63;--pk-d:#1E1838;--pk-ink:#FFD9DE;--pk-edge:#150F26}
+.pack--prismatic-evolutions{--pk-a:#7FD8E8;--pk-b:#B98BE0;--pk-c:#E08AB4;--pk-d:#5B4A8C;--pk-ink:#FFFFFF;--pk-edge:#2C2350}
+.pack--surging-sparks{--pk-a:#F2D452;--pk-b:#D9A92A;--pk-c:#8A6412;--pk-d:#543D0A;--pk-ink:#FFF8D0;--pk-edge:#33250A}
+.pack--mega-evolution{--pk-a:#D95A3C;--pk-b:#A8322E;--pk-c:#5E1A38;--pk-d:#33102A;--pk-ink:#FFD5BE;--pk-edge:#210A1C}
+.pack--pokemon-go{--pk-a:#4E93DE;--pk-b:#2F6BB8;--pk-c:#1A3F78;--pk-d:#0E274E;--pk-ink:#FFE08A;--pk-edge:#08182F}
+.pack--151{--pk-a:#D6543F;--pk-b:#B03427;--pk-c:#6E1A14;--pk-d:#42100C;--pk-ink:#FFE2B8;--pk-edge:#2A0907}
+.pack--scarlet-violet{--pk-a:#C4453F;--pk-b:#7E3480;--pk-c:#4A2258;--pk-d:#2A1436;--pk-ink:#FFE8F2;--pk-edge:#1C0D24}
+.pack--twilight-masquerade{--pk-a:#7E63A8;--pk-b:#5A4380;--pk-c:#33254E;--pk-d:#1E1630;--pk-ink:#E4D6FF;--pk-edge:#140E20}
+.pack--paradox-rift{--pk-a:#4FA8A0;--pk-b:#8E4E9E;--pk-c:#3A2A5E;--pk-d:#1E1638;--pk-ink:#CFF3EE;--pk-edge:#120C24}
+.pack--obsidian-flames{--pk-a:#5A5A66;--pk-b:#3A3A44;--pk-c:#7E2A14;--pk-d:#1C1C22;--pk-ink:#FFC08A;--pk-edge:#0E0E12}
+.pack--stellar-crown{--pk-a:#5FC7D6;--pk-b:#3A8FA8;--pk-c:#1E5470;--pk-d:#123648;--pk-ink:#E0F8FF;--pk-edge:#0A2130}
+/* Positioned only where a positioned parent exists. Applied to a static
+   container (the set pages' packshot panels) it escaped to the nearest
+   section and rendered outside its card. */
+.rip-player .pack,.vid-shell .pack{position:absolute;inset:0}
+.pack{
+  position:relative;z-index:3;width:100%;height:100%;
+  padding:0;border:0;background:none;cursor:pointer;display:block;
+  perspective:800px;
+}
+.pack-face{
+  position:absolute;inset:0;overflow:hidden;
+  transform-origin:center center;
+  will-change:transform,opacity;
+}
+/* Each half holds a full copy of the pack art, clipped to a torn edge, so the
+   two together read as one sealed pack until it splits. */
+.pack-l{clip-path:polygon(0 0,52% 0,47% 6%,53% 13%,46% 20%,52% 27%,47% 34%,53% 41%,46% 48%,52% 55%,47% 62%,53% 69%,46% 76%,52% 83%,47% 90%,53% 96%,49% 100%,0 100%)}
+.pack-r{clip-path:polygon(52% 0,100% 0,100% 100%,49% 100%,53% 96%,47% 90%,52% 83%,46% 76%,53% 69%,47% 62%,52% 55%,46% 48%,53% 41%,47% 34%,52% 27%,46% 20%,53% 13%,47% 6%)}
+.pack-art{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(120% 70% at 50% 12%,rgba(255,255,255,.22),transparent 60%),
+    linear-gradient(160deg,var(--pk-a) 0%,var(--pk-b) 38%,var(--pk-c) 72%,var(--pk-d) 100%);
+}
+/* foil sheen */
+.pack-art::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(115deg,transparent 26%,rgba(125,249,233,.32) 40%,rgba(249,139,217,.32) 50%,rgba(255,232,107,.32) 60%,transparent 74%);
+  mix-blend-mode:screen;opacity:.75;
+}
+/* crimped seal top and bottom */
+.pack-art::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:100%;
+  background:
+    repeating-linear-gradient(90deg,rgba(0,0,0,.28) 0 4px,transparent 4px 9px) top/100% 26px no-repeat,
+    repeating-linear-gradient(90deg,rgba(0,0,0,.28) 0 4px,transparent 4px 9px) bottom/100% 26px no-repeat;
+}
+.pack-brand{
+  position:absolute;left:0;right:0;top:16%;text-align:center;padding:0 8%;
+  font-family:var(--display);color:var(--pk-ink);
+  font-size:clamp(1rem,3vw,1.75rem);line-height:1.05;
+  text-shadow:3px 3px 0 var(--pk-edge),-1px -1px 0 var(--pk-edge);
+  transform:rotate(-3deg);
+}
+.pack-brand small{
+  display:block;color:#fff;opacity:.86;font-size:.5em;margin-top:.5em;
+  font-family:var(--mono);letter-spacing:.16em;text-shadow:2px 2px 0 var(--pk-edge);
+}
+.pack-mascot{
+  position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);
+  width:44%;aspect-ratio:1;border-radius:50%;overflow:hidden;
+  border:4px solid var(--mustard);box-shadow:0 6px 18px rgba(0,0,0,.45);
+}
+.pack-mascot img{width:100%;height:100%;object-fit:cover}
+.pack-hint{
+  /* Sits on the bottom crimp, not across the middle: at 11% it landed exactly
+     on the pack artwork's own "Garbage Rips 585" wordmark and cut it in half. */
+  position:absolute;left:0;right:0;bottom:2.5%;z-index:4;text-align:center;
+  font-family:var(--mono);font-weight:700;font-size:.66rem;letter-spacing:.1em;
+  color:var(--navy);background:var(--mustard);
+  padding:8px 0;border-top:3px solid var(--pk-edge);border-bottom:3px solid var(--pk-edge);
+  transition:background .14s;
+}
+/* ---------- tile variant ----------
+   Grid tiles are ~170px wide, so the mascot badge and the hint strip do not
+   survive the shrink. Set name and the crimped foil carry it. */
+.pack--tile{position:absolute;inset:0;z-index:2}
+/* A tile carries a single unsplit face, so the torn clip-path that makes the
+   two halves on a rip page must not apply: it would show half a pack. */
+/* The torn polygon splits a rip page's pack into two halves. Anywhere the
+   pack is shown whole, it must not apply, or only the left half renders. */
+.pack--tile .pack-l,.ph .pack-l,.packshot .pack-l{clip-path:none}
+.pack--tile .pack-mascot,.pack--tile .pack-hint,.pack--tile .pack-flash{display:none}
+.pack--tile .pack-brand{top:auto;bottom:12%;font-size:clamp(.72rem,1.5vw,1rem);padding:0 10%}
+.pack--tile .pack-brand small{font-size:.56em;margin-top:.4em}
+.pack--tile .pack-art::before{background:
+  repeating-linear-gradient(90deg,rgba(0,0,0,.3) 0 3px,transparent 3px 7px) top/100% 15px no-repeat,
+  repeating-linear-gradient(90deg,rgba(0,0,0,.3) 0 3px,transparent 3px 7px) bottom/100% 15px no-repeat}
+/* The tile already carries .vid-play, so the seal would be a second play
+   affordance sitting on top of the first. */
+.pack--tile .pack-seal{display:none}
+.pack:hover .pack-hint{background:var(--sky)}
+.pack:hover .pack-face{transform:scale(1.012)}
+.pack-face{transition:transform .18s ease}
+
+/* The library's search is the page's primary control, so it gets its own
+   full-width row rather than a slot in the bar. The bar's field is hidden
+   below 640px, which is right on pages where a magnifier links here and wrong
+   on this one, where there is nowhere else to search from. */
+.libsearch{background:var(--card);border-bottom:1px solid var(--hair);padding:var(--s3) 0}
+.libsearch form{display:flex;align-items:center;gap:var(--s3);max-width:640px;margin:0 auto;
+  background:var(--page);border:1px solid var(--hair);border-radius:var(--r-pill);
+  padding:0 var(--s4);height:48px}
+.libsearch form:focus-within{border-color:var(--ink)}
+.libsearch svg{width:19px;height:19px;flex:none;fill:none;stroke:var(--ink-2);
+  stroke-width:2.2;stroke-linecap:round}
+.libsearch input{flex:1;min-width:0;background:none;border:0;color:var(--ink);
+  font:400 var(--t-body)/1 var(--body)}
+.libsearch input:focus{outline:none}
+
+/* --------------------------------------------------------------------------
+   Footer. It continues the dark About block above it rather than starting a
+   new surface, so the page ends on one colour instead of three.
+
+   The social SVGs had no styles at all here: an <svg> with no width defaults
+   to 300x150, which is why this footer was 969px tall with four black slabs
+   in it.
+   -------------------------------------------------------------------------- */
+footer{background:var(--ink);color:#B9C6D2;padding:var(--s7) 0 var(--s6);text-align:center}
+footer .wrap{display:flex;flex-direction:column;align-items:center;gap:var(--s4)}
+
+.foot-tag{font:400 var(--t-l)/1 var(--display);color:var(--mustard)}
+
+.foot-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s1) var(--s5);
+  margin:0;max-width:44em}
+.foot-nav a{font:700 var(--t-sm)/1 var(--body);color:#B9C6D2;
+  min-height:44px;display:inline-flex;align-items:center}
+.foot-nav a:hover{color:var(--mustard)}
+
+.foot-social{display:flex;justify-content:center;gap:var(--s3)}
+/* 40px target with a 17px glyph: small enough to read as a footer detail,
+   still a legal tap target. */
+.foot-social a{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
+  transition:background .14s,border-color .14s,transform .14s}
+.foot-social a:hover{background:rgba(255,255,255,.16);transform:translateY(-2px)}
+.foot-social svg{width:17px;height:17px;fill:#F4F1E2}
+.foot-social a.yt:hover{background:#FF0033;border-color:#FF0033}
+.foot-social a.ig:hover{background:#BC1888;border-color:#BC1888}
+.foot-social a.tt:hover{background:#F4F1E2;border-color:#F4F1E2}
+.foot-social a.tt:hover svg{fill:var(--ink)}
+.foot-social a.fb:hover{background:#1877F2;border-color:#1877F2}
+
+footer p{font:400 var(--t-sm)/1.6 var(--body);color:#8FA0B2;max-width:46em}
+footer .squiggle{display:none}
+
+/* The About block and the footer are the same colour and sit flush, so their
+   padding was stacking into a band of empty navy. One gap, not two. */
+.about + footer{padding-top:var(--s5)}
+.about{padding-bottom:var(--s6)}

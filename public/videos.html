@@ -4,25 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Every Rip | Garbage Rips 585</title>
-<meta name="description" content="Every Pokemon pack rip from Garbage Rips 585, filterable by card set (Pitch Black, Phantasmal Flames, Perfect Order, Chaos Rising) and by product: single packs, booster bundles, ETBs, UPCs, EX boxes and booster boxes.">
+<meta name="description" content="Every Pokemon pack rip from Garbage Rips 585, filterable by card set and by product: single packs, booster bundles, ETBs, UPCs, ex boxes and booster boxes.">
 <link rel="canonical" href="https://garbagerips585.com/videos.html">
 <meta property="og:title" content="Every Rip | Garbage Rips 585">
-<meta property="og:description" content="Filter every rip by set and by box type. Single packs, bundles, ETBs, UPCs, EX boxes.">
+<meta property="og:description" content="Pokemon card pack openings fueled by plate grease and good vibes. Watch on YouTube, TikTok, Instagram, and Facebook.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://garbagerips585.com/videos.html">
+<meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:image" content="https://garbagerips585.com/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Trubbish sitting on a Rochester sidewalk next to a Garbage Plate and two packs of Garbage Rips 585 cards">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Garbage Rips 585 | Pokemon Pack Rips from the 585">
+<meta name="twitter:description" content="Pokemon card pack openings fueled by plate grease and good vibes. Watch on YouTube, TikTok, Instagram, and Facebook.">
 <meta name="twitter:image" content="https://garbagerips585.com/assets/og-image.jpg">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="theme-color" content="#1E2419">
+<meta name="theme-color" content="#15263A">
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css">
 <link rel="stylesheet" href="assets/packs.css">
+<link rel="stylesheet" href="/assets/ui.css">
 </head>
 <body>
 
@@ -42,76 +48,72 @@
   <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/></symbol>
 </svg>
 
-<nav class="site" aria-label="Main">
-  <div class="nav-in">
-    <a class="logo" href="/">GARBAGE <span>RIPS</span> 585</a>
-    <div class="search">
-      <svg aria-hidden="true"><use href="#i-search"/></svg>
-      <label class="sr-only" for="libSearch">Search every rip</label>
-      <input id="libSearch" type="search" placeholder="Search rips, sets, boxes...">
-    </div>
-    <button class="nav-toggle" aria-expanded="false" aria-label="Menu"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
-    <ul class="nav-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="videos.html" aria-current="page">All Rips</a></li>
-      <li><a href="playlists.html">Playlists</a></li>
-      <li><a href="/sets/">Card Sets</a></li>
-      <li><a href="/#five85">The 585</a></li>
-    </ul>
-    <div class="nav-social">
-      <a href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
-      <a href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
-      <a href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
-      <a href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
-    </div>
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+        <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
   </div>
-</nav>
+</header>
 
-<section class="tight">
+
+
+<div class="libsearch">
   <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The whole pile</p>
-    <h2>Every <span class="hl">rip</span></h2>
-    <p class="lede" style="margin-top:10px">Sort the bulk. Filter by set, by what kind of box it came out of, or just search for the card you are here about.</p>
+    <form role="search" onsubmit="return false">
+      <label class="sr-only" for="libSearch">Search every rip</label>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+      <input id="libSearch" type="search" placeholder="Search rips, sets, boxes..." aria-label="Search every rip by set, product or card">
+    </form>
+  </div>
+</div>
 
-    <div class="filters" style="margin-top:26px">
-      <div class="filter-row">
-        <span class="lbl">Set</span>
-        <span id="setChips" style="display:contents"></span>
-      </div>
-      <div class="filter-row">
-        <span class="lbl">Product</span>
-        <span id="productChips" style="display:contents"></span>
-      </div>
-      <div class="filter-row">
-        <span class="lbl"></span>
-        <button class="chip clear" id="libClear" type="button">Clear all filters</button>
-      </div>
-    </div>
+<div class="rail">
+  <div class="rail-in" role="group" aria-label="Filter by set">
+    <span id="setChips" style="display:contents"></span>
+  </div>
+</div>
+<div class="rail">
+  <div class="rail-in" role="group" aria-label="Filter by product">
+    <span id="productChips" style="display:contents"></span>
+    <button class="chip" id="libClear" type="button">Clear all</button>
+  </div>
+</div>
+
+<main>
+  <div class="wrap">
+    <div class="brk"><h2>Every <span class="hl">rip</span></h2><span class="ln"></span></div>
 
     <div class="set-header" id="setHeader" hidden></div>
 
     <div class="lib-bar">
       <p class="lib-count" id="libCount">Loading...</p>
-      <div style="display:flex;gap:10px;align-items:center">
-        <label class="sr-only" for="libSort">Sort by</label>
-        <select class="sortsel" id="libSort">
-          <option value="new">Newest first</option>
-          <option value="old">Oldest first</option>
-          <option value="views">Most viewed</option>
-        </select>
-      </div>
+      <label class="sr-only" for="libSort">Sort by</label>
+      <select class="sortsel" id="libSort">
+        <option value="new">Newest first</option>
+        <option value="old">Oldest first</option>
+        <option value="views">Most viewed</option>
+      </select>
     </div>
 
-    <div class="vid-grid dense" id="libGrid"></div>
+    <div class="wall" id="libGrid"></div>
 
-    <div style="text-align:center;margin-top:34px">
-      <button class="btn btn-ghost" id="libMore" hidden>Load more</button>
+    <div class="more">
+      <a href="#" id="libMore" hidden>Load more</a>
     </div>
   </div>
-</section>
+</main>
 
 <footer>
   <div class="wrap">
+    <svg class="squiggle" width="180" height="20" style="margin:0 auto 16px" aria-hidden="true"><use href="#drizzle"/></svg>
+        <nav class="foot-nav" aria-label="Site">
+      <a href="/videos.html">All rips</a>
+      <a href="/sets/">Card Pokedex</a>
+      <a href="/wanted.html">Most wanted</a>
+      <a href="/hall.html">Card Hall of Fame</a>
+      <a href="/shops.html">Card shops</a>
+      <a href="/playlists.html">Playlists</a>
+    </nav>
     <p class="foot-tag">Grab a fork. Let's rip.</p>
     <div class="foot-social">
       <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
