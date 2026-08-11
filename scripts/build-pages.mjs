@@ -19,6 +19,29 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = "https://garbagerips585.com";
 const OUT = join(ROOT, "public/rip");
 
+// Graded prices, hand-entered first and synced second, with the same
+// ten-sale floor the set guides use. One store, so a card cannot show two
+// different numbers on two different pages.
+const setData = new Map(
+  JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8")).sets.map((x) => [x.id, x])
+);
+let psa10 = {};
+try {
+  psa10 = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8"));
+} catch { /* optional */ }
+const MIN_SALES = 10;
+const gradedPrice = (setId, number) => {
+  const k = `${setId}-${number}`;
+  const m = psa10.prices?.[k];
+  const manual = typeof m?.price === "number" ? m.price : typeof m === "number" ? m : null;
+  if (manual) return manual;
+  const a = psa10.auto?.[k];
+  if (!a?.psa10 || (a.psa10Sales != null && a.psa10Sales < MIN_SALES)) return null;
+  return a.psa10;
+};
+const money = (n) =>
+  n >= 100 ? `$${Math.round(n).toLocaleString("en-US")}` : `$${n.toFixed(2)}`;
+
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"));
 
@@ -106,8 +129,16 @@ function page(v, prev, next) {
   // Same rule as the home page and the library: a rip holding packs from
 // several sets wears the generic wrapper rather than one set's, and an
 // untagged rip wears it too instead of the unskinned placeholder.
-const setId =
-  v.sets.length > 1 ? "multi" : v.sets[0] || "default";
+//
+// TWO SEPARATE THINGS, and conflating them broke three others. packSet picks
+// the ARTWORK and may be "multi" or "default", which are not sets. setId is the
+// real first set and stays null when there is none, because it drives the set
+// guide link, the set logo, the related-videos band, the breadcrumb, and
+// isTagged. Reusing one variable for both pointed multi-set pages at
+// /sets/multi.html and, worse, made isTagged true for every untagged video, so
+// 39 thin pages lost their noindex and entered the sitemap.
+const packSet = v.sets.length > 1 ? "multi" : v.sets[0] || "default";
+const setId = v.sets[0] || null;
 const prodId = v.products[0];
   // Every video gets a page so that clicking a tile never leaves the site.
   // Untagged ones are noindex: useful to a visitor, too thin for search.
@@ -122,6 +153,35 @@ const prodId = v.products[0];
     : `${v.title} — a Pokemon pack rip from Garbage Rips 585 in Rochester, NY.`;
   const thumb = `https://i.ytimg.com/vi/${v.id}/oardefault.jpg`;
   const url = `${SITE}/${pathFor(v)}`;
+
+  // What the viewer is actually hoping falls out of this pack. Every chase card
+  // has a raw price; a PSA 10 shows only where we have one worth standing
+  // behind. Three is enough to be useful without turning a video page into a
+  // price list.
+  const chaseCards = (setData.get(setId)?.chase || []).slice(0, 3).map((c) => ({
+    ...c,
+    psa10: gradedPrice(setId, c.number),
+  }));
+  const chaseBlock = chaseCards.length
+    ? `<section class="band tight chasers">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><h2>What you are <span class="hl">chasing</span></h2></div>
+      <a class="btn btn-ghost btn-sm" href="/sets/${setId}.html">${esc(setLabel)} guide &rarr;</a>
+    </div>
+    <ul class="chaser-list">
+      ${chaseCards.map((c) => `<li class="chaser">
+        ${c.image ? `<img src="${esc(c.image)}" alt="${esc(c.name)}, ${esc(c.rarity || "card")} from ${esc(setLabel)}" loading="lazy" width="245" height="342">` : ""}
+        <div>
+          <b>${esc(c.name)}</b>
+          <span class="chaser-rar">${esc(c.rarity || "")}${c.number ? ` &bull; #${esc(c.number)}` : ""}</span>
+          <span class="chaser-pr">Raw ${money(c.price)}${c.psa10 ? ` <i>PSA 10 ${money(c.psa10)}</i>` : ""}</span>
+        </div>
+      </li>`).join("\n      ")}
+    </ul>
+  </div>
+</section>`
+    : "";
 
   const related = (setId ? bySet.get(setId) || [] : []).filter((x) => x.id !== v.id).slice(0, 6);
 
@@ -195,7 +255,7 @@ ${NAV}
       <div>
         <div class="rip-player" id="player" data-id="${v.id}">
           <img src="${thumb}" alt="" width="720" height="1280" fetchpriority="high">
-          <button class="pack${setId ? ` pack--${setId}` : ""}" id="pack" type="button" aria-label="Rip open: ${esc(v.title)}">
+          <button class="pack pack--${packSet}" id="pack" type="button" aria-label="Rip open: ${esc(v.title)}">
             <span class="pack-face pack-l" aria-hidden="true">
               <span class="pack-art"></span>
               <span class="pack-brand">${esc(setLabel || "GARBAGE RIPS")}<small>${setLabel ? "GARBAGE RIPS 585" : "585"}</small></span>
@@ -237,6 +297,8 @@ ${NAV}
     </div>
   </div>
 </section>
+
+${chaseBlock}
 
 ${related.length ? `<section class="band tight">
   <div class="wrap">

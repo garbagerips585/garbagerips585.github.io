@@ -14,8 +14,10 @@ and everything regenerates.
 - [ ] **GitHub account and repo.** The repo has 60-odd commits on `main` and no
       remote, so nothing is backed up anywhere but this laptop. That is the
       single biggest risk right now: a dead disk loses everything. Create the
-      repo, then decide public or private. Cloudflare Pages works with either.
-      Private is the safer default until launch.
+      repo, then decide public or private. **Free is genuinely enough**: GitHub
+      free includes unlimited private and public repos, and Cloudflare Pages
+      connects to a free account without limitation. Nothing here needs a paid
+      plan. Private is the safer default until launch.
 
 - [ ] **Domain: garbagerips585.com.** Every canonical URL, the sitemap, and the
       Open Graph tags already point at it, so social previews and search will

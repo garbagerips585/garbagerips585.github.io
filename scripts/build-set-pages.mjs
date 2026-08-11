@@ -149,7 +149,10 @@ function derivedFacts(s) {
     const top = s.chase[0];
     out.push(
       `The chase card is <b>${esc(top.name)}</b>${top.rarity ? ` (${esc(top.rarity)})` : ""}, ` +
-      `sitting around <b>${money(top.price)}</b>.`
+      `sitting around <b>${money(top.price)}</b> raw` +
+      (gradedPrice(s.id, top.number)
+        ? `, and <b>${money(gradedPrice(s.id, top.number))}</b> in a PSA 10.`
+        : `.`)
     );
   }
   const rips = ripsBySet[s.id];
@@ -521,7 +524,7 @@ function indexPage() {
         <img src="/assets/logos/${s.id}-pokemon-tcg-set-logo.webp" alt="${esc(s.name)} logo" loading="lazy" onerror="this.remove()">
         <span>
           <span class="ttl">${esc(s.name)}</span><br>
-          <span class="meta">${s.total ?? "?"} cards${s.released ? ` &bull; ${s.released.slice(0, 4)}` : ""}${ripsBySet[s.id] ? ` &bull; ${ripsBySet[s.id]} rips` : ""}</span>
+          <span class="meta">${s.total ?? "?"} cards${s.released ? ` &bull; ${s.released.slice(0, 4)}` : ""}${ripsBySet[s.id] ? ` &bull; ${ripsBySet[s.id]} rips` : ""}${(s.chase || [])[0]?.price ? ` &bull; top ${money(s.chase[0].price)}${gradedPrice(s.id, s.chase[0].number) ? ` / ${money(gradedPrice(s.id, s.chase[0].number))} PSA 10` : ""}` : ""}</span>
         </span>
       </a>`).join("\n      ")}
     </div>

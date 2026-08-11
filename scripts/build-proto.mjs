@@ -36,6 +36,22 @@ const dirSet = async (sub, suffix) =>
       .filter((f) => f.endsWith(".webp"))
       .map((f) => f.replace(suffix, ""))
   );
+// Graded prices, so a Pokedex tile can say what the best card in that set is
+// worth. Same precedence and same ten-sale floor as everywhere else.
+let graded = {};
+try {
+  graded = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8"));
+} catch { /* optional */ }
+const gradedPrice = (setId, number) => {
+  const k = `${setId}-${number}`;
+  const m = graded.prices?.[k];
+  const manual = typeof m?.price === "number" ? m.price : typeof m === "number" ? m : null;
+  if (manual) return manual;
+  const a = graded.auto?.[k];
+  if (!a?.psa10 || (a.psa10Sales != null && a.psa10Sales < 10)) return null;
+  return a.psa10;
+};
+
 const packs = await dirSet("packs", /-garbage-rips-585-booster-pack\.webp$/);
 
 let wanted = { cards: [] };
@@ -273,10 +289,16 @@ const setsHtml = (
       const face = h
         ? `<img src="assets/logos/${s.id}-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:${h}px">`
         : `<span class="set-name">${esc(s.name)}</span>`;
+      // What the best card in this set is worth. PSA 10 where we have one,
+      // raw otherwise, and nothing at all when we have neither.
+      const top = (s.chase || [])[0];
+      const topPsa = top ? gradedPrice(s.id, top.number) : null;
+      const topVal = topPsa || top?.price || null;
       return `        <a class="set" href="/sets/${s.id}.html">
           <span class="set-art">${face}</span>
           <b>${esc(s.name)}</b>
           <span class="set-meta">${esc(bits.join(" · "))}</span>
+          ${topVal ? `<span class="set-top">Top card ${moneyish(topVal)}${topPsa ? " <i>PSA 10</i>" : ""}</span>` : ""}
           ${n ? `<span class="set-rips">${n} rip${n === 1 ? "" : "s"}</span>` : ""}
         </a>`;
     })

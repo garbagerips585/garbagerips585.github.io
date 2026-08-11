@@ -867,3 +867,21 @@ footer p{font-size:.83rem;color:rgba(247,242,222,.72);max-width:60em;margin:0 au
   font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);
   margin-top:10px;border-left:4px solid var(--mustard);padding-left:10px;line-height:1.5;
 }
+
+
+/* --------------------------------------------------------------------------
+   What you are chasing. The top cards from this rip's set, on the video's own
+   page, because "what was he hoping for" is the question the page raises and
+   never answered. Raw price always; PSA 10 only where we have one.
+   -------------------------------------------------------------------------- */
+.chaser-list{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+@media(max-width:700px){.chaser-list{grid-template-columns:1fr;gap:12px}}
+.chaser{display:flex;gap:14px;align-items:center;background:var(--paper,#FFF9EA);
+  border:2px solid var(--line,#1E3A54);border-radius:12px;padding:12px}
+.chaser img{width:66px;height:auto;flex:none;border-radius:5px}
+.chaser b{display:block;font-size:.9rem;line-height:1.25}
+.chaser-rar,.chaser-pr{display:block;font:700 .6875rem/1.5 'Space Mono',ui-monospace,monospace;
+  letter-spacing:.03em}
+.chaser-rar{color:#57354F}
+.chaser-pr{color:#15263A;margin-top:4px}
+.chaser-pr i{font-style:normal;color:#A8760B;display:block}
