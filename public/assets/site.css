@@ -768,6 +768,10 @@ footer p{font-size:.83rem;color:rgba(247,242,222,.72);max-width:60em;margin:0 au
   padding:10px;box-shadow:0 5px 0 var(--gold-deep);text-decoration:none;display:block;
 }
 .chase-card img{width:100%;height:auto;border-radius:6px}
+/* PSA 10 sits under the raw price and only appears when a graded price has
+   been checked by hand. Gold marks every graded figure on the site. */
+.chase-card .pr10{font:700 .6875rem/1.4 'Space Mono',ui-monospace,monospace;
+  color:#A8760B;letter-spacing:.03em}
 .chase-card .nm{font-weight:700;font-size:.84rem;line-height:1.25;margin-top:8px}
 .chase-card .rr{font-family:var(--mono);font-size:.6rem;color:var(--ink-soft);margin-top:2px;letter-spacing:.06em}
 .chase-card .pr{font-family:var(--display);font-size:1.15rem;color:var(--ketchup);margin-top:4px}

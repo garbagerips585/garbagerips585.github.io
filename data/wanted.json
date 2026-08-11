@@ -1,0 +1,65 @@
+{
+  "_readme": [
+    "The cards Tim is actively hunting. Drives /wanted.html and the Most Wanted",
+    "band on the home page.",
+    "",
+    "Add an entry by naming the set and the card. `number` is what disambiguates:",
+    "Mega Darkrai ex exists three times in Pitch Black (Ultra Rare #101, Special",
+    "Illustration Rare #116, Mega Hyper Rare #120) and only the number says which",
+    "one you mean. Run scripts/sync-wanted.mjs to attach the image, the TCGplayer",
+    "link and the raw market price.",
+    "",
+    "PRICES. `raw` is filled in automatically from the Pokemon TCG API when that",
+    "card has TCGplayer data. The four newest sets do not yet, so raw sits empty",
+    "for them and the site simply omits it rather than printing a zero.",
+    "",
+    "`psa10` is ALWAYS manual. No free API carries graded prices, so nothing can",
+    "fetch it. Put in a number you have actually seen (PSA price guide, or eBay",
+    "sold listings), set `psa10AsOf` to the date you checked, and `psa10Source`",
+    "to where it came from. Leave it null and the site shows nothing rather than",
+    "a made-up figure.",
+    "",
+    "`got` flips a card from hunting to caught, which is worth doing on camera."
+  ],
+
+  "updated": "2026-08-11",
+
+  "cards": [
+    {
+      "set": "pitch-black",
+      "name": "Mega Darkrai ex",
+      "number": "116",
+      "rarity": "Special Illustration Rare",
+      "note": "The one. Pitch Black's chase, and the reason the box keeps getting opened.",
+      "got": false,
+      "raw": null,
+      "psa10": null,
+      "psa10AsOf": null,
+      "psa10Source": null
+    },
+    {
+      "set": "chaos-rising",
+      "name": "Mega Greninja ex",
+      "number": "116",
+      "rarity": "Special Illustration Rare",
+      "note": "Chaos Rising's best art, and still hiding.",
+      "got": false,
+      "raw": null,
+      "psa10": null,
+      "psa10AsOf": null,
+      "psa10Source": null
+    },
+    {
+      "set": "perfect-order",
+      "name": "Meowth ex",
+      "number": "121",
+      "rarity": "Special Illustration Rare",
+      "note": "Perfect Order's SIR. Pulled everything else in the set except this.",
+      "got": false,
+      "raw": null,
+      "psa10": null,
+      "psa10AsOf": null,
+      "psa10Source": null
+    }
+  ]
+}

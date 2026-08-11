@@ -37,6 +37,13 @@ const dirSet = async (sub, suffix) =>
       .map((f) => f.replace(suffix, ""))
   );
 const packs = await dirSet("packs", /-garbage-rips-585-booster-pack\.webp$/);
+
+let wanted = { cards: [] };
+try {
+  wanted = JSON.parse(await readFile(join(ROOT, "public/data/wanted.json"), "utf8"));
+} catch {
+  /* no hunt list yet: the band renders empty and the section hides itself */
+}
 const logos = await dirSet("logos", /-pokemon-tcg-set-logo\.webp$/);
 
 /* ------------------------------------------------------------- formatting - */
@@ -57,6 +64,9 @@ function clock(sec) {
   if (!sec) return "";
   return `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}`;
 }
+const moneyish = (n) =>
+  n >= 100 ? `$${Math.round(n).toLocaleString("en-US")}` : `$${n.toFixed(2)}`;
+
 function compact(n) {
   if (!n) return "0";
   return n >= 1000 ? `${(n / 1000).toFixed(n < 10000 ? 1 : 0).replace(/\.0$/, "")}K` : String(n);
@@ -259,7 +269,33 @@ const setsHtml = (
   )
 ).join("\n");
 
+// Most Wanted band. Shows a price only when there is one: the newest sets have
+// no market data, and no free feed carries PSA 10 at all, so a card with
+// neither simply says what it is.
+const wantedHtml = (wanted.cards || [])
+  .filter((c) => !c.got)
+  .slice(0, 6)
+  .map((c) => {
+    const img = c.image || c.imageLarge;
+    const price = c.psa10
+      ? `PSA 10 ${moneyish(c.psa10)}`
+      : c.raw
+        ? `RAW ${moneyish(c.raw)}`
+        : "CHASING";
+    const inner = `<span class="mw-art">${
+      img
+        ? `<img src="${esc(img)}" alt="${esc(c.name)} ${esc(c.rarity || "")} from ${esc(c.setName)}" loading="lazy" width="245" height="342">`
+        : `<span class="mw-none">${esc(c.name)}</span>`
+    }</span>
+        <b>${esc(c.name)}</b><p>${esc(c.setName.toUpperCase())} &bull; ${price}</p>`;
+    return c.url
+      ? `      <a class="mw" href="${esc(c.url)}" rel="nofollow noopener" target="_blank">${inner}</a>`
+      : `      <div class="mw">${inner}</div>`;
+  })
+  .join("\n");
+
 const REGIONS = {
+  WANTED: wantedHtml,
   RAIL: railHtml,
   HOF: hallHtml,
   LATEST: latestHtml,

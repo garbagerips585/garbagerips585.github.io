@@ -125,6 +125,12 @@ rows = [
                                   "booster wrapper, cannot be filtered, and cannot reach the Hall of Fame. "
                                   "Eight of those are graded hits that are locked out of the home page today.", None),
     (None, None, None),
+    ("Packs from several sets",
+     "A tin with two packs, or an ex box with ten packs from four sets, belongs to every set it "
+     "contains. Put the set the video is really about in Set, and the rest in Set 2 to Set 4. The "
+     "rip then shows up under every one of those sets, and the first one picks which wrapper the "
+     "tile shows. More than four is rare: type the extras into More Sets, separated by commas.", None),
+    (None, None, None),
     ("Hall of Fame", "Mark Yes on the rips you want in the gold section at the top of the home page. "
                      "Use Rank to order them, 1 first. Leave Rank blank and the site orders by rarity, "
                      "then by views. Anything marked Yes also belongs in the Greatest Hits playlist on YouTube.", None),
@@ -183,6 +189,8 @@ COLUMNS = [
     ("Set", 26, "input"),
     ("Set 2", 26, "input"),
     ("Set 3", 26, "input"),
+    ("Set 4", 26, "input"),
+    ("More Sets", 30, "input"),
     ("Box / Series", 30, "input"),
     ("Opening Type", 28, "input"),
     ("Has Hit", 9, "input"),
@@ -244,7 +252,7 @@ for r, v in enumerate(ordered, start=2):
     # A video can hold packs from several sets, so spread them across the three
     # columns in order. The first is what the video is really about and picks
     # the wrapper on the site.
-    for n, sid in enumerate(sets_v[:3]):
+    for n, sid in enumerate(sets_v[:4]):
         if sid in set_name:
             wv.cell(r, COL["Set"] + n, set_name[sid]).font = GUESS_TXT
     if products and products[0] in PRODUCT_TO_OPENING:
@@ -267,7 +275,7 @@ last = len(ordered) + 1
 # the wrong column without anything appearing to break.
 CI = {head: i for i, (head, _, _) in enumerate(COLUMNS, start=1)}
 for dv_formula, cols in [
-    (DV_SET, [CI["Set"], CI["Set 2"], CI["Set 3"]]),
+    (DV_SET, [CI["Set"], CI["Set 2"], CI["Set 3"], CI["Set 4"]]),
     (DV_OPEN, [CI["Opening Type"]]),
     (DV_RARITY, [CI["Hit Rarity"]]),
     (DV_YESNO, [CI["Has Hit"], CI["Hall of Fame"], CI["Feature"], CI["Hide"]]),
@@ -334,6 +342,7 @@ metrics = [
     ("Still missing a set",
      f'=COUNTA({L}!{CL("Video ID")}2:{CL("Video ID")}{last})-COUNTA({L}!{CL("Set")}2:{CL("Set")}{last})'),
     ("Videos with 2+ sets", f'=COUNTA({L}!{CL("Set 2")}2:{CL("Set 2")}{last})'),
+    ("Videos with 4 sets", f'=COUNTA({L}!{CL("Set 4")}2:{CL("Set 4")}{last})'),
     ("Opening type filled in", f'=COUNTA({L}!{CL("Opening Type")}2:{CL("Opening Type")}{last})'),
     ("Marked as a hit", f'=COUNTIF({L}!{CL("Has Hit")}2:{CL("Has Hit")}{last},"Yes")'),
     ("Hit card named", f'=COUNTA({L}!{CL("Hit Card")}2:{CL("Hit Card")}{last})'),

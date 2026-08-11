@@ -21,6 +21,20 @@ const OUT = join(ROOT, "public/sets");
 const { sets, rarityOrder, syncedAt } = JSON.parse(
   await readFile(join(ROOT, "public/data/sets.json"), "utf8")
 );
+// PSA 10 prices are hand-checked and live in one file, because no free price
+// feed carries graded sales. A card with no entry shows its raw price alone.
+let psa10 = {};
+try {
+  psa10 = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8")).prices || {};
+} catch {
+  /* optional */
+}
+const gradedPrice = (setId, number) => {
+  const v = psa10[`${setId}-${number}`];
+  return typeof v === "number" ? v : typeof v?.price === "number" ? v.price : null;
+};
+const gradedAsOf = (setId, number) => psa10[`${setId}-${number}`]?.asOf || null;
+
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 
 const esc = (s) =>
@@ -323,12 +337,14 @@ ${s.notes?.inPrint || s.notes?.packPrice ? `
         data-img="${esc(c.imageLarge || c.image || "")}"
         data-name="${esc(c.name)}" data-rarity="${esc(c.rarity || "")}"
         data-number="${esc(c.number)}" data-price="${esc(money(c.price))}"
+        data-psa10="${esc(gradedPrice(s.id, c.number) ? money(gradedPrice(s.id, c.number)) : "")}"
         data-url="${esc(c.url ? affLink(c.url) : "")}"
         aria-label="Enlarge ${esc(c.name)}">
         ${c.image ? `<img src="${c.image}" alt="${esc(c.name)} ${esc(c.number)}, ${esc(c.rarity || "card")}" loading="lazy" width="245" height="342">` : ""}
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(c.rarity || "")} &bull; ${esc(c.number)}</div>
         <div class="pr">${money(c.price)}</div>
+        ${gradedPrice(s.id, c.number) ? `<div class="pr10">PSA 10 ${money(gradedPrice(s.id, c.number))}</div>` : ""}
       </button>`).join("\n      ")}
     </div>
     <p class="price-note">Prices are TCGplayer market estimates${s.pricesAsOf ? `, last updated ${esc(s.pricesAsOf)}` : ""}. Singles move fast, so treat these as a ballpark rather than a quote.${affOn ? ` ${esc(aff.tcgplayer.disclosure)}` : ""}</p>
@@ -419,7 +435,8 @@ ${FOOTER}
     img.src=b.dataset.img; img.alt=b.dataset.name+' '+b.dataset.number;
     document.getElementById('lbNm').textContent=b.dataset.name;
     document.getElementById('lbRr').textContent=[b.dataset.rarity,b.dataset.number].filter(Boolean).join(' \u2022 ');
-    document.getElementById('lbPr').textContent=b.dataset.price;
+    document.getElementById('lbPr').textContent=b.dataset.price
+      + (b.dataset.psa10 ? '  \u2022  PSA 10 ' + b.dataset.psa10 : '');
     var u=document.getElementById('lbUrl');
     if(b.dataset.url){u.href=b.dataset.url;u.hidden=false;}else{u.hidden=true;}
     lb.classList.add('on');

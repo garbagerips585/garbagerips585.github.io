@@ -94,7 +94,8 @@ if (iId === -1) {
   process.exit(1);
 }
 const idx = {
-  set: col("Set"), set2: col("Set 2"), set3: col("Set 3"), box: col("Box / Series"),
+  set: col("Set"), set2: col("Set 2"), set3: col("Set 3"), set4: col("Set 4"),
+  moreSets: col("More Sets"), box: col("Box / Series"),
   opening: col("Opening Type"), hasHit: col("Has Hit"),
   hitCard: col("Hit Card"), rarity: col("Hit Rarity"),
   // "Greatest Hit" was the old header; "Hall of Fame" is the current one.
@@ -129,9 +130,12 @@ for (const r of rows.slice(1)) {
   // single-element array here, as this did before, silently dropped the extra
   // sets off any video that already had them.
   const setIds = [];
-  for (const i of [idx.set, idx.set2, idx.set3]) {
-    const cell = get(r, i);
-    if (!cell || /^(multiple|not a set)/i.test(cell)) continue;
+  // Four dropdowns cover the real cases, and More Sets is a comma-separated
+  // escape hatch for the rare box that spans more than four.
+  const cells = [idx.set, idx.set2, idx.set3, idx.set4].map((i) => get(r, i));
+  cells.push(...get(r, idx.moreSets).split(",").map((x) => x.trim()));
+  for (const cell of cells) {
+    if (!cell || /^(multiple|not a set|none)$/i.test(cell)) continue;
     const setId = setIdByName.get(cell.toLowerCase());
     if (!setId) unknownSet.add(cell);
     else if (!setIds.includes(setId)) setIds.push(setId);

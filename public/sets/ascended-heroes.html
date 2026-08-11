@@ -263,7 +263,8 @@
     img.src=b.dataset.img; img.alt=b.dataset.name+' '+b.dataset.number;
     document.getElementById('lbNm').textContent=b.dataset.name;
     document.getElementById('lbRr').textContent=[b.dataset.rarity,b.dataset.number].filter(Boolean).join(' • ');
-    document.getElementById('lbPr').textContent=b.dataset.price;
+    document.getElementById('lbPr').textContent=b.dataset.price
+      + (b.dataset.psa10 ? '  •  PSA 10 ' + b.dataset.psa10 : '');
     var u=document.getElementById('lbUrl');
     if(b.dataset.url){u.href=b.dataset.url;u.hidden=false;}else{u.hidden=true;}
     lb.classList.add('on');

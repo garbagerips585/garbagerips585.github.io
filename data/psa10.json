@@ -1,0 +1,27 @@
+{
+  "_readme": [
+    "PSA 10 prices, by hand. The single store for graded prices on this site:",
+    "the set guides read it for their chase cards, and the hunt list reads it",
+    "for the cards being chased.",
+    "",
+    "WHY THIS IS MANUAL. The Pokemon TCG API carries TCGplayer prices, and",
+    "TCGplayer sells raw cards. Nothing in it knows what a graded copy sold for.",
+    "No free feed does. So these numbers only ever come from a person looking at",
+    "the PSA price guide or at completed eBay sales, and the site prints them",
+    "with the date they were checked, because a graded price with no date is not",
+    "a fact about anything.",
+    "",
+    "KEY FORMAT is <set-id>-<card-number>, matching the ids in sets.json:",
+    "  \"pitch-black-116\"  is Mega Darkrai ex, Special Illustration Rare.",
+    "Card numbers are what disambiguate; the same Pokemon often appears three",
+    "times in one set at three rarities.",
+    "",
+    "Fill in as many or as few as you like. A card with no entry simply shows",
+    "its raw price and nothing else, which is the honest default."
+  ],
+
+  "checkedBy": "Tim",
+
+  "prices": {
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "_readme": [
+    "The card shops Tim actually goes to, around Rochester NY. Drives /shops.html.",
+    "",
+    "Add a shop with a name and a url. Everything else is optional and simply",
+    "does not render when missing: area, blurb, what they are good for, and the",
+    "socials.",
+    "",
+    "URLS ARE CLEANED ON PURPOSE. A link copied out of a shop's own site often",
+    "carries tracking or session parameters (_su_rec, utm_, fbclid and friends).",
+    "Those point at one browsing session, they rot, and they hand a third party",
+    "a record of where the visitor came from. Link the plain page instead.",
+    "",
+    "`visited` marks a shop that has appeared in a video. Set it when a rip is",
+    "filmed there so the page can say so."
+  ],
+
+  "updated": "2026-08-11",
+
+  "shops": [
+    {
+      "name": "LingSter Games",
+      "url": "https://lingstergames.com/collections/pokemon",
+      "area": "Rochester, NY",
+      "blurb": "Deep Pokemon singles and sealed, and the first stop when a set drops.",
+      "goodFor": ["Sealed product", "Singles", "New releases"],
+      "visited": false
+    },
+    {
+      "name": "Millennium Games",
+      "url": "https://shop.millenniumgames.com/collections/pokemon-tcg",
+      "area": "Rochester, NY",
+      "blurb": "One of the biggest game stores in the area, with a Pokemon section to match.",
+      "goodFor": ["Sealed product", "Singles", "In store"],
+      "visited": false
+    }
+  ]
+}

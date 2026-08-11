@@ -146,6 +146,38 @@ a{color:inherit;text-decoration:none}
   box-shadow:0 2px 5px rgba(0,0,0,.4)}
 
 /* --------------------------------------------------------------------------
+   Most Wanted. The cards actually being hunted, right under the Hall of Fame,
+   so the page reads: here is what I caught, here is what I am still after.
+   -------------------------------------------------------------------------- */
+.mwband{background:var(--card);border-bottom:1px solid var(--hair);padding:var(--s5) 0 var(--s6)}
+.mw-head{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s4);flex-wrap:wrap}
+.mw-head h2{font:400 var(--t-l)/1 var(--display);flex:0 1 auto;min-width:0}
+.mw-head .sub2{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.09em;color:var(--ink-2);
+  text-transform:uppercase}
+@media(max-width:560px){.mw-head .sub2{display:none}}
+.mw-head a{margin-left:auto;flex:none;font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep);
+  min-height:44px;display:inline-flex;align-items:center}
+.mw-shelf{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x mandatory;
+  scrollbar-width:none;padding-bottom:var(--s2);
+  margin:0 calc(var(--s5) * -1);padding-inline:var(--s5);scroll-padding-left:var(--s5)}
+.mw-shelf::-webkit-scrollbar{display:none}
+@media(max-width:700px){.mw-shelf{margin:0 calc(var(--s3) * -1);padding-inline:var(--s3);
+  scroll-padding-left:var(--s3)}}
+.mw{flex:none;width:clamp(130px,38vw,168px);scroll-snap-align:start;
+  display:flex;flex-direction:column;gap:var(--s1);text-decoration:none;min-width:0}
+/* Real Pokemon card proportions, so the art is never stretched and the row
+   does not jump as each image arrives. */
+.mw-art{display:block;aspect-ratio:245/342;border-radius:8px;overflow:hidden;
+  background:#E8E4D6;box-shadow:var(--lift);transition:transform .15s}
+.mw-art img{width:100%;height:100%;object-fit:contain}
+.mw:hover .mw-art{transform:translateY(-4px)}
+.mw-none{display:grid;place-items:center;height:100%;padding:12%;text-align:center;
+  font:400 .85rem/1.2 var(--display);color:var(--ink-2)}
+.mw b{font:600 var(--t-sm)/1.3 var(--body)}
+.mw p{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.03em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* --------------------------------------------------------------------------
    The wall. 2 up on a phone, 6 up on a desktop.
    -------------------------------------------------------------------------- */
 main{padding:var(--s4) 0 var(--s8)}
@@ -347,6 +379,26 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
       <article class="v"><a class="art" href="/rip/opening-my-first-obsidian-flames-pack-RXKBcjWfqhE.html"><span class="rank">8</span><img src="assets/packs/obsidian-flames-garbage-rips-585-booster-pack.webp" alt="" loading="lazy"><span class="play"></span><span class="dur">0:22</span></a>
         <h3>Opening My FIRST Obsidian Flames Pack 😬</h3><p>OBSIDIAN FLAMES &bull; 1.3K VIEWS</p></article>
 <!-- HOF:END -->
+    </div>
+  </div>
+</section>
+
+<section class="mwband">
+  <div class="wrap">
+    <div class="mw-head">
+      <h2>Most <span class="hl">wanted</span></h2>
+      <span class="sub2">Still hunting</span>
+      <a href="/wanted.html">The full hunt &rarr;</a>
+    </div>
+    <div class="mw-shelf">
+<!-- WANTED:START -->
+      <a class="mw" href="https://prices.pokemontcg.io/tcgplayer/me5-116" rel="nofollow noopener" target="_blank"><span class="mw-art"><img src="https://images.scrydex.com/pokemon/me5-116/small" alt="Mega Darkrai ex Special Illustration Rare from Pitch Black" loading="lazy" width="245" height="342"></span>
+        <b>Mega Darkrai ex</b><p>PITCH BLACK &bull; CHASING</p></a>
+      <a class="mw" href="https://prices.pokemontcg.io/tcgplayer/me4-116" rel="nofollow noopener" target="_blank"><span class="mw-art"><img src="https://images.scrydex.com/pokemon/me4-116/small" alt="Mega Greninja ex Special Illustration Rare from Chaos Rising" loading="lazy" width="245" height="342"></span>
+        <b>Mega Greninja ex</b><p>CHAOS RISING &bull; CHASING</p></a>
+      <a class="mw" href="https://prices.pokemontcg.io/tcgplayer/me3-121" rel="nofollow noopener" target="_blank"><span class="mw-art"><img src="https://images.scrydex.com/pokemon/me3-121/small" alt="Meowth ex Special Illustration Rare from Perfect Order" loading="lazy" width="245" height="342"></span>
+        <b>Meowth ex</b><p>PERFECT ORDER &bull; CHASING</p></a>
+<!-- WANTED:END -->
     </div>
   </div>
 </section>
