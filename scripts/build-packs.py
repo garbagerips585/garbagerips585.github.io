@@ -75,8 +75,16 @@ for m in masters:
 
 # The Hall of Fame recolours every pack gold, which artwork would override.
 rules += [
-    "/* Hall of Fame stays gold even for sets that have artwork. */",
-    ".hall .pack .pack-art{background-image:none}",
+    "/* Hall of Fame stays gold even for sets that have artwork. The gold is",
+    "   painted with gradients, so simply clearing background-image blanked",
+    "   these to a flat dark rectangle. Restore the gradients explicitly. */",
+    ".hall .pack .pack-art{",
+    "  background-color:transparent;",
+    "  background-image:",
+    "    radial-gradient(120% 70% at 50% 12%,rgba(255,255,255,.22),transparent 60%),",
+    "    linear-gradient(160deg,var(--pk-a) 0%,var(--pk-b) 38%,var(--pk-c) 72%,var(--pk-d) 100%);",
+    "}",
+    ".hall .pack .pack-art::before{content:\"\"}",
     ".hall .pack .pack-brand{display:block}",
     "",
 ]

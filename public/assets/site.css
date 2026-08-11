@@ -228,8 +228,7 @@ nav.site{
   transform:rotate(-1.5deg);margin-bottom:18px;font-weight:700;box-shadow:3px 3px 0 rgba(30,58,84,.35);
 }
 h1 .rip{color:var(--ketchup);text-shadow:var(--hard-lg)}
-.hero h1{color:var(--paper-2);text-shadow:4px 4px 0 var(--navy)}
-.hero .lede{margin:20px 0 28px;color:var(--navy);font-weight:500}
+.hero-art .lede{margin:20px 0 28px;font-weight:500}
 .btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 
 .hero-social{display:flex;gap:10px;margin-top:24px;align-items:center;flex-wrap:wrap}
@@ -515,8 +514,12 @@ footer p{font-size:.83rem;color:rgba(247,242,222,.72);max-width:60em;margin:0 au
 .pack--obsidian-flames{--pk-a:#5A5A66;--pk-b:#3A3A44;--pk-c:#7E2A14;--pk-d:#1C1C22;--pk-ink:#FFC08A;--pk-edge:#0E0E12}
 .pack--stellar-crown{--pk-a:#5FC7D6;--pk-b:#3A8FA8;--pk-c:#1E5470;--pk-d:#123648;--pk-ink:#E0F8FF;--pk-edge:#0A2130}
 
+/* Positioned only where a positioned parent exists. Applied to a static
+   container (the set pages' packshot panels) it escaped to the nearest
+   section and rendered outside its card. */
+.rip-player .pack,.vid-shell .pack{position:absolute;inset:0}
 .pack{
-  position:absolute;inset:0;z-index:3;width:100%;height:100%;
+  position:relative;z-index:3;width:100%;height:100%;
   padding:0;border:0;background:none;cursor:pointer;display:block;
   perspective:800px;
 }
@@ -581,7 +584,9 @@ footer p{font-size:.83rem;color:rgba(247,242,222,.72);max-width:60em;margin:0 au
 .pack--tile{position:absolute;inset:0;z-index:2}
 /* A tile carries a single unsplit face, so the torn clip-path that makes the
    two halves on a rip page must not apply: it would show half a pack. */
-.pack--tile .pack-l{clip-path:none}
+/* The torn polygon splits a rip page's pack into two halves. Anywhere the
+   pack is shown whole, it must not apply, or only the left half renders. */
+.pack--tile .pack-l,.ph .pack-l,.packshot .pack-l{clip-path:none}
 .pack--tile .pack-mascot,.pack--tile .pack-hint,.pack--tile .pack-flash{display:none}
 .pack--tile .pack-brand{top:auto;bottom:12%;font-size:clamp(.72rem,1.5vw,1rem);padding:0 10%}
 .pack--tile .pack-brand small{font-size:.56em;margin-top:.4em}
