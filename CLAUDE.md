@@ -65,6 +65,27 @@ durations, because background tabs clamp `setTimeout` and would desync the
 reveal from the tear. Generous fallback timers cover the case where the
 animation never fires. `prefers-reduced-motion` skips straight to the video.
 
+## Set pages
+`/sets/<id>.html` is a "Set 101" guide per card set, plus a `/sets/` index.
+Two scripts, run in order:
+
+    node scripts/sync-sets.mjs        pulls card data -> public/data/sets.json
+    node scripts/build-set-pages.mjs  writes public/sets/
+
+Data is the free Pokemon TCG API (api.pokemontcg.io). It rate-limits hard and
+answers 500/502 rather than 429, which reads as missing data until you retry;
+sync-sets.mjs backs off and caches raw responses under .cache/ (gitignored).
+A cold run takes several minutes, re-runs are instant.
+
+Two constraints that shape these pages:
+- The four newest sets (Pitch Black, Chaos Rising, Perfect Order, Ascended
+  Heroes) have card lists but NO market prices yet. Pages say so rather than
+  render zeros. It resolves itself as the market settles.
+- "Still in print" and pack prices are not in the API and are not guessed.
+  They live in `data/set-notes.json` for a human, along with any fun facts,
+  and are omitted when blank. Everything else is API fact or checklist
+  arithmetic. Never state pull rates: we do not have them.
+
 ## Video data
 - `public/data/videos.json` is the whole catalogue, `playlists.json` the
   playlists. Both are written by `scripts/sync-youtube.mjs`.
