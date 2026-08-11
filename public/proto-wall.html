@@ -226,10 +226,13 @@ main{padding:var(--s4) 0 var(--s8)}
   padding:var(--s4) var(--s3) var(--s3);box-shadow:var(--lift);min-width:0;
   transition:transform .14s, border-color .14s}
 .set:hover{transform:translateY(-3px);border-color:var(--ink)}
-/* Fixed height, not aspect-ratio: these logos are all different shapes and a
-   ratio box would size each tile differently and break the grid's baseline. */
-.set-art{height:52px;display:grid;place-items:center;width:100%;margin-bottom:var(--s2)}
-.set-art img{max-height:52px;width:auto;max-width:100%;object-fit:contain}
+/* Fixed box, not aspect-ratio: these logos are all different shapes and a
+   ratio box would size each tile differently and break the grid's baseline.
+   Each logo's own height comes in as --lh, computed at build time so every
+   logo covers about the same area. Sizing them all to one height instead
+   makes a 5:1 wordmark look half the size of a 1.3:1 one. */
+.set-art{height:60px;display:grid;place-items:center;width:100%;margin-bottom:var(--s2)}
+.set-art img{height:var(--lh,44px);width:auto;max-width:100%;object-fit:contain}
 .set-name{font:400 .95rem/1.1 var(--display);color:var(--ink)}
 .set b{font:600 var(--t-sm)/1.25 var(--body)}
 .set-meta{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.02em}
@@ -369,139 +372,139 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
     <p class="s101-lede">Every set I rip, explained. Card counts, what the rarities actually mean, the chase cards worth chasing, and what a pack of it goes for.</p>
     <div class="set-grid">
         <a class="set" href="/sets/pitch-black.html">
-          <span class="set-art"><img src="assets/logos/pitch-black-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/pitch-black-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:37px"></span>
           <b>Pitch Black</b>
           <span class="set-meta">120 cards · Jul 2026</span>
           <span class="set-rips">18 rips</span>
         </a>
         <a class="set" href="/sets/chaos-rising.html">
-          <span class="set-art"><img src="assets/logos/chaos-rising-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/chaos-rising-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:38px"></span>
           <b>Chaos Rising</b>
           <span class="set-meta">122 cards · May 2026</span>
           <span class="set-rips">50 rips</span>
         </a>
         <a class="set" href="/sets/perfect-order.html">
-          <span class="set-art"><img src="assets/logos/perfect-order-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/perfect-order-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:47px"></span>
           <b>Perfect Order</b>
           <span class="set-meta">124 cards · Mar 2026</span>
           <span class="set-rips">44 rips</span>
         </a>
         <a class="set" href="/sets/ascended-heroes.html">
-          <span class="set-art"><img src="assets/logos/ascended-heroes-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/ascended-heroes-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:50px"></span>
           <b>Ascended Heroes</b>
           <span class="set-meta">295 cards · Jan 2026</span>
           <span class="set-rips">49 rips</span>
         </a>
         <a class="set" href="/sets/phantasmal-flames.html">
-          <span class="set-art"><img src="assets/logos/phantasmal-flames-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/phantasmal-flames-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:47px"></span>
           <b>Phantasmal Flames</b>
           <span class="set-meta">130 cards · Nov 2025</span>
           <span class="set-rips">16 rips</span>
         </a>
         <a class="set" href="/sets/mega-evolution.html">
-          <span class="set-art"><img src="assets/logos/mega-evolution-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/mega-evolution-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:29px"></span>
           <b>Mega Evolution</b>
           <span class="set-meta">188 cards · Sep 2025</span>
           <span class="set-rips">3 rips</span>
         </a>
         <a class="set" href="/sets/white-flare.html">
-          <span class="set-art"><span class="set-name">White Flare</span></span>
+          <span class="set-art"><img src="assets/logos/white-flare-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:55px"></span>
           <b>White Flare</b>
           <span class="set-meta">173 cards · Jul 2025</span>
           
         </a>
         <a class="set" href="/sets/black-bolt.html">
-          <span class="set-art"><span class="set-name">Black Bolt</span></span>
+          <span class="set-art"><img src="assets/logos/black-bolt-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:56px"></span>
           <b>Black Bolt</b>
           <span class="set-meta">172 cards · Jul 2025</span>
           
         </a>
         <a class="set" href="/sets/destined-rivals.html">
-          <span class="set-art"><img src="assets/logos/destined-rivals-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/destined-rivals-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:43px"></span>
           <b>Destined Rivals</b>
           <span class="set-meta">244 cards · May 2025</span>
           <span class="set-rips">12 rips</span>
         </a>
         <a class="set" href="/sets/journey-together.html">
-          <span class="set-art"><img src="assets/logos/journey-together-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/journey-together-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:40px"></span>
           <b>Journey Together</b>
           <span class="set-meta">190 cards · Mar 2025</span>
           <span class="set-rips">14 rips</span>
         </a>
         <a class="set" href="/sets/prismatic-evolutions.html">
-          <span class="set-art"><img src="assets/logos/prismatic-evolutions-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/prismatic-evolutions-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:48px"></span>
           <b>Prismatic Evolutions</b>
           <span class="set-meta">180 cards · Jan 2025</span>
           <span class="set-rips">13 rips</span>
         </a>
         <a class="set" href="/sets/surging-sparks.html">
-          <span class="set-art"><img src="assets/logos/surging-sparks-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/surging-sparks-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:47px"></span>
           <b>Surging Sparks</b>
           <span class="set-meta">252 cards · Nov 2024</span>
           <span class="set-rips">6 rips</span>
         </a>
         <a class="set" href="/sets/stellar-crown.html">
-          <span class="set-art"><span class="set-name">Stellar Crown</span></span>
+          <span class="set-art"><img src="assets/logos/stellar-crown-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:43px"></span>
           <b>Stellar Crown</b>
           <span class="set-meta">175 cards · Sep 2024</span>
           
         </a>
         <a class="set" href="/sets/shrouded-fable.html">
-          <span class="set-art"><span class="set-name">Shrouded Fable</span></span>
+          <span class="set-art"><img src="assets/logos/shrouded-fable-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:48px"></span>
           <b>Shrouded Fable</b>
           <span class="set-meta">99 cards · Aug 2024</span>
           
         </a>
         <a class="set" href="/sets/twilight-masquerade.html">
-          <span class="set-art"><img src="assets/logos/twilight-masquerade-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/twilight-masquerade-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:46px"></span>
           <b>Twilight Masquerade</b>
           <span class="set-meta">226 cards · May 2024</span>
           <span class="set-rips">3 rips</span>
         </a>
         <a class="set" href="/sets/temporal-forces.html">
-          <span class="set-art"><img src="assets/logos/temporal-forces-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/temporal-forces-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:44px"></span>
           <b>Temporal Forces</b>
           <span class="set-meta">218 cards · Mar 2024</span>
           <span class="set-rips">2 rips</span>
         </a>
         <a class="set" href="/sets/paldean-fates.html">
-          <span class="set-art"><img src="assets/logos/paldean-fates-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/paldean-fates-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:52px"></span>
           <b>Paldean Fates</b>
           <span class="set-meta">245 cards · Jan 2024</span>
           
         </a>
         <a class="set" href="/sets/paradox-rift.html">
-          <span class="set-art"><img src="assets/logos/paradox-rift-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/paradox-rift-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:41px"></span>
           <b>Paradox Rift</b>
           <span class="set-meta">266 cards · Nov 2023</span>
           <span class="set-rips">3 rips</span>
         </a>
         <a class="set" href="/sets/151.html">
-          <span class="set-art"><img src="assets/logos/151-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/151-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:58px"></span>
           <b>151</b>
           <span class="set-meta">207 cards · Sep 2023</span>
           <span class="set-rips">5 rips</span>
         </a>
         <a class="set" href="/sets/obsidian-flames.html">
-          <span class="set-art"><img src="assets/logos/obsidian-flames-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/obsidian-flames-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:45px"></span>
           <b>Obsidian Flames</b>
           <span class="set-meta">230 cards · Aug 2023</span>
           <span class="set-rips">1 rip</span>
         </a>
         <a class="set" href="/sets/paldea-evolved.html">
-          <span class="set-art"><span class="set-name">Paldea Evolved</span></span>
+          <span class="set-art"><img src="assets/logos/paldea-evolved-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:41px"></span>
           <b>Paldea Evolved</b>
           <span class="set-meta">279 cards · Jun 2023</span>
           <span class="set-rips">1 rip</span>
         </a>
         <a class="set" href="/sets/scarlet-violet.html">
-          <span class="set-art"><img src="assets/logos/scarlet-violet-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/scarlet-violet-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:38px"></span>
           <b>Scarlet &amp; Violet</b>
           <span class="set-meta">258 cards · Mar 2023</span>
           <span class="set-rips">5 rips</span>
         </a>
         <a class="set" href="/sets/pokemon-go.html">
-          <span class="set-art"><img src="assets/logos/pokemon-go-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120"></span>
+          <span class="set-art"><img src="assets/logos/pokemon-go-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:37px"></span>
           <b>Pokémon GO</b>
           <span class="set-meta">88 cards · Jul 2022</span>
           <span class="set-rips">12 rips</span>

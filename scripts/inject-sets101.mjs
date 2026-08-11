@@ -41,6 +41,52 @@ const logos = new Set(
     .map((f) => f.replace(/-pokemon-tcg-set-logo\.webp$/, ""))
 );
 
+/**
+ * Read a WebP's pixel dimensions from its header.
+ *
+ * Worth the 20 lines: these logos range from 1.3:1 (151) to 5:1 (Mega
+ * Evolution), and sizing them all to one height makes the wide ones look
+ * half the size of the tall ones. Sizing by area instead needs the real
+ * aspect ratio, and only the file knows it.
+ */
+function webpSize(buf) {
+  if (buf.toString("ascii", 0, 4) !== "RIFF" || buf.toString("ascii", 8, 12) !== "WEBP") return null;
+  const fourcc = buf.toString("ascii", 12, 16);
+  if (fourcc === "VP8X") {
+    return { w: buf.readUIntLE(24, 3) + 1, h: buf.readUIntLE(27, 3) + 1 };
+  }
+  if (fourcc === "VP8 ") {
+    // keyframe: 3-byte frame tag, 3-byte start code, then 14-bit w and h
+    return { w: buf.readUInt16LE(26) & 0x3fff, h: buf.readUInt16LE(28) & 0x3fff };
+  }
+  if (fourcc === "VP8L") {
+    const b = buf.readUInt32LE(21); // 14 bits width-1, then 14 bits height-1
+    return { w: (b & 0x3fff) + 1, h: ((b >> 14) & 0x3fff) + 1 };
+  }
+  return null;
+}
+
+// The tile's art box, and the target area every logo aims to fill. Tuned so a
+// mid-ratio logo lands near 45px tall; the clamp stops the extremes running
+// away and the width cap keeps every logo inside its tile.
+const BOX_W = 144;
+const TARGET_AREA = 5000;
+const MIN_H = 34;
+const MAX_H = 58;
+
+async function logoHeight(id) {
+  try {
+    const buf = await readFile(join(ROOT, `public/assets/logos/${id}-pokemon-tcg-set-logo.webp`));
+    const size = webpSize(buf);
+    if (!size || !size.h) return null;
+    const ratio = size.w / size.h;
+    const byArea = Math.min(MAX_H, Math.max(MIN_H, Math.sqrt(TARGET_AREA / ratio)));
+    return Math.round(Math.min(byArea, BOX_W / ratio));
+  } catch {
+    return null;
+  }
+}
+
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 function when(iso) {
   if (!iso) return "";
@@ -52,22 +98,25 @@ function when(iso) {
 // currently on shelves at the front of the band.
 const ordered = [...sets].sort((a, b) => String(b.released).localeCompare(String(a.released)));
 
-const cards = ordered
-  .map((s) => {
-    const n = counts[s.id] || 0;
-    const total = s.total || s.printedTotal;
-    const bits = [total ? `${total} cards` : null, when(s.released) || null].filter(Boolean);
-    const face = logos.has(s.id)
-      ? `<img src="assets/logos/${s.id}-pokemon-tcg-set-logo.webp" alt="" loading="lazy" width="300" height="120">`
-      : `<span class="set-name">${esc(s.name)}</span>`;
-    return `        <a class="set" href="/sets/${s.id}.html">
+const cards = (
+  await Promise.all(
+    ordered.map(async (s) => {
+      const n = counts[s.id] || 0;
+      const total = s.total || s.printedTotal;
+      const bits = [total ? `${total} cards` : null, when(s.released) || null].filter(Boolean);
+      const h = logos.has(s.id) ? await logoHeight(s.id) : null;
+      const face = h
+        ? `<img src="assets/logos/${s.id}-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:${h}px">`
+        : `<span class="set-name">${esc(s.name)}</span>`;
+      return `        <a class="set" href="/sets/${s.id}.html">
           <span class="set-art">${face}</span>
           <b>${esc(s.name)}</b>
           <span class="set-meta">${esc(bits.join(" · "))}</span>
           ${n ? `<span class="set-rips">${n} rip${n === 1 ? "" : "s"}</span>` : ""}
         </a>`;
-  })
-  .join("\n");
+    })
+  )
+).join("\n");
 
 const block = `${START}
 <section class="sets101">
