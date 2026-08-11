@@ -7,8 +7,12 @@
 //
 // The home page and the three pages built from it take their chrome by slicing
 // index.html rather than importing this, because they also need its <head>.
-// Keep the two in step: shared/chrome.test is a plain string compare in
-// build-proto.mjs that fails the build if they diverge.
+// That is real duplication, and it has already bitten: index.html's copy of the
+// bar carried onsubmit="return false" with no action and no name, so the search
+// box did nothing on six pages while working on the other 332.
+//
+// checkDrift() below is called by build-proto.mjs and fails the build when the
+// two diverge. A comment claiming a guard is not a guard.
 
 /** Nav destinations, in the order they appear in the mobile menu. */
 export const NAV_LINKS = [
@@ -108,3 +112,31 @@ export const SPRITE = `<svg width="0" height="0" style="position:absolute" aria-
   <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
   <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
 </svg>`;
+
+
+/**
+ * Compare index.html's inlined chrome against this module.
+ *
+ * Called by build-proto.mjs. Whitespace is normalised because the two are
+ * formatted differently; everything else must match exactly.
+ */
+export function checkDrift(indexHtml) {
+  const norm = (x) => x.replace(/\s+/g, " ").trim();
+  const slice = (start, end) => {
+    const a = indexHtml.indexOf(start);
+    if (a === -1) return null;
+    const b = indexHtml.indexOf(end, a);
+    return b === -1 ? null : indexHtml.slice(a, b + end.length);
+  };
+
+  const problems = [];
+  const checks = [
+    ["bar", slice('<header class="bar">', "</header>"), BAR],
+    ["menu", slice('<nav class="menu"', "</nav>"), MENU],
+  ];
+  for (const [name, found, want] of checks) {
+    if (found == null) problems.push(`${name}: not found in index.html`);
+    else if (norm(found) !== norm(want)) problems.push(`${name}: differs from shared/chrome.mjs`);
+  }
+  return problems;
+}

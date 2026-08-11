@@ -27,7 +27,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/packs.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -48,6 +47,7 @@
 }
 </script>
 <link rel="stylesheet" href="/assets/ui.css">
+<link rel="stylesheet" href="/assets/packs.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -74,10 +74,11 @@
 <header class="bar">
   <div class="bar-in">
     <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
-    <form role="search" onsubmit="return false">
-      <input type="search" placeholder="Search rips" aria-label="Search all 308 rips by set, product or card">
+    <form role="search" action="/videos.html" method="get">
+      <label class="sr-only" for="navSearch">Search every rip</label>
+      <input id="navSearch" name="q" type="search" placeholder="Search rips" aria-label="Search every rip by set, product or card">
     </form>
-    <a class="icon-btn" href="/videos.html" aria-label="Search all 308 rips">
+    <a class="icon-btn" href="/videos.html" aria-label="Search all rips">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
     </a>
         <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Menu">

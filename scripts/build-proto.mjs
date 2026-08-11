@@ -13,6 +13,7 @@
 import { readFile, writeFile, readdir } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { checkDrift } from "../shared/chrome.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // The live home page and the prototype share one design and one generator, so
@@ -351,6 +352,19 @@ const REGIONS = {
   COUNT_HITS: String(hitCount),
   COUNT_SETS: String(sets.length),
 };
+
+// index.html carries its own copy of the bar and menu, because three other
+// build scripts slice their chrome out of it. Fail loudly when that copy stops
+// matching shared/chrome.mjs rather than letting six pages quietly differ.
+{
+  const drift = checkDrift(await readFile(TARGETS[0], "utf8"));
+  if (drift.length) {
+    console.error("\nindex.html has drifted from shared/chrome.mjs:");
+    for (const d of drift) console.error("  " + d);
+    console.error("\nMake them match, then re-run.\n");
+    process.exit(1);
+  }
+}
 
 for (const target of TARGETS) {
   let html = await readFile(target, "utf8");
