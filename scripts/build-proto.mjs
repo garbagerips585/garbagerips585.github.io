@@ -93,8 +93,23 @@ function bestPull(v) {
  * yet, falls back to the set logo on a plain field rather than to a broken
  * image or a spoiler.
  */
+/**
+ * Which set's wrapper to show for a video.
+ *
+ * A video can carry several sets: an ex Box or a premium collection holds packs
+ * from more than one, and one video is often one of those packs. The first
+ * tagged set is the one the video is really about, so it wins; but if we have
+ * no artwork for it and do for another, show the one we can actually draw
+ * rather than falling back to the plain tile.
+ */
+function faceSet(v) {
+  const list = v.sets || [];
+  return list.find((s) => packs.has(s)) || list[0] || null;
+}
+
 function tile(v, { rank = null, showSet = true } = {}) {
-  const set = (v.sets || [])[0] || null;
+  const all = v.sets || [];
+  const set = faceSet(v);
   const hasPack = set && packs.has(set);
   const face = hasPack
     ? `<img src="assets/packs/${set}-garbage-rips-585-booster-pack.webp" alt="" loading="lazy">`
@@ -112,8 +127,10 @@ function tile(v, { rank = null, showSet = true } = {}) {
   // the wrapper already names the set, so the useful pair is popularity and
   // recency. On the Hall of Fame shelf the date is irrelevant, so the set
   // takes its place.
+  // A multi-set video says so rather than quietly naming one of them.
+  const extra = all.length > 1 ? ` +${all.length - 1}` : "";
   const meta = showSet
-    ? `${(setName.get(set) || set || "Garbage Rips").toUpperCase()} &bull; ${compact(v.views)} VIEWS`
+    ? `${(setName.get(set) || set || "Garbage Rips").toUpperCase()}${extra} &bull; ${compact(v.views)} VIEWS`
     : `${compact(v.views)} VIEWS &bull; ${shortDate(v.published).toUpperCase()}`;
 
   return `      <article class="v"><a class="art" href="/${esc(v.path)}">${badge}${flag}${face}<span class="play"></span>${
@@ -145,9 +162,9 @@ const HALL_PER_SET = 1;
 const hall = [];
 const perSet = {};
 for (const v of videos
-  .filter((v) => bestPull(v) != null && packs.has((v.sets || [])[0]))
+  .filter((v) => bestPull(v) != null && (v.sets || []).some((s) => packs.has(s)))
   .sort((a, b) => bestPull(a) - bestPull(b) || (b.views || 0) - (a.views || 0))) {
-  const s = (v.sets || [])[0] || "_";
+  const s = faceSet(v) || "_";
   if ((perSet[s] = (perSet[s] || 0) + 1) > HALL_PER_SET) continue;
   hall.push(v);
   if (hall.length === 8) break;
@@ -280,7 +297,7 @@ if (untagged) console.log(`  ${untagged} videos still have no set tag and fall b
 
 // The most valuable tagging work: a hit with no set tag cannot appear on the
 // Hall of Fame shelf at all, however good the pull was.
-const hiddenHits = videos.filter((v) => bestPull(v) != null && !packs.has((v.sets || [])[0]));
+const hiddenHits = videos.filter((v) => bestPull(v) != null && !(v.sets || []).some((s) => packs.has(s)));
 if (hiddenHits.length) {
   console.log(`\n  ${hiddenHits.length} graded hit${hiddenHits.length === 1 ? " is" : "s are"} kept off the Hall of Fame for want of a set tag:`);
   for (const v of hiddenHits.slice(0, 10)) {

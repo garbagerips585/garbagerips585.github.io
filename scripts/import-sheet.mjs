@@ -94,7 +94,8 @@ if (iId === -1) {
   process.exit(1);
 }
 const idx = {
-  set: col("Set"), opening: col("Opening Type"), hasHit: col("Has Hit"),
+  set: col("Set"), set2: col("Set 2"), set3: col("Set 3"), box: col("Box / Series"),
+  opening: col("Opening Type"), hasHit: col("Has Hit"),
   hitCard: col("Hit Card"), rarity: col("Hit Rarity"),
   // "Greatest Hit" was the old header; "Hall of Fame" is the current one.
   greatest: col("Hall of Fame") >= 0 ? col("Hall of Fame") : col("Greatest Hit"),
@@ -111,7 +112,7 @@ let overrides = {};
 try { overrides = JSON.parse(await readFile(join(ROOT, "data/overrides.json"), "utf8")); } catch {}
 const manual = {};
 const unknownOpening = new Set();
-let counted = { set: 0, opening: 0, hit: 0, card: 0, greatest: 0, affiliate: 0, copy: 0, hidden: 0 };
+let counted = { set: 0, multiSet: 0, opening: 0, hit: 0, card: 0, greatest: 0, affiliate: 0, copy: 0, hidden: 0 };
 const unknownSet = new Set();
 
 for (const r of rows.slice(1)) {
@@ -120,14 +121,25 @@ for (const r of rows.slice(1)) {
 
   // The single biggest lever: a video with no set cannot show its wrapper,
   // cannot be filtered, and cannot reach the Hall of Fame.
-  const setCell = get(r, idx.set);
-  if (setCell && !/^(multiple|not a set)/i.test(setCell)) {
-    const setId = setIdByName.get(setCell.toLowerCase());
-    if (!setId) unknownSet.add(setCell);
-    else {
-      overrides[id] = { ...(overrides[id] || {}), sets: [setId] };
-      counted.set++;
-    }
+  //
+  // Three columns, not one, because an ex Box or a premium collection holds
+  // packs from several sets and one video is often one of those packs. They
+  // merge into an ordered list: the first is what the video is really about
+  // and picks the wrapper, the rest still match the set filters. Writing a
+  // single-element array here, as this did before, silently dropped the extra
+  // sets off any video that already had them.
+  const setIds = [];
+  for (const i of [idx.set, idx.set2, idx.set3]) {
+    const cell = get(r, i);
+    if (!cell || /^(multiple|not a set)/i.test(cell)) continue;
+    const setId = setIdByName.get(cell.toLowerCase());
+    if (!setId) unknownSet.add(cell);
+    else if (!setIds.includes(setId)) setIds.push(setId);
+  }
+  if (setIds.length) {
+    overrides[id] = { ...(overrides[id] || {}), sets: setIds };
+    counted.set++;
+    if (setIds.length > 1) counted.multiSet++;
   }
 
   const opening = get(r, idx.opening);
@@ -161,6 +173,8 @@ for (const r of rows.slice(1)) {
   if (aff) { m.affiliate = aff; counted.affiliate++; }
   const addTo = get(r, idx.addTo);
   if (addTo && !/^none/i.test(addTo)) m.playlistToAdd = addTo;
+  const box = get(r, idx.box);
+  if (box) m.box = box;
   const notes = get(r, idx.notes);
   if (notes) m.notes = notes;
 
@@ -174,7 +188,7 @@ await writeFile(join(ROOT, "data/manual.json"), JSON.stringify(manual, null, 2) 
 console.log(`
 Read ${rows.length - 1} rows from ${csvPath}
 
-  set tags           ${counted.set}
+  set tags           ${counted.set}${counted.multiSet ? `  (${counted.multiSet} with more than one set)` : ""}
   opening types      ${counted.opening}
   has-hit answered   ${counted.hit}
   hit cards named    ${counted.card}

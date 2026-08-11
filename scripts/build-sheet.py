@@ -181,6 +181,9 @@ COLUMNS = [
     ("Length", 8, "locked"),
     ("Watch", 8, "locked"),
     ("Set", 26, "input"),
+    ("Set 2", 26, "input"),
+    ("Set 3", 26, "input"),
+    ("Box / Series", 30, "input"),
     ("Opening Type", 28, "input"),
     ("Has Hit", 9, "input"),
     ("Hit Card", 30, "input"),
@@ -207,6 +210,9 @@ for i, (head, width, kind) in enumerate(COLUMNS, start=1):
 wv.freeze_panes = "B2"
 wv.row_dimensions[1].height = 30
 
+COL = {head: i for i, (head, _, _) in enumerate(COLUMNS, start=1)}
+
+
 def clock(sec):
     if not sec:
         return ""
@@ -226,24 +232,26 @@ for r, v in enumerate(ordered, start=2):
     products = v.get("products") or []
     pull = best_pull(v)
 
-    wv.cell(r, 1, vid).font = LOCKED_TXT
-    wv.cell(r, 2, v.get("title", "")).font = LOCKED_TXT
-    wv.cell(r, 3, v.get("published", "")).font = LOCKED_TXT
-    wv.cell(r, 4, v.get("views", 0)).font = LOCKED_TXT
-    wv.cell(r, 5, clock(v.get("duration"))).font = LOCKED_TXT
-    w = wv.cell(r, 6, f'=HYPERLINK("https://youtu.be/{vid}","watch")')
+    wv.cell(r, COL["Video ID"], vid).font = LOCKED_TXT
+    wv.cell(r, COL["Title"], v.get("title", "")).font = LOCKED_TXT
+    wv.cell(r, COL["Published"], v.get("published", "")).font = LOCKED_TXT
+    wv.cell(r, COL["Views"], v.get("views", 0)).font = LOCKED_TXT
+    wv.cell(r, COL["Length"], clock(v.get("duration"))).font = LOCKED_TXT
+    w = wv.cell(r, COL["Watch"], f'=HYPERLINK("https://youtu.be/{vid}","watch")')
     w.font = Font(name="Arial", size=10, color="0563C1", underline="single")
 
     # Prefilled guesses in blue: correcting beats typing.
-    if len(sets_v) == 1 and sets_v[0] in set_name:
-        c = wv.cell(r, 7, set_name[sets_v[0]]); c.font = GUESS_TXT
-    elif len(sets_v) > 1:
-        c = wv.cell(r, 7, "Multiple sets"); c.font = GUESS_TXT
+    # A video can hold packs from several sets, so spread them across the three
+    # columns in order. The first is what the video is really about and picks
+    # the wrapper on the site.
+    for n, sid in enumerate(sets_v[:3]):
+        if sid in set_name:
+            wv.cell(r, COL["Set"] + n, set_name[sid]).font = GUESS_TXT
     if products and products[0] in PRODUCT_TO_OPENING:
-        c = wv.cell(r, 8, PRODUCT_TO_OPENING[products[0]]); c.font = GUESS_TXT
+        wv.cell(r, COL["Opening Type"], PRODUCT_TO_OPENING[products[0]]).font = GUESS_TXT
     if pull:
-        wv.cell(r, 9, "Yes").font = GUESS_TXT
-        wv.cell(r, 11, PULL_TO_RARITY[pull]).font = GUESS_TXT
+        wv.cell(r, COL["Has Hit"], "Yes").font = GUESS_TXT
+        wv.cell(r, COL["Hit Rarity"], PULL_TO_RARITY[pull]).font = GUESS_TXT
 
     for col in range(1, len(COLUMNS) + 1):
         cell = wv.cell(r, col)
@@ -254,9 +262,16 @@ for r, v in enumerate(ordered, start=2):
             cell.alignment = Alignment(horizontal="right")
 
 last = len(ordered) + 1
+# Look columns up by header rather than by number: three new columns shifted
+# everything after Set, and hand-counted indexes are how a dropdown ends up on
+# the wrong column without anything appearing to break.
+CI = {head: i for i, (head, _, _) in enumerate(COLUMNS, start=1)}
 for dv_formula, cols in [
-    (DV_SET, [7]), (DV_OPEN, [8]), (DV_RARITY, [11]),
-    (DV_YESNO, [9, 12, 18, 19]), (DV_PLAYLIST, [14]),
+    (DV_SET, [CI["Set"], CI["Set 2"], CI["Set 3"]]),
+    (DV_OPEN, [CI["Opening Type"]]),
+    (DV_RARITY, [CI["Hit Rarity"]]),
+    (DV_YESNO, [CI["Has Hit"], CI["Hall of Fame"], CI["Feature"], CI["Hide"]]),
+    (DV_PLAYLIST, [CI["Playlist To Add"]]),
 ]:
     dv = DataValidation(type="list", formula1=dv_formula, allow_blank=True, showDropDown=False)
     wv.add_data_validation(dv)
@@ -310,18 +325,22 @@ wsum.column_dimensions["A"].width = 34
 wsum.column_dimensions["B"].width = 14
 wsum.cell(1, 1, "Progress").font = TITLE
 
-L = f"'Video Log'"
+L = "'Video Log'"
+def CL(head):
+    return get_column_letter(COL[head])
 metrics = [
-    ("Videos in the log", f"=COUNTA({L}!A2:A{last})"),
-    ("Set filled in", f"=COUNTA({L}!G2:G{last})"),
-    ("Still missing a set", f"=COUNTA({L}!A2:A{last})-COUNTA({L}!G2:G{last})"),
-    ("Opening type filled in", f"=COUNTA({L}!H2:H{last})"),
-    ("Marked as a hit", f'=COUNTIF({L}!I2:I{last},"Yes")'),
-    ("Hit card named", f"=COUNTA({L}!J2:J{last})"),
-    ("In the Hall of Fame", f'=COUNTIF({L}!L2:L{last},"Yes")'),
-    ("Given a HoF rank", f"=COUNTA({L}!M2:M{last})"),
-    ("Affiliate links added", f"=COUNTA({L}!O2:O{last})"),
-    ("Hidden from the site", f'=COUNTIF({L}!S2:S{last},"Yes")'),
+    ("Videos in the log", f'=COUNTA({L}!{CL("Video ID")}2:{CL("Video ID")}{last})'),
+    ("Set filled in", f'=COUNTA({L}!{CL("Set")}2:{CL("Set")}{last})'),
+    ("Still missing a set",
+     f'=COUNTA({L}!{CL("Video ID")}2:{CL("Video ID")}{last})-COUNTA({L}!{CL("Set")}2:{CL("Set")}{last})'),
+    ("Videos with 2+ sets", f'=COUNTA({L}!{CL("Set 2")}2:{CL("Set 2")}{last})'),
+    ("Opening type filled in", f'=COUNTA({L}!{CL("Opening Type")}2:{CL("Opening Type")}{last})'),
+    ("Marked as a hit", f'=COUNTIF({L}!{CL("Has Hit")}2:{CL("Has Hit")}{last},"Yes")'),
+    ("Hit card named", f'=COUNTA({L}!{CL("Hit Card")}2:{CL("Hit Card")}{last})'),
+    ("In the Hall of Fame", f'=COUNTIF({L}!{CL("Hall of Fame")}2:{CL("Hall of Fame")}{last},"Yes")'),
+    ("Given a HoF rank", f'=COUNTA({L}!{CL("HoF Rank")}2:{CL("HoF Rank")}{last})'),
+    ("Affiliate links added", f'=COUNTA({L}!{CL("Affiliate Link")}2:{CL("Affiliate Link")}{last})'),
+    ("Hidden from the site", f'=COUNTIF({L}!{CL("Hide")}2:{CL("Hide")}{last},"Yes")'),
 ]
 for i, (label, formula) in enumerate(metrics, start=3):
     wsum.cell(i, 1, label).font = BODY
