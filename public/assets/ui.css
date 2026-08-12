@@ -782,6 +782,13 @@ footer .soc svg{fill:var(--paper)}
   background:var(--paper-2);border:3px solid var(--navy);border-radius:12px;
   padding:14px 12px;text-align:center;box-shadow:0 5px 0 var(--trubbish);
 }
+/* The rips count is a link to that set's rips. It is a whole bubble rather
+   than a word inside one, so the target is the full 44px+ tile on a phone. */
+.fact-link{display:block;text-decoration:none;color:inherit;
+  transition:transform .12s ease,box-shadow .12s ease}
+.fact-link:hover,.fact-link:focus-visible{transform:translateY(-2px);
+  box-shadow:0 7px 0 var(--trubbish);border-color:var(--ketchup-deep)}
+.fact-link:hover .l,.fact-link:focus-visible .l{color:var(--ketchup-deep)}
 .fact .n{font-family:var(--display);font-size:clamp(1.3rem,5.5vw,1.9rem);color:var(--ketchup-deep);line-height:1.05}
 .fact .l{
   font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;

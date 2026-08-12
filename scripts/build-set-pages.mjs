@@ -253,8 +253,6 @@ function derivedFacts(s) {
   return out;
 }
 
-
-
 const head = ({ title, desc, canonical, image, ld }) => `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -370,7 +368,9 @@ function setPage(s) {
       <div class="fact"><div class="n">${s.total ?? "?"}</div><div class="l">Cards total</div></div>
       <div class="fact"><div class="n">${s.printedTotal ?? "?"}</div><div class="l">In the printed set</div></div>
       <div class="fact"><div class="n">${s.secretCount ?? "?"}</div><div class="l">Secret rares</div></div>
-      <div class="fact"><div class="n">${rips || "-"}</div><div class="l">Rips on this channel</div></div>
+      ${rips
+        ? `<a class="fact fact-link" href="/videos.html?set=${s.id}"><div class="n">${rips}</div><div class="l">Rips on this channel <span aria-hidden="true">&rarr;</span></div></a>`
+        : `<div class="fact"><div class="n">-</div><div class="l">Rips on this channel</div></div>`}
       <div class="fact wide"><div class="n" style="font-size:1.15rem">${longDate(s.released) || "Unknown"}</div><div class="l">Release date${s.released ? ` &bull; ${yearsSince(s.released)}` : ""}</div></div>
     </div>
 ${s.notes?.inPrint || s.notes?.packPrice ? `
@@ -382,20 +382,6 @@ ${s.notes?.inPrint || s.notes?.packPrice ? `
 </section>
 
 <section class="band tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
-    <h2>Rarity <span class="hl">breakdown</span></h2>
-    ${ordered.length ? `<div class="rarity-list">
-      ${ordered.map(([r, n]) => `<div class="rar${CHASE.has(r) ? " chase" : ""}">
-        <span class="rar-name">${esc(r)}</span>
-        <span class="rar-n">${n}</span>
-        <span class="rar-bar"><i style="width:${Math.max(4, Math.round((n / maxN) * 100))}%"></i></span>
-      </div>`).join("\n      ")}
-    </div>` : `<p class="lede">Card list not available for this set yet.</p>`}
-  </div>
-</section>
-
-<section class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
     <h2>Top <span class="hl">chase cards</span></h2>
@@ -438,6 +424,20 @@ ${s.notes?.inPrint || s.notes?.packPrice ? `
   </div>
 </section>
 
+<section class="tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
+    <h2>Rarity <span class="hl">breakdown</span></h2>
+    ${ordered.length ? `<div class="rarity-list">
+      ${ordered.map(([r, n]) => `<div class="rar${CHASE.has(r) ? " chase" : ""}">
+        <span class="rar-name">${esc(r)}</span>
+        <span class="rar-n">${n}</span>
+        <span class="rar-bar"><i style="width:${Math.max(4, Math.round((n / maxN) * 100))}%"></i></span>
+      </div>`).join("\n      ")}
+    </div>` : `<p class="lede">Card list not available for this set yet.</p>`}
+  </div>
+</section>
+
 ${productBand(s)}
 
 ${rips ? `<section class="tight">
@@ -456,7 +456,7 @@ ${rips ? `<section class="tight">
   </div>
 </section>` : ""}
 
-<section class="tight">
+<section class="band tight">
   <div class="wrap">
     <h2>Other <span class="hl">sets</span></h2>
     <div class="set-index">
