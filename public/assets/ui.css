@@ -1965,3 +1965,20 @@ footer .soc svg{fill:var(--paper)}
   .cc-table th,.cc-table td{padding:8px 10px}
   .cc-table tbody th{min-width:140px}
 }
+
+/* ---------- card search: every printing, every language ----------
+   The search now spans 39,707 printings across 388 sets, so a row has to say
+   which language it is and, on a Japanese card, what the name actually reads
+   on the card. Both sit on a third row rather than crowding the name line,
+   which already carries the price. */
+.cq-native{grid-row:3;grid-column:1;font-size:var(--t-sm);color:var(--ink-2)}
+.cq-lang{grid-row:3;grid-column:2;text-align:right;font:700 var(--t-micro)/1.5 var(--mono);
+  color:var(--ink-2);text-transform:uppercase;letter-spacing:.03em;white-space:nowrap}
+/* A card we could not translate: the name shown IS the printed one. Marked in
+   gold so it reads as a caveat rather than as a language label. */
+.cq-lang.is-native{color:var(--gold-deep)}
+.cq.has-thumb .cq-native{grid-column:2}
+.cq.has-thumb .cq-lang{grid-column:3}
+/* Rows outside the sets we rip have no guide to link to, so the name is a span.
+   Keep it looking like a name, just not like a link. */
+span.cq-name{color:var(--ink)}

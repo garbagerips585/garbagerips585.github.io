@@ -4,7 +4,14 @@
 //   node scripts/sync-cards.mjs   (first, writes the data)
 //   node scripts/build-cards.mjs  (this)
 //
-// Reads public/data/card-index.json. 4,481 cards across 23 English sets.
+// Reads TWO indexes, and the split is the point:
+//   public/data/card-index.json      4,481 cards, 23 English sets, WITH prices
+//   public/data/printings/*.json     39,707 printings, 388 sets, no prices
+// The first drives the default view and the set filter. The second is what a
+// typed query searches, so "Trubbish" returns 30 printings including the
+// Japanese ones rather than the 4 we happen to sell. They join on
+// name|set|number, which was measured to match all 4,481 priced cards, so an
+// English card we rip keeps its price and its thumbnail.
 //
 // SERVER RENDERED FIRST, SEARCH SECOND. The page ships with the 60 most
 // valuable cards already in the HTML, so it is a real page to a crawler and to
@@ -25,6 +32,11 @@ import { esc, longDate, moneyExact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const index = JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8"));
+// The wider corpus the search falls through to. Read here so the page's own
+// copy quotes the real number rather than a figure typed once and left to rot.
+const printings = JSON.parse(await readFile(join(ROOT, "public/data/printings/manifest.json"), "utf8"));
+const nAll = printings.total.toLocaleString("en-US");
+const nSets = printings.sets.toLocaleString("en-US");
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 
 const setName = index.sets || {};
@@ -37,7 +49,7 @@ const priced = rows.filter((r) => typeof r[4] === "number");
 const top = priced.slice().sort((a, b) => b[4] - a[4]).slice(0, 60);
 
 const desc =
-  `Search ${rows.length.toLocaleString("en-US")} Pokemon cards across ${Object.keys(setName).length} sets by name, ` +
+  `Search ${printings.total.toLocaleString("en-US")} Pokemon card printings across ${printings.sets} sets by name, ` +
   `with rarity and current TCGplayer market price. Updated ${longDate(index.checked) || index.checked}.`;
 
 const ld = [
@@ -78,7 +90,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pokemon Card Search: Prices for ${rows.length.toLocaleString("en-US")} Cards | Garbage Rips 585</title>
+<title>Pokemon Card Search: Every Printing of Every Card | Garbage Rips 585</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/cards.html">
 <meta property="og:title" content="Search every Pokemon card we cover">
@@ -111,8 +123,9 @@ ${MENU}
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     <h1>Card <span class="hl">search</span></h1>
-    <p class="lede" style="max-width:34em">Every card in every set we rip, ${rows.length.toLocaleString("en-US")} of them,
-      with what they are actually going for. Type a name.</p>
+    <p class="lede" style="max-width:36em">Every printing of every card, ${nAll} of them across ${nSets} sets,
+      English and Japanese alike. Type a Pokemon name and you get all of them, not just the English ones.
+      The ${rows.length.toLocaleString("en-US")} from the sets we rip also carry what they are going for.</p>
   </div>
 </header>
 
@@ -136,12 +149,15 @@ ${MENU}
     <ol class="cq-list" id="cqList">
       ${top.map(row).join("\n      ")}
     </ol>
-    <p class="cq-head" id="cqHead">The 60 most valuable cards across every set we rip. Type above to search all ${rows.length.toLocaleString("en-US")}.</p>
+    <p class="cq-head" id="cqHead">The 60 most valuable cards across every set we rip. Type above to search all ${nAll} printings.</p>
 
     <p class="price-note">TCGplayer market prices via TCGdex, read ${esc(longDate(index.checked) || index.checked)}.
       Where a card comes as a normal, holo and reverse holo at different prices, the figure is the dearest of them.
-      ${priced.length.toLocaleString("en-US")} of ${rows.length.toLocaleString("en-US")} cards have a price. Singles move
-      fast, so treat these as a ballpark and not a quote. We do not sell cards.</p>
+      ${priced.length.toLocaleString("en-US")} of ${rows.length.toLocaleString("en-US")} cards from the sets we rip have a
+      price. The other ${(printings.total - rows.length).toLocaleString("en-US")} printings do not: there is no US market
+      price for a Japanese card, so none is shown rather than a converted guess. Where a Japanese card could not be
+      matched to a Pokedex number we show the name as printed and say so, because we do not invent translations.
+      Singles move fast, so treat these as a ballpark and not a quote. We do not sell cards.</p>
   </div>
 </section>
 
@@ -171,26 +187,42 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official."
       return;
     }
     list.innerHTML=hits.map(function(r){
-      var name=r[0], slug=r[1], n=r[2], rarity=r[3], price=r[4];
       // The url is built into a variable and then interpolated, so the markup
       // string never contains an href attribute followed by a literal path.
       // Inline, the build's broken-link check reads that prefix as a real link,
       // captures the JS concatenation as the target, and fails the nightly on a
       // page that was never meant to exist.
-      var href='/sets/'+esc(slug)+'.html';
+      // Only cards from a set we rip have a guide to link to; the other 35,000
+      // printings render as plain text rather than a link to a 404.
+      var href=r.slug ? '/sets/'+esc(r.slug)+'.html' : '';
       // Same thumbnail the server renders into the default list. Without this
       // the images existed only on the view nobody arrives at with intent: they
       // vanished the moment anybody typed or picked a set.
-      var base=DATA.imgBase&&DATA.imgBase[slug];
-      var img=base&&n
-        ? '<img class="cq-img" src="'+esc(base+'/'+n+'/low.webp')+'" alt="" loading="lazy" width="60" height="84">'
+      // No thumbnail outside our own sets: the corpus carries no image url, and
+      // guessing one from the set id gives a broken image on every miss.
+      var base=r.slug && DATA.imgBase && DATA.imgBase[r.slug];
+      var img=base&&r.n
+        ? '<img class="cq-img" src="'+esc(base+'/'+r.n+'/low.webp')+'" alt="" loading="lazy" width="60" height="84">'
         : '';
+      var nameCell=href
+        ? '<a class="cq-name" href="'+href+'">'+esc(r.name)+'</a>'
+        : '<span class="cq-name">'+esc(r.name)+'</span>';
+      // The printed name, when it differs. On a Japanese card the searchable
+      // name is the English species; showing ヤブクロン next to Trubbish is what
+      // makes it obvious which printing this actually is.
+      var printed=r.printed ? '<span class="cq-native" lang="'+(r.lang==='ja'?'ja':'zh')+'">'+esc(r.printed)+'</span>' : '';
+      // A card with no dex number could not be translated, so the name shown IS
+      // the printed one. Say so rather than letting it read as an English name.
+      var flag=r.untranslated ? '<span class="cq-lang is-native">Japanese name</span>'
+        : (r.lang!=='en' ? '<span class="cq-lang">'+(r.lang==='ja'?'Japanese':'Chinese')+'</span>' : '');
       return '<li class="cq'+(img?' has-thumb':'')+'">'
         + img
-        + '<a class="cq-name" href="'+href+'">'+esc(name)+'</a>'
-        + '<span class="cq-set">'+esc(DATA.sets[slug]||slug)+' • '+esc(n||'')+'</span>'
-        + (rarity?'<span class="cq-rr">'+esc(rarity)+'</span>':'')
-        + (typeof price==='number'?'<span class="cq-pr">'+money(price)+'</span>':'')
+        + nameCell
+        + printed
+        + '<span class="cq-set">'+esc(r.set)+' • '+esc(r.n||'')+'</span>'
+        + (r.rarity?'<span class="cq-rr">'+esc(r.rarity)+'</span>':'')
+        + flag
+        + (typeof r.price==='number'?'<span class="cq-pr">'+money(r.price)+'</span>':'')
         + '</li>';
     }).join('');
     head.hidden=true;
@@ -199,18 +231,96 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official."
       : total.toLocaleString('en-US')+(total===1?' match':' matches');
   }
 
+  // ---- every printing, in every language -------------------------------
+  // The priced index above is 4,481 cards from the 23 English sets we rip. The
+  // shards under /data/printings are all 39,707 printings across 388 sets,
+  // including the Japanese and Chinese ones, so "Trubbish" finds 30 printings
+  // rather than 4. They are separate on purpose: only the 23 have prices.
+  //
+  // SHARDED BY FIRST LETTER because the whole corpus is 4.5MB. Typing pulls the
+  // one shard the query starts with, so a search costs ~200KB, not 4.5MB.
+  var SHARD={}, SHARD_WAIT={};
+  function shardKey(q){
+    var c=q.charAt(0).toLowerCase();
+    return (c>='a'&&c<='z') ? c : '0';
+  }
+  function loadShard(k, then){
+    if(SHARD[k]){ then(); return; }
+    if(SHARD_WAIT[k]){ SHARD_WAIT[k].push(then); return; }
+    SHARD_WAIT[k]=[then];
+    var url='/data/printings/'+k+'.json';
+    fetch(url).then(function(r){ return r.ok ? r.json() : []; }).then(function(j){
+      SHARD[k]=j;
+      var w=SHARD_WAIT[k]; SHARD_WAIT[k]=null;
+      w.forEach(function(fn){ fn(); });
+    }).catch(function(){
+      // An unreachable shard must not wedge the search. Fall back to the priced
+      // index, which is already in memory, rather than showing nothing.
+      SHARD[k]=[];
+      var w=SHARD_WAIT[k]; SHARD_WAIT[k]=null;
+      w.forEach(function(fn){ fn(); });
+    });
+  }
+
+  // Price lookup for the printings rows. Keyed on name|set|number with leading
+  // zeros stripped, which was measured to join all 4,481 priced cards onto the
+  // corpus, so an English card we rip keeps its price and its thumbnail.
+  var PRICEMAP=null;
+  function priceMap(){
+    if(PRICEMAP) return PRICEMAP;
+    PRICEMAP={};
+    for(var i=0;i<DATA.cards.length;i++){
+      var r=DATA.cards[i], setName=DATA.sets[r[1]]||r[1];
+      PRICEMAP[key3(r[0],setName,r[2])]={price:r[4], slug:r[1], n:r[2]};
+    }
+    return PRICEMAP;
+  }
+  function key3(name,set,num){
+    return String(name).toLowerCase()+'|'+String(set).toLowerCase()+'|'+String(num).replace(/^0+(?=\d)/,'');
+  }
+
   function run(){
     var q=input.value.trim().toLowerCase(), set=sel.value;
     if(!q && !set){ list.innerHTML=initial; status.textContent=''; head.hidden=false; return; }
     if(!DATA){ load(run); return; }
-    var hits=DATA.cards.filter(function(r){
-      if(set && r[1]!==set) return false;
-      return !q || r[0].toLowerCase().indexOf(q)!==-1;
+    // A set filter names one of our 23 English sets, so it stays on the priced
+    // index: the corpus has no notion of our slugs and every hit would be a
+    // set the dropdown cannot express.
+    if(set){
+      var only=DATA.cards.filter(function(r){
+        if(r[1]!==set) return false;
+        return !q || r[0].toLowerCase().indexOf(q)!==-1;
+      });
+      only.sort(function(a,b){ return (b[4]||0)-(a[4]||0); });
+      render(only.map(fromPriced).slice(0,MAX), only.length);
+      return;
+    }
+    var k=shardKey(q);
+    if(!SHARD[k]){ status.textContent='Searching every set...'; loadShard(k, run); return; }
+    var pm=priceMap();
+    var hits=SHARD[k].filter(function(c){ return c.n.toLowerCase().indexOf(q)!==-1; })
+      .map(function(c){
+        var m=pm[key3(c.n,c.s,c.i)];
+        return { name:c.n, printed:c.p, set:c.s, n:c.i, rarity:c.r, lang:c.l,
+                 untranslated:c.u, price:m?m.price:null, slug:m?m.slug:null };
+      });
+    // Priced first and dearest first within that, because those are the cards we
+    // can actually tell you something about. Everything else follows grouped by
+    // set, rather than being buried at the bottom in database order.
+    hits.sort(function(a,b){
+      var ap=typeof a.price==='number', bp=typeof b.price==='number';
+      if(ap!==bp) return ap?-1:1;
+      if(ap) return b.price-a.price;
+      return String(a.set).localeCompare(String(b.set));
     });
-    // Dearest first: on a price list that is the order people want, and it also
-    // makes the cap predictable rather than cutting off at whatever set is first.
-    hits.sort(function(a,b){ return (b[4]||0)-(a[4]||0); });
     render(hits.slice(0,MAX), hits.length);
+  }
+
+  // The priced index is a positional array; the corpus is objects. One shape
+  // reaches render() so it does not have to know which index a row came from.
+  function fromPriced(r){
+    return { name:r[0], printed:null, set:DATA.sets[r[1]]||r[1], n:r[2],
+             rarity:r[3], lang:'en', untranslated:0, price:r[4], slug:r[1] };
   }
 
   function load(then){
