@@ -59,6 +59,29 @@ const ROTATE = process.argv.includes("--rotate");
 const DAY = Math.floor(Date.now() / 86400000);
 const SLICES = 4;
 
+const TODAY = new Date().toISOString().slice(0, 10);
+
+/**
+ * The date on a set file is a claim about when its PRICES were read.
+ *
+ * It used to be stamped `today` on every set on every run, including the three
+ * quarters that --rotate deliberately served from cache. So a file said
+ * "checked today" about prices up to four days old, and 23 files changed every
+ * night whether or not a number moved. That churn is not cosmetic: it makes
+ * `git diff --cached --quiet` unreachable, so the nightly commits every single
+ * night, and a real regression lands inside a 45 file date-only diff that
+ * nobody would look at twice.
+ */
+const previousChecked = async (slug) => {
+  const f = join(OUTDIR, `${slug}.json`);
+  if (!existsSync(f)) return null;
+  try {
+    return JSON.parse(await readFile(f, "utf8")).checked || null;
+  } catch {
+    return null;
+  }
+};
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 let fetched = 0;
 let cached = 0;
@@ -149,6 +172,7 @@ let totalPriced = 0;
 
 const entries = Object.entries(map.sets || {});
 let refreshedSets = 0;
+let newestChecked = null;
 
 for (const [slug, tcgdexId] of entries) {
   const i = entries.findIndex(([k]) => k === slug);
@@ -258,7 +282,8 @@ for (const [slug, tcgdexId] of entries) {
         set: slug,
         name: ours.name,
         tcgdexId,
-        checked: new Date().toISOString().slice(0, 10),
+        // Only advances when this set's prices were actually re-read.
+        checked: refreshNow || !(await previousChecked(slug)) ? TODAY : await previousChecked(slug),
         source: "TCGdex, prices from TCGplayer",
         total: cards.length,
         priced,
@@ -281,6 +306,8 @@ for (const [slug, tcgdexId] of entries) {
   if (sample) imgBase[slug] = sample.img.replace(/\/[^/]+$/, "");
 
   summary.push({ slug, name: ours.name, cards: cards.length, priced });
+  const stamped = refreshNow ? TODAY : (await previousChecked(slug)) || TODAY;
+  if (!newestChecked || stamped > newestChecked) newestChecked = stamped;
   console.log(
     `  ${slug.padEnd(21)} ${String(cards.length).padStart(4)} cards, ${String(priced).padStart(4)} priced` +
       (missing ? `, ${missing} failed` : "")
@@ -290,7 +317,9 @@ for (const [slug, tcgdexId] of entries) {
 await writeFile(
   join(ROOT, "public/data/card-index.json"),
   JSON.stringify({
-    checked: new Date().toISOString().slice(0, 10),
+    // The freshest set, not "today". The index is only as current as its most
+    // recently refreshed member.
+    checked: newestChecked || TODAY,
     fields: ["name", "set", "number", "rarity", "price"],
     sets: Object.fromEntries(summary.map((s) => [s.slug, s.name])),
     imgBase,

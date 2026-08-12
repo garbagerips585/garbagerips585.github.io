@@ -219,7 +219,9 @@ for (const s of needs) {
   await sleep(800);
 }
 
-doc.checked = today;
+// Only when something actually changed. Stamping unconditionally rewrote the
+// file every night on a run that reported "0 set(s) updated".
+if (touched) doc.checked = today;
 await writeFile(outPath, JSON.stringify(doc, null, 2) + "\n");
 
 console.log(`\nWrote data/chase-tcg.json  (${touched} set(s) updated)`);

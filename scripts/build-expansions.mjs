@@ -298,6 +298,9 @@ const html = `<!DOCTYPE html>
 <meta property="og:image" content="${SITE}/assets/og-expansions.jpg">
 <meta name="twitter:card" content="summary_large_image">
 ${FONTS}
+<!-- 174 set symbols come from here and there was no preconnect, so every one
+     of them waited on a cold DNS lookup and TLS handshake. -->
+<link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>
 ${STYLES}
 <style>${style}</style>
 <script type="application/ld+json">

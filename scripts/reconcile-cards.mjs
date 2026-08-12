@@ -53,7 +53,8 @@ let checked = null;
 for (const f of await readdir(join(ROOT, "public/data/cards"))) {
   if (!f.endsWith(".json")) continue;
   const doc = JSON.parse(await readFile(join(ROOT, "public/data/cards", f), "utf8"));
-  checked = checked || doc.checked;
+  // The NEWEST of the per-set dates, not whichever file readdir returned first.
+  if (doc.checked && (!checked || doc.checked > checked)) checked = doc.checked;
   bySet.set(doc.set, doc.cards);
   for (const c of doc.cards) {
     const k = `${doc.set}|${norm(c.n)}`;
@@ -216,13 +217,44 @@ try {
     if (tcgChanged) entry.checked = checked;
   }
   if (tcgChanged) doc.checked = checked;
-  doc.priceSource = "TCGdex";
+  // Only claim the source when we actually wrote something from it. Stamped
+  // unconditionally, a file could say TCGdex while holding the old numbers.
+  if (tcgChanged) doc.priceSource = "TCGdex";
   await writeFile(tcgPath, JSON.stringify(doc, null, 2) + "\n");
 } catch {
   /* optional: only the four newest sets use it */
 }
 
+// ------------------------------------------------- public/data/wanted.json
+//
+// sync-wanted resolves the hunt list against the Pokemon TCG API, which hands
+// back _hires.png: six cards at 489KB to 824KB each, for tiles rendered 245px
+// wide. Editing the source file does not help, because the sync overwrites it.
+// Reconciling here means the fix survives the next sync, same as everywhere
+// else.
+let wantedFixed = 0;
+try {
+  const wp = join(ROOT, "public/data/wanted.json");
+  const doc = JSON.parse(await readFile(wp, "utf8"));
+  const list = Array.isArray(doc) ? doc : doc.cards || doc.wanted || [];
+  for (const c of list) {
+    const a = art.get(`${c.set}|${norm(c.number)}`);
+    if (!a) continue;
+    const thumb = `${a}/low.webp`;
+    const large = `${a}/high.webp`;
+    if (c.image !== thumb || c.imageLarge !== large) {
+      c.image = thumb;
+      c.imageLarge = large;
+      wantedFixed++;
+    }
+  }
+  if (wantedFixed) await writeFile(wp, JSON.stringify(doc, null, 2) + "\n");
+} catch {
+  /* run: node scripts/sync-wanted.mjs */
+}
+
 console.log(`  ${changed} price(s) rewritten, ${unchanged} already matched`);
+if (wantedFixed) console.log(`  ${wantedFixed} most-wanted card image(s) repointed at TCGdex`);
 console.log(`  ${artChanged} card image(s) repointed at TCGdex`);
 if (builtChase) console.log(`  ${builtChase} set(s) got a chase list built from their own checklist`);
 if (orphans.length) {

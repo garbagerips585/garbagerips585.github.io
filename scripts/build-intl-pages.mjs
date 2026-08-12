@@ -197,7 +197,10 @@ function guidePage(g) {
       image: [`${SITE}/assets/og-image.jpg`],
       about: { "@type": "Thing", name: `${g.english} (Pokemon Trading Card Game, ${g.langName})` },
       url,
-      datePublished: guides.checked,
+      // datePublished is when the guide first appeared and never moves;
+      // dateModified is when its data was last re-read. Setting both to the
+      // sync date made one false and the other meaningless.
+      datePublished: g.published || guides.checked,
       dateModified: guides.checked,
       author: { "@type": "Organization", name: "Garbage Rips 585", url: SITE + "/" },
       publisher: {

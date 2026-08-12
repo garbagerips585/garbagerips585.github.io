@@ -20,13 +20,13 @@
   "checked": "2026-08-12",
   "eras": {
     "old": {
-      "card": "https://images.pokemontcg.io/base1/4_hires.png",
+      "card": "https://assets.tcgdex.net/en/base/base1/4/high.webp",
       "name": "Charizard",
       "set": "Base Set, 1999",
       "corner": "right"
     },
     "new": {
-      "card": "https://images.pokemontcg.io/sv8pt5/74_hires.png",
+      "card": "https://assets.tcgdex.net/en/sv/sv08.5/074/high.webp",
       "name": "Eevee",
       "set": "Prismatic Evolutions, 2025",
       "corner": "left"
@@ -38,7 +38,7 @@
       "symbol": "One black circle",
       "shape": "circle",
       "colour": "black",
-      "card": "https://images.pokemontcg.io/sv8pt5/74_hires.png",
+      "card": "https://assets.tcgdex.net/en/sv/sv08.5/074/high.webp",
       "example": "Eevee, Prismatic Evolutions",
       "look": "Plain card, matte finish, artwork sitting in a window. The bulk of every pack.",
       "chase": false
@@ -48,7 +48,7 @@
       "symbol": "One black diamond",
       "shape": "diamond",
       "colour": "black",
-      "card": "https://images.pokemontcg.io/sv7/59_hires.png",
+      "card": "https://assets.tcgdex.net/en/sv/sv07/059/high.webp",
       "example": "Mewtwo, Stellar Crown",
       "look": "Looks the same as a Common to the naked eye. Most Trainer cards land here.",
       "chase": false
@@ -58,7 +58,7 @@
       "symbol": "One black star",
       "shape": "star",
       "colour": "black",
-      "card": "https://images.pokemontcg.io/sv8pt5/59_hires.png",
+      "card": "https://assets.tcgdex.net/en/sv/sv08.5/059/high.webp",
       "example": "Umbreon, Prismatic Evolutions",
       "look": "In modern sets these are always holo: foil on the artwork window, matte everywhere else.",
       "chase": false
@@ -68,7 +68,7 @@
       "symbol": "Two black stars",
       "shape": "star star",
       "colour": "black",
-      "card": "https://images.pokemontcg.io/sv8pt5/28_hires.png",
+      "card": "https://assets.tcgdex.net/en/sv/sv08.5/028/high.webp",
       "example": "Pikachu ex, Prismatic Evolutions",
       "look": "A Pokemon ex in an ordinary card frame. The everyday ex, and the only high tier that still looks like a normal card.",
       "chase": false
@@ -78,7 +78,7 @@
       "symbol": "Two silver stars",
       "shape": "star star",
       "colour": "silver",
-      "card": "https://images.pokemontcg.io/sv5/193_hires.png",
+      "card": "https://assets.tcgdex.net/en/sv/sv05/193/high.webp",
       "example": "Gengar ex, Temporal Forces",
       "look": "Full art. The character fills the whole card, no artwork window, usually textured.",
       "chase": true
@@ -88,7 +88,7 @@
       "symbol": "One gold star",
       "shape": "star",
       "colour": "gold",
-      "card": "https://images.pokemontcg.io/sv6/188_hires.png",
+      "card": "https://assets.tcgdex.net/en/sv/sv06/188/high.webp",
       "example": "Eevee, Twilight Masquerade",
       "look": "Full art of a normal Pokemon, not an ex, painted into a scene. The \"Pokemon in its habitat\" look.",
       "chase": true
@@ -98,7 +98,7 @@
       "symbol": "Two gold stars",
       "shape": "star star",
       "colour": "gold",
-      "card": "https://images.pokemontcg.io/sv8pt5/161_hires.png",
+      "card": "https://assets.tcgdex.net/en/sv/sv08.5/161/high.webp",
       "example": "Umbreon ex, Prismatic Evolutions",
       "look": "Full art of an ex or a Supporter in a scene, with glitter over it. Usually the most valuable card in a set.",
       "chase": true
@@ -108,7 +108,7 @@
       "symbol": "Its own ACE SPEC banner",
       "shape": "ace",
       "colour": "ace",
-      "card": "https://images.pokemontcg.io/sv8pt5/119_hires.png",
+      "card": "https://assets.tcgdex.net/en/sv/sv08.5/119/high.webp",
       "example": "Prime Catcher, Prismatic Evolutions",
       "look": "A magenta and cyan Trainer or Special Energy. You are only allowed one in a deck, which is the whole point of them.",
       "chase": false
@@ -118,7 +118,7 @@
       "symbol": "Three gold stars",
       "shape": "star star star",
       "colour": "gold",
-      "card": "https://images.pokemontcg.io/sv3/228_hires.png",
+      "card": "https://assets.tcgdex.net/en/sv/sv03/228/high.webp",
       "example": "Charizard ex, Obsidian Flames",
       "look": "The whole card is gold, borders and all. Unmistakable across a room.",
       "chase": true

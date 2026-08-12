@@ -32,7 +32,8 @@
     "    counts cannot be verified. Those entries use dataFrom to read the checklist",
     "    from the Japanese set instead, and the page says where it came from.",
     "",
-    "DO NOT add an entry from a card-site article. Check it against the API."
+    "DO NOT add an entry from a card-site article. Check it against the API.",
+    "`published` is the date a guide first appeared and MUST NOT be edited. It feeds datePublished in the page's structured data; before it existed both datePublished and dateModified were set to the sync date, so all 13 guides told Google they were published today, every day, and dateModified carried no information at all."
   ],
   "checked": "2026-08-12",
   "source": "TCGdex (api.tcgdex.net/v2), card names via PokeAPI dex numbers",
@@ -44,7 +45,8 @@
       "english": "Abyss Eye",
       "equivalent": "pitch-black",
       "confidence": "confirmed",
-      "note": "Released 2026-05-22, about two months ahead of the English Pitch Black. Same set, same chase lineup, Japanese print run."
+      "note": "Released 2026-05-22, about two months ahead of the English Pitch Black. Same set, same chase lineup, Japanese print run.",
+      "published": "2026-08-12"
     },
     "ja-ninja-spinner": {
       "lang": "ja",
@@ -53,7 +55,8 @@
       "english": "Ninja Spinner",
       "equivalent": "chaos-rising",
       "confidence": "confirmed",
-      "note": "120 cards against Chaos Rising's 122, out roughly ten weeks earlier."
+      "note": "120 cards against Chaos Rising's 122, out roughly ten weeks earlier.",
+      "published": "2026-08-12"
     },
     "ja-nihil-zero": {
       "lang": "ja",
@@ -62,7 +65,8 @@
       "english": "Nihil Zero",
       "equivalent": "perfect-order",
       "confidence": "confirmed",
-      "nameNote": "The set itself is certain: the code, the card count and the release date all check out. The English name is less settled. The card database we read transcribes the Japanese name in a way that does not come out as Nihil Zero, but Nihil Zero is what is on the packs we opened and what everyone calls it. We went with the packs."
+      "nameNote": "The set itself is certain: the code, the card count and the release date all check out. The English name is less settled. The card database we read transcribes the Japanese name in a way that does not come out as Nihil Zero, but Nihil Zero is what is on the packs we opened and what everyone calls it. We went with the packs.",
+      "published": "2026-08-12"
     },
     "ja-mega-symphonia": {
       "lang": "ja",
@@ -72,7 +76,8 @@
       "equivalent": "mega-evolution",
       "sibling": "ja-mega-brave",
       "confidence": "confirmed",
-      "note": "Half of English Mega Evolution. Japan split it into two 92 card sets released the same day, which English merged into one 188 card set."
+      "note": "Half of English Mega Evolution. Japan split it into two 92 card sets released the same day, which English merged into one 188 card set.",
+      "published": "2026-08-12"
     },
     "ja-mega-brave": {
       "lang": "ja",
@@ -82,7 +87,8 @@
       "equivalent": "mega-evolution",
       "sibling": "ja-mega-symphonia",
       "confidence": "confirmed",
-      "note": "The other half of English Mega Evolution, out the same day as Mega Symphonia."
+      "note": "The other half of English Mega Evolution, out the same day as Mega Symphonia.",
+      "published": "2026-08-12"
     },
     "ja-stellar-miracle": {
       "lang": "ja",
@@ -91,7 +97,8 @@
       "english": "Stellar Miracle",
       "equivalent": "stellar-crown",
       "confidence": "confirmed",
-      "note": "The Japanese set behind Stellar Crown, out about eight weeks earlier."
+      "note": "The Japanese set behind Stellar Crown, out about eight weeks earlier.",
+      "published": "2026-08-12"
     },
     "ja-cyber-judge": {
       "lang": "ja",
@@ -101,7 +108,8 @@
       "equivalent": "temporal-forces",
       "siblingName": "Wild Force (ワイルドフォース, SV5K)",
       "confidence": "confirmed",
-      "note": "English Temporal Forces is built from two Japanese sets released together: Cyber Judge and Wild Force, 71 cards each."
+      "note": "English Temporal Forces is built from two Japanese sets released together: Cyber Judge and Wild Force, 71 cards each.",
+      "published": "2026-08-12"
     },
     "ja-violet-ex": {
       "lang": "ja",
@@ -111,7 +119,8 @@
       "equivalent": "scarlet-violet",
       "siblingName": "Scarlet ex (スカーレットex, SV1S)",
       "confidence": "confirmed",
-      "note": "The set that opened the Scarlet and Violet era in Japan. Violet ex and Scarlet ex together became the English Scarlet & Violet base set."
+      "note": "The set that opened the Scarlet and Violet era in Japan. Violet ex and Scarlet ex together became the English Scarlet & Violet base set.",
+      "published": "2026-08-12"
     },
     "ko-clay-burst": {
       "lang": "ko",
@@ -120,9 +129,13 @@
       "english": "Clay Burst",
       "equivalent": "paldea-evolved",
       "siblingName": "Snow Hazard (스노해저드, SV2P)",
-      "dataFrom": { "lang": "ja", "id": "SV2D" },
+      "dataFrom": {
+        "lang": "ja",
+        "id": "SV2D"
+      },
       "confidence": "confirmed",
-      "note": "The Korean printing of the Japanese Clay Burst. Clay Burst and Snow Hazard together became English Paldea Evolved. This is the set with the Iono chase card."
+      "note": "The Korean printing of the Japanese Clay Burst. Clay Burst and Snow Hazard together became English Paldea Evolved. This is the set with the Iono chase card.",
+      "published": "2026-08-12"
     },
     "ko-crimson-haze": {
       "lang": "ko",
@@ -130,9 +143,13 @@
       "native": "크림슨헤이즈",
       "english": "Crimson Haze",
       "equivalent": "twilight-masquerade",
-      "dataFrom": { "lang": "ja", "id": "SV5a" },
+      "dataFrom": {
+        "lang": "ja",
+        "id": "SV5a"
+      },
       "confidence": "partial",
-      "note": "A smaller Japanese subset whose cards were spread across more than one English set rather than becoming one of its own, so the English match is partial rather than one to one."
+      "note": "A smaller Japanese subset whose cards were spread across more than one English set rather than becoming one of its own, so the English match is partial rather than one to one.",
+      "published": "2026-08-12"
     },
     "ko-mask-of-change": {
       "lang": "ko",
@@ -140,9 +157,13 @@
       "native": "변환의 가면",
       "english": "Mask of Change",
       "equivalent": "twilight-masquerade",
-      "dataFrom": { "lang": "ja", "id": "SV6" },
+      "dataFrom": {
+        "lang": "ja",
+        "id": "SV6"
+      },
       "confidence": "confirmed",
-      "note": "The Korean printing of the set behind English Twilight Masquerade. Korea got it 2024-06-21, a month after the English release, which is normal: it follows the Japanese schedule, not the English one."
+      "note": "The Korean printing of the set behind English Twilight Masquerade. Korea got it 2024-06-21, a month after the English release, which is normal: it follows the Japanese schedule, not the English one.",
+      "published": "2026-08-12"
     },
     "ko-battle-partners": {
       "lang": "ko",
@@ -150,10 +171,14 @@
       "native": null,
       "english": "Battle Partners",
       "equivalent": "journey-together",
-      "dataFrom": { "lang": "ja", "id": "SV9" },
+      "dataFrom": {
+        "lang": "ja",
+        "id": "SV9"
+      },
       "confidence": "confirmed",
       "dataNote": "TCGdex has no Korean record for this set at all, so everything on this page comes from the Japanese printing it was translated from.",
-      "note": "The set behind English Journey Together, and the one with the Team Rocket's Mewtwo ex chase."
+      "note": "The set behind English Journey Together, and the one with the Team Rocket's Mewtwo ex chase.",
+      "published": "2026-08-12"
     },
     "zh-gem-pack-2": {
       "lang": "zh-cn",
@@ -163,7 +188,8 @@
       "equivalent": null,
       "confidence": "confirmed",
       "exclusive": true,
-      "note": "A genuine Chinese exclusive. There is no Japanese or English counterpart: the id returns nothing in every other language. Gem Pack is a small 15 card Chinese series that reprints fan favourite lines, and Vol. 2 is the Eevee one."
+      "note": "A genuine Chinese exclusive. There is no Japanese or English counterpart: the id returns nothing in every other language. Gem Pack is a small 15 card Chinese series that reprints fan favourite lines, and Vol. 2 is the Eevee one.",
+      "published": "2026-08-12"
     }
   }
 }

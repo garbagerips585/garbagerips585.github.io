@@ -298,6 +298,7 @@ for (const [id, e] of entries) {
 
   guides[id] = {
     ...e,
+    published: e.published || null,
     langName: LANG_NAME[e.lang] || e.lang,
     langFlag: LANG_FLAG[e.lang] || "",
     script: LANG_SCRIPT[e.lang] || null,
