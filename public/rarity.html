@@ -87,6 +87,12 @@
 @media(min-width:820px){.rr-zoom{grid-column:auto}}
 
 /* Returning collectors. */
+/* The card sits under the years and above the prose: you see the three
+   Charizards side by side first, which is the comparison, and read why after. */
+.ex-fig{margin:var(--s3) 0}
+.ex-fig img{display:block;width:100%;max-width:150px;height:auto;border-radius:6px;
+  border:1px solid var(--hair);background:var(--page)}
+.ex-fig figcaption{font:400 var(--t-micro)/1.45 var(--mono);color:var(--ink-2);margin-top:6px;min-height:2.9em}
 .exs{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-bottom:var(--s5)}
 @media(max-width:760px){.exs{grid-template-columns:1fr}}
 .ex1{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);
@@ -101,6 +107,14 @@
 .gone b{display:block;font-weight:700}
 .gone .yrs{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.05em;margin:2px 0 6px}
 .gone p{color:var(--ink-2);font-size:var(--t-sm)}
+/* Same treatment as the glossary: flex column, figure pushed to the bottom, two
+   caption lines reserved, so the cards land on a line across each row instead
+   of stepping up and down with the length of the prose above them. */
+.gone li{display:flex;flex-direction:column}
+.gone-fig{margin:var(--s4) 0 0;padding-top:var(--s3);border-top:1px solid var(--hair);margin-top:auto}
+.gone-fig img{display:block;width:100%;max-width:132px;height:auto;border-radius:6px;
+  border:1px solid var(--hair);background:var(--page)}
+.gone-fig figcaption{font:400 var(--t-micro)/1.45 var(--mono);color:var(--ink-2);margin-top:6px;min-height:2.9em}
 
 .gloss{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--s3)}
 /* Flex column with the figure pushed to the bottom by margin-top:auto. Tiles in
@@ -534,12 +548,15 @@
         the same card.</p>
       <div class="exs">
         <div class="ex1"><b>Pokemon-ex</b><p class="yrs">2003 to 2007, lowercase</p>
+          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/ex/ex6/105/high.webp" alt="Charizard ex, FireRed &amp; LeafGreen, 2004" loading="lazy" decoding="async" width="600" height="825"><figcaption>Charizard ex, FireRed &amp; LeafGreen, 2004</figcaption></figure>
           <p>The original. No rule box: the rule is plain italic text along the bottom, and abilities
             are called Poke-POWER or Poke-BODY.</p></div>
         <div class="ex1"><b>Pokemon-EX</b><p class="yrs">2012 to 2016, uppercase</p>
+          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/xy/xy2/11/high.webp" alt="Charizard EX, Flashfire, 2014" loading="lazy" decoding="async" width="600" height="825"><figcaption>Charizard EX, Flashfire, 2014</figcaption></figure>
           <p>Black and White through XY. Almost always Basic, whatever the Pokemon's real stage.
             Mega EX ended your turn unless you played a Spirit Link.</p></div>
         <div class="ex1"><b>Pokemon ex</b><p class="yrs">2023 to now, lowercase again</p>
+          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/sv/sv03/125/high.webp" alt="Charizard ex, Obsidian Flames, 2023" loading="lazy" decoding="async" width="600" height="825"><figcaption>Charizard ex, Obsidian Flames, 2023</figcaption></figure>
           <p>Current. Has a bordered rule box in the bottom corner where the Pokedex entry would sit.
             That box is the quickest way to tell it from a 2003 one.</p></div>
       </div>
@@ -548,15 +565,66 @@
       <p class="rg-p">If you remember any of these, they are all out of print. None of them are coming
         out of a pack you buy today.</p>
       <ul class="gone">
-        <li><b>Pokemon LV.X</b><p class="yrs">2007 to 2009</p><p>Played on top of an Active Pokemon. Gold band across the top.</p></li>
-        <li><b>Pokemon Prime</b><p class="yrs">2010</p><p>The word Prime is not printed anywhere on the card. Spot them by the gold name text and spiked artwork edges.</p></li>
-        <li><b>Pokemon LEGEND</b><p class="yrs">2010</p><p>Two card halves that combined into one Pokemon.</p></li>
-        <li><b>Pokemon-EX and M Pokemon-EX</b><p class="yrs">2012 to 2016</p><p>The uppercase EX. Mega EX ended your turn unless you used a Spirit Link.</p></li>
-        <li><b>Pokemon BREAK</b><p class="yrs">2015 to 2016</p><p>Printed sideways and stacked on the stage below.</p></li>
-        <li><b>Pokemon-GX</b><p class="yrs">2017 to 2019</p><p>One GX attack per game. Tag Team GX put two Pokemon on a card and gave up three prizes.</p></li>
-        <li><b>Rainbow rares</b><p class="yrs">2017 to 2022</p><p>Discontinued at Scarlet and Violet. They are not coming out of a modern pack, whatever the glitter on a Special Illustration Rare looks like.</p></li>
-        <li><b>V, VMAX and VSTAR</b><p class="yrs">2020 to January 2023</p><p>Ended at Crown Zenith.</p></li>
-        <li><b>Radiant Pokemon</b><p class="yrs">2022 to 2023</p><p>Always Basic, one per deck, only worth one prize.</p></li>
+        <li>
+          <b>Pokemon LV.X</b><p class="yrs">2007 to 2009</p><p>Played on top of an Active Pokemon. Gold band across the top.</p>
+          <figure class="gone-fig">
+            <img src="https://assets.tcgdex.net/en/pl/pl1/123/high.webp" alt="Drapion LV.X, Platinum" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>Drapion LV.X, Platinum</figcaption>
+          </figure>
+        </li>
+        <li>
+          <b>Pokemon Prime</b><p class="yrs">2010</p><p>The word Prime is not printed anywhere on the card. Spot them by the gold name text and spiked artwork edges.</p>
+          <figure class="gone-fig">
+            <img src="https://assets.tcgdex.net/en/hgss/hgss3/81/high.webp" alt="Espeon Prime, Undaunted" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>Espeon Prime, Undaunted</figcaption>
+          </figure>
+        </li>
+        <li>
+          <b>Pokemon LEGEND</b><p class="yrs">2010</p><p>Two card halves that combined into one Pokemon.</p>
+          <figure class="gone-fig">
+            <img src="https://assets.tcgdex.net/en/hgss/hgss3/87/high.webp" alt="Kyogre &amp; Groudon LEGEND, Undaunted" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>Kyogre &amp; Groudon LEGEND, Undaunted</figcaption>
+          </figure>
+        </li>
+        <li>
+          <b>Pokemon-EX and M Pokemon-EX</b><p class="yrs">2012 to 2016</p><p>The uppercase EX. Mega EX ended your turn unless you used a Spirit Link.</p>
+          <figure class="gone-fig">
+            <img src="https://assets.tcgdex.net/en/xy/xy2/11/high.webp" alt="Charizard EX, Flashfire" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>Charizard EX, Flashfire</figcaption>
+          </figure>
+        </li>
+        <li>
+          <b>Pokemon BREAK</b><p class="yrs">2015 to 2016</p><p>Printed sideways and stacked on the stage below.</p>
+          <figure class="gone-fig">
+            <img src="https://assets.tcgdex.net/en/xy/xy9/41/high.webp" alt="Greninja BREAK, BREAKpoint" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>Greninja BREAK, BREAKpoint</figcaption>
+          </figure>
+        </li>
+        <li>
+          <b>Pokemon-GX</b><p class="yrs">2017 to 2019</p><p>One GX attack per game. Tag Team GX put two Pokemon on a card and gave up three prizes.</p>
+          <figure class="gone-fig">
+            <img src="https://assets.tcgdex.net/en/sm/sm115/9/high.webp" alt="Charizard GX, Hidden Fates" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>Charizard GX, Hidden Fates</figcaption>
+          </figure>
+        </li>
+        <li>
+          <b>Rainbow rares</b><p class="yrs">2017 to 2022</p><p>Discontinued at Scarlet and Violet. They are not coming out of a modern pack, whatever the glitter on a Special Illustration Rare looks like.</p>
+          
+        </li>
+        <li>
+          <b>V, VMAX and VSTAR</b><p class="yrs">2020 to January 2023</p><p>Ended at Crown Zenith.</p>
+          <figure class="gone-fig">
+            <img src="https://assets.tcgdex.net/en/swsh/swsh3/20/high.webp" alt="Charizard VMAX, Darkness Ablaze" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>Charizard VMAX, Darkness Ablaze</figcaption>
+          </figure>
+        </li>
+        <li>
+          <b>Radiant Pokemon</b><p class="yrs">2022 to 2023</p><p>Always Basic, one per deck, only worth one prize.</p>
+          <figure class="gone-fig">
+            <img src="https://assets.tcgdex.net/en/swsh/swsh10.5/011/high.webp" alt="Radiant Charizard, Pokemon GO" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>Radiant Charizard, Pokemon GO</figcaption>
+          </figure>
+        </li>
       </ul>
     </div>
   </section>

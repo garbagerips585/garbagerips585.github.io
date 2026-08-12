@@ -174,6 +174,12 @@ const style = `
 @media(min-width:820px){.rr-zoom{grid-column:auto}}
 
 /* Returning collectors. */
+/* The card sits under the years and above the prose: you see the three
+   Charizards side by side first, which is the comparison, and read why after. */
+.ex-fig{margin:var(--s3) 0}
+.ex-fig img{display:block;width:100%;max-width:150px;height:auto;border-radius:6px;
+  border:1px solid var(--hair);background:var(--page)}
+.ex-fig figcaption{font:400 var(--t-micro)/1.45 var(--mono);color:var(--ink-2);margin-top:6px;min-height:2.9em}
 .exs{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-bottom:var(--s5)}
 @media(max-width:760px){.exs{grid-template-columns:1fr}}
 .ex1{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);
@@ -188,6 +194,14 @@ const style = `
 .gone b{display:block;font-weight:700}
 .gone .yrs{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.05em;margin:2px 0 6px}
 .gone p{color:var(--ink-2);font-size:var(--t-sm)}
+/* Same treatment as the glossary: flex column, figure pushed to the bottom, two
+   caption lines reserved, so the cards land on a line across each row instead
+   of stepping up and down with the length of the prose above them. */
+.gone li{display:flex;flex-direction:column}
+.gone-fig{margin:var(--s4) 0 0;padding-top:var(--s3);border-top:1px solid var(--hair);margin-top:auto}
+.gone-fig img{display:block;width:100%;max-width:132px;height:auto;border-radius:6px;
+  border:1px solid var(--hair);background:var(--page)}
+.gone-fig figcaption{font:400 var(--t-micro)/1.45 var(--mono);color:var(--ink-2);margin-top:6px;min-height:2.9em}
 
 .gloss{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--s3)}
 /* Flex column with the figure pushed to the bottom by margin-top:auto. Tiles in
@@ -317,12 +331,15 @@ ${d.ladder.map(ladderRow).join("\n")}
         the same card.</p>
       <div class="exs">
         <div class="ex1"><b>Pokemon-ex</b><p class="yrs">2003 to 2007, lowercase</p>
+          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/ex/ex6/105/high.webp" alt="Charizard ex, FireRed &amp; LeafGreen, 2004" loading="lazy" decoding="async" width="600" height="825"><figcaption>Charizard ex, FireRed &amp; LeafGreen, 2004</figcaption></figure>
           <p>The original. No rule box: the rule is plain italic text along the bottom, and abilities
             are called Poke-POWER or Poke-BODY.</p></div>
         <div class="ex1"><b>Pokemon-EX</b><p class="yrs">2012 to 2016, uppercase</p>
+          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/xy/xy2/11/high.webp" alt="Charizard EX, Flashfire, 2014" loading="lazy" decoding="async" width="600" height="825"><figcaption>Charizard EX, Flashfire, 2014</figcaption></figure>
           <p>Black and White through XY. Almost always Basic, whatever the Pokemon's real stage.
             Mega EX ended your turn unless you played a Spirit Link.</p></div>
         <div class="ex1"><b>Pokemon ex</b><p class="yrs">2023 to now, lowercase again</p>
+          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/sv/sv03/125/high.webp" alt="Charizard ex, Obsidian Flames, 2023" loading="lazy" decoding="async" width="600" height="825"><figcaption>Charizard ex, Obsidian Flames, 2023</figcaption></figure>
           <p>Current. Has a bordered rule box in the bottom corner where the Pokedex entry would sit.
             That box is the quickest way to tell it from a 2003 one.</p></div>
       </div>
@@ -333,7 +350,17 @@ ${d.ladder.map(ladderRow).join("\n")}
       <ul class="gone">
 ${d.gone
   .map(
-    ([n, y, w]) => `        <li><b>${esc(n)}</b><p class="yrs">${esc(y)}</p><p>${esc(w)}</p></li>`
+    (g) => `        <li>
+          <b>${esc(g.name)}</b><p class="yrs">${esc(g.years)}</p><p>${esc(g.note)}</p>
+          ${
+            g.card
+              ? `<figure class="gone-fig">
+            <img src="${esc(g.card)}" alt="${esc(g.example)}" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>${esc(g.example)}</figcaption>
+          </figure>`
+              : ""
+          }
+        </li>`,
   )
   .join("\n")}
       </ul>
