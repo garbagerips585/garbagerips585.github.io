@@ -1876,3 +1876,36 @@ footer .soc svg{fill:var(--paper)}
 .cq.has-thumb .cq-set{grid-column:2}
 .cq.has-thumb .cq-pr{grid-column:3}
 .cq.has-thumb .cq-rr{grid-column:3}
+
+/* --------------------------------------------------------------------------
+   Contrast fixes from the accessibility audit. Every value below was computed
+   against its real composited background, not eyeballed.
+   -------------------------------------------------------------------------- */
+
+/* .hl is --ketchup-deep, which is designed for cream. The grading page put one
+   inside the navy .fk-golden block, where it measured 1.76:1 and the word
+   "dearer" was effectively invisible. Gold on that navy is 7.34:1, and it is
+   the accent the rest of the dark surfaces already use. */
+.fk-golden .hl{color:var(--gold)}
+
+/* --ink-2 on --paper-3 measured 4.21:1 in five places. Darkened to #54687C,
+   which clears it at 4.60 and improves --ink-2 everywhere else it is used
+   (6.70 on white, 5.91 on the page cream) rather than only patching the five. */
+:root{--ink-2:#54687C}
+
+/* White text on --ketchup is 4.28:1. ui.css already carries a note that
+   --ketchup "is a FILL, never text"; the inverse, text ON it, was never
+   covered. --ketchup-deep as the fill takes white to 6.66:1. */
+.chip.soon,.show.is-featured .show-when,.hero-new{background:var(--ketchup-deep)}
+.lb-close{background:var(--ketchup-deep)}
+
+/* The PSA 10 gold was hardcoded #A8760B, 3.88:1 on the card cream. */
+.chase-card .pr10{color:#9C6A00}
+
+/* At 320px a .gr row rendered 317px inside the viewport but its 3 numeric
+   columns pushed the document 9px wider. Letting the numbers wrap costs a few
+   pixels of height and removes the only horizontal scroll left on the site. */
+@media(max-width:360px){
+  .gr-raw,.gr-psa,.gr-net{white-space:normal}
+  .gr{gap:2px 8px}
+}

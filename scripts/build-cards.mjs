@@ -64,7 +64,7 @@ const ld = [
 const row = (r) => {
   const [name, slug, n, rarity, price] = r;
   const src = thumb(slug, n);
-  return `<li class="cq has-thumb">
+  return `<li class="cq${src ? " has-thumb" : ""}">
         ${src ? `<img class="cq-img" src="${esc(src)}" alt="" loading="lazy" width="60" height="84">` : ""}
         <a class="cq-name" href="/sets/${esc(slug)}.html">${esc(name)}</a>
         <span class="cq-set">${esc(setName[slug] || slug)} &bull; ${esc(n || "")}</span>
@@ -178,7 +178,15 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official."
       // captures the JS concatenation as the target, and fails the nightly on a
       // page that was never meant to exist.
       var href='/sets/'+esc(slug)+'.html';
-      return '<li class="cq">'
+      // Same thumbnail the server renders into the default list. Without this
+      // the images existed only on the view nobody arrives at with intent: they
+      // vanished the moment anybody typed or picked a set.
+      var base=DATA.imgBase&&DATA.imgBase[slug];
+      var img=base&&n
+        ? '<img class="cq-img" src="'+esc(base+'/'+n+'/low.webp')+'" alt="" loading="lazy" width="60" height="84">'
+        : '';
+      return '<li class="cq'+(img?' has-thumb':'')+'">'
+        + img
         + '<a class="cq-name" href="'+href+'">'+esc(name)+'</a>'
         + '<span class="cq-set">'+esc(DATA.sets[slug]||slug)+' • '+esc(n||'')+'</span>'
         + (rarity?'<span class="cq-rr">'+esc(rarity)+'</span>':'')

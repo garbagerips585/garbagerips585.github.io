@@ -758,5 +758,68 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 
+  /**
+   * Keep Tab inside whatever modal surface is open.
+   *
+   * Two of them exist: the card lightbox (.lb.on, on 10 set and Pokemon pages)
+   * and the mobile menu (.menu.on, everywhere). Both cover the screen and both
+   * left every background control tabbable, so Tab walked focus behind an
+   * opaque overlay where the focus ring is invisible: 50 reachable controls
+   * behind the lightbox, 87 behind the menu at 375px.
+   *
+   * Handled once here rather than in the four generators that each emit their
+   * own copy of the lightbox script. app.js is already on every page, and a
+   * fifth copy of a focus trap is how they drift.
+   */
+  function openSurface() {
+    var lb = document.querySelector(".lb.on");
+    if (lb) return lb;
+    var mb = document.getElementById("menuBtn");
+    if (mb && mb.getAttribute("aria-expanded") === "true") {
+      var panel = document.getElementById("menu");
+      // The button lives outside the panel but belongs to the same loop, or
+      // Shift+Tab off the first link escapes to the page behind.
+      if (panel) return { first: mb, panel: panel };
+    }
+    return null;
+  }
+
+  var FOCUSABLE =
+    'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),' +
+    'textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Tab") return;
+    var s = openSurface();
+    if (!s) return;
+    var roots = s.panel ? [s.first, s.panel] : [s];
+    var items = [];
+    roots.forEach(function (r) {
+      if (r.matches && r.matches(FOCUSABLE)) items.push(r);
+      Array.prototype.push.apply(items, r.querySelectorAll(FOCUSABLE));
+    });
+    items = items.filter(function (el) {
+      return el.offsetParent !== null || el === document.activeElement;
+    });
+    if (!items.length) return;
+    var first = items[0];
+    var last = items[items.length - 1];
+    var here = document.activeElement;
+    // Focus that has already escaped (or never entered) comes back on the next
+    // Tab rather than being left stranded behind the overlay.
+    if (items.indexOf(here) === -1) {
+      e.preventDefault();
+      (e.shiftKey ? last : first).focus();
+      return;
+    }
+    if (e.shiftKey && here === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && here === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
+
   window.GR585 = { CHANNEL_ID: CHANNEL_ID, loadVideos: loadVideos };
 })();

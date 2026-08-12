@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-// Make TCGdex the single source of truth for card prices.
+// Make TCGdex the single source of truth for card prices AND art.
 //
-//   node scripts/sync-cards.mjs        (first, fetches the prices)
-//   node scripts/reconcile-prices.mjs  (this, pushes them into the other files)
+//   node scripts/sync-cards.mjs       (first, fetches both)
+//   node scripts/reconcile-cards.mjs  (this, pushes them into the other files)
 //
 // WHY THIS EXISTS. Three feeds were quoting the same cards:
 //
@@ -46,18 +46,28 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // them stripped of leading zeros rather than as strings.
 const norm = (n) => String(n ?? "").replace(/^0+(?=\d)/, "").toLowerCase();
 
-const truth = new Map(); // "set|number" -> { price, checked }
+const truth = new Map(); // "set|number" -> price
+const art = new Map(); // "set|number" -> TCGdex image base
 let checked = null;
 for (const f of await readdir(join(ROOT, "public/data/cards"))) {
   if (!f.endsWith(".json")) continue;
   const doc = JSON.parse(await readFile(join(ROOT, "public/data/cards", f), "utf8"));
   checked = checked || doc.checked;
   for (const c of doc.cards) {
-    if (typeof c.price === "number") truth.set(`${doc.set}|${norm(c.n)}`, c.price);
+    const k = `${doc.set}|${norm(c.n)}`;
+    if (typeof c.price === "number") truth.set(k, c.price);
+    if (c.img) art.set(k, c.img);
   }
 }
-console.log(`TCGdex holds ${truth.size} priced cards, read ${checked}`);
+console.log(`TCGdex holds ${truth.size} priced cards and ${art.size} card images, read ${checked}`);
 
+// ART IS THE BIGGER WIN OF THE TWO. The English set guides served
+// images.pokemontcg.io/<set>/<n>_hires.png as the thumbnail in an 8 card grid:
+// 836KB per card for a picture rendered 245px wide, measured. TCGdex's low.webp
+// of the same card is 35KB. Twenty-three times smaller, on the pages that are
+// the site's main search landing pages, and all 184 chase cards have one. The
+// imported guides already used it; the English ones were never converted.
+let artChanged = 0;
 let changed = 0;
 let unchanged = 0;
 const orphans = [];
@@ -73,6 +83,17 @@ for (const s of setsDoc.sets || []) {
     if (p == null) {
       orphans.push(`${s.id}-${c.number} (${c.name})`);
       continue;
+    }
+    const a = art.get(`${s.id}|${norm(c.number)}`);
+    if (a) {
+      const thumb = `${a}/low.webp`;
+      const large = `${a}/high.webp`;
+      if (c.image !== thumb || c.imageLarge !== large) {
+        c.image = thumb;
+        c.imageLarge = large;
+        artChanged++;
+        touched++;
+      }
     }
     if (typeof c.price === "number" && Math.abs(c.price - p) < 0.005) {
       unchanged++;
@@ -102,6 +123,17 @@ try {
         orphans.push(`${slug}-${c.number} (${c.name}) [chase-tcg]`);
         continue;
       }
+      const a = art.get(`${slug}|${norm(c.number)}`);
+      if (a) {
+        const thumb = `${a}/low.webp`;
+        const large = `${a}/high.webp`;
+        if (c.image !== thumb || c.imageLarge !== large) {
+          c.image = thumb;
+          c.imageLarge = large;
+          artChanged++;
+          tcgChanged++;
+        }
+      }
       if (typeof c.price === "number" && Math.abs(c.price - p) < 0.005) {
         unchanged++;
         continue;
@@ -120,6 +152,7 @@ try {
 }
 
 console.log(`  ${changed} price(s) rewritten, ${unchanged} already matched`);
+console.log(`  ${artChanged} card image(s) repointed at TCGdex`);
 if (orphans.length) {
   console.log(`\n${orphans.length} chase card(s) not found in the TCGdex data, left as they were:`);
   for (const o of orphans.slice(0, 12)) console.log("  " + o);
