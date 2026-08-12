@@ -149,6 +149,62 @@ try {
   /* run: node scripts/sync-intl-guides.mjs */
 }
 
+// The full card list per set, written by sync-cards.mjs. Until this existed the
+// English guides showed rarity totals and eight chase cards and nothing else,
+// while the imported guides listed every card, which was exactly backwards: the
+// sets Tim actually rips had less detail than the ones he does not.
+let checklists = {};
+try {
+  const dir = join(ROOT, "public/data/cards");
+  for (const f of await readdir(dir)) {
+    if (!f.endsWith(".json")) continue;
+    const doc = JSON.parse(await readFile(join(dir, f), "utf8"));
+    checklists[doc.set] = doc;
+  }
+} catch {
+  /* run: node scripts/sync-cards.mjs */
+}
+
+/** $1,470.58 — cents kept, because rounding $149.76 to $150 lost real money. */
+const cardPrice = (n) =>
+  typeof n === "number"
+    ? `$${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+    : "";
+
+function checklistBand(s) {
+  const doc = checklists[s.id];
+  if (!doc?.cards?.length) return "";
+  const priced = doc.cards.filter((c) => c.price != null);
+  const dearest = priced.slice().sort((a, b) => b.price - a.price)[0];
+
+  return `<section class="tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
+    <h2>Full <span class="hl">checklist</span></h2>
+    <p class="lede">All ${doc.cards.length} cards in ${esc(s.name)}, with what each one is worth.${
+      dearest ? ` The most expensive card in the set is ${esc(dearest.name)} at ${cardPrice(dearest.price)}.` : ""
+    }</p>
+    <details class="ig-list">
+      <summary>Show the full ${esc(s.name)} checklist</summary>
+      <ol class="ig-cards en">
+        ${doc.cards
+          .map(
+            (c) => `<li><span class="ig-no">${esc(c.n || "")}</span>
+          <span class="ig-nm">${esc(c.name)}</span>
+          ${c.price != null ? `<span class="ig-pr">${cardPrice(c.price)}</span>` : ""}
+          ${c.rarity ? `<span class="ig-rr2">${esc(c.rarity)}</span>` : ""}</li>`
+          )
+          .join("\n        ")}
+      </ol>
+    </details>
+    <p class="price-note">TCGplayer market prices via TCGdex, read ${esc(longDate(doc.checked) || doc.checked)}.
+      Where a card exists as a normal, holo and reverse holo at different prices, the figure shown is the dearest of
+      them, because that is the one people mean. ${priced.length} of ${doc.cards.length} cards have a price.
+      Looking for one card in particular? <a href="/cards.html?set=${esc(s.id)}">Search every card on the site</a>.</p>
+  </div>
+</section>`;
+}
+
 /** "8 weeks earlier", from two ISO dates. */
 function leadTime(earlier, later) {
   if (!earlier || !later) return null;
@@ -581,6 +637,8 @@ ${s.notes?.inPrint || s.notes?.packPrice ? `
     </div>` : `<p class="lede">Card list not available for this set yet.</p>`}
   </div>
 </section>
+
+${checklistBand(s)}
 
 ${intlBand(s)}
 

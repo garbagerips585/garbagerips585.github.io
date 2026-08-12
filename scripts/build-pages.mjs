@@ -689,6 +689,9 @@ const urls = [
   // structured data, the listings genuinely change, and "card shows near me" is
   // the kind of local search this site can actually win.
   { loc: `${SITE}/card-shows.html`, freq: "weekly", pri: "0.9" },
+  // Card search. 4,481 cards with live prices behind one page: the deepest
+  // reference on the site and the one worth crawling most often.
+  { loc: `${SITE}/cards.html`, freq: "daily", pri: "0.9" },
   ...ordered.filter((v) => taggedIds.has(v.id)).map((v) => ({ loc: `${SITE}/${pathFor(v)}`, freq: "monthly", pri: "0.6", mod: v.published })),
 ];
 await writeFile(

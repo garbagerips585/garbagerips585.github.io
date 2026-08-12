@@ -84,6 +84,12 @@ jobs:
       - name: Non-English set guides
         run: node scripts/sync-intl-guides.mjs
 
+      # Full card checklists and prices for the 23 English sets, 4,481 cards.
+      # --rotate does a quarter of the sets per night so every one is current
+      # within four days without making 4,500 requests to a free API daily.
+      - name: Card checklists and prices
+        run: node scripts/sync-cards.mjs --prices --rotate
+
       - name: Preorder prices for upcoming sets
         run: node scripts/sync-preorders.mjs --force
 
@@ -112,6 +118,7 @@ jobs:
           # deleted after being built, leaving the links to them dangling. The
           # link check below is what would catch it.
           node scripts/build-intl-pages.mjs
+          node scripts/build-cards.mjs
           node scripts/build-pages.mjs
           node scripts/build-expansions.mjs
           node scripts/build-404.mjs

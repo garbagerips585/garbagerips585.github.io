@@ -18,6 +18,7 @@
 export const NAV_LINKS = [
   ["/", "Home"],
   ["/videos.html", "All rips"],
+  ["/cards.html", "Card search"],
   ["/rarity.html", "Rarity guide"],
   ["/sets/", "Card Pokedex"],
   ["/expansions.html", "Every set ever"],
@@ -25,6 +26,7 @@ export const NAV_LINKS = [
   ["/wanted.html", "Most wanted"],
   ["/hall.html", "Card Hall of Fame"],
   ["/luck.html", "Luck & pull rates"],
+  ["/card-shows.html", "Card shows"],
   ["/shops.html", "Card shops"],
   ["/playlists.html", "Playlists"],
   ["/about.html", "About"],
@@ -111,6 +113,7 @@ export const MENU_GROUPS = [
     ["/playlists.html", "Playlists"],
   ]],
   ["Card guides", [
+    ["/cards.html", "Card search"],
     ["/sets/", "Set guides"],
     ["/rarity.html", "Rarity guide"],
     ["/expansions.html", "Every set ever"],

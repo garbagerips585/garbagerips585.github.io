@@ -1532,3 +1532,47 @@ footer .soc svg{fill:var(--paper)}
 .show-links a.tickets{background:var(--gold);color:var(--navy);border:2px solid var(--navy);
   border-radius:999px;padding:0 16px;box-shadow:0 3px 0 var(--gold-deep)}
 .show-links a.tickets:hover{background:var(--mustard);text-decoration:none}
+
+/* English set checklists carry a price, which the imported ones do not. Rarity
+   drops to its own row under the name rather than fighting the price for the
+   right-hand column: "Special illustration rare" beside "$1,470.58" squeezed
+   the card name to nothing at 360px. */
+.ig-cards.en li{grid-template-columns:3.4em 1fr auto}
+.ig-pr{grid-row:1;grid-column:3;font:700 var(--t-sm)/1.4 var(--mono);color:var(--ketchup-deep);
+  text-align:right;white-space:nowrap}
+.ig-rr2{grid-column:2;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.03em}
+
+/* --------------------------------------------------------------------------
+   Card search (/cards.html), written by scripts/build-cards.mjs.
+   -------------------------------------------------------------------------- */
+.cardsearch{display:grid;gap:var(--s3);margin-top:var(--s5)}
+.cardsearch input,.cardsearch select{
+  width:100%;min-height:52px;padding:0 16px;font:600 1rem/1 var(--body);
+  color:var(--ink);background:var(--card);border:2px solid var(--navy);
+  border-radius:999px;box-shadow:var(--lift);appearance:none;
+}
+.cardsearch input:focus,.cardsearch select:focus{outline:3px solid var(--gold);outline-offset:2px}
+.cardsearch select{background-image:none}
+.cq-status{font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.04em;text-transform:uppercase;
+  color:var(--ink-2);margin-top:var(--s3);min-height:1.4em}
+.cq-head{font-size:var(--t-sm);color:var(--ink-2);margin-top:var(--s3)}
+
+.cq-list{list-style:none;margin-top:var(--s4);display:grid;gap:2px}
+/* Name and price on the top line, set and rarity underneath. The price is what
+   the eye is hunting for, so it never shares a line with the rarity, which is
+   the longest string here ("Special illustration rare"). */
+.cq{display:grid;grid-template-columns:1fr auto;gap:2px var(--s3);align-items:baseline;
+  padding:10px 12px;background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm)}
+.cq-name{grid-row:1;grid-column:1;font-weight:700;font-size:var(--t-sm);color:var(--ink)}
+.cq-name:hover{color:var(--ketchup-deep);text-decoration:underline}
+.cq-pr{grid-row:1;grid-column:2;font:700 var(--t-sm)/1.4 var(--mono);color:var(--ketchup-deep);
+  text-align:right;white-space:nowrap}
+.cq-set{grid-row:2;grid-column:1;font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.03em}
+.cq-rr{grid-row:2;grid-column:2;font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
+  text-align:right}
+
+@media(min-width:640px){
+  .cardsearch{grid-template-columns:1fr 260px}
+}
