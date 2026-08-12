@@ -420,6 +420,17 @@ const wantedHtml = (wanted.cards || [])
   })
   .join("\n");
 
+// The imported set guides live in their own file and are listed on the same
+// /sets/ index, so any count of "guides" has to include them.
+let intlGuideCount = 0;
+try {
+  intlGuideCount = Object.keys(
+    JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8")).sets || {}
+  ).length;
+} catch {
+  /* run: node scripts/sync-intl-guides.mjs */
+}
+
 const REGIONS = {
   WANTED: wantedHtml,
   RAIL: railHtml,
@@ -429,7 +440,10 @@ const REGIONS = {
   SETS101: setsHtml,
   COUNT_ALL: String(videos.length),
   COUNT_HITS: String(hitCount),
-  COUNT_SETS: String(sets.length),
+  // Every guide under /sets/, not just the English ones. The chip said "All 23
+  // sets" and landed on a page listing 36, because the imported guides were
+  // never counted.
+  COUNT_SETS: String(sets.length + intlGuideCount),
 };
 
 // index.html carries its own copy of the bar and menu, because three other

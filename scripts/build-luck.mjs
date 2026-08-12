@@ -276,7 +276,9 @@ ${table(byProduct, "Product", "/videos.html?product=")}
       ? `<section class="band luck-sec">
     <div class="wrap">
       <h2>What has actually <span class="hl">come out</span></h2>
-      <p class="luck-note">Counted from the rip log. These are totals, not rates.</p>
+      <p class="luck-note">Counted from what the titles say, not from the rip log, which is why these
+      have numbers while the hit rate above still reads zero. They are totals, not rates: a set that gets opened
+      more will show more of everything. Once the log is filled in these become real per-pack rates.</p>
       <div class="pull-grid">
 ${(rarities.length ? rarities : pulls.map(([k, n]) => [labelFor("pulls", k) || k, n]))
   .map(([k, n]) => `        <div class="pull"><b>${n}</b><span>${esc(k)}</span></div>`)

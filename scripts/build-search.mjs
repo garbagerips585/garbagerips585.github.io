@@ -225,10 +225,10 @@ ${footer()}
     html+=group('Guides and pages', p.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(p));
 
     var s=hits(SITE.sets,q,8); n+=s.total;
-    html+=group('Set guides', s.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(s));
+    html+=group('Set guides', s.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(s), '/sets/');
 
     var k=hits(SITE.pokemon,q,8); n+=k.total;
-    html+=group('Pokemon', k.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(k));
+    html+=group('Pokemon', k.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(k), '/pokemon/');
 
     if(CARDS){
       var c=[];
@@ -242,6 +242,10 @@ ${footer()}
         return row(r[0], '/sets/'+r[1]+'.html', (CARDS.sets[r[1]]||r[1])+' • '+r[2], money(r[4]));
       }), c.length>10 ? 'Showing the 10 dearest of '+c.length.toLocaleString('en-US')+'.' : '',
          c.length>10 ? '/cards.html?q='+encodeURIComponent(q) : '');
+    }
+
+    if(!CARDS && q.length>=2){
+      html+='<section class="sg"><h2>Cards</h2><p class="price-note">Looking through 4,481 cards...</p></section>';
     }
 
     var v=hits(SITE.rips,q,10); n+=v.total;
@@ -259,12 +263,16 @@ ${footer()}
   load('/data/site-index.json', function(j){ SITE=j; render(); });
   // The card index is the big one, so it only loads once somebody has typed
   // enough to plausibly mean a card. Most searches never pull it.
-  input.addEventListener('input', function(){
-    if(!cardsTried && input.value.trim().length>=3){
-      cardsTried=true;
-      load('/data/card-index.json', function(j){ CARDS=j; render(); });
-    }
-  });
+  function wantCards(){
+    // Two characters is enough to mean a card ("ex", "V"), and gating on three
+    // meant /search.html?q=ex answered "30 results" while typing a third letter
+    // and deleting it answered "800". Same url, different answer, decided by
+    // typing history.
+    if(cardsTried || input.value.trim().length<2) return;
+    cardsTried=true;
+    load('/data/card-index.json', function(j){ CARDS=j; render(); });
+  }
+  input.addEventListener('input', wantCards);
 
   var t;
   input.addEventListener('input', function(){ clearTimeout(t); t=setTimeout(render,120); });
@@ -272,7 +280,7 @@ ${footer()}
   var p=new URLSearchParams(location.search).get('q');
   if(p){
     input.value=p;
-    if(p.trim().length>=3){ cardsTried=true; load('/data/card-index.json', function(j){ CARDS=j; render(); }); }
+    wantCards();
   }
 })();
 </script>

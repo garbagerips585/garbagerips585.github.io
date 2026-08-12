@@ -715,7 +715,7 @@ function indexPage() {
   const url = `${SITE}/sets/`;
   const desc =
     `Pokemon TCG set guides: card counts, rarity breakdowns and chase card values for ` +
-    `${sets.length} sets, from ${sets[sets.length - 1]?.name} to ${sets[0]?.name}.`;
+    `${sets.length + Object.keys(intlGuides).length} sets, from ${sets[sets.length - 1]?.name} to ${sets[0]?.name}.`;
   const ld = [
     {
       "@context": "https://schema.org",

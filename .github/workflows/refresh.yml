@@ -163,27 +163,7 @@ jobs:
       - name: Check the build
         run: |
           node scripts/sync-chrome.mjs --check
-          python3 - <<'EOF'
-          import glob, re, os, sys
-          missing = {}
-          for f in glob.glob('public/**/*.html', recursive=True):
-              for m in re.finditer(r'(?:href|src)="(/[^"#?]*)"', open(f).read()):
-                  u = m.group(1)
-                  p = os.path.join('public', u.lstrip('/'))
-                  if u.endswith('/'):
-                      p = os.path.join(p, 'index.html')
-                  if not os.path.exists(p):
-                      missing.setdefault(u, []).append(f)
-          pages = len(glob.glob('public/**/*.html', recursive=True))
-          print(f"{pages} pages built")
-          if pages < 300:
-              sys.exit(f"only {pages} pages, expected 300+")
-          if missing:
-              for u, fs in list(missing.items())[:10]:
-                  print(f"BROKEN {u}  <- {fs[0]}")
-              sys.exit(f"{len(missing)} broken internal link target(s)")
-          print("links ok")
-          EOF
+          python3 scripts/check-build.py
 
       - name: Commit if anything changed
         run: |

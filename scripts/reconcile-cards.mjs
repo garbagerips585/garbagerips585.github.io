@@ -48,11 +48,13 @@ const norm = (n) => String(n ?? "").replace(/^0+(?=\d)/, "").toLowerCase();
 
 const truth = new Map(); // "set|number" -> price
 const art = new Map(); // "set|number" -> TCGdex image base
+const bySet = new Map(); // slug -> every card, for building a chase list
 let checked = null;
 for (const f of await readdir(join(ROOT, "public/data/cards"))) {
   if (!f.endsWith(".json")) continue;
   const doc = JSON.parse(await readFile(join(ROOT, "public/data/cards", f), "utf8"));
   checked = checked || doc.checked;
+  bySet.set(doc.set, doc.cards);
   for (const c of doc.cards) {
     const k = `${doc.set}|${norm(c.n)}`;
     if (typeof c.price === "number") truth.set(k, c.price);
@@ -69,6 +71,46 @@ console.log(`TCGdex holds ${truth.size} priced cards and ${art.size} card images
 // imported guides already used it; the English ones were never converted.
 let artChanged = 0;
 let changed = 0;
+let builtChase = 0;
+
+// Rarity strings come through in two shapes. TCGplayer's feed sends screaming
+// snake case for the newest tiers, and MEGA_ATTACK_RARE was rendering verbatim
+// to readers on a set page.
+const prettyRarity = (r) =>
+  !r
+    ? null
+    : /^[A-Z0-9_]+$/.test(r)
+      ? r.toLowerCase().replace(/_/g, " ").replace(/^./, (c) => c.toUpperCase())
+      : r;
+
+/**
+ * A chase list built from the full checklist.
+ *
+ * Ascended Heroes shipped a ladder topping out at $69.94 while its dearest card
+ * is $1,118.76: the scraped source carried eight cards and none of the secret
+ * rare tier, so the set guide, the /sets/ index and the home page chip all
+ * agreed with each other and disagreed with the card data on the same site.
+ *
+ * We now hold every card and its price for all 23 sets, so a set with no chase
+ * list gets one from the top of its own checklist rather than from a partial
+ * scrape. Sets that already have a good one keep it.
+ */
+function chaseFromCards(slug, n = 8) {
+  const cards = bySet.get(slug) || [];
+  return cards
+    .filter((c) => typeof c.price === "number" && c.price > 0)
+    .sort((a, b) => b.price - a.price)
+    .slice(0, n)
+    .map((c) => ({
+      name: c.name,
+      number: c.n,
+      rarity: prettyRarity(c.rarity),
+      price: c.price,
+      image: c.img ? `${c.img}/low.webp` : null,
+      imageLarge: c.img ? `${c.img}/high.webp` : null,
+      source: "TCGdex",
+    }));
+}
 let unchanged = 0;
 const orphans = [];
 
@@ -78,6 +120,20 @@ const setsPath = join(ROOT, "public/data/sets.json");
 const setsDoc = JSON.parse(await readFile(setsPath, "utf8"));
 for (const s of setsDoc.sets || []) {
   let touched = 0;
+  // An empty chase list means the page renders "no market prices yet" or falls
+  // back to a partial scrape. We have the whole checklist now.
+  if (!(s.chase || []).length) {
+    const built = chaseFromCards(s.id);
+    if (built.length) {
+      s.chase = built;
+      s.pricesAsOf = checked;
+      s.priceSource = "TCGdex";
+      s.pricedCount = (bySet.get(s.id) || []).filter((c) => typeof c.price === "number").length;
+      builtChase++;
+      console.log(`  ${s.id.padEnd(21)} built a chase list from the checklist, top ${built[0].name} $${built[0].price}`);
+      continue;
+    }
+  }
   for (const c of s.chase || []) {
     const p = truth.get(`${s.id}|${norm(c.number)}`);
     if (p == null) {
@@ -95,6 +151,7 @@ for (const s of setsDoc.sets || []) {
         touched++;
       }
     }
+    if (c.rarity) c.rarity = prettyRarity(c.rarity);
     if (typeof c.price === "number" && Math.abs(c.price - p) < 0.005) {
       unchanged++;
       continue;
@@ -102,6 +159,19 @@ for (const s of setsDoc.sets || []) {
     c.price = p;
     touched++;
     changed++;
+  }
+  if (s.rarities) {
+    const fixed = {};
+    let renamed = false;
+    for (const [r, n] of Object.entries(s.rarities)) {
+      const nice = prettyRarity(r);
+      if (nice !== r) renamed = true;
+      fixed[nice] = (fixed[nice] || 0) + n;
+    }
+    if (renamed) {
+      s.rarities = fixed;
+      touched++;
+    }
   }
   if (touched) {
     s.pricesAsOf = checked;
@@ -134,6 +204,7 @@ try {
           tcgChanged++;
         }
       }
+      if (c.rarity) c.rarity = prettyRarity(c.rarity);
       if (typeof c.price === "number" && Math.abs(c.price - p) < 0.005) {
         unchanged++;
         continue;
@@ -153,6 +224,7 @@ try {
 
 console.log(`  ${changed} price(s) rewritten, ${unchanged} already matched`);
 console.log(`  ${artChanged} card image(s) repointed at TCGdex`);
+if (builtChase) console.log(`  ${builtChase} set(s) got a chase list built from their own checklist`);
 if (orphans.length) {
   console.log(`\n${orphans.length} chase card(s) not found in the TCGdex data, left as they were:`);
   for (const o of orphans.slice(0, 12)) console.log("  " + o);

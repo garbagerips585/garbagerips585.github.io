@@ -86,8 +86,8 @@ async function getJson(url, key, { refresh = false } = {}) {
     }
     await sleep(attempt * 1200);
   }
-  // A single card failing must not lose the other 4,499. The caller keeps
-  // whatever it had and the run reports the gap.
+  // A single card failing must not lose the other 4,480. Returning undefined
+  // signals "no answer"; it is the CALLER's job not to turn that into a null.
   return undefined;
 }
 
@@ -140,6 +140,7 @@ const bySlug = new Map(sets.map((s) => [s.id, s]));
 await mkdir(OUTDIR, { recursive: true });
 
 const warnings = [];
+const failedSets = [];
 const index = [];
 const imgBase = {};
 const summary = [];
@@ -164,7 +165,19 @@ for (const [slug, tcgdexId] of entries) {
 
   const set = await getJson(`${API}/sets/${tcgdexId}`, `en-${tcgdexId}`);
   if (!set) {
-    warnings.push(`${slug}: TCGdex has no English set "${tcgdexId}"`);
+    // Dropping the set here removed it from card-index.json while
+    // public/data/cards/<slug>.json stayed on disk, so every set guide looked
+    // perfect and only the search quietly covered fewer cards.
+    warnings.push(`${slug}: TCGdex returned nothing for "${tcgdexId}", kept the previous file`);
+    failedSets.push(slug);
+    const prev = join(OUTDIR, `${slug}.json`);
+    if (existsSync(prev)) {
+      const old = JSON.parse(await readFile(prev, "utf8"));
+      for (const c of old.cards || []) index.push([c.name, slug, c.n, c.rarity || "", c.price ?? null]);
+      const sample = (old.cards || []).find((c) => c.img);
+      if (sample) imgBase[slug] = sample.img.replace(/\/[^/]+$/, "");
+      summary.push({ slug, name: ours.name, cards: (old.cards || []).length, priced: old.priced ?? 0 });
+    }
     continue;
   }
 
@@ -200,7 +213,39 @@ for (const [slug, tcgdexId] of entries) {
       ill: full?.illustrator || null,
     });
   }
-  if (missing) warnings.push(`${slug}: ${missing} card(s) would not load, kept without rarity or price`);
+  // REFUSE TO WRITE A DEGRADED FILE. The loop above rebuilds every card from
+  // the fetch result, so a card that would not load came out with price, rarity
+  // and image all null, and the file was then written unconditionally.
+  //
+  // That is the worst shape a failure can take here. --rotate passes
+  // refresh:true, which bypasses the cache for exactly the sets being
+  // refreshed, so the cache cannot rescue them: one TCGdex wobble blanks ~1,100
+  // cards, the set guides then state "0 of 195 cards have a price" as a fact
+  // about the market, and the run exits 0 with one line in warnings.
+  //
+  // Staleness is the safe failure. Keep yesterday's file, say so loudly, and
+  // let the next run fix it.
+  if (missing) {
+    warnings.push(
+      `${slug}: ${missing} of ${list.length} card(s) failed to load. ` +
+        `KEPT THE PREVIOUS FILE rather than writing nulls over good data.`
+    );
+    failedSets.push(slug);
+    const prev = join(OUTDIR, `${slug}.json`);
+    if (existsSync(prev)) {
+      const old = JSON.parse(await readFile(prev, "utf8"));
+      for (const c of old.cards || []) index.push([c.name, slug, c.n, c.rarity || "", c.price ?? null]);
+      const sample = (old.cards || []).find((c) => c.img);
+      if (sample) imgBase[slug] = sample.img.replace(/\/[^/]+$/, "");
+      summary.push({ slug, name: ours.name, cards: (old.cards || []).length, priced: old.priced ?? 0 });
+      totalCards += (old.cards || []).length;
+      totalPriced += old.priced ?? 0;
+      console.log(`  ${slug.padEnd(21)} ${missing} card(s) failed, kept the previous file`);
+    } else {
+      warnings.push(`${slug}: no previous file to fall back on, so this set is MISSING from the index`);
+    }
+    continue;
+  }
 
   const priced = cards.filter((c) => c.price != null).length;
   totalCards += cards.length;
@@ -257,6 +302,9 @@ console.log(`
 Wrote public/data/cards/*.json and card-index.json
   ${summary.length} sets, ${totalCards} cards, ${totalPriced} with a price
   ${fetched} fetched, ${cached} from cache${PRICES ? `\n  prices refreshed for ${refreshedSets} of ${entries.length} sets${ROTATE ? ` (rotating, all ${entries.length} within ${SLICES} days)` : ""}` : ""}`);
+if (failedSets.length) {
+  console.log(`\n${failedSets.length} set(s) kept their previous file: ${failedSets.join(", ")}`);
+}
 if (warnings.length) {
   console.log(`\n${warnings.length} thing(s) to look at:`);
   for (const w of warnings) console.log("  " + w);

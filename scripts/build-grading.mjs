@@ -26,7 +26,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact, moneyRound } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, moneyRound, moneyCompact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const g = JSON.parse(await readFile(join(ROOT, "data/grading.json"), "utf8"));
@@ -208,8 +208,8 @@ ${MENU}
     </div>
 
     <div class="facts" style="margin-top:20px">
-      <div class="fact"><div class="n">${moneyRound(psaCo.cheapest)}</div><div class="l">Cheapest PSA tier</div></div>
-      <div class="fact"><div class="n">${moneyRound(cheapest.cheapest)}</div><div class="l">Cheapest anywhere (${esc(cheapest.name)})</div></div>
+      <div class="fact"><div class="n">${moneyCompact(psaCo.cheapest)}</div><div class="l">Cheapest PSA tier</div></div>
+      <div class="fact"><div class="n">${moneyCompact(cheapest.cheapest)}</div><div class="l">Cheapest anywhere (${esc(cheapest.name)})</div></div>
       <div class="fact"><div class="n">${worth.length}/${rows.length}</div><div class="l">Cards that clear the PSA fee</div></div>
       <div class="fact wide"><div class="n" style="font-size:1.15rem">${esc(longDate(g.checked) || g.checked)}</div><div class="l">Fees last checked</div></div>
     </div>
@@ -227,7 +227,7 @@ ${MENU}
         .map(
           (c) => `<article class="gc">
         <h3>${esc(c.name)}</h3>
-        <p class="gc-price">${moneyRound(c.cheapest)}<span> per card, ${esc(c.cheapestTier)}</span></p>
+        <p class="gc-price">${moneyCompact(c.cheapest)}<span> per card, ${esc(c.cheapestTier)}</span></p>
         <p class="gc-turn">${esc(c.turnaround)}</p>
         <p class="gc-note">${esc(c.note)}</p>
         <p class="gc-resale"><strong>Resale.</strong> ${esc(c.resale)}</p>
@@ -261,7 +261,7 @@ ${MENU}
           ${g.companies
             .slice()
             .sort((a, b) => a.cheapest - b.cheapest)
-            .map((c) => `<option value="${c.cheapest}">${esc(c.name)} ${esc(c.cheapestTier)}, ${moneyRound(c.cheapest)}</option>`)
+            .map((c) => `<option value="${c.cheapest}">${esc(c.name)} ${esc(c.cheapestTier)}, ${moneyCompact(c.cheapest)}</option>`)
             .join("\n          ")}
         </select>
       </label>

@@ -252,7 +252,7 @@
         {
           "name": "Mega Gengar ex",
           "number": "269",
-          "rarity": "MEGA_ATTACK_RARE",
+          "rarity": "Mega attack rare",
           "price": 57.01,
           "image": "https://assets.tcgdex.net/en/me/me02.5/269/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/269/high.webp",
@@ -261,7 +261,7 @@
         {
           "name": "Mega Dragonite ex",
           "number": "271",
-          "rarity": "MEGA_ATTACK_RARE",
+          "rarity": "Mega attack rare",
           "price": 43.88,
           "image": "https://assets.tcgdex.net/en/me/me02.5/271/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/271/high.webp",

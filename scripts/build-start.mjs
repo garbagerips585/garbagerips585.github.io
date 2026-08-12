@@ -49,7 +49,7 @@ const STEPS = [
   {
     n: 2,
     q: "What am I actually looking at?",
-    a: `Rarity symbols, what the little marks in the corner mean, and why two cards of the same Pokemon can be worth a dollar and a thousand dollars. Then the set itself: ${sets.length} guides with full checklists.`,
+    a: `Rarity symbols, what the little marks in the corner mean, and why two cards of the same Pokemon can be worth a dollar and a thousand dollars. Then the set itself: ${sets.length} English guides with full checklists, plus 13 imported ones.`,
     href: "/rarity.html",
     cta: "Rarity guide",
     also: [["/sets/", "Set guides"], ["/expansions.html", "Every set ever made"]],

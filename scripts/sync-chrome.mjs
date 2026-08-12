@@ -20,23 +20,37 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
-import { BAR, MENU } from "../shared/chrome.mjs";
+import { BAR, MENU, NAV_LINKS } from "../shared/chrome.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CHECK = process.argv.includes("--check");
 
 /** Pages with the chrome inlined rather than imported. */
+// Every hand-maintained page. about, shops and wanted were missing, so their
+// bar and menu were unguarded too; they happened to match, which is luck rather
+// than a guarantee.
 const PAGES = [
   "public/index.html",
   "public/videos.html",
   "public/playlists.html",
   "public/hall.html",
+  "public/about.html",
+  "public/shops.html",
+  "public/wanted.html",
   "public/404.html",
 ];
 
 const BLOCKS = [
   { name: "bar", re: /<header class="bar">[\s\S]*?<\/header>/, want: BAR },
   { name: "menu", re: /<nav class="menu"[\s\S]*?<\/nav>/, want: MENU },
+  // See checkDrift: the footer is where the drift actually happened.
+  {
+    name: "foot-nav",
+    re: /<nav class="foot-nav"[\s\S]*?<\/nav>/,
+    want: `<nav class="foot-nav" aria-label="Site">\n${NAV_LINKS.slice(1)
+      .map(([href, label]) => `      <a href="${href}">${label}</a>`)
+      .join("\n")}\n    </nav>`,
+  },
 ];
 
 const norm = (s) => s.replace(/\s+/g, " ").trim();

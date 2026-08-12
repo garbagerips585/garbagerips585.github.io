@@ -23,6 +23,17 @@ import { MONTHS_LONG as MONTHS } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
+// The imported guides are listed on the same /sets/ index, so a count of
+// "set guides" that omits them contradicts the page it links to.
+let intlCount = 0;
+try {
+  intlCount = Object.keys(
+    JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8")).sets || {}
+  ).length;
+} catch {
+  /* run: node scripts/sync-intl-guides.mjs */
+}
+
 
 const raw = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 const videos = raw.videos || raw;
@@ -123,7 +134,7 @@ const body = `
           <h3>The channel</h3>
           <div class="stat-row"><b>${videos.length}</b><span>rips filmed</span></div>
           <div class="stat-row"><b>${setsRipped}</b><span>sets opened</span></div>
-          <div class="stat-row"><b>${sets.length}</b><span>set guides</span></div>
+          <div class="stat-row"><b>${sets.length + intlCount}</b><span>set guides</span></div>
           ${since ? `<div class="stat-row"><b>${since.split(" ")[0].slice(0, 3)} ${since.split(" ")[1]}</b><span>first rip</span></div>` : ""}
         </div>
 

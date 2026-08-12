@@ -216,6 +216,20 @@ export function checkDrift(indexHtml) {
   const checks = [
     ["bar", slice('<header class="bar">', "</header>"), BAR],
     ["menu", slice('<nav class="menu"', "</nav>"), MENU],
+    // The footer nav was NOT checked, and that is exactly where the drift
+    // happened: index.html kept a hand-written six link footer while
+    // NAV_LINKS grew to seventeen, and four builders lift the footer out of
+    // index.html verbatim, so seven pages shipped without a single link to
+    // any card guide. A guard with a hole in it is the shape of the bug.
+    [
+      "foot-nav",
+      slice('<nav class="foot-nav"', "</nav>"),
+      `<nav class="foot-nav" aria-label="Site">
+${NAV_LINKS.slice(1)
+        .map(([href, label]) => `      <a href="${href}">${label}</a>`)
+        .join("\n")}
+    </nav>`,
+    ],
   ];
   for (const [name, found, want] of checks) {
     if (found == null) problems.push(`${name}: not found in index.html`);

@@ -143,7 +143,7 @@ const body = `
         and what moved today.</p>
 
       <div class="col-head">
-        <div class="col-stat"><b>${d.totalCards}</b><span>cards</span></div>
+        <div class="col-stat"><b>${d.totalCards}</b><span>cards${d.cards.length !== d.totalCards ? `, ${d.cards.length} different` : ""}</span></div>
         <div class="col-stat"><b>${usd0(d.totalValue)}</b><span>market value</span></div>
         <div class="col-stat"><b>${sets.length}</b><span>sets</span></div>
         <div class="col-stat"><b class="${dayChange >= 0 ? "up" : "down"}">${dayChange >= 0 ? "+" : ""}${usd(dayChange).replace("$-", "-$")}</b><span>today</span></div>

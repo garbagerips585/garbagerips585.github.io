@@ -28,7 +28,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact, moneyRound } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, moneyRound, moneyCompact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/pokemon");
@@ -195,14 +195,14 @@ function pokePage(p) {
           (c) => `<button class="chase-card" type="button"
         data-img="${esc(c.img ? c.img + "/high.webp" : "")}"
         data-name="${esc(c.name)}" data-rarity="${esc(c.rarity || "")}"
-        data-number="${esc(c.n || "")}" data-price="${esc(moneyExact(c.price))}"
+        data-number="${esc(c.n || "")}" data-price="${esc(moneyCompact(c.price))}"
         data-set="${esc(c.setName)}"
         aria-label="Enlarge ${esc(c.name)}">
         ${c.img ? `<img src="${esc(c.img)}/low.webp" alt="${esc(c.name)} ${esc(c.n || "")}, ${esc(c.setName)}" loading="lazy" width="245" height="342">` : ""}
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(c.setName)} &bull; ${esc(c.n || "")}</div>
         ${c.rarity ? `<div class="rr">${esc(c.rarity)}</div>` : ""}
-        ${typeof c.price === "number" ? `<div class="pr">${moneyExact(c.price)}</div>` : ""}
+        ${typeof c.price === "number" ? `<div class="pr">${moneyCompact(c.price)}</div>` : ""}
       </button>`
         )
         .join("\n      ")}
