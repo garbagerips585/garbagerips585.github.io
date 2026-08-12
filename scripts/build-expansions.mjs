@@ -19,6 +19,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, FONTS, footer } from "../shared/chrome.mjs";
+import { esc, shortDate } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -26,15 +27,7 @@ const { sets, seriesOrder, syncedAt } = JSON.parse(
   await readFile(join(ROOT, "public/data/expansions.json"), "utf8")
 );
 
-const esc = (s) =>
-  String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-const shortDate = (iso) => {
-  if (!iso) return "";
-  const [y, m, d] = iso.split("-").map(Number);
-  return `${MONTHS[m - 1]} ${d}, ${y}`;
-};
 const year = (iso) => (iso || "").slice(0, 4);
 const slugId = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
@@ -295,6 +288,8 @@ const html = `<!DOCTYPE html>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#15263A">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:title" content="Every Pokemon TCG Set in Order">
@@ -335,7 +330,7 @@ ${footer(
   `Set data from the Pokemon TCG API, last checked ${syncedAt}.`
 )}
 
-<script src="/assets/app.js"></script>
+<script src="/assets/app.js" defer></script>
 </body>
 </html>
 `;

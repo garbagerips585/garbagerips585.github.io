@@ -14,12 +14,11 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { esc } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 
-const esc = (s) =>
-  String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 /**
  * Strip tracking and session parameters from an outbound link.
@@ -56,7 +55,7 @@ const cards = shops
     })();
     return `      <li class="shop">
         <div class="shop-head">
-          <h3>${esc(s.name)}</h3>
+          <h2>${esc(s.name)}</h2>
           ${s.visited ? `<span class="shop-flag">Filmed here</span>` : ""}
         </div>
         ${s.area ? `<p class="shop-area">${esc(s.area)}</p>` : ""}
@@ -99,7 +98,7 @@ const style = `
   border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);
   box-shadow:var(--lift)}
 .shop-head{display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap}
-.shop h3{font:400 var(--t-m)/1.15 var(--display)}
+.shop h2{font:400 var(--t-m)/1.15 var(--display)}
 .shop-flag{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
   background:var(--mustard);color:var(--ink);border:1px solid var(--gold-deep);
   padding:4px 7px;border-radius:var(--r-pill)}
@@ -178,7 +177,7 @@ ${menuPanel}
 ${body}
 ${footer}
 
-<script src="assets/app.js"></script>
+<script src="/assets/app.js" defer></script>
 </body>
 </html>
 `;

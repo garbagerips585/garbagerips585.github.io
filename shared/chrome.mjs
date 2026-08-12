@@ -71,6 +71,13 @@ export const BAR = `<header class="bar">
       <label class="sr-only" for="navSearch">Search every rip</label>
       <input id="navSearch" name="q" type="search" placeholder="Search rips" aria-label="Search every rip by set, product or card">
     </form>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/sets/">Pokedex</a>
+      <a href="/expansions.html">All sets</a>
+      <a href="/wanted.html">Wanted</a>
+      <a href="/hall.html">Hall of Fame</a>
+    </nav>
     <a class="icon-btn" href="/videos.html" aria-label="Search all rips">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
     </a>

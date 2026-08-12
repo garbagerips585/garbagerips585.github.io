@@ -15,22 +15,15 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { esc, shortDate } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 
-const esc = (s) =>
-  String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 const money = (n) =>
   n >= 100 ? `$${Math.round(n).toLocaleString("en-US")}` : `$${n.toFixed(2)}`;
 
-const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-const niceDate = (iso) => {
-  if (!iso) return "";
-  const [y, m, d] = String(iso).slice(0, 10).split("-");
-  return `${MONTHS[Number(m) - 1]} ${Number(d)}, ${y}`;
-};
 
 const { cards, updated } = JSON.parse(
   await readFile(join(ROOT, "public/data/wanted.json"), "utf8")
@@ -134,7 +127,7 @@ ${caught.map((c) => cardTile(c, { hunted: false })).join("\n")}
     <p class="price-note">RAW PRICES COME FROM TCGPLAYER THROUGH THE POKEMON TCG API AND MOVE ON THEIR OWN.
       A SET THIS NEW OFTEN HAS NO MARKET PRICE YET, AND WE SHOW NOTHING RATHER THAN A ZERO.${
         anyPsa
-          ? `<br>PSA 10 PRICES COME FROM GRADED SALES DATA${asOf ? `, LAST CHECKED ${niceDate(asOf).toUpperCase()}` : ""}, AND ARE NOT PART OF THE TCGPLAYER FEED.`
+          ? `<br>PSA 10 PRICES COME FROM GRADED SALES DATA${asOf ? `, LAST CHECKED ${shortDate(asOf).toUpperCase()}` : ""}, AND ARE NOT PART OF THE TCGPLAYER FEED.`
           : `<br>PSA 10 PRICES ARE NOT LISTED FOR THESE YET. GRADED SALES COME FROM A SEPARATE FEED AND FROM CHECKING BY HAND.`
       }</p>
   </div>
@@ -178,7 +171,7 @@ ${menuPanel}
 ${body}
 ${footer}
 
-<script src="assets/app.js"></script>
+<script src="/assets/app.js" defer></script>
 </body>
 </html>
 `;

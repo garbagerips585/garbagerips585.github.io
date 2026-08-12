@@ -16,6 +16,7 @@ import { SITE, robots, LIVE, DOMAIN } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { ripPath } from "../shared/paths.mjs";
+import { esc, shortDate } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -74,10 +75,24 @@ const money = (n) =>
   n >= 100 ? `$${Math.round(n).toLocaleString("en-US")}` : `$${n.toFixed(2)}`;
 
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
+
+// Intrinsic size of each set logo, measured from the files by
+// scripts/build-packs.py and stored in data/logo-dims.json. Emitting
+// width/height reserves the box before the image lands: these are lazy and
+// sit low on the page, so without them every rip page reflows as you scroll.
+let LOGO_DIMS = {};
+try {
+  LOGO_DIMS = JSON.parse(await readFile(join(ROOT, "data/logo-dims.json"), "utf8"));
+} catch {
+  /* run: python3 scripts/measure-logos.py */
+}
+const logoAttrs = (setId) => {
+  const d = LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`];
+  return d ? ` width="${d[0]}" height="${d[1]}"` : "";
+};
+
 const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"));
 
-const esc = (s) =>
-  String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 const pathFor = (v) => v.path || ripPath(v);
 
@@ -98,16 +113,6 @@ for (const v of tagged) {
   }
 }
 
-const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-const niceDate = (iso) => {
-  // Guarded: sync-youtube emits published:"" for an upload that has been made
-  // private or removed but is still listed in the uploads playlist, and
-  // "".split("-") yields MONTHS[NaN] -> the page prints "undefined NaN, ".
-  if (!iso) return "";
-  const p = String(iso).slice(0, 10).split("-");
-  const m = MONTHS[+p[1] - 1];
-  return m ? `${m} ${+p[2]}, ${p[0]}` : "";
-};
 // Matches compact() in build-proto.mjs. They disagreed above a million: one
 // had an M branch and the other divided by 1000 forever, so the same video
 // would read "1.5M views" on its page and "1500K VIEWS" on its home page tile.
@@ -149,7 +154,20 @@ const desc = (v.blurb || descriptions[v.id] || "").trim();
     : `${v.title} — a Pokemon pack rip from Garbage Rips 585 in Rochester, NY.`;
   // Still YouTube's frame for the VideoObject schema and the poster behind the
   // pack, where it is correct. It is NOT the share image: see ogCard().
-  const thumb = `https://i.ytimg.com/vi/${v.id}/oardefault.jpg`;
+  // The player poster is the LCP image of every rip page, and it was being
+  // fetched as a ~178KB JPEG when the same frame is ~81KB as WebP: a 54% cut on
+  // the one image that decides how fast the page feels. app.js already had a
+  // thumbUrl() helper written to do exactly this, with the saving measured in
+  // its comment, and nothing ever called it.
+  //
+  // "oar" is the original-aspect-ratio frame, the only variant at the video's
+  // true vertical shape; hqdefault and maxresdefault are 4:3 and 16:9 crops
+  // that letterbox a Short. But oardefault does NOT exist for horizontal
+  // uploads (it 404s for kj7532tb0_I), and maxresdefault is already the right
+  // shape for those, so each gets the variant that actually exists.
+  const frame = v.vertical === false ? "maxresdefault" : "oardefault";
+  const thumbWebp = `https://i.ytimg.com/vi_webp/${v.id}/${frame}.webp`;
+  const thumb = `https://i.ytimg.com/vi/${v.id}/${frame}.jpg`;
   const url = `${SITE}/${pathFor(v)}`;
 
   // What the viewer is actually hoping falls out of this pack. Every chase card
@@ -241,6 +259,7 @@ const desc = (v.blurb || descriptions[v.id] || "").trim();
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -256,13 +275,16 @@ ${SKIP}
 ${BAR}
 ${MENU}
 
-<section id="main" class="rip tight${v.greatest ? " hall" : ""}">
+<main id="main" class="rip tight${v.greatest ? " hall" : ""}">
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / <a href="/videos.html">Every rip</a>${setId ? ` / <a href="/videos.html?set=${setId}">${esc(setLabel)}</a>` : ""}</p>
     <div class="rip-grid">
       <div>
         <div class="rip-player${v.vertical === false ? " rip-player--wide" : ""}" id="player" data-id="${v.id}">
-          <img src="${thumb}" alt="" width="${v.vertical === false ? 1280 : 720}" height="${v.vertical === false ? 720 : 1280}" fetchpriority="high">
+          <picture>
+            <source type="image/webp" srcset="${thumbWebp}">
+            <img src="${thumb}" alt="" width="${v.vertical === false ? 1280 : 720}" height="${v.vertical === false ? 720 : 1280}" fetchpriority="high" decoding="async">
+          </picture>
           <button class="pack pack--${packSet}" id="pack" type="button" aria-label="Rip open: ${esc(title)}">
             <span class="pack-face pack-l" aria-hidden="true">
               <span class="pack-art"></span>
@@ -278,14 +300,14 @@ ${MENU}
         </div>
       </div>
       <div>
-        ${setId ? `<img class="rip-setlogo" src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="${esc(setLabel)} Pokemon TCG set logo" loading="lazy" onerror="this.remove()">` : ""}
+        ${setId ? `<img class="rip-setlogo"${logoAttrs(setId)} src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="${esc(setLabel)} Pokemon TCG set logo" loading="lazy" onerror="this.remove()">` : ""}
         <h1>${esc(title)}</h1>
         <div class="rip-badges">
           ${setId ? `<a class="chip" href="/videos.html?set=${setId}">${esc(setLabel)}</a>` : ""}
           ${prodId ? `<a class="chip prod" href="/videos.html?product=${prodId}">${esc(prodLabel)}</a>` : ""}
           ${v.pulls.map((p) => `<span class="chip">${esc(labelFor("pulls", p))}</span>`).join("\n          ")}
         </div>
-        <p class="rip-meta">${niceDate(v.published)}${v.views ? " &bull; " + niceViews(v.views) : ""}${v.openingType ? " &bull; " + esc(v.openingType) : ""}</p>
+        <p class="rip-meta">${shortDate(v.published)}${v.views ? " &bull; " + niceViews(v.views) : ""}${v.openingType ? " &bull; " + esc(v.openingType) : ""}</p>
         ${v.hitCard ? `<div class="hit-panel">
           <p class="hit-label">The hit</p>
           <p class="hit-card">${esc(v.hitCard)}</p>
@@ -302,7 +324,7 @@ ${MENU}
       </div>
     </div>
   </div>
-</section>
+</main>
 
 ${sameBox.length ? `<section class="band tight">
   <div class="wrap">
@@ -324,7 +346,7 @@ ${related.length ? `<section class="band tight">
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <img class="setlogo" src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="${esc(setLabel)} Pokemon TCG set logo" loading="lazy" onerror="this.remove()">
+        <img class="setlogo"${logoAttrs(setId)} src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="${esc(setLabel)} Pokemon TCG set logo" loading="lazy" onerror="this.remove()">
         <h2>More <span class="hl">${esc(setLabel)}</span></h2>
       </div>
       <a class="btn btn-ghost btn-sm" href="/videos.html?set=${setId}">See all &rarr;</a>
@@ -342,7 +364,7 @@ ${related.length ? `<section class="band tight">
           <span class="vid-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
         </a>
         <h3 class="vid-title"><a href="/${pathFor(r)}">${esc(r.title)}</a></h3>
-        <p class="vid-meta">${niceDate(r.published)}</p>
+        <p class="vid-meta">${shortDate(r.published)}</p>
       </article>`).join("\n      ")}
     </div>
   </div>
@@ -426,7 +448,7 @@ ${footer()}
   }
 })();
 </script>
-<script src="/assets/app.js"></script>
+<script src="/assets/app.js" defer></script>
 </body>
 </html>
 `;

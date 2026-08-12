@@ -30,21 +30,12 @@
   }
 
   /* ------------------------------------------------------------ video card
-     Thumbnails use oardefault.jpg, which is the *original aspect ratio* frame
-     (720x1280 on this channel). hqdefault.jpg is a 480x360 centre crop and
-     would letterbox every vertical rip, so it is only the fallback. */
-
-  // "oar" = original aspect ratio: the only thumbnail YouTube serves at the
-  // video's real vertical shape. Everything else (hqdefault, maxresdefault)
-  // is a 4:3 or 16:9 crop that would letterbox a Short.
-  // WebP first, roughly 110KB against 190KB for the JPEG.
-  function thumbUrl(id) {
-    return "https://i.ytimg.com/vi_webp/" + id + "/oardefault.webp";
-  }
-  var THUMB_CHAIN = [
-    function (id) { return "https://i.ytimg.com/vi/" + id + "/oardefault.jpg"; },
-    function (id) { return "https://i.ytimg.com/vi/" + id + "/maxresdefault.jpg"; }
-  ];
+     Tiles do not use YouTube thumbnails at all: the art is a CSS booster pack
+     (see makePack below), because the poster frame is nearly always the pulled
+     card and would spoil the video. A thumbUrl()/THUMB_CHAIN pair for the
+     oardefault WebP chain used to live here, called by nothing since the pack
+     replaced it. The rip pages DO want that WebP frame for the player poster,
+     and build-pages.mjs now emits it directly in a <picture>. */
 
   // Warm the player origins the first time a card is hovered, once per page
   // rather than once per tile.
@@ -690,14 +681,9 @@
   /* ------------------------------------------------------------ chrome */
 
   function initNav() {
-    var nav = document.querySelector("nav.site");
-    var toggle = document.querySelector(".nav-toggle");
-    if (nav && toggle) {
-      toggle.addEventListener("click", function () {
-        var open = nav.classList.toggle("open");
-        toggle.setAttribute("aria-expanded", String(open));
-      });
-    }
+    // A branch here queried "nav.site" and ".nav-toggle", neither of which
+    // exists on any of the 342 pages. The live header is menuBtn/menu, handled
+    // below. This function had already had one dead selector removed once.
     // The header search box. It is a real <form action="/videos.html" method="get">
     // with a name="q" field, so it already works with no JavaScript at all and
     // needs no submit handler. There used to be one here bound to

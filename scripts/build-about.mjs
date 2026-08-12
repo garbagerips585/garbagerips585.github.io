@@ -19,11 +19,10 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { SOCIALS, SUBSCRIBE } from "../shared/chrome.mjs";
+import { MONTHS_LONG as MONTHS } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
-const esc = (s) =>
-  String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 const raw = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 const videos = raw.videos || raw;
@@ -31,7 +30,6 @@ const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), 
 
 const setsRipped = new Set(videos.flatMap((v) => v.sets || [])).size;
 const oldest = videos.map((v) => v.published).filter(Boolean).sort()[0] || null;
-const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const since = oldest ? `${MONTHS[Number(oldest.slice(5, 7)) - 1]} ${oldest.slice(0, 4)}` : null;
 
 const style = `
@@ -216,7 +214,7 @@ ${menu}
 ${body}
 ${footer}
 
-<script src="assets/app.js"></script>
+<script src="/assets/app.js" defer></script>
 </body>
 </html>
 `

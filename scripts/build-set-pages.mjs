@@ -15,8 +15,24 @@ import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
+import { esc, longDate } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+// Intrinsic size of each set logo, measured from the files themselves. These
+// are lazy and sit below the fold, so without a reserved box the section
+// reflows as each one lands.
+let LOGO_DIMS = {};
+try {
+  LOGO_DIMS = JSON.parse(await readFile(join(ROOT, "data/logo-dims.json"), "utf8"));
+} catch {
+  /* run: python3 scripts/measure-logos.py */
+}
+const logoAttrs = (setId) => {
+  const d = LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`];
+  return d ? ` width="${d[0]}" height="${d[1]}"` : "";
+};
+
 
 const OUT = join(ROOT, "public/sets");
 
@@ -34,6 +50,13 @@ const packsOnDisk = new Set(
     .map((f) => f.replace(/-garbage-rips-585-booster-pack\.webp$/, ""))
 );
 const packClass = (id) => (packsOnDisk.has(id) ? id : "default");
+
+// Which sets have their own share card, for the Article schema's image.
+const ogCards = new Set(
+  (await readdir(join(ROOT, "public/assets")))
+    .map((f) => /^og-(.+)\.jpg$/.exec(f)?.[1])
+    .filter(Boolean)
+);
 
 let psa10 = {};
 try {
@@ -66,15 +89,7 @@ const gradedAsOf = (setId, number) => {
 
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 
-const esc = (s) =>
-  String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-function niceDate(iso) {
-  if (!iso) return null;
-  const [y, m, d] = iso.split("-").map(Number);
-  return `${MONTHS[m - 1]} ${d}, ${y}`;
-}
 function yearsSince(iso) {
   if (!iso) return null;
   const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
@@ -196,7 +211,7 @@ function productBand(s) {
 ${cards}
     </ul>
     <p class="prod-note">Prices are TCGplayer market and lowest-listing prices, read on
-      ${esc(niceDate(entry.checked))}. They move every day, so treat them as a rough idea and not a quote.
+      ${esc(longDate(entry.checked))}. They move every day, so treat them as a rough idea and not a quote.
       Product photos are TCGplayer's. We are not a shop and we do not sell any of this.</p>
   </div>
 </section>`;
@@ -209,7 +224,7 @@ function derivedFacts(s) {
   const total = s.cardsSeen || 0;
 
   if (s.released) {
-    out.push(`<b>Released ${niceDate(s.released)}</b>, which was ${yearsSince(s.released)}.`);
+    out.push(`<b>Released ${longDate(s.released)}</b>, which was ${yearsSince(s.released)}.`);
   }
   if (s.printedTotal && s.secretCount) {
     out.push(
@@ -273,6 +288,7 @@ const head = ({ title, desc, canonical, image, ld }) => `<!DOCTYPE html>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -286,6 +302,7 @@ ${SPRITE}
 ${SKIP}
 ${BAR}
 ${MENU}
+<main id="main">
 `;
 
 // ------------------------------------------------------------------ a set
@@ -296,7 +313,7 @@ function setPage(s) {
   const label = labelFor("sets", s.id);
   const desc =
     `${s.name} Pokemon TCG set guide: ${s.total || "?"} cards, released ` +
-    `${niceDate(s.released) || "recently"}, full rarity breakdown` +
+    `${longDate(s.released) || "recently"}, full rarity breakdown` +
     (s.chase?.length ? `, and the top chase cards with current market values.` : `.`);
 
   const ordered = Object.entries(s.rarities || {}).sort((a, b) => {
@@ -311,6 +328,10 @@ function setPage(s) {
       "@type": "Article",
       headline: `${s.name} Pokemon TCG Set Guide`,
       description: desc,
+      // Required for the Article rich result. All 23 guides were omitting it,
+      // which made every one of them structurally ineligible. Prefer the set's
+      // own share card where we generated one.
+      image: [ogCards.has(s.id) ? `${SITE}/assets/og-${s.id}.jpg` : `${SITE}/assets/og-image.jpg`],
       about: { "@type": "Thing", name: `${s.name} (Pokemon Trading Card Game)` },
       url,
       datePublished: syncedAt,
@@ -346,10 +367,10 @@ function setPage(s) {
   }
 
   return head({ title: `${s.name} Set Guide: Cards, Rarities & Chase Card Values | Garbage Rips 585`, desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld }) + `
-<header class="set-hero" id="main">
+<header class="set-hero">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
-    <img class="logo-big" src="${logo}" alt="${esc(s.name)} Pokemon TCG set logo" onerror="this.remove()">
+    <img class="logo-big"${logoAttrs(s.id)} src="${logo}" alt="${esc(s.name)} Pokemon TCG set logo" onerror="this.remove()">
     <h1>${esc(s.name)}</h1>
     <p class="lede" style="max-width:34em">Everything worth knowing about ${esc(s.name)} in one screen. Card counts, what is actually rare, and what the chase cards are going for.</p>
   </div>
@@ -364,7 +385,7 @@ function setPage(s) {
       <div class="fact"><div class="n">${s.printedTotal ?? "?"}</div><div class="l">In the printed set</div></div>
       <div class="fact"><div class="n">${s.secretCount ?? "?"}</div><div class="l">Secret rares</div></div>
       <div class="fact"><div class="n">${rips || "-"}</div><div class="l">Rips on this channel</div></div>
-      <div class="fact wide"><div class="n" style="font-size:1.15rem">${niceDate(s.released) || "Unknown"}</div><div class="l">Release date${s.released ? ` &bull; ${yearsSince(s.released)}` : ""}</div></div>
+      <div class="fact wide"><div class="n" style="font-size:1.15rem">${longDate(s.released) || "Unknown"}</div><div class="l">Release date${s.released ? ` &bull; ${yearsSince(s.released)}` : ""}</div></div>
     </div>
 ${s.notes?.inPrint || s.notes?.packPrice ? `
     <div class="facts" style="margin-top:12px">
@@ -473,7 +494,7 @@ ${rips ? `<section class="tight">
     <h2>Other <span class="hl">sets</span></h2>
     <div class="set-index">
       ${sets.filter((o) => o.id !== s.id).slice(0, 6).map((o) => `<a class="set-card" href="/sets/${o.id}.html">
-        <img src="/assets/logos/${o.id}-pokemon-tcg-set-logo.webp" alt="" loading="lazy" onerror="this.remove()">
+        <img${logoAttrs(o.id)} src="/assets/logos/${o.id}-pokemon-tcg-set-logo.webp" alt="" loading="lazy" onerror="this.remove()">
         <span><span class="ttl">${esc(o.name)}</span><br><span class="meta">${o.total ?? "?"} cards</span></span>
       </a>`).join("\n      ")}
     </div>
@@ -492,6 +513,7 @@ ${rips ? `<section class="tight">
   </div>
 </div>
 
+</main>
 ${footer("Card data from the Pokemon TCG API. Prices are estimates and move constantly.")}
 <script>
 (function(){
@@ -521,7 +543,7 @@ ${footer("Card data from the Pokemon TCG API. Prices are estimates and move cons
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js"></script>
+<script src="/assets/app.js" defer></script>
 </body>
 </html>
 `;
@@ -555,7 +577,7 @@ function indexPage() {
     },
   ];
   return head({ title: `Pokemon TCG Set Guides: Cards, Rarities & Chase Values | Garbage Rips 585`, desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld }) + `
-<header class="set-hero" id="main">
+<header class="set-hero">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     <h1>Card <span class="hl">sets</span></h1>
@@ -568,7 +590,7 @@ function indexPage() {
     <p class="crumbs"><a href="/">Home</a> / Card sets</p>
     <div class="set-index">
       ${sets.map((s) => `<a class="set-card" href="/sets/${s.id}.html">
-        <img src="/assets/logos/${s.id}-pokemon-tcg-set-logo.webp" alt="${esc(s.name)} logo" loading="lazy" onerror="this.remove()">
+        <img${logoAttrs(s.id)} src="/assets/logos/${s.id}-pokemon-tcg-set-logo.webp" alt="${esc(s.name)} logo" loading="lazy" onerror="this.remove()">
         <span>
           <span class="ttl">${esc(s.name)}</span><br>
           <span class="meta">${s.total ?? "?"} cards${s.released ? ` &bull; ${s.released.slice(0, 4)}` : ""}${ripsBySet[s.id] ? ` &bull; ${ripsBySet[s.id]} rips` : ""}${(s.chase || [])[0]?.price ? ` &bull; top ${money(s.chase[0].price)}${gradedPrice(s.id, s.chase[0].number) ? ` / ${money(gradedPrice(s.id, s.chase[0].number))} PSA 10` : ""}` : ""}</span>
@@ -578,8 +600,9 @@ function indexPage() {
   </div>
 </section>
 
+</main>
 ${footer("Card data from the Pokemon TCG API. Prices are estimates and move constantly.")}
-<script src="/assets/app.js"></script>
+<script src="/assets/app.js" defer></script>
 </body>
 </html>
 `;

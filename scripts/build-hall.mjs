@@ -17,22 +17,15 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { esc, shortDate } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const MIN_SALES = 10; // same floor the set guides use
 
-const esc = (s) =>
-  String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const money = (n) =>
   n >= 100 ? `$${Math.round(n).toLocaleString("en-US")}` : `$${n.toFixed(2)}`;
 
-const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-const niceDate = (iso) => {
-  if (!iso) return "";
-  const [y, m, d] = String(iso).slice(0, 10).split("-");
-  return `${MONTHS[Number(m) - 1]} ${Number(d)}, ${y}`;
-};
 
 const { cards: hall } = JSON.parse(await readFile(join(ROOT, "data/hall.json"), "utf8"));
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
@@ -105,7 +98,7 @@ function plaque(c, i) {
             <div class="psa"><dt>PSA 10${c.psa10 && c.psa10AsOf ? ` <i>${esc(c.psa10AsOf)}</i>` : ""}</dt><dd>${c.psa10 ? money(c.psa10) : "&mdash;"}</dd></div>
           </dl>
           ${c.pulledOn || c.pulledIn
-            ? `<span class="chof-pulled">Pulled${c.pulledOn ? ` ${niceDate(c.pulledOn)}` : ""}${
+            ? `<span class="chof-pulled">Pulled${c.pulledOn ? ` ${shortDate(c.pulledOn)}` : ""}${
                 c.pulledIn ? ` &bull; ${esc(c.pulledIn)}` : ""
               }</span>`
             : ""}
@@ -308,7 +301,7 @@ ${menuPanel}
 ${body}
 ${footer}
 
-<script src="assets/app.js"></script>
+<script src="/assets/app.js" defer></script>
 </body>
 </html>
 `

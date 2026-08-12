@@ -14,6 +14,7 @@ import { readFile, writeFile, readdir } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkDrift } from "../shared/chrome.mjs";
+import { esc, MONTHS_SHORT as MONTHS } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // The live home page and the prototype share one design and one generator, so
@@ -22,8 +23,6 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // root, publicly reachable and carrying no canonical or description.
 const TARGETS = [join(ROOT, "public/index.html")];
 
-const esc = (s) =>
-  String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 /* ------------------------------------------------------------------ data -- */
 
@@ -67,7 +66,6 @@ const logos = await dirSet("logos", /-pokemon-tcg-set-logo\.webp$/);
 
 /* ------------------------------------------------------------- formatting - */
 
-const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
 function shortDate(iso) {
   if (!iso) return "";
@@ -289,6 +287,22 @@ async function logoHeight(id) {
   }
 }
 
+/**
+ * width/height for a set logo, from the file itself.
+ *
+ * logoHeight() above already reads the real dimensions to compute the display
+ * height; they were just never emitted as attributes, so 23 lazy logos on the
+ * home page had no reserved box and the section reflowed as they landed.
+ */
+async function logoAttrs(id) {
+  try {
+    const size = webpSize(await readFile(join(ROOT, `public/assets/logos/${id}-pokemon-tcg-set-logo.webp`)));
+    return size?.w ? ` width="${size.w}" height="${size.h}"` : "";
+  } catch {
+    return "";
+  }
+}
+
 /* ----------------------------------------------------------------- regions */
 
 const railHtml = [
@@ -314,7 +328,7 @@ const setsHtml = (
       const bits = [total ? `${total} cards` : null, monthYear(s.released) || null].filter(Boolean);
       const h = logos.has(s.id) ? await logoHeight(s.id) : null;
       const face = h
-        ? `<img src="assets/logos/${s.id}-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:${h}px">`
+        ? `<img${await logoAttrs(s.id)} src="assets/logos/${s.id}-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:${h}px">`
         : `<span class="set-name">${esc(s.name)}</span>`;
       // What the best card in this set is worth. PSA 10 where we have one,
       // raw otherwise, and nothing at all when we have neither.

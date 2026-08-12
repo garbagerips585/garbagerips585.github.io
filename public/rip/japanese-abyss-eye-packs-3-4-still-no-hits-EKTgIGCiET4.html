@@ -21,6 +21,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +48,13 @@
       <label class="sr-only" for="navSearch">Search every rip</label>
       <input id="navSearch" name="q" type="search" placeholder="Search rips" aria-label="Search every rip by set, product or card">
     </form>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/sets/">Pokedex</a>
+      <a href="/expansions.html">All sets</a>
+      <a href="/wanted.html">Wanted</a>
+      <a href="/hall.html">Hall of Fame</a>
+    </nav>
     <a class="icon-btn" href="/videos.html" aria-label="Search all rips">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
     </a>
@@ -70,13 +78,16 @@
   </ul>
 </nav>
 
-<section id="main" class="rip tight">
+<main id="main" class="rip tight">
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / <a href="/videos.html">Every rip</a></p>
     <div class="rip-grid">
       <div>
         <div class="rip-player" id="player" data-id="EKTgIGCiET4">
-          <img src="https://i.ytimg.com/vi/EKTgIGCiET4/oardefault.jpg" alt="" width="720" height="1280" fetchpriority="high">
+          <picture>
+            <source type="image/webp" srcset="https://i.ytimg.com/vi_webp/EKTgIGCiET4/oardefault.webp">
+            <img src="https://i.ytimg.com/vi/EKTgIGCiET4/oardefault.jpg" alt="" width="720" height="1280" fetchpriority="high" decoding="async">
+          </picture>
           <button class="pack pack--default" id="pack" type="button" aria-label="Rip open: Japanese Abyss Eye 👁️🔥 | Packs #3 &amp; #4 (STILL No Hits?!) 😭">
             <span class="pack-face pack-l" aria-hidden="true">
               <span class="pack-art"></span>
@@ -129,7 +140,7 @@ Huge thanks to @TOAKPulls for the packs from Collector Fest in Rochester, NY �
       </div>
     </div>
   </div>
-</section>
+</main>
 
 
 
@@ -237,6 +248,6 @@ Huge thanks to @TOAKPulls for the packs from Collector Fest in Rochester, NY �
   }
 })();
 </script>
-<script src="/assets/app.js"></script>
+<script src="/assets/app.js" defer></script>
 </body>
 </html>
