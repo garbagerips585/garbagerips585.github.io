@@ -356,6 +356,357 @@
       "rawNm": 67.31,
       "asOf": "2026-08-11",
       "source": "pokemonpricetracker.com"
+    },
+    "destined-rivals-193": {
+      "psa10": 392,
+      "psa10Confidence": "high",
+      "psa10Sales": 350,
+      "psa10LastSale": "2026-08-10",
+      "rawNm": 66.55,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "destined-rivals-240": {
+      "psa10": 188.25,
+      "psa10Confidence": "high",
+      "psa10Sales": 313,
+      "psa10LastSale": "2026-08-11",
+      "rawNm": 61.66,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "journey-together-184": {
+      "psa10": 400,
+      "psa10Confidence": "high",
+      "psa10Sales": 337,
+      "psa10LastSale": "2026-08-11",
+      "rawNm": 111.31,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "journey-together-187": {
+      "psa10": 255.75,
+      "psa10Confidence": "high",
+      "psa10Sales": 367,
+      "psa10LastSale": "2026-08-09",
+      "rawNm": 59,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "journey-together-185": {
+      "psa10": 133.02,
+      "psa10Confidence": "medium",
+      "psa10Sales": 233,
+      "psa10LastSale": "2026-08-09",
+      "rawNm": 48.89,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "journey-together-183": {
+      "psa10": 114.25,
+      "psa10Confidence": "medium",
+      "psa10Sales": 189,
+      "psa10LastSale": "2026-08-07",
+      "rawNm": 40.66,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "journey-together-186": {
+      "psa10": 134,
+      "psa10Confidence": "medium",
+      "psa10Sales": 205,
+      "psa10LastSale": "2026-08-11",
+      "rawNm": 35.03,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "journey-together-161": {
+      "psa10": 270.5,
+      "psa10Confidence": "high",
+      "psa10Sales": 449,
+      "psa10LastSale": "2026-08-10",
+      "rawNm": 20.98,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "journey-together-167": {
+      "psa10": 203.94,
+      "psa10Confidence": "high",
+      "psa10Sales": 520,
+      "psa10LastSale": "2026-08-12",
+      "rawNm": 18.04,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "journey-together-182": {
+      "psa10": 106,
+      "psa10Confidence": "medium",
+      "psa10Sales": 116,
+      "psa10LastSale": "2026-08-08",
+      "rawNm": 20.31,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "prismatic-evolutions-161": {
+      "psa10": 6149.99,
+      "psa10Confidence": "high",
+      "psa10Sales": 541,
+      "psa10LastSale": "2026-08-11",
+      "rawNm": 1480.32,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "prismatic-evolutions-156": {
+      "psa10": 1525,
+      "psa10Confidence": "high",
+      "psa10Sales": 309,
+      "psa10LastSale": "2026-08-10",
+      "rawNm": 520.04,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "prismatic-evolutions-144": {
+      "psa10": 830,
+      "psa10Confidence": "high",
+      "psa10Sales": 314,
+      "psa10LastSale": "2026-08-11",
+      "rawNm": 336.93,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "prismatic-evolutions-155": {
+      "psa10": 1224.5,
+      "psa10Confidence": "high",
+      "psa10Sales": 267,
+      "psa10LastSale": "2026-08-10",
+      "rawNm": 315.57,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "prismatic-evolutions-149": {
+      "psa10": 957.5,
+      "psa10Confidence": "high",
+      "psa10Sales": 248,
+      "psa10LastSale": "2026-08-08",
+      "rawNm": 300.88,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "prismatic-evolutions-150": {
+      "psa10": 752.5,
+      "psa10Confidence": "medium",
+      "psa10Sales": 285,
+      "psa10LastSale": "2026-08-11",
+      "rawNm": 277.78,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "prismatic-evolutions-146": {
+      "psa10": 661,
+      "psa10Confidence": "high",
+      "psa10Sales": 271,
+      "psa10LastSale": "2026-08-11",
+      "rawNm": 226.64,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "prismatic-evolutions-153": {
+      "psa10": 597,
+      "psa10Confidence": "medium",
+      "psa10Sales": 271,
+      "psa10LastSale": "2026-08-10",
+      "rawNm": 203.33,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "surging-sparks-238": {
+      "psa10": 900.5,
+      "psa10Confidence": "high",
+      "psa10Sales": 465,
+      "psa10LastSale": "2026-08-11",
+      "rawNm": 295.8,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "surging-sparks-239": {
+      "psa10": 508.32,
+      "psa10Confidence": "high",
+      "psa10Sales": 309,
+      "psa10LastSale": "2026-08-12",
+      "rawNm": 173.76,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "surging-sparks-237": {
+      "psa10": 305,
+      "psa10Confidence": "high",
+      "psa10Sales": 315,
+      "psa10LastSale": "2026-08-09",
+      "rawNm": 129.17,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "surging-sparks-247": {
+      "psa10": 340,
+      "psa10Confidence": "high",
+      "psa10Sales": 414,
+      "psa10LastSale": "2026-08-11",
+      "rawNm": 97.28,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "surging-sparks-240": {
+      "psa10": 110,
+      "psa10Confidence": "medium",
+      "psa10Sales": 255,
+      "psa10LastSale": "2026-08-10",
+      "rawNm": 36.42,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "surging-sparks-236": {
+      "psa10": 99,
+      "psa10Confidence": "medium",
+      "psa10Sales": 103,
+      "psa10LastSale": "2026-08-05",
+      "rawNm": 36.32,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "surging-sparks-203": {
+      "psa10": 270.22,
+      "psa10Confidence": "high",
+      "psa10Sales": 445,
+      "psa10LastSale": "2026-08-09",
+      "rawNm": 34.1,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "surging-sparks-242": {
+      "psa10": 130,
+      "psa10Confidence": "high",
+      "psa10Sales": 228,
+      "psa10LastSale": "2026-08-05",
+      "rawNm": 32.74,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "stellar-crown-169": {
+      "psa10": 167.75,
+      "psa10Confidence": "medium",
+      "psa10Sales": 105,
+      "psa10LastSale": "2026-08-09",
+      "rawNm": 64.6,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "stellar-crown-167": {
+      "psa10": 85,
+      "psa10Confidence": "medium",
+      "psa10Sales": 129,
+      "psa10LastSale": "2026-08-10",
+      "rawNm": 39.29,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "stellar-crown-170": {
+      "psa10": 251.25,
+      "psa10Confidence": "high",
+      "psa10Sales": 391,
+      "psa10LastSale": "2026-08-09",
+      "rawNm": 38,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "stellar-crown-168": {
+      "psa10": 80.5,
+      "psa10Confidence": "high",
+      "psa10Sales": 94,
+      "psa10LastSale": "2026-08-08",
+      "rawNm": 20.45,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "stellar-crown-152": {
+      "psa10": 114.94,
+      "psa10Confidence": "low",
+      "psa10Sales": 70,
+      "psa10LastSale": "2026-08-09",
+      "rawNm": 19.23,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "stellar-crown-172": {
+      "psa10": 58.5,
+      "psa10Confidence": "medium",
+      "psa10Sales": 93,
+      "psa10LastSale": "2026-08-07",
+      "rawNm": 17.31,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "twilight-masquerade-214": {
+      "psa10": 821,
+      "psa10Confidence": "high",
+      "psa10Sales": 446,
+      "psa10LastSale": "2026-08-09",
+      "rawNm": 376.5,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "twilight-masquerade-220": {
+      "psa10": 342.5,
+      "psa10Confidence": "medium",
+      "psa10Sales": 168,
+      "psa10LastSale": "2026-08-09",
+      "rawNm": 174.82,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "twilight-masquerade-188": {
+      "psa10": 332,
+      "psa10Confidence": "high",
+      "psa10Sales": 452,
+      "psa10LastSale": "2026-08-11",
+      "rawNm": 97.42,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "twilight-masquerade-187": {
+      "psa10": 292.5,
+      "psa10Confidence": "high",
+      "psa10Sales": 377,
+      "psa10LastSale": "2026-08-11",
+      "rawNm": 56.31,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "twilight-masquerade-217": {
+      "psa10": 167.5,
+      "psa10Confidence": "high",
+      "psa10Sales": 202,
+      "psa10LastSale": "2026-08-10",
+      "rawNm": 55.22,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "twilight-masquerade-216": {
+      "psa10": 159.5,
+      "psa10Confidence": "high",
+      "psa10Sales": 151,
+      "psa10LastSale": "2026-08-08",
+      "rawNm": 48.09,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "twilight-masquerade-219": {
+      "psa10": 67.52,
+      "psa10Confidence": "high",
+      "psa10Sales": 79,
+      "psa10LastSale": "2026-08-10",
+      "rawNm": 41.1,
+      "asOf": "2026-08-12",
+      "source": "pokemonpricetracker.com"
     }
   }
 }

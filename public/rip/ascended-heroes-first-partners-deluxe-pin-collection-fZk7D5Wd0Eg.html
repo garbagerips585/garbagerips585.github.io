@@ -101,7 +101,7 @@
           </button>
           <button class="sound-on" id="soundOn" type="button" hidden>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
-            Tap for sound
+            <span class="sound-on-label">Tap for sound</span>
           </button>
         </div>
       </div>
@@ -276,94 +276,131 @@ or another certified Garbage Rip.
   var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var opened=false;
 
-  // WHY THIS IS MUTED.
+  // AUTOPLAY, WITH SOUND, AND A GUARANTEE.
   //
-  // Ripping the pack has to start the video, and it did not: YouTube's own
-  // play button appeared over it and you had to click a second time.
+  // Two facts are in tension and the design has to respect both.
   //
-  // Mounting inside the click handler is necessary but NOT sufficient, which
-  // is what the previous comment here got wrong. A cross-origin iframe created
-  // during a gesture does not inherit that gesture. The click activated THIS
-  // page; the embed is a separate origin and starts with no user activation of
-  // its own, and allow="autoplay" delegates the permission policy without
-  // lifting the requirement that unmuted playback be user-initiated. Chrome,
-  // Safari and Firefox all refuse, and YouTube falls back to its play button.
+  // 1. Sound on is the point. This is a reaction channel; a silent rip is
+  //    worthless, so we ask for an unmuted start and take it wherever we can
+  //    get it.
+  // 2. A cross-origin iframe created during a click does not inherit that
+  //    click. The gesture activates THIS page, not the embed, and
+  //    allow="autoplay" delegates the permission without lifting the rule that
+  //    unmuted playback be user-initiated. Some browsers grant it anyway off
+  //    the page's sticky activation; some refuse. That is why it worked on
+  //    some opens and not others: it was never per-video, it was per-browser
+  //    and per-visit. All 309 pages are byte-identical and all 309 videos are
+  //    public, embeddable and unrestricted; both were checked.
   //
-  // Muted autoplay is the one form every browser permits unconditionally. So
-  // the video starts muted and we ask for sound immediately over the iframe
-  // API. Where the browser allows it, which is most desktops, nobody ever sees
-  // a muted frame. Where it does not, the "Tap for sound" button turns it on,
-  // and that tap is itself a gesture, so it always works.
+  // So: start unmuted and WATCH. The player reports its state over the iframe
+  // API, so we do not have to guess. If it has not reached PLAYING shortly
+  // after the tear, the browser refused, and we mute and play again, which is
+  // the one thing no browser refuses. The video is then always running, and a
+  // single tap on "Tap for sound" restores audio because that tap is itself a
+  // gesture.
   //
-  // The result is that the video always plays the moment the pack tears, on
-  // every device, which is the thing that actually matters.
-  var player=null;
+  // Never silently mute up front. That trades the thing Tim actually wants for
+  // a guarantee on every browser, including the majority that would have given
+  // us sound for free.
+  var player=null, started=false, unmuted=true, fellBack=false, btn=null;
 
-  function post(f,msg){
-    try{ f.contentWindow.postMessage(JSON.stringify(msg),'*'); }catch(e){}
+  var PLAYING=1;
+  // Escalating, cheapest first. The tear itself runs ~0.9s, so the first step
+  // lands while the pack is still coming apart and is never seen.
+  var GRACE_MS=1300;      // ask the player to mute itself and play
+  var RELOAD_MS=3000;     // still nothing: restart it muted from scratch
+  var GIVE_UP_MS=5000;    // still nothing: only a real tap will do it
+
+  function post(f,msg){ try{ f.contentWindow.postMessage(JSON.stringify(msg),'*'); }catch(e){} }
+  function cmd(func,args){ if(player) post(player,{event:'command',func:func,args:args||[]}); }
+
+  function srcFor(muted){
+    return 'https://www.youtube-nocookie.com/embed/'+p.dataset.id
+      +'?autoplay=1&playsinline=1&rel=0&enablejsapi=1'
+      +(muted?'&mute=1':'')
+      +'&origin='+encodeURIComponent(location.origin);
   }
-  function cmd(f,func,args){ post(f,{event:'command',func:func,args:args||[]}); }
 
   function mount(){
     var f=document.createElement('iframe');
-    f.src='https://www.youtube-nocookie.com/embed/'+p.dataset.id
-      +'?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1&origin='
-      +encodeURIComponent(location.origin);
+    f.src=srcFor(false);                 // sound on, first attempt
     f.title="Ascended Heroes First Partners Deluxe Pin Collection 🌱🔥💧";
     f.allow='autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
     f.allowFullscreen=true;
     f.referrerPolicy='strict-origin-when-cross-origin';
+    // The poster is a <picture> since the WebP change; removing only the <img>
+    // inside it left the poster sitting over the player.
     var poster=p.querySelector('picture')||p.querySelector('img');
     if(poster) poster.remove();
-    p.insertBefore(f,p.firstChild);   // behind the pack, which tears away over it
+    p.insertBefore(f,p.firstChild);      // behind the pack, which tears away over it
     player=f;
-    f.addEventListener('load',wire);
+    f.addEventListener('load',function(){
+      post(f,{event:'listening',id:1,channel:'widget'});
+      cmd('playVideo');
+    });
+    setTimeout(muteAndPlay,GRACE_MS);
+    setTimeout(reloadMuted,RELOAD_MS);
+    setTimeout(giveUp,GIVE_UP_MS);
   }
 
-  function wire(){
-    if(!player) return;
-    // Opens the player's state feed, which is how we learn whether it is
-    // actually muted rather than guessing.
-    post(player,{event:'listening',id:1,channel:'widget'});
-    askForSound();
-    // The player drops commands sent before it has finished booting and there
-    // is no event that says when that is, so ask a few times over ~1.5s.
-    var tries=0;
-    var t=setInterval(function(){
-      if(++tries>6 || !player){ clearInterval(t); return; }
-      askForSound();
-    },250);
-    // If nothing has told us we are unmuted by then, offer the button.
-    setTimeout(function(){ if(!unmuted) showSound(true); },1800);
+  // The browser would not start it with sound. Ask the player to mute ITSELF
+  // and play: muted playback is always permitted, and doing it over the API
+  // costs nothing, where swapping the src would throw away a loaded player and
+  // buy a second load. Offer the one tap that brings the audio back.
+  function muteAndPlay(){
+    if(started) return;
+    fellBack=true; unmuted=false;
+    cmd('mute'); cmd('playVideo');
+    showBtn('sound');
   }
 
-  function askForSound(){
-    if(!player) return;
-    cmd(player,'unMute');
-    cmd(player,'setVolume',[100]);
-    cmd(player,'playVideo');
+  // The API route did not take either, which usually means the handshake never
+  // landed, so commands are going nowhere. A fresh player with mute=1 in the
+  // URL does not need the handshake at all.
+  function reloadMuted(){
+    if(started||!player) return;
+    unmuted=false;
+    player.src=srcFor(true);
   }
 
-  var unmuted=false, soundBtn=null;
-  function showSound(on){
-    if(!soundBtn) soundBtn=document.getElementById('soundOn');
-    if(soundBtn) soundBtn.hidden=!on;
+  // Nothing automatic worked: Low Power Mode, a blocked domain, a background
+  // tab. All of those are fixed by a tap, so ask for one.
+  function giveUp(){
+    if(started) return;
+    showBtn('play');
   }
+
+  function showBtn(kind){
+    btn=btn||document.getElementById('soundOn');
+    if(!btn) return;
+    btn.hidden=false;
+    btn.dataset.kind=kind;
+    btn.querySelector('.sound-on-label').textContent=kind==='play'?'Tap to play':'Tap for sound';
+  }
+  function hideBtn(){ if(btn) btn.hidden=true; }
 
   window.addEventListener('message',function(e){
     if(String(e.origin).indexOf('youtube')===-1) return;
     var d; try{ d=JSON.parse(e.data); }catch(_){ return; }
-    var info=d&&d.info;
-    if(!info||typeof info.muted!=='boolean') return;
-    unmuted=!info.muted;
-    showSound(!unmuted);
+    var info=d&&d.info; if(!info) return;
+    if(info.playerState===PLAYING){
+      started=true;
+      // Playing AND audible is the goal state: nothing to offer.
+      if(unmuted) hideBtn();
+    }
+    if(typeof info.muted==='boolean'){
+      unmuted=!info.muted;
+      if(started&&unmuted) hideBtn();
+    }
   });
 
-  var btn=document.getElementById('soundOn');
-  if(btn) btn.addEventListener('click',function(){
-    askForSound();
-    unmuted=true;
-    showSound(false);
+  document.addEventListener('click',function(e){
+    var b=e.target.closest&&e.target.closest('#soundOn');
+    if(!b) return;
+    // This click IS a user gesture, so both of these are always permitted.
+    cmd('unMute'); cmd('setVolume',[100]); cmd('playVideo');
+    unmuted=true; started=true;
+    hideBtn();
   });
 
   // Driven off animationend rather than timers that guess the CSS durations:
