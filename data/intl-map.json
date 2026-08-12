@@ -41,7 +41,7 @@
     "perfect-order": {
       "sources": [{ "lang": "ja", "id": "M3", "name": "ムニキスゼロ", "romaji": "Nihil Zero" }],
       "confidence": "confirmed",
-      "note": "Was published here as 'Munikisu Zero', which was a transliteration of the native name rather than a sourced English name. Nihil Zero is what is printed on the packs and what the community uses, so that is what the page says now. See data/intl-rips.json."
+      "_note": "MAINTAINER NOTE, NOT RENDERED. Underscore prefix on purpose: `note` is published on the set page, and this one is a changelog entry, not copy. Was published as 'Munikisu Zero', a transliteration of the native name rather than a sourced English name. Nihil Zero is what is on the packs and what the community uses. See data/intl-rips.json."
     },
     "chaos-rising": {
       "sources": [{ "lang": "ja", "id": "M4", "name": "ニンジャスピナー", "romaji": "Ninja Spinner" }],
