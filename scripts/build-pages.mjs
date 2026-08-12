@@ -261,8 +261,8 @@ ${MENU}
     <p class="crumbs"><a href="/">Home</a> / <a href="/videos.html">Every rip</a>${setId ? ` / <a href="/videos.html?set=${setId}">${esc(setLabel)}</a>` : ""}</p>
     <div class="rip-grid">
       <div>
-        <div class="rip-player" id="player" data-id="${v.id}">
-          <img src="${thumb}" alt="" width="720" height="1280" fetchpriority="high">
+        <div class="rip-player${v.vertical === false ? " rip-player--wide" : ""}" id="player" data-id="${v.id}">
+          <img src="${thumb}" alt="" width="${v.vertical === false ? 1280 : 720}" height="${v.vertical === false ? 720 : 1280}" fetchpriority="high">
           <button class="pack pack--${packSet}" id="pack" type="button" aria-label="Rip open: ${esc(title)}">
             <span class="pack-face pack-l" aria-hidden="true">
               <span class="pack-art"></span>
@@ -380,24 +380,50 @@ ${footer()}
   // never fires at all.
   function once(fn){ var done=false; return function(){ if(done) return; done=true; fn(); }; }
 
+  // Wait for ONE named animation on an element. Without the name check any
+  // animationend bubbling up from a child would advance the sequence early;
+  // nothing does today, but adding a single animation anywhere inside the pack
+  // would silently start the tear mid-shake.
+  function after(el,name,fn){
+    if(!el) return;
+    el.addEventListener('animationend',function h(e){
+      if(e.animationName!==name) return;
+      el.removeEventListener('animationend',h);
+      fn();
+    });
+  }
+
   pack.addEventListener('click',function(){
     if(opened) return; opened=true;
+    // Was this a keyboard activation? Checked BEFORE the pack is torn away,
+    // because removing the focused element drops focus to <body> and a
+    // keyboard visitor is dumped back at the top of the document.
+    var byKeyboard=document.activeElement===pack;
     mount();                                 // first, while the gesture is live
-    if(reduced){ pack.remove(); return; }
+    if(reduced){ pack.remove(); focusPlayer(byKeyboard); return; }
 
     // Then tear the pack away over the top of the already-playing video.
     var face=pack.querySelector('.pack-l');
-    var clear=once(function(){ pack.remove(); });
+    var clear=once(function(){ pack.remove(); focusPlayer(byKeyboard); });
     var tear=once(function(){
       pack.classList.remove('shaking');
       pack.classList.add('tearing');
-      if(face) face.addEventListener('animationend',clear,{once:true});
+      after(face,'tearL',clear);
       setTimeout(clear,1600);
     });
     pack.classList.add('shaking');
-    if(face) face.addEventListener('animationend',tear,{once:true});
+    after(face,'packShake',tear);
     setTimeout(tear,600);
   });
+
+  // Hand focus to the player so the next Tab continues from the video rather
+  // than from the top of the page. Mouse users are left alone: focusing an
+  // iframe can scroll it into view, which is jarring when you already clicked it.
+  function focusPlayer(yes){
+    if(!yes) return;
+    var f=p.querySelector('iframe');
+    if(f) f.focus({preventScroll:true});
+  }
 })();
 </script>
 <script src="/assets/app.js"></script>

@@ -924,11 +924,67 @@ footer .soc svg{fill:var(--paper)}
 /* ---------- playlist cards ---------- */
 .pl-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
 .squiggle{display:block;margin:6px 0 0}
+/* 261 of 262 rips are vertical, so 9/16 is the right default. The one
+   horizontal video (kj7532tb0_I) was rendering inside it, pillarboxed into
+   about a third of the available height with black either side. */
+.rip-player--wide{aspect-ratio:16/9!important;max-width:none}
 .rip-player{position:relative;aspect-ratio:9/16;border-radius:12px;overflow:hidden;
   background:var(--navy-deep);border:4px solid var(--mustard);
   box-shadow:0 8px 0 var(--gold-deep),0 16px 30px rgba(19,38,55,.3)}
 .rip-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .rip-player img{width:100%;height:100%;object-fit:cover}
+/* ---------- the five pack keyframes ----------
+   These were referenced by name from five rules below and DID NOT EXIST: no
+   @keyframes block anywhere in the repo, and none in the file's git history
+   either. A CSS animation whose name matches no keyframes rule is not an
+   error, it simply never runs and never fires animationend, so the pack sat
+   motionless while the video played underneath it and the fallback timers did
+   all the work. Silent on every page, and the one interaction the whole site
+   is built around.
+
+   .pack-face carries transform-origin:center center, and .pack-flash carries a
+   base transform:translateX(-50%) that every frame below has to restate or the
+   flash snaps to the left edge of the pack. */
+
+@keyframes packShake{
+  0%,100%{transform:translate3d(0,0,0) rotate(0)}
+  15%{transform:translate3d(-5px,0,0) rotate(-1.1deg)}
+  30%{transform:translate3d(5px,0,0) rotate(1.1deg)}
+  45%{transform:translate3d(-4px,0,0) rotate(-.9deg)}
+  60%{transform:translate3d(4px,0,0) rotate(.9deg)}
+  80%{transform:translate3d(-2px,0,0) rotate(-.4deg)}
+}
+
+/* The hint goes first and fast, so it is gone before the halves separate
+   rather than riding one of them off the screen. */
+@keyframes packFade{
+  from{opacity:1}
+  to{opacity:0;transform:translateY(5px)}
+}
+
+/* The halves hesitate for a beat, as though the seam is giving way, then go.
+   Slight rotation and a little Y drift so it reads as torn paper rather than
+   two rectangles sliding apart. */
+@keyframes tearL{
+  0%{transform:translate3d(0,0,0) rotate(0);opacity:1}
+  16%{transform:translate3d(-1.5%,0,0) rotate(-1.4deg);opacity:1}
+  100%{transform:translate3d(-116%,7%,0) rotate(-15deg);opacity:0}
+}
+@keyframes tearR{
+  0%{transform:translate3d(0,0,0) rotate(0);opacity:1}
+  16%{transform:translate3d(1.5%,0,0) rotate(1.4deg);opacity:1}
+  100%{transform:translate3d(116%,7%,0) rotate(15deg);opacity:0}
+}
+
+/* Light spilling out of the seam: bright and narrow at the moment of the tear,
+   then widening and dying as the halves clear the frame. */
+@keyframes packFlash{
+  0%{opacity:0;transform:translateX(-50%) scaleX(.5)}
+  18%{opacity:1;transform:translateX(-50%) scaleX(1.6)}
+  55%{opacity:.55;transform:translateX(-50%) scaleX(4)}
+  100%{opacity:0;transform:translateX(-50%) scaleX(7)}
+}
+
 /* shake, then tear */
 .pack.shaking .pack-face{animation:packShake .26s ease-in-out}
 .pack.tearing{pointer-events:none}
@@ -1000,6 +1056,23 @@ footer .soc svg{fill:var(--paper)}
    404's so the two read at the same scale. */
 .empty-mascot{width:clamp(88px,22vw,116px);height:auto;display:block;margin:0 auto var(--s3);
   filter:drop-shadow(0 6px 12px rgba(21,38,58,.2))}
+
+/* Search field furniture. The native type=search clear affordance is WebKit
+   only and invisible on Android and Firefox, so the X is ours. */
+.libsearch-x{flex:none;width:32px;height:32px;display:grid;place-items:center;position:relative;
+  border:0;background:none;padding:0;cursor:pointer;border-radius:50%;color:var(--ink-2)}
+/* A 32px circle reads right next to a 19px magnifier, but 32px is under the
+   44px minimum touch target. The visual stays 32; this pushes the tappable
+   area out to 44 without moving anything on screen. */
+.libsearch-x::after{content:"";position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%}
+.libsearch-x:hover{background:var(--hair);color:var(--ink)}
+.libsearch-x svg{width:15px;height:15px;stroke:currentColor;stroke-width:2.4;
+  stroke-linecap:round;fill:none}
+.libsearch-x[hidden]{display:none}
+.libsearch-tip{max-width:640px;margin:var(--s2) auto 0;text-align:center;
+  font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2)}
+@media(max-width:520px){.libsearch-tip{display:none}}
 
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important;animation:none!important;

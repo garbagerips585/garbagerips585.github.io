@@ -87,8 +87,12 @@
     <form role="search" onsubmit="return false">
       <label class="sr-only" for="libSearch">Search every rip</label>
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
-      <input id="libSearch" type="search" placeholder="Search rips, sets, boxes..." aria-label="Search every rip by set, product or card">
+      <input id="libSearch" type="search" placeholder="Search rips, sets, boxes, cards..." aria-label="Search every rip by set, product or card" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
+      <button id="libClearQ" type="button" class="libsearch-x" aria-label="Clear the search" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </form>
+    <p class="libsearch-tip">Type more than one word to narrow it down, "in quotes" for an exact phrase, or -word to leave something out.</p>
   </div>
 </div>
 
@@ -111,7 +115,7 @@
     <div class="set-header" id="setHeader" hidden></div>
 
     <div class="lib-bar">
-      <p class="lib-count" id="libCount">Loading...</p>
+      <p class="lib-count" id="libCount" role="status" aria-live="polite">Loading...</p>
       <label class="sr-only" for="libSort">Sort by</label>
       <select class="sortsel" id="libSort">
         <option value="new">Newest first</option>

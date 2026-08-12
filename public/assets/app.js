@@ -297,14 +297,126 @@
       history.replaceState(null, "", qs ? "?" + qs : location.pathname);
     }
 
+    /* ------------------------------------------------------------ search */
+
+    /**
+     * Fold a string into something comparable.
+     *
+     * Lowercase, accents stripped, "&" spelled out, everything else that is not
+     * a letter or digit reduced to a space. Without this the two most likely
+     * things anyone types both fail: "pokemon go" does not match "Pokemon GO"
+     * once the source carries an accent, and "scarlet and violet" does not
+     * match "Scarlet & Violet".
+     */
+    function norm(str) {
+      return String(str == null ? "" : str)
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/&/g, " and ")
+        .replace(/[^a-z0-9]+/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    // Rarity tags are codes with no searchable words of their own. Somebody
+    // hunting a special illustration rare types "special illustration rare" or
+    // "SIR", never "sir" as stored, and both should land.
+    var PULL_WORDS = {
+      sir: "sir special illustration rare",
+      ir: "ir illustration rare",
+      gold: "gold hyper rare secret",
+      "double-rare": "double rare dual",
+      charizard: "charizard zard"
+    };
+
+    // Product tags are abbreviations. "ETB" is what the data stores and what a
+     // collector says out loud, but "elite trainer box" is what somebody types
+     // into a search box, and it matched one single rip out of sixty because the
+     // phrase appeared in one title by chance.
+    var PRODUCT_WORDS = {
+      etb: "etb elite trainer box",
+      upc: "upc ultra premium collection",
+      "booster-box": "booster box display case",
+      "ex-box": "ex box premium collection",
+      bundle: "bundle booster bundle six pack",
+      blister: "blister three pack checklane sleeved",
+      tin: "tin mini tin",
+      "collection-box": "collection box premium collection",
+      "single-pack": "single pack loose booster one pack"
+    };
+
+    /**
+     * Everything about one rip, folded, cached on the record.
+     *
+     * Ids go in alongside labels so a slug pasted from a URL ("pitch-black")
+     * matches as readily as the name. The spreadsheet fields are included even
+     * though most are still empty: they fill in as Tim tags, and a search that
+     * silently ignores the description he just wrote would be worse than one
+     * that never had it.
+     */
+    function haystack(v) {
+      if (v._hay != null) return v._hay;
+      var parts = [v.title, v.siteTitle, v.blurb, v.box, v.hitCard, v.notes];
+      (v.sets || []).forEach(function (x) { parts.push(x, labelOf("sets", x)); });
+      (v.products || []).forEach(function (x) { parts.push(x, labelOf("products", x), PRODUCT_WORDS[x] || ""); });
+      (v.pulls || []).forEach(function (x) { parts.push(PULL_WORDS[x] || x); });
+      parts.push(v.short ? "short" : "long");
+      v._hay = norm(parts.join(" "));
+      return v._hay;
+    }
+
+    /**
+     * Parse the query box.
+     *
+     * Bare words are ANDed, so "mega charizard" finds rips with both anywhere,
+     * in any order and across different fields. The old search was one
+     * indexOf of the whole string, so it only ever matched words that happened
+     * to sit next to each other in that order.
+     *
+     * A "quoted phrase" must appear intact, and a leading - excludes.
+     */
+    function parseQuery(raw) {
+      var terms = [], neg = [], m;
+      var re = /-?"[^"]*"?|\S+/g;
+      while ((m = re.exec(raw)) !== null) {
+        var tok = m[0], not = tok.charAt(0) === "-";
+        if (not) tok = tok.slice(1);
+        var t = norm(tok.replace(/"/g, ""));
+        if (t) (not ? neg : terms).push(t);
+      }
+      return { terms: terms, neg: neg };
+    }
+
+    /**
+     * Relevance, so a title match outranks one buried in a product label.
+     *
+     * Without this, results came back in date order and searching "charizard"
+     * put a rip merely tagged charizard above one with Charizard in its title.
+     */
+    function score(v, q) {
+      var title = norm(v.siteTitle || v.title);
+      var hay = haystack(v);
+      var n = 0;
+      for (var i = 0; i < q.terms.length; i++) {
+        var t = q.terms[i];
+        if (title === t) n += 100;
+        else if (title.indexOf(t) === 0) n += 40;
+        else if ((" " + title).indexOf(" " + t) > -1) n += 25;
+        else if (title.indexOf(t) > -1) n += 12;
+        if (hay.indexOf(t) > -1) n += 2;
+      }
+      return n;
+    }
+
+    var parsed = { terms: [], neg: [] };
+
     function matches(v) {
       if (state.sets.length && !state.sets.some(function (s) { return (v.sets || []).indexOf(s) > -1; })) return false;
       if (state.products.length && !state.products.some(function (s) { return (v.products || []).indexOf(s) > -1; })) return false;
-      if (state.q) {
-        var q = state.q.toLowerCase();
-        var hay = (v.title + " " + (v.siteTitle || "") + " " + (v.sets || []).map(function (s) { return labelOf("sets", s); }).join(" ") +
-          " " + (v.products || []).map(function (s) { return labelOf("products", s); }).join(" ")).toLowerCase();
-        if (hay.indexOf(q) === -1) return false;
+      if (parsed.terms.length || parsed.neg.length) {
+        var hay = haystack(v);
+        for (var i = 0; i < parsed.terms.length; i++) if (hay.indexOf(parsed.terms[i]) === -1) return false;
+        for (var j = 0; j < parsed.neg.length; j++) if (hay.indexOf(parsed.neg[j]) > -1) return false;
       }
       return true;
     }
@@ -312,7 +424,11 @@
     var SORTS = {
       new: function (a, b) { return a.published < b.published ? 1 : -1; },
       old: function (a, b) { return a.published > b.published ? 1 : -1; },
-      views: function (a, b) { return (b.views || 0) - (a.views || 0); }
+      views: function (a, b) { return (b.views || 0) - (a.views || 0); },
+      // Newest wins ties, so an unranked list still reads chronologically.
+      relevance: function (a, b) {
+        return score(b, parsed) - score(a, parsed) || (a.published < b.published ? 1 : -1);
+      }
     };
 
     // Rendering all ~260 tiles at once is a lot of DOM for no benefit, and an
@@ -404,19 +520,77 @@
     }
 
     readUrl();
+    parsed = parseQuery(state.q);
+
     var search = document.getElementById("libSearch");
+    var sortSel = document.getElementById("libSort");
+    var clearQ = document.getElementById("libClearQ");
+
+    // Whether the visitor has chosen a sort themselves. Until they do, typing a
+    // query switches to relevance and clearing it switches back, because a
+    // search that answers in date order buries the thing you searched for.
+    // Once they pick one, it is theirs and nothing changes it underneath them.
+    var sortIsMine = state.sort !== "new" && state.sort !== "relevance";
+
+    function applyQuery(raw, immediate) {
+      state.q = String(raw).trim();
+      parsed = parseQuery(state.q);
+      if (!sortIsMine) state.sort = state.q ? "relevance" : "new";
+      if (sortSel) sortSel.value = state.sort;
+      if (clearQ) clearQ.hidden = !state.q;
+      render();
+      if (immediate && search) search.value = state.q;
+    }
+
     if (search) {
       search.value = state.q;
       var t;
       search.addEventListener("input", function () {
         clearTimeout(t);
-        t = setTimeout(function () { state.q = search.value.trim(); render(); }, 160);
+        t = setTimeout(function () { applyQuery(search.value); }, 160);
+      });
+      // Escape clears the field, which is what a type=search input does
+      // natively in some browsers and in none of the others.
+      search.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && search.value) {
+          e.preventDefault();
+          clearTimeout(t);
+          applyQuery("", true);
+        }
       });
     }
-    var sortSel = document.getElementById("libSort");
+    if (clearQ) {
+      clearQ.hidden = !state.q;
+      clearQ.addEventListener("click", function () {
+        applyQuery("", true);
+        if (search) search.focus();
+      });
+    }
+    // "/" jumps to the search box, the convention on every site with a lot of
+    // things to look through. Ignored while typing so it can still be typed.
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
+      var a = document.activeElement, tag = a && a.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (a && a.isContentEditable)) return;
+      if (!search) return;
+      e.preventDefault();
+      search.focus();
+      search.select();
+    });
+
     if (sortSel) {
+      // Only offered while searching: "Best match" against no query is
+      // meaningless and would sort every rip identically.
+      var relOpt = document.createElement("option");
+      relOpt.value = "relevance";
+      relOpt.textContent = "Best match";
+      sortSel.insertBefore(relOpt, sortSel.firstChild);
       sortSel.value = state.sort;
-      sortSel.addEventListener("change", function () { state.sort = sortSel.value; render(); });
+      sortSel.addEventListener("change", function () {
+        state.sort = sortSel.value;
+        sortIsMine = true;
+        render();
+      });
     }
     var moreBtn = document.getElementById("libMore");
     if (moreBtn) {
@@ -428,9 +602,13 @@
     var clear = document.getElementById("libClear");
     if (clear) {
       clear.addEventListener("click", function () {
-        state.q = ""; state.sets = []; state.products = [];
+        state.sets = []; state.products = [];
         if (search) search.value = "";
-        render();
+        // Through applyQuery, so the parsed terms, the sort and the little
+        // clear button all reset with it. Setting state.q directly left the
+        // parsed query behind and the grid stayed filtered by a search the
+        // box no longer showed.
+        applyQuery("");
       });
     }
 
@@ -520,16 +698,18 @@
         toggle.setAttribute("aria-expanded", String(open));
       });
     }
-    // Site-wide search box in the header routes into the library page.
-    document.querySelectorAll("form.search[data-route]").forEach(function (f) {
-      f.addEventListener("submit", function (e) {
-        e.preventDefault();
-        var q = f.querySelector("input").value.trim();
-        // Absolute: initNav also runs on /rip/* and /sets/*, where a relative
-        // path would resolve to /rip/videos.html and 404.
-        location.href = "/videos.html" + (q ? "?q=" + encodeURIComponent(q) : "");
-      });
-    });
+    // The header search box. It is a real <form action="/videos.html" method="get">
+    // with a name="q" field, so it already works with no JavaScript at all and
+    // needs no submit handler. There used to be one here bound to
+    // form.search[data-route], a selector no page has ever carried: it matched
+    // nothing on all 342 pages and the native submit was doing the work.
+    //
+    // What it does need is to show the query it is displaying results for,
+    // otherwise arriving at /videos.html?q=charizard shows an empty box.
+    var navQ = document.getElementById("navSearch");
+    if (navQ && !navQ.value) {
+      navQ.value = new URLSearchParams(location.search).get("q") || "";
+    }
     // Mobile menu. The bar has room for a brand, a search affordance and
     // Subscribe, and nothing else, so on a phone every other page used to be a
     // 7,000px scroll away in the footer.
