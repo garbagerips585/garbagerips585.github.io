@@ -35,19 +35,32 @@ const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), 
 
 const setName = new Map(sets.map((s) => [s.id, s.name]));
 
-// Card names, so a row can say "Umbreon ex" rather than "prismatic-evolutions-161".
+// Card names AND raw prices. psa10.json carries its own rawNm from
+// pokemonpricetracker, but the rest of the site quotes TCGdex, and a grading
+// page that says a card is worth $1,480.32 raw while the card search one click
+// away says $1,470.58 is the exact inconsistency this build set out to remove.
+// The graded price still comes from psa10.json, because nothing else on the
+// site supplies one, and the page says so.
 const names = new Map();
+const rawPrice = new Map();
+let cardsChecked = null;
 try {
   const dir = join(ROOT, "public/data/cards");
   const { readdir } = await import("node:fs/promises");
+  const norm = (n) => String(n ?? "").replace(/^0+(?=\d)/, "");
   for (const f of await readdir(dir)) {
     if (!f.endsWith(".json")) continue;
     const doc = JSON.parse(await readFile(join(dir, f), "utf8"));
-    for (const c of doc.cards) names.set(`${doc.set}-${c.n}`, c.name);
+    cardsChecked = cardsChecked || doc.checked;
+    for (const c of doc.cards) {
+      names.set(`${doc.set}-${norm(c.n)}`, c.name);
+      if (typeof c.price === "number") rawPrice.set(`${doc.set}-${norm(c.n)}`, c.price);
+    }
   }
 } catch {
   /* run: node scripts/sync-cards.mjs */
 }
+const keyOf = (slug, num) => `${slug}-${String(num ?? "").replace(/^0+(?=\d)/, "")}`;
 
 const cheapest = g.companies.slice().sort((a, b) => a.cheapest - b.cheapest)[0];
 const psaCo = g.companies.find((c) => c.id === "psa");
@@ -68,7 +81,9 @@ const rows = [];
 for (const [key, a] of Object.entries(psa.auto || {})) {
   const manual = psa.prices?.[key];
   const psa10 = (typeof manual === "number" ? manual : manual?.price) ?? a.psa10;
-  const raw = a.rawNm;
+  const mk = /^(.*)-([^-]+)$/.exec(key);
+  // TCGdex first, the graded feed's own raw as the fallback.
+  const raw = rawPrice.get(keyOf(mk?.[1] || "", mk?.[2] || "")) ?? a.rawNm;
   if (typeof psa10 !== "number" || typeof raw !== "number" || raw <= 0) continue;
   // Enough recorded sales to mean something. Six sales is an anecdote.
   if (a.psa10Sales != null && a.psa10Sales < 10) continue;
@@ -80,7 +95,7 @@ for (const [key, a] of Object.entries(psa.auto || {})) {
   const feeCheap = cheapest.cheapest + SHIP;
   rows.push({
     key,
-    name: names.get(key) || key,
+    name: names.get(keyOf(slug, num)) || key,
     set: setName.get(slug) || slug,
     slug,
     num,
@@ -293,9 +308,11 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
     </ul>
     <p class="price-note">Fees and turnarounds read on ${esc(longDate(g.checked) || g.checked)} and they change often,
       sometimes with a fortnight's notice, so click through before you send anything. Card prices are TCGplayer market
-      and PSA 10 sale data, and both move daily. No affiliate links and no recommendation: we are not paid by any
-      grading company and which one is right depends on your card and your patience. Not financial advice, just
-      subtraction.</p>
+      and PSA 10 sale data. Raw prices are TCGplayer market via TCGdex, read ${esc(longDate(cardsChecked) || cardsChecked || "recently")},
+      the same figures the rest of this site quotes. PSA 10 prices come from pokemonpricetracker.com, because no free
+      feed carries graded sales; only cards with at least ten recorded sales are used. Both move daily. No affiliate
+      links and no recommendation: we are not paid by any grading company and which one is right depends on your card
+      and your patience. Not financial advice, just subtraction.</p>
   </div>
 </section>
 

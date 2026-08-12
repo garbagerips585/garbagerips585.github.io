@@ -90,11 +90,23 @@ jobs:
       - name: Card checklists and prices
         run: node scripts/sync-cards.mjs --prices --rotate
 
+      # MUST follow sync-cards and precede sync-chase. Makes TCGdex the single
+      # source of truth for prices by pushing them into sets.json and
+      # chase-tcg.json, so no two pages can quote the same card differently.
+      - name: One price per card
+        run: node scripts/reconcile-prices.mjs
+
       - name: Preorder prices for upcoming sets
         run: node scripts/sync-preorders.mjs --force
 
       - name: Chase cards for sets with no API prices
         run: node scripts/sync-chase.mjs --force
+
+      # sync-chase rewrites chase-tcg.json from TCGplayer directly, which would
+      # reintroduce a second set of numbers for the four newest sets. Reconcile
+      # again so the last word always belongs to TCGdex.
+      - name: One price per card, again
+        run: node scripts/reconcile-prices.mjs
 
       # 100 credits a day on the free tier and 2 credits per card, so 50 is the
       # daily ceiling. The script resumes rather than restarting, so it works
