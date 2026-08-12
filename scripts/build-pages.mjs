@@ -631,6 +631,9 @@ const urls = [
   // Observed hit rates. The most linkable page on the site: nobody else has
   // this data, so it is the one most likely to be cited from outside.
   { loc: `${SITE}/luck.html`, freq: "weekly", pri: "0.9" },
+  // Release dates. High priority and frequent: this is the page people search
+  // for by name in the weeks before a set drops.
+  { loc: `${SITE}/upcoming.html`, freq: "weekly", pri: "0.9" },
   ...ordered.filter((v) => taggedIds.has(v.id)).map((v) => ({ loc: `${SITE}/${pathFor(v)}`, freq: "monthly", pri: "0.6", mod: v.published })),
 ];
 await writeFile(

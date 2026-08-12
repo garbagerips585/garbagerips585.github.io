@@ -20,6 +20,7 @@ export const NAV_LINKS = [
   ["/videos.html", "All rips"],
   ["/sets/", "Card Pokedex"],
   ["/expansions.html", "Every set ever"],
+  ["/upcoming.html", "Coming next"],
   ["/wanted.html", "Most wanted"],
   ["/hall.html", "Card Hall of Fame"],
   ["/luck.html", "Luck & pull rates"],

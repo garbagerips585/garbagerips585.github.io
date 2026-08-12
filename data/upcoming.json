@@ -1,0 +1,120 @@
+{
+  "_readme": [
+    "Upcoming English-language Pokemon TCG releases. Hand maintained: there is no",
+    "API for things that have not happened yet.",
+    "",
+    "confidence is one of:",
+    "  confirmed  an official date from The Pokemon Company or Pokemon Center",
+    "  window     an official month or quarter, but no exact day",
+    "  expected   a product lineup that matches every previous set in the series",
+    "             but which TPCi has not announced. Retailer preorder pages often",
+    "             list these; they are templated from the last set, not sourced.",
+    "",
+    "RULES FOR EDITING THIS FILE",
+    "  Never add a set that has not been officially named. Several AI-written card",
+    "  sites invent them, and one of them called Chaos Rising 'Rising Chaos'.",
+    "  Never publish a card count that TPCi has not announced. Set trackers",
+    "  extrapolate those from the Japanese list and they are frequently wrong.",
+    "  Japanese sets are not English sets. Do not put a Japanese date on this page.",
+    "  When something ships, delete it from here; the page filters past dates out",
+    "  anyway, but the file should not grow forever."
+  ],
+  "checked": "2026-08-12",
+  "sets": [
+    {
+      "name": "30th Celebration",
+      "code": null,
+      "date": "2026-09-16",
+      "confidence": "confirmed",
+      "blurb": "The anniversary set, and the first Pokemon TCG expansion to launch worldwide on the same day as Japan. Every single card in it is foil, including the basic Energy.",
+      "highlights": [
+        "A new rarity, Futuristic rare, debuting on Mewtwo ex and Mew ex",
+        "30 different Pikachu illustrations by 30 illustrators, one guaranteed in every pack",
+        "A 30 card Classic Collection of reprints, numbered outside the main set",
+        "Packs are 5 foil cards plus a foil basic Energy"
+      ],
+      "products": [
+        { "name": "Elite Trainer Box", "date": "2026-09-16", "packs": 9, "price": "$49.99", "note": "Full art Nidorina promo" },
+        { "name": "Pokemon Center Elite Trainer Box", "date": "2026-09-16", "packs": 11, "note": "Pokemon Center exclusive, two Nidorina promos" },
+        { "name": "ex Box, Sylveon ex and Greninja ex", "date": "2026-09-16", "packs": 4, "price": "$21.99" },
+        { "name": "Poster Collection", "date": "2026-09-16", "packs": 3, "price": "$14.99", "note": "Articuno, Zapdos and Moltres full arts plus a 160 card wall poster" },
+        { "name": "Tech Sticker Collection", "date": "2026-09-16", "packs": 3, "price": "$14.99" },
+        { "name": "Knock Out Collection", "date": "2026-09-16", "packs": 2, "price": "$9.99" },
+        { "name": "Booster Bundle", "date": "2026-10-02", "packs": 6 },
+        { "name": "Binder Collection", "date": "2026-10-02", "packs": 5 },
+        { "name": "Mini Tins", "date": "2026-10-02", "packs": 2, "note": "10 artworks, day and night variants" },
+        { "name": "Battle Deck, Espeon ex and Umbreon ex", "date": "2026-10-30", "price": "$19.99", "note": "All foil 60 card decks" },
+        { "name": "Ultra Premium Collection, Day and Night", "date": "2026-11-06", "packs": 29, "price": "$179.99", "note": "Plus one Classic Collection pack" },
+        { "name": "Ditto Premium Collection", "date": "2026-11-06", "packs": 8 },
+        { "name": "Figure Collection, Mew and Mewtwo", "date": "2026-11-06", "packs": 5, "price": "$29.99" },
+        { "name": "ex Tin, Sylveon ex or Greninja ex", "date": "2026-12-04", "packs": 4, "price": "$21.99", "confidence": "expected" }
+      ],
+      "noBoosterBox": true,
+      "sources": [
+        "https://www.pokemon.com/us/news/pokemon-tcg-30th-celebration-product-showcase",
+        "https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box"
+      ]
+    },
+    {
+      "name": "Mega Evolution: Delta Reign",
+      "code": "ME06",
+      "date": "2026-11-06",
+      "confidence": "confirmed",
+      "blurb": "The next Mega Evolution set, teased by The Pokemon Company in June. Mega Rayquaza ex comes back to the TCG, with Hoenn flavour running through it.",
+      "highlights": [
+        "Mega Rayquaza ex returns, as a Double Rare",
+        "Paired Stadium cards: one artwork split across two Stadiums played together",
+        "Mega Golisopod ex, Mega Golurk ex and Mega Malamar ex appear in the Japanese set it comes from"
+      ],
+      "products": [
+        { "name": "Elite Trainer Box", "confidence": "expected" },
+        { "name": "Booster Box", "confidence": "expected" },
+        { "name": "Booster Bundle", "confidence": "expected" },
+        { "name": "Build and Battle Box", "confidence": "expected" },
+        { "name": "3 Pack Blister", "confidence": "expected" }
+      ],
+      "productNote": "No product lineup has been announced. These are what every Mega Evolution set has had so far, which is a fair guess and not a fact.",
+      "sources": [
+        "https://www.pokeguardian.com/3231721_pokemon-tcg-mega-evolution-delta-reign-teased-november-release",
+        "https://bulbapedia.bulbagarden.net/wiki/Delta_Reign_(TCG)"
+      ]
+    }
+  ],
+  "products": [
+    {
+      "name": "Ascended Heroes Tin",
+      "date": "2026-08-28",
+      "confidence": "confirmed",
+      "packs": 4,
+      "blurb": "Mega Meganium ex, Mega Emboar ex or Mega Feraligatr ex, with four Ascended Heroes packs.",
+      "sources": ["https://www.pokemon.com/us/news/check-out-every-pokemon-tcg-product-release-in-august-2026"]
+    },
+    {
+      "name": "Enhanced 2 Pack Blister",
+      "date": "2026-10-02",
+      "confidence": "confirmed",
+      "packs": 2,
+      "price": "$10.99",
+      "blurb": "Gengar, Marshadow or Team Rocket's Mimikyu in cosmos holo, plus a metallic coin.",
+      "sources": ["https://www.pokebeach.com/2026/07/new-gengar-enhanced-2-pack-blister-and-mega-greninja-mini-portfolio-to-release-in-october"]
+    },
+    {
+      "name": "Mini Portfolio",
+      "date": "2026-10-02",
+      "confidence": "confirmed",
+      "packs": 1,
+      "price": "$5.49",
+      "blurb": "Mega Greninja and Mega Zeraora on the front, Mega Darkrai and Mega Chandelure on the back. Comes with one Pitch Black pack.",
+      "sources": ["https://www.pokebeach.com/2026/07/new-gengar-enhanced-2-pack-blister-and-mega-greninja-mini-portfolio-to-release-in-october"]
+    },
+    {
+      "name": "Deck Crafter's Collection",
+      "date": "2026-10-23",
+      "confidence": "confirmed",
+      "packs": 1,
+      "price": "$9.99",
+      "blurb": "The replacement for the Trainer's Toolkit. A foil Meowth ex, 39 tournament ready Trainer cards, dividers and one Pitch Black pack.",
+      "sources": ["https://icv2.com/articles/news/view/63081/build-new-decks-pokemon-tcg-deck-crafters-collection"]
+    }
+  ]
+}

@@ -95,6 +95,7 @@ jobs:
           node scripts/build-shops.mjs
           node scripts/build-about.mjs
           node scripts/build-luck.mjs
+          node scripts/build-upcoming.mjs
 
       # Cheap guards. A nightly job that commits unattended should not be able
       # to publish a broken site quietly.

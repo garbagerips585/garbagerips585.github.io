@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Upcoming Pokemon TCG Sets 2026: Release Dates and Products | Garbage Rips 585</title>
+<meta name="description" content="Every announced English Pokemon TCG set and product with its release date, starting with 30th Celebration on September 16, 2026. Confirmed dates marked apart from expected ones.">
+<link rel="canonical" href="https://garbagerips585.github.io/upcoming.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#15263A">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:title" content="Upcoming Pokemon TCG Sets and Release Dates">
+<meta property="og:description" content="Every announced English Pokemon TCG release, with what is in it and how confirmed the date is.">
+<meta property="og:url" content="https://garbagerips585.github.io/upcoming.html">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/ui.css">
+<link rel="stylesheet" href="/assets/packs.css">
+<style>
+.up{padding:var(--s7) 0 var(--s5)}
+.up-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:42em;margin-bottom:var(--s5)}
+/* Each key item is its own flex row. Left inline, the label wrapped underneath
+   its own badge and the two overlapped at 375px. */
+.up-key{display:flex;flex-direction:column;gap:10px;margin-bottom:var(--s6)}
+.up-key > span{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.04em}
+@media(min-width:900px){.up-key{flex-direction:row;flex-wrap:wrap;gap:var(--s4)}}
+
+.up-tag{flex:none;align-self:flex-start;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;
+  text-transform:uppercase;padding:6px 9px;border-radius:var(--r-pill);white-space:nowrap}
+.up-tag.ok{background:var(--mustard);color:var(--ink);border:1px solid var(--gold-deep)}
+.up-tag.win{background:var(--lilac-pale);color:var(--plum);border:1px solid rgba(78,47,72,.3)}
+.up-tag.exp{background:var(--page);color:var(--ink-2);border:1px dashed var(--ink-2)}
+.up-tag.sm{padding:3px 7px;margin-left:6px;text-transform:none}
+
+.up-list{display:flex;flex-direction:column;gap:var(--s5)}
+.up-set{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s5);box-shadow:var(--lift)}
+.up-head{display:flex;gap:var(--s3);align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+.up-when{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink-2);margin-bottom:4px}
+.up-when b{color:var(--ink)}
+.up-when span{color:var(--ketchup-deep)}
+.up-set h2{font:400 var(--t-l)/1.1 var(--display);margin-bottom:var(--s3)}
+.up-code{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);vertical-align:middle;
+  letter-spacing:.08em}
+.up-blurb{color:var(--ink-2);max-width:46em}
+.up-hi{list-style:none;display:flex;flex-direction:column;gap:6px;margin:var(--s4) 0 0}
+.up-hi li{display:flex;gap:var(--s3);align-items:flex-start;color:var(--ink-2);font-size:var(--t-sm)}
+.up-hi li::before{content:"";flex:none;width:8px;height:8px;margin-top:.5em;border-radius:2px;
+  background:var(--mustard);border:1px solid var(--gold-deep);transform:rotate(45deg)}
+
+.up-products{margin-top:var(--s4);border-top:1px solid var(--hair);padding-top:var(--s3)}
+.up-products summary{cursor:pointer;font:700 var(--t-sm)/1 var(--body);min-height:44px;
+  display:flex;align-items:center;gap:8px}
+.up-products summary span{font:700 var(--t-micro)/1 var(--mono);background:var(--page);
+  border:1px solid var(--hair);border-radius:var(--r-pill);padding:4px 8px;color:var(--ink-2)}
+.up-products ul{list-style:none;display:flex;flex-direction:column;gap:var(--s2);margin-top:var(--s3)}
+.up-products li{padding:var(--s3);background:var(--page);border-radius:calc(var(--r) - 6px)}
+.up-p{display:block;font-weight:600}
+.up-meta{font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);letter-spacing:.04em}
+.up-note{display:block;font-size:var(--t-sm);color:var(--ink-2);margin-top:2px}
+.up-warn{font:700 var(--t-micro)/1.7 var(--mono);color:var(--plum);background:var(--lilac-pale);
+  border-radius:calc(var(--r) - 6px);padding:var(--s3);margin-top:var(--s3)}
+
+.up-extras{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--s4)}
+.up-extra{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s5);box-shadow:var(--lift)}
+.up-extra h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:var(--s2)}
+.up-extra .up-blurb{font-size:var(--t-sm);margin-bottom:var(--s2)}
+
+.up-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
+  border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Upcoming Pokemon TCG sets and products",
+  "description": "Announced English Pokemon Trading Card Game releases with confirmed dates.",
+  "url": "https://garbagerips585.github.io/upcoming.html",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "30th Celebration"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Mega Evolution: Delta Reign"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Ascended Heroes Tin"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Enhanced 2 Pack Blister"
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "name": "Mini Portfolio"
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "name": "Deck Crafter's Collection"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form role="search" action="/videos.html" method="get">
+      <label class="sr-only" for="navSearch">Search every rip</label>
+      <input id="navSearch" name="q" type="search" placeholder="Search rips" aria-label="Search every rip by set, product or card">
+    </form>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/sets/">Pokedex</a>
+      <a href="/expansions.html">All sets</a>
+      <a href="/wanted.html">Wanted</a>
+      <a href="/hall.html">Hall of Fame</a>
+    </nav>
+    <a class="icon-btn" href="/videos.html" aria-label="Search all rips">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+    </a>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="Site">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/videos.html">All rips</a></li>
+    <li><a href="/sets/">Card Pokedex</a></li>
+    <li><a href="/expansions.html">Every set ever</a></li>
+    <li><a href="/upcoming.html">Coming next</a></li>
+    <li><a href="/wanted.html">Most wanted</a></li>
+    <li><a href="/hall.html">Card Hall of Fame</a></li>
+    <li><a href="/luck.html">Luck & pull rates</a></li>
+    <li><a href="/shops.html">Card shops</a></li>
+    <li><a href="/playlists.html">Playlists</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+  <section class="up">
+    <div class="wrap">
+      <div class="brk"><h1>What is <span class="hl">coming next</span></h1><span class="ln"></span></div>
+      <p class="up-lede">Every announced English Pokemon TCG release, with what is actually in it.
+        Dates say how well known they are, because a confirmed date and a shop's guess are not the
+        same thing and most sites print them identically.</p>
+      <div class="up-key">
+        <span><span class="up-tag ok">Confirmed date</span> straight from The Pokemon Company</span>
+        <span><span class="up-tag win">Date window</span> an official month, no exact day</span>
+        <span><span class="up-tag exp">Not announced</span> what the last set had, not an announcement</span>
+      </div>
+
+      <div class="up-list">
+      <article class="up-set">
+        <div class="up-head">
+          <div>
+            <p class="up-when"><b>September 16, 2026</b> <span>in 5 weeks</span></p>
+            <h2>30th Celebration</h2>
+          </div>
+          <span class="up-tag ok">Confirmed date</span>
+        </div>
+        <p class="up-blurb">The anniversary set, and the first Pokemon TCG expansion to launch worldwide on the same day as Japan. Every single card in it is foil, including the basic Energy.</p>
+        <ul class="up-hi"><li>A new rarity, Futuristic rare, debuting on Mewtwo ex and Mew ex</li><li>30 different Pikachu illustrations by 30 illustrators, one guaranteed in every pack</li><li>A 30 card Classic Collection of reprints, numbered outside the main set</li><li>Packs are 5 foil cards plus a foil basic Energy</li></ul>
+        <details class="up-products" open>
+          <summary>What you can buy <span>14</span></summary>
+          <ul>
+          <li>
+            <span class="up-p">Elite Trainer Box</span>
+            <span class="up-meta">9 packs &bull; $49.99 &bull; September 16, 2026</span>
+            <span class="up-note">Full art Nidorina promo</span>
+            
+          </li>
+          <li>
+            <span class="up-p">Pokemon Center Elite Trainer Box</span>
+            <span class="up-meta">11 packs &bull; September 16, 2026</span>
+            <span class="up-note">Pokemon Center exclusive, two Nidorina promos</span>
+            
+          </li>
+          <li>
+            <span class="up-p">ex Box, Sylveon ex and Greninja ex</span>
+            <span class="up-meta">4 packs &bull; $21.99 &bull; September 16, 2026</span>
+            
+            
+          </li>
+          <li>
+            <span class="up-p">Poster Collection</span>
+            <span class="up-meta">3 packs &bull; $14.99 &bull; September 16, 2026</span>
+            <span class="up-note">Articuno, Zapdos and Moltres full arts plus a 160 card wall poster</span>
+            
+          </li>
+          <li>
+            <span class="up-p">Tech Sticker Collection</span>
+            <span class="up-meta">3 packs &bull; $14.99 &bull; September 16, 2026</span>
+            
+            
+          </li>
+          <li>
+            <span class="up-p">Knock Out Collection</span>
+            <span class="up-meta">2 packs &bull; $9.99 &bull; September 16, 2026</span>
+            
+            
+          </li>
+          <li>
+            <span class="up-p">Booster Bundle</span>
+            <span class="up-meta">6 packs &bull; October 2, 2026</span>
+            
+            
+          </li>
+          <li>
+            <span class="up-p">Binder Collection</span>
+            <span class="up-meta">5 packs &bull; October 2, 2026</span>
+            
+            
+          </li>
+          <li>
+            <span class="up-p">Mini Tins</span>
+            <span class="up-meta">2 packs &bull; October 2, 2026</span>
+            <span class="up-note">10 artworks, day and night variants</span>
+            
+          </li>
+          <li>
+            <span class="up-p">Battle Deck, Espeon ex and Umbreon ex</span>
+            <span class="up-meta">$19.99 &bull; October 30, 2026</span>
+            <span class="up-note">All foil 60 card decks</span>
+            
+          </li>
+          <li>
+            <span class="up-p">Ultra Premium Collection, Day and Night</span>
+            <span class="up-meta">29 packs &bull; $179.99 &bull; November 6, 2026</span>
+            <span class="up-note">Plus one Classic Collection pack</span>
+            
+          </li>
+          <li>
+            <span class="up-p">Ditto Premium Collection</span>
+            <span class="up-meta">8 packs &bull; November 6, 2026</span>
+            
+            
+          </li>
+          <li>
+            <span class="up-p">Figure Collection, Mew and Mewtwo</span>
+            <span class="up-meta">5 packs &bull; $29.99 &bull; November 6, 2026</span>
+            
+            
+          </li>
+          <li>
+            <span class="up-p">ex Tin, Sylveon ex or Greninja ex</span>
+            <span class="up-meta">4 packs &bull; $21.99 &bull; December 4, 2026</span>
+            
+            <span class="up-tag exp sm">Not announced</span>
+          </li>
+          </ul>
+          
+          <p class="up-warn">No sealed booster box has been announced for this one. If you see a shop taking preorders for one, be careful.</p>
+        </details>
+      </article>
+      <article class="up-set">
+        <div class="up-head">
+          <div>
+            <p class="up-when"><b>November 6, 2026</b> <span>in 3 months</span></p>
+            <h2>Mega Evolution: Delta Reign <span class="up-code">ME06</span></h2>
+          </div>
+          <span class="up-tag ok">Confirmed date</span>
+        </div>
+        <p class="up-blurb">The next Mega Evolution set, teased by The Pokemon Company in June. Mega Rayquaza ex comes back to the TCG, with Hoenn flavour running through it.</p>
+        <ul class="up-hi"><li>Mega Rayquaza ex returns, as a Double Rare</li><li>Paired Stadium cards: one artwork split across two Stadiums played together</li><li>Mega Golisopod ex, Mega Golurk ex and Mega Malamar ex appear in the Japanese set it comes from</li></ul>
+        <details class="up-products">
+          <summary>What you can buy <span>5</span></summary>
+          <ul>
+          <li>
+            <span class="up-p">Elite Trainer Box</span>
+            <span class="up-meta"></span>
+            
+            <span class="up-tag exp sm">Not announced</span>
+          </li>
+          <li>
+            <span class="up-p">Booster Box</span>
+            <span class="up-meta"></span>
+            
+            <span class="up-tag exp sm">Not announced</span>
+          </li>
+          <li>
+            <span class="up-p">Booster Bundle</span>
+            <span class="up-meta"></span>
+            
+            <span class="up-tag exp sm">Not announced</span>
+          </li>
+          <li>
+            <span class="up-p">Build and Battle Box</span>
+            <span class="up-meta"></span>
+            
+            <span class="up-tag exp sm">Not announced</span>
+          </li>
+          <li>
+            <span class="up-p">3 Pack Blister</span>
+            <span class="up-meta"></span>
+            
+            <span class="up-tag exp sm">Not announced</span>
+          </li>
+          </ul>
+          <p class="up-warn">No product lineup has been announced. These are what every Mega Evolution set has had so far, which is a fair guess and not a fact.</p>
+          
+        </details>
+      </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tight">
+    <div class="wrap">
+      <h2>Other things with a <span class="hl">date on them</span></h2>
+      <p class="up-blurb" style="margin-bottom:var(--s4)">Tins, blisters and collections that are not
+        full expansions but are worth knowing about.</p>
+      <ul class="up-extras">
+      <li class="up-extra">
+        <p class="up-when"><b>August 28, 2026</b> <span>in 2 weeks</span></p>
+        <h3>Ascended Heroes Tin</h3>
+        <p class="up-blurb">Mega Meganium ex, Mega Emboar ex or Mega Feraligatr ex, with four Ascended Heroes packs.</p>
+        <p class="up-meta">4 packs</p>
+      </li>
+      <li class="up-extra">
+        <p class="up-when"><b>October 2, 2026</b> <span>in 7 weeks</span></p>
+        <h3>Enhanced 2 Pack Blister</h3>
+        <p class="up-blurb">Gengar, Marshadow or Team Rocket's Mimikyu in cosmos holo, plus a metallic coin.</p>
+        <p class="up-meta">2 packs &bull; $10.99</p>
+      </li>
+      <li class="up-extra">
+        <p class="up-when"><b>October 2, 2026</b> <span>in 7 weeks</span></p>
+        <h3>Mini Portfolio</h3>
+        <p class="up-blurb">Mega Greninja and Mega Zeraora on the front, Mega Darkrai and Mega Chandelure on the back. Comes with one Pitch Black pack.</p>
+        <p class="up-meta">1 pack &bull; $5.49</p>
+      </li>
+      <li class="up-extra">
+        <p class="up-when"><b>October 23, 2026</b> <span>in 2 months</span></p>
+        <h3>Deck Crafter's Collection</h3>
+        <p class="up-blurb">The replacement for the Trainer's Toolkit. A foil Meowth ex, 39 tournament ready Trainer cards, dividers and one Pitch Black pack.</p>
+        <p class="up-meta">1 pack &bull; $9.99</p>
+      </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="wrap">
+      <p class="up-foot">CHECKED AUGUST 12, 2026. NOTHING BEYOND THE SETS
+        ABOVE HAS BEEN ANNOUNCED: NO ENGLISH SET AFTER THEM HAS BEEN NAMED OR DATED, SO THIS PAGE
+        DOES NOT LIST ONE. JAPANESE SETS OFTEN COME OUT MONTHS EARLIER AND ARE NOT THE SAME RELEASE,
+        SO THEY ARE NOT ON HERE EITHER. DATES SLIP. IF YOU SPOT ONE THAT HAS CHANGED, SAY SO ON ANY
+        OF THE SOCIALS AND IT GETS FIXED.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Site">
+      <a href="/videos.html">All rips</a>
+      <a href="/sets/">Card Pokedex</a>
+      <a href="/expansions.html">Every set ever</a>
+      <a href="/upcoming.html">Coming next</a>
+      <a href="/wanted.html">Most wanted</a>
+      <a href="/hall.html">Card Hall of Fame</a>
+      <a href="/luck.html">Luck & pull rates</a>
+      <a href="/shops.html">Card shops</a>
+      <a href="/playlists.html">Playlists</a>
+      <a href="/about.html">About</a>
+    </nav>
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    Release dates checked August 12, 2026. Dates come from The Pokemon Company unless marked otherwise.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+
+<script src="/assets/app.js" defer></script>
+</body>
+</html>
