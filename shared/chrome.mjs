@@ -107,6 +107,7 @@ export const MENU_GROUPS = [
   ["Watch", [
     ["/videos.html", "All rips"],
     ["/hall.html", "Best pulls"],
+    ["/collection.html", "The collection"],
     ["/playlists.html", "Playlists"],
   ]],
   ["Card guides", [

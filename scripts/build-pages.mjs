@@ -637,6 +637,7 @@ const urls = [
   // The beginner guide. Evergreen and the best long-tail search target on the
   // site: "pokemon card rarity symbols" is asked constantly and never expires.
   { loc: `${SITE}/rarity.html`, freq: "monthly", pri: "0.9" },
+  { loc: `${SITE}/collection.html`, freq: "weekly", pri: "0.7" },
   ...ordered.filter((v) => taggedIds.has(v.id)).map((v) => ({ loc: `${SITE}/${pathFor(v)}`, freq: "monthly", pri: "0.6", mod: v.published })),
 ];
 await writeFile(
