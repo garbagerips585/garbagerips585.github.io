@@ -30,25 +30,26 @@
   },
   "tests": [
     {
-      "id": "light",
-      "name": "The light test",
-      "tools": "A bright lamp or your phone torch",
-      "confidence": "First pass",
-      "how": "Hold the card flat against a bright light and look through it.",
-      "real": "Almost no light comes through. A genuine card is three layers, and the middle one is opaque black specifically to stop light passing.",
-      "fake": "The card glows. Cheaper stock with no black core lets the light straight through, and you can often see the artwork from the other side.",
-      "why": "The black core exists to stop you reading a card from the back while it is face down. It is a gameplay requirement, which is why it is in every genuine card.",
-      "caveat": "This was the definitive test for years and it is not any more. Better counterfeits now include a black middle layer of their own. Passing the light test means keep checking, not genuine."
+      "id": "back",
+      "name": "Compare the back",
+      "tools": "A card you know is real",
+      "confidence": "Strongest single test",
+      "how": "Put the suspect card back to back with one you trust and look at the blue.",
+      "real": "Every English card printed since 1999 has the same back, so two real cards look near identical. The blue border is distinctly darker than the blue inside the design, and the line between them is clean.",
+      "fake": "The blue bleeds between the border and the inner design instead of stepping cleanly, or the whole thing is washed out. The swirl detail is soft and the lettering is subtly the wrong shape.",
+      "why": "Outside a handful of documented exceptions every English card back is identical, whatever decade it was printed in, so you have a perfect reference in any card you own. It is also the part counterfeiters copy from a scan rather than from the original files, and colour is the first thing to go.",
+      "caveat": "Needs a real card in hand, and is impossible online unless the seller photographs the back. Ask them to."
     },
     {
-      "id": "edge",
-      "name": "The black core at the edge",
-      "tools": "Good light, a loupe or phone macro helps",
-      "confidence": "Strong",
-      "how": "Look at the card edge on, side on to the light, and find the layers.",
-      "real": "Three distinct layers: front face, a thin dark stripe, back face. The stripe runs the whole way round and is even.",
-      "fake": "One or two layers with no dark stripe, or a stripe that stops and starts, wanders in thickness, or looks printed on rather than sandwiched.",
-      "why": "Genuine cards are laminated from separate sheets, so the core is a real layer with real thickness. Printing a dark line onto the edge of single-ply stock does not survive being looked at closely."
+      "id": "scan",
+      "name": "Check it against a scan",
+      "tools": "A phone and a card database",
+      "confidence": "Good",
+      "how": "Find the same card on a card database and compare it to the one in your hand.",
+      "real": "Font, energy symbols, HP, attack damage, weakness, retreat cost, set symbol and card number all match, and it is foil only if that version is foil.",
+      "fake": "Any of those wrong, most often the energy symbols being the wrong size and the set symbol being soft.",
+      "why": "A counterfeiter working from a photo gets the picture right and the details wrong, because the details are small and they are guessing.",
+      "caveat": "Plenty of real cards exist in more than one version, and no database is complete, so make sure you are comparing the same printing before you call it."
     },
     {
       "id": "texture",
@@ -60,6 +61,17 @@
       "fake": "Flat, glossy and silent. The pattern may be printed to look textured but there is nothing to feel.",
       "why": "The texture is embossed into the card as a separate manufacturing pass. Reproducing it needs the same tooling, which is far beyond a print shop copying artwork.",
       "caveat": "Only applies to cards that are supposed to be textured. A common with a smooth face is just a common."
+    },
+    {
+      "id": "edge",
+      "name": "The edges and the core",
+      "tools": "Good light, a loupe or phone macro helps",
+      "confidence": "Strong",
+      "how": "Run a finger round the edge, then look at it side on.",
+      "real": "Edges are straight and clean with no fuzz. Seen side on there are three layers: front, a thin dark core, back.",
+      "fake": "Rough or furry edges with cardboard residue, and one or two layers with no dark stripe, or a stripe that wanders.",
+      "why": "Genuine cards are laminated from separate sheets and cut with sharp industrial dies. Both the core and the clean cut are hard to reproduce.",
+      "caveat": "Look at the edge. Do NOT rip the card to find the core: it is destructive, and the same layer is visible on an intact card."
     },
     {
       "id": "print",
@@ -82,15 +94,15 @@
       "why": "Small high-contrast elements are the hardest thing to reproduce, because any error in colour registration shows up as a coloured halo at exactly that scale. It is the first thing to go wrong on a copy."
     },
     {
-      "id": "back",
-      "name": "The back",
-      "tools": "A real card to compare",
-      "confidence": "Good as a comparison",
-      "how": "Put the back next to the back of a card you trust.",
-      "real": "A specific blue, a crisp swirl pattern, and clean lettering in the logo.",
-      "fake": "The blue is off, usually too purple, too dark or washed out. The swirl detail is soft, and the lettering is subtly the wrong shape or spacing.",
-      "why": "Colour is the hardest thing to match without the original files and the original press. It is also the easiest thing for you to check, which is why the back is worth looking at first on a bulk lot.",
-      "caveat": "Genuine backs do vary slightly between print runs and eras, so a small difference against a card from a different decade is not proof of anything."
+      "id": "read",
+      "name": "Read the card",
+      "tools": "Your eyes",
+      "confidence": "Cheap, not conclusive",
+      "how": "Read every word on the card, including the tiny print.",
+      "real": "Correct spelling and grammar throughout, and the accent is always there in Pokemon.",
+      "fake": "Spelling or grammar mistakes, Pokemon written without the accent over the e, the words Pocket Monster anywhere, or an HP or attack value in the thousands.",
+      "why": "The cheapest fakes are typeset by someone not working from the original files. No card has an HP above 380, so a 1000HP card is not a rare one, it is a fake one.",
+      "caveat": "Passing proves little. Better fakes copy the text straight off a real card, and a few genuine old cards have famous printing errors of their own."
     },
     {
       "id": "weight",
@@ -124,7 +136,45 @@
     ]
   },
   "sources": [
-    "Physical checks described here are the ones repeated consistently across collector authentication guides and are stated as properties of the card that anyone can verify on their own copy.",
-    "Nothing on this page comes from The Pokemon Company, which does not publish an authentication specification. That is exactly why comparison against a card you trust beats any single number."
+    "Physical checks here are the ones repeated consistently across collector authentication guides, and every one is stated as a property of the card that you can verify on your own copy.",
+    "The ordering, the sealed product checks, and the decision to drop the light test follow TCGplayer's own guide, written with their authentication centre, which is the closest thing to a published method from people who authenticate cards at volume for a living.",
+    "Nothing here comes from The Pokemon Company, which does not publish an authentication specification. That is exactly why comparison against a card you trust beats any single number."
+  ],
+  "notRecommended": {
+    "title": "Two tests you will be told to do, and one not to",
+    "items": [
+      {
+        "name": "The light test",
+        "verdict": "Not reliable enough",
+        "body": "Holding a card to a lamp to see how much light comes through is the test everyone repeats, and TCGplayer's own authentication centre does not use it. Real cards vary too much: they have had two different publishers since 1999 and a range of foiling that all reacts to light differently, and the result changes with the lamp. It produces too many false positives on genuine cards. If you have a second card to compare against, compare the backs or feel the surface instead, both of which tell you more."
+      },
+      {
+        "name": "The bend test",
+        "verdict": "Damages the card",
+        "body": "Bending a card to see whether it springs back tests the stock by risking the card. Your fingers can feel how stiff a card is without bending it."
+      },
+      {
+        "name": "The rip test",
+        "verdict": "Destroys the card",
+        "body": "Tearing a card in half does show the black core. So does looking at the edge, which leaves you with a card afterwards."
+      }
+    ]
+  },
+  "sealed": {
+    "title": "Sealed product, before you open it",
+    "intro": "Fake and resealed sealed product is common, and by the time you have opened it you have usually lost. These are the checks worth doing at the table.",
+    "points": [
+      "Real booster boxes are wrapped in SOFT cellophane carrying a Poke Ball logo. Hard, crackly wrap, or no logo, means it has been resealed or it was never real.",
+      "Real pack seals are straight and flat with very little air inside. Ribbed or wavy edges, or cards rattling around, is a bad sign.",
+      "Read the box. Spelling mistakes, a reference to a set the product is not from, or artwork from the anime: card products always use original card art, never anime stills.",
+      "Well under the price on the official Pokemon Center store is not a bargain, it is a warning.",
+      "Once open: every card in a real pack faces the same way. A pack full of rares in mixed orientations is almost certainly fake, and a rare as the very first card is worth a second look."
+    ]
+  },
+  "sourceLinks": [
+    {
+      "name": "TCGplayer: How to Spot Fake Pokemon Cards",
+      "url": "https://www.tcgplayer.com/content/article/How-to-Spot-Fake-Pok%C3%A9mon-Cards/0b3c551c-39e2-4949-ac46-3cb27e215b04/"
+    }
   ]
 }

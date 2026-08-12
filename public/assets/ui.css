@@ -1816,3 +1816,22 @@ footer .soc svg{fill:var(--paper)}
 
 /* Three number inputs spanning 1452px. */
 .gcalc{max-width:64em}
+
+/* More diagrams on the real vs fake guide: the anatomy map, back colour,
+   registration and texture profile. */
+.fk-fig-wide svg{max-width:720px}
+.fk-num{font:700 11px/1 var(--mono);fill:var(--gold)}
+.fk-lbl2s{font:700 10px/1 var(--mono);fill:var(--ink);letter-spacing:.06em}
+/* Real photographs, when there are any. Constrained the same way the diagrams
+   are so one does not tower over the other. */
+.fk-photo img{display:block;width:100%;height:auto;max-width:720px;margin-inline:auto;
+  border:2px solid var(--navy);border-radius:var(--r-sm);background:var(--paper-3)}
+
+/* "Popular and wrong": tests the community repeats that the people who
+   authenticate cards for a living do not use. */
+.fk-no-list{display:grid;gap:var(--s3);margin-top:var(--s5)}
+.fk-no-item{background:var(--card);border:1px solid var(--hair);border-left:4px solid var(--plum);
+  border-radius:var(--r-sm);padding:var(--s4)}
+.fk-no-item h3{font:400 var(--t-m)/1.2 var(--display);flex:1 1 auto;min-width:0}
+.fk-no-item p{font-size:var(--t-sm);color:var(--ink-2);line-height:1.7;margin-top:8px;max-width:56em}
+@media(min-width:900px){ .fk-no-list{grid-template-columns:repeat(3,1fr)} }
