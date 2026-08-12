@@ -18,7 +18,9 @@
 export const NAV_LINKS = [
   ["/", "Home"],
   ["/videos.html", "All rips"],
+  ["/start.html", "Start here"],
   ["/cards.html", "Card search"],
+  ["/pokemon/", "By Pokemon"],
   ["/rarity.html", "Rarity guide"],
   ["/fake-cards.html", "Real or fake?"],
   ["/grading.html", "Worth grading?"],
@@ -70,14 +72,20 @@ export const STYLES = `<link rel="stylesheet" href="/assets/ui.css">
  * The search field is hidden below 640px and the magnifier below 480px,
  * because at 375px the brand, the icon, the menu button and Subscribe add up
  * to more than the row is wide and none of them can shrink.
+ *
+ * It posts to /search.html, not /videos.html. It searched only the 310 rips
+ * for as long as rips were the whole site; it now sits above 4,481 cards, 36
+ * set guides and 30 Pokemon pages, and returning videos alone for "umbreon"
+ * hid most of what the site knows. /videos.html?q= still works and is still
+ * what the library's own filter uses.
  */
 export const BAR = `<header class="bar">
   <div class="bar-in">
     <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
-    <form class="bar-search" role="search" action="/videos.html" method="get">
-      <label class="sr-only" for="navSearch">Search every rip</label>
+    <form class="bar-search" role="search" action="/search.html" method="get">
+      <label class="sr-only" for="navSearch">Search cards, sets, guides and rips</label>
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
-      <input id="navSearch" name="q" type="search" placeholder="Search 310 rips" aria-label="Search every rip by set, product or card" autocomplete="off">
+      <input id="navSearch" name="q" type="search" placeholder="Search cards, sets, rips" aria-label="Search cards, sets, guides and every rip" autocomplete="off">
     </form>
     <nav class="nav-links" aria-label="Primary">
       <a href="/videos.html">Rips</a>
@@ -115,7 +123,9 @@ export const MENU_GROUPS = [
     ["/playlists.html", "Playlists"],
   ]],
   ["Card guides", [
+    ["/start.html", "Start here"],
     ["/cards.html", "Card search"],
+    ["/pokemon/", "By Pokemon"],
     ["/sets/", "Set guides"],
     ["/rarity.html", "Rarity guide"],
     ["/fake-cards.html", "Real or fake?"],

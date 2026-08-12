@@ -1689,3 +1689,42 @@ footer .soc svg{fill:var(--paper)}
   .gcalc{grid-template-columns:repeat(3,1fr)}
 }
 @media(min-width:1000px){ .gc-grid{grid-template-columns:repeat(4,1fr)} }
+
+/* Rips that mention a Pokemon, on /pokemon/<name>.html */
+.poke-rips{list-style:none;display:grid;gap:2px;margin-top:var(--s4)}
+.poke-rips li{padding:10px 12px;background:var(--card);border:1px solid var(--hair);
+  border-radius:var(--r-sm)}
+.poke-rips a{font-weight:600;font-size:var(--t-sm);color:var(--ink)}
+.poke-rips a:hover{color:var(--ketchup-deep);text-decoration:underline}
+
+/* --------------------------------------------------------------------------
+   Start here (/start.html), written by scripts/build-start.mjs.
+   -------------------------------------------------------------------------- */
+.st-list{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s5)}
+.st{display:grid;grid-template-columns:auto 1fr;gap:var(--s4);align-items:start;
+  background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s5);box-shadow:var(--lift)}
+.st-n{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;
+  border-radius:50%;background:var(--navy);color:var(--gold);font:400 1.3rem/1 var(--display);flex:none}
+.st-body h2{font:400 var(--t-m)/1.2 var(--display)}
+.st-body p{font-size:var(--t-sm);color:var(--ink-2);line-height:1.7;margin-top:8px;max-width:52em}
+.st-links{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;margin-top:var(--s3)}
+.st-also{font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep);min-height:44px;
+  display:inline-flex;align-items:center}
+.st-also:hover{text-decoration:underline}
+
+/* --------------------------------------------------------------------------
+   The card guides block on the home page. Twelve reference pages that were
+   previously reachable only from the menu and the footer.
+   -------------------------------------------------------------------------- */
+.tools{padding:var(--s7) 0}
+.tool-grid{display:grid;grid-template-columns:1fr;gap:var(--s3);margin-top:var(--s5)}
+.tool{display:block;background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s4);box-shadow:var(--lift);min-height:44px}
+.tool:hover{border-color:var(--navy);transform:translateY(-2px)}
+.tool-t{display:block;font:400 var(--t-m)/1.15 var(--display);color:var(--ink)}
+.tool:hover .tool-t{color:var(--ketchup-deep)}
+.tool-d{display:block;font-size:var(--t-sm);color:var(--ink-2);line-height:1.5;margin-top:6px}
+@media(min-width:560px){ .tool-grid{grid-template-columns:repeat(2,1fr)} }
+@media(min-width:900px){ .tool-grid{grid-template-columns:repeat(3,1fr)} }
+@media(min-width:1200px){ .tool-grid{grid-template-columns:repeat(4,1fr)} }

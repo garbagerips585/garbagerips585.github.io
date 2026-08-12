@@ -659,6 +659,20 @@ try {
   /* run: node scripts/sync-intl-guides.mjs && node scripts/build-intl-pages.mjs */
 }
 
+// The per-Pokemon pages. Thirty of them, each a real page of card data, so they
+// belong in the sitemap; the roster is capped deliberately (see build-pokemon)
+// so this can never balloon into a thousand thin pages.
+try {
+  const pk = JSON.parse(await readFile(join(ROOT, "public/data/pokemon-index.json"), "utf8"));
+  setPages = setPages.concat(
+    (pk.pokemon || []).map((p) => ({
+      loc: `${SITE}/pokemon/${p.slug}.html`, freq: "weekly", pri: "0.7", mod: pk.checked,
+    }))
+  );
+} catch {
+  /* run: node scripts/build-pokemon.mjs */
+}
+
 const urls = [
   { loc: `${SITE}/`, freq: "daily", pri: "1.0" },
   { loc: `${SITE}/videos.html`, freq: "daily", pri: "0.9" },
@@ -692,6 +706,10 @@ const urls = [
   // Card search. 4,481 cards with live prices behind one page: the deepest
   // reference on the site and the one worth crawling most often.
   { loc: `${SITE}/cards.html`, freq: "daily", pri: "0.9" },
+  // The beginner hub. The natural landing page from a video description, and
+  // the front door for every guide on the site.
+  { loc: `${SITE}/start.html`, freq: "monthly", pri: "0.9" },
+  { loc: `${SITE}/pokemon/`, freq: "weekly", pri: "0.8" },
   // Real vs fake. Evergreen and the best long-tail target on the site after the
   // rarity guide: "how to spot fake pokemon cards" is asked constantly and the
   // answer does not expire.

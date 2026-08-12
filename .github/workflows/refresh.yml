@@ -119,6 +119,7 @@ jobs:
           # link check below is what would catch it.
           node scripts/build-intl-pages.mjs
           node scripts/build-cards.mjs
+          node scripts/build-pokemon.mjs
           node scripts/build-pages.mjs
           node scripts/build-expansions.mjs
           node scripts/build-404.mjs
@@ -137,6 +138,9 @@ jobs:
           # Reads data/psa10.json, which the price sync tops up nightly, so the
           # break-even verdicts move as the card prices move.
           node scripts/build-grading.mjs
+          node scripts/build-start.mjs
+          # LAST: it indexes the pages above, so it has to see them finished.
+          node scripts/build-search.mjs
 
       # Cheap guards. A nightly job that commits unattended should not be able
       # to publish a broken site quietly.
