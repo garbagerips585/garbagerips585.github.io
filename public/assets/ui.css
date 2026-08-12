@@ -502,7 +502,7 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
    two halves on a rip page must not apply: it would show half a pack. */
 /* The torn polygon splits a rip page's pack into two halves. Anywhere the
    pack is shown whole, it must not apply, or only the left half renders. */
-.pack--tile .pack-l,.ph .pack-l,.packshot .pack-l{clip-path:none}
+.pack--tile .pack-l,.packshot .pack-l{clip-path:none}
 .pack--tile .pack-mascot,.pack--tile .pack-hint,.pack--tile .pack-flash{display:none}
 .pack--tile .pack-brand{top:auto;bottom:12%;font-size:clamp(.72rem,1.5vw,1rem);padding:0 10%}
 .pack--tile .pack-brand small{font-size:.56em;margin-top:.4em}
@@ -880,23 +880,6 @@ footer .soc svg{fill:var(--paper)}
 }
 @media(max-width:520px){.lb{padding:14px}.lb-close{top:-12px;right:-6px}}
 /* ---------- what the pack looks like ---------- */
-.packshots{display:grid;grid-template-columns:1fr;gap:18px;margin-top:20px}
-@media(min-width:640px){.packshots{grid-template-columns:1fr 1fr}}
-.packshot-card{
-  background:var(--paper-2);border:3px solid var(--navy);border-radius:14px;
-  padding:16px;box-shadow:0 6px 0 var(--trubbish);text-align:center;
-}
-.packshot-card .ph{
-  aspect-ratio:2/3;max-width:220px;margin:0 auto;border-radius:10px;overflow:hidden;
-  border:4px solid var(--mustard);outline:2px solid var(--navy);outline-offset:-6px;
-  background:#161D26 center/cover no-repeat;
-}
-.packshot-card .ph img{width:100%;height:100%;object-fit:cover}
-.packshot-card .cap{
-  font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--ink-soft);font-weight:700;margin-top:12px;
-}
-.packshot-card .sub{font-size:.86rem;color:var(--ink-soft);margin-top:6px;line-height:1.45}
 /* --------------------------------------------------------------------------
    What you are chasing. The top cards from this rip's set, on the video's own
    page, because "what was he hoping for" is the question the page raises and
@@ -1176,9 +1159,6 @@ footer .soc svg{fill:var(--paper)}
    already in the palette. */
 .band-sky .facts-list b{color:var(--plum)}
 
-/* Every set page has exactly one packshot card, in a two-column grid, so the
-   right half sat permanently empty above 640px. */
-.packshots:has(> .packshot-card:only-child){grid-template-columns:1fr;max-width:340px;margin-inline:auto}
 
 /* Two empty media queries and a .vid-grid.dense rule left over from the
    previous dead-rule sweep are removed below rather than left as a loaded gun:

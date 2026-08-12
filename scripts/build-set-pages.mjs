@@ -117,20 +117,6 @@ const CHASE = new Set([
   "Illustration Rare", "Ultra Rare", "ACE SPEC Rare", "Radiant Rare",
 ]);
 
-// Which sets have a real packshot photo. Decided at build time: an onerror
-// fallback never fires while the image is lazy and below the fold, so the
-// empty panel would sit there and then pop out mid-scroll.
-const packshots = new Set();
-try {
-  const { readdirSync } = await import("node:fs");
-  for (const f of readdirSync(join(ROOT, "public/assets/packshots"))) {
-    const m = /^(.+)-booster-pack\.webp$/.exec(f);
-    if (m) packshots.add(m[1]);
-  }
-} catch {
-  /* none yet */
-}
-
 // Affiliate config. Off by default; flip enabled in data/affiliate.json once
 // the Impact application is approved and every TCGplayer link is rewritten.
 let aff = { tcgplayer: { enabled: false } };
@@ -449,25 +435,6 @@ ${s.notes?.inPrint || s.notes?.packPrice ? `
       ${derivedFacts(s).map((f) => `<li>${f}</li>`).join("\n      ")}
       ${(s.notes?.funFacts || []).map((f) => `<li>${esc(f)}</li>`).join("\n      ")}
     </ul>
-  </div>
-</section>
-
-<section class="band tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Know it on the shelf</p>
-    <h2>What the <span class="hl">pack</span> looks like</h2>
-    <div class="packshots"${packshots.has(s.id) ? "" : ' style="grid-template-columns:1fr;max-width:340px"'}>
-      ${packshots.has(s.id) ? `<div class="packshot-card">
-        <div class="ph"><img src="/assets/packshots/${s.id}-booster-pack.webp" alt="${esc(s.name)} booster pack" loading="lazy" width="720" height="1080"></div>
-        <p class="cap">The real ${esc(s.name)} pack</p>
-        <p class="sub">What you are looking for in the shop.</p>
-      </div>` : ""}
-      <div class="packshot-card">
-        <div class="ph pack pack--${packClass(s.id)}"><span class="pack-face pack-l"><span class="pack-art"></span></span></div>
-        <p class="cap">Our version</p>
-        <p class="sub">The Garbage Rips 585 wrapper we put on every ${esc(s.name)} rip. Not a real product, just ours.</p>
-      </div>
-    </div>
   </div>
 </section>
 
