@@ -367,7 +367,7 @@ const wantedHtml = (wanted.cards || [])
         <b>${esc(c.name)}</b><p>${esc(c.setName.toUpperCase())} &bull; ${price}</p>`;
     return c.url
       ? `      <a class="mw" href="${esc(c.url)}" rel="nofollow noopener" target="_blank" aria-label="${esc(c.name)} from ${esc(c.setName)}, see on TCGplayer">${inner}</a>`
-      : `      <div class="mw">${inner}</div>`;
+      : `      <a class="mw" href="/sets/${esc(c.set)}.html" aria-label="${esc(c.name)} from ${esc(c.setName)}, see the ${esc(c.setName)} set guide">${inner}</a>`;
   })
   .join("\n");
 
