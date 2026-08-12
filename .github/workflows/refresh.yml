@@ -67,6 +67,14 @@ jobs:
       - name: Sealed product prices
         run: node scripts/sync-products.mjs --force
 
+      # Free and unauthenticated, and the only source that knows a Japanese set
+      # exists. Cached, so this is one request per set after the first run.
+      - name: Foreign-language sets
+        run: node scripts/sync-intl.mjs
+
+      - name: Preorder prices for upcoming sets
+        run: node scripts/sync-preorders.mjs --force
+
       - name: Chase cards for sets with no API prices
         run: node scripts/sync-chase.mjs --force
 

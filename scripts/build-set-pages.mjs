@@ -121,6 +121,81 @@ for (const st of sets) {
   st.notes = { ...(st.notes || {}), ...n };
 }
 
+/**
+ * The foreign set an English release came from, for the "Also known as" panel.
+ *
+ * Worth a panel rather than a footnote because the relationship is not one to
+ * one and almost nobody knows it: Mega Evolution is TWO Japanese sets merged,
+ * and every English set trails its Japanese parent by weeks, which is why the
+ * cards turn up in Japanese first and why people ask about them.
+ */
+let intlSets = {};
+try {
+  intlSets = JSON.parse(await readFile(join(ROOT, "public/data/intl-sets.json"), "utf8")).sets || {};
+} catch {
+  /* run: node scripts/sync-intl.mjs */
+}
+
+/** "8 weeks earlier", from two ISO dates. */
+function leadTime(earlier, later) {
+  if (!earlier || !later) return null;
+  const days = Math.round((new Date(later) - new Date(earlier)) / 86400000);
+  if (days < 7) return null;
+  if (days < 60) return `${Math.round(days / 7)} weeks earlier`;
+  return `${Math.round(days / 30.44)} months earlier`;
+}
+
+function intlBand(s) {
+  const e = intlSets[s.id];
+  if (!e?.sources?.length) return "";
+  const many = e.sources.length > 1;
+  const rows = e.sources
+    .map((src) => {
+      const lead = leadTime(src.released, s.released);
+      return `      <li class="intl">
+        <p class="intl-lang">${esc(src.langName)}${src.id ? ` &bull; ${esc(src.id)}` : ""}</p>
+        <h3 lang="${src.lang}">${esc(src.name)}</h3>
+        ${src.romaji ? `<p class="intl-romaji">${esc(src.romaji)}</p>` : ""}
+        <p class="intl-meta">${[
+          src.total ? `${src.total} cards` : null,
+          src.released ? longDate(src.released) : null,
+        ].filter(Boolean).map(esc).join(" &bull; ")}</p>
+        ${lead ? `<p class="intl-lead">Out ${esc(lead)} than the English set</p>` : ""}
+        <a class="intl-link" href="${esc(src.url)}" rel="noopener" target="_blank">Full checklist on TCGdex &rarr;</a>
+      </li>`;
+    })
+    .join("\n");
+
+  return `<section class="tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Same set, other language</p>
+    <h2>${esc(s.name)} is also <span class="hl">${esc(e.sources.map((x) => x.name).join(" + "))}</span></h2>
+    <p class="lede intl-lede">${
+      many
+        ? `Two Japanese sets were merged into one English release, which is why ${esc(s.name)} is bigger than either of them.`
+        : `The Japanese release came first. Same cards, different printing and a different set symbol.`
+    }${e.note ? ` ${esc(e.note)}` : ""}</p>
+    <ul class="intl-grid">
+      <li class="intl is-en">
+        <p class="intl-lang">English${s.apiId ? ` &bull; ${esc(String(s.apiId).toUpperCase())}` : ""}</p>
+        <h3>${esc(s.name)}</h3>
+        <p class="intl-meta">${[
+          s.total ? `${s.total} cards` : null,
+          s.released ? longDate(s.released) : null,
+        ].filter(Boolean).map(esc).join(" &bull; ")}</p>
+        <p class="intl-lead">The one on this page</p>
+      </li>
+${rows}
+    </ul>
+    ${
+      e.confidence !== "confirmed"
+        ? `<p class="intl-warn">Matched on set numbering and card counts rather than an official statement. If that is wrong, say so on any of the socials.</p>`
+        : ""
+    }
+  </div>
+</section>`;
+}
+
 let chaseFallback = {};
 try {
   chaseFallback = JSON.parse(await readFile(join(ROOT, "data/chase-tcg.json"), "utf8")).sets || {};
@@ -487,6 +562,8 @@ ${s.notes?.inPrint || s.notes?.packPrice ? `
     </div>` : `<p class="lede">Card list not available for this set yet.</p>`}
   </div>
 </section>
+
+${intlBand(s)}
 
 ${productBand(s)}
 

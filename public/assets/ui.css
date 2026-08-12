@@ -1276,6 +1276,35 @@ footer .soc svg{fill:var(--paper)}
   background:rgba(21,38,58,.86);color:#F4F1E2;border-radius:var(--r-pill);padding:5px 8px;
   backdrop-filter:blur(3px)}
 
+/* --------------------------------------------------------------------------
+   "Same set, other language". The English release and the Japanese set it came
+   from, side by side. Not one to one: Mega Evolution is two Japanese sets
+   merged, so the grid takes however many there are.
+   -------------------------------------------------------------------------- */
+.intl-lede{max-width:46em;margin-bottom:var(--s5)}
+.intl-grid{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:var(--s4)}
+.intl{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:4px}
+.intl.is-en{border-color:var(--gold-deep);box-shadow:0 4px 0 var(--gold-deep),var(--lift)}
+.intl-lang{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-2);margin-bottom:4px}
+.intl h3{font:400 var(--t-m)/1.2 var(--display)}
+/* Japanese set names are not Latin text and the display face has no glyphs for
+   them, so they fall back mid-word and look broken. Let the system font do it. */
+.intl h3[lang="ja"],.intl h3[lang="ko"],.intl h3[lang="zh-tw"]{
+  font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;font-weight:700}
+.intl-romaji{font-size:var(--t-sm);color:var(--ink-2);font-style:italic}
+.intl-meta{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.04em;color:var(--ink-2);
+  text-transform:uppercase;margin-top:4px}
+.intl-lead{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ketchup-deep);letter-spacing:.04em;
+  text-transform:uppercase}
+.intl-link{margin-top:auto;padding-top:var(--s3);min-height:44px;display:inline-flex;
+  align-items:center;font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep)}
+.intl-link:hover{text-decoration:underline}
+.intl-warn{font:700 var(--t-micro)/1.7 var(--mono);color:var(--plum);background:var(--lilac-pale);
+  border-radius:var(--r);padding:var(--s3);margin-top:var(--s4);max-width:56em}
+
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important;animation:none!important;
     scroll-behavior:auto!important}

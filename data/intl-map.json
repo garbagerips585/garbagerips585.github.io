@@ -1,0 +1,54 @@
+{
+  "_readme": [
+    "Which foreign set an English set came from.",
+    "",
+    "This is NOT one to one and that is the interesting part. An English set is",
+    "often two Japanese sets merged: Mega Evolution (188 cards) is Mega Symphonia",
+    "plus Mega Brave (92 + 92). Some English sets have no single parent at all.",
+    "So every entry lists an ARRAY of sources.",
+    "",
+    "HOW EACH ONE WAS CHECKED, because a wrong equivalence on a reference page is",
+    "a confident lie: the id pattern (M5 -> ME05), the card counts being close",
+    "with English slightly higher, and the Japanese set preceding the English one.",
+    "Where those three agree the entry is `confirmed`. Where only some agree it is",
+    "`likely` and the page says so.",
+    "",
+    "Sources are TCGdex ids. Japanese: https://api.tcgdex.net/v2/ja/sets",
+    "Korean and Chinese coverage currently stops at the Scarlet & Violet era, so",
+    "there are no Mega Evolution entries for those languages yet.",
+    "",
+    "DO NOT add an entry from a card-site article. Check it against the counts."
+  ],
+  "checked": "2026-08-12",
+  "sets": {
+    "mega-evolution": {
+      "sources": [
+        { "lang": "ja", "id": "M1S", "name": "メガシンフォニア", "romaji": "Mega Symphonia" },
+        { "lang": "ja", "id": "M1L", "name": "メガブレイブ", "romaji": "Mega Brave" }
+      ],
+      "confidence": "confirmed",
+      "note": "Two Japanese sets merged into one English release: 92 plus 92 cards against 188."
+    },
+    "phantasmal-flames": {
+      "sources": [{ "lang": "ja", "id": "M2", "name": "インフェルノX", "romaji": "Inferno X" }],
+      "confidence": "confirmed"
+    },
+    "ascended-heroes": {
+      "sources": [{ "lang": "ja", "id": "M2a", "name": "MEGAドリームex", "romaji": "Mega Dream ex" }],
+      "confidence": "confirmed",
+      "note": "A high-pull subset in Japan, which is why both sides are unusually large."
+    },
+    "perfect-order": {
+      "sources": [{ "lang": "ja", "id": "M3", "name": "ムニキスゼロ", "romaji": "Munikisu Zero" }],
+      "confidence": "confirmed"
+    },
+    "chaos-rising": {
+      "sources": [{ "lang": "ja", "id": "M4", "name": "ニンジャスピナー", "romaji": "Ninja Spinner" }],
+      "confidence": "confirmed"
+    },
+    "pitch-black": {
+      "sources": [{ "lang": "ja", "id": "M5", "name": "アビスアイ", "romaji": "Abyss Eye" }],
+      "confidence": "confirmed"
+    }
+  }
+}
