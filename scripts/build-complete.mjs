@@ -48,11 +48,24 @@ const meta = new Map(sets.map((s) => [s.id, s]));
 // the part of a set that costs money, which is the split the page is built on.
 const BULK = new Set(["Common", "Uncommon"]);
 
-/** Cheapest way to own this card. See the header note on variants. */
+/** Cheapest way to own this card at MARKET. See the header note on variants. */
 function floorPrice(c) {
   const vals = Object.values(c.all || {}).filter((v) => typeof v === "number" && v > 0);
   if (vals.length) return Math.min(...vals);
   return typeof c.price === "number" && c.price > 0 ? c.price : null;
+}
+
+/** Cheapest listing on the shelf right now, across variants.
+ *
+ * A DIFFERENT NUMBER ANSWERING A DIFFERENT QUESTION, and the page keeps them
+ * apart. Market is what copies have been selling for. `low` is one listing,
+ * condition unstated, from one seller, and 200 of them are 200 separate orders
+ * with 200 postage charges. Summed it is a floor nobody can actually reach, so
+ * it is never presented as what a set costs. Falls back to market so a card
+ * without a listing does not silently drop out of the floor and make it look
+ * lower than it is. */
+function listedFloor(c) {
+  return typeof c.low === "number" && c.low > 0 ? c.low : floorPrice(c);
 }
 
 const rows = [];
@@ -70,6 +83,7 @@ for (const f of (await readdir(join(ROOT, "public/data/cards"))).sort()) {
   const official = Number(set.printedTotal) || 0;
   const tiers = { bulk: 0, base: 0, master: 0 };
   const counts = { bulk: 0, base: 0, master: 0 };
+  const floors = { base: 0, master: 0 };
   let missing = 0;
   let top = null;
 
@@ -79,12 +93,15 @@ for (const f of (await readdir(join(ROOT, "public/data/cards"))).sort()) {
       missing += 1;
       continue;
     }
+    const lo = listedFloor(c);
     const n = Number(String(c.n).replace(/^0+(?=\d)/, ""));
     const inBase = official > 0 && Number.isFinite(n) && n <= official;
     tiers.master += p;
+    floors.master += lo;
     counts.master += 1;
     if (inBase) {
       tiers.base += p;
+      floors.base += lo;
       counts.base += 1;
       if (BULK.has(c.rarity)) {
         tiers.bulk += p;
@@ -102,6 +119,11 @@ for (const f of (await readdir(join(ROOT, "public/data/cards"))).sort()) {
     official,
     ...tiers,
     counts,
+    floors,
+    // How far market sits above the cheapest listings on the shelf. Big on a
+    // commons-heavy tier, near 1 on a tier the chase cards dominate.
+    baseSpread: floors.base > 0 ? tiers.base / floors.base : 1,
+    masterSpread: floors.master > 0 ? tiers.master / floors.master : 1,
     missing,
     top,
     // The single most useful derived number on the page: how much of the whole
@@ -123,6 +145,26 @@ const lopsided = rows
   .sort((a, b) => b.topShare - a.topShare);
 const totalBase = rows.reduce((n, r) => n + r.base, 0);
 const totalMissing = rows.reduce((n, r) => n + r.missing, 0);
+const totalBaseFloor = rows.reduce((n, r) => n + r.floors.base, 0);
+const totalMasterFloor = rows.reduce((n, r) => n + r.floors.master, 0);
+const totalMaster = rows.reduce((n, r) => n + r.master, 0);
+// The headline of the shipping section: market runs well above the cheapest
+// listings on a commons-heavy base set and barely above them on a master set,
+// because the master set's bill is chase cards whose cheap copies are not cheap.
+//
+// MEDIAN OF THE PER-SET RATIOS, not the ratio of the totals. Summing every set
+// first lets the two or three dearest sets set the answer for all 23: done that
+// way the base-set figure comes out 2.4x, when the per-set spreads actually run
+// from 1.3x to 7.6x and the middle set is well above 2.4. The label says
+// "typical set", so the number has to be the typical set.
+const median = (xs) => {
+  const s = xs.slice().sort((a, b) => a - b);
+  const m = s.length >> 1;
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+};
+const baseSpread = median(rows.map((r) => r.baseSpread));
+const masterSpread = median(rows.map((r) => r.masterSpread));
+const widest = rows.slice().sort((a, b) => b.baseSpread - a.baseSpread)[0];
 
 const pct = (x) => `${Math.round(x * 100)}%`;
 const desc =
@@ -332,17 +374,44 @@ ${MENU}
 
 <section class="tight">
   <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Two different prices</p>
+    <h2>The cards are nearly free. The <span class="hl">postage</span> is not.</h2>
+    <p class="lede" style="max-width:40em">Every figure above is market price, meaning what copies have actually been
+      selling for. There is a second number worth knowing: the cheapest copy listed right now. On the cards that make
+      up a base set those two are miles apart, and on the cards that make up a master set they are almost the same.</p>
+    <div class="facts">
+      <div class="fact"><div class="n">${baseSpread.toFixed(1)}x</div><div class="l">Typical set: market above cheapest listings, base set</div></div>
+      <div class="fact"><div class="n">${masterSpread.toFixed(1)}x</div><div class="l">Typical set: the same comparison, master set</div></div>
+      <div class="fact wide"><div class="n">${moneyRound(totalBaseFloor / rows.length)}</div><div class="l">Average base set at cheapest listings, before postage</div></div>
+    </div>
+    <p style="max-width:40em;margin-top:16px">The reason is that a three cent common's cheapest copy is a penny, while
+      a ${moneyRound(dearestMaster.top.price)} chase card's cheapest copy is close to what it sells for. So the money in
+      a base set is not really in the cards, it is in getting ${cheapest.counts.base} of them into one envelope.
+      ${esc(widest.name)} is the extreme case: ${moneyRound(widest.base)} at market against
+      ${moneyRound(widest.floors.base)} in cheapest listings, a ${widest.baseSpread.toFixed(1)}x gap.</p>
+    <p class="price-note">We do not publish the cheapest-listing total as a set price, because it is not one. Those are
+      single listings from ${cheapest.counts.base} different sellers in unstated condition, so nobody can actually buy a
+      set at that number. It is here to show you where the real cost sits, which is postage and patience rather than
+      the cards.</p>
+  </div>
+</section>
+
+<section class="band tight">
+  <div class="wrap">
     <h2>How this was <span class="hl">worked out</span></h2>
     <ul class="facts-list">
       <li><strong>Cheapest printing, every time.</strong> A card that exists as a normal and a reverse holo is counted
         at whichever is cheaper, because that is what somebody finishing a set would buy. It makes these totals lower
         than the price the same card shows on our card pages, which quote a specific printing.</li>
-      <li><strong>Before shipping, and that matters.</strong> Singles come from many sellers, so a real completion pays
-        postage over and over. On a ${moneyRound(cheapest.base)} base set the shipping can be the larger half of the
-        bill. Buying in bulk from one seller is how people actually do this.</li>
-      <li><strong>Market price, not the price you will pay.</strong> Market is what cards have been selling for. The
-        cheap commons in any set are often listed by nobody at all, so the last few cards in a checklist reliably cost
-        more than this page says. Assume the real number is somewhat above ours, never below.</li>
+      <li><strong>Before shipping, and on a base set that is the whole bill.</strong> Singles come from many sellers, so
+        a real completion pays postage over and over. Add up the cheapest listing for every card in a base set and it
+        comes to ${moneyRound(totalBaseFloor / rows.length)} on average, against ${moneyRound(totalBase / rows.length)}
+        at market. The cards are close to free. What you are actually buying is ${cheapest.counts.base} separate
+        envelopes, which is why people do this in bulk lots from one seller and not one card at a time.</li>
+      <li><strong>Market price, not the price you will pay, and it cuts both ways.</strong> Market is what copies have
+        been selling for. Some cards can be had below it right now from somebody clearing stock, and some cannot be had
+        at all, because the cheap commons in any set are often listed by nobody. So this is a middle estimate rather
+        than a floor or a ceiling: expect to beat it on the cards everyone has and to pay over it on the last few.</li>
       <li><strong>Reverse holos are not costed.</strong> A full reverse-holo run is a separate tier again, and it is
         a big one. The master-set figures here are one copy of each card number, not one of each printing.</li>
       <li><strong>No pull rates, no pack maths.</strong> We have not costed "how many packs to complete this", because

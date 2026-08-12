@@ -128,15 +128,37 @@ async function pool(items, limit, fn) {
   return out;
 }
 
-/** Best market price across a card's variants, and which variant it was. */
+/** Best market price across a card's variants, and which variant it was.
+ *
+ * ALSO KEEPS THE CHEAPEST LISTING (`low`). TCGdex returns lowPrice in the same
+ * response as marketPrice and we were throwing it away, which cost us the more
+ * useful of the two numbers for cheap cards. Measured on Chaos Rising: summed
+ * across the 86 card base set, market is $14.00 and the lowest listings are
+ * $2.13, a 6.6x gap. Across the master set it is $708.29 against $646.17, only
+ * 1.10x. The spread is enormous on commons and negligible on chase cards,
+ * because a $0.03 common's cheapest copy is a penny while a $213 card's is
+ * close to what it sells for.
+ *
+ * The two numbers answer different questions and the site must not conflate
+ * them. Market is what copies have been SELLING for, so it is the honest
+ * estimate of what a card costs. Low is a single listing, right now, condition
+ * unstated, from one seller. You cannot buy 200 cards at 200 different lowest
+ * listings in one order, so summing `low` is a floor nobody can actually
+ * reach, never a quote. */
 function bestPrice(pricing) {
   const tp = pricing?.tcgplayer;
-  if (!tp) return { price: null, variant: null, all: null };
+  if (!tp) return { price: null, variant: null, all: null, low: null };
   const all = {};
   let price = null;
   let variant = null;
+  let low = null;
   for (const [name, v] of Object.entries(tp)) {
     if (!v || typeof v !== "object") continue; // skips `unit` and `updated`
+    // Cheapest listing is tracked across ALL variants, independently of which
+    // variant won on market price: someone completing a set buys whichever
+    // printing is going cheapest, and it is routinely not the dearest one.
+    const l = typeof v.lowPrice === "number" && v.lowPrice > 0 ? v.lowPrice : null;
+    if (l != null && (low == null || l < low)) low = l;
     const m = typeof v.marketPrice === "number" ? v.marketPrice : null;
     if (m == null) continue;
     all[name] = m;
@@ -145,7 +167,7 @@ function bestPrice(pricing) {
       variant = name;
     }
   }
-  return { price, variant, all: Object.keys(all).length ? all : null };
+  return { price, variant, all: Object.keys(all).length ? all : null, low };
 }
 
 const VARIANT_LABEL = {
@@ -224,7 +246,7 @@ for (const [slug, tcgdexId] of entries) {
     const brief = list[i];
     const full = details[i];
     if (full === undefined) missing++;
-    const { price, variant, all } = bestPrice(full?.pricing);
+    const { price, variant, all, low } = bestPrice(full?.pricing);
     cards.push({
       n: brief.localId || null,
       name: brief.name || full?.name || "",
@@ -234,6 +256,9 @@ for (const [slug, tcgdexId] of entries) {
       price,
       variant: variant ? VARIANT_LABEL[variant] || variant : null,
       all,
+      // Cheapest listing across variants. Omitted rather than nulled when the
+      // card has none, so it does not add a key to 4,481 records for nothing.
+      ...(low != null ? { low } : {}),
       ill: full?.illustrator || null,
     });
   }
