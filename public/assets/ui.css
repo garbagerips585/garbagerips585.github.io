@@ -1909,3 +1909,59 @@ footer .soc svg{fill:var(--paper)}
   .gr-raw,.gr-psa,.gr-net{white-space:normal}
   .gr{gap:2px 8px}
 }
+
+/* ---------- cost to complete a set (/complete-a-set.html) ----------
+   A five column table of money. The hard part is 375px: five columns cannot
+   shrink to fit a phone without the numbers wrapping mid-figure, so the table
+   keeps its natural width and scrolls inside .cc-scroll instead. The set name
+   column is sticky so a reader who has scrolled to "master set" still knows
+   which row they are on, which is the whole point of scrolling it. */
+.cc-scroll{
+  overflow-x:auto;margin-top:18px;border:3px solid var(--navy);border-radius:12px;
+  background:var(--card);box-shadow:var(--hard-lg);
+  /* Momentum scrolling on iOS, and a hint that there is more to the right. */
+  -webkit-overflow-scrolling:touch;
+}
+.cc-table{border-collapse:collapse;width:100%;min-width:660px;font-size:.9rem}
+.cc-table th,.cc-table td{
+  padding:10px 14px;text-align:left;vertical-align:top;
+  border-bottom:1px solid var(--hair);
+}
+.cc-table thead th{
+  font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;
+  background:var(--navy);color:var(--paper);border-bottom:none;position:sticky;top:0;
+  white-space:nowrap;
+}
+.cc-table tbody th{
+  /* Sticky row header. Needs its own background or the scrolling cells show
+     through it, and a keyline so it reads as a held column not a glitch.
+     The keyline is a box-shadow, NOT a border-right: under border-collapse the
+     collapsed border belongs to the table rather than the cell, so it stays
+     put while the cell travels and the pinned column loses its edge exactly
+     when you start scrolling and need it most. A shadow is painted by the
+     element and moves with it. */
+  position:sticky;left:0;background:var(--card);z-index:1;
+  box-shadow:2px 0 0 var(--navy);font-weight:700;min-width:170px;
+}
+/* The heading over the pinned column has to pin too, or the column keeps its
+   rows and loses its label the moment you scroll right. Higher z-index because
+   this one cell is in both sticky contexts at once. */
+.cc-table thead th:first-child{left:0;z-index:2;box-shadow:2px 0 0 var(--paper)}
+.cc-table tbody tr:nth-child(even) th,
+.cc-table tbody tr:nth-child(even) td{background:var(--paper-2)}
+.cc-table tbody tr:hover th,
+.cc-table tbody tr:hover td{background:var(--sky-tint)}
+.cc-table a{color:var(--navy);text-decoration:underline;text-underline-offset:2px}
+.cc-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cc-table thead .num{text-align:right}
+.cc-yr{display:block;font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);font-weight:400}
+.cc-n{display:block;font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);font-weight:400;margin-top:2px}
+.cc-top{min-width:190px}
+/* Rows whose total is short a few unpriced cards. Dotted rather than coloured:
+   it is a footnote, not a warning, and the caption underneath explains it. */
+.cc-part th[scope="row"]{border-left:4px dotted var(--gold)}
+@media (max-width:600px){
+  .cc-table{font-size:.82rem}
+  .cc-table th,.cc-table td{padding:8px 10px}
+  .cc-table tbody th{min-width:140px}
+}

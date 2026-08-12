@@ -53,6 +53,7 @@ const PAGES = [
   ["/rarity.html", "Rarity guide", "What the symbols mean and what is actually rare"],
   ["/fake-cards.html", "Real or fake?", "Seven checks for spotting a counterfeit"],
   ["/grading.html", "Worth grading?", "What grading costs and whether it pays"],
+  ["/complete-a-set.html", "Cost to complete a set", "What every set costs to finish, priced nightly"],
   ["/luck.html", "Luck and pull rates", "What actually comes out of the packs"],
   ["/upcoming.html", "Coming next", "Upcoming sets and preorder prices"],
   ["/expansions.html", "Every set ever", "The complete expansion list"],

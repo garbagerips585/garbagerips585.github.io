@@ -719,6 +719,9 @@ const urls = [
   // Grading costs. Weekly rather than monthly because the fee table goes stale
   // fast: PSA paused two tiers in June with a fortnight's notice.
   { loc: `${SITE}/grading.html`, freq: "weekly", pri: "0.9" },
+  // Daily: the totals are recomputed by the nightly price sync, so this page
+  // genuinely changes every night. Nothing else here does.
+  { loc: `${SITE}/complete-a-set.html`, freq: "daily", pri: "0.9" },
   ...ordered.filter((v) => taggedIds.has(v.id)).map((v) => ({ loc: `${SITE}/${pathFor(v)}`, freq: "monthly", pri: "0.6", mod: v.published })),
 ];
 await writeFile(

@@ -154,6 +154,7 @@ jobs:
           # Reads data/psa10.json, which the price sync tops up nightly, so the
           # break-even verdicts move as the card prices move.
           node scripts/build-grading.mjs
+          node scripts/build-complete.mjs
           node scripts/build-start.mjs
           # LAST: it indexes the pages above, so it has to see them finished.
           node scripts/build-search.mjs

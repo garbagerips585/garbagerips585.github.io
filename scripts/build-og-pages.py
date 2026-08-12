@@ -50,6 +50,7 @@ PAGES = {
     "luck": ("MEASURED, NOT GUESSED", "Luck & pull rates", "What actually came out of the packs"),
     "upcoming": ("WHAT IS NEXT", "Coming next", "The next sets, with live preorder prices"),
     "expansions": ("THE WHOLE LIST", "Every set ever", "Oldest to newest, all in one place"),
+    "complete": ("PRICED LAST NIGHT", "Cost to complete a set", "Every set, three tiers, live prices"),
     "collection": ("THE BINDER", "The collection", "What is in it, and what it is worth"),
     "hall": ("THE GOOD ONES", "Hall of Fame", "The pulls that actually went somewhere"),
 }
