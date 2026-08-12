@@ -143,7 +143,19 @@ function faceSet(v) {
   return list.find((s) => packs.has(s)) || list[0] || null;
 }
 
-function tile(v, { rank = null, showSet = true } = {}) {
+/** "TODAY", "3 DAYS AGO", "2 WEEKS AGO". Short enough for a corner chip. */
+function ago(iso) {
+  if (!iso) return "";
+  const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+  if (days <= 0) return "TODAY";
+  if (days === 1) return "YESTERDAY";
+  if (days < 7) return `${days} DAYS AGO`;
+  if (days < 30) return `${Math.round(days / 7)} WEEK${Math.round(days / 7) === 1 ? "" : "S"} AGO`;
+  if (days < 365) return `${Math.round(days / 30.44)} MONTHS AGO`;
+  return `${Math.floor(days / 365)}Y AGO`;
+}
+
+function tile(v, { rank = null, showSet = true, dated = false } = {}) {
   const all = v.sets || [];
   const set = faceSet(v);
   const hasPack = set && packs.has(set);
@@ -166,6 +178,13 @@ function tile(v, { rank = null, showSet = true } = {}) {
   const p = bestPull(v);
   const flag = p != null && rank == null ? `<span class="hit">${PULL_RANK[p][1]}</span>` : "";
   const badge = rank != null ? `<span class="rank">${rank}</span>` : "";
+  // A relative date on the artwork. The Latest block is six tiles of which
+  // five are usually the same wrapper, because tiles show the SET's pack
+  // rather than a thumbnail that would give the pull away. That is the
+  // anti-spoiler rule working, but it left a column of identical rectangles
+  // separated only by two clipped lines of title. The chip differentiates them
+  // with the one fact this block is about: how new it is.
+  const stamp = dated ? `<span class="when">${esc(ago(v.published))}</span>` : "";
 
   // The meta line is one line, so it has to earn every character. In the wall
   // the wrapper already names the set, so the useful pair is popularity and
@@ -186,7 +205,7 @@ function tile(v, { rank = null, showSet = true } = {}) {
   // label its accessible name was the duration: a screen reader read twenty
   // links on the home page as "link, 0 colon 22". The visible title was also
   // not clickable, only the thumbnail was.
-  return `      <article class="v"><a class="art" href="/${esc(v.path)}" aria-label="${esc(v.siteTitle || v.title)}">${badge}${flag}${face}<span class="play"></span>${
+  return `      <article class="v"><a class="art" href="/${esc(v.path)}" aria-label="${esc(v.siteTitle || v.title)}">${badge}${flag}${stamp}${face}<span class="play"></span>${
     v.duration ? `<span class="dur">${clock(v.duration)}</span>` : ""
   }</a>
         <h3><a href="/${esc(v.path)}">${esc(v.siteTitle || v.title)}</a></h3><p>${meta}</p></article>`;
@@ -316,7 +335,41 @@ const railHtml = [
 ].join("\n");
 
 const hallHtml = hall.map((v, i) => tile(v, { rank: i + 1, showSet: true })).join("\n");
-const latestHtml = byNewest.slice(0, 6).map((v) => tile(v, { showSet: false })).join("\n");
+/**
+ * The newest rip, given its own row.
+ *
+ * Six equal tiles made the freshest thing on the channel look like one of six,
+ * and because five of them usually wear the same wrapper it read as a column
+ * of repeats rather than as news. One wide tile plus four beneath it says
+ * which one is new without anybody having to read a date.
+ */
+function heroTile(v) {
+  const set = faceSet(v);
+  const face = set && packs.has(set)
+    ? `<img src="assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp"
+           srcset="assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${set}-garbage-rips-585-booster-pack.webp 810w"
+           sizes="(max-width:640px) 42vw, 260px" alt="" width="400" height="711" fetchpriority="high">`
+    : `<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" width="400" height="711" fetchpriority="high">`;
+  const all = v.sets || [];
+  const label = all.length ? (setName.get(all[0]) || all[0]).toUpperCase() : "GARBAGE RIPS";
+  const p = bestPull(v);
+  return `      <article class="hero">
+        <a class="hero-art" href="/${esc(v.path)}" aria-label="${esc(v.siteTitle || v.title)}">
+          ${face}<span class="play"></span>${v.duration ? `<span class="dur">${clock(v.duration)}</span>` : ""}
+        </a>
+        <div class="hero-body">
+          <p class="hero-kicker"><span class="hero-new">Newest rip</span> ${esc(ago(v.published))}</p>
+          <h3><a href="/${esc(v.path)}">${esc(v.siteTitle || v.title)}</a></h3>
+          <p class="hero-meta">${label}${p != null ? ` &bull; ${PULL_RANK[p][1]}` : ""} &bull; ${compact(v.views)} VIEWS</p>
+          <span class="hero-cta">Rip it open &rarr;</span>
+        </div>
+      </article>`;
+}
+
+const latestHtml = [
+  heroTile(byNewest[0]),
+  ...byNewest.slice(1, 5).map((v) => tile(v, { showSet: false, dated: true })),
+].join("\n");
 const watchedHtml = mostWatched.map((v) => tile(v, { showSet: false })).join("\n");
 
 const ordered = [...sets].sort((a, b) => String(b.released).localeCompare(String(a.released)));

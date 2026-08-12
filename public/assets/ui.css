@@ -1239,6 +1239,43 @@ footer .soc svg{fill:var(--paper)}
   .v .art::after{opacity:.35}
 }
 
+/* --------------------------------------------------------------------------
+   The newest rip, as a hero, and the date chip on the tiles under it.
+
+   Tiles show the SET's wrapper rather than a video thumbnail, because the
+   thumbnail is nearly always the pulled card and would spoil the video. Right,
+   but it means six Latest tiles are usually five copies of one pack: a column
+   of identical rectangles separated only by two clipped lines of title. The
+   hero says which one is new by size, and the chips date the rest.
+   -------------------------------------------------------------------------- */
+.wall .hero{grid-column:1/-1;display:grid;grid-template-columns:minmax(120px,38%) 1fr;
+  gap:var(--s4);align-items:center;background:var(--card);border:1px solid var(--hair);
+  border-radius:var(--r);padding:var(--s3);box-shadow:var(--lift);margin-bottom:var(--s2)}
+@media(min-width:900px){.wall .hero{grid-template-columns:minmax(150px,240px) 1fr;padding:var(--s4)}}
+.hero-art{position:relative;display:block;border-radius:calc(var(--r) - 6px);overflow:hidden;
+  aspect-ratio:2/3;background:var(--navy-deep)}
+.hero-art img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-art .play{opacity:.95}
+.hero-body{min-width:0}
+.hero-kicker{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-2);margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.hero-new{background:var(--ketchup);color:#fff;border-radius:var(--r-pill);padding:4px 9px;
+  letter-spacing:.08em}
+.hero-body h3{font:400 var(--t-l)/1.1 var(--display);margin-bottom:8px}
+.hero-body h3 a{display:block}
+.hero-meta{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.05em;color:var(--ink-2);
+  text-transform:uppercase;margin-bottom:var(--s3)}
+.hero-cta{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--s4);
+  border:2px solid var(--ink);border-radius:var(--r-pill);background:var(--mustard);
+  font:700 var(--t-sm)/1 var(--body);color:var(--ink);box-shadow:var(--lift)}
+.hero:hover .hero-cta{transform:translateY(-2px)}
+
+/* The chip sits opposite the hit flag so the two never collide. */
+.v .when{position:absolute;left:8px;bottom:8px;z-index:3;
+  font:700 9px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  background:rgba(21,38,58,.86);color:#F4F1E2;border-radius:var(--r-pill);padding:5px 8px;
+  backdrop-filter:blur(3px)}
+
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important;animation:none!important;
     scroll-behavior:auto!important}
