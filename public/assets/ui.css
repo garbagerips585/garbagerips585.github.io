@@ -1360,3 +1360,71 @@ footer .soc svg{fill:var(--paper)}
    .dense had higher specificity than every .vid-grid breakpoint and was
    declared after them, so the moment anything used it, all four columns rules
    would have stopped applying. */
+
+
+/* --------------------------------------------------------------------------
+   Non-English set guides (/sets/ja-*, ko-*, zh-*), written by
+   scripts/build-intl-pages.mjs.
+
+   These invert the panel the English guides use. There, the native name is the
+   heading and the English reading sits under it. Here the English name leads
+   and the native name is the subtitle, because about 95% of the audience is in
+   the US and "Abyss Eye" is what they can actually search for. The native name
+   is never dropped: it is what is printed on the pack in their hand.
+
+   Nothing below sets animation, transform or transition, so sitting after the
+   reduced-motion block does not override it.
+   -------------------------------------------------------------------------- */
+
+/* The display face has no CJK glyphs, so Japanese, Korean and Chinese fall back
+   mid-word and render as broken boxes. The existing rule covered .intl h3 only,
+   and only for zh-tw; every native name outside a card heading missed it, and
+   the Chinese guide is zh-cn. One selector now covers all of them. */
+.cjk,
+.intl-native,.ig-native,
+[lang="ja"],[lang="ko"],[lang="zh-cn"],[lang="zh-tw"]{
+  font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP","Noto Sans KR","Noto Sans SC",sans-serif;
+}
+
+/* Native set name under the H1. Deliberately quiet: it is a label, not a title. */
+.intl-hero-native{
+  font-size:var(--t-lede);font-weight:700;color:var(--ink-2);
+  margin-top:calc(var(--s2) * -1);margin-bottom:var(--s3);
+}
+
+/* Native name inside a comparison card or a chase tile. */
+.intl-native{font-size:var(--t-sm);color:var(--ink-2);font-weight:600}
+.ig-native{font-size:var(--t-micro);color:var(--ink-2);line-height:1.4}
+.chase-card .ig-native{margin-top:2px}
+
+/* The full checklist. Collapsed by default: 135 rows is real SEO text but it
+   would otherwise be the tallest thing on the page by a wide margin. */
+.ig-list{margin-top:var(--s4);border:1px solid var(--hair);border-radius:var(--r);
+  background:var(--card);box-shadow:var(--lift)}
+.ig-list > summary{
+  cursor:pointer;padding:var(--s4) var(--s5);min-height:44px;display:flex;align-items:center;
+  font:700 var(--t-sm)/1.2 var(--body);color:var(--ketchup-deep);
+}
+.ig-list > summary:hover{text-decoration:underline}
+.ig-list[open] > summary{border-bottom:1px solid var(--hair)}
+.ig-cards{list-style:none;margin:0;padding:var(--s3) var(--s5) var(--s5);
+  display:grid;grid-template-columns:1fr;gap:2px}
+.ig-cards li{display:grid;grid-template-columns:3.2em 1fr auto;gap:2px var(--s3);
+  align-items:baseline;padding:6px 0;border-bottom:1px solid var(--hair)}
+.ig-cards li:last-child{border-bottom:0}
+.ig-no{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
+.ig-nm{font-weight:600;font-size:var(--t-sm)}
+/* The native name sits under the English one rather than beside it, so a long
+   Japanese name cannot push the rarity column off a 320px screen. */
+.ig-cards .ig-native{grid-column:2}
+.ig-rr{grid-row:1;grid-column:3;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
+  text-align:right;white-space:nowrap}
+
+@media(min-width:760px){
+  .ig-cards{grid-template-columns:1fr 1fr;gap:2px var(--s5)}
+}
+
+/* The set-guide chip on a rip page. Distinct from the filter chips beside it
+   because it leaves the video list rather than narrowing it. */
+.chip.guide{background:var(--gold);border-color:var(--navy);color:var(--navy);font-weight:700}
+.chip.guide:hover{background:var(--mustard)}

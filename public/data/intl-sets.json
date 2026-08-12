@@ -80,7 +80,7 @@
     },
     "perfect-order": {
       "confidence": "confirmed",
-      "note": null,
+      "note": "Was published here as 'Munikisu Zero', which was a transliteration of the native name rather than a sourced English name. Nihil Zero is what is printed on the packs and what the community uses, so that is what the page says now. See data/intl-rips.json.",
       "englishTotal": 124,
       "sourceTotal": 117,
       "sources": [
@@ -89,7 +89,7 @@
           "langName": "Japanese",
           "id": "M3",
           "name": "ムニキスゼロ",
-          "romaji": "Munikisu Zero",
+          "romaji": "Nihil Zero",
           "total": 117,
           "official": 80,
           "released": "2026-01-23",

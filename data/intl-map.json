@@ -39,8 +39,9 @@
       "note": "A high-pull subset in Japan, which is why both sides are unusually large."
     },
     "perfect-order": {
-      "sources": [{ "lang": "ja", "id": "M3", "name": "ムニキスゼロ", "romaji": "Munikisu Zero" }],
-      "confidence": "confirmed"
+      "sources": [{ "lang": "ja", "id": "M3", "name": "ムニキスゼロ", "romaji": "Nihil Zero" }],
+      "confidence": "confirmed",
+      "note": "Was published here as 'Munikisu Zero', which was a transliteration of the native name rather than a sourced English name. Nihil Zero is what is printed on the packs and what the community uses, so that is what the page says now. See data/intl-rips.json."
     },
     "chaos-rising": {
       "sources": [{ "lang": "ja", "id": "M4", "name": "ニンジャスピナー", "romaji": "Ninja Spinner" }],

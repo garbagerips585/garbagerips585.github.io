@@ -15,9 +15,15 @@ export const PRODUCT_TYPES = [
   { id: "ex-premium", label: "ex Premium Collection", pattern: /\bex premium collection\b/i },
   { id: "ex-special", label: "ex Special Collection", pattern: /\bex special collection\b/i },
   { id: "poke-ball-tin", label: "Poke Ball Tin", pattern: /pok[eé]\s?ball tin/i },
-  { id: "japanese-pack", label: "Japanese Booster Pack", pattern: /\bjapanese\b.*\bpack\b/i },
-  { id: "korean-pack", label: "Korean Booster Pack", pattern: /\bkorean\b.*\bpack\b/i },
-  { id: "chinese-pack", label: "Chinese Booster Pack", pattern: /\bchinese\b.*\bpack\b/i },
+  // `packs?` matters more than it looks. These were written as \bpack\b, which
+  // does not match "Packs", and the channel names a multi-pack rip in the
+  // plural nearly every time: "Japanese Abyss Eye | Packs #7 & #8". Fourteen of
+  // the twenty-one imported rips came out with no product tag at all, and a
+  // page needs BOTH a set and a product tag to lose its noindex, so they stayed
+  // out of search even once the set tags existed.
+  { id: "japanese-pack", label: "Japanese Booster Pack", pattern: /\bjapanese\b.*\bpacks?\b/i },
+  { id: "korean-pack", label: "Korean Booster Pack", pattern: /\bkorean\b.*\bpacks?\b/i },
+  { id: "chinese-pack", label: "Chinese Booster Pack", pattern: /\bchinese\b.*\bpacks?\b/i },
   { id: "etb", label: "Elite Trainer Box", short: "ETB", pattern: /\betb\b|elite trainer box/i },
   { id: "booster-box", label: "Booster Box", pattern: /\bbooster box\b|\bdisplay box\b/i },
   { id: "ex-box", label: "EX Box", pattern: /\bex box\b|\bex premium\b|\bex collection\b/i },
@@ -28,7 +34,10 @@ export const PRODUCT_TYPES = [
   // "Booster Pack Opening" is how the channel labels loose single packs, as
   // distinct from a Bundle or a Box. Bundle/Box sit above this in the list, so
   // they win when a title mentions both.
-  { id: "single-pack", label: "Single Pack", pattern: /\bsingle pack\b|\bone pack\b|\b1 pack\b|\bloose pack\b|\bbooster pack\b/i },
+  // Same plural blindness as the imported packs above, and this one sits LAST
+  // in the list, so widening it can only tag a video that matched nothing at
+  // all. Anything that already matched a box, tin or bundle still wins.
+  { id: "single-pack", label: "Single Pack", pattern: /\bsingle packs?\b|\bone pack\b|\b1 pack\b|\bloose packs?\b|\bbooster packs?\b/i },
 ];
 
 // Set names observed in the channel's own titles, newest first. Add to this
@@ -57,7 +66,38 @@ export const CARD_SETS = [
   { id: "paldea-evolved", label: "Paldea Evolved" },
   { id: "scarlet-violet", label: "Scarlet & Violet", pattern: /scarlet\s*(&|and)\s*violet/i },
   { id: "151", label: "151", pattern: /\b151\b/ },
+
+  // Non-English sets the channel has opened. Kept in the same list so a foreign
+  // rip gets a set tag, a real page and a place in the sitemap exactly like an
+  // English one; before these existed, 20 rips fell through as untagged and were
+  // published noindex as thin pages.
+  //
+  // The label carries a language marker because several of these ARE an English
+  // set under another name, and "Abyss Eye" sitting unqualified next to "Pitch
+  // Black" in a filter list reads as two different products. Every entry needs
+  // an explicit pattern: the default matcher builds its regex from the label,
+  // and the bracketed marker would end up inside it.
+  //
+  // Set equivalences and everything else about these live in data/intl-rips.json.
+  { id: "ja-abyss-eye", label: "Abyss Eye (JP)", pattern: /\babyss eye\b/i },
+  { id: "ja-ninja-spinner", label: "Ninja Spinner (JP)", pattern: /\bninja spinner\b/i },
+  { id: "ja-nihil-zero", label: "Nihil Zero (JP)", pattern: /\bnihil zero\b/i },
+  { id: "ja-mega-symphonia", label: "Mega Symphonia (JP)", pattern: /\bmega symphonia\b/i },
+  { id: "ja-mega-brave", label: "Mega Brave (JP)", pattern: /\bmega brave\b/i },
+  { id: "ja-stellar-miracle", label: "Stellar Miracle (JP)", pattern: /\bstellar miracle\b/i },
+  { id: "ja-cyber-judge", label: "Cyber Judge (JP)", pattern: /\bcyber judge\b/i },
+  { id: "ja-violet-ex", label: "Violet ex (JP)", pattern: /\bviolet ex\b/i },
+  { id: "ko-clay-burst", label: "Clay Burst (KR)", pattern: /\bclay burst\b/i },
+  { id: "ko-crimson-haze", label: "Crimson Haze (KR)", pattern: /\bcrimson haze\b/i },
+  { id: "ko-mask-of-change", label: "Mask of Change (KR)", pattern: /\bmask of change\b/i },
+  { id: "ko-battle-partners", label: "Battle Partners (KR)", pattern: /\bbattle partners\b/i },
+  { id: "zh-gem-pack-2", label: "Gem Pack Vol. 2 (CN)", pattern: /\bgem pack\s*(?:vol\.?\s*)?2\b/i },
 ];
+
+/** The non-English set ids, for anything that needs to treat them separately. */
+export const INTL_SET_IDS = new Set(
+  CARD_SETS.filter((s) => /^(ja|ko|zh)-/.test(s.id)).map((s) => s.id)
+);
 
 // Pull grade, for the "did it hit" angle. These are the abbreviations the
 // channel actually uses in titles.

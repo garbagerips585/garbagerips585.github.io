@@ -91,6 +91,37 @@ const logoAttrs = (setId) => {
   return d ? ` width="${d[0]}" height="${d[1]}"` : "";
 };
 
+// Which sets actually have a logo file. A rip page renders the logo of whatever
+// set it is tagged with, and tagging the Japanese, Korean and Chinese rips gave
+// 12 pages an <img> pointing at a file that does not exist: TCGdex publishes no
+// logo or symbol art for ANY non-English set, so there is nothing to download.
+// The tags themselves are right and worth having, so the image is simply not
+// emitted when there is no art. `onerror` would have hidden it in a browser,
+// but a request that 404s on every page load is still a request, and the build
+// check counts it as a broken link, correctly.
+const logosOnDisk = new Set(
+  (await readdir(join(ROOT, "public/assets/logos")).catch(() => []))
+    .map((f) => /^(.+)-pokemon-tcg-set-logo\.webp$/.exec(f)?.[1])
+    .filter(Boolean)
+);
+const hasLogo = (setId) => Boolean(setId) && logosOnDisk.has(setId);
+
+// Which sets have a guide page to link to. The rip page used to reach its set
+// guide only through the "what you are chasing" block, which needs chase cards
+// with prices, so the imported rips had no route to their own guide at all: you
+// could watch five Abyss Eye rips and never learn the page existed, let alone
+// that the set is Pitch Black. Both kinds of guide count here.
+const guideIds = new Set(
+  JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8")).sets.map((s) => s.id)
+);
+try {
+  const ig = JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8"));
+  for (const id of Object.keys(ig.sets || {})) guideIds.add(id);
+} catch {
+  /* run: node scripts/sync-intl-guides.mjs */
+}
+const hasGuide = (setId) => Boolean(setId) && guideIds.has(setId);
+
 const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"));
 
 
@@ -304,11 +335,12 @@ ${MENU}
         </div>
       </div>
       <div>
-        ${setId ? `<img class="rip-setlogo"${logoAttrs(setId)} src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="${esc(setLabel)} Pokemon TCG set logo" loading="lazy" onerror="this.remove()">` : ""}
+        ${hasLogo(setId) ? `<img class="rip-setlogo"${logoAttrs(setId)} src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="${esc(setLabel)} Pokemon TCG set logo" loading="lazy" onerror="this.remove()">` : ""}
         <h1>${esc(title)}</h1>
         <div class="rip-badges">
           ${setId ? `<a class="chip" href="/videos.html?set=${setId}">${esc(setLabel)}</a>` : ""}
           ${prodId ? `<a class="chip prod" href="/videos.html?product=${prodId}">${esc(prodLabel)}</a>` : ""}
+          ${hasGuide(setId) ? `<a class="chip guide" href="/sets/${setId}.html">Set guide <span aria-hidden="true">&rarr;</span></a>` : ""}
           ${v.pulls.map((p) => `<span class="chip">${esc(labelFor("pulls", p))}</span>`).join("\n          ")}
         </div>
         <p class="rip-meta">${shortDate(v.published)}${v.views ? " &bull; " + niceViews(v.views) : ""}${v.openingType ? " &bull; " + esc(v.openingType) : ""}</p>
@@ -350,7 +382,7 @@ ${related.length ? `<section class="band tight">
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <img class="setlogo"${logoAttrs(setId)} src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="${esc(setLabel)} Pokemon TCG set logo" loading="lazy" onerror="this.remove()">
+        ${hasLogo(setId) ? `<img class="setlogo"${logoAttrs(setId)} src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="${esc(setLabel)} Pokemon TCG set logo" loading="lazy" onerror="this.remove()">` : ""}
         <h2>More <span class="hl">${esc(setLabel)}</span></h2>
       </div>
       <a class="btn btn-ghost btn-sm" href="/videos.html?set=${setId}">See all &rarr;</a>
@@ -610,6 +642,21 @@ try {
   }));
 } catch {
   /* set pages not generated yet */
+}
+
+// The non-English guides live in the same folder but come from a different
+// source file, so they need collecting separately or they stay out of search
+// entirely. Lower priority than the English guides on purpose: they answer a
+// narrower question, and most of the audience is searching the English name.
+try {
+  const ig = JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8"));
+  setPages = setPages.concat(
+    Object.keys(ig.sets || {}).map((id) => ({
+      loc: `${SITE}/sets/${id}.html`, freq: "monthly", pri: "0.7", mod: ig.checked,
+    }))
+  );
+} catch {
+  /* run: node scripts/sync-intl-guides.mjs && node scripts/build-intl-pages.mjs */
 }
 
 const urls = [

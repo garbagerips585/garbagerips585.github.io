@@ -78,6 +78,12 @@ jobs:
       - name: Foreign-language sets
         run: node scripts/sync-intl.mjs
 
+      # The guides for sets we have actually opened packs of. Heavily cached:
+      # the first run made about 2,250 requests across TCGdex and PokeAPI, every
+      # run since makes zero. Only a brand new foreign set costs anything.
+      - name: Non-English set guides
+        run: node scripts/sync-intl-guides.mjs
+
       - name: Preorder prices for upcoming sets
         run: node scripts/sync-preorders.mjs --force
 
@@ -101,6 +107,11 @@ jobs:
           node scripts/sync-chrome.mjs
           node scripts/build-proto.mjs
           node scripts/build-set-pages.mjs
+          # MUST follow build-set-pages, which clears public/sets/ before it
+          # writes. Run the other way round and all 13 non-English guides are
+          # deleted after being built, leaving the links to them dangling. The
+          # link check below is what would catch it.
+          node scripts/build-intl-pages.mjs
           node scripts/build-pages.mjs
           node scripts/build-expansions.mjs
           node scripts/build-404.mjs

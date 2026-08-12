@@ -136,6 +136,19 @@ try {
   /* run: node scripts/sync-intl.mjs */
 }
 
+// The non-English sets that have a guide of their own, keyed by the English set
+// they map to. The panel above names the foreign set a guide is built from;
+// where we have also opened packs of it, that name should be a link rather than
+// a dead end. Written by sync-intl-guides.mjs.
+let intlGuides = {};
+const guideForForeign = new Map(); // tcgdex id + language -> our page id
+try {
+  intlGuides = JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8")).sets || {};
+  for (const [id, g] of Object.entries(intlGuides)) guideForForeign.set(`${g.lang}:${g.tcgdexId}`, { id, ...g });
+} catch {
+  /* run: node scripts/sync-intl-guides.mjs */
+}
+
 /** "8 weeks earlier", from two ISO dates. */
 function leadTime(earlier, later) {
   if (!earlier || !later) return null;
@@ -152,16 +165,22 @@ function intlBand(s) {
   const rows = e.sources
     .map((src) => {
       const lead = leadTime(src.released, s.released);
+      // Where we have opened packs of this exact set, it has a guide here and
+      // the link should stay on the site. Sending someone to TCGdex when we
+      // have our own page for it is the one thing this panel should not do.
+      const own = guideForForeign.get(`${src.lang}:${src.id}`);
       return `      <li class="intl">
         <p class="intl-lang">${esc(src.langName)}${src.id ? ` &bull; ${esc(src.id)}` : ""}</p>
         <h3 lang="${src.lang}">${esc(src.name)}</h3>
-        ${src.romaji ? `<p class="intl-romaji">${esc(src.romaji)}</p>` : ""}
+        ${own ? `<p class="intl-romaji">${esc(own.english)}</p>` : src.romaji ? `<p class="intl-romaji">${esc(src.romaji)}</p>` : ""}
         <p class="intl-meta">${[
           src.total ? `${src.total} cards` : null,
           src.released ? longDate(src.released) : null,
         ].filter(Boolean).map(esc).join(" &bull; ")}</p>
         ${lead ? `<p class="intl-lead">Out ${esc(lead)} than the English set</p>` : ""}
-        <a class="intl-link" href="${esc(src.url)}" rel="noopener" target="_blank">Full checklist on TCGdex &rarr;</a>
+        ${own
+          ? `<a class="intl-link" href="/sets/${esc(own.id)}.html">Read the ${esc(own.english)} guide &rarr;</a>`
+          : `<a class="intl-link" href="${esc(src.url)}" rel="noopener" target="_blank">Full checklist on TCGdex &rarr;</a>`}
       </li>`;
     })
     .join("\n");
@@ -693,6 +712,36 @@ function indexPage() {
     </div>
   </div>
 </section>
+${Object.keys(intlGuides).length ? `
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Imported packs</p>
+    <h2>Japanese, Korean and <span class="hl">Chinese</span> sets</h2>
+    <p class="lede intl-lede">Most of these are a set you already know under a different name: Abyss Eye is Pitch Black,
+      Clay Burst is half of Paldea Evolved. Each guide says which English set it becomes, so you can work out what you
+      are actually looking at. Names are in English, with the native name kept alongside.</p>
+    <div class="set-index">
+      ${Object.entries(intlGuides)
+        .sort((a, b) => String(b[1].released || "").localeCompare(String(a[1].released || "")))
+        .map(([id, g]) => {
+          const en = sets.find((x) => x.id === g.equivalent);
+          return `<a class="set-card" href="/sets/${id}.html">
+        <span>
+          <span class="ttl">${esc(g.english)}${g.langFlag ? ` ${g.langFlag}` : ""}</span><br>
+          <span class="meta">${[
+            g.native || null,
+            g.cardCount?.total ? `${g.cardCount.total} cards` : null,
+            g.released ? g.released.slice(0, 4) : null,
+            ripsBySet[id] ? `${ripsBySet[id]} rip${ripsBySet[id] === 1 ? "" : "s"}` : null,
+            en ? `= ${en.name}` : g.exclusive ? "no English version" : null,
+          ].filter(Boolean).map(esc).join(" &bull; ")}</span>
+        </span>
+      </a>`;
+        })
+        .join("\n      ")}
+    </div>
+  </div>
+</section>` : ""}
 
 </main>
 ${footer("Card data from the Pokemon TCG API. Prices are estimates and move constantly.")}
@@ -702,6 +751,10 @@ ${footer("Card data from the Pokemon TCG API. Prices are estimates and move cons
 `;
 }
 
+// Clears the whole folder so a renamed or dropped set cannot leave a stale page
+// behind. NOTE: the 13 non-English guides live in here too and are written by
+// scripts/build-intl-pages.mjs, so that ALWAYS runs after this one. Reverse the
+// order and they are deleted immediately after being built.
 await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
 for (const s of sets) await writeFile(join(OUT, `${s.id}.html`), setPage(s));
