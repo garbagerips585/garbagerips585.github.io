@@ -63,6 +63,36 @@ const corner = (card, side, label) => `<figure class="crop">
         <figcaption>${esc(label)}</figcaption>
       </figure>`;
 
+/**
+ * One glossary term, with a real card where an honest one exists.
+ *
+ * `show` picks the treatment: "card" for the whole card, "crop" for the
+ * magnified bottom-left corner where the thing being described is a number or
+ * a letter too small to read at card size, absent where no honest picture
+ * exists. Three terms have none on purpose and rarity.json says why; the point
+ * is that a missing image here is a decision, so do not "fix" one by reaching
+ * for a stock photo.
+ *
+ * The caption names the card and set every time. It is what makes the example
+ * checkable rather than decorative, and it is the same reason the ladder above
+ * carries `example`.
+ */
+const slangCard = (s) => {
+  const art = !s.card
+    ? ""
+    : s.show === "crop"
+      ? `<div class="gloss-fig is-crop">${corner(s.card, "left", s.example)}</div>`
+      : `<figure class="gloss-fig">
+            <img src="${esc(s.card)}" alt="${esc(s.example)}" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>${esc(s.example)}</figcaption>
+          </figure>`;
+  return `        <li${s.card ? "" : ' class="no-fig"'}>
+          <b>${esc(s.term)}</b>
+          <p>${esc(s.meaning)}</p>
+          ${art}
+        </li>`;
+};
+
 const ladderRow = (r, i) => `      <li class="rr${r.chase ? " is-chase" : ""}">
         <div class="rr-n">${i + 1}</div>
         <div class="rr-card">
@@ -160,9 +190,32 @@ const style = `
 .gone p{color:var(--ink-2);font-size:var(--t-sm)}
 
 .gloss{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--s3)}
-.gloss li{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s4)}
+/* Flex column with the figure pushed to the bottom by margin-top:auto. Tiles in
+   a row stretch to the tallest, and three terms carry no image at all, so
+   without this the pictures sit at whatever height their own text ended at and
+   the row of cards reads as ragged rather than as a row. */
+.gloss li{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s4);
+  display:flex;flex-direction:column}
 .gloss b{font:700 var(--t-body)/1.3 var(--body);color:var(--ketchup-deep)}
 .gloss p{color:var(--ink-2);font-size:var(--t-sm);margin-top:4px}
+/* Every figure bottom-anchored, crops included. A crop is a wide short strip
+   and a card is tall, so the two can never line up on their tops when they land
+   in the same row; anchoring the bottoms is the alignment that holds for both. */
+.gloss-fig{margin:var(--s4) 0 0;padding-top:var(--s3);border-top:1px solid var(--hair);margin-top:auto}
+/* Capped rather than full width: a 600x825 scan at tile width makes every entry
+   a foot tall and buries the definitions, which are still the point. */
+.gloss-fig img{display:block;width:100%;max-width:132px;height:auto;border-radius:6px;
+  border:1px solid var(--hair);background:var(--page)}
+/* Two lines reserved whether the caption fills them or not. The figures are
+   bottom-anchored, so a caption that wraps to two lines where its neighbour
+   used one lifts that card 16px above the rest of the row. Reserving the space
+   keeps the cards on a line across the row regardless of caption length. */
+.gloss-fig figcaption{font:400 var(--t-micro)/1.45 var(--mono);color:var(--ink-2);margin-top:6px;
+  min-height:2.9em}
+/* The crop wants the tile's full width: it is a magnified corner, and shrinking
+   it defeats the reason it is a crop. */
+.gloss-fig.is-crop .crop{margin-top:0}
+.gloss-fig.is-crop .crop-img{aspect-ratio:16/6}
 
 .rg-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
@@ -293,7 +346,7 @@ ${d.gone
       <p class="rg-p">The words you will hit in the first five minutes of any card video, including
         ours.</p>
       <ul class="gloss">
-${d.slang.map(([t, m]) => `        <li><b>${esc(t)}</b><p>${esc(m)}</p></li>`).join("\n")}
+${d.slang.map(slangCard).join("\n")}
       </ul>
     </div>
   </section>

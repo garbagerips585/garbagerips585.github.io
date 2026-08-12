@@ -103,9 +103,32 @@
 .gone p{color:var(--ink-2);font-size:var(--t-sm)}
 
 .gloss{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--s3)}
-.gloss li{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s4)}
+/* Flex column with the figure pushed to the bottom by margin-top:auto. Tiles in
+   a row stretch to the tallest, and three terms carry no image at all, so
+   without this the pictures sit at whatever height their own text ended at and
+   the row of cards reads as ragged rather than as a row. */
+.gloss li{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s4);
+  display:flex;flex-direction:column}
 .gloss b{font:700 var(--t-body)/1.3 var(--body);color:var(--ketchup-deep)}
 .gloss p{color:var(--ink-2);font-size:var(--t-sm);margin-top:4px}
+/* Every figure bottom-anchored, crops included. A crop is a wide short strip
+   and a card is tall, so the two can never line up on their tops when they land
+   in the same row; anchoring the bottoms is the alignment that holds for both. */
+.gloss-fig{margin:var(--s4) 0 0;padding-top:var(--s3);border-top:1px solid var(--hair);margin-top:auto}
+/* Capped rather than full width: a 600x825 scan at tile width makes every entry
+   a foot tall and buries the definitions, which are still the point. */
+.gloss-fig img{display:block;width:100%;max-width:132px;height:auto;border-radius:6px;
+  border:1px solid var(--hair);background:var(--page)}
+/* Two lines reserved whether the caption fills them or not. The figures are
+   bottom-anchored, so a caption that wraps to two lines where its neighbour
+   used one lifts that card 16px above the rest of the row. Reserving the space
+   keeps the cards on a line across the row regardless of caption length. */
+.gloss-fig figcaption{font:400 var(--t-micro)/1.45 var(--mono);color:var(--ink-2);margin-top:6px;
+  min-height:2.9em}
+/* The crop wants the tile's full width: it is a magnified corner, and shrinking
+   it defeats the reason it is a crop. */
+.gloss-fig.is-crop .crop{margin-top:0}
+.gloss-fig.is-crop .crop-img{aspect-ratio:16/6}
 
 .rg-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
@@ -544,19 +567,101 @@
       <p class="rg-p">The words you will hit in the first five minutes of any card video, including
         ours.</p>
       <ul class="gloss">
-        <li><b>IR</b><p>Illustration Rare. One gold star, full art of a non-ex Pokemon in a scene.</p></li>
-        <li><b>SIR</b><p>Special Illustration Rare. Two gold stars. Usually the best card in the set.</p></li>
-        <li><b>AA / alt art</b><p>Alternate art. Collector slang, not a printed rarity. On a modern card it almost always means an IR or an SIR.</p></li>
-        <li><b>FA</b><p>Full art. The illustration covers the whole card with no artwork window.</p></li>
-        <li><b>RH</b><p>Reverse holo. Foil on everything except the artwork. Does not change the card's rarity.</p></li>
-        <li><b>UR</b><p>Ultra Rare. Two silver stars, a full art ex.</p></li>
-        <li><b>Hit</b><p>Any card out of a pack worth meaningfully more than the pack cost.</p></li>
-        <li><b>Chase</b><p>The one card everybody is opening the set hoping to find.</p></li>
-        <li><b>Bulk</b><p>Commons, uncommons and low value rares. Sold by weight or by the thousand.</p></li>
-        <li><b>Slab</b><p>A card sealed in a rigid case by a grading company.</p></li>
-        <li><b>Grading</b><p>Sending a card away to be authenticated and scored on condition. PSA runs 1 to 10 and is the market standard for Pokemon; BGS and CGC also grade.</p></li>
-        <li><b>Secret rare</b><p>A card numbered higher than the set total, like 199/198.</p></li>
-        <li><b>Regulation mark</b><p>The single letter in the bottom corner. It controls tournament legality and has nothing to do with rarity or value.</p></li>
+        <li>
+          <b>IR</b>
+          <p>Illustration Rare. One gold star, full art of a non-ex Pokemon in a scene.</p>
+          <figure class="gloss-fig">
+            <img src="https://assets.tcgdex.net/en/sv/sv02/203/high.webp" alt="Magikarp, Paldea Evolved" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>Magikarp, Paldea Evolved</figcaption>
+          </figure>
+        </li>
+        <li>
+          <b>SIR</b>
+          <p>Special Illustration Rare. Two gold stars. Usually the best card in the set.</p>
+          <figure class="gloss-fig">
+            <img src="https://assets.tcgdex.net/en/me/me02.5/284/high.webp" alt="Mega Gengar ex, Ascended Heroes" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>Mega Gengar ex, Ascended Heroes</figcaption>
+          </figure>
+        </li>
+        <li>
+          <b>AA / alt art</b>
+          <p>Alternate art. Collector slang, not a printed rarity. On a modern card it almost always means an IR or an SIR.</p>
+          <figure class="gloss-fig">
+            <img src="https://assets.tcgdex.net/en/sv/sv04/199/high.webp" alt="Groudon, Paradox Rift. An Illustration Rare" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>Groudon, Paradox Rift. An Illustration Rare</figcaption>
+          </figure>
+        </li>
+        <li>
+          <b>FA</b>
+          <p>Full art. The illustration covers the whole card with no artwork window.</p>
+          <figure class="gloss-fig">
+            <img src="https://assets.tcgdex.net/en/sv/sv03.5/183/high.webp" alt="Charizard ex, 151" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>Charizard ex, 151</figcaption>
+          </figure>
+        </li>
+        <li class="no-fig">
+          <b>RH</b>
+          <p>Reverse holo. Foil on everything except the artwork. Does not change the card's rarity.</p>
+          
+        </li>
+        <li>
+          <b>UR</b>
+          <p>Ultra Rare. Two silver stars, a full art ex.</p>
+          <figure class="gloss-fig">
+            <img src="https://assets.tcgdex.net/en/me/me02.5/271/high.webp" alt="Mega Dragonite ex, Ascended Heroes" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>Mega Dragonite ex, Ascended Heroes</figcaption>
+          </figure>
+        </li>
+        <li>
+          <b>Hit</b>
+          <p>Any card out of a pack worth meaningfully more than the pack cost.</p>
+          <figure class="gloss-fig">
+            <img src="https://assets.tcgdex.net/en/sv/sv08.5/161/high.webp" alt="Umbreon ex, Prismatic Evolutions. $1,470" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>Umbreon ex, Prismatic Evolutions. $1,470</figcaption>
+          </figure>
+        </li>
+        <li>
+          <b>Chase</b>
+          <p>The one card everybody is opening the set hoping to find.</p>
+          <figure class="gloss-fig">
+            <img src="https://assets.tcgdex.net/en/me/me02/125/high.webp" alt="Mega Charizard X ex, the Phantasmal Flames chase" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>Mega Charizard X ex, the Phantasmal Flames chase</figcaption>
+          </figure>
+        </li>
+        <li>
+          <b>Bulk</b>
+          <p>Commons, uncommons and low value rares. Sold by weight or by the thousand.</p>
+          <figure class="gloss-fig">
+            <img src="https://assets.tcgdex.net/en/sv/sv07/057/high.webp" alt="Slowpoke, Stellar Crown. A Common" loading="lazy" decoding="async" width="600" height="825">
+            <figcaption>Slowpoke, Stellar Crown. A Common</figcaption>
+          </figure>
+        </li>
+        <li class="no-fig">
+          <b>Slab</b>
+          <p>A card sealed in a rigid case by a grading company.</p>
+          
+        </li>
+        <li class="no-fig">
+          <b>Grading</b>
+          <p>Sending a card away to be authenticated and scored on condition. PSA runs 1 to 10 and is the market standard for Pokemon; BGS and CGC also grade.</p>
+          
+        </li>
+        <li>
+          <b>Secret rare</b>
+          <p>A card numbered higher than the set total, like 199/198.</p>
+          <div class="gloss-fig is-crop"><figure class="crop">
+        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv10.5b/105/high.webp');background-size:280%;background-position:22% 100%"></div>
+        <figcaption>Seismitoad, Black Bolt. The corner reads 105/086</figcaption>
+      </figure></div>
+        </li>
+        <li>
+          <b>Regulation mark</b>
+          <p>The single letter in the bottom corner. It controls tournament legality and has nothing to do with rarity or value.</p>
+          <div class="gloss-fig is-crop"><figure class="crop">
+        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv03.5/011/high.webp');background-size:280%;background-position:22% 100%"></div>
+        <figcaption>Metapod, 151. The letter sits after the illustrator credit</figcaption>
+      </figure></div>
+        </li>
       </ul>
     </div>
   </section>

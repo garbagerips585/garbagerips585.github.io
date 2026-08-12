@@ -40,7 +40,12 @@
       "phone": "585-586-0586",
       "hours": "Mon to Sat noon to 9pm, Sun noon to 6pm",
       "blurb": "Rochester's flagship game store and the one with the busiest Pokemon calendar. Prereleases every set, a learn to play session for anyone starting out, and League Challenges and Cups through the year.",
-      "goodFor": ["Singles", "Sealed product", "Organised play", "Prereleases"],
+      "goodFor": [
+        "Singles",
+        "Sealed product",
+        "Organised play",
+        "Prereleases"
+      ],
       "plays": [
         "Prerelease weekends for every new set",
         "League Challenge and League Cup events",
@@ -58,8 +63,15 @@
       "address": "1225 Jefferson Road, Suite A17, Rochester, NY 14623",
       "phone": "585-427-2190",
       "blurb": "One of the biggest game stores in the area, with a Pokemon section to match and a sanctioned league of its own.",
-      "goodFor": ["Sealed product", "Singles", "In store", "Organised play"],
-      "plays": ["Sanctioned Play! Pokemon TCG league"],
+      "goodFor": [
+        "Sealed product",
+        "Singles",
+        "In store",
+        "Organised play"
+      ],
+      "plays": [
+        "Sanctioned Play! Pokemon TCG league"
+      ],
       "playWarn": "Their official Play! Pokemon league page currently reads Inactive with no sessions scheduled, while other listings still describe a Monday league night. Ring them before you go.",
       "leagueUrl": "https://www.pokemon.com/us/play-pokemon/pokemon-events/leagues/3793208/",
       "visited": false
@@ -67,9 +79,16 @@
     {
       "name": "LingSter Games",
       "url": "https://lingstergames.com/collections/pokemon",
-      "area": "Rochester, NY",
+      "area": "West Ridge Road, Rochester",
+      "address": "1586 West Ridge Rd, Rochester, NY 14615",
+      "phone": "585-287-6308",
+      "hours": "Wed to Sat 11am to 9.30pm, Sun 11am to 6pm, closed Mon and Tue",
       "blurb": "Deep Pokemon singles and sealed, and the first stop when a set drops.",
-      "goodFor": ["Sealed product", "Singles", "New releases"],
+      "goodFor": [
+        "Sealed product",
+        "Singles",
+        "New releases"
+      ],
       "visited": false
     }
   ]
