@@ -127,13 +127,28 @@ const CHASE_RARITIES = new Set([
 
 const upcoming = JSON.parse(await readFile(join(ROOT, "data/upcoming.json"), "utf8"));
 
-// MSRP by product name, from the announcement, so the markup can be computed.
-const msrpFor = {};
+// MSRP from the announcement, keyed by a STEM rather than the whole name.
+//
+// The two sides name things differently in a specific way: the announcement
+// bundles variants that TCGplayer lists separately. "Ultra Premium Collection,
+// Day and Night" is one line in the press release and two products in a shop;
+// so is "Figure Collection, Mew and Mewtwo". Matching whole names found 1 of 9.
+// Matching on the part before the comma, as a prefix, finds them all, and still
+// refuses to match a genuinely different product: "Pokemon Center Elite Trainer
+// Box" does not begin with "elite-trainer-box", and it is a different box at a
+// different price, so leaving it blank is right.
+const msrpStems = [];
 for (const s of upcoming.sets || []) {
   for (const p of s.products || []) {
-    if (p.price) msrpFor[`${s.name}|${slug(p.name)}`] = money(p.price.replace(/[^0-9.]/g, ""));
+    if (!p.price) continue;
+    const stem = slug(String(p.name).split(",")[0]);
+    if (stem) msrpStems.push({ set: s.name, stem, msrp: money(p.price.replace(/[^0-9.]/g, "")) });
   }
 }
+// Longest stem first, so "ex Tin" cannot claim a match that "ex Box" should own.
+msrpStems.sort((a, b) => b.stem.length - a.stem.length);
+const msrpFind = (setName, productSlug) =>
+  msrpStems.find((m) => m.set === setName && productSlug.startsWith(m.stem))?.msrp ?? null;
 
 await mkdir(CACHE, { recursive: true });
 const today = new Date().toISOString().slice(0, 10);
@@ -174,7 +189,14 @@ for (const [name, tcgName] of Object.entries(TCG_UPCOMING)) {
     .map((p) => {
       const id = Math.round(Number(p.productId));
       const short = p.productName.replace(/^30th Celebration\s*/i, "").trim();
-      const msrp = msrpFor[`${name}|${slug(short)}`] ?? null;
+      // A "[Set of 2]" listing is a bundle priced against a SINGLE unit's MSRP,
+      // which inflated the multiple wildly: the ex Tin set of two read as 13.6x
+      // retail when it is really about 6.8x. Multiply the MSRP by the pack
+      // count so the comparison is like for like. Getting this wrong would put
+      // a confidently false number on the page, which is worse than no number.
+      const packOf = Number((/\bset of (\d+)\b/i.exec(p.productName) || [])[1] || 1);
+      const unitMsrp = msrpFind(name, slug(short.replace(/\s*\[set of \d+\]\s*/i, " ").trim()));
+      const msrp = unitMsrp ? Math.round(unitMsrp * packOf * 100) / 100 : null;
       const price = money(p.marketPrice) ?? money(p.lowestPrice);
       return {
         name: short || p.productName,

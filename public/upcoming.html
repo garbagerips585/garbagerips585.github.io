@@ -76,6 +76,39 @@
 .up-extra h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:var(--s2)}
 .up-extra .up-blurb{font-size:var(--t-sm);margin-bottom:var(--s2)}
 
+/* Live preorder prices, product photos and revealed cards. */
+.po-wrap{margin-top:var(--s4);border-top:1px solid var(--hair);padding-top:var(--s4)}
+.po-count{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);letter-spacing:.04em;
+  text-transform:uppercase;margin-bottom:var(--s3)}
+/* The point of the whole band. Loud on purpose: it is the one number that
+   changes whether somebody should preorder. */
+.po-warn{background:var(--lilac-pale);border:1px solid rgba(78,47,72,.28);border-radius:var(--r);
+  padding:var(--s4);color:var(--plum);font-size:var(--t-sm);line-height:1.6;margin-bottom:var(--s4)}
+.po-h{font:400 var(--t-m)/1.2 var(--display);margin:var(--s4) 0 var(--s3)}
+.po-grid{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--s3)}
+.po{display:flex;gap:var(--s3);align-items:center;background:var(--page);
+  border:1px solid var(--hair);border-radius:var(--r);padding:var(--s3)}
+.po-shot{flex:none;width:66px;height:66px;display:grid;place-items:center;background:#fff;
+  border:1px solid var(--hair);border-radius:calc(var(--r) - 8px);overflow:hidden}
+.po-shot img{width:100%;height:100%;object-fit:contain}
+.po-body{min-width:0}
+.po h4{font:700 var(--t-sm)/1.3 var(--body);margin-bottom:2px}
+.po h4 a{display:inline-block;min-height:24px}
+.po h4 a:hover{text-decoration:underline}
+.po-price{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.po-price b{font:400 var(--t-m)/1 var(--display)}
+.po-msrp{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-decoration:line-through}
+.po-over{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ketchup-deep);letter-spacing:.04em;
+  text-transform:uppercase}
+.po-sellers{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
+
+.poc-grid{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:var(--s3)}
+.poc a{display:flex;flex-direction:column;gap:4px}
+.poc img{width:100%;height:auto;border-radius:6px;display:block;background:var(--page)}
+.poc-n{font:700 var(--t-sm)/1.25 var(--body)}
+.poc-r{font:700 9px/1.3 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2)}
+.po-note,.po-src{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);margin-top:var(--s3)}
+
 .up-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
 </style>
@@ -199,6 +232,175 @@
         </div>
         <p class="up-blurb">The anniversary set, and the first Pokemon TCG expansion to launch worldwide on the same day as Japan. Every single card in it is foil, including the basic Energy.</p>
         <ul class="up-hi"><li>A new rarity, Futuristic rare, debuting on Mewtwo ex and Mew ex</li><li>30 different Pikachu illustrations by 30 illustrators, one guaranteed in every pack</li><li>A 30 card Classic Collection of reprints, numbered outside the main set</li><li>Packs are 5 foil cards plus a foil basic Energy</li></ul>
+              <div class="po-wrap">
+        <p class="po-count">128 cards in the set, going by the numbering on the cards themselves.</p>
+        <p class="po-warn">Preorders are running hot. The ex Tin [Set of 2] has a $43.98
+               list price and is going for $299.89, which is 6.8 times retail, months before
+               it is on a shelf. Prices usually fall after release.</p>
+        <h3 class="po-h">Preorder prices</h3>
+        <ul class="po-grid">
+        <li class="po">
+          <a class="po-shot" href="https://www.tcgplayer.com/product/704144/30th-celebration-pokemon-center-elite-trainer-box" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
+            <img src="https://tcgplayer-cdn.tcgplayer.com/product/704144_200w.jpg" alt="" loading="lazy" decoding="async" width="200" height="200" referrerpolicy="no-referrer">
+          </a>
+          <div class="po-body">
+            <h4><a href="https://www.tcgplayer.com/product/704144/30th-celebration-pokemon-center-elite-trainer-box" rel="noopener" target="_blank">Pokemon Center Elite Trainer Box</a></h4>
+            <p class="po-price"><b>$536.62</b></p>
+            
+            <p class="po-sellers">9 sellers</p>
+          </div>
+        </li>
+        <li class="po">
+          <a class="po-shot" href="https://www.tcgplayer.com/product/704191/30th-celebration-ultra-premium-collection-night" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
+            <img src="https://tcgplayer-cdn.tcgplayer.com/product/704191_200w.jpg" alt="" loading="lazy" decoding="async" width="200" height="200" referrerpolicy="no-referrer">
+          </a>
+          <div class="po-body">
+            <h4><a href="https://www.tcgplayer.com/product/704191/30th-celebration-ultra-premium-collection-night" rel="noopener" target="_blank">Ultra-Premium Collection [Night]</a></h4>
+            <p class="po-price"><b>$531.60</b> <span class="po-msrp">MSRP $179.99</span></p>
+            <p class="po-over">3x retail</p>
+            <p class="po-sellers">36 sellers</p>
+          </div>
+        </li>
+        <li class="po">
+          <a class="po-shot" href="https://www.tcgplayer.com/product/704186/30th-celebration-mini-tin-display" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
+            <img src="https://tcgplayer-cdn.tcgplayer.com/product/704186_200w.jpg" alt="" loading="lazy" decoding="async" width="200" height="200" referrerpolicy="no-referrer">
+          </a>
+          <div class="po-body">
+            <h4><a href="https://www.tcgplayer.com/product/704186/30th-celebration-mini-tin-display" rel="noopener" target="_blank">Mini Tin Display</a></h4>
+            <p class="po-price"><b>$460.22</b></p>
+            
+            <p class="po-sellers">26 sellers</p>
+          </div>
+        </li>
+        <li class="po">
+          <a class="po-shot" href="https://www.tcgplayer.com/product/704190/30th-celebration-ultra-premium-collection-day" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
+            <img src="https://tcgplayer-cdn.tcgplayer.com/product/704190_200w.jpg" alt="" loading="lazy" decoding="async" width="200" height="200" referrerpolicy="no-referrer">
+          </a>
+          <div class="po-body">
+            <h4><a href="https://www.tcgplayer.com/product/704190/30th-celebration-ultra-premium-collection-day" rel="noopener" target="_blank">Ultra-Premium Collection [Day]</a></h4>
+            <p class="po-price"><b>$445.64</b> <span class="po-msrp">MSRP $179.99</span></p>
+            <p class="po-over">2.5x retail</p>
+            <p class="po-sellers">46 sellers</p>
+          </div>
+        </li>
+        <li class="po">
+          <a class="po-shot" href="https://www.tcgplayer.com/product/704151/30th-celebration-ex-tin-set-of-2" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
+            <img src="https://tcgplayer-cdn.tcgplayer.com/product/704151_200w.jpg" alt="" loading="lazy" decoding="async" width="200" height="200" referrerpolicy="no-referrer">
+          </a>
+          <div class="po-body">
+            <h4><a href="https://www.tcgplayer.com/product/704151/30th-celebration-ex-tin-set-of-2" rel="noopener" target="_blank">ex Tin [Set of 2]</a></h4>
+            <p class="po-price"><b>$299.89</b> <span class="po-msrp">MSRP $43.98</span></p>
+            <p class="po-over">6.8x retail</p>
+            <p class="po-sellers">12 sellers</p>
+          </div>
+        </li>
+        <li class="po">
+          <a class="po-shot" href="https://www.tcgplayer.com/product/704189/30th-celebration-ditto-premium-collection" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
+            <img src="https://tcgplayer-cdn.tcgplayer.com/product/704189_200w.jpg" alt="" loading="lazy" decoding="async" width="200" height="200" referrerpolicy="no-referrer">
+          </a>
+          <div class="po-body">
+            <h4><a href="https://www.tcgplayer.com/product/704189/30th-celebration-ditto-premium-collection" rel="noopener" target="_blank">Ditto Premium Collection</a></h4>
+            <p class="po-price"><b>$239.84</b></p>
+            
+            <p class="po-sellers">38 sellers</p>
+          </div>
+        </li>
+        <li class="po">
+          <a class="po-shot" href="https://www.tcgplayer.com/product/704192/30th-celebration-classic-collection-pack" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
+            <img src="https://tcgplayer-cdn.tcgplayer.com/product/704192_200w.jpg" alt="" loading="lazy" decoding="async" width="200" height="200" referrerpolicy="no-referrer">
+          </a>
+          <div class="po-body">
+            <h4><a href="https://www.tcgplayer.com/product/704192/30th-celebration-classic-collection-pack" rel="noopener" target="_blank">Classic Collection Pack</a></h4>
+            <p class="po-price"><b>$219.88</b></p>
+            
+            <p class="po-sellers">2 sellers</p>
+          </div>
+        </li>
+        <li class="po">
+          <a class="po-shot" href="https://www.tcgplayer.com/product/704143/30th-celebration-elite-trainer-box" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
+            <img src="https://tcgplayer-cdn.tcgplayer.com/product/704143_200w.jpg" alt="" loading="lazy" decoding="async" width="200" height="200" referrerpolicy="no-referrer">
+          </a>
+          <div class="po-body">
+            <h4><a href="https://www.tcgplayer.com/product/704143/30th-celebration-elite-trainer-box" rel="noopener" target="_blank">Elite Trainer Box</a></h4>
+            <p class="po-price"><b>$191.76</b> <span class="po-msrp">MSRP $49.99</span></p>
+            <p class="po-over">3.8x retail</p>
+            <p class="po-sellers">36 sellers</p>
+          </div>
+        </li>
+        <li class="po">
+          <a class="po-shot" href="https://www.tcgplayer.com/product/704193/30th-celebration-figure-collection-mew" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
+            <img src="https://tcgplayer-cdn.tcgplayer.com/product/704193_200w.jpg" alt="" loading="lazy" decoding="async" width="200" height="200" referrerpolicy="no-referrer">
+          </a>
+          <div class="po-body">
+            <h4><a href="https://www.tcgplayer.com/product/704193/30th-celebration-figure-collection-mew" rel="noopener" target="_blank">Figure Collection [Mew]</a></h4>
+            <p class="po-price"><b>$146.50</b> <span class="po-msrp">MSRP $29.99</span></p>
+            <p class="po-over">4.9x retail</p>
+            <p class="po-sellers">37 sellers</p>
+          </div>
+        </li>
+        </ul>
+        <h3 class="po-h">Cards revealed so far</h3>
+        <ul class="poc-grid">
+        <li class="poc">
+          <a href="https://www.tcgplayer.com/product/696676/greninja-ex" rel="noopener" target="_blank">
+            <img src="https://tcgplayer-cdn.tcgplayer.com/product/696676_200w.jpg" alt="Greninja ex" loading="lazy" decoding="async" width="200" height="280" referrerpolicy="no-referrer">
+            <span class="poc-n">Greninja ex</span>
+            <span class="poc-r">Double Rare &bull; 021/128</span>
+          </a>
+        </li>
+        <li class="poc">
+          <a href="https://www.tcgplayer.com/product/696834/espeon-ex" rel="noopener" target="_blank">
+            <img src="https://tcgplayer-cdn.tcgplayer.com/product/696834_200w.jpg" alt="Espeon ex" loading="lazy" decoding="async" width="200" height="280" referrerpolicy="no-referrer">
+            <span class="poc-n">Espeon ex</span>
+            <span class="poc-r">Double Rare &bull; 070/128</span>
+          </a>
+        </li>
+        <li class="poc">
+          <a href="https://www.tcgplayer.com/product/696677/sylveon-ex" rel="noopener" target="_blank">
+            <img src="https://tcgplayer-cdn.tcgplayer.com/product/696677_200w.jpg" alt="Sylveon ex" loading="lazy" decoding="async" width="200" height="280" referrerpolicy="no-referrer">
+            <span class="poc-n">Sylveon ex</span>
+            <span class="poc-r">Double Rare &bull; 071/128</span>
+          </a>
+        </li>
+        <li class="poc">
+          <a href="https://www.tcgplayer.com/product/696835/umbreon-ex" rel="noopener" target="_blank">
+            <img src="https://tcgplayer-cdn.tcgplayer.com/product/696835_200w.jpg" alt="Umbreon ex" loading="lazy" decoding="async" width="200" height="280" referrerpolicy="no-referrer">
+            <span class="poc-n">Umbreon ex</span>
+            <span class="poc-r">Double Rare &bull; 092/128</span>
+          </a>
+        </li>
+        <li class="poc">
+          <a href="https://www.tcgplayer.com/product/696683/lapras" rel="noopener" target="_blank">
+            <img src="https://tcgplayer-cdn.tcgplayer.com/product/696683_200w.jpg" alt="Lapras" loading="lazy" decoding="async" width="200" height="280" referrerpolicy="no-referrer">
+            <span class="poc-n">Lapras</span>
+            <span class="poc-r">Illustration Rare &bull; 131/128</span>
+          </a>
+        </li>
+        <li class="poc">
+          <a href="https://www.tcgplayer.com/product/696684/drifloon" rel="noopener" target="_blank">
+            <img src="https://tcgplayer-cdn.tcgplayer.com/product/696684_200w.jpg" alt="Drifloon" loading="lazy" decoding="async" width="200" height="280" referrerpolicy="no-referrer">
+            <span class="poc-n">Drifloon</span>
+            <span class="poc-r">Illustration Rare &bull; 136/128</span>
+          </a>
+        </li>
+        <li class="poc">
+          <a href="https://www.tcgplayer.com/product/696685/lycanroc" rel="noopener" target="_blank">
+            <img src="https://tcgplayer-cdn.tcgplayer.com/product/696685_200w.jpg" alt="Lycanroc" loading="lazy" decoding="async" width="200" height="280" referrerpolicy="no-referrer">
+            <span class="poc-n">Lycanroc</span>
+            <span class="poc-r">Illustration Rare &bull; 138/128</span>
+          </a>
+        </li>
+        <li class="poc">
+          <a href="https://www.tcgplayer.com/product/696686/hisuian-zorua" rel="noopener" target="_blank">
+            <img src="https://tcgplayer-cdn.tcgplayer.com/product/696686_200w.jpg" alt="Hisuian Zorua" loading="lazy" decoding="async" width="200" height="280" referrerpolicy="no-referrer">
+            <span class="poc-n">Hisuian Zorua</span>
+            <span class="poc-r">Illustration Rare &bull; 145/128</span>
+          </a>
+        </li>
+        </ul>
+        <p class="po-note">No prices on the cards yet: none have been sold, because the set is not out.</p>
+        <p class="po-src">Preorder prices and photos from TCGplayer, read August 12, 2026. Not affiliate links.</p>
+      </div>
         <details class="up-products" open>
           <summary>What you can buy <span>14</span></summary>
           <ul>
@@ -301,6 +503,7 @@
         </div>
         <p class="up-blurb">The next Mega Evolution set, teased by The Pokemon Company in June. Mega Rayquaza ex comes back to the TCG, with Hoenn flavour running through it.</p>
         <ul class="up-hi"><li>Mega Rayquaza ex returns, as a Double Rare</li><li>Paired Stadium cards: one artwork split across two Stadiums played together</li><li>Mega Golisopod ex, Mega Golurk ex and Mega Malamar ex appear in the Japanese set it comes from</li></ul>
+        
         <details class="up-products">
           <summary>What you can buy <span>5</span></summary>
           <ul>

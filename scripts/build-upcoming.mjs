@@ -35,6 +35,78 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const doc = JSON.parse(await readFile(join(ROOT, "data/upcoming.json"), "utf8"));
 
+/**
+ * Live TCGplayer preorder prices, product photos and card art.
+ *
+ * The number that matters here is not the price, it is the price NEXT TO MSRP.
+ * The 30th Celebration Elite Trainer Box has a $49.99 MSRP and preorders near
+ * $190. Showing the preorder alone reads as "this is what it costs"; showing
+ * both shows what is actually happening, which is people paying nearly four
+ * times retail months before it reaches a shelf. Anyone deciding whether to
+ * preorder is exactly who this page is for.
+ *
+ * Cards for an unreleased set carry names, numbers, rarities and artwork but no
+ * price, because none have sold. They are shown anyway, without a price column,
+ * as the first look at what is in the set.
+ */
+let preorders = {};
+try {
+  preorders = JSON.parse(await readFile(join(ROOT, "public/data/preorders.json"), "utf8")).sets || {};
+} catch {
+  /* run: node scripts/sync-preorders.mjs */
+}
+
+const usd = (n) => `$${Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+function preorderBand(setName) {
+  const e = preorders[setName];
+  if (!e?.products?.length && !e?.chase?.length) return "";
+  const worst = e.products.filter((p) => p.overMsrp).sort((a, b) => b.overMsrp - a.overMsrp)[0];
+
+  const prods = e.products.slice(0, 9).map((p) => `        <li class="po">
+          <a class="po-shot" href="${esc(p.url)}" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
+            <img src="${esc(p.thumb)}" alt="" loading="lazy" decoding="async" width="200" height="200" referrerpolicy="no-referrer">
+          </a>
+          <div class="po-body">
+            <h4><a href="${esc(p.url)}" rel="noopener" target="_blank">${esc(p.name)}</a></h4>
+            <p class="po-price"><b>${usd(p.price)}</b>${
+              p.msrp ? ` <span class="po-msrp">MSRP ${usd(p.msrp)}</span>` : ""
+            }</p>
+            ${p.overMsrp ? `<p class="po-over">${p.overMsrp}x retail</p>` : ""}
+            ${p.listings ? `<p class="po-sellers">${p.listings} sellers</p>` : ""}
+          </div>
+        </li>`).join("\n");
+
+  const cards = e.chase.slice(0, 8).map((c) => `        <li class="poc">
+          <a href="${esc(c.url)}" rel="noopener" target="_blank">
+            <img src="${esc(c.thumb)}" alt="${esc(c.name)}" loading="lazy" decoding="async" width="200" height="280" referrerpolicy="no-referrer">
+            <span class="poc-n">${esc(c.name)}</span>
+            <span class="poc-r">${esc(c.rarity || "")}${c.number ? ` &bull; ${esc(c.number)}` : ""}</span>
+          </a>
+        </li>`).join("\n");
+
+  return `      <div class="po-wrap">
+        ${e.setTotal ? `<p class="po-count">${e.setTotal} cards in the set, going by the numbering on the cards themselves.</p>` : ""}
+        ${
+          worst
+            ? `<p class="po-warn">Preorders are running hot. The ${esc(worst.name)} has a ${usd(worst.msrp)}
+               list price and is going for ${usd(worst.price)}, which is ${worst.overMsrp} times retail, months before
+               it is on a shelf. Prices usually fall after release.</p>`
+            : ""
+        }
+        ${prods ? `<h3 class="po-h">Preorder prices</h3>
+        <ul class="po-grid">
+${prods}
+        </ul>` : ""}
+        ${cards ? `<h3 class="po-h">Cards revealed so far</h3>
+        <ul class="poc-grid">
+${cards}
+        </ul>
+        <p class="po-note">No prices on the cards yet: none have been sold, because the set is not out.</p>` : ""}
+        <p class="po-src">Preorder prices and photos from TCGplayer, read ${esc(longDate(e.checked))}. Not affiliate links.</p>
+      </div>`;
+}
+
 // "Today" comes from the newest thing in the catalogue rather than the clock,
 // so a rebuild is reproducible and a stale checkout does not silently hide
 // entries. Falls back to the file's own checked date.
@@ -96,6 +168,7 @@ const setCard = (s) => `      <article class="up-set">
             ? `<ul class="up-hi">${s.highlights.map((h) => `<li>${esc(h)}</li>`).join("")}</ul>`
             : ""
         }
+        ${preorderBand(s.name)}
         ${
           (s.products || []).length
             ? `<details class="up-products"${s.confidence === "confirmed" && !s.productNote ? " open" : ""}>
@@ -176,6 +249,39 @@ const style = `
   padding:var(--s5);box-shadow:var(--lift)}
 .up-extra h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:var(--s2)}
 .up-extra .up-blurb{font-size:var(--t-sm);margin-bottom:var(--s2)}
+
+/* Live preorder prices, product photos and revealed cards. */
+.po-wrap{margin-top:var(--s4);border-top:1px solid var(--hair);padding-top:var(--s4)}
+.po-count{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);letter-spacing:.04em;
+  text-transform:uppercase;margin-bottom:var(--s3)}
+/* The point of the whole band. Loud on purpose: it is the one number that
+   changes whether somebody should preorder. */
+.po-warn{background:var(--lilac-pale);border:1px solid rgba(78,47,72,.28);border-radius:var(--r);
+  padding:var(--s4);color:var(--plum);font-size:var(--t-sm);line-height:1.6;margin-bottom:var(--s4)}
+.po-h{font:400 var(--t-m)/1.2 var(--display);margin:var(--s4) 0 var(--s3)}
+.po-grid{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--s3)}
+.po{display:flex;gap:var(--s3);align-items:center;background:var(--page);
+  border:1px solid var(--hair);border-radius:var(--r);padding:var(--s3)}
+.po-shot{flex:none;width:66px;height:66px;display:grid;place-items:center;background:#fff;
+  border:1px solid var(--hair);border-radius:calc(var(--r) - 8px);overflow:hidden}
+.po-shot img{width:100%;height:100%;object-fit:contain}
+.po-body{min-width:0}
+.po h4{font:700 var(--t-sm)/1.3 var(--body);margin-bottom:2px}
+.po h4 a{display:inline-block;min-height:24px}
+.po h4 a:hover{text-decoration:underline}
+.po-price{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.po-price b{font:400 var(--t-m)/1 var(--display)}
+.po-msrp{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-decoration:line-through}
+.po-over{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ketchup-deep);letter-spacing:.04em;
+  text-transform:uppercase}
+.po-sellers{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
+
+.poc-grid{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:var(--s3)}
+.poc a{display:flex;flex-direction:column;gap:4px}
+.poc img{width:100%;height:auto;border-radius:6px;display:block;background:var(--page)}
+.poc-n{font:700 var(--t-sm)/1.25 var(--body)}
+.poc-r{font:700 9px/1.3 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2)}
+.po-note,.po-src{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);margin-top:var(--s3)}
 
 .up-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
