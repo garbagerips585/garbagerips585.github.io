@@ -14,7 +14,7 @@
 //
 // Then re-run sync-youtube.mjs and build-pages.mjs to see it on the site.
 
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -80,12 +80,164 @@ try {
 } catch {
   console.warn("No public/data/sets.json, so the Set column will be skipped.");
 }
+// The non-English guides, under the same labels build-sheet.py puts in the
+// dropdown ("Abyss Eye (JP)"). Without these the 21 imported rips came back as
+// unknownSet and were silently dropped. Both the label and the bare English
+// name are accepted, since one is easy to type and the other is what is listed.
+const LANG_TAG = { ja: "JP", ko: "KR", "zh-cn": "CN", "zh-tw": "CN" };
+try {
+  const ig = JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8")).sets || {};
+  for (const [id, g] of Object.entries(ig)) {
+    const tag = LANG_TAG[g.lang] || "??";
+    setIdByName.set(`${g.english} (${tag})`.toLowerCase(), id);
+    if (!setIdByName.has(g.english.toLowerCase())) setIdByName.set(g.english.toLowerCase(), id);
+  }
+} catch {
+  /* run: node scripts/sync-intl-guides.mjs */
+}
 
 const rows = parseCsv(await readFile(csvPath, "utf8"));
 if (!rows.length) { console.error("Empty CSV."); process.exit(1); }
 
 const header = rows[0].map((h) => h.trim().toLowerCase());
 const col = (name) => header.indexOf(name.toLowerCase());
+
+// ------------------------------------------------------------- My Hits tab
+//
+// The workbook has had a My Hits tab since it was asked for, and nothing read
+// it. Filling it in would have produced exactly nothing on the site, which is
+// the worst possible outcome for a hundred rows of manual work.
+//
+// Excel exports one CSV per tab, so rather than another flag the tab is
+// recognised by its own headers. Point this script at either file.
+if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
+  const hi = {
+    video: col("Video ID"), card: col("Card"), set: col("Set"),
+    number: col("Number"), rarity: col("Rarity"),
+    raw: col("Raw NM USD"), psa10: col("PSA 10 USD"),
+    hof: col("Hall of Fame"), notes: col("Notes"),
+  };
+  const cell = (r, i) => (i >= 0 && r[i] != null ? String(r[i]).trim() : "");
+  const num = (v) => {
+    const n = Number(String(v).replace(/[$,]/g, ""));
+    return Number.isFinite(n) && n > 0 ? n : null;
+  };
+  const yes = (v) => /^(y|yes|true|1|x)$/i.test(v.trim());
+
+  const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
+  const knownVideo = new Map(videos.map((v) => [v.id, v]));
+
+  // Every card we know, so Number, Rarity and Raw can be looked up rather than
+  // typed. Keyed by set + lowercased name; a name that appears twice in a set
+  // (a card and its secret-rare reprint) keeps the DEARER one, which is the one
+  // somebody logging a hit means.
+  const byCard = new Map();
+  const setIdOf = new Map();
+  try {
+    const dir = join(ROOT, "public/data/cards");
+    for (const f of await readdir(dir)) {
+      if (!f.endsWith(".json")) continue;
+      const doc = JSON.parse(await readFile(join(dir, f), "utf8"));
+      setIdOf.set(doc.name.toLowerCase(), doc.set);
+      for (const c of doc.cards) {
+        const k = `${doc.set}|${(c.name || "").toLowerCase()}`;
+        const prev = byCard.get(k);
+        if (!prev || (c.price || 0) > (prev.price || 0)) byCard.set(k, c);
+      }
+    }
+  } catch (e) {
+    console.warn(
+      `Could not read public/data/cards: ${e.message}\n` +
+        `  Number, Rarity and Raw NM will not be filled in. Run: node scripts/sync-cards.mjs`
+    );
+  }
+
+  // The imported sets keep their checklists somewhere else, and 21 rips are
+  // from them, so without this every hit out of a Japanese or Korean pack came
+  // back blank. They carry no prices by design, so only Number and Rarity fill
+  // in; Raw NM stays for a human. Both the English name and the native one are
+  // accepted, because either is a reasonable thing to type off the card.
+  try {
+    const ig = JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8")).sets || {};
+    for (const [id, g] of Object.entries(ig)) {
+      setIdOf.set((g.english || "").toLowerCase(), id);
+      for (const c of g.cards || []) {
+        for (const nm of [c.en, c.native]) {
+          if (!nm) continue;
+          const k = `${id}|${nm.toLowerCase()}`;
+          const prev = byCard.get(k);
+          // These carry no price, so "the dearer one" has to be inferred. A set
+          // numbers its secret rares past the printed total, so the higher
+          // number is the better card, and the better card is the one somebody
+          // is writing down as a hit. Picking the first match gave Mega Darkrai
+          // ex as the 046 Double rare rather than the 114 secret.
+          const better = !prev || (Number(c.localId) || 0) > (Number(prev.n) || 0);
+          if (better) byCard.set(k, { n: c.localId, rarity: c.rarity, price: null });
+        }
+      }
+    }
+  } catch {
+    /* run: node scripts/sync-intl-guides.mjs */
+  }
+  if (!byCard.size) {
+    console.warn("No card data loaded, so nothing can be looked up.");
+  }
+
+  const hits = [];
+  const problems = [];
+  let looked = 0;
+  for (let i = 1; i < rows.length; i++) {
+    const r = rows[i];
+    const card = cell(r, hi.card);
+    const vid = cell(r, hi.video);
+    if (!card && !vid) continue;                     // blank filler row
+    if (!card) { problems.push(`row ${i + 1}: a Video ID with no Card`); continue; }
+    if (vid && !knownVideo.has(vid)) problems.push(`row ${i + 1}: Video ID "${vid}" is not in the catalogue`);
+
+    const setLabel = cell(r, hi.set);
+    const setId = setIdByName.get(setLabel.toLowerCase()) || setIdOf.get(setLabel.toLowerCase()) || null;
+    if (setLabel && !setId) problems.push(`row ${i + 1}: set "${setLabel}" not recognised`);
+
+    const found = setId ? byCard.get(`${setId}|${card.toLowerCase()}`) : null;
+    if (found) looked++;
+    // A name that matches nothing is nearly always a typo, and silently writing
+    // nulls for it is how a hit ends up on the site with no number and no
+    // price and nobody notices.
+    else if (setId && byCard.size && !cell(r, hi.number)) {
+      problems.push(`row ${i + 1}: no card called "${card}" in ${setLabel || setId}. Check the spelling.`);
+    }
+
+    hits.push({
+      video: vid || null,
+      card,
+      set: setId,
+      // Typed value wins; otherwise the card data fills it in.
+      number: cell(r, hi.number) || found?.n || null,
+      rarity: cell(r, hi.rarity) || found?.rarity || null,
+      rawNm: num(cell(r, hi.raw)) ?? found?.price ?? null,
+      psa10: num(cell(r, hi.psa10)),
+      hallOfFame: yes(cell(r, hi.hof)),
+      notes: cell(r, hi.notes) || null,
+    });
+  }
+
+  hits.sort((a, b) => (b.psa10 ?? b.rawNm ?? 0) - (a.psa10 ?? a.rawNm ?? 0));
+  await writeFile(
+    join(ROOT, "data/hits.json"),
+    JSON.stringify({ updated: new Date().toISOString().slice(0, 10), source: "My Hits tab", hits }, null, 2) + "\n"
+  );
+
+  console.log(`Read ${rows.length - 1} row(s) from ${csvPath}
+Wrote data/hits.json
+  ${hits.length} hit(s), ${hits.filter((h) => h.hallOfFame).length} flagged Hall of Fame
+  ${looked} had Number, Rarity and Raw NM filled in from the card data
+  ${hits.filter((h) => h.psa10).length} carry a PSA 10 price`);
+  if (problems.length) {
+    console.log(`\n${problems.length} thing(s) to look at:`);
+    for (const p of problems.slice(0, 12)) console.log("  " + p);
+  }
+  process.exit(0);
+}
 // Accept any of several historical names for the same column.
 const firstCol = (...names) => {
   for (const n of names) {

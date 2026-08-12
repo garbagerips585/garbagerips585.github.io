@@ -32,9 +32,26 @@ videos = videos.get("videos", videos)
 sets = json.loads((ROOT / "public/data/sets.json").read_text())["sets"]
 set_name = {s["id"]: s["name"] for s in sets}
 
+# The non-English guides. Without these the 21 imported rips had no option in
+# the Set dropdown at all, and their prefilled guess came back blank, so the one
+# part of the catalogue that most needed a human answer was the one part the
+# sheet could not ask about. Labels match shared/taxonomy.mjs exactly, because
+# import-sheet.mjs maps this text straight back to a set id.
+_LANG_TAG = {"ja": "JP", "ko": "KR", "zh-cn": "CN", "zh-tw": "CN"}
+intl_sets = {}
+try:
+    _ig = json.loads((ROOT / "public/data/intl-guides.json").read_text())["sets"]
+    for _id, _g in _ig.items():
+        intl_sets[_id] = f"{_g['english']} ({_LANG_TAG.get(_g.get('lang'), '??')})"
+except Exception:
+    pass
+set_name.update(intl_sets)
+
 # ---------------------------------------------------------------- vocabulary
 
-SET_NAMES = [s["name"] for s in sets] + ["Multiple sets", "Not a set (sealed/other)"]
+SET_NAMES = ([s["name"] for s in sets]
+             + sorted(intl_sets.values())
+             + ["Multiple sets", "Not a set (sealed/other)"])
 
 OPENING_TYPES = [
     "Single Booster Pack", "Booster Bundle", "Booster Box",
@@ -105,7 +122,33 @@ HOF_RANKS = [str(i) for i in range(1, 21)]
 
 # Every chase card we know about, so Hit Card is a pick rather than a spelling
 # test. Not exhaustive on purpose: the validation is a suggestion, not a rule.
-HIT_CARDS = sorted({c["name"] for st in sets for c in (st.get("chase") or [])})
+def _hit_card_list():
+    """Cards worth logging as a hit, dearest first, deduped by name.
+
+    Was the 152 chase cards from sets.json, which is every card we happened to
+    show on a set page. The full checklist is now on disk, so this offers the
+    cards someone would actually write down: anything over $5, capped so the
+    dropdown stays usable in Excel. Still a suggestion, not a rule.
+    """
+    seen = {}
+    try:
+        for f in sorted((ROOT / "public/data/cards").glob("*.json")):
+            for c in json.loads(f.read_text())["cards"]:
+                price = c.get("price")
+                if not isinstance(price, (int, float)) or price < 5:
+                    continue
+                name = c.get("name") or ""
+                if name and price > seen.get(name, 0):
+                    seen[name] = price
+    except Exception:
+        pass
+    for st in sets:                       # keep the old source as a floor
+        for c in (st.get("chase") or []):
+            seen.setdefault(c["name"], 0)
+    ranked = sorted(seen.items(), key=lambda kv: -kv[1])[:500]
+    return sorted(n for n, _ in ranked)
+
+HIT_CARDS = _hit_card_list()
 
 # Every product id shared/taxonomy.mjs can assign, mapped to the sheet's own
 # wording. Eight were missing, so a video already tagged booster-box or
@@ -609,13 +652,17 @@ wc.cell(len(rows_out) + 3, 1,
 # and it is the join that puts these cards under the right rip page.
 
 wh = wb.create_sheet("My Hits")
+# Only the first three are worth your time. Number, Rarity and Raw NM are looked
+# up from the card data on import when they are left blank, because the site
+# already knows all 4,481 cards; fill them in only to overrule what it found.
+# PSA 10 has no free feed, so that one is genuinely manual.
 HIT_COLS = [
     ("Video ID", 14, "input"),
     ("Card", 30, "input"),
     ("Set", 24, "input"),
-    ("Number", 9, "input"),
-    ("Rarity", 32, "input"),
-    ("Raw NM USD", 12, "input"),
+    ("Number", 9, "locked"),
+    ("Rarity", 32, "locked"),
+    ("Raw NM USD", 12, "locked"),
     ("PSA 10 USD", 12, "input"),
     ("Hall of Fame", 13, "hof"),
     ("Notes", 40, "input"),
