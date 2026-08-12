@@ -56,3 +56,52 @@ export const longDate = (iso) => fmt(iso, MONTHS_LONG);
 
 /** Sleep, for the rate-limited sync scripts. */
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * Money, in the two shapes this site actually uses.
+ *
+ * There were seven copies across the build scripts in two INCOMPATIBLE
+ * variants, and the difference is not cosmetic:
+ *
+ *   compact  $1,471   rounds above $100. Right on a tile or in a list, where
+ *                     the cents are noise and the column has to stay narrow.
+ *   exact    $1,470.58  always two places. Right anywhere the number is the
+ *                     point: a checklist row, a break-even calculation.
+ *
+ * Both are correct and both are wanted, so they are two named functions rather
+ * than one merged guess. What was NOT correct is that four of the seven copies
+ * had no type guard at all, so `money(undefined)` threw a TypeError rather than
+ * rendering nothing, and one page shipped "$-68.57" while the calculator
+ * directly above it said "-$68.57".
+ *
+ * A null, an undefined or a NaN returns "" here. A missing price is a thing
+ * that happens (the four newest sets ship with no prices for weeks) and it
+ * should render as absent, not take the build down.
+ */
+const nOrNull = (n) => (typeof n === "number" && Number.isFinite(n) ? n : null);
+
+export function moneyCompact(v) {
+  const n = nOrNull(v);
+  if (n === null) return "";
+  const abs = Math.abs(n);
+  const sign = n < 0 ? "-" : "";
+  return abs >= 100
+    ? `${sign}$${Math.round(abs).toLocaleString("en-US")}`
+    : `${sign}$${abs.toFixed(2)}`;
+}
+
+export function moneyExact(v) {
+  const n = nOrNull(v);
+  if (n === null) return "";
+  return `${n < 0 ? "-" : ""}$${Math.abs(n).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
+}
+
+/** Whole dollars, no cents at any size. Used by the grading fee tables. */
+export function moneyRound(v) {
+  const n = nOrNull(v);
+  if (n === null) return "";
+  return `${n < 0 ? "-" : ""}$${Math.round(Math.abs(n)).toLocaleString("en-US")}`;
+}

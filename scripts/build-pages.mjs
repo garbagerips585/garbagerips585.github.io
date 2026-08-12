@@ -16,7 +16,7 @@ import { SITE, robots, LIVE, DOMAIN } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { ripPath } from "../shared/paths.mjs";
-import { esc, shortDate } from "../shared/format.mjs";
+import { esc, shortDate, moneyCompact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -71,8 +71,6 @@ const gradedPrice = (setId, number) => {
   if (!a?.psa10 || (a.psa10Sales != null && a.psa10Sales < MIN_SALES)) return null;
   return a.psa10;
 };
-const money = (n) =>
-  n >= 100 ? `$${Math.round(n).toLocaleString("en-US")}` : `$${n.toFixed(2)}`;
 
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 
@@ -123,7 +121,6 @@ try {
 const hasGuide = (setId) => Boolean(setId) && guideIds.has(setId);
 
 const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"));
-
 
 const pathFor = (v) => v.path || ripPath(v);
 
@@ -222,7 +219,7 @@ const desc = (v.blurb || descriptions[v.id] || "").trim();
         <div>
           <b>${esc(c.name)}</b>
           <span class="chaser-rar">${esc(c.rarity || "")}${c.number ? ` &bull; #${esc(c.number)}` : ""}</span>
-          <span class="chaser-pr">Raw ${money(c.price)}${c.psa10 ? ` <i>PSA 10 ${money(c.psa10)}</i>` : ""}</span>
+          <span class="chaser-pr">Raw ${moneyCompact(c.price)}${c.psa10 ? ` <i>PSA 10 ${moneyCompact(c.psa10)}</i>` : ""}</span>
         </div>
       </li>`).join("\n      ")}
     </ul>

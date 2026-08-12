@@ -26,7 +26,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
-import { esc, longDate } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, moneyRound } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const g = JSON.parse(await readFile(join(ROOT, "data/grading.json"), "utf8"));
@@ -69,11 +69,6 @@ const SHIP = g.assumedShippingPerCard ?? 15;
 // Sign BEFORE the currency, matching the calculator's own formatter further down
 // this file. They disagreed, so the same loss rendered "$-68.57" in the table and
 // "-$68.57" in the calculator directly above it.
-const money = (n) =>
-  typeof n === "number"
-    ? `${n < 0 ? "-" : ""}$${Math.abs(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-    : "";
-const money0 = (n) => (typeof n === "number" ? `$${Math.round(n).toLocaleString("en-US")}` : "");
 
 // Every card where we hold BOTH a raw and a PSA 10 price. `auto` is synced,
 // `prices` is hand-entered and wins, same rule as everywhere else on the site.
@@ -117,14 +112,14 @@ const feeCheap = cheapest.cheapest + SHIP;
 const verdictRow = (r) => `        <li class="gr">
           <span class="gr-name">${esc(r.name)}</span>
           <span class="gr-set">${esc(r.set)} &bull; ${esc(r.num)}</span>
-          <span class="gr-raw">${money(r.raw)}<em>raw</em></span>
-          <span class="gr-psa">${money(r.psa10)}<em>PSA 10</em></span>
-          <span class="gr-net ${r.netPsa > 0 ? "up" : "down"}">${r.netPsa > 0 ? "+" : ""}${money(r.netPsa)}<em>after fees</em></span>
+          <span class="gr-raw">${moneyExact(r.raw)}<em>raw</em></span>
+          <span class="gr-psa">${moneyExact(r.psa10)}<em>PSA 10</em></span>
+          <span class="gr-net ${r.netPsa > 0 ? "up" : "down"}">${r.netPsa > 0 ? "+" : ""}${moneyExact(r.netPsa)}<em>after fees</em></span>
         </li>`;
 
 const desc =
   `What Pokemon card grading actually costs in ${new Date(g.checked).getFullYear()}, PSA against CGC, BGS and TAG, ` +
-  `and the break even maths on ${rows.length} real cards. PSA's cheapest tier is now ${money0(psaCo.cheapest)}.`;
+  `and the break even maths on ${rows.length} real cards. PSA's cheapest tier is now ${moneyRound(psaCo.cheapest)}.`;
 
 const ld = [
   {
@@ -144,7 +139,7 @@ const ld = [
         name: "How much does it cost to grade a Pokemon card?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: `PSA's cheapest active tier is ${money0(psaCo.cheapest)} per card as of ${longDate(g.checked)}, after it paused its Value and Value Bulk tiers in June 2026. CGC and TAG start around ${money0(cheapest.cheapest)}. Add roughly ${money0(SHIP)} a card for shipping and insurance.`,
+          text: `PSA's cheapest active tier is ${moneyRound(psaCo.cheapest)} per card as of ${longDate(g.checked)}, after it paused its Value and Value Bulk tiers in June 2026. CGC and TAG start around ${moneyRound(cheapest.cheapest)}. Add roughly ${moneyRound(SHIP)} a card for shipping and insurance.`,
         },
       },
       {
@@ -213,8 +208,8 @@ ${MENU}
     </div>
 
     <div class="facts" style="margin-top:20px">
-      <div class="fact"><div class="n">${money0(psaCo.cheapest)}</div><div class="l">Cheapest PSA tier</div></div>
-      <div class="fact"><div class="n">${money0(cheapest.cheapest)}</div><div class="l">Cheapest anywhere (${esc(cheapest.name)})</div></div>
+      <div class="fact"><div class="n">${moneyRound(psaCo.cheapest)}</div><div class="l">Cheapest PSA tier</div></div>
+      <div class="fact"><div class="n">${moneyRound(cheapest.cheapest)}</div><div class="l">Cheapest anywhere (${esc(cheapest.name)})</div></div>
       <div class="fact"><div class="n">${worth.length}/${rows.length}</div><div class="l">Cards that clear the PSA fee</div></div>
       <div class="fact wide"><div class="n" style="font-size:1.15rem">${esc(longDate(g.checked) || g.checked)}</div><div class="l">Fees last checked</div></div>
     </div>
@@ -232,7 +227,7 @@ ${MENU}
         .map(
           (c) => `<article class="gc">
         <h3>${esc(c.name)}</h3>
-        <p class="gc-price">${money0(c.cheapest)}<span> per card, ${esc(c.cheapestTier)}</span></p>
+        <p class="gc-price">${moneyRound(c.cheapest)}<span> per card, ${esc(c.cheapestTier)}</span></p>
         <p class="gc-turn">${esc(c.turnaround)}</p>
         <p class="gc-note">${esc(c.note)}</p>
         <p class="gc-resale"><strong>Resale.</strong> ${esc(c.resale)}</p>
@@ -266,7 +261,7 @@ ${MENU}
           ${g.companies
             .slice()
             .sort((a, b) => a.cheapest - b.cheapest)
-            .map((c) => `<option value="${c.cheapest}">${esc(c.name)} ${esc(c.cheapestTier)}, ${money0(c.cheapest)}</option>`)
+            .map((c) => `<option value="${c.cheapest}">${esc(c.name)} ${esc(c.cheapestTier)}, ${moneyRound(c.cheapest)}</option>`)
             .join("\n          ")}
         </select>
       </label>
@@ -282,7 +277,7 @@ ${MENU}
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Real cards</p>
     <h2>${worth.length} of ${rows.length} cards <span class="hl">clear the fee</span></h2>
     <p class="lede">Every card from our sets where we hold both a raw price and a PSA 10 price, with
-      ${money0(psaCo.cheapest)} plus about ${money0(SHIP)} shipping subtracted. This is the upside, not the
+      ${moneyRound(psaCo.cheapest)} plus about ${moneyRound(SHIP)} shipping subtracted. This is the upside, not the
       expectation: it assumes the card comes back a 10, and most do not.</p>
 
     <h3 class="gc-sub">Worth it, best first</h3>
@@ -296,7 +291,7 @@ ${worth.slice(0, 20).map(verdictRow).join("\n")}
 ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
     </ol>
     <p class="price-note">These are cards where the PSA 10 sells for less than the raw card plus the fee. At the old
-      ${money0(24.99)} Value tier several of them worked. That is what a fee change does.</p>` : ""}
+      ${moneyRound(24.99)} Value tier several of them worked. That is what a fee change does.</p>` : ""}
   </div>
 </section>
 
@@ -323,6 +318,8 @@ ${footer("Grading fees change constantly. Always check the company's own page be
   var raw=document.getElementById('gRaw'), ten=document.getElementById('gTen');
   var fee=document.getElementById('gFee'), out=document.getElementById('gOut');
   var SHIP=${SHIP};
+  // The browser cannot import shared/format.mjs, so this is the one copy of
+  // moneyExact that has to be duplicated. Keep the two in step.
   function money(n){
     return (n<0?'-$':'$')+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
   }
@@ -358,6 +355,6 @@ ${footer("Grading fees change constantly. Always check the company's own page be
 
 await writeFile(join(ROOT, "public/grading.html"), page);
 console.log(`Wrote public/grading.html
-  ${g.companies.length} companies, cheapest ${cheapest.name} at ${money0(cheapest.cheapest)}, PSA at ${money0(psaCo.cheapest)}
+  ${g.companies.length} companies, cheapest ${cheapest.name} at ${moneyRound(cheapest.cheapest)}, PSA at ${moneyRound(psaCo.cheapest)}
   ${rows.length} cards with both prices: ${worth.length} clear the PSA fee, ${notWorth.length} do not
-  best: ${worth[0]?.name} ${money0(worth[0]?.netPsa)} net`);
+  best: ${worth[0]?.name} ${moneyRound(worth[0]?.netPsa)} net`);

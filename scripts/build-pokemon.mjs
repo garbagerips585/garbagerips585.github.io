@@ -28,7 +28,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
-import { esc, longDate } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, moneyRound } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/pokemon");
@@ -91,12 +91,6 @@ const ripsFor = (name) => {
   return videos.filter((v) => re.test(v.title));
 };
 
-const money = (n) =>
-  typeof n === "number"
-    ? `$${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-    : "";
-const money0 = (n) => (typeof n === "number" ? `$${Math.round(n).toLocaleString("en-US")}` : "");
-
 const head = ({ title, desc, canonical, ld }) => `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -143,7 +137,7 @@ function pokePage(p) {
 
   const desc =
     `Every ${p.name} card across ${setCount} Pokemon TCG sets, ${p.list.length} in total, with current market ` +
-    `prices. The dearest is ${p.dearest.name} in ${p.dearest.setName} at ${money(p.dearest.price)}.`;
+    `prices. The dearest is ${p.dearest.name} in ${p.dearest.setName} at ${moneyExact(p.dearest.price)}.`;
 
   const ld = [
     {
@@ -184,8 +178,8 @@ function pokePage(p) {
     <div class="facts">
       <div class="fact"><div class="n">${p.list.length}</div><div class="l">${esc(p.name)} cards</div></div>
       <div class="fact"><div class="n">${setCount}</div><div class="l">Sets they appear in</div></div>
-      <div class="fact"><div class="n">${money0(p.dearest.price)}</div><div class="l">Dearest one</div></div>
-      ${p.cheapest ? `<div class="fact"><div class="n">${money(p.cheapest.price)}</div><div class="l">Cheapest way in</div></div>` : ""}
+      <div class="fact"><div class="n">${moneyRound(p.dearest.price)}</div><div class="l">Dearest one</div></div>
+      ${p.cheapest ? `<div class="fact"><div class="n">${moneyExact(p.cheapest.price)}</div><div class="l">Cheapest way in</div></div>` : ""}
       ${rips.length ? `<a class="fact fact-link" href="/videos.html?q=${encodeURIComponent(p.name)}"><div class="n">${rips.length}</div><div class="l">Rips that mention one <span aria-hidden="true">&rarr;</span></div></a>` : ""}
     </div>
   </div>
@@ -201,14 +195,14 @@ function pokePage(p) {
           (c) => `<button class="chase-card" type="button"
         data-img="${esc(c.img ? c.img + "/high.webp" : "")}"
         data-name="${esc(c.name)}" data-rarity="${esc(c.rarity || "")}"
-        data-number="${esc(c.n || "")}" data-price="${esc(money(c.price))}"
+        data-number="${esc(c.n || "")}" data-price="${esc(moneyExact(c.price))}"
         data-set="${esc(c.setName)}"
         aria-label="Enlarge ${esc(c.name)}">
         ${c.img ? `<img src="${esc(c.img)}/low.webp" alt="${esc(c.name)} ${esc(c.n || "")}, ${esc(c.setName)}" loading="lazy" width="245" height="342">` : ""}
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(c.setName)} &bull; ${esc(c.n || "")}</div>
         ${c.rarity ? `<div class="rr">${esc(c.rarity)}</div>` : ""}
-        ${typeof c.price === "number" ? `<div class="pr">${money(c.price)}</div>` : ""}
+        ${typeof c.price === "number" ? `<div class="pr">${moneyExact(c.price)}</div>` : ""}
       </button>`
         )
         .join("\n      ")}
@@ -303,7 +297,7 @@ function indexPage() {
         ${p.dearest.img ? `<img src="${esc(p.dearest.img)}/low.webp" alt="${esc(p.dearest.name)}, the most valuable ${esc(p.name)} card" loading="lazy" width="245" height="342">` : ""}
         <span class="poke-nm">${esc(p.name)}</span>
         <span class="poke-meta">${p.list.length} cards &bull; ${p.sets.size} sets</span>
-        <span class="poke-pr">top ${money0(p.dearest.price)}</span>
+        <span class="poke-pr">top ${moneyRound(p.dearest.price)}</span>
       </a>`
         )
         .join("\n      ")}
@@ -346,7 +340,7 @@ console.log(`Wrote ${roster.length} Pokemon pages + index to public/pokemon/`);
 for (const p of roster.slice(0, 8)) {
   console.log(
     `  /pokemon/${p.slug}.html`.padEnd(34) +
-      `${String(p.list.length).padStart(3)} cards, ${p.sets.size} sets, top ${money0(p.dearest.price)}, ${ripsFor(p.name).length} rips`
+      `${String(p.list.length).padStart(3)} cards, ${p.sets.size} sets, top ${moneyRound(p.dearest.price)}, ${ripsFor(p.name).length} rips`
   );
 }
 console.log(`  ... and ${roster.length - 8} more`);

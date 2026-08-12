@@ -14,7 +14,7 @@ import { readFile, writeFile, readdir } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkDrift } from "../shared/chrome.mjs";
-import { esc, MONTHS_SHORT as MONTHS } from "../shared/format.mjs";
+import { esc, MONTHS_SHORT as MONTHS, moneyCompact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // The live home page and the prototype share one design and one generator, so
@@ -22,7 +22,6 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // The prototypes are gone: they were scratch pages that shipped to the deploy
 // root, publicly reachable and carrying no canonical or description.
 const TARGETS = [join(ROOT, "public/index.html")];
-
 
 /* ------------------------------------------------------------------ data -- */
 
@@ -66,7 +65,6 @@ const logos = await dirSet("logos", /-pokemon-tcg-set-logo\.webp$/);
 
 /* ------------------------------------------------------------- formatting - */
 
-
 function shortDate(iso) {
   if (!iso) return "";
   const [y, m, d] = iso.split("-");
@@ -81,8 +79,6 @@ function clock(sec) {
   if (!sec) return "";
   return `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}`;
 }
-const moneyish = (n) =>
-  n >= 100 ? `$${Math.round(n).toLocaleString("en-US")}` : `$${n.toFixed(2)}`;
 
 // Matches niceViews() in build-pages.mjs. They disagreed above a million: this
 // one divided by 1000 forever, so a video at 1.5M views read "1500K VIEWS" on
@@ -392,7 +388,7 @@ const setsHtml = (
           <span class="set-art">${face}</span>
           <b>${esc(s.name)}</b>
           <span class="set-meta">${esc(bits.join(" · "))}</span>
-          ${topVal ? `<span class="set-top">Top card ${moneyish(topVal)}${topPsa ? " <i>PSA 10</i>" : ""}</span>` : ""}
+          ${topVal ? `<span class="set-top">Top card ${moneyCompact(topVal)}${topPsa ? " <i>PSA 10</i>" : ""}</span>` : ""}
           ${n ? `<span class="set-rips">${n} rip${n === 1 ? "" : "s"}</span>` : ""}
         </a>`;
     })
@@ -408,9 +404,9 @@ const wantedHtml = (wanted.cards || [])
   .map((c) => {
     const img = c.image || c.imageLarge;
     const price = c.psa10
-      ? `PSA 10 ${moneyish(c.psa10)}`
+      ? `PSA 10 ${moneyCompact(c.psa10)}`
       : c.raw
-        ? `RAW ${moneyish(c.raw)}`
+        ? `RAW ${moneyCompact(c.raw)}`
         : "CHASING";
     const inner = `<span class="mw-art">${
       img

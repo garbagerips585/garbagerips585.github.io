@@ -15,15 +15,9 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { esc, shortDate } from "../shared/format.mjs";
+import { esc, shortDate, moneyCompact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-
-
-
-const money = (n) =>
-  n >= 100 ? `$${Math.round(n).toLocaleString("en-US")}` : `$${n.toFixed(2)}`;
-
 
 const { cards, updated } = JSON.parse(
   await readFile(join(ROOT, "public/data/wanted.json"), "utf8")
@@ -37,13 +31,13 @@ const caught = cards.filter((c) => c.got);
 function prices(c) {
   const rows = [];
   if (c.raw) {
-    rows.push(`<div class="pr"><span class="pr-k">Raw</span><span class="pr-v">${money(c.raw)}</span></div>`);
+    rows.push(`<div class="pr"><span class="pr-k">Raw</span><span class="pr-v">${moneyCompact(c.raw)}</span></div>`);
   } else {
     rows.push(`<div class="pr pr-none"><span class="pr-k">Raw</span><span class="pr-v">no market price yet</span></div>`);
   }
   if (c.psa10) {
     rows.push(
-      `<div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">${money(c.psa10)}</span></div>`
+      `<div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">${moneyCompact(c.psa10)}</span></div>`
     );
   }
   return rows.join("");

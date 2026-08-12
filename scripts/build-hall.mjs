@@ -17,15 +17,11 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { esc, shortDate } from "../shared/format.mjs";
+import { esc, shortDate, moneyCompact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const MIN_SALES = 10; // same floor the set guides use
-
-const money = (n) =>
-  n >= 100 ? `$${Math.round(n).toLocaleString("en-US")}` : `$${n.toFixed(2)}`;
-
 
 const { cards: hall } = JSON.parse(await readFile(join(ROOT, "data/hall.json"), "utf8"));
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
@@ -86,16 +82,16 @@ function plaque(c, i) {
           data-img="${esc(c.image || "")}" data-name="${esc(c.name)}"
           data-set="${esc(c.setName)}" data-rarity="${esc(c.rarity || "")}"
           data-number="${esc(c.number)}" data-url="${esc(c.url || "")}"
-          data-raw="${c.raw ? esc(money(c.raw)) : ""}"
-          data-psa="${c.psa10 ? esc(money(c.psa10)) : ""}"
+          data-raw="${c.raw ? esc(moneyCompact(c.raw)) : ""}"
+          data-psa="${c.psa10 ? esc(moneyCompact(c.psa10)) : ""}"
           aria-label="Enlarge ${esc(c.name)}">${img}</button>
         <div class="chof-body">
           <b class="chof-name">${esc(c.name)}</b>
           <span class="chof-set">${esc(c.setName)} &bull; #${esc(c.number)}</span>
           ${c.rarity ? `<span class="chof-rar">${esc(c.rarity)}</span>` : ""}
           <dl class="chof-prices">
-            <div><dt>Raw NM</dt><dd>${c.raw ? money(c.raw) : "&mdash;"}</dd></div>
-            <div class="psa"><dt>PSA 10${c.psa10 && c.psa10AsOf ? ` <i>${esc(c.psa10AsOf)}</i>` : ""}</dt><dd>${c.psa10 ? money(c.psa10) : "&mdash;"}</dd></div>
+            <div><dt>Raw NM</dt><dd>${c.raw ? moneyCompact(c.raw) : "&mdash;"}</dd></div>
+            <div class="psa"><dt>PSA 10${c.psa10 && c.psa10AsOf ? ` <i>${esc(c.psa10AsOf)}</i>` : ""}</dt><dd>${c.psa10 ? moneyCompact(c.psa10) : "&mdash;"}</dd></div>
           </dl>
           ${c.pulledOn || c.pulledIn
             ? `<span class="chof-pulled">Pulled${c.pulledOn ? ` ${shortDate(c.pulledOn)}` : ""}${
@@ -189,8 +185,8 @@ const body = `
         ranked by what it is worth. Tap a card to see it full size.</p>
       ${ranked.length ? `<div class="chof-tally">
         <div><b>${ranked.length}</b><span>Cards inducted</span></div>
-        ${totalValue ? `<div><b>${money(totalValue)}</b><span>Best known value</span></div>` : ""}
-        ${gradedCards.length ? `<div><b>${money(totalGraded)}</b><span>${gradedCards.length} of ${ranked.length} graded</span></div>` : ""}
+        ${totalValue ? `<div><b>${moneyCompact(totalValue)}</b><span>Best known value</span></div>` : ""}
+        ${gradedCards.length ? `<div><b>${moneyCompact(totalGraded)}</b><span>${gradedCards.length} of ${ranked.length} graded</span></div>` : ""}
       </div>` : ""}
     </div>
 

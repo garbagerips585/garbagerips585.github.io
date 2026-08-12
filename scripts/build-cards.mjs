@@ -21,7 +21,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
-import { esc, longDate } from "../shared/format.mjs";
+import { esc, longDate, moneyExact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const index = JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8"));
@@ -35,11 +35,6 @@ const thumb = (slug, n) => (imgBase[slug] && n ? `${imgBase[slug]}/${n}/low.webp
 const rows = index.cards || [];
 const priced = rows.filter((r) => typeof r[4] === "number");
 const top = priced.slice().sort((a, b) => b[4] - a[4]).slice(0, 60);
-
-const money = (n) =>
-  typeof n === "number"
-    ? `$${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-    : "";
 
 const desc =
   `Search ${rows.length.toLocaleString("en-US")} Pokemon cards across ${Object.keys(setName).length} sets by name, ` +
@@ -74,7 +69,7 @@ const row = (r) => {
         <a class="cq-name" href="/sets/${esc(slug)}.html">${esc(name)}</a>
         <span class="cq-set">${esc(setName[slug] || slug)} &bull; ${esc(n || "")}</span>
         ${rarity ? `<span class="cq-rr">${esc(rarity)}</span>` : ""}
-        ${typeof price === "number" ? `<span class="cq-pr">${money(price)}</span>` : ""}
+        ${typeof price === "number" ? `<span class="cq-pr">${moneyExact(price)}</span>` : ""}
       </li>`;
 };
 
@@ -160,6 +155,8 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official."
   var DATA=null, LOADING=false, WAITING=[], MAX=200;
   var initial=list.innerHTML;
 
+  // The browser cannot import shared/format.mjs, so this is the one copy of
+  // moneyExact that has to be duplicated. Keep the two in step.
   function money(n){
     return typeof n==='number' ? '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}) : '';
   }
@@ -253,4 +250,4 @@ await writeFile(join(ROOT, "public/cards.html"), page);
 console.log(`Wrote public/cards.html
   ${rows.length} cards searchable across ${Object.keys(setName).length} sets
   ${priced.length} priced, ${top.length} rendered into the HTML
-  dearest: ${top[0]?.[0]} ${top[0]?.[2]} (${setName[top[0]?.[1]]}) ${money(top[0]?.[4])}`);
+  dearest: ${top[0]?.[0]} ${top[0]?.[2]} (${setName[top[0]?.[1]]}) ${moneyExact(top[0]?.[4])}`);

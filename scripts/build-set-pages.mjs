@@ -15,7 +15,7 @@ import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
-import { esc, longDate } from "../shared/format.mjs";
+import { esc, longDate, moneyCompact, moneyExact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -32,7 +32,6 @@ const logoAttrs = (setId) => {
   const d = LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`];
   return d ? ` width="${d[0]}" height="${d[1]}"` : "";
 };
-
 
 const OUT = join(ROOT, "public/sets");
 
@@ -165,12 +164,6 @@ try {
   /* run: node scripts/sync-cards.mjs */
 }
 
-/** $1,470.58 — cents kept, because rounding $149.76 to $150 lost real money. */
-const cardPrice = (n) =>
-  typeof n === "number"
-    ? `$${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-    : "";
-
 function checklistBand(s) {
   const doc = checklists[s.id];
   if (!doc?.cards?.length) return "";
@@ -182,7 +175,7 @@ function checklistBand(s) {
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
     <h2>Full <span class="hl">checklist</span></h2>
     <p class="lede">All ${doc.cards.length} cards in ${esc(s.name)}, with what each one is worth.${
-      dearest ? ` The most expensive card in the set is ${esc(dearest.name)} at ${cardPrice(dearest.price)}.` : ""
+      dearest ? ` The most expensive card in the set is ${esc(dearest.name)} at ${moneyExact(dearest.price)}.` : ""
     }</p>
     <details class="ig-list">
       <summary>Show the full ${esc(s.name)} checklist</summary>
@@ -191,7 +184,7 @@ function checklistBand(s) {
           .map(
             (c) => `<li><span class="ig-no">${esc(c.n || "")}</span>
           <span class="ig-nm">${esc(c.name)}</span>
-          ${c.price != null ? `<span class="ig-pr">${cardPrice(c.price)}</span>` : ""}
+          ${c.price != null ? `<span class="ig-pr">${moneyExact(c.price)}</span>` : ""}
           ${c.rarity ? `<span class="ig-rr2">${esc(c.rarity)}</span>` : ""}</li>`
           )
           .join("\n        ")}
@@ -289,7 +282,6 @@ for (const st of sets) {
 
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 
-
 function yearsSince(iso) {
   if (!iso) return null;
   const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
@@ -301,10 +293,8 @@ function yearsSince(iso) {
   if (months < 24) return `${months} months ago`;
   return `${Math.floor(months / 12)} years ago`;
 }
-const money = (n) =>
-  n >= 100 ? `$${Math.round(n).toLocaleString("en-US")}` : `$${n.toFixed(2)}`;
 
-// Sealed product prices keep their cents at every size. money() rounds above
+// Sealed product prices keep their cents at every size. moneyCompact() rounds above
 // $100, which is right for a card worth "about $400" and wrong for a shelf
 // price: it turned a $149.76 Elite Trainer Box into "$150", which is a number
 // that appears on no listing anywhere.
@@ -440,9 +430,9 @@ function derivedFacts(s) {
     const top = s.chase[0];
     out.push(
       `The chase card is <b>${esc(top.name)}</b>${top.rarity ? ` (${esc(top.rarity)})` : ""}, ` +
-      `sitting around <b>${money(top.price)}</b> raw` +
+      `sitting around <b>${moneyCompact(top.price)}</b> raw` +
       (gradedPrice(s.id, top.number)
-        ? `, and <b>${money(gradedPrice(s.id, top.number))}</b> in a PSA 10.`
+        ? `, and <b>${moneyCompact(gradedPrice(s.id, top.number))}</b> in a PSA 10.`
         : `.`)
     );
   }
@@ -590,16 +580,16 @@ ${s.notes?.inPrint || s.notes?.packPrice ? `
       ${s.chase.map((c) => `<button class="chase-card" type="button"
         data-img="${esc(c.imageLarge || c.image || "")}"
         data-name="${esc(c.name)}" data-rarity="${esc(c.rarity || "")}"
-        data-number="${esc(c.number)}" data-price="${esc(money(c.price))}"
-        data-psa10="${esc(gradedPrice(s.id, c.number) ? money(gradedPrice(s.id, c.number)) : "")}"
+        data-number="${esc(c.number)}" data-price="${esc(moneyCompact(c.price))}"
+        data-psa10="${esc(gradedPrice(s.id, c.number) ? moneyCompact(gradedPrice(s.id, c.number)) : "")}"
         data-url="${esc(c.url ? affLink(c.url) : "")}"
         aria-label="Enlarge ${esc(c.name)}">
         ${c.image ? `<img src="${c.image}" alt="${esc(c.name)} ${esc(c.number)}, ${esc(c.rarity || "card")}" loading="lazy" width="245" height="342">` : ""}
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(c.rarity || "")} &bull; ${esc(c.number)}</div>
-        <div class="pr">${money(c.price)}</div>
+        <div class="pr">${moneyCompact(c.price)}</div>
         ${gradedPrice(s.id, c.number)
-          ? `<div class="pr10">PSA 10 ${money(gradedPrice(s.id, c.number))}${
+          ? `<div class="pr10">PSA 10 ${moneyCompact(gradedPrice(s.id, c.number))}${
               gradedAsOf(s.id, c.number) ? `<span> &bull; ${esc(gradedAsOf(s.id, c.number))}</span>` : ""
             }</div>`
           : ""}
@@ -764,7 +754,7 @@ function indexPage() {
         <img${logoAttrs(s.id)} src="/assets/logos/${s.id}-pokemon-tcg-set-logo.webp" alt="${esc(s.name)} logo" loading="lazy" onerror="this.remove()">
         <span>
           <span class="ttl">${esc(s.name)}</span><br>
-          <span class="meta">${s.total ?? "?"} cards${s.released ? ` &bull; ${s.released.slice(0, 4)}` : ""}${ripsBySet[s.id] ? ` &bull; ${ripsBySet[s.id]} rips` : ""}${(s.chase || [])[0]?.price ? ` &bull; top ${money(s.chase[0].price)}${gradedPrice(s.id, s.chase[0].number) ? ` / ${money(gradedPrice(s.id, s.chase[0].number))} PSA 10` : ""}` : ""}</span>
+          <span class="meta">${s.total ?? "?"} cards${s.released ? ` &bull; ${s.released.slice(0, 4)}` : ""}${ripsBySet[s.id] ? ` &bull; ${ripsBySet[s.id]} rips` : ""}${(s.chase || [])[0]?.price ? ` &bull; top ${moneyCompact(s.chase[0].price)}${gradedPrice(s.id, s.chase[0].number) ? ` / ${moneyCompact(gradedPrice(s.id, s.chase[0].number))} PSA 10` : ""}` : ""}</span>
         </span>
       </a>`).join("\n      ")}
     </div>
