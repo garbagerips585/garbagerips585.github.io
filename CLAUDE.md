@@ -72,17 +72,33 @@ is silent: a CSS animation naming missing keyframes never runs and never
 fires `animationend`, so the pack simply sat there. If the pack stops moving,
 check the keyframes are still present before anything else.
 
-**The embed starts MUTED and that is not optional.** A cross-origin iframe
-created during a click does not inherit that click: the gesture activates the
-page, not the embed, and `allow="autoplay"` delegates the permission without
-lifting the requirement that unmuted playback be user-initiated. Every
-browser refuses, and YouTube shows its own play button, which is a second
-click. Muted autoplay is the one form always permitted, so the player mounts
-with `mute=1&enablejsapi=1` and is asked to unmute over the iframe postMessage
-API the moment it is listening. Where that is granted, and it usually is, no
-one sees a muted frame. Where it is not, the "Tap for sound" button
-(`#soundOn`) appears and that tap is itself a gesture. Do not "simplify" this
-back to a bare `autoplay=1`.
+**The embed starts MUTED and unmutes itself a moment later. The ORDER is the
+whole trick.** A muted media element is exempt from the user-gesture check; an
+unmuted one is not, and a cross-origin iframe created during a click does not
+reliably inherit that click (Chrome and Firefox usually honour an ancestor's
+gesture through `allow="autoplay"`, WebKit does not). That is why this was
+intermittent rather than broken: it varied by browser and by visit, never by
+video or by page.
+
+The trap that caused the reported bug: unmuting BEFORE playback begins throws
+away the exemption `mute=1` just bought, so the player makes its autoplay
+attempt as an unmuted element, is refused, and paints YouTube's own play
+button. Asking for sound too eagerly causes the exact symptom it was meant to
+fix. So:
+
+1. Mount muted. Muted autoplay is never refused, so the rip always starts.
+2. Wait for the player to REPORT playing (state 1).
+3. Only then unmute. Sound arrives while the pack is still tearing.
+4. If unmuting stops it, re-mute, resume, and show `#soundOn` for one tap.
+
+Three things that are easy to get wrong and were all wrong once:
+- `onStateChange` delivers `info` as a NUMBER, `infoDelivery` as an object.
+  Handling only the object shape silently ignores every state change.
+- The `listening` handshake must be REPEATED. The player installs its message
+  handler well after the iframe's `load` event and drops anything earlier, so
+  sending it once on `load` loses the feed and every decision is made blind.
+- Never call `playVideo` on an unmuted, not-yet-started player: a refused
+  scripted play is itself what triggers YouTube's play button.
 
 ## Set pages
 `/sets/<id>.html` is a "Set 101" guide per card set, plus a `/sets/` index.

@@ -235,131 +235,152 @@ Garbage rip… or temporal heat?
   var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var opened=false;
 
-  // AUTOPLAY, WITH SOUND, AND A GUARANTEE.
+  // AUTOPLAY, WITH SOUND.
   //
-  // Two facts are in tension and the design has to respect both.
+  // The goal is that ripping the pack starts the video with audio, every time.
+  // Getting there is not one decision, it is an order of operations.
   //
-  // 1. Sound on is the point. This is a reaction channel; a silent rip is
-  //    worthless, so we ask for an unmuted start and take it wherever we can
-  //    get it.
-  // 2. A cross-origin iframe created during a click does not inherit that
-  //    click. The gesture activates THIS page, not the embed, and
-  //    allow="autoplay" delegates the permission without lifting the rule that
-  //    unmuted playback be user-initiated. Some browsers grant it anyway off
-  //    the page's sticky activation; some refuse. That is why it worked on
-  //    some opens and not others: it was never per-video, it was per-browser
-  //    and per-visit. All 309 pages are byte-identical and all 309 videos are
-  //    public, embeddable and unrestricted; both were checked.
+  // WHAT IS ACTUALLY GOING ON
+  // A muted media element is exempt from the user-gesture check. An unmuted one
+  // is not, and a cross-origin iframe created during a click does not reliably
+  // inherit that click: Chrome and Firefox usually honour an ancestor frame's
+  // gesture through allow="autoplay", WebKit does not. That is why this was
+  // intermittent rather than broken. It was never per-video and never per-page;
+  // all 310 videos are public, embeddable and unrestricted, and every rip page
+  // is byte-for-byte identical. It varied by browser and by visit.
   //
-  // So: start unmuted and WATCH. The player reports its state over the iframe
-  // API, so we do not have to guess. If it has not reached PLAYING shortly
-  // after the tear, the browser refused, and we mute and play again, which is
-  // the one thing no browser refuses. The video is then always running, and a
-  // single tap on "Tap for sound" restores audio because that tap is itself a
-  // gesture.
+  // The trap: unmuting BEFORE playback begins throws away the exemption that
+  // mute=1 just bought, so the player makes its autoplay attempt as an unmuted
+  // element, gets refused, and paints YouTube's own play button. Asking for
+  // sound too eagerly is what causes the very symptom it was meant to fix.
   //
-  // Never silently mute up front. That trades the thing Tim actually wants for
-  // a guarantee on every browser, including the majority that would have given
-  // us sound for free.
-  var player=null, started=false, unmuted=true, fellBack=false, btn=null;
+  // SO, IN ORDER
+  //   1. Mount MUTED. Muted autoplay is never refused, so the rip always
+  //      starts, immediately, under the tear.
+  //   2. Wait for the player to actually report PLAYING.
+  //   3. Only then unmute. By that point it is a live element being changed,
+  //      not an autoplay attempt being judged, and the page has the user's
+  //      click behind it, so it is normally granted. Sound arrives a few
+  //      hundred milliseconds in, while the pack is still coming apart.
+  //   4. If unmuting stops it anyway, which is WebKit's documented behaviour,
+  //      retreat: re-mute, resume, and offer one tap. That tap is a real
+  //      gesture, so it always works.
+  //
+  // Do not "simplify" this to unmuted-from-the-start. That was tried and is
+  // what produced the play button on some opens and not others.
+  var EMBED='https://www.youtube-nocookie.com';
+  var player=null, feedTimer=null, gotFeed=false, mounted=false;
+  var phase='idle', muted=true, soundBtn=null, startWatch=null, unmuteWatch=null;
 
-  var PLAYING=1;
-  // Escalating, cheapest first. The tear itself runs ~0.9s, so the first step
-  // lands while the pack is still coming apart and is never seen.
-  var GRACE_MS=1300;      // ask the player to mute itself and play
-  var RELOAD_MS=3000;     // still nothing: restart it muted from scratch
-  var GIVE_UP_MS=5000;    // still nothing: only a real tap will do it
-
-  function post(f,msg){ try{ f.contentWindow.postMessage(JSON.stringify(msg),'*'); }catch(e){} }
-  function cmd(func,args){ if(player) post(player,{event:'command',func:func,args:args||[]}); }
-
-  function srcFor(muted){
-    return 'https://www.youtube-nocookie.com/embed/'+p.dataset.id
-      +'?autoplay=1&playsinline=1&rel=0&enablejsapi=1'
-      +(muted?'&mute=1':'')
-      +'&origin='+encodeURIComponent(location.origin);
+  function post(msg){
+    if(!player||!player.contentWindow) return;
+    try{ player.contentWindow.postMessage(JSON.stringify(msg),EMBED); }catch(e){}
   }
+  function cmd(func,args){ post({event:'command',func:func,args:args||[],id:1,channel:'widget'}); }
+  function listen(){ post({event:'listening',id:1,channel:'widget'}); }
 
   function mount(){
+    if(mounted) return;
+    mounted=true;
     var f=document.createElement('iframe');
-    f.src=srcFor(false);                 // sound on, first attempt
+    f.src=EMBED+'/embed/'+p.dataset.id
+      +'?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1&widgetid=1&origin='
+      +encodeURIComponent(location.origin);
     f.title="Temporal Forces Pack #1 😬 | Is This Set Any Good?";
     f.allow='autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
     f.allowFullscreen=true;
     f.referrerPolicy='strict-origin-when-cross-origin';
-    // The poster is a <picture> since the WebP change; removing only the <img>
-    // inside it left the poster sitting over the player.
+    // The poster is a <picture> since the WebP change. Removing only the <img>
+    // inside it left the poster sitting on top of the player.
     var poster=p.querySelector('picture')||p.querySelector('img');
     if(poster) poster.remove();
-    p.insertBefore(f,p.firstChild);      // behind the pack, which tears away over it
+    p.insertBefore(f,p.firstChild);   // behind the pack, which tears away over it
     player=f;
-    f.addEventListener('load',function(){
-      post(f,{event:'listening',id:1,channel:'widget'});
-      cmd('playVideo');
-    });
-    setTimeout(muteAndPlay,GRACE_MS);
-    setTimeout(reloadMuted,RELOAD_MS);
-    setTimeout(giveUp,GIVE_UP_MS);
+    phase='waiting';
+
+    // The player installs its message handler well after the iframe fires
+    // load, and silently drops anything that arrives before it. Sending the
+    // handshake once on load therefore loses it, and then no state ever
+    // arrives and every decision below is made blind. Repeat until it answers.
+    listen();
+    feedTimer=setInterval(function(){
+      if(gotFeed||!player){ clearInterval(feedTimer); feedTimer=null; return; }
+      listen();
+    },200);
+
+    // Muted autoplay should be immediate. If it has not reported playing by
+    // now, something outside autoplay policy is in the way: iOS Low Power
+    // Mode, a blocked domain, a background tab. All of those need a tap.
+    startWatch=setTimeout(function(){ if(phase==='waiting') retreat('play'); },2600);
   }
 
-  // The browser would not start it with sound. Ask the player to mute ITSELF
-  // and play: muted playback is always permitted, and doing it over the API
-  // costs nothing, where swapping the src would throw away a loaded player and
-  // buy a second load. Offer the one tap that brings the audio back.
-  function muteAndPlay(){
-    if(started) return;
-    fellBack=true; unmuted=false;
-    cmd('mute'); cmd('playVideo');
-    showBtn('sound');
+  // Called only once the player has REPORTED playing. See the note above.
+  function askForSound(){
+    phase='unmuting';
+    cmd('setVolume',[100]);
+    cmd('unMute');
+    clearTimeout(unmuteWatch);
+    unmuteWatch=setTimeout(function(){
+      if(phase!=='unmuting') return;
+      if(muted===false) phase='done';        // sound is on, nothing to offer
+      else retreat('sound');
+    },900);
   }
 
-  // The API route did not take either, which usually means the handshake never
-  // landed, so commands are going nowhere. A fresh player with mute=1 in the
-  // URL does not need the handshake at all.
-  function reloadMuted(){
-    if(started||!player) return;
-    unmuted=false;
-    player.src=srcFor(true);
+  // Unmuting was refused, or stopped playback. Put it back the way that always
+  // works and let the visitor turn sound on with a tap.
+  function retreat(kind){
+    if(phase==='gesture') return;
+    phase='gesture';
+    clearTimeout(unmuteWatch); clearTimeout(startWatch);
+    cmd('mute');
+    cmd('playVideo');
+    showBtn(true,kind);
   }
 
-  // Nothing automatic worked: Low Power Mode, a blocked domain, a background
-  // tab. All of those are fixed by a tap, so ask for one.
-  function giveUp(){
-    if(started) return;
-    showBtn('play');
+  function showBtn(on,kind){
+    soundBtn=soundBtn||document.getElementById('soundOn');
+    if(!soundBtn) return;
+    soundBtn.hidden=!on;
+    if(on&&kind){
+      var l=soundBtn.querySelector('.sound-on-label');
+      if(l) l.textContent=(kind==='play'?'Tap to play':'Tap for sound');
+    }
   }
 
-  function showBtn(kind){
-    btn=btn||document.getElementById('soundOn');
-    if(!btn) return;
-    btn.hidden=false;
-    btn.dataset.kind=kind;
-    btn.querySelector('.sound-on-label').textContent=kind==='play'?'Tap to play':'Tap for sound';
+  function onState(st){
+    // 1 playing, 3 buffering. Buffering mid-unmute is normal, not a refusal.
+    if(phase==='waiting'&&st===1){ clearTimeout(startWatch); askForSound(); return; }
+    if(phase==='unmuting'&&st!==1&&st!==3){ retreat('sound'); return; }
+    if(phase==='done'&&st!==1&&st!==3&&muted===false){ retreat('sound'); }
   }
-  function hideBtn(){ if(btn) btn.hidden=true; }
 
   window.addEventListener('message',function(e){
-    if(String(e.origin).indexOf('youtube')===-1) return;
-    var d; try{ d=JSON.parse(e.data); }catch(_){ return; }
-    var info=d&&d.info; if(!info) return;
-    if(info.playerState===PLAYING){
-      started=true;
-      // Playing AND audible is the goal state: nothing to offer.
-      if(unmuted) hideBtn();
-    }
-    if(typeof info.muted==='boolean'){
-      unmuted=!info.muted;
-      if(started&&unmuted) hideBtn();
-    }
+    // Exact origin, and the message must come from OUR iframe. An indexOf on
+    // "youtube" matches any host containing it and lets any frame drive this.
+    if(e.origin!==EMBED&&e.origin!=='https://www.youtube.com') return;
+    if(!player||e.source!==player.contentWindow) return;
+    var d=e.data;
+    if(typeof d==='string'){ try{ d=JSON.parse(d); }catch(_){ return; } }
+    if(!d||typeof d!=='object') return;
+    gotFeed=true;
+    if(d.event==='onAutoplayBlocked'){ retreat(phase==='unmuting'?'sound':'play'); return; }
+    // onStateChange carries info as a NUMBER; infoDelivery carries an object.
+    // Reading only the object shape missed every onStateChange.
+    var info=d.info, st=null;
+    if(typeof info==='number') st=info;
+    else if(info&&typeof info.playerState==='number') st=info.playerState;
+    if(info&&typeof info.muted==='boolean') muted=info.muted;
+    if(st!==null) onState(st);
   });
 
   document.addEventListener('click',function(e){
-    var b=e.target.closest&&e.target.closest('#soundOn');
-    if(!b) return;
-    // This click IS a user gesture, so both of these are always permitted.
+    if(!e.target.closest||!e.target.closest('#soundOn')) return;
+    // A real gesture, so this is always permitted.
+    showBtn(false);
+    phase='unmuting';
     cmd('unMute'); cmd('setVolume',[100]); cmd('playVideo');
-    unmuted=true; started=true;
-    hideBtn();
+    clearTimeout(unmuteWatch);
   });
 
   // Driven off animationend rather than timers that guess the CSS durations:
