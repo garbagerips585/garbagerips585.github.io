@@ -59,11 +59,30 @@ the pulled card, so the thumbnail spoils the video before you press play.
 
 Built from two `.pack-face` halves, each holding a full copy of the pack art
 and clipped with a jagged `clip-path` so together they read as one sealed
-pack. Click runs shake (0.26s) then tear (0.62s), then the iframe mounts.
+pack. Click mounts the iframe immediately, then runs shake (0.26s) and tear
+(0.62s) over the top of the already-playing video.
 The sequence is driven by `animationend`, not by timers matching the CSS
 durations, because background tabs clamp `setTimeout` and would desync the
 reveal from the tear. Generous fallback timers cover the case where the
 animation never fires. `prefers-reduced-motion` skips straight to the video.
+
+The five `@keyframes` (packShake, packFade, tearL, tearR, packFlash) live in
+ui.css. They were referenced by name for a long time without existing, which
+is silent: a CSS animation naming missing keyframes never runs and never
+fires `animationend`, so the pack simply sat there. If the pack stops moving,
+check the keyframes are still present before anything else.
+
+**The embed starts MUTED and that is not optional.** A cross-origin iframe
+created during a click does not inherit that click: the gesture activates the
+page, not the embed, and `allow="autoplay"` delegates the permission without
+lifting the requirement that unmuted playback be user-initiated. Every
+browser refuses, and YouTube shows its own play button, which is a second
+click. Muted autoplay is the one form always permitted, so the player mounts
+with `mute=1&enablejsapi=1` and is asked to unmute over the iframe postMessage
+API the moment it is listening. Where that is granted, and it usually is, no
+one sees a muted frame. Where it is not, the "Tap for sound" button
+(`#soundOn`) appears and that tap is itself a gesture. Do not "simplify" this
+back to a bare `autoplay=1`.
 
 ## Set pages
 `/sets/<id>.html` is a "Set 101" guide per card set, plus a `/sets/` index.

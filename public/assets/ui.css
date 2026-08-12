@@ -1110,6 +1110,23 @@ footer .soc svg{fill:var(--paper)}
   font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2)}
 @media(max-width:520px){.libsearch-tip{display:none}}
 
+/* --------------------------------------------------------------------------
+   "Tap for sound".
+   The embed can only be autoplayed muted (see the comment in build-pages.mjs),
+   so this appears only when the browser refused to let us unmute it again
+   afterwards. On most desktops it never shows at all.
+   -------------------------------------------------------------------------- */
+.sound-on{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:4;
+  display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 var(--s4);
+  border:2px solid var(--ink);border-radius:var(--r-pill);
+  background:var(--mustard);color:var(--ink);cursor:pointer;
+  font:700 var(--t-sm)/1 var(--body);box-shadow:0 6px 18px rgba(19,38,55,.4)}
+.sound-on[hidden]{display:none}
+.sound-on:hover{background:#fff}
+.sound-on svg{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;
+  stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sound-on svg path:first-child{fill:currentColor}
+
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important;animation:none!important;
     scroll-behavior:auto!important}
