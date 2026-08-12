@@ -130,6 +130,24 @@ PRODUCT_TO_OPENING = {
     "chinese-pack": "Chinese Booster Pack",
 }
 
+# Standard pack counts per product, prefilled in blue as a guess to be
+# confirmed. These are the usual contents, not a guarantee: pack counts change
+# between eras and between regions, and a "tin" is anything from 3 to 5. The
+# ones that genuinely vary are left blank rather than guessed, because a wrong
+# denominator is worse on the luck page than a missing one.
+PRODUCT_TO_PACKS = {
+    "single-pack": 1,
+    "japanese-pack": 1,
+    "korean-pack": 1,
+    "chinese-pack": 1,
+    "blister": 3,
+    "bundle": 6,
+    "etb": 9,
+    "booster-box": 36,
+    "upc": 16,
+    "spc": 8,
+}
+
 # ------------------------------------------------------------------- styling
 
 BODY = Font(name="Arial", size=10)
@@ -290,6 +308,11 @@ COLUMNS = [
     ("More Sets", 30, "input"),
     ("Box / Series", 30, "input"),
     ("Opening Type", 28, "input"),
+    # Packs Opened is what makes the luck page rigorous. Without it a rate can
+    # only be "per video", which silently treats a 36-pack booster box and a
+    # single pack as one trial each. With it the rate is per PACK, which is the
+    # number anyone actually means by "how often do you hit".
+    ("Packs Opened", 13, "input"),
     ("Has Hit", 9, "input"),
     ("Hit Card", 30, "input"),
     ("Hit Rarity", 34, "input"),
@@ -354,6 +377,8 @@ for r, v in enumerate(ordered, start=2):
             wv.cell(r, COL["Set"] + n, set_name[sid]).font = GUESS_TXT
     if products and products[0] in PRODUCT_TO_OPENING:
         wv.cell(r, COL["Opening Type"], PRODUCT_TO_OPENING[products[0]]).font = GUESS_TXT
+    if products and products[0] in PRODUCT_TO_PACKS:
+        wv.cell(r, COL["Packs Opened"], PRODUCT_TO_PACKS[products[0]]).font = GUESS_TXT
     if pull:
         wv.cell(r, COL["Has Hit"], "Yes").font = GUESS_TXT
         wv.cell(r, COL["Hit Rarity"], PULL_TO_RARITY[pull]).font = GUESS_TXT

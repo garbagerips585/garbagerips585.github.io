@@ -203,6 +203,7 @@ const videos = uploads
       ...(log.hitCard ? { hitCard: log.hitCard } : {}),
       ...(log.hitRarity ? { hitRarity: log.hitRarity } : {}),
       ...(log.hasHit != null ? { hasHit: log.hasHit } : {}),
+      ...(log.packs ? { packs: log.packs } : {}),
       ...(log.greatest ? { greatest: true } : {}),
       ...(log.hofRank != null ? { hofRank: log.hofRank } : {}),
       ...(log.affiliate ? { affiliate: log.affiliate } : {}),

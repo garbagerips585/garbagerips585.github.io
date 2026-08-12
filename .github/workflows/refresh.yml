@@ -1,0 +1,138 @@
+# Nightly refresh: pull new videos and new prices, rebuild, commit.
+#
+# The site is static HTML with every price baked in at build time, so without
+# this nothing ever changes on its own: a new upload does not appear and a
+# price is however old the last manual run was. Deploy is a separate workflow
+# that fires on any push to main, so committing here is what publishes.
+#
+# Runs at 07:10 UTC, which is about 3am in Rochester: after the day's uploads
+# and before anyone is looking.
+#
+# SECRETS THIS NEEDS  (Settings -> Secrets and variables -> Actions)
+#   YT_API_KEY    YouTube Data API v3, for new uploads
+#   PPT_API_KEY   pokemonpricetracker.com, for PSA 10 prices
+# Both steps are skipped automatically when their secret is absent, so the
+# TCGplayer half still runs on a fork or before the keys are added.
+name: Nightly refresh
+
+on:
+  schedule:
+    - cron: "10 7 * * *"
+  workflow_dispatch:
+    inputs:
+      force_prices:
+        description: "Refetch TCGplayer prices even if cached"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    # Job level, not step level: a step's own env: block is NOT in scope for
+    # that step's own if:, so the skip-when-absent guards below would never
+    # fire and the steps would run keyless and fail.
+    env:
+      YT_API_KEY: ${{ secrets.YT_API_KEY }}
+      PPT_API_KEY: ${{ secrets.PPT_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # The scripts cache raw API responses here. Restoring it keeps the
+      # Pokemon TCG API calls down, since that one rate-limits hard and
+      # answers 500 rather than 429 when it is unhappy.
+      - name: Restore API cache
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: api-cache-${{ github.run_id }}
+          restore-keys: api-cache-
+
+      - name: New uploads
+        if: env.YT_API_KEY != ''
+        run: node scripts/sync-youtube.mjs
+
+      # Free and unauthenticated. --force because the whole point of a nightly
+      # run is fresh numbers; without it every set would come back from cache.
+      - name: Sealed product prices
+        run: node scripts/sync-products.mjs --force
+
+      - name: Chase cards for sets with no API prices
+        run: node scripts/sync-chase.mjs --force
+
+      # 100 credits a day on the free tier and 2 credits per card, so 50 is the
+      # daily ceiling. The script resumes rather than restarting, so it works
+      # through the backlog a night at a time.
+      - name: PSA 10 prices
+        if: env.PPT_API_KEY != ''
+        run: node scripts/sync-prices.mjs --limit 50
+        continue-on-error: true
+
+      - name: Rebuild every page
+        run: |
+          # sync-chrome FIRST. build-proto ends with a drift check comparing
+          # index.html's inlined bar and menu against shared/chrome.mjs, so on
+          # any run where the nav changed, building before syncing fails the
+          # job on a difference it was about to fix itself.
+          node scripts/sync-chrome.mjs
+          node scripts/build-proto.mjs
+          node scripts/build-set-pages.mjs
+          node scripts/build-pages.mjs
+          node scripts/build-expansions.mjs
+          node scripts/build-404.mjs
+          node scripts/build-wanted.mjs
+          node scripts/build-hall.mjs
+          node scripts/build-shops.mjs
+          node scripts/build-about.mjs
+          node scripts/build-luck.mjs
+
+      # Cheap guards. A nightly job that commits unattended should not be able
+      # to publish a broken site quietly.
+      - name: Check the build
+        run: |
+          node scripts/sync-chrome.mjs --check
+          python3 - <<'EOF'
+          import glob, re, os, sys
+          missing = {}
+          for f in glob.glob('public/**/*.html', recursive=True):
+              for m in re.finditer(r'(?:href|src)="(/[^"#?]*)"', open(f).read()):
+                  u = m.group(1)
+                  p = os.path.join('public', u.lstrip('/'))
+                  if u.endswith('/'):
+                      p = os.path.join(p, 'index.html')
+                  if not os.path.exists(p):
+                      missing.setdefault(u, []).append(f)
+          pages = len(glob.glob('public/**/*.html', recursive=True))
+          print(f"{pages} pages built")
+          if pages < 300:
+              sys.exit(f"only {pages} pages, expected 300+")
+          if missing:
+              for u, fs in list(missing.items())[:10]:
+                  print(f"BROKEN {u}  <- {fs[0]}")
+              sys.exit(f"{len(missing)} broken internal link target(s)")
+          print("links ok")
+          EOF
+
+      - name: Commit if anything changed
+        run: |
+          git config user.name "garbage-rips-bot"
+          git config user.email "bot@garbagerips585.invalid"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing changed today."
+            exit 0
+          fi
+          git commit -m "Nightly refresh: $(date -u +%Y-%m-%d)
+
+          $(git diff --cached --stat | tail -1)"
+          git push

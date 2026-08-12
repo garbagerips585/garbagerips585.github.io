@@ -103,7 +103,7 @@ if (iId === -1) {
 const idx = {
   set: col("Set"), set2: col("Set 2"), set3: col("Set 3"), set4: col("Set 4"),
   moreSets: col("More Sets"), box: col("Box / Series"),
-  opening: col("Opening Type"), hasHit: col("Has Hit"),
+  opening: col("Opening Type"), packs: col("Packs Opened"), hasHit: col("Has Hit"),
   hitCard: col("Hit Card"), rarity: col("Hit Rarity"),
   // The column has been called three things across three revisions of the
   // sheet. indexOf is exact, so a stale name here silently returns -1, every
@@ -172,6 +172,12 @@ for (const r of rows.slice(1)) {
 
   const m = {};
   if (opening) m.openingType = opening;
+  // The denominator for the luck page. Only a positive whole number is worth
+  // keeping: a blank, a zero or a stray word would silently divide the rate by
+  // the wrong thing, which is worse than having no rate at all.
+  const packs = Number(String(get(r, idx.packs) || "").replace(/[^0-9]/g, ""));
+  if (Number.isFinite(packs) && packs > 0) { m.packs = packs; counted.packs = (counted.packs || 0) + 1; }
+
   const hasHit = get(r, idx.hasHit);
   if (hasHit) { m.hasHit = isYes(hasHit); counted.hit++; }
   const card = get(r, idx.hitCard);

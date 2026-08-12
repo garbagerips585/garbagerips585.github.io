@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pokemon Pack Luck, Measured: Hit Rates from 310 Real Rips | Garbage Rips 585</title>
+<meta name="description" content="Observed hit rates from 0 logged Pokemon pack openings, broken down by set and product. Not official pull rates: what actually came out on camera.">
+<link rel="canonical" href="https://garbagerips585.github.io/luck.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#15263A">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:title" content="Pokemon Pack Luck, Measured">
+<meta property="og:description" content="Hit rates observed across 0 real pack openings, by set and by product.">
+<meta property="og:url" content="https://garbagerips585.github.io/luck.html">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/ui.css">
+<link rel="stylesheet" href="/assets/packs.css">
+<style>
+.luck{padding:var(--s7) 0 var(--s5)}
+.luck-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:42em;margin-bottom:var(--s5)}
+.luck-head{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);margin-bottom:var(--s5)}
+@media(max-width:700px){.luck-head{grid-template-columns:repeat(2,1fr)}}
+.luck-stat{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s4);box-shadow:var(--lift)}
+.luck-stat b{display:block;font:400 var(--t-xl)/1 var(--display);color:var(--ink);margin-bottom:4px}
+.luck-stat span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  letter-spacing:.06em;text-transform:uppercase}
+
+/* How much of the log is actually tagged. Shown at the top rather than buried,
+   because every number under it is only as good as this bar. */
+.luck-cov{background:var(--lilac-pale);border:1px solid rgba(78,47,72,.2);border-radius:var(--r);
+  padding:var(--s4);margin-bottom:var(--s6)}
+.luck-cov p{font:700 var(--t-micro)/1.6 var(--mono);color:var(--plum);letter-spacing:.04em;
+  text-transform:uppercase;margin-bottom:8px}
+.luck-covbar{height:10px;border-radius:99px;background:rgba(78,47,72,.16);overflow:hidden}
+.luck-covbar i{display:block;height:100%;background:var(--plum);border-radius:99px}
+
+.luck-sec{padding:var(--s6) 0}
+.luck-sec h2{font:400 var(--t-l)/1.15 var(--display);margin-bottom:var(--s2)}
+.luck-note{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
+.luck-scroll{overflow-x:auto;border:1px solid var(--hair);border-radius:var(--r);background:var(--card)}
+.luck-table{border-collapse:collapse;width:100%;min-width:400px;font-size:var(--t-sm)}
+.luck-table th,.luck-table td{text-align:left;padding:10px var(--s3);border-bottom:1px solid var(--hair)}
+.luck-table tbody tr:last-child th,.luck-table tbody tr:last-child td{border-bottom:0}
+.luck-table thead th{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-2);background:var(--page)}
+.luck-table tbody th{font-weight:600}
+.luck-table tbody th a:hover{text-decoration:underline}
+.luck-table .num{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink-2);width:1%}
+.luck-table .rate{width:40%;min-width:120px}
+.luck-table tr.thin{opacity:.62}
+.thin-note{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase}
+/* Number first, bar second. With the bar leading, the percentage was pushed
+   past the right edge of a 375px viewport and the one value the row exists to
+   communicate was the one you had to scroll sideways to see. */
+.bar{display:flex;align-items:center;gap:8px}
+.bar b{flex:none;min-width:3.4em;font:700 var(--t-sm)/1 var(--body);font-variant-numeric:tabular-nums}
+.bar::after{content:"";height:10px;width:var(--w);min-width:3px;max-width:100%;flex:0 1 auto;
+  background:var(--mustard);border:1px solid var(--gold-deep);border-radius:99px}
+
+.pull-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:var(--s3)}
+.pull{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s4);
+  text-align:center;box-shadow:var(--lift)}
+.pull b{display:block;font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep)}
+.pull span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);letter-spacing:.05em;text-transform:uppercase}
+
+.streaks{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
+@media(max-width:640px){.streaks{grid-template-columns:1fr}}
+.streak{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s5);box-shadow:var(--lift)}
+.streak b{display:block;font:400 var(--t-xl)/1 var(--display);margin-bottom:4px}
+.streak .k{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.streak p{color:var(--ink-2);font-size:var(--t-sm);margin-top:8px}
+.streak.cold b{color:var(--plum)}
+.streak.hot b{color:var(--ketchup-deep)}
+
+.luck-method{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
+  border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
+.luck-empty{color:var(--ink-2);background:var(--card);border:1px dashed var(--hair);
+  border-radius:var(--r);padding:var(--s5);text-align:center}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Observed Pokemon card hit rates from Garbage Rips 585",
+  "description": "Hit rates observed across 0 logged pack openings, by set and by product type.",
+  "url": "https://garbagerips585.github.io/luck.html",
+  "creator": {
+    "@type": "Organization",
+    "name": "Garbage Rips 585",
+    "url": "https://garbagerips585.github.io/"
+  },
+  "isAccessibleForFree": true
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form role="search" action="/videos.html" method="get">
+      <label class="sr-only" for="navSearch">Search every rip</label>
+      <input id="navSearch" name="q" type="search" placeholder="Search rips" aria-label="Search every rip by set, product or card">
+    </form>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/sets/">Pokedex</a>
+      <a href="/expansions.html">All sets</a>
+      <a href="/wanted.html">Wanted</a>
+      <a href="/hall.html">Hall of Fame</a>
+    </nav>
+    <a class="icon-btn" href="/videos.html" aria-label="Search all rips">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+    </a>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="Site">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/videos.html">All rips</a></li>
+    <li><a href="/sets/">Card Pokedex</a></li>
+    <li><a href="/expansions.html">Every set ever</a></li>
+    <li><a href="/wanted.html">Most wanted</a></li>
+    <li><a href="/hall.html">Card Hall of Fame</a></li>
+    <li><a href="/luck.html">Luck & pull rates</a></li>
+    <li><a href="/shops.html">Card shops</a></li>
+    <li><a href="/playlists.html">Playlists</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+  <section class="luck">
+    <div class="wrap">
+      <div class="brk"><h1>Luck, <span class="hl">measured</span></h1><span class="ln"></span></div>
+      <p class="luck-lede">Every other site quotes the same official rarity numbers. This one reports
+        what actually came out of packs opened on camera, one rip at a time. It is one person's
+        luck, not the odds, and it is counted rather than remembered.</p>
+
+      <div class="luck-head">
+        <div class="luck-stat"><b>310</b><span>rips filmed</span></div>
+        <div class="luck-stat"><b>0</b><span>logged either way</span></div>
+        <div class="luck-stat"><b>0</b><span>had a hit</span></div>
+        <div class="luck-stat"><b>-</b><span>hit rate so far</span></div>
+      </div>
+
+      <div class="luck-cov">
+        <p>0 of 310 rips logged &bull; 0% of the catalogue</p>
+        <div class="luck-covbar"><i style="width:1%"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band luck-sec">
+    <div class="wrap">
+      <h2>Which sets have been <span class="hl">kind</span></h2>
+      <p class="luck-note">Hit rate is the share of logged rips from that set that produced something
+        worth keeping. Sets with fewer than 12 logged rips do not get a number: at that
+        size it would be noise dressed up as a fact.</p>
+    <p class="luck-empty">Nothing tagged yet. This fills in as the rip log gets marked up.</p>
+    </div>
+  </section>
+
+  <section class="luck-sec">
+    <div class="wrap">
+      <h2>Which products have been <span class="hl">worth it</span></h2>
+      <p class="luck-note">The same question asked of what was opened rather than what was in it.
+        A booster box holds far more packs than a single blister, so a higher rate here is expected
+        rather than surprising: what is worth reading is the gap between similar products.</p>
+    <p class="luck-empty">Nothing tagged yet. This fills in as the rip log gets marked up.</p>
+    </div>
+  </section>
+
+  <section class="band luck-sec">
+    <div class="wrap">
+      <h2>What has actually <span class="hl">come out</span></h2>
+      <p class="luck-note">Counted from the rip log. These are totals, not rates.</p>
+      <div class="pull-grid">
+        <div class="pull"><b>36</b><span>Special Illustration Rare</span></div>
+        <div class="pull"><b>16</b><span>Charizard</span></div>
+        <div class="pull"><b>10</b><span>Gold / Hyper Rare</span></div>
+        <div class="pull"><b>9</b><span>Illustration Rare</span></div>
+        <div class="pull"><b>3</b><span>Double Rare</span></div>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <section class="luck-sec">
+    <div class="wrap">
+      <p class="luck-method">HOW THIS IS COUNTED. A rip counts only once it has been marked as a hit
+        or not a hit in the rip log, so an untagged video is absent rather than assumed. "Hit" means
+        a card worth keeping, judged by eye, not a fixed rarity threshold. These are observed results
+        from one person opening packs on camera, not official pull rates: The Pokemon Company does not
+        publish those, and anyone who tells you they know them is guessing. Small samples are labelled
+        rather than rounded into confidence. Numbers move as more rips are logged.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Site">
+      <a href="/videos.html">All rips</a>
+      <a href="/sets/">Card Pokedex</a>
+      <a href="/expansions.html">Every set ever</a>
+      <a href="/wanted.html">Most wanted</a>
+      <a href="/hall.html">Card Hall of Fame</a>
+      <a href="/luck.html">Luck & pull rates</a>
+      <a href="/shops.html">Card shops</a>
+      <a href="/playlists.html">Playlists</a>
+      <a href="/about.html">About</a>
+    </nav>
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+
+<script src="/assets/app.js" defer></script>
+</body>
+</html>

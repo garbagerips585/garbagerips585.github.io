@@ -22,6 +22,7 @@ export const NAV_LINKS = [
   ["/expansions.html", "Every set ever"],
   ["/wanted.html", "Most wanted"],
   ["/hall.html", "Card Hall of Fame"],
+  ["/luck.html", "Luck & pull rates"],
   ["/shops.html", "Card shops"],
   ["/playlists.html", "Playlists"],
   ["/about.html", "About"],
