@@ -722,6 +722,14 @@
       panel.addEventListener("click", function (e) {
         if (e.target.closest("a")) setOpen(false);
       });
+      // Tapping anywhere else closes it. Now that the panel is fixed to the
+      // viewport it covers content wherever you are on the page, so without
+      // this the only way out is to find the button again.
+      document.addEventListener("click", function (e) {
+        if (mb.getAttribute("aria-expanded") !== "true") return;
+        if (panel.contains(e.target) || mb.contains(e.target)) return;
+        setOpen(false);
+      });
     }
 
     var yr = document.getElementById("year");

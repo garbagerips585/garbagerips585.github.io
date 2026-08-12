@@ -592,6 +592,76 @@ wc.cell(len(rows_out) + 3, 1,
         "Key is what links a row back to a card and must not be edited. PSA 10 Checked is a date "
         "like 2026-08-11: a graded price with no date is not a fact about anything.").font = NOTE
 
+# ============================================================= 6b. My Hits ===
+#
+# One row per CARD ACTUALLY PULLED, which is the piece the sheet was missing.
+#
+# The Chase Cards tab next door is a reference list: the good cards in each set,
+# whether or not anyone has seen one. This is the opposite, a log of what came
+# out of a pack on camera. They are different things and conflating them breaks
+# both: a rip can produce several hits, and a hit can be a card nobody had
+# listed as a chase card.
+#
+# Several rows can share one Video ID. That is the point: an ETB opening with
+# three hits is three rows.
+#
+# Video ID is validated against the Video Log so a typo cannot orphan a card,
+# and it is the join that puts these cards under the right rip page.
+
+wh = wb.create_sheet("My Hits")
+HIT_COLS = [
+    ("Video ID", 14, "input"),
+    ("Card", 30, "input"),
+    ("Set", 24, "input"),
+    ("Number", 9, "input"),
+    ("Rarity", 32, "input"),
+    ("Raw NM USD", 12, "input"),
+    ("PSA 10 USD", 12, "input"),
+    ("Hall of Fame", 13, "hof"),
+    ("Notes", 40, "input"),
+]
+for i, (head, width, kind) in enumerate(HIT_COLS, start=1):
+    c = wh.cell(1, i, head)
+    c.font = BOLD; c.fill = FILL[kind]; c.border = BOX
+    c.alignment = Alignment(vertical="center", wrap_text=True)
+    wh.column_dimensions[get_column_letter(i)].width = width
+wh.freeze_panes = "B2"
+wh.row_dimensions[1].height = 30
+
+HI = {head: i for i, (head, _, _) in enumerate(HIT_COLS, start=1)}
+HIT_ROWS = 400          # room to grow; blank rows are ignored on import
+
+# Video ID validated against the Video Log's own column, so the join cannot
+# break on a typo.
+dv_vid = DataValidation(
+    type="list",
+    formula1=f"='Video Log'!$A$2:$A${len(ordered) + 1}",
+    allow_blank=True, showDropDown=False, showErrorMessage=True,
+)
+wh.add_data_validation(dv_vid)
+dv_vid.add(f"A2:A{HIT_ROWS}")
+
+for formula, head, strict in [
+    (DV_SET, "Set", False),
+    (DV_RARITY, "Rarity", False),
+    (DV_YESNO, "Hall of Fame", True),
+]:
+    d = dv(formula, strict)
+    wh.add_data_validation(d)
+    col = get_column_letter(HI[head])
+    d.add(f"{col}2:{col}{HIT_ROWS}")
+
+for r in range(2, HIT_ROWS + 1):
+    for i in range(1, len(HIT_COLS) + 1):
+        cell = wh.cell(r, i)
+        cell.font = BODY
+        cell.border = BOX
+    wh.cell(r, HI["Raw NM USD"]).number_format = '"$"#,##0.00'
+    wh.cell(r, HI["PSA 10 USD"]).number_format = '"$"#,##0.00'
+
+wh.cell(HIT_ROWS + 2, 1, "One row per card pulled. Several rows can share a Video ID.").font = NOTE
+wh.cell(HIT_ROWS + 3, 1, "Hall of Fame = Yes marks the all-time best, which get their own page.").font = NOTE
+
 # ================================================================ 7. Shops ===
 
 wsh = wb.create_sheet("Shops")
@@ -632,6 +702,7 @@ wsh.cell(max(len(shops_src) + 3, 5), 1,
 
 wb.save(OUT)
 print(f"  Chase Cards {len(rows_out)} rows")
+print(f"  My Hits     empty, {HIT_ROWS - 1} rows ready")
 print(f"  Shops       {len(shops_src)} rows")
 print(f"Wrote {OUT.relative_to(ROOT)}")
 print(f"  Video Log   {len(ordered)} rows x {len(COLUMNS)} columns")

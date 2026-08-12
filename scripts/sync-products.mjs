@@ -81,7 +81,17 @@ const HEADERS = {
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
 };
 
-/** Ask for one set's sealed products, filtering by setName server side. */
+/**
+ * Ask for one set's sealed products.
+ *
+ * TCGplayer SILENTLY DROPS an unknown setName filter and answers with every
+ * set instead of none. Asking for "ME06: Delta Reign", which is announced but
+ * not yet listed, returned 2,895 products led by Pitch Black and Ascended
+ * Heroes. Nothing errors and the shape of the response is identical, so a
+ * count check does not catch it: the only tell is that the rows belong to
+ * other sets. Every result is therefore checked against the set that was
+ * actually asked for.
+ */
 async function fetchSet(setName) {
   const url =
     "https://mp-search-api.tcgplayer.com/v1/search/request?q=&isList=false&mpfev=1";
@@ -114,7 +124,12 @@ async function fetchSet(setName) {
   for (let attempt = 1; attempt <= 4; attempt++) {
     try {
       const res = await fetch(url, { method: "POST", headers: HEADERS, body: JSON.stringify(body) });
-      if (res.ok) return (await res.json()).results?.[0]?.results || [];
+      if (res.ok) {
+        const rows = (await res.json()).results?.[0]?.results || [];
+        // See the note above fetchSet: an unknown setName is ignored rather
+        // than rejected, so the rows have to be checked, not just counted.
+        return rows.filter((r) => r.setName === setName);
+      }
       if (res.status === 404) return [];
       // 429 and 5xx: back off rather than hammer a service being generous.
       await sleep(attempt * 2500);

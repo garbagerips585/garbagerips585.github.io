@@ -90,7 +90,12 @@ async function fetchSingles(setName) {
           "https://mp-search-api.tcgplayer.com/v1/search/request?q=&isList=false",
           { method: "POST", headers: HEADERS, body: JSON.stringify(body) }
         );
-        if (res.ok) page = (await res.json()).results?.[0];
+        if (res.ok) {
+          page = (await res.json()).results?.[0];
+          // An unknown setName is ignored by the API rather than rejected, so
+          // it answers with every set. Verify rather than trust.
+          if (page) page.results = (page.results || []).filter((r) => r.setName === setName);
+        }
         else await sleep(attempt * 2000);
       } catch {
         await sleep(attempt * 2000);
