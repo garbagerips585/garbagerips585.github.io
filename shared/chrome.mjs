@@ -119,6 +119,10 @@ export const MENU_GROUPS = [
   ]],
   ["The 585", [
     ["/wanted.html", "Most wanted"],
+    // Shops and shows sit next to each other deliberately: they answer the same
+    // question a week apart. Keep the labels distinct, the urls are one letter
+    // apart and the menu is the only place a reader sees both at once.
+    ["/card-shows.html", "Card shows"],
     ["/shops.html", "Card shops"],
     ["/about.html", "About"],
   ]],

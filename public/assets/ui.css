@@ -1428,3 +1428,85 @@ footer .soc svg{fill:var(--paper)}
    because it leaves the video list rather than narrowing it. */
 .chip.guide{background:var(--gold);border-color:var(--navy);color:var(--navy);font-weight:700}
 .chip.guide:hover{background:var(--mustard)}
+
+
+/* --------------------------------------------------------------------------
+   Card show calendar (/card-shows.html), written by scripts/build-shows.mjs.
+   Mobile first: this page gets looked at on a phone, usually while deciding
+   whether it is worth the drive.
+   -------------------------------------------------------------------------- */
+
+/* The next show, given its own slab at the top. On a calendar the single most
+   asked question is "when is the next one", so it is answered before any list. */
+.next-show{
+  display:block;background:var(--navy);color:var(--paper);border-radius:var(--r);
+  padding:var(--s5);box-shadow:0 4px 0 var(--gold-deep),var(--lift);
+}
+.next-show:hover{background:#2b4763}
+.next-label{display:block;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;
+  text-transform:uppercase;color:var(--gold)}
+.next-name{display:block;font:400 var(--t-l)/1.15 var(--display);margin:8px 0 6px}
+.next-meta{display:block;font-size:var(--t-sm);color:#D9E2EC}
+
+.show-mon-h{font:400 var(--t-m)/1.2 var(--display);margin:var(--s6) 0 var(--s4);
+  padding-bottom:6px;border-bottom:3px solid var(--navy)}
+
+/* Date block, then everything else. The flyer drops below on a phone and sits
+   beside the text once there is room for it. */
+.show{
+  display:grid;grid-template-columns:auto 1fr;gap:var(--s4);align-items:start;
+  background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s4);margin-bottom:var(--s4);box-shadow:var(--lift);
+}
+.show[hidden]{display:none}
+.show-when{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-width:58px;padding:8px 10px;background:var(--navy);color:var(--paper);
+  border-radius:var(--r-sm);
+}
+.show-mon{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.show-day{font:400 1.6rem/1 var(--display);margin-top:2px}
+.show-body{min-width:0}
+.show-body h3{font:400 var(--t-m)/1.2 var(--display)}
+.show-meta{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink-2);margin-top:4px}
+.show-where{font-size:var(--t-sm);margin-top:4px}
+.show-where a{color:var(--ketchup-deep);font-weight:600}
+.show-where a:hover{text-decoration:underline}
+.show-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip.pk{background:var(--gold);border-color:var(--navy);color:var(--navy)}
+.chip.soon{background:var(--ketchup);border-color:var(--navy);color:#fff}
+.show-blurb{font-size:var(--t-sm);color:var(--ink-2);margin-top:10px;max-width:46em}
+/* Anything the listings disagree about. Loud on purpose: this is the line that
+   stops somebody driving two hours to a closed hall. */
+.show-warn{font:700 var(--t-micro)/1.7 var(--mono);color:var(--plum);
+  background:var(--lilac-pale);border-radius:var(--r-sm);padding:var(--s3);
+  margin-top:10px;max-width:52em}
+.show-links{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:10px}
+.show-links a{font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep);
+  min-height:44px;display:inline-flex;align-items:center}
+.show-links a:hover{text-decoration:underline}
+
+/* Flyers are the whole point of the page for anyone who has one, so they are
+   shown properly rather than as a thumbnail. Full width under the text on a
+   phone, capped so a tall portrait flyer cannot run away with the page. */
+.show-flyer{grid-column:1 / -1;display:block;border-radius:var(--r-sm);overflow:hidden;
+  border:2px solid var(--navy);background:var(--paper-3)}
+.show-flyer img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain}
+
+.show-empty{color:var(--ink-2);padding:var(--s6) 0}
+
+.watch-list{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s5)}
+.watch-list li{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:6px}
+.watch-list h3{font:400 var(--t-m)/1.2 var(--display)}
+.watch-list p{font-size:var(--t-sm);color:var(--ink-2)}
+.watch-where{font:700 var(--t-micro)/1.5 var(--mono)!important;text-transform:uppercase;
+  letter-spacing:.04em}
+
+@media(min-width:720px){
+  .show{grid-template-columns:auto 1fr 220px}
+  .show-flyer{grid-column:3;align-self:start}
+  .show-flyer img{max-height:300px}
+  .watch-list{grid-template-columns:1fr 1fr}
+}

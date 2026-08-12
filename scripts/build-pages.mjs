@@ -685,6 +685,10 @@ const urls = [
   // site: "pokemon card rarity symbols" is asked constantly and never expires.
   { loc: `${SITE}/rarity.html`, freq: "monthly", pri: "0.9" },
   { loc: `${SITE}/collection.html`, freq: "weekly", pri: "0.7" },
+  // Local card show calendar. Weekly and high priority: it carries Event
+  // structured data, the listings genuinely change, and "card shows near me" is
+  // the kind of local search this site can actually win.
+  { loc: `${SITE}/card-shows.html`, freq: "weekly", pri: "0.9" },
   ...ordered.filter((v) => taggedIds.has(v.id)).map((v) => ({ loc: `${SITE}/${pathFor(v)}`, freq: "monthly", pri: "0.6", mod: v.published })),
 ];
 await writeFile(

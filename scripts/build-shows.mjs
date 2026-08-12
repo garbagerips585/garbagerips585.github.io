@@ -1,0 +1,359 @@
+#!/usr/bin/env node
+// Generate /card-shows.html, the local card show calendar.
+//
+//   node scripts/build-shows.mjs
+//
+// Reads data/shows.json. Everything on the page came off a real listing and
+// carries the link it came from, because there is no card show API and the
+// aggregators that exist disagree with each other often enough to matter.
+//
+// NOTE THE URL. /card-shows.html, not /shows.html, because /shops.html already
+// exists for card SHOPS and the two would be one typo apart forever. It also
+// happens to be the better search target: people type "card shows near me".
+//
+// PAST EVENTS ARE HANDLED TWICE, on purpose. The build drops anything already
+// gone, and the page hides stragglers again on load. The build filter alone
+// would be enough only if the site rebuilt every single day; the nightly does,
+// but the client pass means a stale deploy still never shows somebody a date
+// that has already been and gone, which on this page is the one unforgivable
+// bug. The client pass is also why the empty state is written in HTML rather
+// than decided at build time.
+
+import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { SITE } from "../shared/site.mjs";
+import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
+import { esc, longDate, MONTHS_LONG } from "../shared/format.mjs";
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const data = JSON.parse(await readFile(join(ROOT, "data/shows.json"), "utf8"));
+
+const TODAY = new Date().toISOString().slice(0, 10);
+
+const REGIONS = [
+  { id: "all", label: "All" },
+  { id: "roc", label: "Rochester" },
+  { id: "buffalo", label: "Buffalo & Niagara" },
+  { id: "syracuse", label: "Syracuse" },
+];
+
+/** "10:00" -> "10am", "16:30" -> "4:30pm". */
+function clock(hhmm) {
+  if (!hhmm) return "";
+  const [h, m] = hhmm.split(":").map(Number);
+  const ampm = h >= 12 ? "pm" : "am";
+  const hr = h % 12 === 0 ? 12 : h % 12;
+  return m ? `${hr}:${String(m).padStart(2, "0")}${ampm}` : `${hr}${ampm}`;
+}
+const timeRange = (s, e) => [clock(s), clock(e)].filter(Boolean).join(" to ");
+
+/** Days from today, for the "this weekend" style nudge. */
+function daysAway(iso) {
+  const d = Math.round((new Date(iso + "T12:00:00") - new Date(TODAY + "T12:00:00")) / 86400000);
+  if (d < 0) return null;
+  if (d === 0) return "Today";
+  if (d === 1) return "Tomorrow";
+  if (d <= 7) return `In ${d} days`;
+  return null;
+}
+
+const weekday = (iso) =>
+  ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][
+    new Date(iso + "T12:00:00").getDay()
+  ];
+
+/** A maps link built from the venue and city. Never an address we made up. */
+const mapLink = (s) =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    [s.address || s.venue, s.address ? "" : s.city, s.address ? "" : "NY"].filter(Boolean).join(" ")
+  )}`;
+
+const upcoming = (data.shows || [])
+  .filter((s) => s.date >= TODAY)
+  .sort((a, b) => a.date.localeCompare(b.date) || (a.start || "").localeCompare(b.start || ""));
+
+// Group by calendar month so the page reads like a calendar rather than a list.
+const byMonth = [];
+for (const s of upcoming) {
+  const key = s.date.slice(0, 7);
+  let g = byMonth.find((x) => x.key === key);
+  if (!g) byMonth.push((g = { key, label: `${MONTHS_LONG[Number(key.slice(5, 7)) - 1]} ${key.slice(0, 4)}`, shows: [] }));
+  g.shows.push(s);
+}
+
+const next = upcoming[0] || null;
+const pokemonCount = upcoming.filter((s) => s.pokemon).length;
+
+// ---------------------------------------------------------------- flyer check
+
+// A flyer named in the data but missing on disk would render as a broken box on
+// the most visual part of the page, so it is checked here rather than trusted.
+const missingFlyers = [];
+const flyerSrc = (s) => {
+  if (!s.flyer) return null;
+  const rel = `assets/shows/${s.flyer}`;
+  if (existsSync(join(ROOT, "public", rel))) return `/${rel}`;
+  missingFlyers.push(`${s.id}: public/${rel} not found`);
+  return null;
+};
+
+// ------------------------------------------------------------------ structured
+
+const ld = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" },
+      { "@type": "ListItem", position: 2, name: "Card shows" },
+    ],
+  },
+  ...upcoming.map((s) => ({
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: s.name,
+    startDate: s.start ? `${s.date}T${s.start}:00-04:00` : s.date,
+    ...(s.end ? { endDate: `${s.date}T${s.end}:00-04:00` } : {}),
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    location: {
+      "@type": "Place",
+      name: s.venue,
+      address: {
+        "@type": "PostalAddress",
+        ...(s.address ? { streetAddress: s.address.split(",")[0] } : {}),
+        addressLocality: s.city,
+        addressRegion: "NY",
+        addressCountry: "US",
+      },
+    },
+    ...(s.admission === "Free"
+      ? {
+          offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "USD",
+            availability: "https://schema.org/InStock",
+            url: s.url,
+          },
+        }
+      : {}),
+    ...(s.url ? { url: s.url } : {}),
+  })),
+];
+
+const desc =
+  `Every upcoming Pokemon and trading card show near Rochester, Buffalo and Syracuse NY. ` +
+  `${upcoming.length} shows listed with dates, times, venues and admission, checked ${longDate(data.checked) || data.checked}.`;
+
+const head = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Card Shows Near Rochester NY: Buffalo & Syracuse Calendar | Garbage Rips 585</title>
+<meta name="description" content="${esc(desc)}">
+<link rel="canonical" href="${SITE}/card-shows.html">
+<meta property="og:title" content="Card shows near Rochester, Buffalo and Syracuse">
+<meta property="og:description" content="${esc(desc)}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="${SITE}/card-shows.html">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="${SITE}/assets/og-image.jpg?v=2">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${SITE}/assets/og-image.jpg?v=2">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#1E3A54">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+${STYLES}
+${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
+</head>
+<body>
+${SPRITE}
+${SKIP}
+${BAR}
+${MENU}
+<main id="main">
+`;
+
+/** One event card. */
+function showCard(s) {
+  const flyer = flyerSrc(s);
+  const soon = daysAway(s.date);
+  const d = new Date(s.date + "T12:00:00");
+  return `      <article class="show" data-region="${esc(s.region || "")}" data-date="${esc(s.date)}"${s.pokemon ? ' data-pokemon="1"' : ""}>
+        <div class="show-when" aria-hidden="true">
+          <span class="show-mon">${MONTHS_LONG[d.getMonth()].slice(0, 3)}</span>
+          <span class="show-day">${d.getDate()}</span>
+        </div>
+        <div class="show-body">
+          <h3>${esc(s.name)}</h3>
+          <p class="show-meta">${esc(weekday(s.date))}${
+            timeRange(s.start, s.end) ? ` &bull; ${esc(timeRange(s.start, s.end))}` : ""
+          }</p>
+          <p class="show-where"><a href="${esc(mapLink(s))}" rel="noopener" target="_blank">${esc(s.venue)}, ${esc(s.city)} NY</a></p>
+          <div class="show-tags">
+            ${s.pokemon ? `<span class="chip pk">Pokemon show</span>` : ""}
+            ${soon ? `<span class="chip soon">${esc(soon)}</span>` : ""}
+            <span class="chip">${s.admission ? esc(s.admission) : "Check the listing"}</span>
+          </div>
+          ${s.blurb ? `<p class="show-blurb">${esc(s.blurb)}</p>` : ""}
+          ${s.warn ? `<p class="show-warn">${esc(s.warn)}</p>` : ""}
+          <p class="show-links">
+            ${s.url ? `<a href="${esc(s.url)}" rel="noopener" target="_blank">Listing &amp; details</a>` : ""}
+            ${s.organiserUrl ? `<a href="${esc(s.organiserUrl)}" rel="noopener" target="_blank">${esc(s.organiser || "Organiser")}</a>` : ""}
+          </p>
+        </div>
+        ${flyer ? `<a class="show-flyer" href="${esc(flyer)}" target="_blank" rel="noopener">
+          <img src="${esc(flyer)}" alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}" loading="lazy">
+        </a>` : ""}
+      </article>`;
+}
+
+const page = head + `
+<header class="set-hero">
+  <div class="wrap">
+    <span class="kicker">585 &bull; Get out of the house</span>
+    <h1>Card <span class="hl">shows</span> near Rochester</h1>
+    <p class="lede" style="max-width:36em">Every card show we can find within driving distance of Rochester, Buffalo
+      and Syracuse. Dates, times, where to park yourself, and what it costs to get in. Built because working this out
+      every month from six different Facebook pages is genuinely annoying.</p>
+  </div>
+</header>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / Card shows</p>
+${next ? `
+    <a class="next-show" href="${esc(next.url || "#list")}"${next.url ? ' rel="noopener" target="_blank"' : ""}>
+      <span class="next-label">Next one up${daysAway(next.date) ? ` &bull; ${esc(daysAway(next.date))}` : ""}</span>
+      <span class="next-name">${esc(next.name)}</span>
+      <span class="next-meta">${esc(longDate(next.date) || next.date)}${
+        timeRange(next.start, next.end) ? `, ${esc(timeRange(next.start, next.end))}` : ""
+      } &bull; ${esc(next.venue)}, ${esc(next.city)}</span>
+    </a>` : ""}
+
+    <div class="facts" style="margin-top:20px">
+      <div class="fact"><div class="n">${upcoming.length}</div><div class="l">Shows coming up</div></div>
+      <div class="fact"><div class="n">${pokemonCount}</div><div class="l">All Pokemon shows</div></div>
+      <div class="fact"><div class="n">${upcoming.filter((s) => s.admission === "Free").length}</div><div class="l">Free to get in</div></div>
+      <div class="fact wide"><div class="n" style="font-size:1.15rem">${esc(longDate(data.checked) || data.checked)}</div><div class="l">Listings last checked</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="tight" id="list">
+  <div class="wrap">
+    <div class="rail" role="group" aria-label="Filter by area">
+      ${REGIONS.map((r) => `<button class="chip filt" type="button" data-region="${r.id}"${r.id === "all" ? ' aria-current="true"' : ""}>${esc(r.label)}</button>`).join("\n      ")}
+    </div>
+
+    <div id="showList">
+${byMonth
+  .map(
+    (g) => `    <div class="show-month" data-month="${esc(g.key)}">
+      <h2 class="show-mon-h">${esc(g.label)}</h2>
+${g.shows.map(showCard).join("\n")}
+    </div>`
+  )
+  .join("\n")}
+    </div>
+    <p class="show-empty" id="showEmpty" hidden>Nothing listed in that area yet. Try another, or send us one.</p>
+  </div>
+</section>
+${(data.watchFor || []).length ? `
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>No date yet</p>
+    <h2>Worth <span class="hl">watching for</span></h2>
+    <p class="lede intl-lede">Real shows that run round here but have not announced their next date. Worth a follow so
+      you are not the person who finds out on the Monday after.</p>
+    <ul class="watch-list">
+      ${(data.watchFor || []).map((w) => `<li>
+        <h3>${esc(w.name)}</h3>
+        <p>${esc(w.what)}</p>
+        ${w.where ? `<p class="watch-where">${esc(w.where)}</p>` : ""}
+        ${w.url ? `<a class="intl-link" href="${esc(w.url)}" rel="noopener" target="_blank">Keep an eye on it &rarr;</a>` : ""}
+      </li>`).join("\n      ")}
+    </ul>
+  </div>
+</section>` : ""}
+
+<section class="tight">
+  <div class="wrap">
+    <h2>Know one we <span class="hl">missed</span>?</h2>
+    <p class="lede" style="max-width:44em">This list is kept by hand, so it is only as good as what we can find. If you
+      run a show, or you have a flyer from a local Discord or a shop counter, send it over on any of the socials at the
+      bottom of the page and it goes up here. Flyers get shown in full.</p>
+    <ul class="facts-list">
+      <li>Dates and times come from public listings, mostly ${(data.sources || []).map((s) => `<a href="${esc(s.url)}" rel="noopener" target="_blank">${esc(s.name)}</a>`).join(" and ")}, read ${esc(longDate(data.checked) || data.checked)}.</li>
+      <li><strong>Always check the listing before you drive.</strong> Small shows move, sell out of tables, or get called off, and a page like this is a starting point rather than a promise.</li>
+      <li>We are not the organiser of any of these and we do not take a cut. It is just a list.</li>
+      <li>Shows in the Southern Tier are left off on purpose. They show up in the same feeds but they are closer to Binghamton than to any of these three cities.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+${footer("Show listings are collected by hand and change without notice. Check with the organiser before travelling.")}
+<script>
+(function(){
+  // Belt and braces on dates. The build already dropped past shows, but a deploy
+  // can sit for a few days, and a card show calendar that lists yesterday is
+  // worse than no calendar at all.
+  var today = new Date().toISOString().slice(0,10);
+  document.querySelectorAll('.show').forEach(function(el){
+    if (el.dataset.date < today) el.remove();
+  });
+  document.querySelectorAll('.show-month').forEach(function(m){
+    if (!m.querySelector('.show')) m.remove();
+  });
+
+  var empty = document.getElementById('showEmpty');
+  function apply(region){
+    document.querySelectorAll('.show').forEach(function(el){
+      el.hidden = region !== 'all' && el.dataset.region !== region;
+    });
+    var any = false;
+    document.querySelectorAll('.show-month').forEach(function(m){
+      var vis = m.querySelectorAll('.show:not([hidden])').length;
+      m.hidden = vis === 0;
+      if (vis) any = true;
+    });
+    if (empty) empty.hidden = any;
+  }
+  document.querySelectorAll('.chip.filt').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.chip.filt').forEach(function(o){ o.removeAttribute('aria-current'); });
+      b.setAttribute('aria-current','true');
+      apply(b.dataset.region);
+    });
+  });
+  apply('all');
+})();
+</script>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>
+`;
+
+await mkdir(join(ROOT, "public/assets/shows"), { recursive: true });
+await writeFile(join(ROOT, "public/card-shows.html"), page);
+
+console.log(`Wrote public/card-shows.html
+  ${upcoming.length} upcoming shows across ${byMonth.length} months
+  ${pokemonCount} all-Pokemon, ${upcoming.filter((s) => s.admission === "Free").length} free entry
+  next: ${next ? `${next.name}, ${next.date}, ${next.city}` : "nothing listed"}
+  ${(data.shows || []).length - upcoming.length} past show(s) dropped
+  flyers: ${upcoming.filter((s) => s.flyer).length} named`);
+if (missingFlyers.length) {
+  console.log(`\n${missingFlyers.length} flyer(s) named but missing:`);
+  for (const m of missingFlyers) console.log("  " + m);
+}
