@@ -1,0 +1,130 @@
+{
+  "_readme": [
+    "The real vs fake guide, rendered by scripts/build-fakes.mjs onto",
+    "/fake-cards.html.",
+    "",
+    "EVERY TEST HERE IS ONE THAT CAN BE DESCRIBED WITHOUT HAVING TO TRUST US.",
+    "Counterfeit-spotting advice online is full of folklore repeated until it",
+    "sounds official, so anything that could not be stated as a physical property",
+    "of the card was left out.",
+    "",
+    "`confidence` is deliberately part of the data, because the honest answer is",
+    "that no single test settles it and a guide that implies otherwise is worse",
+    "than no guide. The light test in particular was gospel for years and is now",
+    "only a first pass: counterfeits from about 2025 on started adding a black",
+    "middle layer of their own.",
+    "",
+    "NO NUMBERS ARE STATED AS SPEC. The 1.7 to 1.8g weight is what collectors",
+    "measure, not something The Pokemon Company publishes, and it moves with the",
+    "set and the finish. The page says that, and says to weigh against a card you",
+    "already trust rather than against a number off the internet.",
+    "",
+    "If a test is ever added here, it needs a physical explanation of WHY the",
+    "difference exists. 'Fakes look off' is not a test."
+  ],
+  "checked": "2026-08-12",
+  "intro": "Nobody sells you a fake with a label on it. These are the checks that actually work, roughly in the order worth doing them, and an honest note on how much each one proves.",
+  "goldenRule": {
+    "title": "Compare against a card you already trust",
+    "body": "Every test below is easier as a comparison than as a judgement. Pull a card you know is real out of a pack you opened yourself, put it next to the one you are unsure about, and the difference in colour, feel and weight is obvious in a way it never is from memory. Keep one common from a recent set in your wallet as a reference. It costs nothing and it is the single most useful thing on this page."
+  },
+  "tests": [
+    {
+      "id": "light",
+      "name": "The light test",
+      "tools": "A bright lamp or your phone torch",
+      "confidence": "First pass",
+      "how": "Hold the card flat against a bright light and look through it.",
+      "real": "Almost no light comes through. A genuine card is three layers, and the middle one is opaque black specifically to stop light passing.",
+      "fake": "The card glows. Cheaper stock with no black core lets the light straight through, and you can often see the artwork from the other side.",
+      "why": "The black core exists to stop you reading a card from the back while it is face down. It is a gameplay requirement, which is why it is in every genuine card.",
+      "caveat": "This was the definitive test for years and it is not any more. Better counterfeits now include a black middle layer of their own. Passing the light test means keep checking, not genuine."
+    },
+    {
+      "id": "edge",
+      "name": "The black core at the edge",
+      "tools": "Good light, a loupe or phone macro helps",
+      "confidence": "Strong",
+      "how": "Look at the card edge on, side on to the light, and find the layers.",
+      "real": "Three distinct layers: front face, a thin dark stripe, back face. The stripe runs the whole way round and is even.",
+      "fake": "One or two layers with no dark stripe, or a stripe that stops and starts, wanders in thickness, or looks printed on rather than sandwiched.",
+      "why": "Genuine cards are laminated from separate sheets, so the core is a real layer with real thickness. Printing a dark line onto the edge of single-ply stock does not survive being looked at closely."
+    },
+    {
+      "id": "texture",
+      "name": "Texture on modern rares",
+      "tools": "Your fingertips",
+      "confidence": "Strong on modern rares",
+      "how": "Run a fingernail across the artwork of any modern Illustration Rare, Special Illustration Rare, VMAX or GX.",
+      "real": "Etched ridges that follow the art, with a faint rasp you can hear. Like a fingernail across a vinyl record.",
+      "fake": "Flat, glossy and silent. The pattern may be printed to look textured but there is nothing to feel.",
+      "why": "The texture is embossed into the card as a separate manufacturing pass. Reproducing it needs the same tooling, which is far beyond a print shop copying artwork.",
+      "caveat": "Only applies to cards that are supposed to be textured. A common with a smooth face is just a common."
+    },
+    {
+      "id": "print",
+      "name": "Print pattern under magnification",
+      "tools": "A 10x loupe, or a phone macro lens",
+      "confidence": "Strong",
+      "how": "Magnify a solid block of colour, not the artwork. The yellow border is ideal.",
+      "real": "A regular rosette: tiny circular clusters of cyan, magenta, yellow and black dots in an even repeating pattern.",
+      "fake": "Irregular dots, smeared blobs, or fine straight lines instead of rosettes. Consumer inkjet and cheap digital presses do not lay ink down the same way.",
+      "why": "Genuine cards are commercially offset printed, which produces rosettes as a by-product of how the four plates are screened and angled. It is a signature of the process, not a design choice, so it is hard to fake without the same equipment."
+    },
+    {
+      "id": "energy",
+      "name": "Energy symbols and small text",
+      "tools": "Your eyes, better with a loupe",
+      "confidence": "Good",
+      "how": "Look hard at the energy symbols in the attack cost, and the tiny text at the bottom.",
+      "real": "Symbols are sharp, centred in their circle, and the colours are exact with no fringe. Small print is crisp and readable.",
+      "fake": "Blurry or pixelated symbols, colour fringing where one plate is off, symbols sitting off-centre, and mushy small text.",
+      "why": "Small high-contrast elements are the hardest thing to reproduce, because any error in colour registration shows up as a coloured halo at exactly that scale. It is the first thing to go wrong on a copy."
+    },
+    {
+      "id": "back",
+      "name": "The back",
+      "tools": "A real card to compare",
+      "confidence": "Good as a comparison",
+      "how": "Put the back next to the back of a card you trust.",
+      "real": "A specific blue, a crisp swirl pattern, and clean lettering in the logo.",
+      "fake": "The blue is off, usually too purple, too dark or washed out. The swirl detail is soft, and the lettering is subtly the wrong shape or spacing.",
+      "why": "Colour is the hardest thing to match without the original files and the original press. It is also the easiest thing for you to check, which is why the back is worth looking at first on a bulk lot.",
+      "caveat": "Genuine backs do vary slightly between print runs and eras, so a small difference against a card from a different decade is not proof of anything."
+    },
+    {
+      "id": "weight",
+      "name": "Weight",
+      "tools": "A scale that reads to 0.01g",
+      "confidence": "Supporting evidence only",
+      "how": "Weigh the suspect card, then weigh a card you know is real from a similar set.",
+      "real": "Modern cards land around 1.7 to 1.8g, and two genuine cards from the same set will be very close to each other.",
+      "fake": "Usually lighter, because the stock is thinner and there is no core.",
+      "why": "Card stock is manufactured to a specification, so genuine cards from the same run are consistent. Counterfeiters buy whatever stock is available.",
+      "caveat": "Treat this as a comparison, never as a threshold. The weight range is what collectors measure, not a published specification, and it genuinely varies by set, by finish and with humidity. A card is not fake because it read 1.68g."
+    }
+  ],
+  "atPurchase": {
+    "title": "Before you even hold the card",
+    "points": [
+      "A sealed pack that is cheaper than the singles inside it is not a bargain, it is a resealed pack or a fake.",
+      "Anything described as a custom, proxy, orica or fan made card is not a real card, and some sellers rely on the buyer skimming past that word.",
+      "Huge bulk lots of rares for one low price are the most common way fakes reach people who were not looking for them.",
+      "Loose singles of a chase card at well under market, from a seller with no history, is the oldest one there is.",
+      "Buy sealed from a shop when it matters. Two of them are listed on our card shops page and there is a card show most weekends."
+    ]
+  },
+  "ifFake": {
+    "title": "If it turns out to be fake",
+    "points": [
+      "Marketplaces have a counterfeit item process and it is normally decided in the buyer's favour. Open a case rather than messaging the seller and waiting.",
+      "Photograph the card next to a genuine one before you send it back, including the edge, because the layers show in a photo.",
+      "A fake is not gradeable and it is not sellable. It has no value beyond being a reference for what to look for.",
+      "It happens to everybody eventually, including people who have been collecting for years. It is not a reason to stop opening packs."
+    ]
+  },
+  "sources": [
+    "Physical checks described here are the ones repeated consistently across collector authentication guides and are stated as properties of the card that anyone can verify on their own copy.",
+    "Nothing on this page comes from The Pokemon Company, which does not publish an authentication specification. That is exactly why comparison against a card you trust beats any single number."
+  ]
+}

@@ -692,6 +692,13 @@ const urls = [
   // Card search. 4,481 cards with live prices behind one page: the deepest
   // reference on the site and the one worth crawling most often.
   { loc: `${SITE}/cards.html`, freq: "daily", pri: "0.9" },
+  // Real vs fake. Evergreen and the best long-tail target on the site after the
+  // rarity guide: "how to spot fake pokemon cards" is asked constantly and the
+  // answer does not expire.
+  { loc: `${SITE}/fake-cards.html`, freq: "monthly", pri: "0.9" },
+  // Grading costs. Weekly rather than monthly because the fee table goes stale
+  // fast: PSA paused two tiers in June with a fortnight's notice.
+  { loc: `${SITE}/grading.html`, freq: "weekly", pri: "0.9" },
   ...ordered.filter((v) => taggedIds.has(v.id)).map((v) => ({ loc: `${SITE}/${pathFor(v)}`, freq: "monthly", pri: "0.6", mod: v.published })),
 ];
 await writeFile(

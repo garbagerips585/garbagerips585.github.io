@@ -133,6 +133,10 @@ jobs:
           # Rebuilt nightly so past shows drop off on the day they happen. The
           # data is hand-maintained, but the calendar has to move on its own.
           node scripts/build-shows.mjs
+          node scripts/build-fakes.mjs
+          # Reads data/psa10.json, which the price sync tops up nightly, so the
+          # break-even verdicts move as the card prices move.
+          node scripts/build-grading.mjs
 
       # Cheap guards. A nightly job that commits unattended should not be able
       # to publish a broken site quietly.

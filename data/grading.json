@@ -1,0 +1,91 @@
+{
+  "_readme": [
+    "Grading company fees and turnarounds, for /grading.html.",
+    "",
+    "THIS FILE GOES STALE FASTER THAN ANYTHING ELSE ON THE SITE. Grading prices",
+    "and wait times change several times a year and sometimes overnight: PSA",
+    "paused two whole tiers in June 2026 with a fortnight's notice. Every figure",
+    "carries the date it was read and the page says so loudly. If `checked` is",
+    "more than a couple of months old, treat the numbers as a shape rather than a",
+    "quote and click through to the company.",
+    "",
+    "NO AFFILIATE LINKS AND NO RECOMMENDATION. We are not paid by any of these",
+    "and the page does not tell anyone which to use, because the honest answer",
+    "depends on the card and on how long you are willing to wait.",
+    "",
+    "Prices are per card at the cheapest ACTIVE tier, in USD, before shipping and",
+    "insurance. `note` carries whatever caveat makes the headline number honest."
+  ],
+  "checked": "2026-08-12",
+  "companies": [
+    {
+      "id": "psa",
+      "name": "PSA",
+      "url": "https://www.psacard.com/services/tradingcardgrading",
+      "cheapest": 79.99,
+      "cheapestTier": "Regular",
+      "turnaround": "40 to 50 business days",
+      "tiers": [
+        { "name": "Regular", "price": 79.99, "days": "40 to 50 business days", "note": "Up to $1,500 declared value" },
+        { "name": "Express", "price": 150, "days": "Faster", "note": null },
+        { "name": "Super Express", "price": 300, "days": "Faster still", "note": null },
+        { "name": "Walkthrough", "price": 600, "days": "Fastest", "note": "For cards over about $10,000" }
+      ],
+      "note": "PSA paused its Value and Value Bulk tiers on 2 June 2026, citing a backlog of around 14 million cards. Those were the $24.99 and $32.99 options, and until they come back the cheapest way into a PSA slab is $79.99. This is the single biggest thing to know before grading a modern card.",
+      "resale": "The strongest resale premium of the four, which is why people still pay it."
+    },
+    {
+      "id": "cgc",
+      "name": "CGC",
+      "url": "https://www.cgccards.com/card-grading/services-fees/",
+      "cheapest": 15,
+      "cheapestTier": "Economy",
+      "turnaround": "100 to 130 business days",
+      "tiers": [
+        { "name": "Economy", "price": 15, "days": "100 to 130 business days", "note": "No membership needed" },
+        { "name": "Express", "price": 100, "days": "About 5 business days", "note": null }
+      ],
+      "note": "Roughly a fifth of PSA's current entry price. The trade is a longer wait at the cheap tier and a smaller resale premium.",
+      "resale": "Well recognised and steadily growing, but a CGC 10 generally sells under a PSA 10 for the same card."
+    },
+    {
+      "id": "bgs",
+      "name": "BGS",
+      "url": "https://www.beckett.com/grading/pricing",
+      "cheapest": 20,
+      "cheapestTier": "Economy",
+      "turnaround": "60 to 90+ business days",
+      "tiers": [
+        { "name": "Economy", "price": 20, "days": "About 90 days", "note": null },
+        { "name": "Express", "price": 100, "days": "About 10 days", "note": null }
+      ],
+      "note": "Beckett's Black Label 10, where all four subgrades are perfect, still commands a big premium. Everything below it has lost ground.",
+      "resale": "Strong for Black Label, mixed otherwise."
+    },
+    {
+      "id": "tag",
+      "name": "TAG",
+      "url": "https://taggrading.com/pricing",
+      "cheapest": 15,
+      "cheapestTier": "Economy",
+      "turnaround": "Faster than the others at the cheap tier",
+      "tiers": [{ "name": "Economy", "price": 15, "days": "Comparatively fast", "note": null }],
+      "note": "The newcomer, and the one growing fastest. Grades computationally and publishes a per-card report showing exactly what it marked down, which people either love or distrust.",
+      "resale": "Improving quickly but the least established of the four, so the premium is the least predictable."
+    }
+  ],
+  "extras": [
+    { "what": "Shipping there and back", "cost": "$30 to $60 a submission", "note": "Fixed per submission, not per card, so it hurts most when you send one or two." },
+    { "what": "Insurance", "cost": "$1 to $3 per $100 of declared value", "note": "Scales with what you send. Skipping it on a four figure card is not a saving." },
+    { "what": "Supplies", "cost": "About $1 a card", "note": "Sleeves, semi rigids and a sturdy box." },
+    { "what": "PSA Collectors Club", "cost": "$199 a year", "note": "Saves $10 to $15 a card. Worth it only if you are sending a lot." }
+  ],
+  "assumedShippingPerCard": 15,
+  "rules": [
+    "Grading does not make a card valuable. It confirms what condition it is already in, and most cards come back a 9.",
+    "A 9 is usually worth barely more than the raw card, and sometimes less than the raw card plus what you paid to grade it. Price the downside, not just the PSA 10.",
+    "Straight out of a pack is not the same as mint. Check centring, edges and surface under a light first, because that is what decides the grade before you spend anything.",
+    "Fees are per card whatever the grade, so the maths has to clear on the likely outcome, not the best one.",
+    "If the gap between raw and PSA 10 is smaller than the fee, there is no version of this that pays."
+  ]
+}

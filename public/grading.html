@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Is It Worth Grading? Pokemon Card Grading Costs and Break Even | Garbage Rips 585</title>
+<meta name="description" content="What Pokemon card grading actually costs in 2026, PSA against CGC, BGS and TAG, and the break even maths on 75 real cards. PSA's cheapest tier is now $80.">
+<link rel="canonical" href="https://garbagerips585.github.io/grading.html">
+<meta property="og:title" content="Is it worth grading? The actual maths">
+<meta property="og:description" content="What Pokemon card grading actually costs in 2026, PSA against CGC, BGS and TAG, and the break even maths on 75 real cards. PSA's cheapest tier is now $80.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garbagerips585.github.io/grading.html">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-image.jpg?v=2">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-image.jpg?v=2">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#1E3A54">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/ui.css">
+<link rel="stylesheet" href="/assets/packs.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Grading"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does it cost to grade a Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"PSA's cheapest active tier is $80 per card as of August 12, 2026, after it paused its Value and Value Bulk tiers in June 2026. CGC and TAG start around $15. Add roughly $15 a card for shipping and insurance."}},{"@type":"Question","name":"Is it worth grading my Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"Only if the gap between the raw price and the PSA 10 price is bigger than the fee, and only if the card is genuinely mint. Of 75 cards we hold both prices for, 57 would clear PSA's current fee and 18 would not. Most cards come back a 9, which is worth far less than a 10."}}]}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form class="bar-search" role="search" action="/videos.html" method="get">
+      <label class="sr-only" for="navSearch">Search every rip</label>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+      <input id="navSearch" name="q" type="search" placeholder="Search 310 rips" aria-label="Search every rip by set, product or card" autocomplete="off">
+    </form>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/hall.html">Hits</a>
+      <a href="/sets/">Sets</a>
+    </nav>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span>Menu</span>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="Site">
+  <p class="menu-h">Watch</p>
+  <ul>
+    <li><a href="/videos.html">All rips</a></li>
+    <li><a href="/hall.html">Best pulls</a></li>
+    <li><a href="/collection.html">The collection</a></li>
+    <li><a href="/playlists.html">Playlists</a></li>
+  </ul>
+  <p class="menu-h">Card guides</p>
+  <ul>
+    <li><a href="/cards.html">Card search</a></li>
+    <li><a href="/sets/">Set guides</a></li>
+    <li><a href="/rarity.html">Rarity guide</a></li>
+    <li><a href="/fake-cards.html">Real or fake?</a></li>
+    <li><a href="/grading.html">Worth grading?</a></li>
+    <li><a href="/expansions.html">Every set ever</a></li>
+    <li><a href="/upcoming.html">Coming next</a></li>
+    <li><a href="/luck.html">Luck & pull rates</a></li>
+  </ul>
+  <p class="menu-h">The 585</p>
+  <ul>
+    <li><a href="/wanted.html">Most wanted</a></li>
+    <li><a href="/card-shows.html">Card shows</a></li>
+    <li><a href="/shops.html">Card shops</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe on YouTube</a>
+</nav>
+<main id="main">
+
+<header class="set-hero">
+  <div class="wrap">
+    <span class="kicker">Pokemon TCG &bull; Do the maths first</span>
+    <h1>Is it worth <span class="hl">grading</span>?</h1>
+    <p class="lede" style="max-width:36em">What it costs, how the four companies compare, and the subtraction almost
+      nobody shows you: what a card is worth raw, what it is worth in a 10, and whether the difference covers the fee.</p>
+  </div>
+</header>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / Grading</p>
+
+    <div class="fk-golden">
+      <p class="fk-golden-h">Read this first</p>
+      <h2>PSA got 3.2x more expensive this summer</h2>
+      <p>PSA paused its Value and Value Bulk tiers on 2 June 2026, citing a backlog of around 14 million cards. Those were the $24.99 and $32.99 options, and until they come back the cheapest way into a PSA slab is $79.99. This is the single biggest thing to know before grading a modern card.</p>
+    </div>
+
+    <div class="facts" style="margin-top:20px">
+      <div class="fact"><div class="n">$80</div><div class="l">Cheapest PSA tier</div></div>
+      <div class="fact"><div class="n">$15</div><div class="l">Cheapest anywhere (CGC)</div></div>
+      <div class="fact"><div class="n">57/75</div><div class="l">Cards that clear the PSA fee</div></div>
+      <div class="fact wide"><div class="n" style="font-size:1.15rem">August 12, 2026</div><div class="l">Fees last checked</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The four</p>
+    <h2>What each one <span class="hl">costs</span></h2>
+    <div class="gc-grid">
+      <article class="gc">
+        <h3>CGC</h3>
+        <p class="gc-price">$15<span> per card, Economy</span></p>
+        <p class="gc-turn">100 to 130 business days</p>
+        <p class="gc-note">Roughly a fifth of PSA's current entry price. The trade is a longer wait at the cheap tier and a smaller resale premium.</p>
+        <p class="gc-resale"><strong>Resale.</strong> Well recognised and steadily growing, but a CGC 10 generally sells under a PSA 10 for the same card.</p>
+        <a class="intl-link" href="https://www.cgccards.com/card-grading/services-fees/" rel="noopener" target="_blank">Their current prices &rarr;</a>
+      </article>
+      <article class="gc">
+        <h3>TAG</h3>
+        <p class="gc-price">$15<span> per card, Economy</span></p>
+        <p class="gc-turn">Faster than the others at the cheap tier</p>
+        <p class="gc-note">The newcomer, and the one growing fastest. Grades computationally and publishes a per-card report showing exactly what it marked down, which people either love or distrust.</p>
+        <p class="gc-resale"><strong>Resale.</strong> Improving quickly but the least established of the four, so the premium is the least predictable.</p>
+        <a class="intl-link" href="https://taggrading.com/pricing" rel="noopener" target="_blank">Their current prices &rarr;</a>
+      </article>
+      <article class="gc">
+        <h3>BGS</h3>
+        <p class="gc-price">$20<span> per card, Economy</span></p>
+        <p class="gc-turn">60 to 90+ business days</p>
+        <p class="gc-note">Beckett's Black Label 10, where all four subgrades are perfect, still commands a big premium. Everything below it has lost ground.</p>
+        <p class="gc-resale"><strong>Resale.</strong> Strong for Black Label, mixed otherwise.</p>
+        <a class="intl-link" href="https://www.beckett.com/grading/pricing" rel="noopener" target="_blank">Their current prices &rarr;</a>
+      </article>
+      <article class="gc">
+        <h3>PSA</h3>
+        <p class="gc-price">$80<span> per card, Regular</span></p>
+        <p class="gc-turn">40 to 50 business days</p>
+        <p class="gc-note">PSA paused its Value and Value Bulk tiers on 2 June 2026, citing a backlog of around 14 million cards. Those were the $24.99 and $32.99 options, and until they come back the cheapest way into a PSA slab is $79.99. This is the single biggest thing to know before grading a modern card.</p>
+        <p class="gc-resale"><strong>Resale.</strong> The strongest resale premium of the four, which is why people still pay it.</p>
+        <a class="intl-link" href="https://www.psacard.com/services/tradingcardgrading" rel="noopener" target="_blank">Their current prices &rarr;</a>
+      </article>
+    </div>
+    <h3 class="gc-sub">And the bits nobody quotes you</h3>
+    <ul class="facts-list">
+      <li><strong>Shipping there and back, $30 to $60 a submission.</strong> Fixed per submission, not per card, so it hurts most when you send one or two.</li>
+      <li><strong>Insurance, $1 to $3 per $100 of declared value.</strong> Scales with what you send. Skipping it on a four figure card is not a saving.</li>
+      <li><strong>Supplies, About $1 a card.</strong> Sleeves, semi rigids and a sturdy box.</li>
+      <li><strong>PSA Collectors Club, $199 a year.</strong> Saves $10 to $15 a card. Worth it only if you are sending a lot.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Work it out</p>
+    <h2>Your <span class="hl">card</span></h2>
+    <p class="lede">Put in what your card sells for raw and what it sells for in a PSA 10. Both numbers are on the
+      <a href="/cards.html">card search</a> and on any set guide.</p>
+    <form class="gcalc" onsubmit="return false">
+      <label>Raw price
+        <input id="gRaw" type="number" min="0" step="0.01" inputmode="decimal" placeholder="25.00">
+      </label>
+      <label>PSA 10 price
+        <input id="gTen" type="number" min="0" step="0.01" inputmode="decimal" placeholder="180.00">
+      </label>
+      <label>Grading fee
+        <select id="gFee">
+          <option value="15">CGC Economy, $15</option>
+          <option value="15">TAG Economy, $15</option>
+          <option value="20">BGS Economy, $20</option>
+          <option value="79.99">PSA Regular, $80</option>
+        </select>
+      </label>
+    </form>
+    <div class="gcalc-out" id="gOut" aria-live="polite">
+      <p class="gcalc-hint">Fill both boxes and the answer appears here.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band-sky tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Real cards</p>
+    <h2>57 of 75 cards <span class="hl">clear the fee</span></h2>
+    <p class="lede">Every card from our sets where we hold both a raw price and a PSA 10 price, with
+      $80 plus about $15 shipping subtracted. This is the upside, not the
+      expectation: it assumes the card comes back a 10, and most do not.</p>
+
+    <h3 class="gc-sub">Worth it, best first</h3>
+    <ol class="gr-list">
+        <li class="gr">
+          <span class="gr-name">Umbreon ex</span>
+          <span class="gr-set">Prismatic Evolutions &bull; 161</span>
+          <span class="gr-raw">$1,480.32<em>raw</em></span>
+          <span class="gr-psa">$6,149.99<em>PSA 10</em></span>
+          <span class="gr-net up">+$4,574.68<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Mega Charizard X ex</span>
+          <span class="gr-set">Phantasmal Flames &bull; 130</span>
+          <span class="gr-raw">$312.08<em>raw</em></span>
+          <span class="gr-psa">$2,206.57<em>PSA 10</em></span>
+          <span class="gr-net up">+$1,799.50<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Seismitoad</span>
+          <span class="gr-set">Black Bolt &bull; 105</span>
+          <span class="gr-raw">$235.67<em>raw</em></span>
+          <span class="gr-psa">$2,108.75<em>PSA 10</em></span>
+          <span class="gr-net up">+$1,778.09<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Mega Charizard X ex</span>
+          <span class="gr-set">Phantasmal Flames &bull; 125</span>
+          <span class="gr-raw">$716.80<em>raw</em></span>
+          <span class="gr-psa">$1,962.00<em>PSA 10</em></span>
+          <span class="gr-net up">+$1,150.21<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Sylveon ex</span>
+          <span class="gr-set">Prismatic Evolutions &bull; 156</span>
+          <span class="gr-raw">$520.04<em>raw</em></span>
+          <span class="gr-psa">$1,525.00<em>PSA 10</em></span>
+          <span class="gr-net up">+$909.97<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Victini</span>
+          <span class="gr-set">Black Bolt &bull; 171</span>
+          <span class="gr-raw">$607.20<em>raw</em></span>
+          <span class="gr-psa">$1,537.00<em>PSA 10</em></span>
+          <span class="gr-net up">+$834.81<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Espeon ex</span>
+          <span class="gr-set">Prismatic Evolutions &bull; 155</span>
+          <span class="gr-raw">$315.57<em>raw</em></span>
+          <span class="gr-psa">$1,224.50<em>PSA 10</em></span>
+          <span class="gr-net up">+$813.94<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Oshawott</span>
+          <span class="gr-set">White Flare &bull; 105</span>
+          <span class="gr-raw">$93.96<em>raw</em></span>
+          <span class="gr-psa">$970.00<em>PSA 10</em></span>
+          <span class="gr-net up">+$781.05<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Victini</span>
+          <span class="gr-set">White Flare &bull; 172</span>
+          <span class="gr-raw">$560.28<em>raw</em></span>
+          <span class="gr-psa">$1,377.50<em>PSA 10</em></span>
+          <span class="gr-net up">+$722.23<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Zekrom ex</span>
+          <span class="gr-set">Black Bolt &bull; 172</span>
+          <span class="gr-raw">$604.14<em>raw</em></span>
+          <span class="gr-psa">$1,404.99<em>PSA 10</em></span>
+          <span class="gr-net up">+$705.86<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Reshiram ex</span>
+          <span class="gr-set">White Flare &bull; 173</span>
+          <span class="gr-raw">$513.74<em>raw</em></span>
+          <span class="gr-psa">$1,304.50<em>PSA 10</em></span>
+          <span class="gr-net up">+$695.77<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Vaporeon ex</span>
+          <span class="gr-set">Prismatic Evolutions &bull; 149</span>
+          <span class="gr-raw">$300.88<em>raw</em></span>
+          <span class="gr-psa">$957.50<em>PSA 10</em></span>
+          <span class="gr-net up">+$561.63<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Pikachu ex</span>
+          <span class="gr-set">Surging Sparks &bull; 238</span>
+          <span class="gr-raw">$295.80<em>raw</em></span>
+          <span class="gr-psa">$900.50<em>PSA 10</em></span>
+          <span class="gr-net up">+$509.71<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Team Rocket's Mewtwo ex</span>
+          <span class="gr-set">Destined Rivals &bull; 231</span>
+          <span class="gr-raw">$514.15<em>raw</em></span>
+          <span class="gr-psa">$1,080.00<em>PSA 10</em></span>
+          <span class="gr-net up">+$470.86<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Leafeon ex</span>
+          <span class="gr-set">Prismatic Evolutions &bull; 144</span>
+          <span class="gr-raw">$336.93<em>raw</em></span>
+          <span class="gr-psa">$830.00<em>PSA 10</em></span>
+          <span class="gr-net up">+$398.08<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Glaceon ex</span>
+          <span class="gr-set">Prismatic Evolutions &bull; 150</span>
+          <span class="gr-raw">$277.78<em>raw</em></span>
+          <span class="gr-psa">$752.50<em>PSA 10</em></span>
+          <span class="gr-net up">+$379.73<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Greninja ex</span>
+          <span class="gr-set">Twilight Masquerade &bull; 214</span>
+          <span class="gr-raw">$376.50<em>raw</em></span>
+          <span class="gr-psa">$821.00<em>PSA 10</em></span>
+          <span class="gr-net up">+$349.51<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Flareon ex</span>
+          <span class="gr-set">Prismatic Evolutions &bull; 146</span>
+          <span class="gr-raw">$226.64<em>raw</em></span>
+          <span class="gr-psa">$661.00<em>PSA 10</em></span>
+          <span class="gr-net up">+$339.37<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Mega Lucario ex</span>
+          <span class="gr-set">Mega Evolution &bull; 188</span>
+          <span class="gr-raw">$271.92<em>raw</em></span>
+          <span class="gr-psa">$688.00<em>PSA 10</em></span>
+          <span class="gr-net up">+$321.09<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Zoroark</span>
+          <span class="gr-set">White Flare &bull; 143</span>
+          <span class="gr-raw">$80.71<em>raw</em></span>
+          <span class="gr-psa">$488.00<em>PSA 10</em></span>
+          <span class="gr-net up">+$312.30<em>after fees</em></span>
+        </li>
+    </ol>
+    <p class="price-note">Showing the top 20 of 57.</p>
+
+    <h3 class="gc-sub">Not worth it at PSA's current price</h3>
+    <ol class="gr-list">
+        <li class="gr">
+          <span class="gr-name">Lana's Aid</span>
+          <span class="gr-set">Twilight Masquerade &bull; 219</span>
+          <span class="gr-raw">$41.10<em>raw</em></span>
+          <span class="gr-psa">$67.52<em>PSA 10</em></span>
+          <span class="gr-net down">$-68.57<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Lacey</span>
+          <span class="gr-set">Stellar Crown &bull; 172</span>
+          <span class="gr-raw">$17.31<em>raw</em></span>
+          <span class="gr-psa">$58.50<em>PSA 10</em></span>
+          <span class="gr-net down">$-53.80<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">N's Plan</span>
+          <span class="gr-set">Black Bolt &bull; 170</span>
+          <span class="gr-raw">$72.11<em>raw</em></span>
+          <span class="gr-psa">$113.67<em>PSA 10</em></span>
+          <span class="gr-net down">$-53.43<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Mega Lopunny ex</span>
+          <span class="gr-set">Phantasmal Flames &bull; 128</span>
+          <span class="gr-raw">$17.17<em>raw</em></span>
+          <span class="gr-psa">$60.48<em>PSA 10</em></span>
+          <span class="gr-net down">$-51.68<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Hydrapple ex</span>
+          <span class="gr-set">Stellar Crown &bull; 167</span>
+          <span class="gr-raw">$39.29<em>raw</em></span>
+          <span class="gr-psa">$85.00<em>PSA 10</em></span>
+          <span class="gr-net down">$-49.28<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Rotom ex</span>
+          <span class="gr-set">Phantasmal Flames &bull; 126</span>
+          <span class="gr-raw">$19.17<em>raw</em></span>
+          <span class="gr-psa">$71.00<em>PSA 10</em></span>
+          <span class="gr-net down">$-43.16<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Mega Sharpedo ex</span>
+          <span class="gr-set">Phantasmal Flames &bull; 127</span>
+          <span class="gr-raw">$21.01<em>raw</em></span>
+          <span class="gr-psa">$79.00<em>PSA 10</em></span>
+          <span class="gr-net down">$-37.00<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Dawn</span>
+          <span class="gr-set">Phantasmal Flames &bull; 129</span>
+          <span class="gr-raw">$23.26<em>raw</em></span>
+          <span class="gr-psa">$82.50<em>PSA 10</em></span>
+          <span class="gr-net down">$-35.75<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Galvantula ex</span>
+          <span class="gr-set">Stellar Crown &bull; 168</span>
+          <span class="gr-raw">$20.45<em>raw</em></span>
+          <span class="gr-psa">$80.50<em>PSA 10</em></span>
+          <span class="gr-net down">$-34.94<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Durant ex</span>
+          <span class="gr-set">Surging Sparks &bull; 236</span>
+          <span class="gr-raw">$36.32<em>raw</em></span>
+          <span class="gr-psa">$99.00<em>PSA 10</em></span>
+          <span class="gr-net down">$-32.31<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Hydreigon ex</span>
+          <span class="gr-set">Surging Sparks &bull; 240</span>
+          <span class="gr-raw">$36.42<em>raw</em></span>
+          <span class="gr-psa">$110.00<em>PSA 10</em></span>
+          <span class="gr-net down">$-21.41<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name">Iono's Bellibolt ex</span>
+          <span class="gr-set">Journey Together &bull; 183</span>
+          <span class="gr-raw">$40.66<em>raw</em></span>
+          <span class="gr-psa">$114.25<em>PSA 10</em></span>
+          <span class="gr-net down">$-21.40<em>after fees</em></span>
+        </li>
+    </ol>
+    <p class="price-note">These are cards where the PSA 10 sells for less than the raw card plus the fee. At the old
+      $25 Value tier several of them worked. That is what a fee change does.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <h2>Five things worth <span class="hl">knowing</span></h2>
+    <ul class="facts-list">
+      <li>Grading does not make a card valuable. It confirms what condition it is already in, and most cards come back a 9.</li>
+      <li>A 9 is usually worth barely more than the raw card, and sometimes less than the raw card plus what you paid to grade it. Price the downside, not just the PSA 10.</li>
+      <li>Straight out of a pack is not the same as mint. Check centring, edges and surface under a light first, because that is what decides the grade before you spend anything.</li>
+      <li>Fees are per card whatever the grade, so the maths has to clear on the likely outcome, not the best one.</li>
+      <li>If the gap between raw and PSA 10 is smaller than the fee, there is no version of this that pays.</li>
+    </ul>
+    <p class="price-note">Fees and turnarounds read on August 12, 2026 and they change often,
+      sometimes with a fortnight's notice, so click through before you send anything. Card prices are TCGplayer market
+      and PSA 10 sale data, and both move daily. No affiliate links and no recommendation: we are not paid by any
+      grading company and which one is right depends on your card and your patience. Not financial advice, just
+      subtraction.</p>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Site">
+      <a href="/videos.html">All rips</a>
+      <a href="/cards.html">Card search</a>
+      <a href="/rarity.html">Rarity guide</a>
+      <a href="/fake-cards.html">Real or fake?</a>
+      <a href="/grading.html">Worth grading?</a>
+      <a href="/sets/">Card Pokedex</a>
+      <a href="/expansions.html">Every set ever</a>
+      <a href="/upcoming.html">Coming next</a>
+      <a href="/wanted.html">Most wanted</a>
+      <a href="/hall.html">Card Hall of Fame</a>
+      <a href="/luck.html">Luck & pull rates</a>
+      <a href="/card-shows.html">Card shows</a>
+      <a href="/shops.html">Card shops</a>
+      <a href="/playlists.html">Playlists</a>
+      <a href="/about.html">About</a>
+    </nav>
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    Grading fees change constantly. Always check the company's own page before submitting.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+<script>
+(function(){
+  var raw=document.getElementById('gRaw'), ten=document.getElementById('gTen');
+  var fee=document.getElementById('gFee'), out=document.getElementById('gOut');
+  var SHIP=15;
+  function money(n){
+    return (n<0?'-$':'$')+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  }
+  function run(){
+    var r=parseFloat(raw.value), t=parseFloat(ten.value), f=parseFloat(fee.value);
+    if(!isFinite(r)||!isFinite(t)||r<0||t<0){
+      out.innerHTML='<p class="gcalc-hint">Fill both boxes and the answer appears here.</p>';
+      return;
+    }
+    var cost=f+SHIP, net=t-r-cost;
+    var good=net>0;
+    var lines=''
+      + '<p class="gcalc-verdict '+(good?'up':'down')+'">'+(good?'Worth a look':'Do not bother')+'</p>'
+      + '<p class="gcalc-sum">'+money(t)+' in a 10, minus '+money(r)+' raw, minus '+money(cost)
+      + ' to grade and ship, leaves <strong>'+money(net)+'</strong>.</p>';
+    if(good){
+      lines+='<p class="gcalc-note">That is the best case. It assumes a 10. A 9 on this card is usually worth a '
+        + 'fraction of the 10, so you would be down the '+money(cost)+' and then some. Only send it if the card is '
+        + 'genuinely mint: centred, sharp corners, clean surface.</p>';
+    } else {
+      lines+='<p class="gcalc-note">The gap between raw and graded does not cover the fee, so even a perfect 10 '
+        + 'loses money. Keep it raw, sleeve it, and put the '+money(cost)+' towards more packs.</p>';
+    }
+    out.innerHTML=lines;
+  }
+  [raw,ten,fee].forEach(function(el){ el.addEventListener('input',run); el.addEventListener('change',run); });
+})();
+</script>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>
