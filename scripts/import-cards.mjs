@@ -79,6 +79,11 @@ if (col("Key") >= 0 && col("PSA 10 USD") >= 0) {
   const idx = {
     set: col("Set"), card: col("Card"), number: col("Number"), rarity: col("Rarity"),
     psa: col("PSA 10 USD"), asOf: col("PSA 10 Checked"), source: col("PSA 10 Source"),
+    // The sheet has had a "Raw USD" column all along and nothing read it, so a
+    // price typed there was discarded on import and the Most Wanted card fell
+    // back to a synced number or showed nothing. A figure someone checked by
+    // hand should beat one a script guessed.
+    raw: col("Raw USD"),
     wanted: col("Most Wanted"), hall: col("Card Hall of Fame"),
     pulledOn: col("Pulled On"), pulledIn: col("Pulled In Video"),
     why: col("Why I Want It"),
@@ -145,7 +150,7 @@ if (col("Key") >= 0 && col("PSA 10 USD") >= 0) {
         rarity: get(r, idx.rarity) || null,
         note: get(r, idx.why) || null,
         got: isYes(get(r, idx.hall)),
-        raw: null,
+        raw: num(get(r, idx.raw)),
         psa10: psa,
         psa10AsOf: isDate(get(r, idx.asOf)) ? get(r, idx.asOf) : null,
         psa10Source: get(r, idx.source) || null,
@@ -187,6 +192,54 @@ Wrote data/psa10.json${hall.length || idx.hall >= 0 ? "\nWrote data/hall.json" :
   node scripts/sync-wanted.mjs && node scripts/build-wanted.mjs
   node scripts/build-hall.mjs
   node scripts/build-set-pages.mjs
+`);
+
+/* -------------------------------------------------------------- Set Notes - */
+
+// The Set Notes tab has existed since the first version of the spreadsheet and
+// NOTHING has ever read it. The set pages consume data/set-notes.json and no
+// importer wrote to it, so anyone filling that tab in was typing into a void:
+// up to five columns across 23 sets. This is that missing half.
+//
+// Only two things live here now. "Still in print" is a genuine fact about a set
+// that no API carries, and the fun facts are human. The pack and booster box
+// price columns were removed from the sheet rather than wired up, because the
+// "Ways to open" band on each set page already shows live TCGplayer prices for
+// every sealed product, and a hand-typed price would sit inches from a live one
+// it could contradict.
+} else if (col("Set ID") >= 0 && (col("Still In Print") >= 0 || col("Fun Fact 1") >= 0)) {
+  const idx = {
+    id: col("Set ID"),
+    inPrint: col("Still In Print"),
+    fact1: col("Fun Fact 1"),
+    fact2: col("Fun Fact 2"),
+  };
+
+  let doc = {};
+  try {
+    doc = JSON.parse(await readFile(join(ROOT, "data/set-notes.json"), "utf8"));
+  } catch { /* first run */ }
+
+  let touched = 0;
+  for (const r of rows.slice(1)) {
+    const id = get(r, idx.id);
+    if (!id) continue;
+    const inPrint = get(r, idx.inPrint);
+    const facts = [get(r, idx.fact1), get(r, idx.fact2)].filter(Boolean);
+    if (!inPrint && !facts.length) continue;   // blank row, leave whatever is there
+    const entry = doc[id] || {};
+    if (inPrint) entry.inPrint = inPrint;
+    if (facts.length) entry.funFacts = facts;
+    doc[id] = entry;
+    touched++;
+  }
+
+  await writeFile(join(ROOT, "data/set-notes.json"), JSON.stringify(doc, null, 2) + "\n");
+  console.log(`
+Wrote data/set-notes.json
+  sets with notes  ${touched}
+
+Next: node scripts/build-set-pages.mjs
 `);
 
 /* ------------------------------------------------------------------ Shops - */
@@ -234,6 +287,7 @@ I could not tell which tab this is.
 
   Chase Cards needs a "Key" column and a "PSA 10 USD" column.
   Shops needs a "Name" column and a "Website" column.
+  Set Notes needs a "Set ID" column.
 
 The header row I found was:
   ${rows[0].join(" | ")}

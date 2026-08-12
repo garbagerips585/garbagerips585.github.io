@@ -10,10 +10,5 @@
     "",
     "The pages already derive their own facts from the card data (counts,",
     "rarity ladder, chase card). These are for what only you know."
-  ],
-  "pitch-black": {
-    "inPrint": "",
-    "packPrice": "",
-    "funFacts": []
-  }
+  ]
 }

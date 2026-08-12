@@ -171,6 +171,34 @@ try {
   /* no overrides yet, that is fine */
 }
 
+
+/**
+ * "Hit Rarity" from the spreadsheet -> the pull tag ids the site renders.
+ *
+ * The dropdown stores a human label with a hint in brackets, e.g.
+ * "Special Illustration Rare (2 gold stars)", so the bracket is stripped before
+ * matching. "No hit" is an explicit answer, not a missing one: it returns an
+ * empty list so the tile shows no badge rather than falling back to whatever
+ * the title implied.
+ */
+const RARITY_TO_PULL = {
+  "mega hyper rare": "gold",
+  "hyper rare": "gold",
+  "special illustration rare": "sir",
+  "illustration rare": "ir",
+  "ultra rare": "sir",
+  "double rare": "double-rare",
+  "charizard": "charizard",
+};
+function rarityToPulls(rarity, hasHit) {
+  if (hasHit === false) return [];
+  if (!rarity) return null;
+  const key = String(rarity).replace(/\s*\([^)]*\)\s*$/, "").trim().toLowerCase();
+  if (/^no hit$/.test(key)) return [];
+  const tag = RARITY_TO_PULL[key];
+  return tag ? [tag] : null;
+}
+
 const videos = uploads
   .map((item) => {
     const id = item.contentDetails.videoId;
@@ -195,7 +223,12 @@ const videos = uploads
       short: isShort(d.duration),
       sets: manual.sets ?? auto.sets,
       products: manual.products ?? auto.products,
-      pulls: manual.pulls ?? auto.pulls,
+      // Hit Rarity from the rip log wins over the tags derived from the title.
+      // Without this, filling that column in for 310 videos improved the luck
+      // page and nothing else: the badge on every tile and the Hall of Fame
+      // ordering both read `pulls`, which was still coming from whatever the
+      // title happened to say. A deliberate answer should beat a guess.
+      pulls: manual.pulls ?? rarityToPulls(log.hitRarity, log.hasHit) ?? auto.pulls,
       // Everything the spreadsheet can say about a video. This list used to
       // name five fields, so the other eight columns were imported into
       // manual.json and then silently dropped here, which is why nothing ever

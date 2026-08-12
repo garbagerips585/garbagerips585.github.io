@@ -100,6 +100,27 @@ const gradedAsOf = (setId, number) => {
  * overwrite it. `priceSource` is stamped so the page can say where the number
  * came from rather than implying both came from the same place.
  */
+/**
+ * Hand written set notes, merged straight from data/set-notes.json.
+ *
+ * sync-sets.mjs also folds these into sets.json, but that script pulls the full
+ * checklist for every set from an API that rate-limits hard, so requiring a run
+ * of it to publish a one-line fun fact meant the note either waited for the
+ * next sync or never appeared. Read here as well, so the loop is import then
+ * build, and whatever the file says wins over whatever sets.json was carrying.
+ */
+let setNotes = {};
+try {
+  setNotes = JSON.parse(await readFile(join(ROOT, "data/set-notes.json"), "utf8"));
+} catch {
+  /* optional */
+}
+for (const st of sets) {
+  const n = setNotes[st.id];
+  if (!n) continue;
+  st.notes = { ...(st.notes || {}), ...n };
+}
+
 let chaseFallback = {};
 try {
   chaseFallback = JSON.parse(await readFile(join(ROOT, "data/chase-tcg.json"), "utf8")).sets || {};

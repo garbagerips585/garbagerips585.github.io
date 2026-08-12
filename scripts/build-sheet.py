@@ -424,8 +424,11 @@ wn = wb.create_sheet("Set Notes")
 NOTE_COLS = [
     ("Set ID", 22, "locked"), ("Set Name", 24, "locked"),
     ("Released", 12, "locked"), ("Cards", 8, "locked"), ("Your rips", 10, "locked"),
-    ("Still In Print", 14, "input"), ("Pack Price USD", 15, "input"),
-    ("Booster Box Price USD", 21, "input"),
+    ("Still In Print", 14, "input"),
+    # Pack Price USD and Booster Box Price USD used to live here. Removed: the
+    # "Ways to open" band on every set page now carries live TCGplayer prices
+    # for every sealed product, so a hand-typed price is both duplicated effort
+    # and a chance to contradict the live number printed a few inches below it.
     ("Fun Fact 1", 52, "input"), ("Fun Fact 2", 52, "input"),
 ]
 for i, (head, width, kind) in enumerate(NOTE_COLS, start=1):
