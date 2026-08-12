@@ -634,6 +634,9 @@ const urls = [
   // Release dates. High priority and frequent: this is the page people search
   // for by name in the weeks before a set drops.
   { loc: `${SITE}/upcoming.html`, freq: "weekly", pri: "0.9" },
+  // The beginner guide. Evergreen and the best long-tail search target on the
+  // site: "pokemon card rarity symbols" is asked constantly and never expires.
+  { loc: `${SITE}/rarity.html`, freq: "monthly", pri: "0.9" },
   ...ordered.filter((v) => taggedIds.has(v.id)).map((v) => ({ loc: `${SITE}/${pathFor(v)}`, freq: "monthly", pri: "0.6", mod: v.published })),
 ];
 await writeFile(

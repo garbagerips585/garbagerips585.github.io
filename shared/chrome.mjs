@@ -18,6 +18,7 @@
 export const NAV_LINKS = [
   ["/", "Home"],
   ["/videos.html", "All rips"],
+  ["/rarity.html", "Rarity guide"],
   ["/sets/", "Card Pokedex"],
   ["/expansions.html", "Every set ever"],
   ["/upcoming.html", "Coming next"],

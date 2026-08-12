@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pokemon Card Rarity Symbols Explained, With Real Cards | Garbage Rips 585</title>
+<meta name="description" content="How to tell what a Pokemon card is by the symbol in its corner, shown magnified on real cards. Every rarity from Common to Mega Hyper Rare, plus what changed if you collected years ago.">
+<link rel="canonical" href="https://garbagerips585.github.io/rarity.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#15263A">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:title" content="Pokemon Card Rarity Symbols, Explained With Real Cards">
+<meta property="og:description" content="The corner of the card, magnified. Every rarity from Common to Mega Hyper Rare.">
+<meta property="og:url" content="https://garbagerips585.github.io/rarity.html">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/ui.css">
+<link rel="stylesheet" href="/assets/packs.css">
+<style>
+.rg{padding:var(--s7) 0 var(--s5)}
+.rg-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:42em;margin-bottom:var(--s5)}
+.rg h2{font:400 var(--t-l)/1.15 var(--display);margin-bottom:var(--s3)}
+.rg-sec{padding:var(--s6) 0}
+.rg-sec h2{font:400 var(--t-l)/1.15 var(--display);margin-bottom:var(--s3)}
+.rg-p{color:var(--ink-2);max-width:46em;margin-bottom:var(--s4)}
+
+/* The magnified corner. A background image blown up and pinned to the corner
+   the symbol is actually printed in, so it is the real card rather than a
+   drawing of one. */
+.crop{border:2px solid var(--ink);border-radius:var(--r);overflow:hidden;background:var(--card)}
+.crop-img{aspect-ratio:16/7;background-repeat:no-repeat;image-rendering:auto}
+.crop figcaption{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-2);padding:8px var(--s3);border-top:1px solid var(--hair);background:var(--page)}
+
+/* Where is it? Two eras side by side. */
+.era{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
+@media(max-width:640px){.era{grid-template-columns:1fr}}
+.era-one{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s4);box-shadow:var(--lift)}
+.era-one h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:4px}
+.era-one .who{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.05em;
+  text-transform:uppercase;margin-bottom:var(--s3)}
+.era-one .crop{margin-bottom:var(--s3)}
+
+/* The two-step rule, as a thing you can actually follow. */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin:var(--s5) 0}
+@media(max-width:760px){.steps{grid-template-columns:1fr}}
+.step{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);
+  box-shadow:var(--lift)}
+.step b{display:block;font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep);margin-bottom:6px}
+.step h3{font:700 var(--t-body)/1.3 var(--body);margin-bottom:6px}
+.step p{color:var(--ink-2);font-size:var(--t-sm)}
+
+.tip{background:var(--mustard);border:2px solid var(--gold-deep);border-radius:var(--r);
+  padding:var(--s5);margin:var(--s5) 0}
+.tip h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:6px}
+.tip p{color:var(--ink);max-width:48em}
+.tip code{font:700 var(--t-sm)/1 var(--mono);background:rgba(0,0,0,.12);padding:2px 6px;border-radius:4px}
+
+/* The ladder. */
+.ladder{list-style:none;display:flex;flex-direction:column;gap:var(--s4)}
+.rr{display:grid;grid-template-columns:34px 96px 1fr;gap:var(--s4);align-items:start;
+  background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s4);box-shadow:var(--lift)}
+@media(min-width:820px){.rr{grid-template-columns:34px 120px 1fr 220px}}
+.rr.is-chase{border-color:var(--gold-deep);box-shadow:0 4px 0 var(--gold-deep),var(--lift)}
+.rr-n{font:400 var(--t-m)/1 var(--display);color:var(--ink-2);text-align:center;padding-top:4px}
+.rr-card img{width:100%;height:auto;border-radius:6px;display:block}
+.rr-body h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:4px}
+.rr-chase{font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  background:var(--mustard);border:1px solid var(--gold-deep);color:var(--ink);
+  padding:4px 7px;border-radius:var(--r-pill);vertical-align:middle}
+.rr-sym{font:700 var(--t-sm)/1.4 var(--mono);color:var(--plum);margin-bottom:6px;letter-spacing:.03em}
+.rr-look{color:var(--ink-2);font-size:var(--t-sm)}
+.rr-note{font:700 var(--t-micro)/1.6 var(--mono);color:var(--plum);background:var(--lilac-pale);
+  border-radius:calc(var(--r) - 8px);padding:8px var(--s3);margin-top:8px}
+.rr-eg{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.04em;
+  text-transform:uppercase;margin-top:8px}
+.rr-zoom{grid-column:1/-1}
+@media(min-width:820px){.rr-zoom{grid-column:auto}}
+
+/* Returning collectors. */
+.exs{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-bottom:var(--s5)}
+@media(max-width:760px){.exs{grid-template-columns:1fr}}
+.ex1{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);
+  box-shadow:var(--lift)}
+.ex1 b{display:block;font:400 var(--t-l)/1 var(--display);margin-bottom:4px}
+.ex1 .yrs{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ketchup-deep);letter-spacing:.05em;
+  text-transform:uppercase;margin-bottom:8px}
+.ex1 p{color:var(--ink-2);font-size:var(--t-sm)}
+
+.gone{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--s3)}
+.gone li{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s4)}
+.gone b{display:block;font-weight:700}
+.gone .yrs{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.05em;margin:2px 0 6px}
+.gone p{color:var(--ink-2);font-size:var(--t-sm)}
+
+.gloss{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--s3)}
+.gloss li{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s4)}
+.gloss b{font:700 var(--t-body)/1.3 var(--body);color:var(--ketchup-deep)}
+.gloss p{color:var(--ink-2);font-size:var(--t-sm);margin-top:4px}
+
+.rg-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
+  border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Where is the rarity symbol on a Pokemon card?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In the bottom corner, next to the card number. On cards from Sun and Moon (2017) onward it is in the bottom left. On XY era cards and older it is in the bottom right."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What do the stars on a Pokemon card mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Count them, then check the colour. One black star is a Rare, two black stars a Double Rare, two silver stars an Ultra Rare, one gold star an Illustration Rare, two gold stars a Special Illustration Rare and three gold stars a Hyper Rare."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does a reverse holo make a card rare?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Reverse holo is a finish, not a rarity. The foil sits on everything except the artwork, and the card keeps whatever rarity symbol it was printed with. A reverse holo Common is still a Common."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an alt art Pokemon card?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Alt art is collector slang rather than a printed rarity. It appears on no card and in no official rarity list. On a modern card it usually means an Illustration Rare or a Special Illustration Rare."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I know if a card is a secret rare?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Its collector number is higher than the set total, for example 199/198. Secret rares are the Illustration Rare, Ultra Rare, Special Illustration Rare and Hyper Rare tiers."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form role="search" action="/videos.html" method="get">
+      <label class="sr-only" for="navSearch">Search every rip</label>
+      <input id="navSearch" name="q" type="search" placeholder="Search rips" aria-label="Search every rip by set, product or card">
+    </form>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/sets/">Pokedex</a>
+      <a href="/expansions.html">All sets</a>
+      <a href="/wanted.html">Wanted</a>
+      <a href="/hall.html">Hall of Fame</a>
+    </nav>
+    <a class="icon-btn" href="/videos.html" aria-label="Search all rips">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+    </a>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="Site">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/videos.html">All rips</a></li>
+    <li><a href="/rarity.html">Rarity guide</a></li>
+    <li><a href="/sets/">Card Pokedex</a></li>
+    <li><a href="/expansions.html">Every set ever</a></li>
+    <li><a href="/upcoming.html">Coming next</a></li>
+    <li><a href="/wanted.html">Most wanted</a></li>
+    <li><a href="/hall.html">Card Hall of Fame</a></li>
+    <li><a href="/luck.html">Luck & pull rates</a></li>
+    <li><a href="/shops.html">Card shops</a></li>
+    <li><a href="/playlists.html">Playlists</a></li>
+    <li><a href="/about.html">About</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+  <section class="rg">
+    <div class="wrap">
+      <div class="brk"><h1>What have I <span class="hl">actually got</span></h1><span class="ln"></span></div>
+      <p class="rg-lede">Every Pokemon card tells you how rare it is, in one corner, with one small
+        symbol. Once you know where to look it takes about a second. Here is the corner, magnified,
+        on real cards.</p>
+    </div>
+  </section>
+
+  <section class="band rg-sec">
+    <div class="wrap">
+      <h2>First: <span class="hl">which corner</span></h2>
+      <p class="rg-p">This is the bit almost every guide online gets wrong, and it is easy to check
+        yourself. The symbol moved from the bottom right to the bottom left in 2017, at Sun and Moon.
+        Not at Scarlet and Violet, which is what you will usually be told.</p>
+      <div class="era">
+        <div class="era-one">
+          <h3>Bottom right</h3>
+          <p class="who">Base Set, 1999 &bull; XY era and older</p>
+          <figure class="crop">
+        <div class="crop-img" style="background-image:url('https://images.pokemontcg.io/base1/4_hires.png');background-size:340%;background-position:100% 100%"></div>
+        <figcaption>Charizard, bottom right corner</figcaption>
+      </figure>
+          <p class="rg-p" style="margin:0">If the number and symbol are on the right, you are holding
+            something from 2016 or earlier.</p>
+        </div>
+        <div class="era-one">
+          <h3>Bottom left</h3>
+          <p class="who">Prismatic Evolutions, 2025 &bull; Sun and Moon onward</p>
+          <figure class="crop">
+        <div class="crop-img" style="background-image:url('https://images.pokemontcg.io/sv8pt5/74_hires.png');background-size:280%;background-position:22% 100%"></div>
+        <figcaption>Eevee, bottom left corner</figcaption>
+      </figure>
+          <p class="rg-p" style="margin:0">On the left, and it is 2017 or newer. Everything below is
+            about these.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rg-sec">
+    <div class="wrap">
+      <h2>Then: <span class="hl">count, then colour</span></h2>
+      <p class="rg-p">Modern sets use stars for five different rarities, which sounds impossible
+        until you know the trick. It is two questions, in this order.</p>
+      <div class="steps">
+        <div class="step"><b>1</b><h3>How many?</h3><p>One, two or three. Count them before you look
+          at anything else.</p></div>
+        <div class="step"><b>2</b><h3>What colour?</h3><p>Black, silvery white, or gold. Black is the
+          ordinary game rarities, silver is a full art ex, gold is the collector tiers.</p></div>
+        <div class="step"><b>3</b><h3>That is it</h3><p>Two black stars is a Double Rare. Two gold
+          stars is a Special Illustration Rare. Same count, completely different card.</p></div>
+      </div>
+
+      <div class="tip">
+        <h3>The shortcut that skips all of it</h3>
+        <p>Look at the card number instead. If the left number is <b>bigger</b> than the right one,
+          like <code>199/198</code>, it is a secret rare and it is one of the good ones. Cards inside
+          the set total are the ordinary tiers. You can do this across a table without squinting.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band rg-sec">
+    <div class="wrap">
+      <h2>The whole <span class="hl">ladder</span></h2>
+      <p class="rg-p">Lowest to highest, as Pokemon officially orders them. One thing worth knowing
+        straight away: this is not a price order. Illustration Rares usually sell for less than Ultra
+        Rares, and Special Illustration Rares often beat everything except gold. Rarity ladder and
+        value ladder are two different things.</p>
+      <ul class="ladder">
+      <li class="rr">
+        <div class="rr-n">1</div>
+        <div class="rr-card">
+          <img src="https://images.pokemontcg.io/sv8pt5/74_hires.png" alt="Eevee, Prismatic Evolutions" loading="lazy" decoding="async" width="600" height="825">
+        </div>
+        <div class="rr-body">
+          <h3>Common</h3>
+          <p class="rr-sym"><b>One black circle</b></p>
+          <p class="rr-look">Plain card, matte finish, artwork sitting in a window. The bulk of every pack.</p>
+          
+          <p class="rr-eg">Eevee, Prismatic Evolutions</p>
+        </div>
+        <div class="rr-zoom">
+          <figure class="crop">
+        <div class="crop-img" style="background-image:url('https://images.pokemontcg.io/sv8pt5/74_hires.png');background-size:280%;background-position:22% 100%"></div>
+        <figcaption>the corner, magnified</figcaption>
+      </figure>
+        </div>
+      </li>
+      <li class="rr">
+        <div class="rr-n">2</div>
+        <div class="rr-card">
+          <img src="https://images.pokemontcg.io/sv7/59_hires.png" alt="Mewtwo, Stellar Crown" loading="lazy" decoding="async" width="600" height="825">
+        </div>
+        <div class="rr-body">
+          <h3>Uncommon</h3>
+          <p class="rr-sym"><b>One black diamond</b></p>
+          <p class="rr-look">Looks the same as a Common to the naked eye. Most Trainer cards land here.</p>
+          
+          <p class="rr-eg">Mewtwo, Stellar Crown</p>
+        </div>
+        <div class="rr-zoom">
+          <figure class="crop">
+        <div class="crop-img" style="background-image:url('https://images.pokemontcg.io/sv7/59_hires.png');background-size:280%;background-position:22% 100%"></div>
+        <figcaption>the corner, magnified</figcaption>
+      </figure>
+        </div>
+      </li>
+      <li class="rr">
+        <div class="rr-n">3</div>
+        <div class="rr-card">
+          <img src="https://images.pokemontcg.io/sv8pt5/59_hires.png" alt="Umbreon, Prismatic Evolutions" loading="lazy" decoding="async" width="600" height="825">
+        </div>
+        <div class="rr-body">
+          <h3>Rare</h3>
+          <p class="rr-sym"><b>One black star</b></p>
+          <p class="rr-look">In modern sets these are always holo: foil on the artwork window, matte everywhere else.</p>
+          
+          <p class="rr-eg">Umbreon, Prismatic Evolutions</p>
+        </div>
+        <div class="rr-zoom">
+          <figure class="crop">
+        <div class="crop-img" style="background-image:url('https://images.pokemontcg.io/sv8pt5/59_hires.png');background-size:280%;background-position:22% 100%"></div>
+        <figcaption>the corner, magnified</figcaption>
+      </figure>
+        </div>
+      </li>
+      <li class="rr">
+        <div class="rr-n">4</div>
+        <div class="rr-card">
+          <img src="https://images.pokemontcg.io/sv8pt5/28_hires.png" alt="Pikachu ex, Prismatic Evolutions" loading="lazy" decoding="async" width="600" height="825">
+        </div>
+        <div class="rr-body">
+          <h3>Double Rare</h3>
+          <p class="rr-sym"><b>Two black stars</b></p>
+          <p class="rr-look">A Pokemon ex in an ordinary card frame. The everyday ex, and the only high tier that still looks like a normal card.</p>
+          
+          <p class="rr-eg">Pikachu ex, Prismatic Evolutions</p>
+        </div>
+        <div class="rr-zoom">
+          <figure class="crop">
+        <div class="crop-img" style="background-image:url('https://images.pokemontcg.io/sv8pt5/28_hires.png');background-size:280%;background-position:22% 100%"></div>
+        <figcaption>the corner, magnified</figcaption>
+      </figure>
+        </div>
+      </li>
+      <li class="rr is-chase">
+        <div class="rr-n">5</div>
+        <div class="rr-card">
+          <img src="https://images.pokemontcg.io/sv5/193_hires.png" alt="Gengar ex, Temporal Forces" loading="lazy" decoding="async" width="600" height="825">
+        </div>
+        <div class="rr-body">
+          <h3>Ultra Rare <span class="rr-chase">worth chasing</span></h3>
+          <p class="rr-sym"><b>Two silver stars</b></p>
+          <p class="rr-look">Full art. The character fills the whole card, no artwork window, usually textured.</p>
+          
+          <p class="rr-eg">Gengar ex, Temporal Forces</p>
+        </div>
+        <div class="rr-zoom">
+          <figure class="crop">
+        <div class="crop-img" style="background-image:url('https://images.pokemontcg.io/sv5/193_hires.png');background-size:280%;background-position:22% 100%"></div>
+        <figcaption>the corner, magnified</figcaption>
+      </figure>
+        </div>
+      </li>
+      <li class="rr is-chase">
+        <div class="rr-n">6</div>
+        <div class="rr-card">
+          <img src="https://images.pokemontcg.io/sv6/188_hires.png" alt="Eevee, Twilight Masquerade" loading="lazy" decoding="async" width="600" height="825">
+        </div>
+        <div class="rr-body">
+          <h3>Illustration Rare <span class="rr-chase">worth chasing</span></h3>
+          <p class="rr-sym"><b>One gold star</b></p>
+          <p class="rr-look">Full art of a normal Pokemon, not an ex, painted into a scene. The &quot;Pokemon in its habitat&quot; look.</p>
+          
+          <p class="rr-eg">Eevee, Twilight Masquerade</p>
+        </div>
+        <div class="rr-zoom">
+          <figure class="crop">
+        <div class="crop-img" style="background-image:url('https://images.pokemontcg.io/sv6/188_hires.png');background-size:280%;background-position:22% 100%"></div>
+        <figcaption>the corner, magnified</figcaption>
+      </figure>
+        </div>
+      </li>
+      <li class="rr is-chase">
+        <div class="rr-n">7</div>
+        <div class="rr-card">
+          <img src="https://images.pokemontcg.io/sv8pt5/161_hires.png" alt="Umbreon ex, Prismatic Evolutions" loading="lazy" decoding="async" width="600" height="825">
+        </div>
+        <div class="rr-body">
+          <h3>Special Illustration Rare <span class="rr-chase">worth chasing</span></h3>
+          <p class="rr-sym"><b>Two gold stars</b></p>
+          <p class="rr-look">Full art of an ex or a Supporter in a scene, with glitter over it. Usually the most valuable card in a set.</p>
+          
+          <p class="rr-eg">Umbreon ex, Prismatic Evolutions</p>
+        </div>
+        <div class="rr-zoom">
+          <figure class="crop">
+        <div class="crop-img" style="background-image:url('https://images.pokemontcg.io/sv8pt5/161_hires.png');background-size:280%;background-position:22% 100%"></div>
+        <figcaption>the corner, magnified</figcaption>
+      </figure>
+        </div>
+      </li>
+      <li class="rr">
+        <div class="rr-n">8</div>
+        <div class="rr-card">
+          <img src="https://images.pokemontcg.io/sv8pt5/119_hires.png" alt="Prime Catcher, Prismatic Evolutions" loading="lazy" decoding="async" width="600" height="825">
+        </div>
+        <div class="rr-body">
+          <h3>ACE SPEC Rare</h3>
+          <p class="rr-sym"><b>Its own ACE SPEC banner</b></p>
+          <p class="rr-look">A magenta and cyan Trainer or Special Energy. You are only allowed one in a deck, which is the whole point of them.</p>
+          
+          <p class="rr-eg">Prime Catcher, Prismatic Evolutions</p>
+        </div>
+        <div class="rr-zoom">
+          <figure class="crop">
+        <div class="crop-img" style="background-image:url('https://images.pokemontcg.io/sv8pt5/119_hires.png');background-size:280%;background-position:22% 100%"></div>
+        <figcaption>the corner, magnified</figcaption>
+      </figure>
+        </div>
+      </li>
+      <li class="rr is-chase">
+        <div class="rr-n">9</div>
+        <div class="rr-card">
+          <img src="https://images.pokemontcg.io/sv3/228_hires.png" alt="Charizard ex, Obsidian Flames" loading="lazy" decoding="async" width="600" height="825">
+        </div>
+        <div class="rr-body">
+          <h3>Hyper Rare <span class="rr-chase">worth chasing</span></h3>
+          <p class="rr-sym"><b>Three gold stars</b></p>
+          <p class="rr-look">The whole card is gold, borders and all. Unmistakable across a room.</p>
+          
+          <p class="rr-eg">Charizard ex, Obsidian Flames</p>
+        </div>
+        <div class="rr-zoom">
+          <figure class="crop">
+        <div class="crop-img" style="background-image:url('https://images.pokemontcg.io/sv3/228_hires.png');background-size:280%;background-position:22% 100%"></div>
+        <figcaption>the corner, magnified</figcaption>
+      </figure>
+        </div>
+      </li>
+      <li class="rr is-chase">
+        <div class="rr-n">10</div>
+        <div class="rr-card">
+          <img src="https://images.scrydex.com/pokemon/me5-120/large" alt="Mega Darkrai ex, Pitch Black" loading="lazy" decoding="async" width="600" height="825">
+        </div>
+        <div class="rr-body">
+          <h3>Mega Hyper Rare <span class="rr-chase">worth chasing</span></h3>
+          <p class="rr-sym"><b>One gold sparkle</b></p>
+          <p class="rr-look">Gold etched Mega Evolution ex with artwork drawn for it rather than a gold recolour of an existing card.</p>
+          <p class="rr-note">New to the Mega Evolution era. The symbol is a single four pointed sparkle with a heavy black outline, not three stars: several guides get this wrong.</p>
+          <p class="rr-eg">Mega Darkrai ex, Pitch Black</p>
+        </div>
+        <div class="rr-zoom">
+          <figure class="crop">
+        <div class="crop-img" style="background-image:url('https://images.scrydex.com/pokemon/me5-120/large');background-size:280%;background-position:22% 100%"></div>
+        <figcaption>the corner, magnified</figcaption>
+      </figure>
+        </div>
+      </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="rg-sec">
+    <div class="wrap">
+      <h2>Shiny, but <span class="hl">not rare</span></h2>
+      <p class="rg-p"><b>Reverse holo</b> is the one that catches everybody. The foil is on everything
+        <em>except</em> the artwork, and you get one or two in most packs. It does not change the
+        card's rarity at all: a reverse holo Common still prints a black circle and is still a Common.
+        A regular <b>holo</b> is the opposite, foil on the artwork window only.</p>
+      <p class="rg-p"><b>"Alt art" is not a rarity.</b> It is not printed on any card and it is not in
+        Pokemon's rarity list. It is collector slang, and on a modern card it almost always means an
+        Illustration Rare or a Special Illustration Rare. Check the star colour.</p>
+      <p class="rg-p"><b>Texture</b> is felt rather than printed. Tilt the card under a light and run a
+        fingernail across the art: modern top tier full arts are usually embossed, with the texture
+        following the artwork. It is a good signal, not a rule.</p>
+    </div>
+  </section>
+
+  <section class="band rg-sec">
+    <div class="wrap">
+      <h2>Coming back after a <span class="hl">few years</span></h2>
+      <p class="rg-p">If you collected once and stopped, the single most confusing thing is that
+        <b>"ex" has meant three different things</b>. All three give up two prizes, and they are not
+        the same card.</p>
+      <div class="exs">
+        <div class="ex1"><b>Pokemon-ex</b><p class="yrs">2003 to 2007, lowercase</p>
+          <p>The original. No rule box: the rule is plain italic text along the bottom, and abilities
+            are called Poke-POWER or Poke-BODY.</p></div>
+        <div class="ex1"><b>Pokemon-EX</b><p class="yrs">2012 to 2016, uppercase</p>
+          <p>Black and White through XY. Almost always Basic, whatever the Pokemon's real stage.
+            Mega EX ended your turn unless you played a Spirit Link.</p></div>
+        <div class="ex1"><b>Pokemon ex</b><p class="yrs">2023 to now, lowercase again</p>
+          <p>Current. Has a bordered rule box in the bottom corner where the Pokedex entry would sit.
+            That box is the quickest way to tell it from a 2003 one.</p></div>
+      </div>
+
+      <h2 style="margin-top:var(--s6)">Everything that came and <span class="hl">went</span></h2>
+      <p class="rg-p">If you remember any of these, they are all out of print. None of them are coming
+        out of a pack you buy today.</p>
+      <ul class="gone">
+        <li><b>Pokemon LV.X</b><p class="yrs">2007 to 2009</p><p>Played on top of an Active Pokemon. Gold band across the top.</p></li>
+        <li><b>Pokemon Prime</b><p class="yrs">2010</p><p>The word Prime is not printed anywhere on the card. Spot them by the gold name text and spiked artwork edges.</p></li>
+        <li><b>Pokemon LEGEND</b><p class="yrs">2010</p><p>Two card halves that combined into one Pokemon.</p></li>
+        <li><b>Pokemon-EX and M Pokemon-EX</b><p class="yrs">2012 to 2016</p><p>The uppercase EX. Mega EX ended your turn unless you used a Spirit Link.</p></li>
+        <li><b>Pokemon BREAK</b><p class="yrs">2015 to 2016</p><p>Printed sideways and stacked on the stage below.</p></li>
+        <li><b>Pokemon-GX</b><p class="yrs">2017 to 2019</p><p>One GX attack per game. Tag Team GX put two Pokemon on a card and gave up three prizes.</p></li>
+        <li><b>Rainbow rares</b><p class="yrs">2017 to 2022</p><p>Discontinued at Scarlet and Violet. They are not coming out of a modern pack, whatever the glitter on a Special Illustration Rare looks like.</p></li>
+        <li><b>V, VMAX and VSTAR</b><p class="yrs">2020 to January 2023</p><p>Ended at Crown Zenith.</p></li>
+        <li><b>Radiant Pokemon</b><p class="yrs">2022 to 2023</p><p>Always Basic, one per deck, only worth one prize.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="rg-sec">
+    <div class="wrap">
+      <h2>What everyone is <span class="hl">saying</span></h2>
+      <p class="rg-p">The words you will hit in the first five minutes of any card video, including
+        ours.</p>
+      <ul class="gloss">
+        <li><b>IR</b><p>Illustration Rare. One gold star, full art of a non-ex Pokemon in a scene.</p></li>
+        <li><b>SIR</b><p>Special Illustration Rare. Two gold stars. Usually the best card in the set.</p></li>
+        <li><b>AA / alt art</b><p>Alternate art. Collector slang, not a printed rarity. On a modern card it almost always means an IR or an SIR.</p></li>
+        <li><b>FA</b><p>Full art. The illustration covers the whole card with no artwork window.</p></li>
+        <li><b>RH</b><p>Reverse holo. Foil on everything except the artwork. Does not change the card's rarity.</p></li>
+        <li><b>UR</b><p>Ultra Rare. Two silver stars, a full art ex.</p></li>
+        <li><b>Hit</b><p>Any card out of a pack worth meaningfully more than the pack cost.</p></li>
+        <li><b>Chase</b><p>The one card everybody is opening the set hoping to find.</p></li>
+        <li><b>Bulk</b><p>Commons, uncommons and low value rares. Sold by weight or by the thousand.</p></li>
+        <li><b>Slab</b><p>A card sealed in a rigid case by a grading company.</p></li>
+        <li><b>Grading</b><p>Sending a card away to be authenticated and scored on condition. PSA runs 1 to 10 and is the market standard for Pokemon; BGS and CGC also grade.</p></li>
+        <li><b>Secret rare</b><p>A card numbered higher than the set total, like 199/198.</p></li>
+        <li><b>Regulation mark</b><p>The single letter in the bottom corner. It controls tournament legality and has nothing to do with rarity or value.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="rg-sec">
+    <div class="wrap">
+      <p class="rg-foot">CHECKED AUGUST 12, 2026 AGAINST REAL CARD SCANS,
+        NOT AGAINST OTHER GUIDES. THE CORNER IMAGES ON THIS PAGE ARE MAGNIFIED CROPS OF ACTUAL CARDS,
+        SO YOU CAN CHECK ANY OF IT AGAINST SOMETHING IN YOUR OWN BINDER. A COUPLE OF CLAIMS THAT
+        CIRCULATE WIDELY ARE LEFT OFF BECAUSE THEY COULD NOT BE VERIFIED. IF YOU SPOT SOMETHING WRONG
+        HERE, SAY SO ON ANY OF THE SOCIALS AND IT GETS FIXED. FAN MADE GUIDE, NOT AFFILIATED WITH THE
+        POKEMON COMPANY.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Site">
+      <a href="/videos.html">All rips</a>
+      <a href="/rarity.html">Rarity guide</a>
+      <a href="/sets/">Card Pokedex</a>
+      <a href="/expansions.html">Every set ever</a>
+      <a href="/upcoming.html">Coming next</a>
+      <a href="/wanted.html">Most wanted</a>
+      <a href="/hall.html">Card Hall of Fame</a>
+      <a href="/luck.html">Luck & pull rates</a>
+      <a href="/shops.html">Card shops</a>
+      <a href="/playlists.html">Playlists</a>
+      <a href="/about.html">About</a>
+    </nav>
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    Card images from the Pokemon TCG API. Fan made guide, not affiliated with The Pokemon Company.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+
+<script src="/assets/app.js" defer></script>
+</body>
+</html>

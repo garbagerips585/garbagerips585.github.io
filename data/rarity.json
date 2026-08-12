@@ -1,0 +1,164 @@
+{
+  "_readme": [
+    "Card examples for the rarity guide. Every entry points at a real card so the",
+    "page shows the actual printed symbol rather than a drawing of one.",
+    "",
+    "`zoom` is the bottom corner crop, as a CSS background-position. Modern cards",
+    "carry the symbol bottom-LEFT; XY era and older carry it bottom-RIGHT.",
+    "",
+    "WHAT NOT TO PUT ON THIS PAGE, all checked and deliberately left off:",
+    "  Shiny Rare's symbol being a HOLLOW gold star. Bulbapedia says hollow,",
+    "  Pokemon's own site says 'sparkling', and the scans were not sharp enough",
+    "  to settle it. The whole claim is the hollow-vs-solid distinction, so it is",
+    "  not worth publishing half-right.",
+    "  Mega Attack Rare's pastel star symbol. Single-sourced, unverified.",
+    "  Any per-rarity texture table. No primary source exists; texture is felt,",
+    "  not printed. Keep texture copy general.",
+    "  Futuristic Rare. Real, but it does not exist in anyone's hands until the",
+    "  30th Celebration lands on 16 September 2026."
+  ],
+  "checked": "2026-08-12",
+  "eras": {
+    "old": {
+      "card": "https://images.pokemontcg.io/base1/4_hires.png",
+      "name": "Charizard",
+      "set": "Base Set, 1999",
+      "corner": "right"
+    },
+    "new": {
+      "card": "https://images.pokemontcg.io/sv8pt5/74_hires.png",
+      "name": "Eevee",
+      "set": "Prismatic Evolutions, 2025",
+      "corner": "left"
+    }
+  },
+  "ladder": [
+    {
+      "name": "Common",
+      "symbol": "One black circle",
+      "shape": "circle",
+      "colour": "black",
+      "card": "https://images.pokemontcg.io/sv8pt5/74_hires.png",
+      "example": "Eevee, Prismatic Evolutions",
+      "look": "Plain card, matte finish, artwork sitting in a window. The bulk of every pack.",
+      "chase": false
+    },
+    {
+      "name": "Uncommon",
+      "symbol": "One black diamond",
+      "shape": "diamond",
+      "colour": "black",
+      "card": "https://images.pokemontcg.io/sv7/59_hires.png",
+      "example": "Mewtwo, Stellar Crown",
+      "look": "Looks the same as a Common to the naked eye. Most Trainer cards land here.",
+      "chase": false
+    },
+    {
+      "name": "Rare",
+      "symbol": "One black star",
+      "shape": "star",
+      "colour": "black",
+      "card": "https://images.pokemontcg.io/sv8pt5/59_hires.png",
+      "example": "Umbreon, Prismatic Evolutions",
+      "look": "In modern sets these are always holo: foil on the artwork window, matte everywhere else.",
+      "chase": false
+    },
+    {
+      "name": "Double Rare",
+      "symbol": "Two black stars",
+      "shape": "star star",
+      "colour": "black",
+      "card": "https://images.pokemontcg.io/sv8pt5/28_hires.png",
+      "example": "Pikachu ex, Prismatic Evolutions",
+      "look": "A Pokemon ex in an ordinary card frame. The everyday ex, and the only high tier that still looks like a normal card.",
+      "chase": false
+    },
+    {
+      "name": "Ultra Rare",
+      "symbol": "Two silver stars",
+      "shape": "star star",
+      "colour": "silver",
+      "card": "https://images.pokemontcg.io/sv5/193_hires.png",
+      "example": "Gengar ex, Temporal Forces",
+      "look": "Full art. The character fills the whole card, no artwork window, usually textured.",
+      "chase": true
+    },
+    {
+      "name": "Illustration Rare",
+      "symbol": "One gold star",
+      "shape": "star",
+      "colour": "gold",
+      "card": "https://images.pokemontcg.io/sv6/188_hires.png",
+      "example": "Eevee, Twilight Masquerade",
+      "look": "Full art of a normal Pokemon, not an ex, painted into a scene. The \"Pokemon in its habitat\" look.",
+      "chase": true
+    },
+    {
+      "name": "Special Illustration Rare",
+      "symbol": "Two gold stars",
+      "shape": "star star",
+      "colour": "gold",
+      "card": "https://images.pokemontcg.io/sv8pt5/161_hires.png",
+      "example": "Umbreon ex, Prismatic Evolutions",
+      "look": "Full art of an ex or a Supporter in a scene, with glitter over it. Usually the most valuable card in a set.",
+      "chase": true
+    },
+    {
+      "name": "ACE SPEC Rare",
+      "symbol": "Its own ACE SPEC banner",
+      "shape": "ace",
+      "colour": "ace",
+      "card": "https://images.pokemontcg.io/sv8pt5/119_hires.png",
+      "example": "Prime Catcher, Prismatic Evolutions",
+      "look": "A magenta and cyan Trainer or Special Energy. You are only allowed one in a deck, which is the whole point of them.",
+      "chase": false
+    },
+    {
+      "name": "Hyper Rare",
+      "symbol": "Three gold stars",
+      "shape": "star star star",
+      "colour": "gold",
+      "card": "https://images.pokemontcg.io/sv3/228_hires.png",
+      "example": "Charizard ex, Obsidian Flames",
+      "look": "The whole card is gold, borders and all. Unmistakable across a room.",
+      "chase": true
+    },
+    {
+      "name": "Mega Hyper Rare",
+      "symbol": "One gold sparkle",
+      "shape": "sparkle",
+      "colour": "gold",
+      "card": "https://images.scrydex.com/pokemon/me5-120/large",
+      "example": "Mega Darkrai ex, Pitch Black",
+      "look": "Gold etched Mega Evolution ex with artwork drawn for it rather than a gold recolour of an existing card.",
+      "note": "New to the Mega Evolution era. The symbol is a single four pointed sparkle with a heavy black outline, not three stars: several guides get this wrong.",
+      "chase": true
+    }
+  ],
+  "slang": [
+    ["IR", "Illustration Rare. One gold star, full art of a non-ex Pokemon in a scene."],
+    ["SIR", "Special Illustration Rare. Two gold stars. Usually the best card in the set."],
+    ["AA / alt art", "Alternate art. Collector slang, not a printed rarity. On a modern card it almost always means an IR or an SIR."],
+    ["FA", "Full art. The illustration covers the whole card with no artwork window."],
+    ["RH", "Reverse holo. Foil on everything except the artwork. Does not change the card's rarity."],
+    ["UR", "Ultra Rare. Two silver stars, a full art ex."],
+    ["Hit", "Any card out of a pack worth meaningfully more than the pack cost."],
+    ["Chase", "The one card everybody is opening the set hoping to find."],
+    ["Bulk", "Commons, uncommons and low value rares. Sold by weight or by the thousand."],
+    ["Slab", "A card sealed in a rigid case by a grading company."],
+    ["Grading", "Sending a card away to be authenticated and scored on condition. PSA runs 1 to 10 and is the market standard for Pokemon; BGS and CGC also grade."],
+    ["Secret rare", "A card numbered higher than the set total, like 199/198."],
+    ["Regulation mark", "The single letter in the bottom corner. It controls tournament legality and has nothing to do with rarity or value."]
+  ],
+  "gone": [
+    ["Pokemon LV.X", "2007 to 2009", "Played on top of an Active Pokemon. Gold band across the top."],
+    ["Pokemon Prime", "2010", "The word Prime is not printed anywhere on the card. Spot them by the gold name text and spiked artwork edges."],
+    ["Pokemon LEGEND", "2010", "Two card halves that combined into one Pokemon."],
+    ["Pokemon-EX and M Pokemon-EX", "2012 to 2016", "The uppercase EX. Mega EX ended your turn unless you used a Spirit Link."],
+    ["Pokemon BREAK", "2015 to 2016", "Printed sideways and stacked on the stage below."],
+    ["Pokemon-GX", "2017 to 2019", "One GX attack per game. Tag Team GX put two Pokemon on a card and gave up three prizes."],
+    ["Rainbow rares", "2017 to 2022", "Discontinued at Scarlet and Violet. They are not coming out of a modern pack, whatever the glitter on a Special Illustration Rare looks like."],
+    ["V, VMAX and VSTAR", "2020 to January 2023", "Ended at Crown Zenith."],
+    ["Radiant Pokemon", "2022 to 2023", "Always Basic, one per deck, only worth one prize."]
+  ]
+}
