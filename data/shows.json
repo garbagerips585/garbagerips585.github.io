@@ -23,9 +23,17 @@
     "  - Southern Tier shows (Endicott, Elmira Heights, Nichols). They turn up in",
     "    the same regional feeds but they are two and a half to three hours from",
     "    Rochester and closer to Binghamton than to any of the three cities.",
-    "  - Any event whose date could not be confirmed on a real listing. RocPokeCon",
-    "    and the WNY Sports Card Expo are in `watchFor` instead, because both are",
-    "    real recurring shows with no announced next date.",
+    "  - Any event whose date could not be confirmed on a real listing. The WNY",
+    "    Sports Card Expo is in `watchFor` instead: a real recurring show with no",
+    "    announced next date. Move an entry out of `watchFor` and into `shows` as",
+    "    soon as it has one, the way RocPokeCon moved once Halloween was posted.",
+    "",
+    "OPTIONAL FIELDS worth knowing about, both used by RocPokeCon:",
+    "  - `featured: true` gives an event the gold treatment and a 'The big one'",
+    "    flag. Meant for one show at a time, or it stops meaning anything.",
+    "  - `tiers` renders a price table and feeds the Offer structured data. Use it",
+    "    when a show has real ticket levels; `admission` alone is fine otherwise.",
+    "  - `ticketUrl` adds a Get tickets button next to the site link.",
     "  - Admission prices that were not stated. An unstated price shows as",
     "    'Check the listing' rather than a guess, because turning up expecting free",
     "    entry and finding a cover charge is exactly the sort of wrong this page",
@@ -45,12 +53,6 @@
     }
   ],
   "watchFor": [
-    {
-      "name": "RocPokeCon",
-      "what": "A 100% Pokemon card and collectibles show at the Perinton Community Center in Fairport, around 70 vendor tables, mostly Rochester and Buffalo sellers. Last one ran March 7, 2026. No next date announced yet.",
-      "where": "Perinton Community Center, 1350 Turk Hill Rd, Fairport NY",
-      "url": "https://www.rocpokecon.com/"
-    },
     {
       "name": "WNY Sports Card Expo",
       "what": "The big two day Western New York expo. Ran March 28 and 29, 2026. No next date announced yet.",
@@ -272,6 +274,47 @@
       "admission": "Free",
       "url": "https://cardshows.io/events/585cardz-batavia-card-and-collectibles-show-10-21-2026",
       "source": "cardshows.io"
+    },
+    {
+      "id": "rocpokecon-2026-10-31",
+      "name": "RocPokéCon",
+      "date": "2026-10-31",
+      "start": "07:00",
+      "end": "17:00",
+      "venue": "Gordon Field House at RIT",
+      "address": "149 Lomb Memorial Drive, Rochester, NY 14623",
+      "city": "Rochester",
+      "region": "roc",
+      "pokemon": true,
+      "featured": true,
+      "admission": "$5 general",
+      "tiers": [
+        {
+          "name": "General admission",
+          "price": "$5",
+          "from": "10:00",
+          "note": "12 and under free"
+        },
+        {
+          "name": "Early entry",
+          "price": "$15",
+          "from": "09:00",
+          "note": "12 and under free"
+        },
+        {
+          "name": "VIP package",
+          "price": "$95",
+          "from": "07:00",
+          "note": "Vendor floor at 8:30am, VIP suite all day, MSRP table, gift bag with lanyard and shirt"
+        }
+      ],
+      "blurb": "The big one, and it lands on Halloween. 160+ vendor tables at RIT, all Pokemon, vendors from across New York. Doors from 7am for VIP, 10am for everyone else.",
+      "warn": "Presale prices go up $5 at 7pm on Friday October 30, so buy before then.",
+      "organiser": "RocPokéCon",
+      "organiserUrl": "https://www.rocpokecon.com",
+      "ticketUrl": "https://www.rocpokecon.com/events/tickets",
+      "url": "https://www.rocpokecon.com",
+      "source": "rocpokecon.com"
     },
     {
       "id": "collectorsfest-112-2026-11-01",

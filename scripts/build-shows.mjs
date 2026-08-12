@@ -129,17 +129,32 @@ const ld = [
         addressCountry: "US",
       },
     },
-    ...(s.admission === "Free"
+    // Offers only where a real price exists. A free show is price 0; a show with
+    // ticket tiers lists each one; a show whose admission was never stated gets
+    // no offers block at all, rather than a made up zero that would show as
+    // "Free" in a search result.
+    ...((s.tiers || []).length
       ? {
-          offers: {
+          offers: s.tiers.map((t) => ({
             "@type": "Offer",
-            price: "0",
+            name: t.name,
+            price: String(t.price).replace(/[^0-9.]/g, ""),
             priceCurrency: "USD",
             availability: "https://schema.org/InStock",
-            url: s.url,
-          },
+            url: s.ticketUrl || s.url,
+          })),
         }
-      : {}),
+      : s.admission === "Free"
+        ? {
+            offers: {
+              "@type": "Offer",
+              price: "0",
+              priceCurrency: "USD",
+              availability: "https://schema.org/InStock",
+              url: s.url,
+            },
+          }
+        : {}),
     ...(s.url ? { url: s.url } : {}),
   })),
 ];
@@ -188,12 +203,13 @@ function showCard(s) {
   const flyer = flyerSrc(s);
   const soon = daysAway(s.date);
   const d = new Date(s.date + "T12:00:00");
-  return `      <article class="show" data-region="${esc(s.region || "")}" data-date="${esc(s.date)}"${s.pokemon ? ' data-pokemon="1"' : ""}>
+  return `      <article class="show${s.featured ? " is-featured" : ""}" data-region="${esc(s.region || "")}" data-date="${esc(s.date)}"${s.pokemon ? ' data-pokemon="1"' : ""}>
         <div class="show-when" aria-hidden="true">
           <span class="show-mon">${MONTHS_LONG[d.getMonth()].slice(0, 3)}</span>
           <span class="show-day">${d.getDate()}</span>
         </div>
         <div class="show-body">
+          ${s.featured ? `<p class="show-flag">The big one</p>` : ""}
           <h3>${esc(s.name)}</h3>
           <p class="show-meta">${esc(weekday(s.date))}${
             timeRange(s.start, s.end) ? ` &bull; ${esc(timeRange(s.start, s.end))}` : ""
@@ -205,10 +221,18 @@ function showCard(s) {
             <span class="chip">${s.admission ? esc(s.admission) : "Check the listing"}</span>
           </div>
           ${s.blurb ? `<p class="show-blurb">${esc(s.blurb)}</p>` : ""}
+          ${(s.tiers || []).length ? `<ul class="tiers">
+            ${s.tiers.map((t) => `<li>
+              <span class="tier-price">${esc(t.price)}</span>
+              <span class="tier-name">${esc(t.name)}${t.from ? ` <span class="tier-from">from ${esc(clock(t.from))}</span>` : ""}</span>
+              ${t.note ? `<span class="tier-note">${esc(t.note)}</span>` : ""}
+            </li>`).join("\n            ")}
+          </ul>` : ""}
           ${s.warn ? `<p class="show-warn">${esc(s.warn)}</p>` : ""}
           <p class="show-links">
-            ${s.url ? `<a href="${esc(s.url)}" rel="noopener" target="_blank">Listing &amp; details</a>` : ""}
-            ${s.organiserUrl ? `<a href="${esc(s.organiserUrl)}" rel="noopener" target="_blank">${esc(s.organiser || "Organiser")}</a>` : ""}
+            ${s.ticketUrl ? `<a class="tickets" href="${esc(s.ticketUrl)}" rel="noopener" target="_blank">Get tickets <span aria-hidden="true">&rarr;</span></a>` : ""}
+            ${s.url ? `<a href="${esc(s.url)}" rel="noopener" target="_blank">${s.organiserUrl && s.url === s.organiserUrl ? "Official site" : "Listing &amp; details"}</a>` : ""}
+            ${s.organiserUrl && s.organiserUrl !== s.url ? `<a href="${esc(s.organiserUrl)}" rel="noopener" target="_blank">${esc(s.organiser || "Organiser")}</a>` : ""}
           </p>
         </div>
         ${flyer ? `<a class="show-flyer" href="${esc(flyer)}" target="_blank" rel="noopener">

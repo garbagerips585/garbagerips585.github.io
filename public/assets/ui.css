@@ -1510,3 +1510,25 @@ footer .soc svg{fill:var(--paper)}
   .show-flyer img{max-height:300px}
   .watch-list{grid-template-columns:1fr 1fr}
 }
+
+/* A show big enough to plan around. One at a time, ideally. */
+.show.is-featured{border-color:var(--gold-deep);box-shadow:0 4px 0 var(--gold-deep),var(--lift)}
+.show.is-featured .show-when{background:var(--ketchup)}
+.show.is-featured .show-when .show-mon{color:#fff}
+.show-flag{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ketchup-deep);margin-bottom:4px}
+
+/* Ticket tiers. Price first because that is what the eye is looking for, and
+   the whole row wraps on a narrow screen rather than squashing the note. */
+.tiers{list-style:none;margin-top:12px;display:grid;gap:6px}
+.tiers li{display:grid;grid-template-columns:auto 1fr;gap:2px var(--s3);align-items:baseline;
+  padding:8px 10px;background:var(--paper-3);border-radius:var(--r-sm)}
+.tier-price{font:400 1.05rem/1 var(--display);color:var(--ketchup-deep)}
+.tier-name{font-weight:600;font-size:var(--t-sm)}
+.tier-from{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;
+  letter-spacing:.04em}
+.tier-note{grid-column:2;font-size:var(--t-micro);color:var(--ink-2);line-height:1.5}
+
+.show-links a.tickets{background:var(--gold);color:var(--navy);border:2px solid var(--navy);
+  border-radius:999px;padding:0 16px;box-shadow:0 3px 0 var(--gold-deep)}
+.show-links a.tickets:hover{background:var(--mustard);text-decoration:none}
