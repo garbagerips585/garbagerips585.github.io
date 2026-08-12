@@ -141,6 +141,7 @@ await mkdir(OUTDIR, { recursive: true });
 
 const warnings = [];
 const index = [];
+const imgBase = {};
 const summary = [];
 let totalCards = 0;
 let totalPriced = 0;
@@ -228,6 +229,11 @@ for (const [slug, tcgdexId] of entries) {
   for (const c of cards) {
     index.push([c.name, slug, c.n, c.rarity || "", c.price ?? null]);
   }
+  // The shared half of every image url in this set, e.g.
+  // https://assets.tcgdex.net/en/sv/sv08.5 . The card's own number and the size
+  // are appended at render time. One string per set instead of 4,481.
+  const sample = cards.find((c) => c.img);
+  if (sample) imgBase[slug] = sample.img.replace(/\/[^/]+$/, "");
 
   summary.push({ slug, name: ours.name, cards: cards.length, priced });
   console.log(
@@ -242,6 +248,7 @@ await writeFile(
     checked: new Date().toISOString().slice(0, 10),
     fields: ["name", "set", "number", "rarity", "price"],
     sets: Object.fromEntries(summary.map((s) => [s.slug, s.name])),
+    imgBase,
     cards: index,
   }) + "\n"
 );

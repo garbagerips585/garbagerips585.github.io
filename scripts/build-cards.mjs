@@ -28,6 +28,10 @@ const index = JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 
 const setName = index.sets || {};
+// One prefix per set; the card's own number and the size complete the url. See
+// sync-cards.mjs for why it is not stored per card.
+const imgBase = index.imgBase || {};
+const thumb = (slug, n) => (imgBase[slug] && n ? `${imgBase[slug]}/${n}/low.webp` : "");
 const rows = index.cards || [];
 const priced = rows.filter((r) => typeof r[4] === "number");
 const top = priced.slice().sort((a, b) => b[4] - a[4]).slice(0, 60);
@@ -64,7 +68,9 @@ const ld = [
 
 const row = (r) => {
   const [name, slug, n, rarity, price] = r;
-  return `<li class="cq">
+  const src = thumb(slug, n);
+  return `<li class="cq has-thumb">
+        ${src ? `<img class="cq-img" src="${esc(src)}" alt="" loading="lazy" width="60" height="84">` : ""}
         <a class="cq-name" href="/sets/${esc(slug)}.html">${esc(name)}</a>
         <span class="cq-set">${esc(setName[slug] || slug)} &bull; ${esc(n || "")}</span>
         ${rarity ? `<span class="cq-rr">${esc(rarity)}</span>` : ""}

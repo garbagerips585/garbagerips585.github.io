@@ -115,38 +115,72 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Dearest first</p>
     <h2>Every <span class="hl">Leafeon</span></h2>
-    <ol class="cq-list">
-      <li class="cq">
-        <a class="cq-name" href="/sets/prismatic-evolutions.html">Leafeon ex</a>
-        <span class="cq-set">Prismatic Evolutions &bull; 144</span>
-        <span class="cq-rr">Special illustration rare</span>
-        <span class="cq-pr">$336.93</span>
-      </li>
-      <li class="cq">
-        <a class="cq-name" href="/sets/prismatic-evolutions.html">Leafeon ex</a>
-        <span class="cq-set">Prismatic Evolutions &bull; 006</span>
-        <span class="cq-rr">Double rare</span>
-        <span class="cq-pr">$4.28</span>
-      </li>
-      <li class="cq">
-        <a class="cq-name" href="/sets/prismatic-evolutions.html">Leafeon</a>
-        <span class="cq-set">Prismatic Evolutions &bull; 005</span>
-        <span class="cq-rr">Rare</span>
-        <span class="cq-pr">$0.42</span>
-      </li>
-      <li class="cq">
-        <a class="cq-name" href="/sets/twilight-masquerade.html">Leafeon</a>
-        <span class="cq-set">Twilight Masquerade &bull; 011</span>
-        <span class="cq-rr">Uncommon</span>
-        <span class="cq-pr">$0.39</span>
-      </li>
-    </ol>
+    <div class="chase-grid">
+      <button class="chase-card" type="button"
+        data-img="https://assets.tcgdex.net/en/sv/sv08.5/144/high.webp"
+        data-name="Leafeon ex" data-rarity="Special illustration rare"
+        data-number="144" data-price="$336.93"
+        data-set="Prismatic Evolutions"
+        aria-label="Enlarge Leafeon ex">
+        <img src="https://assets.tcgdex.net/en/sv/sv08.5/144/low.webp" alt="Leafeon ex 144, Prismatic Evolutions" loading="lazy" width="245" height="342">
+        <div class="nm">Leafeon ex</div>
+        <div class="rr">Prismatic Evolutions &bull; 144</div>
+        <div class="rr">Special illustration rare</div>
+        <div class="pr">$336.93</div>
+      </button>
+      <button class="chase-card" type="button"
+        data-img="https://assets.tcgdex.net/en/sv/sv08.5/006/high.webp"
+        data-name="Leafeon ex" data-rarity="Double rare"
+        data-number="006" data-price="$4.28"
+        data-set="Prismatic Evolutions"
+        aria-label="Enlarge Leafeon ex">
+        <img src="https://assets.tcgdex.net/en/sv/sv08.5/006/low.webp" alt="Leafeon ex 006, Prismatic Evolutions" loading="lazy" width="245" height="342">
+        <div class="nm">Leafeon ex</div>
+        <div class="rr">Prismatic Evolutions &bull; 006</div>
+        <div class="rr">Double rare</div>
+        <div class="pr">$4.28</div>
+      </button>
+      <button class="chase-card" type="button"
+        data-img="https://assets.tcgdex.net/en/sv/sv08.5/005/high.webp"
+        data-name="Leafeon" data-rarity="Rare"
+        data-number="005" data-price="$0.42"
+        data-set="Prismatic Evolutions"
+        aria-label="Enlarge Leafeon">
+        <img src="https://assets.tcgdex.net/en/sv/sv08.5/005/low.webp" alt="Leafeon 005, Prismatic Evolutions" loading="lazy" width="245" height="342">
+        <div class="nm">Leafeon</div>
+        <div class="rr">Prismatic Evolutions &bull; 005</div>
+        <div class="rr">Rare</div>
+        <div class="pr">$0.42</div>
+      </button>
+      <button class="chase-card" type="button"
+        data-img="https://assets.tcgdex.net/en/sv/sv06/011/high.webp"
+        data-name="Leafeon" data-rarity="Uncommon"
+        data-number="011" data-price="$0.39"
+        data-set="Twilight Masquerade"
+        aria-label="Enlarge Leafeon">
+        <img src="https://assets.tcgdex.net/en/sv/sv06/011/low.webp" alt="Leafeon 011, Twilight Masquerade" loading="lazy" width="245" height="342">
+        <div class="nm">Leafeon</div>
+        <div class="rr">Twilight Masquerade &bull; 011</div>
+        <div class="rr">Uncommon</div>
+        <div class="pr">$0.39</div>
+      </button>
+    </div>
     <p class="price-note">TCGplayer market prices via TCGdex, read August 12, 2026. Where a card
       comes as a normal, holo and reverse holo at different prices, the figure is the dearest of them. Prices move
       daily, so treat these as a ballpark. <a href="/cards.html?q=Leafeon">Search every card</a>.</p>
   </div>
 </section>
 
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card image">
+  <div class="lb-inner">
+    <button class="lb-close" type="button" aria-label="Close">&times;</button>
+    <img id="lbImg" src="" alt="">
+    <p class="lb-nm" id="lbNm"></p>
+    <p class="lb-rr" id="lbRr"></p>
+    <p class="lb-pr" id="lbPr"></p>
+  </div>
+</div>
 
 </main>
 <footer>
@@ -181,6 +215,26 @@
     Card data from TCGdex, prices from TCGplayer. Fan made, not official.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
+<script>
+(function(){
+  var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), last=null;
+  function open(b){
+    last=b;
+    img.src=b.dataset.img; img.alt=b.dataset.name+' '+b.dataset.number;
+    document.getElementById('lbNm').textContent=b.dataset.name;
+    document.getElementById('lbRr').textContent=[b.dataset.set,b.dataset.rarity,b.dataset.number].filter(Boolean).join(' • ');
+    document.getElementById('lbPr').textContent=b.dataset.price||'';
+    lb.classList.add('on'); document.body.style.overflow='hidden';
+    lb.querySelector('.lb-close').focus();
+  }
+  function close(){ lb.classList.remove('on'); document.body.style.overflow=''; if(last) last.focus(); }
+  document.querySelectorAll('.chase-card').forEach(function(b){
+    b.addEventListener('click',function(){ if(b.dataset.img) open(b); });
+  });
+  lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
+})();
+</script>
 <script src="/assets/app.js" defer></script>
 </body>
 </html>

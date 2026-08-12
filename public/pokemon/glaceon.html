@@ -115,38 +115,72 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Dearest first</p>
     <h2>Every <span class="hl">Glaceon</span></h2>
-    <ol class="cq-list">
-      <li class="cq">
-        <a class="cq-name" href="/sets/prismatic-evolutions.html">Glaceon ex</a>
-        <span class="cq-set">Prismatic Evolutions &bull; 150</span>
-        <span class="cq-rr">Special illustration rare</span>
-        <span class="cq-pr">$277.78</span>
-      </li>
-      <li class="cq">
-        <a class="cq-name" href="/sets/prismatic-evolutions.html">Glaceon ex</a>
-        <span class="cq-set">Prismatic Evolutions &bull; 026</span>
-        <span class="cq-rr">Double rare</span>
-        <span class="cq-pr">$2.57</span>
-      </li>
-      <li class="cq">
-        <a class="cq-name" href="/sets/prismatic-evolutions.html">Glaceon</a>
-        <span class="cq-set">Prismatic Evolutions &bull; 025</span>
-        <span class="cq-rr">Rare</span>
-        <span class="cq-pr">$0.41</span>
-      </li>
-      <li class="cq">
-        <a class="cq-name" href="/sets/twilight-masquerade.html">Glaceon</a>
-        <span class="cq-set">Twilight Masquerade &bull; 054</span>
-        <span class="cq-rr">Uncommon</span>
-        <span class="cq-pr">$0.41</span>
-      </li>
-    </ol>
+    <div class="chase-grid">
+      <button class="chase-card" type="button"
+        data-img="https://assets.tcgdex.net/en/sv/sv08.5/150/high.webp"
+        data-name="Glaceon ex" data-rarity="Special illustration rare"
+        data-number="150" data-price="$277.78"
+        data-set="Prismatic Evolutions"
+        aria-label="Enlarge Glaceon ex">
+        <img src="https://assets.tcgdex.net/en/sv/sv08.5/150/low.webp" alt="Glaceon ex 150, Prismatic Evolutions" loading="lazy" width="245" height="342">
+        <div class="nm">Glaceon ex</div>
+        <div class="rr">Prismatic Evolutions &bull; 150</div>
+        <div class="rr">Special illustration rare</div>
+        <div class="pr">$277.78</div>
+      </button>
+      <button class="chase-card" type="button"
+        data-img="https://assets.tcgdex.net/en/sv/sv08.5/026/high.webp"
+        data-name="Glaceon ex" data-rarity="Double rare"
+        data-number="026" data-price="$2.57"
+        data-set="Prismatic Evolutions"
+        aria-label="Enlarge Glaceon ex">
+        <img src="https://assets.tcgdex.net/en/sv/sv08.5/026/low.webp" alt="Glaceon ex 026, Prismatic Evolutions" loading="lazy" width="245" height="342">
+        <div class="nm">Glaceon ex</div>
+        <div class="rr">Prismatic Evolutions &bull; 026</div>
+        <div class="rr">Double rare</div>
+        <div class="pr">$2.57</div>
+      </button>
+      <button class="chase-card" type="button"
+        data-img="https://assets.tcgdex.net/en/sv/sv08.5/025/high.webp"
+        data-name="Glaceon" data-rarity="Rare"
+        data-number="025" data-price="$0.41"
+        data-set="Prismatic Evolutions"
+        aria-label="Enlarge Glaceon">
+        <img src="https://assets.tcgdex.net/en/sv/sv08.5/025/low.webp" alt="Glaceon 025, Prismatic Evolutions" loading="lazy" width="245" height="342">
+        <div class="nm">Glaceon</div>
+        <div class="rr">Prismatic Evolutions &bull; 025</div>
+        <div class="rr">Rare</div>
+        <div class="pr">$0.41</div>
+      </button>
+      <button class="chase-card" type="button"
+        data-img="https://assets.tcgdex.net/en/sv/sv06/054/high.webp"
+        data-name="Glaceon" data-rarity="Uncommon"
+        data-number="054" data-price="$0.41"
+        data-set="Twilight Masquerade"
+        aria-label="Enlarge Glaceon">
+        <img src="https://assets.tcgdex.net/en/sv/sv06/054/low.webp" alt="Glaceon 054, Twilight Masquerade" loading="lazy" width="245" height="342">
+        <div class="nm">Glaceon</div>
+        <div class="rr">Twilight Masquerade &bull; 054</div>
+        <div class="rr">Uncommon</div>
+        <div class="pr">$0.41</div>
+      </button>
+    </div>
     <p class="price-note">TCGplayer market prices via TCGdex, read August 12, 2026. Where a card
       comes as a normal, holo and reverse holo at different prices, the figure is the dearest of them. Prices move
       daily, so treat these as a ballpark. <a href="/cards.html?q=Glaceon">Search every card</a>.</p>
   </div>
 </section>
 
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card image">
+  <div class="lb-inner">
+    <button class="lb-close" type="button" aria-label="Close">&times;</button>
+    <img id="lbImg" src="" alt="">
+    <p class="lb-nm" id="lbNm"></p>
+    <p class="lb-rr" id="lbRr"></p>
+    <p class="lb-pr" id="lbPr"></p>
+  </div>
+</div>
 
 </main>
 <footer>
@@ -181,6 +215,26 @@
     Card data from TCGdex, prices from TCGplayer. Fan made, not official.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
+<script>
+(function(){
+  var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), last=null;
+  function open(b){
+    last=b;
+    img.src=b.dataset.img; img.alt=b.dataset.name+' '+b.dataset.number;
+    document.getElementById('lbNm').textContent=b.dataset.name;
+    document.getElementById('lbRr').textContent=[b.dataset.set,b.dataset.rarity,b.dataset.number].filter(Boolean).join(' • ');
+    document.getElementById('lbPr').textContent=b.dataset.price||'';
+    lb.classList.add('on'); document.body.style.overflow='hidden';
+    lb.querySelector('.lb-close').focus();
+  }
+  function close(){ lb.classList.remove('on'); document.body.style.overflow=''; if(last) last.focus(); }
+  document.querySelectorAll('.chase-card').forEach(function(b){
+    b.addEventListener('click',function(){ if(b.dataset.img) open(b); });
+  });
+  lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
+})();
+</script>
 <script src="/assets/app.js" defer></script>
 </body>
 </html>

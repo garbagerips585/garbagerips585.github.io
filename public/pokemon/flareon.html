@@ -115,38 +115,72 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Dearest first</p>
     <h2>Every <span class="hl">Flareon</span></h2>
-    <ol class="cq-list">
-      <li class="cq">
-        <a class="cq-name" href="/sets/prismatic-evolutions.html">Flareon ex</a>
-        <span class="cq-set">Prismatic Evolutions &bull; 146</span>
-        <span class="cq-rr">Special illustration rare</span>
-        <span class="cq-pr">$225.44</span>
-      </li>
-      <li class="cq">
-        <a class="cq-name" href="/sets/prismatic-evolutions.html">Flareon ex</a>
-        <span class="cq-set">Prismatic Evolutions &bull; 014</span>
-        <span class="cq-rr">Double rare</span>
-        <span class="cq-pr">$4.69</span>
-      </li>
-      <li class="cq">
-        <a class="cq-name" href="/sets/151.html">Flareon</a>
-        <span class="cq-set">151 &bull; 136</span>
-        <span class="cq-rr">Rare</span>
-        <span class="cq-pr">$1.83</span>
-      </li>
-      <li class="cq">
-        <a class="cq-name" href="/sets/prismatic-evolutions.html">Flareon</a>
-        <span class="cq-set">Prismatic Evolutions &bull; 013</span>
-        <span class="cq-rr">Rare</span>
-        <span class="cq-pr">$0.36</span>
-      </li>
-    </ol>
+    <div class="chase-grid">
+      <button class="chase-card" type="button"
+        data-img="https://assets.tcgdex.net/en/sv/sv08.5/146/high.webp"
+        data-name="Flareon ex" data-rarity="Special illustration rare"
+        data-number="146" data-price="$225.44"
+        data-set="Prismatic Evolutions"
+        aria-label="Enlarge Flareon ex">
+        <img src="https://assets.tcgdex.net/en/sv/sv08.5/146/low.webp" alt="Flareon ex 146, Prismatic Evolutions" loading="lazy" width="245" height="342">
+        <div class="nm">Flareon ex</div>
+        <div class="rr">Prismatic Evolutions &bull; 146</div>
+        <div class="rr">Special illustration rare</div>
+        <div class="pr">$225.44</div>
+      </button>
+      <button class="chase-card" type="button"
+        data-img="https://assets.tcgdex.net/en/sv/sv08.5/014/high.webp"
+        data-name="Flareon ex" data-rarity="Double rare"
+        data-number="014" data-price="$4.69"
+        data-set="Prismatic Evolutions"
+        aria-label="Enlarge Flareon ex">
+        <img src="https://assets.tcgdex.net/en/sv/sv08.5/014/low.webp" alt="Flareon ex 014, Prismatic Evolutions" loading="lazy" width="245" height="342">
+        <div class="nm">Flareon ex</div>
+        <div class="rr">Prismatic Evolutions &bull; 014</div>
+        <div class="rr">Double rare</div>
+        <div class="pr">$4.69</div>
+      </button>
+      <button class="chase-card" type="button"
+        data-img="https://assets.tcgdex.net/en/sv/sv03.5/136/high.webp"
+        data-name="Flareon" data-rarity="Rare"
+        data-number="136" data-price="$1.83"
+        data-set="151"
+        aria-label="Enlarge Flareon">
+        <img src="https://assets.tcgdex.net/en/sv/sv03.5/136/low.webp" alt="Flareon 136, 151" loading="lazy" width="245" height="342">
+        <div class="nm">Flareon</div>
+        <div class="rr">151 &bull; 136</div>
+        <div class="rr">Rare</div>
+        <div class="pr">$1.83</div>
+      </button>
+      <button class="chase-card" type="button"
+        data-img="https://assets.tcgdex.net/en/sv/sv08.5/013/high.webp"
+        data-name="Flareon" data-rarity="Rare"
+        data-number="013" data-price="$0.36"
+        data-set="Prismatic Evolutions"
+        aria-label="Enlarge Flareon">
+        <img src="https://assets.tcgdex.net/en/sv/sv08.5/013/low.webp" alt="Flareon 013, Prismatic Evolutions" loading="lazy" width="245" height="342">
+        <div class="nm">Flareon</div>
+        <div class="rr">Prismatic Evolutions &bull; 013</div>
+        <div class="rr">Rare</div>
+        <div class="pr">$0.36</div>
+      </button>
+    </div>
     <p class="price-note">TCGplayer market prices via TCGdex, read August 12, 2026. Where a card
       comes as a normal, holo and reverse holo at different prices, the figure is the dearest of them. Prices move
       daily, so treat these as a ballpark. <a href="/cards.html?q=Flareon">Search every card</a>.</p>
   </div>
 </section>
 
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card image">
+  <div class="lb-inner">
+    <button class="lb-close" type="button" aria-label="Close">&times;</button>
+    <img id="lbImg" src="" alt="">
+    <p class="lb-nm" id="lbNm"></p>
+    <p class="lb-rr" id="lbRr"></p>
+    <p class="lb-pr" id="lbPr"></p>
+  </div>
+</div>
 
 </main>
 <footer>
@@ -181,6 +215,26 @@
     Card data from TCGdex, prices from TCGplayer. Fan made, not official.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
+<script>
+(function(){
+  var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), last=null;
+  function open(b){
+    last=b;
+    img.src=b.dataset.img; img.alt=b.dataset.name+' '+b.dataset.number;
+    document.getElementById('lbNm').textContent=b.dataset.name;
+    document.getElementById('lbRr').textContent=[b.dataset.set,b.dataset.rarity,b.dataset.number].filter(Boolean).join(' • ');
+    document.getElementById('lbPr').textContent=b.dataset.price||'';
+    lb.classList.add('on'); document.body.style.overflow='hidden';
+    lb.querySelector('.lb-close').focus();
+  }
+  function close(){ lb.classList.remove('on'); document.body.style.overflow=''; if(last) last.focus(); }
+  document.querySelectorAll('.chase-card').forEach(function(b){
+    b.addEventListener('click',function(){ if(b.dataset.img) open(b); });
+  });
+  lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
+})();
+</script>
 <script src="/assets/app.js" defer></script>
 </body>
 </html>

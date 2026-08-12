@@ -195,18 +195,24 @@ function pokePage(p) {
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Dearest first</p>
     <h2>Every <span class="hl">${esc(p.name)}</span></h2>
-    <ol class="cq-list">
+    <div class="chase-grid">
       ${sorted
         .map(
-          (c) => `<li class="cq">
-        <a class="cq-name" href="/sets/${esc(c.set)}.html">${esc(c.name)}</a>
-        <span class="cq-set">${esc(c.setName)} &bull; ${esc(c.n || "")}</span>
-        ${c.rarity ? `<span class="cq-rr">${esc(c.rarity)}</span>` : ""}
-        ${typeof c.price === "number" ? `<span class="cq-pr">${money(c.price)}</span>` : ""}
-      </li>`
+          (c) => `<button class="chase-card" type="button"
+        data-img="${esc(c.img ? c.img + "/high.webp" : "")}"
+        data-name="${esc(c.name)}" data-rarity="${esc(c.rarity || "")}"
+        data-number="${esc(c.n || "")}" data-price="${esc(money(c.price))}"
+        data-set="${esc(c.setName)}"
+        aria-label="Enlarge ${esc(c.name)}">
+        ${c.img ? `<img src="${esc(c.img)}/low.webp" alt="${esc(c.name)} ${esc(c.n || "")}, ${esc(c.setName)}" loading="lazy" width="245" height="342">` : ""}
+        <div class="nm">${esc(c.name)}</div>
+        <div class="rr">${esc(c.setName)} &bull; ${esc(c.n || "")}</div>
+        ${c.rarity ? `<div class="rr">${esc(c.rarity)}</div>` : ""}
+        ${typeof c.price === "number" ? `<div class="pr">${money(c.price)}</div>` : ""}
+      </button>`
         )
         .join("\n      ")}
-    </ol>
+    </div>
     <p class="price-note">TCGplayer market prices via TCGdex, read ${esc(longDate(checked) || checked)}. Where a card
       comes as a normal, holo and reverse holo at different prices, the figure is the dearest of them. Prices move
       daily, so treat these as a ballpark. <a href="/cards.html?q=${encodeURIComponent(p.name)}">Search every card</a>.</p>
@@ -224,8 +230,38 @@ ${rips.length ? `
   </div>
 </section>` : ""}
 
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card image">
+  <div class="lb-inner">
+    <button class="lb-close" type="button" aria-label="Close">&times;</button>
+    <img id="lbImg" src="" alt="">
+    <p class="lb-nm" id="lbNm"></p>
+    <p class="lb-rr" id="lbRr"></p>
+    <p class="lb-pr" id="lbPr"></p>
+  </div>
+</div>
+
 </main>
 ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official.")}
+<script>
+(function(){
+  var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), last=null;
+  function open(b){
+    last=b;
+    img.src=b.dataset.img; img.alt=b.dataset.name+' '+b.dataset.number;
+    document.getElementById('lbNm').textContent=b.dataset.name;
+    document.getElementById('lbRr').textContent=[b.dataset.set,b.dataset.rarity,b.dataset.number].filter(Boolean).join(' \u2022 ');
+    document.getElementById('lbPr').textContent=b.dataset.price||'';
+    lb.classList.add('on'); document.body.style.overflow='hidden';
+    lb.querySelector('.lb-close').focus();
+  }
+  function close(){ lb.classList.remove('on'); document.body.style.overflow=''; if(last) last.focus(); }
+  document.querySelectorAll('.chase-card').forEach(function(b){
+    b.addEventListener('click',function(){ if(b.dataset.img) open(b); });
+  });
+  lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
+})();
+</script>
 <script src="/assets/app.js" defer></script>
 </body>
 </html>
@@ -260,14 +296,14 @@ function indexPage() {
 <section class="tight">
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / Pokemon</p>
-    <div class="set-index">
+    <div class="poke-grid">
       ${roster
         .map(
-          (p) => `<a class="set-card" href="/pokemon/${esc(p.slug)}.html">
-        <span>
-          <span class="ttl">${esc(p.name)}</span><br>
-          <span class="meta">${p.list.length} cards &bull; ${p.sets.size} sets &bull; top ${money0(p.dearest.price)}</span>
-        </span>
+          (p) => `<a class="poke-card" href="/pokemon/${esc(p.slug)}.html">
+        ${p.dearest.img ? `<img src="${esc(p.dearest.img)}/low.webp" alt="${esc(p.dearest.name)}, the most valuable ${esc(p.name)} card" loading="lazy" width="245" height="342">` : ""}
+        <span class="poke-nm">${esc(p.name)}</span>
+        <span class="poke-meta">${p.list.length} cards &bull; ${p.sets.size} sets</span>
+        <span class="poke-pr">top ${money0(p.dearest.price)}</span>
       </a>`
         )
         .join("\n      ")}

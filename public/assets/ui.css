@@ -1849,3 +1849,30 @@ footer .soc svg{fill:var(--paper)}
 .fk-see-list a:hover{text-decoration:underline}
 .fk-see-list span{font-size:var(--t-micro);color:var(--ink-2);line-height:1.6;max-width:56em}
 @media(min-width:820px){ .fk-see-list{grid-template-columns:repeat(3,1fr)} }
+
+/* /pokemon/ roster tiles. Each one leads with the most valuable card of that
+   Pokemon, because the picture is the reason somebody clicks. */
+.poke-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s3);margin-top:var(--s5)}
+.poke-card{display:flex;flex-direction:column;gap:2px;background:var(--card);
+  border:1px solid var(--hair);border-radius:var(--r);padding:var(--s3);box-shadow:var(--lift)}
+.poke-card:hover{border-color:var(--navy)}
+.poke-card img{width:100%;height:auto;border-radius:var(--r-sm);display:block;margin-bottom:6px}
+.poke-nm{font:400 var(--t-m)/1.15 var(--display);color:var(--ink)}
+.poke-card:hover .poke-nm{color:var(--ketchup-deep)}
+.poke-meta{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);text-transform:uppercase;
+  letter-spacing:.03em}
+.poke-pr{font:700 var(--t-sm)/1.4 var(--mono);color:var(--ketchup-deep)}
+@media(min-width:560px){ .poke-grid{grid-template-columns:repeat(3,1fr)} }
+@media(min-width:900px){ .poke-grid{grid-template-columns:repeat(5,1fr)} }
+@media(min-width:1400px){ .poke-grid{grid-template-columns:repeat(6,1fr)} }
+
+/* Thumbnails in search results. The row was a wall of text on a page about
+   cards; a 60px crop is enough to recognise one at a glance and costs 26KB
+   lazily. The grid gains a leading column and everything else shifts right. */
+.cq.has-thumb{grid-template-columns:60px 1fr auto}
+.cq-img{grid-row:1 / span 2;grid-column:1;width:60px;height:84px;object-fit:cover;
+  border-radius:4px;background:var(--paper-3);align-self:center}
+.cq.has-thumb .cq-name{grid-column:2}
+.cq.has-thumb .cq-set{grid-column:2}
+.cq.has-thumb .cq-pr{grid-column:3}
+.cq.has-thumb .cq-rr{grid-column:3}
