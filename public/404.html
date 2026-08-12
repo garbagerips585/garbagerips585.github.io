@@ -25,9 +25,23 @@
    instead of showing as a grey rectangle; and rendering only the .pack-l half
    reuses the jagged tear edge every rip page already uses, so the torn pack
    here is literally the same tear, not a second hand-drawn approximation. */
-.e404-pack{width:clamp(148px,40vw,186px);aspect-ratio:2/3;margin:0 auto var(--s5);
+.e404-art{--pw:clamp(148px,40vw,186px);
+  display:flex;align-items:flex-end;justify-content:center;
+  margin:0 auto var(--s5);width:max-content;max-width:100%}
+/* .pack-l clips the art at about 53% of the box, so the right 47% of .e404-pack
+   is empty space. Without pulling it back the mascot stands 47px clear of a
+   pack it is supposed to be leaning on, and the two read as separate stickers.
+   Tied to --pw so it holds at every size in the clamp. */
+.e404-pack{width:var(--pw);aspect-ratio:2/3;margin-right:calc(var(--pw) * -.38);
   position:relative;transform:rotate(-5deg);
   filter:drop-shadow(0 12px 20px rgba(21,38,58,.28))}
+/* He is looking at the empty pack, which is the whole gag, so he sits beside it
+   rather than above the heading. Overlapped slightly and pulled down so the two
+   read as one piece of art instead of two stickers side by side. */
+.e404-mascot{width:clamp(104px,29vw,136px);height:auto;margin-bottom:-2%;
+  transform:rotate(4deg);position:relative;z-index:2;
+  filter:drop-shadow(0 8px 14px rgba(21,38,58,.26))}
+@media(max-width:360px){.e404-mascot{display:none}}
 .e404-pack .pack{cursor:default}
 .e404 h1{font:400 clamp(2.2rem,9vw,3.6rem)/1 var(--display);margin-bottom:var(--s3)}
 .e404 p{color:var(--ink-2);font-size:var(--t-lede);margin-bottom:var(--s5)}
@@ -85,10 +99,14 @@
 <main id="main" class="e404">
   <div class="wrap">
     <div class="e404-in">
-      <div class="e404-pack">
-        <span class="pack pack--multi" aria-hidden="true">
-          <span class="pack-face pack-l"><span class="pack-art"></span></span>
-        </span>
+      <div class="e404-art">
+        <div class="e404-pack">
+          <span class="pack pack--multi" aria-hidden="true">
+            <span class="pack-face pack-l"><span class="pack-art"></span></span>
+          </span>
+        </div>
+        <img class="e404-mascot" src="/assets/trubbish.webp" alt=""
+             width="512" height="512" decoding="async">
       </div>
       <span class="e404-code">Error 404</span>
       <h1>Garbage rip.</h1>

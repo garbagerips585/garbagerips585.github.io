@@ -250,8 +250,21 @@
    * id, and a set with no logo file falls back to a text chip on error.
    */
 
-  function emptyState(big, small) {
+  function emptyState(big, small, withMascot) {
     var d = el("div", "empty");
+    // Only the "you filtered everything away" case gets the mascot. The loading
+    // and error states use this too, and a picture that pops in a moment before
+    // the grid replaces it is noise, not personality.
+    if (withMascot) {
+      var img = document.createElement("img");
+      img.className = "empty-mascot";
+      img.src = "/assets/trubbish.webp";
+      img.alt = "";
+      img.width = 512;
+      img.height = 512;
+      img.decoding = "async";
+      d.appendChild(img);
+    }
     d.appendChild(el("p", "big", big));
     d.appendChild(el("p", null, small));
     return d;
@@ -312,7 +325,7 @@
       var out = all.filter(matches).sort(SORTS[state.sort] || SORTS.new);
       grid.textContent = "";
       if (!out.length) {
-        grid.appendChild(emptyState("Nothing in that pile", "Try clearing a filter. Even the bulk has something in it."));
+        grid.appendChild(emptyState("Nothing in that pile", "Try clearing a filter. Even the bulk has something in it.", true));
       } else {
         var frag = document.createDocumentFragment();
         var prefer = state.sets.length === 1 ? state.sets[0] : null;
