@@ -32,7 +32,7 @@
 // source is both lighter and the honest way to use them. Every product links
 // back to its TCGplayer listing.
 
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, stat } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -200,12 +200,22 @@ for (const s of targets) {
   }
 
   const cacheFile = join(CACHE, `${s.id}.json`);
-  let raw;
+  let raw, readOn;
   if (!FORCE && existsSync(cacheFile)) {
-    raw = JSON.parse(await readFile(cacheFile, "utf8"));
+    const c = JSON.parse(await readFile(cacheFile, "utf8"));
+    // Older cache files are a bare array with no date. Fall back to the file's
+    // own mtime rather than pretending it was read today.
+    if (Array.isArray(c)) {
+      raw = c;
+      readOn = (await stat(cacheFile)).mtime.toISOString().slice(0, 10);
+    } else {
+      raw = c.results;
+      readOn = c.fetched;
+    }
   } else {
     raw = await fetchSet(setName);
-    await writeFile(cacheFile, JSON.stringify(raw));
+    readOn = today;
+    await writeFile(cacheFile, JSON.stringify({ fetched: today, results: raw }));
     fetched++;
     await sleep(800);
   }
@@ -217,7 +227,12 @@ for (const s of targets) {
     continue;
   }
 
-  doc.sets[s.id] = { tcgSet: setName, checked: today, products };
+  // The date the PRICES were read, not the date this script ran. Stamping
+  // `today` unconditionally meant a cached run re-dated day-old prices as
+  // fresh, so the set pages said "read on August 12" about numbers fetched on
+  // the 11th. A price presented as more current than it is undermines the one
+  // reason the date is printed at all.
+  doc.sets[s.id] = { tcgSet: setName, checked: readOn, products };
   const cheapest = products.reduce((a, b) => (a.market < b.market ? a : b));
   report.push(
     `  ${s.id.padEnd(22)} ${String(products.length).padStart(2)} products` +
@@ -225,7 +240,9 @@ for (const s of targets) {
   );
 }
 
-doc.checked = today;
+// The newest per-set read, so the top-level date cannot claim to be fresher
+// than any of the data underneath it.
+doc.checked = Object.values(doc.sets).map((x) => x.checked).sort().pop() || today;
 doc.source = "TCGplayer";
 await writeFile(outPath, JSON.stringify(doc, null, 2) + "\n");
 
