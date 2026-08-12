@@ -109,8 +109,21 @@ async function fetchSingles(setName) {
   return out;
 }
 
-/** The cached Pokemon TCG API checklist for one set, across its pages. */
+/**
+ * The cached Pokemon TCG API checklist for one set, across its pages.
+ *
+ * Returns nothing rather than throwing when the cache is absent. This is only
+ * ever populated by sync-sets.mjs, which is deliberately NOT in the nightly job
+ * because api.pokemontcg.io is currently failing about half its requests. So on
+ * a fresh CI runner the directory does not exist at all, and readdirSync threw
+ * ENOENT and took the whole nightly build down with it on its very first run.
+ *
+ * With no checklist there is nothing to join TCGplayer's prices onto, so the
+ * set is skipped and whatever is already in data/chase-tcg.json stands. That
+ * file is committed, so the pages keep their chase cards either way.
+ */
 async function cachedCards(apiId) {
+  if (!existsSync(CACHE)) return [];
   const files = readdirSync(CACHE).filter((f) => new RegExp(`^${apiId}-p\\d+\\.json$`).test(f));
   const cards = [];
   for (const f of files.sort()) {

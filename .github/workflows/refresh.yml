@@ -69,6 +69,12 @@ jobs:
 
       # Free and unauthenticated, and the only source that knows a Japanese set
       # exists. Cached, so this is one request per set after the first run.
+      # Collectr's public showcase. Never fails the build: if the endpoint moves
+      # or sharing gets switched off, the committed copy stands and the page
+      # says when it was last updated.
+      - name: Card collection
+        run: node scripts/sync-collection.mjs
+
       - name: Foreign-language sets
         run: node scripts/sync-intl.mjs
 
