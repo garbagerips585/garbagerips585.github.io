@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pokemon Card Shops in Rochester, NY | Garbage Rips 585</title>
-<meta name="description" content="Local Pokemon card shops around Rochester, New York, from the channel that rips packs from them. LingSter Games, Millennium Games.">
+<title>Pokemon Card Shops in Rochester NY &amp; Where to Play | Garbage Rips 585</title>
+<meta name="description" content="Local Pokemon card shops around Rochester, New York, and where to play: league nights, prereleases and organised play. Just Games, Millennium Games, LingSter Games.">
 <link rel="canonical" href="https://garbagerips585.github.io/shops.html">
 <meta property="og:title" content="Pokemon Card Shops in Rochester, NY">
 <meta property="og:description" content="Pokemon card pack openings fueled by plate grease and good vibes. Watch on YouTube, TikTok, Instagram, and Facebook.">
@@ -69,9 +69,37 @@
 .shop-tags{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:var(--s1)}
 .shop-tags li{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.03em;
   background:var(--lilac-pale);color:var(--plum);padding:5px 9px;border-radius:var(--r-pill)}
-.shop-link{margin-top:auto;padding-top:var(--s3);font:700 var(--t-sm)/1 var(--body);
+/* The auto margin moved off .shop-link and onto the wrapper. Left on the link
+   itself it stopped pushing anything anywhere once the links were wrapped in a
+   <p>, and the cards lost their aligned bottom row. */
+.shop-links{margin-top:auto;padding-top:var(--s3);display:flex;flex-wrap:wrap;gap:var(--s4)}
+.shop-link{font:700 var(--t-sm)/1 var(--body);
   color:var(--ketchup-deep);min-height:44px;display:inline-flex;align-items:center}
 .shop-link:hover{text-decoration:underline}
+
+/* Address, phone and hours. A definition list because that is what it is, and
+   it gives the labels somewhere to live without inventing a class each. */
+.shop-facts{display:grid;grid-template-columns:auto 1fr;gap:2px var(--s3);margin-top:var(--s2);
+  font-size:var(--t-sm)}
+.shop-facts dt{font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.05em;
+  text-transform:uppercase;color:var(--ink-2)}
+.shop-facts dd{line-height:1.5}
+.shop-facts a{color:var(--ketchup-deep);font-weight:600}
+.shop-facts a:hover{text-decoration:underline}
+
+/* What you can actually turn up and play. */
+.shop-play{margin-top:var(--s3);padding:var(--s3);background:var(--paper-3);border-radius:var(--r-sm)}
+.shop-play-h{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--plum);margin-bottom:6px}
+.shop-play ul{list-style:none;display:grid;gap:4px}
+.shop-play li{font-size:var(--t-sm);padding-left:14px;position:relative}
+.shop-play li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;
+  border-radius:50%;background:var(--gold-deep)}
+.shop-play-note{font-size:var(--t-micro);color:var(--ink-2);margin-top:8px;line-height:1.5}
+/* Where the shop's own league page and a secondhand listing disagree. Loud,
+   because the cost of being wrong is a wasted drive. */
+.shop-play-warn{font:700 var(--t-micro)/1.6 var(--mono);color:var(--plum);
+  background:var(--lilac-pale);border-radius:var(--r-sm);padding:8px 10px;margin-top:8px}
 .shops-note{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);max-width:52em}
 </style>
@@ -85,14 +113,20 @@
     {
       "@type": "ListItem",
       "position": 1,
-      "name": "LingSter Games",
-      "url": "https://lingstergames.com/collections/pokemon"
+      "name": "Just Games",
+      "url": "https://www.justgamesrochester.com/category/pokemon/"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Millennium Games",
       "url": "https://shop.millenniumgames.com/collections/pokemon-tcg"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "LingSter Games",
+      "url": "https://lingstergames.com/collections/pokemon"
     }
   ]
 }
@@ -169,10 +203,64 @@
 
 <main id="main" class="shops">
   <div class="wrap">
-    <div class="brk"><h1>Card shops in <span class="hl">the 585</span></h1><span class="ln"></span></div>
-    <p class="shops-lede">Where I actually buy. Real shops around Rochester, New York, run by people
-      who know the hobby. Buy local when you can: the shop is why the local scene exists.</p>
+    <div class="brk"><h1>Card shops and <span class="hl">where to play</span></h1><span class="ln"></span></div>
+    <p class="shops-lede">Where I actually buy, and where you can sit down and play. Real shops around
+      Rochester, New York, run by people who know the hobby. Round here the counter you buy from and the
+      table you play at are usually the same building, so both are on one page. Buy local when you can:
+      the shop is why the local scene exists.</p>
     <ul class="shop-list">
+      <li class="shop">
+        <div class="shop-head">
+          <h2>Just Games</h2>
+          
+        </div>
+        <p class="shop-area">Panorama Plaza, Penfield</p>
+        <p class="shop-blurb">Rochester's flagship game store and the one with the busiest Pokemon calendar. Prereleases every set, a learn to play session for anyone starting out, and League Challenges and Cups through the year.</p>
+        <ul class="shop-tags"><li>Singles</li><li>Sealed product</li><li>Organised play</li><li>Prereleases</li></ul>
+        <dl class="shop-facts">
+          <dt>Where</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=1601%20Penfield%20Rd%2C%20Suite%2034%2C%20Rochester%2C%20NY%2014625" rel="noopener" target="_blank">1601 Penfield Rd, Suite 34, Rochester, NY 14625</a></dd>
+          <dt>Phone</dt><dd><a href="tel:5855860586">585-586-0586</a></dd>
+          <dt>Open</dt><dd>Mon to Sat noon to 9pm, Sun noon to 6pm</dd>
+        </dl>
+        <div class="shop-play">
+          <p class="shop-play-h">You can play here</p>
+          <ul><li>Prerelease weekends for every new set</li><li>League Challenge and League Cup events</li><li>Gym Leader Challenge, a casual format away from standard</li><li>Learn to Play sessions with loaner decks</li></ul>
+          <p class="shop-play-note">They run a regular league but do not publish a fixed weekly time, so check the events calendar or ring the counter.</p>
+          
+        </div>
+        <p class="shop-links">
+          <a class="shop-link" href="https://www.justgamesrochester.com/category/pokemon/" rel="noopener" target="_blank">
+            justgamesrochester.com <span aria-hidden="true">&rarr;</span>
+          </a>
+          
+        </p>
+      </li>
+      <li class="shop">
+        <div class="shop-head">
+          <h2>Millennium Games</h2>
+          
+        </div>
+        <p class="shop-area">Jefferson Road, Henrietta</p>
+        <p class="shop-blurb">One of the biggest game stores in the area, with a Pokemon section to match and a sanctioned league of its own.</p>
+        <ul class="shop-tags"><li>Sealed product</li><li>Singles</li><li>In store</li><li>Organised play</li></ul>
+        <dl class="shop-facts">
+          <dt>Where</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=1225%20Jefferson%20Road%2C%20Suite%20A17%2C%20Rochester%2C%20NY%2014623" rel="noopener" target="_blank">1225 Jefferson Road, Suite A17, Rochester, NY 14623</a></dd>
+          <dt>Phone</dt><dd><a href="tel:5854272190">585-427-2190</a></dd>
+          
+        </dl>
+        <div class="shop-play">
+          <p class="shop-play-h">You can play here</p>
+          <ul><li>Sanctioned Play! Pokemon TCG league</li></ul>
+          
+          <p class="shop-play-warn">Their official Play! Pokemon league page currently reads Inactive with no sessions scheduled, while other listings still describe a Monday league night. Ring them before you go.</p>
+        </div>
+        <p class="shop-links">
+          <a class="shop-link" href="https://shop.millenniumgames.com/collections/pokemon-tcg" rel="noopener" target="_blank">
+            shop.millenniumgames.com <span aria-hidden="true">&rarr;</span>
+          </a>
+          <a class="shop-link" href="https://www.pokemon.com/us/play-pokemon/pokemon-events/leagues/3793208/" rel="noopener" target="_blank">Official league page <span aria-hidden="true">&rarr;</span></a>
+        </p>
+      </li>
       <li class="shop">
         <div class="shop-head">
           <h2>LingSter Games</h2>
@@ -181,23 +269,20 @@
         <p class="shop-area">Rochester, NY</p>
         <p class="shop-blurb">Deep Pokemon singles and sealed, and the first stop when a set drops.</p>
         <ul class="shop-tags"><li>Sealed product</li><li>Singles</li><li>New releases</li></ul>
-        <a class="shop-link" href="https://lingstergames.com/collections/pokemon" rel="noopener" target="_blank">
-          lingstergames.com <span aria-hidden="true">&rarr;</span>
-        </a>
-      </li>
-      <li class="shop">
-        <div class="shop-head">
-          <h2>Millennium Games</h2>
+        
+        
+        <p class="shop-links">
+          <a class="shop-link" href="https://lingstergames.com/collections/pokemon" rel="noopener" target="_blank">
+            lingstergames.com <span aria-hidden="true">&rarr;</span>
+          </a>
           
-        </div>
-        <p class="shop-area">Rochester, NY</p>
-        <p class="shop-blurb">One of the biggest game stores in the area, with a Pokemon section to match.</p>
-        <ul class="shop-tags"><li>Sealed product</li><li>Singles</li><li>In store</li></ul>
-        <a class="shop-link" href="https://shop.millenniumgames.com/collections/pokemon-tcg" rel="noopener" target="_blank">
-          shop.millenniumgames.com <span aria-hidden="true">&rarr;</span>
-        </a>
+        </p>
       </li>
     </ul>
+    <p class="shops-lede" style="margin-top:var(--s5)">Play! Pokemon league schedules change constantly and go quiet between seasons. Ring the shop before you drive.</p>
+    <p class="shops-lede">Looking for a one off rather than a weekly night? The
+      <a href="/card-shows.html">card show calendar</a> has every show coming up around Rochester, Buffalo
+      and Syracuse.</p>
     <p class="shops-note">NOT SPONSORED AND NOT AFFILIATE LINKS. THESE ARE SHOPS I GO TO.
       IF YOU RUN A CARD SHOP AROUND ROCHESTER AND YOU ARE NOT ON HERE, SAY HELLO ON ANY OF THE SOCIALS.</p>
   </div>

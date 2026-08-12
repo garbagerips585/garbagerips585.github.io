@@ -41,7 +41,8 @@ function cleanUrl(raw) {
   }
 }
 
-const { shops } = JSON.parse(await readFile(join(ROOT, "data/shops.json"), "utf8"));
+const shopsDoc = JSON.parse(await readFile(join(ROOT, "data/shops.json"), "utf8"));
+const { shops } = shopsDoc;
 
 const cards = shops
   .map((s) => {
@@ -67,9 +68,23 @@ const cards = shops
                 .join("")}</ul>`
             : ""
         }
-        <a class="shop-link" href="${esc(url)}" rel="noopener" target="_blank">
-          ${esc(host)} <span aria-hidden="true">&rarr;</span>
-        </a>
+        ${s.address || s.phone || s.hours ? `<dl class="shop-facts">
+          ${s.address ? `<dt>Where</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.address)}" rel="noopener" target="_blank">${esc(s.address)}</a></dd>` : ""}
+          ${s.phone ? `<dt>Phone</dt><dd><a href="tel:${esc(s.phone.replace(/[^0-9+]/g, ""))}">${esc(s.phone)}</a></dd>` : ""}
+          ${s.hours ? `<dt>Open</dt><dd>${esc(s.hours)}</dd>` : ""}
+        </dl>` : ""}
+        ${(s.plays || []).length ? `<div class="shop-play">
+          <p class="shop-play-h">You can play here</p>
+          <ul>${s.plays.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>
+          ${s.playNote ? `<p class="shop-play-note">${esc(s.playNote)}</p>` : ""}
+          ${s.playWarn ? `<p class="shop-play-warn">${esc(s.playWarn)}</p>` : ""}
+        </div>` : ""}
+        <p class="shop-links">
+          <a class="shop-link" href="${esc(url)}" rel="noopener" target="_blank">
+            ${esc(host)} <span aria-hidden="true">&rarr;</span>
+          </a>
+          ${s.leagueUrl ? `<a class="shop-link" href="${esc(s.leagueUrl)}" rel="noopener" target="_blank">Official league page <span aria-hidden="true">&rarr;</span></a>` : ""}
+        </p>
       </li>`;
   })
   .join("\n");
@@ -108,9 +123,37 @@ const style = `
 .shop-tags{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:var(--s1)}
 .shop-tags li{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.03em;
   background:var(--lilac-pale);color:var(--plum);padding:5px 9px;border-radius:var(--r-pill)}
-.shop-link{margin-top:auto;padding-top:var(--s3);font:700 var(--t-sm)/1 var(--body);
+/* The auto margin moved off .shop-link and onto the wrapper. Left on the link
+   itself it stopped pushing anything anywhere once the links were wrapped in a
+   <p>, and the cards lost their aligned bottom row. */
+.shop-links{margin-top:auto;padding-top:var(--s3);display:flex;flex-wrap:wrap;gap:var(--s4)}
+.shop-link{font:700 var(--t-sm)/1 var(--body);
   color:var(--ketchup-deep);min-height:44px;display:inline-flex;align-items:center}
 .shop-link:hover{text-decoration:underline}
+
+/* Address, phone and hours. A definition list because that is what it is, and
+   it gives the labels somewhere to live without inventing a class each. */
+.shop-facts{display:grid;grid-template-columns:auto 1fr;gap:2px var(--s3);margin-top:var(--s2);
+  font-size:var(--t-sm)}
+.shop-facts dt{font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.05em;
+  text-transform:uppercase;color:var(--ink-2)}
+.shop-facts dd{line-height:1.5}
+.shop-facts a{color:var(--ketchup-deep);font-weight:600}
+.shop-facts a:hover{text-decoration:underline}
+
+/* What you can actually turn up and play. */
+.shop-play{margin-top:var(--s3);padding:var(--s3);background:var(--paper-3);border-radius:var(--r-sm)}
+.shop-play-h{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--plum);margin-bottom:6px}
+.shop-play ul{list-style:none;display:grid;gap:4px}
+.shop-play li{font-size:var(--t-sm);padding-left:14px;position:relative}
+.shop-play li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;
+  border-radius:50%;background:var(--gold-deep)}
+.shop-play-note{font-size:var(--t-micro);color:var(--ink-2);margin-top:8px;line-height:1.5}
+/* Where the shop's own league page and a secondhand listing disagree. Loud,
+   because the cost of being wrong is a wasted drive. */
+.shop-play-warn{font:700 var(--t-micro)/1.6 var(--mono);color:var(--plum);
+  background:var(--lilac-pale);border-radius:var(--r-sm);padding:8px 10px;margin-top:8px}
 .shops-note{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);max-width:52em}
 `;
@@ -118,12 +161,18 @@ const style = `
 const body = `
 <main id="main" class="shops">
   <div class="wrap">
-    <div class="brk"><h1>Card shops in <span class="hl">the 585</span></h1><span class="ln"></span></div>
-    <p class="shops-lede">Where I actually buy. Real shops around Rochester, New York, run by people
-      who know the hobby. Buy local when you can: the shop is why the local scene exists.</p>
+    <div class="brk"><h1>Card shops and <span class="hl">where to play</span></h1><span class="ln"></span></div>
+    <p class="shops-lede">Where I actually buy, and where you can sit down and play. Real shops around
+      Rochester, New York, run by people who know the hobby. Round here the counter you buy from and the
+      table you play at are usually the same building, so both are on one page. Buy local when you can:
+      the shop is why the local scene exists.</p>
     <ul class="shop-list">
 ${cards}
     </ul>
+    ${shopsDoc.playNote ? `<p class="shops-lede" style="margin-top:var(--s5)">${esc(shopsDoc.playNote)}</p>` : ""}
+    <p class="shops-lede">Looking for a one off rather than a weekly night? The
+      <a href="/card-shows.html">card show calendar</a> has every show coming up around Rochester, Buffalo
+      and Syracuse.</p>
     <p class="shops-note">NOT SPONSORED AND NOT AFFILIATE LINKS. THESE ARE SHOPS I GO TO.
       IF YOU RUN A CARD SHOP AROUND ROCHESTER AND YOU ARE NOT ON HERE, SAY HELLO ON ANY OF THE SOCIALS.</p>
   </div>
@@ -146,11 +195,14 @@ const footer = home.slice(home.lastIndexOf("<footer"), home.indexOf("</footer>")
 const swapped = head
   .replace(
     /<title>[\s\S]*?<\/title>/,
-    `<title>Pokemon Card Shops in Rochester, NY | Garbage Rips 585</title>`
+    // Both halves of what the page now answers. "Where to play pokemon rochester
+    // ny" is its own search with its own intent, and the old title only claimed
+    // the buying half.
+    `<title>Pokemon Card Shops in Rochester NY &amp; Where to Play | Garbage Rips 585</title>`
   )
   .replace(
     /<meta name="description"[^>]*>/,
-    `<meta name="description" content="Local Pokemon card shops around Rochester, New York, from the channel that rips packs from them. ${esc(
+    `<meta name="description" content="Local Pokemon card shops around Rochester, New York, and where to play: league nights, prereleases and organised play. ${esc(
       shops.map((s) => s.name).join(", ")
     )}.">`
   )

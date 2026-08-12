@@ -70,6 +70,32 @@ const mapLink = (s) =>
     [s.address || s.venue, s.address ? "" : s.city, s.address ? "" : "NY"].filter(Boolean).join(" ")
   )}`;
 
+// The page covers three metro areas and nothing else. These feeds are regional
+// and cheerfully mix in the Southern Tier, and a national search for "Rochester
+// Pokemon league" returns Rochester MINNESOTA and Rochester MICHIGAN before it
+// returns ours, so an out-of-area entry is a question of when, not whether.
+// Anything not on this list stops the build rather than quietly telling somebody
+// in the 585 to drive to another state.
+const AREA = new Set([
+  // Rochester and its ring
+  "Rochester", "Fairport", "Henrietta", "Webster", "Greece", "Penfield", "Victor",
+  "Batavia", "Canandaigua", "Brockport", "Pittsford",
+  // Buffalo and Niagara
+  "Buffalo", "Depew", "Sanborn", "Niagara Falls", "Amherst", "Cheektowaga",
+  "Lancaster", "Hamburg", "Lockport", "Williamsville", "Tonawanda",
+  // Syracuse and its ring
+  "Syracuse", "Liverpool", "Cicero", "Camillus", "Baldwinsville", "East Syracuse",
+]);
+const strays = (data.shows || []).filter((s) => !AREA.has(s.city));
+if (strays.length) {
+  console.error(
+    `${strays.length} show(s) outside the Rochester, Buffalo and Syracuse areas:\n` +
+      strays.map((s) => `  ${s.id}: ${s.city}`).join("\n") +
+      `\n\nEither drop them from data/shows.json or, if the city really is local, add it to AREA in this script.`
+  );
+  process.exit(1);
+}
+
 const upcoming = (data.shows || [])
   .filter((s) => s.date >= TODAY)
   .sort((a, b) => a.date.localeCompare(b.date) || (a.start || "").localeCompare(b.start || ""));

@@ -1,43 +1,75 @@
 {
   "_readme": [
-    "The card shops Tim actually goes to, around Rochester NY. Drives /shops.html.",
+    "Card shops around Rochester NY, and where you can actually sit down and",
+    "play. Drives /shops.html.",
+    "",
+    "WHY BUYING AND PLAYING ARE ON ONE PAGE. Round here they are the same three",
+    "buildings. A shops page with two entries and a league page with two entries",
+    "is two thin pages; one page that answers both is worth reading.",
     "",
     "Add a shop with a name and a url. Everything else is optional and simply",
-    "does not render when missing: area, blurb, what they are good for, and the",
-    "socials.",
+    "does not render when missing: area, address, phone, hours, blurb, goodFor,",
+    "and the whole play block.",
     "",
     "URLS ARE CLEANED ON PURPOSE. A link copied out of a shop's own site often",
     "carries tracking or session parameters (_su_rec, utm_, fbclid and friends).",
-    "Those point at one browsing session, they rot, and they hand a third party",
-    "a record of where the visitor came from. Link the plain page instead.",
+    "Those point at one browsing session, they rot, and they hand a third party a",
+    "record of where the visitor came from. Link the plain page instead.",
     "",
     "`visited` marks a shop that has appeared in a video. Set it when a rip is",
-    "filmed there so the page can say so."
+    "filmed there so the page can say so.",
+    "",
+    "PLAY TIMES ARE NOT PUBLISHED UNLESS THEY ARE CONFIRMED. League nights move,",
+    "get cancelled, and go quiet over the summer. Where a store's official Play!",
+    "Pokemon league page and a secondhand listing disagree, the page says they",
+    "disagree and sends you to the shop, because the cost of being wrong here is",
+    "somebody driving across town to a dark room.",
+    "",
+    "ROCHESTER NY ONLY, and its ring. A national search for 'Rochester Pokemon",
+    "league' returns Rochester MINNESOTA and Rochester MICHIGAN above ours, and",
+    "both of those were nearly listed here. Check the zip: ours are 146xx."
   ],
-  "updated": "2026-08-11",
+  "updated": "2026-08-12",
+  "playNote": "Play! Pokemon league schedules change constantly and go quiet between seasons. Ring the shop before you drive.",
   "shops": [
     {
-      "name": "LingSter Games",
-      "url": "https://lingstergames.com/collections/pokemon",
-      "area": "Rochester, NY",
-      "blurb": "Deep Pokemon singles and sealed, and the first stop when a set drops.",
-      "goodFor": [
-        "Sealed product",
-        "Singles",
-        "New releases"
+      "name": "Just Games",
+      "url": "https://www.justgamesrochester.com/category/pokemon/",
+      "area": "Panorama Plaza, Penfield",
+      "address": "1601 Penfield Rd, Suite 34, Rochester, NY 14625",
+      "phone": "585-586-0586",
+      "hours": "Mon to Sat noon to 9pm, Sun noon to 6pm",
+      "blurb": "Rochester's flagship game store and the one with the busiest Pokemon calendar. Prereleases every set, a learn to play session for anyone starting out, and League Challenges and Cups through the year.",
+      "goodFor": ["Singles", "Sealed product", "Organised play", "Prereleases"],
+      "plays": [
+        "Prerelease weekends for every new set",
+        "League Challenge and League Cup events",
+        "Gym Leader Challenge, a casual format away from standard",
+        "Learn to Play sessions with loaner decks"
       ],
+      "playNote": "They run a regular league but do not publish a fixed weekly time, so check the events calendar or ring the counter.",
+      "eventsUrl": "https://www.justgamesrochester.com/category/pokemon/",
       "visited": false
     },
     {
       "name": "Millennium Games",
       "url": "https://shop.millenniumgames.com/collections/pokemon-tcg",
+      "area": "Jefferson Road, Henrietta",
+      "address": "1225 Jefferson Road, Suite A17, Rochester, NY 14623",
+      "phone": "585-427-2190",
+      "blurb": "One of the biggest game stores in the area, with a Pokemon section to match and a sanctioned league of its own.",
+      "goodFor": ["Sealed product", "Singles", "In store", "Organised play"],
+      "plays": ["Sanctioned Play! Pokemon TCG league"],
+      "playWarn": "Their official Play! Pokemon league page currently reads Inactive with no sessions scheduled, while other listings still describe a Monday league night. Ring them before you go.",
+      "leagueUrl": "https://www.pokemon.com/us/play-pokemon/pokemon-events/leagues/3793208/",
+      "visited": false
+    },
+    {
+      "name": "LingSter Games",
+      "url": "https://lingstergames.com/collections/pokemon",
       "area": "Rochester, NY",
-      "blurb": "One of the biggest game stores in the area, with a Pokemon section to match.",
-      "goodFor": [
-        "Sealed product",
-        "Singles",
-        "In store"
-      ],
+      "blurb": "Deep Pokemon singles and sealed, and the first stop when a set drops.",
+      "goodFor": ["Sealed product", "Singles", "New releases"],
       "visited": false
     }
   ]
