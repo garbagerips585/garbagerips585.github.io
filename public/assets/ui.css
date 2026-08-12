@@ -96,11 +96,6 @@ a{color:inherit;text-decoration:none}
    subscribe button squeeze it to about 80px. Swap it for an icon that opens
    the library, where the real search box lives, rather than shipping a text
    input nobody can read their own query in. */
-.icon-btn{display:none;flex:none;width:44px;height:44px;border-radius:50%;
-  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
-  place-items:center;margin-left:auto}
-.icon-btn svg{width:19px;height:19px;fill:none;stroke:#F4F1E2;stroke-width:2.2;
-  stroke-linecap:round}
 /* The search form used to be hidden here and the magnifier below 480, which
    left a phone with no way to search 310 videos at all. It stays now; the
    brand shrinks instead. The magnifier button is redundant beside a real
@@ -108,16 +103,15 @@ a{color:inherit;text-decoration:none}
 @media(max-width:640px){
   .sub{padding:0 var(--s3)}
 }
-.icon-btn{display:none!important}
 /* Below 480 the brand, the search icon, the menu button and Subscribe add up
    to 363px inside a 351px bar, and every one of them is flex:none, so the row
    overflowed to the screen edge with no padding left. The search icon goes:
    before the menu existed it was the only route off this page, and now the
    menu carries All rips, which is where searching happens. */
 @media(max-width:480px){
-  .icon-btn{display:none}
-  /* The auto margin that pushed the right-hand controls over lived on the
-     search icon, so hiding it left the row packed left with 52px of dead
+  /* The auto margin that pushed the right-hand controls over used to live on a
+     search icon button. That button was removed from the markup entirely, so
+     the margin has to be declared here or the row packs left with 52px of dead
      space on the right. */
   .menu-btn{margin-left:auto}
 }
@@ -568,7 +562,6 @@ footer .wrap{display:flex;flex-direction:column;align-items:center;gap:var(--s4)
 .foot-social a.fb:hover{background:#1877F2;border-color:#1877F2}
 
 footer p{font:400 var(--t-sm)/1.6 var(--body);color:#8FA0B2;max-width:46em;letter-spacing:0}
-footer .squiggle{display:none}
 
 /* The About block and the footer are the same colour and sit flush, so their
    padding was stacking into a band of empty navy. One gap, not two. */
@@ -970,7 +963,6 @@ footer .soc svg{fill:var(--paper)}
 .lib-count b{color:var(--ketchup-deep)}
 /* ---------- playlist cards ---------- */
 .pl-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
-.squiggle{display:block;margin:6px 0 0}
 /* 261 of 262 rips are vertical, so 9/16 is the right default. The one
    horizontal video (kj7532tb0_I) was rendering inside it, pillarboxed into
    about a third of the available height with black either side. */
@@ -1310,7 +1302,7 @@ footer .soc svg{fill:var(--paper)}
     scroll-behavior:auto!important}
   .btn:hover,.vid-shell:hover,.soc:hover,.pl:hover,.chip:hover,.v:hover .art,
   .set:hover,.chof:hover,.wc:hover,.shop:hover,.mw:hover .mw-art,
-  .foot-social a:hover,.pocket:hover,.sticker:hover{transform:none!important}
+  .foot-social a:hover{transform:none!important}
 }
 
 
@@ -1728,3 +1720,99 @@ footer .soc svg{fill:var(--paper)}
 @media(min-width:560px){ .tool-grid{grid-template-columns:repeat(2,1fr)} }
 @media(min-width:900px){ .tool-grid{grid-template-columns:repeat(3,1fr)} }
 @media(min-width:1200px){ .tool-grid{grid-template-columns:repeat(4,1fr)} }
+
+/* --------------------------------------------------------------------------
+   Fixes from the QA sweep after the card-search / Pokemon / guides build.
+   -------------------------------------------------------------------------- */
+
+/* Search result rows looked entirely tappable but only the 22px name line was.
+   The row is 62px; stretching the link over it makes the whole row the target.
+   .cq must be positioned or the inset:0 resolves against the page, which is a
+   trap this codebase has hit four times. */
+.cq{position:relative}
+.cq-name::after{content:"";position:absolute;inset:0}
+.cq-pr,.cq-rr,.cq-set{position:relative;pointer-events:none}
+
+/* Same on the shop phone links: 18px of 14px inline text for "call the shop",
+   which is the most likely thing anyone does on that page from a phone. */
+.shop-facts dd a{display:inline-flex;align-items:center;min-height:44px}
+
+/* .tool:hover sets a transform and sits AFTER the reduced-motion block, whose
+   transform:none list is an explicit enumeration that never included it. The
+   comment above that block claimed nothing below it set transform; it did.
+   Rather than extend a list that has to be maintained by hand, and which still
+   names .pocket and .sticker that no longer exist anywhere, this scopes the
+   motion to devices that asked for it. */
+@media(prefers-reduced-motion:no-preference){
+  .tool{transition:transform .12s ease,border-color .12s ease}
+}
+@media(prefers-reduced-motion:reduce){
+  .tool:hover{transform:none!important}
+}
+
+/* --------------------------------------------------------------------------
+   Desktop and tablet fixes from the QA sweep.
+   -------------------------------------------------------------------------- */
+
+/* Every show card reserved a 220px flyer column whether or not it had a flyer,
+   and none of the 23 currently do. At 768 that squeezed the body copy to 328px
+   and left a 253px empty gutter; crossing the 720px breakpoint made cards 27%
+   TALLER to make room for nothing. The column now only exists when there is
+   actually a flyer in the card. */
+@media(min-width:720px){
+  .show{grid-template-columns:auto 1fr}
+  .show:has(.show-flyer){grid-template-columns:auto 1fr 220px}
+}
+
+/* Real and Fake are a comparison and had the room to sit side by side, but the
+   grid had no column rule at any width, so each block ran the full container:
+   170 characters a line at 1280, 202 at 1600. */
+@media(min-width:720px){
+  .fk-vs{grid-template-columns:1fr 1fr}
+}
+
+/* The diagrams are 320x150 and 140x140 viewBoxes at width:100% with no cap, so
+   they scaled to 4.4x and 5x on a big screen: 11px labels rendering 71px tall
+   and a 1400px band of schematic dots. */
+.fk-fig svg{max-width:560px;margin-inline:auto}
+.fk-two{max-width:640px;margin-inline:auto}
+
+/* .facts was a fixed 4 columns, so the Pokemon pages' 5th tile sat alone on its
+   own row with up to 1,099px of empty space beside it. It is the only tappable
+   tile on the page, which made it look like a mistake rather than the CTA.
+   auto-fit lets the row use what it has instead of always being four. */
+@media(min-width:700px){
+  .facts{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+}
+
+/* Two body-copy classes had max-width:none and ran the full container: up to
+   218 characters a line at 1600 on the imported set guides, where .price-note
+   carries four real paragraphs rather than one source line. */
+/* Separate caps: .price-note is 10.88px mono, so the same em width buys it far
+   more characters than the 14px body text in .facts-list. 52em lands both at
+   roughly 100 characters. */
+.price-note{max-width:52em}
+.facts-list li{max-width:64em}
+
+/* A two-column grid holding one item leaves half a row blank. */
+.watch-list:has(li:only-child){grid-template-columns:1fr;max-width:34em}
+
+/* The open menu is fixed at top:56px under a 60px bar, so it painted over the
+   bar's bottom 4px including its border. */
+.menu{top:var(--bar-h)}
+
+/* Three shop cards in a two-column grid orphan the third next to 368px of
+   nothing. Three across fits from 900px; below that one column reads better
+   than a 2+1 split. */
+@media(min-width:641px) and (max-width:899px){
+  .shop-list{grid-template-columns:1fr;max-width:44em}
+}
+
+/* .set-index capped at three columns, so at 1600 each card was 475px wide with
+   187px of content in it. */
+@media(min-width:1400px){
+  .set-index{grid-template-columns:repeat(4,1fr)}
+}
+
+/* Three number inputs spanning 1452px. */
+.gcalc{max-width:64em}

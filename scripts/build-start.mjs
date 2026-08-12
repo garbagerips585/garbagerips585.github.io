@@ -72,7 +72,7 @@ const STEPS = [
   {
     n: 5,
     q: "What should I open?",
-    a: "What actually comes out of the packs, measured across hundreds of openings rather than guessed at. Plus what is coming next and what it is going for on preorder.",
+    a: "Nobody publishes real pull rates, so the honest answer is what actually came out of the packs we have opened, counted from our own rip log. Plus what is coming next and what it is going for on preorder.",
     href: "/luck.html",
     cta: "Luck and pull rates",
     also: [["/upcoming.html", "Coming next"]],

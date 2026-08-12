@@ -86,7 +86,17 @@ await writeFile(join(ROOT, "public/data/site-index.json"), JSON.stringify(index)
 const total =
   index.pages.length + index.sets.length + index.pokemon.length + index.rips.length;
 
-const desc = `Search everything on Garbage Rips 585: ${index.rips.length} pack openings, 4,481 cards, ${index.sets.length} set guides and every reference page.`;
+// Read from the card index rather than typed in. Written down, it was correct
+// today and guaranteed to be a lie the first time a set is added.
+let nCards = 0;
+try {
+  nCards = (JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8")).cards || []).length;
+} catch {
+  /* run: node scripts/sync-cards.mjs */
+}
+const nCardsText = nCards.toLocaleString("en-US");
+
+const desc = `Search everything on Garbage Rips 585: ${index.rips.length} pack openings, ${nCardsText} cards, ${index.sets.length} set guides and every reference page.`;
 
 const page = `<!DOCTYPE html>
 <html lang="en">
@@ -133,7 +143,7 @@ ${MENU}
     <p class="cq-status" id="sqStatus" aria-live="polite"></p>
     <div id="sqOut"></div>
     <div id="sqEmpty">
-      <p class="cq-head">Searches ${index.rips.length} pack openings, 4,481 cards, ${index.sets.length} set guides,
+      <p class="cq-head">Searches ${index.rips.length} pack openings, ${nCardsText} cards, ${index.sets.length} set guides,
         ${index.pokemon.length} Pokemon and every guide on the site.</p>
       <div class="set-index" style="margin-top:var(--s5)">
         ${PAGES.slice(0, 8)
@@ -163,11 +173,16 @@ ${footer()}
     return typeof n==='number' ? '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}) : '';
   }
 
-  function group(title, rows, more){
+  function group(title, rows, more, allHref){
     if(!rows.length) return '';
+    var note='';
+    if(more){
+      note='<p class="price-note">'+esc(more)
+        + (allHref?' <a href="'+esc(allHref)+'">See them all</a>.':'')
+        + '</p>';
+    }
     return '<section class="sg"><h2>'+esc(title)+'</h2><ol class="cq-list">'
-      + rows.join('')
-      + '</ol>'+(more?'<p class="price-note">'+esc(more)+'</p>':'')+'</section>';
+      + rows.join('') + '</ol>'+note+'</section>';
   }
   function row(title, url, sub, right){
     return '<li class="cq">'
@@ -177,12 +192,18 @@ ${footer()}
       + '</li>';
   }
 
+  // Returns {rows, total} so a group can say how much it is hiding. Capping
+  // silently is the bug: "chaos rising" matched 39 rips, showed 10, and said
+  // nothing, on the page whose whole job is finding things.
   function hits(list, q, limit){
-    var out=[];
-    for(var i=0;i<list.length && out.length<limit;i++){
-      if(list[i][0].toLowerCase().indexOf(q)!==-1) out.push(list[i]);
+    var rows=[], total=0;
+    for(var i=0;i<list.length;i++){
+      if(list[i][0].toLowerCase().indexOf(q)!==-1){
+        total++;
+        if(rows.length<limit) rows.push(list[i]);
+      }
     }
-    return out;
+    return {rows:rows, total:total};
   }
 
   function render(){
@@ -194,14 +215,20 @@ ${footer()}
     var html='';
     var n=0;
 
-    var p=hits(SITE.pages,q,6); n+=p.length;
-    html+=group('Guides and pages', p.map(function(r){ return row(r[0],r[1],r[2]); }));
+    function more(h){
+      return h.total>h.rows.length
+        ? 'Showing '+h.rows.length+' of '+h.total.toLocaleString('en-US')+'.'
+        : '';
+    }
 
-    var s=hits(SITE.sets,q,8); n+=s.length;
-    html+=group('Set guides', s.map(function(r){ return row(r[0],r[1],r[2]); }));
+    var p=hits(SITE.pages,q,6); n+=p.total;
+    html+=group('Guides and pages', p.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(p));
 
-    var k=hits(SITE.pokemon,q,8); n+=k.length;
-    html+=group('Pokemon', k.map(function(r){ return row(r[0],r[1],r[2]); }));
+    var s=hits(SITE.sets,q,8); n+=s.total;
+    html+=group('Set guides', s.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(s));
+
+    var k=hits(SITE.pokemon,q,8); n+=k.total;
+    html+=group('Pokemon', k.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(k));
 
     if(CARDS){
       var c=[];
@@ -213,11 +240,13 @@ ${footer()}
       n+=c.length;
       html+=group('Cards', c.slice(0,10).map(function(r){
         return row(r[0], '/sets/'+r[1]+'.html', (CARDS.sets[r[1]]||r[1])+' • '+r[2], money(r[4]));
-      }), c.length>10 ? c.length+' cards matched, showing the 10 dearest. Search them all on the card search page.' : '');
+      }), c.length>10 ? 'Showing the 10 dearest of '+c.length.toLocaleString('en-US')+'.' : '',
+         c.length>10 ? '/cards.html?q='+encodeURIComponent(q) : '');
     }
 
-    var v=hits(SITE.rips,q,10); n+=v.length;
-    html+=group('Pack openings', v.map(function(r){ return row(r[0],r[1],r[2]); }));
+    var v=hits(SITE.rips,q,10); n+=v.total;
+    html+=group('Pack openings', v.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(v),
+      v.total>v.rows.length ? '/videos.html?q='+encodeURIComponent(q) : '');
 
     out.innerHTML = html || '<p class="cq-head">Nothing matched. Try a Pokemon name, a set name, or a word from a video title.</p>';
     status.textContent = n ? n.toLocaleString('en-US')+' result'+(n===1?'':'s') : '';

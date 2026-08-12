@@ -542,7 +542,7 @@
   var input=document.getElementById('cq'), sel=document.getElementById('cset');
   var list=document.getElementById('cqList'), status=document.getElementById('cqStatus');
   var head=document.getElementById('cqHead');
-  var DATA=null, LOADING=false, MAX=200;
+  var DATA=null, LOADING=false, WAITING=[], MAX=200;
   var initial=list.innerHTML;
 
   function money(n){
@@ -594,13 +594,21 @@
   }
 
   function load(then){
+    // Queue the callback instead of dropping it. The focus handler warms the
+    // index with load() and no callback; if you then typed before the fetch
+    // resolved, run() called load(run), hit the LOADING guard, returned, and
+    // its callback was lost forever. The status sat on "Loading..." until you
+    // pressed another key.
+    if(then) WAITING.push(then);
     if(LOADING) return;
     LOADING=true;
     status.textContent='Loading the card list...';
     fetch('/data/card-index.json').then(function(r){ return r.json(); }).then(function(j){
-      DATA=j; LOADING=false; then&&then();
+      DATA=j; LOADING=false;
+      var q=WAITING; WAITING=[];
+      q.forEach(function(fn){ fn(); });
     }).catch(function(){
-      LOADING=false;
+      LOADING=false; WAITING=[];
       status.textContent='Could not load the card list. Reload the page and try again.';
     });
   }

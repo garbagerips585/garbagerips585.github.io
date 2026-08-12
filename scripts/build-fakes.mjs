@@ -52,7 +52,7 @@ function layerDiagram() {
     </g>
     <g>
       <rect x="180" y="40" width="110" height="20" fill="#F1EDD2" stroke="#22384F" stroke-width="2"/>
-      <text x="296" y="53" class="fk-note">one layer</text>
+      <text x="235" y="75" class="fk-note" text-anchor="middle">one layer, no core</text>
     </g>
     <g stroke="#F5A62B" stroke-width="3" stroke-linecap="round">
       <path d="M40 118 L40 80"/><path d="M70 118 L70 80"/><path d="M110 118 L110 80"/>

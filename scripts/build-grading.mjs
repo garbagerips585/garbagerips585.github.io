@@ -53,9 +53,12 @@ const cheapest = g.companies.slice().sort((a, b) => a.cheapest - b.cheapest)[0];
 const psaCo = g.companies.find((c) => c.id === "psa");
 const SHIP = g.assumedShippingPerCard ?? 15;
 
+// Sign BEFORE the currency, matching the calculator's own formatter further down
+// this file. They disagreed, so the same loss rendered "$-68.57" in the table and
+// "-$68.57" in the calculator directly above it.
 const money = (n) =>
   typeof n === "number"
-    ? `$${n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+    ? `${n < 0 ? "-" : ""}$${Math.abs(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
     : "";
 const money0 = (n) => (typeof n === "number" ? `$${Math.round(n).toLocaleString("en-US")}` : "");
 
@@ -190,7 +193,7 @@ ${MENU}
 
     <div class="fk-golden">
       <p class="fk-golden-h">Read this first</p>
-      <h2>PSA got ${Math.round((psaCo.cheapest / 24.99) * 10) / 10}x more expensive this summer</h2>
+      <h2>PSA got a lot <span class="hl">dearer</span> this summer</h2>
       <p>${esc(psaCo.note)}</p>
     </div>
 

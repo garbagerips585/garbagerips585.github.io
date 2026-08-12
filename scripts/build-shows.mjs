@@ -49,6 +49,27 @@ function clock(hhmm) {
 }
 const timeRange = (s, e) => [clock(s), clock(e)].filter(Boolean).join(" to ");
 
+/**
+ * Eastern offset for a given date: -04:00 in daylight time, -05:00 in standard.
+ * This was hardcoded to -04:00, which is wrong for every show from November on,
+ * and there are eight of those. Google reads these times literally, so it was
+ * advertising those shows an hour early while the page itself showed the right
+ * time. US DST runs from the second Sunday in March to the first Sunday in
+ * November.
+ */
+function tzOffset(iso) {
+  const d = new Date(iso + "T12:00:00Z");
+  const y = d.getUTCFullYear();
+  const nth = (month, weekday, n) => {
+    const first = new Date(Date.UTC(y, month, 1));
+    const shift = (weekday - first.getUTCDay() + 7) % 7;
+    return new Date(Date.UTC(y, month, 1 + shift + (n - 1) * 7));
+  };
+  const start = nth(2, 0, 2); // second Sunday in March
+  const end = nth(10, 0, 1); // first Sunday in November
+  return d >= start && d < end ? "-04:00" : "-05:00";
+}
+
 /** Days from today, for the "this weekend" style nudge. */
 function daysAway(iso) {
   const d = Math.round((new Date(iso + "T12:00:00") - new Date(TODAY + "T12:00:00")) / 86400000);
@@ -140,8 +161,8 @@ const ld = [
     "@context": "https://schema.org",
     "@type": "Event",
     name: s.name,
-    startDate: s.start ? `${s.date}T${s.start}:00-04:00` : s.date,
-    ...(s.end ? { endDate: `${s.date}T${s.end}:00-04:00` } : {}),
+    startDate: s.start ? `${s.date}T${s.start}:00${tzOffset(s.date)}` : s.date,
+    ...(s.end ? { endDate: `${s.date}T${s.end}:00${tzOffset(s.date)}` } : {}),
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     location: {
@@ -282,7 +303,7 @@ const page = head + `
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / Card shows</p>
 ${next ? `
-    <a class="next-show" href="${esc(next.url || "#list")}"${next.url ? ' rel="noopener" target="_blank"' : ""}>
+    <a class="next-show" data-date="${esc(next.date)}" href="${esc(next.url || "#list")}"${next.url ? ' rel="noopener" target="_blank"' : ""}>
       <span class="next-label">Next one up${daysAway(next.date) ? ` &bull; ${esc(daysAway(next.date))}` : ""}</span>
       <span class="next-name">${esc(next.name)}</span>
       <span class="next-meta">${esc(longDate(next.date) || next.date)}${
@@ -301,8 +322,10 @@ ${next ? `
 
 <section class="tight" id="list">
   <div class="wrap">
-    <div class="rail" role="group" aria-label="Filter by area">
-      ${REGIONS.map((r) => `<button class="chip filt" type="button" data-region="${r.id}"${r.id === "all" ? ' aria-current="true"' : ""}>${esc(r.label)}</button>`).join("\n      ")}
+    <div class="rail">
+      <div class="rail-in" role="group" aria-label="Filter by area">
+        ${REGIONS.map((r) => `<button class="chip filt" type="button" data-region="${r.id}"${r.id === "all" ? ' aria-current="true"' : ""}>${esc(r.label)}</button>`).join("\n        ")}
+      </div>
     </div>
 
     <div id="showList">
@@ -365,6 +388,25 @@ ${footer("Show listings are collected by hand and change without notice. Check w
   document.querySelectorAll('.show-month').forEach(function(m){
     if (!m.querySelector('.show')) m.remove();
   });
+  // The "next one up" slab is neither a .show nor a .show-month, so the sweep
+  // above walked straight past the single most prominent thing on the page. A
+  // stale deploy showed a date that had already been and gone, in the biggest
+  // type on the page, which is the exact failure this pass exists to prevent.
+  var next=document.querySelector('.next-show');
+  if(next && next.dataset.date && next.dataset.date < today){
+    var first=document.querySelector('.show');
+    if(first){
+      next.querySelector('.next-name').textContent=first.querySelector('h3').textContent;
+      next.querySelector('.next-meta').textContent=first.querySelector('.show-meta').textContent
+        + ' \u2022 ' + first.querySelector('.show-where').textContent;
+      var lbl=next.querySelector('.next-label');
+      if(lbl) lbl.textContent='Next one up';
+      var href=first.querySelector('.show-links a');
+      if(href) next.setAttribute('href', href.getAttribute('href'));
+    } else {
+      next.remove();
+    }
+  }
 
   var empty = document.getElementById('showEmpty');
   function apply(region){

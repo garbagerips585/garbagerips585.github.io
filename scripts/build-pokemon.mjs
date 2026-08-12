@@ -84,7 +84,10 @@ const roster = [...byName.entries()]
 
 /** Rips that name this Pokemon in the title. */
 const ripsFor = (name) => {
-  const re = new RegExp(`\\b${name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`, "i");
+  // Both anchors. With only a leading \\b, /\\bMew/ matched every Mewtwo rip, and
+  // Mew and Mewtwo are both on the roster. The trailing (?![a-z]) allows
+  // "Charizard's" and "Charizards" while refusing "Mewtwo".
+  const re = new RegExp(`\\b${name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![a-z])`, "i");
   return videos.filter((v) => re.test(v.title));
 };
 
@@ -271,7 +274,7 @@ function indexPage() {
     </div>
     <p class="price-note">These are the ${roster.length} with the most valuable cards in the sets we cover, picked from
       the card data rather than by hand. Anything else is on the
-      <a href="/cards.html">card search</a>, which covers all 4,481.</p>
+      <a href="/cards.html">card search</a>, which covers all ${cards.length.toLocaleString("en-US")}.</p>
   </div>
 </section>
 

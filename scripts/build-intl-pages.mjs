@@ -50,13 +50,17 @@ const yearsSince = (iso) => {
   return `${y < 2 ? "1 year" : `${Math.floor(y)} years`} ago`;
 };
 
-const head = ({ title, desc, canonical, image, ld }) => `<!DOCTYPE html>
+const head = ({ title, desc, canonical, image, ld, noindex = false }) => `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title)}</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(desc)}">${
+  noindex
+    ? '\n<meta name="robots" content="noindex,follow">'
+    : ""
+}
 <link rel="canonical" href="${canonical}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
@@ -109,9 +113,9 @@ function twinBand(g) {
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>No English version</p>
     <h2>This one <span class="hl">never left</span></h2>
-    <p class="lede intl-lede">${esc(g.english)} is a genuine regional exclusive. There is no English set to compare it
-      to and no Japanese one either: the set code returns nothing in every other language TCGdex carries. If you want
-      these cards, imported ${esc(g.langName)} packs are the only way to get them.</p>
+    <p class="lede intl-lede">${esc(g.english)} looks to be a regional exclusive. There is no English set to compare it
+      to and no Japanese one either: its set code returns nothing under Japanese, Korean or Traditional Chinese on
+      TCGdex, which is where we checked. If you want these cards, imported ${esc(g.langName)} packs are the way.</p>
   </div>
 </section>`;
   }
@@ -217,7 +221,17 @@ function guidePage(g) {
   const maxN = Math.max(1, ...rarities.map(([, n]) => n));
   const secretCount = (g.cards || []).filter((c) => c.secret).length;
 
-  return head({ title: `${g.english} (${g.langName}) Set Guide: Cards & English Equivalent | Garbage Rips 585`, desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld }) + `
+  // A guide with no checklist, no rarities and no chase cards is a stub, and the
+  // site already noindexes thin rip pages for exactly this reason. It stays
+  // reachable and in the nav; it just does not go to search until TCGdex
+  // publishes the cards.
+  const thin = !g.hasCards;
+  return head({
+    title: g.equivalent
+      ? `${g.english} (${g.langName}) Set Guide: Cards & English Equivalent | Garbage Rips 585`
+      : `${g.english} (${g.langName}) Set Guide | Garbage Rips 585`,
+    desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld, noindex: thin,
+  }) + `
 <header class="set-hero">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; ${g.langFlag ? `${g.langFlag} ` : ""}${esc(g.langName)} set</span>
@@ -225,7 +239,8 @@ function guidePage(g) {
     ${g.native ? `<p class="intl-hero-native cjk" lang="${esc(g.lang)}">${esc(g.native)}</p>` : ""}
     <p class="lede" style="max-width:34em">${
       en
-        ? `The ${esc(g.langName)} set behind English ${esc(en.name)}. Same cards, different name, and months earlier.`
+        ? `The ${esc(g.langName)} printing of the set English calls ${esc(en.name)}. Same cards, different name.` +
+          (g.released && en.released && g.released < en.released ? " And out first." : "")
         : `A ${esc(g.langName)} set that never got an English release.`
     }</p>
   </div>
@@ -264,10 +279,10 @@ ${g.notable?.length ? `
         <div class="rr">${esc(c.rarity || (c.secret ? "Secret" : kindOf(c) || "Card"))} &bull; ${esc(c.localId || "")}</div>
       </button>`).join("\n      ")}
     </div>
-    <p class="price-note">No prices here on purpose. ${esc(g.langName)} singles are priced in euro or yen by the
+    <p class="price-note">No prices here on purpose. Imported singles are priced in euro or yen by the
       databases that carry them at all, and a converted half-filled price table is worse than none. The English
-      ${en ? `<a href="/sets/${esc(g.equivalent)}.html">${esc(en.name)} guide</a>` : "guides"} carry live USD values for
-      the same cards.</p>
+      ${en ? `<a href="/sets/${esc(g.equivalent)}.html">${esc(en.name)} guide</a> carries` : "guides carry"} live USD
+      values for the same cards.</p>
   </div>
 </section>` : ""}
 ${rarities.length ? `
@@ -282,9 +297,9 @@ ${rarities.length ? `
         <div class="rar-c">${n}</div>
       </div>`).join("\n      ")}
     </div>
-    ${secretCount ? `<p class="price-note">${secretCount} more cards are numbered past card ${g.cardCount.official}, which is
-      how ${esc(g.langName)} sets carry their secret rares. TCGdex does not label the rarity on every one of them, so they are
-      counted here rather than guessed at.</p>` : ""}
+    ${secretCount ? `<p class="price-note">${secretCount} more cards are numbered past card ${g.cardCount?.official}, which is
+      how ${esc(g.dataSource?.langName || g.langName)} sets carry their secret rares. TCGdex does not label the rarity on every
+      one of them, so they are counted here rather than guessed at.</p>` : ""}
   </div>
 </section>` : ""}
 ${g.cards?.length ? `
@@ -292,7 +307,11 @@ ${g.cards?.length ? `
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
     <h2>Full <span class="hl">checklist</span></h2>
-    <p class="lede">All ${g.cards.length} cards, English names where the card is a Pokemon.</p>
+    <p class="lede">All ${g.cards.length} cards, English names where the card is a Pokemon.${
+      g.dataSource?.borrowed
+        ? ` This list is the ${esc(g.dataSource.langName)} printing's, because TCGdex has no ${esc(g.langName)} card records for this set.`
+        : ""
+    }</p>
     <details class="ig-list">
       <summary>Show the full ${esc(g.english)} checklist</summary>
       <ol class="ig-cards">
@@ -303,8 +322,9 @@ ${g.cards?.length ? `
       </ol>
     </details>
     <p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather
-      than transliterated. Trainer and Supporter cards keep their ${esc(g.langName)} names: no free source translates them,
-      and a guessed name on a reference page is worse than an honest one you can paste into a search.</p>
+      than transliterated. Trainer and Supporter cards keep their ${esc(g.dataSource?.langName || g.langName)} names: no
+      free source translates them, and a guessed name on a reference page is worse than an honest one you can paste into
+      a search.</p>
   </div>
 </section>` : `
 <section class="tight">

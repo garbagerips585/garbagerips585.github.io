@@ -651,9 +651,14 @@ try {
 try {
   const ig = JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8"));
   setPages = setPages.concat(
-    Object.keys(ig.sets || {}).map((id) => ({
-      loc: `${SITE}/sets/${id}.html`, freq: "monthly", pri: "0.7", mod: ig.checked,
-    }))
+    Object.entries(ig.sets || {})
+      // A guide with no checklist at all is published noindex by
+      // build-intl-pages, so listing it here would be the sitemap asking a
+      // crawler to fetch a page that tells it to go away. Two of the thirteen.
+      .filter(([, g]) => g.hasCards)
+      .map(([id]) => ({
+        loc: `${SITE}/sets/${id}.html`, freq: "monthly", pri: "0.7", mod: ig.checked,
+      }))
   );
 } catch {
   /* run: node scripts/sync-intl-guides.mjs && node scripts/build-intl-pages.mjs */

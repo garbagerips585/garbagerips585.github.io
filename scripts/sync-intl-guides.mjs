@@ -301,7 +301,11 @@ for (const [id, e] of entries) {
     langName: LANG_NAME[e.lang] || e.lang,
     langFlag: LANG_FLAG[e.lang] || "",
     script: LANG_SCRIPT[e.lang] || null,
-    native: e.native || meta?.name || null,
+    // ONLY from the set's own record. Falling back to `meta` took the name from
+    // whichever record resolved, and for a set with no record of its own that is
+    // the Japanese one: Korean Battle Partners published バトルパートナーズ as
+    // its "Korean" name, in the page heading and in the meta description.
+    native: e.native || own?.name || null,
     released: meta?.releaseDate || null,
     serie: meta?.serie?.name || null,
     // Only publish a count we can stand behind. A borrowed checklist reports the
