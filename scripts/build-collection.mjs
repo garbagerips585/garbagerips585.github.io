@@ -221,7 +221,7 @@ const html = `<!DOCTYPE html>
 <meta property="og:title" content="The Collection">
 <meta property="og:description" content="${d.totalCards} Pokemon cards kept from the rips, with current market values.">
 <meta property="og:url" content="${SITE}/collection.html">
-<meta property="og:image" content="${SITE}/assets/og-image.jpg">
+<meta property="og:image" content="${SITE}/assets/og-collection.jpg">
 <meta name="twitter:card" content="summary_large_image">
 ${FONTS}
 ${STYLES}

@@ -123,6 +123,10 @@ jobs:
           # any run where the nav changed, building before syncing fails the
           # job on a difference it was about to fix itself.
           node scripts/sync-chrome.mjs
+          # Share cards for the guide pages. Cheap, and it means a new page can
+          # never ship pointing at an image that was never generated.
+          bash scripts/fetch-fonts.sh
+          python3 scripts/build-og-pages.py
           node scripts/build-proto.mjs
           node scripts/build-set-pages.mjs
           # MUST follow build-set-pages, which clears public/sets/ before it

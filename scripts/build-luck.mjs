@@ -350,7 +350,7 @@ const html = `<!DOCTYPE html>
 <meta property="og:title" content="Pokemon Pack Luck, Measured">
 <meta property="og:description" content="Hit rates observed across ${judged.length} real pack openings, by set and by product.">
 <meta property="og:url" content="${SITE}/luck.html">
-<meta property="og:image" content="${SITE}/assets/og-image.jpg">
+<meta property="og:image" content="${SITE}/assets/og-luck.jpg">
 <meta name="twitter:card" content="summary_large_image">
 ${FONTS}
 ${STYLES}

@@ -368,7 +368,7 @@ const html = `<!DOCTYPE html>
 <meta property="og:title" content="Upcoming Pokemon TCG Sets and Release Dates">
 <meta property="og:description" content="Every announced English Pokemon TCG release, with what is in it and how confirmed the date is.">
 <meta property="og:url" content="${SITE}/upcoming.html">
-<meta property="og:image" content="${SITE}/assets/og-image.jpg">
+<meta property="og:image" content="${SITE}/assets/og-upcoming.jpg">
 <meta name="twitter:card" content="summary_large_image">
 ${FONTS}
 ${STYLES}

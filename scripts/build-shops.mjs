@@ -210,6 +210,8 @@ const swapped = head
     )}.">`
   )
   .replace(/<link rel="canonical"[^>]*>/, `<link rel="canonical" href="${SITE}/shops.html">`)
+  .replace(/(<meta property="og:image" content="[^"]*\/assets\/)og-image\.jpg/, `$1og-shops.jpg`)
+  .replace(/(<meta name="twitter:image" content="[^"]*\/assets\/)og-image\.jpg/, `$1og-shops.jpg`)
   .replace(/(<meta property="og:url" content=")[^"]*/, `$1${SITE}/shops.html`)
   .replace(
     /(<meta property="og:title" content=")[^"]*/,

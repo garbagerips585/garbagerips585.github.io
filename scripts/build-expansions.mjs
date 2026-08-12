@@ -295,7 +295,7 @@ const html = `<!DOCTYPE html>
 <meta property="og:title" content="Every Pokemon TCG Set in Order">
 <meta property="og:description" content="All ${sets.length} English Pokemon TCG expansions, ${firstYear} to ${lastYear}, with release dates and card counts.">
 <meta property="og:url" content="${SITE}/expansions.html">
-<meta property="og:image" content="${SITE}/assets/og-image.jpg">
+<meta property="og:image" content="${SITE}/assets/og-expansions.jpg">
 <meta name="twitter:card" content="summary_large_image">
 ${FONTS}
 ${STYLES}

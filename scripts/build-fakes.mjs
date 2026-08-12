@@ -372,9 +372,9 @@ const page = `<!DOCTYPE html>
 <meta property="og:type" content="article">
 <meta property="og:url" content="${SITE}/fake-cards.html">
 <meta property="og:site_name" content="Garbage Rips 585">
-<meta property="og:image" content="${SITE}/assets/og-image.jpg?v=2">
+<meta property="og:image" content="${SITE}/assets/og-fake-cards.jpg?v=2">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="${SITE}/assets/og-image.jpg?v=2">
+<meta name="twitter:image" content="${SITE}/assets/og-fake-cards.jpg?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
