@@ -36,36 +36,11 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { TCG_SET } from "../shared/tcgplayer.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "tcg-products");
 
-/** our set id -> TCGplayer's exact setName. Confirmed, not guessed. */
-const TCG_SET = {
-  "pitch-black": "ME05: Pitch Black",
-  "chaos-rising": "ME04: Chaos Rising",
-  "perfect-order": "ME03: Perfect Order",
-  "ascended-heroes": "ME: Ascended Heroes",
-  "phantasmal-flames": "ME02: Phantasmal Flames",
-  "mega-evolution": "ME01: Mega Evolution",
-  "white-flare": "SV: White Flare",
-  "black-bolt": "SV: Black Bolt",
-  "destined-rivals": "SV10: Destined Rivals",
-  "journey-together": "SV09: Journey Together",
-  "prismatic-evolutions": "SV: Prismatic Evolutions",
-  "surging-sparks": "SV08: Surging Sparks",
-  "stellar-crown": "SV07: Stellar Crown",
-  "shrouded-fable": "SV: Shrouded Fable",
-  "twilight-masquerade": "SV06: Twilight Masquerade",
-  "temporal-forces": "SV05: Temporal Forces",
-  "paldean-fates": "SV: Paldean Fates",
-  "paradox-rift": "SV04: Paradox Rift",
-  "151": "SV: Scarlet & Violet 151",
-  "obsidian-flames": "SV03: Obsidian Flames",
-  "paldea-evolved": "SV02: Paldea Evolved",
-  "scarlet-violet": "SV01: Scarlet & Violet Base Set",
-  "pokemon-go": "Pokemon GO",
-};
 
 /**
  * What counts as a main product, in the order it should appear.

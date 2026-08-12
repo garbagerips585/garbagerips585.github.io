@@ -39,7 +39,9 @@ export const MONTHS_LONG = ["January","February","March","April","May","June","J
  */
 function fmt(iso, months) {
   if (!iso) return "";
-  const p = String(iso).slice(0, 10).split("-");
+  // The Pokemon TCG API dates with slashes ("2026/08/11") and everything else
+  // here uses dashes, so accept both rather than making every caller remember.
+  const p = String(iso).slice(0, 10).split(/[-/]/);
   const m = months[+p[1] - 1];
   const d = +p[2];
   if (!m || !Number.isFinite(d) || !p[0]) return "";

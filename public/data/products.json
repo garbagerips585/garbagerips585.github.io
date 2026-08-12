@@ -1,9 +1,9 @@
 {
-  "checked": "2026-08-11",
+  "checked": "2026-08-12",
   "sets": {
     "151": {
       "tcgSet": "SV: Scarlet & Violet 151",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Elite Trainer Box",
@@ -69,7 +69,7 @@
     },
     "pitch-black": {
       "tcgSet": "ME05: Pitch Black",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Booster Box",
@@ -147,7 +147,7 @@
     },
     "chaos-rising": {
       "tcgSet": "ME04: Chaos Rising",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Booster Box",
@@ -225,7 +225,7 @@
     },
     "perfect-order": {
       "tcgSet": "ME03: Perfect Order",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Booster Box",
@@ -303,7 +303,7 @@
     },
     "ascended-heroes": {
       "tcgSet": "ME: Ascended Heroes",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Elite Trainer Box",
@@ -369,7 +369,7 @@
     },
     "phantasmal-flames": {
       "tcgSet": "ME02: Phantasmal Flames",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Booster Box",
@@ -447,7 +447,7 @@
     },
     "mega-evolution": {
       "tcgSet": "ME01: Mega Evolution",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Booster Box",
@@ -537,7 +537,7 @@
     },
     "white-flare": {
       "tcgSet": "SV: White Flare",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Elite Trainer Box",
@@ -591,7 +591,7 @@
     },
     "black-bolt": {
       "tcgSet": "SV: Black Bolt",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Elite Trainer Box",
@@ -657,7 +657,7 @@
     },
     "destined-rivals": {
       "tcgSet": "SV10: Destined Rivals",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Booster Box",
@@ -735,7 +735,7 @@
     },
     "journey-together": {
       "tcgSet": "SV09: Journey Together",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Booster Box",
@@ -813,7 +813,7 @@
     },
     "prismatic-evolutions": {
       "tcgSet": "SV: Prismatic Evolutions",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Elite Trainer Box",
@@ -891,7 +891,7 @@
     },
     "surging-sparks": {
       "tcgSet": "SV08: Surging Sparks",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Booster Box",
@@ -969,7 +969,7 @@
     },
     "stellar-crown": {
       "tcgSet": "SV07: Stellar Crown",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Booster Box",
@@ -1047,7 +1047,7 @@
     },
     "shrouded-fable": {
       "tcgSet": "SV: Shrouded Fable",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Elite Trainer Box",
@@ -1125,7 +1125,7 @@
     },
     "twilight-masquerade": {
       "tcgSet": "SV06: Twilight Masquerade",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Booster Box",
@@ -1203,7 +1203,7 @@
     },
     "temporal-forces": {
       "tcgSet": "SV05: Temporal Forces",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Booster Box",
@@ -1281,7 +1281,7 @@
     },
     "paldean-fates": {
       "tcgSet": "SV: Paldean Fates",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Elite Trainer Box",
@@ -1347,7 +1347,7 @@
     },
     "paradox-rift": {
       "tcgSet": "SV04: Paradox Rift",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Booster Box",
@@ -1425,7 +1425,7 @@
     },
     "obsidian-flames": {
       "tcgSet": "SV03: Obsidian Flames",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Booster Box",
@@ -1503,7 +1503,7 @@
     },
     "paldea-evolved": {
       "tcgSet": "SV02: Paldea Evolved",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Booster Box",
@@ -1581,7 +1581,7 @@
     },
     "scarlet-violet": {
       "tcgSet": "SV01: Scarlet & Violet Base Set",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Booster Box",
@@ -1659,7 +1659,7 @@
     },
     "pokemon-go": {
       "tcgSet": "Pokemon GO",
-      "checked": "2026-08-11",
+      "checked": "2026-08-12",
       "products": [
         {
           "kind": "Elite Trainer Box",

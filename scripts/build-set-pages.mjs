@@ -87,6 +87,35 @@ const gradedAsOf = (setId, number) => {
   return psa10.prices?.[k]?.asOf || psa10[k]?.asOf || psa10.auto?.[k]?.asOf || null;
 };
 
+/**
+ * Chase cards for the sets the Pokemon TCG API has no prices for.
+ *
+ * The four newest sets had full checklists but no market data, so the price
+ * sort had nothing to sort and "Top chase cards" rendered an apology on
+ * exactly the sets people are opening right now. scripts/sync-chase.mjs joins
+ * the cached checklist to TCGplayer's prices; this merges the result in.
+ *
+ * Only ever fills a gap. A set that has its own priced chase list keeps it, so
+ * the Pokemon TCG API stays the primary source and this cannot quietly
+ * overwrite it. `priceSource` is stamped so the page can say where the number
+ * came from rather than implying both came from the same place.
+ */
+let chaseFallback = {};
+try {
+  chaseFallback = JSON.parse(await readFile(join(ROOT, "data/chase-tcg.json"), "utf8")).sets || {};
+} catch {
+  /* run: node scripts/sync-chase.mjs */
+}
+for (const st of sets) {
+  const mine = st.chase || [];
+  if (mine.length && mine.some((c) => c.price)) continue;
+  const fill = chaseFallback[st.id];
+  if (!fill?.cards?.length) continue;
+  st.chase = fill.cards;
+  st.chasePriceSource = "TCGplayer";
+  st.chasePricesAsOf = fill.checked;
+}
+
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 
 
@@ -405,7 +434,7 @@ ${s.notes?.inPrint || s.notes?.packPrice ? `
           : ""}
       </button>`).join("\n      ")}
     </div>
-    <p class="price-note">Prices are TCGplayer market estimates${s.pricesAsOf ? `, last updated ${esc(s.pricesAsOf)}` : ""}. Singles move fast, so treat these as a ballpark rather than a quote.${affOn ? ` ${esc(aff.tcgplayer.disclosure)}` : ""}</p>
+    <p class="price-note">Prices are TCGplayer market estimates${longDate(s.pricesAsOf || s.chasePricesAsOf) ? `, last updated ${longDate(s.pricesAsOf || s.chasePricesAsOf)}` : ""}. Singles move fast, so treat these as a ballpark rather than a quote.${affOn ? ` ${esc(aff.tcgplayer.disclosure)}` : ""}</p>
     ` : `
     <div class="no-prices">
       <strong>No market prices yet.</strong> ${esc(s.name)} is recent enough that pricing data has not landed in the card database. The card list and rarity counts above are accurate; the values will fill in as the market settles.
