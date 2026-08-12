@@ -49,7 +49,11 @@
       "real": "Font, energy symbols, HP, attack damage, weakness, retreat cost, set symbol and card number all match, and it is foil only if that version is foil.",
       "fake": "Any of those wrong, most often the energy symbols being the wrong size and the set symbol being soft.",
       "why": "A counterfeiter working from a photo gets the picture right and the details wrong, because the details are small and they are guessing.",
-      "caveat": "Plenty of real cards exist in more than one version, and no database is complete, so make sure you are comparing the same printing before you call it."
+      "caveat": "Plenty of real cards exist in more than one version, and no database is complete, so make sure you are comparing the same printing before you call it.",
+      "toolLink": {
+        "name": "PkmnCards",
+        "url": "https://pkmncards.com/"
+      }
     },
     {
       "id": "texture",
@@ -176,5 +180,26 @@
       "name": "TCGplayer: How to Spot Fake Pokemon Cards",
       "url": "https://www.tcgplayer.com/content/article/How-to-Spot-Fake-Pok%C3%A9mon-Cards/0b3c551c-39e2-4949-ac46-3cb27e215b04/"
     }
-  ]
+  ],
+  "seePhotos": {
+    "title": "Want to see real photographs of fakes?",
+    "body": "Everything on this page is a diagram, because we have never owned a confirmed counterfeit and we are not going to put up a picture of one we cannot vouch for. The people who do own them are the marketplaces that intercept them. TCGplayer's authentication team photographed the fakes they caught coming into their own inventory, and their guide is the best set of side by sides on the internet. It is also where the ordering of this page came from.",
+    "links": [
+      {
+        "name": "TCGplayer: How to Spot Fake Pokemon Cards",
+        "what": "Photographs of real counterfeits their authentication centre intercepted, side by side with genuine cards. Charizard, Jolteon, Jirachi, Ultra Ball and more, fronts and backs.",
+        "url": "https://www.tcgplayer.com/content/article/How-to-Spot-Fake-Pok%C3%A9mon-Cards/0b3c551c-39e2-4949-ac46-3cb27e215b04/"
+      },
+      {
+        "name": "PkmnCards",
+        "what": "High resolution scans of nearly every card ever printed. This is the one to use for the compare-to-a-scan test: find your card, then check the font, the energy symbols and the set symbol against it.",
+        "url": "https://pkmncards.com/"
+      },
+      {
+        "name": "The official Pokemon card database",
+        "what": "The Pokemon Company's own card list. Less complete than PkmnCards but it is the primary source.",
+        "url": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards/"
+      }
+    ]
+  }
 }

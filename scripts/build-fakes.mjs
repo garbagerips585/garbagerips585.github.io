@@ -308,7 +308,9 @@ const testCard = (t, i) => `      <article class="fk" id="${esc(t.id)}">
           <h2>${esc(t.name)}</h2>
           <span class="fk-conf ${CONF_CLASS[t.confidence] || "mid"}">${esc(t.confidence)}</span>
         </div>
-        ${t.tools ? `<p class="fk-tools">Needs: ${esc(t.tools)}</p>` : ""}
+        ${t.tools ? `<p class="fk-tools">Needs: ${esc(t.tools)}${
+          t.toolLink ? ` &bull; <a href="${esc(t.toolLink.url)}" rel="noopener" target="_blank">${esc(t.toolLink.name)}</a>` : ""
+        }</p>` : ""}
         <p class="fk-how">${esc(t.how)}</p>
         <div class="fk-vs">
           <div class="fk-real"><p class="fk-vs-h">Real</p><p>${esc(t.real)}</p></div>
@@ -402,6 +404,17 @@ ${MENU}
 <section class="tight">
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / Real or fake</p>
+
+    ${d.seePhotos ? `<div class="fk-see">
+      <p class="fk-see-h">${esc(d.seePhotos.title)}</p>
+      <p class="fk-see-b">${esc(d.seePhotos.body)}</p>
+      <ul class="fk-see-list">
+        ${d.seePhotos.links.map((l) => `<li>
+          <a href="${esc(l.url)}" rel="noopener" target="_blank">${esc(l.name)} <span aria-hidden="true">&rarr;</span></a>
+          <span>${esc(l.what)}</span>
+        </li>`).join("\n        ")}
+      </ul>
+    </div>` : ""}
 
     <div class="fk-golden">
       <p class="fk-golden-h">Start here</p>

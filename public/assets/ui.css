@@ -1835,3 +1835,17 @@ footer .soc svg{fill:var(--paper)}
 .fk-no-item h3{font:400 var(--t-m)/1.2 var(--display);flex:1 1 auto;min-width:0}
 .fk-no-item p{font-size:var(--t-sm);color:var(--ink-2);line-height:1.7;margin-top:8px;max-width:56em}
 @media(min-width:900px){ .fk-no-list{grid-template-columns:repeat(3,1fr)} }
+
+/* "Want to see real photographs?" Sits above the tests, because somebody who
+   came here to SEE a fake wants that before they read eight tests. */
+.fk-see{background:var(--paper-3);border:2px dashed var(--navy);border-radius:var(--r);
+  padding:var(--s5);margin-top:var(--s4)}
+.fk-see-h{font:400 var(--t-m)/1.2 var(--display)}
+.fk-see-b{font-size:var(--t-sm);color:var(--ink-2);line-height:1.7;margin-top:8px;max-width:56em}
+.fk-see-list{list-style:none;display:grid;gap:var(--s3);margin-top:var(--s4)}
+.fk-see-list li{display:grid;gap:2px}
+.fk-see-list a{font:700 var(--t-sm)/1.4 var(--body);color:var(--ketchup-deep);
+  min-height:44px;display:inline-flex;align-items:center}
+.fk-see-list a:hover{text-decoration:underline}
+.fk-see-list span{font-size:var(--t-micro);color:var(--ink-2);line-height:1.6;max-width:56em}
+@media(min-width:820px){ .fk-see-list{grid-template-columns:repeat(3,1fr)} }
