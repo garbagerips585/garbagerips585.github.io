@@ -70,32 +70,67 @@ export const STYLES = `<link rel="stylesheet" href="/assets/ui.css">
 export const BAR = `<header class="bar">
   <div class="bar-in">
     <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
-    <form role="search" action="/videos.html" method="get">
+    <form class="bar-search" role="search" action="/videos.html" method="get">
       <label class="sr-only" for="navSearch">Search every rip</label>
-      <input id="navSearch" name="q" type="search" placeholder="Search rips" aria-label="Search every rip by set, product or card">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+      <input id="navSearch" name="q" type="search" placeholder="Search 310 rips" aria-label="Search every rip by set, product or card" autocomplete="off">
     </form>
     <nav class="nav-links" aria-label="Primary">
       <a href="/videos.html">Rips</a>
-      <a href="/sets/">Pokedex</a>
-      <a href="/expansions.html">All sets</a>
-      <a href="/wanted.html">Wanted</a>
-      <a href="/hall.html">Hall of Fame</a>
+      <a href="/hall.html">Hits</a>
+      <a href="/sets/">Sets</a>
     </nav>
-    <a class="icon-btn" href="/videos.html" aria-label="Search all rips">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
-    </a>
-    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span>Menu</span>
     </button>
     <a class="sub" href="${SUBSCRIBE}"><span>Subscribe</span></a>
   </div>
 </header>`;
 
 /** The panel the bar's button controls. Must sit after </header>. */
+/**
+ * The panel behind the Menu button. Must sit after </header>.
+ *
+ * Grouped rather than a flat list of twelve. NN/G's mobile study found hidden
+ * navigation cost >20% content discoverability and made people 15% slower, and
+ * that the fix is combo navigation: a few links always visible plus a labelled
+ * menu for the rest. Three headed groups read as three decisions instead of
+ * twelve items.
+ *
+ * "Home" is gone: it was the first thing a thumb landed on, spent on the page
+ * you are already reading, and the wordmark already goes home. That alone took
+ * the panel from 612px to something that fits the 575px an iPhone actually
+ * gives you in Safari once its own toolbars are showing.
+ */
+export const MENU_GROUPS = [
+  ["Watch", [
+    ["/videos.html", "All rips"],
+    ["/hall.html", "Best pulls"],
+    ["/playlists.html", "Playlists"],
+  ]],
+  ["Card guides", [
+    ["/sets/", "Set guides"],
+    ["/rarity.html", "Rarity guide"],
+    ["/expansions.html", "Every set ever"],
+    ["/upcoming.html", "Coming next"],
+    ["/luck.html", "Luck & pull rates"],
+  ]],
+  ["The 585", [
+    ["/wanted.html", "Most wanted"],
+    ["/shops.html", "Card shops"],
+    ["/about.html", "About"],
+  ]],
+];
+
 export const MENU = `<nav class="menu" id="menu" aria-label="Site">
+${MENU_GROUPS.map(
+  ([title, links]) => `  <p class="menu-h">${title}</p>
   <ul>
-${NAV_LINKS.map(([href, label]) => `    <li><a href="${href}">${label}</a></li>`).join("\n")}
-  </ul>
+${links.map(([href, label]) => `    <li><a href="${href}">${label}</a></li>`).join("\n")}
+  </ul>`
+).join("\n")}
+  <a class="menu-sub" href="${SUBSCRIBE}">Subscribe on YouTube</a>
 </nav>`;
 
 /**

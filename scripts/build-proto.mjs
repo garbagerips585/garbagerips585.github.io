@@ -306,7 +306,7 @@ async function logoAttrs(id) {
 /* ----------------------------------------------------------------- regions */
 
 const railHtml = [
-  `    <a class="chip" href="/videos.html" aria-current="page">Latest <span class="n">${videos.length}</span></a>`,
+  `    <a class="chip chip-lead" href="/videos.html">Latest <span class="n">${videos.length}</span></a>`,
   `    <a class="chip gold" href="/videos.html?pull=1">Hits only <span class="n">${hitCount}</span></a>`,
   ...topSets.map(([id, n]) =>
     `    <a class="chip" href="/videos.html?set=${id}">${esc(setName.get(id) || id)} <span class="n">${n}</span></a>`),

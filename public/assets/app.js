@@ -699,6 +699,19 @@
     // Mobile menu. The bar has room for a brand, a search affordance and
     // Subscribe, and nothing else, so on a phone every other page used to be a
     // 7,000px scroll away in the footer.
+    // Mark where we are, in both the bar links and the panel. Done here rather
+    // than at build time because the same chrome is emitted into 346 pages and
+    // one of them is always the current one.
+    var here = location.pathname.replace(/index\.html$/, "") || "/";
+    document.querySelectorAll(".menu a, .nav-links a").forEach(function (a) {
+      var to = a.getAttribute("href");
+      if (!to) return;
+      var norm = to.replace(/index\.html$/, "");
+      if (norm === here || (norm !== "/" && here.indexOf(norm) === 0)) {
+        a.setAttribute("aria-current", "page");
+      }
+    });
+
     var mb = document.getElementById("menuBtn");
     var panel = document.getElementById("menu");
     if (mb && panel) {
