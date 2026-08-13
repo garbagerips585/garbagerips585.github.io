@@ -361,7 +361,6 @@ const hofHtml = hofPick
           <span class="hofx-t">${esc(hofPick.siteTitle || hofPick.title)}</span>
           <span class="hofx-m">${[setName.get(faceSet(hofPick)) || "", hofPick.views ? compact(hofPick.views) + " views" : ""]
             .filter(Boolean).map(esc).join(" &bull; ")}</span>
-          }</span>
           <span class="hofx-cta">Watch the pull <span aria-hidden="true">&rarr;</span></span>
         </span>
       </a>`
