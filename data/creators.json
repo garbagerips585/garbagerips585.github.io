@@ -19,5 +19,21 @@
     "page cannot read as a league table of local creators."
   ],
   "updated": "2026-08-13",
-  "creators": []
+  "creators": [
+    {
+      "name": "Elliot Does Pokemon",
+      "area": "Rochester",
+      "does": "Pokemon content",
+      "youtube": "elliotdoespokemon",
+      "instagram": "elliotdoespokemon"
+    },
+    {
+      "name": "Toak Pulls",
+      "area": "Rochester",
+      "does": "Rips and pulls, and they vend at the local shows",
+      "youtube": "toakpulls",
+      "tiktok": "toakpulls",
+      "instagram": "toakpulls"
+    }
+  ]
 }

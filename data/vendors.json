@@ -22,5 +22,23 @@
     "is true: the whole value of a local list is that it is not a directory."
   ],
   "updated": "2026-08-13",
-  "vendors": []
+  "vendors": [
+    {
+      "name": "Toak Pulls",
+      "area": "Rochester and the wider region",
+      "sells": "Singles and sealed, in person at shows",
+      "blurb": "At all the local shows around the region, and they travel out of state for the bigger ones too.",
+      "shows": "Local Rochester area shows, plus out of state",
+      "url": "https://toakpulls.com",
+      "links": "https://solo.to/toakpulls"
+    },
+    {
+      "name": "RocPokéCon",
+      "area": "Rochester",
+      "sells": "Vendors at their own show and at other local ones",
+      "blurb": "They run the biggest Pokemon card show in Rochester, and they vend at it and at other shows around the area.",
+      "shows": "RocPokéCon, plus other local shows",
+      "links": "https://linktr.ee/rocpokecon"
+    }
+  ]
 }

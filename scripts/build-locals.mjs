@@ -53,6 +53,10 @@ const links = (o) => {
   // A plain website sits last: it is the least likely to be how somebody in a
   // card community actually finds them.
   if (o.url) out.push(`<a class="loc-soc" href="${esc(o.url)}" rel="noopener" target="_blank">Website</a>`);
+  // A link-in-bio page (solo.to, linktr.ee) is often the ONLY address a vendor
+  // publishes: no site of their own, and their socials change. Labelled as what
+  // it is rather than as a website, because it is a hub and not a shop.
+  if (o.links) out.push(`<a class="loc-soc" href="${esc(o.links)}" rel="noopener" target="_blank">All their links</a>`);
   return out.length ? `<p class="loc-socs">${out.join("")}</p>` : "";
 };
 

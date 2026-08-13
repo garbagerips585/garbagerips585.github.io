@@ -925,6 +925,15 @@ const urls = [
   { loc: `${SITE}/wanted.html`, freq: "weekly", pri: "0.8" },
   { loc: `${SITE}/hall.html`, freq: "weekly", pri: "0.8" },
   { loc: `${SITE}/shops.html`, freq: "monthly", pri: "0.7" },
+  // Only once they have entries. Both render an honest empty state and go
+  // noindex while the list is empty, so listing them in the sitemap before
+  // then would contradict the page and fail check-build's noindex rule.
+  ...(JSON.parse(await readFile(join(ROOT, "data/vendors.json"), "utf8")).vendors.length
+    ? [{ loc: `${SITE}/vendors.html`, freq: "monthly", pri: "0.7" }]
+    : []),
+  ...(JSON.parse(await readFile(join(ROOT, "data/creators.json"), "utf8")).creators.length
+    ? [{ loc: `${SITE}/creators.html`, freq: "monthly", pri: "0.7" }]
+    : []),
   { loc: `${SITE}/about.html`, freq: "monthly", pri: "0.8" },
   // The complete set list. High priority: it is the most linkable reference
   // page on the site and the one most likely to be found cold in search.
