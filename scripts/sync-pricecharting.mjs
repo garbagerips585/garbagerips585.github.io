@@ -57,6 +57,36 @@ const TIERS = [
 
 const money = (s) => (s ? Number(String(s).replace(/[^0-9.]/g, "")) || null : null);
 
+// VALIDATE THE MATCH OR THROW IT AWAY. The search endpoint returns its best
+// guess, and its best guess is wrong often enough to matter: asked for "Rotom"
+// it returned "Rotom ex", asked for Mega Gengar ex in Phantasmal Flames it
+// returned the Ascended Heroes printing, and asked for Dawn it returned #129
+// when ours is #118. Three bad matches in fifteen numberless lookups. Publishing
+// a graded price for the wrong card is worse than publishing none, so a result
+// is only accepted when the set agrees with our own record and, where we know
+// the number, the number agrees too.
+// Fold accents BEFORE stripping, or "Pokémon GO" becomes "pokmongo" and never
+// matches their "Pokemon Go". That cost three good matches on the first run.
+const norm = (x) =>
+  String(x || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
+// A promo set is named differently by everyone. We call it "MEP Black Star
+// Promos"; PriceCharting files the same card under "Pokemon Promo". Treat any
+// promo label as matching any other, and lean on the card name and number,
+// which are what actually identify the printing.
+const isPromo = (x) => /promo/i.test(String(x || ""));
+
+function accept(found, want) {
+  // "Pokemon Phantasmal Flames" against our "Phantasmal Flames"
+  if (want.setName && !(isPromo(want.setName) && isPromo(found.consoleName))
+      && !norm(found.consoleName).includes(norm(want.setName))) return "wrong set";
+  // "Rotom ex" is not "Rotom". Compare the name with the number stripped off.
+  const got = norm(String(found.productName).replace(/#\d+.*$/, ""));
+  if (got !== norm(want.name)) return "different card";
+  if (want.number && !String(found.productName).includes("#" + String(want.number).replace(/^0+/, "")))
+    return "wrong printing";
+  return null;
+}
+
 /** Find a card's PriceCharting page. Returns null rather than guessing. */
 async function find(name, number) {
   const q = encodeURIComponent(`${name} ${number}`.trim());
@@ -95,7 +125,9 @@ async function table(url) {
 const targets = new Map();
 const hits = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
 for (const list of Object.values(hits)) {
-  for (const h of list) targets.set(`${h.card}|${h.number || ""}`, { name: h.card, number: h.number || "" });
+  // Carry the set through: it is what makes a match checkable.
+  for (const h of list)
+    targets.set(`${h.card}|${h.number || ""}`, { name: h.card, number: h.number || "", setName: h.setName });
 }
 if (WANT_CHASE) {
   const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
@@ -106,7 +138,7 @@ if (WANT_CHASE) {
   const N = Number((process.argv.find((a) => a.startsWith("--top=")) || "--top=3").split("=")[1]) || 3;
   for (const s of sets)
     for (const c of (s.chase || []).slice(0, N))
-      targets.set(`${c.name}|${c.number}`, { name: c.name, number: c.number });
+      targets.set(`${c.name}|${c.number}`, { name: c.name, number: c.number, setName: s.name });
 }
 
 console.log(`Pricing ${targets.size} card(s) from PriceCharting, one a second...`);
@@ -119,6 +151,12 @@ for (const [key, t] of targets) {
   if (!found) {
     missed += 1;
     console.log(`  MISS  ${t.name} ${t.number}`);
+    continue;
+  }
+  const why = accept(found, t);
+  if (why) {
+    missed += 1;
+    console.log(`  DROP  ${t.name} ${t.number} (${t.setName || "?"}) -> ${found.productName} (${found.consoleName}) [${why}]`);
     continue;
   }
   const slug = `https://www.pricecharting.com/game/${found.consoleName.toLowerCase().replace(/[^a-z0-9]+/g, "-")}/${found.productName
