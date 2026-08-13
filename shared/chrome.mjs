@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+import { readFile } from "node:fs/promises";
 // The bits of chrome every page wears: the bar, the mobile menu, the footer,
 // the icon sprite and the skip link.
 //
@@ -136,7 +138,33 @@ export const FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com"
 <link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">`;
 
 /** Stylesheets, in the order they must load. */
-export const STYLES = `<link rel="stylesheet" href="/assets/ui.css">
+// CACHE BUST THE STYLESHEET, keyed to its own contents.
+//
+// The link was a bare /assets/ui.css with no version, so a browser that had the
+// file cached kept serving it after a deploy. That is invisible for a colour
+// tweak and catastrophic for a new component: the hits grid shipped its markup
+// and its CSS together, and anyone holding an older ui.css got the <ul> with no
+// grid rules at all, which renders as one full-width list item per card with a
+// 245px scan stretched across the viewport. It looked like a layout bug and was
+// a caching bug.
+//
+// The suffix is a hash of the file, so it changes when and only when the CSS
+// does: no version to remember to bump, and no needless re-download.
+// Same treatment for the script. A stale app.js is worse than stale CSS: the
+// card search, the pack tear and the hits reveal all live in it, so a cached
+// copy silently disables features whose markup already shipped.
+export const APP_V = createHash("sha1")
+  .update(await readFile(new URL("../public/assets/app.js", import.meta.url)))
+  .digest("hex")
+  .slice(0, 8);
+export const APP_JS = `<script src="/assets/app.js?v=${APP_V}" defer></script>`;
+
+const CSS_V = createHash("sha1")
+  .update(await readFile(new URL("../public/assets/ui.css", import.meta.url)))
+  .digest("hex")
+  .slice(0, 8);
+
+export const STYLES = `<link rel="stylesheet" href="/assets/ui.css?v=${CSS_V}">
 <link rel="stylesheet" href="/assets/packs.css">`;
 
 /**

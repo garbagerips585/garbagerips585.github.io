@@ -24,7 +24,7 @@ import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
+import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
 import { esc, longDate, MONTHS_LONG } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -431,7 +431,7 @@ ${footer("Show listings are collected by hand and change without notice. Check w
   apply('all');
 })();
 </script>
-<script src="/assets/app.js" defer></script>
+${APP_JS}
 </body>
 </html>
 `;

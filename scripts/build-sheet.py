@@ -261,9 +261,10 @@ rows = [
     (None, None, None),
     ("Packs from several sets", "A tin with two packs, or a box with ten packs from four sets, "
                                 "belongs to every set it contains. Put the set the video is really "
-                                "about in Set and the rest in Set 2 to Set 4. The rip then appears "
-                                "under every one of those sets. More than four is rare: type the "
-                                "extras into More Sets, separated by commas.", None),
+                                "about in Set and the rest in Set 2 to Set 5. Next to each one, put "
+                                "how many packs of THAT set were in the opening. Packs Opened adds "
+                                "them up for you, so a UPC reads 18 packs AND tells us six were "
+                                "Journey Together. That is what makes a per-set pack count possible.", None),
     (None, None, None),
     ("Greatest Hits", "Mark Yes on the RIPS you want in the gold section at the top of the home "
                       "page. Rank orders them, 1 first. Leave Rank blank and the site orders by "
@@ -344,18 +345,40 @@ COLUMNS = [
     ("Views", 9, "locked"),
     ("Length", 8, "locked"),
     ("Watch", 8, "locked"),
-    ("Set", 26, "input"),
-    ("Set 2", 26, "input"),
-    ("Set 3", 26, "input"),
-    ("Set 4", 26, "input"),
-    ("More Sets", 30, "input"),
+    # SET AND ITS PACK COUNT SIT TOGETHER, five pairs of them.
+    #
+    # A UPC is 18 packs across five sets. Recording only the total meant we knew
+    # 18 packs were opened but not that six were Journey Together, so no per-set
+    # pack count could ever be computed and "how many Pitch Black packs have we
+    # opened" had no answer. The pair is the smallest thing that fixes it.
+    #
+    # FIVE PAIRS, not a separate tab, because the distribution says so: of 272
+    # videos with any set recorded, 259 are a SINGLE set, 11 are two, one is
+    # three and one is five. A tab would make 259 rows a two-place job to serve
+    # thirteen. Five pairs covers every video in the catalogue today.
+    #
+    # This replaces "More Sets", which was free text. Free text in one cell is
+    # exactly what broke the hits: one typo and one stray comma cost two cards.
+    ("Set", 24, "input"),
+    ("Packs", 8, "input"),
+    ("Set 2", 24, "input"),
+    ("Packs 2", 8, "input"),
+    ("Set 3", 24, "input"),
+    ("Packs 3", 8, "input"),
+    ("Set 4", 24, "input"),
+    ("Packs 4", 8, "input"),
+    ("Set 5", 24, "input"),
+    ("Packs 5", 8, "input"),
     ("Box / Series", 30, "input"),
     ("Opening Type", 28, "input"),
     # Packs Opened is what makes the luck page rigorous. Without it a rate can
     # only be "per video", which silently treats a 36-pack booster box and a
     # single pack as one trial each. With it the rate is per PACK, which is the
     # number anyone actually means by "how often do you hit".
-    ("Packs Opened", 13, "input"),
+    # Now a SUM of the five pack cells, not a typed number. It used to be typed
+    # independently, so a row could say 18 packs while its per-set cells added
+    # to 12 and nothing would notice. Grey because it is computed.
+    ("Packs Opened", 13, "locked"),
     ("Has Hit", 9, "input"),
     ("Hit Card", 30, "input"),
     ("Hit Rarity", 34, "input"),
@@ -415,13 +438,22 @@ for r, v in enumerate(ordered, start=2):
     # A video can hold packs from several sets, so spread them across the three
     # columns in order. The first is what the video is really about and picks
     # the wrapper on the site.
-    for n, sid in enumerate(sets_v[:4]):
+    # Step by TWO: the columns now interleave Set, Packs, Set 2, Packs 2...
+    # so Set 2 is COL["Set"]+2, not +1. Off by one here would have written every
+    # extra set into a pack-count cell.
+    for n, sid in enumerate(sets_v[:5]):
         if sid in set_name:
-            wv.cell(r, COL["Set"] + n, set_name[sid]).font = GUESS_TXT
+            wv.cell(r, COL["Set"] + n * 2, set_name[sid]).font = GUESS_TXT
     if products and products[0] in PRODUCT_TO_OPENING:
         wv.cell(r, COL["Opening Type"], PRODUCT_TO_OPENING[products[0]]).font = GUESS_TXT
     if products and products[0] in PRODUCT_TO_PACKS:
-        wv.cell(r, COL["Packs Opened"], PRODUCT_TO_PACKS[products[0]]).font = GUESS_TXT
+        # Goes on Packs, the first set's own count, because Packs Opened is now
+        # a SUM. Writing a literal there would overwrite the formula.
+        wv.cell(r, COL["Packs"], PRODUCT_TO_PACKS[products[0]]).font = GUESS_TXT
+    # Packs Opened = the five per-set counts, summed. Typed independently it
+    # could say 18 while the parts added to 12 and nothing would catch it.
+    _pk = [get_column_letter(COL[h]) for h in ("Packs", "Packs 2", "Packs 3", "Packs 4", "Packs 5")]
+    wv.cell(r, COL["Packs Opened"], "=SUM(" + ",".join(f"{c}{r}" for c in _pk) + ")")
     if pull:
         wv.cell(r, COL["Has Hit"], "Yes").font = GUESS_TXT
         wv.cell(r, COL["Hit Rarity"], PULL_TO_RARITY[pull]).font = GUESS_TXT
@@ -440,7 +472,7 @@ last = len(ordered) + 1
 # the wrong column without anything appearing to break.
 CI = {head: i for i, (head, _, _) in enumerate(COLUMNS, start=1)}
 for dv_formula, cols in [
-    (DV_SET, [CI["Set"], CI["Set 2"], CI["Set 3"], CI["Set 4"]]),
+    (DV_SET, [CI["Set"], CI["Set 2"], CI["Set 3"], CI["Set 4"], CI["Set 5"]]),
     (DV_OPEN, [CI["Opening Type"]]),
     (DV_RARITY, [CI["Hit Rarity"]]),
     (DV_YESNO, [CI["Has Hit"], CI["Greatest Hits"], CI["Feature"], CI["Hide"]]),

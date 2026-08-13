@@ -13,7 +13,7 @@ import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, robots, LIVE, DOMAIN } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
+import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { ripPath } from "../shared/paths.mjs";
 import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate } from "../shared/format.mjs";
@@ -771,7 +771,7 @@ ${footer()}
   });
 })();
 </script>
-<script src="/assets/app.js" defer></script>
+${APP_JS}
 </body>
 </html>
 `;

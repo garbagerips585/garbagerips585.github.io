@@ -2044,7 +2044,11 @@ span.cq-name{color:var(--ink)}
    beside it, and each one leads with its picture because that is what somebody
    who just watched the video is looking for. */
 .hitcards{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s4);
-  grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  width:100%;min-width:0;
+  /* Capped at 220px: the scan is 245px wide, so a wider cell upscales it and the
+     card goes soft. auto-fill with a max of 220 keeps every card inside its
+     source resolution at any viewport. */
+  grid-template-columns:repeat(auto-fill,minmax(150px,220px));justify-content:center}
 .hitcard{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s3);display:flex;flex-direction:column;gap:var(--s2);box-shadow:var(--lift)}
 .hitcard-img{display:block;width:100%;height:auto;aspect-ratio:245/337;object-fit:cover;

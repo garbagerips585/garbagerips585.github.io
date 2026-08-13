@@ -22,7 +22,7 @@ import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
+import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
 import { esc, longDate } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -489,7 +489,7 @@ ${d.sealed ? `
 
 </main>
 ${footer("Real vs fake checks are physical properties anyone can verify. Not an authentication service.")}
-<script src="/assets/app.js" defer></script>
+${APP_JS}
 </body>
 </html>
 `;

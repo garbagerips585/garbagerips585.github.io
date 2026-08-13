@@ -37,7 +37,7 @@ import { readFile, readdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
+import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
 import { esc, longDate, moneyExact, moneyRound, moneyCompact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -426,7 +426,7 @@ ${MENU}
 
 </main>
 ${footer("Prices move daily. These totals are a floor, not a quote.")}
-<script src="/assets/app.js" defer></script>
+${APP_JS}
 </body>
 </html>
 `;

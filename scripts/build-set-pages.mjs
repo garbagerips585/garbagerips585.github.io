@@ -13,7 +13,7 @@ import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
+import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { esc, longDate, moneyCompact, moneyExact } from "../shared/format.mjs";
 
@@ -704,7 +704,7 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Prices are estimates and
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js" defer></script>
+${APP_JS}
 </body>
 </html>
 `;
@@ -793,7 +793,7 @@ ${Object.keys(intlGuides).length ? `
 
 </main>
 ${footer("Card data from TCGdex, prices from TCGplayer. Prices are estimates and move constantly.")}
-<script src="/assets/app.js" defer></script>
+${APP_JS}
 </body>
 </html>
 `;

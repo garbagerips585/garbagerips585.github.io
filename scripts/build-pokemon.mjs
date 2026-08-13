@@ -27,7 +27,7 @@ import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
+import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
 import { esc, longDate, moneyExact, moneyRound, moneyCompact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -256,7 +256,7 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official."
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js" defer></script>
+${APP_JS}
 </body>
 </html>
 `;
@@ -310,7 +310,7 @@ function indexPage() {
 
 </main>
 ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official.")}
-<script src="/assets/app.js" defer></script>
+${APP_JS}
 </body>
 </html>
 `;

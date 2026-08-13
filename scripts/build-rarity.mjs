@@ -33,7 +33,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, FONTS, footer } from "../shared/chrome.mjs";
+import { BAR, MENU, SPRITE, SKIP, STYLES, FONTS, footer, APP_JS } from "../shared/chrome.mjs";
 import { esc, longDate } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -458,7 +458,7 @@ ${body}
 
 ${footer("Card images from the Pokemon TCG API. Fan made guide, not affiliated with The Pokemon Company.")}
 
-<script src="/assets/app.js" defer></script>
+${APP_JS}
 </body>
 </html>
 `;

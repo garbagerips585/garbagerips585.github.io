@@ -17,6 +17,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { APP_JS } from "../shared/chrome.mjs";
 import { esc, shortDate, moneyCompact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -299,7 +300,7 @@ ${menuPanel}
 ${body}
 ${footer}
 
-<script src="/assets/app.js" defer></script>
+${APP_JS}
 </body>
 </html>
 `
