@@ -394,7 +394,7 @@ ${MENU}
 <main id="main" class="rip tight${v.greatest ? " hall" : ""}">
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / <a href="/videos.html">Every rip</a>${setId ? ` / <a href="/videos.html?set=${setId}">${esc(setLabel)}</a>` : ""}</p>
-    <div class="rip-grid">
+    <div class="rip-grid${v.vertical === false ? " rip-grid--wide" : ""}">
       <div>
         <div class="rip-player${v.vertical === false ? " rip-player--wide" : ""}" id="player" data-id="${v.id}">
           <picture>
