@@ -641,9 +641,17 @@ footer p{font:400 var(--t-sm)/1.6 var(--body);color:#8FA0B2;max-width:46em;lette
    sliced in half, and every page on the site scrolled sideways from 561px to
    about 1016px. An iPad in portrait could not reach the subscribe CTA at all.
    That was survivable at three links and is not at five.
-   1020 is where all five links, the search field and Subscribe measured as
-   fitting. Below it they collapse into the menu, which already holds them. */
-@media(min-width:1020px){ .nav-links{display:flex} }
+   1020 was still too early, and the failure was worse than the one it fixed.
+   The bar is a single flex row and the search field is the only flexible item
+   in it, so the five links did not overflow, they ATE the search: measured at
+   1020 the input was 0px wide and the site's 39,707 printing search rendered as
+   a bare magnifier with no field at all. At 1100 it was 35px. That is most
+   laptop widths, on the best asset the site has.
+   1280 is where all five links, a usable search field and Subscribe measured as
+   fitting together. Below it the links collapse into the menu, which already
+   holds them, and the search gets the room instead. A search box is worth more
+   than five links that are one tap away regardless. */
+@media(min-width:1280px){ .nav-links{display:flex} }
 
 .menu-btn{display:grid}
 
@@ -1153,7 +1161,7 @@ footer .soc svg{fill:var(--paper)}
    room, because on a 351px row something has to and a wordmark is the one
    element that still reads when it is smaller.
    -------------------------------------------------------------------------- */
-.bar-search{display:flex;align-items:center;gap:6px;flex:1 1 auto;min-width:0;
+.bar-search{min-width:200px;display:flex;align-items:center;gap:6px;flex:1 1 auto;min-width:0;
   background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
   border-radius:var(--r-pill);padding:0 10px;height:38px}
 .bar-search:focus-within{background:rgba(255,255,255,.2);border-color:var(--mustard)}
