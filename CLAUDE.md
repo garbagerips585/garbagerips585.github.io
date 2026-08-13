@@ -45,7 +45,7 @@ Video tiles everywhere link to that video's own page under `public/rip/`,
 never to youtube.com. The embed lives on that page. The only deliberate
 outbound links are Subscribe and the social icons.
 
-`scripts/build-pages.mjs` generates a page for EVERY video (308), so no tile
+`scripts/build-pages.mjs` generates a page for EVERY video (311), so no tile
 can dead-end. Videos missing a set or product tag get `noindex` and stay out
 of the sitemap, because they would be thin pages; tag them and re-run to
 promote them. `shared/paths.mjs` owns the URL shape and the sync stamps
@@ -147,7 +147,7 @@ Two constraints that shape these pages:
   click-to-load facade and only one player is ever live at a time.
 - `modestbranding` is deprecated and does nothing. `rel=0` still scopes end
   screens to this channel.
-- 261 of 262 videos are vertical. The one exception is `kj7532tb0_I`.
+- 310 of 311 videos are vertical. The one exception is `kj7532tb0_I`.
 
 ## Current state
 Homepage order: nav, the commissioned banner art as a full-bleed header
@@ -170,9 +170,10 @@ banner, so the two skylines are not adjacent.
 Also at root: favicon.ico / favicon-32.png / apple-touch-icon.png (all
 cropped from Trubbish's face in logo-square.jpg), robots.txt, sitemap.xml.
 assets/og-image.jpg is a 1200x630 crop of banner-trubbish.jpg, wired up as
-og:image and twitter:image. Absolute URLs throughout point at
-https://garbagerips585.com, so social previews only resolve once the domain
-is live.
+og:image and twitter:image. Absolute URLs come from `shared/site.mjs`, which
+switches on one flag: `LIVE` is still false, so every canonical, og:url and
+sitemap entry points at garbagerips585.github.io. Flip `LIVE` and rebuild to
+move the whole site onto the real domain in one step. Do not hand-edit URLs.
 
 ## Local preview
 `node .claude/server.js` (port 4585), or the "grips" entry in the parent

@@ -22,6 +22,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { ripLabel } from "../shared/riplabel.mjs";
+import { CARD_SETS } from "../shared/taxonomy.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const VIDEOS = join(ROOT, "public/data/videos.json");
@@ -29,7 +30,15 @@ const VIDEOS = join(ROOT, "public/data/videos.json");
 const doc = JSON.parse(await readFile(VIDEOS, "utf8"));
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"));
-const setName = new Map(sets.map((s) => [s.id, s.name]));
+// TWO SOURCES OF SET NAMES, AND THE SECOND IS NOT OPTIONAL. sets.json only
+// covers the English sets pulled from the Pokemon TCG API, so every non-English
+// set missed and ripLabel() fell through to its `|| setId` fallback. That put
+// the raw id on the tile: 21 videos went out labelled "ja-abyss-eye Japanese
+// Pack #9" and "ko-clay-burst Korean Pack". The taxonomy has a real name for
+// every one of them, including the language marker, so it is layered
+// underneath. sets.json still wins where it has an entry.
+const setName = new Map(CARD_SETS.map((s) => [s.id, s.label]));
+for (const s of sets) setName.set(s.id, s.name);
 
 let stamped = 0;
 let plain = 0;

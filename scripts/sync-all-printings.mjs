@@ -302,7 +302,16 @@ for (const [k, list] of [...shards].sort()) {
   manifest.shards[k] = list.length;
   bytes += body.length;
 }
-manifest.sets = setsSeen.size;
+// COUNT WHAT SHIPPED, NOT WHAT WAS SCANNED. This used to be `setsSeen.size`,
+// which is filled in as each set DIRECTORY is opened, well before any card is
+// filtered. That over-counted twice over: a set whose every card was dropped
+// for having no name still scored, and setsSeen is keyed by set id, so two ids
+// that resolve to one display name counted as two. It read 388 against a real
+// 370, and cards.html printed the wrong figure in its lede and its meta
+// description. The distinct set names actually present in the shards is the
+// only number the page can honestly claim, because it is the number a reader
+// could count for themselves.
+manifest.sets = new Set(cards.map((c) => c.s)).size;
 manifest.skipped = { ...skipped, total: skipped.noName + skipped.noUsableLang };
 manifest.withImage = cards.filter((c) => c.g).length;
 manifest.translated = cards.filter((c) => !c.u).length;

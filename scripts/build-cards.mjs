@@ -6,7 +6,7 @@
 //
 // Reads TWO indexes, and the split is the point:
 //   public/data/card-index.json      4,481 cards, 23 English sets, WITH prices
-//   public/data/printings/*.json     39,707 printings, 388 sets, no prices
+//   public/data/printings/*.json     39,707 printings, 370 sets, no prices
 // The first drives the default view and the set filter. The second is what a
 // typed query searches, so "Trubbish" returns 30 printings including the
 // Japanese ones rather than the 4 we happen to sell. They join on
@@ -48,9 +48,16 @@ const rows = index.cards || [];
 const priced = rows.filter((r) => typeof r[4] === "number");
 const top = priced.slice().sort((a, b) => b[4] - a[4]).slice(0, 60);
 
+// TWO DATASETS, TWO DATES. The count comes from the printings corpus and the
+// prices come from the card index, and they are not read on the same day. This
+// used to date the whole sentence with index.checked, which put the price date
+// against the printings figure. Date the page by the later of the two, and let
+// the price note below carry the price date, which is the one a reader is
+// actually judging a number against.
+const newest = [index.checked, printings.checked].filter(Boolean).sort().pop();
 const desc =
   `Search ${printings.total.toLocaleString("en-US")} Pokemon card printings across ${printings.sets} sets by name, ` +
-  `with rarity and current TCGplayer market price. Updated ${longDate(index.checked) || index.checked}.`;
+  `with rarity and current TCGplayer market price. Updated ${longDate(newest) || newest}.`;
 
 const ld = [
   {
@@ -123,7 +130,7 @@ ${MENU}
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     <h1>Card <span class="hl">search</span></h1>
-    <p class="lede" style="max-width:36em">Every printing of every card, ${nAll} of them across ${nSets} sets,
+    <p class="lede" style="max-width:36em">Every printing we could source, ${nAll} of them across ${nSets} sets,
       English and Japanese alike. Type a Pokemon name and you get all of them, not just the English ones.
       The ${rows.length.toLocaleString("en-US")} from the sets we rip also carry what they are going for.</p>
   </div>
@@ -233,7 +240,7 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official."
 
   // ---- every printing, in every language -------------------------------
   // The priced index above is 4,481 cards from the 23 English sets we rip. The
-  // shards under /data/printings are all 39,707 printings across 388 sets,
+  // shards under /data/printings are all 39,707 printings across 370 sets,
   // including the Japanese and Chinese ones, so "Trubbish" finds 30 printings
   // rather than 4. They are separate on purpose: only the 23 have prices.
   //

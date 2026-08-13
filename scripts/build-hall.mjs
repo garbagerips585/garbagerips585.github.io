@@ -195,7 +195,7 @@ const body = `
       ? `<ol class="chof-list">
 ${ranked.map(plaque).join("\n")}
     </ol>`
-      : `<p class="chof-empty">No cards inducted yet. Mark a card <b>Card Hall of Fame</b> on the
+      : `<p class="chof-empty">No cards inducted yet. Flag a card as <b>Card Hall of Fame</b> on the
          Chase Cards tab of the video log and it appears here, ranked automatically.</p>`}
 
     <p class="chof-note">RANKED BY PSA 10 WHERE THERE IS ONE, AND BY RAW NEAR MINT OTHERWISE.

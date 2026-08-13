@@ -931,7 +931,7 @@ footer .soc svg{fill:var(--paper)}
   letter-spacing:.03em}
 .chaser-rar{color:#57354F}
 .chaser-pr{color:#15263A;margin-top:4px}
-.chaser-pr i{font-style:normal;color:#A8760B;display:block}
+.chaser-pr i{font-style:normal;color:var(--gold-deep,#8A6109);display:block}
 
 
 /* --------------------------------------------------------------------------

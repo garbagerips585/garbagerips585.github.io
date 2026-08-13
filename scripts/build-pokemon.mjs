@@ -85,6 +85,12 @@ const slugify = (s) =>
 // no dex id to join on. The corpus already used dexId to turn レックウザ into
 // Rayquaza, so by the time a printing lands here its `n` is the English name
 // and speciesOf() reduces both sides the same way.
+// The corpus carries its own read date, and the band below prints it. Without
+// this the "Everywhere else" band was the one block on the page citing neither
+// a source nor a date, while the priced band above it cited both.
+const pChecked = JSON.parse(
+  await readFile(join(ROOT, "public/data/printings/manifest.json"), "utf8"),
+).checked;
 const printings = new Map();
 for (const f of await readdir(join(ROOT, "public/data/printings"))) {
   if (!f.endsWith(".json") || f === "manifest.json") continue;
@@ -287,14 +293,15 @@ ${(() => {
   return `<section class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Everywhere else</p>
-    <h2>Every other <span class="hl">${esc(p.name)}</span> printing</h2>
+    <h2>Every other <span class="hl">${esc(p.name)}</span> printing we could name</h2>
     <p class="lede" style="max-width:40em">${extra.length} more from sets we do not price, English and Japanese,
-      ${withArt} with a scan. No price on these: we only quote what we can source.</p>
+      ${withArt} with a scan. No price on these: we only quote what we can source. Printings whose name we could
+      not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       ${extra
         .map(
           (c) => `<div class="chase-card is-flat">
-        ${c.g ? `<img src="${esc(c.g)}" alt="${esc(c.n)} ${esc(c.i)}, ${esc(c.s)}" loading="lazy" decoding="async" width="245" height="342">` : ""}
+        ${c.g ? `<img src="${esc(c.g)}/low.webp" alt="${esc(c.n)} ${esc(c.i)}, ${esc(c.s)}" loading="lazy" decoding="async" width="245" height="342">` : ""}
         <div class="nm">${esc(c.n)}</div>
         <div class="rr">${esc(c.s)} &bull; ${esc(c.i)}</div>
         ${c.r ? `<div class="rr">${esc(c.r)}</div>` : ""}
@@ -303,6 +310,8 @@ ${(() => {
         )
         .join("\n      ")}
     </div>
+    <p class="price-note">Card list from the TCGdex card database, read ${esc(longDate(pChecked) || pChecked)}.
+      A snapshot, not a live feed.</p>
   </div>
 </section>
 
@@ -387,7 +396,7 @@ ${APP_JS}
 function indexPage() {
   const url = `${SITE}/pokemon/`;
   const desc =
-    `Every card for the ${roster.length} most valuable Pokemon in the modern sets, with current market prices. ` +
+    `Every card for the ${roster.length} most valuable and most printed Pokemon in the modern sets, with current market prices. ` +
     `Charizard, Umbreon, Pikachu, Eevee and more.`;
   const ld = [
     {
@@ -424,8 +433,8 @@ function indexPage() {
         )
         .join("\n      ")}
     </div>
-    <p class="price-note">These are the ${roster.length} with the most valuable cards in the sets we cover, picked from
-      the card data rather than by hand. Anything else is on the
+    <p class="price-note">The ${roster.length} with the most valuable cards and the most printings in the sets we cover,
+      ranked from the card data, plus the two the channel is named after. Anything else is on the
       <a href="/cards.html">card search</a>, which covers all ${cards.length.toLocaleString("en-US")}.</p>
   </div>
 </section>

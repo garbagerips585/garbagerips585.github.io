@@ -59,7 +59,16 @@ export function ripLabel(v, setName, desc) {
   if (!setId || !prodId) return null;
 
   const set = (setName && setName.get(setId)) || setId;
-  const product = PRODUCT_LABEL[prodId] || prodId;
+  let product = PRODUCT_LABEL[prodId] || prodId;
+
+  // DO NOT SAY THE LANGUAGE TWICE. Non-English set names already carry their
+  // marker, so pairing one with its language-specific product tag reads
+  // "Abyss Eye (JP) Japanese Pack" and "Clay Burst (KR) Korean Pack". The
+  // marker is the better half of that pair: it sits with the set name, where a
+  // reader is already looking, and it survives being read on its own in a
+  // filter list. So the product drops back to plain "Pack" when the set has
+  // already said it.
+  if (/\((?:JP|KR|CN|TW)\)\s*$/.test(set) && /^(?:japanese|korean|chinese)-pack$/.test(prodId)) product = "Pack";
 
   // THE PACK NUMBER IS IN THE DESCRIPTION MORE OFTEN THAN THE TITLE, which is
   // the opposite of what you would guess: 238 videos carry it in the

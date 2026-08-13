@@ -186,7 +186,7 @@ const ld = [
         name: "Is it worth grading my Pokemon card?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: `Only if the gap between the raw price and the PSA 10 price is bigger than the fee, and only if the card is genuinely mint. Of ${rows.length} cards we hold both prices for, ${worth.length} would clear PSA's current fee and ${notWorth.length} would not. Most cards come back a 9, which is worth far less than a 10.`,
+          text: `Only if the gap between the raw price and the PSA 10 price is bigger than the fee, and only if the card is genuinely mint. Of ${rows.length} cards we hold both prices for, ${worth.length} would clear PSA's current fee and ${notWorth.length} would not. Those figures are all for a 10, and a 9 is worth far less, so treat them as the best case.`,
         },
       },
     ],
@@ -341,7 +341,10 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
         ? `<h2 style="margin-bottom:var(--s3)">What the slab is actually <span class="hl">worth</span></h2>
     <p class="lede" style="max-width:42em">The fee tells you what grading costs. This tells you what you get back.
       Same cards, every company's 10, from real sold prices. It reorders the question completely: the cheapest
-      company to grade with returns the least, and the dearest returns the most.</p>
+      company to grade with returns the least, and the dearest returns the most.
+      Median of ${Object.keys(graded.cards || {}).length} cards read from ${esc(graded.source || "PriceCharting")} on
+      ${esc(longDate(graded.checked) || graded.checked)}. A snapshot, not a live feed, and a different source from the
+      PSA 10 prices in the fee table above.</p>
     <div class="cc-scroll" style="margin-bottom:var(--s5)">
       <table class="cc-table">
         <caption class="sr-only">Median value of each grading company's 10, against the raw card and against a PSA 10</caption>
@@ -373,7 +376,9 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
         PSA 10. A BGS 10 sells for ${(slabValue.find((r) => r.label === "BGS 10") || {}).vsPsa?.toFixed(2)}x. So the
         fee is the smaller half of the decision: paying less to grade can cost you more than it saves, and the gap is
         far bigger than the difference in fees.</p>
-      <p style="margin-top:10px">None of which matters unless the card comes back a 10. Most do not.</p>
+      <p style="margin-top:10px">And every figure above is the price of a 10. You do not find out which grade you are
+        getting until the card is already back, so treat the whole table as the best case rather than the expected
+        one. We do not have grade distribution data and will not guess at it.</p>
     </div>
     `
         : ""

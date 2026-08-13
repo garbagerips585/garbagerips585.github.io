@@ -329,7 +329,7 @@ const body = `
   <section class="band rg-sec">
     <div class="wrap">
       <h2>The whole <span class="hl">ladder</span></h2>
-      <p class="rg-p">Lowest to highest, as Pokemon officially orders them. One thing worth knowing
+      <p class="rg-p">Lowest to highest, as the modern sets print them. One thing worth knowing
         straight away: this is not a price order. Illustration Rares usually sell for less than Ultra
         Rares, and Special Illustration Rares often beat everything except gold. Rarity ladder and
         value ladder are two different things.</p>

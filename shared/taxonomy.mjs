@@ -37,7 +37,25 @@ export const PRODUCT_TYPES = [
   // Same plural blindness as the imported packs above, and this one sits LAST
   // in the list, so widening it can only tag a video that matched nothing at
   // all. Anything that already matched a box, tin or bundle still wins.
-  { id: "single-pack", label: "Single Pack", pattern: /\bsingle packs?\b|\bone pack\b|\b1 pack\b|\bloose packs?\b|\bbooster packs?\b/i },
+  // Two more phrasings, and the same safety argument as the plural fix above:
+  // this entry is LAST, and deriveTags keeps only the first product match, so
+  // anything already reading as an ETB, box, bundle, tin or blister still wins.
+  // Widening here can only tag a video that matched nothing at all.
+  //   "single booster" is how the channel writes a loose-pack series ("Pack #7
+  //   of our Pitch Black single booster hunt"), and it never said "single pack".
+  //   "Pack #4" on its own is the other half: a numbered pack in a hunt series
+  //   is a single pack by definition, and the number is already how the label
+  //   is built.
+  // Six rips had a set tag and no product, so ripLabel() returned null and the
+  // tile fell back to the YouTube title. Two of them share the title "Pitch
+  // Black is SAVAGE Today!", which rendered as two identical links on the set
+  // page with nothing to tell them apart.
+  {
+    id: "single-pack",
+    label: "Single Pack",
+    pattern:
+      /\bsingle (?:packs?|boosters?)\b|\bone pack\b|\b1 pack\b|\bloose packs?\b|\bbooster packs?\b|\bpack\s*#\s*\d+/i,
+  },
 ];
 
 // Set names observed in the channel's own titles, newest first. Add to this
@@ -64,8 +82,32 @@ export const CARD_SETS = [
   { id: "paradox-rift", label: "Paradox Rift" },
   { id: "obsidian-flames", label: "Obsidian Flames" },
   { id: "paldea-evolved", label: "Paldea Evolved" },
-  { id: "scarlet-violet", label: "Scarlet & Violet", pattern: /scarlet\s*(&|and)\s*violet/i },
-  { id: "151", label: "151", pattern: /\b151\b/ },
+  // THE SET, NOT THE ERA. "Scarlet & Violet" is also the name of the whole
+  // generation, and the channel writes it that way constantly: "Scarlet &
+  // Violet era Pokemon cards" sits in the boilerplate on most descriptions, and
+  // the full product names read "Scarlet & Violet - Paradox Rift" and "Scarlet &
+  // Violet: Journey Together". A bare name match tagged five videos and NOT ONE
+  // of them opened this set. It was not only a wrong count on the set page: the
+  // false tag sorted first in v.sets, so ripLabel() named it, and a Japanese
+  // Violet ex pack went out labelled "Scarlet & Violet Pack" on every tile.
+  // A separator or the word era/series after the name means it is qualifying
+  // something else, so only an unqualified mention counts as the base set.
+  {
+    id: "scarlet-violet",
+    label: "Scarlet & Violet",
+    pattern: /scarlet\s*(?:&|and)\s*violet(?!\s*(?:[-–—:|]|\bera\b|\bseries\b))/i,
+  },
+  // THE SET, NOT THE FIRST 151 POKEMON. Four of the five videos this used to
+  // tag are "Pokemon First Partner Illustration Collection" boxes hunting
+  // "those original 151 starters", which is the Kanto dex and not this set at
+  // all. \b151\b cannot tell a set name from a dex count, so require the set to
+  // be named: "Pokemon 151", or 151 sitting directly in front of a product noun.
+  {
+    id: "151",
+    label: "151",
+    pattern:
+      /pok[eé]mon\s+151\b|\b151\b\s+(?:booster|packs?\b|etb\b|elite\s+trainer|bundle|box\b|upc\b|ultra[- ]premium|binder|poster|collection\b|tin\b|blister)/i,
+  },
 
   // Non-English sets the channel has opened. Kept in the same list so a foreign
   // rip gets a set tag, a real page and a place in the sitemap exactly like an

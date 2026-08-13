@@ -72,7 +72,12 @@ export const NAV = [
     ["/rarity.html", "Rarity guide"],
     ["/fake-cards.html", "Fakes"],
     ["/grading.html", "Grading"],
-    ["/luck.html", "Pull rates"],
+    // Matches the page's own H1 and title. It was "Pull rates", which is what
+  // people search for but not what the page has: the body says in as many words
+  // that these are observed results and not official pull rates, because The
+  // Pokemon Company does not publish those. A nav label promising a number the
+  // page refuses to state is the one place the site contradicted its own rule.
+  ["/luck.html", "Luck, measured"],
   ]],
   ["Rochester, NY", [
     // Shops and shows sit next to each other deliberately: they answer the same

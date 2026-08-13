@@ -72,7 +72,7 @@ const card = (o, kind) => `      <li class="loc">
         ${links(o)}
       </li>`;
 
-function page({ slug, title, h1, kicker, lede, list, kind, empty, note }) {
+function page({ slug, title, h1, kicker, lede, list, kind, empty, note, updated }) {
   // Alphabetical, always. See the header note on why this is not a ranking.
   const rows = [...list].sort((a, b) => String(a.name).localeCompare(String(b.name)));
   const ld = [
@@ -149,7 +149,7 @@ ${MENU}
         ? `<ul class="loc-list">
 ${rows.map((o) => card(o, kind)).join("\n")}
     </ul>
-    <p class="price-note">${esc(note)} Last updated ${esc(longDate(list.updated) || "recently")}. No paid placements and no
+    <p class="price-note">${esc(note)} Last updated ${esc(longDate(updated) || "recently")}. No paid placements and no
       affiliate links on this page: everybody here is listed because we rate them.</p>`
         : `<div class="fk-golden">
       <p class="fk-golden-h">Nothing here yet</p>
@@ -175,11 +175,15 @@ const V = page({
   slug: "vendors.html",
   title: "Pokemon Card Vendors in Rochester, NY | Garbage Rips 585",
   h1: "Local vendors",
-  kicker: "585 &bull; People we buy from",
+  // A literal bullet, not &bull;. The kicker goes through esc() like every
+  // other value here, so an HTML entity written in the source comes out as the
+  // visible text "&BULL;" on the page.
+  kicker: "585 • People we buy from",
   lede:
     "Sellers around Rochester worth knowing: the ones at the shows, the ones with a table every month, " +
     "the ones we have actually handed money to.",
   list: vendors.vendors || [],
+  updated: vendors.updated,
   kind: "vendors",
   empty:
     "We are putting together a list of vendors around Rochester who are worth buying from: who they are, what they " +
@@ -191,11 +195,12 @@ const C = page({
   slug: "creators.html",
   title: "Pokemon Creators in Rochester, Buffalo and Syracuse | Garbage Rips 585",
   h1: "Local creators",
-  kicker: "Upstate NY &bull; Support your scene",
+  kicker: "Upstate NY • Support your scene",
   lede:
     "Other people making Pokemon content in Rochester, Buffalo, Syracuse and nearby. Rippers, collectors, " +
     "artists and players. Go and watch them.",
   list: creators.creators || [],
+  updated: creators.updated,
   kind: "creators",
   empty:
     "We want to point people at everybody else making Pokemon content in Rochester, Buffalo, Syracuse and the towns " +

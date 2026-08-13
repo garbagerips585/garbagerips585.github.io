@@ -14,10 +14,13 @@
       "sets": [
         "chaos-rising"
       ],
-      "products": [],
+      "products": [
+        "single-pack"
+      ],
       "pulls": [
         "gold"
-      ]
+      ],
+      "label": "Chaos Rising Pack #12"
     },
     {
       "id": "IQMn3DNCzik",
@@ -49,11 +52,14 @@
       "sets": [
         "pitch-black"
       ],
-      "products": [],
+      "products": [
+        "single-pack"
+      ],
       "pulls": [
         "sir",
         "gold"
-      ]
+      ],
+      "label": "Pitch Black Pack #7"
     },
     {
       "id": "RZInASE6x1c",
@@ -123,10 +129,13 @@
       "sets": [
         "pitch-black"
       ],
-      "products": [],
+      "products": [
+        "single-pack"
+      ],
       "pulls": [
         "sir"
-      ]
+      ],
+      "label": "Pitch Black Pack #6"
     },
     {
       "id": "aa9jzXRFtrg",
@@ -278,10 +287,13 @@
       "sets": [
         "pitch-black"
       ],
-      "products": [],
+      "products": [
+        "single-pack"
+      ],
       "pulls": [
         "sir"
-      ]
+      ],
+      "label": "Pitch Black Pack #4"
     },
     {
       "id": "3pUiN-8XkEk",
@@ -392,10 +404,13 @@
       "sets": [
         "pitch-black"
       ],
-      "products": [],
+      "products": [
+        "single-pack"
+      ],
       "pulls": [
         "sir"
-      ]
+      ],
+      "label": "Pitch Black Pack #3"
     },
     {
       "id": "R2VxbNMrlXQ",
@@ -1101,9 +1116,7 @@
       "views": 19,
       "vertical": true,
       "short": true,
-      "sets": [
-        "151"
-      ],
+      "sets": [],
       "products": [],
       "pulls": []
     },
@@ -1188,9 +1201,7 @@
       "views": 848,
       "vertical": true,
       "short": true,
-      "sets": [
-        "151"
-      ],
+      "sets": [],
       "products": [],
       "pulls": []
     },
@@ -1350,8 +1361,11 @@
       "sets": [
         "perfect-order"
       ],
-      "products": [],
-      "pulls": []
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Perfect Order Pack #7"
     },
     {
       "id": "a4iR-qPthjY",
@@ -1784,7 +1798,7 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "label": "ja-abyss-eye Japanese Pack #9"
+      "label": "Abyss Eye (JP) Pack #9"
     },
     {
       "id": "HGlF3-fpycc",
@@ -1876,7 +1890,7 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "label": "ja-abyss-eye Japanese Pack #7"
+      "label": "Abyss Eye (JP) Pack #7"
     },
     {
       "id": "0vpWimyqJIE",
@@ -1894,7 +1908,7 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "label": "ja-abyss-eye Japanese Pack #5"
+      "label": "Abyss Eye (JP) Pack #5"
     },
     {
       "id": "udV4EBssAj0",
@@ -1978,7 +1992,7 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "label": "ja-abyss-eye Japanese Pack #3"
+      "label": "Abyss Eye (JP) Pack #3"
     },
     {
       "id": "-eQ-tG_cj_0",
@@ -1996,7 +2010,7 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "label": "ja-abyss-eye Japanese Pack #1"
+      "label": "Abyss Eye (JP) Pack #1"
     },
     {
       "id": "-5rVYfdxRJw",
@@ -2762,7 +2776,7 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "label": "ja-stellar-miracle Japanese Pack"
+      "label": "Stellar Miracle (JP) Pack"
     },
     {
       "id": "vZT6BI7EcQM",
@@ -2894,7 +2908,7 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "label": "ja-mega-symphonia Japanese Pack"
+      "label": "Mega Symphonia (JP) Pack"
     },
     {
       "id": "8d2a5b_BmYQ",
@@ -3006,7 +3020,7 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "label": "ja-stellar-miracle Japanese Pack"
+      "label": "Stellar Miracle (JP) Pack"
     },
     {
       "id": "PPEKxxW-s_g",
@@ -3080,7 +3094,7 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "label": "ja-mega-symphonia Japanese Pack"
+      "label": "Mega Symphonia (JP) Pack"
     },
     {
       "id": "YqaeisWumvQ",
@@ -3563,7 +3577,7 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "label": "ja-nihil-zero Japanese Pack"
+      "label": "Nihil Zero (JP) Pack"
     },
     {
       "id": "vHvWDOPoxjo",
@@ -3770,7 +3784,7 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "label": "ja-nihil-zero Japanese Pack"
+      "label": "Nihil Zero (JP) Pack"
     },
     {
       "id": "53yMHXauDnA",
@@ -3919,14 +3933,11 @@
       "views": 786,
       "vertical": true,
       "short": true,
-      "sets": [
-        "151"
-      ],
+      "sets": [],
       "products": [
         "collection-box"
       ],
-      "pulls": [],
-      "label": "151 Collection Box #4"
+      "pulls": []
     },
     {
       "id": "fFbWjWLD1N4",
@@ -3980,7 +3991,7 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "label": "ja-mega-brave Japanese Pack"
+      "label": "Mega Brave (JP) Pack"
     },
     {
       "id": "6sg185zTjM4",
@@ -4042,14 +4053,11 @@
       "views": 727,
       "vertical": true,
       "short": true,
-      "sets": [
-        "151"
-      ],
+      "sets": [],
       "products": [
         "collection-box"
       ],
-      "pulls": [],
-      "label": "151 Collection Box #3"
+      "pulls": []
     },
     {
       "id": "tlOeWpJhJ1E",
@@ -4375,7 +4383,7 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "label": "ja-stellar-miracle Japanese Pack"
+      "label": "Stellar Miracle (JP) Pack"
     },
     {
       "id": "LlGPrTKqIYg",
@@ -4483,7 +4491,7 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "label": "ja-ninja-spinner Japanese Pack"
+      "label": "Ninja Spinner (JP) Pack"
     },
     {
       "id": "gSygkzEehmU",
@@ -4537,7 +4545,7 @@
         "korean-pack"
       ],
       "pulls": [],
-      "label": "ko-clay-burst Korean Pack"
+      "label": "Clay Burst (KR) Pack"
     },
     {
       "id": "C4mvo_Justc",
@@ -5003,7 +5011,7 @@
         "korean-pack"
       ],
       "pulls": [],
-      "label": "ko-battle-partners Korean Pack"
+      "label": "Battle Partners (KR) Pack"
     },
     {
       "id": "EvVnOpgwSmo",
@@ -5039,7 +5047,7 @@
         "korean-pack"
       ],
       "pulls": [],
-      "label": "ko-crimson-haze Korean Pack"
+      "label": "Crimson Haze (KR) Pack"
     },
     {
       "id": "IuEb3qtjflI",
@@ -5155,8 +5163,7 @@
       "vertical": true,
       "short": true,
       "sets": [
-        "ascended-heroes",
-        "scarlet-violet"
+        "ascended-heroes"
       ],
       "products": [
         "single-pack"
@@ -5210,8 +5217,7 @@
       "vertical": true,
       "short": true,
       "sets": [
-        "paradox-rift",
-        "scarlet-violet"
+        "paradox-rift"
       ],
       "products": [
         "single-pack"
@@ -5337,7 +5343,7 @@
         "korean-pack"
       ],
       "pulls": [],
-      "label": "ko-mask-of-change Korean Pack"
+      "label": "Mask of Change (KR) Pack"
     },
     {
       "id": "jO7K2zX6Rlg",
@@ -5349,14 +5355,13 @@
       "vertical": true,
       "short": true,
       "sets": [
-        "scarlet-violet",
         "ja-violet-ex"
       ],
       "products": [
         "single-pack"
       ],
       "pulls": [],
-      "label": "Scarlet & Violet Pack"
+      "label": "Violet ex (JP) Pack"
     },
     {
       "id": "8jKHh-P7P7M",
@@ -5374,7 +5379,7 @@
         "chinese-pack"
       ],
       "pulls": [],
-      "label": "zh-gem-pack-2 Chinese Pack"
+      "label": "Gem Pack Vol. 2 (CN) Pack"
     },
     {
       "id": "hLr5iThoO2k",
@@ -5386,8 +5391,7 @@
       "vertical": true,
       "short": true,
       "sets": [
-        "journey-together",
-        "scarlet-violet"
+        "journey-together"
       ],
       "products": [
         "blister"
@@ -5423,8 +5427,7 @@
       "vertical": true,
       "short": true,
       "sets": [
-        "journey-together",
-        "scarlet-violet"
+        "journey-together"
       ],
       "products": [
         "blister"
@@ -5466,7 +5469,7 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "label": "ja-cyber-judge Japanese Pack"
+      "label": "Cyber Judge (JP) Pack"
     },
     {
       "id": "evnMahizn0I",

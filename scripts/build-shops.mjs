@@ -15,7 +15,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { APP_JS } from "../shared/chrome.mjs";
-import { esc } from "../shared/format.mjs";
+import { esc, longDate } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -175,7 +175,7 @@ ${cards}
       <a href="/card-shows.html">card show calendar</a> has every show coming up around Rochester, Buffalo
       and Syracuse.</p>
     <p class="shops-lede">Addresses, phone numbers and opening hours were last checked on
-      ${esc(shopsDoc.updated || "an unrecorded date")}. Shops move and change their hours, so ring ahead if you are
+      ${esc(longDate(shopsDoc.updated) || "an unrecorded date")}. Shops move and change their hours, so ring ahead if you are
       making a trip of it.</p>
     <p class="shops-note">NOT SPONSORED AND NOT AFFILIATE LINKS. THESE ARE SHOPS I GO TO.
       IF YOU RUN A CARD SHOP AROUND ROCHESTER AND YOU ARE NOT ON HERE, SAY HELLO ON ANY OF THE SOCIALS.</p>
