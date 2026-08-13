@@ -2182,25 +2182,64 @@ span.cq-name{color:var(--ink)}
 .hitlb-src{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-soft);margin-top:4px}
 
 /* ---------- the one Hall of Fame hit ----------
-   Separate from the Greatest Hits shelf below it. The shelf is six tiles to
-   browse; this is one card the page stops on, so it gets the gold and the
-   width. Renders only when there is a hall to pick from. */
-.hofx{display:grid;grid-template-columns:120px 1fr;gap:var(--s4);align-items:center;
-  position:relative;margin:0 auto var(--s5);max-width:640px;padding:var(--s4);
-  background:linear-gradient(135deg,#2A3A22 0%,#1E2419 100%);
-  border:3px solid var(--gold);border-radius:14px;
-  box-shadow:0 0 0 1px var(--gold-deep), 0 10px 30px rgba(19,38,55,.35)}
-.hofx-tag{position:absolute;top:-13px;left:var(--s4);
-  font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
-  color:var(--navy);background:var(--gold);border:2px solid var(--gold-deep);
-  border-radius:var(--r-pill);padding:6px 12px}
-.hofx-art img{display:block;width:100%;height:auto;border-radius:8px}
-.hofx-b{display:flex;flex-direction:column;gap:6px;min-width:0}
-.hofx-t{font:400 var(--t-m)/1.15 var(--display);color:var(--paper)}
-.hofx-m{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--mustard)}
-.hofx-cta{font-weight:700;font-size:var(--t-sm);color:var(--gold);margin-top:4px}
-.hofx:hover .hofx-cta{text-decoration:underline}
-@media(max-width:520px){
-  .hofx{grid-template-columns:96px 1fr;gap:var(--s3);padding:var(--s3)}
-  .hofx-tag{left:var(--s3)}
+   Greatest Hits below is a shelf of six to browse. This is ONE video the page
+   stops on, so it is not a bigger tile: it is a trophy case. Double gold rule,
+   a bloom behind the art, a ribbon tab, and the pack art at full size rather
+   than the 200px the shelf uses. It should look like the site is showing off,
+   because that is the whole job of the band. */
+.hofx{position:relative;display:grid;grid-template-columns:170px 1fr;gap:var(--s5);
+  align-items:center;margin:var(--s6) auto var(--s5);max-width:720px;
+  padding:var(--s5) var(--s5) var(--s5) var(--s5);
+  background:
+    radial-gradient(120% 140% at 12% 0%, rgba(239,201,76,.20) 0%, rgba(239,201,76,0) 58%),
+    linear-gradient(135deg,#31421F 0%,#1E2419 55%,#141A11 100%);
+  border:4px solid var(--gold);border-radius:16px;
+  /* Double rule: an inner hairline inside the gold border reads as a frame
+     rather than a box with a coloured edge. */
+  box-shadow:inset 0 0 0 2px rgba(19,38,55,.6), inset 0 0 0 5px rgba(239,201,76,.5),
+    0 0 34px rgba(239,201,76,.22), 0 16px 44px rgba(19,38,55,.46)}
+.hofx::after{content:"";position:absolute;inset:-3px;border-radius:16px;pointer-events:none;
+  background:linear-gradient(115deg,rgba(255,255,255,.40) 0%,rgba(255,255,255,0) 24%);
+  mix-blend-mode:screen}
+/* A slow sheen crossing the frame. Decorative only: it carries no information,
+   so it is switched off entirely for reduced motion rather than slowed down. */
+.hofx::before{content:"";position:absolute;inset:0;border-radius:14px;pointer-events:none;
+  background:linear-gradient(105deg,transparent 38%,rgba(255,247,214,.16) 46%,
+    rgba(255,247,214,.30) 50%,rgba(255,247,214,.16) 54%,transparent 62%);
+  background-size:280% 100%;animation:hofSheen 6.5s ease-in-out infinite}
+@keyframes hofSheen{
+  0%,72%{background-position:180% 0}
+  100%{background-position:-80% 0}
+}
+@media(prefers-reduced-motion:reduce){.hofx::before{animation:none;background:none}}
+.hofx-tag{position:absolute;top:-16px;left:var(--s5);z-index:1;
+  font:700 var(--t-micro)/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--navy);background:linear-gradient(180deg,var(--mustard),var(--gold));
+  border:2px solid var(--gold-deep);border-radius:var(--r-pill);padding:8px 16px;
+  box-shadow:0 3px 0 var(--gold-deep),0 8px 18px rgba(19,38,55,.35)}
+.hofx-art{position:relative}
+.hofx-art::before{content:"";position:absolute;inset:-14%;border-radius:50%;
+  background:radial-gradient(circle,rgba(239,201,76,.42) 0%,rgba(239,201,76,0) 70%)}
+.hofx-art img{position:relative;display:block;width:100%;height:auto;border-radius:10px;
+  box-shadow:0 8px 22px rgba(0,0,0,.45)}
+.hofx-b{display:flex;flex-direction:column;gap:8px;min-width:0}
+.hofx-t{font:400 var(--t-l)/1.1 var(--display);color:var(--paper);
+  text-shadow:0 2px 0 rgba(0,0,0,.35)}
+.hofx-m{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--mustard)}
+.hofx-cta{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;margin-top:6px;
+  font:700 var(--t-sm)/1 var(--body);color:var(--navy);
+  background:var(--mustard);border:2px solid var(--gold-deep);border-radius:var(--r-pill);
+  padding:11px 18px;min-height:44px}
+.hofx:hover .hofx-cta{background:var(--gold)}
+@media(max-width:640px){
+  .hofx{grid-template-columns:1fr;gap:var(--s4);text-align:center;
+    padding:var(--s5) var(--s4) var(--s4);margin-top:var(--s6)}
+  /* Stays left-aligned on a phone. Centring it meant left:50% plus a -50%
+     translate, and the tab ended up hanging off the left edge; there is no room
+     to centre a 190px ribbon on a 351px frame anyway. */
+  .hofx-tag{left:var(--s4);transform:none}
+  .hofx-art{max-width:190px;margin:0 auto}
+  .hofx-b{align-items:center}
+  .hofx-cta{align-self:center}
 }

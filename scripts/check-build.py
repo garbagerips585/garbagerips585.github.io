@@ -170,9 +170,36 @@ for path in glob.glob("public/data/*.json") + glob.glob("public/data/cards/*.jso
         if isinstance(v, str) and v[:10] > today:
             fail.append(f"{path}: {key} is in the future ({v})")
 
+# ---------------------------------------------------------------------------
+# CSS BRACE BALANCE. Twice now an edit has left a stray closing brace in
+# ui.css, and both times the symptom looked like a layout bug: an unexpected }
+# makes the parser discard the rule that FOLLOWS it, so the damage lands on
+# whatever happens to be next in the file rather than where the typo is. The
+# first one silently killed the hit card grid and shipped. It costs
+# milliseconds to check and it is checkable, so it is checked.
+import re as _re
+_css = open(os.path.join(ROOT, "public/assets/ui.css"), encoding="utf-8").read()
+_noc = _re.sub(r"/\*.*?\*/", lambda m: _re.sub(r"[^\n]", " ", m.group(0)), _css, flags=_re.S)
+_depth = 0
+_stray = None
+for _ln, _text in enumerate(_noc.split("\n"), 1):
+    for _ch in _text:
+        if _ch == "{":
+            _depth += 1
+        elif _ch == "}":
+            _depth -= 1
+            if _depth < 0 and _stray is None:
+                _stray = _ln
+                _depth = 0
+if _stray:
+    fail.append(f"ui.css: stray closing brace at line {_stray}; the rule after it is being discarded")
+elif _depth:
+    fail.append(f"ui.css: {_depth} unclosed rule(s); everything after the last one is swallowed")
+
 if fail:
     print(f"\n{len(fail)} problem(s):")
     for f in fail:
         print("  " + f)
     sys.exit(1)
 print("\nall checks pass")
+

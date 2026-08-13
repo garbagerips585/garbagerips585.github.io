@@ -365,7 +365,7 @@ const hofHtml = hofPick
           })()}
         </span>
         <span class="hofx-b">
-          <span class="hofx-t">${esc(hofPick.siteTitle || hofPick.title)}</span>
+          <span class="hofx-t">${esc(ripLabel(hofPick, setName, descriptions[hofPick.id]) || hofPick.siteTitle || hofPick.title)}</span>
           <span class="hofx-m">${[setName.get(faceSet(hofPick)) || "", hofPick.views ? compact(hofPick.views) + " views" : ""]
             .filter(Boolean).map(esc).join(" &bull; ")}</span>
           <span class="hofx-cta">Watch the pull <span aria-hidden="true">&rarr;</span></span>
