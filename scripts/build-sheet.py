@@ -738,6 +738,38 @@ for r in range(2, HIT_ROWS + 1):
     wh.cell(r, HI["Raw NM USD"]).number_format = '"$"#,##0.00'
     wh.cell(r, HI["PSA 10 USD"]).number_format = '"$"#,##0.00'
 
+# PREFILL FROM data/hits.json, because a rebuild used to hand back 400 empty
+# rows. Seventeen cards had already been logged by hand across two rips, and
+# every one of them would have come back blank in the file you then keep working
+# in, which is the worst possible way to lose them: silently, in the copy you
+# trust. The tab header above says rebuilding is safe for "anything already
+# imported", and this is what makes that true of hits.
+#
+# Card, Set and Video ID are what a human typed, so they are written back as
+# typed. Number, Rarity and Raw NM are the looked-up columns and stay empty
+# unless hits.json already carries an override, so the import still fills them
+# from the card data rather than freezing today's answer into the sheet.
+try:
+    _hits = json.loads((ROOT / "data/hits.json").read_text()).get("videos", {})
+except Exception:
+    _hits = {}
+_hrow = 2
+for _vid, _cards in _hits.items():
+    for _h in _cards:
+        if _hrow > HIT_ROWS:
+            break
+        wh.cell(_hrow, HI["Video ID"], _vid).font = BODY
+        wh.cell(_hrow, HI["Card"], _h.get("card", "")).font = BODY
+        wh.cell(_hrow, HI["Set"], _h.get("setName") or _h.get("set", "")).font = BODY
+        if _h.get("number"):
+            wh.cell(_hrow, HI["Number"], _h["number"]).font = BODY
+        if _h.get("rarity"):
+            wh.cell(_hrow, HI["Rarity"], _h["rarity"]).font = BODY
+        if _h.get("hallOfFame"):
+            wh.cell(_hrow, HI["Hall of Fame"], "Yes").font = BODY
+        _hrow += 1
+_prefilled = _hrow - 2
+
 wh.cell(HIT_ROWS + 2, 1, "One row per card pulled. Several rows can share a Video ID.").font = NOTE
 wh.cell(HIT_ROWS + 3, 1, "Hall of Fame = Yes marks the all-time best, which get their own page.").font = NOTE
 
@@ -784,6 +816,7 @@ print(f"  Chase Cards {len(rows_out)} rows")
 print(f"  My Hits     empty, {HIT_ROWS - 1} rows ready")
 print(f"  Shops       {len(shops_src)} rows")
 print(f"Wrote {OUT.relative_to(ROOT)}")
+print(f"  My Hits prefilled with {_prefilled} card(s) already logged in data/hits.json")
 print(f"  Video Log   {len(ordered)} rows x {len(COLUMNS)} columns")
 print(f"  Set Notes   {len(sets)} rows")
 print(f"  prefilled:  set {sum(1 for v in ordered if len(v.get('sets') or []) >= 1)}, "
