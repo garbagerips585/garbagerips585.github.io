@@ -68,6 +68,35 @@ function speciesOf(name) {
 const slugify = (s) =>
   s.toLowerCase().replace(/['.:]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
+// EVERY PRINTING, not just the 23 sets we price.
+//
+// These pages used to show only cards from public/data/cards, which is the 23
+// English sets the site holds prices for. Charizard came out at 21 cards; the
+// printings corpus knows 133 across 71 sets, 107 of them with a verified scan.
+// A page called "every printing" has to mean it.
+//
+// The join is dexId, which is why the corpus was built with it: a Japanese
+// レックウザ and an English Rayquaza are the same species to PokeAPI, so a
+// dex number gathers every language without matching on names at all.
+//
+// Prices still come from public/data/cards where we have them. A printing from
+// a set we do not price shows its picture and no price, which is the truth.
+// Keyed by SPECIES NAME, not by dex number, because our own card data carries
+// no dex id to join on. The corpus already used dexId to turn レックウザ into
+// Rayquaza, so by the time a printing lands here its `n` is the English name
+// and speciesOf() reduces both sides the same way.
+const printings = new Map();
+for (const f of await readdir(join(ROOT, "public/data/printings"))) {
+  if (!f.endsWith(".json") || f === "manifest.json") continue;
+  for (const c of JSON.parse(await readFile(join(ROOT, "public/data/printings", f), "utf8"))) {
+    if (c.c !== "Pokemon" || c.u) continue; // skip Trainers, and untranslated names
+    const sp = speciesOf(c.n);
+    if (!sp) continue;
+    if (!printings.has(sp)) printings.set(sp, []);
+    printings.get(sp).push(c);
+  }
+}
+
 const byName = new Map();
 for (const c of cards) {
   if (c.cat !== "Pokemon") continue;
@@ -192,7 +221,40 @@ function pokePage(p) {
   </div>
 </section>
 
-<section class="band tight">
+${(() => {
+  // Printings we do NOT price: every other set the card appears in, English or
+  // Japanese. Deduped against what is already shown above by set and number so
+  // a card we price is never listed twice.
+  const have = new Set(sorted.map((c) => `${c.setName}|${String(c.n).replace(/^0+/, "")}`));
+  const extra = (printings.get(p.name) || [])
+    .filter((c) => !have.has(`${c.s}|${String(c.i).replace(/^0+/, "")}`))
+    .sort((a, b) => String(a.s).localeCompare(String(b.s)) || String(a.i).localeCompare(String(b.i)));
+  if (!extra.length) return "";
+  const withArt = extra.filter((c) => c.g).length;
+  return `<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Everywhere else</p>
+    <h2>Every other <span class="hl">${esc(p.name)}</span> printing</h2>
+    <p class="lede" style="max-width:40em">${extra.length} more from sets we do not price, English and Japanese,
+      ${withArt} with a scan. No price on these: we only quote what we can source.</p>
+    <div class="chase-grid">
+      ${extra
+        .map(
+          (c) => `<div class="chase-card is-flat">
+        ${c.g ? `<img src="${esc(c.g)}" alt="${esc(c.n)} ${esc(c.i)}, ${esc(c.s)}" loading="lazy" decoding="async" width="245" height="342">` : ""}
+        <div class="nm">${esc(c.n)}</div>
+        <div class="rr">${esc(c.s)} &bull; ${esc(c.i)}</div>
+        ${c.r ? `<div class="rr">${esc(c.r)}</div>` : ""}
+        ${c.l !== "en" ? `<div class="rr">${c.l === "ja" ? "Japanese" : "Chinese"}</div>` : ""}
+      </div>`,
+        )
+        .join("\n      ")}
+    </div>
+  </div>
+</section>
+
+`;
+})()}<section class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Dearest first</p>
     <h2>Every <span class="hl">${esc(p.name)}</span></h2>
