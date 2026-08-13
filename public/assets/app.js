@@ -621,7 +621,10 @@
     var box = document.getElementById("plGrid");
     if (!box) return;
     box.appendChild(emptyState("Loading playlists...", ""));
-    Promise.all([loadPlaylists(), loadVideos()]).then(function (res) {
+    Promise.all([loadPlaylists(), loadVideos()])
+      .catch(function () { return null; })
+      .then(function (res) {
+        if (!res) { box.textContent = ""; box.appendChild(emptyState("Could not load the playlists.", "Reload the page and try again.")); return; }
       var pls = res[0].playlists || [], videos = res[1];
       var byId = {};
       videos.forEach(function (v) { byId[v.id] = v; });

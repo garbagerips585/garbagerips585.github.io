@@ -2008,8 +2008,10 @@ span.cq-name{color:var(--ink)}
 .foot-col{display:flex;flex-direction:column;gap:2px}
 .foot-h{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;
   color:var(--mustard);margin-bottom:4px}
+/* 44px, matching .menu-btn, .brand and .sub. An earlier rule in this file set
+   44 and this one silently halved it to 32 for all 18 footer links. */
 .foot-nav a{font:600 var(--t-sm)/1.35 var(--body);color:#C7D3DE;
-  min-height:32px;display:inline-flex;align-items:center}
+  min-height:44px;display:inline-flex;align-items:center}
 .foot-nav a:hover{color:var(--paper);text-decoration:underline}
 .foot-collectr{margin:var(--s3) 0 var(--s2)}
 .foot-collectr a{font:700 var(--t-sm)/1.4 var(--body);color:var(--mustard)}

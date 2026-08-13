@@ -324,6 +324,12 @@ or another certified Garbage Rip.
     if(phase==='gesture') return;
     phase='gesture';
     clearTimeout(unmuteWatch); clearTimeout(startWatch);
+    // Stop the handshake too. It only cleared itself once a valid player
+    // message arrived, so in exactly the cases this function exists to handle,
+    // a blocked domain or Low Power Mode or a background tab, it kept posting
+    // every 200ms for the life of the page. Retreating means we have given up
+    // on the feed, so there is nothing left to listen for.
+    if(feedTimer){ clearInterval(feedTimer); feedTimer=null; }
     cmd('mute');
     cmd('playVideo');
     showBtn(true,kind);
