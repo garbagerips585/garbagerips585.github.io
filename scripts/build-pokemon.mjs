@@ -13,6 +13,13 @@
 // card everyone wants. A Pokemon qualifies on having enough cards across enough
 // sets to fill a page, and the roster is then ranked by its dearest card.
 //
+// THE TITLE SAYS "EVERY PRINTING WE PRICE", not "every set", and the
+// difference is the point. These pages cover the 23 English sets the site
+// holds prices for, so Flareon shows 4 cards from 2 sets while the printings
+// corpus knows of far more. Promising every set and delivering two is the kind
+// of over-claim that costs a page its credibility with the one reader who
+// checks.
+//
 // AND IT IS DELIBERATELY SHORT. There are 457 species that clear the bar and
 // 1,025 in the Pokedex. Generating all of them would be a thousand near-empty
 // pages, which is the definition of thin content and the fastest way to teach
@@ -162,7 +169,7 @@ function pokePage(p) {
     },
   ];
 
-  return head({ title: `${p.name} Cards: Every Set and What They Are Worth | Garbage Rips 585`, desc, canonical: url, ld }) + `
+  return head({ title: `${p.name} Cards and Prices: Every Printing We Price | Garbage Rips 585`, desc, canonical: url, ld }) + `
 <header class="set-hero">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
