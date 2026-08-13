@@ -256,7 +256,12 @@ for (const v of videos
   if (hall.length === 6) break;
 }
 
-const mostWatched = [...videos].sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 6);
+// MOST WATCHED IS GONE FROM THE HOME PAGE. It was the least curated of the
+// three bands: whatever the algorithm happened to reward, which is not the same
+// as the best work, and on a page that should be a considered introduction it
+// was three more rows of pack art earning nothing. /videos.html?sort=views
+// still exists for anybody who wants it. Bring it back when there is a video
+// whose view count is itself the story.
 
 const setCounts = {};
 const productCounts = {};
@@ -404,7 +409,6 @@ const latestHtml = [
   heroTile(byNewest[0]),
   ...byNewest.slice(1, 5).map((v) => tile(v, { showSet: false, dated: true })),
 ].join("\n");
-const watchedHtml = mostWatched.map((v) => tile(v, { showSet: false })).join("\n");
 
 const ordered = [...sets].sort((a, b) => String(b.released).localeCompare(String(a.released)));
 const setsHtml = (
@@ -475,7 +479,6 @@ const REGIONS = {
   HOF: hallHtml,
   HOFPICK: hofHtml,
   LATEST: latestHtml,
-  WATCHED: watchedHtml,
   SETS101: setsHtml,
   COUNT_ALL: String(videos.length),
   COUNT_HITS: String(hitCount),
