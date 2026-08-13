@@ -121,7 +121,14 @@ async function resolveHits(vid) {
         rarity: h.rarity || (pm && pm.r) || null,
         n: h.number || (pm && pm.i) || null,
         img: pm && pm.g ? `${pm.g}/low.webp` : null,
-        price: null, psa10: null, promo: true, unresolved: !pm,
+        // A promo has no price in the nightly feed, so where one is recorded on
+        // the hit itself we use it, and carry its source and date so the page
+        // can say where it came from rather than implying it is a live figure.
+        price: typeof h.price === "number" ? h.price : null,
+        psa10: typeof h.psa10 === "number" ? h.psa10 : null,
+        priceSource: h.priceSource || null,
+        priceAsOf: h.priceAsOf || null,
+        promo: true, unresolved: !pm,
       });
       continue;
     }
@@ -142,7 +149,13 @@ async function resolveHits(vid) {
       unresolved: !m,
     });
   }
-  return out.sort((a, b) => (b.psa10 || b.price || 0) - (a.psa10 || a.price || 0));
+  // ORDER BY RAW, NOT BY WHICHEVER NUMBER IS BIGGER. Sorting on psa10 || price
+  // compared a graded figure against an ungraded one, so any card with a PSA 10
+  // recorded outranked every card without: Oricorio ex at $12.03 raw sat above
+  // Marshadow at $14.95 because its PSA 10 was $99.78. Raw is the number every
+  // card here has, so it is the one that can be compared. PSA 10 falls back
+  // only when a card has no raw price at all.
+  return out.sort((a, b) => (b.price ?? b.psa10 ?? 0) - (a.price ?? a.psa10 ?? 0));
 }
 
 // Intrinsic size of each set logo, measured from the files by
@@ -458,6 +471,7 @@ ${
             typeof h.price === "number" ? `<b>${moneyExact(h.price)}</b> <span>raw NM</span>` : `<span class="hitcard-nop">No market price</span>`
           }</p>
           ${h.psa10 ? `<p class="hitcard-psa">${moneyRound(h.psa10)} <span>PSA 10</span></p>` : ""}
+          ${h.priceSource ? `<p class="hitcard-src">${esc(h.priceSource)}, ${esc(shortDate(h.priceAsOf) || h.priceAsOf)}</p>` : ""}
         </div>
       </li>`,
         )
@@ -465,8 +479,8 @@ ${
     </ul>
     <p class="price-note">Raw prices are TCGplayer market via TCGdex, read ${esc(longDate(cardsChecked) || cardsChecked || "recently")}.
       PSA 10 prices come from pokemonpricetracker.com and only exist for some cards, so the line is shown where we
-      have one and left off where we do not. A card pulled as a promo or from outside the set checklist has no
-      market price of its own and says so. We do not sell cards.</p>
+      have one and left off where we do not. Promos are not in that feed at all: where a promo carries a price it was
+      read by hand from the source named under it, on the date shown, and it does not refresh overnight like the rest. We do not sell cards.</p>
   </div>
 </section>`
     : v.hasHit === false

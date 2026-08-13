@@ -2123,3 +2123,6 @@ span.cq-name{color:var(--ink)}
   color:var(--navy);background:var(--paper-3);border-radius:var(--r-pill);
   padding:0 12px;min-height:44px;display:inline-flex;align-items:center}
 .loc-soc:hover{background:var(--mustard)}
+/* Where a hand-read price came from. Only promos carry this: everything else
+   refreshes nightly from one source the section note already names. */
+.hitcard-src{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-soft);margin-top:2px}

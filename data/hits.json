@@ -19,7 +19,17 @@
     "the Mega Charizard X ex entirely. Promos are not in the 23 sets we price, so",
     "they resolve against public/data/printings instead: that gives a real scan and",
     "no price, which is the truth. MEP #023 and #024 are adjacent, as one product's",
-    "promos usually are; a second Mega Charizard X ex exists at #029."
+    "promos usually are; a second Mega Charizard X ex exists at #029.",
+    "",
+    "PROMO PRICES ARE STORED, unlike every other price on the site, and the reason",
+    "is that nothing can regenerate them. TCGdex carries no TCGplayer pricing for",
+    "promo sets, so a promo has no price in the nightly feed at all. These two came",
+    "from pricecharting.com, read in a browser on 2026-08-13, and each entry keeps",
+    "its own priceSource, priceAsOf and priceUrl so the page can say where the",
+    "number came from and when. They will go stale; that is the trade for having",
+    "them, and the date on the page is what makes it honest.",
+    "",
+    "The $38.75 confirms MEP #023 over #029: the url Tim supplied ends -23."
   ],
   "source": "workbook My Hits tab",
   "checked": "2026-08-13",
@@ -103,7 +113,12 @@
         "setName": "MEP Black Star Promos",
         "number": "023",
         "rarity": "Black Star Promo",
-        "promo": true
+        "promo": true,
+        "price": 38.75,
+        "psa10": 176.57,
+        "priceSource": "pricecharting.com",
+        "priceAsOf": "2026-08-13",
+        "priceUrl": "https://www.pricecharting.com/game/pokemon-promo/mega-charizard-x-ex-23"
       },
       {
         "card": "Oricorio ex",
@@ -111,7 +126,12 @@
         "setName": "MEP Black Star Promos",
         "number": "024",
         "rarity": "Black Star Promo",
-        "promo": true
+        "promo": true,
+        "price": 12.03,
+        "psa10": 99.78,
+        "priceSource": "pricecharting.com",
+        "priceAsOf": "2026-08-13",
+        "priceUrl": "https://www.pricecharting.com/game/pokemon-promo/oricorio-ex-24"
       }
     ],
     "TN7_ZsuRQSI": [
