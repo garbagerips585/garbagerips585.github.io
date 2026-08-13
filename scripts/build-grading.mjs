@@ -31,9 +31,48 @@ import { esc, longDate, moneyExact, moneyRound, moneyCompact } from "../shared/f
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const g = JSON.parse(await readFile(join(ROOT, "data/grading.json"), "utf8"));
 const psa = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8"));
+// WHAT EACH COMPANY'S SLAB IS ACTUALLY WORTH, from real sold prices rather
+// than from the fee table. This is the half of the grading question nobody
+// publishes: the fee tells you what it costs, and only the resale tells you
+// whether it was worth it.
+//
+// Sample is data/graded.json: every card we pulled plus the top three chase
+// cards from each set, read from PriceCharting. Small and openly stated, and
+// the page prints the n against every row.
+let graded = { cards: {} };
+try {
+  graded = JSON.parse(await readFile(join(ROOT, "data/graded.json"), "utf8"));
+} catch {
+  /* no graded sample yet; the section simply does not render */
+}
+const gRows = Object.values(graded.cards || {}).filter((c) => c.psa10 && c.ungraded);
+const median = (a) => {
+  const x = a.slice().sort((p, q) => p - q);
+  return x.length ? x[x.length >> 1] : null;
+};
+const COMPANIES = [
+  ["psa10", "PSA 10"],
+  ["bgs10", "BGS 10"],
+  ["tag10", "TAG 10"],
+  ["ace10", "ACE 10"],
+  ["sgc10", "SGC 10"],
+  ["cgc10", "CGC 10"],
+];
+const slabValue = COMPANIES.map(([key, label]) => {
+  const rows = gRows.filter((c) => c[key]);
+  return {
+    label,
+    n: rows.length,
+    med: median(rows.map((c) => c[key])),
+    vsRaw: median(rows.map((c) => c[key] / c.ungraded)),
+    vsPsa: median(rows.filter((c) => c.psa10).map((c) => c[key] / c.psa10)),
+  };
+}).filter((r) => r.n >= 20).sort((a, b) => b.vsRaw - a.vsRaw);
+
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 
 const setName = new Map(sets.map((s) => [s.id, s.name]));
+const by = Object.fromEntries(g.companies.map((c) => [c.id, c]));
 
 // Card names AND raw prices. psa10.json carries its own rawNm from
 // pokemonpricetracker, but the rest of the site quotes TCGdex, and a grading
@@ -297,6 +336,48 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
 
 <section class="tight">
   <div class="wrap">
+    ${
+      slabValue.length
+        ? `<h2 style="margin-bottom:var(--s3)">What the slab is actually <span class="hl">worth</span></h2>
+    <p class="lede" style="max-width:42em">The fee tells you what grading costs. This tells you what you get back.
+      Same cards, every company's 10, from real sold prices. It reorders the question completely: the cheapest
+      company to grade with returns the least, and the dearest returns the most.</p>
+    <div class="cc-scroll" style="margin-bottom:var(--s5)">
+      <table class="cc-table">
+        <caption class="sr-only">Median value of each grading company's 10, against the raw card and against a PSA 10</caption>
+        <thead><tr>
+          <th scope="col">A 10 from</th>
+          <th scope="col" class="num">Median value</th>
+          <th scope="col" class="num">vs the raw card</th>
+          <th scope="col" class="num">vs a PSA 10</th>
+        </tr></thead>
+        <tbody>
+          ${slabValue
+            .map(
+              (r) => `<tr>
+            <th scope="row">${esc(r.label)}<span class="cc-yr">${r.n} cards</span></th>
+            <td class="num"><strong>${moneyRound(r.med)}</strong></td>
+            <td class="num">${r.vsRaw.toFixed(1)}x<span class="cc-n">the ungraded price</span></td>
+            <td class="num">${r.vsPsa.toFixed(2)}x<span class="cc-n">${r.label === "PSA 10" ? "the benchmark" : r.vsPsa < 1 ? "less than PSA" : "more than PSA"}</span></td>
+          </tr>`,
+            )
+            .join("\n          ")}
+        </tbody>
+      </table>
+    </div>
+    <div class="fk-golden" style="margin-bottom:var(--s5)">
+      <p class="fk-golden-h">The part that changes the maths</p>
+      <h2>Cheap to grade is not <span class="hl">cheap</span></h2>
+      <p>CGC is the cheapest slab you can buy at ${moneyRound(by.cgc ? by.cgc.cheapest : 17)}, and a CGC 10 sells for
+        about ${(slabValue.find((r) => r.label === "CGC 10") || {}).vsPsa?.toFixed(2)}x what the same card makes in a
+        PSA 10. A BGS 10 sells for ${(slabValue.find((r) => r.label === "BGS 10") || {}).vsPsa?.toFixed(2)}x. So the
+        fee is the smaller half of the decision: paying less to grade can cost you more than it saves, and the gap is
+        far bigger than the difference in fees.</p>
+      <p style="margin-top:10px">None of which matters unless the card comes back a 10. Most do not.</p>
+    </div>
+    `
+        : ""
+    }
     <h2>Five things worth <span class="hl">knowing</span></h2>
     <ul class="facts-list">
       ${g.rules.map((r) => `<li>${esc(r)}</li>`).join("\n      ")}
