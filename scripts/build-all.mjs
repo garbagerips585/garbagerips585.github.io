@@ -47,6 +47,7 @@ const STEPS = [
   "node scripts/build-start.mjs",
   "node scripts/build-search.mjs",
   "node scripts/sync-chrome.mjs",
+  "node scripts/build-locals.mjs",
   "node scripts/stamp-assets.mjs",
   "python3 scripts/check-build.py",
 ];

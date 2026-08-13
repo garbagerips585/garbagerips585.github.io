@@ -1,0 +1,26 @@
+{
+  "_readme": [
+    "Vendors we know and like around Rochester. Drives /vendors.html.",
+    "",
+    "EMPTY UNTIL TIM FILLS IT IN, and it must stay that way. Every entry names a",
+    "real business. Inventing one, or guessing a handle from a name, publishes a",
+    "recommendation that could send somebody to the wrong seller or to nobody at",
+    "all. The page renders an honest empty state rather than placeholder rows.",
+    "",
+    "A vendor is somebody who SELLS, usually at the shows on /card-shows.html.",
+    "That is the difference from data/shops.json, which is bricks-and-mortar",
+    "stores with an address and opening hours. A vendor may have neither.",
+    "",
+    "Add one with a name. Everything else is optional and simply does not render",
+    "when missing: blurb, url, instagram, tiktok, facebook, whatnot, ebay, shows,",
+    "sells, area.",
+    "",
+    "SOCIAL HANDLES GO IN WITHOUT THE @, and as the handle only, never a full url",
+    "with tracking on it. The builder makes the link.",
+    "",
+    "`vouched` marks a vendor Tim has actually bought from. Only set it where that",
+    "is true: the whole value of a local list is that it is not a directory."
+  ],
+  "updated": "2026-08-13",
+  "vendors": []
+}

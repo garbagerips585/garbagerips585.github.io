@@ -2103,3 +2103,23 @@ span.cq-name{color:var(--ink)}
 @media(prefers-reduced-motion:reduce){
   .hitcards.is-armed .hitcard{opacity:1;transform:none;transition:none;animation:none}
 }
+
+/* ---------- local vendors and creators ---------- */
+.loc-list{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s4);
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));width:100%;min-width:0}
+.loc{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:6px}
+.loc-h{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap}
+.loc h3{font:400 var(--t-m)/1.15 var(--display)}
+/* The one editorial signal on the page, and it means exactly what it says. */
+.loc-vouch{font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;letter-spacing:.05em;
+  color:var(--gold-deep);border:1px solid var(--gold);border-radius:var(--r-pill);padding:4px 8px}
+.loc-area{font:700 var(--t-micro)/1.4 var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.loc-does{font-weight:600;font-size:var(--t-sm);color:var(--ink)}
+.loc-blurb{font-size:var(--t-sm);color:var(--ink-2)}
+.loc-shows{font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-soft)}
+.loc-socs{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:var(--s3)}
+.loc-soc{font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;letter-spacing:.05em;
+  color:var(--navy);background:var(--paper-3);border-radius:var(--r-pill);
+  padding:0 12px;min-height:44px;display:inline-flex;align-items:center}
+.loc-soc:hover{background:var(--mustard)}

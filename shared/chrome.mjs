@@ -74,12 +74,14 @@ export const NAV = [
     ["/grading.html", "Grading"],
     ["/luck.html", "Pull rates"],
   ]],
-  ["Rochester", [
+  ["Rochester, NY", [
     // Shops and shows sit next to each other deliberately: they answer the same
     // question a week apart. Keep the labels distinct, the urls are one letter
     // apart and the menu is the only place a reader sees both at once.
     ["/card-shows.html", "Card shows"],
     ["/shops.html", "Card shops"],
+    ["/vendors.html", "Local vendors"],
+    ["/creators.html", "Local creators"],
     ["/about.html", "About"],
   ]],
 ];
