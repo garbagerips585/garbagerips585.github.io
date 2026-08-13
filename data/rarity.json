@@ -16,8 +16,6 @@
     "  reverse-holo scan: variants_detailed lists a reverse variant but its image",
     "  field is null. Showing the normal card labelled 'reverse holo' would teach",
     "  the opposite of the thing the entry exists to teach.",
-    "  Slab and Grading. We own no graded cards and will not use a grading",
-    "  company's marketing photo. Same rule that keeps borrowed photos off the",
     "  fake-cards page.",
     "",
     "WHAT NOT TO PUT ON THIS PAGE, all checked and deliberately left off:",
@@ -31,7 +29,15 @@
     "  A card for Rainbow rares. The whole claim is the rainbow FOIL, and a flat",
     "  scan does not show foil, so the picture would prove nothing the words do",
     "  not already say. The other eight retired mechanics are things you can SEE",
-    "  in a scan, which is why they have one."
+    "  in a scan, which is why they have one.",
+    "",
+    "SLAB IS A DIAGRAM, NOT A PHOTO, and that is deliberate. We own no graded",
+    "cards, and a grading company's product photography is theirs. A labelled",
+    "schematic teaches the thing a photo would: where the grade sits, where the",
+    "cert number is, that the card is sealed and cannot be removed without",
+    "destroying the holder. It is captioned as a schematic so nobody mistakes it",
+    "for a real slab. Same approach as the fake-cards diagram.",
+    "Grading still has no image: it is a process, not an object."
   ],
   "checked": "2026-08-12",
   "eras": {
@@ -214,7 +220,9 @@
     },
     {
       "term": "Slab",
-      "meaning": "A card sealed in a rigid case by a grading company."
+      "meaning": "A card sealed in a rigid case by a grading company.",
+      "show": "diagram",
+      "example": "A schematic, not a photo of a real slab"
     },
     {
       "term": "Grading",

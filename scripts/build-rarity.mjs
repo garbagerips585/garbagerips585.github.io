@@ -77,8 +77,40 @@ const corner = (card, side, label) => `<figure class="crop">
  * checkable rather than decorative, and it is the same reason the ladder above
  * carries `example`.
  */
+
+/**
+ * A slab, drawn rather than photographed.
+ *
+ * We own no graded cards and will not use a grading company's product shot, so
+ * this is a schematic and is captioned as one. It can do something a photo
+ * cannot anyway: point at the three parts that matter, the grade, the cert
+ * number and the seal, instead of leaving a reader to work out which bit of a
+ * glossy product image is the point.
+ *
+ * Colours come from the site palette, not from any company's branding, and it
+ * carries no company name. It is a slab, not a PSA slab.
+ */
+const slabDiagram = () => `<figure class="gloss-fig is-diagram">
+            <svg viewBox="0 0 220 300" role="img" aria-label="Diagram of a graded card in a sealed holder, showing the grade, the certification number and the sealed edge">
+              <rect x="6" y="6" width="208" height="288" rx="10" fill="#EDE6CB" stroke="#15263A" stroke-width="3"/>
+              <rect x="14" y="14" width="192" height="272" rx="7" fill="none" stroke="#9FB0C0" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <rect x="24" y="26" width="172" height="58" rx="4" fill="#F7F2DE" stroke="#15263A" stroke-width="2"/>
+              <text x="34" y="46" font-family="monospace" font-size="9" fill="#5A6150">CARD NAME &amp; SET</text>
+              <text x="34" y="72" font-family="monospace" font-size="22" font-weight="bold" fill="#15263A">MINT 10</text>
+              <text x="150" y="72" font-family="monospace" font-size="8" fill="#5A6150">GRADE</text>
+              <text x="34" y="82" font-family="monospace" font-size="7" fill="#5A6150">CERT 000000000</text>
+              <rect x="34" y="96" width="152" height="176" rx="4" fill="#DCF2FB" stroke="#0E6E96" stroke-width="2"/>
+              <text x="110" y="190" font-family="monospace" font-size="9" fill="#0E6E96" text-anchor="middle">the card, sealed inside</text>
+              <path d="M6 150 L14 150 M206 150 L214 150" stroke="#D9482B" stroke-width="3"/>
+              <text x="110" y="292" font-family="monospace" font-size="7" fill="#5A6150" text-anchor="middle">sealed edge: opening it voids the grade</text>
+            </svg>
+            <figcaption>A schematic, not a photo of a real slab</figcaption>
+          </figure>`;
+
 const slangCard = (s) => {
-  const art = !s.card
+  const art = s.show === "diagram"
+    ? slabDiagram()
+    : !s.card
     ? ""
     : s.show === "crop"
       ? `<div class="gloss-fig is-crop">${corner(s.card, "left", s.example)}</div>`

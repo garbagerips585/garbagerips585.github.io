@@ -2278,3 +2278,7 @@ span.cq-name{color:var(--ink)}
    lightbox detail to open and nothing to click through to. */
 .chase-card.is-flat{cursor:default;background:var(--card);border:1px solid var(--hair);
   border-radius:var(--r);padding:var(--s3);display:flex;flex-direction:column;gap:2px}
+/* A drawn example rather than a photograph. Sized like the card figures beside
+   it so the row still reads as a row. */
+.gloss-fig.is-diagram svg{display:block;width:100%;max-width:132px;height:auto;
+  border:1px solid var(--hair);border-radius:6px;background:var(--paper-2)}
