@@ -976,6 +976,17 @@ const urls = [
   // Daily: the totals are recomputed by the nightly price sync, so this page
   // genuinely changes every night. Nothing else here does.
   { loc: `${SITE}/complete-a-set.html`, freq: "daily", pri: "0.9" },
+  // The games. Monthly rather than weekly: the pages themselves barely change,
+  // it is the data behind them that moves. "who's that pokemon" and "pokemon
+  // trivia" are both high volume searches this site has a real answer to, which
+  // is why they are 0.8 and not an afterthought.
+  { loc: `${SITE}/games/`, freq: "monthly", pri: "0.8" },
+  { loc: `${SITE}/games/whos-that-pokemon.html`, freq: "monthly", pri: "0.8" },
+  { loc: `${SITE}/games/guess-the-set.html`, freq: "monthly", pri: "0.8" },
+  { loc: `${SITE}/games/pokemon-trivia.html`, freq: "monthly", pri: "0.8" },
+  // Pokedex lore. Evergreen, and the only page on the site that is not about
+  // buying, opening or valuing anything.
+  { loc: `${SITE}/lore.html`, freq: "monthly", pri: "0.8" },
   ...ordered.filter((v) => taggedIds.has(v.id)).map((v) => ({ loc: `${SITE}/${pathFor(v)}`, freq: "monthly", pri: "0.6", mod: v.published })),
 ];
 await writeFile(

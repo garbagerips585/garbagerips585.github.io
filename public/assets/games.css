@@ -1,0 +1,278 @@
+/* Games. Loaded only by /games/, so nothing here can affect the rest of the site.
+ *
+ * BUILT FOR ONE THUMB IN A QUEUE. Every layout decision below follows from the
+ * same brief as games.js: standing in line, phone in one hand, may have to stop
+ * without warning. So the answers sit at the BOTTOM of the screen where a thumb
+ * reaches, in a 2x2 grid rather than a 1x4 list, because a four row list pushes
+ * the last answer past the fold on a short phone and makes the top two a
+ * stretch. Targets are 56px tall, comfortably over the 44px minimum, because
+ * the failure mode here is tapping the wrong answer and losing a streak.
+ *
+ * THE STAGE RESERVES ITS HEIGHT. Card scans and Pokemon artwork arrive at
+ * different times over a venue's wifi, and a stage that grows when the image
+ * lands would shift the answer buttons under a thumb already on its way down.
+ * aspect-ratio holds the box open before anything loads.
+ */
+
+.gq {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* Stats. Space Mono so the streak counter does not reflow the row every time it
+   ticks from 9 to 10. */
+.gq-bar {
+  display: flex;
+  gap: var(--s3);
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--s4);
+  font: 700 var(--t-micro) / 1 var(--mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.gq-stat {
+  background: var(--paper-2, #F7F2DE);
+  border: 2px solid var(--ink);
+  border-radius: var(--r-pill);
+  padding: 8px 14px;
+  color: var(--ink-2);
+}
+.gq-stat b {
+  font-size: 1.15rem;
+  color: var(--ink);
+  font-family: var(--mono);
+}
+.gq-clock {
+  background: var(--mustard);
+  color: var(--ink);
+}
+
+/* The compact header the three game pages use. The standard hero is 319px on a
+   phone, which pushed the answer buttons 125px below the fold and made you
+   scroll to play every single question. */
+.g-hero { padding-top: var(--s3); padding-bottom: var(--s3); }
+.g-hero h1 { font-size: var(--t-l); }
+/* The section that holds the game opens tight against the header, and its
+   breadcrumb is moved below the play area in the markup. Together with the
+   compact hero this is the 108px that got the answer buttons back on screen. */
+.g-hero + section { padding-top: var(--s3); }
+.g-hero + section .btn-row { margin-bottom: var(--s3) !important; gap: var(--s2); }
+.g-hero + section .crumbs { margin-top: var(--s5); }
+
+/* The picture. A fixed box so nothing moves when the art arrives.
+   svh, NOT vh: on iOS Safari vh is the height with the browser chrome HIDDEN,
+   so a 45vh stage is taller than 45% of what you can actually see and pushes
+   the answers back under the address bar, which is the exact bug this is here
+   to prevent. svh is the small viewport, chrome showing. */
+.gq-stage {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  max-height: min(34svh, 330px);
+  display: grid;
+  place-items: center;
+  background: var(--paper-2, #F7F2DE);
+  border: 3px solid var(--ink);
+  border-radius: var(--r);
+  overflow: hidden;
+  padding: var(--s4);
+}
+.gq-stage img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  display: block;
+}
+
+/* The silhouette. brightness(0) crushes every pixel to black while leaving the
+   alpha channel alone, which is exactly a silhouette and needs no second image.
+   It only works on artwork with a transparent background, which is why this
+   game uses the artwork PNGs and not a card scan: a card scan is a rectangle,
+   and the silhouette of a rectangle is a rectangle. */
+.gq-sil img {
+  filter: brightness(0);
+}
+.gq-sil.is-shown img {
+  filter: none;
+}
+
+/* The stage's inner wrapper. It must FILL the stage and constrain the image,
+   never size itself from the image.
+   This carried a real bug: .gq-card set its own aspect-ratio: 3/4, but it is a
+   child of .gq-stage rather than the stage itself, so it took 3/4 of the stage
+   WIDTH as its height, overflowed the stage's 330px cap, and was clipped by the
+   stage's overflow: hidden. The part it cut off was the bottom of the card,
+   which is precisely where the set symbol and the card number sit, so Guess the
+   Set was hiding the only two things that answer the question. */
+.gq-sil,
+.gq-card {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.gq-sil img,
+.gq-card img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+/* A card is portrait, so its stage is portrait too. A square stage showing a
+   portrait card wastes a third of the width and shrinks the symbol further. */
+.g-cards .gq-stage {
+  aspect-ratio: 3 / 4;
+  max-height: min(41svh, 400px);
+}
+
+/* Trivia has no picture, so the question itself is the stage. It still uses the
+   same square box, because the answer buttons must not move between a game with
+   art and a game without it. */
+.gq-q {
+  font: 400 var(--t-l) / 1.25 var(--display);
+  color: var(--ink);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.gq-say {
+  min-height: 2.6em;
+  margin: var(--s3) 0;
+  text-align: center;
+  font: 600 var(--t-sm) / 1.4 var(--body);
+  color: var(--ink-2);
+}
+.gq-say.is-right { color: var(--teal); }
+.gq-say.is-wrong { color: var(--ketchup-deep); }
+
+/* Answers: 2x2, thumb sized, at the bottom. */
+.gq-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s2);
+}
+.gq-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 56px;
+  padding: 10px 12px;
+  background: var(--card);
+  border: 3px solid var(--ink);
+  border-radius: var(--r);
+  box-shadow: 0 3px 0 var(--ink);
+  font: 700 var(--t-sm) / 1.2 var(--body);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.gq-btn:active { box-shadow: 0 1px 0 var(--ink); transform: translateY(2px); }
+.gq-btn[disabled] { cursor: default; }
+.gq-num {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--paper-3, #EDE6CB);
+  font: 700 var(--t-micro) / 1 var(--mono);
+  color: var(--ink-2);
+}
+/* Right and wrong are not carried by colour alone: the correct answer also
+   gains a heavier border, so the result reads without relying on hue. */
+.gq-btn.is-right {
+  background: var(--teal);
+  border-color: var(--ink);
+  border-width: 4px;
+  color: #fff;
+}
+.gq-btn.is-right .gq-num { background: rgba(255,255,255,.85); color: var(--teal); }
+.gq-btn.is-wrong {
+  background: var(--ketchup-deep);
+  border-color: var(--ink);
+  color: #fff;
+}
+.gq-btn.is-wrong .gq-num { background: rgba(255,255,255,.85); color: var(--ketchup-deep); }
+
+.gq-again { grid-column: 1 / -1; justify-content: center; background: var(--mustard); }
+
+.gq-foot { margin-top: var(--s4); text-align: center; }
+.gq-mode {
+  background: none;
+  border: 0;
+  border-bottom: 2px dashed var(--ink-2);
+  padding: 4px 2px;
+  font: 700 var(--t-sm) / 1.2 var(--body);
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+/* Sprint result. */
+.gq-over { text-align: center; }
+.gq-over-n { font: 400 clamp(3rem, 18vw, 5rem) / 1 var(--display); color: var(--ink); }
+.gq-over-l { font: 600 var(--t-sm) / 1.4 var(--body); color: var(--ink-2); }
+
+/* The hub. */
+.g-list { display: grid; gap: var(--s4); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); width: 100%; min-width: 0; }
+.g-card {
+  display: block;
+  padding: var(--s5);
+  background: var(--card);
+  border: 3px solid var(--ink);
+  border-radius: var(--r);
+  box-shadow: 0 4px 0 var(--ink);
+  text-decoration: none;
+  color: inherit;
+}
+.g-card h3 { font: 400 var(--t-m) / 1.15 var(--display); margin-bottom: 6px; }
+.g-card p { font: 400 var(--t-sm) / 1.45 var(--body); color: var(--ink-2); }
+.g-card .g-tag {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  background: var(--mustard);
+  font: 700 var(--t-micro) / 1.6 var(--mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* Lore. */
+.lore-list { display: grid; gap: var(--s4); grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); width: 100%; min-width: 0; }
+.lore {
+  padding: var(--s4);
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: var(--r);
+}
+.lore h3 { font: 700 var(--t-sm) / 1.3 var(--body); text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); margin-bottom: 6px; }
+.lore p { font: 400 var(--t-body) / 1.5 var(--body); color: var(--ink); }
+.lore .lore-src { display: block; margin-top: 8px; font: 400 var(--t-micro) / 1.4 var(--mono); color: var(--ink-2); }
+
+/* SHORT SCREENS, which is a separate axis from narrow ones. A 375x667 iPhone SE
+   is the same width as a 375x812 but has 145px less to spend, and on it the
+   answers finished 47px below the fold even after the stage was capped. Every
+   value here is trimmed rather than removed: the streak still shows, the
+   result line still reserves its space so the buttons cannot jump, and the
+   targets stay at 50px, above the 44px minimum. */
+@media (max-height: 720px) {
+  .g-hero { padding-top: 6px; padding-bottom: 6px; }
+  .g-hero h1 { font-size: var(--t-m); }
+  .gq-stage { max-height: min(30svh, 260px); padding: var(--s2); }
+  .g-cards .gq-stage { max-height: min(40svh, 300px); }
+  .gq-bar { margin-bottom: var(--s2); }
+  .gq-stat { padding: 5px 10px; }
+  .gq-say { min-height: 2em; margin: var(--s2) 0; }
+  .gq-btn { min-height: 50px; }
+  .gq-foot { margin-top: var(--s3); }
+}
+
+@media (min-width: 700px) {
+  .gq-btn { font-size: var(--t-body); min-height: 62px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gq-btn:active { transform: none; }
+}

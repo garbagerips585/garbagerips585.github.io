@@ -47,6 +47,11 @@ const STEPS = [
   "node scripts/build-complete.mjs",
   "node scripts/build-start.mjs",
   "node scripts/build-search.mjs",
+  // Both read data/pokedex.json, which is written by sync-pokedex.mjs and is
+  // NOT part of this run: it is a slow network job against pokeapi and the data
+  // does not change unless a generation ships. Run it by hand when it does.
+  "node scripts/build-games.mjs",
+  "node scripts/build-lore.mjs",
   "node scripts/sync-chrome.mjs",
   "node scripts/build-locals.mjs",
   "node scripts/stamp-assets.mjs",

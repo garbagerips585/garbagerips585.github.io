@@ -79,6 +79,18 @@ export const NAV = [
   // page refuses to state is the one place the site contradicted its own rule.
   ["/luck.html", "Luck, measured"],
   ]],
+  // Its own group rather than an item under Guides, because it answers a
+  // different question: everything else here helps you buy, open or value a
+  // card, and this is the only part of the site that is just for fun. Filed
+  // under "Play" and not "Games" so the lore page is not the odd one out.
+  // TWO LINKS, NOT FIVE. This shipped listing all three games AND the hub that
+  // exists to list them, which is the nav doing the hub's job and paying for it
+  // in every other group's visibility. The hub is one tap away and names them
+  // better than a nav label can.
+  ["Play", [
+    ["/games/", "Games"],
+    ["/lore.html", "Pokemon lore"],
+  ]],
   ["Rochester, NY", [
     // Shops and shows sit next to each other deliberately: they answer the same
     // question a week apart. Keep the labels distinct, the urls are one letter
@@ -221,13 +233,34 @@ ${BAR_LINKS.map((h) => `      <a href="${h}">${labelFor(h)}</a>`).join("\n")}
  * spent on the page you are already reading, and the wordmark already goes
  * home.
  */
+/**
+ * The menu panel.
+ *
+ * EACH GROUP IS ONE UNBREAKABLE BLOCK, because the panel lays them out in CSS
+ * columns and a group split across a column boundary reads as two groups, one
+ * of them unlabelled. `.menu-g` plus break-inside: avoid is what stops that.
+ *
+ * The panel used to be a single tall column at every width: 22 links and six
+ * headings in a 752px window meant a large part of the nav was below the fold
+ * on open, including whole groups, on the one screen whose entire job is to
+ * show what the site contains. Columns fix it without hiding anything behind a
+ * second tap.
+ *
+ * NO NESTED <nav>. sync-chrome.mjs slices this block with a non-greedy match up
+ * to the first </nav>, so a nav inside a nav would have it write a truncated
+ * menu into all eight hand-maintained pages and mean it. Divs are safe.
+ */
 export const MENU = `<nav class="menu" id="menu" aria-label="Site">
+  <div class="menu-inner">
 ${NAV.map(
-  ([title, links]) => `  <p class="menu-h">${title}</p>
-  <ul>
-${links.map(([href, label]) => `    <li><a href="${href}">${label}</a></li>`).join("\n")}
-  </ul>`
+  ([title, links]) => `    <div class="menu-g">
+      <p class="menu-h">${title}</p>
+      <ul>
+${links.map(([href, label]) => `        <li><a href="${href}">${label}</a></li>`).join("\n")}
+      </ul>
+    </div>`
 ).join("\n")}
+  </div>
   <a class="menu-sub" href="${SUBSCRIBE}">Subscribe on YouTube</a>
 </nav>`;
 
