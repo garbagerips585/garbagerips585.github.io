@@ -104,6 +104,27 @@ async function resolveHits(vid) {
         cardCache.set(h.set, JSON.parse(await readFile(join(ROOT, `public/data/cards/${h.set}.json`), "utf8")).cards);
       } catch { cardCache.set(h.set, null); }
     }
+    // A promo lives outside the 23 sets we price, so it never resolves against
+    // the set data and used to match a SET card of the same name: that put the
+    // wrong Oricorio ex on the Costco page and lost the Mega Charizard X ex
+    // entirely. Promos resolve against the printings corpus instead, which
+    // gives a real scan and no price, which is the truth about a promo.
+    if (h.promo || !h.set) {
+      const shard = String(h.card).trim()[0].toLowerCase();
+      let list = [];
+      try { list = JSON.parse(await readFile(join(ROOT, `public/data/printings/${/[a-z]/.test(shard) ? shard : "0"}.json`), "utf8")); } catch {}
+      const norm0 = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
+      const pm = list.find((c) => norm0(c.n) === norm0(h.card) && String(c.i) === String(h.number)) ||
+                 list.find((c) => norm0(c.n) === norm0(h.card) && /promo/i.test(String(c.s)));
+      out.push({
+        name: h.card, setName: h.setName, setId: null,
+        rarity: h.rarity || (pm && pm.r) || null,
+        n: h.number || (pm && pm.i) || null,
+        img: pm && pm.g ? `${pm.g}/low.webp` : null,
+        price: null, psa10: null, promo: true, unresolved: !pm,
+      });
+      continue;
+    }
     const cards = cardCache.get(h.set);
     const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
     const same = cards ? cards.filter((c) => norm(c.name) === norm(h.card)) : [];
@@ -420,10 +441,10 @@ ${
     <p class="lede" style="max-width:38em">${hits.length} card${hits.length === 1 ? "" : "s"} worth keeping${
         hits.some((h) => h.psa10) ? ", with what they go for raw and in a PSA 10" : ", with what they go for raw"
       }.</p>
-    <ul class="hitcards">
+    <ul class="hitcards" id="hitcards">
       ${hits
         .map(
-          (h) => `<li class="hitcard">
+          (h, hi) => `<li class="hitcard" style="--i:${hi}">
         ${
           h.img
             ? `<img class="hitcard-img" src="${esc(h.img)}" alt="${esc(h.name)}, ${esc(h.setName)}" loading="lazy" decoding="async" width="245" height="337">`
@@ -719,6 +740,35 @@ ${footer()}
     var f=p.querySelector('iframe');
     if(f) f.focus({preventScroll:true});
   }
+})();
+</script>
+<script>
+(function(){
+  var list=document.getElementById('hitcards');
+  if(!list) return;
+  // Arm only once we know we can reveal. Without IntersectionObserver, or with
+  // reduced motion, the cards simply stay visible: nothing is ever left hidden
+  // by a feature that failed to load.
+  if(!('IntersectionObserver' in window)) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  list.classList.add('is-armed');
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      e.target.classList.add('is-in');
+      io.unobserve(e.target);   // reveal once, never re-run on scroll back
+    });
+  },{rootMargin:'0px 0px -8% 0px',threshold:0.15});
+  var cards=list.querySelectorAll('.hitcard');
+  for(var i=0;i<cards.length;i++) io.observe(cards[i]);
+  // Anything already on screen at load reveals immediately rather than waiting
+  // for a scroll that may never come.
+  requestAnimationFrame(function(){
+    for(var i=0;i<cards.length;i++){
+      var r=cards[i].getBoundingClientRect();
+      if(r.top < window.innerHeight && r.bottom > 0){ cards[i].classList.add('is-in'); io.unobserve(cards[i]); }
+    }
+  });
 })();
 </script>
 <script src="/assets/app.js" defer></script>

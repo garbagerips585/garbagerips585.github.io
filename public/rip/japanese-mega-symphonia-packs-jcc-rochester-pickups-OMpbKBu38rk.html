@@ -458,6 +458,35 @@ or another certified Garbage Rip 😬
   }
 })();
 </script>
+<script>
+(function(){
+  var list=document.getElementById('hitcards');
+  if(!list) return;
+  // Arm only once we know we can reveal. Without IntersectionObserver, or with
+  // reduced motion, the cards simply stay visible: nothing is ever left hidden
+  // by a feature that failed to load.
+  if(!('IntersectionObserver' in window)) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  list.classList.add('is-armed');
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      e.target.classList.add('is-in');
+      io.unobserve(e.target);   // reveal once, never re-run on scroll back
+    });
+  },{rootMargin:'0px 0px -8% 0px',threshold:0.15});
+  var cards=list.querySelectorAll('.hitcard');
+  for(var i=0;i<cards.length;i++) io.observe(cards[i]);
+  // Anything already on screen at load reveals immediately rather than waiting
+  // for a scroll that may never come.
+  requestAnimationFrame(function(){
+    for(var i=0;i<cards.length;i++){
+      var r=cards[i].getBoundingClientRect();
+      if(r.top < window.innerHeight && r.bottom > 0){ cards[i].classList.add('is-in'); io.unobserve(cards[i]); }
+    }
+  });
+})();
+</script>
 <script src="/assets/app.js" defer></script>
 </body>
 </html>

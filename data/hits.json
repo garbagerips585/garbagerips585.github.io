@@ -11,7 +11,15 @@
     "Prices are NOT stored here. They are looked up at build time from",
     "public/data/cards/*.json and data/psa10.json, so a price refresh moves the",
     "rip pages without re-importing the sheet and one card can never show two",
-    "different numbers on two different pages."
+    "different numbers on two different pages.",
+    "",
+    "PROMOS CARRY set:null AND A number. The two Black Star Promos from the Mega",
+    "Charizard X UPC were first resolved against Phantasmal Flames and matched SET",
+    "cards of the same name, which put the wrong Oricorio ex on the page and lost",
+    "the Mega Charizard X ex entirely. Promos are not in the 23 sets we price, so",
+    "they resolve against public/data/printings instead: that gives a real scan and",
+    "no price, which is the truth. MEP #023 and #024 are adjacent, as one product's",
+    "promos usually are; a second Mega Charizard X ex exists at #029."
   ],
   "source": "workbook My Hits tab",
   "checked": "2026-08-13",
@@ -90,16 +98,20 @@
         "rarity": "Ultra Rare"
       },
       {
-        "card": "Charizard ex",
-        "set": "phantasmal-flames",
-        "setName": "Phantasmal Flames",
-        "rarity": "Black Star Promo"
+        "card": "Mega Charizard X ex",
+        "set": null,
+        "setName": "MEP Black Star Promos",
+        "number": "023",
+        "rarity": "Black Star Promo",
+        "promo": true
       },
       {
         "card": "Oricorio ex",
-        "set": "phantasmal-flames",
-        "setName": "Phantasmal Flames",
-        "rarity": "Black Star Promo Card"
+        "set": null,
+        "setName": "MEP Black Star Promos",
+        "number": "024",
+        "rarity": "Black Star Promo",
+        "promo": true
       }
     ],
     "TN7_ZsuRQSI": [

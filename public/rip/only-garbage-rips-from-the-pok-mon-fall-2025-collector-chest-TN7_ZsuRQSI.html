@@ -168,8 +168,8 @@ Subscribe for more Garbage Rips 585 — hits, misses, and everything in between.
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Below the fold</p>
     <h2>What came out of <span class="hl">this one</span></h2>
     <p class="lede" style="max-width:38em">3 cards worth keeping, with what they go for raw.</p>
-    <ul class="hitcards">
-      <li class="hitcard">
+    <ul class="hitcards" id="hitcards">
+      <li class="hitcard" style="--i:0">
         <img class="hitcard-img" src="https://assets.tcgdex.net/en/sv/sv09/162/low.webp" alt="Wailord, Journey Together" loading="lazy" decoding="async" width="245" height="337">
         <div class="hitcard-b">
           <p class="hitcard-n">Wailord</p>
@@ -179,7 +179,7 @@ Subscribe for more Garbage Rips 585 — hits, misses, and everything in between.
           
         </div>
       </li>
-      <li class="hitcard">
+      <li class="hitcard" style="--i:1">
         <img class="hitcard-img" src="https://assets.tcgdex.net/en/me/me01/154/low.webp" alt="Stufful, Mega Evolution" loading="lazy" decoding="async" width="245" height="337">
         <div class="hitcard-b">
           <p class="hitcard-n">Stufful</p>
@@ -189,7 +189,7 @@ Subscribe for more Garbage Rips 585 — hits, misses, and everything in between.
           
         </div>
       </li>
-      <li class="hitcard">
+      <li class="hitcard" style="--i:2">
         <img class="hitcard-img" src="https://assets.tcgdex.net/en/sv/sv10/136/low.webp" alt="Marnie's Grimmsnarl ex, Destined Rivals" loading="lazy" decoding="async" width="245" height="337">
         <div class="hitcard-b">
           <p class="hitcard-n">Marnie's Grimmsnarl ex</p>
@@ -476,6 +476,35 @@ Subscribe for more Garbage Rips 585 — hits, misses, and everything in between.
     var f=p.querySelector('iframe');
     if(f) f.focus({preventScroll:true});
   }
+})();
+</script>
+<script>
+(function(){
+  var list=document.getElementById('hitcards');
+  if(!list) return;
+  // Arm only once we know we can reveal. Without IntersectionObserver, or with
+  // reduced motion, the cards simply stay visible: nothing is ever left hidden
+  // by a feature that failed to load.
+  if(!('IntersectionObserver' in window)) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  list.classList.add('is-armed');
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      e.target.classList.add('is-in');
+      io.unobserve(e.target);   // reveal once, never re-run on scroll back
+    });
+  },{rootMargin:'0px 0px -8% 0px',threshold:0.15});
+  var cards=list.querySelectorAll('.hitcard');
+  for(var i=0;i<cards.length;i++) io.observe(cards[i]);
+  // Anything already on screen at load reveals immediately rather than waiting
+  // for a scroll that may never come.
+  requestAnimationFrame(function(){
+    for(var i=0;i<cards.length;i++){
+      var r=cards[i].getBoundingClientRect();
+      if(r.top < window.innerHeight && r.bottom > 0){ cards[i].classList.add('is-in'); io.unobserve(cards[i]); }
+    }
+  });
 })();
 </script>
 <script src="/assets/app.js" defer></script>

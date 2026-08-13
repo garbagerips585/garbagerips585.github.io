@@ -2069,3 +2069,33 @@ span.cq-name{color:var(--ink)}
 @media(max-width:520px){
   .hitcards{grid-template-columns:repeat(2,1fr);gap:var(--s3)}
 }
+
+/* ---------- hits reveal on scroll ----------
+   The pack tears open to start the video; the cards should feel like they are
+   being laid out after it. Each card rises, fades up and settles, staggered by
+   its position so they arrive in sequence rather than all at once, dearest
+   first because that is the order the list is already in.
+
+   TRANSITIONS, NOT @keyframes. An animation naming keyframes that do not exist
+   silently never runs, which this project has already shipped once. A
+   transition on a class toggle has no such failure mode.
+
+   The cards are VISIBLE BY DEFAULT and hidden only once JS has confirmed it
+   will reveal them. If the observer never runs, nothing is stuck invisible. */
+.hitcards.is-armed .hitcard{opacity:0;transform:translateY(16px) scale(.97)}
+.hitcards.is-armed .hitcard{
+  transition:opacity .42s cubic-bezier(.2,.7,.3,1), transform .42s cubic-bezier(.2,.7,.3,1);
+  transition-delay:calc(var(--i, 0) * 55ms)}
+.hitcards.is-armed .hitcard.is-in{opacity:1;transform:none}
+/* The gold edge flicks on as the card lands, then fades. Cheap, and it reads as
+   the card catching the light the way a foil does. */
+.hitcards.is-armed .hitcard.is-in{animation:hitLand .5s ease-out both;
+  animation-delay:calc(var(--i, 0) * 55ms)}
+@keyframes hitLand{
+  0%{box-shadow:var(--lift)}
+  40%{box-shadow:0 0 0 2px var(--mustard), var(--lift)}
+  100%{box-shadow:var(--lift)}
+}
+@media(prefers-reduced-motion:reduce){
+  .hitcards.is-armed .hitcard{opacity:1;transform:none;transition:none;animation:none}
+}
