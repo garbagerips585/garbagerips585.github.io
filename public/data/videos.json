@@ -5575,13 +5575,20 @@
       "views": 88,
       "vertical": false,
       "short": false,
-      "sets": [],
+      "sets": [
+        "phantasmal-flames",
+        "destined-rivals",
+        "surging-sparks",
+        "mega-evolution",
+        "journey-together"
+      ],
       "products": [
         "upc"
       ],
       "pulls": [
         "charizard"
-      ]
+      ],
+      "label": "Phantasmal Flames UPC"
     },
     {
       "id": "TN7_ZsuRQSI",
@@ -5592,9 +5599,16 @@
       "views": 1403,
       "vertical": true,
       "short": false,
-      "sets": [],
-      "products": [],
-      "pulls": []
+      "sets": [
+        "mega-evolution",
+        "destined-rivals",
+        "journey-together"
+      ],
+      "products": [
+        "tin"
+      ],
+      "pulls": [],
+      "label": "Mega Evolution Tin"
     }
   ]
 }

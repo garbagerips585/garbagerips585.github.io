@@ -17,6 +17,7 @@
 import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { deriveTags } from "../shared/taxonomy.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const csvPath = process.argv[2];
@@ -62,6 +63,7 @@ const PRODUCT_IDS = {
   "tin": "tin",
   "ex premium collection": "ex-premium",
   "ex special collection": "ex-special",
+  "ex box": "ex-box",
   "japanese booster pack": "japanese-pack",
   "korean booster pack": "korean-pack",
   "chinese booster pack": "chinese-pack",
@@ -246,6 +248,16 @@ const firstCol = (...names) => {
   }
   return -1;
 };
+// The matcher needs the same two inputs it gets at sync time to reproduce its
+// guess, so the sheet can be compared against it rather than trusted blindly.
+const descriptions = JSON.parse(
+  await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"),
+);
+/** Order-insensitive tag comparison: the sheet's four Set columns need not
+ *  arrive in the matcher's order to mean the same thing. */
+const sameTags = (a, b) =>
+  JSON.stringify([...(a || [])].sort()) === JSON.stringify([...(b || [])].sort());
+const iTitle = col("Title");
 const iId = col("Video ID");
 if (iId === -1) {
   console.error(`No "Video ID" column found. Header was:\n  ${rows[0].join(" | ")}`);
@@ -256,7 +268,11 @@ const idx = {
   set: col("Set"), set2: col("Set 2"), set3: col("Set 3"), set4: col("Set 4"),
   moreSets: col("More Sets"), box: col("Box / Series"),
   opening: col("Opening Type"), packs: col("Packs Opened"), hasHit: col("Has Hit"),
-  hitCard: col("Hit Card"), rarity: col("Hit Rarity"),
+  // The header has been "Hit Card", "Hit Cards" and "Hit Card or Hit Cards"
+  // across revisions, and col() is an exact match, so a stale name here reads as
+  // an empty column and the whole feature goes quiet with no error.
+  hitCard: firstCol("Hit Card", "Hit Cards", "Hit Card or Hit Cards"),
+  rarity: col("Hit Rarity"),
   // The column has been called three things across three revisions of the
   // sheet. indexOf is exact, so a stale name here silently returns -1, every
   // row reads as "no", and the whole feature is inert with no error.
@@ -306,10 +322,32 @@ for (const r of rows.slice(1)) {
     if (!setId) unknownSet.add(cell);
     else if (!setIds.includes(setId)) setIds.push(setId);
   }
-  if (setIds.length) {
+  // ONLY RECORD AN OVERRIDE WHERE THE HUMAN DISAGREED WITH THE MATCHER.
+  //
+  // The Set column arrives PREFILLED with the matcher's own guess, so importing
+  // every filled cell writes back hundreds of overrides that nobody typed. That
+  // is not merely redundant, it is corrosive: an override always beats the
+  // matcher, so it freezes whatever the matcher believed on the day the sheet
+  // was generated and no later fix to shared/taxonomy.mjs can ever reach those
+  // videos again.
+  //
+  // It happened. Today's taxonomy fix corrected six videos (four First Partner
+  // boxes wrongly tagged 151, and two carrying a phantom Scarlet & Violet), and
+  // a sheet generated before that fix still carried the old guesses. Importing
+  // it wholesale re-tagged all six as if Tim had confirmed them by hand. Of 272
+  // set cells in that import, 270 were byte-identical to the machine's own
+  // prefill and exactly 2 were real edits.
+  //
+  // So the guess is recomputed here and an override is written only where the
+  // sheet differs. The sheet corrects the matcher; it no longer overrules it by
+  // simply agreeing with an older version of it.
+  const auto = deriveTags({ title: get(r, iTitle), description: descriptions[id] || "" });
+  if (setIds.length && !sameTags(setIds, auto.sets)) {
     overrides[id] = { ...(overrides[id] || {}), sets: setIds };
     counted.set++;
     if (setIds.length > 1) counted.multiSet++;
+  } else if (setIds.length) {
+    counted.setAgreed = (counted.setAgreed || 0) + 1;
   }
 
   const opening = get(r, idx.opening);
@@ -317,8 +355,13 @@ for (const r of rows.slice(1)) {
     const key = opening.toLowerCase();
     if (!(key in PRODUCT_IDS)) unknownOpening.add(opening);
     else if (PRODUCT_IDS[key]) {
-      overrides[id] = { ...(overrides[id] || {}), products: [PRODUCT_IDS[key]] };
-      counted.opening++;
+      // Same rule as the sets above: only where it differs from the guess.
+      if (!sameTags([PRODUCT_IDS[key]], auto.products)) {
+        overrides[id] = { ...(overrides[id] || {}), products: [PRODUCT_IDS[key]] };
+        counted.opening++;
+      } else {
+        counted.openingAgreed = (counted.openingAgreed || 0) + 1;
+      }
     }
   }
 
@@ -327,7 +370,14 @@ for (const r of rows.slice(1)) {
   // The denominator for the luck page. Only a positive whole number is worth
   // keeping: a blank, a zero or a stray word would silently divide the rate by
   // the wrong thing, which is worse than having no rate at all.
-  const packs = Number(String(get(r, idx.packs) || "").replace(/[^0-9]/g, ""));
+  // KEEP THE DECIMAL POINT WHILE STRIPPING EVERYTHING ELSE. This stripped
+  // [^0-9], which turns a spreadsheet's "18.0" into the string "180". A Costco
+  // UPC came back as 180 packs instead of 18 and a collector chest as 60
+  // instead of 6, and because both are positive whole numbers nothing
+  // complained: the luck page would simply have divided by ten times too many
+  // packs. Any exporter that writes a float, which openpyxl and Google Sheets
+  // both can, hit this.
+  const packs = Math.round(Number(String(get(r, idx.packs) || "").replace(/[^0-9.]/g, "")));
   if (Number.isFinite(packs) && packs > 0) { m.packs = packs; counted.packs = (counted.packs || 0) + 1; }
 
   const hasHit = get(r, idx.hasHit);

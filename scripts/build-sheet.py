@@ -27,6 +27,13 @@ from openpyxl.worksheet.datavalidation import DataValidation
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "Garbage-Rips-585-Video-Log.xlsx"
 
+# What has already been imported from a filled-in sheet. Restored onto the rows
+# below so a rebuild returns a human's answers rather than overwriting them.
+try:
+    manual = json.loads((ROOT / "data/manual.json").read_text())
+except Exception:
+    manual = {}
+
 videos = json.loads((ROOT / "public/data/videos.json").read_text())
 videos = videos.get("videos", videos)
 sets = json.loads((ROOT / "public/data/sets.json").read_text())["sets"]
@@ -57,7 +64,7 @@ OPENING_TYPES = [
     "Single Booster Pack", "Booster Bundle", "Booster Box",
     "ETB (Elite Trainer Box)", "SPC (Super Premium Collection)",
     "UPC (Ultra Premium Collection)", "Poke Ball Tin", "Tin",
-    "ex Premium Collection", "ex Special Collection", "Collection Box",
+    "ex Premium Collection", "ex Special Collection", "ex Box", "Collection Box",
     "Blister", "Japanese Booster Pack", "Korean Booster Pack",
     "Chinese Booster Pack", "Other",
 ]
@@ -165,7 +172,12 @@ PRODUCT_TO_OPENING = {
     "tin": "Tin",
     "ex-premium": "ex Premium Collection",
     "ex-special": "ex Special Collection",
-    "ex-box": "ex Premium Collection",
+    # ITS OWN LABEL, not a second name for ex Premium Collection. Both ids
+    # pointed at the same string, and the importer maps that string back to
+    # ex-premium, so every re-import silently converted 24 ex-box videos into
+    # ex Premium Collections. A round trip through the sheet must not change
+    # what it did not ask about.
+    "ex-box": "ex Box",
     "collection-box": "Collection Box",
     "blister": "Blister",
     "japanese-pack": "Japanese Booster Pack",
@@ -457,6 +469,63 @@ for r, v in enumerate(ordered, start=2):
     if pull:
         wv.cell(r, COL["Has Hit"], "Yes").font = GUESS_TXT
         wv.cell(r, COL["Hit Rarity"], PULL_TO_RARITY[pull]).font = GUESS_TXT
+
+    # WHAT WAS ALREADY IMPORTED COMES BACK, which the Read Me has always claimed
+    # and which was true of nothing. This script only ever read videos.json, so
+    # a rebuild returned the machine's guesses and dropped every answer a human
+    # had given: Has Hit, the rarity, Greatest Hits, the box name, the pack
+    # count. Tim corrected a Costco UPC from 16 packs to 18, imported it, and
+    # the next rebuild handed back 16 with no indication anything had been said.
+    #
+    # These win over the guesses above, in BODY rather than GUESS_TXT, because
+    # they are answers rather than suggestions.
+    man = manual.get(v["id"], {})
+    if man.get("hasHit") is not None:
+        wv.cell(r, COL["Has Hit"], "Yes" if man["hasHit"] else "No").font = BODY
+    if man.get("hitRarity"):
+        wv.cell(r, COL["Hit Rarity"], man["hitRarity"]).font = BODY
+    if man.get("greatest"):
+        wv.cell(r, COL["Greatest Hits"], "Yes").font = BODY
+    if man.get("greatestRank"):
+        wv.cell(r, COL["Greatest Hits Rank"], man["greatestRank"]).font = BODY
+    if man.get("playlistToAdd"):
+        wv.cell(r, COL["Playlist To Add"], man["playlistToAdd"]).font = BODY
+    if man.get("box"):
+        wv.cell(r, COL["Box / Series"], man["box"]).font = BODY
+    if man.get("hitCard"):
+        wv.cell(r, COL["Hit Card"], man["hitCard"]).font = BODY
+    for _k, _c in (("affiliate", "Affiliate Link"), ("siteTitle", "Site Title"),
+                   ("blurb", "Short Description"), ("notes", "Notes")):
+        if man.get(_k) and _c in COL:
+            wv.cell(r, COL[_c], man[_k]).font = BODY
+    for _k, _c in (("feature", "Feature"), ("hide", "Hide")):
+        if man.get(_k) and _c in COL:
+            wv.cell(r, COL[_c], "Yes").font = BODY
+
+    # THE PACK COUNT IS THE ONE THAT CANNOT BE RESTORED BLINDLY. The old sheet
+    # had a single Packs Opened total; this one splits it per set and sums them.
+    # A total of 18 across five sets does not say how many came from each, and
+    # writing 18 into the first set's cell would state that all eighteen were
+    # Phantasmal Flames, which is a claim nobody made. So: restore it directly
+    # only where there is at most one set and the number is therefore
+    # unambiguous, and otherwise leave the guesses and say the total in Notes so
+    # the figure is in front of him rather than lost.
+    if man.get("packs"):
+        if len(sets_v) <= 1:
+            wv.cell(r, COL["Packs"], man["packs"]).font = BODY
+        elif "Notes" in COL:
+            # Clear the per-set guess as well. Leaving it would put a 16 on
+            # screen beside a note saying the total was 18, and the SUM would
+            # quietly assert the wrong one. A blank asks the question instead.
+            for _h in ("Packs", "Packs 2", "Packs 3", "Packs 4", "Packs 5"):
+                # .value = None, not cell(r, c, None): openpyxl's cell()
+                # treats a None value as "no value supplied" and leaves the
+                # existing 16 sitting there.
+                if _h in COL:
+                    wv.cell(r, COL[_h]).value = None
+            _prev = wv.cell(r, COL["Notes"]).value
+            _msg = f"Previously logged {man['packs']} packs in total. Split it across the Packs columns."
+            wv.cell(r, COL["Notes"], f"{_prev} {_msg}".strip() if _prev else _msg).font = BODY
 
     for col in range(1, len(COLUMNS) + 1):
         cell = wv.cell(r, col)
