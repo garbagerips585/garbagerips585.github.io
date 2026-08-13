@@ -16,7 +16,7 @@ import { SITE, robots, LIVE, DOMAIN } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { ripPath } from "../shared/paths.mjs";
-import { esc, shortDate, moneyCompact } from "../shared/format.mjs";
+import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -73,6 +73,56 @@ const gradedPrice = (setId, number) => {
 };
 
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
+
+// Cards pulled on camera, one entry per hit, from data/hits.json.
+//
+// PRICES ARE LOOKED UP HERE, NOT STORED IN hits.json. The sheet records WHICH
+// card was pulled; what it is worth comes from the same card data every other
+// page uses, so a nightly price refresh moves these pages and no card can show
+// two different numbers in two places.
+//
+// One hit resolves to several printings often enough to matter: Dawn in
+// Phantasmal Flames has three. Where the sheet named a rarity we take the
+// printing that matches, because that is the one actually pulled; otherwise the
+// first, and the page claims nothing it cannot support.
+let cardsChecked = null;
+try {
+  cardsChecked = JSON.parse(await readFile(join(ROOT, "public/data/cards/pitch-black.json"), "utf8")).checked;
+} catch {}
+const HITS = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
+const psaFor = (setId, n) => {
+  const k = `${setId}-${String(n).replace(/^0+(?=\d)/, "")}`;
+  const e = (psa10.prices && psa10.prices[k]) || (psa10.auto && psa10.auto[k]);
+  return e && typeof e.psa10 === "number" ? e.psa10 : null;
+};
+const cardCache = new Map();
+async function resolveHits(vid) {
+  const out = [];
+  for (const h of HITS[vid] || []) {
+    if (!cardCache.has(h.set)) {
+      try {
+        cardCache.set(h.set, JSON.parse(await readFile(join(ROOT, `public/data/cards/${h.set}.json`), "utf8")).cards);
+      } catch { cardCache.set(h.set, null); }
+    }
+    const cards = cardCache.get(h.set);
+    const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
+    const same = cards ? cards.filter((c) => norm(c.name) === norm(h.card)) : [];
+    const want = h.rarity ? norm(h.rarity).slice(0, 8) : null;
+    const m = (want && same.find((c) => norm(c.rarity).includes(want))) || same[0] || null;
+    out.push({
+      name: h.card, setName: h.setName, setId: h.set,
+      rarity: (m && m.rarity) || h.rarity || null,
+      n: m ? m.n : null,
+      img: m && m.img ? `${m.img}/low.webp` : null,
+      price: m && typeof m.price === "number" ? m.price : null,
+      psa10: m ? psaFor(h.set, m.n) : null,
+      // A promo, or a card outside the set checklist, will not resolve. Kept
+      // and shown by name rather than dropped, because it WAS pulled.
+      unresolved: !m,
+    });
+  }
+  return out.sort((a, b) => (b.psa10 || b.price || 0) - (a.psa10 || a.price || 0));
+}
 
 // Intrinsic size of each set logo, measured from the files by
 // scripts/build-packs.py and stored in data/logo-dims.json. Emitting
@@ -134,6 +184,9 @@ const tagged = videos.filter((v) => v.sets.length && v.products.length);
 const taggedIds = new Set(tagged.map((v) => v.id));
 const byId = new Map(videos.map((v) => [v.id, v]));
 const bySet = new Map();
+const HITS_RESOLVED = new Map();
+for (const vid of Object.keys(HITS)) HITS_RESOLVED.set(vid, await resolveHits(vid));
+
 for (const v of tagged) {
   for (const s of v.sets) {
     if (!bySet.has(s)) bySet.set(s, []);
@@ -230,6 +283,7 @@ const desc = (v.blurb || descriptions[v.id] || "").trim();
   // Packs opened out of the same box, which is a stronger connection than
   // "same set": #1 through #10 of one ETB are one sitting, and a viewer who
   // watched pack 3 usually wants pack 4, not another Chaos Rising rip.
+  const hits = HITS_RESOLVED.get(v.id) || [];
   const sameBox = v.box
     ? videos.filter((x) => x.box === v.box && x.id !== v.id).slice(0, 6)
     : [];
@@ -357,6 +411,54 @@ ${MENU}
       </div>
     </div>
   </div>
+${
+  hits.length
+    ? `<section class="band tight hits-band">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Below the fold</p>
+    <h2>What came out of <span class="hl">this one</span></h2>
+    <p class="lede" style="max-width:38em">${hits.length} card${hits.length === 1 ? "" : "s"} worth keeping${
+        hits.some((h) => h.psa10) ? ", with what they go for raw and in a PSA 10" : ", with what they go for raw"
+      }.</p>
+    <ul class="hitcards">
+      ${hits
+        .map(
+          (h) => `<li class="hitcard">
+        ${
+          h.img
+            ? `<img class="hitcard-img" src="${esc(h.img)}" alt="${esc(h.name)}, ${esc(h.setName)}" loading="lazy" decoding="async" width="245" height="337">`
+            : `<div class="hitcard-img is-none" aria-hidden="true"></div>`
+        }
+        <div class="hitcard-b">
+          <p class="hitcard-n">${esc(h.name)}</p>
+          <p class="hitcard-s">${esc(h.setName)}${h.n ? ` &bull; #${esc(h.n)}` : ""}</p>
+          ${h.rarity ? `<p class="hitcard-r">${esc(h.rarity)}</p>` : ""}
+          <p class="hitcard-p">${
+            typeof h.price === "number" ? `<b>${moneyExact(h.price)}</b> <span>raw NM</span>` : `<span class="hitcard-nop">No market price</span>`
+          }</p>
+          ${h.psa10 ? `<p class="hitcard-psa">${moneyRound(h.psa10)} <span>PSA 10</span></p>` : ""}
+        </div>
+      </li>`,
+        )
+        .join("\n      ")}
+    </ul>
+    <p class="price-note">Raw prices are TCGplayer market via TCGdex, read ${esc(longDate(cardsChecked) || cardsChecked || "recently")}.
+      PSA 10 prices come from pokemonpricetracker.com and only exist for some cards, so the line is shown where we
+      have one and left off where we do not. A card pulled as a promo or from outside the set checklist has no
+      market price of its own and says so. We do not sell cards.</p>
+  </div>
+</section>`
+    : v.hasHit === false
+      ? `<section class="band tight nohits">
+  <div class="wrap">
+    <img class="nohits-img" src="/assets/trubbish.webp" alt="" loading="lazy" decoding="async" width="180" height="180">
+    <h2>No hits. Just another <span class="hl">classic</span> garbage rip.</h2>
+    <p class="lede">That is most of them. The good ones only mean anything because of these.</p>
+    <p><a class="btn btn-sky btn-sm" href="/hall.html">See the ones that did hit</a></p>
+  </div>
+</section>`
+      : ""
+}
 </main>
 
 ${sameBox.length ? `<section class="band tight">

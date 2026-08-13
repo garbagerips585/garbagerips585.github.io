@@ -1,0 +1,126 @@
+{
+  "_readme": [
+    "Cards pulled on camera, one entry per hit, keyed by YouTube video id.",
+    "",
+    "SOURCE is the My Hits tab of the workbook. It used to be a comma separated",
+    "list crammed into one Video Log cell, which broke on the first typo and the",
+    "first stray comma: 'Phantasmal Falmes' made a misspelled SET read as a card",
+    "name, and a comma where a dash belonged split one hit into two. Both are",
+    "corrected by hand in scripts and recorded, not guessed silently.",
+    "",
+    "Prices are NOT stored here. They are looked up at build time from",
+    "public/data/cards/*.json and data/psa10.json, so a price refresh moves the",
+    "rip pages without re-importing the sheet and one card can never show two",
+    "different numbers on two different pages."
+  ],
+  "source": "workbook My Hits tab",
+  "checked": "2026-08-13",
+  "videos": {
+    "kj7532tb0_I": [
+      {
+        "card": "Dawn",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames",
+        "rarity": "Ultra Rare"
+      },
+      {
+        "card": "Mega Gengar ex",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames",
+        "rarity": "Double Rare"
+      },
+      {
+        "card": "Mega Gardevoir ex",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution",
+        "rarity": "Ultra Rare"
+      },
+      {
+        "card": "Mega Venusaur ex",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution",
+        "rarity": "Double Rare"
+      },
+      {
+        "card": "Marshadow",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution",
+        "rarity": "Illustration Rare"
+      },
+      {
+        "card": "Cetitan ex",
+        "set": "destined-rivals",
+        "setName": "Destined Rivals",
+        "rarity": null
+      },
+      {
+        "card": "Rotom",
+        "set": "destined-rivals",
+        "setName": "Destined Rivals",
+        "rarity": "Illustration Rare"
+      },
+      {
+        "card": "Noibat",
+        "set": "journey-together",
+        "setName": "Journey Together",
+        "rarity": "Illustration Rare"
+      },
+      {
+        "card": "Brock's Scouting",
+        "set": "journey-together",
+        "setName": "Journey Together",
+        "rarity": "Ultra Rare"
+      },
+      {
+        "card": "Blaziken ex",
+        "set": "journey-together",
+        "setName": "Journey Together",
+        "rarity": "Double Rare"
+      },
+      {
+        "card": "Scramble Switch",
+        "set": "surging-sparks",
+        "setName": "Surging Sparks",
+        "rarity": "ACE SPEC Rare"
+      },
+      {
+        "card": "Cyrano",
+        "set": "surging-sparks",
+        "setName": "Surging Sparks",
+        "rarity": "Ultra Rare"
+      },
+      {
+        "card": "Charizard ex",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames",
+        "rarity": "Black Star Promo"
+      },
+      {
+        "card": "Oricorio ex",
+        "set": "phantasmal-flames",
+        "setName": "Phantasmal Flames",
+        "rarity": "Black Star Promo Card"
+      }
+    ],
+    "TN7_ZsuRQSI": [
+      {
+        "card": "Stufful",
+        "set": "mega-evolution",
+        "setName": "Mega Evolution",
+        "rarity": "Illustration Rare"
+      },
+      {
+        "card": "Marnie's Grimmsnarl ex",
+        "set": "destined-rivals",
+        "setName": "Destined Rivals",
+        "rarity": "Double Rare"
+      },
+      {
+        "card": "Wailord",
+        "set": "journey-together",
+        "setName": "Journey Together",
+        "rarity": "Illustration Rare"
+      }
+    ]
+  }
+}
