@@ -164,7 +164,7 @@ function rosetteDiagram() {
 
 
 /**
- * Where to look, all seven checks on one card.
+ * Where to look, all eight checks on one card.
  *
  * This is the piece the page was missing: the tests were described in words and
  * nothing showed WHERE on the card each one happens. Numbers match the test
@@ -177,7 +177,7 @@ function anatomyDiagram() {
     <text x="${tx}" y="${ty + 3.5}" text-anchor="middle" class="fk-num">${n}</text>
     <text x="${tx}" y="${ty + 22}" text-anchor="middle" class="fk-cap">${label}</text>`;
   return `<figure class="fk-fig fk-fig-wide">
-  <svg viewBox="0 0 420 300" role="img" aria-label="Diagram of a card showing where each of the seven checks is made">
+  <svg viewBox="0 0 420 300" role="img" aria-label="Diagram of a card showing where each of the eight checks is made">
     <rect x="120" y="30" width="180" height="250" rx="10" fill="#F5C518" stroke="#22384F" stroke-width="3"/>
     <rect x="132" y="42" width="156" height="120" rx="4" fill="#BFD9E8" stroke="#22384F" stroke-width="2"/>
     <text x="210" y="106" text-anchor="middle" class="fk-cap">artwork</text>

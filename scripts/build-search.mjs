@@ -51,7 +51,7 @@ const PAGES = [
   ["/pokemon/", "Browse by Pokemon", "Every card of one Pokemon across every set"],
   ["/sets/", "Set guides", "Card counts, rarities and chase cards per set"],
   ["/rarity.html", "Rarity guide", "What the symbols mean and what is actually rare"],
-  ["/fake-cards.html", "Real or fake?", "Seven checks for spotting a counterfeit"],
+  ["/fake-cards.html", "Real or fake?", "Eight checks for spotting a counterfeit"],
   ["/grading.html", "Worth grading?", "What grading costs and whether it pays"],
   ["/complete-a-set.html", "Cost to complete a set", "What every set costs to finish, priced nightly"],
   ["/luck.html", "Luck and pull rates", "What actually comes out of the packs"],

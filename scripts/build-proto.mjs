@@ -11,6 +11,7 @@
 // Idempotent: each region is replaced between its own pair of markers.
 
 import { readFile, writeFile, readdir } from "node:fs/promises";
+import { SITE, DOMAIN, STAGING } from "../shared/site.mjs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkDrift } from "../shared/chrome.mjs";
@@ -472,7 +473,22 @@ for (const target of TARGETS) {
     }
     html = html.slice(0, a + start.length) + "\n" + body + "\n" + html.slice(b);
   }
-  await writeFile(target, html);
+  // THE HOMEPAGE HEAD IS HAND MAINTAINED AND WAS NOT DERIVED FROM SITE.
+// index.html is the one page not generated wholesale: this script only replaces
+// the marked regions, so seven absolute URLs in its head (canonical, og:url,
+// og:image, twitter:image and three in the Organization JSON-LD) stayed frozen
+// at whatever domain they were typed with. Flipping LIVE regenerated the other
+// 396 pages onto the real domain and left the single most important URL on the
+// site canonicalising to the one being abandoned. Rewriting them here means the
+// homepage follows SITE like everything else.
+const OTHER = SITE === DOMAIN ? STAGING : DOMAIN;
+const before = (html.match(new RegExp(OTHER.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length;
+if (before) {
+  html = html.split(OTHER).join(SITE);
+  console.log(`  rewrote ${before} absolute url(s) in the homepage head to ${SITE}`);
+}
+
+await writeFile(target, html);
 }
 
 const noArt = [...new Set(videos.flatMap((v) => v.sets || []))].filter((s) => !packs.has(s));

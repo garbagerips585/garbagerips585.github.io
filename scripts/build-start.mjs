@@ -42,7 +42,7 @@ const STEPS = [
   {
     n: 1,
     q: "Is it even real?",
-    a: "Do this before anything else, because every other question depends on the answer. Seven physical checks, how much each one actually proves, and the two that are worth doing first.",
+    a: "Do this before anything else, because every other question depends on the answer. Eight physical checks, how much each one actually proves, and the two that are worth doing first.",
     href: "/fake-cards.html",
     cta: "Real or fake?",
   },
