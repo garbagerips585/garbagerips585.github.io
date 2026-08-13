@@ -11,6 +11,7 @@
 // Idempotent: each region is replaced between its own pair of markers.
 
 import { readFile, writeFile, readdir } from "node:fs/promises";
+import { ripLabel } from "../shared/riplabel.mjs";
 import { SITE, DOMAIN, STAGING } from "../shared/site.mjs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -28,6 +29,7 @@ const TARGETS = [join(ROOT, "public/index.html")];
 
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 const rawVideos = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
+const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"));
 const videos = rawVideos.videos || rawVideos;
 
 const setName = new Map(sets.map((s) => [s.id, s.name]));
@@ -205,7 +207,7 @@ function tile(v, { rank = null, showSet = true, dated = false } = {}) {
   return `      <article class="v"><a class="art" href="/${esc(v.path)}" aria-label="${esc(v.siteTitle || v.title)}">${badge}${flag}${stamp}${face}<span class="play"></span>${
     v.duration ? `<span class="dur">${clock(v.duration)}</span>` : ""
   }</a>
-        <h3><a href="/${esc(v.path)}">${esc(v.siteTitle || v.title)}</a></h3><p>${meta}</p></article>`;
+        <h3><a href="/${esc(v.path)}">${esc(ripLabel(v, setName, descriptions[v.id]) || v.siteTitle || v.title)}</a></h3><p>${meta}</p></article>`;
 }
 
 /* ------------------------------------------------------------- selections - */
@@ -391,7 +393,7 @@ function heroTile(v) {
         </a>
         <div class="hero-body">
           <p class="hero-kicker"><span class="hero-new">Newest rip</span> ${esc(ago(v.published))}</p>
-          <h3><a href="/${esc(v.path)}">${esc(v.siteTitle || v.title)}</a></h3>
+          <h3><a href="/${esc(v.path)}">${esc(ripLabel(v, setName, descriptions[v.id]) || v.siteTitle || v.title)}</a></h3>
           <p class="hero-meta">${label}${p != null ? ` &bull; ${PULL_RANK[p][1]}` : ""} &bull; ${compact(v.views)} VIEWS</p>
           <span class="hero-cta">Rip it open &rarr;</span>
         </div>
