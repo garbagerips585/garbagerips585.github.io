@@ -2005,3 +2005,19 @@ span.cq-name{color:var(--ink)}
 @media(max-width:560px){
   .foot-nav{grid-template-columns:1fr;gap:var(--s4);max-width:22em}
 }
+
+/* ---------- rip player, phone sizing ----------
+   At 375px the player was 351px wide with a 12px gap each side, so a vertical
+   9:16 video ran essentially edge to edge AND stood 624px tall: taller than the
+   752px a phone actually leaves under the bar, so the video was the entire
+   screen and the page around it read as an afterthought.
+   The subtraction is off the WRAP width, not the viewport, since .wrap already
+   contributes 12px a side. 40px off a 351px wrap leaves 311px, a 32px gutter
+   from the screen edge, and drops the height from 624px to about 553px so the
+   title and the pack copy can share the first screen with the video.
+   Capped at 320px so it does not grow back on a 430px handset. */
+@media(max-width:560px){
+  .rip-player{max-width:min(calc(100% - 40px),320px)}
+  /* The 16:9 long-form player is wide, not tall, so it only needs the gutter. */
+  .rip-player--wide{max-width:calc(100% - 32px)}
+}

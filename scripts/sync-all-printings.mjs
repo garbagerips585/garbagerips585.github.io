@@ -110,6 +110,10 @@ function parseCard(src) {
 }
 
 // Set files carry the set's own name block and release date.
+// Top-level id only: one leading tab. Asia serie files carry a nested
+// id: 'Scarlet & Violet' inside their name block at two tabs, and matching that
+// would build image paths out of a display name with a space and an ampersand.
+const TOP_ID = new RegExp(`^\\tid:\\s*${QUOTED}`, "m");
 const SET_RELEASE = new RegExp(`releaseDate:\\s*(?:\\{[^}]*?(?:ja|en)['"]?:\\s*)?${QUOTED}`);
 function parseSet(src) {
   const nb = src.match(/\n\tname:\s*\{([^}]*)\}/);
@@ -120,7 +124,7 @@ function parseSet(src) {
       if (m) { const v = pick(m); if (v) names[lang] = unesc(v); }
     }
   }
-  return { names, released: src.match(SET_RELEASE)?.[1] || null };
+  return { names, released: pick(src.match(SET_RELEASE)), id: pick(src.match(TOP_ID)) };
 }
 
 /* ------------------------------------------- English names for Asian cards */
@@ -162,6 +166,10 @@ async function sweep(base, asian) {
   for (const serie of await readdir(base, { withFileTypes: true })) {
     if (!serie.isDirectory()) continue;
     const serieDir = join(base, serie.name);
+    // Image paths use the SET and SERIE ids, never the folder names: the folder
+    // for sv03.5 is literally "151".
+    let serieId = null;
+    try { serieId = pick((await readFile(`${serieDir}.ts`, "utf8")).match(TOP_ID)); } catch {}
     for (const set of await readdir(serieDir, { withFileTypes: true })) {
       if (!set.isDirectory()) continue;
       const setDir = join(serieDir, set.name);
@@ -171,7 +179,7 @@ async function sweep(base, asian) {
       } catch {
         /* a set folder with no sibling .ts still yields its cards */
       }
-      const setId = set.name;
+      const setId = setMeta.id || set.name;
       const setName = setMeta.names.en || setMeta.names.ja || setMeta.names["zh-tw"] || setId;
       setsSeen.set(`${asian ? "a" : "w"}:${setId}`, { setName, released: setMeta.released, asian });
 
@@ -191,6 +199,11 @@ async function sweep(base, asian) {
         }
 
         const lang = asian ? (c.names.ja ? "ja" : c.names["zh-tw"] || c.names["zh-cn"] ? "zh" : "ja") : "en";
+        // assets.tcgdex.net/{lang}/{serie}/{set}/{localId}, then /{quality}.{ext}
+        // at render time. Asian cards are served under ja even when the record
+        // also carries Chinese names, because that is the printing scanned.
+        const imgBase =
+          serieId && setId ? `https://assets.tcgdex.net/${asian ? "ja" : "en"}/${serieId}/${setId}/${localId}` : null;
         cards.push({
           // `n` is what the search matches on; `p` is the printed name when it
           // differs, so the page can show both and never claim a translation
@@ -207,6 +220,7 @@ async function sweep(base, asian) {
           // translation was available. The page says so rather than implying
           // the Japanese text is an English name.
           u: asian && !english ? 1 : 0,
+          ...(imgBase ? { g: imgBase } : {}),
         });
       }
     }
@@ -219,6 +233,43 @@ console.log(`  Western: ${cards.length} cards`);
 const afterWestern = cards.length;
 await sweep(join(REPO, "data-asia"), true);
 console.log(`  Asian:   ${cards.length - afterWestern} cards`);
+
+/* ------------------------------------------------- do the images exist? */
+
+// RECONSTRUCTED URLS MUST BE PROVEN, NOT ASSUMED. The image path is built from
+// the serie and set ids, and the first attempt was wrong for most of the
+// corpus: sets whose id failed to parse fell back to their FOLDER name, giving
+// ".../en/swsh/Darkness Ablaze/49" with spaces in it, and several Chinese-only
+// sets have no Japanese scan at all. A 40 card spot check returned 34 failures.
+// Shipping that would have been tens of thousands of broken images on pages
+// whose whole job is showing people what a card looks like.
+//
+// So: probe ONE card per set, and drop the image base for every card in a set
+// whose probe fails. 388 requests, once, against a set count that barely moves.
+const bySet = new Map();
+for (const c of cards) {
+  if (!c.g) continue;
+  if (!bySet.has(c.s)) bySet.set(c.s, []);
+  bySet.get(c.s).push(c);
+}
+console.log(`Probing ${bySet.size} sets for real images...`);
+let liveSets = 0;
+const probes = [...bySet.entries()];
+for (let i = 0; i < probes.length; i += 12) {
+  await Promise.all(
+    probes.slice(i, i + 12).map(async ([, list]) => {
+      let ok = false;
+      try {
+        const r = await fetch(`${list[0].g}/low.webp`);
+        ok = r.ok && Number(r.headers.get("content-length") || 3000) > 2000;
+      } catch {}
+      if (ok) liveSets += 1;
+      else for (const c of list) delete c.g;
+    }),
+  );
+}
+const withImg = cards.filter((c) => c.g).length;
+console.log(`  ${liveSets} of ${bySet.size} sets have images, ${withImg} cards keep one`);
 
 /* -------------------------------------------------------------- the shards */
 
@@ -253,6 +304,7 @@ for (const [k, list] of [...shards].sort()) {
 }
 manifest.sets = setsSeen.size;
 manifest.skipped = { ...skipped, total: skipped.noName + skipped.noUsableLang };
+manifest.withImage = cards.filter((c) => c.g).length;
 manifest.translated = cards.filter((c) => !c.u).length;
 manifest.untranslated = cards.filter((c) => c.u).length;
 await writeFile(join(OUT, "manifest.json"), JSON.stringify(manifest, null, 2));
