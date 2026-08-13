@@ -15,7 +15,7 @@ import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
-import { esc, longDate, moneyCompact, moneyExact } from "../shared/format.mjs";
+import { esc, shortDate, longDate, moneyCompact, moneyExact } from "../shared/format.mjs";
 import { ripLabel } from "../shared/riplabel.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -302,6 +302,21 @@ for (const [vid, list] of Object.entries(HITS)) {
 }
 const videoById = new Map(videos.map((v) => [v.id, v]));
 const setNameById = new Map(sets.map((x) => [x.id, x.name]));
+// Every rip of this set, newest first. The guide previously linked only to
+// /videos.html?set=<id>, which is a static file: every variant serves a
+// canonical pointing at the bare url, so 888 internal links across the site
+// funnelled into one page and not one of the rips was reachable from a guide.
+// 115 rip pages sat more than three clicks from the home page as a result.
+const ripsList = new Map();
+for (const v of videos) {
+  for (const id of v.sets || []) {
+    if (!ripsList.has(id)) ripsList.set(id, []);
+    ripsList.get(id).push(v);
+  }
+}
+for (const list of ripsList.values()) {
+  list.sort((a, b) => String(b.published).localeCompare(String(a.published)));
+}
 const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"));
 
 function yearsSince(iso) {
@@ -594,6 +609,32 @@ ${s.notes?.inPrint || s.notes?.packPrice ? `
 </section>
 
 ${(() => {
+  // Newest twelve. All of them on a 90-rip set would be a wall, and the link at
+  // the end covers the rest.
+  const all = ripsList.get(s.id) || [];
+  const show = all.slice(0, 12);
+  if (!show.length) return "";
+  return `<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On the channel</p>
+    <h2>Every ${esc(s.name)} <span class="hl">rip</span></h2>
+    <p class="lede" style="max-width:38em">${all.length} video${all.length === 1 ? "" : "s"} opening this set${
+      all.length > show.length ? `, newest ${show.length} below` : ""
+    }.</p>
+    <ul class="riplist">
+      ${show
+        .map(
+          (v) => `<li><a href="/${esc(v.path)}">${esc(v.label || v.siteTitle || v.title)}</a>
+        <span>${esc(shortDate(v.published))}</span></li>`,
+        )
+        .join("\n      ")}
+    </ul>
+    ${all.length > show.length ? `<p style="margin-top:var(--s3)"><a class="btn btn-ghost btn-sm" href="/videos.html?set=${esc(s.id)}">All ${all.length} ${esc(s.name)} rips</a></p>` : ""}
+  </div>
+</section>
+
+`;
+})()}${(() => {
   const mine = (hitsBySet.get(s.id) || [])
     .map((h) => {
       const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");

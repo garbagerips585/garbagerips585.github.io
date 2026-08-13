@@ -2264,3 +2264,13 @@ span.cq-name{color:var(--ink)}
   text-underline-offset:2px}
 .mine-w:hover{color:var(--ketchup-deep)}
 @media(max-width:520px){.mine-grid{grid-template-columns:repeat(2,1fr);gap:var(--s3)}}
+
+/* ---------- every rip of this set ---------- */
+.riplist{list-style:none;display:grid;gap:2px;margin-top:var(--s4);
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));width:100%;min-width:0}
+.riplist li{display:flex;align-items:baseline;gap:var(--s3);justify-content:space-between;
+  padding:10px 12px;background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm)}
+.riplist a{font-weight:600;font-size:var(--t-sm);color:var(--ink);
+  min-height:44px;display:inline-flex;align-items:center}
+.riplist a:hover{color:var(--ketchup-deep);text-decoration:underline}
+.riplist span{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);white-space:nowrap}
