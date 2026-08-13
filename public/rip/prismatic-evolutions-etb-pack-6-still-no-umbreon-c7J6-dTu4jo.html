@@ -574,29 +574,40 @@ or another certified Garbage Rip? 🔥
 (function(){
   var list=document.getElementById('hitcards');
   if(!list) return;
-  // Arm only once we know we can reveal. Without IntersectionObserver, or with
-  // reduced motion, the cards simply stay visible: nothing is ever left hidden
-  // by a feature that failed to load.
-  if(!('IntersectionObserver' in window)) return;
-  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  list.classList.add('is-armed');
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(!e.isIntersecting) return;
-      e.target.classList.add('is-in');
-      io.unobserve(e.target);   // reveal once, never re-run on scroll back
-    });
-  },{rootMargin:'0px 0px -8% 0px',threshold:0.15});
   var cards=list.querySelectorAll('.hitcard');
-  for(var i=0;i<cards.length;i++) io.observe(cards[i]);
-  // Anything already on screen at load reveals immediately rather than waiting
-  // for a scroll that may never come.
-  requestAnimationFrame(function(){
-    for(var i=0;i<cards.length;i++){
-      var r=cards[i].getBoundingClientRect();
-      if(r.top < window.innerHeight && r.bottom > 0){ cards[i].classList.add('is-in'); io.unobserve(cards[i]); }
+  if(!cards.length) return;
+
+  // Strips the hidden state at its SOURCE rather than overriding it. Adding
+  // .is-in only wins if the transition then runs; dropping .is-armed removes
+  // the opacity:0 rule outright, so the cards are visible even if nothing
+  // animates. A failsafe that itself depends on the animation is not one.
+  function revealAll(){
+    list.classList.remove('is-armed');
+    for(var i=0;i<cards.length;i++) cards[i].classList.add('is-in');
+  }
+  // ARM AND REVEAL ARE COUPLED, and they were not. Arming hides every card
+  // immediately and the reveal was left entirely to the observer, so anything
+  // that stopped the observer firing left all 14 cards permanently invisible.
+  // That is a worse failure than no animation at all, and it is what shipped.
+  if(!('IntersectionObserver' in window) ||
+     (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)){
+    return;   // never armed, so the cards are simply visible
+  }
+  list.classList.add('is-armed');
+
+  // FAILSAFE. If the observer has not revealed everything within two seconds,
+  // show it anyway. No animation is a small loss; an invisible section is not.
+  var failsafe=setTimeout(revealAll, 2000);
+
+  var io=new IntersectionObserver(function(entries){
+    for(var i=0;i<entries.length;i++){
+      if(!entries[i].isIntersecting) continue;
+      entries[i].target.classList.add('is-in');
+      io.unobserve(entries[i].target);
     }
-  });
+    if(!list.querySelector('.hitcard:not(.is-in)')) clearTimeout(failsafe);
+  },{rootMargin:'0px 0px -5% 0px',threshold:0});
+  for(var i=0;i<cards.length;i++) io.observe(cards[i]);
 })();
 </script>
 <script src="/assets/app.js?v=e3978a7e" defer></script>
