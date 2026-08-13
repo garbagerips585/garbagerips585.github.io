@@ -573,7 +573,24 @@ for dv_formula, cols in [
 
 # Suggestion lists: the dropdown helps, but neither list can ever be complete,
 # so typing something new must not be rejected.
-for dv_formula, head in [(DV_BOX, "Box / Series"), (DV_HITCARD, "Hit Card")]:
+# HIT CARD HAS NO DROPDOWN, ON PURPOSE. It used to offer the 500 dearest cards
+# as a non-strict suggestion list, which sounds helpful and is not, for two
+# reasons that both bite in Google Sheets.
+#
+# The column does not hold ONE card name. A real entry reads "Phantasmal Flames
+# - Trainer - Dawn - Double Silver Star - Ultra Rare, Mega Evolution - Mega
+# Gardevoir ex - ..." and lists fourteen cards with their sets and rarities. A
+# single-select control cannot express that, so the list could never contain a
+# valid answer.
+#
+# And openpyxl's non-strict flag does not survive the trip. Sheets imports it as
+# a real dropdown, then rebuilds the option list out of whatever is already in
+# the column, so restoring two long hit lists turned into a two-item menu that
+# refused anything typed. The field became unfillable by the one person who
+# fills it.
+#
+# Free text. The My Hits tab is where a card gets picked one at a time.
+for dv_formula, head in [(DV_BOX, "Box / Series")]:
     d = dv(dv_formula, strict=False)
     wv.add_data_validation(d)
     c = get_column_letter(CI[head])
