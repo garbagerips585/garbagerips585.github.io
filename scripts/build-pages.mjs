@@ -931,7 +931,15 @@ const urls = [
   { loc: `${SITE}/expansions.html`, freq: "weekly", pri: "0.9" },
   // Observed hit rates. The most linkable page on the site: nobody else has
   // this data, so it is the one most likely to be cited from outside.
-  { loc: `${SITE}/luck.html`, freq: "weekly", pri: "0.9" },
+  // Only when it has data. An empty page in the sitemap at priority 0.9 tells
+  // a crawler this is one of the most important pages on the site, and it is
+  // currently a dash and a zero. check-build.py already fails a noindex page
+  // that appears here, so leaving it in would break the build as well.
+  ...(JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8")).videos.some(
+    (v) => typeof v.hasHit === "boolean",
+  )
+    ? [{ loc: `${SITE}/luck.html`, freq: "weekly", pri: "0.9" }]
+    : []),
   // Release dates. High priority and frequent: this is the page people search
   // for by name in the weeks before a set drops.
   { loc: `${SITE}/upcoming.html`, freq: "weekly", pri: "0.9" },

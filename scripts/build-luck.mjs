@@ -324,15 +324,23 @@ ${(rarities.length ? rarities : pulls.map(([k, n]) => [labelFor("pulls", k) || k
   </section>
 </main>`;
 
-const ld = {
-  "@context": "https://schema.org",
-  "@type": "Dataset",
-  name: "Observed Pokemon card hit rates from Garbage Rips 585",
-  description: `Hit rates observed across ${judged.length} logged pack openings, by set and by product type.`,
-  url: `${SITE}/luck.html`,
-  creator: { "@type": "Organization", name: "Garbage Rips 585", url: `${SITE}/` },
-  isAccessibleForFree: true,
-};
+// NO Dataset MARKUP UNTIL THERE IS A DATASET. With nothing logged this
+// declared a dataset of "0 logged pack openings" to search engines, which is
+// structured data asserting something the page does not have. The page itself
+// was already honest, showing a dash and "0 of 311 rips logged"; the markup was
+// not. Same reason the page is dropped from the sitemap below.
+const ld =
+  judged.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        name: "Observed Pokemon card hit rates from Garbage Rips 585",
+        description: `Hit rates observed across ${judged.length} logged pack openings, by set and by product type.`,
+        url: `${SITE}/luck.html`,
+        creator: { "@type": "Organization", name: "Garbage Rips 585", url: `${SITE}/` },
+        isAccessibleForFree: true,
+      }
+    : null;
 
 const html = `<!DOCTYPE html>
 <html lang="en">
@@ -340,8 +348,12 @@ const html = `<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pokemon Pack Luck, Measured: What Actually Came Out of ${videos.length} Rips | Garbage Rips 585</title>
-<meta name="description" content="Observed hit rates from ${judged.length} logged Pokemon pack openings, broken down by set and product. Not official pull rates: what actually came out on camera.">
-<link rel="canonical" href="${SITE}/luck.html">
+<meta name="description" content="${
+  judged.length
+    ? `Observed hit rates from ${judged.length} logged Pokemon pack openings, broken down by set and product. Not official pull rates: what actually came out on camera.`
+    : `What actually came out of ${videos.length} pack openings on camera, counted from our own rip log rather than estimated.`
+}">
+${judged.length ? "" : '<meta name="robots" content="noindex,follow">\n'}<link rel="canonical" href="${SITE}/luck.html">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
