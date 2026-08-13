@@ -502,29 +502,29 @@ for r, v in enumerate(ordered, start=2):
         if man.get(_k) and _c in COL:
             wv.cell(r, COL[_c], "Yes").font = BODY
 
-    # THE PACK COUNT IS THE ONE THAT CANNOT BE RESTORED BLINDLY. The old sheet
-    # had a single Packs Opened total; this one splits it per set and sums them.
-    # A total of 18 across five sets does not say how many came from each, and
-    # writing 18 into the first set's cell would state that all eighteen were
-    # Phantasmal Flames, which is a claim nobody made. So: restore it directly
-    # only where there is at most one set and the number is therefore
-    # unambiguous, and otherwise leave the guesses and say the total in Notes so
-    # the figure is in front of him rather than lost.
+    # THE PACK COUNT GOES BACK IN THE FIRST SET'S CELL, and Packs Opened sums
+    # to the total that was logged.
+    #
+    # This first left the cells blank on a multi-set video and put the total in
+    # Notes, reasoning that 18 across five sets does not say how many came from
+    # each and the sheet should not invent a split. That is true, and it was
+    # still the wrong call: it left Tim looking at empty cells where he had
+    # typed a number, which reads as data loss no matter what a note says. He
+    # knows the split and can move the figure across the columns in seconds;
+    # what he cannot do is get back a number the sheet threw away.
+    #
+    # So the total lands in the first cell and the note says what to do with it.
+    # The SUM is right immediately, and the only thing left open is the
+    # distribution, which was always his to give.
     if man.get("packs"):
-        if len(sets_v) <= 1:
-            wv.cell(r, COL["Packs"], man["packs"]).font = BODY
-        elif "Notes" in COL:
-            # Clear the per-set guess as well. Leaving it would put a 16 on
-            # screen beside a note saying the total was 18, and the SUM would
-            # quietly assert the wrong one. A blank asks the question instead.
-            for _h in ("Packs", "Packs 2", "Packs 3", "Packs 4", "Packs 5"):
-                # .value = None, not cell(r, c, None): openpyxl's cell()
-                # treats a None value as "no value supplied" and leaves the
-                # existing 16 sitting there.
-                if _h in COL:
-                    wv.cell(r, COL[_h]).value = None
+        wv.cell(r, COL["Packs"], man["packs"]).font = BODY
+        for _h in ("Packs 2", "Packs 3", "Packs 4", "Packs 5"):
+            if _h in COL:
+                wv.cell(r, COL[_h]).value = None
+        if len(sets_v) > 1 and "Notes" in COL:
             _prev = wv.cell(r, COL["Notes"]).value
-            _msg = f"Previously logged {man['packs']} packs in total. Split it across the Packs columns."
+            _msg = (f"All {man['packs']} packs are on the first set. "
+                    f"Move some across the Packs columns if they came from different sets.")
             wv.cell(r, COL["Notes"], f"{_prev} {_msg}".strip() if _prev else _msg).font = BODY
 
     for col in range(1, len(COLUMNS) + 1):
