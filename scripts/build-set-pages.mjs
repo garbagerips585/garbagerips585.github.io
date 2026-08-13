@@ -675,7 +675,7 @@ ${rips ? `<section class="tight">
 </div>
 
 </main>
-${footer("Card data from the Pokemon TCG API. Prices are estimates and move constantly.")}
+${footer("Card data from TCGdex, prices from TCGplayer. Prices are estimates and move constantly.")}
 <script>
 (function(){
   var lb=document.getElementById('lb'), img=document.getElementById('lbImg');
@@ -754,7 +754,7 @@ function indexPage() {
         <img${logoAttrs(s.id)} src="/assets/logos/${s.id}-pokemon-tcg-set-logo.webp" alt="${esc(s.name)} logo" loading="lazy" onerror="this.remove()">
         <span>
           <span class="ttl">${esc(s.name)}</span><br>
-          <span class="meta">${s.total ?? "?"} cards${s.released ? ` &bull; ${s.released.slice(0, 4)}` : ""}${ripsBySet[s.id] ? ` &bull; ${ripsBySet[s.id]} rips` : ""}${(s.chase || [])[0]?.price ? ` &bull; top ${moneyCompact(s.chase[0].price)}${gradedPrice(s.id, s.chase[0].number) ? ` / ${moneyCompact(gradedPrice(s.id, s.chase[0].number))} PSA 10` : ""}` : ""}</span>
+          <span class="meta">${s.total ?? "?"} cards${s.released ? ` &bull; ${s.released.slice(0, 4)}` : ""}${ripsBySet[s.id] ? ` &bull; ${ripsBySet[s.id]} rip${ripsBySet[s.id] === 1 ? "" : "s"}` : ""}${(s.chase || [])[0]?.price ? ` &bull; top ${moneyCompact(s.chase[0].price)}${gradedPrice(s.id, s.chase[0].number) ? ` / ${moneyCompact(gradedPrice(s.id, s.chase[0].number))} PSA 10` : ""}` : ""}</span>
         </span>
       </a>`).join("\n      ")}
     </div>
@@ -792,7 +792,7 @@ ${Object.keys(intlGuides).length ? `
 </section>` : ""}
 
 </main>
-${footer("Card data from the Pokemon TCG API. Prices are estimates and move constantly.")}
+${footer("Card data from TCGdex, prices from TCGplayer. Prices are estimates and move constantly.")}
 <script src="/assets/app.js" defer></script>
 </body>
 </html>

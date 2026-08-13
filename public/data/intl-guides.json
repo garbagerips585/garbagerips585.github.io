@@ -1,5 +1,5 @@
 {
-  "checked": "2026-08-12",
+  "checked": "2026-08-13",
   "source": "TCGdex (api.tcgdex.net/v2), card names via PokeAPI dex numbers",
   "sets": {
     "ja-abyss-eye": {
@@ -13518,7 +13518,7 @@
       },
       "confidence": "confirmed",
       "dataNote": "TCGdex has no Korean record for this set at all, so everything on this page comes from the Japanese printing it was translated from.",
-      "note": "The set behind English Journey Together, and the one with the Team Rocket's Mewtwo ex chase.",
+      "note": "The set behind English Journey Together. Its chase is Lillie's Clefairy ex, #184. Team Rocket's Mewtwo ex belongs to Destined Rivals, not this set.",
       "published": "2026-08-12",
       "langName": "Korean",
       "langFlag": "🇰🇷",

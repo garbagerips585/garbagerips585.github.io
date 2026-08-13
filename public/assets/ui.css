@@ -632,11 +632,18 @@ footer p{font:400 var(--t-sm)/1.6 var(--body);color:#8FA0B2;max-width:46em;lette
 
 /* 1080 is where brand + five links + the search field + Subscribe stop
    competing for the same row. Below it the hamburger carries everything. */
-/* Three links, shown as soon as there is room beside the search field. NN/G
-   measured navigation used in 86% of sessions with a few links visible against
-   57% with everything behind a button; 1080 was late enough that a tablet saw
-   none of it. */
-@media(min-width:760px){ .nav-links{display:flex} }
+/* Bar links, shown only when there is genuinely room beside the search field.
+   NN/G measured navigation used in 86% of sessions with a few links visible
+   against 57% with everything behind a button, which is why these are exposed
+   at all. But 760 was far too early: the bar is brand + search + links + menu
+   button + Subscribe, and at 768 those summed to 907px. Subscribe rendered at
+   left 812 on a 768px screen, entirely off the viewport, the menu button was
+   sliced in half, and every page on the site scrolled sideways from 561px to
+   about 1016px. An iPad in portrait could not reach the subscribe CTA at all.
+   That was survivable at three links and is not at five.
+   1020 is where all five links, the search field and Subscribe measured as
+   fitting. Below it they collapse into the menu, which already holds them. */
+@media(min-width:1020px){ .nav-links{display:flex} }
 
 .menu-btn{display:grid}
 
@@ -1992,7 +1999,12 @@ span.cq-name{color:var(--ink)}
    rather than squeezing five columns onto a phone. */
 .foot-nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
   gap:var(--s5) var(--s4);margin:0 auto var(--s5);max-width:60em;
-  justify-content:center;text-align:left}
+  justify-content:center;text-align:left;
+  /* width and min-width are load-bearing, not decoration. The parent .wrap is
+     display:flex, so without them this grid is a flex item sized to MIN-CONTENT:
+     auto-fit never gets a definite width to collapse against, resolves to five
+     rigid 140px columns, and overflows every viewport under about 1016px. */
+  width:100%;min-width:0}
 .foot-col{display:flex;flex-direction:column;gap:2px}
 .foot-h{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;
   color:var(--mustard);margin-bottom:4px}

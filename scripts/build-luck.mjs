@@ -138,7 +138,7 @@ const row = (r, hrefBase) => {
           <td class="num">${r.hits}</td>
           <td class="rate">${
             enough
-              ? `<span class="bar" style="--w:${Math.max(2, r.rate)}%"><b>${r.rate}%</b></span>`
+              ? `<span class="lbar" style="--w:${Math.max(2, r.rate)}%"><b>${r.rate}%</b></span>`
               : `<span class="thin-note">need ${MIN_SAMPLE - r.rips} more</span>`
           }</td>
         </tr>`;
@@ -195,9 +195,9 @@ const style = `
 /* Number first, bar second. With the bar leading, the percentage was pushed
    past the right edge of a 375px viewport and the one value the row exists to
    communicate was the one you had to scroll sideways to see. */
-.bar{display:flex;align-items:center;gap:8px}
-.bar b{flex:none;min-width:3.4em;font:700 var(--t-sm)/1 var(--body);font-variant-numeric:tabular-nums}
-.bar::after{content:"";height:10px;width:var(--w);min-width:3px;max-width:100%;flex:0 1 auto;
+.lbar{display:flex;align-items:center;gap:8px}
+.lbar b{flex:none;min-width:3.4em;font:700 var(--t-sm)/1 var(--body);font-variant-numeric:tabular-nums}
+.lbar::after{content:"";height:10px;width:var(--w);min-width:3px;max-width:100%;flex:0 1 auto;
   background:var(--mustard);border:1px solid var(--gold-deep);border-radius:99px}
 
 .pull-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:var(--s3)}
@@ -339,7 +339,7 @@ const html = `<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pokemon Pack Luck, Measured: Hit Rates from ${videos.length} Real Rips | Garbage Rips 585</title>
+<title>Pokemon Pack Luck, Measured: What Actually Came Out of ${videos.length} Rips | Garbage Rips 585</title>
 <meta name="description" content="Observed hit rates from ${judged.length} logged Pokemon pack openings, broken down by set and product. Not official pull rates: what actually came out on camera.">
 <link rel="canonical" href="${SITE}/luck.html">
 <link rel="icon" href="/favicon.ico" sizes="any">
