@@ -479,9 +479,26 @@ for dv_formula, cols in [
     (DV_PLAYLIST, [CI["Playlist To Add"]]),
     (DV_RANK, [CI["Greatest Hits Rank"]]),
 ]:
-    d = dv(dv_formula)
-    wv.add_data_validation(d)
+    # ONE VALIDATION OBJECT PER COLUMN, NOT ONE SHARED ACROSS ALL OF THEM.
+    #
+    # openpyxl is happy to attach a single DataValidation to several ranges at
+    # once, and it writes valid xlsx: one rule with sqref="G2:G312 I2:I312
+    # K2:K312 M2:M312 O2:O312". Excel honours that. GOOGLE SHEETS DOES NOT. On
+    # import it keeps the rule for the FIRST range and drops the others, then
+    # rebuilds a dropdown for the abandoned columns out of whatever values it
+    # finds already typed in them.
+    #
+    # The symptom is horrible to diagnose because the file is correct: Set had
+    # all 38 sets and Set 2 offered exactly three, which were simply the three
+    # anyone had ever typed into that column. It looked like a truncated list
+    # rather than a lost rule.
+    #
+    # This sheet's whole reason for existing is that it opens in Google Sheets,
+    # so it is Google's behaviour that decides what is correct here. Same story
+    # for the Yes/No columns, which shared one rule across four.
     for col in cols:
+        d = dv(dv_formula)
+        wv.add_data_validation(d)
         c = get_column_letter(col)
         d.add(f"{c}2:{c}{last}")
 
@@ -652,10 +669,14 @@ for r, (key, sname, cname, num, rar, raw) in enumerate(rows_out, start=2):
             wc.cell(r, col).font = BODY
     wc.cell(r, 7).number_format = '$#,##0.00'
 
-dv_c = dv(DV_YESNO)
-wc.add_data_validation(dv_c)
-dv_c.add(f"J2:J{len(rows_out) + 1}")   # Most Wanted
-dv_c.add(f"K2:K{len(rows_out) + 1}")   # Card Hall of Fame
+# One rule each, for the reason spelled out on the Video Log above: Google
+# Sheets keeps only the first range of a multi-range validation on import, so
+# Card Hall of Fame would have lost its Yes/No dropdown while Most Wanted kept
+# one. That is the column the whole hall.html page is driven from.
+for _col, _why in [("J", "Most Wanted"), ("K", "Card Hall of Fame")]:
+    dv_c = dv(DV_YESNO)
+    wc.add_data_validation(dv_c)
+    dv_c.add(f"{_col}2:{_col}{len(rows_out) + 1}")
 dv_src = dv(DV_PSASRC, strict=False)
 wc.add_data_validation(dv_src)
 dv_src.add(f"I2:I{len(rows_out) + 1}")
