@@ -1,0 +1,18 @@
+{
+  "_readme": [
+    "Hand corrections that always beat the automatic tagging. Read by",
+    "sync-youtube.mjs, and `pillarboxed` is read directly by build-pages.mjs.",
+    "",
+    "PILLARBOXED means the video was UPLOADED 16:9 but SHOT vertical, so the real",
+    "footage is a 9:16 strip in the middle with black bars either side. Setting it",
+    "crops the player to that centre strip so the rip presents like every other",
+    "one. Do not set it on a genuinely landscape video: it would cut the sides off",
+    "real content.",
+    "",
+    "Only kj7532tb0_I needs it. That is the channel's first video, uploaded before",
+    "the vertical workflow settled."
+  ],
+  "kj7532tb0_I": {
+    "pillarboxed": true
+  }
+}

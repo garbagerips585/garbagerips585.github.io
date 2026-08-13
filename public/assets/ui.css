@@ -2134,3 +2134,49 @@ span.cq-name{color:var(--ink)}
    full width with the copy underneath, not a column built for a phone video. */
 .rip-grid--wide{grid-template-columns:1fr}
 .rip-grid--wide .rip-player{max-width:min(100%,900px);margin-inline:auto}
+
+/* ---------- a 16:9 upload of vertical footage ----------
+   The channel's first video was uploaded 16:9 but shot on a phone in portrait,
+   so the real content is a 9:16 strip down the middle with black bars either
+   side. Presented as-is it is a small letterboxed rectangle among 310 vertical
+   rips.
+   The box is 9:16 and the iframe inside it is blown up until that centre strip
+   fills it. The arithmetic: a 9:16 strip fitted to the height of a 16:9 frame
+   occupies (9/16) / (16/9) = 81/256 of its width, so the iframe has to be
+   256/81, about 316%, of the container width to bring the strip up to full
+   width. Height stays 100% and the sides overflow and are clipped.
+   The trade is that YouTube's own chrome scales with it, so the title and the
+   controls are cropped too. For a silent autoplaying rip that is the right
+   trade; it would not be on a video anybody needs to scrub. */
+.rip-player--crop{aspect-ratio:9/16;overflow:hidden;max-width:min(100%,420px);margin-inline:auto}
+/* Repeat the phone gutter: this rule sits after it and would otherwise put the
+   cropped player back to a 12px edge. */
+@media(max-width:560px){.rip-player--crop{max-width:min(calc(100% - 40px),320px)}}
+.rip-player--crop iframe{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:calc(100% * 256 / 81);height:100%;max-width:none}
+
+/* ---------- tap a hit card for the detail ----------
+   The trigger is a transparent button filling the card rather than a click
+   handler on the <li>, so it is keyboard reachable and announces itself
+   without turning the whole card into a link. */
+.hitcard{position:relative}
+.hitcard-open{position:absolute;inset:0;width:100%;height:100%;background:none;border:0;
+  cursor:zoom-in;padding:0;z-index:2}
+.hitcard-open:focus-visible{outline:3px solid var(--ketchup-deep);outline-offset:-3px;border-radius:var(--r)}
+.hitlb{position:fixed;inset:0;z-index:200;background:rgba(19,38,55,.88);
+  display:flex;align-items:center;justify-content:center;padding:var(--s5)}
+.hitlb[hidden]{display:none}
+.hitlb-in{position:relative;background:var(--card);border-radius:var(--r);padding:var(--s5);
+  max-width:min(92vw,420px);max-height:92vh;overflow:auto;box-shadow:var(--hard-lg)}
+.hitlb-in img{display:block;width:100%;height:auto;border-radius:8px;background:var(--page)}
+.hitlb-x{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:50%;
+  border:2px solid var(--navy);background:var(--paper);font:700 1.5rem/1 var(--body);
+  color:var(--navy);cursor:pointer;z-index:1}
+.hitlb-x:hover{background:var(--mustard)}
+.hitlb-b{margin-top:var(--s4);display:flex;flex-direction:column;gap:4px}
+.hitlb-n{font:400 var(--t-l)/1.1 var(--display)}
+.hitlb-s{font:700 var(--t-micro)/1.4 var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.hitlb-p{font-size:var(--t-m);font-weight:700;color:var(--ketchup-deep);margin-top:6px}
+.hitlb-psa{font-size:var(--t-m);font-weight:700;color:var(--gold-deep)}
+.hitlb-src{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-soft);margin-top:4px}

@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/ui.css?v=9c89dfe6">
+<link rel="stylesheet" href="/assets/ui.css?v=9175605d">
 <link rel="stylesheet" href="/assets/packs.css?v=2d406974">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"FINAL Journey Together Booster Bundle Pack ⚡ | Last Pack Magic?! 😬","description":"Opening the FINAL Pack (#6) from a Journey Together Booster Bundle ⚡\n\n6 packs.\n6 chances.\n\nIt all comes down to this.\n\nLast pack magic…\nor one final Garbage Rip?\n\n#PokemonShorts #PokemonTCG #JourneyTogether #FinalPack #LastPackMagic #Pokemon #PokemonCards","thumbnailUrl":["https://i.ytimg.com/vi/LGzHC-k4vh0/oardefault.jpg"],"uploadDate":"2026-04-24","embedUrl":"https://www.youtube.com/embed/LGzHC-k4vh0","url":"https://garbagerips585.github.io/rip/final-journey-together-booster-bundle-pack-last-pack-magic-LGzHC-k4vh0.html","duration":"PT30S","interactionStatistic":{"@type":"InteractionCounter","interactionType":{"@type":"WatchAction"},"userInteractionCount":993},"publisher":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Every rip","item":"https://garbagerips585.github.io/videos.html"},{"@type":"ListItem","position":3,"name":"Journey Together","item":"https://garbagerips585.github.io/videos.html?set=journey-together"},{"@type":"ListItem","position":4,"name":"FINAL Journey Together Booster Bundle Pack ⚡ | Last Pack Magic?! 😬"}]}</script>
@@ -565,6 +565,19 @@ or one final Garbage Rip?
   }
 })();
 </script>
+<div class="hitlb" id="hitlb" role="dialog" aria-modal="true" aria-labelledby="hitlbName" hidden>
+  <div class="hitlb-in">
+    <button class="hitlb-x" type="button" id="hitlbX" aria-label="Close">&times;</button>
+    <img id="hitlbImg" alt="">
+    <div class="hitlb-b">
+      <p class="hitlb-n" id="hitlbName"></p>
+      <p class="hitlb-s" id="hitlbSet"></p>
+      <p class="hitlb-p" id="hitlbPrice"></p>
+      <p class="hitlb-psa" id="hitlbPsa"></p>
+      <p class="hitlb-src" id="hitlbSrc"></p>
+    </div>
+  </div>
+</div>
 <script>
 (function(){
   var list=document.getElementById('hitcards');
@@ -603,6 +616,42 @@ or one final Garbage Rip?
     if(!list.querySelector('.hitcard:not(.is-in)')) clearTimeout(failsafe);
   },{rootMargin:'0px 0px -5% 0px',threshold:0});
   for(var i=0;i<cards.length;i++) io.observe(cards[i]);
+
+  // Tap a card for a bigger scan and the full price detail.
+  var lb=document.getElementById('hitlb'), lbImg=document.getElementById('hitlbImg');
+  var lastFocus=null;
+  function txt(id,v){ var e=document.getElementById(id); e.textContent=v||''; e.hidden=!v; }
+  function open(li){
+    lastFocus=document.activeElement;
+    var img=li.getAttribute('data-img');
+    if(img){ lbImg.src=img; lbImg.alt=li.getAttribute('data-name')+', '+li.getAttribute('data-set'); lbImg.hidden=false; }
+    else lbImg.hidden=true;
+    txt('hitlbName', li.getAttribute('data-name'));
+    var n=li.getAttribute('data-n');
+    txt('hitlbSet', li.getAttribute('data-set') + (n ? ' • #'+n : '') );
+    var rar=li.getAttribute('data-rarity'), pr=li.getAttribute('data-price');
+    txt('hitlbPrice', pr ? pr+' raw NM' + (rar ? '  •  '+rar : '') : (rar||'No market price'));
+    var psa=li.getAttribute('data-psa');
+    txt('hitlbPsa', psa ? psa+' in a PSA 10' : '');
+    var src=li.getAttribute('data-src');
+    txt('hitlbSrc', src ? 'Price from '+src : '');
+    lb.hidden=false;
+    document.body.style.overflow='hidden';
+    document.getElementById('hitlbX').focus();
+  }
+  function close(){
+    lb.hidden=true; document.body.style.overflow='';
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  list.addEventListener('click',function(e){
+    var btn=e.target.closest ? e.target.closest('.hitcard-open') : null;
+    if(!btn) return;
+    open(btn.parentNode);
+  });
+  document.getElementById('hitlbX').addEventListener('click',close);
+  // Click the backdrop, but not the card itself.
+  lb.addEventListener('click',function(e){ if(e.target===lb) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !lb.hidden) close(); });
 })();
 </script>
 <script src="/assets/app.js?v=e3978a7e" defer></script>

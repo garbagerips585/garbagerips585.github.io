@@ -204,6 +204,11 @@ try {
 }
 const hasGuide = (setId) => Boolean(setId) && guideIds.has(setId);
 
+// `pillarboxed` is read here rather than carried through the YouTube sync,
+// because it describes how a video was FILMED versus how it was uploaded, which
+// no API reports and only a human can say.
+const OVERRIDES = JSON.parse(await readFile(join(ROOT, "data/overrides.json"), "utf8").catch(() => "{}"));
+
 const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"));
 
 const pathFor = (v) => v.path || ripPath(v);
@@ -394,9 +399,9 @@ ${MENU}
 <main id="main" class="rip tight${v.greatest ? " hall" : ""}">
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / <a href="/videos.html">Every rip</a>${setId ? ` / <a href="/videos.html?set=${setId}">${esc(setLabel)}</a>` : ""}</p>
-    <div class="rip-grid${v.vertical === false ? " rip-grid--wide" : ""}">
+    <div class="rip-grid${v.vertical === false && !(OVERRIDES[v.id] || {}).pillarboxed ? " rip-grid--wide" : ""}">
       <div>
-        <div class="rip-player${v.vertical === false ? " rip-player--wide" : ""}" id="player" data-id="${v.id}">
+        <div class="rip-player${(OVERRIDES[v.id] || {}).pillarboxed ? " rip-player--crop" : v.vertical === false ? " rip-player--wide" : ""}" id="player" data-id="${v.id}">
           <picture>
             <source type="image/webp" srcset="${thumbWebp}">
             <img src="${thumb}" alt="" width="${v.vertical === false ? 1280 : 720}" height="${v.vertical === false ? 720 : 1280}" fetchpriority="high" decoding="async">
@@ -457,7 +462,8 @@ ${
     <ul class="hitcards" id="hitcards">
       ${hits
         .map(
-          (h, hi) => `<li class="hitcard" style="--i:${hi}">
+          (h, hi) => `<li class="hitcard" style="--i:${hi}" data-name="${esc(h.name)}" data-set="${esc(h.setName)}" data-n="${esc(h.n || "")}" data-rarity="${esc(h.rarity || "")}" data-img="${esc(h.img ? h.img.replace("low.webp", "high.webp") : "")}" data-price="${typeof h.price === "number" ? moneyExact(h.price) : ""}" data-psa="${h.psa10 ? moneyRound(h.psa10) : ""}" data-src="${esc(h.priceSource || "")}">
+        <button class="hitcard-open" type="button" aria-label="See ${esc(h.name)} larger"></button>
         ${
           h.img
             ? `<img class="hitcard-img" src="${esc(h.img)}" alt="${esc(h.name)}, ${esc(h.setName)}" loading="lazy" decoding="async" width="245" height="337">`
@@ -756,6 +762,19 @@ ${footer()}
   }
 })();
 </script>
+<div class="hitlb" id="hitlb" role="dialog" aria-modal="true" aria-labelledby="hitlbName" hidden>
+  <div class="hitlb-in">
+    <button class="hitlb-x" type="button" id="hitlbX" aria-label="Close">&times;</button>
+    <img id="hitlbImg" alt="">
+    <div class="hitlb-b">
+      <p class="hitlb-n" id="hitlbName"></p>
+      <p class="hitlb-s" id="hitlbSet"></p>
+      <p class="hitlb-p" id="hitlbPrice"></p>
+      <p class="hitlb-psa" id="hitlbPsa"></p>
+      <p class="hitlb-src" id="hitlbSrc"></p>
+    </div>
+  </div>
+</div>
 <script>
 (function(){
   var list=document.getElementById('hitcards');
@@ -794,6 +813,42 @@ ${footer()}
     if(!list.querySelector('.hitcard:not(.is-in)')) clearTimeout(failsafe);
   },{rootMargin:'0px 0px -5% 0px',threshold:0});
   for(var i=0;i<cards.length;i++) io.observe(cards[i]);
+
+  // Tap a card for a bigger scan and the full price detail.
+  var lb=document.getElementById('hitlb'), lbImg=document.getElementById('hitlbImg');
+  var lastFocus=null;
+  function txt(id,v){ var e=document.getElementById(id); e.textContent=v||''; e.hidden=!v; }
+  function open(li){
+    lastFocus=document.activeElement;
+    var img=li.getAttribute('data-img');
+    if(img){ lbImg.src=img; lbImg.alt=li.getAttribute('data-name')+', '+li.getAttribute('data-set'); lbImg.hidden=false; }
+    else lbImg.hidden=true;
+    txt('hitlbName', li.getAttribute('data-name'));
+    var n=li.getAttribute('data-n');
+    txt('hitlbSet', li.getAttribute('data-set') + (n ? ' \u2022 #'+n : '') );
+    var rar=li.getAttribute('data-rarity'), pr=li.getAttribute('data-price');
+    txt('hitlbPrice', pr ? pr+' raw NM' + (rar ? '  \u2022  '+rar : '') : (rar||'No market price'));
+    var psa=li.getAttribute('data-psa');
+    txt('hitlbPsa', psa ? psa+' in a PSA 10' : '');
+    var src=li.getAttribute('data-src');
+    txt('hitlbSrc', src ? 'Price from '+src : '');
+    lb.hidden=false;
+    document.body.style.overflow='hidden';
+    document.getElementById('hitlbX').focus();
+  }
+  function close(){
+    lb.hidden=true; document.body.style.overflow='';
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  list.addEventListener('click',function(e){
+    var btn=e.target.closest ? e.target.closest('.hitcard-open') : null;
+    if(!btn) return;
+    open(btn.parentNode);
+  });
+  document.getElementById('hitlbX').addEventListener('click',close);
+  // Click the backdrop, but not the card itself.
+  lb.addEventListener('click',function(e){ if(e.target===lb) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !lb.hidden) close(); });
 })();
 </script>
 ${APP_JS}

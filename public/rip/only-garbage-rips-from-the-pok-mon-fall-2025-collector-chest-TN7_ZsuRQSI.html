@@ -27,7 +27,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/ui.css?v=9c89dfe6">
+<link rel="stylesheet" href="/assets/ui.css?v=9175605d">
 <link rel="stylesheet" href="/assets/packs.css?v=2d406974">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"Only Garbage Rips from the Pokémon Fall 2025 Collector Chest","description":"Today’s garbage rip is the Pokémon Fall 2025 Collector Chest — a classic Pokémon TCG box packed with promos, packs, and just enough hope to keep us ripping.\n\nWe went into this one expecting bulk, heartbreak, and maybe a few cards destined straight for the binder… but you never really know until the packs are opened.\n\nIs this Collector Chest actually worth it?\nOr is it just another true garbage rip?\n\n🍽️ Pokémon packs ripped\n🗑️ Garbage Plate energy applied\n🔥 Zero seriousness, all fun\n\nDrop a comment and let us know — was this actually garbage, or did it surprise you?\n\nSubscribe for more Garbage Rips 585 — hits, misses, and everything in between.","thumbnailUrl":["https://i.ytimg.com/vi/TN7_ZsuRQSI/oardefault.jpg"],"uploadDate":"2026-02-01","embedUrl":"https://www.youtube.com/embed/TN7_ZsuRQSI","url":"https://garbagerips585.github.io/rip/only-garbage-rips-from-the-pok-mon-fall-2025-collector-chest-TN7_ZsuRQSI.html","duration":"PT2M14S","interactionStatistic":{"@type":"InteractionCounter","interactionType":{"@type":"WatchAction"},"userInteractionCount":1403},"publisher":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Every rip","item":"https://garbagerips585.github.io/videos.html"},{"@type":"ListItem","position":3,"name":"Only Garbage Rips from the Pokémon Fall 2025 Collector Chest"}]}</script>
@@ -171,7 +171,8 @@ Subscribe for more Garbage Rips 585 — hits, misses, and everything in between.
     <h2>What came out of <span class="hl">this one</span></h2>
     <p class="lede" style="max-width:38em">3 cards worth keeping, with what they go for raw.</p>
     <ul class="hitcards" id="hitcards">
-      <li class="hitcard" style="--i:0">
+      <li class="hitcard" style="--i:0" data-name="Wailord" data-set="Journey Together" data-n="162" data-rarity="Illustration rare" data-img="https://assets.tcgdex.net/en/sv/sv09/162/high.webp" data-price="$15.30" data-psa="" data-src="">
+        <button class="hitcard-open" type="button" aria-label="See Wailord larger"></button>
         <img class="hitcard-img" src="https://assets.tcgdex.net/en/sv/sv09/162/low.webp" alt="Wailord, Journey Together" loading="lazy" decoding="async" width="245" height="337">
         <div class="hitcard-b">
           <p class="hitcard-n">Wailord</p>
@@ -182,7 +183,8 @@ Subscribe for more Garbage Rips 585 — hits, misses, and everything in between.
           
         </div>
       </li>
-      <li class="hitcard" style="--i:1">
+      <li class="hitcard" style="--i:1" data-name="Stufful" data-set="Mega Evolution" data-n="154" data-rarity="Illustration rare" data-img="https://assets.tcgdex.net/en/me/me01/154/high.webp" data-price="$7.76" data-psa="" data-src="">
+        <button class="hitcard-open" type="button" aria-label="See Stufful larger"></button>
         <img class="hitcard-img" src="https://assets.tcgdex.net/en/me/me01/154/low.webp" alt="Stufful, Mega Evolution" loading="lazy" decoding="async" width="245" height="337">
         <div class="hitcard-b">
           <p class="hitcard-n">Stufful</p>
@@ -193,7 +195,8 @@ Subscribe for more Garbage Rips 585 — hits, misses, and everything in between.
           
         </div>
       </li>
-      <li class="hitcard" style="--i:2">
+      <li class="hitcard" style="--i:2" data-name="Marnie's Grimmsnarl ex" data-set="Destined Rivals" data-n="136" data-rarity="Double rare" data-img="https://assets.tcgdex.net/en/sv/sv10/136/high.webp" data-price="$0.86" data-psa="" data-src="">
+        <button class="hitcard-open" type="button" aria-label="See Marnie's Grimmsnarl ex larger"></button>
         <img class="hitcard-img" src="https://assets.tcgdex.net/en/sv/sv10/136/low.webp" alt="Marnie's Grimmsnarl ex, Destined Rivals" loading="lazy" decoding="async" width="245" height="337">
         <div class="hitcard-b">
           <p class="hitcard-n">Marnie's Grimmsnarl ex</p>
@@ -485,6 +488,19 @@ Subscribe for more Garbage Rips 585 — hits, misses, and everything in between.
   }
 })();
 </script>
+<div class="hitlb" id="hitlb" role="dialog" aria-modal="true" aria-labelledby="hitlbName" hidden>
+  <div class="hitlb-in">
+    <button class="hitlb-x" type="button" id="hitlbX" aria-label="Close">&times;</button>
+    <img id="hitlbImg" alt="">
+    <div class="hitlb-b">
+      <p class="hitlb-n" id="hitlbName"></p>
+      <p class="hitlb-s" id="hitlbSet"></p>
+      <p class="hitlb-p" id="hitlbPrice"></p>
+      <p class="hitlb-psa" id="hitlbPsa"></p>
+      <p class="hitlb-src" id="hitlbSrc"></p>
+    </div>
+  </div>
+</div>
 <script>
 (function(){
   var list=document.getElementById('hitcards');
@@ -523,6 +539,42 @@ Subscribe for more Garbage Rips 585 — hits, misses, and everything in between.
     if(!list.querySelector('.hitcard:not(.is-in)')) clearTimeout(failsafe);
   },{rootMargin:'0px 0px -5% 0px',threshold:0});
   for(var i=0;i<cards.length;i++) io.observe(cards[i]);
+
+  // Tap a card for a bigger scan and the full price detail.
+  var lb=document.getElementById('hitlb'), lbImg=document.getElementById('hitlbImg');
+  var lastFocus=null;
+  function txt(id,v){ var e=document.getElementById(id); e.textContent=v||''; e.hidden=!v; }
+  function open(li){
+    lastFocus=document.activeElement;
+    var img=li.getAttribute('data-img');
+    if(img){ lbImg.src=img; lbImg.alt=li.getAttribute('data-name')+', '+li.getAttribute('data-set'); lbImg.hidden=false; }
+    else lbImg.hidden=true;
+    txt('hitlbName', li.getAttribute('data-name'));
+    var n=li.getAttribute('data-n');
+    txt('hitlbSet', li.getAttribute('data-set') + (n ? ' • #'+n : '') );
+    var rar=li.getAttribute('data-rarity'), pr=li.getAttribute('data-price');
+    txt('hitlbPrice', pr ? pr+' raw NM' + (rar ? '  •  '+rar : '') : (rar||'No market price'));
+    var psa=li.getAttribute('data-psa');
+    txt('hitlbPsa', psa ? psa+' in a PSA 10' : '');
+    var src=li.getAttribute('data-src');
+    txt('hitlbSrc', src ? 'Price from '+src : '');
+    lb.hidden=false;
+    document.body.style.overflow='hidden';
+    document.getElementById('hitlbX').focus();
+  }
+  function close(){
+    lb.hidden=true; document.body.style.overflow='';
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  list.addEventListener('click',function(e){
+    var btn=e.target.closest ? e.target.closest('.hitcard-open') : null;
+    if(!btn) return;
+    open(btn.parentNode);
+  });
+  document.getElementById('hitlbX').addEventListener('click',close);
+  // Click the backdrop, but not the card itself.
+  lb.addEventListener('click',function(e){ if(e.target===lb) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !lb.hidden) close(); });
 })();
 </script>
 <script src="/assets/app.js?v=e3978a7e" defer></script>
