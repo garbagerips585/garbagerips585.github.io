@@ -16,6 +16,7 @@ import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { esc, longDate, moneyCompact, moneyExact } from "../shared/format.mjs";
+import { ripLabel } from "../shared/riplabel.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -281,6 +282,27 @@ for (const st of sets) {
 }
 
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
+
+// CARDS WE ACTUALLY PULLED FROM THIS SET, which is a different question from
+// the chase list above it. The chase list is what the set is worth hunting;
+// this is what came out of the packs on camera, so it is the only part of a set
+// guide that no other site can write.
+//
+// Prices are looked up from the set's own card data, never stored here, so a
+// nightly refresh moves this section like everything else. A promo carries its
+// own price because it is not in any set checklist.
+const HITS = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
+const hitsBySet = new Map();
+for (const [vid, list] of Object.entries(HITS)) {
+  for (const h of list) {
+    if (!h.set) continue;
+    if (!hitsBySet.has(h.set)) hitsBySet.set(h.set, []);
+    hitsBySet.get(h.set).push({ ...h, vid });
+  }
+}
+const videoById = new Map(videos.map((v) => [v.id, v]));
+const setNameById = new Map(sets.map((x) => [x.id, x.name]));
+const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"));
 
 function yearsSince(iso) {
   if (!iso) return null;
@@ -571,7 +593,50 @@ ${s.notes?.inPrint || s.notes?.packPrice ? `
   </div>
 </section>
 
-<section class="band tight">
+${(() => {
+  const mine = (hitsBySet.get(s.id) || [])
+    .map((h) => {
+      const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
+      const same = ((checklists[s.id] || {}).cards || []).filter((c) => norm(c.name) === norm(h.card));
+      const want = h.rarity ? norm(h.rarity).slice(0, 8) : null;
+      const m = (want && same.find((c) => norm(c.rarity).includes(want))) || same[0] || null;
+      const v = videoById.get(h.vid);
+      return {
+        name: h.card,
+        n: m ? m.n : h.number || null,
+        rarity: (m && m.rarity) || h.rarity || null,
+        img: m && m.img ? `${m.img}/low.webp` : null,
+        price: m && typeof m.price === "number" ? m.price : typeof h.price === "number" ? h.price : null,
+        path: v ? v.path : null,
+        label: v ? ripLabel(v, setNameById, descriptions[v.id]) || v.title : null,
+      };
+    })
+    .sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
+  if (!mine.length) return "";
+  return `<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
+    <h2>What we have <span class="hl">hit</span> from this set</h2>
+    <p class="lede" style="max-width:38em">${mine.length} card${mine.length === 1 ? "" : "s"} out of our own packs, dearest first.
+      Every one of them is in a video you can watch.</p>
+    <ul class="mine-grid">
+      ${mine
+        .map(
+          (h) => `<li class="mine">
+        ${h.img ? `<img class="mine-img" src="${esc(h.img)}" alt="${esc(h.name)}" loading="lazy" decoding="async" width="245" height="337">` : `<div class="mine-img is-none" aria-hidden="true"></div>`}
+        <p class="mine-n">${esc(h.name)}</p>
+        <p class="mine-r">${esc(h.rarity || "")}${h.n ? ` &bull; #${esc(h.n)}` : ""}</p>
+        <p class="mine-p">${typeof h.price === "number" ? moneyExact(h.price) : "No market price"}</p>
+        ${h.path ? `<a class="mine-w" href="/${esc(h.path)}">${esc(h.label)} &rarr;</a>` : ""}
+      </li>`,
+        )
+        .join("\n      ")}
+    </ul>
+  </div>
+</section>
+
+`;
+})()}<section class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
     <h2>Top <span class="hl">chase cards</span></h2>
