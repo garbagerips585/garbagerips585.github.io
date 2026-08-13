@@ -118,6 +118,35 @@ const roster = [...byName.entries()]
   .sort((a, b) => b.dearest.price - a.dearest.price)
   .slice(0, TOP);
 
+// THE MASCOTS ARE PINNED. The roster ranks by dearest card, which is the right
+// default and would never surface either of these: Trubbish and Garbodor are
+// commons worth pennies. They are also the channel's whole identity, the reason
+// the site is called Garbage Rips, and the corpus gives them real pages rather
+// than thin ones: Trubbish is 30 printings across 25 sets with 24 scans,
+// Garbodor 39 across 28 with 33. Ranking by price would drop the two Pokemon
+// the site is named after, which is the wrong answer however defensible the
+// sort is.
+const PINNED = ["Trubbish", "Garbodor"];
+for (const name of PINNED) {
+  if (roster.some((p) => p.name === name)) continue;
+  const list = byName.get(name) || [];
+  const priced = list.filter((c) => typeof c.price === "number");
+  const bySets = new Set(list.map((c) => c.set));
+  // A pinned Pokemon may have few or no cards in the 23 sets we price. That is
+  // fine: the printings corpus carries the page, and the priced band simply
+  // renders empty rather than the page not existing.
+  roster.push({
+    name,
+    slug: slugify(name),
+    list,
+    sets: bySets,
+    dearest: priced.slice().sort((a, b) => b.price - a.price)[0] || null,
+    cheapest: priced.slice().sort((a, b) => a.price - b.price)[0] || null,
+    priced,
+    pinned: true,
+  });
+}
+
 /** Rips that name this Pokemon in the title. */
 const ripsFor = (name) => {
   // Both anchors. With only a leading \\b, /\\bMew/ matched every Mewtwo rip, and
