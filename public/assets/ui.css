@@ -2035,3 +2035,5 @@ span.cq-name{color:var(--ink)}
   /* The 16:9 long-form player is wide, not tall, so it only needs the gutter. */
   .rip-player--wide{max-width:calc(100% - 32px)}
 }
+
+}

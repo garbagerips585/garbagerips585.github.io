@@ -248,7 +248,10 @@ for (const v of videos
   const s = faceSet(v) || "_";
   if ((perSet[s] = (perSet[s] || 0) + 1) > HALL_PER_SET) continue;
   hall.push(v);
-  if (hall.length === 8) break;
+  // SIX, NOT EIGHT. The grid is 6 columns wide, so eight tiles filled one row
+  // and left two stranded on a second, which is what made the band read as a
+  // spilling wall rather than a shelf. Six is exactly one row.
+  if (hall.length === 6) break;
 }
 
 const mostWatched = [...videos].sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 6);
