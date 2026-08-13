@@ -114,9 +114,33 @@ const roster = [...byName.entries()]
     const cheapest = priced.slice().sort((a, b) => a.price - b.price)[0] || null;
     return { name, slug: slugify(name), list, sets, dearest, cheapest, priced };
   })
-  .filter((p) => p.list.length >= MIN_CARDS && p.sets.size >= MIN_SETS && p.dearest)
-  .sort((a, b) => b.dearest.price - a.dearest.price)
-  .slice(0, TOP);
+  .filter((p) => p.list.length >= MIN_CARDS && p.sets.size >= MIN_SETS && p.dearest);
+
+// MOST VALUABLE **AND** MOST POPULAR, which are not the same list.
+//
+// Ranking by dearest card alone is a value list: it surfaces whatever happens
+// to carry an expensive chase card and misses species that are printed
+// constantly and cheaply. Pikachu has 250 printings across the corpus and Eevee
+// 153; both are obviously "popular Pokemon" and neither is guaranteed a slot by
+// price.
+//
+// Printing count is the popularity signal, and it is a real one rather than a
+// guess: it is how often The Pokemon Company has chosen to print that species
+// across 388 sets. The two lists are taken separately and unioned, so the page
+// set is genuinely "the most valuable and the most popular" rather than a
+// blended score that satisfies neither description.
+const printCount = (name) => (printings.get(name) || []).length;
+const byValue = [...roster].sort((a, b) => b.dearest.price - a.dearest.price).slice(0, TOP);
+const byPopularity = [...roster].sort((a, b) => printCount(b.name) - printCount(a.name)).slice(0, TOP);
+const seen = new Set();
+const chosen = [];
+for (const p of [...byValue, ...byPopularity]) {
+  if (seen.has(p.name)) continue;
+  seen.add(p.name);
+  chosen.push(p);
+}
+roster.length = 0;
+roster.push(...chosen);
 
 // THE MASCOTS ARE PINNED. The roster ranks by dearest card, which is the right
 // default and would never surface either of these: Trubbish and Garbodor are
