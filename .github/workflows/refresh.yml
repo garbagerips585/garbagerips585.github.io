@@ -72,8 +72,6 @@ jobs:
       # Collectr's public showcase. Never fails the build: if the endpoint moves
       # or sharing gets switched off, the committed copy stands and the page
       # says when it was last updated.
-      - name: Card collection
-        run: node scripts/sync-collection.mjs
 
       - name: Foreign-language sets
         run: node scripts/sync-intl.mjs
@@ -146,7 +144,6 @@ jobs:
           node scripts/build-luck.mjs
           node scripts/build-upcoming.mjs
           node scripts/build-rarity.mjs
-          node scripts/build-collection.mjs
           # Rebuilt nightly so past shows drop off on the day they happen. The
           # data is hand-maintained, but the calendar has to move on its own.
           node scripts/build-shows.mjs

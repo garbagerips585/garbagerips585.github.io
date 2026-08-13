@@ -14,28 +14,100 @@
 // checkDrift() below is called by build-proto.mjs and fails the build when the
 // two diverge. A comment claiming a guard is not a guard.
 
-/** Nav destinations, in the order they appear in the mobile menu. */
-export const NAV_LINKS = [
-  ["/", "Home"],
-  ["/videos.html", "All rips"],
-  ["/start.html", "Start here"],
-  ["/cards.html", "Card search"],
-  ["/pokemon/", "By Pokemon"],
-  ["/rarity.html", "Rarity guide"],
-  ["/fake-cards.html", "Real or fake?"],
-  ["/grading.html", "Worth grading?"],
-  ["/sets/", "Card Pokedex"],
-  ["/complete-a-set.html", "Cost to complete"],
-  ["/expansions.html", "Every set ever"],
-  ["/upcoming.html", "Coming next"],
-  ["/wanted.html", "Most wanted"],
-  ["/hall.html", "Card Hall of Fame"],
-  ["/luck.html", "Luck & pull rates"],
-  ["/card-shows.html", "Card shows"],
-  ["/shops.html", "Card shops"],
-  ["/playlists.html", "Playlists"],
-  ["/about.html", "About"],
+/**
+ * THE NAV, and it is the ONLY place nav is defined.
+ *
+ * The bar, the menu and the footer are all derived from this one array. They
+ * used to be three hand-maintained lists and they drifted, exactly as you would
+ * expect: /hall.html was "Hits" in the bar, "Best pulls" in the menu and "Card
+ * Hall of Fame" in the footer, so somebody who clicked Hits and later looked
+ * for it in the footer was hunting a page that appeared not to exist. /sets/
+ * carried three names too, and /collection.html was in the menu but missing
+ * from the footer entirely. Derivation is the fix; a guard cannot catch what it
+ * is not told to compare.
+ *
+ * GROUPED BY WHAT YOU CAME TO DO, not by content type and not by audience.
+ * Audience-based nav ("new collectors", "returning collectors") is a known
+ * failure: NN/G lists five reasons, the first being that users do not know
+ * which group they are in. Serious Eats is the closest real analogue to this
+ * site, a mix of tools, guides, reference data and a media archive, and it
+ * splits its top level by intent and only its second level by subject.
+ *
+ * LABELS ARE FRONT-LOADED NOUNS. Nielsen's first-two-words study (80 people)
+ * found users see about two words per list item, and for 35% of links the
+ * first 11 characters left them unsure where it led. "Real or fake?" spends
+ * that budget on "Real or", "Worth grading?" on "Worth grad". "Fakes" and
+ * "Grading" put the load-bearing word first. The pages keep their question
+ * headlines, where the search-matching value actually is.
+ *
+ * Each entry is [group title, [[href, label], ...]].
+ */
+export const NAV = [
+  ["Watch", [
+    ["/videos.html", "Rips"],
+    ["/playlists.html", "Playlists"],
+  ]],
+  // Tim's own cards in three states: pulled, owned, wanted. This is NOT "watch"
+  // material, which is where two of these used to sit. It is also the thing no
+  // competitor has: the nav audit found no Pokemon creator site that publishes
+  // what they actually pulled and what it is worth. The owned half now lives on
+  // his real Collectr profile, linked from the footer, rather than a page of
+  // ours competing with the pages meant to earn traffic.
+  ["The binder", [
+    ["/hall.html", "Best pulls"],
+    ["/wanted.html", "Most wanted"],
+  ]],
+  ["Cards", [
+    ["/cards.html", "Card search"],
+    ["/pokemon/", "By Pokemon"],
+    ["/sets/", "Set guides"],
+    ["/expansions.html", "Every set ever"],
+    ["/upcoming.html", "Coming next"],
+    ["/complete-a-set.html", "Cost to complete"],
+  ]],
+  ["Guides", [
+    ["/start.html", "Start here"],
+    ["/rarity.html", "Rarity guide"],
+    ["/fake-cards.html", "Fakes"],
+    ["/grading.html", "Grading"],
+    ["/luck.html", "Pull rates"],
+  ]],
+  ["Rochester", [
+    // Shops and shows sit next to each other deliberately: they answer the same
+    // question a week apart. Keep the labels distinct, the urls are one letter
+    // apart and the menu is the only place a reader sees both at once.
+    ["/card-shows.html", "Card shows"],
+    ["/shops.html", "Card shops"],
+    ["/about.html", "About"],
+  ]],
 ];
+
+/**
+ * The handful of links the bar shows on desktop.
+ *
+ * FIVE, NOT THREE. The folklore is that a nav should hold 7±2 items, but the
+ * people who actually tested navigation published the refutation: Larson and
+ * Czerwinski built 8, 16 and 32 link versions of a 512 document site and users
+ * were "reliably slowest and were most lost" on the EIGHT link one. Sixteen was
+ * fastest. Real content sites cluster at six or seven top level items. Three
+ * was under-broad, not restrained.
+ *
+ * These are hrefs into NAV, never their own labels, so the bar cannot drift
+ * from the menu again. A link in two places with two names is two mental
+ * models and one of them is always wrong.
+ */
+export const BAR_LINKS = ["/videos.html", "/cards.html", "/sets/", "/start.html", "/card-shows.html"];
+
+/** Every [href, label] in NAV, flattened, in order. */
+export const NAV_LINKS = NAV.flatMap(([, links]) => links);
+
+/** Label lookup, so the bar and anything else name a page exactly once. */
+const LABEL = new Map(NAV_LINKS);
+const labelFor = (href) => {
+  const l = LABEL.get(href);
+  if (!l) throw new Error(`chrome.mjs: ${href} is in BAR_LINKS but not in NAV`);
+  return l;
+};
 
 export const SUBSCRIBE =
   "https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1";
@@ -89,9 +161,7 @@ export const BAR = `<header class="bar">
       <input id="navSearch" name="q" type="search" placeholder="Search cards, sets, rips" aria-label="Search cards, sets, guides and every rip" autocomplete="off">
     </form>
     <nav class="nav-links" aria-label="Primary">
-      <a href="/videos.html">Rips</a>
-      <a href="/hall.html">Hits</a>
-      <a href="/sets/">Sets</a>
+${BAR_LINKS.map((h) => `      <a href="${h}">${labelFor(h)}</a>`).join("\n")}
     </nav>
     <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -101,54 +171,23 @@ export const BAR = `<header class="bar">
   </div>
 </header>`;
 
-/** The panel the bar's button controls. Must sit after </header>. */
 /**
  * The panel behind the Menu button. Must sit after </header>.
  *
- * Grouped rather than a flat list of twelve. NN/G's mobile study found hidden
- * navigation cost >20% content discoverability and made people 15% slower, and
- * that the fix is combo navigation: a few links always visible plus a labelled
- * menu for the rest. Three headed groups read as three decisions instead of
- * twelve items.
+ * Grouped rather than a flat list. NN/G's mobile study (179 people) found
+ * hidden navigation cost more than 20% of content discoverability and made
+ * people 15% slower, and that the fix is combo navigation: a few links always
+ * visible plus a labelled menu for the rest. Their later work found a 45 point
+ * swing in menu usage between two different hamburger implementations, so how
+ * the button is presented matters more than whether it exists. Ours keeps the
+ * word "Menu" beside the icon for that reason.
  *
- * "Home" is gone: it was the first thing a thumb landed on, spent on the page
- * you are already reading, and the wordmark already goes home. That alone took
- * the panel from 612px to something that fits the 575px an iPhone actually
- * gives you in Safari once its own toolbars are showing.
+ * "Home" is deliberately absent: it was the first thing a thumb landed on,
+ * spent on the page you are already reading, and the wordmark already goes
+ * home.
  */
-export const MENU_GROUPS = [
-  ["Watch", [
-    ["/videos.html", "All rips"],
-    ["/hall.html", "Best pulls"],
-    ["/collection.html", "The collection"],
-    ["/playlists.html", "Playlists"],
-  ]],
-  ["Card guides", [
-    ["/start.html", "Start here"],
-    ["/cards.html", "Card search"],
-    ["/pokemon/", "By Pokemon"],
-    ["/sets/", "Set guides"],
-    ["/rarity.html", "Rarity guide"],
-    ["/fake-cards.html", "Real or fake?"],
-    ["/grading.html", "Worth grading?"],
-    ["/complete-a-set.html", "Cost to complete"],
-    ["/expansions.html", "Every set ever"],
-    ["/upcoming.html", "Coming next"],
-    ["/luck.html", "Luck & pull rates"],
-  ]],
-  ["The 585", [
-    ["/wanted.html", "Most wanted"],
-    // Shops and shows sit next to each other deliberately: they answer the same
-    // question a week apart. Keep the labels distinct, the urls are one letter
-    // apart and the menu is the only place a reader sees both at once.
-    ["/card-shows.html", "Card shows"],
-    ["/shops.html", "Card shops"],
-    ["/about.html", "About"],
-  ]],
-];
-
 export const MENU = `<nav class="menu" id="menu" aria-label="Site">
-${MENU_GROUPS.map(
+${NAV.map(
   ([title, links]) => `  <p class="menu-h">${title}</p>
   <ul>
 ${links.map(([href, label]) => `    <li><a href="${href}">${label}</a></li>`).join("\n")}
@@ -163,13 +202,54 @@ ${links.map(([href, label]) => `    <li><a href="${href}">${label}</a></li>`).jo
  * `extra` takes a line of page-specific small print, which the set guides use
  * to say where their card data and prices come from.
  */
+/**
+ * Tim's public Collectr profile.
+ *
+ * We used to BUILD a collection page from Collectr's API. It is his own
+ * tracking app view, not something a visitor comes here for, and a personal
+ * utility page in the nav competes for attention with the pages meant to earn
+ * traffic. Linking the real profile is one less thing to keep in sync and
+ * sends people to the live version rather than last night's snapshot.
+ *
+ * Deliberately NOT given a social icon: we do not have Collectr's brand mark
+ * and inventing one would be putting a made up logo next to four real ones.
+ * A named text link says more anyway.
+ */
+export const COLLECTR = "https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a";
+
+/**
+ * The footer.
+ *
+ * GROUPED, IN THE SAME ORDER AS THE MENU. It used to print all eighteen links
+ * as one undifferentiated row. Baymard's benchmarking is blunt about why that
+ * fails: dividing footer links into sections "helps break the flood of links
+ * into manageable groups that are easy for the user to scan", and adds that
+ * visual separation is worthless if the groups are not also semantically
+ * separate. Nobody has run a controlled grouped-versus-flat experiment, so this
+ * is expert guidance rather than measured fact, but the flat version also
+ * violated the one hard rule here: WCAG 2.2 SC 3.2.3 wants repeated navigation
+ * in the same relative order every time, and a flat list in menu order was not
+ * that once the menu was grouped.
+ *
+ * The footer is a low traffic, high intent surface. NN/G: "A footer is the
+ * place users go when users they're lost." Optimise it for finding a known
+ * thing, not for link count.
+ *
+ * `extra` takes a line of page-specific small print, which the set guides use
+ * to say where their card data and prices come from.
+ */
+export const FOOT_NAV = `<nav class="foot-nav" aria-label="Site">
+${NAV.map(
+  ([title, links]) => `      <div class="foot-col">
+        <p class="foot-h">${title}</p>
+${links.map(([href, label]) => `        <a href="${href}">${label}</a>`).join("\n")}
+      </div>`,
+).join("\n")}
+    </nav>`;
+
 export const footer = (extra = "") => `<footer>
   <div class="wrap">
-    <nav class="foot-nav" aria-label="Site">
-${NAV_LINKS.slice(1)
-  .map(([href, label]) => `      <a href="${href}">${label}</a>`)
-  .join("\n")}
-    </nav>
+    ${FOOT_NAV}
     <p class="foot-tag">Grab a fork. Let's rip.</p>
     <div class="foot-social">
 ${SOCIALS.map(
@@ -177,6 +257,7 @@ ${SOCIALS.map(
     `      <a class="soc ${cls}" href="${href}" aria-label="${label}"><svg aria-hidden="true"><use href="#i-${cls}"/></svg></a>`
 ).join("\n")}
     </div>
+    <p class="foot-collectr"><a href="${COLLECTR}" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
     <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
     ${extra ? extra + "<br>" : ""}Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
@@ -226,11 +307,7 @@ export function checkDrift(indexHtml) {
     [
       "foot-nav",
       slice('<nav class="foot-nav"', "</nav>"),
-      `<nav class="foot-nav" aria-label="Site">
-${NAV_LINKS.slice(1)
-        .map(([href, label]) => `      <a href="${href}">${label}</a>`)
-        .join("\n")}
-    </nav>`,
+      FOOT_NAV,
     ],
   ];
   for (const [name, found, want] of checks) {

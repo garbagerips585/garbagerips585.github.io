@@ -58,7 +58,6 @@ const PAGES = [
   ["/upcoming.html", "Coming next", "Upcoming sets and preorder prices"],
   ["/expansions.html", "Every set ever", "The complete expansion list"],
   ["/hall.html", "Hall of Fame", "The best pulls on the channel"],
-  ["/collection.html", "The collection", "The personal collection and portfolio"],
   ["/wanted.html", "Most wanted", "The cards still being chased"],
   ["/card-shows.html", "Card shows", "Shows around Rochester, Buffalo and Syracuse"],
   ["/shops.html", "Card shops and where to play", "Local shops and league nights"],

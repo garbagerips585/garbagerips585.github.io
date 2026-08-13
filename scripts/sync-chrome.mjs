@@ -20,7 +20,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
-import { BAR, MENU, NAV_LINKS } from "../shared/chrome.mjs";
+import { BAR, MENU, FOOT_NAV } from "../shared/chrome.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CHECK = process.argv.includes("--check");
@@ -47,9 +47,7 @@ const BLOCKS = [
   {
     name: "foot-nav",
     re: /<nav class="foot-nav"[\s\S]*?<\/nav>/,
-    want: `<nav class="foot-nav" aria-label="Site">\n${NAV_LINKS.slice(1)
-      .map(([href, label]) => `      <a href="${href}">${label}</a>`)
-      .join("\n")}\n    </nav>`,
+    want: FOOT_NAV,
   },
 ];
 

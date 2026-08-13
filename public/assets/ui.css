@@ -1982,3 +1982,26 @@ footer .soc svg{fill:var(--paper)}
 /* Rows outside the sets we rip have no guide to link to, so the name is a span.
    Keep it looking like a name, just not like a link. */
 span.cq-name{color:var(--ink)}
+
+/* ---------- grouped footer nav ----------
+   Five labelled columns in the same order as the menu, replacing a flat row of
+   eighteen links. The headings are the point: Baymard's benchmarking notes that
+   visual separation is worthless if the groups are not also semantically
+   separate, and that semantic headers matter MOST on mobile where the space to
+   imply grouping does not exist. Columns collapse to a single stack at 560px
+   rather than squeezing five columns onto a phone. */
+.foot-nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:var(--s5) var(--s4);margin:0 auto var(--s5);max-width:60em;
+  justify-content:center;text-align:left}
+.foot-col{display:flex;flex-direction:column;gap:2px}
+.foot-h{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--mustard);margin-bottom:4px}
+.foot-nav a{font:600 var(--t-sm)/1.35 var(--body);color:#C7D3DE;
+  min-height:32px;display:inline-flex;align-items:center}
+.foot-nav a:hover{color:var(--paper);text-decoration:underline}
+.foot-collectr{margin:var(--s3) 0 var(--s2)}
+.foot-collectr a{font:700 var(--t-sm)/1.4 var(--body);color:var(--mustard)}
+.foot-collectr a:hover{text-decoration:underline}
+@media(max-width:560px){
+  .foot-nav{grid-template-columns:1fr;gap:var(--s4);max-width:22em}
+}

@@ -68,8 +68,10 @@
     </form>
     <nav class="nav-links" aria-label="Primary">
       <a href="/videos.html">Rips</a>
-      <a href="/hall.html">Hits</a>
-      <a href="/sets/">Sets</a>
+      <a href="/cards.html">Card search</a>
+      <a href="/sets/">Set guides</a>
+      <a href="/start.html">Start here</a>
+      <a href="/card-shows.html">Card shows</a>
     </nav>
     <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -81,28 +83,33 @@
 <nav class="menu" id="menu" aria-label="Site">
   <p class="menu-h">Watch</p>
   <ul>
-    <li><a href="/videos.html">All rips</a></li>
-    <li><a href="/hall.html">Best pulls</a></li>
-    <li><a href="/collection.html">The collection</a></li>
+    <li><a href="/videos.html">Rips</a></li>
     <li><a href="/playlists.html">Playlists</a></li>
   </ul>
-  <p class="menu-h">Card guides</p>
+  <p class="menu-h">The binder</p>
   <ul>
-    <li><a href="/start.html">Start here</a></li>
+    <li><a href="/hall.html">Best pulls</a></li>
+    <li><a href="/wanted.html">Most wanted</a></li>
+  </ul>
+  <p class="menu-h">Cards</p>
+  <ul>
     <li><a href="/cards.html">Card search</a></li>
     <li><a href="/pokemon/">By Pokemon</a></li>
     <li><a href="/sets/">Set guides</a></li>
-    <li><a href="/rarity.html">Rarity guide</a></li>
-    <li><a href="/fake-cards.html">Real or fake?</a></li>
-    <li><a href="/grading.html">Worth grading?</a></li>
-    <li><a href="/complete-a-set.html">Cost to complete</a></li>
     <li><a href="/expansions.html">Every set ever</a></li>
     <li><a href="/upcoming.html">Coming next</a></li>
-    <li><a href="/luck.html">Luck & pull rates</a></li>
+    <li><a href="/complete-a-set.html">Cost to complete</a></li>
   </ul>
-  <p class="menu-h">The 585</p>
+  <p class="menu-h">Guides</p>
   <ul>
-    <li><a href="/wanted.html">Most wanted</a></li>
+    <li><a href="/start.html">Start here</a></li>
+    <li><a href="/rarity.html">Rarity guide</a></li>
+    <li><a href="/fake-cards.html">Fakes</a></li>
+    <li><a href="/grading.html">Grading</a></li>
+    <li><a href="/luck.html">Pull rates</a></li>
+  </ul>
+  <p class="menu-h">Rochester</p>
+  <ul>
     <li><a href="/card-shows.html">Card shows</a></li>
     <li><a href="/shops.html">Card shops</a></li>
     <li><a href="/about.html">About</a></li>
@@ -126,7 +133,7 @@
     <p class="crumbs"><a href="/">Home</a> / Card shows</p>
 
     <a class="next-show" data-date="2026-08-16" href="https://cardshows.io/events/pokekon-fest-08-16-2026" rel="noopener" target="_blank">
-      <span class="next-label">Next one up &bull; In 4 days</span>
+      <span class="next-label">Next one up &bull; In 3 days</span>
       <span class="next-name">PokeKon Fest</span>
       <span class="next-meta">August 16, 2026, 10am to 5pm &bull; Sheraton Niagara Falls Hotel, Niagara Falls</span>
     </a>
@@ -166,7 +173,7 @@
           <p class="show-where"><a href="https://www.google.com/maps/search/?api=1&amp;query=Sheraton%20Niagara%20Falls%20Hotel%20Niagara%20Falls%20NY" rel="noopener" target="_blank">Sheraton Niagara Falls Hotel, Niagara Falls NY</a></p>
           <div class="show-tags">
             <span class="chip pk">Pokemon show</span>
-            <span class="chip soon">In 4 days</span>
+            <span class="chip soon">In 3 days</span>
             <span class="chip">Check the listing</span>
           </div>
           <p class="show-blurb">All Pokemon show. The one on this list that is actually about our cards rather than tolerating them in a corner.</p>
@@ -822,24 +829,39 @@
 <footer>
   <div class="wrap">
     <nav class="foot-nav" aria-label="Site">
-      <a href="/videos.html">All rips</a>
-      <a href="/start.html">Start here</a>
-      <a href="/cards.html">Card search</a>
-      <a href="/pokemon/">By Pokemon</a>
-      <a href="/rarity.html">Rarity guide</a>
-      <a href="/fake-cards.html">Real or fake?</a>
-      <a href="/grading.html">Worth grading?</a>
-      <a href="/sets/">Card Pokedex</a>
-      <a href="/complete-a-set.html">Cost to complete</a>
-      <a href="/expansions.html">Every set ever</a>
-      <a href="/upcoming.html">Coming next</a>
-      <a href="/wanted.html">Most wanted</a>
-      <a href="/hall.html">Card Hall of Fame</a>
-      <a href="/luck.html">Luck & pull rates</a>
-      <a href="/card-shows.html">Card shows</a>
-      <a href="/shops.html">Card shops</a>
-      <a href="/playlists.html">Playlists</a>
-      <a href="/about.html">About</a>
+      <div class="foot-col">
+        <p class="foot-h">Watch</p>
+        <a href="/videos.html">Rips</a>
+        <a href="/playlists.html">Playlists</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">The binder</p>
+        <a href="/hall.html">Best pulls</a>
+        <a href="/wanted.html">Most wanted</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Cards</p>
+        <a href="/cards.html">Card search</a>
+        <a href="/pokemon/">By Pokemon</a>
+        <a href="/sets/">Set guides</a>
+        <a href="/expansions.html">Every set ever</a>
+        <a href="/upcoming.html">Coming next</a>
+        <a href="/complete-a-set.html">Cost to complete</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Guides</p>
+        <a href="/start.html">Start here</a>
+        <a href="/rarity.html">Rarity guide</a>
+        <a href="/fake-cards.html">Fakes</a>
+        <a href="/grading.html">Grading</a>
+        <a href="/luck.html">Pull rates</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Rochester</p>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/about.html">About</a>
+      </div>
     </nav>
     <p class="foot-tag">Grab a fork. Let's rip.</p>
     <div class="foot-social">
@@ -848,6 +870,7 @@
       <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
       <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
     </div>
+    <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
     <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
     Show listings are collected by hand and change without notice. Check with the organiser before travelling.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>

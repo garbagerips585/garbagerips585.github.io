@@ -700,7 +700,6 @@ const urls = [
   // The beginner guide. Evergreen and the best long-tail search target on the
   // site: "pokemon card rarity symbols" is asked constantly and never expires.
   { loc: `${SITE}/rarity.html`, freq: "monthly", pri: "0.9" },
-  { loc: `${SITE}/collection.html`, freq: "weekly", pri: "0.7" },
   // Local card show calendar. Weekly and high priority: it carries Event
   // structured data, the listings genuinely change, and "card shows near me" is
   // the kind of local search this site can actually win.
