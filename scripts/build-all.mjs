@@ -24,6 +24,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const STEPS = [
+  "node scripts/stamp-labels.mjs",
   "node scripts/sync-chrome.mjs",
   "python3 scripts/build-og-pages.py",
   "node scripts/build-proto.mjs",

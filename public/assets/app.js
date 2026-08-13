@@ -88,7 +88,7 @@
     var href = v.path ? "/" + v.path : "/videos.html";
     var art = el("a", "art");
     art.href = href;
-    art.setAttribute("aria-label", v.siteTitle || v.title);
+    art.setAttribute("aria-label", v.siteTitle || v.title);  // full title stays the accessible name
 
     // Sealed pack instead of the YouTube poster frame, which is nearly always
     // the pulled card and gives the whole video away before you open it.
@@ -115,7 +115,9 @@
     card.appendChild(art);
 
     var h3 = el("h3");
-    var a = el("a", null, v.siteTitle || v.title);
+    // The tile shows what was opened; the full YouTube title stays as the
+    // link's accessible name above, so nothing is lost to a screen reader.
+    var a = el("a", null, v.label || v.siteTitle || v.title);
     a.href = href;
     h3.appendChild(a);
     card.appendChild(h3);
