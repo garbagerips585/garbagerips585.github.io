@@ -334,6 +334,39 @@ const railHtml = [
   `    <a class="chip" href="/sets/">All ${sets.length} sets &rarr;</a>`,
 ].join("\n");
 
+// THE ONE HALL OF FAME HIT, framed. Separate from the Greatest Hits shelf
+// below it: the shelf is a row of six to browse, this is a single card the page
+// stops on. hall is already sorted by a typed hofRank, then pull tier, then
+// views, so hall[0] is the pick and Tim can override it from the sheet.
+//
+// Renders nothing when there is no hall, so the band cannot appear as an empty
+// gold frame on a fresh clone.
+const hofPick = hall[0] || null;
+const hofHtml = hofPick
+  ? `<a class="hofx" href="/${esc(hofPick.path)}">
+        <span class="hofx-tag">Hall of Fame hit</span>
+        <span class="hofx-art">
+          ${(() => {
+            // Same pack art the tiles use, at the larger size: this one is the
+            // feature, so it is not sharing a row with five others.
+            const fs = faceSet(hofPick);
+            return fs && packs.has(fs)
+              ? `<img src="assets/packs/${fs}-garbage-rips-585-booster-pack.webp" alt="" loading="lazy" decoding="async" width="810" height="1440">`
+              : packs.has("default")
+                ? `<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" loading="lazy" decoding="async">`
+                : `<b>Garbage Rips</b>`;
+          })()}
+        </span>
+        <span class="hofx-b">
+          <span class="hofx-t">${esc(hofPick.siteTitle || hofPick.title)}</span>
+          <span class="hofx-m">${[setName.get(faceSet(hofPick)) || "", hofPick.views ? compact(hofPick.views) + " views" : ""]
+            .filter(Boolean).map(esc).join(" &bull; ")}</span>
+          }</span>
+          <span class="hofx-cta">Watch the pull <span aria-hidden="true">&rarr;</span></span>
+        </span>
+      </a>`
+  : "";
+
 const hallHtml = hall.map((v, i) => tile(v, { rank: i + 1, showSet: true })).join("\n");
 /**
  * The newest rip, given its own row.
@@ -439,6 +472,7 @@ const REGIONS = {
   WANTED: wantedHtml,
   RAIL: railHtml,
   HOF: hallHtml,
+  HOFPICK: hofHtml,
   LATEST: latestHtml,
   WATCHED: watchedHtml,
   SETS101: setsHtml,
