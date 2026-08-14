@@ -47,7 +47,37 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="/assets/ui.css?v=ab95a609">
+<!--
+  WebSite + SearchAction, which is what makes Google offer a search box under
+  the site in results rather than just a list of links. It is only honest to
+  claim when the endpoint is real, and this one is: /search.html reads ?q= on
+  load and searches all 420 indexed entries.
+
+  The absolute urls here need no maintenance. build-proto.mjs rewrites this
+  whole file from the staging host to the real one on the LIVE flip, by
+  replacing the host string wherever it appears, so anything added to this head
+  moves with the rest.
+-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Garbage Rips 585",
+  "alternateName": "GarbageRips585",
+  "url": "https://garbagerips585.github.io/",
+  "inLanguage": "en-US",
+  "publisher": {"@type": "Organization", "name": "Garbage Rips 585", "url": "https://garbagerips585.github.io/"},
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://garbagerips585.github.io/search.html?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<link rel="stylesheet" href="/assets/ui.css?v=a120d935">
 <link rel="stylesheet" href="/assets/packs.css?v=2d406974">
 </head>
 <body>
