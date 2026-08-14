@@ -16,6 +16,7 @@
 import { writeFile, readFile, mkdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { rarityLabel } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "ptcg");
@@ -143,11 +144,81 @@ for (const [setId, apiId] of Object.entries(SET_MAP)) {
     console.log(`cards unavailable: ${e.message}`);
   }
 
+  /**
+   * THE CHECKLIST WINS, WHERE THERE IS ONE.
+   *
+   * These counts came from the Pokemon TCG API while the checklist printed
+   * directly underneath them on the same page comes from TCGdex. Two APIs, two
+   * vocabularies and two slightly different card lists, so /sets/<id>.html was
+   * printing two different answers to "how many Ultra Rares are in this set":
+   *
+   *   ascended-heroes  14 Ultra Rare + 7 "Mega Attack Rare" here, against 21
+   *                    Ultra Rare and no Mega Attack Rare in the checklist
+   *   pokemon-go       "Rare Holo VSTAR" here, "Holo Rare VSTAR" there, so
+   *                    nothing joined at all
+   *   white-flare      four tiers off by one
+   *   black-bolt       two tiers off by one
+   *
+   * The checklist is the authority because it is the list the page actually
+   * renders, card by card, so a reader can count it. A number they cannot
+   * check against the page beneath it is worse than no number.
+   *
+   * Counted through rarityLabel so the key matches what the page displays, and
+   * so the two spellings of the same rarity collapse into one.
+   *
+   * Falls back to the API count when no checklist exists yet, which is the
+   * case for a set added here before sync-cards.mjs has fetched it.
+   */
   const rarities = {};
-  for (const c of cards) {
-    const r = c.rarity || "Unlisted";
-    rarities[r] = (rarities[r] || 0) + 1;
+  let raritiesFrom = "pokemontcg.io";
+  let checklist = null;
+  try {
+    checklist = JSON.parse(
+      await readFile(join(ROOT, `public/data/cards/${setId}.json`), "utf8")
+    ).cards;
+  } catch {
+    /* no checklist for this set yet */
   }
+  if (checklist?.length) {
+    raritiesFrom = "checklist";
+    for (const c of checklist) {
+      const r = rarityLabel(c.rarity) || "Unlisted";
+      rarities[r] = (rarities[r] || 0) + 1;
+    }
+  } else {
+    for (const c of cards) {
+      const r = rarityLabel(c.rarity) || "Unlisted";
+      rarities[r] = (rarities[r] || 0) + 1;
+    }
+  }
+
+  /**
+   * One vocabulary per page, for a chase card too.
+   *
+   * Preference order:
+   *   1. the checklist's own word for that exact card, matched on number
+   *   2. the checklist's spelling of the same words in a different order
+   *   3. the API's string, unchanged
+   *
+   * Step 2 exists because the two sources transpose: "Rare Ultra" against
+   * "Ultra Rare", "Rare Holo VSTAR" against "Holo Rare VSTAR". Matching on the
+   * SET OF WORDS renames only where the same rarity already appears in this
+   * set's checklist under another order, so it cannot invent a rarity the set
+   * does not have. "Rare Rainbow" stays as it is on a set whose checklist has
+   * no rainbow tier, which is the honest outcome.
+   *
+   * Step 3 is reached only by a card the checklist does not list at all, which
+   * is 14 cards across two sets, all numbered past the checklist's range.
+   */
+  const chaseRarity = (c, list) => {
+    const exact = (list || []).find((x) => String(x.n) === String(c.number));
+    if (exact?.rarity) return exact.rarity;
+    if (!c.rarity) return null;
+    const key = (r) => String(r).toLowerCase().split(/\s+/).sort().join(" ");
+    const want = key(c.rarity);
+    const match = (list || []).find((x) => x.rarity && key(x.rarity) === want);
+    return match ? match.rarity : c.rarity;
+  };
 
   const priced = cards.filter((c) => marketPrice(c) > 0);
   const chase = priced
@@ -156,7 +227,16 @@ for (const [setId, apiId] of Object.entries(SET_MAP)) {
     .map((c) => ({
       name: c.name,
       number: c.number,
-      rarity: c.rarity || null,
+      // SAME VOCABULARY AS THE LADDER ABOVE IT. The rarity counts now come
+      // from the checklist, and these cards were still carrying the Pokemon
+      // TCG API's word for the same thing, so /sets/ascended-heroes.html said
+      // the set holds 21 Ultra Rares and no Mega Attack Rares while two chase
+      // cards on the same page were labelled "Mega Attack Rare".
+      //
+      // Matched on card number, which is what identifies a printing. Falls
+      // back to the API's own string when the card is not in the checklist,
+      // which beats printing nothing.
+      rarity: chaseRarity(c, checklist),
       price: Math.round(marketPrice(c) * 100) / 100,
       image: c.images?.small || null,
       imageLarge: c.images?.large || null,
@@ -177,6 +257,8 @@ for (const [setId, apiId] of Object.entries(SET_MAP)) {
         : null,
     symbol: meta.images?.symbol || null,
     rarities,
+    // Which source the counts above came from, so a page can say.
+    raritiesFrom,
     cardsSeen: cards.length,
     // Prices are missing entirely for the newest sets: the API carries their
     // card lists before TCGplayer data catches up. Pages must handle zero.

@@ -205,7 +205,24 @@ try {
           tcgChanged++;
         }
       }
-      if (c.rarity) c.rarity = prettyRarity(c.rarity);
+      // THE CHECKLIST'S WORD FOR THIS CARD, where it has one.
+      //
+      // This file is a scrape, and TCGplayer's vocabulary is not the
+      // checklist's: it carried MEGA_ATTACK_RARE for two Ascended Heroes cards
+      // the checklist lists as Ultra Rare, so /sets/ascended-heroes.html said
+      // the set holds 21 Ultra Rares and no Mega Attack Rares while two cards
+      // on the same page were labelled Mega Attack Rare. prettyRarity only
+      // made the shouting readable; it did not make it agree.
+      //
+      // Matched on card number, the thing that identifies a printing. Falls
+      // back to prettyRarity for a card the checklist does not list.
+      {
+        const fromChecklist = (bySet.get(slug) || []).find(
+          (x) => norm(x.n) === norm(c.number),
+        )?.rarity;
+        if (fromChecklist) c.rarity = fromChecklist;
+        else if (c.rarity) c.rarity = prettyRarity(c.rarity);
+      }
       if (typeof c.price === "number" && Math.abs(c.price - p) < 0.005) {
         unchanged++;
         continue;

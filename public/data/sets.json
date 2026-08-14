@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-08-11",
+  "syncedAt": "2026-08-14",
   "rarityOrder": [
     "Mega Hyper Rare",
     "Hyper Rare",
@@ -36,6 +36,7 @@
         "Special Illustration Rare": 6,
         "Mega Hyper Rare": 1
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 120,
       "pricedCount": 120,
       "pricesAsOf": "2026-08-12",
@@ -113,11 +114,7 @@
           "source": "TCGdex"
         }
       ],
-      "notes": {
-        "inPrint": "",
-        "packPrice": "",
-        "funFacts": []
-      },
+      "notes": null,
       "priceSource": "TCGdex"
     },
     {
@@ -140,6 +137,7 @@
         "Special Illustration Rare": 6,
         "Mega Hyper Rare": 1
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 122,
       "pricedCount": 122,
       "pricesAsOf": "2026-08-12",
@@ -240,6 +238,7 @@
         "Special Illustration Rare": 6,
         "Mega Hyper Rare": 1
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 124,
       "pricedCount": 124,
       "pricesAsOf": "2026-08-12",
@@ -331,16 +330,16 @@
       "secretCount": 78,
       "symbol": "https://images.scrydex.com/pokemon/me2pt5-symbol/symbol",
       "rarities": {
+        "Common": 84,
         "Uncommon": 69,
         "Double Rare": 39,
-        "Common": 84,
         "Rare": 25,
         "Illustration Rare": 33,
-        "Ultra Rare": 14,
-        "Mega attack rare": 7,
+        "Ultra Rare": 21,
         "Special Illustration Rare": 22,
         "Mega Hyper Rare": 2
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 295,
       "pricedCount": 295,
       "pricesAsOf": "2026-08-12",
@@ -441,6 +440,7 @@
         "Special Illustration Rare": 5,
         "Mega Hyper Rare": 1
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 130,
       "pricedCount": 130,
       "pricesAsOf": "2026-08-12",
@@ -448,7 +448,7 @@
         {
           "name": "Mega Charizard X ex",
           "number": "125",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 715.98,
           "image": "https://assets.tcgdex.net/en/me/me02/125/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me02/125/high.webp",
@@ -475,7 +475,7 @@
         {
           "name": "Dawn",
           "number": "129",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 22.66,
           "image": "https://assets.tcgdex.net/en/me/me02/129/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me02/129/high.webp",
@@ -484,7 +484,7 @@
         {
           "name": "Mega Sharpedo ex",
           "number": "127",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 21.11,
           "image": "https://assets.tcgdex.net/en/me/me02/127/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me02/127/high.webp",
@@ -493,7 +493,7 @@
         {
           "name": "Meowth",
           "number": "106",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 20.06,
           "image": "https://assets.tcgdex.net/en/me/me02/106/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me02/106/high.webp",
@@ -502,7 +502,7 @@
         {
           "name": "Rotom ex",
           "number": "126",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 18.87,
           "image": "https://assets.tcgdex.net/en/me/me02/126/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me02/126/high.webp",
@@ -511,7 +511,7 @@
         {
           "name": "Mega Lopunny ex",
           "number": "128",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 17.05,
           "image": "https://assets.tcgdex.net/en/me/me02/128/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me02/128/high.webp",
@@ -541,6 +541,7 @@
         "Special Illustration Rare": 10,
         "Mega Hyper Rare": 2
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 188,
       "pricedCount": 188,
       "pricesAsOf": "2026-08-12",
@@ -566,7 +567,7 @@
         {
           "name": "Mega Lucario ex",
           "number": "179",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 207.55,
           "image": "https://assets.tcgdex.net/en/me/me01/179/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me01/179/high.webp",
@@ -575,7 +576,7 @@
         {
           "name": "Mega Gardevoir ex",
           "number": "178",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 194.46,
           "image": "https://assets.tcgdex.net/en/me/me01/178/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me01/178/high.webp",
@@ -584,7 +585,7 @@
         {
           "name": "Mega Venusaur ex",
           "number": "177",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 156.39,
           "image": "https://assets.tcgdex.net/en/me/me01/177/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me01/177/high.webp",
@@ -593,7 +594,7 @@
         {
           "name": "Mega Latias ex",
           "number": "181",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 86.8,
           "image": "https://assets.tcgdex.net/en/me/me01/181/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me01/181/high.webp",
@@ -602,20 +603,20 @@
         {
           "name": "Lillie's Determination",
           "number": "184",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 65.46,
           "image": "https://assets.tcgdex.net/en/me/me01/184/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me01/184/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/me1-184"
         },
         {
-          "name": "Mega Absol ex",
-          "number": "180",
-          "rarity": "Special Illustration Rare",
-          "price": 59.86,
-          "image": "https://assets.tcgdex.net/en/me/me01/180/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/me/me01/180/high.webp",
-          "url": "https://prices.pokemontcg.io/tcgplayer/me1-180"
+          "name": "Mega Kangaskhan ex",
+          "number": "182",
+          "rarity": "Special illustration rare",
+          "price": 60.18,
+          "image": "https://assets.tcgdex.net/en/me/me01/182/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/me/me01/182/high.webp",
+          "url": "https://prices.pokemontcg.io/tcgplayer/me1-182"
         }
       ],
       "notes": null,
@@ -633,14 +634,15 @@
       "symbol": "https://images.pokemontcg.io/rsv10pt5/symbol.png",
       "rarities": {
         "Common": 38,
-        "Uncommon": 33,
+        "Uncommon": 32,
         "Double Rare": 6,
-        "Rare": 11,
-        "Illustration Rare": 69,
+        "Rare": 10,
+        "Illustration Rare": 70,
         "Ultra Rare": 8,
         "Special Illustration Rare": 7,
-        "Black White Rare": 1
+        "Black White Rare": 2
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 173,
       "pricedCount": 173,
       "pricesAsOf": "2026-08-12",
@@ -648,7 +650,7 @@
         {
           "name": "Victini",
           "number": "172",
-          "rarity": "Rare",
+          "rarity": "Black White Rare",
           "price": 560.28,
           "image": "https://assets.tcgdex.net/en/sv/sv10.5w/172/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5w/172/high.webp",
@@ -666,7 +668,7 @@
         {
           "name": "Reshiram ex",
           "number": "166",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 212.27,
           "image": "https://assets.tcgdex.net/en/sv/sv10.5w/166/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5w/166/high.webp",
@@ -675,7 +677,7 @@
         {
           "name": "Oshawott",
           "number": "105",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 93.84,
           "image": "https://assets.tcgdex.net/en/sv/sv10.5w/105/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5w/105/high.webp",
@@ -684,7 +686,7 @@
         {
           "name": "Hydreigon ex",
           "number": "169",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 83.46,
           "image": "https://assets.tcgdex.net/en/sv/sv10.5w/169/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5w/169/high.webp",
@@ -693,7 +695,7 @@
         {
           "name": "Zoroark",
           "number": "143",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 80.71,
           "image": "https://assets.tcgdex.net/en/sv/sv10.5w/143/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5w/143/high.webp",
@@ -702,7 +704,7 @@
         {
           "name": "Keldeo ex",
           "number": "167",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 76.16,
           "image": "https://assets.tcgdex.net/en/sv/sv10.5w/167/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5w/167/high.webp",
@@ -711,7 +713,7 @@
         {
           "name": "Chandelure",
           "number": "103",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 72.34,
           "image": "https://assets.tcgdex.net/en/sv/sv10.5w/103/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5w/103/high.webp",
@@ -732,28 +734,20 @@
       "secretCount": 86,
       "symbol": "https://images.pokemontcg.io/zsv10pt5/symbol.png",
       "rarities": {
-        "Black White Rare": 1,
         "Common": 39,
         "Double Rare": 6,
         "Uncommon": 31,
-        "Rare": 11,
+        "Rare": 10,
         "Illustration Rare": 69,
         "Ultra Rare": 8,
-        "Special Illustration Rare": 7
+        "Special Illustration Rare": 7,
+        "Black White Rare": 2
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 172,
       "pricedCount": 172,
       "pricesAsOf": "2026-08-12",
       "chase": [
-        {
-          "name": "Victini",
-          "number": "171",
-          "rarity": "Rare",
-          "price": 602,
-          "image": "https://assets.tcgdex.net/en/sv/sv10.5b/171/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5b/171/high.webp",
-          "url": "https://prices.pokemontcg.io/tcgplayer/zsv10pt5-171"
-        },
         {
           "name": "Zekrom ex",
           "number": "172",
@@ -764,9 +758,18 @@
           "url": "https://prices.pokemontcg.io/tcgplayer/zsv10pt5-172"
         },
         {
+          "name": "Victini",
+          "number": "171",
+          "rarity": "Black White Rare",
+          "price": 602,
+          "image": "https://assets.tcgdex.net/en/sv/sv10.5b/171/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5b/171/high.webp",
+          "url": "https://prices.pokemontcg.io/tcgplayer/zsv10pt5-171"
+        },
+        {
           "name": "Zekrom ex",
           "number": "166",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 287.93,
           "image": "https://assets.tcgdex.net/en/sv/sv10.5b/166/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5b/166/high.webp",
@@ -775,7 +778,7 @@
         {
           "name": "Seismitoad",
           "number": "105",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 235.15,
           "image": "https://assets.tcgdex.net/en/sv/sv10.5b/105/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5b/105/high.webp",
@@ -784,7 +787,7 @@
         {
           "name": "Kyurem ex",
           "number": "165",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 80.76,
           "image": "https://assets.tcgdex.net/en/sv/sv10.5b/165/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5b/165/high.webp",
@@ -793,7 +796,7 @@
         {
           "name": "Haxorus",
           "number": "147",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 75.31,
           "image": "https://assets.tcgdex.net/en/sv/sv10.5b/147/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5b/147/high.webp",
@@ -802,7 +805,7 @@
         {
           "name": "N's Plan",
           "number": "170",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 72.11,
           "image": "https://assets.tcgdex.net/en/sv/sv10.5b/170/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5b/170/high.webp",
@@ -811,7 +814,7 @@
         {
           "name": "Volcarona",
           "number": "100",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 62.15,
           "image": "https://assets.tcgdex.net/en/sv/sv10.5b/100/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5b/100/high.webp",
@@ -841,6 +844,7 @@
         "Special Illustration Rare": 11,
         "Hyper Rare": 6
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 244,
       "pricedCount": 244,
       "pricesAsOf": "2026-08-12",
@@ -848,7 +852,7 @@
         {
           "name": "Team Rocket's Mewtwo ex",
           "number": "231",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 508.18,
           "image": "https://assets.tcgdex.net/en/sv/sv10/231/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10/231/high.webp",
@@ -857,7 +861,7 @@
         {
           "name": "Cynthia's Garchomp ex",
           "number": "232",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 249.57,
           "image": "https://assets.tcgdex.net/en/sv/sv10/232/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10/232/high.webp",
@@ -866,7 +870,7 @@
         {
           "name": "Ethan's Ho-Oh ex",
           "number": "230",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 168.15,
           "image": "https://assets.tcgdex.net/en/sv/sv10/230/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10/230/high.webp",
@@ -875,7 +879,7 @@
         {
           "name": "Team Rocket's Nidoking ex",
           "number": "233",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 106.83,
           "image": "https://assets.tcgdex.net/en/sv/sv10/233/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10/233/high.webp",
@@ -884,7 +888,7 @@
         {
           "name": "Team Rocket's Moltres ex",
           "number": "229",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 105.2,
           "image": "https://assets.tcgdex.net/en/sv/sv10/229/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10/229/high.webp",
@@ -893,29 +897,29 @@
         {
           "name": "Team Rocket's Crobat ex",
           "number": "234",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 66.97,
           "image": "https://assets.tcgdex.net/en/sv/sv10/234/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10/234/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv10-234"
         },
         {
-          "name": "Misty's Psyduck",
-          "number": "193",
-          "rarity": "Illustration Rare",
-          "price": 65.85,
-          "image": "https://assets.tcgdex.net/en/sv/sv10/193/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/sv/sv10/193/high.webp",
-          "url": "https://prices.pokemontcg.io/tcgplayer/sv10-193"
-        },
-        {
           "name": "Team Rocket's Mewtwo ex",
           "number": "240",
-          "rarity": "Hyper Rare",
+          "rarity": "Hyper rare",
           "price": 61.27,
           "image": "https://assets.tcgdex.net/en/sv/sv10/240/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10/240/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv10-240"
+        },
+        {
+          "name": "Misty's Psyduck",
+          "number": "193",
+          "rarity": "Illustration rare",
+          "price": 65.85,
+          "image": "https://assets.tcgdex.net/en/sv/sv10/193/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/sv/sv10/193/high.webp",
+          "url": "https://prices.pokemontcg.io/tcgplayer/sv10-193"
         }
       ],
       "notes": null,
@@ -941,6 +945,7 @@
         "Special Illustration Rare": 6,
         "Hyper Rare": 3
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 190,
       "pricedCount": 190,
       "pricesAsOf": "2026-08-12",
@@ -948,7 +953,7 @@
         {
           "name": "Lillie's Clefairy ex",
           "number": "184",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 111.35,
           "image": "https://assets.tcgdex.net/en/sv/sv09/184/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv09/184/high.webp",
@@ -957,7 +962,7 @@
         {
           "name": "Salamence ex",
           "number": "187",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 59.47,
           "image": "https://assets.tcgdex.net/en/sv/sv09/187/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv09/187/high.webp",
@@ -966,7 +971,7 @@
         {
           "name": "N's Zoroark ex",
           "number": "185",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 48.48,
           "image": "https://assets.tcgdex.net/en/sv/sv09/185/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv09/185/high.webp",
@@ -975,7 +980,7 @@
         {
           "name": "Iono's Bellibolt ex",
           "number": "183",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 40.66,
           "image": "https://assets.tcgdex.net/en/sv/sv09/183/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv09/183/high.webp",
@@ -984,34 +989,34 @@
         {
           "name": "Hop's Zacian ex",
           "number": "186",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 34.86,
           "image": "https://assets.tcgdex.net/en/sv/sv09/186/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv09/186/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv9-186"
         },
         {
-          "name": "Articuno",
-          "number": "161",
-          "rarity": "Illustration Rare",
-          "price": 21.35,
-          "image": "https://assets.tcgdex.net/en/sv/sv09/161/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/sv/sv09/161/high.webp",
-          "url": "https://prices.pokemontcg.io/tcgplayer/sv9-161"
-        },
-        {
           "name": "N's Reshiram",
           "number": "167",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 17.96,
           "image": "https://assets.tcgdex.net/en/sv/sv09/167/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv09/167/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv9-167"
         },
         {
+          "name": "Articuno",
+          "number": "161",
+          "rarity": "Illustration rare",
+          "price": 21.35,
+          "image": "https://assets.tcgdex.net/en/sv/sv09/161/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/sv/sv09/161/high.webp",
+          "url": "https://prices.pokemontcg.io/tcgplayer/sv9-161"
+        },
+        {
           "name": "Volcanion ex",
           "number": "182",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 20.06,
           "image": "https://assets.tcgdex.net/en/sv/sv09/182/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv09/182/high.webp",
@@ -1034,13 +1039,14 @@
       "rarities": {
         "Common": 46,
         "Uncommon": 33,
-        "Double Rare": 25,
         "Rare": 21,
+        "Double Rare": 25,
         "ACE SPEC Rare": 6,
         "Ultra Rare": 12,
         "Special Illustration Rare": 32,
         "Hyper Rare": 5
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 180,
       "pricedCount": 180,
       "pricesAsOf": "2026-08-12",
@@ -1048,7 +1054,7 @@
         {
           "name": "Umbreon ex",
           "number": "161",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 1470.58,
           "image": "https://assets.tcgdex.net/en/sv/sv08.5/161/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08.5/161/high.webp",
@@ -1057,7 +1063,7 @@
         {
           "name": "Sylveon ex",
           "number": "156",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 518.08,
           "image": "https://assets.tcgdex.net/en/sv/sv08.5/156/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08.5/156/high.webp",
@@ -1066,7 +1072,7 @@
         {
           "name": "Leafeon ex",
           "number": "144",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 336.93,
           "image": "https://assets.tcgdex.net/en/sv/sv08.5/144/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08.5/144/high.webp",
@@ -1075,7 +1081,7 @@
         {
           "name": "Espeon ex",
           "number": "155",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 315.57,
           "image": "https://assets.tcgdex.net/en/sv/sv08.5/155/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08.5/155/high.webp",
@@ -1084,7 +1090,7 @@
         {
           "name": "Vaporeon ex",
           "number": "149",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 300.38,
           "image": "https://assets.tcgdex.net/en/sv/sv08.5/149/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08.5/149/high.webp",
@@ -1093,7 +1099,7 @@
         {
           "name": "Glaceon ex",
           "number": "150",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 277.78,
           "image": "https://assets.tcgdex.net/en/sv/sv08.5/150/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08.5/150/high.webp",
@@ -1102,7 +1108,7 @@
         {
           "name": "Flareon ex",
           "number": "146",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 225.44,
           "image": "https://assets.tcgdex.net/en/sv/sv08.5/146/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08.5/146/high.webp",
@@ -1111,7 +1117,7 @@
         {
           "name": "Jolteon ex",
           "number": "153",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 203.18,
           "image": "https://assets.tcgdex.net/en/sv/sv08.5/153/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08.5/153/high.webp",
@@ -1142,6 +1148,7 @@
         "Special Illustration Rare": 11,
         "Hyper Rare": 6
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 252,
       "pricedCount": 252,
       "pricesAsOf": "2026-08-12",
@@ -1149,7 +1156,7 @@
         {
           "name": "Pikachu ex",
           "number": "238",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 296.13,
           "image": "https://assets.tcgdex.net/en/sv/sv08/238/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08/238/high.webp",
@@ -1158,7 +1165,7 @@
         {
           "name": "Latias ex",
           "number": "239",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 175.38,
           "image": "https://assets.tcgdex.net/en/sv/sv08/239/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08/239/high.webp",
@@ -1167,7 +1174,7 @@
         {
           "name": "Milotic ex",
           "number": "237",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 129.21,
           "image": "https://assets.tcgdex.net/en/sv/sv08/237/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08/237/high.webp",
@@ -1176,34 +1183,34 @@
         {
           "name": "Pikachu ex",
           "number": "247",
-          "rarity": "Hyper Rare",
+          "rarity": "Hyper rare",
           "price": 97.14,
           "image": "https://assets.tcgdex.net/en/sv/sv08/247/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08/247/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv8-247"
         },
         {
-          "name": "Hydreigon ex",
-          "number": "240",
-          "rarity": "Special Illustration Rare",
-          "price": 36.59,
-          "image": "https://assets.tcgdex.net/en/sv/sv08/240/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/sv/sv08/240/high.webp",
-          "url": "https://prices.pokemontcg.io/tcgplayer/sv8-240"
-        },
-        {
           "name": "Durant ex",
           "number": "236",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 36.55,
           "image": "https://assets.tcgdex.net/en/sv/sv08/236/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08/236/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv8-236"
         },
         {
+          "name": "Hydreigon ex",
+          "number": "240",
+          "rarity": "Special illustration rare",
+          "price": 36.59,
+          "image": "https://assets.tcgdex.net/en/sv/sv08/240/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/sv/sv08/240/high.webp",
+          "url": "https://prices.pokemontcg.io/tcgplayer/sv8-240"
+        },
+        {
           "name": "Latios",
           "number": "203",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 34.32,
           "image": "https://assets.tcgdex.net/en/sv/sv08/203/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08/203/high.webp",
@@ -1212,7 +1219,7 @@
         {
           "name": "Alolan Exeggutor ex",
           "number": "242",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 32.81,
           "image": "https://assets.tcgdex.net/en/sv/sv08/242/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08/242/high.webp",
@@ -1243,6 +1250,7 @@
         "Special Illustration Rare": 6,
         "Hyper Rare": 3
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 175,
       "pricedCount": 175,
       "pricesAsOf": "2026-08-12",
@@ -1250,7 +1258,7 @@
         {
           "name": "Squirtle",
           "number": "148",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 118.81,
           "image": "https://assets.tcgdex.net/en/sv/sv07/148/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv07/148/high.webp",
@@ -1259,7 +1267,7 @@
         {
           "name": "Bulbasaur",
           "number": "143",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 105.26,
           "image": "https://assets.tcgdex.net/en/sv/sv07/143/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv07/143/high.webp",
@@ -1268,7 +1276,7 @@
         {
           "name": "Dachsbun ex",
           "number": "169",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 65.42,
           "image": "https://assets.tcgdex.net/en/sv/sv07/169/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv07/169/high.webp",
@@ -1277,7 +1285,7 @@
         {
           "name": "Hydrapple ex",
           "number": "167",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 39.27,
           "image": "https://assets.tcgdex.net/en/sv/sv07/167/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv07/167/high.webp",
@@ -1286,7 +1294,7 @@
         {
           "name": "Terapagos ex",
           "number": "170",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 38.07,
           "image": "https://assets.tcgdex.net/en/sv/sv07/170/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv07/170/high.webp",
@@ -1295,7 +1303,7 @@
         {
           "name": "Galvantula ex",
           "number": "168",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 20.45,
           "image": "https://assets.tcgdex.net/en/sv/sv07/168/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv07/168/high.webp",
@@ -1304,7 +1312,7 @@
         {
           "name": "Milcery",
           "number": "152",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 19.41,
           "image": "https://assets.tcgdex.net/en/sv/sv07/152/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv07/152/high.webp",
@@ -1313,7 +1321,7 @@
         {
           "name": "Lacey",
           "number": "172",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 17.21,
           "image": "https://assets.tcgdex.net/en/sv/sv07/172/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv07/172/high.webp",
@@ -1344,6 +1352,7 @@
         "Special Illustration Rare": 5,
         "Hyper Rare": 5
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 99,
       "pricedCount": 99,
       "pricesAsOf": "2026-08-12",
@@ -1351,7 +1360,7 @@
         {
           "name": "Persian",
           "number": "78",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 72.74,
           "image": "https://assets.tcgdex.net/en/sv/sv06.5/078/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv06.5/078/high.webp",
@@ -1360,7 +1369,7 @@
         {
           "name": "Basic Darkness Energy",
           "number": "98",
-          "rarity": "Hyper Rare",
+          "rarity": "Hyper rare",
           "price": 62.9,
           "image": "https://assets.tcgdex.net/en/sv/sv06.5/098/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv06.5/098/high.webp",
@@ -1369,7 +1378,7 @@
         {
           "name": "Houndoom",
           "number": "66",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 56.99,
           "image": "https://assets.tcgdex.net/en/sv/sv06.5/066/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv06.5/066/high.webp",
@@ -1378,7 +1387,7 @@
         {
           "name": "Duskull",
           "number": "68",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 53.45,
           "image": "https://assets.tcgdex.net/en/sv/sv06.5/068/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv06.5/068/high.webp",
@@ -1387,7 +1396,7 @@
         {
           "name": "Horsea",
           "number": "67",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 49.01,
           "image": "https://assets.tcgdex.net/en/sv/sv06.5/067/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv06.5/067/high.webp",
@@ -1396,7 +1405,7 @@
         {
           "name": "Cassiopeia",
           "number": "94",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 43.44,
           "image": "https://assets.tcgdex.net/en/sv/sv06.5/094/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv06.5/094/high.webp",
@@ -1405,7 +1414,7 @@
         {
           "name": "Fezandipiti ex",
           "number": "92",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 41.22,
           "image": "https://assets.tcgdex.net/en/sv/sv06.5/092/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv06.5/092/high.webp",
@@ -1414,7 +1423,7 @@
         {
           "name": "Dusclops",
           "number": "69",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 37.45,
           "image": "https://assets.tcgdex.net/en/sv/sv06.5/069/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv06.5/069/high.webp",
@@ -1437,14 +1446,15 @@
       "rarities": {
         "Common": 76,
         "Uncommon": 55,
-        "Double Rare": 14,
         "Rare": 16,
+        "Double Rare": 14,
         "ACE SPEC Rare": 6,
         "Illustration Rare": 21,
         "Ultra Rare": 21,
         "Special Illustration Rare": 11,
         "Hyper Rare": 6
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 226,
       "pricedCount": 226,
       "pricesAsOf": "2026-08-12",
@@ -1452,7 +1462,7 @@
         {
           "name": "Greninja ex",
           "number": "214",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 375.54,
           "image": "https://assets.tcgdex.net/en/sv/sv06/214/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv06/214/high.webp",
@@ -1461,7 +1471,7 @@
         {
           "name": "Perrin",
           "number": "220",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 173.84,
           "image": "https://assets.tcgdex.net/en/sv/sv06/220/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv06/220/high.webp",
@@ -1470,7 +1480,7 @@
         {
           "name": "Eevee",
           "number": "188",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 98.28,
           "image": "https://assets.tcgdex.net/en/sv/sv06/188/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv06/188/high.webp",
@@ -1479,7 +1489,7 @@
         {
           "name": "Chansey",
           "number": "187",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 56.32,
           "image": "https://assets.tcgdex.net/en/sv/sv06/187/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv06/187/high.webp",
@@ -1488,7 +1498,7 @@
         {
           "name": "Carmine",
           "number": "217",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 55.22,
           "image": "https://assets.tcgdex.net/en/sv/sv06/217/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv06/217/high.webp",
@@ -1497,7 +1507,7 @@
         {
           "name": "Bloodmoon Ursaluna ex",
           "number": "216",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 48.67,
           "image": "https://assets.tcgdex.net/en/sv/sv06/216/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv06/216/high.webp",
@@ -1506,7 +1516,7 @@
         {
           "name": "Lana's Aid",
           "number": "219",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 41.1,
           "image": "https://assets.tcgdex.net/en/sv/sv06/219/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv06/219/high.webp",
@@ -1515,7 +1525,7 @@
         {
           "name": "Sinistcha ex",
           "number": "210",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 34.77,
           "image": "https://assets.tcgdex.net/en/sv/sv06/210/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv06/210/high.webp",
@@ -1546,6 +1556,7 @@
         "Special Illustration Rare": 10,
         "Hyper Rare": 6
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 218,
       "pricedCount": 218,
       "pricesAsOf": "2026-08-12",
@@ -1553,7 +1564,7 @@
         {
           "name": "Gastly",
           "number": "177",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 97.88,
           "image": "https://assets.tcgdex.net/en/sv/sv05/177/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv05/177/high.webp",
@@ -1562,7 +1573,7 @@
         {
           "name": "Morty's Conviction",
           "number": "211",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 71.1,
           "image": "https://assets.tcgdex.net/en/sv/sv05/211/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv05/211/high.webp",
@@ -1571,7 +1582,7 @@
         {
           "name": "Raging Bolt ex",
           "number": "208",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 67.57,
           "image": "https://assets.tcgdex.net/en/sv/sv05/208/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv05/208/high.webp",
@@ -1589,7 +1600,7 @@
         {
           "name": "Sawsbuck",
           "number": "166",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 59.46,
           "image": "https://assets.tcgdex.net/en/sv/sv05/166/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv05/166/high.webp",
@@ -1598,7 +1609,7 @@
         {
           "name": "Iron Crown ex",
           "number": "206",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 56.24,
           "image": "https://assets.tcgdex.net/en/sv/sv05/206/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv05/206/high.webp",
@@ -1607,7 +1618,7 @@
         {
           "name": "Gouging Fire ex",
           "number": "204",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 56.22,
           "image": "https://assets.tcgdex.net/en/sv/sv05/204/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv05/204/high.webp",
@@ -1616,7 +1627,7 @@
         {
           "name": "Walking Wake ex",
           "number": "205",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 53.22,
           "image": "https://assets.tcgdex.net/en/sv/sv05/205/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv05/205/high.webp",
@@ -1639,15 +1650,16 @@
       "rarities": {
         "Common": 40,
         "Double Rare": 10,
-        "Rare": 16,
         "Uncommon": 25,
+        "Rare": 16,
         "Shiny Rare": 120,
         "Shiny Ultra Rare": 12,
         "Illustration Rare": 3,
-        "Special Illustration Rare": 8,
         "Ultra Rare": 5,
+        "Special Illustration Rare": 8,
         "Hyper Rare": 6
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 245,
       "pricedCount": 244,
       "pricesAsOf": "2026-08-12",
@@ -1655,7 +1667,7 @@
         {
           "name": "Mew ex",
           "number": "232",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 1013.78,
           "image": "https://assets.tcgdex.net/en/sv/sv04.5/232/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04.5/232/high.webp",
@@ -1664,7 +1676,7 @@
         {
           "name": "Charizard ex",
           "number": "234",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 289.66,
           "image": "https://assets.tcgdex.net/en/sv/sv04.5/234/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04.5/234/high.webp",
@@ -1673,7 +1685,7 @@
         {
           "name": "Gardevoir ex",
           "number": "233",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 180.08,
           "image": "https://assets.tcgdex.net/en/sv/sv04.5/233/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04.5/233/high.webp",
@@ -1682,7 +1694,7 @@
         {
           "name": "Pikachu",
           "number": "131",
-          "rarity": "Shiny Rare",
+          "rarity": "Shiny rare",
           "price": 80.87,
           "image": "https://assets.tcgdex.net/en/sv/sv04.5/131/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04.5/131/high.webp",
@@ -1691,7 +1703,7 @@
         {
           "name": "Snorlax",
           "number": "202",
-          "rarity": "Shiny Rare",
+          "rarity": "Shiny rare",
           "price": 57.12,
           "image": "https://assets.tcgdex.net/en/sv/sv04.5/202/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04.5/202/high.webp",
@@ -1700,7 +1712,7 @@
         {
           "name": "Charmander",
           "number": "109",
-          "rarity": "Shiny Rare",
+          "rarity": "Shiny rare",
           "price": 53.08,
           "image": "https://assets.tcgdex.net/en/sv/sv04.5/109/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04.5/109/high.webp",
@@ -1709,7 +1721,7 @@
         {
           "name": "Mimikyu",
           "number": "160",
-          "rarity": "Shiny Rare",
+          "rarity": "Shiny rare",
           "price": 51.14,
           "image": "https://assets.tcgdex.net/en/sv/sv04.5/160/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04.5/160/high.webp",
@@ -1718,7 +1730,7 @@
         {
           "name": "Ditto",
           "number": "201",
-          "rarity": "Shiny Rare",
+          "rarity": "Shiny rare",
           "price": 43.58,
           "image": "https://assets.tcgdex.net/en/sv/sv04.5/201/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04.5/201/high.webp",
@@ -1748,6 +1760,7 @@
         "Special Illustration Rare": 15,
         "Hyper Rare": 7
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 266,
       "pricedCount": 266,
       "pricesAsOf": "2026-08-12",
@@ -1755,7 +1768,7 @@
         {
           "name": "Groudon",
           "number": "199",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 126.82,
           "image": "https://assets.tcgdex.net/en/sv/sv04/199/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04/199/high.webp",
@@ -1764,7 +1777,7 @@
         {
           "name": "Altaria ex",
           "number": "253",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 57.86,
           "image": "https://assets.tcgdex.net/en/sv/sv04/253/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04/253/high.webp",
@@ -1773,7 +1786,7 @@
         {
           "name": "Morpeko",
           "number": "206",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 53.15,
           "image": "https://assets.tcgdex.net/en/sv/sv04/206/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04/206/high.webp",
@@ -1782,7 +1795,7 @@
         {
           "name": "Plusle",
           "number": "193",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 46.21,
           "image": "https://assets.tcgdex.net/en/sv/sv04/193/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04/193/high.webp",
@@ -1791,7 +1804,7 @@
         {
           "name": "Minun",
           "number": "194",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 44.38,
           "image": "https://assets.tcgdex.net/en/sv/sv04/194/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04/194/high.webp",
@@ -1800,7 +1813,7 @@
         {
           "name": "Steelix",
           "number": "208",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 40.3,
           "image": "https://assets.tcgdex.net/en/sv/sv04/208/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04/208/high.webp",
@@ -1809,7 +1822,7 @@
         {
           "name": "Roaring Moon ex",
           "number": "251",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 39.4,
           "image": "https://assets.tcgdex.net/en/sv/sv04/251/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04/251/high.webp",
@@ -1818,7 +1831,7 @@
         {
           "name": "Garchomp ex",
           "number": "245",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 35.59,
           "image": "https://assets.tcgdex.net/en/sv/sv04/245/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04/245/high.webp",
@@ -1839,8 +1852,8 @@
       "secretCount": 42,
       "symbol": "https://images.pokemontcg.io/sv3pt5/symbol.png",
       "rarities": {
-        "Uncommon": 62,
         "Common": 66,
+        "Uncommon": 62,
         "Double Rare": 12,
         "Rare": 25,
         "Illustration Rare": 16,
@@ -1848,6 +1861,7 @@
         "Special Illustration Rare": 7,
         "Hyper Rare": 3
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 207,
       "pricedCount": 207,
       "pricesAsOf": "2026-08-12",
@@ -1855,7 +1869,7 @@
         {
           "name": "Charizard ex",
           "number": "199",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 378.16,
           "image": "https://assets.tcgdex.net/en/sv/sv03.5/199/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03.5/199/high.webp",
@@ -1864,7 +1878,7 @@
         {
           "name": "Blastoise ex",
           "number": "200",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 138.12,
           "image": "https://assets.tcgdex.net/en/sv/sv03.5/200/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03.5/200/high.webp",
@@ -1873,7 +1887,7 @@
         {
           "name": "Venusaur ex",
           "number": "198",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 116.89,
           "image": "https://assets.tcgdex.net/en/sv/sv03.5/198/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03.5/198/high.webp",
@@ -1882,34 +1896,34 @@
         {
           "name": "Zapdos ex",
           "number": "202",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 100.77,
           "image": "https://assets.tcgdex.net/en/sv/sv03.5/202/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03.5/202/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv3pt5-202"
         },
         {
-          "name": "Pikachu",
-          "number": "173",
-          "rarity": "Illustration Rare",
-          "price": 92.24,
-          "image": "https://assets.tcgdex.net/en/sv/sv03.5/173/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/sv/sv03.5/173/high.webp",
-          "url": "https://prices.pokemontcg.io/tcgplayer/sv3pt5-173"
-        },
-        {
           "name": "Charmander",
           "number": "168",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 92.74,
           "image": "https://assets.tcgdex.net/en/sv/sv03.5/168/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03.5/168/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv3pt5-168"
         },
         {
+          "name": "Pikachu",
+          "number": "173",
+          "rarity": "Illustration rare",
+          "price": 92.24,
+          "image": "https://assets.tcgdex.net/en/sv/sv03.5/173/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/sv/sv03.5/173/high.webp",
+          "url": "https://prices.pokemontcg.io/tcgplayer/sv3pt5-173"
+        },
+        {
           "name": "Squirtle",
           "number": "170",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 90.77,
           "image": "https://assets.tcgdex.net/en/sv/sv03.5/170/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03.5/170/high.webp",
@@ -1918,7 +1932,7 @@
         {
           "name": "Bulbasaur",
           "number": "166",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 83.14,
           "image": "https://assets.tcgdex.net/en/sv/sv03.5/166/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03.5/166/high.webp",
@@ -1948,6 +1962,7 @@
         "Special Illustration Rare": 6,
         "Hyper Rare": 3
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 230,
       "pricedCount": 230,
       "pricesAsOf": "2026-08-12",
@@ -1955,7 +1970,7 @@
         {
           "name": "Charizard ex",
           "number": "223",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 109.88,
           "image": "https://assets.tcgdex.net/en/sv/sv03/223/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03/223/high.webp",
@@ -1964,7 +1979,7 @@
         {
           "name": "Ninetales",
           "number": "199",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 45.69,
           "image": "https://assets.tcgdex.net/en/sv/sv03/199/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03/199/high.webp",
@@ -1973,7 +1988,7 @@
         {
           "name": "Cleffa",
           "number": "202",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 38.74,
           "image": "https://assets.tcgdex.net/en/sv/sv03/202/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03/202/high.webp",
@@ -1982,7 +1997,7 @@
         {
           "name": "Charizard ex",
           "number": "228",
-          "rarity": "Hyper Rare",
+          "rarity": "Hyper rare",
           "price": 36.83,
           "image": "https://assets.tcgdex.net/en/sv/sv03/228/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03/228/high.webp",
@@ -1991,7 +2006,7 @@
         {
           "name": "Gloom",
           "number": "198",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 22.17,
           "image": "https://assets.tcgdex.net/en/sv/sv03/198/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03/198/high.webp",
@@ -2009,7 +2024,7 @@
         {
           "name": "Pidgeot ex",
           "number": "225",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 20.24,
           "image": "https://assets.tcgdex.net/en/sv/sv03/225/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03/225/high.webp",
@@ -2018,7 +2033,7 @@
         {
           "name": "Scizor",
           "number": "205",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 16.47,
           "image": "https://assets.tcgdex.net/en/sv/sv03/205/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03/205/high.webp",
@@ -2048,6 +2063,7 @@
         "Special Illustration Rare": 15,
         "Hyper Rare": 9
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 279,
       "pricedCount": 279,
       "pricesAsOf": "2026-08-12",
@@ -2055,7 +2071,7 @@
         {
           "name": "Magikarp",
           "number": "203",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 394.34,
           "image": "https://assets.tcgdex.net/en/sv/sv02/203/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv02/203/high.webp",
@@ -2064,7 +2080,7 @@
         {
           "name": "Raichu",
           "number": "211",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 100.42,
           "image": "https://assets.tcgdex.net/en/sv/sv02/211/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv02/211/high.webp",
@@ -2073,7 +2089,7 @@
         {
           "name": "Maushold",
           "number": "226",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 95.45,
           "image": "https://assets.tcgdex.net/en/sv/sv02/226/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv02/226/high.webp",
@@ -2082,7 +2098,7 @@
         {
           "name": "Tyranitar",
           "number": "222",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 73.84,
           "image": "https://assets.tcgdex.net/en/sv/sv02/222/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv02/222/high.webp",
@@ -2091,7 +2107,7 @@
         {
           "name": "Sprigatito",
           "number": "196",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 63.79,
           "image": "https://assets.tcgdex.net/en/sv/sv02/196/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv02/196/high.webp",
@@ -2100,7 +2116,7 @@
         {
           "name": "Iono",
           "number": "269",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 61.16,
           "image": "https://assets.tcgdex.net/en/sv/sv02/269/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv02/269/high.webp",
@@ -2109,7 +2125,7 @@
         {
           "name": "Tinkaton ex",
           "number": "262",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 58.58,
           "image": "https://assets.tcgdex.net/en/sv/sv02/262/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv02/262/high.webp",
@@ -2118,7 +2134,7 @@
         {
           "name": "Fuecoco",
           "number": "201",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 56.53,
           "image": "https://assets.tcgdex.net/en/sv/sv02/201/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv02/201/high.webp",
@@ -2148,6 +2164,7 @@
         "Special Illustration Rare": 10,
         "Hyper Rare": 6
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 258,
       "pricedCount": 258,
       "pricesAsOf": "2026-08-12",
@@ -2155,7 +2172,7 @@
         {
           "name": "Gardevoir ex",
           "number": "245",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 71.01,
           "image": "https://assets.tcgdex.net/en/sv/sv01/245/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv01/245/high.webp",
@@ -2164,34 +2181,34 @@
         {
           "name": "Drowzee",
           "number": "210",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 58.25,
           "image": "https://assets.tcgdex.net/en/sv/sv01/210/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv01/210/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv1-210"
         },
         {
-          "name": "Kirlia",
-          "number": "212",
-          "rarity": "Illustration Rare",
-          "price": 44.04,
-          "image": "https://assets.tcgdex.net/en/sv/sv01/212/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/sv/sv01/212/high.webp",
-          "url": "https://prices.pokemontcg.io/tcgplayer/sv1-212"
-        },
-        {
           "name": "Ralts",
           "number": "211",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 43.82,
           "image": "https://assets.tcgdex.net/en/sv/sv01/211/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv01/211/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv1-211"
         },
         {
+          "name": "Kirlia",
+          "number": "212",
+          "rarity": "Illustration rare",
+          "price": 44.04,
+          "image": "https://assets.tcgdex.net/en/sv/sv01/212/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/sv/sv01/212/high.webp",
+          "url": "https://prices.pokemontcg.io/tcgplayer/sv1-212"
+        },
+        {
           "name": "Slowpoke",
           "number": "204",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 40.3,
           "image": "https://assets.tcgdex.net/en/sv/sv01/204/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv01/204/high.webp",
@@ -2200,29 +2217,29 @@
         {
           "name": "Riolu",
           "number": "215",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 33.72,
           "image": "https://assets.tcgdex.net/en/sv/sv01/215/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv01/215/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv1-215"
         },
         {
+          "name": "Miraidon ex",
+          "number": "244",
+          "rarity": "Special illustration rare",
+          "price": 24.5,
+          "image": "https://assets.tcgdex.net/en/sv/sv01/244/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/sv/sv01/244/high.webp",
+          "url": "https://prices.pokemontcg.io/tcgplayer/sv1-244"
+        },
+        {
           "name": "Fidough",
           "number": "213",
-          "rarity": "Illustration Rare",
+          "rarity": "Illustration rare",
           "price": 24.87,
           "image": "https://assets.tcgdex.net/en/sv/sv01/213/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv01/213/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv1-213"
-        },
-        {
-          "name": "Wiglett",
-          "number": "206",
-          "rarity": "Illustration Rare",
-          "price": 24.25,
-          "image": "https://assets.tcgdex.net/en/sv/sv01/206/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/sv/sv01/206/high.webp",
-          "url": "https://prices.pokemontcg.io/tcgplayer/sv1-206"
         }
       ],
       "notes": null,
@@ -2241,15 +2258,15 @@
       "rarities": {
         "Common": 22,
         "Uncommon": 20,
-        "Rare Holo": 16,
+        "Holo Rare": 16,
         "Radiant Rare": 3,
-        "Rare Holo V": 6,
-        "Rare Holo VSTAR": 2,
-        "Rare Holo VMAX": 1,
-        "Rare Ultra": 8,
-        "Rare Rainbow": 7,
-        "Rare Secret": 3
+        "Holo Rare V": 6,
+        "Holo Rare VMAX": 2,
+        "Holo Rare VSTAR": 1,
+        "Ultra Rare": 8,
+        "Secret Rare": 10
       },
+      "raritiesFrom": "checklist",
       "cardsSeen": 88,
       "pricedCount": 88,
       "pricesAsOf": "2026-08-12",
@@ -2257,7 +2274,7 @@
         {
           "name": "Mewtwo V",
           "number": "72",
-          "rarity": "Rare Ultra",
+          "rarity": "Ultra Rare",
           "price": 61.12,
           "image": "https://assets.tcgdex.net/en/swsh/swsh10.5/072/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh10.5/072/high.webp",
@@ -2284,7 +2301,7 @@
         {
           "name": "Mewtwo VSTAR",
           "number": "86",
-          "rarity": "Rare Secret",
+          "rarity": "Secret Rare",
           "price": 35.56,
           "image": "https://assets.tcgdex.net/en/swsh/swsh10.5/086/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh10.5/086/high.webp",
@@ -2302,7 +2319,7 @@
         {
           "name": "Dragonite V",
           "number": "76",
-          "rarity": "Rare Ultra",
+          "rarity": "Ultra Rare",
           "price": 15.81,
           "image": "https://assets.tcgdex.net/en/swsh/swsh10.5/076/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh10.5/076/high.webp",
