@@ -2385,11 +2385,41 @@ span.cq-name{color:var(--ink)}
 /* The art is capped so the title, the set and the CTA stay on screen with it.
    svh, not vh, for the same reason as the games: vh on iOS is the height with
    the browser chrome hidden, which would push the text under the address bar. */
-.vcar .hero-art{max-height:min(58svh,520px);margin:0 auto;width:100%}
-.vcar .hero-art img{object-fit:contain}
-@media(min-width:760px){
-  .vcar .hero{grid-template-columns:minmax(220px,340px) 1fr;gap:var(--s5);padding:var(--s5)}
-  .vcar .hero-art{max-height:none}
+/* The art keeps its 2:3 shape and its WIDTH follows the height cap.
+   Setting width:100% with only a height cap made the box 694px wide and 520
+   tall between 600 and 834px, so the pack sat in the middle of a wide empty
+   panel with 170px of nothing either side. Letting aspect-ratio and max-height
+   decide the width means the box is always exactly the pack's shape. */
+/* WIDTH drives it, and aspect-ratio gives the height.
+   Two failed attempts worth recording. width:100% with only a max-height made
+   the box 694px wide and 520 tall between 600 and 834px, so the pack floated in
+   a wide empty panel. Switching to width:auto + max-height collapsed it to 0x0
+   at EVERY width: the box had no definite size, its image is sized at 100% of
+   the box, and the two resolved each other to nothing.
+   A definite max-width breaks the circle: the box is never wider than the pack
+   wants to be, and 2:3 does the rest. */
+.vcar .hero-art,
+/* The player REPLACES the art link, so it has to inherit the same cap. Without
+   this it took 100% of the hero column: 586x1041 at 768px wide, which shoved
+   the page down 501px the moment you pressed play. */
+.vcar .tile-stage{width:100%;max-width:360px;margin:0 auto}
+/* DESKTOP: CENTRED AND CAPPED, not stretched across the band.
+   The slide is as wide as the page, and a two-column hero inside it put a
+   340px pack next to a 978px column of nothing on a 1440 screen: an enormous
+   band holding a small video, which is the opposite of the point. The card is
+   capped and centred so the artwork gets a real share of it. */
+/* TWO COLUMNS ONLY WHEN BOTH FIT, which is not at 760.
+   At 768 the art took its 440px maximum and left the text 206px, so the title
+   wrapped to three lines in a strip beside a huge pack. The art is a share of
+   the row rather than a fixed maximum now, and the text has a floor, so the
+   split is only used when there is genuinely room for both halves. */
+@media(min-width:900px){
+  .vcar .hero{max-width:1000px;margin:0 auto;
+    grid-template-columns:minmax(260px,44%) minmax(300px,1fr);gap:var(--s5);padding:var(--s5)}
+  /* More room once the layout is two-column, so the pack can be bigger than
+     the 360px cap the stacked layout uses to stop it sprawling. */
+  .vcar .hero-art,
+  .vcar .tile-stage{max-width:440px}
 }
 
 .vcar-bar{display:flex;align-items:center;justify-content:center;gap:var(--s3);margin-top:var(--s3)}
