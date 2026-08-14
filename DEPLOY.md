@@ -102,8 +102,13 @@ which would have had the sitemap and the pages disagreeing about where the site
 lives. `videos.html` and `playlists.html` are in that list now, but the grep is
 what proves it rather than the intention.
 
-**The flip has been rehearsed, on 14 August 2026, against the commit that added
-this line.** A throwaway copy of the tree was flipped and fully rebuilt, and
+**The flip has been rehearsed twice on 14 August 2026, the second time after
+the playlist pages and the whole day's changes landed.** The second run:
+34 of 34 builders, ZERO files anywhere under public/ referencing the staging
+host, 399 sitemap urls all on the real domain including the 20 playlist pages,
+every one resolving to a file, CNAME written and robots.txt open.
+
+The first run, against the commit that added this line: A throwaway copy of the tree was flipped and fully rebuilt, and
 came out: 32 of 32 builders ok, `check-build.py` clean, ZERO `github.io`
 references anywhere in `public/` (not just outside `assets/`), 1,696 absolute
 urls on the real domain, 379 sitemap locs all on it, `robots.txt` open,
