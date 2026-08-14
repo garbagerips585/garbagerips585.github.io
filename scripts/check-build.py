@@ -225,6 +225,58 @@ if _squash(_css) != _squash(_built):
         "edit the generated public/assets/ui.css by hand)."
     )
 
+# A builder nobody runs. build-all.mjs is the one running order, and the
+# nightly workflow now calls it rather than keeping a hand-copied list, because
+# the two lists drifted: the workflow was missing stamp-assets.mjs and three
+# page builders, so every nightly commit shipped mismatched cache busters and
+# six pages frozen at the last manual build. Nothing caught it, because every
+# other check here asks whether the pages present are sound, never whether a
+# builder ran at all.
+#
+# Assets are generated once from originals and are deliberately outside the
+# nightly loop; anything else that writes into public/ belongs in build-all.
+_ONE_OFF = {
+    "build-favicon.py",   # icons, from logo-square.jpg
+    "build-logos.py",     # set logos
+    "build-og.py",        # the site share card
+    "build-packs.py",     # pack art, from assets-source
+    "build-sheet.py",     # the Excel workbook, not a web page
+}
+#
+# Covers stamp-* as well as build-*, because the step that went missing was
+# stamp-assets.mjs. A guard that would not have caught the bug it was written
+# for is worse than none: it reads as coverage.
+_all_src = open(os.path.join(ROOT, "scripts/build-all.mjs"), encoding="utf-8").read()
+_orphan = sorted(
+    f for f in os.listdir(os.path.join(ROOT, "scripts"))
+    if (f.startswith("build-") or f.startswith("stamp-"))
+    and f not in _ONE_OFF
+    and f != "build-all.mjs" and f"scripts/{f}" not in _all_src
+)
+if _orphan:
+    fail.append(
+        "builders missing from scripts/build-all.mjs, so nothing ever runs them: "
+        + ", ".join(_orphan)
+        + ". Add them in the right order, or list them in _ONE_OFF here if they "
+        "generate assets rather than pages."
+    )
+
+_refresh = os.path.join(ROOT, ".github/workflows/refresh.yml")
+if os.path.exists(_refresh):
+    # Comment lines only, stripped out: the block above this step EXPLAINS the
+    # rule and names the file, so a substring search over the whole yaml passes
+    # even when the run line has been changed to something else.
+    _rf = "\n".join(
+        l for l in open(_refresh, encoding="utf-8").read().split("\n")
+        if not l.lstrip().startswith("#")
+    )
+    if "scripts/build-all.mjs" not in _rf:
+        fail.append(
+            "refresh.yml no longer calls scripts/build-all.mjs. Do not enumerate "
+            "the builders there: that copy drifted once already and left six "
+            "pages stale every night."
+        )
+
 if fail:
     print(f"\n{len(fail)} problem(s):")
     for f in fail:

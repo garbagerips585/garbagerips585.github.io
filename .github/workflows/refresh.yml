@@ -114,54 +114,31 @@ jobs:
         run: node scripts/sync-prices.mjs --limit 50
         continue-on-error: true
 
+      # ONE LIST, NOT TWO. This step used to enumerate every builder by hand,
+      # duplicating the list in scripts/build-all.mjs, whose own header says the
+      # list is kept in one place "so there is one running order, not two that
+      # drift". They drifted anyway. On 14 August 2026 the copy here was missing
+      # FIVE steps that build-all.mjs runs:
+      #
+      #   stamp-assets.mjs   runs LAST and content-hashes the asset filenames,
+      #                      so every nightly commit was shipping pages whose
+      #                      ?v= cache busters did not match the files
+      #   build-games.mjs    the four games
+      #   build-lore.mjs     the Pokedex facts page
+      #   build-locals.mjs   creators.html and vendors.html
+      #   stamp-labels.mjs
+      #
+      # Nothing caught it because check-build.py checks that the pages present
+      # are sound, not that every builder ran. So the nightly job quietly left
+      # six pages frozen at whatever the last manual build produced.
+      #
+      # build-all.mjs already runs sync-chrome first, build-css before any page
+      # builder, build-intl-pages after build-set-pages (which clears
+      # public/sets/), and stamp-assets last, with the reasons written next to
+      # each. Calling it is what keeps this workflow correct by construction:
+      # a builder added to build-all.mjs is a builder the nightly runs.
       - name: Rebuild every page
-        run: |
-          # sync-chrome FIRST. build-proto ends with a drift check comparing
-          # index.html's inlined bar and menu against shared/chrome.mjs, so on
-          # any run where the nav changed, building before syncing fails the
-          # job on a difference it was about to fix itself.
-          node scripts/sync-chrome.mjs
-          # BEFORE every builder. public/assets/ui.css is generated from
-          # assets-source/ui.css, and shared/chrome.mjs hashes the generated
-          # file at import time for the ?v= cache buster, so a builder that
-          # imports it before this runs stamps the old hash. Running it here
-          # also means a commit that touched only the source still ships: the
-          # nightly regenerates rather than failing check-build's drift guard.
-          node scripts/build-css.mjs
-          # Share cards for the guide pages. Cheap, and it means a new page can
-          # never ship pointing at an image that was never generated.
-          bash scripts/fetch-fonts.sh
-          python3 scripts/build-og-pages.py
-          node scripts/build-proto.mjs
-          node scripts/build-set-pages.mjs
-          # MUST follow build-set-pages, which clears public/sets/ before it
-          # writes. Run the other way round and all 13 non-English guides are
-          # deleted after being built, leaving the links to them dangling. The
-          # link check below is what would catch it.
-          node scripts/build-intl-pages.mjs
-          node scripts/build-cards.mjs
-          node scripts/build-pokemon.mjs
-          node scripts/build-pages.mjs
-          node scripts/build-expansions.mjs
-          node scripts/build-404.mjs
-          node scripts/build-wanted.mjs
-          node scripts/build-hall.mjs
-          node scripts/build-shops.mjs
-          node scripts/build-about.mjs
-          node scripts/build-luck.mjs
-          node scripts/build-upcoming.mjs
-          node scripts/build-rarity.mjs
-          # Rebuilt nightly so past shows drop off on the day they happen. The
-          # data is hand-maintained, but the calendar has to move on its own.
-          node scripts/build-shows.mjs
-          node scripts/build-fakes.mjs
-          # Reads data/psa10.json, which the price sync tops up nightly, so the
-          # break-even verdicts move as the card prices move.
-          node scripts/build-grading.mjs
-          node scripts/build-complete.mjs
-          node scripts/build-start.mjs
-          # LAST: it indexes the pages above, so it has to see them finished.
-          node scripts/build-search.mjs
+        run: node scripts/build-all.mjs
 
       # Cheap guards. A nightly job that commits unattended should not be able
       # to publish a broken site quietly.

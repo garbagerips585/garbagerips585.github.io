@@ -16,7 +16,7 @@ ever have run there.
 ## How a change reaches the live site
 
 ```bash
-node scripts/build-all.mjs      # 31 steps, writes everything into public/
+node scripts/build-all.mjs      # 32 steps, writes everything into public/
 python3 scripts/check-build.py  # refuses to pass on a broken build
 git add -A && git commit && git push
 ```
@@ -101,6 +101,22 @@ staging host through a flip because only `index.html` was in the rewrite list,
 which would have had the sitemap and the pages disagreeing about where the site
 lives. `videos.html` and `playlists.html` are in that list now, but the grep is
 what proves it rather than the intention.
+
+**The flip has been rehearsed, on 14 August 2026, against the commit that added
+this line.** A throwaway copy of the tree was flipped and fully rebuilt, and
+came out: 32 of 32 builders ok, `check-build.py` clean, ZERO `github.io`
+references anywhere in `public/` (not just outside `assets/`), 1,696 absolute
+urls on the real domain, 379 sitemap locs all on it, `robots.txt` open,
+`public/CNAME` written, no noindex page in the sitemap, and every canonical
+matching its own path. Three canonicals point at a directory (`/pokemon/`,
+`/sets/`, `/games/`) rather than at `index.html`, which is deliberate.
+
+Rehearsing matters here because this path runs exactly once. It has been broken
+before and the failure was invisible until the flip: `build-proto.mjs` called
+`basename()` without importing it, inside the branch that only executes when
+there is a staging url to rewrite. Re-rehearse in a scratch copy after any
+change to `shared/site.mjs`, `build-proto.mjs` or the builders, rather than
+finding out on the day.
 
 ### 5. Push, then set the domain in GitHub
 
