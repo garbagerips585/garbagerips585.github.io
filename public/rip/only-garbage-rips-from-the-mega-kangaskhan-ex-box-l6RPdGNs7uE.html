@@ -25,7 +25,7 @@
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=044ef5c1">
+<link rel="stylesheet" href="/assets/ui.css?v=5c178e6e">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"Only Garbage Rips from the Mega Kangaskhan ex Box","description":"Today’s garbage rip is the Mega Kangaskhan ex Box — a classic Pokémon TCG box with promos, packs, and just enough hope to keep us going.\n\nWe went into this one expecting bulk, pain, and some true garbage plate energy… but as always, Pokémon likes to surprise you when you least expect it.\n\nIs the Mega Kangaskhan ex Box actually worth opening?\nOr is this one a certified garbage rip?\n\n🍽️ Pokémon packs opened\n🗑️ Garbage Plate energy applied\n\nDrop a comment and let us know — garbage rip or nah?\n\nSubscribe for more Garbage Rips 585 — hits, misses, and everything in between.","thumbnailUrl":["https://i.ytimg.com/vi/l6RPdGNs7uE/oardefault.jpg"],"uploadDate":"2026-02-02","embedUrl":"https://www.youtube.com/embed/l6RPdGNs7uE","url":"https://garbagerips585.github.io/rip/only-garbage-rips-from-the-mega-kangaskhan-ex-box-l6RPdGNs7uE.html","duration":"PT1M7S","interactionStatistic":{"@type":"InteractionCounter","interactionType":{"@type":"WatchAction"},"userInteractionCount":1179},"publisher":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Every rip","item":"https://garbagerips585.github.io/videos.html"},{"@type":"ListItem","position":3,"name":"Only Garbage Rips from the Mega Kangaskhan ex Box"}]}</script>
@@ -199,13 +199,24 @@ Subscribe for more Garbage Rips 585 — hits, misses, and everything in between.
     </div>
   </div>
 
+
+
+
+
+
+
+<!-- </main> CLOSES HERE, NOT ABOVE THE THREE BANDS.
+     It used to close right after the player, which left "What you are chasing",
+     "More from <box>" and "More <set>" as direct children of <body>: three
+     content sections with their own h2, outside every landmark, on all 311 rip
+     pages. That is not a tidiness point. The skip link targets #main, so a
+     reader who takes it lands in a region that ends before more than half the
+     page, and anyone navigating by landmark finds those sections in no region
+     at all. axe reports it as "All page content should be contained by
+     landmarks"; the lived version is that the skip link undersells the page.
+     main{padding:var(--s4) 0 var(--s8)} now puts its 64px bottom padding below
+     the last band instead of above the first, which is where it belonged. -->
 </main>
-
-
-
-
-
-
 
 <footer>
   <div class="wrap">
@@ -363,7 +374,7 @@ addEventListener('DOMContentLoaded',function(){
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !lb.hidden) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=8e7d64c7" defer></script>
+<script src="/assets/app.js?v=1665fa03" defer></script>
 <script src="/assets/packplayer.js?v=44adb501" defer></script>
 </body>
 </html>

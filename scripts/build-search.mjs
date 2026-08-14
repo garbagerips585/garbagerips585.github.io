@@ -36,6 +36,13 @@ try {
 } catch {
   /* optional */
 }
+let playlistPages = [];
+try {
+  playlistPages = (JSON.parse(await readFile(join(ROOT, "public/data/playlists.json"), "utf8")).playlists || [])
+    .filter((p) => p.path);
+} catch {
+  /* run: node scripts/build-playlists.mjs */
+}
 let pokemon = [];
 try {
   pokemon = JSON.parse(await readFile(join(ROOT, "public/data/pokemon-index.json"), "utf8")).pokemon || [];
@@ -77,7 +84,17 @@ const PAGES = [
 
 // [title, url, sub] for everything except cards.
 const index = {
-  pages: PAGES.map(([url, title, sub]) => [title, url, sub]),
+  pages: [
+    ...PAGES.map(([url, title, sub]) => [title, url, sub]),
+    // Playlists are named runs people ask for by name ("the Pitch Black ETB
+    // marathon"), so they belong in the search rather than only behind the
+    // playlists index. Read from the stamped data, never re-slugged here.
+    ...playlistPages.map((p) => [
+      p.title,
+      `/${p.path}`,
+      `Playlist • ${p.count} video${p.count === 1 ? "" : "s"}`,
+    ]),
+  ],
   sets: [
     ...sets.map((s) => [s.name, `/sets/${s.id}.html`, `${s.total || "?"} cards${s.released ? ` • ${s.released.slice(0, 4)}` : ""}`]),
     ...Object.entries(intl).map(([id, g]) => [

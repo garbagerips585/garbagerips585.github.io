@@ -24,7 +24,7 @@
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=044ef5c1">
+<link rel="stylesheet" href="/assets/ui.css?v=5c178e6e">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"Perfect Order Booster Bundle ⚡ | Pack #5… We NEED A Hit 😬","description":"Opening a Perfect Order Booster Bundle (6 packs total) ⚡\n\nThis is Pack #5.\n\nOnly 1 pack left after this.\n\nWe NEED a hit…\nor it all comes down to the final pack.","thumbnailUrl":["https://i.ytimg.com/vi/fFbWjWLD1N4/oardefault.jpg"],"uploadDate":"2026-04-17","embedUrl":"https://www.youtube.com/embed/fFbWjWLD1N4","url":"https://garbagerips585.github.io/rip/perfect-order-booster-bundle-pack-5-we-need-a-hit-fFbWjWLD1N4.html","duration":"PT25S","interactionStatistic":{"@type":"InteractionCounter","interactionType":{"@type":"WatchAction"},"userInteractionCount":1337},"publisher":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Every rip","item":"https://garbagerips585.github.io/videos.html"},{"@type":"ListItem","position":3,"name":"Perfect Order","item":"https://garbagerips585.github.io/videos.html?set=perfect-order"},{"@type":"ListItem","position":4,"name":"Perfect Order Booster Bundle ⚡ | Pack #5… We NEED A Hit 😬"}]}</script>
@@ -193,7 +193,6 @@ or it all comes down to the final pack.</div>
     </div>
   </div>
 
-</main>
 
 
 
@@ -329,6 +328,18 @@ or it all comes down to the final pack.</div>
     </div>
   </div>
 </section>
+<!-- </main> CLOSES HERE, NOT ABOVE THE THREE BANDS.
+     It used to close right after the player, which left "What you are chasing",
+     "More from <box>" and "More <set>" as direct children of <body>: three
+     content sections with their own h2, outside every landmark, on all 311 rip
+     pages. That is not a tidiness point. The skip link targets #main, so a
+     reader who takes it lands in a region that ends before more than half the
+     page, and anyone navigating by landmark finds those sections in no region
+     at all. axe reports it as "All page content should be contained by
+     landmarks"; the lived version is that the skip link undersells the page.
+     main{padding:var(--s4) 0 var(--s8)} now puts its 64px bottom padding below
+     the last band instead of above the first, which is where it belonged. -->
+</main>
 
 <footer>
   <div class="wrap">
@@ -486,7 +497,7 @@ addEventListener('DOMContentLoaded',function(){
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !lb.hidden) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=8e7d64c7" defer></script>
+<script src="/assets/app.js?v=1665fa03" defer></script>
 <script src="/assets/packplayer.js?v=44adb501" defer></script>
 </body>
 </html>

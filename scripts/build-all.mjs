@@ -56,6 +56,10 @@ const STEPS = [
   "node scripts/build-grading.mjs",
   "node scripts/build-complete.mjs",
   "node scripts/build-start.mjs",
+  // Before build-search, which indexes these pages, and before build-pages,
+  // which puts them in the sitemap. It also stamps `path` onto
+  // public/data/playlists.json, which the browser reads.
+  "node scripts/build-playlists.mjs",
   "node scripts/build-search.mjs",
   // Both read data/pokedex.json, which is written by sync-pokedex.mjs and is
   // NOT part of this run: it is a slow network job against pokeapi and the data

@@ -14,6 +14,31 @@
  * aspect-ratio holds the box open before anything loads.
  */
 
+/* THE STAGE RESERVED ITS HEIGHT BUT THE MOUNT DID NOT, which meant the whole
+   trick above only started working after the game existed. All three game pages
+   ship `<div id="game"></div>` empty and games.js writes the entire .gq block
+   into it on load, so at first paint the page is short enough that the FOOTER
+   is inside the viewport, and the arriving game shoves it out. Measured in
+   headless Chrome at 1440x900: CLS 0.2702, attributed to FOOTER, against a 0.1
+   budget. It is intermittent (1 of 3 runs) because it is a race between the
+   script and the first paint, which is exactly the kind of defect that looks
+   fine every time you check it by hand.
+
+   The reserve is sized from the assembled game, measured on all three pages:
+     390x844   582px (quiz) / 641px (guess-the-set)
+     768x1024  637px        / 707px
+     1440x900  613px        / 676px
+   min(78svh,720px) is 658 / 720 / 702 at those widths, so it covers the tallest
+   game at each one. Where it over-reserves, the slack is taken back BELOW the
+   fold: the footer lands at ~1300 and settles at ~1230, and nothing that moves
+   was ever on screen, so the correction costs no CLS. Sized in svh rather than
+   vh for the same reason .gq-stage is, see the note there.
+
+   :empty is the whole condition. The moment games.js writes into the mount the
+   rule stops matching, so there is no dead whitespace to clean up and nothing
+   to keep in step with the game's real height. */
+#game:empty { min-height: min(78svh, 720px); }
+
 .gq {
   max-width: 640px;
   margin: 0 auto;

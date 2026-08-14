@@ -52,13 +52,49 @@ function prices(c) {
   return rows.join("");
 }
 
+/**
+ * THIS PAGE WAS 7.2MB OF CARD ART, and every byte of it was the wrong file.
+ *
+ * `c.imageLarge` is 733x1024 from both CDNs: 1.2MB per card from Scrydex,
+ * 500-825KB per card from pokemontcg.io. The box it lands in is 136px wide on a
+ * 360px phone and never wider than 325px on a 1920px screen, so the ten cards
+ * on the page pulled 6,997KB of image to paint at most 325 CSS px. Measured in
+ * headless Chrome at 390 and 1440: 7,241KB transferred, both widths.
+ *
+ * The sizes are not resampled, because both CDNs already publish the smaller
+ * files and wanted.json already carries the small URL alongside the large one:
+ *
+ *   scrydex      /small 245x342 (68KB)  /medium 367x512 (143KB)  /large 733x1024 (1.2MB)
+ *   pokemontcg   X.png  245x342 (183KB)                          X_hires.png 733x1024 (500KB+)
+ *
+ * pokemontcg.io has no middle size, so its srcset is two candidates and a 1x
+ * desktop still lands on the 245. That is correct: 245 into a 310px box is a
+ * 1.26x upscale of a thumbnail, against 500KB saved.
+ *
+ * `sizes` is measured, not guessed, and tracks .w-grid's three column counts:
+ *   <=760px   2 cols  136-236px  -> 42vw covers the worst case (236/560)
+ *   <=1080px  3 cols  203-247px  -> 28vw covers the worst case (247/900)
+ *   else      4 cols  225-325px  -> capped by .wrap, so a flat 325px
+ * Keep these in step with the .w-grid breakpoints below if either moves.
+ */
+function artSrcset(c) {
+  const small = c.image, large = c.imageLarge;
+  if (!small || !large || small === large) return null;
+  const mid = /images\.scrydex\.com/.test(large) ? large.replace(/\/large$/, "/medium") : null;
+  return [`${small} 245w`, mid ? `${mid} 367w` : null, `${large} 733w`].filter(Boolean).join(", ");
+}
+const ART_SIZES = "(max-width:760px) 42vw, (max-width:1080px) 28vw, 325px";
+
 function cardTile(c, { hunted = true } = {}) {
-  const img = c.imageLarge || c.image;
+  // The SMALL file is the src now, so a browser that ignores srcset gets the
+  // 68KB one rather than the 1.2MB one.
+  const set = artSrcset(c);
+  const img = (set ? c.image : c.imageLarge) || c.image;
   const alt = `${c.name} ${c.rarity || ""} from Pokemon ${c.setName}`.trim();
   const inner = `
         <span class="wc-art">${
           img
-            ? `<img src="${esc(img)}" alt="${esc(alt)}" loading="lazy" onerror="this.remove()" width="245" height="337">`
+            ? `<img src="${esc(img)}"${set ? ` srcset="${esc(set)}" sizes="${ART_SIZES}"` : ""} alt="${esc(alt)}" loading="lazy" onerror="this.remove()" width="245" height="337">`
             : `<span class="wc-none">${esc(c.name)}</span>`
         }${hunted ? `<span class="wc-flag">Hunting</span>` : `<span class="wc-flag wc-got">Caught</span>`}</span>
         <b class="wc-name">${esc(c.name)}</b>

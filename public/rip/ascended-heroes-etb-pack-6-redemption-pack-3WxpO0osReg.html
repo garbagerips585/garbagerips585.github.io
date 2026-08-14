@@ -24,7 +24,7 @@
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=044ef5c1">
+<link rel="stylesheet" href="/assets/ui.css?v=5c178e6e">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"Ascended Heroes ETB Pack #6 ⚡ | Redemption Pack?","description":"Opening Ascended Heroes Elite Trainer Box Booster Pack #6 ⚡\n\nWe’re ripping this Ascended Heroes ETB one pack at a time.\n\n9 packs.\n9 videos.\n9 chances for hits…\nor certified Garbage Rips.\n\nThis is Pack #6 — heading into the final stretch of the box.\n\nLet’s see if this pack finally delivers.","thumbnailUrl":["https://i.ytimg.com/vi/3WxpO0osReg/oardefault.jpg"],"uploadDate":"2026-03-21","embedUrl":"https://www.youtube.com/embed/3WxpO0osReg","url":"https://garbagerips585.github.io/rip/ascended-heroes-etb-pack-6-redemption-pack-3WxpO0osReg.html","duration":"PT21S","interactionStatistic":{"@type":"InteractionCounter","interactionType":{"@type":"WatchAction"},"userInteractionCount":612},"publisher":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Every rip","item":"https://garbagerips585.github.io/videos.html"},{"@type":"ListItem","position":3,"name":"Ascended Heroes","item":"https://garbagerips585.github.io/videos.html?set=ascended-heroes"},{"@type":"ListItem","position":4,"name":"Ascended Heroes ETB Pack #6 ⚡ | Redemption Pack?"}]}</script>
@@ -197,7 +197,6 @@ Let’s see if this pack finally delivers.</div>
     </div>
   </div>
 
-</main>
 
 
 
@@ -333,6 +332,18 @@ Let’s see if this pack finally delivers.</div>
     </div>
   </div>
 </section>
+<!-- </main> CLOSES HERE, NOT ABOVE THE THREE BANDS.
+     It used to close right after the player, which left "What you are chasing",
+     "More from <box>" and "More <set>" as direct children of <body>: three
+     content sections with their own h2, outside every landmark, on all 311 rip
+     pages. That is not a tidiness point. The skip link targets #main, so a
+     reader who takes it lands in a region that ends before more than half the
+     page, and anyone navigating by landmark finds those sections in no region
+     at all. axe reports it as "All page content should be contained by
+     landmarks"; the lived version is that the skip link undersells the page.
+     main{padding:var(--s4) 0 var(--s8)} now puts its 64px bottom padding below
+     the last band instead of above the first, which is where it belonged. -->
+</main>
 
 <footer>
   <div class="wrap">
@@ -490,7 +501,7 @@ addEventListener('DOMContentLoaded',function(){
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !lb.hidden) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=8e7d64c7" defer></script>
+<script src="/assets/app.js?v=1665fa03" defer></script>
 <script src="/assets/packplayer.js?v=44adb501" defer></script>
 </body>
 </html>

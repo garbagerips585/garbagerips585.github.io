@@ -830,7 +830,16 @@ footer .soc svg{fill:var(--paper)}
 .rip-desc{white-space:pre-wrap;background:var(--paper-2);border:3px solid var(--navy);
   border-radius:12px;padding:20px 22px;box-shadow:0 6px 0 var(--trubbish);font-size:.95rem}
 .crumbs{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);margin-bottom:18px;font-weight:700}
-.crumbs a{color:var(--sky-deep)}
+/* UNDERLINED, because colour alone is all that marked these as links and the
+   colour does not carry. --sky-deep against the trail's own --ink-soft is
+   1.13:1. WCAG 1.4.1 wants either 3:1 between a link and the text around it
+   plus a non-colour cue on hover and focus, or a non-colour distinction full
+   time. Nothing was going to get 3:1 here without repainting the breadcrumb, so
+   it gets the underline. In "Home / Card sets / Mega Brave" the last crumb is
+   plain text and the others are links, and until now a reader who cannot
+   separate teal from olive had no way to tell which was which. */
+.crumbs a{color:var(--sky-deep);text-decoration:underline;
+  text-decoration-thickness:1px;text-underline-offset:2px}
 .rip-nav{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
 
 /* ---------- set logo on a video page ---------- */

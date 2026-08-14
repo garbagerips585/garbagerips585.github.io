@@ -221,11 +221,42 @@ const psaNote = gradedCards.length
     ` IT IS WHAT THE SAME CARD SELLS FOR IN A PSA 10 SLAB.`
   : "";
 
+/**
+ * THE GRID WAS PAINTING A 600px CARD SCAN INTO A 120px BOX.
+ *
+ * `.chof-art` is `width:clamp(96px,26vw,120px)`, so the art is never wider than
+ * 120 CSS px at any viewport: measured at 360/390/560/768/900/1100/1440/1920 it
+ * is 96px on the narrowest phone and 120px everywhere from 560 up. The src was
+ * TCGdex's `high.webp`, 600x825 and 100-135KB each, so hall.html transferred
+ * 1,364KB of images at 1440x900 and 800KB at 390x844.
+ *
+ * TCGdex publishes exactly two sizes and there is no third to ask for: low is
+ * 245x337 (~25KB), high is 600x825 (~130KB). 245 covers a 120px box at 2x
+ * exactly, so every 1x and 2x screen now takes the 25KB file and only a 3x
+ * phone reaches for the 600. Nothing is resampled: both files already exist.
+ *
+ * THE LIGHTBOX STILL OPENS THE HIGH ONE. `data-img` below is deliberately left
+ * on c.image, because the enlargement is the one place on this page where 600px
+ * is the right amount of detail.
+ *
+ * sizes is a flat 120px rather than the clamp: with only 245 and 600 to choose
+ * between, 96px and 120px select the same file, so the extra precision would
+ * buy nothing and could drift out of step with the clamp unnoticed.
+ */
+const TCGDEX_HIGH = /^(https:\/\/assets\.tcgdex\.net\/.+)\/high\.webp$/;
+function plaqueArt(url) {
+  const m = TCGDEX_HIGH.exec(url || "");
+  if (!m) return { src: url, extra: "" };
+  const low = `${m[1]}/low.webp`;
+  return { src: low, extra: ` srcset="${esc(low)} 245w, ${esc(url)} 600w" sizes="120px"` };
+}
+
 function plaque(c, i) {
   const rank = i + 1;
   const top = rank <= 3 ? ` chof-top chof-${rank}` : "";
+  const art = plaqueArt(c.image);
   const img = c.image
-    ? `<img src="${esc(c.image)}" alt="${esc(c.name)} ${esc(c.rarity || "")} from Pokemon ${esc(c.setName)}" loading="lazy" onerror="this.remove()" width="245" height="337">`
+    ? `<img src="${esc(art.src)}"${art.extra} alt="${esc(c.name)} ${esc(c.rarity || "")} from Pokemon ${esc(c.setName)}" loading="lazy" onerror="this.remove()" width="245" height="337">`
     : `<span class="chof-noart">${esc(c.name)}</span>`;
   return `      <li class="chof${top}">
         <span class="chof-rank">${rank}</span>

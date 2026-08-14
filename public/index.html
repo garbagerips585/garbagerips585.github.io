@@ -77,7 +77,7 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/assets/ui.css?v=044ef5c1">
+<link rel="stylesheet" href="/assets/ui.css?v=5c178e6e">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 </head>
 <body>
@@ -183,6 +183,9 @@
 </nav>
 
 
+<!-- Wrapped in a named <section> so the chip rail is inside a landmark. It sat
+     as a direct child of <body> above <main>, in no region at all. -->
+<section class="railwrap" aria-label="Jump to a set">
 <div class="rail">
   <div class="rail-in" role="group" aria-label="Filter rips">
 <!-- RAIL:START -->
@@ -205,6 +208,7 @@
 <!-- RAIL:END -->
   </div>
 </div>
+</section>
 
 <main id="main">
   <h1 class="sr-only">Garbage Rips 585: Pokemon card pack rips from Rochester, New York</h1>
@@ -734,7 +738,7 @@
   </div>
 </footer>
 
-<script src="/assets/app.js?v=8e7d64c7" defer></script>
+<script src="/assets/app.js?v=1665fa03" defer></script>
 <script src="/assets/packplayer.js?v=44adb501" defer></script>
 </body>
 </html>

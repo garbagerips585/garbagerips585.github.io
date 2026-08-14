@@ -155,7 +155,20 @@
       "shrouded-fable": "Shrouded Fable", "twilight-masquerade": "Twilight Masquerade",
       "temporal-forces": "Temporal Forces", "paldean-fates": "Paldean Fates",
       "paradox-rift": "Paradox Rift", "obsidian-flames": "Obsidian Flames",
-      "paldea-evolved": "Paldea Evolved", "scarlet-violet": "Scarlet & Violet", "151": "151"
+      "paldea-evolved": "Paldea Evolved", "scarlet-violet": "Scarlet & Violet", "151": "151",
+      // THE IMPORTED SETS WERE FALLING THROUGH TO THE TITLE-CASE FALLBACK, so
+      // 21 of the 312 tiles wore a pack reading "Ja Abyss Eye" and "Ko Clay
+      // Burst": the raw slug with a capital letter on it, which is precisely
+      // what the fallback exists to avoid looking like. Found by diffing this
+      // grid against the one build-proto.mjs now renders into the HTML, which
+      // takes its names from shared/taxonomy.mjs and had them right.
+      "ja-abyss-eye": "Abyss Eye (JP)", "ja-cyber-judge": "Cyber Judge (JP)",
+      "ja-mega-brave": "Mega Brave (JP)", "ja-mega-symphonia": "Mega Symphonia (JP)",
+      "ja-nihil-zero": "Nihil Zero (JP)", "ja-ninja-spinner": "Ninja Spinner (JP)",
+      "ja-stellar-miracle": "Stellar Miracle (JP)", "ja-violet-ex": "Violet ex (JP)",
+      "ko-battle-partners": "Battle Partners (KR)", "ko-clay-burst": "Clay Burst (KR)",
+      "ko-crimson-haze": "Crimson Haze (KR)", "ko-mask-of-change": "Mask of Change (KR)",
+      "zh-gem-pack-2": "Gem Pack Vol. 2 (CN)"
     },
     products: {
       upc: "UPC", etb: "ETB", "booster-box": "Booster Box", "ex-box": "EX Box",
@@ -422,9 +435,14 @@
     var PAGE = 48;
     var shown = PAGE;
 
-    function render(keepPage) {
+    // keepDom: the grid is already showing exactly what this call would build,
+    // so update the count, the Load more button and the chips but leave the
+    // tiles alone. Used once, on the first load of a server-rendered grid. See
+    // the note at the bottom of initLibrary.
+    function render(keepPage, keepDom) {
       if (!keepPage) shown = PAGE;
       var out = all.filter(matches).sort(SORTS[state.sort] || SORTS.new);
+      if (!keepDom) {
       grid.textContent = "";
       if (!out.length) {
         grid.appendChild(emptyState("Nothing in that pile", "Try clearing a filter. Even the bulk has something in it.", true));
@@ -433,6 +451,7 @@
         var prefer = state.sets.length === 1 ? state.sets[0] : null;
         out.slice(0, shown).forEach(function (v) { frag.appendChild(makeCard(v, { preferSet: prefer })); });
         grid.appendChild(frag);
+      }
       }
       var more = document.getElementById("libMore");
       if (more) {
@@ -598,12 +617,31 @@
       });
     }
 
-    grid.appendChild(emptyState("Loading the bulk...", ""));
+    // THE GRID NOW SHIPS FILLED, and this is the code that must not undo it.
+    //
+    // build-proto.mjs writes all 312 tiles into the HTML between the LIBGRID
+    // markers, in this function's own markup and this function's own order, so
+    // the footer starts where it ends up instead of being shoved out of the
+    // viewport when videos.json lands. Measured CLS at 1440x900 was 0.2600.
+    //
+    // Appending "Loading the bulk..." unconditionally would have wiped that
+    // render on every load and traded one flash for another, and calling
+    // render() would have rebuilt 312 identical tiles for nothing. So on a
+    // first load with no filters in the URL the tiles are simply left alone and
+    // only the count, the Load more button and the chips are filled in.
+    //
+    // A URL that DOES carry a filter is a different list from the one the
+    // server rendered, so that case renders normally.
+    var prerendered = grid.children.length;
+    var filtered = !!(state.q || state.sets.length || state.products.length || state.sort !== "new");
+    var keepDom = prerendered > 0 && !filtered;
+    if (keepDom) shown = prerendered;
+    if (!prerendered) grid.appendChild(emptyState("Loading the bulk...", ""));
     loadVideos().then(function (videos) {
       all = videos;
       buildChips("sets", "setChips");
       buildChips("products", "productChips");
-      render();
+      render(keepDom, keepDom);
     }).catch(function () {
       grid.textContent = "";
       grid.appendChild(emptyState("Could not load the library", "The channel still works: youtube.com/@GarbageRips585"));
@@ -615,6 +653,20 @@
   function initPlaylists() {
     var box = document.getElementById("plGrid");
     if (!box) return;
+    // SERVER-RENDERED, so there is nothing to do and nothing to fetch.
+    //
+    // build-proto.mjs writes the same tiles this function builds into the HTML
+    // between the PLGRID markers. Unlike the library there is no filtering here,
+    // so this is not "take over later", it is "already done": returning skips
+    // playlists.json AND videos.json, which is 170KB this page no longer needs.
+    //
+    // The reason it had to be a render rather than a reserved height: the FILLED
+    // grid is only 526px tall at 1440x900, which leaves the footer at 807px,
+    // inside a 900px viewport. Every reserve big enough to push the footer out
+    // is taller than the grid ever gets, so the footer would have come back up
+    // when the tiles landed and the shift would have counted just the same.
+    // Measured CLS before: 0.1989 at 1440x900.
+    if (box.children.length) return;
     box.appendChild(emptyState("Loading playlists...", ""));
     Promise.all([loadPlaylists(), loadVideos()])
       .catch(function () { return null; })
@@ -645,11 +697,23 @@
         return;
       }
       pls.forEach(function (p) {
-        var a = el("a", "pl");
-        a.href = "https://www.youtube.com/playlist?list=" + p.id;
-        a.rel = "noopener";
-        a.target = "_blank";
-        a.setAttribute("aria-label", p.title + ", " + p.count + " videos, opens on YouTube");
+        // ON THIS SITE, NOT ON YOUTUBE. These cards used to link to
+        // youtube.com/playlist, which was the last set of outbound links left
+        // outside Subscribe and the social icons. Every playlist now has a page
+        // under /playlists/ showing the same run in the same order, where the
+        // packs open and play in place. The slug has to match slugFor() in
+        // scripts/build-playlists.mjs or the card points at a 404, which is why
+        // slugify is shared rather than reimplemented here.
+        // `path` is stamped onto the data by scripts/build-playlists.mjs, for
+        // the same reason a video's path is stamped by the sync: one owner of
+        // the url shape, so the browser and the generator cannot disagree about
+        // where a page lives. A playlist with no path has no page, so the card
+        // renders as a card rather than as a link to nowhere.
+        var a = el(p.path ? "a" : "span", "pl");
+        if (p.path) {
+          a.href = "/" + p.path;
+          a.setAttribute("aria-label", p.title + ", " + p.count + " videos");
+        }
 
         // The playlist's own cover, which Tim sets by hand and which shows the
         // sealed packaging rather than a pulled card. That is the exception to
@@ -660,6 +724,26 @@
         if (p.thumb) {
           var img = new Image();
           img.src = p.thumb;
+          // A PLAYLIST COVER IS PAINTED 118 CSS px WIDE. It never changes with
+          // the viewport: .pl-grid is auto-fill minmax(240px,1fr) and the thumb
+          // measured 118px at 360, 390, 560, 768, 900, 1100, 1440 and 1920.
+          // sync-youtube stores YouTube's best cover, which is maxresdefault at
+          // 1280x720 and 150-200KB, so 22 playlists pulled 2,974KB of image at
+          // 1440x900 to paint 118px boxes: 10.9x oversized in each direction.
+          //
+          // mqdefault is 320x180 and about 11KB. It is the ONLY other variant
+          // at the true 16:9 shape (hqdefault and sddefault are 480x360 and
+          // 640x480, which letterbox a widescreen cover), so the choice is two
+          // candidates, not four. 320 covers a 118px box at 2x with room to
+          // spare and a 3x screen still gets the 1280.
+          //
+          // Derived rather than synced: the swap is a filename, and re-running
+          // sync-youtube needs an API key that CI does not have.
+          var mq = p.thumb.replace(/\/maxresdefault\.(jpg|webp)$/, "/mqdefault.$1");
+          if (mq !== p.thumb) {
+            img.srcset = mq + " 320w, " + p.thumb + " 1280w";
+            img.sizes = "118px";
+          }
           img.alt = "";
           img.loading = "lazy";
           if (p.thumbW) { img.width = p.thumbW; img.height = p.thumbH; }
@@ -682,7 +766,7 @@
         var body = el("span", "pl-body");
         body.appendChild(el("b", "pl-title", p.title));
         body.appendChild(el("span", "pl-count", p.count + (p.count === 1 ? " video" : " videos")));
-        body.appendChild(el("span", "pl-out", "Watch on YouTube"));
+        if (p.path) body.appendChild(el("span", "pl-out", "Open the playlist"));
         a.appendChild(body);
         box.appendChild(a);
       });

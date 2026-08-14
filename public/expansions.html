@@ -18,12 +18,12 @@
 <meta property="og:url" content="https://garbagerips585.github.io/expansions.html">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-expansions.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <!-- 174 set symbols come from here and there was no preconnect, so every one
      of them waited on a cold DNS lookup and TLS handshake. -->
 <link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>
-<link rel="stylesheet" href="/assets/ui.css?v=c4e2d099">
-<link rel="stylesheet" href="/assets/packs.css">
+<link rel="stylesheet" href="/assets/ui.css?v=5c178e6e">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .xp{padding:var(--s7) 0 var(--s5)}
 .xp-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:40em;margin-bottom:var(--s5)}
@@ -242,7 +242,19 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>1999 to 2000</p>
     <h2>Base <span class="xp-count">6 sets</span></h2>
     <p class="xp-note">The original Wizards of the Coast run that started it all in English.</p>
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="Base sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">Base sets, oldest first</caption>
         <thead>
@@ -308,7 +320,19 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2000</p>
     <h2>Gym <span class="xp-count">2 sets</span></h2>
     <p class="xp-note">Kanto gym leaders get their own cards, badges and all.</p>
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="Gym sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">Gym sets, oldest first</caption>
         <thead>
@@ -342,7 +366,19 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2000 to 2002</p>
     <h2>Neo <span class="xp-count">4 sets</span></h2>
     <p class="xp-note">Johto arrives, and with it baby Pokemon and the first Shining cards.</p>
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="Neo sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">Neo sets, oldest first</caption>
         <thead>
@@ -392,7 +428,19 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2001 to 2022</p>
     <h2>Other <span class="xp-count">15 sets</span></h2>
     <p class="xp-note">Promos, tie-ins and box sets that do not sit inside a main series.</p>
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="Other sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">Other sets, oldest first</caption>
         <thead>
@@ -530,7 +578,19 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2002 to 2003</p>
     <h2>E-Card <span class="xp-count">3 sets</span></h2>
     <p class="xp-note">Cards printed with dot code strips you could scan with the Nintendo e-Reader.</p>
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="E-Card sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">E-Card sets, oldest first</caption>
         <thead>
@@ -572,7 +632,19 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2003 to 2007</p>
     <h2>EX <span class="xp-count">20 sets</span></h2>
     <p class="xp-note">Nintendo takes over publishing and Pokemon-ex show up, powerful cards that give up two prizes.</p>
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="EX sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">EX sets, oldest first</caption>
         <thead>
@@ -750,7 +822,19 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2003</p>
     <h2>NP <span class="xp-count">1 set</span></h2>
     <p class="xp-note">Nintendo's promo cards, handed out rather than sold in packs.</p>
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="NP sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">NP sets, oldest first</caption>
         <thead>
@@ -776,7 +860,19 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2004 to 2009</p>
     <h2>POP <span class="xp-count">9 sets</span></h2>
     <p class="xp-note">Organized Play kits from the Play! Pokemon program, earned at events rather than bought.</p>
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="POP sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">POP sets, oldest first</caption>
         <thead>
@@ -866,7 +962,19 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2007 to 2008</p>
     <h2>Diamond &amp; Pearl <span class="xp-count">8 sets</span></h2>
     <p class="xp-note">Sinnoh, and Pokemon LV.X as the new top end.</p>
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="Diamond &amp; Pearl sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">Diamond &amp; Pearl sets, oldest first</caption>
         <thead>
@@ -948,7 +1056,19 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2009</p>
     <h2>Platinum <span class="xp-count">4 sets</span></h2>
     <p class="xp-note">Pokemon SP, and Arceus closing out the era.</p>
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="Platinum sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">Platinum sets, oldest first</caption>
         <thead>
@@ -998,7 +1118,19 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2010 to 2011</p>
     <h2>HeartGold &amp; SoulSilver <span class="xp-count">6 sets</span></h2>
     <p class="xp-note">A return to Johto, with Pokemon Prime and the two card LEGEND Pokemon.</p>
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="HeartGold &amp; SoulSilver sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">HeartGold &amp; SoulSilver sets, oldest first</caption>
         <thead>
@@ -1064,7 +1196,19 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2011 to 2013</p>
     <h2>Black &amp; White <span class="xp-count">13 sets</span></h2>
     <p class="xp-note">Unova, full art trainers, and the return of Pokemon-EX.</p>
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="Black &amp; White sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">Black &amp; White sets, oldest first</caption>
         <thead>
@@ -1186,7 +1330,19 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2013 to 2016</p>
     <h2>XY <span class="xp-count">16 sets</span></h2>
     <p class="xp-note">Kalos, Mega Evolution on cardboard, and the BREAK mechanic.</p>
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="XY sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">XY sets, oldest first</caption>
         <thead>
@@ -1332,7 +1488,19 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2017 to 2019</p>
     <h2>Sun &amp; Moon <span class="xp-count">18 sets</span></h2>
     <p class="xp-note">Alola, GX attacks, and Tag Team pairs late in the run.</p>
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="Sun &amp; Moon sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">Sun &amp; Moon sets, oldest first</caption>
         <thead>
@@ -1494,7 +1662,19 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2019 to 2023</p>
     <h2>Sword &amp; Shield <span class="xp-count">25 sets</span></h2>
     <p class="xp-note">Galar, the V, VMAX and VSTAR ladder, and the era the hobby went mainstream again.</p>
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="Sword &amp; Shield sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">Sword &amp; Shield sets, oldest first</caption>
         <thead>
@@ -1712,7 +1892,19 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2023 to 2025</p>
     <h2>Scarlet &amp; Violet <span class="xp-count">18 sets</span></h2>
     <p class="xp-note">Paldea, ex returns in lowercase, and illustration rares become the cards everybody chases.</p>
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="Scarlet &amp; Violet sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">Scarlet &amp; Violet sets, oldest first</caption>
         <thead>
@@ -1874,7 +2066,19 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2025 to 2026</p>
     <h2>Mega Evolution <span class="xp-count">6 sets</span></h2>
     <p class="xp-note">The current era. Mega ex, and the sets we are opening right now.</p>
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="Mega Evolution sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">Mega Evolution sets, oldest first</caption>
         <thead>
@@ -2049,7 +2253,7 @@ document.getElementById("copyAll")?.addEventListener("click", async (e) => {
   </div>
 </footer>
 
-<script src="/assets/app.js?v=8e7d64c7" defer></script>
-<script src="/assets/packplayer.js" defer></script>
+<script src="/assets/app.js?v=1665fa03" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
 </body>
 </html>

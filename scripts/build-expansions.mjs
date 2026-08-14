@@ -133,7 +133,19 @@ function eraTable(e) {
     }</p>
     <h2>${esc(e.name)} <span class="xp-count">${e.list.length} set${e.list.length === 1 ? "" : "s"}</span></h2>
     ${ERA_NOTE[e.name] ? `<p class="xp-note">${esc(ERA_NOTE[e.name])}</p>` : ""}
-    <div class="xp-scroll">
+    <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
+         cannot reach is content a keyboard cannot read.
+         The table is min-width:520px inside a 366px box on a phone: 156px, about
+         a quarter of every row, is off to the right. A mouse or a thumb drags
+         it. A keyboard can only scroll a box by focusing it, and these are the
+         tables with NOTHING focusable inside: the early eras have no set guide
+         and no rips, so there is not one link in them to tab to. Chrome 127
+         added implicit focus for scrollers with no focusable children and hides
+         the problem there; Firefox and Safari do not, and on those the hidden
+         quarter of the oldest tables was unreachable without a mouse.
+         A focusable region announces as an unlabelled group without a name, so
+         role="region" + aria-label, worded like the caption. -->
+    <div class="xp-scroll" tabindex="0" role="region" aria-label="${esc(e.name)} sets, scrollable table">
       <table class="xp-table">
         <caption class="sr-only">${esc(e.name)} sets, oldest first</caption>
         <thead>

@@ -17,6 +17,7 @@ import { basename, join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkDrift } from "../shared/chrome.mjs";
 import { esc, MONTHS_SHORT as MONTHS, moneyCompact } from "../shared/format.mjs";
+import { labelFor } from "../shared/taxonomy.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // The live home page and the prototype share one design and one generator, so
@@ -588,7 +589,165 @@ try {
   /* run: node scripts/sync-intl-guides.mjs */
 }
 
+/* ------------------------------------------- the two client-rendered grids -
+ *
+ * BOTH GRIDS USED TO SHIP EMPTY and app.js filled them once videos.json (166KB)
+ * resolved. That is a layout shift, not a loading state: the page is short
+ * enough before the tiles land that the FOOTER starts INSIDE the viewport, and
+ * the arriving content shoves it out. Measured in headless Chrome:
+ *
+ *   /videos.html     CLS 0.2600 at 1440x900   (FOOTER [0,666,1440,234] -> gone)
+ *   /playlists.html  CLS 0.1989 at 1440x900   (FOOTER [0,423,1440,477] -> gone)
+ *
+ * against a 0.1 budget. THE OBVIOUS FIX DOES NOT WORK ON PLAYLISTS. Reserving
+ * height needs a number, and at 1440 the FILLED playlist grid is only 526px
+ * tall, which still leaves the footer at 807px, inside a 900px viewport. Any
+ * reserve big enough to push the footer out is bigger than the grid ever gets,
+ * so the footer would come back UP when the tiles land, and a shift upward
+ * counts exactly the same as a shift downward. The only height that costs
+ * nothing is the real one, which means rendering the tiles.
+ *
+ * So the server renders both grids and app.js takes over on the first filter,
+ * search or sort. Three things this had to get right:
+ *
+ * 1. THE MARKUP IS BYTE-IDENTICAL to what app.js's makeCard() and
+ *    initPlaylists() build. Not "close enough": generated here, captured from
+ *    the browser's own outerHTML, and diffed. 312 library tiles and 20
+ *    playlist tiles, zero differences. If you change either side, re-check it
+ *    the same way rather than by eye.
+ * 2. app.js MUST NOT WIPE IT. It appended a "Loading the bulk..." placeholder
+ *    unconditionally, which would have destroyed the static render before
+ *    videos.json arrived and traded one flash for another. See initLibrary.
+ * 3. THE LABELS COME FROM taxonomy.mjs, not from a third hand-copy. app.js
+ *    mirrors that table by hand and title-cases anything missing from it, so
+ *    labelOf below reproduces the fallback too: "multi" has no entry and has
+ *    to read "Multi" on both sides or the pack brand differs.
+ *
+ * Cost, measured rather than estimated: all 312 library tiles are 225.1KB raw
+ * and 17.8KB gzipped, which is how the host serves them. videos.html goes from
+ * 3.5KB to 21.3KB gzipped, against the 33KB of app.js and the 166KB of
+ * videos.json the page already fetches. In exchange every rip page picks up a
+ * static link from the hub that exists to list them: crawl depth from the home
+ * page collapses from a 13-deep tail with 78 pages at depth 4 or worse, to
+ * every rip at depth 2 and nothing deeper.
+ */
+// THE PULL BADGE IS DELIBERATELY SHORTER THAN THE TAXONOMY LABEL. taxonomy.mjs
+// calls these "Gold / Hyper Rare" and "Special Illustration Rare", which is the
+// right name for a heading and far too long for a chip sitting in the corner of
+// a 200px tile, so app.js carries its own six-entry table. Using labelFor here
+// put "Gold / Hyper Rare" on 74 of the 312 tiles against app.js's "Gold": found
+// by diffing the two renders, which is exactly what that diff is for.
+const PULL_BADGE = {
+  sir: "SIR", ir: "IR", gold: "Gold", "alt-art": "Alt Art",
+  "double-rare": "Double Rare", charizard: "Charizard",
+};
+const labelOf = (group, id) => {
+  const hit = group === "pulls" ? PULL_BADGE[id] || id : labelFor(group, id);
+  if (hit !== id) return hit;
+  return String(id).split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+};
+const fmtViews = (n) => !n ? "" :
+  n >= 1e6 ? `${(n / 1e6).toFixed(1).replace(/\.0$/, "")}M views` :
+  n >= 1e3 ? `${(n / 1e3).toFixed(1).replace(/\.0$/, "")}K views` : `${n} views`;
+const fmtDate = (iso) => {
+  if (!iso) return "";
+  const p = iso.split("-");
+  return `${MONTHS[Number(p[1]) - 1]} ${Number(p[2])}, ${p[0]}`;
+};
+
+/** app.js makePack(), as HTML. The pack is CSS art, so there is no image here. */
+function packFacade(setId) {
+  return `<span class="pack pack--${setId} pack--tile" aria-hidden="true"><span class="pack-face pack-l">` +
+    `<span class="pack-art"></span><span class="pack-brand">${esc(labelOf("sets", setId))}<small>GARBAGE RIPS 585</small></span>` +
+    `<span class="pack-seal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg></span>` +
+    `</span></span>`;
+}
+
+/** app.js makeCard(), as HTML. Unfiltered, so no preferSet and no rank. */
+function libCard(v) {
+  const all = v.sets || [];
+  // NOT faceSet(). app.js picks the wrapper without consulting which artwork
+  // exists, so this has to as well or the two disagree on the pack class.
+  let set = all[0];
+  if (all.length > 1) set = "multi";
+  else if (!set) set = "default";
+  const href = v.path ? `/${v.path}` : "/videos.html";
+  const pull = (v.pulls || [])[0];
+  const bits = [];
+  if (all.length > 1) bits.push(`${labelOf("sets", all[0]).toUpperCase()} +${all.length - 1}`);
+  else if (all.length) bits.push(labelOf("sets", all[0]).toUpperCase());
+  if (v.views) bits.push(fmtViews(v.views).toUpperCase());
+  else if (v.published) bits.push(fmtDate(v.published).toUpperCase());
+  return `<article class="v"><a class="art" href="${esc(href)}" aria-label="${esc(v.siteTitle || v.title)}">` +
+    packFacade(set) +
+    (pull ? `<span class="hit">${esc(labelOf("pulls", pull))}</span>` : "") +
+    (v.duration ? `<span class="dur">${clock(v.duration)}</span>` : "") +
+    `<span class="play"></span></a>` +
+    `<h3><a href="${esc(href)}">${esc(v.label || v.siteTitle || v.title)}</a></h3>` +
+    `<p>${esc(bits.join("  •  "))}</p></article>`;
+}
+
+// app.js's default sort: newest first, and it compares the ISO strings rather
+// than parsing them. Same comparison here so the two orders cannot differ.
+const LIB_TILES = Number(process.env.LIB_TILES || 0) || videos.length;
+const libHtml = [...videos]
+  .sort((a, b) => (a.published < b.published ? 1 : -1))
+  .slice(0, LIB_TILES)
+  .map(libCard)
+  .join("\n");
+
+const playlists = JSON.parse(
+  await readFile(join(ROOT, "public/data/playlists.json"), "utf8").catch(() => '{"playlists":[]}'),
+).playlists || [];
+const videoById = new Map(videos.map((v) => [v.id, v]));
+
+/** app.js initPlaylists(), as HTML. */
+function plTile(p) {
+  let thumb;
+  if (p.thumb) {
+    // Same mqdefault swap app.js does, and for the same reason: the cover is
+    // painted 118 CSS px wide and maxresdefault is 1280.
+    const mq = p.thumb.replace(/\/maxresdefault\.(jpg|webp)$/, "/mqdefault.$1");
+    const srcset = mq !== p.thumb ? ` srcset="${esc(mq)} 320w, ${esc(p.thumb)} 1280w" sizes="118px"` : "";
+    const dim = p.thumbW ? ` width="${p.thumbW}" height="${p.thumbH}"` : "";
+    thumb = `<span class="pl-thumb"><img src="${esc(p.thumb)}"${srcset} alt="" loading="lazy"${dim}></span>`;
+  } else {
+    let setId = null;
+    for (const id of p.videoIds || []) {
+      const s = (videoById.get(id)?.sets || [])[0];
+      if (s) { setId = s; break; }
+    }
+    thumb = `<span class="pl-thumb pl-thumb--pack">${packFacade(setId || "default")}</span>`;
+  }
+  // ON THIS SITE. This used to link to youtube.com/playlist, and so did the
+  // copy of these cards that app.js builds at runtime. Both now point at the
+  // playlist's own page under /playlists/, generated by build-playlists.mjs,
+  // which shows the same run in the same order with the packs opening in place.
+  //
+  // `path` is read from the data, never re-derived from the title here: it is
+  // stamped by build-playlists.mjs for the same reason a video's path is
+  // stamped by the sync, so three places cannot disagree about a url. A
+  // playlist with no path has no page and renders as a card, not a dead link.
+  const body =
+    thumb +
+    `<span class="pl-body"><b class="pl-title">${esc(p.title)}</b>` +
+    `<span class="pl-count">${p.count}${p.count === 1 ? " video" : " videos"}</span>` +
+    (p.path ? `<span class="pl-out">Open the playlist</span>` : "") +
+    `</span>`;
+  return p.path
+    ? `<a class="pl" href="/${esc(p.path)}" aria-label="${esc(`${p.title}, ${p.count} videos`)}">${body}</a>`
+    : `<span class="pl">${body}</span>`;
+}
+// A playlist with nothing in it is not content, and app.js drops those too.
+const plHtml = playlists.filter((p) => (p.count || 0) > 0).map(plTile).join("\n");
+
+// Regions that live on videos.html / playlists.html and NOT on index.html, so
+// the "index.html carries every marker" check below has to skip them.
+const OWNED_ELSEWHERE = new Set(["LIBGRID", "PLGRID"]);
+
 const REGIONS = {
+  LIBGRID: libHtml,
+  PLGRID: plHtml,
   WANTED: wantedHtml,
   RAIL: railHtml,
   HOF: hallHtml,
@@ -644,12 +803,12 @@ for (const target of TARGETS) {
     const a = html.indexOf(start);
     const b = html.indexOf(end);
     // A MISSING MARKER IS ONLY FATAL ON THE PAGE THAT OWNS THE REGION.
-    // index.html carries all of them. videos.html and playlists.html are in
-    // TARGETS purely so the domain rewrite below reaches them, and they have
-    // never had a content region, so treating an absent marker as an error
-    // would fail the build for doing exactly what was intended.
+    // index.html carries all of them EXCEPT the two grids, which belong to
+    // videos.html and playlists.html and to nothing else. videos.html and
+    // playlists.html were originally in TARGETS purely so the domain rewrite
+    // below reached them, so an absent marker there is still not an error.
     if (a === -1 || b === -1) {
-      if (basename(target) === "index.html") {
+      if (basename(target) === "index.html" && !OWNED_ELSEWHERE.has(name)) {
         console.error(`Marker ${name} not found in ${target}`);
         process.exit(1);
       }

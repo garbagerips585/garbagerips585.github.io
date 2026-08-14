@@ -501,7 +501,8 @@ footer .soc svg{fill:var(--paper)}
 .rip-desc{white-space:pre-wrap;background:var(--paper-2);border:3px solid var(--navy);
   border-radius:12px;padding:20px 22px;box-shadow:0 6px 0 var(--trubbish);font-size:.95rem}
 .crumbs{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);margin-bottom:18px;font-weight:700}
-.crumbs a{color:var(--sky-deep)}
+.crumbs a{color:var(--sky-deep);text-decoration:underline;
+  text-decoration-thickness:1px;text-underline-offset:2px}
 .rip-nav{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
 .rip-setlogo{display:block;height:clamp(34px,5vw,54px);width:auto;margin-bottom:14px}
 .sec-head .setlogo{height:clamp(30px,4.4vw,50px);width:auto;display:block;margin-bottom:6px}
