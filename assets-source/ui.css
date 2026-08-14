@@ -1001,6 +1001,23 @@ footer .soc svg{fill:var(--paper)}
 }
 .vid-shell:hover{transform:translateY(-5px);border-color:var(--sky);
   box-shadow:0 10px 0 var(--sky-deep),0 18px 30px rgba(19,38,55,.34)}
+/* .vid-shell SILENTLY ATE ITS OWN FOCUS RING.
+   The base rule above uses outline and box-shadow as DECORATION: the inner navy
+   line that reads as a card border, and the gold 3D lift. :focus-visible sets
+   the same two properties at the same specificity (0,1,0) and is declared far
+   earlier in the file, so .vid-shell wins on source order and overrides both
+   halves of the ring. Focusing a tile changed zero pixels. Nothing is missing
+   from the source, which is what makes this class of bug invisible to review:
+   the ring is defined, it is just outranked.
+   Restated here, after the base rule, so it wins. The decorative inner line is
+   kept as an inset shadow so the card still looks like a card, and the ring is
+   drawn outside it in the site's ketchup + white halo. Verified as a pixel
+   change against the unfocused tile rather than assumed. */
+.vid-shell:focus-visible{
+  outline:3px solid var(--ketchup-deep);outline-offset:2px;
+  box-shadow:inset 0 0 0 2px var(--navy),0 0 0 8px rgba(255,255,255,.95),
+             0 6px 0 var(--gold-deep),0 12px 22px rgba(19,38,55,.28);
+}
 .vid-shell img{width:100%;height:100%;object-fit:cover}
 .vid-shell iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.vid-shell.playing:hover{transform:none}
 /* holo sweep on hover, the card-y bit */
@@ -1034,6 +1051,23 @@ footer .soc svg{fill:var(--paper)}
   box-shadow:0 8px 0 var(--gold-deep),0 16px 30px rgba(19,38,55,.3)}
 .rip-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .rip-player img{width:100%;height:100%;object-fit:cover}
+
+/* THE PACK HAD NO FOCUS INDICATOR AT ALL, ON ALL 311 RIP PAGES.
+   Not a missing rule: the global :focus-visible ring applied and computed
+   exactly as it should, outline:3px solid --ketchup-deep with outline-offset:2px
+   and a 5px white halo. It was simply never painted. .pack is position:absolute
+   inset:0 inside .rip-player, and .rip-player is overflow:hidden for its rounded
+   corners, so a ring drawn 2px OUTSIDE the pack lands 2px outside the clip.
+   Screenshotting the pack focused and unfocused produced byte-identical PNGs.
+   That is why a source read cannot catch this and a pixel diff can.
+   The fix draws the ring INSIDE the clip. Two rings, because the pack skins run
+   from #120E1C to #FFF6D2 and no single colour reads on all of them: mustard on
+   an ink band. outline-offset is negative, and the halo is an INSET shadow, so
+   neither can be clipped. Verified as a 4,000+ pixel change. */
+.pack:focus-visible{
+  outline:3px solid var(--mustard);outline-offset:-5px;
+  box-shadow:inset 0 0 0 8px rgba(21,38,58,.92);
+}
 /* ---------- the five pack keyframes ----------
    These were referenced by name from five rules below and DID NOT EXIST: no
    @keyframes block anywhere in the repo, and none in the file's git history
@@ -1414,6 +1448,23 @@ footer .soc svg{fill:var(--paper)}
    already in the palette. */
 .band-sky .facts-list b{color:var(--plum)}
 
+/* THE SAME BUG, THREE MORE PLACES. .facts-list b was fixed in isolation, but
+   every other rule that sets its own colour inherits the same problem: the band
+   is a light sky gradient (#35BEEF -> #A8E4F7) and the two "quiet" text colours
+   in the palette are tuned for the cream page, not for this.
+   Measured from the rendered pixels behind each line of text, worst point of
+   the gradient, at 1440 and at 390:
+     .lede        --ink-soft  #5A6150 on #35BEEF   3.03:1   needs 4.5 (17.6px)
+     .price-note  --ink-soft  #5A6150 on #7CD5F4   3.89:1   needs 4.5 (10.9px)
+     .rar-n       --ketchup-deep #A83318 on #46C3F0 3.28:1  needs 4.5 (13.8px
+                  bold is NOT large text: bold needs 18.66px for the 3:1 tier)
+   --navy is the band's own text colour and already sits on it at 5.41:1, so the
+   two greys go navy. .rar-n keeps a warm accent by following .facts-list b to
+   --plum, which measures 5.31:1 at the top of the gradient. Nothing here is a
+   new colour: both are already in the palette and already used on this band. */
+.band-sky .lede,.band-sky .price-note{color:var(--navy)}
+.band-sky .rar-n{color:var(--plum)}
+
 
 /* Two empty media queries and a .vid-grid.dense rule left over from the
    previous dead-rule sweep are removed below rather than left as a loaded gun:
@@ -1477,6 +1528,17 @@ footer .soc svg{fill:var(--paper)}
 /* The native name sits under the English one rather than beside it, so a long
    Japanese name cannot push the rarity column off a 320px screen. */
 .ig-cards .ig-native{grid-column:2}
+/* That move was necessary and not sufficient. A grid item's min-width defaults
+   to AUTO, not 0, so the 1fr name column refuses to shrink below the widest
+   unbreakable word in it, and .ig-rr is white-space:nowrap on top of that. At
+   320px the row measured 306px inside a 294px container and the layout viewport
+   grew to 343px: the whole page scrolled sideways by 23px and "Common" /
+   "Double Rare" sat off the right edge with nothing to scroll them back.
+   Measured on /sets/ja-mega-brave.html with the checklist open. min-width:0 is
+   the whole fix; the row then measures 283px and the viewport stays at 320.
+   The English checklist (.ig-cards.en, three columns including a price) is one
+   column wider and was the next to go, so it is covered by the same rule. */
+.ig-cards li,.ig-cards li > *{min-width:0}
 .ig-rr{grid-row:1;grid-column:3;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
   text-align:right;white-space:nowrap}
 

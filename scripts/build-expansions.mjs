@@ -199,7 +199,12 @@ const style = `
 .xp-rips{white-space:nowrap}
 .xp-rips a{font-weight:700;color:var(--ketchup-deep)}
 .xp-rips a:hover{text-decoration:underline}
-.xp-none{color:var(--steel,#9FB0C0)}
+/* --steel is not a token this stylesheet defines, so this always fell through
+   to the #9FB0C0 literal: 2.22:1 on the white table, the worst contrast
+   measured anywhere on the site. It is the em dash standing in for "no rips",
+   which is information, not decoration. --ink-2 is the secondary text colour
+   already used two rules up in .xp-cards .sec, and measures 5.27:1 on white. */
+.xp-none{color:var(--ink-2)}
 .xp-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
 `;

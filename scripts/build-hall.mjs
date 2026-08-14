@@ -225,7 +225,7 @@ function plaque(c, i) {
   const rank = i + 1;
   const top = rank <= 3 ? ` chof-top chof-${rank}` : "";
   const img = c.image
-    ? `<img src="${esc(c.image)}" alt="${esc(c.name)} ${esc(c.rarity || "")} from Pokemon ${esc(c.setName)}" loading="lazy" onerror="this.remove()" width="245" height="342">`
+    ? `<img src="${esc(c.image)}" alt="${esc(c.name)} ${esc(c.rarity || "")} from Pokemon ${esc(c.setName)}" loading="lazy" onerror="this.remove()" width="245" height="337">`
     : `<span class="chof-noart">${esc(c.name)}</span>`;
   return `      <li class="chof${top}">
         <span class="chof-rank">${rank}</span>
@@ -268,7 +268,7 @@ const style = `
 .chof-tally div{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);
   border-radius:var(--r);padding:var(--s3) var(--s5);min-width:132px}
 .chof-tally b{display:block;font:400 1.5rem/1 var(--display);color:var(--mustard)}
-.chof-tally span{font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.08em;color:#9FB0C0;
+.chof-tally span{font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.08em;color:#B3C2CF;
   text-transform:uppercase}
 
 .chof-list{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5) var(--s4);
@@ -294,23 +294,29 @@ const style = `
   box-shadow:0 6px 18px rgba(0,0,0,.45)}
 .chof-art img{width:100%;height:auto;aspect-ratio:245/342;object-fit:contain;background:#0E1B2A}
 .chof-noart{display:grid;place-items:center;aspect-ratio:245/342;padding:10%;
-  font:400 .8rem/1.2 var(--display);color:#9FB0C0;text-align:center;background:#0E1B2A}
+  font:400 .8rem/1.2 var(--display);color:#B3C2CF;text-align:center;background:#0E1B2A}
 .chof-body{min-width:0;flex:1}
 .chof-name{font:600 var(--t-body)/1.25 var(--body);display:block}
 .chof-set,.chof-rar,.chof-pulled{display:block;font:700 var(--t-micro)/1.5 var(--mono);
-  letter-spacing:.03em;color:#9FB0C0}
+  letter-spacing:.03em;color:#B3C2CF}
 .chof-rar{color:var(--lilac)}
 .chof-prices{display:flex;gap:var(--s4);margin-top:var(--s3);padding-top:var(--s3);
   border-top:1px dashed rgba(255,255,255,.18)}
-.chof-prices dt i{font-style:normal;font-weight:400;opacity:.7}
-.chof-prices dt{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;color:#9FB0C0;
+/* opacity:.7 on #9FB0C0 measured 3.32:1 against the lightest card tint on this
+   page (#3E4445) where AA wants 4.5 for 11px text, and the steel itself was
+   4.46:1 at full strength: under the line before the opacity was applied.
+   The steel is now #B3C2CF (5.45:1) and the date gets an explicit dimmer
+   colour instead of a multiplier, because opacity compounds with whatever
+   the card tint happens to be and cannot be checked by reading it. */
+.chof-prices dt i{font-style:normal;font-weight:400;color:#ACBBC8}
+.chof-prices dt{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;color:#B3C2CF;
   text-transform:uppercase}
 .chof-prices dd{font:700 var(--t-m)/1.2 var(--body);color:#F4F1E2}
 .chof-prices .psa dd{color:var(--mustard)}
 .chof-pulled{margin-top:var(--s2)}
 .chof-empty{text-align:center;color:#B9C6D2;background:rgba(255,255,255,.05);
   border:1px dashed rgba(255,255,255,.2);border-radius:14px;padding:var(--s7) var(--s5)}
-.chof-note{font:700 var(--t-micro)/1.7 var(--mono);color:#9FB0C0;text-align:center;
+.chof-note{font:700 var(--t-micro)/1.7 var(--mono);color:#B3C2CF;text-align:center;
   margin-top:var(--s7);max-width:52em;margin-inline:auto}
 
 /* lightbox */
@@ -320,7 +326,7 @@ const style = `
 .lb-in{max-width:520px;width:100%;text-align:center}
 .lb-in img{width:100%;max-height:76vh;object-fit:contain;border-radius:10px}
 .lb-in h2{font:400 1.4rem/1.2 var(--display);color:#F4F1E2;margin-top:var(--s4)}
-.lb-in p{font:700 var(--t-sm)/1.6 var(--mono);color:#9FB0C0}
+.lb-in p{font:700 var(--t-sm)/1.6 var(--mono);color:#B3C2CF}
 .lb-in .lb-pr{color:var(--mustard);font-size:var(--t-m)}
 .lb-close{position:absolute;top:var(--s4);right:var(--s4);width:44px;height:44px;
   border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);

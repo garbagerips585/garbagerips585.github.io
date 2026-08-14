@@ -377,7 +377,7 @@ const desc = (v.blurb || descriptions[v.id] || "")
     </div>
     <ul class="chaser-list">
       ${chaseCards.map((c) => `<li class="chaser">
-        ${c.image ? `<img src="${esc(c.image)}" alt="${esc(c.name)}, ${esc(rarityLabel(c.rarity) || "card")} from ${esc(setLabel)}" loading="lazy" onerror="this.remove()" width="245" height="342">` : ""}
+        ${c.image ? `<img src="${esc(c.image)}" alt="${esc(c.name)}, ${esc(rarityLabel(c.rarity) || "card")} from ${esc(setLabel)}" loading="lazy" onerror="this.remove()" width="245" height="337">` : ""}
         <div>
           <b>${esc(c.name)}</b>
           <span class="chaser-rar">${esc(rarityLabel(c.rarity) || "")}${c.number ? ` &bull; #${esc(c.number)}` : ""}</span>

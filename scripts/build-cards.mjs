@@ -171,7 +171,7 @@ const row = (r) => {
   const [name, slug, n, rarity, price] = r;
   const src = thumb(slug, n);
   return `<li class="cq${src ? " has-thumb" : ""}">
-        ${src ? `<img class="cq-img" src="${esc(src)}" onerror="this.remove()" alt="" loading="lazy" width="60" height="84">` : ""}
+        ${src ? `<img class="cq-img" src="${esc(src)}" onerror="this.remove()" alt="" loading="lazy" width="245" height="337">` : ""}
         <a class="cq-name" href="/sets/${esc(slug)}.html">${esc(name)}</a>
         <span class="cq-set">${esc(setName[slug] || slug)} &bull; ${esc(n || "")}</span>
         ${rarity ? `<span class="cq-rr">${esc(rarityLabel(rarity))}</span>` : ""}
@@ -301,7 +301,7 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official."
       // guessing one from the set id gives a broken image on every miss.
       var base=r.slug && DATA.imgBase && DATA.imgBase[r.slug];
       var img=base&&r.n
-        ? '<img class="cq-img" src="'+esc(base+'/'+r.n+'/low.webp')+'" alt="" loading="lazy" width="60" height="84">'
+        ? '<img class="cq-img" src="'+esc(base+'/'+r.n+'/low.webp')+'" alt="" loading="lazy" width="245" height="337">'
         : '';
       var nameCell=href
         ? '<a class="cq-name" href="'+href+'">'+esc(r.name)+'</a>'

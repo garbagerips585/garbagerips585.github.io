@@ -258,7 +258,14 @@ ${BAR_LINKS.map((h) => `      <a href="${h}">${labelFor(h)}</a>`).join("\n")}
  * to the first </nav>, so a nav inside a nav would have it write a truncated
  * menu into all eight hand-maintained pages and mean it. Divs are safe.
  */
-export const MENU = `<nav class="menu" id="menu" aria-label="Site">
+/* THE NAME HAS TO BE UNIQUE, not just present. This panel and the footer nav
+   were both aria-label="Site", and a third <nav aria-label="Primary"> sits in
+   the bar. A screen reader's landmark list then reads "Site navigation, Site
+   navigation, Primary navigation" and the two identical entries are the two
+   biggest ones on the page. ARIA11/H97 is explicit that repeated landmarks of
+   the same role need labels that tell them apart. Named for where each one is,
+   which is how a reader would ask for it. */
+export const MENU = `<nav class="menu" id="menu" aria-label="All sections">
   <div class="menu-inner">
 ${NAV.map(
   ([title, links]) => `    <div class="menu-g">
@@ -314,7 +321,8 @@ export const COLLECTR = "https://app.getcollectr.com/showcase/profile/563e3401-e
  * `extra` takes a line of page-specific small print, which the set guides use
  * to say where their card data and prices come from.
  */
-export const FOOT_NAV = `<nav class="foot-nav" aria-label="Site">
+/* "Footer", not "Site": see the note on MENU. These two carried the same name. */
+export const FOOT_NAV = `<nav class="foot-nav" aria-label="Footer">
 ${NAV.map(
   ([title, links]) => `      <div class="foot-col">
         <p class="foot-h">${title}</p>
