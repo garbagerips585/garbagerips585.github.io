@@ -27,7 +27,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/ui.css?v=45334f4d">
+<link rel="stylesheet" href="/assets/ui.css?v=22dcf143">
 <link rel="stylesheet" href="/assets/packs.css?v=2d406974">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"6 BOXES... and STILL No OG Starters?! 😭","description":"Box #6 of the Pokémon First Partner Illustration Collection Series 1 and I am officially losing my mind! 🤯 We are STILL on the hunt for those original 151 starters. How have we not hit them yet?! Is this box another Garbage Rip or can we finally find the classics? The hunt continues... 🐢🔥⚡#pokemon #pokemonshorts #pokemoncards #pokemontcg","thumbnailUrl":["https://i.ytimg.com/vi/M7NqqhR8V4M/oardefault.jpg"],"uploadDate":"2026-07-04","embedUrl":"https://www.youtube.com/embed/M7NqqhR8V4M","url":"https://garbagerips585.github.io/rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html","duration":"PT44S","interactionStatistic":{"@type":"InteractionCounter","interactionType":{"@type":"WatchAction"},"userInteractionCount":19},"publisher":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Every rip","item":"https://garbagerips585.github.io/videos.html"},{"@type":"ListItem","position":3,"name":"6 BOXES... and STILL No OG Starters?! 😭"}]}</script>
@@ -236,10 +236,12 @@
     Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/packplayer.js?v=109ba10d" defer></script>
 <script>
-// The player itself lives in /assets/packplayer.js so the homepage can mount
-// the same thing. This page has exactly one, wired on load.
+// The player lives in /assets/packplayer.js, which shared/chrome.mjs now ships
+// on EVERY page via APP_JS, so this page must not request it a second time.
+// It did, and the IIFE ran twice on all 311 rip pages: two sets of document
+// listeners, and window.GRPack pointing at the second instance while the
+// first kept an orphaned registry of what was playing.
 addEventListener('DOMContentLoaded',function(){
   var r=document.querySelector('.rip-stage');
   if(r&&window.GRPack) GRPack.attach(r);
@@ -335,6 +337,6 @@ addEventListener('DOMContentLoaded',function(){
 })();
 </script>
 <script src="/assets/app.js?v=d4b6cdad" defer></script>
-<script src="/assets/packplayer.js?v=109ba10d" defer></script>
+<script src="/assets/packplayer.js?v=75cc3122" defer></script>
 </body>
 </html>

@@ -424,7 +424,7 @@ function heroTile(v, opts) {
   const face = set && packs.has(set)
     ? `<img src="assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp"
            srcset="assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${set}-garbage-rips-585-booster-pack.webp 810w"
-           sizes="(max-width:640px) 42vw, 260px" alt="" width="400" height="711" fetchpriority="high">`
+           sizes="(max-width:640px) 87vw, 440px" alt="" width="400" height="711" fetchpriority="high">`
     : `<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" width="400" height="711" fetchpriority="high">`;
   const all = v.sets || [];
   const label = all.length ? (setName.get(all[0]) || all[0]).toUpperCase() : "GARBAGE RIPS";

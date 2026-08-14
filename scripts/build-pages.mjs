@@ -547,10 +547,12 @@ ${related.length ? `<section class="band tight">
 </section>` : ""}
 
 ${footer()}
-<script src="/assets/packplayer.js" defer></script>
 <script>
-// The player itself lives in /assets/packplayer.js so the homepage can mount
-// the same thing. This page has exactly one, wired on load.
+// The player lives in /assets/packplayer.js, which shared/chrome.mjs now ships
+// on EVERY page via APP_JS, so this page must not request it a second time.
+// It did, and the IIFE ran twice on all 311 rip pages: two sets of document
+// listeners, and window.GRPack pointing at the second instance while the
+// first kept an orphaned registry of what was playing.
 addEventListener('DOMContentLoaded',function(){
   var r=document.querySelector('.rip-stage');
   if(r&&window.GRPack) GRPack.attach(r);

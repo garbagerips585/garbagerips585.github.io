@@ -2347,6 +2347,12 @@ span.cq-name{color:var(--ink)}
 .gloss-fig.is-diagram svg{display:block;width:100%;max-width:132px;height:auto;
   border:1px solid var(--hair);border-radius:6px;background:var(--paper-2)}
 
+/* The spotlight's artwork is a full 810x1440 pack render, so it draws at 9:16,
+   not at the 2:3 a grid tile uses. Giving the stage the tile's ratio there made
+   the card 110px shorter the moment it played. Matching the art it replaces
+   keeps the page still. */
+.hofx .tile-stage{aspect-ratio:9/16;max-width:none}
+
 /* A rip playing inside its own tile.
    The tile is a 2:3 facade; the player opens to 9:16 so playback has no bars,
    which is the same rule the rip page follows. It fills the tile's slot rather
@@ -2357,7 +2363,13 @@ span.cq-name{color:var(--ink)}
    Keeping the footprint means nothing moves, and the dark surround reads as
    deliberate letterboxing rather than a gap, which is what YouTube does with a
    vertical video too. */
-.tile-stage{position:relative;width:100%;aspect-ratio:2/3;display:grid;
+/* THE CAP IS GLOBAL, because the player replaces whatever anchor was clicked
+   and that anchor is not always a small tile. Clicking the Hall of Fame
+   spotlight, whose <a> IS the whole gold card, gave the stage the full 1392px
+   wrap width and therefore 2088px of height: the video played in the top third
+   with a thousand pixels of black hanging beneath it, shoving the rest of the
+   page down 1287px. The carousel had its own cap; nothing else did. */
+.tile-stage{position:relative;width:100%;max-width:440px;aspect-ratio:2/3;display:grid;
   place-items:center;background:#0B1520;border-radius:var(--r);overflow:hidden}
 .tile-stage .rip-player{position:relative;height:100%;max-width:100%;aspect-ratio:9/16;
   overflow:hidden;background:#000}
@@ -2384,6 +2396,11 @@ span.cq-name{color:var(--ink)}
 .vcar{position:relative;width:100%;min-width:0}
 /* The bands that hold a carousel stop imposing their own grid or flex row. */
 .shelf:has(.vcar),.wall:has(.vcar){display:block;margin:0;padding-inline:0;overflow:visible}
+/* .wall > .brk carries margin-bottom:-16px to claw back the grid's 24px row
+   gap. Switching .wall to display:block removes that gap, so the -16px became
+   a raw overlap and the card's top edge cut through the bottom of the "Latest
+   rips" heading: it read as "Latest rins" at 375, 768 and 1024. */
+.wall:has(.vcar) > .brk{margin-bottom:var(--s3)}
 .vcar-track{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x mandatory;
   scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .vcar-track::-webkit-scrollbar{display:none}
@@ -2444,8 +2461,12 @@ span.cq-name{color:var(--ink)}
   font:700 1.1rem/1 var(--body);box-shadow:0 2px 0 var(--ink)}
 .vcar-nav:disabled{opacity:.35;cursor:default;box-shadow:none}
 .vcar-nav:active:not(:disabled){box-shadow:none;transform:translateY(2px)}
-.vcar-count{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;color:var(--ink-2);
-  min-width:5ch;text-align:center}
+/* The bar sits OUTSIDE the white card, directly on the band, and the Greatest
+   Hits band is dark. --ink-2 measured 2.66:1 there. currentColor takes the
+   band's own text colour, so it is correct on the dark band and the light one
+   without either being special-cased. */
+.vcar-count{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;color:currentColor;
+  opacity:.85;min-width:5ch;text-align:center}
 @media(prefers-reduced-motion:reduce){.vcar-nav:active{transform:none}}
 
 /* A carousel slide is a WHITE card, and the Greatest Hits band it sits in is

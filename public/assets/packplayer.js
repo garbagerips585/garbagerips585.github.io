@@ -284,7 +284,14 @@
     // place, and the title link underneath it, which has no image, still opens
     // the full page with the hits and the set guide.
     var a = e.target.closest && e.target.closest('a[href*="/rip/"]');
-    if (!a || !a.querySelector("img")) return;
+    // ARTWORK, WHICHEVER FORM IT TAKES. Requiring an <img> looked like the
+    // clean way to say "the picture plays, the title navigates", and it
+    // silently switched off the biggest video page on the site: /videos.html
+    // renders its 311 tiles from JSON with a pure CSS pack facade, spans only,
+    // no image anywhere in the anchor. Ninety-six tiles matched nothing.
+    // A .pack facade counts as artwork exactly as an <img> does; a title link
+    // has neither and still navigates, which was the whole point of the rule.
+    if (!a || !(a.querySelector("img") || a.querySelector(".pack"))) return;
     var m = VID.exec(a.getAttribute("href") || "");
     if (!m) return;                       // not a rip url; leave it alone
     e.preventDefault();
@@ -292,9 +299,15 @@
   }
 
   function playInTile(a, id) {
+    // The set comes from the image filename where there is an image, and from
+    // the facade's own pack--<set> class where there is not. Falling back to
+    // "default" for the CSS tiles would have given every rip on /videos.html
+    // the generic green wrapper instead of its own.
     var img = a.querySelector("img");
     var sk = img && SKIN.exec(img.getAttribute("src") || "");
-    var skin = sk ? sk[1] : "default";
+    var facade = a.querySelector(".pack");
+    var fromClass = facade && /pack--(?!tile\b)([a-z0-9-]+)/.exec(facade.className);
+    var skin = sk ? sk[1] : fromClass ? fromClass[1] : "default";
     var slot = a.parentNode;
     var title = (a.getAttribute("aria-label") || "").replace(/^Play\s+/, "");
 
@@ -314,6 +327,34 @@
           '<span class="sound-on-label">Tap for sound</span>' +
         "</button>" +
       "</div>";
+
+    // REPLACE ONLY THE ARTWORK WHERE THE ANCHOR IS MORE THAN ARTWORK.
+    //
+    // A grid tile's <a> is nothing but a picture, so swapping the whole anchor
+    // is right. The Hall of Fame spotlight's <a> is the ENTIRE gold card:
+    // artwork, title, set, view count and the call to action. Swapping that
+    // took the whole card away and left a lone player, so the page lost 141px
+    // and the featured rip lost everything that said what it was.
+    //
+    // Where a dedicated art box exists inside the anchor, the anchor is rebuilt
+    // as a plain <div> with only that box replaced. It has to stop being a link:
+    // leaving an <a> wrapped around a live player means every click on the
+    // video navigates away from it.
+    var artBox = a.querySelector(".hofx-art");
+    if (artBox) {
+      var shell = document.createElement("div");
+      shell.className = a.className + " is-playing";
+      while (a.firstChild) shell.appendChild(a.firstChild);
+      shell.replaceChild(host, shell.querySelector(".hofx-art"));
+      open(host, function () {
+        if (shell.parentNode) shell.parentNode.replaceChild(a, shell);
+      });
+      slot.replaceChild(shell, a);
+      attach(host);
+      var pk0 = host.querySelector(".pack");
+      if (pk0) pk0.click();
+      return;
+    }
 
     // Whatever is already playing goes back to being a tile first. One embed is
     // ~540KB; a page that accumulated them would get heavier with every click.
