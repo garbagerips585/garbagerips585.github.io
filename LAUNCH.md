@@ -11,22 +11,22 @@ and everything regenerates.
 
 ## 1. Accounts and money
 
-- [ ] **GitHub account and repo.** The repo has 60-odd commits on `main` and no
-      remote, so nothing is backed up anywhere but this laptop. That is the
-      single biggest risk right now: a dead disk loses everything. Create the
-      repo, then decide public or private. **Free is genuinely enough**: GitHub
-      free includes unlimited private and public repos, and Cloudflare Pages
-      connects to a free account without limitation. Nothing here needs a paid
-      plan. Private is the safer default until launch.
+- [x] **GitHub account and repo.** Done. `main` pushes to
+      `garbagerips585/garbagerips585.github.io`, and `.github/workflows/pages.yml`
+      publishes `public/` on every push. The laptop is no longer the only copy.
+      **Free is genuinely enough**: GitHub free includes unlimited public and
+      private repos, Pages, and Actions minutes well past what the nightly
+      refresh uses. Nothing here needs a paid plan.
 
-- [ ] **Domain: garbagerips585.com.** Every canonical URL, the sitemap, and the
-      Open Graph tags already point at it, so social previews and search will
-      only resolve once it exists. Buy it anywhere; Cloudflare Registrar sells
-      at cost and keeps DNS in one place.
+- [ ] **Domain: garbagerips585.com.** Every canonical, the sitemap and the Open
+      Graph tags switch to it from one flag, so nothing resolves until it
+      exists. Buy it anywhere. Point the apex at GitHub's four A records and
+      `www` at `garbagerips585.github.io`; the records are in DEPLOY.md.
 
-- [ ] **Cloudflare Pages.** Connect the repo. Build command `exit 0`, output
-      directory `public`. The `exit 0` matters: a blank build command disables
-      Functions, and `/api/latest` is a Function. Full walkthrough in DEPLOY.md.
+      Not needed: a separate DNS or CDN provider. GitHub Pages serves the site,
+      issues the certificate and handles HTTPS. The site used to be documented
+      as a Cloudflare Pages deploy, which it never was, and `functions/` and
+      `/api/latest` have been deleted because only Cloudflare could run them.
 
 - [ ] **pokemonpricetracker.com paid plan, $9.99/mo.** The free tier is 100
       credits a day and a card costs 2, so a full refresh of all 155 chase cards
@@ -74,30 +74,32 @@ and everything regenerates.
 
 ## 3. Before flipping it on
 
-- [ ] **Roll the new design across the rest of the site.** The home page,
-      /wanted.html, /shops.html and /hall.html use the current design. The
-      library, the playlists page, the 23 set guides and all 308 rip pages still
-      use the older `site.css` look, so clicking any tile leaves the new site
-      and lands in the old one. This is the most visible unfinished thing.
+- [ ] **Run the build and let it check itself.**
 
-- [ ] **Re-run the whole build chain and check nothing 404s.**
+      node scripts/build-all.mjs
 
-      node --env-file=.env scripts/sync-youtube.mjs
-      node scripts/build-pages.mjs
-      node scripts/sync-sets.mjs && node scripts/build-set-pages.mjs
-      node --env-file=.env scripts/sync-prices.mjs
-      node scripts/sync-wanted.mjs && node scripts/build-wanted.mjs
-      node scripts/build-hall.mjs && node scripts/build-shops.mjs
-      node scripts/build-proto.mjs
+      That is the whole chain, 31 steps, ending in check-build.py. The old
+      version of this file listed seven commands by hand, which missed most of
+      the site: following it after the flip would have left roughly 380 of 425
+      pages canonicalising to the staging host.
 
-- [ ] **Check `.env` never leaves the laptop.** It holds `YT_API_KEY` and
-      `PPT_API_KEY` and is gitignored. Confirm with `git status` before the
-      first push that neither appears.
+- [ ] **Flip the flag, in the same commit as the build.**
 
-- [ ] **Test on a real phone**, not the desktop browser at a narrow width. Most
-      of the audience arrives from a YouTube link on a phone.
+      shared/site.mjs -> export const LIVE = true;
 
----
+      Then rebuild. See DEPLOY.md for the full sequence and the four checks
+      that prove it landed. The important one:
+
+      grep -rl "github.io" public/ | grep -v assets    # must return nothing
+
+- [ ] **Check the pages nobody generates.** index.html, videos.html and
+      playlists.html are hand maintained. They are in build-proto.mjs's rewrite
+      list so the flip reaches them, but they are also the three most likely to
+      drift, so open them and look at the canonical.
+
+- [ ] **Search Console after the flip, never before.** robots.txt says
+      Disallow: / until LIVE is true, and submitting a sitemap while it does
+      teaches Google the site is closed.
 
 ## 4. Soon after launch
 

@@ -191,26 +191,19 @@
       })
       .then(function (d) {
         var videos = d.videos || [];
-        // Layer the live RSS feed on top so uploads made since the last sync
-        // still show. Optional: the site works fine without the function.
-        return fetch("/api/latest")
-          .then(function (r) { return r.ok ? r.json() : null; })
-          .then(function (live) {
-            if (!live || !live.videos || !live.videos.length) return videos;
-            var seen = {};
-            videos.forEach(function (v) { seen[v.id] = v; });
-            var merged = videos.slice();
-            live.videos.forEach(function (v) {
-              if (seen[v.id]) {
-                // keep the richer synced record, refresh the view count
-                if (v.views) seen[v.id].views = v.views;
-              } else {
-                merged.push(v);
-              }
-            });
-            return merged.sort(function (a, b) { return a.published < b.published ? 1 : -1; });
-          })
-          .catch(function () { return videos; });
+        // NO LIVE FEED LAYER. This used to fetch /api/latest, a Cloudflare
+        // Pages Function that proxied the YouTube RSS feed, because the feed
+        // sends no CORS headers and cannot be read from the browser directly.
+        //
+        // The site deploys to GitHub Pages, which serves static files and
+        // cannot execute a function, so that fetch was a guaranteed 404 on
+        // every load of every page with a grid. It failed inside a .catch() so
+        // nothing broke visibly; it just spent a request to learn nothing.
+        //
+        // Freshness comes from the nightly refresh workflow instead, which runs
+        // sync-youtube at 07:10 UTC and can be triggered by hand, so a new
+        // upload is on the site within a day rather than within a minute.
+        return videos;
       });
     return dataPromise;
   }

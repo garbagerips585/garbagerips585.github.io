@@ -10,9 +10,9 @@
 //
 // Idempotent: each region is replaced between its own pair of markers.
 
-import { readFile, writeFile, readdir } from "node:fs/promises";
+import { readFile, writeFile, readdir, rm } from "node:fs/promises";
 import { ripLabel } from "../shared/riplabel.mjs";
-import { SITE, DOMAIN, STAGING } from "../shared/site.mjs";
+import { SITE, DOMAIN, STAGING, LIVE } from "../shared/site.mjs";
 import { basename, join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkDrift } from "../shared/chrome.mjs";
@@ -556,6 +556,26 @@ const REGIONS = {
     console.error("\nMake them match, then re-run.\n");
     process.exit(1);
   }
+}
+
+// public/CNAME, generated rather than remembered.
+//
+// GitHub Pages deployed from an Actions workflow reads the custom domain from a
+// CNAME file INSIDE the uploaded artifact. pages.yml uploads public/ only, so
+// without this the custom domain setting is dropped on the next deploy and the
+// site quietly reverts to the github.io host, which is the exact thing the
+// canonical rewrite above exists to prevent.
+//
+// Written only when LIVE is true, because a CNAME naming a domain nobody owns
+// yet would break the current staging deploy. So it appears at the flip, from
+// the same flag, and cannot be forgotten separately.
+const CNAME = join(ROOT, "public/CNAME");
+if (LIVE) {
+  const host = DOMAIN.replace(/^https?:\/\//, "").replace(/\/$/, "");
+  await writeFile(CNAME, host + "\n");
+  console.log(`  wrote public/CNAME -> ${host}`);
+} else {
+  await rm(CNAME, { force: true });
 }
 
 for (const target of TARGETS) {

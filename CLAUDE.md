@@ -34,11 +34,11 @@ RSS is also available: youtube.com/feeds/videos.xml?channel_id=UC...
 ## Layout
 ```
 public/     deployed static root (index, videos, playlists, assets/, data/)
-functions/  Cloudflare Pages Functions. MUST stay outside public/
 scripts/    sync-youtube.mjs, local only, needs YT_API_KEY in the environment
 shared/     taxonomy.mjs, the set/product tag rules, imported by both
 ```
-Cloudflare settings: build command `exit 0`, output directory `public`.
+Host is GitHub Pages: .github/workflows/pages.yml uploads public/ on every
+push to main. There is no server build step. See DEPLOY.md.
 
 ## Every click stays on the site
 Video tiles everywhere link to that video's own page under `public/rip/`,
@@ -128,10 +128,11 @@ Two constraints that shape these pages:
   description by `shared/taxonomy.mjs`. Coverage is roughly 90% when the
   description is available, about 50% from titles alone. Hand corrections go
   in `data/overrides.json` and always win.
-- `/api/latest` proxies the YouTube RSS feed (no key) and layers the newest
-  uploads over the committed JSON. The feed sends no CORS headers, which is
-  why the proxy has to exist. Production only; locally it 404s and the site
-  falls back, which is intended.
+- No live feed layer. /api/latest was a Cloudflare Function proxying the
+  YouTube RSS feed (the feed sends no CORS headers, so the browser cannot read
+  it directly). GitHub Pages cannot execute a function, so that fetch was a
+  guaranteed 404 on every grid page and both it and functions/ are deleted.
+  Freshness comes from the nightly refresh workflow instead.
 
 ## Video display rules (these were measured, do not "fix" them)
 - Thumbnails come from `i.ytimg.com/vi_webp/<id>/oardefault.webp`, falling
@@ -180,13 +181,16 @@ move the whole site onto the real domain in one step. Do not hand-edit URLs.
 Codex .claude/launch.json. .claude/ is gitignored, so it never deploys.
 
 ## Deploy
-Git repo, main branch. Target is Cloudflare Pages with build command blank
-and output directory `/`. Full walkthrough in DEPLOY.md.
+Git repo, main branch, pushed to garbagerips585/garbagerips585.github.io.
+`pages.yml` publishes public/ on every push. Going live is one flag: set LIVE
+in shared/site.mjs and run build-all.mjs, which moves every canonical and the
+sitemap onto the real domain and generates public/CNAME. Full walkthrough and
+the four post-flip checks in DEPLOY.md.
 
 ## TODO (rough priority)
 1. Hits Only playlist embed: search index.html for "HITS ONLY PLAYER" —
    a comment shows the swap. Need the playlist ID from Tim (list=PL...).
-2. Buy garbagerips585.com, attach it in Cloudflare Pages, then verify in
+2. Buy garbagerips585.com, set it in Settings > Pages, then verify in
    Google Search Console and submit sitemap.xml. See DEPLOY.md.
 3. About page: Rochester story, E-E-A-T, link everything.
 4. Blog for actual search traffic: set reviews, pull rates, "Pokemon card
