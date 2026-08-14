@@ -266,7 +266,12 @@ ${MENU}
         <h3>${esc(c.name)}</h3>
         <p class="gc-price">${moneyCompact(c.cheapest)}<span> per card, ${esc(c.cheapestTier)}</span></p>
         <p class="gc-turn">${esc(c.turnaround)}</p>
-        <p class="gc-note">${esc(c.note)}</p>
+        ${
+              // The PSA note is already the whole "Read this first" panel at the
+              // top of the page. Printing it again on PSA's own card repeated a
+              // four line paragraph verbatim within one screen.
+              c.id === "psa" ? "" : `<p class="gc-note">${esc(c.note)}</p>`
+            }
         <p class="gc-resale"><strong>Resale.</strong> ${esc(c.resale)}</p>
         <a class="intl-link" href="${esc(c.url)}" rel="noopener" target="_blank">Their current prices &rarr;</a>
       </article>`
@@ -338,11 +343,16 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
       slabValue.length
         ? `<h2 style="margin-bottom:var(--s3)">What the slab is actually <span class="hl">worth</span></h2>
     <p class="lede" style="max-width:42em">The fee tells you what grading costs. This tells you what you get back.
-      Same cards, every company's 10, from real sold prices. It reorders the question completely: the cheapest
-      company to grade with returns the least, and the priciest returns the most.
+      Same cards, every company's 10, from real sold prices. It reorders the question
+      completely: BGS costs about half what TAG does and its 10 resells for more
+      than either PSA or TAG.
       Median of ${Object.keys(graded.cards || {}).length} cards read from ${esc(graded.source || "PriceCharting")} on
       ${esc(longDate(graded.checked) || graded.checked)}. A snapshot, not a live feed, and a different source from the
       PSA 10 prices in the fee table above.</p>
+    <p class="price-note">The last column is the median of each card's OWN ratio to its PSA 10, not the two medians
+      in this table divided by each other, which is why a company can show a higher median price and a lower
+      multiple. They answer different questions: the price column is what a typical slab of that make sells for
+      across the sample, and the multiple is what that make typically does to the same card.</p>
     <div class="cc-scroll" style="margin-bottom:var(--s5)">
       <table class="cc-table">
         <caption class="sr-only">Median value of each grading company's 10, against the raw card and against a PSA 10</caption>
@@ -359,7 +369,7 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
             <th scope="row">${esc(r.label)}<span class="cc-yr">${r.n} cards</span></th>
             <td class="num"><strong>${moneyRound(r.med)}</strong></td>
             <td class="num">${r.vsRaw.toFixed(1)}x<span class="cc-n">the ungraded price</span></td>
-            <td class="num">${r.vsPsa.toFixed(2)}x<span class="cc-n">${r.label === "PSA 10" ? "the benchmark" : r.vsPsa < 1 ? "less than PSA" : "more than PSA"}</span></td>
+            <td class="num">${r.vsPsa.toFixed(2)}x<span class="cc-n">${r.label === "PSA 10" ? "the benchmark" : "of PSA, same card"}</span></td>
           </tr>`,
             )
             .join("\n          ")}

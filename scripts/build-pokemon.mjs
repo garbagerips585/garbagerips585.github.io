@@ -426,7 +426,22 @@ function indexPage() {
         ${p.priciest.img ? `<img src="${esc(p.priciest.img)}/low.webp" onerror="this.remove()" alt="${esc(p.priciest.name)}, the most valuable ${esc(p.name)} card" loading="lazy" width="245" height="342">` : ""}
         <span class="poke-nm">${esc(p.name)}</span>
         <span class="poke-meta">${p.list.length} cards &bull; ${p.sets.size} sets</span>
-        <span class="poke-pr">top ${moneyRound(p.priciest.price)}</span>
+        ${
+          // NOTHING RATHER THAN A ZERO, which is the rule wanted.html states in
+          // its own footnote and which this page was breaking: two entries
+          // rendered "top $0" because their priciest card has no market price
+          // yet. A zero reads as "worthless", which is a claim about the card
+          // rather than about our data.
+          // NOT price > 0. Magnemite's dearest card is $0.32 and Magneton's is
+          // $0.31, and moneyRound turns both into "$0", which reads as
+          // worthless rather than as cheap. The guard has to be on what will be
+          // PRINTED, not on the underlying number.
+          !p.priciest.price
+            ? `<span class="poke-pr poke-pr--none">no price yet</span>`
+            : p.priciest.price < 1
+              ? `<span class="poke-pr">top ${moneyExact(p.priciest.price)}</span>`
+              : `<span class="poke-pr">top ${moneyRound(p.priciest.price)}</span>`
+        }
       </a>`
         )
         .join("\n      ")}
