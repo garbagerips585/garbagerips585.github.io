@@ -126,7 +126,7 @@ const RARE_COMBOS = [...combos]
   .slice(0, 6);
 
 // --- page -------------------------------------------------------------------
-const desc = `Pokemon facts worth knowing, every one computed from the National Pokedex rather than repeated: rarest type combinations, the heaviest and the hardest to catch, and why Trubbish is Rochester's Pokemon.`;
+const desc = `Pokemon facts computed from the National Pokedex, not repeated: the rarest type combinations, the heaviest, the hardest to catch, and why Trubbish is ours.`;
 
 const factCard = (heading, body) => `      <div class="lore">
         <h3>${esc(heading)}</h3>

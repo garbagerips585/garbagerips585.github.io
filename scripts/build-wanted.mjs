@@ -153,8 +153,10 @@ const swapped = head
   .replace(/<title>[\s\S]*?<\/title>/, `<title>Most Wanted: The Cards We Are Hunting | Garbage Rips 585</title>`)
   .replace(
     /<meta name="description"[^>]*>/,
-    `<meta name="description" content="The Pokemon cards Garbage Rips 585 is chasing right now: ${esc(
-      hunting.map((c) => c.name).join(", ")
+    `<meta name="description" content="The ${
+      hunting.length
+    } Pokemon cards Garbage Rips 585 is chasing right now, led by ${esc(
+      hunting[0]?.name || "the current chase card"
     )}. Raw and PSA 10 market prices, updated as the market moves.">`
   )
   .replace(/<link rel="canonical"[^>]*>/, `<link rel="canonical" href="${SITE}/wanted.html">`)

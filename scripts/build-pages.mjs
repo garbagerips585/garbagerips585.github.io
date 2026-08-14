@@ -267,11 +267,31 @@ const prodId = v.products[0];
 // better without changing either.
 const title = v.siteTitle || v.title;
 const desc = (v.blurb || descriptions[v.id] || "").trim();
+  // Google truncates the snippet around 160 characters, so the fallback shapes
+  // itself around the title rather than assuming the title is short: the tail
+  // is fixed, the title gets whatever room is left.
+  const descTail = isTagged
+    ? `: a ${prodLabel} rip from ${setLabel}, opened on Garbage Rips 585 in Rochester, NY.`
+    : `: a Pokemon pack rip from Garbage Rips 585 in Rochester, NY.`;
+  // YouTube descriptions often already trail off in an ellipsis, so strip any
+  // trailing dots before adding ours or the page reads "and......".
+  const clip = (s, n) =>
+    s.length <= n
+      ? s
+      : s
+          .slice(0, n - 3)
+          .replace(/\s\S*$/, "")
+          .replace(/[.…\s]+$/, "") + "...";
+  // The title is cut at a word boundary with no ellipsis, because the tail that
+  // follows already reads as a continuation.
+  const titleRoom = Math.max(24, 160 - descTail.length);
+  const shortTitle =
+    v.title.length <= titleRoom
+      ? v.title
+      : v.title.slice(0, titleRoom).replace(/[\s,:;.!?-]+\S*$/, "");
   const metaDesc = desc
-    ? desc.replace(/\s+/g, " ").slice(0, 155).replace(/\s\S*$/, "") + "..."
-    : isTagged
-    ? `${v.title} — a ${prodLabel} rip from ${setLabel}, opened on Garbage Rips 585 in Rochester, NY.`
-    : `${v.title} — a Pokemon pack rip from Garbage Rips 585 in Rochester, NY.`;
+    ? clip(desc.replace(/\s+/g, " "), 158)
+    : shortTitle + descTail;
   // Still YouTube's frame for the VideoObject schema and the poster behind the
   // pack, where it is correct. It is NOT the share image: see ogCard().
   // The player poster is the LCP image of every rip page, and it was being

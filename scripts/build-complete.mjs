@@ -167,11 +167,13 @@ const masterSpread = median(rows.map((r) => r.masterSpread));
 const widest = rows.slice().sort((a, b) => b.baseSpread - a.baseSpread)[0];
 
 const pct = (x) => `${Math.round(x * 100)}%`;
-const desc =
+// Google cuts the snippet around 160 characters, and set names are long enough
+// that the sentence has to be measured rather than assumed.
+const desc = (
   `What it costs to complete every Pokemon set we cover, priced nightly. ` +
   `${cheapest.name} is the cheapest base set at ${moneyRound(cheapest.base)}, ` +
-  `${priciest.name} the priciest at ${moneyRound(priciest.base)}. ` +
-  `Commons run, base set and master set, all at cheapest printing, before shipping.`;
+  `${priciest.name} the priciest at ${moneyRound(priciest.base)}.`
+).slice(0, 160);
 
 const ld = [
   {

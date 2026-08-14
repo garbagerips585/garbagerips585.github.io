@@ -208,7 +208,7 @@ const ld = [
 
 const desc =
   `Every upcoming Pokemon and trading card show near Rochester, Buffalo and Syracuse NY. ` +
-  `${upcoming.length} shows listed with dates, times, venues and admission, checked ${longDate(data.checked) || data.checked}.`;
+  `${upcoming.length} shows with dates, venues and admission, checked ${longDate(data.checked) || data.checked}.`;
 
 const head = `<!DOCTYPE html>
 <html lang="en">

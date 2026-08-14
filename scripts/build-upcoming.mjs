@@ -355,8 +355,8 @@ const html = `<!DOCTYPE html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Upcoming Pokemon TCG Sets ${new Date(TODAY).getFullYear()}: Release Dates and Products | Garbage Rips 585</title>
 <meta name="description" content="Every announced English Pokemon TCG set and product with its release date${
-  nextUp ? `, starting with ${nextUp.name} on ${longDate(nextUp.date)}` : ""
-}. Confirmed dates marked apart from expected ones.">
+  nextUp ? `, next up ${nextUp.name} on ${longDate(nextUp.date)}` : ""
+}. Confirmed dates marked apart.">
 <link rel="canonical" href="${SITE}/upcoming.html">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">

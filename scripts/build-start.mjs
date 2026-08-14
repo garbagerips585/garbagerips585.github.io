@@ -88,8 +88,8 @@ const STEPS = [
 ];
 
 const desc =
-  `New to Pokemon cards? Start here. Is it real, what is it, what is it worth, should you grade it, and where to ` +
-  `buy. Six questions in the order they actually come up, each answered properly.`;
+  `New to Pokemon cards? Is it real, what is it, what is it worth, should you grade it, where to buy. ` +
+  `Six questions in the order they actually come up.`;
 
 const ld = [
   {

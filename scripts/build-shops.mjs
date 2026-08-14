@@ -212,9 +212,9 @@ const swapped = head
   )
   .replace(
     /<meta name="description"[^>]*>/,
-    `<meta name="description" content="Local Pokemon card shops around Rochester, New York, and where to play: league nights, prereleases and organized play. ${esc(
-      shops.map((s) => s.name).join(", ")
-    )}.">`
+    `<meta name="description" content="${
+      shops.length
+    } local Pokemon card shops around Rochester, New York, and where to play: league nights, prereleases and organized play, with addresses and hours.">`
   )
   .replace(/<link rel="canonical"[^>]*>/, `<link rel="canonical" href="${SITE}/shops.html">`)
   .replace(/(<meta property="og:image" content="[^"]*\/assets\/)og-image\.jpg/, `$1og-shops.jpg`)

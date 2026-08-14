@@ -327,8 +327,8 @@ const testCard = (t, i) => `      <article class="fk" id="${esc(t.id)}">
       </article>`;
 
 const desc =
-  `How to tell a real Pokemon card from a fake: ${d.tests.length} physical checks that actually work, ` +
-  `what each one proves and what it does not, and what to do if you have been sold one.`;
+  `How to tell a real Pokemon card from a fake: ${d.tests.length} physical checks that work, what each ` +
+  `one proves, and what to do if you have been sold one.`;
 
 const ld = [
   {
