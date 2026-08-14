@@ -901,7 +901,10 @@ function indexPage() {
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     <h1>Card <span class="hl">sets</span></h1>
-    <p class="lede" style="max-width:34em">Every set we rip, boiled down to the facts that matter. Card counts, what is genuinely rare, and what the chase cards cost.</p>
+    ${/* "we cover", not "we rip". Eight of the sets listed below have a guide
+          and no rip on them, which the "N rips" line on each card says out
+          loud, so the lede was contradicted by the grid under it. */ ""}
+    <p class="lede" style="max-width:34em">Every set we cover, boiled down to the facts that matter. Card counts, what is genuinely rare, and what the chase cards cost.</p>
   </div>
 </header>
 

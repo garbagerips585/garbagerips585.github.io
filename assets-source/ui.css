@@ -2195,7 +2195,11 @@ span.cq-name{color:var(--ink)}
 .loc{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:6px}
 .loc-h{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap}
-.loc h3{font:400 var(--t-m)/1.15 var(--display)}
+/* h2, not h3. The card title is the only heading under the page h1, so an h3
+here skipped a heading level. The declaration is unchanged from the `.loc h3`
+this replaces, which is the point: the size was always set here rather than
+inherited from the UA default, so the promotion moves nothing on screen. */
+.loc h2{font:400 var(--t-m)/1.15 var(--display)}
 /* The one editorial signal on the page, and it means exactly what it says. */
 .loc-vouch{font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;letter-spacing:.05em;
   color:var(--gold-deep);border:1px solid var(--gold);border-radius:var(--r-pill);padding:4px 8px}

@@ -20,7 +20,7 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=ab95a609">
+<link rel="stylesheet" href="/assets/ui.css?v=a120d935">
 <link rel="stylesheet" href="/assets/packs.css?v=2d406974">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Cost to complete a set","item":"https://garbagerips585.github.io/complete-a-set.html"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does it cost to complete a Pokemon set?","acceptedAnswer":{"@type":"Answer","text":"It depends enormously on the set. Across the 23 sets on this page the base set ranges from $14 for Chaos Rising to $187 for Pokémon GO, buying every card as a single at the cheapest printing and before shipping. The master set, which adds the secret rares, is several times more: Ascended Heroes is $6,251."}},{"@type":"Question","name":"Is it cheaper to buy singles or open packs to complete a set?","acceptedAnswer":{"@type":"Answer","text":"Singles, almost always, and it is not close. A base set here averages $45 bought as singles. Opening enough packs to see every card in a set costs many times that, because packs repeat commons long before they finish the checklist. Packs are for the fun of opening them; singles are for finishing a set."}},{"@type":"Question","name":"What is the difference between a base set and a master set?","acceptedAnswer":{"@type":"Answer","text":"The base set is every card numbered up to the printed total, so a card that reads 131/131 is the last one. A master set adds everything numbered above that total, which is where the secret rares and most of the expensive chase cards live. That is why the two numbers are so far apart: in Phantasmal Flames a single card is 57% of the whole master-set bill."}}]}</script>
@@ -117,11 +117,17 @@
 
 <header class="set-hero">
   <div class="wrap">
-    <span class="kicker">Pokemon TCG &bull; Priced last night</span>
+    <!-- The kicker used to read "Priced last night" and the lede called these
+         "live prices". Neither is true: the totals are computed from a price
+         file with a read date on it, which is stamped at the bottom of the page
+         and can be two days behind a build. Say the date instead of implying
+         a feed we do not run. -->
+    <span class="kicker">Pokemon TCG &bull; Priced August 12, 2026</span>
     <h1>What does it cost to <span class="hl">complete</span> a set?</h1>
     <p class="lede" style="max-width:38em">Every set we cover, costed three ways, from the commons run to the full
-      master set. These are live prices, not a number somebody typed into an article two years ago, so they move
-      every night with the market.</p>
+      master set. Every figure is added up from market prices read on
+      August 12, 2026, not a number somebody typed into an
+      article two years ago, and they get read again each night.</p>
   </div>
 </header>
 
@@ -453,6 +459,7 @@
 </section>
 
 </main>
+
 <footer>
   <div class="wrap">
     <nav class="foot-nav" aria-label="Site">
@@ -506,7 +513,7 @@
     </div>
     <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
     <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
-    Prices move daily. These totals are a floor, not a quote.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+    Prices move daily. These totals are a middle estimate, not a quote.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
 <script src="/assets/app.js?v=d4b6cdad" defer></script>

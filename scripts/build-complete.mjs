@@ -258,11 +258,17 @@ ${MENU}
 
 <header class="set-hero">
   <div class="wrap">
-    <span class="kicker">Pokemon TCG &bull; Priced last night</span>
+    <!-- The kicker used to read "Priced last night" and the lede called these
+         "live prices". Neither is true: the totals are computed from a price
+         file with a read date on it, which is stamped at the bottom of the page
+         and can be two days behind a build. Say the date instead of implying
+         a feed we do not run. -->
+    <span class="kicker">Pokemon TCG &bull; Priced ${esc(longDate(checked) || "recently")}</span>
     <h1>What does it cost to <span class="hl">complete</span> a set?</h1>
     <p class="lede" style="max-width:38em">Every set we cover, costed three ways, from the commons run to the full
-      master set. These are live prices, not a number somebody typed into an article two years ago, so they move
-      every night with the market.</p>
+      master set. Every figure is added up from market prices read on
+      ${esc(longDate(checked) || "the date at the bottom of this page")}, not a number somebody typed into an
+      article two years ago, and they get read again each night.</p>
   </div>
 </header>
 
@@ -425,7 +431,10 @@ ${MENU}
 </section>
 
 </main>
-${footer("Prices move daily. These totals are a floor, not a quote.")}
+${/* NOT "a floor". The methodology section two paragraphs up says in as many
+      words that these are "a middle estimate rather than a floor or a ceiling",
+      so the footer was contradicting the page it sits under. */ ""}
+${footer("Prices move daily. These totals are a middle estimate, not a quote.")}
 ${APP_JS}
 </body>
 </html>

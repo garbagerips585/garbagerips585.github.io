@@ -243,7 +243,9 @@ ${RARE_COMBOS.map(
 </section>
 
 </main>
-${footer("Pokedex data from pokeapi.co. Fan content.")}
+${/* No "Fan content." here: footer() adds that clause itself, so this printed
+      it twice in one sentence. */ ""}
+${footer("Pokedex data from pokeapi.co, read fresh rather than remembered.")}
 ${APP_JS}
 </body>
 </html>

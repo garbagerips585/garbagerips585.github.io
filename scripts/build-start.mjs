@@ -74,7 +74,10 @@ const STEPS = [
     q: "What should I open?",
     a: "Nobody publishes real pull rates, so the honest answer is what actually came out of the packs we have opened, counted from our own rip log. Plus what is coming next and what it is going for on preorder.",
     href: "/luck.html",
-    cta: "Luck and pull rates",
+    // NOT "Luck and pull rates". The sentence right above it says nobody
+    // publishes pull rates, and /luck.html says the same thing twice more.
+    // A button promising pull rates is the one thing this site will not do.
+    cta: "Luck, measured",
     also: [["/upcoming.html", "Coming next"]],
   },
   {
@@ -184,7 +187,7 @@ ${MENU}
       <li><strong>Condition decides almost everything.</strong> The same card can be worth ten dollars or a thousand
         depending on centering, corners and surface. Sleeve anything you care about, today.</li>
       <li><strong>Nobody can tell you what is in a sealed pack.</strong> Anyone claiming a method for picking winning
-        packs is selling something. We open a lot of packs and the pull rates page is what that actually looks like.</li>
+        packs is selling something. We open a lot of packs and the luck page is what that actually looks like.</li>
       <li><strong>Buy the single, not the box,</strong> if there is one specific card you want. It is almost always
         cheaper, and it is always certain.</li>
       <li><strong>Open the packs.</strong> This is a hobby, not a portfolio. The best part is the two seconds before
@@ -206,7 +209,10 @@ ${MENU}
 </section>
 
 </main>
-${footer("Fan made guides. Not affiliated with The Pokemon Company.")}
+${/* Keep this short. footer() already appends "Fan content. Not affiliated with
+      The Pokemon Company or Nintendo.", so anything ending in the same clause
+      prints the disclaimer twice in one paragraph. */ ""}
+${footer("Fan made guides, written by somebody who buys the same packs you do.")}
 ${APP_JS}
 </body>
 </html>

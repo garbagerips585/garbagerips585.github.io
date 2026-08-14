@@ -73,7 +73,7 @@ function preorderBand(setName) {
               p.msrp ? ` <span class="po-msrp">MSRP ${usd(p.msrp)}</span>` : ""
             }</p>
             ${p.overMsrp ? `<p class="po-over">${p.overMsrp}x retail</p>` : ""}
-            ${p.listings ? `<p class="po-sellers">${p.listings} sellers</p>` : ""}
+            ${p.listings ? `<p class="po-sellers">${p.listings} seller${p.listings === 1 ? "" : "s"}</p>` : ""}
           </div>
         </li>`).join("\n");
 
@@ -333,6 +333,24 @@ ${extras.map(extraCard).join("\n")}
   </section>
 </main>`;
 
+// A BreadcrumbList, and only a BreadcrumbList. Deleting the broken ItemList
+// left this the one page on the site carrying no structured data at all, which
+// is not the same decision: the ItemList was dropped because its entries could
+// not be resolved, and a breadcrumb has nothing to resolve except this page and
+// the home page, both of which exist. Same two-item shape every other top level
+// page uses, with no `item` on the last crumb because that crumb IS this page.
+// "Coming next" is the label the nav in shared/chrome.mjs already uses for it.
+const ld = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" },
+      { "@type": "ListItem", position: 2, name: "Coming next" },
+    ],
+  },
+];
+
 // NO ItemList. This page shipped one whose entries were bare names with a
 // position and no `url` and no `item`, so there was nothing for a crawler to
 // follow and the block was ignored in full.
@@ -370,6 +388,7 @@ const html = `<!DOCTYPE html>
 ${FONTS}
 ${STYLES}
 <style>${style}</style>
+${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
 ${SKIP}

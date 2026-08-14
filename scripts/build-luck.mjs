@@ -176,6 +176,10 @@ const style = `
   text-transform:uppercase;margin-bottom:8px}
 .luck-covbar{height:10px;border-radius:99px;background:rgba(78,47,72,.16);overflow:hidden}
 .luck-covbar i{display:block;height:100%;background:var(--plum);border-radius:99px}
+/* Only rendered when every logged rip is a hit. A 100% headline with nothing
+   next to it reads as a broken number, so the page says why before you ask. */
+.luck-caveat{font:400 var(--t-sm)/1.6 var(--body)!important;color:var(--plum)!important;
+  letter-spacing:0!important;text-transform:none!important;margin:10px 0 0!important;max-width:52em}
 
 .luck-sec{padding:var(--s6) 0}
 .luck-sec h2{font:400 var(--t-l)/1.15 var(--display);margin-bottom:var(--s2)}
@@ -231,9 +235,9 @@ const body = `
   <section class="luck">
     <div class="wrap">
       <div class="brk"><h1>Luck, <span class="hl">measured</span></h1><span class="ln"></span></div>
-      <p class="luck-lede">Every other site quotes the same official rarity numbers. This one reports
-        what actually came out of packs opened on camera, one rip at a time. It is one person's
-        luck, not the odds, and it is counted rather than remembered.</p>
+      <p class="luck-lede">Nobody publishes real pull rates, so this page does the next best thing:
+        it counts what actually came out of packs opened on camera, one rip at a time. It is one
+        person's luck, not the odds, and it is counted rather than remembered.</p>
 
       <div class="luck-head">
         <div class="luck-stat"><b>${videos.length}</b><span>rips filmed</span></div>
@@ -247,6 +251,13 @@ const body = `
           packsKnown ? ` &bull; ${totalPacks.toLocaleString("en-US")} packs counted` : ""
         }</p>
         <div class="luck-covbar"><i style="width:${Math.max(1, Math.round(coverage * 100))}%"></i></div>
+${
+  judged.length && hits.length === judged.length
+    ? `        <p class="luck-caveat">Yes, that says ${headline}. The rips marked up so far are the ones
+        that had something in them, so read this as "the log is ${Math.round(coverage * 100)}% filled in"
+        rather than "the packs are ${headline} good". It will drop as the duds get logged.</p>`
+    : ""
+}
       </div>
     </div>
   </section>
@@ -276,9 +287,10 @@ ${table(byProduct, "Product", "/videos.html?product=")}
       ? `<section class="band luck-sec">
     <div class="wrap">
       <h2>What has actually <span class="hl">come out</span></h2>
-      <p class="luck-note">Counted from what the titles say, not from the rip log, which is why these
-      have numbers while the hit rate above still reads zero. They are totals, not rates: a set that gets opened
-      more will show more of everything. Once the log is filled in these become real per-pack rates.</p>
+      <p class="luck-note">Counted from what the titles say rather than from the rip log, so this is a
+      separate tally from the hit rates above and the two will not line up. They are totals, not rates: a set
+      that gets opened more will show more of everything. Once the log is filled in these become real
+      per-pack rates.</p>
       <div class="pull-grid">
 ${(rarities.length ? rarities : pulls.map(([k, n]) => [labelFor("pulls", k) || k, n]))
   .map(([k, n]) => `        <div class="pull"><b>${n}</b><span>${esc(k)}</span></div>`)
@@ -298,12 +310,18 @@ ${(rarities.length ? rarities : pulls.map(([k, n]) => [labelFor("pulls", k) || k
       <div class="streaks">
         <div class="streak cold">
           <span class="k">Longest drought</span>
-          <b>${worst.len} rips</b>
-          <p>${worst.from ? `${shortDate(worst.from.published)} to ${shortDate(worst.to.published)}, nothing worth keeping.` : ""}</p>
+          <b>${worst.len} rip${worst.len === 1 ? "" : "s"}</b>
+          <p>${
+            worst.len === 0
+              ? "None yet. Every rip marked up in the log so far has produced something worth keeping, which says as much about how much of the log is filled in as it does about the luck."
+              : worst.from
+                ? `${shortDate(worst.from.published)} to ${shortDate(worst.to.published)}, nothing worth keeping.`
+                : ""
+          }</p>
         </div>
         <div class="streak hot">
           <span class="k">Best run</span>
-          <b>${bestRun.len} rips</b>
+          <b>${bestRun.len} rip${bestRun.len === 1 ? "" : "s"}</b>
           <p>${bestRun.from ? `${shortDate(bestRun.from.published)} to ${shortDate(bestRun.to.published)}, a hit every time.` : ""}</p>
         </div>
       </div>

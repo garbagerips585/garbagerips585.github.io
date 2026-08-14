@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-luck.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=ab95a609">
+<link rel="stylesheet" href="/assets/ui.css?v=a120d935">
 <link rel="stylesheet" href="/assets/packs.css?v=2d406974">
 <style>
 .luck{padding:var(--s7) 0 var(--s5)}
@@ -40,6 +40,10 @@
   text-transform:uppercase;margin-bottom:8px}
 .luck-covbar{height:10px;border-radius:99px;background:rgba(78,47,72,.16);overflow:hidden}
 .luck-covbar i{display:block;height:100%;background:var(--plum);border-radius:99px}
+/* Only rendered when every logged rip is a hit. A 100% headline with nothing
+   next to it reads as a broken number, so the page says why before you ask. */
+.luck-caveat{font:400 var(--t-sm)/1.6 var(--body)!important;color:var(--plum)!important;
+  letter-spacing:0!important;text-transform:none!important;margin:10px 0 0!important;max-width:52em}
 
 .luck-sec{padding:var(--s6) 0}
 .luck-sec h2{font:400 var(--t-l)/1.15 var(--display);margin-bottom:var(--s2)}
@@ -195,9 +199,9 @@
   <section class="luck">
     <div class="wrap">
       <div class="brk"><h1>Luck, <span class="hl">measured</span></h1><span class="ln"></span></div>
-      <p class="luck-lede">Every other site quotes the same official rarity numbers. This one reports
-        what actually came out of packs opened on camera, one rip at a time. It is one person's
-        luck, not the odds, and it is counted rather than remembered.</p>
+      <p class="luck-lede">Nobody publishes real pull rates, so this page does the next best thing:
+        it counts what actually came out of packs opened on camera, one rip at a time. It is one
+        person's luck, not the odds, and it is counted rather than remembered.</p>
 
       <div class="luck-head">
         <div class="luck-stat"><b>312</b><span>rips filmed</span></div>
@@ -209,6 +213,9 @@
       <div class="luck-cov">
         <p>63 of 312 rips logged &bull; 20% of the catalogue &bull; 190 packs counted</p>
         <div class="luck-covbar"><i style="width:20%"></i></div>
+        <p class="luck-caveat">Yes, that says 100%. The rips marked up so far are the ones
+        that had something in them, so read this as "the log is 20% filled in"
+        rather than "the packs are 100% good". It will drop as the duds get logged.</p>
       </div>
     </div>
   </section>
@@ -358,9 +365,10 @@
   <section class="band luck-sec">
     <div class="wrap">
       <h2>What has actually <span class="hl">come out</span></h2>
-      <p class="luck-note">Counted from what the titles say, not from the rip log, which is why these
-      have numbers while the hit rate above still reads zero. They are totals, not rates: a set that gets opened
-      more will show more of everything. Once the log is filled in these become real per-pack rates.</p>
+      <p class="luck-note">Counted from what the titles say rather than from the rip log, so this is a
+      separate tally from the hit rates above and the two will not line up. They are totals, not rates: a set
+      that gets opened more will show more of everything. Once the log is filled in these become real
+      per-pack rates.</p>
       <div class="pull-grid">
         <div class="pull"><b>34</b><span>Special Illustration Rare</span></div>
         <div class="pull"><b>11</b><span>Hyper Rare</span></div>
@@ -380,7 +388,7 @@
         <div class="streak cold">
           <span class="k">Longest drought</span>
           <b>0 rips</b>
-          <p></p>
+          <p>None yet. Every rip marked up in the log so far has produced something worth keeping, which says as much about how much of the log is filled in as it does about the luck.</p>
         </div>
         <div class="streak hot">
           <span class="k">Best run</span>

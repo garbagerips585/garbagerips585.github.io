@@ -242,7 +242,10 @@
   text-decoration: none;
   color: inherit;
 }
-.g-card h3 { font: 400 var(--t-m) / 1.15 var(--display); margin-bottom: 6px; }
+/* h2, not h3: the game name is the only heading under the hub's h1, so an h3
+   skipped a level. Declaration unchanged from the `.g-card h3` it replaces, so
+   nothing moves; the size never came from the UA heading default. */
+.g-card h2 { font: 400 var(--t-m) / 1.15 var(--display); margin-bottom: 6px; }
 .g-card p { font: 400 var(--t-sm) / 1.45 var(--body); color: var(--ink-2); }
 .g-card .g-tag {
   display: inline-block;

@@ -263,7 +263,7 @@ function guidePage(g) {
       ${g.cardCount?.official ? `<div class="fact"><div class="n">${g.cardCount.official}</div><div class="l">In the printed set</div></div>` : ""}
       ${secretCount ? `<div class="fact"><div class="n">${secretCount}</div><div class="l">Numbered past the set</div></div>` : ""}
       ${rips.length
-        ? `<a class="fact fact-link" href="/videos.html?set=${g.id}"><div class="n">${rips.length}</div><div class="l">Rips on this channel <span aria-hidden="true">&rarr;</span></div></a>`
+        ? `<a class="fact fact-link" href="/videos.html?set=${g.id}"><div class="n">${rips.length}</div><div class="l">Rip${rips.length === 1 ? "" : "s"} on this channel <span aria-hidden="true">&rarr;</span></div></a>`
         : `<div class="fact"><div class="n">-</div><div class="l">Rips on this channel</div></div>`}
       <div class="fact wide"><div class="n" style="font-size:1.15rem">${longDate(g.released) || "Unknown"}</div><div class="l">Release date${g.released ? ` &bull; ${yearsSince(g.released)}` : ""}</div></div>
     </div>

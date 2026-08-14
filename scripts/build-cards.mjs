@@ -28,7 +28,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, rarityLabel, RARITY_WORDS } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const index = JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8"));
@@ -75,9 +75,17 @@ const outside = printings.total - rows.length;
 // never priced. Counted here rather than asserted, because "most of them are
 // Japanese" was the tempting phrasing and it is false.
 let foreign = 0;
+// Every distinct rarity string the page can ever show, from BOTH datasets. The
+// server renders from card-index and the search renders from these shards, so
+// the guard below has to see both or it only proves half the page.
+const rarities = new Set();
+for (const r of rows) if (r[3]) rarities.add(r[3]);
 for (const [k] of Object.entries(printings.shards || {})) {
   const shard = JSON.parse(await readFile(join(ROOT, `public/data/printings/${k}.json`), "utf8"));
-  for (const c of shard) if (c.l && c.l !== "en") foreign += 1;
+  for (const c of shard) {
+    if (c.l && c.l !== "en") foreign += 1;
+    if (c.r) rarities.add(c.r);
+  }
 }
 const otherEnglish = outside - foreign;
 // A build that cannot make the parts equal the whole must not publish the
@@ -122,6 +130,43 @@ const ld = [
 // twenty share a set, so half the list would resolve to the same URL. That is
 // a worse claim than making none.
 
+// ONE RARITY MAPPING, SERIALISED INTO THE PAGE, NOT TWO COPIES OF IT.
+//
+// TCGdex is mixed case at source inside a single file, so the two halves of
+// this page disagreed with each other: the 60 server rendered rows showed
+// "Special illustration rare" next to "Mega Hyper Rare", and the moment you
+// typed anything the client rendered rows showed the same mixture again. Title
+// casing only the server half would have made the disagreement WORSE, because
+// the page would then change its own casing as soon as somebody searched.
+//
+// The two other routes and why they lose:
+//   - Normalise the JSON. The browser fetches /data/card-index.json and
+//     /data/printings/*.json directly at runtime, and those files are written
+//     by sync-cards.mjs and sync-all-printings.mjs and read by four other
+//     builders. Rewriting them from a page builder means a page builder owning
+//     another script's output, and the next sync run silently undoes it.
+//   - Hand write the mapping in the inline script. That is the drift this
+//     whole file already warns about above `money()`.
+//
+// So the function itself is serialised. `rarityLabel.toString()` ships the one
+// definition in shared/format.mjs, and its only free variable is RARITY_WORDS,
+// which is serialised next to it. There is no second copy to keep in step, and
+// the assertion below proves the shipped copy still behaves like the imported
+// one against every rarity string in both datasets, so a future edit that adds
+// a closure dependency fails the build instead of quietly breaking the search.
+const RARITY_JS =
+  `var RARITY_WORDS=${JSON.stringify(RARITY_WORDS)};\n  ` + rarityLabel.toString().replace(/\n/g, "\n  ");
+
+const shippedRarityLabel = new Function(`${RARITY_JS}\n  return rarityLabel;`)();
+for (const r of rarities) {
+  if (shippedRarityLabel(r) !== rarityLabel(r)) {
+    throw new Error(
+      `the rarityLabel serialised into cards.html no longer matches shared/format.mjs: ` +
+        `"${r}" renders as "${shippedRarityLabel(r)}" in the browser and "${rarityLabel(r)}" in the build`,
+    );
+  }
+}
+
 const row = (r) => {
   const [name, slug, n, rarity, price] = r;
   const src = thumb(slug, n);
@@ -129,7 +174,7 @@ const row = (r) => {
         ${src ? `<img class="cq-img" src="${esc(src)}" onerror="this.remove()" alt="" loading="lazy" width="60" height="84">` : ""}
         <a class="cq-name" href="/sets/${esc(slug)}.html">${esc(name)}</a>
         <span class="cq-set">${esc(setName[slug] || slug)} &bull; ${esc(n || "")}</span>
-        ${rarity ? `<span class="cq-rr">${esc(rarity)}</span>` : ""}
+        ${rarity ? `<span class="cq-rr">${esc(rarityLabel(rarity))}</span>` : ""}
         ${typeof price === "number" ? `<span class="cq-pr">${moneyExact(price)}</span>` : ""}
       </li>`;
 };
@@ -226,6 +271,10 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official."
   function money(n){
     return typeof n==='number' ? '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}) : '';
   }
+  // NOT hand written: the next two lines are shared/format.mjs's rarityLabel and
+  // its word map, serialised in by build-cards.mjs so the search renders rarities
+  // in exactly the casing the server rendered them in. Edit shared/format.mjs.
+  ${RARITY_JS}
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
@@ -270,7 +319,7 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official."
         + nameCell
         + printed
         + '<span class="cq-set">'+esc(r.set)+' • '+esc(r.n||'')+'</span>'
-        + (r.rarity?'<span class="cq-rr">'+esc(r.rarity)+'</span>':'')
+        + (r.rarity?'<span class="cq-rr">'+esc(rarityLabel(r.rarity))+'</span>':'')
         + flag
         + (typeof r.price==='number'?'<span class="cq-pr">'+money(r.price)+'</span>':'')
         + '</li>';

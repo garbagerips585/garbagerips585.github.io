@@ -69,9 +69,17 @@ const links = (o) => {
   return out.length ? `<p class="loc-socs">${out.join("")}</p>` : "";
 };
 
+// h2, NOT h3. These names are the only headings on the page under the h1, so an
+// h3 here skipped a level: a screen reader user walking the heading list heard
+// the page jump from level 1 to level 3 and had to guess whether a section
+// heading had gone missing. There is no h2 for these to sit under and there
+// should not be one, because the list is the page. The empty state below
+// already uses an h2 for the same slot, so the two states now agree as well.
+// Visually identical: `.loc h2` in assets-source/ui.css carries the same font
+// shorthand `.loc h3` did, so the size does not come from the UA default.
 const card = (o, kind) => `      <li class="loc">
         <div class="loc-h">
-          <h3>${esc(o.name)}</h3>
+          <h2>${esc(o.name)}</h2>
           ${o.vouched ? `<span class="loc-vouch">Bought from them</span>` : ""}
         </div>
         ${o.area ? `<p class="loc-area">${esc(o.area)}</p>` : ""}

@@ -102,16 +102,15 @@ const body = `
           Garbodor. Around here chaos is a lifestyle and ripping packs is just part of the
           routine.</p>
 
-        <h2>What you get</h2>
-        <ul>
-          <li>Pokemon card pack rips: hits, heartbreak, and pure chaos</li>
-          <li>Big boxes, weird pulls, and unpredictable luck</li>
-          <li>Charizard chases fueled by plate grease and good vibes</li>
-          <li>Zero seriousness, all fun</li>
-        </ul>
+        <h2>What actually happens here</h2>
+        <p>Packs get opened. Most of them are garbage, which is where the name came from.
+          Single packs, booster bundles, ETBs, whatever overpriced box was sitting on the
+          counter, and every so often an imported pack nobody in the room can read. When
+          something good does fall out, the yelling is real.</p>
 
-        <p>This channel is about enjoying the rip, laughing at the misses, and celebrating
-          the hits. No gatekeeping, no pressure, just good times and great cards.</p>
+        <p>Nobody is going to be smug at you here. If you have never held a card and you
+          want to know what the little star in the corner means, that is what the guides on
+          this site are for, and asking is the whole point of them.</p>
 
         <p class="about-pull">Grab a fork. Let's rip.</p>
 

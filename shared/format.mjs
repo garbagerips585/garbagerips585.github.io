@@ -133,8 +133,21 @@ export function moneyExact(v) {
  *
  * Words that are not ordinary words keep the shape they are printed in. ACE
  * SPEC is an initialism, and V, VMAX and VSTAR are capitals on the card.
+ *
+ * A word that arrives ALREADY in full capitals is left alone, which is a rule
+ * rather than a longer list because the list would never be finished. The
+ * printings corpus carries "LEGEND", "Rare PRIME" and "Rare Holo LV.X", and
+ * title casing those blind gives "Legend", "Rare Prime" and the plainly wrong
+ * "Rare Holo Lv.x". Any word with a capital in it and no lower case letter is
+ * an initialism or a name printed that way on the card, so passing it through
+ * is the safe reading; the lookup above still exists for the inputs that
+ * arrive lower case ("ace spec rare"), where there is nothing to preserve.
+ *
+ * Exported because the browser cannot import this module: build-cards.mjs
+ * serialises the map and this function into /cards.html so its client side
+ * search renders the same casing the server rendered. See the note there.
  */
-const RARITY_WORDS = { ace: "ACE", spec: "SPEC", v: "V", vmax: "VMAX", vstar: "VSTAR" };
+export const RARITY_WORDS = { ace: "ACE", spec: "SPEC", v: "V", vmax: "VMAX", vstar: "VSTAR" };
 
 export function rarityLabel(r) {
   if (!r) return null;
@@ -142,6 +155,7 @@ export function rarityLabel(r) {
     .trim()
     .split(/\s+/)
     .map((w) => {
+      if (w === w.toUpperCase() && w !== w.toLowerCase()) return w;
       const k = w.toLowerCase();
       return RARITY_WORDS[k] || k.charAt(0).toUpperCase() + k.slice(1);
     })

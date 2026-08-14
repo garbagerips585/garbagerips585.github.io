@@ -532,7 +532,9 @@ ${BAR}
 ${MENU}
 ${body}
 
-${footer("Card images from the Pokemon TCG API. Fan made guide, not affiliated with The Pokemon Company.")}
+${/* Do not repeat "not affiliated with The Pokemon Company" here: footer()
+      appends it, and the two ran together in the same paragraph. */ ""}
+${footer("Card images from the Pokemon TCG API. Every corner shown is a crop of a real card.")}
 
 ${APP_JS}
 </body>

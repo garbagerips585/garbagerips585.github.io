@@ -67,13 +67,13 @@
           "note": "Up to $10,000 declared value. That is the CEILING, not a minimum: above it PSA sends you to its premium options."
         }
       ],
-      "note": "PSA paused its Value and Value Bulk tiers on 2 June 2026. Those were the $24.99 and $32.99 options, and until they return the cheapest way into a PSA slab is $79.99. PSA's own backlog tracker put the active backlog at 11.85 million units on 11 August 2026, down from 12.4 million.",
+      "note": "PSA paused its Value and Value Bulk tiers on June 2, 2026. Those were the $24.99 and $32.99 options, and until they return the cheapest way into a PSA slab is $79.99. PSA's own backlog tracker put the active backlog at 11.85 million units on August 11, 2026, down from 12.4 million.",
       "resale": "The strongest resale premium of the four, which is why people still pay it."
     },
     {
       "id": "cgc",
       "name": "CGC",
-      "url": "https://www.cgccards.com/submit/services-fees/",
+      "url": "https://www.cgccards.com/submit/services-fees/cgc-grading/",
       "cheapest": 17,
       "cheapestTier": "Bulk",
       "turnaround": "150 days",
@@ -157,7 +157,7 @@
     {
       "id": "tag",
       "name": "TAG",
-      "url": "https://taggrading.com/pricing",
+      "url": "https://taggrading.com/pages/pricing",
       "cheapest": 149,
       "cheapestTier": "Priority",
       "turnaround": "5 business days",

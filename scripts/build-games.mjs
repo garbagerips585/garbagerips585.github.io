@@ -302,9 +302,16 @@ const hub = shell({
     <p class="crumbs"><a href="/">Home</a> / Games</p>
     <div class="g-list">
       ${CARDS.map(
+        // h2, NOT h3. The three game names are the only headings on this hub
+        // under the h1, so an h3 announced a level 3 heading with no level 2
+        // above it and left a screen reader user looking for the section that
+        // was skipped. The individual game pages already open their body copy
+        // with an h2, so the hub was the odd one out.
+        // `.g-card h2` in public/assets/games.css carries the same declaration
+        // `.g-card h3` did, so this renders identically.
         ([href, tag, name, blurb]) => `<a class="g-card" href="/games/${href}">
         <span class="g-tag">${esc(tag)}</span>
-        <h3>${esc(name)}</h3>
+        <h2>${esc(name)}</h2>
         <p>${esc(blurb)}</p>
       </a>`,
       ).join("\n      ")}

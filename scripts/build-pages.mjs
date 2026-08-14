@@ -476,7 +476,7 @@ ${MENU}
         </div>
       </div>
       <div>
-        ${hasLogo(setId) ? `<img class="rip-setlogo"${logoAttrs(setId)} src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="${esc(setLabel)} Pokemon TCG set logo" loading="lazy" onerror="this.remove()">` : ""}
+        ${hasLogo(setId) ? `<img class="rip-setlogo"${logoAttrs(setId)} src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="" loading="lazy" onerror="this.remove()">` : ""}
         <h1>${esc(title)}</h1>
         <div class="rip-badges">
           ${setId ? `<a class="chip" href="/videos.html?set=${setId}">${esc(setLabel)}</a>` : ""}
@@ -573,7 +573,7 @@ ${related.length ? `<section class="band tight">
   <div class="wrap">
     <div class="sec-head">
       <div>
-        ${hasLogo(setId) ? `<img class="setlogo"${logoAttrs(setId)} src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="${esc(setLabel)} Pokemon TCG set logo" loading="lazy" onerror="this.remove()">` : ""}
+        ${hasLogo(setId) ? `<img class="setlogo"${logoAttrs(setId)} src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="" loading="lazy" onerror="this.remove()">` : ""}
         <h2>More <span class="hl">${esc(setLabel)}</span></h2>
       </div>
       <a class="btn btn-ghost btn-sm" href="/videos.html?set=${setId}">See all &rarr;</a>

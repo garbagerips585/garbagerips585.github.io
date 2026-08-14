@@ -216,7 +216,10 @@ const body = `
         <div class="xp-stat"><b>${sets.length}</b><span>sets</span></div>
         <div class="xp-stat"><b>${totalCards.toLocaleString("en-US")}</b><span>cards</span></div>
         <div class="xp-stat"><b>${eras.length}</b><span>eras</span></div>
-        <div class="xp-stat"><b>${ripped.length}</b><span>we have ripped</span></div>
+${/* "with a full guide", NOT "we have ripped". `ripped` is sets that have a slug,
+      which means a guide page, and eight of those have no rip on them at all.
+      The label said 23 while the tables below showed 17 sets with a rip count,
+      on the same screen. */ ""}        <div class="xp-stat"><b>${ripped.length}</b><span>with a full guide</span></div>
       </div>
 
       <nav class="xp-jump" aria-label="Jump to an era">

@@ -271,7 +271,7 @@ function pokePage(p) {
       <div class="fact"><div class="n">${setCount}</div><div class="l">Set${setCount === 1 ? "" : "s"} they appear in</div></div>
       <div class="fact"><div class="n">${moneyRound(p.priciest.price)}</div><div class="l">Priciest one</div></div>
       ${p.cheapest ? `<div class="fact"><div class="n">${moneyExact(p.cheapest.price)}</div><div class="l">Cheapest way in</div></div>` : ""}
-      ${rips.length ? `<a class="fact fact-link" href="/videos.html?q=${encodeURIComponent(p.name)}"><div class="n">${rips.length}</div><div class="l">Rip${rips.length === 1 ? "" : "s"} that mention one <span aria-hidden="true">&rarr;</span></div></a>` : ""}
+      ${rips.length ? `<a class="fact fact-link" href="/videos.html?q=${encodeURIComponent(p.name)}"><div class="n">${rips.length}</div><div class="l">${rips.length === 1 ? "Rip that mentions" : "Rips that mention"} one <span aria-hidden="true">&rarr;</span></div></a>` : ""}
     </div>
   </div>
 </section>
