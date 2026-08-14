@@ -184,7 +184,10 @@ const style = `
 .luck-sec{padding:var(--s6) 0}
 .luck-sec h2{font:400 var(--t-l)/1.15 var(--display);margin-bottom:var(--s2)}
 .luck-note{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
-.luck-scroll{overflow-x:auto;border:1px solid var(--hair);border-radius:var(--r);background:var(--card)}
+.luck-scroll{overflow-x:auto;border:1px solid var(--hair);border-radius:var(--r);background-color:var(--card)}
+/* background-COLOR, not the shorthand: ui.css paints a four layer scroll
+   affordance on this class, and the background shorthand resets
+   background-image, which would silently wipe all four layers. */
 .luck-table{border-collapse:collapse;width:100%;min-width:400px;font-size:var(--t-sm)}
 .luck-table th,.luck-table td{text-align:left;padding:10px var(--s3);border-bottom:1px solid var(--hair)}
 .luck-table tbody tr:last-child th,.luck-table tbody tr:last-child td{border-bottom:0}

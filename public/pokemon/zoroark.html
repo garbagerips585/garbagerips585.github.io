@@ -20,9 +20,9 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css">
-<link rel="stylesheet" href="/assets/ui.css?v=84f63e5b">
-<link rel="stylesheet" href="/assets/packs.css">
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=044ef5c1">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Pokemon","item":"https://garbagerips585.github.io/pokemon/"},{"@type":"ListItem","position":3,"name":"Zoroark"}]}</script>
 </head>
 <body>
@@ -141,13 +141,22 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
     <h2>Every <span class="hl">Zoroark</span></h2>
+    <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
+         It was "Enlarge <name>" alone, which on a Pokemon with several
+         printings named every button on the page identically: charizard.html
+         had NINE buttons all called "Enlarge Charizard ex", each opening a
+         different card. Tabbing through them sounded like nothing was moving.
+         Worse, aria-label REPLACES the visible text rather than adding to it,
+         so the set and number the button already shows in .rr were thrown away
+         for anyone listening (WCAG 2.5.3 wants the visible label inside the
+         accessible name). Same strings as the <img alt> right below. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me02.5/286/high.webp"
         data-name="N's Zoroark ex" data-rarity="Special Illustration Rare"
         data-number="286" data-price="$168"
         data-set="Ascended Heroes"
-        aria-label="Enlarge N's Zoroark ex">
+        aria-label="Enlarge N's Zoroark ex, Ascended Heroes 286">
         <img src="https://assets.tcgdex.net/en/me/me02.5/286/low.webp" onerror="this.remove()" alt="N's Zoroark ex 286, Ascended Heroes" loading="lazy" width="245" height="337">
         <div class="nm">N's Zoroark ex</div>
         <div class="rr">Ascended Heroes &bull; 286</div>
@@ -159,7 +168,7 @@
         data-name="Zoroark" data-rarity="Illustration Rare"
         data-number="143" data-price="$80.71"
         data-set="White Flare"
-        aria-label="Enlarge Zoroark">
+        aria-label="Enlarge Zoroark, White Flare 143">
         <img src="https://assets.tcgdex.net/en/sv/sv10.5w/143/low.webp" onerror="this.remove()" alt="Zoroark 143, White Flare" loading="lazy" width="245" height="337">
         <div class="nm">Zoroark</div>
         <div class="rr">White Flare &bull; 143</div>
@@ -171,7 +180,7 @@
         data-name="N's Zoroark ex" data-rarity="Special Illustration Rare"
         data-number="185" data-price="$48.48"
         data-set="Journey Together"
-        aria-label="Enlarge N's Zoroark ex">
+        aria-label="Enlarge N's Zoroark ex, Journey Together 185">
         <img src="https://assets.tcgdex.net/en/sv/sv09/185/low.webp" onerror="this.remove()" alt="N's Zoroark ex 185, Journey Together" loading="lazy" width="245" height="337">
         <div class="nm">N's Zoroark ex</div>
         <div class="rr">Journey Together &bull; 185</div>
@@ -183,7 +192,7 @@
         data-name="N's Zoroark ex" data-rarity="Hyper Rare"
         data-number="189" data-price="$15.31"
         data-set="Journey Together"
-        aria-label="Enlarge N's Zoroark ex">
+        aria-label="Enlarge N's Zoroark ex, Journey Together 189">
         <img src="https://assets.tcgdex.net/en/sv/sv09/189/low.webp" onerror="this.remove()" alt="N's Zoroark ex 189, Journey Together" loading="lazy" width="245" height="337">
         <div class="nm">N's Zoroark ex</div>
         <div class="rr">Journey Together &bull; 189</div>
@@ -195,7 +204,7 @@
         data-name="N's Zoroark ex" data-rarity="Ultra Rare"
         data-number="175" data-price="$4.72"
         data-set="Journey Together"
-        aria-label="Enlarge N's Zoroark ex">
+        aria-label="Enlarge N's Zoroark ex, Journey Together 175">
         <img src="https://assets.tcgdex.net/en/sv/sv09/175/low.webp" onerror="this.remove()" alt="N's Zoroark ex 175, Journey Together" loading="lazy" width="245" height="337">
         <div class="nm">N's Zoroark ex</div>
         <div class="rr">Journey Together &bull; 175</div>
@@ -207,7 +216,7 @@
         data-name="N's Zoroark ex" data-rarity="Double Rare"
         data-number="098" data-price="$1.59"
         data-set="Journey Together"
-        aria-label="Enlarge N's Zoroark ex">
+        aria-label="Enlarge N's Zoroark ex, Journey Together 098">
         <img src="https://assets.tcgdex.net/en/sv/sv09/098/low.webp" onerror="this.remove()" alt="N's Zoroark ex 098, Journey Together" loading="lazy" width="245" height="337">
         <div class="nm">N's Zoroark ex</div>
         <div class="rr">Journey Together &bull; 098</div>
@@ -219,7 +228,7 @@
         data-name="N's Zoroark ex" data-rarity="Double Rare"
         data-number="137" data-price="$1.13"
         data-set="Ascended Heroes"
-        aria-label="Enlarge N's Zoroark ex">
+        aria-label="Enlarge N's Zoroark ex, Ascended Heroes 137">
         <img src="https://assets.tcgdex.net/en/me/me02.5/137/low.webp" onerror="this.remove()" alt="N's Zoroark ex 137, Ascended Heroes" loading="lazy" width="245" height="337">
         <div class="nm">N's Zoroark ex</div>
         <div class="rr">Ascended Heroes &bull; 137</div>
@@ -231,7 +240,7 @@
         data-name="Zoroark" data-rarity="Rare"
         data-number="032" data-price="$0.22"
         data-set="Shrouded Fable"
-        aria-label="Enlarge Zoroark">
+        aria-label="Enlarge Zoroark, Shrouded Fable 032">
         <img src="https://assets.tcgdex.net/en/sv/sv06.5/032/low.webp" onerror="this.remove()" alt="Zoroark 032, Shrouded Fable" loading="lazy" width="245" height="337">
         <div class="nm">Zoroark</div>
         <div class="rr">Shrouded Fable &bull; 032</div>
@@ -243,7 +252,7 @@
         data-name="Zoroark" data-rarity="Rare"
         data-number="062" data-price="$0.22"
         data-set="White Flare"
-        aria-label="Enlarge Zoroark">
+        aria-label="Enlarge Zoroark, White Flare 062">
         <img src="https://assets.tcgdex.net/en/sv/sv10.5w/062/low.webp" onerror="this.remove()" alt="Zoroark 062, White Flare" loading="lazy" width="245" height="337">
         <div class="nm">Zoroark</div>
         <div class="rr">White Flare &bull; 062</div>
@@ -644,7 +653,7 @@
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=d4b6cdad" defer></script>
-<script src="/assets/packplayer.js" defer></script>
+<script src="/assets/app.js?v=8e7d64c7" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
 </body>
 </html>

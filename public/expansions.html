@@ -18,12 +18,12 @@
 <meta property="og:url" content="https://garbagerips585.github.io/expansions.html">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-expansions.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/fonts.css">
 <!-- 174 set symbols come from here and there was no preconnect, so every one
      of them waited on a cold DNS lookup and TLS handshake. -->
 <link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>
-<link rel="stylesheet" href="/assets/ui.css?v=a120d935">
-<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<link rel="stylesheet" href="/assets/ui.css?v=c4e2d099">
+<link rel="stylesheet" href="/assets/packs.css">
 <style>
 .xp{padding:var(--s7) 0 var(--s5)}
 .xp-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:40em;margin-bottom:var(--s5)}
@@ -53,7 +53,10 @@
 
 /* The table scrolls inside this, never the page. */
 .xp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;
-  border:1px solid var(--hair);border-radius:var(--r);background:var(--card)}
+  border:1px solid var(--hair);border-radius:var(--r);background-color:var(--card)}
+/* background-COLOR, not the shorthand: ui.css paints a four layer scroll
+   affordance on this class, and the background shorthand resets
+   background-image, which would silently wipe all four layers. */
 .xp-table{border-collapse:collapse;width:100%;min-width:520px;font-size:var(--t-sm)}
 .xp-table th,.xp-table td{text-align:left;padding:10px var(--s3);border-bottom:1px solid var(--hair);
   vertical-align:middle}
@@ -75,7 +78,12 @@
 .xp-rips{white-space:nowrap}
 .xp-rips a{font-weight:700;color:var(--ketchup-deep)}
 .xp-rips a:hover{text-decoration:underline}
-.xp-none{color:var(--steel,#9FB0C0)}
+/* --steel is not a token this stylesheet defines, so this always fell through
+   to the #9FB0C0 literal: 2.22:1 on the white table, the worst contrast
+   measured anywhere on the site. It is the em dash standing in for "no rips",
+   which is information, not decoration. --ink-2 is the secondary text colour
+   already used two rules up in .xp-cards .sec, and measures 5.27:1 on white. */
+.xp-none{color:var(--ink-2)}
 .xp-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
 </style>
@@ -129,7 +137,7 @@
     <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
   </div>
 </header>
-<nav class="menu" id="menu" aria-label="Site">
+<nav class="menu" id="menu" aria-label="All sections">
   <div class="menu-inner">
     <div class="menu-g">
       <p class="menu-h">Watch</p>
@@ -1986,7 +1994,7 @@ document.getElementById("copyAll")?.addEventListener("click", async (e) => {
 
 <footer>
   <div class="wrap">
-    <nav class="foot-nav" aria-label="Site">
+    <nav class="foot-nav" aria-label="Footer">
       <div class="foot-col">
         <p class="foot-h">Watch</p>
         <a href="/videos.html">Rips</a>
@@ -2041,7 +2049,7 @@ document.getElementById("copyAll")?.addEventListener("click", async (e) => {
   </div>
 </footer>
 
-<script src="/assets/app.js?v=d4b6cdad" defer></script>
-<script src="/assets/packplayer.js?v=44adb501" defer></script>
+<script src="/assets/app.js?v=8e7d64c7" defer></script>
+<script src="/assets/packplayer.js" defer></script>
 </body>
 </html>

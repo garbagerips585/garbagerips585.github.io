@@ -69,8 +69,30 @@ push to main. There is no server build step. See DEPLOY.md.
 
 ## Every click stays on the site
 Video tiles everywhere link to that video's own page under `public/rip/`,
-never to youtube.com. The embed lives on that page. The only deliberate
-outbound links are Subscribe and the social icons.
+never to youtube.com. The embed lives on that page.
+
+The deliberate outbound links are Subscribe, the social icons, and every card
+on /playlists.html. THE THIRD ONE IS AN EXCEPTION THIS FILE DID NOT ADMIT TO
+until 14 August 2026, when it read "the only deliberate outbound links are
+Subscribe and the social icons" while 22 cards on that page sent people to
+YouTube. The rule and the page disagreed and the page was winning quietly.
+
+The exception is arguable rather than obviously right, so here is the case
+either way. A playlist is a YouTube object: an ordered, hand-curated run, and
+watching it in order is a thing YouTube does that this site does not
+replicate. The cards are labelled "Watch on YouTube" and carry an aria-label
+saying it opens there, so nobody is tricked. Against that: the site holds a
+page for every video in those playlists, so an on-site playlist view is
+buildable, and the rule exists because sending people to YouTube is how a
+content hub stops being one.
+
+If you build the on-site version, delete this paragraph rather than editing
+it. Until then, do not "fix" the outbound links without deciding that
+question first: they are a known trade, not an oversight.
+
+A playlist with zero videos does not render at all. Two exist on the channel
+and were showing as cards reading "0 videos" whose only action was a link to
+an empty YouTube playlist. They reappear the moment a video goes in.
 
 `scripts/build-pages.mjs` generates a page for EVERY video, so no tile
 can dead-end. Videos missing a set or product tag get `noindex` and stay out

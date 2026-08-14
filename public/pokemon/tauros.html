@@ -20,9 +20,9 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css">
-<link rel="stylesheet" href="/assets/ui.css?v=84f63e5b">
-<link rel="stylesheet" href="/assets/packs.css">
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=044ef5c1">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Pokemon","item":"https://garbagerips585.github.io/pokemon/"},{"@type":"ListItem","position":3,"name":"Tauros"}]}</script>
 </head>
 <body>
@@ -141,13 +141,22 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
     <h2>Every <span class="hl">Tauros</span></h2>
+    <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
+         It was "Enlarge <name>" alone, which on a Pokemon with several
+         printings named every button on the page identically: charizard.html
+         had NINE buttons all called "Enlarge Charizard ex", each opening a
+         different card. Tabbing through them sounded like nothing was moving.
+         Worse, aria-label REPLACES the visible text rather than adding to it,
+         so the set and number the button already shows in .rr were thrown away
+         for anyone listening (WCAG 2.5.3 wants the visible label inside the
+         accessible name). Same strings as the <img alt> right below. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me04/096/high.webp"
         data-name="Tauros" data-rarity="Illustration Rare"
         data-number="096" data-price="$3.37"
         data-set="Chaos Rising"
-        aria-label="Enlarge Tauros">
+        aria-label="Enlarge Tauros, Chaos Rising 096">
         <img src="https://assets.tcgdex.net/en/me/me04/096/low.webp" onerror="this.remove()" alt="Tauros 096, Chaos Rising" loading="lazy" width="245" height="337">
         <div class="nm">Tauros</div>
         <div class="rr">Chaos Rising &bull; 096</div>
@@ -159,7 +168,7 @@
         data-name="Tauros" data-rarity="Uncommon"
         data-number="128" data-price="$1.20"
         data-set="151"
-        aria-label="Enlarge Tauros">
+        aria-label="Enlarge Tauros, 151 128">
         <img src="https://assets.tcgdex.net/en/sv/sv03.5/128/low.webp" onerror="this.remove()" alt="Tauros 128, 151" loading="lazy" width="245" height="337">
         <div class="nm">Tauros</div>
         <div class="rr">151 &bull; 128</div>
@@ -171,7 +180,7 @@
         data-name="Tauros" data-rarity="Common"
         data-number="152" data-price="$0.29"
         data-set="Destined Rivals"
-        aria-label="Enlarge Tauros">
+        aria-label="Enlarge Tauros, Destined Rivals 152">
         <img src="https://assets.tcgdex.net/en/sv/sv10/152/low.webp" onerror="this.remove()" alt="Tauros 152, Destined Rivals" loading="lazy" width="245" height="337">
         <div class="nm">Tauros</div>
         <div class="rr">Destined Rivals &bull; 152</div>
@@ -183,7 +192,7 @@
         data-name="Tauros" data-rarity="Common"
         data-number="112" data-price="$0.26"
         data-set="Stellar Crown"
-        aria-label="Enlarge Tauros">
+        aria-label="Enlarge Tauros, Stellar Crown 112">
         <img src="https://assets.tcgdex.net/en/sv/sv07/112/low.webp" onerror="this.remove()" alt="Tauros 112, Stellar Crown" loading="lazy" width="245" height="337">
         <div class="nm">Tauros</div>
         <div class="rr">Stellar Crown &bull; 112</div>
@@ -195,7 +204,7 @@
         data-name="Tauros" data-rarity="Uncommon"
         data-number="069" data-price="$0.25"
         data-set="Chaos Rising"
-        aria-label="Enlarge Tauros">
+        aria-label="Enlarge Tauros, Chaos Rising 069">
         <img src="https://assets.tcgdex.net/en/me/me04/069/low.webp" onerror="this.remove()" alt="Tauros 069, Chaos Rising" loading="lazy" width="245" height="337">
         <div class="nm">Tauros</div>
         <div class="rr">Chaos Rising &bull; 069</div>
@@ -717,7 +726,7 @@
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=d4b6cdad" defer></script>
-<script src="/assets/packplayer.js" defer></script>
+<script src="/assets/app.js?v=8e7d64c7" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
 </body>
 </html>

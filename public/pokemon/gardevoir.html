@@ -20,9 +20,9 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css">
-<link rel="stylesheet" href="/assets/ui.css?v=84f63e5b">
-<link rel="stylesheet" href="/assets/packs.css">
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=044ef5c1">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Pokemon","item":"https://garbagerips585.github.io/pokemon/"},{"@type":"ListItem","position":3,"name":"Gardevoir"}]}</script>
 </head>
 <body>
@@ -141,13 +141,22 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
     <h2>Every <span class="hl">Gardevoir</span></h2>
+    <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
+         It was "Enlarge <name>" alone, which on a Pokemon with several
+         printings named every button on the page identically: charizard.html
+         had NINE buttons all called "Enlarge Charizard ex", each opening a
+         different card. Tabbing through them sounded like nothing was moving.
+         Worse, aria-label REPLACES the visible text rather than adding to it,
+         so the set and number the button already shows in .rr were thrown away
+         for anyone listening (WCAG 2.5.3 wants the visible label inside the
+         accessible name). Same strings as the <img alt> right below. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me01/187/high.webp"
         data-name="Mega Gardevoir ex" data-rarity="Mega Hyper Rare"
         data-number="187" data-price="$208"
         data-set="Mega Evolution"
-        aria-label="Enlarge Mega Gardevoir ex">
+        aria-label="Enlarge Mega Gardevoir ex, Mega Evolution 187">
         <img src="https://assets.tcgdex.net/en/me/me01/187/low.webp" onerror="this.remove()" alt="Mega Gardevoir ex 187, Mega Evolution" loading="lazy" width="245" height="337">
         <div class="nm">Mega Gardevoir ex</div>
         <div class="rr">Mega Evolution &bull; 187</div>
@@ -159,7 +168,7 @@
         data-name="Mega Gardevoir ex" data-rarity="Special Illustration Rare"
         data-number="178" data-price="$194"
         data-set="Mega Evolution"
-        aria-label="Enlarge Mega Gardevoir ex">
+        aria-label="Enlarge Mega Gardevoir ex, Mega Evolution 178">
         <img src="https://assets.tcgdex.net/en/me/me01/178/low.webp" onerror="this.remove()" alt="Mega Gardevoir ex 178, Mega Evolution" loading="lazy" width="245" height="337">
         <div class="nm">Mega Gardevoir ex</div>
         <div class="rr">Mega Evolution &bull; 178</div>
@@ -171,7 +180,7 @@
         data-name="Gardevoir ex" data-rarity="Special Illustration Rare"
         data-number="233" data-price="$180"
         data-set="Paldean Fates"
-        aria-label="Enlarge Gardevoir ex">
+        aria-label="Enlarge Gardevoir ex, Paldean Fates 233">
         <img src="https://assets.tcgdex.net/en/sv/sv04.5/233/low.webp" onerror="this.remove()" alt="Gardevoir ex 233, Paldean Fates" loading="lazy" width="245" height="337">
         <div class="nm">Gardevoir ex</div>
         <div class="rr">Paldean Fates &bull; 233</div>
@@ -183,7 +192,7 @@
         data-name="Gardevoir ex" data-rarity="Special Illustration Rare"
         data-number="245" data-price="$71.01"
         data-set="Scarlet &amp; Violet"
-        aria-label="Enlarge Gardevoir ex">
+        aria-label="Enlarge Gardevoir ex, Scarlet &amp; Violet 245">
         <img src="https://assets.tcgdex.net/en/sv/sv01/245/low.webp" onerror="this.remove()" alt="Gardevoir ex 245, Scarlet &amp; Violet" loading="lazy" width="245" height="337">
         <div class="nm">Gardevoir ex</div>
         <div class="rr">Scarlet &amp; Violet &bull; 245</div>
@@ -195,7 +204,7 @@
         data-name="Gardevoir ex" data-rarity="Shiny Ultra Rare"
         data-number="217" data-price="$8.29"
         data-set="Paldean Fates"
-        aria-label="Enlarge Gardevoir ex">
+        aria-label="Enlarge Gardevoir ex, Paldean Fates 217">
         <img src="https://assets.tcgdex.net/en/sv/sv04.5/217/low.webp" onerror="this.remove()" alt="Gardevoir ex 217, Paldean Fates" loading="lazy" width="245" height="337">
         <div class="nm">Gardevoir ex</div>
         <div class="rr">Paldean Fates &bull; 217</div>
@@ -207,7 +216,7 @@
         data-name="Mega Gardevoir ex" data-rarity="Ultra Rare"
         data-number="159" data-price="$5.78"
         data-set="Mega Evolution"
-        aria-label="Enlarge Mega Gardevoir ex">
+        aria-label="Enlarge Mega Gardevoir ex, Mega Evolution 159">
         <img src="https://assets.tcgdex.net/en/me/me01/159/low.webp" onerror="this.remove()" alt="Mega Gardevoir ex 159, Mega Evolution" loading="lazy" width="245" height="337">
         <div class="nm">Mega Gardevoir ex</div>
         <div class="rr">Mega Evolution &bull; 159</div>
@@ -219,7 +228,7 @@
         data-name="Gardevoir ex" data-rarity="Ultra Rare"
         data-number="228" data-price="$4.94"
         data-set="Scarlet &amp; Violet"
-        aria-label="Enlarge Gardevoir ex">
+        aria-label="Enlarge Gardevoir ex, Scarlet &amp; Violet 228">
         <img src="https://assets.tcgdex.net/en/sv/sv01/228/low.webp" onerror="this.remove()" alt="Gardevoir ex 228, Scarlet &amp; Violet" loading="lazy" width="245" height="337">
         <div class="nm">Gardevoir ex</div>
         <div class="rr">Scarlet &amp; Violet &bull; 228</div>
@@ -231,7 +240,7 @@
         data-name="Mega Gardevoir ex" data-rarity="Double Rare"
         data-number="089" data-price="$0.86"
         data-set="Ascended Heroes"
-        aria-label="Enlarge Mega Gardevoir ex">
+        aria-label="Enlarge Mega Gardevoir ex, Ascended Heroes 089">
         <img src="https://assets.tcgdex.net/en/me/me02.5/089/low.webp" onerror="this.remove()" alt="Mega Gardevoir ex 089, Ascended Heroes" loading="lazy" width="245" height="337">
         <div class="nm">Mega Gardevoir ex</div>
         <div class="rr">Ascended Heroes &bull; 089</div>
@@ -243,7 +252,7 @@
         data-name="Gardevoir ex" data-rarity="Double Rare"
         data-number="029" data-price="$0.75"
         data-set="Paldean Fates"
-        aria-label="Enlarge Gardevoir ex">
+        aria-label="Enlarge Gardevoir ex, Paldean Fates 029">
         <img src="https://assets.tcgdex.net/en/sv/sv04.5/029/low.webp" onerror="this.remove()" alt="Gardevoir ex 029, Paldean Fates" loading="lazy" width="245" height="337">
         <div class="nm">Gardevoir ex</div>
         <div class="rr">Paldean Fates &bull; 029</div>
@@ -255,7 +264,7 @@
         data-name="Mega Gardevoir ex" data-rarity="Double Rare"
         data-number="060" data-price="$0.70"
         data-set="Mega Evolution"
-        aria-label="Enlarge Mega Gardevoir ex">
+        aria-label="Enlarge Mega Gardevoir ex, Mega Evolution 060">
         <img src="https://assets.tcgdex.net/en/me/me01/060/low.webp" onerror="this.remove()" alt="Mega Gardevoir ex 060, Mega Evolution" loading="lazy" width="245" height="337">
         <div class="nm">Mega Gardevoir ex</div>
         <div class="rr">Mega Evolution &bull; 060</div>
@@ -267,7 +276,7 @@
         data-name="Gardevoir ex" data-rarity="Double Rare"
         data-number="086" data-price="$0.70"
         data-set="Scarlet &amp; Violet"
-        aria-label="Enlarge Gardevoir ex">
+        aria-label="Enlarge Gardevoir ex, Scarlet &amp; Violet 086">
         <img src="https://assets.tcgdex.net/en/sv/sv01/086/low.webp" onerror="this.remove()" alt="Gardevoir ex 086, Scarlet &amp; Violet" loading="lazy" width="245" height="337">
         <div class="nm">Gardevoir ex</div>
         <div class="rr">Scarlet &amp; Violet &bull; 086</div>
@@ -808,7 +817,7 @@
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=d4b6cdad" defer></script>
-<script src="/assets/packplayer.js" defer></script>
+<script src="/assets/app.js?v=8e7d64c7" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
 </body>
 </html>

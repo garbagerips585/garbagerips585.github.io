@@ -20,9 +20,9 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css">
-<link rel="stylesheet" href="/assets/ui.css?v=84f63e5b">
-<link rel="stylesheet" href="/assets/packs.css">
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=044ef5c1">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Pokemon","item":"https://garbagerips585.github.io/pokemon/"},{"@type":"ListItem","position":3,"name":"Clefairy"}]}</script>
 </head>
 <body>
@@ -141,13 +141,22 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
     <h2>Every <span class="hl">Clefairy</span></h2>
+    <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
+         It was "Enlarge <name>" alone, which on a Pokemon with several
+         printings named every button on the page identically: charizard.html
+         had NINE buttons all called "Enlarge Charizard ex", each opening a
+         different card. Tabbing through them sounded like nothing was moving.
+         Worse, aria-label REPLACES the visible text rather than adding to it,
+         so the set and number the button already shows in .rr were thrown away
+         for anyone listening (WCAG 2.5.3 wants the visible label inside the
+         accessible name). Same strings as the <img alt> right below. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me02.5/280/high.webp"
         data-name="Lillie's Clefairy ex" data-rarity="Special Illustration Rare"
         data-number="280" data-price="$170"
         data-set="Ascended Heroes"
-        aria-label="Enlarge Lillie's Clefairy ex">
+        aria-label="Enlarge Lillie's Clefairy ex, Ascended Heroes 280">
         <img src="https://assets.tcgdex.net/en/me/me02.5/280/low.webp" onerror="this.remove()" alt="Lillie's Clefairy ex 280, Ascended Heroes" loading="lazy" width="245" height="337">
         <div class="nm">Lillie's Clefairy ex</div>
         <div class="rr">Ascended Heroes &bull; 280</div>
@@ -159,7 +168,7 @@
         data-name="Lillie's Clefairy ex" data-rarity="Special Illustration Rare"
         data-number="184" data-price="$111"
         data-set="Journey Together"
-        aria-label="Enlarge Lillie's Clefairy ex">
+        aria-label="Enlarge Lillie's Clefairy ex, Journey Together 184">
         <img src="https://assets.tcgdex.net/en/sv/sv09/184/low.webp" onerror="this.remove()" alt="Lillie's Clefairy ex 184, Journey Together" loading="lazy" width="245" height="337">
         <div class="nm">Lillie's Clefairy ex</div>
         <div class="rr">Journey Together &bull; 184</div>
@@ -171,7 +180,7 @@
         data-name="Clefairy" data-rarity="Illustration Rare"
         data-number="094" data-price="$21.17"
         data-set="Perfect Order"
-        aria-label="Enlarge Clefairy">
+        aria-label="Enlarge Clefairy, Perfect Order 094">
         <img src="https://assets.tcgdex.net/en/me/me03/094/low.webp" onerror="this.remove()" alt="Clefairy 094, Perfect Order" loading="lazy" width="245" height="337">
         <div class="nm">Clefairy</div>
         <div class="rr">Perfect Order &bull; 094</div>
@@ -183,7 +192,7 @@
         data-name="Lillie's Clefairy ex" data-rarity="Ultra Rare"
         data-number="173" data-price="$8.51"
         data-set="Journey Together"
-        aria-label="Enlarge Lillie's Clefairy ex">
+        aria-label="Enlarge Lillie's Clefairy ex, Journey Together 173">
         <img src="https://assets.tcgdex.net/en/sv/sv09/173/low.webp" onerror="this.remove()" alt="Lillie's Clefairy ex 173, Journey Together" loading="lazy" width="245" height="337">
         <div class="nm">Lillie's Clefairy ex</div>
         <div class="rr">Journey Together &bull; 173</div>
@@ -195,7 +204,7 @@
         data-name="Lillie's Clefairy ex" data-rarity="Double Rare"
         data-number="056" data-price="$2.43"
         data-set="Journey Together"
-        aria-label="Enlarge Lillie's Clefairy ex">
+        aria-label="Enlarge Lillie's Clefairy ex, Journey Together 056">
         <img src="https://assets.tcgdex.net/en/sv/sv09/056/low.webp" onerror="this.remove()" alt="Lillie's Clefairy ex 056, Journey Together" loading="lazy" width="245" height="337">
         <div class="nm">Lillie's Clefairy ex</div>
         <div class="rr">Journey Together &bull; 056</div>
@@ -207,7 +216,7 @@
         data-name="Lillie's Clefairy ex" data-rarity="Double Rare"
         data-number="076" data-price="$1.73"
         data-set="Ascended Heroes"
-        aria-label="Enlarge Lillie's Clefairy ex">
+        aria-label="Enlarge Lillie's Clefairy ex, Ascended Heroes 076">
         <img src="https://assets.tcgdex.net/en/me/me02.5/076/low.webp" onerror="this.remove()" alt="Lillie's Clefairy ex 076, Ascended Heroes" loading="lazy" width="245" height="337">
         <div class="nm">Lillie's Clefairy ex</div>
         <div class="rr">Ascended Heroes &bull; 076</div>
@@ -219,7 +228,7 @@
         data-name="Clefairy" data-rarity="Common"
         data-number="081" data-price="$0.50"
         data-set="Obsidian Flames"
-        aria-label="Enlarge Clefairy">
+        aria-label="Enlarge Clefairy, Obsidian Flames 081">
         <img src="https://assets.tcgdex.net/en/sv/sv03/081/low.webp" onerror="this.remove()" alt="Clefairy 081, Obsidian Flames" loading="lazy" width="245" height="337">
         <div class="nm">Clefairy</div>
         <div class="rr">Obsidian Flames &bull; 081</div>
@@ -231,7 +240,7 @@
         data-name="Clefairy" data-rarity="Common"
         data-number="035" data-price="$0.30"
         data-set="151"
-        aria-label="Enlarge Clefairy">
+        aria-label="Enlarge Clefairy, 151 035">
         <img src="https://assets.tcgdex.net/en/sv/sv03.5/035/low.webp" onerror="this.remove()" alt="Clefairy 035, 151" loading="lazy" width="245" height="337">
         <div class="nm">Clefairy</div>
         <div class="rr">151 &bull; 035</div>
@@ -243,7 +252,7 @@
         data-name="Clefairy" data-rarity="Common"
         data-number="078" data-price="$0.28"
         data-set="Twilight Masquerade"
-        aria-label="Enlarge Clefairy">
+        aria-label="Enlarge Clefairy, Twilight Masquerade 078">
         <img src="https://assets.tcgdex.net/en/sv/sv06/078/low.webp" onerror="this.remove()" alt="Clefairy 078, Twilight Masquerade" loading="lazy" width="245" height="337">
         <div class="nm">Clefairy</div>
         <div class="rr">Twilight Masquerade &bull; 078</div>
@@ -255,7 +264,7 @@
         data-name="Clefairy" data-rarity="Common"
         data-number="030" data-price="$0.22"
         data-set="Perfect Order"
-        aria-label="Enlarge Clefairy">
+        aria-label="Enlarge Clefairy, Perfect Order 030">
         <img src="https://assets.tcgdex.net/en/me/me03/030/low.webp" onerror="this.remove()" alt="Clefairy 030, Perfect Order" loading="lazy" width="245" height="337">
         <div class="nm">Clefairy</div>
         <div class="rr">Perfect Order &bull; 030</div>
@@ -267,7 +276,7 @@
         data-name="Clefairy" data-rarity="Common"
         data-number="074" data-price="$0.20"
         data-set="Ascended Heroes"
-        aria-label="Enlarge Clefairy">
+        aria-label="Enlarge Clefairy, Ascended Heroes 074">
         <img src="https://assets.tcgdex.net/en/me/me02.5/074/low.webp" onerror="this.remove()" alt="Clefairy 074, Ascended Heroes" loading="lazy" width="245" height="337">
         <div class="nm">Clefairy</div>
         <div class="rr">Ascended Heroes &bull; 074</div>
@@ -734,7 +743,7 @@
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=d4b6cdad" defer></script>
-<script src="/assets/packplayer.js" defer></script>
+<script src="/assets/app.js?v=8e7d64c7" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
 </body>
 </html>

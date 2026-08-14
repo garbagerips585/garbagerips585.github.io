@@ -18,9 +18,9 @@
 <meta property="og:url" content="https://garbagerips585.github.io/rarity.html">
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="/assets/fonts.css">
-<link rel="stylesheet" href="/assets/ui.css?v=84f63e5b">
-<link rel="stylesheet" href="/assets/packs.css">
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=044ef5c1">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .rg{padding:var(--s7) 0 var(--s5)}
 .rg-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:42em;margin-bottom:var(--s5)}
@@ -750,14 +750,21 @@
               <rect x="6" y="6" width="208" height="288" rx="10" fill="#EDE6CB" stroke="#15263A" stroke-width="3"/>
               <rect x="14" y="14" width="192" height="272" rx="7" fill="none" stroke="#9FB0C0" stroke-width="1.5" stroke-dasharray="4 4"/>
               <rect x="24" y="26" width="172" height="58" rx="4" fill="#F7F2DE" stroke="#15263A" stroke-width="2"/>
-              <text x="34" y="46" font-family="monospace" font-size="9" fill="#5A6150">CARD NAME &amp; SET</text>
+              <!-- All the small type in here was #5A6150, the olive meant for the
+                   cream page. On the slab's own fills it measured 2.79:1 (CARD NAME
+                   & SET), 3.11:1 (the sealed-edge line) and 4.10:1 (GRADE), all under
+                   the 4.5:1 AA needs. #15263A is the ink already used for MINT 10 in
+                   the same diagram and measures 7.4:1 on the worst of these fills.
+                   The 7px labels also go to 8px: the viewBox is 220 wide and renders
+                   at 132px, so 7px in the box is about 4.2 real pixels. -->
+              <text x="34" y="46" font-family="monospace" font-size="9" fill="#15263A">CARD NAME &amp; SET</text>
               <text x="34" y="72" font-family="monospace" font-size="22" font-weight="bold" fill="#15263A">MINT 10</text>
-              <text x="150" y="72" font-family="monospace" font-size="8" fill="#5A6150">GRADE</text>
-              <text x="34" y="82" font-family="monospace" font-size="7" fill="#5A6150">CERT 000000000</text>
+              <text x="150" y="72" font-family="monospace" font-size="8" fill="#15263A">GRADE</text>
+              <text x="34" y="83" font-family="monospace" font-size="8" fill="#15263A">CERT 000000000</text>
               <rect x="34" y="96" width="152" height="176" rx="4" fill="#DCF2FB" stroke="#0E6E96" stroke-width="2"/>
               <text x="110" y="190" font-family="monospace" font-size="9" fill="#0E6E96" text-anchor="middle">the card, sealed inside</text>
               <path d="M6 150 L14 150 M206 150 L214 150" stroke="#D9482B" stroke-width="3"/>
-              <text x="110" y="292" font-family="monospace" font-size="7" fill="#5A6150" text-anchor="middle">sealed edge: opening it voids the grade</text>
+              <text x="110" y="292" font-family="monospace" font-size="8" fill="#15263A" text-anchor="middle">sealed edge: opening it voids the grade</text>
             </svg>
             <figcaption>A schematic, not a photo of a real slab</figcaption>
           </figure>
@@ -857,7 +864,7 @@
   </div>
 </footer>
 
-<script src="/assets/app.js?v=d4b6cdad" defer></script>
-<script src="/assets/packplayer.js" defer></script>
+<script src="/assets/app.js?v=8e7d64c7" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
 </body>
 </html>

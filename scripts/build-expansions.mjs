@@ -177,7 +177,10 @@ const style = `
 
 /* The table scrolls inside this, never the page. */
 .xp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;
-  border:1px solid var(--hair);border-radius:var(--r);background:var(--card)}
+  border:1px solid var(--hair);border-radius:var(--r);background-color:var(--card)}
+/* background-COLOR, not the shorthand: ui.css paints a four layer scroll
+   affordance on this class, and the background shorthand resets
+   background-image, which would silently wipe all four layers. */
 .xp-table{border-collapse:collapse;width:100%;min-width:520px;font-size:var(--t-sm)}
 .xp-table th,.xp-table td{text-align:left;padding:10px var(--s3);border-bottom:1px solid var(--hair);
   vertical-align:middle}

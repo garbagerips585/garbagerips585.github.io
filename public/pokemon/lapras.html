@@ -20,9 +20,9 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css">
-<link rel="stylesheet" href="/assets/ui.css?v=84f63e5b">
-<link rel="stylesheet" href="/assets/packs.css">
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=044ef5c1">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Pokemon","item":"https://garbagerips585.github.io/pokemon/"},{"@type":"ListItem","position":3,"name":"Lapras"}]}</script>
 </head>
 <body>
@@ -141,13 +141,22 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
     <h2>Every <span class="hl">Lapras</span></h2>
+    <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
+         It was "Enlarge <name>" alone, which on a Pokemon with several
+         printings named every button on the page identically: charizard.html
+         had NINE buttons all called "Enlarge Charizard ex", each opening a
+         different card. Tabbing through them sounded like nothing was moving.
+         Worse, aria-label REPLACES the visible text rather than adding to it,
+         so the set and number the button already shows in .rr were thrown away
+         for anyone listening (WCAG 2.5.3 wants the visible label inside the
+         accessible name). Same strings as the <img alt> right below. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv10/194/high.webp"
         data-name="Misty's Lapras" data-rarity="Illustration Rare"
         data-number="194" data-price="$38.96"
         data-set="Destined Rivals"
-        aria-label="Enlarge Misty's Lapras">
+        aria-label="Enlarge Misty's Lapras, Destined Rivals 194">
         <img src="https://assets.tcgdex.net/en/sv/sv10/194/low.webp" onerror="this.remove()" alt="Misty's Lapras 194, Destined Rivals" loading="lazy" width="245" height="337">
         <div class="nm">Misty's Lapras</div>
         <div class="rr">Destined Rivals &bull; 194</div>
@@ -159,7 +168,7 @@
         data-name="Lapras ex" data-rarity="Ultra Rare"
         data-number="158" data-price="$6.23"
         data-set="Stellar Crown"
-        aria-label="Enlarge Lapras ex">
+        aria-label="Enlarge Lapras ex, Stellar Crown 158">
         <img src="https://assets.tcgdex.net/en/sv/sv07/158/low.webp" onerror="this.remove()" alt="Lapras ex 158, Stellar Crown" loading="lazy" width="245" height="337">
         <div class="nm">Lapras ex</div>
         <div class="rr">Stellar Crown &bull; 158</div>
@@ -171,7 +180,7 @@
         data-name="Lapras" data-rarity="Uncommon"
         data-number="131" data-price="$2.65"
         data-set="151"
-        aria-label="Enlarge Lapras">
+        aria-label="Enlarge Lapras, 151 131">
         <img src="https://assets.tcgdex.net/en/sv/sv03.5/131/low.webp" onerror="this.remove()" alt="Lapras 131, 151" loading="lazy" width="245" height="337">
         <div class="nm">Lapras</div>
         <div class="rr">151 &bull; 131</div>
@@ -183,7 +192,7 @@
         data-name="Lapras ex" data-rarity="Double Rare"
         data-number="032" data-price="$1.78"
         data-set="Stellar Crown"
-        aria-label="Enlarge Lapras ex">
+        aria-label="Enlarge Lapras ex, Stellar Crown 032">
         <img src="https://assets.tcgdex.net/en/sv/sv07/032/low.webp" onerror="this.remove()" alt="Lapras ex 032, Stellar Crown" loading="lazy" width="245" height="337">
         <div class="nm">Lapras ex</div>
         <div class="rr">Stellar Crown &bull; 032</div>
@@ -195,7 +204,7 @@
         data-name="Lapras ex" data-rarity="Double Rare"
         data-number="022" data-price="$0.54"
         data-set="Perfect Order"
-        aria-label="Enlarge Lapras ex">
+        aria-label="Enlarge Lapras ex, Perfect Order 022">
         <img src="https://assets.tcgdex.net/en/me/me03/022/low.webp" onerror="this.remove()" alt="Lapras ex 022, Perfect Order" loading="lazy" width="245" height="337">
         <div class="nm">Lapras ex</div>
         <div class="rr">Perfect Order &bull; 022</div>
@@ -207,7 +216,7 @@
         data-name="Lapras" data-rarity="Holo Rare"
         data-number="023" data-price="$0.40"
         data-set="Pokémon GO"
-        aria-label="Enlarge Lapras">
+        aria-label="Enlarge Lapras, Pokémon GO 023">
         <img src="https://assets.tcgdex.net/en/swsh/swsh10.5/023/low.webp" onerror="this.remove()" alt="Lapras 023, Pokémon GO" loading="lazy" width="245" height="337">
         <div class="nm">Lapras</div>
         <div class="rr">Pokémon GO &bull; 023</div>
@@ -219,7 +228,7 @@
         data-name="Lapras" data-rarity="Uncommon"
         data-number="045" data-price="$0.37"
         data-set="Obsidian Flames"
-        aria-label="Enlarge Lapras">
+        aria-label="Enlarge Lapras, Obsidian Flames 045">
         <img src="https://assets.tcgdex.net/en/sv/sv03/045/low.webp" onerror="this.remove()" alt="Lapras 045, Obsidian Flames" loading="lazy" width="245" height="337">
         <div class="nm">Lapras</div>
         <div class="rr">Obsidian Flames &bull; 045</div>
@@ -231,7 +240,7 @@
         data-name="Lapras" data-rarity="Uncommon"
         data-number="031" data-price="$0.34"
         data-set="Stellar Crown"
-        aria-label="Enlarge Lapras">
+        aria-label="Enlarge Lapras, Stellar Crown 031">
         <img src="https://assets.tcgdex.net/en/sv/sv07/031/low.webp" onerror="this.remove()" alt="Lapras 031, Stellar Crown" loading="lazy" width="245" height="337">
         <div class="nm">Lapras</div>
         <div class="rr">Stellar Crown &bull; 031</div>
@@ -243,7 +252,7 @@
         data-name="Misty's Lapras" data-rarity="Common"
         data-number="050" data-price="$0.34"
         data-set="Destined Rivals"
-        aria-label="Enlarge Misty's Lapras">
+        aria-label="Enlarge Misty's Lapras, Destined Rivals 050">
         <img src="https://assets.tcgdex.net/en/sv/sv10/050/low.webp" onerror="this.remove()" alt="Misty's Lapras 050, Destined Rivals" loading="lazy" width="245" height="337">
         <div class="nm">Misty's Lapras</div>
         <div class="rr">Destined Rivals &bull; 050</div>
@@ -255,7 +264,7 @@
         data-name="Lapras" data-rarity="Common"
         data-number="016" data-price="$0.22"
         data-set="Paldean Fates"
-        aria-label="Enlarge Lapras">
+        aria-label="Enlarge Lapras, Paldean Fates 016">
         <img src="https://assets.tcgdex.net/en/sv/sv04.5/016/low.webp" onerror="this.remove()" alt="Lapras 016, Paldean Fates" loading="lazy" width="245" height="337">
         <div class="nm">Lapras</div>
         <div class="rr">Paldean Fates &bull; 016</div>
@@ -811,7 +820,7 @@
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=d4b6cdad" defer></script>
-<script src="/assets/packplayer.js" defer></script>
+<script src="/assets/app.js?v=8e7d64c7" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
 </body>
 </html>

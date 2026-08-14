@@ -292,8 +292,11 @@ const style = `
 .chof-art{flex:none;width:clamp(96px,26vw,120px);padding:0;border:0;background:none;
   cursor:zoom-in;border-radius:8px;overflow:hidden;line-height:0;
   box-shadow:0 6px 18px rgba(0,0,0,.45)}
-.chof-art img{width:100%;height:auto;aspect-ratio:245/342;object-fit:contain;background:#0E1B2A}
-.chof-noart{display:grid;place-items:center;aspect-ratio:245/342;padding:10%;
+/* 245/337 is the real intrinsic shape of TCGdex low.webp. It was 245/342,
+   which at the 120px max width made the box 167.5 tall instead of 165 and
+   object-fit:contain letterboxed every card by ~3px against #0E1B2A. */
+.chof-art img{width:100%;height:auto;aspect-ratio:245/337;object-fit:contain;background:#0E1B2A}
+.chof-noart{display:grid;place-items:center;aspect-ratio:245/337;padding:10%;
   font:400 .8rem/1.2 var(--display);color:#B3C2CF;text-align:center;background:#0E1B2A}
 .chof-body{min-width:0;flex:1}
 .chof-name{font:600 var(--t-body)/1.25 var(--body);display:block}

@@ -20,9 +20,9 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css">
-<link rel="stylesheet" href="/assets/ui.css?v=84f63e5b">
-<link rel="stylesheet" href="/assets/packs.css">
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=044ef5c1">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Pokemon","item":"https://garbagerips585.github.io/pokemon/"},{"@type":"ListItem","position":3,"name":"Ninetales"}]}</script>
 </head>
 <body>
@@ -141,13 +141,22 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
     <h2>Every <span class="hl">Ninetales</span></h2>
+    <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
+         It was "Enlarge <name>" alone, which on a Pokemon with several
+         printings named every button on the page identically: charizard.html
+         had NINE buttons all called "Enlarge Charizard ex", each opening a
+         different card. Tabbing through them sounded like nothing was moving.
+         Worse, aria-label REPLACES the visible text rather than adding to it,
+         so the set and number the button already shows in .rr were thrown away
+         for anyone listening (WCAG 2.5.3 wants the visible label inside the
+         accessible name). Same strings as the <img alt> right below. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv03/199/high.webp"
         data-name="Ninetales" data-rarity="Illustration Rare"
         data-number="199" data-price="$45.69"
         data-set="Obsidian Flames"
-        aria-label="Enlarge Ninetales">
+        aria-label="Enlarge Ninetales, Obsidian Flames 199">
         <img src="https://assets.tcgdex.net/en/sv/sv03/199/low.webp" onerror="this.remove()" alt="Ninetales 199, Obsidian Flames" loading="lazy" width="245" height="337">
         <div class="nm">Ninetales</div>
         <div class="rr">Obsidian Flames &bull; 199</div>
@@ -159,7 +168,7 @@
         data-name="Ninetales ex" data-rarity="Ultra Rare"
         data-number="186" data-price="$15.48"
         data-set="151"
-        aria-label="Enlarge Ninetales ex">
+        aria-label="Enlarge Ninetales ex, 151 186">
         <img src="https://assets.tcgdex.net/en/sv/sv03.5/186/low.webp" onerror="this.remove()" alt="Ninetales ex 186, 151" loading="lazy" width="245" height="337">
         <div class="nm">Ninetales ex</div>
         <div class="rr">151 &bull; 186</div>
@@ -171,7 +180,7 @@
         data-name="Ninetales ex" data-rarity="Double Rare"
         data-number="038" data-price="$1.94"
         data-set="151"
-        aria-label="Enlarge Ninetales ex">
+        aria-label="Enlarge Ninetales ex, 151 038">
         <img src="https://assets.tcgdex.net/en/sv/sv03.5/038/low.webp" onerror="this.remove()" alt="Ninetales ex 038, 151" loading="lazy" width="245" height="337">
         <div class="nm">Ninetales ex</div>
         <div class="rr">151 &bull; 038</div>
@@ -183,7 +192,7 @@
         data-name="Ninetales" data-rarity="Uncommon"
         data-number="029" data-price="$0.39"
         data-set="Obsidian Flames"
-        aria-label="Enlarge Ninetales">
+        aria-label="Enlarge Ninetales, Obsidian Flames 029">
         <img src="https://assets.tcgdex.net/en/sv/sv03/029/low.webp" onerror="this.remove()" alt="Ninetales 029, Obsidian Flames" loading="lazy" width="245" height="337">
         <div class="nm">Ninetales</div>
         <div class="rr">Obsidian Flames &bull; 029</div>
@@ -195,7 +204,7 @@
         data-name="Ninetales" data-rarity="Uncommon"
         data-number="017" data-price="$0.32"
         data-set="Surging Sparks"
-        aria-label="Enlarge Ninetales">
+        aria-label="Enlarge Ninetales, Surging Sparks 017">
         <img src="https://assets.tcgdex.net/en/sv/sv08/017/low.webp" onerror="this.remove()" alt="Ninetales 017, Surging Sparks" loading="lazy" width="245" height="337">
         <div class="nm">Ninetales</div>
         <div class="rr">Surging Sparks &bull; 017</div>
@@ -207,7 +216,7 @@
         data-name="Ninetales" data-rarity="Uncommon"
         data-number="020" data-price="$0.30"
         data-set="Mega Evolution"
-        aria-label="Enlarge Ninetales">
+        aria-label="Enlarge Ninetales, Mega Evolution 020">
         <img src="https://assets.tcgdex.net/en/me/me01/020/low.webp" onerror="this.remove()" alt="Ninetales 020, Mega Evolution" loading="lazy" width="245" height="337">
         <div class="nm">Ninetales</div>
         <div class="rr">Mega Evolution &bull; 020</div>
@@ -219,7 +228,7 @@
         data-name="Ninetales" data-rarity="Uncommon"
         data-number="009" data-price="$0.27"
         data-set="Chaos Rising"
-        aria-label="Enlarge Ninetales">
+        aria-label="Enlarge Ninetales, Chaos Rising 009">
         <img src="https://assets.tcgdex.net/en/me/me04/009/low.webp" onerror="this.remove()" alt="Ninetales 009, Chaos Rising" loading="lazy" width="245" height="337">
         <div class="nm">Ninetales</div>
         <div class="rr">Chaos Rising &bull; 009</div>
@@ -231,7 +240,7 @@
         data-name="Ninetales" data-rarity="Common"
         data-number="027" data-price="$0.25"
         data-set="Twilight Masquerade"
-        aria-label="Enlarge Ninetales">
+        aria-label="Enlarge Ninetales, Twilight Masquerade 027">
         <img src="https://assets.tcgdex.net/en/sv/sv06/027/low.webp" onerror="this.remove()" alt="Ninetales 027, Twilight Masquerade" loading="lazy" width="245" height="337">
         <div class="nm">Ninetales</div>
         <div class="rr">Twilight Masquerade &bull; 027</div>
@@ -794,7 +803,7 @@
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=d4b6cdad" defer></script>
-<script src="/assets/packplayer.js" defer></script>
+<script src="/assets/app.js?v=8e7d64c7" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
 </body>
 </html>

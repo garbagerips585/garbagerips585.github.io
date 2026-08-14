@@ -20,9 +20,9 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css">
-<link rel="stylesheet" href="/assets/ui.css?v=84f63e5b">
-<link rel="stylesheet" href="/assets/packs.css">
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=044ef5c1">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Pokemon","item":"https://garbagerips585.github.io/pokemon/"},{"@type":"ListItem","position":3,"name":"Charizard"}]}</script>
 </head>
 <body>
@@ -141,13 +141,22 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
     <h2>Every <span class="hl">Charizard</span></h2>
+    <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
+         It was "Enlarge <name>" alone, which on a Pokemon with several
+         printings named every button on the page identically: charizard.html
+         had NINE buttons all called "Enlarge Charizard ex", each opening a
+         different card. Tabbing through them sounded like nothing was moving.
+         Worse, aria-label REPLACES the visible text rather than adding to it,
+         so the set and number the button already shows in .rr were thrown away
+         for anyone listening (WCAG 2.5.3 wants the visible label inside the
+         accessible name). Same strings as the <img alt> right below. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv03.5/199/high.webp"
         data-name="Charizard ex" data-rarity="Special Illustration Rare"
         data-number="199" data-price="$378"
         data-set="151"
-        aria-label="Enlarge Charizard ex">
+        aria-label="Enlarge Charizard ex, 151 199">
         <img src="https://assets.tcgdex.net/en/sv/sv03.5/199/low.webp" onerror="this.remove()" alt="Charizard ex 199, 151" loading="lazy" width="245" height="337">
         <div class="nm">Charizard ex</div>
         <div class="rr">151 &bull; 199</div>
@@ -159,7 +168,7 @@
         data-name="Charizard ex" data-rarity="Special Illustration Rare"
         data-number="234" data-price="$290"
         data-set="Paldean Fates"
-        aria-label="Enlarge Charizard ex">
+        aria-label="Enlarge Charizard ex, Paldean Fates 234">
         <img src="https://assets.tcgdex.net/en/sv/sv04.5/234/low.webp" onerror="this.remove()" alt="Charizard ex 234, Paldean Fates" loading="lazy" width="245" height="337">
         <div class="nm">Charizard ex</div>
         <div class="rr">Paldean Fates &bull; 234</div>
@@ -171,7 +180,7 @@
         data-name="Charizard ex" data-rarity="Special Illustration Rare"
         data-number="223" data-price="$110"
         data-set="Obsidian Flames"
-        aria-label="Enlarge Charizard ex">
+        aria-label="Enlarge Charizard ex, Obsidian Flames 223">
         <img src="https://assets.tcgdex.net/en/sv/sv03/223/low.webp" onerror="this.remove()" alt="Charizard ex 223, Obsidian Flames" loading="lazy" width="245" height="337">
         <div class="nm">Charizard ex</div>
         <div class="rr">Obsidian Flames &bull; 223</div>
@@ -183,7 +192,7 @@
         data-name="Charizard ex" data-rarity="Ultra Rare"
         data-number="183" data-price="$41.96"
         data-set="151"
-        aria-label="Enlarge Charizard ex">
+        aria-label="Enlarge Charizard ex, 151 183">
         <img src="https://assets.tcgdex.net/en/sv/sv03.5/183/low.webp" onerror="this.remove()" alt="Charizard ex 183, 151" loading="lazy" width="245" height="337">
         <div class="nm">Charizard ex</div>
         <div class="rr">151 &bull; 183</div>
@@ -195,7 +204,7 @@
         data-name="Charizard ex" data-rarity="Hyper Rare"
         data-number="228" data-price="$36.83"
         data-set="Obsidian Flames"
-        aria-label="Enlarge Charizard ex">
+        aria-label="Enlarge Charizard ex, Obsidian Flames 228">
         <img src="https://assets.tcgdex.net/en/sv/sv03/228/low.webp" onerror="this.remove()" alt="Charizard ex 228, Obsidian Flames" loading="lazy" width="245" height="337">
         <div class="nm">Charizard ex</div>
         <div class="rr">Obsidian Flames &bull; 228</div>
@@ -207,7 +216,7 @@
         data-name="Charizard ex" data-rarity="Ultra Rare"
         data-number="215" data-price="$21.83"
         data-set="Obsidian Flames"
-        aria-label="Enlarge Charizard ex">
+        aria-label="Enlarge Charizard ex, Obsidian Flames 215">
         <img src="https://assets.tcgdex.net/en/sv/sv03/215/low.webp" onerror="this.remove()" alt="Charizard ex 215, Obsidian Flames" loading="lazy" width="245" height="337">
         <div class="nm">Charizard ex</div>
         <div class="rr">Obsidian Flames &bull; 215</div>
@@ -219,7 +228,7 @@
         data-name="Charizard ex" data-rarity="Double Rare"
         data-number="006" data-price="$9.75"
         data-set="151"
-        aria-label="Enlarge Charizard ex">
+        aria-label="Enlarge Charizard ex, 151 006">
         <img src="https://assets.tcgdex.net/en/sv/sv03.5/006/low.webp" onerror="this.remove()" alt="Charizard ex 006, 151" loading="lazy" width="245" height="337">
         <div class="nm">Charizard ex</div>
         <div class="rr">151 &bull; 006</div>
@@ -231,7 +240,7 @@
         data-name="Charizard" data-rarity="Holo Rare"
         data-number="010" data-price="$5.38"
         data-set="Pokémon GO"
-        aria-label="Enlarge Charizard">
+        aria-label="Enlarge Charizard, Pokémon GO 010">
         <img src="https://assets.tcgdex.net/en/swsh/swsh10.5/010/low.webp" onerror="this.remove()" alt="Charizard 010, Pokémon GO" loading="lazy" width="245" height="337">
         <div class="nm">Charizard</div>
         <div class="rr">Pokémon GO &bull; 010</div>
@@ -243,7 +252,7 @@
         data-name="Charizard ex" data-rarity="Double Rare"
         data-number="125" data-price="$5.36"
         data-set="Obsidian Flames"
-        aria-label="Enlarge Charizard ex">
+        aria-label="Enlarge Charizard ex, Obsidian Flames 125">
         <img src="https://assets.tcgdex.net/en/sv/sv03/125/low.webp" onerror="this.remove()" alt="Charizard ex 125, Obsidian Flames" loading="lazy" width="245" height="337">
         <div class="nm">Charizard ex</div>
         <div class="rr">Obsidian Flames &bull; 125</div>
@@ -255,7 +264,7 @@
         data-name="Charizard ex" data-rarity="Double Rare"
         data-number="054" data-price="$5.28"
         data-set="Paldean Fates"
-        aria-label="Enlarge Charizard ex">
+        aria-label="Enlarge Charizard ex, Paldean Fates 054">
         <img src="https://assets.tcgdex.net/en/sv/sv04.5/054/low.webp" onerror="this.remove()" alt="Charizard ex 054, Paldean Fates" loading="lazy" width="245" height="337">
         <div class="nm">Charizard ex</div>
         <div class="rr">Paldean Fates &bull; 054</div>
@@ -1142,7 +1151,7 @@
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=d4b6cdad" defer></script>
-<script src="/assets/packplayer.js" defer></script>
+<script src="/assets/app.js?v=8e7d64c7" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
 </body>
 </html>

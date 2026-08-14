@@ -1055,18 +1055,26 @@ footer .soc svg{fill:var(--paper)}
 /* THE PACK HAD NO FOCUS INDICATOR AT ALL, ON ALL 311 RIP PAGES.
    Not a missing rule: the global :focus-visible ring applied and computed
    exactly as it should, outline:3px solid --ketchup-deep with outline-offset:2px
-   and a 5px white halo. It was simply never painted. .pack is position:absolute
-   inset:0 inside .rip-player, and .rip-player is overflow:hidden for its rounded
-   corners, so a ring drawn 2px OUTSIDE the pack lands 2px outside the clip.
-   Screenshotting the pack focused and unfocused produced byte-identical PNGs.
-   That is why a source read cannot catch this and a pixel diff can.
-   The fix draws the ring INSIDE the clip. Two rings, because the pack skins run
-   from #120E1C to #FFF6D2 and no single colour reads on all of them: mustard on
-   an ink band. outline-offset is negative, and the halo is an INSET shadow, so
-   neither can be clipped. Verified as a 4,000+ pixel change. */
-.pack:focus-visible{
-  outline:3px solid var(--mustard);outline-offset:-5px;
-  box-shadow:inset 0 0 0 8px rgba(21,38,58,.92);
+   and a 5px white halo. It was simply never painted, for TWO reasons stacked on
+   top of each other, and fixing either one alone still shows nothing:
+     1. .pack is position:absolute inset:0 inside .rip-player, and .rip-player is
+        overflow:hidden for its rounded corners, so a ring drawn OUTSIDE the pack
+        lands outside the clip.
+     2. Pulling the ring inside with a negative outline-offset does not help
+        either, because .pack paints nothing itself (background:none) and its two
+        .pack-face children are positioned descendants, which paint ABOVE the
+        parent's outline. That attempt measured 70 changed pixels: only the
+        sliver of ring not covered by the art.
+   So the ring goes on a pseudo-element stacked above the faces, inside the clip.
+   Two colours, because the pack skins run from #120E1C to #FFF6D2 and no single
+   colour reads on all of them: mustard band with an ink band inside it.
+   Screenshotting the pack focused and unfocused used to produce byte-identical
+   PNGs, which is why a source read cannot catch this and a pixel diff can. */
+.pack:focus-visible{outline:none}
+.pack:focus-visible::after{
+  content:"";position:absolute;inset:0;z-index:9;pointer-events:none;
+  border:4px solid var(--mustard);
+  box-shadow:inset 0 0 0 4px rgba(21,38,58,.92);
 }
 /* ---------- the five pack keyframes ----------
    These were referenced by name from five rules below and DID NOT EXIST: no
@@ -2025,7 +2033,12 @@ footer .soc svg{fill:var(--paper)}
    cards; a 60px crop is enough to recognise one at a glance and costs 26KB
    lazily. The grid gains a leading column and everything else shifts right. */
 .cq.has-thumb{grid-template-columns:60px 1fr auto}
-.cq-img{grid-row:1 / span 2;grid-column:1;width:60px;height:84px;object-fit:cover;
+/* 60x82.5, not 60x84. TCGdex low.webp is 245x337, so 60px wide is 82.53 tall.
+   The old 84 came from a 245x342 assumption that was wrong everywhere and has
+   since been corrected in the 3,960 width/height attributes; object-fit:cover
+   was quietly cropping about half a pixel off the card to make up the
+   difference. Fractional, because the real ratio is. */
+.cq-img{grid-row:1 / span 2;grid-column:1;width:60px;height:82.5px;object-fit:cover;
   border-radius:4px;background:var(--paper-3);align-self:center}
 .cq.has-thumb .cq-name{grid-column:2}
 .cq.has-thumb .cq-set{grid-column:2}
@@ -2073,9 +2086,49 @@ footer .soc svg{fill:var(--paper)}
    which row they are on, which is the whole point of scrolling it. */
 .cc-scroll{
   overflow-x:auto;margin-top:18px;border:3px solid var(--navy);border-radius:12px;
-  background:var(--card);box-shadow:var(--hard-lg);
-  /* Momentum scrolling on iOS, and a hint that there is more to the right. */
+  background-color:var(--card);box-shadow:var(--hard-lg);
+  /* Momentum scrolling on old iOS, and nothing else. The comment that used to
+     sit here claimed this was also "a hint that there is more to the right".
+     It never was: -webkit-overflow-scrolling only ever controlled momentum, and
+     it is a no-op on current iOS. Believing it was the affordance is why four
+     pages shipped with none. The real one is below. */
   -webkit-overflow-scrolling:touch;
+}
+
+/* ---------- "there is more to the right" ----------
+   Four pages put a table wider than a phone inside a scroll container, which is
+   the right call: the page itself never scrolls sideways. Measured at 390x844,
+   the tables are 660px (/grading.html and /complete-a-set.html, .cc-scroll),
+   520px (/expansions.html, seventeen of them in .xp-scroll) and 400px
+   (/luck.html, two in .luck-scroll). About a quarter of each was off screen
+   with nothing on the page saying so.
+
+   This is the background-attachment trick and it needs no JS and no state.
+   Four layers. The two COVER layers are background-attachment:local, so they
+   are pinned to the CONTENT and slide with it. The two SHADOW layers are
+   scroll, so they are pinned to the BOX. At scroll 0 the left cover sits
+   exactly over the left shadow and hides it; scroll right and the cover slides
+   away and the shadow appears. It therefore switches itself off when a table
+   fits, which is why nothing shows at 1440.
+
+   The covers must be the container's own background colour or they read as a
+   pale stripe, so this pairs with background-color:var(--card) above. The
+   builders that own .xp-scroll and .luck-scroll had `background:var(--card)` as
+   the shorthand, which resets background-image and would have silently wiped
+   all four layers; they now set background-color instead.
+
+   Not applied to .gr-scroll or any other overflow container that holds text
+   rather than a table: those already wrap. */
+.cc-scroll,.xp-scroll,.luck-scroll{
+  background-image:
+    linear-gradient(to right,var(--card) 40%,rgba(255,255,255,0)),
+    linear-gradient(to left,var(--card) 40%,rgba(255,255,255,0)),
+    radial-gradient(farthest-side at 0 50%,rgba(21,38,58,.30),rgba(21,38,58,0)),
+    radial-gradient(farthest-side at 100% 50%,rgba(21,38,58,.30),rgba(21,38,58,0));
+  background-position:left center,right center,left center,right center;
+  background-repeat:no-repeat;
+  background-size:44px 100%,44px 100%,15px 100%,15px 100%;
+  background-attachment:local,local,scroll,scroll;
 }
 .cc-table{border-collapse:collapse;width:100%;min-width:660px;font-size:.9rem}
 .cc-table th,.cc-table td{

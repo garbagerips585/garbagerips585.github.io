@@ -20,9 +20,9 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css">
-<link rel="stylesheet" href="/assets/ui.css?v=84f63e5b">
-<link rel="stylesheet" href="/assets/packs.css">
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=044ef5c1">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Pokemon","item":"https://garbagerips585.github.io/pokemon/"},{"@type":"ListItem","position":3,"name":"Dragonite"}]}</script>
 </head>
 <body>
@@ -141,13 +141,22 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
     <h2>Every <span class="hl">Dragonite</span></h2>
+    <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
+         It was "Enlarge <name>" alone, which on a Pokemon with several
+         printings named every button on the page identically: charizard.html
+         had NINE buttons all called "Enlarge Charizard ex", each opening a
+         different card. Tabbing through them sounded like nothing was moving.
+         Worse, aria-label REPLACES the visible text rather than adding to it,
+         so the set and number the button already shows in .rr were thrown away
+         for anyone listening (WCAG 2.5.3 wants the visible label inside the
+         accessible name). Same strings as the <img alt> right below. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me02.5/290/high.webp"
         data-name="Mega Dragonite ex" data-rarity="Special Illustration Rare"
         data-number="290" data-price="$705"
         data-set="Ascended Heroes"
-        aria-label="Enlarge Mega Dragonite ex">
+        aria-label="Enlarge Mega Dragonite ex, Ascended Heroes 290">
         <img src="https://assets.tcgdex.net/en/me/me02.5/290/low.webp" onerror="this.remove()" alt="Mega Dragonite ex 290, Ascended Heroes" loading="lazy" width="245" height="337">
         <div class="nm">Mega Dragonite ex</div>
         <div class="rr">Ascended Heroes &bull; 290</div>
@@ -159,7 +168,7 @@
         data-name="Mega Dragonite ex" data-rarity="Mega Hyper Rare"
         data-number="295" data-price="$265"
         data-set="Ascended Heroes"
-        aria-label="Enlarge Mega Dragonite ex">
+        aria-label="Enlarge Mega Dragonite ex, Ascended Heroes 295">
         <img src="https://assets.tcgdex.net/en/me/me02.5/295/low.webp" onerror="this.remove()" alt="Mega Dragonite ex 295, Ascended Heroes" loading="lazy" width="245" height="337">
         <div class="nm">Mega Dragonite ex</div>
         <div class="rr">Ascended Heroes &bull; 295</div>
@@ -171,7 +180,7 @@
         data-name="Dragonite VSTAR" data-rarity="Secret Rare"
         data-number="081" data-price="$48.39"
         data-set="Pokémon GO"
-        aria-label="Enlarge Dragonite VSTAR">
+        aria-label="Enlarge Dragonite VSTAR, Pokémon GO 081">
         <img src="https://assets.tcgdex.net/en/swsh/swsh10.5/081/low.webp" onerror="this.remove()" alt="Dragonite VSTAR 081, Pokémon GO" loading="lazy" width="245" height="337">
         <div class="nm">Dragonite VSTAR</div>
         <div class="rr">Pokémon GO &bull; 081</div>
@@ -183,7 +192,7 @@
         data-name="Mega Dragonite ex" data-rarity="Ultra Rare"
         data-number="271" data-price="$43.88"
         data-set="Ascended Heroes"
-        aria-label="Enlarge Mega Dragonite ex">
+        aria-label="Enlarge Mega Dragonite ex, Ascended Heroes 271">
         <img src="https://assets.tcgdex.net/en/me/me02.5/271/low.webp" onerror="this.remove()" alt="Mega Dragonite ex 271, Ascended Heroes" loading="lazy" width="245" height="337">
         <div class="nm">Mega Dragonite ex</div>
         <div class="rr">Ascended Heroes &bull; 271</div>
@@ -195,7 +204,7 @@
         data-name="Dragonite V" data-rarity="Ultra Rare"
         data-number="076" data-price="$15.81"
         data-set="Pokémon GO"
-        aria-label="Enlarge Dragonite V">
+        aria-label="Enlarge Dragonite V, Pokémon GO 076">
         <img src="https://assets.tcgdex.net/en/swsh/swsh10.5/076/low.webp" onerror="this.remove()" alt="Dragonite V 076, Pokémon GO" loading="lazy" width="245" height="337">
         <div class="nm">Dragonite V</div>
         <div class="rr">Pokémon GO &bull; 076</div>
@@ -207,7 +216,7 @@
         data-name="Dragonite V" data-rarity="Holo Rare V"
         data-number="049" data-price="$4.66"
         data-set="Pokémon GO"
-        aria-label="Enlarge Dragonite V">
+        aria-label="Enlarge Dragonite V, Pokémon GO 049">
         <img src="https://assets.tcgdex.net/en/swsh/swsh10.5/049/low.webp" onerror="this.remove()" alt="Dragonite V 049, Pokémon GO" loading="lazy" width="245" height="337">
         <div class="nm">Dragonite V</div>
         <div class="rr">Pokémon GO &bull; 049</div>
@@ -219,7 +228,7 @@
         data-name="Mega Dragonite ex" data-rarity="Double Rare"
         data-number="152" data-price="$4.62"
         data-set="Ascended Heroes"
-        aria-label="Enlarge Mega Dragonite ex">
+        aria-label="Enlarge Mega Dragonite ex, Ascended Heroes 152">
         <img src="https://assets.tcgdex.net/en/me/me02.5/152/low.webp" onerror="this.remove()" alt="Mega Dragonite ex 152, Ascended Heroes" loading="lazy" width="245" height="337">
         <div class="nm">Mega Dragonite ex</div>
         <div class="rr">Ascended Heroes &bull; 152</div>
@@ -231,7 +240,7 @@
         data-name="Dragonite VSTAR" data-rarity="Holo Rare VSTAR"
         data-number="050" data-price="$4.17"
         data-set="Pokémon GO"
-        aria-label="Enlarge Dragonite VSTAR">
+        aria-label="Enlarge Dragonite VSTAR, Pokémon GO 050">
         <img src="https://assets.tcgdex.net/en/swsh/swsh10.5/050/low.webp" onerror="this.remove()" alt="Dragonite VSTAR 050, Pokémon GO" loading="lazy" width="245" height="337">
         <div class="nm">Dragonite VSTAR</div>
         <div class="rr">Pokémon GO &bull; 050</div>
@@ -243,7 +252,7 @@
         data-name="Dragonite ex" data-rarity="Double Rare"
         data-number="159" data-price="$3.22"
         data-set="Obsidian Flames"
-        aria-label="Enlarge Dragonite ex">
+        aria-label="Enlarge Dragonite ex, Obsidian Flames 159">
         <img src="https://assets.tcgdex.net/en/sv/sv03/159/low.webp" onerror="this.remove()" alt="Dragonite ex 159, Obsidian Flames" loading="lazy" width="245" height="337">
         <div class="nm">Dragonite ex</div>
         <div class="rr">Obsidian Flames &bull; 159</div>
@@ -255,7 +264,7 @@
         data-name="Dragonite" data-rarity="Rare"
         data-number="149" data-price="$2.29"
         data-set="151"
-        aria-label="Enlarge Dragonite">
+        aria-label="Enlarge Dragonite, 151 149">
         <img src="https://assets.tcgdex.net/en/sv/sv03.5/149/low.webp" onerror="this.remove()" alt="Dragonite 149, 151" loading="lazy" width="245" height="337">
         <div class="nm">Dragonite</div>
         <div class="rr">151 &bull; 149</div>
@@ -792,7 +801,7 @@
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=d4b6cdad" defer></script>
-<script src="/assets/packplayer.js" defer></script>
+<script src="/assets/app.js?v=8e7d64c7" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
 </body>
 </html>

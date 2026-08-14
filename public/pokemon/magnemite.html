@@ -20,9 +20,9 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css">
-<link rel="stylesheet" href="/assets/ui.css?v=84f63e5b">
-<link rel="stylesheet" href="/assets/packs.css">
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=044ef5c1">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Pokemon","item":"https://garbagerips585.github.io/pokemon/"},{"@type":"ListItem","position":3,"name":"Magnemite"}]}</script>
 </head>
 <body>
@@ -141,13 +141,22 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
     <h2>Every <span class="hl">Magnemite</span></h2>
+    <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
+         It was "Enlarge <name>" alone, which on a Pokemon with several
+         printings named every button on the page identically: charizard.html
+         had NINE buttons all called "Enlarge Charizard ex", each opening a
+         different card. Tabbing through them sounded like nothing was moving.
+         Worse, aria-label REPLACES the visible text rather than adding to it,
+         so the set and number the button already shows in .rr were thrown away
+         for anyone listening (WCAG 2.5.3 wants the visible label inside the
+         accessible name). Same strings as the <img alt> right below. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv03.5/081/high.webp"
         data-name="Magnemite" data-rarity="Common"
         data-number="081" data-price="$0.32"
         data-set="151"
-        aria-label="Enlarge Magnemite">
+        aria-label="Enlarge Magnemite, 151 081">
         <img src="https://assets.tcgdex.net/en/sv/sv03.5/081/low.webp" onerror="this.remove()" alt="Magnemite 081, 151" loading="lazy" width="245" height="337">
         <div class="nm">Magnemite</div>
         <div class="rr">151 &bull; 081</div>
@@ -159,7 +168,7 @@
         data-name="Magnemite" data-rarity="Common"
         data-number="045" data-price="$0.24"
         data-set="Mega Evolution"
-        aria-label="Enlarge Magnemite">
+        aria-label="Enlarge Magnemite, Mega Evolution 045">
         <img src="https://assets.tcgdex.net/en/me/me01/045/low.webp" onerror="this.remove()" alt="Magnemite 045, Mega Evolution" loading="lazy" width="245" height="337">
         <div class="nm">Magnemite</div>
         <div class="rr">Mega Evolution &bull; 045</div>
@@ -171,7 +180,7 @@
         data-name="Magnemite" data-rarity="Common"
         data-number="058" data-price="$0.23"
         data-set="Surging Sparks"
-        aria-label="Enlarge Magnemite">
+        aria-label="Enlarge Magnemite, Surging Sparks 058">
         <img src="https://assets.tcgdex.net/en/sv/sv08/058/low.webp" onerror="this.remove()" alt="Magnemite 058, Surging Sparks" loading="lazy" width="245" height="337">
         <div class="nm">Magnemite</div>
         <div class="rr">Surging Sparks &bull; 058</div>
@@ -183,7 +192,7 @@
         data-name="Magnemite" data-rarity="Common"
         data-number="065" data-price="$0.23"
         data-set="Paldea Evolved"
-        aria-label="Enlarge Magnemite">
+        aria-label="Enlarge Magnemite, Paldea Evolved 065">
         <img src="https://assets.tcgdex.net/en/sv/sv02/065/low.webp" onerror="this.remove()" alt="Magnemite 065, Paldea Evolved" loading="lazy" width="245" height="337">
         <div class="nm">Magnemite</div>
         <div class="rr">Paldea Evolved &bull; 065</div>
@@ -195,7 +204,7 @@
         data-name="Magnemite" data-rarity="Common"
         data-number="063" data-price="$0.19"
         data-set="Obsidian Flames"
-        aria-label="Enlarge Magnemite">
+        aria-label="Enlarge Magnemite, Obsidian Flames 063">
         <img src="https://assets.tcgdex.net/en/sv/sv03/063/low.webp" onerror="this.remove()" alt="Magnemite 063, Obsidian Flames" loading="lazy" width="245" height="337">
         <div class="nm">Magnemite</div>
         <div class="rr">Obsidian Flames &bull; 063</div>
@@ -207,7 +216,7 @@
         data-name="Magnemite" data-rarity="Common"
         data-number="063" data-price="$0.17"
         data-set="Scarlet &amp; Violet"
-        aria-label="Enlarge Magnemite">
+        aria-label="Enlarge Magnemite, Scarlet &amp; Violet 063">
         <img src="https://assets.tcgdex.net/en/sv/sv01/063/low.webp" onerror="this.remove()" alt="Magnemite 063, Scarlet &amp; Violet" loading="lazy" width="245" height="337">
         <div class="nm">Magnemite</div>
         <div class="rr">Scarlet &amp; Violet &bull; 063</div>
@@ -812,7 +821,7 @@
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=d4b6cdad" defer></script>
-<script src="/assets/packplayer.js" defer></script>
+<script src="/assets/app.js?v=8e7d64c7" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
 </body>
 </html>

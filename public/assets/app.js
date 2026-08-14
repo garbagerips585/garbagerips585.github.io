@@ -631,6 +631,19 @@
         ));
         return;
       }
+      // A playlist with nothing in it is not content. Two exist on the channel
+      // (Pitch Black Booster Bundle Series, Pitch Black Single Pack Hunt): they
+      // were created and never filled, and the page was rendering both as cards
+      // reading "0 videos" whose only action was a link to an empty YouTube
+      // playlist. They come back on their own the moment a video goes in.
+      pls = pls.filter(function (p) { return (p.count || 0) > 0; });
+      if (!pls.length) {
+        box.appendChild(emptyState(
+          "No playlists with anything in them yet",
+          "They appear here as soon as a playlist has a video."
+        ));
+        return;
+      }
       pls.forEach(function (p) {
         var a = el("a", "pl");
         a.href = "https://www.youtube.com/playlist?list=" + p.id;

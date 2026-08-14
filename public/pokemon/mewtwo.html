@@ -20,9 +20,9 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css">
-<link rel="stylesheet" href="/assets/ui.css?v=84f63e5b">
-<link rel="stylesheet" href="/assets/packs.css">
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=044ef5c1">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Pokemon","item":"https://garbagerips585.github.io/pokemon/"},{"@type":"ListItem","position":3,"name":"Mewtwo"}]}</script>
 </head>
 <body>
@@ -141,13 +141,22 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
     <h2>Every <span class="hl">Mewtwo</span></h2>
+    <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
+         It was "Enlarge <name>" alone, which on a Pokemon with several
+         printings named every button on the page identically: charizard.html
+         had NINE buttons all called "Enlarge Charizard ex", each opening a
+         different card. Tabbing through them sounded like nothing was moving.
+         Worse, aria-label REPLACES the visible text rather than adding to it,
+         so the set and number the button already shows in .rr were thrown away
+         for anyone listening (WCAG 2.5.3 wants the visible label inside the
+         accessible name). Same strings as the <img alt> right below. -->
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/sv/sv10/231/high.webp"
         data-name="Team Rocket's Mewtwo ex" data-rarity="Special Illustration Rare"
         data-number="231" data-price="$508"
         data-set="Destined Rivals"
-        aria-label="Enlarge Team Rocket's Mewtwo ex">
+        aria-label="Enlarge Team Rocket's Mewtwo ex, Destined Rivals 231">
         <img src="https://assets.tcgdex.net/en/sv/sv10/231/low.webp" onerror="this.remove()" alt="Team Rocket's Mewtwo ex 231, Destined Rivals" loading="lazy" width="245" height="337">
         <div class="nm">Team Rocket's Mewtwo ex</div>
         <div class="rr">Destined Rivals &bull; 231</div>
@@ -159,7 +168,7 @@
         data-name="Team Rocket's Mewtwo ex" data-rarity="Special Illustration Rare"
         data-number="281" data-price="$381"
         data-set="Ascended Heroes"
-        aria-label="Enlarge Team Rocket's Mewtwo ex">
+        aria-label="Enlarge Team Rocket's Mewtwo ex, Ascended Heroes 281">
         <img src="https://assets.tcgdex.net/en/me/me02.5/281/low.webp" onerror="this.remove()" alt="Team Rocket's Mewtwo ex 281, Ascended Heroes" loading="lazy" width="245" height="337">
         <div class="nm">Team Rocket's Mewtwo ex</div>
         <div class="rr">Ascended Heroes &bull; 281</div>
@@ -171,7 +180,7 @@
         data-name="Team Rocket's Mewtwo ex" data-rarity="Hyper Rare"
         data-number="240" data-price="$61.27"
         data-set="Destined Rivals"
-        aria-label="Enlarge Team Rocket's Mewtwo ex">
+        aria-label="Enlarge Team Rocket's Mewtwo ex, Destined Rivals 240">
         <img src="https://assets.tcgdex.net/en/sv/sv10/240/low.webp" onerror="this.remove()" alt="Team Rocket's Mewtwo ex 240, Destined Rivals" loading="lazy" width="245" height="337">
         <div class="nm">Team Rocket's Mewtwo ex</div>
         <div class="rr">Destined Rivals &bull; 240</div>
@@ -183,7 +192,7 @@
         data-name="Mewtwo V" data-rarity="Ultra Rare"
         data-number="072" data-price="$61.12"
         data-set="Pokémon GO"
-        aria-label="Enlarge Mewtwo V">
+        aria-label="Enlarge Mewtwo V, Pokémon GO 072">
         <img src="https://assets.tcgdex.net/en/swsh/swsh10.5/072/low.webp" onerror="this.remove()" alt="Mewtwo V 072, Pokémon GO" loading="lazy" width="245" height="337">
         <div class="nm">Mewtwo V</div>
         <div class="rr">Pokémon GO &bull; 072</div>
@@ -195,7 +204,7 @@
         data-name="Mewtwo VSTAR" data-rarity="Secret Rare"
         data-number="079" data-price="$52.70"
         data-set="Pokémon GO"
-        aria-label="Enlarge Mewtwo VSTAR">
+        aria-label="Enlarge Mewtwo VSTAR, Pokémon GO 079">
         <img src="https://assets.tcgdex.net/en/swsh/swsh10.5/079/low.webp" onerror="this.remove()" alt="Mewtwo VSTAR 079, Pokémon GO" loading="lazy" width="245" height="337">
         <div class="nm">Mewtwo VSTAR</div>
         <div class="rr">Pokémon GO &bull; 079</div>
@@ -207,7 +216,7 @@
         data-name="Mewtwo VSTAR" data-rarity="Secret Rare"
         data-number="086" data-price="$35.56"
         data-set="Pokémon GO"
-        aria-label="Enlarge Mewtwo VSTAR">
+        aria-label="Enlarge Mewtwo VSTAR, Pokémon GO 086">
         <img src="https://assets.tcgdex.net/en/swsh/swsh10.5/086/low.webp" onerror="this.remove()" alt="Mewtwo VSTAR 086, Pokémon GO" loading="lazy" width="245" height="337">
         <div class="nm">Mewtwo VSTAR</div>
         <div class="rr">Pokémon GO &bull; 086</div>
@@ -219,7 +228,7 @@
         data-name="Team Rocket's Mewtwo ex" data-rarity="Ultra Rare"
         data-number="213" data-price="$21.72"
         data-set="Destined Rivals"
-        aria-label="Enlarge Team Rocket's Mewtwo ex">
+        aria-label="Enlarge Team Rocket's Mewtwo ex, Destined Rivals 213">
         <img src="https://assets.tcgdex.net/en/sv/sv10/213/low.webp" onerror="this.remove()" alt="Team Rocket's Mewtwo ex 213, Destined Rivals" loading="lazy" width="245" height="337">
         <div class="nm">Team Rocket's Mewtwo ex</div>
         <div class="rr">Destined Rivals &bull; 213</div>
@@ -231,7 +240,7 @@
         data-name="Mewtwo VSTAR" data-rarity="Holo Rare VMAX"
         data-number="031" data-price="$7.95"
         data-set="Pokémon GO"
-        aria-label="Enlarge Mewtwo VSTAR">
+        aria-label="Enlarge Mewtwo VSTAR, Pokémon GO 031">
         <img src="https://assets.tcgdex.net/en/swsh/swsh10.5/031/low.webp" onerror="this.remove()" alt="Mewtwo VSTAR 031, Pokémon GO" loading="lazy" width="245" height="337">
         <div class="nm">Mewtwo VSTAR</div>
         <div class="rr">Pokémon GO &bull; 031</div>
@@ -243,7 +252,7 @@
         data-name="Mewtwo V" data-rarity="Holo Rare V"
         data-number="030" data-price="$6.65"
         data-set="Pokémon GO"
-        aria-label="Enlarge Mewtwo V">
+        aria-label="Enlarge Mewtwo V, Pokémon GO 030">
         <img src="https://assets.tcgdex.net/en/swsh/swsh10.5/030/low.webp" onerror="this.remove()" alt="Mewtwo V 030, Pokémon GO" loading="lazy" width="245" height="337">
         <div class="nm">Mewtwo V</div>
         <div class="rr">Pokémon GO &bull; 030</div>
@@ -255,7 +264,7 @@
         data-name="Mewtwo" data-rarity="Rare"
         data-number="150" data-price="$4.26"
         data-set="151"
-        aria-label="Enlarge Mewtwo">
+        aria-label="Enlarge Mewtwo, 151 150">
         <img src="https://assets.tcgdex.net/en/sv/sv03.5/150/low.webp" onerror="this.remove()" alt="Mewtwo 150, 151" loading="lazy" width="245" height="337">
         <div class="nm">Mewtwo</div>
         <div class="rr">151 &bull; 150</div>
@@ -267,7 +276,7 @@
         data-name="Mewtwo ex" data-rarity="Double Rare"
         data-number="058" data-price="$2.57"
         data-set="Paradox Rift"
-        aria-label="Enlarge Mewtwo ex">
+        aria-label="Enlarge Mewtwo ex, Paradox Rift 058">
         <img src="https://assets.tcgdex.net/en/sv/sv04/058/low.webp" onerror="this.remove()" alt="Mewtwo ex 058, Paradox Rift" loading="lazy" width="245" height="337">
         <div class="nm">Mewtwo ex</div>
         <div class="rr">Paradox Rift &bull; 058</div>
@@ -279,7 +288,7 @@
         data-name="Team Rocket's Mewtwo ex" data-rarity="Double Rare"
         data-number="081" data-price="$1.76"
         data-set="Destined Rivals"
-        aria-label="Enlarge Team Rocket's Mewtwo ex">
+        aria-label="Enlarge Team Rocket's Mewtwo ex, Destined Rivals 081">
         <img src="https://assets.tcgdex.net/en/sv/sv10/081/low.webp" onerror="this.remove()" alt="Team Rocket's Mewtwo ex 081, Destined Rivals" loading="lazy" width="245" height="337">
         <div class="nm">Team Rocket's Mewtwo ex</div>
         <div class="rr">Destined Rivals &bull; 081</div>
@@ -291,7 +300,7 @@
         data-name="Team Rocket's Mewtwo ex" data-rarity="Double Rare"
         data-number="079" data-price="$1.13"
         data-set="Ascended Heroes"
-        aria-label="Enlarge Team Rocket's Mewtwo ex">
+        aria-label="Enlarge Team Rocket's Mewtwo ex, Ascended Heroes 079">
         <img src="https://assets.tcgdex.net/en/me/me02.5/079/low.webp" onerror="this.remove()" alt="Team Rocket's Mewtwo ex 079, Ascended Heroes" loading="lazy" width="245" height="337">
         <div class="nm">Team Rocket's Mewtwo ex</div>
         <div class="rr">Ascended Heroes &bull; 079</div>
@@ -303,7 +312,7 @@
         data-name="Mewtwo" data-rarity="Uncommon"
         data-number="059" data-price="$0.75"
         data-set="Stellar Crown"
-        aria-label="Enlarge Mewtwo">
+        aria-label="Enlarge Mewtwo, Stellar Crown 059">
         <img src="https://assets.tcgdex.net/en/sv/sv07/059/low.webp" onerror="this.remove()" alt="Mewtwo 059, Stellar Crown" loading="lazy" width="245" height="337">
         <div class="nm">Mewtwo</div>
         <div class="rr">Stellar Crown &bull; 059</div>
@@ -1044,7 +1053,7 @@
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=d4b6cdad" defer></script>
-<script src="/assets/packplayer.js" defer></script>
+<script src="/assets/app.js?v=8e7d64c7" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
 </body>
 </html>
