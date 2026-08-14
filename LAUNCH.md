@@ -4,8 +4,11 @@ Everything that has to happen before garbagerips585.com is live, and the things
 worth doing soon after. Nothing here is code: the site builds and runs locally
 today. These are the accounts, the money, and the content only Tim can supply.
 
-Ticked items are done. Run `node scripts/build-proto.mjs` after any data change
-and everything regenerates.
+Every count in this file was checked against the data on 14 August 2026 rather
+than carried forward. The previous version had drifted badly enough to be
+misleading: it asked for 61 videos to be tagged when 43 were left, said
+hall.html was empty when it carries 15 cards, and asked for an About page that
+already exists.
 
 ---
 
@@ -24,9 +27,7 @@ and everything regenerates.
       `www` at `garbagerips585.github.io`; the records are in DEPLOY.md.
 
       Not needed: a separate DNS or CDN provider. GitHub Pages serves the site,
-      issues the certificate and handles HTTPS. The site used to be documented
-      as a Cloudflare Pages deploy, which it never was, and `functions/` and
-      `/api/latest` have been deleted because only Cloudflare could run them.
+      issues the certificate and handles HTTPS.
 
 - [ ] **pokemonpricetracker.com paid plan, $9.99/mo.** The free tier is 100
       credits a day and a card costs 2, so a full refresh of all 155 chase cards
@@ -34,10 +35,12 @@ and everything regenerates.
       prices move and the site would always be showing last week's. One month of
       the paid tier also backfills everything in a single run.
 
-- [ ] **TCGplayer affiliate via Impact.** Plumbing is built and switched off in
-      `data/affiliate.json`. Turn `enabled` on and set the link template; the FTC
-      disclosure then renders by itself. Worth doing after launch, not before:
-      the application asks for a live site.
+- [ ] **Decide about TCGplayer affiliate links.** Plumbing is built and switched
+      off in `data/affiliate.json`. This is a real decision, not a formality:
+      five pages currently tell readers "Not affiliate links", so turning it on
+      means changing that copy as well. The FTC disclosure renders by itself
+      once enabled. The application asks for a live site, so it cannot happen
+      before launch anyway.
 
 - [ ] **Google Search Console.** Verify the domain, submit
       `https://garbagerips585.com/sitemap.xml`. Without this the set guides,
@@ -47,28 +50,34 @@ and everything regenerates.
 
 ## 2. Content only Tim can supply
 
-- [ ] **Tag the 61 untagged videos.** The biggest single lever on the site. An
-      untagged video cannot be filtered and cannot reach Greatest Hits. Eight of
-      them are graded hits currently locked out of the home page; every build
-      prints the list.
+- [ ] **Tag the 43 remaining videos.** The biggest single lever on the site. An
+      untagged video is published `noindex` and kept out of the sitemap, so it
+      cannot rank, cannot be filtered, and cannot reach the Hall of Fame. 269 of
+      312 are tagged today. Seven of the 43 carry a pull tag, so they are hits
+      being held back.
 
-- [ ] **Fill in the Chase Cards tab.** Marks cards for the Card Hall of Fame
-      (/hall.html is empty until then) and for Most Wanted.
+      `UNTAGGED.md` is regenerated on every build and lists all 43 with the
+      playlist each one is already in. Renaming one playlist can tag twenty at
+      once, because the sync reads playlist titles.
+
+- [ ] **Log the hits in the spreadsheet.** Two videos have their pulled cards
+      recorded. Every one that does feeds the Card Hall of Fame, the Most Wanted
+      band and /luck.html, which is empty until there is enough logged to say
+      anything honest about hit rate.
 
 - [ ] **Fill in the Set Notes tab.** Whether each set is still in print and what
-      a pack costs. The card database carries neither, so 23 set guides are
-      leaving those lines out.
+      a pack costs. `data/set-notes.json` holds nothing but its readme today, so
+      all 23 English set guides are omitting those lines. The card database
+      carries neither figure and the pages will not guess.
 
 - [ ] **Create the Greatest Hits playlist on YouTube.** Until it exists the home
       page ranks by pull tier then views, which is a decent stand-in but not
       Tim's own pick.
 
-- [ ] **Add the rest of the Rochester card shops.** Two are listed.
-      `pokemon card shop rochester ny` is a real search with real intent, and
-      that page is the best local-SEO asset on the site.
-
-- [ ] **Write the About page.** Referenced in the original plan, still missing.
-      It is what search engines read to work out who this site belongs to.
+- [ ] **Add more Rochester card shops.** Three are listed: Just Games,
+      Millennium Games and LingSter Games. `pokemon card shop rochester ny` is a
+      real search with real intent, and that page is the best local-SEO asset on
+      the site.
 
 ---
 
@@ -78,19 +87,26 @@ and everything regenerates.
 
       node scripts/build-all.mjs
 
-      That is the whole chain, 31 steps, ending in check-build.py. The old
-      version of this file listed seven commands by hand, which missed most of
-      the site: following it after the flip would have left roughly 380 of 425
-      pages canonicalising to the staging host.
+      That is the whole chain, 32 steps, ending in check-build.py. Do not run
+      builders by hand instead: an earlier version of this file listed seven
+      commands, which missed most of the site, and the nightly workflow made the
+      same mistake in a different way by keeping its own copy of the list.
 
 - [ ] **Flip the flag, in the same commit as the build.**
 
       shared/site.mjs -> export const LIVE = true;
 
-      Then rebuild. See DEPLOY.md for the full sequence and the four checks
-      that prove it landed. The important one:
+      Then rebuild. See DEPLOY.md for the full sequence and the checks that
+      prove it landed. The important one:
 
       grep -rl "github.io" public/ | grep -v assets    # must return nothing
+
+      **This has been rehearsed.** On 14 August 2026 a throwaway copy of the
+      tree was flipped and fully rebuilt: 32 of 32 builders, check-build clean,
+      zero github.io references anywhere in public/, 1,696 urls on the real
+      domain, 379 sitemap entries, robots.txt open, CNAME written. So the flip
+      is known to work end to end, but run the greps anyway: they are what
+      proves it on the day.
 
 - [ ] **Check the pages nobody generates.** index.html, videos.html and
       playlists.html are hand maintained. They are in build-proto.mjs's rewrite
@@ -107,7 +123,7 @@ and everything regenerates.
       the Rochester local angle. Each embeds a video.
 - [ ] Monthly price refresh, so the set guides and the Card Hall of Fame do not
       quietly go stale.
-- [ ] `default.png` and `multi.png` are in. A per-set wrapper for Paldea Evolved
-      is the only artwork still missing.
+- [ ] A per-set wrapper for Paldea Evolved is the only pack artwork still
+      missing. `default` and `multi` are in.
 - [ ] Decide on one spelling of the name. The sticker says GarbageRips585, the
       channel says Garbage Rips 585, and search engines treat them as two things.
