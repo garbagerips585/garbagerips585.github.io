@@ -2,8 +2,12 @@
 #
 # The site's deploy root is public/, and GitHub Pages' branch-based setting can
 # only serve the repo root or /docs. Deploying from Actions instead lets us keep
-# the layout the project already has, which matters because functions/ has to
-# live OUTSIDE the served directory.
+# the layout the project already has: scripts/, data/ and assets-source/ stay in
+# the repo without being served, and only public/ goes up.
+#
+# (This used to say the layout mattered "because functions/ has to live OUTSIDE
+# the served directory". functions/ was the Cloudflare half and is deleted; the
+# reason is now simply that the generated site lives in a subdirectory.)
 #
 # There is no build step: every page is generated locally by the scripts in
 # scripts/ and committed. This workflow only uploads what is already there.

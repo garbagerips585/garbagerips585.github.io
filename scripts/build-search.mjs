@@ -45,6 +45,11 @@ try {
 
 // The reference pages, named here because a page has no other machine-readable
 // title. Kept in one list so a new page is one line rather than a grep.
+//
+// "One line rather than a grep" only works if somebody adds the line, and four
+// pages went in without one: games, lore, creators and vendors were all
+// unsearchable on a site whose nav search is the main way around it. The guard
+// at the bottom of this file now fails the build instead of trusting that.
 const PAGES = [
   ["/start.html", "Start here", "New to Pokemon cards, the six questions in order"],
   ["/cards.html", "Card search", "Every card by name with current prices"],
@@ -63,6 +68,10 @@ const PAGES = [
   ["/shops.html", "Card shops and where to play", "Local shops and league nights"],
   ["/videos.html", "All rips", "The full video library"],
   ["/playlists.html", "Playlists", "Rips grouped into playlists"],
+  ["/games/", "Games", "Four Pokemon games for the wait in line"],
+  ["/lore.html", "Pokemon lore", "Facts computed from the National Pokedex"],
+  ["/creators.html", "Local creators", "Other Rochester card channels worth watching"],
+  ["/vendors.html", "Local vendors", "Who sells cards around Rochester"],
   ["/about.html", "About", "Who this is and why"],
 ];
 
@@ -288,6 +297,44 @@ ${APP_JS}
 `;
 
 await writeFile(join(ROOT, "public/search.html"), page);
+
+/**
+ * Every indexable page is findable.
+ *
+ * PAGES is hand-written, and four pages shipped without an entry: games, lore,
+ * creators and vendors were invisible to the site's own search for as long as
+ * they existed. Nothing noticed, because a missing entry looks exactly like a
+ * page that does not exist.
+ *
+ * So the list is checked against the built site rather than trusted. Anything
+ * at the top level that is not noindex has to be here. The exclusions are the
+ * three pages that are not destinations: the home page, which the logo already
+ * goes to, the search page itself, and the 404.
+ */
+{
+  const SKIP = new Set(["index.html", "search.html", "404.html"]);
+  const listed = new Set(PAGES.map(([u]) => u));
+  const names = await readdir(join(ROOT, "public"));
+  const missing = [];
+  for (const f of names) {
+    if (!f.endsWith(".html") || SKIP.has(f)) continue;
+    const html = await readFile(join(ROOT, "public", f), "utf8");
+    if (/<meta name="robots"[^>]*noindex/.test(html)) continue;
+    if (!listed.has(`/${f}`)) missing.push(f);
+  }
+  // Directory pages carry their own index.html and are listed as "/games/".
+  for (const d of ["games", "pokemon", "sets"]) {
+    if (names.includes(d) && !listed.has(`/${d}/`)) missing.push(`${d}/`);
+  }
+  if (missing.length) {
+    console.error(
+      `\nNot in PAGES, so unreachable from the site search:\n  ${missing.join("\n  ")}\n` +
+        `Add a line to PAGES in this file, or mark the page noindex if it is not a destination.`
+    );
+    process.exit(1);
+  }
+}
+
 console.log(`Wrote public/search.html and public/data/site-index.json
   ${index.rips.length} rips, ${index.sets.length} set guides, ${index.pokemon.length} Pokemon, ${index.pages.length} pages
   ${total} entries in the site index, plus 4,481 cards loaded on demand`);
