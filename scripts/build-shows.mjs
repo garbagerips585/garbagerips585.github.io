@@ -373,7 +373,7 @@ ${(data.watchFor || []).length ? `
 </section>
 
 </main>
-${footer("Show listings are collected by hand and change without notice. Check with the organiser before travelling.")}
+${footer("Show listings are collected by hand and change without notice. Check with the organiser before traveling.")}
 <script>
 (function(){
   // Belt and braces on dates. The build already dropped past shows, but a deploy

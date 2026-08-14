@@ -4,14 +4,14 @@
 //   node scripts/sync-cards.mjs    (first, writes the card data)
 //   node scripts/build-pokemon.mjs (this)
 //
-// Every card of one Pokemon across all 23 sets, cheapest way in, dearest chase,
+// Every card of one Pokemon across all 23 sets, cheapest way in, priciest chase,
 // and the rips that pulled one. Assembly, not new data: it all comes from
 // public/data/cards/*.json.
 //
 // THE ROSTER IS PICKED BY THE DATA, NOT BY ME. Hand-picking "the popular ones"
 // is how you end up with a page for something nobody searches and none for the
 // card everyone wants. A Pokemon qualifies on having enough cards across enough
-// sets to fill a page, and the roster is then ranked by its dearest card.
+// sets to fill a page, and the roster is then ranked by its priciest card.
 //
 // THE TITLE SAYS "EVERY PRINTING WE PRICE", not "every set", and the
 // difference is the point. These pages cover the 23 English sets the site
@@ -116,15 +116,15 @@ const roster = [...byName.entries()]
   .map(([name, list]) => {
     const sets = new Set(list.map((c) => c.set));
     const priced = list.filter((c) => typeof c.price === "number");
-    const dearest = priced.slice().sort((a, b) => b.price - a.price)[0] || null;
+    const priciest = priced.slice().sort((a, b) => b.price - a.price)[0] || null;
     const cheapest = priced.slice().sort((a, b) => a.price - b.price)[0] || null;
-    return { name, slug: slugify(name), list, sets, dearest, cheapest, priced };
+    return { name, slug: slugify(name), list, sets, priciest, cheapest, priced };
   })
-  .filter((p) => p.list.length >= MIN_CARDS && p.sets.size >= MIN_SETS && p.dearest);
+  .filter((p) => p.list.length >= MIN_CARDS && p.sets.size >= MIN_SETS && p.priciest);
 
 // MOST VALUABLE **AND** MOST POPULAR, which are not the same list.
 //
-// Ranking by dearest card alone is a value list: it surfaces whatever happens
+// Ranking by priciest card alone is a value list: it surfaces whatever happens
 // to carry an expensive chase card and misses species that are printed
 // constantly and cheaply. Pikachu has 250 printings across the corpus and Eevee
 // 153; both are obviously "popular Pokemon" and neither is guaranteed a slot by
@@ -136,7 +136,7 @@ const roster = [...byName.entries()]
 // set is genuinely "the most valuable and the most popular" rather than a
 // blended score that satisfies neither description.
 const printCount = (name) => (printings.get(name) || []).length;
-const byValue = [...roster].sort((a, b) => b.dearest.price - a.dearest.price).slice(0, TOP);
+const byValue = [...roster].sort((a, b) => b.priciest.price - a.priciest.price).slice(0, TOP);
 const byPopularity = [...roster].sort((a, b) => printCount(b.name) - printCount(a.name)).slice(0, TOP);
 const seen = new Set();
 const chosen = [];
@@ -148,7 +148,7 @@ for (const p of [...byValue, ...byPopularity]) {
 roster.length = 0;
 roster.push(...chosen);
 
-// THE MASCOTS ARE PINNED. The roster ranks by dearest card, which is the right
+// THE MASCOTS ARE PINNED. The roster ranks by priciest card, which is the right
 // default and would never surface either of these: Trubbish and Garbodor are
 // commons worth pennies. They are also the channel's whole identity, the reason
 // the site is called Garbage Rips, and the corpus gives them real pages rather
@@ -170,7 +170,7 @@ for (const name of PINNED) {
     slug: slugify(name),
     list,
     sets: bySets,
-    dearest: priced.slice().sort((a, b) => b.price - a.price)[0] || null,
+    priciest: priced.slice().sort((a, b) => b.price - a.price)[0] || null,
     cheapest: priced.slice().sort((a, b) => a.price - b.price)[0] || null,
     priced,
     pinned: true,
@@ -230,7 +230,7 @@ function pokePage(p) {
 
   const desc =
     `Every ${p.name} card across ${setCount} Pokemon TCG sets, ${p.list.length} in total, with current market ` +
-    `prices. The dearest is ${p.dearest.name} in ${p.dearest.setName} at ${moneyExact(p.dearest.price)}.`;
+    `prices. The priciest is ${p.priciest.name} in ${p.priciest.setName} at ${moneyExact(p.priciest.price)}.`;
 
   const ld = [
     {
@@ -271,7 +271,7 @@ function pokePage(p) {
     <div class="facts">
       <div class="fact"><div class="n">${p.list.length}</div><div class="l">${esc(p.name)} cards</div></div>
       <div class="fact"><div class="n">${setCount}</div><div class="l">Sets they appear in</div></div>
-      <div class="fact"><div class="n">${moneyRound(p.dearest.price)}</div><div class="l">Dearest one</div></div>
+      <div class="fact"><div class="n">${moneyRound(p.priciest.price)}</div><div class="l">Priciest one</div></div>
       ${p.cheapest ? `<div class="fact"><div class="n">${moneyExact(p.cheapest.price)}</div><div class="l">Cheapest way in</div></div>` : ""}
       ${rips.length ? `<a class="fact fact-link" href="/videos.html?q=${encodeURIComponent(p.name)}"><div class="n">${rips.length}</div><div class="l">Rips that mention one <span aria-hidden="true">&rarr;</span></div></a>` : ""}
     </div>
@@ -316,7 +316,7 @@ ${(() => {
 `;
 })()}<section class="band tight">
   <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Dearest first</p>
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
     <h2>Every <span class="hl">${esc(p.name)}</span></h2>
     <div class="chase-grid">
       ${sorted
@@ -337,7 +337,7 @@ ${(() => {
         .join("\n      ")}
     </div>
     <p class="price-note">TCGplayer market prices via TCGdex, read ${esc(longDate(checked) || checked)}. Where a card
-      comes as a normal, holo and reverse holo at different prices, the figure is the dearest of them. Prices move
+      comes as a normal, holo and reverse holo at different prices, the figure is the priciest of them. Prices move
       daily, so treat these as a ballpark. <a href="/cards.html?q=${encodeURIComponent(p.name)}">Search every card</a>.</p>
   </div>
 </section>
@@ -423,10 +423,10 @@ function indexPage() {
       ${roster
         .map(
           (p) => `<a class="poke-card" href="/pokemon/${esc(p.slug)}.html">
-        ${p.dearest.img ? `<img src="${esc(p.dearest.img)}/low.webp" onerror="this.remove()" alt="${esc(p.dearest.name)}, the most valuable ${esc(p.name)} card" loading="lazy" width="245" height="342">` : ""}
+        ${p.priciest.img ? `<img src="${esc(p.priciest.img)}/low.webp" onerror="this.remove()" alt="${esc(p.priciest.name)}, the most valuable ${esc(p.name)} card" loading="lazy" width="245" height="342">` : ""}
         <span class="poke-nm">${esc(p.name)}</span>
         <span class="poke-meta">${p.list.length} cards &bull; ${p.sets.size} sets</span>
-        <span class="poke-pr">top ${moneyRound(p.dearest.price)}</span>
+        <span class="poke-pr">top ${moneyRound(p.priciest.price)}</span>
       </a>`
         )
         .join("\n      ")}
@@ -460,7 +460,7 @@ await writeFile(
       slug: p.slug,
       cards: p.list.length,
       sets: p.sets.size,
-      top: p.dearest.price,
+      top: p.priciest.price,
     })),
   }) + "\n"
 );
@@ -469,7 +469,7 @@ console.log(`Wrote ${roster.length} Pokemon pages + index to public/pokemon/`);
 for (const p of roster.slice(0, 8)) {
   console.log(
     `  /pokemon/${p.slug}.html`.padEnd(34) +
-      `${String(p.list.length).padStart(3)} cards, ${p.sets.size} sets, top ${moneyRound(p.dearest.price)}, ${ripsFor(p.name).length} rips`
+      `${String(p.list.length).padStart(3)} cards, ${p.sets.size} sets, top ${moneyRound(p.priciest.price)}, ${ripsFor(p.name).length} rips`
   );
 }
 console.log(`  ... and ${roster.length - 8} more`);

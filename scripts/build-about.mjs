@@ -106,7 +106,7 @@ const body = `
         <ul>
           <li>Pokemon card pack rips: hits, heartbreak, and pure chaos</li>
           <li>Big boxes, weird pulls, and unpredictable luck</li>
-          <li>Charizard chases fuelled by plate grease and good vibes</li>
+          <li>Charizard chases fueled by plate grease and good vibes</li>
           <li>Zero seriousness, all fun</li>
         </ul>
 

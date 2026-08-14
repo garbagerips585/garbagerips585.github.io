@@ -41,7 +41,7 @@ const { sets, rarityOrder, syncedAt } = JSON.parse(
 );
 // PSA 10 prices are hand-checked and live in one file, because no free price
 // feed carries graded sales. A card with no entry shows its raw price alone.
-// Which sets have wrapper art. Five have neither art nor a colour skin, and
+// Which sets have wrapper art. Five have neither art nor a color skin, and
 // naming them rendered the base Garbage Rips green: a green booster pack as
 // the hero of a page titled "Black Bolt". Fall back to the generic wrapper.
 const packsOnDisk = new Set(
@@ -169,14 +169,14 @@ function checklistBand(s) {
   const doc = checklists[s.id];
   if (!doc?.cards?.length) return "";
   const priced = doc.cards.filter((c) => c.price != null);
-  const dearest = priced.slice().sort((a, b) => b.price - a.price)[0];
+  const priciest = priced.slice().sort((a, b) => b.price - a.price)[0];
 
   return `<section class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
     <h2>Full <span class="hl">checklist</span></h2>
     <p class="lede">All ${doc.cards.length} cards in ${esc(s.name)}, with what each one is worth.${
-      dearest ? ` The most expensive card in the set is ${esc(dearest.name)} at ${moneyExact(dearest.price)}.` : ""
+      priciest ? ` The most expensive card in the set is ${esc(priciest.name)} at ${moneyExact(priciest.price)}.` : ""
     }</p>
     <details class="ig-list">
       <summary>Show the full ${esc(s.name)} checklist</summary>
@@ -192,7 +192,7 @@ function checklistBand(s) {
       </ol>
     </details>
     <p class="price-note">TCGplayer market prices via TCGdex, read ${esc(longDate(doc.checked) || doc.checked)}.
-      Where a card exists as a normal, holo and reverse holo at different prices, the figure shown is the dearest of
+      Where a card exists as a normal, holo and reverse holo at different prices, the figure shown is the priciest of
       them, because that is the one people mean. ${priced.length} of ${doc.cards.length} cards have a price.
       Looking for one card in particular? <a href="/cards.html?set=${esc(s.id)}">Search every card on the site</a>.</p>
   </div>
@@ -372,7 +372,7 @@ const BRAND = " | Garbage Rips 585";
 const setTitle = (name) => {
   // The brand is kept in EVERY case and the descriptor gives way instead.
   // Dropping it saved characters but cost the thing these pages are for: the
-  // site is trying to become a recognised entity, and 22 of 23 guides losing
+  // site is trying to become a recognized entity, and 22 of 23 guides losing
   // the name was the wrong half to sacrifice. "Set Guide" is the phrase people
   // actually search next to a set name, so it is the part that stays; the
   // rarities and values wording lives on in the H1 and the meta description,
@@ -684,7 +684,7 @@ ${(() => {
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
     <h2>What we have <span class="hl">hit</span> from this set</h2>
-    <p class="lede" style="max-width:38em">${mine.length} card${mine.length === 1 ? "" : "s"} out of our own packs, dearest first.
+    <p class="lede" style="max-width:38em">${mine.length} card${mine.length === 1 ? "" : "s"} out of our own packs, priciest first.
       Every one of them is in a video you can watch.</p>
     <ul class="mine-grid">
       ${mine

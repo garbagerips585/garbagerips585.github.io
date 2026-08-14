@@ -4,7 +4,7 @@
     "",
     "THIS FILE GOES STALE FASTER THAN ANYTHING ELSE ON THE SITE. Grading prices",
     "and wait times change several times a year and sometimes overnight: PSA",
-    "paused two whole tiers in June 2026 with a fortnight's notice. Every figure",
+    "paused two whole tiers in June 2026 with two weeks' notice. Every figure",
     "carries the date it was read and the page says so loudly. If `checked` is",
     "more than a couple of months old, treat the numbers as a shape rather than a",
     "quote and click through to the company.",
@@ -110,7 +110,7 @@
         }
       ],
       "note": "The cheapest slab anyone can actually buy right now. Bulk needs 25 cards in one submission; Economy at $20 has no minimum.",
-      "resale": "Well recognised and steadily growing, but a CGC 10 generally sells under a PSA 10 for the same card."
+      "resale": "Well recognized and steadily growing, but a CGC 10 generally sells under a PSA 10 for the same card."
     },
     {
       "id": "bgs",
@@ -209,10 +209,10 @@
   ],
   "assumedShippingPerCard": 15,
   "rules": [
-    "Grading does not make a card valuable. It confirms what condition it is already in, and most cards come back a 9.",
+    "Grading does not make a card valuable. It confirms what condition it is already in, and a 9 is a common outcome that is worth far less than a 10.",
     "A 9 is usually worth barely more than the raw card, and sometimes less than the raw card plus what you paid to grade it. Price the downside, not just the PSA 10.",
-    "Straight out of a pack is not the same as mint. Check centring, edges and surface under a light first, because that is what decides the grade before you spend anything.",
-    "Fees are per card whatever the grade, so the maths has to clear on the likely outcome, not the best one.",
+    "Straight out of a pack is not the same as mint. Check centering, edges and surface under a light first, because that is what decides the grade before you spend anything.",
+    "Fees are per card whatever the grade, so the math has to clear on the likely outcome, not the best one.",
     "If the gap between raw and PSA 10 is smaller than the fee, there is no version of this that pays."
   ]
 }

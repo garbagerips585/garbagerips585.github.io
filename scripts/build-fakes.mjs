@@ -33,7 +33,7 @@ const d = JSON.parse(await readFile(join(ROOT, "data/fakes.json"), "utf8"));
 // There are none today and that is on purpose: we do not own a confirmed fake,
 // and a photo of one you cannot verify the provenance of is worth nothing on a
 // page about verifying things. Everything visual here is therefore a DIAGRAM
-// and labelled as one.
+// and labeled as one.
 //
 // The slot exists so real photos can replace a diagram the day there are some.
 // Drop a file in public/assets/fakes/ and name it in data/fakes.json:
@@ -158,7 +158,7 @@ function rosetteDiagram() {
       <p class="fk-lbl2">FAKE &bull; irregular dots</p>
     </div>
   </div>
-  <figcaption>What a solid colour looks like under a 10x loupe. The real pattern comes from screening the four plates at 15, 75, 0 and 45 degrees, which is a property of offset printing rather than a design choice, so it is hard to reproduce without the same press.</figcaption>
+  <figcaption>What a solid color looks like under a 10x loupe. The real pattern comes from screening the four plates at 15, 75, 0 and 45 degrees, which is a property of offset printing rather than a design choice, so it is hard to reproduce without the same press.</figcaption>
 </figure>`;
 }
 
@@ -203,7 +203,7 @@ function anatomyDiagram() {
 }
 
 /**
- * Back colour, which is a comparison test and therefore the one most worth
+ * Back color, which is a comparison test and therefore the one most worth
  * drawing. The real swatch is the actual blue off a genuine card back; the two
  * beside it are the directions fakes miss in, which is what the test describes.
  */
@@ -219,18 +219,18 @@ function backDiagram() {
     </g>`;
   return `<figure class="fk-fig fk-fig-wide">
   <svg viewBox="0 0 380 215" role="img" aria-label="Three card backs: a correct blue, one too purple, one washed out">
-    ${swatch(10, "#2C5AA0", "REAL", "deep grey-blue")}
+    ${swatch(10, "#2C5AA0", "REAL", "deep gray-blue")}
     ${swatch(135, "#4B3FA8", "OFF", "too purple")}
     ${swatch(260, "#6E93C8", "OFF", "washed out")}
   </svg>
-  <figcaption>The direction fakes miss in. Colour on a screen is never a match for colour in your hand, which is exactly why this test is done against a real card rather than against a picture.</figcaption>
+  <figcaption>The direction fakes miss in. Color on a screen is never a match for color in your hand, which is exactly why this test is done against a real card rather than against a picture.</figcaption>
 </figure>`;
 }
 
 /**
- * Colour registration on an energy symbol.
+ * Color registration on an energy symbol.
  *
- * The test says fakes show "colour fringing where one plate is off". That is
+ * The test says fakes show "color fringing where one plate is off". That is
  * hard to picture and trivial to draw: the same symbol with the cyan and
  * magenta plates nudged a fraction of a millimetre.
  */
@@ -243,7 +243,7 @@ function registrationDiagram() {
       <circle cx="${x}" cy="60" r="20" fill="#F5A62B" opacity=".9"/>
     </g>`;
   return `<figure class="fk-fig">
-  <svg viewBox="0 0 300 130" role="img" aria-label="An energy symbol printed cleanly, and the same symbol with the colour plates misaligned">
+  <svg viewBox="0 0 300 130" role="img" aria-label="An energy symbol printed cleanly, and the same symbol with the color plates misaligned">
     ${sym(80, 0)}
     ${sym(220, 5)}
     <text x="80" y="118" text-anchor="middle" class="fk-lbl2s">REAL</text>

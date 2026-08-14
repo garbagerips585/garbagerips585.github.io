@@ -3,7 +3,7 @@
 //
 //   node scripts/build-grading.mjs
 //
-// Reads data/grading.json for fees and data/psa10.json for the maths.
+// Reads data/grading.json for fees and data/psa10.json for the math.
 //
 // THE POINT OF THIS PAGE IS THE SECOND HALF. Fee tables exist on twenty other
 // sites. What almost nobody shows is the subtraction: this card is worth X raw
@@ -158,7 +158,7 @@ const verdictRow = (r) => `        <li class="gr">
 
 const desc =
   `What Pokemon card grading actually costs in ${new Date(g.checked).getFullYear()}, PSA against CGC, BGS and TAG, ` +
-  `and the break even maths on ${rows.length} real cards. PSA's cheapest tier is now ${moneyRound(psaCo.cheapest)}.`;
+  `and the break even math on ${rows.length} real cards. PSA's cheapest tier is now ${moneyRound(psaCo.cheapest)}.`;
 
 const ld = [
   {
@@ -201,7 +201,7 @@ const page = `<!DOCTYPE html>
 <title>Is It Worth Grading? Pokemon Card Grading Costs and Break Even | Garbage Rips 585</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/grading.html">
-<meta property="og:title" content="Is it worth grading? The actual maths">
+<meta property="og:title" content="Is it worth grading? The actual math">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="${SITE}/grading.html">
@@ -227,7 +227,7 @@ ${MENU}
 
 <header class="set-hero">
   <div class="wrap">
-    <span class="kicker">Pokemon TCG &bull; Do the maths first</span>
+    <span class="kicker">Pokemon TCG &bull; Do the math first</span>
     <h1>Is it worth <span class="hl">grading</span>?</h1>
     <p class="lede" style="max-width:36em">What it costs, how the four companies compare, and the subtraction almost
       nobody shows you: what a card is worth raw, what it is worth in a 10, and whether the difference covers the fee.</p>
@@ -240,7 +240,7 @@ ${MENU}
 
     <div class="fk-golden">
       <p class="fk-golden-h">Read this first</p>
-      <h2>PSA got a lot <span class="hl">dearer</span> this summer</h2>
+      <h2>PSA got a lot <span class="hl">pricier</span> this summer</h2>
       <p>${esc(psaCo.note)}</p>
     </div>
 
@@ -339,7 +339,7 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
         ? `<h2 style="margin-bottom:var(--s3)">What the slab is actually <span class="hl">worth</span></h2>
     <p class="lede" style="max-width:42em">The fee tells you what grading costs. This tells you what you get back.
       Same cards, every company's 10, from real sold prices. It reorders the question completely: the cheapest
-      company to grade with returns the least, and the dearest returns the most.
+      company to grade with returns the least, and the priciest returns the most.
       Median of ${Object.keys(graded.cards || {}).length} cards read from ${esc(graded.source || "PriceCharting")} on
       ${esc(longDate(graded.checked) || graded.checked)}. A snapshot, not a live feed, and a different source from the
       PSA 10 prices in the fee table above.</p>
@@ -367,7 +367,7 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
       </table>
     </div>
     <div class="fk-golden" style="margin-bottom:var(--s5)">
-      <p class="fk-golden-h">The part that changes the maths</p>
+      <p class="fk-golden-h">The part that changes the math</p>
       <h2>Cheap to grade is not <span class="hl">cheap</span></h2>
       <p>CGC is the cheapest slab you can buy at ${moneyRound(by.cgc ? by.cgc.cheapest : 17)}, and a CGC 10 sells for
         about ${(slabValue.find((r) => r.label === "CGC 10") || {}).vsPsa?.toFixed(2)}x what the same card makes in a
@@ -386,7 +386,7 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
       ${g.rules.map((r) => `<li>${esc(r)}</li>`).join("\n      ")}
     </ul>
     <p class="price-note">Fees and turnarounds read on ${esc(longDate(g.checked) || g.checked)} and they change often,
-      sometimes with a fortnight's notice, so click through before you send anything. Card prices are TCGplayer market
+      sometimes with two weeks' notice, so click through before you send anything. Card prices are TCGplayer market
       and PSA 10 sale data. Raw prices are TCGplayer market via TCGdex, read ${esc(longDate(cardsChecked) || cardsChecked || "recently")},
       the same figures the rest of this site quotes. PSA 10 prices come from pokemonpricetracker.com, because no free
       feed carries graded sales; only cards with at least ten recorded sales are used. Both move daily. No affiliate
@@ -422,10 +422,10 @@ ${footer("Grading fees change constantly. Always check the company's own page be
     if(good){
       lines+='<p class="gcalc-note">That is the best case. It assumes a 10. A 9 on this card is usually worth a '
         + 'fraction of the 10, so you would be down the '+money(cost)+' and then some. Only send it if the card is '
-        + 'genuinely mint: centred, sharp corners, clean surface.</p>';
+        + 'genuinely mint: centered, sharp corners, clean surface.</p>';
     } else {
       lines+='<p class="gcalc-note">The gap between raw and graded does not cover the fee, so even a perfect 10 '
-        + 'loses money. Keep it raw, sleeve it, and put the '+money(cost)+' towards more packs.</p>';
+        + 'loses money. Keep it raw, sleeve it, and put the '+money(cost)+' toward more packs.</p>';
     }
     out.innerHTML=lines;
   }

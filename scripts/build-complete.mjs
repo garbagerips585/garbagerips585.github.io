@@ -137,7 +137,7 @@ rows.sort((a, b) => a.base - b.base);
 
 const complete = rows.filter((r) => r.missing === 0);
 const cheapest = rows[0];
-const dearest = rows[rows.length - 1];
+const priciest = rows[rows.length - 1];
 const dearestMaster = rows.slice().sort((a, b) => b.master - a.master)[0];
 // Sets where one card is at least a quarter of the master-set bill.
 const lopsided = rows
@@ -153,7 +153,7 @@ const totalMaster = rows.reduce((n, r) => n + r.master, 0);
 // because the master set's bill is chase cards whose cheap copies are not cheap.
 //
 // MEDIAN OF THE PER-SET RATIOS, not the ratio of the totals. Summing every set
-// first lets the two or three dearest sets set the answer for all 23: done that
+// first lets the two or three priciest sets set the answer for all 23: done that
 // way the base-set figure comes out 2.4x, when the per-set spreads actually run
 // from 1.3x to 7.6x and the middle set is well above 2.4. The label says
 // "typical set", so the number has to be the typical set.
@@ -170,7 +170,7 @@ const pct = (x) => `${Math.round(x * 100)}%`;
 const desc =
   `What it costs to complete every Pokemon set we cover, priced nightly. ` +
   `${cheapest.name} is the cheapest base set at ${moneyRound(cheapest.base)}, ` +
-  `${dearest.name} the dearest at ${moneyRound(dearest.base)}. ` +
+  `${priciest.name} the priciest at ${moneyRound(priciest.base)}. ` +
   `Commons run, base set and master set, all at cheapest printing, before shipping.`;
 
 const ld = [
@@ -191,7 +191,7 @@ const ld = [
         name: "How much does it cost to complete a Pokemon set?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: `It depends enormously on the set. Across the ${rows.length} sets on this page the base set ranges from ${moneyRound(cheapest.base)} for ${cheapest.name} to ${moneyRound(dearest.base)} for ${dearest.name}, buying every card as a single at the cheapest printing and before shipping. The master set, which adds the secret rares, is several times more: ${dearestMaster.name} is ${moneyRound(dearestMaster.master)}.`,
+          text: `It depends enormously on the set. Across the ${rows.length} sets on this page the base set ranges from ${moneyRound(cheapest.base)} for ${cheapest.name} to ${moneyRound(priciest.base)} for ${priciest.name}, buying every card as a single at the cheapest printing and before shipping. The master set, which adds the secret rares, is several times more: ${dearestMaster.name} is ${moneyRound(dearestMaster.master)}.`,
         },
       },
       {
@@ -270,7 +270,7 @@ ${MENU}
 
     <div class="facts">
       <div class="fact"><div class="n">${moneyCompact(cheapest.base)}</div><div class="l">Cheapest base set (${esc(cheapest.name)})</div></div>
-      <div class="fact"><div class="n">${moneyCompact(dearest.base)}</div><div class="l">Dearest base set (${esc(dearest.name)})</div></div>
+      <div class="fact"><div class="n">${moneyCompact(priciest.base)}</div><div class="l">Dearest base set (${esc(priciest.name)})</div></div>
       <div class="fact"><div class="n">${moneyCompact(dearestMaster.master)}</div><div class="l">Dearest master set (${esc(dearestMaster.name)})</div></div>
       <div class="fact"><div class="n">${rows.length}</div><div class="l">Sets costed</div></div>
     </div>
@@ -279,7 +279,7 @@ ${MENU}
       <p class="fk-golden-h">Read this first</p>
       <h2>The base set is the <span class="hl">cheap</span> part</h2>
       <p>Every card numbered up to the printed total, the ones that read 131/131 and below, is usually a small bill:
-        ${moneyRound(cheapest.base)} to ${moneyRound(dearest.base)} across these ${rows.length} sets. The money is
+        ${moneyRound(cheapest.base)} to ${moneyRound(priciest.base)} across these ${rows.length} sets. The money is
         all above that line, in the secret rares. ${esc(dearestMaster.name)} is ${moneyRound(dearestMaster.base)}
         as a base set and ${moneyRound(dearestMaster.master)} as a master set. If you have been putting off
         completing a set because you assumed it ran to thousands, it is worth checking which half you actually want.</p>
@@ -322,7 +322,7 @@ ${MENU}
 <section class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>All ${rows.length} sets</p>
-    <h2>Cheapest to <span class="hl">dearest</span></h2>
+    <h2>Cheapest to <span class="hl">priciest</span></h2>
     <p class="lede" style="max-width:40em">Sorted by base set, which is the tier most people are asking about. Every
       figure buys one copy of each card at its cheapest printing, at market, before shipping.</p>
     <div class="cc-scroll">
@@ -412,7 +412,7 @@ ${MENU}
         than a floor or a ceiling: expect to beat it on the cards everyone has and to pay over it on the last few.</li>
       <li><strong>Reverse holos are not costed.</strong> A full reverse-holo run is a separate tier again, and it is
         a big one. The master-set figures here are one copy of each card number, not one of each printing.</li>
-      <li><strong>No pull rates, no pack maths.</strong> We have not costed "how many packs to complete this", because
+      <li><strong>No pull rates, no pack math.</strong> We have not costed "how many packs to complete this", because
         it would need pull rates we do not have. Anyone quoting you that number is estimating.</li>
     </ul>
     <p class="price-note">Prices are TCGplayer market via TCGdex, read ${esc(longDate(checked) || checked || "recently")},
@@ -432,6 +432,6 @@ ${APP_JS}
 await writeFile(join(ROOT, "public/complete-a-set.html"), page);
 console.log(`Wrote public/complete-a-set.html
   ${rows.length} sets costed, ${complete.length} priced in full, ${totalMissing} cards unpriced
-  cheapest base ${cheapest.name} ${moneyExact(cheapest.base)}, dearest ${dearest.name} ${moneyExact(dearest.base)}
-  dearest master ${dearestMaster.name} ${moneyExact(dearestMaster.master)}
+  cheapest base ${cheapest.name} ${moneyExact(cheapest.base)}, priciest ${priciest.name} ${moneyExact(priciest.base)}
+  priciest master ${dearestMaster.name} ${moneyExact(dearestMaster.master)}
   ${lopsided.length} sets where one card is 25%+ of the master set`);

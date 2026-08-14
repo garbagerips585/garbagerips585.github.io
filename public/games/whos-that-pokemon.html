@@ -205,7 +205,7 @@
 </footer>
 <script src="/assets/app.js?v=d4b6cdad" defer></script>
 <script src="/assets/packplayer.js?v=44adb501" defer></script>
-<script src="/assets/games.js?v=2a685424" defer></script>
+<script src="/assets/games.js?v=18706bfc" defer></script>
 <script>
 (function(){
   var ART='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
@@ -223,7 +223,7 @@
       choices:choices, answer:answer,
       note:'#'+p[0]+', Generation '+p[2]+'.',
       // Lifting the filter IS the reveal, so it uses the same element and the
-      // full colour artwork is already decoded and in cache.
+      // full color artwork is already decoded and in cache.
       reveal:function(stage){var s=stage.querySelector('[data-sil]'); if(s) s.className='gq-sil is-shown';},
       _art:art(p[0])
     };

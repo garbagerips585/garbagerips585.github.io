@@ -128,6 +128,11 @@ const ranked = hall
 // have a graded price and raw across all of them, then showing the two side by
 // side, made the collection look as though grading had lost it money.
 // Best-known value per card: graded where we have it, raw otherwise.
+// A SUM, and the label has to say so. This was printed as "Best known value",
+// which reads as the best single card, next to a table whose priciest card is
+// $15.30. Every figure on the page contradicted the headline stat, and read
+// correctly it was announcing the channel's entire on-camera haul as one
+// number without saying that is what it was.
 const totalValue = ranked.reduce((n, c) => n + (c.psa10 || c.raw || 0), 0);
 const gradedCards = ranked.filter((c) => c.psa10);
 const totalGraded = gradedCards.reduce((n, c) => n + c.psa10, 0);
@@ -246,7 +251,7 @@ const body = `
       <p>Every card that has come out of a pack on this channel, ranked by what it is worth. Tap a card to see it full size.${derivedFromHits ? " Nothing here was hand picked: this is the whole list of what was pulled on camera, in value order." : ""}</p>
       ${ranked.length ? `<div class="chof-tally">
         <div><b>${ranked.length}</b><span>${derivedFromHits ? "Cards pulled" : "Cards inducted"}</span></div>
-        ${totalValue ? `<div><b>${moneyCompact(totalValue)}</b><span>Best known value</span></div>` : ""}
+        ${totalValue ? `<div><b>${moneyCompact(totalValue)}</b><span>All of them together</span></div>` : ""}
         ${gradedCards.length ? `<div><b>${moneyCompact(totalGraded)}</b><span>${gradedCards.length} of ${ranked.length} graded</span></div>` : ""}
       </div>` : ""}
     </div>

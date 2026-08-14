@@ -318,7 +318,7 @@ ${(rarities.length ? rarities : pulls.map(([k, n]) => [labelFor("pulls", k) || k
         or not a hit in the rip log, so an untagged video is absent rather than assumed. "Hit" means
         a card worth keeping, judged by eye, not a fixed rarity threshold. These are observed results
         from one person opening packs on camera, not official pull rates: The Pokemon Company does not
-        publish those, and anyone who tells you they know them is guessing. Small samples are labelled
+        publish those, and anyone who tells you they know them is guessing. Small samples are labeled
         rather than rounded into confidence. Numbers move as more rips are logged.</p>
     </div>
   </section>

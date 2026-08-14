@@ -26,7 +26,7 @@ const OUT = join(ROOT, "public/rip");
 // ten-sale floor the set guides use. One store, so a card cannot show two
 // different numbers on two different pages.
 // Which sets actually have wrapper art. Five (White Flare, Black Bolt,
-// Shrouded Fable, Paldean Fates, Paldea Evolved) have neither art nor a colour
+// Shrouded Fable, Paldean Fates, Paldea Evolved) have neither art nor a color
 // skin, so naming them here would render the plain Garbage Rips green rather
 // than the generic wrapper we drew for exactly this case.
 /**
@@ -765,7 +765,7 @@ const urls = [
   // answer does not expire.
   { loc: `${SITE}/fake-cards.html`, freq: "monthly", pri: "0.9" },
   // Grading costs. Weekly rather than monthly because the fee table goes stale
-  // fast: PSA paused two tiers in June with a fortnight's notice.
+  // fast: PSA paused two tiers in June with two weeks' notice.
   { loc: `${SITE}/grading.html`, freq: "weekly", pri: "0.9" },
   // Daily: the totals are recomputed by the nightly price sync, so this page
   // genuinely changes every night. Nothing else here does.

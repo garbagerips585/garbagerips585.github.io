@@ -5,7 +5,7 @@
     "",
     "PILLARBOXED means the video was UPLOADED 16:9 but SHOT vertical, so the real",
     "footage is a 9:16 strip in the middle with black bars either side. Setting it",
-    "crops the player to that centre strip so the rip presents like every other",
+    "crops the player to that center strip so the rip presents like every other",
     "one. Do not set it on a genuinely landscape video: it would cut the sides off",
     "real content.",
     "",

@@ -164,7 +164,7 @@ export const FONTS = `<link rel="stylesheet" href="/assets/fonts.css">`;
 // CACHE BUST THE STYLESHEET, keyed to its own contents.
 //
 // The link was a bare /assets/ui.css with no version, so a browser that had the
-// file cached kept serving it after a deploy. That is invisible for a colour
+// file cached kept serving it after a deploy. That is invisible for a color
 // tweak and catastrophic for a new component: the hits grid shipped its markup
 // and its CSS together, and anyone holding an older ui.css got the <ul> with no
 // grid rules at all, which renders as one full-width list item per card with a
@@ -232,7 +232,7 @@ ${BAR_LINKS.map((h) => `      <a href="${h}">${labelFor(h)}</a>`).join("\n")}
  * Grouped rather than a flat list. NN/G's mobile study (179 people) found
  * hidden navigation cost more than 20% of content discoverability and made
  * people 15% slower, and that the fix is combo navigation: a few links always
- * visible plus a labelled menu for the rest. Their later work found a 45 point
+ * visible plus a labeled menu for the rest. Their later work found a 45 point
  * swing in menu usage between two different hamburger implementations, so how
  * the button is presented matters more than whether it exists. Ours keeps the
  * word "Menu" beside the icon for that reason.

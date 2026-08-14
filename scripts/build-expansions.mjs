@@ -46,7 +46,7 @@ const ERA_NOTE = {
   "E-Card": "Cards printed with dot code strips you could scan with the Nintendo e-Reader.",
   EX: "Nintendo takes over publishing and Pokemon-ex show up, powerful cards that give up two prizes.",
   NP: "Nintendo's promo cards, handed out rather than sold in packs.",
-  POP: "Organised play kits from the Play! Pokemon programme, earned at events rather than bought.",
+  POP: "Organized Play kits from the Play! Pokemon program, earned at events rather than bought.",
   "Diamond & Pearl": "Sinnoh, and Pokemon LV.X as the new top end.",
   Platinum: "Pokemon SP, and Arceus closing out the era.",
   "HeartGold & SoulSilver": "A return to Johto, with Pokemon Prime and the two card LEGEND Pokemon.",

@@ -26,7 +26,7 @@
   "intro": "Nobody sells you a fake with a label on it. These are the checks that actually work, roughly in the order worth doing them, and an honest note on how much each one proves.",
   "goldenRule": {
     "title": "Compare against a card you already trust",
-    "body": "Every test below is easier as a comparison than as a judgement. Pull a card you know is real out of a pack you opened yourself, put it next to the one you are unsure about, and the difference in colour, feel and weight is obvious in a way it never is from memory. Keep one common from a recent set in your wallet as a reference. It costs nothing and it is the single most useful thing on this page."
+    "body": "Every test below is easier as a comparison than as a judgement. Pull a card you know is real out of a pack you opened yourself, put it next to the one you are unsure about, and the difference in color, feel and weight is obvious in a way it never is from memory. Keep one common from a recent set in your wallet as a reference. It costs nothing and it is the single most useful thing on this page."
   },
   "tests": [
     {
@@ -37,7 +37,7 @@
       "how": "Put the suspect card back to back with one you trust and look at the blue.",
       "real": "Every English card printed since 1999 has the same back, so two real cards look near identical. The blue border is distinctly darker than the blue inside the design, and the line between them is clean.",
       "fake": "The blue bleeds between the border and the inner design instead of stepping cleanly, or the whole thing is washed out. The swirl detail is soft and the lettering is subtly the wrong shape.",
-      "why": "Outside a handful of documented exceptions every English card back is identical, whatever decade it was printed in, so you have a perfect reference in any card you own. It is also the part counterfeiters copy from a scan rather than from the original files, and colour is the first thing to go.",
+      "why": "Outside a handful of documented exceptions every English card back is identical, whatever decade it was printed in, so you have a perfect reference in any card you own. It is also the part counterfeiters copy from a scan rather than from the original files, and color is the first thing to go.",
       "caveat": "Needs a real card in hand, and is impossible online unless the seller photographs the back. Ask them to."
     },
     {
@@ -82,7 +82,7 @@
       "name": "Print pattern under magnification",
       "tools": "A 10x loupe, or a phone macro lens",
       "confidence": "Strong",
-      "how": "Magnify a solid block of colour, not the artwork. The yellow border is ideal.",
+      "how": "Magnify a solid block of color, not the artwork. The yellow border is ideal.",
       "real": "A regular rosette: tiny circular clusters of cyan, magenta, yellow and black dots in an even repeating pattern.",
       "fake": "Irregular dots, smeared blobs, or fine straight lines instead of rosettes. Consumer inkjet and cheap digital presses do not lay ink down the same way.",
       "why": "Genuine cards are commercially offset printed, which produces rosettes as a by-product of how the four plates are screened and angled. It is a signature of the process, not a design choice, so it is hard to fake without the same equipment."
@@ -93,9 +93,9 @@
       "tools": "Your eyes, better with a loupe",
       "confidence": "Good",
       "how": "Look hard at the energy symbols in the attack cost, and the tiny text at the bottom.",
-      "real": "Symbols are sharp, centred in their circle, and the colours are exact with no fringe. Small print is crisp and readable.",
-      "fake": "Blurry or pixelated symbols, colour fringing where one plate is off, symbols sitting off-centre, and mushy small text.",
-      "why": "Small high-contrast elements are the hardest thing to reproduce, because any error in colour registration shows up as a coloured halo at exactly that scale. It is the first thing to go wrong on a copy."
+      "real": "Symbols are sharp, centered in their circle, and the colors are exact with no fringe. Small print is crisp and readable.",
+      "fake": "Blurry or pixelated symbols, color fringing where one plate is off, symbols sitting off-center, and mushy small text.",
+      "why": "Small high-contrast elements are the hardest thing to reproduce, because any error in color registration shows up as a colored halo at exactly that scale. It is the first thing to go wrong on a copy."
     },
     {
       "id": "read",
@@ -133,7 +133,7 @@
   "ifFake": {
     "title": "If it turns out to be fake",
     "points": [
-      "Marketplaces have a counterfeit item process and it is normally decided in the buyer's favour. Open a case rather than messaging the seller and waiting.",
+      "Marketplaces have a counterfeit item process and it is normally decided in the buyer's favor. Open a case rather than messaging the seller and waiting.",
       "Photograph the card next to a genuine one before you send it back, including the edge, because the layers show in a photo.",
       "A fake is not gradeable and it is not sellable. It has no value beyond being a reference for what to look for.",
       "It happens to everybody eventually, including people who have been collecting for years. It is not a reason to stop opening packs."
@@ -141,7 +141,7 @@
   },
   "sources": [
     "Physical checks here are the ones repeated consistently across collector authentication guides, and every one is stated as a property of the card that you can verify on your own copy.",
-    "The ordering, the sealed product checks, and the decision to drop the light test follow TCGplayer's own guide, written with their authentication centre, which is the closest thing to a published method from people who authenticate cards at volume for a living.",
+    "The ordering, the sealed product checks, and the decision to drop the light test follow TCGplayer's own guide, written with their authentication center, which is the closest thing to a published method from people who authenticate cards at volume for a living.",
     "Nothing here comes from The Pokemon Company, which does not publish an authentication specification. That is exactly why comparison against a card you trust beats any single number."
   ],
   "notRecommended": {
@@ -150,7 +150,7 @@
       {
         "name": "The light test",
         "verdict": "Not reliable enough",
-        "body": "Holding a card to a lamp to see how much light comes through is the test everyone repeats, and TCGplayer's own authentication centre does not use it. Real cards vary too much: they have had two different publishers since 1999 and a range of foiling that all reacts to light differently, and the result changes with the lamp. It produces too many false positives on genuine cards. If you have a second card to compare against, compare the backs or feel the surface instead, both of which tell you more."
+        "body": "Holding a card to a lamp to see how much light comes through is the test everyone repeats, and TCGplayer's own authentication center does not use it. Real cards vary too much: they have had two different publishers since 1999 and a range of foiling that all reacts to light differently, and the result changes with the lamp. It produces too many false positives on genuine cards. If you have a second card to compare against, compare the backs or feel the surface instead, both of which tell you more."
       },
       {
         "name": "The bend test",
@@ -187,7 +187,7 @@
     "links": [
       {
         "name": "TCGplayer: How to Spot Fake Pokemon Cards",
-        "what": "Photographs of real counterfeits their authentication centre intercepted, side by side with genuine cards. Charizard, Jolteon, Jirachi, Ultra Ball and more, fronts and backs.",
+        "what": "Photographs of real counterfeits their authentication center intercepted, side by side with genuine cards. Charizard, Jolteon, Jirachi, Ultra Ball and more, fronts and backs.",
         "url": "https://www.tcgplayer.com/content/article/How-to-Spot-Fake-Pok%C3%A9mon-Cards/0b3c551c-39e2-4949-ac46-3cb27e215b04/"
       },
       {

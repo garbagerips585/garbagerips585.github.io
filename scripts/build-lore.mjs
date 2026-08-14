@@ -102,7 +102,7 @@ const purePoison = P.filter((p) => p.types.length === 1 && p.types[0] === "poiso
 // [heading, sentence]. Source is printed once per card by the renderer.
 const FACTS = [
   ["Type combinations", `Of the ${n(combos.size)} type combinations across the National Pokedex, ${n(soloOfCombo.length)} belong to exactly one Pokemon. ${soloOfCombo[0][1][0]} is the only ${list(soloOfCombo[0][0].split("/").map(cap))} Pokemon there has ever been.`],
-  ["The commonest type", `${cap(typeRank[0][0])} is the most crowded type in the dex with ${n(typeRank[0][1])} Pokemon. The rarest is ${cap(typeRank[typeRank.length - 1][0])}, with ${n(typeRank[typeRank.length - 1][1])}.`],
+  ["The most common type", `${cap(typeRank[0][0])} is the most crowded type in the dex with ${n(typeRank[0][1])} Pokemon. The rarest is ${cap(typeRank[typeRank.length - 1][0])}, with ${n(typeRank[typeRank.length - 1][1])}.`],
   [
     "Heaviest",
     `${list(hv.who.map((p) => p.name))} ${hv.who.length > 1 ? "are tied as the heaviest in the dex" : "is the heaviest in the dex"} at ${kg(hv.who[0]).toFixed(1)}kg, about ${n(Math.round(hv.best / lt.best))} times the ${kg(lt.who[0]).toFixed(1)}kg shared by the ${lt.who.length === 1 ? "lightest" : `${n(lt.who.length)} lightest`}: ${list(lt.who.map((p) => p.name))}.`,
@@ -192,7 +192,7 @@ ${MENU}
       <p class="fk-golden-h">The mascots</p>
       <h2>Rochester's unofficial <span class="hl">Pokemon</span></h2>
       <p>This city's most famous meal is the Garbage Plate. Its most famous export, if we get a vote, should be
-        a walking bin bag. We did not choose ${esc(trubbish.name)} and ${esc(garbodor.name)} because of a joke we
+        a walking trash bag. We did not choose ${esc(trubbish.name)} and ${esc(garbodor.name)} because of a joke we
         made up: the Pokedex got there first and files them as the
         <b>${esc(trubbish.genus)} Pokemon</b> and the <b>${esc(garbodor.genus)} Pokemon</b>.</p>
       <p style="margin-top:12px">${esc(trubbish.name)} is #${trubbish.id}, a Generation ${trubbish.gen} pure

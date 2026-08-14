@@ -65,7 +65,7 @@ const STEPS = [
   {
     n: 4,
     q: "Should I get it graded?",
-    a: "Usually no, and the maths says why. What the four companies charge, what the wait is, and the subtraction on real cards: raw price, graded price, fee, what is left.",
+    a: "Usually no, and the math says why. What the four companies charge, what the wait is, and the subtraction on real cards: raw price, graded price, fee, what is left.",
     href: "/grading.html",
     cta: "Worth grading?",
   },
@@ -182,7 +182,7 @@ ${MENU}
       <li><strong>Most cards are worth very little, and that is fine.</strong> A set has a couple of hundred cards and
         a handful of them carry the value. The rest are the game.</li>
       <li><strong>Condition decides almost everything.</strong> The same card can be worth ten dollars or a thousand
-        depending on centring, corners and surface. Sleeve anything you care about, today.</li>
+        depending on centering, corners and surface. Sleeve anything you care about, today.</li>
       <li><strong>Nobody can tell you what is in a sealed pack.</strong> Anyone claiming a method for picking winning
         packs is selling something. We open a lot of packs and the pull rates page is what that actually looks like.</li>
       <li><strong>Buy the single, not the box,</strong> if there is one specific card you want. It is almost always

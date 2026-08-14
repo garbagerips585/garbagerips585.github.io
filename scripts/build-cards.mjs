@@ -157,7 +157,7 @@ ${MENU}
     <p class="cq-head" id="cqHead">The 60 most valuable cards across every set we rip. Type above to search all ${nAll} printings.</p>
 
     <p class="price-note">TCGplayer market prices via TCGdex, read ${esc(longDate(index.checked) || index.checked)}.
-      Where a card comes as a normal, holo and reverse holo at different prices, the figure is the dearest of them.
+      Where a card comes as a normal, holo and reverse holo at different prices, the figure is the priciest of them.
       ${priced.length.toLocaleString("en-US")} of ${rows.length.toLocaleString("en-US")} cards from the sets we rip have a
       price. The other ${(printings.total - rows.length).toLocaleString("en-US")} printings do not: there is no US market
       price for a Japanese card, so none is shown rather than a converted guess. Where a Japanese card could not be
@@ -232,7 +232,7 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official."
     }).join('');
     head.hidden=true;
     status.textContent = total>hits.length
-      ? total.toLocaleString('en-US')+' matches, showing the '+hits.length+' dearest'
+      ? total.toLocaleString('en-US')+' matches, showing the '+hits.length+' priciest'
       : total.toLocaleString('en-US')+(total===1?' match':' matches');
   }
 
@@ -309,7 +309,7 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official."
         return { name:c.n, printed:c.p, set:c.s, n:c.i, rarity:c.r, lang:c.l,
                  untranslated:c.u, price:m?m.price:null, slug:m?m.slug:null };
       });
-    // Priced first and dearest first within that, because those are the cards we
+    // Priced first and priciest first within that, because those are the cards we
     // can actually tell you something about. Everything else follows grouped by
     // set, rather than being buried at the bottom in database order.
     hits.sort(function(a,b){
@@ -373,4 +373,4 @@ await writeFile(join(ROOT, "public/cards.html"), page);
 console.log(`Wrote public/cards.html
   ${rows.length} cards searchable across ${Object.keys(setName).length} sets
   ${priced.length} priced, ${top.length} rendered into the HTML
-  dearest: ${top[0]?.[0]} ${top[0]?.[2]} (${setName[top[0]?.[1]]}) ${moneyExact(top[0]?.[4])}`);
+  priciest: ${top[0]?.[0]} ${top[0]?.[2]} (${setName[top[0]?.[1]]}) ${moneyExact(top[0]?.[4])}`);

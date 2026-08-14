@@ -238,7 +238,7 @@ ${footer()}
       n+=c.length;
       html+=group('Cards', c.slice(0,10).map(function(r){
         return row(r[0], '/sets/'+r[1]+'.html', (CARDS.sets[r[1]]||r[1])+' • '+r[2], money(r[4]));
-      }), c.length>10 ? 'Showing the 10 dearest of '+c.length.toLocaleString('en-US')+'.' : '',
+      }), c.length>10 ? 'Showing the 10 priciest of '+c.length.toLocaleString('en-US')+'.' : '',
          c.length>10 ? '/cards.html?q='+encodeURIComponent(q) : '');
     }
 

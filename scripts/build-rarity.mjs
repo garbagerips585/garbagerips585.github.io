@@ -253,7 +253,7 @@ const style = `
 .gloss-fig img{display:block;width:100%;max-width:132px;height:auto;border-radius:6px;
   border:1px solid var(--hair);background:var(--page)}
 /* Two lines reserved whether the caption fills them or not. The figures are
-   bottom-anchored, so a caption that wraps to two lines where its neighbour
+   bottom-anchored, so a caption that wraps to two lines where its neighbor
    used one lifts that card 16px above the rest of the row. Reserving the space
    keeps the cards on a line across the row regardless of caption length. */
 .gloss-fig figcaption{font:400 var(--t-micro)/1.45 var(--mono);color:var(--ink-2);margin-top:6px;
@@ -305,13 +305,13 @@ const body = `
 
   <section class="rg-sec">
     <div class="wrap">
-      <h2>Then: <span class="hl">count, then colour</span></h2>
+      <h2>Then: <span class="hl">count, then color</span></h2>
       <p class="rg-p">Modern sets use stars for five different rarities, which sounds impossible
         until you know the trick. It is two questions, in this order.</p>
       <div class="steps">
         <div class="step"><b>1</b><h3>How many?</h3><p>One, two or three. Count them before you look
           at anything else.</p></div>
-        <div class="step"><b>2</b><h3>What colour?</h3><p>Black, silvery white, or gold. Black is the
+        <div class="step"><b>2</b><h3>What color?</h3><p>Black, silvery white, or gold. Black is the
           ordinary game rarities, silver is a full art ex, gold is the collector tiers.</p></div>
         <div class="step"><b>3</b><h3>That is it</h3><p>Two black stars is a Double Rare. Two gold
           stars is a Special Illustration Rare. Same count, completely different card.</p></div>
@@ -348,7 +348,7 @@ ${d.ladder.map(ladderRow).join("\n")}
         A regular <b>holo</b> is the opposite, foil on the artwork window only.</p>
       <p class="rg-p"><b>"Alt art" is not a rarity.</b> It is not printed on any card and it is not in
         Pokemon's rarity list. It is collector slang, and on a modern card it almost always means an
-        Illustration Rare or a Special Illustration Rare. Check the star colour.</p>
+        Illustration Rare or a Special Illustration Rare. Check the star color.</p>
       <p class="rg-p"><b>Texture</b> is felt rather than printed. Tilt the card under a light and run a
         fingernail across the art: modern top tier full arts are usually embossed, with the texture
         following the artwork. It is a good signal, not a rule.</p>
@@ -432,7 +432,7 @@ const faq = {
     ],
     [
       "What do the stars on a Pokemon card mean?",
-      "Count them, then check the colour. One black star is a Rare, two black stars a Double Rare, two silver stars an Ultra Rare, one gold star an Illustration Rare, two gold stars a Special Illustration Rare and three gold stars a Hyper Rare.",
+      "Count them, then check the color. One black star is a Rare, two black stars a Double Rare, two silver stars an Ultra Rare, one gold star an Illustration Rare, two gold stars a Special Illustration Rare and three gold stars a Hyper Rare.",
     ],
     [
       "Does a reverse holo make a card rare?",

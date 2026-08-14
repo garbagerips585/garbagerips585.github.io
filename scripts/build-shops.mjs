@@ -175,7 +175,7 @@ ${cards}
       <a href="/card-shows.html">card show calendar</a> has every show coming up around Rochester, Buffalo
       and Syracuse.</p>
     <p class="shops-lede">Addresses, phone numbers and opening hours were last checked on
-      ${esc(longDate(shopsDoc.updated) || "an unrecorded date")}. Shops move and change their hours, so ring ahead if you are
+      ${esc(longDate(shopsDoc.updated) || "an unrecorded date")}. Shops move and change their hours, so call ahead if you are
       making a trip of it.</p>
     <p class="shops-note">NOT SPONSORED AND NOT AFFILIATE LINKS. THESE ARE SHOPS I GO TO.
       IF YOU RUN A CARD SHOP AROUND ROCHESTER AND YOU ARE NOT ON HERE, SAY HELLO ON ANY OF THE SOCIALS.</p>
@@ -206,7 +206,7 @@ const swapped = head
   )
   .replace(
     /<meta name="description"[^>]*>/,
-    `<meta name="description" content="Local Pokemon card shops around Rochester, New York, and where to play: league nights, prereleases and organised play. ${esc(
+    `<meta name="description" content="Local Pokemon card shops around Rochester, New York, and where to play: league nights, prereleases and organized play. ${esc(
       shops.map((s) => s.name).join(", ")
     )}.">`
   )

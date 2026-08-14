@@ -8,7 +8,7 @@
 // question shapes and the JSON that feeds them have to agree, and splitting
 // them means a change to one silently breaks the other.
 //
-// WHY GAMES ON A CARD SITE AT ALL. The specific brief is somebody queuing to
+// WHY GAMES ON A CARD SITE AT ALL. The specific brief is somebody waiting in line to
 // buy cards, which is a real and very common few minutes of dead time, on a
 // phone, one handed, on venue wifi. That is a genuinely different target from
 // "a game page", and it is why the engine offers no typing, no forced timer in
@@ -202,7 +202,7 @@ const GAMES_JS = `<script src="/assets/games.js" defer></script>`;
 // MEASURED, NOT PREFERRED. With the site's standard hero the answer buttons
 // landed at y=937 on a 375x812 phone, which is 125px below the fold: you had to
 // scroll to play, every question. The hero was 319px of that on its own. A page
-// whose entire premise is one thumb in a queue cannot open below the fold, so
+// whose entire premise is one thumb in a line cannot open below the fold, so
 // the game goes first and the prose goes after it, where prose belongs on a
 // page nobody came to read.
 function shell({ slug, title, desc, h1, kicker, lede, body, ld = [], extraJs = "", compact = false }) {
@@ -291,7 +291,7 @@ const hub = shell({
   slug: "",
   title: "Pokemon Games to Play in Line | Garbage Rips 585",
   desc: `Quick Pokemon games for your phone: name the silhouette, guess the set from a card scan, or take on ${shuffled.length.toLocaleString("en-US")} trivia questions. No sign up, no app.`,
-  h1: `Games for the <span class="hl">queue</span>`,
+  h1: `Games for the <span class="hl">wait</span>`,
   kicker: "585 &bull; Something to do in line",
   lede:
     "Built for the twenty minutes you spend waiting to get to the counter. One thumb, no sign up, nothing to install, " +
@@ -360,7 +360,7 @@ const whosPage = shell({
       choices:choices, answer:answer,
       note:'#'+p[0]+', Generation '+p[2]+'.',
       // Lifting the filter IS the reveal, so it uses the same element and the
-      // full colour artwork is already decoded and in cache.
+      // full color artwork is already decoded and in cache.
       reveal:function(stage){var s=stage.querySelector('[data-sil]'); if(s) s.className='gq-sil is-shown';},
       _art:art(p[0])
     };

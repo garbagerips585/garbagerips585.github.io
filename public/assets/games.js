@@ -10,9 +10,9 @@
  * on whatever signal the venue has, who may have to stop the instant the line
  * moves. That rules out several things that would otherwise be obvious:
  *   - No typing. Four tap targets, bottom anchored, thumb sized. Typing a
- *     Pokemon name one handed in a queue is a chore, not a game.
+ *     Pokemon name one handed in a line is a chore, not a game.
  *   - No forced timer in the default mode. A countdown you cannot pause
- *     punishes you for the queue moving, which is the one thing you are
+ *     punishes you for the line moving, which is the one thing you are
  *     actually there for. Sprint mode exists for when you want the pressure.
  *   - Nothing to lose by leaving. Best scores are written the moment they
  *     happen, so closing the tab mid question costs you nothing.
