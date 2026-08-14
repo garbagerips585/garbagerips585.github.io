@@ -519,7 +519,19 @@ ${MENU}
           ${v.pulls.map((p) => `<span class="chip">${esc(labelFor("pulls", p))}</span>`).join("\n          ")}
         </div>
         <p class="rip-meta">${shortDate(v.published)}${v.views ? " &bull; " + niceViews(v.views) : ""}${v.openingType ? " &bull; " + esc(v.openingType) : ""}</p>
-        ${v.hitCard ? `<div class="hit-panel">
+        ${/*
+          THE PARAGRAPH IS A FALLBACK, NOT A HEADING.
+          The Hit Card column is free text, and on a 14-pull video it arrives as
+          a 936 character comma-separated dump: "Phantasmal Flames - Trainer -
+          Dawn - Double Silver Star - Ultra Rare, Phantasmal Flames - Mega
+          Gengar ex - ...". Those same 14 cards render below with their scans,
+          their prices and a lightbox, so printing the dump as well says nothing
+          the reader is not about to see, badly.
+
+          So it renders only when there is nothing resolved to show it with.
+          One card named in the sheet and no scan for it is exactly the case
+          this paragraph exists for, and it still gets it.
+        */ ""}${v.hitCard && !hits.length ? `<div class="hit-panel">
           <p class="hit-label">The hit</p>
           <p class="hit-card">${esc(tidy(v.hitCard))}</p>
           ${v.hitRarity ? `<p class="hit-rarity">${esc(rarityLabel(v.hitRarity))}</p>` : ""}

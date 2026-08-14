@@ -72,7 +72,7 @@ Video tiles everywhere link to that video's own page under `public/rip/`,
 never to youtube.com. The embed lives on that page. The only deliberate
 outbound links are Subscribe and the social icons.
 
-`scripts/build-pages.mjs` generates a page for EVERY video (311), so no tile
+`scripts/build-pages.mjs` generates a page for EVERY video, so no tile
 can dead-end. Videos missing a set or product tag get `noindex` and stay out
 of the sitemap, because they would be thin pages; tag them and re-run to
 promote them. `shared/paths.mjs` owns the URL shape and the sync stamps
@@ -175,25 +175,44 @@ Two constraints that shape these pages:
   click-to-load facade and only one player is ever live at a time.
 - `modestbranding` is deprecated and does nothing. `rel=0` still scopes end
   screens to this channel.
-- 310 of 311 videos are vertical. The one exception is `kj7532tb0_I`.
+- All but one video is vertical. The exception is `kj7532tb0_I`. Counts are
+  deliberately not written here: they were, and they went stale. Run
+  `node scripts/build-untagged.mjs` for the current ones.
 
 ## Current state
-Homepage order: nav, the commissioned banner art as a full-bleed header
-band, hero copy + CTAs, ROC ticker, Rochester skyline SVG, latest six,
-Hits Only six, jump-to-a-set chips, "Anatomy of a Rip" plate diagram,
-socials-as-diner-menu, the GMAX card band (flip to rainbow rare, 3D tilt),
-585 hometown section with the oval sticker, footer.
+Homepage order: nav, Greatest Hits (the Hall of Fame card, then a carousel),
+Latest rips (carousel), Most wanted, Card Pokedex, Card guides and tools, the
+585 hometown band, footer.
+
+**This section described a different page until 14 August 2026 and was
+believed.** It listed a ROC ticker, a Rochester skyline SVG, an "Anatomy of a
+Rip" plate diagram, a socials-as-diner-menu band and a GMAX card that flipped
+to a rainbow rare with a 3D tilt. None of them exist. The Gotchas below still
+carried "the ticker and card tilt must stay disabled under
+prefers-reduced-motion; card flip stays enabled", which is an instruction about
+three elements that are not on the page. A QA agent driving the real page found
+nothing to test and said so, which is the only reason it was caught.
+
+If you change the home page, change this paragraph in the same commit. Stale
+architecture notes are worse than none: they get quoted back as constraints.
+
+WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
+- Every video band plays IN PLACE. Clicking a pack mounts the player over the
+  tile, runs the rip animation and plays there. It does not navigate. This was
+  an explicit request and it is easy to undo by accident, because the tile is
+  still an `<a>` to the rip page and the handler is what stops it.
+- Each tile's rip animation uses THAT VIDEO'S OWN pack art, not the generic
+  wrapper. `packSet` in build-proto.mjs picks it.
+- Bands other than Greatest Hits are one video at a time with slide buttons,
+  not grids. The counter reads "1 / 5".
+- The Hall of Fame card keeps its text when the player mounts: the handler
+  swaps only the art box, because replacing the whole card lost the title, the
+  set and the view count.
 
 The banner art is the header, not a mid-page strip. Do not overlay copy on
 it: Trubbish sits dead centre in the source image, so any scrim wide enough
 to make text legible washes him out, and any panel large enough hides him.
 The copy goes underneath.
-
-The skyline SVG is the real Rochester skyline (Powers Building, City Hall,
-Kodak Tower, Times Square Building with the Wings of Progress, First Federal
-Plaza, Xerox Tower, Legacy Tower, the Metropolitan) with relative heights
-following the real buildings. It sits after the ticker, not against the
-banner, so the two skylines are not adjacent.
 
 Also at root: favicon.ico / favicon-32.png / apple-touch-icon.png (all
 cropped from Trubbish's face in logo-square.jpg), robots.txt, sitemap.xml.
@@ -212,14 +231,16 @@ Git repo, main branch, pushed to garbagerips585/garbagerips585.github.io.
 `pages.yml` publishes public/ on every push. Going live is one flag: set LIVE
 in shared/site.mjs and run build-all.mjs, which moves every canonical and the
 sitemap onto the real domain and generates public/CNAME. Full walkthrough and
-the four post-flip checks in DEPLOY.md.
+the post-flip checks in DEPLOY.md, which also records that the flip has been
+rehearsed on a throwaway copy of the tree.
 
 ## TODO (rough priority)
-1. Hits Only playlist embed: search index.html for "HITS ONLY PLAYER" —
-   a comment shows the swap. Need the playlist ID from Tim (list=PL...).
+1. Greatest Hits playlist. The band ranks by pull tier then views as a
+   stand-in; Tim's own playlist would replace it. (The old note here pointed
+   at a "HITS ONLY PLAYER" comment in index.html that no longer exists.)
 2. Buy garbagerips585.com, set it in Settings > Pages, then verify in
    Google Search Console and submit sitemap.xml. See DEPLOY.md.
-3. About page: Rochester story, E-E-A-T, link everything.
+3. ~~About page~~ done: /about.html is written, linked and in the sitemap.
 4. Blog for actual search traffic: set reviews, pull rates, "Pokemon card
    shops Rochester NY" local angle. Each post embeds a video.
    Add each new page to sitemap.xml.
@@ -229,6 +250,10 @@ the four post-flip checks in DEPLOY.md.
 
 ## Gotchas
 - Shorts playlist embed plays in a normal player, not the Shorts UI.
-- prefers-reduced-motion: ticker and card tilt must stay disabled; card
-  flip stays enabled.
+- prefers-reduced-motion is honoured in three places and all three matter:
+  a blanket rule kills every transition and animation, a specific rule stops
+  the pack shake and tear so the video is simply revealed, and the tool cards
+  only get their hover transform under `no-preference`. This entry used to
+  name a ticker, a card tilt and a card flip, none of which exist any more.
+  Check the page before writing a rule about it.
 - Keep page weight low; images are pre-compressed in assets/.

@@ -92,18 +92,37 @@ for m in masters:
     ]
 
 # The Hall of Fame recolours every pack gold, which artwork would override.
+#
+# SCOPED TO THE HALL PAGE'S OWN CONTAINER, NOT TO ".hall".
+# This was written as `.hall .pack ...` when the Hall of Fame page's wrapper was
+# called .hall. build-hall.mjs now emits .chofpage, so the only markup left
+# carrying a `hall` class is <main class="rip tight hall"> on the two rip pages
+# whose video is flagged `greatest` in build-pages.mjs. That meant these three
+# rules hit nothing they were written for and exactly two things they were not:
+# at (0,3,0) they outrank `.pack--<set> .pack-art` at (0,2,0), so both of those
+# rip pages threw away the commissioned pack photo, fell back to the generic
+# gradient, and switched the "GARBAGE RIPS 585" text overlay back on. Silent,
+# because a losing background-image is not an error, and invisible from the
+# generator, which cannot see what class the page builders emit.
+#
+# Keep the selector pointing at the Hall of Fame page itself. hall.html renders
+# no packs today, so these are inert; they cost nothing and they are the guard
+# that has to exist the moment it does render one.
 rules += [
     "/* Hall of Fame stays gold even for sets that have artwork. The gold is",
     "   painted with gradients, so simply clearing background-image blanked",
-    "   these to a flat dark rectangle. Restore the gradients explicitly. */",
-    ".hall .pack .pack-art{",
+    "   these to a flat dark rectangle. Restore the gradients explicitly.",
+    "   Scoped to .chofpage, the Hall of Fame page's own wrapper. It used to say",
+    "   .hall, which no longer matches that page and DID match the two rip pages",
+    "   for a `greatest` video, blanking their pack artwork. */",
+    ".chofpage .pack .pack-art{",
     "  background-color:transparent;",
     "  background-image:",
     "    radial-gradient(120% 70% at 50% 12%,rgba(255,255,255,.22),transparent 60%),",
     "    linear-gradient(160deg,var(--pk-a) 0%,var(--pk-b) 38%,var(--pk-c) 72%,var(--pk-d) 100%);",
     "}",
-    ".hall .pack .pack-art::before{content:\"\"}",
-    ".hall .pack .pack-brand{display:block}",
+    ".chofpage .pack .pack-art::before{content:\"\"}",
+    ".chofpage .pack .pack-brand{display:block}",
     "",
 ]
 
