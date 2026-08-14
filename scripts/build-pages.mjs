@@ -494,6 +494,22 @@ ${MENU}
         </div>
       </div>
       <div>
+        <noscript>
+            <!--
+              The pack is a button that mounts the player, so with scripting off
+              it is a picture that does nothing and the visitor cannot watch the
+              rip at all. This link only exists in that case: it never renders
+              for anyone whose browser runs the pack.
+
+              It is a deliberate exception to "every click stays on the site".
+              That rule exists so a tile does not bounce somebody to YouTube
+              when the site could have shown them the video itself. Here the
+              site cannot, so a dead pack is the only other option.
+            -->
+            <p class="pack-nojs">The pack needs JavaScript to open.
+              <a href="https://www.youtube.com/watch?v=${v.id}" rel="noopener" target="_blank">Watch this rip on YouTube</a>
+              instead, or turn scripting on and click the pack.</p>
+        </noscript>
         ${hasLogo(setId) ? `<img class="rip-setlogo"${logoAttrs(setId)} src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="" loading="lazy" onerror="this.remove()">` : ""}
         <h1>${esc(title)}</h1>
         <div class="rip-badges">
