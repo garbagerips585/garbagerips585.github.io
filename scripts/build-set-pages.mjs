@@ -15,7 +15,7 @@ import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
-import { esc, shortDate, longDate, moneyCompact, moneyExact } from "../shared/format.mjs";
+import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel } from "../shared/format.mjs";
 import { ripLabel } from "../shared/riplabel.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -186,7 +186,7 @@ function checklistBand(s) {
             (c) => `<li><span class="ig-no">${esc(c.n || "")}</span>
           <span class="ig-nm">${esc(c.name)}</span>
           ${c.price != null ? `<span class="ig-pr">${moneyExact(c.price)}</span>` : ""}
-          ${c.rarity ? `<span class="ig-rr2">${esc(c.rarity)}</span>` : ""}</li>`
+          ${c.rarity ? `<span class="ig-rr2">${esc(rarityLabel(c.rarity))}</span>` : ""}</li>`
           )
           .join("\n        ")}
       </ol>
@@ -437,7 +437,7 @@ function productBand(s) {
           ${
             p.low
               ? `<p class="prod-low">Cheapest listing ${priceUSD(p.low)}${
-                  p.listings ? ` &bull; ${p.listings} sellers` : ""
+                  p.listings ? ` &bull; ${p.listings} seller${p.listings === 1 ? "" : "s"}` : ""
                 }</p>`
               : ""
           }
@@ -498,7 +498,7 @@ function derivedFacts(s) {
   if (s.chase?.length) {
     const top = s.chase[0];
     out.push(
-      `The chase card is <b>${esc(top.name)}</b>${top.rarity ? ` (${esc(top.rarity)})` : ""}, ` +
+      `The chase card is <b>${esc(top.name)}</b>${top.rarity ? ` (${esc(rarityLabel(top.rarity))})` : ""}, ` +
       `sitting around <b>${moneyCompact(top.price)}</b> raw` +
       (gradedPrice(s.id, top.number)
         ? `, and <b>${moneyCompact(gradedPrice(s.id, top.number))}</b> in a PSA 10.`
@@ -623,7 +623,7 @@ function setPage(s) {
       <div class="fact"><div class="n">${s.printedTotal ?? "?"}</div><div class="l">In the printed set</div></div>
       <div class="fact"><div class="n">${s.secretCount ?? "?"}</div><div class="l">Secret rares</div></div>
       ${rips
-        ? `<a class="fact fact-link" href="/videos.html?set=${s.id}"><div class="n">${rips}</div><div class="l">Rips on this channel <span aria-hidden="true">&rarr;</span></div></a>`
+        ? `<a class="fact fact-link" href="/videos.html?set=${s.id}"><div class="n">${rips}</div><div class="l">Rip${rips === 1 ? "" : "s"} on this channel <span aria-hidden="true">&rarr;</span></div></a>`
         : `<div class="fact"><div class="n">-</div><div class="l">Rips on this channel</div></div>`}
       <div class="fact wide"><div class="n" style="font-size:1.15rem">${longDate(s.released) || "Unknown"}</div><div class="l">Release date${s.released ? ` &bull; ${yearsSince(s.released)}` : ""}</div></div>
     </div>
@@ -693,7 +693,7 @@ ${(() => {
           (h) => `<li class="mine">
         ${h.img ? `<img class="mine-img" src="${esc(h.img)}" alt="${esc(h.name)}" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337">` : `<div class="mine-img is-none" aria-hidden="true"></div>`}
         <p class="mine-n">${esc(h.name)}</p>
-        <p class="mine-r">${esc(h.rarity || "")}${h.n ? ` &bull; #${esc(h.n)}` : ""}</p>
+        <p class="mine-r">${esc(rarityLabel(h.rarity) || "")}${h.n ? ` &bull; #${esc(h.n)}` : ""}</p>
         <p class="mine-p">${typeof h.price === "number" ? moneyExact(h.price) : "No market price"}</p>
         ${h.path ? `<a class="mine-w" href="/${esc(h.path)}">${esc(h.label)} &rarr;</a>` : ""}
       </li>`,
@@ -712,18 +712,21 @@ ${(() => {
     <div class="chase-grid">
       ${s.chase.map((c) => `<button class="chase-card" type="button"
         data-img="${esc(c.imageLarge || c.image || "")}"
-        data-name="${esc(c.name)}" data-rarity="${esc(c.rarity || "")}"
+        data-name="${esc(c.name)}" data-rarity="${esc(rarityLabel(c.rarity) || "")}"
         data-number="${esc(c.number)}" data-price="${esc(moneyCompact(c.price))}"
         data-psa10="${esc(gradedPrice(s.id, c.number) ? moneyCompact(gradedPrice(s.id, c.number)) : "")}"
         data-url="${esc(c.url ? affLink(c.url) : "")}"
         aria-label="Enlarge ${esc(c.name)}">
-        ${c.image ? `<img src="${c.image}" alt="${esc(c.name)} ${esc(c.number)}, ${esc(c.rarity || "card")}" loading="lazy" onerror="this.remove()" width="245" height="342">` : ""}
+        ${c.image ? `<img src="${c.image}" alt="${esc(c.name)} ${esc(c.number)}, ${esc(rarityLabel(c.rarity) || "card")}" loading="lazy" onerror="this.remove()" width="245" height="342">` : ""}
         <div class="nm">${esc(c.name)}</div>
-        <div class="rr">${esc(c.rarity || "")} &bull; ${esc(c.number)}</div>
+        <div class="rr">${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(c.number)}</div>
         <div class="pr">${moneyCompact(c.price)}</div>
         ${gradedPrice(s.id, c.number)
           ? `<div class="pr10">PSA 10 ${moneyCompact(gradedPrice(s.id, c.number))}${
-              gradedAsOf(s.id, c.number) ? `<span> &bull; ${esc(gradedAsOf(s.id, c.number))}</span>` : ""
+              // longDate, not the raw ISO string the price file stores. Every other date
+              // on this page is long form, including the "last updated" line directly
+              // under this grid, so a bare 2026-08-12 here read as a different site.
+              gradedAsOf(s.id, c.number) ? `<span> &bull; ${esc(longDate(gradedAsOf(s.id, c.number)))}</span>` : ""
             }</div>`
           : ""}
       </button>`).join("\n      ")}
@@ -753,7 +756,7 @@ ${(() => {
     <h2>Rarity <span class="hl">breakdown</span></h2>
     ${ordered.length ? `<div class="rarity-list">
       ${ordered.map(([r, n]) => `<div class="rar${CHASE.has(r) ? " chase" : ""}">
-        <span class="rar-name">${esc(r)}</span>
+        <span class="rar-name">${esc(rarityLabel(r) || r)}</span>
         <span class="rar-n">${n}</span>
         <span class="rar-bar"><i style="width:${Math.max(4, Math.round((n / maxN) * 100))}%"></i></span>
       </div>`).join("\n      ")}

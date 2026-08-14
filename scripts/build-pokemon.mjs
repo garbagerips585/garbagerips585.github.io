@@ -35,7 +35,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact, moneyRound, moneyCompact } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, moneyRound, moneyCompact, rarityLabel } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/pokemon");
@@ -267,11 +267,11 @@ function pokePage(p) {
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / <a href="/pokemon/">Pokemon</a> / ${esc(p.name)}</p>
     <div class="facts">
-      <div class="fact"><div class="n">${p.list.length}</div><div class="l">${esc(p.name)} cards</div></div>
-      <div class="fact"><div class="n">${setCount}</div><div class="l">Sets they appear in</div></div>
+      <div class="fact"><div class="n">${p.list.length}</div><div class="l">${esc(p.name)} card${p.list.length === 1 ? "" : "s"}</div></div>
+      <div class="fact"><div class="n">${setCount}</div><div class="l">Set${setCount === 1 ? "" : "s"} they appear in</div></div>
       <div class="fact"><div class="n">${moneyRound(p.priciest.price)}</div><div class="l">Priciest one</div></div>
       ${p.cheapest ? `<div class="fact"><div class="n">${moneyExact(p.cheapest.price)}</div><div class="l">Cheapest way in</div></div>` : ""}
-      ${rips.length ? `<a class="fact fact-link" href="/videos.html?q=${encodeURIComponent(p.name)}"><div class="n">${rips.length}</div><div class="l">Rips that mention one <span aria-hidden="true">&rarr;</span></div></a>` : ""}
+      ${rips.length ? `<a class="fact fact-link" href="/videos.html?q=${encodeURIComponent(p.name)}"><div class="n">${rips.length}</div><div class="l">Rip${rips.length === 1 ? "" : "s"} that mention one <span aria-hidden="true">&rarr;</span></div></a>` : ""}
     </div>
   </div>
 </section>
@@ -285,14 +285,14 @@ function pokePage(p) {
         .map(
           (c) => `<button class="chase-card" type="button"
         data-img="${esc(c.img ? c.img + "/high.webp" : "")}"
-        data-name="${esc(c.name)}" data-rarity="${esc(c.rarity || "")}"
+        data-name="${esc(c.name)}" data-rarity="${esc(rarityLabel(c.rarity) || "")}"
         data-number="${esc(c.n || "")}" data-price="${esc(moneyCompact(c.price))}"
         data-set="${esc(c.setName)}"
         aria-label="Enlarge ${esc(c.name)}">
         ${c.img ? `<img src="${esc(c.img)}/low.webp" onerror="this.remove()" alt="${esc(c.name)} ${esc(c.n || "")}, ${esc(c.setName)}" loading="lazy" width="245" height="342">` : ""}
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(c.setName)} &bull; ${esc(c.n || "")}</div>
-        ${c.rarity ? `<div class="rr">${esc(c.rarity)}</div>` : ""}
+        ${c.rarity ? `<div class="rr">${esc(rarityLabel(c.rarity))}</div>` : ""}
         ${typeof c.price === "number" ? `<div class="pr">${moneyCompact(c.price)}</div>` : ""}
       </button>`
         )
@@ -354,7 +354,7 @@ ${(() => {
         <img src="${esc(c.g)}/low.webp" onerror="this.remove()" alt="${esc(c.n)} ${esc(c.i)}, ${esc(c.s)}" loading="lazy" decoding="async" width="245" height="342">
         <div class="nm">${esc(c.n)}</div>
         <div class="rr">${esc(c.s)} &bull; ${esc(c.i)}</div>
-        ${c.r ? `<div class="rr">${esc(c.r)}</div>` : ""}
+        ${c.r ? `<div class="rr">${esc(rarityLabel(c.r))}</div>` : ""}
         ${lang(c) ? `<div class="rr">${lang(c)}</div>` : ""}
       </div>`,
         )
@@ -367,7 +367,7 @@ ${(() => {
           (c) => `<li class="flat-item">
         <b>${esc(c.n)}</b>
         <span>${esc(c.s)} &bull; ${esc(c.i)}</span>
-        ${[c.r, lang(c)].filter(Boolean).length ? `<span>${[c.r, lang(c)].filter(Boolean).map(esc).join(" &bull; ")}</span>` : ""}
+        ${[c.r, lang(c)].filter(Boolean).length ? `<span>${[rarityLabel(c.r), lang(c)].filter(Boolean).map(esc).join(" &bull; ")}</span>` : ""}
       </li>`,
         )
         .join("\n      ")}
@@ -381,7 +381,7 @@ ${rips.length ? `
 <section class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
-    <h2>We went hunting <span class="hl">${rips.length}</span> times</h2>
+    <h2>We went hunting <span class="hl">${rips.length}</span> time${rips.length === 1 ? "" : "s"}</h2>
     <ul class="poke-rips">
       ${rips.slice(0, 8).map((v) => `<li><a href="/${esc(v.path)}">${esc(v.title)}</a></li>`).join("\n      ")}
     </ul>

@@ -30,7 +30,7 @@ import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
-import { esc, longDate } from "../shared/format.mjs";
+import { esc, longDate, rarityLabel } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/sets");
@@ -278,13 +278,13 @@ ${g.notable?.length ? `
     <div class="chase-grid">
       ${g.notable.map((c) => `<button class="chase-card" type="button"
         data-img="${esc(c.imageLarge || c.image || "")}"
-        data-name="${esc(cardName(c))}" data-rarity="${esc(c.rarity || (c.secret ? "Numbered past the set" : ""))}"
+        data-name="${esc(cardName(c))}" data-rarity="${esc(rarityLabel(c.rarity) || (c.secret ? "Numbered past the set" : ""))}"
         data-number="${esc(c.localId || "")}" data-price=""
         aria-label="Enlarge ${esc(cardName(c))}">
         ${c.image ? `<img src="${esc(c.image)}" alt="${esc(cardName(c))} ${esc(c.localId || "")}, ${esc(g.english)}" loading="lazy" onerror="this.remove()" width="245" height="342">` : ""}
         <div class="nm">${esc(cardName(c))}</div>
         ${cardSub(c) ? `<div class="ig-native" lang="${esc(g.dataSource?.lang || g.lang)}">${esc(cardSub(c))}</div>` : ""}
-        <div class="rr">${esc(c.rarity || (c.secret ? "Secret" : kindOf(c) || "Card"))} &bull; ${esc(c.localId || "")}</div>
+        <div class="rr">${esc(rarityLabel(c.rarity) || (c.secret ? "Secret" : kindOf(c) || "Card"))} &bull; ${esc(c.localId || "")}</div>
       </button>`).join("\n      ")}
     </div>
     <p class="price-note">No prices here on purpose. Imported singles are priced in euro or yen by the
@@ -300,7 +300,7 @@ ${rarities.length ? `
     <h2>Rarity <span class="hl">breakdown</span></h2>
     <div class="rarity-list">
       ${rarities.map(([r, n]) => `<div class="rar">
-        <div class="rar-n">${esc(r)}</div>
+        <div class="rar-n">${esc(rarityLabel(r) || r)}</div>
         <div class="rar-bar"><span style="width:${Math.round((n / maxN) * 100)}%"></span></div>
         <div class="rar-c">${n}</div>
       </div>`).join("\n      ")}
@@ -326,7 +326,7 @@ ${g.cards?.length ? `
         ${g.cards.map((c) => `<li><span class="ig-no">${esc(c.localId || "")}</span>
           <span class="ig-nm">${esc(cardName(c))}</span>
           ${cardSub(c) ? `<span class="ig-native" lang="${esc(g.dataSource?.lang || g.lang)}">${esc(cardSub(c))}</span>` : ""}
-          ${c.rarity ? `<span class="ig-rr">${esc(c.rarity)}</span>` : c.secret ? `<span class="ig-rr">Secret</span>` : kindOf(c) ? `<span class="ig-rr">${esc(kindOf(c))}</span>` : ""}</li>`).join("\n        ")}
+          ${c.rarity ? `<span class="ig-rr">${esc(rarityLabel(c.rarity))}</span>` : c.secret ? `<span class="ig-rr">Secret</span>` : kindOf(c) ? `<span class="ig-rr">${esc(kindOf(c))}</span>` : ""}</li>`).join("\n        ")}
       </ol>
     </details>
     <p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather
