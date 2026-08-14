@@ -2235,8 +2235,15 @@ span.cq-name{color:var(--ink)}
    a bloom behind the art, a ribbon tab, and the pack art at full size rather
    than the 200px the shelf uses. It should look like the site is showing off,
    because that is the whole job of the band. */
-.hofx{position:relative;display:grid;grid-template-columns:260px 1fr;gap:var(--s5);
-  align-items:center;margin:var(--s6) auto var(--s5);max-width:860px;
+/* THE FEATURED VIDEO WAS THE SMALLEST ONE ON THE PAGE.
+   A fixed 260px art column in an 860px frame meant 600px of that gold frame was
+   text, while the carousel directly beneath it ran 1392px wide with 418px
+   artwork. So the one video the page stops on was both smaller than its
+   neighbours and in a frame that lined up with nothing. The art is a share of
+   the frame now, and the frame is wide enough to sit with the band below it. */
+.hofx{position:relative;display:grid;grid-template-columns:minmax(280px,42%) minmax(0,1fr);
+  gap:var(--s5);
+  align-items:center;margin:var(--s6) auto var(--s5);max-width:1000px;
   padding:var(--s5) var(--s5) var(--s5) var(--s5);
   background:
     radial-gradient(120% 140% at 12% 0%, rgba(239,201,76,.20) 0%, rgba(239,201,76,0) 58%),
@@ -2287,7 +2294,16 @@ span.cq-name{color:var(--ink)}
      translate, and the tab ended up hanging off the left edge; there is no room
      to centre a 190px ribbon on a 351px frame anyway. */
   .hofx-tag{left:var(--s4);transform:none}
-  .hofx-art{max-width:250px;margin:0 auto}
+  /* width:100% IS LOAD-BEARING, and leaving it out broke the featured video
+     completely on phones.
+     `margin:0 auto` turns a stretched grid item into a shrink-to-fit one. Its
+     content is an <img> styled width:100% of this very box, so the box asked the
+     image how wide it was, the image asked the box, and both settled on 0. A
+     0x0 element never intersects the viewport, the img is loading="lazy", so
+     the load never fired and it stayed 0 forever. The Hall of Fame pack, the one
+     video the page stops on, simply had no picture on mobile.
+     A definite width breaks the circle before the lazy loader is ever consulted. */
+  .hofx-art{width:100%;max-width:250px;margin:0 auto}
   .hofx-b{align-items:center}
   .hofx-cta{align-self:center}
 }
