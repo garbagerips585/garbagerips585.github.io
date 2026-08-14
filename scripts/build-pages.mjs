@@ -219,9 +219,31 @@ function isoDuration(sec) {
   return `PT${m ? m + "M" : ""}${s}S`;
 }
 
+// A YouTube title carries hashtags because YouTube indexes them. A <title> tag
+// does not, so they are pure noise in the tab, the SERP and the H1. Strip only
+// a RUN OF HASHTAGS AT THE END: "#1" mid-title is a pack number, and hashtags
+// that sit inside the sentence are part of how the title reads.
+function cleanTitle(t) {
+  return t
+    .replace(/(?:\s*#[A-Za-z][\w-]*)+\s*$/, "")
+    .replace(/\s*\|\s*$/, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
 const tagged = videos.filter((v) => v.sets.length && v.products.length);
 const taggedIds = new Set(tagged.map((v) => v.id));
 const byId = new Map(videos.map((v) => [v.id, v]));
+
+// Two different rips can carry the identical YouTube title, which gives two
+// pages the identical <title> tag and makes them look like duplicates to a
+// crawler. Only the repeats get a qualifier, and the qualifier is the upload
+// date, which is a fact we already hold rather than something invented.
+const titleCounts = new Map();
+for (const v of videos) {
+  const t = cleanTitle(v.siteTitle || v.title);
+  titleCounts.set(t, (titleCounts.get(t) || 0) + 1);
+}
 const bySet = new Map();
 const HITS_RESOLVED = new Map();
 for (const vid of Object.keys(HITS)) HITS_RESOLVED.set(vid, await resolveHits(vid));
@@ -265,8 +287,18 @@ const prodId = v.products[0];
   // The sheet can override both. A YouTube title is written for the algorithm
 // and a YouTube description is written for YouTube; the site can say something
 // better without changing either.
-const title = v.siteTitle || v.title;
-const desc = (v.blurb || descriptions[v.id] || "").trim();
+const title = cleanTitle(v.siteTitle || v.title);
+// Only a repeated title earns the date, so the other 300 stay clean.
+const headTitle =
+  titleCounts.get(title) > 1 && v.published
+    ? `${title} (${shortDate(v.published)})`
+    : title;
+// The trailing hashtag wall is how YouTube indexes a video. On a web page it
+// is a row of link-less tokens at the end of a paragraph, so it comes off the
+// blurb, the meta description and the schema alike.
+const desc = (v.blurb || descriptions[v.id] || "")
+  .replace(/(?:\s*#[A-Za-z][\w-]*)+\s*$/, "")
+  .trim();
   // Google truncates the snippet around 160 characters, so the fallback shapes
   // itself around the title rather than assuming the title is short: the tail
   // is fixed, the title gets whatever room is left.
@@ -352,7 +384,7 @@ const desc = (v.blurb || descriptions[v.id] || "").trim();
   const ld = {
     "@context": "https://schema.org",
     "@type": "VideoObject",
-    name: v.title,
+    name: title,
     description: desc || metaDesc,
     thumbnailUrl: [thumb],
     uploadDate: v.published,
@@ -374,7 +406,7 @@ const desc = (v.blurb || descriptions[v.id] || "").trim();
       { "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" },
       { "@type": "ListItem", position: 2, name: "Every rip", item: `${SITE}/videos.html` },
       ...(setId ? [{ "@type": "ListItem", position: 3, name: setLabel, item: `${SITE}/videos.html?set=${setId}` }] : []),
-      { "@type": "ListItem", position: setId ? 4 : 3, name: v.title },
+      { "@type": "ListItem", position: setId ? 4 : 3, name: title },
     ],
   };
 
@@ -383,10 +415,10 @@ const desc = (v.blurb || descriptions[v.id] || "").trim();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(title)} | Garbage Rips 585</title>
+<title>${esc(headTitle)} | Garbage Rips 585</title>
 <meta name="description" content="${esc(metaDesc)}">${isTagged ? "" : '\n<meta name="robots" content="noindex,follow">'}
 <link rel="canonical" href="${url}">
-<meta property="og:title" content="${esc(title)}">
+<meta property="og:title" content="${esc(headTitle)}">
 <meta property="og:description" content="${esc(metaDesc)}">
 <meta property="og:type" content="video.other">
 <meta property="og:url" content="${url}">
@@ -395,7 +427,7 @@ const desc = (v.blurb || descriptions[v.id] || "").trim();
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${esc(title)}">
+<meta name="twitter:title" content="${esc(headTitle)}">
 <meta name="twitter:image" content="${SITE}/assets/${ogCard(v)}?v=2">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
