@@ -28,6 +28,17 @@ const TARGETS = [join(ROOT, "public/index.html")];
 /* ------------------------------------------------------------------ data -- */
 
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
+// How many set guides /sets/ actually publishes: the English sets plus the
+// imported ones that have a checklist. The rail used to print sets.length,
+// which is only the English half, so one page carried "All 23 sets" and "All 36
+// guides" pointing at the same url 2,500px apart.
+// EVERY guide /sets/ links, not just the ones with a checklist. Filtering on
+// hasCards gave 34 against the 36 files that page actually lists: the two
+// imported guides with no checklist are published noindex but are still linked
+// there, so a visitor who follows this chip finds 36 of them.
+const setGuideCount = sets.length + Object.keys(
+  JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8")).sets || {},
+).length;
 const rawVideos = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"));
 const videos = rawVideos.videos || rawVideos;
@@ -338,7 +349,10 @@ const railHtml = [
     `    <a class="chip" href="/videos.html?set=${id}">${esc(setName.get(id) || id)} <span class="n">${n}</span></a>`),
   ...topProducts.map(([id, n]) =>
     `    <a class="chip" href="/videos.html?product=${id}">${esc(PRODUCT_LABELS[id] || id)} <span class="n">${n}</span></a>`),
-  `    <a class="chip" href="/sets/">All ${sets.length} sets &rarr;</a>`,
+  // COUNTS THE PAGE IT LINKS TO, not the grid below. This read "All 23 sets"
+  // while /sets/ lists 36, and the Pokedex band 2,500px down said "All 36
+  // guides" to the same url. Two numbers for one destination on one page.
+  `    <a class="chip" href="/sets/">All ${setGuideCount} set guides &rarr;</a>`,
 ].join("\n");
 
 // THE ONE HALL OF FAME HIT, framed. Separate from the Greatest Hits shelf
@@ -373,7 +387,15 @@ const hofHtml = hofPick
       </a>`
   : "";
 
-const hallHtml = hall.map((v, i) => tile(v, { rank: i + 1, showSet: true })).join("\n");
+// THE SHELF SKIPS WHATEVER THE GOLD FRAME ALREADY SHOWS. hofPick is hall[0],
+// so mapping the whole of `hall` printed the same rip twice within 250px: once
+// as a 614px spotlight and again as shelf rank #1, wearing the same wrapper
+// both times. Twelve tiles were showing ten videos. "A little more curated"
+// starts with not repeating yourself.
+const hallHtml = hall
+  .filter((v) => !hofPick || v.id !== hofPick.id)
+  .map((v, i) => tile(v, { rank: i + 1, showSet: true }))
+  .join("\n");
 /**
  * The newest rip, given its own row.
  *
@@ -405,9 +427,16 @@ function heroTile(v) {
       </article>`;
 }
 
+// AND LATEST SKIPS WHATEVER IS ALREADY ABOVE IT. The newest rip was also
+// sitting in the Greatest Hits shelf 1,300px higher, so the page opened with
+// the same video presented as two different kinds of recommendation. Filtered
+// against everything already shown, then the hero is the newest of what is
+// left, which is still genuinely the newest thing a visitor has not just seen.
+const shownAbove = new Set([hofPick && hofPick.id, ...hall.map((v) => v.id)].filter(Boolean));
+const freshest = byNewest.filter((v) => !shownAbove.has(v.id));
 const latestHtml = [
-  heroTile(byNewest[0]),
-  ...byNewest.slice(1, 5).map((v) => tile(v, { showSet: false, dated: true })),
+  heroTile(freshest[0] || byNewest[0]),
+  ...(freshest.length ? freshest : byNewest).slice(1, 5).map((v) => tile(v, { showSet: false, dated: true })),
 ].join("\n");
 
 const ordered = [...sets].sort((a, b) => String(b.released).localeCompare(String(a.released)));

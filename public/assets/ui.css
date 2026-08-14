@@ -605,6 +605,14 @@ footer p{font:400 var(--t-sm)/1.6 var(--body);color:#8FA0B2;max-width:46em;lette
   background:var(--ink);border-top:1px solid rgba(255,255,255,.12);
   box-shadow:0 18px 40px rgba(19,38,55,.45)}
 .menu.on{display:block}
+
+/* Subscribe sticks to the bottom of the scrolling panel.
+   On a 375x667 phone the panel clips 139px, and what falls off the bottom is
+   the tail of the Rochester group and the whole Subscribe button. Below 560px
+   the bar's own Subscribe is display:none, so the menu holds the ONLY
+   Subscribe control above the footer, and the footer is six screens down.
+   Sticky keeps it on screen while the rest of the panel scrolls under it. */
+.menu-sub{position:sticky;bottom:0;z-index:2}
 .menu-inner{max-width:1500px;margin:0 auto;padding:var(--s3) var(--s3) var(--s2);
   columns:2;column-gap:var(--s5)}
 /* A group must not be split down a column boundary: the half that lands in the

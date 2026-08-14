@@ -24,7 +24,68 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const MIN_SALES = 10; // same floor the set guides use
 
-const { cards: hall } = JSON.parse(await readFile(join(ROOT, "data/hall.json"), "utf8"));
+let { cards: hall } = JSON.parse(await readFile(join(ROOT, "data/hall.json"), "utf8"));
+
+// FALL BACK TO WHAT WAS ACTUALLY PULLED.
+//
+// This page waited on a "Card Hall of Fame" tick in the spreadsheet and, until
+// somebody ticked one, published "No cards inducted yet" to a nav link and to
+// two separate above-the-fold promises on the home page. The site advertised a
+// hall of fame twice and the hall of fame was empty, which is the worst version
+// of this: not a missing page, a page that says there is nothing here.
+//
+// data/hits.json already records every card pulled on camera, and this page's
+// own lede is "Every card worth remembering that has come out of a pack on this
+// channel, ranked by what it is worth". That IS the hits list. So when nothing
+// has been inducted by hand, the hall is every hit, ranked by value, and the
+// page says so rather than implying a curation nobody performed.
+//
+// A hand-picked list still wins outright the moment one exists, which keeps the
+// tick meaningful: it becomes "promote the best" rather than "make the page
+// work at all".
+let derivedFromHits = false;
+if (!hall.length) {
+  const hits = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
+  const seen = new Set();
+  const out = [];
+  for (const list of Object.values(hits)) {
+    for (const h of list) {
+      // No set means a promo, which has no checklist to resolve a number
+      // against, so it cannot be priced or pictured here. Left out rather than
+      // listed as a card the page cannot say anything about.
+      if (!h.set) continue;
+      let cards = null;
+      try {
+        cards = JSON.parse(await readFile(join(ROOT, `public/data/cards/${h.set}.json`), "utf8")).cards;
+      } catch { continue; }
+      const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
+      const same = cards.filter((c) => norm(c.name) === norm(h.card));
+      // Where the sheet named a rarity, take the printing that matches: that is
+      // the one actually pulled. Same rule build-pages.mjs uses for rip pages,
+      // so a card cannot show one number here and another there.
+      const want = h.rarity ? norm(h.rarity).slice(0, 8) : null;
+      const m = (want && same.find((c) => norm(c.rarity).includes(want))) || same[0];
+      if (!m) continue;
+      const key = `${h.set}-${m.n}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      // Carry the card's OWN art, price and rarity from the checklist. resolve()
+      // below only knows how to look a card up in the set's `chase` list, which
+      // is the dozen or so cards a set page features, and 15 of 15 hits were not
+      // in it: the page rendered with no images and no prices at all.
+      out.push({
+        set: h.set, number: m.n, name: m.name,
+        _img: m.img ? `${m.img}/high.webp` : null,
+        _raw: typeof m.price === "number" ? m.price : null,
+        _rarity: m.rarity || h.rarity || null,
+      });
+    }
+  }
+  if (out.length) {
+    hall = out;
+    derivedFromHits = true;
+  }
+}
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 let graded = {};
 try {
@@ -48,11 +109,11 @@ function resolve(c) {
   return {
     ...c,
     setName: set?.name || c.set,
-    rarity: c.rarity || chase?.rarity || null,
-    image: chase?.imageLarge || chase?.image || null,
+    rarity: c._rarity || c.rarity || chase?.rarity || null,
+    image: c._img || chase?.imageLarge || chase?.image || null,
     url: chase?.url || null,
     // Raw from the checklist first, then whatever the price sync recorded.
-    raw: chase?.price || auto?.rawNm || null,
+    raw: c._raw ?? chase?.price ?? auto?.rawNm ?? null,
     psa10,
     psa10AsOf: manual?.asOf || auto?.asOf || null,
     psa10Sales: auto?.psa10Sales ?? null,
@@ -182,10 +243,9 @@ const body = `
   <div class="wrap">
     <div class="chof-head">
       <h1>Card Hall of Fame</h1>
-      <p>Every card worth remembering that has come out of a pack on this channel,
-        ranked by what it is worth. Tap a card to see it full size.</p>
+      <p>Every card that has come out of a pack on this channel, ranked by what it is worth. Tap a card to see it full size.${derivedFromHits ? " Nothing here was hand picked: this is the whole list of what was pulled on camera, in value order." : ""}</p>
       ${ranked.length ? `<div class="chof-tally">
-        <div><b>${ranked.length}</b><span>Cards inducted</span></div>
+        <div><b>${ranked.length}</b><span>${derivedFromHits ? "Cards pulled" : "Cards inducted"}</span></div>
         ${totalValue ? `<div><b>${moneyCompact(totalValue)}</b><span>Best known value</span></div>` : ""}
         ${gradedCards.length ? `<div><b>${moneyCompact(totalGraded)}</b><span>${gradedCards.length} of ${ranked.length} graded</span></div>` : ""}
       </div>` : ""}
