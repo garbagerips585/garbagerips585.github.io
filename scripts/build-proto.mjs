@@ -485,9 +485,20 @@ const wantedHtml = (wanted.cards || [])
         : `<span class="mw-none">${esc(c.name)}</span>`
     }</span>
         <b>${esc(c.name)}</b><p>${esc(c.setName.toUpperCase())} &bull; ${price}</p>`;
-    return c.url
-      ? `      <a class="mw" href="${esc(c.url)}" rel="nofollow noopener" target="_blank" aria-label="${esc(c.name)} from ${esc(c.setName)}, see on TCGplayer">${inner}</a>`
-      : `      <a class="mw" href="/sets/${esc(c.set)}.html" aria-label="${esc(c.name)} from ${esc(c.setName)}, see the ${esc(c.setName)} set guide">${inner}</a>`;
+    // ALWAYS INTERNAL. These used to link out to prices.pokemontcg.io whenever
+    // the card carried a url, which was 5 of the 6 cards, making the third band
+    // on the home page the first thing that sends a visitor away. That already
+    // contradicted the site's own rule that the only deliberate outbound links
+    // are Subscribe and the socials.
+    //
+    // Worse than that: those urls 302 to tcgplayer.pxf.io, an affiliate
+    // network. The home page was routing its visitors through somebody else's
+    // affiliate link, on a band about cards Tim is still chasing. Nobody chose
+    // that; it came in with the card data.
+    //
+    // The set guide is the honest destination: it is ours, it shows the card in
+    // its checklist with the same price, and it keeps the visitor on the site.
+    return `      <a class="mw" href="/sets/${esc(c.set)}.html" aria-label="${esc(c.name)} from ${esc(c.setName)}, see the ${esc(c.setName)} set guide">${inner}</a>`;
   })
   .join("\n");
 
