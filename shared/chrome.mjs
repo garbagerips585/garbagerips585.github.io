@@ -176,7 +176,11 @@ export const APP_V = createHash("sha1")
   .update(await readFile(new URL("../public/assets/app.js", import.meta.url)))
   .digest("hex")
   .slice(0, 8);
-export const APP_JS = `<script src="/assets/app.js?v=${APP_V}" defer></script>`;
+// packplayer.js rides along on every page, not just rip pages: it is what makes
+// a tile play where it sits, and tiles are on the homepage, the set guides and
+// /videos.html. ~8KB, and it mounts nothing until something is clicked.
+export const APP_JS = `<script src="/assets/app.js?v=${APP_V}" defer></script>
+<script src="/assets/packplayer.js" defer></script>`;
 
 const CSS_V = createHash("sha1")
   .update(await readFile(new URL("../public/assets/ui.css", import.meta.url)))

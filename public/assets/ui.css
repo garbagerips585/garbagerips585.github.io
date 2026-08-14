@@ -2309,3 +2309,23 @@ span.cq-name{color:var(--ink)}
    it so the row still reads as a row. */
 .gloss-fig.is-diagram svg{display:block;width:100%;max-width:132px;height:auto;
   border:1px solid var(--hair);border-radius:6px;background:var(--paper-2)}
+
+/* A rip playing inside its own tile.
+   The tile is a 2:3 facade; the player opens to 9:16 so playback has no bars,
+   which is the same rule the rip page follows. It fills the tile's slot rather
+   than growing the grid, so nothing below it jumps when a pack is ripped. */
+/* The tile keeps its 2:3 footprint and the 9:16 player is centred inside it.
+   Letting the player take the tile's full WIDTH would make it 281px tall in a
+   236px slot on a phone, shoving every tile below it down the page mid-rip.
+   Keeping the footprint means nothing moves, and the dark surround reads as
+   deliberate letterboxing rather than a gap, which is what YouTube does with a
+   vertical video too. */
+.tile-stage{position:relative;width:100%;aspect-ratio:2/3;display:grid;
+  place-items:center;background:#0B1520;border-radius:var(--r);overflow:hidden}
+.tile-stage .rip-player{position:relative;height:100%;max-width:100%;aspect-ratio:9/16;
+  overflow:hidden;background:#000}
+.tile-stage .rip-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.tile-stage .pack{position:absolute;inset:0;width:100%;height:100%}
+.tile-stage .sound-on{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);z-index:3}
+/* The hint is the tile's own play badge, so the pack does not repeat it. */
+.tile-stage .pack-hint{display:none}

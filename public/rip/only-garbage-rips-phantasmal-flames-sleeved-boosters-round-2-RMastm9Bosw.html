@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/ui.css?v=847dfcf8">
+<link rel="stylesheet" href="/assets/ui.css?v=38d55df5">
 <link rel="stylesheet" href="/assets/packs.css?v=2d406974">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"Only Garbage Rips 😬 | Phantasmal Flames Sleeved Boosters (Round 2)","description":"Only garbage rips from two more Phantasmal Flames sleeved booster packs 🗑️\n\nWe’ve tried before.\nWe’re trying again.\n\nAnother shot… redemption or more bulk?","thumbnailUrl":["https://i.ytimg.com/vi/RMastm9Bosw/oardefault.jpg"],"uploadDate":"2026-02-20","embedUrl":"https://www.youtube.com/embed/RMastm9Bosw","url":"https://garbagerips585.github.io/rip/only-garbage-rips-phantasmal-flames-sleeved-boosters-round-2-RMastm9Bosw.html","duration":"PT26S","interactionStatistic":{"@type":"InteractionCounter","interactionType":{"@type":"WatchAction"},"userInteractionCount":288},"publisher":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Every rip","item":"https://garbagerips585.github.io/videos.html"},{"@type":"ListItem","position":3,"name":"Phantasmal Flames","item":"https://garbagerips585.github.io/videos.html?set=phantasmal-flames"},{"@type":"ListItem","position":4,"name":"Only Garbage Rips 😬 | Phantasmal Flames Sleeved Boosters (Round 2)"}]}</script>
@@ -124,8 +124,8 @@
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / <a href="/videos.html">Every rip</a> / <a href="/videos.html?set=phantasmal-flames">Phantasmal Flames</a></p>
     <div class="rip-grid">
-      <div>
-        <div class="rip-player" id="player" data-id="RMastm9Bosw">
+      <div class="rip-stage">
+        <div class="rip-player pack-player" id="player" data-id="RMastm9Bosw" data-title="Only Garbage Rips 😬 | Phantasmal Flames Sleeved Boosters (Round 2)">
           <picture>
             <source type="image/webp" srcset="https://i.ytimg.com/vi_webp/RMastm9Bosw/oardefault.webp">
             <img src="https://i.ytimg.com/vi/RMastm9Bosw/oardefault.jpg" alt="" width="720" height="1280" fetchpriority="high" decoding="async">
@@ -369,220 +369,14 @@ Another shot… redemption or more bulk?</div>
     Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
+<script src="/assets/packplayer.js?v=9101bd7b" defer></script>
 <script>
-// One embed, loaded on click: keeps the page light and makes the play count
-// as a real view rather than an autoplaying one that does not.
-(function(){
-  var p=document.getElementById('player'), pack=document.getElementById('pack');
-  if(!p||!pack) return;
-  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var opened=false;
-
-  // AUTOPLAY, WITH SOUND.
-  //
-  // The goal is that ripping the pack starts the video with audio, every time.
-  // Getting there is not one decision, it is an order of operations.
-  //
-  // WHAT IS ACTUALLY GOING ON
-  // A muted media element is exempt from the user-gesture check. An unmuted one
-  // is not, and a cross-origin iframe created during a click does not reliably
-  // inherit that click: Chrome and Firefox usually honour an ancestor frame's
-  // gesture through allow="autoplay", WebKit does not. That is why this was
-  // intermittent rather than broken. It was never per-video and never per-page;
-  // all 310 videos are public, embeddable and unrestricted, and every rip page
-  // is byte-for-byte identical. It varied by browser and by visit.
-  //
-  // The trap: unmuting BEFORE playback begins throws away the exemption that
-  // mute=1 just bought, so the player makes its autoplay attempt as an unmuted
-  // element, gets refused, and paints YouTube's own play button. Asking for
-  // sound too eagerly is what causes the very symptom it was meant to fix.
-  //
-  // SO, IN ORDER
-  //   1. Mount MUTED. Muted autoplay is never refused, so the rip always
-  //      starts, immediately, under the tear.
-  //   2. Wait for the player to actually report PLAYING.
-  //   3. Only then unmute. By that point it is a live element being changed,
-  //      not an autoplay attempt being judged, and the page has the user's
-  //      click behind it, so it is normally granted. Sound arrives a few
-  //      hundred milliseconds in, while the pack is still coming apart.
-  //   4. If unmuting stops it anyway, which is WebKit's documented behaviour,
-  //      retreat: re-mute, resume, and offer one tap. That tap is a real
-  //      gesture, so it always works.
-  //
-  // Do not "simplify" this to unmuted-from-the-start. That was tried and is
-  // what produced the play button on some opens and not others.
-  var EMBED='https://www.youtube-nocookie.com';
-  var player=null, feedTimer=null, gotFeed=false, mounted=false;
-  var phase='idle', muted=true, soundBtn=null, startWatch=null, unmuteWatch=null;
-
-  function post(msg){
-    if(!player||!player.contentWindow) return;
-    try{ player.contentWindow.postMessage(JSON.stringify(msg),EMBED); }catch(e){}
-  }
-  function cmd(func,args){ post({event:'command',func:func,args:args||[],id:1,channel:'widget'}); }
-  function listen(){ post({event:'listening',id:1,channel:'widget'}); }
-
-  function mount(){
-    if(mounted) return;
-    mounted=true;
-    var f=document.createElement('iframe');
-    f.src=EMBED+'/embed/'+p.dataset.id
-      +'?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1&widgetid=1&origin='
-      +encodeURIComponent(location.origin);
-    f.title="Only Garbage Rips 😬 | Phantasmal Flames Sleeved Boosters (Round 2)";
-    f.allow='autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-    f.allowFullscreen=true;
-    f.referrerPolicy='strict-origin-when-cross-origin';
-    // The poster is a <picture> since the WebP change. Removing only the <img>
-    // inside it left the poster sitting on top of the player.
-    var poster=p.querySelector('picture')||p.querySelector('img');
-    if(poster) poster.remove();
-    p.insertBefore(f,p.firstChild);   // behind the pack, which tears away over it
-    player=f;
-    phase='waiting';
-
-    // The player installs its message handler well after the iframe fires
-    // load, and silently drops anything that arrives before it. Sending the
-    // handshake once on load therefore loses it, and then no state ever
-    // arrives and every decision below is made blind. Repeat until it answers.
-    listen();
-    feedTimer=setInterval(function(){
-      if(gotFeed||!player){ clearInterval(feedTimer); feedTimer=null; return; }
-      listen();
-    },200);
-
-    // Muted autoplay should be immediate. If it has not reported playing by
-    // now, something outside autoplay policy is in the way: iOS Low Power
-    // Mode, a blocked domain, a background tab. All of those need a tap.
-    startWatch=setTimeout(function(){ if(phase==='waiting') retreat('play'); },2600);
-  }
-
-  // Called only once the player has REPORTED playing. See the note above.
-  function askForSound(){
-    phase='unmuting';
-    cmd('setVolume',[100]);
-    cmd('unMute');
-    clearTimeout(unmuteWatch);
-    unmuteWatch=setTimeout(function(){
-      if(phase!=='unmuting') return;
-      if(muted===false) phase='done';        // sound is on, nothing to offer
-      else retreat('sound');
-    },900);
-  }
-
-  // Unmuting was refused, or stopped playback. Put it back the way that always
-  // works and let the visitor turn sound on with a tap.
-  function retreat(kind){
-    if(phase==='gesture') return;
-    phase='gesture';
-    clearTimeout(unmuteWatch); clearTimeout(startWatch);
-    // Stop the handshake too. It only cleared itself once a valid player
-    // message arrived, so in exactly the cases this function exists to handle,
-    // a blocked domain or Low Power Mode or a background tab, it kept posting
-    // every 200ms for the life of the page. Retreating means we have given up
-    // on the feed, so there is nothing left to listen for.
-    if(feedTimer){ clearInterval(feedTimer); feedTimer=null; }
-    cmd('mute');
-    cmd('playVideo');
-    showBtn(true,kind);
-  }
-
-  function showBtn(on,kind){
-    soundBtn=soundBtn||document.getElementById('soundOn');
-    if(!soundBtn) return;
-    soundBtn.hidden=!on;
-    if(on&&kind){
-      var l=soundBtn.querySelector('.sound-on-label');
-      if(l) l.textContent=(kind==='play'?'Tap to play':'Tap for sound');
-    }
-  }
-
-  function onState(st){
-    // 1 playing, 3 buffering. Buffering mid-unmute is normal, not a refusal.
-    if(phase==='waiting'&&st===1){ clearTimeout(startWatch); askForSound(); return; }
-    if(phase==='unmuting'&&st!==1&&st!==3){ retreat('sound'); return; }
-    if(phase==='done'&&st!==1&&st!==3&&muted===false){ retreat('sound'); }
-  }
-
-  window.addEventListener('message',function(e){
-    // Exact origin, and the message must come from OUR iframe. An indexOf on
-    // "youtube" matches any host containing it and lets any frame drive this.
-    if(e.origin!==EMBED&&e.origin!=='https://www.youtube.com') return;
-    if(!player||e.source!==player.contentWindow) return;
-    var d=e.data;
-    if(typeof d==='string'){ try{ d=JSON.parse(d); }catch(_){ return; } }
-    if(!d||typeof d!=='object') return;
-    gotFeed=true;
-    if(d.event==='onAutoplayBlocked'){ retreat(phase==='unmuting'?'sound':'play'); return; }
-    // onStateChange carries info as a NUMBER; infoDelivery carries an object.
-    // Reading only the object shape missed every onStateChange.
-    var info=d.info, st=null;
-    if(typeof info==='number') st=info;
-    else if(info&&typeof info.playerState==='number') st=info.playerState;
-    if(info&&typeof info.muted==='boolean') muted=info.muted;
-    if(st!==null) onState(st);
-  });
-
-  document.addEventListener('click',function(e){
-    if(!e.target.closest||!e.target.closest('#soundOn')) return;
-    // A real gesture, so this is always permitted.
-    showBtn(false);
-    phase='unmuting';
-    cmd('unMute'); cmd('setVolume',[100]); cmd('playVideo');
-    clearTimeout(unmuteWatch);
-  });
-
-  // Driven off animationend rather than timers that guess the CSS durations:
-  // background tabs clamp setTimeout, which would desync the reveal from the
-  // tear. Each step keeps a generous fallback timer in case the animation
-  // never fires at all.
-  function once(fn){ var done=false; return function(){ if(done) return; done=true; fn(); }; }
-
-  // Wait for ONE named animation on an element. Without the name check any
-  // animationend bubbling up from a child would advance the sequence early;
-  // nothing does today, but adding a single animation anywhere inside the pack
-  // would silently start the tear mid-shake.
-  function after(el,name,fn){
-    if(!el) return;
-    el.addEventListener('animationend',function h(e){
-      if(e.animationName!==name) return;
-      el.removeEventListener('animationend',h);
-      fn();
-    });
-  }
-
-  pack.addEventListener('click',function(){
-    if(opened) return; opened=true;
-    // Was this a keyboard activation? Checked BEFORE the pack is torn away,
-    // because removing the focused element drops focus to <body> and a
-    // keyboard visitor is dumped back at the top of the document.
-    var byKeyboard=document.activeElement===pack;
-    mount();                                 // first, while the gesture is live
-    if(reduced){ pack.remove(); focusPlayer(byKeyboard); return; }
-
-    // Then tear the pack away over the top of the already-playing video.
-    var face=pack.querySelector('.pack-l');
-    var clear=once(function(){ pack.remove(); focusPlayer(byKeyboard); });
-    var tear=once(function(){
-      pack.classList.remove('shaking');
-      pack.classList.add('tearing');
-      after(face,'tearL',clear);
-      setTimeout(clear,1600);
-    });
-    pack.classList.add('shaking');
-    after(face,'packShake',tear);
-    setTimeout(tear,600);
-  });
-
-  // Hand focus to the player so the next Tab continues from the video rather
-  // than from the top of the page. Mouse users are left alone: focusing an
-  // iframe can scroll it into view, which is jarring when you already clicked it.
-  function focusPlayer(yes){
-    if(!yes) return;
-    var f=p.querySelector('iframe');
-    if(f) f.focus({preventScroll:true});
-  }
-})();
+// The player itself lives in /assets/packplayer.js so the homepage can mount
+// the same thing. This page has exactly one, wired on load.
+addEventListener('DOMContentLoaded',function(){
+  var r=document.querySelector('.rip-stage');
+  if(r&&window.GRPack) GRPack.attach(r);
+});
 </script>
 <div class="hitlb" id="hitlb" role="dialog" aria-modal="true" aria-labelledby="hitlbName" hidden>
   <div class="hitlb-in">
@@ -674,5 +468,6 @@ Another shot… redemption or more bulk?</div>
 })();
 </script>
 <script src="/assets/app.js?v=aa0a4457" defer></script>
+<script src="/assets/packplayer.js?v=9101bd7b" defer></script>
 </body>
 </html>
