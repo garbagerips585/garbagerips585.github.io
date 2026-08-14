@@ -204,19 +204,26 @@
   /* 44px tall, because it is a standalone control with no larger equivalent
      anywhere: measured at 122x26.8 it was the only real tap-target failure on
      the game pages, and these pages are explicitly built to be used one-handed
-     in a queue. The dashed underline is drawn on an inner span so the target
-     can grow without the rule floating away from the text. */
+     in a queue. See the note below on where the dashed rule actually lives. */
   display: inline-flex;
   align-items: center;
   min-height: 44px;
   background: none;
   border: 0;
-  border-bottom: 2px dashed var(--ink-2);
   padding: 4px 10px;
   font: 700 var(--t-sm) / 1.2 var(--body);
   color: var(--ink-2);
   cursor: pointer;
 }
+/* The dashed rule underlines the TEXT, not the 44px button.
+   The comment above claimed this already, and it was not true: the border sat
+   on the button itself, so growing the target to 44px left the rule floating
+   about 14px below the words and running behind the mode pills underneath,
+   where only the segments between them showed. It read as a broken striped
+   element poking out from under two buttons. */
+.gq-mode span,
+.gq-mode { text-underline-offset: 4px; }
+.gq-mode { text-decoration: underline dashed 2px; }
 
 /* Sprint result. */
 .gq-over { text-align: center; }

@@ -2241,9 +2241,12 @@ span.cq-name{color:var(--ink)}
    artwork. So the one video the page stops on was both smaller than its
    neighbours and in a frame that lined up with nothing. The art is a share of
    the frame now, and the frame is wide enough to sit with the band below it. */
-.hofx{position:relative;display:grid;grid-template-columns:minmax(280px,42%) minmax(0,1fr);
-  gap:var(--s5);
-  align-items:center;margin:var(--s6) auto var(--s5);max-width:1000px;
+/* Same story as the carousel above: a 1000px gold panel holding a 117px block
+   of text in a 524px column left about 320px of empty gradient above it and 320
+   below, and it is the first thing on the page. One column, sized to the video. */
+.hofx{position:relative;display:grid;grid-template-columns:minmax(0,1fr);
+  gap:var(--s4);text-align:center;
+  align-items:center;margin:var(--s6) auto var(--s5);max-width:520px;
   padding:var(--s5) var(--s5) var(--s5) var(--s5);
   background:
     radial-gradient(120% 140% at 12% 0%, rgba(239,201,76,.20) 0%, rgba(239,201,76,0) 58%),
@@ -2441,16 +2444,19 @@ span.cq-name{color:var(--ink)}
    340px pack next to a 978px column of nothing on a 1440 screen: an enormous
    band holding a small video, which is the opposite of the point. The card is
    capped and centred so the artwork gets a real share of it. */
-/* TWO COLUMNS ONLY WHEN BOTH FIT, which is not at 760.
-   At 768 the art took its 440px maximum and left the text 206px, so the title
-   wrapped to three lines in a strip beside a huge pack. The art is a share of
-   the row rather than a fixed maximum now, and the text has a floor, so the
-   split is only used when there is genuinely room for both halves. */
+/* NEVER TWO COLUMNS. The card is the video, with its caption underneath.
+   This was two columns above 900px and the result was two enormous half empty
+   white slabs: at 1440 the card measured 1000x677 and its text block was 182px
+   tall, vertically centred in a 508px column, so roughly 250px of blank white
+   sat above the kicker and 248px below the button. Between 768 and 899 it was
+   the other failure, a 360px pack marooned in a 720px card with 180px of white
+   either side.
+   Both come from the same mistake: pairing a tall portrait video with a three
+   line caption and expecting them to fill a row. They never will. A single
+   column sized to the video has no empty half to fill, and on a wide screen it
+   reads as a deliberately centred video rather than as a broken layout. */
 @media(min-width:900px){
-  .vcar .hero{max-width:1000px;margin:0 auto;
-    grid-template-columns:minmax(260px,44%) minmax(300px,1fr);gap:var(--s5);padding:var(--s5)}
-  /* More room once the layout is two-column, so the pack can be bigger than
-     the 360px cap the stacked layout uses to stop it sprawling. */
+  .vcar .hero{max-width:520px;margin:0 auto;padding:var(--s5)}
   .vcar .hero-art,
   .vcar .tile-stage{max-width:440px}
 }
