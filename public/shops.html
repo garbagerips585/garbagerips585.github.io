@@ -47,14 +47,20 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="/assets/ui.css?v=83d18be3">
+<link rel="stylesheet" href="/assets/ui.css?v=661b6b49">
 <link rel="stylesheet" href="/assets/packs.css?v=2d406974">
 <style>
 .shops{padding:var(--s7) 0 var(--s8)}
 .shops-lede{color:var(--ink-2);max-width:46em;margin-bottom:var(--s5)}
-.shop-list{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+.shop-list{list-style:none;display:grid;align-items:start;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
 @media(max-width:980px){.shop-list{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:640px){.shop-list{grid-template-columns:1fr}}
+/* align-items:start on the list above, so a card is as tall as its own content.
+   Stretched to a common height, a shop with less to say grew a hole in the
+   middle: LingSter Games had 280px of blank white between its facts and its
+   website link, Millennium 147px, because something below them is pushed to the
+   bottom of whatever height the tallest card sets. One full card beside two
+   that look broken is worse than three cards of honest, different heights. */
 .shop{display:flex;flex-direction:column;gap:var(--s2);background:var(--card);
   border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);
   box-shadow:var(--lift)}

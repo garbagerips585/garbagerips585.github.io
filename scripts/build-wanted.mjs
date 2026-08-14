@@ -20,6 +20,14 @@ import { esc, shortDate, moneyCompact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
+// The same count /sets/ actually publishes, computed the same way the home
+// page computes it. This said 23 (the English sets only) while the home page
+// said 36 for the identical destination.
+const guideCount = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8")).sets.length +
+  Object.keys(
+    JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8")).sets || {},
+  ).length;
+
 const { cards, updated } = JSON.parse(
   await readFile(join(ROOT, "public/data/wanted.json"), "utf8")
 );
@@ -112,7 +120,7 @@ const body = `
 <main id="main" class="wanted">
   <div class="wrap">
     <div class="brk"><h1>Most <span class="hl">wanted</span></h1><span class="ln"></span>
-      <a href="/sets/">All ${sets.length} guides &rarr;</a></div>
+      <a href="/sets/">All ${guideCount} set guides &rarr;</a></div>
     <p class="w-lede">The cards I am actually chasing right now. Every pack opened on this
       channel is opened hoping for one of these. Tap a card to see it on TCGplayer.</p>
     <div class="w-grid">

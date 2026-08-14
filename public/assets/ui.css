@@ -1837,7 +1837,25 @@ footer .soc svg{fill:var(--paper)}
    tile on the page, which made it look like a mistake rather than the CTA.
    auto-fit lets the row use what it has instead of always being four. */
 @media(min-width:700px){
-  .facts{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+  /* auto-FILL, not auto-FIT, and a cap on how wide a tile may grow.
+     auto-fit collapses the tracks nothing occupies, which is exactly what it
+     could not do here: .fact.wide spans 1/-1 and therefore occupies every
+     track, so at 1440 the grid resolved to SEVEN 187px columns and the four
+     real tiles were frozen at 187px each, stopping at x813 while the full
+     width bar underneath them ran to x1416. A half width ragged row sitting on
+     a full width one, on the set guides, grading and card shows alike.
+     A max on the track keeps a lone tile from stretching to 1,099px, which is
+     the failure this rule was written to fix in the first place, and
+     justify-content packs the row to the left instead of leaving gaps. */
+  .facts{grid-template-columns:repeat(4,1fr)}
+  /* THE ORPHAN STRETCHES, which is what auto-fit was brought in to solve and
+     could not. A lone tile on its own last row is the Pokemon pages' fifth
+     tile, and it is the only tappable one there, so sitting in 1,099px of
+     empty space read as a mistake rather than a call to action. Spanning the
+     row fixes that without letting auto-fit decide the column count, which is
+     what produced seven 187px tracks for four tiles and left the stat row
+     stopping at x772 above a bar running to x1416. */
+  .fact:last-child:nth-child(4n + 1){grid-column:1 / -1}
 }
 
 /* Two body-copy classes had max-width:none and ran the full container: up to
@@ -2491,3 +2509,16 @@ span.cq-name{color:var(--ink)}
 .vcar .hero h3 a{color:var(--ink)}
 .vcar .hero-meta,
 .vcar .hero-kicker{color:var(--ink-2)}
+
+
+/* NO CREAM STRIPE ABOVE THE FOOTER.
+   main carries 72px of bottom padding, which reads as normal breathing room on
+   a page that ends on cream. On any page whose LAST band paints its own
+   background (the home page's navy about section, the blue set guides, the
+   games hub) it instead produced a 72px band of bare cream sandwiched between
+   a coloured section and the dark footer, which looks like a rendering fault.
+   Where the last child paints, the padding is not needed. */
+main:has(> section:last-child[class*="about"]),
+main:has(> section:last-child.hof),
+main:has(> section:last-child.band),
+main:has(> .set-cta:last-child){padding-bottom:0}
