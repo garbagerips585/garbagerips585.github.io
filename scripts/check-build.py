@@ -246,7 +246,14 @@ _ONE_OFF = {
 # Covers stamp-* as well as build-*, because the step that went missing was
 # stamp-assets.mjs. A guard that would not have caught the bug it was written
 # for is worse than none: it reads as coverage.
-_all_src = open(os.path.join(ROOT, "scripts/build-all.mjs"), encoding="utf-8").read()
+# COMMENTS STRIPPED FIRST. This was a plain substring search over the whole
+# file, so a builder whose name appeared only inside a `//` comment counted as
+# wired up: an audit defeated the guard in exactly the way the guard exists to
+# prevent. Only the quoted step strings count now.
+_all_raw = open(os.path.join(ROOT, "scripts/build-all.mjs"), encoding="utf-8").read()
+_all_src = "\n".join(
+    _re.sub(r"//.*$", "", ln) for ln in _all_raw.split("\n")
+)
 _orphan = sorted(
     f for f in os.listdir(os.path.join(ROOT, "scripts"))
     if (f.startswith("build-") or f.startswith("stamp-"))
@@ -266,9 +273,11 @@ if os.path.exists(_refresh):
     # Comment lines only, stripped out: the block above this step EXPLAINS the
     # rule and names the file, so a substring search over the whole yaml passes
     # even when the run line has been changed to something else.
+    # Inline trailing comments too, not just whole-line ones. Stripping only
+    # lines that START with # let `run: node scripts/build-pages.mjs  # replaces
+    # node scripts/build-all.mjs` pass, which is the same hole in a second place.
     _rf = "\n".join(
-        l for l in open(_refresh, encoding="utf-8").read().split("\n")
-        if not l.lstrip().startswith("#")
+        _re.sub(r"#.*$", "", l) for l in open(_refresh, encoding="utf-8").read().split("\n")
     )
     if "scripts/build-all.mjs" not in _rf:
         fail.append(

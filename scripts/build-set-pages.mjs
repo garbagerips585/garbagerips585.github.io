@@ -15,7 +15,7 @@ import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
-import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel } from "../shared/format.mjs";
+import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, imgDims } from "../shared/format.mjs";
 import { ripLabel } from "../shared/riplabel.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -32,6 +32,33 @@ try {
 const logoAttrs = (setId) => {
   const d = LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`];
   return d ? ` width="${d[0]}" height="${d[1]}"` : "";
+};
+
+/**
+ * THE 110px LOGO BOX. `.set-card img` is `height:42px; max-width:110px` and
+ * measures 110px wide at every viewport from 360 to 1920, but the file it
+ * loaded is the 300px-tall master: 480 to 1489px across and 19 to 69KB each.
+ * /sets/ shows 23 of them, so it transferred 937KB of logo at 1440x900 to fill
+ * boxes 110 CSS px wide. That was the worst intrinsic-to-box ratio measured
+ * anywhere on the site, between 7x and 13.5x.
+ *
+ * build-logos.py now writes a -sm.webp beside each master at 100px tall
+ * (5-17KB), which covers the 42px box at 2.4x, and this offers both so a denser
+ * screen can still take the big one. The width descriptors are the real widths
+ * from data/logo-dims.json rather than a guess, because the logos are
+ * normalised by HEIGHT and every one is a different width.
+ *
+ * Only the .set-card grids use this. `.logo-big` on a set page renders at 296px
+ * and `.rip-setlogo` at up to 197px, and both should keep taking the master.
+ */
+const SM_H = 100;
+const setCardLogo = (setId, alt) => {
+  const base = `/assets/logos/${setId}-pokemon-tcg-set-logo`;
+  const d = LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`];
+  const srcset = d
+    ? ` srcset="${base}-sm.webp ${Math.round((d[0] * SM_H) / d[1])}w, ${base}.webp ${d[0]}w" sizes="110px"`
+    : "";
+  return `<img${logoAttrs(setId)} src="${base}${d ? "-sm" : ""}.webp"${srcset} alt="${alt}" loading="lazy" onerror="this.remove()">`;
 };
 
 const OUT = join(ROOT, "public/sets");
@@ -698,13 +725,19 @@ function productBand(s, cls) {
     }
   }
 
+  // imgDims(), not a literal, and on TCGplayer's host it deliberately returns
+  // NOTHING. These 139 photos carried width="245" height="337", which is a card
+  // scan's shape: the real files are 200x268, 200x294, 200x360 and 200x417
+  // depending on the product, so the declaration was wrong by up to 34%. It
+  // reserved nothing anyway, because .prod-shot is a fixed 88x88 box with
+  // object-fit:contain. Use the helper for every remote image so the site
+  // cannot drift back into guessing at somebody else's file.
   const cards = items
     .map(
       (p) => `      <li class="prod">
         <a class="prod-shot" href="${esc(affLink(p.url))}" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
           <img src="${esc(p.thumb)}" srcset="${esc(p.thumb)} 200w, ${esc(p.image)} 1000w"
-               sizes="(max-width:640px) 40vw, 200px" alt="" loading="lazy" onerror="this.remove()" decoding="async"
-               width="245" height="337" referrerpolicy="no-referrer">
+               sizes="(max-width:640px) 40vw, 200px" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(p.thumb)} referrerpolicy="no-referrer">
         </a>
         <div class="prod-body">
           <h3><a href="${esc(affLink(p.url))}" rel="noopener" target="_blank">${esc(productLabel(p).kind)}</a></h3>
@@ -823,6 +856,15 @@ const PAGE_CSS = `
   border-radius:var(--r-pill);padding:1px 7px;margin-left:4px;font-weight:700}
 `;
 
+/**
+ * The same trade build-css.mjs makes for ui.css, for the same reason: the
+ * comments are the point of the SOURCE and pure weight in the shipped page, and
+ * this block is inline in a render blocking <head>. Comments only, plus the
+ * indentation between rules. Nothing else is touched.
+ */
+const miniCSS = (css) =>
+  css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
+
 const head = ({ title, desc, canonical, image, ld, css = "" }) => `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -846,7 +888,7 @@ const head = ({ title, desc, canonical, image, ld, css = "" }) => `<!DOCTYPE htm
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css">
-${STYLES}${css ? `\n<style>${css}</style>` : ""}
+${STYLES}${css ? `\n<style>${miniCSS(css)}</style>` : ""}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -987,7 +1029,7 @@ function setPage(s) {
       ${mine
         .map(
           (h) => `<li class="mine">
-        ${h.img ? `<img class="mine-img" src="${esc(h.img)}" alt="${esc(h.name)}" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337">` : `<div class="mine-img is-none" aria-hidden="true"></div>`}
+        ${h.img ? `<img class="mine-img" src="${esc(h.img)}" alt="${esc(h.name)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>` : `<div class="mine-img is-none" aria-hidden="true"></div>`}
         <p class="mine-n">${esc(h.name)}</p>
         <p class="mine-r">${esc(rarityLabel(h.rarity) || "")}${h.n ? ` &bull; #${esc(h.n)}` : ""}</p>
         <p class="mine-p">${typeof h.price === "number" ? moneyExact(h.price) : "No market price"}</p>
@@ -1013,7 +1055,7 @@ function setPage(s) {
         data-psa10="${esc(gradedPrice(s.id, c.number) ? moneyCompact(gradedPrice(s.id, c.number)) : "")}"
         data-url="${esc(c.url ? affLink(c.url) : "")}"
         aria-label="Enlarge ${esc(c.name)}">
-        ${c.image ? `<img src="${c.image}" alt="${esc(c.name)} ${esc(c.number)}, ${esc(rarityLabel(c.rarity) || "card")}" loading="lazy" onerror="this.remove()" width="245" height="337">` : ""}
+        ${c.image ? `<img src="${c.image}" alt="${esc(c.name)} ${esc(c.number)}, ${esc(rarityLabel(c.rarity) || "card")}" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>` : ""}
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(c.number)}</div>
         <div class="pr">${moneyCompact(c.price)}</div>
@@ -1110,7 +1152,7 @@ function setPage(s) {
     <h2>Other <span class="hl">sets</span></h2>
     <div class="set-index">
       ${sets.filter((o) => o.id !== s.id).slice(0, 6).map((o) => `<a class="set-card" href="/sets/${o.id}.html">
-        <img${logoAttrs(o.id)} src="/assets/logos/${o.id}-pokemon-tcg-set-logo.webp" alt="" loading="lazy" onerror="this.remove()">
+        ${setCardLogo(o.id, "")}
         <span><span class="ttl">${esc(o.name)}</span><br><span class="meta">${o.total ?? "?"} cards</span></span>
       </a>`).join("\n      ")}
     </div>
@@ -1276,7 +1318,7 @@ function indexPage() {
     <p class="crumbs"><a href="/">Home</a> / Card sets</p>
     <div class="set-index">
       ${sets.map((s) => `<a class="set-card" href="/sets/${s.id}.html">
-        <img${logoAttrs(s.id)} src="/assets/logos/${s.id}-pokemon-tcg-set-logo.webp" alt="${esc(s.name)} logo" loading="lazy" onerror="this.remove()">
+        ${setCardLogo(s.id, `${esc(s.name)} logo`)}
         <span>
           <span class="ttl">${esc(s.name)}</span><br>
           <span class="meta">${s.total ?? "?"} cards${s.released ? ` &bull; ${s.released.slice(0, 4)}` : ""}${ripsBySet[s.id] ? ` &bull; ${ripsBySet[s.id]} rip${ripsBySet[s.id] === 1 ? "" : "s"}` : ""}${(s.chase || [])[0]?.price ? ` &bull; top ${moneyCompact(s.chase[0].price)}${gradedPrice(s.id, s.chase[0].number) ? ` / ${moneyCompact(gradedPrice(s.id, s.chase[0].number))} PSA 10` : ""}` : ""}</span>

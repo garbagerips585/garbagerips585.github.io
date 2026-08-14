@@ -250,7 +250,7 @@ const body = `
       </div>
 
       <div class="luck-cov">
-        <p>${judged.length} of ${videos.length} rips logged &bull; ${Math.round(coverage * 100)}% of the catalogue${
+        <p>${judged.length} of ${videos.length} rips logged &bull; ${Math.round(coverage * 100)}% of the catalog${
           packsKnown ? ` &bull; ${totalPacks.toLocaleString("en-US")} packs counted` : ""
         }</p>
         <div class="luck-covbar"><i style="width:${Math.max(1, Math.round(coverage * 100))}%"></i></div>

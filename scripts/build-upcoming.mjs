@@ -29,7 +29,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, FONTS, footer, APP_JS } from "../shared/chrome.mjs";
-import { esc, longDate, MONTHS_LONG } from "../shared/format.mjs";
+import { esc, longDate, MONTHS_LONG, imgDims } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -65,7 +65,7 @@ function preorderBand(setName) {
 
   const prods = e.products.slice(0, 9).map((p) => `        <li class="po">
           <a class="po-shot" href="${esc(p.url)}" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
-            <img src="${esc(p.thumb)}" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337" referrerpolicy="no-referrer">
+            <img src="${esc(p.thumb)}" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(p.thumb)} referrerpolicy="no-referrer">
           </a>
           <div class="po-body">
             <h4><a href="${esc(p.url)}" rel="noopener" target="_blank">${esc(p.name)}</a></h4>
@@ -79,7 +79,7 @@ function preorderBand(setName) {
 
   const cards = e.chase.slice(0, 8).map((c) => `        <li class="poc">
           <a href="${esc(c.url)}" rel="noopener" target="_blank">
-            <img src="${esc(c.thumb)}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337" referrerpolicy="no-referrer">
+            <img src="${esc(c.thumb)}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(c.thumb)} referrerpolicy="no-referrer">
             <span class="poc-n">${esc(c.name)}</span>
             <span class="poc-r">${esc(c.rarity || "")}${c.number ? ` &bull; ${esc(c.number)}` : ""}</span>
           </a>

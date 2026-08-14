@@ -16,7 +16,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { APP_JS } from "../shared/chrome.mjs";
-import { esc, shortDate, moneyCompact } from "../shared/format.mjs";
+import { esc, shortDate, moneyCompact, imgDims } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -94,7 +94,7 @@ function cardTile(c, { hunted = true } = {}) {
   const inner = `
         <span class="wc-art">${
           img
-            ? `<img src="${esc(img)}"${set ? ` srcset="${esc(set)}" sizes="${ART_SIZES}"` : ""} alt="${esc(alt)}" loading="lazy" onerror="this.remove()" width="245" height="337">`
+            ? `<img src="${esc(img)}"${set ? ` srcset="${esc(set)}" sizes="${ART_SIZES}"` : ""} alt="${esc(alt)}" loading="lazy" onerror="this.remove()"${imgDims(img)}>`
             : `<span class="wc-none">${esc(c.name)}</span>`
         }${hunted ? `<span class="wc-flag">Hunting</span>` : `<span class="wc-flag wc-got">Caught</span>`}</span>
         <b class="wc-name">${esc(c.name)}</b>

@@ -232,7 +232,7 @@ function backDiagram() {
  *
  * The test says fakes show "color fringing where one plate is off". That is
  * hard to picture and trivial to draw: the same symbol with the cyan and
- * magenta plates nudged a fraction of a millimetre.
+ * magenta plates nudged a fraction of a millimeter.
  */
 function registrationDiagram() {
   const sym = (x, dx) => `
@@ -249,7 +249,7 @@ function registrationDiagram() {
     <text x="80" y="118" text-anchor="middle" class="fk-lbl2s">REAL</text>
     <text x="220" y="118" text-anchor="middle" class="fk-lbl2s">FAKE</text>
   </svg>
-  <figcaption>Exaggerated to be visible on a screen. On a real fake the halo is a fraction of a millimetre, which is why this one wants a loupe.</figcaption>
+  <figcaption>Exaggerated to be visible on a screen. On a real fake the halo is a fraction of a millimeter, which is why this one wants a loupe.</figcaption>
 </figure>`;
 }
 

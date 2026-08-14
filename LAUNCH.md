@@ -30,7 +30,7 @@ already exists.
       issues the certificate and handles HTTPS.
 
 - [ ] **pokemonpricetracker.com paid plan, $9.99/mo.** The free tier is 100
-      credits a day and a card costs 2, so a full refresh of all 155 chase cards
+      credits a day and a card costs 2, so a full refresh of every chase card
       takes four days. That is fine while building and wrong once live, because
       prices move and the site would always be showing last week's. One month of
       the paid tier also backfills everything in a single run.
@@ -93,7 +93,7 @@ already exists.
 
       node scripts/build-all.mjs
 
-      That is the whole chain, 32 steps, ending in check-build.py. Do not run
+      That is the whole chain, ending in check-build.py. Do not run
       builders by hand instead: an earlier version of this file listed seven
       commands, which missed most of the site, and the nightly workflow made the
       same mistake in a different way by keeping its own copy of the list.
@@ -108,7 +108,7 @@ already exists.
       grep -rl "github.io" public/ | grep -v assets    # must return nothing
 
       **This has been rehearsed.** On 14 August 2026 a throwaway copy of the
-      tree was flipped and fully rebuilt: 32 of 32 builders, check-build clean,
+      tree was flipped and fully rebuilt: every builder green, check-build clean,
       zero github.io references anywhere in public/, 1,696 urls on the real
       domain, 379 sitemap entries, robots.txt open, CNAME written. So the flip
       is known to work end to end, but run the greps anyway: they are what

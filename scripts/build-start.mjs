@@ -37,6 +37,12 @@ try {
   /* optional */
 }
 const nCards = (cardIndex.cards || []).length.toLocaleString("en-US");
+// PRICED, not held. This page said "4,481 of them carry a current market
+// price, which is every card in the 23 sets we cover", in visible prose and in
+// its FAQPage schema. 4,481 is how many cards we hold; 4,468 carry a price and
+// 13 do not, which cards.html states correctly. Two pages contradicting each
+// other, in a commit whose whole point was making them quote the same corpus.
+const nPriced = (cardIndex.cards || []).filter((c) => typeof c[4] === "number").length;
 // THE SAME NUMBER cards.html publishes, from the same manifest, because the
 // two pages describe the same search box. This page said "Search 4,481 cards",
 // which is the priced subset from the 23 sets we cover, while the page it links
@@ -80,7 +86,7 @@ const STEPS = [
   {
     n: 3,
     q: "What is it worth?",
-    a: `Search ${nPrintings ? `${nPrintings.total} printings across ${nPrintings.sets} sets` : `${nCards} cards`} by name. ${nPrintings ? `${nCards} of them carry a current market price, which is every card in the ${sets.length} sets we cover. ` : ""}Or browse by Pokemon if you are chasing one in particular.`,
+    a: `Search ${nPrintings ? `${nPrintings.total} printings across ${nPrintings.sets} sets` : `${nCards} cards`} by name. ${nPrintings ? `${nPriced.toLocaleString("en-US")} of them carry a current market price, which is nearly every card in the ${sets.length} sets we cover. ` : ""}Or browse by Pokemon if you are chasing one in particular.`,
     href: "/cards.html",
     cta: "Card search",
     also: [["/pokemon/", "Browse by Pokemon"]],

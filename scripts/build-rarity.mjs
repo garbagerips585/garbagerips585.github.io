@@ -34,7 +34,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, FONTS, footer, APP_JS } from "../shared/chrome.mjs";
-import { esc, longDate } from "../shared/format.mjs";
+import { esc, longDate, imgDims } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/rarity.json"), "utf8"));
@@ -153,7 +153,7 @@ const slangCard = (s) => {
     : s.show === "crop"
       ? `<div class="gloss-fig is-crop">${corner(s.card, "left", s.example)}</div>`
       : `<figure class="gloss-fig">
-            <img src="${esc(s.card)}" alt="${esc(s.example)}" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337">
+            <img src="${esc(s.card)}" alt="${esc(s.example)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(s.card)}>
             <figcaption>${esc(s.example)}</figcaption>
           </figure>`;
   return `        <li${s.card ? "" : ' class="no-fig"'}>
@@ -167,7 +167,7 @@ const slangCard = (s) => {
 const ladderRow = (r, i) => `      <li class="rr${r.chase ? " is-chase" : ""}">
         <div class="rr-n">${i + 1}</div>
         <div class="rr-card">
-          <img src="${esc(r.card)}" alt="${esc(r.example)}" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337">
+          <img src="${esc(r.card)}" alt="${esc(r.example)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(r.card)}>
         </div>
         <div class="rr-body">
           <h3>${esc(r.name)}${r.chase ? ` <span class="rr-chase">worth chasing</span>` : ""}</h3>
@@ -438,7 +438,7 @@ ${d.gone
           ${
             g.card
               ? `<figure class="gone-fig">
-            <img src="${esc(g.card)}" alt="${esc(g.example)}" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337">
+            <img src="${esc(g.card)}" alt="${esc(g.example)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(g.card)}>
             <figcaption>${esc(g.example)}</figcaption>
           </figure>`
               : ""

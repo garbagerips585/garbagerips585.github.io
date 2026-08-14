@@ -30,7 +30,7 @@ import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
-import { esc, longDate, rarityLabel } from "../shared/format.mjs";
+import { esc, longDate, rarityLabel, imgDims } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/sets");
@@ -80,6 +80,15 @@ const PAGE_CSS = `
   padding-left:var(--s4);font-size:var(--t-body)}
 `;
 
+/**
+ * The same trade build-css.mjs makes for ui.css, for the same reason: the
+ * comments are the point of the SOURCE and pure weight in the shipped page, and
+ * this block is inline in a render blocking <head>. Comments only, plus the
+ * indentation between rules. Nothing else is touched.
+ */
+const miniCSS = (css) =>
+  css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
+
 const head = ({ title, desc, canonical, image, ld, noindex = false, css = "" }) => `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,7 +116,7 @@ const head = ({ title, desc, canonical, image, ld, noindex = false, css = "" }) 
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css">
-${STYLES}${css ? `\n<style>${css}</style>` : ""}
+${STYLES}${css ? `\n<style>${miniCSS(css)}</style>` : ""}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -302,7 +311,9 @@ function compareBand(g, en, cls) {
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Card for card</p>
     <h2>How close is it to <span class="hl">${esc(en.name)}</span>?</h2>
     <p class="lede" style="max-width:42em">"Same set" is nearly true and worth checking rather than taking on trust.
-      Here is every rarity in both printings, side by side. The gold rows are the ones that match.</p>
+      Here is every rarity in both printings, side by side.${
+        c.same.length ? ` The gold rows are the ones that match.` : ""
+      }</p>
     <div class="rcmp-wrap">
       <table class="rcmp">
         <thead>
@@ -325,6 +336,135 @@ function compareBand(g, en, cls) {
       ${esc(longDate(guides.checked) || guides.checked)}. A rarity is only counted where TCGdex labels it, so this table
       appears on a guide only when both sides label every card. It says nothing about how often any of them turn up in a
       pack, because nobody outside The Pokemon Company knows that.</p>
+  </div>
+</section>`;
+}
+
+// ------------------------------------------------------- the rest of the page
+//
+// One function per section, each taking the class that paints it, so guidePage
+// can decide the tones once it knows which sections exist. The markup inside is
+// unchanged from when these were inlined in the page template.
+
+function chaseBand(g, en, cls) {
+  return `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
+    <h2>Top <span class="hl">chase cards</span></h2>
+    <div class="chase-grid">
+      ${g.notable.map((c) => `<button class="chase-card" type="button"
+        data-img="${esc(c.imageLarge || c.image || "")}"
+        data-name="${esc(cardName(c))}" data-rarity="${esc(rarityLabel(c.rarity) || (c.secret ? "Numbered past the set" : ""))}"
+        data-number="${esc(c.localId || "")}" data-price=""
+        aria-label="Enlarge ${esc(cardName(c))}">
+        ${c.image ? `<img src="${esc(c.image)}" alt="${esc(cardName(c))} ${esc(c.localId || "")}, ${esc(g.english)}" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>` : ""}
+        <div class="nm">${esc(cardName(c))}</div>
+        ${cardSub(c) ? `<div class="ig-native" lang="${esc(g.dataSource?.lang || g.lang)}">${esc(cardSub(c))}</div>` : ""}
+        <div class="rr">${esc(rarityLabel(c.rarity) || (c.secret ? "Secret" : kindOf(c) || "Card"))} &bull; ${esc(c.localId || "")}</div>
+      </button>`).join("\n      ")}
+    </div>
+    <p class="price-note">No prices here on purpose. Imported singles are priced in euro or yen by the
+      databases that carry them at all, and a converted half-filled price table is worse than none. The English
+      ${en ? `<a href="/sets/${esc(g.equivalent)}.html">${esc(en.name)} guide</a> carries` : "guides carry"} live USD
+      values for the same cards.</p>
+  </div>
+</section>`;
+}
+
+function rarityBand(g, rarities, maxN, secretCount, cls) {
+  return `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
+    <h2>Rarity <span class="hl">breakdown</span></h2>
+    <div class="rarity-list">
+      ${rarities.map(([r, n]) => `<div class="rar">
+        <div class="rar-n">${esc(rarityLabel(r) || r)}</div>
+        <div class="rar-bar"><span style="width:${Math.round((n / maxN) * 100)}%"></span></div>
+        <div class="rar-c">${n}</div>
+      </div>`).join("\n      ")}
+    </div>
+    ${secretCount ? `<p class="price-note">${secretCount} more cards are numbered past card ${g.cardCount?.official}, which is
+      how ${esc(g.dataSource?.langName || g.langName)} sets carry their secret rares. TCGdex does not label the rarity on every
+      one of them, so they are counted here rather than guessed at.</p>` : ""}
+  </div>
+</section>`;
+}
+
+function checklistBand(g, cls) {
+  if (!g.cards?.length) {
+    return `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
+    <h2>No <span class="hl">checklist</span> yet</h2>
+    <p class="lede">TCGdex knows this set exists, when it landed and how big it is, but has not published its card list.
+      As soon as it does, this page fills in on the next nightly build.</p>
+  </div>
+</section>`;
+  }
+  return `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
+    <h2>Full <span class="hl">checklist</span></h2>
+    <p class="lede">All ${g.cards.length} cards, English names where the card is a Pokemon.${
+      g.dataSource?.borrowed
+        ? ` This list is the ${esc(g.dataSource.langName)} printing's, because TCGdex has no ${esc(g.langName)} card records for this set.`
+        : ""
+    }</p>
+    <details class="ig-list">
+      <summary>Show the full ${esc(g.english)} checklist</summary>
+      <ol class="ig-cards">
+        ${g.cards.map((c) => `<li><span class="ig-no">${esc(c.localId || "")}</span>
+          <span class="ig-nm">${esc(cardName(c))}</span>
+          ${cardSub(c) ? `<span class="ig-native" lang="${esc(g.dataSource?.lang || g.lang)}">${esc(cardSub(c))}</span>` : ""}
+          ${c.rarity ? `<span class="ig-rr">${esc(rarityLabel(c.rarity))}</span>` : c.secret ? `<span class="ig-rr">Secret</span>` : kindOf(c) ? `<span class="ig-rr">${esc(kindOf(c))}</span>` : ""}</li>`).join("\n        ")}
+      </ol>
+    </details>
+    <p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather
+      than transliterated. Trainer and Supporter cards keep their ${esc(g.dataSource?.langName || g.langName)} names: no
+      free source translates them, and a guessed name on a reference page is worse than an honest one you can paste into
+      a search.</p>
+  </div>
+</section>`;
+}
+
+function ripsBand(g, rips, label, cls) {
+  return `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
+    <h2>We ripped <span class="hl">${rips.length}</span> of these</h2>
+    <div class="set-watch">
+      <div class="packshot pack pack--default"><span class="pack-face pack-l"><span class="pack-art"></span></span></div>
+      <div>
+        <p class="lede">Imported packs, opened on camera in Rochester. No idea what any of the text says, which is half
+          the fun. Every ${esc(g.english)} rip on the channel is one tap away.</p>
+        <div class="btn-row" style="margin-top:16px">
+          <a class="btn btn-yt" href="/videos.html?set=${g.id}">Watch the ${esc(label)} rips</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>`;
+}
+
+function sourceBand(g, cls) {
+  return `<section class="${cls}">
+  <div class="wrap">
+    <h2>Where this <span class="hl">came from</span></h2>
+    <ul class="facts-list">
+      <li>Set details, checklist and rarities from <a href="https://tcgdex.dev/" rel="noopener" target="_blank">TCGdex</a>, read ${esc(longDate(guides.checked) || guides.checked)}.</li>
+      ${/* "on this page", not "below": this band is the LAST section, so it was
+            pointing at a checklist that sits above it. */ ""}
+      ${g.dataSource?.borrowed ? `<li><strong>The checklist on this page is the ${esc(g.dataSource.langName)} one.</strong> ${
+        g.dataNote
+          ? esc(g.dataNote)
+          : `TCGdex lists this set in ${esc(g.langName)} but carries no cards for it, so the checklist comes from ${esc(g.dataSource.langName)} ${esc(g.dataSource.id)}, the printing it was translated from.`
+      }${g.declaredCount && g.cardCount?.total && g.declaredCount !== g.cardCount.total
+          ? ` Its own entry claims ${g.declaredCount} cards against ${g.cardCount.total} in the ${esc(g.dataSource.langName)} set; that figure has no cards behind it to check, so the verifiable number is the one shown above.`
+          : ""}</li>` : ""}
+      ${g.nameNote ? `<li><strong>On the name.</strong> ${esc(g.nameNote)}</li>` : ""}
+      <li>Pokemon card names in English via the National Pokedex number, through <a href="https://pokeapi.co" rel="noopener" target="_blank">PokeAPI</a>.</li>
+      <li>This is a fan page. Nothing here is sold by us and none of it is official.</li>
+    </ul>
   </div>
 </section>`;
 }
@@ -431,7 +571,7 @@ function guidePage(g) {
     title: g.equivalent
       ? `${g.english} (${g.langName}) Set Guide: Cards & English Equivalent | Garbage Rips 585`
       : `${g.english} (${g.langName}) Set Guide | Garbage Rips 585`,
-    desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld, noindex: thin, css: PAGE_CSS,
+    desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld, noindex: thin, css: rarityCompare(g, en) ? PAGE_CSS : "",
   }) + `
 <header class="set-hero">
   <div class="wrap">
@@ -462,117 +602,8 @@ function guidePage(g) {
     </div>
   </div>
 </section>
-${twinBand(g)}
-${compareBand(g, en)}
-${g.notable?.length ? `
-<section class="tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
-    <h2>Top <span class="hl">chase cards</span></h2>
-    <div class="chase-grid">
-      ${g.notable.map((c) => `<button class="chase-card" type="button"
-        data-img="${esc(c.imageLarge || c.image || "")}"
-        data-name="${esc(cardName(c))}" data-rarity="${esc(rarityLabel(c.rarity) || (c.secret ? "Numbered past the set" : ""))}"
-        data-number="${esc(c.localId || "")}" data-price=""
-        aria-label="Enlarge ${esc(cardName(c))}">
-        ${c.image ? `<img src="${esc(c.image)}" alt="${esc(cardName(c))} ${esc(c.localId || "")}, ${esc(g.english)}" loading="lazy" onerror="this.remove()" width="245" height="337">` : ""}
-        <div class="nm">${esc(cardName(c))}</div>
-        ${cardSub(c) ? `<div class="ig-native" lang="${esc(g.dataSource?.lang || g.lang)}">${esc(cardSub(c))}</div>` : ""}
-        <div class="rr">${esc(rarityLabel(c.rarity) || (c.secret ? "Secret" : kindOf(c) || "Card"))} &bull; ${esc(c.localId || "")}</div>
-      </button>`).join("\n      ")}
-    </div>
-    <p class="price-note">No prices here on purpose. Imported singles are priced in euro or yen by the
-      databases that carry them at all, and a converted half-filled price table is worse than none. The English
-      ${en ? `<a href="/sets/${esc(g.equivalent)}.html">${esc(en.name)} guide</a> carries` : "guides carry"} live USD
-      values for the same cards.</p>
-  </div>
-</section>` : ""}
-${rarities.length ? `
-<section class="band-sky tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
-    <h2>Rarity <span class="hl">breakdown</span></h2>
-    <div class="rarity-list">
-      ${rarities.map(([r, n]) => `<div class="rar">
-        <div class="rar-n">${esc(rarityLabel(r) || r)}</div>
-        <div class="rar-bar"><span style="width:${Math.round((n / maxN) * 100)}%"></span></div>
-        <div class="rar-c">${n}</div>
-      </div>`).join("\n      ")}
-    </div>
-    ${secretCount ? `<p class="price-note">${secretCount} more cards are numbered past card ${g.cardCount?.official}, which is
-      how ${esc(g.dataSource?.langName || g.langName)} sets carry their secret rares. TCGdex does not label the rarity on every
-      one of them, so they are counted here rather than guessed at.</p>` : ""}
-  </div>
-</section>` : ""}
-${g.cards?.length ? `
-<section class="tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
-    <h2>Full <span class="hl">checklist</span></h2>
-    <p class="lede">All ${g.cards.length} cards, English names where the card is a Pokemon.${
-      g.dataSource?.borrowed
-        ? ` This list is the ${esc(g.dataSource.langName)} printing's, because TCGdex has no ${esc(g.langName)} card records for this set.`
-        : ""
-    }</p>
-    <details class="ig-list">
-      <summary>Show the full ${esc(g.english)} checklist</summary>
-      <ol class="ig-cards">
-        ${g.cards.map((c) => `<li><span class="ig-no">${esc(c.localId || "")}</span>
-          <span class="ig-nm">${esc(cardName(c))}</span>
-          ${cardSub(c) ? `<span class="ig-native" lang="${esc(g.dataSource?.lang || g.lang)}">${esc(cardSub(c))}</span>` : ""}
-          ${c.rarity ? `<span class="ig-rr">${esc(rarityLabel(c.rarity))}</span>` : c.secret ? `<span class="ig-rr">Secret</span>` : kindOf(c) ? `<span class="ig-rr">${esc(kindOf(c))}</span>` : ""}</li>`).join("\n        ")}
-      </ol>
-    </details>
-    <p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather
-      than transliterated. Trainer and Supporter cards keep their ${esc(g.dataSource?.langName || g.langName)} names: no
-      free source translates them, and a guessed name on a reference page is worse than an honest one you can paste into
-      a search.</p>
-  </div>
-</section>` : `
-<section class="tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
-    <h2>No <span class="hl">checklist</span> yet</h2>
-    <p class="lede">TCGdex knows this set exists, when it landed and how big it is, but has not published its card list.
-      As soon as it does, this page fills in on the next nightly build.</p>
-  </div>
-</section>`}
-${rips.length ? `
-<section class="band tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
-    <h2>We ripped <span class="hl">${rips.length}</span> of these</h2>
-    <div class="set-watch">
-      <div class="packshot pack pack--default"><span class="pack-face pack-l"><span class="pack-art"></span></span></div>
-      <div>
-        <p class="lede">Imported packs, opened on camera in Rochester. No idea what any of the text says, which is half
-          the fun. Every ${esc(g.english)} rip on the channel is one tap away.</p>
-        <div class="btn-row" style="margin-top:16px">
-          <a class="btn btn-yt" href="/videos.html?set=${g.id}">Watch the ${esc(label)} rips</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>` : ""}
+${body}
 
-<section class="tight">
-  <div class="wrap">
-    <h2>Where this <span class="hl">came from</span></h2>
-    <ul class="facts-list">
-      <li>Set details, checklist and rarities from <a href="https://tcgdex.dev/" rel="noopener" target="_blank">TCGdex</a>, read ${esc(longDate(guides.checked) || guides.checked)}.</li>
-      ${g.dataSource?.borrowed ? `<li><strong>The checklist below is the ${esc(g.dataSource.langName)} one.</strong> ${
-        g.dataNote
-          ? esc(g.dataNote)
-          : `TCGdex lists this set in ${esc(g.langName)} but carries no cards for it, so the checklist comes from ${esc(g.dataSource.langName)} ${esc(g.dataSource.id)}, the printing it was translated from.`
-      }${g.declaredCount && g.cardCount?.total && g.declaredCount !== g.cardCount.total
-          ? ` Its own entry claims ${g.declaredCount} cards against ${g.cardCount.total} in the ${esc(g.dataSource.langName)} set; that figure has no cards behind it to check, so the verifiable number is the one shown above.`
-          : ""}</li>` : ""}
-      ${g.nameNote ? `<li><strong>On the name.</strong> ${esc(g.nameNote)}</li>` : ""}
-      <li>Pokemon card names in English via the National Pokedex number, through <a href="https://pokeapi.co" rel="noopener" target="_blank">PokeAPI</a>.</li>
-      <li>This is a fan page. Nothing here is sold by us and none of it is official.</li>
-    </ul>
-  </div>
-</section>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card image">
   <div class="lb-inner">

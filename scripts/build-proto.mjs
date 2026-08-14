@@ -16,7 +16,7 @@ import { SITE, DOMAIN, STAGING, LIVE } from "../shared/site.mjs";
 import { basename, join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkDrift } from "../shared/chrome.mjs";
-import { esc, MONTHS_SHORT as MONTHS, moneyCompact } from "../shared/format.mjs";
+import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims } from "../shared/format.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -63,10 +63,17 @@ const videos = rawVideos.videos || rawVideos;
 
 const setName = new Map(sets.map((s) => [s.id, s.name]));
 
+// FILTER ON THE SUFFIX, not on ".webp". This took anything webp in the folder
+// and stripped the suffix if it happened to match, so the moment a second size
+// appeared beside the originals (logos now ship a -sm.webp for the 110px boxes
+// on /sets/) the set gained 23 entries whose "id" was a whole filename. Nothing
+// broke, because every lookup is by set id and no set is called
+// "pitch-black-pokemon-tcg-set-logo-sm.webp", which is exactly why it would
+// have sat there.
 const dirSet = async (sub, suffix) =>
   new Set(
     (await readdir(join(ROOT, "public/assets", sub)))
-      .filter((f) => f.endsWith(".webp"))
+      .filter((f) => suffix.test(f))
       .map((f) => f.replace(suffix, ""))
   );
 // Graded prices, so a Pokedex tile can say what the best card in that set is
@@ -557,7 +564,7 @@ const wantedHtml = (wanted.cards || [])
         : "CHASING";
     const inner = `<span class="mw-art">${
       img
-        ? `<img src="${esc(img)}" alt="${esc(c.name)} ${esc(c.rarity || "")} from ${esc(c.setName)}" loading="lazy" onerror="this.remove()" width="245" height="337">`
+        ? `<img src="${esc(img)}" alt="${esc(c.name)} ${esc(c.rarity || "")} from ${esc(c.setName)}" loading="lazy" onerror="this.remove()"${imgDims(img)}>`
         : `<span class="mw-none">${esc(c.name)}</span>`
     }</span>
         <b>${esc(c.name)}</b><p>${esc(c.setName.toUpperCase())} &bull; ${price}</p>`;

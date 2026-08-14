@@ -18,7 +18,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { APP_JS } from "../shared/chrome.mjs";
-import { esc, shortDate, moneyCompact, noValue, rarityLabel } from "../shared/format.mjs";
+import { esc, shortDate, moneyCompact, noValue, rarityLabel, imgDims } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -256,7 +256,7 @@ function plaque(c, i) {
   const top = rank <= 3 ? ` chof-top chof-${rank}` : "";
   const art = plaqueArt(c.image);
   const img = c.image
-    ? `<img src="${esc(art.src)}"${art.extra} alt="${esc(c.name)} ${esc(c.rarity || "")} from Pokemon ${esc(c.setName)}" loading="lazy" onerror="this.remove()" width="245" height="337">`
+    ? `<img src="${esc(art.src)}"${art.extra} alt="${esc(c.name)} ${esc(c.rarity || "")} from Pokemon ${esc(c.setName)}" loading="lazy" onerror="this.remove()"${imgDims(art.src)}>`
     : `<span class="chof-noart">${esc(c.name)}</span>`;
   return `      <li class="chof${top}">
         <span class="chof-rank">${rank}</span>

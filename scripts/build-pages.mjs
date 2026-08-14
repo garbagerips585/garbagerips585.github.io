@@ -16,7 +16,7 @@ import { SITE, robots, LIVE, DOMAIN } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { ripPath } from "../shared/paths.mjs";
-import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel } from "../shared/format.mjs";
+import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, imgDims } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -225,7 +225,7 @@ function isoDuration(sec) {
 // that sit inside the sentence are part of how the title reads.
 function cleanTitle(t) {
   return t
-    .replace(/(?:\s*#[A-Za-z][\w-]*)+\s*$/, "")
+    .replace(/(?:\s*#\s*[\p{L}][\p{L}\p{N}_-]*)+\s*$/u, "")
     .replace(/\s*\|\s*$/, "")
     .replace(/\s{2,}/g, " ")
     .trim();
@@ -310,7 +310,7 @@ const headTitle =
 // is a row of link-less tokens at the end of a paragraph, so it comes off the
 // blurb, the meta description and the schema alike.
 const desc = (v.blurb || descriptions[v.id] || "")
-  .replace(/(?:\s*#[A-Za-z][\w-]*)+\s*$/, "")
+  .replace(/(?:\s*#\s*[\p{L}][\p{L}\p{N}_-]*)+\s*$/u, "")
   // Runs of spaces and tabs only, never newlines: the blank lines are what give
   // the blurb its paragraphs on the page. HTML collapses a double space so it
   // is invisible in the body, but the meta description and the JSON-LD are
@@ -335,10 +335,14 @@ const desc = (v.blurb || descriptions[v.id] || "")
   // The title is cut at a word boundary with no ellipsis, because the tail that
   // follows already reads as a continuation.
   const titleRoom = Math.max(24, 160 - descTail.length);
+  // `title`, NOT `v.title`. The <title> tag used the cleaned one and this used
+  // the raw one, so one page shipped a <title> reading "Only Garbage Rips
+  // Suicune Knock Out Collection" above a meta description reading the same
+  // thing plus "#pokemon #pokemoncards #pokemontcg #PokemonShorts".
   const shortTitle =
-    v.title.length <= titleRoom
-      ? v.title
-      : v.title.slice(0, titleRoom).replace(/[\s,:;.!?-]+\S*$/, "");
+    title.length <= titleRoom
+      ? title
+      : title.slice(0, titleRoom).replace(/[\s,:;.!?-]+\S*$/, "");
   const metaDesc = desc
     ? clip(desc.replace(/\s+/g, " "), 158)
     : shortTitle + descTail;
@@ -377,7 +381,7 @@ const desc = (v.blurb || descriptions[v.id] || "")
     </div>
     <ul class="chaser-list">
       ${chaseCards.map((c) => `<li class="chaser">
-        ${c.image ? `<img src="${esc(c.image)}" alt="${esc(c.name)}, ${esc(rarityLabel(c.rarity) || "card")} from ${esc(setLabel)}" loading="lazy" onerror="this.remove()" width="245" height="337">` : ""}
+        ${c.image ? `<img src="${esc(c.image)}" alt="${esc(c.name)}, ${esc(rarityLabel(c.rarity) || "card")} from ${esc(setLabel)}" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>` : ""}
         <div>
           <b>${esc(c.name)}</b>
           <span class="chaser-rar">${esc(rarityLabel(c.rarity) || "")}${c.number ? ` &bull; #${esc(c.number)}` : ""}</span>
@@ -563,7 +567,7 @@ ${
         <button class="hitcard-open" type="button" aria-label="See ${esc(h.name)} larger"></button>
         ${
           h.img
-            ? `<img class="hitcard-img" src="${esc(h.img)}" alt="${esc(h.name)}, ${esc(h.setName)}" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337">`
+            ? `<img class="hitcard-img" src="${esc(h.img)}" alt="${esc(h.name)}, ${esc(h.setName)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>`
             : `<div class="hitcard-img is-none" aria-hidden="true"></div>`
         }
         <div class="hitcard-b">

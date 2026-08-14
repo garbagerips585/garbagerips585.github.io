@@ -17,7 +17,7 @@
 // complete National Pokedex for exactly this reason. If that ever gets filtered
 // down to a convenient subset, every count on this page becomes a lie.
 //
-// NO POKEDEX ENTRY TEXT. The flavour text from the games is copyrighted and is
+// NO POKEDEX ENTRY TEXT. The flavor text from the games is copyrighted and is
 // deliberately not stored or reprinted. What IS used is the genus, the official
 // one or two word category ("Trash Bag", "Balloon"), which is a label rather
 // than prose, and the numbers. The sentences around them are ours.
@@ -180,7 +180,7 @@ ${MENU}
     <h1>Pokemon <span class="hl">lore</span></h1>
     <p class="lede" style="max-width:40em">Facts worth knowing about the ${n(P.length)} Pokemon in the National
       Pokedex. Every line on this page is worked out from the Pokedex data rather than remembered, and each one says
-      where it came from, because a fun fact with no source is just a rumour with good timing.</p>
+      where it came from, because a fun fact with no source is just a rumor with good timing.</p>
   </div>
 </header>
 

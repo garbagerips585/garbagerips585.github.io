@@ -168,3 +168,46 @@ export function moneyRound(v) {
   if (n === null) return "";
   return `${n < 0 ? "-" : ""}$${Math.round(Math.abs(n)).toLocaleString("en-US")}`;
 }
+
+/**
+ * The width and height attributes for a remote card image, chosen by host.
+ *
+ * These attributes exist to reserve the right SHAPE before the image arrives.
+ * A blanket rewrite once assumed every card scan on the site was a TCGdex
+ * low.webp and declared 245x337 everywhere, which was right for 3,947 images
+ * and wrong for 173: it gave low dimensions to TCGdex high scans, card
+ * dimensions to TCGplayer product photos, and introduced a 1.46% error on the
+ * Scrydex and Pokemon TCG API images, which really are 245x342. The commit
+ * that did it was fixing a 1.5% error.
+ *
+ * So the size is decided from the url rather than assumed, and every figure
+ * here was measured by fetching the files:
+ *
+ *   assets.tcgdex.net      low.webp 245x337, high.webp 600x825
+ *   images.pokemontcg.io   245x342, _hires 733x1024, symbol 20x20
+ *   images.scrydex.com     small 245x342, large 733x1024, symbol 20x20
+ *   tcgplayer-cdn          VARIABLE, 200x268 through 200x417
+ *
+ * TCGplayer product photos get NO attributes. Their height depends on the
+ * product, we do not hold it, and a fixed guess is wrong by up to 34%. They
+ * sit in a CSS box of a fixed size with object-fit:contain, so nothing is
+ * reserved by the attributes anyway.
+ *
+ * Returns a string ready to drop into a tag, with a leading space, or "".
+ */
+export function imgDims(url) {
+  const u = String(url || "");
+  if (!u) return "";
+  const wh = (w, h) => ` width="${w}" height="${h}"`;
+  if (/tcgplayer-cdn\.tcgplayer\.com/.test(u)) return "";
+  if (/assets\.tcgdex\.net/.test(u)) return /\/high\.webp/.test(u) ? wh(600, 825) : wh(245, 337);
+  if (/images\.pokemontcg\.io/.test(u)) {
+    if (/symbol|logo/.test(u)) return "";
+    return /_hires/.test(u) ? wh(733, 1024) : wh(245, 342);
+  }
+  if (/images\.scrydex\.com/.test(u)) {
+    if (/symbol|logo/.test(u)) return "";
+    return /\/large|\/hires/.test(u) ? wh(733, 1024) : wh(245, 342);
+  }
+  return "";
+}

@@ -28,7 +28,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact, rarityLabel, RARITY_WORDS } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, rarityLabel, RARITY_WORDS, imgDims } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const index = JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8"));
@@ -171,7 +171,7 @@ const row = (r) => {
   const [name, slug, n, rarity, price] = r;
   const src = thumb(slug, n);
   return `<li class="cq${src ? " has-thumb" : ""}">
-        ${src ? `<img class="cq-img" src="${esc(src)}" onerror="this.remove()" alt="" loading="lazy" width="245" height="337">` : ""}
+        ${src ? `<img class="cq-img" src="${esc(src)}" onerror="this.remove()" alt="" loading="lazy"${imgDims(src)}>` : ""}
         <a class="cq-name" href="/sets/${esc(slug)}.html">${esc(name)}</a>
         <span class="cq-set">${esc(setName[slug] || slug)} &bull; ${esc(n || "")}</span>
         ${rarity ? `<span class="cq-rr">${esc(rarityLabel(rarity))}</span>` : ""}
