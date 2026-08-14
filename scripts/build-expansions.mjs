@@ -27,6 +27,19 @@ const { sets, seriesOrder, syncedAt } = JSON.parse(
   await readFile(join(ROOT, "public/data/expansions.json"), "utf8")
 );
 
+// RIP COUNTS ARE COMPUTED HERE, NOT READ FROM THE SNAPSHOT.
+//
+// expansions.json carries a `rips` field written when it was last synced, and
+// it went stale the moment the tag rules changed. It still said 151 had 5 rips
+// after the taxonomy fix cut that to 1, and disagreed with the home page and
+// the set guides on eight sets at once. Those pages count from videos.json on
+// every build; this one now does the same, so the three cannot drift again.
+const { videos: allVideos } = JSON.parse(
+  await readFile(join(ROOT, "public/data/videos.json"), "utf8")
+);
+const ripsBySet = {};
+for (const v of allVideos) for (const sid of v.sets || []) ripsBySet[sid] = (ripsBySet[sid] || 0) + 1;
+
 
 const year = (iso) => (iso || "").slice(0, 4);
 const slugId = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -105,8 +118,8 @@ function eraTable(e) {
           <td class="xp-date"><time datetime="${esc(s.released || "")}">${shortDate(s.released)}</time></td>
           <td class="xp-cards">${cards}</td>
           <td class="xp-rips">${
-            s.slug && s.rips
-              ? `<a href="/videos.html?set=${s.slug}">${s.rips} rip${s.rips === 1 ? "" : "s"}</a>`
+            s.slug && ripsBySet[s.slug]
+              ? `<a href="/videos.html?set=${s.slug}">${ripsBySet[s.slug]} rip${ripsBySet[s.slug] === 1 ? "" : "s"}</a>`
               : `<span class="xp-none">&mdash;</span>`
           }</td>
         </tr>`;

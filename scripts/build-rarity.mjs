@@ -39,6 +39,15 @@ import { esc, longDate } from "../shared/format.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/rarity.json"), "utf8"));
 
+// COUNTED, NOT TYPED. The intro said "stars for five different rarities" while
+// the ladder below it lists six: Rare, Double Rare, Ultra Rare, Illustration
+// Rare, Special Illustration Rare and Hyper Rare. Mega Hyper Rare is the one
+// that is NOT a star, it is a sparkle, which is presumably where five came
+// from. Counting the ladder means the sentence follows the data.
+const starRarities = ["", "one", "two", "three", "four", "five", "six", "seven", "eight"][
+  d.ladder.filter((x) => /star/i.test(x.symbol || "")).length
+];
+
 /**
  * A magnified crop of a card's bottom corner.
  *
@@ -124,6 +133,7 @@ const slangCard = (s) => {
           ${art}
         </li>`;
 };
+
 
 const ladderRow = (r, i) => `      <li class="rr${r.chase ? " is-chase" : ""}">
         <div class="rr-n">${i + 1}</div>
@@ -306,7 +316,7 @@ const body = `
   <section class="rg-sec">
     <div class="wrap">
       <h2>Then: <span class="hl">count, then color</span></h2>
-      <p class="rg-p">Modern sets use stars for five different rarities, which sounds impossible
+      <p class="rg-p">Modern sets use stars for ${starRarities} different rarities, which sounds impossible
         until you know the trick. It is two questions, in this order.</p>
       <div class="steps">
         <div class="step"><b>1</b><h3>How many?</h3><p>One, two or three. Count them before you look
