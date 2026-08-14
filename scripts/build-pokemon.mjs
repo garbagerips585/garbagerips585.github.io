@@ -467,8 +467,23 @@ function indexPage() {
     <div class="poke-grid">
       ${roster
         .map(
-          (p) => `<a class="poke-card" href="/pokemon/${esc(p.slug)}.html">
-        ${p.priciest.img ? `<img src="${esc(p.priciest.img)}/low.webp" onerror="this.remove()" alt="${esc(p.priciest.name)}, the most valuable ${esc(p.name)} card" loading="lazy" width="245" height="337">` : ""}
+          // THE LCP ELEMENT OF THIS PAGE WAS loading="lazy".
+          //
+          // The grid starts 422px down a 844px phone viewport, so the first
+          // card is on screen at first paint and is what Chrome picks as the
+          // Largest Contentful Paint: measured at 390x844 and 1440x900, the LCP
+          // element is one of these images and the LCP url is its low.webp.
+          // Marking it lazy tells the browser it is NOT needed for the first
+          // screen, which is the opposite of true, and it cost 100-120ms:
+          // FCP 72-96ms against LCP 188-192ms with nothing else in between.
+          //
+          // Only the FIRST tile is eager, and only the first carries
+          // fetchpriority. Priority is a ranking, not a label: putting it on
+          // several images means none of them has it. Everything from the
+          // second tile on stays lazy, which is right, because on the narrowest
+          // phone only one is above the fold.
+          (p, i) => `<a class="poke-card" href="/pokemon/${esc(p.slug)}.html">
+        ${p.priciest.img ? `<img src="${esc(p.priciest.img)}/low.webp" onerror="this.remove()" alt="${esc(p.priciest.name)}, the most valuable ${esc(p.name)} card" ${i === 0 ? `fetchpriority="high" decoding="async"` : `loading="lazy"`} width="245" height="337">` : ""}
         <span class="poke-nm">${esc(p.name)}</span>
         <span class="poke-meta">${p.list.length} cards &bull; ${p.sets.size} sets</span>
         ${

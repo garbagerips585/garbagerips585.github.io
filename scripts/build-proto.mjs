@@ -687,9 +687,43 @@ function libCard(v) {
     `<p>${esc(bits.join("  •  "))}</p></article>`;
 }
 
+/**
+ * HOW MANY TILES THE SERVER RENDERS. 48, which is app.js's own PAGE size, so
+ * the HTML carries exactly the first page app.js would have built and the Load
+ * more flow underneath is unchanged.
+ *
+ * ALL 312 WAS MEASURED AND REJECTED, and the reason is not the HTML. 312 tiles
+ * are 225.1KB raw but only 17.8KB gzipped, which is how the host serves them,
+ * so the document was never the problem. The pack wrappers are:
+ *
+ *   tiles   distinct wrappers   pack art fetched at load   page transfer @1440
+ *      48         8                    376KB                       815KB
+ *      96         9                    426KB                        --
+ *     144        13                    573KB                        --
+ *     312        32                    851KB                     1,493KB
+ *
+ * A wrapper is a CSS background-image on .pack--<set>, so Chrome fetches every
+ * one that any element in the render tree references, whether or not it is
+ * anywhere near the viewport. Putting all 312 rips on the page brings 24 more
+ * sets with it, and 719KB of booster art the visitor has not scrolled to lands
+ * on first paint. Measured at 1440x900: 774KB before, 815KB at 48 tiles,
+ * 1,493KB at 312. FCP went 112 -> 124 -> 140ms.
+ *
+ * The SEO case for 312 is real but smaller than it looks. Crawl depth from the
+ * home page over the static links, BFS over public/, measured per variant:
+ *
+ *   0 tiles    depth 2:207  3:155  4:23  5:2    median rip depth 3, max 5
+ *   48 tiles         2:217  3:147  4:21  5:2    median 3, max 5
+ *   144 tiles        2:285  3:90   4:10  5:2    median 2, max 5
+ *   312 tiles        2:387                      median 2, max 2
+ *
+ * So 312 does flatten it completely, and if someone decides that is worth
+ * 719KB, change this number: everything else here already handles it. But CLS,
+ * which is what this render exists to fix, is 0 at 48 and 0 at 312 alike.
+ */
+const LIB_TILES = 48;
 // app.js's default sort: newest first, and it compares the ISO strings rather
 // than parsing them. Same comparison here so the two orders cannot differ.
-const LIB_TILES = Number(process.env.LIB_TILES || 0) || videos.length;
 const libHtml = [...videos]
   .sort((a, b) => (a.published < b.published ? 1 : -1))
   .slice(0, LIB_TILES)

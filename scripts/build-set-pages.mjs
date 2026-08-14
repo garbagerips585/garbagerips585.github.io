@@ -165,13 +165,177 @@ try {
   /* run: node scripts/sync-cards.mjs */
 }
 
-function checklistBand(s) {
+/**
+ * WHERE A SET'S VALUE ACTUALLY SITS, from the checklist and nothing else.
+ *
+ * The guides could already tell you the eight priciest cards and the total card
+ * count and never the relationship between them, which is the thing a person
+ * deciding whether to open a set is actually asking. It is pure arithmetic over
+ * prices this page already prints, so it costs no new source and can be checked
+ * by hand against the checklist band directly below it.
+ *
+ * Everything here is a sum, a sort or a count. NONE of it is a pull rate, an
+ * expected value or a claim about what is in a pack: it is what buying one copy
+ * of every card would cost and how that total is distributed, which is a
+ * different question and the only one the data can answer.
+ *
+ * Returns null rather than a half-filled object when there is not enough priced
+ * data to say anything, and THROWS when the arithmetic does not close, because
+ * a concentration figure that does not add up is worse than no band at all.
+ */
+function setValue(s) {
+  const doc = checklists[s.id];
+  if (!doc?.cards?.length) return null;
+
+  const prices = doc.cards
+    .filter((c) => typeof c.price === "number" && c.price > 0)
+    .map((c) => c.price)
+    .sort((a, b) => b - a);
+  // Under twenty priced cards there is no distribution to describe: "half the
+  // value is in 2 cards" out of 9 is a sentence about a rounding error.
+  if (prices.length < 20) return null;
+
+  const sum = prices.reduce((a, b) => a + b, 0);
+  // Smallest number of cards from the top whose prices reach half the total.
+  let acc = 0;
+  let half = 0;
+  for (const p of prices) {
+    acc += p;
+    half += 1;
+    if (acc >= sum / 2) break;
+  }
+  const topN = Math.min(10, prices.length);
+  const topSum = prices.slice(0, topN).reduce((a, b) => a + b, 0);
+  const median = prices[Math.floor(prices.length / 2)];
+  const rest = sum - acc;
+  const restCount = prices.length - half;
+  const topShare = Math.round((topSum / sum) * 100);
+
+  const bad = [];
+  if (!(sum > 0) || !Number.isFinite(sum)) bad.push(`total is ${sum}`);
+  if (acc < sum / 2 - 0.005) bad.push(`top ${half} cards sum to ${acc}, under half of ${sum}`);
+  if (acc > sum + 0.005) bad.push(`top ${half} cards sum to ${acc}, over the total ${sum}`);
+  if (half < 1 || half > prices.length) bad.push(`half-of-value count is ${half} of ${prices.length}`);
+  if (restCount < 0 || half + restCount !== prices.length) bad.push(`${half} + ${restCount} is not ${prices.length}`);
+  if (rest < -0.005) bad.push(`remainder is ${rest}`);
+  if (topSum > sum + 0.005) bad.push(`top ${topN} sum ${topSum} exceeds total ${sum}`);
+  if (topShare < 0 || topShare > 100) bad.push(`top ${topN} share is ${topShare}%`);
+  if (median > prices[0] || median < prices[prices.length - 1]) bad.push(`middle price ${median} is outside the range`);
+  if (bad.length) {
+    throw new Error(
+      `setValue(${s.id}): the checklist arithmetic does not close, so the band would print a wrong figure.\n  ` +
+        bad.join("\n  ") +
+        `\nCheck public/data/cards/${s.id}.json, then re-run scripts/sync-cards.mjs.`
+    );
+  }
+
+  return {
+    checked: doc.checked,
+    counted: prices.length,
+    total: doc.cards.length,
+    sum,
+    half,
+    rest,
+    restCount,
+    restEach: restCount > 0 ? rest / restCount : null,
+    topN,
+    topShare,
+    median,
+  };
+}
+
+/**
+ * "Where the money is": the concentration band.
+ *
+ * Sits above the Quick Facts because it reframes everything under it. The
+ * rarity ladder and the checklist both read differently once you know that four
+ * cards hold half the set.
+ */
+function valueBand(s, cls) {
+  const v = setValue(s);
+  if (!v) return "";
+  const some = v.counted === v.total ? "every card" : `each of the ${v.counted} cards that has a price`;
+  return `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Where the value sits</p>
+    <h2>Where the <span class="hl">money</span> is</h2>
+    <p class="lede" style="max-width:42em">Buy one copy of ${some} in ${esc(s.name)} at market price and you would spend
+      ${moneyExact(v.sum)}. ${
+        v.half === 1
+          ? `More than half of that is a single card.`
+          : `Half of it sits in ${v.half} cards.`
+      } The other ${v.restCount} come to ${moneyExact(v.rest)} between them${
+        v.restEach ? `, which is ${moneyExact(v.restEach)} a card` : ""
+      }.</p>
+    <div class="facts">
+      <div class="fact"><div class="n">${moneyCompact(v.sum)}</div><div class="l">One of every card</div></div>
+      <div class="fact"><div class="n">${v.half}</div><div class="l">Cards holding half the value</div></div>
+      <div class="fact"><div class="n">${v.topShare}%</div><div class="l">Held by the ${v.topN} priciest</div></div>
+      <div class="fact"><div class="n">${moneyExact(v.median)}</div><div class="l">The middle card</div></div>
+    </div>
+    <p class="lede sv-say">In plain terms: a handful of cards carry the set and everything else is bulk. That is normal,
+      it is true of nearly every modern set, and it is worth knowing before you buy a box hoping to "get your money
+      back".</p>
+    <p class="price-note">Added up from the ${v.counted} market prices in the checklist below, read
+      ${esc(longDate(v.checked) || v.checked)}. This is what buying one of each card would cost. It is not what a booster
+      box is worth, and it is not the chance of pulling anything: nobody outside The Pokemon Company has pull rates, so
+      you will not find any on this site.</p>
+  </div>
+</section>`;
+}
+
+/**
+ * Median and top price per rarity, keyed by the Title Case rarity label.
+ *
+ * ONLY returned for a rarity where the checklist and the set's own rarity
+ * counts agree AND every card at that rarity carries a price, because the line
+ * says "half are worth more, half less" and that is only true of a complete
+ * set of prices. Four sets disagree with their own checklists on at least one
+ * tier (sets.json calls seven Ascended Heroes cards "Mega Attack Rare" where
+ * the checklist calls them Ultra Rare, and Pokemon GO uses an entirely
+ * different vocabulary), so those tiers get no price line rather than a figure
+ * describing a different number of cards than the one printed next to it.
+ */
+function rarityPrices(s) {
+  const out = new Map();
+  const doc = checklists[s.id];
+  if (!doc?.cards?.length) return out;
+
+  const by = new Map();
+  for (const c of doc.cards) {
+    const k = rarityLabel(c.rarity);
+    if (!k) continue;
+    if (!by.has(k)) by.set(k, { n: 0, prices: [] });
+    const e = by.get(k);
+    e.n += 1;
+    if (typeof c.price === "number" && c.price > 0) e.prices.push(c.price);
+  }
+
+  for (const [r, n] of Object.entries(s.rarities || {})) {
+    const key = rarityLabel(r) || r;
+    const e = by.get(key);
+    if (!e || e.n !== n || e.prices.length !== n) continue;
+    const asc = e.prices.slice().sort((a, b) => a - b);
+    const mid = asc[Math.floor(asc.length / 2)];
+    const top = asc[asc.length - 1];
+    if (!(mid > 0) || !(top > 0) || mid > top) {
+      throw new Error(
+        `rarityPrices(${s.id}): ${key} produced mid ${mid} and top ${top} from ${asc.length} prices, ` +
+          `which cannot both be right. Check public/data/cards/${s.id}.json.`
+      );
+    }
+    out.set(key, { n, mid, top });
+  }
+  return out;
+}
+
+function checklistBand(s, cls) {
   const doc = checklists[s.id];
   if (!doc?.cards?.length) return "";
   const priced = doc.cards.filter((c) => c.price != null);
   const priciest = priced.slice().sort((a, b) => b.price - a.price)[0];
 
-  return `<section class="tight">
+  return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
     <h2>Full <span class="hl">checklist</span></h2>
@@ -208,7 +372,7 @@ function leadTime(earlier, later) {
   return `${Math.round(days / 30.44)} months earlier`;
 }
 
-function intlBand(s) {
+function intlBand(s, cls) {
   const e = intlSets[s.id];
   if (!e?.sources?.length) return "";
   const many = e.sources.length > 1;
@@ -239,7 +403,7 @@ function intlBand(s) {
     })
     .join("\n");
 
-  return `<section class="tight">
+  return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Same set, other language</p>
     <h2>${esc(s.name)} is also <span class="hl">${esc(e.sources.map((x) => x.name).join(" + "))}</span></h2>
@@ -415,12 +579,117 @@ try {
  * because these move daily and a stale price presented as current is the one
  * way this section could actually cost somebody money.
  */
-function productBand(s) {
+/**
+ * How many packs are in a sealed product, READ OFF THE BLURB ON THE SAME CARD.
+ *
+ * Deliberately not a lookup table keyed by product kind. The blurb is printed
+ * two lines above the price on the page, so a reader can check the division
+ * themselves, and a kind-keyed table is exactly what would have got this wrong:
+ * eight of the fifteen "Booster Box" entries are a HALF booster box, which is a
+ * different number of packs from the "36 packs" the kind carries. Dividing
+ * those by 36 would have published a per-pack price roughly half the real one
+ * on a third of the guides.
+ *
+ * So: a count only when the blurb states one, and never when the product name
+ * carries a size word whose real pack count is not in our data. No count means
+ * no per-pack figure on that card. Blisters, tins and collection boxes say
+ * "packs plus a promo" with no number and are left alone for the same reason.
+ */
+const SIZE_WORD = /\b(half|enhanced|mini|jumbo|premium|double)\b/i;
+function packsIn(p) {
+  if (SIZE_WORD.test(p.name || "")) return null;
+  const blurb = String(p.blurb || "");
+  const m = /^(\d+)\s+packs?\b/i.exec(blurb);
+  const n = m ? Number(m[1]) : /^one pack\b/i.test(blurb) ? 1 : null;
+  if (n === null) return null;
+  if (!Number.isInteger(n) || n < 1 || n > 40) {
+    throw new Error(`packsIn: "${p.name}" parsed ${n} packs out of "${blurb}", which cannot be right.`);
+  }
+  if (p.kind === "Single Pack" && n !== 1) {
+    throw new Error(`packsIn: "${p.name}" is a Single Pack but its blurb says ${n} packs.`);
+  }
+  return n;
+}
+
+/**
+ * What to CALL a product, and what to say is inside it.
+ *
+ * `kind` and `blurb` are per-kind generics written by sync-products.mjs, and on
+ * eight of the twenty-three guides they are wrong about the same product:
+ * TCGplayer sells a "Half Booster Box" and the card was labelling it "Booster
+ * Box" with "36 packs" underneath. The guide was already printing a pack count
+ * for a product that does not hold that many; adding a price per pack on top of
+ * it would have doubled the error rather than introduced it.
+ *
+ * Where the product NAME ends in "<size word> <kind>" the size word is real and
+ * the generic blurb is not, so the name wins and the blurb is DROPPED rather
+ * than corrected. How many packs a half box or an enhanced box holds is not in
+ * our data, and a plausible guess in a slot people read as a fact is exactly
+ * the thing this site does not do.
+ */
+function productLabel(p) {
+  const q = SIZE_WORD.exec(p.name || "")?.[1];
+  if (!q) return { kind: p.kind, blurb: p.blurb };
+  const full = `${q} ${p.kind}`;
+  if (!String(p.name).toLowerCase().endsWith(full.toLowerCase())) return { kind: p.kind, blurb: p.blurb };
+  return { kind: full.charAt(0).toUpperCase() + full.slice(1), blurb: "Pack count not in our data" };
+}
+
+/** Market price per pack, or null where the pack count is not knowable. */
+function perPack(p) {
+  const packs = packsIn(p);
+  if (!packs || typeof p.market !== "number" || !(p.market > 0)) return null;
+  const each = p.market / packs;
+  if (!Number.isFinite(each) || each <= 0 || each > p.market + 0.005) {
+    throw new Error(`perPack: "${p.name}" gives ${each} per pack from ${p.market} over ${packs} packs.`);
+  }
+  return { packs, each };
+}
+
+function productBand(s, cls) {
   const entry = productsBySet[s.id];
   if (!entry?.products?.length) return "";
 
   const items = [...entry.products].sort((a, b) => a.market - b.market);
   const cheapest = items[0];
+
+  // THE QUESTION THE OLD BAND DID NOT ANSWER. It listed six prices for six
+  // differently sized things, cheapest total first, which tells you what you can
+  // afford and not what anything costs. A booster box at $179 next to a pack at
+  // $6.55 is not a comparison until both are per pack.
+  const perPacks = items
+    .map((p) => ({ p, ...(perPack(p) || {}) }))
+    .filter((x) => x.each)
+    .sort((a, b) => a.each - b.each);
+  const bestPack = perPacks[0] || null;
+  const singly = perPacks.find((x) => x.packs === 1) || null;
+  const next = perPacks[1] || null;
+  // Two different questions, and the lede answers whichever ones apply without
+  // saying the same dollar figure twice. "Cheapest way in" is the smallest
+  // amount of money that gets you playing. "Cheapest per pack" is what a pack
+  // costs, which is the one that decides between a box and a handful of packs.
+  let lede = `Every sealed ${esc(s.name)} product still being sold, cheapest first.`;
+  if (bestPack && singly && bestPack.p === singly.p && cheapest === singly.p) {
+    // Genuinely common and worth saying out loud: on 13 of the 23 sets the
+    // single pack is already the cheapest pack, so the boxes cost MORE per pack.
+    lede += ` The cheapest way in is also the cheapest pack: one pack at ${priceUSD(singly.each)}.${
+      next ? ` The ${esc(productLabel(next.p).kind.toLowerCase())} works out at ${priceUSD(next.each)} a pack, so on this set the
+      bigger boxes cost more per pack, not less.` : ""
+    }`;
+  } else {
+    lede += ` The cheapest way in is ${esc(productLabel(cheapest).kind.toLowerCase())} at ${priceUSD(cheapest.market)}.`;
+    if (bestPack && singly && bestPack.p !== singly.p) {
+      const off = Math.round(((singly.each - bestPack.each) / singly.each) * 100);
+      lede += ` Packs bought one at a time are ${priceUSD(singly.each)} each; the cheapest pack in the set is inside the
+      ${esc(productLabel(bestPack.p).kind.toLowerCase())} at ${priceUSD(bestPack.each)}${off >= 1 ? `, which is ${off}% less` : ""}.`;
+    } else if (bestPack && singly) {
+      lede += ` No box here beats it per pack${
+        next ? `: the ${esc(productLabel(next.p).kind.toLowerCase())} works out at ${priceUSD(next.each)} a pack` : ""
+      }.`;
+    } else if (bestPack) {
+      lede += ` The cheapest pack here is inside the ${esc(productLabel(bestPack.p).kind.toLowerCase())} at ${priceUSD(bestPack.each)}.`;
+    }
+  }
 
   const cards = items
     .map(
@@ -431,9 +700,16 @@ function productBand(s) {
                width="245" height="337" referrerpolicy="no-referrer">
         </a>
         <div class="prod-body">
-          <h3><a href="${esc(affLink(p.url))}" rel="noopener" target="_blank">${esc(p.kind)}</a></h3>
-          <p class="prod-what">${esc(p.blurb)}</p>
+          <h3><a href="${esc(affLink(p.url))}" rel="noopener" target="_blank">${esc(productLabel(p).kind)}</a></h3>
+          <p class="prod-what">${esc(productLabel(p).blurb)}</p>
           <p class="prod-price"><b>${priceUSD(p.market)}</b> <span>market</span></p>
+          ${(() => {
+            const e = perPack(p);
+            if (!e || e.packs === 1) return "";
+            return `<p class="prod-per">${priceUSD(e.each)} a pack${
+              bestPack && bestPack.p === p ? ` <b>cheapest</b>` : ""
+            }</p>`;
+          })()}
           ${
             p.low
               ? `<p class="prod-low">Cheapest listing ${priceUSD(p.low)}${
@@ -446,18 +722,21 @@ function productBand(s) {
     )
     .join("\n");
 
-  return `<section class="band tight">
+  return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What you can buy</p>
     <h2>Ways to open <span class="hl">${esc(s.name)}</span></h2>
-    <p class="lede prod-lede">Every sealed ${esc(s.name)} product still being sold, cheapest first.
-      The cheapest way in is ${esc(cheapest.kind.toLowerCase())} at ${priceUSD(cheapest.market)}.</p>
+    <p class="lede prod-lede">${lede}</p>
     <ul class="prod-grid">
 ${cards}
     </ul>
     <p class="prod-note">Prices are TCGplayer market and lowest-listing prices, read on
       ${esc(longDate(entry.checked))}. They move every day, so treat them as a rough idea and not a quote.
       Product photos are TCGplayer's. We are not a shop and we do not sell any of this.</p>
+    ${perPacks.length ? `<p class="prod-note">Cost per pack is the market price divided by the pack count printed on
+      each card above, so you can check it. Sleeves, dice, decks and promo cards are counted as worth nothing, which
+      flatters every box that includes them. Anything whose pack count is not in our data gets no per-pack figure
+      rather than a guessed one, which is why blisters, tins and collection boxes have none.</p>` : ""}
   </div>
 </section>`;
 }
@@ -512,7 +791,32 @@ function derivedFacts(s) {
   return out;
 }
 
-const head = ({ title, desc, canonical, image, ld }) => `<!DOCTYPE html>
+/**
+ * The handful of rules only a set guide needs, inlined here rather than added
+ * to assets-source/ui.css, which is render blocking on all 426 pages. Same
+ * pattern as build-expansions.mjs and build-luck.mjs. Everything else on these
+ * pages is a class ui.css already carries.
+ */
+const PAGE_CSS = `
+/* The money-per-rarity line under each bar. .rar is a two column grid whose
+   .rar-bar already spans both, so this sits between the count and the bar and
+   spans the full width too. Mono, because it is a figure. */
+.rar-pr{grid-column:1 / -1;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
+  letter-spacing:.02em}
+.rar-pr b{color:var(--ketchup-deep);font-weight:700}
+.band-sky .rar-pr{color:var(--navy)}
+/* The plain-English read of the value band. Same size as a lede, set apart so
+   it does not read as a third paragraph of numbers. */
+.sv-say{max-width:42em;margin-top:var(--s5);border-left:4px solid var(--gold);
+  padding-left:var(--s4);font-size:var(--t-body)}
+/* Cost per pack. Sits directly under the total price it is derived from. */
+.prod-per{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
+  letter-spacing:.04em;text-transform:uppercase;margin-top:3px}
+.prod-per b{display:inline-block;background:var(--mustard);color:var(--ink);
+  border-radius:var(--r-pill);padding:1px 7px;margin-left:4px;font-weight:700}
+`;
+
+const head = ({ title, desc, canonical, image, ld, css = "" }) => `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -535,7 +839,7 @@ const head = ({ title, desc, canonical, image, ld }) => `<!DOCTYPE html>
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css">
-${STYLES}
+${STYLES}${css ? `\n<style>${css}</style>` : ""}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -604,7 +908,221 @@ function setPage(s) {
   // not a page about the card. The /sets/ index ItemList further down is the
   // one that stays, because a set genuinely has a page of its own.
 
-  return head({ title: setTitle(s.name), desc, canonical: url, image: `${SITE}/assets/${ogCards.has(s.id) ? `og-${s.id}` : "og-image"}.jpg?v=2`, ld }) + `
+  const rarPr = rarityPrices(s);
+
+  // ---------------------------------------------------------------- the bands
+  //
+  // Each section is a function of ONE argument: the class that paints it. They
+  // were hard coded, and the result was three identical sky bands stacked on
+  // Surging Sparks (rips, pulled on camera, chase cards) and three identical
+  // cream ones on Pitch Black (rarity, checklist, also-known-as). A guide read
+  // as one long scroll rather than as sections, which is a real cost on a page
+  // whose whole job is to be skimmed.
+  //
+  // It cannot be fixed by hard coding a better order either, because which
+  // sections exist varies per set: eight guides have no rips, most have nothing
+  // in "pulled on camera", and only some have a foreign twin. The tone has to
+  // be assigned after the list of present sections is known.
+  const bands = [
+    (() => {
+      // Newest twelve. All of them on a 90-rip set would be a wall, and the link at
+      // the end covers the rest.
+      const all = ripsList.get(s.id) || [];
+      const show = all.slice(0, 12);
+      if (!show.length) return null;
+      return (cls) => `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On the channel</p>
+    <h2>Every ${esc(s.name)} <span class="hl">rip</span></h2>
+    <p class="lede" style="max-width:38em">${all.length} video${all.length === 1 ? "" : "s"} opening this set${
+        all.length > show.length ? `, newest ${show.length} below` : ""
+      }.</p>
+    <ul class="riplist">
+      ${show
+        .map(
+          (v) => `<li><a href="/${esc(v.path)}">${esc(v.label || v.siteTitle || v.title)}</a>
+        <span>${esc(shortDate(v.published))}</span></li>`,
+        )
+        .join("\n      ")}
+    </ul>
+    ${all.length > show.length ? `<p style="margin-top:var(--s3)"><a class="btn btn-ghost btn-sm" href="/videos.html?set=${esc(s.id)}">All ${all.length} ${esc(s.name)} rips</a></p>` : ""}
+  </div>
+</section>`;
+    })(),
+
+    (() => {
+      const mine = (hitsBySet.get(s.id) || [])
+        .map((h) => {
+          const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
+          const same = ((checklists[s.id] || {}).cards || []).filter((c) => norm(c.name) === norm(h.card));
+          const want = h.rarity ? norm(h.rarity).slice(0, 8) : null;
+          const m = (want && same.find((c) => norm(c.rarity).includes(want))) || same[0] || null;
+          const v = videoById.get(h.vid);
+          return {
+            name: h.card,
+            n: m ? m.n : h.number || null,
+            rarity: (m && m.rarity) || h.rarity || null,
+            img: m && m.img ? `${m.img}/low.webp` : null,
+            price: m && typeof m.price === "number" ? m.price : typeof h.price === "number" ? h.price : null,
+            path: v ? v.path : null,
+            label: v ? ripLabel(v, setNameById, descriptions[v.id]) || v.title : null,
+          };
+        })
+        .sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
+      if (!mine.length) return null;
+      return (cls) => `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
+    <h2>What we have <span class="hl">hit</span> from this set</h2>
+    <p class="lede" style="max-width:38em">${mine.length} card${mine.length === 1 ? "" : "s"} out of our own packs, priciest first.
+      Every one of them is in a video you can watch.</p>
+    <ul class="mine-grid">
+      ${mine
+        .map(
+          (h) => `<li class="mine">
+        ${h.img ? `<img class="mine-img" src="${esc(h.img)}" alt="${esc(h.name)}" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337">` : `<div class="mine-img is-none" aria-hidden="true"></div>`}
+        <p class="mine-n">${esc(h.name)}</p>
+        <p class="mine-r">${esc(rarityLabel(h.rarity) || "")}${h.n ? ` &bull; #${esc(h.n)}` : ""}</p>
+        <p class="mine-p">${typeof h.price === "number" ? moneyExact(h.price) : "No market price"}</p>
+        ${h.path ? `<a class="mine-w" href="/${esc(h.path)}">${esc(h.label)} &rarr;</a>` : ""}
+      </li>`,
+        )
+        .join("\n      ")}
+    </ul>
+  </div>
+</section>`;
+    })(),
+
+    (cls) => `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
+    <h2>Top <span class="hl">chase cards</span></h2>
+    ${s.chase?.length ? `
+    <div class="chase-grid">
+      ${s.chase.map((c) => `<button class="chase-card" type="button"
+        data-img="${esc(c.imageLarge || c.image || "")}"
+        data-name="${esc(c.name)}" data-rarity="${esc(rarityLabel(c.rarity) || "")}"
+        data-number="${esc(c.number)}" data-price="${esc(moneyCompact(c.price))}"
+        data-psa10="${esc(gradedPrice(s.id, c.number) ? moneyCompact(gradedPrice(s.id, c.number)) : "")}"
+        data-url="${esc(c.url ? affLink(c.url) : "")}"
+        aria-label="Enlarge ${esc(c.name)}">
+        ${c.image ? `<img src="${c.image}" alt="${esc(c.name)} ${esc(c.number)}, ${esc(rarityLabel(c.rarity) || "card")}" loading="lazy" onerror="this.remove()" width="245" height="337">` : ""}
+        <div class="nm">${esc(c.name)}</div>
+        <div class="rr">${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(c.number)}</div>
+        <div class="pr">${moneyCompact(c.price)}</div>
+        ${gradedPrice(s.id, c.number)
+          ? `<div class="pr10">PSA 10 ${moneyCompact(gradedPrice(s.id, c.number))}${
+              // longDate, not the raw ISO string the price file stores. Every other date
+              // on this page is long form, including the "last updated" line directly
+              // under this grid, so a bare 2026-08-12 here read as a different site.
+              gradedAsOf(s.id, c.number) ? `<span> &bull; ${esc(longDate(gradedAsOf(s.id, c.number)))}</span>` : ""
+            }</div>`
+          : ""}
+      </button>`).join("\n      ")}
+    </div>
+    <p class="price-note">Prices are TCGplayer market estimates${longDate(s.pricesAsOf || s.chasePricesAsOf) ? `, last updated ${longDate(s.pricesAsOf || s.chasePricesAsOf)}` : ""}. Singles move fast, so treat these as a ballpark rather than a quote.${affOn ? ` ${esc(aff.tcgplayer.disclosure)}` : ""}</p>
+    ` : `
+    <div class="no-prices">
+      <strong>No market prices yet.</strong> ${esc(s.name)} is recent enough that pricing data has not landed in the card database. The card list and rarity counts above are accurate; the values will fill in as the market settles.
+    </div>`}
+  </div>
+</section>`,
+
+    setValue(s) ? (cls) => valueBand(s, cls) : null,
+
+    // PINNED to the sky gradient, and the tone of everything else is worked out
+    // by alternating outward from here. Alternating outward from a fixed point
+    // can never produce two neighbours the same; alternating from the top and
+    // then forcing one section into place can.
+    { pin: true, html: (cls) => `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Quick facts</p>
+    <h2>${esc(s.name)} <span class="hl">101</span></h2>
+    <ul class="facts-list">
+      ${derivedFacts(s).map((f) => `<li>${f}</li>`).join("\n      ")}
+      ${(s.notes?.funFacts || []).map((f) => `<li>${esc(f)}</li>`).join("\n      ")}
+    </ul>
+  </div>
+</section>` },
+
+    (cls) => `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
+    <h2>Rarity <span class="hl">breakdown</span></h2>
+    ${ordered.length ? `${rarPr.size ? `<p class="lede" style="max-width:42em">How many cards sit at each rarity, and what those
+      cards are worth. <b>Mid</b> is the middle card at that rarity: half of them cost more than that and half cost
+      less, which is a far better guide to what you will actually see than the one famous card at the top.</p>` : ""}
+    <div class="rarity-list">
+      ${ordered.map(([r, n]) => {
+        const key = rarityLabel(r) || r;
+        const pr = rarPr.get(key);
+        return `<div class="rar${CHASE.has(r) ? " chase" : ""}">
+        <span class="rar-name">${esc(key)}</span>
+        <span class="rar-n">${n}</span>
+        ${pr
+          ? `<span class="rar-pr">${
+              n === 1
+                ? `<b>${moneyExact(pr.top)}</b>`
+                : `Mid <b>${moneyExact(pr.mid)}</b> &bull; top <b>${moneyExact(pr.top)}</b>`
+            }</span>`
+          : ""}
+        <span class="rar-bar"><i style="width:${Math.max(4, Math.round((n / maxN) * 100))}%"></i></span>
+      </div>`;
+      }).join("\n      ")}
+    </div>${rarPr.size ? `
+    <p class="price-note">Prices worked out from the ${esc(s.name)} checklist below, read ${esc(
+      longDate(checklists[s.id]?.checked) || checklists[s.id]?.checked || ""
+    )}. A rarity only gets a figure where every card at that rarity has a price and the checklist agrees with the set's
+      own count, so a few tiers show a count and no money rather than a number covering a different set of cards than
+      the one beside it.</p>` : ""}` : `<p class="lede">Card list not available for this set yet.</p>`}
+  </div>
+</section>`,
+
+    checklists[s.id]?.cards?.length ? (cls) => checklistBand(s, cls) : null,
+    intlSets[s.id]?.sources?.length ? (cls) => intlBand(s, cls) : null,
+    productsBySet[s.id]?.products?.length ? (cls) => productBand(s, cls) : null,
+
+    rips ? (cls) => `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
+    <h2>We ripped <span class="hl">${rips}</span> of these</h2>
+    <div class="set-watch">
+      <div class="packshot pack pack--${packClass(s.id)}"><span class="pack-face pack-l"><span class="pack-art"></span></span></div>
+      <div>
+        <p class="lede">Want to see what actually comes out of ${esc(s.name)} instead of reading about it? Every ${esc(s.name)} rip on the channel is one tap away.</p>
+        <div class="btn-row" style="margin-top:16px">
+          <a class="btn btn-yt" href="/videos.html?set=${s.id}">Watch the ${esc(label)} rips</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>` : null,
+
+    (cls) => `<section class="${cls}">
+  <div class="wrap">
+    <h2>Other <span class="hl">sets</span></h2>
+    <div class="set-index">
+      ${sets.filter((o) => o.id !== s.id).slice(0, 6).map((o) => `<a class="set-card" href="/sets/${o.id}.html">
+        <img${logoAttrs(o.id)} src="/assets/logos/${o.id}-pokemon-tcg-set-logo.webp" alt="" loading="lazy" onerror="this.remove()">
+        <span><span class="ttl">${esc(o.name)}</span><br><span class="meta">${o.total ?? "?"} cards</span></span>
+      </a>`).join("\n      ")}
+    </div>
+    <div style="text-align:center;margin-top:22px"><a class="btn btn-ghost" href="/sets/">Every set &rarr;</a></div>
+  </div>
+</section>`,
+  ].filter(Boolean);
+
+  const pin = bands.findIndex((b) => b.pin);
+  if (pin === -1) throw new Error(`setPage(${s.id}): no pinned band, so the section tones have nothing to alternate from.`);
+  const body = bands
+    .map((b, i) => {
+      const isBand = Math.abs(i - pin) % 2 === 0;
+      const cls = b.pin ? "band-sky tight" : isBand ? "band tight" : "tight";
+      return (b.pin ? b.html : b)(cls);
+    })
+    .join("\n\n");
+
+  return head({ title: setTitle(s.name), desc, canonical: url, image: `${SITE}/assets/${ogCards.has(s.id) ? `og-${s.id}` : "og-image"}.jpg?v=2`, ld, css: PAGE_CSS }) + `
 <header class="set-hero">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
@@ -658,169 +1176,7 @@ ${(() => {
   </div>
 </section>
 
-${(() => {
-  // Newest twelve. All of them on a 90-rip set would be a wall, and the link at
-  // the end covers the rest.
-  const all = ripsList.get(s.id) || [];
-  const show = all.slice(0, 12);
-  if (!show.length) return "";
-  return `<section class="band tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On the channel</p>
-    <h2>Every ${esc(s.name)} <span class="hl">rip</span></h2>
-    <p class="lede" style="max-width:38em">${all.length} video${all.length === 1 ? "" : "s"} opening this set${
-      all.length > show.length ? `, newest ${show.length} below` : ""
-    }.</p>
-    <ul class="riplist">
-      ${show
-        .map(
-          (v) => `<li><a href="/${esc(v.path)}">${esc(v.label || v.siteTitle || v.title)}</a>
-        <span>${esc(shortDate(v.published))}</span></li>`,
-        )
-        .join("\n      ")}
-    </ul>
-    ${all.length > show.length ? `<p style="margin-top:var(--s3)"><a class="btn btn-ghost btn-sm" href="/videos.html?set=${esc(s.id)}">All ${all.length} ${esc(s.name)} rips</a></p>` : ""}
-  </div>
-</section>
-
-`;
-})()}${(() => {
-  const mine = (hitsBySet.get(s.id) || [])
-    .map((h) => {
-      const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
-      const same = ((checklists[s.id] || {}).cards || []).filter((c) => norm(c.name) === norm(h.card));
-      const want = h.rarity ? norm(h.rarity).slice(0, 8) : null;
-      const m = (want && same.find((c) => norm(c.rarity).includes(want))) || same[0] || null;
-      const v = videoById.get(h.vid);
-      return {
-        name: h.card,
-        n: m ? m.n : h.number || null,
-        rarity: (m && m.rarity) || h.rarity || null,
-        img: m && m.img ? `${m.img}/low.webp` : null,
-        price: m && typeof m.price === "number" ? m.price : typeof h.price === "number" ? h.price : null,
-        path: v ? v.path : null,
-        label: v ? ripLabel(v, setNameById, descriptions[v.id]) || v.title : null,
-      };
-    })
-    .sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
-  if (!mine.length) return "";
-  return `<section class="band tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
-    <h2>What we have <span class="hl">hit</span> from this set</h2>
-    <p class="lede" style="max-width:38em">${mine.length} card${mine.length === 1 ? "" : "s"} out of our own packs, priciest first.
-      Every one of them is in a video you can watch.</p>
-    <ul class="mine-grid">
-      ${mine
-        .map(
-          (h) => `<li class="mine">
-        ${h.img ? `<img class="mine-img" src="${esc(h.img)}" alt="${esc(h.name)}" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337">` : `<div class="mine-img is-none" aria-hidden="true"></div>`}
-        <p class="mine-n">${esc(h.name)}</p>
-        <p class="mine-r">${esc(rarityLabel(h.rarity) || "")}${h.n ? ` &bull; #${esc(h.n)}` : ""}</p>
-        <p class="mine-p">${typeof h.price === "number" ? moneyExact(h.price) : "No market price"}</p>
-        ${h.path ? `<a class="mine-w" href="/${esc(h.path)}">${esc(h.label)} &rarr;</a>` : ""}
-      </li>`,
-        )
-        .join("\n      ")}
-    </ul>
-  </div>
-</section>
-
-`;
-})()}<section class="band tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
-    <h2>Top <span class="hl">chase cards</span></h2>
-    ${s.chase?.length ? `
-    <div class="chase-grid">
-      ${s.chase.map((c) => `<button class="chase-card" type="button"
-        data-img="${esc(c.imageLarge || c.image || "")}"
-        data-name="${esc(c.name)}" data-rarity="${esc(rarityLabel(c.rarity) || "")}"
-        data-number="${esc(c.number)}" data-price="${esc(moneyCompact(c.price))}"
-        data-psa10="${esc(gradedPrice(s.id, c.number) ? moneyCompact(gradedPrice(s.id, c.number)) : "")}"
-        data-url="${esc(c.url ? affLink(c.url) : "")}"
-        aria-label="Enlarge ${esc(c.name)}">
-        ${c.image ? `<img src="${c.image}" alt="${esc(c.name)} ${esc(c.number)}, ${esc(rarityLabel(c.rarity) || "card")}" loading="lazy" onerror="this.remove()" width="245" height="337">` : ""}
-        <div class="nm">${esc(c.name)}</div>
-        <div class="rr">${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(c.number)}</div>
-        <div class="pr">${moneyCompact(c.price)}</div>
-        ${gradedPrice(s.id, c.number)
-          ? `<div class="pr10">PSA 10 ${moneyCompact(gradedPrice(s.id, c.number))}${
-              // longDate, not the raw ISO string the price file stores. Every other date
-              // on this page is long form, including the "last updated" line directly
-              // under this grid, so a bare 2026-08-12 here read as a different site.
-              gradedAsOf(s.id, c.number) ? `<span> &bull; ${esc(longDate(gradedAsOf(s.id, c.number)))}</span>` : ""
-            }</div>`
-          : ""}
-      </button>`).join("\n      ")}
-    </div>
-    <p class="price-note">Prices are TCGplayer market estimates${longDate(s.pricesAsOf || s.chasePricesAsOf) ? `, last updated ${longDate(s.pricesAsOf || s.chasePricesAsOf)}` : ""}. Singles move fast, so treat these as a ballpark rather than a quote.${affOn ? ` ${esc(aff.tcgplayer.disclosure)}` : ""}</p>
-    ` : `
-    <div class="no-prices">
-      <strong>No market prices yet.</strong> ${esc(s.name)} is recent enough that pricing data has not landed in the card database. The card list and rarity counts above are accurate; the values will fill in as the market settles.
-    </div>`}
-  </div>
-</section>
-
-<section class="band-sky tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Quick facts</p>
-    <h2>${esc(s.name)} <span class="hl">101</span></h2>
-    <ul class="facts-list">
-      ${derivedFacts(s).map((f) => `<li>${f}</li>`).join("\n      ")}
-      ${(s.notes?.funFacts || []).map((f) => `<li>${esc(f)}</li>`).join("\n      ")}
-    </ul>
-  </div>
-</section>
-
-<section class="tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
-    <h2>Rarity <span class="hl">breakdown</span></h2>
-    ${ordered.length ? `<div class="rarity-list">
-      ${ordered.map(([r, n]) => `<div class="rar${CHASE.has(r) ? " chase" : ""}">
-        <span class="rar-name">${esc(rarityLabel(r) || r)}</span>
-        <span class="rar-n">${n}</span>
-        <span class="rar-bar"><i style="width:${Math.max(4, Math.round((n / maxN) * 100))}%"></i></span>
-      </div>`).join("\n      ")}
-    </div>` : `<p class="lede">Card list not available for this set yet.</p>`}
-  </div>
-</section>
-
-${checklistBand(s)}
-
-${intlBand(s)}
-
-${productBand(s)}
-
-${rips ? `<section class="tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
-    <h2>We ripped <span class="hl">${rips}</span> of these</h2>
-    <div class="set-watch">
-      <div class="packshot pack pack--${packClass(s.id)}"><span class="pack-face pack-l"><span class="pack-art"></span></span></div>
-      <div>
-        <p class="lede">Want to see what actually comes out of ${esc(s.name)} instead of reading about it? Every ${esc(s.name)} rip on the channel is one tap away.</p>
-        <div class="btn-row" style="margin-top:16px">
-          <a class="btn btn-yt" href="/videos.html?set=${s.id}">Watch the ${esc(label)} rips</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>` : ""}
-
-<section class="band tight">
-  <div class="wrap">
-    <h2>Other <span class="hl">sets</span></h2>
-    <div class="set-index">
-      ${sets.filter((o) => o.id !== s.id).slice(0, 6).map((o) => `<a class="set-card" href="/sets/${o.id}.html">
-        <img${logoAttrs(o.id)} src="/assets/logos/${o.id}-pokemon-tcg-set-logo.webp" alt="" loading="lazy" onerror="this.remove()">
-        <span><span class="ttl">${esc(o.name)}</span><br><span class="meta">${o.total ?? "?"} cards</span></span>
-      </a>`).join("\n      ")}
-    </div>
-    <div style="text-align:center;margin-top:22px"><a class="btn btn-ghost" href="/sets/">Every set &rarr;</a></div>
-  </div>
-</section>
+${body}
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card image">
   <div class="lb-inner">

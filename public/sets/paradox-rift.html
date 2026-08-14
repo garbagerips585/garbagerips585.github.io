@@ -20,9 +20,27 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/fonts.css">
 <link rel="stylesheet" href="/assets/ui.css?v=5c178e6e">
-<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<link rel="stylesheet" href="/assets/packs.css">
+<style>
+/* The money-per-rarity line under each bar. .rar is a two column grid whose
+   .rar-bar already spans both, so this sits between the count and the bar and
+   spans the full width too. Mono, because it is a figure. */
+.rar-pr{grid-column:1 / -1;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
+  letter-spacing:.02em}
+.rar-pr b{color:var(--ketchup-deep);font-weight:700}
+.band-sky .rar-pr{color:var(--navy)}
+/* The plain-English read of the value band. Same size as a lede, set apart so
+   it does not read as a third paragraph of numbers. */
+.sv-say{max-width:42em;margin-top:var(--s5);border-left:4px solid var(--gold);
+  padding-left:var(--s4);font-size:var(--t-body)}
+/* Cost per pack. Sits directly under the total price it is derived from. */
+.prod-per{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
+  letter-spacing:.04em;text-transform:uppercase;margin-top:3px}
+.prod-per b{display:inline-block;background:var(--mustard);color:var(--ink);
+  border-radius:var(--r-pill);padding:1px 7px;margin-left:4px;font-weight:700}
+</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Paradox Rift Pokemon TCG Set Guide","description":"Paradox Rift Pokemon TCG set guide: 266 cards, released November 3, 2023, full rarity breakdown, and the top chase cards with current market values.","image":["https://garbagerips585.github.io/assets/og-paradox-rift.jpg"],"about":{"@type":"Thing","name":"Paradox Rift (Pokemon Trading Card Game)"},"url":"https://garbagerips585.github.io/sets/paradox-rift.html","datePublished":"2026-08-11","dateModified":"2026-08-11","author":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/"},"publisher":{"@type":"Organization","name":"Garbage Rips 585","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Card Sets","item":"https://garbagerips585.github.io/sets/"},{"@type":"ListItem","position":3,"name":"Paradox Rift"}]}</script>
 </head>
@@ -144,7 +162,7 @@
   </div>
 </section>
 
-<section class="band tight">
+<section class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On the channel</p>
     <h2>Every Paradox Rift <span class="hl">rip</span></h2>
@@ -277,6 +295,28 @@
   </div>
 </section>
 
+<section class="tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Where the value sits</p>
+    <h2>Where the <span class="hl">money</span> is</h2>
+    <p class="lede" style="max-width:42em">Buy one copy of every card in Paradox Rift at market price and you would spend
+      $1,240.36. Half of it sits in 14 cards. The other 252 come to $611.92 between them, which is $2.43 a card.</p>
+    <div class="facts">
+      <div class="fact"><div class="n">$1,240</div><div class="l">One of every card</div></div>
+      <div class="fact"><div class="n">14</div><div class="l">Cards holding half the value</div></div>
+      <div class="fact"><div class="n">41%</div><div class="l">Held by the 10 priciest</div></div>
+      <div class="fact"><div class="n">$0.26</div><div class="l">The middle card</div></div>
+    </div>
+    <p class="lede sv-say">In plain terms: a handful of cards carry the set and everything else is bulk. That is normal,
+      it is true of nearly every modern set, and it is worth knowing before you buy a box hoping to "get your money
+      back".</p>
+    <p class="price-note">Added up from the 266 market prices in the checklist below, read
+      August 12, 2026. This is what buying one of each card would cost. It is not what a booster
+      box is worth, and it is not the chance of pulling anything: nobody outside The Pokemon Company has pull rates, so
+      you will not find any on this site.</p>
+  </div>
+</section>
+
 <section class="band-sky tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Quick facts</p>
@@ -297,52 +337,66 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
     <h2>Rarity <span class="hl">breakdown</span></h2>
+    <p class="lede" style="max-width:42em">How many cards sit at each rarity, and what those
+      cards are worth. <b>Mid</b> is the middle card at that rarity: half of them cost more than that and half cost
+      less, which is a far better guide to what you will actually see than the one famous card at the top.</p>
     <div class="rarity-list">
       <div class="rar chase">
         <span class="rar-name">Hyper Rare</span>
         <span class="rar-n">7</span>
+        <span class="rar-pr">Mid <b>$2.59</b> &bull; top <b>$15.74</b></span>
         <span class="rar-bar"><i style="width:9%"></i></span>
       </div>
       <div class="rar chase">
         <span class="rar-name">Special Illustration Rare</span>
         <span class="rar-n">15</span>
+        <span class="rar-pr">Mid <b>$16.19</b> &bull; top <b>$57.86</b></span>
         <span class="rar-bar"><i style="width:19%"></i></span>
       </div>
       <div class="rar chase">
         <span class="rar-name">Illustration Rare</span>
         <span class="rar-n">34</span>
+        <span class="rar-pr">Mid <b>$14.75</b> &bull; top <b>$126.82</b></span>
         <span class="rar-bar"><i style="width:42%"></i></span>
       </div>
       <div class="rar chase">
         <span class="rar-name">Ultra Rare</span>
         <span class="rar-n">28</span>
+        <span class="rar-pr">Mid <b>$2.40</b> &bull; top <b>$14.36</b></span>
         <span class="rar-bar"><i style="width:35%"></i></span>
       </div>
       <div class="rar">
         <span class="rar-name">Double Rare</span>
         <span class="rar-n">20</span>
+        <span class="rar-pr">Mid <b>$0.74</b> &bull; top <b>$2.57</b></span>
         <span class="rar-bar"><i style="width:25%"></i></span>
       </div>
       <div class="rar">
         <span class="rar-name">Rare</span>
         <span class="rar-n">27</span>
+        <span class="rar-pr">Mid <b>$0.25</b> &bull; top <b>$0.33</b></span>
         <span class="rar-bar"><i style="width:33%"></i></span>
       </div>
       <div class="rar">
         <span class="rar-name">Uncommon</span>
         <span class="rar-n">54</span>
+        <span class="rar-pr">Mid <b>$0.24</b> &bull; top <b>$0.46</b></span>
         <span class="rar-bar"><i style="width:67%"></i></span>
       </div>
       <div class="rar">
         <span class="rar-name">Common</span>
         <span class="rar-n">81</span>
+        <span class="rar-pr">Mid <b>$0.18</b> &bull; top <b>$0.33</b></span>
         <span class="rar-bar"><i style="width:100%"></i></span>
       </div>
     </div>
+    <p class="price-note">Prices worked out from the Paradox Rift checklist below, read August 12, 2026. A rarity only gets a figure where every card at that rarity has a price and the checklist agrees with the set's
+      own count, so a few tiers show a count and no money rather than a number covering a different set of cards than
+      the one beside it.</p>
   </div>
 </section>
 
-<section class="tight">
+<section class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
     <h2>Full <span class="hl">checklist</span></h2>
@@ -1423,14 +1477,12 @@
   </div>
 </section>
 
-
-
-<section class="band tight">
+<section class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What you can buy</p>
     <h2>Ways to open <span class="hl">Paradox Rift</span></h2>
-    <p class="lede prod-lede">Every sealed Paradox Rift product still being sold, cheapest first.
-      The cheapest way in is single pack at $8.51.</p>
+    <p class="lede prod-lede">Every sealed Paradox Rift product still being sold, cheapest first. The cheapest way in is single pack at $8.51. Packs bought one at a time are $8.51 each; the cheapest pack in the set is inside the
+      booster box at $7.86, which is 8% less.</p>
     <ul class="prod-grid">
       <li class="prod">
         <a class="prod-shot" href="https://www.tcgplayer.com/product/512822/paradox-rift-booster-pack" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
@@ -1442,6 +1494,7 @@
           <h3><a href="https://www.tcgplayer.com/product/512822/paradox-rift-booster-pack" rel="noopener" target="_blank">Single Pack</a></h3>
           <p class="prod-what">One pack</p>
           <p class="prod-price"><b>$8.51</b> <span>market</span></p>
+          
           <p class="prod-low">Cheapest listing $7.39 &bull; 63 sellers</p>
         </div>
       </li>
@@ -1456,6 +1509,7 @@
           <p class="prod-what">Packs plus a promo card</p>
           <p class="prod-price"><b>$10.00</b> <span>market</span></p>
           
+          
         </div>
       </li>
       <li class="prod">
@@ -1468,6 +1522,7 @@
           <h3><a href="https://www.tcgplayer.com/product/514068/paradox-rift-build-and-battle-box" rel="noopener" target="_blank">Build &amp; Battle Box</a></h3>
           <p class="prod-what">4 packs plus a 40 card deck</p>
           <p class="prod-price"><b>$43.51</b> <span>market</span></p>
+          <p class="prod-per">$10.88 a pack</p>
           <p class="prod-low">Cheapest listing $43.51 &bull; 12 sellers</p>
         </div>
       </li>
@@ -1481,6 +1536,7 @@
           <h3><a href="https://www.tcgplayer.com/product/512820/paradox-rift-booster-bundle" rel="noopener" target="_blank">Booster Bundle</a></h3>
           <p class="prod-what">6 packs</p>
           <p class="prod-price"><b>$87.53</b> <span>market</span></p>
+          <p class="prod-per">$14.59 a pack</p>
           <p class="prod-low">Cheapest listing $101.75 &bull; 12 sellers</p>
         </div>
       </li>
@@ -1494,6 +1550,7 @@
           <h3><a href="https://www.tcgplayer.com/product/512813/paradox-rift-elite-trainer-box-iron-valiant" rel="noopener" target="_blank">Elite Trainer Box</a></h3>
           <p class="prod-what">9 packs plus sleeves and dice</p>
           <p class="prod-price"><b>$137.13</b> <span>market</span></p>
+          <p class="prod-per">$15.24 a pack</p>
           <p class="prod-low">Cheapest listing $132.99 &bull; 14 sellers</p>
         </div>
       </li>
@@ -1507,6 +1564,7 @@
           <h3><a href="https://www.tcgplayer.com/product/512821/paradox-rift-booster-box" rel="noopener" target="_blank">Booster Box</a></h3>
           <p class="prod-what">36 packs</p>
           <p class="prod-price"><b>$283.12</b> <span>market</span></p>
+          <p class="prod-per">$7.86 a pack <b>cheapest</b></p>
           <p class="prod-low">Cheapest listing $49.99 &bull; 87 sellers</p>
         </div>
       </li>
@@ -1514,10 +1572,14 @@
     <p class="prod-note">Prices are TCGplayer market and lowest-listing prices, read on
       August 12, 2026. They move every day, so treat them as a rough idea and not a quote.
       Product photos are TCGplayer's. We are not a shop and we do not sell any of this.</p>
+    <p class="prod-note">Cost per pack is the market price divided by the pack count printed on
+      each card above, so you can check it. Sleeves, dice, decks and promo cards are counted as worth nothing, which
+      flatters every box that includes them. Anything whose pack count is not in our data gets no per-pack figure
+      rather than a guessed one, which is why blisters, tins and collection boxes have none.</p>
   </div>
 </section>
 
-<section class="tight">
+<section class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
     <h2>We ripped <span class="hl">3</span> of these</h2>
@@ -1533,7 +1595,7 @@
   </div>
 </section>
 
-<section class="band tight">
+<section class="tight">
   <div class="wrap">
     <h2>Other <span class="hl">sets</span></h2>
     <div class="set-index">
@@ -1663,6 +1725,6 @@
 })();
 </script>
 <script src="/assets/app.js?v=1665fa03" defer></script>
-<script src="/assets/packplayer.js?v=44adb501" defer></script>
+<script src="/assets/packplayer.js" defer></script>
 </body>
 </html>

@@ -273,7 +273,7 @@ ${MENU}
               c.id === "psa" ? "" : `<p class="gc-note">${esc(c.note)}</p>`
             }
         <p class="gc-resale"><strong>Resale.</strong> ${esc(c.resale)}</p>
-        <a class="intl-link" href="${esc(c.url)}" rel="noopener" target="_blank">Their current prices &rarr;</a>
+        <a class="intl-link" href="${esc(c.url)}" rel="noopener" target="_blank">${esc(c.name)} prices &rarr;</a>
       </article>`
         )
         .join("\n      ")}
@@ -353,7 +353,8 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
       in this table divided by each other, which is why a company can show a higher median price and a lower
       multiple. They answer different questions: the price column is what a typical slab of that make sells for
       across the sample, and the multiple is what that make typically does to the same card.</p>
-    <div class="cc-scroll" style="margin-bottom:var(--s5)">
+    <div class="cc-scroll" style="margin-bottom:var(--s5)" tabindex="0" role="region"
+         aria-label="Median value of each grading company's 10, scrollable">
       <table class="cc-table">
         <caption class="sr-only">Median value of each grading company's 10, against the raw card and against a PSA 10</caption>
         <thead><tr>
