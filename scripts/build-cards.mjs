@@ -84,7 +84,7 @@ const row = (r) => {
   const [name, slug, n, rarity, price] = r;
   const src = thumb(slug, n);
   return `<li class="cq${src ? " has-thumb" : ""}">
-        ${src ? `<img class="cq-img" src="${esc(src)}" alt="" loading="lazy" width="60" height="84">` : ""}
+        ${src ? `<img class="cq-img" src="${esc(src)}" onerror="this.remove()" alt="" loading="lazy" width="60" height="84">` : ""}
         <a class="cq-name" href="/sets/${esc(slug)}.html">${esc(name)}</a>
         <span class="cq-set">${esc(setName[slug] || slug)} &bull; ${esc(n || "")}</span>
         ${rarity ? `<span class="cq-rr">${esc(rarity)}</span>` : ""}

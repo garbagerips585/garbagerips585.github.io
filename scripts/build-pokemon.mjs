@@ -301,7 +301,7 @@ ${(() => {
       ${extra
         .map(
           (c) => `<div class="chase-card is-flat">
-        ${c.g ? `<img src="${esc(c.g)}/low.webp" alt="${esc(c.n)} ${esc(c.i)}, ${esc(c.s)}" loading="lazy" decoding="async" width="245" height="342">` : ""}
+        ${c.g ? `<img src="${esc(c.g)}/low.webp" onerror="this.remove()" alt="${esc(c.n)} ${esc(c.i)}, ${esc(c.s)}" loading="lazy" decoding="async" width="245" height="342">` : ""}
         <div class="nm">${esc(c.n)}</div>
         <div class="rr">${esc(c.s)} &bull; ${esc(c.i)}</div>
         ${c.r ? `<div class="rr">${esc(c.r)}</div>` : ""}
@@ -329,7 +329,7 @@ ${(() => {
         data-number="${esc(c.n || "")}" data-price="${esc(moneyCompact(c.price))}"
         data-set="${esc(c.setName)}"
         aria-label="Enlarge ${esc(c.name)}">
-        ${c.img ? `<img src="${esc(c.img)}/low.webp" alt="${esc(c.name)} ${esc(c.n || "")}, ${esc(c.setName)}" loading="lazy" width="245" height="342">` : ""}
+        ${c.img ? `<img src="${esc(c.img)}/low.webp" onerror="this.remove()" alt="${esc(c.name)} ${esc(c.n || "")}, ${esc(c.setName)}" loading="lazy" width="245" height="342">` : ""}
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(c.setName)} &bull; ${esc(c.n || "")}</div>
         ${c.rarity ? `<div class="rr">${esc(c.rarity)}</div>` : ""}
@@ -425,7 +425,7 @@ function indexPage() {
       ${roster
         .map(
           (p) => `<a class="poke-card" href="/pokemon/${esc(p.slug)}.html">
-        ${p.dearest.img ? `<img src="${esc(p.dearest.img)}/low.webp" alt="${esc(p.dearest.name)}, the most valuable ${esc(p.name)} card" loading="lazy" width="245" height="342">` : ""}
+        ${p.dearest.img ? `<img src="${esc(p.dearest.img)}/low.webp" onerror="this.remove()" alt="${esc(p.dearest.name)}, the most valuable ${esc(p.name)} card" loading="lazy" width="245" height="342">` : ""}
         <span class="poke-nm">${esc(p.name)}</span>
         <span class="poke-meta">${p.list.length} cards &bull; ${p.sets.size} sets</span>
         <span class="poke-pr">top ${moneyRound(p.dearest.price)}</span>
