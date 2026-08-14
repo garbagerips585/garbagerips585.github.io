@@ -409,10 +409,7 @@ const hofHtml = hofPick
 // as a 614px spotlight and again as shelf rank #1, wearing the same wrapper
 // both times. Twelve tiles were showing ten videos. "A little more curated"
 // starts with not repeating yourself.
-const hallHtml = hall
-  .filter((v) => !hofPick || v.id !== hofPick.id)
-  .map((v, i) => tile(v, { rank: i + 1, showSet: true }))
-  .join("\n");
+const hallList = hall.filter((v) => !hofPick || v.id !== hofPick.id);
 /**
  * The newest rip, given its own row.
  *
@@ -421,7 +418,8 @@ const hallHtml = hall
  * of repeats rather than as news. One wide tile plus four beneath it says
  * which one is new without anybody having to read a date.
  */
-function heroTile(v) {
+function heroTile(v, opts) {
+  const o = opts || {};
   const set = faceSet(v);
   const face = set && packs.has(set)
     ? `<img src="assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp"
@@ -436,7 +434,13 @@ function heroTile(v) {
           ${face}<span class="play"></span>${v.duration ? `<span class="dur">${clock(v.duration)}</span>` : ""}
         </a>
         <div class="hero-body">
-          <p class="hero-kicker"><span class="hero-new">Newest rip</span> ${esc(ago(v.published))}</p>
+          <p class="hero-kicker">${
+            o.dated
+              ? `<span class="hero-new">Newest rip</span> ${esc(ago(v.published))}`
+              : o.rankOf
+                ? `<span class="hero-new">${esc(o.rankOf(v))}</span> ${esc(ago(v.published))}`
+                : esc(ago(v.published))
+          }</p>
           <h3><a href="/${esc(v.path)}">${esc(ripLabel(v, setName, descriptions[v.id]) || v.siteTitle || v.title)}</a></h3>
           <p class="hero-meta">${label}${p != null ? ` &bull; ${PULL_RANK[p][1]}` : ""} &bull; ${compact(v.views)} VIEWS</p>
           <span class="hero-cta">Rip it open &rarr;</span>
@@ -451,10 +455,52 @@ function heroTile(v) {
 // left, which is still genuinely the newest thing a visitor has not just seen.
 const shownAbove = new Set([hofPick && hofPick.id, ...hall.map((v) => v.id)].filter(Boolean));
 const freshest = byNewest.filter((v) => !shownAbove.has(v.id));
-const latestHtml = [
-  heroTile(freshest[0] || byNewest[0]),
-  ...(freshest.length ? freshest : byNewest).slice(1, 5).map((v) => tile(v, { showSet: false, dated: true })),
-].join("\n");
+
+/**
+ * A band of one large video at a time.
+ *
+ * The home page showed 11 tiles across two bands, which asked a casual visitor
+ * to choose from a wall of near-identical pack wrappers before seeing a second
+ * of anything. Worse now that a tile plays where it sits: a 158px tile gives a
+ * 133px video, which is not worth playing. One slide per band makes the video
+ * as large as the band allows and puts the rest a swipe away.
+ *
+ * Every slide uses the hero shape, so the artwork is large and the title, set
+ * and view count sit beside it rather than under it.
+ *
+ * The track is a native scroll-snap row. Swipe, trackpad, shift+wheel and
+ * keyboard all work with no JavaScript; the arrows only call scrollBy, so with
+ * JS off this is still a usable horizontal scroller rather than a dead band.
+ */
+function carousel(list, opts) {
+  const o = opts || {};
+  if (!list.length) return "";
+  return `<div class="vcar" data-vcar>
+      <div class="vcar-track">
+${list
+        .map((v, i) => `        <div class="vcar-slide">${heroTile(v, {
+          // "Newest rip" is true of exactly one video, so only slide one wears
+          // the badge. The rest carry their date, which is the honest version
+          // of the same information.
+          dated: !!o.dated && i === 0,
+          rankOf: o.showSet ? () => `#${i + 1} hit` : null,
+        })}</div>`)
+        .join("\n")}
+      </div>
+      ${list.length > 1 ? `<div class="vcar-bar">
+        <button class="vcar-nav" type="button" data-vcar-prev aria-label="Previous rip">&larr;</button>
+        <p class="vcar-count" aria-live="polite"><span data-vcar-i>1</span> / ${list.length}</p>
+        <button class="vcar-nav" type="button" data-vcar-next aria-label="Next rip">&rarr;</button>
+      </div>` : ""}
+    </div>`;
+}
+
+// FIVE PER BAND, NOT ELEVEN ON THE PAGE. The point of one-at-a-time is that
+// the landing view is short, so the slides that exist beyond the first cost
+// nothing but a swipe. Five is enough to feel like there is more without
+// turning the band into a scroll the length of the old grid.
+const latestHtml = carousel((freshest.length ? freshest : byNewest).slice(0, 5), { dated: true });
+const hallHtml = carousel(hallList.slice(0, 5), { showSet: true });
 
 const ordered = [...sets].sort((a, b) => String(b.released).localeCompare(String(a.released)));
 const setsHtml = (

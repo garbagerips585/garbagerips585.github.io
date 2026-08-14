@@ -275,8 +275,16 @@
     // somewhere else", and hijacking those is the rudest thing a link can do.
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     if (e.defaultPrevented) return;
-    var a = e.target.closest && e.target.closest("a.art");
-    if (!a) return;
+    // ANY link to a rip that WRAPS AN IMAGE, not one hard-coded class.
+    // It was a.art, which covered the nine grid tiles and missed the two
+    // largest videos on the home page: the Hall of Fame spotlight is a.hofx and
+    // the newest rip is a.hero-art. The biggest pack on the page was the one
+    // pack you could not rip open.
+    // Requiring an image is what keeps the rule honest: the artwork plays in
+    // place, and the title link underneath it, which has no image, still opens
+    // the full page with the hits and the set guide.
+    var a = e.target.closest && e.target.closest('a[href*="/rip/"]');
+    if (!a || !a.querySelector("img")) return;
     var m = VID.exec(a.getAttribute("href") || "");
     if (!m) return;                       // not a rip url; leave it alone
     e.preventDefault();
@@ -322,6 +330,60 @@
     if (pk) pk.click();
   }
 
+
+  /* ---------------------------------------------------------------------
+   * Carousel arrows.
+   *
+   * The track is a native scroll-snap row, so swipe, trackpad and keyboard
+   * already work and this adds nothing they need. The arrows are for a mouse,
+   * which has no swipe, and they do the least they can: scrollBy one slide.
+   * No transform, no index state, no transition to fight with the browser's
+   * own smooth scrolling. That also means the counter can be derived from
+   * scrollLeft rather than tracked, so it cannot drift out of step with a
+   * swipe the buttons never saw.
+   */
+  function carouselClick(e) {
+    var btn = e.target.closest && e.target.closest("[data-vcar-prev],[data-vcar-next]");
+    if (!btn) return;
+    var car = btn.closest("[data-vcar]");
+    var track = car && car.querySelector(".vcar-track");
+    if (!track) return;
+    var slide = track.querySelector(".vcar-slide");
+    var step = slide ? slide.getBoundingClientRect().width + 16 : track.clientWidth;
+    track.scrollBy({ left: btn.hasAttribute("data-vcar-next") ? step : -step, behavior: "smooth" });
+  }
+
+  function syncCarousel(car) {
+    var track = car.querySelector(".vcar-track");
+    var slide = track && track.querySelector(".vcar-slide");
+    if (!track || !slide) return;
+    var step = slide.getBoundingClientRect().width + 16;
+    var n = track.querySelectorAll(".vcar-slide").length;
+    var i = Math.min(n - 1, Math.max(0, Math.round(track.scrollLeft / step)));
+    var out = car.querySelector("[data-vcar-i]");
+    if (out) out.textContent = String(i + 1);
+    var prev = car.querySelector("[data-vcar-prev]");
+    var next = car.querySelector("[data-vcar-next]");
+    // 2px of slack: scrollLeft is fractional at some zoom levels and an exact
+    // comparison leaves the last slide's arrow enabled forever.
+    if (prev) prev.disabled = track.scrollLeft <= 2;
+    if (next) next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+  }
+
+  function wireCarousels() {
+    var cars = document.querySelectorAll("[data-vcar]");
+    for (var i = 0; i < cars.length; i++) {
+      (function (car) {
+        if (car.__vcarWired) return;
+        car.__vcarWired = true;
+        var track = car.querySelector(".vcar-track");
+        if (track) track.addEventListener("scroll", function () { syncCarousel(car); }, { passive: true });
+        window.addEventListener("resize", function () { syncCarousel(car); });
+        syncCarousel(car);
+      })(cars[i]);
+    }
+  }
+
   /* The registry that keeps a single embed live across the whole page.
    * Nothing in attach() knows about this; it is the caller's contract. */
   var live = null;
@@ -338,4 +400,8 @@
 
   // Bound once, at the document, so tiles rendered later are covered too.
   document.addEventListener("click", onDocClick);
+  document.addEventListener("click", carouselClick);
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", wireCarousels);
+  else wireCarousels();
 })();

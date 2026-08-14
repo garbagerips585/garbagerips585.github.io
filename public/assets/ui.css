@@ -2350,3 +2350,63 @@ span.cq-name{color:var(--ink)}
 .tile-stage .sound-on{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);z-index:3}
 /* The hint is the tile's own play badge, so the pack does not repeat it. */
 .tile-stage .pack-hint{display:none}
+
+/* --------------------------------------------------------------------------
+   ONE VIDEO AT A TIME, WITH A SLIDER.
+   The home page used to show 11 tiles across two bands. Casual visitors were
+   asked to pick from a wall of near-identical pack wrappers before seeing a
+   single second of anything, and each tile was small enough that playing one in
+   place gave you a 133px video. One large slide per band inverts that: the
+   video is as big as the band can make it, it plays where it sits, and the rest
+   are a swipe away rather than a decision up front.
+
+   NATIVE SCROLL, NOT A LIBRARY. The track is a scroll-snap flex row, so a
+   trackpad, a touch swipe, shift+wheel and keyboard scrolling all work with no
+   JavaScript at all. The arrows only call scrollBy, so with JS off the band is
+   still a perfectly usable horizontal scroller.
+   -------------------------------------------------------------------------- */
+.vcar{position:relative;width:100%;min-width:0}
+/* The bands that hold a carousel stop imposing their own grid or flex row. */
+.shelf:has(.vcar),.wall:has(.vcar){display:block;margin:0;padding-inline:0;overflow:visible}
+.vcar-track{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x mandatory;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.vcar-track::-webkit-scrollbar{display:none}
+.vcar-slide{flex:0 0 100%;scroll-snap-align:center;min-width:0}
+/* Inside a carousel the hero is the whole slide, so it drops the grid-column
+   span it needs when it sits in .wall and keeps its own two-column shape. */
+/* STACKED ON A PHONE, side by side once there is room.
+   Kept two-column at 375px the artwork got 44% of a 351px slide, so the video
+   played at 121x215: SMALLER than the grid tile this replaced, on the screen
+   most people arrive with. Full width gives the art the whole slide, and the
+   title and meta read better underneath than squeezed into 56%. */
+.vcar .hero{grid-column:auto;display:grid;grid-template-columns:1fr;
+  gap:var(--s3);align-items:center;background:var(--card);border:1px solid var(--hair);
+  border-radius:var(--r);padding:var(--s3);box-shadow:var(--lift);margin:0}
+/* The art is capped so the title, the set and the CTA stay on screen with it.
+   svh, not vh, for the same reason as the games: vh on iOS is the height with
+   the browser chrome hidden, which would push the text under the address bar. */
+.vcar .hero-art{max-height:min(58svh,520px);margin:0 auto;width:100%}
+.vcar .hero-art img{object-fit:contain}
+@media(min-width:760px){
+  .vcar .hero{grid-template-columns:minmax(220px,340px) 1fr;gap:var(--s5);padding:var(--s5)}
+  .vcar .hero-art{max-height:none}
+}
+
+.vcar-bar{display:flex;align-items:center;justify-content:center;gap:var(--s3);margin-top:var(--s3)}
+.vcar-nav{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:50%;
+  background:var(--card);border:2px solid var(--ink);color:var(--ink);cursor:pointer;
+  font:700 1.1rem/1 var(--body);box-shadow:0 2px 0 var(--ink)}
+.vcar-nav:disabled{opacity:.35;cursor:default;box-shadow:none}
+.vcar-nav:active:not(:disabled){box-shadow:none;transform:translateY(2px)}
+.vcar-count{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;color:var(--ink-2);
+  min-width:5ch;text-align:center}
+@media(prefers-reduced-motion:reduce){.vcar-nav:active{transform:none}}
+
+/* A carousel slide is a WHITE card, and the Greatest Hits band it sits in is
+   dark, so that band's cream headings landed cream-on-white at 1.13:1: the
+   title of the biggest video on the page was invisible. The card carries its
+   own colours rather than inheriting the band's. */
+.vcar .hero h3,
+.vcar .hero h3 a{color:var(--ink)}
+.vcar .hero-meta,
+.vcar .hero-kicker{color:var(--ink-2)}
