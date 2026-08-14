@@ -68,6 +68,10 @@ const STEPS = [
   // rebuilt by hand. It carries no absolute site url today, which is the only
   // reason that was harmless.
   "node scripts/build-404.mjs",
+  // Not a page: it writes UNTAGGED.md, the worklist of videos still held out
+  // of the index for want of a tag. Generated because the hand-written one
+  // went stale and started describing a catalogue that no longer existed.
+  "node scripts/build-untagged.mjs",
   "node scripts/stamp-assets.mjs",
   "python3 scripts/check-build.py",
 ];
