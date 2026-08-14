@@ -387,11 +387,23 @@ const hofHtml = hofPick
           ${(() => {
             // Same pack art the tiles use, at the larger size: this one is the
             // feature, so it is not sharing a row with five others.
+            // THIS IS THE LCP ELEMENT OF THE HOME PAGE, measured in headless
+            // Chrome at 390x844 and 1440x900. It carried loading="lazy" and no
+            // priority while the ten carousel packs below the fold all carried
+            // fetchpriority="high", so five of them started fetching 28ms
+            // BEFORE the one image the page is actually waiting on. Priority
+            // belongs to exactly one image and this is it, so do not add
+            // fetchpriority to heroTile and do not make this one lazy.
+            //
+            // The srcset is the other half: without it a 359px box on a phone
+            // was downloading the 810px file.
             const fs = faceSet(hofPick);
             return fs && packs.has(fs)
-              ? `<img src="assets/packs/${fs}-garbage-rips-585-booster-pack.webp" alt="" loading="lazy" decoding="async" width="810" height="1440">`
+              ? `<img src="assets/packs/${fs}-garbage-rips-585-booster-pack.webp"
+           srcset="assets/packs/${fs}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${fs}-garbage-rips-585-booster-pack.webp 810w"
+           sizes="(max-width:640px) 92vw, 520px" alt="" fetchpriority="high" decoding="async" width="810" height="1440">`
               : packs.has("default")
-                ? `<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" loading="lazy" decoding="async">`
+                ? `<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" fetchpriority="high" decoding="async">`
                 : `<b>Garbage Rips</b>`;
           })()}
         </span>
@@ -424,8 +436,8 @@ function heroTile(v, opts) {
   const face = set && packs.has(set)
     ? `<img src="assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp"
            srcset="assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${set}-garbage-rips-585-booster-pack.webp 810w"
-           sizes="(max-width:640px) 87vw, 440px" alt="" width="400" height="711" fetchpriority="high">`
-    : `<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" width="400" height="711" fetchpriority="high">`;
+           sizes="(max-width:640px) 87vw, 440px" alt="" width="400" height="711" loading="lazy" decoding="async">`
+    : `<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" width="400" height="711" loading="lazy" decoding="async">`;
   const all = v.sets || [];
   const label = all.length ? (setName.get(all[0]) || all[0]).toUpperCase() : "GARBAGE RIPS";
   const p = bestPull(v);
@@ -544,7 +556,7 @@ const wantedHtml = (wanted.cards || [])
         : "CHASING";
     const inner = `<span class="mw-art">${
       img
-        ? `<img src="${esc(img)}" alt="${esc(c.name)} ${esc(c.rarity || "")} from ${esc(c.setName)}" loading="lazy" width="245" height="342">`
+        ? `<img src="${esc(img)}" alt="${esc(c.name)} ${esc(c.rarity || "")} from ${esc(c.setName)}" loading="lazy" onerror="this.remove()" width="245" height="342">`
         : `<span class="mw-none">${esc(c.name)}</span>`
     }</span>
         <b>${esc(c.name)}</b><p>${esc(c.setName.toUpperCase())} &bull; ${price}</p>`;

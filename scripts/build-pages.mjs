@@ -359,7 +359,7 @@ const desc = (v.blurb || descriptions[v.id] || "")
     </div>
     <ul class="chaser-list">
       ${chaseCards.map((c) => `<li class="chaser">
-        ${c.image ? `<img src="${esc(c.image)}" alt="${esc(c.name)}, ${esc(c.rarity || "card")} from ${esc(setLabel)}" loading="lazy" width="245" height="342">` : ""}
+        ${c.image ? `<img src="${esc(c.image)}" alt="${esc(c.name)}, ${esc(c.rarity || "card")} from ${esc(setLabel)}" loading="lazy" onerror="this.remove()" width="245" height="342">` : ""}
         <div>
           <b>${esc(c.name)}</b>
           <span class="chaser-rar">${esc(c.rarity || "")}${c.number ? ` &bull; #${esc(c.number)}` : ""}</span>
@@ -454,7 +454,8 @@ ${MENU}
         <div class="rip-player pack-player${(OVERRIDES[v.id] || {}).pillarboxed ? " rip-player--crop" : v.vertical === false ? " rip-player--wide" : ""}" id="player" data-id="${v.id}" data-title="${esc(title)}">
           <picture>
             <source type="image/webp" srcset="${thumbWebp}">
-            <img src="${thumb}" alt="" width="${v.vertical === false ? 1280 : 720}" height="${v.vertical === false ? 720 : 1280}" fetchpriority="high" decoding="async">
+            <img src="${thumb}" alt="" width="${v.vertical === false ? 1280 : 720}" height="${v.vertical === false ? 720 : 1280}" fetchpriority="high" decoding="async"
+                 onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg'}else{this.remove()}">
           </picture>
           <button class="pack pack--${packSet}" id="pack" type="button" aria-label="Rip open: ${esc(title)}">
             <span class="pack-face pack-l" aria-hidden="true">
@@ -516,7 +517,7 @@ ${
         <button class="hitcard-open" type="button" aria-label="See ${esc(h.name)} larger"></button>
         ${
           h.img
-            ? `<img class="hitcard-img" src="${esc(h.img)}" alt="${esc(h.name)}, ${esc(h.setName)}" loading="lazy" decoding="async" width="245" height="337">`
+            ? `<img class="hitcard-img" src="${esc(h.img)}" alt="${esc(h.name)}, ${esc(h.setName)}" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337">`
             : `<div class="hitcard-img is-none" aria-hidden="true"></div>`
         }
         <div class="hitcard-b">
@@ -542,7 +543,7 @@ ${
     : v.hasHit === false
       ? `<section class="band tight nohits">
   <div class="wrap">
-    <img class="nohits-img" src="/assets/trubbish.webp" alt="" loading="lazy" decoding="async" width="180" height="180">
+    <img class="nohits-img" src="/assets/trubbish.webp" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="180" height="180">
     <h2>No hits. Just another <span class="hl">classic</span> garbage rip.</h2>
     <p class="lede">That is most of them. The good ones only mean anything because of these.</p>
     <p><a class="btn btn-sky btn-sm" href="/hall.html">See the ones that did hit</a></p>

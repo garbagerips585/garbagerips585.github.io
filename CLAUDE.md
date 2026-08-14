@@ -33,10 +33,37 @@ RSS is also available: youtube.com/feeds/videos.xml?channel_id=UC...
 
 ## Layout
 ```
-public/     deployed static root (index, videos, playlists, assets/, data/)
-scripts/    sync-youtube.mjs, local only, needs YT_API_KEY in the environment
-shared/     taxonomy.mjs, the set/product tag rules, imported by both
+public/        deployed static root (index, videos, playlists, assets/, data/)
+assets-source/ the stylesheet source and the pack art originals, not deployed
+scripts/       sync-youtube.mjs, local only, needs YT_API_KEY in the environment
+shared/        taxonomy.mjs, the set/product tag rules, imported by both
 ```
+
+## The stylesheet: edit assets-source/ui.css
+
+**`public/assets/ui.css` is GENERATED. Edit `assets-source/ui.css`, then run
+`node scripts/build-css.mjs`.** The generated copy says so in its first line.
+
+The build strips the comments and nothing else: same rules, same order, byte
+for byte identical once whitespace and comments are removed. It exists because
+the stylesheet is render blocking on all 426 pages and 40% of it was prose.
+Measured, gzipped, which is how the host serves it: 42.4KB -> 17.4KB, a 59%
+cut to the transfer of the one asset that delays first paint everywhere.
+
+The comments are the point of the source file, so they are not a cleanup
+target: most of them record a measurement or a bug that a tidy-up would
+otherwise reintroduce. They cost nothing now, so write more of them.
+
+`build-css.mjs` runs FIRST in build-all.mjs, before any page builder, because
+shared/chrome.mjs hashes the built stylesheet at import time to make the
+`?v=` cache buster. `stamp-assets.mjs` still runs LAST. check-build.py fails
+if the two files have drifted apart, which is what catches an edit made to the
+generated copy by habit.
+
+Do NOT delete rules because coverage says they are unused. Only 6-15% of the
+file is used on any one page, but coverage cannot see :hover, :focus, print,
+media query or JS-toggled-class rules, and deleting those is how this site
+breaks silently.
 Host is GitHub Pages: .github/workflows/pages.yml uploads public/ on every
 push to main. There is no server build step. See DEPLOY.md.
 

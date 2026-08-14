@@ -1,0 +1,2558 @@
+/* ==========================================================================
+   Garbage Rips 585 — the design system.
+   One file, linked by every page. It used to be an inline <style> block copied
+   into each generated page, which meant 322 lines duplicated 338 times and no
+   way to change the site without regenerating all of it.
+   ========================================================================== */
+/* ==========================================================================
+   PROTOTYPE D — "The Wall"
+   No hero, no intro, no scroll before the content. Nav, filter rail, then
+   packs, starting inside the first screen. The identity lives in the bar at
+   the top and the block at the bottom, and the middle of the page is nothing
+   but videos, because that is what the site is for.
+
+   The pack art is the only decoration. 18 wrappers, all different, is more
+   colour than any layout could add, so everything around them stays quiet.
+   ========================================================================== */
+:root{
+
+  /* Tokens the ported set-guide and rip-page rules still name. They were
+     defined in site.css's :root, which did not come across with the component
+     rules, so every ported card lost its background, border and shadow at once
+     and the pages rendered as unstyled text on cream. */
+  --hard-lg:5px 5px 0 var(--navy);
+  --ink-soft:#5A6150;
+  --navy:#1E3A54;
+  --line:#1E3A54;   /* alias: some ported rules name the keyline this way */
+  --navy-deep:#132637;
+  --paper:#F7F2DE;
+  --paper-2:#FFFCF0;
+  --paper-3:#EDE6CB;
+  --sky-deep:#0E6E96;
+  --sky-lite:#A8E4F7;
+  --sky-tint:#DCF2FB;
+  --trubbish:#6E7D4F;
+  --wrap:1180px;
+  --page:#F7F5EC; --card:#FFFFFF;
+  --ink:#15263A; --ink-2:#5A6E82; --hair:rgba(21,38,58,.14);
+
+  --mustard:#EFC94C; --gold:#E0A21F; --gold-deep:#8A6109;
+  /* --ketchup is a FILL, never text: 4.16 on cream and 3.69 on the sky bands,
+     both under AA. --ketchup-deep is the text colour at 6.48 and 5.75. */
+  --ketchup:#D9482B; --ketchup-deep:#A83318; --teal:#1F8C76;
+  --sky:#35BEEF; --lilac:#CAA6CA; --lilac-pale:#F0E4F1; --plum:#4E2F48;
+
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:72px;
+  --r:10px; --r-pill:999px;
+  /* One source of truth: the bar's height is also the rail's sticky offset, so
+     a taller touch target in the bar cannot leave the rail tucked under it. */
+  --bar-h:60px;
+  --lift:0 1px 1px rgba(21,38,58,.07), 0 2px 3px rgba(21,38,58,.07),
+         0 6px 10px rgba(21,38,58,.07), 0 14px 20px rgba(21,38,58,.06);
+
+  --t-xl:clamp(1.75rem,5vw,2.75rem);--t-l:clamp(1.4rem,4vw,2rem);--t-lede:clamp(1.05rem,2.4vw,1.25rem); --t-m:1.15rem; --t-body:1rem;
+  --t-sm:.875rem; --t-label:.75rem; --t-micro:.6875rem;
+
+  --display:'Titan One',system-ui,sans-serif;
+  --body:'Outfit',system-ui,sans-serif;
+  --mono:'Space Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--page);color:var(--ink);font:400 17px/1.55 var(--body)}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1500px;margin:0 auto;padding:0 var(--s5)}
+@media(max-width:700px){.wrap{padding:0 var(--s3)}}
+:focus-visible{outline:3px solid var(--ketchup-deep);outline-offset:2px;
+  box-shadow:0 0 0 5px rgba(255,255,255,.95)}
+
+/* --------------------------------------------------------------------------
+   Bar. Everything the old hero was doing, compressed into 58px: who this is,
+   what it is, how to search it, and the subscribe button.
+   -------------------------------------------------------------------------- */
+.bar{position:sticky;top:0;z-index:60;background:var(--ink);color:#F4F1E2}
+.bar-in{display:flex;align-items:center;gap:var(--s4);max-width:1500px;margin:0 auto;
+  padding:var(--s2) var(--s5);min-height:var(--bar-h)}
+@media(max-width:700px){.bar-in{padding:var(--s2) var(--s3);gap:var(--s2)}}
+.brand{display:flex;align-items:baseline;gap:var(--s2);flex:none;min-height:44px;
+  align-content:center;flex-wrap:wrap}
+.brand b{font:400 1.05rem/1 var(--display);letter-spacing:.01em}
+.brand b i{font-style:normal;color:var(--mustard)}
+.brand span{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;color:#9FB0C0;
+  text-transform:uppercase}
+@media(max-width:900px){.brand span{display:none}}
+.bar form{flex:1;display:flex;align-items:center;gap:var(--s2);min-width:0;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  border-radius:var(--r-pill);padding:0 var(--s4);height:44px;max-width:440px;margin:0 auto}
+/* Fill the pill. The input was 17.5px tall inside a 42px control, so tapping
+   anywhere but the text strip did nothing. */
+.bar form input{align-self:stretch}
+.bar input{flex:1;min-width:0;background:none;border:0;color:#F4F1E2;font:400 var(--t-sm)/1 var(--body)}
+.bar input::placeholder{color:#8FA0B2}
+.bar input:focus{outline:none}
+.sub{flex:none;background:var(--mustard);color:var(--ink);font:700 var(--t-sm)/1 var(--body);
+  border-radius:var(--r-pill);padding:0 var(--s4);height:44px;display:inline-flex;align-items:center}
+/* Below 640 there is not enough bar left for a usable field: the brand and the
+   subscribe button squeeze it to about 80px. Swap it for an icon that opens
+   the library, where the real search box lives, rather than shipping a text
+   input nobody can read their own query in. */
+/* The search form used to be hidden here and the magnifier below 480, which
+   left a phone with no way to search 310 videos at all. It stays now; the
+   brand shrinks instead. The magnifier button is redundant beside a real
+   field, so it goes at every width. */
+@media(max-width:640px){
+  .sub{padding:0 var(--s3)}
+}
+/* Below 480 the brand, the search icon, the menu button and Subscribe add up
+   to 363px inside a 351px bar, and every one of them is flex:none, so the row
+   overflowed to the screen edge with no padding left. The search icon goes:
+   before the menu existed it was the only route off this page, and now the
+   menu carries All rips, which is where searching happens. */
+@media(max-width:480px){
+  /* The auto margin that pushed the right-hand controls over used to live on a
+     search icon button. That button was removed from the markup entirely, so
+     the margin has to be declared here or the row packs left with 52px of dead
+     space on the right. */
+  .menu-btn{margin-left:auto}
+}
+
+/* Filter rail. Sticks under the bar so the whole catalogue stays one tap away
+   from anywhere on the page. */
+.rail{position:sticky;top:var(--bar-h);z-index:55;background:rgba(247,245,236,.96);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+/* THE min-height IS THE LAYOUT SHIFT FIX, not a style choice. The rail ships
+   EMPTY on /videos.html: the markup is a <span id="setChips"> with nothing in
+   it and app.js fills it only once videos.json has resolved. So the row is
+   24px of padding until the fetch lands and 68px once the chips exist, and
+   those 44px shove MAIN and the entire page down after first paint. Measured
+   CLS on /videos.html at 1440x900 was 0.7967, against a 0.1 budget.
+   68 = the 44px chip plus var(--s3) top and bottom; 60 = 44 plus var(--s2),
+   which is what the narrow rule below sets. Both are the height the row
+   already had once filled, so reserving it moves nothing that was correct;
+   it only stops the row growing into the page. Keep the two numbers in step
+   with .chip's height and this padding if either ever changes. */
+.rail-in{display:flex;gap:var(--s2);overflow-x:auto;scrollbar-width:none;
+  max-width:1500px;margin:0 auto;padding:var(--s3) var(--s5);min-height:68px}
+.rail-in::-webkit-scrollbar{display:none}
+@media(max-width:700px){.rail-in{padding:var(--s2) var(--s3);min-height:60px}}
+.chip{flex:none;font:700 var(--t-label)/1 var(--body);letter-spacing:.02em;
+  background:var(--card);border:1px solid var(--hair);border-radius:var(--r-pill);
+  padding:0 var(--s4);height:44px;display:inline-flex;align-items:center;gap:6px;
+  color:var(--ink);white-space:nowrap}
+.chip .n{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-current]{background:var(--ink);color:#F4F1E2;border-color:var(--ink)}
+.chip[aria-current] .n{color:#9FB0C0}
+.chip.gold{background:#FCF0CC;border-color:var(--gold)}
+.chip.gold[aria-current]{background:var(--gold-deep);color:#fff;border-color:var(--gold-deep)}
+
+/* --------------------------------------------------------------------------
+   Hall of Fame. The one dark surface on the site, and it is here because dark
+   is what makes foil read as foil: the same wrapper that sits flat on cream
+   looks lit against near-black. A shelf rather than a grid, so the best pulls
+   get the top of the page without pushing the latest rips off the screen.
+   -------------------------------------------------------------------------- */
+.hof{background:var(--ink);color:#F4F1E2;padding:var(--s5) 0 var(--s6);
+  border-bottom:2px solid var(--gold);
+  background-image:radial-gradient(130% 90% at 50% 0%, rgba(224,162,31,.18), transparent 62%)}
+.hof-head{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s4)}
+.hof-head h2{font:400 var(--t-l)/1 var(--display);color:var(--mustard);flex:none}
+.hof-head .sub2{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.09em;color:#9FB0C0;
+  text-transform:uppercase}
+@media(max-width:560px){.hof-head .sub2{display:none}}
+.hof-head a{margin-left:auto;flex:none;font:700 var(--t-sm)/1 var(--body);color:var(--mustard);
+  min-height:44px;display:inline-flex;align-items:center}
+.hof-head a:hover{text-decoration:underline}
+.shelf{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x mandatory;
+  scrollbar-width:none;padding-bottom:var(--s2);
+  /* bleed to the screen edge so the row reads as continuing, not as cut off */
+  margin:0 calc(var(--s5) * -1);padding-inline:var(--s5);scroll-padding-left:var(--s5)}
+.shelf::-webkit-scrollbar{display:none}
+@media(max-width:700px){.shelf{margin:0 calc(var(--s3) * -1);padding-inline:var(--s3);
+  scroll-padding-left:var(--s3)}}
+.shelf .v{flex:none;width:clamp(146px,42vw,196px);scroll-snap-align:start}
+.shelf .v .art{box-shadow:0 2px 4px rgba(0,0,0,.4), 0 10px 26px rgba(0,0,0,.45),
+  0 0 0 1px rgba(224,162,31,.35)}
+.shelf .v h3{color:#F4F1E2}
+/* The shelf carries the set name where the wall carries a date, and the long
+   ones ("Prismatic Evolutions") overrun a 196px tile. Dropping a step and
+   losing the tracking buys 40px, which clears every set name we have. */
+.shelf .v p{color:#9FB0C0;font-size:.625rem;letter-spacing:0}
+.rank{position:absolute;left:8px;top:8px;z-index:4;width:30px;height:30px;border-radius:50%;
+  display:grid;place-items:center;font:400 1rem/1 var(--display);color:var(--ink);
+  background:linear-gradient(180deg,#FBE08A,var(--gold));
+  box-shadow:0 2px 5px rgba(0,0,0,.4)}
+
+/* Secondary pages live here: the bar at the top carries only the brand, the
+   search and Subscribe, so without this footer row /shops.html and
+   /wanted.html would have no route into them at all. */
+.foot-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s2) var(--s5);
+  margin:0 auto var(--s5);max-width:44em}
+.foot-nav a{font:700 var(--t-sm)/1 var(--body);color:var(--ink-2);
+  min-height:44px;display:inline-flex;align-items:center}
+
+
+/* --------------------------------------------------------------------------
+   Most Wanted. The cards actually being hunted, right under the Hall of Fame,
+   so the page reads: here is what I caught, here is what I am still after.
+   -------------------------------------------------------------------------- */
+.mwband{background:var(--card);border-bottom:1px solid var(--hair);padding:var(--s5) 0 var(--s6)}
+.mw-head{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s4);flex-wrap:wrap}
+.mw-head h2{font:400 var(--t-l)/1 var(--display);flex:0 1 auto;min-width:0}
+.mw-head .sub2{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.09em;color:var(--ink-2);
+  text-transform:uppercase}
+@media(max-width:560px){.mw-head .sub2{display:none}}
+.mw-head a{margin-left:auto;flex:none;font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep);
+  min-height:44px;display:inline-flex;align-items:center}
+.mw-shelf{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x mandatory;
+  scrollbar-width:none;padding-bottom:var(--s2);
+  margin:0 calc(var(--s5) * -1);padding-inline:var(--s5);scroll-padding-left:var(--s5)}
+.mw-shelf::-webkit-scrollbar{display:none}
+@media(max-width:700px){.mw-shelf{margin:0 calc(var(--s3) * -1);padding-inline:var(--s3);
+  scroll-padding-left:var(--s3)}}
+.mw{flex:none;width:clamp(130px,38vw,168px);scroll-snap-align:start;
+  display:flex;flex-direction:column;gap:var(--s1);text-decoration:none;min-width:0}
+/* Real Pokemon card proportions, so the art is never stretched and the row
+   does not jump as each image arrives. */
+.mw-art{display:block;aspect-ratio:245/342;border-radius:8px;overflow:hidden;
+  background:#E8E4D6;box-shadow:var(--lift);transition:transform .15s}
+.mw-art img{width:100%;height:100%;object-fit:contain}
+.mw:hover .mw-art{transform:translateY(-4px)}
+.mw-none{display:grid;place-items:center;height:100%;padding:12%;text-align:center;
+  font:400 .85rem/1.2 var(--display);color:var(--ink-2)}
+.mw b{font:600 var(--t-sm)/1.3 var(--body)}
+/* THE META LINE WRAPS, it does not get cut. A tile here is 130px to 168px wide
+   and the line is "SET NAME . PSA 10 $1,962", which wants 233px in this mono
+   at every width the shelf has, so nowrap plus ellipsis was truncating all six
+   tiles at 375px and three of six at 1440px, always mid-word: "PHANTASMAL
+   FLAMES . PSA 1..." tells the reader nothing and hides the price the row
+   exists to show. CSS can only cut at a character, never at a word, so the
+   answer is to let it run onto a second line. Nothing moves when it does: the
+   art above it has a fixed aspect-ratio and the text is the last thing in the
+   tile. */
+.mw p{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.03em;
+  white-space:normal;overflow-wrap:break-word}
+
+/* --------------------------------------------------------------------------
+   The wall. 2 up on a phone, 6 up on a desktop.
+   -------------------------------------------------------------------------- */
+main{padding:var(--s4) 0 var(--s8)}
+.wall{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--s5) var(--s4)}
+@media(max-width:1300px){.wall{grid-template-columns:repeat(5,1fr)}}
+@media(max-width:1080px){.wall{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:820px){.wall{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.wall{grid-template-columns:repeat(2,1fr);gap:var(--s5) var(--s3)}}
+
+/* A section break is a row inside the grid, not a new banded section. The
+   content never stops to make room for a heading. */
+/* Negative bottom margin claws back most of the grid's row gap: a heading row
+   should sit against the videos it labels, not float a full row above them. */
+.brk{grid-column:1/-1;display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;
+  margin:var(--s5) 0 var(--s3)}
+/* The negative bottom margin claws back the grid's row gap so a heading sits
+   against the videos it labels. It only makes sense INSIDE the grid: on a page
+   that reuses .brk as a plain section heading it drags the next paragraph up
+   into the heading. */
+.wall > .brk{margin-bottom:calc(var(--s4) * -1)}
+.brk:first-child{margin-top:0}
+/* These must be allowed to shrink. A flex:none heading in a grid-column:1/-1
+   row sets the grid's minimum width, so a long section title silently widens
+   the whole page and the document scrolls sideways. */
+/* h1 as well as h2. Six pages put their page title in a .brk and only h2 was
+   styled, so those h1s fell back to the UA default: 2em of the 17px body,
+   bold, in the body face. 34px Outfit where the design calls for 22px Titan
+   One, and they lost the flex:0 1 auto that the note above says keeps the page
+   from scrolling sideways. Invisible on desktop, 52% oversized on a phone. */
+.brk h1,.brk h2{font-family:var(--display);font-size:var(--t-l);font-weight:400;line-height:1;
+  flex:0 1 auto;min-width:0}
+.brk .ln{flex:1 1 24px;min-width:16px;height:3px;border-radius:2px;background:var(--hair)}
+.brk .ln.gold{background:linear-gradient(90deg,var(--gold),rgba(224,162,31,0))}
+.brk a{flex:none;font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep);
+  min-height:44px;display:inline-flex;align-items:center}
+.brk a:hover{text-decoration:underline}
+
+.v{display:flex;flex-direction:column;gap:var(--s2);min-width:0}
+/* The pack is the tile. No frame, no pocket, no border: a rounded crop and one
+   shadow, so eighteen different wrappers can sit side by side without the
+   layout adding a nineteenth colour. */
+.v .art{position:relative;display:block;aspect-ratio:2/3;border-radius:var(--r);
+  overflow:hidden;background:#E8E4D6;box-shadow:var(--lift);
+  transition:transform .15s ease, box-shadow .15s ease}
+.v .art img{width:100%;height:100%;object-fit:cover}
+/* No wrapper art for this set yet, or the video has no set tag at all. Shows
+   the set logo on a plain field rather than a broken image, and never the
+   YouTube poster frame, which is usually the pulled card and spoils the video
+   before you press play. */
+.art-none{position:absolute;inset:0;display:grid;place-items:center;padding:14%;
+  background:linear-gradient(160deg,#243549,#15263A 60%,#0E1B2A)}
+.art-none img{width:100%!important;height:auto!important;object-fit:contain!important;
+  max-height:100%}
+.art-none b{font:400 1rem/1.2 var(--display);color:var(--mustard);text-align:center}
+.v:hover .art{transform:translateY(-4px) scale(1.012)}
+.v .art::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 62%,rgba(10,18,28,.62));opacity:0;
+  transition:opacity .15s}
+.v:hover .art::after{opacity:1}
+/* the play affordance, only on hover, low and to the right of the mascot */
+.play{position:absolute;left:50%;top:50%;translate:-50% -50%;z-index:3;
+  width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.94);
+  display:grid;place-items:center;opacity:0;scale:.86;
+  transition:opacity .15s, scale .15s;box-shadow:0 4px 14px rgba(10,18,28,.35)}
+.v:hover .play{opacity:1;scale:1}
+.play::before{content:"";width:0;height:0;margin-left:4px;
+  border-left:16px solid var(--ink);border-top:10px solid transparent;border-bottom:10px solid transparent}
+.dur{position:absolute;right:6px;bottom:6px;z-index:3;
+  font:700 var(--t-micro)/1 var(--mono);color:#fff;background:rgba(10,18,28,.82);
+  padding:4px 6px;border-radius:5px}
+/* a hit is the only thing that earns a flag */
+.hit{position:absolute;left:0;top:10px;z-index:4;
+  font:700 var(--t-micro)/1 var(--mono);letter-spacing:.04em;
+  background:var(--mustard);color:var(--ink);border:1px solid var(--gold-deep);border-left:0;
+  padding:5px 7px;border-radius:0 5px 5px 0;box-shadow:1px 1px 3px rgba(21,38,58,.25)}
+/* Both caption lines are fixed: two for the title, one for the meta. Without
+   the min-height a one-line title shortens its tile and the row of packs below
+   starts at a different place in every column. */
+.v h3{font:600 var(--t-sm)/1.32 var(--body);display:-webkit-box;-webkit-line-clamp:2;
+  line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.64em}
+.v p{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.03em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.more{grid-column:1/-1;display:flex;justify-content:center;margin-top:var(--s5)}
+.more a{font:700 var(--t-body)/1 var(--body);background:var(--card);border:2px solid var(--ink);
+  border-radius:var(--r-pill);padding:0 var(--s6);height:52px;display:inline-flex;
+  align-items:center;box-shadow:var(--lift)}
+.more a:hover{background:var(--mustard)}
+
+/* --------------------------------------------------------------------------
+   Card Pokedex. The reading half of the site, after the watching half. Each tile is
+   a set's own logo on a card, because a collector recognises the logo faster
+   than they read the name.
+   -------------------------------------------------------------------------- */
+.pokedex{padding:var(--s7) 0 var(--s8);border-top:1px solid var(--hair)}
+.pdex-head{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;margin:0 0 var(--s3)}
+.pdex-lede{color:var(--ink-2);max-width:44em;margin-bottom:var(--s5)}
+.set-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--s3)}
+@media(max-width:1300px){.set-grid{grid-template-columns:repeat(5,1fr)}}
+@media(max-width:1080px){.set-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:820px){.set-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.set-grid{grid-template-columns:repeat(2,1fr)}}
+.set{display:flex;flex-direction:column;align-items:center;gap:var(--s1);text-align:center;
+  background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s4) var(--s3) var(--s3);box-shadow:var(--lift);min-width:0;
+  transition:transform .14s, border-color .14s}
+.set:hover{transform:translateY(-3px);border-color:var(--ink)}
+/* Fixed box, not aspect-ratio: these logos are all different shapes and a
+   ratio box would size each tile differently and break the grid's baseline.
+   Each logo's own height comes in as --lh, computed at build time so every
+   logo covers about the same area. Sizing them all to one height instead
+   makes a 5:1 wordmark look half the size of a 1.3:1 one. */
+.set-art{height:60px;display:grid;place-items:center;width:100%;margin-bottom:var(--s2)}
+.set-art img{height:var(--lh,44px);width:auto;max-width:100%;object-fit:contain}
+.set-name{font:400 .95rem/1.1 var(--display);color:var(--ink)}
+.set b{font:600 var(--t-sm)/1.25 var(--body)}
+.set-meta{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.02em}
+.set-top{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink);letter-spacing:.02em;
+  margin-top:2px}
+.set-top i{font-style:normal;color:var(--gold-deep)}
+.set-rips{font:700 var(--t-micro)/1 var(--mono);color:var(--ketchup-deep);
+  background:#FBE7E1;border-radius:var(--r-pill);padding:4px 9px;margin-top:var(--s1)}
+
+/* --------------------------------------------------------------------------
+   Who this is. At the bottom, where it belongs on a hub whose visitors came
+   for the videos.
+   -------------------------------------------------------------------------- */
+.about{background:var(--ink);color:#F4F1E2;padding:var(--s8) 0}
+.about-in{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s7);align-items:center;
+  max-width:1180px;margin:0 auto;padding:0 var(--s5)}
+@media(max-width:860px){.about-in{grid-template-columns:1fr;gap:var(--s6)}}
+.about img.banner{border-radius:14px;width:100%;aspect-ratio:16/10;object-fit:cover;
+  object-position:center 42%;box-shadow:0 18px 40px rgba(0,0,0,.4)}
+.about h2{font:400 var(--t-l)/1.1 var(--display)}
+.about p{color:#B9C6D2;margin-top:var(--s3);max-width:34em}
+.socials{display:flex;gap:var(--s2);flex-wrap:wrap;margin-top:var(--s5)}
+.socials a{display:inline-flex;align-items:center;gap:var(--s2);height:46px;padding:0 var(--s4);
+  border-radius:var(--r-pill);background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.18);font:700 var(--t-sm)/1 var(--body)}
+.socials a:hover{background:rgba(255,255,255,.16)}
+.socials i{width:12px;height:12px;border-radius:50%;background:var(--pip);flex:none}
+.roc{display:flex;align-items:center;gap:var(--s4);margin-top:var(--s6);
+  padding-top:var(--s5);border-top:1px solid rgba(255,255,255,.15)}
+.roc img{width:78px;flex:none}
+.roc p{margin:0;font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.03em;color:#9FB0C0}
+footer{padding:var(--s6) 0;text-align:center}
+footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spacing:.03em}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* --------------------------------------------------------------------------
+   Library page. The grid, the tiles and the bar all come from above; these are
+   only the controls that page adds.
+   -------------------------------------------------------------------------- */
+
+/* app.js draws packs as CSS-skinned spans rather than <img>, because a grid of
+   real images is hundreds of KB. The tile expects its face to fill the well. */
+.v .art .pack{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+
+.lib-bar{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;
+  margin:var(--s5) 0 var(--s4)}
+.lib-count{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;color:var(--ink-2);
+  text-transform:uppercase}
+/* 16px minimum: iOS Safari zooms the page in on a smaller control and never
+   zooms back out. */
+.sortsel{margin-left:auto;font:700 var(--t-body)/1 var(--body);color:var(--ink);
+  background:var(--card);border:1px solid var(--hair);border-radius:var(--r-pill);
+  padding:0 var(--s4);height:44px;cursor:pointer}
+.sortsel:hover{border-color:var(--ink)}
+
+/* [hidden] is display:none in the UA stylesheet, and any author rule with a
+   display beats it. Without this the empty set header renders as a stray white
+   box whenever no set filter is active, which is most of the time. */
+.set-header[hidden],.more a[hidden],[hidden]{display:none!important}
+
+.set-header img{max-height:46px;width:auto}
+.set-header p{color:var(--ink-2);font-size:var(--t-sm);margin:0}
+
+/* app.js emits .empty > .big for every loading and empty state. This rule was
+   written as .lib-empty and matched nothing, so "Loading the bulk...",
+   "Nothing in that pile" and the error state all rendered as bare paragraphs. */
+.empty{text-align:center;color:var(--ink-2);background:var(--card);grid-column:1/-1;
+  border:1px dashed var(--hair);border-radius:var(--r);padding:var(--s7) var(--s5)}
+.empty .big{font:400 var(--t-l)/1.15 var(--display);color:var(--ink);display:block;
+  margin-bottom:var(--s2)}
+
+/* Screen-reader-only, for labels that would otherwise be missing. */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}/* ---------- the pack wrapper ----------
+   The YouTube poster frame is usually the pulled card, which spoils the whole
+   video before you press play. So the player sits under a sealed booster pack
+   and you have to rip it open. */
+/* Per-set skins. These are original designs keyed to each set's colour
+   identity, not reproductions of the official pack artwork. Any set without a
+   skin falls back to the Garbage Rips green. */
+.pack{--pk-a:#5CA046;--pk-b:#3C7A38;--pk-c:#24552A;--pk-d:#173A1D;--pk-ink:#EFC94C;--pk-edge:#14301A}
+.pack--pitch-black{--pk-a:#6A5690;--pk-b:#4A3B63;--pk-c:#2A2140;--pk-d:#120E1C;--pk-ink:#CBBAF2;--pk-edge:#0C0914}
+.pack--phantasmal-flames{--pk-a:#8B4CB8;--pk-b:#6B3A8F;--pk-c:#3E1E5C;--pk-d:#21103A;--pk-ink:#A9F2C4;--pk-edge:#170A28}
+.pack--perfect-order{--pk-a:#3FB39B;--pk-b:#2E8B7A;--pk-c:#175A50;--pk-d:#0C3B34;--pk-ink:#A6F0DF;--pk-edge:#07241F}
+.pack--chaos-rising{--pk-a:#E0563A;--pk-b:#C2361F;--pk-c:#7E1D12;--pk-d:#4A100A;--pk-ink:#FFC48A;--pk-edge:#320A06}
+.pack--ascended-heroes{--pk-a:#EFC65C;--pk-b:#D8A93A;--pk-c:#95681A;--pk-d:#5E4110;--pk-ink:#FFF6D2;--pk-edge:#3A280A}
+.pack--journey-together{--pk-a:#5AA9E0;--pk-b:#3C8FD0;--pk-c:#1E5C8E;--pk-d:#123B5E;--pk-ink:#D6EEFF;--pk-edge:#0B2440}
+.pack--destined-rivals{--pk-a:#D6453F;--pk-b:#8E2C46;--pk-c:#3E2A63;--pk-d:#1E1838;--pk-ink:#FFD9DE;--pk-edge:#150F26}
+.pack--prismatic-evolutions{--pk-a:#7FD8E8;--pk-b:#B98BE0;--pk-c:#E08AB4;--pk-d:#5B4A8C;--pk-ink:#FFFFFF;--pk-edge:#2C2350}
+.pack--surging-sparks{--pk-a:#F2D452;--pk-b:#D9A92A;--pk-c:#8A6412;--pk-d:#543D0A;--pk-ink:#FFF8D0;--pk-edge:#33250A}
+.pack--mega-evolution{--pk-a:#D95A3C;--pk-b:#A8322E;--pk-c:#5E1A38;--pk-d:#33102A;--pk-ink:#FFD5BE;--pk-edge:#210A1C}
+.pack--pokemon-go{--pk-a:#4E93DE;--pk-b:#2F6BB8;--pk-c:#1A3F78;--pk-d:#0E274E;--pk-ink:#FFE08A;--pk-edge:#08182F}
+.pack--151{--pk-a:#D6543F;--pk-b:#B03427;--pk-c:#6E1A14;--pk-d:#42100C;--pk-ink:#FFE2B8;--pk-edge:#2A0907}
+.pack--scarlet-violet{--pk-a:#C4453F;--pk-b:#7E3480;--pk-c:#4A2258;--pk-d:#2A1436;--pk-ink:#FFE8F2;--pk-edge:#1C0D24}
+.pack--twilight-masquerade{--pk-a:#7E63A8;--pk-b:#5A4380;--pk-c:#33254E;--pk-d:#1E1630;--pk-ink:#E4D6FF;--pk-edge:#140E20}
+.pack--paradox-rift{--pk-a:#4FA8A0;--pk-b:#8E4E9E;--pk-c:#3A2A5E;--pk-d:#1E1638;--pk-ink:#CFF3EE;--pk-edge:#120C24}
+.pack--obsidian-flames{--pk-a:#5A5A66;--pk-b:#3A3A44;--pk-c:#7E2A14;--pk-d:#1C1C22;--pk-ink:#FFC08A;--pk-edge:#0E0E12}
+.pack--stellar-crown{--pk-a:#5FC7D6;--pk-b:#3A8FA8;--pk-c:#1E5470;--pk-d:#123648;--pk-ink:#E0F8FF;--pk-edge:#0A2130}
+/* Positioned only where a positioned parent exists. Applied to a static
+   container (the set pages' packshot panels) it escaped to the nearest
+   section and rendered outside its card. */
+.rip-player .pack,.vid-shell .pack{position:absolute;inset:0}
+.pack{
+  position:relative;z-index:3;width:100%;height:100%;
+  padding:0;border:0;background:none;cursor:pointer;display:block;
+  perspective:800px;
+}
+.pack-face{
+  position:absolute;inset:0;overflow:hidden;
+  transform-origin:center center;
+  will-change:transform,opacity;
+}
+/* Each half holds a full copy of the pack art, clipped to a torn edge, so the
+   two together read as one sealed pack until it splits. */
+.pack-l{clip-path:polygon(0 0,52% 0,47% 6%,53% 13%,46% 20%,52% 27%,47% 34%,53% 41%,46% 48%,52% 55%,47% 62%,53% 69%,46% 76%,52% 83%,47% 90%,53% 96%,49% 100%,0 100%)}
+.pack-r{clip-path:polygon(52% 0,100% 0,100% 100%,49% 100%,53% 96%,47% 90%,52% 83%,46% 76%,53% 69%,47% 62%,52% 55%,46% 48%,53% 41%,47% 34%,52% 27%,46% 20%,53% 13%,47% 6%)}
+.pack-art{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(120% 70% at 50% 12%,rgba(255,255,255,.22),transparent 60%),
+    linear-gradient(160deg,var(--pk-a) 0%,var(--pk-b) 38%,var(--pk-c) 72%,var(--pk-d) 100%);
+}
+/* foil sheen */
+.pack-art::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(115deg,transparent 26%,rgba(125,249,233,.32) 40%,rgba(249,139,217,.32) 50%,rgba(255,232,107,.32) 60%,transparent 74%);
+  mix-blend-mode:screen;opacity:.75;
+}
+/* crimped seal top and bottom */
+.pack-art::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:100%;
+  background:
+    repeating-linear-gradient(90deg,rgba(0,0,0,.28) 0 4px,transparent 4px 9px) top/100% 26px no-repeat,
+    repeating-linear-gradient(90deg,rgba(0,0,0,.28) 0 4px,transparent 4px 9px) bottom/100% 26px no-repeat;
+}
+.pack-brand{
+  position:absolute;left:0;right:0;top:16%;text-align:center;padding:0 8%;
+  font-family:var(--display);color:var(--pk-ink);
+  font-size:clamp(1rem,3vw,1.75rem);line-height:1.05;
+  text-shadow:3px 3px 0 var(--pk-edge),-1px -1px 0 var(--pk-edge);
+  transform:rotate(-3deg);
+}
+.pack-brand small{
+  display:block;color:#fff;opacity:.86;font-size:.5em;margin-top:.5em;
+  font-family:var(--mono);letter-spacing:.16em;text-shadow:2px 2px 0 var(--pk-edge);
+}
+.pack-mascot{
+  position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);
+  width:44%;aspect-ratio:1;border-radius:50%;overflow:hidden;
+  border:4px solid var(--mustard);box-shadow:0 6px 18px rgba(0,0,0,.45);
+}
+.pack-mascot{background:radial-gradient(circle at 50% 42%,#F4F1E2 0%,#DED8BE 78%,#C9C2A4 100%)}
+/* contain, not cover: the mascot is a cutout now, and cover cropped his
+   ears off against the circular badge. */
+.pack-mascot img{width:88%;height:88%;margin:6%;object-fit:contain}
+.pack-hint{
+  /* Sits on the bottom crimp, not across the middle: at 11% it landed exactly
+     on the pack artwork's own "Garbage Rips 585" wordmark and cut it in half. */
+  position:absolute;left:0;right:0;bottom:2.5%;z-index:4;text-align:center;
+  font-family:var(--mono);font-weight:700;font-size:.66rem;letter-spacing:.1em;
+  color:var(--navy);background:var(--mustard);
+  padding:8px 0;border-top:3px solid var(--pk-edge);border-bottom:3px solid var(--pk-edge);
+  transition:background .14s;
+}
+/* ---------- tile variant ----------
+   Grid tiles are ~170px wide, so the mascot badge and the hint strip do not
+   survive the shrink. Set name and the crimped foil carry it. */
+.pack--tile{position:absolute;inset:0;z-index:2}
+/* A tile carries a single unsplit face, so the torn clip-path that makes the
+   two halves on a rip page must not apply: it would show half a pack. */
+/* The torn polygon splits a rip page's pack into two halves. Anywhere the
+   pack is shown whole, it must not apply, or only the left half renders. */
+.pack--tile .pack-l,.packshot .pack-l{clip-path:none}
+.pack--tile .pack-mascot,.pack--tile .pack-hint,.pack--tile .pack-flash{display:none}
+.pack--tile .pack-brand{top:auto;bottom:12%;font-size:clamp(.72rem,1.5vw,1rem);padding:0 10%}
+.pack--tile .pack-brand small{font-size:.56em;margin-top:.4em}
+.pack--tile .pack-art::before{background:
+  repeating-linear-gradient(90deg,rgba(0,0,0,.3) 0 3px,transparent 3px 7px) top/100% 15px no-repeat,
+  repeating-linear-gradient(90deg,rgba(0,0,0,.3) 0 3px,transparent 3px 7px) bottom/100% 15px no-repeat}
+/* The tile already carries .vid-play, so the seal would be a second play
+   affordance sitting on top of the first. */
+.pack--tile .pack-seal{display:none}
+.pack:hover .pack-hint{background:var(--sky)}
+.pack:hover .pack-face{transform:scale(1.012)}
+.pack-face{transition:transform .18s ease}
+
+/* The library's search is the page's primary control, so it gets its own
+   full-width row rather than a slot in the bar. The bar's field is hidden
+   below 640px, which is right on pages where a magnifier links here and wrong
+   on this one, where there is nowhere else to search from. */
+.libsearch{background:var(--card);border-bottom:1px solid var(--hair);padding:var(--s3) 0}
+.libsearch form{display:flex;align-items:center;gap:var(--s3);max-width:640px;margin:0 auto;
+  background:var(--page);border:1px solid var(--hair);border-radius:var(--r-pill);
+  padding:0 var(--s4);height:48px}
+.libsearch form:focus-within{border-color:var(--ink)}
+.libsearch svg{width:19px;height:19px;flex:none;fill:none;stroke:var(--ink-2);
+  stroke-width:2.2;stroke-linecap:round}
+.libsearch input{flex:1;min-width:0;background:none;border:0;color:var(--ink);
+  font:400 var(--t-body)/1 var(--body)}
+.libsearch input:focus{outline:none}
+
+/* --------------------------------------------------------------------------
+   Footer. It continues the dark About block above it rather than starting a
+   new surface, so the page ends on one colour instead of three.
+
+   The social SVGs had no styles at all here: an <svg> with no width defaults
+   to 300x150, which is why this footer was 969px tall with four black slabs
+   in it.
+   -------------------------------------------------------------------------- */
+footer{background:var(--ink);color:#B9C6D2;padding:var(--s7) 0 var(--s6);text-align:center}
+footer .wrap{display:flex;flex-direction:column;align-items:center;gap:var(--s4)}
+
+.foot-tag{font:400 var(--t-l)/1 var(--display);color:var(--mustard)}
+
+.foot-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s1) var(--s5);
+  margin:0;max-width:44em}
+.foot-nav a{font:700 var(--t-sm)/1 var(--body);color:#B9C6D2;
+  min-height:44px;display:inline-flex;align-items:center}
+.foot-nav a:hover{color:var(--mustard);text-decoration:none}
+
+.foot-social{display:flex;justify-content:center;gap:var(--s3)}
+/* 40px target with a 17px glyph: small enough to read as a footer detail,
+   still a legal tap target. */
+.foot-social a{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
+  transition:background .14s,border-color .14s,transform .14s}
+.foot-social a:hover{background:rgba(255,255,255,.16);transform:translateY(-2px)}
+.foot-social svg{width:17px;height:17px;fill:#F4F1E2}
+.foot-social a.yt:hover{background:#FF0033;border-color:#FF0033}
+.foot-social a.ig:hover{background:#BC1888;border-color:#BC1888}
+.foot-social a.tt:hover{background:#F4F1E2;border-color:#F4F1E2}
+.foot-social a.tt:hover svg{fill:var(--ink)}
+.foot-social a.fb:hover{background:#1877F2;border-color:#1877F2}
+
+footer p{font:400 var(--t-sm)/1.6 var(--body);color:#8FA0B2;max-width:46em;letter-spacing:0}
+
+/* The About block and the footer are the same colour and sit flush, so their
+   padding was stacking into a band of empty navy. One gap, not two. */
+.about + footer{padding-top:var(--s5)}
+.about{padding-bottom:var(--s6)}
+
+
+/* --------------------------------------------------------------------------
+   Skip link and the mobile menu.
+
+   The home page is 7,000px tall on a phone and the only navigation was the
+   footer, so every page but this one was a full-page scroll away. Most
+   visitors arrive from a YouTube link on a phone, which made most of the site
+   unreachable in practice.
+   -------------------------------------------------------------------------- */
+.skip{position:absolute;left:var(--s3);top:-100px;z-index:200;
+  background:var(--mustard);color:var(--ink);font:700 var(--t-sm)/1 var(--body);
+  padding:var(--s3) var(--s4);border-radius:var(--r-pill);transition:top .12s}
+.skip:focus{top:var(--s3)}
+
+.menu-btn{flex:none;width:44px;height:44px;border-radius:50%;display:none;
+  place-items:center;background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);cursor:pointer;padding:0}
+.menu-btn svg{width:20px;height:20px;fill:none;stroke:#F4F1E2;stroke-width:2.2;
+  stroke-linecap:round}
+.menu-btn[aria-expanded="true"]{background:var(--mustard);border-color:var(--mustard)}
+.menu-btn[aria-expanded="true"] svg{stroke:var(--ink)}
+
+/* THE MENU IS FIXED TO THE VIEWPORT, NOT PLACED IN THE DOCUMENT.
+   It sits after </header> as a sibling of .bar, so in normal flow it lives at
+   document y=60. Opening it anywhere below the top therefore rendered it above
+   the screen: at scroll 3000 the panel appeared 2,940px out of view. The button
+   turned gold and nothing else happened, on a 7,670px page where this is the
+   only navigation there is. The desktop branch had the same fault by a
+   different route, position:absolute with no positioned ancestor, so it
+   resolved against the initial containing block and pinned to the document too.
+   Fixed positioning is the whole fix; it is measured from the viewport by
+   definition. dvh so iOS Safari's shrinking toolbar cannot cut the list off. */
+.menu{display:none;position:fixed;left:0;right:0;top:var(--bar-h);z-index:70;
+  max-height:calc(100dvh - var(--bar-h));overflow-y:auto;-webkit-overflow-scrolling:touch;
+  background:var(--ink);border-top:1px solid rgba(255,255,255,.12);
+  box-shadow:0 18px 40px rgba(19,38,55,.45)}
+.menu.on{display:block}
+
+/* Subscribe sticks to the bottom of the scrolling panel.
+   On a 375x667 phone the panel clips 139px, and what falls off the bottom is
+   the tail of the Rochester group and the whole Subscribe button. Below 560px
+   the bar's own Subscribe is display:none, so the menu holds the ONLY
+   Subscribe control above the footer, and the footer is six screens down.
+   Sticky keeps it on screen while the rest of the panel scrolls under it. */
+.menu-sub{position:sticky;bottom:0;z-index:2}
+.menu-inner{max-width:1500px;margin:0 auto;padding:var(--s3) var(--s3) var(--s2);
+  columns:2;column-gap:var(--s5)}
+/* A group must not be split down a column boundary: the half that lands in the
+   next column arrives with no heading and reads as a different section. */
+.menu-g{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+  margin-bottom:var(--s2)}
+/* 44px, which is the touch target floor rather than a comfortable size, and it
+   is deliberate: at 48px the panel still hid 70px including the Subscribe link,
+   and a link you cannot see is worth less than two pixels of padding. Desktop
+   restores 48 below, where there is no such pressure. */
+.menu ul{list-style:none}
+.menu a{display:flex;align-items:center;min-height:48px;padding:0 var(--s3);
+  color:#F4F1E2;font:600 var(--t-body)/1 var(--body);
+  border-bottom:1px solid rgba(255,255,255,.08)}
+.menu li:last-child a{border-bottom:0}
+@media(max-width:820px){.menu a{min-height:44px}}
+.menu a:hover,.menu a:focus-visible{color:var(--mustard)}
+
+/* Header navigation.
+   This comment used to say "the bar carries its own links from tablet up, so
+   the button is phones only", and the bar carried no links at all: .nav-links
+   was styled here but present in zero HTML files. So above 820px the hamburger
+   was display:none, .menu was display:none!important, and the header held
+   nothing but the brand, a search box and Subscribe. Every desktop and
+   tablet-landscape visitor's only route to any other page was the footer, at
+   the bottom of a 5,000px document.
+
+   Now the bar really does carry links, and the button stays available at every
+   width so the full nine-item menu is always one tap away. */
+.nav-links{display:none;align-items:center;gap:2px;margin-left:auto}
+.nav-links a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;
+  border-radius:var(--r-pill);color:#F4F1E2;white-space:nowrap;
+  font:700 var(--t-sm)/1 var(--body)}
+.nav-links a:hover,.nav-links a:focus-visible{background:rgba(255,255,255,.14);color:var(--mustard)}
+.nav-links a[aria-current=page]{background:var(--mustard);color:var(--ink)}
+
+/* 1080 is where brand + five links + the search field + Subscribe stop
+   competing for the same row. Below it the hamburger carries everything. */
+/* Bar links, shown only when there is genuinely room beside the search field.
+   NN/G measured navigation used in 86% of sessions with a few links visible
+   against 57% with everything behind a button, which is why these are exposed
+   at all. But 760 was far too early: the bar is brand + search + links + menu
+   button + Subscribe, and at 768 those summed to 907px. Subscribe rendered at
+   left 812 on a 768px screen, entirely off the viewport, the menu button was
+   sliced in half, and every page on the site scrolled sideways from 561px to
+   about 1016px. An iPad in portrait could not reach the subscribe CTA at all.
+   That was survivable at three links and is not at five.
+   1020 was still too early, and the failure was worse than the one it fixed.
+   The bar is a single flex row and the search field is the only flexible item
+   in it, so the five links did not overflow, they ATE the search: measured at
+   1020 the input was 0px wide and the site's 39,707 printing search rendered as
+   a bare magnifier with no field at all. At 1100 it was 35px. That is most
+   laptop widths, on the best asset the site has.
+   1280 is where all five links, a usable search field and Subscribe measured as
+   fitting together. Below it the links collapse into the menu, which already
+   holds them, and the search gets the room instead. A search box is worth more
+   than five links that are one tap away regardless. */
+@media(min-width:1280px){ .nav-links{display:flex} }
+
+.menu-btn{display:grid}
+
+/* Above 820 the menu is a panel hanging off the button, not a full-width band
+   across a 1500px header. */
+@media(min-width:821px){
+  /* Still fixed, just narrowed to a panel hanging off the button. */
+  .menu{left:auto;right:max(16px,calc(50vw - 750px + 16px));top:calc(var(--bar-h) - 4px);
+    /* Was 300px, which is one column: the same tall scrolling list as the phone
+       on a screen with room to spare. Three columns puts all 22 links on screen
+       at once, which is the only reason to open a menu. */
+    width:min(820px,calc(100vw - 32px));border:1px solid rgba(255,255,255,.16);
+    border-radius:var(--r)}
+  /* FOUR, not three. break-inside: avoid stops CSS columns balancing freely, so
+     with six groups and three columns the browser packed Watch, The binder and
+     Cards into column one and left Rochester alone in column three: 55px of the
+     panel, including Subscribe, fell off the bottom of a screen with room to
+     spare. Four columns lets the tallest single group set the height instead. */
+  .menu-inner{columns:4;padding:var(--s4)}
+}
+
+/* --------------------------------------------------------------------------
+   Playlists. The one place the site deliberately sends a visitor to YouTube,
+   because a playlist is a YouTube object, so each card says so out loud.
+   -------------------------------------------------------------------------- */
+
+.pl{display:flex;gap:var(--s4);align-items:center;background:var(--card);
+  border:1px solid var(--hair);border-radius:var(--r);padding:var(--s3);
+  box-shadow:var(--lift);transition:transform .14s,border-color .14s}
+.pl:hover{transform:translateY(-3px);border-color:var(--ink)}
+/* A YouTube playlist cover is 4:3, not the 2:3 of a booster pack, so the box
+   changes shape depending on which it is showing. Cropping a 4:3 cover into a
+   2:3 slot would cut the packaging out of the middle of it, which is the whole
+   reason for using it. */
+.pl-thumb{position:relative;flex:none;width:118px;aspect-ratio:4/3;border-radius:7px;
+  overflow:hidden;background:#E8E4D6}
+.pl-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.pl-thumb--pack{width:74px;aspect-ratio:2/3}
+.pl-thumb .pack{position:absolute;inset:0;width:100%;height:100%}
+.pl-body{min-width:0;display:flex;flex-direction:column;gap:2px}
+.pl-title{font:600 var(--t-sm)/1.3 var(--body);color:var(--ink);
+  display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pl-count{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.04em}
+.pl-out{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ketchup-deep);letter-spacing:.04em;
+  margin-top:var(--s1)}
+
+
+/* --------------------------------------------------------------------------
+   Set guide and rip page components, ported from site.css.
+   Only the rules those 332 pages actually reference, and only where ui.css
+   did not already define the class: the chrome and the tiles come from above.
+   -------------------------------------------------------------------------- */
+.hl{color:var(--ketchup-deep);text-shadow:2px 2px 0 var(--mustard)}
+.sec-label{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--sky-deep);margin-bottom:10px;font-weight:700;
+}
+.flower{width:14px;height:14px;fill:var(--ketchup);flex:none}
+.lede{font-size:1.1rem;max-width:38em;color:var(--ink-soft)}
+section.tight{padding:48px 0}
+/* sky-tinted band */
+section.band{background:var(--sky-tint);border-top:3px solid var(--sky);border-bottom:3px solid var(--sky)}
+/* full sky */
+section.band-sky{
+  background:linear-gradient(180deg,var(--sky) 0%,var(--sky-lite) 100%);
+  border-top:3px solid var(--navy);border-bottom:3px solid var(--navy);color:var(--navy);
+}
+section.band-sky .sec-label{color:var(--navy)}section.band-navy .sec-label{color:var(--mustard)}.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-weight:700;
+  padding:13px 24px;border-radius:999px;font-size:1rem;line-height:1;
+  border:2px solid var(--navy);
+  transition:transform .12s ease,box-shadow .12s ease;
+}
+.btn:hover{transform:translate(-2px,-2px)}
+.btn-yt{background:linear-gradient(180deg,var(--mustard),var(--gold));color:var(--navy);box-shadow:4px 4px 0 var(--navy)}
+.btn-yt:hover{box-shadow:6px 6px 0 var(--navy)}
+.btn-sky{background:var(--sky);color:var(--navy);box-shadow:4px 4px 0 var(--navy)}
+.btn-sky:hover{box-shadow:6px 6px 0 var(--navy)}
+.btn-ghost{background:var(--paper-2);color:var(--ink);box-shadow:4px 4px 0 var(--trubbish)}
+.btn-ghost:hover{background:#fff;box-shadow:6px 6px 0 var(--trubbish)}.btn-sm{padding:9px 16px;font-size:.85rem;min-height:44px}
+@media(max-width:900px){}
+/* ---------- search ---------- */
+.search{position:relative;flex:1;max-width:330px}
+.search input{
+  width:100%;font:inherit;font-size:.9rem;color:var(--ink);
+  background:var(--paper-2);border:2px solid var(--navy-deep);
+  border-radius:999px;padding:9px 16px 9px 38px;
+}
+.search input::placeholder{color:var(--ink-soft)}
+.search input:focus{border-color:var(--mustard);outline:none;box-shadow:0 0 0 3px rgba(239,201,76,.4)}
+.search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:15px;height:15px;fill:var(--ink-soft);pointer-events:none}
+@media(max-width:900px){.search{max-width:none;order:3;flex-basis:100%}}.hero-art .lede{color:var(--ink)}
+h1 .rip{color:var(--ketchup-deep);text-shadow:var(--hard-lg)}.btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.soc{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;
+  background:var(--paper-2);border:2px solid var(--navy);box-shadow:2px 2px 0 var(--navy);transition:transform .12s}
+.soc svg{width:18px;height:18px;fill:var(--navy)}
+.soc:hover{transform:translateY(-3px) rotate(-4deg)}
+.soc.yt:hover{background:#FF0033}
+.soc.yt:hover svg{fill:#fff}
+.soc.ig:hover{background:linear-gradient(45deg,#F09433,#DC2743,#BC1888)}
+.soc.ig:hover svg{fill:#fff}
+.soc.tt:hover{background:#111}
+.soc.tt:hover svg{fill:#fff}
+.soc.fb:hover{background:#1877F2}
+.soc.fb:hover svg{fill:#fff}
+footer .soc{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);box-shadow:none}
+footer .soc svg{fill:var(--paper)}
+/* ==========================================================================
+   VIDEO CARDS — framed like a card face: gold border, white bevel, the tile
+   sitting on the diner paper. Thumbnails come from oardefault (true vertical);
+   tiles are 2:3 because a real 9:16 tile is 1.78x tall and makes a wall of
+   skinny rectangles. The player opens out to 9:16 on click so there are no bars.
+   ========================================================================== */
+.vid-grid{display:grid;gap:22px;grid-template-columns:repeat(6,1fr)}
+@media(max-width:1100px){.vid-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:760px){.vid-grid{grid-template-columns:repeat(3,1fr);gap:14px}}
+@media(max-width:520px){.vid-grid{grid-template-columns:repeat(2,1fr)}}
+.vid{display:flex;flex-direction:column;gap:9px;min-width:0}
+.vid-title{font-size:.88rem;font-weight:600;line-height:1.32;color:var(--ink);
+  display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.vid-title a{text-decoration:none}
+.vid-title a:hover{color:var(--ketchup-deep)}
+.vid-meta{font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);letter-spacing:.04em}.band-navy .vid-title a:hover{color:var(--mustard)}.vid-grid.dense{grid-template-columns:repeat(auto-fill,minmax(168px,1fr))}
+@media(max-width:520px){}section.band-gold .sec-label{color:#5A3B06}section.band-gold .hl{color:var(--paper-2);text-shadow:3px 3px 0 #8A5A0C}section.band-gold .vid-title a:hover{color:var(--ketchup-deep)}.chip.prod[aria-pressed=true]{background:var(--mustard)}
+.band-sky .chip{box-shadow:2px 2px 0 var(--navy)}
+/* ==========================================================================
+   PER-VIDEO PAGE
+   ========================================================================== */
+.rip-grid{display:grid;grid-template-columns:minmax(280px,380px) 1fr;gap:44px;align-items:start}
+@media(max-width:860px){.rip-grid{grid-template-columns:1fr;gap:28px}}
+.rip h1{font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.12;margin-bottom:14px}
+.rip-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.rip-meta{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft);margin-bottom:20px;font-weight:700}
+.rip-desc{white-space:pre-wrap;background:var(--paper-2);border:3px solid var(--navy);
+  border-radius:12px;padding:20px 22px;box-shadow:0 6px 0 var(--trubbish);font-size:.95rem}
+.crumbs{font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);margin-bottom:18px;font-weight:700}
+.crumbs a{color:var(--sky-deep)}
+.rip-nav{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+
+/* ---------- set logo on a video page ---------- */
+.rip-setlogo{display:block;height:clamp(34px,5vw,54px);width:auto;margin-bottom:14px}
+.sec-head .setlogo{height:clamp(30px,4.4vw,50px);width:auto;display:block;margin-bottom:6px}
+/* ==========================================================================
+   SET PAGES — "Card Pokedex"
+   Built mobile-first: almost all the traffic is phones, so every block is a
+   single column by default and only widens where there is room.
+   ========================================================================== */
+.set-hero{
+  background:linear-gradient(180deg,var(--sky-tint),var(--paper));
+  border-bottom:4px solid var(--navy);padding:26px 0 30px;
+}
+.set-hero .wrap{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}.set-hero h1{font-size:clamp(1.7rem,7vw,3rem)}
+.set-hero .kicker{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--navy);background:var(--mustard);border:2px solid var(--navy);
+  padding:5px 12px;border-radius:4px;font-weight:700;
+}
+/* quick facts: 2-up on a phone, 4-up when there is room */
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px}
+@media(min-width:700px){.facts{grid-template-columns:repeat(4,1fr);gap:14px}}
+.fact{
+  background:var(--paper-2);border:3px solid var(--navy);border-radius:12px;
+  padding:14px 12px;text-align:center;box-shadow:0 5px 0 var(--trubbish);
+}
+/* The rips count is a link to that set's rips. It is a whole bubble rather
+   than a word inside one, so the target is the full 44px+ tile on a phone. */
+.fact-link{display:block;text-decoration:none;color:inherit;
+  transition:transform .12s ease,box-shadow .12s ease}
+.fact-link:hover,.fact-link:focus-visible{transform:translateY(-2px);
+  box-shadow:0 7px 0 var(--trubbish);border-color:var(--ketchup-deep)}
+.fact-link:hover .l,.fact-link:focus-visible .l{color:var(--ketchup-deep)}
+.fact .n{font-family:var(--display);font-size:clamp(1.3rem,5.5vw,1.9rem);color:var(--ketchup-deep);line-height:1.05}
+.fact .l{
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-soft);margin-top:5px;font-weight:700;
+}
+.fact.wide{grid-column:1 / -1}
+/* rarity ladder */
+.rarity-list{display:flex;flex-direction:column;gap:9px;margin-top:18px}
+.rar{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center}
+.rar-name{font-weight:600;font-size:.94rem}
+.rar-n{font-family:var(--mono);font-weight:700;font-size:.86rem;color:var(--ketchup-deep)}
+.rar-bar{
+  grid-column:1 / -1;height:12px;border-radius:999px;background:var(--paper-3);
+  border:2px solid var(--navy);overflow:hidden;
+}
+.rar-bar i{display:block;height:100%;background:var(--sky)}
+.rar.chase .rar-bar i{background:linear-gradient(90deg,var(--mustard),var(--gold))}
+.rar.chase .rar-name{color:var(--gold-deep)}
+/* chase cards */
+.chase-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+@media(min-width:620px){.chase-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.chase-grid{grid-template-columns:repeat(4,1fr)}}
+.chase-card{
+  background:var(--paper-2);border:3px solid var(--navy);border-radius:12px;
+  padding:10px;box-shadow:0 5px 0 var(--gold-deep);text-decoration:none;display:block;
+}
+.chase-card img{width:100%;height:auto;border-radius:6px}
+/* PSA 10 sits under the raw price and only appears when a graded price has
+   been checked by hand. Gold marks every graded figure on the site. */
+.chase-card .pr10{font:700 .6875rem/1.4 'Space Mono',ui-monospace,monospace;
+  color:#A8760B;letter-spacing:.03em}
+.chase-card .nm{font-weight:700;font-size:.84rem;line-height:1.25;margin-top:8px}
+.chase-card .rr{font-family:var(--mono);font-size:.6rem;color:var(--ink-soft);margin-top:2px;letter-spacing:.06em}
+.chase-card .pr{font-family:var(--display);font-size:1.15rem;color:var(--ketchup-deep);margin-top:4px}
+.price-note{
+  font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);margin-top:14px;
+  border-left:4px solid var(--trubbish);padding-left:10px;line-height:1.5;
+}
+.no-prices{
+  background:var(--paper-2);border:3px dashed var(--trubbish);border-radius:12px;
+  padding:18px;margin-top:18px;font-size:.92rem;color:var(--ink-soft);
+}
+/* fun facts */
+.facts-list{list-style:none;display:flex;flex-direction:column;gap:11px;margin-top:16px}
+.facts-list li{
+  background:var(--paper-2);border:3px solid var(--navy);border-radius:12px;
+  padding:13px 16px;font-size:.95rem;box-shadow:0 4px 0 var(--trubbish);
+}
+.facts-list b{font-family:var(--display);font-weight:400;color:var(--ketchup-deep)}
+/* watch-this-set callout */
+.set-watch{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin-top:20px}
+@media(min-width:760px){.set-watch{grid-template-columns:180px 1fr}}
+.set-watch .packshot{
+  aspect-ratio:2/3;border-radius:12px;overflow:hidden;border:4px solid var(--mustard);
+  outline:2px solid var(--navy);outline-offset:-6px;box-shadow:0 6px 0 var(--gold-deep);
+  background:#161D26 center/cover no-repeat;max-width:180px;margin:0 auto;
+}
+/* set index */
+.set-index{display:grid;grid-template-columns:repeat(1,1fr);gap:14px;margin-top:24px}
+@media(min-width:560px){.set-index{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:900px){.set-index{grid-template-columns:repeat(3,1fr)}}
+.set-card{
+  display:flex;align-items:center;gap:14px;text-decoration:none;
+  background:var(--paper-2);border:3px solid var(--navy);border-radius:14px;
+  padding:14px 16px;box-shadow:0 5px 0 var(--trubbish);
+  transition:transform .12s,box-shadow .12s;
+}
+.set-card:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--trubbish)}
+.set-card img{height:42px;width:auto;flex:none;max-width:110px;object-fit:contain}
+.set-card .meta{font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);font-weight:700}
+.set-card .ttl{font-family:var(--display);font-size:1rem;line-height:1.15}
+/* ---------- chase card lightbox ----------
+   Cards open large on this site rather than bouncing straight out to a
+   marketplace. The price link is still there, one tap inside. */
+.chase-card{cursor:zoom-in;width:100%;text-align:left;font:inherit;color:inherit}
+.lb{
+  position:fixed;inset:0;z-index:200;display:none;
+  background:rgba(19,38,55,.86);backdrop-filter:blur(4px);
+  padding:20px;overflow-y:auto;
+}
+.lb[open],.lb.on{display:grid;place-items:center}
+.lb-inner{
+  background:var(--paper-2);border:4px solid var(--navy);border-radius:16px;
+  box-shadow:0 12px 0 var(--gold-deep);padding:16px;max-width:420px;width:100%;
+  text-align:center;position:relative;
+}
+.lb-inner img{width:100%;height:auto;border-radius:10px;max-height:62vh;object-fit:contain}
+.lb-nm{font-family:var(--display);font-size:1.2rem;margin-top:12px;line-height:1.15}
+.lb-rr{font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);margin-top:4px;letter-spacing:.06em}
+.lb-pr{font-family:var(--display);font-size:1.8rem;color:var(--ketchup-deep);margin-top:6px}
+.lb-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.lb-close{
+  position:absolute;top:-16px;right:-16px;width:44px;height:44px;border-radius:50%;
+  background:var(--ketchup);color:var(--paper-2);border:3px solid var(--navy);
+  font-size:1.4rem;line-height:1;display:grid;place-items:center;box-shadow:0 4px 0 var(--navy);
+}
+@media(max-width:520px){.lb{padding:14px}.lb-close{top:-12px;right:-6px}}
+/* ---------- what the pack looks like ---------- */
+/* --------------------------------------------------------------------------
+   What you are chasing. The top cards from this rip's set, on the video's own
+   page, because "what was he hoping for" is the question the page raises and
+   never answered. Raw price always; PSA 10 only where we have one.
+   -------------------------------------------------------------------------- */
+.chaser-list{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+@media(max-width:700px){.chaser-list{grid-template-columns:1fr;gap:12px}}
+.chaser{display:flex;gap:14px;align-items:center;background:var(--paper,#FFF9EA);
+  border:2px solid var(--line,#1E3A54);border-radius:12px;padding:12px}
+.chaser img{width:66px;height:auto;flex:none;border-radius:5px}
+.chaser b{display:block;font-size:.9rem;line-height:1.25}
+.chaser-rar,.chaser-pr{display:block;font:700 .6875rem/1.5 'Space Mono',ui-monospace,monospace;
+  letter-spacing:.03em}
+.chaser-rar{color:#57354F}
+.chaser-pr{color:#15263A;margin-top:4px}
+.chaser-pr i{font-style:normal;color:var(--gold-deep,#8A6109);display:block}
+
+
+/* --------------------------------------------------------------------------
+   Second porting pass. The first compared CLASS NAMES against ui.css, so any
+   class already mentioned in a descendant selector was treated as defined and
+   its own base rule was skipped. .rip-player .pack existed, so .rip-player's
+   own position:relative never came across and every rip page's pack escaped
+   its container and covered the viewport. This pass compares whole selectors.
+   -------------------------------------------------------------------------- */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.hl{color:var(--ketchup-deep);text-shadow:2px 2px 0 var(--mustard)}
+.vid-shell{
+  position:relative;aspect-ratio:2/3;width:100%;border-radius:10px;overflow:hidden;
+  background:var(--navy-deep);
+  border:4px solid var(--mustard);           /* the Pokemon card border */
+  outline:2px solid var(--navy);outline-offset:-6px;
+  box-shadow:0 6px 0 var(--gold-deep),0 12px 22px rgba(19,38,55,.28);
+  display:block;padding:0;
+  transition:transform .14s ease,box-shadow .14s ease,border-color .14s ease;
+}
+.vid-shell:hover{transform:translateY(-5px);border-color:var(--sky);
+  box-shadow:0 10px 0 var(--sky-deep),0 18px 30px rgba(19,38,55,.34)}
+.vid-shell img{width:100%;height:100%;object-fit:cover}
+.vid-shell iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.vid-shell.playing:hover{transform:none}
+/* holo sweep on hover, the card-y bit */
+.vid-shell::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0;
+  background:linear-gradient(115deg,transparent 30%,rgba(125,249,233,.5) 45%,rgba(249,139,217,.5) 55%,transparent 70%);
+  mix-blend-mode:overlay;transition:opacity .18s;
+}
+.vid-shell:hover::after{opacity:1}/* Sits low rather than dead centre: on the pack artwork the middle of the tile
+   is the mascot's face, and a play button parked on it looked like a mistake.
+   At 68% it lands on the plate, below the face (ends 51%) and above the
+   wordmark (starts 83%). */
+.vid-play{
+  position:absolute;left:50%;top:68%;transform:translate(-50%,-50%);z-index:2;
+  width:54px;height:54px;border-radius:50%;background:var(--ketchup);
+  border:3px solid var(--paper-2);display:grid;place-items:center;pointer-events:none;
+  box-shadow:0 4px 12px rgba(0,0,0,.45);transition:transform .14s,background .14s;
+}
+.vid-shell:hover .vid-play{background:var(--sky);transform:translate(-50%,-50%) scale(1.12)}
+.vid-play svg{width:18px;height:18px;fill:var(--paper-2);margin-left:3px}.hall .vid-shell:hover{border-color:#fff;box-shadow:0 10px 0 #8A5A0C,0 20px 34px rgba(61,42,6,.5)}.hits .vid-shell:hover{border-color:var(--teal);box-shadow:0 10px 0 #24705F,0 18px 30px rgba(19,38,55,.34)}
+.chip[aria-pressed=true]{background:var(--sky);color:var(--navy)}.chip.clear:hover{background:var(--ketchup);color:var(--paper)}
+.lib-count b{color:var(--ketchup-deep)}
+/* ---------- playlist cards ---------- */
+.pl-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+/* 261 of 262 rips are vertical, so 9/16 is the right default. The one
+   horizontal video (kj7532tb0_I) was rendering inside it, pillarboxed into
+   about a third of the available height with black either side. */
+.rip-player--wide{aspect-ratio:16/9!important;max-width:none}
+.rip-player{position:relative;aspect-ratio:9/16;border-radius:12px;overflow:hidden;
+  background:var(--navy-deep);border:4px solid var(--mustard);
+  box-shadow:0 8px 0 var(--gold-deep),0 16px 30px rgba(19,38,55,.3)}
+.rip-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.rip-player img{width:100%;height:100%;object-fit:cover}
+/* ---------- the five pack keyframes ----------
+   These were referenced by name from five rules below and DID NOT EXIST: no
+   @keyframes block anywhere in the repo, and none in the file's git history
+   either. A CSS animation whose name matches no keyframes rule is not an
+   error, it simply never runs and never fires animationend, so the pack sat
+   motionless while the video played underneath it and the fallback timers did
+   all the work. Silent on every page, and the one interaction the whole site
+   is built around.
+
+   .pack-face carries transform-origin:center center, and .pack-flash carries a
+   base transform:translateX(-50%) that every frame below has to restate or the
+   flash snaps to the left edge of the pack. */
+
+@keyframes packShake{
+  0%,100%{transform:translate3d(0,0,0) rotate(0)}
+  15%{transform:translate3d(-5px,0,0) rotate(-1.1deg)}
+  30%{transform:translate3d(5px,0,0) rotate(1.1deg)}
+  45%{transform:translate3d(-4px,0,0) rotate(-.9deg)}
+  60%{transform:translate3d(4px,0,0) rotate(.9deg)}
+  80%{transform:translate3d(-2px,0,0) rotate(-.4deg)}
+}
+
+/* The hint goes first and fast, so it is gone before the halves separate
+   rather than riding one of them off the screen. */
+@keyframes packFade{
+  from{opacity:1}
+  to{opacity:0;transform:translateY(5px)}
+}
+
+/* The halves hesitate for a beat, as though the seam is giving way, then go.
+   Slight rotation and a little Y drift so it reads as torn paper rather than
+   two rectangles sliding apart. */
+@keyframes tearL{
+  0%{transform:translate3d(0,0,0) rotate(0);opacity:1}
+  16%{transform:translate3d(-1.5%,0,0) rotate(-1.4deg);opacity:1}
+  100%{transform:translate3d(-116%,7%,0) rotate(-15deg);opacity:0}
+}
+@keyframes tearR{
+  0%{transform:translate3d(0,0,0) rotate(0);opacity:1}
+  16%{transform:translate3d(1.5%,0,0) rotate(1.4deg);opacity:1}
+  100%{transform:translate3d(116%,7%,0) rotate(15deg);opacity:0}
+}
+
+/* Light spilling out of the seam: bright and narrow at the moment of the tear,
+   then widening and dying as the halves clear the frame. */
+@keyframes packFlash{
+  0%{opacity:0;transform:translateX(-50%) scaleX(.5)}
+  18%{opacity:1;transform:translateX(-50%) scaleX(1.6)}
+  55%{opacity:.55;transform:translateX(-50%) scaleX(4)}
+  100%{opacity:0;transform:translateX(-50%) scaleX(7)}
+}
+
+/* shake, then tear */
+.pack.shaking .pack-face{animation:packShake .26s ease-in-out}
+.pack.tearing{pointer-events:none}
+.pack.tearing .pack-hint{animation:packFade .2s ease forwards}
+.pack.tearing .pack-l{animation:tearL .62s cubic-bezier(.4,.05,.35,1) forwards}
+.pack.tearing .pack-r{animation:tearR .62s cubic-bezier(.4,.05,.35,1) forwards}
+/* light spilling out of the tear */
+.pack-flash{
+  position:absolute;left:50%;top:0;bottom:0;width:8%;transform:translateX(-50%);
+  z-index:2;opacity:0;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent);
+  filter:blur(6px);
+}
+.pack.tearing .pack-flash{animation:packFlash .62s ease-out forwards}
+@media(prefers-reduced-motion:reduce){.pack-face,.pack.shaking .pack-face,.pack.tearing .pack-l,.pack.tearing .pack-r,
+  .pack.tearing .pack-flash,.pack.tearing .pack-hint{animation:none;transition:none}}
+/* The player mounts under the pack and plays while the pack tears away. */
+.rip-player iframe{z-index:1}/* ---------- set header (library page, when a set filter is on) ---------- */
+.set-header{
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  background:var(--paper-2);border:3px solid var(--navy);border-radius:14px;
+  box-shadow:0 6px 0 var(--trubbish);padding:16px 22px;margin:22px 0 0;
+}
+.set-header .txt{font-family:var(--mono);font-size:.76rem;font-weight:700;color:var(--ink-soft);letter-spacing:.08em}
+.set-header .txt b{display:block;font-family:var(--display);font-size:1.1rem;color:var(--ink);letter-spacing:0;margin-bottom:2px}
+
+
+/* --------------------------------------------------------------------------
+   Reduced motion, last in the file on purpose.
+
+   This block used to sit mid-file, and the second porting pass re-declared
+   .vid-shell:hover after it at equal specificity, so the 5px hover lift came
+   back for people who had asked for no motion. Anything that moves must be
+   cancelled from here, below everything it is cancelling.
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   Sealed products on a set guide ("Ways to open X").
+   Product photography is TCGplayer's and arrives on a white background, so
+   the tile is white too rather than the page cream: a cream tile puts a
+   visible grey square behind every shot.
+   -------------------------------------------------------------------------- */
+.prod-lede{max-width:44em;margin-bottom:var(--s5)}
+.prod-grid{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+@media(max-width:900px){.prod-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:420px){.prod-grid{grid-template-columns:1fr}}
+.prod{display:flex;gap:var(--s4);align-items:center;background:var(--card);
+  border:1px solid var(--hair);border-radius:var(--r);padding:var(--s3);
+  box-shadow:var(--lift)}
+.prod-shot{flex:none;width:88px;height:88px;display:grid;place-items:center;
+  background:#fff;border:1px solid var(--hair);border-radius:calc(var(--r) - 6px);
+  overflow:hidden}
+/* min-height:0 is load-bearing. The img is a GRID ITEM, and a grid item's
+   default min-height:auto is its intrinsic minimum, which OVERRIDES height:100%.
+   A 82x150 product photo therefore resolved to 157px tall inside an 88px box
+   and was cropped by overflow:hidden, losing 45% of the picture on 5 of 6 tiles.
+   It only appears once the remote image loads, so it measures clean beforehand
+   and is easy to miss entirely. */
+.prod-shot img{width:100%;height:100%;min-height:0;min-width:0;object-fit:contain;display:block}
+.prod-body{min-width:0}
+.prod h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:2px}
+.prod h3 a{display:inline-block;min-height:24px}
+.prod h3 a:hover{text-decoration:underline}
+.prod-what{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  letter-spacing:.03em;text-transform:uppercase;margin-bottom:6px}
+.prod-price{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.prod-price b{font:400 var(--t-l)/1 var(--display);color:var(--ink)}
+.prod-price span{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);
+  letter-spacing:.08em;text-transform:uppercase}
+.prod-low{font-size:var(--t-sm);color:var(--ink-2);margin-top:2px}
+.prod-note{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
+  border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s5);max-width:56em}
+
+/* The mascot on the "no results" state. Sized in the same clamp family as the
+   404's so the two read at the same scale. */
+.empty-mascot{width:clamp(88px,22vw,116px);height:auto;display:block;margin:0 auto var(--s3);
+  filter:drop-shadow(0 6px 12px rgba(21,38,58,.2))}
+
+/* Search field furniture. The native type=search clear affordance is WebKit
+   only and invisible on Android and Firefox, so the X is ours. */
+.libsearch-x{flex:none;width:32px;height:32px;display:grid;place-items:center;position:relative;
+  border:0;background:none;padding:0;cursor:pointer;border-radius:50%;color:var(--ink-2)}
+/* A 32px circle reads right next to a 19px magnifier, but 32px is under the
+   44px minimum touch target. The visual stays 32; this pushes the tappable
+   area out to 44 without moving anything on screen. */
+.libsearch-x::after{content:"";position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%}
+.libsearch-x:hover{background:var(--hair);color:var(--ink)}
+.libsearch-x svg{width:15px;height:15px;stroke:currentColor;stroke-width:2.4;
+  stroke-linecap:round;fill:none}
+.libsearch-x[hidden]{display:none}
+.libsearch-tip{max-width:640px;margin:var(--s2) auto 0;text-align:center;
+  font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2)}
+@media(max-width:520px){.libsearch-tip{display:none}}
+
+/* --------------------------------------------------------------------------
+   "Tap for sound".
+   The embed can only be autoplayed muted (see the comment in build-pages.mjs),
+   so this appears only when the browser refused to let us unmute it again
+   afterwards. On most desktops it never shows at all.
+   -------------------------------------------------------------------------- */
+.sound-on{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:4;
+  display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 var(--s4);
+  border:2px solid var(--ink);border-radius:var(--r-pill);
+  background:var(--mustard);color:var(--ink);cursor:pointer;
+  font:700 var(--t-sm)/1 var(--body);box-shadow:0 6px 18px rgba(19,38,55,.4)}
+.sound-on[hidden]{display:none}
+.sound-on:hover{background:#fff}
+.sound-on svg{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;
+  stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sound-on svg path:first-child{fill:currentColor}
+
+/* --------------------------------------------------------------------------
+   HEADER, REBUILT AROUND THE EVIDENCE.
+
+   Two findings drove this. NN/G (n=179, 6 sites): navigation was used in 86% of
+   sessions with combo navigation against 57% with everything hidden, and hiding
+   it cost over 20% of content discoverability. And Wikimedia measured +28.9%
+   search sessions from making the search field prominent, with nothing else
+   changed. This bar previously hid the search FORM below 640px and the search
+   ICON below 480px, so a phone had no search affordance at all on a site with
+   310 videos and 174 sets. That was the biggest single miss.
+
+   So: search is always visible, three links are always visible, and the button
+   says "Menu" rather than relying on the glyph alone. The brand gives up the
+   room, because on a 351px row something has to and a wordmark is the one
+   element that still reads when it is smaller.
+   -------------------------------------------------------------------------- */
+.bar-search{min-width:200px;display:flex;align-items:center;gap:6px;flex:1 1 auto;min-width:0;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+  border-radius:var(--r-pill);padding:0 10px;height:38px}
+.bar-search:focus-within{background:rgba(255,255,255,.2);border-color:var(--mustard)}
+.bar-search svg{flex:none;width:16px;height:16px;fill:none;stroke:rgba(244,241,226,.8);
+  stroke-width:2.2;stroke-linecap:round}
+.bar-search input{flex:1 1 auto;min-width:0;background:none;border:0;color:#F4F1E2;
+  /* 16px exactly: anything smaller and iOS zooms the page in on focus and
+     never zooms back out. */
+  font:400 16px/1 var(--body);min-height:44px}
+.bar-search input::placeholder{color:rgba(244,241,226,.6)}
+.bar-search input:focus{outline:none}
+
+/* The button carries the word. Of the three tested variants, adding the label
+   to the icon is the one that measured a gain; icon-only is the one that did
+   not. It also makes the control legible to anyone who does not read the
+   glyph, which is the point. */
+.menu-btn{width:auto;min-width:44px;height:44px;border-radius:var(--r-pill);
+  gap:7px;padding:0 12px;grid-auto-flow:column;place-items:center}
+.menu-btn span{font:700 var(--t-sm)/1 var(--body);color:#F4F1E2}
+.menu-btn[aria-expanded="true"] span{color:var(--ink)}
+
+/* Where the room comes from on a phone. */
+@media(max-width:560px){
+  .brand b{font-size:.95rem}
+  .brand span{display:none}
+  .sub{display:none}          /* Subscribe lives in the menu and the footer */
+  .menu-btn span{display:none}
+  .menu-btn{padding:0;width:44px}
+}
+@media(max-width:400px){
+  .brand b{font-size:.82rem}
+}
+
+/* Grouped panel. */
+.menu-h{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mustard);padding:var(--s4) var(--s3) 8px}
+.menu ul{padding:0 var(--s3)}
+.menu li a{border-bottom:1px solid rgba(255,255,255,.08)}
+.menu-sub{display:flex;align-items:center;justify-content:center;min-height:48px;
+  margin:var(--s4) var(--s3) var(--s4);border-radius:var(--r-pill);
+  background:var(--mustard);color:var(--ink);font:700 var(--t-body)/1 var(--body)}
+.menu-sub:hover{background:#fff}
+
+/* Say where you are. NN/G calls omitting this the single most common menu
+   mistake, and it costs one attribute. */
+.menu a[aria-current=page],.nav-links a[aria-current=page]{background:var(--mustard);color:var(--ink)}
+
+/* The lead chip keeps the filled look it had from aria-current, which was
+   doing double duty as styling and as a (false) accessibility claim. */
+.chip-lead{background:var(--ink);color:#F4F1E2;border-color:var(--ink)}
+.chip-lead .n{color:var(--mustard)}
+
+/* --------------------------------------------------------------------------
+   The set directory, as a shelf rather than a wall.
+
+   As a 2-up grid of 23 tiles it was 2,612px on a phone: 37% of the entire home
+   page, and the single largest block on a page whose job is videos. It sat
+   between the rips and the brand block, so anyone scrolling to the bottom went
+   past twelve rows of set logos to get there.
+
+   Horizontally it is about 250px and shows the newest eight, which is the
+   number anyone browses anyway, with the header link carrying the rest. That
+   is roughly 2,350px off the page for no loss: the rail at the top and the
+   section header both already point at /sets/.
+   -------------------------------------------------------------------------- */
+@media(max-width:820px){
+  .set-grid{display:flex;gap:var(--s3);overflow-x:auto;scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;padding-inline:12px;margin-inline:-12px;
+    padding-bottom:var(--s2);grid-template-columns:none}
+  .set-grid .set{flex:0 0 auto;width:min(64vw,230px);scroll-snap-align:start}
+  /* The ninth onward are reachable from the header link; rendering 23 in a
+     scroller is a long swipe to nowhere. */
+  .set-grid .set:nth-child(n+9){display:none}
+  .pdex-lede{margin-bottom:var(--s4)}
+}
+
+/* The play badge was opacity:0 until :hover, so on every phone, on every tile,
+   it never appeared at all: the tiles read as flat pictures of booster packs
+   with no sign they are videos. Hover is a pointer idea. */
+@media(hover:none){
+  .v .play{opacity:.92}
+  .v .art::after{opacity:.35}
+}
+
+/* --------------------------------------------------------------------------
+   The newest rip, as a hero, and the date chip on the tiles under it.
+
+   Tiles show the SET's wrapper rather than a video thumbnail, because the
+   thumbnail is nearly always the pulled card and would spoil the video. Right,
+   but it means six Latest tiles are usually five copies of one pack: a column
+   of identical rectangles separated only by two clipped lines of title. The
+   hero says which one is new by size, and the chips date the rest.
+   -------------------------------------------------------------------------- */
+.wall .hero{grid-column:1/-1;display:grid;grid-template-columns:minmax(120px,38%) 1fr;
+  gap:var(--s4);align-items:center;background:var(--card);border:1px solid var(--hair);
+  border-radius:var(--r);padding:var(--s3);box-shadow:var(--lift);margin-bottom:var(--s2)}
+@media(min-width:900px){.wall .hero{grid-template-columns:minmax(150px,240px) 1fr;padding:var(--s4)}}
+.hero-art{position:relative;display:block;border-radius:calc(var(--r) - 6px);overflow:hidden;
+  aspect-ratio:2/3;background:var(--navy-deep)}
+.hero-art img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-art .play{opacity:.95}
+.hero-body{min-width:0}
+.hero-kicker{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-2);margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.hero-new{background:var(--ketchup);color:#fff;border-radius:var(--r-pill);padding:4px 9px;
+  letter-spacing:.08em}
+.hero-body h3{font:400 var(--t-l)/1.1 var(--display);margin-bottom:8px}
+.hero-body h3 a{display:block}
+.hero-meta{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.05em;color:var(--ink-2);
+  text-transform:uppercase;margin-bottom:var(--s3)}
+.hero-cta{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--s4);
+  border:2px solid var(--ink);border-radius:var(--r-pill);background:var(--mustard);
+  font:700 var(--t-sm)/1 var(--body);color:var(--ink);box-shadow:var(--lift)}
+.hero:hover .hero-cta{transform:translateY(-2px)}
+
+/* The chip sits opposite the hit flag so the two never collide. */
+.v .when{position:absolute;left:8px;bottom:8px;z-index:3;
+  font:700 9px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  background:rgba(21,38,58,.86);color:#F4F1E2;border-radius:var(--r-pill);padding:5px 8px;
+  backdrop-filter:blur(3px)}
+
+/* --------------------------------------------------------------------------
+   "Same set, other language". The English release and the Japanese set it came
+   from, side by side. Not one to one: Mega Evolution is two Japanese sets
+   merged, so the grid takes however many there are.
+   -------------------------------------------------------------------------- */
+.intl-lede{max-width:46em;margin-bottom:var(--s5)}
+.intl-grid{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:var(--s4)}
+.intl{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:4px}
+.intl.is-en{border-color:var(--gold-deep);box-shadow:0 4px 0 var(--gold-deep),var(--lift)}
+.intl-lang{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-2);margin-bottom:4px}
+.intl h3{font:400 var(--t-m)/1.2 var(--display)}
+/* Japanese set names are not Latin text and the display face has no glyphs for
+   them, so they fall back mid-word and look broken. Let the system font do it. */
+.intl h3[lang="ja"],.intl h3[lang="ko"],.intl h3[lang="zh-tw"]{
+  font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;font-weight:700}
+.intl-romaji{font-size:var(--t-sm);color:var(--ink-2);font-style:italic}
+.intl-meta{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.04em;color:var(--ink-2);
+  text-transform:uppercase;margin-top:4px}
+.intl-lead{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ketchup-deep);letter-spacing:.04em;
+  text-transform:uppercase}
+.intl-link{margin-top:auto;padding-top:var(--s3);min-height:44px;display:inline-flex;
+  align-items:center;font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep)}
+.intl-link:hover{text-decoration:underline}
+.intl-warn{font:700 var(--t-micro)/1.7 var(--mono);color:var(--plum);background:var(--lilac-pale);
+  border-radius:var(--r);padding:var(--s3);margin-top:var(--s4);max-width:56em}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important;
+    scroll-behavior:auto!important}
+  .btn:hover,.vid-shell:hover,.soc:hover,.pl:hover,.chip:hover,.v:hover .art,
+  .set:hover,.chof:hover,.wc:hover,.shop:hover,.mw:hover .mw-art,
+  .foot-social a:hover{transform:none!important}
+}
+
+
+/* Restored: a dead-rule sweep used \.logo\b as a pattern, and a hyphen is a
+   word boundary, so it also matched .logo-big. .s101-lede went the same way. */
+.set-hero img.logo-big{height:clamp(56px,17vw,110px);width:auto}
+
+/* Section intro copy. Lost in a dead-rule sweep, which left the playlists page
+   with its intro paragraph touching the top edge of the first card: measured
+   0.0px between them. */
+.s101-lede,.w-lede,.shops-lede{color:var(--ink-2);max-width:46em;margin-bottom:var(--s5)}
+
+/* The library's search input was 20px tall inside a 48px pill, so 28px of the
+   visible control did not focus the field. */
+.libsearch input{align-self:stretch;height:100%}
+
+
+/* --------------------------------------------------------------------------
+   Fixes from the launch QA pass.
+   -------------------------------------------------------------------------- */
+
+/* .bar is sticky at 60px and nothing set scroll-margin-top, so every in-page
+   jump landed with its target hidden behind the bar: the 17 era links on
+   /expansions.html, and every "Skip to content" link on all 342 pages. */
+[id]{scroll-margin-top:calc(var(--bar-h) + 12px)}
+
+/* The library stacks two sticky filter rails at the same offset, so the
+   product rail painted over the set rail through a translucent background and
+   smeared it. Only the first sticks now, which also halves the sticky chrome
+   on a phone, where 120px of it was 18% of the viewport. */
+.rail + .rail{position:static}
+
+/* The rip player had no max-width, so from 561 to 860px, where .rip-grid has
+   already collapsed to one column, a 9/16 player filled the content width:
+   720x1280 at a 768px tablet, taller than the viewport holding it. */
+.rip-player{max-width:min(100%,420px);margin-inline:auto}
+.rip-player--wide{max-width:min(100%,780px)}
+
+/* Quick facts bolds were --ketchup-deep on the sky gradient: 3.10:1 where AA
+   wants 4.5:1 for 16px text. --plum is 5.35:1 at the band's worst point and is
+   already in the palette. */
+.band-sky .facts-list b{color:var(--plum)}
+
+
+/* Two empty media queries and a .vid-grid.dense rule left over from the
+   previous dead-rule sweep are removed below rather than left as a loaded gun:
+   .dense had higher specificity than every .vid-grid breakpoint and was
+   declared after them, so the moment anything used it, all four columns rules
+   would have stopped applying. */
+
+
+/* --------------------------------------------------------------------------
+   Non-English set guides (/sets/ja-*, ko-*, zh-*), written by
+   scripts/build-intl-pages.mjs.
+
+   These invert the panel the English guides use. There, the native name is the
+   heading and the English reading sits under it. Here the English name leads
+   and the native name is the subtitle, because about 95% of the audience is in
+   the US and "Abyss Eye" is what they can actually search for. The native name
+   is never dropped: it is what is printed on the pack in their hand.
+
+   Nothing below sets animation, transform or transition, so sitting after the
+   reduced-motion block does not override it.
+   -------------------------------------------------------------------------- */
+
+/* The display face has no CJK glyphs, so Japanese, Korean and Chinese fall back
+   mid-word and render as broken boxes. The existing rule covered .intl h3 only,
+   and only for zh-tw; every native name outside a card heading missed it, and
+   the Chinese guide is zh-cn. One selector now covers all of them. */
+.cjk,
+.intl-native,.ig-native,
+[lang="ja"],[lang="ko"],[lang="zh-cn"],[lang="zh-tw"]{
+  font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP","Noto Sans KR","Noto Sans SC",sans-serif;
+}
+
+/* Native set name under the H1. Deliberately quiet: it is a label, not a title. */
+.intl-hero-native{
+  font-size:var(--t-lede);font-weight:700;color:var(--ink-2);
+  margin-top:calc(var(--s2) * -1);margin-bottom:var(--s3);
+}
+
+/* Native name inside a comparison card or a chase tile. */
+.intl-native{font-size:var(--t-sm);color:var(--ink-2);font-weight:600}
+.ig-native{font-size:var(--t-micro);color:var(--ink-2);line-height:1.4}
+.chase-card .ig-native{margin-top:2px}
+
+/* The full checklist. Collapsed by default: 135 rows is real SEO text but it
+   would otherwise be the tallest thing on the page by a wide margin. */
+.ig-list{margin-top:var(--s4);border:1px solid var(--hair);border-radius:var(--r);
+  background:var(--card);box-shadow:var(--lift)}
+.ig-list > summary{
+  cursor:pointer;padding:var(--s4) var(--s5);min-height:44px;display:flex;align-items:center;
+  font:700 var(--t-sm)/1.2 var(--body);color:var(--ketchup-deep);
+}
+.ig-list > summary:hover{text-decoration:underline}
+.ig-list[open] > summary{border-bottom:1px solid var(--hair)}
+.ig-cards{list-style:none;margin:0;padding:var(--s3) var(--s5) var(--s5);
+  display:grid;grid-template-columns:1fr;gap:2px}
+.ig-cards li{display:grid;grid-template-columns:3.2em 1fr auto;gap:2px var(--s3);
+  align-items:baseline;padding:6px 0;border-bottom:1px solid var(--hair)}
+.ig-cards li:last-child{border-bottom:0}
+.ig-no{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
+.ig-nm{font-weight:600;font-size:var(--t-sm)}
+/* The native name sits under the English one rather than beside it, so a long
+   Japanese name cannot push the rarity column off a 320px screen. */
+.ig-cards .ig-native{grid-column:2}
+.ig-rr{grid-row:1;grid-column:3;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
+  text-align:right;white-space:nowrap}
+
+@media(min-width:760px){
+  .ig-cards{grid-template-columns:1fr 1fr;gap:2px var(--s5)}
+}
+
+/* The set-guide chip on a rip page. Distinct from the filter chips beside it
+   because it leaves the video list rather than narrowing it. */
+.chip.guide{background:var(--gold);border-color:var(--navy);color:var(--navy);font-weight:700}
+.chip.guide:hover{background:var(--mustard)}
+
+
+/* --------------------------------------------------------------------------
+   Card show calendar (/card-shows.html), written by scripts/build-shows.mjs.
+   Mobile first: this page gets looked at on a phone, usually while deciding
+   whether it is worth the drive.
+   -------------------------------------------------------------------------- */
+
+/* The next show, given its own slab at the top. On a calendar the single most
+   asked question is "when is the next one", so it is answered before any list. */
+.next-show{
+  display:block;background:var(--navy);color:var(--paper);border-radius:var(--r);
+  padding:var(--s5);box-shadow:0 4px 0 var(--gold-deep),var(--lift);
+}
+.next-show:hover{background:#2b4763}
+.next-label{display:block;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;
+  text-transform:uppercase;color:var(--gold)}
+.next-name{display:block;font:400 var(--t-l)/1.15 var(--display);margin:8px 0 6px}
+.next-meta{display:block;font-size:var(--t-sm);color:#D9E2EC}
+
+.show-mon-h{font:400 var(--t-m)/1.2 var(--display);margin:var(--s6) 0 var(--s4);
+  padding-bottom:6px;border-bottom:3px solid var(--navy)}
+
+/* Date block, then everything else. The flyer drops below on a phone and sits
+   beside the text once there is room for it. */
+.show{
+  display:grid;grid-template-columns:auto 1fr;gap:var(--s4);align-items:start;
+  background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s4);margin-bottom:var(--s4);box-shadow:var(--lift);
+}
+.show[hidden]{display:none}
+.show-when{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-width:58px;padding:8px 10px;background:var(--navy);color:var(--paper);
+  border-radius:var(--r-sm);
+}
+.show-mon{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.show-day{font:400 1.6rem/1 var(--display);margin-top:2px}
+.show-body{min-width:0}
+.show-body h3{font:400 var(--t-m)/1.2 var(--display)}
+.show-meta{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink-2);margin-top:4px}
+/* The venue link IS the whole paragraph, not a phrase inside a sentence, so
+   WCAG 2.5.8's inline-link exemption does not cover it: a single-line one
+   measured 17.5px tall. Vertical padding on an inline element grows the hit
+   area without taking it out of the text flow, so a long venue name still
+   wraps across lines instead of overflowing the way an inline-block would.
+   The paragraph gains matching margin so two neighbouring links cannot end up
+   overlapping each other's targets. */
+.show-where{font-size:var(--t-sm);margin-top:12px;margin-bottom:8px}
+.show-where a{color:var(--ketchup-deep);font-weight:600;padding:13px 0}
+.show-where a:hover{text-decoration:underline}
+.show-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip.pk{background:var(--gold);border-color:var(--navy);color:var(--navy)}
+.chip.soon{background:var(--ketchup);border-color:var(--navy);color:#fff}
+.show-blurb{font-size:var(--t-sm);color:var(--ink-2);margin-top:10px;max-width:46em}
+/* Anything the listings disagree about. Loud on purpose: this is the line that
+   stops somebody driving two hours to a closed hall. */
+.show-warn{font:700 var(--t-micro)/1.7 var(--mono);color:var(--plum);
+  background:var(--lilac-pale);border-radius:var(--r-sm);padding:var(--s3);
+  margin-top:10px;max-width:52em}
+.show-links{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:10px}
+.show-links a{font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep);
+  min-height:44px;display:inline-flex;align-items:center}
+.show-links a:hover{text-decoration:underline}
+
+/* Flyers are the whole point of the page for anyone who has one, so they are
+   shown properly rather than as a thumbnail. Full width under the text on a
+   phone, capped so a tall portrait flyer cannot run away with the page. */
+.show-flyer{grid-column:1 / -1;display:block;border-radius:var(--r-sm);overflow:hidden;
+  border:2px solid var(--navy);background:var(--paper-3)}
+.show-flyer img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain}
+
+.show-empty{color:var(--ink-2);padding:var(--s6) 0}
+
+.watch-list{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s5)}
+.watch-list li{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:6px}
+.watch-list h3{font:400 var(--t-m)/1.2 var(--display)}
+.watch-list p{font-size:var(--t-sm);color:var(--ink-2)}
+.watch-where{font:700 var(--t-micro)/1.5 var(--mono)!important;text-transform:uppercase;
+  letter-spacing:.04em}
+
+@media(min-width:720px){
+  .show{grid-template-columns:auto 1fr 220px}
+  .show-flyer{grid-column:3;align-self:start}
+  .show-flyer img{max-height:300px}
+  .watch-list{grid-template-columns:1fr 1fr}
+}
+
+/* A show big enough to plan around. One at a time, ideally. */
+.show.is-featured{border-color:var(--gold-deep);box-shadow:0 4px 0 var(--gold-deep),var(--lift)}
+.show.is-featured .show-when{background:var(--ketchup)}
+.show.is-featured .show-when .show-mon{color:#fff}
+.show-flag{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ketchup-deep);margin-bottom:4px}
+
+/* Ticket tiers. Price first because that is what the eye is looking for, and
+   the whole row wraps on a narrow screen rather than squashing the note. */
+.tiers{list-style:none;margin-top:12px;display:grid;gap:6px}
+.tiers li{display:grid;grid-template-columns:auto 1fr;gap:2px var(--s3);align-items:baseline;
+  padding:8px 10px;background:var(--paper-3);border-radius:var(--r-sm)}
+.tier-price{font:400 1.05rem/1 var(--display);color:var(--ketchup-deep)}
+.tier-name{font-weight:600;font-size:var(--t-sm)}
+.tier-from{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;
+  letter-spacing:.04em}
+.tier-note{grid-column:2;font-size:var(--t-micro);color:var(--ink-2);line-height:1.5}
+
+.show-links a.tickets{background:var(--gold);color:var(--navy);border:2px solid var(--navy);
+  border-radius:999px;padding:0 16px;box-shadow:0 3px 0 var(--gold-deep)}
+.show-links a.tickets:hover{background:var(--mustard);text-decoration:none}
+
+/* English set checklists carry a price, which the imported ones do not. Rarity
+   drops to its own row under the name rather than fighting the price for the
+   right-hand column: "Special illustration rare" beside "$1,470.58" squeezed
+   the card name to nothing at 360px. */
+.ig-cards.en li{grid-template-columns:3.4em 1fr auto}
+.ig-pr{grid-row:1;grid-column:3;font:700 var(--t-sm)/1.4 var(--mono);color:var(--ketchup-deep);
+  text-align:right;white-space:nowrap}
+.ig-rr2{grid-column:2;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.03em}
+
+/* --------------------------------------------------------------------------
+   Card search (/cards.html), written by scripts/build-cards.mjs.
+   -------------------------------------------------------------------------- */
+.cardsearch{display:grid;gap:var(--s3);margin-top:var(--s5)}
+.cardsearch input,.cardsearch select{
+  width:100%;min-height:52px;padding:0 16px;font:600 1rem/1 var(--body);
+  color:var(--ink);background:var(--card);border:2px solid var(--navy);
+  border-radius:999px;box-shadow:var(--lift);appearance:none;
+}
+.cardsearch input:focus,.cardsearch select:focus{outline:3px solid var(--gold);outline-offset:2px}
+.cardsearch select{background-image:none}
+.cq-status{font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.04em;text-transform:uppercase;
+  color:var(--ink-2);margin-top:var(--s3);min-height:1.4em}
+.cq-head{font-size:var(--t-sm);color:var(--ink-2);margin-top:var(--s3)}
+
+.cq-list{list-style:none;margin-top:var(--s4);display:grid;gap:2px}
+/* Name and price on the top line, set and rarity underneath. The price is what
+   the eye is hunting for, so it never shares a line with the rarity, which is
+   the longest string here ("Special illustration rare"). */
+.cq{display:grid;grid-template-columns:1fr auto;gap:2px var(--s3);align-items:baseline;
+  padding:10px 12px;background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm)}
+.cq-name{grid-row:1;grid-column:1;font-weight:700;font-size:var(--t-sm);color:var(--ink)}
+.cq-name:hover{color:var(--ketchup-deep);text-decoration:underline}
+.cq-pr{grid-row:1;grid-column:2;font:700 var(--t-sm)/1.4 var(--mono);color:var(--ketchup-deep);
+  text-align:right;white-space:nowrap}
+.cq-set{grid-row:2;grid-column:1;font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.03em}
+.cq-rr{grid-row:2;grid-column:2;font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
+  text-align:right}
+
+@media(min-width:640px){
+  .cardsearch{grid-template-columns:1fr 260px}
+}
+
+/* --------------------------------------------------------------------------
+   Real vs fake guide (/fake-cards.html), written by scripts/build-fakes.mjs.
+   -------------------------------------------------------------------------- */
+.fk-golden{background:var(--navy);color:var(--paper);border-radius:var(--r);
+  padding:var(--s5);box-shadow:0 4px 0 var(--gold-deep),var(--lift);margin-top:var(--s4)}
+.fk-golden-h{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold)}
+.fk-golden h2{font:400 var(--t-m)/1.2 var(--display);margin:8px 0 8px}
+.fk-golden p{color:#D9E2EC;font-size:var(--t-sm);line-height:1.7;max-width:52em}
+
+.fk{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s5);box-shadow:var(--lift);margin-top:var(--s4)}
+.fk-head{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap}
+.fk-no{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border-radius:50%;background:var(--navy);color:var(--gold);font:700 .9rem/1 var(--mono);flex:none}
+.fk-head h2{font:400 var(--t-m)/1.15 var(--display);flex:1 1 auto;min-width:0}
+/* How much the test actually proves, said out loud. The light test was gospel
+   for years and is now a first pass, and a guide that hides that is worse than
+   no guide. */
+.fk-conf{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
+  padding:5px 9px;border-radius:var(--r-pill);border:1px solid transparent;white-space:nowrap}
+.fk-conf.hi{background:var(--gold);color:var(--navy);border-color:var(--gold-deep)}
+.fk-conf.mid{background:var(--lilac-pale);color:var(--plum)}
+.fk-conf.lo{background:var(--paper-3);color:var(--ink-2);border-color:var(--hair)}
+.fk-tools{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.04em;text-transform:uppercase;
+  color:var(--ink-2);margin-top:8px}
+.fk-how{font-size:var(--t-sm);margin-top:10px;max-width:52em}
+
+.fk-vs{display:grid;gap:var(--s3);margin-top:var(--s4)}
+.fk-vs > div{padding:var(--s3);border-radius:var(--r-sm);font-size:var(--t-sm);line-height:1.6}
+.fk-real{background:#EAF3E4;border-left:4px solid #4C7A3A}
+.fk-fake{background:#F7E4E0;border-left:4px solid var(--ketchup)}
+.fk-vs-h{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:6px}
+.fk-real .fk-vs-h{color:#3B6130}
+.fk-fake .fk-vs-h{color:var(--ketchup-deep)}
+
+.fk-why{font-size:var(--t-sm);color:var(--ink-2);margin-top:var(--s3);line-height:1.7;max-width:52em}
+.fk-caveat{font:var(--t-sm)/1.7 var(--body);color:var(--plum);background:var(--lilac-pale);
+  border-radius:var(--r-sm);padding:var(--s3);margin-top:var(--s3);max-width:52em}
+
+.fk-fig{margin-top:var(--s4)}
+.fk-fig svg{width:100%;height:auto;display:block;background:var(--paper-3);
+  border:2px solid var(--navy);border-radius:var(--r-sm)}
+.fk-fig figcaption{font-size:var(--t-micro);color:var(--ink-2);margin-top:8px;line-height:1.6;
+  max-width:52em}
+.fk-two{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.fk-lbl{font:700 11px/1 var(--mono);fill:var(--ink-2);letter-spacing:.1em}
+.fk-lbl2{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink-2);text-align:center;margin-top:6px}
+.fk-note{font:400 8px/1 var(--mono);fill:var(--ink-2)}
+.fk-cap{font:700 9px/1 var(--mono);fill:var(--ink-2)}
+
+/* --------------------------------------------------------------------------
+   Grading guide (/grading.html), written by scripts/build-grading.mjs.
+   -------------------------------------------------------------------------- */
+.gc-grid{display:grid;gap:var(--s4);margin-top:var(--s5)}
+.gc{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:6px}
+.gc h3{font:400 var(--t-m)/1.15 var(--display)}
+.gc-price{font:400 1.7rem/1 var(--display);color:var(--ketchup-deep)}
+.gc-price span{display:block;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.05em;margin-top:4px}
+.gc-turn{font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);text-transform:uppercase;
+  letter-spacing:.04em}
+.gc-note,.gc-resale{font-size:var(--t-sm);color:var(--ink-2);line-height:1.6}
+.gc-sub{font:400 var(--t-m)/1.2 var(--display);margin-top:var(--s6)}
+
+/* The calculator. Three inputs, one answer, no chrome. */
+.gcalc{display:grid;gap:var(--s3);margin-top:var(--s4)}
+.gcalc label{display:grid;gap:6px;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
+  text-transform:uppercase;color:var(--ink-2)}
+.gcalc input,.gcalc select{min-height:52px;padding:0 14px;font:600 1rem/1 var(--body);color:var(--ink);
+  background:var(--card);border:2px solid var(--navy);border-radius:var(--r-sm);appearance:none;width:100%}
+.gcalc input:focus,.gcalc select:focus{outline:3px solid var(--gold);outline-offset:2px}
+.gcalc-out{margin-top:var(--s4);padding:var(--s5);background:var(--card);border:1px solid var(--hair);
+  border-radius:var(--r);box-shadow:var(--lift)}
+.gcalc-hint{color:var(--ink-2);font-size:var(--t-sm)}
+.gcalc-verdict{font:400 var(--t-l)/1.1 var(--display)}
+.gcalc-verdict.up{color:#3B6130}
+.gcalc-verdict.down{color:var(--ketchup-deep)}
+.gcalc-sum{font-size:var(--t-sm);margin-top:8px;line-height:1.7}
+.gcalc-note{font-size:var(--t-micro);color:var(--ink-2);margin-top:10px;line-height:1.7;max-width:52em}
+
+/* One card's maths. Name and set left, the three numbers right, wrapping to
+   their own row on a phone rather than shrinking to nothing. */
+.gr-list{list-style:none;display:grid;gap:2px;margin-top:var(--s4)}
+.gr{display:grid;grid-template-columns:1fr auto;gap:2px var(--s3);align-items:baseline;
+  padding:10px 12px;background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm)}
+.gr-name{grid-row:1;grid-column:1;font-weight:700;font-size:var(--t-sm)}
+.gr-set{grid-row:2;grid-column:1;font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.03em}
+.gr-raw,.gr-psa,.gr-net{font:700 var(--t-sm)/1.3 var(--mono);text-align:right;white-space:nowrap}
+.gr-raw em,.gr-psa em,.gr-net em{display:block;font:400 var(--t-micro)/1.3 var(--mono);
+  font-style:normal;color:var(--ink-2);text-transform:uppercase;letter-spacing:.03em}
+.gr-raw{grid-row:1 / span 2;grid-column:2;color:var(--ink-2)}
+.gr-psa{grid-row:1 / span 2;grid-column:3;color:var(--ink)}
+.gr-net{grid-row:1 / span 2;grid-column:4;font-size:var(--t-m)}
+.gr-net.up{color:#3B6130}
+.gr-net.down{color:var(--ketchup-deep)}
+@media(max-width:560px){
+  .gr{grid-template-columns:1fr 1fr 1fr}
+  .gr-name,.gr-set{grid-column:1 / -1}
+  .gr-raw{grid-row:3;grid-column:1;text-align:left}
+  .gr-psa{grid-row:3;grid-column:2;text-align:center}
+  .gr-net{grid-row:3;grid-column:3}
+}
+@media(min-width:720px){
+  .gc-grid{grid-template-columns:repeat(2,1fr)}
+  .gcalc{grid-template-columns:repeat(3,1fr)}
+}
+@media(min-width:1000px){ .gc-grid{grid-template-columns:repeat(4,1fr)} }
+
+/* Rips that mention a Pokemon, on /pokemon/<name>.html */
+.poke-rips{list-style:none;display:grid;gap:2px;margin-top:var(--s4)}
+.poke-rips li{padding:10px 12px;background:var(--card);border:1px solid var(--hair);
+  border-radius:var(--r-sm)}
+.poke-rips a{font-weight:600;font-size:var(--t-sm);color:var(--ink)}
+.poke-rips a:hover{color:var(--ketchup-deep);text-decoration:underline}
+
+/* --------------------------------------------------------------------------
+   Start here (/start.html), written by scripts/build-start.mjs.
+   -------------------------------------------------------------------------- */
+.st-list{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s5)}
+.st{display:grid;grid-template-columns:auto 1fr;gap:var(--s4);align-items:start;
+  background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s5);box-shadow:var(--lift)}
+.st-n{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;
+  border-radius:50%;background:var(--navy);color:var(--gold);font:400 1.3rem/1 var(--display);flex:none}
+.st-body h2{font:400 var(--t-m)/1.2 var(--display)}
+.st-body p{font-size:var(--t-sm);color:var(--ink-2);line-height:1.7;margin-top:8px;max-width:52em}
+.st-links{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;margin-top:var(--s3)}
+.st-also{font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep);min-height:44px;
+  display:inline-flex;align-items:center}
+.st-also:hover{text-decoration:underline}
+
+/* --------------------------------------------------------------------------
+   The card guides block on the home page. Twelve reference pages that were
+   previously reachable only from the menu and the footer.
+   -------------------------------------------------------------------------- */
+.tools{padding:var(--s7) 0}
+.tool-grid{display:grid;grid-template-columns:1fr;gap:var(--s3);margin-top:var(--s5)}
+.tool{display:block;background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s4);box-shadow:var(--lift);min-height:44px}
+.tool:hover{border-color:var(--navy);transform:translateY(-2px)}
+.tool-t{display:block;font:400 var(--t-m)/1.15 var(--display);color:var(--ink)}
+.tool:hover .tool-t{color:var(--ketchup-deep)}
+.tool-d{display:block;font-size:var(--t-sm);color:var(--ink-2);line-height:1.5;margin-top:6px}
+@media(min-width:560px){ .tool-grid{grid-template-columns:repeat(2,1fr)} }
+@media(min-width:900px){ .tool-grid{grid-template-columns:repeat(3,1fr)} }
+@media(min-width:1200px){ .tool-grid{grid-template-columns:repeat(4,1fr)} }
+
+/* --------------------------------------------------------------------------
+   Fixes from the QA sweep after the card-search / Pokemon / guides build.
+   -------------------------------------------------------------------------- */
+
+/* Search result rows looked entirely tappable but only the 22px name line was.
+   The row is 62px; stretching the link over it makes the whole row the target.
+   .cq must be positioned or the inset:0 resolves against the page, which is a
+   trap this codebase has hit four times. */
+.cq{position:relative}
+.cq-name::after{content:"";position:absolute;inset:0}
+.cq-pr,.cq-rr,.cq-set{position:relative;pointer-events:none}
+
+/* Same on the shop phone links: 18px of 14px inline text for "call the shop",
+   which is the most likely thing anyone does on that page from a phone. */
+.shop-facts dd a{display:inline-flex;align-items:center;min-height:44px}
+
+/* .tool:hover sets a transform and sits AFTER the reduced-motion block, whose
+   transform:none list is an explicit enumeration that never included it. The
+   comment above that block claimed nothing below it set transform; it did.
+   Rather than extend a list that has to be maintained by hand, and which still
+   names .pocket and .sticker that no longer exist anywhere, this scopes the
+   motion to devices that asked for it. */
+@media(prefers-reduced-motion:no-preference){
+  .tool{transition:transform .12s ease,border-color .12s ease}
+}
+@media(prefers-reduced-motion:reduce){
+  .tool:hover{transform:none!important}
+}
+
+/* --------------------------------------------------------------------------
+   Desktop and tablet fixes from the QA sweep.
+   -------------------------------------------------------------------------- */
+
+/* Every show card reserved a 220px flyer column whether or not it had a flyer,
+   and none of the 23 currently do. At 768 that squeezed the body copy to 328px
+   and left a 253px empty gutter; crossing the 720px breakpoint made cards 27%
+   TALLER to make room for nothing. The column now only exists when there is
+   actually a flyer in the card. */
+@media(min-width:720px){
+  .show{grid-template-columns:auto 1fr}
+  .show:has(.show-flyer){grid-template-columns:auto 1fr 220px}
+}
+
+/* Real and Fake are a comparison and had the room to sit side by side, but the
+   grid had no column rule at any width, so each block ran the full container:
+   170 characters a line at 1280, 202 at 1600. */
+@media(min-width:720px){
+  .fk-vs{grid-template-columns:1fr 1fr}
+}
+
+/* The diagrams are 320x150 and 140x140 viewBoxes at width:100% with no cap, so
+   they scaled to 4.4x and 5x on a big screen: 11px labels rendering 71px tall
+   and a 1400px band of schematic dots. */
+.fk-fig svg{max-width:560px;margin-inline:auto}
+.fk-two{max-width:640px;margin-inline:auto}
+
+/* .facts was a fixed 4 columns, so the Pokemon pages' 5th tile sat alone on its
+   own row with up to 1,099px of empty space beside it. It is the only tappable
+   tile on the page, which made it look like a mistake rather than the CTA.
+   auto-fit lets the row use what it has instead of always being four. */
+@media(min-width:700px){
+  /* auto-FILL, not auto-FIT, and a cap on how wide a tile may grow.
+     auto-fit collapses the tracks nothing occupies, which is exactly what it
+     could not do here: .fact.wide spans 1/-1 and therefore occupies every
+     track, so at 1440 the grid resolved to SEVEN 187px columns and the four
+     real tiles were frozen at 187px each, stopping at x813 while the full
+     width bar underneath them ran to x1416. A half width ragged row sitting on
+     a full width one, on the set guides, grading and card shows alike.
+     A max on the track keeps a lone tile from stretching to 1,099px, which is
+     the failure this rule was written to fix in the first place, and
+     justify-content packs the row to the left instead of leaving gaps. */
+  .facts{grid-template-columns:repeat(4,1fr)}
+  /* THE ORPHAN STRETCHES, which is what auto-fit was brought in to solve and
+     could not. A lone tile on its own last row is the Pokemon pages' fifth
+     tile, and it is the only tappable one there, so sitting in 1,099px of
+     empty space read as a mistake rather than a call to action. Spanning the
+     row fixes that without letting auto-fit decide the column count, which is
+     what produced seven 187px tracks for four tiles and left the stat row
+     stopping at x772 above a bar running to x1416. */
+  .fact:last-child:nth-child(4n + 1){grid-column:1 / -1}
+}
+
+/* Two body-copy classes had max-width:none and ran the full container: up to
+   218 characters a line at 1600 on the imported set guides, where .price-note
+   carries four real paragraphs rather than one source line. */
+/* Separate caps: .price-note is 10.88px mono, so the same em width buys it far
+   more characters than the 14px body text in .facts-list. 52em lands both at
+   roughly 100 characters. */
+.price-note{max-width:52em}
+.facts-list li{max-width:64em}
+
+/* A two-column grid holding one item leaves half a row blank. */
+.watch-list:has(li:only-child){grid-template-columns:1fr;max-width:34em}
+
+/* The open menu is fixed at top:56px under a 60px bar, so it painted over the
+   bar's bottom 4px including its border. */
+.menu{top:var(--bar-h)}
+
+/* Three shop cards in a two-column grid orphan the third next to 368px of
+   nothing. Three across fits from 900px; below that one column reads better
+   than a 2+1 split. */
+@media(min-width:641px) and (max-width:899px){
+  .shop-list{grid-template-columns:1fr;max-width:44em}
+}
+
+/* .set-index capped at three columns, so at 1600 each card was 475px wide with
+   187px of content in it. */
+@media(min-width:1400px){
+  .set-index{grid-template-columns:repeat(4,1fr)}
+}
+
+/* Three number inputs spanning 1452px. */
+.gcalc{max-width:64em}
+
+/* More diagrams on the real vs fake guide: the anatomy map, back colour,
+   registration and texture profile. */
+.fk-fig-wide svg{max-width:720px}
+.fk-num{font:700 11px/1 var(--mono);fill:var(--gold)}
+.fk-lbl2s{font:700 10px/1 var(--mono);fill:var(--ink);letter-spacing:.06em}
+/* Real photographs, when there are any. Constrained the same way the diagrams
+   are so one does not tower over the other. */
+.fk-photo img{display:block;width:100%;height:auto;max-width:720px;margin-inline:auto;
+  border:2px solid var(--navy);border-radius:var(--r-sm);background:var(--paper-3)}
+
+/* "Popular and wrong": tests the community repeats that the people who
+   authenticate cards for a living do not use. */
+.fk-no-list{display:grid;gap:var(--s3);margin-top:var(--s5)}
+.fk-no-item{background:var(--card);border:1px solid var(--hair);border-left:4px solid var(--plum);
+  border-radius:var(--r-sm);padding:var(--s4)}
+.fk-no-item h3{font:400 var(--t-m)/1.2 var(--display);flex:1 1 auto;min-width:0}
+.fk-no-item p{font-size:var(--t-sm);color:var(--ink-2);line-height:1.7;margin-top:8px;max-width:56em}
+@media(min-width:900px){ .fk-no-list{grid-template-columns:repeat(3,1fr)} }
+
+/* "Want to see real photographs?" Sits above the tests, because somebody who
+   came here to SEE a fake wants that before they read eight tests. */
+.fk-see{background:var(--paper-3);border:2px dashed var(--navy);border-radius:var(--r);
+  padding:var(--s5);margin-top:var(--s4)}
+.fk-see-h{font:400 var(--t-m)/1.2 var(--display)}
+.fk-see-b{font-size:var(--t-sm);color:var(--ink-2);line-height:1.7;margin-top:8px;max-width:56em}
+.fk-see-list{list-style:none;display:grid;gap:var(--s3);margin-top:var(--s4)}
+.fk-see-list li{display:grid;gap:2px}
+.fk-see-list a{font:700 var(--t-sm)/1.4 var(--body);color:var(--ketchup-deep);
+  min-height:44px;display:inline-flex;align-items:center}
+.fk-see-list a:hover{text-decoration:underline}
+.fk-see-list span{font-size:var(--t-micro);color:var(--ink-2);line-height:1.6;max-width:56em}
+@media(min-width:820px){ .fk-see-list{grid-template-columns:repeat(3,1fr)} }
+
+/* /pokemon/ roster tiles. Each one leads with the most valuable card of that
+   Pokemon, because the picture is the reason somebody clicks. */
+.poke-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s3);margin-top:var(--s5)}
+.poke-card{display:flex;flex-direction:column;gap:2px;background:var(--card);
+  border:1px solid var(--hair);border-radius:var(--r);padding:var(--s3);box-shadow:var(--lift)}
+.poke-card:hover{border-color:var(--navy)}
+.poke-card img{width:100%;height:auto;border-radius:var(--r-sm);display:block;margin-bottom:6px}
+.poke-nm{font:400 var(--t-m)/1.15 var(--display);color:var(--ink)}
+.poke-card:hover .poke-nm{color:var(--ketchup-deep)}
+.poke-meta{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);text-transform:uppercase;
+  letter-spacing:.03em}
+.poke-pr{font:700 var(--t-sm)/1.4 var(--mono);color:var(--ketchup-deep)}
+@media(min-width:560px){ .poke-grid{grid-template-columns:repeat(3,1fr)} }
+@media(min-width:900px){ .poke-grid{grid-template-columns:repeat(5,1fr)} }
+@media(min-width:1400px){ .poke-grid{grid-template-columns:repeat(6,1fr)} }
+
+/* Thumbnails in search results. The row was a wall of text on a page about
+   cards; a 60px crop is enough to recognise one at a glance and costs 26KB
+   lazily. The grid gains a leading column and everything else shifts right. */
+.cq.has-thumb{grid-template-columns:60px 1fr auto}
+.cq-img{grid-row:1 / span 2;grid-column:1;width:60px;height:84px;object-fit:cover;
+  border-radius:4px;background:var(--paper-3);align-self:center}
+.cq.has-thumb .cq-name{grid-column:2}
+.cq.has-thumb .cq-set{grid-column:2}
+.cq.has-thumb .cq-pr{grid-column:3}
+.cq.has-thumb .cq-rr{grid-column:3}
+
+/* --------------------------------------------------------------------------
+   Contrast fixes from the accessibility audit. Every value below was computed
+   against its real composited background, not eyeballed.
+   -------------------------------------------------------------------------- */
+
+/* .hl is --ketchup-deep, which is designed for cream. The grading page put one
+   inside the navy .fk-golden block, where it measured 1.76:1 and the word
+   "dearer" was effectively invisible. Gold on that navy is 7.34:1, and it is
+   the accent the rest of the dark surfaces already use. */
+.fk-golden .hl{color:var(--gold)}
+
+/* --ink-2 on --paper-3 measured 4.21:1 in five places. Darkened to #54687C,
+   which clears it at 4.60 and improves --ink-2 everywhere else it is used
+   (6.70 on white, 5.91 on the page cream) rather than only patching the five. */
+:root{--ink-2:#54687C}
+
+/* White text on --ketchup is 4.28:1. ui.css already carries a note that
+   --ketchup "is a FILL, never text"; the inverse, text ON it, was never
+   covered. --ketchup-deep as the fill takes white to 6.66:1. */
+.chip.soon,.show.is-featured .show-when,.hero-new{background:var(--ketchup-deep)}
+.lb-close{background:var(--ketchup-deep)}
+
+/* The PSA 10 gold was hardcoded #A8760B, 3.88:1 on the card cream. */
+.chase-card .pr10{color:#9C6A00}
+
+/* At 320px a .gr row rendered 317px inside the viewport but its 3 numeric
+   columns pushed the document 9px wider. Letting the numbers wrap costs a few
+   pixels of height and removes the only horizontal scroll left on the site. */
+@media(max-width:360px){
+  .gr-raw,.gr-psa,.gr-net{white-space:normal}
+  .gr{gap:2px 8px}
+}
+
+/* ---------- cost to complete a set (/complete-a-set.html) ----------
+   A five column table of money. The hard part is 375px: five columns cannot
+   shrink to fit a phone without the numbers wrapping mid-figure, so the table
+   keeps its natural width and scrolls inside .cc-scroll instead. The set name
+   column is sticky so a reader who has scrolled to "master set" still knows
+   which row they are on, which is the whole point of scrolling it. */
+.cc-scroll{
+  overflow-x:auto;margin-top:18px;border:3px solid var(--navy);border-radius:12px;
+  background:var(--card);box-shadow:var(--hard-lg);
+  /* Momentum scrolling on iOS, and a hint that there is more to the right. */
+  -webkit-overflow-scrolling:touch;
+}
+.cc-table{border-collapse:collapse;width:100%;min-width:660px;font-size:.9rem}
+.cc-table th,.cc-table td{
+  padding:10px 14px;text-align:left;vertical-align:top;
+  border-bottom:1px solid var(--hair);
+}
+.cc-table thead th{
+  font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;
+  background:var(--navy);color:var(--paper);border-bottom:none;position:sticky;top:0;
+  white-space:nowrap;
+}
+.cc-table tbody th{
+  /* Sticky row header. Needs its own background or the scrolling cells show
+     through it, and a keyline so it reads as a held column not a glitch.
+     The keyline is a box-shadow, NOT a border-right: under border-collapse the
+     collapsed border belongs to the table rather than the cell, so it stays
+     put while the cell travels and the pinned column loses its edge exactly
+     when you start scrolling and need it most. A shadow is painted by the
+     element and moves with it. */
+  position:sticky;left:0;background:var(--card);z-index:1;
+  box-shadow:2px 0 0 var(--navy);font-weight:700;min-width:170px;
+}
+/* The heading over the pinned column has to pin too, or the column keeps its
+   rows and loses its label the moment you scroll right. Higher z-index because
+   this one cell is in both sticky contexts at once. */
+.cc-table thead th:first-child{left:0;z-index:2;box-shadow:2px 0 0 var(--paper)}
+.cc-table tbody tr:nth-child(even) th,
+.cc-table tbody tr:nth-child(even) td{background:var(--paper-2)}
+.cc-table tbody tr:hover th,
+.cc-table tbody tr:hover td{background:var(--sky-tint)}
+.cc-table a{color:var(--navy);text-decoration:underline;text-underline-offset:2px}
+.cc-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cc-table thead .num{text-align:right}
+.cc-yr{display:block;font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);font-weight:400}
+.cc-n{display:block;font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);font-weight:400;margin-top:2px}
+.cc-top{min-width:190px}
+/* Rows whose total is short a few unpriced cards. Dotted rather than coloured:
+   it is a footnote, not a warning, and the caption underneath explains it. */
+.cc-part th[scope="row"]{border-left:4px dotted var(--gold)}
+@media (max-width:600px){
+  .cc-table{font-size:.82rem}
+  .cc-table th,.cc-table td{padding:8px 10px}
+  .cc-table tbody th{min-width:140px}
+}
+
+/* ---------- card search: every printing, every language ----------
+   The search now spans 39,707 printings across 388 sets, so a row has to say
+   which language it is and, on a Japanese card, what the name actually reads
+   on the card. Both sit on a third row rather than crowding the name line,
+   which already carries the price. */
+.cq-native{grid-row:3;grid-column:1;font-size:var(--t-sm);color:var(--ink-2)}
+.cq-lang{grid-row:3;grid-column:2;text-align:right;font:700 var(--t-micro)/1.5 var(--mono);
+  color:var(--ink-2);text-transform:uppercase;letter-spacing:.03em;white-space:nowrap}
+/* A card we could not translate: the name shown IS the printed one. Marked in
+   gold so it reads as a caveat rather than as a language label. */
+.cq-lang.is-native{color:var(--gold-deep)}
+.cq.has-thumb .cq-native{grid-column:2}
+.cq.has-thumb .cq-lang{grid-column:3}
+/* Rows outside the sets we rip have no guide to link to, so the name is a span.
+   Keep it looking like a name, just not like a link. */
+span.cq-name{color:var(--ink)}
+
+/* ---------- grouped footer nav ----------
+   Five labelled columns in the same order as the menu, replacing a flat row of
+   eighteen links. The headings are the point: Baymard's benchmarking notes that
+   visual separation is worthless if the groups are not also semantically
+   separate, and that semantic headers matter MOST on mobile where the space to
+   imply grouping does not exist. Columns collapse to a single stack at 560px
+   rather than squeezing five columns onto a phone. */
+.foot-nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:var(--s5) var(--s4);margin:0 auto var(--s5);max-width:60em;
+  justify-content:center;text-align:left;
+  /* width and min-width are load-bearing, not decoration. The parent .wrap is
+     display:flex, so without them this grid is a flex item sized to MIN-CONTENT:
+     auto-fit never gets a definite width to collapse against, resolves to five
+     rigid 140px columns, and overflows every viewport under about 1016px. */
+  width:100%;min-width:0}
+.foot-col{display:flex;flex-direction:column;gap:2px}
+.foot-h{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--mustard);margin-bottom:4px}
+/* 44px, matching .menu-btn, .brand and .sub. An earlier rule in this file set
+   44 and this one silently halved it to 32 for all 18 footer links. */
+.foot-nav a{font:600 var(--t-sm)/1.35 var(--body);color:#C7D3DE;
+  min-height:44px;display:inline-flex;align-items:center}
+.foot-nav a:hover{color:var(--paper);text-decoration:underline}
+.foot-collectr{margin:var(--s3) 0 var(--s2)}
+.foot-collectr a{font:700 var(--t-sm)/1.4 var(--body);color:var(--mustard)}
+.foot-collectr a:hover{text-decoration:underline}
+@media(max-width:560px){
+  .foot-nav{grid-template-columns:1fr;gap:var(--s4);max-width:22em}
+}
+
+/* ---------- rip player, phone sizing ----------
+   At 375px the player was 351px wide with a 12px gap each side, so a vertical
+   9:16 video ran essentially edge to edge AND stood 624px tall: taller than the
+   752px a phone actually leaves under the bar, so the video was the entire
+   screen and the page around it read as an afterthought.
+   The subtraction is off the WRAP width, not the viewport, since .wrap already
+   contributes 12px a side. 40px off a 351px wrap leaves 311px, a 32px gutter
+   from the screen edge, and drops the height from 624px to about 553px so the
+   title and the pack copy can share the first screen with the video.
+   Capped at 320px so it does not grow back on a 430px handset. */
+@media(max-width:560px){
+  .rip-player{max-width:min(calc(100% - 40px),320px)}
+  /* The 16:9 long-form player is wide, not tall, so it only needs the gutter. */
+  .rip-player--wide{max-width:calc(100% - 32px)}
+}
+
+
+/* ---------- hits below the fold, on a rip page ----------
+   The point of the page is: watch the rip, then scroll and see exactly what came
+   out of it and what it is worth. So the cards sit UNDER the player, never
+   beside it, and each one leads with its picture because that is what somebody
+   who just watched the video is looking for. */
+.hitcards{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s4);
+  width:100%;min-width:0;
+  /* Capped at 220px: the scan is 245px wide, so a wider cell upscales it and the
+     card goes soft. auto-fill with a max of 220 keeps every card inside its
+     source resolution at any viewport. */
+  grid-template-columns:repeat(auto-fill,minmax(150px,220px));justify-content:center}
+.hitcard{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s3);display:flex;flex-direction:column;gap:var(--s2);box-shadow:var(--lift)}
+.hitcard-img{display:block;width:100%;height:auto;aspect-ratio:245/337;object-fit:cover;
+  border-radius:6px;background:var(--page)}
+/* A promo or an off-checklist card has no scan. Hold the same box so the grid
+   does not jump, and let the name below carry it. */
+.hitcard-img.is-none{background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
+.hitcard-b{display:flex;flex-direction:column;gap:2px;margin-top:auto}
+.hitcard-n{font:700 var(--t-sm)/1.3 var(--body);color:var(--ink)}
+.hitcard-s{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
+.hitcard-r{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-soft)}
+.hitcard-p{font-size:var(--t-sm);color:var(--ink);margin-top:4px}
+.hitcard-p b{color:var(--ketchup-deep);font-variant-numeric:tabular-nums}
+.hitcard-p span,.hitcard-psa span{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
+.hitcard-psa{font:700 var(--t-sm)/1.3 var(--body);color:var(--gold-deep);font-variant-numeric:tabular-nums}
+.hitcard-nop{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-soft)}
+
+/* The other 249 rips. A dud still deserves a reason to scroll. */
+.nohits{text-align:center}
+.nohits-img{display:block;margin:0 auto var(--s3);width:120px;height:auto;opacity:.9}
+.nohits .lede{max-width:34em;margin:0 auto var(--s4)}
+@media(max-width:520px){
+  .hitcards{grid-template-columns:repeat(2,1fr);gap:var(--s3)}
+}
+
+/* ---------- hits reveal on scroll ----------
+   The pack tears open to start the video; the cards should feel like they are
+   being laid out after it. Each card rises, fades up and settles, staggered by
+   its position so they arrive in sequence rather than all at once, dearest
+   first because that is the order the list is already in.
+
+   TRANSITIONS, NOT @keyframes. An animation naming keyframes that do not exist
+   silently never runs, which this project has already shipped once. A
+   transition on a class toggle has no such failure mode.
+
+   The cards are VISIBLE BY DEFAULT and hidden only once JS has confirmed it
+   will reveal them. If the observer never runs, nothing is stuck invisible. */
+.hitcards.is-armed .hitcard{opacity:0;transform:translateY(16px) scale(.97)}
+.hitcards.is-armed .hitcard{
+  transition:opacity .42s cubic-bezier(.2,.7,.3,1), transform .42s cubic-bezier(.2,.7,.3,1);
+  transition-delay:calc(var(--i, 0) * 55ms)}
+.hitcards.is-armed .hitcard.is-in{opacity:1;transform:none}
+/* The gold edge flicks on as the card lands, then fades. Cheap, and it reads as
+   the card catching the light the way a foil does. */
+.hitcards.is-armed .hitcard.is-in{animation:hitLand .5s ease-out both;
+  animation-delay:calc(var(--i, 0) * 55ms)}
+@keyframes hitLand{
+  0%{box-shadow:var(--lift)}
+  40%{box-shadow:0 0 0 2px var(--mustard), var(--lift)}
+  100%{box-shadow:var(--lift)}
+}
+@media(prefers-reduced-motion:reduce){
+  .hitcards.is-armed .hitcard{opacity:1;transform:none;transition:none;animation:none}
+}
+
+/* ---------- local vendors and creators ---------- */
+.loc-list{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s4);
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));width:100%;min-width:0}
+.loc{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:6px}
+.loc-h{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap}
+.loc h3{font:400 var(--t-m)/1.15 var(--display)}
+/* The one editorial signal on the page, and it means exactly what it says. */
+.loc-vouch{font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;letter-spacing:.05em;
+  color:var(--gold-deep);border:1px solid var(--gold);border-radius:var(--r-pill);padding:4px 8px}
+.loc-area{font:700 var(--t-micro)/1.4 var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.loc-does{font-weight:600;font-size:var(--t-sm);color:var(--ink)}
+.loc-blurb{font-size:var(--t-sm);color:var(--ink-2)}
+.loc-shows{font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-soft)}
+.loc-socs{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:var(--s3)}
+.loc-soc{font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;letter-spacing:.05em;
+  color:var(--navy);background:var(--paper-3);border-radius:var(--r-pill);
+  padding:0 12px;min-height:44px;display:inline-flex;align-items:center}
+.loc-soc:hover{background:var(--mustard)}
+/* Where a hand-read price came from. Only promos carry this: everything else
+   refreshes nightly from one source the section note already names. */
+.hitcard-src{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-soft);margin-top:2px}
+
+/* ---------- a landscape rip ----------
+   .rip-grid is a narrow left column for the 9:16 player plus a wide right
+   column for the copy, which is right for 310 of the 311 rips. The one
+   long-form landscape video got a 16:9 player inside that 380px column and
+   rendered 380x214, smaller than its own thumbnail. A wide video wants the
+   full width with the copy underneath, not a column built for a phone video. */
+.rip-grid--wide{grid-template-columns:1fr}
+.rip-grid--wide .rip-player{max-width:min(100%,900px);margin-inline:auto}
+
+/* ---------- a 16:9 upload of vertical footage ----------
+   The channel's first video was uploaded 16:9 but shot on a phone in portrait,
+   so the real content is a 9:16 strip down the middle with black bars either
+   side. Presented as-is it is a small letterboxed rectangle among 310 vertical
+   rips.
+   The box is 9:16 and the iframe inside it is blown up until that centre strip
+   fills it. The arithmetic: a 9:16 strip fitted to the height of a 16:9 frame
+   occupies (9/16) / (16/9) = 81/256 of its width, so the iframe has to be
+   256/81, about 316%, of the container width to bring the strip up to full
+   width. Height stays 100% and the sides overflow and are clipped.
+   The trade is that YouTube's own chrome scales with it, so the title and the
+   controls are cropped too. For a silent autoplaying rip that is the right
+   trade; it would not be on a video anybody needs to scrub. */
+.rip-player--crop{aspect-ratio:9/16;overflow:hidden;max-width:min(100%,420px);margin-inline:auto}
+/* Repeat the phone gutter: this rule sits after it and would otherwise put the
+   cropped player back to a 12px edge. */
+@media(max-width:560px){.rip-player--crop{max-width:min(calc(100% - 40px),320px)}}
+.rip-player--crop iframe{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:calc(100% * 256 / 81);height:100%;max-width:none}
+
+/* ---------- tap a hit card for the detail ----------
+   The trigger is a transparent button filling the card rather than a click
+   handler on the <li>, so it is keyboard reachable and announces itself
+   without turning the whole card into a link. */
+.hitcard{position:relative}
+.hitcard-open{position:absolute;inset:0;width:100%;height:100%;background:none;border:0;
+  cursor:zoom-in;padding:0;z-index:2}
+.hitcard-open:focus-visible{outline:3px solid var(--ketchup-deep);outline-offset:-3px;border-radius:var(--r)}
+.hitlb{position:fixed;inset:0;z-index:200;background:rgba(19,38,55,.88);
+  display:flex;align-items:center;justify-content:center;padding:var(--s5)}
+.hitlb[hidden]{display:none}
+.hitlb-in{position:relative;background:var(--card);border-radius:var(--r);padding:var(--s5);
+  max-width:min(92vw,420px);max-height:92vh;overflow:auto;box-shadow:var(--hard-lg)}
+.hitlb-in img{display:block;width:100%;height:auto;border-radius:8px;background:var(--page)}
+.hitlb-x{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:50%;
+  border:2px solid var(--navy);background:var(--paper);font:700 1.5rem/1 var(--body);
+  color:var(--navy);cursor:pointer;z-index:1}
+.hitlb-x:hover{background:var(--mustard)}
+.hitlb-b{margin-top:var(--s4);display:flex;flex-direction:column;gap:4px}
+.hitlb-n{font:400 var(--t-l)/1.1 var(--display)}
+.hitlb-s{font:700 var(--t-micro)/1.4 var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
+.hitlb-p{font-size:var(--t-m);font-weight:700;color:var(--ketchup-deep);margin-top:6px}
+.hitlb-psa{font-size:var(--t-m);font-weight:700;color:var(--gold-deep)}
+.hitlb-src{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-soft);margin-top:4px}
+
+/* ---------- the one Hall of Fame hit ----------
+   Greatest Hits below is a shelf of six to browse. This is ONE video the page
+   stops on, so it is not a bigger tile: it is a trophy case. Double gold rule,
+   a bloom behind the art, a ribbon tab, and the pack art at full size rather
+   than the 200px the shelf uses. It should look like the site is showing off,
+   because that is the whole job of the band. */
+/* THE FEATURED VIDEO WAS THE SMALLEST ONE ON THE PAGE.
+   A fixed 260px art column in an 860px frame meant 600px of that gold frame was
+   text, while the carousel directly beneath it ran 1392px wide with 418px
+   artwork. So the one video the page stops on was both smaller than its
+   neighbours and in a frame that lined up with nothing. The art is a share of
+   the frame now, and the frame is wide enough to sit with the band below it. */
+/* Same story as the carousel above: a 1000px gold panel holding a 117px block
+   of text in a 524px column left about 320px of empty gradient above it and 320
+   below, and it is the first thing on the page. One column, sized to the video. */
+.hofx{position:relative;display:grid;grid-template-columns:minmax(0,1fr);
+  gap:var(--s4);text-align:center;
+  align-items:center;margin:var(--s6) auto var(--s5);max-width:520px;
+  padding:var(--s5) var(--s5) var(--s5) var(--s5);
+  background:
+    radial-gradient(120% 140% at 12% 0%, rgba(239,201,76,.20) 0%, rgba(239,201,76,0) 58%),
+    linear-gradient(135deg,#31421F 0%,#1E2419 55%,#141A11 100%);
+  border:4px solid var(--gold);border-radius:16px;
+  /* Double rule: an inner hairline inside the gold border reads as a frame
+     rather than a box with a coloured edge. */
+  box-shadow:inset 0 0 0 2px rgba(19,38,55,.6), inset 0 0 0 5px rgba(239,201,76,.5),
+    0 0 34px rgba(239,201,76,.22), 0 16px 44px rgba(19,38,55,.46)}
+.hofx::after{content:"";position:absolute;inset:-3px;border-radius:16px;pointer-events:none;
+  background:linear-gradient(115deg,rgba(255,255,255,.40) 0%,rgba(255,255,255,0) 24%);
+  mix-blend-mode:screen}
+/* A slow sheen crossing the frame. Decorative only: it carries no information,
+   so it is switched off entirely for reduced motion rather than slowed down. */
+.hofx::before{content:"";position:absolute;inset:0;border-radius:14px;pointer-events:none;
+  background:linear-gradient(105deg,transparent 38%,rgba(255,247,214,.16) 46%,
+    rgba(255,247,214,.30) 50%,rgba(255,247,214,.16) 54%,transparent 62%);
+  background-size:280% 100%;animation:hofSheen 6.5s ease-in-out infinite}
+@keyframes hofSheen{
+  0%,72%{background-position:180% 0}
+  100%{background-position:-80% 0}
+}
+@media(prefers-reduced-motion:reduce){.hofx::before{animation:none;background:none}}
+.hofx-tag{position:absolute;top:-16px;left:var(--s5);z-index:1;
+  font:700 var(--t-micro)/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--navy);background:linear-gradient(180deg,var(--mustard),var(--gold));
+  border:2px solid var(--gold-deep);border-radius:var(--r-pill);padding:8px 16px;
+  box-shadow:0 3px 0 var(--gold-deep),0 8px 18px rgba(19,38,55,.35)}
+.hofx-art{position:relative}
+.hofx-art::before{content:"";position:absolute;inset:-14%;border-radius:50%;
+  background:radial-gradient(circle,rgba(239,201,76,.42) 0%,rgba(239,201,76,0) 70%)}
+.hofx-art img{position:relative;display:block;width:100%;height:auto;border-radius:10px;
+  box-shadow:0 8px 22px rgba(0,0,0,.45)}
+.hofx-b{display:flex;flex-direction:column;gap:8px;min-width:0}
+.hofx-t{font:400 var(--t-l)/1.1 var(--display);color:var(--paper);
+  text-shadow:0 2px 0 rgba(0,0,0,.35)}
+.hofx-m{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--mustard)}
+.hofx-cta{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;margin-top:6px;
+  font:700 var(--t-sm)/1 var(--body);color:var(--navy);
+  background:var(--mustard);border:2px solid var(--gold-deep);border-radius:var(--r-pill);
+  padding:11px 18px;min-height:44px}
+.hofx:hover .hofx-cta{background:var(--gold)}
+@media(max-width:640px){
+  .hofx{grid-template-columns:1fr;gap:var(--s4);text-align:center;
+    padding:var(--s5) var(--s4) var(--s4);margin-top:var(--s6)}
+  /* Stays left-aligned on a phone. Centring it meant left:50% plus a -50%
+     translate, and the tab ended up hanging off the left edge; there is no room
+     to centre a 190px ribbon on a 351px frame anyway. */
+  .hofx-tag{left:var(--s4);transform:none}
+  /* width:100% IS LOAD-BEARING, and leaving it out broke the featured video
+     completely on phones.
+     `margin:0 auto` turns a stretched grid item into a shrink-to-fit one. Its
+     content is an <img> styled width:100% of this very box, so the box asked the
+     image how wide it was, the image asked the box, and both settled on 0. A
+     0x0 element never intersects the viewport, the img is loading="lazy", so
+     the load never fired and it stayed 0 forever. The Hall of Fame pack, the one
+     video the page stops on, simply had no picture on mobile.
+     A definite width breaks the circle before the lazy loader is ever consulted. */
+  .hofx-art{width:100%;max-width:250px;margin:0 auto}
+  .hofx-b{align-items:center}
+  .hofx-cta{align-self:center}
+}
+
+/* ---------- what we pulled from this set ----------
+   Sits above the chase list, because the page then reads: here is what actually
+   came out of our packs, and here is what the set is worth hunting. The chase
+   list is the same on every site that has one; this section is not. */
+.mine-grid{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s4);
+  width:100%;min-width:0;
+  grid-template-columns:repeat(auto-fill,minmax(150px,220px));justify-content:center}
+.mine{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s3);display:flex;flex-direction:column;gap:3px;box-shadow:var(--lift)}
+.mine-img{display:block;width:100%;height:auto;aspect-ratio:245/337;object-fit:cover;
+  border-radius:6px;background:var(--page)}
+.mine-img.is-none{background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
+.mine-n{font:700 var(--t-sm)/1.3 var(--body);color:var(--ink);margin-top:6px}
+.mine-r{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-soft)}
+.mine-p{font:700 var(--t-sm)/1.4 var(--mono);color:var(--ketchup-deep);font-variant-numeric:tabular-nums}
+.mine-w{font:600 var(--t-micro)/1.4 var(--body);color:var(--navy);margin-top:auto;padding-top:6px;
+  min-height:44px;display:inline-flex;align-items:center;text-decoration:underline;
+  text-underline-offset:2px}
+.mine-w:hover{color:var(--ketchup-deep)}
+@media(max-width:520px){.mine-grid{grid-template-columns:repeat(2,1fr);gap:var(--s3)}}
+
+/* ---------- every rip of this set ---------- */
+.riplist{list-style:none;display:grid;gap:2px;margin-top:var(--s4);
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));width:100%;min-width:0}
+.riplist li{display:flex;align-items:baseline;gap:var(--s3);justify-content:space-between;
+  padding:10px 12px;background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm)}
+.riplist a{font-weight:600;font-size:var(--t-sm);color:var(--ink);
+  min-height:44px;display:inline-flex;align-items:center}
+.riplist a:hover{color:var(--ketchup-deep);text-decoration:underline}
+.riplist span{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);white-space:nowrap}
+/* A printing we do not price: same card shape, no button, since there is no
+   lightbox detail to open and nothing to click through to. */
+.chase-card.is-flat{cursor:default;background:var(--card);border:1px solid var(--hair);
+  border-radius:var(--r);padding:var(--s3);display:flex;flex-direction:column;gap:2px}
+/* The printings we can name but cannot picture. They used to share the grid
+   above, where every row is as tall as the 245x342 scan in it, so a tile
+   holding three short lines was stretched to the height of a card: about 300px
+   of empty tile at 1024px and 447px at 1440px. Nothing here has a picture, so
+   nothing sets a row height but the text, and the block can also run more
+   columns than a card grid because the items are narrow. */
+.flat-h{font:400 var(--t-m)/1.2 var(--display);margin-top:var(--s5)}
+.flat-list{list-style:none;display:grid;gap:10px;margin-top:12px;
+  grid-template-columns:repeat(auto-fill,minmax(168px,1fr))}
+.flat-item{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s3);display:flex;flex-direction:column;gap:2px;min-width:0}
+.flat-item b{font-weight:700;font-size:.84rem;line-height:1.25}
+.flat-item span{font-family:var(--mono);font-size:.6rem;color:var(--ink-soft);
+  letter-spacing:.06em;line-height:1.5}
+/* A drawn example rather than a photograph. Sized like the card figures beside
+   it so the row still reads as a row. */
+.gloss-fig.is-diagram svg{display:block;width:100%;max-width:132px;height:auto;
+  border:1px solid var(--hair);border-radius:6px;background:var(--paper-2)}
+
+/* The spotlight's artwork is a full 810x1440 pack render, so it draws at 9:16,
+   not at the 2:3 a grid tile uses. Giving the stage the tile's ratio there made
+   the card 110px shorter the moment it played. Matching the art it replaces
+   keeps the page still. */
+.hofx .tile-stage{aspect-ratio:9/16;max-width:none}
+
+/* A rip playing inside its own tile.
+   The tile is a 2:3 facade; the player opens to 9:16 so playback has no bars,
+   which is the same rule the rip page follows. It fills the tile's slot rather
+   than growing the grid, so nothing below it jumps when a pack is ripped. */
+/* The tile keeps its 2:3 footprint and the 9:16 player is centred inside it.
+   Letting the player take the tile's full WIDTH would make it 281px tall in a
+   236px slot on a phone, shoving every tile below it down the page mid-rip.
+   Keeping the footprint means nothing moves, and the dark surround reads as
+   deliberate letterboxing rather than a gap, which is what YouTube does with a
+   vertical video too. */
+/* THE CAP IS GLOBAL, because the player replaces whatever anchor was clicked
+   and that anchor is not always a small tile. Clicking the Hall of Fame
+   spotlight, whose <a> IS the whole gold card, gave the stage the full 1392px
+   wrap width and therefore 2088px of height: the video played in the top third
+   with a thousand pixels of black hanging beneath it, shoving the rest of the
+   page down 1287px. The carousel had its own cap; nothing else did. */
+.tile-stage{position:relative;width:100%;max-width:440px;aspect-ratio:2/3;display:grid;
+  place-items:center;background:#0B1520;border-radius:var(--r);overflow:hidden}
+.tile-stage .rip-player{position:relative;height:100%;max-width:100%;aspect-ratio:9/16;
+  overflow:hidden;background:#000}
+.tile-stage .rip-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.tile-stage .pack{position:absolute;inset:0;width:100%;height:100%}
+.tile-stage .sound-on{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);z-index:3}
+/* The hint is the tile's own play badge, so the pack does not repeat it. */
+.tile-stage .pack-hint{display:none}
+
+/* --------------------------------------------------------------------------
+   ONE VIDEO AT A TIME, WITH A SLIDER.
+   The home page used to show 11 tiles across two bands. Casual visitors were
+   asked to pick from a wall of near-identical pack wrappers before seeing a
+   single second of anything, and each tile was small enough that playing one in
+   place gave you a 133px video. One large slide per band inverts that: the
+   video is as big as the band can make it, it plays where it sits, and the rest
+   are a swipe away rather than a decision up front.
+
+   NATIVE SCROLL, NOT A LIBRARY. The track is a scroll-snap flex row, so a
+   trackpad, a touch swipe, shift+wheel and keyboard scrolling all work with no
+   JavaScript at all. The arrows only call scrollBy, so with JS off the band is
+   still a perfectly usable horizontal scroller.
+   -------------------------------------------------------------------------- */
+.vcar{position:relative;width:100%;min-width:0}
+/* The bands that hold a carousel stop imposing their own grid or flex row. */
+.shelf:has(.vcar),.wall:has(.vcar){display:block;margin:0;padding-inline:0;overflow:visible}
+/* .wall > .brk carries margin-bottom:-16px to claw back the grid's 24px row
+   gap. Switching .wall to display:block removes that gap, so the -16px became
+   a raw overlap and the card's top edge cut through the bottom of the "Latest
+   rips" heading: it read as "Latest rins" at 375, 768 and 1024. */
+.wall:has(.vcar) > .brk{margin-bottom:var(--s3)}
+.vcar-track{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x mandatory;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.vcar-track::-webkit-scrollbar{display:none}
+.vcar-slide{flex:0 0 100%;scroll-snap-align:center;min-width:0}
+/* Inside a carousel the hero is the whole slide, so it drops the grid-column
+   span it needs when it sits in .wall and keeps its own two-column shape. */
+/* STACKED ON A PHONE, side by side once there is room.
+   Kept two-column at 375px the artwork got 44% of a 351px slide, so the video
+   played at 121x215: SMALLER than the grid tile this replaced, on the screen
+   most people arrive with. Full width gives the art the whole slide, and the
+   title and meta read better underneath than squeezed into 56%. */
+.vcar .hero{grid-column:auto;display:grid;grid-template-columns:1fr;
+  gap:var(--s3);align-items:center;background:var(--card);border:1px solid var(--hair);
+  border-radius:var(--r);padding:var(--s3);box-shadow:var(--lift);margin:0}
+/* The art is capped so the title, the set and the CTA stay on screen with it.
+   svh, not vh, for the same reason as the games: vh on iOS is the height with
+   the browser chrome hidden, which would push the text under the address bar. */
+/* The art keeps its 2:3 shape and its WIDTH follows the height cap.
+   Setting width:100% with only a height cap made the box 694px wide and 520
+   tall between 600 and 834px, so the pack sat in the middle of a wide empty
+   panel with 170px of nothing either side. Letting aspect-ratio and max-height
+   decide the width means the box is always exactly the pack's shape. */
+/* WIDTH drives it, and aspect-ratio gives the height.
+   Two failed attempts worth recording. width:100% with only a max-height made
+   the box 694px wide and 520 tall between 600 and 834px, so the pack floated in
+   a wide empty panel. Switching to width:auto + max-height collapsed it to 0x0
+   at EVERY width: the box had no definite size, its image is sized at 100% of
+   the box, and the two resolved each other to nothing.
+   A definite max-width breaks the circle: the box is never wider than the pack
+   wants to be, and 2:3 does the rest. */
+.vcar .hero-art,
+/* The player REPLACES the art link, so it has to inherit the same cap. Without
+   this it took 100% of the hero column: 586x1041 at 768px wide, which shoved
+   the page down 501px the moment you pressed play. */
+.vcar .tile-stage{width:100%;max-width:360px;margin:0 auto}
+/* DESKTOP: CENTRED AND CAPPED, not stretched across the band.
+   The slide is as wide as the page, and a two-column hero inside it put a
+   340px pack next to a 978px column of nothing on a 1440 screen: an enormous
+   band holding a small video, which is the opposite of the point. The card is
+   capped and centred so the artwork gets a real share of it. */
+/* NEVER TWO COLUMNS. The card is the video, with its caption underneath.
+   This was two columns above 900px and the result was two enormous half empty
+   white slabs: at 1440 the card measured 1000x677 and its text block was 182px
+   tall, vertically centred in a 508px column, so roughly 250px of blank white
+   sat above the kicker and 248px below the button. Between 768 and 899 it was
+   the other failure, a 360px pack marooned in a 720px card with 180px of white
+   either side.
+   Both come from the same mistake: pairing a tall portrait video with a three
+   line caption and expecting them to fill a row. They never will. A single
+   column sized to the video has no empty half to fill, and on a wide screen it
+   reads as a deliberately centred video rather than as a broken layout. */
+@media(min-width:900px){
+  .vcar .hero{max-width:520px;margin:0 auto;padding:var(--s5)}
+  .vcar .hero-art,
+  .vcar .tile-stage{max-width:440px}
+}
+
+.vcar-bar{display:flex;align-items:center;justify-content:center;gap:var(--s3);margin-top:var(--s3)}
+.vcar-nav{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:50%;
+  background:var(--card);border:2px solid var(--ink);color:var(--ink);cursor:pointer;
+  font:700 1.1rem/1 var(--body);box-shadow:0 2px 0 var(--ink)}
+/* THE FOCUS RING NEEDS ITS WHITE HALO BACK.
+   The global indicator is an outline PLUS a 5px white box-shadow, and the halo
+   is the half that makes it visible on a dark surface. The button's own
+   box-shadow above has equal specificity and comes later in the file, so it won
+   and stripped the halo: measured 2.30:1 against the dark Greatest Hits band,
+   under the 3:1 that 1.4.11 requires. The drop shadow is restated here
+   alongside the halo so focus keeps both. */
+.vcar-nav:focus-visible{box-shadow:0 2px 0 var(--ink),0 0 0 5px rgba(255,255,255,.95)}
+.vcar-nav:disabled{opacity:.35;cursor:default;box-shadow:none}
+.vcar-nav:active:not(:disabled){box-shadow:none;transform:translateY(2px)}
+/* The bar sits OUTSIDE the white card, directly on the band, and the Greatest
+   Hits band is dark. --ink-2 measured 2.66:1 there. currentColor takes the
+   band's own text colour, so it is correct on the dark band and the light one
+   without either being special-cased. */
+.vcar-count{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;color:currentColor;
+  opacity:.85;min-width:5ch;text-align:center}
+@media(prefers-reduced-motion:reduce){.vcar-nav:active{transform:none}}
+
+/* A carousel slide is a WHITE card, and the Greatest Hits band it sits in is
+   dark, so that band's cream headings landed cream-on-white at 1.13:1: the
+   title of the biggest video on the page was invisible. The card carries its
+   own colours rather than inheriting the band's. */
+.vcar .hero h3,
+.vcar .hero h3 a{color:var(--ink)}
+.vcar .hero-meta,
+.vcar .hero-kicker{color:var(--ink-2)}
+
+
+/* NO CREAM STRIPE ABOVE THE FOOTER.
+   main carries 72px of bottom padding, which reads as normal breathing room on
+   a page that ends on cream. On any page whose LAST band paints its own
+   background (the home page's navy about section, the blue set guides, the
+   games hub) it instead produced a 72px band of bare cream sandwiched between
+   a coloured section and the dark footer, which looks like a rendering fault.
+   Where the last child paints, the padding is not needed. */
+main:has(> section:last-child[class*="about"]),
+main:has(> section:last-child.hof),
+main:has(> section:last-child.band),
+main:has(> .set-cta:last-child){padding-bottom:0}

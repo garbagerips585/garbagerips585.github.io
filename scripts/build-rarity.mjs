@@ -51,24 +51,46 @@ const starRarities = ["", "one", "two", "three", "four", "five", "six", "seven",
 /**
  * A magnified crop of a card's bottom corner.
  *
- * The card is a background image scaled up and pinned to the corner the symbol
- * actually sits in, so what you see is the real printing.
+ * The card is a background image pinned to the corner the symbol actually sits
+ * in, so what you see is the real printing.
  *
- * The two sides need different framing. On a bottom-RIGHT card the symbol is
- * the last thing on the row, so pinning hard right catches it. On a bottom-LEFT
- * card the symbol sits at the END of the left-hand group, after the illustrator
+ * THE MAGNIFICATION IS IN PIXELS, NOT PER CENT, AND THAT IS THE WHOLE POINT.
+ *
+ * Almost every card here is a TCGdex `high.webp`, and TCGdex offers exactly two
+ * sizes: low is 245x337 and high is 600x825. 600px is the ceiling, measured
+ * rather than assumed, and there is no third size to ask for. The one exception
+ * is the Mega Hyper Rare, which comes from Scrydex at 712x997, so 600 is inside
+ * that one too.
+ *
+ * This used to say `background-size: 340%`, a percentage of a box that grows
+ * with the viewport. On a 1280px screen the two "which corner" figures are 570px
+ * wide, so the browser was being told to paint a 600px scan at 1938px: a 3.2x
+ * upscale in CSS pixels and 6.5x on a retina screen. That adds no detail, only
+ * blur, and it got worse the bigger the screen, which is exactly backwards.
+ *
+ * Setting the size to the source's own width means the scan is never painted
+ * larger than it was made, at any viewport. The box then decides how MUCH of the
+ * card you see rather than how badly it is stretched, and `.crop` is capped in
+ * the stylesheet so it stays a corner rather than the whole bottom edge.
+ *
+ * The two sides need different framing. On a bottom-RIGHT card the symbol is the
+ * last thing on the row, so pinning hard right catches it. On a bottom-LEFT card
+ * the symbol sits at the END of the left-hand group, after the illustrator
  * credit, regulation mark, set code and number, so pinning hard left cuts the
- * symbol off at the edge: the one thing the crop exists to show. Framed at 22%
- * instead, which lands the whole group in view.
+ * symbol off at the edge: the one thing the crop exists to show. A small
+ * percentage lands the whole group in view and, because the offset is measured
+ * against (box - image) and the image is now the fixed side, it frames the same
+ * part of the card whatever the box is doing.
  */
+const SRC_W = 600; // px, and no wider than the narrowest source. See above.
 const CROP = {
-  right: { size: "340%", pos: "100% 100%" },
-  left: { size: "280%", pos: "22% 100%" },
+  right: { pos: "100% 100%" },
+  left: { pos: "8% 100%" },
 };
 const corner = (card, side, label) => `<figure class="crop">
-        <div class="crop-img" style="background-image:url('${esc(card)}');background-size:${
-          CROP[side].size
-        };background-position:${CROP[side].pos}"></div>
+        <div class="crop-img" style="background-image:url('${esc(
+          card
+        )}');background-size:${SRC_W}px auto;background-position:${CROP[side].pos}"></div>
         <figcaption>${esc(label)}</figcaption>
       </figure>`;
 
@@ -124,7 +146,7 @@ const slangCard = (s) => {
     : s.show === "crop"
       ? `<div class="gloss-fig is-crop">${corner(s.card, "left", s.example)}</div>`
       : `<figure class="gloss-fig">
-            <img src="${esc(s.card)}" alt="${esc(s.example)}" loading="lazy" decoding="async" width="600" height="825">
+            <img src="${esc(s.card)}" alt="${esc(s.example)}" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>${esc(s.example)}</figcaption>
           </figure>`;
   return `        <li${s.card ? "" : ' class="no-fig"'}>
@@ -138,7 +160,7 @@ const slangCard = (s) => {
 const ladderRow = (r, i) => `      <li class="rr${r.chase ? " is-chase" : ""}">
         <div class="rr-n">${i + 1}</div>
         <div class="rr-card">
-          <img src="${esc(r.card)}" alt="${esc(r.example)}" loading="lazy" decoding="async" width="600" height="825">
+          <img src="${esc(r.card)}" alt="${esc(r.example)}" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
         </div>
         <div class="rr-body">
           <h3>${esc(r.name)}${r.chase ? ` <span class="rr-chase">worth chasing</span>` : ""}</h3>
@@ -160,11 +182,18 @@ const style = `
 .rg-sec h2{font:400 var(--t-l)/1.15 var(--display);margin-bottom:var(--s3)}
 .rg-p{color:var(--ink-2);max-width:46em;margin-bottom:var(--s4)}
 
-/* The magnified corner. A background image blown up and pinned to the corner
-   the symbol is actually printed in, so it is the real card rather than a
-   drawing of one. */
-.crop{border:2px solid var(--ink);border-radius:var(--r);overflow:hidden;background:var(--card)}
-.crop-img{aspect-ratio:16/7;background-repeat:no-repeat;image-rendering:auto}
+/* The magnified corner. A background image pinned to the corner the symbol is
+   actually printed in, so it is the real card rather than a drawing of one.
+
+   CAPPED AT THE SOURCE WIDTH ON PURPOSE. The scan is 600px wide and is painted
+   at 600px (see SRC_W in this script), so a box any wider than that would just
+   add empty card either side of the corner, and a box that stretched the scan to
+   fill itself would be the upscale this cap exists to stop. 320px shows a bit
+   over half the card's width, which is the whole bottom-left group and then
+   some, at every pixel of detail the source actually has. */
+.crop{border:2px solid var(--ink);border-radius:var(--r);overflow:hidden;background:var(--card);
+  max-width:320px}
+.crop-img{aspect-ratio:16/5;background-repeat:no-repeat;image-rendering:auto}
 .crop figcaption{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-2);padding:8px var(--s3);border-top:1px solid var(--hair);background:var(--page)}
 
@@ -268,10 +297,15 @@ const style = `
    keeps the cards on a line across the row regardless of caption length. */
 .gloss-fig figcaption{font:400 var(--t-micro)/1.45 var(--mono);color:var(--ink-2);margin-top:6px;
   min-height:2.9em}
-/* The crop wants the tile's full width: it is a magnified corner, and shrinking
-   it defeats the reason it is a crop. */
+/* The crop takes the tile's width up to the 320px cap on .crop, unlike the card
+   images above it, which stop at 132px. It is a magnified corner and the corner
+   is the point, so it gets every pixel the source has rather than being shrunk
+   to match a thumbnail. */
 .gloss-fig.is-crop .crop{margin-top:0}
-.gloss-fig.is-crop .crop-img{aspect-ratio:16/6}
+/* No aspect override here any more. This said 16/6 back when the base was 16/7,
+   to make the glossary strip the SHORTER of the two. The base is 16/5 now, so
+   the same 16/6 would have quietly flipped that round and made it the taller
+   one. One ratio for every crop is the thing that cannot drift. */
 
 .rg-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
@@ -373,15 +407,15 @@ ${d.ladder.map(ladderRow).join("\n")}
         the same card.</p>
       <div class="exs">
         <div class="ex1"><b>Pokemon-ex</b><p class="yrs">2003 to 2007, lowercase</p>
-          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/ex/ex6/105/high.webp" alt="Charizard ex, FireRed &amp; LeafGreen, 2004" loading="lazy" decoding="async" width="600" height="825"><figcaption>Charizard ex, FireRed &amp; LeafGreen, 2004</figcaption></figure>
+          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/ex/ex6/105/high.webp" alt="Charizard ex, FireRed &amp; LeafGreen, 2004" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"><figcaption>Charizard ex, FireRed &amp; LeafGreen, 2004</figcaption></figure>
           <p>The original. No rule box: the rule is plain italic text along the bottom, and abilities
             are called Poke-POWER or Poke-BODY.</p></div>
         <div class="ex1"><b>Pokemon-EX</b><p class="yrs">2012 to 2016, uppercase</p>
-          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/xy/xy2/11/high.webp" alt="Charizard EX, Flashfire, 2014" loading="lazy" decoding="async" width="600" height="825"><figcaption>Charizard EX, Flashfire, 2014</figcaption></figure>
+          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/xy/xy2/11/high.webp" alt="Charizard EX, Flashfire, 2014" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"><figcaption>Charizard EX, Flashfire, 2014</figcaption></figure>
           <p>Black and White through XY. Almost always Basic, whatever the Pokemon's real stage.
             Mega EX ended your turn unless you played a Spirit Link.</p></div>
         <div class="ex1"><b>Pokemon ex</b><p class="yrs">2023 to now, lowercase again</p>
-          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/sv/sv03/125/high.webp" alt="Charizard ex, Obsidian Flames, 2023" loading="lazy" decoding="async" width="600" height="825"><figcaption>Charizard ex, Obsidian Flames, 2023</figcaption></figure>
+          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/sv/sv03/125/high.webp" alt="Charizard ex, Obsidian Flames, 2023" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"><figcaption>Charizard ex, Obsidian Flames, 2023</figcaption></figure>
           <p>Current. Has a bordered rule box in the bottom corner where the Pokedex entry would sit.
             That box is the quickest way to tell it from a 2003 one.</p></div>
       </div>
@@ -397,7 +431,7 @@ ${d.gone
           ${
             g.card
               ? `<figure class="gone-fig">
-            <img src="${esc(g.card)}" alt="${esc(g.example)}" loading="lazy" decoding="async" width="600" height="825">
+            <img src="${esc(g.card)}" alt="${esc(g.example)}" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>${esc(g.example)}</figcaption>
           </figure>`
               : ""

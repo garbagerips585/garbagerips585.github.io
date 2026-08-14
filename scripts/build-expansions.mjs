@@ -19,7 +19,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, FONTS, footer, APP_JS } from "../shared/chrome.mjs";
-import { esc, shortDate } from "../shared/format.mjs";
+import { esc, shortDate, longDate, noValue } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -111,7 +111,7 @@ function eraTable(e) {
           <th scope="row">
             <span class="xp-name">${
               s.symbol
-                ? `<img src="${esc(s.symbol)}" alt="" width="20" height="20" loading="lazy" decoding="async">`
+                ? `<img src="${esc(s.symbol)}" alt="" width="20" height="20" loading="lazy" onerror="this.remove()" decoding="async">`
                 : `<span class="xp-nosym" aria-hidden="true"></span>`
             }${name}${s.promo ? ` <span class="xp-tag">promo</span>` : ""}</span>
           </th>
@@ -120,7 +120,7 @@ function eraTable(e) {
           <td class="xp-rips">${
             s.slug && ripsBySet[s.slug]
               ? `<a href="/videos.html?set=${s.slug}">${ripsBySet[s.slug]} rip${ripsBySet[s.slug] === 1 ? "" : "s"}</a>`
-              : `<span class="xp-none">&mdash;</span>`
+              : noValue("None", "xp-none")
           }</td>
         </tr>`;
     })
@@ -343,7 +343,12 @@ ${MENU}
 ${body}
 
 ${footer(
-  `Set data from the Pokemon TCG API, last checked ${syncedAt}.`
+  // Spelled out, not the raw ISO stamp. `syncedAt` is "2026-08-11" and the
+  // footer was printing it verbatim, which is the only date on the site in that
+  // shape: card-shows.html, grading.html and shops.html all say "August 12,
+  // 2026" in their prose. The ISO form still goes out in the Dataset
+  // dateModified above, where a machine is the reader.
+  `Set data from the Pokemon TCG API, last checked ${longDate(syncedAt) || syncedAt}.`
 )}
 
 ${APP_JS}

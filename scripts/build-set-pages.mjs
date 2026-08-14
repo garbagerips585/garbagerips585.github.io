@@ -230,7 +230,11 @@ function intlBand(s) {
         ${lead ? `<p class="intl-lead">Out ${esc(lead)} than the English set</p>` : ""}
         ${own
           ? `<a class="intl-link" href="/sets/${esc(own.id)}.html">Read the ${esc(own.english)} guide &rarr;</a>`
-          : `<a class="intl-link" href="${esc(src.url)}" rel="noopener" target="_blank">Full checklist on TCGdex &rarr;</a>`}
+          : // The fallback used to link to www.tcgdex.net/<lang>/sets/<id>, which
+            // 404s: TCGdex publishes api., assets. and tcgdex.dev and has no
+            // consumer site. Rather than send people to a dead page, the card
+            // says plainly that we have not written this one up.
+            `<p class="intl-lead is-none">No guide for this one yet</p>`}
       </li>`;
     })
     .join("\n");
@@ -423,7 +427,7 @@ function productBand(s) {
       (p) => `      <li class="prod">
         <a class="prod-shot" href="${esc(affLink(p.url))}" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
           <img src="${esc(p.thumb)}" srcset="${esc(p.thumb)} 200w, ${esc(p.image)} 1000w"
-               sizes="(max-width:640px) 40vw, 200px" alt="" loading="lazy" decoding="async"
+               sizes="(max-width:640px) 40vw, 200px" alt="" loading="lazy" onerror="this.remove()" decoding="async"
                width="200" height="200" referrerpolicy="no-referrer">
         </a>
         <div class="prod-body">
@@ -590,18 +594,15 @@ function setPage(s) {
       ],
     },
   ];
-  if (s.chase?.length) {
-    ld.push({
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      name: `Top chase cards in ${s.name}`,
-      itemListElement: s.chase.map((c, i) => ({
-        "@type": "ListItem",
-        position: i + 1,
-        name: `${c.name} ${c.number}`,
-      })),
-    });
-  }
+  // NO "top chase cards" ItemList. Every set page used to push one whose
+  // entries carried a `name` and a `position` and nothing else, which names a
+  // card the crawler cannot follow, so the whole block was ignored.
+  //
+  // Nothing on this site can stand in as the target. The chase cards render as
+  // `<button class="chase-card">` with no id to anchor to, and their only real
+  // link is the TCGplayer url behind the lightbox, which is a shop listing and
+  // not a page about the card. The /sets/ index ItemList further down is the
+  // one that stays, because a set genuinely has a page of its own.
 
   return head({ title: setTitle(s.name), desc, canonical: url, image: `${SITE}/assets/${ogCards.has(s.id) ? `og-${s.id}` : "og-image"}.jpg?v=2`, ld }) + `
 <header class="set-hero">
@@ -690,7 +691,7 @@ ${(() => {
       ${mine
         .map(
           (h) => `<li class="mine">
-        ${h.img ? `<img class="mine-img" src="${esc(h.img)}" alt="${esc(h.name)}" loading="lazy" decoding="async" width="245" height="337">` : `<div class="mine-img is-none" aria-hidden="true"></div>`}
+        ${h.img ? `<img class="mine-img" src="${esc(h.img)}" alt="${esc(h.name)}" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337">` : `<div class="mine-img is-none" aria-hidden="true"></div>`}
         <p class="mine-n">${esc(h.name)}</p>
         <p class="mine-r">${esc(h.rarity || "")}${h.n ? ` &bull; #${esc(h.n)}` : ""}</p>
         <p class="mine-p">${typeof h.price === "number" ? moneyExact(h.price) : "No market price"}</p>
@@ -716,7 +717,7 @@ ${(() => {
         data-psa10="${esc(gradedPrice(s.id, c.number) ? moneyCompact(gradedPrice(s.id, c.number)) : "")}"
         data-url="${esc(c.url ? affLink(c.url) : "")}"
         aria-label="Enlarge ${esc(c.name)}">
-        ${c.image ? `<img src="${c.image}" alt="${esc(c.name)} ${esc(c.number)}, ${esc(c.rarity || "card")}" loading="lazy" width="245" height="342">` : ""}
+        ${c.image ? `<img src="${c.image}" alt="${esc(c.name)} ${esc(c.number)}, ${esc(c.rarity || "card")}" loading="lazy" onerror="this.remove()" width="245" height="342">` : ""}
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(c.rarity || "")} &bull; ${esc(c.number)}</div>
         <div class="pr">${moneyCompact(c.price)}</div>

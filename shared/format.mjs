@@ -54,6 +54,28 @@ export const shortDate = (iso) => fmt(iso, MONTHS_SHORT);
 /** "August 11, 2026" */
 export const longDate = (iso) => fmt(iso, MONTHS_LONG);
 
+/**
+ * The site's "this cell has no value" placeholder.
+ *
+ * A bare em dash is fine to LOOK at and useless to LISTEN to. VoiceOver and NVDA
+ * both announce U+2014 as "dash" or "em dash" when a cell holds nothing else, so
+ * /expansions.html was reading a punctuation mark out 156 times to anybody going
+ * through those tables cell by cell, and even then it never said what was
+ * missing. Deleting the cell is not the fix either: a row with fewer cells than
+ * its header breaks the column association for every cell after it.
+ *
+ * So the dash stays for the eye and is hidden from the accessibility tree, and
+ * the real answer goes next to it in `.sr-only` text. `reason` is required
+ * rather than defaulted, because "None" and "Not recorded" are different claims
+ * and picking one silently is how the dash got here in the first place.
+ *
+ * `cls` is only for the visible half. `.sr-only` is defined in ui.css, which
+ * every generated page already loads through shared/chrome.mjs.
+ */
+export const noValue = (reason, cls = "none") =>
+  `<span class="${cls}" aria-hidden="true">&mdash;</span>` +
+  `<span class="sr-only">${esc(reason)}</span>`;
+
 /** Sleep, for the rate-limited sync scripts. */
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -97,6 +119,33 @@ export function moneyExact(v) {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })}`;
+}
+
+/**
+ * A rarity written the way the rest of the site writes it, which is Title Case.
+ *
+ * TCGdex is inconsistent at source and the inconsistency is inside a single
+ * checklist: the same file carries "Ultra Rare" and "Double rare", so any page
+ * that prints the field verbatim shows both shapes in one list. Every hand
+ * written place already agrees on Title Case, so there is a form to match and
+ * no need to invent one: the ladder in sync-sets.mjs and sync-intl-guides.mjs,
+ * the rarity guide, and the rarities the sheet records in data/hits.json.
+ *
+ * Words that are not ordinary words keep the shape they are printed in. ACE
+ * SPEC is an initialism, and V, VMAX and VSTAR are capitals on the card.
+ */
+const RARITY_WORDS = { ace: "ACE", spec: "SPEC", v: "V", vmax: "VMAX", vstar: "VSTAR" };
+
+export function rarityLabel(r) {
+  if (!r) return null;
+  return String(r)
+    .trim()
+    .split(/\s+/)
+    .map((w) => {
+      const k = w.toLowerCase();
+      return RARITY_WORDS[k] || k.charAt(0).toUpperCase() + k.slice(1);
+    })
+    .join(" ");
 }
 
 /** Whole dollars, no cents at any size. Used by the grading fee tables. */

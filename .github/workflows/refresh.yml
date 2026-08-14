@@ -121,6 +121,13 @@ jobs:
           # any run where the nav changed, building before syncing fails the
           # job on a difference it was about to fix itself.
           node scripts/sync-chrome.mjs
+          # BEFORE every builder. public/assets/ui.css is generated from
+          # assets-source/ui.css, and shared/chrome.mjs hashes the generated
+          # file at import time for the ?v= cache buster, so a builder that
+          # imports it before this runs stamps the old hash. Running it here
+          # also means a commit that touched only the source still ships: the
+          # nightly regenerates rather than failing check-build's drift guard.
+          node scripts/build-css.mjs
           # Share cards for the guide pages. Cheap, and it means a new page can
           # never ship pointing at an image that was never generated.
           bash scripts/fetch-fonts.sh

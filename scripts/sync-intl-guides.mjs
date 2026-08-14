@@ -322,7 +322,10 @@ for (const [id, e] of entries) {
     cards,
     rarities,
     notable,
-    tcgdexUrl: `https://www.tcgdex.net/${e.lang}/sets/${e.tcgdexId}`,
+    // NO tcgdexUrl. www.tcgdex.net does not exist: the root, and every
+    // /<lang>/sets/<id> path this used to build, answer 404. TCGdex publishes
+    // api.tcgdex.net, assets.tcgdex.net and tcgdex.dev and has no consumer
+    // site, so there is nothing here to link a reader to.
   };
 
   const c = guides[id];

@@ -89,7 +89,7 @@ for (const [slug, entry] of Object.entries(map.sets || {})) {
       released: set.releaseDate || null,
       logo: set.logo ? `${set.logo}.png` : null,
       symbol: set.symbol ? `${set.symbol}.png` : null,
-      url: `https://www.tcgdex.net/${src.lang}/sets/${src.id}`,
+      // No url: www.tcgdex.net answers 404 on every path. See sync-intl-guides.mjs.
     });
     await sleep(250);
   }

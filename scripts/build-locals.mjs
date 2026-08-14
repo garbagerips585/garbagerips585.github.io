@@ -45,6 +45,15 @@ const SOCIALS = [
   ["ebay", "eBay", (h) => `https://www.ebay.com/usr/${h}`],
 ];
 
+// The first address this page shows for somebody, in the same order the row
+// renders them: socials first, then a website, then a link-in-bio hub. It is
+// the ListItem target in the schema below, so what a crawler is told about a
+// creator is the exact link a reader would click, never a second guess.
+const primaryUrl = (o) => {
+  const social = SOCIALS.find(([k]) => o[k]);
+  return social ? social[2](o[social[0]]) : o.url || o.links || null;
+};
+
 const links = (o) => {
   const out = SOCIALS.filter(([k]) => o[k]).map(
     ([k, label, url]) =>
@@ -87,12 +96,30 @@ function page({ slug, title, h1, kicker, lede, list, kind, empty, note, updated 
   ];
   // Only claim an ItemList when there is a list. Marking up an empty page as a
   // collection asserts something the page does not show.
-  if (rows.length) {
+  //
+  // And every entry has to carry a `url`. This block used to emit a `name` and
+  // a `position` and stop, which describes a thing with no address: Google
+  // drops an ItemList whose items cannot be resolved, so it was doing nothing
+  // at all. These people are not pages on this site, they are real accounts
+  // elsewhere, so the target is their own address, exactly as build-shops.mjs
+  // already does for the card shops.
+  //
+  // All or nothing. A list where some entries resolve and some do not is not a
+  // partial win, it is a list a crawler cannot use, and it would quietly
+  // publish "we have no address for this person" as structured data. One row
+  // with no link anywhere means no ItemList, and the page still reads fine.
+  const targets = rows.map(primaryUrl);
+  if (rows.length && targets.every(Boolean)) {
     ld.push({
       "@context": "https://schema.org",
       "@type": "ItemList",
       name: h1,
-      itemListElement: rows.map((o, i) => ({ "@type": "ListItem", position: i + 1, name: o.name })),
+      itemListElement: rows.map((o, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: o.name,
+        url: targets[i],
+      })),
     });
   }
   const desc = rows.length

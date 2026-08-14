@@ -48,6 +48,49 @@ const rows = index.cards || [];
 const priced = rows.filter((r) => typeof r[4] === "number");
 const top = priced.slice().sort((a, b) => b[4] - a[4]).slice(0, 60);
 
+// EVERY PRINTING IN EXACTLY ONE BUCKET, AND THE BUCKETS HAVE TO ADD UP.
+//
+// The price note used to read "4,468 of 4,481 cards from the sets we rip have a
+// price. The other 35,226 printings do not", which is two true numbers arranged
+// into a false statement. 35,226 is 39,707 minus 4,481, so it is everything
+// OUTSIDE our sets, not everything unpriced: the 13 cards inside our sets that
+// carry no price were counted in neither half and simply vanished. A reader
+// adding the page up got 39,694 against a total of 39,707 printed three times
+// on the same page.
+//
+// The 13 are real and they are all English. TCGdex returns them with
+// `pricing.tcgplayer: null` while carrying a Cardmarket price in euros for each
+// one: Moltres and Zacian in Phantasmal Flames, Dudunsparce ex in Journey
+// Together, Ledian, Grimmsnarl, Raging Bolt and Area Zero Underdepths in
+// Stellar Crown, Hisuian Arcanine in Twilight Masquerade, Iron Treads,
+// Dudunsparce, Drampa and Ancient Booster Energy Capsule in Temporal Forces,
+// and Palafin in Obsidian Flames. So they are not a lookup miss on our side and
+// they are not Japanese, which are the only two explanations the old sentence
+// offered. They get their own clause.
+const unpricedOurs = rows.length - priced.length;
+const outside = printings.total - rows.length;
+// The reason the other 35,226 have no price is NOT one reason. Roughly half are
+// Japanese or Chinese, where there is no US market price to quote at all; the
+// rest are English printings from the 347 sets we do not rip and therefore
+// never priced. Counted here rather than asserted, because "most of them are
+// Japanese" was the tempting phrasing and it is false.
+let foreign = 0;
+for (const [k] of Object.entries(printings.shards || {})) {
+  const shard = JSON.parse(await readFile(join(ROOT, `public/data/printings/${k}.json`), "utf8"));
+  for (const c of shard) if (c.l && c.l !== "en") foreign += 1;
+}
+const otherEnglish = outside - foreign;
+// A build that cannot make the parts equal the whole must not publish the
+// whole. This is the check the old copy needed and did not have.
+const parts = priced.length + unpricedOurs + foreign + otherEnglish;
+if (parts !== printings.total) {
+  throw new Error(
+    `cards.html would publish buckets that do not add up: ${priced.length} priced + ${unpricedOurs} unpriced ` +
+      `from our sets + ${foreign} non-English + ${otherEnglish} other English = ${parts}, not ${printings.total}`,
+  );
+}
+const n = (v) => v.toLocaleString("en-US");
+
 // TWO DATASETS, TWO DATES. The count comes from the printings corpus and the
 // prices come from the card index, and they are not read on the same day. This
 // used to date the whole sentence with index.checked, which put the price date
@@ -68,17 +111,16 @@ const ld = [
       { "@type": "ListItem", position: 2, name: "Card search" },
     ],
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "Most valuable Pokemon cards across the sets we rip",
-    itemListElement: top.slice(0, 20).map((r, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      name: `${r[0]} ${r[2]} (${setName[r[1]] || r[1]})`,
-    })),
-  },
 ];
+// NO ItemList FOR THE TOP 20, and do not add one back without a target.
+// It used to ship one, with a `name` and a `position` on every entry and
+// nothing else. A ListItem with no `url` and no `item` names a thing that
+// cannot be reached, so Google drops the whole block: it was twenty lines of
+// markup doing nothing. The honest fix is a per-card page to point at, and
+// this site does not have one. The visible row links to the card's SET page,
+// which is a page about two hundred other cards as well, and several of the
+// twenty share a set, so half the list would resolve to the same URL. That is
+// a worse claim than making none.
 
 const row = (r) => {
   const [name, slug, n, rarity, price] = r;
@@ -129,8 +171,8 @@ ${MENU}
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     <h1>Card <span class="hl">search</span></h1>
     <p class="lede" style="max-width:36em">Every printing we could source, ${nAll} of them across ${nSets} sets,
-      English and Japanese alike. Type a Pokemon name and you get all of them, not just the English ones.
-      The ${rows.length.toLocaleString("en-US")} from the sets we rip also carry what they are going for.</p>
+      English, Japanese and Chinese alike. Type a Pokemon name and you get all of them, not just the English ones.
+      The ${n(priced.length)} from the sets we rip that have a US market price also carry what they are going for.</p>
   </div>
 </header>
 
@@ -158,10 +200,13 @@ ${MENU}
 
     <p class="price-note">TCGplayer market prices via TCGdex, read ${esc(longDate(index.checked) || index.checked)}.
       Where a card comes as a normal, holo and reverse holo at different prices, the figure is the priciest of them.
-      ${priced.length.toLocaleString("en-US")} of ${rows.length.toLocaleString("en-US")} cards from the sets we rip have a
-      price. The other ${(printings.total - rows.length).toLocaleString("en-US")} printings do not: there is no US market
-      price for a Japanese card, so none is shown rather than a converted guess. Where a Japanese card could not be
-      matched to a Pokedex number we show the name as printed and say so, because we do not invent translations.
+      ${n(priced.length)} of the ${n(rows.length)} cards from the sets we rip have a price.
+      ${n(unpricedOurs)} do not, and they are English: TCGdex lists them with no TCGplayer entry at all, so they
+      show nothing rather than a euro price converted into a guess. The remaining ${n(outside)} printings sit
+      outside the ${Object.keys(setName).length} sets we price. ${n(foreign)} of those are Japanese or Chinese, which have no US market
+      price to quote in the first place, and ${n(otherEnglish)} are English cards from sets we do not rip. Where a Japanese
+      card could not be matched to a Pokedex number we show the name as printed and say so, because we do not
+      invent translations.
       Singles move fast, so treat these as a ballpark and not a quote. We do not sell cards.</p>
   </div>
 </section>
@@ -373,4 +418,6 @@ await writeFile(join(ROOT, "public/cards.html"), page);
 console.log(`Wrote public/cards.html
   ${rows.length} cards searchable across ${Object.keys(setName).length} sets
   ${priced.length} priced, ${top.length} rendered into the HTML
+  buckets: ${priced.length} priced + ${unpricedOurs} ours with no TCGplayer entry
+           + ${foreign} non-English + ${otherEnglish} other English = ${parts} of ${printings.total}
   priciest: ${top[0]?.[0]} ${top[0]?.[2]} (${setName[top[0]?.[1]]}) ${moneyExact(top[0]?.[4])}`);

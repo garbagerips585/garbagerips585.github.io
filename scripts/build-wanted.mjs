@@ -58,7 +58,7 @@ function cardTile(c, { hunted = true } = {}) {
   const inner = `
         <span class="wc-art">${
           img
-            ? `<img src="${esc(img)}" alt="${esc(alt)}" loading="lazy" width="245" height="342">`
+            ? `<img src="${esc(img)}" alt="${esc(alt)}" loading="lazy" onerror="this.remove()" width="245" height="342">`
             : `<span class="wc-none">${esc(c.name)}</span>`
         }${hunted ? `<span class="wc-flag">Hunting</span>` : `<span class="wc-flag wc-got">Caught</span>`}</span>
         <b class="wc-name">${esc(c.name)}</b>

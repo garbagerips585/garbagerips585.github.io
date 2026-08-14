@@ -242,18 +242,16 @@ function pokePage(p) {
         { "@type": "ListItem", position: 3, name: p.name },
       ],
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      name: `${p.name} cards by value`,
-      numberOfItems: sorted.length,
-      itemListElement: sorted.slice(0, 20).map((c, i) => ({
-        "@type": "ListItem",
-        position: i + 1,
-        name: `${c.name} ${c.n} (${c.setName})`,
-      })),
-    },
   ];
+  // NO "cards by value" ItemList. All fifty of these pages used to carry one,
+  // twenty entries each, and every entry had a `name` and a `position` and
+  // nothing to point at. Google will not render an ItemList whose items have no
+  // `url` or `item`, so that was a thousand dead ListItems across the section.
+  //
+  // There is no target to give them. A printing is a `<div class="chase-card">`
+  // here with no id and no link, most of the sets it comes from have no set
+  // page of their own, and /cards.html?q= is a client-side search, not a page
+  // about the card. Add the block back the day a card has its own URL.
 
   return head({ title: `${p.name} Cards and Prices: Every Printing We Price | Garbage Rips 585`, desc, canonical: url, ld }) + `
 <header class="set-hero">
@@ -278,43 +276,7 @@ function pokePage(p) {
   </div>
 </section>
 
-${(() => {
-  // Printings we do NOT price: every other set the card appears in, English or
-  // Japanese. Deduped against what is already shown above by set and number so
-  // a card we price is never listed twice.
-  const have = new Set(sorted.map((c) => `${c.setName}|${String(c.n).replace(/^0+/, "")}`));
-  const extra = (printings.get(p.name) || [])
-    .filter((c) => !have.has(`${c.s}|${String(c.i).replace(/^0+/, "")}`))
-    .sort((a, b) => String(a.s).localeCompare(String(b.s)) || String(a.i).localeCompare(String(b.i)));
-  if (!extra.length) return "";
-  const withArt = extra.filter((c) => c.g).length;
-  return `<section class="band tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Everywhere else</p>
-    <h2>Every other <span class="hl">${esc(p.name)}</span> printing we could name</h2>
-    <p class="lede" style="max-width:40em">${extra.length} more from sets we do not price, English and Japanese,
-      ${withArt} with a scan. No price on these: we only quote what we can source. Printings whose name we could
-      not translate are left out rather than shown under a name we guessed at.</p>
-    <div class="chase-grid">
-      ${extra
-        .map(
-          (c) => `<div class="chase-card is-flat">
-        ${c.g ? `<img src="${esc(c.g)}/low.webp" onerror="this.remove()" alt="${esc(c.n)} ${esc(c.i)}, ${esc(c.s)}" loading="lazy" decoding="async" width="245" height="342">` : ""}
-        <div class="nm">${esc(c.n)}</div>
-        <div class="rr">${esc(c.s)} &bull; ${esc(c.i)}</div>
-        ${c.r ? `<div class="rr">${esc(c.r)}</div>` : ""}
-        ${c.l !== "en" ? `<div class="rr">${c.l === "ja" ? "Japanese" : "Chinese"}</div>` : ""}
-      </div>`,
-        )
-        .join("\n      ")}
-    </div>
-    <p class="price-note">Card list from the TCGdex card database, read ${esc(longDate(pChecked) || pChecked)}.
-      A snapshot, not a live feed.</p>
-  </div>
-</section>
-
-`;
-})()}<section class="band tight">
+<section class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
     <h2>Every <span class="hl">${esc(p.name)}</span></h2>
@@ -341,6 +303,80 @@ ${(() => {
       daily, so treat these as a ballpark. <a href="/cards.html?q=${encodeURIComponent(p.name)}">Search every card</a>.</p>
   </div>
 </section>
+${(() => {
+  // Printings we do NOT price: every other set the card appears in, English or
+  // Japanese. Deduped against what is already shown above by set and number so
+  // a card we price is never listed twice.
+  //
+  // IT SITS AFTER THE PRICED BAND, AND HAS TO. "Every other Charizard printing"
+  // is defined by subtraction, so it only parses once the reader has seen what
+  // it is other THAN. This block was first on the page for a long while, which
+  // opened every Pokemon page on the cards we know least about, buried the
+  // priced grid the page is actually for, and made the dedupe comment above a
+  // lie about its own output.
+  const have = new Set(sorted.map((c) => `${c.setName}|${String(c.n).replace(/^0+/, "")}`));
+  const extra = (printings.get(p.name) || [])
+    .filter((c) => !have.has(`${c.s}|${String(c.i).replace(/^0+/, "")}`))
+    .sort((a, b) => String(a.s).localeCompare(String(b.s)) || String(a.i).localeCompare(String(b.i)));
+  if (!extra.length) return "";
+
+  // TWO GROUPS, TWO LAYOUTS. A tile in .chase-grid is as tall as the row it
+  // lands in, and that row is sized by a 245x342 card scan. A printing with no
+  // scan carries three short lines and nothing else, so it was being stretched
+  // to the height of the picture beside it: about 300px of empty card at
+  // 1024px, and 447px at 1440px, measured. Splitting them is the fix rather
+  // than shrinking the pictures, because the two rows are different things:
+  // one is a wall of cards, the other is an index of names.
+  const withScan = extra.filter((c) => c.g);
+  const noScan = extra.filter((c) => !c.g);
+  const lang = (c) => (c.l === "en" ? "" : c.l === "ja" ? "Japanese" : "Chinese");
+
+  const count =
+    !noScan.length
+      ? `${extra.length} more from sets we do not price, English and Japanese, every one with a scan.`
+      : !withScan.length
+        ? `${extra.length} more from sets we do not price, English and Japanese. No scan for any of them, so this
+      is a list of names rather than a wall of cards.`
+        : `${extra.length} more from sets we do not price, English and Japanese. ${withScan.length} have a scan and
+      are pictured below. The other ${noScan.length} we can name but not show.`;
+
+  return `
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Everywhere else</p>
+    <h2>Every other <span class="hl">${esc(p.name)}</span> printing we could name</h2>
+    <p class="lede" style="max-width:40em">${count} No price on these: we only quote what we can source.
+      Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
+    ${withScan.length ? `<div class="chase-grid">
+      ${withScan
+        .map(
+          (c) => `<div class="chase-card is-flat">
+        <img src="${esc(c.g)}/low.webp" onerror="this.remove()" alt="${esc(c.n)} ${esc(c.i)}, ${esc(c.s)}" loading="lazy" decoding="async" width="245" height="342">
+        <div class="nm">${esc(c.n)}</div>
+        <div class="rr">${esc(c.s)} &bull; ${esc(c.i)}</div>
+        ${c.r ? `<div class="rr">${esc(c.r)}</div>` : ""}
+        ${lang(c) ? `<div class="rr">${lang(c)}</div>` : ""}
+      </div>`,
+        )
+        .join("\n      ")}
+    </div>` : ""}
+    ${noScan.length ? `${withScan.length ? `<h3 class="flat-h">Named, with no scan to show</h3>` : ""}
+    <ul class="flat-list">
+      ${noScan
+        .map(
+          (c) => `<li class="flat-item">
+        <b>${esc(c.n)}</b>
+        <span>${esc(c.s)} &bull; ${esc(c.i)}</span>
+        ${[c.r, lang(c)].filter(Boolean).length ? `<span>${[c.r, lang(c)].filter(Boolean).map(esc).join(" &bull; ")}</span>` : ""}
+      </li>`,
+        )
+        .join("\n      ")}
+    </ul>` : ""}
+    <p class="price-note">Card list from the TCGdex card database, read ${esc(longDate(pChecked) || pChecked)}.
+      A snapshot, not a live feed.</p>
+  </div>
+</section>`;
+})()}
 ${rips.length ? `
 <section class="tight">
   <div class="wrap">

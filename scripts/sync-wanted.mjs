@@ -35,6 +35,8 @@ const SET_MAP = {
 };
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// Same honest agent string the other syncs send.
+const UA = "GarbageRips585/1.0 (fan site; youtube.com/@GarbageRips585)";
 
 async function apiGet(path, { tries = 6 } = {}) {
   let last = "";
@@ -60,6 +62,40 @@ function marketPrice(card) {
     .map((p) => (p && typeof p === "object" ? p.market || p.mid : null))
     .filter((n) => typeof n === "number" && n > 0);
   return vals.length ? Math.max(...vals) : 0;
+}
+
+/**
+ * The card's TCGplayer page, with somebody else's commission taken off it.
+ *
+ * The Pokemon TCG API hands back `prices.pokemontcg.io/tcgplayer/<id>`, which
+ * looks like a neutral redirect and is not: it 302s to
+ * `tcgplayer.pxf.io/scrydex?u=...` and lands on TCGplayer carrying Scrydex's
+ * Impact Radius click id. Every buy link on /wanted.html was earning a third
+ * party a commission, on a site that tells readers "Not affiliate links" on
+ * five other pages. Whatever we decide about affiliate links later, it will not
+ * be by accident and it will not pay somebody else.
+ *
+ * So the redirect is followed once, here, and the tracking query is thrown
+ * away, leaving the plain product URL. The wrapper is also unreliable (three of
+ * nine answered 500 or 502 on a first pass), which is a second reason not to
+ * put it between a reader and the shop.
+ *
+ * Returns null rather than a guess when it cannot resolve: build-wanted.mjs
+ * renders an unlinked card in that case, which is honest.
+ */
+async function directTcgplayer(url) {
+  if (!url) return null;
+  if (/^https:\/\/(?:www\.)?tcgplayer\.com\//.test(url)) return url.split("?")[0];
+  for (let i = 0; i < 3; i++) {
+    try {
+      const r = await fetch(url, { redirect: "follow", headers: { "user-agent": UA } });
+      const final = r.url || "";
+      if (/tcgplayer\.com\/product\//.test(final)) return final.split("?")[0];
+    } catch {}
+    await sleep(800 * (i + 1));
+  }
+  console.log(`  could not resolve a direct TCGplayer link, leaving the card unlinked`);
+  return null;
 }
 
 /**
@@ -159,7 +195,7 @@ for (const want of source.cards || []) {
     got: !!want.got,
     image: card.images?.small || null,
     imageLarge: card.images?.large || null,
-    url: card.tcgplayer?.url || null,
+    url: await directTcgplayer(card.tcgplayer?.url),
     // Raw comes from the API when it has data, and from the file otherwise, so
     // a hand-checked price still shows for a set the market has not reached.
     raw: raw || (typeof want.raw === "number" ? want.raw : null) || autoRaw,

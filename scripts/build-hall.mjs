@@ -5,9 +5,9 @@
 //   node scripts/build-hall.mjs
 //
 // Prices are NOT stored in data/hall.json. They are looked up here from
-// data/psa10.json and public/data/sets.json, so a price refresh moves this page
-// without anyone re-importing the spreadsheet, and one card can never show two
-// different numbers on two different pages.
+// public/data/sets.json, data/psa10.json and data/graded.json, so a price
+// refresh moves this page without anyone re-importing the spreadsheet, and one
+// card can never show two different numbers on two different pages.
 //
 // Ranked by PSA 10 where there is one, and by raw near mint otherwise, because
 // a graded price is the better measure of what a card is worth and most cards
@@ -18,7 +18,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { APP_JS } from "../shared/chrome.mjs";
-import { esc, shortDate, moneyCompact } from "../shared/format.mjs";
+import { esc, shortDate, moneyCompact, noValue, rarityLabel } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -94,29 +94,97 @@ try {
 
 const setById = new Map(sets.map((s) => [s.id, s]));
 
+// THE PSA 10 COLUMN WAS LOOKING IN THE WRONG FILE.
+//
+// data/psa10.json is keyed <set-id>-<number> and is filled by sync-prices.mjs
+// for CHASE cards: all 76 of its entries are secret rares in the 150s and up.
+// Not one card in this hall is a chase card, so every lookup missed and the
+// column rendered fifteen dashes, which is a column that says nothing at all.
+//
+// The file that actually holds these prices is data/graded.json, whose own
+// readme says "SCOPED TO CARDS WE PULLED": sync-pricecharting.mjs runs it over
+// data/hits.json, which is exactly this list. It was never wired up here. It is
+// keyed by name and number the way the sheet wrote them, so it is joined on
+// name, set and printing rather than on a set-id key it does not have.
+let pc = { cards: {} };
+try {
+  pc = JSON.parse(await readFile(join(ROOT, "data/graded.json"), "utf8"));
+} catch { /* no graded sample yet; the column falls back to dashes */ }
+
+// Same folding sync-pricecharting.mjs uses, for the same reason: accents have
+// to go before the strip or "Pokemon GO" and "Pokémon GO" never meet.
+const pcNorm = (x) =>
+  String(x || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
+const pcNum = (x) => String(x ?? "").replace(/^0+(?=\d)/, "");
+const pcByName = new Map();
+for (const rec of Object.values(pc.cards || {})) {
+  const k = pcNorm(rec.name);
+  if (!pcByName.has(k)) pcByName.set(k, []);
+  pcByName.get(k).push(rec);
+}
+
+/**
+ * The graded record for one printing, or null.
+ *
+ * THE PRINTING HAS TO AGREE AND IT IS NOT AUTOMATIC. sync-pricecharting.mjs
+ * only rejects a wrong number when it was given one, and it was run over the
+ * hits, which mostly carry no number. Four records came back for a different
+ * printing of the right card in the right set: Dawn #129 where ours is #118,
+ * Mega Gardevoir ex #178 where ours is #159, Mega Venusaur ex #177 where ours
+ * is #003, Cetitan ex #210 where ours is #065. Its own comment records the
+ * Dawn one as a known bad match. `matched` carries the product PriceCharting
+ * landed on, so the number is checked here and a disagreement is dropped: a
+ * dash is honest, a secret rare's price against a bulk rare is not.
+ */
+function pricecharting(name, setName, number) {
+  for (const rec of pcByName.get(pcNorm(name)) || []) {
+    if (typeof rec.psa10 !== "number") continue;
+    if (!pcNorm(rec.set).includes(pcNorm(setName))) continue;
+    const got = /#\s*(\d+)/.exec(rec.matched || "");
+    if (!got || pcNum(got[1]) !== pcNum(number)) continue;
+    return rec;
+  }
+  return null;
+}
+
 /** Everything the site knows about one pulled card, from every source. */
 function resolve(c) {
   const key = `${c.set}-${c.number}`;
   const set = setById.get(c.set);
   const chase = (set?.chase || []).find((x) => String(x.number) === String(c.number)) || null;
+  const setName = set?.name || c.setName || c.set;
 
   const manual = graded.prices?.[key];
   const auto = graded.auto?.[key];
+  // A person still wins, then the price sync, then PriceCharting. Same order of
+  // trust psa10.json's own readme sets out, with the file that covers these
+  // cards added at the end rather than in front of it.
+  const pcHit = pricecharting(c.name, setName, c.number);
   const psa10 =
     (typeof manual?.price === "number" ? manual.price : typeof manual === "number" ? manual : null) ??
-    (auto?.psa10 && !(auto.psa10Sales != null && auto.psa10Sales < MIN_SALES) ? auto.psa10 : null);
+    (auto?.psa10 && !(auto.psa10Sales != null && auto.psa10Sales < MIN_SALES) ? auto.psa10 : null) ??
+    pcHit?.psa10 ??
+    null;
 
   return {
     ...c,
-    setName: set?.name || c.set,
-    rarity: c._rarity || c.rarity || chase?.rarity || null,
+    setName,
+    // ONE CASING FOR RARITY. TCGdex ships "Ultra Rare" and "Double rare" in the
+    // same checklist, so this list carried both shapes at once. Title Case is
+    // what the rarity guide, the ladder in sync-sets.mjs and the sheet's own
+    // rarities in data/hits.json already use.
+    rarity: rarityLabel(c._rarity || c.rarity || chase?.rarity || null),
     image: c._img || chase?.imageLarge || chase?.image || null,
     url: chase?.url || null,
     // Raw from the checklist first, then whatever the price sync recorded.
+    // PriceCharting's own ungraded figure is deliberately NOT used: every other
+    // page on the site quotes TCGdex for raw, and graded.json says so itself.
     raw: c._raw ?? chase?.price ?? auto?.rawNm ?? null,
     psa10,
-    psa10AsOf: manual?.asOf || auto?.asOf || null,
+    psa10AsOf: manual?.asOf || auto?.asOf || (pcHit ? pc.checked : null) || null,
     psa10Sales: auto?.psa10Sales ?? null,
+    psa10Source: psa10 == null ? null : manual || auto ? "pokemonpricetracker.com" : pc.source || "pricecharting.com",
+    psa10Url: psa10 != null && !manual && !auto ? pcHit?.url || null : null,
   };
 }
 
@@ -124,24 +192,40 @@ const ranked = hall
   .map(resolve)
   .sort((a, b) => (b.psa10 || b.raw || 0) - (a.psa10 || a.raw || 0));
 
-// One total over one set of cards. Summing PSA 10 across the few cards that
-// have a graded price and raw across all of them, then showing the two side by
-// side, made the collection look as though grading had lost it money.
-// Best-known value per card: graded where we have it, raw otherwise.
 // A SUM, and the label has to say so. This was printed as "Best known value",
 // which reads as the best single card, next to a table whose priciest card is
 // $15.30. Every figure on the page contradicted the headline stat, and read
 // correctly it was announcing the channel's entire on-camera haul as one
 // number without saying that is what it was.
-const totalValue = ranked.reduce((n, c) => n + (c.psa10 || c.raw || 0), 0);
+//
+// EACH TILE IS ONE MEASURE OVER A STATED SET OF CARDS. This used to be
+// psa10-or-raw per card summed into a single "all of them together", which was
+// safe only while no card had a PSA 10 price at all. The moment the graded
+// lookup below started resolving, that tile would have jumped roughly tenfold
+// and claimed a pile of raw cards is worth its graded value. Nothing here is
+// graded. So: raw is summed over every card, PSA 10 is summed only over the
+// cards that have one, and the label names the subset.
+const totalRaw = ranked.reduce((n, c) => n + (c.raw || 0), 0);
 const gradedCards = ranked.filter((c) => c.psa10);
 const totalGraded = gradedCards.reduce((n, c) => n + c.psa10, 0);
+
+// SAY WHERE THE PSA 10 FIGURES CAME FROM, because all three facts about them
+// are load bearing and none is guessable from the table: a different source
+// from the raw prices, read on a different day, and a sold price for a slab
+// that nobody in this list actually owns.
+const psaSources = [...new Set(gradedCards.map((c) => c.psa10Source).filter(Boolean))];
+const psaAsOf = gradedCards.map((c) => c.psa10AsOf).filter(Boolean).sort().pop();
+const psaNote = gradedCards.length
+  ? ` PSA 10 FROM ${psaSources.join(" AND ").toUpperCase()}${psaAsOf ? `, READ ${shortDate(psaAsOf).toUpperCase()}` : ""},` +
+    ` AND ONLY WHERE IT RESOLVED TO THIS EXACT PRINTING. NONE OF THESE CARDS IS GRADED:` +
+    ` IT IS WHAT THE SAME CARD SELLS FOR IN A PSA 10 SLAB.`
+  : "";
 
 function plaque(c, i) {
   const rank = i + 1;
   const top = rank <= 3 ? ` chof-top chof-${rank}` : "";
   const img = c.image
-    ? `<img src="${esc(c.image)}" alt="${esc(c.name)} ${esc(c.rarity || "")} from Pokemon ${esc(c.setName)}" loading="lazy" width="245" height="342">`
+    ? `<img src="${esc(c.image)}" alt="${esc(c.name)} ${esc(c.rarity || "")} from Pokemon ${esc(c.setName)}" loading="lazy" onerror="this.remove()" width="245" height="342">`
     : `<span class="chof-noart">${esc(c.name)}</span>`;
   return `      <li class="chof${top}">
         <span class="chof-rank">${rank}</span>
@@ -157,8 +241,8 @@ function plaque(c, i) {
           <span class="chof-set">${esc(c.setName)} &bull; #${esc(c.number)}</span>
           ${c.rarity ? `<span class="chof-rar">${esc(c.rarity)}</span>` : ""}
           <dl class="chof-prices">
-            <div><dt>Raw NM</dt><dd>${c.raw ? moneyCompact(c.raw) : "&mdash;"}</dd></div>
-            <div class="psa"><dt>PSA 10${c.psa10 && c.psa10AsOf ? ` <i>${esc(c.psa10AsOf)}</i>` : ""}</dt><dd>${c.psa10 ? moneyCompact(c.psa10) : "&mdash;"}</dd></div>
+            <div><dt>Raw NM</dt><dd>${c.raw ? moneyCompact(c.raw) : noValue("Not recorded")}</dd></div>
+            <div class="psa"><dt>PSA 10${c.psa10 && c.psa10AsOf ? ` <i>${esc(shortDate(c.psa10AsOf) || c.psa10AsOf)}</i>` : ""}</dt><dd>${c.psa10 ? moneyCompact(c.psa10) : noValue("No PSA 10 price for this printing")}</dd></div>
           </dl>
           ${c.pulledOn || c.pulledIn
             ? `<span class="chof-pulled">Pulled${c.pulledOn ? ` ${shortDate(c.pulledOn)}` : ""}${
@@ -251,8 +335,8 @@ const body = `
       <p>Every card that has come out of a pack on this channel, ranked by what it is worth. Tap a card to see it full size.${derivedFromHits ? " Nothing here was hand picked: this is the whole list of what was pulled on camera, in value order." : ""}</p>
       ${ranked.length ? `<div class="chof-tally">
         <div><b>${ranked.length}</b><span>${derivedFromHits ? "Cards pulled" : "Cards inducted"}</span></div>
-        ${totalValue ? `<div><b>${moneyCompact(totalValue)}</b><span>All of them together</span></div>` : ""}
-        ${gradedCards.length ? `<div><b>${moneyCompact(totalGraded)}</b><span>${gradedCards.length} of ${ranked.length} graded</span></div>` : ""}
+        ${totalRaw ? `<div><b>${moneyCompact(totalRaw)}</b><span>All of them raw</span></div>` : ""}
+        ${gradedCards.length ? `<div><b>${moneyCompact(totalGraded)}</b><span>PSA 10 on ${gradedCards.length} of ${ranked.length}</span></div>` : ""}
       </div>` : ""}
     </div>
 
@@ -264,7 +348,8 @@ ${ranked.map(plaque).join("\n")}
          Chase Cards tab of the video log and it appears here, ranked automatically.</p>`}
 
     <p class="chof-note">RANKED BY PSA 10 WHERE THERE IS ONE, AND BY RAW NEAR MINT OTHERWISE.
-      A DASH MEANS NO PRICE WE ARE WILLING TO STAND BEHIND YET, NOT A CARD WORTH NOTHING.</p>
+      A DASH MEANS NO PRICE WE ARE WILLING TO STAND BEHIND YET, NOT A CARD WORTH NOTHING.
+      RAW NEAR MINT IS THE TCGPLAYER MARKET PRICE VIA TCGDEX.${psaNote}</p>
   </div>
 </main>
 
@@ -309,20 +394,19 @@ ${ranked.map(plaque).join("\n")}
 })();
 </script>`;
 
-const schema = ranked.length
-  ? {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      name: "Garbage Rips 585 Card Hall of Fame",
-      description: "The best Pokemon cards pulled on the Garbage Rips 585 channel, ranked by value.",
-      itemListElement: ranked.map((c, i) => ({
-        "@type": "ListItem",
-        position: i + 1,
-        name: `${c.name} #${c.number} (${c.setName})`,
-        ...(c.url ? { url: c.url } : {}),
-      })),
-    }
-  : null;
+// NO ItemList HERE. This page used to emit one and it never earned anything.
+//
+// `c.url` is the chase list's TCGplayer link, and it is only ever set for a
+// card the SET page happens to feature. Every card in the hall is resolved out
+// of data/hits.json instead, none of which are in a chase list, so in practice
+// the count of entries carrying a url was zero out of fifteen. A ListItem with
+// only `name` and `position` points nowhere, and Google ignores an ItemList
+// whose entries have no resolvable target, so the block was dead weight.
+//
+// It cannot be fixed by pointing somewhere plausible. There is no per-card page
+// on this site to link to. The rip page is about the video, not the card, and
+// several hall cards come out of the same video, so those entries would all
+// collide on one URL. Bring the block back when a card actually has a page.
 
 const home = await readFile(join(ROOT, "public/index.html"), "utf8");
 const head = home.slice(home.indexOf("<head>") + 6, home.indexOf("</head>"));
@@ -354,7 +438,6 @@ await writeFile(
   `<!DOCTYPE html>
 <html lang="en">
 <head>${swapped}<style>${style}</style>
-${schema ? `<script type="application/ld+json">\n${JSON.stringify(schema, null, 2)}\n</script>` : ""}
 </head>
 <body>
 ${skipLink}
@@ -373,10 +456,21 @@ ${APP_JS}
 
 console.log(`Wrote public/hall.html
   cards inducted   ${ranked.length}
-  with PSA 10      ${ranked.filter((c) => c.psa10).length}
+  with PSA 10      ${ranked.filter((c) => c.psa10).length}${psaSources.length ? `  (${psaSources.join(", ")})` : ""}
   with a raw price ${ranked.filter((c) => c.raw).length}
   with card art    ${ranked.filter((c) => c.image).length}
+  rarities         ${[...new Set(ranked.map((c) => c.rarity).filter(Boolean))].sort().join(", ")}
 `);
+// A graded record that named a different printing is dropped on purpose. Say
+// which ones and why, so a run that drops MORE of them is visible rather than
+// looking like a source that quietly went empty.
+for (const c of ranked) {
+  if (c.psa10) continue;
+  const near = (pcByName.get(pcNorm(c.name)) || []).filter((r) => pcNorm(r.set).includes(pcNorm(c.setName)));
+  for (const r of near) {
+    console.log(`  no PSA 10 for ${c.name} #${c.number} (${c.setName}): graded.json holds "${r.matched}", a different printing`);
+  }
+}
 if (!ranked.length) {
   console.log(`Nothing inducted yet. Mark cards "Card Hall of Fame" on the Chase Cards
 tab, export it, and run:  node scripts/import-cards.mjs <csv>

@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=661b6b49">
+<link rel="stylesheet" href="/assets/ui.css?v=ab95a609">
 <link rel="stylesheet" href="/assets/packs.css?v=2d406974">
 <style>
 .rg{padding:var(--s7) 0 var(--s5)}
@@ -29,11 +29,18 @@
 .rg-sec h2{font:400 var(--t-l)/1.15 var(--display);margin-bottom:var(--s3)}
 .rg-p{color:var(--ink-2);max-width:46em;margin-bottom:var(--s4)}
 
-/* The magnified corner. A background image blown up and pinned to the corner
-   the symbol is actually printed in, so it is the real card rather than a
-   drawing of one. */
-.crop{border:2px solid var(--ink);border-radius:var(--r);overflow:hidden;background:var(--card)}
-.crop-img{aspect-ratio:16/7;background-repeat:no-repeat;image-rendering:auto}
+/* The magnified corner. A background image pinned to the corner the symbol is
+   actually printed in, so it is the real card rather than a drawing of one.
+
+   CAPPED AT THE SOURCE WIDTH ON PURPOSE. The scan is 600px wide and is painted
+   at 600px (see SRC_W in this script), so a box any wider than that would just
+   add empty card either side of the corner, and a box that stretched the scan to
+   fill itself would be the upscale this cap exists to stop. 320px shows a bit
+   over half the card's width, which is the whole bottom-left group and then
+   some, at every pixel of detail the source actually has. */
+.crop{border:2px solid var(--ink);border-radius:var(--r);overflow:hidden;background:var(--card);
+  max-width:320px}
+.crop-img{aspect-ratio:16/5;background-repeat:no-repeat;image-rendering:auto}
 .crop figcaption{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-2);padding:8px var(--s3);border-top:1px solid var(--hair);background:var(--page)}
 
@@ -137,10 +144,15 @@
    keeps the cards on a line across the row regardless of caption length. */
 .gloss-fig figcaption{font:400 var(--t-micro)/1.45 var(--mono);color:var(--ink-2);margin-top:6px;
   min-height:2.9em}
-/* The crop wants the tile's full width: it is a magnified corner, and shrinking
-   it defeats the reason it is a crop. */
+/* The crop takes the tile's width up to the 320px cap on .crop, unlike the card
+   images above it, which stop at 132px. It is a magnified corner and the corner
+   is the point, so it gets every pixel the source has rather than being shrunk
+   to match a thumbnail. */
 .gloss-fig.is-crop .crop{margin-top:0}
-.gloss-fig.is-crop .crop-img{aspect-ratio:16/6}
+/* No aspect override here any more. This said 16/6 back when the base was 16/7,
+   to make the glossary strip the SHORTER of the two. The base is 16/5 now, so
+   the same 16/6 would have quietly flipped that round and made it the taller
+   one. One ratio for every crop is the thing that cannot drift. */
 
 .rg-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
@@ -305,7 +317,7 @@
           <h3>Bottom right</h3>
           <p class="who">Base Set, 1999 &bull; XY era and older</p>
           <figure class="crop">
-        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/base/base1/4/high.webp');background-size:340%;background-position:100% 100%"></div>
+        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/base/base1/4/high.webp');background-size:600px auto;background-position:100% 100%"></div>
         <figcaption>Charizard, bottom right corner</figcaption>
       </figure>
           <p class="rg-p" style="margin:0">If the number and symbol are on the right, you are holding
@@ -315,7 +327,7 @@
           <h3>Bottom left</h3>
           <p class="who">Prismatic Evolutions, 2025 &bull; Sun and Moon onward</p>
           <figure class="crop">
-        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv08.5/074/high.webp');background-size:280%;background-position:22% 100%"></div>
+        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv08.5/074/high.webp');background-size:600px auto;background-position:8% 100%"></div>
         <figcaption>Eevee, bottom left corner</figcaption>
       </figure>
           <p class="rg-p" style="margin:0">On the left, and it is 2017 or newer. Everything below is
@@ -359,7 +371,7 @@
       <li class="rr">
         <div class="rr-n">1</div>
         <div class="rr-card">
-          <img src="https://assets.tcgdex.net/en/sv/sv08.5/074/high.webp" alt="Eevee, Prismatic Evolutions" loading="lazy" decoding="async" width="600" height="825">
+          <img src="https://assets.tcgdex.net/en/sv/sv08.5/074/high.webp" alt="Eevee, Prismatic Evolutions" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
         </div>
         <div class="rr-body">
           <h3>Common</h3>
@@ -370,7 +382,7 @@
         </div>
         <div class="rr-zoom">
           <figure class="crop">
-        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv08.5/074/high.webp');background-size:280%;background-position:22% 100%"></div>
+        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv08.5/074/high.webp');background-size:600px auto;background-position:8% 100%"></div>
         <figcaption>the corner, magnified</figcaption>
       </figure>
         </div>
@@ -378,7 +390,7 @@
       <li class="rr">
         <div class="rr-n">2</div>
         <div class="rr-card">
-          <img src="https://assets.tcgdex.net/en/sv/sv07/059/high.webp" alt="Mewtwo, Stellar Crown" loading="lazy" decoding="async" width="600" height="825">
+          <img src="https://assets.tcgdex.net/en/sv/sv07/059/high.webp" alt="Mewtwo, Stellar Crown" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
         </div>
         <div class="rr-body">
           <h3>Uncommon</h3>
@@ -389,7 +401,7 @@
         </div>
         <div class="rr-zoom">
           <figure class="crop">
-        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv07/059/high.webp');background-size:280%;background-position:22% 100%"></div>
+        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv07/059/high.webp');background-size:600px auto;background-position:8% 100%"></div>
         <figcaption>the corner, magnified</figcaption>
       </figure>
         </div>
@@ -397,7 +409,7 @@
       <li class="rr">
         <div class="rr-n">3</div>
         <div class="rr-card">
-          <img src="https://assets.tcgdex.net/en/sv/sv08.5/059/high.webp" alt="Umbreon, Prismatic Evolutions" loading="lazy" decoding="async" width="600" height="825">
+          <img src="https://assets.tcgdex.net/en/sv/sv08.5/059/high.webp" alt="Umbreon, Prismatic Evolutions" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
         </div>
         <div class="rr-body">
           <h3>Rare</h3>
@@ -408,7 +420,7 @@
         </div>
         <div class="rr-zoom">
           <figure class="crop">
-        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv08.5/059/high.webp');background-size:280%;background-position:22% 100%"></div>
+        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv08.5/059/high.webp');background-size:600px auto;background-position:8% 100%"></div>
         <figcaption>the corner, magnified</figcaption>
       </figure>
         </div>
@@ -416,7 +428,7 @@
       <li class="rr">
         <div class="rr-n">4</div>
         <div class="rr-card">
-          <img src="https://assets.tcgdex.net/en/sv/sv08.5/028/high.webp" alt="Pikachu ex, Prismatic Evolutions" loading="lazy" decoding="async" width="600" height="825">
+          <img src="https://assets.tcgdex.net/en/sv/sv08.5/028/high.webp" alt="Pikachu ex, Prismatic Evolutions" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
         </div>
         <div class="rr-body">
           <h3>Double Rare</h3>
@@ -427,7 +439,7 @@
         </div>
         <div class="rr-zoom">
           <figure class="crop">
-        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv08.5/028/high.webp');background-size:280%;background-position:22% 100%"></div>
+        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv08.5/028/high.webp');background-size:600px auto;background-position:8% 100%"></div>
         <figcaption>the corner, magnified</figcaption>
       </figure>
         </div>
@@ -435,7 +447,7 @@
       <li class="rr is-chase">
         <div class="rr-n">5</div>
         <div class="rr-card">
-          <img src="https://assets.tcgdex.net/en/sv/sv05/193/high.webp" alt="Gengar ex, Temporal Forces" loading="lazy" decoding="async" width="600" height="825">
+          <img src="https://assets.tcgdex.net/en/sv/sv05/193/high.webp" alt="Gengar ex, Temporal Forces" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
         </div>
         <div class="rr-body">
           <h3>Ultra Rare <span class="rr-chase">worth chasing</span></h3>
@@ -446,7 +458,7 @@
         </div>
         <div class="rr-zoom">
           <figure class="crop">
-        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv05/193/high.webp');background-size:280%;background-position:22% 100%"></div>
+        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv05/193/high.webp');background-size:600px auto;background-position:8% 100%"></div>
         <figcaption>the corner, magnified</figcaption>
       </figure>
         </div>
@@ -454,7 +466,7 @@
       <li class="rr is-chase">
         <div class="rr-n">6</div>
         <div class="rr-card">
-          <img src="https://assets.tcgdex.net/en/sv/sv06/188/high.webp" alt="Eevee, Twilight Masquerade" loading="lazy" decoding="async" width="600" height="825">
+          <img src="https://assets.tcgdex.net/en/sv/sv06/188/high.webp" alt="Eevee, Twilight Masquerade" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
         </div>
         <div class="rr-body">
           <h3>Illustration Rare <span class="rr-chase">worth chasing</span></h3>
@@ -465,7 +477,7 @@
         </div>
         <div class="rr-zoom">
           <figure class="crop">
-        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv06/188/high.webp');background-size:280%;background-position:22% 100%"></div>
+        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv06/188/high.webp');background-size:600px auto;background-position:8% 100%"></div>
         <figcaption>the corner, magnified</figcaption>
       </figure>
         </div>
@@ -473,7 +485,7 @@
       <li class="rr is-chase">
         <div class="rr-n">7</div>
         <div class="rr-card">
-          <img src="https://assets.tcgdex.net/en/sv/sv08.5/161/high.webp" alt="Umbreon ex, Prismatic Evolutions" loading="lazy" decoding="async" width="600" height="825">
+          <img src="https://assets.tcgdex.net/en/sv/sv08.5/161/high.webp" alt="Umbreon ex, Prismatic Evolutions" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
         </div>
         <div class="rr-body">
           <h3>Special Illustration Rare <span class="rr-chase">worth chasing</span></h3>
@@ -484,7 +496,7 @@
         </div>
         <div class="rr-zoom">
           <figure class="crop">
-        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv08.5/161/high.webp');background-size:280%;background-position:22% 100%"></div>
+        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv08.5/161/high.webp');background-size:600px auto;background-position:8% 100%"></div>
         <figcaption>the corner, magnified</figcaption>
       </figure>
         </div>
@@ -492,7 +504,7 @@
       <li class="rr">
         <div class="rr-n">8</div>
         <div class="rr-card">
-          <img src="https://assets.tcgdex.net/en/sv/sv08.5/119/high.webp" alt="Prime Catcher, Prismatic Evolutions" loading="lazy" decoding="async" width="600" height="825">
+          <img src="https://assets.tcgdex.net/en/sv/sv08.5/119/high.webp" alt="Prime Catcher, Prismatic Evolutions" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
         </div>
         <div class="rr-body">
           <h3>ACE SPEC Rare</h3>
@@ -503,7 +515,7 @@
         </div>
         <div class="rr-zoom">
           <figure class="crop">
-        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv08.5/119/high.webp');background-size:280%;background-position:22% 100%"></div>
+        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv08.5/119/high.webp');background-size:600px auto;background-position:8% 100%"></div>
         <figcaption>the corner, magnified</figcaption>
       </figure>
         </div>
@@ -511,7 +523,7 @@
       <li class="rr is-chase">
         <div class="rr-n">9</div>
         <div class="rr-card">
-          <img src="https://assets.tcgdex.net/en/sv/sv03/228/high.webp" alt="Charizard ex, Obsidian Flames" loading="lazy" decoding="async" width="600" height="825">
+          <img src="https://assets.tcgdex.net/en/sv/sv03/228/high.webp" alt="Charizard ex, Obsidian Flames" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
         </div>
         <div class="rr-body">
           <h3>Hyper Rare <span class="rr-chase">worth chasing</span></h3>
@@ -522,7 +534,7 @@
         </div>
         <div class="rr-zoom">
           <figure class="crop">
-        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv03/228/high.webp');background-size:280%;background-position:22% 100%"></div>
+        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv03/228/high.webp');background-size:600px auto;background-position:8% 100%"></div>
         <figcaption>the corner, magnified</figcaption>
       </figure>
         </div>
@@ -530,7 +542,7 @@
       <li class="rr is-chase">
         <div class="rr-n">10</div>
         <div class="rr-card">
-          <img src="https://images.scrydex.com/pokemon/me5-120/large" alt="Mega Darkrai ex, Pitch Black" loading="lazy" decoding="async" width="600" height="825">
+          <img src="https://images.scrydex.com/pokemon/me5-120/large" alt="Mega Darkrai ex, Pitch Black" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
         </div>
         <div class="rr-body">
           <h3>Mega Hyper Rare <span class="rr-chase">worth chasing</span></h3>
@@ -541,7 +553,7 @@
         </div>
         <div class="rr-zoom">
           <figure class="crop">
-        <div class="crop-img" style="background-image:url('https://images.scrydex.com/pokemon/me5-120/large');background-size:280%;background-position:22% 100%"></div>
+        <div class="crop-img" style="background-image:url('https://images.scrydex.com/pokemon/me5-120/large');background-size:600px auto;background-position:8% 100%"></div>
         <figcaption>the corner, magnified</figcaption>
       </figure>
         </div>
@@ -574,15 +586,15 @@
         the same card.</p>
       <div class="exs">
         <div class="ex1"><b>Pokemon-ex</b><p class="yrs">2003 to 2007, lowercase</p>
-          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/ex/ex6/105/high.webp" alt="Charizard ex, FireRed &amp; LeafGreen, 2004" loading="lazy" decoding="async" width="600" height="825"><figcaption>Charizard ex, FireRed &amp; LeafGreen, 2004</figcaption></figure>
+          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/ex/ex6/105/high.webp" alt="Charizard ex, FireRed &amp; LeafGreen, 2004" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"><figcaption>Charizard ex, FireRed &amp; LeafGreen, 2004</figcaption></figure>
           <p>The original. No rule box: the rule is plain italic text along the bottom, and abilities
             are called Poke-POWER or Poke-BODY.</p></div>
         <div class="ex1"><b>Pokemon-EX</b><p class="yrs">2012 to 2016, uppercase</p>
-          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/xy/xy2/11/high.webp" alt="Charizard EX, Flashfire, 2014" loading="lazy" decoding="async" width="600" height="825"><figcaption>Charizard EX, Flashfire, 2014</figcaption></figure>
+          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/xy/xy2/11/high.webp" alt="Charizard EX, Flashfire, 2014" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"><figcaption>Charizard EX, Flashfire, 2014</figcaption></figure>
           <p>Black and White through XY. Almost always Basic, whatever the Pokemon's real stage.
             Mega EX ended your turn unless you played a Spirit Link.</p></div>
         <div class="ex1"><b>Pokemon ex</b><p class="yrs">2023 to now, lowercase again</p>
-          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/sv/sv03/125/high.webp" alt="Charizard ex, Obsidian Flames, 2023" loading="lazy" decoding="async" width="600" height="825"><figcaption>Charizard ex, Obsidian Flames, 2023</figcaption></figure>
+          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/sv/sv03/125/high.webp" alt="Charizard ex, Obsidian Flames, 2023" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"><figcaption>Charizard ex, Obsidian Flames, 2023</figcaption></figure>
           <p>Current. Has a bordered rule box in the bottom corner where the Pokedex entry would sit.
             That box is the quickest way to tell it from a 2003 one.</p></div>
       </div>
@@ -594,42 +606,42 @@
         <li>
           <b>Pokemon LV.X</b><p class="yrs">2007 to 2009</p><p>Played on top of an Active Pokemon. Gold band across the top.</p>
           <figure class="gone-fig">
-            <img src="https://assets.tcgdex.net/en/pl/pl1/123/high.webp" alt="Drapion LV.X, Platinum" loading="lazy" decoding="async" width="600" height="825">
+            <img src="https://assets.tcgdex.net/en/pl/pl1/123/high.webp" alt="Drapion LV.X, Platinum" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>Drapion LV.X, Platinum</figcaption>
           </figure>
         </li>
         <li>
           <b>Pokemon Prime</b><p class="yrs">2010</p><p>The word Prime is not printed anywhere on the card. Spot them by the gold name text and spiked artwork edges.</p>
           <figure class="gone-fig">
-            <img src="https://assets.tcgdex.net/en/hgss/hgss3/81/high.webp" alt="Espeon Prime, Undaunted" loading="lazy" decoding="async" width="600" height="825">
+            <img src="https://assets.tcgdex.net/en/hgss/hgss3/81/high.webp" alt="Espeon Prime, Undaunted" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>Espeon Prime, Undaunted</figcaption>
           </figure>
         </li>
         <li>
           <b>Pokemon LEGEND</b><p class="yrs">2010</p><p>Two card halves that combined into one Pokemon.</p>
           <figure class="gone-fig">
-            <img src="https://assets.tcgdex.net/en/hgss/hgss3/87/high.webp" alt="Kyogre &amp; Groudon LEGEND, Undaunted" loading="lazy" decoding="async" width="600" height="825">
+            <img src="https://assets.tcgdex.net/en/hgss/hgss3/87/high.webp" alt="Kyogre &amp; Groudon LEGEND, Undaunted" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>Kyogre &amp; Groudon LEGEND, Undaunted</figcaption>
           </figure>
         </li>
         <li>
           <b>Pokemon-EX and M Pokemon-EX</b><p class="yrs">2012 to 2016</p><p>The uppercase EX. Mega EX ended your turn unless you used a Spirit Link.</p>
           <figure class="gone-fig">
-            <img src="https://assets.tcgdex.net/en/xy/xy2/11/high.webp" alt="Charizard EX, Flashfire" loading="lazy" decoding="async" width="600" height="825">
+            <img src="https://assets.tcgdex.net/en/xy/xy2/11/high.webp" alt="Charizard EX, Flashfire" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>Charizard EX, Flashfire</figcaption>
           </figure>
         </li>
         <li>
           <b>Pokemon BREAK</b><p class="yrs">2015 to 2016</p><p>Printed sideways and stacked on the stage below.</p>
           <figure class="gone-fig">
-            <img src="https://assets.tcgdex.net/en/xy/xy9/41/high.webp" alt="Greninja BREAK, BREAKpoint" loading="lazy" decoding="async" width="600" height="825">
+            <img src="https://assets.tcgdex.net/en/xy/xy9/41/high.webp" alt="Greninja BREAK, BREAKpoint" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>Greninja BREAK, BREAKpoint</figcaption>
           </figure>
         </li>
         <li>
           <b>Pokemon-GX</b><p class="yrs">2017 to 2019</p><p>One GX attack per game. Tag Team GX put two Pokemon on a card and gave up three prizes.</p>
           <figure class="gone-fig">
-            <img src="https://assets.tcgdex.net/en/sm/sm115/9/high.webp" alt="Charizard GX, Hidden Fates" loading="lazy" decoding="async" width="600" height="825">
+            <img src="https://assets.tcgdex.net/en/sm/sm115/9/high.webp" alt="Charizard GX, Hidden Fates" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>Charizard GX, Hidden Fates</figcaption>
           </figure>
         </li>
@@ -640,14 +652,14 @@
         <li>
           <b>V, VMAX and VSTAR</b><p class="yrs">2020 to January 2023</p><p>Ended at Crown Zenith.</p>
           <figure class="gone-fig">
-            <img src="https://assets.tcgdex.net/en/swsh/swsh3/20/high.webp" alt="Charizard VMAX, Darkness Ablaze" loading="lazy" decoding="async" width="600" height="825">
+            <img src="https://assets.tcgdex.net/en/swsh/swsh3/20/high.webp" alt="Charizard VMAX, Darkness Ablaze" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>Charizard VMAX, Darkness Ablaze</figcaption>
           </figure>
         </li>
         <li>
           <b>Radiant Pokemon</b><p class="yrs">2022 to 2023</p><p>Always Basic, one per deck, only worth one prize.</p>
           <figure class="gone-fig">
-            <img src="https://assets.tcgdex.net/en/swsh/swsh10.5/011/high.webp" alt="Radiant Charizard, Pokemon GO" loading="lazy" decoding="async" width="600" height="825">
+            <img src="https://assets.tcgdex.net/en/swsh/swsh10.5/011/high.webp" alt="Radiant Charizard, Pokemon GO" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>Radiant Charizard, Pokemon GO</figcaption>
           </figure>
         </li>
@@ -665,7 +677,7 @@
           <b>IR</b>
           <p>Illustration Rare. One gold star, full art of a non-ex Pokemon in a scene.</p>
           <figure class="gloss-fig">
-            <img src="https://assets.tcgdex.net/en/sv/sv02/203/high.webp" alt="Magikarp, Paldea Evolved" loading="lazy" decoding="async" width="600" height="825">
+            <img src="https://assets.tcgdex.net/en/sv/sv02/203/high.webp" alt="Magikarp, Paldea Evolved" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>Magikarp, Paldea Evolved</figcaption>
           </figure>
         </li>
@@ -673,7 +685,7 @@
           <b>SIR</b>
           <p>Special Illustration Rare. Two gold stars. Usually the best card in the set.</p>
           <figure class="gloss-fig">
-            <img src="https://assets.tcgdex.net/en/me/me02.5/284/high.webp" alt="Mega Gengar ex, Ascended Heroes" loading="lazy" decoding="async" width="600" height="825">
+            <img src="https://assets.tcgdex.net/en/me/me02.5/284/high.webp" alt="Mega Gengar ex, Ascended Heroes" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>Mega Gengar ex, Ascended Heroes</figcaption>
           </figure>
         </li>
@@ -681,7 +693,7 @@
           <b>AA / alt art</b>
           <p>Alternate art. Collector slang, not a printed rarity. On a modern card it almost always means an IR or an SIR.</p>
           <figure class="gloss-fig">
-            <img src="https://assets.tcgdex.net/en/sv/sv04/199/high.webp" alt="Groudon, Paradox Rift. An Illustration Rare" loading="lazy" decoding="async" width="600" height="825">
+            <img src="https://assets.tcgdex.net/en/sv/sv04/199/high.webp" alt="Groudon, Paradox Rift. An Illustration Rare" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>Groudon, Paradox Rift. An Illustration Rare</figcaption>
           </figure>
         </li>
@@ -689,7 +701,7 @@
           <b>FA</b>
           <p>Full art. The illustration covers the whole card with no artwork window.</p>
           <figure class="gloss-fig">
-            <img src="https://assets.tcgdex.net/en/sv/sv03.5/183/high.webp" alt="Charizard ex, 151" loading="lazy" decoding="async" width="600" height="825">
+            <img src="https://assets.tcgdex.net/en/sv/sv03.5/183/high.webp" alt="Charizard ex, 151" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>Charizard ex, 151</figcaption>
           </figure>
         </li>
@@ -702,7 +714,7 @@
           <b>UR</b>
           <p>Ultra Rare. Two silver stars, a full art ex.</p>
           <figure class="gloss-fig">
-            <img src="https://assets.tcgdex.net/en/me/me02.5/271/high.webp" alt="Mega Dragonite ex, Ascended Heroes" loading="lazy" decoding="async" width="600" height="825">
+            <img src="https://assets.tcgdex.net/en/me/me02.5/271/high.webp" alt="Mega Dragonite ex, Ascended Heroes" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>Mega Dragonite ex, Ascended Heroes</figcaption>
           </figure>
         </li>
@@ -710,7 +722,7 @@
           <b>Hit</b>
           <p>Any card out of a pack worth meaningfully more than the pack cost.</p>
           <figure class="gloss-fig">
-            <img src="https://assets.tcgdex.net/en/sv/sv08.5/161/high.webp" alt="Umbreon ex, Prismatic Evolutions. $1,470" loading="lazy" decoding="async" width="600" height="825">
+            <img src="https://assets.tcgdex.net/en/sv/sv08.5/161/high.webp" alt="Umbreon ex, Prismatic Evolutions. $1,470" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>Umbreon ex, Prismatic Evolutions. $1,470</figcaption>
           </figure>
         </li>
@@ -718,7 +730,7 @@
           <b>Chase</b>
           <p>The one card everybody is opening the set hoping to find.</p>
           <figure class="gloss-fig">
-            <img src="https://assets.tcgdex.net/en/me/me02/125/high.webp" alt="Mega Charizard X ex, the Phantasmal Flames chase" loading="lazy" decoding="async" width="600" height="825">
+            <img src="https://assets.tcgdex.net/en/me/me02/125/high.webp" alt="Mega Charizard X ex, the Phantasmal Flames chase" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>Mega Charizard X ex, the Phantasmal Flames chase</figcaption>
           </figure>
         </li>
@@ -726,7 +738,7 @@
           <b>Bulk</b>
           <p>Commons, uncommons and low value rares. Sold by weight or by the thousand.</p>
           <figure class="gloss-fig">
-            <img src="https://assets.tcgdex.net/en/sv/sv07/057/high.webp" alt="Slowpoke, Stellar Crown. A Common" loading="lazy" decoding="async" width="600" height="825">
+            <img src="https://assets.tcgdex.net/en/sv/sv07/057/high.webp" alt="Slowpoke, Stellar Crown. A Common" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825">
             <figcaption>Slowpoke, Stellar Crown. A Common</figcaption>
           </figure>
         </li>
@@ -759,7 +771,7 @@
           <b>Secret rare</b>
           <p>A card numbered higher than the set total, like 199/198.</p>
           <div class="gloss-fig is-crop"><figure class="crop">
-        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv10.5b/105/high.webp');background-size:280%;background-position:22% 100%"></div>
+        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv10.5b/105/high.webp');background-size:600px auto;background-position:8% 100%"></div>
         <figcaption>Seismitoad, Black Bolt. The corner reads 105/086</figcaption>
       </figure></div>
         </li>
@@ -767,7 +779,7 @@
           <b>Regulation mark</b>
           <p>The single letter in the bottom corner. It controls tournament legality and has nothing to do with rarity or value.</p>
           <div class="gloss-fig is-crop"><figure class="crop">
-        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv03.5/011/high.webp');background-size:280%;background-position:22% 100%"></div>
+        <div class="crop-img" style="background-image:url('https://assets.tcgdex.net/en/sv/sv03.5/011/high.webp');background-size:600px auto;background-position:8% 100%"></div>
         <figcaption>Metapod, 151. The letter sits after the illustrator credit</figcaption>
       </figure></div>
         </li>

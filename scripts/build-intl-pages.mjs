@@ -141,8 +141,15 @@ function twinBand(g) {
           g.cardCount?.total ? `${g.cardCount.total} cards` : null,
           longDate(g.released) || null,
         ].filter(Boolean).join(" &bull; ")}</p>
-        <p class="intl-lead">The one on this page</p>
-        <a class="intl-link" href="${esc(g.tcgdexUrl)}" rel="noopener" target="_blank">Full checklist on TCGdex</a>
+        <!--
+          There was a "Full checklist on TCGdex" link here, pointing at
+          www.tcgdex.net/<lang>/sets/<id>. All 15 URLs it built are 404s, and so
+          is the root: TCGdex publishes api., assets. and tcgdex.dev and has no
+          consumer site, so the link could never have worked. It was redundant
+          as well, because the checklist is further down THIS page and the
+          source line at the foot already credits TCGdex.
+        -->
+        <p class="intl-lead">The one on this page, checklist below</p>
       </li>
       <li class="intl is-en">
         <p class="intl-lang">English${en.apiId ? ` &bull; ${esc(String(en.apiId).toUpperCase())}` : ""}</p>
@@ -274,7 +281,7 @@ ${g.notable?.length ? `
         data-name="${esc(cardName(c))}" data-rarity="${esc(c.rarity || (c.secret ? "Numbered past the set" : ""))}"
         data-number="${esc(c.localId || "")}" data-price=""
         aria-label="Enlarge ${esc(cardName(c))}">
-        ${c.image ? `<img src="${esc(c.image)}" alt="${esc(cardName(c))} ${esc(c.localId || "")}, ${esc(g.english)}" loading="lazy" width="245" height="342">` : ""}
+        ${c.image ? `<img src="${esc(c.image)}" alt="${esc(cardName(c))} ${esc(c.localId || "")}, ${esc(g.english)}" loading="lazy" onerror="this.remove()" width="245" height="342">` : ""}
         <div class="nm">${esc(cardName(c))}</div>
         ${cardSub(c) ? `<div class="ig-native" lang="${esc(g.dataSource?.lang || g.lang)}">${esc(cardSub(c))}</div>` : ""}
         <div class="rr">${esc(c.rarity || (c.secret ? "Secret" : kindOf(c) || "Card"))} &bull; ${esc(c.localId || "")}</div>
@@ -358,7 +365,7 @@ ${rips.length ? `
   <div class="wrap">
     <h2>Where this <span class="hl">came from</span></h2>
     <ul class="facts-list">
-      <li>Set details, checklist and rarities from <a href="${esc(g.tcgdexUrl)}" rel="noopener" target="_blank">TCGdex</a>, read ${esc(longDate(guides.checked) || guides.checked)}.</li>
+      <li>Set details, checklist and rarities from <a href="https://tcgdex.dev/" rel="noopener" target="_blank">TCGdex</a>, read ${esc(longDate(guides.checked) || guides.checked)}.</li>
       ${g.dataSource?.borrowed ? `<li><strong>The checklist below is the ${esc(g.dataSource.langName)} one.</strong> ${
         g.dataNote
           ? esc(g.dataNote)

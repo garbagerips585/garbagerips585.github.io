@@ -29,6 +29,11 @@ const STEPS = [
   // the one that happened to fetch them once, which includes whatever machine
   // does the launch flip. The script is a no-op when the cache is warm.
   "bash scripts/fetch-fonts.sh",
+  // BEFORE every page builder. It writes public/assets/ui.css from
+  // assets-source/ui.css, and shared/chrome.mjs hashes public/assets/ui.css at
+  // import time for the cache-busting ?v=. Run it later and every page is
+  // stamped with the hash of the stylesheet it is not carrying.
+  "node scripts/build-css.mjs",
   "node scripts/stamp-labels.mjs",
   "node scripts/sync-chrome.mjs",
   "python3 scripts/build-og-pages.py",

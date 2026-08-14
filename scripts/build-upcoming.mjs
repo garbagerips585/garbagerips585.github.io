@@ -65,7 +65,7 @@ function preorderBand(setName) {
 
   const prods = e.products.slice(0, 9).map((p) => `        <li class="po">
           <a class="po-shot" href="${esc(p.url)}" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
-            <img src="${esc(p.thumb)}" alt="" loading="lazy" decoding="async" width="200" height="200" referrerpolicy="no-referrer">
+            <img src="${esc(p.thumb)}" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="200" height="200" referrerpolicy="no-referrer">
           </a>
           <div class="po-body">
             <h4><a href="${esc(p.url)}" rel="noopener" target="_blank">${esc(p.name)}</a></h4>
@@ -79,7 +79,7 @@ function preorderBand(setName) {
 
   const cards = e.chase.slice(0, 8).map((c) => `        <li class="poc">
           <a href="${esc(c.url)}" rel="noopener" target="_blank">
-            <img src="${esc(c.thumb)}" alt="${esc(c.name)}" loading="lazy" decoding="async" width="200" height="280" referrerpolicy="no-referrer">
+            <img src="${esc(c.thumb)}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove()" decoding="async" width="200" height="280" referrerpolicy="no-referrer">
             <span class="poc-n">${esc(c.name)}</span>
             <span class="poc-r">${esc(c.rarity || "")}${c.number ? ` &bull; ${esc(c.number)}` : ""}</span>
           </a>
@@ -333,18 +333,15 @@ ${extras.map(extraCard).join("\n")}
   </section>
 </main>`;
 
-const ld = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  name: "Upcoming Pokemon TCG sets and products",
-  description: "Announced English Pokemon Trading Card Game releases with confirmed dates.",
-  url: `${SITE}/upcoming.html`,
-  itemListElement: [...sets, ...extras].map((s, i) => ({
-    "@type": "ListItem",
-    position: i + 1,
-    name: s.name,
-  })),
-};
+// NO ItemList. This page shipped one whose entries were bare names with a
+// position and no `url` and no `item`, so there was nothing for a crawler to
+// follow and the block was ignored in full.
+//
+// Every entry here is unreleased, which is the whole point of the page, so
+// there is no /sets/ guide to link to yet and there will not be until the set
+// is out. The `<article class="up-set">` blocks carry no id either, so there is
+// not even an anchor on this page. When these sets ship and get their own set
+// pages, an ItemList pointing at those is worth writing.
 
 const nextUp = sets[0] || extras[0];
 
@@ -373,9 +370,6 @@ const html = `<!DOCTYPE html>
 ${FONTS}
 ${STYLES}
 <style>${style}</style>
-<script type="application/ld+json">
-${JSON.stringify(ld, null, 2)}
-</script>
 </head>
 <body>
 ${SKIP}

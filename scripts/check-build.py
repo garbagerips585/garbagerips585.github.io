@@ -188,8 +188,11 @@ for path in glob.glob("public/data/*.json") + glob.glob("public/data/cards/*.jso
 # whatever happens to be next in the file rather than where the typo is. The
 # first one silently killed the hit card grid and shipped. It costs
 # milliseconds to check and it is checkable, so it is checked.
+#
+# It reads the SOURCE, assets-source/ui.css, not the built copy: that is the
+# file a human edits, so it is the file whose line numbers are worth printing.
 import re as _re
-_css = open(os.path.join(ROOT, "public/assets/ui.css"), encoding="utf-8").read()
+_css = open(os.path.join(ROOT, "assets-source/ui.css"), encoding="utf-8").read()
 _noc = _re.sub(r"/\*.*?\*/", lambda m: _re.sub(r"[^\n]", " ", m.group(0)), _css, flags=_re.S)
 _depth = 0
 _stray = None
@@ -206,6 +209,21 @@ if _stray:
     fail.append(f"ui.css: stray closing brace at line {_stray}; the rule after it is being discarded")
 elif _depth:
     fail.append(f"ui.css: {_depth} unclosed rule(s); everything after the last one is swallowed")
+
+# CSS SOURCE IN SYNC WITH WHAT SHIPS. public/assets/ui.css is generated from
+# assets-source/ui.css by scripts/build-css.mjs, and it is the generated one
+# that 425 pages link. Two ways that silently goes wrong: editing the built
+# copy (the next build discards the edit) or editing the source and not
+# building (the edit never ships). Both look like "my CSS change did nothing",
+# which is a bad afternoon, so compare them here.
+_built = open(os.path.join(ROOT, "public/assets/ui.css"), encoding="utf-8").read()
+_squash = lambda t: _re.sub(r"\s+", "", _re.sub(r"/\*.*?\*/", "", t, flags=_re.S))
+if _squash(_css) != _squash(_built):
+    fail.append(
+        "ui.css: assets-source/ui.css and public/assets/ui.css differ by more "
+        "than comments. Run node scripts/build-css.mjs (and check you did not "
+        "edit the generated public/assets/ui.css by hand)."
+    )
 
 if fail:
     print(f"\n{len(fail)} problem(s):")
