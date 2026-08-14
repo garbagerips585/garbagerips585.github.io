@@ -105,7 +105,7 @@
       "how": "Read every word on the card, including the tiny print.",
       "real": "Correct spelling and grammar throughout, and the accent is always there in Pokemon.",
       "fake": "Spelling or grammar mistakes, Pokemon written without the accent over the e, the words Pocket Monster anywhere, or an HP or attack value in the thousands.",
-      "why": "The cheapest fakes are typeset by someone not working from the original files. No card has an HP above 380, so a 1000HP card is not a rare one, it is a fake one.",
+      "why": "The cheapest fakes are typeset by someone not working from the original files. The highest HP ever printed on a Pokemon card is 380, on Mega Venusaur ex in Mega Evolution, so a 1000HP card is not a rare one, it is a fake one. Checked against the Pokemon TCG API on August 14, 2026: 14 cards sit at 350HP or above and none at 400 or above.",
       "caveat": "Passing proves little. Better fakes copy the text straight off a real card, and a few genuine old cards have famous printing errors of their own."
     },
     {

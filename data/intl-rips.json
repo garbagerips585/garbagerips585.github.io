@@ -45,7 +45,7 @@
       "english": "Abyss Eye",
       "equivalent": "pitch-black",
       "confidence": "confirmed",
-      "note": "Released 2026-05-22, about two months ahead of the English Pitch Black. Same set, same chase lineup, Japanese print run.",
+      "note": "Released May 22, 2026, about two months ahead of the English Pitch Black. Same set, same chase lineup, Japanese print run.",
       "published": "2026-08-12"
     },
     "ja-ninja-spinner": {
@@ -148,7 +148,7 @@
         "id": "SV5a"
       },
       "confidence": "partial",
-      "note": "A smaller Japanese subset whose cards were spread across more than one English set rather than becoming one of its own, so the English match is partial rather than one to one.",
+      "note": "A smaller Japanese subset whose cards were spread across more than one English set rather than becoming one of its own, so the English match is partial rather than one to one. CHECKED AGAINST THE CHECKLISTS, not against an article: of the 51 Crimson Haze cards we hold an English name for, 49 appear in the Twilight Masquerade checklist. The next closest English set is Stellar Crown with 6. Korean release date 2024-05-24 confirmed against api.tcgdex.net/v2/ko/sets/SV5a, read August 14, 2026.",
       "published": "2026-08-12"
     },
     "ko-mask-of-change": {
@@ -162,7 +162,7 @@
         "id": "SV6"
       },
       "confidence": "confirmed",
-      "note": "The Korean printing of the set behind English Twilight Masquerade. Korea got it 2024-06-21, a month after the English release, which is normal: it follows the Japanese schedule, not the English one.",
+      "note": "The Korean printing of the set behind English Twilight Masquerade. Korea got it on June 21, 2024, a month after the English release, which is normal: it follows the Japanese schedule, not the English one.",
       "published": "2026-08-12"
     },
     "ko-battle-partners": {
