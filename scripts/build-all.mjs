@@ -24,6 +24,11 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const STEPS = [
+  // FIRST, because build-og-pages.py needs the font files and .cache is
+  // gitignored. Without this the whole chain fails on any machine that is not
+  // the one that happened to fetch them once, which includes whatever machine
+  // does the launch flip. The script is a no-op when the cache is warm.
+  "bash scripts/fetch-fonts.sh",
   "node scripts/stamp-labels.mjs",
   "node scripts/sync-chrome.mjs",
   "python3 scripts/build-og-pages.py",
@@ -54,6 +59,10 @@ const STEPS = [
   "node scripts/build-lore.mjs",
   "node scripts/sync-chrome.mjs",
   "node scripts/build-locals.mjs",
+  // 404.html is generated too, and was missing from this list, so it only ever
+  // rebuilt by hand. It carries no absolute site url today, which is the only
+  // reason that was harmless.
+  "node scripts/build-404.mjs",
   "node scripts/stamp-assets.mjs",
   "python3 scripts/check-build.py",
 ];

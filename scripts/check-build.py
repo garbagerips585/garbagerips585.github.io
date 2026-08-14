@@ -149,11 +149,22 @@ for f in pages:
         r'<script type="application/ld\+json">(.*?)</script>',
         open(f, encoding="utf-8").read(), re.S):
         try:
-            json.loads(block)
+            doc = json.loads(block)
         except Exception:
             bad += 1
             if bad < 4:
                 fail.append(f"malformed JSON-LD in {f}")
+            continue
+        # PARSING IS NOT ENOUGH. json.loads("null") returns None and raises
+        # nothing, so a page emitting a literal `null` inside the script tag
+        # passed this check for as long as it existed. luck.html shipped exactly
+        # that: a guard correctly declined to invent a Dataset, then printed the
+        # absence of one as markup. A block has to be an object or a list of
+        # them to describe anything at all.
+        if not isinstance(doc, (dict, list)) or doc == [] or doc == {}:
+            bad += 1
+            if bad < 4:
+                fail.append(f"empty or non-object JSON-LD in {f}: {block.strip()[:40]!r}")
 if not bad:
     note("  all JSON-LD parses")
 

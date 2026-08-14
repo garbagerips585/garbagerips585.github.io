@@ -369,9 +369,9 @@ ${judged.length ? "" : '<meta name="robots" content="noindex,follow">\n'}<link r
 ${FONTS}
 ${STYLES}
 <style>${style}</style>
-<script type="application/ld+json">
+${ld ? `<script type="application/ld+json">
 ${JSON.stringify(ld, null, 2)}
-</script>
+</script>` : "<!-- No Dataset markup: there are no judged rips yet, so there is nothing to describe. -->"}
 </head>
 <body>
 ${SKIP}

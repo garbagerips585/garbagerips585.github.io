@@ -13,7 +13,7 @@
 import { readFile, writeFile, readdir } from "node:fs/promises";
 import { ripLabel } from "../shared/riplabel.mjs";
 import { SITE, DOMAIN, STAGING } from "../shared/site.mjs";
-import { join, dirname } from "node:path";
+import { basename, join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkDrift } from "../shared/chrome.mjs";
 import { esc, MONTHS_SHORT as MONTHS, moneyCompact } from "../shared/format.mjs";
@@ -23,7 +23,24 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // the prototype can never drift into showing something the real page does not.
 // The prototypes are gone: they were scratch pages that shipped to the deploy
 // root, publicly reachable and carrying no canonical or description.
-const TARGETS = [join(ROOT, "public/index.html")];
+// ALL THREE HAND-MAINTAINED PAGES, not just the home page.
+//
+// This list was one entry, and the domain rewrite below (see OTHER) is the only
+// thing that moves an absolute url off the staging host. Every other page is
+// generated and takes its urls from shared/site.mjs, so flipping LIVE moves
+// them automatically. videos.html and playlists.html are written by nobody, so
+// they kept their github.io canonical, og:url and og:image through the flip.
+//
+// /videos.html is the "Every Rip" hub and the joint highest-priority entry in
+// the sitemap at 0.9. After launch the sitemap would have said
+// garbagerips585.com/videos.html while the page canonicalised to an abandoned
+// host, which is a conflict a search engine usually resolves by dropping the
+// url rather than by picking one.
+const TARGETS = [
+  join(ROOT, "public/index.html"),
+  join(ROOT, "public/videos.html"),
+  join(ROOT, "public/playlists.html"),
+];
 
 /* ------------------------------------------------------------------ data -- */
 
@@ -548,13 +565,21 @@ for (const target of TARGETS) {
     const end = `<!-- ${name}:END -->`;
     const a = html.indexOf(start);
     const b = html.indexOf(end);
+    // A MISSING MARKER IS ONLY FATAL ON THE PAGE THAT OWNS THE REGION.
+    // index.html carries all of them. videos.html and playlists.html are in
+    // TARGETS purely so the domain rewrite below reaches them, and they have
+    // never had a content region, so treating an absent marker as an error
+    // would fail the build for doing exactly what was intended.
     if (a === -1 || b === -1) {
-      console.error(`Marker ${name} not found in ${target}`);
-      process.exit(1);
+      if (basename(target) === "index.html") {
+        console.error(`Marker ${name} not found in ${target}`);
+        process.exit(1);
+      }
+      continue;
     }
     html = html.slice(0, a + start.length) + "\n" + body + "\n" + html.slice(b);
   }
-  // THE HOMEPAGE HEAD IS HAND MAINTAINED AND WAS NOT DERIVED FROM SITE.
+  // THESE THREE HEADS ARE HAND MAINTAINED AND WERE NOT DERIVED FROM SITE.
 // index.html is the one page not generated wholesale: this script only replaces
 // the marked regions, so seven absolute URLs in its head (canonical, og:url,
 // og:image, twitter:image and three in the Organization JSON-LD) stayed frozen
@@ -566,7 +591,7 @@ const OTHER = SITE === DOMAIN ? STAGING : DOMAIN;
 const before = (html.match(new RegExp(OTHER.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length;
 if (before) {
   html = html.split(OTHER).join(SITE);
-  console.log(`  rewrote ${before} absolute url(s) in the homepage head to ${SITE}`);
+  console.log(`  ${basename(target)}: rewrote ${before} absolute url(s) to ${SITE}`);
 }
 
 await writeFile(target, html);
