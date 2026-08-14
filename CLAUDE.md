@@ -99,6 +99,15 @@ is silent: a CSS animation naming missing keyframes never runs and never
 fires `animationend`, so the pack simply sat there. If the pack stops moving,
 check the keyframes are still present before anything else.
 
+**BEFORE BELIEVING A PACK FAILURE YOU FOUND WHILE TESTING, CHECK YOUR
+HARNESS.** Driving many rip pages in one browser session produces false
+failures that look exactly like the missing-keyframes bug: after roughly five
+pages the accumulated YouTube embeds starve the renderer, no animation starts,
+and the pack never clears. A QA pass measured 5 of 15 passing that way and 15
+of 15 with a fresh browser per page. If you are automating this, isolate the
+browser per page, and treat "it broke after the fifth one" as evidence about
+the harness rather than about the site.
+
 **The embed starts MUTED and unmutes itself a moment later. The ORDER is the
 whole trick.** A muted media element is exempt from the user-gesture check; an
 unmuted one is not, and a cross-origin iframe created during a click does not
