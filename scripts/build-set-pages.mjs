@@ -608,7 +608,7 @@ function setPage(s) {
 <header class="set-hero">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
-    <img class="logo-big"${logoAttrs(s.id)} src="${logo}" alt="${esc(s.name)} Pokemon TCG set logo" onerror="this.remove()">
+    <img class="logo-big"${logoAttrs(s.id)} src="${logo}" alt="" onerror="this.remove()">
     <h1>${esc(s.name)}</h1>
     <p class="lede" style="max-width:34em">Everything worth knowing about ${esc(s.name)} in one screen. Card counts, what is actually rare, and what the chase cards are going for.</p>
   </div>
@@ -627,11 +627,34 @@ function setPage(s) {
         : `<div class="fact"><div class="n">-</div><div class="l">Rips on this channel</div></div>`}
       <div class="fact wide"><div class="n" style="font-size:1.15rem">${longDate(s.released) || "Unknown"}</div><div class="l">Release date${s.released ? ` &bull; ${yearsSince(s.released)}` : ""}</div></div>
     </div>
-${s.notes?.inPrint || s.notes?.packPrice ? `
+${(() => {
+  // The pack price was waiting on a human and did not need to be. Every one of
+  // the 23 sets already carries a live TCGplayer "Single Pack" market price
+  // through sync-products.mjs, and the SAME figure is already printed further
+  // down this page in the "What you can buy" band, so surfacing it up here adds
+  // no claim the page was not already making. data/set-notes.json held nothing
+  // but its readme, so this tile was hidden on all 23 sets while the number sat
+  // in the data.
+  //
+  // A hand-written note still wins: someone who has actually stood in a shop
+  // knows something TCGplayer does not.
+  const live = (productsBySet[s.id]?.products || []).find((p) => p.kind === "Single Pack");
+  const packPrice = s.notes?.packPrice || (typeof live?.market === "number" ? moneyExact(live.market) : null);
+  // The two are different claims and the label says which. "Typical" is a
+  // person who has stood in a shop; "market price" is TCGplayer.
+  //
+  // The source and the date are NOT repeated here. This page already carries
+  // "Prices are TCGplayer market and lowest-listing prices, read on <date>"
+  // under the products band, and spelling it out again in a fact tile ran the
+  // label to three lines on a phone for information the reader already has.
+  const packFrom = s.notes?.packPrice ? "Single pack, typical" : "Single pack, market price";
+  if (!s.notes?.inPrint && !packPrice) return "";
+  return `
     <div class="facts" style="margin-top:12px">
-      ${s.notes.inPrint ? `<div class="fact"><div class="n" style="font-size:1.1rem">${esc(s.notes.inPrint)}</div><div class="l">Still in print?</div></div>` : ""}
-      ${s.notes.packPrice ? `<div class="fact"><div class="n">${esc(s.notes.packPrice)}</div><div class="l">Single pack, typical</div></div>` : ""}
-    </div>` : ""}
+      ${s.notes?.inPrint ? `<div class="fact"><div class="n" style="font-size:1.1rem">${esc(s.notes.inPrint)}</div><div class="l">Still in print?</div></div>` : ""}
+      ${packPrice ? `<div class="fact"><div class="n">${esc(packPrice)}</div><div class="l">${esc(packFrom)}</div></div>` : ""}
+    </div>`;
+})()}
   </div>
 </section>
 

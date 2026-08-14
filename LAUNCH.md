@@ -65,10 +65,16 @@ already exists.
       band and /luck.html, which is empty until there is enough logged to say
       anything honest about hit rate.
 
-- [ ] **Fill in the Set Notes tab.** Whether each set is still in print and what
-      a pack costs. `data/set-notes.json` holds nothing but its readme today, so
-      all 23 English set guides are omitting those lines. The card database
-      carries neither figure and the pages will not guess.
+- [ ] **Fill in the Set Notes tab: whether each set is still in print.**
+      `data/set-notes.json` holds nothing but its readme today, so all 23
+      English set guides omit that line. Nothing we can reach knows whether a
+      set is still being printed, so this one does need a person.
+
+      The pack price no longer does. It was on this list too, and it turned out
+      TCGplayer already gives us a Single Pack market price for all 23 sets
+      through the nightly product sync, printed further down the same page. All
+      23 guides show it now. A hand-written note still wins if you want to put
+      the price you actually see in a shop.
 
 - [ ] **Create the Greatest Hits playlist on YouTube.** Until it exists the home
       page ranks by pull tier then views, which is a decent stand-in but not
