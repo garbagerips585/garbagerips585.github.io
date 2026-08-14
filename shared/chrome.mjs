@@ -152,9 +152,13 @@ export const SKIP = `<a class="skip" href="#main">Skip to content</a>`;
  * system sans. Nothing errors when a font never loads, so it renders as
  * "the design looks a bit off" rather than as a bug.
  */
-export const FONTS = `<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Outfit:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">`;
+// NO PRELOAD LINKS. They were added on the usual reasoning that a font is
+// discovered late, only once the CSS has parsed. Measured, the preload did not
+// dedupe against the @font-face request and Outfit was fetched TWICE, 32KB each
+// time, which is worse than the problem it was meant to solve. fonts.css is a
+// single same-origin stylesheet in the head, so the faces are discovered
+// immediately anyway.
+export const FONTS = `<link rel="stylesheet" href="/assets/fonts.css">`;
 
 /** Stylesheets, in the order they must load. */
 // CACHE BUST THE STYLESHEET, keyed to its own contents.
