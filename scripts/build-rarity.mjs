@@ -48,6 +48,57 @@ const starRarities = ["", "one", "two", "three", "four", "five", "six", "seven",
   d.ladder.filter((x) => /star/i.test(x.symbol || "")).length
 ];
 
+/* ------------------------------------------------- card art, right-sized --
+ *
+ * THIS PAGE MOVED 2,253KB OF CARD SCANS to paint boxes 132 and 150px wide.
+ * Measured at 390x844 and 1440x900: 2,522KB total transfer, 89% of it images,
+ * on a page whose largest rendered card art is 150 CSS px.
+ *
+ * The figures are capped in the stylesheet and the caps do not move with the
+ * viewport, measured at 360/390/560/768/900/1100/1440/1920:
+ *
+ *   .gone-fig img    132px at every width
+ *   .gloss-fig img   132px at every width
+ *   .ex-fig img      150px at every width
+ *   .rr-card img      96px narrow, 120px from 900 up
+ *
+ * TCGdex's low.webp is 245x337 and about 25KB against high.webp's 600x825 and
+ * 100-205KB, so 245 covers every one of those boxes at 2x, and the srcset has
+ * two candidates because TCGdex publishes exactly two files.
+ *
+ * BUT NOT EVERY IMAGE HERE CAN TAKE THE SMALL ONE, and getting that wrong makes
+ * the page HEAVIER. Ten of the 27 card URLs are used twice: once as an <img>
+ * and once as the background of a magnified `.crop`, which paints the source at
+ * its own 600px width on purpose (see SRC_W below). Give one of those an srcset
+ * that resolves to low.webp and the browser fetches the small file for the img
+ * AND the big one for the crop: two requests where there was one. CROP_CARDS is
+ * built from the same data the crops are, and anything in it keeps high.webp.
+ *
+ * The ladder is why nine of those ten exist: every ladder row shows the card and
+ * then magnifies its corner, so .rr-card cannot be downsized while that is true.
+ *
+ * WHAT THIS DOES AND DOES NOT BUY. Every one of these figures is below the fold
+ * and lazy, so first-load transfer is unchanged: the 2,253KB that lands on load
+ * is the crops, and the crops are the page. The saving is on the scroll, which
+ * is when a visitor actually reads a glossary.
+ */
+const CROP_CARDS = new Set([
+  ...d.ladder.map((r) => r.card),
+  d.eras?.old?.card,
+  d.eras?.new?.card,
+  ...d.slang.filter((s) => s.show === "crop").map((s) => s.card),
+].filter(Boolean));
+
+const TCGDEX_HIGH = /^(https:\/\/assets\.tcgdex\.net\/.+)\/high\.webp$/;
+/** `src` plus, where it is safe, a srcset. `size` is the CSS cap in px. */
+function cardArt(url, size) {
+  const m = TCGDEX_HIGH.exec(url || "");
+  if (!m || CROP_CARDS.has(url)) return { src: url, extra: "" };
+  const low = `${m[1]}/low.webp`;
+  return { src: low, extra: ` srcset="${esc(low)} 245w, ${esc(url)} 600w" sizes="${size}px"` };
+}
+
+
 /**
  * A magnified crop of a card's bottom corner.
  *
@@ -153,7 +204,7 @@ const slangCard = (s) => {
     : s.show === "crop"
       ? `<div class="gloss-fig is-crop">${corner(s.card, "left", s.example)}</div>`
       : `<figure class="gloss-fig">
-            <img src="${esc(s.card)}" alt="${esc(s.example)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(s.card)}>
+            <img src="${esc(cardArt(s.card, 132).src)}"${cardArt(s.card, 132).extra} alt="${esc(s.example)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(s.card)}>
             <figcaption>${esc(s.example)}</figcaption>
           </figure>`;
   return `        <li${s.card ? "" : ' class="no-fig"'}>
@@ -167,7 +218,7 @@ const slangCard = (s) => {
 const ladderRow = (r, i) => `      <li class="rr${r.chase ? " is-chase" : ""}">
         <div class="rr-n">${i + 1}</div>
         <div class="rr-card">
-          <img src="${esc(r.card)}" alt="${esc(r.example)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(r.card)}>
+          <img src="${esc(cardArt(r.card, 120).src)}"${cardArt(r.card, 120).extra} alt="${esc(r.example)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(r.card)}>
         </div>
         <div class="rr-body">
           <h3>${esc(r.name)}${r.chase ? ` <span class="rr-chase">worth chasing</span>` : ""}</h3>
@@ -414,15 +465,15 @@ ${d.ladder.map(ladderRow).join("\n")}
         the same card.</p>
       <div class="exs">
         <div class="ex1"><b>Pokemon-ex</b><p class="yrs">2003 to 2007, lowercase</p>
-          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/ex/ex6/105/high.webp" alt="Charizard ex, FireRed &amp; LeafGreen, 2004" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"><figcaption>Charizard ex, FireRed &amp; LeafGreen, 2004</figcaption></figure>
+          <figure class="ex-fig"><img src="${esc(cardArt("https://assets.tcgdex.net/en/ex/ex6/105/high.webp", 150).src)}"${cardArt("https://assets.tcgdex.net/en/ex/ex6/105/high.webp", 150).extra} alt="Charizard ex, FireRed &amp; LeafGreen, 2004" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"><figcaption>Charizard ex, FireRed &amp; LeafGreen, 2004</figcaption></figure>
           <p>The original. No rule box: the rule is plain italic text along the bottom, and abilities
             are called Poke-POWER or Poke-BODY.</p></div>
         <div class="ex1"><b>Pokemon-EX</b><p class="yrs">2012 to 2016, uppercase</p>
-          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/xy/xy2/11/high.webp" alt="Charizard EX, Flashfire, 2014" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"><figcaption>Charizard EX, Flashfire, 2014</figcaption></figure>
+          <figure class="ex-fig"><img src="${esc(cardArt("https://assets.tcgdex.net/en/xy/xy2/11/high.webp", 150).src)}"${cardArt("https://assets.tcgdex.net/en/xy/xy2/11/high.webp", 150).extra} alt="Charizard EX, Flashfire, 2014" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"><figcaption>Charizard EX, Flashfire, 2014</figcaption></figure>
           <p>Black and White through XY. Almost always Basic, whatever the Pokemon's real stage.
             Mega EX ended your turn unless you played a Spirit Link.</p></div>
         <div class="ex1"><b>Pokemon ex</b><p class="yrs">2023 to now, lowercase again</p>
-          <figure class="ex-fig"><img src="https://assets.tcgdex.net/en/sv/sv03/125/high.webp" alt="Charizard ex, Obsidian Flames, 2023" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"><figcaption>Charizard ex, Obsidian Flames, 2023</figcaption></figure>
+          <figure class="ex-fig"><img src="${esc(cardArt("https://assets.tcgdex.net/en/sv/sv03/125/high.webp", 150).src)}"${cardArt("https://assets.tcgdex.net/en/sv/sv03/125/high.webp", 150).extra} alt="Charizard ex, Obsidian Flames, 2023" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"><figcaption>Charizard ex, Obsidian Flames, 2023</figcaption></figure>
           <p>Current. Has a bordered rule box in the bottom corner where the Pokedex entry would sit.
             That box is the quickest way to tell it from a 2003 one.</p></div>
       </div>
@@ -438,7 +489,7 @@ ${d.gone
           ${
             g.card
               ? `<figure class="gone-fig">
-            <img src="${esc(g.card)}" alt="${esc(g.example)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(g.card)}>
+            <img src="${esc(cardArt(g.card, 132).src)}"${cardArt(g.card, 132).extra} alt="${esc(g.example)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(g.card)}>
             <figcaption>${esc(g.example)}</figcaption>
           </figure>`
               : ""

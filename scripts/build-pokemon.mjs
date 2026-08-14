@@ -477,13 +477,25 @@ function indexPage() {
           // screen, which is the opposite of true, and it cost 100-120ms:
           // FCP 72-96ms against LCP 188-192ms with nothing else in between.
           //
-          // Only the FIRST tile is eager, and only the first carries
-          // fetchpriority. Priority is a ranking, not a label: putting it on
-          // several images means none of them has it. Everything from the
-          // second tile on stays lazy, which is right, because on the narrowest
-          // phone only one is above the fold.
+          // Only the FIRST tile is eager. Everything from the second on stays
+          // lazy, which is right: on the narrowest phone only one is above the
+          // fold, and 51 eager images would be a worse bug than the one this
+          // fixes.
+          //
+          // NO fetchpriority="high". It was tried and measured, and it is the
+          // WORST of the three at both widths: median LCP over five runs each,
+          // rebuilt back to back so the CDN is the same,
+          //     390x844    all lazy 296ms   eager+high 436ms   eager 228ms
+          //     1440x900   all lazy 212ms   eager+high 232ms   eager 204ms
+          // Read the ranges before believing any of that, though: they are
+          // 144-684ms. The LCP element is a card scan on assets.tcgdex.net and
+          // the CDN's own latency swamps everything this page does, so the
+          // honest reading is that eager is no worse and the three are not
+          // separable here. This change stands on the rule rather than on the
+          // number: an element the browser is told is not needed for the first
+          // screen cannot also be the largest thing on the first screen.
           (p, i) => `<a class="poke-card" href="/pokemon/${esc(p.slug)}.html">
-        ${p.priciest.img ? `<img src="${esc(p.priciest.img)}/low.webp" onerror="this.remove()" alt="${esc(p.priciest.name)}, the most valuable ${esc(p.name)} card" ${i === 0 ? `fetchpriority="high" decoding="async"` : `loading="lazy"`} width="245" height="337">` : ""}
+        ${p.priciest.img ? `<img src="${esc(p.priciest.img)}/low.webp" onerror="this.remove()" alt="${esc(p.priciest.name)}, the most valuable ${esc(p.name)} card" ${i === 0 ? `decoding="async"` : `loading="lazy"`} width="245" height="337">` : ""}
         <span class="poke-nm">${esc(p.name)}</span>
         <span class="poke-meta">${p.list.length} cards &bull; ${p.sets.size} sets</span>
         ${
