@@ -1203,7 +1203,7 @@ footer .soc svg{fill:var(--paper)}
 .bar-search input{flex:1 1 auto;min-width:0;background:none;border:0;color:#F4F1E2;
   /* 16px exactly: anything smaller and iOS zooms the page in on focus and
      never zooms back out. */
-  font:400 16px/1 var(--body)}
+  font:400 16px/1 var(--body);min-height:44px}
 .bar-search input::placeholder{color:rgba(244,241,226,.6)}
 .bar-search input:focus{outline:none}
 
@@ -1510,8 +1510,15 @@ footer .soc svg{fill:var(--paper)}
 .show-body h3{font:400 var(--t-m)/1.2 var(--display)}
 .show-meta{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.04em;
   text-transform:uppercase;color:var(--ink-2);margin-top:4px}
-.show-where{font-size:var(--t-sm);margin-top:4px}
-.show-where a{color:var(--ketchup-deep);font-weight:600}
+/* The venue link IS the whole paragraph, not a phrase inside a sentence, so
+   WCAG 2.5.8's inline-link exemption does not cover it: a single-line one
+   measured 17.5px tall. Vertical padding on an inline element grows the hit
+   area without taking it out of the text flow, so a long venue name still
+   wraps across lines instead of overflowing the way an inline-block would.
+   The paragraph gains matching margin so two neighbouring links cannot end up
+   overlapping each other's targets. */
+.show-where{font-size:var(--t-sm);margin-top:12px;margin-bottom:8px}
+.show-where a{color:var(--ketchup-deep);font-weight:600;padding:13px 0}
 .show-where a:hover{text-decoration:underline}
 .show-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .chip.pk{background:var(--gold);border-color:var(--navy);color:var(--navy)}

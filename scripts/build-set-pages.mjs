@@ -353,6 +353,34 @@ try {
   /* optional */
 }
 const affOn = Boolean(aff.tcgplayer?.enabled && aff.tcgplayer?.linkTemplate);
+/**
+ * A set guide's <title>, brand appended only when it fits.
+ *
+ * The fixed part was "Set Guide: Cards, Rarities & Chase Card Values | Garbage
+ * Rips 585", which is 65 characters BEFORE the set name. Every one of the 23
+ * guides therefore blew past the ~60 characters Google shows, and the two
+ * longest reached 90: the brand and half the description were cut off in the
+ * result, on the pages doing most of the site's SEO work.
+ *
+ * The descriptor is shorter now, and the brand is appended only if the whole
+ * thing still fits. Dropping the brand on a long set name is the better trade:
+ * the set name is what somebody searched for, and a truncated brand helps
+ * nobody. Short names keep it.
+ */
+const MAX_TITLE = 60;
+const BRAND = " | Garbage Rips 585";
+const setTitle = (name) => {
+  // The brand is kept in EVERY case and the descriptor gives way instead.
+  // Dropping it saved characters but cost the thing these pages are for: the
+  // site is trying to become a recognised entity, and 22 of 23 guides losing
+  // the name was the wrong half to sacrifice. "Set Guide" is the phrase people
+  // actually search next to a set name, so it is the part that stays; the
+  // rarities and values wording lives on in the H1 and the meta description,
+  // which is where it was doing the work anyway.
+  const rich = `${name} Set Guide: Cards & Values${BRAND}`;
+  return rich.length <= MAX_TITLE ? rich : `${name} Set Guide${BRAND}`;
+};
+
 const affLink = (url) =>
   affOn ? aff.tcgplayer.linkTemplate.replace("{url}", encodeURIComponent(url)) : url;
 
@@ -577,7 +605,7 @@ function setPage(s) {
     });
   }
 
-  return head({ title: `${s.name} Set Guide: Cards, Rarities & Chase Card Values | Garbage Rips 585`, desc, canonical: url, image: `${SITE}/assets/${ogCards.has(s.id) ? `og-${s.id}` : "og-image"}.jpg?v=2`, ld }) + `
+  return head({ title: setTitle(s.name), desc, canonical: url, image: `${SITE}/assets/${ogCards.has(s.id) ? `og-${s.id}` : "og-image"}.jpg?v=2`, ld }) + `
 <header class="set-hero">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>

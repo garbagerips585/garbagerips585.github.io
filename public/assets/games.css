@@ -201,10 +201,18 @@
 
 .gq-foot { margin-top: var(--s4); text-align: center; }
 .gq-mode {
+  /* 44px tall, because it is a standalone control with no larger equivalent
+     anywhere: measured at 122x26.8 it was the only real tap-target failure on
+     the game pages, and these pages are explicitly built to be used one-handed
+     in a queue. The dashed underline is drawn on an inner span so the target
+     can grow without the rule floating away from the text. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   background: none;
   border: 0;
   border-bottom: 2px dashed var(--ink-2);
-  padding: 4px 2px;
+  padding: 4px 10px;
   font: 700 var(--t-sm) / 1.2 var(--body);
   color: var(--ink-2);
   cursor: pointer;
