@@ -270,8 +270,8 @@ ${MENU}
 
     <div class="facts">
       <div class="fact"><div class="n">${moneyCompact(cheapest.base)}</div><div class="l">Cheapest base set (${esc(cheapest.name)})</div></div>
-      <div class="fact"><div class="n">${moneyCompact(priciest.base)}</div><div class="l">Dearest base set (${esc(priciest.name)})</div></div>
-      <div class="fact"><div class="n">${moneyCompact(dearestMaster.master)}</div><div class="l">Dearest master set (${esc(dearestMaster.name)})</div></div>
+      <div class="fact"><div class="n">${moneyCompact(priciest.base)}</div><div class="l">Priciest base set (${esc(priciest.name)})</div></div>
+      <div class="fact"><div class="n">${moneyCompact(dearestMaster.master)}</div><div class="l">Priciest master set (${esc(dearestMaster.name)})</div></div>
       <div class="fact"><div class="n">${rows.length}</div><div class="l">Sets costed</div></div>
     </div>
 
@@ -334,7 +334,7 @@ ${MENU}
             <th scope="col" class="num">Commons run</th>
             <th scope="col" class="num">Base set</th>
             <th scope="col" class="num">Master set</th>
-            <th scope="col">Dearest single card</th>
+            <th scope="col">Priciest single card</th>
           </tr>
         </thead>
         <tbody>

@@ -277,7 +277,7 @@ function showCard(s) {
           <p class="show-links">
             ${s.ticketUrl ? `<a class="tickets" href="${esc(s.ticketUrl)}" rel="noopener" target="_blank">Get tickets <span aria-hidden="true">&rarr;</span></a>` : ""}
             ${s.url ? `<a href="${esc(s.url)}" rel="noopener" target="_blank">${s.organiserUrl && s.url === s.organiserUrl ? "Official site" : "Listing &amp; details"}</a>` : ""}
-            ${s.organiserUrl && s.organiserUrl !== s.url ? `<a href="${esc(s.organiserUrl)}" rel="noopener" target="_blank">${esc(s.organiser || "Organiser")}</a>` : ""}
+            ${s.organiserUrl && s.organiserUrl !== s.url ? `<a href="${esc(s.organiserUrl)}" rel="noopener" target="_blank">${esc(s.organiser || "Organizer")}</a>` : ""}
           </p>
         </div>
         ${flyer ? `<a class="show-flyer" href="${esc(flyer)}" target="_blank" rel="noopener">
@@ -366,14 +366,14 @@ ${(data.watchFor || []).length ? `
     <ul class="facts-list">
       <li>Dates and times come from public listings, mostly ${(data.sources || []).map((s) => `<a href="${esc(s.url)}" rel="noopener" target="_blank">${esc(s.name)}</a>`).join(" and ")}, read ${esc(longDate(data.checked) || data.checked)}.</li>
       <li><strong>Always check the listing before you drive.</strong> Small shows move, sell out of tables, or get called off, and a page like this is a starting point rather than a promise.</li>
-      <li>We are not the organiser of any of these and we do not take a cut. It is just a list.</li>
+      <li>We are not the organizer of any of these and we do not take a cut. It is just a list.</li>
       <li>Shows in the Southern Tier are left off on purpose. They show up in the same feeds but they are closer to Binghamton than to any of these three cities.</li>
     </ul>
   </div>
 </section>
 
 </main>
-${footer("Show listings are collected by hand and change without notice. Check with the organiser before traveling.")}
+${footer("Show listings are collected by hand and change without notice. Check with the organizer before traveling.")}
 <script>
 (function(){
   // Belt and braces on dates. The build already dropped past shows, but a deploy
