@@ -668,26 +668,33 @@ function productBand(s, cls) {
   // saying the same dollar figure twice. "Cheapest way in" is the smallest
   // amount of money that gets you playing. "Cheapest per pack" is what a pack
   // costs, which is the one that decides between a box and a handful of packs.
+  const name = (x) => esc(productLabel(x).kind.toLowerCase());
   let lede = `Every sealed ${esc(s.name)} product still being sold, cheapest first.`;
-  if (bestPack && singly && bestPack.p === singly.p && cheapest === singly.p) {
-    // Genuinely common and worth saying out loud: on 13 of the 23 sets the
-    // single pack is already the cheapest pack, so the boxes cost MORE per pack.
-    lede += ` The cheapest way in is also the cheapest pack: one pack at ${priceUSD(singly.each)}.${
-      next ? ` The ${esc(productLabel(next.p).kind.toLowerCase())} works out at ${priceUSD(next.each)} a pack, so on this set the
-      bigger boxes cost more per pack, not less.` : ""
-    }`;
+  const cheaperBox = bestPack && singly && bestPack.p !== singly.p;
+  const off = cheaperBox ? Math.round(((singly.each - bestPack.each) / singly.each) * 100) : 0;
+
+  if (singly && cheapest === singly.p) {
+    // A single pack is both the smallest outlay and, on 13 of the 23 sets, the
+    // cheapest pack there is. Saying "$6.55" twice in two sentences is what the
+    // first draft did, so the two claims share one figure here.
+    lede += cheaperBox
+      ? ` The cheapest way in is one pack at ${priceUSD(singly.each)}, but the cheapest pack in the set is inside the
+      ${name(bestPack.p)} at ${priceUSD(bestPack.each)}${off >= 1 ? `, which is ${off}% less` : ""}.`
+      : ` The cheapest way in is also the cheapest pack: one pack at ${priceUSD(singly.each)}.${
+          next ? ` The ${name(next.p)} works out at ${priceUSD(next.each)} a pack, so on this set the bigger boxes cost
+      more per pack, not less.` : ""
+        }`;
   } else {
-    lede += ` The cheapest way in is ${esc(productLabel(cheapest).kind.toLowerCase())} at ${priceUSD(cheapest.market)}.`;
-    if (bestPack && singly && bestPack.p !== singly.p) {
-      const off = Math.round(((singly.each - bestPack.each) / singly.each) * 100);
+    lede += ` The cheapest way in is ${name(cheapest)} at ${priceUSD(cheapest.market)}.`;
+    if (cheaperBox) {
       lede += ` Packs bought one at a time are ${priceUSD(singly.each)} each; the cheapest pack in the set is inside the
-      ${esc(productLabel(bestPack.p).kind.toLowerCase())} at ${priceUSD(bestPack.each)}${off >= 1 ? `, which is ${off}% less` : ""}.`;
+      ${name(bestPack.p)} at ${priceUSD(bestPack.each)}${off >= 1 ? `, which is ${off}% less` : ""}.`;
     } else if (bestPack && singly) {
-      lede += ` No box here beats it per pack${
-        next ? `: the ${esc(productLabel(next.p).kind.toLowerCase())} works out at ${priceUSD(next.each)} a pack` : ""
+      lede += ` No box here beats a single pack per pack, at ${priceUSD(singly.each)}${
+        next ? `: the ${name(next.p)} works out at ${priceUSD(next.each)}` : ""
       }.`;
     } else if (bestPack) {
-      lede += ` The cheapest pack here is inside the ${esc(productLabel(bestPack.p).kind.toLowerCase())} at ${priceUSD(bestPack.each)}.`;
+      lede += ` The cheapest pack here is inside the ${name(bestPack.p)} at ${priceUSD(bestPack.each)}.`;
     }
   }
 

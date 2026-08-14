@@ -36,7 +36,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/sets");
 
 const guides = JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8"));
-const { sets: enSets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
+const { sets: enSets, rarityOrder } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 
 const enById = new Map(enSets.map((s) => [s.id, s]));
@@ -50,7 +50,37 @@ const yearsSince = (iso) => {
   return `${y < 2 ? "1 year" : `${Math.floor(y)} years`} ago`;
 };
 
-const head = ({ title, desc, canonical, image, ld, noindex = false }) => `<!DOCTYPE html>
+/**
+ * The rules only the comparison table needs, inlined rather than added to
+ * assets-source/ui.css, which is render blocking on all 426 pages and would be
+ * carrying them for the four guides that use them. Same pattern as
+ * build-expansions.mjs.
+ */
+const PAGE_CSS = `
+/* Three columns fit 320px without help (1fr plus two 4em numerics), but the
+   wrapper scrolls anyway rather than trusting that: a long rarity name is the
+   one thing here that could grow and the page must never scroll sideways. */
+.rcmp-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:var(--s4);
+  border:1px solid var(--hair);border-radius:var(--r);background-color:var(--card);
+  box-shadow:var(--lift)}
+.rcmp{width:100%;border-collapse:collapse;font-size:var(--t-sm)}
+.rcmp th,.rcmp td{padding:9px var(--s4);text-align:right;border-bottom:1px solid var(--hair)}
+.rcmp thead th{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);letter-spacing:.05em;
+  text-transform:uppercase;vertical-align:bottom}
+.rcmp th[scope=row],.rcmp thead th:first-child{text-align:left;font-weight:600}
+.rcmp td{font:700 var(--t-sm)/1.4 var(--mono);white-space:nowrap}
+.rcmp tbody tr:last-child th,.rcmp tbody tr:last-child td{border-bottom:0}
+/* Gold marks a tier that holds the same number of cards in both printings,
+   which is the thing the table is for. --mustard at 16% keeps the row text at
+   its normal contrast rather than tinting it. */
+.rcmp tr.is-same{background:rgba(239,201,76,.18)}
+.rcmp tr.is-same th[scope=row]{color:var(--gold-deep)}
+.rcmp tr.is-total th,.rcmp tr.is-total td{border-top:2px solid var(--ink);font-weight:700}
+.rcmp-say{max-width:42em;margin-top:var(--s4);border-left:4px solid var(--gold);
+  padding-left:var(--s4);font-size:var(--t-body)}
+`;
+
+const head = ({ title, desc, canonical, image, ld, noindex = false, css = "" }) => `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -77,7 +107,7 @@ const head = ({ title, desc, canonical, image, ld, noindex = false }) => `<!DOCT
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css">
-${STYLES}
+${STYLES}${css ? `\n<style>${css}</style>` : ""}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -102,12 +132,11 @@ const kindOf = (c) => (c.category === "Pokemon" ? "" : c.category === "Trainer" 
  * Reuses the .intl-* markup the English guides already use for the mirror of
  * this panel, so the two read as two views of one fact rather than two designs.
  */
-function twinBand(g) {
+function twinBand(g, cls) {
   const en = g.equivalent ? enById.get(g.equivalent) : null;
 
   if (g.exclusive || !g.equivalent) {
-    return `
-<section class="band tight">
+    return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>No English version</p>
     <h2>This one <span class="hl">never left</span></h2>
@@ -123,8 +152,7 @@ function twinBand(g) {
   const enTotal = en.total || en.printedTotal || 0;
   const merged = g.siblingName || (g.sibling ? guides.sets[g.sibling]?.english : null);
 
-  return `
-<section class="band tight">
+  return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Same cards, different name</p>
     <h2>${esc(g.english)} is <span class="hl">${esc(en.name)}</span></h2>
@@ -167,6 +195,136 @@ function twinBand(g) {
     ${g.confidence === "partial"
       ? `<p class="intl-warn">A partial match. ${esc(g.note || "")}</p>`
       : g.note ? `<p class="price-note">${esc(g.note)}</p>` : ""}
+  </div>
+</section>`;
+}
+
+/**
+ * THE SAME CHECKLIST IN BOTH LANGUAGES, TIER BY TIER.
+ *
+ * The twin band above asserts "same cards, different name" and then prints two
+ * different card counts underneath it, 118 against 120, and never says where
+ * the difference went. That is the one question these pages exist to answer and
+ * it was the one thing they left hanging.
+ *
+ * Both ladders come from TCGdex and both are counts of the checklists further
+ * down each page, so the comparison is arithmetic over data we already publish.
+ *
+ * IT IS GATED HARD, and only four of the thirteen guides pass. TCGdex labels
+ * the rarity on every card in the current Japanese sets and on almost none of
+ * the Korean ones, where the higher tiers are simply absent from the data. A
+ * side by side there would print "Illustration Rare 0 / 36", which reads as
+ * "the Korean set has none" and is false. So the band renders only when:
+ *
+ *   - both sides name exactly the same set of rarities, and
+ *   - each ladder accounts for every card in its own set.
+ *
+ * Anything less and the page shows nothing rather than a table that invites a
+ * wrong conclusion. Mega Symphonia fails on the first test and is the reason it
+ * exists: TCGdex files its top tier as "Secret Rare" where the English set says
+ * "Ultra Rare", so the two ladders would have lined up 11 real cards against a
+ * column of zeroes.
+ */
+function rarityCompare(g, en) {
+  if (!en) return null;
+  const norm = (obj) => {
+    const out = new Map();
+    for (const [k, v] of Object.entries(obj || {})) {
+      const key = rarityLabel(k);
+      if (!key || typeof v !== "number") return null;
+      out.set(key, (out.get(key) || 0) + v);
+    }
+    return out.size ? out : null;
+  };
+  const mine = norm(g.rarities);
+  const theirs = norm(en.rarities);
+  if (!mine || !theirs) return null;
+
+  const sum = (m) => [...m.values()].reduce((a, b) => a + b, 0);
+  const myTotal = g.cardCount?.total;
+  const enTotal = en.total || en.printedTotal;
+  if (!myTotal || !enTotal) return null;
+  if (sum(mine) !== myTotal || sum(theirs) !== enTotal) return null;
+  if (mine.size !== theirs.size) return null;
+  for (const k of mine.keys()) if (!theirs.has(k)) return null;
+
+  // Rarest first, in the ladder sets.json already ranks rarities in, so the
+  // chase tiers are the first thing read rather than 38 commons. Anything the
+  // ladder does not name falls to the bottom in count order.
+  const rows = [...mine.keys()]
+    .map((r) => ({ r, mine: mine.get(r), theirs: theirs.get(r) }))
+    .sort((a, b) => {
+      const ia = rarityOrder.indexOf(a.r);
+      const ib = rarityOrder.indexOf(b.r);
+      if (ia !== ib) return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+      return a.mine + a.theirs - (b.mine + b.theirs);
+    });
+
+  const same = rows.filter((x) => x.mine === x.theirs);
+  const check = rows.reduce((a, x) => a + x.mine, 0);
+  if (check !== myTotal) {
+    throw new Error(
+      `rarityCompare(${g.id}): the rows add to ${check} against a stated ${myTotal} cards. ` +
+        `Check public/data/intl-guides.json.`
+    );
+  }
+  return { rows, same, myTotal, enTotal, diff: enTotal - myTotal };
+}
+
+/** A list read out in prose: "a, b and c". */
+const andList = (xs) =>
+  xs.length < 2 ? xs.join("") : `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`;
+
+function compareBand(g, en, cls) {
+  const c = rarityCompare(g, en);
+  if (!c) return "";
+  const merged = g.siblingName || (g.sibling ? guides.sets[g.sibling]?.english : null);
+  const say = [];
+  if (c.same.length) {
+    say.push(
+      `${c.same.length} of the ${c.rows.length} rarities hold exactly the same number of cards in both printings: ` +
+        `${andList(c.same.map((x) => `${x.mine} ${esc(x.r)}${x.mine === 1 ? "" : "s"}`))}.`
+    );
+  } else {
+    say.push(`No rarity holds the same number of cards in both printings.`);
+  }
+  say.push(
+    c.diff === 0
+      ? `The two sets are the same size.`
+      : `English ${esc(en.name)} is ${Math.abs(c.diff)} card${Math.abs(c.diff) === 1 ? "" : "s"} ${
+          c.diff > 0 ? "bigger" : "smaller"
+        }, ${c.enTotal} against ${c.myTotal}.` +
+        (merged && c.diff > 0 ? ` It was built by merging this set with ${esc(merged)}, which is where the extra came from.` : "")
+  );
+
+  return `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Card for card</p>
+    <h2>How close is it to <span class="hl">${esc(en.name)}</span>?</h2>
+    <p class="lede" style="max-width:42em">"Same set" is nearly true and worth checking rather than taking on trust.
+      Here is every rarity in both printings, side by side. The gold rows are the ones that match.</p>
+    <div class="rcmp-wrap">
+      <table class="rcmp">
+        <thead>
+          <tr><th scope="col">Rarity</th><th scope="col">${g.langFlag ? `${g.langFlag} ` : ""}${esc(g.english)}</th><th scope="col">${esc(en.name)}</th></tr>
+        </thead>
+        <tbody>
+          ${c.rows
+            .map(
+              (x) => `<tr${x.mine === x.theirs ? ` class="is-same"` : ""}>
+            <th scope="row">${esc(x.r)}</th><td>${x.mine}</td><td>${x.theirs}</td>
+          </tr>`
+            )
+            .join("\n          ")}
+          <tr class="is-total"><th scope="row">Every card</th><td>${c.myTotal}</td><td>${c.enTotal}</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="lede rcmp-say">${say.join(" ")}</p>
+    <p class="price-note">Both counts are the rarities on the two checklists, from TCGdex, read
+      ${esc(longDate(guides.checked) || guides.checked)}. A rarity is only counted where TCGdex labels it, so this table
+      appears on a guide only when both sides label every card. It says nothing about how often any of them turn up in a
+      pack, because nobody outside The Pokemon Company knows that.</p>
   </div>
 </section>`;
 }
@@ -234,11 +392,46 @@ function guidePage(g) {
   // reachable and in the nav; it just does not go to search until TCGdex
   // publishes the cards.
   const thin = !g.hasCards;
+
+  // ---------------------------------------------------------------- the bands
+  //
+  // Each section is a function of the class that paints it, and the tones are
+  // assigned only once the list of sections that actually render is known.
+  // Which ones render varies a lot here: four guides have a card-for-card
+  // table, two have no checklist at all, one has no English twin. Hard coded
+  // classes therefore stacked two cream sections on Abyss Eye the moment the
+  // comparison band was added between the twin panel and the chase grid.
+  //
+  // The rarity ladder is PINNED to the sky gradient it has always had and the
+  // rest alternate outward from it, which cannot produce two neighbours the
+  // same. See the matching note in build-set-pages.mjs.
+  const bands = [
+    (cls) => twinBand(g, cls),
+    (cls) => compareBand(g, en, cls),
+    g.notable?.length ? (cls) => chaseBand(g, en, cls) : null,
+    rarities.length ? { pin: true, html: (cls) => rarityBand(g, rarities, maxN, secretCount, cls) } : null,
+    (cls) => checklistBand(g, cls),
+    rips.length ? (cls) => ripsBand(g, rips, label, cls) : null,
+    (cls) => sourceBand(g, cls),
+  ].filter(Boolean);
+
+  // twinBand and compareBand both return "" on some guides, and an empty string
+  // still occupies a slot in the alternation, which would leave a visible gap
+  // in the zebra. Render first, then drop the empties, then tone what is left.
+  const drawn = bands.map((b) => ({ b, html: (b.pin ? b.html : b)("") })).filter((x) => x.html.trim());
+  const pin = Math.max(0, drawn.findIndex((x) => x.b.pin));
+  const body = drawn
+    .map((x, i) => {
+      const cls = x.b.pin ? "band-sky tight" : Math.abs(i - pin) % 2 === 0 ? "band tight" : "tight";
+      return (x.b.pin ? x.b.html : x.b)(cls);
+    })
+    .join("\n\n");
+
   return head({
     title: g.equivalent
       ? `${g.english} (${g.langName}) Set Guide: Cards & English Equivalent | Garbage Rips 585`
       : `${g.english} (${g.langName}) Set Guide | Garbage Rips 585`,
-    desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld, noindex: thin,
+    desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld, noindex: thin, css: PAGE_CSS,
   }) + `
 <header class="set-hero">
   <div class="wrap">
@@ -270,6 +463,7 @@ function guidePage(g) {
   </div>
 </section>
 ${twinBand(g)}
+${compareBand(g, en)}
 ${g.notable?.length ? `
 <section class="tight">
   <div class="wrap">

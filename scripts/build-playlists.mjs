@@ -126,7 +126,47 @@ const compactViews = (n) =>
     : n >= 1000 ? `${(n / 1000).toFixed(n < 10000 ? 1 : 0).replace(/\.0$/, "")}K VIEWS`
     : `${n} VIEWS`;
 
-function tile(v) {
+/**
+ * The visible label for a tile, disambiguated within THIS page.
+ *
+ * ripLabel reduces a title to set plus product plus pack number, which is
+ * exactly right in a mixed grid and collides badly inside a playlist: Tim
+ * opened nine Chaos Rising ETBs, so nine tiles on that one page all read
+ * "Chaos Rising ETB #2", each linking to a different video. Nine identical
+ * links is a usability problem for everyone and an accessibility one for a
+ * screen reader working from a link list.
+ *
+ * The upload date is the differentiator, because it is a fact already held and
+ * it is the thing that actually separates the runs. Only repeats get it, so
+ * the pages where every label is already distinct stay clean.
+ */
+function labelsFor(vids) {
+  const count = new Map();
+  for (const v of vids) {
+    const l = v.label || v.siteTitle || v.title;
+    count.set(l, (count.get(l) || 0) + 1);
+  }
+  // The date is not always enough. Two Perfect Order videos went up on the same
+  // day and label the same, so the date left them still identical. Where that
+  // happens the tile falls back to the video's own full title, which is the
+  // real name and is always distinct. Longer, and correct beats tidy.
+  const dated = new Map(
+    vids.map((v) => {
+      const l = v.label || v.siteTitle || v.title;
+      return [v.id, count.get(l) > 1 && v.published ? `${l} (${shortDate(v.published)})` : l];
+    }),
+  );
+  const after = new Map();
+  for (const t of dated.values()) after.set(t, (after.get(t) || 0) + 1);
+  return new Map(
+    vids.map((v) => [
+      v.id,
+      after.get(dated.get(v.id)) > 1 ? v.siteTitle || v.title : dated.get(v.id),
+    ]),
+  );
+}
+
+function tile(v, labels) {
   const sets = v.sets || [];
   const meta = [
     sets.length > 1
@@ -144,7 +184,7 @@ function tile(v) {
             ${v.duration ? `<span class="dur">${clock(v.duration)}</span>` : ""}
             <span class="play"></span>
           </a>
-          <h3><a href="/${esc(v.path)}">${esc(v.label || v.siteTitle || v.title)}</a></h3>
+          <h3><a href="/${esc(v.path)}">${esc((labels && labels.get(v.id)) || v.label || v.siteTitle || v.title)}</a></h3>
           ${meta.length ? `<p>${esc(meta.join("  \u2022  "))}</p>` : ""}
         </article>`;
 }
@@ -241,7 +281,7 @@ ${MENU}
         newest ? ` &bull; newest ${esc(shortDate(newest))}` : ""
       } &bull; click a pack to rip it open here</p>
       <div class="wall">
-${vids.map(tile).join("\n")}
+${(() => { const labels = labelsFor(vids); return vids.map((v) => tile(v, labels)).join("\n"); })()}
       </div>
       <p style="margin-top:var(--s5)">
         <a class="btn btn-ghost btn-sm" href="/playlists.html">All playlists</a>
