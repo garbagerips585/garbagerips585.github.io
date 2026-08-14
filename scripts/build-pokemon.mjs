@@ -91,6 +91,30 @@ const slugify = (s) =>
 const pChecked = JSON.parse(
   await readFile(join(ROOT, "public/data/printings/manifest.json"), "utf8"),
 ).checked;
+/**
+ * Cards TCGdex has no scan for.
+ *
+ * Every image url the site emits was fetched on 14 August 2026 and 101 of the
+ * 3,539 answered 404, all of them promos nobody scanned: Sun & Moon Black Star
+ * Promos, the e-Card series, TCGP P-A, a few Japanese sets. They all carried
+ * onerror="this.remove()", so nothing looked broken. The picture simply
+ * vanished and left a gap in the tile, and the site paid for a dead round trip
+ * to find that out, 101 times across 39 species pages.
+ *
+ * Clearing `g` here is all it takes. The page already sorts printings into
+ * those with a scan and those without, and puts the scanless ones in a
+ * text-only list precisely because a card with no picture does not belong in a
+ * wall of pictures. This just tells the truth about which ones those are.
+ */
+let noScanBases = new Set();
+try {
+  noScanBases = new Set(
+    JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8")).bases || [],
+  );
+} catch {
+  /* optional: without it those cards render an image that 404s, as before */
+}
+
 const printings = new Map();
 for (const f of await readdir(join(ROOT, "public/data/printings"))) {
   if (!f.endsWith(".json") || f === "manifest.json") continue;
@@ -98,6 +122,7 @@ for (const f of await readdir(join(ROOT, "public/data/printings"))) {
     if (c.c !== "Pokemon" || c.u) continue; // skip Trainers, and untranslated names
     const sp = speciesOf(c.n);
     if (!sp) continue;
+    if (c.g && noScanBases.has(c.g)) c.g = null;
     if (!printings.has(sp)) printings.set(sp, []);
     printings.get(sp).push(c);
   }
