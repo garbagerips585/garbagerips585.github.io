@@ -152,6 +152,11 @@
 
     function answer(i, btn) {
       if (locked) return;
+      // ASK FIRST, BEFORE ANYTHING IS DISABLED. Disabling the button that
+      // currently has focus moves focus to <body> immediately, so reading
+      // activeElement after the loop below always said "not on the game" and
+      // the keyboard player was never handed back. Measured: BODY every time.
+      var hadFocus = dom.choices.contains(document.activeElement);
       locked = true;
       asked++;
       var right = i === q.answer;
@@ -169,7 +174,11 @@
       } else {
         if (btn) btn.classList.add("is-wrong");
         streak = 0;
-        dom.say.textContent = q.note ? q.choices[q.answer].label + ". " + q.note : q.choices[q.answer].label + ".";
+        // SAY THAT IT WAS WRONG. This announced only the correct answer, so a
+        // screen reader heard "Goldeen. #118, Generation 1." and had to
+        // remember which name they had picked to know whether they got it.
+        dom.say.textContent =
+          "Not quite. The answer is " + q.choices[q.answer].label + "." + (q.note ? " " + q.note : "");
         dom.say.className = "gq-say is-wrong";
       }
       dom.streak.textContent = streak;
@@ -178,6 +187,10 @@
       setTimeout(function () {
         if (sprint && Date.now() >= deadline) return;
         render();
+        if (hadFocus) {
+          var first = dom.choices.querySelector(".gq-btn");
+          if (first) first.focus();
+        }
       }, right ? 700 : 1500);
     }
 
@@ -237,6 +250,15 @@
     // result is on screen so a fast double tap cannot skip a question.
     document.addEventListener("keydown", function (e) {
       if (locked) return;
+      // NOT WHILE SOMEBODY IS TYPING. This listened on document with no check on
+      // the target, so typing "1" into the site search in the sticky bar
+      // answered the question: button 1 was marked wrong, the answer was
+      // revealed and the streak broke, while the cursor stayed in the search
+      // field. WCAG 2.1.4 Character Key Shortcuts, and simply infuriating.
+      var t = e.target;
+      var tag = t && t.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (t && t.isContentEditable)) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
       var n = "1234".indexOf(e.key);
       if (n < 0) return;
       var b = dom.choices.querySelectorAll(".gq-btn")[n];

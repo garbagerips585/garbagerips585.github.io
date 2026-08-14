@@ -299,6 +299,13 @@
   }
 
   function playInTile(a, id) {
+    // WAS THIS A KEYBOARD ACTIVATION? It has to be asked HERE, before the
+    // anchor is replaced. attach() already does the right thing on a rip page:
+    // it notices the pack had focus and moves focus onto the iframe afterwards.
+    // From a tile that check always saw false, because the anchor had already
+    // been swapped out and focus had fallen to <body>. So every keyboard user
+    // who played a video from a tile lost their place on the page.
+    var byKeyboard = document.activeElement === a || a.contains(document.activeElement);
     // The set comes from the image filename where there is an image, and from
     // the facade's own pack--<set> class where there is not. Falling back to
     // "default" for the CSS tiles would have given every rip on /videos.html
@@ -309,7 +316,13 @@
     var fromClass = facade && /pack--(?!tile\b)([a-z0-9-]+)/.exec(facade.className);
     var skin = sk ? sk[1] : fromClass ? fromClass[1] : "default";
     var slot = a.parentNode;
-    var title = (a.getAttribute("aria-label") || "").replace(/^Play\s+/, "");
+    // The .hofx spotlight takes its accessible name from its contents rather
+    // than an aria-label, so this produced title="" and the YouTube iframe went
+    // out unnamed. Fall back to whatever the card calls the rip.
+    var titleEl = a.querySelector(".hofx-t, .hero-body h3, h3");
+    var title = (a.getAttribute("aria-label") || (titleEl ? titleEl.textContent : "") || "")
+      .replace(/^Play\s+/, "")
+      .trim();
 
     var host = document.createElement("div");
     host.className = "rip-stage tile-stage";
@@ -353,6 +366,7 @@
       attach(host);
       var pk0 = host.querySelector(".pack");
       if (pk0) pk0.click();
+      if (byKeyboard) focusInto(host);
       return;
     }
 
@@ -369,6 +383,17 @@
     // unmuted playback a moment later.
     var pk = host.querySelector(".pack");
     if (pk) pk.click();
+    if (byKeyboard) focusInto(host);
+  }
+
+  /* Move focus onto the freshly mounted player. Deferred, because the iframe is
+   * created inside the pack's own click handler which has not run yet when this
+   * is scheduled. preventScroll so the page does not jump under a mouse user. */
+  function focusInto(host) {
+    setTimeout(function () {
+      var f = host.querySelector("iframe");
+      if (f) f.focus({ preventScroll: true });
+    }, 60);
   }
 
 
@@ -401,8 +426,14 @@
     var step = slide.getBoundingClientRect().width + 16;
     var n = track.querySelectorAll(".vcar-slide").length;
     var i = Math.min(n - 1, Math.max(0, Math.round(track.scrollLeft / step)));
+    // ONLY WRITE WHEN IT CHANGES. This ran on every scroll event and assigning
+    // textContent replaces the node even when the value is identical, so one
+    // arrow press mutated a polite live region 28 times in under a second, the
+    // first seven of them rewriting the same "1". That is a re-announcement
+    // risk for anything listening.
     var out = car.querySelector("[data-vcar-i]");
-    if (out) out.textContent = String(i + 1);
+    var next = String(i + 1);
+    if (out && out.textContent !== next) out.textContent = next;
     var prev = car.querySelector("[data-vcar-prev]");
     var next = car.querySelector("[data-vcar-next]");
     // 2px of slack: scrollLeft is fractional at some zoom levels and an exact
