@@ -397,6 +397,13 @@ const desc = (v.blurb || descriptions[v.id] || "")
   // "same set": #1 through #10 of one ETB are one sitting, and a viewer who
   // watched pack 3 usually wants pack 4, not another Chaos Rising rip.
   const hits = HITS_RESOLVED.get(v.id) || [];
+// RESOLVED, not merely present. resolveHits keeps a hit it could not match to
+// a printing and stamps it `unresolved`, because the card WAS pulled and
+// dropping it would lose that. But those render with no scan and no price, so
+// counting them as "we have something to show" was wrong: an audit mutated the
+// data so all 14 hits failed to resolve and got a band of 14 empty cards with
+// the free-text fallback suppressed, which is the worst of both.
+const resolvedHits = hits.filter((h) => !h.unresolved);
   const sameBox = v.box
     ? videos.filter((x) => x.box === v.box && x.id !== v.id).slice(0, 6)
     : [];
@@ -535,7 +542,7 @@ ${MENU}
           So it renders only when there is nothing resolved to show it with.
           One card named in the sheet and no scan for it is exactly the case
           this paragraph exists for, and it still gets it.
-        */ ""}${v.hitCard && !hits.length ? `<div class="hit-panel">
+        */ ""}${v.hitCard && !resolvedHits.length ? `<div class="hit-panel">
           <p class="hit-label">The hit</p>
           <p class="hit-card">${esc(tidy(v.hitCard))}</p>
           ${v.hitRarity ? `<p class="hit-rarity">${esc(rarityLabel(v.hitRarity))}</p>` : ""}

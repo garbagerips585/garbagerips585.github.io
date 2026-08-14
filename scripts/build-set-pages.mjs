@@ -340,7 +340,18 @@ function rarityPrices(s) {
 
   for (const [r, n] of Object.entries(s.rarities || {})) {
     const key = rarityLabel(r) || r;
-    const e = by.get(key);
+    // WORD ORDER ONLY. sets.json and the checklists come from different APIs
+    // and one says "Rare Holo VSTAR" where the other says "Holo Rare VSTAR".
+    // That is the same rarity spelled two ways, so the join may cross it.
+    //
+    // It deliberately does NOT reconcile the cases where the two sources
+    // genuinely carve the set up differently: Ascended Heroes lists 14 Ultra
+    // Rares plus 7 Mega Attack Rares where the checklist lists 21 Ultra Rares
+    // and no Mega Attack Rare. 14 + 7 = 21, so nothing is missing, but merging
+    // them would attach one tier's prices to another tier's name. Those stay
+    // suppressed, which is why some ladders show a count and no money.
+    const alias = /^Rare Holo\b/.test(key) ? key.replace(/^Rare Holo/, "Holo Rare") : null;
+    const e = by.get(key) || (alias ? by.get(alias) : null);
     if (!e || e.n !== n || e.prices.length !== n) continue;
     const asc = e.prices.slice().sort((a, b) => a - b);
     const mid = asc[Math.floor(asc.length / 2)];
