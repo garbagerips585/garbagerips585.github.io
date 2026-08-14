@@ -231,6 +231,19 @@ function cleanTitle(t) {
     .trim();
 }
 
+// Whitespace tidy for text typed into the spreadsheet by hand.
+//
+// The Hit Card column is free text on purpose, so it arrives with whatever
+// spacing it was typed with: "Double Rare , Mega Evolution" renders exactly
+// that space before the comma, because HTML collapses runs of whitespace but
+// does not move one from the wrong side of a comma. This only touches spacing,
+// never words or order, so what it prints is still what was typed.
+const tidy = (s) =>
+  String(s || "")
+    .replace(/[ \t]+/g, " ")
+    .replace(/\s+([,;:.!?])/g, "$1")
+    .trim();
+
 const tagged = videos.filter((v) => v.sets.length && v.products.length);
 const taggedIds = new Set(tagged.map((v) => v.id));
 const byId = new Map(videos.map((v) => [v.id, v]));
@@ -298,6 +311,11 @@ const headTitle =
 // blurb, the meta description and the schema alike.
 const desc = (v.blurb || descriptions[v.id] || "")
   .replace(/(?:\s*#[A-Za-z][\w-]*)+\s*$/, "")
+  // Runs of spaces and tabs only, never newlines: the blank lines are what give
+  // the blurb its paragraphs on the page. HTML collapses a double space so it
+  // is invisible in the body, but the meta description and the JSON-LD are
+  // attribute and string values where it is not collapsed and does show.
+  .replace(/[ \t]{2,}/g, " ")
   .trim();
   // Google truncates the snippet around 160 characters, so the fallback shapes
   // itself around the title rather than assuming the title is short: the tail
@@ -487,7 +505,7 @@ ${MENU}
         <p class="rip-meta">${shortDate(v.published)}${v.views ? " &bull; " + niceViews(v.views) : ""}${v.openingType ? " &bull; " + esc(v.openingType) : ""}</p>
         ${v.hitCard ? `<div class="hit-panel">
           <p class="hit-label">The hit</p>
-          <p class="hit-card">${esc(v.hitCard)}</p>
+          <p class="hit-card">${esc(tidy(v.hitCard))}</p>
           ${v.hitRarity ? `<p class="hit-rarity">${esc(rarityLabel(v.hitRarity))}</p>` : ""}
         </div>` : v.hasHit === false ? `<p class="hit-none">No hit in this one. Certified Garbage Rip.</p>` : ""}
         ${desc ? `<div class="rip-desc">${esc(desc)}</div>` : ""}

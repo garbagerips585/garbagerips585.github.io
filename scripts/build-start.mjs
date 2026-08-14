@@ -37,6 +37,29 @@ try {
   /* optional */
 }
 const nCards = (cardIndex.cards || []).length.toLocaleString("en-US");
+// THE SAME NUMBER cards.html publishes, from the same manifest, because the
+// two pages describe the same search box. This page said "Search 4,481 cards",
+// which is the priced subset from the 23 sets we cover, while the page it links
+// to says it searches every printing we could source. Counting the shards here
+// instead would have produced a third figure again: the raw shard count is
+// 39,715 against the manifest's 39,707.
+// Counted, not typed. This said "plus 13 imported ones" as a literal, which is
+// right today and silently wrong the first time a foreign set gets a guide.
+let nIntl = 0;
+try {
+  nIntl = Object.keys(
+    JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8")).sets || {},
+  ).length;
+} catch {
+  /* run: node scripts/sync-intl-guides.mjs */
+}
+let nPrintings = null;
+try {
+  const man = JSON.parse(await readFile(join(ROOT, "public/data/printings/manifest.json"), "utf8"));
+  nPrintings = { total: man.total.toLocaleString("en-US"), sets: man.sets.toLocaleString("en-US") };
+} catch {
+  /* run: node scripts/sync-all-printings.mjs. Falls back to the priced count. */
+}
 
 const STEPS = [
   {
@@ -49,7 +72,7 @@ const STEPS = [
   {
     n: 2,
     q: "What am I actually looking at?",
-    a: `Rarity symbols, what the little marks in the corner mean, and why two cards of the same Pokemon can be worth a dollar and a thousand dollars. Then the set itself: ${sets.length} English guides with full checklists, plus 13 imported ones.`,
+    a: `Rarity symbols, what the little marks in the corner mean, and why two cards of the same Pokemon can be worth a dollar and a thousand dollars. Then the set itself: ${sets.length} English guides with full checklists${nIntl ? `, plus ${nIntl} imported ones` : ""}.`,
     href: "/rarity.html",
     cta: "Rarity guide",
     also: [["/sets/", "Set guides"], ["/expansions.html", "Every set ever made"]],
@@ -57,7 +80,7 @@ const STEPS = [
   {
     n: 3,
     q: "What is it worth?",
-    a: `Search ${nCards} cards by name and get the current market price, or browse by Pokemon if you are chasing one in particular.`,
+    a: `Search ${nPrintings ? `${nPrintings.total} printings across ${nPrintings.sets} sets` : `${nCards} cards`} by name. ${nPrintings ? `${nCards} of them carry a current market price, which is every card in the ${sets.length} sets we cover. ` : ""}Or browse by Pokemon if you are chasing one in particular.`,
     href: "/cards.html",
     cta: "Card search",
     also: [["/pokemon/", "Browse by Pokemon"]],
