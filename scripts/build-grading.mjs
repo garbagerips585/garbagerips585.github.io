@@ -246,7 +246,13 @@ ${MENU}
 
     <div class="facts" style="margin-top:20px">
       <div class="fact"><div class="n">${moneyCompact(psaCo.cheapest)}</div><div class="l">Cheapest PSA tier</div></div>
-      <div class="fact"><div class="n">${moneyCompact(cheapest.cheapest)}</div><div class="l">Cheapest anywhere (${esc(cheapest.name)})</div></div>
+      <!-- "Cheapest anywhere" was a claim about the whole industry made from a
+           table of four companies, which is not the same thing. SGC is a fifth
+           major and is not in this data; a research pass in August 2026 put it
+           cheaper than anything here, and an attempt to confirm that failed
+           because SGC's own pricing table renders empty. So the number stays,
+           the scope claim goes, and the label now says exactly what it counted. -->
+      <div class="fact"><div class="n">${moneyCompact(cheapest.cheapest)}</div><div class="l">Cheapest of these four (${esc(cheapest.name)})</div></div>
       <div class="fact"><div class="n">${worth.length}/${rows.length}</div><div class="l">Cards that clear the PSA fee</div></div>
       <div class="fact wide"><div class="n" style="font-size:1.15rem">${esc(longDate(g.checked) || g.checked)}</div><div class="l">Fees last checked</div></div>
     </div>
