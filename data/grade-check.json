@@ -45,7 +45,7 @@
     "NO PULL RATES, and grade distributions are not pull rates. PSA publishes",
     "what share of submitted cards clear a grade, which is a fact about",
     "submissions. It is in `population` with PSA's own caveat attached and it",
-    "is used AGAINST the reader's optimism, because '90 per cent grade 8 or",
+    "is used AGAINST the reader's optimism, because '90 percent grade 8 or",
     "higher' says nothing whatever about the 10 rate and reads as reassurance.",
     "",
     "SOURCE ROT. Beckett runs two live scale pages that disagree at the top",
@@ -59,7 +59,7 @@
     "lead": "Centering is the only thing on this list you can measure at home instead of judging, so start here. It is also where the companies disagree most.",
     "howMeasured": {
       "text": "A card's centering is found by measuring the distance between the photo and the edge of the card from opposite sides.",
-      "example": "A card described as 50/50 top to bottom and 60/40 left to right has 60 per cent of the border on one side of the photo and 40 per cent on the other.",
+      "example": "A card described as 50/50 top to bottom and 60/40 left to right has 60 percent of the border on one side of the photo and 40 percent on the other.",
       "company": "PSA",
       "source": "https://www.psacard.com/resources/lingo",
       "read": "2026-08-15"
@@ -168,7 +168,7 @@
     ],
     "leeway": {
       "text": "A 5% leeway is given to the front centering minimum standards for cards which grade PSA 7 or better.",
-      "worked": "PSA gives its own example: a card meeting every other requirement for a 9 and measuring 60/40 off centre on the front automatically meets the front centering standard for a 9.",
+      "worked": "PSA gives its own example: a card meeting every other requirement for a 9 and measuring 60/40 off center on the front automatically meets the front centering standard for a 9.",
       "company": "PSA",
       "source": "https://www.psacard.com/gradingstandards",
       "read": "2026-08-15"
@@ -231,13 +231,13 @@
       {
         "company": "CGC",
         "has": false,
-        "note": "Discontinued. CGC's help centre states plainly that subgrades are no longer offered.",
+        "note": "Discontinued. CGC's help center states plainly that subgrades are no longer offered.",
         "kind": "No subgrades"
       },
       {
         "company": "PSA",
         "has": false,
-        "note": "No subgrade product. PSA uses qualifiers instead, which cap the grade rather than sit beside it: OC off centre, MC miscut, ST staining, PD print defect, OF out of focus, MK marks.",
+        "note": "No subgrade product. PSA uses qualifiers instead, which cap the grade rather than sit beside it: OC off center, MC miscut, ST staining, PD print defect, OF out of focus, MK marks.",
         "kind": "No subgrades"
       },
       {
@@ -285,7 +285,7 @@
     "lead": "The hobby and the grading companies do not use the same words, and the most important one is a word no company uses at all.",
     "headline": {
       "head": "Nobody grades \"whitening\". Search their standards for it and you get nothing",
-      "body": "The word every collector uses does not appear in any of the five majors' published standards. PSA calls it chipping, and its definition is written for exactly the kind of card Pokemon prints: it says chipping is most noticeable on sets with coloured borders, because of the contrast between the border and the lighter cardboard underneath the thin layer of ink, and that it can come from ageing, handling, or even dull blades at the factory. So a card can arrive chipped from the factory, and it counts the same as the chipping you caused.",
+      "body": "The word every collector uses does not appear in any of the five majors' published standards. PSA calls it chipping, and its definition is written for exactly the kind of card Pokemon prints: it says chipping is most noticeable on sets with colored borders, because of the contrast between the border and the lighter cardboard underneath the thin layer of ink, and that it can come from ageing, handling, or even dull blades at the factory. So a card can arrive chipped from the factory, and it counts the same as the chipping you caused.",
       "source": "https://www.psacard.com/resources/lingo"
     },
     "items": [
@@ -338,21 +338,21 @@
       {
         "name": "Diamond cut",
         "what": "A skewed factory cut, so the card is not a true rectangle. Named by all five majors and allowed progressively further down every scale.",
-        "co": "all four"
+        "co": "all five"
       },
       {
         "name": "Holo bleed, where the company you pick changes the answer",
-        "what": "Holofoil showing through areas the manufacturer did not intend. PSA recognises it and treats it as a print quality matter rather than an authenticity one. CGC states outright that it does not recognise so called holo bleeds. This is the clearest case on the page of the same card getting two different readings depending on where you send it.",
+        "what": "Holofoil showing through areas the manufacturer did not intend. PSA recognizes it and treats it as a print quality matter rather than an authenticity one. CGC states outright that it does not recognize so called holo bleeds. This is the clearest case on the page of the same card getting two different readings depending on where you send it.",
         "co": "PSA and CGC disagree"
       }
     ]
   },
   "pokemon": {
-    "lead": "Four things that are specific to modern Pokemon and sourced to a grading company rather than to hobby lore.",
+    "lead": "Things that are specific to modern Pokemon and sourced to a grading company or to The Pokemon Company itself, rather than to hobby lore.",
     "items": [
       {
-        "head": "Off centre is the normal case, not bad luck",
-        "body": "CGC states that off-centre errors are among the most common printing anomalies in trading card games. If you are opening packs and finding off-centre cards, nothing has gone wrong. That is what the process produces.",
+        "head": "Off center is the normal case, not bad luck",
+        "body": "CGC states that off-center errors are among the most common printing anomalies in trading card games. If you are opening packs and finding off-center cards, nothing has gone wrong. That is what the process produces.",
         "source": "https://www.cgccards.com/news/article/9851/error-card-types/"
       },
       {
@@ -404,7 +404,7 @@
       },
       {
         "head": "Use a 10x loupe, because that is the power the grade is decided at",
-        "body": "CGC specifies the tool: a 10x power loupe with a triplet lens corrected for both colour and distortion, which it calls the standard format for professional card graders. Its top grade is defined at exactly that power, as flawless under 10 times magnification. A reader with a 10x loupe is looking at the card the same way the grader will.",
+        "body": "CGC specifies the tool: a 10x power loupe with a triplet lens corrected for both color and distortion, which it calls the standard format for professional card graders. Its top grade is defined at exactly that power, as flawless under 10 times magnification. A reader with a 10x loupe is looking at the card the same way the grader will.",
         "source": "https://www.cgccards.com/glossary/"
       },
       {
@@ -418,9 +418,9 @@
     ],
     "limit": {
       "head": "Where self-assessment genuinely runs out, in PSA's own words",
-      "body": "PSA says outright that a grader must sometimes make a call on a card falling between two grades, and that the final determination is made on experience, eye appeal and market acceptability. It also gives the reverse case: a card that technically falls within the printed standards can still be held back because the market would view it as off centre. So the numbers get you close and then a judgement you cannot make from home decides it.",
+      "body": "PSA says outright that a grader must sometimes make a call on a card falling between two grades, and that the final determination is made on experience, eye appeal and market acceptability. It also gives the reverse case: a card that technically falls within the printed standards can still be held back because the market would view it as off center. So the numbers get you close and then a judgment you cannot make from home decides it.",
       "source": "https://www.psacard.com/gradingstandards",
-      "also": "CGC names the specific thing you will get wrong: the surface of a card often hides flaws and is one of the tougher areas to analyse at home. If you are going to misjudge your own card, that is where.",
+      "also": "CGC names the specific thing you will get wrong: the surface of a card often hides flaws and is one of the tougher areas to analyze at home. If you are going to misjudge your own card, that is where.",
       "alsoSource": "https://www.cgccards.com/news/article/13193/"
     },
     "notesCost": {
@@ -432,16 +432,16 @@
   "population": {
     "lead": "Two published outcome numbers, and how to look up your own card.",
     "psa": {
-      "text": "PSA publishes that about 90 per cent of modern trading card game cards from 2003 onward have graded at a PSA 8 or higher, and about 80 per cent of pre-2003 vintage TCG cards at a 7 or higher, with its own note that all percentages are approximate and every card is graded individually without regard to them.",
+      "text": "PSA publishes that about 90 percent of modern trading card game cards from 2003 onward have graded at a PSA 8 or higher, and about 80 percent of pre-2003 vintage TCG cards at a 7 or higher, with its own note that all percentages are approximate and every card is graded individually without regard to them.",
       "trap": "Read that number the way it is written, not the way it feels. It is a floor, not a forecast. Nine in ten clearing an 8 tells you nothing whatever about your odds of a 10, and on most cards an 8 does not cover the fee. This statistic is the most reassuring thing PSA publishes and it is not reassurance.",
       "source": "https://www.psacard.com/info/get-started"
     },
     "tag": {
-      "text": "TAG publishes that its Pristine grade, which it says exceeds the industry standard for a Gem Mint 10, represents less than 1 per cent of the cards it has graded.",
+      "text": "TAG publishes that its Pristine grade, which it says exceeds the industry standard for a Gem Mint 10, represents less than 1 percent of the cards it has graded.",
       "source": "https://taggrading.com/pages/scale"
     },
     "lookup": {
-      "text": "The most useful thing you can do before submitting is look up how many 10s already exist for your exact card. CGC's population report is open with no account, organised by game, era and set. Beckett's and SGC's reports also open without an account.",
+      "text": "The most useful thing you can do before submitting is look up how many 10s already exist for your exact card. CGC's population report is open with no account, organized by game, era and set. Beckett's and SGC's reports also open without an account.",
       "gap": "PSA's does not. Its population report redirects to a sign-in page. So the one company whose 10 most people actually want is the one you cannot check without an account.",
       "source": "https://www.cgccards.com/population-report/"
     }

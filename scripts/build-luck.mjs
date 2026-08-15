@@ -384,7 +384,7 @@ const html = `<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pokemon Pack Luck, Measured: What Actually Came Out of ${videos.length} Rips | Garbage Rips 585</title>
+<title>Pokemon Pack Luck, Measured: What Actually Came Out of ${judged.length} Rips | Garbage Rips 585</title>
 <meta name="description" content="${
   judged.length
     ? `Observed hit rates from ${judged.length} logged Pokemon pack openings, broken down by set and product. Not official pull rates: what actually came out on camera.`

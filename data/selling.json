@@ -169,7 +169,7 @@
         }
       ],
       "payout": "Sales proceeds show as Processing, then typically become Available 1 to 2 days after the buyer's payment is confirmed. Payouts default to daily and are initiated about 2 days after payment is confirmed; weekly go out Tuesdays, biweekly every second Tuesday, monthly on the first Tuesday. The bank then typically takes another 1 to 3 business days. Express payout to a verified debit card or eligible bank account arrives in about 30 minutes for a flat $2.00. Must be a checking account or a Visa/Mastercard debit card; a savings account or PayPal cannot receive payouts.",
-      "protection": "Seller protections cover abusive buyer behaviour (negative and neutral feedback and defects removed, cases removed from service metrics) and events outside the seller's control such as carrier delays or severe weather when tracking shows on-time shipment. Payment dispute protection, where the transaction is eligible, covers the disputed amount, waives the $20 dispute fee and removes related feedback. The extra Top Rated Seller protections against a false 'not as described' claim, and against an item returned used or damaged, require Top Rated Seller status, US or Canada residence, no 'Very High' service metric, a listing on eBay.com and a 30-day or longer return policy. Protection is lost for false identity, not honouring your own return policy, taking sales off eBay, shipping slower than the service bought, and abuse of the protections themselves.",
+      "protection": "Seller protections cover abusive buyer behavior (negative and neutral feedback and defects removed, cases removed from service metrics) and events outside the seller's control such as carrier delays or severe weather when tracking shows on-time shipment. Payment dispute protection, where the transaction is eligible, covers the disputed amount, waives the $20 dispute fee and removes related feedback. The extra Top Rated Seller protections against a false 'not as described' claim, and against an item returned used or damaged, require Top Rated Seller status, US or Canada residence, no 'Very High' service metric, a listing on eBay.com and a 30-day or longer return policy. Protection is lost for false identity, not honoring your own return policy, taking sales off eBay, shipping slower than the service bought, and abuse of the protections themselves.",
       "sources": [
         {
           "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
@@ -197,7 +197,7 @@
           "what": "What seller protections cover and the eligibility conditions"
         }
       ],
-      "note": "eBay's own seller centre page (ebay.com/sellercenter) timed out repeatedly; every figure here came from the help centre articles listed above, which are eBay's own fee pages.",
+      "note": "eBay's own seller center page (ebay.com/sellercenter) timed out repeatedly; every figure here came from the help center articles listed above, which are eBay's own fee pages.",
       "group": "market"
     },
     {
@@ -338,7 +338,7 @@
         }
       ],
       "payout": "For most US sellers earnings become available up to 4 hours after the carrier confirms delivery, then a requested payout reaches the bank in 1 to 2 business days. Sellers eligible for Early Payout get earnings the moment a shipping label is generated instead of waiting for delivery. Shipping methods without standard tracking run on fixed clocks instead: USPS First-Class Mail Letter (plain white envelope) is 10 days after label generation, bring-your-own-label is 7 days after the tracking number is entered.",
-      "protection": "Whatnot covers, and does not charge back to the seller: carrier delays after a timely drop-off, packages lost, undelivered or misdelivered by the carrier, and claims it judges to be abusive or fraudulent buyer behaviour. It handles chargebacks and payment disputes itself rather than passing them to the seller. The seller is charged back for late or unverified shipment (orders must ship within two business days with valid drop-off evidence such as an in-app scanner photo or a carrier acceptance scan; from 2 March 2026 sellers are responsible for refunds on late US domestic shipments without that confirmation), for failing to fulfil a high-value item, and for refunds arising from policy violations. Coverage is not unlimited: repeated issues cause Whatnot to reassess eligibility and recover refunded amounts across orders.",
+      "protection": "Whatnot covers, and does not charge back to the seller: carrier delays after a timely drop-off, packages lost, undelivered or misdelivered by the carrier, and claims it judges to be abusive or fraudulent buyer behavior. It handles chargebacks and payment disputes itself rather than passing them to the seller. The seller is charged back for late or unverified shipment (orders must ship within two business days with valid drop-off evidence such as an in-app scanner photo or a carrier acceptance scan; from 2 March 2026 sellers are responsible for refunds on late US domestic shipments without that confirmation), for failing to fulfill a high-value item, and for refunds arising from policy violations. Coverage is not unlimited: repeated issues cause Whatnot to reassess eligibility and recover refunded amounts across orders.",
       "sources": [
         {
           "url": "https://help.whatnot.com/hc/en-us/articles/4847069165965-Whatnot-seller-fees",
@@ -716,7 +716,7 @@
           "what": "That Pokemon singles are bought, listed as 'Pokemon Cards (Holographics)'"
         }
       ],
-      "note": "The Pokemon side of the self-serve buy list is sealed product. Singles go through a quote. No consignment or auction programme is published on their own site, so none is recorded here.",
+      "note": "The Pokemon side of the self-serve buy list is sealed product. Singles go through a quote. No consignment or auction program is published on their own site, so none is recorded here.",
       "group": "buylist"
     },
     {
@@ -866,10 +866,10 @@
         {
           "url": "https://www.sportlots.com/auction/aucbin/dislots_sport.tpl?sportval=Other+Cards",
           "read": "2026-08-15",
-          "what": "Live Pokemon listings confirming Pokemon is sold there, under the sport-organised 'Other Cards' category"
+          "what": "Live Pokemon listings confirming Pokemon is sold there, under the sport-organized 'Other Cards' category"
         }
       ],
-      "note": "Sportlots is NOT a buylist, despite often being grouped with them. Nobody buys your cards; you list them to the public. Its inventory system is organised by sport, and Pokemon sits under 'Other Cards'. No minimum payout threshold is published.",
+      "note": "Sportlots is NOT a buylist, despite often being grouped with them. Nobody buys your cards; you list them to the public. Its inventory system is organized by sport, and Pokemon sits under 'Other Cards'. No minimum payout threshold is published.",
       "group": "market"
     },
     {

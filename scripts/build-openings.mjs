@@ -79,13 +79,13 @@ const USUALLY = {
   "ex-premium": "A collection box built around one ex card, with a promo, an oversize card and a few packs.",
   "ex-box": "A smaller box built around one ex card, with a promo and a couple of packs.",
   upc: "An Ultra Premium Collection is the largest sealed product of a set: a big box with a lot of packs, a metal or oversize card and usually a full art promo.",
-  tin: "A metal tin with a promo card and a few packs.",
+  tin: "A metal tin with a promo card and a few packs. The tin outlives the cards and is the reason a lot of people buy them.",
   "poke-ball-tin": "A ball-shaped tin, usually with one or two packs and a coin or promo.",
   blister: "A hanging card with one to three packs and a promo, sold on a peg rather than a shelf.",
-  "collection-box": "A themed box with promos and packs.",
+  "collection-box": "A themed box built around a character or a pair of them, with promo cards, sometimes an oversize card, and a few packs. The contents vary more than any other product here.",
   "japanese-pack": "A Japanese booster pack. Japanese sets are smaller and print differently from the English ones.",
-  "korean-pack": "A Korean booster pack.",
-  "chinese-pack": "A Chinese booster pack.",
+  "korean-pack": "A Korean booster pack. Korea gets its own print run and its own set numbering, so a Korean card is not just an English card in another language.",
+  "chinese-pack": "A Chinese booster pack. Simplified Chinese sets run on their own schedule and are the hardest of the languages here to find in the US.",
 };
 
 // The question somebody types, which becomes the H1.
@@ -345,7 +345,7 @@ ${e.prices.length
       <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On the channel</p>
       <h2>Every ${esc(e.label)} <span class="hl">opened</span> here</h2>
       <p class="lede" style="max-width:38em">${e.vids.length} of them${
-        e.packs ? `, ${e.packs} packs counted` : ""
+        e.packs ? `, ${e.packs} pack${e.packs === 1 ? "" : "s"} counted` : ""
       }. Each one plays on its own page.</p>
       <ul class="riplist">
 ${e.vids
@@ -397,7 +397,9 @@ ${entries
     (e) => `        <a class="op-c" href="/openings/${esc(e.id)}.html">
           <h2>${esc(e.label)}</h2>
           <p>${esc(firstSentence(USUALLY[e.id] || ""))}</p>
-          <span class="op-n">${e.vids.length} opened${e.packs ? ` &bull; ${e.packs} packs` : ""}</span>
+          <span class="op-n">${e.vids.length} opened${
+            e.packs ? ` &bull; ${e.packs} pack${e.packs === 1 ? "" : "s"} counted in ${e.withPacks} of them` : ""
+          }</span>
         </a>`
   )
   .join("\n")}

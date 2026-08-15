@@ -89,7 +89,7 @@ const card = (o, kind) => `      <li class="loc">
         ${links(o)}
       </li>`;
 
-function page({ slug, title, h1, kicker, lede, list, kind, empty, note, updated }) {
+function page({ metaDesc, slug, title, h1, kicker, lede, list, kind, empty, note, updated }) {
   // Alphabetical, always. See the header note on why this is not a ranking.
   const rows = [...list].sort((a, b) => String(a.name).localeCompare(String(b.name)));
   const ld = [
@@ -130,9 +130,14 @@ function page({ slug, title, h1, kicker, lede, list, kind, empty, note, updated 
       })),
     });
   }
-  const desc = rows.length
+  // ONE MAIL MERGE FOR TWO INDEXED PAGES IS DUPLICATE CONTENT. vendors.html and
+  // creators.html were both getting "N <kind> around Rochester, New York and the
+  // wider region, with links to follow them", differing only in a noun and a
+  // number, which is the description Google sees on both. Each page names its
+  // own now, and the mail merge is only the fallback.
+  const desc = metaDesc || (rows.length
     ? `${rows.length} ${kind} around Rochester, New York and the wider region, with links to follow them.`
-    : lede;
+    : lede);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -205,6 +210,9 @@ ${APP_JS}
 }
 
 const V = page({
+  metaDesc:
+    "Card shops, breakers and sellers around Rochester NY that we actually buy from, with what each one is " +
+    "good for and a link to find them.",
   slug: "vendors.html",
   title: "Pokemon Card Vendors in Rochester, NY | Garbage Rips 585",
   h1: "Local vendors",
@@ -225,6 +233,9 @@ const V = page({
 });
 
 const C = page({
+  metaDesc:
+    "Pokemon YouTubers, rippers, collectors and artists in Rochester, Buffalo and Syracuse. Upstate New York " +
+    "creators worth following, with a link to each.",
   slug: "creators.html",
   title: "Pokemon Creators in Rochester, Buffalo and Syracuse | Garbage Rips 585",
   h1: "Local creators",

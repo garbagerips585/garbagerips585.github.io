@@ -5,7 +5,7 @@
     "",
     "THE FRAMING, AND IT IS DELIBERATE. The obvious way to write this page is a",
     "list of venues to avoid. This site cannot source that: 'Facebook Marketplace",
-    "is full of scammers' is a character judgement with no publishable evidence",
+    "is full of scammers' is a character judgment with no publishable evidence",
     "behind it, and it would age badly. What IS sourceable is the mechanism, which",
     "is who holds the money when something goes wrong and what recourse exists.",
     "A reader given the mechanism can judge any venue, including ones that do not",
@@ -129,13 +129,13 @@
       "covers": [
         "Chargebacks and payment disputes, handled by Whatnot rather than the seller.",
         "Carrier delays after a timely drop-off, and packages lost or misdelivered by the carrier.",
-        "Claims involving abusive or fraudulent buyer behaviour.",
+        "Claims involving abusive or fraudulent buyer behavior.",
         "Where fault cannot be established, Whatnot says it will cover the refund up to a reasonable limit. An explicit shared-responsibility category, which is unusual."
       ],
       "sellerBilledBackFor": [
         "Late or unverified shipment, against a 2 business day drop-off with proof.",
         "Failure to answer a buyer or support within 2 business days.",
-        "Failure to fulfil high value items."
+        "Failure to fulfill high value items."
       ],
       "cardCarveOut": "For trading card games the buyer's claim window is the earlier of 7 days from delivery or 30 days from purchase, against 30 and 14 for general categories.",
       "highValue": "Liability on a missing high-value card is the full MARKET value of the card, not the seller's earnings on it.",
@@ -264,7 +264,7 @@
     },
     {
       "name": "Film the packing, in one continuous shot",
-      "why": "Whatnot requires it for a high-value claim and says photos will not be accepted as sufficient evidence. Keep the footage 75 days. Even where it is not required, it is the only artefact that answers the empty-box claim.",
+      "why": "Whatnot requires it for a high-value claim and says photos will not be accepted as sufficient evidence. Keep the footage 75 days. Even where it is not required, it is the only artifact that answers the empty-box claim.",
       "source": "https://help.whatnot.com/hc/en-us/articles/5522583677837-High-Value-Loss-Reimbursement-Policy",
       "read": "2026-08-15"
     },

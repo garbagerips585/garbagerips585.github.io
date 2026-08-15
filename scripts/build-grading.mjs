@@ -52,9 +52,9 @@ const median = (a) => {
 };
 const COMPANIES = [
   ["psa10", "PSA 10"],
-  ["bgs10", "BGS 10"],
+  ["bgs10", "Beckett 10"],
   ["tag10", "TAG 10"],
-  ["ace10", "ACE 10"],
+  ["ace10", "ACE Grading 10"],
   ["sgc10", "SGC 10"],
   ["cgc10", "CGC 10"],
 ];
@@ -263,7 +263,7 @@ ${MENU}
 
 <section class="band tight">
   <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The four</p>
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ${coWord}</p>
     <h2>What each one <span class="hl">costs</span></h2>
     <div class="gc-grid">
       ${g.companies
@@ -388,9 +388,9 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
     <div class="fk-golden" style="margin-bottom:var(--s5)">
       <p class="fk-golden-h">The part that changes the math</p>
       <h2>Cheap to grade is not <span class="hl">cheap</span></h2>
-      <p>CGC is the cheapest slab you can buy at ${moneyRound(by.cgc ? by.cgc.cheapest : 17)}, and a CGC 10 sells for
+      <p>${cheapest.name} is the cheapest slab you can buy at ${moneyRound(cheapest.cheapest)}, and a CGC 10 sells for
         about ${(slabValue.find((r) => r.label === "CGC 10") || {}).vsPsa?.toFixed(2)}x what the same card makes in a
-        PSA 10. A BGS 10 sells for ${(slabValue.find((r) => r.label === "BGS 10") || {}).vsPsa?.toFixed(2)}x. So the
+        PSA 10. A Beckett 10 sells for ${(slabValue.find((r) => r.label === "Beckett 10") || {}).vsPsa?.toFixed(2)}x. So the
         fee is the smaller half of the decision: paying less to grade can cost you more than it saves, and the gap is
         far bigger than the difference in fees.</p>
       <p style="margin-top:10px">And every figure above is the price of a 10. You do not find out which grade you are

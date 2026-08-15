@@ -25,7 +25,7 @@
 // THE SAFETY HALF IS FRAMED AS MECHANISM, NOT REPUTATION, and that was a
 // deliberate choice against the obvious one. The obvious page warns readers
 // off Facebook Marketplace. This site cannot source "Facebook Marketplace is
-// full of scammers": it is a character judgement with no publishable evidence
+// full of scammers": it is a character judgment with no publishable evidence
 // and it would age badly. What IS sourceable is who stands between buyer and
 // seller, what recourse exists, and who eats the loss. A reader given the
 // mechanism can judge any venue, including ones that do not exist yet.
@@ -230,6 +230,15 @@ const desc = `Where to sell Pokemon cards and what each place takes. Fees read o
 
 const style = `
 .se-lede{max-width:46em}
+.se-jump{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:var(--s5) 0 var(--s4)}
+.se-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
+  border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
+  text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
+.se-jump a:hover{border-color:var(--ink);background:var(--mustard)}
+.se-jg{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-2);margin-left:var(--s2)}
+.se-jg:first-child{margin-left:0}
+.se-v{scroll-margin-top:var(--s5)}
 .se-key{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:#F4F1E2;
   padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
 .se-key h2{color:#F4F1E2;margin-bottom:var(--s3)}
@@ -320,6 +329,17 @@ ${MENU}
         say so.</p>
       <p class="lede se-lede">Prices and fees move. Every figure here carries the date it was read, and if you are
         about to sell something expensive, check the company's own page before you count on a number.</p>
+
+      <nav class="se-jump" aria-label="Jump to a venue">
+${GROUPS.map((g) => {
+  const list = venues.filter((v) => groupOf(v) === g.key);
+  return list.length
+    ? `        <span class="se-jg">${esc(g.title)}</span>\n${list
+        .map((v) => `        <a href="#${esc(v.id)}">${esc(v.name)}</a>`)
+        .join("\n")}`
+    : "";
+}).filter(Boolean).join("\n")}
+      </nav>
 
       <div class="se-key">
         <h2>The question that decides how much a sale can hurt you</h2>

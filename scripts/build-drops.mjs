@@ -78,9 +78,9 @@ const nOnline = byChannel("online").length;
 const order = [];
 for (const d of drops) if (!order.includes(d.retailer)) order.push(d.retailer);
 
-// COLOUR MEANS KIND OF SHOP, NOT WHICH SHOP. A retailer's own brand colour was
+// COLOUR MEANS KIND OF SHOP, NOT WHICH SHOP. A retailer's own brand color was
 // tried first and failed on its own terms: the two red pharmacies-and-discount
-// chips landed close enough to be one colour, and better sourcing makes it
+// chips landed close enough to be one color, and better sourcing makes it
 // worse rather than better, because Target and Costco use the same Pantone.
 // The name identifies. These are the site's own palette describing the site's
 // own categories, so they assert nothing about anybody's brand.
@@ -95,7 +95,7 @@ const KIND_TINT = {
 const chip = (id) => {
   const r = R[id];
   const tint = KIND_TINT[r.kind];
-  if (!tint) throw new Error(`drops.json: retailer "${r.name}" has kind "${r.kind}" with no colour in KIND_TINT`);
+  if (!tint) throw new Error(`drops.json: retailer "${r.name}" has kind "${r.kind}" with no color in KIND_TINT`);
   return `<span class="rt" style="--rt:${tint}">${esc(r.name)}<i>${esc(r.kind)}</i></span>`;
 };
 
@@ -270,8 +270,8 @@ ${drops.map(card).join("\n")}
       <div class="dr-key">
         <h2>How to read this page</h2>
         <p><b>What the labels mean.</b> ${Object.values(CONF).map((c) => `<b>${c.label}:</b> ${c.note}`).join(" ")}</p>
-        <p style="margin-top:var(--s3)"><b>What the colours mean.</b> The stripe on each name is the kind of
-          shop, not the shop's own colour: ${Object.entries(KIND_TINT)
+        <p style="margin-top:var(--s3)"><b>What the colors mean.</b> The stripe on each name is the kind of
+          shop, not the shop's own color: ${Object.entries(KIND_TINT)
             .map(([k, v]) => `<span class="dr-sw" style="--rt:${v}"></span>${esc(k)}`)
             .join(", ")}. Retailer names here are drawn in this site's own typeface and are the property of
           their owners. Nothing on this page is endorsed by, affiliated with or supplied by any of them.</p>

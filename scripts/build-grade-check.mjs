@@ -308,7 +308,7 @@ ${d.unverified.items.map((i) => `            <li>${esc(i)}</li>`).join("\n")}
       </section>
 
       <section class="gc-sec">
-        <h2>Now go and do the <span class="hl">maths</span></h2>
+        <h2>Now go and do the <span class="hl">math</span></h2>
         <p class="gc-in">If the card survived all of that, the next question is whether the fee clears.
           <a href="/grading.html">What grading costs and whether it pays</a> has the current fee table for all
           ${GRADING_CO} companies and works the break-even out against each card's own price. If it did not survive,
@@ -321,7 +321,7 @@ ${d.unverified.items.map((i) => `            <li>${esc(i)}</li>`).join("\n")}
         submit anything expensive. Where two pages of the same company disagreed, the standards page was used:
 ${d.conflicts.map((x) => `        ${esc(x.what)}`).join("<br>\n")}
         <br>Nothing here is a pull rate and nothing here is a promise about your card. The final call is a human
-        being's judgement, and every company says so.</p>
+        being's judgment, and every company says so.</p>
     </div>
   </section>
 </main>

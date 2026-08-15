@@ -105,7 +105,7 @@ what proves it rather than the intention.
 **The flip has been rehearsed twice on 14 August 2026, the second time after
 the playlist pages and the whole day's changes landed.** The second run:
 34 of 34 builders, ZERO files anywhere under public/ referencing the staging
-host, 399 sitemap urls all on the real domain including the 20 playlist pages,
+host, 420 sitemap urls all on the real domain including the 21 playlist pages,
 every one resolving to a file, CNAME written and robots.txt open.
 
 The first run, earlier the same day, checked two things the second did not:
