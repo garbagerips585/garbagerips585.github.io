@@ -98,7 +98,13 @@
     // show that set's pack; unfiltered, show the generic multi-set wrapper
     // rather than implying the rip was only one of them.
     var sets = v.sets || [];
-    var set = opts.preferSet && sets.indexOf(opts.preferSet) > -1 ? opts.preferSet : sets[0];
+    // The set this tile speaks for: the one being filtered on where the video
+    // carries it, otherwise the first it is tagged with. Both the artwork below
+    // and the caption further down read from this, because a tile wearing the
+    // Chaos Rising wrapper under a Chaos Rising filter while its caption said
+    // "PERFECT ORDER +1" looked like the filter had leaked.
+    var lead = opts.preferSet && sets.indexOf(opts.preferSet) > -1 ? opts.preferSet : sets[0];
+    var set = lead;
     if (!opts.preferSet && sets.length > 1) set = "multi";
     else if (!set) set = "default";
     art.appendChild(makePack(set, "tile"));
@@ -125,8 +131,8 @@
     // Label from the real sets, never from the wrapper being shown: "multi" is
     // an artwork choice and would read here as though it were a card set.
     var bits = [];
-    if (sets.length > 1) bits.push(labelOf("sets", sets[0]).toUpperCase() + " +" + (sets.length - 1));
-    else if (sets.length) bits.push(labelOf("sets", sets[0]).toUpperCase());
+    if (sets.length > 1) bits.push(labelOf("sets", lead).toUpperCase() + " +" + (sets.length - 1));
+    else if (sets.length) bits.push(labelOf("sets", lead).toUpperCase());
     if (v.views) bits.push(fmtViews(v.views).toUpperCase());
     else if (v.published) bits.push(fmtDate(v.published).toUpperCase());
     card.appendChild(el("p", null, bits.join("  \u2022  ")));

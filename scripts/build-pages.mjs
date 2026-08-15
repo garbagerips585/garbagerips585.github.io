@@ -897,6 +897,14 @@ const urls = [
   // Daily: the totals are recomputed by the nightly price sync, so this page
   // genuinely changes every night. Nothing else here does.
   { loc: `${SITE}/complete-a-set.html`, freq: "daily", pri: "0.9" },
+  // Pack prices per set. Daily for the same reason as the line above: every
+  // figure on it is recomputed from the product prices the nightly sync pulls,
+  // so the page genuinely changes when the market does.
+  { loc: `${SITE}/pack-prices.html`, freq: "daily", pri: "0.9" },
+  // "What set is my card from". Monthly: the index only moves when a set ships.
+  // High priority anyway, because it is the same kind of evergreen reference as
+  // the rarity guide and it is the page somebody lands on holding a card.
+  { loc: `${SITE}/what-set.html`, freq: "monthly", pri: "0.9" },
   // The games. Monthly rather than weekly: the pages themselves barely change,
   // it is the data behind them that moves. "who's that pokemon" and "pokemon
   // trivia" are both high volume searches this site has a real answer to, which

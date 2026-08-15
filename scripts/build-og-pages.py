@@ -51,6 +51,8 @@ PAGES = {
     "upcoming": ("WHAT IS NEXT", "Coming next", "The next sets, with live preorder prices"),
     "expansions": ("THE WHOLE LIST", "Every set ever", "Oldest to newest, all in one place"),
     "complete": ("PRICED LAST NIGHT", "Cost to complete a set", "Every set, three tiers, live prices"),
+    "pack-prices": ("PRICED NIGHTLY", "What does a pack cost?", "Every set, box against bundle against loose pack"),
+    "what-set": ("HOLDING A CARD?", "What set is this?", "Look up the number printed after the slash"),
     "collection": ("THE BINDER", "The collection", "What is in it, and what it is worth"),
     "hall": ("THE GOOD ONES", "Hall of Fame", "The pulls that actually went somewhere"),
 }

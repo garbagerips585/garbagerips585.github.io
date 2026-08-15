@@ -60,6 +60,19 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--page);color:var(--ink);font:400 17px/1.55 var(--body)}
 img{max-width:100%;height:auto;display:block}
+/* Card scans are served as <picture>, WebP with an AVIF source in front of it
+   (see avifPicture in shared/format.mjs). display:contents takes the <picture>
+   out of the box tree entirely so the <img> is laid out as though it were still
+   the direct child it used to be.
+
+   THIS RULE IS LOAD BEARING AND SILENT WHEN IT IS MISSING. Every card box on
+   this site sizes the img rather than the wrapper: `.wc-art img{height:100%}`,
+   `.mw-art img`, `.chase-card img{width:100%}`, `.rr-card img` and a dozen
+   more. A percentage height resolves against the img's PARENT, and without
+   this the parent is an auto-height inline <picture>, so `height:100%` becomes
+   height:auto and every one of those boxes silently changes shape. Nothing
+   errors; the art just stops fitting its frame. */
+picture{display:contents}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:1500px;margin:0 auto;padding:0 var(--s5)}
 @media(max-width:700px){.wrap{padding:0 var(--s3)}}

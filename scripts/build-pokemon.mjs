@@ -35,7 +35,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact, moneyRound, moneyCompact, rarityLabel, imgDims } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, moneyRound, moneyCompact, rarityLabel, imgDims, avifPicture } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/pokemon");
@@ -323,7 +323,7 @@ function pokePage(p) {
         data-number="${esc(c.n || "")}" data-price="${esc(moneyCompact(c.price))}"
         data-set="${esc(c.setName)}"
         aria-label="Enlarge ${esc(c.name)}, ${esc(c.setName)}${c.n ? " " + esc(c.n) : ""}">
-        ${c.img ? `<img src="${esc(c.img)}/low.webp" onerror="this.remove()" alt="${esc(c.name)} ${esc(c.n || "")}, ${esc(c.setName)}" loading="lazy"${imgDims(c.img + "/low.webp")}>` : ""}
+        ${c.img ? avifPicture(`<img src="${esc(c.img)}/low.webp" onerror="this.remove()" alt="${esc(c.name)} ${esc(c.n || "")}, ${esc(c.setName)}" loading="lazy"${imgDims(c.img + "/low.webp")}>`) : ""}
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(c.setName)} &bull; ${esc(c.n || "")}</div>
         ${c.rarity ? `<div class="rr">${esc(rarityLabel(c.rarity))}</div>` : ""}
@@ -385,7 +385,7 @@ ${(() => {
       ${withScan
         .map(
           (c) => `<div class="chase-card is-flat">
-        <img src="${esc(c.g)}/low.webp" onerror="this.remove()" alt="${esc(c.n)} ${esc(c.i)}, ${esc(c.s)}" loading="lazy" decoding="async"${imgDims(c.g + "/low.webp")}>
+        ${avifPicture(`<img src="${esc(c.g)}/low.webp" onerror="this.remove()" alt="${esc(c.n)} ${esc(c.i)}, ${esc(c.s)}" loading="lazy" decoding="async"${imgDims(c.g + "/low.webp")}>`)}
         <div class="nm">${esc(c.n)}</div>
         <div class="rr">${esc(c.s)} &bull; ${esc(c.i)}</div>
         ${c.r ? `<div class="rr">${esc(rarityLabel(c.r))}</div>` : ""}
@@ -520,7 +520,7 @@ function indexPage() {
           // number: an element the browser is told is not needed for the first
           // screen cannot also be the largest thing on the first screen.
           (p, i) => `<a class="poke-card" href="/pokemon/${esc(p.slug)}.html">
-        ${p.priciest.img ? `<img src="${esc(p.priciest.img)}/low.webp" onerror="this.remove()" alt="${esc(p.priciest.name)}, the most valuable ${esc(p.name)} card" ${i === 0 ? `decoding="async"` : `loading="lazy"`} width="245" height="337">` : ""}
+        ${p.priciest.img ? avifPicture(`<img src="${esc(p.priciest.img)}/low.webp" onerror="this.remove()" alt="${esc(p.priciest.name)}, the most valuable ${esc(p.name)} card" ${i === 0 ? `decoding="async"` : `loading="lazy"`} width="245" height="337">`) : ""}
         <span class="poke-nm">${esc(p.name)}</span>
         <span class="poke-meta">${p.list.length} cards &bull; ${p.sets.size} sets</span>
         ${

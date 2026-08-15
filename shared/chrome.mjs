@@ -66,9 +66,19 @@ export const NAV = [
     ["/expansions.html", "Every set ever"],
     ["/upcoming.html", "Coming next"],
     ["/complete-a-set.html", "Cost to complete"],
+    // The two money questions sit together: what the cards cost to buy, and
+    // what the packs cost to open. Both are recomputed from the nightly price
+    // pull, so both belong under Cards rather than under Guides, which is where
+    // the pages that do not move live.
+    ["/pack-prices.html", "Pack prices"],
   ]],
   ["Guides", [
     ["/start.html", "Start here"],
+    // Next to the rarity guide on purpose. The two answer the two halves of the
+    // same question somebody asks holding one card: what is it, and where is it
+    // from. Both are read off the same corner of the card and each links to the
+    // other.
+    ["/what-set.html", "Set finder"],
     ["/rarity.html", "Rarity guide"],
     ["/fake-cards.html", "Fakes"],
     ["/grading.html", "Grading"],

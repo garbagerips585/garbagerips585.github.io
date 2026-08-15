@@ -211,3 +211,52 @@ export function imgDims(url) {
   }
   return "";
 }
+
+/**
+ * Offer the same TCGdex art as AVIF, keeping the WebP as the fallback.
+ *
+ * TCGdex serves every scan at four extensions off one path, and nothing on this
+ * site was asking for the smallest one. Measured over the 107 distinct TCGdex
+ * urls on /wanted.html, /rarity.html and /pokemon/, fetched back to back:
+ *
+ *   all      webp 5,578KB   avif 3,622KB   -35.1%
+ *   high.*   webp 3,850KB   avif 2,407KB   -37.5%
+ *   low.*    webp 1,728KB   avif 1,216KB   -29.7%
+ *
+ * THE PIXELS ARE THE SAME AND THAT WAS CHECKED, not assumed, because a codec
+ * swap that quietly softens card art would break the one thing this site is
+ * for. Both files decode to identical dimensions (600x825 high, 245x337 low).
+ * Decoded and diffed against each other over the exact window /rarity.html's
+ * magnified corner paints, the crop-region PSNR is 30.4-32.2 dB across a holo
+ * IR, a gold Mega Hyper Rare and a 1999 Base Set Charizard, and at 3x nearest
+ * neighbour the rarity symbol, the regulation mark, the set code and the
+ * illustrator credit are equally legible in both. TCGdex's own high.png is NOT
+ * a usable reference for this, by the way: it is a PALETTED png, so both lossy
+ * encodes score badly against it and the number says nothing.
+ *
+ * Support is the reason this is a <picture> and not a url swap. AVIF misses
+ * Safari 16.0-16.3, and a card scan that fails to paint is a broken page, so
+ * the <img> keeps the WebP untouched and non-AVIF browsers never see the
+ * source. Everything already on the tag - srcset, sizes, loading, onerror,
+ * width/height - stays on the <img> where it was.
+ *
+ * `picture{display:contents}` is in ui.css and is load bearing: without it the
+ * <picture> is an inline box between the styled parent and the <img>, and every
+ * `height:100%` and `width:100%` rule aimed at the img resolves against it
+ * instead of against the box that was meant.
+ *
+ * Takes a rendered <img ...> tag and returns it wrapped, or unchanged when
+ * there is no TCGdex WebP in it to convert.
+ */
+export function avifPicture(img) {
+  const cand = /\ssrcset="([^"]*)"/.exec(img)?.[1] || /\ssrc="([^"]*)"/.exec(img)?.[1] || "";
+  if (!/assets\.tcgdex\.net/.test(cand) || !/\.webp/.test(cand)) return img;
+  const sizes = /\ssizes="([^"]*)"/.exec(img)?.[1];
+  // Only TCGdex urls are rewritten. A srcset mixing hosts (Scrydex publishes no
+  // AVIF at all) would otherwise get a source pointing at files that 400.
+  if (/https?:\/\/(?!assets\.tcgdex\.net)/.test(cand)) return img;
+  const avif = cand.replace(/\.webp/g, ".avif");
+  return `<picture><source type="image/avif" srcset="${avif}"${
+    sizes ? ` sizes="${sizes}"` : ""
+  }>${img}</picture>`;
+}

@@ -55,6 +55,11 @@ const STEPS = [
   "node scripts/build-fakes.mjs",
   "node scripts/build-grading.mjs",
   "node scripts/build-complete.mjs",
+  // Both read data written earlier in this list and both must run BEFORE
+  // build-search.mjs, which walks public/*.html and fails the build on any
+  // indexable page it cannot find in its own PAGES list.
+  "node scripts/build-pack-prices.mjs",
+  "node scripts/build-what-set.mjs",
   "node scripts/build-start.mjs",
   // Before build-search, which indexes these pages, and before build-pages,
   // which puts them in the sitemap. It also stamps `path` onto

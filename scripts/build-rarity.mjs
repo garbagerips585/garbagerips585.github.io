@@ -34,7 +34,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, FONTS, footer, APP_JS } from "../shared/chrome.mjs";
-import { esc, longDate, imgDims } from "../shared/format.mjs";
+import { esc, longDate, imgDims, avifPicture } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/rarity.json"), "utf8"));
@@ -64,23 +64,27 @@ const starRarities = ["", "one", "two", "three", "four", "five", "six", "seven",
  *
  * TCGdex's low.webp is 245x337 and about 25KB against high.webp's 600x825 and
  * 100-205KB, so 245 covers every one of those boxes at 2x, and the srcset has
- * two candidates because TCGdex publishes exactly two files.
+ * two candidates because TCGdex publishes exactly two WIDTHS. It publishes four
+ * FORMATS at each of them, which is the other half of this and lives in
+ * avifPicture: same pixels, 35% fewer bytes.
  *
  * BUT NOT EVERY IMAGE HERE CAN TAKE THE SMALL ONE, and getting that wrong makes
  * the page HEAVIER. Ten of the 27 card URLs are used twice: once as an <img>
- * and once as the background of a magnified `.crop`, which paints the source at
- * its own 600px width on purpose (see SRC_W below). Give one of those an srcset
- * that resolves to low.webp and the browser fetches the small file for the img
- * AND the big one for the crop: two requests where there was one. CROP_CARDS is
- * built from the same data the crops are, and anything in it keeps high.webp.
+ * and once inside a magnified `.crop`, which paints the source at its own 600px
+ * width on purpose (see SRC_W below). Give one of those an srcset that resolves
+ * to low.webp and the browser fetches the small file for the img AND the big one
+ * for the crop: two requests where there was one. CROP_CARDS is built from the
+ * same data the crops are, and anything in it keeps high.webp.
  *
  * The ladder is why nine of those ten exist: every ladder row shows the card and
  * then magnifies its corner, so .rr-card cannot be downsized while that is true.
  *
- * WHAT THIS DOES AND DOES NOT BUY. Every one of these figures is below the fold
- * and lazy, so first-load transfer is unchanged: the 2,253KB that lands on load
- * is the crops, and the crops are the page. The saving is on the scroll, which
- * is when a visitor actually reads a glossary.
+ * WHAT THIS DOES AND DOES NOT BUY. This paragraph used to end "first-load
+ * transfer is unchanged: the 2,253KB that lands on load is the crops, and the
+ * crops are the page", and it was right about the cause and wrong about the
+ * conclusion. Every FIGURE here was already lazy; the CROPS were not, because
+ * they were CSS backgrounds and a background cannot be. They are <img> now and
+ * the 2,245KB is no longer on the load path. See `corner` below.
  */
 const CROP_CARDS = new Set([
   ...d.ladder.map((r) => r.card),
@@ -90,20 +94,32 @@ const CROP_CARDS = new Set([
 ].filter(Boolean));
 
 const TCGDEX_HIGH = /^(https:\/\/assets\.tcgdex\.net\/.+)\/high\.webp$/;
-/** `src` plus, where it is safe, a srcset. `size` is the CSS cap in px. */
-function cardArt(url, size) {
+/**
+ * A whole card scan, as a tag. `size` is the CSS cap in px, `dims` the
+ * width/height pair from imgDims.
+ *
+ * This used to hand back `{src, extra}` for the caller to assemble, and all
+ * five callers then called it TWICE on the same url to get both halves. Two
+ * calls that have to agree is a drift waiting to happen, and it also meant
+ * there was no single place to wrap the result, which is what the AVIF source
+ * needs.
+ */
+function cardArt(url, size, alt, dims) {
   const m = TCGDEX_HIGH.exec(url || "");
-  if (!m || CROP_CARDS.has(url)) return { src: url, extra: "" };
-  const low = `${m[1]}/low.webp`;
-  return { src: low, extra: ` srcset="${esc(low)} 245w, ${esc(url)} 600w" sizes="${size}px"` };
+  const small = m && !CROP_CARDS.has(url);
+  const src = small ? `${m[1]}/low.webp` : url;
+  const extra = small ? ` srcset="${esc(src)} 245w, ${esc(url)} 600w" sizes="${size}px"` : "";
+  return avifPicture(
+    `<img src="${esc(src)}"${extra} alt="${esc(alt)}" loading="lazy" onerror="this.remove()" decoding="async"${dims}>`,
+  );
 }
 
 
 /**
  * A magnified crop of a card's bottom corner.
  *
- * The card is a background image pinned to the corner the symbol actually sits
- * in, so what you see is the real printing.
+ * The card is pinned to the corner the symbol actually sits in, so what you see
+ * is the real printing.
  *
  * THE MAGNIFICATION IS IN PIXELS, NOT PER CENT, AND THAT IS THE WHOLE POINT.
  *
@@ -112,6 +128,23 @@ function cardArt(url, size) {
  * rather than assumed, and there is no third size to ask for. The one exception
  * is the Mega Hyper Rare, which comes from Scrydex at 712x997, so 600 is inside
  * that one too.
+ *
+ * THE SCRYDEX PNG STAYS, and it is the single heaviest file on the site: 1,075KB
+ * for one card, against 50KB for TCGdex's WebP of the SAME card (me05-120, Mega
+ * Darkrai ex 120/084). Swapping it was tried and rejected on the pictures, which
+ * are in the git history of this comment if you want them. TCGdex's scan of that
+ * card is a flat, blown-out yellow: the etched gold is gone and the sparkle's
+ * outline reads thin and brownish. rarity.json's note on that exact row says the
+ * symbol is "a single four pointed sparkle with a HEAVY BLACK OUTLINE, not three
+ * stars: several guides get this wrong", and the figure exists to prove that
+ * sentence to somebody holding the card. A scan that softens the outline argues
+ * against the caption above it, and 1,024KB is not worth a figure that no longer
+ * demonstrates its own claim. Scrydex publishes no WebP or AVIF (`large.webp`
+ * 400s, an Accept header changes nothing, resize params are ignored) and its
+ * /medium is 365px, which this crop would have to upscale 1.6x.
+ * It is lazy now, so nobody pays for it unless they scroll to that row. If you
+ * want the bytes back, the honest route is re-encoding that one scan and serving
+ * it ourselves, which is a redistribution decision rather than a perf one.
  *
  * This used to say `background-size: 340%`, a percentage of a box that grows
  * with the viewport. On a 1280px screen the two "which corner" figures are 570px
@@ -132,16 +165,49 @@ function cardArt(url, size) {
  * percentage lands the whole group in view and, because the offset is measured
  * against (box - image) and the image is now the fixed side, it frames the same
  * part of the card whatever the box is doing.
+ *
+ * ---- IT IS AN <img> NOW, AND THAT IS THE WHOLE POINT ----
+ *
+ * These fourteen crops used to be CSS `background-image`, and a background has
+ * no `loading` attribute. Every one of them was fetched at first paint whether
+ * or not it was anywhere near the screen, which on a page this long is thirteen
+ * full-size scans nobody has scrolled to: 2,245KB of the 2,535KB that landed at
+ * 1440x900. That is why the previous pass concluded the crops could not be made
+ * cheaper. They could not be made SMALLER, which is true and still is. They can
+ * be made LATER.
+ *
+ * So the background moves onto a real `<img loading="lazy">` inside the same
+ * box, positioned to paint the identical pixels:
+ *
+ *   background-size: 600px auto      ->  width:600px; height:auto
+ *   background-position: X 100%      ->  bottom:0; left:calc(X - X*600px/100%)
+ *   background-repeat: no-repeat     ->  an element repeats zero times
+ *   (the box)                        ->  position:relative; overflow:hidden
+ *
+ * The `left` maths is the one bit worth spelling out. A percentage background
+ * position resolves against (box - image), so 8% means 0.08*(B - 600) and 100%
+ * means (B - 600). An absolutely positioned `left` percentage resolves against
+ * B alone, so the same offsets are `calc(8% - 48px)` and `calc(100% - 600px)`.
+ * Those are identities, not approximations, and they hold at every box width,
+ * which matters because .crop is fluid up to its 320px cap.
+ *
+ * `max-width:none` is not optional: ui.css sets `img{max-width:100%}` globally,
+ * which would shrink a 600px image into a 320px box and undo the magnification
+ * this figure exists for. It fails by looking almost right, so it is easy to
+ * miss: you get the whole bottom of the card, small, instead of the corner.
  */
 const SRC_W = 600; // px, and no wider than the narrowest source. See above.
 const CROP = {
-  right: { pos: "100% 100%" },
-  left: { pos: "8% 100%" },
+  // `off` is the CSS `left` that reproduces this background-position exactly.
+  right: { cls: "cr-r", off: `calc(100% - ${SRC_W}px)` },
+  left: { cls: "cr-l", off: `calc(8% - ${SRC_W * 0.08}px)` },
 };
 const corner = (card, side, label) => `<figure class="crop">
-        <div class="crop-img" style="background-image:url('${esc(
-          card
-        )}');background-size:${SRC_W}px auto;background-position:${CROP[side].pos}"></div>
+        <div class="crop-img ${CROP[side].cls}">${avifPicture(
+          // alt="" on purpose: the figcaption right below already names the card
+          // and the set, so alt text here would read the same thing twice.
+          `<img src="${esc(card)}" alt="" loading="lazy" decoding="async" onerror="this.remove()"${imgDims(card)}>`,
+        )}</div>
         <figcaption>${esc(label)}</figcaption>
       </figure>`;
 
@@ -204,7 +270,7 @@ const slangCard = (s) => {
     : s.show === "crop"
       ? `<div class="gloss-fig is-crop">${corner(s.card, "left", s.example)}</div>`
       : `<figure class="gloss-fig">
-            <img src="${esc(cardArt(s.card, 132).src)}"${cardArt(s.card, 132).extra} alt="${esc(s.example)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(s.card)}>
+            ${cardArt(s.card, 132, s.example, imgDims(s.card))}
             <figcaption>${esc(s.example)}</figcaption>
           </figure>`;
   return `        <li${s.card ? "" : ' class="no-fig"'}>
@@ -218,7 +284,7 @@ const slangCard = (s) => {
 const ladderRow = (r, i) => `      <li class="rr${r.chase ? " is-chase" : ""}">
         <div class="rr-n">${i + 1}</div>
         <div class="rr-card">
-          <img src="${esc(cardArt(r.card, 120).src)}"${cardArt(r.card, 120).extra} alt="${esc(r.example)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(r.card)}>
+          ${cardArt(r.card, 120, r.example, imgDims(r.card))}
         </div>
         <div class="rr-body">
           <h3>${esc(r.name)}${r.chase ? ` <span class="rr-chase">worth chasing</span>` : ""}</h3>
@@ -251,7 +317,13 @@ const style = `
    some, at every pixel of detail the source actually has. */
 .crop{border:2px solid var(--ink);border-radius:var(--r);overflow:hidden;background:var(--card);
   max-width:320px}
-.crop-img{aspect-ratio:16/5;background-repeat:no-repeat;image-rendering:auto}
+/* The window. The scan inside it is a lazy <img> pinned to the corner, not a
+   background: see the 'corner' function in build-rarity.mjs for why, and for
+   the identity that turns background-position into 'left'. */
+.crop-img{position:relative;aspect-ratio:16/5;overflow:hidden;background:var(--card)}
+.crop-img img{position:absolute;bottom:0;width:${SRC_W}px;height:auto;max-width:none}
+.cr-r img{left:${CROP.right.off}}
+.cr-l img{left:${CROP.left.off}}
 .crop figcaption{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-2);padding:8px var(--s3);border-top:1px solid var(--hair);background:var(--page)}
 
@@ -465,15 +537,15 @@ ${d.ladder.map(ladderRow).join("\n")}
         the same card.</p>
       <div class="exs">
         <div class="ex1"><b>Pokemon-ex</b><p class="yrs">2003 to 2007, lowercase</p>
-          <figure class="ex-fig"><img src="${esc(cardArt("https://assets.tcgdex.net/en/ex/ex6/105/high.webp", 150).src)}"${cardArt("https://assets.tcgdex.net/en/ex/ex6/105/high.webp", 150).extra} alt="Charizard ex, FireRed &amp; LeafGreen, 2004" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"><figcaption>Charizard ex, FireRed &amp; LeafGreen, 2004</figcaption></figure>
+          <figure class="ex-fig">${cardArt("https://assets.tcgdex.net/en/ex/ex6/105/high.webp", 150, "Charizard ex, FireRed &amp; LeafGreen, 2004", ' width="600" height="825"')}<figcaption>Charizard ex, FireRed &amp; LeafGreen, 2004</figcaption></figure>
           <p>The original. No rule box: the rule is plain italic text along the bottom, and abilities
             are called Poke-POWER or Poke-BODY.</p></div>
         <div class="ex1"><b>Pokemon-EX</b><p class="yrs">2012 to 2016, uppercase</p>
-          <figure class="ex-fig"><img src="${esc(cardArt("https://assets.tcgdex.net/en/xy/xy2/11/high.webp", 150).src)}"${cardArt("https://assets.tcgdex.net/en/xy/xy2/11/high.webp", 150).extra} alt="Charizard EX, Flashfire, 2014" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"><figcaption>Charizard EX, Flashfire, 2014</figcaption></figure>
+          <figure class="ex-fig">${cardArt("https://assets.tcgdex.net/en/xy/xy2/11/high.webp", 150, "Charizard EX, Flashfire, 2014", ' width="600" height="825"')}<figcaption>Charizard EX, Flashfire, 2014</figcaption></figure>
           <p>Black and White through XY. Almost always Basic, whatever the Pokemon's real stage.
             Mega EX ended your turn unless you played a Spirit Link.</p></div>
         <div class="ex1"><b>Pokemon ex</b><p class="yrs">2023 to now, lowercase again</p>
-          <figure class="ex-fig"><img src="${esc(cardArt("https://assets.tcgdex.net/en/sv/sv03/125/high.webp", 150).src)}"${cardArt("https://assets.tcgdex.net/en/sv/sv03/125/high.webp", 150).extra} alt="Charizard ex, Obsidian Flames, 2023" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"><figcaption>Charizard ex, Obsidian Flames, 2023</figcaption></figure>
+          <figure class="ex-fig">${cardArt("https://assets.tcgdex.net/en/sv/sv03/125/high.webp", 150, "Charizard ex, Obsidian Flames, 2023", ' width="600" height="825"')}<figcaption>Charizard ex, Obsidian Flames, 2023</figcaption></figure>
           <p>Current. Has a bordered rule box in the bottom corner where the Pokedex entry would sit.
             That box is the quickest way to tell it from a 2003 one.</p></div>
       </div>
@@ -489,7 +561,7 @@ ${d.gone
           ${
             g.card
               ? `<figure class="gone-fig">
-            <img src="${esc(cardArt(g.card, 132).src)}"${cardArt(g.card, 132).extra} alt="${esc(g.example)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(g.card)}>
+            ${cardArt(g.card, 132, g.example, imgDims(g.card))}
             <figcaption>${esc(g.example)}</figcaption>
           </figure>`
               : ""

@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Set Is My Pokemon Card From? Look Up the Number | Garbage Rips 585</title>
+<meta name="description" content="Look up which Pokemon set a card is from by the number after the slash. All 174 English sets indexed by size, with set symbols and release years.">
+<link rel="canonical" href="https://garbagerips585.github.io/what-set.html">
+<meta property="og:title" content="What set is my Pokemon card from?">
+<meta property="og:description" content="Look up which Pokemon set a card is from by the number after the slash. All 174 English sets indexed by size, with set symbols and release years.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garbagerips585.github.io/what-set.html">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-what-set.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-what-set.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#1E3A54">
+<!-- The 174 set symbols all come from one host and are the point of the page,
+     so the connection is opened before the HTML has finished parsing.
+     /expansions.html carries the same hint for the same reason. -->
+<link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=f5266f8f">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<style>
+.ws-tool{background:var(--card);border:2px solid var(--navy);border-radius:var(--r);
+  padding:var(--s5);box-shadow:var(--hard-lg);margin-top:var(--s5)}
+.ws-tool label{display:block;font:700 var(--t-label)/1 var(--mono);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-soft);margin-bottom:var(--s2)}
+.ws-tool input{width:100%;box-sizing:border-box;min-height:52px;padding:0 var(--s4);
+  border:2px solid var(--navy);border-radius:var(--r);background:var(--paper-2);
+  font:700 1.25rem/1 var(--mono);color:var(--ink)}
+.ws-tool input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.ws-hint{font:400 var(--t-sm)/1.5 var(--body);color:var(--ink-soft);margin:var(--s3) 0 0}
+.ws-count{font-family:var(--mono);font-size:var(--t-sm);color:var(--ink-soft);margin:var(--s4) 0 0}
+
+.ws-list{list-style:none;margin:var(--s4) 0 0;padding:0;
+  border-top:1px solid var(--hair)}
+.ws-row{display:grid;grid-template-columns:1fr;gap:var(--s2);
+  padding:var(--s3) 0;border-bottom:1px solid var(--hair)}
+.ws-n{font:400 1.5rem/1 var(--display);color:var(--ketchup-deep);
+  display:flex;align-items:baseline;gap:var(--s2)}
+.ws-n span{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-soft);text-transform:uppercase;
+  letter-spacing:.06em}
+.ws-sets{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+/* WRAPS, and it has to. The longest row here is a 24px symbol, "Team Magma vs
+   Team Aqua ex", the year and era, and a "+16 secret" badge. Held on one line
+   that is 387px inside a 366px column at 390px wide, so the whole page picked
+   up 9px of horizontal scroll from four rows out of 141. min-width:0 as well,
+   or the name is a flex item that refuses to shrink below its longest word. */
+.ws-set{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);
+  font-size:var(--t-sm);line-height:1.35;min-width:0}
+.ws-set a,.ws-set>span{min-width:0}
+.ws-set img{width:24px;height:24px;object-fit:contain;flex:0 0 24px;
+  background:var(--paper-3);border-radius:4px;padding:2px;box-sizing:border-box}
+.ws-set a{color:var(--navy);text-decoration:underline;text-underline-offset:2px;font-weight:700}
+.ws-yr{font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);white-space:nowrap}
+.ws-badge{font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;
+  background:var(--mustard);border:1px solid var(--navy);border-radius:var(--r-pill);
+  padding:1px 7px;white-space:nowrap}
+.ws-empty{padding:var(--s5) 0;font-size:var(--t-sm);color:var(--ink-soft)}
+@media(min-width:640px){
+  .ws-row{grid-template-columns:120px 1fr;gap:var(--s4);align-items:start}
+  .ws-n{justify-content:flex-end;flex-direction:column;align-items:flex-end;gap:2px}
+}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"What set is my card from?","item":"https://garbagerips585.github.io/what-set.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does the number on the bottom of a Pokemon card mean?","acceptedAnswer":{"@type":"Answer","text":"It is two numbers with a slash between them. The left one is that card's place in the set and the right one is how many cards the set was printed with, so 45/102 is the forty-fifth card of a 102 card set. The right number is the one that identifies the set: across the 141 main English expansions there are 86 different set sizes, and 48 of them belong to exactly one set."}},{"@type":"Question","name":"How do I tell which set a Pokemon card is from?","acceptedAnswer":{"@type":"Answer","text":"Start with the number after the slash and narrow it with the symbol printed next to it. The number alone lands on a single set 48 times out of 86; the rest are shared by two or more, with 132 used by 4 different sets. The symbol tells those apart. It sits in the bottom right corner on cards up to the XY era and moved to the bottom left in 2017 at Sun and Moon."}},{"@type":"Question","name":"Why is my card numbered higher than the set total?","acceptedAnswer":{"@type":"Answer","text":"Because it is a secret rare: a card numbered above the printed set size, so a card reading 199/198 is real and is the kind of card people are hoping for. Across the 23 sets this site holds full checklists for there are 1,306 cards numbered above their own set total, 154 of them in Paldean Fates alone."}}]}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form class="bar-search" role="search" action="/search.html" method="get">
+      <label class="sr-only" for="navSearch">Search cards, sets, guides and rips</label>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+      <input id="navSearch" name="q" type="search" placeholder="Search cards, sets, rips" aria-label="Search cards, sets, guides and every rip" autocomplete="off">
+    </form>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/cards.html">Card search</a>
+      <a href="/sets/">Set guides</a>
+      <a href="/start.html">Start here</a>
+      <a href="/card-shows.html">Card shows</a>
+    </nav>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span>Menu</span>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="All sections">
+  <div class="menu-inner">
+    <div class="menu-g">
+      <p class="menu-h">Watch</p>
+      <ul>
+        <li><a href="/videos.html">Rips</a></li>
+        <li><a href="/playlists.html">Playlists</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">The binder</p>
+      <ul>
+        <li><a href="/hall.html">Best pulls</a></li>
+        <li><a href="/wanted.html">Most wanted</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Cards</p>
+      <ul>
+        <li><a href="/cards.html">Card search</a></li>
+        <li><a href="/pokemon/">By Pokemon</a></li>
+        <li><a href="/sets/">Set guides</a></li>
+        <li><a href="/expansions.html">Every set ever</a></li>
+        <li><a href="/upcoming.html">Coming next</a></li>
+        <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/pack-prices.html">Pack prices</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Guides</p>
+      <ul>
+        <li><a href="/start.html">Start here</a></li>
+        <li><a href="/what-set.html">Set finder</a></li>
+        <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/fake-cards.html">Fakes</a></li>
+        <li><a href="/grading.html">Grading</a></li>
+        <li><a href="/luck.html">Luck, measured</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Play</p>
+      <ul>
+        <li><a href="/games/">Games</a></li>
+        <li><a href="/lore.html">Pokemon lore</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Rochester, NY</p>
+      <ul>
+        <li><a href="/card-shows.html">Card shows</a></li>
+        <li><a href="/shops.html">Card shops</a></li>
+        <li><a href="/vendors.html">Local vendors</a></li>
+        <li><a href="/creators.html">Local creators</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </div>
+  </div>
+  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe on YouTube</a>
+</nav>
+<main id="main">
+
+<header class="set-hero">
+  <div class="wrap">
+    <span class="kicker">Pokemon TCG &bull; 174 English sets indexed</span>
+    <h1>What set is my <span class="hl">card</span> from?</h1>
+    <p class="lede" style="max-width:38em">The card already tells you, twice. There is a number at the bottom that reads
+      something like 45/102, and a small symbol next to it. Type the number after the slash and this page will tell you
+      which sets were printed at that size, with the symbol for each one so you can finish the job by eye.</p>
+  </div>
+</header>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / What set is my card from?</p>
+
+    <div class="ws-tool">
+      <label for="wsq">The number after the slash</label>
+      <input id="wsq" type="search" inputmode="numeric" autocomplete="off" placeholder="102"
+             aria-describedby="wshint wscount">
+      <p class="ws-hint" id="wshint">Digits look up the set size. Letters search set and era names, so
+        "neo" or "sword" works too. Leave it empty to see the whole index.</p>
+      <p class="ws-count" id="wscount">86 set sizes, 141 sets</p>
+    </div>
+
+    <ol class="ws-list" id="wslist">
+      <li class="ws-row" data-n="5" data-names="pokémon futsal collection other">
+      <p class="ws-n">/5<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/fut20/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Pokémon Futsal Collection</span> <span class="ws-yr">2020 &bull; Other</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="8" data-names="scarlet &amp; violet energies scarlet &amp; violet">
+      <p class="ws-n">/8<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sve/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Scarlet &amp; Violet Energies</span> <span class="ws-yr">2023 &bull; Scarlet &amp; Violet</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="16" data-names="pokémon rumble other">
+      <p class="ws-n">/16<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/ru1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Pokémon Rumble</span> <span class="ws-yr">2009 &bull; Other</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="18" data-names="southern islands other detective pikachu sun &amp; moon">
+      <p class="ws-n">/18<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/si1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Southern Islands</span> <span class="ws-yr">2001 &bull; Other</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/det1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Detective Pikachu</span> <span class="ws-yr">2019 &bull; Sun &amp; Moon</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="20" data-names="dragon vault black &amp; white">
+      <p class="ws-n">/20<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/dv1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Dragon Vault</span> <span class="ws-yr">2012 &bull; Black &amp; White</span> <span class="ws-badge">+1 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="25" data-names="celebrations sword &amp; shield celebrations: classic collection sword &amp; shield">
+      <p class="ws-n">/25<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/cel25/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Celebrations</span> <span class="ws-yr">2021 &bull; Sword &amp; Shield</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/cel25c/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Celebrations: Classic Collection</span> <span class="ws-yr">2021 &bull; Sword &amp; Shield</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="30" data-names="brilliant stars trainer gallery sword &amp; shield astral radiance trainer gallery sword &amp; shield lost origin trainer gallery sword &amp; shield silver tempest trainer gallery sword &amp; shield">
+      <p class="ws-n">/30<span>4 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh9tg/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Brilliant Stars Trainer Gallery</span> <span class="ws-yr">2022 &bull; Sword &amp; Shield</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh10tg/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Astral Radiance Trainer Gallery</span> <span class="ws-yr">2022 &bull; Sword &amp; Shield</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh11tg/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Lost Origin Trainer Gallery</span> <span class="ws-yr">2022 &bull; Sword &amp; Shield</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh12tg/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Silver Tempest Trainer Gallery</span> <span class="ws-yr">2022 &bull; Sword &amp; Shield</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="34" data-names="double crisis xy">
+      <p class="ws-n">/34<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/dc1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Double Crisis</span> <span class="ws-yr">2015 &bull; XY</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="39" data-names="kalos starter set xy">
+      <p class="ws-n">/39<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/xy0/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Kalos Starter Set</span> <span class="ws-yr">2013 &bull; XY</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="62" data-names="fossil base">
+      <p class="ws-n">/62<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/base3/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Fossil</span> <span class="ws-yr">1999 &bull; Base</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="64" data-names="jungle base neo revelation neo shrouded fable scarlet &amp; violet">
+      <p class="ws-n">/64<span>3 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/base2/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Jungle</span> <span class="ws-yr">1999 &bull; Base</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/neo3/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Neo Revelation</span> <span class="ws-yr">2001 &bull; Neo</span> <span class="ws-badge">+2 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/sv6pt5/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/shrouded-fable.html">Shrouded Fable</a> <span class="ws-yr">2024 &bull; Scarlet &amp; Violet</span> <span class="ws-badge">+35 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="68" data-names="hidden fates sun &amp; moon">
+      <p class="ws-n">/68<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sm115/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Hidden Fates</span> <span class="ws-yr">2019 &bull; Sun &amp; Moon</span> <span class="ws-badge">+1 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="70" data-names="dragon majesty sun &amp; moon crown zenith galarian gallery sword &amp; shield">
+      <p class="ws-n">/70<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sm75/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Dragon Majesty</span> <span class="ws-yr">2018 &bull; Sun &amp; Moon</span> <span class="ws-badge">+10 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh12pt5gg/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Crown Zenith Galarian Gallery</span> <span class="ws-yr">2023 &bull; Sword &amp; Shield</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="72" data-names="shining fates sword &amp; shield">
+      <p class="ws-n">/72<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh45/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Shining Fates</span> <span class="ws-yr">2021 &bull; Sword &amp; Shield</span> <span class="ws-badge">+1 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="73" data-names="shining legends sun &amp; moon champion's path sword &amp; shield">
+      <p class="ws-n">/73<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sm35/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Shining Legends</span> <span class="ws-yr">2017 &bull; Sun &amp; Moon</span> <span class="ws-badge">+8 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh35/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Champion's Path</span> <span class="ws-yr">2020 &bull; Sword &amp; Shield</span> <span class="ws-badge">+7 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="75" data-names="neo discovery neo">
+      <p class="ws-n">/75<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/neo2/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Neo Discovery</span> <span class="ws-yr">2001 &bull; Neo</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="78" data-names="pokémon go sword &amp; shield">
+      <p class="ws-n">/78<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/pgo/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/pokemon-go.html">Pokémon GO</a> <span class="ws-yr">2022 &bull; Sword &amp; Shield</span> <span class="ws-badge">+10 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="82" data-names="team rocket base">
+      <p class="ws-n">/82<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/base5/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Team Rocket</span> <span class="ws-yr">2000 &bull; Base</span> <span class="ws-badge">+1 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="83" data-names="generations xy">
+      <p class="ws-n">/83<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/g1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Generations</span> <span class="ws-yr">2016 &bull; XY</span> <span class="ws-badge">+34 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="84" data-names="pitch black mega evolution">
+      <p class="ws-n">/84<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.scrydex.com/pokemon/me5-symbol/symbol" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/pitch-black.html">Pitch Black</a> <span class="ws-yr">2026 &bull; Mega Evolution</span> <span class="ws-badge">+36 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="86" data-names="black bolt scarlet &amp; violet white flare scarlet &amp; violet chaos rising mega evolution">
+      <p class="ws-n">/86<span>3 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/zsv10pt5/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/black-bolt.html">Black Bolt</a> <span class="ws-yr">2025 &bull; Scarlet &amp; Violet</span> <span class="ws-badge">+86 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/rsv10pt5/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/white-flare.html">White Flare</a> <span class="ws-yr">2025 &bull; Scarlet &amp; Violet</span> <span class="ws-badge">+87 secret</span></li>
+<li class="ws-set"><img src="https://images.scrydex.com/pokemon/me4-symbol/symbol" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/chaos-rising.html">Chaos Rising</a> <span class="ws-yr">2026 &bull; Mega Evolution</span> <span class="ws-badge">+36 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="88" data-names="perfect order mega evolution">
+      <p class="ws-n">/88<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.scrydex.com/pokemon/me3-symbol/symbol" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/perfect-order.html">Perfect Order</a> <span class="ws-yr">2026 &bull; Mega Evolution</span> <span class="ws-badge">+36 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="90" data-names="hs—undaunted heartgold &amp; soulsilver">
+      <p class="ws-n">/90<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/hgss3/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>HS—Undaunted</span> <span class="ws-yr">2010 &bull; HeartGold &amp; SoulSilver</span> <span class="ws-badge">+1 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="91" data-names="paldean fates scarlet &amp; violet">
+      <p class="ws-n">/91<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sv4pt5/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/paldean-fates.html">Paldean Fates</a> <span class="ws-yr">2024 &bull; Scarlet &amp; Violet</span> <span class="ws-badge">+154 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="92" data-names="legend maker ex">
+      <p class="ws-n">/92<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/ex12/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Legend Maker</span> <span class="ws-yr">2006 &bull; EX</span> <span class="ws-badge">+1 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="94" data-names="hidden fates shiny vault sun &amp; moon phantasmal flames mega evolution">
+      <p class="ws-n">/94<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sma/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Hidden Fates Shiny Vault</span> <span class="ws-yr">2019 &bull; Sun &amp; Moon</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/me2/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/phantasmal-flames.html">Phantasmal Flames</a> <span class="ws-yr">2025 &bull; Mega Evolution</span> <span class="ws-badge">+36 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="95" data-names="team magma vs team aqua ex hs—unleashed heartgold &amp; soulsilver call of legends heartgold &amp; soulsilver">
+      <p class="ws-n">/95<span>3 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/ex4/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Team Magma vs Team Aqua</span> <span class="ws-yr">2004 &bull; EX</span> <span class="ws-badge">+2 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/hgss2/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>HS—Unleashed</span> <span class="ws-yr">2010 &bull; HeartGold &amp; SoulSilver</span> <span class="ws-badge">+1 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/col1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Call of Legends</span> <span class="ws-yr">2011 &bull; HeartGold &amp; SoulSilver</span> <span class="ws-badge">+11 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="97" data-names="dragon ex">
+      <p class="ws-n">/97<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/ex3/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Dragon</span> <span class="ws-yr">2003 &bull; EX</span> <span class="ws-badge">+3 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="98" data-names="emerging powers black &amp; white ancient origins xy">
+      <p class="ws-n">/98<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/bw2/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Emerging Powers</span> <span class="ws-yr">2011 &bull; Black &amp; White</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/xy7/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Ancient Origins</span> <span class="ws-yr">2015 &bull; XY</span> <span class="ws-badge">+2 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="99" data-names="arceus platinum next destinies black &amp; white">
+      <p class="ws-n">/99<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/pl4/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Arceus</span> <span class="ws-yr">2009 &bull; Platinum</span> <span class="ws-badge">+12 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/bw4/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Next Destinies</span> <span class="ws-yr">2012 &bull; Black &amp; White</span> <span class="ws-badge">+4 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="100" data-names="sandstorm ex crystal guardians ex majestic dawn diamond &amp; pearl stormfront diamond &amp; pearl">
+      <p class="ws-n">/100<span>4 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/ex2/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Sandstorm</span> <span class="ws-yr">2003 &bull; EX</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/ex14/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Crystal Guardians</span> <span class="ws-yr">2006 &bull; EX</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/dp5/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Majestic Dawn</span> <span class="ws-yr">2008 &bull; Diamond &amp; Pearl</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/dp7/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Stormfront</span> <span class="ws-yr">2008 &bull; Diamond &amp; Pearl</span> <span class="ws-badge">+6 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="101" data-names="hidden legends ex dragon frontiers ex noble victories black &amp; white plasma blast black &amp; white">
+      <p class="ws-n">/101<span>4 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/ex5/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Hidden Legends</span> <span class="ws-yr">2004 &bull; EX</span> <span class="ws-badge">+1 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/ex15/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Dragon Frontiers</span> <span class="ws-yr">2006 &bull; EX</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/bw3/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Noble Victories</span> <span class="ws-yr">2011 &bull; Black &amp; White</span> <span class="ws-badge">+1 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/bw10/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Plasma Blast</span> <span class="ws-yr">2013 &bull; Black &amp; White</span> <span class="ws-badge">+4 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="102" data-names="base base hs—triumphant heartgold &amp; soulsilver">
+      <p class="ws-n">/102<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/base1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Base</span> <span class="ws-yr">1999 &bull; Base</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/hgss4/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>HS—Triumphant</span> <span class="ws-yr">2010 &bull; HeartGold &amp; SoulSilver</span> <span class="ws-badge">+1 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="105" data-names="neo destiny neo">
+      <p class="ws-n">/105<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/neo4/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Neo Destiny</span> <span class="ws-yr">2002 &bull; Neo</span> <span class="ws-badge">+8 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="106" data-names="emerald ex great encounters diamond &amp; pearl flashfire xy">
+      <p class="ws-n">/106<span>3 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/ex9/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Emerald</span> <span class="ws-yr">2005 &bull; EX</span> <span class="ws-badge">+1 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/dp4/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Great Encounters</span> <span class="ws-yr">2008 &bull; Diamond &amp; Pearl</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/xy2/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Flashfire</span> <span class="ws-yr">2014 &bull; XY</span> <span class="ws-badge">+4 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="107" data-names="deoxys ex">
+      <p class="ws-n">/107<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/ex8/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Deoxys</span> <span class="ws-yr">2005 &bull; EX</span> <span class="ws-badge">+1 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="108" data-names="power keepers ex dark explorers black &amp; white roaring skies xy evolutions xy">
+      <p class="ws-n">/108<span>4 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/ex16/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Power Keepers</span> <span class="ws-yr">2007 &bull; EX</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/bw5/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Dark Explorers</span> <span class="ws-yr">2012 &bull; Black &amp; White</span> <span class="ws-badge">+3 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/xy6/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Roaring Skies</span> <span class="ws-yr">2015 &bull; XY</span> <span class="ws-badge">+4 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/xy12/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Evolutions</span> <span class="ws-yr">2016 &bull; XY</span> <span class="ws-badge">+5 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="109" data-names="ruby &amp; sapphire ex team rocket returns ex">
+      <p class="ws-n">/109<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/ex1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Ruby &amp; Sapphire</span> <span class="ws-yr">2003 &bull; EX</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/ex7/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Team Rocket Returns</span> <span class="ws-yr">2004 &bull; EX</span> <span class="ws-badge">+2 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="110" data-names="legendary collection other holon phantoms ex">
+      <p class="ws-n">/110<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/base6/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Legendary Collection</span> <span class="ws-yr">2002 &bull; Other</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/ex13/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Holon Phantoms</span> <span class="ws-yr">2006 &bull; EX</span> <span class="ws-badge">+1 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="111" data-names="neo genesis neo rising rivals platinum furious fists xy crimson invasion sun &amp; moon">
+      <p class="ws-n">/111<span>4 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/neo1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Neo Genesis</span> <span class="ws-yr">2000 &bull; Neo</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/pl2/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Rising Rivals</span> <span class="ws-yr">2009 &bull; Platinum</span> <span class="ws-badge">+9 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/xy3/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Furious Fists</span> <span class="ws-yr">2014 &bull; XY</span> <span class="ws-badge">+3 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/sm4/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Crimson Invasion</span> <span class="ws-yr">2017 &bull; Sun &amp; Moon</span> <span class="ws-badge">+15 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="112" data-names="firered &amp; leafgreen ex">
+      <p class="ws-n">/112<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/ex6/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>FireRed &amp; LeafGreen</span> <span class="ws-yr">2004 &bull; EX</span> <span class="ws-badge">+4 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="113" data-names="delta species ex legendary treasures black &amp; white">
+      <p class="ws-n">/113<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/ex11/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Delta Species</span> <span class="ws-yr">2005 &bull; EX</span> <span class="ws-badge">+1 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/bw11/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Legendary Treasures</span> <span class="ws-yr">2013 &bull; Black &amp; White</span> <span class="ws-badge">+27 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="114" data-names="black &amp; white black &amp; white steam siege xy">
+      <p class="ws-n">/114<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/bw1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Black &amp; White</span> <span class="ws-yr">2011 &bull; Black &amp; White</span> <span class="ws-badge">+1 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/xy11/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Steam Siege</span> <span class="ws-yr">2016 &bull; XY</span> <span class="ws-badge">+2 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="115" data-names="unseen forces ex">
+      <p class="ws-n">/115<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/ex10/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Unseen Forces</span> <span class="ws-yr">2005 &bull; EX</span> <span class="ws-badge">+30 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="116" data-names="plasma freeze black &amp; white">
+      <p class="ws-n">/116<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/bw9/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Plasma Freeze</span> <span class="ws-yr">2013 &bull; Black &amp; White</span> <span class="ws-badge">+6 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="119" data-names="phantom forces xy">
+      <p class="ws-n">/119<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/xy4/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Phantom Forces</span> <span class="ws-yr">2014 &bull; XY</span> <span class="ws-badge">+5 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="122" data-names="breakpoint xy shining fates shiny vault sword &amp; shield">
+      <p class="ws-n">/122<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/xy9/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>BREAKpoint</span> <span class="ws-yr">2016 &bull; XY</span> <span class="ws-badge">+4 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh45sv/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Shining Fates Shiny Vault</span> <span class="ws-yr">2021 &bull; Sword &amp; Shield</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="123" data-names="mysterious treasures diamond &amp; pearl heartgold &amp; soulsilver heartgold &amp; soulsilver">
+      <p class="ws-n">/123<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/dp2/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Mysterious Treasures</span> <span class="ws-yr">2007 &bull; Diamond &amp; Pearl</span> <span class="ws-badge">+1 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/hgss1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>HeartGold &amp; SoulSilver</span> <span class="ws-yr">2010 &bull; HeartGold &amp; SoulSilver</span> <span class="ws-badge">+1 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="124" data-names="dragons exalted black &amp; white fates collide xy">
+      <p class="ws-n">/124<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/bw6/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Dragons Exalted</span> <span class="ws-yr">2012 &bull; Black &amp; White</span> <span class="ws-badge">+4 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/xy10/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Fates Collide</span> <span class="ws-yr">2016 &bull; XY</span> <span class="ws-badge">+5 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="127" data-names="platinum platinum">
+      <p class="ws-n">/127<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/pl1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Platinum</span> <span class="ws-yr">2009 &bull; Platinum</span> <span class="ws-badge">+6 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="130" data-names="base set 2 base diamond &amp; pearl diamond &amp; pearl">
+      <p class="ws-n">/130<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/base4/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Base Set 2</span> <span class="ws-yr">2000 &bull; Base</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/dp1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Diamond &amp; Pearl</span> <span class="ws-yr">2007 &bull; Diamond &amp; Pearl</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="131" data-names="forbidden light sun &amp; moon prismatic evolutions scarlet &amp; violet">
+      <p class="ws-n">/131<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sm6/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Forbidden Light</span> <span class="ws-yr">2018 &bull; Sun &amp; Moon</span> <span class="ws-badge">+19 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/sv8pt5/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/prismatic-evolutions.html">Prismatic Evolutions</a> <span class="ws-yr">2025 &bull; Scarlet &amp; Violet</span> <span class="ws-badge">+49 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="132" data-names="gym heroes gym gym challenge gym secret wonders diamond &amp; pearl mega evolution mega evolution">
+      <p class="ws-n">/132<span>4 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/gym1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Gym Heroes</span> <span class="ws-yr">2000 &bull; Gym</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/gym2/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Gym Challenge</span> <span class="ws-yr">2000 &bull; Gym</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/dp3/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Secret Wonders</span> <span class="ws-yr">2007 &bull; Diamond &amp; Pearl</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/me1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/mega-evolution.html">Mega Evolution</a> <span class="ws-yr">2025 &bull; Mega Evolution</span> <span class="ws-badge">+56 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="135" data-names="plasma storm black &amp; white">
+      <p class="ws-n">/135<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/bw8/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Plasma Storm</span> <span class="ws-yr">2013 &bull; Black &amp; White</span> <span class="ws-badge">+3 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="142" data-names="stellar crown scarlet &amp; violet">
+      <p class="ws-n">/142<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sv7/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/stellar-crown.html">Stellar Crown</a> <span class="ws-yr">2024 &bull; Scarlet &amp; Violet</span> <span class="ws-badge">+33 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="144" data-names="skyridge e-card">
+      <p class="ws-n">/144<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/ecard3/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Skyridge</span> <span class="ws-yr">2003 &bull; E-Card</span> <span class="ws-badge">+38 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="145" data-names="guardians rising sun &amp; moon">
+      <p class="ws-n">/145<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sm2/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Guardians Rising</span> <span class="ws-yr">2017 &bull; Sun &amp; Moon</span> <span class="ws-badge">+35 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="146" data-names="legends awakened diamond &amp; pearl xy xy">
+      <p class="ws-n">/146<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/dp6/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Legends Awakened</span> <span class="ws-yr">2008 &bull; Diamond &amp; Pearl</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/xy1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>XY</span> <span class="ws-yr">2014 &bull; XY</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="147" data-names="aquapolis e-card supreme victors platinum burning shadows sun &amp; moon">
+      <p class="ws-n">/147<span>3 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/ecard2/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Aquapolis</span> <span class="ws-yr">2003 &bull; E-Card</span> <span class="ws-badge">+35 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/pl3/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Supreme Victors</span> <span class="ws-yr">2009 &bull; Platinum</span> <span class="ws-badge">+6 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/sm3/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Burning Shadows</span> <span class="ws-yr">2017 &bull; Sun &amp; Moon</span> <span class="ws-badge">+30 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="149" data-names="boundaries crossed black &amp; white sun &amp; moon sun &amp; moon">
+      <p class="ws-n">/149<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/bw7/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Boundaries Crossed</span> <span class="ws-yr">2012 &bull; Black &amp; White</span> <span class="ws-badge">+4 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/sm1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Sun &amp; Moon</span> <span class="ws-yr">2017 &bull; Sun &amp; Moon</span> <span class="ws-badge">+24 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="156" data-names="ultra prism sun &amp; moon">
+      <p class="ws-n">/156<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sm5/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Ultra Prism</span> <span class="ws-yr">2018 &bull; Sun &amp; Moon</span> <span class="ws-badge">+22 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="159" data-names="crown zenith sword &amp; shield journey together scarlet &amp; violet">
+      <p class="ws-n">/159<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh12pt5/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Crown Zenith</span> <span class="ws-yr">2023 &bull; Sword &amp; Shield</span> <span class="ws-badge">+1 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/sv9/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/journey-together.html">Journey Together</a> <span class="ws-yr">2025 &bull; Scarlet &amp; Violet</span> <span class="ws-badge">+31 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="160" data-names="primal clash xy">
+      <p class="ws-n">/160<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/xy5/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Primal Clash</span> <span class="ws-yr">2015 &bull; XY</span> <span class="ws-badge">+4 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="162" data-names="breakthrough xy temporal forces scarlet &amp; violet">
+      <p class="ws-n">/162<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/xy8/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>BREAKthrough</span> <span class="ws-yr">2015 &bull; XY</span> <span class="ws-badge">+3 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/sv5/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/temporal-forces.html">Temporal Forces</a> <span class="ws-yr">2024 &bull; Scarlet &amp; Violet</span> <span class="ws-badge">+56 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="163" data-names="battle styles sword &amp; shield">
+      <p class="ws-n">/163<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh5/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Battle Styles</span> <span class="ws-yr">2021 &bull; Sword &amp; Shield</span> <span class="ws-badge">+20 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="165" data-names="expedition base set e-card 151 scarlet &amp; violet">
+      <p class="ws-n">/165<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/ecard1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Expedition Base Set</span> <span class="ws-yr">2002 &bull; E-Card</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/sv3pt5/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/151.html">151</a> <span class="ws-yr">2023 &bull; Scarlet &amp; Violet</span> <span class="ws-badge">+42 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="167" data-names="twilight masquerade scarlet &amp; violet">
+      <p class="ws-n">/167<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sv6/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/twilight-masquerade.html">Twilight Masquerade</a> <span class="ws-yr">2024 &bull; Scarlet &amp; Violet</span> <span class="ws-badge">+59 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="168" data-names="celestial storm sun &amp; moon">
+      <p class="ws-n">/168<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sm7/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Celestial Storm</span> <span class="ws-yr">2018 &bull; Sun &amp; Moon</span> <span class="ws-badge">+19 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="172" data-names="brilliant stars sword &amp; shield">
+      <p class="ws-n">/172<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh9/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Brilliant Stars</span> <span class="ws-yr">2022 &bull; Sword &amp; Shield</span> <span class="ws-badge">+14 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="181" data-names="team up sun &amp; moon">
+      <p class="ws-n">/181<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sm9/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Team Up</span> <span class="ws-yr">2019 &bull; Sun &amp; Moon</span> <span class="ws-badge">+17 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="182" data-names="paradox rift scarlet &amp; violet destined rivals scarlet &amp; violet">
+      <p class="ws-n">/182<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sv4/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/paradox-rift.html">Paradox Rift</a> <span class="ws-yr">2023 &bull; Scarlet &amp; Violet</span> <span class="ws-badge">+84 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/sv10/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/destined-rivals.html">Destined Rivals</a> <span class="ws-yr">2025 &bull; Scarlet &amp; Violet</span> <span class="ws-badge">+62 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="185" data-names="vivid voltage sword &amp; shield">
+      <p class="ws-n">/185<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh4/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Vivid Voltage</span> <span class="ws-yr">2020 &bull; Sword &amp; Shield</span> <span class="ws-badge">+18 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="189" data-names="darkness ablaze sword &amp; shield astral radiance sword &amp; shield">
+      <p class="ws-n">/189<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh3/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Darkness Ablaze</span> <span class="ws-yr">2020 &bull; Sword &amp; Shield</span> <span class="ws-badge">+12 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh10/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Astral Radiance</span> <span class="ws-yr">2022 &bull; Sword &amp; Shield</span> <span class="ws-badge">+27 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="191" data-names="surging sparks scarlet &amp; violet">
+      <p class="ws-n">/191<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sv8/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/surging-sparks.html">Surging Sparks</a> <span class="ws-yr">2024 &bull; Scarlet &amp; Violet</span> <span class="ws-badge">+61 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="192" data-names="rebel clash sword &amp; shield">
+      <p class="ws-n">/192<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh2/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Rebel Clash</span> <span class="ws-yr">2020 &bull; Sword &amp; Shield</span> <span class="ws-badge">+17 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="193" data-names="paldea evolved scarlet &amp; violet">
+      <p class="ws-n">/193<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sv2/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/paldea-evolved.html">Paldea Evolved</a> <span class="ws-yr">2023 &bull; Scarlet &amp; Violet</span> <span class="ws-badge">+86 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="195" data-names="silver tempest sword &amp; shield">
+      <p class="ws-n">/195<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh12/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Silver Tempest</span> <span class="ws-yr">2022 &bull; Sword &amp; Shield</span> <span class="ws-badge">+20 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="196" data-names="lost origin sword &amp; shield">
+      <p class="ws-n">/196<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh11/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Lost Origin</span> <span class="ws-yr">2022 &bull; Sword &amp; Shield</span> <span class="ws-badge">+21 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="197" data-names="obsidian flames scarlet &amp; violet">
+      <p class="ws-n">/197<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sv3/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/obsidian-flames.html">Obsidian Flames</a> <span class="ws-yr">2023 &bull; Scarlet &amp; Violet</span> <span class="ws-badge">+33 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="198" data-names="chilling reign sword &amp; shield scarlet &amp; violet scarlet &amp; violet">
+      <p class="ws-n">/198<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh6/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Chilling Reign</span> <span class="ws-yr">2021 &bull; Sword &amp; Shield</span> <span class="ws-badge">+35 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/sv1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/scarlet-violet.html">Scarlet &amp; Violet</a> <span class="ws-yr">2023 &bull; Scarlet &amp; Violet</span> <span class="ws-badge">+60 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="202" data-names="sword &amp; shield sword &amp; shield">
+      <p class="ws-n">/202<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh1/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Sword &amp; Shield</span> <span class="ws-yr">2020 &bull; Sword &amp; Shield</span> <span class="ws-badge">+14 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="203" data-names="evolving skies sword &amp; shield">
+      <p class="ws-n">/203<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh7/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Evolving Skies</span> <span class="ws-yr">2021 &bull; Sword &amp; Shield</span> <span class="ws-badge">+34 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="214" data-names="lost thunder sun &amp; moon unbroken bonds sun &amp; moon">
+      <p class="ws-n">/214<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sm8/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Lost Thunder</span> <span class="ws-yr">2018 &bull; Sun &amp; Moon</span> <span class="ws-badge">+26 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/sm10/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Unbroken Bonds</span> <span class="ws-yr">2019 &bull; Sun &amp; Moon</span> <span class="ws-badge">+20 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="217" data-names="ascended heroes mega evolution">
+      <p class="ws-n">/217<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.scrydex.com/pokemon/me2pt5-symbol/symbol" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <a href="/sets/ascended-heroes.html">Ascended Heroes</a> <span class="ws-yr">2026 &bull; Mega Evolution</span> <span class="ws-badge">+78 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="236" data-names="unified minds sun &amp; moon cosmic eclipse sun &amp; moon">
+      <p class="ws-n">/236<span>2 sets</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/sm11/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Unified Minds</span> <span class="ws-yr">2019 &bull; Sun &amp; Moon</span> <span class="ws-badge">+24 secret</span></li>
+<li class="ws-set"><img src="https://images.pokemontcg.io/sm12/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Cosmic Eclipse</span> <span class="ws-yr">2019 &bull; Sun &amp; Moon</span> <span class="ws-badge">+36 secret</span></li>
+      </ul>
+    </li>
+      <li class="ws-row" data-n="264" data-names="fusion strike sword &amp; shield">
+      <p class="ws-n">/264<span>1 set</span></p>
+      <ul class="ws-sets">
+<li class="ws-set"><img src="https://images.pokemontcg.io/swsh8/symbol.png" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+        <span>Fusion Strike</span> <span class="ws-yr">2021 &bull; Sword &amp; Shield</span> <span class="ws-badge">+20 secret</span></li>
+      </ul>
+    </li>
+    </ol>
+    <p class="ws-empty" id="wsnone" hidden>No English set was printed at that size. Two things it is usually:
+      a promo card, which is numbered inside a running promo series rather than out of a set, or a Japanese card, whose
+      sets are sized differently and are not in this index. Try the
+      <a href="/expansions.html">full set list</a> or the <a href="/cards.html">card search</a>.</p>
+  </div>
+</section>
+
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Where to look</p>
+    <h2>The corner <span class="hl">moved</span> in 2017</h2>
+    <p class="lede" style="max-width:40em">Both the number and the symbol sit in the same bottom corner, and which corner
+      that is depends on how old the card is. This trips people up because most guides get the date wrong.</p>
+    <ul class="facts-list">
+      <li><strong>Bottom right on cards up to the XY era.</strong> If the number and the symbol are on the right, you are
+        holding something from 2016 or earlier.</li>
+      <li><strong>Bottom left from Sun and Moon onward.</strong> The move happened in 2017, not at Scarlet and Violet,
+        which is what you will usually be told. Our <a href="/rarity.html">rarity guide</a> shows both corners magnified
+        on real cards.</li>
+      <li><strong>The symbol is the tiebreaker, not the number.</strong> Of the 86 different set sizes in
+        this index, 48 belong to exactly one set and 38 are shared by two or more. Every card
+        printed at 132 could be from 4 different sets: Gym Heroes (2000), Gym Challenge (2000), Secret Wonders (2007), Mega Evolution (2025). The symbols are not alike, so once the number has narrowed it the picture finishes it.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>199 out of 198</p>
+    <h2>If the left number is <span class="hl">bigger</span></h2>
+    <p class="lede" style="max-width:40em">A card numbered above its own set total is not a misprint and it is not fake.
+      It is a secret rare, printed deliberately past the end of the checklist, and it is usually the reason anybody was
+      opening the packs.</p>
+    <div class="facts">
+      <div class="fact"><div class="n">1,306</div><div class="l">Cards numbered above their set total, in the 23 sets we hold full checklists for</div></div>
+      <div class="fact"><div class="n">154</div><div class="l">In Paldean Fates alone, the most of any set here</div></div>
+      <div class="fact"><div class="n">91</div><div class="l">Where Paldean Fates officially stops</div></div>
+      <div class="fact"><div class="n">245</div><div class="l">Where it actually stops</div></div>
+    </div>
+    <p style="max-width:40em;margin-top:16px">So the number after the slash still identifies the set even on a secret
+      rare: Paldean Fates cards all read out of 91 whether they are card 12 or card
+      245. Rows in the index above carry a badge saying how far past the printed total each set runs.
+      What those cards are actually called is on the <a href="/rarity.html">rarity guide</a>, and what they are worth is
+      on <a href="/cards.html">card search</a>.</p>
+  </div>
+</section>
+
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>When the number will not do it</p>
+    <h2>Three cards this <span class="hl">will not</span> find</h2>
+    <ul class="facts-list">
+      <li><strong>Promo cards.</strong> 33 of the 174 English sets in our data are promo runs,
+        Black Star series, tins, trainer kits and tie-ins. Their cards are numbered inside the promo series rather than
+        out of a set size, so there is often no slash at all. They are not in the index above for that reason. The
+        <a href="/expansions.html">full set list</a> has all 174, promos included.</li>
+      <li><strong>Japanese, Korean and Chinese cards.</strong> Different sets, different sizes, and a number that will
+        either miss or match an English set it has nothing to do with. If the text is not in English, start from
+        <a href="/sets/">the set guides</a>, which include 23 full guides and several imported sets.</li>
+      <li><strong>Cards with the number rubbed off.</strong> It happens on played vintage. The symbol survives longer
+        than the print does, so work from that and from the copyright line instead. If you are checking a card because
+        something about it feels wrong, the <a href="/fake-cards.html">real or fake checks</a> are the better page.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <h2>Where this <span class="hl">came from</span></h2>
+    <ul class="facts-list">
+      <li><strong>Set names, sizes, symbols and release dates.</strong> The Pokemon TCG API, synced
+        August 11, 2026. The size used here is the API's printed total,
+        which is the number printed on the card, not the number of cards that exist.</li>
+      <li><strong>Secret rare counts.</strong> Counted from the full checklists this site holds for
+        23 sets, as the difference between how many cards a set has and the total printed on them.</li>
+      <li><strong>The symbols.</strong> Served from the API's own image host and shown at the size they are published at.
+        They are small on the card too: a phone camera and a pinch zoom is the normal way to read one.</li>
+      <li><strong>Nothing here is estimated.</strong> Every number on this page is counted from that list when the page
+        is built, so it cannot drift from the index printed above it.</li>
+    </ul>
+    <p class="price-note">Fan made reference. Not affiliated with The Pokemon Company or Nintendo. Newest set in the
+      index: Pitch Black, Jul 17, 2026.</p>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Footer">
+      <div class="foot-col">
+        <p class="foot-h">Watch</p>
+        <a href="/videos.html">Rips</a>
+        <a href="/playlists.html">Playlists</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">The binder</p>
+        <a href="/hall.html">Best pulls</a>
+        <a href="/wanted.html">Most wanted</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Cards</p>
+        <a href="/cards.html">Card search</a>
+        <a href="/pokemon/">By Pokemon</a>
+        <a href="/sets/">Set guides</a>
+        <a href="/expansions.html">Every set ever</a>
+        <a href="/upcoming.html">Coming next</a>
+        <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/pack-prices.html">Pack prices</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Guides</p>
+        <a href="/start.html">Start here</a>
+        <a href="/what-set.html">Set finder</a>
+        <a href="/rarity.html">Rarity guide</a>
+        <a href="/fake-cards.html">Fakes</a>
+        <a href="/grading.html">Grading</a>
+        <a href="/luck.html">Luck, measured</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Play</p>
+        <a href="/games/">Games</a>
+        <a href="/lore.html">Pokemon lore</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Rochester, NY</p>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/vendors.html">Local vendors</a>
+        <a href="/creators.html">Local creators</a>
+        <a href="/about.html">About</a>
+      </div>
+    </nav>
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    Set list from the Pokemon TCG API, synced August 11, 2026.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+<script src="/assets/app.js?v=4314cd16" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
+<script>
+(function(){
+  var box=document.getElementById('wsq'), rows=[].slice.call(document.querySelectorAll('.ws-row')),
+      out=document.getElementById('wscount'), none=document.getElementById('wsnone');
+  if(!box||!rows.length) return;
+  function run(){
+    var q=box.value.trim().toLowerCase(), shown=0, digits=/^[0-9]+$/.test(q);
+    for(var i=0;i<rows.length;i++){
+      var r=rows[i], hit;
+      if(!q) hit=true;
+      else if(digits) hit=r.getAttribute('data-n').indexOf(q)===0;
+      else hit=r.getAttribute('data-names').indexOf(q)!==-1;
+      r.hidden=!hit; if(hit) shown++;
+    }
+    out.textContent = q ? (shown+(shown===1?' set size matches "':' set sizes match "')+box.value.trim()+'"')
+                        : ('86 set sizes, 141 sets');
+    none.hidden = shown>0;
+  }
+  box.addEventListener('input',run);
+  var p=new URLSearchParams(location.search).get('n');
+  if(p){ box.value=p; }
+  run();
+})();
+</script>
+</body>
+</html>
