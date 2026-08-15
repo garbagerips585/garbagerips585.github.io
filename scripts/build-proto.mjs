@@ -727,6 +727,23 @@ function libCard(v) {
  * So 312 does flatten it completely, and if someone decides that is worth
  * 719KB, change this number: everything else here already handles it. But CLS,
  * which is what this render exists to fix, is 0 at 48 and 0 at 312 alike.
+ *
+ * CONTENT-VISIBILITY DOES NOT BUY YOU THE 312, AND IT IS THE OBVIOUS THING TO
+ * TRY. The theory is sound: the wrappers are CSS background-images, so if the
+ * off-screen tiles are never rendered their backgrounds should never be
+ * fetched. It was built and measured on a throwaway copy, `.wall > .v` with
+ * `content-visibility:auto` and `contain-intrinsic-size:auto 320px`, 3 runs per
+ * variant:
+ *
+ *              mobile 390            desktop 1440
+ *   48 tiles     819KB / 21 reqs      1,038KB / 23 reqs
+ *   312 + c-v  1,499KB / 34 reqs      1,717KB / 35 reqs
+ *
+ * The rule applied: computed contentVisibility was "auto" on a tile measured
+ * off-screen. Chrome fetched the backgrounds anyway, so the cost is the same
+ * ~680KB it always was. Do not re-run this experiment expecting a different
+ * answer; if you want 312, pay for it or make the wrappers <img> so they can
+ * be lazy.
  */
 const LIB_TILES = 48;
 // app.js's default sort: newest first, and it compares the ISO strings rather
