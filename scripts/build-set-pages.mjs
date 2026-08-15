@@ -1220,54 +1220,57 @@ function setPage(s) {
         if (c) proseCards.push({ ...h, resolved: c });
         else prose.push(h);
       }
+
+      // ONE LIST, SORTED BY VALUE. The three kinds of hit used to render as
+      // three consecutive blocks, each sorted within itself, so a $38.75 promo
+      // sat below a $2.87 card purely because it came from a different file.
+      // Nobody reading the page cares which file a card came out of. They care
+      // what it is worth, so everything with a picture is normalised to one
+      // shape and sorted on price. Anything with no market price sorts last
+      // rather than sorting as if it were free.
+      const priced = [
+        ...mine.map((h) => ({
+          kind: "mine", img: h.img, name: esc(h.name),
+          meta: `${esc(rarityLabel(h.rarity) || "")}${h.n ? ` &bull; #${esc(h.n)}` : ""}`,
+          price: typeof h.price === "number" ? h.price : null, psa10: null,
+          rips: h.path ? [{ path: h.path, label: h.label }] : [],
+        })),
+        ...promoHits.map((h) => ({
+          kind: "promo", img: h.img ? `${h.img}/low.webp` : null, name: esc(h.card),
+          meta: `${esc(h.setName || "Black Star Promo")}${h.number ? ` &bull; #${esc(h.number)}` : ""}`,
+          price: typeof h.price === "number" ? h.price : null,
+          psa10: typeof h.psa10 === "number" ? h.psa10 : null,
+          rips: [{ path: h.path, label: h.label }],
+        })),
+        ...proseCards.map((h) => ({
+          kind: "prose", img: h.resolved.img,
+          name: `${esc(h.resolved.name)}${h.count > 1 ? ` <span class="mine-x">x${h.count}</span>` : ""}`,
+          meta: `${esc(h.resolved.rarity || rarityLabelOf(h.rarity) || "")}${h.resolved.number ? ` &bull; #${esc(h.resolved.number)}` : ""}`,
+          price: typeof h.resolved.price === "number" ? h.resolved.price : null, psa10: null,
+          rips: h.rips,
+        })),
+      ].sort((a, b) => (b.price ?? -1) - (a.price ?? -1));
       if (!mine.length && !proseAll.length && !promoHits.length) return null;
       return (cls) => `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
     <h2>What we have <span class="hl">hit</span> from this set</h2>
-    <p class="lede" style="max-width:38em">${mine.length + promoHits.length + proseCards.length + prose.length} card${
-      mine.length + promoHits.length + proseCards.length + prose.length === 1 ? "" : "s"
-    } out of our own packs. Every one of them is in a video you can watch.</p>
-    ${mine.length || promoHits.length || proseCards.length ? `<ul class="mine-grid">` : ""}
-      ${mine
+    <p class="lede" style="max-width:38em">${priced.length + prose.length} card${priced.length + prose.length === 1 ? "" : "s"} out of our own packs. Every one of them is in a video you can watch.</p>
+    ${priced.length ? `<ul class="mine-grid">
+      ${priced
         .map(
-          (h) => `<li class="mine">
-        ${h.img ? `<img class="mine-img" src="${esc(h.img)}" alt="${esc(h.name)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>` : `<div class="mine-img is-none" aria-hidden="true"></div>`}
-        <p class="mine-n">${esc(h.name)}</p>
-        <p class="mine-r">${esc(rarityLabel(h.rarity) || "")}${h.n ? ` &bull; #${esc(h.n)}` : ""}</p>
-        <p class="mine-p">${typeof h.price === "number" ? moneyExact(h.price) : "No market price"}</p>
-        ${h.path ? `<a class="mine-w" href="/${esc(h.path)}">Watch the rip &rarr;</a>` : ""}
-      </li>`,
-        )
-        .join("\n      ")}
-      ${promoHits
-        .map(
-          (h) => `<li class="mine is-promo">
-        ${h.img ? `<img class="mine-img" src="${esc(h.img)}/low.webp" alt="${esc(h.card)}" loading="lazy" onerror="this.remove()" decoding="async">` : `<div class="mine-img is-none" aria-hidden="true"></div>`}
-        <p class="mine-n">${esc(h.card)}</p>
-        <p class="mine-r">${esc(h.setName || "Black Star Promo")}${h.number ? ` &bull; #${esc(h.number)}` : ""}</p>
+          (h) => `<li class="mine${h.kind === "promo" ? " is-promo" : ""}">
+        ${h.img ? `<img class="mine-img" src="${esc(h.img)}" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>` : `<div class="mine-img is-none" aria-hidden="true"></div>`}
+        <p class="mine-n">${h.name}</p>
+        <p class="mine-r">${h.meta}</p>
         <p class="mine-p">${typeof h.price === "number" ? moneyExact(h.price) : "No market price"}${
             typeof h.psa10 === "number" ? ` <span class="mine-psa">${moneyExact(h.psa10)} in a 10</span>` : ""
           }</p>
-        <a class="mine-w" href="/${esc(h.path)}">Watch the rip &rarr;</a>
+        ${h.rips.map((r) => `<a class="mine-w" href="/${esc(r.path)}">Watch the rip &rarr;</a>`).join("\n        ")}
       </li>`
         )
         .join("\n      ")}
-      ${proseCards
-        .map((h) => {
-          const c = h.resolved;
-          return `<li class="mine">
-        ${c.img ? `<img class="mine-img" src="${esc(c.img)}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(c.img)}>` : `<div class="mine-img is-none" aria-hidden="true"></div>`}
-        <p class="mine-n">${esc(c.name)}${h.count > 1 ? ` <span class="mine-x">x${h.count}</span>` : ""}</p>
-        <p class="mine-r">${esc(c.rarity || rarityLabelOf(h.rarity) || "")}${c.number ? ` &bull; #${esc(c.number)}` : ""}</p>
-        <p class="mine-p">${typeof c.price === "number" ? moneyExact(c.price) : "No market price"}</p>
-        ${h.rips
-          .map((r) => `<a class="mine-w" href="/${esc(r.path)}">Watch the rip &rarr;</a>`)
-          .join("\n        ")}
-      </li>`;
-        })
-        .join("\n      ")}
-    ${mine.length || promoHits.length || proseCards.length ? `</ul>` : ""}
+    </ul>` : ""}
     ${prose.length ? `<ul class="mine-list">
       ${prose
         .map(
