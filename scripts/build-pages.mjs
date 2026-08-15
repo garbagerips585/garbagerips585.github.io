@@ -900,6 +900,23 @@ const urls = [
   // The condition half of the grading question. Monthly rather than weekly:
   // unlike the fee table next door, published grading standards barely move.
   { loc: `${SITE}/will-it-grade.html`, freq: "monthly", pri: "0.9" },
+  // Sealed product pages. Weekly because the price tables are recomputed from
+  // the nightly product sync, so they genuinely change; the openings list only
+  // changes when a video goes up.
+  { loc: `${SITE}/openings/`, freq: "weekly", pri: "0.9" },
+  { loc: `${SITE}/openings/blister.html`, freq: "weekly", pri: "0.8" },
+  { loc: `${SITE}/openings/bundle.html`, freq: "weekly", pri: "0.8" },
+  { loc: `${SITE}/openings/chinese-pack.html`, freq: "weekly", pri: "0.8" },
+  { loc: `${SITE}/openings/collection-box.html`, freq: "weekly", pri: "0.8" },
+  { loc: `${SITE}/openings/etb.html`, freq: "weekly", pri: "0.8" },
+  { loc: `${SITE}/openings/ex-box.html`, freq: "weekly", pri: "0.8" },
+  { loc: `${SITE}/openings/ex-premium.html`, freq: "weekly", pri: "0.8" },
+  { loc: `${SITE}/openings/japanese-pack.html`, freq: "weekly", pri: "0.8" },
+  { loc: `${SITE}/openings/korean-pack.html`, freq: "weekly", pri: "0.8" },
+  { loc: `${SITE}/openings/poke-ball-tin.html`, freq: "weekly", pri: "0.8" },
+  { loc: `${SITE}/openings/single-pack.html`, freq: "weekly", pri: "0.8" },
+  { loc: `${SITE}/openings/tin.html`, freq: "weekly", pri: "0.8" },
+  { loc: `${SITE}/openings/upc.html`, freq: "weekly", pri: "0.8" },
   { loc: `${SITE}/selling.html`, freq: "weekly", pri: "0.9" },
   // Daily: the totals are recomputed by the nightly price sync, so this page
   // genuinely changes every night. Nothing else here does.

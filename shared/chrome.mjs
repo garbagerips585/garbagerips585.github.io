@@ -71,6 +71,10 @@ export const NAV = [
     // pull, so both belong under Cards rather than under Guides, which is where
     // the pages that do not move live.
     ["/pack-prices.html", "Pack prices"],
+    // Sits with pack prices because it answers the other half of the same
+    // question. Pack prices says what a box costs; this says what is in it and
+    // shows it being opened. One is a number, one is the evidence.
+    ["/openings/", "Sealed products"],
     // TIME SENSITIVE, so it sits with the money questions rather than with the
     // guides: this one is only useful this week, and it is the only page on the
     // site made of forecasts rather than facts.
