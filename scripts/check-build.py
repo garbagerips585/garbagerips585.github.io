@@ -54,16 +54,38 @@ missing = {}
 links = 0
 for f in pages:
     html = open(f, encoding="utf-8").read()
-    for m in re.finditer(r'(?:href|src)="(/[^"]*)"', html):
-        url = m.group(1).split("#")[0].split("?")[0]
-        if not url:
+    # RELATIVE HREFS WERE A BLIND SPOT AND TWO 404s WALKED THROUGH IT. This
+    # pattern was anchored to a leading slash, so every site-absolute link was
+    # checked and anything relative was invisible. A builder started rendering
+    # provenance strings like "data/shops.json" as real hrefs; those files live
+    # in the repo root and are never deployed, so both were dead on the live
+    # site and this script reported all links fine.
+    # Two things this has to avoid now that it looks at relative urls as well.
+    # A <script> block builds hrefs by string concatenation at RUNTIME, so
+    # href="'+esc(url)+'" is not a link and cannot be resolved on disk. And
+    # data-src="pricecharting.com" is an attribute name ending in "src", not a
+    # source: without a boundary the pattern matches its tail. Both showed up as
+    # false failures the moment the leading-slash anchor came off.
+    scanned = re.sub(r"(?is)<script\b.*?</script>", "", html)
+    for m in re.finditer(r'(?<![\w-])(?:href|src)="([^"]*)"', scanned):
+        raw = m.group(1).split("#")[0].split("?")[0]
+        if not raw:
+            continue
+        # Off-site and non-http schemes are somebody else's problem.
+        if re.match(r"^(?:[a-zA-Z][a-zA-Z0-9+.-]*:|//)", raw):
             continue
         links += 1
-        path = os.path.join("public", url.lstrip("/"))
+        if raw.startswith("/"):
+            url = raw
+            path = os.path.join("public", url.lstrip("/"))
+        else:
+            # Resolve against the page's own directory, the way a browser would.
+            url = raw
+            path = os.path.normpath(os.path.join(os.path.dirname(f), raw))
         if url.endswith("/"):
             path = os.path.join(path, "index.html")
         if not os.path.exists(path):
-            missing.setdefault(url, []).append(f)
+            missing.setdefault(f"{url} (from {f})" if not raw.startswith("/") else url, []).append(f)
 note(f"  {links} internal links")
 for url, srcs in list(missing.items())[:10]:
     fail.append(f"broken link {url}  <- {srcs[0]}")

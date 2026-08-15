@@ -995,9 +995,10 @@
       "protection": "Not applicable in the usual sense: the sale completes in person, so there is no shipping, no buyer dispute window, no chargeback and no payout hold.",
       "sources": [
         {
-          "url": "data/shops.json",
+          "url": "/shops.html",
           "read": "2026-08-15",
-          "what": "Six Rochester-area shops, each verified from the business's own site: Just Games, Millennium Games, LingSter Games, Legacy Games, Great Lakes Gaming, WeTheHobby. Rendered on /shops.html."
+          "what": "Six Rochester-area shops, each verified from the business's own site: Just Games, Millennium Games, LingSter Games, Legacy Games, Great Lakes Gaming, WeTheHobby. Rendered on /shops.html.",
+          "from": "data/shops.json"
         }
       ],
       "note": "This site already publishes the local list, which is why this venue belongs here rather than as an afterthought. No shop's buy rate is stated because none of them publish one, and inventing a 'shops pay 50-60%' figure would break the rule this whole file runs on.",
@@ -1036,9 +1037,10 @@
       "protection": "Not applicable. The sale completes in person.",
       "sources": [
         {
-          "url": "data/shows.json",
+          "url": "/card-shows.html",
           "read": "2026-08-12",
-          "what": "23 upcoming shows across the Rochester, Buffalo and Syracuse regions, each with the listing url it was read from. Rendered on /card-shows.html."
+          "what": "23 upcoming shows across the Rochester, Buffalo and Syracuse regions, each with the listing url it was read from. Rendered on /card-shows.html.",
+          "from": "data/shows.json"
         }
       ],
       "note": "The site's shows file already carries the organiser link for every event, which is the only reliable route to a current table price.",

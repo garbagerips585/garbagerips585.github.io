@@ -396,8 +396,8 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
       <p style="margin-top:10px">And every figure above is the price of a 10. You do not find out which grade you are
         getting until the card is already back, so treat the whole table as the best case rather than the expected
         one. We will not guess at the odds of any particular card coming back a 10, because nobody
-publishes that. What the companies DO publish about grade outcomes, and it is less reassuring than it
-sounds, is on <a href="/will-it-grade.html">will it grade</a>.</p>
+      publishes that. What the companies do publish about grade outcomes, and it is less reassuring
+      than it sounds, is on <a href="/will-it-grade.html">will it grade</a>.</p>
     </div>
     `
         : ""

@@ -165,7 +165,7 @@
       "what": "Product list not published yet.",
       "when": "Wednesday evening is the pattern, most often between 9pm and midnight Eastern.",
       "notes": [
-        "Walmart publishes no restock schedule. The closest thing to evidence is a measurement: Restockd, which watches for products coming back in stock, logged 83 Walmart Pokemon DETECTIONS in the 90 days to August 12, 2026 and found 87 per cent landed between 9pm and midnight Eastern, most often on a Wednesday.",
+        "Walmart publishes no restock schedule. The closest thing to evidence is a measurement: Restockd, which watches for products coming back in stock, logged 83 Walmart Pokemon detections in the 90 days to August 12, 2026 and found 87 per cent landed between 9pm and midnight Eastern, most often on a Wednesday.",
         "Restockd's own caveat matters: a detection is a product returning to stock, not a count of units, and several detections can belong to one release. So 83 is not 83 separate drops.",
         "That is a record of what happened, not a promise about what will."
       ],

@@ -232,19 +232,19 @@
         "company": "CGC",
         "has": false,
         "note": "Discontinued. CGC's help centre states plainly that subgrades are no longer offered.",
-        "kind": "None"
+        "kind": "No subgrades"
       },
       {
         "company": "PSA",
         "has": false,
         "note": "No subgrade product. PSA uses qualifiers instead, which cap the grade rather than sit beside it: OC off centre, MC miscut, ST staining, PD print defect, OF out of focus, MK marks.",
-        "kind": "None"
+        "kind": "No subgrades"
       },
       {
         "company": "SGC",
         "has": false,
         "note": "No subgrades on its scale or services pages.",
-        "kind": "None"
+        "kind": "No subgrades"
       },
       {
         "company": "TAG",

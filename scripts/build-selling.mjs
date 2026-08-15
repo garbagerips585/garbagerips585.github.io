@@ -78,6 +78,11 @@ const GROUPS = [
 // cards for you there, so the page was contradicting its own source text.
 const groupOf = (v) => {
   if (!v.group) throw new Error(`selling.json: venue "${v.id}" has no group`);
+  if (!GROUPS.some((g) => g.key === v.group)) {
+    throw new Error(
+      `selling.json: venue "${v.id}" has group "${v.group}", which is not one of ${GROUPS.map((g) => g.key).join(", ")}`
+    );
+  }
   return v.group;
 };
 
@@ -101,6 +106,22 @@ const feeRow = (f) => `        <li>
 // date on all 14, `conditions`, and `sellerLevels`. The page meanwhile told the
 // reader "every figure here carries the date it was read", which it then did
 // not do. Writing the rule down is not the same as applying it.
+// NESTED OBJECTS NEED THEIR OWN GUARD. V_KNOWN only inspects top level venue
+// keys, so a renderer that guessed at the shape INSIDE one of them passed every
+// check while emitting nonsense: an earlier version of this read l.level, l.rate
+// and l.note against data whose keys are level, limits and toAdvance, and every
+// entry collapsed to a bare integer under a bold label promising rates.
+const SL_KNOWN = new Set(["level", "limits", "toAdvance"]);
+const sellerLevel = (l) => {
+  if (typeof l === "string") return `<li>${esc(l)}</li>`;
+  for (const k of Object.keys(l)) {
+    if (!SL_KNOWN.has(k)) throw new Error(`selling.json: sellerLevels entry has unrendered key "${k}"`);
+  }
+  return `<li><b>Level ${esc(String(l.level))}.</b> ${esc(l.limits || "")}${
+    l.toAdvance ? ` <span class="se-adv">To move up: ${esc(l.toAdvance)}</span>` : ""
+  }</li>`;
+};
+
 const V_KNOWN = new Set([
   "id", "name", "url", "type", "format", "bestFor", "status", "access", "fees",
   "payout", "note", "group", "protection", "sources", "conditions", "sellerLevels",
@@ -117,7 +138,7 @@ const venueCard = (v) => {
           <h3>${v.url ? `<a href="${esc(v.url)}" rel="noopener" target="_blank">${esc(v.name)}</a>` : esc(v.name)}</h3>
           <span class="se-st ${st.cls}">${esc(st.label)}</span>
         </div>
-        ${v.format ? `<p class="se-fmt">${esc(v.format)}</p>` : ""}
+        ${v.type || v.format ? `<p class="se-fmt">${[v.type, v.format].filter(Boolean).map(esc).join(". ")}</p>` : ""}
         ${v.bestFor ? `<p class="se-best"><b>Best for.</b> ${esc(v.bestFor)}</p>` : ""}
         ${fees.length ? `<ul class="se-fees">\n${fees.map(feeRow).join("\n")}\n        </ul>`
           : `<p class="se-none">No fee figures here. ${
@@ -131,10 +152,8 @@ const venueCard = (v) => {
         ${(v.conditions || []).length ? `<p class="se-lbl"><b>Only if.</b></p><ul class="se-cond">${
           v.conditions.map((x) => `<li>${esc(x)}</li>`).join("")
         }</ul>` : ""}
-        ${(v.sellerLevels || []).length ? `<p class="se-lbl"><b>Rate depends on your level.</b></p><ul class="se-cond">${
-          v.sellerLevels
-            .map((l) => `<li>${esc(typeof l === "string" ? l : [l.level, l.rate, l.note].filter(Boolean).join(": "))}</li>`)
-            .join("")
+        ${(v.sellerLevels || []).length ? `<p class="se-lbl"><b>What you are allowed to list, by level.</b></p><ul class="se-cond">${
+          v.sellerLevels.map(sellerLevel).join("")
         }</ul>` : ""}
         ${v.note ? `<p class="se-nb">${esc(v.note)}</p>` : ""}
         ${(v.sources || []).length ? `<p class="se-src">${v.sources
@@ -143,7 +162,7 @@ const venueCard = (v) => {
             const what = typeof x === "string" ? "" : x.what || "";
             const read = typeof x === "string" ? "" : x.read || "";
             return u
-              ? `<a href="${esc(u)}" aria-label="${esc(v.name)}${what ? `, ${what}` : ""}, source ${i + 1}" rel="noopener" target="_blank">${
+              ? `<a href="${esc(u)}" aria-label="${esc(v.name)}${what ? `, ${esc(what)}` : ""}, source ${i + 1}" rel="noopener" target="_blank">${
                   esc(what || `Source ${i + 1}`)
                 }</a>${read ? ` <span>read ${esc(longDate(read))}</span>` : ""}`
               : esc(what);
@@ -243,6 +262,8 @@ const style = `
 .se-s1,.se-rd{font:400 var(--t-micro)/1 var(--mono);white-space:nowrap}
 .se-rd{color:var(--ink-2)}
 .se-cond{margin:var(--s2) 0 0 var(--s4);font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
+.se-cond li{margin-bottom:var(--s2)}
+.se-adv{display:block;font-size:var(--t-micro);opacity:.85}
 .se-ps{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
 @media(max-width:900px){.se-ps{grid-template-columns:1fr}}
 .se-list{margin:var(--s4) 0 0 var(--s4);max-width:46em;line-height:1.55}
@@ -305,6 +326,18 @@ ${MENU}
         <p>${esc(safe.framing.question)} It is not which site you are on.</p>
         ${(safe.framing.why || []).map((w) => `<p>${esc(w)}</p>`).join("\n        ")}
       </div>
+${(() => {
+  // NOTHING ANYWHERE CHECKED THAT EVERY VENUE ACTUALLY REACHED THE PAGE. The
+  // section loop filters by group, so a venue in no matching section is simply
+  // absent, with a clean build and no error. The group value is validated above
+  // and this counts the result anyway, because the two failures are different:
+  // one catches a bad value, this catches a venue lost for any reason at all.
+  const placed = GROUPS.reduce((n, g) => n + venues.filter((v) => groupOf(v) === g.key).length, 0);
+  if (placed !== venues.length) {
+    throw new Error(`selling.json: ${venues.length} venues but ${placed} rendered`);
+  }
+  return "";
+})()}
 ${GROUPS.map((g) => {
   const list = venues.filter((v) => groupOf(v) === g.key);
   if (!list.length) return "";
