@@ -201,3 +201,71 @@ export const RARITY_CSS = `
   border-radius:3px;padding:3px 5px}
 .chip-rk{display:inline-flex;align-items:center}
 `;
+
+// ============================================================================
+// READING A WHOLE HIT OUT OF THE ONE FREE TEXT FIELD.
+//
+//   parseHits("Journey Together - Trainer - Ruffian - Double Silver Star - Ultra Rare",
+//             setNames)
+//     -> [{ set: "journey-together", card: "Trainer Ruffian", rarity: "ultra" }]
+//
+// Tim writes a hit as `Set - Card - Star description - Rarity` and separates
+// several with commas, because one rip can produce cards from several sets at
+// several tiers. The set pages want that: landing on Phantasmal Flames should
+// show everything pulled from Phantasmal Flames, and until now they could only
+// show cards typed one-per-row on the My Hits tab, which covered 2 of the 11
+// logged videos.
+//
+// CONSERVATIVE ON PURPOSE. A hit attributed to the wrong set is worse than a
+// hit that does not appear, because the reader cannot tell it is wrong. So a
+// fragment only produces a hit when its FIRST segment matches a set name we
+// actually know. Anything else is returned in `unmatched` for a human to look
+// at rather than guessed into place.
+//
+// It also does NOT try to match the card against a checklist or attach a price.
+// "Trainer - Ruffian" is a person's shorthand, not a catalogue key, and a fuzzy
+// match onto a real card number would put a price on the page that nobody
+// verified. The card name renders as typed.
+// ============================================================================
+
+const norm = (s) =>
+  String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+
+/**
+ * @param {string} text        the Hit Card cell
+ * @param {Map<string,string>} setsByName  normalised set name -> set id
+ */
+export function parseHits(text, setsByName) {
+  if (!text) return { hits: [], unmatched: [] };
+  const hits = [];
+  const unmatched = [];
+
+  for (const raw of String(text).split(",")) {
+    const frag = raw.trim();
+    if (!frag) continue;
+    const parts = frag.split(/\s+-\s+|\s+-\s*$/).map((p) => p.trim()).filter(Boolean);
+    if (!parts.length) continue;
+
+    const setId = setsByName.get(norm(parts[0]));
+    if (!setId) {
+      unmatched.push(frag);
+      continue;
+    }
+    // Drop the trailing rarity words and the star description, whatever is
+    // left in the middle is what he called the card.
+    const middle = parts.slice(1).filter((p) => {
+      const n = norm(p);
+      if (/\bstar\b|\bholo\b|\bpromo\b/.test(n)) return false;
+      if (raritiesIn(p).length && norm(p).split(" ").length <= 4) return false;
+      return true;
+    });
+    const card = middle.join(" ").replace(/\s+/g, " ").trim();
+    const rarity = raritiesIn(frag)[0] || null;
+    if (!card) {
+      unmatched.push(frag);
+      continue;
+    }
+    hits.push({ set: setId, card, rarity });
+  }
+  return { hits, unmatched };
+}

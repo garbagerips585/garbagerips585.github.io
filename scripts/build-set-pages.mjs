@@ -14,7 +14,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
-import { labelFor } from "../shared/taxonomy.mjs";
+import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
+import { parseHits, rarityLabelOf, rarityMark } from "../shared/rarity.mjs";
 import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, imgDims } from "../shared/format.mjs";
 import { ripLabel } from "../shared/riplabel.mjs";
 
@@ -522,6 +523,38 @@ const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json
 // nightly refresh moves this section like everything else. A promo carries its
 // own price because it is not in any set checklist.
 const HITS = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
+
+// SET NAME -> SET ID, for reading hits out of the free text Hit Card field.
+// Registered twice: as written, and with the region suffix stripped, because
+// the label is "Cyber Judge (JP)" and nobody types the bracket when logging a
+// pull. Without the alias every Japanese and Korean hit went unmatched.
+const SET_BY_NAME = new Map();
+for (const cs of CARD_SETS) {
+  const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  SET_BY_NAME.set(norm(cs.label), cs.id);
+  SET_BY_NAME.set(norm(String(cs.label).replace(/\s*\((?:JP|KR|CN|TW)\)\s*$/i, "")), cs.id);
+}
+
+// Hits typed as prose, grouped by set. The My Hits tab gives a card a number
+// and a price; this gives the ones that only ever got a sentence. Both are
+// real pulls and a set page should show both.
+const PROSE_HITS = new Map();
+{
+  const unmatchedAll = [];
+  for (const v of videos) {
+    if (!v.hitCard) continue;
+    const { hits, unmatched } = parseHits(v.hitCard, SET_BY_NAME);
+    for (const u of unmatched) unmatchedAll.push(`${v.id}: ${u}`);
+    for (const h of hits) {
+      if (!PROSE_HITS.has(h.set)) PROSE_HITS.set(h.set, []);
+      PROSE_HITS.get(h.set).push({ ...h, path: v.path, label: v.siteTitle || v.title });
+    }
+  }
+  if (unmatchedAll.length) {
+    console.log(`  ${unmatchedAll.length} hit fragment(s) named no set we know, so they are not on any set page:`);
+    for (const u of unmatchedAll) console.log(`    ${u}`);
+  }
+}
 const hitsBySet = new Map();
 for (const [vid, list] of Object.entries(HITS)) {
   for (const h of list) {
@@ -1053,14 +1086,35 @@ function setPage(s) {
           };
         })
         .sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
-      if (!mine.length) return null;
+      // Hits that only ever got a sentence in the log, minus any card the My
+      // Hits tab already covers properly, so a card with a scan and a price is
+      // not also listed as bare text underneath it.
+      // MATCHING ON THE EXACT STRING WAS TOO STRICT AND IT SHOWED. The My Hits
+      // tab had "Dawn" and the rip log said "Trainer Dawn", so the same card
+      // rendered twice on Phantasmal Flames: once with a scan and a price, once
+      // as bare text underneath. The log writes a card type in front of a
+      // supporter's name and the catalogue does not, so the comparison drops
+      // that word and then accepts either string containing the other.
+      const key = (x) =>
+        String(x || "")
+          .toLowerCase()
+          .replace(/\b(trainer|supporter|item|stadium)\b/g, " ")
+          .replace(/[^a-z0-9]+/g, " ")
+          .trim();
+      const seen = mine.map((h) => key(h.name)).filter(Boolean);
+      const prose = (PROSE_HITS.get(s.id) || []).filter((h) => {
+        const k = key(h.card);
+        return k && !seen.some((m) => m === k || m.includes(k) || k.includes(m));
+      });
+      if (!mine.length && !prose.length) return null;
       return (cls) => `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
     <h2>What we have <span class="hl">hit</span> from this set</h2>
-    <p class="lede" style="max-width:38em">${mine.length} card${mine.length === 1 ? "" : "s"} out of our own packs, priciest first.
-      Every one of them is in a video you can watch.</p>
-    <ul class="mine-grid">
+    <p class="lede" style="max-width:38em">${mine.length + prose.length} card${
+      mine.length + prose.length === 1 ? "" : "s"
+    } out of our own packs. Every one of them is in a video you can watch.</p>
+    ${mine.length ? `<ul class="mine-grid">` : ""}
       ${mine
         .map(
           (h) => `<li class="mine">
@@ -1072,7 +1126,19 @@ function setPage(s) {
       </li>`,
         )
         .join("\n      ")}
+    ${mine.length ? `</ul>` : ""}
+    ${prose.length ? `<ul class="mine-list">
+      ${prose
+        .map(
+          (h) => `<li><b>${esc(h.card)}</b>${
+            h.rarity ? ` <span class="mine-rk">${rarityMark(h.rarity)}${esc(rarityLabelOf(h.rarity))}</span>` : ""
+          }
+        <a href="/${esc(h.path)}">${esc(h.label)} &rarr;</a></li>`
+        )
+        .join("\n      ")}
     </ul>
+    <p class="mine-note">Those came out of the rip log as written. They do not have a card number or a
+      price against them yet, so they are listed rather than priced.</p>` : ""}
   </div>
 </section>`;
     })(),
