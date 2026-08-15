@@ -109,6 +109,24 @@
 
 .up-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
+
+/* Already out, worked out in the browser rather than at build time. The card
+   stays on the page because it is still information, but it stops standing in
+   the queue of things that have not happened: it moves to the end of its list
+   and the countdown is replaced by what is now true. No transition on any of
+   this, deliberately: the whole site honours prefers-reduced-motion, and a card
+   silently in a different place on load needs no animation to explain it. */
+.up-cd.out{color:var(--plum);background:var(--lilac-pale);border:1px solid rgba(78,47,72,.3);
+  border-radius:var(--r-pill);padding:2px 8px}
+.up-set.is-out,.up-extra.is-out{border-style:dashed}
+
+/* The page with nothing on it. It was an h1, a lede, a legend and a void. */
+.up-none{background:var(--card);border:1px dashed var(--ink-2);border-radius:var(--r);
+  padding:var(--s5);max-width:46em}
+.up-none h2{font:400 var(--t-l)/1.1 var(--display);margin-bottom:var(--s3)}
+.up-none p{color:var(--ink-2);line-height:1.6}
+.up-none p + p{margin-top:var(--s3)}
+.up-none a{text-decoration:underline}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Coming next"}]}</script>
 </head>
@@ -221,11 +239,11 @@
         <span><span class="up-tag exp">Not announced</span> what the last set had, not an announcement</span>
       </div>
 
-      <div class="up-list">
-      <article class="up-set">
+      <div class="up-list" id="upList" data-today="2026-08-15">
+      <article class="up-set" data-date="2026-09-16">
         <div class="up-head">
           <div>
-            <p class="up-when"><b>September 16, 2026</b> <span>in 5 weeks</span></p>
+            <p class="up-when"><b>September 16, 2026</b> <span class="up-cd">in 5 weeks</span></p>
             <h2>30th Celebration</h2>
           </div>
           <span class="up-tag ok">Confirmed date</span>
@@ -493,10 +511,10 @@
           <p class="up-warn">No sealed booster box has been announced for this one. If you see a shop taking preorders for one, be careful.</p>
         </details>
       </article>
-      <article class="up-set">
+      <article class="up-set" data-date="2026-11-06">
         <div class="up-head">
           <div>
-            <p class="up-when"><b>November 6, 2026</b> <span>in 3 months</span></p>
+            <p class="up-when"><b>November 6, 2026</b> <span class="up-cd">in 3 months</span></p>
             <h2>Mega Evolution: Delta Reign <span class="up-code">ME06</span></h2>
           </div>
           <span class="up-tag ok">Confirmed date</span>
@@ -543,6 +561,16 @@
         </details>
       </article>
       </div>
+      <div class="up-none" id="upNone" hidden>
+        <h2>Nothing on the calendar right now</h2>
+        <p>Every release this page was tracking has come out. No English set after them has been
+          named or dated, and this page does not print a set name nobody has announced, so there is
+          nothing honest to put here yet. It fills up again the moment The Pokemon Company says
+          something.</p>
+        <p>In the meantime: <a href="/sets/">the set guides</a> cover what is already out,
+          <a href="/drops.html">drops</a> is where stock is expected to turn up, and
+          <a href="/pack-prices.html">pack prices</a> is what a pack costs before anyone marks it up.</p>
+      </div>
     </div>
   </section>
 
@@ -551,27 +579,27 @@
       <h2>Other things with a <span class="hl">date on them</span></h2>
       <p class="up-blurb" style="margin-bottom:var(--s4)">Tins, blisters and collections that are not
         full expansions but are worth knowing about.</p>
-      <ul class="up-extras">
-      <li class="up-extra">
-        <p class="up-when"><b>August 28, 2026</b> <span>in 13 days</span></p>
+      <ul class="up-extras" id="upExtras">
+      <li class="up-extra" data-date="2026-08-28">
+        <p class="up-when"><b>August 28, 2026</b> <span class="up-cd">in 13 days</span></p>
         <h3>Ascended Heroes Tin</h3>
         <p class="up-blurb">Mega Meganium ex, Mega Emboar ex or Mega Feraligatr ex, with four Ascended Heroes packs.</p>
         <p class="up-meta">4 packs</p>
       </li>
-      <li class="up-extra">
-        <p class="up-when"><b>October 2, 2026</b> <span>in 7 weeks</span></p>
+      <li class="up-extra" data-date="2026-10-02">
+        <p class="up-when"><b>October 2, 2026</b> <span class="up-cd">in 7 weeks</span></p>
         <h3>Enhanced 2 Pack Blister</h3>
         <p class="up-blurb">Gengar, Marshadow or Team Rocket's Mimikyu in cosmos holo, plus a metallic coin.</p>
         <p class="up-meta">2 packs &bull; $10.99</p>
       </li>
-      <li class="up-extra">
-        <p class="up-when"><b>October 2, 2026</b> <span>in 7 weeks</span></p>
+      <li class="up-extra" data-date="2026-10-02">
+        <p class="up-when"><b>October 2, 2026</b> <span class="up-cd">in 7 weeks</span></p>
         <h3>Mini Portfolio</h3>
         <p class="up-blurb">Mega Greninja and Mega Zeraora on the front, Mega Darkrai and Mega Chandelure on the back. Comes with one Pitch Black pack.</p>
         <p class="up-meta">1 pack &bull; $5.49</p>
       </li>
-      <li class="up-extra">
-        <p class="up-when"><b>October 23, 2026</b> <span>in 2 months</span></p>
+      <li class="up-extra" data-date="2026-10-23">
+        <p class="up-when"><b>October 23, 2026</b> <span class="up-cd">in 2 months</span></p>
         <h3>Deck Crafter's Collection</h3>
         <p class="up-blurb">The replacement for the Trainer's Toolkit. A foil Meowth ex, 39 tournament ready Trainer cards, dividers and one Pitch Black pack.</p>
         <p class="up-meta">1 pack &bull; $9.99</p>
@@ -653,6 +681,74 @@
     Release dates checked August 12, 2026. Dates come from The Pokemon Company unless marked otherwise.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
+<script>
+(function () {
+  // BELT AND BRACES ON THE COUNTDOWNS, the same idea as the date sweep at the
+  // bottom of /card-shows.html.
+  //
+  // The build drops anything already released and writes "in 13 days" next to
+  // everything else. Both facts are true at the moment of the build and neither
+  // is checked again, so a deploy that sits still keeps counting down to a day
+  // that has been and gone: the page goes on calling a released set upcoming,
+  // in the present tense, with a number attached.
+  //
+  // PROGRESSIVE ENHANCEMENT. With JS off the server's own answer stands and the
+  // page is complete. Nothing here is animated: cards move on load, before
+  // first paint of the section, so there is nothing to transition and no
+  // reduced-motion case to honour.
+  var list = document.getElementById("upList");
+  if (!list) return;
+  // The later of the build's clock and the reader's, so a reader whose clock is
+  // behind the build cannot resurrect something the build already knew was out.
+  var built = list.getAttribute("data-today") || "";
+  var today = new Date().toISOString().slice(0, 10);
+  if (built > today) today = built;
+  var t0 = Date.parse(today + "T00:00:00Z");
+
+  // Kept in step with countdown() in scripts/build-upcoming.mjs.
+  function countdown(days) {
+    if (days <= 0) return "out now";
+    if (days === 1) return "tomorrow";
+    if (days < 14) return "in " + days + " days";
+    if (days < 60) return "in " + Math.round(days / 7) + " weeks";
+    return "in " + Math.round(days / 30.44) + " months";
+  }
+
+  var dated = 0, out = 0;
+  [list, document.getElementById("upExtras")].forEach(function (box) {
+    if (!box) return;
+    var past = [];
+    [].slice.call(box.querySelectorAll("[data-date]")).forEach(function (card) {
+      var iso = card.getAttribute("data-date");
+      // \d, NOT \d ONCE. This whole script is inside a template literal in
+      // scripts/build-upcoming.mjs, so a single backslash is eaten before the
+      // page is written and the pattern ships as /^d{4}-d{2}-d{2}$/, which
+      // matches nothing. Every card was skipped and the sweep did nothing at
+      // all, silently, on a page that looked fine because the server render is
+      // meant to look fine.
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return;
+      dated++;
+      var days = Math.round((Date.parse(iso + "T00:00:00Z") - t0) / 86400000);
+      var cd = card.querySelector(".up-cd");
+      if (cd) cd.textContent = countdown(days);
+      if (days > 0) return;
+      out++;
+      // Marked, and moved to the end of its own list. Leaving it in date order
+      // at the top puts the one thing that is not coming next in the position
+      // reserved for what is.
+      card.className += " is-out";
+      if (cd) cd.className += " out";
+      past.push(card);
+    });
+    past.forEach(function (card) { box.appendChild(card); });
+  });
+
+  // Everything on the page has come out. Same state the build renders when
+  // data/upcoming.json is exhausted, reached from the other direction.
+  var none = document.getElementById("upNone");
+  if (none && dated && out === dated) none.hidden = false;
+})();
+</script>
 
 <script src="/assets/app.js?v=3917fe6a" defer></script>
 <script src="/assets/packplayer.js?v=44adb501" defer></script>

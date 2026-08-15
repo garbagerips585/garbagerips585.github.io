@@ -176,6 +176,17 @@ function faceSet(v) {
   return list.find((s) => packs.has(s)) || list[0] || null;
 }
 
+// THE BUILD DAY, WRITTEN INTO THE PAGE. Every relative date below is computed
+// from the clock at build time and then frozen into a static file, so a deploy
+// that stops moving turns each of them into a lie: a month later the newest rip
+// still says TODAY, over a tile reading 1 VIEW, in the largest type above the
+// fold. The browser pass at the bottom of index.html recomputes them all from
+// the reader's own clock, and it uses this stamp as a floor so a reader whose
+// clock is behind the build can only ever see what the server already rendered.
+// Same idea as the date sweep in build-shows.mjs, which is the only reason
+// /card-shows.html survives a frozen deploy.
+const BUILT = new Date().toISOString().slice(0, 10);
+
 /** "TODAY", "3 DAYS AGO", "2 WEEKS AGO". Short enough for a corner chip. */
 function ago(iso) {
   if (!iso) return "";
@@ -184,8 +195,45 @@ function ago(iso) {
   if (days === 1) return "YESTERDAY";
   if (days < 7) return `${days} DAYS AGO`;
   if (days < 30) return `${Math.round(days / 7)} WEEK${Math.round(days / 7) === 1 ? "" : "S"} AGO`;
-  if (days < 365) return `${Math.round(days / 30.44)} MONTHS AGO`;
+  // SINGULAR AT ONE MONTH. days is 30 to 45 here, so Math.round gives 1 and this
+  // read "1 MONTHS AGO". Invisible while the site was rebuilt nightly, because
+  // nothing on the home page was ever a month old; it is the first thing a
+  // frozen deploy would have printed.
+  if (days < 365) {
+    const m = Math.round(days / 30.44);
+    return `${m} MONTH${m === 1 ? "" : "S"} AGO`;
+  }
   return `${Math.floor(days / 365)}Y AGO`;
+}
+
+/**
+ * The same string, wrapped so the browser can correct it.
+ *
+ * `datetime` is the machine-readable version of whatever text is inside, which
+ * is exactly what a `<time>` element is for, and it is the only thing the
+ * client pass needs: it re-runs `ago` from the reader's clock and rewrites the
+ * text. With JS off the server's own answer stands, so the page never depends
+ * on the script for its content.
+ */
+const agoTag = (iso, cls) =>
+  iso ? `<time class="${cls}" datetime="${esc(iso)}">${esc(ago(iso))}</time>` : "";
+
+/**
+ * The badge on the newest rip.
+ *
+ * Tim uploads at least once a day, so this reads "Today's Rip" almost every
+ * day, which is what he asked for. It is NOT hardcoded, because "almost every
+ * day" is not every day: the nightly build failed three nights running once,
+ * and a hardcoded label over a four day old video would be the most visible
+ * false claim on the site. Past yesterday it drops the date claim rather than
+ * stretching it.
+ */
+function newestLabel(iso) {
+  if (!iso) return "Latest Rip";
+  const days = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+  if (days <= 0) return "Today's Rip";
+  if (days === 1) return "Yesterday's Rip";
+  return "Latest Rip";
 }
 
 function tile(v, { rank = null, showSet = true, dated = false } = {}) {
@@ -217,7 +265,7 @@ function tile(v, { rank = null, showSet = true, dated = false } = {}) {
   // anti-spoiler rule working, but it left a column of identical rectangles
   // separated only by two clipped lines of title. The chip differentiates them
   // with the one fact this block is about: how new it is.
-  const stamp = dated ? `<span class="when">${esc(ago(v.published))}</span>` : "";
+  const stamp = dated ? agoTag(v.published, "when ago") : "";
 
   // The meta line is one line, so it has to earn every character. In the wall
   // the wrapper already names the set, so the useful pair is popularity and
@@ -467,11 +515,15 @@ function heroTile(v, opts) {
         </a>
         <div class="hero-body">
           <p class="hero-kicker">${
+            // THE NEWEST RIP CARRIES A LABEL, NOT A TIMESTAMP. It used to read
+            // "Newest rip TODAY", which is two claims where one will do and the
+            // weaker of the two goes stale first. The label says the same thing
+            // in the words Tim uses for it, and says less when it knows less.
             o.dated
-              ? `<span class="hero-new">Newest rip</span> ${esc(ago(v.published))}`
+              ? `<span class="hero-new" data-newest data-date="${esc(v.published || "")}">${esc(newestLabel(v.published))}</span>`
               : o.rankOf
-                ? `<span class="hero-new">${esc(o.rankOf(v))}</span> ${esc(ago(v.published))}`
-                : esc(ago(v.published))
+                ? `<span class="hero-new">${esc(o.rankOf(v))}</span> ${agoTag(v.published, "ago")}`
+                : agoTag(v.published, "ago")
           }</p>
           <h3><a href="/${esc(v.path)}">${esc(ripLabel(v, setName, descriptions[v.id]) || v.siteTitle || v.title)}</a></h3>
           <p class="hero-meta">${label}${p != null ? ` &bull; ${PULL_RANK[p][1]}` : ""} &bull; ${views(v.views)}</p>
@@ -507,7 +559,7 @@ const freshest = byNewest.filter((v) => !shownAbove.has(v.id));
 function carousel(list, opts) {
   const o = opts || {};
   if (!list.length) return "";
-  return `<div class="vcar" data-vcar>
+  return `<div class="vcar" data-vcar data-built="${BUILT}">
       <div class="vcar-track">
 ${list
         .map((v, i) => `        <div class="vcar-slide">${heroTile(v, {

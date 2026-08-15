@@ -124,7 +124,28 @@ const weekLabel =
     ? `${longDate(doc.weekOf)} to ${longDate(doc.weekEnds)}`
     : longDate(doc.compiled) || "this week";
 
-const desc = `What Pokemon card stock is expected at Target, Walmart, Best Buy, Pokemon Center and more, in store and online, for ${weekLabel}. Nobody announces these.`.slice(0, 158);
+// THE HEAD WAS OUTSIDE THE GUARD, so the one part of this page a search engine
+// quotes was the one part that could not tell it was stale. The title promised
+// "this week" and the description dated itself to a week a month back, in the
+// same snippet, disagreeing with itself in front of exactly the person deciding
+// whether to click. Both have a stale wording now, and both get it two ways:
+// the build applies it when the build clock knows, and the pass at the bottom of
+// the page applies it when the reader's clock knows and the build did not.
+const TITLE_FRESH = "Pokemon Card Drops and Restocks This Week | Garbage Rips 585";
+const TITLE_STALE = `Pokemon Card Drops and Restocks: Week of ${longDate(doc.weekOf)} | Garbage Rips 585`;
+const OG_FRESH = "Pokemon card drops and restocks this week";
+const OG_STALE = `Pokemon card drops and restocks, week of ${longDate(doc.weekOf)}`;
+// SHORT ENOUGH NOT TO BE CUT. The slice is a backstop, not a plan: the old
+// wording came to 168 characters and every search result ended "...and more, in
+// store and online, for August 10, 2026 to August 16, 2026. Nobody", stopping
+// one word into the sentence that says nobody announces any of this.
+// Both are measured against the longest week label the data can produce, which
+// is a pair of September dates at 40 characters, and both come in at 152.
+const desc = `What Pokemon card stock is expected at Target, Walmart and more, in store and online, for ${weekLabel}. Nobody announces it.`.slice(0, 158);
+const DESC_STALE = `What Pokemon card stock was expected at Target, Walmart and more for ${weekLabel}. Not updated since, so it is a record now.`.slice(0, 158);
+const TITLE = stale ? TITLE_STALE : TITLE_FRESH;
+const OG_TITLE = stale ? OG_STALE : OG_FRESH;
+const DESC = stale ? DESC_STALE : desc;
 
 const style = `
 .dr-head{padding:var(--s6) 0 var(--s4)}
@@ -168,11 +189,11 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pokemon Card Drops and Restocks This Week | Garbage Rips 585</title>
-<meta name="description" content="${esc(desc)}">
+<title>${esc(TITLE)}</title>
+<meta name="description" content="${esc(DESC)}">
 <link rel="canonical" href="${SITE}/drops.html">
-<meta property="og:title" content="Pokemon card drops and restocks this week">
-<meta property="og:description" content="${esc(desc)}">
+<meta property="og:title" content="${esc(OG_TITLE)}">
+<meta property="og:description" content="${esc(DESC)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="${SITE}/drops.html">
 <meta property="og:site_name" content="Garbage Rips 585">
@@ -206,7 +227,17 @@ ${MENU}
     <div class="wrap">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Drops this week</span></nav>
       <div class="dr-head">
-        ${stale ? `<p class="dr-stale">This list is ${daysOld} day${daysOld === 1 ? "" : "s"} out of date. It covered ${esc(weekLabel)} and has not been updated since. Treat it as a record of what was expected, not as this week's plan.</p>` : ""}
+        <p class="dr-stale" id="drStale"${stale ? "" : " hidden"}
+           data-week-ends="${esc(doc.weekEnds || "")}"
+           data-title="${esc(TITLE_STALE)}"
+           data-og-title="${esc(OG_STALE)}"
+           data-desc="${esc(DESC_STALE)}">This list is <b data-dr-age>${
+             // The age, when there is one. Rendering the arithmetic unguarded put
+             // "This list is -1 days out of date" in the markup of every fresh
+             // build, hidden but present, waiting for the day somebody read the
+             // source or a tool ignored the attribute.
+             stale ? `${daysOld} day${daysOld === 1 ? "" : "s"}` : "a few days"
+           }</b> out of date. It covered ${esc(weekLabel)} and has not been updated since. Treat it as a record of what was expected, not as this week's plan.</p>
         <p class="dr-when">${esc(weekLabel)}</p>
         <h1>What is <span class="hl">dropping</span> this week</h1>
         <p class="lede" style="max-width:44em">Where Pokemon cards are expected to turn up, in store and online.
@@ -254,6 +285,55 @@ ${drops.map(card).join("\n")}
   </section>
 </main>
 ${footer()}
+<script>
+(function () {
+  // THE GUARD, RUN AGAIN ON THE READER'S CLOCK.
+  //
+  // The build already decides whether the week has passed, and that decision is
+  // sound as far as it goes. What it cannot see is itself: its "today" is the
+  // later of the newest upload in the catalogue and the compiled date in
+  // drops.json, and both of those are written by the same person. Only a new
+  // video moves the first and only a hand edit moves the second, so "nobody has
+  // touched the site in a month" is precisely the case where the clock stops
+  // and the page keeps insisting the week it names is this one. The nightly can
+  // run all month and change nothing about that.
+  //
+  // The reader's clock has none of those problems. It only ever escalates: the
+  // banner cannot be hidden here, and the number cannot be made smaller than
+  // the one the build published.
+  //
+  // The head goes with it. A stale page whose title still promises "this week"
+  // is a bad search result before it is a bad page, and the crawlers that run
+  // scripts will see the corrected version.
+  var el = document.getElementById("drStale");
+  var ends = el && el.getAttribute("data-week-ends");
+  // \\d, doubled. This script is inside a template literal in
+  // scripts/build-drops.mjs, so a single backslash never reaches the page and
+  // the pattern would ship as /^d{4}-d{2}-d{2}$/, which matches no date at all.
+  // The guard would then be present, correct looking and permanently asleep.
+  if (/^\\d{4}-\\d{2}-\\d{2}$/.test(ends || "")) {
+    var today = new Date().toISOString().slice(0, 10);
+    if (ends < today) {
+      var days = Math.round(
+        (Date.parse(today + "T00:00:00Z") - Date.parse(ends + "T00:00:00Z")) / 86400000
+      );
+      var age = el.querySelector("[data-dr-age]");
+      if (age && days > (parseInt(age.textContent, 10) || 0)) {
+        age.textContent = days + (days === 1 ? " day" : " days");
+      }
+      el.hidden = false;
+      var set = function (sel, attr, val) {
+        var n = document.querySelector(sel);
+        if (n && val) n.setAttribute(attr, val);
+      };
+      if (el.getAttribute("data-title")) document.title = el.getAttribute("data-title");
+      set('meta[name="description"]', "content", el.getAttribute("data-desc"));
+      set('meta[property="og:title"]', "content", el.getAttribute("data-og-title"));
+      set('meta[property="og:description"]', "content", el.getAttribute("data-desc"));
+    }
+  }
+})();
+</script>
 <script>
 (function () {
   // PROGRESSIVE ENHANCEMENT. Without this every card is already visible, which

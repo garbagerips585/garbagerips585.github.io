@@ -275,6 +275,23 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
 - The Hall of Fame card keeps its text when the player mounts: the handler
   swaps only the art box, because replacing the whole card lost the title, the
   set and the view count.
+- EVERY RELATIVE DATE ON THE PAGE IS RECOMPUTED IN THE BROWSER. `ago()` in
+  build-proto.mjs runs on the build clock and its answer is then frozen into a
+  static file, so a deploy that stops moving turns "TODAY" into a lie in the
+  largest type above the fold. The nine `<time class="ago" datetime="...">`
+  stamps carry the machine-readable date and an inline script at the bottom of
+  index.html redoes the sum on read, using `data-built` on each `.vcar` as a
+  floor so a reader whose clock is behind the build only ever sees what the
+  server already rendered. Same idea as the date sweep in build-shows.mjs. The
+  server render stays correct on its own, so the page is complete with JS off.
+  The script lives outside every `NAME:START` marker, which is the only reason
+  build-proto.mjs does not overwrite it.
+- The newest rip wears a LABEL, not a timestamp: "Today's Rip", "Yesterday's
+  Rip", or "Latest Rip" past that. Tim uploads daily so it reads "Today's Rip"
+  almost every day, which is what he asked for, but it is derived from the
+  video's own publish date and never hardcoded: the nightly has failed three
+  nights running before now, and the video on show can be older than the page
+  assumes. It used to read "Newest rip TODAY" over a tile saying 1 VIEW.
 
 The banner art is the header, not a mid-page strip. Do not overlay copy on
 it: Trubbish sits dead centre in the source image, so any scrim wide enough

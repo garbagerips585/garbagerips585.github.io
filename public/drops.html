@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pokemon Card Drops and Restocks This Week | Garbage Rips 585</title>
-<meta name="description" content="What Pokemon card stock is expected at Target, Walmart, Best Buy, Pokemon Center and more, in store and online, for August 10, 2026 to August 16, 2026. Nobody">
+<meta name="description" content="What Pokemon card stock is expected at Target, Walmart and more, in store and online, for August 10, 2026 to August 16, 2026. Nobody announces it.">
 <link rel="canonical" href="https://garbagerips585.github.io/drops.html">
 <meta property="og:title" content="Pokemon card drops and restocks this week">
-<meta property="og:description" content="What Pokemon card stock is expected at Target, Walmart, Best Buy, Pokemon Center and more, in store and online, for August 10, 2026 to August 16, 2026. Nobody">
+<meta property="og:description" content="What Pokemon card stock is expected at Target, Walmart and more, in store and online, for August 10, 2026 to August 16, 2026. Nobody announces it.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://garbagerips585.github.io/drops.html">
 <meta property="og:site_name" content="Garbage Rips 585">
@@ -159,7 +159,11 @@
     <div class="wrap">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Drops this week</span></nav>
       <div class="dr-head">
-        
+        <p class="dr-stale" id="drStale" hidden
+           data-week-ends="2026-08-16"
+           data-title="Pokemon Card Drops and Restocks: Week of August 10, 2026 | Garbage Rips 585"
+           data-og-title="Pokemon card drops and restocks, week of August 10, 2026"
+           data-desc="What Pokemon card stock was expected at Target, Walmart and more for August 10, 2026 to August 16, 2026. Not updated since, so it is a record now.">This list is <b data-dr-age>a few days</b> out of date. It covered August 10, 2026 to August 16, 2026 and has not been updated since. Treat it as a record of what was expected, not as this week's plan.</p>
         <p class="dr-when">August 10, 2026 to August 16, 2026</p>
         <h1>What is <span class="hl">dropping</span> this week</h1>
         <p class="lede" style="max-width:44em">Where Pokemon cards are expected to turn up, in store and online.
@@ -360,6 +364,55 @@
     Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
+<script>
+(function () {
+  // THE GUARD, RUN AGAIN ON THE READER'S CLOCK.
+  //
+  // The build already decides whether the week has passed, and that decision is
+  // sound as far as it goes. What it cannot see is itself: its "today" is the
+  // later of the newest upload in the catalogue and the compiled date in
+  // drops.json, and both of those are written by the same person. Only a new
+  // video moves the first and only a hand edit moves the second, so "nobody has
+  // touched the site in a month" is precisely the case where the clock stops
+  // and the page keeps insisting the week it names is this one. The nightly can
+  // run all month and change nothing about that.
+  //
+  // The reader's clock has none of those problems. It only ever escalates: the
+  // banner cannot be hidden here, and the number cannot be made smaller than
+  // the one the build published.
+  //
+  // The head goes with it. A stale page whose title still promises "this week"
+  // is a bad search result before it is a bad page, and the crawlers that run
+  // scripts will see the corrected version.
+  var el = document.getElementById("drStale");
+  var ends = el && el.getAttribute("data-week-ends");
+  // \d, doubled. This script is inside a template literal in
+  // scripts/build-drops.mjs, so a single backslash never reaches the page and
+  // the pattern would ship as /^d{4}-d{2}-d{2}$/, which matches no date at all.
+  // The guard would then be present, correct looking and permanently asleep.
+  if (/^\d{4}-\d{2}-\d{2}$/.test(ends || "")) {
+    var today = new Date().toISOString().slice(0, 10);
+    if (ends < today) {
+      var days = Math.round(
+        (Date.parse(today + "T00:00:00Z") - Date.parse(ends + "T00:00:00Z")) / 86400000
+      );
+      var age = el.querySelector("[data-dr-age]");
+      if (age && days > (parseInt(age.textContent, 10) || 0)) {
+        age.textContent = days + (days === 1 ? " day" : " days");
+      }
+      el.hidden = false;
+      var set = function (sel, attr, val) {
+        var n = document.querySelector(sel);
+        if (n && val) n.setAttribute(attr, val);
+      };
+      if (el.getAttribute("data-title")) document.title = el.getAttribute("data-title");
+      set('meta[name="description"]', "content", el.getAttribute("data-desc"));
+      set('meta[property="og:title"]', "content", el.getAttribute("data-og-title"));
+      set('meta[property="og:description"]', "content", el.getAttribute("data-desc"));
+    }
+  }
+})();
+</script>
 <script>
 (function () {
   // PROGRESSIVE ENHANCEMENT. Without this every card is already visible, which

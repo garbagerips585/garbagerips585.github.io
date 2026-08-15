@@ -154,10 +154,16 @@ const productRow = (p) => `          <li>
             ${p.confidence === "expected" ? `<span class="up-tag exp sm">Not announced</span>` : ""}
           </li>`;
 
-const setCard = (s) => `      <article class="up-set">
+// EVERY CARD CARRIES ITS OWN DATE, so the browser can check it. The countdown
+// is worked out here, at build time, and then frozen into a static file: "in 13
+// days" is true on the day it is written and counts down to nothing on its own
+// afterwards, silently going negative in meaning while the words stay put. The
+// pass at the bottom of the page redoes the sum from the reader's clock. The
+// long date beside it is absolute and never needs correcting.
+const setCard = (s) => `      <article class="up-set" data-date="${esc(s.date || "")}">
         <div class="up-head">
           <div>
-            <p class="up-when"><b>${longDate(s.date)}</b> <span>${countdown(s.date)}</span></p>
+            <p class="up-when"><b>${longDate(s.date)}</b> <span class="up-cd">${countdown(s.date)}</span></p>
             <h2>${esc(s.name)}${s.code ? ` <span class="up-code">${esc(s.code)}</span>` : ""}</h2>
           </div>
           ${badge(s.confidence)}
@@ -187,8 +193,8 @@ ${s.products.map(productRow).join("\n")}
         }
       </article>`;
 
-const extraCard = (p) => `      <li class="up-extra">
-        <p class="up-when"><b>${longDate(p.date)}</b> <span>${countdown(p.date)}</span></p>
+const extraCard = (p) => `      <li class="up-extra" data-date="${esc(p.date || "")}">
+        <p class="up-when"><b>${longDate(p.date)}</b> <span class="up-cd">${countdown(p.date)}</span></p>
         <h3>${esc(p.name)}</h3>
         <p class="up-blurb">${esc(p.blurb)}</p>
         <p class="up-meta">${[p.packs ? `${p.packs} pack${p.packs === 1 ? "" : "s"}` : null, p.price || null]
@@ -285,7 +291,50 @@ const style = `
 
 .up-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
+
+/* Already out, worked out in the browser rather than at build time. The card
+   stays on the page because it is still information, but it stops standing in
+   the queue of things that have not happened: it moves to the end of its list
+   and the countdown is replaced by what is now true. No transition on any of
+   this, deliberately: the whole site honours prefers-reduced-motion, and a card
+   silently in a different place on load needs no animation to explain it. */
+.up-cd.out{color:var(--plum);background:var(--lilac-pale);border:1px solid rgba(78,47,72,.3);
+  border-radius:var(--r-pill);padding:2px 8px}
+.up-set.is-out,.up-extra.is-out{border-style:dashed}
+
+/* The page with nothing on it. It was an h1, a lede, a legend and a void. */
+.up-none{background:var(--card);border:1px dashed var(--ink-2);border-radius:var(--r);
+  padding:var(--s5);max-width:46em}
+.up-none h2{font:400 var(--t-l)/1.1 var(--display);margin-bottom:var(--s3)}
+.up-none p{color:var(--ink-2);line-height:1.6}
+.up-none p + p{margin-top:var(--s3)}
+.up-none a{text-decoration:underline}
 `;
+
+// THE PAGE HAD NO EMPTY STATE AND EXITED 0 WITHOUT ONE.
+//
+// data/upcoming.json is maintained by hand and runs out: the last dated entry
+// in it today is 6 November 2026. Everything past that date is filtered out by
+// `future` above, so once the file is exhausted this page rendered an h1, a
+// lede, a legend for badges that were not on the page, and then a void. The
+// build printed a friendly note to a console nobody reads and returned success,
+// so nothing anywhere said the page was empty.
+//
+// It is in the markup on every build, hidden when there is something to show,
+// because the browser pass below needs it too: a reader can arrive after the
+// last entry has come out even though the entries were all in the future when
+// the page was built, and that is the same blank page arrived at a different
+// way. Links go to pages that are still true when this one has nothing.
+const emptyState = `      <div class="up-none" id="upNone"${sets.length || extras.length ? " hidden" : ""}>
+        <h2>Nothing on the calendar right now</h2>
+        <p>Every release this page was tracking has come out. No English set after them has been
+          named or dated, and this page does not print a set name nobody has announced, so there is
+          nothing honest to put here yet. It fills up again the moment The Pokemon Company says
+          something.</p>
+        <p>In the meantime: <a href="/sets/">the set guides</a> cover what is already out,
+          <a href="/drops.html">drops</a> is where stock is expected to turn up, and
+          <a href="/pack-prices.html">pack prices</a> is what a pack costs before anyone marks it up.</p>
+      </div>`;
 
 const body = `
 <main id="main">
@@ -295,15 +344,22 @@ const body = `
       <p class="up-lede">Every announced English Pokemon TCG release, with what is actually in it.
         Dates say how well known they are, because a confirmed date and a shop's guess are not the
         same thing and most sites print them identically.</p>
-      <div class="up-key">
+      ${
+        // The legend explains three badges. With nothing on the page it explained
+        // nothing, directly above the void it was standing in for.
+        sets.length || extras.length
+          ? `<div class="up-key">
         <span>${badge("confirmed")} straight from The Pokemon Company</span>
         <span>${badge("window")} an official month, no exact day</span>
         <span>${badge("expected")} what the last set had, not an announcement</span>
-      </div>
+      </div>`
+          : ""
+      }
 
-      <div class="up-list">
+      <div class="up-list" id="upList" data-today="${esc(TODAY)}">
 ${sets.map(setCard).join("\n")}
       </div>
+${emptyState}
     </div>
   </section>
 
@@ -314,7 +370,7 @@ ${sets.map(setCard).join("\n")}
       <h2>Other things with a <span class="hl">date on them</span></h2>
       <p class="up-blurb" style="margin-bottom:var(--s4)">Tins, blisters and collections that are not
         full expansions but are worth knowing about.</p>
-      <ul class="up-extras">
+      <ul class="up-extras" id="upExtras">
 ${extras.map(extraCard).join("\n")}
       </ul>
     </div>
@@ -399,6 +455,74 @@ ${MENU}
 ${body}
 
 ${footer(`Release dates checked ${longDate(doc.checked)}. Dates come from The Pokemon Company unless marked otherwise.`)}
+<script>
+(function () {
+  // BELT AND BRACES ON THE COUNTDOWNS, the same idea as the date sweep at the
+  // bottom of /card-shows.html.
+  //
+  // The build drops anything already released and writes "in 13 days" next to
+  // everything else. Both facts are true at the moment of the build and neither
+  // is checked again, so a deploy that sits still keeps counting down to a day
+  // that has been and gone: the page goes on calling a released set upcoming,
+  // in the present tense, with a number attached.
+  //
+  // PROGRESSIVE ENHANCEMENT. With JS off the server's own answer stands and the
+  // page is complete. Nothing here is animated: cards move on load, before
+  // first paint of the section, so there is nothing to transition and no
+  // reduced-motion case to honour.
+  var list = document.getElementById("upList");
+  if (!list) return;
+  // The later of the build's clock and the reader's, so a reader whose clock is
+  // behind the build cannot resurrect something the build already knew was out.
+  var built = list.getAttribute("data-today") || "";
+  var today = new Date().toISOString().slice(0, 10);
+  if (built > today) today = built;
+  var t0 = Date.parse(today + "T00:00:00Z");
+
+  // Kept in step with countdown() in scripts/build-upcoming.mjs.
+  function countdown(days) {
+    if (days <= 0) return "out now";
+    if (days === 1) return "tomorrow";
+    if (days < 14) return "in " + days + " days";
+    if (days < 60) return "in " + Math.round(days / 7) + " weeks";
+    return "in " + Math.round(days / 30.44) + " months";
+  }
+
+  var dated = 0, out = 0;
+  [list, document.getElementById("upExtras")].forEach(function (box) {
+    if (!box) return;
+    var past = [];
+    [].slice.call(box.querySelectorAll("[data-date]")).forEach(function (card) {
+      var iso = card.getAttribute("data-date");
+      // \\d, NOT \\d ONCE. This whole script is inside a template literal in
+      // scripts/build-upcoming.mjs, so a single backslash is eaten before the
+      // page is written and the pattern ships as /^d{4}-d{2}-d{2}$/, which
+      // matches nothing. Every card was skipped and the sweep did nothing at
+      // all, silently, on a page that looked fine because the server render is
+      // meant to look fine.
+      if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(iso)) return;
+      dated++;
+      var days = Math.round((Date.parse(iso + "T00:00:00Z") - t0) / 86400000);
+      var cd = card.querySelector(".up-cd");
+      if (cd) cd.textContent = countdown(days);
+      if (days > 0) return;
+      out++;
+      // Marked, and moved to the end of its own list. Leaving it in date order
+      // at the top puts the one thing that is not coming next in the position
+      // reserved for what is.
+      card.className += " is-out";
+      if (cd) cd.className += " out";
+      past.push(card);
+    });
+    past.forEach(function (card) { box.appendChild(card); });
+  });
+
+  // Everything on the page has come out. Same state the build renders when
+  // data/upcoming.json is exhausted, reached from the other direction.
+  var none = document.getElementById("upNone");
+  if (none && dated && out === dated) none.hidden = false;
+})();
+</script>
 
 ${APP_JS}
 </body>
