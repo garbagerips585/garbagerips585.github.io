@@ -45,6 +45,8 @@
   padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2)}
 .drop-cf.ok{background:#1E5B34;color:#EAF6EE;border-color:#1E5B34}
 .drop-cf.win{background:var(--mustard);color:#2A2410;border-color:var(--mustard)}
+.drop-cf.pat{background:var(--card);color:var(--ink-2);border-style:dashed}
+.drop-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:auto;padding-top:var(--s2)}
 .drop-what{font:600 var(--t-m)/1.35 var(--body)}
 .drop-when,.drop-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.45}
 .dr-empty{color:var(--ink-2);padding:var(--s5) 0}
@@ -176,11 +178,13 @@
         <div class="drop-top">
           <span class="rt" style="--rt:#E3350D">Pokemon Center</span>
           <span class="drop-ch">Online</span>
-          <span class="drop-cf win">Usual window</span>
+          <span class="drop-cf pat">Pattern only</span>
         </div>
         <p class="drop-what">A drop is expected, with no product list yet.</p>
         <p class="drop-when"><b>When.</b> Usually Monday to Wednesday, 11am to 2pm Eastern.</p>
+        <p class="drop-note">Monday to Wednesday is a pattern people have noticed rather than a schedule Pokemon Center publishes, and nobody has measured this one.</p>
         <p class="drop-note">Products showing on the backend do not mean stock exists. Nothing is confirmed until it is buyable.</p>
+        
       </article>
       <article class="drop" data-channel="store" data-retailer="target">
         <div class="drop-top">
@@ -191,6 +195,7 @@
         <p class="drop-what">Select Chaos Rising and Pitch Black products.</p>
         <p class="drop-when"><b>When.</b> Through the week, varies by store.</p>
         <p class="drop-note">Some stores are also still receiving Ascended Heroes booster bundles, Prismatic Evolutions surprise pack collections, and First Partner Series 2 and 3 collection boxes.</p>
+        
       </article>
       <article class="drop" data-channel="online" data-retailer="target">
         <div class="drop-top">
@@ -201,6 +206,7 @@
         <p class="drop-what">Prismatic Evolutions surprise pack collections, Pitch Black ETBs, Chaos Rising ETBs and First Partner Series 3.</p>
         <p class="drop-when"><b>When.</b> No scheduled time. Any night from around 3am Eastern.</p>
         <p class="drop-note">Loaded on the backend with no date attached, which means nobody knows when it goes live, including the people watching for it.</p>
+        
       </article>
       <article class="drop" data-channel="store" data-retailer="best-buy">
         <div class="drop-top">
@@ -211,16 +217,19 @@
         <p class="drop-what">Ascended Heroes booster bundles, Pitch Black booster bundles and 3-pack blisters, First Partner Series 2 and 3 collection boxes.</p>
         <p class="drop-when"><b>When.</b> Through the week, varies by store.</p>
         
+        
       </article>
       <article class="drop" data-channel="online" data-retailer="walmart">
         <div class="drop-top">
           <span class="rt" style="--rt:#0071CE">Walmart</span>
           <span class="drop-ch">Online</span>
-          <span class="drop-cf win">Usual window</span>
+          <span class="drop-cf pat">Pattern only</span>
         </div>
         <p class="drop-what">Product list not published yet.</p>
-        <p class="drop-when"><b>When.</b> Wednesday, around 9pm Eastern.</p>
-        <p class="drop-note">Walmart's midweek online drop is a pattern people have noticed, not a schedule Walmart publishes.</p>
+        <p class="drop-when"><b>When.</b> Wednesday evening is the pattern, most often between 9pm and midnight Eastern.</p>
+        <p class="drop-note">Walmart publishes no restock schedule. The closest thing to evidence is a measurement: Restockd, which monitors retailer stock endpoints, logged 83 Walmart Pokemon restocks in the 90 days to August 12, 2026 and found 87 per cent landed between 9pm and midnight Eastern, most often on a Wednesday.</p>
+        <p class="drop-note">That is a record of what happened, not a promise about what will.</p>
+        <p class="drop-src"><a href="https://restockd.app/blog/when-does-walmart-restock-pokemon-cards" rel="noopener" target="_blank">Restockd 90 day restock analysis</a>, read August 15, 2026</p>
       </article>
       <article class="drop" data-channel="store" data-retailer="aldi">
         <div class="drop-top">
@@ -231,6 +240,7 @@
         <p class="drop-what">Ascended Heroes Mega ex boxes.</p>
         <p class="drop-when"><b>When.</b> From August 12, select locations.</p>
         <p class="drop-note">Aldi stock is a one-off run rather than a restock, so when it is gone it is gone.</p>
+        
       </article>
       <article class="drop" data-channel="store" data-retailer="walgreens">
         <div class="drop-top">
@@ -241,6 +251,7 @@
         <p class="drop-what">Ascended Heroes 2-pack blisters.</p>
         <p class="drop-when"><b>When.</b> Ongoing, select stores.</p>
         <p class="drop-note">No purchase limit in store, so these tend to go quickly.</p>
+        
       </article>
       <article class="drop" data-channel="store" data-retailer="family-dollar">
         <div class="drop-top">
@@ -251,12 +262,13 @@
         <p class="drop-what">Black Bolt and White Flare Unova poster collections.</p>
         <p class="drop-when"><b>When.</b> Ongoing, select stores.</p>
         <p class="drop-note">Roughly 12 to 24 units per store and no purchase limit.</p>
+        
       </article>
       </div>
       <p class="dr-empty" id="drEmpty" hidden>Nothing matches that combination.</p>
 
       <div class="dr-key">
-        <p><b>What the labels mean.</b> <b>Confirmed:</b> A date the retailer put on it, or stock already seen on shelves. <b>Usual window:</b> Expected inside a known range, from a pattern rather than an announcement. <b>Expected:</b> The community thinks it is coming. No date.</p>
+        <p><b>What the labels mean.</b> <b>Confirmed:</b> A date the retailer put on it, or stock already seen on shelves. <b>Usual window:</b> Expected inside a known range. <b>Expected:</b> The community thinks it is coming. No date. <b>Pattern only:</b> A day or time people have noticed. No retailer publishes a restock schedule, so this is the weakest thing on the page.</p>
         <p style="margin-top:var(--s3)">Stock varies store to store and the good stuff goes fast, so this tells you
           where to look rather than what you will find. If you would rather buy without the hunt, the
           <a href="/shops.html">Rochester shops</a> and the <a href="/card-shows.html">card shows</a> have

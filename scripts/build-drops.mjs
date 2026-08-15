@@ -14,8 +14,8 @@
 //
 // So the page is built to be honest about its own reliability:
 //   - the lede says nobody has announced any of this
-//   - every row carries a confidence, in the same three words upcoming.json
-//     uses, so the two pages mean the same thing by them
+//   - every row carries a confidence, in the three words upcoming.json uses
+//     plus a fourth, `pattern`, for the claims with no official origin at all
 //   - the compiled date is at the top, not in the footer
 //   - and when the week has passed the page SAYS SO before anything else
 //
@@ -56,10 +56,18 @@ if (drops.length !== (doc.drops || []).length) {
   throw new Error(`drops.json names retailers with no entry in "retailers": ${bad.join(", ")}`);
 }
 
+// PATTERN IS THE WEAKEST TIER AND IT EARNED ITS OWN WORD. The other three all
+// imply something official sits behind them, because that is what they mean on
+// /upcoming.html. A recurring drop-time claim has no official origin at all:
+// every retailer surface was probed and not one publishes a restock schedule,
+// so "Walmart Wednesday" is folklore that happens to be well observed. Giving
+// it the same badge as an announced date would have been the page telling a
+// small lie in its own vocabulary.
 const CONF = {
   confirmed: { label: "Confirmed", cls: "ok", note: "A date the retailer put on it, or stock already seen on shelves." },
-  window: { label: "Usual window", cls: "win", note: "Expected inside a known range, from a pattern rather than an announcement." },
+  window: { label: "Usual window", cls: "win", note: "Expected inside a known range." },
   expected: { label: "Expected", cls: "exp", note: "The community thinks it is coming. No date." },
+  pattern: { label: "Pattern only", cls: "pat", note: "A day or time people have noticed. No retailer publishes a restock schedule, so this is the weakest thing on the page." },
 };
 
 const byChannel = (c) => drops.filter((d) => d.channel === c);
@@ -85,6 +93,11 @@ const card = (d) => {
         <p class="drop-what">${esc(d.what)}</p>
         ${d.when ? `<p class="drop-when"><b>When.</b> ${esc(d.when)}</p>` : ""}
         ${(d.notes || []).map((n) => `<p class="drop-note">${esc(n)}</p>`).join("\n        ")}
+        ${d.source ? `<p class="drop-src">${
+          d.source.url
+            ? `<a href="${esc(d.source.url)}" rel="noopener" target="_blank">${esc(d.source.name)}</a>`
+            : esc(d.source.name)
+        }${d.source.read ? `, read ${esc(longDate(d.source.read))}` : ""}</p>` : ""}
       </article>`;
 };
 
@@ -118,6 +131,8 @@ const style = `
   padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2)}
 .drop-cf.ok{background:#1E5B34;color:#EAF6EE;border-color:#1E5B34}
 .drop-cf.win{background:var(--mustard);color:#2A2410;border-color:var(--mustard)}
+.drop-cf.pat{background:var(--card);color:var(--ink-2);border-style:dashed}
+.drop-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:auto;padding-top:var(--s2)}
 .drop-what{font:600 var(--t-m)/1.35 var(--body)}
 .drop-when,.drop-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.45}
 .dr-empty{color:var(--ink-2);padding:var(--s5) 0}

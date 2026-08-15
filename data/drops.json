@@ -26,6 +26,12 @@
     "             already confirmed sitting on shelves",
     "  window     expected within a known range, e.g. a usual drop day and hour",
     "  expected   the community thinks it is coming and has no date",
+    "  pattern    a recurring day or time people have noticed. THE WEAKEST TIER",
+    "             and it needs its own word, because no retailer on earth",
+    "             publishes a Pokemon restock schedule. 'Walmart Wednesday' is",
+    "             folklore that happens to be well observed, not a timetable.",
+    "             A row here should carry a source for the observation or say",
+    "             plainly that it is a pattern nobody has measured.",
     "",
     "CHANNEL is `store` or `online`. Several retailers do both and they are",
     "separate rows, because the answer to when and how you get it is different.",
@@ -38,9 +44,26 @@
     "",
     "SOURCE. `source` names where the week's post came from and when it was",
     "read. If a week's information comes from somewhere else, change it: the page",
-    "prints whatever is here, so it can never credit the wrong place."
+    "prints whatever is here, so it can never credit the wrong place.",
+    "",
+    "WHY THIS IS PASTED IN BY HAND AND ALWAYS WILL BE. Every retailer surface",
+    "that would carry drop information was probed on 2026-08-15 and is either",
+    "bot-blocked or robots-disallowed: Pokemon Center disallows the exact",
+    "availability endpoints, Target's store-availability API answers 403 to",
+    "datacenter IPs, GameStop 403s even its robots.txt, and Walgreens and",
+    "pokemon.com serve challenge pages that look like 200s. The community",
+    "trackers that do hold the data publish rendered pages with no feed, no API",
+    "and no reuse licence.",
+    "",
+    "The Pokemon Company's own monthly release article names ONE retailer,",
+    "Pokemon Center, and calls everywhere else 'where other Pokemon TCG products",
+    "are sold', so even the official calendar does not identify retailer",
+    "exclusives.",
+    "",
+    "None of that is the real reason though. The real reason is that this",
+    "information does not exist in machine-readable form because it does not",
+    "exist in advance at all. Nobody knows, including the retailers."
   ],
-
   "weekOf": "2026-08-10",
   "weekEnds": "2026-08-16",
   "compiled": "2026-08-15",
@@ -49,25 +72,52 @@
     "note": "A Pokemon restock community's weekly summary, passed on by Tim. Not an announcement from any retailer.",
     "url": null
   },
-
   "retailers": {
-    "pokemon-center": { "name": "Pokemon Center", "tint": "#E3350D", "kind": "Official store" },
-    "target":         { "name": "Target",         "tint": "#CC0000", "kind": "Big box" },
-    "walmart":        { "name": "Walmart",        "tint": "#0071CE", "kind": "Big box" },
-    "best-buy":       { "name": "Best Buy",       "tint": "#0046BE", "kind": "Big box" },
-    "aldi":           { "name": "Aldi",           "tint": "#00447C", "kind": "Grocery" },
-    "walgreens":      { "name": "Walgreens",      "tint": "#E01B2E", "kind": "Pharmacy" },
-    "family-dollar":  { "name": "Family Dollar",  "tint": "#E01A2B", "kind": "Discount" }
+    "pokemon-center": {
+      "name": "Pokemon Center",
+      "tint": "#E3350D",
+      "kind": "Official store"
+    },
+    "target": {
+      "name": "Target",
+      "tint": "#CC0000",
+      "kind": "Big box"
+    },
+    "walmart": {
+      "name": "Walmart",
+      "tint": "#0071CE",
+      "kind": "Big box"
+    },
+    "best-buy": {
+      "name": "Best Buy",
+      "tint": "#0046BE",
+      "kind": "Big box"
+    },
+    "aldi": {
+      "name": "Aldi",
+      "tint": "#00447C",
+      "kind": "Grocery"
+    },
+    "walgreens": {
+      "name": "Walgreens",
+      "tint": "#E01B2E",
+      "kind": "Pharmacy"
+    },
+    "family-dollar": {
+      "name": "Family Dollar",
+      "tint": "#E01A2B",
+      "kind": "Discount"
+    }
   },
-
   "drops": [
     {
       "retailer": "pokemon-center",
       "channel": "online",
-      "confidence": "window",
+      "confidence": "pattern",
       "what": "A drop is expected, with no product list yet.",
       "when": "Usually Monday to Wednesday, 11am to 2pm Eastern.",
       "notes": [
+        "Monday to Wednesday is a pattern people have noticed rather than a schedule Pokemon Center publishes, and nobody has measured this one.",
         "Products showing on the backend do not mean stock exists. Nothing is confirmed until it is buyable."
       ]
     },
@@ -101,12 +151,18 @@
     {
       "retailer": "walmart",
       "channel": "online",
-      "confidence": "window",
+      "confidence": "pattern",
       "what": "Product list not published yet.",
-      "when": "Wednesday, around 9pm Eastern.",
+      "when": "Wednesday evening is the pattern, most often between 9pm and midnight Eastern.",
       "notes": [
-        "Walmart's midweek online drop is a pattern people have noticed, not a schedule Walmart publishes."
-      ]
+        "Walmart publishes no restock schedule. The closest thing to evidence is a measurement: Restockd, which monitors retailer stock endpoints, logged 83 Walmart Pokemon restocks in the 90 days to August 12, 2026 and found 87 per cent landed between 9pm and midnight Eastern, most often on a Wednesday.",
+        "That is a record of what happened, not a promise about what will."
+      ],
+      "source": {
+        "name": "Restockd 90 day restock analysis",
+        "url": "https://restockd.app/blog/when-does-walmart-restock-pokemon-cards",
+        "read": "2026-08-15"
+      }
     },
     {
       "retailer": "aldi",
