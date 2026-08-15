@@ -22,9 +22,22 @@
 // about what was opened. Callers fall back to the real title, and the 41
 // untagged videos are the same 41 that are already noindex for the same reason.
 
-/** Product tag -> how it is written on a tile. */
+/** Product tag -> how it is written on a tile.
+ *
+ * EVERY PRODUCT ID IN shared/taxonomy.mjs NEEDS A ROW HERE. The fallback below
+ * is `PRODUCT_LABEL[prodId] || prodId`, so a missing row does not fail, it
+ * prints the raw id: "Pitch Black booster-box #3" on a public tile. Three were
+ * missing -- booster-box, spc and ex-special -- and no video carries any of
+ * them today, which is the only reason it has not shipped. All three are
+ * options in the sheet's Opening Type dropdown, so the first box opening
+ * anybody logs prints kebab-case on the grid, the set page and the rip page at
+ * once. Latent, not theoretical.
+ */
 export const PRODUCT_LABEL = {
   etb: "ETB",
+  "booster-box": "Booster Box",
+  spc: "Super Premium Collection",
+  "ex-special": "ex Special Collection",
   "single-pack": "Pack",
   bundle: "Booster Bundle",
   "ex-premium": "ex Premium Collection",

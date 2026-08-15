@@ -391,7 +391,13 @@ const idx = {
   feature: col("Feature"), hide: col("Hide"), notes: col("Notes"),
 };
 
-const get = (r, i) => (i >= 0 && r[i] != null ? String(r[i]).trim() : "");
+// NON-BREAKING SPACES ARE NORMALISED HERE. Google Sheets emits U+00A0 all over
+// the place -- pasted text, autocomplete, anything that came through a browser
+// -- and it is invisible in every editor. "Pitch Black" and "ETB (Elite Trainer
+// Box)" both fell through the set and product lookups in testing, and the only
+// symptom was a line in the "did not recognise" list naming a value that looks
+// exactly right. Trim alone does not help: the space is in the middle.
+const get = (r, i) => (i >= 0 && r[i] != null ? String(r[i]).replace(/ /g, " ").trim() : "");
 const isYes = (s) => /^y(es)?$/i.test(s);
 
 let overrides = {};
@@ -400,8 +406,22 @@ const manual = {};
 const unknownOpening = new Set();
 let counted = { set: 0, multiSet: 0, opening: 0, hit: 0, card: 0, greatest: 0, affiliate: 0, copy: 0, hidden: 0 };
 const unknownSet = new Set();
+// What the site currently believes, used only to spot the stale-prefill trap
+// described where the overrides are written.
+let live = {};
+try {
+  const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
+  live = Object.fromEntries(videos.map((v) => [v.id, v]));
+} catch { /* no catalogue yet */ }
+const staleSet = [];
+// Things that used to happen in silence. Each one is a row whose meaning
+// changed or vanished between the cell and the JSON, and every one of them was
+// found by round-tripping a filled-in sheet rather than by reading the code.
+const quiet = [];
+const seenRow = new Map();
 
-for (const r of rows.slice(1)) {
+for (const [n, r] of rows.slice(1).entries()) {
+  const rowNo = n + 2;                 // the row number as the spreadsheet shows it
   const id = get(r, iId);
   if (!id) continue;
 
@@ -422,10 +442,20 @@ for (const r of rows.slice(1)) {
   // single-select. Google Sheets can turn a column into a native multi-select
   // chip dropdown after import, and that exports as "A, B" in one cell, so
   // both shapes have to work.
-  const cells = [idx.set, idx.set2, idx.set3, idx.set4, idx.moreSets]
+  const cells = [idx.set, idx.set2, idx.set3, idx.set4, idx.set5, idx.moreSets]
     .flatMap((i) => get(r, i).split(",").map((x) => x.trim()));
+  // "NOT A SET (SEALED/OTHER)" IS AN ANSWER AND IT WAS BEING FILED AS A TYPO.
+  //
+  // Both sentinels in the Set dropdown are anchored phrases -- "Multiple sets"
+  // and "Not a set (sealed/other)" -- and this test was anchored at both ends,
+  // so neither matched, both landed in the unrecognised list next to real
+  // spelling mistakes, and the video kept whatever set the title matcher had
+  // guessed. There was no way to tell the site "there is no set here", which is
+  // the one thing a person can say and a title matcher cannot.
+  const notASet = cells.some((c) => /^not a set\b/i.test(c));
+  const sentinel = (c) => /^(multiple|not a set|none)\b/i.test(c);
   for (const cell of cells) {
-    if (!cell || /^(multiple|not a set|none)$/i.test(cell)) continue;
+    if (!cell || sentinel(cell)) continue;
     const setId = setIdByName.get(cell.toLowerCase());
     if (!setId) unknownSet.add(cell);
     else if (!setIds.includes(setId)) setIds.push(setId);
@@ -449,13 +479,51 @@ for (const r of rows.slice(1)) {
   // So the guess is recomputed here and an override is written only where the
   // sheet differs. The sheet corrects the matcher; it no longer overrules it by
   // simply agreeing with an older version of it.
+  // AND AN OVERRIDE HAS TO BE RETIRABLE, which is the half that was missing.
+  //
+  // Writing only on disagreement stops an override being CREATED by accident.
+  // Nothing removed one, so the reverse move was impossible: correct a video to
+  // the wrong set, import, notice, put the right answer back, import again --
+  // and because the right answer now agrees with the matcher, no override is
+  // written and the OLD one is still there, still winning. Proven end to end: a
+  // video whose sheet cell reads "Pitch Black" published as White Flare, with
+  // nothing anywhere reporting a disagreement.
+  //
+  // So agreement now DELETES the field. The sheet is authoritative in both
+  // directions, and "the matcher is right about this one" becomes a thing a
+  // person can say. Only a field the sheet actually answered is touched: a blank
+  // cell still means "not answered" and leaves any override alone.
+  const retire = (field) => {
+    if (!overrides[id] || !(field in overrides[id])) return false;
+    delete overrides[id][field];
+    if (!Object.keys(overrides[id]).length) delete overrides[id];
+    counted.retired = (counted.retired || 0) + 1;
+    return true;
+  };
   const auto = deriveTags({ title: get(r, iTitle), description: descriptions[id] || "" });
-  if (setIds.length && !sameTags(setIds, auto.sets)) {
+  // "Not a set" is a stated answer of NO sets, so it needs a real override:
+  // leaving it blank would just hand the video back to the matcher's guess,
+  // which is the thing being contradicted.
+  if (notASet && !setIds.length) {
+    if (auto.sets.length) {
+      overrides[id] = { ...(overrides[id] || {}), sets: [] };
+      counted.notASet = (counted.notASet || 0) + 1;
+    } else retire("sets");
+  } else if (setIds.length && !sameTags(setIds, auto.sets)) {
+    // THE STALE-PREFILL TRAP, REPORTED RATHER THAN GUESSED AT. When the sheet
+    // disagrees with today's matcher but matches what the site is already
+    // showing, the likeliest story is not that a person just corrected this
+    // video: it is that the matcher LEARNED something since the workbook was
+    // generated, and this cell is still carrying the old guess. Importing it
+    // pins the old answer forever. It cannot be told apart automatically -- he
+    // may genuinely agree with the old answer -- so it is written and listed.
+    if (!overrides[id]?.sets && sameTags(setIds, live[id]?.sets)) staleSet.push(`${id}  sheet ${JSON.stringify(setIds)} vs matcher ${JSON.stringify(auto.sets)}`);
     overrides[id] = { ...(overrides[id] || {}), sets: setIds };
     counted.set++;
     if (setIds.length > 1) counted.multiSet++;
   } else if (setIds.length) {
     counted.setAgreed = (counted.setAgreed || 0) + 1;
+    retire("sets");
   }
 
   const opening = get(r, idx.opening);
@@ -469,6 +537,7 @@ for (const r of rows.slice(1)) {
         counted.opening++;
       } else {
         counted.openingAgreed = (counted.openingAgreed || 0) + 1;
+        retire("products");
       }
     }
   }
@@ -528,6 +597,12 @@ for (const r of rows.slice(1)) {
   // matcher talking to itself, and it was being published as a hit.
   if (rarity && !/^no hit$/i.test(rarity) && m.hitCard) {
     m.hitRarity = rarity.replace(/\s*\([^)]*\)\s*$/, "").trim();
+  } else if (rarity && !/^no hit$/i.test(rarity)) {
+    // SAY SO WHEN IT IS THROWN AWAY. The guard above is right, but it is also
+    // the one place where a person picking a value off a dropdown gets nothing
+    // and no message. Fill in two hundred rarities without naming the cards and
+    // the import reports two hundred successes.
+    quiet.push(`${id}: Hit Rarity "${rarity}" ignored, because Hit Card is empty. Name the card and it counts.`);
   }
   if (isYes(get(r, idx.greatest))) { m.greatest = true; counted.greatest++; }
   const rank = get(r, idx.hofRank);
@@ -547,7 +622,25 @@ for (const r of rows.slice(1)) {
   const notes = get(r, idx.notes);
   if (notes) m.notes = notes;
 
-  if (Object.keys(m).length) manual[id] = m;
+  // TWO ROWS FOR ONE VIDEO USED TO MEAN THE SECOND ONE WON OUTRIGHT.
+  //
+  // `manual[id] = m` replaced the record, so duplicating a row -- a copy-paste,
+  // a re-added row during a big backfill -- deleted every answer on the first
+  // one. Measured: a video with a set, an opening type, Has Hit, a box name, a
+  // rank, custom copy, an affiliate link, Feature and Hide came out of a two-row
+  // sheet holding three fields, with no message. Merging keeps both halves, the
+  // later row still wins field by field, and the duplicate is reported because
+  // it is nearly always a mistake worth seeing.
+  if (Object.keys(m).length) {
+    if (seenRow.has(id)) quiet.push(`${id}: two rows for the same video (rows ${seenRow.get(id)} and ${rowNo}). Merged, later row wins per column.`);
+    manual[id] = { ...(manual[id] || {}), ...m };
+  }
+  if (!seenRow.has(id)) seenRow.set(id, rowNo);
+  // A video id the catalogue has never heard of is a typo or a row for a video
+  // that has not synced yet. Either way everything on that row is written to
+  // manual.json and then dropped on the floor by sync-youtube, which is the
+  // definition of quiet.
+  if (Object.keys(live).length && !live[id]) quiet.push(`${id}: no such video in the catalogue (row ${rowNo}). The whole row will be ignored by the site.`);
 }
 
 await mkdir(join(ROOT, "data"), { recursive: true });
@@ -557,8 +650,8 @@ await writeFile(join(ROOT, "data/manual.json"), JSON.stringify(manual, null, 2) 
 console.log(`
 Read ${rows.length - 1} rows from ${csvPath}
 
-  set tags           ${counted.set}${counted.multiSet ? `  (${counted.multiSet} with more than one set)` : ""}
-  opening types      ${counted.opening}
+  set tags           ${counted.set}${counted.multiSet ? `  (${counted.multiSet} with more than one set)` : ""}${counted.notASet ? `  (${counted.notASet} answered "not a set")` : ""}
+  opening types      ${counted.opening}${counted.retired ? `\n  overrides retired  ${counted.retired}  (the sheet now agrees with the matcher)` : ""}
   has-hit answered   ${counted.hit}
   hit cards named    ${counted.card}
   hall of fame       ${counted.greatest}
@@ -582,7 +675,35 @@ if (unknownOpening.size) {
   console.log("Add them to PRODUCT_IDS in this script, or pick from the Lists tab.\n");
 }
 
+// EVERYTHING BELOW HERE WAS ONCE SILENT, and silence is the only failure mode
+// that matters on a sheet nobody reads back. None of it is fatal, so the import
+// still writes and still exits 0: the point is that a bulk upload of three
+// hundred rows ends with a list of the rows that did not mean what they looked
+// like, rather than a row of green counts.
+if (quiet.length) {
+  console.log(`${quiet.length} row(s) did something quiet. Worth a look:`);
+  for (const q of quiet.slice(0, 25)) console.log("  " + q);
+  if (quiet.length > 25) console.log(`  ...and ${quiet.length - 25} more`);
+  console.log("");
+}
+
+if (staleSet.length) {
+  console.log(`${staleSet.length} set cell(s) may be a STALE PREFILL rather than a correction.`);
+  console.log("Each one disagrees with today's tag rules but matches what the site already");
+  console.log("shows, which is what a sheet generated before a taxonomy fix looks like.");
+  console.log("Importing pins the old answer permanently. Check these, and if the matcher is");
+  console.log("right now, clear the cell or set it to the matcher's answer and re-import.");
+  for (const s of staleSet.slice(0, 20)) console.log("  " + s);
+  if (staleSet.length > 20) console.log(`  ...and ${staleSet.length - 20} more`);
+  console.log("");
+}
+
 console.log(`Now run:
-  node --env-file=.env scripts/sync-youtube.mjs
-  node scripts/build-pages.mjs
+  node --env-file=.env scripts/sync-youtube.mjs   (or scripts/retag-videos.mjs --write, offline)
+  node scripts/build-all.mjs
+
+REBUILDING THE WORKBOOK BEFORE THAT RETAG STEP HANDS YOUR SET ANSWERS BACK AS
+THE MATCHER'S GUESSES. build-sheet.py fills the Set columns from
+public/data/videos.json, not from data/overrides.json, so the retag is what puts
+your corrections where the next rebuild can find them.
 `);

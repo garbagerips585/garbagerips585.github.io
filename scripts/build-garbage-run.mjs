@@ -68,13 +68,25 @@ const desc =
 
 const style = `
 .gr-wrap{max-width:520px;margin:0 auto}
+/* ON A SHORT PHONE THE GAME IS THE PAGE. Getting the aspect ratio right meant
+   the board could only be as wide as the leftover height allowed, and on a
+   667px screen the heading, the lede and the score left so little that the
+   board came out 168px wide: the correct shape and too small to play. The copy
+   is still there, it just stops taking the space the game needs. Everything
+   below the board is unaffected, so nothing is lost, only moved down. */
+@media (max-height: 740px) {
+  .gr-wrap h1{font-size:var(--t-l);margin-bottom:4px}
+  .gr-wrap > .lede{display:none}
+  .gr-hud{margin:var(--s2) 0}
+  .gr-wrap .crumbs{display:none}
+}
 .gr-stage{position:relative;border:3px solid var(--navy);border-radius:14px;overflow:hidden;
   box-shadow:var(--hard-lg);background:#16210F;user-select:none;-webkit-user-select:none;
   -webkit-tap-highlight-color:transparent}
 /* Capped so the canvas cannot grow taller than a phone screen on a desktop,
    where it would otherwise render as a very tall column. */
 .gr-stage{max-width:420px;margin:0 auto}
-.gr-stage canvas{display:block;width:100%;height:auto;image-rendering:auto}
+.gr-stage canvas{display:block;margin:0 auto;image-rendering:auto}
 /* touch-action none, not manipulation: manipulation still allows the browser's
    double-tap-to-zoom heuristic, which on a game that is nothing but taps means
    a fast double flip can zoom the page instead. overscroll-behavior stops a
@@ -85,10 +97,6 @@ const style = `
   margin:var(--s4) 0 var(--s3)}
 .gr-score{font:400 var(--t-l)/1 var(--display);color:var(--ink)}
 .gr-best{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
-.gr-modes{display:flex;gap:var(--s2)}
-.gr-mode{min-height:44px;padding:0 var(--s4);border:2px solid var(--navy);border-radius:999px;
-  background:var(--card);color:var(--ink);font:700 var(--t-label)/1 var(--body);cursor:pointer}
-.gr-mode[aria-pressed="true"]{background:var(--navy);color:#F4F1E2}
 .gr-over{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:var(--s3);background:rgba(11,17,8,.86);color:#F4F1E2;text-align:center;padding:var(--s4)}
 .gr-over[hidden]{display:none}
@@ -167,7 +175,7 @@ ${MENU}
         </div>
       </div>
 
-      <p class="gr-how"><b>Solo.</b> Tap anywhere, or press <span class="gr-keys">space</span>. Every pack you
+      <p class="gr-how"><b>How it works.</b> Tap anywhere, or press <span class="gr-keys">space</span>. Every pack you
         eat is a point. Other Pokemon are out there too and touching one ends the run. Get to 100 and Trubbish evolves into Garbodor for the rest of the game.<br>
         <b>Nothing is saved anywhere but your own phone</b>, and there is no account and no server. Your best
         score lives in this browser and goes away if you clear it.</p>
@@ -315,7 +323,15 @@ ${footer()}
       if (o.x < 96 && o.x + o.w > 52 && L.y + 18 > oy && L.y - 18 < oy + o.h) L.alive = false;
       // A near miss flashes the ring, so squeezing past something reads as a
       // thing you did rather than a thing that happened to you.
-      else if (!o.near && o.x < 96 && o.x + o.w > 52) { o.near = 1; }
+      // A NEAR MISS HAS TO BE NEAR. This tested horizontal overlap only, so the
+      // ring lit gold on essentially every obstacle that went past, including
+      // ones more than 200px away: measured 465 gold rings against 1079 red
+      // while the player hovered nowhere near any of them. Within 70px of the
+      // hazard row is close enough to have felt like something.
+      else if (!o.near && o.x < 96 && o.x + o.w > 52) {
+        var gap = L.y < oy ? oy - L.y : L.y - (oy + o.h);
+        if (gap < 70) o.near = 1;
+      }
     }
     for (i = L.packs.length - 1; i >= 0; i--) {
       var p = L.packs[i];
@@ -497,9 +513,23 @@ ${footer()}
       raf = requestAnimationFrame(tick);
       return;
     }
-    t += 1;
-    speed += calm ? 0.00025 : 0.00045;
-    for (var i = 0; i < lanes.length; i++) step(lanes[i]);
+    // NORMALISE TO 60Hz. Gravity, obstacle motion and the speed ramp were all
+    // per animation frame, so a 120Hz phone ran the whole game at double speed.
+    // The double-rAF bug proved the consequence exactly: twice the callbacks
+    // gave twice the world speed. Stepping a fixed number of times keeps the
+    // physics deterministic, which the pack counts and the difficulty curve
+    // both assume, rather than scaling a delta into them.
+    var now = (window.performance && performance.now) ? performance.now() : Date.now();
+    acc += Math.min(now - (last || now), 100);
+    last = now;
+    var steps = 0;
+    while (acc >= 16.667 && steps < 4) {
+      acc -= 16.667;
+      steps += 1;
+      t += 1;
+      speed += calm ? 0.00025 : 0.00045;
+      for (var i = 0; i < lanes.length; i++) step(lanes[i]);
+    }
     draw();
 
     if (!lanes[0].alive) return end();
@@ -525,10 +555,12 @@ ${footer()}
     elOver.hidden = false;
   }
 
-  var countIn = 0;
+  var countIn = 0, acc = 0, last = 0;
   function start() {
+    paused = false;
     reset();
     countIn = calm ? 0 : 45;
+    acc = 0; last = 0;
     running = true;
     elOver.hidden = true;
     elScore.textContent = "0";
@@ -547,28 +579,55 @@ ${footer()}
     if (e.target && e.target.closest && e.target.closest("button")) return;
     e.preventDefault();
     if (running) flip(0);
+    else if (paused) resume();
     else if (!elOver.hidden) start();
   }, { passive: false });
   document.addEventListener("keydown", function (e) {
+    // AUTO-REPEAT WAS AN INVINCIBILITY CHEAT. Holding space fired flip() at the
+    // OS repeat rate, and since every flip sets vy to a fixed kick the player
+    // simply hovered mid-lane, where nothing can reach: hazards only ever sit
+    // on the floor or the ceiling. Measured 40 seconds held with no death and
+    // an unbounded score, which makes the best score meaningless. A held key is
+    // one press.
+    if (e.repeat) return;
     var k = e.key.toLowerCase();
     if (k === " " || k === "spacebar") {
       if (running) { e.preventDefault(); flip(0); }
+      else if (paused) { e.preventDefault(); resume(); }
       else if (!elOver.hidden) { e.preventDefault(); start(); }
     }
   });
 
-  elStart.addEventListener("click", start);
+  elStart.addEventListener("click", function () { if (paused) resume(); else start(); });
 
   // Nobody wants to come back to a tab that kept playing without them.
+  // PAUSE IS A STATE, NOT A SECOND BUTTON. This used to assign elStart.onclick
+  // on top of the addEventListener already bound to start(), so one click ran
+  // BOTH: start() scheduled a loop, the resume closure scheduled another and
+  // overwrote raf, and the first became uncancellable. Two loops means two
+  // step() calls per frame, so the game ran at double speed for the rest of the
+  // session, measured at exactly 2.00 draws per frame. It also called reset(),
+  // so a button saying "Resume" threw the run away and replayed the count-in.
+  // And the stale closure survived a keyboard restart, so a later "Go again"
+  // double-started too.
+  var paused = false;
+  function resume() {
+    if (!paused) return;
+    paused = false;
+    elOver.hidden = true;
+    running = true;
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(tick);
+  }
   document.addEventListener("visibilitychange", function () {
     if (document.hidden && running) {
       running = false;
+      paused = true;
       cancelAnimationFrame(raf);
       elTitle.textContent = "Paused";
       elMsg.textContent = "You looked away. The line probably moved.";
       elStart.textContent = "Resume";
       elOver.hidden = false;
-      elStart.onclick = function () { elStart.onclick = null; elOver.hidden = true; running = true; raf = requestAnimationFrame(tick); };
     }
   });
 
@@ -576,12 +635,25 @@ ${footer()}
   // drawing surface, so none of the game logic cares, and only the CSS height
   // changes. Measured from the stage's own top to the bottom of the viewport so
   // it works whatever the header and the copy above it happen to be.
+  // SET BOTH DIMENSIONS OR THE PICTURE IS SQUASHED. This set only the height
+  // while the CSS still said width:100%, so on any screen where the available
+  // height was the binding constraint the 420x680 drawing surface was stretched
+  // unevenly across it. Measured: a 390x667 phone rendered the board at 46 per
+  // cent of its correct height, so Trubbish, the Pokemon and the circular
+  // hazard rings were all flattened, and the rings were ellipses. Every phone
+  // size tested was squashed to some degree.
+  //
+  // The aspect ratio is fixed at 420:680, so the width follows from whichever
+  // of the two constraints binds.
   function fit() {
-    var r = cv.getBoundingClientRect();
-    var avail = (window.visualViewport ? window.visualViewport.height : window.innerHeight) - r.top - 12;
-    var maxH = Math.max(260, Math.min(avail, 680));
-    var byW = cv.clientWidth * (H / W);
-    cv.style.height = Math.min(maxH, byW) + "px";
+    var stageEl = document.getElementById("grStage");
+    var r = stageEl.getBoundingClientRect();
+    var vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    var availH = Math.max(260, Math.min(vh - r.top - 12, 680));
+    var availW = stageEl.clientWidth || cv.clientWidth || W;
+    var scale = Math.min(availW / W, availH / H);
+    cv.style.width = Math.round(W * scale) + "px";
+    cv.style.height = Math.round(H * scale) + "px";
   }
   window.addEventListener("resize", fit);
   if (window.visualViewport) window.visualViewport.addEventListener("resize", fit);

@@ -35,6 +35,15 @@ try:
 except Exception:
     manual = {}
 
+# Only one thing is read out of here: an explicit empty set list, which is the
+# stored form of "Not a set (sealed/other)" and is indistinguishable from "not
+# answered" by the time it reaches videos.json.
+try:
+    overrides_src = {k: v for k, v in json.loads((ROOT / "data/overrides.json").read_text()).items()
+                     if isinstance(v, dict)}
+except Exception:
+    overrides_src = {}
+
 videos = json.loads((ROOT / "public/data/videos.json").read_text())
 videos = videos.get("videos", videos)
 sets = json.loads((ROOT / "public/data/sets.json").read_text())["sets"]
@@ -216,6 +225,12 @@ PRODUCT_TO_OPENING = {
     # what it did not ask about.
     "ex-box": "ex Box",
     "collection-box": "Collection Box",
+    # knock-out was added to the taxonomy, to OPENING_TYPES and to the
+    # importer's PRODUCT_IDS on the same day and missed here, which is the ninth
+    # time this map has been the one that lagged. The effect is the one the
+    # comment above describes: a video the matcher already tags knock-out gets a
+    # BLANK Opening Type, so the correct-the-guess workflow skips it entirely.
+    "knock-out": "Knock Out Collection",
     "blister": "Blister",
     "japanese-pack": "Japanese Booster Pack",
     "korean-pack": "Korean Booster Pack",
@@ -559,6 +574,13 @@ for r, v in enumerate(ordered, start=2):
     for n, sid in enumerate(sets_v[:5]):
         if sid in set_name:
             wv.cell(r, COL["Set"] + n * 2, set_name[sid]).font = GUESS_TXT
+    # "NOT A SET" IS AN ANSWER, SO IT HAS TO COME BACK AS ONE. A video whose
+    # override says sets:[] has no set on purpose, and reading that back off
+    # videos.json gives an empty cell, which is the sheet's word for "nobody has
+    # said yet". Handing an answered question back as an unanswered one is how
+    # the same row gets filled in three times.
+    if not sets_v and overrides_src.get(vid, {}).get("sets") == []:
+        wv.cell(r, COL["Set"], "Not a set (sealed/other)").font = BODY
     if products and products[0] in PRODUCT_TO_OPENING:
         wv.cell(r, COL["Opening Type"], PRODUCT_TO_OPENING[products[0]]).font = GUESS_TXT
     if products and products[0] in PRODUCT_TO_PACKS:
@@ -606,8 +628,15 @@ for r, v in enumerate(ordered, start=2):
         wv.cell(r, COL["Hit Rarity"], man["hitRarity"]).font = BODY
     if man.get("greatest"):
         wv.cell(r, COL["Greatest Hits"], "Yes").font = BODY
-    if man.get("greatestRank"):
-        wv.cell(r, COL["Greatest Hits Rank"], man["greatestRank"]).font = BODY
+    # hofRank, NOT greatestRank. import-sheet.mjs writes `hofRank` and
+    # sync-youtube.mjs reads `hofRank`; this one line was the only place in the
+    # project that said greatestRank, so it always read a key that does not
+    # exist and every rank a person typed came back blank on the next rebuild.
+    # Nine of nine in a round-trip test, silently, in the copy he keeps working
+    # in. The Rank column is what orders the gold band at the top of the home
+    # page, so it is a column with an obvious job and a 100% loss rate.
+    if man.get("hofRank") is not None:
+        wv.cell(r, COL["Greatest Hits Rank"], man["hofRank"]).font = BODY
     if man.get("playlistToAdd"):
         wv.cell(r, COL["Playlist To Add"], man["playlistToAdd"]).font = BODY
     if man.get("box"):
@@ -641,11 +670,22 @@ for r, v in enumerate(ordered, start=2):
         for _h in ("Packs 2", "Packs 3", "Packs 4", "Packs 5"):
             if _h in COL:
                 wv.cell(r, COL[_h]).value = None
-        if len(sets_v) > 1 and "Notes" in COL:
+        # SAY IT ONCE. This appended the message unconditionally, and the note is
+        # imported into manual.json and handed straight back on the next
+        # rebuild, so every build-import-rebuild cycle glued another copy on the
+        # end. It is already doubled on two videos in the live data and tripled
+        # on one, and it grows forever: three cycles of a 300-row backfill would
+        # put three paragraphs of boilerplate in a column meant for a person's
+        # own notes. Only added when it is absent, and only when there is
+        # actually a split to make, because "All 1 packs are on the first set"
+        # is not advice.
+        if len(sets_v) > 1 and man["packs"] > 1 and "Notes" in COL:
             _prev = wv.cell(r, COL["Notes"]).value
-            _msg = (f"All {man['packs']} packs are on the first set. "
-                    f"Move some across the Packs columns if they came from different sets.")
-            wv.cell(r, COL["Notes"], f"{_prev} {_msg}".strip() if _prev else _msg).font = BODY
+            _msg = ("All the packs are on the first set. "
+                    "Move some across the Packs columns if they came from different sets.")
+            _base = re.sub(r"\s*All (?:the|\d+) packs are on the first set\..*?different sets\.", "",
+                           str(_prev or ""), flags=re.S).strip()
+            wv.cell(r, COL["Notes"], f"{_base} {_msg}".strip()).font = BODY
 
     for col in range(1, len(COLUMNS) + 1):
         cell = wv.cell(r, col)
@@ -999,6 +1039,18 @@ for _vid, _cards in _hits.items():
             wh.cell(_hrow, HI["Number"], _h["number"]).font = BODY
         if _h.get("rarity"):
             wh.cell(_hrow, HI["Rarity"], _h["rarity"]).font = BODY
+        # PSA 10 AND NOTES COME BACK TOO, and they did not. Those are the two
+        # columns on this tab that nothing can regenerate: there is no free feed
+        # for a graded price, and a note is a note. They were written into
+        # hits.json by the import and then left out of this write-back, so the
+        # rebuilt workbook handed back an empty cell and the next import read
+        # that empty cell as "no price". A round trip that deletes the one
+        # number only a human can supply is the exact failure this block exists
+        # to prevent, one column over.
+        if _h.get("psa10"):
+            wh.cell(_hrow, HI["PSA 10 USD"], _h["psa10"]).font = BODY
+        if _h.get("notes"):
+            wh.cell(_hrow, HI["Notes"], _h["notes"]).font = BODY
         if _h.get("hallOfFame"):
             wh.cell(_hrow, HI["Hall of Fame"], "Yes").font = BODY
         _hrow += 1
