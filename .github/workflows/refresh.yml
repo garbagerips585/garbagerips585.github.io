@@ -48,6 +48,21 @@ jobs:
         with:
           node-version: "22"
 
+      # PYTHON AND PILLOW, BECAUSE build-all.mjs RUNS A PYTHON BUILDER.
+      # scripts/build-og-pages.py draws the per-page social cards and imports
+      # PIL. Without this the runner has no Pillow, that builder throws
+      # ModuleNotFoundError, build-all.mjs exits 1, and the commit step is
+      # skipped, so every sync above it runs successfully and is then thrown
+      # away. That is what happened on 13, 14 and 15 August 2026: three
+      # consecutive nightly runs did all the work and committed nothing.
+      # If you add another Python builder, check its imports are installed here.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Python deps for the image builders
+        run: python3 -m pip install --quiet Pillow
+
       # The scripts cache raw API responses here. Restoring it keeps the
       # Pokemon TCG API calls down, since that one rate-limits hard and
       # answers 500 rather than 429 when it is unhappy.

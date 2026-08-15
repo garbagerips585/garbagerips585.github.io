@@ -107,6 +107,13 @@ const ASKS = {
 
 const LABEL = new Map(PRODUCT_TYPES.map((p) => [p.id, p.label]));
 
+// Splitting on ". " returns the WHOLE string when there is only one sentence,
+// full stop included, so appending another gave ten cards a doubled period.
+const firstSentence = (t) => {
+  const i = t.indexOf(". ");
+  return i === -1 ? t : `${t.slice(0, i)}.`;
+};
+
 // Which product ids take "an". Deliberately a list and not a first-letter
 // test: "UPC" begins with a vowel and takes "a", because it is read out as
 // letters. Thirteen labels is few enough to just be right about.
@@ -389,7 +396,7 @@ ${entries
   .map(
     (e) => `        <a class="op-c" href="/openings/${esc(e.id)}.html">
           <h2>${esc(e.label)}</h2>
-          <p>${esc((USUALLY[e.id] || "").split(". ")[0])}.</p>
+          <p>${esc(firstSentence(USUALLY[e.id] || ""))}</p>
           <span class="op-n">${e.vids.length} opened${e.packs ? ` &bull; ${e.packs} packs` : ""}</span>
         </a>`
   )

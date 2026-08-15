@@ -140,6 +140,16 @@ const compactViews = (n) => viewCount(n).toUpperCase();
  * it is the thing that actually separates the runs. Only repeats get it, so
  * the pages where every label is already distinct stay clean.
  */
+// EIGHT OF THE TWENTY-ONE PLAYLIST NAMES ALREADY END IN THE BRAND, because
+// that is how they were typed on YouTube. Appending it again shipped titles
+// reading "... | Garbage Rips 585 | Garbage Rips 585" in the browser tab and in
+// search results.
+const BRAND = "Garbage Rips 585";
+const titleFor = (p) => {
+  const t = String(p.title || "").trim().replace(/\s*\|\s*Garbage\s*Rips\s*585\s*$/i, "").trim();
+  return `${t} | ${BRAND}`;
+};
+
 function labelsFor(vids) {
   const count = new Map();
   for (const v of vids) {
@@ -242,7 +252,7 @@ for (const p of live) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(p.title)} | Garbage Rips 585</title>
+<title>${esc(titleFor(p))}</title>
 <meta name="description" content="${esc(metaDesc)}">
 <link rel="canonical" href="${url}">
 <meta property="og:title" content="${esc(p.title)}">

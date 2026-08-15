@@ -1,3 +1,9 @@
+<!-- MOVED OUT OF public/assets/shows/ ON 2026-08-15. It was an internal editorial note
+     sitting in the DEPLOYED directory, so it shipped with the site and was
+     indexable the moment robots.txt opens. Nothing links to it; it was never
+     meant to be public. assets-source/ is not deployed, which is where notes
+     about the assets belong. -->
+
 Flyers for the card show calendar (/card-shows.html).
 
 Drop the image in this folder, then put the FILENAME ONLY into the matching

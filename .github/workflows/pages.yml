@@ -14,9 +14,21 @@
 
 name: Deploy to GitHub Pages
 
+# WHY workflow_run IS HERE AND WHY THE SITE WENT STALE WITHOUT IT.
+# A push made by a workflow using the default GITHUB_TOKEN deliberately does
+# NOT trigger other workflows: GitHub blocks that to stop runs recursing. So
+# the nightly refresh could commit fresh prices and video data to main and this
+# deploy would simply never fire. Exactly one bot commit ever landed and it
+# appears in none of the Pages deployments.
+# workflow_run is the supported way out: it fires on the REFRESH RUN finishing
+# rather than on the push it made, so no token can suppress it. The `if` keeps
+# a failed refresh from publishing.
 on:
   push:
     branches: [main]
+  workflow_run:
+    workflows: ["Nightly refresh"]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -32,6 +44,11 @@ concurrency:
 
 jobs:
   deploy:
+    # Do not publish the output of a refresh that FAILED. On a push or a manual
+    # run there is no parent run to check, so the condition passes.
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

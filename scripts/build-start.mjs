@@ -94,7 +94,7 @@ const STEPS = [
   {
     n: 4,
     q: "Should I get it graded?",
-    a: "Usually no, and the math says why. What the four companies charge, what the wait is, and the subtraction on real cards: raw price, graded price, fee, what is left.",
+    a: "Usually no, and the math says why. What the five companies charge, what the wait is, and the subtraction on real cards: raw price, graded price, fee, what is left.",
     href: "/grading.html",
     cta: "Worth grading?",
   },
