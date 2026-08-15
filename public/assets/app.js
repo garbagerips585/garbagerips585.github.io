@@ -15,11 +15,22 @@
     return n;
   }
 
+  // THE BROWSER COPY of viewCount/compactCount in shared/format.mjs. A browser
+  // cannot import that module, so this restates it and the two have to stay in
+  // step: build-proto.mjs renders the first tiles server side and this renders
+  // every tile after a filter, so any difference shows up as two spellings of
+  // the same number in one grid. Read the comment there before changing this.
+  //
+  // Two things this got wrong for as long as it existed. It said "1 views" on
+  // the newest upload, which is the first tile in the library. And it kept one
+  // decimal above ten thousand where the server dropped it, so the same video
+  // would have read "15.5K views" here and "16K VIEWS" from the server.
   function fmtViews(n) {
-    if (!n) return "";
-    if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, "") + "M views";
-    if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, "") + "K views";
-    return n + " views";
+    if (!(n > 0)) return "";
+    var s = n >= 1e6 ? (n / 1e6).toFixed(1).replace(/\.0$/, "") + "M"
+      : n >= 1e3 ? (n / 1e3).toFixed(n < 1e4 ? 1 : 0).replace(/\.0$/, "") + "K"
+      : String(n);
+    return s + (n === 1 ? " view" : " views");
   }
 
   var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -147,12 +158,23 @@
 
   /* ------------------------------------------------------------- taxonomy
      Mirrors shared/taxonomy.mjs for display purposes only. The heavy lifting
-     (matching) happens at sync time, not in the browser. */
+     (matching) happens at sync time, not in the browser.
+
+     MIRRORS MEANS BYTE FOR BYTE. These labels are rendered onto tiles, and the
+     server renders the first batch from CARD_SETS in shared/taxonomy.mjs while
+     this renders every tile after a filter. When the two disagree the same set
+     is spelled two ways inside one grid, which is what "pokemon-go" did: this
+     map said "Pokemon GO" and taxonomy.mjs says "Pokémon GO", which is the name
+     the API gives it in public/data/sets.json and the one the set guides use.
+
+     Accenting it is safe for SEARCH because norm() below strips accents before
+     comparing, so "pokemon go" typed into the filter still matches. That was
+     already true and its comment already said so. */
 
   var LABELS = {
     sets: {
       "pitch-black": "Pitch Black", "phantasmal-flames": "Phantasmal Flames",
-      "ascended-heroes": "Ascended Heroes", "pokemon-go": "Pokemon GO",
+      "ascended-heroes": "Ascended Heroes", "pokemon-go": "Pokémon GO",
       "perfect-order": "Perfect Order", "chaos-rising": "Chaos Rising",
       "mega-evolution": "Mega Evolution", "black-bolt": "Black Bolt",
       "white-flare": "White Flare", "destined-rivals": "Destined Rivals",
@@ -176,10 +198,19 @@
       "ko-crimson-haze": "Crimson Haze (KR)", "ko-mask-of-change": "Mask of Change (KR)",
       "zh-gem-pack-2": "Gem Pack Vol. 2 (CN)"
     },
+    // THE PRODUCT RAIL AND THE TILES UNDER IT DISAGREED. A tile reads "Ascended
+    // Heroes ex Box #2" (riplabel.mjs) while the chip above it said "EX Box",
+    // and "ex-premium" was missing entirely so the title-case fallback wrote
+    // "Ex Premium" over a tile saying "ex Premium Collection". Same words now,
+    // and the same words again in PRODUCT_LABELS in build-proto.mjs, which is
+    // the home page's copy of this rail.
     products: {
-      upc: "UPC", etb: "ETB", "booster-box": "Booster Box", "ex-box": "EX Box",
-      bundle: "Bundle", blister: "Blister", tin: "Tin",
-      "collection-box": "Collection Box", "single-pack": "Single Pack"
+      upc: "UPC", etb: "ETB", "booster-box": "Booster Box", "ex-box": "ex Box",
+      "ex-premium": "ex Premium Collection", bundle: "Booster Bundle",
+      blister: "Blister", tin: "Tin", "poke-ball-tin": "Poke Ball Tin",
+      "collection-box": "Collection Box", "single-pack": "Single Pack",
+      "japanese-pack": "Japanese Pack", "korean-pack": "Korean Pack",
+      "chinese-pack": "Chinese Pack"
     },
     pulls: {
       sir: "SIR", ir: "IR", gold: "Gold", "alt-art": "Alt Art",

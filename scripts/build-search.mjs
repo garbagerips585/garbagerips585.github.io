@@ -66,6 +66,7 @@ const PAGES = [
   ["/fake-cards.html", "Real or fake?", "Eight checks for spotting a counterfeit"],
   ["/grading.html", "Worth grading?", "What grading costs and whether it pays"],
   ["/complete-a-set.html", "Cost to complete a set", "What every set costs to finish, priced nightly"],
+  ["/drops.html", "Drops this week", "Where stock is expected, in store and online"],
   ["/pack-prices.html", "Pack prices by set", "What one pack costs, box against bundle against loose"],
   ["/what-set.html", "What set is my card from?", "Look up the number printed after the slash"],
   ["/luck.html", "Luck and pull rates", "What actually comes out of the packs"],

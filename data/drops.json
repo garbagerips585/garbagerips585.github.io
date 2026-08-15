@@ -1,0 +1,142 @@
+{
+  "_readme": [
+    "What retailers are EXPECTED to have this week, in store and online.",
+    "Drives /drops.html. Updated weekly by hand from a restock community's",
+    "week-ahead post.",
+    "",
+    "THIS IS THE ONLY PAGE ON THE SITE MADE OF FORECASTS RATHER THAN FACTS, and",
+    "the whole design follows from that. Everywhere else the rule is that a",
+    "number is traceable to a source. Here nothing is: no retailer announces its",
+    "restock schedule, and the community reporting it is reading shelves, backend",
+    "listings and each other. So the page does not pretend. Every row carries a",
+    "confidence, the page says in its lede that none of this is announced by",
+    "anyone, and it prints the date it was compiled at the top rather than",
+    "burying it.",
+    "",
+    "STALENESS IS THE FAILURE MODE. A restock page showing last week is worse",
+    "than no restock page, because it sends somebody to a shop for nothing. The",
+    "builder compares `weekOf` against the newest video in the catalogue, the",
+    "same clock /upcoming.html uses, and when the week has passed the page says",
+    "so at the top instead of presenting stale rows as current. It does not hide",
+    "them: last week's expectations are still useful for reading a pattern.",
+    "",
+    "CONFIDENCE, and it uses the same three words as data/upcoming.json so the",
+    "two pages mean the same thing by them:",
+    "  confirmed  a date the retailer itself has put on something, or stock",
+    "             already confirmed sitting on shelves",
+    "  window     expected within a known range, e.g. a usual drop day and hour",
+    "  expected   the community thinks it is coming and has no date",
+    "",
+    "CHANNEL is `store` or `online`. Several retailers do both and they are",
+    "separate rows, because the answer to when and how you get it is different.",
+    "",
+    "RETAILER IDENTITY. `retailers` below holds a colour per retailer, used to",
+    "tint a wordmark chip we draw ourselves. It is NOT their logo. This site",
+    "already draws its own booster wrappers rather than reproducing official pack",
+    "art, for reasons in CLAUDE.md, and the same reasoning applies to somebody",
+    "else's trademark.",
+    "",
+    "SOURCE. `source` names where the week's post came from and when it was",
+    "read. If a week's information comes from somewhere else, change it: the page",
+    "prints whatever is here, so it can never credit the wrong place."
+  ],
+
+  "weekOf": "2026-08-10",
+  "weekEnds": "2026-08-16",
+  "compiled": "2026-08-15",
+  "source": {
+    "name": "Community week-ahead post",
+    "note": "A Pokemon restock community's weekly summary, passed on by Tim. Not an announcement from any retailer.",
+    "url": null
+  },
+
+  "retailers": {
+    "pokemon-center": { "name": "Pokemon Center", "tint": "#E3350D", "kind": "Official store" },
+    "target":         { "name": "Target",         "tint": "#CC0000", "kind": "Big box" },
+    "walmart":        { "name": "Walmart",        "tint": "#0071CE", "kind": "Big box" },
+    "best-buy":       { "name": "Best Buy",       "tint": "#0046BE", "kind": "Big box" },
+    "aldi":           { "name": "Aldi",           "tint": "#00447C", "kind": "Grocery" },
+    "walgreens":      { "name": "Walgreens",      "tint": "#E01B2E", "kind": "Pharmacy" },
+    "family-dollar":  { "name": "Family Dollar",  "tint": "#E01A2B", "kind": "Discount" }
+  },
+
+  "drops": [
+    {
+      "retailer": "pokemon-center",
+      "channel": "online",
+      "confidence": "window",
+      "what": "A drop is expected, with no product list yet.",
+      "when": "Usually Monday to Wednesday, 11am to 2pm Eastern.",
+      "notes": [
+        "Products showing on the backend do not mean stock exists. Nothing is confirmed until it is buyable."
+      ]
+    },
+    {
+      "retailer": "target",
+      "channel": "store",
+      "confidence": "expected",
+      "what": "Select Chaos Rising and Pitch Black products.",
+      "when": "Through the week, varies by store.",
+      "notes": [
+        "Some stores are also still receiving Ascended Heroes booster bundles, Prismatic Evolutions surprise pack collections, and First Partner Series 2 and 3 collection boxes."
+      ]
+    },
+    {
+      "retailer": "target",
+      "channel": "online",
+      "confidence": "expected",
+      "what": "Prismatic Evolutions surprise pack collections, Pitch Black ETBs, Chaos Rising ETBs and First Partner Series 3.",
+      "when": "No scheduled time. Any night from around 3am Eastern.",
+      "notes": [
+        "Loaded on the backend with no date attached, which means nobody knows when it goes live, including the people watching for it."
+      ]
+    },
+    {
+      "retailer": "best-buy",
+      "channel": "store",
+      "confidence": "expected",
+      "what": "Ascended Heroes booster bundles, Pitch Black booster bundles and 3-pack blisters, First Partner Series 2 and 3 collection boxes.",
+      "when": "Through the week, varies by store."
+    },
+    {
+      "retailer": "walmart",
+      "channel": "online",
+      "confidence": "window",
+      "what": "Product list not published yet.",
+      "when": "Wednesday, around 9pm Eastern.",
+      "notes": [
+        "Walmart's midweek online drop is a pattern people have noticed, not a schedule Walmart publishes."
+      ]
+    },
+    {
+      "retailer": "aldi",
+      "channel": "store",
+      "confidence": "confirmed",
+      "what": "Ascended Heroes Mega ex boxes.",
+      "when": "From August 12, select locations.",
+      "notes": [
+        "Aldi stock is a one-off run rather than a restock, so when it is gone it is gone."
+      ]
+    },
+    {
+      "retailer": "walgreens",
+      "channel": "store",
+      "confidence": "expected",
+      "what": "Ascended Heroes 2-pack blisters.",
+      "when": "Ongoing, select stores.",
+      "notes": [
+        "No purchase limit in store, so these tend to go quickly."
+      ]
+    },
+    {
+      "retailer": "family-dollar",
+      "channel": "store",
+      "confidence": "expected",
+      "what": "Black Bolt and White Flare Unova poster collections.",
+      "when": "Ongoing, select stores.",
+      "notes": [
+        "Roughly 12 to 24 units per store and no purchase limit."
+      ]
+    }
+  ]
+}

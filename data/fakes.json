@@ -20,9 +20,15 @@
     "already trust rather than against a number off the internet.",
     "",
     "If a test is ever added here, it needs a physical explanation of WHY the",
-    "difference exists. 'Fakes look off' is not a test."
+    "difference exists. 'Fakes look off' is not a test.",
+    "",
+    "`checked` is the date the page prints as 'Last reviewed', so it has to be",
+    "at least as new as the newest dated claim inside this file. It read",
+    "2026-08-12 while the HP test below records a Pokemon TCG API check made on",
+    "2026-08-14, so the page said it was last reviewed two days before the most",
+    "recent thing on it. Bump this whenever you date a claim in here."
   ],
-  "checked": "2026-08-12",
+  "checked": "2026-08-14",
   "intro": "Nobody sells you a fake with a label on it. These are the checks that actually work, roughly in the order worth doing them, and an honest note on how much each one proves.",
   "goldenRule": {
     "title": "Compare against a card you already trust",

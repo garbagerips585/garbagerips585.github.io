@@ -26,7 +26,14 @@ export const PRODUCT_TYPES = [
   { id: "chinese-pack", label: "Chinese Booster Pack", pattern: /\bchinese\b.*\bpacks?\b/i },
   { id: "etb", label: "Elite Trainer Box", short: "ETB", pattern: /\betb\b|elite trainer box/i },
   { id: "booster-box", label: "Booster Box", pattern: /\bbooster box\b|\bdisplay box\b/i },
-  { id: "ex-box", label: "EX Box", pattern: /\bex box\b|\bex premium\b|\bex collection\b/i },
+  // "ex Box", not "EX Box". The lowercase ex is the modern printing and it is
+  // what riplabel.mjs already puts on every tile ("Ascended Heroes ex Box #2"),
+  // so the uppercase spelling here was the odd one out and it showed: the
+  // product table on /luck.html listed "EX Box" one row under
+  // "ex Premium Collection", and the filter rail on /videos.html captioned a
+  // grid of tiles saying "ex Box". `pattern` is case insensitive, so this is a
+  // display change only and tagging is untouched.
+  { id: "ex-box", label: "ex Box", pattern: /\bex box\b|\bex premium\b|\bex collection\b/i },
   { id: "bundle", label: "Booster Bundle", pattern: /\bbooster bundle\b|\bbundle\b/i },
   { id: "blister", label: "Blister", pattern: /\bblister\b|\b3[- ]pack\b|three[- ]pack/i },
   { id: "tin", label: "Tin", pattern: /\btin\b/i },
@@ -60,10 +67,26 @@ export const PRODUCT_TYPES = [
 
 // Set names observed in the channel's own titles, newest first. Add to this
 // list as new sets release; the matcher is a plain case-insensitive name match.
+//
+// `label` is a DISPLAY name and has to agree with public/data/sets.json, which
+// is the API's name for the same set and is what the set guides, the home page,
+// /expansions.html and /what-set.html all render. Only one entry has ever
+// disagreed: this list said "Pokemon GO" while sets.json says "Pokémon GO", so
+// the same set was spelled two ways, and the split ran right down the middle of
+// its own guide page, whose lede said "Pokémon GO" and whose button underneath
+// said "Watch the Pokemon GO rips". The unaccented spelling also reached every
+// rip page breadcrumb, chip, pack brand and alt text: 46 accented against
+// roughly 300 unaccented, for one set.
+//
+// Accenting the label is safe for TAGGING because this entry carries an
+// explicit `pattern` that already accepts both spellings. Entries without a
+// `pattern` fall back to matching the label itself (see matcherFor), so if you
+// ever accent one of those, give it a pattern in the same edit or it stops
+// matching the channel's own unaccented titles.
 export const CARD_SETS = [
   { id: "pitch-black", label: "Pitch Black" },
   { id: "ascended-heroes", label: "Ascended Heroes" },
-  { id: "pokemon-go", label: "Pokemon GO", pattern: /pok[eé]mon\s+go\b/i },
+  { id: "pokemon-go", label: "Pokémon GO", pattern: /pok[eé]mon\s+go\b/i },
   { id: "phantasmal-flames", label: "Phantasmal Flames" },
   { id: "perfect-order", label: "Perfect Order" },
   { id: "chaos-rising", label: "Chaos Rising" },

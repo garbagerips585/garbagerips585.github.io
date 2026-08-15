@@ -87,9 +87,19 @@ const byProduct = rateBy((v) => v.products || [], (k) => labelFor("products", k)
 
 // What actually came out, from the rarity Tim recorded. Falls back to the
 // derived pull tags only for the count of each kind, never for a rate.
+//
+// "MORE THAN ONE" IS NOT A RARITY, and it was rendered in a row of rarities.
+// It is what the rip log's rarity column says when a single rip produced
+// several hits, and on the page it came out as a tile reading "2 / MORE THAN
+// ONE" between "8 / ILLUSTRATION RARE" and "6 / CHARIZARD", which reads as a
+// label with its noun missing. Saying "hit" restores the sentence the other
+// tiles are all making: N rips produced <this>.
+const RARITY_ALIAS = { "More than one": "More than one hit" };
 const rarityCount = new Map();
 for (const v of videos) {
-  if (v.hitRarity) rarityCount.set(v.hitRarity, (rarityCount.get(v.hitRarity) || 0) + 1);
+  if (!v.hitRarity) continue;
+  const k = RARITY_ALIAS[v.hitRarity] || v.hitRarity;
+  rarityCount.set(k, (rarityCount.get(k) || 0) + 1);
 }
 const rarities = [...rarityCount.entries()].sort((a, b) => b[1] - a[1]);
 
@@ -290,8 +300,14 @@ ${table(byProduct, "Product", "/videos.html?product=")}
       ? `<section class="band luck-sec">
     <div class="wrap">
       <h2>What has actually <span class="hl">come out</span></h2>
-      <p class="luck-note">Counted from what the titles say rather than from the rip log, so this is a
-      separate tally from the hit rates above and the two will not line up. They are totals, not rates: a set
+      <p class="luck-note">${
+        rarities.length
+          ? `Counted from the rarity column of the rip log, which is filled in for a different set of rips
+      than the hit or no hit column, so this is a separate tally from the hit rates above and the two will
+      not line up.`
+          : `Counted from what the titles say rather than from the rip log, so this is a separate tally from
+      the hit rates above and the two will not line up.`
+      } They are totals, not rates: a set
       that gets opened more will show more of everything. Once the log is filled in these become real
       per-pack rates.</p>
       <div class="pull-grid">

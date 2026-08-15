@@ -54,10 +54,19 @@ const KINDS = [
   { kind: "Elite Trainer Box", blurb: "9 packs plus sleeves and dice", re: /\belite trainer box\b/i },
   { kind: "Booster Bundle", blurb: "6 packs", re: /\bbooster bundle\b/i },
   { kind: "Build & Battle Box", blurb: "4 packs plus a 40 card deck", re: /\bbuild (&|and) battle box\b/i },
-  { kind: "Blister Pack", blurb: "Packs plus a promo card", re: /\bblister\b/i },
+  // THESE THREE SAY THE COUNT IS UNKNOWN, because it is, and the old wording
+  // did not: the blurb prints two lines above the price, so "PACKS PLUS A PROMO
+  // CARD" on a card whose neighbours read "6 PACKS" and "9 PACKS PLUS SLEEVES
+  // AND DICE" reads as a number that fell out of the sentence rather than as an
+  // admission. A blister's pack count varies by set and is not in our data,
+  // which is exactly what the guides already say out loud for a half booster
+  // box ("Pack count not in our data"), so these borrow that phrasing. The
+  // footnote under the band names blisters, tins and collection boxes as the
+  // products with no price per pack; now the cards agree with it.
+  { kind: "Blister Pack", blurb: "Packs plus a promo card, count not in our data", re: /\bblister\b/i },
   { kind: "Single Pack", blurb: "One pack", re: /\bbooster pack\b/i },
-  { kind: "Tin", blurb: "Packs plus a promo", re: /\btin\b/i },
-  { kind: "Collection Box", blurb: "Packs plus promos", re: /\b(collection|premium collection)\b/i },
+  { kind: "Tin", blurb: "Packs plus a promo, count not in our data", re: /\btin\b/i },
+  { kind: "Collection Box", blurb: "Packs plus promos, count not in our data", re: /\b(collection|premium collection)\b/i },
 ];
 
 /**

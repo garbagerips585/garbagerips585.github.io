@@ -47,7 +47,7 @@
     "                    singles.legacygamestore.com lists priced Pokemon singles",
     "                    under the same name and address.",
     "  Great Lakes       glgaminglounges.com/pokemon prices packs, ETBs and",
-    "                    booster boxes; /tcg states Wooper Wednesday at 6.30pm.",
+    "                    booster boxes; /tcg states Wooper Wednesday at 6:30pm.",
     "  WeTheHobby        wethehobby.com/pages/contact states address, phone and",
     "                    hours; /pages/events lists a Pokemon Weekly League on",
     "                    every Thursday of the current month.",
@@ -130,7 +130,7 @@
       "area": "West Ridge Road, Rochester",
       "address": "1586 West Ridge Rd, Rochester, NY 14615",
       "phone": "585-287-6308",
-      "hours": "Wed to Sat 11am to 9.30pm, Sun 11am to 6pm, closed Mon and Tue",
+      "hours": "Wed to Sat 11am to 9:30pm, Sun 11am to 6pm, closed Mon and Tue",
       "blurb": "Deep Pokemon singles and sealed, and the first stop when a set drops.",
       "goodFor": [
         "Sealed product",
@@ -145,7 +145,7 @@
       "area": "Ridge Road, Webster",
       "address": "1028 Ridge Rd, Suite 112, Webster, NY 14580",
       "phone": "585-866-4263",
-      "hours": "Mon to Sat 11am to 9.30pm, Sun noon to 7pm",
+      "hours": "Mon to Sat 11am to 9:30pm, Sun noon to 7pm",
       "blurb": "The Webster one, and the furthest east of these. They run a separate singles storefront alongside the main site, so you can see which Pokemon singles are actually in the case before you make the drive. They buy cards too.",
       "goodFor": [
         "Singles",
@@ -167,10 +167,10 @@
         "In store"
       ],
       "plays": [
-        "Wooper Wednesday, Pokemon tournaments from 6.30pm",
+        "Wooper Wednesday, Pokemon tournaments from 6:30pm",
         "Trading card game and video game, plus Pokemon Go and Unite"
       ],
-      "playNote": "The Wednesday time is off their own trading card games page. Being on the 22nd floor, it is a lift and a parking garage rather than a door off the street, so leave a few extra minutes.",
+      "playNote": "The Wednesday time is off their own trading card games page. Being on the 22nd floor, it is an elevator and a parking garage rather than a door off the street, so leave a few extra minutes.",
       "eventsUrl": "https://www.glgaminglounges.com/tcg",
       "visited": false
     },

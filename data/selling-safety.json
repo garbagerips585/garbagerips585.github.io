@@ -1,0 +1,289 @@
+{
+  "_readme": [
+    "How each selling venue protects a SELLER, and how the common attacks work.",
+    "Drives the safety half of /selling.html. Fees live in data/selling.json.",
+    "",
+    "THE FRAMING, AND IT IS DELIBERATE. The obvious way to write this page is a",
+    "list of venues to avoid. This site cannot source that: 'Facebook Marketplace",
+    "is full of scammers' is a character judgement with no publishable evidence",
+    "behind it, and it would age badly. What IS sourceable is the mechanism, which",
+    "is who holds the money when something goes wrong and what recourse exists.",
+    "A reader given the mechanism can judge any venue, including ones that do not",
+    "exist yet.",
+    "",
+    "SO THE PAGE NAMES NO VENUE AS BAD. It states each policy and lets the reader",
+    "compare. The one thing it does say plainly is the counterintuitive part: an",
+    "in-person cash sale carries LESS mechanical risk than a shipped online sale,",
+    "because nothing ships, nothing can be charged back, and both parties inspect",
+    "before the value moves. What it costs you is the buyer pool and probably the",
+    "price. That is a trade, not a safety ranking.",
+    "",
+    "EVERY CLAIM CARRIES THE URL IT CAME FROM AND THE DATE IT WAS READ, the same",
+    "standard as data/grading.json, whose readme records that three of four",
+    "third-party fee figures were wrong when last checked against primary",
+    "sources. Nothing here comes from a blog, a forum or a comparison site.",
+    "",
+    "WHAT IS DELIBERATELY ABSENT:",
+    "  No scam-rate statistic for any venue. None was found from a nameable",
+    "  source, and an unsourced one would be exactly the kind of number this",
+    "  site does not publish.",
+    "  No claim that PayPal requires signature confirmation over $750. It is",
+    "  widely repeated and it is not on PayPal's page: the word 'signature' does",
+    "  not appear there at all. The $750 threshold is eBay's, and only eBay's.",
+    "  No instruction to verify a slab's certificate number against the grader's",
+    "  own database. The mechanism plainly exists, but psacard.com and",
+    "  cgccards.com both return 403 to us, so nobody here has read a grading",
+    "  company saying it in its own words."
+  ],
+  "checked": "2026-08-15",
+
+  "framing": {
+    "question": "Who is holding the money when something goes wrong?",
+    "why": [
+      "Seller protection and buyer protection are different products, and on every",
+      "venue read here the seller's version is the smaller one. A marketplace sits",
+      "in the middle, which is the only reason a dispute exists at all, and every",
+      "one of them voids that protection the moment payment moves off the platform."
+    ]
+  },
+
+  "protections": [
+    {
+      "venue": "PayPal Goods and Services",
+      "note": "The clearest example of the asymmetry, which is why it leads.",
+      "covers": ["Unauthorized Transaction", "Item Not Received"],
+      "doesNotCover": [
+        "Significantly Not as Described. Verbatim from the ineligible list: items where the buyer claims the item you sent is not what was ordered.",
+        "Personal payments, including anything sent using friends and family.",
+        "Item Not Received claims the buyer files directly with their card issuer."
+      ],
+      "buyerSideDiffers": "The buyer's half of the same product DOES cover not as described, within 30 days of delivery or 180 days of payment, whichever is sooner.",
+      "source": "https://www.paypal.com/us/legalhub/paypal/seller-protection",
+      "read": "2026-08-15",
+      "verifiedTwice": true
+    },
+    {
+      "venue": "eBay",
+      "covers": [
+        "Item not received, where tracking shows delivery to the address given at checkout.",
+        "Not as described, but only once the seller has already refunded through eBay or won a Money Back Guarantee case of the same type. Photographs are evidence for the bank, not a protection trigger."
+      ],
+      "clocks": [
+        "5 calendar days to accept or challenge a payment dispute.",
+        "2 business days to report a buyer who returned a different or damaged item.",
+        "Disputed funds may be held up to 90 days."
+      ],
+      "cardCarveOut": "For trading cards specifically, if the seller does not offer returns the buyer must request one within 3 calendar days of delivery. Every other category gets 30.",
+      "signatureThreshold": "$750 including shipping and tax.",
+      "offPlatform": "Any payment completed outside eBay is excluded from the Money Back Guarantee entirely.",
+      "source": "https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210",
+      "alsoRead": [
+        "https://www.ebay.com/help/selling/getting-paid/payment-dispute-seller-protections?id=5293",
+        "https://www.ebay.com/help/policies/selling-policies/seller-protections?id=4345",
+        "https://www.ebay.com/help/policies/member-behavior-policies/signature-confirmation-policy?id=5154"
+      ],
+      "read": "2026-08-15"
+    },
+    {
+      "venue": "eBay Authenticity Guarantee",
+      "note": "The only mechanism found anywhere that PREVENTS the card swap rather than paying for it afterwards.",
+      "how": [
+        "Eligible cards go to PSA before they reach the buyer, then ship on with a tamper-proof sticker and a QR code.",
+        "A return goes back to the authenticator, not to the seller. If the returned item is not the same item, not in the same condition, or the sticker has been tampered with, the return is denied and the item goes back to the buyer."
+      ],
+      "threshold": "$200 and above for ungraded singles, and for autograph, relic and other graded cards. Pokemon singles fall under the collectible card game category.",
+      "signatureThreshold": "$1,500 and above on the authenticator to buyer leg, which is a different number from eBay's general $750.",
+      "excluded": "Local pickup only listings are not eligible.",
+      "source": "https://www.ebay.com/authenticity-guarantee/tradingcards",
+      "read": "2026-08-15"
+    },
+    {
+      "venue": "TCGplayer",
+      "covers": [
+        "Missing packages, where tracking has moved past label creation and the carrier reports delivered or missing in transit. Stated as covered 100%.",
+        "Payment fraud, which is TCGplayer's problem: a seller is never asked to refund an order because of fraud."
+      ],
+      "sellerCarries": [
+        "Condition and wrong-card risk directly, with a 30 day buyer window after estimated delivery.",
+        "Sellers cannot require a buyer to send photos of a condition problem before resolving it."
+      ],
+      "clocks": ["2 business days to answer a buyer before they can escalate."],
+      "counterfeits": "Handled by TCGplayer, and the card must physically reach them before a refund.",
+      "returns": "Singles are otherwise non-returnable, with three exceptions: wrong condition, wrong card, missing card.",
+      "source": "https://help.tcgplayer.com/hc/en-us/articles/201642073-What-is-TCGplayer-s-Refund-and-Return-policy",
+      "alsoRead": [
+        "https://help.tcgplayer.com/hc/en-us/articles/201637633-TCGplayer-Safeguard",
+        "https://help.tcgplayer.com/hc/en-us/articles/115014053928-TCGplayer-Fraud-Protection-Policy"
+      ],
+      "read": "2026-08-15"
+    },
+    {
+      "venue": "Whatnot",
+      "covers": [
+        "Chargebacks and payment disputes, handled by Whatnot rather than the seller.",
+        "Carrier delays after a timely drop-off, and packages lost or misdelivered by the carrier.",
+        "Claims involving abusive or fraudulent buyer behaviour.",
+        "Where fault cannot be established, Whatnot says it will cover the refund up to a reasonable limit. An explicit shared-responsibility category, which is unusual."
+      ],
+      "sellerBilledBackFor": [
+        "Late or unverified shipment, against a 2 business day drop-off with proof.",
+        "Failure to answer a buyer or support within 2 business days.",
+        "Failure to fulfil high value items."
+      ],
+      "cardCarveOut": "For trading card games the buyer's claim window is the earlier of 7 days from delivery or 30 days from purchase, against 30 and 14 for general categories.",
+      "highValue": "Liability on a missing high-value card is the full MARKET value of the card, not the seller's earnings on it.",
+      "packingVideo": "A documented requirement, not folklore: continuous footage showing the cards packed, the package sealed and the label applied, retained 75 days. Photos are explicitly not accepted as sufficient evidence for a high-value dispute.",
+      "shipping": "Items over $20 may not go in a plain white envelope. Signature is auto-applied on certain US shipments of $500 or more, and buyers can opt out at account level.",
+      "source": "https://help.whatnot.com/hc/en-us/articles/5522583677837-High-Value-Loss-Reimbursement-Policy",
+      "alsoRead": [
+        "https://help.whatnot.com/hc/en-us/articles/360061195412-Whatnot-Seller-Protection-How-We-Resolve-Order-Issues-Together",
+        "https://help.whatnot.com/hc/en-us/articles/360061194552-Whatnot-Buyer-Protection-Policy"
+      ],
+      "read": "2026-08-15"
+    },
+    {
+      "venue": "Mercari",
+      "covers": [
+        "Shipping protection up to $200 on discounted labels.",
+        "Nothing promised to the seller about a not-as-described claim: Mercari adjudicates it."
+      ],
+      "how": "Mercari holds the buyer's money until the buyer rates, or 72 hours after carrier-confirmed delivery, whichever comes first.",
+      "clocks": ["24 hours to report a return that arrived damaged."],
+      "offPlatform": "Encouraging payment outside Mercari, or completing a transaction in person, is prohibited conduct.",
+      "source": "https://www.mercari.com/us/help_center/topics/returns/policies/refunds-and-returns/",
+      "alsoRead": ["https://www.mercari.com/us/help_center/topics/account/policies/seller-protection/"],
+      "read": "2026-08-15"
+    },
+    {
+      "venue": "Facebook Marketplace",
+      "covers": [
+        "Lost, stolen and transit-delayed packages, item-not-as-described claims under conditions, returns of used or damaged items, and unauthorized chargebacks."
+      ],
+      "conditions": [
+        "Shipped items must use pre-paid shipping labels issued by Meta.",
+        "Sales must be processed through onsite checkout.",
+        "Coverage is limited to items with a sale price of $500 or less.",
+        "US only, and the seller must answer a refund request within 2 days."
+      ],
+      "excluded": "Purchases made through third-party sites, local pickups, Messenger transactions or other messaging services do not qualify for Purchase Protection.",
+      "source": "https://www.facebook.com/legal/merchant_policies",
+      "alsoRead": ["https://www.facebook.com/help/228307904608701"],
+      "read": "2026-08-15",
+      "verifiedTwice": true,
+      "note": "Both Facebook pages block plain fetching. These two claims were re-read independently through a second tool before being recorded."
+    },
+    {
+      "venue": "A private cash sale",
+      "note": "There is no policy page to cite, and that is the finding.",
+      "covers": [],
+      "how": [
+        "Nobody holds the money, so there is no dispute process, no claim window, no arbiter and no reversal.",
+        "The exposure is symmetric and it ends when both people walk away."
+      ],
+      "read": "2026-08-15"
+    }
+  ],
+
+  "attacks": [
+    {
+      "name": "The not-as-described chargeback",
+      "how": "The buyer receives the card, then tells their bank the item was not as described. This runs on card network rules, not the platform's, and eBay says plainly that the final outcome is decided by the buyer's payment institution.",
+      "note": "PayPal's seller-side product excludes this category outright, which is the single most useful thing a seller can know before choosing how to take payment.",
+      "source": "https://www.ebay.com/help/selling/getting-paid/payment-disputes?id=4799",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "The empty box or swapped card return",
+      "how": "The buyer opens a not-as-described return, then sends back a different card, a damaged card, or nothing. Every venue names this. eBay allows a deduction of up to 50% and requires the seller to report the buyer within 2 business days.",
+      "note": "eBay Authenticity Guarantee is the only place found where the swap is structurally prevented rather than compensated, because the return reaches the authenticator first.",
+      "source": "https://www.ebay.com/help/policies/selling-policies/seller-protections?id=4345",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "Friends and family, which has no dispute path by design",
+      "how": "PayPal states that personal payments are not covered by Purchase Protection. That is the whole mechanism: it is not a purchase, so there is nothing to dispute.",
+      "note": "It cuts both ways, and that is why it gets asked for. A buyer asking a seller to accept it is asking them to save the fee; a seller asking a buyer for it is asking them to give up their refund route. Neither request is neutral.",
+      "source": "https://www.paypal.com/us/cshelp/article/whats-the-difference-between-friends-and-family-or-goods-and-services-payments-help277",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "The off-platform payment request",
+      "how": "Moving the deal to a message, a bank transfer or a payment app strips protection on every venue read here, and all four say so in their own words.",
+      "note": "eBay also bans sharing a phone number or email before the sale completes, so on that venue the request itself is the tell.",
+      "source": "https://www.ebay.com/help/policies/listing-policies/offers-buy-sell-outside-ebay-policy?id=4272",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "The fake payment and the fake-check overpayment",
+      "how": "A buyer sends a fake payment notification and hopes the item ships before anyone checks, or sends a check for more than the price and asks for the difference back.",
+      "why": "The FTC's explanation of why the check version works is the part worth printing: banks must make the money available quickly, usually within two days, and it can take weeks for the bank to work out the check was fake.",
+      "source": "https://consumer.ftc.gov/consumer-alerts/2022/07/selling-stuff-online-heres-how-avoid-scam",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "The item-not-received claim after delivery",
+      "how": "The buyer has the card and says they do not.",
+      "note": "The one attack where seller protection is genuinely strong on every venue, provided tracking shows delivery to the checkout address and signature was used above the threshold.",
+      "source": "https://www.paypal.com/us/legalhub/paypal/seller-protection",
+      "read": "2026-08-15"
+    }
+  ],
+
+  "defences": [
+    {
+      "name": "Keep the money on the platform's own rail",
+      "why": "Not advice so much as the precondition for everything else. Every protection listed here is conditional on the payment having gone through the platform. Moving it off does not weaken your protection, it deletes it."
+    },
+    {
+      "name": "Tracking, to the address on the order",
+      "why": "PayPal requires an online, verifiable tracking number showing delivered, to an address matching the transaction. Shipping somewhere else, even at the buyer's request, voids it.",
+      "source": "https://www.paypal.com/us/legalhub/paypal/seller-protection",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "Signature confirmation above the threshold, and the threshold is not one number",
+      "thresholds": [
+        "eBay: $750 including shipping and tax.",
+        "eBay Authenticity Guarantee, authenticator to buyer: $1,500.",
+        "Whatnot: auto-applied on certain US shipments of $500 or more.",
+        "USPS price: $5.15 at a Post Office, $4.15 online."
+      ],
+      "source": "https://www.usps.com/ship/insurance-extra-services.htm",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "Film the packing, in one continuous shot",
+      "why": "Whatnot requires it for a high-value claim and says photos will not be accepted as sufficient evidence. Keep the footage 75 days. Even where it is not required, it is the only artefact that answers the empty-box claim.",
+      "source": "https://help.whatnot.com/hc/en-us/articles/5522583677837-High-Value-Loss-Reimbursement-Policy",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "Know what insurance is for",
+      "why": "USPS insures up to $5,000 as standard and up to $50,000 by Registered Mail, and claims must be filed within 60 days of mailing. It answers the post office losing the parcel. It does not answer the buyer saying the box was empty.",
+      "source": "https://www.usps.com/ship/insurance-extra-services.htm",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "Answer the clock",
+      "why": "Nearly every protection here has a deadline attached, and they are short: 5 calendar days, 2 business days, 24 hours. Missing the clock loses the protection more often than losing the argument does."
+    }
+  ],
+
+  "inPerson": {
+    "claim": "An in-person cash sale is not a weakened online sale. It is a different transaction with a different risk profile.",
+    "because": [
+      "Nothing ships, so the swap, the counterfeit return and the not-received claim cannot happen.",
+      "Cash cannot be charged back.",
+      "Both people inspect before the value moves, and the deal completes in one moment rather than over ten days."
+    ],
+    "cost": "You give up the buyer pool and probably the price. A shop buys at a percentage of market because it has to resell.",
+    "ftc": "The FTC's own guidance for people selling online recommends selling to a local buyer you can meet in person and taking cash.",
+    "source": "https://consumer.ftc.gov/consumer-alerts/2022/07/selling-stuff-online-heres-how-avoid-scam",
+    "read": "2026-08-15",
+    "whereTheLineIs": [
+      "Shipping instead of meeting. A local listing that becomes a mailed parcel takes on every shipping attack while keeping none of the platform protections.",
+      "Remote payment instead of cash in hand. A payment app notification, a check, a promise of a transfer.",
+      "No recourse, which is the point rather than a flaw. It is fine when you inspect and complete on the spot, and unrecoverable once the card has gone."
+    ]
+  }
+}

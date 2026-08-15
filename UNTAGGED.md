@@ -23,9 +23,9 @@ always wins over whatever the tagger worked out:
 
     { "dQw4w9WgXcQ": { "sets": ["pitch-black"], "products": ["etb"] } }
 
-Sets the tagger knows: Pitch Black, Ascended Heroes, Pokemon GO, Phantasmal Flames, Perfect Order, Chaos Rising, Mega Evolution, Black Bolt, White Flare, Destined Rivals, Journey Together, Prismatic Evolutions, Surging Sparks, Stellar Crown, Shrouded Fable, Twilight Masquerade, Temporal Forces, Paldean Fates, Paradox Rift, Obsidian Flames, Paldea Evolved, Scarlet & Violet, 151, Abyss Eye (JP), Ninja Spinner (JP), Nihil Zero (JP), Mega Symphonia (JP), Mega Brave (JP), Stellar Miracle (JP), Cyber Judge (JP), Violet ex (JP), Clay Burst (KR), Crimson Haze (KR), Mask of Change (KR), Battle Partners (KR), Gem Pack Vol. 2 (CN).
+Sets the tagger knows: Pitch Black, Ascended Heroes, Pokémon GO, Phantasmal Flames, Perfect Order, Chaos Rising, Mega Evolution, Black Bolt, White Flare, Destined Rivals, Journey Together, Prismatic Evolutions, Surging Sparks, Stellar Crown, Shrouded Fable, Twilight Masquerade, Temporal Forces, Paldean Fates, Paradox Rift, Obsidian Flames, Paldea Evolved, Scarlet & Violet, 151, Abyss Eye (JP), Ninja Spinner (JP), Nihil Zero (JP), Mega Symphonia (JP), Mega Brave (JP), Stellar Miracle (JP), Cyber Judge (JP), Violet ex (JP), Clay Burst (KR), Crimson Haze (KR), Mask of Change (KR), Battle Partners (KR), Gem Pack Vol. 2 (CN).
 
-Products it knows: UPC, Super Premium Collection, ex Premium Collection, ex Special Collection, Poke Ball Tin, Japanese Booster Pack, Korean Booster Pack, Chinese Booster Pack, Elite Trainer Box, Booster Box, EX Box, Booster Bundle, Blister, Tin, Collection Box, Single Pack.
+Products it knows: UPC, Super Premium Collection, ex Premium Collection, ex Special Collection, Poke Ball Tin, Japanese Booster Pack, Korean Booster Pack, Chinese Booster Pack, Elite Trainer Box, Booster Box, ex Box, Booster Bundle, Blister, Tin, Collection Box, Single Pack.
 
 ## Missing both set and product (5)
 

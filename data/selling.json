@@ -1,0 +1,824 @@
+{
+  "_readme": [
+    "Where a person can actually sell Pokemon cards, and what each venue costs.",
+    "",
+    "THE SOURCING RULE, and it is the whole file. A fee number is in here ONLY if",
+    "it was read on that company's own fee, help or seller page, in a browser, and",
+    "the exact url it came from is recorded against it in `sources`. Not a blog,",
+    "not a comparison site, not a forum, not a search snippet. Where a number could",
+    "not be sourced that way it is simply ABSENT and the venue carries a link to",
+    "its own fee page instead, so a reader can go and look. A venue with no",
+    "percentage is fine. An invented percentage is not.",
+    "",
+    "This is the same discipline grading.json runs on, for the same reason: on the",
+    "last recheck of that file three of its four published figures turned out to be",
+    "wrong, and every one of them had been believable.",
+    "",
+    "FEE STRUCTURES ARE CONDITIONAL AND THAT IS THE INTERESTING PART. Flattening a",
+    "venue to one percentage is how this page would lie. Four things that a single",
+    "number always hides:",
+    "  1. THE HEADLINE RATE IS OFTEN NOT THE ONLY RATE. TCGplayer's 10.75% is a",
+    "     commission; on top of it sits a transaction fee of 2.5% + $0.30. Whatnot's",
+    "     8% has a 2.9% + $0.30 payment processing fee on top. eBay is the odd one",
+    "     out and says so on its own page: one final value fee, no separate",
+    "     processing fee, but a per-order fee of $0.30 or $0.40 sits inside it.",
+    "  2. WHAT THE PERCENTAGE IS TAKEN ON DIFFERS, AND THE TWO HALVES OF ONE FEE CAN",
+    "     DIFFER FROM EACH OTHER. TCGplayer's commission is on the order SUBTOTAL",
+    "     while its transaction fee is on the order TOTAL including shipping and",
+    "     tax. Whatnot's commission excludes shipping and tax while its processing",
+    "     fee includes both. eBay's final value fee is on the whole sale including",
+    "     buyer-paid shipping and sales tax. So identical sale prices produce",
+    "     different takes depending on what the buyer paid to ship.",
+    "  3. THE RATE MOVES WITH YOUR ACCOUNT, NOT JUST THE ITEM. eBay charges 13.25%",
+    "     in Collectible Card Games with no Store, and 12.35% with a Basic Store or",
+    "     above, which is a paid subscription. TCGplayer charges 10.75%, 9.25% or",
+    "     8.95% depending on seller type.",
+    "  4. FLOORS, CAPS AND FIXED FEES. TCGplayer caps commission at $75 per product.",
+    "     eBay Live caps commission at $100 per item. Fanatics Collect takes a",
+    "     minimum $3 commission per Weekly Auction sale. Goldin charges $5 on a lot",
+    "     that sells under $50 or draws no bid at all. Every one of those is",
+    "     recorded where it was published.",
+    "",
+    "A BUYLIST HAS NO FEES AT ALL AND THAT IS NOT THE BARGAIN IT SOUNDS LIKE. Troll",
+    "and Toad, Card Cavern, Dave and Adam's and a local shop all buy the card",
+    "outright, so there is no commission, no processing fee and no payout wait. The",
+    "cost is the buy price: they pay below market because they have to resell at",
+    "market. That spread is usually wider than any marketplace commission, and it is",
+    "the real number to compare. Where a buylist publishes its actual buy prices",
+    "they are recorded, because those ARE the fee.",
+    "",
+    "ONE VENUE'S RATE DEPENDS ON YOUR MONTH RATHER THAN YOUR CARD. Sportlots sets",
+    "commission from your TOTAL MONTHLY SALES, from 75% at the bottom to 15% at the",
+    "top, then discounts the expensive part of each sale before it counts. Nothing",
+    "else here works that way and averaging it into a single number destroys it.",
+    "",
+    "UNVERIFIED MEANS UNVERIFIED. Heritage Auctions is in here with no seller",
+    "commission because none of its own pages that could be reached publish one, and",
+    "its terms page refused the browser twice. That gap is the honest answer and it",
+    "is not filled in from somewhere else.",
+    "",
+    "NO ADVICE AND NO RANKING. This file records what each venue is and what it",
+    "costs. It does not say which one to use, because that depends on the card, on",
+    "how fast the money is wanted, and on whether shipping a package is worth the",
+    "trouble. The page lets a reader choose.",
+    "",
+    "THE IN-PERSON OPTION IS A REAL VENUE, NOT A FOOTNOTE. Selling to a local shop",
+    "or across a table at a card show has no commission, no payment processing fee,",
+    "no shipping, and no payout wait. The trade is the price: a shop buys at a",
+    "percentage of market because it has to resell the card at market. No Rochester",
+    "shop publishes that percentage, so no percentage is recorded here. See",
+    "shops.json and shows.json, which already carry the local ones.",
+    "",
+    "IF `checked` IS MORE THAN A COUPLE OF MONTHS OLD, treat these as the SHAPE of",
+    "each venue's pricing rather than a quote, and click through. Several of these",
+    "pages carry their own last-updated stamp and were updated within days of this",
+    "check.",
+    "",
+    "Percentages are US rates in USD. `sources` on every venue lists the exact urls",
+    "read and the date they were read."
+  ],
+  "checked": "2026-08-15",
+  "venues": [
+    {
+      "id": "ebay",
+      "name": "eBay",
+      "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+      "type": "Marketplace",
+      "format": "Fixed price and auction, plus eBay Live for livestream selling",
+      "bestFor": "Anything with a price history: graded slabs, single high-value cards, sealed product. The per-order fee and the flat percentage make cheap singles hard to move at a profit.",
+      "status": "sourced",
+      "access": "An eBay account. A Store is an optional paid subscription and it lowers the rate.",
+      "fees": [
+        {
+          "what": "Final value fee, Toys & Hobbies > Collectible Card Games, no Store or Starter Store",
+          "rate": "13.25% up to $7,500 per item, then 2.35% on the portion over $7,500",
+          "appliesTo": "Total amount of the sale: item price, handling, buyer-paid shipping, sales tax and any other applicable fees",
+          "note": "Non-Sport Trading Cards, Sports Trading Cards and Comic Books & Memorabilia carry the same 13.25%. Most other categories are 13.6%."
+        },
+        {
+          "what": "Final value fee, same category, Basic / Premium / Anchor / Enterprise Store",
+          "rate": "12.35% up to $2,500 per item, then 2.35% on the portion over $2,500",
+          "appliesTo": "Same total amount of the sale",
+          "note": "A subscription buys 0.9 points off the rate but moves the band edge down from $7,500 to $2,500, so on a big single card the Store is not automatically cheaper."
+        },
+        {
+          "what": "Per order fee",
+          "rate": "$0.30 on orders of $10.00 or less, $0.40 on orders over $10.00",
+          "appliesTo": "Each order, where an order is any number of items bought by the same buyer at checkout with the same shipping method",
+          "note": "Charged on top of the percentage, inside the same final value fee."
+        },
+        {
+          "what": "Payment processing",
+          "rate": "None charged separately",
+          "appliesTo": null,
+          "note": "eBay's own wording: one final value fee, and 'you don't have to worry about third-party payment processing fees'. This is the main structural difference from TCGplayer and Whatnot."
+        },
+        {
+          "what": "Insertion fee",
+          "rate": "First 250 listings free each month, then $0.35 per listing with no Store",
+          "appliesTo": "Per listing and per category, non-refundable if the item does not sell",
+          "note": "Store allocations are larger and cheaper: Starter 250 then $0.30; Basic 250 auction in select categories and 1,000 fixed price all categories, then $0.25; Premium 500 / 10,000 then $0.15 and $0.10; Anchor 1,000 / 25,000 then $0.10 and $0.05. Good 'Til Cancelled listings renew monthly and are charged again each renewal."
+        },
+        {
+          "what": "Store subscription",
+          "rate": "Starter $7.95 a month, or $4.95 a month on yearly renewal. Basic $27.95 / $21.95. Premium $74.95 / $59.95. Anchor $349.95 / $299.95. Enterprise $2,999.95, yearly only.",
+          "appliesTo": "Monthly, until cancelled",
+          "note": "Starter Store pays the same 13.25% as no Store at all. The lower 12.35% starts at Basic."
+        },
+        {
+          "what": "Dispute fee",
+          "rate": "$20.00 per dispute",
+          "appliesTo": "Each dispute where the seller is found responsible for the disputed amount, for example a chargeback",
+          "note": "Waived when the transaction is eligible under payment dispute seller protections."
+        },
+        {
+          "what": "International fee",
+          "rate": "1.65% of the total amount of the sale",
+          "appliesTo": "Sales where the delivery address or the buyer's registered address is outside the US",
+          "note": "Not charged if the item ships through eBay International Shipping."
+        },
+        {
+          "what": "Reserve price",
+          "rate": "$5.00 or 7.5% of the reserve price, whichever is greater, capped at $250",
+          "appliesTo": "Auction listings with a reserve",
+          "note": "Charged whether or not the item sells."
+        },
+        {
+          "what": "Additional final value fee for seller performance",
+          "rate": "+6% of the applicable final value fees, rising to +7% after four or more consecutive months",
+          "appliesTo": "Accounts evaluated Below Standard on the 20th of the month, applied to the following calendar month",
+          "note": "Separately, a 'Very High' rate of item-not-as-described return requests adds +5%, rising to +6% after four consecutive months. Only one of the two is charged if both apply."
+        },
+        {
+          "what": "eBay Live (livestream selling)",
+          "rate": "6% commission on the total amount of the sale, capped at $100 per item, plus 2.9% payment processing plus $0.30 per order",
+          "appliesTo": "Purchases made during an eBay Live event, and all case break purchases whenever made",
+          "note": "eBay states this as 8.9% + $0.30, and the 6% cap is reached at $1,667, above which only the 2.9% continues. No insertion fee on Live listings. A promotion through 31 December 2026 drops the per-order fee to $0.10 on orders of $10 or less. Different structure and much lower rate than the same seller's ordinary eBay listings."
+        }
+      ],
+      "payout": "Sales proceeds show as Processing, then typically become Available 1 to 2 days after the buyer's payment is confirmed. Payouts default to daily and are initiated about 2 days after payment is confirmed; weekly go out Tuesdays, biweekly every second Tuesday, monthly on the first Tuesday. The bank then typically takes another 1 to 3 business days. Express payout to a verified debit card or eligible bank account arrives in about 30 minutes for a flat $2.00. Must be a checking account or a Visa/Mastercard debit card; a savings account or PayPal cannot receive payouts.",
+      "protection": "Seller protections cover abusive buyer behaviour (negative and neutral feedback and defects removed, cases removed from service metrics) and events outside the seller's control such as carrier delays or severe weather when tracking shows on-time shipment. Payment dispute protection, where the transaction is eligible, covers the disputed amount, waives the $20 dispute fee and removes related feedback. The extra Top Rated Seller protections against a false 'not as described' claim, and against an item returned used or damaged, require Top Rated Seller status, US or Canada residence, no 'Very High' service metric, a listing on eBay.com and a 30-day or longer return policy. Protection is lost for false identity, not honouring your own return policy, taking sales off eBay, shipping slower than the service bought, and abuse of the protections themselves.",
+      "sources": [
+        { "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822", "read": "2026-08-15", "what": "Category rates, per-order fee, insertion fees, dispute fee, international fee, reserve fee, performance surcharges" },
+        { "url": "https://www.ebay.com/help/selling/fees-credits-invoices/store-selling-fees?id=4809", "read": "2026-08-15", "what": "Store subscription prices, Store insertion allocations, Store category rates including Collectible Card Games at 12.35%" },
+        { "url": "https://www.ebay.com/help/selling/ebay-live/ebay-live-selling-fees?id=5870", "read": "2026-08-15", "what": "eBay Live commission, cap, processing fee and per-order promotion" },
+        { "url": "https://www.ebay.com/help/selling/getting-paid/getting-paid-items-sold-?id=4814", "read": "2026-08-15", "what": "Payout schedules, timing and the $2.00 express payout fee" },
+        { "url": "https://www.ebay.com/help/policies/selling-policies/seller-protections?id=4345", "read": "2026-08-15", "what": "What seller protections cover and the eligibility conditions" }
+      ],
+      "note": "eBay's own seller centre page (ebay.com/sellercenter) timed out repeatedly; every figure here came from the help centre articles listed above, which are eBay's own fee pages."
+    },
+    {
+      "id": "tcgplayer",
+      "name": "TCGplayer",
+      "url": "https://help.tcgplayer.com/hc/en-us/articles/201357836-TCGplayer-Fees",
+      "type": "Marketplace",
+      "format": "Fixed price singles, with a catalogue keyed to card and condition",
+      "bestFor": "Raw singles at every price point, including the cheap ones, because buyers arrive searching for a named card rather than browsing.",
+      "status": "sourced",
+      "access": "A seller account. New sellers start at Level 1 and the level caps how much you can list, not what you pay.",
+      "fees": [
+        {
+          "what": "Marketplace commission, Marketplace Seller (Level 1-4)",
+          "rate": "10.75%",
+          "appliesTo": "Order subtotal",
+          "note": "Capped at $75 per product sold. This is the rate an ordinary individual seller pays."
+        },
+        {
+          "what": "Transaction fee",
+          "rate": "2.5% + $0.30",
+          "appliesTo": "Order TOTAL: items + shipping + tax",
+          "note": "This is the part the headline rate hides. The commission is taken on the subtotal, the transaction fee on the total including what the buyer paid to ship, so buyer-paid shipping is charged even though it is not revenue. International orders are 3.5% + $0.30."
+        },
+        {
+          "what": "Marketplace commission, Pro (non-Direct) or Sync account",
+          "rate": "9.25%",
+          "appliesTo": "Order subtotal, capped at $75 per product",
+          "note": "Pro accounts additionally pay a Pro fee of 2.5% of subtotal, also capped at $75 per product. Sync accounts (Crystal Commerce, BinderPOS, Ion Sync) pay a Sync fee set entirely by the sync provider instead."
+        },
+        {
+          "what": "Marketplace commission, Direct Seller",
+          "rate": "8.95%",
+          "appliesTo": "Order subtotal, capped at $75 per item",
+          "note": "8.95% is the number people quote for TCGplayer and it is the hardest one to actually pay: it comes with the Direct Fee below and is not the ordinary individual seller's rate."
+        },
+        {
+          "what": "Direct Fee",
+          "rate": "Cards under $2.49: 50% of card value. Cards over $2.49: $1.12 per card plus all standard fees.",
+          "appliesTo": "Direct orders only, per item",
+          "note": "For cards under $2.49 the commission, Pro, Sync and transaction fees are omitted and the 50% is the whole charge."
+        },
+        {
+          "what": "International seller PayPal fee",
+          "rate": "2%, capped at $20.00",
+          "appliesTo": "Non-US sellers paid through PayPal",
+          "note": "Taken as an account adjustment rather than deducted from the order."
+        }
+      ],
+      "payout": "Payments are initiated every Monday and Thursday for sales sitting at 'Completed - Pending Payment', with fees already deducted. A sale reaches that status 24 hours after confirmed delivery, or 24 hours after the expected delivery date if tracking cannot be confirmed or the order shipped without tracking. Direct deposit usually lands about four business days later. Orders shipped outside the US are payable 21 days after the order is marked shipped.",
+      "protection": "TCGplayer's own fee and payment pages state one thing plainly and it cuts against the seller: if an order is under review because of a buyer dispute, the funds are held until the outcome is decided, and if the order was already paid out an equivalent amount is held back from future deposits. No broader seller protection scheme was found on the pages read.",
+      "sellerLevels": [
+        { "level": 1, "limits": "Up to 100 items listed at once, $1,000 total value, $500 maximum on any one item, 100 items entered per day", "toAdvance": "2 orders that have reached their expected delivery date, and 80% or better feedback" },
+        { "level": 2, "limits": "Up to 500 items, $5,000 total, $1,000 maximum per item, 500 entered per day", "toAdvance": "11 orders reaching EDD, and 85% or better feedback" },
+        { "level": 3, "limits": "Up to 50,000 items, $100,000 total, $20,000 maximum per item, no daily entry limit", "toAdvance": "51 orders reaching EDD, and 90% or better feedback" },
+        { "level": 4, "limits": "Unlimited listings, plus custom shipping options and pricing import/export", "toAdvance": null }
+      ],
+      "sources": [
+        { "url": "https://help.tcgplayer.com/hc/en-us/articles/201357836-TCGplayer-Fees", "read": "2026-08-15", "what": "The full fee table by seller type, the $75 per-product cap, the Direct Fee tiers, what each fee is taken on. Its own change log shows edits on 17 June 2026." },
+        { "url": "https://help.tcgplayer.com/hc/en-us/articles/23315007565079-How-to-Understand-Commissions-and-Fees", "read": "2026-08-15", "what": "Same commission rates restated as a table, and the note that card-paid commission is taken on item + shipping + tax" },
+        { "url": "https://help.tcgplayer.com/hc/en-us/articles/201868548-How-do-seller-levels-work", "read": "2026-08-15", "what": "Level 1 to 4 listing limits and the requirements to move up" },
+        { "url": "https://help.tcgplayer.com/hc/en-us/articles/201897958-When-does-TCGplayer-issue-payments", "read": "2026-08-15", "what": "Monday and Thursday payment runs, the 24-hour rule, the 21-day international rule, dispute holds" }
+      ],
+      "note": "TCGplayer's fee page returns 403 to automated fetching. Every figure here was read in a browser on help.tcgplayer.com."
+    },
+    {
+      "id": "whatnot",
+      "name": "Whatnot",
+      "url": "https://help.whatnot.com/hc/en-us/articles/4847069165965-Whatnot-seller-fees",
+      "type": "Live auction marketplace",
+      "format": "Livestream shows with in-stream auctions and Buy It Now, plus a marketplace",
+      "bestFor": "Selling in volume in real time: rips, breaks, lots and singles that benefit from being shown on camera.",
+      "status": "sourced",
+      "access": "A seller application is required. You must be at least 13, and 13 to 17 needs a parent or guardian's permission and a special application. Most applicants get access within minutes; some categories are gated and need a second approval.",
+      "fees": [
+        {
+          "what": "Commission, TCG category (US, Canada, Australia)",
+          "rate": "8% on the final sale price up to $1,500, and 0% on the portion above $1,500",
+          "appliesTo": "The item's final sale price, EXCLUDING shipping and taxes",
+          "note": "Whatnot's own page flags the 0%-above-$1,500 band as limited time. The 8% also covers Comics, Sports Singles and Toys & Hobbies. Coins & Money is 4%."
+        },
+        {
+          "what": "Payment processing fee",
+          "rate": "2.9% + $0.30 per transaction",
+          "appliesTo": "Total order value: the item's final sale price plus any buyer-paid shipping plus buyer-paid taxes",
+          "note": "This is why '8%' is not 8%. Two identical sale prices produce different take-home because the processing fee moves with shipping and tax. Fees are calculated per transaction even when several purchases are later bundled into one shipment, so each per-transaction $0.30 is charged separately."
+        },
+        {
+          "what": "Taxes on fees",
+          "rate": "Varies by location",
+          "appliesTo": "The seller fees themselves",
+          "note": "Applied automatically and reflected in earnings."
+        },
+        {
+          "what": "Listing, storage and management fees",
+          "rate": "None",
+          "appliesTo": null,
+          "note": "Whatnot charges nothing to create, store or manage listings. Giveaways carry no seller fees at all because the buyer pays nothing; the seller still pays shipping."
+        },
+        {
+          "what": "Free or reduced shipping you absorb",
+          "rate": "Deducted from earnings",
+          "appliesTo": "Whatever share of shipping the seller covers",
+          "note": "Covering shipping also slightly lowers the processing fee, because the buyer pays less and the total order value falls."
+        }
+      ],
+      "payout": "For most US sellers earnings become available up to 4 hours after the carrier confirms delivery, then a requested payout reaches the bank in 1 to 2 business days. Sellers eligible for Early Payout get earnings the moment a shipping label is generated instead of waiting for delivery. Shipping methods without standard tracking run on fixed clocks instead: USPS First-Class Mail Letter (plain white envelope) is 10 days after label generation, bring-your-own-label is 7 days after the tracking number is entered.",
+      "protection": "Whatnot covers, and does not charge back to the seller: carrier delays after a timely drop-off, packages lost, undelivered or misdelivered by the carrier, and claims it judges to be abusive or fraudulent buyer behaviour. It handles chargebacks and payment disputes itself rather than passing them to the seller. The seller is charged back for late or unverified shipment (orders must ship within two business days with valid drop-off evidence such as an in-app scanner photo or a carrier acceptance scan; from 2 March 2026 sellers are responsible for refunds on late US domestic shipments without that confirmation), for failing to fulfil a high-value item, and for refunds arising from policy violations. Coverage is not unlimited: repeated issues cause Whatnot to reassess eligibility and recover refunded amounts across orders.",
+      "sources": [
+        { "url": "https://help.whatnot.com/hc/en-us/articles/4847069165965-Whatnot-seller-fees", "read": "2026-08-15", "what": "Commission by category and region, the $1,500 band, processing fee, what each is taken on. Page stamped updated 11 August 2026." },
+        { "url": "https://help.whatnot.com/hc/en-us/articles/360061604191-Understand-the-earnings-payout-timeline", "read": "2026-08-15", "what": "When earnings become available by country, Early Payout, and the fixed clocks for untracked methods. Page stamped 12 August 2026." },
+        { "url": "https://help.whatnot.com/hc/en-us/articles/8442834600333-Apply-to-sell-on-Whatnot", "read": "2026-08-15", "what": "That an application is required, age rules, gated categories. Page stamped 10 August 2026." },
+        { "url": "https://help.whatnot.com/hc/en-us/articles/360061195412-Whatnot-Seller-Protection-How-We-Resolve-Order-Issues-Together", "read": "2026-08-15", "what": "What Whatnot absorbs and what it recovers from the seller. Page stamped 17 June 2026." }
+      ],
+      "note": "help.whatnot.com returns 403 to automated fetching. Every figure here was read in a browser."
+    },
+    {
+      "id": "comc",
+      "name": "COMC",
+      "url": "https://www.comc.com/fees.aspx",
+      "type": "Consignment marketplace",
+      "format": "You mail cards in, COMC images, catalogues, stores and ships them; you set prices and never touch the card again",
+      "bestFor": "Bulk. Hundreds of mid and low value cards you do not want to list, photograph or ship one at a time. Standard and Select cap the list price at $100 a card, so high-value slabs belong on Elite or elsewhere.",
+      "status": "sourced",
+      "access": "An account, and enough store credit on it to cover the processing fees when the batch is processed, or the items go on hold.",
+      "fees": [
+        {
+          "what": "Processing fee, Elite",
+          "rate": "$2.00 per raw card, $2.50 per graded, $5.00 oversized",
+          "appliesTo": "Per item, charged upfront before the card can be listed",
+          "note": "2 week guaranteed turnaround, no minimum fee, high resolution photos, and the only service that allows eBay auction transfer and Take Offers."
+        },
+        {
+          "what": "Processing fee, Select",
+          "rate": "$1.00 per raw card, $1.50 per graded, $4.00 oversized",
+          "appliesTo": "Per item, upfront",
+          "note": "4 week turnaround, $3.00 minimum fee per submission, $100 maximum list price per card."
+        },
+        {
+          "what": "Processing fee, Standard",
+          "rate": "$0.65 per raw card, $1.25 per graded, $3.50 oversized",
+          "appliesTo": "Per item, upfront",
+          "note": "16 week turnaround and a $65.00 MINIMUM FEE, which is the real gate: below roughly 100 raw cards you are paying the minimum whatever you send. $100 maximum list price per card."
+        },
+        {
+          "what": "Holder removal",
+          "rate": "$0.50 per item",
+          "appliesTo": "Toploaders, card savers and one-touches on Standard and Select submissions",
+          "note": "No fee for penny sleeves or team bags at any level, and no toploader fee on Elite."
+        },
+        {
+          "what": "Elite upgrade",
+          "rate": "$2.00 per item",
+          "appliesTo": "Standard and Select cards valued above $100 that COMC upgrades at its discretion",
+          "note": null
+        },
+        {
+          "what": "Transaction fee",
+          "rate": "5% of the item's sale price",
+          "appliesTo": "Fixed-price sales, whether they sell on COMC or through COMC on eBay",
+          "note": "Charged when the card sells, on top of the processing fee already paid."
+        },
+        {
+          "what": "Cash-out fee",
+          "rate": "10% of the store credit converted",
+          "appliesTo": "Turning COMC store credit into money",
+          "note": "The single biggest thing a COMC quote leaves out. Proceeds arrive as store credit; taking them as cash costs 10%, may be higher for international users, and a mailed check carries an additional check fee."
+        },
+        {
+          "what": "Storage fee",
+          "rate": "1 cent per item per month",
+          "appliesTo": "Items with an asking price over $0.75, billed on the first of the month",
+          "note": "First 90 days exempt for the card's original owner. Cards priced at 75 cents or less, and cards not for sale, are stored free."
+        },
+        {
+          "what": "Enhanced security fee",
+          "rate": "1 cent per $1,000 of total list price per day",
+          "appliesTo": "Items with a list price of $50.01 or more",
+          "note": "No grace period at all, unlike storage. Items at $50.00 or less are unaffected."
+        },
+        {
+          "what": "eBay auction transfer",
+          "rate": "Store credit payout 4% with a $0.99 minimum. eBay Live 5% with a $2.00 minimum. Cash payout: 92% of sale price minus $5.00 under $1,000, or 95% over $1,000.",
+          "appliesTo": "Cards moved from COMC inventory into a COMC-run eBay auction",
+          "note": "Direct-to-cash auctions for in-hand cards use the same variable payout scale."
+        }
+      ],
+      "payout": "Sale proceeds land as COMC store credit, immediately usable to buy other cards on COMC. Converting to money costs the 10% cash-out fee, plus a check fee if you want a check rather than PayPal. Processing fees are charged out of store credit when the batch is ready to be added to inventory, so the account has to be funded before the cards arrive.",
+      "protection": "Not established from the pages read. COMC holds and ships the cards itself, so the seller is not exposed to buyer shipping disputes in the way a self-shipping marketplace seller is, but no seller protection policy was located on the fee pages read.",
+      "sources": [
+        { "url": "https://www.comc.com/fees.aspx", "read": "2026-08-15", "what": "Consignment rates by service level, turnarounds, minimum fees, holder removal, eBay auction fees and variable payouts. Resolves to COMC's own support article at comc.zendesk.com, stamped updated 4 days before this check." },
+        { "url": "https://comc.zendesk.com/hc/en-us/articles/360054029273-What-are-the-Consignment-Fees", "read": "2026-08-15", "what": "Same article at its canonical url" },
+        { "url": "https://comc.zendesk.com/hc/en-us/articles/360053737993-What-are-the-commission-fees", "read": "2026-08-15", "what": "The 5% transaction fee and the 10% cash-out fee" },
+        { "url": "https://comc.zendesk.com/hc/en-us/articles/360052957434-What-are-the-Storage-Fees-Enhanced-Security-Fees", "read": "2026-08-15", "what": "Storage fee, its exemptions, and the enhanced security fee" }
+      ],
+      "note": "comc.com returns 403 to automated fetching. Every figure here was read in a browser."
+    },
+    {
+      "id": "mercari",
+      "name": "Mercari",
+      "url": "https://www.mercari.com/us/help_center/article/169/",
+      "type": "Marketplace",
+      "format": "Fixed price listings, general resale rather than card-specific",
+      "bestFor": "Singles, lots and sealed product aimed at a general audience rather than a card catalogue. No card database, so listings are written by hand.",
+      "status": "sourced",
+      "access": "An account. No subscription, no application, free to list.",
+      "fees": [
+        {
+          "what": "Selling fee",
+          "rate": "10%",
+          "appliesTo": "The combined amount of the item price and buyer-paid shipping",
+          "note": "Effective 6 January 2025. The flattest structure of any venue here: one percentage, no per-order fee, no tier."
+        },
+        {
+          "what": "Payment processing fee",
+          "rate": "None charged to the seller",
+          "appliesTo": null,
+          "note": "The old buyer-side processing fee of $0.50 + 2.9% was removed on 6 January 2025 for new and updated listings."
+        },
+        {
+          "what": "Instant Pay",
+          "rate": "$3 flat per cash-out",
+          "appliesTo": "Optional fast withdrawal to an eligible debit card",
+          "note": "Limited to $600 a month and once a day."
+        },
+        {
+          "what": "Direct deposit",
+          "rate": "$0, but $2 non-refundable per FAILED request",
+          "appliesTo": "Standard bank withdrawal",
+          "note": null
+        }
+      ],
+      "payout": "Buyers have 72 hours from delivery to rate the order, after which the funds release to the seller's balance. Standard direct deposit is free; Instant Pay to a debit card costs $3.",
+      "protection": "Mercari states up to $200 of Shipping Protection against loss or damage in transit when the item ships on a Mercari prepaid label. It holds and releases funds itself rather than passing payment between buyer and seller, and runs fraud monitoring on transactions. The seller has 3 days to pack and drop off; shipping independently means tracking must be supplied before payment is released.",
+      "sources": [
+        { "url": "https://www.mercari.com/us/help_center/article/169/", "read": "2026-08-15", "what": "The 10% selling fee, what it applies to, the removal of the processing fee, Instant Pay and direct deposit fees" },
+        { "url": "https://www.mercari.com/us/help_center/topics/account/policies/seller-protection/", "read": "2026-08-15", "what": "The $200 shipping protection cap, the 3-day drop-off window, the 72-hour rating window" }
+      ],
+      "note": "Mercari's dedicated 'When do I get paid?' article (help_center/article/91) returned no readable body, so the payout timing here is what articles 169 and the seller-protection topic page state rather than that article."
+    },
+    {
+      "id": "fanatics-collect",
+      "name": "Fanatics Collect (formerly PWCC)",
+      "url": "https://support.fanaticscollect.com/en_us/selling-on-fanatics-collect-Byq2QAQpel",
+      "type": "Consignment vault, auction house and fixed-price marketplace",
+      "format": "Weekly Auction, monthly Premier Auction, and an always-on Buy Now marketplace, all fed from a vault you ship cards into",
+      "bestFor": "Graded slabs and authenticated sealed product. Raw cards have to go through one of its grading partners first.",
+      "status": "sourced",
+      "access": "An account and a vault. Items must be graded or authenticated by an accepted company (PSA, SGC, BGS, BVG, BCCG, CGC Cards, CSG, MBA and others by category) or sent raw through its authentication partners. Buying in the Premier Auction needs an application; selling does not.",
+      "fees": [
+        {
+          "what": "Weekly and Premier Auction seller fee",
+          "rate": "None on graded collectibles. The seller receives 100% of the hammer price plus a bonus commission.",
+          "appliesTo": "Auction sales",
+          "note": "A minimum $3 commission is taken from each Weekly Auction sale, which is the floor that makes the '0%' honest on cheap lots."
+        },
+        {
+          "what": "Auction bonus commission, by hammer price",
+          "rate": "$5-$49: 0%. $50-$99: 2%. $100-$999: 4%. $1,000-$4,999: 6%. $5,000-$9,999: 8%. $10,000-$249,999: 10%. $250,000-$999,999: 12.5%. $1,000,000+: 15%.",
+          "appliesTo": "Paid on top of 100% of hammer, so total commission runs 100% to 115% of hammer",
+          "note": "Read off Fanatics Collect's own Commission Overview chart published on its How It Works page."
+        },
+        {
+          "what": "Buyer's premium",
+          "rate": "20% added to the hammer price",
+          "appliesTo": "Both Weekly and Premier Auctions",
+          "note": "Paid by the buyer, not the seller, but it is what the bidder is really spending and therefore what suppresses the hammer. There is no buyer's premium in Buy Now."
+        },
+        {
+          "what": "Buy Now seller fee",
+          "rate": "6% if the listing is priced under 120% of Card Ladder market value, 12% if priced at or above it",
+          "appliesTo": "The final sale price, not the original list price",
+          "note": "No minimum fee. If a listing is priced above the threshold but an offer is accepted that lands below it, the 6% applies."
+        },
+        {
+          "what": "FanCash payout option",
+          "rate": "0% marketplace seller fee",
+          "appliesTo": "Eligible US sellers who choose to be paid in FanCash instead of cash, on both Buy Now and Auction sales",
+          "note": "Must be selected at listing; accounts default to cash with the standard fee. Vault fees tied to the sale are still charged. No cap on FanCash earned."
+        },
+        {
+          "what": "Vault fee",
+          "rate": "$3.00, one time",
+          "appliesTo": "Collectibles valued under $50 curated into the vault and neither submitted to auction nor sold within 30 days",
+          "note": "Also charged if an unsold collectible is sitting in the vault, not listed in an auction, on the 1st of a month."
+        },
+        {
+          "what": "Special item fees",
+          "rate": "Not published as numbers",
+          "appliesTo": "Wax and memorabilia",
+          "note": "Fanatics Collect says only that 'there are small additional fees for special items like wax and memorabilia'. No figure is published, so none is recorded."
+        }
+      ],
+      "payout": "Buy Now purchases are paid by the buyer immediately at checkout. Proceeds land as an account balance, which you either spend on Fanatics Collect or withdraw. Withdrawals are requested on the web dashboard only, and payouts are issued every Wednesday against a midnight-ET Tuesday deadline; miss it and you wait a week. ACH is free and US only; wire costs $50 and is the only international option; a rush payout for next-business-day processing also costs $50. There is no check payment.",
+      "protection": "Not established from the pages read. Fanatics Collect holds the cards in its own vault and handles photographing, listing, payment and ownership transfer, so the seller does not ship to the buyer.",
+      "conditions": [
+        "Weekly Auction listings open at $5. Premier Auction listings open at $1,000, and all lots are unreserved.",
+        "An unsold auction lot returns to your vault and is eligible for one more auction. If it fails again it goes back to the vault and cannot be relisted for 90 days.",
+        "Weekly Flash listings from the vault must be submitted by 11.59pm PT Wednesday to close that Sunday."
+      ],
+      "sources": [
+        { "url": "https://support.fanaticscollect.com/en_us/selling-on-fanatics-collect-Byq2QAQpel", "read": "2026-08-15", "what": "The three selling routes, what is accepted, no auction seller fee, the 6% Buy Now fee, the $3 vault fee, opening bids, unsold-lot rules" },
+        { "url": "https://help.fanaticscollect.com/hc/en-us/articles/19903029576349-Buy-Now-Seller-Fees", "read": "2026-08-15", "what": "The 6% and 12% Buy Now tiers, no minimum fee, and the rule for accepted offers. Redirects to support.fanaticscollect.com/en_us/buy-now-fees-ry33QCXaxe" },
+        { "url": "https://help.fanaticscollect.com/hc/en-us/articles/18433146043933-How-It-Works", "read": "2026-08-15", "what": "The 20% buyer's premium on both auctions, FanCash No Fees, and the link to the Commission Overview chart. Redirects to support.fanaticscollect.com." },
+        { "url": "https://cdn.kustomerhostedcontent.com/media/68b87fca6908c096308f416a/6605d230d42c476169ccabaddfe9fe0e.png", "read": "2026-08-15", "what": "The Commission Overview chart itself, embedded on the How It Works page: the eight hammer bands, the bonus percentages, and the minimum $3 Weekly Auction commission" },
+        { "url": "https://www.fanaticscollect.com/newsroom/pwcc-is-now-fanatics-collect", "read": "2026-08-15", "what": "Confirms Fanatics retired the PWCC brand on 15 July 2024 and that all PWCC services, including the vault, auctions and marketplace, are now Fanatics Collect" },
+        { "url": "https://support.fanaticscollect.com/en_us/request-a-payout-rkTQCmpxx", "read": "2026-08-15", "what": "Wednesday payout schedule, Tuesday midnight ET deadline, free ACH, $50 wire, $50 rush, no cheques" }
+      ],
+      "note": "TWO OF ITS OWN PAGES DISAGREE ON THE PREMIER AUCTION MINIMUM. 'Selling on Fanatics Collect' says collectibles sold through the Premier Auction must have an estimated market value of at least $15,000, with lower values needing staff approval. 'How Fanatics Collect works' says the Premier Auction is reserved for collectibles with a market value of at least $10,000. Both were read on the same day. Neither number is treated as settled here. PWCC is not a separate venue any more: pwccmarketplace.com is Fanatics Collect."
+    },
+    {
+      "id": "troll-and-toad",
+      "name": "Troll and Toad",
+      "url": "https://buylist.trollandtoad.com/",
+      "type": "Buylist",
+      "format": "You look up your cards on their buylist, submit the list, ship the cards, and they buy them outright at a published price",
+      "bestFor": "Bulk and mid-range singles. There is no commission and no waiting for a buyer, because there is no buyer: the shop is buying.",
+      "status": "partial",
+      "access": "An account. The buylist cart cannot be checked out without signing in.",
+      "fees": [
+        {
+          "what": "Commission",
+          "rate": "None",
+          "appliesTo": null,
+          "note": "A buylist has no commission. The price they publish IS the price, and it is well below market because they are reselling. That gap is the cost."
+        },
+        {
+          "what": "Store credit bonus",
+          "rate": "+10% over the cash price",
+          "appliesTo": "Choosing trade credit instead of money",
+          "note": "Published as 'BUYLIST WITH 10% TRADE-IN BONUS' and confirmed in their own cart arithmetic: a card at $0.75 cash shows $0.83 in credit."
+        },
+        {
+          "what": "Published Pokemon buy prices, Near Mint",
+          "rate": "Commons / uncommons / trainers $0.02 each, or 1,000 for $27. Common/uncommon reverse holo $0.05. Holo and reverse rare $0.06. V ultra rare $0.75. VSTAR $1.00. VMAX $1.50. Hyper rare VMAX $5.00. Full-sized 10-card booster pack $4.65.",
+          "appliesTo": "Their Pokemon Bulk buylist category as published",
+          "note": "Card condition is judged against TCGplayer's conditioning standards, which their own menu links to. These are live prices and they move; treat them as the shape."
+        }
+      ],
+      "payout": "UNVERIFIED. Payment method and timing are not currently published anywhere reachable.",
+      "protection": "Not applicable in the marketplace sense; this is an outright sale, not a listing.",
+      "sources": [
+        { "url": "https://buylist.trollandtoad.com/", "read": "2026-08-15", "what": "The 10% trade-in bonus headline, the cash/credit toggle confirmed by cart arithmetic, the login gate, and the published Pokemon bulk prices" }
+      ],
+      "note": "PARTIAL, and for a specific and temporary reason: the main storefront is offline for a warehouse move. Every policy page that carries the terms (the buylist FAQ, the how-to-sell guide, the submission instructions) serves a 'we will be back soon' splash, so the minimum order value, who pays shipping, the payment method and the payment timing could not be read. The buylist itself is running. A '25% credit bonus' figure circulates on other sites; it does not appear on any Troll and Toad page and is not recorded here."
+    },
+    {
+      "id": "dave-and-adams",
+      "name": "Dave and Adam's Card World",
+      "url": "https://www.dacardworld.com/buying/buy-list/",
+      "type": "Buylist, plus quoted purchase of collections",
+      "format": "A self-serve online buy list for SEALED product, plus email, phone and in-person quoting for singles and whole collections",
+      "bestFor": "Sealed product above all, since that is what the self-serve buy list covers. Collections and singles go through a person instead.",
+      "status": "sourced",
+      "access": "You must be at least 18. An account earns Premier Program points but the buy list itself is a submission, not a listing.",
+      "fees": [
+        {
+          "what": "Fees of any kind",
+          "rate": "None",
+          "appliesTo": null,
+          "note": "Their own wording: 'There are no fees. If an item is not accepted and is returned, there is no cost for return shipping.' As with any buylist, the cost is the buy price, not a fee line."
+        },
+        {
+          "what": "Store credit bonus",
+          "rate": "+10% on the total",
+          "appliesTo": "Choosing store credit instead of check, Venmo or PayPal",
+          "note": null
+        },
+        {
+          "what": "Collection pickup",
+          "rate": "95% of their buy prices",
+          "appliesTo": "Collections they travel to collect",
+          "note": "Their own wording: 'We pay 95% of our buy prices if we come and pick it up to cover our expenses.' The 5% is the cost of not shipping it yourself."
+        },
+        {
+          "what": "Shipping to them",
+          "rate": "Paid by the seller",
+          "appliesTo": "All inbound shipments",
+          "note": "Return shipping on anything they decline is free. Packages must arrive within 7 business days of the submission being accepted, and nothing over 50 pounds."
+        },
+        {
+          "what": "$25 gift code promotion",
+          "rate": "$25",
+          "appliesTo": "Shipments over $500 in value sent via UPS",
+          "note": "Limit one gift code per day per customer."
+        }
+      ],
+      "payout": "Typically within 24 hours of the shipment being received, and they ask you to allow up to 36 hours for processing after delivery. Payment by check, Venmo, PayPal or store credit. Their New York City location cannot pay cash on the spot.",
+      "protection": "Not applicable; this is an outright sale.",
+      "sources": [
+        { "url": "https://www.dacardworld.com/buying/buy-list/", "read": "2026-08-15", "what": "That the buy list is sealed product only, the payment methods and 10% credit bonus, the 24 to 36 hour payment window, who pays shipping, the 7-day and 50-pound rules, the 18+ requirement, the $25 UPS promotion, and live Pokemon sealed listings" },
+        { "url": "https://www.dacardworld.com/buying", "read": "2026-08-15", "what": "The 95% collection pickup rate and the NYC cash limitation" },
+        { "url": "https://www.dacardworld.com/buying/sell-your-new-and-vintage-magic-cards-for-cash", "read": "2026-08-15", "what": "That Pokemon singles are bought, listed as 'Pokemon Cards (Holographics)'" }
+      ],
+      "note": "The Pokemon side of the self-serve buy list is sealed product. Singles go through a quote. No consignment or auction programme is published on their own site, so none is recorded here."
+    },
+    {
+      "id": "card-cavern",
+      "name": "Card Cavern",
+      "url": "https://www.cardcaverntradingcards.com/pages/selling-policies",
+      "type": "Buylist",
+      "format": "Pokemon-specific buylist for singles, bulk and PTCGL codes: look up your cards, submit, ship within 48 hours, get paid",
+      "bestFor": "English Near Mint Pokemon singles and codes. A Pokemon specialist rather than a general card dealer.",
+      "status": "partial",
+      "access": "An account, and you must be at least 18 or have a parent or guardian's permission.",
+      "fees": [
+        {
+          "what": "Commission",
+          "rate": "None",
+          "appliesTo": null,
+          "note": "Buylist, so the published buy price is the whole deal."
+        },
+        {
+          "what": "Store credit bonus",
+          "rate": "+15%, calculated in the buylist cart",
+          "appliesTo": "Store credit rather than cash",
+          "note": "As of this check they were offering STORE CREDIT ONLY, with cash rates shown for reference. Store credit cannot be cashed out later and only ships within the US."
+        },
+        {
+          "what": "Sorting fee",
+          "rate": "10% of the submission",
+          "appliesTo": "Submissions not sorted by type as their policy requires",
+          "note": "The one real deduction on this venue, and it is entirely avoidable."
+        },
+        {
+          "what": "Return shipping on cards they did not ask for",
+          "rate": "Paid by the seller",
+          "appliesTo": "Anything sent that is not on the buylist",
+          "note": "Their own wording: 'If it's not on the buylist, do NOT send it to us.'"
+        },
+        {
+          "what": "PTCGL code buylist",
+          "rate": "Store credit only. Unlisted and bulk codes $0.005 each; Celebrations $0.03; Dragon Vault $1.00.",
+          "appliesTo": "Online code cards",
+          "note": "No daily buying limit any more."
+        }
+      ],
+      "payout": "Submissions are reviewed within 1 to 2 business days. Processing runs Monday to Friday excluding federal holidays. If they adjust the offer and you do not reply within 3 business days they treat it as accepted. Payments are in USD. The payout METHOD and the number of days to payment are not published.",
+      "protection": "Not applicable; outright sale. They recommend buying tracking and insurance on what you send, and will not accept C.O.D.",
+      "conditions": [
+        "Near Mint English cards only. Anything received below Near Mint is not accepted.",
+        "Submissions must be postmarked within 48 hours of the buylist being submitted.",
+        "No binders, no pages, no rubber bands."
+      ],
+      "sources": [
+        { "url": "https://www.cardcaverntradingcards.com/pages/selling-policies", "read": "2026-08-15", "what": "The 10% sorting fee, the 48-hour postmark rule, the store-credit no-cash-out rule, the 18+ rule, return shipping at seller expense, the 3-business-day offer default, processing days, no C.O.D." },
+        { "url": "https://www.cardcaverntradingcards.com/collections/pokemon-singles-buylist", "read": "2026-08-15", "what": "Near Mint English condition bar, the account requirement, the 1 to 2 business day review" },
+        { "url": "https://www.cardcaverntradingcards.com/collections/brilliant-stars-pokemon-singles-buylist", "read": "2026-08-15", "what": "That displayed prices are cash rates and that only store credit at +15% is being offered at present" },
+        { "url": "https://www.cardcaverntradingcards.com/pages/buylist", "read": "2026-08-15", "what": "PTCGL code rates and that codes pay out in store credit" }
+      ],
+      "note": "THE DOMAIN IS cardcaverntradingcards.com. cardcaverntcg.com does not resolve at all, so a link to it is a dead link. PARTIAL because they publish no minimum order value, do not say who pays inbound shipping, do not name the cash payout method, and do not give a payment day count. Per-card singles and bulk rates were not readable on this check because buy requests were paused: their own page said 'Buy requests are not being accepted currently, check back next week.'"
+    },
+    {
+      "id": "sportlots",
+      "name": "Sportlots",
+      "url": "https://www.sportlots.com/g/ui/sellers_guide_page2.tpl",
+      "type": "Marketplace and auction site",
+      "format": "A fixed-price seller store, or a '1, 2, 3, SOLD' auction that ends once a lot goes three days without a higher bid",
+      "bestFor": "Cheap singles in volume. The commission structure is upside down compared with everywhere else and that is the whole point of it.",
+      "status": "sourced",
+      "access": "An account with a payment method set up. No subscription fee anywhere in their seller guide.",
+      "fees": [
+        {
+          "what": "Fixed-price commission, by TOTAL MONTHLY SALES",
+          "rate": "$0.00-$4.99: 75%. $5.00-$24.99: 50%. $25.00-$49.99: 35%. $50.00-$99.99: 27%. $100.00-$199.99: 23%. $200.00-$299.99: 20%. $300.00-$499.99: 18%. $500.00-$999.99: 17%. $1,000.00-$1,499.99: 16%. $1,500 and above: 15%.",
+          "appliesTo": "The seller's total sales for the month, not the individual sale",
+          "note": "THE RATE IS SET BY YOUR MONTH, NOT BY THE CARD. Sell $4 in a month and they take 75% of it. Sell $1,500 and they take 15%. Nothing else in this file works this way."
+        },
+        {
+          "what": "How expensive cards are counted into that table",
+          "rate": "Only 50% of the portion of a sale price between $5 and $15 counts, and only 25% of the portion above $15",
+          "appliesTo": "The figure fed into the monthly fee schedule",
+          "note": "Their own worked example: a $50 card contributes only $18.75 to the fee schedule, leaving $31.25 of that sale with no fee applied at all. So the headline percentages overstate the take on anything expensive."
+        },
+        {
+          "what": "Listing fee, fixed price",
+          "rate": "None",
+          "appliesTo": null,
+          "note": "Their own wording: 'If no cards sell, there will be no charges.'"
+        },
+        {
+          "what": "Auction listing fee",
+          "rate": "$0.15 per auction listing",
+          "appliesTo": "Each auction listing, charged when you list",
+          "note": "Sunk whether or not the lot draws a bid. Optional extras: highlighting $0.10, category-level featured $1.00, site-level featured $2.50, all charged the same way."
+        },
+        {
+          "what": "Payment processing",
+          "rate": "Paid by the seller",
+          "appliesTo": "PayPal and credit card transaction fees on buyer payments",
+          "note": "The flat portion is spread across every seller involved in a combined transaction. This is the on-top fee that the commission table does not show."
+        },
+        {
+          "what": "Postage",
+          "rate": "Seller keeps 100% of the postage charged",
+          "appliesTo": "Shipping you bill the buyer",
+          "note": "Sellers set their own postage rates, and set them to $999.99 to opt out."
+        },
+        {
+          "what": "Loot rebate",
+          "rate": "0% to 10%, seller's choice",
+          "appliesTo": "An optional rebate the seller offers buyers",
+          "note": "Entirely optional and set by the seller."
+        }
+      ],
+      "payout": "PayPal sellers are paid automatically on the 1st of each month to the registered email address. Credit sellers have earnings added to their Sportlots credit balance, and credit withdrawals are processed by hand and can take up to 7 days. Orders must be filled within 5 days of being paid for.",
+      "protection": "Not established from the pages read.",
+      "sources": [
+        { "url": "https://www.sportlots.com/g/ui/sellers_guide_page2.tpl", "read": "2026-08-15", "what": "The full monthly fee schedule, the $5/$15 discounting rule and its worked example, no listing fees, seller-paid payment processing, the $1.50 buyer minimum value fee, payout method and timing, the 5-day fulfilment rule. Page states it is aligned to the user agreement effective 18 December 2025." },
+        { "url": "https://www.sportlots.com/guide/guidehelp/sauc.htm", "read": "2026-08-15", "what": "The $0.15 auction listing fee, the optional highlighting and featured fees, that fees are charged at listing regardless of bids, and the three-day auction rule" },
+        { "url": "https://www.sportlots.com/g/ui/sellers_guide_page1.tpl", "read": "2026-08-15", "what": "That a payment method must be set up, the credit or PayPal choice, the seller-set loot rebate, and seller-set postage" },
+        { "url": "https://www.sportlots.com/auction/aucbin/dislots_sport.tpl?sportval=Other+Cards", "read": "2026-08-15", "what": "Live Pokemon listings confirming Pokemon is sold there, under the sport-organised 'Other Cards' category" }
+      ],
+      "note": "Sportlots is NOT a buylist, despite often being grouped with them. Nobody buys your cards; you list them to the public. Its inventory system is organised by sport, and Pokemon sits under 'Other Cards'. No minimum payout threshold is published."
+    },
+    {
+      "id": "goldin",
+      "name": "Goldin",
+      "url": "https://goldin.co/faq",
+      "type": "Auction house",
+      "format": "Weekly Auction and Elite Auction. The fixed-price Marketplace closed on 20 May 2024.",
+      "bestFor": "Graded and authenticated cards and sealed product. The Weekly Auction takes items valued at $100 or greater; the Elite Auction targets $7,500 and up.",
+      "status": "partial",
+      "access": "Submit through goldin.co/sell for the Weekly Auction, or through a Consignment Director for Elite. Items must be graded or authenticated by an approved company (PSA, Beckett, SGC, CGC certified) with an exception for ungraded factory-encapsulated cards.",
+      "fees": [
+        {
+          "what": "Seller fee on a lot that sells for $50 hammer or more",
+          "rate": "No listing fee, 'unless otherwise agreed by the seller and Goldin'",
+          "appliesTo": "Weekly Auction lots",
+          "note": "A percentage seller's commission is NOT published anywhere on Goldin's own FAQ. Goldin's visible income on these lots is the 22% buyer's premium. No commission figure is recorded here because none was found on Goldin's own pages, and it may be negotiated per consignment."
+        },
+        {
+          "what": "Seller fee on a lot that sells under $50, or draws no bid",
+          "rate": "$5.00",
+          "appliesTo": "Per lot",
+          "note": "Weekly lots all start at $10 with no reserve, so a lot that goes cheap still costs you $5. This is a floor that bites downward rather than a percentage."
+        },
+        {
+          "what": "Processing fee",
+          "rate": "$25.00",
+          "appliesTo": "All memorabilia, sealed boxes, unopened wax boxes and sets",
+          "note": "Excludes encapsulated or graded items. Authentication, matting and framing may be charged separately, INCLUDING IF AUTHENTICATION FAILS. These are deducted from sale proceeds."
+        },
+        {
+          "what": "Buyer's premium",
+          "rate": "22% of the final bid, minimum $19",
+          "appliesTo": "Paid by the buyer",
+          "note": "Not a seller cost, but it is the money the bidder spends that does not reach you."
+        },
+        {
+          "what": "Wire payout fee",
+          "rate": "$20 for US individuals, $30 for non-US",
+          "appliesTo": "Payouts taken by wire",
+          "note": null
+        }
+      ],
+      "payout": "Within 10 business days after Goldin has received both full cleared payment from the buyer AND valid payment instructions from you plus your SSN, ITIN, EIN or self-exempt form. Missing tax information holds the payout.",
+      "protection": "All sales are final. If a lot draws no bids Goldin may at its discretion relist it in a later auction or return it AT YOUR COST. If an item fails authentication it may be returned at your sole expense, and any authentication, shipping or insurance charges must be paid before it is sent back. Once an item is under contract and up for auction it will not be withdrawn.",
+      "sources": [
+        { "url": "https://goldin.co/faq", "read": "2026-08-15", "what": "Auction formats and value thresholds, approved graders, the $5 small-lot fee, the $25 processing fee, the 22% buyer's premium, the 10-business-day payout rule, wire fees, no-reserve $10 opening bids" }
+      ],
+      "note": "PARTIAL because Goldin publishes no percentage seller's commission on its own FAQ. It is recorded as absent rather than guessed."
+    },
+    {
+      "id": "heritage",
+      "name": "Heritage Auctions",
+      "url": "https://sports.ha.com/consign-your-collectibles.s",
+      "type": "Auction house",
+      "format": "Consignment to catalogued live and online auctions, arranged through a consignment director",
+      "bestFor": "High-value single items and whole collections, by inquiry rather than self-service. Trading Card Games is one of its listed categories.",
+      "status": "unverified",
+      "access": "Not self-service. You submit a form describing the items with photographs, or call the consignor hotline, and a specialist responds. Heritage advertises cash advances against consignments.",
+      "fees": [],
+      "payout": "Heritage's consignment pages promise 'prompt payments on the settlement date as promised' but publish no settlement interval on the pages that could be read.",
+      "protection": "Not established.",
+      "sources": [
+        { "url": "https://sports.ha.com/consign-your-collectibles.s", "read": "2026-08-15", "what": "That consignment is by form or hotline, that cash advances are offered, and the item categories accepted. No fee figures on the page." },
+        { "url": "https://www.ha.com/information/how-does-auction-consignment-work.s", "read": "2026-08-15", "what": "The consignment process described in full. No fee figures." },
+        { "url": "https://www.ha.com/why-consign-with-heritage-auctions.s", "read": "2026-08-15", "what": "Consignor-facing marketing. No fee figures." },
+        { "url": "https://sports.ha.com/c/ref/faq.zx", "read": "2026-08-15", "what": "FAQ index only; the fee answers are behind links that did not resolve to content." }
+      ],
+      "note": "UNVERIFIED ON FEES, deliberately. Heritage publishes no seller's commission or buyer's premium on any of the consignment pages that could be reached, and ha.com/c/ref/terms-and-conditions.zx, where the auction terms live, refused the browser on two attempts. Secondary sources state figures for Heritage. None of them are in this file. If a number is wanted, it has to come from a consignment director or from the terms page directly."
+    },
+    {
+      "id": "local-shop",
+      "name": "Local card shop",
+      "url": "/shops.html",
+      "type": "In person, outright sale",
+      "format": "Walk in with the cards, walk out with money or store credit the same day",
+      "bestFor": "Anything, and the only realistic option for bulk that is not worth listing. Also the fastest route for a collection you want gone rather than optimised.",
+      "status": "structural",
+      "access": "None. No account, no application, no subscription, no listing, no photographs.",
+      "fees": [
+        {
+          "what": "Commission, payment processing, listing, shipping, payout fee",
+          "rate": "$0",
+          "appliesTo": null,
+          "note": "There is no third party in the transaction, so there is nothing to take a percentage."
+        },
+        {
+          "what": "The actual cost: the buy price",
+          "rate": "Not published by any shop",
+          "appliesTo": "Every card",
+          "note": "A SHOP BUYS BELOW MARKET BECAUSE IT HAS TO RESELL AT MARKET. The gap between what it pays you and what it lists the card for is its entire margin, and it also covers the cards that sit unsold. That gap is the fee, it is usually larger than any marketplace commission, and it is the honest trade for cash today with no shipping and no waiting. No Rochester-area shop publishes a buy percentage, so no percentage is recorded here. Ask, and ask more than one."
+        },
+        {
+          "what": "Store credit",
+          "rate": "Commonly offered above the cash price",
+          "appliesTo": "Sellers willing to take credit rather than money",
+          "note": "The uplift is set per shop and is not published, so no figure is recorded. Credit is only worth more than cash if you were going to spend it there anyway."
+        }
+      ],
+      "payout": "Immediately, in the shop.",
+      "protection": "Not applicable in the usual sense: the sale completes in person, so there is no shipping, no buyer dispute window, no chargeback and no payout hold.",
+      "sources": [
+        { "url": "data/shops.json", "read": "2026-08-15", "what": "Six Rochester-area shops, each verified from the business's own site: Just Games, Millennium Games, LingSter Games, Legacy Games, Great Lakes Gaming, WeTheHobby. Rendered on /shops.html." }
+      ],
+      "note": "This site already publishes the local list, which is why this venue belongs here rather than as an afterthought. No shop's buy rate is stated because none of them publish one, and inventing a 'shops pay 50-60%' figure would break the rule this whole file runs on."
+    },
+    {
+      "id": "card-show",
+      "name": "Card show",
+      "url": "/card-shows.html",
+      "type": "In person, outright sale or your own table",
+      "format": "Two different things under one name: sell across the table to the dealers who set up, or rent a table and sell to the public yourself",
+      "bestFor": "Selling to dealers works for volume and for anything you want turned into cash in an afternoon. Renting a table suits a large enough inventory to justify a day of standing behind it.",
+      "status": "structural",
+      "access": "Selling to dealers needs nothing but admission. Renting a table means booking with the organiser in advance.",
+      "fees": [
+        {
+          "what": "Commission on a sale to a dealer",
+          "rate": "$0",
+          "appliesTo": null,
+          "note": "Same structure as a shop: no commission, and the dealer's buy price below market is the real cost. Several dealers in one room means several offers on the same card in one afternoon, which is the thing a show has that a shop does not."
+        },
+        {
+          "what": "Admission",
+          "rate": "Varies by show, and some do not state it",
+          "appliesTo": "Getting in the door",
+          "note": "shows.json records admission per event where the listing states it, and shows 'Check the listing' where it does not, rather than guessing."
+        },
+        {
+          "what": "Table rental",
+          "rate": "Not recorded",
+          "appliesTo": "Setting up as a vendor",
+          "note": "Table prices are set per show by the organiser and are not published on most listings. No figure is recorded. The organiser url on each event in shows.json is where to ask."
+        }
+      ],
+      "payout": "Immediately, at the show.",
+      "protection": "Not applicable. The sale completes in person.",
+      "sources": [
+        { "url": "data/shows.json", "read": "2026-08-12", "what": "23 upcoming shows across the Rochester, Buffalo and Syracuse regions, each with the listing url it was read from. Rendered on /card-shows.html." }
+      ],
+      "note": "The site's shows file already carries the organiser link for every event, which is the only reliable route to a current table price."
+    }
+  ]
+}

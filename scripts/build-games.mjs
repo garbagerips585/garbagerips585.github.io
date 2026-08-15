@@ -205,6 +205,13 @@ const GAMES_JS = `<script src="/assets/games.js" defer></script>`;
 // whose entire premise is one thumb in a line cannot open below the fold, so
 // the game goes first and the prose goes after it, where prose belongs on a
 // page nobody came to read.
+// THE H1 IS MARKUP AND og:title IS NOT. Every game h1 carries a `<span
+// class="hl">` around the highlighted word, and escaping it into the meta tag
+// published the tag itself: sharing /games/guess-the-set.html put
+// `Guess the <span class="hl">set</span>` in the link preview on all four game
+// pages. Strip the tags first, then escape the text that is left.
+const plain = (html) => String(html).replace(/<[^>]+>/g, "");
+
 function shell({ slug, title, desc, h1, kicker, lede, body, ld = [], extraJs = "", compact = false }) {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -214,7 +221,7 @@ function shell({ slug, title, desc, h1, kicker, lede, body, ld = [], extraJs = "
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/games/${slug}">
-<meta property="og:title" content="${esc(h1)}">
+<meta property="og:title" content="${esc(plain(h1))}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="${SITE}/games/${slug}">
@@ -451,7 +458,14 @@ await writeFile(join(OUT, "guess-the-set.html"), setPage);
 const triviaPage = shell({
   slug: "pokemon-trivia.html",
   compact: true,
-  title: "Pokemon Trivia Quiz: 1,400 Questions | Garbage Rips 585",
+  // Counted, not typed. Every OTHER figure on this page already comes from
+  // shuffled.length (the kicker, the lede note); the title alone said 1,400 as
+  // a literal, and it is a literal that only stays true by coincidence.
+  // `shuffled` is trivia.q capped by slice(0, 1400), so the day the generator
+  // yields fewer than 1,400 questions the cap stops binding and the count drops
+  // while the title, which is what search results and the browser tab show,
+  // keeps promising 1,400.
+  title: `Pokemon Trivia Quiz: ${shuffled.length.toLocaleString("en-US")} Questions | Garbage Rips 585`,
   desc: `Pokemon trivia generated from real Pokedex data: types, evolutions, Legendaries and the official Pokemon categories. Free, no sign up.`,
   h1: `Pokemon <span class="hl">trivia</span>`,
   kicker: `Quiz &bull; ${shuffled.length.toLocaleString("en-US")} questions`,

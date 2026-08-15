@@ -16,7 +16,7 @@ import { SITE, DOMAIN, STAGING, LIVE } from "../shared/site.mjs";
 import { basename, join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkDrift } from "../shared/chrome.mjs";
-import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims } from "../shared/format.mjs";
+import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount } from "../shared/format.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -119,14 +119,12 @@ function clock(sec) {
   return `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}`;
 }
 
-// Matches niceViews() in build-pages.mjs. They disagreed above a million: this
-// one divided by 1000 forever, so a video at 1.5M views read "1500K VIEWS" on
-// its home page tile and "1.5M views" on its own page.
-function compact(n) {
-  if (!n) return "0";
-  if (n >= 1e6) return `${(n / 1e6).toFixed(1).replace(/\.0$/, "")}M`;
-  return n >= 1000 ? `${(n / 1000).toFixed(n < 10000 ? 1 : 0).replace(/\.0$/, "")}K` : String(n);
-}
+// COUNT AND NOUN TOGETHER, because they have to agree. This was `compact`,
+// which returned the number alone and left every call site to append " VIEWS",
+// so all four of them printed "1 VIEWS" on the newest upload. Getting the noun
+// out of the call sites is the fix: there is nowhere left to write it wrong.
+// See viewCount in shared/format.mjs.
+const views = (n) => viewCount(n).toUpperCase();
 
 /* ------------------------------------------------------------------ tiles - */
 
@@ -233,8 +231,8 @@ function tile(v, { rank = null, showSet = true, dated = false } = {}) {
     ? `${(setName.get(all[0]) || all[0]).toUpperCase()}${extra}`
     : "GARBAGE RIPS";
   const meta = showSet
-    ? `${label} &bull; ${compact(v.views)} VIEWS`
-    : `${compact(v.views)} VIEWS &bull; ${shortDate(v.published).toUpperCase()}`;
+    ? `${label} &bull; ${views(v.views)}`
+    : `${views(v.views)} &bull; ${shortDate(v.published).toUpperCase()}`;
 
   // The anchor holds only artwork, a rank pip and a duration, so without a
   // label its accessible name was the duration: a screen reader read twenty
@@ -305,9 +303,23 @@ for (const v of videos) {
   for (const s of v.sets || []) setCounts[s] = (setCounts[s] || 0) + 1;
   for (const p of v.products || []) productCounts[p] = (productCounts[p] || 0) + 1;
 }
+// A MISSING ENTRY HERE PRINTS THE RAW TAG ID, and one was missing. The chip
+// below falls back to `|| id`, so the home page carried a filter chip reading
+// "ex-premium 24": a lowercase hyphenated slug sitting in a row of proper names,
+// two chips along from "Chaos Rising". "ex-box" was present but written "ex box",
+// which is neither the slug nor the name.
+//
+// The names match the rail on /videos.html, which is where every one of these
+// chips lands, and the rail is built by labelOf() in app.js. A chip that renames
+// itself the moment it is clicked is its own small bug, so the two tables say
+// the same words. Keep every product id in taxonomy.mjs listed in both.
 const PRODUCT_LABELS = {
-  "single-pack": "Single pack", etb: "ETB", bundle: "Booster bundle", "ex-box": "ex box",
-  tin: "Tin", blister: "Blister", "collection-box": "Collection box", upc: "UPC",
+  "single-pack": "Single Pack", etb: "ETB", bundle: "Booster Bundle",
+  "ex-premium": "ex Premium Collection", "ex-box": "ex Box",
+  "poke-ball-tin": "Poke Ball Tin", tin: "Tin", blister: "Blister",
+  "collection-box": "Collection Box", "booster-box": "Booster Box",
+  "japanese-pack": "Japanese Pack", "korean-pack": "Korean Pack",
+  "chinese-pack": "Chinese Pack", upc: "UPC",
 };
 
 const topSets = Object.entries(setCounts).sort((a, b) => b[1] - a[1]).slice(0, 8);
@@ -417,7 +429,7 @@ const hofHtml = hofPick
         </span>
         <span class="hofx-b">
           <span class="hofx-t">${esc(ripLabel(hofPick, setName, descriptions[hofPick.id]) || hofPick.siteTitle || hofPick.title)}</span>
-          <span class="hofx-m">${[setName.get(faceSet(hofPick)) || "", hofPick.views ? compact(hofPick.views) + " views" : ""]
+          <span class="hofx-m">${[setName.get(faceSet(hofPick)) || "", viewCount(hofPick.views)]
             .filter(Boolean).map(esc).join(" &bull; ")}</span>
           <span class="hofx-cta">Watch the pull <span aria-hidden="true">&rarr;</span></span>
         </span>
@@ -462,7 +474,7 @@ function heroTile(v, opts) {
                 : esc(ago(v.published))
           }</p>
           <h3><a href="/${esc(v.path)}">${esc(ripLabel(v, setName, descriptions[v.id]) || v.siteTitle || v.title)}</a></h3>
-          <p class="hero-meta">${label}${p != null ? ` &bull; ${PULL_RANK[p][1]}` : ""} &bull; ${compact(v.views)} VIEWS</p>
+          <p class="hero-meta">${label}${p != null ? ` &bull; ${PULL_RANK[p][1]}` : ""} &bull; ${views(v.views)}</p>
           <span class="hero-cta">Rip it open &rarr;</span>
         </div>
       </article>`;
@@ -653,9 +665,11 @@ const labelOf = (group, id) => {
   if (hit !== id) return hit;
   return String(id).split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
 };
-const fmtViews = (n) => !n ? "" :
-  n >= 1e6 ? `${(n / 1e6).toFixed(1).replace(/\.0$/, "")}M views` :
-  n >= 1e3 ? `${(n / 1e3).toFixed(1).replace(/\.0$/, "")}K views` : `${n} views`;
+// libCard below is the SERVER copy of app.js makeCard, so this has to emit the
+// same bytes as fmtViews() in public/assets/app.js, singular included. Both now
+// defer to viewCount in shared/format.mjs, which app.js restates by hand
+// because a browser cannot import it.
+const fmtViews = viewCount;
 const fmtDate = (iso) => {
   if (!iso) return "";
   const p = iso.split("-");

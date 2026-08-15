@@ -55,6 +55,64 @@ export const shortDate = (iso) => fmt(iso, MONTHS_SHORT);
 export const longDate = (iso) => fmt(iso, MONTHS_LONG);
 
 /**
+ * A view count, abbreviated: "1", "896", "1.5K", "15K", "1.5M".
+ *
+ * THERE WERE FIVE COPIES OF THIS and no two agreed on everything. `niceViews`
+ * in build-pages.mjs, `compact` in build-proto.mjs, `compactViews` in
+ * build-playlists.mjs, `fmtViews` in build-proto.mjs (serialised into the page
+ * for the client renderer) and `fmtViews` in public/assets/app.js. Two of them
+ * carried a comment saying they matched a third; both comments were written
+ * after a drift was found by hand, and both were wrong again by the time this
+ * was written:
+ *
+ *   n >= 1e6    fixed once already, and it held. All copies said "1.5M".
+ *   n >= 10000  STILL DISAGREED. build-pages and the two fmtViews rounded to
+ *               one decimal forever; build-proto's compact and
+ *               build-playlists' compactViews dropped the decimal above ten
+ *               thousand. A video at 15,500 would read "15.5K views" on its own
+ *               page and "16K VIEWS" on every tile linking to it.
+ *   n === 1     ALL FIVE were wrong, and this one is live rather than latent.
+ *               See viewCount below.
+ *
+ * One decimal below ten thousand and none above it is what two of the five did
+ * and it is the better rule: "15.5K" is false precision at that size, "1.5K"
+ * is not.
+ *
+ * public/assets/app.js cannot import this module, so it keeps its own copy and
+ * a comment pointing here. That copy and this one have to stay in step: the
+ * server renders the first tiles and app.js renders every tile after a filter,
+ * so a difference shows up as two spellings in one grid.
+ */
+export function compactCount(n) {
+  const v = Number(n) || 0;
+  if (v >= 1e6) return `${(v / 1e6).toFixed(1).replace(/\.0$/, "")}M`;
+  if (v >= 1e3) return `${(v / 1e3).toFixed(v < 1e4 ? 1 : 0).replace(/\.0$/, "")}K`;
+  return String(v);
+}
+
+/**
+ * A view count with its noun, agreeing in number: "1 view", "896 views".
+ *
+ * Every copy wrote `n + " views"`, and the channel has a video sitting at
+ * exactly one view, so its own page read "1 views" and its tiles on the home
+ * page, /videos.html and a playlist page read "1 VIEWS". It is the newest
+ * upload that lands on 1, which is the tile at the top of Latest rips, so this
+ * is the most visible cell on the site rather than an obscure one. Only the
+ * bare integers can be 1: "1.5K" and "1.5M" are already plural.
+ *
+ * Returns "" for a missing or zero count rather than "0 views", which is what
+ * three of the five callers already did by guarding at the call site. A tile
+ * reading "0 VIEWS" under a video uploaded ten minutes ago is worse than a
+ * tile that simply shows its date.
+ *
+ * Callers that want capitals uppercase the whole string. That is why the noun
+ * is not a parameter: one caller per casing is exactly how five copies of a
+ * six line function came to exist.
+ */
+export const viewCount = (n) =>
+  Number(n) > 0 ? `${compactCount(n)} view${Number(n) === 1 ? "" : "s"}` : "";
+
+/**
  * The site's "this cell has no value" placeholder.
  *
  * A bare em dash is fine to LOOK at and useless to LISTEN to. VoiceOver and NVDA

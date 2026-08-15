@@ -64,6 +64,10 @@ const STEPS = [
   // Before build-search, which indexes these pages, and before build-pages,
   // which puts them in the sitemap. It also stamps `path` onto
   // public/data/playlists.json, which the browser reads.
+  // Weekly retail restock forecasts. Reads data/drops.json, which a human
+  // updates, plus videos.json for the clock that decides whether the week has
+  // passed.
+  "node scripts/build-drops.mjs",
   "node scripts/build-playlists.mjs",
   "node scripts/build-search.mjs",
   // Both read data/pokedex.json, which is written by sync-pokedex.mjs and is

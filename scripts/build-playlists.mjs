@@ -31,7 +31,7 @@ import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { slugify } from "../shared/paths.mjs";
-import { esc, longDate, shortDate } from "../shared/format.mjs";
+import { esc, longDate, shortDate, viewCount } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/playlists");
@@ -121,10 +121,10 @@ const packMarkup = (setId) => `<span class="pack pack--${esc(setId)} pack--tile"
 const clock = (sec) =>
   sec ? `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}` : "";
 
-const compactViews = (n) =>
-  !n ? "" : n >= 1e6 ? `${(n / 1e6).toFixed(1).replace(/\.0$/, "")}M VIEWS`
-    : n >= 1000 ? `${(n / 1000).toFixed(n < 10000 ? 1 : 0).replace(/\.0$/, "")}K VIEWS`
-    : `${n} VIEWS`;
+// Was a fourth hand-rolled copy of the view formatter, and the one that read
+// "1 VIEWS" on the single-pack-hunt playlist. Capitals are this page's own
+// styling, so they go on here rather than into the shared helper.
+const compactViews = (n) => viewCount(n).toUpperCase();
 
 /**
  * The visible label for a tile, disambiguated within THIS page.

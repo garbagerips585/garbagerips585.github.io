@@ -164,20 +164,26 @@ function rosetteDiagram() {
 
 
 /**
- * Where to look, all eight checks on one card.
+ * Where to look, every check on one card.
  *
  * This is the piece the page was missing: the tests were described in words and
  * nothing showed WHERE on the card each one happens. Numbers match the test
  * numbers below it.
+ *
+ * THE COUNT IN THE aria-label IS PASSED IN, not written down. It read "each of
+ * the eight checks" as a literal on a page that computes d.tests.length for its
+ * own <title>, its <h2> and its meta description, so the one figure a sighted
+ * reader never sees was the one figure that would have gone stale silently the
+ * first time a ninth test was added to data/fakes.json.
  */
-function anatomyDiagram() {
+function anatomyDiagram(nTests) {
   const call = (n, x, y, tx, ty, label) => `
     <line x1="${x}" y1="${y}" x2="${tx}" y2="${ty}" stroke="#22384F" stroke-width="1.5" stroke-dasharray="3 3"/>
     <circle cx="${tx}" cy="${ty}" r="10" fill="#22384F"/>
     <text x="${tx}" y="${ty + 3.5}" text-anchor="middle" class="fk-num">${n}</text>
     <text x="${tx}" y="${ty + 22}" text-anchor="middle" class="fk-cap">${label}</text>`;
   return `<figure class="fk-fig fk-fig-wide">
-  <svg viewBox="0 0 420 300" role="img" aria-label="Diagram of a card showing where each of the eight checks is made">
+  <svg viewBox="0 0 420 300" role="img" aria-label="Diagram of a card showing where each of the ${nTests} checks is made">
     <rect x="120" y="30" width="180" height="250" rx="10" fill="#F5C518" stroke="#22384F" stroke-width="3"/>
     <rect x="132" y="42" width="156" height="120" rx="4" fill="#BFD9E8" stroke="#22384F" stroke-width="2"/>
     <text x="210" y="106" text-anchor="middle" class="fk-cap">artwork</text>
@@ -426,7 +432,7 @@ ${MENU}
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The checks</p>
     <h2>${d.tests.length} tests, <span class="hl">hardest first</span></h2>
-    ${anatomyDiagram()}
+    ${anatomyDiagram(d.tests.length)}
 ${d.tests.map(testCard).join("\n")}
   </div>
 </section>

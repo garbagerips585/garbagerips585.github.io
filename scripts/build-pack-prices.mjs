@@ -60,7 +60,21 @@ try {
 // rips-per-set, so a row can offer the thing this site has and a price tracker
 // does not: the set being opened on camera. Keyed on the guide slug the
 // expansion sync already stamps, never re-derived from the name.
-const ripsFor = new Map(expansions.filter((s) => s.slug).map((s) => [s.slug, s.rips || 0]));
+//
+// COUNTED FROM videos.json, NOT READ OFF expansions.json. The `rips` field in
+// that snapshot is written when the expansion sync last ran and goes stale the
+// moment another rip is tagged, which is nightly. This page was publishing "19
+// rips on the channel" for Pitch Black while the home page, /sets/ and
+// /expansions.html all said 21, and "50" for Chaos Rising against their 52.
+// build-expansions.mjs hit this first and fixed it the same way; this was the
+// last reader of the stale field.
+const { videos: allVideos } = JSON.parse(
+  await readFile(join(ROOT, "public/data/videos.json"), "utf8")
+);
+const ripsFor = new Map(expansions.filter((s) => s.slug).map((s) => [s.slug, 0]));
+for (const v of allVideos) {
+  for (const sid of v.sets || []) if (ripsFor.has(sid)) ripsFor.set(sid, ripsFor.get(sid) + 1);
+}
 
 /**
  * The product kinds this page will divide, in the order the table shows them.
