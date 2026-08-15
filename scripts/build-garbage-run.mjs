@@ -15,11 +15,23 @@
 // ceiling and you tap to swap. Easy to read at a glance, easy to pick up mid
 // conversation, and it still gets hard fast.
 //
-// TWO PLAYERS ON ONE PHONE, which is the part a queue actually needs. Duel mode
-// splits the screen into two lanes, one per thumb, and the last one alive wins.
-// There is no server anywhere in this project and there never will be, so
-// multiplayer had to mean two people and one device. That turns out to be the
-// right answer for a line anyway: nobody is going to install anything.
+// IT IS PORTRAIT, AND THAT IS THE WHOLE POINT. A phone in a queue is held one
+// handed and upright. A landscape canvas asks somebody to rotate the device,
+// which is a decision, and a decision is exactly what this is meant not to
+// require. The canvas is taller than it is wide and the whole page reads on a
+// phone without turning anything.
+//
+// The trade is runway: portrait leaves far less horizontal distance between an
+// obstacle appearing and reaching you, so the world moves slower and the
+// hazards are spaced further apart than the landscape draft. Gravity is also
+// stronger, because a taller lane means a longer fall and a flip has to still
+// feel immediate.
+//
+// THERE WAS A TWO PLAYER MODE AND IT IS GONE. Splitting one phone into two
+// lanes sounds good in a sentence and is not a thing two people can actually
+// play: the device is held by one of them, half the screen is upside down to
+// whoever is not holding it, and both thumbs land in the same place. Removed
+// rather than left in as a feature nobody would use twice.
 //
 // THE MASCOTS ARE THE REAL SPRITES, the same two files the 404 page and the
 // no-hits panel already use, because Tim asked for the actual Trubbish rather
@@ -52,12 +64,15 @@ import { esc } from "../shared/format.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const desc =
-  "A one thumb arcade game for the restock line. Flip Trubbish between floor and ceiling, dodge the junk, and duel a friend on the same phone.";
+  "A one thumb arcade game for the restock line. Flip Trubbish between floor and ceiling, eat the rubbish, dodge the Pokemon, and evolve into Garbodor.";
 
 const style = `
-.gr-wrap{max-width:760px;margin:0 auto}
+.gr-wrap{max-width:520px;margin:0 auto}
 .gr-stage{position:relative;border:3px solid var(--navy);border-radius:14px;overflow:hidden;
   box-shadow:var(--hard-lg);background:#16210F;touch-action:manipulation;user-select:none}
+/* Capped so the canvas cannot grow taller than a phone screen on a desktop,
+   where it would otherwise render as a very tall column. */
+.gr-stage{max-width:420px;margin:0 auto}
 .gr-stage canvas{display:block;width:100%;height:auto;image-rendering:auto}
 .gr-hud{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;justify-content:space-between;
   margin:var(--s4) 0 var(--s3)}
@@ -133,14 +148,10 @@ ${MENU}
           <div class="gr-score" id="grScore">0</div>
           <div class="gr-best" id="grBest">Best 0</div>
         </div>
-        <div class="gr-modes" role="group" aria-label="Game mode">
-          <button class="gr-mode" id="grSolo" type="button" aria-pressed="true">Solo</button>
-          <button class="gr-mode" id="grDuel" type="button" aria-pressed="false">Two players</button>
-        </div>
       </div>
 
       <div class="gr-stage" id="grStage">
-        <canvas id="grCanvas" width="720" height="340" role="img"
+        <canvas id="grCanvas" width="420" height="680" role="img"
           aria-label="Garbage Run. Trubbish runs along a Rochester street and you tap to flip him between the floor and the ceiling."></canvas>
         <div class="gr-over" id="grOver">
           <h2 id="grTitle">Garbage Run</h2>
@@ -151,9 +162,6 @@ ${MENU}
 
       <p class="gr-how"><b>Solo.</b> Tap anywhere, or press <span class="gr-keys">space</span>. Every pack you
         eat is a point. Other Pokemon are out there too and touching one ends the run. Get to 100 and Trubbish evolves into Garbodor for the rest of the game.<br>
-        <b>Two players.</b> The screen splits. Left thumb is the top lane, right thumb is the bottom lane, or
-        <span class="gr-keys">A</span> and <span class="gr-keys">L</span> on a keyboard. Last one still running
-        wins. Hand the phone over and settle it.<br>
         <b>Nothing is saved anywhere but your own phone</b>, and there is no account and no server. Your best
         score lives in this browser and goes away if you clear it.</p>
 
@@ -179,15 +187,13 @@ ${footer()}
   var elTitle = document.getElementById("grTitle");
   var elMsg = document.getElementById("grMsg");
   var elStart = document.getElementById("grStart");
-  var bSolo = document.getElementById("grSolo");
-  var bDuel = document.getElementById("grDuel");
 
   var BEST_KEY = "gr-best";
   var best = 0;
   try { best = parseInt(localStorage.getItem(BEST_KEY) || "0", 10) || 0; } catch (e) {}
   elBest.textContent = "Best " + best;
 
-  var duel = false, running = false, raf = 0;
+  var running = false, raf = 0;
   var EVOLVE_AT = 100;
 
   // Preload the mascots. The ready flag stays false until the file is actually
@@ -233,11 +239,11 @@ ${footer()}
     foeSprites[FOES[fi]] = sprite("/assets/foes/" + FOES[fi] + ".webp");
   }
 
-  // A lane is one player's strip of the world. Solo uses one full height lane,
-  // duel splits the canvas so two thumbs never fight over the same space.
-  function makeLane(top, height, keyName) {
+  // One lane, the full height of a portrait canvas. It stays a "lane" rather
+  // than becoming loose variables because every draw and step already takes one.
+  function makeLane(top, height) {
     return {
-      top: top, h: height, key: keyName,
+      top: top, h: height,
       y: top + height / 2, vy: 0, flip: 1, alive: true, score: 0,
       obs: [], packs: [], nextObs: 60, nextPack: 90, chase: 0,
       evolved: false, evoFlash: 0,
@@ -247,11 +253,9 @@ ${footer()}
   var speed = 0, t = 0;
 
   function reset() {
-    speed = calm ? 2.4 : 3.1;
+    speed = calm ? 1.9 : 2.4;
     t = 0;
-    lanes = duel
-      ? [makeLane(0, H / 2, "a"), makeLane(H / 2, H / 2, "l")]
-      : [makeLane(0, H, "space")];
+    lanes = [makeLane(0, H)];
     draw();
   }
 
@@ -265,7 +269,7 @@ ${footer()}
   function step(L) {
     if (!L.alive) return;
     var floor = L.top + L.h - 26, ceil = L.top + 26;
-    L.vy += 0.62 * L.flip;
+    L.vy += 1.05 * L.flip;
     L.y += L.vy;
     if (L.y > floor) { L.y = floor; L.vy = 0; }
     if (L.y < ceil) { L.y = ceil; L.vy = 0; }
@@ -278,7 +282,7 @@ ${footer()}
         x: W + 20, onFloor: Math.random() < 0.5, w: 42, h: 42,
         foe: FOES[Math.floor(Math.random() * FOES.length)],
       });
-      L.nextObs = Math.max(46, 104 - t / 70) + Math.random() * 40;
+      L.nextObs = Math.max(60, 130 - t / 60) + Math.random() * 46;
     }
     // THE PICKUP is rubbish, which is the entire point of being a Trubbish.
     if (L.nextPack <= 0) {
@@ -286,7 +290,7 @@ ${footer()}
         x: W + 20, y: L.top + 44 + Math.random() * (L.h - 88), got: false,
         emoji: JUNK[Math.floor(Math.random() * JUNK.length)],
       });
-      L.nextPack = 34 + Math.random() * 34;
+      L.nextPack = 40 + Math.random() * 40;
     }
 
     var i;
@@ -295,13 +299,13 @@ ${footer()}
       o.x -= speed;
       if (o.x + o.w < -20) { L.obs.splice(i, 1); continue; }
       var oy = o.onFloor ? L.top + L.h - o.h : L.top;
-      if (o.x < 116 && o.x + o.w > 78 && L.y + 18 > oy && L.y - 18 < oy + o.h) L.alive = false;
+      if (o.x < 96 && o.x + o.w > 52 && L.y + 18 > oy && L.y - 18 < oy + o.h) L.alive = false;
     }
     for (i = L.packs.length - 1; i >= 0; i--) {
       var p = L.packs[i];
       p.x -= speed;
       if (p.x < -20) { L.packs.splice(i, 1); continue; }
-      if (!p.got && Math.abs(p.x - 96) < 24 && Math.abs(p.y - L.y) < 28) {
+      if (!p.got && Math.abs(p.x - 74) < 26 && Math.abs(p.y - L.y) < 30) {
         p.got = true; L.score += 1; L.packs.splice(i, 1);
         // EVOLVE AT A HUNDRED. Trubbish becomes Garbodor for the rest of the
         // run and stays that way: there is no going back, which is the point of
@@ -420,7 +424,7 @@ ${footer()}
 
     if (L.chase > 0) { garbodor(14 + L.chase * 30, L.top + L.h - 34, 46); L.chase += 0.06; }
 
-    trubbish(96, L.y, L.flip > 0, L.evolved);
+    trubbish(74, L.y, L.flip > 0, L.evolved);
 
     // The evolution moment. A gold wash and a word, for about two thirds of a
     // second, then it is gone and you are Garbodor.
@@ -448,18 +452,7 @@ ${footer()}
       ctx.font = "700 11px ui-monospace, monospace";
       ctx.fillText("GARBODOR", W - 12, L.top + 46);
     }
-    if (duel) {
-      ctx.textAlign = "left";
-      ctx.fillStyle = L.alive ? "#EFC94C" : "#D9482B";
-      ctx.font = "700 13px ui-monospace, monospace";
-      ctx.fillText(i === 0 ? "TOP" : "BOTTOM", 12, L.top + 28);
-    }
     ctx.restore();
-
-    if (duel && i === 0) {
-      ctx.fillStyle = "#0B1108";
-      ctx.fillRect(0, H / 2 - 2, W, 4);
-    }
   }
 
   function draw() {
@@ -470,40 +463,29 @@ ${footer()}
   function tick() {
     if (!running) return;
     t += 1;
-    speed += calm ? 0.00035 : 0.0007;
+    speed += calm ? 0.00025 : 0.00045;
     for (var i = 0; i < lanes.length; i++) step(lanes[i]);
     draw();
 
-    var live = lanes.filter(function (L) { return L.alive; });
-    if ((duel && live.length <= 1) || (!duel && !lanes[0].alive)) return end();
-
-    elScore.textContent = duel
-      ? lanes[0].score + " - " + lanes[1].score
-      : String(lanes[0].score);
+    if (!lanes[0].alive) return end();
+    elScore.textContent = String(lanes[0].score);
     raf = requestAnimationFrame(tick);
   }
 
   function end() {
     running = false;
     cancelAnimationFrame(raf);
-    if (duel) {
-      var a = lanes[0], b = lanes[1];
-      var win = a.alive ? "Top thumb wins" : b.alive ? "Bottom thumb wins" : "Both of you, at once";
-      elTitle.textContent = win;
-      elMsg.textContent = "Top " + a.score + ", bottom " + b.score + ". Best of three, then let the line move.";
+    var sc = lanes[0].score;
+    if (sc > best) {
+      best = sc;
+      try { localStorage.setItem(BEST_KEY, String(best)); } catch (e) {}
+      elTitle.textContent = "New best";
     } else {
-      var sc = lanes[0].score;
-      if (sc > best) {
-        best = sc;
-        try { localStorage.setItem(BEST_KEY, String(best)); } catch (e) {}
-        elTitle.textContent = "New best";
-      } else {
-        elTitle.textContent = "A wild Pokemon got you";
-      }
-      elBest.textContent = "Best " + best;
-      elMsg.textContent = sc + " piece" + (sc === 1 ? "" : "s") + " of rubbish eaten." +
-        (lanes[0].evolved ? " You made it to Garbodor." : " " + (EVOLVE_AT - sc) + " more and you would have evolved.");
+      elTitle.textContent = "A wild Pokemon got you";
     }
+    elBest.textContent = "Best " + best;
+    elMsg.textContent = sc + " piece" + (sc === 1 ? "" : "s") + " of rubbish eaten." +
+      (lanes[0].evolved ? " You made it to Garbodor." : " " + (EVOLVE_AT - sc) + " more and you would have evolved.");
     elStart.textContent = "Go again";
     elOver.hidden = false;
   }
@@ -512,48 +494,26 @@ ${footer()}
     reset();
     running = true;
     elOver.hidden = true;
-    elScore.textContent = duel ? "0 - 0" : "0";
+    elScore.textContent = "0";
     cancelAnimationFrame(raf);
     raf = requestAnimationFrame(tick);
   }
 
   // ---- input ----------------------------------------------------------
-  function laneFromPoint(clientY) {
-    if (!duel) return 0;
-    var r = cv.getBoundingClientRect();
-    return clientY - r.top < r.height / 2 ? 0 : 1;
-  }
   cv.addEventListener("pointerdown", function (e) {
     if (!running) return;
     e.preventDefault();
-    flip(laneFromPoint(e.clientY));
+    flip(0);
   });
   document.addEventListener("keydown", function (e) {
     var k = e.key.toLowerCase();
     if (k === " " || k === "spacebar") {
       if (running) { e.preventDefault(); flip(0); }
       else if (!elOver.hidden) { e.preventDefault(); start(); }
-    } else if (duel && running && k === "a") { e.preventDefault(); flip(0); }
-    else if (duel && running && k === "l") { e.preventDefault(); flip(1); }
+    }
   });
 
   elStart.addEventListener("click", start);
-  function setMode(isDuel) {
-    duel = isDuel;
-    bSolo.setAttribute("aria-pressed", String(!isDuel));
-    bDuel.setAttribute("aria-pressed", String(isDuel));
-    running = false;
-    cancelAnimationFrame(raf);
-    elTitle.textContent = isDuel ? "Two players, one phone" : "Garbage Run";
-    elMsg.textContent = isDuel
-      ? "Top half is one thumb, bottom half is the other. Last one still running wins."
-      : "Tap the screen, or press space, to flip. That is the whole game.";
-    elStart.textContent = "Start";
-    elOver.hidden = false;
-    reset();
-  }
-  bSolo.addEventListener("click", function () { setMode(false); });
-  bDuel.addEventListener("click", function () { setMode(true); });
 
   // Nobody wants to come back to a tab that kept playing without them.
   document.addEventListener("visibilitychange", function () {

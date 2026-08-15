@@ -1174,7 +1174,21 @@ function setPage(s) {
           .replace(/\b(trainer|supporter|item|stadium)\b/g, " ")
           .replace(/[^a-z0-9]+/g, " ")
           .trim();
-      const seen = mine.map((h) => key(h.name)).filter(Boolean);
+      // PROMOS FROM THE PRODUCTS THAT OPENED THIS SET. A Black Star Promo out
+      // of a UPC is not a card in the set, and it is absolutely part of what
+      // came out of that rip, so it belongs on the page with its own scan,
+      // number and price and a label that says what it is.
+      const promoHits = [];
+      for (const v of videos) {
+        if (!(v.sets || []).includes(s.id)) continue;
+        for (const h of HITS[v.id] || []) {
+          if (!h.promo) continue;
+          if (promoHits.some((x) => x.card === h.card)) continue;
+          promoHits.push({ ...h, path: v.path, label: v.siteTitle || v.title });
+        }
+      }
+      const seen = mine.map((h) => key(h.name)).filter(Boolean)
+        .concat(promoHits.map((h) => key(h.card)));
       // A CARD PULLED TWICE IS ONE ROW WITH A COUNT, not two identical rows.
       // Doubles are ordinary across hundreds of packs, and listing the same
       // card again tells the reader nothing except that the page repeats
@@ -1199,19 +1213,22 @@ function setPage(s) {
       const proseCards = [];
       const prose = [];
       for (const h of proseAll) {
+        // A promo is not in this set's checklist and must never be resolved
+        // against it. It still has a scan and a price of its own, carried by
+        // the rip log, so it renders as a full card rather than a bare line.
         const c = h.promo ? null : resolveCard(s.id, h.card, h.rarity);
         if (c) proseCards.push({ ...h, resolved: c });
         else prose.push(h);
       }
-      if (!mine.length && !proseAll.length) return null;
+      if (!mine.length && !proseAll.length && !promoHits.length) return null;
       return (cls) => `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
     <h2>What we have <span class="hl">hit</span> from this set</h2>
-    <p class="lede" style="max-width:38em">${mine.length + proseCards.length + prose.length} card${
-      mine.length + proseCards.length + prose.length === 1 ? "" : "s"
+    <p class="lede" style="max-width:38em">${mine.length + promoHits.length + proseCards.length + prose.length} card${
+      mine.length + promoHits.length + proseCards.length + prose.length === 1 ? "" : "s"
     } out of our own packs. Every one of them is in a video you can watch.</p>
-    ${mine.length || proseCards.length ? `<ul class="mine-grid">` : ""}
+    ${mine.length || promoHits.length || proseCards.length ? `<ul class="mine-grid">` : ""}
       ${mine
         .map(
           (h) => `<li class="mine">
@@ -1221,6 +1238,19 @@ function setPage(s) {
         <p class="mine-p">${typeof h.price === "number" ? moneyExact(h.price) : "No market price"}</p>
         ${h.path ? `<a class="mine-w" href="/${esc(h.path)}">Watch the rip &rarr;</a>` : ""}
       </li>`,
+        )
+        .join("\n      ")}
+      ${promoHits
+        .map(
+          (h) => `<li class="mine is-promo">
+        ${h.img ? `<img class="mine-img" src="${esc(h.img)}/low.webp" alt="${esc(h.card)}" loading="lazy" onerror="this.remove()" decoding="async">` : `<div class="mine-img is-none" aria-hidden="true"></div>`}
+        <p class="mine-n">${esc(h.card)}</p>
+        <p class="mine-r">${esc(h.setName || "Black Star Promo")}${h.number ? ` &bull; #${esc(h.number)}` : ""}</p>
+        <p class="mine-p">${typeof h.price === "number" ? moneyExact(h.price) : "No market price"}${
+            typeof h.psa10 === "number" ? ` <span class="mine-psa">${moneyExact(h.psa10)} in a 10</span>` : ""
+          }</p>
+        <a class="mine-w" href="/${esc(h.path)}">Watch the rip &rarr;</a>
+      </li>`
         )
         .join("\n      ")}
       ${proseCards
@@ -1237,7 +1267,7 @@ function setPage(s) {
       </li>`;
         })
         .join("\n      ")}
-    ${mine.length || proseCards.length ? `</ul>` : ""}
+    ${mine.length || promoHits.length || proseCards.length ? `</ul>` : ""}
     ${prose.length ? `<ul class="mine-list">
       ${prose
         .map(

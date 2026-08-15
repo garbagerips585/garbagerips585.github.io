@@ -2713,6 +2713,11 @@ main:has(> .set-cta:last-child){padding-bottom:0}
    They have no card number and no price, so they are a list rather than a grid
    of scans: showing them in the same card shape would imply we have the same
    information about them, and we do not. */
+/* A Black Star Promo out of a UPC. Marked because it is NOT a card in the set
+   it is listed under, and a reader looking at a grid of that set's cards should
+   be able to see that at a glance rather than infer it from the label. */
+.mine.is-promo{border-left:4px solid var(--gold)}
+.mine-psa{display:block;font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);margin-top:2px}
 .mine-list{list-style:none;margin:var(--s4) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--s2)}
 .mine-list li{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2);
   padding:10px var(--s3);border-left:3px solid var(--gold);background:var(--card);border-radius:0 8px 8px 0}

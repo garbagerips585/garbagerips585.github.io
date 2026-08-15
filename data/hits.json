@@ -118,7 +118,8 @@
         "psa10": 176.57,
         "priceSource": "pricecharting.com",
         "priceAsOf": "2026-08-13",
-        "priceUrl": "https://www.pricecharting.com/game/pokemon-promo/mega-charizard-x-ex-23"
+        "priceUrl": "https://www.pricecharting.com/game/pokemon-promo/mega-charizard-x-ex-23",
+        "img": "https://assets.tcgdex.net/en/me/mep/023"
       },
       {
         "card": "Oricorio ex",
@@ -131,7 +132,8 @@
         "psa10": 99.78,
         "priceSource": "pricecharting.com",
         "priceAsOf": "2026-08-13",
-        "priceUrl": "https://www.pricecharting.com/game/pokemon-promo/oricorio-ex-24"
+        "priceUrl": "https://www.pricecharting.com/game/pokemon-promo/oricorio-ex-24",
+        "img": "https://assets.tcgdex.net/en/me/mep/024"
       }
     ],
     "TN7_ZsuRQSI": [
