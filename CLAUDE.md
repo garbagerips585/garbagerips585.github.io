@@ -308,8 +308,14 @@ rehearsed on a throwaway copy of the tree.
 2. Buy garbagerips585.com, set it in Settings > Pages, then verify in
    Google Search Console and submit sitemap.xml. See DEPLOY.md.
 3. ~~About page~~ done: /about.html is written, linked and in the sitemap.
-4. Blog for actual search traffic: set reviews, pull rates, "Pokemon card
-   shops Rochester NY" local angle. Each post embeds a video.
+4. Blog for actual search traffic: set reviews, "Pokemon card shops
+   Rochester NY" local angle. Each post embeds a video.
+   THIS LINE USED TO SAY "pull rates" and it should never have. The site's
+   hard rule is that pull rates are never stated, because The Pokemon Company
+   does not publish them, and /luck.html goes out of its way to say its
+   numbers are observed results instead. A TODO naming a content plan the
+   rest of the file forbids is exactly the kind of note that gets quoted back
+   as permission.
    Add each new page to sitemap.xml.
 5. Consider migrating to Astro if the blog grows (keep it static).
 6. Naming consistency: "GarbageRips585" (one word, on sticker) vs

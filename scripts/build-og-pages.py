@@ -47,7 +47,7 @@ PAGES = {
     "grading": ("DO THE MATHS FIRST", "Is it worth grading?", "What it costs, and whether the card clears the fee"),
     "card-shows": ("585 AND NEARBY", "Card shows", "Rochester, Buffalo and Syracuse, dates and tickets"),
     "shops": ("585", "Shops & where to play", "Local counters, league nights and prereleases"),
-    "luck": ("MEASURED, NOT GUESSED", "Luck & pull rates", "What actually came out of the packs"),
+    "luck": ("MEASURED, NOT GUESSED", "Luck, measured", "What actually came out of the packs, counted"),
     "upcoming": ("WHAT IS NEXT", "Coming next", "The next sets, with live preorder prices"),
     "expansions": ("THE WHOLE LIST", "Every set ever", "Oldest to newest, all in one place"),
     "complete": ("PRICED LAST NIGHT", "Cost to complete a set", "Every set, three tiers, live prices"),
@@ -55,6 +55,9 @@ PAGES = {
     "what-set": ("HOLDING A CARD?", "What set is this?", "Look up the number printed after the slash"),
     "collection": ("THE BINDER", "The collection", "What is in it, and what it is worth"),
     "hall": ("THE GOOD ONES", "Hall of Fame", "The pulls that actually went somewhere"),
+    "will-it-grade": ("BEFORE YOU PAY THE FEE", "Will it grade?", "What each company publishes, and what costs you a 10"),
+    "selling": ("WHERE THE MONEY GOES", "Where to sell", "What every venue takes, and who protects a seller"),
+    "drops": ("NOBODY ANNOUNCES THESE", "Drops this week", "What retailers are expected to have, in store and online"),
 }
 
 
