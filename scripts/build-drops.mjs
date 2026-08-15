@@ -311,11 +311,31 @@ ${footer()}
   // scripts/build-drops.mjs, so a single backslash never reaches the page and
   // the pattern would ship as /^d{4}-d{2}-d{2}$/, which matches no date at all.
   // The guard would then be present, correct looking and permanently asleep.
+  // COMPARE LOCAL MIDNIGHTS, NOT UTC ONES. This read the reader's "today" from
+  // toISOString(), which is the UTC date, while anchoring each published date
+  // at UTC midnight. West of Greenwich those disagree for the last hours of
+  // every evening: at 9pm in Rochester it is already tomorrow in UTC, so every
+  // date on the page aged by a day and the hero said "Yesterday's Rip" over a
+  // video published that morning. Four hours a night, five in winter, in the
+  // owner's own timezone. Both sides are local now.
+  function localDay(iso) {
+    var p = String(iso || "").split("-");
+    return new Date(+p[0], +p[1] - 1, +p[2]).getTime();
+  }
+  function todayLocal() {
+    var n = new Date();
+    return new Date(n.getFullYear(), n.getMonth(), n.getDate()).getTime();
+  }
+  function todayIso() {
+    var n = new Date();
+    var m = n.getMonth() + 1, d = n.getDate();
+    return n.getFullYear() + "-" + (m < 10 ? "0" : "") + m + "-" + (d < 10 ? "0" : "") + d;
+  }
   if (/^\\d{4}-\\d{2}-\\d{2}$/.test(ends || "")) {
-    var today = new Date().toISOString().slice(0, 10);
+    var today = todayIso();
     if (ends < today) {
       var days = Math.round(
-        (Date.parse(today + "T00:00:00Z") - Date.parse(ends + "T00:00:00Z")) / 86400000
+        (localDay(today) - localDay(ends)) / 86400000
       );
       var age = el.querySelector("[data-dr-age]");
       if (age && days > (parseInt(age.textContent, 10) || 0)) {

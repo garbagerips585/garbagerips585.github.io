@@ -1523,6 +1523,10 @@ main:has(> .set-cta:last-child){padding-bottom:0}
 .mine-x{font:700 var(--t-micro)/1 var(--mono);background:var(--navy);color:#F4F1E2;
   border-radius:4px;padding:3px 6px}
 .mine-rk{display:inline-flex;align-items:center;font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
+.mine-btn{display:inline-flex;align-items:center;min-height:36px;padding:0 var(--s3);
+  border:2px solid var(--navy);border-radius:999px;background:var(--card);color:var(--ink);
+  text-decoration:none;font:700 var(--t-micro)/1 var(--body);letter-spacing:.03em;white-space:nowrap}
+.mine-btn:hover{background:var(--mustard)}
 .mine-note{margin-top:var(--s3);font-size:var(--t-micro);color:var(--ink-2);max-width:40em}
 .intl-en{display:block;color:var(--ink-2);font-weight:inherit}
 .intl-en::before{content:"“"}

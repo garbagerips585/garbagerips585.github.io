@@ -559,6 +559,58 @@ for (const cs of CARD_SETS) {
 // Hits typed as prose, grouped by set. The My Hits tab gives a card a number
 // and a price; this gives the ones that only ever got a sentence. Both are
 // real pulls and a set page should show both.
+// RESOLVE A TYPED CARD NAME TO A REAL CARD, so a hit logged as a sentence can
+// still show its scan. card-index.json holds every card in every set with its
+// number, rarity, price and an image base, which is the same source the grid
+// above already uses.
+//
+// Matching is by name WITHIN THE SET the hit already names, which is a much
+// smaller haystack than the whole catalogue and is why this is safe enough to
+// do at all. Where a name appears more than once in a set, usually the same
+// Pokemon at several rarities, the rarity Tim typed breaks the tie. If it
+// cannot, the card stays unresolved and is listed as text rather than shown as
+// the wrong scan.
+const CARD_INDEX = JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8"));
+const NO_SCAN = new Set(
+  (JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8").catch(() => "{}")).tcgdex || [])
+);
+const cardsBySetName = new Map();
+{
+  const [fName, fSet, fNum, fRar, fPrice] = [0, 1, 2, 3, 4];
+  const norm = (x) =>
+    String(x || "").toLowerCase().replace(/\b(trainer|supporter|item|stadium)\b/g, " ")
+      .replace(/[^a-z0-9]+/g, " ").trim();
+  for (const c of CARD_INDEX.cards || []) {
+    const k = `${c[fSet]}::${norm(c[fName])}`;
+    if (!cardsBySetName.has(k)) cardsBySetName.set(k, []);
+    cardsBySetName.get(k).push({
+      name: c[fName], set: c[fSet], number: c[fNum], rarity: c[fRar], price: c[fPrice],
+    });
+  }
+}
+
+function resolveCard(setId, cardName, rarityId) {
+  const norm = (x) =>
+    String(x || "").toLowerCase().replace(/\b(trainer|supporter|item|stadium)\b/g, " ")
+      .replace(/[^a-z0-9]+/g, " ").trim();
+  const hits = cardsBySetName.get(`${setId}::${norm(cardName)}`) || [];
+  if (!hits.length) return null;
+  let pick = hits[0];
+  if (hits.length > 1 && rarityId) {
+    const want = rarityLabelOf(rarityId).toLowerCase();
+    const byRarity = hits.filter((h) => String(h.rarity || "").toLowerCase() === want);
+    if (byRarity.length === 1) pick = byRarity[0];
+    else if (byRarity.length > 1) pick = byRarity[0];
+    else return null; // named a rarity this set does not have under that name
+  }
+  const base = (CARD_INDEX.imgBase || {})[setId];
+  const imgBase = base && pick.number ? `${base}/${pick.number}` : null;
+  return {
+    ...pick,
+    img: imgBase && !NO_SCAN.has(imgBase) ? `${imgBase}/low.webp` : null,
+  };
+}
+
 const PROSE_HITS = new Map();
 {
   const unmatchedAll = [];
@@ -1140,16 +1192,26 @@ function setPage(s) {
         // Keep the most specific rarity seen for it.
         if (!g.rarity && h.rarity) g.rarity = h.rarity;
       }
-      const prose = [...grouped.values()].sort((a, b) => b.count - a.count);
-      if (!mine.length && !prose.length) return null;
+      // Resolve what we can to a real card so it shows its scan in the grid
+      // with everything else. Anything that will not resolve stays a text row
+      // rather than being shown as a guess.
+      const proseAll = [...grouped.values()].sort((a, b) => b.count - a.count);
+      const proseCards = [];
+      const prose = [];
+      for (const h of proseAll) {
+        const c = resolveCard(s.id, h.card, h.rarity);
+        if (c) proseCards.push({ ...h, resolved: c });
+        else prose.push(h);
+      }
+      if (!mine.length && !proseAll.length) return null;
       return (cls) => `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
     <h2>What we have <span class="hl">hit</span> from this set</h2>
-    <p class="lede" style="max-width:38em">${mine.length + prose.length} card${
-      mine.length + prose.length === 1 ? "" : "s"
+    <p class="lede" style="max-width:38em">${mine.length + proseCards.length + prose.length} card${
+      mine.length + proseCards.length + prose.length === 1 ? "" : "s"
     } out of our own packs. Every one of them is in a video you can watch.</p>
-    ${mine.length ? `<ul class="mine-grid">` : ""}
+    ${mine.length || proseCards.length ? `<ul class="mine-grid">` : ""}
       ${mine
         .map(
           (h) => `<li class="mine">
@@ -1157,11 +1219,25 @@ function setPage(s) {
         <p class="mine-n">${esc(h.name)}</p>
         <p class="mine-r">${esc(rarityLabel(h.rarity) || "")}${h.n ? ` &bull; #${esc(h.n)}` : ""}</p>
         <p class="mine-p">${typeof h.price === "number" ? moneyExact(h.price) : "No market price"}</p>
-        ${h.path ? `<a class="mine-w" href="/${esc(h.path)}">${esc(h.label)} &rarr;</a>` : ""}
+        ${h.path ? `<a class="mine-w" href="/${esc(h.path)}">Watch the rip &rarr;</a>` : ""}
       </li>`,
         )
         .join("\n      ")}
-    ${mine.length ? `</ul>` : ""}
+      ${proseCards
+        .map((h) => {
+          const c = h.resolved;
+          return `<li class="mine">
+        ${c.img ? `<img class="mine-img" src="${esc(c.img)}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(c.img)}>` : `<div class="mine-img is-none" aria-hidden="true"></div>`}
+        <p class="mine-n">${esc(c.name)}${h.count > 1 ? ` <span class="mine-x">x${h.count}</span>` : ""}</p>
+        <p class="mine-r">${esc(c.rarity || rarityLabelOf(h.rarity) || "")}${c.number ? ` &bull; #${esc(c.number)}` : ""}</p>
+        <p class="mine-p">${typeof c.price === "number" ? moneyExact(c.price) : "No market price"}</p>
+        ${h.rips
+          .map((r) => `<a class="mine-w" href="/${esc(r.path)}">Watch the rip &rarr;</a>`)
+          .join("\n        ")}
+      </li>`;
+        })
+        .join("\n      ")}
+    ${mine.length || proseCards.length ? `</ul>` : ""}
     ${prose.length ? `<ul class="mine-list">
       ${prose
         .map(
@@ -1171,7 +1247,7 @@ function setPage(s) {
             h.rarity ? ` <span class="mine-rk">${rarityMark(h.rarity)}${esc(rarityLabelOf(h.rarity))}</span>` : ""
           }
         ${h.rips
-          .map((r) => `<a href="/${esc(r.path)}">${esc(r.label)} &rarr;</a>`)
+          .map((r) => `<a class="mine-btn" href="/${esc(r.path)}">Watch the rip &rarr;</a>`)
           .join("\n        ")}</li>`
         )
         .join("\n      ")}

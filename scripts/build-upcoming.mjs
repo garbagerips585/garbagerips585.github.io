@@ -475,9 +475,29 @@ ${footer(`Release dates checked ${longDate(doc.checked)}. Dates come from The Po
   // The later of the build's clock and the reader's, so a reader whose clock is
   // behind the build cannot resurrect something the build already knew was out.
   var built = list.getAttribute("data-today") || "";
-  var today = new Date().toISOString().slice(0, 10);
+  // COMPARE LOCAL MIDNIGHTS, NOT UTC ONES. This read the reader's "today" from
+  // toISOString(), which is the UTC date, while anchoring each published date
+  // at UTC midnight. West of Greenwich those disagree for the last hours of
+  // every evening: at 9pm in Rochester it is already tomorrow in UTC, so every
+  // date on the page aged by a day and the hero said "Yesterday's Rip" over a
+  // video published that morning. Four hours a night, five in winter, in the
+  // owner's own timezone. Both sides are local now.
+  function localDay(iso) {
+    var p = String(iso || "").split("-");
+    return new Date(+p[0], +p[1] - 1, +p[2]).getTime();
+  }
+  function todayLocal() {
+    var n = new Date();
+    return new Date(n.getFullYear(), n.getMonth(), n.getDate()).getTime();
+  }
+  function todayIso() {
+    var n = new Date();
+    var m = n.getMonth() + 1, d = n.getDate();
+    return n.getFullYear() + "-" + (m < 10 ? "0" : "") + m + "-" + (d < 10 ? "0" : "") + d;
+  }
+  var today = todayIso();
   if (built > today) today = built;
-  var t0 = Date.parse(today + "T00:00:00Z");
+  var t0 = localDay(today);
 
   // Kept in step with countdown() in scripts/build-upcoming.mjs.
   function countdown(days) {
@@ -502,7 +522,7 @@ ${footer(`Release dates checked ${longDate(doc.checked)}. Dates come from The Po
       // meant to look fine.
       if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(iso)) return;
       dated++;
-      var days = Math.round((Date.parse(iso + "T00:00:00Z") - t0) / 86400000);
+      var days = Math.round((localDay(iso) - t0) / 86400000);
       var cd = card.querySelector(".up-cd");
       if (cd) cd.textContent = countdown(days);
       if (days > 0) return;

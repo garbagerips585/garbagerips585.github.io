@@ -82,6 +82,7 @@ const USUALLY = {
   tin: "A metal tin with a promo card and a few packs. The tin outlives the cards and is the reason a lot of people buy them.",
   "poke-ball-tin": "A ball-shaped tin, usually with one or two packs and a coin or promo.",
   blister: "A hanging card with one to three packs and a promo, sold on a peg rather than a shelf.",
+  "knock-out": "A Knock Out Collection is built around one big ex card: the promo, a playmat or a set of dice depending on the release, and a few packs. They turn up at Target and Walmart more than anywhere else.",
   "collection-box": "A themed box built around a character or a pair of them, with promo cards, sometimes an oversize card, and a few packs. The contents vary more than any other product here.",
   "japanese-pack": "A Japanese booster pack. Japanese sets are smaller and print differently from the English ones.",
   "korean-pack": "A Korean booster pack. Korea gets its own print run and its own set numbering, so a Korean card is not just an English card in another language.",
@@ -99,6 +100,7 @@ const ASKS = {
   tin: "What is in a Pokemon tin?",
   "poke-ball-tin": "What is in a Poke Ball Tin?",
   blister: "What is in a blister pack?",
+  "knock-out": "What is in a Knock Out Collection?",
   "collection-box": "What is in a collection box?",
   "japanese-pack": "What is in a Japanese booster pack?",
   "korean-pack": "What is in a Korean booster pack?",
@@ -196,8 +198,9 @@ const ripRow = (labels) => (v) => {
     dateInLabel ? "" : v.published ? esc(shortDate(v.published)) : "",
     v.packs ? `${v.packs} pack${v.packs === 1 ? "" : "s"}` : "",
   ].filter(Boolean);
-  return `        <li><a href="/${esc(v.path)}">${esc(label)}</a>
-          <span>${bits.join(" &bull; ")}</span></li>`;
+  return `        <li><a href="/${esc(v.path)}">${esc(label)}</a>${
+    bits.length ? `\n          <span>${bits.join(" &bull; ")}</span>` : ""
+  }</li>`;
 };
 
 const priceTable = (e) => {
@@ -214,7 +217,7 @@ ${e.prices.map((r) => `            <tr><th scope="row">${
     r.url ? `<a href="${esc(r.url)}" rel="noopener" target="_blank">${esc(r.name)}</a>` : esc(r.name)
   }</th><td>${esc(moneyExact(r.market))}</td><td>${
     typeof r.low === "number" ? esc(moneyExact(r.low)) : "<span class=\"op-no\">not listed</span>"
-  }</td><td>${typeof r.listings === "number" ? r.listings : ""}</td></tr>`).join("\n")}
+  }</td><td>${typeof r.listings === "number" ? r.listings : `<span class="op-no">not listed</span>`}</td></tr>`).join("\n")}
           </tbody>
         </table>
       </div>`;
@@ -298,8 +301,21 @@ for (const e of entries) {
   const path = `/openings/${e.id}.html`;
   const ask = ASKS[e.id] || `What is in a ${e.label}?`;
   const nSets = e.sets.size;
-  const desc =
-    `${ask} What it holds, what it costs across ${e.prices.length || nSets} sets, and ${e.vids.length} of them opened on camera.`.slice(0, 158);
+  // THE DESCRIPTION USED TO PROMISE A PRICE THE PAGE THEN REFUSES TO GIVE.
+  // `e.prices.length || nSets` fell back to the set count for every product we
+  // do not track prices for, so seven pages advertised "what it costs across N
+  // sets" in the search result while their body says "no price table here,
+  // this product is not one of the kinds we track prices for". The snippet IS
+  // the promise, so it now describes what the page actually has.
+  const desc = (
+    e.prices.length
+      ? `${ask} What it holds, what it costs across ${e.prices.length} set${
+          e.prices.length === 1 ? "" : "s"
+        }, and ${e.vids.length} of them opened on camera.`
+      : `${ask} What it holds, and ${e.vids.length} of them opened on camera${
+          nSets ? `, across ${nSets} set${nSets === 1 ? "" : "s"}` : ""
+        }.`
+  ).slice(0, 158);
 
   const page =
     head(`${ask} Price and ${e.vids.length} Openings | Garbage Rips 585`, desc, path, {
