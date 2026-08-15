@@ -52,6 +52,13 @@ import { esc, longDate } from "../shared/format.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/grade-check.json"), "utf8"));
 
+// Read the sibling page's data rather than restating its shape. This sentence
+// promised "the fee table for all four companies" and a fifth had just been
+// added next door.
+const NUM_WORD = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight"];
+const nGrading = JSON.parse(await readFile(join(ROOT, "data/grading.json"), "utf8")).companies.length;
+const GRADING_CO = NUM_WORD[nGrading] || String(nGrading);
+
 const CO = ["psa", "cgc", "beckett", "sgc", "tag"];
 const CO_NAME = { psa: "PSA", cgc: "CGC", beckett: "Beckett (BGS)", sgc: "SGC", tag: "TAG" };
 
@@ -304,7 +311,7 @@ ${d.unverified.items.map((i) => `            <li>${esc(i)}</li>`).join("\n")}
         <h2>Now go and do the <span class="hl">maths</span></h2>
         <p class="gc-in">If the card survived all of that, the next question is whether the fee clears.
           <a href="/grading.html">What grading costs and whether it pays</a> has the current fee table for all
-          four companies and works the break-even out against each card's own price. If it did not survive,
+          ${GRADING_CO} companies and works the break-even out against each card's own price. If it did not survive,
           it is still a card: <a href="/selling.html">where to sell it raw</a> is next door, and a raw card sells
           fine.</p>
       </section>

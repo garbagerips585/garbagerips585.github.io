@@ -30,7 +30,28 @@
     "each company is therefore the cheapest tier ACTUALLY TAKING SUBMISSIONS, which",
     "is the only number that helps somebody decide. Sold-out and paused tiers stay",
     "in `tiers` with their status in the note, so the page can show why the cheap",
-    "option is not on the table."
+    "option is not on the table.",
+    "",
+    "SGC WAS MISSING UNTIL 2026-08-15 and it is the cheapest of the five, which",
+    "means every 'cheapest slab' figure on the page was wrong while it was absent.",
+    "It took three attempts to source, and the reason is worth recording: gosgc.com",
+    "is an Angular app that serves the same ~4KB shell to every scripted fetch,",
+    "including robots.txt and sitemap.xml, and archive.org holds nothing but that",
+    "shell too. Rendering it in a browser once produced an EMPTY table reading 'No",
+    "records to display', which looked like a dead page and was actually a render",
+    "timing artifact. The rows are hardcoded in SGC's own JS bundle, so they were",
+    "finally confirmed by fetching the bundle and matching it cell for cell against",
+    "the render.",
+    "",
+    "TRAP FOR WHOEVER CHECKS THIS NEXT: that same bundle contains a SECOND price",
+    "array of $24/$22/$20/$18 tiered by card count. It is dead code, it does not",
+    "match what the site renders, and it is an easy thing to grep and believe.",
+    "",
+    "The bundle also carries TotalCards '1-9' on the $15 row where every other row",
+    "says 'Any', and SGC's public table does not render that column at all. That",
+    "reads like a nine card maximum, but it is undisplayed data of unknown",
+    "enforcement, so the note says the limit is unknown rather than asserting a cap",
+    "SGC does not publish."
   ],
   "checked": "2026-08-13",
   "companies": [
@@ -183,6 +204,55 @@
       ],
       "note": "TAG's site carries a standing REGULAR TIERS PAUSED banner. Its whole regular lineup is marked CURRENTLY AT CAPACITY, so the cheapest TAG slab available is $149.",
       "resale": "Improving quickly but the least established of the four, so the premium is the least predictable."
+    },
+    {
+      "id": "sgc",
+      "name": "SGC",
+      "url": "https://gosgc.com/card-grading/services-pricing",
+      "cheapest": 15,
+      "cheapestTier": "Standard",
+      "turnaround": "75+ business days",
+      "tiers": [
+        {
+          "name": "Standard",
+          "price": 15,
+          "days": "75+ business days",
+          "note": "Up to $1,500 a card"
+        },
+        {
+          "name": "Standard",
+          "price": 85,
+          "days": "75+ business days",
+          "note": "Up to $3,500 a card"
+        },
+        {
+          "name": "Expedited",
+          "price": 150,
+          "days": "2 to 3 days",
+          "note": "Up to $3,500 a card"
+        },
+        {
+          "name": "Expedited",
+          "price": 250,
+          "days": "2 to 3 days",
+          "note": "Up to $7,500 a card"
+        },
+        {
+          "name": "Expedited",
+          "price": 500,
+          "days": "2 to 3 days",
+          "note": "Up to $20,000 a card"
+        }
+      ],
+      "note": "The cheapest way into a slab from any of the five, and it states no minimum submission, so a single card is fine. The trade is time: 75+ business days is the slowest tier here, and the clock only starts once they have unboxed and logged your order. One caveat we cannot settle: SGC's own page does not say whether there is a per order card limit on this tier, and their submission flow is behind a login, so treat it as unknown rather than unlimited.",
+      "resale": "The least established of the five in Pokemon. SGC is long respected in vintage sports cards and its tuxedo slab is distinctive, but an SGC 10 generally sells under a PSA 10 for the same card.",
+      "sources": [
+        {
+          "url": "https://gosgc.com/card-grading/services-pricing",
+          "what": "Standard size services and pricing",
+          "read": "2026-08-15"
+        }
+      ]
     }
   ],
   "extras": [

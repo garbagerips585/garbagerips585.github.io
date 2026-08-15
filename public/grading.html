@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="/assets/ui.css?v=4781211d">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Grading"}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does it cost to grade a Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"PSA's cheapest active tier is $80 per card as of August 13, 2026, after it paused its Value and Value Bulk tiers in June 2026. The cheapest of the four is CGC at about $17. Add roughly $15 a card for shipping and insurance."}},{"@type":"Question","name":"Is it worth grading my Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"Only if the gap between the raw price and the PSA 10 price is bigger than the fee, and only if the card is genuinely mint. Of 75 cards we hold both prices for, 57 would clear PSA's current fee and 18 would not. Those figures are all for a 10, and a 9 is worth far less, so treat them as the best case."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does it cost to grade a Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"PSA's cheapest active tier is $80 per card as of August 13, 2026, after it paused its Value and Value Bulk tiers in June 2026. The cheapest of the five is SGC at about $15. Add roughly $15 a card for shipping and insurance."}},{"@type":"Question","name":"Is it worth grading my Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"Only if the gap between the raw price and the PSA 10 price is bigger than the fee, and only if the card is genuinely mint. Of 75 cards we hold both prices for, 57 would clear PSA's current fee and 18 would not. Those figures are all for a 10, and a 9 is worth far less, so treat them as the best case."}}]}</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -125,7 +125,7 @@
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Do the math first</span>
     <h1>Is it worth <span class="hl">grading</span>?</h1>
-    <p class="lede" style="max-width:36em">What it costs, how the four companies compare, and the subtraction almost
+    <p class="lede" style="max-width:36em">What it costs, how the five companies compare, and the subtraction almost
       nobody shows you: what a card is worth raw, what it is worth in a 10, and whether the difference covers the fee.</p>
   </div>
 </header>
@@ -143,12 +143,11 @@
     <div class="facts" style="margin-top:20px">
       <div class="fact"><div class="n">$79.99</div><div class="l">Cheapest PSA tier</div></div>
       <!-- "Cheapest anywhere" was a claim about the whole industry made from a
-           table of four companies, which is not the same thing. SGC is a fifth
-           major and is not in this data; a research pass in August 2026 put it
-           cheaper than anything here, and an attempt to confirm that failed
-           because SGC's own pricing table renders empty. So the number stays,
-           the scope claim goes, and the label now says exactly what it counted. -->
-      <div class="fact"><div class="n">$17.00</div><div class="l">Cheapest of these four (CGC)</div></div>
+           table of four companies, which is not the same thing. SGC was the
+           missing fifth and it turned out to be the cheapest of the lot, so the
+           old label was wrong twice over. It is in the data now, and the count
+           is interpolated rather than typed so this cannot go stale again. -->
+      <div class="fact"><div class="n">$15.00</div><div class="l">Cheapest of these five (SGC)</div></div>
       <div class="fact"><div class="n">57/75</div><div class="l">Cards that clear the PSA fee</div></div>
       <div class="fact wide"><div class="n" style="font-size:1.15rem">August 13, 2026</div><div class="l">Fees last checked</div></div>
     </div>
@@ -160,6 +159,14 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The four</p>
     <h2>What each one <span class="hl">costs</span></h2>
     <div class="gc-grid">
+      <article class="gc">
+        <h3>SGC</h3>
+        <p class="gc-price">$15.00<span> per card, Standard</span></p>
+        <p class="gc-turn">75+ business days</p>
+        <p class="gc-note">The cheapest way into a slab from any of the five, and it states no minimum submission, so a single card is fine. The trade is time: 75+ business days is the slowest tier here, and the clock only starts once they have unboxed and logged your order. One caveat we cannot settle: SGC's own page does not say whether there is a per order card limit on this tier, and their submission flow is behind a login, so treat it as unknown rather than unlimited.</p>
+        <p class="gc-resale"><strong>Resale.</strong> The least established of the five in Pokemon. SGC is long respected in vintage sports cards and its tuxedo slab is distinctive, but an SGC 10 generally sells under a PSA 10 for the same card.</p>
+        <a class="intl-link" href="https://gosgc.com/card-grading/services-pricing" rel="noopener" target="_blank">SGC prices &rarr;</a>
+      </article>
       <article class="gc">
         <h3>CGC</h3>
         <p class="gc-price">$17.00<span> per card, Bulk</span></p>
@@ -218,6 +225,7 @@
       </label>
       <label>Grading fee
         <select id="gFee">
+          <option value="15">SGC Standard, $15.00</option>
           <option value="17">CGC Bulk, $17.00</option>
           <option value="79.95">Beckett (BGS) Express, $79.95</option>
           <option value="79.99">PSA Regular, $79.99</option>

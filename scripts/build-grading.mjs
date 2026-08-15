@@ -102,6 +102,9 @@ try {
 const keyOf = (slug, num) => `${slug}-${String(num ?? "").replace(/^0+(?=\d)/, "")}`;
 
 const cheapest = g.companies.slice().sort((a, b) => a.cheapest - b.cheapest)[0];
+const NUM_WORD = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight"];
+const nCo = g.companies.length;
+const coWord = NUM_WORD[nCo] || String(nCo);
 const psaCo = g.companies.find((c) => c.id === "psa");
 const SHIP = g.assumedShippingPerCard ?? 15;
 
@@ -178,7 +181,7 @@ const ld = [
         name: "How much does it cost to grade a Pokemon card?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: `PSA's cheapest active tier is ${moneyRound(psaCo.cheapest)} per card as of ${longDate(g.checked)}, after it paused its Value and Value Bulk tiers in June 2026. The cheapest of the four is ${cheapest.name} at about ${moneyRound(cheapest.cheapest)}. Add roughly ${moneyRound(SHIP)} a card for shipping and insurance.`,
+          text: `PSA's cheapest active tier is ${moneyRound(psaCo.cheapest)} per card as of ${longDate(g.checked)}, after it paused its Value and Value Bulk tiers in June 2026. The cheapest of the ${coWord} is ${cheapest.name} at about ${moneyRound(cheapest.cheapest)}. Add roughly ${moneyRound(SHIP)} a card for shipping and insurance.`,
         },
       },
       {
@@ -229,7 +232,7 @@ ${MENU}
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Do the math first</span>
     <h1>Is it worth <span class="hl">grading</span>?</h1>
-    <p class="lede" style="max-width:36em">What it costs, how the four companies compare, and the subtraction almost
+    <p class="lede" style="max-width:36em">What it costs, how the ${coWord} companies compare, and the subtraction almost
       nobody shows you: what a card is worth raw, what it is worth in a 10, and whether the difference covers the fee.</p>
   </div>
 </header>
@@ -247,12 +250,11 @@ ${MENU}
     <div class="facts" style="margin-top:20px">
       <div class="fact"><div class="n">${moneyCompact(psaCo.cheapest)}</div><div class="l">Cheapest PSA tier</div></div>
       <!-- "Cheapest anywhere" was a claim about the whole industry made from a
-           table of four companies, which is not the same thing. SGC is a fifth
-           major and is not in this data; a research pass in August 2026 put it
-           cheaper than anything here, and an attempt to confirm that failed
-           because SGC's own pricing table renders empty. So the number stays,
-           the scope claim goes, and the label now says exactly what it counted. -->
-      <div class="fact"><div class="n">${moneyCompact(cheapest.cheapest)}</div><div class="l">Cheapest of these four (${esc(cheapest.name)})</div></div>
+           table of four companies, which is not the same thing. SGC was the
+           missing fifth and it turned out to be the cheapest of the lot, so the
+           old label was wrong twice over. It is in the data now, and the count
+           is interpolated rather than typed so this cannot go stale again. -->
+      <div class="fact"><div class="n">${moneyCompact(cheapest.cheapest)}</div><div class="l">Cheapest of these ${coWord} (${esc(cheapest.name)})</div></div>
       <div class="fact"><div class="n">${worth.length}/${rows.length}</div><div class="l">Cards that clear the PSA fee</div></div>
       <div class="fact wide"><div class="n" style="font-size:1.15rem">${esc(longDate(g.checked) || g.checked)}</div><div class="l">Fees last checked</div></div>
     </div>
