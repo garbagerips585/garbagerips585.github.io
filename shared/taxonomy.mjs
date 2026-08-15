@@ -45,7 +45,7 @@ export const PRODUCT_TYPES = [
   // grid of tiles saying "ex Box". `pattern` is case insensitive, so this is a
   // display change only and tagging is untouched.
   { id: "bundle", label: "Booster Bundle", pattern: /\bbooster bundle\b|\bbundle\b/i },
-  { id: "blister", label: "Blister", pattern: /\bblister\b|\b3[- ]pack\b|\\bthree[- ]pack\\b/i },
+  { id: "blister", label: "Blister", pattern: /\bblister\b|\b3[- ]pack\b|\bthree[- ]pack\b/i },
   { id: "tin", label: "Tin", pattern: /\btin\b/i },
   // Sticker, poster, pin and illustration Collections all say "N booster packs"
   // in their contents line, so they fell past this and landed on single-pack.
