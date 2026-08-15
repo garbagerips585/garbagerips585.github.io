@@ -54,13 +54,42 @@ export const RARITY_KEY = [
   { id: "ir", label: "Illustration Rare", stars: 1, tone: "gold", short: "IR" },
   { id: "ace-spec", label: "ACE SPEC Rare", stars: 1, tone: "pink", short: "ACE SPEC" },
   { id: "ultra", label: "Ultra Rare", stars: 2, tone: "silver", short: "Ultra" },
-  // Japanese sets run their own ladder and SR is a real tier on it. Without
-  // this the phrase "Super Rare" fell through to plain "Rare", which is two
-  // tiers down and the opposite of what it means.
-  { id: "super", label: "Super Rare", stars: 2, tone: "gold", short: "SR" },
   { id: "double-rare", label: "Double Rare", stars: 2, tone: "black", short: "Double" },
   { id: "rare", label: "Rare", stars: 1, tone: "black", short: "Rare" },
   { id: "charizard", label: "Charizard", stars: 0, tone: "fire", short: "Charizard" },
+
+  // ==========================================================================
+  // THE JAPANESE LADDER IS A DIFFERENT LADDER AND IT IS PRINTED DIFFERENTLY.
+  // Japanese packs carry a letter code on the back of the wrapper and on the
+  // card itself rather than a row of stars, photographed by Tim on 2026-08-15:
+  //
+  //   SAR  スペシャルアートレア   Special Art Rare
+  //   SR   スーパーレア           Super Rare
+  //   AR   アートレア             Art Rare
+  //   RR   ダブルレア             Double Rare
+  //   R    レア                   Rare
+  //   U    アンコモン             Uncommon
+  //   C    コモン                 Common
+  //
+  // These are kept SEPARATE from the English tiers rather than mapped onto
+  // them. SAR and Special Illustration Rare are close cousins, not the same
+  // thing, and asserting an equivalence the two companies do not publish would
+  // be this site inventing a fact. A Japanese rip shows Japanese letters.
+  //
+  // ONE THING ON THAT WRAPPER IS DELIBERATELY NOT USED. The key sits beside an
+  // arrow reading 出にくい at the top and 出やすい at the bottom, "harder to
+  // get" and "easier to get". That is a relative ordering with no numbers, and
+  // turning it into anything quantitative would be a pull rate. The 種類 counts
+  // beside each row ARE safe: they say how many KINDS of card exist at that
+  // rarity in the set, which is checklist composition, not odds.
+  // ==========================================================================
+  { id: "jp-sar", label: "Special Art Rare", code: "SAR", jp: true, short: "SAR" },
+  { id: "jp-sr", label: "Super Rare", code: "SR", jp: true, short: "SR" },
+  { id: "jp-ar", label: "Art Rare", code: "AR", jp: true, short: "AR" },
+  { id: "jp-rr", label: "Double Rare", code: "RR", jp: true, short: "RR" },
+  { id: "jp-r", label: "Rare", code: "R", jp: true, short: "R" },
+  { id: "jp-u", label: "Uncommon", code: "U", jp: true, short: "U" },
+  { id: "jp-c", label: "Common", code: "C", jp: true, short: "C" },
 ];
 
 const BY_ID = new Map(RARITY_KEY.map((r) => [r.id, r]));
@@ -68,13 +97,28 @@ const BY_ID = new Map(RARITY_KEY.map((r) => [r.id, r]));
 // Match longest first. "Special Illustration Rare" has to win over
 // "Illustration Rare", which has to win over "Rare".
 const PATTERNS = [
+  // Japanese letter codes first, and CASE SENSITIVE on purpose. Lowercase "ar"
+  // and "r" appear inside ordinary words constantly; the codes are printed in
+  // capitals and only capitals should match.
+  //
+  // ONLY THE MULTI-LETTER CODES ARE PARSED. R, U and C are in the key above so
+  // it documents the whole ladder and can render them, but they are NOT matched
+  // from free text, because a single capital letter is not a rarity in a
+  // sentence full of card names. Tested adversarially: "Marnie C" parsed as
+  // Japanese Common and "Team Rocket U" as Japanese Uncommon, which would have
+  // labelled two English rips as Japanese. Dropping them costs nothing real
+  // either, because Common and Uncommon are not hits and a hit field is where
+  // this text comes from.
+  ["jp-sar", /\bSAR\b/g],
+  ["jp-ar", /\bAR\b/g],
+  ["jp-rr", /\bRR\b/g],
   ["mega-hyper", /\bmega\s+hyper\s+rare\b/gi],
   ["sir", /\bspecial\s+illustration\s+rare\b|\bSIR\b/g],
+  ["jp-sr", /\bSR\b|\bsuper\s+rare\b/gi],
   ["ir", /\billustration\s+rare\b/gi],
   ["gold", /\bhyper\s+rare\b/gi],
   ["ace-spec", /\bace\s*spec(?:\s+rare)?\b/gi],
   ["ultra", /\bultra\s+rare\b/gi],
-  ["super", /\bsuper\s+rare\b/gi],
   ["double-rare", /\bdouble\s+rare\b/gi],
   ["charizard", /\bcharizard\b|\bzard\b/gi],
   // Last, and only where nothing longer already claimed that span.
@@ -116,6 +160,9 @@ export function topRarity(text) {
 export function rarityMark(id) {
   const r = BY_ID.get(id);
   if (!r) return "";
+  // Japanese tiers print a letter code, so that is what gets drawn. Same
+  // principle as the stars: show what is actually on the card.
+  if (r.jp) return `<span class="rk rk-jp" title="${r.label} (Japanese)">${r.code}</span>`;
   if (r.tone === "fire") {
     return `<span class="rk rk-fire" title="${r.label}"><svg viewBox="0 0 12 14" aria-hidden="true" focusable="false"><path d="M6 0C6 4 2 4.5 2 8.5A4 4 0 0 0 10 8.5C10 5.5 7.5 5 7.5 2.5 7.5 4.5 6 4 6 0Z"/></svg></span>`;
   }
@@ -145,5 +192,7 @@ export const RARITY_CSS = `
 .rk-black svg{fill:var(--navy)}
 .rk-pink svg{fill:#D96BA0}
 .rk-fire svg{fill:var(--ketchup);width:10px;height:12px}
+.rk-jp{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.04em;color:#F4F1E2;background:var(--navy);
+  border-radius:3px;padding:3px 5px}
 .chip-rk{display:inline-flex;align-items:center}
 `;
