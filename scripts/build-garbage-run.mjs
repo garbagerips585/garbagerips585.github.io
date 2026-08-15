@@ -21,10 +21,21 @@
 // multiplayer had to mean two people and one device. That turns out to be the
 // right answer for a line anyway: nobody is going to install anything.
 //
-// THE ART IS DRAWN, NOT BORROWED. Trubbish and Garbodor are canvas shapes in
-// the site's own palette, the same decision as the booster wrappers: this site
-// does not reproduce official Pokemon art. A green bag with a torn top and two
-// eyes reads as Trubbish at 24 pixels on a phone, and it is ours.
+// THE MASCOTS ARE THE REAL SPRITES, the same two files the 404 page and the
+// no-hits panel already use, because Tim asked for the actual Trubbish rather
+// than a green blob standing in for one. Both are loaded from /assets/ so the
+// canvas is never tainted by a third-party host and the game keeps working
+// offline once the page is cached.
+//
+// The junk is EMOJI on purpose: a banana, a pizza slice, a bin, a drinks can.
+// Emoji were the wrong tool for the rarity key, where the tier IS the colour of
+// the star and there is no silver star to be had, and they are the right tool
+// here, where the job is "this is rubbish and it is funny". They also cost no
+// bytes and need no art pipeline.
+//
+// A SPRITE THAT HAS NOT LOADED MUST NOT BLOCK THE GAME. Both images are drawn
+// only once complete; until then the original drawn shapes render instead, so a
+// slow connection gets a playable game rather than an empty rectangle.
 //
 // ACCESSIBILITY, and a game makes this awkward rather than impossible.
 // prefers-reduced-motion cannot mean "no movement" in a game about movement,
@@ -129,7 +140,7 @@ ${MENU}
       </div>
 
       <div class="gr-stage" id="grStage">
-        <canvas id="grCanvas" width="720" height="440" role="img"
+        <canvas id="grCanvas" width="720" height="340" role="img"
           aria-label="Garbage Run. Trubbish runs along a Rochester street and you tap to flip him between the floor and the ceiling."></canvas>
         <div class="gr-over" id="grOver">
           <h2 id="grTitle">Garbage Run</h2>
@@ -178,6 +189,26 @@ ${footer()}
 
   var duel = false, running = false, raf = 0;
 
+  // Preload the mascots. The ready flag stays false until the file is actually
+  // decodable, and every draw checks it, so nothing is ever drawn from a
+  // half-loaded image.
+  function sprite(src) {
+    var o = { img: new Image(), ready: false };
+    o.img.onload = function () { o.ready = o.img.naturalWidth > 0; };
+    o.img.onerror = function () { o.ready = false; };
+    o.img.src = src;
+    return o;
+  }
+  var SP_TRUB = sprite("/assets/trubbish.webp");
+  var SP_GARB = sprite("/assets/garbodor.webp");
+
+  // What counts as garbage. Kept deliberately food-and-bin heavy: it reads as
+  // rubbish at a glance, which matters more than variety when the thing is
+  // 26 pixels wide and moving.
+  var JUNK = ["\uD83C\uDF4C", "\uD83C\uDF4E", "\uD83C\uDF55", "\uD83D\uDDD1\uFE0F", "\uD83E\uDD6B",
+              "\uD83C\uDF57", "\uD83E\uDDC3", "\uD83E\uDDB4", "\uD83E\uDD64", "\uD83D\uDCF0",
+              "\uD83C\uDF6C", "\uD83E\uDDFB"];
+
   // A lane is one player's strip of the world. Solo uses one full height lane,
   // duel splits the canvas so two thumbs never fight over the same space.
   function makeLane(top, height, keyName) {
@@ -217,12 +248,16 @@ ${footer()}
     L.nextObs -= 1; L.nextPack -= 1;
     if (L.nextObs <= 0) {
       var onFloor = Math.random() < 0.5;
-      L.obs.push({ x: W + 20, onFloor: onFloor, w: 16 + Math.random() * 14, h: 22 + Math.random() * 20 });
-      L.nextObs = Math.max(26, 78 - t / 90) + Math.random() * 26;
+      L.obs.push({
+        x: W + 20, onFloor: onFloor,
+        w: 26 + Math.random() * 10, h: 26 + Math.random() * 10,
+        emoji: JUNK[Math.floor(Math.random() * JUNK.length)],
+      });
+      L.nextObs = Math.max(24, 66 - t / 80) + Math.random() * 22;
     }
     if (L.nextPack <= 0) {
       L.packs.push({ x: W + 20, y: L.top + 40 + Math.random() * (L.h - 80), got: false });
-      L.nextPack = 70 + Math.random() * 70;
+      L.nextPack = 55 + Math.random() * 55;
     }
 
     var i;
@@ -231,13 +266,13 @@ ${footer()}
       o.x -= speed;
       if (o.x + o.w < -20) { L.obs.splice(i, 1); continue; }
       var oy = o.onFloor ? L.top + L.h - o.h : L.top;
-      if (o.x < 60 && o.x + o.w > 34 && L.y + 13 > oy && L.y - 13 < oy + o.h) L.alive = false;
+      if (o.x < 112 && o.x + o.w > 80 && L.y + 16 > oy && L.y - 16 < oy + o.h) L.alive = false;
     }
     for (i = L.packs.length - 1; i >= 0; i--) {
       var p = L.packs[i];
       p.x -= speed;
       if (p.x < -20) { L.packs.splice(i, 1); continue; }
-      if (!p.got && Math.abs(p.x - 47) < 20 && Math.abs(p.y - L.y) < 24) {
+      if (!p.got && Math.abs(p.x - 96) < 24 && Math.abs(p.y - L.y) < 28) {
         p.got = true; L.score += 1; L.packs.splice(i, 1);
       }
     }
@@ -246,6 +281,15 @@ ${footer()}
 
   // ---- drawing: everything here is our own shapes ---------------------
   function trubbish(x, y, up) {
+    if (SP_TRUB.ready) {
+      var S = 58;
+      ctx.save();
+      ctx.translate(x, y);
+      if (!up) ctx.scale(1, -1);
+      ctx.drawImage(SP_TRUB.img, -S / 2, -S / 2, S, S);
+      ctx.restore();
+      return;
+    }
     ctx.save();
     ctx.translate(x, y);
     if (!up) ctx.scale(1, -1);
@@ -272,6 +316,11 @@ ${footer()}
   }
 
   function garbodor(x, y, h) {
+    if (SP_GARB.ready) {
+      var S = h * 1.5;
+      ctx.drawImage(SP_GARB.img, x - S / 2, y - S / 2 + 4, S, S);
+      return;
+    }
     ctx.save();
     ctx.translate(x, y);
     ctx.fillStyle = "#54614A";
@@ -313,17 +362,29 @@ ${footer()}
     ctx.fillRect(0, L.top + L.h - 16, W, 16);
     ctx.fillRect(0, L.top, W, 16);
 
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
     for (var a = 0; a < L.obs.length; a++) {
       var o = L.obs[a];
-      ctx.fillStyle = "#B5471F";
-      ctx.fillRect(o.x, o.onFloor ? L.top + L.h - o.h : L.top, o.w, o.h);
+      var oy = o.onFloor ? L.top + L.h - o.h : L.top;
+      // A shadow behind the emoji, because emoji are drawn by the operating
+      // system in whatever colours it likes and several of them vanish against
+      // a dark street. The disc guarantees the silhouette reads.
+      ctx.fillStyle = "rgba(11,17,8,.55)";
+      ctx.beginPath();
+      ctx.arc(o.x + o.w / 2, oy + o.h / 2, o.w * 0.62, 0, 7);
+      ctx.fill();
+      ctx.font = Math.round(o.w) + "px system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif";
+      ctx.fillText(o.emoji, o.x + o.w / 2, oy + o.h / 2);
     }
+    ctx.textAlign = "left";
+    ctx.textBaseline = "alphabetic";
     for (var b = 0; b < L.packs.length; b++) pack(L.packs[b].x, L.packs[b].y);
 
-    if (L.chase > 0) { garbodor(20 + L.chase * 26, L.top + L.h - 34, 46); L.chase += 0.06; }
-    else garbodor(-6, L.top + L.h - 34, 46);
+    if (L.chase > 0) { garbodor(14 + L.chase * 30, L.top + L.h - 34, 46); L.chase += 0.06; }
+    else garbodor(14, L.top + L.h - 34, 46);
 
-    trubbish(47, L.y, L.flip > 0);
+    trubbish(96, L.y, L.flip > 0);
 
     ctx.fillStyle = "#F4F1E2";
     ctx.font = "700 20px ui-monospace, monospace";
