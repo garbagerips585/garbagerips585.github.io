@@ -80,7 +80,13 @@ const PRODUCT_IDS = {
   "tin": "tin",
   "ex premium collection": "ex-premium",
   "ex special collection": "ex-special",
-  "ex box": "ex-box",
+  // "ex Box" IS A SYNONYM NOW, NOT ITS OWN TAG. shared/taxonomy.mjs folded the
+  // ex-box id into ex-premium, and this line kept mapping the dropdown option
+  // onto the id that no longer exists: labelFor() renders an unknown id as the
+  // raw string, so picking "ex Box" would have captioned the filter rail and
+  // /luck.html "ex-box" and pointed at an /openings/ page that is not built.
+  // The option stays in the dropdown because it is what the titles say.
+  "ex box": "ex-premium",
   "japanese booster pack": "japanese-pack",
   "korean booster pack": "korean-pack",
   "chinese booster pack": "chinese-pack",
@@ -413,7 +419,7 @@ try {
   const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
   live = Object.fromEntries(videos.map((v) => [v.id, v]));
 } catch { /* no catalogue yet */ }
-const staleSet = [];
+const newOverride = [];
 // Things that used to happen in silence. Each one is a row whose meaning
 // changed or vanished between the cell and the JSON, and every one of them was
 // found by round-tripping a filled-in sheet rather than by reading the code.
@@ -493,6 +499,25 @@ for (const [n, r] of rows.slice(1).entries()) {
   // directions, and "the matcher is right about this one" becomes a thing a
   // person can say. Only a field the sheet actually answered is touched: a blank
   // cell still means "not answered" and leaves any override alone.
+  // EVERY NEW OVERRIDE IS LISTED, because there is no reliable way to tell a
+  // correction from a stale prefill and the difference matters enormously.
+  //
+  // A cell that disagrees with today's matcher is EITHER a person correcting it
+  // or a workbook generated before a tag rule was fixed, still carrying the old
+  // guess. The second one pins the old answer permanently. It is happening
+  // right now: the workbook on disk was built before today's negation fix and
+  // still reads "ETB (Elite Trainer Box)" on seven single-pack rips whose own
+  // descriptions say "No ETB", so importing it re-pins all seven.
+  //
+  // Comparing against what the site currently shows was tried and is not enough:
+  // once videos.json has been retagged, the sheet disagrees with BOTH and the
+  // test goes quiet exactly when it is needed. So nothing is inferred. Every new
+  // override is printed with the matcher's answer beside it, which on a normal
+  // import is a handful of lines and is the one list worth reading.
+  const note = (field, sheet, matcher) => {
+    if (overrides[id] && sameTags(overrides[id][field], sheet)) return;   // already recorded
+    newOverride.push(`${id}  ${field}: sheet says ${JSON.stringify(sheet)}, the tag rules say ${JSON.stringify(matcher)}`);
+  };
   const retire = (field) => {
     if (!overrides[id] || !(field in overrides[id])) return false;
     delete overrides[id][field];
@@ -510,14 +535,7 @@ for (const [n, r] of rows.slice(1).entries()) {
       counted.notASet = (counted.notASet || 0) + 1;
     } else retire("sets");
   } else if (setIds.length && !sameTags(setIds, auto.sets)) {
-    // THE STALE-PREFILL TRAP, REPORTED RATHER THAN GUESSED AT. When the sheet
-    // disagrees with today's matcher but matches what the site is already
-    // showing, the likeliest story is not that a person just corrected this
-    // video: it is that the matcher LEARNED something since the workbook was
-    // generated, and this cell is still carrying the old guess. Importing it
-    // pins the old answer forever. It cannot be told apart automatically -- he
-    // may genuinely agree with the old answer -- so it is written and listed.
-    if (!overrides[id]?.sets && sameTags(setIds, live[id]?.sets)) staleSet.push(`${id}  sheet ${JSON.stringify(setIds)} vs matcher ${JSON.stringify(auto.sets)}`);
+    note("sets", setIds, auto.sets);
     overrides[id] = { ...(overrides[id] || {}), sets: setIds };
     counted.set++;
     if (setIds.length > 1) counted.multiSet++;
@@ -533,6 +551,7 @@ for (const [n, r] of rows.slice(1).entries()) {
     else if (PRODUCT_IDS[key]) {
       // Same rule as the sets above: only where it differs from the guess.
       if (!sameTags([PRODUCT_IDS[key]], auto.products)) {
+        note("products", [PRODUCT_IDS[key]], auto.products);
         overrides[id] = { ...(overrides[id] || {}), products: [PRODUCT_IDS[key]] };
         counted.opening++;
       } else {
@@ -687,14 +706,15 @@ if (quiet.length) {
   console.log("");
 }
 
-if (staleSet.length) {
-  console.log(`${staleSet.length} set cell(s) may be a STALE PREFILL rather than a correction.`);
-  console.log("Each one disagrees with today's tag rules but matches what the site already");
-  console.log("shows, which is what a sheet generated before a taxonomy fix looks like.");
-  console.log("Importing pins the old answer permanently. Check these, and if the matcher is");
-  console.log("right now, clear the cell or set it to the matcher's answer and re-import.");
-  for (const s of staleSet.slice(0, 20)) console.log("  " + s);
-  if (staleSet.length > 20) console.log(`  ...and ${staleSet.length - 20} more`);
+if (newOverride.length) {
+  console.log(`${newOverride.length} new override(s). READ THIS LIST.`);
+  console.log("An override beats the tag rules forever, so each of these is either you");
+  console.log("correcting the site, or a cell still carrying a guess from before those rules");
+  console.log("were fixed. The second kind pins the old answer and no later fix can reach it.");
+  console.log("Where the tag rules are right now, clear the cell or set it to their answer and");
+  console.log("re-import: agreement retires the override.");
+  for (const s of newOverride.slice(0, 30)) console.log("  " + s);
+  if (newOverride.length > 30) console.log(`  ...and ${newOverride.length - 30} more`);
   console.log("");
 }
 

@@ -218,12 +218,14 @@ PRODUCT_TO_OPENING = {
     "tin": "Tin",
     "ex-premium": "ex Premium Collection",
     "ex-special": "ex Special Collection",
-    # ITS OWN LABEL, not a second name for ex Premium Collection. Both ids
-    # pointed at the same string, and the importer maps that string back to
-    # ex-premium, so every re-import silently converted 24 ex-box videos into
-    # ex Premium Collections. A round trip through the sheet must not change
-    # what it did not ask about.
-    "ex-box": "ex Box",
+    # ex-box USED TO BE ITS OWN ID AND HAD ITS OWN LABEL HERE, because both ids
+    # once pointed at the same string and the importer mapped that string back
+    # to ex-premium, so every re-import silently converted 24 ex-box videos into
+    # ex Premium Collections. shared/taxonomy.mjs has since folded ex-box into
+    # ex-premium outright -- all 24 were hand-corrected to it anyway -- so there
+    # is no longer an id for this row to prefill and it would be dead code. The
+    # dropdown still OFFERS "ex Box", because that is what the titles say, and
+    # the importer now reads it as ex-premium.
     "collection-box": "Collection Box",
     # knock-out was added to the taxonomy, to OPENING_TYPES and to the
     # importer's PRODUCT_IDS on the same day and missed here, which is the ninth
