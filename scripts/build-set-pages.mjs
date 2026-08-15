@@ -63,6 +63,30 @@ const setCardLogo = (setId, alt) => {
 
 const OUT = join(ROOT, "public/sets");
 
+/**
+ * Product photos the CDN will not serve.
+ *
+ * Two TCGplayer products answer 403 at both sizes, while the other 275 images
+ * from the same host are fine, so it is those products rather than a bot
+ * block. They carried onerror="this.remove()" like everything else, so the
+ * photo vanished and left an empty 88x88 box beside the name and price, and
+ * the page paid for a refused request to get there.
+ *
+ * Recorded in data/no-scan.json beside the 101 missing card scans, since it is
+ * the same fact about a different host.
+ */
+let deadUrls = new Set();
+try {
+  deadUrls = new Set(
+    JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8")).deadUrls || [],
+  );
+} catch {
+  /* optional: without it those two render an empty box, as before */
+}
+const deadImg = (u) => !!u && deadUrls.has(u);
+
+
+
 const { sets, rarityOrder, syncedAt } = JSON.parse(
   await readFile(join(ROOT, "public/data/sets.json"), "utf8")
 );
@@ -747,8 +771,8 @@ function productBand(s, cls) {
     .map(
       (p) => `      <li class="prod">
         <a class="prod-shot" href="${esc(affLink(p.url))}" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
-          <img src="${esc(p.thumb)}" srcset="${esc(p.thumb)} 200w, ${esc(p.image)} 1000w"
-               sizes="(max-width:640px) 40vw, 200px" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(p.thumb)} referrerpolicy="no-referrer">
+          ${deadImg(p.thumb) ? "" : `<img src="${esc(p.thumb)}" srcset="${esc(p.thumb)} 200w, ${esc(p.image)} 1000w"
+               sizes="(max-width:640px) 40vw, 200px" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(p.thumb)} referrerpolicy="no-referrer">`}
         </a>
         <div class="prod-body">
           <h3><a href="${esc(affLink(p.url))}" rel="noopener" target="_blank">${esc(productLabel(p).kind)}</a></h3>

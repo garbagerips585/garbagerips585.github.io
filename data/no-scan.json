@@ -13,7 +13,14 @@
   "",
   "Entries are image BASES, so both /low.webp and /high.webp are covered.",
   "Re-check with a sweep if TCGdex backfills; an entry here that starts working",
-  "again only costs us one missing picture, which is why it is safe to be stale."
+  "again only costs us one missing picture, which is why it is safe to be stale.",
+  "",
+  "`deadUrls` is the same idea for images that are not TCGdex card scans. The",
+  "other three image hosts were swept the same way on 2026-08-14: 1,116 urls",
+  "across i.ytimg.com, tcgplayer-cdn, images.pokemontcg.io and images.scrydex.",
+  "Four answered 403 to both HEAD and GET, two TCGplayer products at two sizes",
+  "each, while the other 275 TCGplayer images were fine, so it is those products",
+  "rather than a bot block. Everything else on those three hosts answered 200."
  ],
  "checked": "2026-08-14",
  "bases": [
@@ -118,5 +125,11 @@
   "https://assets.tcgdex.net/ja/SM/SM9a/066",
   "https://assets.tcgdex.net/ja/SM/SM9a/067",
   "https://assets.tcgdex.net/ja/SM/SM9b/065"
+ ],
+ "deadUrls": [
+  "https://tcgplayer-cdn.tcgplayer.com/product/646039_200w.jpg",
+  "https://tcgplayer-cdn.tcgplayer.com/product/646039_in_1000x1000.jpg",
+  "https://tcgplayer-cdn.tcgplayer.com/product/709097_200w.jpg",
+  "https://tcgplayer-cdn.tcgplayer.com/product/709097_in_1000x1000.jpg"
  ]
 }
