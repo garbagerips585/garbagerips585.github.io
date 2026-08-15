@@ -114,7 +114,7 @@
     },
     {
       "id": "bgs",
-      "name": "BGS",
+      "name": "Beckett (BGS)",
       "url": "https://www.beckett.com/grading",
       "cheapest": 79.95,
       "cheapestTier": "Express",

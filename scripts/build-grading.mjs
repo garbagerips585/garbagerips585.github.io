@@ -178,7 +178,7 @@ const ld = [
         name: "How much does it cost to grade a Pokemon card?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: `PSA's cheapest active tier is ${moneyRound(psaCo.cheapest)} per card as of ${longDate(g.checked)}, after it paused its Value and Value Bulk tiers in June 2026. CGC and TAG start around ${moneyRound(cheapest.cheapest)}. Add roughly ${moneyRound(SHIP)} a card for shipping and insurance.`,
+          text: `PSA's cheapest active tier is ${moneyRound(psaCo.cheapest)} per card as of ${longDate(g.checked)}, after it paused its Value and Value Bulk tiers in June 2026. The cheapest of the four is ${cheapest.name} at about ${moneyRound(cheapest.cheapest)}. Add roughly ${moneyRound(SHIP)} a card for shipping and insurance.`,
         },
       },
       {
@@ -393,7 +393,9 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
         far bigger than the difference in fees.</p>
       <p style="margin-top:10px">And every figure above is the price of a 10. You do not find out which grade you are
         getting until the card is already back, so treat the whole table as the best case rather than the expected
-        one. We do not have grade distribution data and will not guess at it.</p>
+        one. We will not guess at the odds of any particular card coming back a 10, because nobody
+publishes that. What the companies DO publish about grade outcomes, and it is less reassuring than it
+sounds, is on <a href="/will-it-grade.html">will it grade</a>.</p>
     </div>
     `
         : ""

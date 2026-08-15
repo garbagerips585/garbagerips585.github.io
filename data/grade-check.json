@@ -110,7 +110,7 @@
       {
         "grade": "Pristine 10",
         "psa": null,
-        "cgc": "50/50",
+        "cgc": null,
         "beckett": "55/45 or better",
         "sgc": null,
         "tag": "about 52/48"
@@ -126,7 +126,7 @@
       {
         "grade": "Mint 9",
         "psa": "about 90/10",
-        "cgc": "90/10, sports only",
+        "cgc": "90/10, sports and non-sports only",
         "beckett": "70/30 or better",
         "sgc": null,
         "tag": "about 75/25"
@@ -138,6 +138,14 @@
         "beckett": "80/20 or better",
         "sgc": null,
         "tag": "about 95/5"
+      },
+      {
+        "grade": "Near Mint 7",
+        "psa": "about 90/10",
+        "cgc": null,
+        "beckett": "90/10 or better",
+        "sgc": null,
+        "tag": null
       }
     ],
     "findings": [
@@ -155,7 +163,7 @@
       },
       {
         "head": "SGC publishes front centering only",
-        "body": "No back tolerance appears at any grade on its scale. Its scale also carries an asterisk on 'four sharp corners' at grades 9, 10 and Pristine, and the footnote that asterisk points to does not render anywhere on the page as served."
+        "body": "No back tolerance appears at any grade on its scale. Its scale also carries an asterisk on 'four sharp corners' at grades 8.5, 9, 10 and Pristine, and the footnote that asterisk points to does not render anywhere on the page as served."
       }
     ],
     "leeway": {
@@ -194,7 +202,7 @@
       {
         "company": "PSA",
         "head": "One flaw, not none",
-        "body": "PSA 9 is defined as a card showing only ONE of a very slight wax stain on the reverse, a minor printing imperfection, or slightly off-white borders. Two of those and it is not a 9. Zero of them, with four sharp corners, sharp focus and full original gloss, is the 10.",
+        "body": "PSA 9 is defined as a card showing only ONE of a very slight wax stain on the reverse, a minor printing imperfection, or slightly off-white borders. Two of those and it is not a 9. The 10 wants four sharp corners, sharp focus and full original gloss, and must be free of staining of any kind. Note the one thing it does NOT rule out: PSA says an allowance may be made for a slight printing imperfection at 10 if it does not impair the overall appeal of the card. So a faint print flaw is not automatically a 9.",
         "source": "https://www.psacard.com/gradingstandards"
       },
       {
@@ -212,32 +220,37 @@
     ]
   },
   "subgrades": {
-    "lead": "Only one company still shows you the four component scores, and only that company publishes how they combine. The arithmetic is the most useful thing in this whole section, because it tells you which single flaw decides everything.",
+    "lead": "Only one company still prints four component scores on the label, and only that company publishes how they combine into the final grade. One other scores per attribute without calling them subgrades. The arithmetic below is the most useful thing in this section, because it tells you which single flaw decides everything.",
     "who": [
       {
         "company": "Beckett",
         "has": true,
-        "note": "Four subgrades on the label: centering, corners, edges, surface. Four 10s earns the Black Label. Subgrades are a paid option on the Base tier, and there is an extra fee for any 10s."
+        "note": "Four subgrades on the label: centering, corners, edges, surface. Four 10s earns the Black Label. Subgrades are a paid option on the Base tier, and there is an extra fee for any 10s.",
+        "kind": "Four subgrades"
       },
       {
         "company": "CGC",
         "has": false,
-        "note": "Discontinued. CGC's help centre states plainly that subgrades are no longer offered."
+        "note": "Discontinued. CGC's help centre states plainly that subgrades are no longer offered.",
+        "kind": "None"
       },
       {
         "company": "PSA",
         "has": false,
-        "note": "No subgrade product. PSA uses qualifiers instead, which cap the grade rather than sit beside it: OC off centre, MC miscut, ST staining, PD print defect, OF out of focus, MK marks."
+        "note": "No subgrade product. PSA uses qualifiers instead, which cap the grade rather than sit beside it: OC off centre, MC miscut, ST staining, PD print defect, OF out of focus, MK marks.",
+        "kind": "None"
       },
       {
         "company": "SGC",
         "has": false,
-        "note": "No subgrades on its scale or services pages."
+        "note": "No subgrades on its scale or services pages.",
+        "kind": "None"
       },
       {
         "company": "TAG",
         "has": true,
-        "note": "Per-attribute scoring and a 1000 point score. Corner and edge wear are scored on all four corners on both faces, for eight scores each."
+        "note": "Per-attribute scoring and a 1000 point score. Corner and edge wear are scored on all four corners on both faces, for eight scores each.",
+        "kind": "Per-attribute scores"
       }
     ],
     "math": {
@@ -428,7 +441,7 @@
       "source": "https://taggrading.com/pages/scale"
     },
     "lookup": {
-      "text": "The most useful thing you can do before submitting is look up how many 10s already exist for your exact card. CGC's population report is open with no account, organised by game, era and set, and showed over 12.4 million trading cards graded when this was read. Beckett's and SGC's reports also open without an account.",
+      "text": "The most useful thing you can do before submitting is look up how many 10s already exist for your exact card. CGC's population report is open with no account, organised by game, era and set. Beckett's and SGC's reports also open without an account.",
       "gap": "PSA's does not. Its population report redirects to a sign-in page. So the one company whose 10 most people actually want is the one you cannot check without an account.",
       "source": "https://www.cgccards.com/population-report/"
     }
@@ -450,7 +463,7 @@
       "ignore": "https://www.beckett.com/grading/scale"
     },
     {
-      "what": "PSA's glossary and PSA's standards page disagree on Near Mint 7 front centering, the glossary saying no worse than 75/25 and the standards page 70/30. This file follows the standards page.",
+      "what": "PSA's glossary and PSA's standards page disagree on front centering by a whole grade, and in more than one place: the glossary gives Near Mint 7 as no worse than 75/25 against the standards page's 70/30, and Near Mint-Mint 8 as 70/30 against 65/35. The glossary reads like it is one grade shifted throughout. This file follows the standards page everywhere.",
       "use": "https://www.psacard.com/gradingstandards",
       "ignore": "https://www.psacard.com/resources/lingo"
     }

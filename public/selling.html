@@ -50,8 +50,12 @@
 .se-p ul{margin:var(--s2) 0 0 var(--s4);font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
 .se-lbl{font-size:var(--t-sm);margin-top:var(--s3)}
 .se-yes b{color:#1E5B34}
-.se-no b{color:var(--ketchup)}
-.se-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s3)}
+.se-no b{color:var(--ketchup-deep)}
+.se-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s3);line-height:1.6}
+.se-prot{font-size:var(--t-sm);line-height:1.5;margin-top:var(--s2)}
+.se-s1,.se-rd{font:400 var(--t-micro)/1 var(--mono);white-space:nowrap}
+.se-rd{color:var(--ink-2)}
+.se-cond{margin:var(--s2) 0 0 var(--s4);font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
 .se-ps{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
 @media(max-width:900px){.se-ps{grid-template-columns:1fr}}
 .se-list{margin:var(--s4) 0 0 var(--s4);max-width:46em;line-height:1.55}
@@ -178,198 +182,6 @@
         <h2>Marketplaces</h2>
         <p>You list it, a buyer finds it, you ship it. The most money and the most work.</p>
         <div class="se-vs">
-      <article class="se-v" id="tcgplayer">
-        <div class="se-vh">
-          <h3><a href="https://help.tcgplayer.com/hc/en-us/articles/201357836-TCGplayer-Fees" rel="noopener" target="_blank">TCGplayer</a></h3>
-          <span class="se-st ok">Fees sourced</span>
-        </div>
-        <p class="se-fmt">Fixed price singles, with a catalogue keyed to card and condition</p>
-        <p class="se-best"><b>Best for.</b> Raw singles at every price point, including the cheap ones, because buyers arrive searching for a named card rather than browsing.</p>
-        <ul class="se-fees">
-        <li>
-          <b>Marketplace commission, Marketplace Seller (Level 1-4)</b> 10.75%
-          <span class="se-on">on Order subtotal</span>
-          <span class="se-nt">Capped at $75 per product sold. This is the rate an ordinary individual seller pays.</span>
-        </li>
-        <li>
-          <b>Transaction fee</b> 2.5% + $0.30
-          <span class="se-on">on Order TOTAL: items + shipping + tax</span>
-          <span class="se-nt">This is the part the headline rate hides. The commission is taken on the subtotal, the transaction fee on the total including what the buyer paid to ship, so buyer-paid shipping is charged even though it is not revenue. International orders are 3.5% + $0.30.</span>
-        </li>
-        <li>
-          <b>Marketplace commission, Pro (non-Direct) or Sync account</b> 9.25%
-          <span class="se-on">on Order subtotal, capped at $75 per product</span>
-          <span class="se-nt">Pro accounts additionally pay a Pro fee of 2.5% of subtotal, also capped at $75 per product. Sync accounts (Crystal Commerce, BinderPOS, Ion Sync) pay a Sync fee set entirely by the sync provider instead.</span>
-        </li>
-        <li>
-          <b>Marketplace commission, Direct Seller</b> 8.95%
-          <span class="se-on">on Order subtotal, capped at $75 per item</span>
-          <span class="se-nt">8.95% is the number people quote for TCGplayer and it is the hardest one to actually pay: it comes with the Direct Fee below and is not the ordinary individual seller's rate.</span>
-        </li>
-        <li>
-          <b>Direct Fee</b> Cards under $2.49: 50% of card value. Cards over $2.49: $1.12 per card plus all standard fees.
-          <span class="se-on">on Direct orders only, per item</span>
-          <span class="se-nt">For cards under $2.49 the commission, Pro, Sync and transaction fees are omitted and the 50% is the whole charge.</span>
-        </li>
-        <li>
-          <b>International seller PayPal fee</b> 2%, capped at $20.00
-          <span class="se-on">on Non-US sellers paid through PayPal</span>
-          <span class="se-nt">Taken as an account adjustment rather than deducted from the order.</span>
-        </li>
-        </ul>
-        <p class="se-pay"><b>Getting paid.</b> Payments are initiated every Monday and Thursday for sales sitting at 'Completed - Pending Payment', with fees already deducted. A sale reaches that status 24 hours after confirmed delivery, or 24 hours after the expected delivery date if tracking cannot be confirmed or the order shipped without tracking. Direct deposit usually lands about four business days later. Orders shipped outside the US are payable 21 days after the order is marked shipped.</p>
-        <p class="se-acc"><b>To sell there.</b> A seller account. New sellers start at Level 1 and the level caps how much you can list, not what you pay.</p>
-        <p class="se-nb">TCGplayer's fee page returns 403 to automated fetching. Every figure here was read in a browser on help.tcgplayer.com.</p>
-      </article>
-      <article class="se-v" id="mercari">
-        <div class="se-vh">
-          <h3><a href="https://www.mercari.com/us/help_center/article/169/" rel="noopener" target="_blank">Mercari</a></h3>
-          <span class="se-st ok">Fees sourced</span>
-        </div>
-        <p class="se-fmt">Fixed price listings, general resale rather than card-specific</p>
-        <p class="se-best"><b>Best for.</b> Singles, lots and sealed product aimed at a general audience rather than a card catalogue. No card database, so listings are written by hand.</p>
-        <ul class="se-fees">
-        <li>
-          <b>Selling fee</b> 10%
-          <span class="se-on">on The combined amount of the item price and buyer-paid shipping</span>
-          <span class="se-nt">Effective 6 January 2025. The flattest structure of any venue here: one percentage, no per-order fee, no tier.</span>
-        </li>
-        <li>
-          <b>Payment processing fee</b> None charged to the seller
-          
-          <span class="se-nt">The old buyer-side processing fee of $0.50 + 2.9% was removed on 6 January 2025 for new and updated listings.</span>
-        </li>
-        <li>
-          <b>Instant Pay</b> $3 flat per cash-out
-          <span class="se-on">on Optional fast withdrawal to an eligible debit card</span>
-          <span class="se-nt">Limited to $600 a month and once a day.</span>
-        </li>
-        <li>
-          <b>Direct deposit</b> $0, but $2 non-refundable per FAILED request
-          <span class="se-on">on Standard bank withdrawal</span>
-          
-        </li>
-        </ul>
-        <p class="se-pay"><b>Getting paid.</b> Buyers have 72 hours from delivery to rate the order, after which the funds release to the seller's balance. Standard direct deposit is free; Instant Pay to a debit card costs $3.</p>
-        <p class="se-acc"><b>To sell there.</b> An account. No subscription, no application, free to list.</p>
-        <p class="se-nb">Mercari's dedicated 'When do I get paid?' article (help_center/article/91) returned no readable body, so the payout timing here is what articles 169 and the seller-protection topic page state rather than that article.</p>
-      </article>
-        </div>
-      </section>
-      <section class="se-grp">
-        <h2>Buylists</h2>
-        <p>They buy it outright at their price. No waiting and no buyer to argue with.</p>
-        <div class="se-vs">
-      <article class="se-v" id="troll-and-toad">
-        <div class="se-vh">
-          <h3><a href="https://buylist.trollandtoad.com/" rel="noopener" target="_blank">Troll and Toad</a></h3>
-          <span class="se-st part">Partly sourced</span>
-        </div>
-        <p class="se-fmt">You look up your cards on their buylist, submit the list, ship the cards, and they buy them outright at a published price</p>
-        <p class="se-best"><b>Best for.</b> Bulk and mid-range singles. There is no commission and no waiting for a buyer, because there is no buyer: the shop is buying.</p>
-        <ul class="se-fees">
-        <li>
-          <b>Commission</b> None
-          
-          <span class="se-nt">A buylist has no commission. The price they publish IS the price, and it is well below market because they are reselling. That gap is the cost.</span>
-        </li>
-        <li>
-          <b>Store credit bonus</b> +10% over the cash price
-          <span class="se-on">on Choosing trade credit instead of money</span>
-          <span class="se-nt">Published as 'BUYLIST WITH 10% TRADE-IN BONUS' and confirmed in their own cart arithmetic: a card at $0.75 cash shows $0.83 in credit.</span>
-        </li>
-        <li>
-          <b>Published Pokemon buy prices, Near Mint</b> Commons / uncommons / trainers $0.02 each, or 1,000 for $27. Common/uncommon reverse holo $0.05. Holo and reverse rare $0.06. V ultra rare $0.75. VSTAR $1.00. VMAX $1.50. Hyper rare VMAX $5.00. Full-sized 10-card booster pack $4.65.
-          <span class="se-on">on Their Pokemon Bulk buylist category as published</span>
-          <span class="se-nt">Card condition is judged against TCGplayer's conditioning standards, which their own menu links to. These are live prices and they move; treat them as the shape.</span>
-        </li>
-        </ul>
-        <p class="se-pay"><b>Getting paid.</b> UNVERIFIED. Payment method and timing are not currently published anywhere reachable.</p>
-        <p class="se-acc"><b>To sell there.</b> An account. The buylist cart cannot be checked out without signing in.</p>
-        <p class="se-nb">PARTIAL, and for a specific and temporary reason: the main storefront is offline for a warehouse move. Every policy page that carries the terms (the buylist FAQ, the how-to-sell guide, the submission instructions) serves a 'we will be back soon' splash, so the minimum order value, who pays shipping, the payment method and the payment timing could not be read. The buylist itself is running. A '25% credit bonus' figure circulates on other sites; it does not appear on any Troll and Toad page and is not recorded here.</p>
-      </article>
-      <article class="se-v" id="dave-and-adams">
-        <div class="se-vh">
-          <h3><a href="https://www.dacardworld.com/buying/buy-list/" rel="noopener" target="_blank">Dave and Adam's Card World</a></h3>
-          <span class="se-st ok">Fees sourced</span>
-        </div>
-        <p class="se-fmt">A self-serve online buy list for SEALED product, plus email, phone and in-person quoting for singles and whole collections</p>
-        <p class="se-best"><b>Best for.</b> Sealed product above all, since that is what the self-serve buy list covers. Collections and singles go through a person instead.</p>
-        <ul class="se-fees">
-        <li>
-          <b>Fees of any kind</b> None
-          
-          <span class="se-nt">Their own wording: 'There are no fees. If an item is not accepted and is returned, there is no cost for return shipping.' As with any buylist, the cost is the buy price, not a fee line.</span>
-        </li>
-        <li>
-          <b>Store credit bonus</b> +10% on the total
-          <span class="se-on">on Choosing store credit instead of check, Venmo or PayPal</span>
-          
-        </li>
-        <li>
-          <b>Collection pickup</b> 95% of their buy prices
-          <span class="se-on">on Collections they travel to collect</span>
-          <span class="se-nt">Their own wording: 'We pay 95% of our buy prices if we come and pick it up to cover our expenses.' The 5% is the cost of not shipping it yourself.</span>
-        </li>
-        <li>
-          <b>Shipping to them</b> Paid by the seller
-          <span class="se-on">on All inbound shipments</span>
-          <span class="se-nt">Return shipping on anything they decline is free. Packages must arrive within 7 business days of the submission being accepted, and nothing over 50 pounds.</span>
-        </li>
-        <li>
-          <b>$25 gift code promotion</b> $25
-          <span class="se-on">on Shipments over $500 in value sent via UPS</span>
-          <span class="se-nt">Limit one gift code per day per customer.</span>
-        </li>
-        </ul>
-        <p class="se-pay"><b>Getting paid.</b> Typically within 24 hours of the shipment being received, and they ask you to allow up to 36 hours for processing after delivery. Payment by check, Venmo, PayPal or store credit. Their New York City location cannot pay cash on the spot.</p>
-        <p class="se-acc"><b>To sell there.</b> You must be at least 18. An account earns Premier Program points but the buy list itself is a submission, not a listing.</p>
-        <p class="se-nb">The Pokemon side of the self-serve buy list is sealed product. Singles go through a quote. No consignment or auction programme is published on their own site, so none is recorded here.</p>
-      </article>
-      <article class="se-v" id="card-cavern">
-        <div class="se-vh">
-          <h3><a href="https://www.cardcaverntradingcards.com/pages/selling-policies" rel="noopener" target="_blank">Card Cavern</a></h3>
-          <span class="se-st part">Partly sourced</span>
-        </div>
-        <p class="se-fmt">Pokemon-specific buylist for singles, bulk and PTCGL codes: look up your cards, submit, ship within 48 hours, get paid</p>
-        <p class="se-best"><b>Best for.</b> English Near Mint Pokemon singles and codes. A Pokemon specialist rather than a general card dealer.</p>
-        <ul class="se-fees">
-        <li>
-          <b>Commission</b> None
-          
-          <span class="se-nt">Buylist, so the published buy price is the whole deal.</span>
-        </li>
-        <li>
-          <b>Store credit bonus</b> +15%, calculated in the buylist cart
-          <span class="se-on">on Store credit rather than cash</span>
-          <span class="se-nt">As of this check they were offering STORE CREDIT ONLY, with cash rates shown for reference. Store credit cannot be cashed out later and only ships within the US.</span>
-        </li>
-        <li>
-          <b>Sorting fee</b> 10% of the submission
-          <span class="se-on">on Submissions not sorted by type as their policy requires</span>
-          <span class="se-nt">The one real deduction on this venue, and it is entirely avoidable.</span>
-        </li>
-        <li>
-          <b>Return shipping on cards they did not ask for</b> Paid by the seller
-          <span class="se-on">on Anything sent that is not on the buylist</span>
-          <span class="se-nt">Their own wording: 'If it's not on the buylist, do NOT send it to us.'</span>
-        </li>
-        <li>
-          <b>PTCGL code buylist</b> Store credit only. Unlisted and bulk codes $0.005 each; Celebrations $0.03; Dragon Vault $1.00.
-          <span class="se-on">on Online code cards</span>
-          <span class="se-nt">No daily buying limit any more.</span>
-        </li>
-        </ul>
-        <p class="se-pay"><b>Getting paid.</b> Submissions are reviewed within 1 to 2 business days. Processing runs Monday to Friday excluding federal holidays. If they adjust the offer and you do not reply within 3 business days they treat it as accepted. Payments are in USD. The payout METHOD and the number of days to payment are not published.</p>
-        <p class="se-acc"><b>To sell there.</b> An account, and you must be at least 18 or have a parent or guardian's permission.</p>
-        <p class="se-nb">THE DOMAIN IS cardcaverntradingcards.com. cardcaverntcg.com does not resolve at all, so a link to it is a dead link. PARTIAL because they publish no minimum order value, do not say who pays inbound shipping, do not name the cash payout method, and do not give a payment day count. Per-card singles and bulk rates were not readable on this check because buy requests were paused: their own page said 'Buy requests are not being accepted currently, check back next week.'</p>
-      </article>
-        </div>
-      </section>
-      <section class="se-grp">
-        <h2>Consignment and auction</h2>
-        <p>They sell it for you. Worth it on cards where the buyer pool is small and rich.</p>
-        <div class="se-vs">
       <article class="se-v" id="ebay">
         <div class="se-vh">
           <h3><a href="https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822" rel="noopener" target="_blank">eBay</a></h3>
@@ -436,7 +248,58 @@
         </ul>
         <p class="se-pay"><b>Getting paid.</b> Sales proceeds show as Processing, then typically become Available 1 to 2 days after the buyer's payment is confirmed. Payouts default to daily and are initiated about 2 days after payment is confirmed; weekly go out Tuesdays, biweekly every second Tuesday, monthly on the first Tuesday. The bank then typically takes another 1 to 3 business days. Express payout to a verified debit card or eligible bank account arrives in about 30 minutes for a flat $2.00. Must be a checking account or a Visa/Mastercard debit card; a savings account or PayPal cannot receive payouts.</p>
         <p class="se-acc"><b>To sell there.</b> An eBay account. A Store is an optional paid subscription and it lowers the rate.</p>
+        <p class="se-prot"><b>If it goes wrong.</b> Seller protections cover abusive buyer behaviour (negative and neutral feedback and defects removed, cases removed from service metrics) and events outside the seller's control such as carrier delays or severe weather when tracking shows on-time shipment. Payment dispute protection, where the transaction is eligible, covers the disputed amount, waives the $20 dispute fee and removes related feedback. The extra Top Rated Seller protections against a false 'not as described' claim, and against an item returned used or damaged, require Top Rated Seller status, US or Canada residence, no 'Very High' service metric, a listing on eBay.com and a 30-day or longer return policy. Protection is lost for false identity, not honouring your own return policy, taking sales off eBay, shipping slower than the service bought, and abuse of the protections themselves.</p>
+        
+        
         <p class="se-nb">eBay's own seller centre page (ebay.com/sellercenter) timed out repeatedly; every figure here came from the help centre articles listed above, which are eBay's own fee pages.</p>
+        <p class="se-src"><a href="https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822" aria-label="eBay, Category rates, per-order fee, insertion fees, dispute fee, international fee, reserve fee, performance surcharges, source 1" rel="noopener" target="_blank">Category rates, per-order fee, insertion fees, dispute fee, international fee, reserve fee, performance surcharges</a> <span>read August 15, 2026</span> &bull; <a href="https://www.ebay.com/help/selling/fees-credits-invoices/store-selling-fees?id=4809" aria-label="eBay, Store subscription prices, Store insertion allocations, Store category rates including Collectible Card Games at 12.35%, source 2" rel="noopener" target="_blank">Store subscription prices, Store insertion allocations, Store category rates including Collectible Card Games at 12.35%</a> <span>read August 15, 2026</span> &bull; <a href="https://www.ebay.com/help/selling/ebay-live/ebay-live-selling-fees?id=5870" aria-label="eBay, eBay Live commission, cap, processing fee and per-order promotion, source 3" rel="noopener" target="_blank">eBay Live commission, cap, processing fee and per-order promotion</a> <span>read August 15, 2026</span> &bull; <a href="https://www.ebay.com/help/selling/getting-paid/getting-paid-items-sold-?id=4814" aria-label="eBay, Payout schedules, timing and the $2.00 express payout fee, source 4" rel="noopener" target="_blank">Payout schedules, timing and the $2.00 express payout fee</a> <span>read August 15, 2026</span> &bull; <a href="https://www.ebay.com/help/policies/selling-policies/seller-protections?id=4345" aria-label="eBay, What seller protections cover and the eligibility conditions, source 5" rel="noopener" target="_blank">What seller protections cover and the eligibility conditions</a> <span>read August 15, 2026</span></p>
+      </article>
+      <article class="se-v" id="tcgplayer">
+        <div class="se-vh">
+          <h3><a href="https://help.tcgplayer.com/hc/en-us/articles/201357836-TCGplayer-Fees" rel="noopener" target="_blank">TCGplayer</a></h3>
+          <span class="se-st ok">Fees sourced</span>
+        </div>
+        <p class="se-fmt">Fixed price singles, with a catalogue keyed to card and condition</p>
+        <p class="se-best"><b>Best for.</b> Raw singles at every price point, including the cheap ones, because buyers arrive searching for a named card rather than browsing.</p>
+        <ul class="se-fees">
+        <li>
+          <b>Marketplace commission, Marketplace Seller (Level 1-4)</b> 10.75%
+          <span class="se-on">on Order subtotal</span>
+          <span class="se-nt">Capped at $75 per product sold. This is the rate an ordinary individual seller pays.</span>
+        </li>
+        <li>
+          <b>Transaction fee</b> 2.5% + $0.30
+          <span class="se-on">on Order TOTAL: items + shipping + tax</span>
+          <span class="se-nt">This is the part the headline rate hides. The commission is taken on the subtotal, the transaction fee on the total including what the buyer paid to ship, so buyer-paid shipping is charged even though it is not revenue. International orders are 3.5% + $0.30.</span>
+        </li>
+        <li>
+          <b>Marketplace commission, Pro (non-Direct) or Sync account</b> 9.25%
+          <span class="se-on">on Order subtotal, capped at $75 per product</span>
+          <span class="se-nt">Pro accounts additionally pay a Pro fee of 2.5% of subtotal, also capped at $75 per product. Sync accounts (Crystal Commerce, BinderPOS, Ion Sync) pay a Sync fee set entirely by the sync provider instead.</span>
+        </li>
+        <li>
+          <b>Marketplace commission, Direct Seller</b> 8.95%
+          <span class="se-on">on Order subtotal, capped at $75 per item</span>
+          <span class="se-nt">8.95% is the number people quote for TCGplayer and it is the hardest one to actually pay: it comes with the Direct Fee below and is not the ordinary individual seller's rate.</span>
+        </li>
+        <li>
+          <b>Direct Fee</b> Cards under $2.49: 50% of card value. Cards over $2.49: $1.12 per card plus all standard fees.
+          <span class="se-on">on Direct orders only, per item</span>
+          <span class="se-nt">For cards under $2.49 the commission, Pro, Sync and transaction fees are omitted and the 50% is the whole charge.</span>
+        </li>
+        <li>
+          <b>International seller PayPal fee</b> 2%, capped at $20.00
+          <span class="se-on">on Non-US sellers paid through PayPal</span>
+          <span class="se-nt">Taken as an account adjustment rather than deducted from the order.</span>
+        </li>
+        </ul>
+        <p class="se-pay"><b>Getting paid.</b> Payments are initiated every Monday and Thursday for sales sitting at 'Completed - Pending Payment', with fees already deducted. A sale reaches that status 24 hours after confirmed delivery, or 24 hours after the expected delivery date if tracking cannot be confirmed or the order shipped without tracking. Direct deposit usually lands about four business days later. Orders shipped outside the US are payable 21 days after the order is marked shipped.</p>
+        <p class="se-acc"><b>To sell there.</b> A seller account. New sellers start at Level 1 and the level caps how much you can list, not what you pay.</p>
+        <p class="se-prot"><b>If it goes wrong.</b> TCGplayer's own fee and payment pages state one thing plainly and it cuts against the seller: if an order is under review because of a buyer dispute, the funds are held until the outcome is decided, and if the order was already paid out an equivalent amount is held back from future deposits. No broader seller protection scheme was found on the pages read.</p>
+        
+        <p class="se-lbl"><b>Rate depends on your level.</b></p><ul class="se-cond"><li>1</li><li>2</li><li>3</li><li>4</li></ul>
+        <p class="se-nb">TCGplayer's fee page returns 403 to automated fetching. Every figure here was read in a browser on help.tcgplayer.com.</p>
+        <p class="se-src"><a href="https://help.tcgplayer.com/hc/en-us/articles/201357836-TCGplayer-Fees" aria-label="TCGplayer, The full fee table by seller type, the $75 per-product cap, the Direct Fee tiers, what each fee is taken on. Its own change log shows edits on 17 June 2026., source 1" rel="noopener" target="_blank">The full fee table by seller type, the $75 per-product cap, the Direct Fee tiers, what each fee is taken on. Its own change log shows edits on 17 June 2026.</a> <span>read August 15, 2026</span> &bull; <a href="https://help.tcgplayer.com/hc/en-us/articles/23315007565079-How-to-Understand-Commissions-and-Fees" aria-label="TCGplayer, Same commission rates restated as a table, and the note that card-paid commission is taken on item + shipping + tax, source 2" rel="noopener" target="_blank">Same commission rates restated as a table, and the note that card-paid commission is taken on item + shipping + tax</a> <span>read August 15, 2026</span> &bull; <a href="https://help.tcgplayer.com/hc/en-us/articles/201868548-How-do-seller-levels-work" aria-label="TCGplayer, Level 1 to 4 listing limits and the requirements to move up, source 3" rel="noopener" target="_blank">Level 1 to 4 listing limits and the requirements to move up</a> <span>read August 15, 2026</span> &bull; <a href="https://help.tcgplayer.com/hc/en-us/articles/201897958-When-does-TCGplayer-issue-payments" aria-label="TCGplayer, Monday and Thursday payment runs, the 24-hour rule, the 21-day international rule, dispute holds, source 4" rel="noopener" target="_blank">Monday and Thursday payment runs, the 24-hour rule, the 21-day international rule, dispute holds</a> <span>read August 15, 2026</span></p>
       </article>
       <article class="se-v" id="whatnot">
         <div class="se-vh">
@@ -474,8 +337,234 @@
         </ul>
         <p class="se-pay"><b>Getting paid.</b> For most US sellers earnings become available up to 4 hours after the carrier confirms delivery, then a requested payout reaches the bank in 1 to 2 business days. Sellers eligible for Early Payout get earnings the moment a shipping label is generated instead of waiting for delivery. Shipping methods without standard tracking run on fixed clocks instead: USPS First-Class Mail Letter (plain white envelope) is 10 days after label generation, bring-your-own-label is 7 days after the tracking number is entered.</p>
         <p class="se-acc"><b>To sell there.</b> A seller application is required. You must be at least 13, and 13 to 17 needs a parent or guardian's permission and a special application. Most applicants get access within minutes; some categories are gated and need a second approval.</p>
+        <p class="se-prot"><b>If it goes wrong.</b> Whatnot covers, and does not charge back to the seller: carrier delays after a timely drop-off, packages lost, undelivered or misdelivered by the carrier, and claims it judges to be abusive or fraudulent buyer behaviour. It handles chargebacks and payment disputes itself rather than passing them to the seller. The seller is charged back for late or unverified shipment (orders must ship within two business days with valid drop-off evidence such as an in-app scanner photo or a carrier acceptance scan; from 2 March 2026 sellers are responsible for refunds on late US domestic shipments without that confirmation), for failing to fulfil a high-value item, and for refunds arising from policy violations. Coverage is not unlimited: repeated issues cause Whatnot to reassess eligibility and recover refunded amounts across orders.</p>
+        
+        
         <p class="se-nb">help.whatnot.com returns 403 to automated fetching. Every figure here was read in a browser.</p>
+        <p class="se-src"><a href="https://help.whatnot.com/hc/en-us/articles/4847069165965-Whatnot-seller-fees" aria-label="Whatnot, Commission by category and region, the $1,500 band, processing fee, what each is taken on. Page stamped updated 11 August 2026., source 1" rel="noopener" target="_blank">Commission by category and region, the $1,500 band, processing fee, what each is taken on. Page stamped updated 11 August 2026.</a> <span>read August 15, 2026</span> &bull; <a href="https://help.whatnot.com/hc/en-us/articles/360061604191-Understand-the-earnings-payout-timeline" aria-label="Whatnot, When earnings become available by country, Early Payout, and the fixed clocks for untracked methods. Page stamped 12 August 2026., source 2" rel="noopener" target="_blank">When earnings become available by country, Early Payout, and the fixed clocks for untracked methods. Page stamped 12 August 2026.</a> <span>read August 15, 2026</span> &bull; <a href="https://help.whatnot.com/hc/en-us/articles/8442834600333-Apply-to-sell-on-Whatnot" aria-label="Whatnot, That an application is required, age rules, gated categories. Page stamped 10 August 2026., source 3" rel="noopener" target="_blank">That an application is required, age rules, gated categories. Page stamped 10 August 2026.</a> <span>read August 15, 2026</span> &bull; <a href="https://help.whatnot.com/hc/en-us/articles/360061195412-Whatnot-Seller-Protection-How-We-Resolve-Order-Issues-Together" aria-label="Whatnot, What Whatnot absorbs and what it recovers from the seller. Page stamped 17 June 2026., source 4" rel="noopener" target="_blank">What Whatnot absorbs and what it recovers from the seller. Page stamped 17 June 2026.</a> <span>read August 15, 2026</span></p>
       </article>
+      <article class="se-v" id="mercari">
+        <div class="se-vh">
+          <h3><a href="https://www.mercari.com/us/help_center/article/169/" rel="noopener" target="_blank">Mercari</a></h3>
+          <span class="se-st ok">Fees sourced</span>
+        </div>
+        <p class="se-fmt">Fixed price listings, general resale rather than card-specific</p>
+        <p class="se-best"><b>Best for.</b> Singles, lots and sealed product aimed at a general audience rather than a card catalogue. No card database, so listings are written by hand.</p>
+        <ul class="se-fees">
+        <li>
+          <b>Selling fee</b> 10%
+          <span class="se-on">on The combined amount of the item price and buyer-paid shipping</span>
+          <span class="se-nt">Effective 6 January 2025. The flattest structure of any venue here: one percentage, no per-order fee, no tier.</span>
+        </li>
+        <li>
+          <b>Payment processing fee</b> None charged to the seller
+          
+          <span class="se-nt">The old buyer-side processing fee of $0.50 + 2.9% was removed on 6 January 2025 for new and updated listings.</span>
+        </li>
+        <li>
+          <b>Instant Pay</b> $3 flat per cash-out
+          <span class="se-on">on Optional fast withdrawal to an eligible debit card</span>
+          <span class="se-nt">Limited to $600 a month and once a day.</span>
+        </li>
+        <li>
+          <b>Direct deposit</b> $0, but $2 non-refundable per FAILED request
+          <span class="se-on">on Standard bank withdrawal</span>
+          
+        </li>
+        <li>
+          <b>Buyer Protection fee, paid by the buyer</b> 3.6%
+          <span class="se-on">on the item price and buyer-paid shipping</span>
+          <span class="se-nt">Introduced on the same day the old buyer fee was removed, January 6 2025. It is not taken from the seller, but it is what the buyer actually spends, and this file records the buyer-paid premium at every other venue for exactly that reason.</span>
+        </li>
+        </ul>
+        <p class="se-pay"><b>Getting paid.</b> Buyers have 72 hours from delivery to rate the order, after which the funds release to the seller's balance. Standard direct deposit is free; Instant Pay to a debit card costs $3.</p>
+        <p class="se-acc"><b>To sell there.</b> An account. No subscription, no application, free to list.</p>
+        <p class="se-prot"><b>If it goes wrong.</b> Mercari states up to $200 of Shipping Protection against loss or damage in transit when the item ships on a Mercari prepaid label. It holds and releases funds itself rather than passing payment between buyer and seller, and runs fraud monitoring on transactions. The seller has 3 days to pack and drop off; shipping independently means tracking must be supplied before payment is released.</p>
+        
+        
+        <p class="se-nb">Mercari's dedicated 'When do I get paid?' article (help_center/article/91) returned no readable body, so the payout timing here is what articles 169 and the seller-protection topic page state rather than that article. The flattest SELLER structure of any venue here, which is not the same as the cheapest for the person buying: see the 3.6% buyer fee above.</p>
+        <p class="se-src"><a href="https://www.mercari.com/us/help_center/article/169/" aria-label="Mercari, The 10% selling fee, what it applies to, the removal of the processing fee, Instant Pay and direct deposit fees, source 1" rel="noopener" target="_blank">The 10% selling fee, what it applies to, the removal of the processing fee, Instant Pay and direct deposit fees</a> <span>read August 15, 2026</span> &bull; <a href="https://www.mercari.com/us/help_center/topics/account/policies/seller-protection/" aria-label="Mercari, The $200 shipping protection cap, the 3-day drop-off window, the 72-hour rating window, source 2" rel="noopener" target="_blank">The $200 shipping protection cap, the 3-day drop-off window, the 72-hour rating window</a> <span>read August 15, 2026</span></p>
+      </article>
+      <article class="se-v" id="sportlots">
+        <div class="se-vh">
+          <h3><a href="https://www.sportlots.com/g/ui/sellers_guide_page2.tpl" rel="noopener" target="_blank">Sportlots</a></h3>
+          <span class="se-st ok">Fees sourced</span>
+        </div>
+        <p class="se-fmt">A fixed-price seller store, or a '1, 2, 3, SOLD' auction that ends once a lot goes three days without a higher bid</p>
+        <p class="se-best"><b>Best for.</b> Cheap singles in volume. The commission structure is upside down compared with everywhere else and that is the whole point of it.</p>
+        <ul class="se-fees">
+        <li>
+          <b>Fixed-price commission, by TOTAL MONTHLY SALES</b> $0.00-$4.99: 75%. $5.00-$24.99: 50%. $25.00-$49.99: 35%. $50.00-$99.99: 27%. $100.00-$199.99: 23%. $200.00-$299.99: 20%. $300.00-$499.99: 18%. $500.00-$999.99: 17%. $1,000.00-$1,499.99: 16%. $1,500 and above: 15%.
+          <span class="se-on">on The seller's total sales for the month, not the individual sale</span>
+          <span class="se-nt">THE RATE IS SET BY YOUR MONTH, NOT BY THE CARD. Sell $4 in a month and they take 75% of it. Sell $1,500 and they take 15%. Nothing else in this file works this way.</span>
+        </li>
+        <li>
+          <b>How expensive cards are counted into that table</b> Only 50% of the portion of a sale price between $5 and $15 counts, and only 25% of the portion above $15
+          <span class="se-on">on The figure fed into the monthly fee schedule</span>
+          <span class="se-nt">Their own worked example: a $50 card contributes only $18.75 to the fee schedule, leaving $31.25 of that sale with no fee applied at all. So the headline percentages overstate the take on anything expensive.</span>
+        </li>
+        <li>
+          <b>Listing fee, fixed price</b> None
+          
+          <span class="se-nt">Their own wording: 'If no cards sell, there will be no charges.'</span>
+        </li>
+        <li>
+          <b>Auction listing fee</b> $0.15 per auction listing
+          <span class="se-on">on Each auction listing, charged when you list</span>
+          <span class="se-nt">Sunk whether or not the lot draws a bid. Optional extras: highlighting $0.10, category-level featured $1.00, site-level featured $2.50, all charged the same way.</span>
+        </li>
+        <li>
+          <b>Payment processing</b> Paid by the seller
+          <span class="se-on">on PayPal and credit card transaction fees on buyer payments</span>
+          <span class="se-nt">The flat portion is spread across every seller involved in a combined transaction. This is the on-top fee that the commission table does not show.</span>
+        </li>
+        <li>
+          <b>Postage</b> Seller keeps 100% of the postage charged
+          <span class="se-on">on Shipping you bill the buyer</span>
+          <span class="se-nt">Sellers set their own postage rates, and set them to $999.99 to opt out.</span>
+        </li>
+        <li>
+          <b>Loot rebate</b> 0% to 10%, seller's choice
+          <span class="se-on">on An optional rebate the seller offers buyers</span>
+          <span class="se-nt">Entirely optional and set by the seller.</span>
+        </li>
+        </ul>
+        <p class="se-pay"><b>Getting paid.</b> PayPal sellers are paid automatically on the 1st of each month to the registered email address. Credit sellers have earnings added to their Sportlots credit balance, and credit withdrawals are processed by hand and can take up to 7 days. Orders must be filled within 5 days of being paid for.</p>
+        <p class="se-acc"><b>To sell there.</b> An account with a payment method set up. No subscription fee anywhere in their seller guide.</p>
+        <p class="se-prot"><b>If it goes wrong.</b> Not established from the pages read.</p>
+        
+        
+        <p class="se-nb">Sportlots is NOT a buylist, despite often being grouped with them. Nobody buys your cards; you list them to the public. Its inventory system is organised by sport, and Pokemon sits under 'Other Cards'. No minimum payout threshold is published.</p>
+        <p class="se-src"><a href="https://www.sportlots.com/g/ui/sellers_guide_page2.tpl" aria-label="Sportlots, The full monthly fee schedule, the $5/$15 discounting rule and its worked example, no listing fees, seller-paid payment processing, the $1.50 buyer minimum value fee, payout method and timing, the 5-day fulfilment rule. Page states it is aligned to the user agreement effective 18 December 2025., source 1" rel="noopener" target="_blank">The full monthly fee schedule, the $5/$15 discounting rule and its worked example, no listing fees, seller-paid payment processing, the $1.50 buyer minimum value fee, payout method and timing, the 5-day fulfilment rule. Page states it is aligned to the user agreement effective 18 December 2025.</a> <span>read August 15, 2026</span> &bull; <a href="https://www.sportlots.com/guide/guidehelp/sauc.htm" aria-label="Sportlots, The $0.15 auction listing fee, the optional highlighting and featured fees, that fees are charged at listing regardless of bids, and the three-day auction rule, source 2" rel="noopener" target="_blank">The $0.15 auction listing fee, the optional highlighting and featured fees, that fees are charged at listing regardless of bids, and the three-day auction rule</a> <span>read August 15, 2026</span> &bull; <a href="https://www.sportlots.com/g/ui/sellers_guide_page1.tpl" aria-label="Sportlots, That a payment method must be set up, the credit or PayPal choice, the seller-set loot rebate, and seller-set postage, source 3" rel="noopener" target="_blank">That a payment method must be set up, the credit or PayPal choice, the seller-set loot rebate, and seller-set postage</a> <span>read August 15, 2026</span> &bull; <a href="https://www.sportlots.com/auction/aucbin/dislots_sport.tpl?sportval=Other+Cards" aria-label="Sportlots, Live Pokemon listings confirming Pokemon is sold there, under the sport-organised 'Other Cards' category, source 4" rel="noopener" target="_blank">Live Pokemon listings confirming Pokemon is sold there, under the sport-organised 'Other Cards' category</a> <span>read August 15, 2026</span></p>
+      </article>
+        </div>
+      </section>
+      <section class="se-grp">
+        <h2>Buylists</h2>
+        <p>They buy it outright at their price. No waiting and no buyer to argue with.</p>
+        <div class="se-vs">
+      <article class="se-v" id="troll-and-toad">
+        <div class="se-vh">
+          <h3><a href="https://buylist.trollandtoad.com/" rel="noopener" target="_blank">Troll and Toad</a></h3>
+          <span class="se-st part">Partly sourced</span>
+        </div>
+        <p class="se-fmt">You look up your cards on their buylist, submit the list, ship the cards, and they buy them outright at a published price</p>
+        <p class="se-best"><b>Best for.</b> Bulk and mid-range singles. There is no commission and no waiting for a buyer, because there is no buyer: the shop is buying.</p>
+        <ul class="se-fees">
+        <li>
+          <b>Commission</b> None
+          
+          <span class="se-nt">A buylist has no commission. The price they publish IS the price, and it is well below market because they are reselling. That gap is the cost.</span>
+        </li>
+        <li>
+          <b>Store credit bonus</b> +10% over the cash price
+          <span class="se-on">on Choosing trade credit instead of money</span>
+          <span class="se-nt">Published as 'BUYLIST WITH 10% TRADE-IN BONUS' and confirmed in their own cart arithmetic: a card at $0.75 cash shows $0.83 in credit.</span>
+        </li>
+        <li>
+          <b>Published Pokemon buy prices, Near Mint</b> Commons / uncommons / trainers $0.02 each, or 1,000 for $27. Common/uncommon reverse holo $0.05. Holo and reverse rare $0.06. V ultra rare $0.75. VSTAR $1.00. VMAX $1.50. Hyper rare VMAX $5.00. Full-sized 10-card booster pack $4.65.
+          <span class="se-on">on Their Pokemon Bulk buylist category as published</span>
+          <span class="se-nt">Card condition is judged against TCGplayer's conditioning standards, which their own menu links to. These are live prices and they move; treat them as the shape.</span>
+        </li>
+        </ul>
+        <p class="se-pay"><b>Getting paid.</b> UNVERIFIED. Payment method and timing are not currently published anywhere reachable.</p>
+        <p class="se-acc"><b>To sell there.</b> An account. The buylist cart cannot be checked out without signing in.</p>
+        <p class="se-prot"><b>If it goes wrong.</b> Not applicable in the marketplace sense; this is an outright sale, not a listing.</p>
+        
+        
+        <p class="se-nb">PARTIAL, and for a specific and temporary reason: the main storefront is offline for a warehouse move. Every policy page that carries the terms (the buylist FAQ, the how-to-sell guide, the submission instructions) serves a 'we will be back soon' splash, so the minimum order value, who pays shipping, the payment method and the payment timing could not be read. The buylist itself is running. A '25% credit bonus' figure circulates on other sites; it does not appear on any Troll and Toad page and is not recorded here.</p>
+        <p class="se-src"><a href="https://buylist.trollandtoad.com/" aria-label="Troll and Toad, The 10% trade-in bonus headline, the cash/credit toggle confirmed by cart arithmetic, the login gate, and the published Pokemon bulk prices, source 1" rel="noopener" target="_blank">The 10% trade-in bonus headline, the cash/credit toggle confirmed by cart arithmetic, the login gate, and the published Pokemon bulk prices</a> <span>read August 15, 2026</span></p>
+      </article>
+      <article class="se-v" id="dave-and-adams">
+        <div class="se-vh">
+          <h3><a href="https://www.dacardworld.com/buying/buy-list/" rel="noopener" target="_blank">Dave and Adam's Card World</a></h3>
+          <span class="se-st ok">Fees sourced</span>
+        </div>
+        <p class="se-fmt">A self-serve online buy list for SEALED product, plus email, phone and in-person quoting for singles and whole collections</p>
+        <p class="se-best"><b>Best for.</b> Sealed product above all, since that is what the self-serve buy list covers. Collections and singles go through a person instead.</p>
+        <ul class="se-fees">
+        <li>
+          <b>Fees of any kind</b> None
+          
+          <span class="se-nt">Their own wording: 'There are no fees. If an item is not accepted and is returned, there is no cost for return shipping.' As with any buylist, the cost is the buy price, not a fee line.</span>
+        </li>
+        <li>
+          <b>Store credit bonus</b> +10% on the total
+          <span class="se-on">on Choosing store credit instead of check, Venmo or PayPal</span>
+          
+        </li>
+        <li>
+          <b>Collection pickup</b> 95% of their buy prices
+          <span class="se-on">on Collections they travel to collect</span>
+          <span class="se-nt">Their own wording: 'We pay 95% of our buy prices if we come and pick it up to cover our expenses.' The 5% is the cost of not shipping it yourself.</span>
+        </li>
+        <li>
+          <b>Shipping to them</b> Paid by the seller
+          <span class="se-on">on All inbound shipments</span>
+          <span class="se-nt">Return shipping on anything they decline is free. Packages must arrive within 7 business days of the submission being accepted, and nothing over 50 pounds.</span>
+        </li>
+        <li>
+          <b>$25 gift code promotion</b> $25
+          <span class="se-on">on Shipments over $500 in value sent via UPS</span>
+          <span class="se-nt">Limit one gift code per day per customer.</span>
+        </li>
+        </ul>
+        <p class="se-pay"><b>Getting paid.</b> Typically within 24 hours of the shipment being received, and they ask you to allow up to 36 hours for processing after delivery. Payment by check, Venmo, PayPal or store credit. Their New York City location cannot pay cash on the spot.</p>
+        <p class="se-acc"><b>To sell there.</b> You must be at least 18. An account earns Premier Program points but the buy list itself is a submission, not a listing.</p>
+        <p class="se-prot"><b>If it goes wrong.</b> Not applicable; this is an outright sale.</p>
+        
+        
+        <p class="se-nb">The Pokemon side of the self-serve buy list is sealed product. Singles go through a quote. No consignment or auction programme is published on their own site, so none is recorded here.</p>
+        <p class="se-src"><a href="https://www.dacardworld.com/buying/buy-list/" aria-label="Dave and Adam's Card World, That the buy list is sealed product only, the payment methods and 10% credit bonus, the 24 to 36 hour payment window, who pays shipping, the 7-day and 50-pound rules, the 18+ requirement, the $25 UPS promotion, and live Pokemon sealed listings, source 1" rel="noopener" target="_blank">That the buy list is sealed product only, the payment methods and 10% credit bonus, the 24 to 36 hour payment window, who pays shipping, the 7-day and 50-pound rules, the 18+ requirement, the $25 UPS promotion, and live Pokemon sealed listings</a> <span>read August 15, 2026</span> &bull; <a href="https://www.dacardworld.com/buying" aria-label="Dave and Adam's Card World, The 95% collection pickup rate and the NYC cash limitation, source 2" rel="noopener" target="_blank">The 95% collection pickup rate and the NYC cash limitation</a> <span>read August 15, 2026</span> &bull; <a href="https://www.dacardworld.com/buying/sell-your-new-and-vintage-magic-cards-for-cash" aria-label="Dave and Adam's Card World, That Pokemon singles are bought, listed as 'Pokemon Cards (Holographics)', source 3" rel="noopener" target="_blank">That Pokemon singles are bought, listed as 'Pokemon Cards (Holographics)'</a> <span>read August 15, 2026</span></p>
+      </article>
+      <article class="se-v" id="card-cavern">
+        <div class="se-vh">
+          <h3><a href="https://www.cardcaverntradingcards.com/pages/selling-policies" rel="noopener" target="_blank">Card Cavern</a></h3>
+          <span class="se-st part">Partly sourced</span>
+        </div>
+        <p class="se-fmt">Pokemon-specific buylist for singles, bulk and PTCGL codes: look up your cards, submit, ship within 48 hours, get paid</p>
+        <p class="se-best"><b>Best for.</b> English Near Mint Pokemon singles and codes. A Pokemon specialist rather than a general card dealer.</p>
+        <ul class="se-fees">
+        <li>
+          <b>Commission</b> None
+          
+          <span class="se-nt">Buylist, so the published buy price is the whole deal.</span>
+        </li>
+        <li>
+          <b>Store credit bonus</b> +15%, calculated in the buylist cart
+          <span class="se-on">on Store credit rather than cash</span>
+          <span class="se-nt">As of this check they were offering STORE CREDIT ONLY, with cash rates shown for reference. Store credit cannot be cashed out later and only ships within the US.</span>
+        </li>
+        <li>
+          <b>Sorting fee</b> 10% of the submission
+          <span class="se-on">on Submissions not sorted by type as their policy requires</span>
+          <span class="se-nt">The one real deduction on this venue, and it is entirely avoidable.</span>
+        </li>
+        <li>
+          <b>Return shipping on cards they did not ask for</b> Paid by the seller
+          <span class="se-on">on Anything sent that is not on the buylist</span>
+          <span class="se-nt">Their own wording: 'If it's not on the buylist, do NOT send it to us.'</span>
+        </li>
+        <li>
+          <b>PTCGL code buylist</b> Store credit only. Unlisted and bulk codes $0.005 each; Celebrations $0.03; Dragon Vault $1.00.
+          <span class="se-on">on Online code cards</span>
+          <span class="se-nt">No daily buying limit any more.</span>
+        </li>
+        </ul>
+        <p class="se-pay"><b>Getting paid.</b> Submissions are reviewed within 1 to 2 business days. Processing runs Monday to Friday excluding federal holidays. If they adjust the offer and you do not reply within 3 business days they treat it as accepted. Payments are in USD. The payout METHOD and the number of days to payment are not published.</p>
+        <p class="se-acc"><b>To sell there.</b> An account, and you must be at least 18 or have a parent or guardian's permission.</p>
+        <p class="se-prot"><b>If it goes wrong.</b> Not applicable; outright sale. They recommend buying tracking and insurance on what you send, and will not accept C.O.D.</p>
+        <p class="se-lbl"><b>Only if.</b></p><ul class="se-cond"><li>Near Mint English cards only. Anything received below Near Mint is not accepted.</li><li>Submissions must be postmarked within 48 hours of the buylist being submitted.</li><li>No binders, no pages, no rubber bands.</li></ul>
+        
+        <p class="se-nb">THE DOMAIN IS cardcaverntradingcards.com. cardcaverntcg.com does not resolve at all, so a link to it is a dead link. PARTIAL because they publish no minimum order value, do not say who pays inbound shipping, do not name the cash payout method, and do not give a payment day count. Per-card singles and bulk rates were not readable on this check because buy requests were paused: their own page said 'Buy requests are not being accepted currently, check back next week.'</p>
+        <p class="se-src"><a href="https://www.cardcaverntradingcards.com/pages/selling-policies" aria-label="Card Cavern, The 10% sorting fee, the 48-hour postmark rule, the store-credit no-cash-out rule, the 18+ rule, return shipping at seller expense, the 3-business-day offer default, processing days, no C.O.D., source 1" rel="noopener" target="_blank">The 10% sorting fee, the 48-hour postmark rule, the store-credit no-cash-out rule, the 18+ rule, return shipping at seller expense, the 3-business-day offer default, processing days, no C.O.D.</a> <span>read August 15, 2026</span> &bull; <a href="https://www.cardcaverntradingcards.com/collections/pokemon-singles-buylist" aria-label="Card Cavern, Near Mint English condition bar, the account requirement, the 1 to 2 business day review, source 2" rel="noopener" target="_blank">Near Mint English condition bar, the account requirement, the 1 to 2 business day review</a> <span>read August 15, 2026</span> &bull; <a href="https://www.cardcaverntradingcards.com/collections/brilliant-stars-pokemon-singles-buylist" aria-label="Card Cavern, That displayed prices are cash rates and that only store credit at +15% is being offered at present, source 3" rel="noopener" target="_blank">That displayed prices are cash rates and that only store credit at +15% is being offered at present</a> <span>read August 15, 2026</span> &bull; <a href="https://www.cardcaverntradingcards.com/pages/buylist" aria-label="Card Cavern, PTCGL code rates and that codes pay out in store credit, source 4" rel="noopener" target="_blank">PTCGL code rates and that codes pay out in store credit</a> <span>read August 15, 2026</span></p>
+      </article>
+        </div>
+      </section>
+      <section class="se-grp">
+        <h2>Consignment and auction</h2>
+        <p>They sell it for you. Worth it on cards where the buyer pool is small and rich.</p>
+        <div class="se-vs">
       <article class="se-v" id="comc">
         <div class="se-vh">
           <h3><a href="https://www.comc.com/fees.aspx" rel="noopener" target="_blank">COMC</a></h3>
@@ -537,7 +626,11 @@
         </ul>
         <p class="se-pay"><b>Getting paid.</b> Sale proceeds land as COMC store credit, immediately usable to buy other cards on COMC. Converting to money costs the 10% cash-out fee, plus a check fee if you want a check rather than PayPal. Processing fees are charged out of store credit when the batch is ready to be added to inventory, so the account has to be funded before the cards arrive.</p>
         <p class="se-acc"><b>To sell there.</b> An account, and enough store credit on it to cover the processing fees when the batch is processed, or the items go on hold.</p>
+        <p class="se-prot"><b>If it goes wrong.</b> Not established from the pages read. COMC holds and ships the cards itself, so the seller is not exposed to buyer shipping disputes in the way a self-shipping marketplace seller is, but no seller protection policy was located on the fee pages read.</p>
+        
+        
         <p class="se-nb">comc.com returns 403 to automated fetching. Every figure here was read in a browser.</p>
+        <p class="se-src"><a href="https://www.comc.com/fees.aspx" aria-label="COMC, Consignment rates by service level, turnarounds, minimum fees, holder removal, eBay auction fees and variable payouts. Resolves to COMC's own support article at comc.zendesk.com, stamped updated 4 days before this check., source 1" rel="noopener" target="_blank">Consignment rates by service level, turnarounds, minimum fees, holder removal, eBay auction fees and variable payouts. Resolves to COMC's own support article at comc.zendesk.com, stamped updated 4 days before this check.</a> <span>read August 15, 2026</span> &bull; <a href="https://comc.zendesk.com/hc/en-us/articles/360054029273-What-are-the-Consignment-Fees" aria-label="COMC, Same article at its canonical url, source 2" rel="noopener" target="_blank">Same article at its canonical url</a> <span>read August 15, 2026</span> &bull; <a href="https://comc.zendesk.com/hc/en-us/articles/360053737993-What-are-the-commission-fees" aria-label="COMC, The 5% transaction fee and the 10% cash-out fee, source 3" rel="noopener" target="_blank">The 5% transaction fee and the 10% cash-out fee</a> <span>read August 15, 2026</span> &bull; <a href="https://comc.zendesk.com/hc/en-us/articles/360052957434-What-are-the-Storage-Fees-Enhanced-Security-Fees" aria-label="COMC, Storage fee, its exemptions, and the enhanced security fee, source 4" rel="noopener" target="_blank">Storage fee, its exemptions, and the enhanced security fee</a> <span>read August 15, 2026</span></p>
       </article>
       <article class="se-v" id="fanatics-collect">
         <div class="se-vh">
@@ -585,55 +678,11 @@
         </ul>
         <p class="se-pay"><b>Getting paid.</b> Buy Now purchases are paid by the buyer immediately at checkout. Proceeds land as an account balance, which you either spend on Fanatics Collect or withdraw. Withdrawals are requested on the web dashboard only, and payouts are issued every Wednesday against a midnight-ET Tuesday deadline; miss it and you wait a week. ACH is free and US only; wire costs $50 and is the only international option; a rush payout for next-business-day processing also costs $50. There is no check payment.</p>
         <p class="se-acc"><b>To sell there.</b> An account and a vault. Items must be graded or authenticated by an accepted company (PSA, SGC, BGS, BVG, BCCG, CGC Cards, CSG, MBA and others by category) or sent raw through its authentication partners. Buying in the Premier Auction needs an application; selling does not.</p>
+        <p class="se-prot"><b>If it goes wrong.</b> Not established from the pages read. Fanatics Collect holds the cards in its own vault and handles photographing, listing, payment and ownership transfer, so the seller does not ship to the buyer.</p>
+        <p class="se-lbl"><b>Only if.</b></p><ul class="se-cond"><li>Weekly Auction listings open at $5. Premier Auction listings open at $1,000, and all lots are unreserved.</li><li>An unsold auction lot returns to your vault and is eligible for one more auction. If it fails again it goes back to the vault and cannot be relisted for 90 days.</li><li>Weekly Flash listings from the vault must be submitted by 11.59pm PT Wednesday to close that Sunday.</li></ul>
+        
         <p class="se-nb">TWO OF ITS OWN PAGES DISAGREE ON THE PREMIER AUCTION MINIMUM. 'Selling on Fanatics Collect' says collectibles sold through the Premier Auction must have an estimated market value of at least $15,000, with lower values needing staff approval. 'How Fanatics Collect works' says the Premier Auction is reserved for collectibles with a market value of at least $10,000. Both were read on the same day. Neither number is treated as settled here. PWCC is not a separate venue any more: pwccmarketplace.com is Fanatics Collect.</p>
-      </article>
-      <article class="se-v" id="sportlots">
-        <div class="se-vh">
-          <h3><a href="https://www.sportlots.com/g/ui/sellers_guide_page2.tpl" rel="noopener" target="_blank">Sportlots</a></h3>
-          <span class="se-st ok">Fees sourced</span>
-        </div>
-        <p class="se-fmt">A fixed-price seller store, or a '1, 2, 3, SOLD' auction that ends once a lot goes three days without a higher bid</p>
-        <p class="se-best"><b>Best for.</b> Cheap singles in volume. The commission structure is upside down compared with everywhere else and that is the whole point of it.</p>
-        <ul class="se-fees">
-        <li>
-          <b>Fixed-price commission, by TOTAL MONTHLY SALES</b> $0.00-$4.99: 75%. $5.00-$24.99: 50%. $25.00-$49.99: 35%. $50.00-$99.99: 27%. $100.00-$199.99: 23%. $200.00-$299.99: 20%. $300.00-$499.99: 18%. $500.00-$999.99: 17%. $1,000.00-$1,499.99: 16%. $1,500 and above: 15%.
-          <span class="se-on">on The seller's total sales for the month, not the individual sale</span>
-          <span class="se-nt">THE RATE IS SET BY YOUR MONTH, NOT BY THE CARD. Sell $4 in a month and they take 75% of it. Sell $1,500 and they take 15%. Nothing else in this file works this way.</span>
-        </li>
-        <li>
-          <b>How expensive cards are counted into that table</b> Only 50% of the portion of a sale price between $5 and $15 counts, and only 25% of the portion above $15
-          <span class="se-on">on The figure fed into the monthly fee schedule</span>
-          <span class="se-nt">Their own worked example: a $50 card contributes only $18.75 to the fee schedule, leaving $31.25 of that sale with no fee applied at all. So the headline percentages overstate the take on anything expensive.</span>
-        </li>
-        <li>
-          <b>Listing fee, fixed price</b> None
-          
-          <span class="se-nt">Their own wording: 'If no cards sell, there will be no charges.'</span>
-        </li>
-        <li>
-          <b>Auction listing fee</b> $0.15 per auction listing
-          <span class="se-on">on Each auction listing, charged when you list</span>
-          <span class="se-nt">Sunk whether or not the lot draws a bid. Optional extras: highlighting $0.10, category-level featured $1.00, site-level featured $2.50, all charged the same way.</span>
-        </li>
-        <li>
-          <b>Payment processing</b> Paid by the seller
-          <span class="se-on">on PayPal and credit card transaction fees on buyer payments</span>
-          <span class="se-nt">The flat portion is spread across every seller involved in a combined transaction. This is the on-top fee that the commission table does not show.</span>
-        </li>
-        <li>
-          <b>Postage</b> Seller keeps 100% of the postage charged
-          <span class="se-on">on Shipping you bill the buyer</span>
-          <span class="se-nt">Sellers set their own postage rates, and set them to $999.99 to opt out.</span>
-        </li>
-        <li>
-          <b>Loot rebate</b> 0% to 10%, seller's choice
-          <span class="se-on">on An optional rebate the seller offers buyers</span>
-          <span class="se-nt">Entirely optional and set by the seller.</span>
-        </li>
-        </ul>
-        <p class="se-pay"><b>Getting paid.</b> PayPal sellers are paid automatically on the 1st of each month to the registered email address. Credit sellers have earnings added to their Sportlots credit balance, and credit withdrawals are processed by hand and can take up to 7 days. Orders must be filled within 5 days of being paid for.</p>
-        <p class="se-acc"><b>To sell there.</b> An account with a payment method set up. No subscription fee anywhere in their seller guide.</p>
-        <p class="se-nb">Sportlots is NOT a buylist, despite often being grouped with them. Nobody buys your cards; you list them to the public. Its inventory system is organised by sport, and Pokemon sits under 'Other Cards'. No minimum payout threshold is published.</p>
+        <p class="se-src"><a href="https://support.fanaticscollect.com/en_us/selling-on-fanatics-collect-Byq2QAQpel" aria-label="Fanatics Collect (formerly PWCC), The three selling routes, what is accepted, no auction seller fee, the 6% Buy Now fee, the $3 vault fee, opening bids, unsold-lot rules, source 1" rel="noopener" target="_blank">The three selling routes, what is accepted, no auction seller fee, the 6% Buy Now fee, the $3 vault fee, opening bids, unsold-lot rules</a> <span>read August 15, 2026</span> &bull; <a href="https://help.fanaticscollect.com/hc/en-us/articles/19903029576349-Buy-Now-Seller-Fees" aria-label="Fanatics Collect (formerly PWCC), The 6% and 12% Buy Now tiers, no minimum fee, and the rule for accepted offers. Redirects to support.fanaticscollect.com/en_us/buy-now-fees-ry33QCXaxe, source 2" rel="noopener" target="_blank">The 6% and 12% Buy Now tiers, no minimum fee, and the rule for accepted offers. Redirects to support.fanaticscollect.com/en_us/buy-now-fees-ry33QCXaxe</a> <span>read August 15, 2026</span> &bull; <a href="https://help.fanaticscollect.com/hc/en-us/articles/18433146043933-How-It-Works" aria-label="Fanatics Collect (formerly PWCC), The 20% buyer's premium on both auctions, FanCash No Fees, and the link to the Commission Overview chart. Redirects to support.fanaticscollect.com., source 3" rel="noopener" target="_blank">The 20% buyer's premium on both auctions, FanCash No Fees, and the link to the Commission Overview chart. Redirects to support.fanaticscollect.com.</a> <span>read August 15, 2026</span> &bull; <a href="https://cdn.kustomerhostedcontent.com/media/68b87fca6908c096308f416a/6605d230d42c476169ccabaddfe9fe0e.png" aria-label="Fanatics Collect (formerly PWCC), The Commission Overview chart itself, embedded on the How It Works page: the eight hammer bands, the bonus percentages, and the minimum $3 Weekly Auction commission, source 4" rel="noopener" target="_blank">The Commission Overview chart itself, embedded on the How It Works page: the eight hammer bands, the bonus percentages, and the minimum $3 Weekly Auction commission</a> <span>read August 15, 2026</span> &bull; <a href="https://www.fanaticscollect.com/newsroom/pwcc-is-now-fanatics-collect" aria-label="Fanatics Collect (formerly PWCC), Confirms Fanatics retired the PWCC brand on 15 July 2024 and that all PWCC services, including the vault, auctions and marketplace, are now Fanatics Collect, source 5" rel="noopener" target="_blank">Confirms Fanatics retired the PWCC brand on 15 July 2024 and that all PWCC services, including the vault, auctions and marketplace, are now Fanatics Collect</a> <span>read August 15, 2026</span> &bull; <a href="https://support.fanaticscollect.com/en_us/request-a-payout-rkTQCmpxx" aria-label="Fanatics Collect (formerly PWCC), Wednesday payout schedule, Tuesday midnight ET deadline, free ACH, $50 wire, $50 rush, no cheques, source 6" rel="noopener" target="_blank">Wednesday payout schedule, Tuesday midnight ET deadline, free ACH, $50 wire, $50 rush, no cheques</a> <span>read August 15, 2026</span></p>
       </article>
       <article class="se-v" id="goldin">
         <div class="se-vh">
@@ -671,7 +720,11 @@
         </ul>
         <p class="se-pay"><b>Getting paid.</b> Within 10 business days after Goldin has received both full cleared payment from the buyer AND valid payment instructions from you plus your SSN, ITIN, EIN or self-exempt form. Missing tax information holds the payout.</p>
         <p class="se-acc"><b>To sell there.</b> Submit through goldin.co/sell for the Weekly Auction, or through a Consignment Director for Elite. Items must be graded or authenticated by an approved company (PSA, Beckett, SGC, CGC certified) with an exception for ungraded factory-encapsulated cards.</p>
+        <p class="se-prot"><b>If it goes wrong.</b> All sales are final. If a lot draws no bids Goldin may at its discretion relist it in a later auction or return it AT YOUR COST. If an item fails authentication it may be returned at your sole expense, and any authentication, shipping or insurance charges must be paid before it is sent back. Once an item is under contract and up for auction it will not be withdrawn.</p>
+        
+        
         <p class="se-nb">PARTIAL because Goldin publishes no percentage seller's commission on its own FAQ. It is recorded as absent rather than guessed.</p>
+        <p class="se-src"><a href="https://goldin.co/faq" aria-label="Goldin, Auction formats and value thresholds, approved graders, the $5 small-lot fee, the $25 processing fee, the 22% buyer's premium, the 10-business-day payout rule, wire fees, no-reserve $10 opening bids, source 1" rel="noopener" target="_blank">Auction formats and value thresholds, approved graders, the $5 small-lot fee, the $25 processing fee, the 22% buyer's premium, the 10-business-day payout rule, wire fees, no-reserve $10 opening bids</a> <span>read August 15, 2026</span></p>
       </article>
       <article class="se-v" id="heritage">
         <div class="se-vh">
@@ -683,7 +736,11 @@
         <p class="se-none">No fee figures here. Nothing is published where we could read it, and a number copied from somewhere else would be a guess about your money. Their own page is linked above.</p>
         <p class="se-pay"><b>Getting paid.</b> Heritage's consignment pages promise 'prompt payments on the settlement date as promised' but publish no settlement interval on the pages that could be read.</p>
         <p class="se-acc"><b>To sell there.</b> Not self-service. You submit a form describing the items with photographs, or call the consignor hotline, and a specialist responds. Heritage advertises cash advances against consignments.</p>
+        <p class="se-prot"><b>If it goes wrong.</b> Not established.</p>
+        
+        
         <p class="se-nb">UNVERIFIED ON FEES, deliberately. Heritage publishes no seller's commission or buyer's premium on any of the consignment pages that could be reached, and ha.com/c/ref/terms-and-conditions.zx, where the auction terms live, refused the browser on two attempts. Secondary sources state figures for Heritage. None of them are in this file. If a number is wanted, it has to come from a consignment director or from the terms page directly.</p>
+        <p class="se-src"><a href="https://sports.ha.com/consign-your-collectibles.s" aria-label="Heritage Auctions, That consignment is by form or hotline, that cash advances are offered, and the item categories accepted. No fee figures on the page., source 1" rel="noopener" target="_blank">That consignment is by form or hotline, that cash advances are offered, and the item categories accepted. No fee figures on the page.</a> <span>read August 15, 2026</span> &bull; <a href="https://www.ha.com/information/how-does-auction-consignment-work.s" aria-label="Heritage Auctions, The consignment process described in full. No fee figures., source 2" rel="noopener" target="_blank">The consignment process described in full. No fee figures.</a> <span>read August 15, 2026</span> &bull; <a href="https://www.ha.com/why-consign-with-heritage-auctions.s" aria-label="Heritage Auctions, Consignor-facing marketing. No fee figures., source 3" rel="noopener" target="_blank">Consignor-facing marketing. No fee figures.</a> <span>read August 15, 2026</span> &bull; <a href="https://sports.ha.com/c/ref/faq.zx" aria-label="Heritage Auctions, FAQ index only; the fee answers are behind links that did not resolve to content., source 4" rel="noopener" target="_blank">FAQ index only; the fee answers are behind links that did not resolve to content.</a> <span>read August 15, 2026</span></p>
       </article>
         </div>
       </section>
@@ -717,7 +774,11 @@
         </ul>
         <p class="se-pay"><b>Getting paid.</b> Immediately, in the shop.</p>
         <p class="se-acc"><b>To sell there.</b> None. No account, no application, no subscription, no listing, no photographs.</p>
+        <p class="se-prot"><b>If it goes wrong.</b> Not applicable in the usual sense: the sale completes in person, so there is no shipping, no buyer dispute window, no chargeback and no payout hold.</p>
+        
+        
         <p class="se-nb">This site already publishes the local list, which is why this venue belongs here rather than as an afterthought. No shop's buy rate is stated because none of them publish one, and inventing a 'shops pay 50-60%' figure would break the rule this whole file runs on.</p>
+        <p class="se-src"><a href="data/shops.json" aria-label="Local card shop, Six Rochester-area shops, each verified from the business's own site: Just Games, Millennium Games, LingSter Games, Legacy Games, Great Lakes Gaming, WeTheHobby. Rendered on /shops.html., source 1" rel="noopener" target="_blank">Six Rochester-area shops, each verified from the business's own site: Just Games, Millennium Games, LingSter Games, Legacy Games, Great Lakes Gaming, WeTheHobby. Rendered on /shops.html.</a> <span>read August 15, 2026</span></p>
       </article>
       <article class="se-v" id="card-show">
         <div class="se-vh">
@@ -745,7 +806,11 @@
         </ul>
         <p class="se-pay"><b>Getting paid.</b> Immediately, at the show.</p>
         <p class="se-acc"><b>To sell there.</b> Selling to dealers needs nothing but admission. Renting a table means booking with the organiser in advance.</p>
+        <p class="se-prot"><b>If it goes wrong.</b> Not applicable. The sale completes in person.</p>
+        
+        
         <p class="se-nb">The site's shows file already carries the organiser link for every event, which is the only reliable route to a current table price.</p>
+        <p class="se-src"><a href="data/shows.json" aria-label="Card show, 23 upcoming shows across the Rochester, Buffalo and Syracuse regions, each with the listing url it was read from. Rendered on /card-shows.html., source 1" rel="noopener" target="_blank">23 upcoming shows across the Rochester, Buffalo and Syracuse regions, each with the listing url it was read from. Rendered on /card-shows.html.</a> <span>read August 12, 2026</span></p>
       </article>
         </div>
       </section>
@@ -759,9 +824,9 @@
         <h3>PayPal Goods and Services</h3>
         <p class="se-nb">The clearest example of the asymmetry, which is why it leads.</p>
         <p class="se-lbl se-yes"><b>Covers.</b></p><ul><li>Unauthorized Transaction</li><li>Item Not Received</li></ul>
-        <p class="se-lbl se-no"><b>Does not cover.</b></p><ul><li>Significantly Not as Described. Verbatim from the ineligible list: items where the buyer claims the item you sent is not what was ordered.</li><li>Personal payments, including anything sent using friends and family.</li><li>Item Not Received claims the buyer files directly with their card issuer.</li></ul>
-        <p class="se-nb"><b>The buyer's side differs.</b> The buyer's half of the same product DOES cover not as described, within 30 days of delivery or 180 days of payment, whichever is sooner.</p>
-        <p class="se-src"><a href="https://www.paypal.com/us/legalhub/paypal/seller-protection" rel="noopener" target="_blank">Source</a>, read August 15, 2026</p>
+        <p class="se-lbl se-no"><b>Does not cover.</b></p><ul><li>Significantly Not as Described. Verbatim from the ineligible list: items where the buyer claims the item you sent is not what was ordered.</li><li>Personal payments, including anything sent using friends and family.</li><li>Item Not Received claims the buyer files directly with their card issuer.</li><li>Physical items handed over in person. PayPal's ineligible list names items delivered in person, so taking Goods and Services at a face to face meet is outside seller protection by PayPal's own terms. That matters here because this page ends by saying an in person sale is the safest one: it is safest in CASH.</li></ul>
+        <p class="se-nb"><b>The buyer's side differs.</b> The buyer's side of PayPal is a separate policy with its own, longer clocks, which is the asymmetry worth knowing: the person who paid you generally has more time to open a case than you have to respond to one. The exact windows are published on PayPal's buyer protection page rather than the seller one, and are not quoted here because we could not read them cleanly off the page itself.</p>
+        <p class="se-src"><a href="https://www.paypal.com/us/legalhub/paypal/seller-protection" aria-label="PayPal Goods and Services policy, source 1" rel="noopener" target="_blank">Source</a>, <a href="https://www.paypal.com/us/legalhub/paypal/buyer-protection" aria-label="PayPal Goods and Services policy, source 2" rel="noopener" target="_blank">Source 2</a>, read August 15, 2026</p>
       </article>
       <article class="se-p">
         <h3>eBay</h3>
@@ -771,7 +836,7 @@
         <p class="se-nb"><b>Cards specifically.</b> For trading cards specifically, if the seller does not offer returns the buyer must request one within 3 calendar days of delivery. Every other category gets 30.</p>
         <p class="se-nb"><b>Signature on delivery.</b> $750 including shipping and tax.</p>
         <p class="se-nb"><b>Off platform.</b> Any payment completed outside eBay is excluded from the Money Back Guarantee entirely.</p>
-        <p class="se-src"><a href="https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210" rel="noopener" target="_blank">Source</a>, <a href="https://www.ebay.com/help/selling/getting-paid/payment-dispute-seller-protections?id=5293" rel="noopener" target="_blank">Source 2</a>, <a href="https://www.ebay.com/help/policies/selling-policies/seller-protections?id=4345" rel="noopener" target="_blank">Source 3</a>, <a href="https://www.ebay.com/help/policies/member-behavior-policies/signature-confirmation-policy?id=5154" rel="noopener" target="_blank">Source 4</a>, read August 15, 2026</p>
+        <p class="se-src"><a href="https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210" aria-label="eBay policy, source 1" rel="noopener" target="_blank">Source</a>, <a href="https://www.ebay.com/help/selling/getting-paid/payment-dispute-seller-protections?id=5293" aria-label="eBay policy, source 2" rel="noopener" target="_blank">Source 2</a>, <a href="https://www.ebay.com/help/policies/selling-policies/seller-protections?id=4345" aria-label="eBay policy, source 3" rel="noopener" target="_blank">Source 3</a>, <a href="https://www.ebay.com/help/policies/member-behavior-policies/signature-confirmation-policy?id=5154" aria-label="eBay policy, source 4" rel="noopener" target="_blank">Source 4</a>, read August 15, 2026</p>
       </article>
       <article class="se-p">
         <h3>eBay Authenticity Guarantee</h3>
@@ -780,7 +845,7 @@
         <p class="se-nb"><b>Threshold.</b> $200 and above for ungraded singles, and for autograph, relic and other graded cards. Pokemon singles fall under the collectible card game category.</p>
         <p class="se-nb"><b>Signature on delivery.</b> $1,500 and above on the authenticator to buyer leg, which is a different number from eBay's general $750.</p>
         <p class="se-nb"><b>Excluded.</b> Local pickup only listings are not eligible.</p>
-        <p class="se-src"><a href="https://www.ebay.com/authenticity-guarantee/tradingcards" rel="noopener" target="_blank">Source</a>, read August 15, 2026</p>
+        <p class="se-src"><a href="https://www.ebay.com/authenticity-guarantee/tradingcards" aria-label="eBay Authenticity Guarantee policy, source 1" rel="noopener" target="_blank">Source</a>, read August 15, 2026</p>
       </article>
       <article class="se-p">
         <h3>TCGplayer</h3>
@@ -790,7 +855,7 @@
         <p class="se-lbl"><b>Clocks.</b></p><ul><li>2 business days to answer a buyer before they can escalate.</li></ul>
         <p class="se-nb"><b>Counterfeits.</b> Handled by TCGplayer, and the card must physically reach them before a refund.</p>
         <p class="se-nb"><b>Returns.</b> Singles are otherwise non-returnable, with three exceptions: wrong condition, wrong card, missing card.</p>
-        <p class="se-src"><a href="https://help.tcgplayer.com/hc/en-us/articles/201642073-What-is-TCGplayer-s-Refund-and-Return-policy" rel="noopener" target="_blank">Source</a>, <a href="https://help.tcgplayer.com/hc/en-us/articles/201637633-TCGplayer-Safeguard" rel="noopener" target="_blank">Source 2</a>, <a href="https://help.tcgplayer.com/hc/en-us/articles/115014053928-TCGplayer-Fraud-Protection-Policy" rel="noopener" target="_blank">Source 3</a>, read August 15, 2026</p>
+        <p class="se-src"><a href="https://help.tcgplayer.com/hc/en-us/articles/201642073-What-is-TCGplayer-s-Refund-and-Return-policy" aria-label="TCGplayer policy, source 1" rel="noopener" target="_blank">Source</a>, <a href="https://help.tcgplayer.com/hc/en-us/articles/201637633-TCGplayer-Safeguard" aria-label="TCGplayer policy, source 2" rel="noopener" target="_blank">Source 2</a>, <a href="https://help.tcgplayer.com/hc/en-us/articles/115014053928-TCGplayer-Fraud-Protection-Policy" aria-label="TCGplayer policy, source 3" rel="noopener" target="_blank">Source 3</a>, read August 15, 2026</p>
       </article>
       <article class="se-p">
         <h3>Whatnot</h3>
@@ -801,7 +866,7 @@
         <p class="se-nb"><b>High value items.</b> Liability on a missing high-value card is the full MARKET value of the card, not the seller's earnings on it.</p>
         <p class="se-nb"><b>Packing video.</b> A documented requirement, not folklore: continuous footage showing the cards packed, the package sealed and the label applied, retained 75 days. Photos are explicitly not accepted as sufficient evidence for a high-value dispute.</p>
         <p class="se-nb"><b>Shipping.</b> Items over $20 may not go in a plain white envelope. Signature is auto-applied on certain US shipments of $500 or more, and buyers can opt out at account level.</p>
-        <p class="se-src"><a href="https://help.whatnot.com/hc/en-us/articles/5522583677837-High-Value-Loss-Reimbursement-Policy" rel="noopener" target="_blank">Source</a>, <a href="https://help.whatnot.com/hc/en-us/articles/360061195412-Whatnot-Seller-Protection-How-We-Resolve-Order-Issues-Together" rel="noopener" target="_blank">Source 2</a>, <a href="https://help.whatnot.com/hc/en-us/articles/360061194552-Whatnot-Buyer-Protection-Policy" rel="noopener" target="_blank">Source 3</a>, read August 15, 2026</p>
+        <p class="se-src"><a href="https://help.whatnot.com/hc/en-us/articles/5522583677837-High-Value-Loss-Reimbursement-Policy" aria-label="Whatnot policy, source 1" rel="noopener" target="_blank">Source</a>, <a href="https://help.whatnot.com/hc/en-us/articles/360061195412-Whatnot-Seller-Protection-How-We-Resolve-Order-Issues-Together" aria-label="Whatnot policy, source 2" rel="noopener" target="_blank">Source 2</a>, <a href="https://help.whatnot.com/hc/en-us/articles/360061194552-Whatnot-Buyer-Protection-Policy" aria-label="Whatnot policy, source 3" rel="noopener" target="_blank">Source 3</a>, read August 15, 2026</p>
       </article>
       <article class="se-p">
         <h3>Mercari</h3>
@@ -810,7 +875,7 @@
         <p class="se-nb"><b>How it works.</b> Mercari holds the buyer's money until the buyer rates, or 72 hours after carrier-confirmed delivery, whichever comes first.</p>
         <p class="se-lbl"><b>Clocks.</b></p><ul><li>24 hours to report a return that arrived damaged.</li></ul>
         <p class="se-nb"><b>Off platform.</b> Encouraging payment outside Mercari, or completing a transaction in person, is prohibited conduct.</p>
-        <p class="se-src"><a href="https://www.mercari.com/us/help_center/topics/returns/policies/refunds-and-returns/" rel="noopener" target="_blank">Source</a>, <a href="https://www.mercari.com/us/help_center/topics/account/policies/seller-protection/" rel="noopener" target="_blank">Source 2</a>, read August 15, 2026</p>
+        <p class="se-src"><a href="https://www.mercari.com/us/help_center/topics/returns/policies/refunds-and-returns/" aria-label="Mercari policy, source 1" rel="noopener" target="_blank">Source</a>, <a href="https://www.mercari.com/us/help_center/topics/account/policies/seller-protection/" aria-label="Mercari policy, source 2" rel="noopener" target="_blank">Source 2</a>, read August 15, 2026</p>
       </article>
       <article class="se-p">
         <h3>Facebook Marketplace</h3>
@@ -818,12 +883,11 @@
         <p class="se-lbl se-yes"><b>Covers.</b></p><ul><li>Lost, stolen and transit-delayed packages, item-not-as-described claims under conditions, returns of used or damaged items, and unauthorized chargebacks.</li></ul>
         <p class="se-lbl"><b>Only if all of these are true.</b></p><ul><li>Shipped items must use pre-paid shipping labels issued by Meta.</li><li>Sales must be processed through onsite checkout.</li><li>Coverage is limited to items with a sale price of $500 or less.</li><li>US only, and the seller must answer a refund request within 2 days.</li></ul>
         <p class="se-nb"><b>Excluded.</b> Purchases made through third-party sites, local pickups, Messenger transactions or other messaging services do not qualify for Purchase Protection.</p>
-        <p class="se-src"><a href="https://www.facebook.com/legal/merchant_policies" rel="noopener" target="_blank">Source</a>, <a href="https://www.facebook.com/help/228307904608701" rel="noopener" target="_blank">Source 2</a>, read August 15, 2026</p>
+        <p class="se-src"><a href="https://www.facebook.com/legal/merchant_policies" aria-label="Facebook Marketplace policy, source 1" rel="noopener" target="_blank">Source</a>, <a href="https://www.facebook.com/help/228307904608701" aria-label="Facebook Marketplace policy, source 2" rel="noopener" target="_blank">Source 2</a>, read August 15, 2026</p>
       </article>
       <article class="se-p">
         <h3>A private cash sale</h3>
         <p class="se-nb">There is no policy page to cite, and that is the finding.</p>
-        <p class="se-lbl se-yes"><b>Covers.</b></p><ul></ul>
         <p class="se-lbl"><b>How it works.</b></p><ul><li>Nobody holds the money, so there is no dispute process, no claim window, no arbiter and no reversal.</li><li>The exposure is symmetric and it ends when both people walk away.</li></ul>
         
       </article>
@@ -835,12 +899,12 @@
         <p>Each of these is a mechanism rather than a type of person. Every one is defined by who controls the
           money at which moment.</p>
         <ol class="se-list">
-          <li><b>The not-as-described chargeback.</b> The buyer receives the card, then tells their bank the item was not as described. This runs on card network rules, not the platform's, and eBay says plainly that the final outcome is decided by the buyer's payment institution. PayPal's seller-side product excludes this category outright, which is the single most useful thing a seller can know before choosing how to take payment.</li>
-          <li><b>The empty box or swapped card return.</b> The buyer opens a not-as-described return, then sends back a different card, a damaged card, or nothing. Every venue names this. eBay allows a deduction of up to 50% and requires the seller to report the buyer within 2 business days. eBay Authenticity Guarantee is the only place found where the swap is structurally prevented rather than compensated, because the return reaches the authenticator first.</li>
-          <li><b>Friends and family, which has no dispute path by design.</b> PayPal states that personal payments are not covered by Purchase Protection. That is the whole mechanism: it is not a purchase, so there is nothing to dispute. It cuts both ways, and that is why it gets asked for. A buyer asking a seller to accept it is asking them to save the fee; a seller asking a buyer for it is asking them to give up their refund route. Neither request is neutral.</li>
-          <li><b>The off-platform payment request.</b> Moving the deal to a message, a bank transfer or a payment app strips protection on every venue read here, and all four say so in their own words. eBay also bans sharing a phone number or email before the sale completes, so on that venue the request itself is the tell.</li>
-          <li><b>The fake payment and the fake-check overpayment.</b> A buyer sends a fake payment notification and hopes the item ships before anyone checks, or sends a check for more than the price and asks for the difference back. The FTC's explanation of why the check version works is the part worth printing: banks must make the money available quickly, usually within two days, and it can take weeks for the bank to work out the check was fake.</li>
-          <li><b>The item-not-received claim after delivery.</b> The buyer has the card and says they do not. The one attack where seller protection is genuinely strong on every venue, provided tracking shows delivery to the checkout address and signature was used above the threshold.</li>
+          <li><b>The not-as-described chargeback.</b> The buyer receives the card, then tells their bank the item was not as described. This runs on card network rules, not the platform's, and eBay says plainly that the final outcome is decided by the buyer's payment institution. PayPal's seller-side product excludes this category outright, which is the single most useful thing a seller can know before choosing how to take payment. <a class="se-s1" href="https://www.ebay.com/help/selling/getting-paid/payment-disputes?id=4799" aria-label="Source for The not-as-described chargeback" rel="noopener" target="_blank">Source</a> <span class="se-rd">read August 15, 2026</span></li>
+          <li><b>The empty box or swapped card return.</b> The buyer opens a not-as-described return, then sends back a different card, a damaged card, or nothing. Every venue names this. eBay allows a deduction of up to 50% and requires the seller to report the buyer within 2 business days. eBay Authenticity Guarantee is the only place found where the swap is structurally prevented rather than compensated, because the return reaches the authenticator first. <a class="se-s1" href="https://www.ebay.com/help/policies/selling-policies/seller-protections?id=4345" aria-label="Source for The empty box or swapped card return" rel="noopener" target="_blank">Source</a> <span class="se-rd">read August 15, 2026</span></li>
+          <li><b>Friends and family, which has no dispute path by design.</b> PayPal states that personal payments are not covered by Purchase Protection. That is the whole mechanism: it is not a purchase, so there is nothing to dispute. It cuts both ways, and that is why it gets asked for. A buyer asking a seller to accept it is asking them to save the fee; a seller asking a buyer for it is asking them to give up their refund route. Neither request is neutral. <a class="se-s1" href="https://www.paypal.com/us/cshelp/article/whats-the-difference-between-friends-and-family-or-goods-and-services-payments-help277" aria-label="Source for Friends and family, which has no dispute path by design" rel="noopener" target="_blank">Source</a> <span class="se-rd">read August 15, 2026</span></li>
+          <li><b>The off-platform payment request.</b> Moving the deal to a message, a bank transfer or a payment app strips protection on every venue read here, and all four say so in their own words. eBay also bans sharing a phone number or email before the sale completes, so on that venue the request itself is the tell. <a class="se-s1" href="https://www.ebay.com/help/policies/listing-policies/offers-buy-sell-outside-ebay-policy?id=4272" aria-label="Source for The off-platform payment request" rel="noopener" target="_blank">Source</a> <span class="se-rd">read August 15, 2026</span></li>
+          <li><b>The fake payment and the fake-check overpayment.</b> A buyer sends a fake payment notification and hopes the item ships before anyone checks, or sends a check for more than the price and asks for the difference back. The FTC's explanation of why the check version works is the part worth printing: banks must make the money available quickly, usually within two days, and it can take weeks for the bank to work out the check was fake. <a class="se-s1" href="https://consumer.ftc.gov/consumer-alerts/2022/07/selling-stuff-online-heres-how-avoid-scam" aria-label="Source for The fake payment and the fake-check overpayment" rel="noopener" target="_blank">Source</a> <span class="se-rd">read August 15, 2026</span></li>
+          <li><b>The item-not-received claim after delivery.</b> The buyer has the card and says they do not. The one attack where seller protection is genuinely strong on every venue, provided tracking shows delivery to the checkout address and signature was used above the threshold. <a class="se-s1" href="https://www.paypal.com/us/legalhub/paypal/seller-protection" aria-label="Source for The item-not-received claim after delivery" rel="noopener" target="_blank">Source</a> <span class="se-rd">read August 15, 2026</span></li>
         </ol>
       </section>
 
@@ -848,10 +912,10 @@
         <h2>What actually <span class="hl">defends</span> against it</h2>
         <ol class="se-list">
           <li><b>Keep the money on the platform's own rail.</b> Not advice so much as the precondition for everything else. Every protection listed here is conditional on the payment having gone through the platform. Moving it off does not weaken your protection, it deletes it.</li>
-          <li><b>Tracking, to the address on the order.</b> PayPal requires an online, verifiable tracking number showing delivered, to an address matching the transaction. Shipping somewhere else, even at the buyer's request, voids it.</li>
-          <li><b>Signature confirmation above the threshold, and the threshold is not one number.</b>  eBay: $750 including shipping and tax. eBay Authenticity Guarantee, authenticator to buyer: $1,500. Whatnot: auto-applied on certain US shipments of $500 or more. USPS price: $5.15 at a Post Office, $4.15 online.</li>
-          <li><b>Film the packing, in one continuous shot.</b> Whatnot requires it for a high-value claim and says photos will not be accepted as sufficient evidence. Keep the footage 75 days. Even where it is not required, it is the only artefact that answers the empty-box claim.</li>
-          <li><b>Know what insurance is for.</b> USPS insures up to $5,000 as standard and up to $50,000 by Registered Mail, and claims must be filed within 60 days of mailing. It answers the post office losing the parcel. It does not answer the buyer saying the box was empty.</li>
+          <li><b>Tracking, to the address on the order.</b> PayPal requires an online, verifiable tracking number showing delivered, to an address matching the transaction. Shipping somewhere else, even at the buyer's request, voids it. <a class="se-s1" href="https://www.paypal.com/us/legalhub/paypal/seller-protection" aria-label="Source for Tracking, to the address on the order" rel="noopener" target="_blank">Source</a> <span class="se-rd">read August 15, 2026</span></li>
+          <li><b>Signature confirmation above the threshold, and the threshold is not one number.</b>  eBay: $750 including shipping and tax. eBay Authenticity Guarantee, authenticator to buyer: $1,500. Whatnot: auto-applied on certain US shipments of $500 or more. USPS price: $5.15 at a Post Office, $4.15 online. <a class="se-s1" href="https://www.usps.com/ship/insurance-extra-services.htm" aria-label="Source for Signature confirmation above the threshold, and the threshold is not one number" rel="noopener" target="_blank">Source</a> <span class="se-rd">read August 15, 2026</span></li>
+          <li><b>Film the packing, in one continuous shot.</b> Whatnot requires it for a high-value claim and says photos will not be accepted as sufficient evidence. Keep the footage 75 days. Even where it is not required, it is the only artefact that answers the empty-box claim. <a class="se-s1" href="https://help.whatnot.com/hc/en-us/articles/5522583677837-High-Value-Loss-Reimbursement-Policy" aria-label="Source for Film the packing, in one continuous shot" rel="noopener" target="_blank">Source</a> <span class="se-rd">read August 15, 2026</span></li>
+          <li><b>Know what insurance is for.</b> USPS insures up to $5,000 as standard and up to $50,000 by Registered Mail, and claims must be filed within 60 days of mailing. It answers the post office losing the parcel. It does not answer the buyer saying the box was empty. <a class="se-s1" href="https://www.usps.com/ship/insurance-extra-services.htm" aria-label="Source for Know what insurance is for" rel="noopener" target="_blank">Source</a> <span class="se-rd">read August 15, 2026</span></li>
           <li><b>Answer the clock.</b> Nearly every protection here has a deadline attached, and they are short: 5 calendar days, 2 business days, 24 hours. Missing the clock loses the protection more often than losing the argument does.</li>
         </ol>
       </section>
@@ -865,7 +929,7 @@
           <li>Both people inspect before the value moves, and the deal completes in one moment rather than over ten days.</li>
         </ul>
         <p class="se-lede" style="margin-top:var(--s4)"><b>What it costs you.</b> You give up the buyer pool and probably the price. A shop buys at a percentage of market because it has to resell.</p>
-        <p class="se-lede" style="margin-top:var(--s3)">The FTC's own guidance for people selling online recommends selling to a local buyer you can meet in person and taking cash.</p>
+        <p class="se-lede" style="margin-top:var(--s3)">The FTC's own guidance for people selling online recommends selling to a local buyer you can meet in person and taking cash. <a class="se-s1" href="https://consumer.ftc.gov/consumer-alerts/2022/07/selling-stuff-online-heres-how-avoid-scam" aria-label="FTC guidance for sellers" rel="noopener" target="_blank">Source</a> <span class="se-rd">read August 15, 2026</span></p>
         <p class="se-lede" style="margin-top:var(--s3)"><b>Where the line actually is.</b> The risk in a local
           listing is not the venue, it is three things people do inside it.</p>
         <ul class="se-list">

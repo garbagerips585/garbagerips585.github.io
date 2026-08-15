@@ -359,7 +359,7 @@ const style = `
    .cc-table already tints whole rows on hover and on even rows, and a third
    colour on the text would be a fourth thing competing in the same cell. */
 .pp-best{background:var(--mustard) !important;font-weight:700}
-.pp-via{display:block;font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);font-weight:400;margin-top:2px}
+.pp-via{display:block;font-family:var(--mono);font-size:.64rem;color:var(--ink);font-weight:400;margin-top:2px}
 .pp-none{color:var(--ink-soft)}
 .pp-rips{display:block;font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);font-weight:400}
 .pp-key{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;
@@ -469,7 +469,7 @@ ${MENU}
     <h2>Cheapest pack to <span class="hl">priciest</span></h2>
     <p class="lede" style="max-width:40em">Sorted by the cheapest pack available in each set, whatever it is inside. Every
       figure is that product's market price divided by the pack count printed on it, before tax and shipping.</p>
-    <div class="cc-scroll">
+    <div class="cc-scroll" tabindex="0" role="region" aria-label="Pack prices by set, scrollable table">
       <table class="cc-table pp-table">
         <caption class="sr-only">Market price per pack for each sealed product, by set, cheapest set first</caption>
         <thead>

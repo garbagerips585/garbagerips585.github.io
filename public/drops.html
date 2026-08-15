@@ -236,9 +236,10 @@
         </div>
         <p class="drop-what">Product list not published yet.</p>
         <p class="drop-when"><b>When.</b> Wednesday evening is the pattern, most often between 9pm and midnight Eastern.</p>
-        <p class="drop-note">Walmart publishes no restock schedule. The closest thing to evidence is a measurement: Restockd, which monitors retailer stock endpoints, logged 83 Walmart Pokemon restocks in the 90 days to August 12, 2026 and found 87 per cent landed between 9pm and midnight Eastern, most often on a Wednesday.</p>
+        <p class="drop-note">Walmart publishes no restock schedule. The closest thing to evidence is a measurement: Restockd, which watches for products coming back in stock, logged 83 Walmart Pokemon DETECTIONS in the 90 days to August 12, 2026 and found 87 per cent landed between 9pm and midnight Eastern, most often on a Wednesday.</p>
+        <p class="drop-note">Restockd's own caveat matters: a detection is a product returning to stock, not a count of units, and several detections can belong to one release. So 83 is not 83 separate drops.</p>
         <p class="drop-note">That is a record of what happened, not a promise about what will.</p>
-        <p class="drop-src"><a href="https://restockd.app/blog/when-does-walmart-restock-pokemon-cards" rel="noopener" target="_blank">Restockd 90 day restock analysis</a>, read August 15, 2026</p>
+        <p class="drop-src"><a href="https://restockd.app/blog/when-does-walmart-restock-pokemon-cards" rel="noopener" target="_blank">Restockd 90 day detection analysis</a>, read August 15, 2026</p>
       </article>
       <article class="drop" data-channel="store" data-retailer="aldi">
         <div class="drop-top">
@@ -275,6 +276,12 @@
       </article>
       </div>
       <p class="dr-empty" id="drEmpty" hidden>Nothing matches that combination.</p>
+      <!-- FILTERING WAS A SILENT CHANGE. The buttons were correct, aria-pressed
+           and all, but pressing one took the grid from 8 cards to 3 and said
+           nothing: a screen reader user got a state change with no result. The
+           count is announced here rather than on the grid, because making the
+           grid itself live would re-read every card on every keystroke. -->
+      <p class="sr-only" id="drCount" role="status" aria-live="polite"></p>
 
       <div class="dr-key">
         <h2>How to read this page</h2>
@@ -361,6 +368,7 @@
   if (!grid) return;
   var cards = [].slice.call(grid.querySelectorAll(".drop"));
   var empty = document.getElementById("drEmpty");
+  var count = document.getElementById("drCount");
   var btns = [].slice.call(document.querySelectorAll(".dr-f"));
   var channel = "all", retailer = null;
 
@@ -374,6 +382,11 @@
       if (on) shown++;
     });
     if (empty) empty.hidden = shown > 0;
+    if (count) {
+      count.textContent = shown
+        ? shown + (shown === 1 ? " drop shown" : " drops shown")
+        : "No drops match that combination";
+    }
     btns.forEach(function (b) {
       var f = b.getAttribute("data-f"), r = b.getAttribute("data-r");
       var on = r ? r === retailer : f === "all" ? channel === "all" && !retailer : f === channel;

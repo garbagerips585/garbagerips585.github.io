@@ -229,6 +229,12 @@ ${MENU}
 ${drops.map(card).join("\n")}
       </div>
       <p class="dr-empty" id="drEmpty" hidden>Nothing matches that combination.</p>
+      <!-- FILTERING WAS A SILENT CHANGE. The buttons were correct, aria-pressed
+           and all, but pressing one took the grid from 8 cards to 3 and said
+           nothing: a screen reader user got a state change with no result. The
+           count is announced here rather than on the grid, because making the
+           grid itself live would re-read every card on every keystroke. -->
+      <p class="sr-only" id="drCount" role="status" aria-live="polite"></p>
 
       <div class="dr-key">
         <h2>How to read this page</h2>
@@ -256,6 +262,7 @@ ${footer()}
   if (!grid) return;
   var cards = [].slice.call(grid.querySelectorAll(".drop"));
   var empty = document.getElementById("drEmpty");
+  var count = document.getElementById("drCount");
   var btns = [].slice.call(document.querySelectorAll(".dr-f"));
   var channel = "all", retailer = null;
 
@@ -269,6 +276,11 @@ ${footer()}
       if (on) shown++;
     });
     if (empty) empty.hidden = shown > 0;
+    if (count) {
+      count.textContent = shown
+        ? shown + (shown === 1 ? " drop shown" : " drops shown")
+        : "No drops match that combination";
+    }
     btns.forEach(function (b) {
       var f = b.getAttribute("data-f"), r = b.getAttribute("data-r");
       var on = r ? r === retailer : f === "all" ? channel === "all" && !retailer : f === channel;

@@ -53,14 +53,22 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/grade-check.json"), "utf8"));
 
 const CO = ["psa", "cgc", "beckett", "sgc", "tag"];
-const CO_NAME = { psa: "PSA", cgc: "CGC", beckett: "Beckett", sgc: "SGC", tag: "TAG" };
+const CO_NAME = { psa: "PSA", cgc: "CGC", beckett: "Beckett (BGS)", sgc: "SGC", tag: "TAG" };
 
 // A blank cell is a FINDING, not a gap, so it is drawn as one and explained in
 // the caption rather than left looking like missing data.
 const cell = (v) =>
   v ? `<td>${esc(v)}</td>` : `<td class="gc-none"><span>not published</span></td>`;
 
-const table = (rows, cap) => `      <div class="gc-tw">
+// tabindex + role + label, because an overflowing box a keyboard cannot reach
+// is content a keyboard cannot read. These tables are min-width:640px inside a
+// 360px box: 280px, about 44% of every row, is off to the right, and there is
+// NOTHING focusable inside one to tab to. build-expansions.mjs worked this out
+// and wrote it down; this page shipped without it anyway, which is the whole
+// value of an audit that reads other files.
+const table = (rows, cap) => `      <div class="gc-tw" tabindex="0" role="region" aria-label="${esc(
+  String(cap).replace(/<[^>]+>/g, "")
+)}, scrollable table">
         <table class="gc-t">
           <caption>${cap}</caption>
           <thead><tr><th scope="col">Grade</th>${CO.map((c) => `<th scope="col">${CO_NAME[c]}</th>`).join("")}</tr></thead>
@@ -70,8 +78,15 @@ ${rows.map((r) => `            <tr><th scope="row">${esc(r.grade)}</th>${CO.map(
         </table>
       </div>`;
 
-const src = (url, label = "Source") =>
-  url ? ` <a class="gc-s" href="${esc(url)}" rel="noopener" target="_blank">${esc(label)}</a>` : "";
+// A SCREEN READER'S LINK LIST IS JUST THE LINK TEXT. This page had 23 links all
+// reading "Source", each going somewhere different, which reads out as 23
+// identical rows with no way to tell them apart. The visible word stays
+// "Source" because in context that is exactly right and anything longer clutters
+// a sentence; `what` supplies the accessible name instead.
+const src = (url, what) =>
+  url
+    ? ` <a class="gc-s" href="${esc(url)}"${what ? ` aria-label="Source: ${esc(what)}"` : ""} rel="noopener" target="_blank">Source</a>`
+    : "";
 
 const c = d.centering;
 const desc =
@@ -112,7 +127,7 @@ const style = `
 .gc-ex{list-style:none;margin:var(--s4) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--s2)}
 .gc-ex li{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:baseline;font-size:var(--t-sm);
   padding:10px var(--s3);background:rgba(255,255,255,.07);border-radius:8px}
-.gc-ex b{font:700 var(--t-m)/1 var(--body);color:var(--gold)}
+.gc-ex b{font:700 var(--t-m)/1 var(--body);color:var(--mustard)}
 .gc-list{margin:0 0 0 var(--s4);max-width:46em;line-height:1.55}
 .gc-list li{margin-bottom:var(--s3)}
 .gc-def{margin:0;max-width:48em}
@@ -177,7 +192,7 @@ ${MENU}
         <h2>Start with the worst thing on the card</h2>
         <p>${esc(d.subgrades.math.soWhat)}</p>
         <p>Beckett is the only company that still publishes both the four component scores and how they combine,
-          and its rules are the most useful thing on this page.${src(d.subgrades.math.source)}</p>
+          and its rules are the most useful thing on this page.${src(d.subgrades.math.source, "Beckett on how subgrades combine")}</p>
         <ul>
 ${d.subgrades.math.rules.map((r) => `          <li>${esc(r)}</li>`).join("\n")}
         </ul>
@@ -191,11 +206,11 @@ ${d.subgrades.math.examples.map((e) => `          <li>${esc(e.sub)} <b>= ${esc(e
         <h2>Centering, the only part you can <span class="hl">measure</span></h2>
         <p class="gc-in">${esc(c.lead)}</p>
         <p class="gc-in"><b>How it is measured.</b> ${esc(c.howMeasured.text)} ${esc(c.howMeasured.example)}
-          ${c.howMeasured.company} says so.${src(c.howMeasured.source)}</p>
+          ${c.howMeasured.company} says so.${src(c.howMeasured.source, "PSA on how centering is measured")}</p>
 ${table(c.front, "Front centering, as each company publishes it")}
 ${table(c.back, "Back centering. Note how much wider the tolerances are, and how many are simply absent")}
         <p class="gc-in"><b>PSA gives itself room, and tells you so.</b> ${esc(c.leeway.text)}
-          ${esc(c.leeway.worked)}${src(c.leeway.source)}</p>
+          ${esc(c.leeway.worked)}${src(c.leeway.source, "PSA centering standards and leeway")}</p>
         <div class="gc-cards">
 ${c.findings.map((f) => `          <article class="gc-c"><h3>${esc(f.head)}</h3><p>${esc(f.body)}</p></article>`).join("\n")}
         </div>
@@ -206,7 +221,7 @@ ${c.findings.map((f) => `          <article class="gc-c"><h3>${esc(f.head)}</h3>
         <p class="gc-in">${esc(d.tenVsNine.lead)}</p>
         <div class="gc-cards">
 ${d.tenVsNine.items.map((i) => `          <article class="gc-c"><span class="gc-co">${esc(i.company)}</span>
-            <h3>${esc(i.head)}</h3><p>${esc(i.body)}${src(i.source)}</p></article>`).join("\n")}
+            <h3>${esc(i.head)}</h3><p>${esc(i.body)}${src(i.source, `${i.company} grade definitions`)}</p></article>`).join("\n")}
         </div>
       </section>
 
@@ -214,7 +229,7 @@ ${d.tenVsNine.items.map((i) => `          <article class="gc-c"><span class="gc-
         <h2>Which companies show their <span class="hl">working</span></h2>
         <p class="gc-in">${esc(d.subgrades.lead)}</p>
         <div class="gc-cards">
-${d.subgrades.who.map((w) => `          <article class="gc-c"><span class="gc-co">${w.has ? "Subgrades" : "No subgrades"}</span>
+${d.subgrades.who.map((w) => `          <article class="gc-c"><span class="gc-co">${esc(w.kind || (w.has ? "Subgrades" : "No subgrades"))}</span>
             <h3>${esc(w.company)}</h3><p>${esc(w.note)}</p></article>`).join("\n")}
         </div>
       </section>
@@ -224,7 +239,7 @@ ${d.subgrades.who.map((w) => `          <article class="gc-c"><span class="gc-co
         <p class="gc-in">${esc(d.defects.lead)}</p>
         <div class="gc-key">
           <h3>${esc(d.defects.headline.head)}</h3>
-          <p>${esc(d.defects.headline.body)}${src(d.defects.headline.source)}</p>
+          <p>${esc(d.defects.headline.body)}${src(d.defects.headline.source, "PSA on chipping")}</p>
         </div>
         <dl class="gc-def">
 ${d.defects.items.map((i) => `          <dt>${esc(i.name)}${i.aka ? ` <span class="gc-aka">the hobby calls it ${esc(i.aka)}</span>` : ""}</dt>
@@ -236,7 +251,7 @@ ${d.defects.items.map((i) => `          <dt>${esc(i.name)}${i.aka ? ` <span clas
         <h2>What is different about modern <span class="hl">Pokemon</span></h2>
         <p class="gc-in">${esc(d.pokemon.lead)}</p>
         <div class="gc-cards">
-${d.pokemon.items.map((i) => `          <article class="gc-c"><h3>${esc(i.head)}</h3><p>${esc(i.body)}${src(i.source)}${
+${d.pokemon.items.map((i) => `          <article class="gc-c"><h3>${esc(i.head)}</h3><p>${esc(i.body)}${src(i.source, i.head)}${
             i.seeAlso ? ` <a href="${esc(i.seeAlso)}">Spotting fakes</a>` : ""
           }</p></article>`).join("\n")}
         </div>
@@ -246,16 +261,16 @@ ${d.pokemon.items.map((i) => `          <article class="gc-c"><h3>${esc(i.head)}
         <h2>Checking it <span class="hl">yourself</span></h2>
         <p class="gc-in">${esc(d.selfCheck.lead)}</p>
         <div class="gc-cards">
-${d.selfCheck.items.map((i) => `          <article class="gc-c"><h3>${esc(i.head)}</h3><p>${esc(i.body)}${src(i.source)}${
+${d.selfCheck.items.map((i) => `          <article class="gc-c"><h3>${esc(i.head)}</h3><p>${esc(i.body)}${src(i.source, i.head)}${
             i.note ? `<br><span class="gc-aka">${esc(i.note)}</span>` : ""
           }</p></article>`).join("\n")}
         </div>
         <div class="gc-key">
           <h3>${esc(d.selfCheck.limit.head)}</h3>
-          <p>${esc(d.selfCheck.limit.body)}${src(d.selfCheck.limit.source)}</p>
-          ${d.selfCheck.limit.also ? `<p>${esc(d.selfCheck.limit.also)}${src(d.selfCheck.limit.alsoSource)}</p>` : ""}
+          <p>${esc(d.selfCheck.limit.body)}${src(d.selfCheck.limit.source, "PSA on eye appeal and subjectivity")}</p>
+          ${d.selfCheck.limit.also ? `<p>${esc(d.selfCheck.limit.also)}${src(d.selfCheck.limit.alsoSource, "CGC on judging surface at home")}</p>` : ""}
           <h3 style="margin-top:var(--s4)">${esc(d.selfCheck.notesCost.head)}</h3>
-          <p>${esc(d.selfCheck.notesCost.body)}${src(d.selfCheck.notesCost.source)}</p>
+          <p>${esc(d.selfCheck.notesCost.body)}${src(d.selfCheck.notesCost.source, "PSA grading service tiers")}</p>
         </div>
       </section>
 
@@ -265,14 +280,14 @@ ${d.selfCheck.items.map((i) => `          <article class="gc-c"><h3>${esc(i.head
         <div class="gc-cards">
           <article class="gc-c"><span class="gc-co">PSA</span>
             <h3>Read this one against yourself</h3>
-            <p>${esc(d.population.psa.text)}${src(d.population.psa.source)}</p>
+            <p>${esc(d.population.psa.text)}${src(d.population.psa.source, "PSA grade distribution")}</p>
             <p style="margin-top:var(--s3)"><b>${esc(d.population.psa.trap)}</b></p></article>
           <article class="gc-c"><span class="gc-co">TAG</span>
             <h3>The top grade is rare and one company says how rare</h3>
-            <p>${esc(d.population.tag.text)}${src(d.population.tag.source)}</p></article>
+            <p>${esc(d.population.tag.text)}${src(d.population.tag.source, "TAG on how rare Pristine is")}</p></article>
         </div>
         <p class="gc-in" style="margin-top:var(--s4)"><b>Go and look up your exact card.</b>
-          ${esc(d.population.lookup.text)}${src(d.population.lookup.source)} ${esc(d.population.lookup.gap)}</p>
+          ${esc(d.population.lookup.text)}${src(d.population.lookup.source, "CGC population report")} ${esc(d.population.lookup.gap)}</p>
       </section>
 
       <section class="gc-sec">

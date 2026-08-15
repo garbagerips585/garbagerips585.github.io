@@ -195,9 +195,12 @@ const ripRow = (labels) => (v) => {
 
 const priceTable = (e) => {
   if (!e.prices.length) return "";
-  return `      <div class="op-tw">
+  const cap = `What ${article(e.id)} ${e.label} costs, by set. TCGplayer market price, read ${longDate(prod.checked)}`;
+  // Same reasoning as build-expansions.mjs: a 520px table in a 360px box with
+  // no focusable content is unreachable without a mouse.
+  return `      <div class="op-tw" tabindex="0" role="region" aria-label="${esc(cap)}, scrollable table">
         <table class="op-t">
-          <caption>What ${article(e.id)} ${esc(e.label)} costs, by set. TCGplayer market price, read ${esc(longDate(prod.checked))}</caption>
+          <caption>${esc(cap)}</caption>
           <thead><tr><th scope="col">Set</th><th scope="col">Market</th><th scope="col">Lowest</th><th scope="col">Listings</th></tr></thead>
           <tbody>
 ${e.prices.map((r) => `            <tr><th scope="row">${

@@ -333,7 +333,7 @@ ${MENU}
     <h2>Cheapest to <span class="hl">priciest</span></h2>
     <p class="lede" style="max-width:40em">Sorted by base set, which is the tier most people are asking about. Every
       figure buys one copy of each card at its cheapest printing, at market, before shipping.</p>
-    <div class="cc-scroll">
+    <div class="cc-scroll" tabindex="0" role="region" aria-label="Cost to complete each set, scrollable table">
       <table class="cc-table">
         <caption class="sr-only">Cost to complete each set at three tiers, with the most expensive single card</caption>
         <thead>

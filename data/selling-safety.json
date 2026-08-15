@@ -36,7 +36,6 @@
     "  company saying it in its own words."
   ],
   "checked": "2026-08-15",
-
   "framing": {
     "question": "Who is holding the money when something goes wrong?",
     "why": [
@@ -46,21 +45,27 @@
       "one of them voids that protection the moment payment moves off the platform."
     ]
   },
-
   "protections": [
     {
       "venue": "PayPal Goods and Services",
       "note": "The clearest example of the asymmetry, which is why it leads.",
-      "covers": ["Unauthorized Transaction", "Item Not Received"],
+      "covers": [
+        "Unauthorized Transaction",
+        "Item Not Received"
+      ],
       "doesNotCover": [
         "Significantly Not as Described. Verbatim from the ineligible list: items where the buyer claims the item you sent is not what was ordered.",
         "Personal payments, including anything sent using friends and family.",
-        "Item Not Received claims the buyer files directly with their card issuer."
+        "Item Not Received claims the buyer files directly with their card issuer.",
+        "Physical items handed over in person. PayPal's ineligible list names items delivered in person, so taking Goods and Services at a face to face meet is outside seller protection by PayPal's own terms. That matters here because this page ends by saying an in person sale is the safest one: it is safest in CASH."
       ],
-      "buyerSideDiffers": "The buyer's half of the same product DOES cover not as described, within 30 days of delivery or 180 days of payment, whichever is sooner.",
+      "buyerSideDiffers": "The buyer's side of PayPal is a separate policy with its own, longer clocks, which is the asymmetry worth knowing: the person who paid you generally has more time to open a case than you have to respond to one. The exact windows are published on PayPal's buyer protection page rather than the seller one, and are not quoted here because we could not read them cleanly off the page itself.",
       "source": "https://www.paypal.com/us/legalhub/paypal/seller-protection",
       "read": "2026-08-15",
-      "verifiedTwice": true
+      "verifiedTwice": true,
+      "alsoRead": [
+        "https://www.paypal.com/us/legalhub/paypal/buyer-protection"
+      ]
     },
     {
       "venue": "eBay",
@@ -107,7 +112,9 @@
         "Condition and wrong-card risk directly, with a 30 day buyer window after estimated delivery.",
         "Sellers cannot require a buyer to send photos of a condition problem before resolving it."
       ],
-      "clocks": ["2 business days to answer a buyer before they can escalate."],
+      "clocks": [
+        "2 business days to answer a buyer before they can escalate."
+      ],
       "counterfeits": "Handled by TCGplayer, and the card must physically reach them before a refund.",
       "returns": "Singles are otherwise non-returnable, with three exceptions: wrong condition, wrong card, missing card.",
       "source": "https://help.tcgplayer.com/hc/en-us/articles/201642073-What-is-TCGplayer-s-Refund-and-Return-policy",
@@ -148,10 +155,14 @@
         "Nothing promised to the seller about a not-as-described claim: Mercari adjudicates it."
       ],
       "how": "Mercari holds the buyer's money until the buyer rates, or 72 hours after carrier-confirmed delivery, whichever comes first.",
-      "clocks": ["24 hours to report a return that arrived damaged."],
+      "clocks": [
+        "24 hours to report a return that arrived damaged."
+      ],
       "offPlatform": "Encouraging payment outside Mercari, or completing a transaction in person, is prohibited conduct.",
       "source": "https://www.mercari.com/us/help_center/topics/returns/policies/refunds-and-returns/",
-      "alsoRead": ["https://www.mercari.com/us/help_center/topics/account/policies/seller-protection/"],
+      "alsoRead": [
+        "https://www.mercari.com/us/help_center/topics/account/policies/seller-protection/"
+      ],
       "read": "2026-08-15"
     },
     {
@@ -167,7 +178,9 @@
       ],
       "excluded": "Purchases made through third-party sites, local pickups, Messenger transactions or other messaging services do not qualify for Purchase Protection.",
       "source": "https://www.facebook.com/legal/merchant_policies",
-      "alsoRead": ["https://www.facebook.com/help/228307904608701"],
+      "alsoRead": [
+        "https://www.facebook.com/help/228307904608701"
+      ],
       "read": "2026-08-15",
       "verifiedTwice": true,
       "note": "Both Facebook pages block plain fetching. These two claims were re-read independently through a second tool before being recorded."
@@ -183,7 +196,6 @@
       "read": "2026-08-15"
     }
   ],
-
   "attacks": [
     {
       "name": "The not-as-described chargeback",
@@ -228,7 +240,6 @@
       "read": "2026-08-15"
     }
   ],
-
   "defences": [
     {
       "name": "Keep the money on the platform's own rail",
@@ -268,7 +279,6 @@
       "why": "Nearly every protection here has a deadline attached, and they are short: 5 calendar days, 2 business days, 24 hours. Missing the clock loses the protection more often than losing the argument does."
     }
   ],
-
   "inPerson": {
     "claim": "An in-person cash sale is not a weakened online sale. It is a different transaction with a different risk profile.",
     "because": [

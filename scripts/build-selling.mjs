@@ -71,12 +71,14 @@ const GROUPS = [
   { key: "consign", title: "Consignment and auction", blurb: "They sell it for you. Worth it on cards where the buyer pool is small and rich." },
   { key: "person", title: "In person", blurb: "Cash, face to face, done in one moment. Mechanically the safest way to sell." },
 ];
+// READ THE FIELD, DO NOT INFER THE GROUP. This used to pattern match `type` and
+// `format`, and because eBay's format mentions auctions it filed eBay, Whatnot
+// and Sportlots under "they sell it for you", leaving the Marketplaces section
+// holding two venues. Sportlots' own note in the data says nobody sells your
+// cards for you there, so the page was contradicting its own source text.
 const groupOf = (v) => {
-  const t = `${v.type || ""} ${v.format || ""}`.toLowerCase();
-  if (/in person|structural/.test(`${t} ${v.status || ""}`)) return "person";
-  if (/buylist/.test(t)) return "buylist";
-  if (/consign|auction/.test(t)) return "consign";
-  return "market";
+  if (!v.group) throw new Error(`selling.json: venue "${v.id}" has no group`);
+  return v.group;
 };
 
 const STATUS = {
@@ -92,7 +94,22 @@ const feeRow = (f) => `        <li>
           ${f.note ? `<span class="se-nt">${esc(f.note)}</span>` : ""}
         </li>`;
 
+// THE GUARD BELOW EXISTED ONLY ON THE OTHER HALF OF THIS FILE. The header says
+// "RENDER EVERY FIELD OR THROW", and prot() does; venueCard hand-listed its keys
+// and silently dropped the rest. Five researched fields never reached the page:
+// `protection` on all 14 venues, `sources` with every per-figure url and read
+// date on all 14, `conditions`, and `sellerLevels`. The page meanwhile told the
+// reader "every figure here carries the date it was read", which it then did
+// not do. Writing the rule down is not the same as applying it.
+const V_KNOWN = new Set([
+  "id", "name", "url", "type", "format", "bestFor", "status", "access", "fees",
+  "payout", "note", "group", "protection", "sources", "conditions", "sellerLevels",
+]);
+
 const venueCard = (v) => {
+  for (const k of Object.keys(v)) {
+    if (!V_KNOWN.has(k)) throw new Error(`selling.json: venue "${v.id}" has unrendered key "${k}"`);
+  }
   const st = STATUS[v.status] || STATUS.partial;
   const fees = Array.isArray(v.fees) ? v.fees : [];
   return `      <article class="se-v" id="${esc(v.id)}">
@@ -110,7 +127,28 @@ const venueCard = (v) => {
             }${v.url ? ` Their own page is linked above.` : ""}</p>`}
         ${v.payout ? `<p class="se-pay"><b>Getting paid.</b> ${esc(v.payout)}</p>` : ""}
         ${v.access ? `<p class="se-acc"><b>To sell there.</b> ${esc(v.access)}</p>` : ""}
+        ${v.protection ? `<p class="se-prot"><b>If it goes wrong.</b> ${esc(v.protection)}</p>` : ""}
+        ${(v.conditions || []).length ? `<p class="se-lbl"><b>Only if.</b></p><ul class="se-cond">${
+          v.conditions.map((x) => `<li>${esc(x)}</li>`).join("")
+        }</ul>` : ""}
+        ${(v.sellerLevels || []).length ? `<p class="se-lbl"><b>Rate depends on your level.</b></p><ul class="se-cond">${
+          v.sellerLevels
+            .map((l) => `<li>${esc(typeof l === "string" ? l : [l.level, l.rate, l.note].filter(Boolean).join(": "))}</li>`)
+            .join("")
+        }</ul>` : ""}
         ${v.note ? `<p class="se-nb">${esc(v.note)}</p>` : ""}
+        ${(v.sources || []).length ? `<p class="se-src">${v.sources
+          .map((x, i) => {
+            const u = typeof x === "string" ? x : x.url;
+            const what = typeof x === "string" ? "" : x.what || "";
+            const read = typeof x === "string" ? "" : x.read || "";
+            return u
+              ? `<a href="${esc(u)}" aria-label="${esc(v.name)}${what ? `, ${what}` : ""}, source ${i + 1}" rel="noopener" target="_blank">${
+                  esc(what || `Source ${i + 1}`)
+                }</a>${read ? ` <span>read ${esc(longDate(read))}</span>` : ""}`
+              : esc(what);
+          })
+          .join(" &bull; ")}</p>` : ""}
       </article>`;
 };
 
@@ -146,6 +184,7 @@ const prot = (p) => {
   const parts = [];
   for (const [k, v] of Object.entries(p)) {
     if (P_SKIP.has(k)) continue;
+    if (Array.isArray(v) && !v.length) continue;
     const spec = P_LABEL[k];
     if (!spec) throw new Error(`selling-safety.json: protection "${p.venue}" has key "${k}" with no label in P_LABEL`);
     const [label, tone] = spec;
@@ -162,7 +201,7 @@ const prot = (p) => {
         ${p.note ? `<p class="se-nb">${esc(p.note)}</p>` : ""}
         ${parts.join("\n        ")}
         ${srcs.length ? `<p class="se-src">${srcs
-          .map((u, i) => `<a href="${esc(u)}" rel="noopener" target="_blank">${i ? `Source ${i + 1}` : "Source"}</a>`)
+          .map((u, i) => `<a href="${esc(u)}" aria-label="${esc(p.venue)} policy, source ${i + 1}" rel="noopener" target="_blank">${i ? `Source ${i + 1}` : "Source"}</a>`)
           .join(", ")}${p.read ? `, read ${esc(longDate(p.read))}` : ""}</p>` : ""}
       </article>`;
 };
@@ -198,8 +237,12 @@ const style = `
 .se-p ul{margin:var(--s2) 0 0 var(--s4);font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
 .se-lbl{font-size:var(--t-sm);margin-top:var(--s3)}
 .se-yes b{color:#1E5B34}
-.se-no b{color:var(--ketchup)}
-.se-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s3)}
+.se-no b{color:var(--ketchup-deep)}
+.se-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s3);line-height:1.6}
+.se-prot{font-size:var(--t-sm);line-height:1.5;margin-top:var(--s2)}
+.se-s1,.se-rd{font:400 var(--t-micro)/1 var(--mono);white-space:nowrap}
+.se-rd{color:var(--ink-2)}
+.se-cond{margin:var(--s2) 0 0 var(--s4);font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
 .se-ps{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
 @media(max-width:900px){.se-ps{grid-template-columns:1fr}}
 .se-list{margin:var(--s4) 0 0 var(--s4);max-width:46em;line-height:1.55}
@@ -288,7 +331,11 @@ ${(safe.protections || []).map(prot).join("\n")}
         <p>Each of these is a mechanism rather than a type of person. Every one is defined by who controls the
           money at which moment.</p>
         <ol class="se-list">
-${(safe.attacks || []).map((a) => `          <li><b>${esc(a.name)}.</b> ${esc(a.how)}${a.why ? ` ${esc(a.why)}` : ""}${a.note ? ` ${esc(a.note)}` : ""}</li>`).join("\n")}
+${(safe.attacks || []).map((a) => `          <li><b>${esc(a.name)}.</b> ${esc(a.how)}${a.why ? ` ${esc(a.why)}` : ""}${a.note ? ` ${esc(a.note)}` : ""}${
+            a.source ? ` <a class="se-s1" href="${esc(a.source)}" aria-label="Source for ${esc(a.name)}" rel="noopener" target="_blank">Source</a>${
+              a.read ? ` <span class="se-rd">read ${esc(longDate(a.read))}</span>` : ""
+            }` : ""
+          }</li>`).join("\n")}
         </ol>
       </section>
 
@@ -297,6 +344,10 @@ ${(safe.attacks || []).map((a) => `          <li><b>${esc(a.name)}.</b> ${esc(a.
         <ol class="se-list">
 ${(safe.defences || []).map((d) => `          <li><b>${esc(d.name)}.</b> ${esc(d.why || "")}${
             (d.thresholds || []).length ? ` ${d.thresholds.map(esc).join(" ")}` : ""
+          }${
+            d.source ? ` <a class="se-s1" href="${esc(d.source)}" aria-label="Source for ${esc(d.name)}" rel="noopener" target="_blank">Source</a>${
+              d.read ? ` <span class="se-rd">read ${esc(longDate(d.read))}</span>` : ""
+            }` : ""
           }</li>`).join("\n")}
         </ol>
       </section>
@@ -308,7 +359,11 @@ ${(safe.defences || []).map((d) => `          <li><b>${esc(d.name)}.</b> ${esc(d
 ${(safe.inPerson.because || []).map((b) => `          <li>${esc(b)}</li>`).join("\n")}
         </ul>
         <p class="se-lede" style="margin-top:var(--s4)"><b>What it costs you.</b> ${esc(safe.inPerson.cost)}</p>
-        <p class="se-lede" style="margin-top:var(--s3)">${esc(safe.inPerson.ftc)}</p>
+        <p class="se-lede" style="margin-top:var(--s3)">${esc(safe.inPerson.ftc)}${
+          safe.inPerson.source ? ` <a class="se-s1" href="${esc(safe.inPerson.source)}" aria-label="FTC guidance for sellers" rel="noopener" target="_blank">Source</a>${
+            safe.inPerson.read ? ` <span class="se-rd">read ${esc(longDate(safe.inPerson.read))}</span>` : ""
+          }` : ""
+        }</p>
         <p class="se-lede" style="margin-top:var(--s3)"><b>Where the line actually is.</b> The risk in a local
           listing is not the venue, it is three things people do inside it.</p>
         <ul class="se-list">
