@@ -20,7 +20,24 @@ import { fileURLToPath } from "node:url";
 import { deriveTags } from "../shared/taxonomy.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const csvPath = process.argv[2];
+let csvPath = process.argv[2];
+
+// TAKE THE .xlsx DIRECTLY. Asking for a CSV meant exporting from Google Sheets
+// with the right tab active, which is a step to forget and a thing to get
+// wrong. It also threw away the fix for the two ways Sheets mangles a
+// round trip: whole numbers coming back as "9.0", and the computed Packs
+// Opened column exporting as a formula string rather than its value.
+// sheet-to-csv.py handles both, so hand this script either format.
+if (csvPath && /\.xlsx$/i.test(csvPath)) {
+  const { execFileSync } = await import("node:child_process");
+  const tmp = join(ROOT, ".sheet-import.csv");
+  const csv = execFileSync("python3", [join(ROOT, "scripts/sheet-to-csv.py"), csvPath, "Video Log"], {
+    maxBuffer: 64 * 1024 * 1024,
+  });
+  await writeFile(tmp, csv);
+  console.log(`Read the Video Log tab out of ${csvPath.split("/").pop()}`);
+  csvPath = tmp;
+}
 if (!csvPath) {
   console.error(`
 Usage: node scripts/import-sheet.mjs <path-to-csv>
@@ -69,6 +86,7 @@ const PRODUCT_IDS = {
   "chinese booster pack": "chinese-pack",
   "blister": "blister",
   "collection box": "collection-box",
+  "knock out collection": "knock-out",
   "other": null,
 };
 

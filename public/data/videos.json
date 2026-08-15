@@ -8,7 +8,7 @@
       "path": "rip/8-packs-and-no-hits-E5Wz7X1VMeY.html",
       "published": "2026-08-15",
       "duration": 19,
-      "views": 759,
+      "views": 760,
       "vertical": true,
       "short": true,
       "sets": [
@@ -18,9 +18,12 @@
         "single-pack"
       ],
       "pulls": [
-        "sir",
         "gold"
       ],
+      "hitRarity": "Hyper Rare",
+      "hasHit": true,
+      "packs": 1,
+      "openingType": "Single Booster Pack",
       "label": "Pitch Black Pack #8"
     },
     {
@@ -29,7 +32,7 @@
       "path": "rip/the-chaos-rising-struggle-is-real-T2-UqY2ZSOw.html",
       "published": "2026-08-14",
       "duration": 21,
-      "views": 916,
+      "views": 918,
       "vertical": true,
       "short": true,
       "sets": [
@@ -39,6 +42,8 @@
         "etb"
       ],
       "pulls": [],
+      "packs": 9,
+      "openingType": "ETB (Elite Trainer Box)",
       "label": "Chaos Rising ETB #2"
     },
     {
@@ -61,6 +66,8 @@
       ],
       "hitRarity": "Hyper Rare",
       "hasHit": true,
+      "packs": 1,
+      "openingType": "Single Booster Pack",
       "label": "Chaos Rising Pack #12"
     },
     {
@@ -69,7 +76,7 @@
       "path": "rip/this-etb-is-breaking-me-IQMn3DNCzik.html",
       "published": "2026-08-12",
       "duration": 20,
-      "views": 659,
+      "views": 661,
       "vertical": true,
       "short": true,
       "sets": [
@@ -103,6 +110,8 @@
       ],
       "hitRarity": "Hyper Rare",
       "hasHit": true,
+      "packs": 1,
+      "openingType": "Single Booster Pack",
       "label": "Pitch Black Pack #7"
     },
     {
@@ -189,6 +198,8 @@
       ],
       "hitRarity": "Special Illustration Rare",
       "hasHit": true,
+      "packs": 1,
+      "openingType": "Single Booster Pack",
       "label": "Pitch Black Pack #6"
     },
     {
@@ -369,6 +380,8 @@
       ],
       "hitRarity": "Special Illustration Rare",
       "hasHit": true,
+      "packs": 1,
+      "openingType": "Single Booster Pack",
       "label": "Pitch Black Pack #4"
     },
     {
@@ -500,6 +513,8 @@
       ],
       "hitRarity": "Special Illustration Rare",
       "hasHit": true,
+      "packs": 1,
+      "openingType": "Single Booster Pack",
       "label": "Pitch Black Pack #3"
     },
     {
@@ -814,7 +829,7 @@
         "chaos-rising"
       ],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [
         "ir"
@@ -822,7 +837,7 @@
       "hitRarity": "Illustration Rare",
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Chaos Rising ex Box #3"
+      "label": "Chaos Rising ex Premium Collection #3"
     },
     {
       "id": "pRkDVGXWufQ",
@@ -921,11 +936,11 @@
         "ascended-heroes"
       ],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Box #2"
+      "label": "Ascended Heroes ex Premium Collection #2"
     },
     {
       "id": "RP08BTumj2U",
@@ -963,11 +978,11 @@
         "ascended-heroes"
       ],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Box #2"
+      "label": "Ascended Heroes ex Premium Collection #2"
     },
     {
       "id": "9CpAz0MxnTE",
@@ -1000,7 +1015,7 @@
       "short": true,
       "sets": [],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [],
       "openingType": "ex Premium Collection"
@@ -1042,11 +1057,11 @@
         "ascended-heroes"
       ],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Box #2"
+      "label": "Ascended Heroes ex Premium Collection #2"
     },
     {
       "id": "xGmQaLcx-c8",
@@ -1105,7 +1120,7 @@
         "ascended-heroes"
       ],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [
         "ir"
@@ -1113,7 +1128,7 @@
       "hitRarity": "Illustration Rare",
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Box #2"
+      "label": "Ascended Heroes ex Premium Collection #2"
     },
     {
       "id": "MCe_0kpYnwE",
@@ -1148,11 +1163,11 @@
         "ascended-heroes"
       ],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Box #1"
+      "label": "Ascended Heroes ex Premium Collection #1"
     },
     {
       "id": "x3gI4dEKNMs",
@@ -1185,7 +1200,7 @@
       "short": true,
       "sets": [],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [],
       "openingType": "ex Premium Collection"
@@ -1223,11 +1238,11 @@
         "ascended-heroes"
       ],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Box #2"
+      "label": "Ascended Heroes ex Premium Collection #2"
     },
     {
       "id": "rlJDEb0q1d0",
@@ -1552,6 +1567,8 @@
         "single-pack"
       ],
       "pulls": [],
+      "packs": 1,
+      "openingType": "Single Booster Pack",
       "label": "Perfect Order Pack #7"
     },
     {
@@ -1607,7 +1624,7 @@
         "ascended-heroes"
       ],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [
         "sir"
@@ -1615,7 +1632,7 @@
       "hitRarity": "Special Illustration Rare",
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Box"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "w3dQBhumsug",
@@ -1628,7 +1645,7 @@
       "short": true,
       "sets": [],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [
         "sir"
@@ -1650,7 +1667,7 @@
         "ascended-heroes"
       ],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [
         "sir"
@@ -1658,7 +1675,7 @@
       "hitRarity": "Special Illustration Rare",
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Box"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "na2bRZxxTHU",
@@ -1671,7 +1688,7 @@
       "short": true,
       "sets": [],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [
         "sir"
@@ -1731,7 +1748,7 @@
       "short": true,
       "sets": [],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [
         "sir"
@@ -1753,7 +1770,7 @@
         "ascended-heroes"
       ],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [
         "sir"
@@ -1761,7 +1778,7 @@
       "hitRarity": "Special Illustration Rare",
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Box #1"
+      "label": "Ascended Heroes ex Premium Collection #1"
     },
     {
       "id": "zhE5GzB2Dns",
@@ -1774,7 +1791,7 @@
       "short": true,
       "sets": [],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [
         "sir"
@@ -1796,7 +1813,7 @@
         "ascended-heroes"
       ],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [
         "sir"
@@ -1804,7 +1821,7 @@
       "hitRarity": "Special Illustration Rare",
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Box #1"
+      "label": "Ascended Heroes ex Premium Collection #1"
     },
     {
       "id": "QKYrh9l8BYA",
@@ -1839,11 +1856,11 @@
         "ascended-heroes"
       ],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Box"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "vqp2qrq1hls",
@@ -1876,7 +1893,7 @@
       "short": true,
       "sets": [],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [],
       "openingType": "ex Premium Collection"
@@ -1912,7 +1929,7 @@
       "short": true,
       "sets": [],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [],
       "openingType": "ex Premium Collection"
@@ -1950,11 +1967,11 @@
         "ascended-heroes"
       ],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Box #1"
+      "label": "Ascended Heroes ex Premium Collection #1"
     },
     {
       "id": "u7xNNfIBEjg",
@@ -4735,7 +4752,7 @@
       "short": true,
       "sets": [],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [],
       "openingType": "ex Premium Collection"
@@ -4871,7 +4888,7 @@
       "short": false,
       "sets": [],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [],
       "openingType": "ex Premium Collection"
@@ -6094,6 +6111,8 @@
         "blister"
       ],
       "pulls": [],
+      "hitCard": "Journey Together - Trainer - Ruffian - Double Silver Star - Ultra Rare",
+      "hasHit": true,
       "packs": 3,
       "openingType": "Blister",
       "label": "Journey Together Blister"
@@ -6114,7 +6133,9 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
+      "hitCard": "Phantasmal Flames - Mismagius ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packs": 2,
       "openingType": "Single Booster Pack",
       "label": "Phantasmal Flames Pack"
     },
@@ -6134,7 +6155,9 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "packs": 1,
+      "hitCard": "Cyber Judge - Incineroar ex - SR - Super Rare",
+      "hasHit": true,
+      "packs": 6,
       "openingType": "Japanese Booster Pack",
       "label": "Cyber Judge (JP) Pack"
     },
@@ -6154,7 +6177,8 @@
         "blister"
       ],
       "pulls": [],
-      "packs": 3,
+      "hasHit": false,
+      "packs": 1,
       "openingType": "Blister",
       "label": "Paldea Evolved Blister"
     },
@@ -6174,7 +6198,9 @@
         "blister"
       ],
       "pulls": [],
-      "packs": 3,
+      "hitCard": "Phantasmal Flames - Mega Lopunny ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packs": 2,
       "openingType": "Blister",
       "label": "Phantasmal Flames Blister"
     },
@@ -6187,9 +6213,19 @@
       "views": 829,
       "vertical": true,
       "short": true,
-      "sets": [],
-      "products": [],
-      "pulls": []
+      "sets": [
+        "twilight-masquerade",
+        "surging-sparks"
+      ],
+      "products": [
+        "knock-out"
+      ],
+      "pulls": [],
+      "hitCard": "Surging Sparks - Feebas - Single Gold Star - Illustration Rare",
+      "hasHit": true,
+      "packs": 2,
+      "openingType": "Knock Out Collection",
+      "label": "Twilight Masquerade Knock Out Collection"
     },
     {
       "id": "41vJCIdzYkw",
@@ -6200,9 +6236,18 @@
       "views": 393,
       "vertical": true,
       "short": true,
-      "sets": [],
-      "products": [],
-      "pulls": []
+      "sets": [
+        "twilight-masquerade",
+        "surging-sparks"
+      ],
+      "products": [
+        "knock-out"
+      ],
+      "pulls": [],
+      "hasHit": false,
+      "packs": 2,
+      "openingType": "Knock Out Collection",
+      "label": "Twilight Masquerade Knock Out Collection"
     },
     {
       "id": "EOFAhFwJKqw",
@@ -6220,7 +6265,9 @@
         "blister"
       ],
       "pulls": [],
-      "packs": 3,
+      "hitCard": "Paradox Rift - Tsareena ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packs": 2,
       "openingType": "Blister",
       "label": "Paradox Rift Blister"
     },
@@ -6233,12 +6280,19 @@
       "views": 1179,
       "vertical": true,
       "short": false,
-      "sets": [],
+      "sets": [
+        "mega-evolution",
+        "destined-rivals"
+      ],
       "products": [
-        "ex-box"
+        "ex-premium"
       ],
       "pulls": [],
-      "openingType": "ex Premium Collection"
+      "hitCard": "Mega Kangakhan ex - Black Star Promo , Mega Evolution - Spearow - Single Gold Star - Illustration Rare,",
+      "hasHit": true,
+      "packs": 4,
+      "openingType": "ex Premium Collection",
+      "label": "Mega Evolution ex Premium Collection"
     },
     {
       "id": "kj7532tb0_I",
@@ -6253,8 +6307,7 @@
         "phantasmal-flames",
         "destined-rivals",
         "surging-sparks",
-        "mega-evolution",
-        "journey-together"
+        "mega-evolution"
       ],
       "products": [
         "upc"
@@ -6266,8 +6319,8 @@
       "hitRarity": "More than one",
       "hasHit": true,
       "packs": 18,
-      "greatest": true,
       "openingType": "UPC (Ultra Premium Collection)",
+      "notes": "All 18 packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Phantasmal Flames UPC"
     },
     {
@@ -6292,9 +6345,9 @@
       "hitRarity": "More than one",
       "hasHit": true,
       "packs": 6,
-      "greatest": true,
       "openingType": "Tin",
       "box": "Fall 2025 Collector Chest",
+      "notes": "All 6 packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Mega Evolution Tin"
     }
   ]

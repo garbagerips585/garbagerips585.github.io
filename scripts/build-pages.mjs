@@ -15,6 +15,7 @@ import { fileURLToPath } from "node:url";
 import { SITE, robots, LIVE, DOMAIN } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
+import { raritiesIn, rarityChip, RARITY_CSS } from "../shared/rarity.mjs";
 import { ripPath } from "../shared/paths.mjs";
 import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, imgDims, viewCount } from "../shared/format.mjs";
 
@@ -464,6 +465,7 @@ const resolvedHits = hits.filter((h) => !h.unresolved);
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css">
 ${STYLES}
+<style>${RARITY_CSS}</style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 <script type="application/ld+json">${JSON.stringify(crumbs)}</script>
 </head>
@@ -525,7 +527,20 @@ ${MENU}
           ${setId ? `<a class="chip" href="/videos.html?set=${setId}">${esc(setLabel)}</a>` : ""}
           ${prodId ? `<a class="chip prod" href="/videos.html?product=${prodId}">${esc(prodLabel)}</a>` : ""}
           ${hasGuide(setId) ? `<a class="chip guide" href="/sets/${setId}.html">Set guide <span aria-hidden="true">&rarr;</span></a>` : ""}
-          ${v.pulls.map((p) => `<span class="chip">${esc(labelFor("pulls", p))}</span>`).join("\n          ")}
+          ${
+            // THE RARITIES COME OUT OF THE HIT FIELD, not out of a second column.
+            // Tim writes every hit into one free text cell because a single rip
+            // can produce several tiers, and asking for a dropdown as well means
+            // typing the same fact twice and losing all but one of them. Where
+            // that field names tiers, those win; otherwise fall back to the tags
+            // derived from the title.
+            (() => {
+              const named = raritiesIn(v.hitCard);
+              return named.length
+                ? named.map((id) => rarityChip(id)).join("\n          ")
+                : v.pulls.map((p) => `<span class="chip">${esc(labelFor("pulls", p))}</span>`).join("\n          ");
+            })()
+          }
         </div>
         <p class="rip-meta">${shortDate(v.published)}${v.views ? " &bull; " + niceViews(v.views) : ""}${v.openingType ? " &bull; " + esc(v.openingType) : ""}</p>
         ${/*

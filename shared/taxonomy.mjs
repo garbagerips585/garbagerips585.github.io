@@ -15,6 +15,11 @@ export const PRODUCT_TYPES = [
   { id: "ex-premium", label: "ex Premium Collection", pattern: /\bex premium collection\b/i },
   { id: "ex-special", label: "ex Special Collection", pattern: /\bex special collection\b/i },
   { id: "poke-ball-tin", label: "Poke Ball Tin", pattern: /pok[eé]\s?ball tin/i },
+  // Added 2026-08-15 after Tim typed it into the sheet by hand, because the
+  // dropdown did not offer it and the product is real. It sits ABOVE the
+  // generic collection-box rule so "Knock Out Collection" does not get swept
+  // up as a plain collection box.
+  { id: "knock-out", label: "Knock Out Collection", pattern: /knock[- ]?out collection/i },
   // `packs?` matters more than it looks. These were written as \bpack\b, which
   // does not match "Packs", and the channel names a multi-pack rip in the
   // plural nearly every time: "Japanese Abyss Eye | Packs #7 & #8". Fourteen of

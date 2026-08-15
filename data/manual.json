@@ -1,5 +1,17 @@
 {
+  "E5Wz7X1VMeY": {
+    "openingType": "Single Booster Pack",
+    "packs": 1,
+    "hasHit": true,
+    "hitRarity": "Hyper Rare"
+  },
+  "T2-UqY2ZSOw": {
+    "openingType": "ETB (Elite Trainer Box)",
+    "packs": 9
+  },
   "O5WscUY7qZI": {
+    "openingType": "Single Booster Pack",
+    "packs": 1,
     "hasHit": true,
     "hitRarity": "Hyper Rare"
   },
@@ -8,6 +20,8 @@
     "packs": 9
   },
   "2XdMKde79M8": {
+    "openingType": "Single Booster Pack",
+    "packs": 1,
     "hasHit": true,
     "hitRarity": "Hyper Rare"
   },
@@ -26,6 +40,8 @@
     "hitRarity": "Special Illustration Rare"
   },
   "b8CfpcK7-h0": {
+    "openingType": "Single Booster Pack",
+    "packs": 1,
     "hasHit": true,
     "hitRarity": "Special Illustration Rare"
   },
@@ -66,6 +82,8 @@
     "packs": 6
   },
   "76ziDoR2YJg": {
+    "openingType": "Single Booster Pack",
+    "packs": 1,
     "hasHit": true,
     "hitRarity": "Special Illustration Rare"
   },
@@ -93,6 +111,8 @@
     "packs": 9
   },
   "1_ivvCs7Gp4": {
+    "openingType": "Single Booster Pack",
+    "packs": 1,
     "hasHit": true,
     "hitRarity": "Special Illustration Rare"
   },
@@ -294,6 +314,10 @@
   "HHjdWa5tfXY": {
     "openingType": "ETB (Elite Trainer Box)",
     "packs": 9
+  },
+  "JRMvkxmqFhQ": {
+    "openingType": "Single Booster Pack",
+    "packs": 1
   },
   "a4iR-qPthjY": {
     "openingType": "ETB (Elite Trainer Box)",
@@ -1228,30 +1252,58 @@
   },
   "SOCAXif6Mzs": {
     "openingType": "Blister",
-    "packs": 3
+    "packs": 3,
+    "hasHit": true,
+    "hitCard": "Journey Together - Trainer - Ruffian - Double Silver Star - Ultra Rare"
   },
   "Prq7KI6j1Vk": {
     "openingType": "Single Booster Pack",
-    "packs": 1
+    "packs": 2,
+    "hasHit": true,
+    "hitCard": "Phantasmal Flames - Mismagius ex - Double Black Star - Double Rare"
   },
   "-1fhlQB1okI": {
     "openingType": "Japanese Booster Pack",
-    "packs": 1
+    "packs": 6,
+    "hasHit": true,
+    "hitCard": "Cyber Judge - Incineroar ex - SR - Super Rare"
   },
   "evnMahizn0I": {
     "openingType": "Blister",
-    "packs": 3
+    "packs": 1,
+    "hasHit": false
   },
   "AXOYuKfoBXU": {
     "openingType": "Blister",
-    "packs": 3
+    "packs": 2,
+    "hasHit": true,
+    "hitCard": "Phantasmal Flames - Mega Lopunny ex - Double Black Star - Double Rare",
+    "playlistToAdd": "Hits"
+  },
+  "m9K7hpyjn04": {
+    "openingType": "Knock Out Collection",
+    "packs": 2,
+    "hasHit": true,
+    "hitCard": "Surging Sparks - Feebas - Single Gold Star - Illustration Rare"
+  },
+  "41vJCIdzYkw": {
+    "openingType": "Knock Out Collection",
+    "packs": 2,
+    "hasHit": false,
+    "playlistToAdd": "Hits"
   },
   "EOFAhFwJKqw": {
     "openingType": "Blister",
-    "packs": 3
+    "packs": 2,
+    "hasHit": true,
+    "hitCard": "Paradox Rift - Tsareena ex - Double Black Star - Double Rare"
   },
   "l6RPdGNs7uE": {
-    "openingType": "ex Premium Collection"
+    "openingType": "ex Premium Collection",
+    "packs": 4,
+    "hasHit": true,
+    "hitCard": "Mega Kangakhan ex - Black Star Promo , Mega Evolution - Spearow - Single Gold Star - Illustration Rare,",
+    "playlistToAdd": "Hits"
   },
   "kj7532tb0_I": {
     "openingType": "UPC (Ultra Premium Collection)",
@@ -1259,7 +1311,8 @@
     "hasHit": true,
     "hitCard": "Phantasmal Flames - Trainer - Dawn - Double Silver Star - Ultra Rare, Phantasmal Flames - Mega Gengar ex - Double Black Star - Double Rare , Mega Evolution - Mega Gardevoir ex - Double Silver Star - Ultra Rare , Mega Evolution - Mega Venusaur ex - Double Black Star - Double Rare , Mega Evolution - Marshadow - Single Gold Star - Illustration Rare ,  Destined Rivals - Cetitan ex - Double Black Star , Destined Rivals - Rotom - Single Gold Star - Illustration Rare, Journey Together - Noibat - Single Gold Star - Illustration Rare, Journey Together - Trainer - Brock's Scouting - Double Silver Star - Ultra Rare , Journey Together - Blaziken ex - Double Black Star - Double Rare, Surging Sparks - Trainer - Scramble Switch - Single Pink Star -  ACE SPEC Rare , Surging Sparks - Trainer - Cyrano - Double Silver Star - Ultra Rare, Phantasmal Falmes - Charizard X ex - Black Star Promo Card , Phantasmal Flames - Oricorio ex - Black Star Promo Card",
     "hitRarity": "More than one",
-    "greatest": true
+    "playlistToAdd": "Hits",
+    "notes": "All 18 packs are on the first set. Move some across the Packs columns if they came from different sets."
   },
   "TN7_ZsuRQSI": {
     "openingType": "Tin",
@@ -1267,8 +1320,8 @@
     "hasHit": true,
     "hitCard": "Mega Evolution - Stufful - Single Gold star - Illustration Rare , Destined Rivals - Marnie's Grimmsnarl ex , Double Black Star - Double Rare , Journey Together - Wailord - Single Gold Star - Illustration Rare",
     "hitRarity": "More than one",
-    "greatest": true,
     "playlistToAdd": "Hits",
-    "box": "Fall 2025 Collector Chest"
+    "box": "Fall 2025 Collector Chest",
+    "notes": "All 6 packs are on the first set. Move some across the Packs columns if they came from different sets."
   }
 }

@@ -36,6 +36,7 @@ export const PRODUCT_LABEL = {
   tin: "Tin",
   "poke-ball-tin": "Poke Ball Tin",
   "collection-box": "Collection Box",
+  "knock-out": "Knock Out Collection",
   upc: "UPC",
 };
 

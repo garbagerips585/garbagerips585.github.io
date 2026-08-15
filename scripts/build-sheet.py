@@ -20,6 +20,7 @@ import re
 from pathlib import Path
 
 from openpyxl import Workbook
+from openpyxl.comments import Comment
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
@@ -65,23 +66,59 @@ OPENING_TYPES = [
     "ETB (Elite Trainer Box)", "SPC (Super Premium Collection)",
     "UPC (Ultra Premium Collection)", "Poke Ball Tin", "Tin",
     "ex Premium Collection", "ex Special Collection", "ex Box", "Collection Box",
+    # Added after it was typed in by hand, because the dropdown did not offer it
+    # and the product is real. Anything typed freehand into a validated column
+    # is a missing option, not a user error.
+    "Knock Out Collection",
     "Blister", "Japanese Booster Pack", "Korean Booster Pack",
     "Chinese Booster Pack", "Other",
 ]
 
 # Mirrors the ladder the site ranks by, in the same order, so the Hall of Fame
 # sorts the way the sheet reads.
+# THE STAR HINT USED TO BE INSIDE THE VALUE and it broke the column. The options
+# read "Hyper Rare (3 gold stars)" while everything this script PREFILLED, and
+# everything the site stores, is the bare name "Hyper Rare". So 63 of the 64
+# filled cells failed validation the moment the file reached Google Sheets, and
+# the column came back covered in warning triangles. One cell matched: the one
+# where the long form was picked from the dropdown by hand.
+#
+# A dropdown value is a KEY. It has to equal what the data says, or the sheet
+# argues with itself. The hint is genuinely useful, so it moved to a comment on
+# the header cell and to the Read Me, where it costs nothing.
 RARITIES = [
-    "Mega Hyper Rare (big yellow star)",
-    "Hyper Rare (3 gold stars)",
-    "Special Illustration Rare (2 gold stars)",
-    "Illustration Rare (1 gold star)",
-    "Ultra Rare (2 silver stars)",
-    "Double Rare (2 black stars)",
-    "Rare (1 black star)",
-    "Charizard (any rarity)",
+    "Mega Hyper Rare",
+    "Hyper Rare",
+    "Special Illustration Rare",
+    "Illustration Rare",
+    "Ultra Rare",
+    "Double Rare",
+    "Rare",
+    "ACE SPEC Rare",
+    "Super Rare",
+    "Charizard",
+    # Tim used this on two videos where a single rip produced several notable
+    # cards. It was not an option and it should have been: the alternative is
+    # forcing one card to stand for the rip. The per-card detail goes on the
+    # My Hits tab.
+    "More than one",
     "No hit",
 ]
+
+# The star hint, kept out of the value and shown as a note on the header instead.
+RARITY_HINT = (
+    "Read the star row at the bottom of the card.\n"
+    "Mega Hyper Rare: one big yellow star.\n"
+    "Hyper Rare: three gold stars.\n"
+    "Special Illustration Rare: two gold stars.\n"
+    "Illustration Rare: one gold star.\n"
+    "Ultra Rare: two silver stars.\n"
+    "Double Rare: two black stars.\n"
+    "Rare: one black star.\n"
+    "ACE SPEC Rare: one pink star.\n"
+    "Charizard: any rarity, it is its own category here.\n"
+    "More than one: several notable cards, list them on My Hits."
+)
 
 YESNO = ["Yes", "No"]
 PLAYLISTS = ["Greatest Hits", "Hits Only", "Full Box Openings", "Singles",
@@ -89,11 +126,11 @@ PLAYLISTS = ["Greatest Hits", "Hits Only", "Full Box Openings", "Singles",
 
 # Which derived pull tag maps onto which sheet rarity, so the guess is prefilled.
 PULL_TO_RARITY = {
-    "gold": "Hyper Rare (3 gold stars)",
-    "sir": "Special Illustration Rare (2 gold stars)",
-    "ir": "Illustration Rare (1 gold star)",
-    "double-rare": "Double Rare (2 black stars)",
-    "charizard": "Charizard (any rarity)",
+    "gold": "Hyper Rare",
+    "sir": "Special Illustration Rare",
+    "ir": "Illustration Rare",
+    "double-rare": "Double Rare",
+    "charizard": "Charizard",
 }
 PULL_ORDER = ["gold", "sir", "ir", "double-rare", "charizard"]
 
@@ -406,12 +443,43 @@ COLUMNS = [
 ]
 
 FILL = {"locked": HEAD_LOCKED, "input": HEAD_INPUT, "hof": HEAD_HOF}
+
+# Hover notes on the headers that need explaining. These survive the trip
+# through Google Sheets as cell notes, which is where an instruction actually
+# gets read: nobody scrolls back to a Read Me tab mid-row.
+HEAD_NOTES = {
+    "Hit Rarity": RARITY_HINT,
+    "Hit Card": (
+        "The headline card, written however you like.\n"
+        "If a rip produced SEVERAL cards worth naming, set Hit Rarity to\n"
+        '"More than one" and list them one per row on the My Hits tab.\n'
+        "One card per row there means the site can price them and link them."
+    ),
+    "Packs Opened": (
+        "COMPUTED. Do not type here.\n"
+        "It adds up Packs, Packs 2, Packs 3, Packs 4 and Packs 5.\n"
+        "Put the count for each set in that set's own Packs column and this\n"
+        "adds itself up. Typing over it deletes the sum for that row."
+    ),
+    "Packs": "How many packs from the set in the Set column, not the whole rip.",
+    "Greatest Hits": (
+        "The Hall of Fame band on the home page.\n"
+        "Separate from the Hits playlist: this is the shortlist, that is a\n"
+        "YouTube playlist. A video can be in one, both or neither."
+    ),
+    "Set": "Start typing and pick from the list. If a set is missing, tell Claude rather than typing it freehand.",
+}
+
 for i, (head, width, kind) in enumerate(COLUMNS, start=1):
     c = wv.cell(1, i, head)
     c.font = BOLD
     c.fill = FILL[kind]
     c.border = BOX
     c.alignment = Alignment(vertical="center", wrap_text=True)
+    if head in HEAD_NOTES:
+        cm = Comment(HEAD_NOTES[head], "Garbage Rips")
+        cm.width, cm.height = 320, 190
+        c.comment = cm
     wv.column_dimensions[get_column_letter(i)].width = width
 wv.freeze_panes = "B2"
 wv.row_dimensions[1].height = 30
