@@ -480,6 +480,14 @@ for r, v in enumerate(ordered, start=2):
     # These win over the guesses above, in BODY rather than GUESS_TXT, because
     # they are answers rather than suggestions.
     man = manual.get(v["id"], {})
+    # OPENING TYPE WAS MISSING FROM THIS BLOCK AND THE GUESS ABOVE WAS WINNING.
+    # Every other answered field is restored here, so a rebuild handed back the
+    # taxonomy's guess over a typed answer and said nothing: 24 videos logged as
+    # "ex Premium Collection" came back as "ex Box", because the tag rules cannot
+    # tell those two apart from a title and a person can. That is the exact
+    # failure the note below describes, in the same block, one field over.
+    if man.get("openingType"):
+        wv.cell(r, COL["Opening Type"], man["openingType"]).font = BODY
     if man.get("hasHit") is not None:
         wv.cell(r, COL["Has Hit"], "Yes" if man["hasHit"] else "No").font = BODY
     if man.get("hitRarity"):
