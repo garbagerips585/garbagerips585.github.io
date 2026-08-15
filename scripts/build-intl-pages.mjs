@@ -66,7 +66,7 @@ for (const v of videos) {
     const g = HITS_BY_SET.get(h.set);
     const k = cardKey(h.card);
     if (!k) continue;
-    if (!g.has(k)) g.set(k, { card: h.card, rarity: h.rarity, count: 0, rips: [] });
+    if (!g.has(k)) g.set(k, { card: h.card, rarity: h.rarity, promo: h.promo, count: 0, rips: [] });
     const e = g.get(k);
     e.count += 1;
     if (!e.rarity && h.rarity) e.rarity = h.rarity;

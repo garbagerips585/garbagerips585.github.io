@@ -273,11 +273,21 @@ export function parseHits(text, setsByName) {
     });
     const card = middle.join(" ").replace(/\s+/g, " ").trim();
     const rarity = raritiesIn(frag)[0] || null;
+    // A BLACK STAR PROMO IS NOT A CARD IN THAT SET, and reading it as one is
+    // how a $99 promo came out as a 57 cent common. The Charizard UPC ships two
+    // MEP promos, and the log names the set they were pulled alongside:
+    // "Phantasmal Flames - Oricorio ex - Black Star Promo Card". Matching that
+    // against the Phantasmal Flames checklist finds a DIFFERENT Oricorio ex,
+    // and the site then showed the cheap one on the set page with its scan and
+    // its price, which is worse than showing nothing because it looks right.
+    //
+    // The words are already in the sentence, so the fix is to believe them.
+    const promo = /\bpromo\b/i.test(frag);
     if (!card) {
       unmatched.push(frag);
       continue;
     }
-    hits.push({ set: setId, card, rarity });
+    hits.push({ set: setId, card, rarity, promo });
   }
   return { hits, unmatched };
 }

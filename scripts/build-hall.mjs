@@ -50,10 +50,27 @@ if (!hall.length) {
   const out = [];
   for (const list of Object.values(hits)) {
     for (const h of list) {
-      // No set means a promo, which has no checklist to resolve a number
-      // against, so it cannot be priced or pictured here. Left out rather than
-      // listed as a card the page cannot say anything about.
-      if (!h.set) continue;
+      // A PROMO HAS NO SET CHECKLIST, AND THAT IS NOT A REASON TO DROP IT.
+      // This used to skip anything without a set, on the reasoning that it
+      // could not be priced or pictured. But the rip log carries the price and
+      // the PSA 10 for these directly, and the two it was skipping are the two
+      // most valuable cards on the whole site: a Mega Charizard X ex at $176.57
+      // in a 10 and an Oricorio ex at $99.78, both MEP Black Star Promos out of
+      // the Costco UPC. They would rank second and third. The page meanwhile
+      // says "this is the whole list of what was pulled on camera", so it was
+      // claiming completeness while hiding the top of its own ranking.
+      if (!h.set) {
+        if (typeof h.price !== "number" && typeof h.psa10 !== "number") continue;
+        out.push({
+          set: null, number: h.number || null, name: h.card,
+          _img: null,
+          _raw: typeof h.price === "number" ? h.price : null,
+          _rarity: h.rarity || "Black Star Promo",
+          _psa10: typeof h.psa10 === "number" ? h.psa10 : null,
+          _setName: h.setName || "Black Star Promo",
+        });
+        continue;
+      }
       let cards = null;
       try {
         cards = JSON.parse(await readFile(join(ROOT, `public/data/cards/${h.set}.json`), "utf8")).cards;

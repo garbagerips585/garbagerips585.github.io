@@ -1199,7 +1199,7 @@ function setPage(s) {
       const proseCards = [];
       const prose = [];
       for (const h of proseAll) {
-        const c = resolveCard(s.id, h.card, h.rarity);
+        const c = h.promo ? null : resolveCard(s.id, h.card, h.rarity);
         if (c) proseCards.push({ ...h, resolved: c });
         else prose.push(h);
       }
