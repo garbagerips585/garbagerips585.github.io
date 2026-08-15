@@ -484,6 +484,15 @@ for i, (head, width, kind) in enumerate(COLUMNS, start=1):
 wv.freeze_panes = "B2"
 wv.row_dimensions[1].height = 30
 
+# AUTOFILTER, AND IT IS THE BIGGEST USABILITY FIX IN THIS FILE.
+# The log is sorted newest first, which is right for "I just uploaded, log it".
+# Tim works the other way for backfill, oldest first, and without a filter that
+# meant scrolling to row 314 every session and hunting for the next blank by
+# eye. With this he sorts Published ascending in one click, and can filter any
+# column to Blanks to see exactly what is left.
+# Survives the trip into Google Sheets as its standard filter.
+wv.auto_filter.ref = f"A1:{get_column_letter(len(COLUMNS))}{len(videos) + 1}"
+
 COL = {head: i for i, (head, _, _) in enumerate(COLUMNS, start=1)}
 
 
@@ -731,6 +740,13 @@ metrics = [
      f'=COUNTA({L}!{CL("Video ID")}2:{CL("Video ID")}{last})-COUNTA({L}!{CL("Set")}2:{CL("Set")}{last})'),
     ("Videos with 2+ sets", f'=COUNTA({L}!{CL("Set 2")}2:{CL("Set 2")}{last})'),
     ("Videos with 4 sets", f'=COUNTA({L}!{CL("Set 4")}2:{CL("Set 4")}{last})'),
+    # The rarity column is the one with the most left to do and it was the one
+    # the progress tab never counted, so the summary read as further along than
+    # the work actually was.
+    ("Hit rarity filled in", f'=COUNTA({L}!{CL("Hit Rarity")}2:{CL("Hit Rarity")}{last})'),
+    ("Pack count filled in", f'=COUNTA({L}!{CL("Packs")}2:{CL("Packs")}{last})'),
+    ("Still missing a pack count",
+     f'=COUNTA({L}!{CL("Video ID")}2:{CL("Video ID")}{last})-COUNTA({L}!{CL("Packs")}2:{CL("Packs")}{last})'),
     ("Opening type filled in", f'=COUNTA({L}!{CL("Opening Type")}2:{CL("Opening Type")}{last})'),
     ("Marked as a hit", f'=COUNTIF({L}!{CL("Has Hit")}2:{CL("Has Hit")}{last},"Yes")'),
     ("Hit card named", f'=COUNTA({L}!{CL("Hit Card")}2:{CL("Hit Card")}{last})'),
