@@ -192,6 +192,42 @@ Two constraints that shape these pages:
   guaranteed 404 on every grid page and both it and functions/ are deleted.
   Freshness comes from the nightly refresh workflow instead.
 
+## Card images (measured, and two things here are counterintuitive)
+
+Card scans come from four hosts and they do NOT behave alike. `imgDims(url)` in
+`shared/format.mjs` holds the intrinsic sizes, all measured by fetching the
+files, and every builder calls it rather than declaring dimensions by hand. A
+blanket rewrite that assumed everything was a TCGdex `low.webp` once made 173
+images wrong, including 16 that had been right.
+
+  assets.tcgdex.net      low 245x337, high 600x825
+  images.pokemontcg.io   245x342, _hires 733x1024
+  images.scrydex.com     small 245x342, large 733x1024
+  tcgplayer-cdn          VARIABLE, 200x268 to 200x417, so NO width/height
+
+**TCGdex serves four FORMATS at each of its two widths, and avif is 35%
+smaller than webp for identical pixels.** Same path, different extension. This
+is easy to miss because the two WIDTHS are genuinely all there is, and a pass
+that checked for a third width correctly concluded there was none and stopped.
+`avifPicture()` wraps an img in a `<picture>` with the avif source and leaves
+the webp underneath as the fallback. There is no middle width at any host:
+`medium.webp`, `mid.webp` and `600.webp` all 404, and Scrydex ignores `?w=`.
+
+**A CSS background cannot be lazy.** rarity.html's magnified corners were
+backgrounds, so all 13 full-size scans were fetched at first paint whether or
+not anyone scrolled to that row. They are `<img loading="lazy">` now and the
+page went 2,536KB to 388KB at 390px. If you move a background to an img,
+re-screenshot: doing it here brought the scans into reach of a later rule at
+equal specificity and turned eleven magnified corners into whole shrunken
+cards, which looks almost right.
+
+**Some images do not exist and never will.** `data/no-scan.json` records 101
+TCGdex bases that 404 and 4 TCGplayer urls that 403, found by fetching all
+4,655 image urls the site emits. They all carried `onerror="this.remove()"`,
+so nothing looked broken: the picture silently vanished and the site paid for
+a dead round trip to find out. Builders skip them up front instead. The file
+is safe to go stale in the only direction it can.
+
 ## Video display rules (these were measured, do not "fix" them)
 - Thumbnails come from `i.ytimg.com/vi_webp/<id>/oardefault.webp`, falling
   back to `oardefault.jpg` then `maxresdefault.jpg`. "oar" is the only
