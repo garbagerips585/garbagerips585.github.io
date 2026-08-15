@@ -329,6 +329,10 @@ const crumb = (name) => ({
 
 // --- Hub -------------------------------------------------------------------
 const CARDS = [
+  // FIRST ON PURPOSE. The other three are quizzes, which are things you finish.
+  // This hub is called "Games for the wait" and the longest wait wants the game
+  // you can keep playing and hand to somebody else.
+  ["garbage-run.html", "Arcade", "Garbage Run", "One thumb, no rules to read. Flip Trubbish between floor and ceiling, or duel a friend on the same phone."],
   ["whos-that-pokemon.html", "Silhouettes", "Who's That Pokemon?", `Name the shape. All ${whos.length.toLocaleString("en-US")} of them, or just the original 151.`],
   ["guess-the-set.html", "Card scans", "Guess the Set", `A real card, four sets, one right answer. ${setNames.length} sets in the pot.`],
   ["pokemon-trivia.html", "Quiz", "Pokemon Trivia", `${shuffled.length.toLocaleString("en-US")} questions, all generated from real Pokedex and card data.`],

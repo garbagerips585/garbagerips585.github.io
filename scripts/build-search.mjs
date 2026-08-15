@@ -65,6 +65,7 @@ const PAGES = [
   ["/rarity.html", "Rarity guide", "What the symbols mean and what is actually rare"],
   ["/fake-cards.html", "Real or fake?", "Eight checks for spotting a counterfeit"],
   ["/grading.html", "Worth grading?", "What grading costs and whether it pays"],
+["/games/garbage-run.html", "Garbage Run", "A one thumb arcade game for the restock line, solo or two players on one phone"],
 ["/openings/", "Sealed products", "What is in an ETB, a bundle, a blister, and every one we opened"],
 ["/will-it-grade.html", "Will it grade?", "Centering tolerances, the flaws that cost grades, and how to check a card at home"],
 ["/selling.html", "Where to sell", "eBay, TCGplayer, Whatnot and more: fees, payouts and who protects a seller"],

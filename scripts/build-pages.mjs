@@ -932,6 +932,8 @@ const urls = [
   // build-openings.mjs had stopped generating it, so a stale file kept claiming
   // "24 openings" for a product that now has none. Reading the directory cannot
   // drift.
+  // The arcade game. Monthly: it does not change unless the game does.
+  { loc: `${SITE}/games/garbage-run.html`, freq: "monthly", pri: "0.7" },
   ...openingPages,
   { loc: `${SITE}/selling.html`, freq: "weekly", pri: "0.9" },
   // Daily: the totals are recomputed by the nightly price sync, so this page

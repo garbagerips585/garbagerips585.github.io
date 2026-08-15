@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garbage Run: a One Thumb Game for the Restock Line | Garbage Rips 585</title>
+<meta name="description" content="A one thumb arcade game for the restock line. Flip Trubbish between floor and ceiling, dodge the junk, and duel a friend on the same phone.">
+<link rel="canonical" href="https://garbagerips585.github.io/games/garbage-run.html">
+<meta property="og:title" content="Garbage Run">
+<meta property="og:description" content="A one thumb arcade game for the restock line. Flip Trubbish between floor and ceiling, dodge the junk, and duel a friend on the same phone.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garbagerips585.github.io/games/garbage-run.html">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-image.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#1E3A54">
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=e69d954d">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<style>
+.gr-wrap{max-width:760px;margin:0 auto}
+.gr-stage{position:relative;border:3px solid var(--navy);border-radius:14px;overflow:hidden;
+  box-shadow:var(--hard-lg);background:#16210F;touch-action:manipulation;user-select:none}
+.gr-stage canvas{display:block;width:100%;height:auto;image-rendering:auto}
+.gr-hud{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;justify-content:space-between;
+  margin:var(--s4) 0 var(--s3)}
+.gr-score{font:400 var(--t-l)/1 var(--display);color:var(--ink)}
+.gr-best{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.gr-modes{display:flex;gap:var(--s2)}
+.gr-mode{min-height:44px;padding:0 var(--s4);border:2px solid var(--navy);border-radius:999px;
+  background:var(--card);color:var(--ink);font:700 var(--t-label)/1 var(--body);cursor:pointer}
+.gr-mode[aria-pressed="true"]{background:var(--navy);color:#F4F1E2}
+.gr-over{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:var(--s3);background:rgba(11,17,8,.86);color:#F4F1E2;text-align:center;padding:var(--s4)}
+.gr-over[hidden]{display:none}
+.gr-over h2{color:#F4F1E2;font:400 var(--t-xl)/1 var(--display)}
+.gr-over p{color:#DDE6EC;max-width:30em;font-size:var(--t-sm);line-height:1.5}
+.gr-go{min-height:52px;padding:0 var(--s5);border:3px solid var(--gold);border-radius:999px;
+  background:var(--gold);color:#2A2410;font:700 var(--t-m)/1 var(--body);cursor:pointer}
+.gr-go:hover{background:var(--mustard);border-color:var(--mustard)}
+.gr-how{margin-top:var(--s5);color:var(--ink-2);font-size:var(--t-sm);line-height:1.6;max-width:44em}
+.gr-how b{color:var(--ink)}
+.gr-keys{font:700 var(--t-micro)/1 var(--mono);background:var(--card);border:1px solid var(--hair);
+  border-radius:5px;padding:3px 6px}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Games","item":"https://garbagerips585.github.io/games/"},{"@type":"ListItem","position":3,"name":"Garbage Run"}]}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form class="bar-search" role="search" action="/search.html" method="get">
+      <label class="sr-only" for="navSearch">Search cards, sets, guides and rips</label>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+      <input id="navSearch" name="q" type="search" placeholder="Search cards, sets, rips" aria-label="Search cards, sets, guides and every rip" autocomplete="off">
+    </form>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/cards.html">Card search</a>
+      <a href="/sets/">Set guides</a>
+      <a href="/start.html">Start here</a>
+      <a href="/card-shows.html">Card shows</a>
+    </nav>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span>Menu</span>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="All sections">
+  <div class="menu-inner">
+    <div class="menu-g">
+      <p class="menu-h">Watch</p>
+      <ul>
+        <li><a href="/videos.html">Rips</a></li>
+        <li><a href="/playlists.html">Playlists</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">The binder</p>
+      <ul>
+        <li><a href="/hall.html">Best pulls</a></li>
+        <li><a href="/wanted.html">Most wanted</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Cards</p>
+      <ul>
+        <li><a href="/cards.html">Card search</a></li>
+        <li><a href="/pokemon/">By Pokemon</a></li>
+        <li><a href="/sets/">Set guides</a></li>
+        <li><a href="/expansions.html">Every set ever</a></li>
+        <li><a href="/upcoming.html">Coming next</a></li>
+        <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/pack-prices.html">Pack prices</a></li>
+        <li><a href="/openings/">Sealed products</a></li>
+        <li><a href="/drops.html">Drops this week</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Guides</p>
+      <ul>
+        <li><a href="/start.html">Start here</a></li>
+        <li><a href="/what-set.html">Set finder</a></li>
+        <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/fake-cards.html">Fakes</a></li>
+        <li><a href="/will-it-grade.html">Will it grade</a></li>
+        <li><a href="/grading.html">Grading cost</a></li>
+        <li><a href="/selling.html">Where to sell</a></li>
+        <li><a href="/luck.html">Luck, measured</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Play</p>
+      <ul>
+        <li><a href="/games/">Games</a></li>
+        <li><a href="/lore.html">Pokemon lore</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Rochester, NY</p>
+      <ul>
+        <li><a href="/card-shows.html">Card shows</a></li>
+        <li><a href="/shops.html">Card shops</a></li>
+        <li><a href="/vendors.html">Local vendors</a></li>
+        <li><a href="/creators.html">Local creators</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </div>
+  </div>
+  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe on YouTube</a>
+</nav>
+<main id="main">
+  <section class="tight">
+    <div class="wrap gr-wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/games/">Games</a> / <span>Garbage Run</span></nav>
+      <h1>Garbage <span class="hl">Run</span></h1>
+      <p class="lede">One thumb, no rules to read. Tap to flip Trubbish between the floor and the ceiling and
+        keep him off the junk. Garbodor is right behind you and he does not get tired.</p>
+
+      <div class="gr-hud">
+        <div>
+          <div class="gr-score" id="grScore">0</div>
+          <div class="gr-best" id="grBest">Best 0</div>
+        </div>
+        <div class="gr-modes" role="group" aria-label="Game mode">
+          <button class="gr-mode" id="grSolo" type="button" aria-pressed="true">Solo</button>
+          <button class="gr-mode" id="grDuel" type="button" aria-pressed="false">Two players</button>
+        </div>
+      </div>
+
+      <div class="gr-stage" id="grStage">
+        <canvas id="grCanvas" width="720" height="440" role="img"
+          aria-label="Garbage Run. Trubbish runs along a Rochester street and you tap to flip him between the floor and the ceiling."></canvas>
+        <div class="gr-over" id="grOver">
+          <h2 id="grTitle">Garbage Run</h2>
+          <p id="grMsg">Tap the screen, or press space, to flip. That is the whole game.</p>
+          <button class="gr-go" id="grStart" type="button">Start</button>
+        </div>
+      </div>
+
+      <p class="gr-how"><b>Solo.</b> Tap anywhere, or press <span class="gr-keys">space</span>. Every pack you
+        grab is a point and the street speeds up.<br>
+        <b>Two players.</b> The screen splits. Left thumb is the top lane, right thumb is the bottom lane, or
+        <span class="gr-keys">A</span> and <span class="gr-keys">L</span> on a keyboard. Last one still running
+        wins. Hand the phone over and settle it.<br>
+        <b>Nothing is saved anywhere but your own phone</b>, and there is no account and no server. Your best
+        score lives in this browser and goes away if you clear it.</p>
+
+      <p class="gr-how"><a href="/games/">The other games</a> are quicker: a set guesser, a silhouette round and
+        a trivia run. This one is for a longer wait.</p>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Footer">
+      <div class="foot-col">
+        <p class="foot-h">Watch</p>
+        <a href="/videos.html">Rips</a>
+        <a href="/playlists.html">Playlists</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">The binder</p>
+        <a href="/hall.html">Best pulls</a>
+        <a href="/wanted.html">Most wanted</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Cards</p>
+        <a href="/cards.html">Card search</a>
+        <a href="/pokemon/">By Pokemon</a>
+        <a href="/sets/">Set guides</a>
+        <a href="/expansions.html">Every set ever</a>
+        <a href="/upcoming.html">Coming next</a>
+        <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/pack-prices.html">Pack prices</a>
+        <a href="/openings/">Sealed products</a>
+        <a href="/drops.html">Drops this week</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Guides</p>
+        <a href="/start.html">Start here</a>
+        <a href="/what-set.html">Set finder</a>
+        <a href="/rarity.html">Rarity guide</a>
+        <a href="/fake-cards.html">Fakes</a>
+        <a href="/will-it-grade.html">Will it grade</a>
+        <a href="/grading.html">Grading cost</a>
+        <a href="/selling.html">Where to sell</a>
+        <a href="/luck.html">Luck, measured</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Play</p>
+        <a href="/games/">Games</a>
+        <a href="/lore.html">Pokemon lore</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Rochester, NY</p>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/vendors.html">Local vendors</a>
+        <a href="/creators.html">Local creators</a>
+        <a href="/about.html">About</a>
+      </div>
+    </nav>
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+<script>
+(function () {
+  "use strict";
+  var cv = document.getElementById("grCanvas");
+  if (!cv || !cv.getContext) return;
+  var ctx = cv.getContext("2d");
+  var W = cv.width, H = cv.height;
+
+  var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var elScore = document.getElementById("grScore");
+  var elBest = document.getElementById("grBest");
+  var elOver = document.getElementById("grOver");
+  var elTitle = document.getElementById("grTitle");
+  var elMsg = document.getElementById("grMsg");
+  var elStart = document.getElementById("grStart");
+  var bSolo = document.getElementById("grSolo");
+  var bDuel = document.getElementById("grDuel");
+
+  var BEST_KEY = "gr-best";
+  var best = 0;
+  try { best = parseInt(localStorage.getItem(BEST_KEY) || "0", 10) || 0; } catch (e) {}
+  elBest.textContent = "Best " + best;
+
+  var duel = false, running = false, raf = 0;
+
+  // A lane is one player's strip of the world. Solo uses one full height lane,
+  // duel splits the canvas so two thumbs never fight over the same space.
+  function makeLane(top, height, keyName) {
+    return {
+      top: top, h: height, key: keyName,
+      y: top + height / 2, vy: 0, flip: 1, alive: true, score: 0,
+      obs: [], packs: [], nextObs: 60, nextPack: 90, chase: 0,
+    };
+  }
+  var lanes = [];
+  var speed = 0, t = 0;
+
+  function reset() {
+    speed = calm ? 2.4 : 3.1;
+    t = 0;
+    lanes = duel
+      ? [makeLane(0, H / 2, "a"), makeLane(H / 2, H / 2, "l")]
+      : [makeLane(0, H, "space")];
+    draw();
+  }
+
+  function flip(i) {
+    var L = lanes[i];
+    if (!L || !L.alive) return;
+    L.flip = -L.flip;
+  }
+
+  // ---- world ----------------------------------------------------------
+  function step(L) {
+    if (!L.alive) return;
+    var floor = L.top + L.h - 26, ceil = L.top + 26;
+    L.vy += 0.62 * L.flip;
+    L.y += L.vy;
+    if (L.y > floor) { L.y = floor; L.vy = 0; }
+    if (L.y < ceil) { L.y = ceil; L.vy = 0; }
+
+    L.nextObs -= 1; L.nextPack -= 1;
+    if (L.nextObs <= 0) {
+      var onFloor = Math.random() < 0.5;
+      L.obs.push({ x: W + 20, onFloor: onFloor, w: 16 + Math.random() * 14, h: 22 + Math.random() * 20 });
+      L.nextObs = Math.max(26, 78 - t / 90) + Math.random() * 26;
+    }
+    if (L.nextPack <= 0) {
+      L.packs.push({ x: W + 20, y: L.top + 40 + Math.random() * (L.h - 80), got: false });
+      L.nextPack = 70 + Math.random() * 70;
+    }
+
+    var i;
+    for (i = L.obs.length - 1; i >= 0; i--) {
+      var o = L.obs[i];
+      o.x -= speed;
+      if (o.x + o.w < -20) { L.obs.splice(i, 1); continue; }
+      var oy = o.onFloor ? L.top + L.h - o.h : L.top;
+      if (o.x < 60 && o.x + o.w > 34 && L.y + 13 > oy && L.y - 13 < oy + o.h) L.alive = false;
+    }
+    for (i = L.packs.length - 1; i >= 0; i--) {
+      var p = L.packs[i];
+      p.x -= speed;
+      if (p.x < -20) { L.packs.splice(i, 1); continue; }
+      if (!p.got && Math.abs(p.x - 47) < 20 && Math.abs(p.y - L.y) < 24) {
+        p.got = true; L.score += 1; L.packs.splice(i, 1);
+      }
+    }
+    if (!L.alive) L.chase = 1;
+  }
+
+  // ---- drawing: everything here is our own shapes ---------------------
+  function trubbish(x, y, up) {
+    ctx.save();
+    ctx.translate(x, y);
+    if (!up) ctx.scale(1, -1);
+    // BRIGHT, WITH AN OUTLINE. He started olive on an olive street, which is
+    // accurate to the character and useless in a game: at 24px on a phone, in a
+    // shop queue, the thing you are steering has to be the lightest object on
+    // screen. Same reason the packs are mustard.
+    ctx.strokeStyle = "#0B1108";
+    ctx.lineWidth = 3;
+    ctx.fillStyle = "#A9C07C";
+    ctx.beginPath();
+    ctx.moveTo(-13, 12); ctx.lineTo(-9, -6); ctx.lineTo(-3, -12);
+    ctx.lineTo(4, -5); ctx.lineTo(11, -11); ctx.lineTo(13, 12);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = "#5E6B45";
+    ctx.fillRect(-13, 9, 26, 4);
+    ctx.fillStyle = "#F4F1E2";
+    ctx.beginPath(); ctx.arc(-4, 0, 3.4, 0, 7); ctx.fill();
+    ctx.beginPath(); ctx.arc(5, 1, 3.4, 0, 7); ctx.fill();
+    ctx.fillStyle = "#14200C";
+    ctx.beginPath(); ctx.arc(-3.4, 0.4, 1.5, 0, 7); ctx.fill();
+    ctx.beginPath(); ctx.arc(5.6, 1.4, 1.5, 0, 7); ctx.fill();
+    ctx.restore();
+  }
+
+  function garbodor(x, y, h) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.fillStyle = "#54614A";
+    ctx.beginPath();
+    ctx.moveTo(-26, h / 2); ctx.lineTo(-20, -h / 4); ctx.lineTo(-6, -h / 2);
+    ctx.lineTo(8, -h / 3); ctx.lineTo(22, -h / 5); ctx.lineTo(26, h / 2);
+    ctx.closePath(); ctx.fill();
+    ctx.fillStyle = "#D9482B";
+    ctx.beginPath(); ctx.arc(-8, -h / 5, 4, 0, 7); ctx.fill();
+    ctx.beginPath(); ctx.arc(6, -h / 6, 4, 0, 7); ctx.fill();
+    ctx.restore();
+  }
+
+  function pack(x, y) {
+    ctx.fillStyle = "#EFC94C";
+    ctx.fillRect(x - 8, y - 11, 16, 22);
+    ctx.fillStyle = "#D9482B";
+    ctx.fillRect(x - 8, y - 4, 16, 5);
+    ctx.fillStyle = "#22384F";
+    ctx.fillRect(x - 8, y - 11, 16, 3);
+  }
+
+  function drawLane(L, i) {
+    ctx.save();
+    ctx.beginPath(); ctx.rect(0, L.top, W, L.h); ctx.clip();
+
+    var g = ctx.createLinearGradient(0, L.top, 0, L.top + L.h);
+    g.addColorStop(0, "#232D1B"); g.addColorStop(1, "#333F26");
+    ctx.fillStyle = g; ctx.fillRect(0, L.top, W, L.h);
+
+    if (!calm) {
+      ctx.fillStyle = "rgba(97,106,79,.30)";
+      for (var k = 0; k < 7; k++) {
+        var bx = (k * 150 - (t * speed * 0.28) % 1050 + 1050) % 1050 - 60;
+        ctx.fillRect(bx, L.top + L.h - 74, 44, 74);
+      }
+    }
+    ctx.fillStyle = "#3C4A2C";
+    ctx.fillRect(0, L.top + L.h - 16, W, 16);
+    ctx.fillRect(0, L.top, W, 16);
+
+    for (var a = 0; a < L.obs.length; a++) {
+      var o = L.obs[a];
+      ctx.fillStyle = "#B5471F";
+      ctx.fillRect(o.x, o.onFloor ? L.top + L.h - o.h : L.top, o.w, o.h);
+    }
+    for (var b = 0; b < L.packs.length; b++) pack(L.packs[b].x, L.packs[b].y);
+
+    if (L.chase > 0) { garbodor(20 + L.chase * 26, L.top + L.h - 34, 46); L.chase += 0.06; }
+    else garbodor(-6, L.top + L.h - 34, 46);
+
+    trubbish(47, L.y, L.flip > 0);
+
+    ctx.fillStyle = "#F4F1E2";
+    ctx.font = "700 20px ui-monospace, monospace";
+    ctx.textAlign = "right";
+    ctx.fillText(String(L.score), W - 12, L.top + 30);
+    if (duel) {
+      ctx.textAlign = "left";
+      ctx.fillStyle = L.alive ? "#EFC94C" : "#D9482B";
+      ctx.font = "700 13px ui-monospace, monospace";
+      ctx.fillText(i === 0 ? "TOP" : "BOTTOM", 12, L.top + 28);
+    }
+    ctx.restore();
+
+    if (duel && i === 0) {
+      ctx.fillStyle = "#0B1108";
+      ctx.fillRect(0, H / 2 - 2, W, 4);
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < lanes.length; i++) drawLane(lanes[i], i);
+  }
+
+  function tick() {
+    if (!running) return;
+    t += 1;
+    speed += calm ? 0.00035 : 0.0007;
+    for (var i = 0; i < lanes.length; i++) step(lanes[i]);
+    draw();
+
+    var live = lanes.filter(function (L) { return L.alive; });
+    if ((duel && live.length <= 1) || (!duel && !lanes[0].alive)) return end();
+
+    elScore.textContent = duel
+      ? lanes[0].score + " - " + lanes[1].score
+      : String(lanes[0].score);
+    raf = requestAnimationFrame(tick);
+  }
+
+  function end() {
+    running = false;
+    cancelAnimationFrame(raf);
+    if (duel) {
+      var a = lanes[0], b = lanes[1];
+      var win = a.alive ? "Top thumb wins" : b.alive ? "Bottom thumb wins" : "Both of you, at once";
+      elTitle.textContent = win;
+      elMsg.textContent = "Top " + a.score + ", bottom " + b.score + ". Best of three, then let the line move.";
+    } else {
+      var sc = lanes[0].score;
+      if (sc > best) {
+        best = sc;
+        try { localStorage.setItem(BEST_KEY, String(best)); } catch (e) {}
+        elTitle.textContent = "New best";
+      } else {
+        elTitle.textContent = "Garbodor got you";
+      }
+      elBest.textContent = "Best " + best;
+      elMsg.textContent = sc + " pack" + (sc === 1 ? "" : "s") + " grabbed.";
+    }
+    elStart.textContent = "Go again";
+    elOver.hidden = false;
+  }
+
+  function start() {
+    reset();
+    running = true;
+    elOver.hidden = true;
+    elScore.textContent = duel ? "0 - 0" : "0";
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(tick);
+  }
+
+  // ---- input ----------------------------------------------------------
+  function laneFromPoint(clientY) {
+    if (!duel) return 0;
+    var r = cv.getBoundingClientRect();
+    return clientY - r.top < r.height / 2 ? 0 : 1;
+  }
+  cv.addEventListener("pointerdown", function (e) {
+    if (!running) return;
+    e.preventDefault();
+    flip(laneFromPoint(e.clientY));
+  });
+  document.addEventListener("keydown", function (e) {
+    var k = e.key.toLowerCase();
+    if (k === " " || k === "spacebar") {
+      if (running) { e.preventDefault(); flip(0); }
+      else if (!elOver.hidden) { e.preventDefault(); start(); }
+    } else if (duel && running && k === "a") { e.preventDefault(); flip(0); }
+    else if (duel && running && k === "l") { e.preventDefault(); flip(1); }
+  });
+
+  elStart.addEventListener("click", start);
+  function setMode(isDuel) {
+    duel = isDuel;
+    bSolo.setAttribute("aria-pressed", String(!isDuel));
+    bDuel.setAttribute("aria-pressed", String(isDuel));
+    running = false;
+    cancelAnimationFrame(raf);
+    elTitle.textContent = isDuel ? "Two players, one phone" : "Garbage Run";
+    elMsg.textContent = isDuel
+      ? "Top half is one thumb, bottom half is the other. Last one still running wins."
+      : "Tap the screen, or press space, to flip. That is the whole game.";
+    elStart.textContent = "Start";
+    elOver.hidden = false;
+    reset();
+  }
+  bSolo.addEventListener("click", function () { setMode(false); });
+  bDuel.addEventListener("click", function () { setMode(true); });
+
+  // Nobody wants to come back to a tab that kept playing without them.
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden && running) {
+      running = false;
+      cancelAnimationFrame(raf);
+      elTitle.textContent = "Paused";
+      elMsg.textContent = "You looked away. The line probably moved.";
+      elStart.textContent = "Resume";
+      elOver.hidden = false;
+      elStart.onclick = function () { elStart.onclick = null; elOver.hidden = true; running = true; raf = requestAnimationFrame(tick); };
+    }
+  });
+
+  reset();
+})();
+</script>
+<script src="/assets/app.js?v=3917fe6a" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
+</body>
+</html>
