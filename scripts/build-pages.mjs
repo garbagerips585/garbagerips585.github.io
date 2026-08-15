@@ -894,6 +894,10 @@ const urls = [
   // Grading costs. Weekly rather than monthly because the fee table goes stale
   // fast: PSA paused two tiers in June with two weeks' notice.
   { loc: `${SITE}/grading.html`, freq: "weekly", pri: "0.9" },
+  // Where to sell, and what each venue takes. Weekly for the same reason as
+  // grading: it is a page of other companies' fee tables and seller-protection
+  // policies, and those move on their schedule rather than ours.
+  { loc: `${SITE}/selling.html`, freq: "weekly", pri: "0.9" },
   // Daily: the totals are recomputed by the nightly price sync, so this page
   // genuinely changes every night. Nothing else here does.
   { loc: `${SITE}/complete-a-set.html`, freq: "daily", pri: "0.9" },

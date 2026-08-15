@@ -78,8 +78,26 @@ const nOnline = byChannel("online").length;
 const order = [];
 for (const d of drops) if (!order.includes(d.retailer)) order.push(d.retailer);
 
-const chip = (id) =>
-  `<span class="rt" style="--rt:${esc(R[id].tint)}">${esc(R[id].name)}</span>`;
+// COLOUR MEANS KIND OF SHOP, NOT WHICH SHOP. A retailer's own brand colour was
+// tried first and failed on its own terms: the two red pharmacies-and-discount
+// chips landed close enough to be one colour, and better sourcing makes it
+// worse rather than better, because Target and Costco use the same Pantone.
+// The name identifies. These are the site's own palette describing the site's
+// own categories, so they assert nothing about anybody's brand.
+const KIND_TINT = {
+  "Official store": "var(--gold)",
+  "Big box": "var(--navy)",
+  Grocery: "var(--teal)",
+  Pharmacy: "var(--plum)",
+  Discount: "var(--ketchup)",
+};
+
+const chip = (id) => {
+  const r = R[id];
+  const tint = KIND_TINT[r.kind];
+  if (!tint) throw new Error(`drops.json: retailer "${r.name}" has kind "${r.kind}" with no colour in KIND_TINT`);
+  return `<span class="rt" style="--rt:${tint}">${esc(r.name)}<i>${esc(r.kind)}</i></span>`;
+};
 
 const card = (d) => {
   const r = R[d.retailer];
@@ -125,8 +143,11 @@ const style = `
   box-shadow:var(--hard-lg);padding:var(--s4);display:flex;flex-direction:column;gap:var(--s2)}
 .drop[hidden]{display:none}
 .drop-top{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2)}
-.rt{font:700 var(--t-label)/1 var(--body);letter-spacing:.04em;text-transform:uppercase;
-  padding:6px 10px;border-radius:6px;background:var(--rt);color:#fff}
+.rt{font:700 var(--t-label)/1.1 var(--body);letter-spacing:.04em;text-transform:uppercase;
+  padding:6px 10px;border-radius:6px;background:var(--card);color:var(--ink);
+  border:1px solid var(--hair);border-left:4px solid var(--rt);
+  display:inline-flex;flex-direction:column;gap:3px}
+.rt i{font:400 var(--t-micro)/1 var(--mono);letter-spacing:.06em;color:var(--ink-2);font-style:normal}
 .drop-ch,.drop-cf{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2)}
 .drop-cf.ok{background:#1E5B34;color:#EAF6EE;border-color:#1E5B34}
@@ -136,6 +157,9 @@ const style = `
 .drop-what{font:600 var(--t-m)/1.35 var(--body)}
 .drop-when,.drop-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.45}
 .dr-empty{color:var(--ink-2);padding:var(--s5) 0}
+.dr-sw{display:inline-block;width:11px;height:11px;border-radius:3px;background:var(--rt);
+  border:1px solid var(--hair);vertical-align:-1px;margin-right:5px}
+.dr-key h2{margin-bottom:var(--s3)}
 .dr-key{margin-top:var(--s5);color:var(--ink-2);font-size:var(--t-sm);line-height:1.5;max-width:44em}
 `;
 
@@ -207,7 +231,13 @@ ${drops.map(card).join("\n")}
       <p class="dr-empty" id="drEmpty" hidden>Nothing matches that combination.</p>
 
       <div class="dr-key">
+        <h2>How to read this page</h2>
         <p><b>What the labels mean.</b> ${Object.values(CONF).map((c) => `<b>${c.label}:</b> ${c.note}`).join(" ")}</p>
+        <p style="margin-top:var(--s3)"><b>What the colours mean.</b> The stripe on each name is the kind of
+          shop, not the shop's own colour: ${Object.entries(KIND_TINT)
+            .map(([k, v]) => `<span class="dr-sw" style="--rt:${v}"></span>${esc(k)}`)
+            .join(", ")}. Retailer names here are drawn in this site's own typeface and are the property of
+          their owners. Nothing on this page is endorsed by, affiliated with or supplied by any of them.</p>
         <p style="margin-top:var(--s3)">Stock varies store to store and the good stuff goes fast, so this tells you
           where to look rather than what you will find. If you would rather buy without the hunt, the
           <a href="/shops.html">Rochester shops</a> and the <a href="/card-shows.html">card shows</a> have

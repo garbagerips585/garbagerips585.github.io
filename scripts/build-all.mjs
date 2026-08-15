@@ -68,6 +68,7 @@ const STEPS = [
   // updates, plus videos.json for the clock that decides whether the week has
   // passed.
   "node scripts/build-drops.mjs",
+"node scripts/build-selling.mjs",
   "node scripts/build-playlists.mjs",
   "node scripts/build-search.mjs",
   // Both read data/pokedex.json, which is written by sync-pokedex.mjs and is

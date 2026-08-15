@@ -36,11 +36,28 @@
     "CHANNEL is `store` or `online`. Several retailers do both and they are",
     "separate rows, because the answer to when and how you get it is different.",
     "",
-    "RETAILER IDENTITY. `retailers` below holds a colour per retailer, used to",
-    "tint a wordmark chip we draw ourselves. It is NOT their logo. This site",
-    "already draws its own booster wrappers rather than reproducing official pack",
-    "art, for reasons in CLAUDE.md, and the same reasoning applies to somebody",
-    "else's trademark.",
+    "RETAILER IDENTITY, and this changed on 2026-08-15 after the reasoning was",
+    "actually checked. The name is drawn in the site's own typeface. There is no",
+    "logo and no brand colour, and the second half of that is the part that took",
+    "research to get right.",
+    "",
+    "Each retailer used to carry a `tint` holding its brand colour. Two things",
+    "killed it. First, it did not work: Walgreens and Family Dollar shipped 1.6",
+    "just-noticeable-differences apart, which no eye separates, and it does not",
+    "improve with better sourcing because Target and Costco both use Pantone 186,",
+    "an exact match. US big-box retail is red and blue almost to a shop. Colour",
+    "cannot identify a retailer here, so the NAME has to, and it does.",
+    "",
+    "Second, six of the ten colours had no published source. Every retailer",
+    "checked either says nothing or requires written consent for logo use, and",
+    "the trackers that do show logos are affiliates with a contract. A solid",
+    "white-on-brand-colour chip is also the most endorsement-suggestive form",
+    "there is, on the one page that must not look retailer-sanctioned.",
+    "",
+    "So `kind` now carries the colour instead, from the site's own palette. It",
+    "groups the page the way a reader actually scans it, it is the site's own",
+    "categorisation rather than a claim about somebody's brand, and it needs no",
+    "sourcing because it asserts nothing about anyone.",
     "",
     "SOURCE. `source` names where the week's post came from and when it was",
     "read. If a week's information comes from somewhere else, change it: the page",
@@ -75,37 +92,30 @@
   "retailers": {
     "pokemon-center": {
       "name": "Pokemon Center",
-      "tint": "#E3350D",
       "kind": "Official store"
     },
     "target": {
       "name": "Target",
-      "tint": "#CC0000",
       "kind": "Big box"
     },
     "walmart": {
       "name": "Walmart",
-      "tint": "#0071CE",
       "kind": "Big box"
     },
     "best-buy": {
       "name": "Best Buy",
-      "tint": "#0046BE",
       "kind": "Big box"
     },
     "aldi": {
       "name": "Aldi",
-      "tint": "#00447C",
       "kind": "Grocery"
     },
     "walgreens": {
       "name": "Walgreens",
-      "tint": "#E01B2E",
       "kind": "Pharmacy"
     },
     "family-dollar": {
       "name": "Family Dollar",
-      "tint": "#E01A2B",
       "kind": "Discount"
     }
   },

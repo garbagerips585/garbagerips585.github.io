@@ -19,9 +19,9 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
-<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/fonts.css">
 <link rel="stylesheet" href="/assets/ui.css?v=4781211d">
-<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<link rel="stylesheet" href="/assets/packs.css">
 <style>
 .dr-head{padding:var(--s6) 0 var(--s4)}
 .dr-stale{background:var(--ketchup);color:#fff;border-radius:var(--r);padding:var(--s3) var(--s4);
@@ -39,8 +39,11 @@
   box-shadow:var(--hard-lg);padding:var(--s4);display:flex;flex-direction:column;gap:var(--s2)}
 .drop[hidden]{display:none}
 .drop-top{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2)}
-.rt{font:700 var(--t-label)/1 var(--body);letter-spacing:.04em;text-transform:uppercase;
-  padding:6px 10px;border-radius:6px;background:var(--rt);color:#fff}
+.rt{font:700 var(--t-label)/1.1 var(--body);letter-spacing:.04em;text-transform:uppercase;
+  padding:6px 10px;border-radius:6px;background:var(--card);color:var(--ink);
+  border:1px solid var(--hair);border-left:4px solid var(--rt);
+  display:inline-flex;flex-direction:column;gap:3px}
+.rt i{font:400 var(--t-micro)/1 var(--mono);letter-spacing:.06em;color:var(--ink-2);font-style:normal}
 .drop-ch,.drop-cf{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2)}
 .drop-cf.ok{background:#1E5B34;color:#EAF6EE;border-color:#1E5B34}
@@ -50,6 +53,9 @@
 .drop-what{font:600 var(--t-m)/1.35 var(--body)}
 .drop-when,.drop-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.45}
 .dr-empty{color:var(--ink-2);padding:var(--s5) 0}
+.dr-sw{display:inline-block;width:11px;height:11px;border-radius:3px;background:var(--rt);
+  border:1px solid var(--hair);vertical-align:-1px;margin-right:5px}
+.dr-key h2{margin-bottom:var(--s3)}
 .dr-key{margin-top:var(--s5);color:var(--ink-2);font-size:var(--t-sm);line-height:1.5;max-width:44em}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Drops this week"}]}</script>
@@ -122,6 +128,7 @@
         <li><a href="/rarity.html">Rarity guide</a></li>
         <li><a href="/fake-cards.html">Fakes</a></li>
         <li><a href="/grading.html">Grading</a></li>
+        <li><a href="/selling.html">Where to sell</a></li>
         <li><a href="/luck.html">Luck, measured</a></li>
       </ul>
     </div>
@@ -176,7 +183,7 @@
       <div class="dr-grid" id="drGrid">
       <article class="drop" data-channel="online" data-retailer="pokemon-center">
         <div class="drop-top">
-          <span class="rt" style="--rt:#E3350D">Pokemon Center</span>
+          <span class="rt" style="--rt:var(--gold)">Pokemon Center<i>Official store</i></span>
           <span class="drop-ch">Online</span>
           <span class="drop-cf pat">Pattern only</span>
         </div>
@@ -188,7 +195,7 @@
       </article>
       <article class="drop" data-channel="store" data-retailer="target">
         <div class="drop-top">
-          <span class="rt" style="--rt:#CC0000">Target</span>
+          <span class="rt" style="--rt:var(--navy)">Target<i>Big box</i></span>
           <span class="drop-ch">In store</span>
           <span class="drop-cf exp">Expected</span>
         </div>
@@ -199,7 +206,7 @@
       </article>
       <article class="drop" data-channel="online" data-retailer="target">
         <div class="drop-top">
-          <span class="rt" style="--rt:#CC0000">Target</span>
+          <span class="rt" style="--rt:var(--navy)">Target<i>Big box</i></span>
           <span class="drop-ch">Online</span>
           <span class="drop-cf exp">Expected</span>
         </div>
@@ -210,7 +217,7 @@
       </article>
       <article class="drop" data-channel="store" data-retailer="best-buy">
         <div class="drop-top">
-          <span class="rt" style="--rt:#0046BE">Best Buy</span>
+          <span class="rt" style="--rt:var(--navy)">Best Buy<i>Big box</i></span>
           <span class="drop-ch">In store</span>
           <span class="drop-cf exp">Expected</span>
         </div>
@@ -221,7 +228,7 @@
       </article>
       <article class="drop" data-channel="online" data-retailer="walmart">
         <div class="drop-top">
-          <span class="rt" style="--rt:#0071CE">Walmart</span>
+          <span class="rt" style="--rt:var(--navy)">Walmart<i>Big box</i></span>
           <span class="drop-ch">Online</span>
           <span class="drop-cf pat">Pattern only</span>
         </div>
@@ -233,7 +240,7 @@
       </article>
       <article class="drop" data-channel="store" data-retailer="aldi">
         <div class="drop-top">
-          <span class="rt" style="--rt:#00447C">Aldi</span>
+          <span class="rt" style="--rt:var(--teal)">Aldi<i>Grocery</i></span>
           <span class="drop-ch">In store</span>
           <span class="drop-cf ok">Confirmed</span>
         </div>
@@ -244,7 +251,7 @@
       </article>
       <article class="drop" data-channel="store" data-retailer="walgreens">
         <div class="drop-top">
-          <span class="rt" style="--rt:#E01B2E">Walgreens</span>
+          <span class="rt" style="--rt:var(--plum)">Walgreens<i>Pharmacy</i></span>
           <span class="drop-ch">In store</span>
           <span class="drop-cf exp">Expected</span>
         </div>
@@ -255,7 +262,7 @@
       </article>
       <article class="drop" data-channel="store" data-retailer="family-dollar">
         <div class="drop-top">
-          <span class="rt" style="--rt:#E01A2B">Family Dollar</span>
+          <span class="rt" style="--rt:var(--ketchup)">Family Dollar<i>Discount</i></span>
           <span class="drop-ch">In store</span>
           <span class="drop-cf exp">Expected</span>
         </div>
@@ -268,7 +275,11 @@
       <p class="dr-empty" id="drEmpty" hidden>Nothing matches that combination.</p>
 
       <div class="dr-key">
+        <h2>How to read this page</h2>
         <p><b>What the labels mean.</b> <b>Confirmed:</b> A date the retailer put on it, or stock already seen on shelves. <b>Usual window:</b> Expected inside a known range. <b>Expected:</b> The community thinks it is coming. No date. <b>Pattern only:</b> A day or time people have noticed. No retailer publishes a restock schedule, so this is the weakest thing on the page.</p>
+        <p style="margin-top:var(--s3)"><b>What the colours mean.</b> The stripe on each name is the kind of
+          shop, not the shop's own colour: <span class="dr-sw" style="--rt:var(--gold)"></span>Official store, <span class="dr-sw" style="--rt:var(--navy)"></span>Big box, <span class="dr-sw" style="--rt:var(--teal)"></span>Grocery, <span class="dr-sw" style="--rt:var(--plum)"></span>Pharmacy, <span class="dr-sw" style="--rt:var(--ketchup)"></span>Discount. Retailer names here are drawn in this site's own typeface and are the property of
+          their owners. Nothing on this page is endorsed by, affiliated with or supplied by any of them.</p>
         <p style="margin-top:var(--s3)">Stock varies store to store and the good stuff goes fast, so this tells you
           where to look rather than what you will find. If you would rather buy without the hunt, the
           <a href="/shops.html">Rochester shops</a> and the <a href="/card-shows.html">card shows</a> have
@@ -309,6 +320,7 @@
         <a href="/rarity.html">Rarity guide</a>
         <a href="/fake-cards.html">Fakes</a>
         <a href="/grading.html">Grading</a>
+        <a href="/selling.html">Where to sell</a>
         <a href="/luck.html">Luck, measured</a>
       </div>
       <div class="foot-col">
@@ -378,6 +390,6 @@
 })();
 </script>
 <script src="/assets/app.js?v=3917fe6a" defer></script>
-<script src="/assets/packplayer.js?v=44adb501" defer></script>
+<script src="/assets/packplayer.js" defer></script>
 </body>
 </html>

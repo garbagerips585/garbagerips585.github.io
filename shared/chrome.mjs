@@ -86,6 +86,12 @@ export const NAV = [
     ["/rarity.html", "Rarity guide"],
     ["/fake-cards.html", "Fakes"],
     ["/grading.html", "Grading"],
+    // Under Guides and not with the money pages, even though it is about money.
+    // Pack prices and drops move every week; this one is a set of policies and
+    // fee tables that change on the companies' own schedule, and it reads like
+    // a guide rather than a market check. It is also the natural next page
+    // after grading: the two together answer "what do I do with this card".
+    ["/selling.html", "Where to sell"],
     // Matches the page's own H1 and title. It was "Pull rates", which is what
   // people search for but not what the page has: the body says in as many words
   // that these are observed results and not official pull rates, because The
