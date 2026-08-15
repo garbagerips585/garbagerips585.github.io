@@ -126,7 +126,7 @@ ${MENU}
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/games/">Games</a> / <span>Garbage Run</span></nav>
       <h1>Garbage <span class="hl">Run</span></h1>
       <p class="lede">One thumb, no rules to read. Tap to flip Trubbish between the floor and the ceiling and
-        keep him off the junk. Garbodor is right behind you and he does not get tired.</p>
+        eat everything on the street. A hundred pieces of rubbish and he evolves.</p>
 
       <div class="gr-hud">
         <div>
@@ -144,13 +144,13 @@ ${MENU}
           aria-label="Garbage Run. Trubbish runs along a Rochester street and you tap to flip him between the floor and the ceiling."></canvas>
         <div class="gr-over" id="grOver">
           <h2 id="grTitle">Garbage Run</h2>
-          <p id="grMsg">Tap the screen, or press space, to flip. That is the whole game.</p>
+          <p id="grMsg">Tap the screen, or press space, to flip. Eat the rubbish, dodge the Pokemon.</p>
           <button class="gr-go" id="grStart" type="button">Start</button>
         </div>
       </div>
 
       <p class="gr-how"><b>Solo.</b> Tap anywhere, or press <span class="gr-keys">space</span>. Every pack you
-        grab is a point and the street speeds up.<br>
+        eat is a point. Other Pokemon are out there too and touching one ends the run. Get to 100 and Trubbish evolves into Garbodor for the rest of the game.<br>
         <b>Two players.</b> The screen splits. Left thumb is the top lane, right thumb is the bottom lane, or
         <span class="gr-keys">A</span> and <span class="gr-keys">L</span> on a keyboard. Last one still running
         wins. Hand the phone over and settle it.<br>
@@ -188,6 +188,7 @@ ${footer()}
   elBest.textContent = "Best " + best;
 
   var duel = false, running = false, raf = 0;
+  var EVOLVE_AT = 100;
 
   // Preload the mascots. The ready flag stays false until the file is actually
   // decodable, and every draw checks it, so nothing is ever drawn from a
@@ -205,9 +206,32 @@ ${footer()}
   // What counts as garbage. Kept deliberately food-and-bin heavy: it reads as
   // rubbish at a glance, which matters more than variety when the thing is
   // 26 pixels wide and moving.
-  var JUNK = ["\uD83C\uDF4C", "\uD83C\uDF4E", "\uD83C\uDF55", "\uD83D\uDDD1\uFE0F", "\uD83E\uDD6B",
-              "\uD83C\uDF57", "\uD83E\uDDC3", "\uD83E\uDDB4", "\uD83E\uDD64", "\uD83D\uDCF0",
-              "\uD83C\uDF6C", "\uD83E\uDDFB"];
+  // EVERYTHING A TRUBBISH WOULD EAT. The list is long on purpose: at one item
+  // every second or so, a short list starts repeating inside the first run and
+  // the street stops feeling like a street.
+  var JUNK = [
+    "\uD83C\uDF4C", "\uD83C\uDF4E", "\uD83C\uDF55", "\uD83D\uDDD1\uFE0F", "\uD83E\uDD6B",
+    "\uD83C\uDF57", "\uD83E\uDDC3", "\uD83E\uDDB4", "\uD83E\uDD64", "\uD83D\uDCF0",
+    "\uD83C\uDF6C", "\uD83E\uDDFB", "\uD83C\uDF54", "\uD83C\uDF5F", "\uD83C\uDF2D",
+    "\uD83E\uDD5A", "\uD83C\uDF69", "\uD83C\uDF70", "\uD83C\uDF3D", "\uD83E\uDDC0",
+    "\uD83C\uDF53", "\uD83C\uDF49", "\uD83C\uDF4D", "\uD83E\uDD51", "\uD83C\uDF52",
+    "\uD83E\uDD5A", "\uD83E\uDD68", "\uD83C\uDF7F", "\uD83E\uDDCB", "\uD83E\uDDC3",
+    "\uD83D\uDC5F", "\uD83E\uDDE6", "\uD83D\uDCDA", "\uD83D\uDCE6", "\uD83E\uDEB6",
+    "\uD83D\uDD0B", "\uD83E\uDD5C", "\uD83C\uDF6D", "\uD83C\uDF6B", "\uD83E\uDD5F"
+  ];
+
+  // The hazards. Other Pokemon out on the street: touch one and the run is over.
+  // Drawn from the same official-artwork source as the two mascots, sized down,
+  // so they read as a Pokemon rather than as an abstract obstacle.
+  var FOES = [92, 109, 88, 316, 434, 453, 451];
+  var foeSprites = {};
+  // Preloaded HERE and not beside the other two sprites, because FOES is
+  // declared in this block: a var hoists the name but not the value, so a loop
+  // above this line read undefined.length, threw on load, and took the entire
+  // game with it while the page still looked fine.
+  for (var fi = 0; fi < FOES.length; fi++) {
+    foeSprites[FOES[fi]] = sprite("/assets/foes/" + FOES[fi] + ".webp");
+  }
 
   // A lane is one player's strip of the world. Solo uses one full height lane,
   // duel splits the canvas so two thumbs never fight over the same space.
@@ -216,6 +240,7 @@ ${footer()}
       top: top, h: height, key: keyName,
       y: top + height / 2, vy: 0, flip: 1, alive: true, score: 0,
       obs: [], packs: [], nextObs: 60, nextPack: 90, chase: 0,
+      evolved: false, evoFlash: 0,
     };
   }
   var lanes = [];
@@ -246,18 +271,22 @@ ${footer()}
     if (L.y < ceil) { L.y = ceil; L.vy = 0; }
 
     L.nextObs -= 1; L.nextPack -= 1;
+    // THE HAZARD is another Pokemon, on the floor or the ceiling. Touch it and
+    // the run ends.
     if (L.nextObs <= 0) {
-      var onFloor = Math.random() < 0.5;
       L.obs.push({
-        x: W + 20, onFloor: onFloor,
-        w: 26 + Math.random() * 10, h: 26 + Math.random() * 10,
+        x: W + 20, onFloor: Math.random() < 0.5, w: 42, h: 42,
+        foe: FOES[Math.floor(Math.random() * FOES.length)],
+      });
+      L.nextObs = Math.max(46, 104 - t / 70) + Math.random() * 40;
+    }
+    // THE PICKUP is rubbish, which is the entire point of being a Trubbish.
+    if (L.nextPack <= 0) {
+      L.packs.push({
+        x: W + 20, y: L.top + 44 + Math.random() * (L.h - 88), got: false,
         emoji: JUNK[Math.floor(Math.random() * JUNK.length)],
       });
-      L.nextObs = Math.max(24, 66 - t / 80) + Math.random() * 22;
-    }
-    if (L.nextPack <= 0) {
-      L.packs.push({ x: W + 20, y: L.top + 40 + Math.random() * (L.h - 80), got: false });
-      L.nextPack = 55 + Math.random() * 55;
+      L.nextPack = 34 + Math.random() * 34;
     }
 
     var i;
@@ -266,7 +295,7 @@ ${footer()}
       o.x -= speed;
       if (o.x + o.w < -20) { L.obs.splice(i, 1); continue; }
       var oy = o.onFloor ? L.top + L.h - o.h : L.top;
-      if (o.x < 112 && o.x + o.w > 80 && L.y + 16 > oy && L.y - 16 < oy + o.h) L.alive = false;
+      if (o.x < 116 && o.x + o.w > 78 && L.y + 18 > oy && L.y - 18 < oy + o.h) L.alive = false;
     }
     for (i = L.packs.length - 1; i >= 0; i--) {
       var p = L.packs[i];
@@ -274,19 +303,24 @@ ${footer()}
       if (p.x < -20) { L.packs.splice(i, 1); continue; }
       if (!p.got && Math.abs(p.x - 96) < 24 && Math.abs(p.y - L.y) < 28) {
         p.got = true; L.score += 1; L.packs.splice(i, 1);
+        // EVOLVE AT A HUNDRED. Trubbish becomes Garbodor for the rest of the
+        // run and stays that way: there is no going back, which is the point of
+        // an evolution and also the reward for surviving that long.
+        if (!L.evolved && L.score >= EVOLVE_AT) { L.evolved = true; L.evoFlash = 42; }
       }
     }
     if (!L.alive) L.chase = 1;
   }
 
   // ---- drawing: everything here is our own shapes ---------------------
-  function trubbish(x, y, up) {
-    if (SP_TRUB.ready) {
-      var S = 58;
+  function trubbish(x, y, up, evolved) {
+    var SP = evolved ? SP_GARB : SP_TRUB;
+    if (SP.ready) {
+      var S = evolved ? 76 : 58;
       ctx.save();
       ctx.translate(x, y);
       if (!up) ctx.scale(1, -1);
-      ctx.drawImage(SP_TRUB.img, -S / 2, -S / 2, S, S);
+      ctx.drawImage(SP.img, -S / 2, -S / 2, S, S);
       ctx.restore();
       return;
     }
@@ -362,34 +396,58 @@ ${footer()}
     ctx.fillRect(0, L.top + L.h - 16, W, 16);
     ctx.fillRect(0, L.top, W, 16);
 
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
     for (var a = 0; a < L.obs.length; a++) {
       var o = L.obs[a];
       var oy = o.onFloor ? L.top + L.h - o.h : L.top;
-      // A shadow behind the emoji, because emoji are drawn by the operating
-      // system in whatever colours it likes and several of them vanish against
-      // a dark street. The disc guarantees the silhouette reads.
-      ctx.fillStyle = "rgba(11,17,8,.55)";
-      ctx.beginPath();
-      ctx.arc(o.x + o.w / 2, oy + o.h / 2, o.w * 0.62, 0, 7);
-      ctx.fill();
-      ctx.font = Math.round(o.w) + "px system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif";
-      ctx.fillText(o.emoji, o.x + o.w / 2, oy + o.h / 2);
+      // A red ring under every hazard, always drawn, whether or not the sprite
+      // has loaded. A player must never be killed by something they could not
+      // see because a file was still downloading.
+      ctx.strokeStyle = "#D9482B"; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.arc(o.x + o.w / 2, oy + o.h / 2, o.w * 0.58, 0, 7); ctx.stroke();
+      var fs = foeSprites[o.foe];
+      if (fs && fs.ready) ctx.drawImage(fs.img, o.x, oy, o.w, o.h);
+      else { ctx.fillStyle = "#D9482B"; ctx.fillRect(o.x + 8, oy + 8, o.w - 16, o.h - 16); }
     }
-    ctx.textAlign = "left";
-    ctx.textBaseline = "alphabetic";
-    for (var b = 0; b < L.packs.length; b++) pack(L.packs[b].x, L.packs[b].y);
+    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    for (var b = 0; b < L.packs.length; b++) {
+      var pk = L.packs[b];
+      ctx.fillStyle = "rgba(239,201,76,.22)";
+      ctx.beginPath(); ctx.arc(pk.x, pk.y, 17, 0, 7); ctx.fill();
+      ctx.font = "24px system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif";
+      ctx.fillText(pk.emoji, pk.x, pk.y);
+    }
+    ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
 
     if (L.chase > 0) { garbodor(14 + L.chase * 30, L.top + L.h - 34, 46); L.chase += 0.06; }
-    else garbodor(14, L.top + L.h - 34, 46);
 
-    trubbish(96, L.y, L.flip > 0);
+    trubbish(96, L.y, L.flip > 0, L.evolved);
+
+    // The evolution moment. A gold wash and a word, for about two thirds of a
+    // second, then it is gone and you are Garbodor.
+    if (L.evoFlash > 0) {
+      ctx.fillStyle = "rgba(239,201,76," + (L.evoFlash / 90) + ")";
+      ctx.fillRect(0, L.top, W, L.h);
+      ctx.fillStyle = "#2A2410";
+      ctx.font = "700 30px system-ui, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("EVOLVED", W / 2, L.top + L.h / 2);
+      ctx.textAlign = "left";
+      L.evoFlash -= 1;
+    }
 
     ctx.fillStyle = "#F4F1E2";
     ctx.font = "700 20px ui-monospace, monospace";
     ctx.textAlign = "right";
     ctx.fillText(String(L.score), W - 12, L.top + 30);
+    if (!L.evolved) {
+      ctx.fillStyle = "rgba(244,241,226,.55)";
+      ctx.font = "700 11px ui-monospace, monospace";
+      ctx.fillText((EVOLVE_AT - L.score) + " to evolve", W - 12, L.top + 46);
+    } else {
+      ctx.fillStyle = "#EFC94C";
+      ctx.font = "700 11px ui-monospace, monospace";
+      ctx.fillText("GARBODOR", W - 12, L.top + 46);
+    }
     if (duel) {
       ctx.textAlign = "left";
       ctx.fillStyle = L.alive ? "#EFC94C" : "#D9482B";
@@ -440,10 +498,11 @@ ${footer()}
         try { localStorage.setItem(BEST_KEY, String(best)); } catch (e) {}
         elTitle.textContent = "New best";
       } else {
-        elTitle.textContent = "Garbodor got you";
+        elTitle.textContent = "A wild Pokemon got you";
       }
       elBest.textContent = "Best " + best;
-      elMsg.textContent = sc + " pack" + (sc === 1 ? "" : "s") + " grabbed.";
+      elMsg.textContent = sc + " piece" + (sc === 1 ? "" : "s") + " of rubbish eaten." +
+        (lanes[0].evolved ? " You made it to Garbodor." : " " + (EVOLVE_AT - sc) + " more and you would have evolved.");
     }
     elStart.textContent = "Go again";
     elOver.hidden = false;

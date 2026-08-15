@@ -50,6 +50,48 @@ for pattern, floor, label in SECTIONS:
 # 2. Internal links. The old regex was (?:href|src)="(/[^"#?]*)" which REFUSED
 #    to match any url carrying a query or a fragment, so every /cards.html?q=...
 #    link on the site was silently unchecked rather than checked and passed.
+# ---------------------------------------------------------------------------
+# TWO GUARDS AGAINST THE SAME PAIR OF MISTAKES, both of which shipped today.
+#
+# ONE: a page that was not regenerated. build-all.mjs exits non-zero when a
+# builder throws, but if anybody runs this script separately, or pipes the build
+# through grep and misses the failure, every check below happily passes against
+# the LAST GOOD copy still sitting on disk. It reads green while the tree is
+# broken. That happened three times in one day.
+#
+# TWO: a backtick inside a JavaScript comment. Several builders emit their page
+# as one big template literal, so a stray backtick in an inline comment closes
+# it and the file stops parsing. Cheap to scan for, impossible to see by eye.
+import subprocess as _sp
+
+_stale = []
+for _b in sorted(glob.glob("scripts/build-*.mjs")):
+    _bt = os.path.getmtime(_b)
+    for _out in _sp.run(["grep", "-oE", r'public/[A-Za-z0-9_./-]+\.html', _b],
+                        capture_output=True, text=True).stdout.split():
+        if os.path.exists(_out) and os.path.getmtime(_out) < _bt - 2:
+            _stale.append(f"{_out} is older than {_b}, so it was not rebuilt")
+for _m in _stale[:8]:
+    fail.append(_m)
+
+# A REAL PARSE beats a heuristic. The first version of this grepped for a
+# backtick inside a comment, which is the specific way these files have broken
+# three times, and it flagged every harmless backtick in a file-level docstring
+# too. node --check answers the actual question: does this file still parse.
+#
+# It is safe to use here because these are .mjs. On a .js file node --check
+# parses as CommonJS and silently passes broken ES module syntax, which is a
+# trap worth remembering rather than rediscovering.
+_broken = []
+for _b in sorted(glob.glob("scripts/*.mjs") + glob.glob("shared/*.mjs")):
+    _r = _sp.run(["node", "--check", _b], capture_output=True, text=True)
+    if _r.returncode != 0:
+        _first = (_r.stderr.strip().split("\n") or [""])[0]
+        _broken.append(f"{_b} does not parse: {_first[:110]}")
+for _t in _broken[:8]:
+    fail.append(_t)
+# ---------------------------------------------------------------------------
+
 missing = {}
 links = 0
 for f in pages:
