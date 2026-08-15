@@ -543,8 +543,20 @@ for r, v in enumerate(ordered, start=2):
     # could say 18 while the parts added to 12 and nothing would catch it.
     _pk = [get_column_letter(COL[h]) for h in ("Packs", "Packs 2", "Packs 3", "Packs 4", "Packs 5")]
     wv.cell(r, COL["Packs Opened"], "=SUM(" + ",".join(f"{c}{r}" for c in _pk) + ")")
-    if pull:
-        wv.cell(r, COL["Has Hit"], "Yes").font = GUESS_TXT
+    # DO NOT PREFILL A HIT. This used to write "Yes" and a rarity, guessed from
+    # words in the title and description, in blue to mean "confirm this". The
+    # export to CSV throws the colour away, so the importer read every guess
+    # back as a typed answer, and the site then showed a hit badge on videos
+    # where the title merely MENTIONED a card being hunted. 62 of 64 rarity
+    # values in the log arrived that way and not one of them was typed.
+    #
+    # A guess that cannot be told apart from an answer downstream is not a
+    # convenience, it is a way to publish something nobody said. The set and the
+    # opening type are still prefilled, because those describe what was OPENED
+    # and a title says that reliably. What was PULLED only the person who
+    # opened it knows.
+    if False:
+        pass
         wv.cell(r, COL["Hit Rarity"], PULL_TO_RARITY[pull]).font = GUESS_TXT
 
     # WHAT WAS ALREADY IMPORTED COMES BACK, which the Read Me has always claimed

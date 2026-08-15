@@ -254,11 +254,21 @@ const videos = uploads
       // page and nothing else: the badge on every tile and the Hall of Fame
       // ordering both read `pulls`, which was still coming from whatever the
       // title happened to say. A deliberate answer should beat a guess.
-      pulls:
-        manual.pulls ??
-        rarityToPulls(log.hitRarity, log.hasHit) ??
-        pullsFromHitCard(log.hitCard) ??
-        auto.pulls,
+      // A HIT BADGE REQUIRES A NAMED CARD, and nothing else counts.
+      //
+      // This used to fall back to tags derived from the title and description,
+      // which is how videos got a "Gold" or "Ultra Rare" badge for saying they
+      // were HUNTING a card. The site was claiming pulls that never happened,
+      // on the one subject where this site's whole promise is that it does not.
+      //
+      // The Hit Rarity column is not enough either, because build-sheet.py used
+      // to prefill it from those same derived tags and the CSV round trip loses
+      // the styling that marked it a guess: 62 of 64 values arrived that way.
+      // A card NAME is the one thing only a person types.
+      //
+      // So: an explicit override wins, then a named card, then nothing. As the
+      // log fills in, badges come back one video at a time, each one true.
+      pulls: manual.pulls ?? pullsFromHitCard(log.hitCard) ?? [],
       // Everything the spreadsheet can say about a video. This list used to
       // name five fields, so the other eight columns were imported into
       // manual.json and then silently dropped here, which is why nothing ever

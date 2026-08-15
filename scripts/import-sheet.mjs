@@ -451,7 +451,16 @@ for (const r of rows.slice(1)) {
   // The dropdown reads "Special Illustration Rare (2 gold stars)"; the
   // parenthetical is a hint for whoever is filling the sheet in, not something
   // to print on a public page.
-  if (rarity && !/^no hit$/i.test(rarity)) m.hitRarity = rarity.replace(/\s*\([^)]*\)\s*$/, "").trim();
+  // ONLY KEEP A RARITY THAT ARRIVED WITH A CARD NAME. build-sheet.py used to
+  // prefill this column from tags derived from the title, coloured to mean
+  // "confirm this", and the export to CSV throws the colour away, so a guess
+  // and an answer are indistinguishable by the time they reach here. 62 of the
+  // 64 values that came back had no card name beside them and none was typed.
+  // A rarity next to a card is an answer. A rarity on its own is the title
+  // matcher talking to itself, and it was being published as a hit.
+  if (rarity && !/^no hit$/i.test(rarity) && m.hitCard) {
+    m.hitRarity = rarity.replace(/\s*\([^)]*\)\s*$/, "").trim();
+  }
   if (isYes(get(r, idx.greatest))) { m.greatest = true; counted.greatest++; }
   const rank = get(r, idx.hofRank);
   if (rank && !Number.isNaN(Number(rank))) m.hofRank = Number(rank);
