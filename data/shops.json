@@ -27,9 +27,56 @@
     "",
     "ROCHESTER NY ONLY, and its ring. A national search for 'Rochester Pokemon",
     "league' returns Rochester MINNESOTA and Rochester MICHIGAN above ours, and",
-    "both of those were nearly listed here. Check the zip: ours are 146xx."
+    "both of those were nearly listed here. Check the zip: ours are 146xx.",
+    "That trap is live, not historical. On 15 August 2026 a search for Rochester",
+    "Pokemon leagues returned a 'Rochester Sports Cards And Memorabilia League'",
+    "(407 S Main St, Rochester MICHIGAN) and a 'Rochester Pokemon League' at",
+    "NerdinOut (1802 2nd St SW, Rochester MINNESOTA). Both look local until you",
+    "read the zip.",
+    "",
+    "WHERE EACH ENTRY CAME FROM, and when it was read. Every fact below was taken",
+    "from the business stating it about itself, not from a directory. Read",
+    "15 August 2026 unless noted:",
+    "  Just Games        justgamesrochester.com/category/pokemon/ states the",
+    "                    address, phone and the Mon-Sat noon-9, Sun noon-6 hours.",
+    "  Millennium Games  shop.millenniumgames.com footer states the address,",
+    "                    phone and the hours added on this pass.",
+    "  LingSter Games    lingstergames.com/shop states the address, phone and",
+    "                    hours. See the move note below.",
+    "  Legacy Games      legacygamestore.com states address, phone and hours;",
+    "                    singles.legacygamestore.com lists priced Pokemon singles",
+    "                    under the same name and address.",
+    "  Great Lakes       glgaminglounges.com/pokemon prices packs, ETBs and",
+    "                    booster boxes; /tcg states Wooper Wednesday at 6.30pm.",
+    "  WeTheHobby        wethehobby.com/pages/contact states address, phone and",
+    "                    hours; /pages/events lists a Pokemon Weekly League on",
+    "                    every Thursday of the current month.",
+    "",
+    "TWO SHOPS PUBLISH HOURS WE DELIBERATELY DO NOT CARRY. Great Lakes Gaming's",
+    "only self-stated hours sit inside an Instagram caption reproduced on their",
+    "home page, and that same caption still advertises events 'Coming January",
+    "2026', so it is stale and the hours in it cannot be trusted. WeTheHobby's",
+    "own contact page reads 'SAT 11pm to 8pm', which is impossible; 11am is what",
+    "is recorded here. Prefer omitting an hour to inventing one.",
+    "",
+    "LINGSTER MOVED, and the old address is still all over the internet. Their",
+    "own blog has a September 2025 post opening a brick and mortar at 4675 West",
+    "Ridge Road, Spencerport 14559, then a June 2026 post opening the current",
+    "shop at 1586 West Ridge Road, Rochester 14615. Aggregators mix the two, and",
+    "the Spencerport hours (Mon/Wed/Fri 2-7pm) still surface first. The address",
+    "and hours in this file are the ones on lingstergames.com/shop today.",
+    "",
+    "SHOPS CHECKED AND LEFT OUT, so nobody re-researches them: Yankee Clipper",
+    "House of Cards, Comics Etc, Boldo's Armory, Endzone Collectibles / In The",
+    "Zone, Game On, Hammergirl Anime, All Heroes Comics, Rochester CCG, Flower",
+    "City Cards, PokeSalesByRoc, Hobby House Toys. Each failed on one of: its own",
+    "site never says it sells Pokemon, it has no storefront, or its address is",
+    "reported two different ways with nothing from the business to settle it.",
+    "Directory sites are not evidence: tcglist.org tags all 23 of its Rochester",
+    "listings with the identical 'Magic, Pokemon, Yu-Gi-Oh' trio, including a",
+    "playing card manufacturer and a craft store."
   ],
-  "updated": "2026-08-12",
+  "updated": "2026-08-15",
   "playNote": "Play! Pokemon league schedules change constantly and go quiet between seasons. Call the shop before you drive.",
   "shops": [
     {
@@ -62,6 +109,7 @@
       "area": "Jefferson Road, Henrietta",
       "address": "1225 Jefferson Road, Suite A17, Rochester, NY 14623",
       "phone": "585-427-2190",
+      "hours": "Mon to Sat 10am to 10pm, Sun 10am to 6pm",
       "blurb": "One of the biggest game stores in the area, with a Pokemon section to match and a sanctioned league of its own.",
       "goodFor": [
         "Sealed product",
@@ -89,6 +137,60 @@
         "Singles",
         "New releases"
       ],
+      "visited": false
+    },
+    {
+      "name": "Legacy Games",
+      "url": "https://legacygamestore.com/",
+      "area": "Ridge Road, Webster",
+      "address": "1028 Ridge Rd, Suite 112, Webster, NY 14580",
+      "phone": "585-866-4263",
+      "hours": "Mon to Sat 11am to 9.30pm, Sun noon to 7pm",
+      "blurb": "The Webster one, and the furthest east of these. They run a separate singles storefront alongside the main site, so you can see which Pokemon singles are actually in the case before you make the drive. They buy cards too.",
+      "goodFor": [
+        "Singles",
+        "Buylist",
+        "In store"
+      ],
+      "visited": false
+    },
+    {
+      "name": "Great Lakes Gaming",
+      "url": "https://www.glgaminglounges.com/pokemon",
+      "area": "South Clinton Avenue, downtown",
+      "address": "100 S Clinton Ave, Suite 22, Rochester, NY 14604",
+      "phone": "585-604-9626",
+      "blurb": "Not a shop front. It is a gaming lounge on the 22nd floor of an office tower downtown that sells Pokemon packs, Elite Trainer Boxes and booster boxes at the counter and gives Wednesday night over to Pokemon.",
+      "goodFor": [
+        "Sealed product",
+        "Organized Play",
+        "In store"
+      ],
+      "plays": [
+        "Wooper Wednesday, Pokemon tournaments from 6.30pm",
+        "Trading card game and video game, plus Pokemon Go and Unite"
+      ],
+      "playNote": "The Wednesday time is off their own trading card games page. Being on the 22nd floor, it is a lift and a parking garage rather than a door off the street, so leave a few extra minutes.",
+      "eventsUrl": "https://www.glgaminglounges.com/tcg",
+      "visited": false
+    },
+    {
+      "name": "WeTheHobby",
+      "url": "https://www.wethehobby.com/",
+      "area": "Arlington Street, Neighborhood of the Arts",
+      "address": "23 Arlington St, Rochester, NY 14607",
+      "phone": "585-730-5819",
+      "hours": "Mon to Wed noon to 6pm, Thu and Fri noon to 8pm, Sat 11am to 8pm, Sun 11am to 6pm",
+      "blurb": "Mostly sports cards, and better known for breaking live online than for a Pokemon singles case. The Arlington Street building is a real shop and lounge you can walk into though, and there is a Pokemon league in it every week.",
+      "goodFor": [
+        "Organized Play",
+        "In store"
+      ],
+      "plays": [
+        "Pokemon Weekly League, Thursdays"
+      ],
+      "playNote": "Their own events calendar carries the league on every Thursday of the current month, but does not publish a start time. Check the calendar or ask when you walk in.",
+      "eventsUrl": "https://www.wethehobby.com/pages/events",
       "visited": false
     }
   ]
