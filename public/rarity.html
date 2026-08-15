@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://garbagerips585.github.io/assets/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=f5266f8f">
+<link rel="stylesheet" href="/assets/ui.css?v=4781211d">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .rg{padding:var(--s7) 0 var(--s5)}
@@ -44,9 +44,21 @@
    background: see the 'corner' function in build-rarity.mjs for why, and for
    the identity that turns background-position into 'left'. */
 .crop-img{position:relative;aspect-ratio:16/5;overflow:hidden;background:var(--card)}
-.crop-img img{position:absolute;bottom:0;width:600px;height:auto;max-width:none}
-.cr-r img{left:calc(100% - 600px)}
-.cr-l img{left:calc(8% - 48px)}
+/* .crop .crop-img, not .crop-img, AND THAT IS NOT TIDINESS.
+   Moving the scan from a background to an <img> put it in reach of every
+   container-img rule on this page for the first time. .gloss-fig img is
+   width:100%;max-width:132px and sits LATER in this stylesheet at the same
+   (0,1,1) specificity, so it won, and the eleven glossary crops each painted a
+   whole card shrunk to 132px instead of a magnified corner. The page still
+   looked fine at a glance: a card in a box, just the wrong picture, with the
+   caption underneath still promising the corner. The extra class takes these to
+   (0,2,1) so they beat any single-class img rule here or added later.
+   The border, radius and background are reset for the same reason: .gloss-fig
+   img donates all three, and .crop already draws its own frame. */
+.crop .crop-img img{position:absolute;bottom:0;width:600px;height:auto;max-width:none;
+  border:0;border-radius:0;background:none}
+.crop .cr-r img{left:calc(100% - 600px)}
+.crop .cr-l img{left:calc(8% - 48px)}
 .crop figcaption{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-2);padding:8px var(--s3);border-top:1px solid var(--hair);background:var(--page)}
 

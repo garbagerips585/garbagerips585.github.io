@@ -321,9 +321,21 @@ const style = `
    background: see the 'corner' function in build-rarity.mjs for why, and for
    the identity that turns background-position into 'left'. */
 .crop-img{position:relative;aspect-ratio:16/5;overflow:hidden;background:var(--card)}
-.crop-img img{position:absolute;bottom:0;width:${SRC_W}px;height:auto;max-width:none}
-.cr-r img{left:${CROP.right.off}}
-.cr-l img{left:${CROP.left.off}}
+/* .crop .crop-img, not .crop-img, AND THAT IS NOT TIDINESS.
+   Moving the scan from a background to an <img> put it in reach of every
+   container-img rule on this page for the first time. .gloss-fig img is
+   width:100%;max-width:132px and sits LATER in this stylesheet at the same
+   (0,1,1) specificity, so it won, and the eleven glossary crops each painted a
+   whole card shrunk to 132px instead of a magnified corner. The page still
+   looked fine at a glance: a card in a box, just the wrong picture, with the
+   caption underneath still promising the corner. The extra class takes these to
+   (0,2,1) so they beat any single-class img rule here or added later.
+   The border, radius and background are reset for the same reason: .gloss-fig
+   img donates all three, and .crop already draws its own frame. */
+.crop .crop-img img{position:absolute;bottom:0;width:${SRC_W}px;height:auto;max-width:none;
+  border:0;border-radius:0;background:none}
+.crop .cr-r img{left:${CROP.right.off}}
+.crop .cr-l img{left:${CROP.left.off}}
 .crop figcaption{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-2);padding:8px var(--s3);border-top:1px solid var(--hair);background:var(--page)}
 
