@@ -25,11 +25,18 @@
 <style>
 .gr-wrap{max-width:520px;margin:0 auto}
 .gr-stage{position:relative;border:3px solid var(--navy);border-radius:14px;overflow:hidden;
-  box-shadow:var(--hard-lg);background:#16210F;touch-action:manipulation;user-select:none}
+  box-shadow:var(--hard-lg);background:#16210F;user-select:none;-webkit-user-select:none;
+  -webkit-tap-highlight-color:transparent}
 /* Capped so the canvas cannot grow taller than a phone screen on a desktop,
    where it would otherwise render as a very tall column. */
 .gr-stage{max-width:420px;margin:0 auto}
 .gr-stage canvas{display:block;width:100%;height:auto;image-rendering:auto}
+/* touch-action none, not manipulation: manipulation still allows the browser's
+   double-tap-to-zoom heuristic, which on a game that is nothing but taps means
+   a fast double flip can zoom the page instead. overscroll-behavior stops a
+   flick near the edge dragging the whole page. */
+.gr-stage{touch-action:none;overscroll-behavior:contain}
+.gr-stage canvas{touch-action:none}
 .gr-hud{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;justify-content:space-between;
   margin:var(--s4) 0 var(--s3)}
 .gr-score{font:400 var(--t-l)/1 var(--display);color:var(--ink)}
@@ -319,7 +326,7 @@
       top: top, h: height,
       y: top + height / 2, vy: 0, flip: 1, alive: true, score: 0,
       obs: [], packs: [], nextObs: 60, nextPack: 90, chase: 0,
-      evolved: false, evoFlash: 0,
+      evolved: false, evoFlash: 0, tilt: 0, land: 0,
     };
   }
   var lanes = [];
@@ -336,6 +343,10 @@
     var L = lanes[i];
     if (!L || !L.alive) return;
     L.flip = -L.flip;
+    // The kick. Without it a tap only reverses acceleration and the first few
+    // frames go nowhere, which reads as lag even though nothing is late.
+    L.vy = 4.6 * L.flip;
+    L.tilt = -0.5 * L.flip;
   }
 
   // ---- world ----------------------------------------------------------
@@ -344,8 +355,10 @@
     var floor = L.top + L.h - 26, ceil = L.top + 26;
     L.vy += 1.05 * L.flip;
     L.y += L.vy;
-    if (L.y > floor) { L.y = floor; L.vy = 0; }
-    if (L.y < ceil) { L.y = ceil; L.vy = 0; }
+    if (L.y > floor) { if (L.vy > 6) L.land = 6; L.y = floor; L.vy = 0; }
+    if (L.y < ceil) { if (L.vy < -6) L.land = 6; L.y = ceil; L.vy = 0; }
+    L.tilt *= 0.86;
+    if (L.land > 0) L.land -= 1;
 
     L.nextObs -= 1; L.nextPack -= 1;
     // THE HAZARD is another Pokemon, on the floor or the ceiling. Touch it and
@@ -373,6 +386,9 @@
       if (o.x + o.w < -20) { L.obs.splice(i, 1); continue; }
       var oy = o.onFloor ? L.top + L.h - o.h : L.top;
       if (o.x < 96 && o.x + o.w > 52 && L.y + 18 > oy && L.y - 18 < oy + o.h) L.alive = false;
+      // A near miss flashes the ring, so squeezing past something reads as a
+      // thing you did rather than a thing that happened to you.
+      else if (!o.near && o.x < 96 && o.x + o.w > 52) { o.near = 1; }
     }
     for (i = L.packs.length - 1; i >= 0; i--) {
       var p = L.packs[i];
@@ -390,13 +406,17 @@
   }
 
   // ---- drawing: everything here is our own shapes ---------------------
-  function trubbish(x, y, up, evolved) {
+  function trubbish(x, y, up, evolved, tilt, land) {
     var SP = evolved ? SP_GARB : SP_TRUB;
     if (SP.ready) {
       var S = evolved ? 76 : 58;
       ctx.save();
       ctx.translate(x, y);
       if (!up) ctx.scale(1, -1);
+      if (tilt) ctx.rotate(tilt);
+      // A squash on landing. Four frames, and it is the difference between a
+      // sprite that arrives and a character that lands.
+      if (land > 0) ctx.scale(1 + land * 0.03, 1 - land * 0.04);
       ctx.drawImage(SP.img, -S / 2, -S / 2, S, S);
       ctx.restore();
       return;
@@ -479,7 +499,7 @@
       // A red ring under every hazard, always drawn, whether or not the sprite
       // has loaded. A player must never be killed by something they could not
       // see because a file was still downloading.
-      ctx.strokeStyle = "#D9482B"; ctx.lineWidth = 3;
+      ctx.strokeStyle = o.near ? "#EFC94C" : "#D9482B"; ctx.lineWidth = o.near ? 4 : 3;
       ctx.beginPath(); ctx.arc(o.x + o.w / 2, oy + o.h / 2, o.w * 0.58, 0, 7); ctx.stroke();
       var fs = foeSprites[o.foe];
       if (fs && fs.ready) ctx.drawImage(fs.img, o.x, oy, o.w, o.h);
@@ -497,7 +517,7 @@
 
     if (L.chase > 0) { garbodor(14 + L.chase * 30, L.top + L.h - 34, 46); L.chase += 0.06; }
 
-    trubbish(74, L.y, L.flip > 0, L.evolved);
+    trubbish(74, L.y, L.flip > 0, L.evolved, L.tilt, L.land);
 
     // The evolution moment. A gold wash and a word, for about two thirds of a
     // second, then it is gone and you are Garbodor.
@@ -535,6 +555,21 @@
 
   function tick() {
     if (!running) return;
+    // Hold the world still for three quarters of a second so the player can
+    // get a thumb back on the screen before anything moves.
+    if (countIn > 0) {
+      countIn -= 1;
+      draw();
+      ctx.fillStyle = "rgba(11,17,8,.45)";
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = "#F4F1E2";
+      ctx.font = "700 64px system-ui, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(String(Math.ceil(countIn / 15)), W / 2, H / 2);
+      ctx.textAlign = "left";
+      raf = requestAnimationFrame(tick);
+      return;
+    }
     t += 1;
     speed += calm ? 0.00025 : 0.00045;
     for (var i = 0; i < lanes.length; i++) step(lanes[i]);
@@ -563,8 +598,10 @@
     elOver.hidden = false;
   }
 
+  var countIn = 0;
   function start() {
     reset();
+    countIn = calm ? 0 : 45;
     running = true;
     elOver.hidden = true;
     elScore.textContent = "0";
@@ -573,11 +610,18 @@
   }
 
   // ---- input ----------------------------------------------------------
-  cv.addEventListener("pointerdown", function (e) {
-    if (!running) return;
+  // THE HANDLER GOES ON THE STAGE, NOT THE CANVAS. The start overlay is
+  // positioned over the canvas, so a tap while it is up lands on the overlay
+  // and a canvas listener never hears it: tapping the board to begin did
+  // nothing and you had to find the button. The stage contains both.
+  var stage = document.getElementById("grStage");
+  stage.addEventListener("pointerdown", function (e) {
+    // Let the actual button behave like a button.
+    if (e.target && e.target.closest && e.target.closest("button")) return;
     e.preventDefault();
-    flip(0);
-  });
+    if (running) flip(0);
+    else if (!elOver.hidden) start();
+  }, { passive: false });
   document.addEventListener("keydown", function (e) {
     var k = e.key.toLowerCase();
     if (k === " " || k === "spacebar") {
@@ -600,6 +644,21 @@
       elStart.onclick = function () { elStart.onclick = null; elOver.hidden = true; running = true; raf = requestAnimationFrame(tick); };
     }
   });
+
+  // FIT THE BOARD TO THE SPACE THAT IS LEFT. The canvas keeps its 420x680
+  // drawing surface, so none of the game logic cares, and only the CSS height
+  // changes. Measured from the stage's own top to the bottom of the viewport so
+  // it works whatever the header and the copy above it happen to be.
+  function fit() {
+    var r = cv.getBoundingClientRect();
+    var avail = (window.visualViewport ? window.visualViewport.height : window.innerHeight) - r.top - 12;
+    var maxH = Math.max(260, Math.min(avail, 680));
+    var byW = cv.clientWidth * (H / W);
+    cv.style.height = Math.min(maxH, byW) + "px";
+  }
+  window.addEventListener("resize", fit);
+  if (window.visualViewport) window.visualViewport.addEventListener("resize", fit);
+  fit();
 
   reset();
 })();

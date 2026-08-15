@@ -202,6 +202,21 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
   if (!byCard.size) {
     console.warn("No card data loaded, so nothing can be looked up.");
   }
+  // Every set id we can name, so an id typed (or handed back by the workbook)
+  // into the Set column resolves as well as a display name does.
+  const knownSetId = new Set([...setIdByName.values(), ...setIdOf.values()].map((s) => String(s).toLowerCase()));
+  // id -> display name, the reverse of the two lookups above. First writer wins,
+  // so the proper set name beats an alias.
+  const nameOfSet = new Map();
+  for (const [label, id] of setIdByName) if (!nameOfSet.has(id)) nameOfSet.set(id, label.replace(/\b\w/g, (c) => c.toUpperCase()));
+  try {
+    const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
+    for (const s of sets) nameOfSet.set(s.id, s.name);
+  } catch { /* warned about above */ }
+  try {
+    const ig = JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8")).sets || {};
+    for (const [id, g] of Object.entries(ig)) nameOfSet.set(id, `${g.english} (${LANG_TAG[g.lang] || "??"})`);
+  } catch { /* run: node scripts/sync-intl-guides.mjs */ }
 
   const hits = [];
   const problems = [];
@@ -215,7 +230,17 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
     if (vid && !knownVideo.has(vid)) problems.push(`row ${i + 1}: Video ID "${vid}" is not in the catalogue`);
 
     const setLabel = cell(r, hi.set);
-    const setId = setIdByName.get(setLabel.toLowerCase()) || setIdOf.get(setLabel.toLowerCase()) || null;
+    // ACCEPT A SET ID AS WELL AS A SET NAME, because the workbook hands one back.
+    // build-sheet.py prefills this column from data/hits.json, where `set` is an
+    // id ("phantasmal-flames"), and only NAMES were understood here. So the
+    // second trip through the sheet turned every hit's set to null: 22 of 22 in
+    // a two-cycle test, which drops the set caption off every hit card, loses
+    // the hits section on every set page, and sends every card down the promo
+    // resolver where it matches by name alone.
+    const setId =
+      setIdByName.get(setLabel.toLowerCase()) ||
+      setIdOf.get(setLabel.toLowerCase()) ||
+      (knownSetId.has(setLabel.toLowerCase()) ? setLabel.toLowerCase() : null);
     if (setLabel && !setId) problems.push(`row ${i + 1}: set "${setLabel}" not recognised`);
 
     const found = setId ? byCard.get(`${setId}|${card.toLowerCase()}`) : null;
@@ -231,6 +256,12 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
       video: vid || null,
       card,
       set: setId,
+      // setName IS WRITTEN, and it used not to be. build-pages.mjs prints
+      // `h.setName` under every hit card and build-hall.mjs ranks on it, and a
+      // single import wiped it off all 17 logged hits because nothing here ever
+      // put it back. It also has to be here for the sheet to round trip: the
+      // workbook prefills its Set column from this field.
+      setName: setId ? nameOfSet.get(setId) || null : null,
       // Typed value wins; otherwise the card data fills it in.
       number: cell(r, hi.number) || found?.n || null,
       rarity: cell(r, hi.rarity) || found?.rarity || null,
@@ -255,11 +286,32 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
   try {
     existing = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8"));
   } catch { /* first run */ }
+  // MERGE ONTO THE CARD, DO NOT REPLACE IT. The tab has nine columns and a hit
+  // record has more fields than that, so a wholesale replace deleted everything
+  // the sheet has no column for. Measured over two round trips: `setName` went
+  // from 17 records to 0 on the FIRST import, and the two Black Star Promos lost
+  // `promo`, `price`, `priceSource`, `priceAsOf`, `priceUrl`, `img` and
+  // `forSet` in the same pass. Those seven fields are the entire reason those
+  // two cards resolve at all; without `promo` and `forSet` they either match a
+  // set card of the same name or appear on no page. The readme in hits.json
+  // spells out why each one is hand-kept, which is exactly why an importer must
+  // not be the thing that throws them away.
+  //
+  // A BLANK CELL MEANS "NOT ANSWERED", NOT "DELETE". Same rule the Video Log
+  // half of this script has always applied. Only Hall of Fame is taken as
+  // stated either way, because it is a Yes/No column: leaving it blank IS "no".
+  const KEEP_IF_BLANK = ["number", "rarity", "rawNm", "psa10", "notes", "set", "setName"];
   const byVideo = { ...(existing.videos || {}) };
   for (const h of hits) {
     if (!h.video) continue;
     const { video, ...card } = h;
-    byVideo[video] = (byVideo[video] || []).filter((c) => c.card !== card.card).concat(card);
+    const prev = (byVideo[video] || []).find((c) => c.card === card.card) || {};
+    const merged = { ...prev };
+    for (const [k, v] of Object.entries(card)) {
+      if (v == null && KEEP_IF_BLANK.includes(k)) continue;
+      merged[k] = v;
+    }
+    byVideo[video] = (byVideo[video] || []).filter((c) => c.card !== card.card).concat(merged);
   }
   await writeFile(
     join(ROOT, "data/hits.json"),
@@ -311,7 +363,15 @@ if (iId === -1) {
   process.exit(1);
 }
 const idx = {
+  // SET 5 WAS NEVER READ. build-sheet.py writes five Set/Packs pairs, gives all
+  // five the same dropdown, and the Read Me tells you to "put the rest in Set 2
+  // to Set 5" -- and this list stopped at Set 4, so the fifth set was dropped
+  // with no message while its Packs 5 count still went into the total. A test
+  // row with five sets and 6+4+4+2+2 packs imported as four sets and 18 packs.
+  // `More Sets` is the free-text column those five pairs replaced; it is kept so
+  // an older export still imports.
   set: col("Set"), set2: col("Set 2"), set3: col("Set 3"), set4: col("Set 4"),
+  set5: col("Set 5"),
   moreSets: col("More Sets"), box: col("Box / Series"),
   opening: col("Opening Type"), packs: col("Packs Opened"), hasHit: col("Has Hit"),
   // THE PER-SET PACK CELLS ARE THE SOURCE, NOT THE TOTAL COLUMN. See below.
@@ -435,8 +495,16 @@ for (const r of rows.slice(1)) {
   // The parts are always there and never computed, so they are the source. The
   // total column is only consulted when every part is empty, which covers a
   // sheet edited in Excel where the cache does exist.
+  // STRIP, DO NOT SQUASH. Deleting every non-digit turns "3 + 3" into 33,
+  // "12-18" into 1218 and "6 packs (2 sets)" into 62. That is the same shape as
+  // the documented "18.0" becoming 180, which was fixed by allowing the decimal
+  // point through and nothing else. A cell is only a number if it reads as one:
+  // take the FIRST number in it and ignore the rest, so a stray note cannot
+  // multiply a pack count by a hundred on the page that divides by it.
   const num = (x) => {
-    const n = Math.round(Number(String(x || "").replace(/[^0-9.]/g, "")));
+    const m = String(x == null ? "" : x).match(/\d+(?:\.\d+)?/);
+    if (!m) return 0;
+    const n = Math.round(Number(m[0]));
     return Number.isFinite(n) ? n : 0;
   };
   let packs = idx.packCells.reduce((t, i) => t + num(get(r, i)), 0);

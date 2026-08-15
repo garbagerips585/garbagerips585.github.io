@@ -130,15 +130,28 @@ const PATTERNS = [
   // written ("Cyber Judge - Incineroar ex - SR - Super Rare"). Matching them as
   // loose words tagged "Team Rocket AR Deck" as a Japanese Art Rare, putting a
   // Japanese badge on an English rip.
+  ["jp-sar", /\bspecial[\s\-/]+art[\s\-/]+rare\b/gi],
   ["jp-sar", /(?:^|[-,])\s*SAR\s*(?=[-,]|$)/g],
+  ["jp-ar", /\bart[\s\-/]+rare\b/gi],
   ["jp-sr", /(?:^|[-,])\s*SR\s*(?=[-,]|$)/g],
   ["jp-ar", /(?:^|[-,])\s*AR\s*(?=[-,]|$)/g],
   ["jp-rr", /(?:^|[-,])\s*RR\s*(?=[-,]|$)/g],
+  // jp-r, jp-u and jp-c had no entry here at all, so three of the seven
+  // Japanese tiers could never be produced by the parser that lists them.
+  // Only the spelled-out forms: the bare letters R, U and C are single capitals
+  // and match inside ordinary card names, which is tested and documented above.
+  ["jp-u", /\buncommon\b/gi],
+  ["jp-c", /\bcommon\b(?!\s*\/)/gi],
   ["double-rare", /\bdouble[\s\-/]+rare\b/gi],
   ["charizard", /\bcharizard\b|\bzard\b/gi],
   // Last, and never inside a card NAME. "Rare Candy" is a real Trainer card in
   // these sets and it is not a rarity, so a following capitalised word rules
   // the match out.
+  // The English "rare" rule must not fire inside a Japanese tier name. Art
+  // Rare, Super Rare, Special Art Rare and Double Rare all contain the word,
+  // and because the English tier sorts first in RARITY_KEY a Japanese card was
+  // getting an English black-star badge. Those names are consumed above; this
+  // only sees what is left.
   ["rare", /\brare\b(?!\s+[A-Z])/gi],
 ];
 
@@ -158,6 +171,15 @@ export function raritiesIn(text) {
       found.add(id);
       work = work.replace(new RegExp(re.source, re.flags.includes("i") ? "gi" : "g"), " ");
     }
+  }
+  // A JAPANESE CARD WEARS THE JAPANESE BADGE. "RR - Double Rare" legitimately
+  // matches both notations for one tier, and because the English tier sorts
+  // first in RARITY_KEY the card came out wearing an English black star. Where
+  // both notations for the same tier are present, the letter code wins: it is
+  // what is printed on that card.
+  const JP_EQUIV = { "jp-sar": "sir", "jp-ar": "ir", "jp-rr": "double-rare", "jp-r": "rare" };
+  for (const [jp, en] of Object.entries(JP_EQUIV)) {
+    if (found.has(jp)) found.delete(en);
   }
   return RARITY_KEY.filter((r) => found.has(r.id)).map((r) => r.id);
 }
@@ -265,10 +287,23 @@ export function parseHits(text, setsByName) {
     }
     // Drop the trailing rarity words and the star description, whatever is
     // left in the middle is what he called the card.
+    // THE CARD NAME IS NOT A RARITY, EVEN WHEN IT LOOKS LIKE ONE. This dropped
+    // any segment that parsed as a tier, and "Charizard" IS a tier here, so
+    // every hit whose card is a Charizard had its name filtered away, came out
+    // empty and vanished from the site entirely. On a channel whose headline
+    // pull is a Charizard. It was masked only because the one live example also
+    // had a typo in its set name and had already been hand-written into
+    // hits.json to work around it.
+    //
+    // A segment is only discarded when it is a rarity AND NOTHING ELSE. A tier
+    // name with anything else attached, "Charizard ex", "Mega Charizard X ex",
+    // is a card.
+    const RARITY_ONLY = new Set(RARITY_KEY.map((r) => norm(r.label)));
     const middle = parts.slice(1).filter((p) => {
       const n = norm(p);
+      if (!n) return false;
       if (/\bstar\b|\bholo\b|\bpromo\b/.test(n)) return false;
-      if (raritiesIn(p).length && norm(p).split(" ").length <= 4) return false;
+      if (RARITY_ONLY.has(n)) return false;
       return true;
     });
     const card = middle.join(" ").replace(/\s+/g, " ").trim();

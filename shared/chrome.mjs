@@ -101,6 +101,9 @@ export const NAV = [
     // a guide rather than a market check. It is also the natural next page
     // after grading: the two together answer "what do I do with this card".
     ["/selling.html", "Where to sell"],
+    // Next to selling because they are one question asked from either end, and
+    // the labels have to stay this literal: "Buying guide" and "Selling guide"
+    // would read as two halves of one document rather than two destinations.
     // Matches the page's own H1 and title. It was "Pull rates", which is what
   // people search for but not what the page has: the body says in as many words
   // that these are observed results and not official pull rates, because The

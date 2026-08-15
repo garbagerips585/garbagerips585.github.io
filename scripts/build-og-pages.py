@@ -57,6 +57,11 @@ PAGES = {
     "hall": ("THE GOOD ONES", "Hall of Fame", "The pulls that actually went somewhere"),
     "will-it-grade": ("BEFORE YOU PAY THE FEE", "Will it grade?", "What each company publishes, and what costs you a 10"),
     "selling": ("WHERE THE MONEY GOES", "Where to sell", "What every venue takes, and who protects a seller"),
+    # The other half of the same question. Its headline is the page's own H1 and
+    # the answer line names the mechanic the page exists to explain, because
+    # "where to buy Pokemon cards" is a phrase every SEO farm has already used
+    # and the shipping arithmetic is the part nobody else prints.
+    "buying": ("WHAT IT REALLY COSTS", "Where to buy", "Shipping, buyer fees, and who eats it when it is wrong"),
     "drops": ("NOBODY ANNOUNCES THESE", "Drops this week", "What retailers are expected to have, in store and online"),
 }
 

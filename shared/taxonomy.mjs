@@ -12,7 +12,13 @@
 export const PRODUCT_TYPES = [
   { id: "upc", label: "UPC", pattern: /\bupc\b|ultra[- ]premium collection/i },
   { id: "spc", label: "Super Premium Collection", pattern: /\bspc\b|super premium collection/i },
-  { id: "ex-premium", label: "ex Premium Collection", pattern: /\bex premium collection\b/i },
+  // EX BOX WAS FOLDED IN HERE. It had its own id and matched 24 videos, and all
+  // 24 were then hand-corrected to ex-premium: it was the single biggest source
+  // of overrides in the file, a tag that existed only to be overruled. Reshiram
+  // ex Box and Mabosstiff ex Box are 4-pack boxes rather than 8-pack Premium
+  // Collections, and they were bucketed here too, so this matches practice.
+  { id: "ex-premium", label: "ex Premium Collection",
+    pattern: /\bex premium collection\b|\bex box\b|\bex collection\b/i },
   { id: "ex-special", label: "ex Special Collection", pattern: /\bex special collection\b/i },
   { id: "poke-ball-tin", label: "Poke Ball Tin", pattern: /pok[eé]\s?ball tin/i },
   // Added 2026-08-15 after Tim typed it into the sheet by hand, because the
@@ -38,11 +44,12 @@ export const PRODUCT_TYPES = [
   // "ex Premium Collection", and the filter rail on /videos.html captioned a
   // grid of tiles saying "ex Box". `pattern` is case insensitive, so this is a
   // display change only and tagging is untouched.
-  { id: "ex-box", label: "ex Box", pattern: /\bex box\b|\bex premium\b|\bex collection\b/i },
   { id: "bundle", label: "Booster Bundle", pattern: /\bbooster bundle\b|\bbundle\b/i },
-  { id: "blister", label: "Blister", pattern: /\bblister\b|\b3[- ]pack\b|three[- ]pack/i },
+  { id: "blister", label: "Blister", pattern: /\bblister\b|\b3[- ]pack\b|\\bthree[- ]pack\\b/i },
   { id: "tin", label: "Tin", pattern: /\btin\b/i },
-  { id: "collection-box", label: "Collection Box", pattern: /\bcollection box\b|\bpremium collection\b|\bspecial collection\b/i },
+  // Sticker, poster, pin and illustration Collections all say "N booster packs"
+  // in their contents line, so they fell past this and landed on single-pack.
+  { id: "collection-box", label: "Collection Box", pattern: /\bcollection box\b|\bpremium collection\b|\bspecial collection\b|\b(?:tech sticker|sticker|poster|pin|illustration|deluxe pin)[\s-]+collection\b/i },
   // "Booster Pack Opening" is how the channel labels loose single packs, as
   // distinct from a Bundle or a Box. Bundle/Box sit above this in the list, so
   // they win when a title mentions both.
@@ -192,12 +199,41 @@ const ALL_GROUPS = [
 
 function matcherFor(entry) {
   if (entry.pattern) return entry.pattern;
-  // Default: match the label as a whole phrase, tolerating extra whitespace.
-  const escaped = entry.label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+");
-  return new RegExp(`\\b${escaped}\\b`, "i");
+  // Default: match the label as a whole phrase, tolerating extra whitespace,
+  // NO whitespace, and a trailing plural.
+  //
+  // THE HASHTAG ATE SIX PAGES. This required \s+ between the words of a label,
+  // and the channel's own boilerplate writes "#AscendedHeroes" with no space,
+  // so six videos got no set tag, went noindex and dropped out of the sitemap
+  // for want of a space character. Same shape as the documented \bpack\b bug
+  // that missed "Packs" on fourteen videos.
+  //
+  // The trailing s? is the other half: "Mega Evolution" would not match "Mega
+  // Evolutions" because the closing \b landed mid-word. Safe on a set NAME.
+  // Deliberately NOT applied to quantity patterns like "3-pack", where a plural
+  // matches the phrase "3 packs left" in an unrelated ETB rip.
+  const escaped = entry.label
+    .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+    .replace(/\s+/g, "[\\s-]*");
+  return new RegExp(`\\b${escaped}s?\\b`, "i");
 }
 
 // Precompile once. Both callers tag hundreds of videos in a loop.
+// NOTHING HERE UNDERSTOOD "NO", AND THIS CHANNEL SAYS IT CONSTANTLY.
+// Seven single-pack rips were tagged as Elite Trainer Boxes because their
+// descriptions read "Another standalone booster pack. No ETB. No booster
+// bundle. No booster box." First match wins, so an explicit denial became a
+// positive tag, and two of them shipped tile labels reading "ETB #10" for a
+// product that holds nine packs.
+//
+// Reordering cannot fix it: those same sentences negate bundle and booster box
+// too. The match itself has to be thrown away when the words just before it
+// deny it.
+const NEGATED = /\b(?:no|not|without|isn'?t|aren'?t|never)\b[^.!?]{0,24}$/i;
+function isNegated(text, index) {
+  return NEGATED.test(text.slice(Math.max(0, index - 40), index));
+}
+
 const COMPILED = ALL_GROUPS.map(([group, entries]) => [
   group,
   entries.map((e) => ({ id: e.id, re: matcherFor(e) })),
@@ -211,7 +247,22 @@ export function deriveTags({ title = "", description = "" } = {}) {
   const blob = `${title}\n${description}`;
   const out = {};
   for (const [group, entries] of COMPILED) {
-    out[group] = entries.filter((e) => e.re.test(blob)).map((e) => e.id);
+    // A match only counts if at least one occurrence is not being denied. Only
+    // products are checked: a set named after "no" is nearly always a set the
+    // opener is comparing against, and dropping those loses real tags.
+    out[group] = entries
+      .filter((e) => {
+        const re = new RegExp(e.re.source, e.re.flags.includes("g") ? e.re.flags : e.re.flags + "g");
+        let m;
+        let sawAny = false;
+        while ((m = re.exec(blob)) !== null) {
+          sawAny = true;
+          if (group !== "products" || !isNegated(blob, m.index)) return true;
+          if (m.index === re.lastIndex) re.lastIndex += 1;
+        }
+        return sawAny && group !== "products";
+      })
+      .map((e) => e.id);
   }
   // A video is only ever ripped from one product at a time. When several match
   // (e.g. "opened a pack from the ETB"), PRODUCT_TYPES order decides the winner.

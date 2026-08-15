@@ -595,14 +595,27 @@ function resolveCard(setId, cardName, rarityId) {
       .replace(/[^a-z0-9]+/g, " ").trim();
   const hits = cardsBySetName.get(`${setId}::${norm(cardName)}`) || [];
   if (!hits.length) return null;
-  let pick = hits[0];
-  if (hits.length > 1 && rarityId) {
-    const want = rarityLabelOf(rarityId).toLowerCase();
-    const byRarity = hits.filter((h) => String(h.rarity || "").toLowerCase() === want);
-    if (byRarity.length === 1) pick = byRarity[0];
-    else if (byRarity.length > 1) pick = byRarity[0];
-    else return null; // named a rarity this set does not have under that name
-  }
+
+  // AN AMBIGUOUS NAME WITH NO RARITY IS NOT RESOLVED, and the comment above
+  // this function already promised that. It used to take hits[0], which is the
+  // base print, so a name that exists at several rarities in one set silently
+  // rendered the cheap one with its scan and its price as though it were the
+  // card that was pulled. 985 names in card-index.json are ambiguous inside
+  // their own set: the worst is a Prismatic Evolutions Umbreon ex at $7.45
+  // against one at $1,470.58, and two of the logged hits already carry a null
+  // rarity. Showing the wrong card confidently is worse than showing text.
+  if (hits.length === 1) return withImg(hits[0], setId);
+  if (!rarityId) return null;
+
+  const want = rarityLabelOf(rarityId).toLowerCase();
+  const byRarity = hits.filter((h) => String(h.rarity || "").toLowerCase() === want);
+  // Still ambiguous after the rarity narrows it, so still not resolved.
+  if (byRarity.length !== 1) return null;
+  const pick = byRarity[0];
+  return withImg(pick, setId);
+}
+
+function withImg(pick, setId) {
   const base = (CARD_INDEX.imgBase || {})[setId];
   const imgBase = base && pick.number ? `${base}/${pick.number}` : null;
   return {

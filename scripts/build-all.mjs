@@ -69,6 +69,10 @@ const STEPS = [
   // passed.
   "node scripts/build-drops.mjs",
 "node scripts/build-selling.mjs",
+// The other direction of the same question, and it reads data/shops.json and
+// data/drops.json for its cross-references, both of which are written by hand
+// rather than by an earlier step, so it has no ordering constraint beyond
+// running before build-search.mjs and build-pages.mjs.
 "node scripts/build-grade-check.mjs",
 "node scripts/build-openings.mjs",
   "node scripts/build-playlists.mjs",

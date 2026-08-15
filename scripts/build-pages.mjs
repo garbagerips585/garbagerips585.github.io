@@ -936,6 +936,9 @@ const urls = [
   { loc: `${SITE}/games/garbage-run.html`, freq: "monthly", pri: "0.7" },
   ...openingPages,
   { loc: `${SITE}/selling.html`, freq: "weekly", pri: "0.9" },
+  // Where to buy, and what each venue costs a buyer. Weekly for the same reason
+  // as selling and grading: it is made of other companies' shipping thresholds
+  // and return policies, and those move on their schedule rather than ours.
   // Daily: the totals are recomputed by the nightly price sync, so this page
   // genuinely changes every night. Nothing else here does.
   { loc: `${SITE}/complete-a-set.html`, freq: "daily", pri: "0.9" },

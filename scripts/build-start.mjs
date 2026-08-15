@@ -112,9 +112,12 @@ const STEPS = [
   {
     n: 6,
     q: "Where do I buy, and who do I buy from?",
-    a: `Local shops around Rochester with what each is good for and where you can sit down and play${shows ? `, plus ${shows} card shows coming up around Rochester, Buffalo and Syracuse` : ""}.`,
+    a: `Local shops around Rochester with what each is good for and where you can sit down and play${shows ? `, plus ${shows} card shows coming up around Rochester, Buffalo and Syracuse` : ""}. Online, the answer is a different one: what each venue costs once shipping and buyer fees are counted, and what recourse you have when a card arrives wrong.`,
     href: "/shops.html",
     cta: "Shops and where to play",
+    // THIS QUESTION ANSWERED ONLY LOCALLY UNTIL NOW, on a site whose selling,
+    // grading and drops pages all assume an online answer exists. Somebody
+    // reading in order got six questions deep and was told to drive somewhere.
     also: [["/card-shows.html", "Card show calendar"]],
   },
 ];
