@@ -177,6 +177,10 @@ export const PULL_TAGS = [
   { id: "gold", label: "Gold / Hyper Rare", pattern: /\bgold (star|card|rare)\b|hyper rare/i },
   { id: "alt-art", label: "Alt Art", pattern: /\balt art\b|alternate art/i },
   { id: "double-rare", label: "Double Rare", pattern: /double rare|\bex double\b/i },
+  { id: "ultra", label: "Ultra Rare", pattern: /\bultra[\s\-/]+rare\b/i },
+  { id: "mega-hyper", label: "Mega Hyper Rare", pattern: /\bmega[\s\-/]+hyper[\s\-/]+rare\b/i },
+  { id: "ace-spec", label: "ACE SPEC Rare", pattern: /\bace[\s\-/]*spec\b/i },
+  { id: "super", label: "Super Rare", pattern: /\bsuper[\s\-/]+rare\b/i },
   { id: "charizard", label: "Charizard", pattern: /charizard|\bzard\b/i },
 ];
 

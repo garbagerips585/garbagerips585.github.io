@@ -449,7 +449,12 @@ function intlBand(s, cls) {
       return `      <li class="intl">
         <p class="intl-lang">${esc(src.langName)}${src.id ? ` &bull; ${esc(src.id)}` : ""}</p>
         <h3 lang="${src.lang}">${esc(src.name)}</h3>
-        ${own ? `<p class="intl-romaji">${esc(own.english)}</p>` : src.romaji ? `<p class="intl-romaji">${esc(src.romaji)}</p>` : ""}
+        ${(() => {
+          const en = (own && own.english) || src.romaji || null;
+          return en && en.toLowerCase() !== String(src.name).toLowerCase()
+            ? `<p class="intl-romaji">${esc(en)}</p>`
+            : "";
+        })()}
         <p class="intl-meta">${[
           src.total ? `${src.total} cards` : null,
           src.released ? longDate(src.released) : null,
@@ -469,7 +474,23 @@ function intlBand(s, cls) {
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Same set, other language</p>
-    <h2>${esc(s.name)} is also <span class="hl">${esc(e.sources.map((x) => x.name).join(" + "))}</span></h2>
+    ${(() => {
+      // The heading printed the native name only, so "Chaos Rising is also
+      // ニンジャスピナー" told an English reader nothing they could hold on to,
+      // and the words that would have ("Ninja Spinner") sat below in small
+      // italics inside a card. Both names go in the heading now, at the same
+      // size, native first because that is what is printed on the pack.
+      const named = e.sources.map((x) => {
+        const own = guideForForeign.get(`${x.lang}:${x.id}`);
+        const en = (own && own.english) || x.romaji || null;
+        return { native: x.name, en: en && en.toLowerCase() !== x.name.toLowerCase() ? en : null };
+      });
+      const native = named.map((n) => esc(n.native)).join(" + ");
+      const eng = named.map((n) => n.en).filter(Boolean);
+      return `<h2>${esc(s.name)} is also <span class="hl" lang="ja">${native}</span>${
+        eng.length ? `<span class="intl-en">${eng.map(esc).join(" + ")}</span>` : ""
+      }</h2>`;
+    })()}
     <p class="lede intl-lede">${
       many
         ? `Two Japanese sets were merged into one English release, which is why ${esc(s.name)} is bigger than either of them.`

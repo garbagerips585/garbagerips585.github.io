@@ -1284,13 +1284,15 @@
     "openingType": "Knock Out Collection",
     "packs": 2,
     "hasHit": true,
-    "hitCard": "Surging Sparks - Feebas - Single Gold Star - Illustration Rare"
+    "hitCard": "Surging Sparks - Feebas - Single Gold Star - Illustration Rare",
+    "notes": "All 2 packs are on the first set. Move some across the Packs columns if they came from different sets."
   },
   "41vJCIdzYkw": {
     "openingType": "Knock Out Collection",
     "packs": 2,
     "hasHit": false,
-    "playlistToAdd": "Hits"
+    "playlistToAdd": "Hits",
+    "notes": "All 2 packs are on the first set. Move some across the Packs columns if they came from different sets."
   },
   "EOFAhFwJKqw": {
     "openingType": "Blister",
@@ -1303,7 +1305,8 @@
     "packs": 4,
     "hasHit": true,
     "hitCard": "Mega Kangakhan ex - Black Star Promo , Mega Evolution - Spearow - Single Gold Star - Illustration Rare,",
-    "playlistToAdd": "Hits"
+    "playlistToAdd": "Hits",
+    "notes": "All 4 packs are on the first set. Move some across the Packs columns if they came from different sets."
   },
   "kj7532tb0_I": {
     "openingType": "UPC (Ultra Premium Collection)",
@@ -1312,7 +1315,7 @@
     "hitCard": "Phantasmal Flames - Trainer - Dawn - Double Silver Star - Ultra Rare, Phantasmal Flames - Mega Gengar ex - Double Black Star - Double Rare , Mega Evolution - Mega Gardevoir ex - Double Silver Star - Ultra Rare , Mega Evolution - Mega Venusaur ex - Double Black Star - Double Rare , Mega Evolution - Marshadow - Single Gold Star - Illustration Rare ,  Destined Rivals - Cetitan ex - Double Black Star , Destined Rivals - Rotom - Single Gold Star - Illustration Rare, Journey Together - Noibat - Single Gold Star - Illustration Rare, Journey Together - Trainer - Brock's Scouting - Double Silver Star - Ultra Rare , Journey Together - Blaziken ex - Double Black Star - Double Rare, Surging Sparks - Trainer - Scramble Switch - Single Pink Star -  ACE SPEC Rare , Surging Sparks - Trainer - Cyrano - Double Silver Star - Ultra Rare, Phantasmal Falmes - Charizard X ex - Black Star Promo Card , Phantasmal Flames - Oricorio ex - Black Star Promo Card",
     "hitRarity": "More than one",
     "playlistToAdd": "Hits",
-    "notes": "All 18 packs are on the first set. Move some across the Packs columns if they came from different sets."
+    "notes": "All 18 packs are on the first set. Move some across the Packs columns if they came from different sets. All 18 packs are on the first set. Move some across the Packs columns if they came from different sets."
   },
   "TN7_ZsuRQSI": {
     "openingType": "Tin",
@@ -1322,6 +1325,6 @@
     "hitRarity": "More than one",
     "playlistToAdd": "Hits",
     "box": "Fall 2025 Collector Chest",
-    "notes": "All 6 packs are on the first set. Move some across the Packs columns if they came from different sets."
+    "notes": "All 6 packs are on the first set. Move some across the Packs columns if they came from different sets. All 6 packs are on the first set. Move some across the Packs columns if they came from different sets."
   }
 }

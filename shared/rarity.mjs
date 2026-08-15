@@ -102,32 +102,44 @@ const BY_ID = new Map(RARITY_KEY.map((r) => [r.id, r]));
 // Match longest first. "Special Illustration Rare" has to win over
 // "Illustration Rare", which has to win over "Rare".
 const PATTERNS = [
-  // Japanese letter codes first, and CASE SENSITIVE on purpose. Lowercase "ar"
-  // and "r" appear inside ordinary words constantly; the codes are printed in
-  // capitals and only capitals should match.
+  // SEPARATORS: a space, a hyphen or a slash. Everything used to require \s+,
+  // so "Ultra-Rare" matched none of the real tiers and fell through to the bare
+  // "Rare" rule, reporting a real but two-tiers-too-low rarity. That is worse
+  // than reporting nothing.
   //
-  // ONLY THE MULTI-LETTER CODES ARE PARSED. R, U and C are in the key above so
-  // it documents the whole ladder and can render them, but they are NOT matched
-  // from free text, because a single capital letter is not a rarity in a
-  // sentence full of card names. Tested adversarially: "Marnie C" parsed as
-  // Japanese Common and "Team Rocket U" as Japanese Uncommon, which would have
-  // labelled two English rips as Japanese. Dropping them costs nothing real
-  // either, because Common and Uncommon are not hits and a hit field is where
-  // this text comes from.
-  ["jp-sar", /\bSAR\b/g],
-  ["jp-ar", /\bAR\b/g],
-  ["jp-rr", /\bRR\b/g],
-  ["mega-hyper", /\bmega\s+hyper\s+rare\b/gi],
-  ["sir", /\bspecial\s+illustration\s+rare\b|\bSIR\b/g],
-  ["jp-sr", /\bSR\b|\bsuper\s+rare\b/gi],
-  ["ir", /\billustration\s+rare\b/gi],
-  ["gold", /\bhyper\s+rare\b/gi],
-  ["ace-spec", /\bace\s*spec(?:\s+rare)?\b/gi],
-  ["ultra", /\bultra\s+rare\b/gi],
-  ["double-rare", /\bdouble\s+rare\b/gi],
+  // CASE: every spelled-out tier is case-insensitive. The SIR rule was the one
+  // exception, carrying no `i` flag, so "Special Illustration Rare" as anyone
+  // would actually type it matched nothing and was then claimed by the
+  // case-insensitive Illustration Rare rule below it. Thirty-four of the sixty
+  // four filled rarity cells say Special Illustration Rare, so this was going
+  // to fire the first time one reached a hit field.
+  //
+  // The LETTER CODES stay case-sensitive and are matched only where the string
+  // has no lowercase word attached, because "AR" appears inside ordinary
+  // English hit text and "Sr" is a name suffix.
+  ["mega-hyper", /\bmega[\s\-/]+hyper[\s\-/]+rare\b/gi],
+  ["sir", /\bspecial[\s\-/]+illustration[\s\-/]+rare\b/gi],
+  ["sir", /\bSIR\b/g],
+  ["ir", /\billustration[\s\-/]+rare\b/gi],
+  ["gold", /\bhyper[\s\-/]+rare\b/gi],
+  ["ace-spec", /\bace[\s\-/]*spec(?:[\s\-/]+rare)?\b/gi],
+  ["ultra", /\bultra[\s\-/]+rare\b/gi],
+  ["jp-sr", /\bsuper[\s\-/]+rare\b/gi],
+  // The bare letter codes only count as their OWN segment: start of string, end
+  // of string, or fenced by a dash or a comma, which is exactly how they are
+  // written ("Cyber Judge - Incineroar ex - SR - Super Rare"). Matching them as
+  // loose words tagged "Team Rocket AR Deck" as a Japanese Art Rare, putting a
+  // Japanese badge on an English rip.
+  ["jp-sar", /(?:^|[-,])\s*SAR\s*(?=[-,]|$)/g],
+  ["jp-sr", /(?:^|[-,])\s*SR\s*(?=[-,]|$)/g],
+  ["jp-ar", /(?:^|[-,])\s*AR\s*(?=[-,]|$)/g],
+  ["jp-rr", /(?:^|[-,])\s*RR\s*(?=[-,]|$)/g],
+  ["double-rare", /\bdouble[\s\-/]+rare\b/gi],
   ["charizard", /\bcharizard\b|\bzard\b/gi],
-  // Last, and only where nothing longer already claimed that span.
-  ["rare", /\brare\b/gi],
+  // Last, and never inside a card NAME. "Rare Candy" is a real Trainer card in
+  // these sets and it is not a rarity, so a following capitalised word rules
+  // the match out.
+  ["rare", /\brare\b(?!\s+[A-Z])/gi],
 ];
 
 /**

@@ -1429,7 +1429,7 @@ footer .soc svg{fill:var(--paper)}
    them, so they fall back mid-word and look broken. Let the system font do it. */
 .intl h3[lang="ja"],.intl h3[lang="ko"],.intl h3[lang="zh-tw"]{
   font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;font-weight:700}
-.intl-romaji{font-size:var(--t-sm);color:var(--ink-2);font-style:italic}
+.intl-romaji{font:600 var(--t-m)/1.25 var(--body);color:var(--ink);margin-top:2px}
 .intl-meta{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.04em;color:var(--ink-2);
   text-transform:uppercase;margin-top:4px}
 .intl-lead{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ketchup-deep);letter-spacing:.04em;
@@ -2720,4 +2720,13 @@ main:has(> .set-cta:last-child){padding-bottom:0}
   border-radius:4px;padding:3px 6px}
 .mine-rk{display:inline-flex;align-items:center;font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
 .mine-note{margin-top:var(--s3);font-size:var(--t-micro);color:var(--ink-2);max-width:40em}
+
+/* The English name of a foreign set, in the "same set, other language" heading.
+   It used to appear only as a small italic line inside a card, so the heading
+   read "Chaos Rising is also ニンジャスピナー" and an English reader had nothing
+   to hold on to. Same size as the native name, on its own line so a long pair
+   does not wrap into a mess on a phone. */
+.intl-en{display:block;color:var(--ink-2);font-weight:inherit}
+.intl-en::before{content:"“"}
+.intl-en::after{content:"”"}
 

@@ -242,9 +242,37 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
   }
 
   hits.sort((a, b) => (b.psa10 ?? b.rawNm ?? 0) - (a.psa10 ?? a.rawNm ?? 0));
+
+  // WRITE THE SHAPE THE FIVE READERS EXPECT, which is keyed by video id under
+  // `videos`. This used to write a flat `hits` array, and nothing in scripts/
+  // has ever produced that shape, so running this import would have emptied the
+  // Hall of Fame, the hit band on all 313 rip pages and the hits section on
+  // every set page in one go. Silently, because an empty object is not an error.
+  //
+  // The existing file is merged into rather than replaced, so importing a
+  // partly filled My Hits tab cannot delete cards that are already logged.
+  let existing = {};
+  try {
+    existing = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8"));
+  } catch { /* first run */ }
+  const byVideo = { ...(existing.videos || {}) };
+  for (const h of hits) {
+    if (!h.video) continue;
+    const { video, ...card } = h;
+    byVideo[video] = (byVideo[video] || []).filter((c) => c.card !== card.card).concat(card);
+  }
   await writeFile(
     join(ROOT, "data/hits.json"),
-    JSON.stringify({ updated: new Date().toISOString().slice(0, 10), source: "My Hits tab", hits }, null, 2) + "\n"
+    JSON.stringify(
+      {
+        ...existing,
+        source: "My Hits tab",
+        checked: new Date().toISOString().slice(0, 10),
+        videos: byVideo,
+      },
+      null,
+      2
+    ) + "\n"
   );
 
   console.log(`Read ${rows.length - 1} row(s) from ${csvPath}
@@ -286,6 +314,8 @@ const idx = {
   set: col("Set"), set2: col("Set 2"), set3: col("Set 3"), set4: col("Set 4"),
   moreSets: col("More Sets"), box: col("Box / Series"),
   opening: col("Opening Type"), packs: col("Packs Opened"), hasHit: col("Has Hit"),
+  // THE PER-SET PACK CELLS ARE THE SOURCE, NOT THE TOTAL COLUMN. See below.
+  packCells: ["Packs", "Packs 2", "Packs 3", "Packs 4", "Packs 5"].map(col).filter((i) => i >= 0),
   // The header has been "Hit Card", "Hit Cards" and "Hit Card or Hit Cards"
   // across revisions, and col() is an exact match, so a stale name here reads as
   // an empty column and the whole feature goes quiet with no error.
@@ -395,8 +425,23 @@ for (const r of rows.slice(1)) {
   // complained: the luck page would simply have divided by ten times too many
   // packs. Any exporter that writes a float, which openpyxl and Google Sheets
   // both can, hit this.
-  const packs = Math.round(Number(String(get(r, idx.packs) || "").replace(/[^0-9.]/g, "")));
-  if (Number.isFinite(packs) && packs > 0) { m.packs = packs; counted.packs = (counted.packs || 0) + 1; }
+  // ADD THE PER-SET CELLS UP RATHER THAN READING THE TOTAL, and this is not a
+  // preference. "Packs Opened" is =SUM(H,J,L,N,P) in the workbook, and openpyxl
+  // writes formulas with NO cached value, so reading that column out of a file
+  // this project generated returns blank on every row. An import in that state
+  // dropped `packs` from all 241 videos that had one and took the site's pack
+  // total from 1,062 to 0, silently, because a blank is not an error.
+  //
+  // The parts are always there and never computed, so they are the source. The
+  // total column is only consulted when every part is empty, which covers a
+  // sheet edited in Excel where the cache does exist.
+  const num = (x) => {
+    const n = Math.round(Number(String(x || "").replace(/[^0-9.]/g, "")));
+    return Number.isFinite(n) ? n : 0;
+  };
+  let packs = idx.packCells.reduce((t, i) => t + num(get(r, i)), 0);
+  if (!packs) packs = num(get(r, idx.packs));
+  if (packs > 0) { m.packs = packs; counted.packs = (counted.packs || 0) + 1; }
 
   const hasHit = get(r, idx.hasHit);
   if (hasHit) { m.hasHit = isYes(hasHit); counted.hit++; }

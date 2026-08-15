@@ -15,6 +15,7 @@ import { writeFile, readFile, mkdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { deriveTags, isShort, parseDuration } from "../shared/taxonomy.mjs";
+import { raritiesIn } from "../shared/rarity.mjs";
 import { ripPath } from "../shared/paths.mjs";
 
 const CHANNEL_ID = "UCnpEGJ2G_0af1YRyW2euIZQ";
@@ -181,15 +182,40 @@ try {
  * empty list so the tile shows no badge rather than falling back to whatever
  * the title implied.
  */
+// ULTRA RARE USED TO MAP ONTO THE SIR BADGE and Mega Hyper Rare onto Hyper
+// Rare, because those tiers had no tag of their own. That is not a shorthand,
+// it is a two tier promotion printed on the page as fact: a card logged Ultra
+// Rare rendered as "Special Illustration Rare". Both have real tags now.
 const RARITY_TO_PULL = {
-  "mega hyper rare": "gold",
+  "mega hyper rare": "mega-hyper",
   "hyper rare": "gold",
   "special illustration rare": "sir",
   "illustration rare": "ir",
-  "ultra rare": "sir",
+  "ultra rare": "ultra",
+  "ace spec rare": "ace-spec",
+  "super rare": "super",
   "double rare": "double-rare",
   "charizard": "charizard",
 };
+
+// The rarity ids shared/rarity.mjs reads out of the free text hit field, mapped
+// onto the same tags. Without this a hit typed into Hit Card reached its own
+// rip page and nowhere else: seven of the nine logged hits had pulls: [], so
+// they were missing from the homepage hit count, the Hall of Fame pool, every
+// tile badge and the luck page.
+const RARITY_ID_TO_PULL = {
+  "mega-hyper": "mega-hyper", gold: "gold", sir: "sir", ir: "ir",
+  "ace-spec": "ace-spec", ultra: "ultra", "double-rare": "double-rare",
+  charizard: "charizard", rare: null,
+  "jp-sar": "sir", "jp-sr": "super", "jp-ar": "ir", "jp-rr": "double-rare",
+};
+/** Every tier named in the free text hit field, as pull tags. */
+function pullsFromHitCard(hitCard) {
+  if (!hitCard) return null;
+  const ids = raritiesIn(hitCard).map((id) => RARITY_ID_TO_PULL[id]).filter(Boolean);
+  return ids.length ? [...new Set(ids)] : null;
+}
+
 function rarityToPulls(rarity, hasHit) {
   if (hasHit === false) return [];
   if (!rarity) return null;
@@ -228,7 +254,11 @@ const videos = uploads
       // page and nothing else: the badge on every tile and the Hall of Fame
       // ordering both read `pulls`, which was still coming from whatever the
       // title happened to say. A deliberate answer should beat a guess.
-      pulls: manual.pulls ?? rarityToPulls(log.hitRarity, log.hasHit) ?? auto.pulls,
+      pulls:
+        manual.pulls ??
+        rarityToPulls(log.hitRarity, log.hasHit) ??
+        pullsFromHitCard(log.hitCard) ??
+        auto.pulls,
       // Everything the spreadsheet can say about a video. This list used to
       // name five fields, so the other eight columns were imported into
       // manual.json and then silently dropped here, which is why nothing ever

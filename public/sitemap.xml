@@ -799,12 +799,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://garbagerips585.github.io/openings/ex-box.html</loc>
-    <lastmod>2026-08-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://garbagerips585.github.io/openings/ex-premium.html</loc>
     <lastmod>2026-08-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -812,6 +806,12 @@
   </url>
   <url>
     <loc>https://garbagerips585.github.io/openings/japanese-pack.html</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://garbagerips585.github.io/openings/knock-out.html</loc>
     <lastmod>2026-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

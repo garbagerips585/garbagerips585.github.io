@@ -841,6 +841,13 @@ try {
   /* run: node scripts/build-pokemon.mjs */
 }
 
+// Every product page build-openings.mjs actually wrote, minus its index, which
+// is listed separately with its own priority.
+const openingPages = (await readdir(join(ROOT, "public/openings")).catch(() => []))
+  .filter((f) => f.endsWith(".html") && f !== "index.html")
+  .sort()
+  .map((f) => ({ loc: `${SITE}/openings/${f}`, freq: "weekly", pri: "0.8" }));
+
 const urls = [
   { loc: `${SITE}/`, freq: "daily", pri: "1.0" },
   { loc: `${SITE}/videos.html`, freq: "daily", pri: "0.9" },
@@ -919,19 +926,13 @@ const urls = [
   // the nightly product sync, so they genuinely change; the openings list only
   // changes when a video goes up.
   { loc: `${SITE}/openings/`, freq: "weekly", pri: "0.9" },
-  { loc: `${SITE}/openings/blister.html`, freq: "weekly", pri: "0.8" },
-  { loc: `${SITE}/openings/bundle.html`, freq: "weekly", pri: "0.8" },
-  { loc: `${SITE}/openings/chinese-pack.html`, freq: "weekly", pri: "0.8" },
-  { loc: `${SITE}/openings/collection-box.html`, freq: "weekly", pri: "0.8" },
-  { loc: `${SITE}/openings/etb.html`, freq: "weekly", pri: "0.8" },
-  { loc: `${SITE}/openings/ex-box.html`, freq: "weekly", pri: "0.8" },
-  { loc: `${SITE}/openings/ex-premium.html`, freq: "weekly", pri: "0.8" },
-  { loc: `${SITE}/openings/japanese-pack.html`, freq: "weekly", pri: "0.8" },
-  { loc: `${SITE}/openings/korean-pack.html`, freq: "weekly", pri: "0.8" },
-  { loc: `${SITE}/openings/poke-ball-tin.html`, freq: "weekly", pri: "0.8" },
-  { loc: `${SITE}/openings/single-pack.html`, freq: "weekly", pri: "0.8" },
-  { loc: `${SITE}/openings/tin.html`, freq: "weekly", pri: "0.8" },
-  { loc: `${SITE}/openings/upc.html`, freq: "weekly", pri: "0.8" },
+  // DERIVED, NOT TYPED. This was thirteen hand-written lines and they had
+  // already drifted in both directions: knock-out.html was being generated and
+  // was missing from the sitemap, while ex-box.html was in the sitemap after
+  // build-openings.mjs had stopped generating it, so a stale file kept claiming
+  // "24 openings" for a product that now has none. Reading the directory cannot
+  // drift.
+  ...openingPages,
   { loc: `${SITE}/selling.html`, freq: "weekly", pri: "0.9" },
   // Daily: the totals are recomputed by the nightly price sync, so this page
   // genuinely changes every night. Nothing else here does.

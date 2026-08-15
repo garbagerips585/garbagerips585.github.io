@@ -32,7 +32,7 @@
       "path": "rip/the-chaos-rising-struggle-is-real-T2-UqY2ZSOw.html",
       "published": "2026-08-14",
       "duration": 21,
-      "views": 918,
+      "views": 921,
       "vertical": true,
       "short": true,
       "sets": [
@@ -812,7 +812,9 @@
       "products": [
         "poke-ball-tin"
       ],
-      "pulls": [],
+      "pulls": [
+        "ultra"
+      ],
       "openingType": "Poke Ball Tin",
       "label": "Surging Sparks Poke Ball Tin #2"
     },
@@ -877,7 +879,9 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
+      "pulls": [
+        "ultra"
+      ],
       "openingType": "ex Premium Collection",
       "label": "Perfect Order ex Premium Collection #2"
     },
@@ -919,7 +923,9 @@
       "products": [
         "poke-ball-tin"
       ],
-      "pulls": [],
+      "pulls": [
+        "ultra"
+      ],
       "openingType": "Poke Ball Tin",
       "label": "Perfect Order Poke Ball Tin"
     },
@@ -1017,7 +1023,9 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
+      "pulls": [
+        "ultra"
+      ],
       "openingType": "ex Premium Collection"
     },
     {
@@ -6110,7 +6118,9 @@
       "products": [
         "blister"
       ],
-      "pulls": [],
+      "pulls": [
+        "ultra"
+      ],
       "hitCard": "Journey Together - Trainer - Ruffian - Double Silver Star - Ultra Rare",
       "hasHit": true,
       "packs": 3,
@@ -6132,7 +6142,9 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
+      "pulls": [
+        "double-rare"
+      ],
       "hitCard": "Phantasmal Flames - Mismagius ex - Double Black Star - Double Rare",
       "hasHit": true,
       "packs": 2,
@@ -6154,7 +6166,9 @@
       "products": [
         "japanese-pack"
       ],
-      "pulls": [],
+      "pulls": [
+        "super"
+      ],
       "hitCard": "Cyber Judge - Incineroar ex - SR - Super Rare",
       "hasHit": true,
       "packs": 6,
@@ -6197,7 +6211,9 @@
       "products": [
         "blister"
       ],
-      "pulls": [],
+      "pulls": [
+        "double-rare"
+      ],
       "hitCard": "Phantasmal Flames - Mega Lopunny ex - Double Black Star - Double Rare",
       "hasHit": true,
       "packs": 2,
@@ -6220,11 +6236,14 @@
       "products": [
         "knock-out"
       ],
-      "pulls": [],
+      "pulls": [
+        "ir"
+      ],
       "hitCard": "Surging Sparks - Feebas - Single Gold Star - Illustration Rare",
       "hasHit": true,
       "packs": 2,
       "openingType": "Knock Out Collection",
+      "notes": "All 2 packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Twilight Masquerade Knock Out Collection"
     },
     {
@@ -6247,6 +6266,7 @@
       "hasHit": false,
       "packs": 2,
       "openingType": "Knock Out Collection",
+      "notes": "All 2 packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Twilight Masquerade Knock Out Collection"
     },
     {
@@ -6264,7 +6284,9 @@
       "products": [
         "blister"
       ],
-      "pulls": [],
+      "pulls": [
+        "double-rare"
+      ],
       "hitCard": "Paradox Rift - Tsareena ex - Double Black Star - Double Rare",
       "hasHit": true,
       "packs": 2,
@@ -6287,11 +6309,14 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
+      "pulls": [
+        "ir"
+      ],
       "hitCard": "Mega Kangakhan ex - Black Star Promo , Mega Evolution - Spearow - Single Gold Star - Illustration Rare,",
       "hasHit": true,
       "packs": 4,
       "openingType": "ex Premium Collection",
+      "notes": "All 4 packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Mega Evolution ex Premium Collection"
     },
     {
@@ -6313,6 +6338,10 @@
         "upc"
       ],
       "pulls": [
+        "ir",
+        "ace-spec",
+        "ultra",
+        "double-rare",
         "charizard"
       ],
       "hitCard": "Phantasmal Flames - Trainer - Dawn - Double Silver Star - Ultra Rare, Phantasmal Flames - Mega Gengar ex - Double Black Star - Double Rare , Mega Evolution - Mega Gardevoir ex - Double Silver Star - Ultra Rare , Mega Evolution - Mega Venusaur ex - Double Black Star - Double Rare , Mega Evolution - Marshadow - Single Gold Star - Illustration Rare ,  Destined Rivals - Cetitan ex - Double Black Star , Destined Rivals - Rotom - Single Gold Star - Illustration Rare, Journey Together - Noibat - Single Gold Star - Illustration Rare, Journey Together - Trainer - Brock's Scouting - Double Silver Star - Ultra Rare , Journey Together - Blaziken ex - Double Black Star - Double Rare, Surging Sparks - Trainer - Scramble Switch - Single Pink Star -  ACE SPEC Rare , Surging Sparks - Trainer - Cyrano - Double Silver Star - Ultra Rare, Phantasmal Falmes - Charizard X ex - Black Star Promo Card , Phantasmal Flames - Oricorio ex - Black Star Promo Card",
@@ -6320,7 +6349,7 @@
       "hasHit": true,
       "packs": 18,
       "openingType": "UPC (Ultra Premium Collection)",
-      "notes": "All 18 packs are on the first set. Move some across the Packs columns if they came from different sets.",
+      "notes": "All 18 packs are on the first set. Move some across the Packs columns if they came from different sets. All 18 packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Phantasmal Flames UPC"
     },
     {
@@ -6340,14 +6369,17 @@
       "products": [
         "tin"
       ],
-      "pulls": [],
+      "pulls": [
+        "ir",
+        "double-rare"
+      ],
       "hitCard": "Mega Evolution - Stufful - Single Gold star - Illustration Rare , Destined Rivals - Marnie's Grimmsnarl ex , Double Black Star - Double Rare , Journey Together - Wailord - Single Gold Star - Illustration Rare",
       "hitRarity": "More than one",
       "hasHit": true,
       "packs": 6,
       "openingType": "Tin",
       "box": "Fall 2025 Collector Chest",
-      "notes": "All 6 packs are on the first set. Move some across the Packs columns if they came from different sets.",
+      "notes": "All 6 packs are on the first set. Move some across the Packs columns if they came from different sets. All 6 packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Mega Evolution Tin"
     }
   ]
