@@ -65,6 +65,7 @@ const PAGES = [
   ["/rarity.html", "Rarity guide", "What the symbols mean and what is actually rare"],
   ["/fake-cards.html", "Real or fake?", "Eight checks for spotting a counterfeit"],
   ["/grading.html", "Worth grading?", "What grading costs and whether it pays"],
+["/will-it-grade.html", "Will it grade?", "Centering tolerances, the flaws that cost grades, and how to check a card at home"],
 ["/selling.html", "Where to sell", "eBay, TCGplayer, Whatnot and more: fees, payouts and who protects a seller"],
   ["/complete-a-set.html", "Cost to complete a set", "What every set costs to finish, priced nightly"],
   ["/drops.html", "Drops this week", "Where stock is expected, in store and online"],

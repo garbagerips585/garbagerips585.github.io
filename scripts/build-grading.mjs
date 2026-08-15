@@ -396,6 +396,18 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
     <ul class="facts-list">
       ${g.rules.map((r) => `<li>${esc(r)}</li>`).join("\n      ")}
     </ul>
+    <!-- THE OTHER HALF OF THE QUESTION. Everything on this page assumes the card
+         comes back a 10, because that is the only outcome where the fee clears.
+         Whether it will is a completely different subject with its own page, and
+         a reader who works out that grading pays and then submits a 9 has been
+         let down by this page specifically. Prose link, not just nav: the
+         what-set and rarity pair do the same. -->
+    <p class="price-note" style="margin-top:var(--s4)"><b>All of this assumes a 10.</b> That is the assumption
+      doing the most work here, and it is the one most likely to be wrong. Front centering has to be about
+      55/45 before PSA or CGC will call a card a 10, one print line is the whole difference between a 9 and a
+      10 on a holo, and your worst attribute caps the grade no matter how good the rest is.
+      <a href="/will-it-grade.html">Will it grade?</a> goes through what each company actually publishes,
+      and it is worth ten minutes before you spend the fee.</p>
     <p class="price-note">Fees and turnarounds read on ${esc(longDate(g.checked) || g.checked)} and they change often,
       sometimes with two weeks' notice, so click through before you send anything. Card prices are TCGplayer market
       and PSA 10 sale data. Raw prices are TCGplayer market via TCGdex, read ${esc(longDate(cardsChecked) || cardsChecked || "recently")},

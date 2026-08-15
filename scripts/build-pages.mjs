@@ -897,6 +897,9 @@ const urls = [
   // Where to sell, and what each venue takes. Weekly for the same reason as
   // grading: it is a page of other companies' fee tables and seller-protection
   // policies, and those move on their schedule rather than ours.
+  // The condition half of the grading question. Monthly rather than weekly:
+  // unlike the fee table next door, published grading standards barely move.
+  { loc: `${SITE}/will-it-grade.html`, freq: "monthly", pri: "0.9" },
   { loc: `${SITE}/selling.html`, freq: "weekly", pri: "0.9" },
   // Daily: the totals are recomputed by the nightly price sync, so this page
   // genuinely changes every night. Nothing else here does.

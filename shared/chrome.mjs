@@ -85,7 +85,12 @@ export const NAV = [
     ["/what-set.html", "Set finder"],
     ["/rarity.html", "Rarity guide"],
     ["/fake-cards.html", "Fakes"],
-    ["/grading.html", "Grading"],
+    // A PAIR, and the labels have to say so. These answer the two halves of the
+    // question somebody asks holding one card: will it grade, and does grading
+    // it pay. Labelled "Grading" and "Will it grade" they read as two links to
+    // the same page, which is the failure this file warns about elsewhere.
+    ["/will-it-grade.html", "Will it grade"],
+    ["/grading.html", "Grading cost"],
     // Under Guides and not with the money pages, even though it is about money.
     // Pack prices and drops move every week; this one is a set of policies and
     // fee tables that change on the companies' own schedule, and it reads like

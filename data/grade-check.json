@@ -1,0 +1,458 @@
+{
+  "_readme": [
+    "WILL THIS CARD GRADE WELL. Drives /will-it-grade.html.",
+    "",
+    "The sibling of data/grading.json, which answers what grading COSTS. That",
+    "page's whole argument is that the fee only clears on a 10, and it never",
+    "told anybody how to tell whether they are holding one. Its entire coverage",
+    "of the question was one sentence: 'Straight out of a pack is not the same",
+    "as mint. Check centering, edges and surface under a light first.'",
+    "",
+    "EVERY NUMBER HERE WAS READ OFF A GRADING COMPANY'S OWN PUBLISHED STANDARD",
+    "on 2026-08-15, not off a hobby blog. That matters more here than anywhere",
+    "else on the site, because a reader acts on this by spending money: a wrong",
+    "centering tolerance sends somebody a $79.99 submission they were never",
+    "going to win.",
+    "",
+    "psacard.com answers 403 to scripted fetches and had to be read in a real",
+    "browser, where the grade definitions turned out to sit in a JavaScript",
+    "carousel that renders one slide at a time. beckett.com, cgccards.com and",
+    "taggrading.com answer 403 to some clients and 200 to others. gosgc.com is",
+    "a single-page app. None of that changes a number, but it is why this file",
+    "exists rather than the page fetching anything live.",
+    "",
+    "THE HONEST HEADLINE, and the page leads with it: the companies do not",
+    "agree, and two of them do not publish the number at all below the top",
+    "grade. That is not a gap in the research. It IS the finding, and a page",
+    "that presented one tidy tolerance table would be inventing a consensus",
+    "that does not exist.",
+    "",
+    "WHAT IS DELIBERATELY NOT HERE. `unverified` lists the things a page like",
+    "this normally asserts that no company actually publishes. The page prints",
+    "that list rather than quietly filling the gaps, because the widely-believed",
+    "version of each is exactly what a reader expects to find, and its absence is",
+    "worth more to them than a guess.",
+    "",
+    "THAT LIST WAS NEARLY WRONG, which is the useful part. A first pass through",
+    "the sources concluded that no grading company publishes any lighting or",
+    "viewing-angle guidance, and it was very nearly written down here as fact. A",
+    "second pass found CGC's graders describing their own method in writing: LED",
+    "light, card held perpendicular to it, moved so the reflection of the bulb",
+    "travels across the surface. One search that came back empty was about to",
+    "become a published claim that nobody publishes it. If something here reads",
+    "as an absence, treat it as a place to look again rather than as a finding.",
+    "",
+    "NO PULL RATES, and grade distributions are not pull rates. PSA publishes",
+    "what share of submitted cards clear a grade, which is a fact about",
+    "submissions. It is in `population` with PSA's own caveat attached and it",
+    "is used AGAINST the reader's optimism, because '90 per cent grade 8 or",
+    "higher' says nothing whatever about the 10 rate and reads as reassurance.",
+    "",
+    "SOURCE ROT. Beckett runs two live scale pages that disagree at the top",
+    "grades, and PSA's glossary disagrees with PSA's own standards page on the",
+    "NM 7 tolerance. Where two pages of one company conflict, the standards",
+    "page wins and `conflicts` records the other one so nobody 'fixes' this",
+    "file back to the wrong number later."
+  ],
+  "checked": "2026-08-15",
+  "centering": {
+    "lead": "Centering is the only thing on this list you can measure at home instead of judging, so start here. It is also where the companies disagree most.",
+    "howMeasured": {
+      "text": "A card's centering is found by measuring the distance between the photo and the edge of the card from opposite sides.",
+      "example": "A card described as 50/50 top to bottom and 60/40 left to right has 60 per cent of the border on one side of the photo and 40 per cent on the other.",
+      "company": "PSA",
+      "source": "https://www.psacard.com/resources/lingo",
+      "read": "2026-08-15"
+    },
+    "front": [
+      {
+        "grade": "Pristine 10",
+        "psa": null,
+        "cgc": "50/50",
+        "beckett": "50/50 all around",
+        "sgc": "50/50",
+        "tag": "about 51/49"
+      },
+      {
+        "grade": "Gem Mint 10",
+        "psa": "about 55/45",
+        "cgc": "about 55/45",
+        "beckett": "55/45 both ways (their 9.5)",
+        "sgc": "55/45 or better",
+        "tag": "about 55/45"
+      },
+      {
+        "grade": "Mint 9",
+        "psa": "about 60/40",
+        "cgc": "60/40, sports and non-sports only",
+        "beckett": "55/45 both ways",
+        "sgc": "60/40 or better",
+        "tag": "about 60/40"
+      },
+      {
+        "grade": "Near Mint-Mint 8",
+        "psa": "about 65/35",
+        "cgc": "65/35, sports and non-sports only",
+        "beckett": "60/40 both ways",
+        "sgc": "65/35 or better",
+        "tag": "about 65/35"
+      },
+      {
+        "grade": "Near Mint 7",
+        "psa": "about 70/30",
+        "cgc": "70/30, sports and non-sports only",
+        "beckett": "65/35 both ways",
+        "sgc": "70/30 or better",
+        "tag": "about 70/30"
+      }
+    ],
+    "back": [
+      {
+        "grade": "Pristine 10",
+        "psa": null,
+        "cgc": "50/50",
+        "beckett": "55/45 or better",
+        "sgc": null,
+        "tag": "about 52/48"
+      },
+      {
+        "grade": "Gem Mint 10",
+        "psa": "about 75/25",
+        "cgc": "75/25",
+        "beckett": "60/40 or better (their 9.5)",
+        "sgc": null,
+        "tag": "about 65/35"
+      },
+      {
+        "grade": "Mint 9",
+        "psa": "about 90/10",
+        "cgc": "90/10, sports only",
+        "beckett": "70/30 or better",
+        "sgc": null,
+        "tag": "about 75/25"
+      },
+      {
+        "grade": "Near Mint-Mint 8",
+        "psa": "about 90/10",
+        "cgc": null,
+        "beckett": "80/20 or better",
+        "sgc": null,
+        "tag": "about 95/5"
+      }
+    ],
+    "findings": [
+      {
+        "head": "The back is far more forgiving than the front, and almost nobody checks it",
+        "body": "PSA and CGC both allow roughly 75/25 on the back of a card they will still call a 10, against 55/45 on the front. A back that looks badly off to you may not be the problem. A front that looks slightly off probably is."
+      },
+      {
+        "head": "TAG is the only company that publishes a different number for trading cards",
+        "body": "Its rubric splits the back tolerance by category: about 65/35 for TCG at Gem Mint against about 70/30 for sports, and about 75/25 for TCG at Mint 9 against about 90/10 for sports. The front number is the same for both. Every other company publishes one set of numbers and leaves you to assume it covers Pokemon."
+      },
+      {
+        "head": "CGC publishes a Pokemon centering number only at the two 10 grades",
+        "body": "From grade 9 down its wording is conditional: the 60/40 and 90/10 figures are given 'for sports and non-sports cards'. No equivalent number is published for trading cards at 9 and below, which get qualitative language instead. So if you are trying to work out whether a card is a CGC 9 or a CGC 8, there is no published tolerance to measure against."
+      },
+      {
+        "head": "SGC publishes front centering only",
+        "body": "No back tolerance appears at any grade on its scale. Its scale also carries an asterisk on 'four sharp corners' at grades 9, 10 and Pristine, and the footnote that asterisk points to does not render anywhere on the page as served."
+      }
+    ],
+    "leeway": {
+      "text": "A 5% leeway is given to the front centering minimum standards for cards which grade PSA 7 or better.",
+      "worked": "PSA gives its own example: a card meeting every other requirement for a 9 and measuring 60/40 off centre on the front automatically meets the front centering standard for a 9.",
+      "company": "PSA",
+      "source": "https://www.psacard.com/gradingstandards",
+      "read": "2026-08-15"
+    },
+    "sources": [
+      {
+        "name": "PSA grading standards",
+        "url": "https://www.psacard.com/gradingstandards"
+      },
+      {
+        "name": "CGC grading scale",
+        "url": "https://www.cgccards.com/card-grading/grading-scale/"
+      },
+      {
+        "name": "Beckett grading",
+        "url": "https://www.beckett.com/grading"
+      },
+      {
+        "name": "SGC scale",
+        "url": "https://gosgc.com/card-grading/scale"
+      },
+      {
+        "name": "TAG rubric",
+        "url": "https://taggrading.com/pages/rubric"
+      }
+    ]
+  },
+  "tenVsNine": {
+    "lead": "The gap between a 10 and a 9 is smaller than people expect and it is written down. Two companies state it in a single sentence each.",
+    "items": [
+      {
+        "company": "PSA",
+        "head": "One flaw, not none",
+        "body": "PSA 9 is defined as a card showing only ONE of a very slight wax stain on the reverse, a minor printing imperfection, or slightly off-white borders. Two of those and it is not a 9. Zero of them, with four sharp corners, sharp focus and full original gloss, is the 10.",
+        "source": "https://www.psacard.com/gradingstandards"
+      },
+      {
+        "company": "Beckett",
+        "head": "One print line is the line",
+        "body": "At Mint 9 Beckett allows clean gloss with one or two tiny scratches barely noticeable to the naked eye, and one faint unobtrusive metallic print line. At 9.5 and above the surface must be free of scratches and metallic print lines entirely. On a holo that single print line is the whole difference, and it is something you can actually go and look for.",
+        "source": "https://www.beckett.com/grading"
+      },
+      {
+        "company": "CGC",
+        "head": "Gem Mint 10 is the near miss, not the target",
+        "body": "CGC defines Gem Mint 10 as a card that scored 10 overall but where one criterion did not meet Pristine. Pristine 10 is reserved for cards that are flawless under 10 times magnification. Two different labels, and only one of them is the top.",
+        "source": "https://www.cgccards.com/card-grading/grading-scale/"
+      }
+    ]
+  },
+  "subgrades": {
+    "lead": "Only one company still shows you the four component scores, and only that company publishes how they combine. The arithmetic is the most useful thing in this whole section, because it tells you which single flaw decides everything.",
+    "who": [
+      {
+        "company": "Beckett",
+        "has": true,
+        "note": "Four subgrades on the label: centering, corners, edges, surface. Four 10s earns the Black Label. Subgrades are a paid option on the Base tier, and there is an extra fee for any 10s."
+      },
+      {
+        "company": "CGC",
+        "has": false,
+        "note": "Discontinued. CGC's help centre states plainly that subgrades are no longer offered."
+      },
+      {
+        "company": "PSA",
+        "has": false,
+        "note": "No subgrade product. PSA uses qualifiers instead, which cap the grade rather than sit beside it: OC off centre, MC miscut, ST staining, PD print defect, OF out of focus, MK marks."
+      },
+      {
+        "company": "SGC",
+        "has": false,
+        "note": "No subgrades on its scale or services pages."
+      },
+      {
+        "company": "TAG",
+        "has": true,
+        "note": "Per-attribute scoring and a 1000 point score. Corner and edge wear are scored on all four corners on both faces, for eight scores each."
+      }
+    ],
+    "math": {
+      "head": "Your worst attribute decides your grade, and Beckett publishes the rule",
+      "rules": [
+        "The overall grade is not an average of the four subgrades.",
+        "The lowest subgrade is the most heavily weighted.",
+        "The final grade is at most about half a grade above the lowest subgrade.",
+        "It rarely if ever exceeds two levels above the lowest of the four.",
+        "For Gem Mint, at least three subgrades must be 9.5 and the fourth no lower than 9."
+      ],
+      "examples": [
+        {
+          "sub": "Centering 9.5, Corners 9.5, Edges 9, Surface 8",
+          "final": "8.5"
+        },
+        {
+          "sub": "Centering 9.5, Corners 9.5, Edges 8.5, Surface 9",
+          "final": "9"
+        },
+        {
+          "sub": "Centering 10, Corners 6, Edges 10, Surface 10",
+          "final": "7"
+        }
+      ],
+      "soWhat": "Three perfect attributes and one bad one is a bad card. That third example is a card that is perfect on three of four criteria and comes back a 7. When you are checking your own card, you are not looking for how good it is. You are looking for the worst thing on it, because that is the only number that matters.",
+      "source": "https://www.beckett.com/news/walking-bgs-process/",
+      "sourceNote": "Beckett published this in February 2018 and last modified it in November 2020. It was still live and its grade names still match the current scale when this was read on August 15, 2026, but it is an old article and worth treating as the rule of thumb it is."
+    }
+  },
+  "defects": {
+    "lead": "The hobby and the grading companies do not use the same words, and the most important one is a word no company uses at all.",
+    "headline": {
+      "head": "Nobody grades \"whitening\". Search their standards for it and you get nothing",
+      "body": "The word every collector uses does not appear in any of the four majors' published standards. PSA calls it chipping, and its definition is written for exactly the kind of card Pokemon prints: it says chipping is most noticeable on sets with coloured borders, because of the contrast between the border and the lighter cardboard underneath the thin layer of ink, and that it can come from ageing, handling, or even dull blades at the factory. So a card can arrive chipped from the factory, and it counts the same as the chipping you caused.",
+      "source": "https://www.psacard.com/resources/lingo"
+    },
+    "items": [
+      {
+        "name": "Chipping on the edges",
+        "aka": "whitening",
+        "what": "Beckett is the one that grades it in steps you can check yourself: at 9 it allows unobtrusive specks of chipping on the borders, at 8 specks visible to the naked eye, and at 9.5 and above the edges must be virtually flawless. So visible white on an edge is roughly an 8 ceiling.",
+        "co": "Beckett"
+      },
+      {
+        "name": "Print line",
+        "what": "A straight line from the printing process, caused by a scratch on the printing plate holding ink that never reaches the card. Not damage, not your fault, and it still costs the grade.",
+        "co": "TAG"
+      },
+      {
+        "name": "Metallic print lines, and why foil is its own problem",
+        "what": "No company will tell you foil scratches more easily than plain card stock. What they do is grade a foil-only flaw separately at every single level. Beckett names metallic print lines the whole way down its surface scale: none at all at Pristine, one faint unobtrusive line allowed at Mint 9, a few by Near Mint 7. SGC uses its own term, refractor lines, and allows a minor one at Mint 9 and none at Pristine. So the flaw that only foil gets has its own published tolerance, which is the practical version of the thing nobody states outright.",
+        "co": "Beckett and SGC"
+      },
+      {
+        "name": "Roller mark",
+        "what": "A rounded indentation from the printing process.",
+        "co": "TAG"
+      },
+      {
+        "name": "Roller damage from the pack",
+        "what": "This is the one rippers actually hit. CGC gives the tell: packaging roller damage shows as two vertical indentations on BOTH faces of the card, while a pinched layer from manufacturing shows only on the holo side. Check the back before you blame yourself.",
+        "co": "CGC"
+      },
+      {
+        "name": "Print snow, print dots and fish eyes",
+        "what": "White patches, dots and circular discoloured spots left by the printing process. PSA files all of these under its PD qualifier.",
+        "co": "PSA and TAG"
+      },
+      {
+        "name": "Wrinkle versus crease",
+        "what": "The distinction is worth knowing because it decides how bad the news is. A wrinkle shows on one side only. A crease is usually visible on both. PSA puts a number on the crease: it can drop a card one to five grades.",
+        "co": "TAG and PSA"
+      },
+      {
+        "name": "Notching",
+        "what": "Indentations along an edge, sometimes from a rubber band.",
+        "co": "PSA"
+      },
+      {
+        "name": "Pit, dent and scratch",
+        "what": "A pit is a circular surface mark, a dent is a depression in the surface, a scratch takes the appearance of straight or curved lines.",
+        "co": "TAG"
+      },
+      {
+        "name": "Diamond cut",
+        "what": "A skewed factory cut, so the card is not a true rectangle. Named by all four majors and allowed progressively further down every scale.",
+        "co": "all four"
+      },
+      {
+        "name": "Holo bleed, where the company you pick changes the answer",
+        "what": "Holofoil showing through areas the manufacturer did not intend. PSA recognises it and treats it as a print quality matter rather than an authenticity one. CGC states outright that it does not recognise so called holo bleeds. This is the clearest case on the page of the same card getting two different readings depending on where you send it.",
+        "co": "PSA and CGC disagree"
+      }
+    ]
+  },
+  "pokemon": {
+    "lead": "Four things that are specific to modern Pokemon and sourced to a grading company rather than to hobby lore.",
+    "items": [
+      {
+        "head": "Off centre is the normal case, not bad luck",
+        "body": "CGC states that off-centre errors are among the most common printing anomalies in trading card games. If you are opening packs and finding off-centre cards, nothing has gone wrong. That is what the process produces.",
+        "source": "https://www.cgccards.com/news/article/9851/error-card-types/"
+      },
+      {
+        "head": "The Pokemon Company says so itself, in its own refund policy",
+        "body": "This is the strongest source on the page because it is not a grading company talking. The Pokemon Company's own support pages claim cards pass a thorough quality assurance process and then state, in the same breath, that cards with minor scratching or printing defects do not qualify for exchange. The manufacturer will not replace a scratched or misprinted card, because a scratched or misprinted card is a normal card.",
+        "source": "https://support.pokemon.com/hc/en-us/articles/360001000654-"
+      },
+      {
+        "head": "Straight from the pack is not mint, and there is a mechanism",
+        "body": "CGC's error guide describes cards slipping into the heat-sealing crimper as the pack is closed, so the crimping machine's pattern is pressed into the card. Paper jams, fold-overs, holo splices and insufficient ink all happen inside sealed packs too. The presses run up to 15,000 sheets an hour on sheets of 100 to 121 cards. Damage arriving sealed is ordinary.",
+        "source": "https://www.cgccards.com/news/article/9851/error-card-types/"
+      },
+      {
+        "head": "Textured cards have their own failure modes",
+        "body": "Texture has been a Pokemon feature since Black and White: Next Destinies, and CGC lists incomplete, misaligned and missing texture as recurring problems. It also adds a warning that matters more than the grade: most counterfeits share the missing-texture quality, so a card with no texture where there should be some is worth checking against the fake-card guide before you send it anywhere.",
+        "source": "https://www.cgccards.com/news/article/9851/error-card-types/",
+        "seeAlso": "/fake-cards.html"
+      },
+      {
+        "head": "Some sets have known error patterns, but that is not the same as bad centering",
+        "body": "CGC names specific ones: misregistration between black layers is particularly plentiful on commons and uncommons from Ultra Prism, albino backs are known from Rebel Clash, Sword and Shield base and Vivid Voltage reverse holos, inverted back texture has so far only been seen on Evolving Skies V holos, and texture-layer-only has only been seen on Crown Zenith Galarian Gallery cards. These are error frequencies. No company publishes a claim that any Pokemon set has recurring centering problems.",
+        "source": "https://www.cgccards.com/news/article/9851/error-card-types/"
+      },
+      {
+        "head": "One named set, from CGC rather than from hobby lore",
+        "body": "CGC calls Pokemon Jungle a big offender for rough edges, and names holo roller lines as a recurring problem on earlier Pokemon cards. It also publishes its policy on all of it: depending on the severity and prevalence of a production defect, it grades the card with that in mind. A flaw that every copy of a card has is treated differently from one only yours has.",
+        "source": "https://www.cgccards.com/news/article/8433/tcg-production-defects/"
+      }
+    ]
+  },
+  "selfCheck": {
+    "lead": "What the companies themselves tell you to do before submitting, and where their own advice stops.",
+    "items": [
+      {
+        "head": "Sleeve it first",
+        "body": "PSA's own getting-started advice: put the card in a penny sleeve and then a semi-rigid holder before you start handling it to inspect it.",
+        "source": "https://www.psacard.com/info/get-started"
+      },
+      {
+        "head": "Light it the way a grader lights it, and move the card",
+        "body": "CGC published its own graders' method in writing. The lamps use an LED light, described as a nice clean white light, which is what you want for grading cards. The technique is to hold the card perpendicular to the light source and then move it around so the reflection of the bulb travels across the card. That is how surface flaws show themselves: not by staring at the card flat, but by watching the reflection cross it.",
+        "source": "https://www.cgccards.com/news/article/10731/csg-grade-school/",
+        "note": "This is the only place any of the companies publishes an inspection method as text rather than video. It is written for sports cards and comes from the arm CGC merged in, so treat it as their method rather than a Pokemon standard."
+      },
+      {
+        "head": "Take it out of the sleeve, then check all four corners on both faces",
+        "body": "The same transcript says graders remove the card from the semi rigid holder and the penny sleeve, and look at all four corners on both the front and the back. Eight corner checks, not four.",
+        "source": "https://www.cgccards.com/news/article/10731/csg-grade-school/"
+      },
+      {
+        "head": "Use a 10x loupe, because that is the power the grade is decided at",
+        "body": "CGC specifies the tool: a 10x power loupe with a triplet lens corrected for both colour and distortion, which it calls the standard format for professional card graders. Its top grade is defined at exactly that power, as flawless under 10 times magnification. A reader with a 10x loupe is looking at the card the same way the grader will.",
+        "source": "https://www.cgccards.com/glossary/"
+      },
+      {
+        "head": "Grade the back as well",
+        "body": "Beckett grades both faces, PSA and CGC publish separate reverse centering tolerances, and TAG scores corners and edges on both faces for eight scores each. The back is where most people never look and it carries its own numbers."
+      },
+      {
+        "head": "Check the worst thing, not the best thing",
+        "body": "Because of how subgrades combine, one bad attribute caps everything. Find the worst feature of the card and grade that, then stop."
+      }
+    ],
+    "limit": {
+      "head": "Where self-assessment genuinely runs out, in PSA's own words",
+      "body": "PSA says outright that a grader must sometimes make a call on a card falling between two grades, and that the final determination is made on experience, eye appeal and market acceptability. It also gives the reverse case: a card that technically falls within the printed standards can still be held back because the market would view it as off centre. So the numbers get you close and then a judgement you cannot make from home decides it.",
+      "source": "https://www.psacard.com/gradingstandards",
+      "also": "CGC names the specific thing you will get wrong: the surface of a card often hides flaws and is one of the tougher areas to analyse at home. If you are going to misjudge your own card, that is where.",
+      "alsoSource": "https://www.cgccards.com/news/article/13193/"
+    },
+    "notesCost": {
+      "head": "The explanation costs extra",
+      "body": "If your card comes back lower than you expected and you want to know why, PSA's Grader Notes detailing the defects are listed on the Express tier at $149 and above. They are not listed on the $79.99 Regular tier. Budget for a grade with no reason attached.",
+      "source": "https://www.psacard.com/services/tradingcardgrading"
+    }
+  },
+  "population": {
+    "lead": "Two published outcome numbers, and how to look up your own card.",
+    "psa": {
+      "text": "PSA publishes that about 90 per cent of modern trading card game cards from 2003 onward have graded at a PSA 8 or higher, and about 80 per cent of pre-2003 vintage TCG cards at a 7 or higher, with its own note that all percentages are approximate and every card is graded individually without regard to them.",
+      "trap": "Read that number the way it is written, not the way it feels. It is a floor, not a forecast. Nine in ten clearing an 8 tells you nothing whatever about your odds of a 10, and on most cards an 8 does not cover the fee. This statistic is the most reassuring thing PSA publishes and it is not reassurance.",
+      "source": "https://www.psacard.com/info/get-started"
+    },
+    "tag": {
+      "text": "TAG publishes that its Pristine grade, which it says exceeds the industry standard for a Gem Mint 10, represents less than 1 per cent of the cards it has graded.",
+      "source": "https://taggrading.com/pages/scale"
+    },
+    "lookup": {
+      "text": "The most useful thing you can do before submitting is look up how many 10s already exist for your exact card. CGC's population report is open with no account, organised by game, era and set, and showed over 12.4 million trading cards graded when this was read. Beckett's and SGC's reports also open without an account.",
+      "gap": "PSA's does not. Its population report redirects to a sign-in page. So the one company whose 10 most people actually want is the one you cannot check without an account.",
+      "source": "https://www.cgccards.com/population-report/"
+    }
+  },
+  "unverified": {
+    "lead": "Things a page like this normally tells you, and what is actually behind each one. This list was longer before a second pass through the sources: the lighting and viewing-angle advice above was very nearly filed here as unpublished, and it turned out CGC prints it.",
+    "items": [
+      "That holo, full-art or textured stock scratches more easily than plain stock. It is universally believed and no company states it directly. What they do instead is give the foil-only flaw its own tolerance at every grade, which is above.",
+      "That any named Pokemon set has recurring CENTERING problems. Error-type frequency by set is published, and so is rough-edge frequency. Centering quality by set is not.",
+      "SGC's back centering tolerance, at any grade.",
+      "CGC's centering tolerance for trading cards at grade 9 and below.",
+      "Any inspection guidance at all from PSA. Its getting started page tells you to look at the surface, the edges, the centering and whether there are folds or creases, and stops. No lighting, no magnification, no angle, no mention of the back. The lighting and angle method on this page is CGC's, and PSA is the company most people submit to."
+    ]
+  },
+  "conflicts": [
+    {
+      "what": "Beckett runs two live scale pages that disagree at the top grades. The current one gives Pristine 10 as 50/50 front and 55/45 or better on the back; an older one gives 60/40 on the back and describes Gem Mint 9.5 as 50/50 one way and 55/45 the other. This file follows the current page.",
+      "use": "https://www.beckett.com/grading",
+      "ignore": "https://www.beckett.com/grading/scale"
+    },
+    {
+      "what": "PSA's glossary and PSA's standards page disagree on Near Mint 7 front centering, the glossary saying no worse than 75/25 and the standards page 70/30. This file follows the standards page.",
+      "use": "https://www.psacard.com/gradingstandards",
+      "ignore": "https://www.psacard.com/resources/lingo"
+    }
+  ]
+}
