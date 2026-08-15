@@ -102,7 +102,39 @@ await writeFile(
 // and `note` is what makes it worth getting wrong.
 // ---------------------------------------------------------------------------
 const cap = (s) => String(s).charAt(0).toUpperCase() + String(s).slice(1);
-const rnd = (a) => a[Math.floor(Math.random() * a.length)];
+/*
+ * ONE SEEDED SOURCE OF RANDOMNESS FOR THIS FILE, and seeding it is the point.
+ *
+ * Math.random was used in two places: choosing the wrong answers for every
+ * question, and shuffling the bank before trimming it to 1,400 of the 2,247
+ * generated. Between them, identical input data produced different questions
+ * AND different wrong answers on every build, rewrote a 300KB file each time,
+ * and left the tree dirty after any build. Churn that size is where a real
+ * change hides.
+ *
+ * Seeded off the Pokedex's own read date, so the output is stable for a given
+ * input and moves when the data moves. Same reasoning as build-upcoming.mjs
+ * taking "today" from the newest upload rather than from the clock.
+ */
+const seedFrom = (str) => {
+  let h = 2166136261;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+};
+let seed = seedFrom(`trivia:${dex.checked || "0"}`);
+/** mulberry32. Small, fast, long enough period for a quiz bank. */
+const nextRandom = () => {
+  seed = (seed + 0x6d2b79f5) >>> 0;
+  let t = seed;
+  t = Math.imul(t ^ (t >>> 15), t | 1);
+  t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+};
+
+const rnd = (a) => a[Math.floor(nextRandom() * a.length)];
 const sample = (pool, n, exclude) => {
   const seen = new Set(exclude);
   const out = [];
@@ -188,7 +220,15 @@ for (let i = 0; i < 220; i++) {
 // Interleave the categories so a run does not serve six genus questions in a
 // row, then trim. The engine picks at random, but a lopsided bank still skews
 // what a short session feels like.
-const shuffled = trivia.sort(() => Math.random() - 0.5).slice(0, 1400);
+// Fisher-Yates, which is an actual shuffle. The old one was
+// `sort(() => Math.random() - 0.5)`: an inconsistent comparator, so the result
+// was neither uniform nor defined across engines. It only ever looked random.
+const shuffled = trivia.slice();
+for (let i = shuffled.length - 1; i > 0; i--) {
+  const j = Math.floor(nextRandom() * (i + 1));
+  [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+}
+shuffled.length = Math.min(1400, shuffled.length);
 await writeFile(join(DATA, "trivia.json"), JSON.stringify({ checked: dex.checked, q: shuffled }));
 
 // ---------------------------------------------------------------------------
