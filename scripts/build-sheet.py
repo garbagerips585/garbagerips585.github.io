@@ -448,12 +448,38 @@ FILL = {"locked": HEAD_LOCKED, "input": HEAD_INPUT, "hof": HEAD_HOF}
 # through Google Sheets as cell notes, which is where an instruction actually
 # gets read: nobody scrolls back to a Read Me tab mid-row.
 HEAD_NOTES = {
-    "Hit Rarity": RARITY_HINT,
+    # The rarity column is now a convenience, not a source. It used to be
+    # PREFILLED from tags derived from the video title, in blue meaning
+    # "confirm this", and the export to Google Sheets throws the colour away, so
+    # 62 of 64 guesses came back looking like answers and the site published
+    # hits that never happened. It is never prefilled now and it is ignored
+    # unless a card is named beside it.
+    "Hit Rarity": (
+        "OPTIONAL, and it does not drive anything on its own.\n"
+        "The rarity the site uses is read out of the Hit Card column.\n"
+        "This column is only kept when a card is named beside it, so filling it\n"
+        "in on its own does nothing. Use it as a quick label if you like.\n"
+        "\n" + RARITY_HINT
+    ),
     "Hit Card": (
-        "The headline card, written however you like.\n"
-        "If a rip produced SEVERAL cards worth naming, set Hit Rarity to\n"
-        '"More than one" and list them one per row on the My Hits tab.\n'
-        "One card per row there means the site can price them and link them."
+        "THIS IS THE COLUMN THAT DRIVES THE SITE. Nothing else claims a hit.\n"
+        "\n"
+        "One line per card, in this shape:\n"
+        "   Set - Card name - Rarity\n"
+        "For example:\n"
+        "   Surging Sparks - Feebas - Illustration Rare\n"
+        "\n"
+        "Several cards from one rip go in the SAME cell, separated by commas,\n"
+        "and they can be from different sets and different rarities:\n"
+        "   Journey Together - Noibat - Illustration Rare,\n"
+        "   Mega Evolution - Marshadow - Illustration Rare\n"
+        "\n"
+        "The site reads the rarity out of these words, so spell the rarity out.\n"
+        "The star description is welcome and ignored: write it if it helps you.\n"
+        "\n"
+        "Leave it EMPTY when there was no hit. An empty cell means the video\n"
+        "shows no rarity badge anywhere on the site, which is correct: we only\n"
+        "claim a pull where you have said what the card was."
     ),
     "Packs Opened": (
         "COMPUTED. Do not type here.\n"
@@ -555,9 +581,6 @@ for r, v in enumerate(ordered, start=2):
     # opening type are still prefilled, because those describe what was OPENED
     # and a title says that reliably. What was PULLED only the person who
     # opened it knows.
-    if False:
-        pass
-        wv.cell(r, COL["Hit Rarity"], PULL_TO_RARITY[pull]).font = GUESS_TXT
 
     # WHAT WAS ALREADY IMPORTED COMES BACK, which the Read Me has always claimed
     # and which was true of nothing. This script only ever read videos.json, so
@@ -1032,4 +1055,4 @@ print(f"  Video Log   {len(ordered)} rows x {len(COLUMNS)} columns")
 print(f"  Set Notes   {len(sets)} rows")
 print(f"  prefilled:  set {sum(1 for v in ordered if len(v.get('sets') or []) >= 1)}, "
       f"opening {sum(1 for v in ordered if (v.get('products') or [''])[0] in PRODUCT_TO_OPENING)}, "
-      f"rarity {sum(1 for v in ordered if best_pull(v))}")
+      f"rarity {sum(1 for v in ordered if (manual.get(v['id']) or {}).get('hitRarity'))} (restored answers only, never guessed)")
