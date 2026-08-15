@@ -59,26 +59,31 @@ export const RARITY_KEY = [
   { id: "charizard", label: "Charizard", stars: 0, tone: "fire", short: "Charizard" },
 
   // ==========================================================================
-  // THE JAPANESE LADDER IS A DIFFERENT LADDER AND IT IS PRINTED DIFFERENTLY.
-  // Japanese packs carry a letter code on the back of the wrapper and on the
-  // card itself rather than a row of stars, photographed by Tim on 2026-08-15:
+  // JAPAN AND KOREA SHARE ONE LADDER, AND IT IS LETTERS RATHER THAN STARS.
+  // Both print a letter code on the back of the wrapper and on the card itself
+  // instead of a star row. Tim photographed a Japanese pack and a Korean pack
+  // on 2026-08-15 and the codes are IDENTICAL, only the spelled-out names are
+  // translated: SAR is スペシャルアートレア on the Japanese wrapper and
+  // 스페셜아트레어 on the Korean one, and both print the same three letters.
+  // So one set of tiers covers both regions and the `jp-` prefix is a naming
+  // accident rather than a scope limit.
   //
-  //   SAR  スペシャルアートレア   Special Art Rare
-  //   SR   スーパーレア           Super Rare
-  //   AR   アートレア             Art Rare
-  //   RR   ダブルレア             Double Rare
-  //   R    レア                   Rare
-  //   U    アンコモン             Uncommon
-  //   C    コモン                 Common
+  //   SAR  Special Art Rare   スペシャルアートレア / 스페셜아트레어
+  //   SR   Super Rare         スーパーレア        / 수퍼레어
+  //   AR   Art Rare           アートレア          / 아트레어
+  //   RR   Double Rare        ダブルレア          / 더블레어
+  //   R    Rare               レア                / 레어
+  //   U    Uncommon           アンコモン          / 언커먼
+  //   C    Common             コモン              / 커먼
   //
   // These are kept SEPARATE from the English tiers rather than mapped onto
   // them. SAR and Special Illustration Rare are close cousins, not the same
   // thing, and asserting an equivalence the two companies do not publish would
   // be this site inventing a fact. A Japanese rip shows Japanese letters.
   //
-  // ONE THING ON THAT WRAPPER IS DELIBERATELY NOT USED. The key sits beside an
-  // arrow reading 出にくい at the top and 出やすい at the bottom, "harder to
-  // get" and "easier to get". That is a relative ordering with no numbers, and
+  // ONE THING ON BOTH WRAPPERS IS DELIBERATELY NOT USED. The key sits beside an
+  // arrow reading 出にくい / 나오기 어렵다 at the top and 出やすい / 나오기 쉽다
+  // at the bottom, "harder to get" and "easier to get". That is a relative ordering with no numbers, and
   // turning it into anything quantitative would be a pull rate. The 種類 counts
   // beside each row ARE safe: they say how many KINDS of card exist at that
   // rarity in the set, which is checklist composition, not odds.
@@ -162,7 +167,7 @@ export function rarityMark(id) {
   if (!r) return "";
   // Japanese tiers print a letter code, so that is what gets drawn. Same
   // principle as the stars: show what is actually on the card.
-  if (r.jp) return `<span class="rk rk-jp" title="${r.label} (Japanese)">${r.code}</span>`;
+  if (r.jp) return `<span class="rk rk-jp" title="${r.label} (${r.code}, Japanese and Korean sets)">${r.code}</span>`;
   if (r.tone === "fire") {
     return `<span class="rk rk-fire" title="${r.label}"><svg viewBox="0 0 12 14" aria-hidden="true" focusable="false"><path d="M6 0C6 4 2 4.5 2 8.5A4 4 0 0 0 10 8.5C10 5.5 7.5 5 7.5 2.5 7.5 4.5 6 4 6 0Z"/></svg></span>`;
   }
