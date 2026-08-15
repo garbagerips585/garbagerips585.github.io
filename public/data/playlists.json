@@ -1,5 +1,5 @@
 {
- "syncedAt": "2026-08-14",
+ "syncedAt": "2026-08-15",
  "playlists": [
   {
    "id": "PLDfJLPTYu5dw",
@@ -28,11 +28,14 @@
    "id": "PLXMhmkmyX32A",
    "title": "Pitch Black Single Pack Hunt 🌑",
    "description": "Can a single booster pack hold the ultimate gold star? 🛡️✨ Follow along as we rip through individual Pokémon Pitch Black booster packs. From massive Illustration Rare hits like Bastion to those 100% certified Garbage Rips, we’re hunting for the Mega Darkrai SIR one single pack at a time! 🤘🎸 \n\nPokémon, Pokémon TCG, Pitch Black, Single Pack Opening, Pokémon Hit, Illustration Rare, Garbage Rips, Card Collecting, TCG, Bastion Gold Star",
-   "count": 0,
-   "thumb": null,
-   "thumbW": null,
-   "thumbH": null,
-   "videoIds": []
+   "count": 1,
+   "thumb": "https://i.ytimg.com/vi/E5Wz7X1VMeY/maxresdefault.jpg",
+   "thumbW": 1280,
+   "thumbH": 720,
+   "videoIds": [
+    "E5Wz7X1VMeY"
+   ],
+   "path": "playlists/pitch-black-single-pack-hunt.html"
   },
   {
    "id": "PLn62_rIirK-1Z-E8zrZEyQ1IT8BXvD5c8",
