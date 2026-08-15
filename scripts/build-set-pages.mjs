@@ -1102,10 +1102,24 @@ function setPage(s) {
           .replace(/[^a-z0-9]+/g, " ")
           .trim();
       const seen = mine.map((h) => key(h.name)).filter(Boolean);
-      const prose = (PROSE_HITS.get(s.id) || []).filter((h) => {
+      // A CARD PULLED TWICE IS ONE ROW WITH A COUNT, not two identical rows.
+      // Doubles are ordinary across hundreds of packs, and listing the same
+      // card again tells the reader nothing except that the page repeats
+      // itself. The count is the interesting part, so it goes on the row, and
+      // every rip it came out of stays linked.
+      const grouped = new Map();
+      for (const h of PROSE_HITS.get(s.id) || []) {
         const k = key(h.card);
-        return k && !seen.some((m) => m === k || m.includes(k) || k.includes(m));
-      });
+        if (!k || seen.some((m) => m === k || m.includes(k) || k.includes(m))) continue;
+        if (!grouped.has(k)) grouped.set(k, { ...h, count: 0, rips: [] });
+        const g = grouped.get(k);
+        g.count += 1;
+        // Same card from the same video is still one pull for linking purposes.
+        if (!g.rips.some((r) => r.path === h.path)) g.rips.push({ path: h.path, label: h.label });
+        // Keep the most specific rarity seen for it.
+        if (!g.rarity && h.rarity) g.rarity = h.rarity;
+      }
+      const prose = [...grouped.values()].sort((a, b) => b.count - a.count);
       if (!mine.length && !prose.length) return null;
       return (cls) => `<section class="${cls}">
   <div class="wrap">
@@ -1131,9 +1145,13 @@ function setPage(s) {
       ${prose
         .map(
           (h) => `<li><b>${esc(h.card)}</b>${
+            h.count > 1 ? ` <span class="mine-x">x${h.count}</span>` : ""
+          }${
             h.rarity ? ` <span class="mine-rk">${rarityMark(h.rarity)}${esc(rarityLabelOf(h.rarity))}</span>` : ""
           }
-        <a href="/${esc(h.path)}">${esc(h.label)} &rarr;</a></li>`
+        ${h.rips
+          .map((r) => `<a href="/${esc(r.path)}">${esc(r.label)} &rarr;</a>`)
+          .join("\n        ")}</li>`
         )
         .join("\n      ")}
     </ul>

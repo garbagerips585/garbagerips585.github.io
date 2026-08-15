@@ -29,7 +29,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
-import { labelFor } from "../shared/taxonomy.mjs";
+import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
+import { parseHits, rarityLabelOf, rarityMark } from "../shared/rarity.mjs";
 import { esc, longDate, rarityLabel, imgDims } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -42,6 +43,61 @@ const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json
 const enById = new Map(enSets.map((s) => [s.id, s]));
 const ripsBySet = {};
 for (const v of videos) for (const s of v.sets || []) (ripsBySet[s] ||= []).push(v);
+
+// THE JAPANESE AND KOREAN PAGES HAD NO HITS SECTION AT ALL, so a pull logged
+// against Cyber Judge appeared on its rip page and nowhere else. Same parse as
+// build-set-pages.mjs, same conservative rule: a fragment only counts when its
+// first segment names a set we know, and doubles are one row with a count.
+const SET_BY_NAME = new Map();
+for (const cs of CARD_SETS) {
+  const n = (x) => String(x).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  SET_BY_NAME.set(n(cs.label), cs.id);
+  SET_BY_NAME.set(n(String(cs.label).replace(/\s*\((?:JP|KR|CN|TW)\)\s*$/i, "")), cs.id);
+}
+const cardKey = (x) =>
+  String(x || "").toLowerCase().replace(/\b(trainer|supporter|item|stadium)\b/g, " ")
+    .replace(/[^a-z0-9]+/g, " ").trim();
+
+const HITS_BY_SET = new Map();
+for (const v of videos) {
+  if (!v.hitCard) continue;
+  for (const h of parseHits(v.hitCard, SET_BY_NAME).hits) {
+    if (!HITS_BY_SET.has(h.set)) HITS_BY_SET.set(h.set, new Map());
+    const g = HITS_BY_SET.get(h.set);
+    const k = cardKey(h.card);
+    if (!k) continue;
+    if (!g.has(k)) g.set(k, { card: h.card, rarity: h.rarity, count: 0, rips: [] });
+    const e = g.get(k);
+    e.count += 1;
+    if (!e.rarity && h.rarity) e.rarity = h.rarity;
+    if (!e.rips.some((r) => r.path === v.path)) e.rips.push({ path: v.path, label: v.siteTitle || v.title });
+  }
+}
+
+function hitsBand(g, cls) {
+  const hits = [...(HITS_BY_SET.get(g.id) || new Map()).values()].sort((a, b) => b.count - a.count);
+  if (!hits.length) return "";
+  return `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
+    <h2>What we have <span class="hl">hit</span> from this set</h2>
+    <p class="lede" style="max-width:38em">${hits.length} card${hits.length === 1 ? "" : "s"} out of our own packs.
+      Every one of them is in a video you can watch.</p>
+    <ul class="mine-list">
+      ${hits
+        .map(
+          (h) => `<li><b>${esc(h.card)}</b>${h.count > 1 ? ` <span class="mine-x">x${h.count}</span>` : ""}${
+            h.rarity ? ` <span class="mine-rk">${rarityMark(h.rarity)}${esc(rarityLabelOf(h.rarity))}</span>` : ""
+          }
+        ${h.rips.map((r) => `<a href="/${esc(r.path)}">${esc(r.label)} &rarr;</a>`).join("\n        ")}</li>`
+        )
+        .join("\n      ")}
+    </ul>
+    <p class="mine-note">Those came out of the rip log as written. They do not have a card number or a price
+      against them yet, so they are listed rather than priced.</p>
+  </div>
+</section>`;
+}
 
 const yearsSince = (iso) => {
   if (!iso) return "";
@@ -552,6 +608,7 @@ function guidePage(g) {
     rarities.length ? { pin: true, html: (cls) => rarityBand(g, rarities, maxN, secretCount, cls) } : null,
     (cls) => checklistBand(g, cls),
     rips.length ? (cls) => ripsBand(g, rips, label, cls) : null,
+    HITS_BY_SET.has(g.id) ? (cls) => hitsBand(g, cls) : null,
     (cls) => sourceBand(g, cls),
   ].filter(Boolean);
 

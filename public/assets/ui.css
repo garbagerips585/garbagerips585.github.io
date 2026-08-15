@@ -1520,5 +1520,7 @@ main:has(> .set-cta:last-child){padding-bottom:0}
 .mine-list{list-style:none;margin:var(--s4) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--s2)}
 .mine-list li{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2);
   padding:10px var(--s3);border-left:3px solid var(--gold);background:var(--card);border-radius:0 8px 8px 0}
+.mine-x{font:700 var(--t-micro)/1 var(--mono);background:var(--navy);color:#F4F1E2;
+  border-radius:4px;padding:3px 6px}
 .mine-rk{display:inline-flex;align-items:center;font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
 .mine-note{margin-top:var(--s3);font-size:var(--t-micro);color:var(--ink-2);max-width:40em}
