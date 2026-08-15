@@ -29,7 +29,14 @@
     "number came from and when. They will go stale; that is the trade for having",
     "them, and the date on the page is what makes it honest.",
     "",
-    "The $38.75 confirms MEP #023 over #029: the url Tim supplied ends -23."
+    "The $38.75 confirms MEP #023 over #029: the url Tim supplied ends -23.",
+    "",
+    "forSet, on a promo only: which set page it appears on. A promo is in no",
+    "set, so without this it either appears on every set page the video",
+    "touched, which put two cards at the top of four pages, or on none. The",
+    "answer that reads true is the set it shipped alongside. A promo with no",
+    "forSet is named at build time and shown on no set page, rather than",
+    "guessed onto one. It still appears on its rip page and the Hall of Fame."
   ],
   "source": "workbook My Hits tab",
   "checked": "2026-08-13",
@@ -119,7 +126,8 @@
         "priceSource": "pricecharting.com",
         "priceAsOf": "2026-08-13",
         "priceUrl": "https://www.pricecharting.com/game/pokemon-promo/mega-charizard-x-ex-23",
-        "img": "https://assets.tcgdex.net/en/me/mep/023"
+        "img": "https://assets.tcgdex.net/en/me/mep/023",
+        "forSet": "phantasmal-flames"
       },
       {
         "card": "Oricorio ex",
@@ -133,7 +141,8 @@
         "priceSource": "pricecharting.com",
         "priceAsOf": "2026-08-13",
         "priceUrl": "https://www.pricecharting.com/game/pokemon-promo/oricorio-ex-24",
-        "img": "https://assets.tcgdex.net/en/me/mep/024"
+        "img": "https://assets.tcgdex.net/en/me/mep/024",
+        "forSet": "phantasmal-flames"
       }
     ],
     "TN7_ZsuRQSI": [

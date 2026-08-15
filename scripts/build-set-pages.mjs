@@ -611,6 +611,17 @@ function resolveCard(setId, cardName, rarityId) {
   };
 }
 
+{
+  const homeless = [];
+  for (const [vid, list] of Object.entries(HITS)) {
+    for (const h of list) if (h.promo && !h.forSet) homeless.push(`${vid}: ${h.card}`);
+  }
+  if (homeless.length) {
+    console.log(`  ${homeless.length} promo(s) have no forSet, so they are on no set page:`);
+    for (const x of homeless) console.log(`    ${x}`);
+  }
+}
+
 const PROSE_HITS = new Map();
 {
   const unmatchedAll = [];
@@ -1178,11 +1189,16 @@ function setPage(s) {
       // of a UPC is not a card in the set, and it is absolutely part of what
       // came out of that rip, so it belongs on the page with its own scan,
       // number and price and a label that says what it is.
+      // ONE SET PAGE PER PROMO, named in the data by `forSet`. Matching on
+      // "any set this video opened" put the same two promos at the top of four
+      // different pages, because the UPC held packs from four sets. A promo is
+      // in none of them; it shipped alongside one of them, and that is the only
+      // answer that reads true. Anything without forSet appears on no set page
+      // rather than being guessed onto one, and is named at build time below.
       const promoHits = [];
       for (const v of videos) {
-        if (!(v.sets || []).includes(s.id)) continue;
         for (const h of HITS[v.id] || []) {
-          if (!h.promo) continue;
+          if (!h.promo || h.forSet !== s.id) continue;
           if (promoHits.some((x) => x.card === h.card)) continue;
           promoHits.push({ ...h, path: v.path, label: v.siteTitle || v.title });
         }
