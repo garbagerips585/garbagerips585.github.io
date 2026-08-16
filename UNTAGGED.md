@@ -84,7 +84,7 @@ The product is known, so these only need the set naming.
 - [Only Garbage Rips? 😬 | Mega Charizard X Tin](https://www.youtube.com/watch?v=F9mAQqKd6r8)
   `F9mAQqKd6r8`, 2026-03-01, 23 views · in playlist "Hits Only 🔥 | No Bulk, Just Back To Back Pulls" · products: tin
 - [Pokémon Day 2026 🎉 | 30th Anniversary Pikachu Promo Opening 😬](https://www.youtube.com/watch?v=zIn3mWKwkyg)
-  `zIn3mWKwkyg`, 2026-02-27, 1,196 views · in playlist "Hits Only 🔥 | No Bulk, Just Back To Back Pulls" · products: single-pack
+  `zIn3mWKwkyg`, 2026-02-27, 1,196 views · in playlist "Hits Only 🔥 | No Bulk, Just Back To Back Pulls" · products: blister
 - [Only Garbage Rips 😬 | Garbodor Unova Mini Tin (Rochester’s Pokémon)](https://www.youtube.com/watch?v=Ab81MNFnDLw)
   `Ab81MNFnDLw`, 2026-02-18, 1,540 views · in playlist "Hits Only 🔥 | No Bulk, Just Back To Back Pulls" · products: tin
 - [Only Garbage Rips 😬 | Pokémon Trick or Trade BOOster Packs… In February](https://www.youtube.com/watch?v=wMDMN2emLCM)

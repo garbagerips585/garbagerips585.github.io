@@ -46,11 +46,6 @@
       "perfect-order"
     ]
   },
-  "rUOMBBOjrXI": {
-    "products": [
-      "ex-premium"
-    ]
-  },
   "pRkDVGXWufQ": {
     "sets": [
       "chaos-rising"
@@ -69,125 +64,16 @@
   "xqV7AYXoVJs": {
     "sets": [
       "ascended-heroes"
-    ],
-    "products": [
-      "ex-premium"
     ]
   },
   "nBKJMnw9L2Y": {
     "sets": [
       "ascended-heroes"
-    ],
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "gFZ_jiV7DEY": {
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "uTGe-WswoVY": {
-    "products": [
-      "ex-premium"
     ]
   },
   "u9zpVOVsWyg": {
     "sets": [
       "ascended-heroes"
-    ],
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "WhfY82RrS4w": {
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "Nqu1vGtbAME": {
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "blSCuSk5nb0": {
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "czBVJAWDB8U": {
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "w3dQBhumsug": {
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "7nGg08wavGM": {
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "na2bRZxxTHU": {
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "n4iGQVPBtfE": {
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "r4WG2IWWyKc": {
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "zhE5GzB2Dns": {
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "qKiLbaLhdp8": {
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "_Bu9zCfLI4c": {
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "hOBpKIl2lX4": {
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "9DPytuABTf8": {
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "Fgj5afnnXVk": {
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "dQaN_4yqS0w": {
-    "sets": [
-      "mega-evolution"
-    ]
-  },
-  "ac3pK3zh0DE": {
-    "products": [
-      "ex-premium"
-    ]
-  },
-  "g9RQqx9da6Q": {
-    "products": [
-      "ex-premium"
     ]
   },
   "m9K7hpyjn04": {
@@ -206,13 +92,15 @@
     "sets": [
       "mega-evolution",
       "destined-rivals"
-    ],
-    "products": [
-      "ex-premium"
     ]
   },
   "mbzWBfNI-Qs": {
     "blurb": "Opening Korean Crimson Haze booster packs, testing international pack luck. Korean print. Full garbage plate energy applied. Garbage rips or overseas heat?",
     "blurbWhy": "The YouTube description says 'Different pull rates.' The site does not state pull rates, and nobody publishes them to check against, so the site's own description drops that line. The YouTube listing is untouched."
+  },
+  "zIn3mWKwkyg": {
+    "products": [
+      "blister"
+    ]
   }
 }
