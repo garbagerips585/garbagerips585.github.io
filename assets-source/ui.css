@@ -44,6 +44,15 @@
 
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:72px;
   --r:10px; --r-pill:999px;
+  /* --r-sm WAS USED FIFTEEN TIMES AND DEFINED NOWHERE. An undefined custom
+     property makes the whole declaration invalid at computed-value time, so
+     border-radius:var(--r-sm) is not a fallback to something, it is no radius at
+     all: the show-warning box, the show links, the fake-card blocks and the
+     Pokemon cards have all been rendering square while every neighbour rounds.
+     Nothing errors and nothing logs, which is why it survived. 6px, half of --r,
+     because these are the small chips and inset blocks that sit inside things
+     already rounded to 10. */
+  --r-sm:6px;
   /* One source of truth: the bar's height is also the rail's sticky offset, so
      a taller touch target in the bar cannot leave the rail tucked under it. */
   --bar-h:60px;

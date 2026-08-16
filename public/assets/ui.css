@@ -22,6 +22,7 @@
   --sky:#35BEEF; --lilac:#CAA6CA; --lilac-pale:#F0E4F1; --plum:#4E2F48;
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:72px;
   --r:10px; --r-pill:999px;
+  --r-sm:6px;
   --bar-h:60px;
   --lift:0 1px 1px rgba(21,38,58,.07), 0 2px 3px rgba(21,38,58,.07),
          0 6px 10px rgba(21,38,58,.07), 0 14px 20px rgba(21,38,58,.06);
