@@ -42,6 +42,44 @@ const expansions = JSON.parse(await readFile(join(ROOT, "public/data/expansions.
 const all = expansions.sets || [];
 const { sets: guides } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 
+// THE SET SYMBOLS ARE MIRRORED LOCALLY, which matters more here than anywhere
+// else: they are the point of the page. Measured over CDP at 390x844 DPR2 with
+// the cache disabled and every lazy image forced to load, this page transferred
+// 1,769.9 KB of images and 1,472 KB of that was 141 symbol pngs drawn into a
+// 24px box. The API ships most of the legacy sets at 500x500 and base1 at
+// 884x452, so the reader paid roughly 25x linear oversample per symbol.
+//
+// scripts/sync-symbols.mjs fits each one inside a 48px box as lossless WebP,
+// which covers the 24px box at DPR2, and records its real size in
+// data/symbol-dims.json. A set missing from the manifest keeps its remote url,
+// so a symbol that would not download degrades to the behaviour this page had
+// before rather than to a hole in the row.
+let SYMBOL_DIMS = {};
+try {
+  SYMBOL_DIMS = JSON.parse(await readFile(join(ROOT, "data/symbol-dims.json"), "utf8")).symbols || {};
+} catch {
+  /* not synced yet: every symbol falls back to its remote url */
+}
+let remoteSymbols = 0;
+
+/**
+ * The <img> for one set symbol.
+ *
+ * These carried no width or height at all, on either branch. `.ws-set img` pins
+ * a 24px square with object-fit:contain so nothing actually moved, but the
+ * attributes are free and they are the only thing holding the row if that rule
+ * ever loses. They are the file's REAL shape, not a flat 48x48: the box is a
+ * bound and base1 comes out 48x25.
+ */
+function symbolImg(s) {
+  const d = SYMBOL_DIMS[s.apiId];
+  if (d) {
+    return `<img src="/assets/symbols/${esc(s.apiId)}-pokemon-tcg-set-symbol.webp" alt="" width="${d[0]}" height="${d[1]}" loading="lazy" decoding="async">`;
+  }
+  remoteSymbols += 1;
+  return `<img src="${esc(s.symbol)}" alt="" width="20" height="20" loading="lazy" decoding="async" onerror="this.remove()">`;
+}
+
 if (all.length < 150) {
   throw new Error(`expansions.json holds ${all.length} sets, expected 150+. The index would be missing eras.`);
 }
@@ -223,7 +261,7 @@ const setLine = (s) => {
   const name = slug
     ? `<a href="/sets/${esc(slug)}.html">${esc(s.name)}</a>`
     : `<span>${esc(s.name)}</span>`;
-  return `<li class="ws-set"><img src="${esc(s.symbol)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">
+  return `<li class="ws-set">${symbolImg(s)}
         ${name} <span class="ws-yr">${esc(String(s.released).slice(0, 4))} &bull; ${esc(s.series)}</span>${
           s.total > s.printedTotal
             ? ` <span class="ws-badge">+${s.total - s.printedTotal} secret</span>`
@@ -306,10 +344,17 @@ const page = `<!DOCTYPE html>
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
-<!-- The 174 set symbols all come from one host and are the point of the page,
-     so the connection is opened before the HTML has finished parsing.
-     /expansions.html carries the same hint for the same reason. -->
-<link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>
+${
+  remoteSymbols
+    ? `<!-- ${remoteSymbols} set symbol(s) still come from the API host because
+     sync-symbols.mjs holds no local copy of them, so the connection is opened
+     before the HTML has finished parsing. Emitted only when that is true: with
+     every symbol mirrored this hint opens a connection nothing uses.
+     /expansions.html carries the same conditional hint for the same reason. -->
+<link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>`
+    : `<!-- No preconnect to images.pokemontcg.io: every set symbol on this page is
+     mirrored locally by scripts/sync-symbols.mjs and served from this origin. -->`
+}
 ${FONTS}
 ${STYLES}
 <style>${style}</style>
@@ -425,8 +470,8 @@ ${indexRows}
         which is the number printed on the card, not the number of cards that exist.</li>
       <li><strong>Secret rare counts.</strong> Counted from the full checklists this site holds for
         ${withSecrets.length} sets, as the difference between how many cards a set has and the total printed on them.</li>
-      <li><strong>The symbols.</strong> Served from the API's own image host and shown at the size they are published at.
-        They are small on the card too: a phone camera and a pinch zoom is the normal way to read one.</li>
+      <li><strong>The symbols.</strong> The API's own artwork, copied here and shrunk to the size this page draws them
+        at. They are small on the card too: a phone camera and a pinch zoom is the normal way to read one.</li>
       <li><strong>Nothing here is estimated.</strong> Every number on this page is counted from that list when the page
         is built, so it cannot drift from the index printed above it.</li>
     </ul>

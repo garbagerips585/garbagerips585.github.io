@@ -242,14 +242,23 @@ export function moneyRound(v) {
  * here was measured by fetching the files:
  *
  *   assets.tcgdex.net      low.webp 245x337, high.webp 600x825
- *   images.pokemontcg.io   245x342, _hires 733x1024, symbol 20x20
- *   images.scrydex.com     small 245x342, large 733x1024, symbol 20x20
+ *   images.pokemontcg.io   245x342, _hires 733x1024
+ *   images.scrydex.com     small 245x342, large 733x1024
  *   tcgplayer-cdn          VARIABLE, 200x268 through 200x417
  *
  * TCGplayer product photos get NO attributes. Their height depends on the
  * product, we do not hold it, and a fixed guess is wrong by up to 34%. They
  * sit in a CSS box of a fixed size with object-fit:contain, so nothing is
  * reserved by the attributes anyway.
+ *
+ * SET SYMBOLS AND SET LOGOS ARE NOT CARD SCANS and get nothing from here. This
+ * comment used to claim both hosts publish symbols at 20x20, which is the size
+ * they are DRAWN at and not the size they are served at: base1 is 884x452 and
+ * most of the legacy sets are 500x500. The number was never used, because the
+ * guards below return "" for symbol and logo urls, but it read as a measured
+ * fact next to a column of genuinely measured ones. The real sizes now live in
+ * data/symbol-dims.json, written by scripts/sync-symbols.mjs, which mirrors
+ * them locally at the size they are actually painted.
  *
  * Returns a string ready to drop into a tag, with a leading space, or "".
  */
@@ -291,6 +300,18 @@ export function imgDims(url) {
  * illustrator credit are equally legible in both. TCGdex's own high.png is NOT
  * a usable reference for this, by the way: it is a PALETTED png, so both lossy
  * encodes score badly against it and the number says nothing.
+ *
+ * THE AVIF ALWAYS EXISTS, and that is checked rather than assumed, because a
+ * <source> pointing at a 404 is worse than no source at all: the browser has
+ * already committed to that source by the time it fails, so several render a
+ * broken image rather than falling back to the <img>. On 2026-08-15 all 533
+ * distinct TCGdex urls the built site emits were fetched as both extensions:
+ * 533 of 533 webp answered 200 and 533 of 533 avif answered 200, at -29.7% for
+ * low.* and -37.2% for high.*, which is the 2026-08-14 measurement below
+ * reproduced on a four times larger sample. The guarantee is structural, not
+ * lucky: TCGdex encodes all four extensions off one path, so the only way to
+ * ask for an AVIF that does not exist is to ask for a scan that does not
+ * exist, and those are already skipped from data/no-scan.json.
  *
  * Support is the reason this is a <picture> and not a url swap. AVIF misses
  * Safari 16.0-16.3, and a card scan that fails to paint is a broken page, so

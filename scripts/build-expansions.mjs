@@ -40,6 +40,42 @@ const { videos: allVideos } = JSON.parse(
 const ripsBySet = {};
 for (const v of allVideos) for (const sid of v.sets || []) ripsBySet[sid] = (ripsBySet[sid] || 0) + 1;
 
+// THE SET SYMBOLS ARE MIRRORED LOCALLY. Measured over CDP at 390x844 DPR2 with
+// the cache disabled and every lazy image forced to load, this page transferred
+// 2,604.9 KB of images and 2,183 KB of that was 174 symbol pngs painted into a
+// 20px box. The API ships base1 at 884x452 and most of the legacy sets at
+// 500x500; the newer ones were already small, which is why the weight is spread
+// across the page instead of sitting in one obvious file.
+//
+// scripts/sync-symbols.mjs fits each one inside a 48px box as lossless WebP and
+// records its real size in data/symbol-dims.json. A set that is not in the
+// manifest keeps the remote url it has always had, so a symbol that would not
+// download degrades to today's behaviour rather than to a broken image.
+let SYMBOL_DIMS = {};
+try {
+  SYMBOL_DIMS = JSON.parse(await readFile(join(ROOT, "data/symbol-dims.json"), "utf8")).symbols || {};
+} catch {
+  /* not synced yet: every symbol falls back to its remote url */
+}
+let remoteSymbols = 0;
+
+/**
+ * The <img> for one set symbol.
+ *
+ * Both the local and the remote branch carry width and height. The CSS pins
+ * the box at 20px with object-fit:contain either way, so these are about the
+ * aspect ratio rather than the size, and they are the file's REAL shape: base1
+ * is 48x25, not 48x48, and the old markup declared 20x20 for every one of them.
+ */
+function symbolImg(s) {
+  const d = SYMBOL_DIMS[s.apiId];
+  if (d) {
+    return `<img src="/assets/symbols/${esc(s.apiId)}-pokemon-tcg-set-symbol.webp" alt="" width="${d[0]}" height="${d[1]}" loading="lazy" decoding="async">`;
+  }
+  remoteSymbols += 1;
+  return `<img src="${esc(s.symbol)}" alt="" width="20" height="20" loading="lazy" onerror="this.remove()" decoding="async">`;
+}
+
 
 const year = (iso) => (iso || "").slice(0, 4);
 const slugId = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -111,7 +147,7 @@ function eraTable(e) {
           <th scope="row">
             <span class="xp-name">${
               s.symbol
-                ? `<img src="${esc(s.symbol)}" alt="" width="20" height="20" loading="lazy" onerror="this.remove()" decoding="async">`
+                ? symbolImg(s)
                 : `<span class="xp-nosym" aria-hidden="true"></span>`
             }${name}${s.promo ? ` <span class="xp-tag">promo</span>` : ""}</span>
           </th>
@@ -334,9 +370,16 @@ const html = `<!DOCTYPE html>
 <meta property="og:image" content="${SITE}/assets/og-expansions.jpg">
 <meta name="twitter:card" content="summary_large_image">
 ${FONTS}
-<!-- 174 set symbols come from here and there was no preconnect, so every one
-     of them waited on a cold DNS lookup and TLS handshake. -->
-<link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>
+${
+  remoteSymbols
+    ? `<!-- ${remoteSymbols} set symbol(s) are still served from the API host because
+     sync-symbols.mjs has no local copy of them. The hint is emitted only when
+     that is true: with every symbol mirrored it would open a connection the
+     page never uses, which costs a DNS lookup and a handshake for nothing. -->
+<link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>`
+    : `<!-- No preconnect to images.pokemontcg.io: every set symbol on this page is
+     mirrored locally by scripts/sync-symbols.mjs and served from this origin. -->`
+}
 ${STYLES}
 <style>${style}</style>
 <script type="application/ld+json">
