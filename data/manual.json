@@ -1171,31 +1171,41 @@
   },
   "3dKWTVbCH3I": {
     "openingType": "Single Booster Pack",
-    "packs": 1
+    "packs": 1,
+    "hasHit": true,
+    "hitCard": "Ascended Heroes - Stunfisk ex - Double Silver Star - Ultra Rare"
   },
   "wMDMN2emLCM": {
     "openingType": "Single Booster Pack",
-    "packs": 1
+    "packs": 3,
+    "hasHit": false
   },
   "QADrkuqf9pg": {
     "openingType": "Korean Booster Pack",
-    "packs": 1
+    "packs": 1,
+    "hasHit": false
   },
   "jO7K2zX6Rlg": {
     "openingType": "Single Booster Pack",
-    "packs": 1
+    "packs": 1,
+    "hasHit": false
   },
   "8jKHh-P7P7M": {
     "openingType": "Chinese Booster Pack",
-    "packs": 1
+    "packs": 1,
+    "hasHit": false
   },
   "hLr5iThoO2k": {
     "openingType": "Blister",
-    "packs": 3
+    "packs": 3,
+    "hasHit": true,
+    "hitCard": "Journey Together - Volcanion ex - Double Black Star - Double Rare"
   },
   "cmV6P3ssh2g": {
     "openingType": "Blister",
-    "packs": 3,
+    "packs": 2,
+    "hasHit": true,
+    "hitCard": "Phantasmal Flames - Rotom ex - Double Black Star- Double Rare",
     "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets."
   },
   "SOCAXif6Mzs": {

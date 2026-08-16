@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pokemon TCG Pocket: Can You Learn the Card Game From an App? | Garbage Rips 585</title>
+<meta name="description" content="Pokemon TCG Pocket is free, and its rules are not the card game's rules. What it teaches you, what it does not, and why your pack codes are for Live.">
+<link rel="canonical" href="https://garbagerips585.github.io/tcg-pocket.html">
+<meta property="og:title" content="Can you learn the card game from an app?">
+<meta property="og:description" content="Pokemon TCG Pocket is free, and its rules are not the card game's rules. What it teaches you, what it does not, and why your pack codes are for Live.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garbagerips585.github.io/tcg-pocket.html">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-tcg-pocket.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-tcg-pocket.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#1E3A54">
+<link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=2335fd03">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<style>
+.tp-lede{max-width:44em}
+.tp-chk{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);margin-top:var(--s3)}
+.tp-s{margin-top:var(--s6);scroll-margin-top:var(--s5)}
+.tp-s > p{max-width:44em;line-height:1.6}
+.tp-s > p + p{margin-top:var(--s3)}
+.tp-jump{display:flex;flex-wrap:wrap;gap:8px;margin:var(--s5) 0 0}
+.tp-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
+  border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
+  text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
+.tp-jump a:hover{border-color:var(--ink);background:var(--mustard)}
+.tp-shout{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:#F4F1E2;
+  padding:var(--s4) var(--s5);margin:var(--s4) 0;box-shadow:var(--hard-lg);max-width:44em}
+.tp-shout p{font:400 var(--t-m)/1.3 var(--display);color:#F4F1E2}
+.tp-shout span{display:block;margin-top:var(--s3);font-size:var(--t-sm);color:#DDE6EC;line-height:1.5}
+.tp-go{list-style:none;margin:var(--s4) 0 0;padding:0;max-width:44em}
+.tp-go li{border-left:4px solid var(--gold);padding-left:var(--s3);margin-bottom:var(--s4);line-height:1.55}
+.tp-go b{display:block;font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
+.tp-diff li{border-left-color:var(--ketchup)}
+.tp-steps{counter-reset:tp;list-style:none;margin:var(--s4) 0 0;padding:0;max-width:44em}
+.tp-steps li{counter-increment:tp;position:relative;padding-left:38px;margin-bottom:var(--s3);line-height:1.55}
+.tp-steps li::before{content:counter(tp);position:absolute;left:0;top:0;width:26px;height:26px;
+  display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--navy);
+  color:#F4F1E2;font:700 var(--t-micro)/1 var(--mono)}
+.tp-fig{margin:var(--s4) 0 0;max-width:44em}
+.tp-fig figcaption{margin-top:var(--s2);font-size:var(--t-micro);color:var(--ink-2);line-height:1.5}
+.tb{width:100%;height:auto;display:block;background:var(--paper-2);border-radius:8px;padding:6px 0}
+.tb-s rect{fill:var(--card);stroke:var(--ink);stroke-width:1}
+.tb-s text{font:700 4.6px var(--mono);fill:var(--ink-2);letter-spacing:.03em}
+.tb-a rect{fill:var(--mustard);stroke-width:1.6}
+.tb-a text{fill:var(--ink)}
+.tb-p rect{fill:var(--gold);stroke-width:1.6}
+.tb-p text{fill:#2A2005}
+.tb-d rect{stroke-dasharray:3 2}
+.tb-h{font:700 6px var(--mono);fill:var(--ink);letter-spacing:.1em}
+.tb-div{stroke:var(--ink);stroke-width:1;stroke-dasharray:4 3;opacity:.5}
+.tb-k{font:400 5px var(--mono);fill:var(--ink-2)}
+.tb-f{font-size:5.2px;fill:var(--ink)}
+.tp-out{border:3px dashed var(--navy);border-radius:12px;background:var(--card);padding:var(--s4);
+  margin-top:var(--s6);max-width:44em}
+.tp-out h2{margin-bottom:var(--s2)}
+.tp-out > p{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
+.tp-out ul{list-style:none;margin:var(--s3) 0 0;padding:0}
+.tp-out li{margin-bottom:var(--s3);font-size:var(--t-sm);line-height:1.5}
+.tp-out a{font-weight:700}
+.tp-out .tp-off{display:inline-block;font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);margin-left:6px}
+.tp-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
+
+.cmp-w{overflow-x:auto;margin-top:var(--s4);border:3px solid var(--navy);border-radius:12px;
+  background:var(--card);box-shadow:var(--hard-lg);max-width:46em}
+.cmp{width:100%;border-collapse:collapse;font-size:var(--t-sm);min-width:34em}
+.cmp th,.cmp td{text-align:left;padding:10px var(--s3);border-bottom:1px solid var(--hair);vertical-align:top;
+  line-height:1.45}
+.cmp thead th{font:700 var(--t-micro)/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.cmp tbody th{font-weight:700;width:11em}
+.cmp tr:last-child td,.cmp tr:last-child th{border-bottom:0}
+@media(max-width:640px){.cmp{font-size:var(--t-micro)}.cmp th,.cmp td{padding:8px 8px}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Learning from an app"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can you learn the Pokemon card game from Pokemon TCG Pocket?","acceptedAnswer":{"@type":"Answer","text":"Partly. Evolution, Energy costs, Weakness, Retreat, Abilities, the Active spot and the Bench all work the way they do with real cards, and watching solo battles against the computer teaches you the shape of a game. The numbers are different, and Pokemon says outright that Pocket's rules are not the card game's rules."}},{"@type":"Question","name":"How is Pokemon TCG Pocket different from the real card game?","acceptedAnswer":{"@type":"Answer","text":"A Pocket deck is 20 cards rather than 60, with at most two copies of a name. There are no Energy cards at all: an Energy Zone gives you one Energy a turn. There are no Prize cards, and you win by scoring three points instead. The Bench is smaller than the 5 you get with physical cards."}},{"@type":"Question","name":"Can I use my booster pack code card in Pokemon TCG Pocket?","acceptedAnswer":{"@type":"Answer","text":"No. The code card in a physical booster pack is for Pokemon TCG Live. Pocket has no pack code redemption at all. Its own gift codes come from campaigns and are entered on a web page rather than in the app."}},{"@type":"Question","name":"Is Pokemon TCG Pocket free?","acceptedAnswer":{"@type":"Answer","text":"Yes, with optional in-app purchases. You do not need a Pokemon account to play, and you open two free booster packs a day."}},{"@type":"Question","name":"Which should I install, Pokemon TCG Live or Pokemon TCG Pocket?","acceptedAnswer":{"@type":"Answer","text":"Live is the card game itself with the same rules and a use for your pack codes. Pocket is a smaller, faster game of its own on a phone. Live needs a free Pokemon account and Pocket does not. Both are free and installing both costs nothing."}}]}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form class="bar-search" role="search" action="/search.html" method="get">
+      <label class="sr-only" for="navSearch">Search cards, sets, guides and rips</label>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+      <input id="navSearch" name="q" type="search" placeholder="Search cards, sets, rips" aria-label="Search cards, sets, guides and every rip" autocomplete="off">
+    </form>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/cards.html">Card search</a>
+      <a href="/sets/">Set guides</a>
+      <a href="/start.html">Start here</a>
+      <a href="/card-shows.html">Card shows</a>
+    </nav>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span>Menu</span>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="All sections">
+  <div class="menu-inner">
+    <div class="menu-g">
+      <p class="menu-h">Watch</p>
+      <ul>
+        <li><a href="/videos.html">Rips</a></li>
+        <li><a href="/playlists.html">Playlists</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">The binder</p>
+      <ul>
+        <li><a href="/hall.html">Best pulls</a></li>
+        <li><a href="/wanted.html">Most wanted</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Cards</p>
+      <ul>
+        <li><a href="/cards.html">Card search</a></li>
+        <li><a href="/pokemon/">By Pokemon</a></li>
+        <li><a href="/sets/">Set guides</a></li>
+        <li><a href="/expansions.html">Every set ever</a></li>
+        <li><a href="/upcoming.html">Coming next</a></li>
+        <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/pack-prices.html">Pack prices</a></li>
+        <li><a href="/how-many-packs.html">Packs per box</a></li>
+        <li><a href="/openings/">Sealed products</a></li>
+        <li><a href="/drops.html">Drops this week</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Guides</p>
+      <ul>
+        <li><a href="/start.html">Start here</a></li>
+        <li><a href="/how-to-play.html">How to play</a></li>
+        <li><a href="/tcg-live.html">Code cards</a></li>
+        <li><a href="/tcg-pocket.html">Phone version</a></li>
+        <li><a href="/what-set.html">Set finder</a></li>
+        <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/types.html">Card types</a></li>
+        <li><a href="/fake-cards.html">Fakes</a></li>
+        <li><a href="/will-it-grade.html">Will it grade</a></li>
+        <li><a href="/grading.html">Grading cost</a></li>
+        <li><a href="/selling.html">Where to sell</a></li>
+        <li><a href="/buying.html">Where to buy</a></li>
+        <li><a href="/luck.html">Luck, measured</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Play</p>
+      <ul>
+        <li><a href="/games/">Games</a></li>
+        <li><a href="/lore.html">Pokemon lore</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Rochester, NY</p>
+      <ul>
+        <li><a href="/card-shows.html">Card shows</a></li>
+        <li><a href="/shops.html">Card shops</a></li>
+        <li><a href="/vendors.html">Local vendors</a></li>
+        <li><a href="/creators.html">Local creators</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </div>
+  </div>
+  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe on YouTube</a>
+</nav>
+<main id="main">
+  <section class="tight">
+    <div class="wrap">
+
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Learning from an app</span></nav>
+      <h1>Can you learn the card game from an <span class="hl">app</span>?</h1>
+      <p class="lede tp-lede">Pokemon TCG Pocket is free, it is on your phone, and it is how Tim learned to play.
+        Here is what it teaches you, what it quietly does not, and why the code cards from your packs have nothing
+        to do with it.</p>
+      <p class="tp-chk">Checked against Pokemon's own pages on August 16, 2026.</p>
+
+      <nav class="tp-jump" aria-label="Jump to a section">
+        <a href="#what">What it is</a>
+        <a href="#teaches">What it teaches</a>
+        <a href="#codes">Your pack codes</a>
+        <a href="#which">Which one</a>
+        <a href="#get">Getting it</a>
+        <a href="#inside">What is in it</a>
+        <a href="#tips">First week</a>
+      </nav>
+
+      <section class="tp-s" id="what">
+        <h2>What it <span class="hl">is</span></h2>
+        <p>Pokemon Trading Card Game Pocket is the official free Pokemon card game for phones. It is made by
+          Creatures Inc., who made the physical card game, along with DeNA, and it came out on
+          October 30, 2024. You open two free booster packs a day and you can battle.</p>
+        <p>Tim learned to play from it. Not from a rulebook and not across a table from somebody sighing at him.
+          The app has solo battles against the computer, and in a solo battle you can switch on an auto option and
+          let the app take your turns while you watch. Watch enough turns and the game starts to make sense.</p>
+        <p>That works, which is why this page exists. It also comes with a catch big enough that Pokemon spell it
+          out themselves, and that is the next section.</p>
+      </section>
+
+      <section class="tp-s" id="teaches">
+        <h2>What it teaches you, and what it <span class="hl">does not</span></h2>
+        <div class="tp-shout">
+          <p>The rules of Pokemon TCG Pocket are different from the Pokemon Trading Card Game.</p>
+          <span>Pokemon's own Pokemon TCG Pocket Gameplay FAQ, last edited
+            July 30, 2026, read August 16, 2026.</span>
+        </div>
+        <p><b>Start with what carries over, because it is most of it.</b> Basic, Stage 1 and Stage 2 Pokemon, and
+          evolving one onto another. Attacks that cost Energy. Weakness. Retreat. Abilities. Trainer and Supporter
+          cards. One Active Pokemon facing your opponent's with the rest on the Bench. Drawing a card at the start
+          of your turn. Knock Outs. That is the shape of the card game, and it is why watching this thing play
+          teaches you something real.</p>
+        <p><b>Then four things that do not carry over</b>, each of which would trip you up at a table.</p>
+        <ul class="tp-go tp-diff">
+          <li><b>The deck is 20 cards, not 60</b>And at most two copies of a name,
+            where the game your cards play allows 4 of a card except basic Energy.</li>
+          <li><b>There are no Energy cards</b>This is the one that matters. An Energy Zone hands you one Energy a
+            turn and you attach it wherever you like. Nothing in the deck, nothing to draw. Somebody who learned
+            here builds a real deck with no Energy in it and then cannot attack.</li>
+          <li><b>There are no Prize cards</b>You score three points by knocking Pokemon out instead. No
+            6 cards counted off to the side, nothing to take, none of the tension that gives a real
+            game.</li>
+          <li><b>The Bench is smaller</b>Smaller than the 5 you get with physical cards.</li>
+        </ul>
+        <p>The cards themselves are their own thing too. Pocket's expansions carry their own codes, many of its
+          cards have never been printed on cardboard, and none of them are in our set guides.</p>
+        <figure class="tp-fig">
+          <svg class="tb" viewBox="0 0 300 148" role="img"
+  aria-label="The two games side by side. With physical cards you have one Active Pokemon, a Bench of up to 5, 6 Prize cards set aside and Energy cards in your 60 card deck. In Pokemon TCG Pocket you have one Active Pokemon, a smaller Bench, three points to win instead of Prize cards, and an Energy Zone that hands you one Energy a turn instead of Energy cards.">
+  <text class="tb-h" x="74" y="9" text-anchor="middle">WITH YOUR CARDS</text>
+  <g class="tb-s "><rect x="8" y="14" width="24" height="16" rx="3"/><text x="20" y="24.2" text-anchor="middle">Bench</text></g><g class="tb-s "><rect x="35" y="14" width="24" height="16" rx="3"/><text x="47" y="24.2" text-anchor="middle">Bench</text></g><g class="tb-s "><rect x="62" y="14" width="24" height="16" rx="3"/><text x="74" y="24.2" text-anchor="middle">Bench</text></g><g class="tb-s "><rect x="89" y="14" width="24" height="16" rx="3"/><text x="101" y="24.2" text-anchor="middle">Bench</text></g><g class="tb-s "><rect x="116" y="14" width="24" height="16" rx="3"/><text x="128" y="24.2" text-anchor="middle">Bench</text></g>
+  <g class="tb-s tb-a"><rect x="52" y="36" width="44" height="20" rx="3"/><text x="74" y="48.2" text-anchor="middle">ACTIVE</text></g>
+  <g class="tb-s tb-p"><rect x="8" y="62" width="60" height="16" rx="3"/><text x="38" y="72.2" text-anchor="middle">Prizes x6</text></g>
+  <g class="tb-s tb-d"><rect x="76" y="62" width="64" height="16" rx="3"/><text x="108" y="72.2" text-anchor="middle">Deck + Energy</text></g>
+  <text class="tb-k" x="74" y="94" text-anchor="middle">60 cards. Energy cards live in the deck.</text>
+  <text class="tb-k" x="74" y="105" text-anchor="middle">Take all 6 of your Prizes to win.</text>
+  <text class="tb-k" x="74" y="116" text-anchor="middle">Up to 5 on the Bench.</text>
+  <line class="tb-div" x1="150" y1="4" x2="150" y2="126"/>
+  <text class="tb-h" x="226" y="9" text-anchor="middle">IN POCKET</text>
+  <g class="tb-s "><rect x="160" y="14" width="132" height="16" rx="3"/><text x="226" y="24.2" text-anchor="middle">Bench, smaller</text></g>
+  <g class="tb-s tb-a"><rect x="204" y="36" width="44" height="20" rx="3"/><text x="226" y="48.2" text-anchor="middle">ACTIVE</text></g>
+  <g class="tb-s tb-p"><rect x="160" y="62" width="60" height="16" rx="3"/><text x="190" y="72.2" text-anchor="middle">3 points</text></g>
+  <g class="tb-s tb-d"><rect x="228" y="62" width="64" height="16" rx="3"/><text x="260" y="72.2" text-anchor="middle">Energy Zone</text></g>
+  <text class="tb-k" x="226" y="94" text-anchor="middle">20 cards. No Energy cards at all.</text>
+  <text class="tb-k" x="226" y="105" text-anchor="middle">Three points to win. No Prize cards.</text>
+  <text class="tb-k" x="226" y="116" text-anchor="middle">The Bench holds fewer.</text>
+  <text class="tb-k tb-f" x="150" y="140" text-anchor="middle">Same shape, different numbers. The left one is the game your cards play.</text>
+</svg>
+          <figcaption>The same game shape with different furniture. The left half is the one your cards play.</figcaption>
+        </figure>
+        <p>So it teaches you the shape and not the numbers, and the numbers are what somebody corrects you on.
+          When you want the real ones, <a href="/how-to-play.html">the rules of the game you play with actual
+          cards</a> are the ones to have in your head at a table.</p>
+      </section>
+
+      <section class="tp-s" id="codes">
+        <h2>Your pack codes do not <span class="hl">work</span> here</h2>
+        <p>The code card in a physical booster pack is not for this app. Pokemon's own description of what is in a
+          booster pack says the code in it is redeemed in Pokemon TCG Live, and Pocket has no pack code redemption
+          at all: it does not appear anywhere in the app's own documentation.</p>
+        <p>Pocket does have codes, which is where the confusion starts. They are gift codes from campaigns and
+          events, they are entered on a separate web page using your in-game Support ID rather than inside the
+          app, and they have nothing to do with anything you bought in a shop. We do not publish lists of them,
+          because they expire in weeks and a page full of dead codes helps nobody.</p>
+        <p>If you are sitting on a stack of code cards,
+          <a href="/tcg-live.html">the other page explains what they are actually worth</a>.</p>
+      </section>
+
+      <section class="tp-s" id="which">
+        <h2>So which one should you <span class="hl">install</span>?</h2>
+        <p>Live is the card game itself, digitally: the same rules, the same 60 card decks, and a use for the code cards out of your packs. Pocket is a smaller, faster game of its own on a phone, with free packs every day and nothing at all to do with those codes. The sharpest practical difference is the third row. Live wants a free Pokemon account before you play; Pocket never asks you for one. Both are official, both are free, and installing both costs nothing.</p>
+        <div class="cmp-w">
+          <table class="cmp">
+            <caption class="sr-only">Pokemon TCG Live compared with Pokemon TCG Pocket, row by row.</caption>
+            <thead>
+              <tr><th scope="col">&nbsp;</th><th scope="col">Pokemon TCG Live</th><th scope="col">Pokemon TCG Pocket</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Where it runs</th><td>iPhone, iPad, Android, Windows and Mac</td><td>iPhone, iPad and Android. Phones and tablets only.</td></tr>
+              <tr><th scope="row">What it costs</th><td>Free, with optional in-app purchases</td><td>Free, with optional in-app purchases</td></tr>
+              <tr><th scope="row">Account needed</th><td>Yes. A free Pokemon account, now called Pokemon Trainer Central and older material calls it Pokemon Trainer Club.</td><td>No Pokemon account. You pick a region, confirm your age and play. Linking a Nintendo, Google or Apple account is optional and protects your save.</td></tr>
+              <tr><th scope="row">Deck size</th><td>60 cards, the card game's own deck rules, checked for you</td><td>20 cards, at most two copies of a name, and no Energy cards at all</td></tr>
+              <tr><th scope="row">Same rules as the cards on your table</th><td>Yes</td><td>No, and Pokemon says so outright</td></tr>
+              <tr><th scope="row">The code card in your pack</th><td>Yes. A booster pack code gives a digital pack from the same set.</td><td>Not used. The code in your pack is not for this app.</td></tr>
+              <tr><th scope="row">Trading</th><td>None. Pokemon says players cannot trade cards in Live.</td><td>With friends, once you are two weeks in, and both cards have to match on rarity</td></tr>
+              <tr><th scope="row">Playing the computer</th><td>Guided lessons in the Learning Lab, plus a mode for trying a deck out</td><td>Solo battles, step-up battles and solo events, and it can take your turns for you while you watch</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Neither one is better. They are two different games with the same artwork on the front.</p>
+      </section>
+
+      <section class="tp-s" id="get">
+        <h2>Getting <span class="hl">it</span></h2>
+        <p>Two platforms and both are mobile: the App Store and Google Play. No Windows version, no Mac version
+          and nothing in a browser, which is the row in that table most likely to catch you out. It is free with
+          optional in-app purchases and it is about 766 MB to download, so check the phone has
+          room.</p>
+        <p>You are not asked for a Pokemon account. You pick a country and region, confirm your age, accept the
+          terms and you are in. Link a Nintendo, Google or Apple account on the first day anyway: Pokemon says
+          that if you reinstall without linking, you will not be able to recover your save data yourself. Under a
+          certain age only a Nintendo account can be linked, and Pokemon does not print the age because it differs
+          by country.</p>
+        <p>As of July 2026 Pokemon asks for a phone from the last several years with 3GB of memory, running iOS
+          15 or Android 7 or later, and says even that is not a guarantee on every device. If your app store has
+          it, you can play.</p>
+      </section>
+
+      <section class="tp-s" id="inside">
+        <h2>What is actually <span class="hl">in</span> it</h2>
+        <ul class="tp-go">
+          <li><b>Two free packs a day</b>On a twelve-hour timer. That is the whole pitch and it costs nothing:
+            pack opening, every day, forever. For anybody who watches this channel it is the cheap version of the
+            same feeling.</li>
+          <li><b>Pack points, which is the good one</b>Opening packs from an expansion earns pack points for that
+            expansion, and those points buy one specific card from it. They do not expire. If the card you want
+            never turns up, you go and get it. Nothing in the physical hobby works like that, and it is the thing
+            most worth knowing about the app.</li>
+          <li><b>Wonder Pick</b>You take one card from a set of face-down cards out of a pack somebody else
+            opened. It runs on its own timer, and adding friends puts their openings into yours.</li>
+          <li><b>Trading, which Live does not have</b>Friends only, unlocked two weeks after you start, and both
+            cards have to match on rarity. The app carries the current list of what is eligible and shows what a
+            trade costs before you confirm. The app called Trading Card Game Live does not trade. The casual one
+            does.</li>
+          <li><b>Solo and versus</b>Solo battles, step-up battles that ladder up in difficulty, and limited-time
+            solo events, all against the computer. Versus is against people and there is a ranked ladder running
+            in seasons. Battles are not there the moment you install: they unlock at player level 3.</li>
+          <li><b>The paid parts</b>Poke gold is a currency you buy and it mostly buys speed, shortening the waits.
+            The premium pass is a monthly subscription and the app shows what it costs. Neither is required and
+            the free packs are the game.</li>
+        </ul>
+        <p>There is a collecting half as well: a card dex, binders and display boards you arrange and can show
+          other players, and cosmetic flair on cards. It runs its own ladder of rarity marks, and they are not the
+          ones printed on your cards, which is what <a href="/rarity.html">our rarity guide</a> is about.</p>
+      </section>
+
+      <section class="tp-s" id="tips">
+        <h2>Tips for your first <span class="hl">week</span></h2>
+        <ol class="tp-steps">
+          <li><b>Link an account on day one.</b> Without one, a reinstall or a lost phone takes everything with
+            it, and Pokemon says you will not be able to recover it yourself.</li>
+          <li><b>Open both free packs every day,</b> and claim your daily rewards before the day rolls over.
+            Pokemon resets it at 6:00 a.m. UTC, which is 2:00 a.m. in Rochester in the summer and 1:00 a.m. in the
+            winter.</li>
+          <li><b>Do not panic when there is no Battle button.</b> Battles unlock at player level 3, and you get
+            there by opening packs and playing with the collecting side first.</li>
+          <li><b>Use a rental deck for your first matches.</b> The app lends you complete decks, they work in solo
+            battles, and each one has a limited number of uses, so spend them learning rather than hoarding
+            them.</li>
+          <li><b>Play the solo battles before you play people,</b> and watch what the computer does with its turn.
+            That is the whole trick, and it is how Tim learned.</li>
+          <li><b>Buy the card you want with pack points</b> rather than waiting for it to turn up.</li>
+          <li><b>Add friends early.</b> Trading and sharing both unlock two weeks in and both need them, and
+            friends' pack openings feed your Wonder Pick.</li>
+        </ol>
+        <p>That is the lot. It is free, it is two minutes a day, and it is how the guy who runs this channel
+          learned to play. When you want the real thing, <a href="/how-to-play.html">the rules are here</a> and
+          <a href="/shops.html">the shops around Rochester</a> will have somebody to play against.</p>
+      </section>
+
+      <div class="tp-out">
+        <h2>One link, on Pokemon's own site</h2>
+        <p>The official site, which is where both store buttons live. It is a download page rather than a guide,
+          so do not go there looking for the rules.</p>
+        <ul>
+          <li><a href="https://tcgpocket.pokemon.com/en-us/" rel="noopener" target="_blank"
+            aria-label="Download Pokemon TCG Pocket, on tcgpocket.pokemon.com, opens on Pokemon's site">Download Pokemon TCG Pocket</a>
+            <span class="tp-off">App Store and Google Play</span><br>The official page for the app, carrying both
+            store links.</li>
+        </ul>
+      </div>
+
+      <p class="tp-src">Everything about the app on this page comes from Pokemon's own material, read on
+        August 16, 2026: the Pocket Gameplay, Battle Rules, Trading, Sharing, Purchase, Account Link,
+        Gift Code and Technical support articles, Pokemon's own guides to building a deck and to collecting, the
+        official Pokemon TCG Pocket site and both store listings. Every number about the physical card game is
+        taken from the same rulebook quotes that <a href="/how-to-play.html">our rules page</a> prints, so the two
+        pages cannot disagree. Two things are worth saying plainly. Pokemon publishes no Bench limit for Pocket,
+        which is why this page says the Bench is smaller and gives no number. And Pokemon documents the solo
+        battles, the rental decks and the level 3 unlock but not the option that plays your side for you, so that
+        one sentence describes how the app behaves rather than repeating a Pokemon page. The app updates roughly
+        monthly and several things named here were added after launch, so if you find something missing this page
+        is behind rather than wrong. If the app disagrees with this page, the app is right.</p>
+
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Footer">
+      <div class="foot-col">
+        <p class="foot-h">Watch</p>
+        <a href="/videos.html">Rips</a>
+        <a href="/playlists.html">Playlists</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">The binder</p>
+        <a href="/hall.html">Best pulls</a>
+        <a href="/wanted.html">Most wanted</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Cards</p>
+        <a href="/cards.html">Card search</a>
+        <a href="/pokemon/">By Pokemon</a>
+        <a href="/sets/">Set guides</a>
+        <a href="/expansions.html">Every set ever</a>
+        <a href="/upcoming.html">Coming next</a>
+        <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/pack-prices.html">Pack prices</a>
+        <a href="/how-many-packs.html">Packs per box</a>
+        <a href="/openings/">Sealed products</a>
+        <a href="/drops.html">Drops this week</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Guides</p>
+        <a href="/start.html">Start here</a>
+        <a href="/how-to-play.html">How to play</a>
+        <a href="/tcg-live.html">Code cards</a>
+        <a href="/tcg-pocket.html">Phone version</a>
+        <a href="/what-set.html">Set finder</a>
+        <a href="/rarity.html">Rarity guide</a>
+        <a href="/types.html">Card types</a>
+        <a href="/fake-cards.html">Fakes</a>
+        <a href="/will-it-grade.html">Will it grade</a>
+        <a href="/grading.html">Grading cost</a>
+        <a href="/selling.html">Where to sell</a>
+        <a href="/buying.html">Where to buy</a>
+        <a href="/luck.html">Luck, measured</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Play</p>
+        <a href="/games/">Games</a>
+        <a href="/lore.html">Pokemon lore</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Rochester, NY</p>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/vendors.html">Local vendors</a>
+        <a href="/creators.html">Local creators</a>
+        <a href="/about.html">About</a>
+      </div>
+    </nav>
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    App facts from Pokemon's own support articles and guides, with the date they were read.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+<script src="/assets/app.js?v=3917fe6a" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
+</body>
+</html>

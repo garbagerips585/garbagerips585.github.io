@@ -781,6 +781,18 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://garbagerips585.github.io/tcg-live.html</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://garbagerips585.github.io/tcg-pocket.html</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://garbagerips585.github.io/pokemon/</loc>
     <lastmod>2026-08-15</lastmod>
     <changefreq>weekly</changefreq>

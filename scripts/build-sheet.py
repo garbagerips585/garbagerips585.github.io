@@ -323,9 +323,17 @@ rows = [
                      "home page.", None),
     ("Blue text", "A guess the site already made. Correct it if it is wrong, leave it if it is "
                   "right. Black text means a person typed it.", None),
-    ("Dropdowns", "Most columns have one. Some are strict and only accept what is listed. Others "
-                  "(Box / Series, Hit Card, PSA 10 Source, shop Area and Good For) offer a list "
-                  "but still accept anything typed, because those lists can never be complete.", None),
+    ("Dropdowns", "A shortcut, never a gate. Every one accepts anything you type, so a value "
+                  "missing from the list is never a reason you cannot record it.", None),
+    ("If the list looks short",
+                  "Google Sheets does not keep a dropdown that points at another tab. When you "
+                  "export back to xlsx it rebuilds each one from the values already in that "
+                  "column, so options nobody has used yet disappear. The Lists tab is the real "
+                  "list. Read it there and type the value in; it will be accepted.", None),
+    ("Hit Card is free text",
+                  "It has no dropdown here. If Sheets offers to make one out of what you have "
+                  "typed, decline it. If one appears anyway, select the column and use "
+                  "Data then Data validation then Remove rule.", None),
     (None, None, None),
     ("THE TABS", None, BOLD),
     ("Video Log", "Every video. Sets, opening type, the hit, the Hall of Fame, and per-video copy "
@@ -418,10 +426,26 @@ DV_GOODFOR = named(10, len(SHOP_GOOD_FOR))
 DV_RANK = named(11, len(HOF_RANKS))
 
 
-def dv(formula, strict=True):
-    """A dropdown. strict=False offers the list but still accepts anything
-    typed, which is what you want for a column like Hit Card where the list is
-    a convenience and cannot possibly be complete."""
+def dv(formula, strict=False):
+    """A dropdown that offers the list and still accepts anything typed.
+
+    STRICT USED TO BE THE DEFAULT AND IT LOCKED TIM OUT OF HIS OWN SHEET.
+
+    Google Sheets does not keep a dropdown that points at a range on another
+    tab. On export back to xlsx it rewrites each one as a literal list built
+    from THE VALUES ALREADY IN THAT COLUMN, so an option nobody has used yet
+    simply disappears. Measured on one round trip: the Set column went from the
+    43 options this file writes to 35, losing Black Bolt, White Flare, Stellar
+    Crown, Shrouded Fable, Paldean Fates and five more. Tim opened a Black Bolt
+    pack, went to record it, and the sheet refused the value.
+
+    Strict validation turns that from a missing convenience into a wall. Not
+    strict, the dropdown is a shortcut when the list is right and simply gets
+    typed past when it is not, and the importer still reports anything it does
+    not recognise rather than swallowing it.
+
+    The Lists tab stays the authoritative list and is the thing to read when the
+    dropdown looks short. Nothing here can stop Sheets rewriting it."""
     return DataValidation(type="list", formula1=formula, allow_blank=True,
                           showDropDown=False, showErrorMessage=strict)
 
@@ -506,6 +530,11 @@ HEAD_NOTES = {
     ),
     "Hit Card": (
         "THIS IS THE COLUMN THAT DRIVES THE SITE. Nothing else claims a hit.\n"
+        "\n"
+        "FREE TEXT. There is no dropdown on this column and there should not be\n"
+        "one. If Sheets offers to turn what you have typed into a dropdown, say\n"
+        "no; if one appears, select the column and use Data, Data validation,\n"
+        "Remove rule. A dropdown here means retyping a card you already wrote.\n"
         "\n"
         "One line per card, in this shape:\n"
         "   Set - Card name - Rarity\n"

@@ -5548,7 +5548,6 @@
       "pulls": [],
       "packs": 1,
       "openingType": "Korean Booster Pack",
-      "blurb": "Opening Korean Crimson Haze booster packs, testing international pack luck. Korean print. Full garbage plate energy applied. Garbage rips or overseas heat?",
       "label": "Crimson Haze (KR) Pack"
     },
     {
@@ -5839,7 +5838,9 @@
       "pulls": [],
       "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Ascended Heroes Pack #1"
+      "label": "Ascended Heroes Pack #1",
+      "hitCard": "Ascended Heroes - Stunfisk ex - Double Silver Star - Ultra Rare",
+      "hasHit": true
     },
     {
       "id": "wMDMN2emLCM",
@@ -5855,8 +5856,9 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
-      "openingType": "Single Booster Pack"
+      "packs": 3,
+      "openingType": "Single Booster Pack",
+      "hasHit": false
     },
     {
       "id": "QADrkuqf9pg",
@@ -5876,7 +5878,8 @@
       "pulls": [],
       "packs": 1,
       "openingType": "Korean Booster Pack",
-      "label": "Mask of Change (KR) Pack"
+      "label": "Mask of Change (KR) Pack",
+      "hasHit": false
     },
     {
       "id": "jO7K2zX6Rlg",
@@ -5896,7 +5899,8 @@
       "pulls": [],
       "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Violet ex (JP) Pack"
+      "label": "Violet ex (JP) Pack",
+      "hasHit": false
     },
     {
       "id": "8jKHh-P7P7M",
@@ -5916,7 +5920,8 @@
       "pulls": [],
       "packs": 1,
       "openingType": "Chinese Booster Pack",
-      "label": "Gem Pack Vol. 2 (CN) Pack"
+      "label": "Gem Pack Vol. 2 (CN) Pack",
+      "hasHit": false
     },
     {
       "id": "hLr5iThoO2k",
@@ -5936,7 +5941,9 @@
       "pulls": [],
       "packs": 3,
       "openingType": "Blister",
-      "label": "Journey Together Blister"
+      "label": "Journey Together Blister",
+      "hitCard": "Journey Together - Volcanion ex - Double Black Star - Double Rare",
+      "hasHit": true
     },
     {
       "id": "cmV6P3ssh2g",
@@ -5955,10 +5962,12 @@
         "blister"
       ],
       "pulls": [],
-      "packs": 3,
+      "packs": 2,
       "openingType": "Blister",
       "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets.",
-      "label": "Phantasmal Flames Blister"
+      "label": "Phantasmal Flames Blister",
+      "hitCard": "Phantasmal Flames - Rotom ex - Double Black Star- Double Rare",
+      "hasHit": true
     },
     {
       "id": "SOCAXif6Mzs",
