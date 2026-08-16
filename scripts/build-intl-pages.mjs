@@ -31,7 +31,7 @@ import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { parseHits, rarityLabelOf, rarityMark } from "../shared/rarity.mjs";
-import { esc, longDate, rarityLabel, imgDims } from "../shared/format.mjs";
+import { esc, longDate, rarityLabel, imgDims, avifPicture } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/sets");
@@ -413,7 +413,7 @@ function chaseBand(g, en, cls) {
         data-name="${esc(cardName(c))}" data-rarity="${esc(rarityLabel(c.rarity) || (c.secret ? "Numbered past the set" : ""))}"
         data-number="${esc(c.localId || "")}" data-price=""
         aria-label="Enlarge ${esc(cardName(c))}">
-        ${c.image ? `<img src="${esc(c.image)}" alt="${esc(cardName(c))} ${esc(c.localId || "")}, ${esc(g.english)}" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>` : ""}
+        ${c.image ? avifPicture(`<img src="${esc(c.image)}" alt="${esc(cardName(c))} ${esc(c.localId || "")}, ${esc(g.english)}" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`) : ""}
         <div class="nm">${esc(cardName(c))}</div>
         ${cardSub(c) ? `<div class="ig-native" lang="${esc(g.dataSource?.lang || g.lang)}">${esc(cardSub(c))}</div>` : ""}
         <div class="rr">${esc(rarityLabel(c.rarity) || (c.secret ? "Secret" : kindOf(c) || "Card"))} &bull; ${esc(c.localId || "")}</div>
@@ -665,7 +665,7 @@ ${body}
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card image">
   <div class="lb-inner">
     <button class="lb-close" type="button" aria-label="Close">&times;</button>
-    <img id="lbImg" src="" alt="">
+    <picture><source id="lbAvif" type="image/avif"><img id="lbImg" src="" alt=""></picture>
     <p class="lb-nm" id="lbNm"></p>
     <p class="lb-rr" id="lbRr"></p>
     <p class="lb-pr" id="lbPr"></p>
@@ -679,7 +679,18 @@ ${footer("Set data from TCGdex, card names via PokeAPI. Fan made, not official."
   var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), last=null;
   function open(b){
     last=b;
-    img.src=b.dataset.img; img.alt=b.dataset.name+' '+b.dataset.number;
+    // Same AVIF <source> the English guides fill in, and for the same reason:
+    // the lightbox is the only place either page loads high.webp, 600x825, and
+    // AVIF is 37% smaller at that size. avifPicture() cannot reach it because
+    // the url only becomes an image url on click. The host test is the one
+    // avifPicture applies: only assets.tcgdex.net publishes an AVIF beside its
+    // WebP, and a <source> aimed at a 404 paints a broken card in some browsers
+    // rather than falling back. srcset FIRST so the webp is never requested.
+    var big=b.dataset.img, avif=document.getElementById('lbAvif');
+    if(big.indexOf('https://assets.tcgdex.net/')===0 && big.slice(-5)==='.webp')
+      avif.setAttribute('srcset', big.slice(0,-5)+'.avif');
+    else avif.removeAttribute('srcset');
+    img.src=big; img.alt=b.dataset.name+' '+b.dataset.number;
     document.getElementById('lbNm').textContent=b.dataset.name;
     document.getElementById('lbRr').textContent=[b.dataset.rarity,b.dataset.number].filter(Boolean).join(' • ');
     document.getElementById('lbPr').textContent='';

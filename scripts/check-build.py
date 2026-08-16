@@ -282,8 +282,22 @@ if not bad:
     note("  all JSON-LD parses")
 
 # 8. Dates that have not happened yet mean a clock or a stamp is wrong.
+#
+# COMPARED IN UTC, BECAUSE THE STAMPS ARE WRITTEN IN UTC. Every sync script
+# stamps `new Date().toISOString().slice(0, 10)`, which is the UTC date, and
+# this read the LOCAL one. Rochester is UTC-4 in summer, so from 8pm every
+# evening the two disagree by a day and a sync run in that window wrote seven
+# files this check then called "in the future". It is a false failure with a
+# real cost: build-all.mjs stops on it, and the honest reading of "a clock or a
+# stamp is wrong" is that somebody starts hunting a corruption that is not
+# there. Found by running a sync at 20:15 EDT.
+#
+# A stamp from toISOString() can never exceed the current UTC date, so this
+# still catches the thing it is for: a genuinely wrong clock or a hand-edited
+# date. The nightly workflow runs in UTC and never saw it, which is exactly why
+# it survived.
 import datetime
-today = datetime.date.today().isoformat()
+today = datetime.datetime.now(datetime.timezone.utc).date().isoformat()
 for path in glob.glob("public/data/*.json") + glob.glob("public/data/cards/*.json"):
     try:
         doc = json.load(open(path, encoding="utf-8"))
@@ -336,6 +350,65 @@ if _squash(_css) != _squash(_built):
         "ui.css: assets-source/ui.css and public/assets/ui.css differ by more "
         "than comments. Run node scripts/build-css.mjs (and check you did not "
         "edit the generated public/assets/ui.css by hand)."
+    )
+
+# TCGdex scans must keep their AVIF <source>, ON THE PAGES THAT ALREADY HAVE IT.
+#
+# TCGdex serves the same scan at four extensions off one path and AVIF is 29.7%
+# smaller than WebP at low.*, 37.2% at high.*, measured over all 533 distinct
+# TCGdex urls the built site emits (all 533 answer 200 as .avif, re-checked
+# 2026-08-15). avifPicture() in shared/format.mjs wraps the <img> so the WebP
+# stays as the fallback for Safari 16.0-16.3.
+#
+# THIS EXISTS BECAUSE THE WRAPPER WAS APPLIED UNEVENLY AND NOBODY NOTICED. It
+# went in with /pokemon/, /rarity.html and /wanted.html and was simply absent
+# from /cards.html, /index.html and all 37 set guides, which is a builder-shaped
+# hole no page-level check could see: every one of those pages rendered
+# perfectly, just 30% heavier. cards.html alone was leaving 450KB on the table.
+#
+# SCOPED ON PURPOSE, and the scope is a to-do list rather than a judgement. The
+# rip pages, hall.html and games/guess-the-set.html still emit bare TCGdex
+# <img>; widen _AVIF_PAGES as each builder is converted, and delete the glob
+# list entirely once the last one is. A guard that fails on pages nobody has
+# converted yet gets commented out on the first red build, which is worse.
+_AVIF_PAGES = ["public/cards.html", "public/index.html", "public/sets/*.html"]
+_pic = _re.compile(r"<picture\b[^>]*>.*?</picture>", _re.S)
+_img_tag = _re.compile(r"<img\b[^>]*>")
+# <script> is blanked first: build-cards.mjs and build-set-pages.mjs both build
+# an <img> string in browser JS, and those have no literal url in the file to
+# read. They are covered by the data-img check below instead.
+_script = _re.compile(r"<script\b[^>]*>.*?</script>", _re.S)
+_tcgdex_webp = _re.compile(r"https://assets\.tcgdex\.net/[^\"'\s>]+\.webp")
+_avif_source = _re.compile(r'<source[^>]+type="image/avif"')
+_bare = {}
+for _pat in _AVIF_PAGES:
+    for _p in sorted(glob.glob(_pat)):
+        _h = open(_p, encoding="utf-8").read()
+        _h = _script.sub(lambda m: " " * len(m.group(0)), _h)
+        _spans = [
+            (m.start(), m.end()) for m in _pic.finditer(_h) if _avif_source.search(m.group(0))
+        ]
+        _n = sum(
+            1
+            for m in _img_tag.finditer(_h)
+            if _tcgdex_webp.search(m.group(0))
+            and not any(s <= m.start() and m.end() <= e for s, e in _spans)
+        )
+        if _n:
+            _bare[_p] = _n
+        # The chase-card lightbox loads high.webp from a data-img attribute on
+        # click, so no <img> in the file names it and the loop above is blind to
+        # it. The page script fills #lbAvif; if that element is gone the lightbox
+        # is back to serving WebP at 100-135KB a card.
+        if "data-img=\"https://assets.tcgdex.net" in _h and 'id="lbAvif"' not in _h:
+            fail.append(f"{_p}: chase-card lightbox lost its #lbAvif <source>")
+if _bare:
+    fail.append(
+        "TCGdex scans rendered without their AVIF <source>, so these pages ship "
+        "~30% more image bytes than they need to: "
+        + ", ".join(f"{k} ({v})" for k, v in sorted(_bare.items())[:8])
+        + (f" and {len(_bare) - 8} more" if len(_bare) > 8 else "")
+        + ". Wrap the <img> in avifPicture() from shared/format.mjs."
     )
 
 # A builder nobody runs. build-all.mjs is the one running order, and the

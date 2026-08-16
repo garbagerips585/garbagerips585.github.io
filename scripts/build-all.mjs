@@ -14,8 +14,10 @@
 // the 13 non-English guides vanish. The list is lifted from the workflow so
 // there is one running order, not two that drift.
 //
-// This only BUILDS. It does not sync: no network, no API keys. Run the sync
-// scripts first if you want fresh data.
+// This only BUILDS. No API keys, and no step here pulls fresh data: run the
+// sync scripts first if you want that. TWO STEPS DO TOUCH THE NETWORK, both to
+// fetch a file they do not already hold and both no-ops once they do:
+// fetch-fonts.sh and sync-symbols.mjs. Neither fails the build without one.
 
 import { execFileSync } from "node:child_process";
 import { dirname, join } from "node:path";
@@ -43,6 +45,20 @@ const STEPS = [
   "node scripts/build-cards.mjs",
   "node scripts/build-pokemon.mjs",
   "node scripts/build-pages.mjs",
+  // BEFORE build-expansions.mjs and build-what-set.mjs, the only two pages that
+  // paint set symbols. Both read data/symbol-dims.json to decide whether a set
+  // has a local mirror; a set that is missing from it keeps its remote url, so
+  // running this late does not break a page, it just leaves the heavy remote
+  // pngs on it for one build.
+  //
+  // YES, THIS ONE TOUCHES THE NETWORK, which the header above says this list
+  // does not. It is the same exception fetch-fonts.sh already is: it does
+  // nothing at all when it already holds the files, and the files are committed,
+  // so the only run that fetches anything is the one after a new set appears in
+  // expansions.json. That is exactly when it needs to happen, because otherwise
+  // a new set silently keeps a 500x500 png forever and nobody notices. It never
+  // fails the build on a network error; the affected sets fall back.
+  "node scripts/sync-symbols.mjs",
   "node scripts/build-expansions.mjs",
   "node scripts/build-wanted.mjs",
   "node scripts/build-hall.mjs",

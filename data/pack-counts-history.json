@@ -1,0 +1,625 @@
+{
+  "_comment": "Research notes for a 'how many packs come in each sealed product' guide, current section plus a historical section. RESEARCH ONLY. Nothing here is wired into a builder yet. Every number carries the source it came from and the date it was read. Anything that could not be sourced is recorded as a gap in `notes` rather than guessed. NO PULL RATES OR ODDS ANYWHERE IN THIS FILE, and none may ever be added: The Pokemon Company does not publish them. Pack counts and card counts are printed on the packaging and are legitimately verifiable, which is why this file is allowed to exist at all.",
+
+  "readAt": "2026-08-15",
+  "scope": "English / international product unless a row says otherwise. Japanese product is recorded separately and is NOT interchangeable.",
+
+  "confidenceKey": {
+    "official": "Stated on a site run by The Pokemon Company (tcg.pokemon.com, pokemon.com, pokemon-card.com). Safe to publish.",
+    "official+bulbapedia": "Same number from an official page AND Bulbapedia. Strongest tier here.",
+    "bulbapedia-2x": "Bulbapedia, corroborated on a second independent Bulbapedia page (e.g. the summary article AND the individual set's own page). Still one site, but not one sentence.",
+    "bulbapedia-only": "Rests on Bulbapedia alone. Publishable, but the page should say so for these.",
+    "retailer-or-blog-only": "Only found on shops, marketplaces or hobby blogs. NOT publishable as stated. Needs a better source or must be left out.",
+    "snippet-only": "Seen only in a search-engine summary; the underlying page was never successfully loaded. Treat as a lead, not a fact."
+  },
+
+  "sources": {
+    "S1": { "title": "Booster pack (TCG)", "site": "Bulbapedia", "url": "https://bulbapedia.bulbagarden.net/wiki/Booster_pack_(TCG)", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S2": { "title": "Expedition Base Set (TCG)", "site": "Bulbapedia", "url": "https://bulbapedia.bulbagarden.net/wiki/Expedition_Base_Set_(TCG)", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S3": { "title": "Diamond & Pearl (TCG)", "site": "Bulbapedia", "url": "https://bulbapedia.bulbagarden.net/wiki/Diamond_%26_Pearl_(TCG)", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S4": { "title": "Sun & Moon (TCG)", "site": "Bulbapedia", "url": "https://bulbapedia.bulbagarden.net/wiki/Sun_%26_Moon_(TCG)", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S5": { "title": "Hidden Fates (TCG)", "site": "Bulbapedia", "url": "https://bulbapedia.bulbagarden.net/wiki/Hidden_Fates_(TCG)", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S6": { "title": "Celebrations (TCG)", "site": "Bulbapedia", "url": "https://bulbapedia.bulbagarden.net/wiki/Celebrations_(TCG)", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S7": { "title": "Elite Trainer Box (TCG)", "site": "Bulbapedia", "url": "https://bulbapedia.bulbagarden.net/wiki/Elite_Trainer_Box_(TCG)", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S8": { "title": "Elite Trainer Box has been revealed for Plasma Storm", "site": "Bulbanews", "url": "https://bulbanews.bulbagarden.net/wiki/Elite_Trainer_Box_has_been_revealed_for_Plasma_Storm", "readAt": "2026-08-15", "readMethod": "fetched", "articleDate": "2012-12-07" },
+    "S9": { "title": "Expansion Overview: Scarlet & Violet-Journey Together", "site": "tcg.pokemon.com (official)", "url": "https://tcg.pokemon.com/en-us/expansions/journey-together/", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S10": { "title": "Expansion Overview: Mega Evolution", "site": "tcg.pokemon.com (official)", "url": "https://tcg.pokemon.com/en-us/expansions/mega-evolution/", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S11": { "title": "Expansion Overview: Scarlet & Violet-Destined Rivals", "site": "tcg.pokemon.com (official)", "url": "https://tcg.pokemon.com/en-us/expansions/destined-rivals/", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S12": { "title": "Scarlet & Violet TCG Series merchandise", "site": "Bulbapedia", "url": "https://bulbapedia.bulbagarden.net/wiki/Scarlet_%26_Violet_TCG_Series_merchandise", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S13": { "title": "Sword & Shield TCG Series merchandise", "site": "Bulbapedia", "url": "https://bulbapedia.bulbagarden.net/wiki/Sword_%26_Shield_TCG_Series_merchandise", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S14": { "title": "XY TCG Series merchandise", "site": "Bulbapedia", "url": "https://bulbapedia.bulbagarden.net/wiki/XY_TCG_Series_merchandise", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S15": { "title": "Diamond & Pearl TCG Series merchandise", "site": "Bulbapedia", "url": "https://bulbapedia.bulbagarden.net/wiki/Diamond_%26_Pearl_TCG_Series_merchandise", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S16": { "title": "Sun & Moon TCG Series merchandise", "site": "Bulbapedia", "url": "https://bulbapedia.bulbagarden.net/wiki/Sun_%26_Moon_TCG_Series_merchandise", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S17": { "title": "Mega Evolution TCG Series merchandise", "site": "Bulbapedia", "url": "https://bulbapedia.bulbagarden.net/wiki/Mega_Evolution_TCG_Series_merchandise", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S18": { "title": "Expansion Pack: Battle Partners (sv9)", "site": "pokemon-card.com (official, Japan)", "url": "https://www.pokemon-card.com/ex/sv9/index.html", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S19": { "title": "MEGA Expansion Pack 30th CELEBRATION (M6a)", "site": "30th.pokemon-card.com (official, Japan)", "url": "https://www.30th.pokemon-card.com/product/m6a", "readAt": "2026-08-15", "readMethod": "fetched" },
+    "S20": { "title": "Pokemon clarifies TCG code card confusion: Mega Evolution won't change what's included in booster packs", "site": "Video Games Chronicle", "url": "https://www.videogameschronicle.com/news/pokemon-clarifies-tcg-code-card-confusion-mega-evolution-wont-change-whats-included-in-booster-packs/", "readAt": "2026-08-15", "readMethod": "fetched", "articleDate": "2025-08-01" },
+    "S21": { "title": "'Mega Evolution' Booster Pack Configuration Changed, Includes One Less Junk Card!", "site": "PokeBeach", "url": "https://www.pokebeach.com/2025/07/mega-evolution-booster-pack-configuration-changed-includes-one-less-card", "readAt": "2026-08-15", "readMethod": "BLOCKED - returned HTTP 403, known only from a search-engine summary", "articleDate": "2025-07" },
+    "S22": { "title": "Giratina 3-Pack Blister", "site": "pokemon.com product gallery (official)", "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/giratina-3-pack-blister", "readAt": "2026-08-15", "readMethod": "search snippet only, page not fetched" },
+    "S23": { "title": "List of Pokemon TCG expansions / individual set pages (release dates)", "site": "Bulbapedia", "url": "https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_Trading_Card_Game_expansions", "readAt": "2026-08-15", "readMethod": "search snippet only, used for the three boundary release dates" },
+
+    "_blocked": [
+      { "url": "https://support.pokemon.com/hc/en-us/articles/360000981613", "site": "Pokemon Support (official)", "result": "HTTP 403 - could not read. This is the single best official source for 'what is in a booster pack' and it should be re-tried by hand in a browser before publishing." },
+      { "url": "https://www.pokemoncenter.com/", "site": "Pokemon Center (official)", "result": "HTTP 403 on every product URL. Product TITLES were visible in search results (e.g. 'Scarlet & Violet Sleeved Booster Pack (10 Cards)', 'Booster Display Box (36 Packs)') but the descriptions could not be read directly." }
+    ]
+  },
+
+  "changes": [
+    {
+      "topic": "cardsPerPack",
+      "headline": "Cards per English booster pack: 11, then 9, then 10. Two clean boundaries, both named.",
+      "whyItMatters": "This is the fact a buyer of an older sealed pack most needs. An EX-era pack is a smaller pack, not a damaged one.",
+      "timeline": [
+        {
+          "era": "WotC era",
+          "range": "Base Set through Neo Destiny",
+          "cardsPerPack": 11,
+          "verbatim": "From the first Base Set through to Neo Destiny expansion, internationally released boosters contained 11 cards.",
+          "sourceIds": ["S1"],
+          "confidence": "bulbapedia-only",
+          "gap": "Not corroborated on the Base Set or Neo Destiny set pages. The Base Set page was fetched and says nothing about pack contents at all. If this goes on the page, say it rests on Bulbapedia."
+        },
+        {
+          "era": "e-Card and EX era",
+          "range": "Expedition Base Set through the end of the EX Series",
+          "cardsPerPack": 9,
+          "boundarySet": "Expedition Base Set",
+          "boundaryDate": "2002-09-15",
+          "boundaryDateSourceIds": ["S23"],
+          "verbatim": "Beginning with the e-Card Series and continuing through the entirety of the EX Series, boosters had only 9 cards.",
+          "corroborationVerbatim": "Each booster pack were reduced from 11 cards to 9 cards; they include 5 Common, 2 Uncommon, 1 Reverse Holofoil, and 1 Rare or Rare Holo card.",
+          "sourceIds": ["S1", "S2"],
+          "confidence": "bulbapedia-2x",
+          "note": "The set's own page independently states the 11-to-9 drop, so the boundary is not resting on one sentence. This is also the era that introduced the reverse holo slot."
+        },
+        {
+          "era": "Diamond & Pearl onward",
+          "range": "Diamond & Pearl through today",
+          "cardsPerPack": 10,
+          "boundarySet": "Diamond & Pearl",
+          "boundaryDate": "2007-05-23",
+          "boundaryDateSourceIds": ["S23"],
+          "verbatim": "Since the release of the first Diamond & Pearl expansion, these consistently had 10 cards.",
+          "corroborationVerbatim": "Each booster pack were increased from 9 cards to 10 cards; they include 5 Common, 3 Uncommon, 1 Reverse Holofoil, and 1 Rare or Rare Holo card.",
+          "sourceIds": ["S1", "S3"],
+          "confidence": "bulbapedia-2x",
+          "note": "Same double-source shape as the Expedition boundary. The 10-card game-card count has not changed since 2007."
+        },
+        {
+          "era": "Sun & Moon onward",
+          "range": "Sun & Moon through today",
+          "cardsPerPack": 10,
+          "plusExtras": ["1 Basic Energy card", "1 code card"],
+          "boundarySet": "Sun & Moon",
+          "boundaryDate": "2017-02-03",
+          "boundaryDateSourceIds": ["S23"],
+          "verbatim": "Starting in Sun & Moon, internationally released boosters contain one Basic Energy card in addition to the 10 other cards.",
+          "corroborationVerbatim": "Each booster pack contained ten cards, plus one Energy card and a code card for the Pokemon Trading Card Game Online.",
+          "corroborationContext": "The second quote is the Hidden Fates (2019) set page describing a Sun & Moon-era pack, so it is an independent page confirming the 10 + energy + code shape.",
+          "sourceIds": ["S1", "S5"],
+          "confidence": "bulbapedia-2x",
+          "contradiction": "C1"
+        },
+        {
+          "era": "Current",
+          "range": "Scarlet & Violet series and Mega Evolution, as of 2026-08-15",
+          "cardsPerPack": 10,
+          "plusExtras": ["1 Basic Energy card"],
+          "verbatim": "Each booster pack contains 10 cards and 1 Basic Energy",
+          "verbatimSecond": "10 cards and 1 Basic Energy",
+          "sourceIds": ["S9", "S11"],
+          "confidence": "official",
+          "note": "This exact wording appears on the official Journey Together and Destined Rivals expansion pages. It is the safest sentence on the whole page: it is TPCi's own phrasing, and it explains why the physical card count in a modern pack is 11 or 12 while the advertised number is 10."
+        }
+      ]
+    },
+
+    {
+      "topic": "eliteTrainerBox",
+      "headline": "ETBs went 7 packs, then 8 for nine years, then 9. Pokemon Center versions have always held more.",
+      "timeline": [
+        {
+          "count": 7,
+          "range": "Plasma Storm only",
+          "firstETB": true,
+          "releaseDate": "2013-02",
+          "verbatim": "7 Pokemon TCG: Black & White-Plasma Storm booster packs",
+          "sourceIds": ["S7", "S8"],
+          "confidence": "bulbapedia-2x",
+          "note": "Bulbapedia's ETB article names Plasma Storm as the first ETB with 7 packs; the contemporaneous 2012-12-07 Bulbanews reveal article independently lists 7 packs. The Bulbanews piece does not itself claim this was the first ETB, so 'the first ETB' rests on Bulbapedia alone even though the 7 does not."
+        },
+        {
+          "count": 8,
+          "range": "Plasma Blast through Silver Tempest (main expansions)",
+          "verbatim": "Starting with Plasma Blast and continuing through Silver Tempest, main expansions included this quantity.",
+          "corroboration": [
+            { "era": "XY", "verbatim": "eight XY booster packs", "sourceId": "S14" },
+            { "era": "Sun & Moon", "verbatim": "eight Sun & Moon booster packs", "sourceId": "S16" },
+            { "era": "Sword & Shield", "verbatim": "eight booster packs", "sourceId": "S13" }
+          ],
+          "sourceIds": ["S7", "S13", "S14", "S16"],
+          "confidence": "bulbapedia-2x",
+          "note": "The 8-pack figure is confirmed on three separate era merchandise pages, so this is the best-supported historical ETB number."
+        },
+        {
+          "count": 9,
+          "range": "Scarlet & Violet onward, all main expansions, still current",
+          "verbatim": "nine Scarlet & Violet booster packs",
+          "officialVerbatim": ["9 Pokemon TCG: Scarlet & Violet-Journey Together booster packs", "9 Pokemon TCG: Scarlet & Violet-Destined Rivals booster packs", "9 Pokemon TCG: Mega Evolution booster packs"],
+          "sourceIds": ["S7", "S12", "S9", "S10", "S11"],
+          "confidence": "official+bulbapedia",
+          "note": "Confirmed on three separate official expansion pages including the current Mega Evolution set. Strongest ETB row in the file."
+        },
+        {
+          "count": 10,
+          "range": "Most SPECIAL expansions from Generations to Crown Zenith; also Pokemon Center main-expansion ETBs from Evolving Skies through Silver Tempest",
+          "verbatim": "Most special expansions from Generations to Crown Zenith",
+          "sourceIds": ["S7"],
+          "confidence": "bulbapedia-only",
+          "note": "Special-expansion ETBs are the reason a flat 'ETBs used to have 8' claim is wrong for that window."
+        },
+        {
+          "count": 11,
+          "range": "Pokemon Center ETBs, Scarlet & Violet onward, still current",
+          "verbatim": "PC Scarlet & Violet onwards",
+          "officialVerbatim": ["11 Pokemon TCG: Scarlet & Violet-Journey Together booster packs", "11 Pokemon TCG: Scarlet & Violet-Destined Rivals booster packs", "11 Pokemon TCG: Mega Evolution booster packs"],
+          "sourceIds": ["S7", "S9", "S10", "S11"],
+          "confidence": "official+bulbapedia"
+        },
+        {
+          "count": 12,
+          "range": "Pokemon Center Pokemon GO and Pokemon Center Crown Zenith only",
+          "sourceIds": ["S7"],
+          "confidence": "bulbapedia-only"
+        },
+        {
+          "count": "10 + 5, or 13 + 6 for the Pokemon Center version",
+          "range": "Celebrations ETB (2021) - the outlier",
+          "verbatim": "10 Celebrations booster packs plus 5 more booster packs from other Sword & Shield Series expansions, with the PC version increasing these to 13 and 6, respectively.",
+          "sourceIds": ["S7"],
+          "confidence": "bulbapedia-only",
+          "note": "Worth its own line on the page. Celebrations packs are only 4 cards each (see the specialSets topic), so '10 packs' here is not comparable to 10 packs of anything else."
+        },
+        {
+          "count": 8,
+          "range": "Pokemon Center Chilling Reign - a known packing error",
+          "verbatim": "The Pokemon Center version of Chilling Reign also had 8 packs due to an error.",
+          "sourceIds": ["S7"],
+          "confidence": "bulbapedia-only",
+          "note": "A Pokemon Center ETB from that window should have had 10. Include only if the page has room for a curiosity; it is a real buyer trap for that one product."
+        }
+      ]
+    },
+
+    {
+      "topic": "boosterBox",
+      "headline": "36 packs is the English standard and has not moved. The traps are the 18-pack European half display, and Japan.",
+      "timeline": [
+        {
+          "region": "English / international",
+          "count": 36,
+          "verbatim": "A Booster Box contains 36 booster packs",
+          "officialVerbatim": ["Includes 36 Pokemon TCG: Scarlet & Violet-Journey Together booster packs", "36 booster packs from Pokemon TCG: Mega Evolution"],
+          "sourceIds": ["S1", "S9", "S10"],
+          "confidence": "official+bulbapedia",
+          "gap": "No source was found in this pass that states when 36 became the standard, or what WotC-era (1999-2002) boxes held. 36 is very likely to have been constant, but LIKELY IS NOT SOURCED. Do not write '36 since 1999' unless someone verifies it."
+        },
+        {
+          "region": "Europe (notably UK)",
+          "count": 18,
+          "name": "half booster box / half display",
+          "verbatim": "Booster Display Box: 36 packs (standard) or 18 packs (European half-display)",
+          "sourceIds": ["S17"],
+          "confidence": "bulbapedia-only",
+          "corroboration": "Multiple European retailers list 'Half Booster Box (EU Exclusive)' products at 18 packs, which is consistent, but retailer listings are the weaker tier and were not individually verified.",
+          "note": "This is a top-tier buyer trap and belongs in the regional section, not buried."
+        },
+        {
+          "region": "Japan",
+          "count": 30,
+          "packSize": 5,
+          "sourceIds": [],
+          "confidence": "retailer-or-blog-only",
+          "DO_NOT_PUBLISH_AS_IS": true,
+          "note": "The '30 packs per Japanese box' figure appears only on card-shop blogs and marketplace pages. The official Japanese page for Battle Partners (sv9) WAS read and confirms the PACK size only. Several of the blogs carrying the 30 figure also carry per-box rarity guarantees, which this site must never repeat. Either verify 30 against pokemon-card.com directly or leave the number out and say only that Japanese boxes hold fewer, larger-count-per-box packs than English boxes."
+        },
+        {
+          "region": "Japan",
+          "fact": "Japanese pack size is 5 cards, not 10",
+          "verbatim": "カード5枚入り",
+          "verbatimTranslation": "contains 5 cards",
+          "product": "Expansion Pack: Battle Partners (sv9), released 2025-01-24",
+          "sourceIds": ["S18"],
+          "confidence": "official",
+          "corroborationVerbatim": "Japanese booster packs usually have 5 cards per pack, with special sets such as VMAX Climax containing 7, 10 or 11 cards per pack.",
+          "corroborationSourceIds": ["S1"],
+          "note": "This is the honest way to make the Japan point without the unverified box count: an official Japanese page states the pack size directly."
+        },
+        {
+          "region": "Japan",
+          "fact": "Japanese special sets break the 5-card rule",
+          "examples": [
+            { "set": "MEGA Expansion Pack 30th CELEBRATION (M6a)", "cardsPerPack": 6, "verbatim": "キラカード6枚入り", "verbatimTranslation": "contains 6 holo cards", "releaseDate": "2026-09-16", "sourceIds": ["S19"], "confidence": "official", "note": "Release date is in the future relative to this research pass. A social-media post claimed 20 packs per box for this product; that was NOT verified and is not recorded as fact." },
+            { "set": "VMAX Climax", "cardsPerPack": "7, 10 or 11", "sourceIds": ["S1"], "confidence": "bulbapedia-only" }
+          ]
+        },
+        {
+          "region": "Brazil",
+          "fact": "Brazilian booster packs have 7 cards per pack, 6 before Sun & Moon",
+          "verbatim": "Brazilian booster packs meanwhile have 7 cards per pack (6 before Sun & Moon).",
+          "sourceIds": ["S1"],
+          "confidence": "bulbapedia-only",
+          "note": "Directly answers the 'same product name, different region' brief. Worth one line."
+        }
+      ]
+    },
+
+    {
+      "topic": "boosterBundle",
+      "headline": "6 packs. New in 2023, and it has never been anything but 6.",
+      "timeline": [
+        {
+          "count": 6,
+          "introduced": "Scarlet & Violet series",
+          "firstExpansion": "Scarlet & Violet (base)",
+          "firstReleaseDate": "2023-03-31",
+          "verbatim": "six Scarlet & Violet booster packs",
+          "officialVerbatim": ["six booster packs from Pokemon TCG: Scarlet & Violet-Journey Together", "six booster packs from Pokemon TCG: Scarlet & Violet-Destined Rivals", "six booster packs from Pokemon TCG: Mega Evolution"],
+          "sourceIds": ["S12", "S9", "S10", "S11"],
+          "confidence": "official+bulbapedia",
+          "changed": false,
+          "note": "Confirmed at 6 on every official expansion page checked from the 2023 debut through the current Mega Evolution set. No evidence of any other count was found. The Booster Bundle is a Scarlet & Violet-era invention, so a pre-2023 sealed product will never be one."
+        }
+      ]
+    },
+
+    {
+      "topic": "blisters",
+      "headline": "The 3-pack and the single-pack survived. The 2-pack, 4-pack and 5-pack did not.",
+      "timeline": [
+        {
+          "config": "three-pack blister",
+          "status": "current",
+          "range": "Diamond & Pearl era through today, continuously",
+          "verbatimByEra": [
+            { "era": "XY", "verbatim": "three XY booster packs and a coin", "sourceId": "S14" },
+            { "era": "Sword & Shield", "verbatim": "three Sword & Shield booster packs", "sourceId": "S13" },
+            { "era": "Mega Evolution", "verbatim": "Three packs per blister", "sourceId": "S17" }
+          ],
+          "sourceIds": ["S13", "S14", "S15", "S16", "S17"],
+          "confidence": "bulbapedia-2x",
+          "officialCorroboration": { "sourceId": "S22", "confidence": "snippet-only", "note": "An official pokemon.com product-gallery page for a Giratina 3-Pack Blister exists and lists three booster packs, but the page itself was never loaded. Fetch it before citing it." }
+        },
+        {
+          "config": "single-pack blister",
+          "status": "current",
+          "range": "XY era through today",
+          "verbatim": "one XY booster pack, a coin, and an exclusive Cosmos Holofoil print",
+          "sourceIds": ["S14", "S13", "S16", "S17"],
+          "confidence": "bulbapedia-2x"
+        },
+        {
+          "config": "two-pack blister",
+          "status": "discontinued",
+          "lastConfirmedEra": "Sun & Moon",
+          "lastConfirmedDetail": "Two Pack Blisters associated with the Sun & Moon expansion were scheduled to be released alongside the Guardians Rising expansion, but were instead released early on April 17, 2017",
+          "sourceIds": ["S15", "S14", "S16"],
+          "confidence": "bulbapedia-2x",
+          "gap": "The 2-pack is documented in the Diamond & Pearl, XY and Sun & Moon merchandise pages, and is ABSENT from the Sword & Shield and Mega Evolution pages, which list only single-pack and three-pack. That absence is strong but it is an absence, not a statement. NO SOURCE WAS FOUND SAYING THE 2-PACK WAS DISCONTINUED OR WHEN. Write it as 'last documented in the Sun & Moon era', never as 'discontinued in 2017'."
+        },
+        {
+          "config": "four-pack blister",
+          "status": "discontinued",
+          "example": "DP Value Pack 2",
+          "verbatim": "four Diamond & Pearl Series booster packs",
+          "sourceIds": ["S15"],
+          "confidence": "bulbapedia-only"
+        },
+        {
+          "config": "five-pack blister",
+          "status": "discontinued",
+          "example": "DP Value Pack 1",
+          "verbatim": "five: two from Diamond & Pearl, one from EX Power Keepers, one from EX Crystal Guardians, and one from EX Holon Phantoms",
+          "sourceIds": ["S15"],
+          "confidence": "bulbapedia-only",
+          "note": "Also the clearest example of the mixed-set blister, below."
+        },
+        {
+          "config": "MIXED-SET blisters",
+          "status": "historical, important",
+          "headline": "Older blisters routinely mixed packs from DIFFERENT sets, including sets a generation older than the one on the box.",
+          "verbatimExamples": [
+            "two Diamond & Pearl booster packs, one late EX Series booster pack",
+            "two Mysterious Treasures booster packs, one late EX Series booster pack",
+            "two Secret Wonders booster packs, and one from either a late EX Series expansion or Mysterious Treasures",
+            "one Diamond & Pearl booster pack, and one POP Series 2 booster pack"
+          ],
+          "sourceIds": ["S15"],
+          "confidence": "bulbapedia-only",
+          "note": "This is arguably the single most useful warning for a buyer of an older sealed blister: the set named on the packaging is not necessarily the set of every pack inside, and the odd pack out is often from the PREVIOUS generation. Modern blisters are single-set."
+        }
+      ]
+    },
+
+    {
+      "topic": "decks",
+      "headline": "Theme Decks never contained booster packs, and they stopped after Vivid Voltage. Battle Decks do not contain packs either.",
+      "timeline": [
+        {
+          "product": "Theme Deck",
+          "containsBoosterPacks": false,
+          "verbatim": "a sheet of damage counters and status markers, a coin, a 2-player playmat and rulesheet, a card checklist and summary sheet, a deckbox, and a code card",
+          "verbatimSecond": "60-card decks ... a cardboard sheet containing damage counters, status markers, a playmat, checklist, coin, deck box, and code card",
+          "sourceIds": ["S14", "S16"],
+          "confidence": "bulbapedia-2x",
+          "note": "Explicitly no booster packs, confirmed on two separate era pages (XY and Sun & Moon). Good, clean negative answer to the brief's question."
+        },
+        {
+          "product": "Theme Deck",
+          "event": "discontinued",
+          "lastExpansionWithThemeDecks": "Vivid Voltage",
+          "lastDecks": ["Charizard Theme Deck", "Drednaw Theme Deck"],
+          "replacedBy": "V Battle Deck",
+          "replacementFirstRelease": "2021-02-05",
+          "sourceIds": [],
+          "confidence": "snippet-only",
+          "DO_NOT_PUBLISH_AS_IS": true,
+          "gap": "This came from search-engine summaries of Bulbapedia's Theme format article, a Bleeding Cool piece and a hobby blog. The Bulbapedia Theme Deck article WAS fetched and did NOT confirm the discontinuation date or the replacement. Verify against Bulbapedia's 'Theme format (TCG)' page directly before publishing the Vivid Voltage boundary or the 2021-02-05 date."
+        },
+        {
+          "product": "Battle Deck / V Battle Deck / ex Battle Deck",
+          "containsBoosterPacks": false,
+          "verbatim": "No booster packs included; these are complete 60-card constructed decks",
+          "sourceIds": ["S17", "S12"],
+          "confidence": "bulbapedia-only"
+        },
+        {
+          "product": "Build & Battle Box",
+          "containsBoosterPacks": true,
+          "count": 4,
+          "range": "Sword & Shield era through today, unchanged",
+          "verbatim": "4 Pokemon TCG: Mega Evolution booster packs",
+          "verbatimSecond": "four Sword & Shield booster packs",
+          "sourceIds": ["S9", "S10", "S11", "S12", "S13", "S17"],
+          "confidence": "official+bulbapedia",
+          "note": "4 packs plus a 40-card deck, confirmed on three official expansion pages. Stable across eras, which makes it a good 'this one did not change' row."
+        },
+        {
+          "product": "Build & Battle Stadium",
+          "containsBoosterPacks": true,
+          "count": "2 Build & Battle Boxes (8 packs) plus 3 loose packs = 11 total",
+          "verbatim": "a pair of Scarlet & Violet Build & Battle Boxes ... three more Scarlet & Violet booster packs",
+          "sourceIds": ["S12"],
+          "confidence": "bulbapedia-only",
+          "note": "The '11 total' is arithmetic on the quoted contents, not a quoted number. Label it as such if published."
+        },
+        {
+          "product": "2-Player Starter Set",
+          "era": "Base Set, 1999",
+          "containsBoosterPacks": "UNKNOWN",
+          "sourceIds": [],
+          "confidence": "unsourced",
+          "gap": "The Bulbapedia Base Set page was fetched and says nothing about the 2-Player Starter Set's contents beyond its existence. The Theme Deck page names it as the earliest such product but does not list contents. NO SOURCE FOUND. Leave off the page or research separately."
+        }
+      ]
+    },
+
+    {
+      "topic": "trainerKits",
+      "headline": "Trainer Kits changed: the Diamond & Pearl-era ones came with a booster pack, the XY-era ones did not.",
+      "timeline": [
+        {
+          "era": "Diamond & Pearl",
+          "containsBoosterPacks": true,
+          "count": 1,
+          "verbatim": "an EX Series or Diamond & Pearl Series booster pack",
+          "sourceIds": ["S15"],
+          "confidence": "bulbapedia-only"
+        },
+        {
+          "era": "XY",
+          "containsBoosterPacks": false,
+          "verbatim": "two pre-constructed Half Decks plus accessories, playmat, and code card",
+          "sourceIds": ["S14"],
+          "confidence": "bulbapedia-only"
+        }
+      ],
+      "gap": "Bulbapedia has no 'Trainer Kit (TCG)' article at the obvious URL (404). Both rows come from era merchandise pages. The line is discontinued but NO SOURCE FOUND naming the last Trainer Kit or the discontinuation date.",
+      "note": "Good candidate for the 'discontinued product line' line the brief asked for, precisely BECAUSE the pack count changed within the line."
+    },
+
+    {
+      "topic": "tinsAndCollectionBoxes",
+      "headline": "Tins and collection boxes are where the same product name most often shipped different pack counts in different regions.",
+      "entries": [
+        {
+          "product": "Sword & Shield era tins",
+          "REGIONAL_SPLIT": true,
+          "verbatim": "North American versions contained five booster packs; international versions contained four booster packs",
+          "sourceIds": ["S13"],
+          "confidence": "bulbapedia-only",
+          "note": "TOP-TIER BUYER TRAP. Same tin, same art, 5 packs in North America and 4 everywhere else."
+        },
+        {
+          "product": "Diamond & Pearl Collector's Tins, September 2007",
+          "REGIONAL_SPLIT": true,
+          "verbatim": "North America - two Mysterious Treasures booster packs, and two Diamond & Pearl booster packs; International - four Diamond & Pearl booster packs",
+          "sourceIds": ["S15"],
+          "confidence": "bulbapedia-only",
+          "note": "Same count (4) but a DIFFERENT MIX by region. Subtler than the Sword & Shield split and worth stating separately."
+        },
+        {
+          "product": "Lucario Collector's Tin",
+          "verbatim": "four Diamond & Pearl Series booster packs; re-issued 2008 with three booster packs",
+          "sourceIds": ["S15"],
+          "confidence": "bulbapedia-only",
+          "note": "Same product name, same art, 4 packs in the 2007 run and 3 in the 2008 re-issue. A pure within-region, across-time trap."
+        },
+        { "product": "Poke Ball Tins (Sword & Shield era)", "count": 3, "verbatim": "three booster packs", "sourceIds": ["S13"], "confidence": "bulbapedia-only" },
+        { "product": "Poke Ball Tins (Mega Evolution era)", "count": 3, "verbatim": "three Scarlet & Violet Series booster packs", "sourceIds": ["S17"], "confidence": "bulbapedia-only", "note": "Note the packs are from the PREVIOUS series, not the current one. Modern echo of the mixed-set blister problem." },
+        { "product": "Mini tins (Scarlet & Violet era)", "count": 2, "verbatim": "two booster packs", "sourceIds": ["S12"], "confidence": "bulbapedia-only" },
+        { "product": "V Boxes (Sword & Shield era collection boxes)", "count": 4, "verbatim": "Typically four booster packs", "sourceIds": ["S13"], "confidence": "bulbapedia-only", "note": "'Typically' is Bulbapedia hedging. Do not state a flat 4." },
+        { "product": "XY Figure Collections (Xerneas / Yveltal)", "count": 4, "verbatim": "four booster packs (three XY, one Legendary Treasures)", "sourceIds": ["S14"], "confidence": "bulbapedia-only" },
+        { "product": "Legends of Kalos tins (XY)", "count": 4, "verbatim": "four booster packs as well as a code card", "sourceIds": ["S14"], "confidence": "bulbapedia-only" },
+        { "product": "Legends of Alola tins (Sun & Moon)", "count": 4, "verbatim": "four booster packs, and a code card", "sourceIds": ["S16"], "confidence": "bulbapedia-only" },
+        { "product": "Collector Chest (Mega Evolution era)", "count": 6, "verbatim": "six booster packs", "sourceIds": ["S17"], "confidence": "bulbapedia-only" },
+        { "product": "Mega Lucario ex Figure Collection", "count": 5, "verbatim": "five booster packs", "sourceIds": ["S17"], "confidence": "bulbapedia-only" },
+        { "product": "Mega Charizard X Ultra-Premium Collection", "count": 18, "verbatim": "eighteen booster packs", "sourceIds": ["S17"], "confidence": "bulbapedia-only", "note": "The largest single-product pack count found in this pass outside a booster box." },
+        { "product": "Collector's Albums (Sword & Shield era)", "count": 1, "verbatim": "one Sword & Shield booster pack", "sourceIds": ["S13"], "confidence": "bulbapedia-only" },
+        { "product": "Darkrai Premium Box (Diamond & Pearl era)", "count": 2, "verbatim": "one EX Crystal Guardians booster pack, one EX Dragon Frontiers booster pack, and one Theme Deck", "sourceIds": ["S15"], "confidence": "bulbapedia-only", "note": "Both packs are from the PREVIOUS generation. Another mixed-era product." },
+        { "product": "Mini Packs (Dollar Tree exclusive, Sword & Shield era)", "count": "3 cards, not a booster pack", "verbatim": "Three-card packs (Dollar Tree exclusive)", "sourceIds": ["S13"], "confidence": "bulbapedia-only", "note": "Not a booster pack at all. Include only as a warning that a 'pack' on a peg hook may be 3 cards." }
+      ]
+    },
+
+    {
+      "topic": "specialSets",
+      "headline": "Special sets break every rule on the page: smaller packs, and often no booster box at all.",
+      "entries": [
+        {
+          "set": "Celebrations",
+          "releaseDate": "2021-10-08",
+          "cardsPerPack": 4,
+          "verbatim": "Each Celebrations booster pack contains four cards",
+          "boosterBox": "none - Celebrations could only be found in specifically-branded merchandise",
+          "sourceIds": ["S6"],
+          "confidence": "bulbapedia-only",
+          "note": "A 4-card pack in 2021, fourteen years after the 10-card standard was set. The best single illustration of why 'how many cards in a pack' has a per-product answer, not just a per-era one."
+        },
+        {
+          "set": "Hidden Fates",
+          "releaseDate": "2019-08-23",
+          "cardsPerPack": 10,
+          "plusExtras": ["1 Energy card", "1 code card"],
+          "boosterBox": "none",
+          "verbatim": "Unlike regular expansions, Hidden Fates booster packs could not be purchased individually from booster boxes.",
+          "sourceIds": ["S5"],
+          "confidence": "bulbapedia-only",
+          "note": "Normal pack size, but no box. Anyone selling a 'Hidden Fates booster box' is selling something that was never made as a standard product."
+        },
+        {
+          "set": "Champion's Path, Shining Fates",
+          "boosterBox": "none (same pattern as Hidden Fates and Celebrations)",
+          "sourceIds": [],
+          "confidence": "snippet-only",
+          "DO_NOT_PUBLISH_AS_IS": true,
+          "gap": "Only seen in search summaries. The Celebrations page did reference 'prior special expansions like Shining Fates and Champion's Path' when describing the merchandise-only pattern, but their own set pages were not fetched. Verify each before naming it."
+        },
+        {
+          "set": "Pokemon VS (Japanese)",
+          "cardsPerPack": 30,
+          "verbatim": "Each booster pack contained 30 cards instead of the usual 10",
+          "sourceIds": ["S1"],
+          "confidence": "snippet-only",
+          "note": "Seen in a search summary attributed to Bulbapedia, not confirmed in the fetched text of S1. A 30-card Japanese pack is an eye-catching claim, so verify it on the Pokemon VS set page before using it."
+        }
+      ]
+    },
+
+    {
+      "topic": "retractedChange2025",
+      "headline": "A widely reported 2025 change to pack contents was WRONG and was retracted by The Pokemon Company. Do not repeat it.",
+      "whatWasReported": "Fine print on the Mega Evolution booster box stated packs would include 'either an Energy card or a Pokemon TCG Live code card' rather than both, which was reported as packs containing one fewer card.",
+      "whatActuallyHappened": "The Pokemon Company clarified the packaging text was an error.",
+      "officialVerbatim": "All booster packs will continue to include both an Energy card and a TCG Live code card.",
+      "clarificationDate": "2025-08-01",
+      "sourceIds": ["S20", "S21"],
+      "confidence": "official (the clarification is quoted from TPCi via VGC); the original report is snippet-only because PokeBeach returned 403",
+      "note": "This is a live misinformation trap: printed boxes exist carrying the incorrect text, so a buyer can read the wrong thing off the physical product. If the page mentions it at all, it must lead with the retraction. The current official expansion pages still say '10 cards and 1 Basic Energy', consistent with the retraction.",
+      "sourceIdsForCurrentWording": ["S9", "S10", "S11"]
+    }
+  ],
+
+  "regionalTraps": [
+    { "trap": "Sword & Shield era tins", "detail": "5 packs in North America, 4 internationally. Identical product name and art.", "sourceIds": ["S13"], "confidence": "bulbapedia-only" },
+    { "trap": "Booster box in Europe", "detail": "An 18-pack 'half booster box' is sold in Europe, notably the UK, alongside the 36-pack display. Same 'booster box' shorthand, half the packs.", "sourceIds": ["S17"], "confidence": "bulbapedia-only, retailer-corroborated" },
+    { "trap": "Diamond & Pearl Collector's Tins (Sept 2007)", "detail": "Four packs in both regions, but North America got 2 Mysterious Treasures + 2 Diamond & Pearl while international got 4 Diamond & Pearl.", "sourceIds": ["S15"], "confidence": "bulbapedia-only" },
+    { "trap": "Brazilian booster packs", "detail": "7 cards per pack, and 6 before Sun & Moon, against 10 internationally.", "sourceIds": ["S1"], "confidence": "bulbapedia-only" },
+    { "trap": "Japanese booster packs", "detail": "5 cards per pack against 10 in English. An officially confirmed figure. The packs-per-box figure is NOT confirmed, see notes.", "sourceIds": ["S18", "S1"], "confidence": "official" },
+    { "trap": "Elite Trainer Box vs Pokemon Center Elite Trainer Box", "detail": "Currently 9 packs vs 11 packs for the same expansion. Not a region split but a retail-channel split, and the names differ by only two words.", "sourceIds": ["S9", "S10", "S11"], "confidence": "official" },
+    { "trap": "Lucario Collector's Tin", "detail": "4 packs in the 2007 run, 3 packs in the 2008 re-issue. Same name, same year-ish, different count.", "sourceIds": ["S15"], "confidence": "bulbapedia-only" }
+  ],
+
+  "notes": [
+    {
+      "id": "C1",
+      "type": "CONTRADICTION",
+      "severity": "high",
+      "subject": "Sun & Moon pack size",
+      "detail": "Bulbapedia contradicts itself. The Booster pack (TCG) article says packs held 10 cards from Diamond & Pearl onward and that Sun & Moon added 'one Basic Energy card in addition to the 10 other cards', i.e. 10 game cards, 11 physical. The Sun & Moon (TCG) set page says 'The booster pack size for English expansions were increased from 11 to 12 and included a Basic Energy card in every booster pack', i.e. 11 before and 12 after.",
+      "bothSources": ["S1", "S4"],
+      "likelyReconciliation": "The set page appears to be counting the TCG Online code card as one of the cards: 10 game + 1 code = 11 before, 10 game + 1 energy + 1 code = 12 after. The Hidden Fates page (S5) describes a Sun & Moon-era pack as 'ten cards, plus one Energy card and a code card', which fits that reading exactly.",
+      "status": "THIS RECONCILIATION IS MY INFERENCE, NOT A SOURCED STATEMENT. No source says the set page is counting the code card. Do not present it as fact.",
+      "recommendation": "Publish the official wording instead and sidestep the whole thing: TPCi's own current phrasing is '10 cards and 1 Basic Energy' (S9, S11). If the historical row is published, state the 10-game-card count and list the energy and code card as separate extras, and note that some sources count the pack as 11 or 12 depending on whether the extras are included."
+    },
+    {
+      "id": "C2",
+      "type": "CONTRADICTION",
+      "severity": "medium",
+      "subject": "Mega Evolution pack contents, July vs August 2025",
+      "detail": "PokeBeach reported in July 2025 that Mega Evolution packs would contain either an Energy card or a code card but not both, based on the printed booster box fine print. On 2025-08-01 The Pokemon Company clarified that both would continue to be included and that the packaging text was an error.",
+      "bothSources": ["S21", "S20"],
+      "status": "Resolved in favour of the clarification. Recorded because printed boxes carrying the wrong text physically exist, so a buyer can be misled by the product itself.",
+      "recommendation": "Either omit entirely or state the retraction first. Never state the July version alone."
+    },
+    {
+      "id": "G1",
+      "type": "GAP",
+      "subject": "WotC-era booster box size",
+      "detail": "No source found for how many packs were in a 1999-2002 booster box. The only booster-box figure found is the general '36' from S1, which is not scoped to a date. Do not write '36 packs since 1999'."
+    },
+    {
+      "id": "G2",
+      "type": "GAP",
+      "subject": "Japanese packs per box",
+      "detail": "The commonly repeated figure is 30. It was found ONLY on card-shop blogs and marketplace listings, several of which also publish per-box rarity guarantees that this site is forbidden from repeating. The official Japanese page (S18) confirms the 5-card pack size but the box count was not confirmed there. Japanese box sizes also clearly vary by product. Either verify on pokemon-card.com or publish only the pack size."
+    },
+    {
+      "id": "G3",
+      "type": "GAP",
+      "subject": "When the two-pack blister ended",
+      "detail": "Documented through the Sun & Moon era, absent from Sword & Shield onward. That is an absence of evidence in the merchandise pages, not a sourced discontinuation. Phrase as 'last documented in the Sun & Moon era'."
+    },
+    {
+      "id": "G4",
+      "type": "GAP",
+      "subject": "Theme Deck discontinuation",
+      "detail": "The Vivid Voltage boundary and the 2021-02-05 first V Battle Deck date come from search summaries only. The fetched Bulbapedia Theme Deck article confirmed neither. Verify on Bulbapedia's 'Theme format (TCG)' page before publishing. What IS solid is the more useful fact: Theme Decks never contained booster packs (S14, S16, two independent pages)."
+    },
+    {
+      "id": "G5",
+      "type": "GAP",
+      "subject": "Trainer Kit line",
+      "detail": "No Bulbapedia article exists at the expected URL. The two data points (DP-era kits included 1 pack, XY-era kits included none) come from era merchandise pages. The last Trainer Kit and the discontinuation date are unsourced."
+    },
+    {
+      "id": "G6",
+      "type": "GAP",
+      "subject": "Base Set 2-Player Starter Set contents",
+      "detail": "Completely unsourced in this pass. The Base Set page says nothing about it. Do not guess."
+    },
+    {
+      "id": "G7",
+      "type": "GAP",
+      "subject": "1999-2002 pack count corroboration",
+      "detail": "The 11-cards-per-pack figure for Base Set through Neo Destiny rests on a single Bulbapedia sentence (S1). Unlike the 9-card and 10-card eras, no individual set page was found repeating it. It is almost certainly right and it is the era buyers of vintage sealed product care about most, so it deserves a second source before publication. Serebii was not successfully consulted in this pass."
+    },
+    {
+      "id": "B1",
+      "type": "BLOCKED SOURCE",
+      "subject": "Official sources that could not be read",
+      "detail": "support.pokemon.com returned 403, pokemoncenter.com returned 403 on every product URL, pokebeach.com returned 403. The Pokemon support article 'What can I expect in a Pokemon Trading Card Game booster pack?' is the best single official statement of pack contents and should be opened by hand in a browser before this page ships. Pokemon Center product TITLES were legible in search results and independently support the current figures ('Sleeved Booster Pack (10 Cards)', 'Booster Display Box (36 Packs)', 'Booster Bundle (6 Packs)') but titles are not descriptions."
+    },
+    {
+      "id": "M1",
+      "type": "METHOD",
+      "subject": "Where this is strongest and weakest",
+      "detail": "Strongest: the current-era numbers, which come from three separate official tcg.pokemon.com expansion pages read on 2026-08-15 (Journey Together, Destined Rivals, Mega Evolution) and agree with each other. Also strong: the two cards-per-pack boundaries, each confirmed on both the summary article and the boundary set's own page. Weakest: everything about tins, collection boxes and blisters before 2020, all of which rests on Bulbapedia era merchandise pages alone. That is not a reason to drop them, since Bulbapedia is often the only record, but the page should mark them."
+    },
+    {
+      "id": "M2",
+      "type": "SITE RULE CHECK",
+      "subject": "Pull rates",
+      "detail": "No odds, ratios, per-box guarantees or pull rates are recorded anywhere in this file, and several otherwise usable sources were downgraded specifically because they mix pack counts with rarity guarantees. Rarity-slot breakdowns quoted from Bulbapedia (e.g. '5 Common, 2 Uncommon, 1 Reverse Holofoil, 1 Rare or Rare Holo') describe the PRINTED COMPOSITION of a pack, not the chance of pulling anything. If any of those are published, they must not be framed as odds, and the safer choice is to publish only the totals."
+    }
+  ]
+}

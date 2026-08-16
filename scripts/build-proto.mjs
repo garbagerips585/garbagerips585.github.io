@@ -16,7 +16,7 @@ import { SITE, DOMAIN, STAGING, LIVE } from "../shared/site.mjs";
 import { basename, join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkDrift } from "../shared/chrome.mjs";
-import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount } from "../shared/format.mjs";
+import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount, avifPicture } from "../shared/format.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -628,7 +628,7 @@ const wantedHtml = (wanted.cards || [])
         : "CHASING";
     const inner = `<span class="mw-art">${
       img
-        ? `<img src="${esc(img)}" alt="${esc(c.name)} ${esc(c.rarity || "")} from ${esc(c.setName)}" loading="lazy" onerror="this.remove()"${imgDims(img)}>`
+        ? avifPicture(`<img src="${esc(img)}" alt="${esc(c.name)} ${esc(c.rarity || "")} from ${esc(c.setName)}" loading="lazy" onerror="this.remove()"${imgDims(img)}>`)
         : `<span class="mw-none">${esc(c.name)}</span>`
     }</span>
         <b>${esc(c.name)}</b><p>${esc(c.setName.toUpperCase())} &bull; ${price}</p>`;

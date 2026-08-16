@@ -1,0 +1,1065 @@
+{
+  "_readme": [
+    "Pack counts for current English sealed products, for a 'how many packs is in",
+    "this thing?' guide page. RESEARCH OUTPUT ONLY. Nothing here is built yet.",
+    "",
+    "THE RULE: every number carries the source it was read from and the date it",
+    "was read. If a field is null, it was NOT sourced and must not be printed.",
+    "Look at `sources[].supports` to see which fields each source backs.",
+    "",
+    "NO PULL RATES, NO ODDS, EVER. Nothing in this file states or implies how",
+    "likely any card is. Pack counts are printed on the packaging and in official",
+    "product listings, so they are verifiable. Odds are not, and are forbidden",
+    "site-wide (see CLAUDE.md).",
+    "",
+    "sourceTier: 1 = pokemon.com / Pokemon Center / official press",
+    "            2 = other official Pokemon channels",
+    "            3 = major retailer listing (Target, Walmart, GameStop, Costco)",
+    "            4 = Bulbapedia / Serebii / community",
+    "",
+    "`id` matches shared/taxonomy.mjs PRODUCT_TYPES so the guide can link to the",
+    "existing /openings/<id>.html pages. `id: null` means the site has no tag for",
+    "that product; see notes."
+  ],
+
+  "readAt": "2026-08-15",
+  "scope": "Current English products, Scarlet & Violet era through Mega Evolution and 30th Celebration (2026).",
+
+  "products": [
+    {
+      "id": "booster-box",
+      "siteLabel": "Booster Box",
+      "openingsPage": null,
+      "productName": "Booster Display Box",
+      "packs": 36,
+      "packsVaryBySet": false,
+      "cardsPerPack": 10,
+      "cardsPerPackNote": "10 cards plus 1 Basic Energy.",
+      "alsoIncludes": [],
+      "price": {
+        "amount": 299.99,
+        "currency": "USD",
+        "kind": "retailer listed price",
+        "isMsrp": false,
+        "retailer": "GameStop",
+        "product": "Mega Evolution—Pitch Black Booster Box"
+      },
+      "confidence": "high. 36 packs is stable across the Scarlet & Violet and Mega Evolution eras. The 'Enhanced Booster Display Box' variant is also 36 packs plus one bonus stamped promo card.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Mega Evolution—Pitch Black Product Showcase",
+          "url": "https://www.pokemon.com/us/pokemon-news/pokemon-tcg-mega-evolution-pitch-black-product-showcase",
+          "excerpt": "These boxes contain a whopping 36 booster packs; each pack has 10 cards and one Basic Energy inside.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "cardsPerPack"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Mega Evolution Product Showcase",
+          "url": "https://www.pokemon.com/us/pokemon-news/pokemon-tcg-mega-evolution-product-showcase",
+          "excerpt": "Booster Display Box: 36 booster packs. Enhanced Booster Display Box: 36 packs plus one bonus promo card.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "confidence"]
+        },
+        {
+          "tier": 3,
+          "publisher": "GameStop",
+          "title": "Pokemon Trading Card Game: Pitch Black Booster Box",
+          "url": "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-pitch-black-booster-box/20034821.html",
+          "excerpt": "Each booster box contains 36 booster packs. Each booster pack contains 10 additional game cards. Listed $299.99.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "cardsPerPack", "price"]
+        }
+      ]
+    },
+
+    {
+      "id": "etb",
+      "siteLabel": "Elite Trainer Box",
+      "openingsPage": "/openings/etb.html",
+      "productName": "Elite Trainer Box",
+      "packs": 9,
+      "packsVaryBySet": false,
+      "cardsPerPack": 10,
+      "cardsPerPackNote": "10 cards plus 1 Basic Energy, except 30th Celebration packs (see notes).",
+      "alsoIncludes": [
+        "1 full-art foil promo card",
+        "65 card sleeves",
+        "Energy cards (count varies: 40, 45, or 16 foil depending on set)",
+        "player's guide to the expansion",
+        "6 damage-counter dice",
+        "1 competition-legal coin-flip die",
+        "1 plastic coin or 2 plastic condition markers (varies)",
+        "collector's box with 4 or 6 dividers",
+        "code card for Pokemon TCG Live"
+      ],
+      "price": {
+        "amount": 59.99,
+        "currency": "USD",
+        "kind": "retailer listed price",
+        "isMsrp": false,
+        "retailer": "Target",
+        "product": "Mega Evolution—Pitch Black Elite Trainer Box"
+      },
+      "confidence": "high on the pack count. 9 packs held for every ETB checked: Destined Rivals (2025), Prismatic Evolutions (2025), Pitch Black (2026), 30th Celebration (2026). The ACCESSORIES vary set to set (Energy card count 40 vs 45 vs 16 foil, 4 vs 6 dividers, condition markers vs plastic coin), so describe those loosely.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Mega Evolution—Pitch Black Elite Trainer Box",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-evolution-pitch-black-elite-trainer-box",
+          "excerpt": "9 Pokemon TCG: Mega Evolution—Pitch Black booster packs; 1 full-art foil promo card featuring Zarude; 65 card sleeves; 40 Energy cards; 6 damage-counter dice; 1 coin-flip die; 1 plastic coin; collector's box with 6 dividers.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "alsoIncludes"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Scarlet & Violet—Destined Rivals Elite Trainer Box",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/scarlet-violet-destined-rivals-elite-trainer-box",
+          "excerpt": "9 booster packs; 65 card sleeves; 45 Energy cards; 6 damage-counter dice; 2 plastic condition markers; box with 4 dividers.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "alsoIncludes", "confidence"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "30th Celebration Elite Trainer Box",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/30th-celebration-elite-trainer-box",
+          "excerpt": "9 booster packs; 16 foil Basic Energy cards; 65 card sleeves; box with 6 dividers. Launch September 16, 2026.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "alsoIncludes", "confidence"]
+        },
+        {
+          "tier": 3,
+          "publisher": "Target",
+          "title": "Mega Evolution Pitch Black Elite Trainer Box",
+          "url": "https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-pitch-black-elite-trainer-box/-/A-1011483406",
+          "excerpt": "9 booster packs listed in Highlights. Price shown $59.99.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "price"]
+        }
+      ]
+    },
+
+    {
+      "id": "etb",
+      "siteLabel": "Elite Trainer Box",
+      "openingsPage": "/openings/etb.html",
+      "productName": "Pokemon Center Elite Trainer Box",
+      "packs": 11,
+      "packsVaryBySet": false,
+      "cardsPerPack": 10,
+      "cardsPerPackNote": "Same packs as the standard ETB.",
+      "alsoIncludes": [
+        "2 full-art foil promo cards, one carrying the Pokemon Center logo",
+        "same accessory set as the standard ETB (sleeves, Energy, dice, coin, collector's box, code card)"
+      ],
+      "price": {
+        "amount": 59.99,
+        "currency": "USD",
+        "kind": "Pokemon Center store price",
+        "isMsrp": false,
+        "retailer": "Pokemon Center",
+        "product": "Pokemon Center Elite Trainer Boxes, Mega Evolution and 30th Celebration era"
+      },
+      "confidence": "high. 11 packs (two more than the standard box) held for Paldea Evolved, Prismatic Evolutions, Pitch Black and 30th Celebration. Pokemon Center prices every current-era Pokemon Center ETB at $59.99; older Sword & Shield ones list at $49.99.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Mega Evolution—Pitch Black Pokemon Center Elite Trainer Box",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-evolution-pitch-black-pokemon-center-elite-trainer-box",
+          "excerpt": "11 booster packs (two more than the standard Elite Trainer Box); two full-art Zarude promo cards, one with the Pokemon Center logo.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "alsoIncludes"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Scarlet & Violet—Prismatic Evolutions Pokemon Center Elite Trainer Box",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/scarlet-violet-prismatic-evolutions-pokemon-center-elite-trainer-box",
+          "excerpt": "11 Prismatic Evolutions booster packs; 2 full-art foil promo cards featuring Eevee.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "confidence"]
+        },
+        {
+          "tier": 1,
+          "publisher": "Pokemon Center",
+          "title": "Pokemon Center search listing, Elite Trainer Box",
+          "url": "https://www.pokemoncenter.com/search/elite-trainer-box",
+          "excerpt": "Pokemon Center ETBs for Pitch Black, Chaos Rising, Phantasmal Flames, Perfect Order, Ascended Heroes, 30th Celebration all listed at $59.99.",
+          "readAt": "2026-08-15",
+          "supports": ["price"]
+        }
+      ]
+    },
+
+    {
+      "id": "bundle",
+      "siteLabel": "Booster Bundle",
+      "openingsPage": "/openings/bundle.html",
+      "productName": "Booster Bundle",
+      "packs": 6,
+      "packsVaryBySet": false,
+      "cardsPerPack": 10,
+      "cardsPerPackNote": "10 cards, 1 Basic Energy, 1 Pokemon TCG Live code card. 30th Celebration packs differ, see notes.",
+      "alsoIncludes": [],
+      "price": {
+        "amount": 26.94,
+        "currency": "USD",
+        "kind": "Pokemon Center store price",
+        "isMsrp": false,
+        "retailer": "Pokemon Center",
+        "product": "Pitch Black and 30th Celebration Booster Bundles, both $26.94"
+      },
+      "confidence": "high. 6 packs, unchanged across every Scarlet & Violet, Mega Evolution and 30th Celebration bundle checked. Pokemon Center literally names the product '(6 Packs)'.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Mega Evolution—Pitch Black Booster Bundle",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-evolution-pitch-black-booster-bundle",
+          "excerpt": "A Booster Bundle containing six booster packs from the Pitch Black expansion.",
+          "readAt": "2026-08-15",
+          "supports": ["packs"]
+        },
+        {
+          "tier": 1,
+          "publisher": "Pokemon Center",
+          "title": "Mega Evolution-Pitch Black Booster Bundle (6 Packs)",
+          "url": "https://www.pokemoncenter.com/product/10-10422-109/pokemon-tcg-mega-evolution-pitch-black-booster-bundle-6-packs",
+          "excerpt": "Includes six booster packs. Each booster pack contains 10 cards, 1 Basic Energy, and 1 Pokemon TCG Live code card. $26.94.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "cardsPerPack", "price"]
+        }
+      ]
+    },
+
+    {
+      "id": "upc",
+      "siteLabel": "UPC",
+      "openingsPage": "/openings/upc.html",
+      "productName": "Ultra-Premium Collection",
+      "packs": null,
+      "packsVaryBySet": true,
+      "packsByProduct": [
+        { "product": "Scarlet & Violet—151 Ultra-Premium Collection", "released": "2023-10-06", "packs": 16 },
+        { "product": "Greninja ex Ultra-Premium Collection", "released": "2024-11-01", "packs": 16 },
+        { "product": "Terapagos ex Ultra-Premium Collection", "released": "2024-11-22", "packs": 18 },
+        { "product": "Mega Charizard X ex Ultra-Premium Collection", "released": "2025-11-14", "packs": 18 },
+        { "product": "30th Celebration Ultra-Premium Collection (Day / Night)", "released": "2026-11-06", "packs": 30, "packsNote": "29 standard 30th Celebration packs plus 1 Classic Collection pack." }
+      ],
+      "cardsPerPack": null,
+      "cardsPerPackNote": "Not stated on the pokemon.com UPC pages. Packs come from the named expansion, so the expansion's own pack size applies.",
+      "alsoIncludes": [
+        "2 to 3 foil promo cards, sometimes an etched metal card",
+        "playmat",
+        "deck box",
+        "metal or metallic coin",
+        "6 damage-counter dice",
+        "condition markers or 65 card sleeves depending on the product",
+        "code card for Pokemon TCG Live"
+      ],
+      "price": null,
+      "confidence": "COUNT VARIES BY PRODUCT and this is the single biggest trap on the page. There is no such thing as 'the' UPC pack count: 16, 18 and 30 are all sourced. Always name the specific UPC.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Scarlet & Violet—151 Ultra-Premium Collection",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/scarlet-violet-151-ultra-premium-collection",
+          "excerpt": "16 booster packs from Pokemon TCG: Scarlet & Violet—151, plus etched foil and metal Mew ex cards, playmat, deck box, coin, 6 dice.",
+          "readAt": "2026-08-15",
+          "supports": ["packsByProduct", "alsoIncludes"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Greninja ex Ultra-Premium Collection",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/greninja-ex-ultra-premium-collection",
+          "excerpt": "16 Pokemon TCG booster packs, etched metal card, playmat, deck box, metallic coin, 6 dice, 2 condition markers.",
+          "readAt": "2026-08-15",
+          "supports": ["packsByProduct"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Terapagos ex Ultra-Premium Collection",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/terapagos-ex-ultra-premium-collection",
+          "excerpt": "18 Pokemon TCG booster packs, 3 foil promo cards, 8 foil Basic Energy, playmat, deck box, coin, 6 dice.",
+          "readAt": "2026-08-15",
+          "supports": ["packsByProduct"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Mega Charizard X ex Ultra-Premium Collection",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/pokemon-tcg-mega-charizard-x-ex-ultra-premium-collection",
+          "excerpt": "18 Pokemon TCG booster packs, 2 foil promo cards, 65 card sleeves, playmat, deck box, metal coin, 6 dice.",
+          "readAt": "2026-08-15",
+          "supports": ["packsByProduct"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "30th Celebration Ultra-Premium Collections—Day & Night",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/30th-celebration-ultra-premium-collections-day-night",
+          "excerpt": "29 30th Celebration booster packs plus 1 30th Celebration Classic Collection booster pack; playmat, 65 sleeves, deck box, metal coin, 6 dice.",
+          "readAt": "2026-08-15",
+          "supports": ["packsByProduct", "alsoIncludes"]
+        }
+      ]
+    },
+
+    {
+      "id": "spc",
+      "siteLabel": "Super Premium Collection",
+      "openingsPage": null,
+      "productName": "Super-Premium Collection",
+      "packs": null,
+      "packsVaryBySet": true,
+      "packsByProduct": [
+        { "product": "Charizard ex Super-Premium Collection", "released": "2024-10-04", "packs": 10 },
+        { "product": "Scarlet & Violet—Prismatic Evolutions Super-Premium Collection", "released": "2025-05-16", "packs": 15 }
+      ],
+      "cardsPerPack": null,
+      "alsoIncludes": [
+        "1 to 3 foil promo cards",
+        "a display figure or a plush deck box, depending on the product",
+        "playmat and 65 card sleeves (Prismatic Evolutions)",
+        "code card for Pokemon TCG Live"
+      ],
+      "price": null,
+      "confidence": "COUNT VARIES. Only two current-era SPCs found and they disagree (10 vs 15). No SPC has shipped since May 2025, so treat this as a legacy shelf product rather than a current line.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Charizard ex Super-Premium Collection",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/charizard-ex-super-premium-collection",
+          "excerpt": "10 Pokemon TCG booster packs, 1 foil promo Charizard ex, 2 foil cards, 1 card-display figure, code card.",
+          "readAt": "2026-08-15",
+          "supports": ["packsByProduct", "alsoIncludes"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Scarlet & Violet—Prismatic Evolutions Super-Premium Collection",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/scarlet-violet-prismatic-evolutions-super-premium-collection",
+          "excerpt": "15 Prismatic Evolutions booster packs, full-art foil Eevee ex promo, fuzzy Eevee deck box, playmat, 65 sleeves.",
+          "readAt": "2026-08-15",
+          "supports": ["packsByProduct", "alsoIncludes"]
+        }
+      ]
+    },
+
+    {
+      "id": "ex-premium",
+      "siteLabel": "ex Premium Collection",
+      "openingsPage": "/openings/ex-premium.html",
+      "productName": "ex Premium Collection",
+      "packs": 8,
+      "packsVaryBySet": false,
+      "cardsPerPack": null,
+      "cardsPerPackNote": "Packs are drawn from mixed expansions, so the pack size follows whichever expansion the pack is from.",
+      "alsoIncludes": [
+        "1 playable foil promo card",
+        "1 oversize lenticular promo card",
+        "1 tech sticker"
+      ],
+      "price": null,
+      "confidence": "high for the current Mega Evolution era. 8 packs on both 2026 Premium Collections checked (Mega Zygarde ex, Mega Greninja ex). NOTE the site's ex-premium tag also absorbs 'ex Box', which is a DIFFERENT product with 4 packs, recorded separately below.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Mega Greninja ex Premium Collection",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-greninja-ex-premium-collection",
+          "excerpt": "1 foil promo card, 1 oversize lenticular promo card, 1 tech sticker, 8 Pokemon TCG booster packs. Launch July 3, 2026.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "alsoIncludes"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Mega Zygarde ex Premium Collection",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-zygarde-ex-premium-collection",
+          "excerpt": "1 foil promo card, 1 oversize lenticular promo card, 1 tech sticker, 8 Pokemon TCG booster packs. Launch May 22, 2026.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "confidence"]
+        }
+      ]
+    },
+
+    {
+      "id": "ex-premium",
+      "siteLabel": "ex Premium Collection",
+      "openingsPage": "/openings/ex-premium.html",
+      "productName": "ex Box (shares the ex-premium tag, but is half the size)",
+      "packs": 4,
+      "packsVaryBySet": false,
+      "cardsPerPack": null,
+      "alsoIncludes": [
+        "1 playable foil promo card",
+        "1 oversize card (lenticular on the Mega Evolution boxes)"
+      ],
+      "price": null,
+      "confidence": "high. 4 packs on all three current ex Boxes checked (Mega Latias, Mega Kangaskhan, 30th Celebration Sylveon/Greninja). This is the distinction most worth making on the page, because taxonomy.mjs deliberately files ex Box under ex-premium and the two products differ by four packs.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Mega Latias ex Box",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/pokemon-tcg-mega-latias-ex-box",
+          "excerpt": "1 foil promo card, 1 oversize lenticular promo card, 4 Pokemon TCG booster packs. Launch October 10, 2025.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "alsoIncludes"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Mega Kangaskhan ex Box",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/pokemon-tcg-mega-kangaskhan-ex-box",
+          "excerpt": "1 foil promo card, 1 oversize lenticular promo card, 4 Pokemon TCG booster packs. Launch December 5, 2025.",
+          "readAt": "2026-08-15",
+          "supports": ["packs"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "30th Celebration Sylveon ex Box and Greninja ex Box",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/30th-celebration-sylveon-ex-box-and-greninja-ex-box",
+          "excerpt": "1 foil promo card, 1 foil oversize card, 4 30th Celebration booster packs. Launch September 16, 2026.",
+          "readAt": "2026-08-15",
+          "supports": ["packs"]
+        }
+      ]
+    },
+
+    {
+      "id": "ex-special",
+      "siteLabel": "ex Special Collection",
+      "openingsPage": null,
+      "productName": "ex Special Collection",
+      "packs": 5,
+      "packsVaryBySet": true,
+      "cardsPerPack": null,
+      "alsoIncludes": [
+        "1 etched foil promo card",
+        "2 foil cards of the pre-evolutions",
+        "1 oversize lenticular card",
+        "code card for Pokemon TCG Live"
+      ],
+      "price": null,
+      "confidence": "LOW SAMPLE. Only one current-era ex Special Collection was found on pokemon.com: Charizard ex Special Collection, June 2025, 5 packs. Do not generalise 5 to the whole product line from a single example. If a second one appears, re-check.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Charizard ex Special Collection",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/charizard-ex-special-collection",
+          "excerpt": "1 etched foil promo Charizard ex, 2 foil cards, 5 Pokemon TCG booster packs, 1 oversize lenticular card. Launch June 27, 2025.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "alsoIncludes"]
+        }
+      ]
+    },
+
+    {
+      "id": "poke-ball-tin",
+      "siteLabel": "Poke Ball Tin",
+      "openingsPage": "/openings/poke-ball-tin.html",
+      "productName": "Poke Ball Tin",
+      "packs": 3,
+      "packsVaryBySet": false,
+      "cardsPerPack": 10,
+      "cardsPerPackNote": "Pokemon Center states 10 cards and either 1 Basic Energy or 1 VSTAR marker, and that the packs vary by product. These tins carry mixed-expansion packs.",
+      "alsoIncludes": ["2 sticker sheets"],
+      "price": {
+        "amount": 14.99,
+        "currency": "USD",
+        "kind": "Pokemon Center store price",
+        "isMsrp": false,
+        "retailer": "Pokemon Center",
+        "product": "Poke Ball Tin"
+      },
+      "confidence": "high. The current run is the December 2025 release. All ball tins in the family (Poke Ball, Great Ball, Ultra Ball, Premier Ball, Moon Ball, Lure Ball, Love Ball, Luxury Ball) are the same 3-pack shape.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Pokemon TCG: Poke Ball Tin",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/poke-ball-tin-2025",
+          "excerpt": "3 Pokemon TCG booster packs, 2 sticker sheets. Launch December 5, 2025.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "alsoIncludes"]
+        },
+        {
+          "tier": 1,
+          "publisher": "Pokemon Center",
+          "title": "Pokemon TCG: Poke Ball Tin",
+          "url": "https://www.pokemoncenter.com/product/699-41336/pokemon-tcg-poke-ball-tin",
+          "excerpt": "3 booster packs. Each contains 10 cards and either 1 Basic Energy or 1 VSTAR marker. 2 sticker sheets. $14.99.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "cardsPerPack", "price"]
+        }
+      ]
+    },
+
+    {
+      "id": "tin",
+      "siteLabel": "Tin",
+      "openingsPage": "/openings/tin.html",
+      "productName": "Standard collector tin",
+      "packs": 4,
+      "packsVaryBySet": true,
+      "packsByProduct": [
+        { "product": "Azure Legends Tin", "released": "2025-02-21", "packs": 5 },
+        { "product": "Slashing Legends Tin", "released": "2025-05-16", "packs": 5 },
+        { "product": "Team Rocket Tin", "released": "2025-09-05", "packs": 5 },
+        { "product": "Mega Charizard Tin", "released": "2026-02-20", "packs": 4 },
+        { "product": "Mega Moonlit Tin", "released": "2026-06-05", "packs": 4 },
+        { "product": "Mega Forces Tin", "released": "2026-08-28", "packs": 4 }
+      ],
+      "cardsPerPack": null,
+      "cardsPerPackNote": "Tins carry mixed-expansion packs, so pack size follows the expansion each pack came from.",
+      "alsoIncludes": [
+        "1 foil promo card, usually a choice of two or three characters",
+        "code card for Pokemon TCG Live"
+      ],
+      "price": null,
+      "confidence": "THE COUNT CHANGED. Every 2025 standard tin checked has 5 packs; every 2026 one has 4. If the page states a single number, state 4 and date it, because that is what is on shelves now. Do not print 5 as current.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Mega Forces Tin",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-forces-tin",
+          "excerpt": "1 foil promo card, 4 Pokemon TCG booster packs, code card. Launch August 28, 2026.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "packsByProduct", "alsoIncludes"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Mega Moonlit Tin",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-moonlit-tin",
+          "excerpt": "1 foil promo card, 4 Pokemon TCG booster packs, 1 code card. Launch June 5, 2026.",
+          "readAt": "2026-08-15",
+          "supports": ["packsByProduct"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Mega Charizard Tin",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-charizard-tin",
+          "excerpt": "1 foil promo card, 4 Pokemon TCG booster packs, code card. Launch February 20, 2026.",
+          "readAt": "2026-08-15",
+          "supports": ["packsByProduct"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Team Rocket Tin",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/pokemon-tcg-team-rocket-tin",
+          "excerpt": "1 foil promo card, 5 Pokemon TCG booster packs, code card. Launch September 5, 2025.",
+          "readAt": "2026-08-15",
+          "supports": ["packsByProduct", "confidence"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Slashing Legends Tin",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/slashing-legends-tin",
+          "excerpt": "1 foil promo card, 5 Pokemon TCG booster packs, code card. Launch May 16, 2025.",
+          "readAt": "2026-08-15",
+          "supports": ["packsByProduct"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Azure Legends Tin",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/azure-legends-tin",
+          "excerpt": "1 foil promo card, 5 Pokemon TCG booster packs, code card. Launch February 21, 2025.",
+          "readAt": "2026-08-15",
+          "supports": ["packsByProduct"]
+        }
+      ]
+    },
+
+    {
+      "id": "tin",
+      "siteLabel": "Tin",
+      "openingsPage": "/openings/tin.html",
+      "productName": "Mini Tin",
+      "packs": 2,
+      "packsVaryBySet": false,
+      "cardsPerPack": null,
+      "alsoIncludes": [
+        "1 sticker sheet or 1 coin, depending on the release",
+        "1 art card matching the tin lid, part of a set that combines into one image",
+        "code card for Pokemon TCG Live (on some releases)"
+      ],
+      "price": null,
+      "confidence": "high. 2 packs on every Mini Tin checked, from Prismatic Evolutions (Feb 2025) through Lumiose City (June 2026). NOTE: the site's `tin` tag catches Mini Tins too, because the pattern is a bare \\btin\\b, so the openings/tin page mixes 2-pack and 4-pack products.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Lumiose City Mini Tin",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/lumiose-city-mini-tin",
+          "excerpt": "2 Pokemon TCG booster packs, 1 sticker sheet, 1 art card, code card. Launch June 5, 2026. Five designs to collect.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "alsoIncludes"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Scarlet & Violet—Prismatic Evolutions Mini Tin",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/scarlet-violet-prismatic-evolutions-mini-tin",
+          "excerpt": "2 Prismatic Evolutions booster packs, an Eevee coin in 1 of 8 colors, an art card. Launch February 7, 2025.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "confidence"]
+        }
+      ]
+    },
+
+    {
+      "id": "tin",
+      "siteLabel": "Tin",
+      "openingsPage": "/openings/tin.html",
+      "productName": "Stacking Tin",
+      "packs": 3,
+      "packsVaryBySet": false,
+      "cardsPerPack": null,
+      "alsoIncludes": ["2 sticker sheets"],
+      "price": null,
+      "confidence": "medium. One current-era source (March 2025). Stacking Tins have no promo card, which is what separates them from the standard tin at a similar price.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Pokemon TCG: Stacking Tin",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/stacking-tin-2025",
+          "excerpt": "3 Pokemon TCG booster packs, 2 Pokemon sticker sheets. Launch March 7, 2025.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "alsoIncludes"]
+        }
+      ]
+    },
+
+    {
+      "id": "blister",
+      "siteLabel": "Blister",
+      "openingsPage": "/openings/blister.html",
+      "productName": "Three-Booster Blister (3-pack blister)",
+      "packs": 3,
+      "packsVaryBySet": false,
+      "cardsPerPack": 10,
+      "alsoIncludes": [
+        "1 foil promo card",
+        "1 Pokemon coin"
+      ],
+      "price": {
+        "amount": 14.99,
+        "currency": "USD",
+        "kind": "retailer listed price",
+        "isMsrp": false,
+        "retailer": "Target",
+        "product": "Mega Evolution Chaos Rising Three-Booster Blister"
+      },
+      "confidence": "high on the pack count, both retailers agree. SOURCES DISAGREE ON THE EXTRAS: GameStop lists a foil promo card and a coin, Target's Highlights list only the packs and cards-per-pack. Blisters have no pokemon.com product-gallery page at all, so tier 3 is the best available.",
+      "sources": [
+        {
+          "tier": 3,
+          "publisher": "GameStop",
+          "title": "Pokemon Trading Card Game: Chaos Rising Three-Booster Blister",
+          "url": "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-chaos-rising-three-booster-blister/20033754.html",
+          "excerpt": "Three booster packs. One foil promo card. One Pokemon coin. Each booster pack contains 10 additional game cards.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "cardsPerPack", "alsoIncludes"]
+        },
+        {
+          "tier": 3,
+          "publisher": "Target",
+          "title": "Mega Evolution Chaos Rising Three-Booster Blister",
+          "url": "https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-chaos-rising-three-booster-blister/-/A-95298174",
+          "excerpt": "3 Booster Packs from Mega Evolutions - Chaos Rising. 10 Cards Per Pack. Price shown $14.99. No promo or coin listed.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "cardsPerPack", "price"]
+        }
+      ]
+    },
+
+    {
+      "id": "blister",
+      "siteLabel": "Blister",
+      "openingsPage": "/openings/blister.html",
+      "productName": "Checklane Blister (single-pack blister)",
+      "packs": 1,
+      "packsVaryBySet": false,
+      "cardsPerPack": 10,
+      "alsoIncludes": [
+        "1 exclusive foil promo card",
+        "1 themed coin"
+      ],
+      "price": null,
+      "priceNote": "The Target listing read is a third-party marketplace seller, so its price is not a retail or manufacturer price and is deliberately not recorded.",
+      "confidence": "medium. One retailer listing, and it is a marketplace seller rather than Target first-party. Contents match the long-standing checklane shape (1 pack + promo + coin). No official Pokemon page exists for blisters.",
+      "sources": [
+        {
+          "tier": 3,
+          "publisher": "Target (third-party marketplace seller)",
+          "title": "Pokemon ME5 Mega Evolution Pitch Black Checklane Blister, Slowpoke",
+          "url": "https://www.target.com/p/pokemon-me5-mega-evolution-pitch-black-checklane-blister-slowpoke/-/A-1012494250",
+          "excerpt": "Exclusive foil promo featuring Slowpoke. One booster pack from the Pitch Black expansion with 10 cards. A themed coin.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "cardsPerPack", "alsoIncludes"]
+        }
+      ]
+    },
+
+    {
+      "id": "single-pack",
+      "siteLabel": "Single Pack",
+      "openingsPage": "/openings/single-pack.html",
+      "productName": "Booster pack (loose or sleeved)",
+      "packs": 1,
+      "packsVaryBySet": false,
+      "cardsPerPack": 10,
+      "cardsPerPackNote": "10 cards plus 1 Basic Energy, plus a Pokemon TCG Live code card. 30th Celebration is the exception, see notes.",
+      "alsoIncludes": [],
+      "price": {
+        "amount": 9.99,
+        "currency": "USD",
+        "kind": "retailer listed price",
+        "isMsrp": false,
+        "retailer": "GameStop",
+        "product": "Pitch Black Sleeved Booster Pack"
+      },
+      "confidence": "high on the count (it is one pack). The PRICE is a single GameStop listing for a sleeved pack and is well above what a pack costs in a bundle ($26.94 / 6 = $4.49). Treat it as one retailer's shelf price, not a baseline, and do not present it as MSRP.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Mega Evolution—Pitch Black Product Showcase",
+          "url": "https://www.pokemon.com/us/pokemon-news/pokemon-tcg-mega-evolution-pitch-black-product-showcase",
+          "excerpt": "Each pack has 10 cards and one Basic Energy inside.",
+          "readAt": "2026-08-15",
+          "supports": ["cardsPerPack"]
+        },
+        {
+          "tier": 3,
+          "publisher": "GameStop",
+          "title": "Pokemon Trading Card Game: Pitch Black Sleeved Booster Pack",
+          "url": "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-pitch-black-sleeved-booster-pack/20034824.html",
+          "excerpt": "Each sleeved booster pack contains 10 additional game cards. Price shown $9.99.",
+          "readAt": "2026-08-15",
+          "supports": ["cardsPerPack", "price"]
+        }
+      ]
+    },
+
+    {
+      "id": "knock-out",
+      "siteLabel": "Knock Out Collection",
+      "openingsPage": "/openings/knock-out.html",
+      "productName": "Knock Out Collection",
+      "packs": 2,
+      "packsVaryBySet": false,
+      "cardsPerPack": null,
+      "alsoIncludes": [
+        "1 foil card (choice of two characters)",
+        "1 sticker sheet",
+        "code card for Pokemon TCG Live"
+      ],
+      "price": null,
+      "confidence": "medium on currency, high on the number. The most recent Knock Out Collection on pokemon.com is January 2025; there is no 2026 edition in the product gallery. 2 packs on both the Jan 2024 and Jan 2025 editions. Say 'as of the January 2025 release' rather than implying it is a live line.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Pokemon TCG: Knock Out Collection (Jan 2025)",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/knock-out-collection-jan-2025",
+          "excerpt": "1 foil card featuring Chien-Pao or Alakazam, 1 sticker sheet, 2 Pokemon TCG booster packs, code card. Launch January 3, 2025.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "alsoIncludes"]
+        }
+      ]
+    },
+
+    {
+      "id": "collection-box",
+      "siteLabel": "Collection Box",
+      "openingsPage": "/openings/collection-box.html",
+      "productName": "Collection boxes (a family, not one product)",
+      "packs": null,
+      "packsVaryBySet": true,
+      "packsByProduct": [
+        { "product": "30th Celebration Tech Sticker Collection", "released": "2026-09-16", "packs": 3, "extras": "1 foil promo card, 1 tech sticker sheet" },
+        { "product": "30th Celebration Binder Collection", "released": "2026-10-02", "packs": 5, "extras": "9-pocket binder" },
+        { "product": "Prismatic Evolutions Surprise Box", "released": "2025-02-07", "packs": 4, "extras": "1 of 9 randomly selected foil promo cards, storage box with 4 dividers, code card" },
+        { "product": "Collector Chest (Fall 2025)", "released": "2025-12-05", "packs": 6, "extras": "3 foil cards, 1 coin, 4 sticker sheets, mini portfolio, metal case" }
+      ],
+      "cardsPerPack": null,
+      "alsoIncludes": [],
+      "price": null,
+      "confidence": "COUNT VARIES WIDELY, 3 to 6, and this tag is the site's catch-all. taxonomy.mjs routes Premium Collection, Special Collection, tech sticker, poster, pin and illustration Collections all into `collection-box`, so one number cannot cover it. List named products, never a single figure.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "30th Celebration Tech Sticker Collection",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/30th-celebration-tech-sticker-collection",
+          "excerpt": "1 foil promo card, 1 tech sticker sheet, 3 30th Celebration booster packs. Launch September 16, 2026.",
+          "readAt": "2026-08-15",
+          "supports": ["packsByProduct"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "30th Celebration Binder Collection",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/30th-celebration-binder-collection",
+          "excerpt": "A thematic 9-pocket binder, 5 30th Celebration booster packs. Launch October 2, 2026.",
+          "readAt": "2026-08-15",
+          "supports": ["packsByProduct"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Scarlet & Violet—Prismatic Evolutions Surprise Box",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/scarlet-violet-prismatic-evolutions-surprise-box",
+          "excerpt": "1 of 9 randomly selected foil promo cards, 4 Prismatic Evolutions booster packs, a box with 4 dividers, code card.",
+          "readAt": "2026-08-15",
+          "supports": ["packsByProduct"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Pokemon TCG: Collector Chest (Fall 2025)",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/collector-chest-fall-2025",
+          "excerpt": "6 Pokemon TCG booster packs, 3 foil cards, 1 coin, 4 sticker sheets, a mini portfolio, metal case. Launch December 5, 2025.",
+          "readAt": "2026-08-15",
+          "supports": ["packsByProduct"]
+        }
+      ]
+    },
+
+    {
+      "id": null,
+      "siteLabel": null,
+      "openingsPage": null,
+      "productName": "Build & Battle Box",
+      "packs": 4,
+      "packsVaryBySet": false,
+      "cardsPerPack": 10,
+      "alsoIncludes": [
+        "a 40-card deck ready for the Prerelease format",
+        "1 of 4 unique foil promo cards"
+      ],
+      "price": null,
+      "confidence": "high. 4 packs on both Mega Evolution and Pitch Black. This is the answer to 'do starter products contain packs' for the current era: the Build & Battle Box does, Battle Decks do not. The site has NO product tag for it.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Mega Evolution—Pitch Black Product Showcase",
+          "url": "https://www.pokemon.com/us/pokemon-news/pokemon-tcg-mega-evolution-pitch-black-product-showcase",
+          "excerpt": "This box contains a 40-card deck, one of four unique foil promo cards, and four Pitch Black booster packs.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "alsoIncludes"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Mega Evolution Product Showcase",
+          "url": "https://www.pokemon.com/us/pokemon-news/pokemon-tcg-mega-evolution-product-showcase",
+          "excerpt": "40-card deck, one of four unique foil promo cards, four Mega Evolution booster packs.",
+          "readAt": "2026-08-15",
+          "supports": ["packs"]
+        }
+      ]
+    },
+
+    {
+      "id": null,
+      "siteLabel": null,
+      "openingsPage": null,
+      "productName": "Battle Deck",
+      "packs": 0,
+      "packsVaryBySet": false,
+      "cardsPerPack": null,
+      "alsoIncludes": [
+        "60 foil cards making a ready-to-play deck",
+        "1 deck box",
+        "1 playmat",
+        "1 coin"
+      ],
+      "price": null,
+      "confidence": "high for this product. Battle Decks contain NO booster packs, which is exactly the thing a returning buyer gets wrong. Verified on the newest one (30th Celebration, October 2026). League Battle Decks and Deluxe Battle Decks were not individually checked.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "30th Celebration Battle Deck—Espeon ex and Umbreon ex",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/30th-celebration-battle-deck-espeon-ex-and-30th-celebration-battle-deck-umbreon-ex",
+          "excerpt": "60 foil cards, 1 deck box, 1 playmat, 1 coin. No booster packs listed. Launch October 30, 2026.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "alsoIncludes"]
+        }
+      ]
+    },
+
+    {
+      "id": null,
+      "siteLabel": null,
+      "openingsPage": null,
+      "productName": "Holiday Calendar",
+      "packs": 6,
+      "packsVaryBySet": true,
+      "cardsPerPack": null,
+      "alsoIncludes": [
+        "8 foil cards with a festive stamp",
+        "7 three-card fun packs, which are NOT booster packs",
+        "2 coins",
+        "2 sticker sheets",
+        "code card for Pokemon TCG Live",
+        "25 doors in total"
+      ],
+      "price": null,
+      "confidence": "medium. Sourced from the 2025 calendar (announced August 2025). No 2026 calendar has appeared in the product gallery as of this read. The 6-pack figure counts only real booster packs; the 7 'fun packs' hold three cards each and should never be added to the booster total.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Pokemon TCG: Holiday Calendar",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/holiday-calendar-2025",
+          "excerpt": "25 surprises: 8 foil cards, 6 booster packs, 7 three-card fun packs, 2 coins, 2 sticker sheets, code card.",
+          "readAt": "2026-08-15",
+          "supports": ["packs", "alsoIncludes"]
+        }
+      ]
+    },
+
+    {
+      "id": null,
+      "siteLabel": null,
+      "openingsPage": null,
+      "productName": "Trick or Trade BOOster Bundle",
+      "packs": 0,
+      "packsVaryBySet": true,
+      "miniPacks": 35,
+      "cardsPerPack": 3,
+      "cardsPerPackNote": "These are MINI packs of 3 cards, not booster packs. Zero booster packs are included.",
+      "alsoIncludes": [],
+      "price": null,
+      "confidence": "medium, and it needs a caveat. Mini-pack count has changed: 40 in the 2022 edition, 35 in the 2024 edition, both from pokemon.com. No 2025 or 2026 edition appears in the pokemon.com product gallery, so currency is unconfirmed. Warning for the builder: the product name contains the word 'Bundle', so taxonomy.mjs will tag it `bundle` and imply 6 booster packs.",
+      "sources": [
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Trick or Trade BOOster Bundle (2024)",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/trick-or-trade-booster-bundle-2024",
+          "excerpt": "35 mini packs of Pokemon TCG cards. Each mini pack contains 3 cards. Launch August 30, 2024.",
+          "readAt": "2026-08-15",
+          "supports": ["miniPacks", "cardsPerPack"]
+        },
+        {
+          "tier": 1,
+          "publisher": "pokemon.com",
+          "title": "Trick or Trade BOOster Bundle (2022)",
+          "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/trick-or-trade-booster-bundle",
+          "excerpt": "40 mini packs, each containing three cards. Launch September 1, 2022.",
+          "readAt": "2026-08-15",
+          "supports": ["confidence"]
+        }
+      ]
+    }
+  ],
+
+  "notes": [
+    {
+      "topic": "Cards per pack, current standard",
+      "note": "10 cards plus 1 Basic Energy plus a Pokemon TCG Live code card. Sourced on pokemon.com product showcases and on Pokemon Center product pages for Mega Evolution and Scarlet & Violet expansions. The 11-to-10 change happened before the Scarlet & Violet era and was NOT sourced in this pass, so do not state when or why it changed.",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-news/pokemon-tcg-mega-evolution-pitch-black-product-showcase",
+        "https://www.pokemoncenter.com/product/10-10422-109/pokemon-tcg-mega-evolution-pitch-black-booster-bundle-6-packs"
+      ],
+      "readAt": "2026-08-15"
+    },
+    {
+      "topic": "30th Celebration packs are a different size",
+      "note": "A 30th Celebration booster pack holds 5 foil cards plus 1 foil Basic Energy plus a code card, not 10 cards. Any price-per-card maths on the guide page must exclude 30th Celebration or handle it separately. Pack COUNTS for 30th Celebration products (9 in the ETB, 11 in the Pokemon Center ETB, 6 in the bundle, 4 in the ex Box) are unchanged.",
+      "sources": ["https://www.pokemoncenter.com/product/10-10451-115/pokemon-tcg-30th-celebration-booster-bundle-6-packs"],
+      "readAt": "2026-08-15"
+    },
+    {
+      "topic": "No manufacturer MSRP was found anywhere",
+      "note": "The Pokemon Company does not publish MSRP on pokemon.com product pages. Every price in this file is either a Pokemon Center store price or a retailer's listed price, and each is labelled with `isMsrp: false` and the retailer it came from. If the guide page wants an MSRP column, it cannot be filled from these sources and should be left out.",
+      "readAt": "2026-08-15"
+    },
+    {
+      "topic": "Sources disagreed: 3-pack blister contents",
+      "note": "GameStop's Chaos Rising Three-Booster Blister lists three packs, one foil promo card and one coin. Target's listing for the same product lists only '3 Booster Packs' and '10 Cards Per Pack' with no promo or coin in its Highlights. Both are recorded on the blister entry. The likeliest reading is that Target's list is incomplete rather than the product differing, but that is inference, so the page should either state both or state only the pack count.",
+      "sources": [
+        "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-chaos-rising-three-booster-blister/20033754.html",
+        "https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-chaos-rising-three-booster-blister/-/A-95298174"
+      ],
+      "readAt": "2026-08-15"
+    },
+    {
+      "topic": "Sources disagreed in presentation: 30th Celebration UPC",
+      "note": "A search-result summary described the 30th Celebration UPC as '30 booster packs including a special pack'. The pokemon.com page itemises them as two separate lines: 29 standard packs and 1 Classic Collection pack. Same total, different framing. The page should use the itemised version, because the Classic Collection pack is a different product from the other 29.",
+      "sources": ["https://www.pokemon.com/us/pokemon-tcg/product-gallery/30th-celebration-ultra-premium-collections-day-night"],
+      "readAt": "2026-08-15"
+    },
+    {
+      "topic": "Trap: standard ETB and Pokemon Center ETB cost the same",
+      "note": "Target lists the standard Pitch Black ETB at $59.99 and Pokemon Center lists its own 11-pack version at $59.99. If both hold, the Pokemon Center box is two packs and one promo card better at the same money. This is exactly the kind of comparison the page is for, but it rests on two different sellers' prices on one date, so date it and do not present it as a permanent fact.",
+      "sources": [
+        "https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-pitch-black-elite-trainer-box/-/A-1011483406",
+        "https://www.pokemoncenter.com/search/elite-trainer-box"
+      ],
+      "readAt": "2026-08-15"
+    },
+    {
+      "topic": "Trap: the site's ex-premium tag covers two different sizes",
+      "note": "taxonomy.mjs deliberately folds 'ex Box' into `ex-premium` (the comment there records that all 24 auto-tagged ex-box videos were hand-corrected to ex-premium anyway). But an ex Premium Collection has 8 packs and an ex Box has 4. Both entries are in this file under the same id. The guide page must split them by NAME even though they share a tag, or it will publish a wrong number for half the products on that openings page.",
+      "readAt": "2026-08-15"
+    },
+    {
+      "topic": "Trap: the tin tag spans 2, 3, 4 and 5 packs",
+      "note": "The `tin` pattern is a bare \\btin\\b, so Mini Tins (2 packs), Stacking Tins (3), current standard tins (4) and 2025 standard tins (5) all land on /openings/tin.html. Poke Ball Tins have their own id and 3 packs. A single 'tins have N packs' row would be wrong for most of them.",
+      "readAt": "2026-08-15"
+    },
+    {
+      "topic": "Products with no product id on this site",
+      "note": "Build & Battle Box, Battle Deck, Holiday Calendar, Trick or Trade, Collector Chest and Surprise Box have no matching entry in PRODUCT_TYPES. Trick or Trade and any 'Booster Bundle'-named oddity will fall into `bundle` by pattern, and Surprise Box and Collector Chest match nothing at all. If the guide page links every row to an openings page, these rows have nowhere to point.",
+      "readAt": "2026-08-15"
+    },
+    {
+      "topic": "Openings pages that do not exist yet",
+      "note": "public/openings/ has pages for blister, bundle, chinese-pack, collection-box, etb, ex-premium, japanese-pack, knock-out, korean-pack, poke-ball-tin, single-pack, tin and upc. There is NO page for spc, ex-special or booster-box, all three of which are in scope for this guide. Those rows cannot link anywhere until the pages exist.",
+      "readAt": "2026-08-15"
+    },
+    {
+      "topic": "Could not source",
+      "note": "Cards per pack for Ultra-Premium, Super-Premium, ex Premium, ex Box, ex Special, tins and Knock Out. Those products carry mixed-expansion packs and no official page states a per-pack card count for them, so the field is null rather than assumed to be 10. Prices for UPC, SPC, ex Premium, ex Box, ex Special, standard tin, Mini Tin, Knock Out, collection boxes, Build & Battle Box, Battle Deck, Holiday Calendar and Trick or Trade are also unsourced and left null.",
+      "readAt": "2026-08-15"
+    },
+    {
+      "topic": "Fetching these sources again",
+      "note": "pokemon.com, pokemoncenter.com, target.com and gamestop.com all return 403 or a bot-detection interstitial to a plain fetch. Everything here was read through a real browser session. If a later pass gets an 'access interrupted' page, that is the block, not a missing product.",
+      "readAt": "2026-08-15"
+    },
+    {
+      "topic": "Odds",
+      "note": "Deliberately absent. No pull rate, hit rate, odds, 'chance of', or god-pack figure appears anywhere in this file, and none should be derived from the pack counts in it. Pack counts are printed on packaging; odds are not published by The Pokemon Company and are forbidden on this site.",
+      "readAt": "2026-08-15"
+    }
+  ]
+}

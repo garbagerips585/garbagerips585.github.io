@@ -309,7 +309,7 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official."
       // an AVIF that 404s paints a broken card rather than falling back.
       var thumbUrl=base&&r.n ? base+'/'+r.n+'/low.webp' : '';
       var avifSrc=thumbUrl.indexOf('https://assets.tcgdex.net/')===0
-        ? '<source type="image/avif" srcset="'+esc(thumbUrl.replace(/\.webp$/,'.avif'))+'">'
+        ? '<source type="image/avif" srcset="'+esc(thumbUrl.slice(0,-5)+'.avif')+'">'
         : '';
       var img=thumbUrl
         ? '<picture>'+avifSrc+'<img class="cq-img" src="'+esc(thumbUrl)+'" alt="" loading="lazy" width="245" height="337"></picture>'
