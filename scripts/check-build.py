@@ -223,6 +223,23 @@ else:
 
 # 5. Volume inside the JSON. This is the check that catches a sync blanking
 #    real data, which no count of pages ever will.
+#
+# LOUD IS NOT THE SAME AS USEFUL. These reads were bare json.load(), so a
+# half-written card-index.json (an interrupted sync leaves exactly that) ended
+# the run with a raw JSONDecodeError traceback. It is non-zero, so it does stop
+# a publish, but the message is "Unterminated string starting at: line 1 column
+# 888" and it does not name a file: build-all.mjs shows the last four lines of
+# stderr, which is the middle of a stack trace through json/decoder.py. Every
+# other failure in this script names the file and the fix, so these do too.
+def _read_json(path):
+    """Parsed document, or None with the reason already recorded in `fail`."""
+    try:
+        return json.load(open(path, encoding="utf-8"))
+    except Exception as e:
+        fail.append(f"{path} does not parse as JSON ({e}). Re-run the sync that writes it.")
+        return None
+
+
 DATA = [
     ("public/data/card-index.json", "cards", 4000),
     ("public/data/site-index.json", "rips", 300),
@@ -232,7 +249,9 @@ for path, key, floor in DATA:
     if not os.path.exists(path):
         fail.append(f"{path} is missing")
         continue
-    doc = json.load(open(path, encoding="utf-8"))
+    doc = _read_json(path)
+    if doc is None:
+        continue
     rows = doc.get(key) or []
     if len(rows) < floor:
         fail.append(f"{path}: {len(rows)} {key}, expected at least {floor}")
@@ -241,9 +260,17 @@ for path, key, floor in DATA:
 
 # Prices are the thing most likely to silently go null.
 ci = "public/data/card-index.json"
-if os.path.exists(ci):
-    cards = json.load(open(ci, encoding="utf-8")).get("cards") or []
-    priced = sum(1 for c in cards if isinstance(c[4], (int, float)))
+_ci_doc = _read_json(ci) if os.path.exists(ci) else None
+if _ci_doc is not None:
+    cards = _ci_doc.get("cards") or []
+    # A row shorter than five columns is an IndexError here, and the traceback
+    # says "list index out of range" without saying which file grew a new shape.
+    _short = [c for c in cards if not isinstance(c, list) or len(c) < 5]
+    if _short:
+        fail.append(f"{ci}: {len(_short)} card row(s) have fewer than 5 columns, so the "
+                    f"price column c[4] does not exist. build-cards.mjs and "
+                    f"sync-cards.mjs disagree about the row shape.")
+    priced = sum(1 for c in cards if isinstance(c, list) and len(c) > 4 and isinstance(c[4], (int, float)))
     pct = priced / len(cards) * 100 if cards else 0
     note(f"  {pct:.1f}% of cards carry a price")
     if pct < 90:
@@ -256,9 +283,11 @@ pi = "public/data/pokemon-index.json"
 if not os.path.exists(pi):
     fail.append("pokemon-index.json is missing, so 30 pages are out of search and the sitemap")
 else:
-    n = len(json.load(open(pi, encoding="utf-8")).get("pokemon") or [])
-    if n < 25:
-        fail.append(f"pokemon-index.json has {n} entries, expected 25+")
+    _pi_doc = _read_json(pi)
+    if _pi_doc is not None:
+        n = len(_pi_doc.get("pokemon") or [])
+        if n < 25:
+            fail.append(f"pokemon-index.json has {n} entries, expected 25+")
 
 # 7. Structured data has to parse or the rich result is simply not eligible.
 bad = 0
@@ -303,10 +332,19 @@ if not bad:
 # it survived.
 import datetime
 today = datetime.datetime.now(datetime.timezone.utc).date().isoformat()
+# THE `except: continue` HERE USED TO SWALLOW A CORRUPT FILE ENTIRELY. Every
+# file in this glob is SERVED to the browser: card-index.json and site-index.json
+# are what /search.html reads, and public/data/cards/*.json is the price on every
+# set guide. A half-written one from an interrupted sync fails json.load, and the
+# only thing that happened was that this loop moved on to the next file. Nothing
+# else in this script parses most of them, so a broken published feed shipped
+# green. A file that does not parse is a worse problem than a bad date in it.
 for path in glob.glob("public/data/*.json") + glob.glob("public/data/cards/*.json"):
     try:
         doc = json.load(open(path, encoding="utf-8"))
-    except Exception:
+    except Exception as _e:
+        fail.append(f"{path} does not parse as JSON ({_e}). It is served to the browser, "
+                    f"so re-run the sync that writes it.")
         continue
     for key in ("checked", "syncedAt", "updated"):
         v = doc.get(key)
@@ -530,14 +568,27 @@ if os.path.exists(_refresh):
 # So it prints. The list is worth having in front of you, because a set with
 # several rips probably HAS earned a guide, and this is where you would notice.
 _guides = {os.path.basename(p)[:-5] for p in glob.glob("public/sets/*.html")} - {"index"}
+# THIS `except` USED TO WRITE `_vids = []` AND THAT EMPTIED TWO CHECKS AT ONCE.
+# `_ripped` feeds the no-guide report below AND the app.js spelling check at the
+# bottom of this file, and both of them walk it with a `for`. An empty dict
+# means zero iterations, zero findings and a green run: the verifier reports
+# success precisely because it lost its input. Same shape as every bug this file
+# exists to catch, sitting inside the file that catches them.
 try:
     _vids = json.load(open("public/data/videos.json", encoding="utf-8"))["videos"]
-except Exception:
+except Exception as _e:
     _vids = []
+    fail.append(f"could not read videos from public/data/videos.json ({_e}), so the "
+                f"no-guide report and the app.js set-name check below both have "
+                f"nothing to walk and would pass empty")
 _ripped = {}
 for _v in _vids:
     for _s in (_v.get("sets") or []):
         _ripped[_s] = _ripped.get(_s, 0) + 1
+if _vids and not _ripped:
+    fail.append(f"{len(_vids)} videos in videos.json and not one carries a `sets` tag. "
+                f"Either every tag was dropped on sync or the field was renamed; "
+                f"the app.js set-name check below compares nothing when this is empty")
 _noguide = sorted(((n, s) for s, n in _ripped.items() if s not in _guides), reverse=True)
 if _noguide:
     note(
@@ -586,30 +637,63 @@ def _title_case(_id):
     return " ".join(w[:1].upper() + w[1:] for w in str(_id).split("-"))
 
 
+# EVERY ONE OF THESE READS WAS `except Exception: pass`, AND THE COMPARISON
+# BELOW SKIPS ANY SET IT HAS NO CANONICAL NAME FOR. Those two facts together are
+# the failure this file keeps finding elsewhere: lose all three files and
+# `_canon` is empty, every `_want` is None, every set hits the `continue`, and
+# the check reports no disagreements because it made no comparisons.
+#
+# It is not hypothetical arithmetic. Measured on 16 August 2026: expansions.json
+# and sets.json between them name 28 of the 35 set ids that reach a tile, and
+# intl-guides.json names the other 13 (there is overlap). Drop intl-guides
+# alone and 13 sets stop being checked in silence. So each source says so when
+# it cannot be read, and the comparison counts what it actually compared.
 _canon = {}
 for _f, _key in (("public/data/expansions.json", "sets"), ("public/data/sets.json", "sets")):
     try:
         for _s in json.load(open(_f, encoding="utf-8"))[_key]:
             _canon[_s.get("slug") or _s.get("id") or ""] = _s["name"]
-    except Exception:
-        pass
+    except Exception as _e:
+        fail.append(f"could not read {_key} out of {_f} ({_e}), so the app.js set-name "
+                    f"check below silently stops checking the sets it names")
 _canon.pop("", None)
 try:
     _LANG = {"ja": "JP", "ko": "KR", "zh-cn": "CN", "zh-tw": "CN"}
     for _id, _g in json.load(open("public/data/intl-guides.json", encoding="utf-8"))["sets"].items():
         _canon[_id] = f"{_g['english']} ({_LANG.get(_g.get('lang'), '??')})"
-except Exception:
-    pass
+except Exception as _e:
+    fail.append(f"could not read sets out of public/data/intl-guides.json ({_e}), so the "
+                f"app.js set-name check below silently stops checking the 13 "
+                f"non-English sets it is the only source for")
 
+# An empty LABELS.sets is not "nothing to check", it is a lost input: app.js
+# would be title-casing all 87 names it currently spells out by hand.
+if not _labels:
+    fail.append("LABELS.sets in public/assets/app.js parsed to zero entries, so the "
+                "set-name check has nothing to compare and would pass empty. Check the "
+                "`sets: {` block is still there and still in that shape.")
 if _labels:
     _wrong = []
+    _compared = 0
     for _s in sorted(_ripped):
         _want = _canon.get(_s)
         if not _want:
             continue          # not an English set or an imported guide; nothing to compare
+        _compared += 1
         _got = _labels.get(_s) or _title_case(_s)
         if _got != _want:
             _wrong.append(f'{_s}: app.js renders "{_got}", the site says "{_want}"')
+    note(f"  {_compared} of {len(_ripped)} ripped set names cross-checked against app.js")
+    # THE COUNT IS THE GUARD. A run that compares nothing is indistinguishable
+    # from a run that compares everything and finds nothing, which is exactly
+    # how the checks this file replaced stayed green while the tree was broken.
+    if _ripped and not _compared:
+        fail.append(
+            f"the app.js set-name check compared 0 of {len(_ripped)} ripped sets, so it "
+            f"passed without looking at anything. Nothing in expansions.json, sets.json "
+            f"or intl-guides.json names any set id that videos.json uses, which means one "
+            f"of those feeds changed its id shape."
+        )
     if _wrong:
         fail.append(
             f"{len(_wrong)} set name(s) spelled differently by public/assets/app.js and the "
@@ -619,10 +703,61 @@ if _labels:
             + ". Add the id to LABELS.sets in public/assets/app.js."
         )
 
+# THE VERDICT GOES TO STDERR AND THE REASON WAS INVISIBLE UNTIL IT DID.
+#
+# build-all.mjs runs this file as its LAST step with stdio ["ignore","ignore",
+# "pipe"]: it throws stdout away and prints the last four lines of STDERR when a
+# step exits non-zero. Every line below used to be a plain print(), so a failing
+# safety net rendered as exactly this and nothing else:
+#
+#     FAIL  python3 scripts/check-build.py
+#
+# The one check that exists to stop a broken site shipping could not say what
+# was wrong through the one command that runs it. Whoever saw that line had to
+# know to re-run the script by hand to find out, and the failure mode if they
+# did not is the whole point of this file.
+#
+# The LAST line is a one-line summary on purpose, because four lines is all
+# build-all shows: whatever the tail happens to be, the final line always names
+# the count and the command that prints the full list.
+# One file read by three checks reports its parse failure three times. Deduped
+# in order, so the count is a count of problems rather than of complaints.
+fail = list(dict.fromkeys(fail))
+# ---------------------------------------------------------------------------
+# NaN, undefined AND null MUST NEVER REACH A READER.
+#
+# Added the day a one line change shipped "it is in getting NaN of them into one
+# envelope" to a live page. Every builder ran, every existing check passed, and
+# the sentence was nonsense: a mean was computed from an array before the loop
+# that fills it, so it divided by zero. A template literal prints whatever it is
+# handed, and NaN is a perfectly good string.
+#
+# The same shape has bitten twice before. hall.html printed the literal word
+# "null" as the set name on its two most valuable cards, and a builder asked a
+# JSON file for a key that does not exist and got undefined.
+#
+# Scoped to VISIBLE TEXT, with script and style stripped, because "null" is
+# ordinary inside JSON-LD and inside the data blocks these pages carry.
+_bad = []
+for _f in sorted(glob.glob("public/**/*.html", recursive=True)):
+    _s = open(_f, encoding="utf-8").read()
+    _t = _re.sub(r"(?s)<(script|style)\b.*?</\1>", " ", _s)
+    _t = _re.sub(r"(?s)<[^>]+>", " ", _t)
+    for _m in _re.finditer(r"(?<![\w-])(NaN|undefined)(?![\w-])", _t):
+        _ctx = _re.sub(r"\s+", " ", _t[max(0, _m.start() - 45):_m.end() + 30]).strip()
+        _bad.append(f"{_f}: {_m.group(1)} in visible text ... {_ctx[:95]}")
+for _m in _bad[:6]:
+    fail.append(_m)
+if len(_bad) > 6:
+    fail.append(f"...and {len(_bad) - 6} more NaN/undefined in visible text")
+
+
 if fail:
-    print(f"\n{len(fail)} problem(s):")
+    print(f"\n{len(fail)} problem(s):", file=sys.stderr)
     for f in fail:
-        print("  " + f)
+        print("  " + f, file=sys.stderr)
+    print(f"{len(fail)} problem(s) found by scripts/check-build.py. "
+          f"Run: python3 scripts/check-build.py", file=sys.stderr)
     sys.exit(1)
 print("\nall checks pass")
 

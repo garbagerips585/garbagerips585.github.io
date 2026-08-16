@@ -151,6 +151,15 @@ for (const f of (await readdir(join(ROOT, "public/data/cards"))).sort()) {
   });
 }
 
+// THE CARD COUNT BESIDE AN AVERAGE HAS TO BE AN AVERAGE TOO. These three
+// sentences argue that the cost of a base set is postage rather than cards, and
+// they sat next to "$65 on average, against $101 at market", which is a mean
+// across all 28 sets, while the count itself was one set's: Chaos Rising's 86,
+// because it happens to be the cheapest. The mean base set is closer to 136, so
+// the argument understated its own case by about forty per cent while reading
+// as though both numbers described the same thing.
+const meanBase = Math.round(rows.reduce((n, r) => n + (r.counts?.base || 0), 0) / rows.length);
+
 rows.sort((a, b) => a.base - b.base);
 
 const complete = rows.filter((r) => r.missing === 0);
@@ -299,7 +308,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
@@ -441,13 +450,14 @@ ${MENU}
       <div class="fact"><div class="n">${masterSpread.toFixed(1)}x</div><div class="l">Typical set: the same comparison, master set</div></div>
       <div class="fact wide"><div class="n">${moneyRound(totalBaseFloor / rows.length)}</div><div class="l">Average base set at cheapest listings, before postage</div></div>
     </div>
+
     <p style="max-width:40em;margin-top:16px">The reason is that a three cent common's cheapest copy is a penny, while
       a ${moneyRound(dearestMaster.top.price)} chase card's cheapest copy is close to what it sells for. So the money in
-      a base set is not really in the cards, it is in getting ${cheapest.counts.base} of them into one envelope.
+      a base set is not really in the cards, it is in getting ${meanBase} of them into one envelope.
       ${esc(widest.name)} is the extreme case: ${moneyRound(widest.base)} at market against
       ${moneyRound(widest.floors.base)} in cheapest listings, a ${widest.baseSpread.toFixed(1)}x gap.</p>
     <p class="price-note">We do not publish the cheapest-listing total as a set price, because it is not one. Those are
-      single listings from ${cheapest.counts.base} different sellers in unstated condition, so nobody can actually buy a
+      single listings from ${meanBase} different sellers in unstated condition, so nobody can actually buy a
       set at that number. It is here to show you where the real cost sits, which is postage and patience rather than
       the cards.</p>
   </div>
@@ -463,7 +473,7 @@ ${MENU}
       <li><strong>Before shipping, and on a base set that is the whole bill.</strong> Singles come from many sellers, so
         a real completion pays postage over and over. Add up the cheapest listing for every card in a base set and it
         comes to ${moneyRound(totalBaseFloor / rows.length)} on average, against ${moneyRound(totalBase / rows.length)}
-        at market. The cards are close to free. What you are actually buying is ${cheapest.counts.base} separate
+        at market. The cards are close to free. What you are actually buying is ${meanBase} separate
         envelopes, which is why people do this in bulk lots from one seller and not one card at a time.</li>
       <li><strong>Market price, not the price you will pay, and it cuts both ways.</strong> Market is what copies have
         been selling for. Some cards can be had below it right now from somebody clearing stock, and some cannot be had

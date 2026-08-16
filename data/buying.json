@@ -312,7 +312,7 @@
         "On an Authenticity Guarantee card where the seller does not accept returns the sale is final, except that a card damaged in transit can be returned within three days of receiving it.",
         "A card the seller throws in free is not covered and may be disposed of."
       ],
-      "note": "PARTIAL because the buyer fee question could not be closed on eBay's own pages, and because eBay publishes no card condition definitions that were found. Both are recorded as gaps. eBay's fee pages are written for sellers, and /selling.html records those.",
+      "note": "PARTIAL because the buyer fee question could not be closed on eBay's own pages, and because eBay publishes no card condition definitions that were found. Both are recorded as gaps. eBay's fee pages are written for sellers, and our selling guide records those.",
       "sources": [
         {
           "url": "https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210",
@@ -859,7 +859,7 @@
         }
       ],
       "recourse": "The return windows differ enormously and then trading cards cut across all of them, which is the point of grouping these four. Target: 90 days on most unopened Target-owned items, 30 on Target Plus marketplace items, with an extra 30 days for Circle Card holders and Circle 360 members. Walmart: 90 days on most items, 30 on marketplace-seller items. Best Buy: 15 days standard and 60 for Plus and Total members, with those extensions not applying to marketplace purchases. Costco: an open-ended satisfaction guarantee with no general day limit and a 90 day carve-out for electronics. BUT SEE THE LIMITS BELOW, because two of these four exclude trading cards from all of it.",
-      "authenticity": "Not a marketplace question at the chain level: these are sealed manufacturer cases delivered through normal retail distribution. The risk that exists here is not a counterfeit listing, it is a package that has been opened and resealed somewhere along the way, which is a physical inspection problem rather than a policy one. That is covered on /fake-cards.html rather than repeated here.",
+      "authenticity": "Not a marketplace question at the chain level: these are sealed manufacturer cases delivered through normal retail distribution. The risk that exists here is not a counterfeit listing, it is a package that has been opened and resealed somewhere along the way, which is a physical inspection problem rather than a policy one. That is covered on the fake cards guide rather than repeated here.",
       "limits": [
         "TARGET: trading cards are FINAL SALE. Their own return exceptions page lists trading cards and trading card accessories, naming Pokemon, sport cards and trading card binders, among items that cannot be returned.",
         "BEST BUY: trading cards, including Pokemon cards, are named among the items that are nonreturnable once purchased, from both Best Buy and marketplace sellers.",

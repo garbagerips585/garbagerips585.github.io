@@ -997,7 +997,7 @@
         {
           "url": "/shops.html",
           "read": "2026-08-15",
-          "what": "Six Rochester-area shops, each verified from the business's own site: Just Games, Millennium Games, LingSter Games, Legacy Games, Great Lakes Gaming, WeTheHobby. Rendered on /shops.html.",
+          "what": "Six Rochester-area shops, each verified from the business's own site: Just Games, Millennium Games, LingSter Games, Legacy Games, Great Lakes Gaming, WeTheHobby. Rendered on the card shops page.",
           "from": "data/shops.json"
         }
       ],
@@ -1039,7 +1039,7 @@
         {
           "url": "/card-shows.html",
           "read": "2026-08-12",
-          "what": "23 upcoming shows across the Rochester, Buffalo and Syracuse regions, each with the listing url it was read from. Rendered on /card-shows.html.",
+          "what": "23 upcoming shows across the Rochester, Buffalo and Syracuse regions, each with the listing url it was read from. Rendered on the card shows page.",
           "from": "data/shows.json"
         }
       ],
