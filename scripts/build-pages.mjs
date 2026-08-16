@@ -13,7 +13,7 @@ import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, robots, LIVE, DOMAIN } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
+import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { raritiesIn, rarityChip, RARITY_CSS } from "../shared/rarity.mjs";
 import { ripPath } from "../shared/paths.mjs";
@@ -463,7 +463,7 @@ const resolvedHits = hits.filter((h) => !h.unresolved);
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css">
+${FONTS}
 ${STYLES}
 <style>${RARITY_CSS}</style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>

@@ -28,7 +28,7 @@ import { readFile, writeFile, mkdir, rm } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
+import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { slugify } from "../shared/paths.mjs";
 import { esc, longDate, shortDate, viewCount } from "../shared/format.mjs";
@@ -268,7 +268,7 @@ for (const p of live) {
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
-<link rel="stylesheet" href="/assets/fonts.css">
+${FONTS}
 ${STYLES}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>

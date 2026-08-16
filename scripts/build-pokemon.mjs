@@ -34,7 +34,7 @@ import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
+import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { esc, longDate, moneyExact, moneyRound, moneyCompact, rarityLabel, imgDims, avifPicture } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -233,7 +233,7 @@ const head = ({ title, desc, canonical, ld }) => `<!DOCTYPE html>
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css">
+${FONTS}
 ${STYLES}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>

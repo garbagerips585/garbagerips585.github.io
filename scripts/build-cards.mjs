@@ -27,8 +27,8 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact, rarityLabel, RARITY_WORDS, imgDims } from "../shared/format.mjs";
+import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
+import { esc, longDate, moneyExact, rarityLabel, RARITY_WORDS, imgDims, avifPicture } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const index = JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8"));
@@ -171,7 +171,7 @@ const row = (r) => {
   const [name, slug, n, rarity, price] = r;
   const src = thumb(slug, n);
   return `<li class="cq${src ? " has-thumb" : ""}">
-        ${src ? `<img class="cq-img" src="${esc(src)}" onerror="this.remove()" alt="" loading="lazy"${imgDims(src)}>` : ""}
+        ${src ? avifPicture(`<img class="cq-img" src="${esc(src)}" onerror="this.remove()" alt="" loading="lazy"${imgDims(src)}>`) : ""}
         <a class="cq-name" href="/sets/${esc(slug)}.html">${esc(name)}</a>
         <span class="cq-set">${esc(setName[slug] || slug)} &bull; ${esc(n || "")}</span>
         ${rarity ? `<span class="cq-rr">${esc(rarityLabel(rarity))}</span>` : ""}
@@ -200,7 +200,7 @@ const page = `<!DOCTYPE html>
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
-<link rel="stylesheet" href="/assets/fonts.css">
+${FONTS}
 ${STYLES}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
@@ -300,8 +300,19 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official."
       // No thumbnail outside our own sets: the corpus carries no image url, and
       // guessing one from the set id gives a broken image on every miss.
       var base=r.slug && DATA.imgBase && DATA.imgBase[r.slug];
-      var img=base&&r.n
-        ? '<img class="cq-img" src="'+esc(base+'/'+r.n+'/low.webp')+'" alt="" loading="lazy" width="245" height="337">'
+      // Same <picture> the server renders, and for the same reason: TCGdex
+      // serves an AVIF off every path it serves a WebP off, 29.7% smaller at
+      // low.*. This is avifPicture() from shared/format.mjs restated in the
+      // browser rather than imported, because the search renders client side.
+      // BOTH copies apply the SAME host test. Do not shorten it to "the search
+      // corpus is all TCGdex": it is today, and an <img> whose only source is
+      // an AVIF that 404s paints a broken card rather than falling back.
+      var thumbUrl=base&&r.n ? base+'/'+r.n+'/low.webp' : '';
+      var avifSrc=thumbUrl.indexOf('https://assets.tcgdex.net/')===0
+        ? '<source type="image/avif" srcset="'+esc(thumbUrl.replace(/\.webp$/,'.avif'))+'">'
+        : '';
+      var img=thumbUrl
+        ? '<picture>'+avifSrc+'<img class="cq-img" src="'+esc(thumbUrl)+'" alt="" loading="lazy" width="245" height="337"></picture>'
         : '';
       var nameCell=href
         ? '<a class="cq-name" href="'+href+'">'+esc(r.name)+'</a>'

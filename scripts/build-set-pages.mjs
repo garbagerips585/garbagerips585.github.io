@@ -13,7 +13,7 @@ import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS } from "../shared/chrome.mjs";
+import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { parseHits, rarityLabelOf, rarityMark } from "../shared/rarity.mjs";
 import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, imgDims } from "../shared/format.mjs";
@@ -1059,7 +1059,7 @@ const head = ({ title, desc, canonical, image, ld, css = "" }) => `<!DOCTYPE htm
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css">
+${FONTS}
 ${STYLES}${css ? `\n<style>${miniCSS(css)}</style>` : ""}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
