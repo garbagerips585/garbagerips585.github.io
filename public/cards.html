@@ -694,13 +694,15 @@
   function money(n){
     return typeof n==='number' ? '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}) : '';
   }
-  // NOT hand written: the next two lines are shared/format.mjs's rarityLabel and
-  // its word map, serialised in by build-cards.mjs so the search renders rarities
-  // in exactly the casing the server rendered them in. Edit shared/format.mjs.
+  // NOT hand written: the next few lines are shared/format.mjs's rarityLabel and
+  // the two maps it closes over, serialised in by build-cards.mjs so the search
+  // renders rarities with exactly the names and casing the server rendered them
+  // in. Edit shared/format.mjs.
   var RARITY_WORDS={"ace":"ACE","spec":"SPEC","v":"V","vmax":"VMAX","vstar":"VSTAR"};
+  var RARITY_ALIAS={"Rare Holo":"Holo Rare","Rare Holo V":"Holo Rare V","Rare Holo VMAX":"Holo Rare VMAX","Rare Holo VSTAR":"Holo Rare VSTAR","Rare Ultra":"Ultra Rare","Rare Secret":"Secret Rare","Rare Rainbow":"Rainbow Rare"};
   function rarityLabel(r) {
     if (!r) return null;
-    return String(r)
+    const t = String(r)
       .trim()
       .split(/\s+/)
       .map((w) => {
@@ -709,6 +711,7 @@
         return RARITY_WORDS[k] || k.charAt(0).toUpperCase() + k.slice(1);
       })
       .join(" ");
+    return Object.prototype.hasOwnProperty.call(RARITY_ALIAS, t) ? RARITY_ALIAS[t] : t;
   }
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }

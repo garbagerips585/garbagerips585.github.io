@@ -201,15 +201,129 @@ export function moneyExact(v) {
  * is the safe reading; the lookup above still exists for the inputs that
  * arrive lower case ("ace spec rare"), where there is nothing to preserve.
  *
+ * Casing is only half the job. The last step is a whole-string lookup in
+ * RARITY_ALIAS below, which is what stops three feeds naming one tier three
+ * ways; the reasoning is with the map.
+ *
  * Exported because the browser cannot import this module: build-cards.mjs
- * serialises the map and this function into /cards.html so its client side
- * search renders the same casing the server rendered. See the note there.
+ * serialises BOTH maps and this function into /cards.html so its client side
+ * search renders the same names the server rendered. See the note there.
  */
 export const RARITY_WORDS = { ace: "ACE", spec: "SPEC", v: "V", vmax: "VMAX", vstar: "VSTAR" };
 
+/**
+ * ONE NAME PER TIER, WHOLE STRING IN AND WHOLE STRING OUT.
+ *
+ * Three feeds describe the same ladder and none of them agree. TCGdex, which
+ * writes public/data/cards/*.json and is therefore the checklist a reader can
+ * count down the page, says "Holo Rare V" and "Secret Rare". api.pokemontcg.io,
+ * which fills a set that has no checklist yet, says "Rare Holo V", "Rare Ultra",
+ * "Rare Secret" and "Rare Rainbow" for the same four things. So /sets/ once
+ * printed "Rare Holo V" on Crown Zenith and "Holo Rare V" on Pokemon GO, two
+ * adjacent Sword and Shield guides naming one tier two ways, and every name in
+ * the right hand column above was missing from the sort order and fell BELOW
+ * Common with its chase highlight stripped.
+ *
+ * THE OBVIOUS FIX IS THE WRONG ONE. A rule that moves a leading "Rare" to the
+ * end fixes all four of those and destroys others in the same pass: the
+ * printings corpus carries "Rare Holo LV.X" on 59 cards and "Rare PRIME" on 26,
+ * which would come out as "Holo LV.X Rare" and "PRIME Rare". Nobody says those.
+ * The same rule is waiting for "Rare Holo Star", which is a real rarity on
+ * older cards and is not in this site's data today, so nothing catches it until
+ * a set that has it arrives. A whole-string map cannot reach a name it was not
+ * told about, so all of them are untouched by construction rather than by a
+ * guard somebody has to remember.
+ *
+ * THE RIGHT HAND SIDE IS NOT A NEW VOCABULARY. Every one of these is a name
+ * the site already prints. /rarity.html carries "Holo Rare" as an offLadder
+ * entry and says in so many words that some checklists print the same tier the
+ * other way round as "Rare Holo"; data/rarity.json's readme names "Holo Rare V,
+ * VMAX and VSTAR" and "Secret Rare" as the strings this site's own checklists
+ * use; and the retired-mechanics list calls the rainbow tier "Rainbow rares",
+ * which is where "Rainbow Rare" comes from. The API's word order is not the
+ * site's voice and is the only thing being dropped.
+ *
+ * NOTHING IS MERGED THAT THE SOURCES CARVE UP DIFFERENTLY. TCGdex files the
+ * Sword and Shield rainbow cards under Secret Rare and the API gives them a
+ * tier of their own; aliasing "Rare Rainbow" onto "Secret Rare" would silently
+ * fold two API tiers into one and change a count. It gets its own rung instead.
+ *
+ * Keyed on the Title Cased form, because that is what rarityLabel has already
+ * produced by the time the lookup happens.
+ */
+export const RARITY_ALIAS = {
+  "Rare Holo": "Holo Rare",
+  "Rare Holo V": "Holo Rare V",
+  "Rare Holo VMAX": "Holo Rare VMAX",
+  "Rare Holo VSTAR": "Holo Rare VSTAR",
+  "Rare Ultra": "Ultra Rare",
+  "Rare Secret": "Secret Rare",
+  "Rare Rainbow": "Rainbow Rare",
+};
+
+/**
+ * The rungs, most chase-worthy first. sync-sets.mjs copies this into
+ * sets.json as `rarityOrder` and the set guides sort their ladders by it.
+ *
+ * EVERY NAME A SET GUIDE CAN PRINT HAS TO BE HERE. build-set-pages.mjs used to
+ * give an unknown name index 99, which put it BELOW Common and took its chase
+ * highlight away, and did so in silence: Black Bolt sorted its two Black White
+ * Rares, the $604 and $602 cards that are the whole reason to open the set,
+ * under 39 commons, and Paldean Fates did the same to 120 of its 245 cards. It
+ * is a hard failure now, checked in build-set-pages.mjs against both
+ * public/data/sets.json and public/data/cards/*.json, so the next set cannot
+ * reintroduce it quietly.
+ *
+ * WHERE THE NEW RUNGS SIT, and the evidence, all read out of the checklists in
+ * public/data/cards on 15 August 2026. These are checklist composition and
+ * prices, which the site publishes everywhere. They are not odds and say
+ * nothing about what a pack contains.
+ *
+ * A "median" below is the median of the per-set medians, so one enormous set
+ * cannot outvote the rest, and it is only ever compared against another figure
+ * worked out the same way.
+ *
+ *   Black White Rare   only Black Bolt and White Flare print it, and in both it
+ *                      is the top of the set by a distance: median $604 and
+ *                      $560 against $48 and $54 for the Special Illustration
+ *                      Rares beneath. It never appears beside Mega Hyper Rare,
+ *                      Hyper Rare or Secret Rare, so it is at the top of the
+ *                      list without that ordering ever being exercised.
+ *   Rainbow Rare       Sword and Shield secret tiers, above Ultra Rare, which
+ *   Secret Rare        the numbers agree with: $9.88 for Secret Rare against
+ *                      $2.53 for Ultra Rare, and they share six sets, in five
+ *                      of which Secret Rare is the higher of the two. No set
+ *                      here prints both Rainbow Rare and Secret Rare under the
+ *                      checklist vocabulary, so their order relative to each
+ *                      other is not exercised. Rainbow Rare has no rung earned
+ *                      by evidence, only a name and a place beside its cousin;
+ *                      it is here so the API's "Rare Rainbow" has somewhere to
+ *                      land on the day a set arrives before its checklist does.
+ *   Shiny Rare         Paldean Fates only, and this pair is deliberately the
+ *   Shiny Ultra Rare   opposite way round from what the names suggest, because
+ *                      the set's own prices say so at every quartile: Shiny
+ *                      Rare runs $1.90 / $2.85 / $4.52 / $8.94 / $80.87 and
+ *                      Shiny Ultra Rare $1.04 / $1.32 / $2.52 / $6.01 / $31.99.
+ *                      One set is thin evidence, so if a second set ever prints
+ *                      them, check this again rather than trusting it.
+ *   Holo Rare VSTAR    medians $4.17, $3.30 and $0.99 across the six Sword and
+ *   Holo Rare VMAX     Shield sets, in that order, which is also the order the
+ *   Holo Rare V        mechanic escalated in. None of them appears beside
+ *                      Double Rare, which is the Scarlet and Violet tier that
+ *                      replaced them.
+ *   Holo Rare          takes the slot "Rare Holo" already held, one above Rare,
+ *                      which its $0.43 median against Rare's $0.27 supports.
+ */
+export const RARITY_ORDER = [
+  "Black White Rare", "Mega Hyper Rare", "Hyper Rare", "Rainbow Rare", "Secret Rare",
+  "Special Illustration Rare", "Illustration Rare", "Shiny Rare", "Shiny Ultra Rare",
+  "Ultra Rare", "Holo Rare VSTAR", "Holo Rare VMAX", "Holo Rare V", "Double Rare",
+  "ACE SPEC Rare", "Radiant Rare", "Amazing Rare", "Holo Rare", "Rare", "Uncommon", "Common",
+];
+
 export function rarityLabel(r) {
   if (!r) return null;
-  return String(r)
+  const t = String(r)
     .trim()
     .split(/\s+/)
     .map((w) => {
@@ -218,6 +332,7 @@ export function rarityLabel(r) {
       return RARITY_WORDS[k] || k.charAt(0).toUpperCase() + k.slice(1);
     })
     .join(" ");
+  return Object.prototype.hasOwnProperty.call(RARITY_ALIAS, t) ? RARITY_ALIAS[t] : t;
 }
 
 /** Whole dollars, no cents at any size. Used by the grading fee tables. */

@@ -16,7 +16,7 @@
 import { writeFile, readFile, mkdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { rarityLabel } from "../shared/format.mjs";
+import { rarityLabel, RARITY_ORDER } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "ptcg");
@@ -63,13 +63,15 @@ const SET_MAP = {
   "rebel-clash": "swsh2",
 };
 
-// Rarity buckets, ordered from most to least chase-worthy. The API's rarity
-// strings map onto the same ladder the channel talks about.
-const RARITY_ORDER = [
-  "Mega Hyper Rare", "Hyper Rare", "Special Illustration Rare",
-  "Illustration Rare", "Ultra Rare", "Double Rare", "ACE SPEC Rare",
-  "Radiant Rare", "Amazing Rare", "Rare Holo", "Rare", "Uncommon", "Common",
-];
+// The rarity ladder lives in shared/format.mjs, next to the alias map that
+// collapses this API's word order onto the site's own names, because the two
+// have to be edited together: a rung with no alias pointing at it is a name
+// nothing produces, and an alias pointing at a missing rung fails the build in
+// build-set-pages.mjs. It USED TO LIVE HERE, and that is how it came to be
+// missing "Rare Ultra", "Rare Secret", "Rare Rainbow", "Holo Rare" and four
+// more, none of which this file ever sees unless a set has no checklist yet.
+// It is still copied into sets.json below, so the data file stays readable on
+// its own.
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 

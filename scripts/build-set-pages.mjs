@@ -16,7 +16,7 @@ import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { parseHits, rarityLabelOf, rarityMark } from "../shared/rarity.mjs";
-import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, imgDims, avifPicture } from "../shared/format.mjs";
+import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY_ORDER, imgDims, avifPicture } from "../shared/format.mjs";
 import { ripLabel } from "../shared/riplabel.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -228,6 +228,68 @@ try {
 }
 
 /**
+ * EVERY RARITY THIS BUILD CAN PRINT HAS A RUNG, OR THERE IS NO BUILD.
+ *
+ * The ladder sort below used to give an unknown name index 99. That is not a
+ * fallback, it is a silent demotion: it sorted the name BELOW Common and took
+ * its chase highlight away, and it did that to 9 of the 28 guides at once.
+ * Black Bolt filed its two Black White Rares, the $604 and $602 cards that are
+ * the entire reason anybody opens the set, underneath 39 commons. Paldean Fates
+ * did the same to its 120 Shiny Rares, which is half the set. Crown Zenith
+ * dropped five tiers down there and read Common 42, then Rare Holo V 17.
+ *
+ * Nobody noticed for as long as the page rendered, because a wrong ORDER still
+ * renders. So the check is here rather than in review, it covers both feeds a
+ * guide reads, and it fails the build.
+ *
+ * IT REPORTS RATHER THAN GUESSES. A name it does not know is not sorted into a
+ * plausible slot: the answer to "what is a Futuristic Rare worth chasing next
+ * to" is a decision about the card, not something a build script can infer, and
+ * a guessed rung is a claim this site made up. Give it a rung in RARITY_ORDER,
+ * or an entry in RARITY_ALIAS pointing at a rung that already exists, and say
+ * which in the commit.
+ */
+{
+  const seen = new Map();
+  const note = (raw, where) => {
+    const name = rarityLabel(raw);
+    if (!name) return;
+    if (!seen.has(name)) seen.set(name, new Set());
+    seen.get(name).add(where);
+  };
+  for (const s of sets) {
+    for (const r of Object.keys(s.rarities || {})) note(r, `sets.json ${s.id} ladder`);
+    for (const c of s.chase || []) note(c.rarity, `sets.json ${s.id} chase`);
+  }
+  for (const [id, doc] of Object.entries(checklists)) {
+    for (const c of doc.cards || []) note(c.rarity, `cards/${id}.json`);
+  }
+  const orphans = [...seen].filter(([name]) => !RARITY_ORDER.includes(name));
+  if (orphans.length) {
+    throw new Error(
+      `${orphans.length} rarity name${orphans.length === 1 ? "" : "s"} with no rung in RARITY_ORDER, so ` +
+        `${orphans.length === 1 ? "it would sort" : "they would sort"} below Common on every guide that prints ` +
+        `${orphans.length === 1 ? "it" : "them"}:\n` +
+        orphans
+          .map(([name, where]) => `  "${name}"  from ${[...where].sort().slice(0, 4).join(", ")}`)
+          .join("\n") +
+        `\nAdd a rung in RARITY_ORDER or an alias in RARITY_ALIAS, both in shared/format.mjs, then re-run ` +
+        `node scripts/sync-sets.mjs so public/data/sets.json carries the same ladder.`
+    );
+  }
+  // sets.json ships its own copy of the ladder for anything reading the data
+  // file directly. This builder uses the imported one, so the two cannot drift
+  // into disagreeing about where a tier sits, but a stale copy on disk would
+  // still mislead the next reader.
+  if ((rarityOrder || []).join("|") !== RARITY_ORDER.join("|")) {
+    throw new Error(
+      `public/data/sets.json carries a different rarityOrder than shared/format.mjs. ` +
+        `Re-run node scripts/sync-sets.mjs.`
+    );
+  }
+}
+
+/**
  * ONE CARD, ONE NAME. The chase list and the checklist come from two APIs and
  * they do not always spell a card the same way.
  *
@@ -408,9 +470,14 @@ function rarityPrices(s) {
 
   for (const [r, n] of Object.entries(s.rarities || {})) {
     const key = rarityLabel(r) || r;
-    // WORD ORDER ONLY. sets.json and the checklists come from different APIs
-    // and one says "Rare Holo VSTAR" where the other says "Holo Rare VSTAR".
-    // That is the same rarity spelled two ways, so the join may cross it.
+    // THE WORD ORDER IS ALREADY RECONCILED, one step earlier than it used to be.
+    // This line held a regex swapping a leading "Rare Holo" for "Holo Rare",
+    // because sets.json and the checklists come from different APIs and one says
+    // "Rare Holo VSTAR" where the other says "Holo Rare VSTAR". rarityLabel now
+    // maps whole strings through RARITY_ALIAS, so both sides of this join have
+    // already been through it and the special case has nothing left to do. It
+    // also only ever covered the Holo family, which is why "Rare Ultra" and
+    // "Rare Secret" still missed and showed a count with no money beside it.
     //
     // It deliberately does NOT reconcile the cases where the two sources
     // genuinely carve the set up differently: Ascended Heroes lists 14 Ultra
@@ -418,8 +485,7 @@ function rarityPrices(s) {
     // and no Mega Attack Rare. 14 + 7 = 21, so nothing is missing, but merging
     // them would attach one tier's prices to another tier's name. Those stay
     // suppressed, which is why some ladders show a count and no money.
-    const alias = /^Rare Holo\b/.test(key) ? key.replace(/^Rare Holo/, "Holo Rare") : null;
-    const e = by.get(key) || (alias ? by.get(alias) : null);
+    const e = by.get(key);
     if (!e || e.n !== n || e.prices.length !== n) continue;
     const asc = e.prices.slice().sort((a, b) => a - b);
     const mid = asc[Math.floor(asc.length / 2)];
@@ -819,10 +885,27 @@ function yearsSince(iso) {
 const priceUSD = (n) =>
   `$${Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-// Rarities worth chasing, for highlighting in the ladder.
+// Rarities worth chasing, for highlighting in the ladder and for the "N of the
+// M cards are Ultra Rare or better" line in the quick facts.
+//
+// The three added here are the Sword and Shield and Black Bolt secret tiers,
+// which sit ABOVE Ultra Rare in RARITY_ORDER, so the sentence that counts this
+// set stays true. Every one of them was unhighlighted before only because it
+// was missing from the ladder entirely.
+//
+// FOUR MORE TIERS ARE DELIBERATELY NOT IN HERE and it is a judgement call, so
+// it is written down rather than left to be rediscovered. Shiny Rare, Shiny
+// Ultra Rare, Holo Rare VMAX and Holo Rare VSTAR all out-earn Ultra Rare across
+// the checklists, so there is a real argument for highlighting them. Against
+// it: none of them IS an Ultra Rare, and adding them changes the number in a
+// sentence that says "Ultra Rare or better" into something that sentence no
+// longer describes. Paldean Fates would go from 22 of 245 to 154 of 245, which
+// is a true count of a different thing. Double Rare has always sat outside this
+// set for the same reason. Change the sentence first if you want them in.
 const CHASE = new Set([
-  "Mega Hyper Rare", "Hyper Rare", "Special Illustration Rare",
-  "Illustration Rare", "Ultra Rare", "ACE SPEC Rare", "Radiant Rare",
+  "Black White Rare", "Mega Hyper Rare", "Hyper Rare", "Rainbow Rare", "Secret Rare",
+  "Special Illustration Rare", "Illustration Rare", "Ultra Rare", "ACE SPEC Rare",
+  "Radiant Rare",
 ]);
 
 // Affiliate config. Off by default; flip enabled in data/affiliate.json once
@@ -1131,7 +1214,7 @@ function derivedFacts(s) {
     );
   }
   const chaseCount = Object.entries(rar)
-    .filter(([r]) => CHASE.has(r))
+    .filter(([r]) => CHASE.has(rarityLabel(r)))
     .reduce((a, [, n]) => a + n, 0);
   if (chaseCount && total) {
     out.push(
@@ -1244,10 +1327,13 @@ function setPage(s) {
     `${longDate(s.released) || "recently"}, full rarity breakdown` +
     (s.chase?.length ? `, and the top chase cards with current market values.` : `.`);
 
-  const ordered = Object.entries(s.rarities || {}).sort((a, b) => {
-    const ia = rarityOrder.indexOf(a[0]), ib = rarityOrder.indexOf(b[0]);
-    return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
-  });
+  // Keyed through rarityLabel, so a set whose counts came from the API rather
+  // than from a checklist sorts by the same names the rest of the page prints.
+  // The guard at the top of this file has already proved every one of them has
+  // a rung, so there is no -1 to fall back from.
+  const ordered = Object.entries(s.rarities || {}).sort(
+    (a, b) => RARITY_ORDER.indexOf(rarityLabel(a[0])) - RARITY_ORDER.indexOf(rarityLabel(b[0]))
+  );
   const maxN = Math.max(1, ...ordered.map(([, n]) => n));
 
   const ld = [
@@ -1559,7 +1645,7 @@ function setPage(s) {
       ${ordered.map(([r, n]) => {
         const key = rarityLabel(r) || r;
         const pr = rarPr.get(key);
-        return `<div class="rar${CHASE.has(r) ? " chase" : ""}">
+        return `<div class="rar${CHASE.has(key) ? " chase" : ""}">
         <span class="rar-name">${esc(key)}</span>
         <span class="rar-n">${n}</span>
         ${pr

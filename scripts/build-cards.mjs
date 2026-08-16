@@ -28,7 +28,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact, rarityLabel, RARITY_WORDS, imgDims, avifPicture } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, rarityLabel, RARITY_WORDS, RARITY_ALIAS, imgDims, avifPicture } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const index = JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8"));
@@ -149,13 +149,22 @@ const ld = [
 //     whole file already warns about above `money()`.
 //
 // So the function itself is serialised. `rarityLabel.toString()` ships the one
-// definition in shared/format.mjs, and its only free variable is RARITY_WORDS,
-// which is serialised next to it. There is no second copy to keep in step, and
-// the assertion below proves the shipped copy still behaves like the imported
-// one against every rarity string in both datasets, so a future edit that adds
-// a closure dependency fails the build instead of quietly breaking the search.
+// definition in shared/format.mjs, and its free variables are RARITY_WORDS and
+// RARITY_ALIAS, which are serialised next to it. There is no second copy to
+// keep in step, and the assertion below proves the shipped copy still behaves
+// like the imported one against every rarity string in both datasets, so a
+// future edit that adds a closure dependency fails the build instead of quietly
+// breaking the search.
+//
+// RARITY_ALIAS ARRIVED SECOND AND IS WHY THAT ASSERTION EARNS ITS KEEP. Adding
+// a whole-string alias map to rarityLabel without adding it here would have
+// left the shipped copy throwing a ReferenceError on the first keystroke: the
+// server rendered rows would read "Holo Rare V" and the search would render
+// nothing at all.
 const RARITY_JS =
-  `var RARITY_WORDS=${JSON.stringify(RARITY_WORDS)};\n  ` + rarityLabel.toString().replace(/\n/g, "\n  ");
+  `var RARITY_WORDS=${JSON.stringify(RARITY_WORDS)};\n  ` +
+  `var RARITY_ALIAS=${JSON.stringify(RARITY_ALIAS)};\n  ` +
+  rarityLabel.toString().replace(/\n/g, "\n  ");
 
 const shippedRarityLabel = new Function(`${RARITY_JS}\n  return rarityLabel;`)();
 for (const r of rarities) {
@@ -271,9 +280,10 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official."
   function money(n){
     return typeof n==='number' ? '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}) : '';
   }
-  // NOT hand written: the next two lines are shared/format.mjs's rarityLabel and
-  // its word map, serialised in by build-cards.mjs so the search renders rarities
-  // in exactly the casing the server rendered them in. Edit shared/format.mjs.
+  // NOT hand written: the next few lines are shared/format.mjs's rarityLabel and
+  // the two maps it closes over, serialised in by build-cards.mjs so the search
+  // renders rarities with exactly the names and casing the server rendered them
+  // in. Edit shared/format.mjs.
   ${RARITY_JS}
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
