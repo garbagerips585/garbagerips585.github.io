@@ -141,9 +141,16 @@ if (secretTotal < 1 || !mostSecrets) {
 const guideFor = new Map(all.filter((s) => s.slug).map((s) => [s.apiId, s.slug]));
 const withGuide = all.filter((s) => s.slug);
 
+// INDEXED IS `main`, NOT `all`. Both this line and the kicker below said
+// "All 174 English sets indexed by size" while the index printed 141 of them,
+// because the 33 promo runs are deliberately excluded and the page says so in
+// its own "Three cards this will not find" list. The stat block right under the
+// kicker has always read "86 set sizes, 141 sets", so the page contradicted
+// itself twice over in the two lines a reader sees first, and the meta
+// description carried the wrong number into search results.
 const desc =
   `Look up which Pokemon set a card is from by the number after the slash. ` +
-  `All ${all.length} English sets indexed by size, with set symbols and release years.`;
+  `All ${main.length} main English expansions indexed by size, with set symbols and release years.`;
 if (desc.length > 160) throw new Error(`meta description is ${desc.length} characters, over 160:\n${desc}`);
 
 const ld = [
@@ -343,7 +350,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 ${
   remoteSymbols
     ? `<!-- ${remoteSymbols} set symbol(s) still come from the API host because
@@ -369,7 +376,7 @@ ${MENU}
 
 <header class="set-hero">
   <div class="wrap">
-    <span class="kicker">Pokemon TCG &bull; ${all.length} English sets indexed</span>
+    <span class="kicker">Pokemon TCG &bull; ${main.length} English sets indexed</span>
     <h1>What set is my <span class="hl">card</span> from?</h1>
     <p class="lede" style="max-width:38em">The card already tells you, twice. There is a number at the bottom that reads
       something like 45/102, and a small symbol next to it. Type the number after the slash and this page will tell you
@@ -429,7 +436,14 @@ ${indexRows}
       It is a secret rare, printed deliberately past the end of the checklist, and it is usually the reason anybody was
       opening the packs.</p>
     <div class="facts">
-      <div class="fact"><div class="n">${secretTotal.toLocaleString("en-US")}</div><div class="l">Cards numbered above their set total, in the ${withSecrets.length} sets we hold full checklists for</div></div>
+      ${/* withSecrets IS NOT HOW MANY CHECKLISTS WE HOLD. This label read "in the
+            27 sets we hold full checklists for" while the same page, six
+            paragraphs down, says the set guides "include 28 full guides".
+            withSecrets counts guides with at least one secret rare; Celebrations
+            has none, so the two numbers will always differ by however many sets
+            stop at their printed total. Both are printed now, which is also the
+            more interesting fact. */ ""}
+      <div class="fact"><div class="n">${secretTotal.toLocaleString("en-US")}</div><div class="l">Cards numbered above their set total, across ${withSecrets.length} of the ${withGuide.length} sets we hold full checklists for</div></div>
       <div class="fact"><div class="n">${mostSecrets.secretCount}</div><div class="l">In ${esc(mostSecrets.name)} alone, the most of any set here</div></div>
       <div class="fact"><div class="n">${mostSecrets.printedTotal}</div><div class="l">Where ${esc(mostSecrets.name)} officially stops</div></div>
       <div class="fact"><div class="n">${mostSecrets.total}</div><div class="l">Where it actually stops</div></div>

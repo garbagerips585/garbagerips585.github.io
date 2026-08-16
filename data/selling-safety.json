@@ -38,11 +38,9 @@
   "checked": "2026-08-15",
   "framing": {
     "question": "Who is holding the money when something goes wrong?",
+    "_why_note": "ONE ENTRY PER PARAGRAPH, NEVER PER LINE. build-selling.mjs wraps every element of this array in its own <p>, so a sentence hard-wrapped across four elements rendered as four paragraphs each breaking mid-clause: 'and on every' / 'venue read here the seller's version...'. Wrap in the editor, not in the data.",
     "why": [
-      "Seller protection and buyer protection are different products, and on every",
-      "venue read here the seller's version is the smaller one. A marketplace sits",
-      "in the middle, which is the only reason a dispute exists at all, and every",
-      "one of them voids that protection the moment payment moves off the platform."
+      "Seller protection and buyer protection are different products, and on every venue read here the seller's version is the smaller one. A marketplace sits in the middle, which is the only reason a dispute exists at all, and every one of them voids that protection the moment payment moves off the platform."
     ]
   },
   "protections": [

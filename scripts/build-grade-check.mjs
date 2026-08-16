@@ -197,7 +197,7 @@ const style = `
   letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);border-bottom:2px solid var(--hair)}
 .gc-t th,.gc-t td{padding:10px var(--s3);text-align:left;border-bottom:1px solid var(--hair);vertical-align:top}
 .gc-t thead th{font:700 var(--t-label)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
-  background:var(--navy);color:#F4F1E2;border-bottom:none}
+  background:var(--navy);color:var(--chrome-ink);border-bottom:none}
 .gc-t tbody th{font-weight:700;white-space:nowrap}
 .gc-t tbody tr:first-child{background:rgba(245,166,43,.09)}
 .gc-none span{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);opacity:.7}
@@ -234,10 +234,10 @@ const style = `
   display:block;margin-bottom:var(--s2)}
 .gc-s{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);white-space:nowrap}
 .gc-note{font:400 var(--t-micro)/1.5 var(--mono);color:#B8C9D6;display:block;white-space:normal;max-width:44em}
-.gc-key{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:#F4F1E2;
+.gc-key{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:var(--chrome-ink);
   padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
-.gc-key h2,.gc-key h3{color:#F4F1E2}
-.gc-key p,.gc-key li{color:#DDE6EC;line-height:1.55;max-width:44em}
+.gc-key h2,.gc-key h3{color:var(--chrome-ink)}
+.gc-key p,.gc-key li{color:var(--foot-ink);line-height:1.55;max-width:44em}
 .gc-key p+p,.gc-key ul{margin-top:var(--s3)}
 .gc-key ul{margin-left:var(--s4)}
 .gc-key .gc-s{color:#B8C9D6}
@@ -275,7 +275,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>
@@ -307,7 +307,6 @@ ${MENU}
 
       <div class="gc-key">
         <h2>Start with the worst thing on the card</h2>
-        <p>${esc(d.subgrades.math.soWhat)}</p>
         <p>Beckett is the only company that still publishes both the four component scores and how they combine,
           and its rules are the most useful thing on this page.${src(d.subgrades.math.source, "Beckett on how subgrades combine")}</p>
         <ul>
@@ -316,6 +315,18 @@ ${d.subgrades.math.rules.map((r) => `          <li>${esc(r)}</li>`).join("\n")}
         <ul class="gc-ex">
 ${d.subgrades.math.examples.map((e) => `          <li>${esc(e.sub)} <b>= ${esc(e.final)}</b></li>`).join("\n")}
         </ul>
+        ${/* soWhat GOES AFTER THE EXAMPLES AND HAS TO. Its second sentence is
+              "That third example is a card that is perfect on three of four
+              criteria and comes back a 7", which pointed at nothing when this
+              paragraph was rendered above the list: the reader met "that third
+              example" before any example existed. If the copy is rewritten so
+              it stops naming a row, it can move back up. */ ""}
+        ${/* The inline margin is the same one the note below carries, and for the
+              same reason: `.gc-key p+p` only fires between two paragraphs, and
+              `.gc-ex` sets margin-bottom to 0, so a <p> following the examples
+              list would otherwise sit flush against the last row. Spacing token
+              only, no colour. */ ""}
+        <p style="margin-top:var(--s3)">${esc(d.subgrades.math.soWhat)}</p>
         <p class="gc-note" style="margin-top:var(--s3)">${esc(d.subgrades.math.sourceNote)}</p>
       </div>
 

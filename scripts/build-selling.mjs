@@ -239,10 +239,10 @@ const style = `
   color:var(--ink-2);margin-left:var(--s2)}
 .se-jg:first-child{margin-left:0}
 .se-v{scroll-margin-top:var(--s5)}
-.se-key{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:#F4F1E2;
+.se-key{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:var(--chrome-ink);
   padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
-.se-key h2{color:#F4F1E2;margin-bottom:var(--s3)}
-.se-key p{color:#DDE6EC;line-height:1.55;max-width:44em}
+.se-key h2{color:var(--chrome-ink);margin-bottom:var(--s3)}
+.se-key p{color:var(--foot-ink);line-height:1.55;max-width:44em}
 .se-key p + p{margin-top:var(--s3)}
 .se-grp{margin-top:var(--s6)}
 .se-grp > p{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
@@ -300,7 +300,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>

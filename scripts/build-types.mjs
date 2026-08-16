@@ -143,7 +143,14 @@ const typeMark = (t) => {
 const COPY = {
   "water:weakness": "The quarter that print Metal instead are the Ice Pokemon. Ice is a Water card here, but it keeps the fear of Steel it has in the video games, and the cards call Steel Metal. Psychic, Fighting, Darkness and Colorless all split the same way, for the same kind of reason.",
   "psychic:weakness": "The Metal third are the Pokemon that are Fairy in the video games. Fairy fears Steel in the games, the cards call Steel Metal, and the weakness came along when the type was folded in.",
-  "psychic:resistance": "The only current type where printing a Resistance is the majority case, and it splits the same way. The Ghost and Psychic ones carry Fighting -30 and the former Fairy ones carry nothing.",
+  // NOT "the only current type where printing a Resistance is the majority
+  // case". The Metal section, six blocks down this same page, reports 83 of 90
+  // Metal cards printing Grass -30, which is 92% against Psychic's 69%, and its
+  // own copy line calls Metal "the only current type where essentially every
+  // card prints a Resistance". Two exclusive claims about the same statistic,
+  // both on one page, and the Psychic one is the one the page's own numbers
+  // disprove. Psychic is still the interesting case because of WHY it splits.
+  "psychic:resistance": "Printing a Resistance is the majority case here, and it splits the same way as the Weakness. The Ghost and Psychic ones carry Fighting -30 and the former Fairy ones carry nothing.",
   "fighting:weakness": "It splits by where the Pokemon came from. The Ground and Rock ones print Grass, the actual Fighting ones print Psychic. Both track the video games through the card game's own names, because Grass covers Bug as well as Grass and Ground and Rock fear both.",
   "fighting:resistance": "Not one of the 175 Fighting cards sampled printed a Resistance at all. That is a striking number, and it is exactly the sort of thing that could stop being true next set, which is why the count and the set list stay next to it.",
   "darkness:weakness": "This is the most split type on the page and the only one where the top answer is under half, which is why there is no honest way to round it to one answer. It splits by origin and both halves make sense. The Dark Pokemon print Grass, because Dark fears Bug in the games and Bug is a Grass card here. The Poison Pokemon print Fighting, because Poison fears Ground in the games and Ground is a Fighting card here.",
@@ -388,13 +395,13 @@ const style = `
 .ty-grp > p{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
 .ty-key-blk,.ty-t,.ty-meas{border:3px solid var(--navy);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
-.ty-key-blk{background:var(--navy);color:#F4F1E2;padding:var(--s5);margin:var(--s5) 0}
-.ty-key-blk h2{color:#F4F1E2;margin-bottom:var(--s3)}
-.ty-key-blk p{color:#DDE6EC;line-height:1.55;max-width:44em}
+.ty-key-blk{background:var(--navy);color:var(--chrome-ink);padding:var(--s5);margin:var(--s5) 0}
+.ty-key-blk h2{color:var(--chrome-ink);margin-bottom:var(--s3)}
+.ty-key-blk p{color:var(--foot-ink);line-height:1.55;max-width:44em}
 .ty-key-blk p + p{margin-top:var(--s3)}
 .ty-corner{display:grid;grid-template-columns:1fr 160px;gap:var(--s4);align-items:start;margin-top:var(--s4)}
 @media(max-width:640px){.ty-corner{grid-template-columns:1fr}}
-.ty-corner .ty-fig figcaption b,.ty-corner .ty-fig figcaption span{color:#DDE6EC}
+.ty-corner .ty-fig figcaption b,.ty-corner .ty-fig figcaption span{color:var(--foot-ink)}
 /* The set link inside the caption is the one link on the page sitting on navy,
    so it needs its own colour: ui.css's link colour is the site's dark ink and
    would be invisible there. */
@@ -502,7 +509,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>

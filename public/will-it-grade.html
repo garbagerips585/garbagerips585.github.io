@@ -18,11 +18,11 @@
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=fe82687f">
+<link rel="stylesheet" href="/assets/ui.css?v=e5056975">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .gc-lede{max-width:46em}
@@ -35,7 +35,7 @@
   letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);border-bottom:2px solid var(--hair)}
 .gc-t th,.gc-t td{padding:10px var(--s3);text-align:left;border-bottom:1px solid var(--hair);vertical-align:top}
 .gc-t thead th{font:700 var(--t-label)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
-  background:var(--navy);color:#F4F1E2;border-bottom:none}
+  background:var(--navy);color:var(--chrome-ink);border-bottom:none}
 .gc-t tbody th{font-weight:700;white-space:nowrap}
 .gc-t tbody tr:first-child{background:rgba(245,166,43,.09)}
 .gc-none span{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);opacity:.7}
@@ -72,10 +72,10 @@
   display:block;margin-bottom:var(--s2)}
 .gc-s{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);white-space:nowrap}
 .gc-note{font:400 var(--t-micro)/1.5 var(--mono);color:#B8C9D6;display:block;white-space:normal;max-width:44em}
-.gc-key{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:#F4F1E2;
+.gc-key{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:var(--chrome-ink);
   padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
-.gc-key h2,.gc-key h3{color:#F4F1E2}
-.gc-key p,.gc-key li{color:#DDE6EC;line-height:1.55;max-width:44em}
+.gc-key h2,.gc-key h3{color:var(--chrome-ink)}
+.gc-key p,.gc-key li{color:var(--foot-ink);line-height:1.55;max-width:44em}
 .gc-key p+p,.gc-key ul{margin-top:var(--s3)}
 .gc-key ul{margin-left:var(--s4)}
 .gc-key .gc-s{color:#B8C9D6}
@@ -208,7 +208,6 @@
 
       <div class="gc-key">
         <h2>Start with the worst thing on the card</h2>
-        <p>Three perfect attributes and one bad one is a bad card. That third example is a card that is perfect on three of four criteria and comes back a 7. When you are checking your own card, you are not looking for how good it is. You are looking for the worst thing on it, because that is the only number that matters.</p>
         <p>Beckett is the only company that still publishes both the four component scores and how they combine,
           and its rules are the most useful thing on this page. <a class="gc-s" href="https://www.beckett.com/news/walking-bgs-process/" aria-label="Source: Beckett on how subgrades combine" rel="noopener" target="_blank">Source</a></p>
         <ul>
@@ -223,6 +222,9 @@
           <li>Centering 9.5, Corners 9.5, Edges 8.5, Surface 9 <b>= 9</b></li>
           <li>Centering 10, Corners 6, Edges 10, Surface 10 <b>= 7</b></li>
         </ul>
+        
+        
+        <p style="margin-top:var(--s3)">Three perfect attributes and one bad one is a bad card. That third example is a card that is perfect on three of four criteria and comes back a 7. When you are checking your own card, you are not looking for how good it is. You are looking for the worst thing on it, because that is the only number that matters.</p>
         <p class="gc-note" style="margin-top:var(--s3)">Beckett published this in February 2018 and last modified it in November 2020. It was still live and its grade names still match the current scale when this was read on August 15, 2026, but it is an old article and worth treating as the rule of thumb it is.</p>
       </div>
 

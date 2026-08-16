@@ -259,11 +259,18 @@ const headEnd = rows.slice(0, 3);
 const tailEnd = rows.slice(-2);
 const headAllBoxed = headEnd.every((r) => r.best.kind !== "Single Pack");
 const tailAllLoose = tailEnd.every((r) => r.best.kind === "Single Pack");
+// EACH CLAUSE HAS TO STAND ON ITS OWN, because either can be dropped. The tail
+// clause used to read "on the 2 priciest the loose pack does", which borrowed
+// its verb from the head clause: the day the head clause stopped being true
+// (Chaos Rising, the second cheapest set, is cheapest bought loose) the page
+// printed "It is not a rule that can be applied from the outside, on the 2
+// priciest the loose pack does, so the only way to know...", where "does" has
+// nothing to do. With both clauses false it printed a doubled comma instead.
 const endsClause = [
   headAllBoxed
-    ? `on the ${headEnd.length} cheapest sets on this page the box or bundle wins`
+    ? `on the ${headEnd.length} cheapest sets here the cheapest pack comes inside a box or a bundle`
     : "",
-  tailAllLoose ? `on the ${tailEnd.length} priciest the loose pack does` : "",
+  tailAllLoose ? `on the ${tailEnd.length} priciest the cheapest pack is bought loose` : "",
 ]
   .filter(Boolean)
   .join(", and ");
@@ -340,9 +347,17 @@ const ld = [
         acceptedAnswer: {
           "@type": "Answer",
           text:
+            // THE LAST CLAUSE WAS TYPED, AND IT WAS FALSE. It read "on the three
+            // cheapest sets on this page the booster box wins, and on the two
+            // priciest the loose pack does" while the visible page, thirty lines
+            // down, refuses to print the first half of exactly that sentence
+            // because headAllBoxed is false: Chaos Rising is the second cheapest
+            // set here and its cheapest pack is bought loose. A guard that stops
+            // the page saying something is worth nothing if the schema block
+            // says it anyway, and this one is the copy Google quotes.
             `Not reliably. A single pack bought on its own is the cheapest pack in ${packWins.length} of the ${rows.length} sets ` +
-            `priced here, and a box or bundle is cheaper in ${boxWins.length}. It has to be checked set by set rather than assumed: ` +
-            `on the three cheapest sets on this page the booster box wins, and on the two priciest the loose pack does.`,
+            `priced here, and a box or bundle is cheaper in ${boxWins.length}. It has to be checked set by set rather than assumed` +
+            `${endsClause ? `: ${endsClause}` : ""}.`,
         },
       },
       {
@@ -450,7 +465,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>
@@ -489,12 +504,20 @@ ${MENU}
     <div class="fk-golden" style="margin-top:22px">
       <p class="fk-golden-h">Read this first</p>
       <h2>The bigger box is <span class="hl">not</span> the cheaper pack</h2>
-      <p>The received wisdom is that the bigger the box the cheaper the pack. On these ${rows.length} sets that holds
+      ${/* THE DENOMINATOR IS NOT rows.length AND A READER CAN DO THE SUM. This
+            read "On these 28 sets that holds 9 times and fails 13 times", and
+            9 + 13 is 22. The received wisdom can only be tested where a set
+            sells a pack BOTH loose and inside something bigger, which is what
+            boxWins and packWins already require; the other 6 sell nothing but
+            loose packs and are neither a win nor a loss. Printing the count
+            those two are actually drawn from makes the arithmetic close. */ ""}
+      <p>The received wisdom is that the bigger the box the cheaper the pack. Of the
+        ${boxWins.length + packWins.length} sets here that sell a pack both loose and inside something bigger, that holds
         ${boxWins.length} times and fails ${packWins.length} times: buying single packs one at a time is the cheapest pack
         in ${esc(packWins[0]?.name || "")}${packWins.length > 1 ? `, ${esc(packWins[1].name)}` : ""}${
           packWins.length > 2 ? ` and ${packWins.length - 2} more` : ""
-        }. It is not a rule that can be applied from the outside, ${endsClause}, so the only way to know is to look at the
-        set you are actually buying. That is what the table below is.</p>
+        }. It is not a rule that can be applied from the outside${endsClause ? `: ${endsClause}` : ""}. The only way to
+        know is to look at the set you are actually buying, and that is what the table below is.</p>
     </div>
   </div>
 </section>

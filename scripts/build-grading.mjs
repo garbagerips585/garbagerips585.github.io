@@ -102,6 +102,18 @@ try {
 const keyOf = (slug, num) => `${slug}-${String(num ?? "").replace(/^0+(?=\d)/, "")}`;
 
 const cheapest = g.companies.slice().sort((a, b) => a.cheapest - b.cheapest)[0];
+// THE RESALE ROW FOR WHOEVER IS CURRENTLY CHEAPEST. The "Cheap to grade is not
+// cheap" paragraph derives the company name from `cheapest` and used to pair it
+// with a HARDCODED "a CGC 10 sells for about 0.46x". That worked while CGC was
+// the cheapest slab. It is SGC now, at $15 against CGC's $17, so the paragraph
+// named SGC and then evidenced the claim with a different company's multiple:
+// SGC's own figure is 0.60x. The argument survives either way, because the
+// point is that the cheap slab resells below a Beckett one, but it has to be
+// made with the number belonging to the company in the sentence.
+const cheapSlab =
+  slabValue.find((r) => r.label === `${cheapest.name} 10`) ||
+  slabValue.find((r) => r.label === "CGC 10") ||
+  null;
 const NUM_WORD = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight"];
 const nCo = g.companies.length;
 const coWord = NUM_WORD[nCo] || String(nCo);
@@ -216,7 +228,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
@@ -388,8 +400,13 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
     <div class="fk-golden" style="margin-bottom:var(--s5)">
       <p class="fk-golden-h">The part that changes the math</p>
       <h2>Cheap to grade is not <span class="hl">cheap</span></h2>
-      <p>${cheapest.name} is the cheapest slab you can buy at ${moneyRound(cheapest.cheapest)}, and a CGC 10 sells for
-        about ${(slabValue.find((r) => r.label === "CGC 10") || {}).vsPsa?.toFixed(2)}x what the same card makes in a
+      <p>${cheapest.name} is the cheapest slab you can buy at ${moneyRound(cheapest.cheapest)}, and ${
+        /* "an SGC 10", "a CGC 10". These labels are read out letter by letter,
+           so the article follows the SOUND of the first letter and not whether
+           it is a vowel: A, E, F, H, I, L, M, N, O, R, S and X all open on one. */
+        /^[AEFHILMNORSX]/.test(cheapSlab?.label || "") ? "an" : "a"
+      } ${esc(cheapSlab?.label || "")} sells for
+        about ${cheapSlab?.vsPsa?.toFixed(2)}x what the same card makes in a
         PSA 10. A Beckett 10 sells for ${(slabValue.find((r) => r.label === "Beckett 10") || {}).vsPsa?.toFixed(2)}x. So the
         fee is the smaller half of the decision: paying less to grade can cost you more than it saves, and the gap is
         far bigger than the difference in fees.</p>
