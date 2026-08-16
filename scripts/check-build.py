@@ -70,7 +70,56 @@ for _b in sorted(glob.glob("scripts/build-*.mjs")):
     for _out in _sp.run(["grep", "-oE", r'public/[A-Za-z0-9_./-]+\.html', _b],
                         capture_output=True, text=True).stdout.split():
         if os.path.exists(_out) and os.path.getmtime(_out) < _bt - 2:
-            _stale.append(f"{_out} is older than {_b}, so it was not rebuilt")
+            # A builder naming the same page twice reported it twice.
+            _msg = f"{_out} is older than {_b}, so it was not rebuilt"
+            if _msg not in _stale:
+                _stale.append(_msg)
+# THE ABOVE ONLY SEES LITERAL PATHS, and most of this site is not literal. It
+# greps each builder for a hardcoded "public/x.html", which covers the 28 root
+# pages and nothing else: the 313 rip pages, 37 set guides and 51 Pokemon pages
+# are all written to paths built at runtime, so the guard was blind to 441 of
+# the 469 pages it exists to protect.
+#
+# It also never looked at shared/ at all, which is worse, because a one-line
+# change to shared/chrome.mjs changes the head of EVERY page. That is the single
+# most dangerous edit in the tree and it was the least guarded.
+#
+# So: after a full build every generated page is newer than every source that
+# feeds it. Any page older than the newest source means the build did not run,
+# or did not finish. Compare the newest source against the oldest page and say
+# how far apart they are.
+# ONLY WHAT BUILD-ALL ACTUALLY RUNS. Globbing all of scripts/ swept in
+# build-sheet.py, which generates the spreadsheet rather than any page, so
+# editing the workbook falsely reported all 469 pages as stale. A script gates
+# page freshness only if build-all runs it. shared/ and assets-source/ are
+# always in scope: every page's head and CSS come from there.
+_ba = open("scripts/build-all.mjs", encoding="utf-8").read()
+# ...except this file. check-build.py is the LAST step in build-all, so it
+# matched its own name and every edit to the verifier reported the whole site
+# as stale. A verifier cannot be its own trigger.
+_srcs = [_f for _f in glob.glob("scripts/*.mjs") + glob.glob("scripts/*.py")
+         if os.path.basename(_f) in _ba
+         and os.path.basename(_f) != "check-build.py"]
+_srcs += glob.glob("shared/*.mjs") + glob.glob("assets-source/*")
+_newest_src, _newest_src_t = None, 0
+for _f in _srcs:
+    _t = os.path.getmtime(_f)
+    if _t > _newest_src_t:
+        _newest_src, _newest_src_t = _f, _t
+
+_pages = glob.glob("public/**/*.html", recursive=True)
+_behind = [(os.path.getmtime(_f), _f) for _f in _pages
+           if os.path.getmtime(_f) < _newest_src_t - 2]
+if _behind and _newest_src:
+    _behind.sort()
+    _mins = int((_newest_src_t - _behind[0][0]) / 60)
+    _stale.append(
+        f"{len(_behind)} of {len(_pages)} pages are older than {_newest_src} "
+        f"(oldest is {_behind[0][1]}, {_mins} min behind). Either the build did "
+        f"not run after that edit, or a builder failed partway. If an agent is "
+        f"editing the tree right now this is expected: check mtimes before you "
+        f"rebuild over their work.")
+
 for _m in _stale[:8]:
     fail.append(_m)
 
