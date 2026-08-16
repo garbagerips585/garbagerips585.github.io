@@ -22,23 +22,40 @@
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=fe82687f">
+<link rel="stylesheet" href="/assets/ui.css?v=67f732be">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
 .rk svg{width:11px;height:11px;display:block}
-.rk-gold svg{fill:#E0A21F}
-.rk-mega svg{fill:#F5D142;stroke:#8A6109;stroke-width:.8}
-.rk-silver svg{fill:#9FB0C0}
+/* THESE MARKS DEPICT PRINTED FOIL, so they are read as artwork rather than as
+   chrome: the whole point of the key is that a silver star and a black star are
+   DIFFERENT RARITIES, and Ultra Rare and Double Rare are both TWO stars, so the
+   colour is the only thing telling them apart. Darkening silver for contrast
+   would collapse the pair it exists to separate.
+   The golds follow the palette instead of carrying their own literals (they
+   were #E0A21F, #F5D142 and #8A6109, the pre-"Black / White / Gold" values), so
+   the site does not end up with two different golds beside each other. */
+.rk-gold svg{fill:var(--gold)}
+.rk-mega svg{fill:var(--mustard);stroke:var(--gold-deep);stroke-width:.8}
+/* SILVER STAYS LIGHT AND GAINS AN EDGE. --chrome-dim on white is 2.43:1 and the
+   #9FB0C0 it replaced was 2.22:1, so this never cleared 1.4.11 on its own. It
+   cannot be solved by darkening (see above), so it is solved the way .rk-mega
+   already solves it: a hairline stroke, at 4.60:1 on white, draws the shape.
+   The star is aria-hidden and rarityChip always prints the rarity's NAME beside
+   it, so the colour was never the only cue for a reader either way. */
+.rk-silver svg{fill:#C6C6C6;stroke:#767676;stroke-width:.8}
 .rk-black svg{fill:var(--navy)}
+/* The ACE SPEC mark is printed pink and this is the one place the site draws
+   it. Left alone, like the pack art: it is a picture of a symbol on a card, not
+   a piece of site chrome. One 11px glyph, always captioned. */
 .rk-pink svg{fill:#D96BA0}
 .rk-fire svg{fill:var(--ketchup);width:10px;height:12px}
-.rk-jp{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.04em;color:#F4F1E2;background:var(--navy);
+.rk-jp{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.04em;color:var(--chrome-ink);background:var(--navy);
   border-radius:3px;padding:3px 5px}
 .chip-rk{display:inline-flex;align-items:center}
 </style>

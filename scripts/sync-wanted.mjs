@@ -109,7 +109,9 @@ async function directTcgplayer(url) {
  */
 async function setCards(apiId) {
   const out = [];
-  for (let page = 1; page <= 6; page++) {
+  const PAGE_CAP = 6;
+  let total = null;
+  for (let page = 1; page <= PAGE_CAP; page++) {
     const file = join(CACHE, `${apiId}-p${page}.json`);
     let res = null;
     if (!FORCE) {
@@ -124,9 +126,33 @@ async function setCards(apiId) {
       await mkdir(CACHE, { recursive: true });
       await writeFile(file, JSON.stringify(res));
     }
+    if (typeof res?.totalCount === "number") total = res.totalCount;
     const got = res.data || [];
     out.push(...got);
-    if (got.length < 250 || out.length >= (res.totalCount || out.length)) break;
+    if (got.length < 250) break;
+    // `out.length >= (res.totalCount || out.length)` IS ALWAYS TRUE WHEN
+    // totalCount IS ABSENT, because it becomes `out.length >= out.length`. The
+    // walk then ends on a full 250 card page and hands back a slice as if it
+    // were the set, which is the exact paragraph above this function describing
+    // Mega Dragonite ex #290 coming back as "no such card" when it exists. The
+    // fallback that was meant to be harmless recreates the bug the fix removed.
+    // Same shape as the `|| 0` taken out of sync-sets.mjs.
+    if (total == null) {
+      throw new Error(
+        `setCards("${apiId}"): a full 250 card page came back with no totalCount, so there is ` +
+          `nothing to say whether ${out.length} cards is the whole set. Delete ` +
+          `.cache/ptcg/${apiId}-p${page}.json and re-run. Do not read a missing count as done: ` +
+          `that is how a card numbered past 250 becomes "no such card".`
+      );
+    }
+    if (out.length >= total) break;
+  }
+  if (total != null && out.length < total) {
+    throw new Error(
+      `setCards("${apiId}") stopped at ${out.length} of ${total} cards on the ${PAGE_CAP} page ` +
+        `cap. Raise PAGE_CAP: a short checklist looks exactly like a complete one, and every ` +
+        `card past the last page reads as "no such card".`
+    );
   }
   return out;
 }
@@ -277,6 +303,50 @@ for (const want of source.cards || []) {
     `${rarity || "?"}${shown ? `, $${shown}${listed ? " (checklist)" : " (api)"}` : ", no market price yet"}`
   );
   await sleep(400);
+}
+
+/**
+ * A CARD THAT DROPPED OUT DOES NOT GET PUBLISHED AS A CARD THAT DROPPED OUT.
+ *
+ * Every failure above is tolerated on purpose and each one pushes a line into
+ * `problems`. What was never decided is what happens NEXT: the loop `continue`s,
+ * the card is simply absent from `out`, and this write then replaces a good
+ * wanted.json with a shorter one. The page is /wanted.html, "the cards still
+ * being chased", so an API wobble silently retires a card from the chase list
+ * and the only trace is a line of stdout in a script nothing reads the output of.
+ *
+ * The same thing happens one level down. A card that resolves but loses its
+ * price writes `raw: null`, and the tile then reads as a card with no market
+ * rather than a fetch that failed.
+ *
+ * So both are compared against the file already on disk, which is the last
+ * version known to be complete, and either one refuses the write. Nothing is
+ * lost by refusing: the old file is still correct, and the cache means a re-run
+ * only refetches what failed.
+ */
+let _prevWanted = [];
+try {
+  _prevWanted = JSON.parse(await readFile(join(ROOT, "public/data/wanted.json"), "utf8")).cards || [];
+} catch {
+  /* first ever run */
+}
+if (_prevWanted.length) {
+  const _key = (c) => `${c.set}-${c.number}`;
+  const _now = new Map(out.map((c) => [_key(c), c]));
+  const _gone = _prevWanted.filter((c) => !_now.has(_key(c)));
+  const _lostPrice = _prevWanted.filter(
+    (c) => typeof c.raw === "number" && c.raw > 0 && _now.has(_key(c)) && !(typeof _now.get(_key(c)).raw === "number" && _now.get(_key(c)).raw > 0)
+  );
+  if (_gone.length || _lostPrice.length) {
+    throw new Error(
+      `refusing to write public/data/wanted.json: ` +
+        (_gone.length ? `${_gone.length} card(s) that were on the list no longer resolve (${_gone.map((c) => `${c.name} #${c.number}`).join(", ")}). ` : "") +
+        (_lostPrice.length ? `${_lostPrice.length} card(s) lost a price they had (${_lostPrice.map((c) => `${c.name} #${c.number} was $${c.raw}`).join(", ")}). ` : "") +
+        `See "Problems" above for the reason. The file on disk is unchanged and still correct; ` +
+        `re-run once the source is answering. If a card is meant to come off the list, remove ` +
+        `it from data/wanted.json rather than letting a failed fetch do it.`
+    );
+  }
 }
 
 await mkdir(join(ROOT, "public/data"), { recursive: true });

@@ -75,6 +75,7 @@ const outside = printings.total - rows.length;
 // never priced. Counted here rather than asserted, because "most of them are
 // Japanese" was the tempting phrasing and it is false.
 let foreign = 0;
+let shardRows = 0;
 // Every distinct rarity string the page can ever show, from BOTH datasets. The
 // server renders from card-index and the search renders from these shards, so
 // the guard below has to see both or it only proves half the page.
@@ -82,19 +83,72 @@ const rarities = new Set();
 for (const r of rows) if (r[3]) rarities.add(r[3]);
 for (const [k] of Object.entries(printings.shards || {})) {
   const shard = JSON.parse(await readFile(join(ROOT, `public/data/printings/${k}.json`), "utf8"));
+  shardRows += shard.length;
   for (const c of shard) {
     if (c.l && c.l !== "en") foreign += 1;
     if (c.r) rarities.add(c.r);
   }
 }
 const otherEnglish = outside - foreign;
-// A build that cannot make the parts equal the whole must not publish the
-// whole. This is the check the old copy needed and did not have.
-const parts = priced.length + unpricedOurs + foreign + otherEnglish;
-if (parts !== printings.total) {
+
+// THE OLD CHECK HERE COULD NOT FAIL, AND IT READ AS THE MOST IMPORTANT ONE.
+//
+// It was `parts = priced + unpricedOurs + foreign + otherEnglish`, compared
+// against `printings.total`, under a comment saying "a build that cannot make
+// the parts equal the whole must not publish the whole. This is the check the
+// old copy needed and did not have." Substitute the definitions above:
+//
+//   unpricedOurs  = rows.length - priced.length
+//   outside       = printings.total - rows.length
+//   otherEnglish  = outside - foreign
+//   parts         = priced + (rows - priced) + foreign + (total - rows - foreign)
+//                 = printings.total,  identically, for every possible input
+//
+// Both `priced` and `foreign` cancel out. It is an algebraic identity dressed as
+// arithmetic, so `parts !== printings.total` was unreachable and the page's four
+// bucket figures have never actually been verified against anything. A guard
+// that cannot fire is worse than no guard: it is the reason nobody wrote a real
+// one.
+//
+// The three things below CAN be false, and each one corresponds to a way the
+// sentence on the page goes wrong:
+//
+//  1. The manifest's `total` is what the page prints as the size of the corpus,
+//     three times. It is written by sync-all-printings.mjs and the shard files
+//     are written in the same run, so a partial write leaves them disagreeing
+//     and every derived figure is wrong by the difference.
+//  2. `foreign` is counted from the shards while `outside` is arithmetic on the
+//     manifest, so nothing stops foreign exceeding it. When it does,
+//     `otherEnglish` goes NEGATIVE and the page prints a negative count of
+//     English cards in plain prose.
+//  3. Our own priced rows have to be a subset of the corpus. If card-index has
+//     more rows than the printings corpus, `outside` is negative and the whole
+//     paragraph inverts.
+if (shardRows !== printings.total) {
   throw new Error(
-    `cards.html would publish buckets that do not add up: ${priced.length} priced + ${unpricedOurs} unpriced ` +
-      `from our sets + ${foreign} non-English + ${otherEnglish} other English = ${parts}, not ${printings.total}`,
+    `printings manifest disagrees with its own shards: manifest.total is ${printings.total} but ` +
+      `the ${Object.keys(printings.shards || {}).length} shard files hold ${shardRows} rows. ` +
+      `cards.html prints manifest.total three times as the size of the corpus. ` +
+      `Re-run node scripts/sync-all-printings.mjs.`
+  );
+}
+if (rows.length > printings.total) {
+  throw new Error(
+    `card-index.json holds ${rows.length} cards, more than the ${printings.total} in the ` +
+      `printings corpus that is supposed to contain them. Every "outside our sets" figure on ` +
+      `cards.html is negative. One of the two files is from a different run.`
+  );
+}
+// Kept only for the summary line at the bottom of this file. It is the identity
+// described above, so it is a restatement of the four buckets and never a check;
+// the three throws around it are the checks.
+const parts = priced.length + unpricedOurs + foreign + otherEnglish;
+if (foreign > outside) {
+  throw new Error(
+    `cards.html would print a negative count: ${foreign} non-English cards counted in the shards ` +
+      `against only ${outside} cards outside our sets, so "other English" comes out at ` +
+      `${otherEnglish}. Either the shards carry a language tag on cards inside our sets, or the ` +
+      `manifest and the shards are from different runs.`
   );
 }
 const n = (v) => v.toLocaleString("en-US");
@@ -208,7 +262,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}

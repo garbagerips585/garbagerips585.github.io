@@ -29,7 +29,36 @@ const VIDEOS = join(ROOT, "public/data/videos.json");
 
 const doc = JSON.parse(await readFile(VIDEOS, "utf8"));
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
-const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"));
+// `.catch(() => "{}")` HERE WAS A SILENT 41-LABEL LOSS.
+//
+// This is the ONE place `v.label` is written, and ripLabel takes the pack number
+// from the title OR the description. Measured over the 313 videos: 197 carry the
+// number in the title, 240 in the description, and 44 in the description ONLY.
+// So an unreadable data/descriptions.json drops the "#7" off 41 stamped labels
+// across every tile, breadcrumb and set-page link on the site at once, and the
+// script still prints "Stamped 286 of 313 videos with a label" as if nothing
+// happened. The empty object was standing in for two different events: the file
+// not existing yet, and the file being broken.
+//
+// The file exists and holds 313 entries, so there is no "not yet" case left to
+// serve. It is read plainly, and a parse error stops the run.
+let descriptions;
+try {
+  descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8"));
+} catch (e) {
+  throw new Error(
+    `data/descriptions.json could not be read (${e.message}). It supplies the pack number for ` +
+      `41 labels that have it nowhere else, and an empty fallback would strip those numbers ` +
+      `off every tile on the site without a word. Fix the file rather than removing this check.`
+  );
+}
+// A file that parses but arrives empty is the same loss with a different cause.
+if (!descriptions || typeof descriptions !== "object" || !Object.keys(descriptions).length) {
+  throw new Error(
+    "data/descriptions.json parsed to nothing. 41 rip labels take their pack number from it " +
+      "and nowhere else."
+  );
+}
 // TWO SOURCES OF SET NAMES, AND THE SECOND IS NOT OPTIONAL. sets.json only
 // covers the English sets pulled from the Pokemon TCG API, so every non-English
 // set missed and ripLabel() fell through to its `|| setId` fallback. That put

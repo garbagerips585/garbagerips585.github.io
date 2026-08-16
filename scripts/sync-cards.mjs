@@ -186,6 +186,10 @@ await mkdir(OUTDIR, { recursive: true });
 
 const warnings = [];
 const failedSets = [];
+// Sets whose upstream answer was SMALLER than what is already on disk. Kept
+// apart from failedSets because it is the one failure here that sets the exit
+// code: a failed fetch is weather, a shrinking checklist is a bug somewhere.
+const shrankSets = [];
 const index = [];
 const imgBase = {};
 const summary = [];
@@ -296,6 +300,73 @@ for (const [slug, tcgdexId] of entries) {
     continue;
   }
 
+  // THE GUARD ABOVE COUNTS THE WRONG KIND OF NOTHING.
+  //
+  // `missing` counts cards whose DETAIL fetch failed, so it protects against
+  // TCGdex answering per-card requests badly. It cannot see the other shape:
+  // the SET endpoint answering with a short `cards` array, or none at all.
+  // `set.cards || []` turns that into an empty list, an empty list produces zero
+  // failed details, `missing` is 0, and the whole refuse-to-write block above is
+  // skipped. The file written is `{"total":0,"cards":[]}` on top of a 295 card
+  // checklist, which is the single most destructive write in this tree: every
+  // price on that set guide, its rarity ladder, its chase grid and its rows in
+  // /cards.html and /complete-a-set.html all read that one file.
+  //
+  // Nothing downstream would have caught it either. check-build.py floors the
+  // card index at 4,000 of 5,181, so a set the size of Ascended Heroes can
+  // vanish entirely and still clear it, and the "90% of cards carry a price"
+  // check reads the cards that are LEFT, which all still have prices.
+  //
+  // A checklist does not shrink. Sets are printed once and TCGdex only ever adds
+  // to them, so fewer cards than last run means the answer was wrong, not that
+  // the set got smaller. Same remedy the block above uses, because it is the
+  // right one: keep yesterday's file, which is stale at worst, and say so. The
+  // difference is that this one also sets the exit code, because a shrinking
+  // upstream is a thing somebody has to look at rather than a wobble that fixes
+  // itself on the next run.
+  const _prevPath = join(OUTDIR, `${slug}.json`);
+  let _prevCards = null;
+  if (existsSync(_prevPath)) {
+    try {
+      _prevCards = JSON.parse(await readFile(_prevPath, "utf8")).cards || null;
+    } catch {
+      /* unreadable previous file; nothing to compare against */
+    }
+  }
+  if (_prevCards && cards.length < _prevCards.length) {
+    warnings.push(
+      `${slug}: TCGdex returned ${cards.length} cards where the file on disk has ` +
+        `${_prevCards.length}. A checklist does not shrink, so this is a bad answer from ` +
+        `${API}/sets/${tcgdexId}, not a smaller set. KEPT THE PREVIOUS FILE. ` +
+        `Re-run with --force once TCGdex is answering properly; if the set really was ` +
+        `re-scoped, delete public/data/cards/${slug}.json first so there is nothing to shrink from.`
+    );
+    failedSets.push(slug);
+    shrankSets.push(slug);
+    for (const c of _prevCards) index.push([c.name, slug, c.n, c.rarity || "", c.price ?? null]);
+    const sample = _prevCards.find((c) => c.img);
+    if (sample) imgBase[slug] = sample.img.replace(/\/[^/]+$/, "");
+    const oldPriced = _prevCards.filter((c) => c.price != null).length;
+    summary.push({ slug, name: ours.name, cards: _prevCards.length, priced: oldPriced });
+    totalCards += _prevCards.length;
+    totalPriced += oldPriced;
+    console.log(`  ${slug.padEnd(21)} ${cards.length} cards from TCGdex against ${_prevCards.length} on disk, kept the previous file`);
+    continue;
+  }
+  if (!cards.length) {
+    // No previous file to fall back on, so there is nothing to keep and nothing
+    // to write. Writing an empty checklist would publish a set guide that
+    // states, as fact, that its set has no cards.
+    warnings.push(
+      `${slug}: TCGdex returned no cards at all for "${tcgdexId}" and there is no previous ` +
+        `file to keep. Nothing written. Check data/tcgdex-en.json maps ${slug} to the right id.`
+    );
+    failedSets.push(slug);
+    shrankSets.push(slug);
+    console.log(`  ${slug.padEnd(21)} no cards returned, nothing written`);
+    continue;
+  }
+
   const priced = cards.filter((c) => c.price != null).length;
   totalCards += cards.length;
   totalPriced += priced;
@@ -362,4 +433,17 @@ if (failedSets.length) {
 if (warnings.length) {
   console.log(`\n${warnings.length} thing(s) to look at:`);
   for (const w of warnings) console.log("  " + w);
+}
+// EXIT CODE, NOT JUST A LINE OF TEXT. Everything above is printed to stdout,
+// and the nightly workflow reads exit codes rather than prose. A checklist that
+// came back smaller than the one on disk is the failure that has to be noticed
+// on the run it happens, because the file it would have overwritten is the only
+// copy of those prices.
+if (shrankSets.length) {
+  console.error(
+    `\n${shrankSets.length} set(s) came back smaller than the file on disk and were NOT ` +
+      `overwritten: ${shrankSets.join(", ")}. The checklists on disk are unchanged and still ` +
+      `correct; TCGdex is the thing to look at. Re-run when it is answering properly.`
+  );
+  process.exit(1);
 }

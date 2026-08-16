@@ -108,6 +108,39 @@ for (const v of videos) for (const p of v.pulls || []) pullCount.set(p, (pullCou
 const pulls = [...pullCount.entries()].sort((a, b) => b[1] - a[1]);
 
 /**
+ * WHICH TALLY THE "WHAT HAS ACTUALLY COME OUT" BAND SHOWS, AND WHY IT IS NOT
+ * SIMPLY `rarities.length`.
+ *
+ * The band used to read `rarities.length ? rarities : pulls`, which is the
+ * ordinary "prefer the better source" shape and reads as obviously right. On
+ * this data it publishes almost nothing. The rip log's rarity column is filled
+ * in for exactly TWO rips and both of them say the same thing, "More than one",
+ * so `rarities` is one entry covering 2 rips. Being non-empty, it wins, and the
+ * pull tags, which cover 14 rips across six categories (Double Rare 5,
+ * Illustration Rare 4, Ultra 2, Super 1, ACE SPEC 1, Charizard 1), are dropped
+ * without a word. A whole band headed "What has actually come out" renders as a
+ * single tile reading "2 / More than one hit".
+ *
+ * Non-empty is not the same as better. The comparison that matters is how many
+ * RIPS each tally describes, because that is what both of them are counting, so
+ * that is what is compared. The rarity column still wins on a tie, which keeps
+ * the original intent: it is the more precise source the moment somebody fills
+ * it in for as many rips as the tags cover.
+ *
+ * Printed either way, so a run where the choice flips is visible rather than
+ * being a band that quietly changed what it is about.
+ */
+const rarityRips = [...rarityCount.values()].reduce((n, x) => n + x, 0);
+const pullRips = videos.filter((v) => (v.pulls || []).length).length;
+const useRarities = rarities.length > 0 && rarityRips >= pullRips;
+const tally = useRarities ? rarities : pulls.map(([k, n]) => [labelFor("pulls", k) || k, n]);
+console.log(
+  `  "what has come out" band: rarity column covers ${rarityRips} rip(s) in ${rarities.length} ` +
+    `categor${rarities.length === 1 ? "y" : "ies"}, pull tags cover ${pullRips} rip(s) in ` +
+    `${pulls.length} categories, showing the ${useRarities ? "rarity column" : "pull tags"}`
+);
+
+/**
  * The longest run of consecutive judged rips with no hit, in upload order.
  *
  * The most human number on the page: everyone who opens packs knows the
@@ -301,17 +334,17 @@ ${table(byProduct, "Product", "/videos.html?product=")}
     <div class="wrap">
       <h2>What has actually <span class="hl">come out</span></h2>
       <p class="luck-note">${
-        rarities.length
+        useRarities
           ? `Counted from the rarity column of the rip log, which is filled in for a different set of rips
       than the hit or no hit column, so this is a separate tally from the hit rates above and the two will
       not line up.`
           : `Counted from what the titles say rather than from the rip log, so this is a separate tally from
       the hit rates above and the two will not line up.`
       } They are totals, not rates: a set
-      that gets opened more will show more of everything. Once the log is filled in these become real
-      per-pack rates.</p>
+      that gets opened more will show more of everything. A fuller log makes these counts more complete, not more predictive: they say what
+      came out of the packs we opened, never what will come out of yours.</p>
       <div class="pull-grid">
-${(rarities.length ? rarities : pulls.map(([k, n]) => [labelFor("pulls", k) || k, n]))
+${tally
   .map(([k, n]) => `        <div class="pull"><b>${n}</b><span>${esc(k)}</span></div>`)
   .join("\n")}
       </div>
@@ -395,7 +428,7 @@ ${judged.length ? "" : '<meta name="robots" content="noindex,follow">\n'}<link r
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#15263A">
+<meta name="theme-color" content="#111111">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:title" content="Pokemon Pack Luck, Measured">

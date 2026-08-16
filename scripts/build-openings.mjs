@@ -296,13 +296,44 @@ const entries = [...byProduct.entries()]
 // that STILL collides, which happens when two of the same product from the same
 // set went up on one day, fall back to the video's own full title, which is
 // unique by construction. Same escalation build-playlists.mjs uses.
+// `v.description` DOES NOT EXIST AND HAS NEVER EXISTED ON A VIDEO RECORD.
+//
+// This line used to read `ripLabel(v, SET_NAME, v.description)`. None of the 313
+// records in public/data/videos.json carries a `description` key: the
+// descriptions live in data/descriptions.json, which this builder does not open.
+// So the third argument was `undefined` on every call, and `undefined` is
+// exactly what ripLabel treats as "no description available". Same shape as the
+// no-scan `.tcgdex` read: a key that is not there, a fallback that looks like a
+// legitimate empty, and a silence.
+//
+// It cost real text. The pack number in a label comes from the title OR the
+// description, and 41 of the 286 stamped labels get their #N from the
+// description alone. Those 41 rips read "Pitch Black ETB #7" on the home page,
+// /videos.html and their playlist page, all of which use the stamped `v.label`,
+// and "Pitch Black ETB" here. One rip, two names, on one site.
+//
+// It also made the page worse in a second way. labelsFor escalates to a date
+// and then to the full YouTube title whenever two rips share a label, so losing
+// the numbers created collisions that were not there: 95 colliding rows became
+// 124.
+//
+// stamp-labels.mjs is the ONE writer of `v.label` and it runs before every page
+// builder in build-all.mjs, which is why it exists. Read the stamp, the way
+// build-playlists.mjs and build-proto.mjs already do, rather than re-deriving it
+// here from an argument this file cannot supply.
 function labelsFor(vids) {
-  const base = new Map(
-    vids.map((v) => {
-      const setId = (v.sets || [])[0];
-      return [v.id, ripLabel(v, SET_NAME, v.description) || v.siteTitle || v.title];
-    })
-  );
+  const base = new Map(vids.map((v) => [v.id, v.label || v.siteTitle || v.title]));
+  // A rip with a set and a product tag always gets a stamped label. If none of
+  // them has one, stamp-labels.mjs did not run, and every tile on these pages is
+  // about to fall back to its YouTube title: "This ETB is BREAKING me! 🌑💀" on a
+  // grid of twenty, which is the thing ripLabel exists to prevent.
+  if (vids.length && !vids.some((v) => v.label)) {
+    throw new Error(
+      `build-openings: not one of ${vids.length} rips carries a stamped \`label\`, so every ` +
+        `tile would fall back to its raw YouTube title. Run node scripts/stamp-labels.mjs ` +
+        `first; build-all.mjs runs it before every page builder for this reason.`
+    );
+  }
   const seen = new Map();
   for (const l of base.values()) seen.set(l, (seen.get(l) || 0) + 1);
 
@@ -387,7 +418,7 @@ const STYLE = `
   letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);border-bottom:2px solid var(--hair)}
 .op-t th,.op-t td{padding:10px var(--s3);text-align:left;border-bottom:1px solid var(--hair)}
 .op-t thead th{font:700 var(--t-label)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
-  background:var(--navy);color:#F4F1E2;border-bottom:none}
+  background:var(--navy);color:var(--chrome-ink);border-bottom:none}
 .op-t tbody th{font-weight:700}
 .op-no{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);opacity:.7}
 .op-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
@@ -422,7 +453,7 @@ const head = (title, desc, path, extraLd = null) => `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
 <style>${STYLE}</style>

@@ -186,16 +186,60 @@ function englishName({ dexId, native, category }) {
 // ---------------------------------------------------------------------- rarity
 
 // Roughly worst to best. Used only to order the "worth chasing" grid and to
-// decide what counts as a hit; anything unrecognised sorts to the end of the
-// commons rather than being promoted.
+// decide what counts as a hit.
+//
+// "ANYTHING UNRECOGNISED SORTS TO THE END OF THE COMMONS" IS WHAT THIS COMMENT
+// USED TO SAY, AND IT WAS THE BUG. `findIndex` answers -1 for a rarity that is
+// not on the list and the fallback turned that into 3, the rank of "Rare", which
+// is below CHASE_MIN. So an unknown rarity was not sorted to the end of the
+// commons, it was DECLARED to be a common, and the grid it was then excluded
+// from is the one thing anybody looks at on these pages.
+//
+// Two real tiers were missing and both are the best card in their set:
+//   Mega Hyper Rare   5 cards, incl. ja-mega-symphonia #092 Mega Gardevoir ex
+//   Secret Rare      11 cards, all of ja-mega-symphonia #076-#086
+// ja-abyss-eye #118 Mega Darkrai ex is a Mega Hyper Rare AND numbered past the
+// printed set, so `c.secret` did qualify it, and then it sorted at rank 3
+// beneath twelve Special Illustration Rares and fell off the .slice(0, 12).
+// The set's chase grid showed twelve cards and not the one card in it.
+//
+// Placed to agree with the site's own ladder in shared/format.mjs, which runs
+// best-first and reads: Mega Hyper Rare > Hyper Rare > Rainbow Rare >
+// Secret Rare > Special Illustration Rare. THE TWO LISTS STILL DISAGREE about
+// where Hyper Rare sits relative to Special Illustration Rare, and about Crown
+// Rare, which is Japanese-only and absent from the shared one. That is a real
+// drift worth closing, but closing it reorders published grids, so it is named
+// here rather than done quietly in a patch about something else.
 const RARITY_ORDER = [
   "None", "Common", "Uncommon", "Rare", "Rare Holo", "Double rare", "Rare Holo V",
   "ACE SPEC Rare", "Ultra Rare", "Illustration rare", "Shiny rare", "Hyper rare",
-  "Special illustration rare", "Shiny Ultra Rare", "Crown Rare",
+  "Special illustration rare", "Secret Rare", "Shiny Ultra Rare", "Crown Rare",
+  "Mega Hyper Rare",
 ];
-const rarityRank = (r) => {
-  const i = RARITY_ORDER.findIndex((x) => x.toLowerCase() === String(r || "").toLowerCase());
-  return i === -1 ? 3 : i;
+// Every rarity string this run met that is not on the ladder above. Collected
+// rather than defaulted, and it stops the run at the end: a tier nobody has
+// placed cannot be ranked, and guessing "Rare" is how the two above hid.
+const unknownRarities = new Map();
+const rarityRank = (r, setId) => {
+  // NO RARITY AT ALL IS NOT AN UNKNOWN TIER. The card mapper above writes
+  // `rarity: null` for TCGdex's "None", which is most of an older set, so
+  // treating null as unrecognised both floods the report with one useless entry
+  // and, worse, promoted 162 unrarified cards to the top of the chase grid the
+  // first time this fallback existed: ko-mask-of-change went from 0 chase cards
+  // to 3 commons. "None" is rung 0 and is on the ladder on purpose.
+  if (r == null || r === "" || String(r).toLowerCase() === "none") return 0;
+  const want = String(r).toLowerCase();
+  const i = RARITY_ORDER.findIndex((x) => x.toLowerCase() === want);
+  if (i === -1) {
+    const k = String(r);
+    if (!unknownRarities.has(k)) unknownRarities.set(k, new Set());
+    unknownRarities.get(k).add(setId || "?");
+    // Ranked at the TOP while the run finishes, not the bottom, so the card is
+    // visible in the grid rather than hidden by the very fallback being
+    // reported. The run fails either way; this only decides what you look at.
+    return RARITY_ORDER.length;
+  }
+  return i;
 };
 // What we are willing to call a hit on the page.
 const CHASE_MIN = RARITY_ORDER.indexOf("ACE SPEC Rare");
@@ -208,6 +252,10 @@ const entries = Object.entries(map.sets || {});
 await loadSpecies();
 
 const warnings = [];
+// Guides whose checklist came back empty. Kept apart from `warnings` because
+// these set the exit code: a guide that states a card count and shows no cards
+// is a page making a confident claim about a set it has no data for.
+const emptySets = [];
 const guides = {};
 
 for (const [id, e] of entries) {
@@ -226,7 +274,28 @@ for (const [id, e] of entries) {
   if (!own) warnings.push(`${id}: no ${e.lang} record, running entirely on ${src.lang}/${src.id}`);
 
   const meta = own || from;
+  // `|| []` HERE PUBLISHED TWO SET GUIDES WITH NO SET IN THEM. TCGdex answering
+  // the set endpoint without a `cards` array is not the same event as a set with
+  // no cards, and this line could not tell them apart: the guard above only
+  // fires when NEITHER record resolves, and both of these resolved fine. The
+  // result on disk right now is ja-cyber-judge published with cardCount 71 and
+  // an empty checklist, and zh-gem-pack-2 with cardCount 15 and an empty
+  // checklist. Both render as complete guides that state a card count and then
+  // show nothing, which is the most confident way to be wrong.
   const list = from?.cards || [];
+  if (!list.length) {
+    const declared = (borrowed ? from : meta)?.cardCount?.total ?? null;
+    // NOT skipped. Dropping the guide here would delete its page on the next
+    // build and 404 every link to it, which trades a wrong page for a broken
+    // one. The entry is written as it always was and the RUN fails instead, so
+    // the tree on disk is unchanged and a human is told exactly which cache
+    // file to delete.
+    emptySets.push(
+      `${id}: TCGdex returned no card list for ${src.lang}/${src.id}` +
+        (declared ? `, though the same response declares ${declared} cards` : "") +
+        `. Delete .cache/tcgdex/${src.lang}-${src.id}.json and re-run.`
+    );
+  }
 
   // One request per card for rarity and dex number. Cached, so this only costs
   // anything on the very first run or under --force.
@@ -280,15 +349,37 @@ for (const [id, e] of entries) {
   // used instead to lead with the cards a US reader can actually read and see:
   // a picture first, then a name in English. A tiebreak, not a ranking.
   const score = (c) => (c.image ? 2 : 0) + (c.en ? 1 : 0);
-  const notable = cards
-    .filter((c) => rarityRank(c.rarity) >= CHASE_MIN || c.secret)
+  const qualifying = cards.filter((c) => rarityRank(c.rarity, id) >= CHASE_MIN || c.secret);
+  const notable = qualifying
     .sort(
       (a, b) =>
-        rarityRank(b.rarity) - rarityRank(a.rarity) ||
+        rarityRank(b.rarity, id) - rarityRank(a.rarity, id) ||
         score(b) - score(a) ||
         (Number(b.localId) || 0) - (Number(a.localId) || 0)
     )
     .slice(0, 12);
+  // THE CAP BINDS ON MOST SETS AND THAT IS FINE; SAY SO ANYWAY. Twelve tiles is
+  // a layout decision, not a claim about the set, but a reader cannot tell a
+  // grid that shows everything from a grid that shows the first twelve of
+  // thirty-seven. Printed per set so the size of what is hidden is visible, and
+  // so a run where the number jumps is noticeable.
+  if (qualifying.length > notable.length) {
+    console.log(`  ${id.padEnd(22)} chase grid shows ${notable.length} of ${qualifying.length} qualifying cards`);
+  }
+  // A guide with a checklist and no chase grid renders a page whose whole top
+  // band is missing, which reads as a set with nothing worth pulling rather
+  // than as a rule that did not fire. ko-mask-of-change did exactly this: 101
+  // cards, top rarity "Double rare", `official` equal to the card count so
+  // nothing is secret, and an empty grid with no warning anywhere.
+  if (cards.length && !notable.length) {
+    warnings.push(
+      `${id}: ${cards.length} cards and NOT ONE qualifies for the chase grid, so the page ` +
+        `renders with no grid at all. Top rarity present is ` +
+        `"${[...new Set(cards.map((c) => c.rarity).filter(Boolean))].sort((a, b) => rarityRank(b, id) - rarityRank(a, id))[0] || "none"}", ` +
+        `and CHASE_MIN is "${RARITY_ORDER[CHASE_MIN]}". Either the set genuinely has no hits, ` +
+        `or its rarities are spelled differently from RARITY_ORDER in this file.`
+    );
+  }
 
   const translated = cards.filter((c) => c.en).length;
   const pokemon = cards.filter((c) => c.category === "Pokemon").length;
@@ -351,3 +442,27 @@ if (warnings.length) {
   console.log(`\n${warnings.length} thing(s) to look at:`);
   for (const w of warnings) console.log("  " + w);
 }
+
+// EXIT CODE, BECAUSE EVERYTHING ABOVE IS PROSE ON STDOUT. Both of these are
+// failures that publish something wrong rather than nothing, so neither may end
+// a run at 0.
+let _bad = 0;
+if (emptySets.length) {
+  _bad += emptySets.length;
+  console.error(
+    `\n${emptySets.length} guide(s) published a card count with an EMPTY checklist:\n  ` +
+      emptySets.join("\n  ")
+  );
+}
+if (unknownRarities.size) {
+  _bad += unknownRarities.size;
+  console.error(
+    `\n${unknownRarities.size} rarity name(s) are not on RARITY_ORDER in this file, so nothing ` +
+      `can rank them:\n  ` +
+      [...unknownRarities].map(([r, sets]) => `"${r}"  (${[...sets].join(", ")})`).join("\n  ") +
+      `\nAdd each one to RARITY_ORDER at the tier it belongs to. Do not leave them off: the ` +
+      `old fallback ranked an unknown rarity as "Rare", which dropped every Mega Hyper Rare ` +
+      `and every Secret Rare out of the chase grid without a word.`
+  );
+}
+if (_bad) process.exit(1);

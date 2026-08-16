@@ -117,23 +117,78 @@ function marketPrice(card) {
   return vals.length ? Math.max(...vals) : 0;
 }
 
+/**
+ * Every card in one set, paged.
+ *
+ * `totalCount` IS THE ONLY THING THAT SAYS THE WALK IS FINISHED, so its absence
+ * cannot be read as "we are done". The stop condition used to be
+ *
+ *     out.length >= (res.totalCount || 0)
+ *
+ * and the `|| 0` turns a missing field into `out.length >= 0`, which is true on
+ * every run: a page 1 that came back without a totalCount ended the walk at 250
+ * cards and returned them as if they were the whole set. api.pokemontcg.io
+ * answers 500 and 502 under load rather than 429 and its error bodies are JSON,
+ * so an empty-ish 200 is exactly the shape this file has to survive.
+ *
+ * A truncated checklist is not a cosmetic loss. This function writes the card
+ * counts, the rarity ladder and the chase list into public/data/sets.json, so a
+ * 250 card slice of a 295 card set publishes a set guide that is wrong about its
+ * own size and misses every card above #250, which on a modern set is all of the
+ * secret rares. That is the sync-chase.mjs 400-cap bug in a second place, and it
+ * gets the same treatment: stop on the count, and throw rather than truncate.
+ *
+ * PAGE_CAP is a runaway guard only, well clear of the biggest set on record
+ * (295 cards, two pages). It throws when it binds for the same reason.
+ */
 async function fetchAllCards(apiId) {
   const out = [];
-  let page = 1;
-  for (;;) {
+  const PAGE_CAP = 12;
+  let total = null;
+  for (let page = 1; page <= PAGE_CAP; page++) {
     const res = await cached(`${apiId}-p${page}`, () =>
       apiGet(`cards?q=set.id:${apiId}&pageSize=250&page=${page}`)
     );
+    if (typeof res?.totalCount === "number") total = res.totalCount;
     out.push(...(res.data || []));
-    if (!res.data?.length || out.length >= (res.totalCount || 0)) break;
-    page++;
+    if (!res.data?.length) break;
+    if (total != null && out.length >= total) break;
+    if (total == null) {
+      throw new Error(
+        `fetchAllCards("${apiId}"): page ${page} came back with no totalCount, so there is ` +
+          `nothing to say whether ${out.length} cards is the whole set. Delete ` +
+          `.cache/ptcg/${apiId}-p${page}.json and re-run; do not treat a missing count as done, ` +
+          `which is how a 250 card slice of a 295 card set once shipped as complete.`
+      );
+    }
     await sleep(800);
+  }
+  if (total != null && out.length < total) {
+    throw new Error(
+      `fetchAllCards("${apiId}") stopped at ${out.length} of ${total} cards on the ${PAGE_CAP} ` +
+        `page cap. Raise PAGE_CAP: a short checklist looks exactly like a complete one.`
+    );
   }
   return out;
 }
 
 console.log("Fetching set list...");
-const allSets = (await cached("all-sets", () => apiGet("sets?pageSize=250"))).data;
+// pageSize=250 WITH NO PAGING, so this is a cap as much as a page size. The API
+// listed 174 sets on 16 August 2026 and adds a handful a year; the day it passes
+// 250 this call silently returns the first 250 and every set after them stops
+// existing as far as this script is concerned. Checked rather than assumed.
+const _allSetsRes = await cached("all-sets", () => apiGet("sets?pageSize=250"));
+const allSets = _allSetsRes.data;
+if (!Array.isArray(allSets) || !allSets.length) {
+  throw new Error("api.pokemontcg.io returned no sets. Delete .cache/ptcg/all-sets.json and re-run.");
+}
+if (typeof _allSetsRes.totalCount === "number" && allSets.length < _allSetsRes.totalCount) {
+  throw new Error(
+    `the set list is truncated: ${allSets.length} of ${_allSetsRes.totalCount} sets came back ` +
+      `because "sets?pageSize=250" does not page. Page it, or raise pageSize, before any set ` +
+      `beyond the cap can go missing without a word.`
+  );
+}
 const byApiId = new Map(allSets.map((s) => [s.id, s]));
 
 let notes = {};
@@ -296,6 +351,52 @@ for (const [setId, apiId] of Object.entries(SET_MAP)) {
 }
 
 sets.sort((a, b) => (a.released < b.released ? 1 : -1));
+
+/**
+ * DO NOT OVERWRITE A GOOD FILE WITH A THINNER ONE.
+ *
+ * The per-set `catch` above is deliberate and stays: api.pokemontcg.io rate
+ * limits hard and answers 500 rather than 429, so one set failing must not throw
+ * away a multi-minute run of the other 27. What was NOT deliberate is what
+ * happened next. A set whose fetch failed was written out with `cardsSeen: 0`,
+ * `pricedCount: 0` and an empty `chase`, the script printed one grey line in the
+ * middle of 28 and exited 0, and public/data/sets.json now claimed that set has
+ * no cards. Tolerating a fetch failure and publishing it are two different
+ * decisions and only the first one was ever argued for.
+ *
+ * So the previous file is the baseline. A set that had card data and now has
+ * none is a regression, not news, and it stops the write. Everything else about
+ * the run is unchanged, including the tolerance: re-run and the cache carries
+ * the sets that did work, so the retry only costs the ones that failed.
+ */
+let _prevSets = [];
+try {
+  _prevSets = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8")).sets || [];
+} catch {
+  /* first ever run; nothing to regress against */
+}
+if (_prevSets.length) {
+  const _prev = new Map(_prevSets.map((s) => [s.id, s]));
+  const _lost = sets.filter((s) => !s.cardsSeen && (_prev.get(s.id)?.cardsSeen || 0) > 0);
+  if (_lost.length) {
+    throw new Error(
+      `refusing to write public/data/sets.json: ${_lost.length} set(s) came back with no cards ` +
+        `that had cards last run (` +
+        _lost.map((s) => `${s.id} had ${_prev.get(s.id).cardsSeen}`).join(", ") +
+        `). Look for "cards unavailable" above. Re-run: the cache keeps the sets that ` +
+        `worked, so only these are refetched. Writing this file now would publish a set ` +
+        `guide claiming its own set is empty.`
+    );
+  }
+  if (sets.length < _prevSets.length) {
+    throw new Error(
+      `refusing to write public/data/sets.json: ${sets.length} sets this run against ` +
+        `${_prevSets.length} in the file already on disk. A set disappeared from SET_MAP or ` +
+        `from the API set list. Removing one is fine, but do it on purpose.`
+    );
+  }
+}
+
 await mkdir(join(ROOT, "public/data"), { recursive: true });
 await writeFile(
   join(ROOT, "public/data/sets.json"),
