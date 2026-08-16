@@ -46,7 +46,7 @@ The product is known, so these only need the set naming.
 - [My 5th Box... PLEASE Be The OGs! 😭](https://www.youtube.com/watch?v=xNGxOuMpSiw)
   `xNGxOuMpSiw`, 2026-07-02, 848 views · in playlist "Hits Only 🔥 | No Bulk, Just Back To Back Pulls" · products: collection-box
 - [Mega Zygarde ex Premium Collection ⚡🔥 | Pack #5 (We NEED A Hit 😬)](https://www.youtube.com/watch?v=_3gRDHTv1lQ)
-  `_3gRDHTv1lQ`, 2026-06-13, 927 views · _not in any playlist_ · products: ex-premium
+  `_3gRDHTv1lQ`, 2026-06-13, 929 views · _not in any playlist_ · products: ex-premium
 - [Mega Zygarde ex Premium Collection ⚡🔥 | Pack #4 (We NEED A Hit 😬)](https://www.youtube.com/watch?v=lcxUwIjlqZY)
   `lcxUwIjlqZY`, 2026-06-11, 1,296 views · _not in any playlist_ · products: ex-premium
 - [Mega Zygarde ex Premium Collection ⚡🔥 | Pack #3 (Getting Lucky?!)](https://www.youtube.com/watch?v=0pRHwsEwo3g)

@@ -4,13 +4,13 @@
   "sets": {
     "pitch-black": {
       "tcgSet": "ME05: Pitch Black",
-      "checked": "2026-08-12",
+      "checked": "2026-08-16",
       "cards": [
         {
           "name": "Mega Darkrai ex",
           "number": "116",
           "rarity": "Special illustration rare",
-          "price": 233.1,
+          "price": 222.34,
           "image": "https://assets.tcgdex.net/en/me/me05/116/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me05/116/high.webp",
           "url": "https://www.tcgplayer.com/product/704873"
@@ -19,7 +19,7 @@
           "name": "Mega Darkrai ex",
           "number": "120",
           "rarity": "Mega Hyper Rare",
-          "price": 173.09,
+          "price": 173.33,
           "image": "https://assets.tcgdex.net/en/me/me05/120/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me05/120/high.webp",
           "url": "https://www.tcgplayer.com/product/704877"
@@ -28,7 +28,7 @@
           "name": "Morpeko ex",
           "number": "117",
           "rarity": "Special illustration rare",
-          "price": 100.65,
+          "price": 96.69,
           "image": "https://assets.tcgdex.net/en/me/me05/117/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me05/117/high.webp",
           "url": "https://www.tcgplayer.com/product/704874"
@@ -37,7 +37,7 @@
           "name": "Mega Zeraora ex",
           "number": "114",
           "rarity": "Special illustration rare",
-          "price": 64.53,
+          "price": 63.89,
           "image": "https://assets.tcgdex.net/en/me/me05/114/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me05/114/high.webp",
           "url": "https://www.tcgplayer.com/product/704871"
@@ -46,7 +46,7 @@
           "name": "Mega Chandelure ex",
           "number": "115",
           "rarity": "Special illustration rare",
-          "price": 48.59,
+          "price": 46.87,
           "image": "https://assets.tcgdex.net/en/me/me05/115/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me05/115/high.webp",
           "url": "https://www.tcgplayer.com/product/704872"
@@ -55,7 +55,7 @@
           "name": "Gwynn",
           "number": "119",
           "rarity": "Special illustration rare",
-          "price": 40.31,
+          "price": 36.05,
           "image": "https://assets.tcgdex.net/en/me/me05/119/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me05/119/high.webp",
           "url": "https://www.tcgplayer.com/product/704876"
@@ -64,7 +64,7 @@
           "name": "Gladion's Final Battle",
           "number": "118",
           "rarity": "Special illustration rare",
-          "price": 33.75,
+          "price": 32.8,
           "image": "https://assets.tcgdex.net/en/me/me05/118/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me05/118/high.webp",
           "url": "https://www.tcgplayer.com/product/704875"
@@ -73,7 +73,7 @@
           "name": "Misty's Vitality",
           "number": "111",
           "rarity": "Ultra Rare",
-          "price": 21.21,
+          "price": 21.65,
           "image": "https://assets.tcgdex.net/en/me/me05/111/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me05/111/high.webp",
           "url": "https://www.tcgplayer.com/product/704868"
@@ -82,13 +82,13 @@
     },
     "chaos-rising": {
       "tcgSet": "ME04: Chaos Rising",
-      "checked": "2026-08-12",
+      "checked": "2026-08-16",
       "cards": [
         {
           "name": "Mega Greninja ex",
           "number": "116",
           "rarity": "Special illustration rare",
-          "price": 212.59,
+          "price": 210.49,
           "image": "https://assets.tcgdex.net/en/me/me04/116/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me04/116/high.webp",
           "url": "https://www.tcgplayer.com/product/693517"
@@ -97,7 +97,7 @@
           "name": "Mega Greninja ex",
           "number": "122",
           "rarity": "Mega Hyper Rare",
-          "price": 183.57,
+          "price": 176.96,
           "image": "https://assets.tcgdex.net/en/me/me04/122/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me04/122/high.webp",
           "url": "https://www.tcgplayer.com/product/693518"
@@ -106,7 +106,7 @@
           "name": "Cinccino ex",
           "number": "119",
           "rarity": "Special illustration rare",
-          "price": 63.93,
+          "price": 63.22,
           "image": "https://assets.tcgdex.net/en/me/me04/119/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me04/119/high.webp",
           "url": "https://www.tcgplayer.com/product/693465"
@@ -115,7 +115,7 @@
           "name": "Mega Dragalge ex",
           "number": "118",
           "rarity": "Special illustration rare",
-          "price": 41.03,
+          "price": 38.71,
           "image": "https://assets.tcgdex.net/en/me/me04/118/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me04/118/high.webp",
           "url": "https://www.tcgplayer.com/product/693510"
@@ -124,7 +124,7 @@
           "name": "Mega Floette ex",
           "number": "117",
           "rarity": "Special illustration rare",
-          "price": 32.44,
+          "price": 31.91,
           "image": "https://assets.tcgdex.net/en/me/me04/117/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me04/117/high.webp",
           "url": "https://www.tcgplayer.com/product/693513"
@@ -133,7 +133,7 @@
           "name": "AZ's Tranquility",
           "number": "120",
           "rarity": "Special illustration rare",
-          "price": 28.64,
+          "price": 27.59,
           "image": "https://assets.tcgdex.net/en/me/me04/120/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me04/120/high.webp",
           "url": "https://www.tcgplayer.com/product/693451"
@@ -142,7 +142,7 @@
           "name": "Roxie's Performance",
           "number": "121",
           "rarity": "Special illustration rare",
-          "price": 23.13,
+          "price": 23.91,
           "image": "https://assets.tcgdex.net/en/me/me04/121/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me04/121/high.webp",
           "url": "https://www.tcgplayer.com/product/693542"
@@ -151,7 +151,7 @@
           "name": "Mega Greninja ex",
           "number": "100",
           "rarity": "Ultra Rare",
-          "price": 11.57,
+          "price": 11.89,
           "image": "https://assets.tcgdex.net/en/me/me04/100/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me04/100/high.webp",
           "url": "https://www.tcgplayer.com/product/693516"
@@ -160,13 +160,13 @@
     },
     "perfect-order": {
       "tcgSet": "ME03: Perfect Order",
-      "checked": "2026-08-12",
+      "checked": "2026-08-16",
       "cards": [
         {
           "name": "Mega Zygarde ex",
           "number": "124",
           "rarity": "Mega Hyper Rare",
-          "price": 133.62,
+          "price": 134.26,
           "image": "https://assets.tcgdex.net/en/me/me03/124/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me03/124/high.webp",
           "url": "https://www.tcgplayer.com/product/684339"
@@ -175,7 +175,7 @@
           "name": "Meowth ex",
           "number": "121",
           "rarity": "Special illustration rare",
-          "price": 128.67,
+          "price": 128.7,
           "image": "https://assets.tcgdex.net/en/me/me03/121/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me03/121/high.webp",
           "url": "https://www.tcgplayer.com/product/684342"
@@ -184,7 +184,7 @@
           "name": "Mega Zygarde ex",
           "number": "120",
           "rarity": "Special illustration rare",
-          "price": 62.19,
+          "price": 60.09,
           "image": "https://assets.tcgdex.net/en/me/me03/120/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me03/120/high.webp",
           "url": "https://www.tcgplayer.com/product/684338"
@@ -193,7 +193,7 @@
           "name": "Mega Clefable ex",
           "number": "119",
           "rarity": "Special illustration rare",
-          "price": 57.77,
+          "price": 52.69,
           "image": "https://assets.tcgdex.net/en/me/me03/119/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me03/119/high.webp",
           "url": "https://www.tcgplayer.com/product/684385"
@@ -202,7 +202,7 @@
           "name": "Rosa's Encouragement",
           "number": "123",
           "rarity": "Special illustration rare",
-          "price": 53.3,
+          "price": 52.5,
           "image": "https://assets.tcgdex.net/en/me/me03/123/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me03/123/high.webp",
           "url": "https://www.tcgplayer.com/product/684392"
@@ -211,7 +211,7 @@
           "name": "Mega Starmie ex",
           "number": "118",
           "rarity": "Special illustration rare",
-          "price": 42.72,
+          "price": 41.21,
           "image": "https://assets.tcgdex.net/en/me/me03/118/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me03/118/high.webp",
           "url": "https://www.tcgplayer.com/product/684362"
@@ -220,7 +220,7 @@
           "name": "Jacinthe",
           "number": "122",
           "rarity": "Special illustration rare",
-          "price": 24.88,
+          "price": 24.78,
           "image": "https://assets.tcgdex.net/en/me/me03/122/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me03/122/high.webp",
           "url": "https://www.tcgplayer.com/product/684395"
@@ -229,7 +229,7 @@
           "name": "Clefairy",
           "number": "94",
           "rarity": "Illustration rare",
-          "price": 21.17,
+          "price": 20.67,
           "image": "https://assets.tcgdex.net/en/me/me03/094/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me03/094/high.webp",
           "url": "https://www.tcgplayer.com/product/684415"
@@ -243,73 +243,73 @@
         {
           "name": "Mega Gengar ex",
           "number": "284",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 1088.96,
-          "image": "https://images.scrydex.com/pokemon/me2pt5-284/small",
-          "imageLarge": "https://images.scrydex.com/pokemon/me2pt5-284/large",
+          "image": "https://assets.tcgdex.net/en/me/me02.5/284/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/284/high.webp",
           "url": "https://www.tcgplayer.com/product/676096"
         },
         {
           "name": "Pikachu ex",
           "number": "276",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 1070.24,
-          "image": "https://images.scrydex.com/pokemon/me2pt5-276/small",
-          "imageLarge": "https://images.scrydex.com/pokemon/me2pt5-276/large",
+          "image": "https://assets.tcgdex.net/en/me/me02.5/276/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/276/high.webp",
           "url": "https://www.tcgplayer.com/product/676088"
         },
         {
           "name": "Mega Dragonite ex",
           "number": "290",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 698.04,
-          "image": "https://images.scrydex.com/pokemon/me2pt5-290/small",
-          "imageLarge": "https://images.scrydex.com/pokemon/me2pt5-290/large",
+          "image": "https://assets.tcgdex.net/en/me/me02.5/290/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/290/high.webp",
           "url": "https://www.tcgplayer.com/product/676102"
         },
         {
           "name": "Mega Charizard Y ex",
           "number": "294",
           "rarity": "Mega Hyper Rare",
-          "price": 417.03,
-          "image": "https://images.scrydex.com/pokemon/me2pt5-294/small",
-          "imageLarge": "https://images.scrydex.com/pokemon/me2pt5-294/large",
+          "price": 418.87,
+          "image": "https://assets.tcgdex.net/en/me/me02.5/294/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/294/high.webp",
           "url": "https://www.tcgplayer.com/product/676106"
         },
         {
           "name": "Pikachu ex",
           "number": "277",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 373.35,
-          "image": "https://images.scrydex.com/pokemon/me2pt5-277/small",
-          "imageLarge": "https://images.scrydex.com/pokemon/me2pt5-277/large",
+          "image": "https://assets.tcgdex.net/en/me/me02.5/277/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/277/high.webp",
           "url": "https://www.tcgplayer.com/product/676089"
         },
         {
           "name": "Team Rocket's Mewtwo ex",
           "number": "281",
-          "rarity": "Special Illustration Rare",
-          "price": 358.82,
-          "image": "https://images.scrydex.com/pokemon/me2pt5-281/small",
-          "imageLarge": "https://images.scrydex.com/pokemon/me2pt5-281/large",
+          "rarity": "Special illustration rare",
+          "price": 361,
+          "image": "https://assets.tcgdex.net/en/me/me02.5/281/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/281/high.webp",
           "url": "https://www.tcgplayer.com/product/676093"
         },
         {
           "name": "Mega Dragonite ex",
           "number": "295",
           "rarity": "Mega Hyper Rare",
-          "price": 249.43,
-          "image": "https://images.scrydex.com/pokemon/me2pt5-295/small",
-          "imageLarge": "https://images.scrydex.com/pokemon/me2pt5-295/large",
+          "price": 250.67,
+          "image": "https://assets.tcgdex.net/en/me/me02.5/295/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/295/high.webp",
           "url": "https://www.tcgplayer.com/product/676107"
         },
         {
           "name": "Lillie's Clefairy ex",
           "number": "280",
-          "rarity": "Special Illustration Rare",
+          "rarity": "Special illustration rare",
           "price": 166.19,
-          "image": "https://images.scrydex.com/pokemon/me2pt5-280/small",
-          "imageLarge": "https://images.scrydex.com/pokemon/me2pt5-280/large",
+          "image": "https://assets.tcgdex.net/en/me/me02.5/280/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/280/high.webp",
           "url": "https://www.tcgplayer.com/product/676092"
         }
       ]

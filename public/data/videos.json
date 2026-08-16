@@ -1,6 +1,6 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
-  "syncedAt": "2026-08-15",
+  "syncedAt": "2026-08-16",
   "videos": [
     {
       "id": "E5Wz7X1VMeY",
@@ -8,7 +8,7 @@
       "path": "rip/8-packs-and-no-hits-E5Wz7X1VMeY.html",
       "published": "2026-08-15",
       "duration": 19,
-      "views": 760,
+      "views": 767,
       "vertical": true,
       "short": true,
       "sets": [
@@ -29,7 +29,7 @@
       "path": "rip/the-chaos-rising-struggle-is-real-T2-UqY2ZSOw.html",
       "published": "2026-08-14",
       "duration": 21,
-      "views": 921,
+      "views": 930,
       "vertical": true,
       "short": true,
       "sets": [
@@ -49,7 +49,7 @@
       "path": "rip/the-cutest-pull-ever-chaos-rising-O5WscUY7qZI.html",
       "published": "2026-08-13",
       "duration": 20,
-      "views": 721,
+      "views": 724,
       "vertical": true,
       "short": true,
       "sets": [
@@ -70,7 +70,7 @@
       "path": "rip/this-etb-is-breaking-me-IQMn3DNCzik.html",
       "published": "2026-08-12",
       "duration": 20,
-      "views": 661,
+      "views": 662,
       "vertical": true,
       "short": true,
       "sets": [
@@ -295,7 +295,7 @@
       "path": "rip/toucannon-illustration-rare-pitch-black-etb-ndzNjhARITQ.html",
       "published": "2026-08-01",
       "duration": 24,
-      "views": 887,
+      "views": 889,
       "vertical": true,
       "short": true,
       "sets": [
@@ -316,7 +316,7 @@
       "path": "rip/is-the-pitch-black-bundle-a-dud-now-fY-u0pxphVo.html",
       "published": "2026-07-31",
       "duration": 22,
-      "views": 765,
+      "views": 767,
       "vertical": true,
       "short": true,
       "sets": [
@@ -718,7 +718,7 @@
       "path": "rip/thievul-ir-pitch-black-first-pack-magic-GTC45Mri_gc.html",
       "published": "2026-07-17",
       "duration": 23,
-      "views": 624,
+      "views": 625,
       "vertical": true,
       "short": true,
       "sets": [
@@ -779,7 +779,7 @@
       "path": "rip/back-to-back-hits-mega-greninja-box-pack-2-pRkDVGXWufQ.html",
       "published": "2026-07-15",
       "duration": 22,
-      "views": 919,
+      "views": 922,
       "vertical": true,
       "short": true,
       "sets": [
@@ -876,7 +876,7 @@
       "path": "rip/first-pack-magic-ampharos-illustration-rare-RP08BTumj2U.html",
       "published": "2026-07-13",
       "duration": 24,
-      "views": 858,
+      "views": 859,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1210,7 +1210,8 @@
       "products": [
         "collection-box"
       ],
-      "pulls": []
+      "pulls": [],
+      "openingType": "Collection Box"
     },
     {
       "id": "lrl5v4z317s",
@@ -1303,7 +1304,8 @@
       "products": [
         "collection-box"
       ],
-      "pulls": []
+      "pulls": [],
+      "openingType": "Collection Box"
     },
     {
       "id": "CbwSuTI8QKU",
@@ -1362,6 +1364,7 @@
       ],
       "pulls": [],
       "packs": 1,
+      "openingType": "Single Booster Pack",
       "label": "Perfect Order Pack #10"
     },
     {
@@ -1381,6 +1384,7 @@
       ],
       "pulls": [],
       "packs": 1,
+      "openingType": "Single Booster Pack",
       "label": "Chaos Rising Pack #10"
     },
     {
@@ -1400,6 +1404,7 @@
       ],
       "pulls": [],
       "packs": 1,
+      "openingType": "Single Booster Pack",
       "label": "Perfect Order Pack #9"
     },
     {
@@ -1419,6 +1424,7 @@
       ],
       "pulls": [],
       "packs": 1,
+      "openingType": "Single Booster Pack",
       "label": "Chaos Rising Pack #9"
     },
     {
@@ -1438,6 +1444,7 @@
       ],
       "pulls": [],
       "packs": 1,
+      "openingType": "Single Booster Pack",
       "label": "Perfect Order Pack #8"
     },
     {
@@ -1457,6 +1464,7 @@
       ],
       "pulls": [],
       "packs": 1,
+      "openingType": "Single Booster Pack",
       "label": "Chaos Rising Pack #8"
     },
     {
@@ -1496,6 +1504,7 @@
       ],
       "pulls": [],
       "packs": 1,
+      "openingType": "Single Booster Pack",
       "label": "Chaos Rising Pack #7"
     },
     {
@@ -2021,7 +2030,7 @@
       "path": "rip/mega-zygarde-ex-premium-collection-pack-5-we-need-a-hit-_3gRDHTv1lQ.html",
       "published": "2026-06-13",
       "duration": 23,
-      "views": 927,
+      "views": 929,
       "vertical": true,
       "short": true,
       "sets": [],
@@ -4061,6 +4070,7 @@
       ],
       "pulls": [],
       "packs": 1,
+      "openingType": "Collection Box",
       "label": "Prismatic Evolutions Collection Box"
     },
     {
@@ -4584,6 +4594,7 @@
       ],
       "pulls": [],
       "packs": 1,
+      "openingType": "Collection Box",
       "label": "Ascended Heroes Collection Box"
     },
     {
@@ -4659,6 +4670,7 @@
       ],
       "pulls": [],
       "packs": 1,
+      "openingType": "Collection Box",
       "label": "Ascended Heroes Collection Box"
     },
     {
@@ -4678,6 +4690,7 @@
       ],
       "pulls": [],
       "packs": 1,
+      "openingType": "Collection Box",
       "label": "Prismatic Evolutions Collection Box"
     },
     {
@@ -4810,6 +4823,7 @@
       ],
       "pulls": [],
       "packs": 1,
+      "openingType": "Collection Box",
       "label": "Ascended Heroes Collection Box"
     },
     {
@@ -5037,7 +5051,8 @@
       "products": [
         "collection-box"
       ],
-      "pulls": []
+      "pulls": [],
+      "openingType": "Collection Box"
     },
     {
       "id": "wHaIoWhy7XE",
@@ -5533,8 +5548,8 @@
       "pulls": [],
       "packs": 1,
       "openingType": "Korean Booster Pack",
-      "label": "Crimson Haze (KR) Pack",
-      "blurb": "Opening Korean Crimson Haze booster packs, testing international pack luck. Korean print. Full garbage plate energy applied. Garbage rips or overseas heat?"
+      "blurb": "Opening Korean Crimson Haze booster packs, testing international pack luck. Korean print. Full garbage plate energy applied. Garbage rips or overseas heat?",
+      "label": "Crimson Haze (KR) Pack"
     },
     {
       "id": "IuEb3qtjflI",
@@ -5942,6 +5957,7 @@
       "pulls": [],
       "packs": 3,
       "openingType": "Blister",
+      "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Phantasmal Flames Blister"
     },
     {
@@ -6084,7 +6100,7 @@
       "hasHit": true,
       "packs": 2,
       "openingType": "Knock Out Collection",
-      "notes": "All 2 packs are on the first set. Move some across the Packs columns if they came from different sets.",
+      "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Twilight Masquerade Knock Out Collection"
     },
     {
@@ -6107,7 +6123,7 @@
       "hasHit": false,
       "packs": 2,
       "openingType": "Knock Out Collection",
-      "notes": "All 2 packs are on the first set. Move some across the Packs columns if they came from different sets.",
+      "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Twilight Masquerade Knock Out Collection"
     },
     {
@@ -6157,7 +6173,7 @@
       "hasHit": true,
       "packs": 4,
       "openingType": "ex Premium Collection",
-      "notes": "All 4 packs are on the first set. Move some across the Packs columns if they came from different sets.",
+      "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Mega Evolution ex Premium Collection"
     },
     {
@@ -6190,7 +6206,7 @@
       "hasHit": true,
       "packs": 18,
       "openingType": "UPC (Ultra Premium Collection)",
-      "notes": "All 18 packs are on the first set. Move some across the Packs columns if they came from different sets. All 18 packs are on the first set. Move some across the Packs columns if they came from different sets.",
+      "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Phantasmal Flames UPC"
     },
     {
@@ -6220,7 +6236,7 @@
       "packs": 6,
       "openingType": "Tin",
       "box": "Fall 2025 Collector Chest",
-      "notes": "All 6 packs are on the first set. Move some across the Packs columns if they came from different sets. All 6 packs are on the first set. Move some across the Packs columns if they came from different sets.",
+      "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Mega Evolution Tin"
     }
   ]

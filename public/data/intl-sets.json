@@ -1,138 +1,138 @@
 {
-"checked": "2026-08-12",
-"source": "TCGdex",
-"sets": {
-"mega-evolution": {
-"confidence": "confirmed",
-"note": "Two Japanese sets merged into one English release: 92 plus 92 cards against 188.",
-"englishTotal": 188,
-"sourceTotal": 184,
-"sources": [
-{
-"lang": "ja",
-"langName": "Japanese",
-"id": "M1S",
-"name": "メガシンフォニア",
-"romaji": "Mega Symphonia",
-"total": 92,
-"official": 63,
-"released": "2025-08-01",
-"logo": null,
-"symbol": null
-},
-{
-"lang": "ja",
-"langName": "Japanese",
-"id": "M1L",
-"name": "メガブレイブ",
-"romaji": "Mega Brave",
-"total": 92,
-"official": 63,
-"released": "2025-08-01",
-"logo": null,
-"symbol": null
-}
-]
-},
-"phantasmal-flames": {
-"confidence": "confirmed",
-"note": null,
-"englishTotal": 130,
-"sourceTotal": 116,
-"sources": [
-{
-"lang": "ja",
-"langName": "Japanese",
-"id": "M2",
-"name": "インフェルノX",
-"romaji": "Inferno X",
-"total": 116,
-"official": 80,
-"released": "2025-09-26",
-"logo": null,
-"symbol": null
-}
-]
-},
-"ascended-heroes": {
-"confidence": "confirmed",
-"note": "A high-pull subset in Japan, which is why both sides are unusually large.",
-"englishTotal": 295,
-"sourceTotal": 250,
-"sources": [
-{
-"lang": "ja",
-"langName": "Japanese",
-"id": "M2a",
-"name": "MEGAドリームex",
-"romaji": "Mega Dream ex",
-"total": 250,
-"official": 193,
-"released": "2025-11-28",
-"logo": null,
-"symbol": null
-}
-]
-},
-"perfect-order": {
-"confidence": "confirmed",
-"note": null,
-"englishTotal": 124,
-"sourceTotal": 117,
-"sources": [
-{
-"lang": "ja",
-"langName": "Japanese",
-"id": "M3",
-"name": "ムニキスゼロ",
-"romaji": "Nihil Zero",
-"total": 117,
-"official": 80,
-"released": "2026-01-23",
-"logo": null,
-"symbol": null
-}
-]
-},
-"chaos-rising": {
-"confidence": "confirmed",
-"note": null,
-"englishTotal": 122,
-"sourceTotal": 120,
-"sources": [
-{
-"lang": "ja",
-"langName": "Japanese",
-"id": "M4",
-"name": "ニンジャスピナー",
-"romaji": "Ninja Spinner",
-"total": 120,
-"official": 83,
-"released": "2026-03-13",
-"logo": null,
-"symbol": null
-}
-]
-},
-"pitch-black": {
-"confidence": "confirmed",
-"note": null,
-"englishTotal": 120,
-"sourceTotal": 118,
-"sources": [
-{
-"lang": "ja",
-"langName": "Japanese",
-"id": "M5",
-"name": "アビスアイ",
-"romaji": "Abyss Eye",
-"total": 118,
-"official": 81,
-"released": "2026-05-22",
-"logo": null,
-"symbol": null
-}
-]
-}
-}
+  "checked": "2026-08-16",
+  "source": "TCGdex",
+  "sets": {
+    "mega-evolution": {
+      "confidence": "confirmed",
+      "note": "Two Japanese sets merged into one English release: 92 plus 92 cards against 188.",
+      "englishTotal": 188,
+      "sourceTotal": 184,
+      "sources": [
+        {
+          "lang": "ja",
+          "langName": "Japanese",
+          "id": "M1S",
+          "name": "メガシンフォニア",
+          "romaji": "Mega Symphonia",
+          "total": 92,
+          "official": 63,
+          "released": "2025-08-01",
+          "logo": null,
+          "symbol": null
+        },
+        {
+          "lang": "ja",
+          "langName": "Japanese",
+          "id": "M1L",
+          "name": "メガブレイブ",
+          "romaji": "Mega Brave",
+          "total": 92,
+          "official": 63,
+          "released": "2025-08-01",
+          "logo": null,
+          "symbol": null
+        }
+      ]
+    },
+    "phantasmal-flames": {
+      "confidence": "confirmed",
+      "note": null,
+      "englishTotal": 130,
+      "sourceTotal": 116,
+      "sources": [
+        {
+          "lang": "ja",
+          "langName": "Japanese",
+          "id": "M2",
+          "name": "インフェルノX",
+          "romaji": "Inferno X",
+          "total": 116,
+          "official": 80,
+          "released": "2025-09-26",
+          "logo": null,
+          "symbol": null
+        }
+      ]
+    },
+    "ascended-heroes": {
+      "confidence": "confirmed",
+      "note": "A high-pull subset in Japan, which is why both sides are unusually large.",
+      "englishTotal": 295,
+      "sourceTotal": 250,
+      "sources": [
+        {
+          "lang": "ja",
+          "langName": "Japanese",
+          "id": "M2a",
+          "name": "MEGAドリームex",
+          "romaji": "Mega Dream ex",
+          "total": 250,
+          "official": 193,
+          "released": "2025-11-28",
+          "logo": null,
+          "symbol": null
+        }
+      ]
+    },
+    "perfect-order": {
+      "confidence": "confirmed",
+      "note": null,
+      "englishTotal": 124,
+      "sourceTotal": 117,
+      "sources": [
+        {
+          "lang": "ja",
+          "langName": "Japanese",
+          "id": "M3",
+          "name": "ムニキスゼロ",
+          "romaji": "Nihil Zero",
+          "total": 117,
+          "official": 80,
+          "released": "2026-01-23",
+          "logo": null,
+          "symbol": null
+        }
+      ]
+    },
+    "chaos-rising": {
+      "confidence": "confirmed",
+      "note": null,
+      "englishTotal": 122,
+      "sourceTotal": 120,
+      "sources": [
+        {
+          "lang": "ja",
+          "langName": "Japanese",
+          "id": "M4",
+          "name": "ニンジャスピナー",
+          "romaji": "Ninja Spinner",
+          "total": 120,
+          "official": 83,
+          "released": "2026-03-13",
+          "logo": null,
+          "symbol": null
+        }
+      ]
+    },
+    "pitch-black": {
+      "confidence": "confirmed",
+      "note": null,
+      "englishTotal": 120,
+      "sourceTotal": 118,
+      "sources": [
+        {
+          "lang": "ja",
+          "langName": "Japanese",
+          "id": "M5",
+          "name": "アビスアイ",
+          "romaji": "Abyss Eye",
+          "total": 118,
+          "official": 81,
+          "released": "2026-05-22",
+          "logo": null,
+          "symbol": null
+        }
+      ]
+    }
+  }
 }
