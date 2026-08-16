@@ -206,9 +206,25 @@ ${footer()}
   var BEST_KEY = "gr-best";
   var best = 0;
   try { best = parseInt(localStorage.getItem(BEST_KEY) || "0", 10) || 0; } catch (e) {}
+
+  // BANK THE BEST WHEN IT IS EARNED, NOT WHEN THE RUN ENDS. It was only written
+  // in end(), so a run that never reached a game over never counted: measured a
+  // run of 8 leaving a stored best of 3 after a reload. On a phone that is the
+  // normal way a session finishes. You put the game down, take a call, swipe
+  // away the tab, and the best run of the night is the one the game forgets.
+  function bank(sc) {
+    if (sc <= best) return false;
+    best = sc;
+    try { localStorage.setItem(BEST_KEY, String(best)); } catch (e) {}
+    elBest.textContent = "Best " + best;
+    return true;
+  }
   elBest.textContent = "Best " + best;
 
   var running = false, raf = 0;
+  // What the best was when this run began, so "New best" stays truthful even
+  // though bank() may have already stored the score mid-run.
+  var startBest = 0;
   var EVOLVE_AT = 100;
 
   // Preload the mascots. The ready flag stays false until the file is actually
@@ -336,7 +352,14 @@ ${footer()}
           emoji: JUNK[Math.floor(Math.random() * JUNK.length)],
         });
       }
-      L.nextPack = 150 + Math.random() * 90;
+      // TRAILS WERE TOO FAR APART. At 150 to 240 frames the street went two and a
+      // half to four seconds with nothing on it, so a run came down to whether
+      // you happened to meet a trail at the right height. Measured over 8 runs
+      // a side, the trail version doubled the best score, 11 to 20, and also
+      // scored zero six times in eight: you either connected or you got nothing.
+      // Closer together turns one lucky meeting into a steady stream of
+      // chances, which is what a hundred needs.
+      L.nextPack = 85 + Math.random() * 55;
     }
 
     var i;
@@ -364,6 +387,7 @@ ${footer()}
       if (p.x < -20) { L.packs.splice(i, 1); continue; }
       if (!p.got && Math.abs(p.x - 74) < 28 && Math.abs(p.y - L.y) < 34) {
         p.got = true; L.score += 1; L.packs.splice(i, 1);
+        bank(L.score);
         // EVOLVE AT A HUNDRED. Trubbish becomes Garbodor for the rest of the
         // run and stays that way: there is no going back, which is the point of
         // an evolution and also the reward for surviving that long.
@@ -566,13 +590,10 @@ ${footer()}
     running = false;
     cancelAnimationFrame(raf);
     var sc = lanes[0].score;
-    if (sc > best) {
-      best = sc;
-      try { localStorage.setItem(BEST_KEY, String(best)); } catch (e) {}
-      elTitle.textContent = "New best";
-    } else {
-      elTitle.textContent = "A wild Pokemon got you";
-    }
+    // bank() may already have stored this score mid-run, so "is it a new best"
+    // is asked against what the run started with rather than against best.
+    elTitle.textContent = sc > startBest ? "New best" : "A wild Pokemon got you";
+    bank(sc);
     elBest.textContent = "Best " + best;
     elMsg.textContent = sc + " piece" + (sc === 1 ? "" : "s") + " of rubbish eaten." +
       (lanes[0].evolved ? " You made it to Garbodor." : " " + (EVOLVE_AT - sc) + " more and you would have evolved.");
@@ -583,6 +604,7 @@ ${footer()}
   var countIn = 0, acc = 0, last = 0;
   function start() {
     paused = false;
+    startBest = best;
     reset();
     countIn = calm ? 0 : 45;
     acc = 0; last = 0;
