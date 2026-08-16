@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Many Packs Are in Each Pokemon Box? | Garbage Rips 585</title>
+<meta name="description" content="How many packs are in a Pokemon booster box, ETB, bundle, tin or blister. 23 current products, biggest to smallest, with a source on every number.">
+<link rel="canonical" href="https://garbagerips585.github.io/how-many-packs.html">
+<meta property="og:title" content="How many packs are in each Pokemon box?">
+<meta property="og:description" content="How many packs are in a Pokemon booster box, ETB, bundle, tin or blister. 23 current products, biggest to smallest, with a source on every number.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garbagerips585.github.io/how-many-packs.html">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-how-many-packs.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-how-many-packs.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#1E3A54">
+<link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=2335fd03">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<style>
+.hp-lede{max-width:44em}
+.hp-key{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:#F4F1E2;
+  padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
+.hp-key h2{color:#F4F1E2;margin-bottom:var(--s3)}
+.hp-key ol{margin:0 0 0 var(--s4);color:#DDE6EC;line-height:1.6;max-width:44em}
+.hp-key li{margin-bottom:var(--s3)}
+.hp-key b{color:var(--mustard)}
+.hp-key a{color:var(--mustard)}
+
+/* The illustrated list. One column on a phone, because the whole point is the
+   pack number and the picture sitting on one line where they can be compared
+   down the page rather than across it. */
+/* align-items:start, or grid stretches every card to the height of the tallest
+   one in its row. On a two-column desktop layout that put 700px of empty box
+   under the booster box card, which sits next to the Ultra-Premium Collection
+   and its five named products. */
+.hp-list{list-style:none;margin:var(--s5) 0 0;padding:0;display:grid;
+  grid-template-columns:repeat(2,1fr);gap:var(--s4);align-items:start}
+@media(max-width:900px){.hp-list{grid-template-columns:1fr}}
+.hp-card{display:flex;gap:var(--s4);align-items:flex-start;background:var(--card);
+  border:3px solid var(--navy);border-radius:12px;padding:var(--s4);box-shadow:var(--hard-lg)}
+/* Product photography arrives on a white background, so the tile is white
+   rather than the page cream. Same reasoning as .prod-shot on the set guides,
+   and the same 88px box, because sizes="88px" is measured against it. */
+.hp-shot{flex:none;width:88px;margin:0}
+.hp-shot img{width:88px;height:88px;object-fit:contain;display:block;background:#fff;
+  border:1px solid var(--hair);border-radius:6px}
+.hp-shot figcaption{font:400 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);margin-top:4px}
+.hp-noshot{flex:none;width:88px;height:88px;display:grid;place-items:center;
+  border:1px dashed var(--hair);border-radius:6px;background:var(--paper-2)}
+.hp-noshot span{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);
+  letter-spacing:.04em;text-transform:uppercase}
+.hp-body{min-width:0;flex:1}
+.hp-body h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:4px}
+.hp-count{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:var(--s3)}
+.hp-nn{font:400 var(--t-xl)/1 var(--display);color:var(--ketchup)}
+.hp-nu,.hp-var{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.hp-zero{font:400 var(--t-l)/1 var(--display);color:var(--ink-2)}
+.hp-line{font-size:var(--t-sm);line-height:1.5;margin-top:var(--s2)}
+.hp-nb{color:var(--ink-2)}
+.hp-price b{color:var(--ink)}
+.hp-by{list-style:none;margin:var(--s2) 0 0;padding:0;font-size:var(--t-sm);line-height:1.45}
+.hp-by li{padding-left:var(--s3);border-left:3px solid var(--gold);margin-bottom:var(--s2)}
+.hp-by b{font:400 var(--t-m)/1 var(--display);color:var(--ketchup);margin-right:4px}
+.hp-by span{display:block;color:var(--ink-2);font:400 var(--t-micro)/1.4 var(--mono)}
+.hp-bn{display:block;color:var(--ink-2);font-size:var(--t-micro);margin-top:2px}
+.hp-src{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:flex-end;
+  font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);margin-top:var(--s4)}
+.hp-src a{display:inline-block;max-width:100%}
+.hp-src a span{display:block;color:var(--ink-soft);text-decoration:none}
+.hp-read{color:var(--ink-soft)}
+
+/* The at-a-glance table. Four columns and it still needs a scroll container at
+   390px: the product names alone are long enough that shrinking to fit wraps
+   them to four lines each. It borrows .cc-table wholesale, which already has
+   the sticky first column and the edge shadows that say there is more to the
+   right. 560px rather than the 660px default, because four columns of short
+   values do fit in less. */
+.hp-table{min-width:560px}
+.cc-table.hp-table thead th{white-space:normal}
+.hp-table td.num b{font:400 var(--t-m)/1 var(--display);color:var(--ketchup)}
+.hp-tvar,.hp-tsell{display:block;font:400 var(--t-micro)/1.3 var(--mono);color:var(--ink-soft);font-weight:400}
+.hp-none{color:var(--ink-soft);font:400 var(--t-micro)/1.3 var(--mono)}
+
+/* History. A definition-list shape rather than a table: every row here is a
+   number, a window of time and a paragraph, and the paragraph is the load
+   bearing half. */
+.hp-eras{list-style:none;margin:var(--s5) 0 0;padding:0;max-width:52em}
+.hp-eras li{border-left:4px solid var(--gold);padding:0 0 0 var(--s4);margin-bottom:var(--s5)}
+.hp-eh{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.hp-eh b{font:400 var(--t-l)/1 var(--display);color:var(--ketchup)}
+.hp-eh strong{font:400 var(--t-m)/1.2 var(--display);font-weight:400}
+.hp-ew{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.hp-eras p{font-size:var(--t-sm);line-height:1.6}
+.hp-tr{display:inline-block;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
+  text-transform:uppercase;padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2)}
+.hp-tr.ok{background:#1E5B34;color:#EAF6EE;border-color:#1E5B34}
+.hp-tr.mid{background:var(--mustard);color:var(--ink);border-color:var(--navy)}
+.hp-tr.low{background:var(--card);color:var(--ink-2);border-style:dashed}
+.hp-cite{display:flex;flex-wrap:wrap;gap:6px 14px;font:400 var(--t-micro)/1.4 var(--mono);
+  color:var(--ink-2);margin-top:8px}
+.hp-cite a{display:inline-block}
+.hp-cite a span{display:block;color:var(--ink-soft);text-decoration:none}
+.hp-two{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4);margin-top:var(--s5)}
+@media(max-width:820px){.hp-two{grid-template-columns:1fr}}
+.hp-box{border:3px solid var(--navy);border-radius:12px;background:var(--card);
+  box-shadow:var(--hard-lg);padding:var(--s4)}
+.hp-box h3{font:400 var(--t-m)/1.2 var(--display);margin-bottom:6px}
+.hp-box p{font-size:var(--t-sm);line-height:1.55}
+.hp-box p + p{margin-top:var(--s2)}
+.hp-gap{border-left:4px solid var(--ketchup);padding-left:var(--s4);margin-top:var(--s5);
+  max-width:48em;font-size:var(--t-sm);line-height:1.6;color:var(--ink-2)}
+.hp-gap b{color:var(--ink)}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"How many packs","item":"https://garbagerips585.github.io/how-many-packs.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many packs are in a Pokemon booster box?","acceptedAnswer":{"@type":"Answer","text":"Thirty-six, for an English booster display box, and that has held across the Scarlet & Violet and Mega Evolution eras. Two things catch people out: Europe also sells an eighteen-pack half display that gets called a booster box, and a Japanese box is a different product with five-card packs."}},{"@type":"Question","name":"How many packs are in an Elite Trainer Box?","acceptedAnswer":{"@type":"Answer","text":"Nine, for a main-expansion Elite Trainer Box from the Scarlet & Violet era onward, and eleven for the Pokemon Center version of the same set. That is not a fact about Elite Trainer Boxes in general: the first one held seven, then it was eight for nine years, and most special expansions from Generations to Crown Zenith held ten."}},{"@type":"Question","name":"How many cards are in a Pokemon booster pack?","acceptedAnswer":{"@type":"Answer","text":"Ten game cards plus one Basic Energy card and a code card, in the current English packs. It has not always been ten. Packs held eleven cards from Base Set to Neo Destiny, then nine from Expedition Base Set in September 2002 through the end of the EX Series, then ten from Diamond & Pearl in May 2007. An EX-era pack is a smaller pack, not a short-packed one."}}]}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form class="bar-search" role="search" action="/search.html" method="get">
+      <label class="sr-only" for="navSearch">Search cards, sets, guides and rips</label>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+      <input id="navSearch" name="q" type="search" placeholder="Search cards, sets, rips" aria-label="Search cards, sets, guides and every rip" autocomplete="off">
+    </form>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/cards.html">Card search</a>
+      <a href="/sets/">Set guides</a>
+      <a href="/start.html">Start here</a>
+      <a href="/card-shows.html">Card shows</a>
+    </nav>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span>Menu</span>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="All sections">
+  <div class="menu-inner">
+    <div class="menu-g">
+      <p class="menu-h">Watch</p>
+      <ul>
+        <li><a href="/videos.html">Rips</a></li>
+        <li><a href="/playlists.html">Playlists</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">The binder</p>
+      <ul>
+        <li><a href="/hall.html">Best pulls</a></li>
+        <li><a href="/wanted.html">Most wanted</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Cards</p>
+      <ul>
+        <li><a href="/cards.html">Card search</a></li>
+        <li><a href="/pokemon/">By Pokemon</a></li>
+        <li><a href="/sets/">Set guides</a></li>
+        <li><a href="/expansions.html">Every set ever</a></li>
+        <li><a href="/upcoming.html">Coming next</a></li>
+        <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/pack-prices.html">Pack prices</a></li>
+        <li><a href="/how-many-packs.html">Packs per box</a></li>
+        <li><a href="/openings/">Sealed products</a></li>
+        <li><a href="/drops.html">Drops this week</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Guides</p>
+      <ul>
+        <li><a href="/start.html">Start here</a></li>
+        <li><a href="/how-to-play.html">How to play</a></li>
+        <li><a href="/what-set.html">Set finder</a></li>
+        <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/types.html">Card types</a></li>
+        <li><a href="/fake-cards.html">Fakes</a></li>
+        <li><a href="/will-it-grade.html">Will it grade</a></li>
+        <li><a href="/grading.html">Grading cost</a></li>
+        <li><a href="/selling.html">Where to sell</a></li>
+        <li><a href="/buying.html">Where to buy</a></li>
+        <li><a href="/luck.html">Luck, measured</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Play</p>
+      <ul>
+        <li><a href="/games/">Games</a></li>
+        <li><a href="/lore.html">Pokemon lore</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Rochester, NY</p>
+      <ul>
+        <li><a href="/card-shows.html">Card shows</a></li>
+        <li><a href="/shops.html">Card shops</a></li>
+        <li><a href="/vendors.html">Local vendors</a></li>
+        <li><a href="/creators.html">Local creators</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </div>
+  </div>
+  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe on YouTube</a>
+</nav>
+<main id="main">
+
+<header class="set-hero">
+  <div class="wrap">
+    <span class="kicker">Pokemon TCG &bull; Sourced August 15, 2026</span>
+    <h1>How many packs are <span class="hl">in there?</span></h1>
+    <p class="lede hp-lede">Every current English sealed product, biggest first, with the number of packs inside
+      and where that number was read from. It is the half of the price question nothing on this site answered:
+      you cannot work out what a pack is costing you until you know how many are in the box.</p>
+  </div>
+</header>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / How many packs</p>
+
+    <div class="facts">
+      <div class="fact"><div class="n">21</div><div class="l">Products with a sourced pack count</div></div>
+      <div class="fact"><div class="n">36</div><div class="l">Packs in a booster display box, the biggest</div></div>
+      <div class="fact"><div class="n">10</div><div class="l">Cards in a current pack, plus a Basic Energy</div></div>
+      <div class="fact"><div class="n">4</div><div class="l">Products with more than one sourced pack count</div></div>
+    </div>
+
+    <div class="hp-key">
+      <h2>Four things to know before you compare anything</h2>
+      <ol>
+        <li><b>There is no manufacturer price.</b> The Pokemon Company does not publish an MSRP, so every price on
+          this page is one shop's or one retailer's price on one day, and it says which. Anybody quoting you "the
+          MSRP" is quoting a shelf price.</li>
+        <li><b>The name on the box is not the size of the box.</b> An ex Premium Collection holds eight packs and an
+          ex Box holds four. A Mini Tin holds two, a Stacking Tin three and a standard tin four. Read the actual
+          product name, not the family.</li>
+        <li><b>Cards per pack has moved twice, and one of the moves was down.</b> Eleven cards, then nine, then ten.
+          The nine-card era ran from September 2002 to 2007, so an EX-era pack is a smaller pack rather than a
+          short-packed one. <a href="#history">The whole timeline is below.</a></li>
+        <li><b>A 30th Celebration pack is not a ten-card pack.</b> It holds five foil cards plus one foil Basic
+          Energy. Its pack <em>counts</em> are normal, so cost per pack still works, which is why this page does cost per
+          pack and never cost per card.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On shelves now</p>
+    <h2>Biggest box to <span class="hl">smallest</span> blister</h2>
+    <p class="lede" style="max-width:42em">23 products, ordered by how many packs are inside. Where a
+      product line has shipped different counts, the row gives the range and then names each one, because there is
+      no single honest number for those. Photos are of a specific set's product and the caption says which.</p>
+    <p class="lede" style="max-width:42em">Most rows say "no sourced price". That is not a gap in the research, it is
+      the finding: The Pokemon Company publishes no MSRP, and the 7 products below
+      with a price are the ones a seller actually listed a figure for on the day this was read. A number lifted off a
+      comparison site would be a guess about your money, so the rest are left blank.</p>
+    <ul class="hp-list">
+    <li class="hp-card">
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/692939_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/692939_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/692939_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Pitch Black Booster Box, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Pitch Black Booster Box</figcaption>
+      </figure>
+      <div class="hp-body">
+        <h3>Booster box</h3>
+        <p class="hp-count"><span class="hp-nn">36</span><span class="hp-nu">packs</span></p>
+        
+        
+        <p class="hp-line"><b>Cards in each pack.</b> 10 cards plus 1 Basic Energy.</p>
+        
+        <p class="hp-line hp-price"><b>$299.99</b> at GameStop, which is $8.33 a pack. That is a retailer listed price rather than an MSRP, read on Mega Evolution—Pitch Black Booster Box.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> Thirty-six has held across the Scarlet and Violet and Mega Evolution eras. The Enhanced Booster Display Box is also thirty-six, with one extra stamped promo card.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-news/pokemon-tcg-mega-evolution-pitch-black-product-showcase" rel="noopener nofollow" target="_blank" aria-label="Booster box, source: Mega Evolution—Pitch Black Product Showcase, on pokemon.com">Mega Evolution—Pitch Black Product Showcase<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-news/pokemon-tcg-mega-evolution-product-showcase" rel="noopener nofollow" target="_blank" aria-label="Booster box, source: Mega Evolution Product Showcase, on pokemon.com">Mega Evolution Product Showcase<span>pokemon.com</span></a> <a href="https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-pitch-black-booster-box/20034821.html" rel="noopener nofollow" target="_blank" aria-label="Booster box, source: Pokemon Trading Card Game: Pitch Black Booster Box, on GameStop">Pitch Black Booster Box<span>GameStop</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card" data-varies="1">
+      <div class="hp-noshot"><span>No photo</span></div>
+      <div class="hp-body">
+        <h3><a href="/openings/upc.html">Ultra-Premium Collection (UPC)</a></h3>
+        <p class="hp-count"><span class="hp-nn">16 to 30</span><span class="hp-nu">packs</span><span class="hp-var">varies by product</span></p>
+        
+        <ul class="hp-by"><li><b>16</b> Scarlet &amp; Violet—151 Ultra-Premium Collection <span>October 6, 2023</span></li><li><b>16</b> Greninja ex Ultra-Premium Collection <span>November 1, 2024</span></li><li><b>18</b> Terapagos ex Ultra-Premium Collection <span>November 22, 2024</span></li><li><b>18</b> Mega Charizard X ex Ultra-Premium Collection <span>November 14, 2025</span></li><li><b>30</b> 30th Celebration Ultra-Premium Collection (Day / Night) <span>November 6, 2026</span><span class="hp-bn">29 standard 30th Celebration packs plus 1 Classic Collection pack.</span></li></ul>
+        <p class="hp-line"><b>Cards in each pack.</b> Not stated on the pokemon.com UPC pages. Packs come from the named expansion, so the expansion's own pack size applies.</p>
+        <p class="hp-line"><b>Also in the box.</b> 2 to 3 foil promo cards, sometimes an etched metal card; playmat; deck box; metal or metallic coin; 6 damage-counter dice; condition markers or 65 card sleeves depending on the product; code card for Pokemon TCG Live.</p>
+        <p class="hp-line hp-nb">No sourced price for this one.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> There is no such thing as the UPC pack count. Sixteen, eighteen and thirty are all sourced on separate products, so the only safe way to buy one is by its full name. The 30th Celebration pair is the biggest sealed product on this page after a booster box.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/scarlet-violet-151-ultra-premium-collection" rel="noopener nofollow" target="_blank" aria-label="Ultra-Premium Collection (UPC), source: Scarlet &amp; Violet—151 Ultra-Premium Collection, on pokemon.com">Scarlet &amp; Violet—151 Ultra-Premium Collect...<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/greninja-ex-ultra-premium-collection" rel="noopener nofollow" target="_blank" aria-label="Ultra-Premium Collection (UPC), source: Greninja ex Ultra-Premium Collection, on pokemon.com">Greninja ex Ultra-Premium Collection<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/terapagos-ex-ultra-premium-collection" rel="noopener nofollow" target="_blank" aria-label="Ultra-Premium Collection (UPC), source: Terapagos ex Ultra-Premium Collection, on pokemon.com">Terapagos ex Ultra-Premium Collection<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/pokemon-tcg-mega-charizard-x-ex-ultra-premium-collection" rel="noopener nofollow" target="_blank" aria-label="Ultra-Premium Collection (UPC), source: Mega Charizard X ex Ultra-Premium Collection, on pokemon.com">Mega Charizard X ex Ultra-Premium Collection<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/30th-celebration-ultra-premium-collections-day-night" rel="noopener nofollow" target="_blank" aria-label="Ultra-Premium Collection (UPC), source: 30th Celebration Ultra-Premium Collections—Day &amp; Night, on pokemon.com">30th Celebration Ultra-Premium Collections...<span>pokemon.com</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card" data-varies="1">
+      <div class="hp-noshot"><span>No photo</span></div>
+      <div class="hp-body">
+        <h3>Super-Premium Collection (SPC)</h3>
+        <p class="hp-count"><span class="hp-nn">10 to 15</span><span class="hp-nu">packs</span><span class="hp-var">varies by product</span></p>
+        
+        <ul class="hp-by"><li><b>10</b> Charizard ex Super-Premium Collection <span>October 4, 2024</span></li><li><b>15</b> Scarlet &amp; Violet—Prismatic Evolutions Super-Premium Collection <span>May 16, 2025</span></li></ul>
+        
+        <p class="hp-line"><b>Also in the box.</b> 1 to 3 foil promo cards; a display figure or a plush deck box, depending on the product; playmat and 65 card sleeves (Prismatic Evolutions); code card for Pokemon TCG Live.</p>
+        <p class="hp-line hp-nb">No sourced price for this one.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> Only two current-era Super-Premium Collections were found and they disagree with each other. Nothing has shipped under this name since May 2025, so treat it as a shelf leftover rather than a live line.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/charizard-ex-super-premium-collection" rel="noopener nofollow" target="_blank" aria-label="Super-Premium Collection (SPC), source: Charizard ex Super-Premium Collection, on pokemon.com">Charizard ex Super-Premium Collection<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/scarlet-violet-prismatic-evolutions-super-premium-collection" rel="noopener nofollow" target="_blank" aria-label="Super-Premium Collection (SPC), source: Scarlet &amp; Violet—Prismatic Evolutions Super-Premium Collection, on pokemon.com">Scarlet &amp; Violet—Prismatic Evolutions Supe...<span>pokemon.com</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <div class="hp-noshot"><span>No photo</span></div>
+      <div class="hp-body">
+        <h3><a href="/openings/etb.html">Pokemon Center Elite Trainer Box</a></h3>
+        <p class="hp-count"><span class="hp-nn">11</span><span class="hp-nu">packs</span></p>
+        
+        
+        <p class="hp-line"><b>Cards in each pack.</b> Same packs as the standard ETB.</p>
+        <p class="hp-line"><b>Also in the box.</b> 2 full-art foil promo cards, one carrying the Pokemon Center logo; same accessory set as the standard ETB (sleeves, Energy, dice, coin, collector's box, code card).</p>
+        <p class="hp-line hp-price"><b>$59.99</b> at Pokemon Center, which is $5.45 a pack. That is a Pokemon Center store price rather than an MSRP, read on Pokemon Center Elite Trainer Boxes, Mega Evolution and 30th Celebration era.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> Two more packs and a second promo card than the standard box, held on Paldea Evolved, Prismatic Evolutions, Pitch Black and 30th Celebration. Pokemon Center lists every current-era one at the same price as the standard box, which is worth knowing before you buy either.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-evolution-pitch-black-pokemon-center-elite-trainer-box" rel="noopener nofollow" target="_blank" aria-label="Pokemon Center Elite Trainer Box, source: Mega Evolution—Pitch Black Pokemon Center Elite Trainer Box, on pokemon.com">Mega Evolution—Pitch Black Pokemon Center ...<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/scarlet-violet-prismatic-evolutions-pokemon-center-elite-trainer-box" rel="noopener nofollow" target="_blank" aria-label="Pokemon Center Elite Trainer Box, source: Scarlet &amp; Violet—Prismatic Evolutions Pokemon Center Elite Trainer Box, on pokemon.com">Scarlet &amp; Violet—Prismatic Evolutions Poke...<span>pokemon.com</span></a> <a href="https://www.pokemoncenter.com/search/elite-trainer-box" rel="noopener nofollow" target="_blank" aria-label="Pokemon Center Elite Trainer Box, source: Pokemon Center search listing, Elite Trainer Box, on Pokemon Center">Pokemon Center search listing, Elite Train...<span>Pokemon Center</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/692947_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/692947_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/692947_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Pitch Black Elite Trainer Box, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Pitch Black Elite Trainer Box</figcaption>
+      </figure>
+      <div class="hp-body">
+        <h3><a href="/openings/etb.html">Elite Trainer Box</a></h3>
+        <p class="hp-count"><span class="hp-nn">9</span><span class="hp-nu">packs</span></p>
+        
+        
+        <p class="hp-line"><b>Cards in each pack.</b> 10 cards plus 1 Basic Energy, except 30th Celebration packs (see notes).</p>
+        <p class="hp-line"><b>Also in the box.</b> 1 full-art foil promo card; 65 card sleeves; Energy cards (count varies: 40, 45, or 16 foil depending on set); player's guide to the expansion; 6 damage-counter dice; 1 competition-legal coin-flip die; 1 plastic coin or 2 plastic condition markers (varies); collector's box with 4 or 6 dividers; code card for Pokemon TCG Live.</p>
+        <p class="hp-line hp-price"><b>$59.99</b> at Target, which is $6.67 a pack. That is a retailer listed price rather than an MSRP, read on Mega Evolution—Pitch Black Elite Trainer Box.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> Nine held on every Elite Trainer Box checked, from Destined Rivals in 2025 to 30th Celebration in 2026. What is in the box besides packs does move: the Energy card count runs 40, 45 or 16 foil depending on the set, and you get either a plastic coin or condition markers.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-evolution-pitch-black-elite-trainer-box" rel="noopener nofollow" target="_blank" aria-label="Elite Trainer Box, source: Mega Evolution—Pitch Black Elite Trainer Box, on pokemon.com">Mega Evolution—Pitch Black Elite Trainer Box<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/scarlet-violet-destined-rivals-elite-trainer-box" rel="noopener nofollow" target="_blank" aria-label="Elite Trainer Box, source: Scarlet &amp; Violet—Destined Rivals Elite Trainer Box, on pokemon.com">Scarlet &amp; Violet—Destined Rivals Elite Tra...<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/30th-celebration-elite-trainer-box" rel="noopener nofollow" target="_blank" aria-label="Elite Trainer Box, source: 30th Celebration Elite Trainer Box, on pokemon.com">30th Celebration Elite Trainer Box<span>pokemon.com</span></a> <a href="https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-pitch-black-elite-trainer-box/-/A-1011483406" rel="noopener nofollow" target="_blank" aria-label="Elite Trainer Box, source: Mega Evolution Pitch Black Elite Trainer Box, on Target">Mega Evolution Pitch Black Elite Trainer Box<span>Target</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <div class="hp-noshot"><span>No photo</span></div>
+      <div class="hp-body">
+        <h3><a href="/openings/ex-premium.html">ex Premium Collection</a></h3>
+        <p class="hp-count"><span class="hp-nn">8</span><span class="hp-nu">packs</span></p>
+        
+        
+        <p class="hp-line"><b>Cards in each pack.</b> Packs are drawn from mixed expansions, so the pack size follows whichever expansion the pack is from.</p>
+        <p class="hp-line"><b>Also in the box.</b> 1 playable foil promo card; 1 oversize lenticular promo card; 1 tech sticker.</p>
+        <p class="hp-line hp-nb">No sourced price for this one.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> Eight on both 2026 Premium Collections checked. Do not read this row across to the ex Box below it: same family, same shelf, half the packs.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-greninja-ex-premium-collection" rel="noopener nofollow" target="_blank" aria-label="ex Premium Collection, source: Mega Greninja ex Premium Collection, on pokemon.com">Mega Greninja ex Premium Collection<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-zygarde-ex-premium-collection" rel="noopener nofollow" target="_blank" aria-label="ex Premium Collection, source: Mega Zygarde ex Premium Collection, on pokemon.com">Mega Zygarde ex Premium Collection<span>pokemon.com</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/692942_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/692942_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/692942_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Pitch Black Booster Bundle, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Pitch Black Booster Bundle</figcaption>
+      </figure>
+      <div class="hp-body">
+        <h3><a href="/openings/bundle.html">Booster Bundle</a></h3>
+        <p class="hp-count"><span class="hp-nn">6</span><span class="hp-nu">packs</span></p>
+        
+        
+        <p class="hp-line"><b>Cards in each pack.</b> 10 cards, 1 Basic Energy, 1 Pokemon TCG Live code card. 30th Celebration packs differ, see notes.</p>
+        
+        <p class="hp-line hp-price"><b>$26.94</b> at Pokemon Center, which is $4.49 a pack. That is a Pokemon Center store price rather than an MSRP, read on Pitch Black and 30th Celebration Booster Bundles, both $26.94.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> Six, on every bundle checked from the 2023 debut to now. Pokemon Center literally names the product with the count in it. The Booster Bundle is a Scarlet and Violet invention, so a sealed product older than 2023 will never be one.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-evolution-pitch-black-booster-bundle" rel="noopener nofollow" target="_blank" aria-label="Booster Bundle, source: Mega Evolution—Pitch Black Booster Bundle, on pokemon.com">Mega Evolution—Pitch Black Booster Bundle<span>pokemon.com</span></a> <a href="https://www.pokemoncenter.com/product/10-10422-109/pokemon-tcg-mega-evolution-pitch-black-booster-bundle-6-packs" rel="noopener nofollow" target="_blank" aria-label="Booster Bundle, source: Mega Evolution-Pitch Black Booster Bundle (6 Packs), on Pokemon Center">Mega Evolution-Pitch Black Booster Bundle ...<span>Pokemon Center</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <div class="hp-noshot"><span>No photo</span></div>
+      <div class="hp-body">
+        <h3>Holiday Calendar</h3>
+        <p class="hp-count"><span class="hp-nn">6</span><span class="hp-nu">packs</span></p>
+        
+        
+        
+        <p class="hp-line"><b>Also in the box.</b> 8 foil cards with a festive stamp; 7 three-card fun packs, which are Not booster packs; 2 coins; 2 sticker sheets; code card for Pokemon TCG Live; 25 doors in total.</p>
+        <p class="hp-line hp-nb">No sourced price for this one.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> Six real booster packs behind twenty-five doors. The seven three-card fun packs are not booster packs and are never added to that total. Sourced from the 2025 calendar; no 2026 one has appeared yet.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/holiday-calendar-2025" rel="noopener nofollow" target="_blank" aria-label="Holiday Calendar, source: Pokemon TCG: Holiday Calendar, on pokemon.com">Holiday Calendar<span>pokemon.com</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card" data-varies="1">
+      <div class="hp-noshot"><span>No photo</span></div>
+      <div class="hp-body">
+        <h3><a href="/openings/collection-box.html">Collection boxes</a></h3>
+        <p class="hp-count"><span class="hp-nn">3 to 6</span><span class="hp-nu">packs</span><span class="hp-var">varies by product</span></p>
+        
+        <ul class="hp-by"><li><b>3</b> 30th Celebration Tech Sticker Collection <span>September 16, 2026</span><span class="hp-bn">Also inside: 1 foil promo card, 1 tech sticker sheet</span></li><li><b>5</b> 30th Celebration Binder Collection <span>October 2, 2026</span><span class="hp-bn">Also inside: 9-pocket binder</span></li><li><b>4</b> Prismatic Evolutions Surprise Box <span>February 7, 2025</span><span class="hp-bn">Also inside: 1 of 9 randomly selected foil promo cards, storage box with 4 dividers, code card</span></li><li><b>6</b> Collector Chest (Fall 2025) <span>December 5, 2025</span><span class="hp-bn">Also inside: 3 foil cards, 1 coin, 4 sticker sheets, mini portfolio, metal case</span></li></ul>
+        
+        
+        <p class="hp-line hp-nb">No sourced price for this one.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> The widest spread on the page, and the reason there is no single row for it. Everything from a tech sticker collection to a Collector Chest lands in this family, and the counts run from three to six. Buy these by name.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/30th-celebration-tech-sticker-collection" rel="noopener nofollow" target="_blank" aria-label="Collection boxes, source: 30th Celebration Tech Sticker Collection, on pokemon.com">30th Celebration Tech Sticker Collection<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/30th-celebration-binder-collection" rel="noopener nofollow" target="_blank" aria-label="Collection boxes, source: 30th Celebration Binder Collection, on pokemon.com">30th Celebration Binder Collection<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/scarlet-violet-prismatic-evolutions-surprise-box" rel="noopener nofollow" target="_blank" aria-label="Collection boxes, source: Scarlet &amp; Violet—Prismatic Evolutions Surprise Box, on pokemon.com">Scarlet &amp; Violet—Prismatic Evolutions Surp...<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/collector-chest-fall-2025" rel="noopener nofollow" target="_blank" aria-label="Collection boxes, source: Pokemon TCG: Collector Chest (Fall 2025), on pokemon.com">Collector Chest (Fall 2025)<span>pokemon.com</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <div class="hp-noshot"><span>No photo</span></div>
+      <div class="hp-body">
+        <h3>ex Special Collection</h3>
+        <p class="hp-count"><span class="hp-nn">5</span><span class="hp-nu">packs</span></p>
+        
+        
+        
+        <p class="hp-line"><b>Also in the box.</b> 1 etched foil promo card; 2 foil cards of the pre-evolutions; 1 oversize lenticular card; code card for Pokemon TCG Live.</p>
+        <p class="hp-line hp-nb">No sourced price for this one.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> One product, one source. Only a single current-era ex Special Collection was found, so five is what that one held rather than what the line holds. If a second one appears this row needs re-reading.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/charizard-ex-special-collection" rel="noopener nofollow" target="_blank" aria-label="ex Special Collection, source: Charizard ex Special Collection, on pokemon.com">Charizard ex Special Collection<span>pokemon.com</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <div class="hp-noshot"><span>No photo</span></div>
+      <div class="hp-body">
+        <h3><a href="/openings/tin.html">Standard collector tin</a></h3>
+        <p class="hp-count"><span class="hp-nn">4</span><span class="hp-nu">packs</span></p>
+        
+        <ul class="hp-by"><li><b>5</b> Azure Legends Tin <span>February 21, 2025</span></li><li><b>5</b> Slashing Legends Tin <span>May 16, 2025</span></li><li><b>5</b> Team Rocket Tin <span>September 5, 2025</span></li><li><b>4</b> Mega Charizard Tin <span>February 20, 2026</span></li><li><b>4</b> Mega Moonlit Tin <span>June 5, 2026</span></li><li><b>4</b> Mega Forces Tin <span>August 28, 2026</span></li></ul>
+        <p class="hp-line"><b>Cards in each pack.</b> Tins carry mixed-expansion packs, so pack size follows the expansion each pack came from.</p>
+        <p class="hp-line"><b>Also in the box.</b> 1 foil promo card, usually a choice of two or three characters; code card for Pokemon TCG Live.</p>
+        <p class="hp-line hp-nb">No sourced price for this one.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> The count changed. Every 2025 standard tin checked held five packs and every 2026 one holds four, so four is what is on a shelf now and five is what an older tin still in stock will have. Check the release rather than the shape.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-forces-tin" rel="noopener nofollow" target="_blank" aria-label="Standard collector tin, source: Mega Forces Tin, on pokemon.com">Mega Forces Tin<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-moonlit-tin" rel="noopener nofollow" target="_blank" aria-label="Standard collector tin, source: Mega Moonlit Tin, on pokemon.com">Mega Moonlit Tin<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-charizard-tin" rel="noopener nofollow" target="_blank" aria-label="Standard collector tin, source: Mega Charizard Tin, on pokemon.com">Mega Charizard Tin<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/pokemon-tcg-team-rocket-tin" rel="noopener nofollow" target="_blank" aria-label="Standard collector tin, source: Team Rocket Tin, on pokemon.com">Team Rocket Tin<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/slashing-legends-tin" rel="noopener nofollow" target="_blank" aria-label="Standard collector tin, source: Slashing Legends Tin, on pokemon.com">Slashing Legends Tin<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/azure-legends-tin" rel="noopener nofollow" target="_blank" aria-label="Standard collector tin, source: Azure Legends Tin, on pokemon.com">Azure Legends Tin<span>pokemon.com</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/692946_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/692946_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/692946_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Pitch Black Build &amp; Battle Box, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Pitch Black Build &amp; Battle Box</figcaption>
+      </figure>
+      <div class="hp-body">
+        <h3>Build &amp; Battle Box</h3>
+        <p class="hp-count"><span class="hp-nn">4</span><span class="hp-nu">packs</span></p>
+        
+        
+        <p class="hp-line"><b>Cards in each pack.</b> 10.</p>
+        <p class="hp-line"><b>Also in the box.</b> a 40-card deck ready for the Prerelease format; 1 of 4 unique foil promo cards.</p>
+        <p class="hp-line hp-nb">No sourced price for this one.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> Four packs and a forty-card deck, on both Mega Evolution and Pitch Black, and unchanged since the Sword and Shield era. This is the answer to whether starter products hold packs: this one does.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-news/pokemon-tcg-mega-evolution-pitch-black-product-showcase" rel="noopener nofollow" target="_blank" aria-label="Build &amp; Battle Box, source: Mega Evolution—Pitch Black Product Showcase, on pokemon.com">Mega Evolution—Pitch Black Product Showcase<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-news/pokemon-tcg-mega-evolution-product-showcase" rel="noopener nofollow" target="_blank" aria-label="Build &amp; Battle Box, source: Mega Evolution Product Showcase, on pokemon.com">Mega Evolution Product Showcase<span>pokemon.com</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <div class="hp-noshot"><span>No photo</span></div>
+      <div class="hp-body">
+        <h3><a href="/openings/ex-premium.html">ex Box</a></h3>
+        <p class="hp-count"><span class="hp-nn">4</span><span class="hp-nu">packs</span></p>
+        
+        
+        
+        <p class="hp-line"><b>Also in the box.</b> 1 playable foil promo card; 1 oversize card (lenticular on the Mega Evolution boxes).</p>
+        <p class="hp-line hp-nb">No sourced price for this one.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> Four on all three current ex Boxes checked. This is the distinction most worth getting right on this page, because an ex Box and an ex Premium Collection sit next to each other and differ by four packs.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/pokemon-tcg-mega-latias-ex-box" rel="noopener nofollow" target="_blank" aria-label="ex Box, source: Mega Latias ex Box, on pokemon.com">Mega Latias ex Box<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/pokemon-tcg-mega-kangaskhan-ex-box" rel="noopener nofollow" target="_blank" aria-label="ex Box, source: Mega Kangaskhan ex Box, on pokemon.com">Mega Kangaskhan ex Box<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/30th-celebration-sylveon-ex-box-and-greninja-ex-box" rel="noopener nofollow" target="_blank" aria-label="ex Box, source: 30th Celebration Sylveon ex Box and Greninja ex Box, on pokemon.com">30th Celebration Sylveon ex Box and Grenin...<span>pokemon.com</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <div class="hp-noshot"><span>No photo</span></div>
+      <div class="hp-body">
+        <h3><a href="/openings/poke-ball-tin.html">Poke Ball Tin</a></h3>
+        <p class="hp-count"><span class="hp-nn">3</span><span class="hp-nu">packs</span></p>
+        
+        
+        <p class="hp-line"><b>Cards in each pack.</b> Pokemon Center states 10 cards and either 1 Basic Energy or 1 VSTAR marker, and that the packs vary by product. These tins carry mixed-expansion packs.</p>
+        <p class="hp-line"><b>Also in the box.</b> 2 sticker sheets.</p>
+        <p class="hp-line hp-price"><b>$14.99</b> at Pokemon Center, which is $5.00 a pack. That is a Pokemon Center store price rather than an MSRP, read on Poke Ball Tin.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> Three, on the December 2025 run. The whole ball family is the same shape: Poke Ball, Great Ball, Ultra Ball, Premier Ball, Moon Ball, Lure Ball, Love Ball and Luxury Ball.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/poke-ball-tin-2025" rel="noopener nofollow" target="_blank" aria-label="Poke Ball Tin, source: Pokemon TCG: Poke Ball Tin, on pokemon.com">Poke Ball Tin<span>pokemon.com</span></a> <a href="https://www.pokemoncenter.com/product/699-41336/pokemon-tcg-poke-ball-tin" rel="noopener nofollow" target="_blank" aria-label="Poke Ball Tin, source: Pokemon TCG: Poke Ball Tin, on Pokemon Center">Poke Ball Tin<span>Pokemon Center</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <div class="hp-noshot"><span>No photo</span></div>
+      <div class="hp-body">
+        <h3><a href="/openings/tin.html">Stacking Tin</a></h3>
+        <p class="hp-count"><span class="hp-nn">3</span><span class="hp-nu">packs</span></p>
+        
+        
+        
+        <p class="hp-line"><b>Also in the box.</b> 2 sticker sheets.</p>
+        <p class="hp-line hp-nb">No sourced price for this one.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> One current-era source, from March 2025. Stacking Tins carry no promo card, which is what separates them from a standard tin at a similar price.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/stacking-tin-2025" rel="noopener nofollow" target="_blank" aria-label="Stacking Tin, source: Pokemon TCG: Stacking Tin, on pokemon.com">Stacking Tin<span>pokemon.com</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/553007_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/553007_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/553007_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Shrouded Fable 3 Pack Blister [Pecharunt], sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Shrouded Fable 3 Pack Blister [Pecharunt]</figcaption>
+      </figure>
+      <div class="hp-body">
+        <h3><a href="/openings/blister.html">Three-pack blister</a></h3>
+        <p class="hp-count"><span class="hp-nn">3</span><span class="hp-nu">packs</span></p>
+        
+        
+        <p class="hp-line"><b>Cards in each pack.</b> 10.</p>
+        <p class="hp-line"><b>Also in the box.</b> 1 foil promo card; 1 Pokemon coin.</p>
+        <p class="hp-line hp-price"><b>$14.99</b> at Target, which is $5.00 a pack. That is a retailer listed price rather than an MSRP, read on Mega Evolution Chaos Rising Three-Booster Blister.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> Both retailers agree on three packs and disagree about everything else: one lists a foil promo and a coin, the other lists only the packs. There is no pokemon.com page for blisters of any size, so a shop listing is the best source that exists.</p>
+<p class="hp-src"><a href="https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-chaos-rising-three-booster-blister/20033754.html" rel="noopener nofollow" target="_blank" aria-label="Three-pack blister, source: Pokemon Trading Card Game: Chaos Rising Three-Booster Blister, on GameStop">Chaos Rising Three-Booster Blister<span>GameStop</span></a> <a href="https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-chaos-rising-three-booster-blister/-/A-95298174" rel="noopener nofollow" target="_blank" aria-label="Three-pack blister, source: Mega Evolution Chaos Rising Three-Booster Blister, on Target">Mega Evolution Chaos Rising Three-Booster ...<span>Target</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <div class="hp-noshot"><span>No photo</span></div>
+      <div class="hp-body">
+        <h3><a href="/openings/knock-out.html">Knock Out Collection</a></h3>
+        <p class="hp-count"><span class="hp-nn">2</span><span class="hp-nu">packs</span></p>
+        
+        
+        
+        <p class="hp-line"><b>Also in the box.</b> 1 foil card (choice of two characters); 1 sticker sheet; code card for Pokemon TCG Live.</p>
+        <p class="hp-line hp-nb">No sourced price for this one.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> Two packs on both the January 2024 and January 2025 editions. There is no 2026 edition, so this is what the product held as of its last release rather than a live line.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/knock-out-collection-jan-2025" rel="noopener nofollow" target="_blank" aria-label="Knock Out Collection, source: Pokemon TCG: Knock Out Collection (Jan 2025), on pokemon.com">Knock Out Collection (Jan 2025)<span>pokemon.com</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/593457_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/593457_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/593457_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Prismatic Evolutions Mini Tin [Flareon], sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Prismatic Evolutions Mini Tin [Flareon]</figcaption>
+      </figure>
+      <div class="hp-body">
+        <h3><a href="/openings/tin.html">Mini Tin</a></h3>
+        <p class="hp-count"><span class="hp-nn">2</span><span class="hp-nu">packs</span></p>
+        
+        
+        
+        <p class="hp-line"><b>Also in the box.</b> 1 sticker sheet or 1 coin, depending on the release; 1 art card matching the tin lid, part of a set that combines into one image; code card for Pokemon TCG Live (on some releases).</p>
+        <p class="hp-line hp-nb">No sourced price for this one.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> Two on every Mini Tin checked, from Prismatic Evolutions in February 2025 to Lumiose City in June 2026. It is the smallest tin and it is the one most often mistaken for a standard one in a photo.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/lumiose-city-mini-tin" rel="noopener nofollow" target="_blank" aria-label="Mini Tin, source: Lumiose City Mini Tin, on pokemon.com">Lumiose City Mini Tin<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/scarlet-violet-prismatic-evolutions-mini-tin" rel="noopener nofollow" target="_blank" aria-label="Mini Tin, source: Scarlet &amp; Violet—Prismatic Evolutions Mini Tin, on pokemon.com">Scarlet &amp; Violet—Prismatic Evolutions Mini...<span>pokemon.com</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/609716_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/609716_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/609716_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Prismatic Evolutions 2-Pack Blister [Eevee], sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Prismatic Evolutions 2-Pack Blister [Eevee]</figcaption>
+      </figure>
+      <div class="hp-body">
+        <h3><a href="/openings/blister.html">Two-pack blister</a></h3>
+        <p class="hp-count"><span class="hp-nn">2</span><span class="hp-nu">packs</span></p>
+        
+        
+        <p class="hp-line"><b>Cards in each pack.</b> Not stated on the listing, and there is no official page for a blister of any size to check it against.</p>
+        
+        <p class="hp-line hp-nb">No sourced price for this one.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> The weakest sourcing on this page, and it is here because it is a real thing people buy. There is no official Pokemon page for a blister of any size, so the count comes from the product name on a shop listing. Bulbapedia's era pages document a two-pack blister through the Sun and Moon era and then stop naming one, so treat it as a configuration that still turns up rather than a current standard.</p>
+<p class="hp-src"><a href="https://www.tcgplayer.com/product/609716/prismatic-evolutions-2-pack-blister-eevee" rel="noopener nofollow" target="_blank" aria-label="Two-pack blister, source: Prismatic Evolutions 2-Pack Blister [Eevee], on TCGplayer">Prismatic Evolutions 2-Pack Blister [Eevee]<span>TCGplayer</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/692944_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/692944_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/692944_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Pitch Black Booster Pack, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Pitch Black Booster Pack</figcaption>
+      </figure>
+      <div class="hp-body">
+        <h3><a href="/openings/single-pack.html">One booster pack</a></h3>
+        <p class="hp-count"><span class="hp-nn">1</span><span class="hp-nu">pack</span></p>
+        
+        
+        <p class="hp-line"><b>Cards in each pack.</b> 10 cards plus 1 Basic Energy, plus a Pokemon TCG Live code card. 30th Celebration is the exception, see notes.</p>
+        
+        <p class="hp-line hp-price"><b>$9.99</b> at GameStop, which is $9.99 a pack. That is a retailer listed price rather than an MSRP, read on Pitch Black Sleeved Booster Pack.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> One pack is one pack, and that part needs no source. The price does: it is one shop's shelf price for a sleeved pack, and it is more than twice what the same pack costs inside a bundle. Take it as that shop on that day, not a baseline.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-news/pokemon-tcg-mega-evolution-pitch-black-product-showcase" rel="noopener nofollow" target="_blank" aria-label="One booster pack, source: Mega Evolution—Pitch Black Product Showcase, on pokemon.com">Mega Evolution—Pitch Black Product Showcase<span>pokemon.com</span></a> <a href="https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-pitch-black-sleeved-booster-pack/20034824.html" rel="noopener nofollow" target="_blank" aria-label="One booster pack, source: Pokemon Trading Card Game: Pitch Black Sleeved Booster Pack, on GameStop">Pitch Black Sleeved Booster Pack<span>GameStop</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/692955_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/692955_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/692955_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Pitch Black Single Pack Blister [Slowpoke], sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Pitch Black Single Pack Blister [Slowpoke]</figcaption>
+      </figure>
+      <div class="hp-body">
+        <h3><a href="/openings/blister.html">Single-pack blister (checklane)</a></h3>
+        <p class="hp-count"><span class="hp-nn">1</span><span class="hp-nu">pack</span></p>
+        
+        
+        <p class="hp-line"><b>Cards in each pack.</b> 10.</p>
+        <p class="hp-line"><b>Also in the box.</b> 1 exclusive foil promo card; 1 themed coin.</p>
+        <p class="hp-line hp-nb">The Target listing read is a third-party marketplace seller, so its price is not a retail or manufacturer price and is deliberately not recorded.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> One pack, a promo and a coin, which is the shape the checklane blister has had for years. The listing read was a marketplace seller rather than the store itself, so it is a weaker source than the rest of this section.</p>
+<p class="hp-src"><a href="https://www.target.com/p/pokemon-me5-mega-evolution-pitch-black-checklane-blister-slowpoke/-/A-1012494250" rel="noopener nofollow" target="_blank" aria-label="Single-pack blister (checklane), source: Pokemon ME5 Mega Evolution Pitch Black Checklane Blister, Slowpoke, on Target (third-party marketplace seller)">Pokemon ME5 Mega Evolution Pitch Black Che...<span>Target (third-party marketplace seller)</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <div class="hp-noshot"><span>No photo</span></div>
+      <div class="hp-body">
+        <h3>Battle Deck</h3>
+        <p class="hp-count"><span class="hp-zero">None</span></p>
+        
+        
+        
+        <p class="hp-line"><b>Also in the box.</b> 60 foil cards making a ready-to-play deck; 1 deck box; 1 playmat; 1 coin.</p>
+        <p class="hp-line hp-nb">No sourced price for this one.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> No booster packs at all, and this is the thing a returning buyer gets wrong most often. Sixty foil cards making a ready-to-play deck. Verified on the newest one; League and Deluxe Battle Decks were not individually checked.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/30th-celebration-battle-deck-espeon-ex-and-30th-celebration-battle-deck-umbreon-ex" rel="noopener nofollow" target="_blank" aria-label="Battle Deck, source: 30th Celebration Battle Deck—Espeon ex and Umbreon ex, on pokemon.com">30th Celebration Battle Deck—Espeon ex and...<span>pokemon.com</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    <li class="hp-card">
+      <div class="hp-noshot"><span>No photo</span></div>
+      <div class="hp-body">
+        <h3>Trick or Trade BOOster Bundle</h3>
+        <p class="hp-count"><span class="hp-zero">None</span></p>
+        <p class="hp-line"><b>What it does hold.</b> 35 mini packs of 3 cards each, which are not booster packs and should never be added to a booster total.</p>
+        
+        <p class="hp-line"><b>Cards in each pack.</b> These are Mini packs of 3 cards, not booster packs. Zero booster packs are included.</p>
+        
+        <p class="hp-line hp-nb">No sourced price for this one.</p>
+        <p class="hp-line hp-nb"><b>How sure we are.</b> Zero booster packs, despite the word Bundle in the name. The mini-pack count has moved too, from forty in 2022 to thirty-five in 2024, and no newer edition has appeared. If a listing calls this a bundle and quotes six packs, it is confusing it with the Booster Bundle.</p>
+<p class="hp-src"><a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/trick-or-trade-booster-bundle-2024" rel="noopener nofollow" target="_blank" aria-label="Trick or Trade BOOster Bundle, source: Trick or Trade BOOster Bundle (2024), on pokemon.com">Trick or Trade BOOster Bundle (2024)<span>pokemon.com</span></a> <a href="https://www.pokemon.com/us/pokemon-tcg/product-gallery/trick-or-trade-booster-bundle" rel="noopener nofollow" target="_blank" aria-label="Trick or Trade BOOster Bundle, source: Trick or Trade BOOster Bundle (2022), on pokemon.com">Trick or Trade BOOster Bundle (2022)<span>pokemon.com</span></a><span class="hp-read">All read August 15, 2026</span></p>
+      </div>
+    </li>
+    </ul>
+    <p class="prod-note">Product photos are TCGplayer's, from the nightly price pull read August 16, 2026. We are not a shop and we do not sell any of this. There is no in-house photography, so the products with no
+      picture are the ones TCGplayer does not list in the sets we track rather than products we are unsure about.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>All of it on one screen</p>
+    <h2>The whole list, <span class="hl">no pictures</span></h2>
+    <p class="lede" style="max-width:42em">The same products in the same order, for scanning. The last column is the
+      sourced price divided by the sourced pack count, and it is only filled in where both halves were actually read
+      off a seller's page. Different sellers, same day, so it compares products rather than shops.</p>
+    <div class="cc-scroll" tabindex="0" role="region" aria-label="Packs per sealed product, scrollable table">
+      <table class="cc-table hp-table">
+        <caption class="sr-only">Packs inside each current sealed Pokemon product, biggest first</caption>
+        <thead>
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col" class="num">Packs</th>
+            <th scope="col" class="num">Cards per pack</th>
+            <th scope="col">Cost per pack</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Booster box</th>
+            <td class="num"><b>36</b></td>
+            <td class="num">10</td>
+            <td>$8.33 <span class="hp-tsell">GameStop</span></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="/openings/upc.html">Ultra-Premium Collection (UPC)</a><span class="hp-tvar">varies by product</span></th>
+            <td class="num"><b>16 to 30</b></td>
+            <td class="num"><span class="hp-none" aria-hidden="true">not stated</span><span class="sr-only">Cards per pack not stated for this product</span></td>
+            <td><span class="hp-none" aria-hidden="true">no sourced price</span><span class="sr-only">No sourced price for this product</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Super-Premium Collection (SPC)<span class="hp-tvar">varies by product</span></th>
+            <td class="num"><b>10 to 15</b></td>
+            <td class="num"><span class="hp-none" aria-hidden="true">not stated</span><span class="sr-only">Cards per pack not stated for this product</span></td>
+            <td><span class="hp-none" aria-hidden="true">no sourced price</span><span class="sr-only">No sourced price for this product</span></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="/openings/etb.html">Pokemon Center Elite Trainer Box</a></th>
+            <td class="num"><b>11</b></td>
+            <td class="num">10</td>
+            <td>$5.45 <span class="hp-tsell">Pokemon Center</span></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="/openings/etb.html">Elite Trainer Box</a></th>
+            <td class="num"><b>9</b></td>
+            <td class="num">10</td>
+            <td>$6.67 <span class="hp-tsell">Target</span></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="/openings/ex-premium.html">ex Premium Collection</a></th>
+            <td class="num"><b>8</b></td>
+            <td class="num"><span class="hp-none" aria-hidden="true">not stated</span><span class="sr-only">Cards per pack not stated for this product</span></td>
+            <td><span class="hp-none" aria-hidden="true">no sourced price</span><span class="sr-only">No sourced price for this product</span></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="/openings/bundle.html">Booster Bundle</a></th>
+            <td class="num"><b>6</b></td>
+            <td class="num">10</td>
+            <td>$4.49 <span class="hp-tsell">Pokemon Center</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Holiday Calendar</th>
+            <td class="num"><b>6</b></td>
+            <td class="num"><span class="hp-none" aria-hidden="true">not stated</span><span class="sr-only">Cards per pack not stated for this product</span></td>
+            <td><span class="hp-none" aria-hidden="true">no sourced price</span><span class="sr-only">No sourced price for this product</span></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="/openings/collection-box.html">Collection boxes</a><span class="hp-tvar">varies by product</span></th>
+            <td class="num"><b>3 to 6</b></td>
+            <td class="num"><span class="hp-none" aria-hidden="true">not stated</span><span class="sr-only">Cards per pack not stated for this product</span></td>
+            <td><span class="hp-none" aria-hidden="true">no sourced price</span><span class="sr-only">No sourced price for this product</span></td>
+          </tr>
+          <tr>
+            <th scope="row">ex Special Collection</th>
+            <td class="num"><b>5</b></td>
+            <td class="num"><span class="hp-none" aria-hidden="true">not stated</span><span class="sr-only">Cards per pack not stated for this product</span></td>
+            <td><span class="hp-none" aria-hidden="true">no sourced price</span><span class="sr-only">No sourced price for this product</span></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="/openings/tin.html">Standard collector tin</a><span class="hp-tvar">5 on 2025 releases</span></th>
+            <td class="num"><b>4</b></td>
+            <td class="num"><span class="hp-none" aria-hidden="true">not stated</span><span class="sr-only">Cards per pack not stated for this product</span></td>
+            <td><span class="hp-none" aria-hidden="true">no sourced price</span><span class="sr-only">No sourced price for this product</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Build &amp; Battle Box</th>
+            <td class="num"><b>4</b></td>
+            <td class="num">10</td>
+            <td><span class="hp-none" aria-hidden="true">no sourced price</span><span class="sr-only">No sourced price for this product</span></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="/openings/ex-premium.html">ex Box</a></th>
+            <td class="num"><b>4</b></td>
+            <td class="num"><span class="hp-none" aria-hidden="true">not stated</span><span class="sr-only">Cards per pack not stated for this product</span></td>
+            <td><span class="hp-none" aria-hidden="true">no sourced price</span><span class="sr-only">No sourced price for this product</span></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="/openings/poke-ball-tin.html">Poke Ball Tin</a></th>
+            <td class="num"><b>3</b></td>
+            <td class="num">10</td>
+            <td>$5.00 <span class="hp-tsell">Pokemon Center</span></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="/openings/tin.html">Stacking Tin</a></th>
+            <td class="num"><b>3</b></td>
+            <td class="num"><span class="hp-none" aria-hidden="true">not stated</span><span class="sr-only">Cards per pack not stated for this product</span></td>
+            <td><span class="hp-none" aria-hidden="true">no sourced price</span><span class="sr-only">No sourced price for this product</span></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="/openings/blister.html">Three-pack blister</a></th>
+            <td class="num"><b>3</b></td>
+            <td class="num">10</td>
+            <td>$5.00 <span class="hp-tsell">Target</span></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="/openings/knock-out.html">Knock Out Collection</a></th>
+            <td class="num"><b>2</b></td>
+            <td class="num"><span class="hp-none" aria-hidden="true">not stated</span><span class="sr-only">Cards per pack not stated for this product</span></td>
+            <td><span class="hp-none" aria-hidden="true">no sourced price</span><span class="sr-only">No sourced price for this product</span></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="/openings/tin.html">Mini Tin</a></th>
+            <td class="num"><b>2</b></td>
+            <td class="num"><span class="hp-none" aria-hidden="true">not stated</span><span class="sr-only">Cards per pack not stated for this product</span></td>
+            <td><span class="hp-none" aria-hidden="true">no sourced price</span><span class="sr-only">No sourced price for this product</span></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="/openings/blister.html">Two-pack blister</a></th>
+            <td class="num"><b>2</b></td>
+            <td class="num"><span class="hp-none" aria-hidden="true">not stated</span><span class="sr-only">Cards per pack not stated for this product</span></td>
+            <td><span class="hp-none" aria-hidden="true">no sourced price</span><span class="sr-only">No sourced price for this product</span></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="/openings/single-pack.html">One booster pack</a></th>
+            <td class="num"><b>1</b></td>
+            <td class="num">10</td>
+            <td>$9.99 <span class="hp-tsell">GameStop</span></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="/openings/blister.html">Single-pack blister (checklane)</a></th>
+            <td class="num"><b>1</b></td>
+            <td class="num">10</td>
+            <td><span class="hp-none" aria-hidden="true">no sourced price</span><span class="sr-only">No sourced price for this product</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Battle Deck</th>
+            <td class="num"><b>0</b></td>
+            <td class="num"><span class="hp-none" aria-hidden="true">not stated</span><span class="sr-only">Cards per pack not stated for this product</span></td>
+            <td><span class="hp-none" aria-hidden="true">no sourced price</span><span class="sr-only">No sourced price for this product</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Trick or Trade BOOster Bundle</th>
+            <td class="num"><b>0</b></td>
+            <td class="num">3</td>
+            <td><span class="hp-none" aria-hidden="true">no sourced price</span><span class="sr-only">No sourced price for this product</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="price-note">Prices read August 15, 2026 from Pokemon Center, Target, GameStop and the
+      official product pages, each named on the card above. They are shelf prices on one day and not an MSRP,
+      because no MSRP exists. What packs are actually selling for right now, per set, is on
+      <a href="/pack-prices.html">pack prices</a>, which is recomputed from the market every night.</p>
+
+    <p class="lede" style="max-width:42em;margin-top:var(--s5)">Ordered by cost per pack, the 7
+      products where both numbers are sourced run from $4.49 in the
+      booster bundle to $9.99 for
+      one booster pack. That is the comparison this page is for, and it is the
+      whole of it: nothing here says what is inside the packs, because nobody publishes that.</p>
+  </div>
+</section>
+
+<section class="band tight" id="etb">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The one everybody asks</p>
+    <h2>How many packs in an <span class="hl">Elite Trainer Box</span>?</h2>
+    <p class="lede" style="max-width:42em">Nine, if it is a main expansion from the Scarlet & Violet era onward,
+      which is everything currently on a shelf. Eleven if it is the Pokemon Center version of the same set. That is
+      the answer, and the reason it needs a sentence of scope rather than a number on its own is that Elite Trainer
+      Boxes have held 6 different counts, plus one product that held two kinds of pack at once.</p>
+    <ul class="hp-eras">
+      <li>
+        <p class="hp-eh"><b>7</b> <strong>Plasma Storm, February 2013</strong> <span class="hp-tr mid">Bulbapedia, two pages</span></p>
+        <p>The first Elite Trainer Box. A contemporaneous reveal article lists seven packs, so the count is not resting on one page even though calling it the first one is.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Elite_Trainer_Box_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Elite Trainer Box (TCG), on Bulbapedia">Elite Trainer Box<span>Bulbapedia</span></a> <a href="https://bulbanews.bulbagarden.net/wiki/Elite_Trainer_Box_has_been_revealed_for_Plasma_Storm" rel="noopener nofollow" target="_blank" aria-label="Elite Trainer Box has been revealed for Plasma Storm, on Bulbanews">Elite Trainer Box has been revealed for ...<span>Bulbanews</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><b>8</b> <strong>Plasma Blast to Silver Tempest</strong> <span class="hp-tr mid">Bulbapedia, two pages</span></p>
+        <p>Nine years at eight packs for main expansions, confirmed on the XY, Sun &amp; Moon and Sword &amp; Shield merchandise pages separately. This is the best-supported historical figure here.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Elite_Trainer_Box_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Elite Trainer Box (TCG), on Bulbapedia">Elite Trainer Box<span>Bulbapedia</span></a> <a href="https://bulbapedia.bulbagarden.net/wiki/Sword_%26_Shield_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="Sword &amp; Shield TCG Series merchandise, on Bulbapedia">Sword &amp; Shield TCG Series merchandise<span>Bulbapedia</span></a> <a href="https://bulbapedia.bulbagarden.net/wiki/XY_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="XY TCG Series merchandise, on Bulbapedia">XY TCG Series merchandise<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><b>10</b> <strong>Most special expansions, Generations to Crown Zenith</strong> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>Which is why a flat claim that Elite Trainer Boxes used to hold eight is wrong for that whole window. Bulbapedia hedges with most, and so does this row.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Elite_Trainer_Box_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Elite Trainer Box (TCG), on Bulbapedia">Elite Trainer Box<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><b>9</b> <strong>Scarlet &amp; Violet onward, still current</strong> <span class="hp-tr ok">Official and Bulbapedia</span></p>
+        <p>Nine on every main expansion since 2023, confirmed on three official expansion pages including the current one. This is the number on the shelf today.</p>
+        <span class="hp-cite"><a href="https://tcg.pokemon.com/en-us/expansions/journey-together/" rel="noopener nofollow" target="_blank" aria-label="Expansion Overview: Scarlet &amp; Violet-Journey Together, on tcg.pokemon.com">Scarlet &amp; Violet-Journey Together<span>tcg.pokemon.com</span></a> <a href="https://tcg.pokemon.com/en-us/expansions/mega-evolution/" rel="noopener nofollow" target="_blank" aria-label="Expansion Overview: Mega Evolution, on tcg.pokemon.com">Mega Evolution<span>tcg.pokemon.com</span></a> <a href="https://tcg.pokemon.com/en-us/expansions/destined-rivals/" rel="noopener nofollow" target="_blank" aria-label="Expansion Overview: Scarlet &amp; Violet-Destined Rivals, on tcg.pokemon.com">Scarlet &amp; Violet-Destined Rivals<span>tcg.pokemon.com</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><b>11</b> <strong>Pokemon Center version, Scarlet &amp; Violet onward</strong> <span class="hp-tr ok">Official and Bulbapedia</span></p>
+        <p>Two more packs and a second promo card for the same money at the time of writing. Not a region split, a retail-channel one, and the names differ by two words.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Elite_Trainer_Box_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Elite Trainer Box (TCG), on Bulbapedia">Elite Trainer Box<span>Bulbapedia</span></a> <a href="https://tcg.pokemon.com/en-us/expansions/journey-together/" rel="noopener nofollow" target="_blank" aria-label="Expansion Overview: Scarlet &amp; Violet-Journey Together, on tcg.pokemon.com">Scarlet &amp; Violet-Journey Together<span>tcg.pokemon.com</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><b>12</b> <strong>Pokemon Center Pokemon GO and Pokemon Center Crown Zenith</strong> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>Two products only.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Elite_Trainer_Box_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Elite Trainer Box (TCG), on Bulbapedia">Elite Trainer Box<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><b>10 + 5</b> <strong>Celebrations, 2021</strong> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>Ten Celebrations packs plus five from other Sword &amp; Shield sets, and thirteen plus six in the Pokemon Center version. Celebrations packs hold four cards, so ten of them is not ten of anything else.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Elite_Trainer_Box_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Elite Trainer Box (TCG), on Bulbapedia">Elite Trainer Box<span>Bulbapedia</span></a> <a href="https://bulbapedia.bulbagarden.net/wiki/Celebrations_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Celebrations (TCG), on Bulbapedia">Celebrations<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><b>8</b> <strong>Pokemon Center Chilling Reign, a packing error</strong> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>It should have held ten. Recorded because it is a real trap on one specific product rather than a rule.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Elite_Trainer_Box_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Elite Trainer Box (TCG), on Bulbapedia">Elite Trainer Box<span>Bulbapedia</span></a></span>
+      </li>
+    </ul>
+    <p class="hp-gap"><b>Why this page says it and the others do not.</b> The pack counts printed next to products
+      elsewhere on this site come from a per-kind label written once in our own sync script, not from any particular
+      box, which is why <a href="/openings/etb.html">the Elite Trainer Box page</a> has always refused to state a
+      count for a named set and told you to check the box instead. That was the right call with nothing sourced
+      behind it. This page is where the sourced version lives, so it is the one that gives the number and the years
+      it applies to.</p>
+  </div>
+</section>
+
+<section class="tight" id="history">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The historical bit</p>
+    <h2>How many cards were in a pack, <span class="hl">by era</span></h2>
+    <p class="lede" style="max-width:42em">The single most useful thing on this page if you are holding older sealed
+      product, and the one most often got wrong. It did not go from eleven straight to ten. There is a nine-card era
+      in the middle and it lasted nearly five years.</p>
+    <ul class="hp-eras">
+      <li>
+        <p class="hp-eh"><b>11</b> <strong>Base Set to Neo Destiny</strong> <span class="hp-ew">1999 to 2002</span> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>Eleven cards. This is the only era on this list that rests on one sentence on one page, and no individual set page was found repeating it, so treat it as the weakest line here.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Booster_pack_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Booster pack (TCG), on Bulbapedia">Booster pack<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><b>9</b> <strong>Expedition Base Set to the end of the EX Series</strong> <span class="hp-ew">September 2002 to 2007</span> <span class="hp-tr mid">Bulbapedia, two pages</span></p>
+        <p>Nine cards. This is the era people get wrong. A pack from here is a smaller pack, not a short-packed or tampered one, and it is the era anybody buying vintage sealed product is most likely holding. The set's own page states the drop from eleven independently of the summary article, and it is also where the reverse holo slot arrived.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Booster_pack_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Booster pack (TCG), on Bulbapedia">Booster pack<span>Bulbapedia</span></a> <a href="https://bulbapedia.bulbagarden.net/wiki/Expedition_Base_Set_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Expedition Base Set (TCG), on Bulbapedia">Expedition Base Set<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><b>10</b> <strong>Diamond &amp; Pearl onward</strong> <span class="hp-ew">May 2007 to today</span> <span class="hp-tr mid">Bulbapedia, two pages</span></p>
+        <p>Ten cards, and the game-card count has not moved since. Same double-sourced shape as the drop to nine: the summary article and the set's own page both state the increase.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Booster_pack_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Booster pack (TCG), on Bulbapedia">Booster pack<span>Bulbapedia</span></a> <a href="https://bulbapedia.bulbagarden.net/wiki/Diamond_%26_Pearl_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Diamond &amp; Pearl (TCG), on Bulbapedia">Diamond &amp; Pearl<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><b>10</b> <strong>Sun &amp; Moon onward</strong> <span class="hp-ew">February 2017 to today</span> <span class="hp-tr mid">Bulbapedia, two pages</span></p>
+        <p>Still ten game cards, with a Basic Energy card and a code card added on top. This is why you will see the same pack called ten, eleven or twelve depending on whether a source counts the extras. The number this page uses is the ten.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Booster_pack_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Booster pack (TCG), on Bulbapedia">Booster pack<span>Bulbapedia</span></a> <a href="https://bulbapedia.bulbagarden.net/wiki/Hidden_Fates_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Hidden Fates (TCG), on Bulbapedia">Hidden Fates<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><b>10</b> <strong>Scarlet &amp; Violet and Mega Evolution</strong> <span class="hp-ew">Today</span> <span class="hp-tr ok">Official</span></p>
+        <p>The Pokemon Company's own wording on the current expansion pages is 10 cards and 1 Basic Energy. That is the safest sentence on this page, because it is theirs.</p>
+        <span class="hp-cite"><a href="https://tcg.pokemon.com/en-us/expansions/journey-together/" rel="noopener nofollow" target="_blank" aria-label="Expansion Overview: Scarlet &amp; Violet-Journey Together, on tcg.pokemon.com">Scarlet &amp; Violet-Journey Together<span>tcg.pokemon.com</span></a> <a href="https://tcg.pokemon.com/en-us/expansions/destined-rivals/" rel="noopener nofollow" target="_blank" aria-label="Expansion Overview: Scarlet &amp; Violet-Destined Rivals, on tcg.pokemon.com">Scarlet &amp; Violet-Destined Rivals<span>tcg.pokemon.com</span></a></span>
+      </li>
+    </ul>
+    <p class="hp-gap"><b>Why the same pack gets called ten, eleven or twelve.</b> Since Sun & Moon a pack has held
+      ten game cards, a Basic Energy card and a code card. Sources that count the extras arrive at eleven or twelve
+      for the same object. Our sources disagree with each other on exactly this point, so this page uses the ten and
+      lists the extras separately rather than picking a side.</p>
+  </div>
+</section>
+
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Same name, different box</p>
+    <h2>The <span class="hl">regional</span> and channel traps</h2>
+    <p class="lede" style="max-width:42em">Every one of these is the same product name holding a different number of
+      packs. If you are buying from overseas, or comparing a listing photo to a shelf, these are the ones that cost
+      money.</p>
+    <ul class="hp-eras">
+      <li>
+        <p class="hp-eh"><strong>Sword &amp; Shield era tins</strong> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>Five packs in North America and four everywhere else. Same product name, same art.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Sword_%26_Shield_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="Sword &amp; Shield TCG Series merchandise, on Bulbapedia">Sword &amp; Shield TCG Series merchandise<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><strong>The European half booster box</strong> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>An eighteen-pack half display is sold in Europe, notably the UK, alongside the thirty-six. Both get called a booster box.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Mega_Evolution_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="Mega Evolution TCG Series merchandise, on Bulbapedia">Mega Evolution TCG Series merchandise<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><strong>Japanese booster packs</strong> <span class="hp-tr ok">Official</span></p>
+        <p>Five cards a pack against ten in English, stated on the official Japanese page for Battle Partners. Japanese special sets break even that: the 30th Celebration expansion pack is six holo cards.</p>
+        <span class="hp-cite"><a href="https://www.pokemon-card.com/ex/sv9/index.html" rel="noopener nofollow" target="_blank" aria-label="Expansion Pack: Battle Partners (sv9), on pokemon-card.com">Expansion Pack: Battle Partners (sv9)<span>pokemon-card.com</span></a> <a href="https://www.30th.pokemon-card.com/product/m6a" rel="noopener nofollow" target="_blank" aria-label="MEGA Expansion Pack 30th CELEBRATION (M6a), on 30th.pokemon-card.com">MEGA Expansion Pack 30th CELEBRATION (M6a)<span>30th.pokemon-card.com</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><strong>Brazilian booster packs</strong> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>Seven cards a pack, and six before Sun &amp; Moon.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Booster_pack_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Booster pack (TCG), on Bulbapedia">Booster pack<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><strong>Diamond &amp; Pearl Collector's Tins, September 2007</strong> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>Four packs in both regions, but North America got two Mysterious Treasures and two Diamond &amp; Pearl while the international run got four Diamond &amp; Pearl.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Diamond_%26_Pearl_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="Diamond &amp; Pearl TCG Series merchandise, on Bulbapedia">Diamond &amp; Pearl TCG Series merchandise<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><strong>Lucario Collector's Tin</strong> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>Four packs in the 2007 run and three in the 2008 re-issue. Same name, same art.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Diamond_%26_Pearl_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="Diamond &amp; Pearl TCG Series merchandise, on Bulbapedia">Diamond &amp; Pearl TCG Series merchandise<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><strong>Elite Trainer Box against Pokemon Center Elite Trainer Box</strong> <span class="hp-tr ok">Official</span></p>
+        <p>Nine packs against eleven for the same expansion, sold at the same price at the time of writing.</p>
+        <span class="hp-cite"><a href="https://tcg.pokemon.com/en-us/expansions/journey-together/" rel="noopener nofollow" target="_blank" aria-label="Expansion Overview: Scarlet &amp; Violet-Journey Together, on tcg.pokemon.com">Scarlet &amp; Violet-Journey Together<span>tcg.pokemon.com</span></a> <a href="https://tcg.pokemon.com/en-us/expansions/destined-rivals/" rel="noopener nofollow" target="_blank" aria-label="Expansion Overview: Scarlet &amp; Violet-Destined Rivals, on tcg.pokemon.com">Scarlet &amp; Violet-Destined Rivals<span>tcg.pokemon.com</span></a></span>
+      </li>
+    </ul>
+    <p class="hp-gap"><b>The Japanese box count is deliberately missing.</b> Everybody repeats thirty packs a box.
+      We could only find it on card-shop blogs and marketplace listings, several of which also publish per-box
+      rarity guarantees that this site will not repeat, and the official Japanese page confirms the pack <em>size</em>
+      without the box count. So this page states the five-card pack, which is official, and leaves the box out.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Products that changed or went away</p>
+    <h2>What older sealed product <span class="hl">actually held</span></h2>
+    <p class="lede" style="max-width:42em">Everything in this section before 2020 rests on Bulbapedia's era
+      merchandise pages, which are marked as such row by row. That is often the only record there is, so the
+      alternative is not a better source, it is no page.</p>
+    <ul class="hp-eras">
+      <li>
+        <p class="hp-eh"><strong>Mixed-set blisters</strong> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>Older blisters routinely held packs from different sets, and the odd one out was often from the previous generation entirely: two Diamond &amp; Pearl packs and one late EX Series pack, or one Diamond &amp; Pearl pack and one POP Series 2 pack. The set named on the packaging is not necessarily the set of every pack inside. Modern blisters are single-set.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Diamond_%26_Pearl_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="Diamond &amp; Pearl TCG Series merchandise, on Bulbapedia">Diamond &amp; Pearl TCG Series merchandise<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><strong>The four-pack and five-pack blister</strong> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>DP Value Pack 2 held four packs and DP Value Pack 1 held five, two of them from Diamond &amp; Pearl and three from three different EX Series sets. Neither configuration survived the Diamond &amp; Pearl era.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Diamond_%26_Pearl_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="Diamond &amp; Pearl TCG Series merchandise, on Bulbapedia">Diamond &amp; Pearl TCG Series merchandise<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><strong>The two-pack blister</strong> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>Documented in the Diamond &amp; Pearl, XY and Sun &amp; Moon merchandise pages and absent from Sword &amp; Shield onward. That absence is not a statement, so the honest phrasing is that it was last documented in the Sun &amp; Moon era rather than that it was discontinued. Shops do still list one, which is the row above.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Diamond_%26_Pearl_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="Diamond &amp; Pearl TCG Series merchandise, on Bulbapedia">Diamond &amp; Pearl TCG Series merchandise<span>Bulbapedia</span></a> <a href="https://bulbapedia.bulbagarden.net/wiki/Sun_%26_Moon_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="Sun &amp; Moon TCG Series merchandise, on Bulbapedia">Sun &amp; Moon TCG Series merchandise<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><strong>Theme Decks</strong> <span class="hp-tr mid">Bulbapedia, two pages</span></p>
+        <p>Never contained booster packs at all, confirmed on two separate era pages. Sixty cards, damage counters, a coin, a playmat, a deck box and a code card. We could not verify when the line ended or what replaced it, so this page does not say.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/XY_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="XY TCG Series merchandise, on Bulbapedia">XY TCG Series merchandise<span>Bulbapedia</span></a> <a href="https://bulbapedia.bulbagarden.net/wiki/Sun_%26_Moon_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="Sun &amp; Moon TCG Series merchandise, on Bulbapedia">Sun &amp; Moon TCG Series merchandise<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><strong>Trainer Kits</strong> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>The Diamond &amp; Pearl era kits included one booster pack. The XY era kits included none. The pack count changed inside one product line, which is the reason this line is worth knowing about. No source was found for when the line ended.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Diamond_%26_Pearl_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="Diamond &amp; Pearl TCG Series merchandise, on Bulbapedia">Diamond &amp; Pearl TCG Series merchandise<span>Bulbapedia</span></a> <a href="https://bulbapedia.bulbagarden.net/wiki/XY_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="XY TCG Series merchandise, on Bulbapedia">XY TCG Series merchandise<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><strong>Build &amp; Battle Box</strong> <span class="hp-tr ok">Official and Bulbapedia</span></p>
+        <p>Four packs plus a forty-card deck, unchanged from the Sword &amp; Shield era to the current one. The one product on this page that has not moved at all.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Scarlet_%26_Violet_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="Scarlet &amp; Violet TCG Series merchandise, on Bulbapedia">Scarlet &amp; Violet TCG Series merchandise<span>Bulbapedia</span></a> <a href="https://bulbapedia.bulbagarden.net/wiki/Sword_%26_Shield_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="Sword &amp; Shield TCG Series merchandise, on Bulbapedia">Sword &amp; Shield TCG Series merchandise<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><strong>Build &amp; Battle Stadium</strong> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>Two Build &amp; Battle Boxes plus three loose packs. Eleven packs in total is arithmetic on the quoted contents rather than a figure anybody printed, and it is labelled that way on purpose.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Scarlet_%26_Violet_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="Scarlet &amp; Violet TCG Series merchandise, on Bulbapedia">Scarlet &amp; Violet TCG Series merchandise<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><strong>Celebrations, 2021</strong> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>Four cards a pack, fourteen years after ten became the standard, and no booster box was ever made: it could only be bought inside branded merchandise. The best single illustration of why cards per pack is a per-product question and not only a per-era one.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Celebrations_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Celebrations (TCG), on Bulbapedia">Celebrations<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><strong>Hidden Fates, 2019</strong> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>Normal ten-card packs, but again no booster box. Anybody selling you a Hidden Fates booster box is selling something that was never made as a standard product.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Hidden_Fates_(TCG)" rel="noopener nofollow" target="_blank" aria-label="Hidden Fates (TCG), on Bulbapedia">Hidden Fates<span>Bulbapedia</span></a></span>
+      </li>
+      <li>
+        <p class="hp-eh"><strong>Collection boxes and tins before 2020</strong> <span class="hp-tr low">Bulbapedia only</span></p>
+        <p>XY Figure Collections and the Legends of Kalos and Legends of Alola tins held four packs. Collector's Albums held one. The Darkrai Premium Box held two, both from the previous generation. V Boxes are described as typically four, and typically is the source's own hedge, so this page does not turn it into a flat number.</p>
+        <span class="hp-cite"><a href="https://bulbapedia.bulbagarden.net/wiki/Sword_%26_Shield_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="Sword &amp; Shield TCG Series merchandise, on Bulbapedia">Sword &amp; Shield TCG Series merchandise<span>Bulbapedia</span></a> <a href="https://bulbapedia.bulbagarden.net/wiki/XY_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="XY TCG Series merchandise, on Bulbapedia">XY TCG Series merchandise<span>Bulbapedia</span></a> <a href="https://bulbapedia.bulbagarden.net/wiki/Diamond_%26_Pearl_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="Diamond &amp; Pearl TCG Series merchandise, on Bulbapedia">Diamond &amp; Pearl TCG Series merchandise<span>Bulbapedia</span></a> <a href="https://bulbapedia.bulbagarden.net/wiki/Sun_%26_Moon_TCG_Series_merchandise" rel="noopener nofollow" target="_blank" aria-label="Sun &amp; Moon TCG Series merchandise, on Bulbapedia">Sun &amp; Moon TCG Series merchandise<span>Bulbapedia</span></a></span>
+      </li>
+    </ul>
+
+    <div class="hp-two">
+      <div class="hp-box">
+        <h3>The 2025 story that was wrong</h3>
+        <p>In July 2025 the fine print on a Mega Evolution booster box was reported as saying packs would contain
+          either an Energy card or a code card rather than both, which was read as a card being removed. On
+          1 August 2025 The Pokemon Company said the packaging text was an error and that packs would continue to
+          include both.</p>
+        <p>It is here rather than left out because printed boxes carrying the incorrect text physically exist, so
+          you can read the wrong thing off the product in your own hands. The current official expansion pages still
+          say ten cards and one Basic Energy.</p>
+        <span class="hp-cite"><a href="https://www.videogameschronicle.com/news/pokemon-clarifies-tcg-code-card-confusion-mega-evolution-wont-change-whats-included-in-booster-packs/" rel="noopener nofollow" target="_blank" aria-label="Pokemon clarifies TCG code card confusion: Mega Evolution won't change what's included in booster packs, on Video Games Chronicle">Pokemon clarifies TCG code card confusio...<span>Video Games Chronicle</span></a></span>
+      </div>
+      <div class="hp-box">
+        <h3>What we could not source, and did not print</h3>
+        <p>How many packs were in a 1999 to 2002 booster box. When thirty-six became the standard. When the two-pack
+          blister ended. When Theme Decks ended and what replaced them. What was in the Base Set 2-Player Starter
+          Set. When the Trainer Kit line ended. How many packs are in a Japanese booster box.</p>
+        <p>Every one of those has a confident answer somewhere on the internet. None of them had a source we could
+          read, so none of them is on this page. That is the whole rule here and it is worth more than the
+          missing lines.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What this page will not tell you</p>
+    <h2>Packs are counted. What is <span class="hl">in</span> them is not.</h2>
+    <ul class="facts-list">
+      <li><strong>Whether any of it is worth buying.</strong> That needs pull rates, and The Pokemon Company does
+        not publish them, so nobody quoting you one has them either. What this channel has instead is
+        <a href="/luck.html">what actually came out of the packs we opened</a>, which is observed results and a
+        different thing.</li>
+      <li><strong>What it costs today.</strong> The prices here were read on one day off four sellers.
+        <a href="/pack-prices.html">Pack prices</a> divides live market prices by pack count for every set we track
+        and is recomputed nightly.</li>
+      <li><strong>What is in the box besides packs.</strong> Sleeves, dice, promos, playmats and coins are listed
+        where the product page listed them, and nothing on this page puts a value on any of it.</li>
+      <li><strong>Which one to buy.</strong> Cheapest per pack is not best. This is a list of what is inside things,
+        and <a href="/openings/">every kind of sealed product opened on camera</a> is the closest thing to a second
+        opinion we can honestly offer.</li>
+    </ul>
+    <p class="price-note">Pack counts were read from pokemon.com product gallery pages, Pokemon Center, Target and
+      GameStop listings on August 15, 2026, and the historical section from Bulbapedia, Bulbanews and
+      the official expansion pages at tcg.pokemon.com and pokemon-card.com on August 15, 2026. Every
+      row links its own sources and says how strong they are. Where a number could not be traced to a source it is
+      absent and the page says so, which is why several rows read "not stated" rather than carrying a plausible
+      figure. Nothing here states or implies how likely any card is to appear in any pack.</p>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Footer">
+      <div class="foot-col">
+        <p class="foot-h">Watch</p>
+        <a href="/videos.html">Rips</a>
+        <a href="/playlists.html">Playlists</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">The binder</p>
+        <a href="/hall.html">Best pulls</a>
+        <a href="/wanted.html">Most wanted</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Cards</p>
+        <a href="/cards.html">Card search</a>
+        <a href="/pokemon/">By Pokemon</a>
+        <a href="/sets/">Set guides</a>
+        <a href="/expansions.html">Every set ever</a>
+        <a href="/upcoming.html">Coming next</a>
+        <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/pack-prices.html">Pack prices</a>
+        <a href="/how-many-packs.html">Packs per box</a>
+        <a href="/openings/">Sealed products</a>
+        <a href="/drops.html">Drops this week</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Guides</p>
+        <a href="/start.html">Start here</a>
+        <a href="/how-to-play.html">How to play</a>
+        <a href="/what-set.html">Set finder</a>
+        <a href="/rarity.html">Rarity guide</a>
+        <a href="/types.html">Card types</a>
+        <a href="/fake-cards.html">Fakes</a>
+        <a href="/will-it-grade.html">Will it grade</a>
+        <a href="/grading.html">Grading cost</a>
+        <a href="/selling.html">Where to sell</a>
+        <a href="/buying.html">Where to buy</a>
+        <a href="/luck.html">Luck, measured</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Play</p>
+        <a href="/games/">Games</a>
+        <a href="/lore.html">Pokemon lore</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Rochester, NY</p>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/vendors.html">Local vendors</a>
+        <a href="/creators.html">Local creators</a>
+        <a href="/about.html">About</a>
+      </div>
+    </nav>
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    Pack counts are printed on the packaging, so they are checkable. Odds are not published by anybody.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+<script src="/assets/app.js?v=3917fe6a" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
+</body>
+</html>

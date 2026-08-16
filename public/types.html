@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Are the Pokemon Card Types? All 11, Explained | Garbage Rips 585</title>
+<meta name="description" content="The Pokemon card game has 11 types, not the 18 from the video games. What each one is, and why Weakness is printed on the card rather than on a chart.">
+<link rel="canonical" href="https://garbagerips585.github.io/types.html">
+<meta property="og:title" content="What are the Pokemon card types?">
+<meta property="og:description" content="The Pokemon card game has 11 types, not the 18 from the video games. What each one is, and why Weakness is printed on the card rather than on a chart.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garbagerips585.github.io/types.html">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-types.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-types.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#1E3A54">
+<link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=2335fd03">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<style>
+.ty-lede{max-width:46em}
+.ty-key{display:flex;flex-wrap:wrap;gap:8px;margin:var(--s5) 0 var(--s4)}
+.ty-key a{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 var(--s3);
+  border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
+  text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
+.ty-key a:hover{border-color:var(--ink);background:var(--mustard)}
+.ty-m{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;flex:0 0 18px}
+.ty-m svg{width:15px;height:15px;display:block}
+.ty-m-grass svg{fill:#4C8B3F;color:#4C8B3F}
+.ty-m-fire svg{fill:#D9482B;color:#D9482B}
+.ty-m-water svg{fill:#2E7FB8;color:#2E7FB8}
+.ty-m-lightning svg{fill:#E0A21F;color:#E0A21F}
+.ty-m-psychic svg{fill:#8A5BA6;color:#8A5BA6}
+.ty-m-fighting svg{fill:#B0552A;color:#B0552A}
+.ty-m-darkness svg{fill:#39394A;color:#39394A}
+.ty-m-metal svg{fill:#7E8C99;color:#7E8C99}
+.ty-m-colorless svg{fill:#B9B08A;color:#B9B08A}
+.ty-m-dragon svg{fill:#A98B2E;color:#A98B2E}
+.ty-m-fairy svg{fill:#C86A9A;color:#C86A9A}
+.ty-key .ty-m svg{width:14px;height:14px}
+.ty-grp{margin-top:var(--s6)}
+.ty-grp > p{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
+.ty-key-blk,.ty-t,.ty-meas{border:3px solid var(--navy);border-radius:12px;background:var(--card);
+  box-shadow:var(--hard-lg);padding:var(--s4)}
+.ty-key-blk{background:var(--navy);color:#F4F1E2;padding:var(--s5);margin:var(--s5) 0}
+.ty-key-blk h2{color:#F4F1E2;margin-bottom:var(--s3)}
+.ty-key-blk p{color:#DDE6EC;line-height:1.55;max-width:44em}
+.ty-key-blk p + p{margin-top:var(--s3)}
+.ty-corner{display:grid;grid-template-columns:1fr 160px;gap:var(--s4);align-items:start;margin-top:var(--s4)}
+@media(max-width:640px){.ty-corner{grid-template-columns:1fr}}
+.ty-corner .ty-fig figcaption b,.ty-corner .ty-fig figcaption span{color:#DDE6EC}
+/* The set link inside the caption is the one link on the page sitting on navy,
+   so it needs its own colour: ui.css's link colour is the site's dark ink and
+   would be invisible there. */
+.ty-corner .ty-fig figcaption a{color:#EFC94C}
+.ty-rules{list-style:none;margin:0;padding:0}
+.ty-rules li{border-left:4px solid var(--gold);padding-left:var(--s3);margin-bottom:var(--s3);line-height:1.55}
+.ty-rules b{display:block;font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:4px}
+.ty-key-blk .ty-rules b{color:#EFC94C}
+.ty-tbl-w{overflow-x:auto;margin-top:var(--s4);border:3px solid var(--navy);border-radius:12px;
+  background:var(--card);box-shadow:var(--hard-lg)}
+/* NO min-width ON THE TABLE. It had one, and at 390px that turned the highest
+   search-value block on the page into a thing you have to drag sideways. Four
+   short columns fit if nothing inside them is told not to wrap, which is why
+   .ty-n lost its white-space:nowrap below. The overflow-x wrapper stays as the
+   safety net: a long set name in a future note should scroll inside its own
+   box rather than push the document sideways. */
+.ty-tbl{width:100%;border-collapse:collapse;font-size:var(--t-sm)}
+.ty-tbl th,.ty-tbl td{text-align:left;padding:10px var(--s3);border-bottom:1px solid var(--hair);vertical-align:top}
+/* Four columns at 390px are 55px too wide on the site's normal cell padding
+   alone, measured. Tightening the padding and dropping to the micro size is
+   what brings the whole table inside the viewport instead of behind a sideways
+   drag, and this is the one block on the page a phone reader is most likely to
+   have come for. */
+/* table-layout:fixed, so the columns are decided by these percentages and never
+   by the longest word in a note. Without it the Flying and Poison notes, which
+   are the two longest cells in the table, set the column widths for all 18
+   rows and push the whole thing past 390px. */
+@media(max-width:640px){
+  .ty-tbl{font-size:var(--t-micro);table-layout:fixed}
+  .ty-tbl th,.ty-tbl td{padding:8px 4px}
+  .ty-x,.ty-n{word-break:break-word}
+  .ty-tbl col.c1{width:19%}
+  .ty-tbl col.c2{width:23%}
+  .ty-tbl col.c3{width:22%}
+  .ty-tbl col.c4{width:36%}
+}
+/* NO white-space:nowrap ON EITHER HEADER. Both carried it and both overlapped
+   the moment the columns became fixed percentages at 390px: the four column
+   labels ran together into one unreadable string. The media query below could
+   not undo it either, because it sits earlier in this stylesheet and a media
+   query adds no specificity, so the later rule won. Fixed at the source rather
+   than with an override. */
+.ty-tbl thead th{font:700 var(--t-micro)/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-2)}
+.ty-tbl tbody th{font-weight:700}
+.ty-tbl td b{display:inline-flex;align-items:center;gap:6px}
+.ty-same{color:var(--ink-2)}
+.ty-n{color:var(--ink-2);font-size:var(--t-micro);line-height:1.5}
+.ty-x{color:var(--ink-2);font-size:var(--t-micro);line-height:1.5}
+.ty-list{display:flex;flex-direction:column;gap:var(--s4);margin-top:var(--s4)}
+.ty-t{scroll-margin-top:var(--s5)}
+.ty-th{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2);margin-bottom:var(--s2)}
+.ty-th h3{font:400 var(--t-m)/1.15 var(--display);display:inline-flex;align-items:center;gap:8px}
+.ty-th .ty-m{width:22px;height:22px;flex:0 0 22px}
+.ty-th .ty-m svg{width:20px;height:20px}
+.ty-badge{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2)}
+.ty-badge.ret{border-style:dashed}
+.ty-folds{font-size:var(--t-sm);color:var(--ink-2);margin-bottom:var(--s2)}
+.ty-body{display:grid;grid-template-columns:1fr 150px;gap:var(--s4);align-items:start}
+@media(max-width:640px){.ty-body{grid-template-columns:1fr}}
+.ty-blurb{line-height:1.55;margin-bottom:var(--s3)}
+.ty-tend,.ty-note,.ty-extra{font-size:var(--t-sm);line-height:1.5;margin-top:var(--s2)}
+.ty-note,.ty-extra{color:var(--ink-2)}
+.ty-unmeasured{border-left:4px solid var(--ketchup);padding-left:var(--s3)}
+.ty-figs{display:flex;flex-wrap:wrap;gap:var(--s4)}
+.ty-fig{margin:0;max-width:150px}
+.ty-fig img{width:100%;height:auto;display:block;border-radius:6px}
+.ty-fig figcaption{margin-top:6px;font-size:var(--t-micro);line-height:1.45}
+.ty-fig figcaption b{display:block}
+.ty-cs,.ty-cp,.ty-cv{display:block;color:var(--ink-2)}
+.ty-cp{margin-top:3px;color:var(--ink)}
+.ty-cv{margin-top:3px;font-size:10px;word-break:break-word}
+.ty-split{border:3px solid var(--ketchup);border-radius:12px;background:var(--card);
+  box-shadow:var(--hard-lg);padding:var(--s4);margin-top:var(--s4)}
+.ty-split h4{font:400 var(--t-body)/1.25 var(--display);margin-bottom:var(--s2)}
+.ty-split p{font-size:var(--t-sm);line-height:1.5;max-width:44em}
+.ty-split .ty-figs{margin-top:var(--s3)}
+.ty-meas{margin-top:var(--s6)}
+.ty-meas p{font-size:var(--t-sm);line-height:1.55;max-width:46em}
+.ty-meas p + p{margin-top:var(--s3)}
+.ty-open{margin:var(--s4) 0 0 var(--s4);font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);max-width:46em}
+.ty-open li{margin-bottom:var(--s2)}
+.ty-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Card types"}]}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form class="bar-search" role="search" action="/search.html" method="get">
+      <label class="sr-only" for="navSearch">Search cards, sets, guides and rips</label>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+      <input id="navSearch" name="q" type="search" placeholder="Search cards, sets, rips" aria-label="Search cards, sets, guides and every rip" autocomplete="off">
+    </form>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/cards.html">Card search</a>
+      <a href="/sets/">Set guides</a>
+      <a href="/start.html">Start here</a>
+      <a href="/card-shows.html">Card shows</a>
+    </nav>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span>Menu</span>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="All sections">
+  <div class="menu-inner">
+    <div class="menu-g">
+      <p class="menu-h">Watch</p>
+      <ul>
+        <li><a href="/videos.html">Rips</a></li>
+        <li><a href="/playlists.html">Playlists</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">The binder</p>
+      <ul>
+        <li><a href="/hall.html">Best pulls</a></li>
+        <li><a href="/wanted.html">Most wanted</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Cards</p>
+      <ul>
+        <li><a href="/cards.html">Card search</a></li>
+        <li><a href="/pokemon/">By Pokemon</a></li>
+        <li><a href="/sets/">Set guides</a></li>
+        <li><a href="/expansions.html">Every set ever</a></li>
+        <li><a href="/upcoming.html">Coming next</a></li>
+        <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/pack-prices.html">Pack prices</a></li>
+        <li><a href="/how-many-packs.html">Packs per box</a></li>
+        <li><a href="/openings/">Sealed products</a></li>
+        <li><a href="/drops.html">Drops this week</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Guides</p>
+      <ul>
+        <li><a href="/start.html">Start here</a></li>
+        <li><a href="/how-to-play.html">How to play</a></li>
+        <li><a href="/what-set.html">Set finder</a></li>
+        <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/types.html">Card types</a></li>
+        <li><a href="/fake-cards.html">Fakes</a></li>
+        <li><a href="/will-it-grade.html">Will it grade</a></li>
+        <li><a href="/grading.html">Grading cost</a></li>
+        <li><a href="/selling.html">Where to sell</a></li>
+        <li><a href="/buying.html">Where to buy</a></li>
+        <li><a href="/luck.html">Luck, measured</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Play</p>
+      <ul>
+        <li><a href="/games/">Games</a></li>
+        <li><a href="/lore.html">Pokemon lore</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Rochester, NY</p>
+      <ul>
+        <li><a href="/card-shows.html">Card shows</a></li>
+        <li><a href="/shops.html">Card shops</a></li>
+        <li><a href="/vendors.html">Local vendors</a></li>
+        <li><a href="/creators.html">Local creators</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </div>
+  </div>
+  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe on YouTube</a>
+</nav>
+<main id="main">
+  <section class="tight">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Card types</span></nav>
+      <h1>What are the Pokemon <span class="hl">card types</span>?</h1>
+      <p class="lede ty-lede">There are <b>11 of them on cards</b>, and the official rulebook says so in as many
+        words. The video games have 18. That gap is not a mistake in either place: Bug is a Grass card, Ice is a
+        Water card, Ground and Rock are both Fighting cards, Ghost is a Psychic card, and Poison has moved twice.
+        If you learned types from the games, some of your cards are going to look wrong and they are not.</p>
+      <p class="lede ty-lede">The other half of this page is the part nobody expects. <b>The card game has no type
+        chart.</b> Weakness and Resistance are printed on each individual card, in the bottom-left corner, and
+        plenty of cards print neither. So instead of a chart, every type below carries what its cards actually
+        print, counted over 1,446
+        real cards, with the count next to it. The card in your hand is the authority.</p>
+
+      <nav class="ty-key" aria-label="Jump to a type">
+        <a href="#grass"><span class="ty-m ty-m-grass" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M11 1C4.6 1 1 4.4 1 8.2c0 1.2.4 2.2 1 2.9C3.4 8 5.9 5.8 8.9 4.6 6.4 6.3 4.4 8.6 3.4 11.4c.6.4 1.4.6 2.2.6C9.2 12 11 8.6 11 1Z"/></svg></span>Grass</a>
+        <a href="#fire"><span class="ty-m ty-m-fire" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 0C6 3.4 2.1 4.1 2.1 7.5A3.9 3.9 0 0 0 9.9 7.5C9.9 4.9 7.4 4.5 7.4 2.1 7.4 4 6 3.4 6 0Z"/></svg></span>Fire</a>
+        <a href="#water"><span class="ty-m ty-m-water" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 .6C6 .6 1.9 5.4 1.9 7.9a4.1 4.1 0 0 0 8.2 0C10.1 5.4 6 .6 6 .6Z"/></svg></span>Water</a>
+        <a href="#lightning"><span class="ty-m ty-m-lightning" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M7.6 0 2.4 6.9h2.9L4.6 12 9.9 4.8H6.6Z"/></svg></span>Lightning</a>
+        <a href="#psychic"><span class="ty-m ty-m-psychic" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><circle cx="6" cy="6" r="2.6"/><ellipse cx="6" cy="6" rx="5.4" ry="2.2" fill="none" stroke-width="1" stroke="currentColor"/><ellipse cx="6" cy="6" rx="2.2" ry="5.4" fill="none" stroke-width="1" stroke="currentColor"/></svg></span>Psychic</a>
+        <a href="#fighting"><span class="ty-m ty-m-fighting" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.2 6.1a1.2 1.2 0 0 1 1.2-1.2h4.3a3.1 3.1 0 0 1 3.1 3.1 3.1 3.1 0 0 1-3.1 3.1H3.4A1.2 1.2 0 0 1 2.2 9.9Z"/><path d="M3.6 4.9V3.3a1 1 0 0 1 2 0v1.6ZM6.2 4.9V2.6a1 1 0 0 1 2 0v2.3Z"/></svg></span>Fighting</a>
+        <a href="#darkness"><span class="ty-m ty-m-darkness" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><circle cx="6" cy="6" r="5.4"/><ellipse cx="6" cy="6" rx="3.6" ry="2" fill="#F1EDD2"/><circle cx="6" cy="6" r="1.1" fill="#39394A"/></svg></span>Darkness</a>
+        <a href="#metal"><span class="ty-m ty-m-metal" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 0 7.3 3.1 10.5 1.5 8.9 4.7 12 6 8.9 7.3 10.5 10.5 7.3 8.9 6 12 4.7 8.9 1.5 10.5 3.1 7.3 0 6 3.1 4.7 1.5 1.5 4.7 3.1Z"/></svg></span>Metal</a>
+        <a href="#colorless"><span class="ty-m ty-m-colorless" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Colorless</a>
+        <a href="#dragon"><span class="ty-m ty-m-dragon" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 2c3.2 0 5.6 2.6 5.6 4S9.2 10 6 10 .4 7.4 .4 6 2.8 2 6 2Z"/><path d="M6 3.4c.7 0 1.2 1.2 1.2 2.6S6.7 8.6 6 8.6 4.8 7.4 4.8 6 5.3 3.4 6 3.4Z" fill="#F1EDD2"/></svg></span>Dragon</a>
+        <a href="#fairy"><span class="ty-m ty-m-fairy" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><ellipse cx="6" cy="2.9" rx="1.7" ry="2.5"/><ellipse cx="6" cy="2.9" rx="1.7" ry="2.5" transform="rotate(72 6 6)"/><ellipse cx="6" cy="2.9" rx="1.7" ry="2.5" transform="rotate(144 6 6)"/><ellipse cx="6" cy="2.9" rx="1.7" ry="2.5" transform="rotate(216 6 6)"/><ellipse cx="6" cy="2.9" rx="1.7" ry="2.5" transform="rotate(288 6 6)"/></svg></span>Fairy</a>
+      </nav>
+
+      <section class="ty-grp">
+        <h2>Your card's type is not its <span class="hl">video game</span> type</h2>
+        <p>Which video game type lands on which card type, as things stand today. Checked twice: against
+          Bulbapedia's table, and against the cards themselves. All 18 game types matched, with two individual
+          exceptions out of the 628 cards that could be compared.</p>
+        <div class="ty-tbl-w">
+          <table class="ty-tbl">
+            <caption class="sr-only">Video game types and the card type they are printed as</caption>
+            <colgroup><col class="c1"><col class="c2"><col class="c3"><col class="c4"></colgroup>
+            <thead>
+              <tr><th scope="col">In the games</th><th scope="col">On the card</th><th scope="col">Cards checked</th><th scope="col">Notes</th></tr>
+            </thead>
+            <tbody>
+        <tr>
+          <th scope="row">Grass</th>
+          <td><span class="ty-m ty-m-grass" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M11 1C4.6 1 1 4.4 1 8.2c0 1.2.4 2.2 1 2.9C3.4 8 5.9 5.8 8.9 4.6 6.4 6.3 4.4 8.6 3.4 11.4c.6.4 1.4.6 2.2.6C9.2 12 11 8.6 11 1Z"/></svg></span><b>Grass</b></td>
+          <td class="ty-n">43 of 44 (98%)</td>
+          <td class="ty-x">Shaymin (Crown Zenith) is printed Colorless</td>
+        </tr>
+        <tr>
+          <th scope="row">Bug</th>
+          <td><span class="ty-same">Grass</span></td>
+          <td class="ty-n">28 of 28 (100%)</td>
+          <td class="ty-x"></td>
+        </tr>
+        <tr>
+          <th scope="row">Fire</th>
+          <td><span class="ty-m ty-m-fire" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 0C6 3.4 2.1 4.1 2.1 7.5A3.9 3.9 0 0 0 9.9 7.5C9.9 4.9 7.4 4.5 7.4 2.1 7.4 4 6 3.4 6 0Z"/></svg></span><b>Fire</b></td>
+          <td class="ty-n">69 of 69 (100%)</td>
+          <td class="ty-x"></td>
+        </tr>
+        <tr>
+          <th scope="row">Water</th>
+          <td><span class="ty-m ty-m-water" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 .6C6 .6 1.9 5.4 1.9 7.9a4.1 4.1 0 0 0 8.2 0C10.1 5.4 6 .6 6 .6Z"/></svg></span><b>Water</b></td>
+          <td class="ty-n">87 of 87 (100%)</td>
+          <td class="ty-x"></td>
+        </tr>
+        <tr>
+          <th scope="row">Ice</th>
+          <td><span class="ty-same">Water</span></td>
+          <td class="ty-n">20 of 21 (95%)</td>
+          <td class="ty-x">Eiscue ex (Obsidian Flames) is printed Fire</td>
+        </tr>
+        <tr>
+          <th scope="row">Electric</th>
+          <td><span class="ty-m ty-m-lightning" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M7.6 0 2.4 6.9h2.9L4.6 12 9.9 4.8H6.6Z"/></svg></span><b>Lightning</b></td>
+          <td class="ty-n">63 of 63 (100%)</td>
+          <td class="ty-x"></td>
+        </tr>
+        <tr>
+          <th scope="row">Psychic</th>
+          <td><span class="ty-m ty-m-psychic" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><circle cx="6" cy="6" r="2.6"/><ellipse cx="6" cy="6" rx="5.4" ry="2.2" fill="none" stroke-width="1" stroke="currentColor"/><ellipse cx="6" cy="6" rx="2.2" ry="5.4" fill="none" stroke-width="1" stroke="currentColor"/></svg></span><b>Psychic</b></td>
+          <td class="ty-n">33 of 33 (100%)</td>
+          <td class="ty-x"></td>
+        </tr>
+        <tr>
+          <th scope="row">Ghost</th>
+          <td><span class="ty-same">Psychic</span></td>
+          <td class="ty-n">16 of 16 (100%)</td>
+          <td class="ty-x"></td>
+        </tr>
+        <tr>
+          <th scope="row">Fairy</th>
+          <td><span class="ty-same">Psychic</span></td>
+          <td class="ty-n">26 of 26 (100%)</td>
+          <td class="ty-x">since Sword &amp; Shield. Before that, Fairy was its own TCG type.</td>
+        </tr>
+        <tr>
+          <th scope="row">Fighting</th>
+          <td><span class="ty-m ty-m-fighting" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.2 6.1a1.2 1.2 0 0 1 1.2-1.2h4.3a3.1 3.1 0 0 1 3.1 3.1 3.1 3.1 0 0 1-3.1 3.1H3.4A1.2 1.2 0 0 1 2.2 9.9Z"/><path d="M3.6 4.9V3.3a1 1 0 0 1 2 0v1.6ZM6.2 4.9V2.6a1 1 0 0 1 2 0v2.3Z"/></svg></span><b>Fighting</b></td>
+          <td class="ty-n">33 of 33 (100%)</td>
+          <td class="ty-x"></td>
+        </tr>
+        <tr>
+          <th scope="row">Ground</th>
+          <td><span class="ty-same">Fighting</span></td>
+          <td class="ty-n">25 of 25 (100%)</td>
+          <td class="ty-x"></td>
+        </tr>
+        <tr>
+          <th scope="row">Rock</th>
+          <td><span class="ty-same">Fighting</span></td>
+          <td class="ty-n">28 of 28 (100%)</td>
+          <td class="ty-x"></td>
+        </tr>
+        <tr>
+          <th scope="row">Dark</th>
+          <td><span class="ty-m ty-m-darkness" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><circle cx="6" cy="6" r="5.4"/><ellipse cx="6" cy="6" rx="3.6" ry="2" fill="#F1EDD2"/><circle cx="6" cy="6" r="1.1" fill="#39394A"/></svg></span><b>Darkness</b></td>
+          <td class="ty-n">19 of 19 (100%)</td>
+          <td class="ty-x"></td>
+        </tr>
+        <tr>
+          <th scope="row">Poison</th>
+          <td><span class="ty-same">Darkness</span></td>
+          <td class="ty-n">17 of 17 (100%)</td>
+          <td class="ty-x">since Sword &amp; Shield. Poison was Grass in the TCG until EX Power Keepers and Psychic from Diamond &amp; Pearl until Sword &amp; Shield, so old Poison cards look wrong to a new player and are not.</td>
+        </tr>
+        <tr>
+          <th scope="row">Steel</th>
+          <td><span class="ty-m ty-m-metal" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 0 7.3 3.1 10.5 1.5 8.9 4.7 12 6 8.9 7.3 10.5 10.5 7.3 8.9 6 12 4.7 8.9 1.5 10.5 3.1 7.3 0 6 3.1 4.7 1.5 1.5 4.7 3.1Z"/></svg></span><b>Metal</b></td>
+          <td class="ty-n">13 of 13 (100%)</td>
+          <td class="ty-x"></td>
+        </tr>
+        <tr>
+          <th scope="row">Normal</th>
+          <td><span class="ty-m ty-m-colorless" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span><b>Colorless</b></td>
+          <td class="ty-n">95 of 95 (100%)</td>
+          <td class="ty-x"></td>
+        </tr>
+        <tr>
+          <th scope="row">Flying</th>
+          <td><span class="ty-same">Colorless</span></td>
+          <td class="ty-n">4 of 4 (100%)</td>
+          <td class="ty-x">n is small because almost every Flying Pokemon is dual-typed and dual-typed Pokemon were excluded from this test. Bulbapedia's claim stands, the measurement just cannot say much about it.</td>
+        </tr>
+        <tr>
+          <th scope="row">Dragon</th>
+          <td><span class="ty-m ty-m-dragon" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 2c3.2 0 5.6 2.6 5.6 4S9.2 10 6 10 .4 7.4 .4 6 2.8 2 6 2Z"/><path d="M6 3.4c.7 0 1.2 1.2 1.2 2.6S6.7 8.6 6 8.6 4.8 7.4 4.8 6 5.3 3.4 6 3.4Z" fill="#F1EDD2"/></svg></span><b>Dragon</b></td>
+          <td class="ty-n">7 of 7 (100%)</td>
+          <td class="ty-x"></td>
+        </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="ty-note" style="margin-top:var(--s3)">This is a strong tendency and not a law. The TCG type of a card is a design decision made card by card, and dual-typed Pokemon get whichever of their two types the designers picked, which is why a Grass/Poison Bulbasaur is a Grass card while a pure-Poison Muk is a Darkness card.</p>
+      </section>
+
+      <div class="ty-key-blk">
+        <h2>There is no type chart in the card game</h2>
+        <p>This is the sentence the rest of the page hangs off, so here it is on its own. The rulebook's own
+          wording is "Some Pokemon have Weakness or Resistance to Pokemon of certain types", and its glossary
+          entries for both end with the words "if any". Nothing in the game says Fire beats Grass. What a card is
+          weak to is whatever that one card has printed on it, and the same Pokemon printed in a different set can
+          say something else.</p>
+        <div class="ty-corner">
+          <ul class="ty-rules">
+            <li><b>Where to look</b>The bottom-left corner of the card. Weakness first, Resistance after it, and a
+              lot of cards carry one or neither.</li>
+            <li><b>What Weakness does</b>The attack does more damage, and how much more is printed next to the
+              symbol. On current cards that is x2, which doubles it. Older cards printed +10, +20 and +30 instead,
+              so this is what today's cards print rather than a rule of the game.</li>
+            <li><b>What Resistance does</b>The attack does less. Cards from the Sword and Shield series onward
+              print -30. Before that it was -20 for over a decade, which you can see on the Fairy card further
+              down this page.</li>
+            <li><b>When neither applies</b>Never on a Benched Pokemon. Weakness and Resistance only touch the
+              Active Pokemon.</li>
+          </ul>
+<figure class="ty-fig ">
+          <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/094/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03.5/094/high.avif 600w" sizes="150px"><img src="https://assets.tcgdex.net/en/sv/sv03.5/094/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03.5/094/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03.5/094/high.webp 600w" sizes="150px" alt="Gengar, 151 number 094, a Psychic card" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+          <figcaption>
+            <b>Gengar</b>
+            <span class="ty-cs"><a href="/sets/151.html">151</a> #094</span>
+            <span class="ty-cp">This card prints Weakness Darkness x2 and Resistance Fighting -30.</span>
+            <span class="ty-cv">Type, Weakness and Resistance read off api.tcgdex.net/v2/en/cards/sv03.5-094, read 2026-08-15</span>
+          </figcaption>
+        </figure>
+        </div>
+        <p>That card is doing two jobs at once. Gengar is a Ghost and Poison Pokemon in the video games and it is
+          printed as a Psychic card, which is the shortest proof that the two systems are not the same one. It is
+          also one of the few cards that prints both a Weakness and a Resistance, so its corner shows you both
+          marks together.</p>
+      </div>
+
+      <section class="ty-grp">
+        <h2>The <span class="hl">11 types</span>, and what their cards actually print</h2>
+        <p>In the order The Pokemon Company numbers them on basic Energy cards, 001 Grass through 008 Metal, so a
+          stack of Energy is already sorted this way. Colorless and Dragon follow because neither has a basic
+          Energy card of its own. Fairy is last because it is retired. Every percentage below is a count of what
+          is printed on cards, never a chance of pulling anything.</p>
+        <div class="ty-list">
+          <article class="ty-t" id="grass">
+            <div class="ty-th">
+              <h3><span class="ty-m ty-m-grass" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M11 1C4.6 1 1 4.4 1 8.2c0 1.2.4 2.2 1 2.9C3.4 8 5.9 5.8 8.9 4.6 6.4 6.3 4.4 8.6 3.4 11.4c.6.4 1.4.6 2.2.6C9.2 12 11 8.6 11 1Z"/></svg></span>Grass</h3>
+              
+              
+            </div>
+            <p class="ty-folds">In the video games: Grass, Bug.</p>
+            <div class="ty-body">
+              <div>
+                <p class="ty-blurb">The patient type. Grass attacks tend to heal the attacker or leave the other Pokemon Poisoned, so a Grass deck wins by outlasting rather than by hitting hardest.</p>
+                <p class="ty-note">Poison used to live here too, until EX Power Keepers in 2007. Very old Grass cards of Poison Pokemon are correct for their era.</p>
+                
+                <p class="ty-tend"><b>Weakness.</b> Of the 210 Grass Pokemon cards measured,
+        <b>208 (99%) print Fire x2</b>. The rest: Lightning x2 on 2 (1%).</p>
+                <p class="ty-tend"><b>Resistance.</b> Of the 210 Grass Pokemon cards measured,
+        <b>208 (99%) print no Resistance at all</b>. The rest: Fighting -30 on 2 (1%).</p>
+              </div>
+              <div class="ty-figs">
+<figure class="ty-fig ">
+          <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/003/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03.5/003/high.avif 600w" sizes="150px"><img src="https://assets.tcgdex.net/en/sv/sv03.5/003/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03.5/003/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03.5/003/high.webp 600w" sizes="150px" alt="Venusaur ex, 151 number 003, a Grass card" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+          <figcaption>
+            <b>Venusaur ex</b>
+            <span class="ty-cs"><a href="/sets/151.html">151</a> #003</span>
+            <span class="ty-cp">This card prints Weakness Fire x2.</span>
+            <span class="ty-cv">Type, Weakness and Resistance read off api.tcgdex.net/v2/en/cards/sv03.5-003, read 2026-08-15</span>
+          </figcaption>
+        </figure>
+              </div>
+            </div>
+
+          </article>
+          <article class="ty-t" id="fire">
+            <div class="ty-th">
+              <h3><span class="ty-m ty-m-fire" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 0C6 3.4 2.1 4.1 2.1 7.5A3.9 3.9 0 0 0 9.9 7.5C9.9 4.9 7.4 4.5 7.4 2.1 7.4 4 6 3.4 6 0Z"/></svg></span>Fire</h3>
+              
+              
+            </div>
+            <p class="ty-folds">In the video games: Fire.</p>
+            <div class="ty-body">
+              <div>
+                <p class="ty-blurb">The big-swing type. Fire attacks hit hard and can leave the other Pokemon Burned, but they usually cost you Energy off your own Pokemon to do it.</p>
+                <p class="ty-note">The only TCG type that maps to exactly one video game type and nothing else.</p>
+                
+                <p class="ty-tend"><b>Weakness.</b> Of the 146 Fire Pokemon cards measured,
+        <b>141 (97%) print Water x2</b>. The rest: Lightning x2 on 5 (3%).</p>
+                <p class="ty-tend"><b>Resistance.</b> Of the 146 Fire Pokemon cards measured,
+        <b>141 (97%) print no Resistance at all</b>. The rest: Fighting -30 on 5 (3%).</p>
+              </div>
+              <div class="ty-figs">
+<figure class="ty-fig ">
+          <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/006/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03.5/006/high.avif 600w" sizes="150px"><img src="https://assets.tcgdex.net/en/sv/sv03.5/006/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03.5/006/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03.5/006/high.webp 600w" sizes="150px" alt="Charizard ex, 151 number 006, a Fire card" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+          <figcaption>
+            <b>Charizard ex</b>
+            <span class="ty-cs"><a href="/sets/151.html">151</a> #006</span>
+            <span class="ty-cp">This card prints Weakness Water x2.</span>
+            <span class="ty-cv">Type, Weakness and Resistance read off api.tcgdex.net/v2/en/cards/sv03.5-006, read 2026-08-15</span>
+          </figcaption>
+        </figure>
+              </div>
+            </div>
+
+          </article>
+          <article class="ty-t" id="water">
+            <div class="ty-th">
+              <h3><span class="ty-m ty-m-water" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 .6C6 .6 1.9 5.4 1.9 7.9a4.1 4.1 0 0 0 8.2 0C10.1 5.4 6 .6 6 .6Z"/></svg></span>Water</h3>
+              
+              
+            </div>
+            <p class="ty-folds">In the video games: Water, Ice.</p>
+            <div class="ty-body">
+              <div>
+                <p class="ty-blurb">The type that moves things around. Water attacks shuffle Energy and drag the other player's benched Pokemon into the fight, which is how they pick the matchup they want.</p>
+                
+                
+                <p class="ty-tend"><b>Weakness.</b> Of the 183 Water Pokemon cards measured,
+        <b>137 (75%) print Lightning x2</b>. The rest: Metal x2 on 46 (25%).</p>
+        <p class="ty-note">The quarter that print Metal instead are the Ice Pokemon. Ice is a Water card here, but it keeps the fear of Steel it has in the video games, and the cards call Steel Metal. Psychic, Fighting, Darkness and Colorless all split the same way, for the same kind of reason.</p>
+                <p class="ty-tend"><b>Resistance.</b> Of the 183 Water Pokemon cards measured,
+        <b>175 (96%) print no Resistance at all</b>. The rest: Fighting -30 on 8 (4%).</p>
+              </div>
+              <div class="ty-figs">
+<figure class="ty-fig ">
+          <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/009/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03.5/009/high.avif 600w" sizes="150px"><img src="https://assets.tcgdex.net/en/sv/sv03.5/009/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03.5/009/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03.5/009/high.webp 600w" sizes="150px" alt="Blastoise ex, 151 number 009, a Water card" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+          <figcaption>
+            <b>Blastoise ex</b>
+            <span class="ty-cs"><a href="/sets/151.html">151</a> #009</span>
+            <span class="ty-cp">This card prints Weakness Lightning x2.</span>
+            <span class="ty-cv">Type, Weakness and Resistance read off api.tcgdex.net/v2/en/cards/sv03.5-009, read 2026-08-15</span>
+          </figcaption>
+        </figure>
+              </div>
+            </div>
+
+          </article>
+          <article class="ty-t" id="lightning">
+            <div class="ty-th">
+              <h3><span class="ty-m ty-m-lightning" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M7.6 0 2.4 6.9h2.9L4.6 12 9.9 4.8H6.6Z"/></svg></span>Lightning</h3>
+              
+              
+            </div>
+            <p class="ty-folds">In the video games: Electric.</p>
+            <div class="ty-body">
+              <div>
+                <p class="ty-blurb">The refuel type. Lightning attacks pull used Energy back out of the discard pile and can leave the other Pokemon Paralyzed, so they keep swinging when other decks have run dry.</p>
+                <p class="ty-note">The TCG has never called it Electric. Beginners search for Electric and land on the video game chart, which is one reason this page exists.</p>
+                
+                <p class="ty-tend"><b>Weakness.</b> Of the 132 Lightning Pokemon cards measured,
+        <b>120 (91%) print Fighting x2</b>. The rest: Lightning x2 on 12 (9%).</p>
+                <p class="ty-tend"><b>Resistance.</b> Of the 132 Lightning Pokemon cards measured,
+        <b>120 (91%) print no Resistance at all</b>. The rest: Fighting -30 on 12 (9%).</p>
+              </div>
+              <div class="ty-figs">
+<figure class="ty-fig ">
+          <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/025/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03.5/025/high.avif 600w" sizes="150px"><img src="https://assets.tcgdex.net/en/sv/sv03.5/025/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03.5/025/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03.5/025/high.webp 600w" sizes="150px" alt="Pikachu, 151 number 025, a Lightning card" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+          <figcaption>
+            <b>Pikachu</b>
+            <span class="ty-cs"><a href="/sets/151.html">151</a> #025</span>
+            <span class="ty-cp">This card prints Weakness Fighting x2.</span>
+            <span class="ty-cv">Type, Weakness and Resistance read off api.tcgdex.net/v2/en/cards/sv03.5-025, read 2026-08-15</span>
+          </figcaption>
+        </figure>
+              </div>
+            </div>
+
+          </article>
+          <article class="ty-t" id="psychic">
+            <div class="ty-th">
+              <h3><span class="ty-m ty-m-psychic" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><circle cx="6" cy="6" r="2.6"/><ellipse cx="6" cy="6" rx="5.4" ry="2.2" fill="none" stroke-width="1" stroke="currentColor"/><ellipse cx="6" cy="6" rx="2.2" ry="5.4" fill="none" stroke-width="1" stroke="currentColor"/></svg></span>Psychic</h3>
+              
+              
+            </div>
+            <p class="ty-folds">In the video games: Psychic, Ghost, Fairy.</p>
+            <div class="ty-body">
+              <div>
+                <p class="ty-blurb">The trick type. Psychic cards do their work through Abilities and status, leaving the other Pokemon Asleep, Confused or Poisoned rather than just hitting it.</p>
+                <p class="ty-note">Fairy only since Sword &amp; Shield, February 2020. Ghost has been here since the start. Poison sat here from Diamond &amp; Pearl until Sword &amp; Shield and has since moved to Darkness.</p>
+                
+                <p class="ty-tend"><b>Weakness.</b> Of the 180 Psychic Pokemon cards measured,
+        <b>122 (68%) print Darkness x2</b>. The rest: Metal x2 on 55 (31%), Lightning x2 on 3 (2%).</p>
+        <p class="ty-note">The Metal third are the Pokemon that are Fairy in the video games. Fairy fears Steel in the games, the cards call Steel Metal, and the weakness came along when the type was folded in.</p>
+                <p class="ty-tend"><b>Resistance.</b> Of the 180 Psychic Pokemon cards measured,
+        <b>125 (69%) print Fighting -30</b>. The rest: no Resistance at all on 55 (31%).</p>
+        <p class="ty-note">The only current type where printing a Resistance is the majority case, and it splits the same way. The Ghost and Psychic ones carry Fighting -30 and the former Fairy ones carry nothing.</p>
+              </div>
+              <div class="ty-figs">
+<figure class="ty-fig ">
+          <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/094/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03.5/094/high.avif 600w" sizes="150px"><img src="https://assets.tcgdex.net/en/sv/sv03.5/094/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03.5/094/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03.5/094/high.webp 600w" sizes="150px" alt="Gengar, 151 number 094, a Psychic card" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+          <figcaption>
+            <b>Gengar</b>
+            <span class="ty-cs"><a href="/sets/151.html">151</a> #094</span>
+            <span class="ty-cp">This card prints Weakness Darkness x2 and Resistance Fighting -30.</span>
+            <span class="ty-cv">Type, Weakness and Resistance read off api.tcgdex.net/v2/en/cards/sv03.5-094, read 2026-08-15</span>
+          </figcaption>
+        </figure>
+              </div>
+            </div>
+
+          </article>
+          <article class="ty-t" id="fighting">
+            <div class="ty-th">
+              <h3><span class="ty-m ty-m-fighting" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M2.2 6.1a1.2 1.2 0 0 1 1.2-1.2h4.3a3.1 3.1 0 0 1 3.1 3.1 3.1 3.1 0 0 1-3.1 3.1H3.4A1.2 1.2 0 0 1 2.2 9.9Z"/><path d="M3.6 4.9V3.3a1 1 0 0 1 2 0v1.6ZM6.2 4.9V2.6a1 1 0 0 1 2 0v2.3Z"/></svg></span>Fighting</h3>
+              
+              
+            </div>
+            <p class="ty-folds">In the video games: Fighting, Ground, Rock.</p>
+            <div class="ty-body">
+              <div>
+                <p class="ty-blurb">The gambler. Fighting attacks do extra damage if you accept a downside, and a lot of them flip coins for combination hits, so the type swings between whiffing and hitting far above its cost.</p>
+                <p class="ty-note">Three video game types in one. This is the biggest single collapse in the TCG and the one most likely to confuse someone coming from the games.</p>
+                
+                <p class="ty-tend"><b>Weakness.</b> Of the 175 Fighting Pokemon cards measured,
+        <b>121 (69%) print Grass x2</b>. The rest: Psychic x2 on 54 (31%).</p>
+        <p class="ty-note">It splits by where the Pokemon came from. The Ground and Rock ones print Grass, the actual Fighting ones print Psychic. Both track the video games through the card game's own names, because Grass covers Bug as well as Grass and Ground and Rock fear both.</p>
+                <p class="ty-tend"><b>Resistance.</b> Of the 175 Fighting Pokemon cards measured,
+        <b>175 (100%) print no Resistance at all</b>.</p>
+        <p class="ty-note">Not one of the 175 Fighting cards sampled printed a Resistance at all. That is a striking number, and it is exactly the sort of thing that could stop being true next set, which is why the count and the set list stay next to it.</p>
+              </div>
+              <div class="ty-figs">
+<figure class="ty-fig ">
+          <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/068/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03.5/068/high.avif 600w" sizes="150px"><img src="https://assets.tcgdex.net/en/sv/sv03.5/068/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03.5/068/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03.5/068/high.webp 600w" sizes="150px" alt="Machamp, 151 number 068, a Fighting card" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+          <figcaption>
+            <b>Machamp</b>
+            <span class="ty-cs"><a href="/sets/151.html">151</a> #068</span>
+            <span class="ty-cp">This card prints Weakness Psychic x2.</span>
+            <span class="ty-cv">Type, Weakness and Resistance read off api.tcgdex.net/v2/en/cards/sv03.5-068, read 2026-08-15</span>
+          </figcaption>
+        </figure>
+              </div>
+            </div>
+
+          </article>
+          <article class="ty-t" id="darkness">
+            <div class="ty-th">
+              <h3><span class="ty-m ty-m-darkness" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><circle cx="6" cy="6" r="5.4"/><ellipse cx="6" cy="6" rx="3.6" ry="2" fill="#F1EDD2"/><circle cx="6" cy="6" r="1.1" fill="#39394A"/></svg></span>Darkness</h3>
+              
+              
+            </div>
+            <p class="ty-folds">In the video games: Dark, Poison.</p>
+            <div class="ty-body">
+              <div>
+                <p class="ty-blurb">The type that plays dirty. Darkness attacks make the other player discard cards and can leave their Pokemon Poisoned, so it wins by taking away the tools rather than by out-damaging anyone.</p>
+                <p class="ty-note">Poison arrived here with Sword &amp; Shield in 2020. Before that it was Psychic, and before EX Power Keepers it was Grass. A Poison Pokemon's TCG type has changed twice, so which card is 'right' depends entirely on when it was printed.</p>
+                
+                <p class="ty-tend"><b>Weakness.</b> Of the 125 Darkness Pokemon cards measured,
+        <b>59 (47%) print Grass x2</b>. The rest: Fighting x2 on 53 (42%), Lightning x2 on 13 (10%).</p>
+        <p class="ty-note">This is the most split type on the page and the only one where the top answer is under half, which is why there is no honest way to round it to one answer. It splits by origin and both halves make sense. The Dark Pokemon print Grass, because Dark fears Bug in the games and Bug is a Grass card here. The Poison Pokemon print Fighting, because Poison fears Ground in the games and Ground is a Fighting card here.</p>
+                <p class="ty-tend"><b>Resistance.</b> Of the 125 Darkness Pokemon cards measured,
+        <b>112 (90%) print no Resistance at all</b>. The rest: Fighting -30 on 13 (10%).</p>
+              </div>
+              <div class="ty-figs">
+
+              </div>
+            </div>
+            <div class="ty-split">
+              <h4>Same type, different printed Weakness</h4>
+              <p>Here is the whole argument in two cards. Muk is a pure Poison Pokemon, Hydreigon ex is a Dark
+                one, and both are printed as Darkness cards. One prints Fighting x2 and the other prints Grass x2.
+                No chart can hold both, and no chart has to: the answer is printed on the card in your hand. Muk is
+                a common out of a set we rip constantly, so this is a thing you can go and check.</p>
+              <div class="ty-figs">
+<figure class="ty-fig ">
+          <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/089/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03.5/089/high.avif 600w" sizes="150px"><img src="https://assets.tcgdex.net/en/sv/sv03.5/089/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03.5/089/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03.5/089/high.webp 600w" sizes="150px" alt="Muk, 151 number 089, a Darkness card" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+          <figcaption>
+            <b>Muk</b>
+            <span class="ty-cs"><a href="/sets/151.html">151</a> #089</span>
+            <span class="ty-cp">This card prints Weakness Fighting x2.</span>
+            <span class="ty-cv">Type, Weakness and Resistance read off api.tcgdex.net/v2/en/cards/sv03.5-089, read 2026-08-15</span>
+          </figcaption>
+        </figure>
+<figure class="ty-fig ">
+          <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/119/low.avif 245w, https://assets.tcgdex.net/en/sv/sv08/119/high.avif 600w" sizes="150px"><img src="https://assets.tcgdex.net/en/sv/sv08/119/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv08/119/low.webp 245w, https://assets.tcgdex.net/en/sv/sv08/119/high.webp 600w" sizes="150px" alt="Hydreigon ex, surging-sparks number 119, a Darkness card" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+          <figcaption>
+            <b>Hydreigon ex</b>
+            <span class="ty-cs"><a href="/sets/surging-sparks.html">Surging Sparks</a> #119</span>
+            <span class="ty-cp">This card prints Weakness Grass x2.</span>
+            <span class="ty-cv">Type, Weakness and Resistance read off api.tcgdex.net/v2/en/cards/sv08-119, read 2026-08-15</span>
+          </figcaption>
+        </figure>
+              </div>
+            </div>
+          </article>
+          <article class="ty-t" id="metal">
+            <div class="ty-th">
+              <h3><span class="ty-m ty-m-metal" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 0 7.3 3.1 10.5 1.5 8.9 4.7 12 6 8.9 7.3 10.5 10.5 7.3 8.9 6 12 4.7 8.9 1.5 10.5 3.1 7.3 0 6 3.1 4.7 1.5 1.5 4.7 3.1Z"/></svg></span>Metal</h3>
+              
+              
+            </div>
+            <p class="ty-folds">In the video games: Steel.</p>
+            <div class="ty-body">
+              <div>
+                <p class="ty-blurb">The wall. Metal Pokemon soak damage for longer than anything else in the game, and Metal is the one type where printing a Resistance is normal rather than rare.</p>
+                <p class="ty-note">Called Steel in the games and Metal on the cards, the same rename Electric gets as Lightning.</p>
+                
+                <p class="ty-tend"><b>Weakness.</b> Of the 90 Metal Pokemon cards measured,
+        <b>83 (92%) print Fire x2</b>. The rest: Lightning x2 on 7 (8%).</p>
+                <p class="ty-tend"><b>Resistance.</b> Of the 90 Metal Pokemon cards measured,
+        <b>83 (92%) print Grass -30</b>. The rest: Fighting -30 on 7 (8%).</p>
+        <p class="ty-note">Metal is the only current type where essentially every card prints a Resistance.</p>
+              </div>
+              <div class="ty-figs">
+<figure class="ty-fig ">
+          <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/130/low.avif 245w, https://assets.tcgdex.net/en/sv/sv08/130/high.avif 600w" sizes="150px"><img src="https://assets.tcgdex.net/en/sv/sv08/130/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv08/130/low.webp 245w, https://assets.tcgdex.net/en/sv/sv08/130/high.webp 600w" sizes="150px" alt="Archaludon ex, surging-sparks number 130, a Metal card" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+          <figcaption>
+            <b>Archaludon ex</b>
+            <span class="ty-cs"><a href="/sets/surging-sparks.html">Surging Sparks</a> #130</span>
+            <span class="ty-cp">This card prints Weakness Fire x2 and Resistance Grass -30.</span>
+            <span class="ty-cv">Type, Weakness and Resistance read off api.tcgdex.net/v2/en/cards/sv08-130, read 2026-08-15</span>
+          </figcaption>
+        </figure>
+              </div>
+            </div>
+
+          </article>
+          <article class="ty-t" id="colorless">
+            <div class="ty-th">
+              <h3><span class="ty-m ty-m-colorless" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Colorless</h3>
+              
+              <span class="ty-badge">No basic Energy card</span>
+            </div>
+            <p class="ty-folds">In the video games: Normal, Flying.</p>
+            <div class="ty-body">
+              <div>
+                <p class="ty-blurb">The type that fits anywhere. Colorless Pokemon take any Energy you have, so they slot into a deck built around something else, and a Colorless symbol in an attack cost can be paid with any Energy card at all.</p>
+                
+                <p class="ty-extra">Two separate facts share this name and they are easy to merge. A Colorless Pokemon is a card with the star type. A Colorless symbol in an attack cost is a slot that any Energy card can fill. There is no basic Colorless Energy card, which is only confusing until you notice that the symbol means anything rather than a thing.</p>
+                <p class="ty-tend"><b>Weakness.</b> Of the 169 Colorless Pokemon cards measured,
+        <b>119 (70%) print Fighting x2</b>. The rest: Lightning x2 on 50 (30%).</p>
+        <p class="ty-note">Splits by origin again. The Normal Pokemon print Fighting, and the Flying ones print Lightning and carry Fighting -30, which is exactly the Flying profile from the games.</p>
+                <p class="ty-tend"><b>Resistance.</b> Of the 169 Colorless Pokemon cards measured,
+        <b>119 (70%) print no Resistance at all</b>. The rest: Fighting -30 on 50 (30%).</p>
+              </div>
+              <div class="ty-figs">
+<figure class="ty-fig ">
+          <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/143/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03.5/143/high.avif 600w" sizes="150px"><img src="https://assets.tcgdex.net/en/sv/sv03.5/143/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03.5/143/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03.5/143/high.webp 600w" sizes="150px" alt="Snorlax, 151 number 143, a Colorless card" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+          <figcaption>
+            <b>Snorlax</b>
+            <span class="ty-cs"><a href="/sets/151.html">151</a> #143</span>
+            <span class="ty-cp">This card prints Weakness Fighting x2.</span>
+            <span class="ty-cv">Type, Weakness and Resistance read off api.tcgdex.net/v2/en/cards/sv03.5-143, read 2026-08-15</span>
+          </figcaption>
+        </figure>
+              </div>
+            </div>
+
+          </article>
+          <article class="ty-t" id="dragon">
+            <div class="ty-th">
+              <h3><span class="ty-m ty-m-dragon" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 2c3.2 0 5.6 2.6 5.6 4S9.2 10 6 10 .4 7.4 .4 6 2.8 2 6 2Z"/><path d="M6 3.4c.7 0 1.2 1.2 1.2 2.6S6.7 8.6 6 8.6 4.8 7.4 4.8 6 5.3 3.4 6 3.4Z" fill="#F1EDD2"/></svg></span>Dragon</h3>
+              
+              <span class="ty-badge">No basic Energy card</span>
+            </div>
+            <p class="ty-folds">In the video games: Dragon.</p>
+            <div class="ty-body">
+              <div>
+                <p class="ty-blurb">The greedy type. Dragon attacks hit like nothing else, but they usually demand two different kinds of Energy to fire, because there is no Dragon Energy card to feed them.</p>
+                <p class="ty-note">Dragon Pokemon were Colorless cards until Dragons Exalted gave them their own type.</p>
+                
+                <p class="ty-tend"><b>Weakness.</b> Of the 36 Dragon Pokemon cards measured,
+        <b>36 (100%) print no Weakness at all</b>.</p>
+        <p class="ty-note">All 36 modern Dragon cards sampled print no Weakness and no Resistance at all. The bottom-left corner is simply empty. A universal type chart cannot describe a Pokemon that has no Weakness, so one Dragonite settles the question faster than a paragraph does. Bulbapedia dates the change to Evolving Skies.</p>
+                <p class="ty-tend"><b>Resistance.</b> Of the 36 Dragon Pokemon cards measured,
+        <b>36 (100%) print no Resistance at all</b>.</p>
+              </div>
+              <div class="ty-figs">
+<figure class="ty-fig ">
+          <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/149/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03.5/149/high.avif 600w" sizes="150px"><img src="https://assets.tcgdex.net/en/sv/sv03.5/149/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03.5/149/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03.5/149/high.webp 600w" sizes="150px" alt="Dragonite, 151 number 149, a Dragon card" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+          <figcaption>
+            <b>Dragonite</b>
+            <span class="ty-cs"><a href="/sets/151.html">151</a> #149</span>
+            <span class="ty-cp">This card prints no Weakness and no Resistance at all.</span>
+            <span class="ty-cv">Type, Weakness and Resistance read off api.tcgdex.net/v2/en/cards/sv03.5-149, read 2026-08-15</span>
+          </figcaption>
+        </figure>
+              </div>
+            </div>
+
+          </article>
+          <article class="ty-t" id="fairy">
+            <div class="ty-th">
+              <h3><span class="ty-m ty-m-fairy" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><ellipse cx="6" cy="2.9" rx="1.7" ry="2.5"/><ellipse cx="6" cy="2.9" rx="1.7" ry="2.5" transform="rotate(72 6 6)"/><ellipse cx="6" cy="2.9" rx="1.7" ry="2.5" transform="rotate(144 6 6)"/><ellipse cx="6" cy="2.9" rx="1.7" ry="2.5" transform="rotate(216 6 6)"/><ellipse cx="6" cy="2.9" rx="1.7" ry="2.5" transform="rotate(288 6 6)"/></svg></span>Fairy</h3>
+              <span class="ty-badge ret">Retired, Sword &amp; Shield, February 2020</span>
+              
+            </div>
+            <p class="ty-folds">No video game type maps here any more.</p>
+            <div class="ty-body">
+              <div>
+                <p class="ty-blurb">Retired. Fairy ran from 2013 to 2020 and specialised in blunting the other player's attacks. You will still find Fairy cards in older packs and bulk, and they are not fakes or misprints.</p>
+                <p class="ty-note">Pokemon that are Fairy in the video games are printed as PSYCHIC cards now.</p>
+                
+                <p class="ty-tend ty-unmeasured"><b>Weakness and Resistance.</b> Not measured, and this page
+                  publishes no figure for Fairy. None of the ten sets counted below is old enough to contain a
+                  Fairy card, and filling the gap by pattern-matching the other ten types would be a guess wearing
+                  a percentage sign. The card below prints Metal x2 and Darkness -20, and that is a statement about
+                  that one card. Note the -20: it is a pre-Sword-and-Shield card, from back when Resistance was
+                  -20 rather than -30, which is a second unforced demonstration that these values are printed
+                  rather than fixed.</p>
+              </div>
+              <div class="ty-figs">
+<figure class="ty-fig ">
+          <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy1/96/low.avif 245w, https://assets.tcgdex.net/en/xy/xy1/96/high.avif 600w" sizes="150px"><img src="https://assets.tcgdex.net/en/xy/xy1/96/low.webp" srcset="https://assets.tcgdex.net/en/xy/xy1/96/low.webp 245w, https://assets.tcgdex.net/en/xy/xy1/96/high.webp 600w" sizes="150px" alt="Xerneas, XY number 96, a Fairy card" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+          <figcaption>
+            <b>Xerneas</b>
+            <span class="ty-cs">XY #96</span>
+            <span class="ty-cp">This card prints Weakness Metal x2 and Resistance Darkness -20.</span>
+            <span class="ty-cv">Type, Weakness and Resistance read off api.tcgdex.net/v2/en/cards/xy1-96, read 2026-08-15</span>
+          </figcaption>
+        </figure>
+              </div>
+            </div>
+
+          </article>
+        </div>
+      </section>
+
+      <section class="ty-grp">
+        <h2>Types that came and <span class="hl">went</span></h2>
+        <p>Two types have a history worth knowing, because both explain a card that looks wrong and is not.</p>
+        <div class="ty-list">
+          <article class="ty-t">
+            <div class="ty-th"><h3><span class="ty-m ty-m-dragon" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><path d="M6 2c3.2 0 5.6 2.6 5.6 4S9.2 10 6 10 .4 7.4 .4 6 2.8 2 6 2Z"/><path d="M6 3.4c.7 0 1.2 1.2 1.2 2.6S6.7 8.6 6 8.6 4.8 7.4 4.8 6 5.3 3.4 6 3.4Z" fill="#F1EDD2"/></svg></span>Dragon</h3><span class="ty-badge">Since Dragons Exalted, 2012</span></div>
+            <p class="ty-blurb">Introduced in Dragons Exalted (2012). Absent from Sword &amp; Shield until Evolving Skies (August 2021), after Cosmic Eclipse (November 2019) was the last set to carry one. Absent again at the start of Scarlet &amp; Violet, then back in Paldea Evolved (2023), this time without the claw-mark card frame.</p>
+            <p class="ty-note">Where this comes from: Bulbapedia. The dates of the two absences rest on Bulbapedia alone. The current state, no Weakness and no Resistance printed, was counted here over 36 cards.</p>
+          </article>
+          <article class="ty-t">
+            <div class="ty-th"><h3><span class="ty-m ty-m-fairy" aria-hidden="true"><svg viewBox="0 0 12 12" focusable="false"><ellipse cx="6" cy="2.9" rx="1.7" ry="2.5"/><ellipse cx="6" cy="2.9" rx="1.7" ry="2.5" transform="rotate(72 6 6)"/><ellipse cx="6" cy="2.9" rx="1.7" ry="2.5" transform="rotate(144 6 6)"/><ellipse cx="6" cy="2.9" rx="1.7" ry="2.5" transform="rotate(216 6 6)"/><ellipse cx="6" cy="2.9" rx="1.7" ry="2.5" transform="rotate(288 6 6)"/></svg></span>Fairy</h3><span class="ty-badge">Since Kalos Starter Set, 2013</span></div>
+            <p class="ty-blurb">Debuted in the Kalos Starter Set (2013). The Pokemon Company announced in January 2020 that Fairy would not be supported from the Sword &amp; Shield series onward, and that Fairy Pokemon would generally be printed as Psychic and Poison Pokemon as Darkness. Sword &amp; Shield released 7 February 2020. Basic Fairy Energy became the first Basic Energy card ever to rotate out of the Standard format.</p>
+            <p class="ty-note">Where this comes from: The Pokemon Company's January 2020 announcement, Bulbapedia, and the current official rulebook, which still lists Fairy and notes that no Fairy cards appear in the Scarlet and Violet series while they do exist in older expansions. The announcement itself could only be reached as a mirror, so every claim taken from it was confirmed against the rulebook or against the cards before it went on this page.</p>
+          </article>
+        </div>
+        <p class="ty-note" style="margin-top:var(--s4)">This page says nothing about which tournament formats a
+          Fairy card is legal in today, because that was not checked against the current Play Pokemon rotation. In
+          a game at the kitchen table a Fairy card works exactly as printed. It is not a fake, not a misprint and
+          not worthless.</p>
+      </section>
+
+      <div class="ty-meas">
+        <h2>How the numbers on this page were <span class="hl">measured</span></h2>
+        <p>Every Pokemon card in ten sets was fetched from api.tcgdex.net (the same host the set pages already use) and its printed types, Weakness and Resistance recorded. Alternate arts of the same card in the same set were counted once, so a chase card with four printings does not vote four times.</p>
+        <p>Ten sets, run on August 15, 2026: <a href="/sets/151.html">151</a>, <a href="/sets/destined-rivals.html">Destined Rivals</a>, <a href="/sets/journey-together.html">Journey Together</a>, <a href="/sets/surging-sparks.html">Surging Sparks</a>, <a href="/sets/mega-evolution.html">Mega Evolution</a>, <a href="/sets/rebel-clash.html">Rebel Clash</a>, <a href="/sets/crown-zenith.html">Crown Zenith</a>, <a href="/sets/paldea-evolved.html">Paldea Evolved</a>, <a href="/sets/obsidian-flames.html">Obsidian Flames</a>, <a href="/sets/twilight-masquerade.html">Twilight Masquerade</a>. They run from Rebel Clash in 2020
+          to Mega Evolution in 2025, so these numbers describe the modern game and not the whole history of the
+          card game. A card from 2003 can and does say something different.</p>
+        <p>1,853 cards were fetched and 1,446 unique Pokemon cards with a printed type were counted. Every percentage on this page is about what is <b>printed on cards</b>. None of it is about what comes out
+          of a pack. We do not publish pull rates, because The Pokemon Company does not publish them either.</p>
+        <h3 style="margin-top:var(--s5)">What this page does not know</h3>
+        <ul class="ty-open">
+          <li>Fairy's Weakness and Resistance are not measured here. None of the ten sets counted is old enough to hold a Fairy card, so this page publishes no figure for Fairy at all.</li>
+          <li>Whether a Fairy card is legal in any sanctioned format today was not checked against the current Play Pokemon rotation, so this page says nothing about it either way.</li>
+          <li>Bulbapedia dates the Dragon change, no Weakness and no Resistance printed, to Evolving Skies. The current state is confirmed here over 36 cards. The date is not.</li>
+          <li>The Kalos Starter Set's release date is known only to the year, 2013, so no month is printed above.</li>
+          <li>The original announcement of the Sword and Shield type changes could only be reached as a mirror. Everything it says is confirmed by the rulebook or by the cards, but the primary source is missing.</li>
+          <li>The rulebook draws each type's symbol as a picture and no official name for each shape was established. The marks on this page are our own drawings and the descriptions of them are ours.</li>
+        </ul>
+      </div>
+
+      <section class="ty-grp">
+        <h2>Still holding the card?</h2>
+        <p>Three more pages read the same card from a different corner.
+          <a href="/rarity.html">The rarity guide</a> reads the symbol next to the card number and tells you what
+          is actually rare. <a href="/what-set.html">The set finder</a> takes the number printed after the slash
+          and tells you which set it came from. And <a href="/start.html">Start here</a> is the whole run of
+          questions in the order they come up.</p>
+        <p>Or, since Weakness and Resistance only ever matter in a game:
+          <a href="/how-to-play.html">how do you actually play?</a> Setup, a turn, and the three ways to win, for
+          somebody who has only ever opened packs.</p>
+      </section>
+
+      <p class="ty-src">The count of 11 Energy types, the Weakness and Resistance wording and the Bench exemption
+        come from the official Pokemon Trading Card Game rulebook. The video game mapping and the type histories
+        come from Bulbapedia and were checked against real cards. Every percentage was measured from card records
+        on August 15, 2026 and describes what is printed on cards, never what comes out of
+        a pack. The type marks above are our own drawings, described from the card scans, and are not the official
+        Energy symbols. Card scans and card data from TCGdex.</p>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Footer">
+      <div class="foot-col">
+        <p class="foot-h">Watch</p>
+        <a href="/videos.html">Rips</a>
+        <a href="/playlists.html">Playlists</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">The binder</p>
+        <a href="/hall.html">Best pulls</a>
+        <a href="/wanted.html">Most wanted</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Cards</p>
+        <a href="/cards.html">Card search</a>
+        <a href="/pokemon/">By Pokemon</a>
+        <a href="/sets/">Set guides</a>
+        <a href="/expansions.html">Every set ever</a>
+        <a href="/upcoming.html">Coming next</a>
+        <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/pack-prices.html">Pack prices</a>
+        <a href="/how-many-packs.html">Packs per box</a>
+        <a href="/openings/">Sealed products</a>
+        <a href="/drops.html">Drops this week</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Guides</p>
+        <a href="/start.html">Start here</a>
+        <a href="/how-to-play.html">How to play</a>
+        <a href="/what-set.html">Set finder</a>
+        <a href="/rarity.html">Rarity guide</a>
+        <a href="/types.html">Card types</a>
+        <a href="/fake-cards.html">Fakes</a>
+        <a href="/will-it-grade.html">Will it grade</a>
+        <a href="/grading.html">Grading cost</a>
+        <a href="/selling.html">Where to sell</a>
+        <a href="/buying.html">Where to buy</a>
+        <a href="/luck.html">Luck, measured</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Play</p>
+        <a href="/games/">Games</a>
+        <a href="/lore.html">Pokemon lore</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Rochester, NY</p>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/vendors.html">Local vendors</a>
+        <a href="/creators.html">Local creators</a>
+        <a href="/about.html">About</a>
+      </div>
+    </nav>
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    Card scans and card data from TCGdex. Type marks drawn by us.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+<script src="/assets/app.js?v=3917fe6a" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
+</body>
+</html>

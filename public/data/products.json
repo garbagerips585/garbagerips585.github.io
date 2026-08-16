@@ -1,5 +1,5 @@
 {
-  "checked": "2026-08-12",
+  "checked": "2026-08-16",
   "sets": {
     "151": {
       "tcgSet": "SV: Scarlet & Violet 151",
@@ -1708,6 +1708,336 @@
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/270716_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/270716_200w.jpg",
           "url": "https://www.tcgplayer.com/product/270716/pokemon-go-collection-alolan-exeggutor-v"
+        }
+      ]
+    },
+    "crown-zenith": {
+      "tcgSet": "SWSH: Crown Zenith",
+      "checked": "2026-08-16",
+      "products": [
+        {
+          "kind": "Elite Trainer Box",
+          "blurb": "9 packs plus sleeves and dice",
+          "name": "Crown Zenith Elite Trainer Box",
+          "productId": 453470,
+          "market": 330.08,
+          "low": 314.96,
+          "listings": 70,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/453470_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/453470_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/453470/crown-zenith-elite-trainer-box"
+        },
+        {
+          "kind": "Booster Bundle",
+          "blurb": "6 packs",
+          "name": "Crown Zenith Booster Bundle",
+          "productId": 527562,
+          "market": 219.94,
+          "low": 195,
+          "listings": 20,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/527562_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/527562_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/527562/crown-zenith-booster-bundle"
+        },
+        {
+          "kind": "Single Pack",
+          "blurb": "One pack",
+          "name": "Crown Zenith Booster Pack",
+          "productId": 453466,
+          "market": 25.27,
+          "low": 22.21,
+          "listings": 50,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/453466_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/453466_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/453466/crown-zenith-booster-pack"
+        },
+        {
+          "kind": "Tin",
+          "blurb": "Packs plus a promo, count not in our data",
+          "name": "Crown Zenith Mini Tin [Hop & Wooloo]",
+          "productId": 453490,
+          "market": 44.75,
+          "low": 65,
+          "listings": 7,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/453490_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/453490_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/453490/crown-zenith-mini-tin-hop-and-wooloo"
+        },
+        {
+          "kind": "Collection Box",
+          "blurb": "Packs plus promos, count not in our data",
+          "name": "Crown Zenith Pin Collection [Inteleon]",
+          "productId": 475618,
+          "market": 79.11,
+          "low": 92,
+          "listings": 11,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/475618_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/475618_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/475618/crown-zenith-pin-collection-inteleon"
+        }
+      ]
+    },
+    "celebrations": {
+      "tcgSet": "Celebrations",
+      "checked": "2026-08-16",
+      "products": [
+        {
+          "kind": "Elite Trainer Box",
+          "blurb": "9 packs plus sleeves and dice",
+          "name": "Celebrations Elite Trainer Box",
+          "productId": 242811,
+          "market": 371.36,
+          "low": 352.41,
+          "listings": 84,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/242811_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/242811_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/242811/celebrations-elite-trainer-box"
+        },
+        {
+          "kind": "Single Pack",
+          "blurb": "One pack",
+          "name": "Celebrations Booster Pack",
+          "productId": 248577,
+          "market": 40.73,
+          "low": 33.5,
+          "listings": 54,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/248577_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/248577_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/248577/celebrations-booster-pack"
+        },
+        {
+          "kind": "Tin",
+          "blurb": "Packs plus a promo, count not in our data",
+          "name": "Celebrations Mini Tin [Alola]",
+          "productId": 242819,
+          "market": 49.11,
+          "low": 105,
+          "listings": 3,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/242819_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/242819_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/242819/celebrations-mini-tin-alola"
+        },
+        {
+          "kind": "Collection Box",
+          "blurb": "Packs plus promos, count not in our data",
+          "name": "Celebrations Collection [Dragapult Prime]",
+          "productId": 242807,
+          "market": 78.62,
+          "low": 93.99,
+          "listings": 8,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/242807_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/242807_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/242807/celebrations-collection-dragapult-prime"
+        }
+      ]
+    },
+    "chilling-reign": {
+      "tcgSet": "SWSH06: Chilling Reign",
+      "checked": "2026-08-16",
+      "products": [
+        {
+          "kind": "Booster Box",
+          "blurb": "36 packs",
+          "name": "Chilling Reign Booster Box",
+          "productId": 236258,
+          "market": 499.58,
+          "low": 477.01,
+          "listings": 62,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/236258_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/236258_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/236258/chilling-reign-booster-box"
+        },
+        {
+          "kind": "Elite Trainer Box",
+          "blurb": "9 packs plus sleeves and dice",
+          "name": "Chilling Reign Elite Trainer Box [Ice Rider Calyrex]",
+          "productId": 236260,
+          "market": 144.7,
+          "low": 129.99,
+          "listings": 20,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/236260_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/236260_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/236260/chilling-reign-elite-trainer-box-ice-rider-calyrex"
+        },
+        {
+          "kind": "Build & Battle Box",
+          "blurb": "4 packs plus a 40 card deck",
+          "name": "Chilling Reign Build & Battle Box",
+          "productId": 236265,
+          "market": 56.97,
+          "low": 62.67,
+          "listings": 7,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/236265_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/236265_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/236265/chilling-reign-build-and-battle-box"
+        },
+        {
+          "kind": "Blister Pack",
+          "blurb": "Packs plus a promo card, count not in our data",
+          "name": "Chilling Reign Premium Checklane Blister [Decidueye]",
+          "productId": 236278,
+          "market": 14.33,
+          "low": 25,
+          "listings": 2,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/236278_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/236278_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/236278/chilling-reign-premium-checklane-blister-decidueye"
+        },
+        {
+          "kind": "Single Pack",
+          "blurb": "One pack",
+          "name": "Chilling Reign Booster Pack",
+          "productId": 236257,
+          "market": 11.75,
+          "low": 6.99,
+          "listings": 53,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/236257_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/236257_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/236257/chilling-reign-booster-pack"
+        }
+      ]
+    },
+    "shining-fates": {
+      "tcgSet": "Shining Fates",
+      "checked": "2026-08-16",
+      "products": [
+        {
+          "kind": "Elite Trainer Box",
+          "blurb": "9 packs plus sleeves and dice",
+          "name": "Shining Fates Elite Trainer Box",
+          "productId": 228821,
+          "market": 145.99,
+          "low": 125,
+          "listings": 75,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/228821_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/228821_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/228821/shining-fates-elite-trainer-box"
+        },
+        {
+          "kind": "Single Pack",
+          "blurb": "One pack",
+          "name": "Shining Fates Booster Pack",
+          "productId": 232636,
+          "market": 15.13,
+          "low": 14,
+          "listings": 28,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/232636_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/232636_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/232636/shining-fates-booster-pack"
+        },
+        {
+          "kind": "Tin",
+          "blurb": "Packs plus a promo, count not in our data",
+          "name": "Shining Fates Mini Tin [Manaphy]",
+          "productId": 230959,
+          "market": 28.72,
+          "low": 29.97,
+          "listings": 8,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/230959_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/230959_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/230959/shining-fates-mini-tin-manaphy"
+        },
+        {
+          "kind": "Collection Box",
+          "blurb": "Packs plus promos, count not in our data",
+          "name": "Shining Fates Mad Party Pin Collection [Bunnelby]",
+          "productId": 228826,
+          "market": 40.35,
+          "low": 55,
+          "listings": 10,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/228826_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/228826_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/228826/shining-fates-mad-party-pin-collection-bunnelby"
+        }
+      ]
+    },
+    "rebel-clash": {
+      "tcgSet": "SWSH02: Rebel Clash",
+      "checked": "2026-08-16",
+      "products": [
+        {
+          "kind": "Booster Box",
+          "blurb": "36 packs",
+          "name": "Rebel Clash Booster Box",
+          "productId": 210561,
+          "market": 495.13,
+          "low": 459.99,
+          "listings": 21,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/210561_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/210561_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/210561/rebel-clash-booster-box"
+        },
+        {
+          "kind": "Elite Trainer Box",
+          "blurb": "9 packs plus sleeves and dice",
+          "name": "Rebel Clash Elite Trainer Box",
+          "productId": 210572,
+          "market": 306.43,
+          "low": 340,
+          "listings": 14,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/210572_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/210572_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/210572/rebel-clash-elite-trainer-box"
+        },
+        {
+          "kind": "Build & Battle Box",
+          "blurb": "4 packs plus a 40 card deck",
+          "name": "Rebel Clash Build & Battle Box",
+          "productId": 212821,
+          "market": 74.97,
+          "low": 80,
+          "listings": 6,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/212821_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/212821_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/212821/rebel-clash-build-and-battle-box"
+        },
+        {
+          "kind": "Blister Pack",
+          "blurb": "Packs plus a promo card, count not in our data",
+          "name": "Rebel Clash Single Pack Blister [Mantine]",
+          "productId": 210564,
+          "market": 17.67,
+          "low": 75,
+          "listings": 1,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/210564_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/210564_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/210564/rebel-clash-single-pack-blister-mantine"
+        },
+        {
+          "kind": "Single Pack",
+          "blurb": "One pack",
+          "name": "Rebel Clash Booster Pack",
+          "productId": 210562,
+          "market": 9.62,
+          "low": 8.99,
+          "listings": 20,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/210562_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/210562_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/210562/rebel-clash-booster-pack"
+        },
+        {
+          "kind": "Tin",
+          "blurb": "Packs plus a promo, count not in our data",
+          "name": "Legends of Galar Tin [Zacian V]",
+          "productId": 214230,
+          "market": 60.89,
+          "low": 200,
+          "listings": 3,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/214230_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/214230_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/214230/legends-of-galar-tin-zacian-v"
+        },
+        {
+          "kind": "Collection Box",
+          "blurb": "Packs plus promos, count not in our data",
+          "name": "Sword & Shield Figure Collection",
+          "productId": 210566,
+          "market": 238.13,
+          "low": 240,
+          "listings": 4,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/210566_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/210566_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/210566/sword-and-shield-figure-collection"
         }
       ]
     }

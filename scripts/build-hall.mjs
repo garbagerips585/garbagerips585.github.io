@@ -169,7 +169,19 @@ function resolve(c) {
   const key = `${c.set}-${c.number}`;
   const set = setById.get(c.set);
   const chase = (set?.chase || []).find((x) => String(x.number) === String(c.number)) || null;
-  const setName = set?.name || c.setName || c.set;
+  // `_setName` FIRST, and the underscore is the whole bug. The promo branch
+  // above carries its fields under `_img`, `_raw`, `_rarity` and `_setName`,
+  // and every one of those was read back here except this one, which looked for
+  // a bare `setName` that nothing writes. A promo has no set id and no entry in
+  // sets.json, so all three fallbacks were empty and the page printed the
+  // literal string "null" as a set name on the two most valuable cards on the
+  // site. The set pages had it right off the same file the whole time.
+  //
+  // The last resort is "" rather than `c.set`, because `c.set` is NULL for
+  // exactly the rows that reach it: a name we do not have has to render as
+  // absent, never as the word for absent. `chof-set` is dropped entirely when
+  // this is empty, so there is no stray bullet either.
+  const setName = set?.name || c._setName || c.setName || c.set || "";
 
   const manual = graded.prices?.[key];
   const auto = graded.auto?.[key];
@@ -273,7 +285,7 @@ function plaque(c, i) {
   const top = rank <= 3 ? ` chof-top chof-${rank}` : "";
   const art = plaqueArt(c.image);
   const img = c.image
-    ? `<img src="${esc(art.src)}"${art.extra} alt="${esc(c.name)} ${esc(c.rarity || "")} from Pokemon ${esc(c.setName)}" loading="lazy" onerror="this.remove()"${imgDims(art.src)}>`
+    ? `<img src="${esc(art.src)}"${art.extra} alt="${[esc(c.name), esc(c.rarity || ""), c.setName ? `from Pokemon ${esc(c.setName)}` : ""].filter(Boolean).join(" ")}" loading="lazy" onerror="this.remove()"${imgDims(art.src)}>`
     : `<span class="chof-noart">${esc(c.name)}</span>`;
   return `      <li class="chof${top}">
         <span class="chof-rank">${rank}</span>
@@ -286,7 +298,7 @@ function plaque(c, i) {
           aria-label="Enlarge ${esc(c.name)}">${img}</button>
         <div class="chof-body">
           <b class="chof-name">${esc(c.name)}</b>
-          <span class="chof-set">${esc(c.setName)} &bull; #${esc(c.number)}</span>
+          <span class="chof-set">${[c.setName ? esc(c.setName) : "", c.number ? `#${esc(c.number)}` : ""].filter(Boolean).join(" &bull; ")}</span>
           ${c.rarity ? `<span class="chof-rar">${esc(c.rarity)}</span>` : ""}
           <dl class="chof-prices">
             <div><dt>Raw NM</dt><dd>${c.raw ? moneyCompact(c.raw) : noValue("Not recorded")}</dd></div>

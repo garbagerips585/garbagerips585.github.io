@@ -59,10 +59,12 @@ try {
 // at the bottom of this file now fails the build instead of trusting that.
 const PAGES = [
   ["/start.html", "Start here", "New to Pokemon cards, the six questions in order"],
+  ["/how-to-play.html", "How to play", "The card game itself: setup, a turn, and the three ways to win"],
   ["/cards.html", "Card search", "Every card by name with current prices"],
   ["/pokemon/", "Browse by Pokemon", "Every card of one Pokemon across every set"],
   ["/sets/", "Set guides", "Card counts, rarities and chase cards per set"],
   ["/rarity.html", "Rarity guide", "What the symbols mean and what is actually rare"],
+  ["/types.html", "Card types", "All 11 types, and why there is no type chart in the card game"],
   ["/fake-cards.html", "Real or fake?", "Eight checks for spotting a counterfeit"],
   ["/grading.html", "Worth grading?", "What grading costs and whether it pays"],
 ["/games/garbage-run.html", "Garbage Run", "A one thumb arcade game for the restock line, solo or two players on one phone"],
@@ -73,6 +75,7 @@ const PAGES = [
   ["/complete-a-set.html", "Cost to complete a set", "What every set costs to finish, priced nightly"],
   ["/drops.html", "Drops this week", "Where stock is expected, in store and online"],
   ["/pack-prices.html", "Pack prices by set", "What one pack costs, box against bundle against loose"],
+  ["/how-many-packs.html", "How many packs are in it?", "Every sealed product biggest to smallest, and how the counts changed"],
   ["/what-set.html", "What set is my card from?", "Look up the number printed after the slash"],
   ["/luck.html", "How our luck is going", "What actually comes out of the packs"],
   ["/upcoming.html", "Coming next", "Upcoming sets and preorder prices"],

@@ -163,19 +163,6 @@ const gradedAsOf = (setId, number) => {
 };
 
 /**
- * Chase cards for the sets the Pokemon TCG API has no prices for.
- *
- * The four newest sets had full checklists but no market data, so the price
- * sort had nothing to sort and "Top chase cards" rendered an apology on
- * exactly the sets people are opening right now. scripts/sync-chase.mjs joins
- * the cached checklist to TCGplayer's prices; this merges the result in.
- *
- * Only ever fills a gap. A set that has its own priced chase list keeps it, so
- * the Pokemon TCG API stays the primary source and this cannot quietly
- * overwrite it. `priceSource` is stamped so the page can say where the number
- * came from rather than implying both came from the same place.
- */
-/**
  * Hand written set notes, merged straight from data/set-notes.json.
  *
  * sync-sets.mjs also folds these into sets.json, but that script pulls the full
@@ -238,6 +225,39 @@ try {
   }
 } catch {
   /* run: node scripts/sync-cards.mjs */
+}
+
+/**
+ * ONE CARD, ONE NAME. The chase list and the checklist come from two APIs and
+ * they do not always spell a card the same way.
+ *
+ * pokemontcg.io, which fills `chase`, calls Rebel Clash #189 and #200 "Boss's
+ * Orders". TCGdex, which fills the checklist, calls both of them "Boss's Orders
+ * (Giovanni)". So /complete-a-set.html said "Boss's Orders (Giovanni)" while
+ * /sets/rebel-clash.html said "Boss's Orders" about the identical card, and
+ * rebel-clash.html disagreed with ITSELF: the chase grid said one thing, and
+ * the checklist band, the top-card sentence and the three "in a rip" credits
+ * further down the same page all said the other.
+ *
+ * The checklist wins, because it is what /cards.html, /pokemon/ and every
+ * checklist band on the site already print, so it is the name with four pages
+ * behind it rather than one. It is also the more useful of the two: Rebel Clash
+ * carries three Boss's Orders printings and the subtitle is how a reader tells
+ * a search result apart.
+ *
+ * Matched on NUMBER, never on name, for the obvious reason that the names are
+ * the thing in dispute. Only `name` is taken. The prices, the rarity and the
+ * images on a chase entry stay exactly where they were: this is a spelling
+ * reconciliation and nothing else. Measured at the time of writing it renames
+ * two cards site-wide, and both of them are this one.
+ */
+for (const s of sets) {
+  const doc = checklists[s.id];
+  if (!doc || !s.chase) continue;
+  for (const c of s.chase) {
+    const m = doc.cards?.find((x) => String(x.n) === String(c.number));
+    if (m?.name && m.name !== c.name) c.name = m.name;
+  }
 }
 
 /**
@@ -540,20 +560,101 @@ ${rows}
 </section>`;
 }
 
-let chaseFallback = {};
+/**
+ * TOP CHASE CARDS, READ OUT OF THE SAME CHECKLIST AS THE REST OF THE PAGE.
+ *
+ * ONE SOURCE OF TRUTH PER PAGE. This list used to come from sets.json, which
+ * sync-sets.mjs fills from api.pokemontcg.io, while the rarity ladder, the
+ * "where the money is" band and the full checklist under it all came from
+ * public/data/cards/<id>.json (TCGdex, prices from TCGplayer). Two vendors
+ * reading a moving market on two different days, so 22 of 28 set guides priced
+ * their own chase card twice and disagreed with themselves a few hundred pixels
+ * apart: Umbreon ex read $1,495 in the grid and $1,470.58 in the checklist,
+ * Mega Charizard X ex read $712.54 against $715.98. Both reads were honest. A
+ * page showing both without reconciling them is not.
+ *
+ * The checklist wins for the same reason it already won the rarity counts a few
+ * hundred lines up: it is the list this page renders card by card, so a reader
+ * can check the figure against the page it is printed on. A number they cannot
+ * check is worse than no number.
+ *
+ * IT ALSO FIXES A WRONG CARD, not just a wrong price. api.pokemontcg.io carries
+ * no prices at all for the four newest sets, so sets.json held `chase: []` for
+ * them and this fell back to data/chase-tcg.json, an eight card list that for
+ * Ascended Heroes is missing every Special Illustration Rare. The fallback
+ * therefore named Psyduck at $69.94 as that set's chase card while
+ * /complete-a-set.html, /cards.html, /pokemon/gengar.html and /rarity.html all
+ * named Mega Gengar ex at $1,118.76, which the 295 priced cards in the
+ * checklist agree with and which is sixteen times bigger. It looked like a
+ * one-set bug only because the same incomplete fallback happened to pick
+ * correctly for the other three. A missing chase card is much better than a
+ * wrong one, so an incomplete list is no longer allowed to publish one: with no
+ * checklist prices the band prints "No market prices yet" and says so.
+ *
+ * TCGplayer product links are the one thing the checklist does not carry, so
+ * they are taken from whichever of the two old lists had one, matched on card
+ * number. Verified card by card before this was written: 224 numbers joined,
+ * zero landed on a different card. A card with no link simply gets no buy
+ * button, which the lightbox already handles.
+ *
+ * NUMBERS ARE UNPADDED here and padded in the checklist ("20" against "020").
+ * That is deliberate: unpadded is what data/psa10.json is keyed on and what
+ * every other page uses, so padding these would silently drop the PSA 10 line
+ * off eight cards.
+ */
+// The 101 TCGdex image bases that 404 and the 4 TCGplayer urls that 403, so no
+// builder emits a dead round trip. Read up here rather than beside the hit
+// grid because the chase list below is the first thing that needs it.
+const NO_SCAN = new Set(
+  (JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8").catch(() => "{}")).tcgdex || [])
+);
+
+let chaseLinks = {};
 try {
-  chaseFallback = JSON.parse(await readFile(join(ROOT, "data/chase-tcg.json"), "utf8")).sets || {};
+  chaseLinks = JSON.parse(await readFile(join(ROOT, "data/chase-tcg.json"), "utf8")).sets || {};
 } catch {
   /* run: node scripts/sync-chase.mjs */
 }
 for (const st of sets) {
-  const mine = st.chase || [];
-  if (mine.length && mine.some((c) => c.price)) continue;
-  const fill = chaseFallback[st.id];
-  if (!fill?.cards?.length) continue;
-  st.chase = fill.cards;
+  const urls = new Map();
+  for (const c of [...(st.chase || []), ...(chaseLinks[st.id]?.cards || [])]) {
+    const n = String(c.number || "").replace(/^0+(?=\d)/, "");
+    if (c.url && n && !urls.has(n)) urls.set(n, c.url);
+  }
+
+  const doc = checklists[st.id];
+  const priced = (doc?.cards || []).filter((c) => typeof c.price === "number" && c.price > 0);
+
+  if (!priced.length) {
+    // Nothing this page can show its working for, so it shows nothing.
+    st.chase = [];
+    st.chasePricesAsOf = null;
+    st.pricesAsOf = null;
+    continue;
+  }
+
+  st.chase = priced
+    .slice()
+    .sort((a, b) => b.price - a.price)
+    .slice(0, 8)
+    .map((c) => {
+      const n = String(c.n || "").replace(/^0+(?=\d)/, "");
+      const base = c.img && !NO_SCAN.has(c.img) ? c.img : null;
+      return {
+        name: c.name,
+        number: n,
+        rarity: c.rarity,
+        price: c.price,
+        image: base ? `${base}/low.webp` : null,
+        imageLarge: base ? `${base}/high.webp` : null,
+        url: urls.get(n) || null,
+      };
+    });
   st.chasePriceSource = "TCGplayer";
-  st.chasePricesAsOf = fill.checked;
+  // Both stamps, because the price note reads pricesAsOf first and that date
+  // described a read this list no longer uses.
+  st.chasePricesAsOf = doc.checked;
+  st.pricesAsOf = doc.checked;
 }
 
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
@@ -594,9 +695,6 @@ for (const cs of CARD_SETS) {
 // cannot, the card stays unresolved and is listed as text rather than shown as
 // the wrong scan.
 const CARD_INDEX = JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8"));
-const NO_SCAN = new Set(
-  (JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8").catch(() => "{}")).tcgdex || [])
-);
 const cardsBySetName = new Map();
 {
   const [fName, fSet, fNum, fRar, fPrice] = [0, 1, 2, 3, 4];
@@ -811,8 +909,33 @@ try {
  * "packs plus a promo" with no number and are left alone for the same reason.
  */
 const SIZE_WORD = /\b(half|enhanced|mini|jumbo|premium|double)\b/i;
-function packsIn(p) {
+/**
+ * AND THE BLURB IS ONLY SOURCED FOR THE ERA IT WAS WRITTEN ABOUT.
+ *
+ * The blurbs are per-KIND constants hardcoded in sync-products.mjs describing
+ * current product. "9 packs plus sleeves and dice" is carried by every Elite
+ * Trainer Box entry, and nine is right for a main expansion from the Scarlet &
+ * Violet era onward: four pokemon.com product pages and three official
+ * expansion pages say so, recorded in data/pack-counts-current.json and
+ * published on /how-many-packs.html. It is not a fact about the product line.
+ * Elite Trainer Boxes have held 7, 8, 9 and 10 packs, the Celebrations one held
+ * ten Celebrations packs plus five from other sets, and the Pokemon Center
+ * versions have always held more.
+ *
+ * Six sets in the nightly pull predate that window (Rebel Clash, Shining Fates,
+ * Chilling Reign, Celebrations, Pokemon GO, Crown Zenith) and their guides were
+ * dividing by the current constants. So the generics stop at the Scarlet &
+ * Violet base set release, which is also when the Booster Bundle was invented.
+ * "Single Pack" is exempt: one pack is one pack in every era.
+ *
+ * Same gate, same date and the same reasoning as build-pack-prices.mjs, which
+ * prints per-pack figures for the same products. If you change one, change the
+ * other: a reader will compare the two pages.
+ */
+const GENERIC_FROM = "2023-03-31";
+function packsIn(p, released) {
   if (SIZE_WORD.test(p.name || "")) return null;
+  if (p.kind !== "Single Pack" && String(released || "") < GENERIC_FROM) return null;
   const blurb = String(p.blurb || "");
   const m = /^(\d+)\s+packs?\b/i.exec(blurb);
   const n = m ? Number(m[1]) : /^one pack\b/i.test(blurb) ? 1 : null;
@@ -842,17 +965,31 @@ function packsIn(p) {
  * our data, and a plausible guess in a slot people read as a fact is exactly
  * the thing this site does not do.
  */
-function productLabel(p) {
+function productLabel(p, released) {
+  // REQUIRED, NOT OPTIONAL, and this guard exists because the missing argument
+  // shipped for one build. Three call sites were left passing only the product,
+  // so `released` was undefined, "" sorted before every date, and every product
+  // on every guide fell through the era gate below and printed "Pack count not
+  // in our data". A silently absent argument here reads as a data problem
+  // rather than a code one, which is the worst way for it to fail.
+  if (!released) throw new Error(`productLabel("${p.name}") was called without the set's release date`);
+  // The blurb is a claim about the contents, printed two lines above the price,
+  // so it has to obey the same era gate as the division does. Dropping the
+  // per-pack figure for a 2021 Elite Trainer Box while still printing "9 packs
+  // plus sleeves and dice" under it would leave the wrong number on the page and
+  // only remove the arithmetic that made it checkable.
+  const stale = p.kind !== "Single Pack" && String(released || "") < GENERIC_FROM && /^\d+\s+packs?\b/i.test(String(p.blurb || ""));
+  const blurb = stale ? "Pack count not in our data" : p.blurb;
   const q = SIZE_WORD.exec(p.name || "")?.[1];
-  if (!q) return { kind: p.kind, blurb: p.blurb };
+  if (!q) return { kind: p.kind, blurb };
   const full = `${q} ${p.kind}`;
-  if (!String(p.name).toLowerCase().endsWith(full.toLowerCase())) return { kind: p.kind, blurb: p.blurb };
+  if (!String(p.name).toLowerCase().endsWith(full.toLowerCase())) return { kind: p.kind, blurb };
   return { kind: full.charAt(0).toUpperCase() + full.slice(1), blurb: "Pack count not in our data" };
 }
 
 /** Market price per pack, or null where the pack count is not knowable. */
-function perPack(p) {
-  const packs = packsIn(p);
+function perPack(p, released) {
+  const packs = packsIn(p, released);
   if (!packs || typeof p.market !== "number" || !(p.market > 0)) return null;
   const each = p.market / packs;
   if (!Number.isFinite(each) || each <= 0 || each > p.market + 0.005) {
@@ -873,7 +1010,7 @@ function productBand(s, cls) {
   // afford and not what anything costs. A booster box at $179 next to a pack at
   // $6.55 is not a comparison until both are per pack.
   const perPacks = items
-    .map((p) => ({ p, ...(perPack(p) || {}) }))
+    .map((p) => ({ p, ...(perPack(p, s.released) || {}) }))
     .filter((x) => x.each)
     .sort((a, b) => a.each - b.each);
   const bestPack = perPacks[0] || null;
@@ -883,7 +1020,7 @@ function productBand(s, cls) {
   // saying the same dollar figure twice. "Cheapest way in" is the smallest
   // amount of money that gets you playing. "Cheapest per pack" is what a pack
   // costs, which is the one that decides between a box and a handful of packs.
-  const name = (x) => esc(productLabel(x).kind.toLowerCase());
+  const name = (x) => esc(productLabel(x, s.released).kind.toLowerCase());
   let lede = `Every sealed ${esc(s.name)} product still being sold, cheapest first.`;
   const cheaperBox = bestPack && singly && bestPack.p !== singly.p;
   const off = cheaperBox ? Math.round(((singly.each - bestPack.each) / singly.each) * 100) : 0;
@@ -935,11 +1072,11 @@ function productBand(s, cls) {
                sizes="88px" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(p.thumb)} referrerpolicy="no-referrer">`}
         </a>
         <div class="prod-body">
-          <h3><a href="${esc(affLink(p.url))}" rel="noopener" target="_blank">${esc(productLabel(p).kind)}</a></h3>
-          <p class="prod-what">${esc(productLabel(p).blurb)}</p>
+          <h3><a href="${esc(affLink(p.url))}" rel="noopener" target="_blank">${esc(productLabel(p, s.released).kind)}</a></h3>
+          <p class="prod-what">${esc(productLabel(p, s.released).blurb)}</p>
           <p class="prod-price"><b>${priceUSD(p.market)}</b> <span>market</span></p>
           ${(() => {
-            const e = perPack(p);
+            const e = perPack(p, s.released);
             if (!e || e.packs === 1) return "";
             return `<p class="prod-per">${priceUSD(e.each)} a pack${
               bestPack && bestPack.p === p ? ` <b>cheapest</b>` : ""
@@ -971,7 +1108,9 @@ ${cards}
     ${perPacks.length ? `<p class="prod-note">Cost per pack is the market price divided by the pack count printed on
       each card above, so you can check it. Sleeves, dice, decks and promo cards are counted as worth nothing, which
       flatters every box that includes them. Anything whose pack count is not in our data gets no per-pack figure
-      rather than a guessed one, which is why blisters, tins and collection boxes have none.</p>` : ""}
+      rather than a guessed one, which is why blisters, tins and collection boxes have none, and why sets from before
+      2023 have none either: our counts are sourced for the current era and were not the same in earlier ones. What
+      each product has held, and when it changed, is on <a href="/how-many-packs.html">how many packs are in it</a>.</p>` : ""}
   </div>
 </section>`;
 }
@@ -1304,7 +1443,14 @@ function setPage(s) {
         ...proseCards.map((h) => ({
           kind: "prose", img: h.resolved.img,
           name: `${esc(h.resolved.name)}${h.count > 1 ? ` <span class="mine-x">x${h.count}</span>` : ""}`,
-          meta: `${esc(h.resolved.rarity || rarityLabelOf(h.rarity) || "")}${h.resolved.number ? ` &bull; #${esc(h.resolved.number)}` : ""}`,
+          // rarityLabel, for the same reason the `mine` rows above call it: this
+          // is TCGdex's raw field and TCGdex ships "Double rare" and "Ultra Rare"
+          // inside ONE checklist. Printed verbatim it put 5 sentence-case entries
+          // among 18 title-case ones in a single grid, and /sets/mega-evolution
+          // read "Illustration rare" in a component on a page that writes
+          // "Illustration Rare" 54 times elsewhere. Only this branch was missing
+          // it, which is why the split looked random rather than per-set.
+          meta: `${esc(rarityLabel(h.resolved.rarity) || rarityLabelOf(h.rarity) || "")}${h.resolved.number ? ` &bull; #${esc(h.resolved.number)}` : ""}`,
           price: typeof h.resolved.price === "number" ? h.resolved.price : null, psa10: null,
           rips: h.rips,
         })),
@@ -1377,7 +1523,7 @@ function setPage(s) {
           : ""}
       </button>`).join("\n      ")}
     </div>
-    <p class="price-note">Prices are TCGplayer market estimates${longDate(s.pricesAsOf || s.chasePricesAsOf) ? `, last updated ${longDate(s.pricesAsOf || s.chasePricesAsOf)}` : ""}. Singles move fast, so treat these as a ballpark rather than a quote.${affOn ? ` ${esc(aff.tcgplayer.disclosure)}` : ""}</p>
+    <p class="price-note">TCGplayer market prices via TCGdex${longDate(s.pricesAsOf || s.chasePricesAsOf) ? `, read ${longDate(s.pricesAsOf || s.chasePricesAsOf)}` : ""}. These are the same eight rows the checklist further down prints, sorted by price, so the two agree by construction. Singles move fast, so treat them as a ballpark rather than a quote.${affOn ? ` ${esc(aff.tcgplayer.disclosure)}` : ""}</p>
     ` : `
     <div class="no-prices">
       <strong>No market prices yet.</strong> ${esc(s.name)} is recent enough that pricing data has not landed in the card database. The card list and rarity counts above are accurate; the values will fill in as the market settles.

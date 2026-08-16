@@ -372,6 +372,16 @@ main{padding:var(--s4) 0 var(--s8)}
 .set-art{height:60px;display:grid;place-items:center;width:100%;margin-bottom:var(--s2)}
 .set-art img{height:var(--lh,44px);width:auto;max-width:100%;object-fit:contain}
 .set-name{font:400 .95rem/1.1 var(--display);color:var(--ink)}
+/* Five sets have no logo file. The slot used to be filled with the set's NAME,
+   which the <b> underneath already prints, so those five tiles showed the same
+   words twice and looked broken rather than degraded. Hold the 60px box so the
+   grid does not jump and hatch it, exactly as .hitcard-img.is-none and
+   .mine-img.is-none do for a card with no scan. It is aria-hidden in the
+   markup, so this is decoration only and the tile still announces its name once.
+   Width is capped rather than 100% because a full-bleed hatch is louder than
+   any of the logos it stands in for. */
+.set-noart{width:min(72%,120px);height:var(--lh,44px);border-radius:6px;
+  background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
 .set b{font:600 var(--t-sm)/1.25 var(--body)}
 .set-meta{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.02em}
 .set-top{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink);letter-spacing:.02em;

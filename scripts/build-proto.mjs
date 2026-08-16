@@ -594,9 +594,22 @@ const setsHtml = (
       const total = s.total || s.printedTotal;
       const bits = [total ? `${total} cards` : null, monthYear(s.released) || null].filter(Boolean);
       const h = logos.has(s.id) ? await logoHeight(s.id) : null;
+      // THE NO-LOGO FALLBACK MUST NOT REPEAT THE NAME THAT IS ALREADY BELOW IT.
+      // Five sets ship no logo artwork (Crown Zenith, Celebrations, Chilling
+      // Reign, Shining Fates, Rebel Clash) and this used to drop the set's name
+      // into the logo slot, so those five tiles printed "Crown Zenith" in
+      // display type and then "Crown Zenith" again in the <b> two lines down.
+      // It reads as a rendering fault rather than a fallback, and a screen
+      // reader heard the name twice per tile.
+      //
+      // Same answer .hitcard-img.is-none and .mine-img.is-none already use for
+      // a card with no scan: HOLD THE BOX so the grid does not jump, hatch it
+      // so it reads as deliberately empty rather than as a broken image, and
+      // let the name below carry the tile. aria-hidden because it says nothing
+      // the <b> does not already say.
       const face = h
         ? `<img${await logoAttrs(s.id)} src="assets/logos/${s.id}-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:${h}px">`
-        : `<span class="set-name">${esc(s.name)}</span>`;
+        : `<span class="set-noart" aria-hidden="true"></span>`;
       // What the best card in this set is worth. PSA 10 where we have one,
       // raw otherwise, and nothing at all when we have neither.
       const top = (s.chase || [])[0];

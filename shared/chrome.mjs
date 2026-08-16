@@ -71,6 +71,12 @@ export const NAV = [
     // pull, so both belong under Cards rather than under Guides, which is where
     // the pages that do not move live.
     ["/pack-prices.html", "Pack prices"],
+    // Between the two on purpose. Pack prices divides a price by a pack count
+    // and could only ever do that for the five kinds whose count is in our
+    // data; this is the page that holds the counts themselves, sourced, for
+    // every product including the ones that page leaves blank. "Packs per box"
+    // front-loads the noun the way the labels above it do.
+    ["/how-many-packs.html", "Packs per box"],
     // Sits with pack prices because it answers the other half of the same
     // question. Pack prices says what a box costs; this says what is in it and
     // shows it being opened. One is a number, one is the evidence.
@@ -82,12 +88,24 @@ export const NAV = [
   ]],
   ["Guides", [
     ["/start.html", "Start here"],
+    // Immediately after Start here, because the two are a pair: that page is
+    // "I am holding a card, what now", this one is "what is the game the cards
+    // are for". Deliberately NOT added to BAR_LINKS: the bar is five links and
+    // the comment above that array argues the number from published research.
+    ["/how-to-play.html", "How to play"],
     // Next to the rarity guide on purpose. The two answer the two halves of the
     // same question somebody asks holding one card: what is it, and where is it
     // from. Both are read off the same corner of the card and each links to the
     // other.
     ["/what-set.html", "Set finder"],
     ["/rarity.html", "Rarity guide"],
+    // The third of that cluster. Set finder reads the number after the slash,
+    // the rarity guide reads the symbol beside it, and this one reads the type
+    // in the top right and the Weakness in the bottom left. All three are the
+    // same person holding the same card asking a different question about it.
+    // "Card types" and not "Types", which is too thin to scan, and not "Energy
+    // types", which is the game's word rather than a beginner's.
+    ["/types.html", "Card types"],
     ["/fake-cards.html", "Fakes"],
     // A PAIR, and the labels have to say so. These answer the two halves of the
     // question somebody asks holding one card: will it grade, and does grading

@@ -1,5 +1,5 @@
 {
-  "checked": "2026-08-12",
+  "checked": "2026-08-16",
   "source": "TCGplayer market prices, cards from the Pokemon TCG API",
   "sets": {
     "pitch-black": {
@@ -238,79 +238,79 @@
     },
     "ascended-heroes": {
       "tcgSet": "ME: Ascended Heroes",
-      "checked": "2026-08-12",
+      "checked": "2026-08-16",
       "cards": [
         {
-          "name": "Psyduck",
-          "number": "226",
-          "rarity": "Illustration rare",
-          "price": 69.94,
-          "image": "https://assets.tcgdex.net/en/me/me02.5/226/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/226/high.webp",
-          "url": "https://www.tcgplayer.com/product/676038"
+          "name": "Mega Gengar ex",
+          "number": "284",
+          "rarity": "Special Illustration Rare",
+          "price": 1088.96,
+          "image": "https://images.scrydex.com/pokemon/me2pt5-284/small",
+          "imageLarge": "https://images.scrydex.com/pokemon/me2pt5-284/large",
+          "url": "https://www.tcgplayer.com/product/676096"
         },
         {
-          "name": "Mega Gengar ex",
-          "number": "269",
-          "rarity": "Ultra Rare",
-          "price": 57.01,
-          "image": "https://assets.tcgdex.net/en/me/me02.5/269/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/269/high.webp",
-          "url": "https://www.tcgplayer.com/product/676081"
+          "name": "Pikachu ex",
+          "number": "276",
+          "rarity": "Special Illustration Rare",
+          "price": 1070.24,
+          "image": "https://images.scrydex.com/pokemon/me2pt5-276/small",
+          "imageLarge": "https://images.scrydex.com/pokemon/me2pt5-276/large",
+          "url": "https://www.tcgplayer.com/product/676088"
         },
         {
           "name": "Mega Dragonite ex",
-          "number": "271",
-          "rarity": "Ultra Rare",
-          "price": 43.88,
-          "image": "https://assets.tcgdex.net/en/me/me02.5/271/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/271/high.webp",
-          "url": "https://www.tcgplayer.com/product/676083"
+          "number": "290",
+          "rarity": "Special Illustration Rare",
+          "price": 698.04,
+          "image": "https://images.scrydex.com/pokemon/me2pt5-290/small",
+          "imageLarge": "https://images.scrydex.com/pokemon/me2pt5-290/large",
+          "url": "https://www.tcgplayer.com/product/676102"
         },
         {
-          "name": "Team Rocket's Mimikyu",
-          "number": "238",
-          "rarity": "Illustration rare",
-          "price": 23.45,
-          "image": "https://assets.tcgdex.net/en/me/me02.5/238/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/238/high.webp",
-          "url": "https://www.tcgplayer.com/product/676050"
+          "name": "Mega Charizard Y ex",
+          "number": "294",
+          "rarity": "Mega Hyper Rare",
+          "price": 417.03,
+          "image": "https://images.scrydex.com/pokemon/me2pt5-294/small",
+          "imageLarge": "https://images.scrydex.com/pokemon/me2pt5-294/large",
+          "url": "https://www.tcgplayer.com/product/676106"
         },
         {
-          "name": "Surfer",
-          "number": "293",
-          "rarity": "Special illustration rare",
-          "price": 23.28,
-          "image": "https://assets.tcgdex.net/en/me/me02.5/293/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/293/high.webp",
-          "url": "https://www.tcgplayer.com/product/676105"
+          "name": "Pikachu ex",
+          "number": "277",
+          "rarity": "Special Illustration Rare",
+          "price": 373.35,
+          "image": "https://images.scrydex.com/pokemon/me2pt5-277/small",
+          "imageLarge": "https://images.scrydex.com/pokemon/me2pt5-277/large",
+          "url": "https://www.tcgplayer.com/product/676089"
         },
         {
-          "name": "Erika's Tangela",
-          "number": "218",
-          "rarity": "Illustration rare",
-          "price": 19.22,
-          "image": "https://assets.tcgdex.net/en/me/me02.5/218/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/218/high.webp",
-          "url": "https://www.tcgplayer.com/product/676030"
+          "name": "Team Rocket's Mewtwo ex",
+          "number": "281",
+          "rarity": "Special Illustration Rare",
+          "price": 358.82,
+          "image": "https://images.scrydex.com/pokemon/me2pt5-281/small",
+          "imageLarge": "https://images.scrydex.com/pokemon/me2pt5-281/large",
+          "url": "https://www.tcgplayer.com/product/676093"
         },
         {
-          "name": "Marill",
-          "number": "232",
-          "rarity": "Illustration rare",
-          "price": 14.62,
-          "image": "https://assets.tcgdex.net/en/me/me02.5/232/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/232/high.webp",
-          "url": "https://www.tcgplayer.com/product/676044"
+          "name": "Mega Dragonite ex",
+          "number": "295",
+          "rarity": "Mega Hyper Rare",
+          "price": 249.43,
+          "image": "https://images.scrydex.com/pokemon/me2pt5-295/small",
+          "imageLarge": "https://images.scrydex.com/pokemon/me2pt5-295/large",
+          "url": "https://www.tcgplayer.com/product/676107"
         },
         {
-          "name": "Banette",
-          "number": "234",
-          "rarity": "Illustration rare",
-          "price": 11.69,
-          "image": "https://assets.tcgdex.net/en/me/me02.5/234/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/234/high.webp",
-          "url": "https://www.tcgplayer.com/product/676046"
+          "name": "Lillie's Clefairy ex",
+          "number": "280",
+          "rarity": "Special Illustration Rare",
+          "price": 166.19,
+          "image": "https://images.scrydex.com/pokemon/me2pt5-280/small",
+          "imageLarge": "https://images.scrydex.com/pokemon/me2pt5-280/large",
+          "url": "https://www.tcgplayer.com/product/676092"
         }
       ]
     }

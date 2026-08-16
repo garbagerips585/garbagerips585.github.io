@@ -4,16 +4,20 @@
 //   node scripts/sync-chase.mjs            only sets that need it
 //   node scripts/sync-chase.mjs --force    refetch even if cached
 //
-// Writes data/chase-tcg.json, which build-set-pages.mjs merges in wherever
-// sets.json carries an empty chase list.
+// Writes data/chase-tcg.json.
 //
-// WHY
-// The four newest sets (Pitch Black, Chaos Rising, Perfect Order, Ascended
-// Heroes) had no "Top chase cards" section at all: the Pokemon TCG API has
-// their full checklists but no market data yet, so the price sort had nothing
-// to sort and the section rendered an apology instead. Those are exactly the
-// sets people are opening right now, so they are the ones where "what is the
-// good card worth" matters most.
+// WHAT THIS IS FOR NOW: THE LINKS, NOT THE PRICES.
+// build-set-pages.mjs used to merge this file in as a chase list wherever
+// sets.json carried an empty one. It no longer does. Every price and every card
+// on a set guide is read out of public/data/cards/<id>.json, the same checklist
+// the page renders row by row, so the top of the page cannot disagree with the
+// bottom of it. This file is read for one field the checklist does not carry:
+// the TCGplayer product URL behind each chase card, matched on collector number.
+//
+// That change was forced by this script publishing a wrong card. See the note
+// above fetchSingles for how a paging cap did it and why nothing looked broken.
+// A chase list that is merely INCOMPLETE is indistinguishable from a correct
+// one, which is why a fallback is no longer allowed to name the card at all.
 //
 // The checklist is not the missing piece. Names, numbers, rarities and card
 // images are all already cached under .cache/ptcg. Only the prices are
@@ -60,12 +64,27 @@ const numOf = (raw) => {
  * Every single from one set, paged.
  *
  * There is no working server-side price sort (field names that look right
- * answer 500), so this pulls the whole set and sorts here. A set is ~150
- * products, which is three requests.
+ * answer 500), so this pulls the whole set and sorts here.
+ *
+ * THE OLD CAP WAS 400 AND IT SILENTLY TRUNCATED A SET, which is how this file
+ * came to publish a wrong chase card rather than none. "ME: Ascended Heroes"
+ * answers totalResults 620, because a 295 card set lists far more than 295
+ * products once reverse holos and printings are counted, so the walk stopped
+ * 220 products short and every Special Illustration Rare in the set was in the
+ * part it never reached. The eight "chase cards" that came out of it were led
+ * by Psyduck at $69.94 while the set's real top card, Mega Gengar ex, is
+ * $1,118.76: sixteen times bigger and completely absent from the list. Nothing
+ * errored, and a short list looks exactly like a complete one.
+ *
+ * The loop already stops on totalResults, so the cap is only a runaway guard
+ * and it should be well clear of the biggest set rather than near it. It also
+ * shouts if it ever hits the cap again, because that is the failure that hides.
  */
 async function fetchSingles(setName) {
   const out = [];
-  for (let from = 0; from < 400; from += 50) {
+  const CAP = 1600;
+  let total = null;
+  for (let from = 0; from < CAP; from += 50) {
     const body = {
       algorithm: "sales_dismax",
       from,
@@ -102,9 +121,16 @@ async function fetchSingles(setName) {
       }
     }
     if (!page) throw new Error(`TCGplayer would not answer for "${setName}"`);
+    total = page.totalResults ?? total;
     out.push(...(page.results || []));
-    if (out.length >= (page.totalResults || 0)) break;
+    if (out.length >= (total || 0)) break;
     await sleep(600);
+  }
+  if (total != null && out.length < total) {
+    throw new Error(
+      `fetchSingles("${setName}") stopped at ${out.length} of ${total} products because of the ${CAP} cap. ` +
+        `Raise CAP: a truncated set produces a chase list that looks complete and names the wrong card.`
+    );
   }
   return out;
 }

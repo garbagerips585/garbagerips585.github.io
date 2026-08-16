@@ -41,6 +41,10 @@ STEEL = (159, 176, 192)
 # is the text somebody is deciding whether to click.
 PAGES = {
     "start": ("NEW TO POKEMON CARDS", "Start here", "Six questions in the order they actually come up"),
+    # The kicker names the reader rather than the topic. Somebody sharing this
+    # link is handing it to a person who opens packs and has never played, and
+    # the headline is the page's own H1 because that is the text being clicked.
+    "how-to-play": ("NEVER PLAYED A GAME?", "How do you actually play?", "Setup, a turn, and the three ways to win"),
     "cards": ("CARD POKEDEX", "Card search", "Every card we cover, and what it is worth today"),
     "pokemon": ("CARD POKEDEX", "By Pokemon", "Every Charizard, every Umbreon, priced"),
     "fake-cards": ("DON'T GET DONE", "Real or fake?", "Eight checks, and how much each one really proves"),
@@ -52,7 +56,16 @@ PAGES = {
     "expansions": ("THE WHOLE LIST", "Every set ever", "Oldest to newest, all in one place"),
     "complete": ("PRICED LAST NIGHT", "Cost to complete a set", "Every set, three tiers, live prices"),
     "pack-prices": ("PRICED NIGHTLY", "What does a pack cost?", "Every set, box against bundle against loose pack"),
+    # The other half of that question, and the answer line names the shape of
+    # the page rather than the topic: "how many packs in a booster box" has a
+    # thousand blog answers, and the thing nobody else prints is the ordering
+    # from the 36-pack display down to the single blister with a source on each.
+    "how-many-packs": ("COUNTED, NOT GUESSED", "How many packs?", "Biggest box to smallest blister, every count sourced"),
     "what-set": ("HOLDING A CARD?", "What set is this?", "Look up the number printed after the slash"),
+    # The kicker does the correcting, because the misconception is the reason to
+    # click: almost every "pokemon types" result is the 18-type video game chart,
+    # and somebody sharing this link is usually settling exactly that argument.
+    "types": ("11 ON CARDS, NOT 18", "What are the card types?", "All 11, and why there is no type chart"),
     "collection": ("THE BINDER", "The collection", "What is in it, and what it is worth"),
     "hall": ("THE GOOD ONES", "Hall of Fame", "The pulls that actually went somewhere"),
     "will-it-grade": ("BEFORE YOU PAY THE FEE", "Will it grade?", "What each company publishes, and what costs you a 10"),

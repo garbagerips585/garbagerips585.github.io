@@ -21,7 +21,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=9e0253f2">
+<link rel="stylesheet" href="/assets/ui.css?v=2335fd03">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .rg{padding:var(--s7) 0 var(--s5)}
@@ -110,6 +110,31 @@
   text-transform:uppercase;margin-top:8px}
 .rr-zoom{grid-column:1/-1}
 @media(min-width:820px){.rr-zoom{grid-column:auto}}
+
+/* Not on the ladder. Same shape as .rr minus the number column, and every
+   selector carries its own class: see offLadderRow for why a bare p selector in
+   here would silently unstyle the symbol line. */
+.offl{list-style:none;display:flex;flex-direction:column;gap:var(--s4)}
+.offl li{display:grid;grid-template-columns:96px 1fr;gap:var(--s4);align-items:start;
+  background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s4);box-shadow:var(--lift)}
+@media(min-width:820px){.offl li{grid-template-columns:120px 1fr 220px}}
+.offl-card img{width:100%;height:auto;border-radius:6px;display:block}
+.offl-body h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:4px}
+/* nowrap is load bearing at 390px: "still current" broke across two lines
+   INSIDE the pill, so the border ran off the right edge of one line and picked
+   up again on the next, which reads as a clipped box rather than a badge. As
+   one unit it wraps whole onto its own line under the heading. */
+.offl-flag{display:inline-block;white-space:nowrap;
+  font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  background:var(--page);border:1px solid var(--hair);color:var(--ink-2);
+  padding:4px 7px;border-radius:var(--r-pill);vertical-align:middle}
+.offl-sym{font:700 var(--t-sm)/1.4 var(--mono);color:var(--plum);margin-bottom:6px;letter-spacing:.03em}
+.offl-p{color:var(--ink-2);font-size:var(--t-sm);margin-bottom:6px}
+.offl-eg{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.04em;
+  text-transform:uppercase;margin-top:8px}
+.offl-zoom{grid-column:1/-1}
+@media(min-width:820px){.offl-zoom{grid-column:auto}}
 
 /* Returning collectors. */
 /* The card sits under the years and above the prose: you see the three
@@ -221,6 +246,22 @@
         "@type": "Answer",
         "text": "Its collector number is higher than the set total, for example 199/198. Secret rares are the Illustration Rare, Ultra Rare, Special Illustration Rare and Hyper Rare tiers."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a Black White Rare Pokemon card?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A rarity introduced with Scarlet and Violet Black Bolt and White Flare in July 2025. The card is a full art printed in a single colour, black or white throughout, and the corner prints two stars: the first filled in and the second an outline. Only those two sets have it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between a Rare and a Holo Rare?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The symbol is the same. Both print one black star in the corner. A Holo Rare has foil on the artwork window and a plain Rare does not. Sword and Shield checklists and older list the two separately, which is where the name comes from."
+      }
     }
   ]
 }
@@ -284,6 +325,7 @@
         <li><a href="/upcoming.html">Coming next</a></li>
         <li><a href="/complete-a-set.html">Cost to complete</a></li>
         <li><a href="/pack-prices.html">Pack prices</a></li>
+        <li><a href="/how-many-packs.html">Packs per box</a></li>
         <li><a href="/openings/">Sealed products</a></li>
         <li><a href="/drops.html">Drops this week</a></li>
       </ul>
@@ -292,8 +334,10 @@
       <p class="menu-h">Guides</p>
       <ul>
         <li><a href="/start.html">Start here</a></li>
+        <li><a href="/how-to-play.html">How to play</a></li>
         <li><a href="/what-set.html">Set finder</a></li>
         <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/types.html">Card types</a></li>
         <li><a href="/fake-cards.html">Fakes</a></li>
         <li><a href="/will-it-grade.html">Will it grade</a></li>
         <li><a href="/grading.html">Grading cost</a></li>
@@ -591,6 +635,55 @@
 
   <section class="rg-sec">
     <div class="wrap">
+      <h2>Corners the ladder <span class="hl">does not explain</span></h2>
+      
+      <p class="rg-p">Two names turn up on the set checklists here that are not rungs on the ladder
+        above. One arrived in 2025, the other belongs to the older sets. If you looked up what you
+        pulled and came back with nothing, it is probably one of these.</p>
+      <ul class="offl">
+      <li>
+        <div class="offl-card">
+          <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/172/high.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/172/high.webp" alt="Zekrom ex, Black Bolt. The corner reads 172/086" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"></picture>
+        </div>
+        <div class="offl-body">
+          <h3>Black White Rare <span class="offl-flag">new in 2025</span></h3>
+          <p class="offl-sym"><b>Two stars, the first filled in and the second an outline</b></p>
+          <p class="offl-p">A full art printed in one colour the whole way through. The artwork, the border, the text and the symbol are all black or all white, with no gold anywhere, so it does not read as a top tier card even though it is numbered past the set total. Victini is the odd one out and prints red instead.</p>
+          <p class="offl-p">Two stars again, so counting alone will not place it. The tell is that the second star is hollow rather than filled, and that neither star is silver or gold. It is its own thing rather than a rung above Special Illustration Rare, and only these two sets have it: Victini and Zekrom ex in Black Bolt, Victini and Reshiram ex in White Flare.</p>
+          <p class="offl-eg">Black Bolt and White Flare, July 2025</p>
+        </div>
+        <div class="offl-zoom">
+          <figure class="crop">
+        <div class="crop-img cr-l"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/172/high.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/172/high.webp" alt="" loading="lazy" decoding="async" onerror="this.remove()" width="600" height="825"></picture></div>
+        <figcaption>Zekrom ex, Black Bolt. The corner reads 172/086</figcaption>
+      </figure>
+        </div>
+      </li>
+      <li>
+        <div class="offl-card">
+          <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/021/high.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/021/high.webp" alt="Entei, Crown Zenith. The corner reads 021/159" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"></picture>
+        </div>
+        <div class="offl-body">
+          <h3>Holo Rare <span class="offl-flag">an older name</span></h3>
+          <p class="offl-sym"><b>One black star, the same symbol a plain Rare carries</b></p>
+          <p class="offl-p">Not a symbol of its own and not a rung of its own. A Holo Rare is a Rare with foil on the artwork window, and the corner prints the same single black star either way. Crown Zenith has both: Entei at 021/159 is the Holo Rare, Bellossom at 003/159 is the plain one, and the two corners are identical.</p>
+          <p class="offl-p">It sits exactly where Rare sits on the ladder above. Older checklists split the two and list them as separate lines, which is where the name comes from, so you will meet it on the Sword and Shield set guides here and not on a Scarlet and Violet one. Some checklists print the same tier the other way round, as Rare Holo.</p>
+          <p class="offl-eg">Sword and Shield sets and older</p>
+        </div>
+        <div class="offl-zoom">
+          <figure class="crop">
+        <div class="crop-img cr-l"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12.5/021/high.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh12.5/021/high.webp" alt="" loading="lazy" decoding="async" onerror="this.remove()" width="600" height="825"></picture></div>
+        <figcaption>Entei, Crown Zenith. The corner reads 021/159</figcaption>
+      </figure>
+        </div>
+      </li>
+      </ul>
+    </div>
+  </section>
+
+  
+  <section class="rg-sec">
+    <div class="wrap">
       <h2>Shiny, but <span class="hl">not rare</span></h2>
       <p class="rg-p"><b>Reverse holo</b> is the one that catches everybody. The foil is on everything
         <em>except</em> the artwork, and you get one or two in most packs. It does not change the
@@ -673,6 +766,13 @@
           </figure>
         </li>
         <li>
+          <b>Amazing Rare</b><p class="yrs">2020 to 2021</p><p>A burst of colour behind the Pokemon that spills out past the frame, and a rainbow letter A in the corner where the star would be. Nine of them exist, six in Vivid Voltage and three in Shining Fates.</p>
+          <figure class="gone-fig">
+            <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh4.5/17/low.avif 245w, https://assets.tcgdex.net/en/swsh/swsh4.5/17/high.avif 600w" sizes="132px"><img src="https://assets.tcgdex.net/en/swsh/swsh4.5/17/low.webp" srcset="https://assets.tcgdex.net/en/swsh/swsh4.5/17/low.webp 245w, https://assets.tcgdex.net/en/swsh/swsh4.5/17/high.webp 600w" sizes="132px" alt="Reshiram, Shining Fates" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"></picture>
+            <figcaption>Reshiram, Shining Fates</figcaption>
+          </figure>
+        </li>
+        <li>
           <b>Rainbow rares</b><p class="yrs">2017 to 2022</p><p>Discontinued at Scarlet and Violet. They are not coming out of a modern pack, whatever the glitter on a Special Illustration Rare looks like.</p>
           
         </li>
@@ -749,8 +849,8 @@
           <b>Hit</b>
           <p>Any card out of a pack worth meaningfully more than the pack cost.</p>
           <figure class="gloss-fig">
-            <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/161/high.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/161/high.webp" alt="Umbreon ex, Prismatic Evolutions. $1,470" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"></picture>
-            <figcaption>Umbreon ex, Prismatic Evolutions. $1,470</figcaption>
+            <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/161/high.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/161/high.webp" alt="Umbreon ex, Prismatic Evolutions. $1,471" loading="lazy" onerror="this.remove()" decoding="async" width="600" height="825"></picture>
+            <figcaption>Umbreon ex, Prismatic Evolutions. $1,471</figcaption>
           </figure>
         </li>
         <li>
@@ -823,7 +923,7 @@
 
   <section class="rg-sec">
     <div class="wrap">
-      <p class="rg-foot">CHECKED AUGUST 12, 2026 AGAINST REAL CARD SCANS,
+      <p class="rg-foot">CHECKED AUGUST 15, 2026 AGAINST REAL CARD SCANS,
         NOT AGAINST OTHER GUIDES. THE CORNER IMAGES ON THIS PAGE ARE MAGNIFIED CROPS OF ACTUAL CARDS,
         SO YOU CAN CHECK ANY OF IT AGAINST SOMETHING IN YOUR OWN BINDER. A COUPLE OF CLAIMS THAT
         CIRCULATE WIDELY ARE LEFT OFF BECAUSE THEY COULD NOT BE VERIFIED. IF YOU SPOT SOMETHING WRONG
@@ -856,14 +956,17 @@
         <a href="/upcoming.html">Coming next</a>
         <a href="/complete-a-set.html">Cost to complete</a>
         <a href="/pack-prices.html">Pack prices</a>
+        <a href="/how-many-packs.html">Packs per box</a>
         <a href="/openings/">Sealed products</a>
         <a href="/drops.html">Drops this week</a>
       </div>
       <div class="foot-col">
         <p class="foot-h">Guides</p>
         <a href="/start.html">Start here</a>
+        <a href="/how-to-play.html">How to play</a>
         <a href="/what-set.html">Set finder</a>
         <a href="/rarity.html">Rarity guide</a>
+        <a href="/types.html">Card types</a>
         <a href="/fake-cards.html">Fakes</a>
         <a href="/will-it-grade.html">Will it grade</a>
         <a href="/grading.html">Grading cost</a>

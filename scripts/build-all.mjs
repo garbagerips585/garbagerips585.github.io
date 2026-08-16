@@ -75,8 +75,30 @@ const STEPS = [
   // build-search.mjs, which walks public/*.html and fails the build on any
   // indexable page it cannot find in its own PAGES list.
   "node scripts/build-pack-prices.mjs",
+  // The other half of the pack-price question: how many packs are in the thing
+  // before you divide by them. Reads data/pack-counts-current.json and
+  // data/pack-counts-history.json, which humans write, plus
+  // public/data/products.json for the product photography, so its only
+  // ordering constraints are the usual two: before build-search.mjs, which
+  // fails the build on an indexable page missing from its PAGES list, and
+  // before check-build.py, which follows the nav link to it from every page.
+  "node scripts/build-how-many-packs.mjs",
   "node scripts/build-what-set.mjs",
+  // The third page that reads a card somebody is holding, next to the rarity
+  // guide and the set finder. It reads data/types.json, which a human writes,
+  // and public/data/sets.json for the set names in its measurement note, so its
+  // only ordering constraints are the usual two: before build-search.mjs, which
+  // fails the build on an indexable page missing from its PAGES list, and
+  // before build-pages.mjs, which puts it in the sitemap.
+  "node scripts/build-types.mjs",
   "node scripts/build-start.mjs",
+  // Next to build-start.mjs because the two pages are a pair: start.html is the
+  // question-shaped front door and links here, and this page links back. It
+  // reads data/how-to-play.json, which a human writes, so its only ordering
+  // constraints are the usual two: before build-search.mjs, which fails the
+  // build on an indexable page missing from its PAGES list, and before
+  // build-pages.mjs, which puts it in the sitemap.
+  "node scripts/build-how-to-play.mjs",
   // Before build-search, which indexes these pages, and before build-pages,
   // which puts them in the sitemap. It also stamps `path` onto
   // public/data/playlists.json, which the browser reads.

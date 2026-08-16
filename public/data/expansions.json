@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-08-11",
+  "syncedAt": "2026-08-16",
   "source": "https://api.pokemontcg.io",
   "seriesOrder": [
     "Base",
@@ -1643,8 +1643,8 @@
       "logo": "https://images.pokemontcg.io/swsh2/logo.png",
       "symbol": "https://images.pokemontcg.io/swsh2/symbol.png",
       "promo": false,
-      "slug": null,
-      "rips": 0
+      "slug": "rebel-clash",
+      "rips": 2
     },
     {
       "apiId": "swsh3",
@@ -1721,8 +1721,8 @@
       "logo": "https://images.pokemontcg.io/swsh45/logo.png",
       "symbol": "https://images.pokemontcg.io/swsh45/symbol.png",
       "promo": false,
-      "slug": null,
-      "rips": 0
+      "slug": "shining-fates",
+      "rips": 2
     },
     {
       "apiId": "swsh45sv",
@@ -1760,8 +1760,8 @@
       "logo": "https://images.pokemontcg.io/swsh6/logo.png",
       "symbol": "https://images.pokemontcg.io/swsh6/symbol.png",
       "promo": false,
-      "slug": null,
-      "rips": 0
+      "slug": "chilling-reign",
+      "rips": 1
     },
     {
       "apiId": "swsh7",
@@ -1786,8 +1786,8 @@
       "logo": "https://images.pokemontcg.io/cel25/logo.png",
       "symbol": "https://images.pokemontcg.io/cel25/symbol.png",
       "promo": false,
-      "slug": null,
-      "rips": 0
+      "slug": "celebrations",
+      "rips": 1
     },
     {
       "apiId": "cel25c",
@@ -1968,8 +1968,8 @@
       "logo": "https://images.pokemontcg.io/swsh12pt5/logo.png",
       "symbol": "https://images.pokemontcg.io/swsh12pt5/symbol.png",
       "promo": false,
-      "slug": null,
-      "rips": 0
+      "slug": "crown-zenith",
+      "rips": 1
     },
     {
       "apiId": "swsh12pt5gg",
@@ -1995,7 +1995,7 @@
       "symbol": "https://images.pokemontcg.io/sv1/symbol.png",
       "promo": false,
       "slug": "scarlet-violet",
-      "rips": 5
+      "rips": 0
     },
     {
       "apiId": "sve",
@@ -2047,7 +2047,7 @@
       "symbol": "https://images.pokemontcg.io/sv3pt5/symbol.png",
       "promo": false,
       "slug": "151",
-      "rips": 5
+      "rips": 1
     },
     {
       "apiId": "sv4",
@@ -2099,7 +2099,7 @@
       "symbol": "https://images.pokemontcg.io/sv6/symbol.png",
       "promo": false,
       "slug": "twilight-masquerade",
-      "rips": 3
+      "rips": 5
     },
     {
       "apiId": "sv6pt5",
@@ -2138,7 +2138,7 @@
       "symbol": "https://images.pokemontcg.io/sv8/symbol.png",
       "promo": false,
       "slug": "surging-sparks",
-      "rips": 6
+      "rips": 9
     },
     {
       "apiId": "sv8pt5",
@@ -2164,7 +2164,7 @@
       "symbol": "https://images.pokemontcg.io/sv9/symbol.png",
       "promo": false,
       "slug": "journey-together",
-      "rips": 14
+      "rips": 15
     },
     {
       "apiId": "sv10",
@@ -2177,7 +2177,7 @@
       "symbol": "https://images.pokemontcg.io/sv10/symbol.png",
       "promo": false,
       "slug": "destined-rivals",
-      "rips": 12
+      "rips": 15
     },
     {
       "apiId": "zsv10pt5",
@@ -2216,7 +2216,7 @@
       "symbol": "https://images.pokemontcg.io/me1/symbol.png",
       "promo": false,
       "slug": "mega-evolution",
-      "rips": 3
+      "rips": 7
     },
     {
       "apiId": "me2",
@@ -2229,7 +2229,7 @@
       "symbol": "https://images.pokemontcg.io/me2/symbol.png",
       "promo": false,
       "slug": "phantasmal-flames",
-      "rips": 16
+      "rips": 17
     },
     {
       "apiId": "me2pt5",
@@ -2242,7 +2242,7 @@
       "symbol": "https://images.scrydex.com/pokemon/me2pt5-symbol/symbol",
       "promo": false,
       "slug": "ascended-heroes",
-      "rips": 49
+      "rips": 55
     },
     {
       "apiId": "me3",
@@ -2268,7 +2268,7 @@
       "symbol": "https://images.scrydex.com/pokemon/me4-symbol/symbol",
       "promo": false,
       "slug": "chaos-rising",
-      "rips": 50
+      "rips": 52
     },
     {
       "apiId": "me5",
@@ -2281,7 +2281,7 @@
       "symbol": "https://images.scrydex.com/pokemon/me5-symbol/symbol",
       "promo": false,
       "slug": "pitch-black",
-      "rips": 19
+      "rips": 21
     }
   ]
 }

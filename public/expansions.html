@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <!-- No preconnect to images.pokemontcg.io: every set symbol on this page is
      mirrored locally by scripts/sync-symbols.mjs and served from this origin. -->
-<link rel="stylesheet" href="/assets/ui.css?v=9e0253f2">
+<link rel="stylesheet" href="/assets/ui.css?v=2335fd03">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .xp{padding:var(--s7) 0 var(--s5)}
@@ -95,7 +95,7 @@
   "name": "Pokemon TCG sets in release order, 1999 to 2026",
   "description": "Release dates and card counts for all 174 English Pokemon Trading Card Game sets.",
   "url": "https://garbagerips585.github.io/expansions.html",
-  "dateModified": "2026-08-11",
+  "dateModified": "2026-08-16",
   "creator": {
     "@type": "Organization",
     "name": "Garbage Rips 585",
@@ -164,6 +164,7 @@
         <li><a href="/upcoming.html">Coming next</a></li>
         <li><a href="/complete-a-set.html">Cost to complete</a></li>
         <li><a href="/pack-prices.html">Pack prices</a></li>
+        <li><a href="/how-many-packs.html">Packs per box</a></li>
         <li><a href="/openings/">Sealed products</a></li>
         <li><a href="/drops.html">Drops this week</a></li>
       </ul>
@@ -172,8 +173,10 @@
       <p class="menu-h">Guides</p>
       <ul>
         <li><a href="/start.html">Start here</a></li>
+        <li><a href="/how-to-play.html">How to play</a></li>
         <li><a href="/what-set.html">Set finder</a></li>
         <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/types.html">Card types</a></li>
         <li><a href="/fake-cards.html">Fakes</a></li>
         <li><a href="/will-it-grade.html">Will it grade</a></li>
         <li><a href="/grading.html">Grading cost</a></li>
@@ -214,7 +217,7 @@
         <div class="xp-stat"><b>174</b><span>sets</span></div>
         <div class="xp-stat"><b>20,460</b><span>cards</span></div>
         <div class="xp-stat"><b>17</b><span>eras</span></div>
-        <div class="xp-stat"><b>23</b><span>with a full guide</span></div>
+        <div class="xp-stat"><b>28</b><span>of these have a guide</span></div>
       </div>
 
       <nav class="xp-jump" aria-label="Jump to an era">
@@ -240,8 +243,9 @@
       <button class="xp-copy" type="button" id="copyAll">Copy the whole list</button>
       <p class="xp-foot">Set names, release dates and card counts are from the Pokemon TCG API.
         Card counts show the printed set size, with secret rares beyond it listed separately.
-        Underlined sets have a full guide on this site. Fan made reference. Not affiliated with
-        The Pokemon Company or Nintendo.</p>
+        Underlined sets have a full guide on this site. The site also holds guides for Japanese and
+        Korean sets, which are not English releases and so are on no row here. Fan made reference.
+        Not affiliated with The Pokemon Company or Nintendo.</p>
     </div>
   </section>
 
@@ -1705,13 +1709,13 @@
           <td class="xp-cards">202 <span class="sec">+14</span></td>
           <td class="xp-rips"><span class="xp-none" aria-hidden="true">&mdash;</span><span class="sr-only">None</span></td>
         </tr>
-        <tr>
+        <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh2-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Rebel Clash</span>
+            <span class="xp-name"><img src="/assets/symbols/swsh2-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><a href="/sets/rebel-clash.html">Rebel Clash</a></span>
           </th>
           <td class="xp-date"><time datetime="2020-05-01">May 1, 2020</time></td>
           <td class="xp-cards">192 <span class="sec">+17</span></td>
-          <td class="xp-rips"><span class="xp-none" aria-hidden="true">&mdash;</span><span class="sr-only">None</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=rebel-clash">2 rips</a></td>
         </tr>
         <tr>
           <th scope="row">
@@ -1737,13 +1741,13 @@
           <td class="xp-cards">185 <span class="sec">+18</span></td>
           <td class="xp-rips"><span class="xp-none" aria-hidden="true">&mdash;</span><span class="sr-only">None</span></td>
         </tr>
-        <tr>
+        <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh45-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Shining Fates</span>
+            <span class="xp-name"><img src="/assets/symbols/swsh45-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><a href="/sets/shining-fates.html">Shining Fates</a></span>
           </th>
           <td class="xp-date"><time datetime="2021-02-19">Feb 19, 2021</time></td>
           <td class="xp-cards">72 <span class="sec">+1</span></td>
-          <td class="xp-rips"><span class="xp-none" aria-hidden="true">&mdash;</span><span class="sr-only">None</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=shining-fates">2 rips</a></td>
         </tr>
         <tr>
           <th scope="row">
@@ -1761,13 +1765,13 @@
           <td class="xp-cards">163 <span class="sec">+20</span></td>
           <td class="xp-rips"><span class="xp-none" aria-hidden="true">&mdash;</span><span class="sr-only">None</span></td>
         </tr>
-        <tr>
+        <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh6-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Chilling Reign</span>
+            <span class="xp-name"><img src="/assets/symbols/swsh6-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><a href="/sets/chilling-reign.html">Chilling Reign</a></span>
           </th>
           <td class="xp-date"><time datetime="2021-06-18">Jun 18, 2021</time></td>
           <td class="xp-cards">198 <span class="sec">+35</span></td>
-          <td class="xp-rips"><span class="xp-none" aria-hidden="true">&mdash;</span><span class="sr-only">None</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=chilling-reign">1 rip</a></td>
         </tr>
         <tr>
           <th scope="row">
@@ -1777,13 +1781,13 @@
           <td class="xp-cards">203 <span class="sec">+34</span></td>
           <td class="xp-rips"><span class="xp-none" aria-hidden="true">&mdash;</span><span class="sr-only">None</span></td>
         </tr>
-        <tr>
+        <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/cel25-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async">Celebrations</span>
+            <span class="xp-name"><img src="/assets/symbols/cel25-pokemon-tcg-set-symbol.webp" alt="" width="40" height="40" loading="lazy" decoding="async"><a href="/sets/celebrations.html">Celebrations</a></span>
           </th>
           <td class="xp-date"><time datetime="2021-10-08">Oct 8, 2021</time></td>
           <td class="xp-cards">25</td>
-          <td class="xp-rips"><span class="xp-none" aria-hidden="true">&mdash;</span><span class="sr-only">None</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=celebrations">1 rip</a></td>
         </tr>
         <tr>
           <th scope="row">
@@ -1873,13 +1877,13 @@
           <td class="xp-cards">30</td>
           <td class="xp-rips"><span class="xp-none" aria-hidden="true">&mdash;</span><span class="sr-only">None</span></td>
         </tr>
-        <tr>
+        <tr class="mine">
           <th scope="row">
-            <span class="xp-name"><img src="/assets/symbols/swsh12pt5-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async">Crown Zenith</span>
+            <span class="xp-name"><img src="/assets/symbols/swsh12pt5-pokemon-tcg-set-symbol.webp" alt="" width="38" height="38" loading="lazy" decoding="async"><a href="/sets/crown-zenith.html">Crown Zenith</a></span>
           </th>
           <td class="xp-date"><time datetime="2023-01-20">Jan 20, 2023</time></td>
           <td class="xp-cards">159 <span class="sec">+1</span></td>
-          <td class="xp-rips"><span class="xp-none" aria-hidden="true">&mdash;</span><span class="sr-only">None</span></td>
+          <td class="xp-rips"><a href="/videos.html?set=crown-zenith">1 rip</a></td>
         </tr>
         <tr>
           <th scope="row">
@@ -2226,14 +2230,17 @@ document.getElementById("copyAll")?.addEventListener("click", async (e) => {
         <a href="/upcoming.html">Coming next</a>
         <a href="/complete-a-set.html">Cost to complete</a>
         <a href="/pack-prices.html">Pack prices</a>
+        <a href="/how-many-packs.html">Packs per box</a>
         <a href="/openings/">Sealed products</a>
         <a href="/drops.html">Drops this week</a>
       </div>
       <div class="foot-col">
         <p class="foot-h">Guides</p>
         <a href="/start.html">Start here</a>
+        <a href="/how-to-play.html">How to play</a>
         <a href="/what-set.html">Set finder</a>
         <a href="/rarity.html">Rarity guide</a>
+        <a href="/types.html">Card types</a>
         <a href="/fake-cards.html">Fakes</a>
         <a href="/will-it-grade.html">Will it grade</a>
         <a href="/grading.html">Grading cost</a>
@@ -2264,7 +2271,7 @@ document.getElementById("copyAll")?.addEventListener("click", async (e) => {
     </div>
     <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
     <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
-    Set data from the Pokemon TCG API, last checked August 11, 2026.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+    Set data from the Pokemon TCG API, last checked August 16, 2026.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
 

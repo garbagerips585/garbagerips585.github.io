@@ -1,0 +1,517 @@
+{
+  "_readme": [
+    "Source data for a beginner guide to the Pokemon TCG Energy types. RESEARCH",
+    "ONLY: nothing reads this file yet. scripts/build-types.mjs does not exist.",
+    "",
+    "THE ONE THING THIS FILE EXISTS TO STOP. The Pokemon TCG type system is NOT",
+    "the video game type system, and a page that prints the 18-type video game",
+    "chart on a site about the card game is wrong in the way that matters most:",
+    "confidently, in the reader's own vocabulary. The TCG has 11 Energy types",
+    "(10 of them still printed), several video game types collapse into one TCG",
+    "type, and there is NO universal 'Fire beats Grass' chart in the card game.",
+    "",
+    "WEAKNESS AND RESISTANCE ARE PRINTED PER CARD. The official rulebook says",
+    "'Some Pokemon have Weakness or Resistance', marked in the lower-left corner",
+    "of that card. Two Charizard cards can carry different Weakness values, and",
+    "the same Pokemon has carried different Weakness in different eras. So this",
+    "file records TENDENCIES, measured over real cards and stated with an n, and",
+    "never a rule. `weakness` and `resistance` under each type are observations,",
+    "not mechanics. If the page ever renders them as a grid with no counts, the",
+    "grid is a lie in exactly the way a type chart is a lie.",
+    "",
+    "EVERY EXAMPLE CARD HAD ITS TYPE READ OFF THE CARD, not inferred from the",
+    "Pokemon's video game type. `example.verified` records the TCGdex card record",
+    "the type, Weakness and Resistance were read from, on 2026-08-15. Eleven of",
+    "the twelve example bases live in public/data/cards/ already; the Fairy one",
+    "does not, because the site tracks no set old enough to have a Fairy card.",
+    "",
+    "ALL TWELVE IMAGE BASES WERE FETCHED, all four extensions each (low.webp,",
+    "low.avif, high.webp, high.avif): 48 of 48 answered 200 on 2026-08-15, and",
+    "none of the twelve appears in data/no-scan.json.",
+    "",
+    "NO PULL RATES, NO ODDS, EVER. Nothing here is about how often a type shows",
+    "up in a pack and nothing derived from it may be."
+  ],
+  "checked": "2026-08-15",
+
+  "sources": {
+    "_note": "tier 1 = The Pokemon Company. tier 2 = Bulbapedia. tier 3 = a source the site already builds on (TCGdex, PokeAPI) or a measurement taken from it.",
+    "rulebook_par": {
+      "tier": 1,
+      "what": "Pokemon Trading Card Game Rules, Paradox Rift printing. The current-era official rulebook. Source for the count of 11 Energy types, the per-type blurbs, the Fairy note, and the Weakness/Resistance wording.",
+      "url": "https://assets.pokemon.com/assets/cms2/pdf/trading-card-game/rulebook/par_rulebook_en.pdf",
+      "read": "2026-08-15",
+      "note": "The same PDF on www.pokemon.com/static-assets/... answers a bot-detection page. assets.pokemon.com serves it. 41 pages, 8.6MB."
+    },
+    "rulebook_sm2": {
+      "tier": 1,
+      "what": "Pokemon Trading Card Game Rules, Guardians Rising printing (2017). Used only to confirm the Weakness wording is unchanged across eras and to date the pre-Sword-&-Shield state of the type list.",
+      "url": "https://assets.pokemon.com/assets/cms2/pdf/trading-card-game/rulebook/sm2_rulebook_en.pdf",
+      "read": "2026-08-15"
+    },
+    "swsh_announcement": {
+      "tier": 1,
+      "what": "The Pokemon Company announcement of the Sword & Shield type changes: Fairy dropped, Fairy Pokemon become Psychic, Poison Pokemon become Darkness, Resistance moves from -20 to -30.",
+      "url": "https://gonintendo.com/stories/352511-changes-coming-to-the-pokemon-tcg-with-sword-shield",
+      "read": "2026-08-15",
+      "note": "FLAG: this is a MIRROR. The article is dated 9 January 2020 and credits Pokemon.com, and the wording matches what the par rulebook says independently, but the original pokemon.com article could not be reached (Cloudflare bot page) and pocketmonsters.net's mirror answered 403. Treat the mirror as tier 2 evidence for a tier 1 claim. The claims it carries are all separately confirmed by the rulebook or by measurement, so nothing on the page needs to rest on it alone."
+    },
+    "bulbapedia_type": {
+      "tier": 2,
+      "what": "Type (TCG). Source for the full video-game-type to TCG-type mapping table and its footnotes, and for which set each type debuted in.",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Type_(TCG)",
+      "read": "2026-08-15"
+    },
+    "bulbapedia_dragon": {
+      "tier": 2,
+      "what": "Dragon type (TCG). Source for Dragon's introduction, its two absences, its reintroductions, and the no-Basic-Dragon-Energy fact.",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Dragon_type_(TCG)",
+      "read": "2026-08-15"
+    },
+    "bulbapedia_fairy": {
+      "tier": 2,
+      "what": "Fairy (TCG). Source for Fairy's debut set and for Basic Fairy Energy being the first Basic Energy to rotate out of Standard.",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Fairy_(TCG)",
+      "read": "2026-08-15",
+      "note": "the /wiki/Fairy_type_(TCG) url 404s. /wiki/Fairy_(TCG) is the live one."
+    },
+    "bulbapedia_energy": {
+      "tier": 2,
+      "what": "Energy card (TCG). Source for there being nine Basic Energy cards and for why Colorless and Dragon have none.",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Energy_card_(TCG)",
+      "read": "2026-08-15"
+    },
+    "tcgdex_types": {
+      "tier": 3,
+      "what": "TCGdex's own list of TCG types. Returns exactly the 11 the rulebook names, which is an independent check on the list from a source this site already builds on.",
+      "url": "https://api.tcgdex.net/v2/en/types",
+      "read": "2026-08-15",
+      "returns": ["Colorless", "Darkness", "Dragon", "Fairy", "Fighting", "Fire", "Grass", "Lightning", "Metal", "Psychic", "Water"]
+    },
+    "tcgdex_sve": {
+      "tier": 3,
+      "what": "Scarlet & Violet Energy set, released 2023-03-31. Its collector numbering is where the page's type ORDER comes from: 001 Grass through 008 Metal.",
+      "url": "https://api.tcgdex.net/v2/en/sets/sve",
+      "read": "2026-08-15"
+    },
+    "measurement": {
+      "tier": 3,
+      "what": "The Weakness and Resistance tendencies below. Measured, not recalled. See `measurement` for the method.",
+      "read": "2026-08-15"
+    },
+    "pokedex": {
+      "tier": 3,
+      "what": "data/pokedex.json (PokeAPI, 1,025 Pokemon, checked 2026-08-13). Supplies each Pokemon's VIDEO GAME types, which is how the mapping below was checked against real cards rather than taken on Bulbapedia's word.",
+      "read": "2026-08-15"
+    }
+  },
+
+  "rules": {
+    "_note": "Every claim here is from the Paradox Rift rulebook (tier 1) unless marked.",
+    "weakness_is_per_card": {
+      "claim": "Weakness and Resistance are printed on each individual card, in the lower-left corner, and only some Pokemon have them. There is no universal type chart in the TCG.",
+      "quote": "Some Pokemon have Weakness or Resistance to Pokemon of certain types",
+      "source": "rulebook_par",
+      "confidence": "certain, tier 1, and independently visible on every card scan"
+    },
+    "glossary_weakness": {
+      "claim": "The rulebook glossary ends the Weakness and Resistance entries with the phrase 'if any', which is the whole point: a card may print neither.",
+      "source": "rulebook_par"
+    },
+    "weakness_value": {
+      "claim": "On current cards Weakness is written as x2 and doubles the attack's damage. The rulebook's worked example does 10 damage, doubles it to 20, and puts 2 damage counters on.",
+      "source": "rulebook_par",
+      "caveat": "The VALUE is printed on the card too. Older cards printed +10, +20 and +30 Weakness instead of x2. Do not state x2 as a rule of the game; state it as what current cards print."
+    },
+    "resistance_value": {
+      "claim": "Cards from the Sword & Shield series onward print Resistance as -30. Before that it was -20 for over a decade.",
+      "source": "swsh_announcement",
+      "confirmed_by": "measurement: all 305 Resistance values printed across the 10 modern sets sampled are -30, and all 1,410 Weakness values are x2, while the XY-era Fairy example card (Xerneas, XY 96) prints Darkness -20.",
+      "confidence": "high. The -20/-30 change rests on the mirrored announcement for its REASON, but the values themselves are read off cards."
+    },
+    "bench_exempt": {
+      "claim": "Weakness and Resistance are never applied to Benched Pokemon, only to the Active Pokemon.",
+      "source": "rulebook_par"
+    },
+    "colorless_cost": {
+      "claim": "A Colorless symbol in an attack cost can be paid with any type of Energy. That is why there is no Basic Colorless Energy card.",
+      "source": "rulebook_par + bulbapedia_energy"
+    },
+    "dragon_has_no_energy": {
+      "claim": "There is no Basic Dragon Energy card. Dragon Pokemon pay for their attacks with a mix of other types, which is why their attack costs usually show two different Energy symbols.",
+      "source": "bulbapedia_energy + bulbapedia_dragon",
+      "confirmed_by": "measurement: no Dragon Energy card appears anywhere in public/data/card-index.json's 5,181 cards, while all eight other basic types do."
+    },
+    "basic_energy_count": {
+      "claim": "Nine Basic Energy cards have ever existed: Grass, Fire, Water, Lightning, Psychic, Fighting, Darkness, Metal and Fairy. Eight are still printed.",
+      "source": "bulbapedia_energy",
+      "confirmed_by": "tcgdex_sve lists exactly those eight in the current basic Energy set"
+    }
+  },
+
+  "measurement": {
+    "_what": "Where the Weakness and Resistance tendencies below come from. This is the honest replacement for a type chart.",
+    "method": "Every Pokemon card in ten sets was fetched from api.tcgdex.net (the same host the set pages already use) and its printed types, Weakness and Resistance recorded. Alternate arts of the same card in the same set were counted once, so a chase card with four printings does not vote four times.",
+    "run": "2026-08-15",
+    "sets": ["151", "destined-rivals", "journey-together", "surging-sparks", "mega-evolution", "rebel-clash", "crown-zenith", "paldea-evolved", "obsidian-flames", "twilight-masquerade"],
+    "sets_note": "All ten already have a local record in public/data/cards/. They span Sword & Shield (Rebel Clash, 2020) to Mega Evolution (2025), so the numbers describe the modern game and NOT the whole history of the TCG. Say so on the page.",
+    "cards_fetched": 1853,
+    "unique_pokemon_cards_with_a_type": 1446,
+    "not_a_pull_rate": "These percentages are about what is PRINTED on cards, never about what comes out of a pack. Nothing here may be phrased as odds.",
+    "second_pass_available": "A partial pull from api.pokemontcg.io (sv3pt5, sv8, sv10, sv9) agreed with the TCGdex numbers on every type it covered. It is not the basis of anything below, it just did not contradict it."
+  },
+
+  "mapping": {
+    "_what": "Which video game types land in which TCG type, CURRENTLY. Bulbapedia's table, then checked against real cards.",
+    "_method": "For every card in the ten sampled sets whose Pokemon has exactly ONE video game type in data/pokedex.json, the game type was compared with the type printed on the card. Regional forms (Alolan, Galarian, Hisuian, Paldean) and Zacian/Zamazenta were excluded, because the regional or Crowned form has a different game type from the base species and the comparison would be against the wrong Pokemon. 628 cards remained.",
+    "_result": "Bulbapedia's table matched the cards on 18 of 18 game types, with two individual exceptions out of 628 (Shaymin printed as Colorless, Eiscue ex printed as Fire). That is the strongest single result in this file: two independent sources, one of them the cards themselves.",
+    "table": {
+      "grass": { "tcg": "Grass", "n": 44, "agree": 43, "pct": 98, "exception": "Shaymin (Crown Zenith) is printed Colorless" },
+      "bug": { "tcg": "Grass", "n": 28, "agree": 28, "pct": 100 },
+      "fire": { "tcg": "Fire", "n": 69, "agree": 69, "pct": 100 },
+      "water": { "tcg": "Water", "n": 87, "agree": 87, "pct": 100 },
+      "ice": { "tcg": "Water", "n": 21, "agree": 20, "pct": 95, "exception": "Eiscue ex (Obsidian Flames) is printed Fire" },
+      "electric": { "tcg": "Lightning", "n": 63, "agree": 63, "pct": 100 },
+      "psychic": { "tcg": "Psychic", "n": 33, "agree": 33, "pct": 100 },
+      "ghost": { "tcg": "Psychic", "n": 16, "agree": 16, "pct": 100 },
+      "fairy": { "tcg": "Psychic", "n": 26, "agree": 26, "pct": 100, "note": "since Sword & Shield. Before that, Fairy was its own TCG type." },
+      "fighting": { "tcg": "Fighting", "n": 33, "agree": 33, "pct": 100 },
+      "ground": { "tcg": "Fighting", "n": 25, "agree": 25, "pct": 100 },
+      "rock": { "tcg": "Fighting", "n": 28, "agree": 28, "pct": 100 },
+      "dark": { "tcg": "Darkness", "n": 19, "agree": 19, "pct": 100 },
+      "poison": { "tcg": "Darkness", "n": 17, "agree": 17, "pct": 100, "note": "since Sword & Shield. Poison was Grass in the TCG until EX Power Keepers and Psychic from Diamond & Pearl until Sword & Shield, so old Poison cards look wrong to a new player and are not." },
+      "steel": { "tcg": "Metal", "n": 13, "agree": 13, "pct": 100 },
+      "normal": { "tcg": "Colorless", "n": 95, "agree": 95, "pct": 100 },
+      "flying": { "tcg": "Colorless", "n": 4, "agree": 4, "pct": 100, "note": "n is small because almost every Flying Pokemon is dual-typed and dual-typed Pokemon were excluded from this test. Bulbapedia's claim stands, the measurement just cannot say much about it." },
+      "dragon": { "tcg": "Dragon", "n": 7, "agree": 7, "pct": 100 }
+    },
+    "caveat_for_the_page": "This is a strong tendency and not a law. The TCG type of a card is a design decision made card by card, and dual-typed Pokemon get whichever of their two types the designers picked, which is why a Grass/Poison Bulbasaur is a Grass card while a pure-Poison Muk is a Darkness card."
+  },
+
+  "order": {
+    "list": ["grass", "fire", "water", "lightning", "psychic", "fighting", "darkness", "metal", "colorless", "dragon", "fairy"],
+    "why": "The first eight are in the exact order The Pokemon Company numbers them in the Scarlet & Violet Energy set, 001 Grass through 008 Metal, so a reader holding a stack of basic Energy sees the page in the order their cards already sit in. Colorless and Dragon follow because they have no Basic Energy card. Fairy is last because it is retired."
+  },
+
+  "types": [
+    {
+      "id": "grass",
+      "name": "Grass",
+      "status": "current",
+      "gameTypes": ["Grass", "Bug"],
+      "gameTypesNote": "Poison used to live here too, until EX Power Keepers in 2007. Very old Grass cards of Poison Pokemon are correct for their era.",
+      "symbol": "a leaf",
+      "symbolSource": "drawn by us, see the plan. Do not hotlink Pokemon's Energy symbol art.",
+      "blurb": "The patient type. Grass attacks tend to heal the attacker or leave the other Pokemon Poisoned, so a Grass deck wins by outlasting rather than by hitting hardest.",
+      "blurbSource": "our wording, informed by rulebook_par's own one-line description of the type",
+      "weakness": { "top": "Fire x2", "n": 210, "count": 208, "pct": 99, "rest": [["Lightning x2", 2, 1]] },
+      "resistance": { "top": "none printed", "n": 210, "count": 208, "pct": 99, "rest": [["Fighting -30", 2, 1]] },
+      "example": {
+        "card": "Venusaur ex",
+        "set": "151",
+        "number": "003",
+        "tcgdexId": "sv03.5-003",
+        "img": "https://assets.tcgdex.net/en/sv/sv03.5/003",
+        "printedType": "Grass",
+        "printedWeakness": "Fire x2",
+        "printedResistance": null,
+        "inLocalData": "public/data/cards/151.json",
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-003, read 2026-08-15"
+      }
+    },
+    {
+      "id": "fire",
+      "name": "Fire",
+      "status": "current",
+      "gameTypes": ["Fire"],
+      "gameTypesNote": "The only TCG type that maps to exactly one video game type and nothing else.",
+      "symbol": "a flame",
+      "blurb": "The big-swing type. Fire attacks hit hard and can leave the other Pokemon Burned, but they usually cost you Energy off your own Pokemon to do it.",
+      "blurbSource": "our wording, informed by rulebook_par",
+      "weakness": { "top": "Water x2", "n": 146, "count": 141, "pct": 97, "rest": [["Lightning x2", 5, 3]] },
+      "resistance": { "top": "none printed", "n": 146, "count": 141, "pct": 97, "rest": [["Fighting -30", 5, 3]] },
+      "example": {
+        "card": "Charizard ex",
+        "set": "151",
+        "number": "006",
+        "tcgdexId": "sv03.5-006",
+        "img": "https://assets.tcgdex.net/en/sv/sv03.5/006",
+        "printedType": "Fire",
+        "printedWeakness": "Water x2",
+        "printedResistance": null,
+        "inLocalData": "public/data/cards/151.json",
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-006, read 2026-08-15"
+      }
+    },
+    {
+      "id": "water",
+      "name": "Water",
+      "status": "current",
+      "gameTypes": ["Water", "Ice"],
+      "symbol": "a water drop",
+      "blurb": "The type that moves things around. Water attacks shuffle Energy and drag the other player's benched Pokemon into the fight, which is how they pick the matchup they want.",
+      "blurbSource": "our wording, informed by rulebook_par",
+      "weakness": { "top": "Lightning x2", "n": 183, "count": 137, "pct": 75, "rest": [["Metal x2", 46, 25]] },
+      "weaknessNote": "THE SPLIT IS THE INTERESTING PART AND THE PAGE SHOULD SAY WHY. The quarter that print Metal instead are the Ice Pokemon. Ice is a Water card in the TCG but keeps its video game weakness to Steel, which the TCG calls Metal. Same picture on the Psychic, Fighting, Darkness and Colorless entries.",
+      "resistance": { "top": "none printed", "n": 183, "count": 175, "pct": 96, "rest": [["Fighting -30", 8, 4]] },
+      "example": {
+        "card": "Blastoise ex",
+        "set": "151",
+        "number": "009",
+        "tcgdexId": "sv03.5-009",
+        "img": "https://assets.tcgdex.net/en/sv/sv03.5/009",
+        "printedType": "Water",
+        "printedWeakness": "Lightning x2",
+        "printedResistance": null,
+        "inLocalData": "public/data/cards/151.json",
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-009, read 2026-08-15"
+      }
+    },
+    {
+      "id": "lightning",
+      "name": "Lightning",
+      "status": "current",
+      "gameTypes": ["Electric"],
+      "gameTypesNote": "The TCG has never called it Electric. Beginners search for Electric and land on the video game chart, which is one reason this page exists.",
+      "symbol": "a lightning bolt",
+      "blurb": "The refuel type. Lightning attacks pull used Energy back out of the discard pile and can leave the other Pokemon Paralyzed, so they keep swinging when other decks have run dry.",
+      "blurbSource": "our wording, informed by rulebook_par",
+      "weakness": { "top": "Fighting x2", "n": 132, "count": 120, "pct": 91, "rest": [["Lightning x2", 12, 9]] },
+      "resistance": { "top": "none printed", "n": 132, "count": 120, "pct": 91, "rest": [["Fighting -30", 12, 9]] },
+      "example": {
+        "card": "Pikachu",
+        "set": "151",
+        "number": "025",
+        "tcgdexId": "sv03.5-025",
+        "img": "https://assets.tcgdex.net/en/sv/sv03.5/025",
+        "printedType": "Lightning",
+        "printedWeakness": "Fighting x2",
+        "printedResistance": null,
+        "inLocalData": "public/data/cards/151.json",
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-025, read 2026-08-15"
+      }
+    },
+    {
+      "id": "psychic",
+      "name": "Psychic",
+      "status": "current",
+      "gameTypes": ["Psychic", "Ghost", "Fairy"],
+      "gameTypesNote": "Fairy only since Sword & Shield, February 2020. Ghost has been here since the start. Poison sat here from Diamond & Pearl until Sword & Shield and has since moved to Darkness.",
+      "symbol": "a circle with orbiting rings",
+      "blurb": "The trick type. Psychic cards do their work through Abilities and status, leaving the other Pokemon Asleep, Confused or Poisoned rather than just hitting it.",
+      "blurbSource": "our wording, informed by rulebook_par",
+      "weakness": { "top": "Darkness x2", "n": 180, "count": 122, "pct": 68, "rest": [["Metal x2", 55, 31], ["Lightning x2", 3, 2]] },
+      "weaknessNote": "The Metal third are the Pokemon that are Fairy in the video games. Fairy is weak to Steel in the games, the TCG calls Steel Metal, and the weakness came along when the type was folded in.",
+      "resistance": { "top": "Fighting -30", "n": 180, "count": 125, "pct": 69, "rest": [["none printed", 55, 31]] },
+      "resistanceNote": "The only current type where printing a Resistance is the majority case, and it splits the same way: the Ghost and Psychic ones carry Fighting -30, the former Fairy ones carry nothing.",
+      "example": {
+        "card": "Gengar",
+        "set": "151",
+        "number": "094",
+        "tcgdexId": "sv03.5-094",
+        "img": "https://assets.tcgdex.net/en/sv/sv03.5/094",
+        "printedType": "Psychic",
+        "printedWeakness": "Darkness x2",
+        "printedResistance": "Fighting -30",
+        "inLocalData": "public/data/cards/151.json",
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-094, read 2026-08-15",
+        "whyThisOne": "Gengar is a Ghost/Poison Pokemon printed as a PSYCHIC card, which is the cleanest single proof that TCG type is not video game type. It is also one of the few examples that prints both a Weakness and a Resistance, so the corner of the card shows the reader both at once."
+      }
+    },
+    {
+      "id": "fighting",
+      "name": "Fighting",
+      "status": "current",
+      "gameTypes": ["Fighting", "Ground", "Rock"],
+      "gameTypesNote": "Three video game types in one. This is the biggest single collapse in the TCG and the one most likely to confuse someone coming from the games.",
+      "symbol": "a fist",
+      "blurb": "The gambler. Fighting attacks do extra damage if you accept a downside, and a lot of them flip coins for combination hits, so the type swings between whiffing and hitting far above its cost.",
+      "blurbSource": "our wording, informed by rulebook_par",
+      "weakness": { "top": "Grass x2", "n": 175, "count": 121, "pct": 69, "rest": [["Psychic x2", 54, 31]] },
+      "weaknessNote": "Split by where the Pokemon came from: the Ground and Rock ones print Grass, the actual Fighting ones print Psychic. Both track the video game chart through the TCG's own type names (Grass covers Bug and Grass, both of which Ground and Rock fear).",
+      "resistance": { "top": "none printed", "n": 175, "count": 175, "pct": 100 },
+      "resistanceNote": "Not one of the 175 Fighting cards sampled printed a Resistance. That is a striking number and it is exactly the kind of thing that could stop being true next set, so keep the n and the set list next to it.",
+      "example": {
+        "card": "Machamp",
+        "set": "151",
+        "number": "068",
+        "tcgdexId": "sv03.5-068",
+        "img": "https://assets.tcgdex.net/en/sv/sv03.5/068",
+        "printedType": "Fighting",
+        "printedWeakness": "Psychic x2",
+        "printedResistance": null,
+        "inLocalData": "public/data/cards/151.json",
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-068, read 2026-08-15"
+      }
+    },
+    {
+      "id": "darkness",
+      "name": "Darkness",
+      "status": "current",
+      "since": "Neo Genesis, 2000",
+      "gameTypes": ["Dark", "Poison"],
+      "gameTypesNote": "Poison arrived here with Sword & Shield in 2020. Before that it was Psychic, and before EX Power Keepers it was Grass. A Poison Pokemon's TCG type has changed twice, so which card is 'right' depends entirely on when it was printed.",
+      "symbol": "a dark circle with an eye",
+      "blurb": "The type that plays dirty. Darkness attacks make the other player discard cards and can leave their Pokemon Poisoned, so it wins by taking away the tools rather than by out-damaging anyone.",
+      "blurbSource": "our wording, informed by rulebook_par",
+      "weakness": { "top": "Grass x2", "n": 125, "count": 59, "pct": 47, "rest": [["Fighting x2", 53, 42], ["Lightning x2", 13, 10]] },
+      "weaknessNote": "THE MOST SPLIT TYPE, and the only one where the top answer is under half. It splits by origin and both halves make sense: the Dark Pokemon print Grass, because Dark fears Bug in the games and Bug is a Grass card here. The Poison Pokemon print Fighting, because Poison fears Ground in the games and Ground is a Fighting card here. Do NOT let the page round this to 'Darkness is weak to Grass'.",
+      "resistance": { "top": "none printed", "n": 125, "count": 112, "pct": 90, "rest": [["Fighting -30", 13, 10]] },
+      "example": {
+        "card": "Muk",
+        "set": "151",
+        "number": "089",
+        "tcgdexId": "sv03.5-089",
+        "img": "https://assets.tcgdex.net/en/sv/sv03.5/089",
+        "printedType": "Darkness",
+        "printedWeakness": "Fighting x2",
+        "printedResistance": null,
+        "inLocalData": "public/data/cards/151.json",
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-089, read 2026-08-15",
+        "whyThisOne": "Muk is a pure Poison Pokemon on a DARKNESS card, and it is a 30 cent common out of a set Tim rips, so a reader can hold the proof. Grimer, Koffing and Weezing in the same set all check out the same way."
+      },
+      "exampleAlt": {
+        "card": "Hydreigon ex",
+        "set": "surging-sparks",
+        "number": "119",
+        "tcgdexId": "sv08-119",
+        "img": "https://assets.tcgdex.net/en/sv/sv08/119",
+        "printedType": "Darkness",
+        "printedWeakness": "Grass x2",
+        "printedResistance": null,
+        "inLocalData": "public/data/cards/surging-sparks.json",
+        "verified": "api.tcgdex.net/v2/en/cards/sv08-119, read 2026-08-15",
+        "whyThisOne": "The other half of the split, on a card people actually chase. Showing Muk and Hydreigon ex side by side proves the per-card point better than any sentence: same type, different printed Weakness."
+      }
+    },
+    {
+      "id": "metal",
+      "name": "Metal",
+      "status": "current",
+      "since": "Neo Genesis, 2000",
+      "gameTypes": ["Steel"],
+      "gameTypesNote": "Called Steel in the games and Metal on the cards, the same rename Electric gets as Lightning.",
+      "symbol": "a metal star or gear",
+      "blurb": "The wall. Metal Pokemon soak damage for longer than anything else in the game, and Metal is the one type where printing a Resistance is normal rather than rare.",
+      "blurbSource": "our wording, informed by rulebook_par and by the measurement below",
+      "weakness": { "top": "Fire x2", "n": 90, "count": 83, "pct": 92, "rest": [["Lightning x2", 7, 8]] },
+      "resistance": { "top": "Grass -30", "n": 90, "count": 83, "pct": 92, "rest": [["Fighting -30", 7, 8]] },
+      "resistanceNote": "Metal is the only current type where essentially every card prints a Resistance. Worth calling out on the page, with the n.",
+      "example": {
+        "card": "Archaludon ex",
+        "set": "surging-sparks",
+        "number": "130",
+        "tcgdexId": "sv08-130",
+        "img": "https://assets.tcgdex.net/en/sv/sv08/130",
+        "printedType": "Metal",
+        "printedWeakness": "Fire x2",
+        "printedResistance": "Grass -30",
+        "inLocalData": "public/data/cards/surging-sparks.json",
+        "verified": "api.tcgdex.net/v2/en/cards/sv08-130, read 2026-08-15"
+      }
+    },
+    {
+      "id": "colorless",
+      "name": "Colorless",
+      "status": "current",
+      "gameTypes": ["Normal", "Flying"],
+      "symbol": "a star",
+      "hasBasicEnergy": false,
+      "blurb": "The type that fits anywhere. Colorless Pokemon take any Energy you have, so they slot into a deck built around something else, and a Colorless symbol in an attack cost can be paid with any Energy card at all.",
+      "blurbSource": "our wording, informed by rulebook_par",
+      "specialNote": "TWO SEPARATE FACTS SHARE THIS NAME AND BEGINNERS MERGE THEM. A Colorless POKEMON is a card with the star type. A Colorless SYMBOL in an attack cost is a slot any Energy can fill. There is no Basic Colorless Energy card, which is only confusing until you see that the symbol means 'anything', not 'a thing'.",
+      "weakness": { "top": "Fighting x2", "n": 169, "count": 119, "pct": 70, "rest": [["Lightning x2", 50, 30]] },
+      "weaknessNote": "Splits by origin again: the Normal Pokemon print Fighting, the Flying ones print Lightning and carry Fighting -30, which is exactly the Flying profile from the games.",
+      "resistance": { "top": "none printed", "n": 169, "count": 119, "pct": 70, "rest": [["Fighting -30", 50, 30]] },
+      "example": {
+        "card": "Snorlax",
+        "set": "151",
+        "number": "143",
+        "tcgdexId": "sv03.5-143",
+        "img": "https://assets.tcgdex.net/en/sv/sv03.5/143",
+        "printedType": "Colorless",
+        "printedWeakness": "Fighting x2",
+        "printedResistance": null,
+        "inLocalData": "public/data/cards/151.json",
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-143, read 2026-08-15"
+      }
+    },
+    {
+      "id": "dragon",
+      "name": "Dragon",
+      "status": "current",
+      "since": "Dragons Exalted, 2012",
+      "gameTypes": ["Dragon"],
+      "gameTypesNote": "Dragon Pokemon were Colorless cards until Dragons Exalted gave them their own type.",
+      "symbol": "a stylised dragon eye",
+      "hasBasicEnergy": false,
+      "blurb": "The greedy type. Dragon attacks hit like nothing else, but they usually demand two different kinds of Energy to fire, because there is no Dragon Energy card to feed them.",
+      "blurbSource": "our wording, informed by rulebook_par",
+      "weakness": { "top": "no Weakness printed", "n": 36, "count": 36, "pct": 100 },
+      "resistance": { "top": "no Resistance printed", "n": 36, "count": 36, "pct": 100 },
+      "weaknessNote": "THE BEST TEACHING CARD ON THE WHOLE PAGE. All 36 modern Dragon cards sampled print NO Weakness and NO Resistance at all: the bottom-left corner is simply empty. A universal type chart cannot describe a Pokemon that has no Weakness, so Dragon is the proof, in one picture, that the chart does not govern this game. Bulbapedia dates this to Evolving Skies, when Dragon cards were reworked to have neither.",
+      "history": "Introduced in Dragons Exalted (2012). Absent from Sword & Shield until Evolving Skies (August 2021), after Cosmic Eclipse (November 2019) was the last set to carry one. Absent again at the start of Scarlet & Violet, then back in Paldea Evolved (2023), this time without the claw-mark card frame.",
+      "historySource": "bulbapedia_dragon (tier 2). FLAG: the dates for the two absences rest on Bulbapedia alone. The current state, no Weakness and no Resistance printed, is confirmed by measurement over 36 cards.",
+      "example": {
+        "card": "Dragonite",
+        "set": "151",
+        "number": "149",
+        "tcgdexId": "sv03.5-149",
+        "img": "https://assets.tcgdex.net/en/sv/sv03.5/149",
+        "printedType": "Dragon",
+        "printedWeakness": null,
+        "printedResistance": null,
+        "inLocalData": "public/data/cards/151.json",
+        "verified": "api.tcgdex.net/v2/en/cards/sv03.5-149, read 2026-08-15"
+      }
+    },
+    {
+      "id": "fairy",
+      "name": "Fairy",
+      "status": "retired",
+      "since": "Kalos Starter Set, 2013",
+      "until": "Sword & Shield, February 2020",
+      "gameTypes": [],
+      "gameTypesNote": "Pokemon that are Fairy in the video games are printed as PSYCHIC cards now.",
+      "symbol": "a small flower or star",
+      "blurb": "Retired. Fairy ran from 2013 to 2020 and specialised in blunting the other player's attacks. You will still find Fairy cards in older packs and bulk, and they are not fakes or misprints.",
+      "blurbSource": "our wording, informed by rulebook_par",
+      "weakness": { "top": "Metal x2", "n": null, "note": "NOT MEASURED. None of the ten sampled sets is old enough to contain a Fairy card, so this file has no count for Fairy. The example card below prints Metal x2 and Darkness -20, and that is stated as what that one card says, nothing more. Either measure a few XY-era sets before publishing a tendency here, or publish no tendency." },
+      "resistance": { "top": "Darkness -20", "n": null, "note": "same caveat. Note the -20: this is a pre-Sword-&-Shield card, from back when Resistance was -20 rather than -30, which is a second, unforced demonstration that these values are printed and not fixed." },
+      "history": "Debuted in the Kalos Starter Set (2013). The Pokemon Company announced in January 2020 that Fairy would not be supported from the Sword & Shield series onward, and that Fairy Pokemon would generally be printed as Psychic and Poison Pokemon as Darkness. Sword & Shield released 7 February 2020. Basic Fairy Energy became the first Basic Energy card ever to rotate out of the Standard format.",
+      "historySource": "swsh_announcement (mirrored tier 1, see the flag on that source) + bulbapedia_fairy + rulebook_par, which still lists Fairy and notes that no Fairy cards appear in the Scarlet & Violet series while they do exist in older expansions.",
+      "stillLegal": "In casual play a Fairy card works exactly as printed. It is not Standard legal. Do NOT write a sentence about tournament legality without checking the current Play Pokemon rotation, which this research did not do.",
+      "example": {
+        "card": "Xerneas",
+        "set": "XY",
+        "number": "96",
+        "tcgdexId": "xy1-96",
+        "img": "https://assets.tcgdex.net/en/xy/xy1/96",
+        "printedType": "Fairy",
+        "printedWeakness": "Metal x2",
+        "printedResistance": "Darkness -20",
+        "inLocalData": null,
+        "inLocalDataNote": "The ONLY example on this page with no local record. The site tracks 28 sets and the oldest is Rebel Clash (2020), which is after Fairy was retired. The image base is on the same host every other card scan uses and it was fetched and confirmed 200 on all four extensions.",
+        "verified": "api.tcgdex.net/v2/en/cards/xy1-96, read 2026-08-15",
+        "whyThisOne": "Xerneas is the Pokemon the Fairy type was built around, and this is its card from XY base, the set that introduced the type."
+      }
+    }
+  ],
+
+  "openQuestions": [
+    "The original pokemon.com article announcing the Sword & Shield type changes could not be reached. Everything it says is confirmed elsewhere, but if a tier 1 url turns up, put it in.",
+    "The exact release date of the Kalos Starter Set was not established, only the year (2013). Do not print a month.",
+    "Fairy Weakness and Resistance tendencies are NOT measured. Either measure XY-era sets or say nothing.",
+    "Whether Fairy cards are currently legal in any sanctioned format was not checked against the live Play Pokemon rotation, and the page should not claim it either way.",
+    "Bulbapedia says Dragon cards were reworked to have no Weakness or Resistance starting with Evolving Skies. The measurement confirms the current state over 36 cards but does not confirm the Evolving Skies date, which rests on Bulbapedia alone.",
+    "The rulebook draws each type's symbol as an image and this research did not establish an official NAME for each symbol shape. The `symbol` fields above are plain descriptions of what the mark looks like, written from the card scans, and should be treated as description rather than as an official name."
+  ],
+
+  "doNotSay": [
+    "Any sentence of the form 'Fire beats Grass' or 'Water is strong against Fire'. In the TCG there is no such rule. Say what most cards of that type PRINT, with the count.",
+    "Any pull rate, any odds, anything about how often a type appears in a pack.",
+    "That the TCG has 18 types, or any list that includes Bug, Ice, Ghost, Poison, Ground, Rock, Steel, Normal, Flying, Dark or Electric as a TCG type.",
+    "That Fairy cards are fake, misprints, or worthless because the type was retired.",
+    "That Weakness is always x2 or Resistance always -30. Both are printed values and both have been different."
+  ]
+}

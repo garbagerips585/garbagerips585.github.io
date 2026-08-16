@@ -11,6 +11,14 @@
     "honest picture exists. Cards here are deliberately DIFFERENT from the ladder",
     "above: the reader gets a second worked example of each term, not a repeat.",
     "",
+    "NEVER TYPE A PRICE INTO AN `example`. Name the card instead, with",
+    "`priceOf: {set, number}`, and build-rarity.mjs reads the figure out of",
+    "public/data/cards/<set>.json and formats it with the same moneyCompact",
+    "every other page uses. The Hit entry used to read '. $1,470' as literal",
+    "text while the checklist said $1,470.58 and /complete-a-set.html said",
+    "$1,471, so the site quoted two different prices for one card and the",
+    "typed one could never catch up. Works on any entry in any list here.",
+    "",
     "THREE TERMS HAVE NO IMAGE, and that is not an oversight:",
     "  RH. TCGdex serves one scan per card, of the NORMAL printing. It has no",
     "  reverse-holo scan: variants_detailed lists a reverse variant but its image",
@@ -31,6 +39,26 @@
     "  not already say. The other eight retired mechanics are things you can SEE",
     "  in a scan, which is why they have one.",
     "",
+    "`offLadder` IS FOR RARITIES THIS SITE'S OWN CHECKLISTS PRINT THAT THE",
+    "LADDER ABOVE DOES NOT COVER. The failure case it exists for: somebody pulls",
+    "a card, reads the name off a set page here, looks it up on this page and",
+    "finds nothing. Counted across public/data/cards on 15 August 2026, Holo Rare",
+    "covers 88 cards and Black White Rare 4, and neither string appeared anywhere",
+    "on this page. Entries render with the magnified corner, same as the ladder,",
+    "because the symbol is the whole claim in both cases.",
+    "",
+    "NOT EVERY UNCOVERED NAME BELONGS HERE. Checked on the same pass and left",
+    "where they already were: Holo Rare V, VMAX and VSTAR are the `gone` entry",
+    "'V, VMAX and VSTAR'; Radiant Rare is the `gone` entry 'Radiant Pokemon';",
+    "Secret Rare is the glossary term, the number shortcut and an FAQ answer.",
+    "Those are covered in prose under the name printed on the card rather than",
+    "the name a checklist API returns, which is the right way round.",
+    "",
+    "EVERY ENTRY HERE CARRIES ITS `sources`, with the url and the date it was",
+    "read. Official Pokemon sources first, then Bulbapedia. Where a claim is",
+    "about the printed symbol it is also checked against the card scan the entry",
+    "shows, so a reader holding the card can settle it without either of us.",
+    "",
     "SLAB IS A DIAGRAM, NOT A PHOTO, and that is deliberate. We own no graded",
     "cards, and a grading company's product photography is theirs. A labeled",
     "schematic teaches the thing a photo would: where the grade sits, where the",
@@ -39,7 +67,7 @@
     "for a real slab. Same approach as the fake-cards diagram.",
     "Grading still has no image: it is a process, not an object."
   ],
-  "checked": "2026-08-12",
+  "checked": "2026-08-15",
   "eras": {
     "old": {
       "card": "https://assets.tcgdex.net/en/base/base1/4/high.webp",
@@ -157,6 +185,62 @@
       "chase": true
     }
   ],
+  "offLadder": [
+    {
+      "name": "Black White Rare",
+      "flag": "new in 2025",
+      "era": "Black Bolt and White Flare, July 2025",
+      "symbol": "Two stars, the first filled in and the second an outline",
+      "body": "A full art printed in one colour the whole way through. The artwork, the border, the text and the symbol are all black or all white, with no gold anywhere, so it does not read as a top tier card even though it is numbered past the set total. Victini is the odd one out and prints red instead.",
+      "ladder": "Two stars again, so counting alone will not place it. The tell is that the second star is hollow rather than filled, and that neither star is silver or gold. It is its own thing rather than a rung above Special Illustration Rare, and only these two sets have it: Victini and Zekrom ex in Black Bolt, Victini and Reshiram ex in White Flare.",
+      "card": "https://assets.tcgdex.net/en/sv/sv10.5b/172/high.webp",
+      "example": "Zekrom ex, Black Bolt. The corner reads 172/086",
+      "sources": [
+        {
+          "url": "https://press.pokemon.com/en/releases/Pokemon-Reveals-New-Split-Expansion-Launching-Soon-for-the-Pokemon-Tra",
+          "read": "2026-08-15",
+          "for": "The Pokemon Company press release, dated 6 May 2025. Names the rarity and says the cards 'will feature card illustrations in a monochromatic black or white design'. Also the 18 July 2025 release date for both sets."
+        },
+        {
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Black_White_rare_card_(TCG)",
+          "read": "2026-08-15",
+          "for": "'The rarity symbol for these cards are two stars, one black and one white.' Also that it has only been printed in these two sets, that the three Pokemon are Victini, Zekrom ex and Reshiram ex, and that the Victini card is red rather than monochrome."
+        },
+        {
+          "url": "https://assets.tcgdex.net/en/sv/sv10.5b/172/high.webp",
+          "read": "2026-08-15",
+          "for": "The printed corner, which is what the figure shows. Checked on all three: sv10.5b/171 Victini, sv10.5b/172 Zekrom ex and sv10.5w/173 Reshiram ex each print one solid star followed by one hollow star, bottom left. THE COLOUR IS NOT CLAIMED HERE. Bulbapedia says black and white; on a flat scan of a foil symbol both stars read grey, so this page claims only the fill, which the scan does settle."
+        }
+      ]
+    },
+    {
+      "name": "Holo Rare",
+      "flag": "an older name",
+      "era": "Sword and Shield sets and older",
+      "symbol": "One black star, the same symbol a plain Rare carries",
+      "body": "Not a symbol of its own and not a rung of its own. A Holo Rare is a Rare with foil on the artwork window, and the corner prints the same single black star either way. Crown Zenith has both: Entei at 021/159 is the Holo Rare, Bellossom at 003/159 is the plain one, and the two corners are identical.",
+      "ladder": "It sits exactly where Rare sits on the ladder above. Older checklists split the two and list them as separate lines, which is where the name comes from, so you will meet it on the Sword and Shield set guides here and not on a Scarlet and Violet one. Some checklists print the same tier the other way round, as Rare Holo.",
+      "card": "https://assets.tcgdex.net/en/swsh/swsh12.5/021/high.webp",
+      "example": "Entei, Crown Zenith. The corner reads 021/159",
+      "sources": [
+        {
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Rarity",
+          "read": "2026-08-15",
+          "for": "The Rare section lists the sub-classifications: 'Regular Rare, which are marked with [one star] but do not have any holofoil design' and 'Holofoil Rare, which are marked with [one star] and also have a Holofoil design on the card art'. Same symbol, different finish."
+        },
+        {
+          "url": "https://assets.tcgdex.net/en/swsh/swsh12.5/021/high.webp",
+          "read": "2026-08-15",
+          "for": "The printed corner. Compared bottom left crops of swsh12.5/021 Entei (Holo Rare) against swsh12.5/003 Bellossom (Rare), and swsh10.5/010 Charizard and swsh6/28 Cinderace (both Holo Rare) against swsh6/10 Abomasnow (Rare). All five print one black star."
+        },
+        {
+          "url": "public/data/cards",
+          "read": "2026-08-15",
+          "for": "Which sets on this site use the name. Holo Rare appears in celebrations, chilling-reign, crown-zenith, pokemon-go, rebel-clash and shining-fates, and in no Scarlet and Violet or Mega Evolution set. The Rare Holo word order comes from the other price feed and is what the older set guides here print."
+        }
+      ]
+    }
+  ],
   "slang": [
     {
       "term": "IR",
@@ -201,7 +285,8 @@
       "term": "Hit",
       "meaning": "Any card out of a pack worth meaningfully more than the pack cost.",
       "card": "https://assets.tcgdex.net/en/sv/sv08.5/161/high.webp",
-      "example": "Umbreon ex, Prismatic Evolutions. $1,470",
+      "example": "Umbreon ex, Prismatic Evolutions",
+      "priceOf": { "set": "prismatic-evolutions", "number": "161" },
       "show": "card"
     },
     {
@@ -285,6 +370,30 @@
       "note": "One GX attack per game. Tag Team GX put two Pokemon on a card and gave up three prizes.",
       "card": "https://assets.tcgdex.net/en/sm/sm115/9/high.webp",
       "example": "Charizard GX, Hidden Fates"
+    },
+    {
+      "name": "Amazing Rare",
+      "years": "2020 to 2021",
+      "note": "A burst of colour behind the Pokemon that spills out past the frame, and a rainbow letter A in the corner where the star would be. Nine of them exist, six in Vivid Voltage and three in Shining Fates.",
+      "card": "https://assets.tcgdex.net/en/swsh/swsh4.5/17/high.webp",
+      "example": "Reshiram, Shining Fates",
+      "sources": [
+        {
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Amazing_Pok%C3%A9mon_(TCG)",
+          "read": "2026-08-15",
+          "for": "'Amazing Pokemon cards are identified by the Amazing Rare card rarity and an illustration with a multi-colored background that goes beyond the frame.' The card list is complete and runs to nine: Celebi, Raikou, Zacian, Zamazenta, Jirachi and Rayquaza in Vivid Voltage, Reshiram, Kyogre and Yveltal in Shining Fates. Nothing after Shining Fates, which is why this is in the retired list."
+        },
+        {
+          "url": "https://bulbapedia.bulbagarden.net/wiki/Rarity",
+          "read": "2026-08-15",
+          "for": "'Amazing Pokemon were introduced in Vivid Voltage. The background of an Amazing Pokemon is a swirl of multiple colors that extends outside of the box for artwork.'"
+        },
+        {
+          "url": "https://assets.tcgdex.net/en/swsh/swsh4.5/17/high.webp",
+          "read": "2026-08-15",
+          "for": "The corner symbol, checked on all three Shining Fates cards: swsh4.5/17 Reshiram 017/072, swsh4.5/21 Kyogre 021/072 and swsh4.5/46 Yveltal 046/072. Each prints a white capital A on a multicoloured burst, bottom left, in the slot a star would occupy. All three are numbered inside the set total, so they are not secret rares."
+        }
+      ]
     },
     {
       "name": "Rainbow rares",

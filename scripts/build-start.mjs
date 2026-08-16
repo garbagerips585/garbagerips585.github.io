@@ -206,6 +206,16 @@ ${MENU}
       </li>`
       ).join("\n      ")}
     </ol>
+    ${/* A SEVENTH QUESTION THIS PAGE DID NOT ANSWER. Every step above is about a
+          card you are holding: is it real, what is it, what is it worth. None of
+          them is about the game the cards are for, and "how do you actually play
+          this" is the question somebody who has only ever opened packs asks
+          first. It sits outside the numbered list on purpose, because the list
+          is Tim's six in his order and renumbering it to seven would change what
+          the page claims about itself. */ ""}
+    <p class="lede" style="max-width:44em;margin-top:var(--s5)">One question that is not on that list, because it
+      is not about a card at all: <a href="/how-to-play.html">how do you actually play?</a> Two players, 60 cards
+      each, and three ways to win. The short version, for somebody who has never seen a game.</p>
   </div>
 </section>
 

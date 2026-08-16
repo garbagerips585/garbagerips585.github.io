@@ -32,6 +32,8 @@ const SET_MAP = {
   "temporal-forces": "sv5", "paldean-fates": "sv4pt5", "paradox-rift": "sv4",
   "obsidian-flames": "sv3", "151": "sv3pt5", "paldea-evolved": "sv2",
   "scarlet-violet": "sv1", "pokemon-go": "pgo",
+  "crown-zenith": "swsh12pt5", "celebrations": "cel25", "chilling-reign": "swsh6",
+  "shining-fates": "swsh45", "rebel-clash": "swsh2",
 };
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -129,6 +131,55 @@ async function setCards(apiId) {
   return out;
 }
 
+/**
+ * THE CHECKLIST IS THE PRICE, THE RARITY AND THE SCAN.
+ *
+ * public/data/cards/<set>.json is TCGdex with TCGplayer market prices, and it
+ * is what /sets/, /cards.html, /rarity.html, /complete-a-set.html and every
+ * Pokedex page already print. This script read api.pokemontcg.io instead, which
+ * is a second vendor reading the same moving market on a different day, and the
+ * page ended up disagreeing with the rest of the site about the same card:
+ * Mega Charizard X ex at $712.54 here against $715.98 everywhere else, and
+ * three more like it about a dollar apart.
+ *
+ * Worse than the dollar: api.pokemontcg.io carries NO prices for the four
+ * newest sets, so Mega Darkrai ex, Mega Greninja ex, Meowth ex and Mega
+ * Dragonite ex printed "no market price yet" under a footnote explaining that a
+ * set this new often has none, while the checklist priced all four ($233.10,
+ * $212.59, $128.67, $704.76) and the set guides showed those figures. The
+ * explanation had stopped being true and the page kept giving it.
+ *
+ * The API is still read, for one thing it has and the checklist does not: the
+ * TCGplayer product link.
+ */
+const checklistFor = async (setId) => {
+  try {
+    const doc = JSON.parse(await readFile(join(ROOT, `public/data/cards/${setId}.json`), "utf8"));
+    return { checked: doc.checked || null, by: new Map(doc.cards.map((c) => [String(Number(c.n)), c])) };
+  } catch {
+    return null;
+  }
+};
+const CHECKLIST = new Map();
+
+/**
+ * The links this file already resolved, so a bad day at api.pokemontcg.io
+ * cannot delete them.
+ *
+ * directTcgplayer() has to follow prices.pokemontcg.io's redirect to find the
+ * plain product URL, and that host answers 502 under load often enough that a
+ * run during one would have quietly unlinked eight of the ten cards. A product
+ * URL does not change once resolved, so the previous answer is a better fallback
+ * than null.
+ */
+let priorUrl = new Map();
+try {
+  const prev = JSON.parse(await readFile(join(ROOT, "public/data/wanted.json"), "utf8"));
+  priorUrl = new Map((prev.cards || []).filter((c) => c.url).map((c) => [`${c.set}-${c.number}`, c.url]));
+} catch {
+  /* first run */
+}
+
 const source = JSON.parse(await readFile(join(ROOT, "data/wanted.json"), "utf8"));
 // Graded prices live in one file for the whole site: hand-entered first, then
 // whatever sync-prices.mjs fetched.
@@ -182,31 +233,49 @@ for (const want of source.cards || []) {
     problems.push(`#${want.number} in ${want.set} is "${card.name}", not "${want.name}"`);
   }
 
-  const raw = marketPrice(card);
+  if (!CHECKLIST.has(want.set)) CHECKLIST.set(want.set, await checklistFor(want.set));
+  const cl = CHECKLIST.get(want.set);
+  const row = cl?.by.get(String(Number(want.number))) || null;
+
+  const listed = typeof row?.price === "number" && row.price > 0 ? row.price : 0;
+  const apiRaw = marketPrice(card);
   const g = gradedFor(want.set, want.number);
   const autoRaw = graded.auto?.[`${want.set}-${want.number}`]?.rawNm ?? null;
+  const scan = row?.img || null;
+  const rarity = row?.rarity || card.rarity || want.rarity || null;
   out.push({
     set: want.set,
     setName: setName.get(want.set) || want.set,
     name: card.name,
     number: card.number,
-    rarity: card.rarity || want.rarity || null,
+    rarity,
     note: want.note || null,
     got: !!want.got,
-    image: card.images?.small || null,
-    imageLarge: card.images?.large || null,
-    url: await directTcgplayer(card.tcgplayer?.url),
-    // Raw comes from the API when it has data, and from the file otherwise, so
-    // a hand-checked price still shows for a set the market has not reached.
-    raw: raw || (typeof want.raw === "number" ? want.raw : null) || autoRaw,
-    rawFrom: raw ? "tcgplayer" : typeof want.raw === "number" ? "manual" : null,
-    rawAsOf: raw ? card.tcgplayer?.updatedAt || null : null,
+    // TCGdex, which is the scan every other page on the site shows for this
+    // card, and the only one of the two CDNs that also serves avif.
+    image: scan ? `${scan}/low.webp` : card.images?.small || null,
+    imageLarge: scan ? `${scan}/high.webp` : card.images?.large || null,
+    url:
+      (await directTcgplayer(card.tcgplayer?.url)) ||
+      priorUrl.get(`${want.set}-${card.number}`) ||
+      null,
+    // Checklist first, then the API, then a hand-checked figure from the file,
+    // so a card the market has not reached at all can still carry a number
+    // somebody actually saw.
+    raw: listed || apiRaw || (typeof want.raw === "number" ? want.raw : null) || autoRaw,
+    rawFrom: listed || apiRaw ? "tcgplayer" : typeof want.raw === "number" ? "manual" : null,
+    // THE RAW COLUMN GETS A DATE TOO. It always had one and never printed it,
+    // so the page dated its PSA 10 figures and left the raw ones looking timeless.
+    rawAsOf: listed ? cl?.checked || null : apiRaw ? card.tcgplayer?.updatedAt || null : null,
     // From data/psa10.json when it has one, else whatever this file carries.
     psa10: g?.price ?? (typeof want.psa10 === "number" ? want.psa10 : null),
     psa10AsOf: g?.asOf || want.psa10AsOf || null,
     psa10Source: g?.source || want.psa10Source || null,
   });
-  console.log(`${card.rarity || "?"}${raw ? `, $${raw}` : ", no market price yet"}`);
+  const shown = listed || apiRaw;
+  console.log(
+    `${rarity || "?"}${shown ? `, $${shown}${listed ? " (checklist)" : " (api)"}` : ", no market price yet"}`
+  );
   await sleep(400);
 }
 

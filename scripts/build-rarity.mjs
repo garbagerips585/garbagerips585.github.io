@@ -34,10 +34,56 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, FONTS, footer, APP_JS } from "../shared/chrome.mjs";
-import { esc, longDate, imgDims, avifPicture } from "../shared/format.mjs";
+import { esc, longDate, imgDims, avifPicture, moneyCompact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/rarity.json"), "utf8"));
+
+/* ------------------------------------------------- prices, not price WORDS --
+ *
+ * NO PRICE ON THIS PAGE IS TYPED INTO data/rarity.json ANY MORE.
+ *
+ * The "Hit" entry read "Umbreon ex, Prismatic Evolutions. $1,470" as a literal
+ * string, and $1,470 is not what the site says that card is worth: the
+ * checklist holds $1,470.58, /complete-a-set.html and every other page that
+ * prints it round to $1,471 through moneyCompact, and this one was a hand typed
+ * truncation that happened to look like a rounding bug. It was also frozen: the
+ * card moves and the sentence would not, which is the failure this whole
+ * codebase is built to avoid.
+ *
+ * So an entry names the CARD it is quoting, `"priceOf": {"set", "number"}`, and
+ * the figure is read out of the same checklist /sets/ and /cards.html read and
+ * formatted with the same function they format it with. Two pages can no longer
+ * disagree about one card because there is only one number now.
+ *
+ * A card with no market price yet (the newest sets ship without one for weeks)
+ * simply keeps its example sentence with no figure appended, which is the same
+ * thing the set pages do. Applied to any entry anywhere in the file that
+ * carries `priceOf`, so the ladder and the "came and went" list can use it too.
+ */
+const checklists = new Map();
+async function priceFor(ref) {
+  if (!ref?.set || !ref?.number) return null;
+  if (!checklists.has(ref.set)) {
+    try {
+      checklists.set(
+        ref.set,
+        JSON.parse(await readFile(join(ROOT, `public/data/cards/${ref.set}.json`), "utf8")).cards
+      );
+    } catch {
+      checklists.set(ref.set, null);
+    }
+  }
+  const c = (checklists.get(ref.set) || []).find((x) => String(x.n) === String(ref.number));
+  return typeof c?.price === "number" ? c.price : null;
+}
+for (const group of [d.ladder, d.offLadder, d.slang, d.gone, [d.eras?.old, d.eras?.new]]) {
+  for (const e of group || []) {
+    if (!e?.priceOf) continue;
+    const p = await priceFor(e.priceOf);
+    if (p !== null) e.example = `${e.example}. ${moneyCompact(p)}`;
+  }
+}
 
 // COUNTED, NOT TYPED. The intro said "stars for five different rarities" while
 // the ladder below it lists six: Rare, Double Rare, Ultra Rare, Illustration
@@ -88,6 +134,10 @@ const starRarities = ["", "one", "two", "three", "four", "five", "six", "seven",
  */
 const CROP_CARDS = new Set([
   ...d.ladder.map((r) => r.card),
+  // offLadder rows are built exactly like a ladder row: the card AND its
+  // magnified corner, from the same url. Miss them here and each one costs two
+  // requests instead of one, which is the trap the paragraph above describes.
+  ...(d.offLadder || []).map((r) => r.card),
   d.eras?.old?.card,
   d.eras?.new?.card,
   ...d.slang.filter((s) => s.show === "crop").map((s) => s.card),
@@ -298,6 +348,46 @@ const ladderRow = (r, i) => `      <li class="rr${r.chase ? " is-chase" : ""}">
         </div>
       </li>`;
 
+/**
+ * One rarity that this site's own checklists print but the ladder does not
+ * cover.
+ *
+ * WHY THIS SECTION EXISTS AT ALL. The ladder answers "what are the tiers a
+ * modern pack prints", which is the right question for the person this page is
+ * for. It is not the same question as "what could the corner of a card in my
+ * hand say", and the gap between those two is where a beginner's guide fails
+ * silently: the reader looks up the words on the set page, finds nothing, and
+ * has no way to tell whether the guide is incomplete or they misread the card.
+ * Measured across public/data/cards on 15 August 2026, two names were in that
+ * gap, Holo Rare on 88 cards and Black White Rare on 4.
+ *
+ * Same treatment as a ladder row, card plus magnified corner, because in both
+ * cases the whole claim is about a symbol: one says the second star is hollow,
+ * the other says the star is the SAME one a plain Rare prints. Neither is
+ * worth asserting on this page without the corner underneath it.
+ *
+ * A ROW IS NOT A LADDER ROW, so it does not reuse .rr. `.rr-sym` and `.rr-eg`
+ * are single-class rules and anything scoped like `.offl-body p` would beat
+ * them and quietly drop the plum and the mono, so this block declares its own
+ * and touches no bare tag selectors. See the .crop comment for the same bug
+ * caught the other way round.
+ */
+const offLadderRow = (r) => `      <li>
+        <div class="offl-card">
+          ${cardArt(r.card, 120, r.example, imgDims(r.card))}
+        </div>
+        <div class="offl-body">
+          <h3>${esc(r.name)} <span class="offl-flag">${esc(r.flag)}</span></h3>
+          <p class="offl-sym"><b>${esc(r.symbol)}</b></p>
+          <p class="offl-p">${esc(r.body)}</p>
+          <p class="offl-p">${esc(r.ladder)}</p>
+          <p class="offl-eg">${esc(r.era)}</p>
+        </div>
+        <div class="offl-zoom">
+          ${corner(r.card, "left", r.example)}
+        </div>
+      </li>`;
+
 const style = `
 .rg{padding:var(--s7) 0 var(--s5)}
 .rg-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:42em;margin-bottom:var(--s5)}
@@ -385,6 +475,31 @@ const style = `
   text-transform:uppercase;margin-top:8px}
 .rr-zoom{grid-column:1/-1}
 @media(min-width:820px){.rr-zoom{grid-column:auto}}
+
+/* Not on the ladder. Same shape as .rr minus the number column, and every
+   selector carries its own class: see offLadderRow for why a bare p selector in
+   here would silently unstyle the symbol line. */
+.offl{list-style:none;display:flex;flex-direction:column;gap:var(--s4)}
+.offl li{display:grid;grid-template-columns:96px 1fr;gap:var(--s4);align-items:start;
+  background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  padding:var(--s4);box-shadow:var(--lift)}
+@media(min-width:820px){.offl li{grid-template-columns:120px 1fr 220px}}
+.offl-card img{width:100%;height:auto;border-radius:6px;display:block}
+.offl-body h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:4px}
+/* nowrap is load bearing at 390px: "still current" broke across two lines
+   INSIDE the pill, so the border ran off the right edge of one line and picked
+   up again on the next, which reads as a clipped box rather than a badge. As
+   one unit it wraps whole onto its own line under the heading. */
+.offl-flag{display:inline-block;white-space:nowrap;
+  font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  background:var(--page);border:1px solid var(--hair);color:var(--ink-2);
+  padding:4px 7px;border-radius:var(--r-pill);vertical-align:middle}
+.offl-sym{font:700 var(--t-sm)/1.4 var(--mono);color:var(--plum);margin-bottom:6px;letter-spacing:.03em}
+.offl-p{color:var(--ink-2);font-size:var(--t-sm);margin-bottom:6px}
+.offl-eg{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.04em;
+  text-transform:uppercase;margin-top:8px}
+.offl-zoom{grid-column:1/-1}
+@media(min-width:820px){.offl-zoom{grid-column:auto}}
 
 /* Returning collectors. */
 /* The card sits under the years and above the prose: you see the three
@@ -527,6 +642,23 @@ ${d.ladder.map(ladderRow).join("\n")}
 
   <section class="rg-sec">
     <div class="wrap">
+      <h2>Corners the ladder <span class="hl">does not explain</span></h2>
+      ${/* "One is on a set you can still buy" was here and it is a print status
+           claim, which this site keeps in data/set-notes.json for a human and
+           does not guess. Dates say the same thing without asserting it. */ ""}
+      <p class="rg-p">Two names turn up on the set checklists here that are not rungs on the ladder
+        above. One arrived in 2025, the other belongs to the older sets. If you looked up what you
+        pulled and came back with nothing, it is probably one of these.</p>
+      <ul class="offl">
+${(d.offLadder || []).map(offLadderRow).join("\n")}
+      </ul>
+    </div>
+  </section>
+
+  ${/* NOT a .band. section.band draws a 3px border top AND bottom, so two in a
+       row read as a 6px seam, and the ladder above is already one. */ ""}
+  <section class="rg-sec">
+    <div class="wrap">
       <h2>Shiny, but <span class="hl">not rare</span></h2>
       <p class="rg-p"><b>Reverse holo</b> is the one that catches everybody. The foil is on everything
         <em>except</em> the artwork, and you get one or two in most packs. It does not change the
@@ -632,6 +764,17 @@ const faq = {
       "How do I know if a card is a secret rare?",
       "Its collector number is higher than the set total, for example 199/198. Secret rares are the Illustration Rare, Ultra Rare, Special Illustration Rare and Hyper Rare tiers.",
     ],
+    // The two names a checklist on this site can show you that the ladder does
+    // not name. Both answers restate data/rarity.json's offLadder entries, and
+    // the sources for every claim in them are in that file.
+    [
+      "What is a Black White Rare Pokemon card?",
+      "A rarity introduced with Scarlet and Violet Black Bolt and White Flare in July 2025. The card is a full art printed in a single colour, black or white throughout, and the corner prints two stars: the first filled in and the second an outline. Only those two sets have it.",
+    ],
+    [
+      "What is the difference between a Rare and a Holo Rare?",
+      "The symbol is the same. Both print one black star in the corner. A Holo Rare has foil on the artwork window and a plain Rare does not. Sword and Shield checklists and older list the two separately, which is where the name comes from.",
+    ],
   ].map(([q, a]) => ({
     "@type": "Question",
     name: q,
@@ -687,5 +830,6 @@ await writeFile(join(ROOT, "public/rarity.html"), html);
 
 console.log(`Wrote public/rarity.html
   ${d.ladder.length} rarities, each with a real card and a magnified corner
+  ${(d.offLadder || []).length} off-ladder names, same treatment
   ${d.gone.length} retired mechanics, ${d.slang.length} glossary terms
   ${faq.mainEntity.length} FAQ entries in schema`);

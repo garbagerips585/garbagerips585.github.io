@@ -12,7 +12,10 @@
 // question somebody types after watching a rip and before deciding whether to
 // buy anything, and it is a question you cannot answer from one set page
 // because the whole content of the answer is the comparison. The spread across
-// these 23 sets is nearly six to one for the same object.
+// the sets on the table is nearly six to one for the same object. (That number
+// of sets is NOT written here on purpose: it read "these 23 sets" while
+// products.json had gone five sets stale behind sets.json, and a count written
+// into a comment is a count nobody re-checks.)
 //
 // AND THE ANSWER IS NOT THE ONE EVERY ARTICLE GIVES. The received wisdom is
 // "the bigger the box, the cheaper the pack". Measured over the sets we hold
@@ -90,8 +93,39 @@ const COLUMNS = ["Booster Box", "Elite Trainer Box", "Booster Bundle", "Build & 
 /** See the header note. Same rule as build-set-pages.mjs, on purpose. */
 const SIZE_WORD = /\b(half|enhanced|mini|jumbo|premium|double)\b/i;
 
-function packsIn(p) {
+/**
+ * THE BLURB IS ONLY SOURCED FOR THE ERA IT WAS WRITTEN ABOUT, and this page
+ * divided by it outside that era for as long as it existed.
+ *
+ * Every blurb here is a per-KIND constant hardcoded in sync-products.mjs, not a
+ * string read off any particular product. "9 packs plus sleeves and dice" is
+ * carried by all 23 Elite Trainer Box entries. Nine is right for a main
+ * expansion from the Scarlet & Violet era onward, confirmed on four pokemon.com
+ * product pages and three official expansion pages (see
+ * data/pack-counts-current.json and /how-many-packs.html). It is NOT a fact
+ * about Elite Trainer Boxes: the first one held seven, it was eight for nine
+ * years, and most special expansions from Generations to Crown Zenith held ten.
+ *
+ * SIX sets in this table predate that window and every one of them was being
+ * divided by the current constants: Rebel Clash, Shining Fates, Chilling Reign,
+ * Celebrations, Pokemon GO and Crown Zenith. The Celebrations row was the worst
+ * of them. That Elite Trainer Box held ten Celebrations packs plus five from
+ * other Sword & Shield sets, and Celebrations packs are four cards each, so the
+ * page was dividing a fifteen-pack box by nine and calling the result the price
+ * of a pack. We hold no source for any of those six counts, so the honest output
+ * is an empty cell rather than a plausible one, which is the rule the SIZE_WORD
+ * gate above already applies to half and enhanced boxes.
+ *
+ * The date is the Scarlet & Violet base set release, which is also when the
+ * Booster Bundle was invented, so it is the boundary for these generics rather
+ * than an arbitrary cutoff. "Single Pack" is exempt because one pack is one
+ * pack in every era.
+ */
+const GENERIC_FROM = "2023-03-31";
+
+function packsIn(p, released) {
   if (SIZE_WORD.test(p.name || "")) return null;
+  if (p.kind !== "Single Pack" && String(released || "") < GENERIC_FROM) return null;
   const blurb = String(p.blurb || "");
   const m = /^(\d+)\s+packs?\b/i.exec(blurb);
   const n = m ? Number(m[1]) : /^one pack\b/i.test(blurb) ? 1 : null;
@@ -106,8 +140,8 @@ function packsIn(p) {
 }
 
 /** Market price per pack, or null where the pack count is not knowable. */
-function perPack(p) {
-  const packs = packsIn(p);
+function perPack(p, released) {
+  const packs = packsIn(p, released);
   const market = typeof p.market === "number" && p.market > 0 ? p.market : null;
   if (!packs || market === null) return null;
   const each = market / packs;
@@ -129,7 +163,7 @@ for (const [id, entry] of Object.entries(products.sets || {})) {
   const byKind = new Map();
   for (const p of entry.products) {
     if (!COLUMNS.includes(p.kind)) continue;
-    const e = perPack(p);
+    const e = perPack(p, set.released);
     if (!e) continue;
     const prev = byKind.get(p.kind);
     if (!prev || e.each < prev.each) byKind.set(p.kind, { ...e, name: p.name, url: p.url });
@@ -433,9 +467,11 @@ ${MENU}
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Priced ${esc(longDate(checked) || "recently")}</span>
     <h1>What does a pack <span class="hl">actually</span> cost?</h1>
-    <p class="lede" style="max-width:38em">Every sealed product we track, divided by the number of packs printed on it,
+    <p class="lede" style="max-width:38em">Every sealed product we track, divided by how many packs are inside it,
       so a booster box and a single pack can finally be compared. Prices are TCGplayer market, read on
-      ${esc(longDate(checked) || "the date at the bottom of this page")}, and read again each time the product sync runs.</p>
+      ${esc(longDate(checked) || "the date at the bottom of this page")}, and read again each time the product sync runs.
+      Where the counts come from, and what they were in other years, is on
+      <a href="/how-many-packs.html">how many packs are in it</a>.</p>
   </div>
 </header>
 
@@ -465,10 +501,24 @@ ${MENU}
 
 <section class="band tight">
   <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>All ${rows.length} sets</p>
+    <!-- SAY WHICH SETS, NOT "ALL". This label read "All 23 sets" while the rest of
+         the site said 41 set guides, so the one page whose whole job is a
+         complete price table implied the site had 23 sets in it. Two separate
+         things were wrong: products.json had gone stale and was five sets short
+         of sets.json, and the word "All" claimed a scope this page has never
+         had. The count is fixed by re-running sync-products.mjs; the word is
+         fixed here, because the imported Japanese and Korean guides are real
+         guides with no TCGplayer sealed listing to divide and never will be on
+         this table. -->
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>${rows.length} English sets</p>
     <h2>Cheapest pack to <span class="hl">priciest</span></h2>
-    <p class="lede" style="max-width:40em">Sorted by the cheapest pack available in each set, whatever it is inside. Every
-      figure is that product's market price divided by the pack count printed on it, before tax and shipping.</p>
+    <p class="lede" style="max-width:40em">Every English set we can price sealed, sorted by the cheapest pack available
+      in each one, whatever it is inside. The imported Japanese and Korean sets have guides of their own but no sealed
+      listing to divide, so they are not on this table. Every
+      figure is that product's market price divided by the number of packs in it, before tax and shipping. The counts
+      under the column headings are sourced for the Scarlet &amp; Violet era onward and are not permanent properties of
+      those products, so a set from an earlier era gets an empty cell rather than a figure divided by the wrong number.
+      <a href="/how-many-packs.html">What each one has held over the years</a> is its own page.</p>
     <div class="cc-scroll" tabindex="0" role="region" aria-label="Pack prices by set, scrollable table">
       <table class="cc-table pp-table">
         <caption class="sr-only">Market price per pack for each sealed product, by set, cheapest set first</caption>
@@ -561,9 +611,10 @@ ${COLUMNS.map(
       <li><strong>Which set to open.</strong> Cheapest is not best and this is not a recommendation. It is a price list.</li>
     </ul>
     <p class="price-note">Prices are TCGplayer market prices, pulled by <code>scripts/sync-products.mjs</code> and read
-      ${esc(longDate(checked) || checked || "recently")}. Pack counts are the contents printed on each product, taken from
-      the product record rather than assumed from its name. Every per-pack figure on this page is one of those prices
-      divided by one of those counts, computed when the page was built. No affiliate links, and nothing here is a
+      ${esc(longDate(checked) || checked || "recently")}. The pack counts are our own per-kind figures for the current
+      era, sourced on <a href="/how-many-packs.html">how many packs are in it</a> and applied only to sets from the
+      Scarlet &amp; Violet era onward, because they are not what those products held in earlier ones. Every per-pack
+      figure on this page is one of those prices divided by one of those counts, computed when the page was built. No affiliate links, and nothing here is a
       recommendation to buy anything. Set guides for all ${rows.length} of these are under <a href="/sets/">set guides</a>,
       and what it costs to buy the cards instead of the packs is on
       <a href="/complete-a-set.html">cost to complete a set</a>.</p>

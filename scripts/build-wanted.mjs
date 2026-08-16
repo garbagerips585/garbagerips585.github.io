@@ -16,7 +16,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { APP_JS } from "../shared/chrome.mjs";
-import { esc, shortDate, moneyCompact, imgDims, avifPicture } from "../shared/format.mjs";
+import { esc, shortDate, moneyCompact, imgDims, avifPicture, rarityLabel } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -32,6 +32,47 @@ const { cards, updated } = JSON.parse(
   await readFile(join(ROOT, "public/data/wanted.json"), "utf8")
 );
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
+
+/* --------------------------------------------- rarity, from the checklist --
+ *
+ * THE CHECKLIST WINS, because it is what the other four pages print.
+ *
+ * Victini, White Flare #172 read "Rare" here while /sets/white-flare.html,
+ * /pokemon/victini.html and /cards.html all read "Black White Rare" for the
+ * same card. One page out of four was telling a reader the wrong thing about a
+ * card it was telling them to go and buy.
+ *
+ * IT IS NOT A TYPO, WHICH IS WHY FIXING THE TYPE-IN ALONE WOULD NOT HOLD. The
+ * two feeds genuinely disagree: sync-wanted.mjs takes `card.rarity` from
+ * api.pokemontcg.io, which returns "Rare" for that card, while the checklists
+ * under public/data/cards/ come from TCGdex, which returns "Black White Rare".
+ * pokemontcg.io is simply behind on the rarity Black Bolt and White Flare
+ * introduced. Correcting data/wanted.json is worth doing and is done, but the
+ * sync overwrites it from the API on its next run, so the correction has to
+ * live where the page is rendered or it lasts exactly one sync.
+ *
+ * So: read the rarity out of the same file every other page reads it out of,
+ * and keep the wanted.json value only where there is no checklist entry to read
+ * (the newest sets ship a wanted card before their checklist lands). Cased
+ * through rarityLabel for the usual reason, which is that TCGdex ships
+ * "Special illustration rare" and the rest of the site writes Title Case.
+ */
+const rarities = new Map();
+for (const c of cards) {
+  if (!c.set || !c.number) continue;
+  if (!rarities.has(c.set)) {
+    try {
+      rarities.set(
+        c.set,
+        JSON.parse(await readFile(join(ROOT, `public/data/cards/${c.set}.json`), "utf8")).cards
+      );
+    } catch {
+      rarities.set(c.set, null);
+    }
+  }
+  const m = (rarities.get(c.set) || []).find((x) => String(x.n) === String(c.number));
+  c.rarity = rarityLabel(m?.rarity || c.rarity) || null;
+}
 
 const hunting = cards.filter((c) => !c.got);
 const caught = cards.filter((c) => c.got);
@@ -137,6 +178,23 @@ function cardTile(c, { hunted = true } = {}) {
 const asOf = cards.map((c) => c.psa10AsOf).filter(Boolean).sort().pop() || null;
 const anyPsa = cards.some((c) => c.psa10);
 
+// THE RAW COLUMN HAD A DATE ALL ALONG AND NEVER PRINTED IT. Every card carries
+// `rawAsOf`, and the note under the grid dated only the PSA 10 figures, so half
+// the page looked timeless and half did not. Newest read, same reason as above.
+// Dates arrive as either 2026-08-16 or 2026/08/14 depending on the feed, so
+// they are normalised before sorting or 2026/08/14 sorts after 2026-08-16.
+const rawAsOf =
+  cards
+    .map((c) => c.rawAsOf)
+    .filter(Boolean)
+    .map((d) => String(d).replace(/\//g, "-"))
+    .sort()
+    .pop() || null;
+// Whether the "we show nothing rather than a zero" line is still true of this
+// page. It was left standing after the last sync priced every card on it, which
+// is an explanation for something the reader can see is not happening.
+const anyUnpriced = cards.some((c) => !c.raw);
+
 const style = `
 .wanted{padding:var(--s7) 0 var(--s8)}
 .w-lede{color:var(--ink-2);max-width:46em;margin-bottom:var(--s5)}
@@ -184,8 +242,13 @@ const body = `
 ${hunting.map((c) => cardTile(c)).join("\n")}
 ${caught.map((c) => cardTile(c, { hunted: false })).join("\n")}
     </div>
-    <p class="price-note">RAW PRICES COME FROM TCGPLAYER THROUGH THE POKEMON TCG API AND MOVE ON THEIR OWN.
-      A SET THIS NEW OFTEN HAS NO MARKET PRICE YET, AND WE SHOW NOTHING RATHER THAN A ZERO.${
+    <p class="price-note">RAW PRICES ARE TCGPLAYER MARKET VALUES READ THROUGH TCGDEX${
+      rawAsOf ? `, LAST CHECKED ${shortDate(rawAsOf).toUpperCase()}` : ""
+    }. THEY ARE THE SAME FIGURES THE SET GUIDES AND THE CHECKLISTS PRINT, AND THEY MOVE ON THEIR OWN.${
+      anyUnpriced
+        ? ` A SET THIS NEW SOMETIMES HAS NO MARKET PRICE YET, AND WE SHOW NOTHING RATHER THAN A ZERO.`
+        : ""
+    }${
         anyPsa
           ? `<br>PSA 10 PRICES COME FROM GRADED SALES DATA${asOf ? `, LAST CHECKED ${shortDate(asOf).toUpperCase()}` : ""}, AND ARE NOT PART OF THE TCGPLAYER FEED.`
           : `<br>PSA 10 PRICES ARE NOT LISTED FOR THESE YET. GRADED SALES COME FROM A SEPARATE FEED AND FROM CHECKING BY HAND.`

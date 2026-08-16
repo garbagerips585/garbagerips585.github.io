@@ -58,6 +58,30 @@ const packsOnDisk = new Set(
 const setData = new Map(
   JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8")).sets.map((x) => [x.id, x])
 );
+
+// ONE CARD, ONE NAME, and the rip pages are the third page that has to agree.
+//
+// `chase` comes from pokemontcg.io and the checklists come from TCGdex, and the
+// two spell Rebel Clash #189 and #200 differently: "Boss's Orders" against
+// "Boss's Orders (Giovanni)". /complete-a-set.html and /sets/rebel-clash.html
+// both print the checklist name, so a rip page printing the other one is the
+// odd voice out about a card all three are describing. Same reconciliation
+// build-set-pages.mjs does, for the same reason and matched the same way: on
+// NUMBER, because the names are the thing in dispute, and taking `name` only.
+// Prices, rarities and images are untouched.
+for (const s of setData.values()) {
+  if (!s.chase?.length) continue;
+  let list;
+  try {
+    list = JSON.parse(await readFile(join(ROOT, `public/data/cards/${s.id}.json`), "utf8")).cards;
+  } catch {
+    continue;
+  }
+  for (const c of s.chase) {
+    const m = list.find((x) => String(x.n) === String(c.number));
+    if (m?.name && m.name !== c.name) c.name = m.name;
+  }
+}
 let psa10 = {};
 try {
   psa10 = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8"));
@@ -905,6 +929,13 @@ const urls = [
   // The beginner guide. Evergreen and the best long-tail search target on the
   // site: "pokemon card rarity symbols" is asked constantly and never expires.
   { loc: `${SITE}/rarity.html`, freq: "monthly", pri: "0.9" },
+  // The 11 card types. Monthly because the content is stable: the type list has
+  // not moved since 2020 and the measured tendencies are printed values, not
+  // prices. The measurement date is the only thing on it that changes. High
+  // priority for the same reason as the rarity guide: "pokemon card types" is
+  // asked constantly, almost every answer online is the 18-type video game
+  // chart, and this page is the one that is about the cards.
+  { loc: `${SITE}/types.html`, freq: "monthly", pri: "0.9" },
   // Local card show calendar. Weekly and high priority: it carries Event
   // structured data, the listings genuinely change, and "card shows near me" is
   // the kind of local search this site can actually win.
@@ -915,6 +946,12 @@ const urls = [
   // The beginner hub. The natural landing page from a video description, and
   // the front door for every guide on the site.
   { loc: `${SITE}/start.html`, freq: "monthly", pri: "0.9" },
+  // The rules of the game. Monthly because the rules do not move; the July 2026
+  // rulebook was diffed against the March one and nothing in setup, the turn or
+  // winning had changed. High priority because "how to play pokemon cards" is
+  // asked constantly and the answer does not expire, which makes it the best
+  // long-tail target added here since the rarity guide.
+  { loc: `${SITE}/how-to-play.html`, freq: "monthly", pri: "0.9" },
   { loc: `${SITE}/pokemon/`, freq: "weekly", pri: "0.8" },
   // Real vs fake. Evergreen and the best long-tail target on the site after the
   // rarity guide: "how to spot fake pokemon cards" is asked constantly and the
@@ -957,6 +994,12 @@ const urls = [
   // figure on it is recomputed from the product prices the nightly sync pulls,
   // so the page genuinely changes when the market does.
   { loc: `${SITE}/pack-prices.html`, freq: "daily", pri: "0.9" },
+  // How many packs are in each sealed product. Monthly, not daily: unlike the
+  // two lines above it, nothing on it is recomputed from a price feed. It moves
+  // when a human re-reads the product pages, which is when a new product line
+  // ships. High priority anyway, because "how many packs in a booster box" is
+  // an evergreen question with a checkable answer.
+  { loc: `${SITE}/how-many-packs.html`, freq: "monthly", pri: "0.9" },
   // "What set is my card from". Monthly: the index only moves when a set ships.
   // High priority anyway, because it is the same kind of evergreen reference as
   // the rarity guide and it is the page somebody lands on holding a card.

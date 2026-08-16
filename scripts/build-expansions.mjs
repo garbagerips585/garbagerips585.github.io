@@ -275,7 +275,17 @@ const body = `
 ${/* "with a full guide", NOT "we have ripped". `ripped` is sets that have a slug,
       which means a guide page, and eight of those have no rip on them at all.
       The label said 23 while the tables below showed 17 sets with a rip count,
-      on the same screen. */ ""}        <div class="xp-stat"><b>${ripped.length}</b><span>with a full guide</span></div>
+      on the same screen.
+
+      "OF THESE" IS LOAD BEARING. This page lists the 174 ENGLISH sets the
+      Pokemon TCG API knows about, and the site also publishes guides for
+      Japanese and Korean sets that are on no row here, so the site-wide count
+      in the nav is larger than this number and always will be. A bare "with a
+      full guide" on the page that calls itself the complete index invites a
+      reader to take it as the site total, and it was read that way while it
+      said 23 against the nav's 41. It is now ${ripped.length} because
+      sync-expansions.mjs joins public/data/sets.json, which had gained five
+      Sword & Shield sets that this file was synced before. */ ""}        <div class="xp-stat"><b>${ripped.length}</b><span>of these have a guide</span></div>
       </div>
 
       <nav class="xp-jump" aria-label="Jump to an era">
@@ -285,8 +295,9 @@ ${eras.map((e) => `        <a href="#era-${e.id}">${esc(e.name)}</a>`).join("\n"
       <button class="xp-copy" type="button" id="copyAll">Copy the whole list</button>
       <p class="xp-foot">Set names, release dates and card counts are from the Pokemon TCG API.
         Card counts show the printed set size, with secret rares beyond it listed separately.
-        Underlined sets have a full guide on this site. Fan made reference. Not affiliated with
-        The Pokemon Company or Nintendo.</p>
+        Underlined sets have a full guide on this site. The site also holds guides for Japanese and
+        Korean sets, which are not English releases and so are on no row here. Fan made reference.
+        Not affiliated with The Pokemon Company or Nintendo.</p>
     </div>
   </section>
 

@@ -71,8 +71,9 @@ push to main. There is no server build step. See DEPLOY.md.
 Video tiles everywhere link to that video's own page under `public/rip/`,
 never to youtube.com. The embed lives on that page.
 
-The deliberate outbound links are Subscribe, the social icons, and every card
-on /playlists.html. THE THIRD ONE IS AN EXCEPTION THIS FILE DID NOT ADMIT TO
+The deliberate outbound links are Subscribe, the social icons, every card
+on /playlists.html, and one block of four at the foot of /how-to-play.html.
+THE THIRD ONE IS AN EXCEPTION THIS FILE DID NOT ADMIT TO
 until 14 August 2026, when it read "the only deliberate outbound links are
 Subscribe and the social icons" while 22 cards on that page sent people to
 YouTube. The rule and the page disagreed and the page was winning quietly.
@@ -89,6 +90,31 @@ content hub stops being one.
 If you build the on-site version, delete this paragraph rather than editing
 it. Until then, do not "fix" the outbound links without deciding that
 question first: they are a known trade, not an oversight.
+
+THE FOURTH EXCEPTION IS /how-to-play.html, added deliberately and argued here
+rather than made quietly, which is the mistake the playlist cards made. That
+page teaches the rules of the card game, and it ends with one labelled block of
+four links to Pokemon's own sites: the Learn to Play hub, the Quick Start Rules
+PDF, Pokemon TCG Live, and the full 44 page rulebook PDF.
+
+The case for them is that this site cannot host the rules and should not
+pretend to be a substitute for them. A beginner who wants more than our page
+needs the real rulebook, and the single best thing to recommend to somebody
+learning is the official free digital client, which teaches the rules and then
+enforces them. A 101 page that refuses to name it is worse for its reader than
+one that does. The case against is simply the count: four outbound links on one
+page is more than the rest of the site holds outside the playlists.
+
+The shape is the mitigation and it is the condition of the exception. They sit
+in ONE block at the very END of the page, after every internal link, so nothing
+sends a reader away mid-explanation. Each says it opens on Pokemon's site, in
+an aria-label, exactly as the playlist cards do. The rulebook link warns that it
+is 44 pages and around 50MB before anybody taps it on mobile data.
+
+ONE LINK ON THAT PAGE IS FORBIDDEN AND IT IS NOT A STYLE CHOICE. The TCG Live
+page also links "Card Drop Rate Information". Do not link it, quote it or
+summarise it. The site never states pull rates, and linking a page of them
+through a guide of ours is the same claim made at one remove.
 
 A playlist with zero videos does not render at all. Two exist on the channel
 and were showing as cards reading "0 videos" whose only action was a link to
@@ -171,9 +197,20 @@ sync-sets.mjs backs off and caches raw responses under .cache/ (gitignored).
 A cold run takes several minutes, re-runs are instant.
 
 Two constraints that shape these pages:
-- The four newest sets (Pitch Black, Chaos Rising, Perfect Order, Ascended
-  Heroes) have card lists but NO market prices yet. Pages say so rather than
-  render zeros. It resolves itself as the market settles.
+- **THIS ENTRY USED TO SAY the four newest sets (Pitch Black, Chaos Rising,
+  Perfect Order, Ascended Heroes) have card lists but NO market prices, and it
+  was quoted back as a reason a page showed none.** That is true of
+  api.pokemontcg.io only. `sync-cards.mjs` prices those sets in full from
+  TCGdex, so all 295 Ascended Heroes cards have a figure. Anything on a set
+  page that claims a price is missing is now reading the wrong file.
+  Every price a set guide prints comes from `public/data/cards/<id>.json`:
+  the chase grid, the rarity ladder, the value band and the checklist. ONE
+  SOURCE PER PAGE, so the top of the page cannot disagree with the bottom of
+  it. `sets.json` still supplies the counts, the dates and the rarity ladder's
+  shape, and `data/chase-tcg.json` now supplies nothing but TCGplayer links.
+  Do not reintroduce a second price feed to a page that already has one: 22 of
+  28 guides once priced their own chase card twice, and on Ascended Heroes the
+  second feed named the wrong card entirely.
 - "Still in print" and pack prices are not in the API and are not guessed.
   They live in `data/set-notes.json` for a human, along with any fun facts,
   and are omitted when blank. Everything else is API fact or checklist

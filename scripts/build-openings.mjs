@@ -74,6 +74,11 @@ const KIND = {
 // a fact about a particular set. See the blurb trap above.
 const USUALLY = {
   etb: "An Elite Trainer Box is the big one: a stack of packs, a card box to keep them in, sleeves, dice, damage counters and a status marker. The pack count has changed over the years, so check the box you are actually buying.",
+  // ^ That sentence stays exactly as it is. It was written when nothing in the
+  // repo held a sourced count and it is still true. What changed is that
+  // /how-many-packs.html now holds the sourced version, so the note under the
+  // lede sends people there rather than leaving them with a warning and no
+  // number. See THE BLURB TRAP above: this page still states nothing per set.
   "single-pack": "One booster pack, bought loose off a shelf or a peg.",
   bundle: "A Booster Bundle is a sleeve of packs and nothing else. No sleeves, no dice, no promo. It is usually the cheapest way to buy several packs at once.",
   "ex-premium": "A collection box built around one ex card, with a promo, an oversize card and a few packs.",
@@ -132,6 +137,27 @@ for (const v of videos) {
 }
 
 // Prices for a kind, one row per set that sells it.
+//
+// THE SET COLUMN SAYS WHAT THIS SITE CALLS THE SET, NOT WHAT TCGPLAYER CALLS IT.
+//
+// `s.tcgSet` is TCGplayer's own catalogue string and it exists for exactly one
+// reason: shared/tcgplayer.mjs maps our ids onto it so the sync can find the
+// right products, because their fuzzy search is confidently wrong (the comment
+// at the top of that file has the details). It is a lookup key. It was never
+// meant to be printed, and printing it put "SV: Scarlet & Violet 151",
+// "SV01: Scarlet & Violet Base Set", "ME05: Pitch Black" and "Pokemon GO" into
+// a table sitting a few hundred pixels above a rip list on the SAME PAGE that
+// says "151", "Scarlet & Violet", "Pitch Black" and "Pokémon GO". /pack-prices
+// and /expansions.html both name the same sets the site's way off sets.json.
+//
+// SET_NAME is the same taxonomy label the rip list below already uses, so the
+// two halves of this page cannot drift. Note that it carries "Pokémon GO" with
+// the accent: that is the official proper name and is deliberate, and the
+// accent is dropped only in the site's own prose. Do not flatten it.
+//
+// `s.tcgSet` remains the fallback because a set present in products.json but
+// absent from the taxonomy still has to render as something, and TCGplayer's
+// string is at least a name rather than a slug.
 const pricesFor = (id) => {
   const kind = KIND[id];
   if (!kind) return [];
@@ -139,7 +165,11 @@ const pricesFor = (id) => {
   for (const [sid, s] of Object.entries(prod.sets || {})) {
     const hit = (s.products || []).find((x) => x.kind === kind);
     if (hit && typeof hit.market === "number") {
-      rows.push({ sid, name: s.tcgSet || sid, market: hit.market, low: hit.low, listings: hit.listings, url: hit.url });
+      rows.push({
+        sid,
+        name: SET_NAME.get(sid) || s.tcgSet || sid,
+        market: hit.market, low: hit.low, listings: hit.listings, url: hit.url,
+      });
     }
   }
   return rows.sort((a, b) => b.market - a.market);
@@ -335,7 +365,9 @@ for (const e of entries) {
       <p class="lede op-lede">${esc(USUALLY[e.id] || `A sealed ${e.label}.`)}</p>
       <p class="op-note">That is what this kind of box usually holds. It is deliberately not stated per set,
         because the contents have changed between releases and we do not have a per set count we can stand
-        behind. What we do have is what came out of the ones opened here, counted below.</p>
+        behind. What we do have is what came out of the ones opened here, counted below, and
+        <a href="/how-many-packs.html">how many packs each kind of product holds</a>, which is read off the
+        manufacturer's and the sellers' own pages with the source on every number.</p>
 
       <div class="op-facts">
         <div class="op-f"><span class="n">${e.vids.length}</span><span class="l">Opened on camera</span></div>
@@ -422,6 +454,8 @@ ${entries
       </div>
       <p class="op-note" style="margin-top:var(--s5)">Pack counts are what we counted in our own videos, not a
         figure off a box. Where a product's contents are not in our data, the page says so rather than guess.
+        The counts printed on the products themselves, biggest box to smallest blister with a source on each,
+        are on <a href="/how-many-packs.html">how many packs are in it</a>.
         Prices come from TCGplayer, read ${esc(longDate(prod.checked))}.</p>
     </div>
   </section>

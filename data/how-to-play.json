@@ -1,0 +1,1020 @@
+{
+  "_readme": [
+    "Research file for a 'Pokemon TCG 101' page: how to actually PLAY the card",
+    "game, written for somebody who opens packs and has never played a game.",
+    "",
+    "THIS IS NO LONGER RESEARCH ONLY. scripts/build-how-to-play.mjs reads this",
+    "file and writes public/how-to-play.html. The page is a hard SUBSET of what",
+    "is here: see data/how-to-play-PLAN.md for the leave-out list, which is the",
+    "more important half of that plan. Do not assume a rule below is on the page.",
+    "",
+    "THE `plain` FIELDS ARE THE READER-FACING SENTENCES and the builder lifts",
+    "them. Everything else here, `note`, `confidence`, `why`, `recommendation`,",
+    "is a memo addressed to the builder and must never be printed: the types page",
+    "next door shipped its research notes verbatim once and put the sentence 'Do",
+    "NOT let the page round this to...' in front of readers.",
+    "",
+    "EVERY RULE HERE CARRIES ITS SOURCE AND THE DATE IT WAS READ, because the",
+    "site's rule is that nothing is stated that cannot be pointed at. `source` is",
+    "a key into `sources`; `page` is the printed page in that PDF. `plain` is the",
+    "beginner-facing sentence a builder can lift; `quote` is the source's own",
+    "words, kept so a later reader can check the paraphrase without refetching a",
+    "50MB PDF.",
+    "",
+    "THE PRIMARY SOURCE IS THE OFFICIAL WEB RULEBOOK, and the current one is",
+    "ME05 (Pitch Black), printed 'LAST UPDATED: JULY 2026'. It is linked from",
+    "tcg.pokemon.com's own nav, which is how its currency was established rather",
+    "than by guessing a set code. An older copy (MEO3 Perfect Order, March 2026)",
+    "was also pulled and diffed against it; see `changedRecently` for the only",
+    "differences that matter.",
+    "",
+    "www.pokemon.com SITS BEHIND IMPERVA BOT PROTECTION and answers a 6KB",
+    "'Pardon Our Interruption' page to most automated requests, including to its",
+    "own PDF urls. It lets roughly one request through, then blocks a burst. If",
+    "you need to refetch, space the requests out by a minute or use a real",
+    "browser. tcg.pokemon.com and the cloudfront rulebook host are NOT blocked,",
+    "which is why those urls are preferred here.",
+    "",
+    "NEVER STATE PULL RATES OR ODDS ON THE PAGE BUILT FROM THIS FILE. The TCG",
+    "Live page carries a 'Card Drop Rate Information' link. It is deliberately",
+    "not recorded here and must not be linked, quoted or summarised.",
+    "",
+    "WEAKNESS AND RESISTANCE ARE PRINTED PER CARD. There is no universal type",
+    "chart in the TCG the way there is in the video games. Do not import one.",
+    "",
+    "See data/how-to-play-PLAN.md for the proposed page, and for the list of",
+    "rules deliberately left out."
+  ],
+
+  "checked": "2026-08-15",
+
+  "sources": {
+    "rulebook": {
+      "id": "rulebook",
+      "title": "Pokemon Trading Card Game Rules (official web rulebook), ME05 Pitch Black printing",
+      "printed": "LAST UPDATED: JULY 2026",
+      "url": "https://d1i787aglh9bmb.cloudfront.net/assets/img/global/tcg-rulebook/ME05_Web_Rulebook_en.pdf",
+      "linkedFrom": "https://tcg.pokemon.com/en-us/learn/",
+      "publisher": "The Pokemon Company International",
+      "read": "2026-08-15",
+      "pages": 44,
+      "note": "PRIMARY SOURCE. Where anything below disagrees with anything else, this wins."
+    },
+    "rulebookMar2026": {
+      "id": "rulebookMar2026",
+      "title": "Pokemon Trading Card Game Rules, MEO3 Perfect Order printing",
+      "printed": "LAST UPDATED: MARCH 2026",
+      "url": "https://www.pokemon.com/static-assets/content-assets/cms2/pdf/trading-card-game/rulebook/por_rulebook_en.pdf",
+      "publisher": "The Pokemon Company International",
+      "read": "2026-08-15",
+      "note": "Kept only so `changedRecently` can name what moved between March and July 2026. Not a source for any live claim."
+    },
+    "quickstart": {
+      "id": "quickstart",
+      "title": "Pokemon TCG Quick Start Rules",
+      "url": "https://tcg.pokemon.com/assets/img/learn-to-play/getting-started/quick-start-rules/en-us/quick_start_rulebook.pdf",
+      "linkedFrom": "https://tcg.pokemon.com/en-us/learn/",
+      "publisher": "The Pokemon Company International",
+      "read": "2026-08-15",
+      "pages": 19,
+      "note": "Official, and pitched at exactly our reader, but it is a SIMPLIFIED book that ships with starter products. It teaches a cut-down setup first and files the real rules under 'Advanced Rules' at the back. Useful for phrasing, not for adjudicating. See `disagreements`."
+    },
+    "learn": {
+      "id": "learn",
+      "title": "Pokemon TCG: Learn to Play",
+      "url": "https://tcg.pokemon.com/en-us/learn/",
+      "publisher": "The Pokemon Company International",
+      "read": "2026-08-15"
+    },
+    "productGuide": {
+      "id": "productGuide",
+      "title": "Pokemon TCG Product Guide",
+      "url": "https://tcg.pokemon.com/en-us/product-guide/",
+      "publisher": "The Pokemon Company International",
+      "read": "2026-08-15",
+      "note": "The official answer to 'what should a beginner buy'. It sorts products into Play Level tiers and names which ones are for new players."
+    },
+    "tcgl": {
+      "id": "tcgl",
+      "title": "Pokemon TCG Live",
+      "url": "https://tcg.pokemon.com/en-us/tcgl/",
+      "publisher": "The Pokemon Company International",
+      "read": "2026-08-15"
+    },
+    "handbook": {
+      "id": "handbook",
+      "title": "Play! Pokemon TCG Tournament Handbook",
+      "printed": "LAST REVISION: May 21, 2026",
+      "url": "https://www.pokemon.com/static-assets/content-assets/cms2/pdf/play-pokemon/rules/play-pokemon-tcg-tournament-handbook-en.pdf",
+      "publisher": "The Pokemon Company International",
+      "read": "2026-08-15",
+      "pages": 27,
+      "note": "The tournament rules document. Source for Standard and Expanded."
+    },
+    "bulbapedia_tcg": {
+      "id": "bulbapedia_tcg",
+      "title": "Pokemon Trading Card Game (Bulbapedia)",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Card_Game",
+      "read": "2026-08-15",
+      "note": "Secondary. Used only to corroborate the first-turn restrictions."
+    },
+    "bulbapedia_specialenergy": {
+      "id": "bulbapedia_specialenergy",
+      "title": "Special Energy card (TCG) (Bulbapedia)",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Special_Energy_card_(TCG)",
+      "read": "2026-08-15",
+      "note": "Secondary, and the ONLY source found for the Basic vs Special Energy distinction. The official rulebook defines 'Basic Energy card' in its glossary but never defines Special Energy. Flagged in `singleSourced`."
+    }
+  },
+
+  "whatIsTheGame": {
+    "_note": "The page has to answer this before any rule. Our readers open packs; most have never seen a game played.",
+    "oneLine": "Two players each bring a 60 card deck, put Pokemon down on the table, attach Energy to them, and attack each other's Pokemon until one player has taken all six of their Prize cards.",
+    "facts": [
+      {
+        "id": "why-prizes",
+        "plain": "You do not score points. You take a Prize card every time you knock out one of your opponent's Pokemon, and taking your last one wins the game.",
+        "quote": "When you Knock Out an opposing Pokemon, you take one of your Prize cards and put it into your hand. If you're the first one to take your last Prize card, you win!",
+        "source": "rulebook",
+        "page": 7
+      },
+      {
+        "id": "game-length",
+        "plain": "A game is short. The rulebook's own words for it are 'fast and furious'.",
+        "quote": "Pokemon TCG games are fast and furious.",
+        "source": "rulebook",
+        "page": 8,
+        "confidence": "This is the publisher describing its own game, not a measured time. Do not put a number of minutes on the page: no source we have states one."
+      }
+    ]
+  },
+
+  "setup": {
+    "steps": [
+      {
+        "id": "deck-60",
+        "plain": "Each player brings their own deck of exactly 60 cards.",
+        "quote": "Each player starts with their own deck of 60 cards to play the game.",
+        "source": "rulebook",
+        "page": 7,
+        "also": [{ "source": "handbook", "page": 8, "quote": "The deck must contain exactly 60 cards." }]
+      },
+      {
+        "id": "coin-flip",
+        "plain": "Flip a coin. Whoever wins the flip chooses who goes first.",
+        "quote": "Flip a coin. The winner of the coin flip decides which player goes first.",
+        "source": "rulebook",
+        "page": 8,
+        "note": "The flip winner CHOOSES; they are not automatically first. Going second is a real choice, because the first player cannot attack."
+      },
+      {
+        "id": "draw-7",
+        "plain": "Shuffle and draw seven cards.",
+        "quote": "Shuffle your 60-card deck and draw the top 7 cards.",
+        "source": "rulebook",
+        "page": 8
+      },
+      {
+        "id": "active",
+        "plain": "Put one Basic Pokemon face down in front of you. That is your Active Pokemon, the one that fights.",
+        "quote": "Put one of your Basic Pokemon face down as your Active Pokemon.",
+        "source": "rulebook",
+        "page": 8
+      },
+      {
+        "id": "bench-setup",
+        "plain": "You may put up to five more Basic Pokemon face down on your Bench, the row behind the Active spot.",
+        "quote": "Put up to 5 more Basic Pokemon face down on your Bench.",
+        "source": "rulebook",
+        "page": 8
+      },
+      {
+        "id": "prizes-6",
+        "plain": "Count the top six cards of your deck off to the side, face down. Those are your Prize cards.",
+        "quote": "Put the top 6 cards of your deck off to the side face down as your Prize cards.",
+        "source": "rulebook",
+        "page": 8,
+        "also": [{ "source": "handbook", "page": 8, "quote": "Matches are played for 6 Prize cards." }]
+      },
+      {
+        "id": "flip-up",
+        "plain": "Both players turn their Pokemon face up at the same time and the game starts.",
+        "quote": "Both players flip their Active and Benched Pokemon face up and start the game!",
+        "source": "rulebook",
+        "page": 8,
+        "note": "Setup is face down so neither player can tailor their opening to what the other put out."
+      }
+    ],
+    "benchLimit": {
+      "id": "bench-5",
+      "plain": "Five is the hard limit on the Bench, at setup and for the rest of the game.",
+      "quote": "Each player may have up to 5 Pokemon on the Bench at any one time. Any Pokemon in play other than the Active Pokemon must be put on the Bench.",
+      "source": "rulebook",
+      "page": 7
+    },
+    "activeLimit": {
+      "id": "active-1",
+      "plain": "You always have exactly one Active Pokemon. If you run out of Pokemon in play, you lose.",
+      "quote": "Each player starts with (and must always have) one Pokemon in their Active Spot. Each player may have only one Active Pokemon at a time.",
+      "source": "rulebook",
+      "page": 7
+    },
+    "mulligan": {
+      "id": "mulligan",
+      "plain": "If your opening seven has no Basic Pokemon in it, show your hand, shuffle it back, and draw seven new cards. Repeat until you have one. That is a mulligan.",
+      "quote": "If you don't have any Basic Pokemon, what do you do? First, reveal your hand to your opponent and shuffle your hand back into your deck. Then, draw 7 more cards. If you still don't have any Basic Pokemon, repeat.",
+      "source": "rulebook",
+      "page": 8,
+      "compensation": {
+        "plain": "Your opponent may draw one extra card for each extra time you had to do it.",
+        "quote": "Each time your opponent shuffles their hand back into their deck because they had no Basic Pokemon, you may draw an extra card!",
+        "source": "rulebook",
+        "page": 8,
+        "detail": "The full timing (both players mulliganing, and the count being of EXTRA mulligans rather than all of them) is on rulebook page 18. Too fiddly for a beginner page; see the leave-out list."
+      }
+    },
+    "firstTurnRestrictions": {
+      "_note": "This is the single rule a new player is most likely to get wrong, and it is the reason the coin flip is a real decision.",
+      "cannotAttack": {
+        "id": "first-no-attack",
+        "plain": "The player who goes first does not get to attack on their first turn.",
+        "quote": "On the first turn of the game, the starting player skips this step. Once that player has done all their other actions, the turn will end. After that, each player attacks as normal. Think carefully if you want to go first or second!",
+        "source": "rulebook",
+        "page": 13,
+        "also": [
+          { "source": "quickstart", "page": 28, "quote": "The player who goes first cannot attack or play a Supporter card on their first turn." },
+          { "source": "bulbapedia_tcg", "quote": "The player who goes first is not allowed to attack or play any Supporter cards on that player's first turn." }
+        ]
+      },
+      "cannotSupporter": {
+        "id": "first-no-supporter",
+        "plain": "The player who goes first also cannot play a Supporter card on that turn.",
+        "quote": "The player who goes first cannot play a Supporter card on their first turn.",
+        "source": "rulebook",
+        "page": 12,
+        "confidence": "Firm. Three independent sources say it: the current rulebook, the official Quick Start book, and Bulbapedia."
+      },
+      "noEvolveFirstTurn": {
+        "id": "first-no-evolve",
+        "plain": "Neither player can evolve anything on their own first turn.",
+        "quote": "Finally, neither player can evolve a Pokemon on that player's first turn unless a card says so.",
+        "source": "rulebook",
+        "page": 11,
+        "note": "This applies to BOTH players, not just the one going first. It follows from the general rule that a Pokemon cannot evolve on the turn it comes into play, but the rulebook states it separately as well."
+      },
+      "firstPlayerDraws": {
+        "id": "first-draws",
+        "plain": "The player going first does still draw a card. There is no rule skipping it.",
+        "source": "rulebook",
+        "page": 9,
+        "confidence": "Established by absence, which is weaker than a positive statement. The turn structure on page 9 begins 'Draw a card' with no first-turn exception, and the only first-turn exceptions the book prints are attacking (p13), Supporters (p12) and evolving (p11). Older eras of the game did skip the first draw, so do not repeat a memory of that rule."
+      }
+    }
+  },
+
+  "turn": {
+    "_note": "The whole turn fits in three beats: draw, do stuff in any order, attack and stop.",
+    "shape": {
+      "plain": "Draw one card. Then do as much or as little as you like from the list below, in whatever order you like. Then attack, and your turn is over.",
+      "quote": "Each turn has 3 main parts: 1) Draw a card. 2) Do any of the following actions in any order: ... 3) Attack. Then, end your turn.",
+      "source": "rulebook",
+      "page": 9
+    },
+    "draw": {
+      "id": "draw",
+      "plain": "Start every turn by drawing a card. If your deck is empty and you cannot draw, you lose.",
+      "quote": "Start your turn by drawing a card. If there are no cards in your deck at the beginning of your turn and you cannot draw a card, the game is over, and your opponent wins.",
+      "source": "rulebook",
+      "page": 10
+    },
+    "actions": [
+      {
+        "id": "bench-basics",
+        "label": "Put Basic Pokemon on your Bench",
+        "limit": "unlimited",
+        "plain": "As many as you want, up to the five Bench spaces.",
+        "quote": "Put Basic Pokemon cards from your hand onto your Bench (as many as you want).",
+        "source": "rulebook",
+        "page": 9
+      },
+      {
+        "id": "evolve",
+        "label": "Evolve your Pokemon",
+        "limit": "unlimited across different Pokemon, once each",
+        "plain": "As many different Pokemon as you like, but each one only one step per turn, and never on the turn it came into play.",
+        "quote": "Evolve your Pokemon (as many as you want). ... Neither player can evolve a Pokemon on its first turn in play. When you evolve a Pokemon, it means that Pokemon is new in play, so you can't evolve it a second time the same turn!",
+        "source": "rulebook",
+        "page": 9,
+        "detailPage": 11
+      },
+      {
+        "id": "attach-energy",
+        "label": "Attach an Energy card",
+        "limit": "ONCE PER TURN",
+        "plain": "One Energy card from your hand onto one of your Pokemon. Once. This is the clock the whole game runs on.",
+        "quote": "Attach an Energy card from your hand to one of your Pokemon (once per turn). ... You can attach Energy just once each turn!",
+        "source": "rulebook",
+        "page": 9,
+        "detailPage": 11
+      },
+      {
+        "id": "trainers",
+        "label": "Play Trainer cards",
+        "limit": "unlimited Items and Tools, ONE Supporter, ONE Stadium",
+        "plain": "Item and Pokemon Tool cards: as many as you like. Supporter cards: one per turn. Stadium cards: one per turn.",
+        "quote": "Play Trainer cards (as many as you want, but only one Supporter card and one Stadium card per turn).",
+        "source": "rulebook",
+        "page": 9,
+        "detailPage": 12
+      },
+      {
+        "id": "retreat",
+        "label": "Retreat your Active Pokemon",
+        "limit": "ONCE PER TURN",
+        "plain": "Swap your Active Pokemon with one from your Bench, paying its Retreat Cost in Energy. Once per turn.",
+        "quote": "Retreat your Active Pokemon (only once per turn).",
+        "source": "rulebook",
+        "page": 9,
+        "detailPage": 12
+      },
+      {
+        "id": "abilities",
+        "label": "Use Abilities",
+        "limit": "unlimited",
+        "plain": "Abilities are the powers printed on some Pokemon that are not attacks. Using one does not stop you attacking.",
+        "quote": "Use Abilities (as many as you want). ... Remember, Abilities aren't attacks, so you can still attack if you use an Ability! You can use Abilities from both your Active and Benched Pokemon.",
+        "source": "rulebook",
+        "page": 9,
+        "detailPage": 12
+      }
+    ],
+    "attackEndsTurn": {
+      "id": "attack-ends",
+      "plain": "Attacking ends your turn. Do everything else first, because you cannot go back.",
+      "quote": "When you are ready to attack, first make sure that you've done everything in step 2 that you want to do. Once you attack, your turn is over, so you can't go back later!",
+      "source": "rulebook",
+      "page": 13
+    },
+    "onlyActiveAttacks": {
+      "id": "only-active-attacks",
+      "plain": "Only your Active Pokemon can attack. The Bench sits there and waits.",
+      "quote": "Active Pokemon: Your in-play Pokemon that is not on the Bench. Only the Active Pokemon can attack.",
+      "source": "rulebook",
+      "page": 42,
+      "sourceNote": "Glossary entry."
+    },
+    "notAttacking": {
+      "id": "may-not-attack",
+      "plain": "You do not have to attack. If you cannot or do not want to, say so and the turn passes.",
+      "quote": "If you cannot attack, tell your opponent your turn is over.",
+      "source": "quickstart",
+      "page": 10,
+      "confidence": "The full rulebook implies this everywhere but never says it in one sentence. The Quick Start book does, which is why it is cited here."
+    }
+  },
+
+  "howToWin": {
+    "_note": "THE THREE WAYS. Get all three, in this order, in the rulebook's own words.",
+    "quote": "You can win the game in 3 ways: 1) Take all of your Prize cards. 2) Knock Out all of your opponent's Pokemon in play. 3) If your opponent has no cards in their deck at the beginning of their turn.",
+    "source": "rulebook",
+    "page": 8,
+    "ways": [
+      {
+        "id": "win-prizes",
+        "n": 1,
+        "label": "Take all six of your Prize cards",
+        "plain": "The normal way. Knock out enough of your opponent's Pokemon that you take your last Prize card.",
+        "source": "rulebook",
+        "page": 8
+      },
+      {
+        "id": "win-board",
+        "n": 2,
+        "label": "Leave your opponent with no Pokemon in play",
+        "plain": "If your opponent's Active Pokemon is knocked out and their Bench is empty, they cannot replace it and they lose.",
+        "quote": "The player whose Pokemon was Knocked Out chooses a new Active Pokemon from their Bench. If your opponent can't do this because their Bench is empty (or for any other reason), you win the game!",
+        "source": "rulebook",
+        "page": 14
+      },
+      {
+        "id": "win-deckout",
+        "n": 3,
+        "label": "Your opponent cannot draw at the start of their turn",
+        "plain": "Every turn starts with a draw. If their deck is empty when that draw is due, they lose. This is called decking out.",
+        "quote": "If there are no cards in your deck at the beginning of your turn and you cannot draw a card, the game is over, and your opponent wins.",
+        "source": "rulebook",
+        "page": 10,
+        "note": "Being told to draw by a card and having too few cards is NOT a loss: 'You lose if you cannot draw a card at the beginning of your turn, but not if you cannot draw one because a card told you to do so.' (rulebook p21). Probably too fine for the page."
+      }
+    ]
+  },
+
+  "cardTypes": {
+    "_note": "Three categories, and the rulebook says so plainly: 'You'll find 3 different types of cards in the Pokemon TCG'. That framing is worth keeping.",
+    "quote": "You'll find 3 different types of cards in the Pokemon TCG: Pokemon ... Energy Cards ... Trainer Cards",
+    "source": "rulebook",
+    "page": 6,
+    "pokemon": {
+      "plain": "The Pokemon themselves. The stage is printed in the top left corner, along with what it evolves from.",
+      "quote": "Most of these cards are Basic Pokemon, Stage 1 Pokemon, or Stage 2 Pokemon. Stage 1 and Stage 2 Pokemon are also called Evolution cards. Look at the upper-left corner and you will see the Pokemon's Stage and the Pokemon it evolves from, if any.",
+      "source": "rulebook",
+      "page": 6,
+      "stages": [
+        {
+          "id": "basic",
+          "label": "Basic",
+          "plain": "Play it straight from your hand. Every deck needs Basics, and a hand with none is a mulligan.",
+          "quote": "Basic Pokemon card: A card you can play directly from your hand on your turn.",
+          "source": "rulebook",
+          "page": 42
+        },
+        {
+          "id": "stage1",
+          "label": "Stage 1",
+          "plain": "Goes on top of the Basic it names. It keeps the Energy and the damage that were already there.",
+          "quote": "You may evolve a Basic Pokemon to a Stage 1 Pokemon or a Stage 1 Pokemon to a Stage 2 Pokemon. When a Pokemon evolves, it keeps all attached cards (Energy cards, Evolution cards, etc.) and any damage counters on it.",
+          "source": "rulebook",
+          "page": 11
+        },
+        {
+          "id": "stage2",
+          "label": "Stage 2",
+          "plain": "Goes on top of the Stage 1. You cannot skip the middle one, and you cannot do both steps in one turn.",
+          "source": "rulebook",
+          "page": 11
+        }
+      ],
+      "evolutionClears": {
+        "plain": "Evolving clears Special Conditions and attack effects, but not damage.",
+        "quote": "Any effects of attacks or Special Conditions affecting the Pokemon, such as Asleep, Confused, or Poisoned, end when it evolves.",
+        "source": "rulebook",
+        "page": 11
+      },
+      "bigPokemon": {
+        "_note": "The 'ex / V / VMAX' question. Our readers pull these constantly and will ask what they do in a game. Keep the answer to the trade: more power, more prizes.",
+        "plain": "Some Pokemon are printed as bigger, stronger versions with a catch: when they are knocked out, your opponent takes more than one Prize card.",
+        "entries": [
+          {
+            "id": "ex",
+            "label": "Pokemon ex",
+            "prizes": 2,
+            "quote": "When one of your Pokemon ex is Knocked Out, your opponent takes 2 Prize cards.",
+            "source": "rulebook",
+            "page": 26,
+            "note": "'ex' is part of the name, so Miraidon and Miraidon ex are different cards for the four-copy limit. An ex can be a Basic, a Stage 1 or a Stage 2."
+          },
+          {
+            "id": "mega-ex",
+            "label": "Mega Evolution Pokemon ex",
+            "prizes": 3,
+            "quote": "these Pokemon allow your opponent to take three Prize cards when they are Knocked Out",
+            "source": "rulebook",
+            "page": 23,
+            "note": "The current era's headline card. They can be Basic, Stage 1 or Stage 2, and some evolve from an unexpected step: Mega Lucario ex evolves from Riolu, not from Lucario."
+          },
+          {
+            "id": "tera-ex",
+            "label": "Tera Pokemon ex",
+            "prizes": 2,
+            "quote": "Tera Pokemon ex have a crystalline appearance and a new effect that prevents all attack damage done to them while they're on your Bench.",
+            "source": "rulebook",
+            "page": 27
+          },
+          {
+            "id": "v",
+            "label": "Pokemon V",
+            "prizes": 2,
+            "quote": "when one of your Pokemon V is Knocked Out, your opponent takes 2 Prize cards",
+            "source": "rulebook",
+            "page": 30,
+            "era": "Sword & Shield era. Out of Standard, still legal in Expanded."
+          },
+          {
+            "id": "vstar",
+            "label": "Pokemon VSTAR",
+            "prizes": 2,
+            "source": "rulebook",
+            "page": 28,
+            "era": "Sword & Shield era."
+          },
+          {
+            "id": "vmax",
+            "label": "Pokemon VMAX",
+            "prizes": 3,
+            "quote": "if your Pokemon VMAX is Knocked Out, your opponent takes 3 Prize cards",
+            "source": "rulebook",
+            "page": 30,
+            "era": "Sword & Shield era."
+          },
+          {
+            "id": "gx",
+            "label": "Pokemon-GX",
+            "prizes": 2,
+            "source": "rulebook",
+            "page": 43,
+            "era": "Sun & Moon era. Expanded only."
+          }
+        ]
+      }
+    },
+    "trainer": {
+      "plain": "Cards that are not Pokemon and not Energy. The subtype is printed in the top left, and the rule for that subtype is printed along the bottom of the card.",
+      "quote": "Trainer cards represent the Items, Supporters, Stadiums, and Pokemon Tools a Trainer can use in battle. You can see the specific Trainer subtype in the upper-left corner and any special rules for that subtype at the bottom of the card.",
+      "source": "rulebook",
+      "page": 6,
+      "subtypes": [
+        {
+          "id": "item",
+          "label": "Item",
+          "limit": "as many as you like",
+          "plain": "Do what it says, then discard it. No limit on how many you play in a turn.",
+          "quote": "Item card: A type of Trainer card. Follow the instructions on the card and then discard it.",
+          "source": "rulebook",
+          "page": 42
+        },
+        {
+          "id": "supporter",
+          "label": "Supporter",
+          "limit": "one per turn",
+          "plain": "Works like an Item but you only get one per turn, and not at all on the first player's first turn.",
+          "quote": "Supporter card: A Trainer card similar to an Item card. You can play only one Supporter card each turn.",
+          "source": "rulebook",
+          "page": 44
+        },
+        {
+          "id": "stadium",
+          "label": "Stadium",
+          "limit": "one per turn, one in play",
+          "plain": "Stays on the table once played, affects both players, and replaces whatever Stadium was there before.",
+          "quote": "Stadium card: A type of Trainer card that is similar to an Item card but stays in play after you play it. Only one Stadium card can be in play at a time. If a new one comes into play, discard the old one and end its effects. You can play only one Stadium card each turn.",
+          "source": "rulebook",
+          "page": 44,
+          "extra": "You also cannot play a Stadium if one with the same name is already in play (rulebook p12)."
+        },
+        {
+          "id": "tool",
+          "label": "Pokemon Tool",
+          "limit": "as many as you like, one per Pokemon",
+          "plain": "Attaches to one of your Pokemon and stays there. Each Pokemon can hold one Tool at a time.",
+          "quote": "Pokemon Tool: A type of Trainer card that is similar to an Item card ... Each Pokemon can have only 1 Pokemon Tool attached at a time.",
+          "source": "rulebook",
+          "page": 43
+        }
+      ]
+    },
+    "energy": {
+      "plain": "Energy is the fuel. You attach one per turn, and an attack only works if the Pokemon already has the Energy its cost shows.",
+      "quote": "Most of the time, Pokemon can't attack without Energy cards! You'll need to match the symbols of the attack cost to the Energy card, but any type of Energy can be used for [Colorless].",
+      "source": "rulebook",
+      "page": 6,
+      "basic": {
+        "id": "basic-energy",
+        "plain": "Basic Energy just provides Energy of its type and does nothing else. It is the one card you may have more than four of in a deck.",
+        "quote": "Basic Energy card: A Grass, Fire, Water, Lightning, Psychic, Fighting, Darkness, Metal, or Fairy Energy card.",
+        "source": "rulebook",
+        "page": 42,
+        "unlimited": {
+          "quote": "except for Basic Energy, you can only have 4 cards with the same name in your deck",
+          "source": "rulebook",
+          "page": 22
+        }
+      },
+      "special": {
+        "id": "special-energy",
+        "plain": "Special Energy cards do something extra on top of providing Energy, and they are capped at four per deck like any other card.",
+        "quote": "Special Energy cards are cards with additional benefits compared to Basic Energy cards. Unlike Basic Energy cards, Special Energy cards have regulation marks, and those with the same name are restricted to four per deck.",
+        "source": "bulbapedia_specialenergy",
+        "confidence": "SINGLE SOURCED, and the source is secondary. The official rulebook glossary defines Basic Energy but never defines Special Energy; the deck-building rule on p22 defines the category only by exclusion. The claim is uncontroversial and consistent with the rulebook, but it is the weakest-sourced statement in this file."
+      },
+      "colorless": {
+        "plain": "A colourless Energy symbol in an attack cost means any Energy card at all will pay it.",
+        "quote": "the [Colorless] means that any type of Energy can be used for the other Energy",
+        "source": "rulebook",
+        "page": 13
+      },
+      "typeCount": {
+        "plain": "There are 11 Energy types in the game.",
+        "quote": "The Pokemon TCG has 11 Energy types, and you will find Pokemon matching all 11 types in the game.",
+        "source": "rulebook",
+        "page": 4,
+        "note": "Fairy still counts in that 11 but no Fairy Pokemon are printed in the current Mega Evolution series: 'Note that there are no Fairy-type Pokemon cards in the Mega Evolution Series, but they do exist in older expansions.' Nine BASIC Energy types exist (the glossary list on p42 has no Dragon and no Colorless). Do not print '11 Energy cards'."
+      }
+    }
+  },
+
+  "labelledCard": {
+    "_note": "The card the page points its labels at. It has to be a PLAIN BASIC POKEMON that prints a Resistance, because most cards do not print one and a label pointing at an empty corner teaches the wrong thing. Pidgey also happens to carry every other number the section names: an HP, an attack with a Colorless cost, a damage figure, a Weakness, a Resistance and a Retreat Cost of 1. It is a common out of a set this channel rips constantly, so a reader can hold the exact card.",
+    "card": "Pidgey",
+    "set": "151",
+    "number": "016",
+    "tcgdexId": "sv03.5-016",
+    "img": "https://assets.tcgdex.net/en/sv/sv03.5/016",
+    "stage": "Basic",
+    "printedType": "Colorless",
+    "hp": 50,
+    "attack": { "name": "Tackle", "cost": "2 Colorless", "damage": 20 },
+    "printedWeakness": "Lightning x2",
+    "printedResistance": "Fighting -30",
+    "retreat": 1,
+    "verified": "api.tcgdex.net/v2/en/cards/sv03.5-016, read 2026-08-15",
+    "imagesChecked": "All four extensions fetched on 2026-08-15: low.webp, low.avif, high.webp and high.avif all answered 200. Not present in data/no-scan.json.",
+    "inLocalData": "public/data/cards/151.json"
+  },
+
+  "combat": {
+    "weakness": {
+      "id": "weakness",
+      "plain": "Weakness is printed on the defending card, in the bottom left corner. If the attacker's type matches it, the attack does more damage.",
+      "quote": "Some Pokemon have Weakness or Resistance to Pokemon of certain types, marked in the lower-left corner of the card. ... your opponent's Active Pokemon takes more damage if it has Weakness to the attacker's type.",
+      "source": "rulebook",
+      "page": 14,
+      "amount": {
+        "plain": "How much more is printed next to the symbol. On current cards it is x2.",
+        "quote": "The effect of the Weakness is indicated next to the type(s) of Weakness a Pokemon has, if any.",
+        "source": "rulebook",
+        "page": 44,
+        "worked": "Chikorita's Razor Leaf does 20. Sandshrew has Weakness x2 to Grass. 20 x 2 = 40, so four damage counters. (rulebook p14)",
+        "note": "The Quick Start book flatly says 'double damage' and 'take 30 less damage'. That matches how current cards are printed but it is not the rule; the rule is that the card's own printed value governs. See `disagreements`."
+      },
+      "notATypeChart": {
+        "plain": "There is no universal type chart in the card game. What a Pokemon is weak to is whatever that one card has printed on it, and two cards of the same Pokemon from different sets can differ.",
+        "confidence": "This is a negative claim, so no source states it outright. It follows directly from the rulebook wording, which always refers to the Weakness 'a Pokemon has, if any' as printed next to the type on the card (p14, p44), and from the fact that many cards print no Resistance at all. Established firmly enough to say plainly; do not attribute it to a quote."
+      }
+    },
+    "resistance": {
+      "id": "resistance",
+      "plain": "Resistance is the opposite, in the same corner, and most cards do not have one. If the attacker's type matches, the attack does less damage.",
+      "quote": "Resistance: A Pokemon with Resistance takes less damage when attacked by Pokemon of a certain type. The amount of Resistance is printed next to the type(s) of Resistance a Pokemon has, if any.",
+      "source": "rulebook",
+      "page": 44,
+      "amount": "Printed on the card. Current cards print -30. (quickstart p22: 'it will take 30 less damage')"
+    },
+    "benchException": {
+      "id": "bench-no-wr",
+      "plain": "Weakness and Resistance only apply to the Active Pokemon. Damage that reaches the Bench ignores both.",
+      "quote": "Don't apply Weakness and Resistance for Benched Pokemon!",
+      "source": "rulebook",
+      "page": 14
+    },
+    "retreatCost": {
+      "id": "retreat-cost",
+      "plain": "Retreat Cost is printed on the card and it is the price, in Energy, of swapping that Pokemon out for one on your Bench. You discard that much Energy from it, then switch.",
+      "quote": "To retreat, you must discard 1 Energy from your Active Pokemon for each [Colorless] listed in its Retreat Cost. If no [Colorless] are listed, it retreats for free. Then, you switch that retreating Pokemon with a Pokemon from your Bench.",
+      "source": "rulebook",
+      "page": 12,
+      "where": {
+        "plain": "It is printed along the bottom of the card, opposite Weakness and Resistance.",
+        "quote": "This cost appears in the lower right-hand corner of the card.",
+        "source": "rulebook",
+        "page": 44,
+        "note": "Glossary says lower right. The card-anatomy diagram on p5 does not label a corner in extractable text, and the Quick Start book's diagram (p5) labels Retreat Cost without naming a corner. Low stakes, but do not draw a card diagram from memory."
+      },
+      "rules": [
+        "Once per turn only. (rulebook p9)",
+        "Any Energy pays it: the cost is shown in colourless symbols. (rulebook p12)",
+        "The Pokemon keeps its damage and its remaining attached cards when it moves. (rulebook p12)",
+        "Asleep and Paralyzed Pokemon cannot retreat. (rulebook p12)",
+        "Going to the Bench clears Special Conditions and attack effects. (rulebook p12)",
+        "You can still attack after retreating, with the new Active Pokemon. (rulebook p12)"
+      ]
+    },
+    "damageCounters": {
+      "id": "damage-counters",
+      "plain": "Damage is tracked with counters. One counter is 10 damage, and it stays on the Pokemon.",
+      "quote": "When you attack, put 1 damage counter on your opponent's Active Pokemon for each 10 damage your Pokemon's attack does.",
+      "source": "rulebook",
+      "page": 14
+    }
+  },
+
+  "knockOut": {
+    "id": "knock-out",
+    "plain": "A Pokemon is knocked out when the damage on it reaches its HP. It and everything attached to it go to the discard pile, and the player who knocked it out takes a Prize card.",
+    "quote": "If a Pokemon has total damage at least equal to its HP (for example, 5 or more damage counters on a Pokemon with 50 HP), it is Knocked Out. If a player's Pokemon is Knocked Out, that player puts it and all cards attached to it in the discard pile. That player's opponent takes 1 of their own Prize cards and puts it into their hand.",
+    "source": "rulebook",
+    "page": 14,
+    "replacement": {
+      "plain": "The player who lost their Active Pokemon then promotes one from their Bench. If they cannot, they lose.",
+      "quote": "The player whose Pokemon was Knocked Out chooses a new Active Pokemon from their Bench. If your opponent can't do this because their Bench is empty (or for any other reason), you win the game!",
+      "source": "rulebook",
+      "page": 14
+    },
+    "prizeIsYourOwn": {
+      "plain": "The Prize card you take is one of YOUR six, not one of theirs. You do not know what it is until you take it.",
+      "quote": "you take one of your Prize cards and put it into your hand",
+      "source": "rulebook",
+      "page": 7,
+      "note": "Worth saying out loud. Beginners routinely assume they take the opponent's prize."
+    },
+    "extraPrizes": {
+      "plain": "The big cards give up more than one. Knocking out a Pokemon ex takes two Prize cards, and a Mega Evolution Pokemon ex takes three.",
+      "quote": "Prize cards: The 6 cards you put face down while setting up to play. Every time one of your opponent's Pokemon is Knocked Out, you take 1 of your Prize cards and put it into your hand (or 2 Prize cards, for certain kinds of Pokemon such as Pokemon ex).",
+      "source": "rulebook",
+      "page": 43,
+      "table": [
+        { "kind": "ordinary Pokemon", "prizes": 1, "source": "rulebook", "page": 14 },
+        { "kind": "Pokemon ex", "prizes": 2, "source": "rulebook", "page": 26 },
+        { "kind": "Pokemon V and VSTAR", "prizes": 2, "source": "rulebook", "page": 30 },
+        { "kind": "Pokemon-GX", "prizes": 2, "source": "rulebook", "page": 43 },
+        { "kind": "Mega Evolution Pokemon ex", "prizes": 3, "source": "rulebook", "page": 23 },
+        { "kind": "Pokemon VMAX", "prizes": 3, "source": "rulebook", "page": 30 },
+        { "kind": "TAG TEAM", "prizes": 3, "source": "rulebook", "page": 44 }
+      ],
+      "why": "This is the trade the whole format runs on: a big card hits harder and survives longer, but losing it hands your opponent half or more of the game in one shot."
+    }
+  },
+
+  "deckBuilding": {
+    "_note": "Only the three rules that stop a beginner building an illegal deck. Everything else is strategy.",
+    "rules": [
+      {
+        "id": "exactly-60",
+        "plain": "Exactly 60 cards. Not 59, not 61.",
+        "quote": "your deck must be exactly 60 cards; it can't be any more or less, even 59 or 61 cards!",
+        "source": "rulebook",
+        "page": 22
+      },
+      {
+        "id": "four-copies",
+        "plain": "No more than four cards with the same name, except Basic Energy, which is unlimited.",
+        "quote": "except for Basic Energy, you can only have 4 cards with the same name in your deck",
+        "source": "rulebook",
+        "page": 22,
+        "also": [{ "source": "handbook", "page": 8, "quote": "Decks may not contain more than 4 copies of a single card, as defined by the card's English language translation, except for Basic Energy cards." }]
+      },
+      {
+        "id": "one-basic",
+        "plain": "At least one Basic Pokemon, or you cannot start the game.",
+        "quote": "your deck must have at least one Basic Pokemon in it",
+        "source": "rulebook",
+        "page": 22
+      }
+    ],
+    "suggestedMix": {
+      "plain": "The rulebook's own starting shape for a first deck: 12 to 15 Energy, 20 to 25 Trainers, the rest Pokemon.",
+      "quote": "To make sure you have enough Energy cards, try between 12 and 15 in your 60-card deck. ... Around 20 to 25 Trainer cards is a good start. ... Of course, you need Pokemon! The rest of your deck will be Pokemon.",
+      "source": "rulebook",
+      "page": 22,
+      "note": "Optional. Useful only if the page ends up telling somebody how to build rather than how to play."
+    }
+  },
+
+  "gettingStarted": {
+    "_note": "The 'can I actually do this' section. Three honest answers: yes a preconstructed deck is enough, the free digital version exists and teaches you, and local shops run league nights.",
+    "isAPreconDeckEnough": {
+      "plain": "Yes. A preconstructed deck is a legal 60-card deck out of the box, and the official product guide says so in as many words.",
+      "quote": "These preconstructed decks include a 60-card deck that's ready to play right out of the box, along with a selection of useful accessories.",
+      "source": "productGuide",
+      "read": "2026-08-15",
+      "note": "You need TWO decks for two people, or a friend with their own."
+    },
+    "officialBeginnerProducts": {
+      "_note": "These are the products The Pokemon Company itself files under 'START HERE!'. Names and descriptions are quoted; NO PRICES are recorded, see priceWarning.",
+      "quote": "START HERE! These products are for newer players who are just learning how to play or are still honing their skills in the early stages of their Pokemon TCG journey.",
+      "source": "productGuide",
+      "read": "2026-08-15",
+      "products": [
+        {
+          "id": "my-first-battle",
+          "name": "My First Battle",
+          "quote": "This streamlined TCG experience, with mini decks and simpler rules, is a great way to introduce the game to kids ages 6+.",
+          "note": "Simplified rules, not the real game. Right for a small child, wrong for an adult who wants to play at a shop."
+        },
+        {
+          "id": "battle-academy",
+          "name": "Pokemon TCG Battle Academy",
+          "quote": "A Pokemon Trading Card Game experience in a board game format. This great set helps guide you through learning to play for the first time.",
+          "note": "One box, more than one deck inside, so two people can play without buying twice. The closest thing to a board game on the shelf."
+        },
+        {
+          "id": "ex-battle-decks",
+          "name": "ex Battle Decks",
+          "quote": "These preconstructed decks include a 60-card deck that's ready to play right out of the box, along with a selection of useful accessories. The decks focus on different powerful Pokemon ex, so choose one and get ready to battle!",
+          "note": "THE default answer for an adult. A real, legal, current deck for the price of a couple of packs."
+        }
+      ],
+      "notForBeginners": [
+        {
+          "id": "league-battle-decks",
+          "name": "League Battle Decks",
+          "tier": "FOR EXPERIENCED TRAINERS!",
+          "quote": "Seasoned Pokemon TCG players will enjoy these League Battle Decks that include premium foil cards, sought-after power cards, and accessories like dice and condition markers.",
+          "source": "productGuide",
+          "warning": "THE RULEBOOK CONTRADICTS THIS. See `disagreements`. Do not send a beginner to a League Battle Deck on the strength of the rulebook line."
+        },
+        {
+          "id": "build-battle",
+          "name": "Build & Battle Box / Stadium",
+          "tier": "READY FOR A CHALLENGE?",
+          "quote": "These boxes come with a smaller, 40-card deck that players can customize for quick and fun games.",
+          "stadiumQuote": "These sets include two Build & Battle Boxes (so two Trainers can start playing right away!) along with Energy cards and additional accessories like dice and condition markers.",
+          "source": "productGuide",
+          "note": "A Stadium box is the one product that puts two playable decks and a table's worth of accessories in one purchase. Filed one tier above beginner, but worth a line for two friends starting together."
+        }
+      ]
+    },
+    "priceWarning": {
+      "plain": "NO PRICES ARE RECORDED IN THIS FILE.",
+      "why": "pokemoncenter.com answers a bot-detection page to every automated request tried (WebFetch 403, curl with browser headers blocked), so no official price could be read. Resellers were not used: a price read off Amazon is not an MSRP and would go stale in a fortnight. If the page needs a number, a human should put it in this file the way data/set-notes.json takes packPrice, with the date they read it, or the page should say 'ask the counter' and link /shops.html."
+    },
+    "digital": {
+      "id": "tcg-live",
+      "name": "Pokemon TCG Live",
+      "plain": "There is an official free digital version, and its own site says learning on it is the point. It teaches the rules, it enforces them for you, and everything you learn transfers to cards on a table.",
+      "quotes": [
+        "Pokemon TCG Live is the best way to learn how to play the Pokemon TCG at your own pace and at no cost.",
+        "You'll have access to every Pokemon TCG card currently available in the Standard format, Learning Lab tutorials to help you learn the rules, and a variety of decks that you can try after logging in.",
+        "Pokemon TCG Live uses the same rules as the physical Pokemon TCG so everything you learn can be applied to in-person battles too!"
+      ],
+      "source": "tcgl",
+      "url": "https://tcg.pokemon.com/en-us/tcgl/",
+      "read": "2026-08-15",
+      "status": "LIVE and current as of 2026-08-15. The page is being maintained, carries a current Battle Pass, and offers Windows, Mac, iOS and Android downloads.",
+      "platforms": ["Windows", "Mac", "iOS", "Android"],
+      "needsAccount": {
+        "plain": "You need a free Pokemon Trainer Club account.",
+        "quote": "First-time Pokemon TCG Live players can begin by signing up for a Pokemon Trainer Club account.",
+        "source": "tcgl"
+      },
+      "predecessor": "Pokemon TCG Online was the previous app and its servers were shut down in June 2023. If a reader finds a guide telling them to install PTCGO, it is out of date. Sourced from press coverage and Pokemon support pages via search on 2026-08-15, not verified against an official page directly, because support.pokemon.com is behind Cloudflare. Treat as background, not as a claim to print.",
+      "doNotLink": "The TCG Live page also links 'Card Drop Rate Information'. Do not link it, quote it or summarise it. The site never states pull rates."
+    },
+    "learningResources": [
+      {
+        "label": "Learn to Play hub",
+        "url": "https://tcg.pokemon.com/en-us/learn/",
+        "note": "Official. Card anatomy, field layout, a tutorial video and an FAQ video series.",
+        "source": "learn"
+      },
+      {
+        "label": "Quick Start Rules (PDF)",
+        "url": "https://tcg.pokemon.com/assets/img/learn-to-play/getting-started/quick-start-rules/en-us/quick_start_rulebook.pdf",
+        "note": "19 pages, pictures, made for a first game. The best thing to send somebody who wants more than our page.",
+        "source": "quickstart"
+      },
+      {
+        "label": "Full rulebook (PDF)",
+        "url": "https://d1i787aglh9bmb.cloudfront.net/assets/img/global/tcg-rulebook/ME05_Web_Rulebook_en.pdf",
+        "note": "44 pages and roughly 50MB, so warn people before linking it on mobile. Link it as the last word, not as the starting point.",
+        "source": "rulebook"
+      }
+    ],
+    "playingLocally": {
+      "plain": "Local game shops run Pokemon leagues, and the rulebook itself tells new players to go and find one.",
+      "quote": "Ask your hobby store if they're a Play! Pokemon Store, or find one near you at www.pokemon.com/locator.",
+      "source": "rulebook",
+      "page": 17,
+      "leagueBenefits": {
+        "quote": "Learn to play Pokemon games! Earn cool prizes! Battle against other players!",
+        "source": "rulebook",
+        "page": 17
+      },
+      "rochester": {
+        "plain": "This site already lists the Rochester shops and which of them run league nights, prereleases and learn-to-play sessions.",
+        "internal": "/shops.html",
+        "note": "public/shops.html already names a shop running 'a learn to play session for anyone starting out', plus League Challenges and Cups, and one shop with a weekly Thursday league. The 101 page should point at that page rather than restate any of it, because that page carries the hedges about schedules going stale."
+      },
+      "beginnerFriendly": {
+        "claim": "Casual weekly league play is the beginner-friendly tier; League Challenges and League Cups are the competitive tiers above it.",
+        "confidence": "NOT FIRMLY SOURCED. The official League Challenge description could not be read: support.pokemon.com is behind a Cloudflare challenge and championships.pokemon.com rendered without body text. Only secondary sources (search summaries and shop pages) describe league play as free and beginner friendly. The page should say what the rulebook says (shops run leagues, ask yours) and link /shops.html, and should NOT assert that events are free or that any tier is beginner friendly."
+      }
+    }
+  },
+
+  "formats": {
+    "_note": "One sentence each. A beginner buying cards hits 'is this legal' immediately, and the honest answer is that it depends on a letter printed on the card.",
+    "standard": {
+      "plain": "Standard is the normal format, and it only uses cards from the last few years. Which ones is decided by the regulation mark, a single letter printed at the bottom of the card, not by which set it came from.",
+      "legalMarks": ["H", "I", "J"],
+      "rotatedOut": ["G"],
+      "table": "The handbook's own table lists G as Expanded only, and H (legal April 5, 2024), I (April 11, 2025) and J (March 6, 2026) as legal in both Standard and Expanded.",
+      "source": "handbook",
+      "page": 9,
+      "read": "2026-08-15",
+      "changes": "Rotation happens annually, so this list has a shelf life. The 2026 rotation took effect April 10, 2026 for tabletop play and March 26, 2026 on TCG Live. Those dates come from search summaries of the official announcement, not from a page read directly, because www.pokemon.com blocked the fetch. The legal-marks list above IS from the official handbook and is the claim to trust.",
+      "beginnerLine": "If you are buying cards to play with, look for the letter. If it is not H, I or J, it is not Standard legal today."
+    },
+    "expanded": {
+      "plain": "Expanded is the bigger format, going back to the Black & White era, and it never rotates. Cards only leave it if they get banned.",
+      "source": "handbook",
+      "page": 9,
+      "note": "The handbook lists every Black & White, XY and Sun & Moon expansion as Expanded legal, plus regulation marks D through J. Section 4.1.4 covers banned cards.",
+      "beginnerLine": "Almost nobody starts here. Local league nights and the first tier of events are Standard."
+    },
+    "unlimited": {
+      "plain": "A third format exists, Unlimited, which allows everything.",
+      "source": "handbook",
+      "page": 12,
+      "recommendation": "LEAVE IT OUT of the page. Naming a third thing costs the reader more than it gives them."
+    }
+  },
+
+  "changedRecently": {
+    "_note": "Diffed the March 2026 rulebook against the July 2026 one line by line. NOTHING in setup, the turn, the ways to win, prizes, Weakness, Resistance or Retreat Cost changed. These are the only differences that matter, and none of them affect how the game is played.",
+    "entries": [
+      {
+        "id": "league-battle-deck-rename",
+        "what": "The rulebook's 'go and learn' page renamed its recommended product and its recommended venue.",
+        "was": "Pokemon Leagues and Mega Battle Decks ... ask your local store for a Mega Battle Deck ... Ask your hobby store if they have a Pokemon League",
+        "now": "Play! Pokemon Stores and League Battle Decks ... ask your local store for a League Battle Deck ... Ask your hobby store if they're a Play! Pokemon Store",
+        "between": "March 2026 and July 2026",
+        "sources": ["rulebookMar2026", "rulebook"],
+        "page": 17,
+        "why_it_matters": "The venue is now called a Play! Pokemon Store rather than a Pokemon League in official copy. Use the current name."
+      },
+      {
+        "id": "checkup-ordering",
+        "what": "Pokemon Checkup ordering was clarified: the player whose turn is next now decides the order of non-condition effects, and all Special Conditions must resolve together.",
+        "now": "The player whose turn is next decides the order of the effects, but all Special Conditions must happen at the same time",
+        "between": "March 2026 and July 2026",
+        "source": "rulebook",
+        "page": 15,
+        "why_it_matters": "Nothing for a beginner page. Recorded so a future reader knows it moved."
+      },
+      {
+        "id": "antique-fossil",
+        "what": "Antique Fossil cards were added to the Fossil appendix.",
+        "between": "March 2026 and July 2026",
+        "source": "rulebook",
+        "page": 33,
+        "why_it_matters": "Nothing for a beginner page."
+      }
+    ],
+    "olderChangesNotVerified": "First-turn rules HAVE changed across eras of this game and a lot of writing online describes an older version. This file records only what the July 2026 rulebook says. No claim is made here about when any of it last changed, because no source read stated one."
+  },
+
+  "disagreements": [
+    {
+      "id": "league-battle-deck-for-beginners",
+      "what": "Is a League Battle Deck a beginner product?",
+      "sideA": "The current rulebook, page 17, tells a new player to 'ask your local store for a League Battle Deck. It comes with everything you need to play the game, including a preconstructed deck and gameplay advice!'",
+      "sideB": "The official Product Guide files League Battle Decks under 'FOR EXPERIENCED TRAINERS!' and says 'Seasoned Pokemon TCG players will enjoy these'. Its beginner tier is My First Battle, Battle Academy and ex Battle Decks.",
+      "resolution": "Follow the Product Guide, and point beginners at ex Battle Decks or Battle Academy. The rulebook line reads like a product name that was search-and-replaced in July 2026 (it said 'Mega Battle Deck' in March) without anyone rechecking the tiering. Do not quote the rulebook line as a beginner recommendation.",
+      "confidence": "Both sources are official and current. Flagged rather than resolved by fiat; the page should just not repeat the rulebook's product line."
+    },
+    {
+      "id": "weakness-amount",
+      "what": "Is Weakness always double?",
+      "sideA": "The full rulebook says the amount is whatever is printed next to the Weakness symbol on the card, and works an example at x2.",
+      "sideB": "The Quick Start book says flatly 'it will take double damage from that attack' and 'it will take 30 less damage'.",
+      "resolution": "The rulebook is right and the Quick Start book is a simplification that happens to match how current cards are printed. Say 'the card tells you how much', and mention that on today's cards it is x2 and -30. Never say Weakness is always double."
+    },
+    {
+      "id": "quickstart-setup",
+      "what": "Does setup include a Bench?",
+      "sideA": "The full rulebook has you place the Active Pokemon and up to five Bench Pokemon, face down, before drawing Prizes.",
+      "sideB": "The Quick Start book's main setup is draw 7, play a Basic to the Active Spot, set aside 6 Prizes, with the Bench and the face-down step filed under 'Advanced Rules' on page 28.",
+      "resolution": "Follow the full rulebook. The Quick Start book is teaching a first game with a starter deck, not stating the rules."
+    },
+    {
+      "id": "quickstart-win",
+      "what": "How is winning described?",
+      "sideA": "The rulebook: three ways to win, listed as such.",
+      "sideB": "The Quick Start book opens with 'The first player to Knock Out 6 Pokemon wins the game!', which is only true when every Pokemon in the game gives up exactly one Prize.",
+      "resolution": "Use the rulebook. The Quick Start phrasing is actively misleading the moment a Pokemon ex is on the table, which is most of the time now."
+    }
+  ],
+
+  "singleSourced": [
+    {
+      "claim": "Special Energy cards have effects beyond providing Energy and are limited to four per deck.",
+      "source": "bulbapedia_specialenergy",
+      "why": "The official rulebook never defines Special Energy. Consistent with the rulebook's deck-building rule but not stated by it."
+    },
+    {
+      "claim": "You are not obliged to attack; you can end your turn without attacking.",
+      "source": "quickstart",
+      "page": 10,
+      "why": "The full rulebook implies it throughout but never says it in one line."
+    },
+    {
+      "claim": "Retreat Cost is printed in the lower right corner.",
+      "source": "rulebook",
+      "page": 44,
+      "why": "Glossary only. The card-anatomy page did not yield a corner label in extracted text."
+    }
+  ],
+
+  "couldNotVerify": [
+    {
+      "item": "Official prices for any product.",
+      "why": "pokemoncenter.com blocks automated requests. No MSRP could be read from an official source."
+    },
+    {
+      "item": "The official definition of a League Challenge, and whether league play is free.",
+      "why": "support.pokemon.com is behind a Cloudflare challenge; championships.pokemon.com rendered without body text. Only secondary sources describe it."
+    },
+    {
+      "item": "The official 2026 rotation announcement page.",
+      "why": "www.pokemon.com blocked the fetch. The regulation-mark table in the Tournament Handbook was used instead, which is a better source anyway."
+    },
+    {
+      "item": "pokemon.com's own 'Get Started' beginner page.",
+      "why": "That url 404s. tcg.pokemon.com/en-us/learn/ is the live equivalent and was read instead."
+    },
+    {
+      "item": "How long a typical game takes.",
+      "why": "No source read gives a figure. The rulebook only says 'fast and furious'. Do not put a number of minutes on the page."
+    }
+  ]
+}

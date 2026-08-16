@@ -32,4 +32,17 @@ export const TCG_SET = {
   "paldea-evolved": "SV02: Paldea Evolved",
   "scarlet-violet": "SV01: Scarlet & Violet Base Set",
   "pokemon-go": "Pokemon GO",
+  // Sword & Shield era, added when sync-sets.mjs learned these five. Probed one
+  // at a time and the setName read back off the results, never guessed: the
+  // prefix is not predictable from the era. Three carry a numbered code, two do
+  // not, and Crown Zenith's is "SWSH:" with no number where Chilling Reign's is
+  // "SWSH06:". Sealed products confirmed present under each exact string
+  // (Celebrations 36, Crown Zenith 44, Rebel Clash 30, Shining Fates 28,
+  // Chilling Reign 28), which is the check that matters: an unknown setName is
+  // silently ignored by their API rather than rejected.
+  "crown-zenith": "SWSH: Crown Zenith",
+  "celebrations": "Celebrations",
+  "chilling-reign": "SWSH06: Chilling Reign",
+  "shining-fates": "Shining Fates",
+  "rebel-clash": "SWSH02: Rebel Clash",
 };
