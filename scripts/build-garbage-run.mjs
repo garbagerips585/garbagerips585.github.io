@@ -657,7 +657,7 @@ ${footer()}
     block: "rgba(255,255,255,.055)",
     band: "#242424", bandEdge: "rgba(232,185,58,.34)",
     hazard: "#F5F4F0", near: "#E8B93A",
-    gold: "#E8B93A", goldDim: "rgba(232,185,58,.20)",
+    gold: "#E8B93A", goldDim: "rgba(232,185,58,.11)",
     ink: "#F5F4F0", inkDim: "rgba(245,244,240,.55)",
     onGold: "#111111", scrim: "rgba(10,10,10,.55)",
   };
@@ -765,10 +765,17 @@ ${footer()}
       else { ctx.fillStyle = C.hazard; ctx.fillRect(o.x + 8, hy + 8, o.w - 16, 26); }
     }
     ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    // A RING, NOT A DISC. The glow behind each piece was a flat gold fill at 20
+    // per cent, which on the old olive street was a soft halo and on a near
+    // black one is a solid brown coin with an emoji sitting on top of it: the
+    // rubbish stopped reading as rubbish and started reading as tokens. A fainter
+    // fill with a crisp gold edge says "take this" without painting over it.
     for (var b = 0; b < L.packs.length; b++) {
       var pk = L.packs[b];
       ctx.fillStyle = C.goldDim;
-      ctx.beginPath(); ctx.arc(pk.x, pk.y, 17, 0, 7); ctx.fill();
+      ctx.beginPath(); ctx.arc(pk.x, pk.y, 16, 0, 7); ctx.fill();
+      ctx.strokeStyle = "rgba(232,185,58,.55)"; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(pk.x, pk.y, 16.5, 0, 7); ctx.stroke();
       ctx.font = "24px system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif";
       ctx.fillText(pk.emoji, pk.x, pk.y);
     }

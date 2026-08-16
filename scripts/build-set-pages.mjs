@@ -167,6 +167,37 @@ const packsOnDisk = new Set(
 );
 const packClass = (id) => (packsOnDisk.has(id) ? id : "default");
 
+/**
+ * THE PACKSHOT WAS TAKING THE 810x1440 MASTER TO PAINT A 172x262 BOX.
+ *
+ * `.packshot .pack-art` measured 172x262 CSS px at 390 AND at 1440, because the
+ * box is fixed. That is 344x524 at DPR2, and packs.css was handing it
+ * `<set>-garbage-rips-585-booster-pack.webp`, 810x1440 and 122 to 154KB, on
+ * every one of the 42 guides. A 4.7x linear oversample and the single heaviest
+ * image on most of these pages, for the one picture on them that is decoration.
+ *
+ * build-packs.py already writes a `-tile.webp` beside each master at 400x711
+ * and 43 to 50KB, which covers the box at 1.16x on a retina phone. packs.css
+ * offers it behind `.pack--tile`, but that class also carries
+ * `position:absolute;inset:0` in ui.css, which is right for a video tile and
+ * would tear this element out of its row. So the FILE is taken without the
+ * layout, as an inline background-image on the element itself.
+ *
+ * INLINE RATHER THAN A STYLESHEET RULE for two reasons. It beats
+ * `.pack--<set> .pack-art` without a specificity contest, and the url is
+ * absolute: packs.css writes `url('packs/...')` relative to /assets/packs.css,
+ * and the same string inside a /sets/ page would resolve to /sets/packs/.
+ *
+ * Skipped, leaving the master in place, if the tile is not on disk.
+ */
+const packTile = (id) => {
+  const cls = packClass(id);
+  const f = `${cls}-garbage-rips-585-booster-pack-tile.webp`;
+  return packsOnDisk.has(f)
+    ? ` style="background-image:url('/assets/packs/${f}')"`
+    : "";
+};
+
 // Which sets have their own share card, for the Article schema's image.
 const ogCards = new Set(
   (await readdir(join(ROOT, "public/assets")))
@@ -2039,7 +2070,7 @@ function setPage(s) {
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
     <h2>We ripped <span class="hl">${rips}</span> of these</h2>
     <div class="set-watch">
-      <div class="packshot pack pack--${packClass(s.id)}"><span class="pack-face pack-l"><span class="pack-art"></span></span></div>
+      <div class="packshot pack pack--${packClass(s.id)}"><span class="pack-face pack-l"><span class="pack-art"${packTile(s.id)}></span></span></div>
       <div>
         <p class="lede">Want to see what actually comes out of ${esc(s.name)} instead of reading about it? Every ${esc(s.name)} rip on the channel is one tap away.</p>
         ${/* ONE SENTENCE, AND IT DELIBERATELY DOES NOT NAME THIS SET.

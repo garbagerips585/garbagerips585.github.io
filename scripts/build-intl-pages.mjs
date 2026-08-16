@@ -71,14 +71,23 @@ const logosOnDisk = new Set(
  * exactly as setCardLogo does in build-set-pages.mjs. Never emitted for a set
  * with no file: onerror hides a 404 in the browser and still pays for it.
  */
+const LOGO_BOX_W = 150;
+const LOGO_BOX_H = 56;
 const enLogo = (setId, alt) => {
   if (!logosOnDisk.has(setId)) return "";
   const base = `/assets/logos/${setId}-pokemon-tcg-set-logo`;
   const d = LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`];
   if (!d) return "";
   const smW = Math.round((d[0] * 100) / d[1]);
+  // SIZES IS THE DRAWN WIDTH, WHICH object-fit:contain DECIDES, NOT THE BOX
+  // WIDTH. A flat "150px" claims 300 device px at DPR2, which no -sm.webp is
+  // wide enough to satisfy, so Chrome correctly reached past it for the 300px
+  // tall master on every guide. contain scales by min(boxW/w, boxH/h), so the
+  // drawn width is the smaller of the box width and the height-limited width,
+  // and that is the number the browser needs.
+  const drawnW = Math.round(Math.min(LOGO_BOX_W, (LOGO_BOX_H * d[0]) / d[1]));
   return `<img class="intl-logo" src="${base}-sm.webp"
-          srcset="${base}-sm.webp ${smW}w, ${base}.webp ${d[0]}w" sizes="150px"
+          srcset="${base}-sm.webp ${smW}w, ${base}.webp ${d[0]}w" sizes="${drawnW}px"
           width="${smW}" height="100" alt="${esc(alt)}" loading="lazy" decoding="async">`;
 };
 
@@ -644,7 +653,18 @@ function ripsBand(g, rips, label, cls) {
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
     <h2>We ripped <span class="hl">${rips.length}</span> of these</h2>
     <div class="set-watch">
-      <div class="packshot pack pack--default"><span class="pack-face pack-l"><span class="pack-art"></span></span></div>
+      ${/* THE TILE FILE, NOT THE MASTER. `.packshot .pack-art` measures 172x262
+            CSS px at every width, so 344x524 at DPR2, and packs.css hands it the
+            810x1440 master: 129.8KB to paint a box a 400x711 file covers at
+            1.16x for 45.3KB. Taken as an inline background rather than by adding
+            `.pack--tile`, because that class also carries position:absolute in
+            ui.css and would tear this element out of its row. The url is
+            absolute because packs.css's own is relative to /assets/. Same change
+            and same reasoning as packTile() in build-set-pages.mjs.
+            The wrapper stays the GENERIC one. This is a page about a Japanese or
+            Korean set and the site has drawn no wrapper for one; putting the
+            English twin's skin here would be a picture of the wrong pack. */ ""}
+      <div class="packshot pack pack--default"><span class="pack-face pack-l"><span class="pack-art" style="background-image:url('/assets/packs/default-garbage-rips-585-booster-pack-tile.webp')"></span></span></div>
       <div>
         <p class="lede">Imported packs, opened on camera in Rochester. No idea what any of the text says, which is half
           the fun. Every ${esc(g.english)} rip on the channel is one tap away.</p>

@@ -90,15 +90,26 @@ const logosOnDisk = new Set(
  * browser and the page still pays for the round trip, which is the trap
  * CLAUDE.md already records for the card scans.
  */
-const LOGO_H = 50;
+const LOGO_BOX_W = 132;
+const LOGO_BOX_H = 50;
 function setLogo(setId, alt) {
   if (!logosOnDisk.has(setId)) return "";
   const d = LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`];
   if (!d) return "";
   const base = `/assets/logos/${setId}-pokemon-tcg-set-logo`;
   const smW = Math.round((d[0] * 100) / d[1]);
+  // SIZES IS THE RENDERED WIDTH, WHICH object-fit:contain DECIDES, NOT THE BOX.
+  // Written as a flat "132px" this fetched the 300px-tall MASTER for every logo
+  // narrower than 2.64:1, which is most of them: Pokemon GO is 479x300, renders
+  // 80x50 inside the box, and took 31.3KB where its own -sm.webp is 8KB and
+  // 160x100, an exact DPR2 fit. Chrome was right and the markup was lying to it,
+  // because 132 CSS px at DPR2 asks for 264 and the -sm is 160 wide.
+  // contain scales by min(boxW/w, boxH/h), so the drawn width is the smaller of
+  // the box width and the height-limited width. Same arithmetic the browser
+  // does; it just has to be told.
+  const drawnW = Math.round(Math.min(LOGO_BOX_W, (LOGO_BOX_H * d[0]) / d[1]));
   return `<img class="plid-logo" src="${base}-sm.webp"
-            srcset="${base}-sm.webp ${smW}w, ${base}.webp ${d[0]}w" sizes="132px"
+            srcset="${base}-sm.webp ${smW}w, ${base}.webp ${d[0]}w" sizes="${drawnW}px"
             width="${smW}" height="100" alt="${esc(alt)}" decoding="async">`;
 }
 
