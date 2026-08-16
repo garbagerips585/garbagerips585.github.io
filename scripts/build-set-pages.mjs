@@ -689,7 +689,15 @@ ${rows}
 // builder emits a dead round trip. Read up here rather than beside the hit
 // grid because the chase list below is the first thing that needs it.
 const NO_SCAN = new Set(
-  (JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8").catch(() => "{}")).tcgdex || [])
+  (JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8").catch(() => "{}")).bases || [])
+  // THE KEY IS `bases`, AND THIS ASKED FOR `tcgdex`, WHICH DOES NOT EXIST.
+  // A missing JSON key is undefined, `|| []` turns that into an empty list, and
+  // an empty NO_SCAN excludes nothing, so every one of the 101 scans this file
+  // exists to suppress was emitted anyway. The failure mode of a lookup table
+  // that silently comes back empty is that everything looks fine: the images
+  // just 404 one at a time in the background. The sibling read twelve lines up
+  // uses `deadUrls` and was always correct, which is why only half of this
+  // feature worked.
 );
 
 let chaseLinks = {};
@@ -1771,6 +1779,19 @@ function setPage(s) {
       <div class="packshot pack pack--${packClass(s.id)}"><span class="pack-face pack-l"><span class="pack-art"></span></span></div>
       <div>
         <p class="lede">Want to see what actually comes out of ${esc(s.name)} instead of reading about it? Every ${esc(s.name)} rip on the channel is one tap away.</p>
+        ${/* ONE SENTENCE, AND IT DELIBERATELY DOES NOT NAME THIS SET.
+              The obvious line to write here is "the codes from these packs give
+              you digital packs of ${s.name}". It was not written, and the reason
+              is in data/tcg-live.json: the code gives a pack of the same
+              expansion, but nothing official says every expansion is still in
+              the game, and `expiry.twoRealLimits` records "Live has removed old
+              content before. Not verified, so do not assert it." These guides
+              cover sets back to 2020, so a promise per set would be a claim
+              about a back catalogue nobody has published. The general sentence
+              is true of every set page and needs no such claim. */ ""}
+        <p style="margin-top:12px;font-size:var(--t-sm);line-height:1.55">There is one more card in each of
+          those packs and it is not a Pokemon card: <a href="/tcg-live.html">what the code card actually gets
+          you</a>.</p>
         <div class="btn-row" style="margin-top:16px">
           <a class="btn btn-yt" href="/videos.html?set=${s.id}">Watch the ${esc(label)} rips</a>
         </div>
