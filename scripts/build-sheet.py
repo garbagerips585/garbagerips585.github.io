@@ -408,10 +408,35 @@ for col, (head, items) in enumerate(
     for r, item in enumerate(items, start=2):
         wl.cell(r, col, item).font = BODY
 
+# A DEFINED NAME PER LIST, NOT A RAW CROSS-SHEET RANGE.
+#
+# The dropdowns used to point straight at Lists!$A$2:$A$44. That is correct xlsx
+# and Excel honours it, but the sheet does not live in Excel: it goes through
+# Google Sheets, and a dropdown that points at another tab does not survive the
+# trip intact. Measured on one round trip, the Set column came back offering 35
+# of the 43 sets this file writes, having quietly dropped every option no row
+# had used yet, Black Bolt and White Flare among them. Tim opened a Black Bolt
+# pack, went to record it, and the sheet had no such value.
+#
+# A workbook-level defined name is the same range with a stable label on it, and
+# a label survives being carried between applications far better than a raw
+# reference does. The lists still live on the Lists tab and are still the thing
+# to read when a dropdown looks short.
+#
+# THIS IS A BEST EFFORT AND IT IS DELIBERATELY NOT THE ONLY DEFENCE. Nothing
+# written here can compel another application to keep a dropdown. That is why
+# every validation is also non-strict: if the list arrives short anyway, the
+# value can still be typed and the importer reports anything it does not
+# recognise rather than swallowing it.
+DEFINED = {}
+
 def named(col_idx, count):
-    """Absolute range on Lists for a dropdown source."""
+    """A workbook-level defined name covering one list column on Lists."""
     c = get_column_letter(col_idx)
-    return f"=Lists!${c}$2:${c}${count + 1}"
+    ref = f"Lists!${c}$2:${c}${count + 1}"
+    label = f"gr_list_{c}"
+    DEFINED[label] = ref
+    return label
 
 DV_SET = named(1, len(SET_NAMES))
 DV_OPEN = named(2, len(OPENING_TYPES))
@@ -1163,6 +1188,13 @@ dv_good.add(f"D2:D{ROWS}")
 wsh.cell(max(len(shops_src) + 3, 5), 1,
          "Add a row per shop. Paste the plain page URL: tracking and session parameters are "
          "stripped on build, but a clean link is easier to check.").font = NOTE
+
+# Register the defined names the dropdowns refer to. Done here rather than at
+# definition time because every list has to exist on the Lists tab first.
+from openpyxl.workbook.defined_name import DefinedName
+for _label, _ref in DEFINED.items():
+    if _label not in wb.defined_names:
+        wb.defined_names.add(DefinedName(_label, attr_text=_ref))
 
 wb.save(OUT)
 print(f"  Chase Cards {len(rows_out)} rows")
