@@ -332,7 +332,7 @@ const CARDS = [
   // FIRST ON PURPOSE. The other three are quizzes, which are things you finish.
   // This hub is called "Games for the wait" and the longest wait wants the game
   // you can keep playing and hand to somebody else.
-  ["garbage-run.html", "Arcade", "Garbage Run", "One thumb, no rules to read. Flip Trubbish between floor and ceiling, or duel a friend on the same phone."],
+  ["garbage-run.html", "Arcade", "Garbage Run", "One thumb, no rules to read. Flip Trubbish between the floor and the ceiling and eat everything on the street. A hundred pieces of rubbish and he evolves."],
   ["whos-that-pokemon.html", "Silhouettes", "Who's That Pokemon?", `Name the shape. All ${whos.length.toLocaleString("en-US")} of them, or just the original 151.`],
   ["guess-the-set.html", "Card scans", "Guess the Set", `A real card, four sets, one right answer. ${setNames.length} sets in the pot.`],
   ["pokemon-trivia.html", "Quiz", "Pokemon Trivia", `${shuffled.length.toLocaleString("en-US")} questions, all generated from real Pokedex and card data.`],
@@ -366,6 +366,24 @@ const hub = shell({
         <p>${esc(blurb)}</p>
       </a>`,
       ).join("\n      ")}
+    </div>
+    <h2 style="margin-top:var(--s6)">The two official <span class="hl">apps</span></h2>
+    <p class="lede" style="max-width:46em">Ours are for the twenty minutes in the queue. These two are the real card
+      game, both free, both from Pokemon, and both tied to the packs on this channel. The code card in every booster
+      goes into one of them.</p>
+    <div class="g-list">
+      <a class="g-card" href="/tcg-live.html">
+        <span class="g-tag">Official</span>
+        <h2>Pokemon TCG Live</h2>
+        <p>The full card game, same rules as the cards in your hand. It is where the code card from a booster pack
+          gets redeemed, and what that code actually gives you is not what most people assume.</p>
+      </a>
+      <a class="g-card" href="/tcg-pocket.html">
+        <span class="g-tag">Official</span>
+        <h2>Pokemon TCG Pocket</h2>
+        <p>The casual one, and the easier place to learn: shorter matches on a deliberately simplified ruleset, so what
+          it teaches you carries over only so far. Your pack codes do not work here.</p>
+      </a>
     </div>
     <p class="price-note" style="margin-top:var(--s5)">Your best scores are saved on this device only. There is no
       account and no leaderboard, because the site is a set of static files with nowhere to store one.
