@@ -48,10 +48,48 @@ const CACHE = join(ROOT, ".cache", "tcg-products");
  * `kind` groups the variants so only one of each reaches the page: there are
  * four different Elite Trainer Boxes for some sets and a wall of near
  * identical boxes is worse than one.
+ *
+ * `not` excludes names a `re` catches by accident. It exists because the kinds
+ * overlap in the product NAME rather than in the product: "Pitch Black Pokemon
+ * Center Elite Trainer Box" matches the plain Elite Trainer Box pattern, and
+ * "151 Ultra-Premium Collection" matches the Collection Box one. Two kinds
+ * matching one product is not a cosmetic duplicate, because the blurbs
+ * disagree: the standard box is nine packs and the Pokemon Center one is
+ * eleven, so whichever kind won would have been printing the other one's count.
  */
 const KINDS = [
   { kind: "Booster Box", blurb: "36 packs", re: /\bbooster box\b/i },
-  { kind: "Elite Trainer Box", blurb: "9 packs plus sleeves and dice", re: /\belite trainer box\b/i },
+  // THE THREE PRODUCTS ABOVE AN ELITE TRAINER BOX, added because
+  // /how-many-packs.html had no photograph for any of them and this is the only
+  // real product photography the site has. All three are genuinely listed by
+  // TCGplayer under sets we already track, so they are a widening of the same
+  // pull rather than a new source: the Ultra-Premium Collection on 151 and
+  // Celebrations, the Super-Premium Collection on Prismatic Evolutions, and the
+  // Pokemon Center Elite Trainer Box on almost every set here.
+  //
+  // The two Premium Collections carry NO number, because they genuinely have
+  // none: sourced counts run 16, 18 and 30 for Ultra-Premium Collections and 10
+  // and 15 for Super-Premium ones (data/pack-counts-current.json). A per-kind
+  // constant is exactly the wrong shape for that, so they get the same "not in
+  // our data" wording the blisters and tins already use and no per-pack figure
+  // is derived anywhere.
+  //
+  // ELEVEN IS SOURCED AND IT IS SOURCED FOR ONE WINDOW, same as the nine below
+  // it. pokemon.com states 11 on the Pitch Black and Prismatic Evolutions
+  // Pokemon Center Elite Trainer Boxes, and Pokemon Center lists the current-era
+  // ones together. It is not a fact about the product line, so it rests on the
+  // same GENERIC_FROM gate in build-set-pages.mjs that protects the nine: the
+  // Crown Zenith and Pokemon GO "Plus" boxes held more and predate the window
+  // anyway, and `not` keeps them out on top of that.
+  { kind: "Ultra-Premium Collection", blurb: "Packs plus promos and accessories, count varies by product", re: /\bultra[- ]premium collection\b/i },
+  { kind: "Super-Premium Collection", blurb: "Packs plus promos and accessories, count varies by product", re: /\bsuper[- ]premium collection\b/i },
+  {
+    kind: "Pokemon Center Elite Trainer Box",
+    blurb: "11 packs plus 2 promo cards",
+    re: /\bpokemon center elite trainer box\b/i,
+    not: /\bplus\b/i,
+  },
+  { kind: "Elite Trainer Box", blurb: "9 packs plus sleeves and dice", re: /\belite trainer box\b/i, not: /\bpokemon center\b/i },
   { kind: "Booster Bundle", blurb: "6 packs", re: /\bbooster bundle\b/i },
   { kind: "Build & Battle Box", blurb: "4 packs plus a 40 card deck", re: /\bbuild (&|and) battle box\b/i },
   // THESE THREE SAY THE COUNT IS UNKNOWN, because it is, and the old wording
@@ -66,7 +104,7 @@ const KINDS = [
   { kind: "Blister Pack", blurb: "Packs plus a promo card, count not in our data", re: /\bblister\b/i },
   { kind: "Single Pack", blurb: "One pack", re: /\bbooster pack\b/i },
   { kind: "Tin", blurb: "Packs plus a promo, count not in our data", re: /\btin\b/i },
-  { kind: "Collection Box", blurb: "Packs plus promos, count not in our data", re: /\b(collection|premium collection)\b/i },
+  { kind: "Collection Box", blurb: "Packs plus promos, count not in our data", re: /\b(collection|premium collection)\b/i, not: /\b(ultra|super)[- ]premium collection\b/i },
 ];
 
 /**
@@ -170,9 +208,15 @@ const urlName = (s) =>
  */
 function pickMain(raw) {
   const out = [];
-  for (const { kind, blurb, re } of KINDS) {
+  for (const { kind, blurb, re, not } of KINDS) {
     const hits = raw
-      .filter((p) => p.productName && !SKIP.test(p.productName) && re.test(p.productName))
+      .filter(
+        (p) =>
+          p.productName &&
+          !SKIP.test(p.productName) &&
+          re.test(p.productName) &&
+          !(not && not.test(p.productName))
+      )
       .filter((p) => Number(p.marketPrice) > 0)
       .sort((a, b) => Number(a.marketPrice) - Number(b.marketPrice));
     if (!hits.length) continue;
@@ -190,6 +234,19 @@ function pickMain(raw) {
       thumb: `https://tcgplayer-cdn.tcgplayer.com/product/${id}_200w.jpg`,
       url: `https://www.tcgplayer.com/product/${id}/${urlName(p.productName)}`,
     });
+  }
+  // ONE PRODUCT, ONE KIND. See the `not` note above KINDS: the patterns overlap
+  // in the name, and a product reaching two kinds would be rendered twice with
+  // two different pack claims underneath it. Cheap to check and impossible to
+  // spot by eye on 28 set pages.
+  const seen = new Set();
+  for (const p of out) {
+    if (seen.has(p.productId)) {
+      throw new Error(
+        `"${p.name}" was picked for more than one kind. Add a \`not\` to the narrower one in KINDS.`
+      );
+    }
+    seen.add(p.productId);
   }
   return out;
 }

@@ -120,6 +120,49 @@ const DEAD = new Set(
 // are different sets from the ones in the research, but their pack count is in
 // the product name, which is why they are captioned with the full name.
 //
+// ON A ROW WHOSE COUNT VARIES, the test is the same one read against the NAMED
+// product rather than against the headline. The Ultra-Premium Collection row
+// has no single number, it has five sourced products from 16 packs to 30, so
+// the photo has to be one of those five and it is: pokemon.com states 16 for
+// the 151 Ultra-Premium Collection and that is the product in the picture.
+// Same for the Super-Premium Collection, where pokemon.com states 15 for the
+// Prismatic Evolutions one. A shot of some sixth Ultra-Premium Collection
+// nobody sourced would be a picture of an unknown number.
+//
+// ELEVEN ROWS HAVE NO PHOTO AND THAT IS THE HONEST ANSWER, not a gap somebody
+// should close later by relaxing the rule above. They split two ways, and the
+// second group is the one worth writing down, because it looks fillable.
+//
+// FOUR are simply not in the pull at any price: Stacking Tin, Knock Out
+// Collection, Holiday Calendar and Trick or Trade. They are general-release
+// products that belong to no expansion, so TCGplayer files them outside the 28
+// set names pinned in shared/tcgplayer.mjs and this site has never fetched one.
+//
+// THE OTHER SEVEN DO HAVE LISTINGS in sets we track, and they are left blank
+// anyway, which is the decision most likely to get quietly reversed. In every
+// case the listing is a DIFFERENT PRODUCT from the one the count on that row
+// was read off, so the pictured box's own pack count is not sourced:
+//   ex Box                  TCGplayer has three Ascended Heroes Mega ex Boxes.
+//                           The four is off Mega Latias, Mega Kangaskhan and
+//                           the 30th Celebration boxes. Not the same boxes.
+//   ex Premium Collection   Paldean Fates 2024, against Mega Greninja and Mega
+//                           Zygarde 2026 in the research.
+//   ex Special Collection   Crown Zenith and Pokemon GO Special Collections,
+//                           which are a different line from the Charizard ex
+//                           Special Collection the five came from.
+//   Poke Ball Tin           Pokemon GO Poke Ball Tins, 2022, against the
+//                           December 2025 run.
+//   Standard collector tin  Set-branded tins (Ascended Heroes, Crown Zenith,
+//                           Paldean Fates). None of the six tins sourced.
+//   Collection boxes        A family with a 3 to 6 spread. The Prismatic
+//                           Evolutions Surprise Box is sourced at four AND is
+//                           listed, but sync-products.mjs picks the cheapest
+//                           Collection Box per set and that is the Poster
+//                           Collection, whose count nobody has read.
+//   Battle Deck             Pokemon GO V Battle Decks, against the 30th
+//                           Celebration Battle Deck the zero came from.
+// Any of those would look completely fine on the page. That is the problem.
+//
 // NO WIDTH OR HEIGHT ON THESE. imgDims() returns nothing for tcgplayer-cdn on
 // purpose: those files run 200x268 to 200x417 and a declaration would be wrong
 // by up to 34%. And sizes is 88px, not a viewport unit, because the box is a
@@ -128,6 +171,17 @@ const DEAD = new Set(
 const PHOTOS = {
   "Booster Display Box": ["pitch-black", "Booster Box", "Pitch Black Booster Box"],
   "Elite Trainer Box": ["pitch-black", "Elite Trainer Box", "Pitch Black Elite Trainer Box"],
+  "Pokemon Center Elite Trainer Box": [
+    "pitch-black",
+    "Pokemon Center Elite Trainer Box",
+    "Pitch Black Pokemon Center Elite Trainer Box",
+  ],
+  "Ultra-Premium Collection": ["151", "Ultra-Premium Collection", "151 Ultra-Premium Collection"],
+  "Super-Premium Collection": [
+    "prismatic-evolutions",
+    "Super-Premium Collection",
+    "Prismatic Evolutions Super-Premium Collection",
+  ],
   "Booster Bundle": ["pitch-black", "Booster Bundle", "Pitch Black Booster Bundle"],
   "Build & Battle Box": ["pitch-black", "Build & Battle Box", "Pitch Black Build & Battle Box"],
   "Booster pack (loose or sleeved)": ["pitch-black", "Single Pack", "Pitch Black Booster Pack"],
@@ -564,7 +618,13 @@ const shot = (r) =>
       )} referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
         <figcaption>${esc(r.photo.name)}</figcaption>
       </figure>`
-    : `      <div class="hp-noshot"><span>No photo</span></div>`;
+    // NOT AN IMG AND NOT A BROKEN ONE. There is no photograph of these products
+    // that this site is allowed to publish, so the slot holds the same hatched
+    // box /sets/ uses for a set with no logo (.set-noart in ui.css) rather than
+    // a grey rectangle that reads as a failed load. It is aria-hidden because
+    // the prose under the list already explains the absence once, and ten screen
+    // reader announcements of "no photo" is ten interruptions to say nothing.
+    : `      <div class="hp-noshot" aria-hidden="true"><span>No photo</span></div>`;
 
 const card = (r) => `    <li class="hp-card"${r.varies ? ' data-varies="1"' : ""}>
 ${shot(r)}
@@ -755,10 +815,18 @@ const style = `
 .hp-shot img{width:88px;height:88px;object-fit:contain;display:block;background:#fff;
   border:1px solid var(--hair);border-radius:6px}
 .hp-shot figcaption{font:400 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);margin-top:4px}
+/* The ten rows with no photograph. Same 88x88 footprint as .hp-shot so the
+   headings stay on one line down the column, and the same 45 degree hatch
+   .set-noart uses on /sets/ for a set with no logo, which is this site's
+   existing way of saying "there is no art for this, on purpose". A plain empty
+   box at this size reads as an image that failed to load, which is the one
+   thing it must not look like: nine of its neighbours are real photographs. */
 .hp-noshot{flex:none;width:88px;height:88px;display:grid;place-items:center;
-  border:1px dashed var(--hair);border-radius:6px;background:var(--paper-2)}
+  border:1px solid var(--hair);border-radius:6px;
+  background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
 .hp-noshot span{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);
-  letter-spacing:.04em;text-transform:uppercase}
+  letter-spacing:.04em;text-transform:uppercase;background:var(--card);
+  padding:3px 5px;border-radius:4px}
 .hp-body{min-width:0;flex:1}
 .hp-body h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:4px}
 .hp-count{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:var(--s3)}
@@ -918,8 +986,16 @@ ${rows.map(card).join("\n")}
     </ul>
     <p class="prod-note">Product photos are TCGplayer's, from the nightly price pull${
       productsChecked ? ` read ${esc(longDate(productsChecked))}` : ""
-    }. We are not a shop and we do not sell any of this. There is no in-house photography, so the products with no
-      picture are the ones TCGplayer does not list in the sets we track rather than products we are unsure about.</p>
+    }. We are not a shop and we do not sell any of this. There is no in-house photography, so a photo only exists here
+      where TCGplayer lists that product for one of the sets we track and its own pack count is one of the numbers on
+      the row. ${
+        // Counted, not typed. The photos are derived from the nightly pull, so
+        // one can appear or disappear without anybody editing this sentence.
+        rows.filter((r) => !r.photo).length
+      } of the ${rows.length} rows have a hatched box instead. Most of those are products sold outside any one
+      expansion, like the tins and the calendar, which never appear in a set's listings at all. The rest do have
+      listings, but of a different box from the one the count on that row was read off, and a near neighbour with the
+      wrong number beside it would be worse than no picture.</p>
   </div>
 </section>
 
