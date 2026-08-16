@@ -22,10 +22,29 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=29741c97">
+<link rel="stylesheet" href="/assets/ui.css?v=7e466649">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .op-lede{max-width:46em}
+/* The product shot is a HORIZONTAL strip under the lede, not a column beside it.
+   Both alternatives were built and looked wrong. Beside the lede, the caption is
+   stuck in an 88px column and sets as eleven lines of mono running far below a
+   three line paragraph. Above the lede, an 88px box pushes the sentence that
+   answers the h1 down the screen on a phone. As a strip it keeps the question
+   and its answer adjacent and gives the caption a readable measure, and the
+   caption has real work to do here: it names the set the box actually is, which
+   is the condition of using one set's product to illustrate a type at all. */
+.op-shot{display:flex;gap:var(--s4);align-items:center;margin:0 0 var(--s5);
+  max-width:46em;border:3px solid var(--navy);border-radius:12px;background:var(--card);
+  box-shadow:var(--hard-lg);padding:var(--s3) var(--s4)}
+/* Product photography arrives on a white background, so the tile is white
+   rather than the page cream. Same reasoning and the same 88px box as
+   .prod-shot on the set guides and .hp-shot on /how-many-packs.html, because
+   sizes="88px" is measured against exactly this box. */
+.op-shot img{flex:none;width:88px;height:88px;object-fit:contain;display:block;background:#fff;
+  border:1px solid var(--hair);border-radius:6px}
+.op-shot figcaption{font-size:var(--t-sm);line-height:1.5;color:var(--ink-2);min-width:0}
+.op-shot figcaption b{font-weight:700;color:var(--ink)}
 .op-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);margin:var(--s5) 0}
 @media(max-width:700px){.op-facts{grid-template-columns:1fr}}
 .op-f{border:3px solid var(--navy);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
@@ -162,6 +181,13 @@
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/openings/">Openings</a> / <span>Elite Trainer Box</span></nav>
       <h1>What is in an Elite Trainer Box<span class="hl">?</span></h1>
       <p class="lede op-lede">An Elite Trainer Box is the big one: a stack of packs, a card box to keep them in, sleeves, dice, damage counters and a status marker. The pack count has changed over the years, so check the box you are actually buying.</p>
+      <figure class="op-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/692947_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/692947_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/692947_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Pitch Black Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>One example: the <b>Pitch Black Elite Trainer Box</b>. Photo TCGplayer's. Every set sells
+          its own, and the art on the box changes with the set.</figcaption>
+      </figure>
       <p class="op-note">That is what this kind of box usually holds. It is deliberately not stated per set,
         because the contents have changed between releases and we do not have a per set count we can stand
         behind. What we do have is what came out of the ones opened here, counted below, and
@@ -406,7 +432,7 @@
     Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=bba43eab" defer></script>
-<script src="/assets/packplayer.js?v=44adb501" defer></script>
+<script src="/assets/app.js?v=e8bbf2a6" defer></script>
+<script src="/assets/packplayer.js?v=5d42bee0" defer></script>
 </body>
 </html>

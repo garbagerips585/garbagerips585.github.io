@@ -111,10 +111,33 @@ sends a reader away mid-explanation. Each says it opens on Pokemon's site, in
 an aria-label, exactly as the playlist cards do. The rulebook link warns that it
 is 44 pages and around 50MB before anybody taps it on mobile data.
 
-ONE LINK ON THAT PAGE IS FORBIDDEN AND IT IS NOT A STYLE CHOICE. The TCG Live
-page also links "Card Drop Rate Information". Do not link it, quote it or
-summarise it. The site never states pull rates, and linking a page of them
-through a guide of ours is the same claim made at one remove.
+THE FIFTH EXCEPTION IS THE PAIR OF APP PAGES, /tcg-live.html and
+/tcg-pocket.html, and it is the same shape as the fourth rather than a new
+argument. Both are guides to a free official app, and a page that tells you to
+download something and then refuses to say where is useless.
+
+The shape is again the mitigation. /tcg-pocket.html carries ONE outbound link,
+Pokemon's own site, in one labelled block at the very end. /tcg-live.html carries
+TWO in its end block, the official TCG Live page and the redemption site, and
+that page takes one further liberty which was argued rather than made quietly:
+THE REDEMPTION LINK ALSO APPEARS INLINE, in the redeeming section. It is not a
+"learn more" link, it is step one of a four step instruction, and burying it 900
+words below where the reader is standing costs them more than the outbound rule
+gains us. It is labelled and aria-labelled as leaving the site exactly like every
+other one. If a later editor disagrees, the fix is to drop the inline copy and
+name the domain in plain text there, not to spread more of them through the page.
+
+THE FORBIDDEN LINK IS FORBIDDEN ON ALL THREE OF THOSE PAGES AND IT IS NOT A
+STYLE CHOICE. The TCG Live page also links "Card Drop Rate Information". Do not
+link it, quote it or summarise it from /how-to-play.html, from /tcg-live.html or
+from /tcg-pocket.html, and the same goes for anything stating Pokemon TCG
+Pocket's offering rates. The site never states pull rates, and linking a page of
+them through a guide of ours is the same claim made at one remove. Both digital
+games publish their own rates, which is precisely why the ban has to name these
+pages: they are where somebody will argue that a published figure is different.
+It is not. The research files record that those pages were deliberately never
+fetched and that no url leading to them is stored, so there is nothing in the
+tree to emit by accident. Keep it that way.
 
 A playlist with zero videos does not render at all. Two exist on the channel
 and were showing as cards reading "0 videos" whose only action was a link to
@@ -286,7 +309,9 @@ is safe to go stale in the only direction it can.
 ## Current state
 Homepage order: nav, Greatest Hits (the Hall of Fame card, then a carousel),
 Latest rips (carousel), Most wanted, Card Pokedex, Card guides and tools, the
-585 hometown band, footer.
+585 hometown band, footer. The ORDER is the same at every width; the LAYOUT of
+the first two bands is not, and the difference is described under "The home
+page is two layouts" below.
 
 **This section described a different page until 14 August 2026 and was
 believed.** It listed a ROC ticker, a Rochester skyline SVG, an "Anatomy of a
@@ -307,8 +332,9 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
   still an `<a>` to the rip page and the handler is what stops it.
 - Each tile's rip animation uses THAT VIDEO'S OWN pack art, not the generic
   wrapper. `packSet` in build-proto.mjs picks it.
-- Bands other than Greatest Hits are one video at a time with slide buttons,
-  not grids. The counter reads "1 / 5".
+- Bands other than Greatest Hits are a scroll-snap carousel with slide buttons,
+  not grids. ON A PHONE that is one video at a time and the counter reads
+  "1 / 5". On a desktop it is two or three at a time; see below.
 - The Hall of Fame card keeps its text when the player mounts: the handler
   swaps only the art box, because replacing the whole card lost the title, the
   set and the view count.
@@ -329,6 +355,34 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
   video's own publish date and never hardcoded: the nightly has failed three
   nights running before now, and the video on show can be older than the page
   assumes. It used to read "Newest rip TODAY" over a tile saying 1 VIEW.
+
+THE HOME PAGE IS TWO LAYOUTS, and the desktop one is younger than the phone
+one. Until 16 August 2026 there was only the phone layout and a desktop got it
+unchanged. Measured at 1440x900 that meant the first 3,307px of a 6,855px page
+showed TWO videos: .hofx and every carousel card were capped at 520px and
+centred inside a 1,392px .wrap while the slide itself ran the full width, so
+three consecutive cards each left 872px of empty band either side and content
+used 37% of the width. At 1920 it was 65%, because a fixed cap does not move.
+The set grid and the tool grid below fill the same wrap completely, which is
+why the top of the page read as a different site from the bottom.
+
+The rules that fix it are the last block in `assets-source/ui.css` and they are
+ALL `min-width`, so nothing a phone or a tablet renders changed. Three things:
+
+- The carousels show 2.35 slides at 1000px, 2.75 at 1200 and 3.3 at 1400. The
+  fractions are deliberate, so the next card is cut by the band's edge and the
+  row reads as continuing. The count steps to hold the ARTWORK still: one fixed
+  count across the range swings the pack from 359px to 478px wide.
+- Greatest Hits becomes two columns at 1200: the trophy on the left at a fixed
+  460 to 520px, the rest of the hits beside it. That band was 2,105px tall to
+  show one pack and one video and is now 1,187px showing three.
+- Most wanted's tiles grow to fill their row instead of stopping at 168px.
+
+Do not "simplify" those fractional counts to whole numbers and do not reinstate
+a single centred card, which is what the two long comments above them are
+arguing about. Both of those comments are still correct and still about the
+PHONE: one column sized to the video is right when the slide is the whole
+track. The desktop fix is not a wider card, it is more of them.
 
 The banner art is the header, not a mid-page strip. Do not overlay copy on
 it: Trubbish sits dead centre in the source image, so any scrim wide enough

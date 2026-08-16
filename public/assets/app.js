@@ -996,18 +996,28 @@
     var here = document.activeElement;
     // Focus that has already escaped (or never entered) comes back on the next
     // Tab rather than being left stranded behind the overlay.
-    if (items.indexOf(here) === -1) {
+    var i = items.indexOf(here);
+    if (i === -1) {
       e.preventDefault();
       (e.shiftKey ? last : first).focus();
       return;
     }
-    if (e.shiftKey && here === first) {
-      e.preventDefault();
-      last.focus();
-    } else if (!e.shiftKey && here === last) {
-      e.preventDefault();
-      first.focus();
-    }
+    // Step through `items` rather than letting the browser choose the next tab
+    // stop. THE TWO ARE NOT THE SAME ORDER for the menu: the button and its
+    // panel are not adjacent in the DOM, and Subscribe sits between them and is
+    // visible from 900px up. So Tab off the button went to Subscribe, which is
+    // outside the surface, which sent focus back to the button, which went to
+    // Subscribe: an infinite two-stop loop with all 35 menu links unreachable
+    // by keyboard on every page at desktop widths. It looked correct at 375px
+    // only because Subscribe and the nav links are display:none there, which
+    // made the DOM order and the surface order accidentally agree.
+    // Walking `items` makes the loop identical at every width, and is a no-op
+    // for the lightbox, whose items are already contiguous and in DOM order.
+    e.preventDefault();
+    (e.shiftKey
+      ? i === 0 ? last : items[i - 1]
+      : i === items.length - 1 ? first : items[i + 1]
+    ).focus();
   });
 
   window.GR585 = { CHANNEL_ID: CHANNEL_ID, loadVideos: loadVideos };

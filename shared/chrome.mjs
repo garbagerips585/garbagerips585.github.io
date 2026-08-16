@@ -93,6 +93,24 @@ export const NAV = [
     // are for". Deliberately NOT added to BAR_LINKS: the bar is five links and
     // the comment above that array argues the number from published research.
     ["/how-to-play.html", "How to play"],
+    // The two free official apps, under the rules page because that is the order
+    // somebody meets them: learn the game, then the digital version of it, then
+    // the casual phone one. Also NOT in BAR_LINKS, for the same reason as above.
+    //
+    // THE LABELS HAVE TO READ AS TWO DIFFERENT THINGS AT A GLANCE, which is the
+    // failure this file already warns about with "Grading" and "Will it grade".
+    // The plans proposed "Play it free" and "Phone version". "Play it free"
+    // spends its two words on the same verb as the entry directly above it, so
+    // the pair reads as "How to play" and "Play it...", and the front-loaded
+    // noun rule is what breaks the tie: "Code cards" is the noun the reader is
+    // physically holding, it is that page's own H1 and its first section, and no
+    // other label on the site starts with either word. "Phone version" front
+    // loads the one thing that actually distinguishes the other app. The search
+    // entry and the share card carry the app names, which is where somebody
+    // typing "TCG Live" or "pocket" is looking anyway. Do not ship "TCG Live" or
+    // "TCG Pocket": both front-load an acronym a beginner does not know.
+    ["/tcg-live.html", "Code cards"],
+    ["/tcg-pocket.html", "Phone version"],
     // Next to the rarity guide on purpose. The two answer the two halves of the
     // same question somebody asks holding one card: what is it, and where is it
     // from. Both are read off the same corner of the card and each links to the

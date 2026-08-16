@@ -96,6 +96,93 @@ const src = (url, what) =>
     : "";
 
 const c = d.centering;
+
+// ============================================================================
+// THE CENTERING DIAGRAM.
+//
+// This section is the one place on a 3,758 word page where the subject is a
+// SHAPE. "A card described as 50/50 top to bottom and 60/40 left to right has 60
+// percent of the border on one side of the photo and 40 percent on the other" is
+// a correct sentence that most readers have to re-read, and the whole page hangs
+// off understanding it: every row of both tables underneath is a pair of those
+// numbers. A drawn rectangle inside another rectangle says it at a glance.
+//
+// IT IS DRAWN, NOT PHOTOGRAPHED, AND THAT IS THE POINT rather than a compromise.
+// A photograph of a real off-centre card would be a claim about that card's
+// grade, which is exactly what this site does not do, and we have no such photo
+// we are allowed to publish anyway. A diagram makes no claim about any object:
+// it is the definition, rendered. Same reasoning as rarityMark() in
+// shared/rarity.mjs, and the same cost, which is nothing.
+//
+// THE GEOMETRY IS READ OUT OF THE SENTENCE, NOT TYPED IN BESIDE IT. The ratios
+// are parsed from c.howMeasured.example, so a diagram that disagreed with the
+// prose it illustrates cannot be built: it throws instead. That matters more
+// here than usual because the numbers in that sentence are PSA's, sourced, and a
+// picture quietly showing a different split would be this page inventing a
+// tolerance.
+const RATIO = /(\d{2})\/(\d{2})\s+top to bottom and\s+(\d{2})\/(\d{2})\s+left to right/i.exec(
+  c.howMeasured.example
+);
+if (!RATIO) {
+  throw new Error(
+    `The centering diagram derives its geometry from centering.howMeasured.example, and that ` +
+      `sentence no longer parses as "NN/NN top to bottom and NN/NN left to right":\n  ` +
+      `"${c.howMeasured.example}"\n` +
+      `Either restore the shape of the sentence or update the regex AND the diagram together. ` +
+      `Do not ship a picture showing a split the copy beside it does not state.`
+  );
+}
+const [, TOP, BOT, LEFT, RIGHT] = RATIO.map(Number);
+if (TOP + BOT !== 100 || LEFT + RIGHT !== 100) {
+  throw new Error(`Centering example does not sum to 100: ${TOP}/${BOT} and ${LEFT}/${RIGHT}`);
+}
+
+/**
+ * The card, its photo window, and the four borders labelled.
+ *
+ * Coordinates are a 200x280 card, which is the 245x337 proportion every scan on
+ * this site uses, rounded to numbers a reader could check. BORDER is the total
+ * border on each axis; the split moves the window inside it. At 60/40 the left
+ * border is 1.5x the right, which is visible without being cartoonish, and that
+ * is the honest look of a card PSA would still call a 9.
+ *
+ * aria-hidden with a <figcaption> doing the talking: the shape carries no
+ * information the sentence above it does not already state, so announcing a
+ * dozen SVG labels to a screen reader is a dozen interruptions to repeat it.
+ */
+function centeringDiagram() {
+  const W = 200, H = 280, BORDER_X = 44, BORDER_Y = 52;
+  const lx = (BORDER_X * LEFT) / 50 / 2; // left border width at this split
+  const ty = (BORDER_Y * TOP) / 50 / 2;
+  const win = { x: lx, y: ty, w: W - BORDER_X, h: H - BORDER_Y };
+  const mid = win.y + win.h / 2;
+  // THE TWO BORDERS ARE SHADED, not just ticked. At the real proportions of a
+  // card a 60/40 split is a 26px gap against a 17px one, which two thin
+  // dimension lines make the reader measure by eye. Filling both strips turns it
+  // into an area comparison, which is read rather than measured, and the strips
+  // are the literal thing the number describes.
+  const dim = (x1, x2, y, label) => `
+    <rect x="${x1}" y="${win.y}" width="${x2 - x1}" height="${win.h}" class="ct-band"/>
+    <line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" class="ct-dim"/>
+    <line x1="${x1}" y1="${y - 6}" x2="${x1}" y2="${y + 6}" class="ct-dim"/>
+    <line x1="${x2}" y1="${y - 6}" x2="${x2}" y2="${y + 6}" class="ct-dim"/>
+    <text x="${(x1 + x2) / 2}" y="${y - 11}" class="ct-lab">${label}</text>`;
+  return `<figure class="ct-fig">
+        <svg viewBox="-6 -24 ${W + 12} ${H + 36}" class="ct-svg" role="img"
+             aria-label="A card with ${LEFT} percent of its left-to-right border on the left of the picture and ${RIGHT} percent on the right, which is what ${LEFT}/${RIGHT} centering means.">
+          <rect x="0" y="0" width="${W}" height="${H}" rx="9" class="ct-card"/>
+          ${dim(0, win.x, mid, `${LEFT}`)}
+          ${dim(win.x + win.w, W, mid, `${RIGHT}`)}
+          <rect x="${win.x}" y="${win.y}" width="${win.w}" height="${win.h}" rx="3" class="ct-win"/>
+          <text x="${W / 2}" y="${win.y + win.h / 2 + 5}" class="ct-in">the picture</text>
+          <text x="${W / 2}" y="-9" class="ct-lab">${TOP} / ${BOT} top to bottom</text>
+        </svg>
+        <figcaption>What <b>${LEFT}/${RIGHT}</b> looks like. The border left of the picture is
+          ${(LEFT / RIGHT).toFixed(1)} times the border right of it. Every pair of numbers in the two
+          tables below is this same measurement, on one axis or the other.</figcaption>
+      </figure>`;
+}
+
 const desc =
   "Will your Pokemon card grade a 10? Centering tolerances from PSA, CGC, Beckett, SGC and TAG, the flaws that cost grades, and how to check a card at home.";
 
@@ -114,6 +201,29 @@ const style = `
 .gc-t tbody th{font-weight:700;white-space:nowrap}
 .gc-t tbody tr:first-child{background:rgba(245,166,43,.09)}
 .gc-none span{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);opacity:.7}
+/* The centering diagram beside the sentence it draws. The picture is useless
+   above the paragraph and useless below it; the whole value is that a reader
+   stuck on "60/40" can glance left mid-sentence. Under 700px it stacks, diagram
+   first, because on a phone "above" is the only version of "beside" there is. */
+.ct-wrap{display:flex;gap:var(--s5);align-items:flex-start;margin-bottom:var(--s4)}
+.ct-txt{margin-bottom:0 !important}
+@media(max-width:700px){.ct-wrap{flex-direction:column;gap:var(--s4)}}
+.ct-fig{flex:none;width:210px;margin:0}
+@media(max-width:700px){.ct-fig{width:100%;max-width:280px;align-self:center}}
+.ct-svg{width:100%;height:auto;display:block;overflow:visible}
+.ct-card{fill:var(--card);stroke:var(--navy);stroke-width:4}
+/* The two border strips, which are the measurement. Faint enough that the card
+   still reads as a card, strong enough that the wider one is obvious. */
+.ct-band{fill:var(--ketchup);opacity:.15}
+/* The window is filled, not outlined, so the two BORDERS either side of it read
+   as the measured thing. An outlined window makes the reader compare two lines
+   instead of two gaps, which is the wrong comparison. */
+.ct-win{fill:var(--navy);opacity:.14;stroke:var(--navy);stroke-width:2;stroke-opacity:.5}
+.ct-dim{stroke:var(--ketchup);stroke-width:2}
+.ct-lab{fill:var(--ketchup-deep);font:700 10px/1 var(--mono);text-anchor:middle}
+.ct-in{fill:var(--ink-2);font:400 11px/1 var(--body);text-anchor:middle}
+.ct-fig figcaption{font-size:var(--t-sm);line-height:1.5;color:var(--ink-2);margin-top:var(--s3)}
+.ct-fig figcaption b{font-family:var(--mono);color:var(--ketchup-deep)}
 .gc-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
 @media(max-width:880px){.gc-cards{grid-template-columns:1fr}}
 .gc-c{border:3px solid var(--navy);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
@@ -212,8 +322,11 @@ ${d.subgrades.math.examples.map((e) => `          <li>${esc(e.sub)} <b>= ${esc(e
       <section class="gc-sec">
         <h2>Centering, the only part you can <span class="hl">measure</span></h2>
         <p class="gc-in">${esc(c.lead)}</p>
-        <p class="gc-in"><b>How it is measured.</b> ${esc(c.howMeasured.text)} ${esc(c.howMeasured.example)}
-          ${c.howMeasured.company} says so.${src(c.howMeasured.source, "PSA on how centering is measured")}</p>
+        <div class="ct-wrap">
+${centeringDiagram()}
+          <p class="gc-in ct-txt"><b>How it is measured.</b> ${esc(c.howMeasured.text)} ${esc(c.howMeasured.example)}
+            ${c.howMeasured.company} says so.${src(c.howMeasured.source, "PSA on how centering is measured")}</p>
+        </div>
 ${table(c.front, "Front centering, as each company publishes it")}
 ${table(c.back, "Back centering. Note how much wider the tolerances are, and how many are simply absent")}
         <p class="gc-in"><b>PSA gives itself room, and tells you so.</b> ${esc(c.leeway.text)}

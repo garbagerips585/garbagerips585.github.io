@@ -440,6 +440,12 @@
     // comparison leaves the last slide's arrow enabled forever.
     if (prev) prev.disabled = track.scrollLeft <= 2;
     if (next) next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+    // Desktop shows two or three slides at once, so a short run can fit the
+    // track entirely. Both arrows are then permanently disabled beside a
+    // counter reading "1 / 2" with both cards on screen, which is furniture
+    // that does nothing. Hide the whole bar instead; .vcar.is-static in ui.css
+    // is the only thing that reads this. Same 2px of slack as above.
+    car.classList.toggle("is-static", track.scrollWidth <= track.clientWidth + 2);
   }
 
   function wireCarousels() {

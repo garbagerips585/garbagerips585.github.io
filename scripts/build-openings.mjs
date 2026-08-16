@@ -48,7 +48,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
-import { esc, longDate, shortDate, moneyExact } from "../shared/format.mjs";
+import { esc, longDate, shortDate, moneyExact, imgDims } from "../shared/format.mjs";
 import { PRODUCT_TYPES, CARD_SETS } from "../shared/taxonomy.mjs";
 import { ripLabel } from "../shared/riplabel.mjs";
 
@@ -56,6 +56,13 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/openings");
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 const prod = JSON.parse(await readFile(join(ROOT, "public/data/products.json"), "utf8"));
+
+// The 4 TCGplayer urls that answer 403, from the fetch of every image url the
+// site emits. Skipped up front rather than emitted behind an onerror that hides
+// the gap while every page load still pays for a request that fails.
+const DEAD = new Set(
+  JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8")).deadUrls || []
+);
 
 const SET_NAME = new Map(CARD_SETS.map((s) => [s.id, s.label]));
 
@@ -68,6 +75,81 @@ const KIND = {
   blister: "Blister Pack",
   tin: "Tin",
   "collection-box": "Collection Box",
+};
+
+// ---------------------------------------------------------------- photography
+//
+// A PAGE ASKING "WHAT IS IN AN ELITE TRAINER BOX?" HAD NO PICTURE OF ONE. All
+// thirteen of these pages were prose, a stat row and a table, which is the one
+// place on this site where a photograph does work a sentence cannot: the reader
+// asking the question does not yet know what the object looks like on a shelf.
+//
+// THE ONLY PRODUCT PHOTOGRAPHY THIS SITE HAS IS TCGPLAYER'S AND IT IS PER SET,
+// never per type, which is the same constraint /how-many-packs.html hit and the
+// rule it set is followed here exactly: the shot is one specific set's product
+// standing in for the type, so the caption NAMES THE SET IT ACTUALLY IS and the
+// line beside it says out loud that it is one example of the kind. Anything
+// looser would be a picture quietly claiming to be a category.
+//
+// The set choices deliberately match /how-many-packs.html's where the two pages
+// show the same kind, so a reader moving between them sees the same box.
+//
+// SIX OF THE THIRTEEN KINDS GET NOTHING, and that is the honest answer rather
+// than a gap to fill later. products.json carries no `kind` matching ex Premium
+// Collection, Knock Out Collection or Poke Ball Tin, and no Japanese, Korean or
+// Chinese product at all. Substituting a nearby box would caption a photo with a
+// claim that is not true of that file, so those pages stay prose.
+//
+// [set id, products.json kind, the name we expect to find there]
+const PHOTOS = {
+  etb: ["pitch-black", "Elite Trainer Box", "Pitch Black Elite Trainer Box"],
+  "single-pack": ["pitch-black", "Single Pack", "Pitch Black Booster Pack"],
+  bundle: ["pitch-black", "Booster Bundle", "Pitch Black Booster Bundle"],
+  blister: ["pitch-black", "Blister Pack", "Pitch Black Single Pack Blister"],
+  tin: ["prismatic-evolutions", "Tin", "Prismatic Evolutions Mini Tin"],
+  // Not the cheapest Collection Box in the data, and chosen rather than left to
+  // the sync. sync-products.mjs picks the cheapest per set, which on most sets
+  // is a Poster Collection: a poster and some packs, which is not what the lede
+  // above describes. The Kingambit Illustration Collection is a themed box built
+  // around one character, which is.
+  "collection-box": ["shrouded-fable", "Collection Box", "Kingambit Illustration Collection"],
+  upc: ["151", "Ultra-Premium Collection", "151 Ultra-Premium Collection"],
+};
+
+/**
+ * The photo for a product type, or null.
+ *
+ * Matched on set id AND kind, then checked against the NAME expected there,
+ * exactly as build-how-many-packs.mjs does and for the same reason:
+ * sync-products.mjs picks the cheapest variant per kind, so the product behind
+ * "prismatic-evolutions / Tin" can change under us. If it does, the caption
+ * would name a product that is not in the picture. Drop the photo instead.
+ */
+function photoFor(id) {
+  const spec = PHOTOS[id];
+  if (!spec) return null;
+  const [sid, kind, expect] = spec;
+  const hit = (prod.sets?.[sid]?.products || []).find((p) => p.kind === kind);
+  if (!hit || !hit.thumb || DEAD.has(hit.thumb)) return null;
+  if (!String(hit.name || "").toLowerCase().startsWith(expect.toLowerCase())) return null;
+  return { src: hit.thumb, large: hit.image, name: hit.name };
+}
+
+// NO WIDTH OR HEIGHT. imgDims() returns nothing for tcgplayer-cdn on purpose:
+// those files run 200x268 to 200x417 and a declaration would be wrong by up to
+// 34%. sizes is 88px, not a viewport unit, because .op-shot is a fixed 88x88
+// box; that is a measured fix worth 4x the bytes on the set guides and it is
+// not a placeholder to be improved.
+const shot = (e) => {
+  const p = photoFor(e.id);
+  if (!p) return "";
+  return `      <figure class="op-shot">
+        <img src="${esc(p.src)}" srcset="${esc(p.src)} 200w, ${esc(p.large)} 1000w"
+             sizes="88px" alt="${esc(p.name)}, sealed" loading="lazy" decoding="async"${imgDims(p.src)}
+             referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>One example: the <b>${esc(p.name)}</b>. Photo TCGplayer's. Every set sells
+          its own, and the art on the box changes with the set.</figcaption>
+      </figure>`;
 };
 
 // What each kind usually contains, in our own words, stated ONCE and never as
@@ -113,6 +195,23 @@ const ASKS = {
 };
 
 const LABEL = new Map(PRODUCT_TYPES.map((p) => [p.id, p.label]));
+
+// THE CODE CARD LINE, and the reason it is not on every page here.
+//
+// Every pack counted on this site also produced a code card, which is the one
+// thing in a booster these pages never mention. It is one sentence and a link,
+// deliberately: a reader on an ETB page is mid-question and does not need a
+// second pitch.
+//
+// IT IS ONLY ON THE ENGLISH PRODUCT PAGES. data/tcg-live.json records that
+// nothing was found in either direction on whether a Japanese, Korean or Chinese
+// pack carries a code the English client takes, so the three foreign pack pages
+// get nothing rather than a hedge. The index says "English booster pack" out
+// loud for the same reason, because its total covers all of them.
+const FOREIGN_PACKS = new Set(["japanese-pack", "korean-pack", "chinese-pack"]);
+const CODE_LINE =
+  ' Every one of those packs had a code card in it as well: <a href="/tcg-live.html">what the code' +
+  " card actually gets you</a>.";
 
 // Splitting on ". " returns the WHOLE string when there is only one sentence,
 // full stop included, so appending another gave ten cards a doubled period.
@@ -255,6 +354,25 @@ ${e.prices.map((r) => `            <tr><th scope="row">${
 
 const STYLE = `
 .op-lede{max-width:46em}
+/* The product shot is a HORIZONTAL strip under the lede, not a column beside it.
+   Both alternatives were built and looked wrong. Beside the lede, the caption is
+   stuck in an 88px column and sets as eleven lines of mono running far below a
+   three line paragraph. Above the lede, an 88px box pushes the sentence that
+   answers the h1 down the screen on a phone. As a strip it keeps the question
+   and its answer adjacent and gives the caption a readable measure, and the
+   caption has real work to do here: it names the set the box actually is, which
+   is the condition of using one set's product to illustrate a type at all. */
+.op-shot{display:flex;gap:var(--s4);align-items:center;margin:0 0 var(--s5);
+  max-width:46em;border:3px solid var(--navy);border-radius:12px;background:var(--card);
+  box-shadow:var(--hard-lg);padding:var(--s3) var(--s4)}
+/* Product photography arrives on a white background, so the tile is white
+   rather than the page cream. Same reasoning and the same 88px box as
+   .prod-shot on the set guides and .hp-shot on /how-many-packs.html, because
+   sizes="88px" is measured against exactly this box. */
+.op-shot img{flex:none;width:88px;height:88px;object-fit:contain;display:block;background:#fff;
+  border:1px solid var(--hair);border-radius:6px}
+.op-shot figcaption{font-size:var(--t-sm);line-height:1.5;color:var(--ink-2);min-width:0}
+.op-shot figcaption b{font-weight:700;color:var(--ink)}
 .op-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);margin:var(--s5) 0}
 @media(max-width:700px){.op-facts{grid-template-columns:1fr}}
 .op-f{border:3px solid var(--navy);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
@@ -363,6 +481,7 @@ for (const e of entries) {
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/openings/">Openings</a> / <span>${esc(e.label)}</span></nav>
       <h1>${esc(ask.replace(/\?$/, ""))}<span class="hl">?</span></h1>
       <p class="lede op-lede">${esc(USUALLY[e.id] || `A sealed ${e.label}.`)}</p>
+${shot(e)}
       <p class="op-note">That is what this kind of box usually holds. It is deliberately not stated per set,
         because the contents have changed between releases and we do not have a per set count we can stand
         behind. What we do have is what came out of the ones opened here, counted below, and
@@ -394,7 +513,7 @@ ${e.prices.length
       <h2>Every ${esc(e.label)} <span class="hl">opened</span> here</h2>
       <p class="lede" style="max-width:38em">${e.vids.length} of them${
         e.packs ? `, ${e.packs} pack${e.packs === 1 ? "" : "s"} counted` : ""
-      }. Each one plays on its own page.</p>
+      }. Each one plays on its own page.${e.packs && !FOREIGN_PACKS.has(e.id) ? CODE_LINE : ""}</p>
       <ul class="riplist">
 ${e.vids
   .slice()
@@ -456,7 +575,9 @@ ${entries
         figure off a box. Where a product's contents are not in our data, the page says so rather than guess.
         The counts printed on the products themselves, biggest box to smallest blister with a source on each,
         are on <a href="/how-many-packs.html">how many packs are in it</a>.
-        Prices come from TCGplayer, read ${esc(longDate(prod.checked))}.</p>
+        Prices come from TCGplayer, read ${esc(longDate(prod.checked))}.
+        Every English booster pack in that count also held a code card, and
+        <a href="/tcg-live.html">what the code card gets you</a> counts them.</p>
     </div>
   </section>
 ` +

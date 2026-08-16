@@ -38,11 +38,19 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact, moneyRound, moneyCompact } from "../shared/format.mjs";
+import { esc, longDate, moneyExact, moneyRound, moneyCompact, imgDims, avifPicture } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 const meta = new Map(sets.map((s) => [s.id, s]));
+
+// The 101 TCGdex image bases that answer 404, so no dead round trip is emitted.
+// THE KEY IS `bases`, not `tcgdex`: the file holds `_readme`, `checked`,
+// `bases` and `deadUrls`, and reading a key that is not there yields an empty
+// Set that silently guards nothing.
+const NO_SCAN = new Set(
+  JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8").catch(() => "{}")).bases || []
+);
 
 // The rarities that come out of packs in quantity. Everything above these is
 // the part of a set that costs money, which is the split the page is built on.
@@ -108,7 +116,17 @@ for (const f of (await readdir(join(ROOT, "public/data/cards"))).sort()) {
         counts.bulk += 1;
       }
     }
-    if (!top || p > top.price) top = { name: c.name, n: c.n, rarity: c.rarity, price: p };
+    // `img` rides along so the one-card section below can show the card it is
+    // talking about. Skipped up front when TCGdex has no scan for it, which is
+    // why the section renders a caption-only row rather than a gap.
+    if (!top || p > top.price)
+      top = {
+        name: c.name,
+        n: c.n,
+        rarity: c.rarity,
+        price: p,
+        img: c.img && !NO_SCAN.has(c.img) ? c.img : null,
+      };
   }
 
   rows.push({
@@ -167,6 +185,43 @@ const masterSpread = median(rows.map((r) => r.masterSpread));
 const widest = rows.slice().sort((a, b) => b.baseSpread - a.baseSpread)[0];
 
 const pct = (x) => `${Math.round(x * 100)}%`;
+
+/**
+ * One row of "when the set IS one card", with the card in it.
+ *
+ * THE WHOLE ARGUMENT OF THIS SECTION IS ABOUT A SPECIFIC OBJECT and it was
+ * making it in text only: "Umbreon ex is $X of a $Y master set". A reader who
+ * does not already know that card cannot picture what is eating three quarters
+ * of their budget, and this is the one section on the page where the thing being
+ * discussed is a single card rather than an aggregate. So it gets the scan.
+ *
+ * ONLY low.webp, AND NO SRCSET. The box is 72px (.cs-one-img in ui.css), which
+ * TCGdex's 245x337 low.webp covers at DPR2 with room over, so high.webp would be
+ * roughly four times the bytes for pixels the box cannot show. A `sizes` with no
+ * srcset beside it does nothing at all, so there is none: the comment in ui.css
+ * carries the measurement instead. avifPicture() wraps the tag for a further
+ * ~30% where AVIF is supported.
+ *
+ * NO SCAN, NO FIGURE. The 101 bases TCGdex does not have are already dropped
+ * upstream, and a card that hits one renders as it always did rather than as a
+ * gap where a picture should be. Nothing in the sentence refers to the image.
+ */
+const oneCard = (r) => {
+  const src = r.top.img ? `${r.top.img}/low.webp` : null;
+  const art = src
+    ? avifPicture(
+        `<img class="cs-one-img" src="${esc(src)}" alt="${esc(r.top.name)}, ${esc(
+          r.name
+        )} card ${esc(r.top.n || "")}" loading="lazy" decoding="async"${imgDims(src)} onerror="this.remove()">`
+      )
+    : "";
+  return `<li class="cs-one${src ? " has-art" : ""}">
+        ${art}
+        <div class="cs-one-b"><strong>${esc(r.name)}.</strong> ${esc(r.top.name)} is ${moneyRound(r.top.price)} of a
+        ${moneyRound(r.master)} master set, which is ${pct(r.topShare)} of it. The other ${r.counts.master - 1} cards
+        come to ${moneyRound(r.master - r.top.price)} between them.</div>
+      </li>`;
+};
 // Google cuts the snippet around 160 characters, and set names are long enough
 // that the sentence has to be measured rather than assumed.
 const desc = (
@@ -365,16 +420,12 @@ ${MENU}
     <p class="lede" style="max-width:40em">In ${lopsided.length} of these ${rows.length} sets, a single card is at least
       a quarter of the entire master-set bill. Completing those sets is not really a grind, it is one purchase with a
       long tail attached, and it is worth seeing that number before you decide the set is out of reach.</p>
-    <ul class="facts-list">
-      ${lopsided
-        .map(
-          (r) =>
-            `<li><strong>${esc(r.name)}.</strong> ${esc(r.top.name)} is ${moneyRound(r.top.price)} of a
-        ${moneyRound(r.master)} master set, which is ${pct(r.topShare)} of it. The other ${r.counts.master - 1} cards
-        come to ${moneyRound(r.master - r.top.price)} between them.</li>`,
-        )
-        .join("\n      ")}
+    <ul class="cs-ones">
+      ${lopsided.map(oneCard).join("\n      ")}
     </ul>
+    <p class="price-note">Card scans are TCGdex's, and each one is the card named beside it. TCGdex
+      publishes one scan per card number, so a card counted here at its reverse holo price is still
+      shown in the artwork both printings share.</p>
   </div>
 </section>
 

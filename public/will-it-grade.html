@@ -22,7 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=29741c97">
+<link rel="stylesheet" href="/assets/ui.css?v=7e466649">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .gc-lede{max-width:46em}
@@ -39,6 +39,29 @@
 .gc-t tbody th{font-weight:700;white-space:nowrap}
 .gc-t tbody tr:first-child{background:rgba(245,166,43,.09)}
 .gc-none span{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);opacity:.7}
+/* The centering diagram beside the sentence it draws. The picture is useless
+   above the paragraph and useless below it; the whole value is that a reader
+   stuck on "60/40" can glance left mid-sentence. Under 700px it stacks, diagram
+   first, because on a phone "above" is the only version of "beside" there is. */
+.ct-wrap{display:flex;gap:var(--s5);align-items:flex-start;margin-bottom:var(--s4)}
+.ct-txt{margin-bottom:0 !important}
+@media(max-width:700px){.ct-wrap{flex-direction:column;gap:var(--s4)}}
+.ct-fig{flex:none;width:210px;margin:0}
+@media(max-width:700px){.ct-fig{width:100%;max-width:280px;align-self:center}}
+.ct-svg{width:100%;height:auto;display:block;overflow:visible}
+.ct-card{fill:var(--card);stroke:var(--navy);stroke-width:4}
+/* The two border strips, which are the measurement. Faint enough that the card
+   still reads as a card, strong enough that the wider one is obvious. */
+.ct-band{fill:var(--ketchup);opacity:.15}
+/* The window is filled, not outlined, so the two BORDERS either side of it read
+   as the measured thing. An outlined window makes the reader compare two lines
+   instead of two gaps, which is the wrong comparison. */
+.ct-win{fill:var(--navy);opacity:.14;stroke:var(--navy);stroke-width:2;stroke-opacity:.5}
+.ct-dim{stroke:var(--ketchup);stroke-width:2}
+.ct-lab{fill:var(--ketchup-deep);font:700 10px/1 var(--mono);text-anchor:middle}
+.ct-in{fill:var(--ink-2);font:400 11px/1 var(--body);text-anchor:middle}
+.ct-fig figcaption{font-size:var(--t-sm);line-height:1.5;color:var(--ink-2);margin-top:var(--s3)}
+.ct-fig figcaption b{font-family:var(--mono);color:var(--ketchup-deep)}
 .gc-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
 @media(max-width:880px){.gc-cards{grid-template-columns:1fr}}
 .gc-c{border:3px solid var(--navy);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
@@ -206,8 +229,34 @@
       <section class="gc-sec">
         <h2>Centering, the only part you can <span class="hl">measure</span></h2>
         <p class="gc-in">Centering is the only thing on this list you can measure at home instead of judging, so start here. It is also where the companies disagree most.</p>
-        <p class="gc-in"><b>How it is measured.</b> A card's centering is found by measuring the distance between the photo and the edge of the card from opposite sides. A card described as 50/50 top to bottom and 60/40 left to right has 60 percent of the border on one side of the photo and 40 percent on the other.
-          PSA says so. <a class="gc-s" href="https://www.psacard.com/resources/lingo" aria-label="Source: PSA on how centering is measured" rel="noopener" target="_blank">Source</a></p>
+        <div class="ct-wrap">
+<figure class="ct-fig">
+        <svg viewBox="-6 -24 212 316" class="ct-svg" role="img"
+             aria-label="A card with 60 percent of its left-to-right border on the left of the picture and 40 percent on the right, which is what 60/40 centering means.">
+          <rect x="0" y="0" width="200" height="280" rx="9" class="ct-card"/>
+          
+    <rect x="0" y="26" width="26.4" height="228" class="ct-band"/>
+    <line x1="0" y1="140" x2="26.4" y2="140" class="ct-dim"/>
+    <line x1="0" y1="134" x2="0" y2="146" class="ct-dim"/>
+    <line x1="26.4" y1="134" x2="26.4" y2="146" class="ct-dim"/>
+    <text x="13.2" y="129" class="ct-lab">60</text>
+          
+    <rect x="182.4" y="26" width="17.599999999999994" height="228" class="ct-band"/>
+    <line x1="182.4" y1="140" x2="200" y2="140" class="ct-dim"/>
+    <line x1="182.4" y1="134" x2="182.4" y2="146" class="ct-dim"/>
+    <line x1="200" y1="134" x2="200" y2="146" class="ct-dim"/>
+    <text x="191.2" y="129" class="ct-lab">40</text>
+          <rect x="26.4" y="26" width="156" height="228" rx="3" class="ct-win"/>
+          <text x="100" y="145" class="ct-in">the picture</text>
+          <text x="100" y="-9" class="ct-lab">50 / 50 top to bottom</text>
+        </svg>
+        <figcaption>What <b>60/40</b> looks like. The border left of the picture is
+          1.5 times the border right of it. Every pair of numbers in the two
+          tables below is this same measurement, on one axis or the other.</figcaption>
+      </figure>
+          <p class="gc-in ct-txt"><b>How it is measured.</b> A card's centering is found by measuring the distance between the photo and the edge of the card from opposite sides. A card described as 50/50 top to bottom and 60/40 left to right has 60 percent of the border on one side of the photo and 40 percent on the other.
+            PSA says so. <a class="gc-s" href="https://www.psacard.com/resources/lingo" aria-label="Source: PSA on how centering is measured" rel="noopener" target="_blank">Source</a></p>
+        </div>
       <div class="gc-tw" tabindex="0" role="region" aria-label="Front centering, as each company publishes it, scrollable table">
         <table class="gc-t">
           <caption>Front centering, as each company publishes it</caption>
@@ -457,7 +506,7 @@
     Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=bba43eab" defer></script>
-<script src="/assets/packplayer.js?v=44adb501" defer></script>
+<script src="/assets/app.js?v=e8bbf2a6" defer></script>
+<script src="/assets/packplayer.js?v=5d42bee0" defer></script>
 </body>
 </html>
