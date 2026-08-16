@@ -90,6 +90,37 @@ const cleanDesc = (s) => {
   // sentences always come first.
   const tag = t.search(/#[A-Za-z]/);
   if (tag > 0) t = t.slice(0, tag);
+
+  // TWO PLAYLISTS OFFERED TO TEST PULL RATES, and this site does not have them.
+  // Destined Rivals and Paradox Rift both list "We're testing: Pack luck, Pull
+  // rates, Promo value", syndicated straight from YouTube, so the one thing the
+  // site refuses to publish was being published as a bullet in its own copy and
+  // shipped to Google in the meta description. The line is dropped from the
+  // bullet, not the whole sentence: everything else in it is true and is the
+  // owner's own writing.
+  t = t.replace(/[\u2022*\-]?\s*pull\s+rates?\s*(?=[\u2022*\-\n]|$)/gi, "");
+
+  // THE KEYWORD TAIL IS NOT COPY. Cutting at the first hashtag leaves the
+  // untagged version of the same thing: nineteen of twenty two descriptions end
+  // in a comma-separated run of search terms ("Pokemon, Pokemon TCG, Pitch
+  // Black, ETB, Elite Trainer Box, Pack Opening") set in the same type as the
+  // human sentences above it, and eleven close with a bare "garbage rips 585".
+  // It is written for an index rather than a reader, and on a site whose whole
+  // job is entity SEO it reads as stuffing. The human sentences always come
+  // first, so the tail is what is cut.
+  t = t.replace(/\n\s*garbage rips 585\s*$/i, "");
+  const lines = t.split(/\n+/);
+  while (lines.length > 1) {
+    const last = lines[lines.length - 1].trim();
+    // A keyword run: several comma separated fragments, none of them a
+    // sentence. Requires 3+ commas and no terminal punctuation, so an ordinary
+    // sentence containing a comma is never mistaken for one.
+    const commas = (last.match(/,/g) || []).length;
+    if (commas >= 3 && !/[.!?]$/.test(last) && last.length < 400) lines.pop();
+    else break;
+  }
+  t = lines.join("\n");
+
   return t.replace(/[ \t]{2,}/g, " ").replace(/\s+$/, "").replace(/[\s\u2022|,;:-]+$/, "").trim();
 };
 

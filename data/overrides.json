@@ -135,7 +135,7 @@
   },
   "mbzWBfNI-Qs": {
     "blurb": "Opening Korean Crimson Haze booster packs, testing international pack luck. Korean print. Full garbage plate energy applied. Garbage rips or overseas heat?",
-    "blurbWhy": "The YouTube description says 'Different pull rates.' The site does not state pull rates, and nobody publishes them to check against, so the site's own description drops that line. The YouTube listing is untouched.",
+    "blurbWhy": "The YouTube description says 'Different pull rates.' The site does not state pull rates and nobody publishes them to check against, so the site's own description drops that line. The YouTube listing is untouched. THIS HAS BEEN LOST ONCE: it was reverted along with a tag rollback and had to be re-added, so if it disappears again check what last rewrote overrides.json.",
     "sets": [
       "ko-crimson-haze"
     ],
