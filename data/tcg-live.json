@@ -1,0 +1,1096 @@
+{
+  "_readme": [
+    "Research file for a guide to Pokemon Trading Card Game Live, the official",
+    "free digital version of the card game. The channel's whole subject is",
+    "opening packs, and every pack holds a code card, so the code card section",
+    "is the one the audience is standing there holding.",
+    "",
+    "RESEARCH ONLY. Nothing is built from this yet. No builder, no nav entry,",
+    "no sitemap line, no search entry, no OG card. The plan is in",
+    "data/tcg-live-PLAN.md and the registration checklist is at the bottom of",
+    "it. build-search.mjs fails the build on an indexable page missing from",
+    "its PAGES list, so the page cannot ship half-registered.",
+    "",
+    "THE `plain` FIELDS ARE THE READER-FACING SENTENCES a builder can lift.",
+    "Everything called `note`, `why`, `confidence` or `recommendation` is a",
+    "memo to the builder and must never be printed. The types page shipped its",
+    "research notes verbatim once and put 'Do NOT let the page round this to'",
+    "in front of readers.",
+    "",
+    "EVERY CLAIM CARRIES `source` (a key into `sources`) AND THE READ DATE on",
+    "that source. `quote` is the source's own words, kept so a later reader can",
+    "check a paraphrase without refetching.",
+    "",
+    "TWO ABSOLUTE PROHIBITIONS, and they are why `forbidden` exists below.",
+    "1. NO PULL RATES OR ODDS, physical or digital. Pokemon publishes drop",
+    "   rates for the DIGITAL packs in TCG Live at a url named in `forbidden`.",
+    "   That page was deliberately not fetched, not quoted and not summarised,",
+    "   and this file holds no number from it. CLAUDE.md already forbids",
+    "   linking it from /how-to-play.html; the same ban applies here and it is",
+    "   stronger here, because a page about Live is exactly where somebody",
+    "   would think it belonged.",
+    "2. NO CODES. Third-party sites publish lists of active promotional codes",
+    "   (PITCHBLACK26 and the like). None are recorded here. They rot in weeks,",
+    "   they are not from Pokemon, and a stale code list is a page that lies.",
+    "",
+    "THE APP MOVES. Every fact here is stamped with the app version and the",
+    "date the source was read, because this client has changed platform",
+    "requirements twice in the last eighteen months and changed what code cards",
+    "give in July 2025. See `changedRecently` and `willGoStale`."
+  ],
+  "checked": "2026-08-16",
+  "appVersionAtCheck": {
+    "ios": "1.40.0",
+    "released": "2026-07-14",
+    "source": "appstore",
+    "note": "From the iTunes lookup API, which returns the live store record as JSON. Windows/macOS/Android version numbers were not verified; the iOS number is the only one read from a first-party feed."
+  },
+  "sources": {
+    "tcgl": {
+      "id": "tcgl",
+      "title": "Pokemon TCG Live (official site)",
+      "url": "https://tcg.pokemon.com/en-us/tcgl/",
+      "publisher": "The Pokemon Company International",
+      "read": "2026-08-16",
+      "reachable": true,
+      "note": "PRIMARY. Carries the four download links, the system requirement table, the feature list and the region selector. This host answers automated requests; www.pokemon.com is the one with a history of not doing so."
+    },
+    "tcgHome": {
+      "id": "tcgHome",
+      "title": "Pokemon TCG (official site home)",
+      "url": "https://tcg.pokemon.com/en-us/",
+      "publisher": "The Pokemon Company International",
+      "read": "2026-08-16",
+      "reachable": true,
+      "note": "Only used to confirm the Redeem Code entry point in the site nav points at redeem.tcg.pokemon.com."
+    },
+    "redeem": {
+      "id": "redeem",
+      "title": "Redeem Pokemon TCG Live Codes",
+      "url": "https://redeem.tcg.pokemon.com/en-us/",
+      "publisher": "The Pokemon Company International",
+      "read": "2026-08-16",
+      "reachable": "partial",
+      "note": "Returns 200 but the body is a JS shell behind a login: only the page title came back. The URL is confirmed as the official redemption endpoint by tcgHome and by the support FAQ. Nothing about its contents is asserted in this file."
+    },
+    "supportCodeCards": {
+      "id": "supportCodeCards",
+      "title": "Code Card Redemption FAQ",
+      "url": "https://support.pokemon.com/hc/en-us/articles/6488400519444-Code-Card-Redemption-FAQ",
+      "publisher": "The Pokemon Company International",
+      "articleUpdated": "2026-02-13",
+      "articleEdited": "2026-01-30",
+      "read": "2026-08-16",
+      "reachable": "via API only",
+      "note": "THE MOST IMPORTANT SOURCE IN THIS FILE. The human-facing HTML answers 403 to automated requests. The Zendesk Help Center JSON API serves the same article in full and is what was read: https://support.pokemon.com/api/v2/help_center/en-us/articles/6488400519444.json . That endpoint also returns created_at/updated_at/edited_at, which is where the article dates above come from. Use the same trick on any other support article."
+    },
+    "supportInstall": {
+      "id": "supportInstall",
+      "title": "How do I install Pokemon TCG Live on my device?",
+      "url": "https://support.pokemon.com/hc/en-us/articles/4403847473684-How-do-I-install-Pok%C3%A9mon-TCG-Live-on-my-device",
+      "publisher": "The Pokemon Company International",
+      "articleEdited": "2025-10-08",
+      "read": "2026-08-16",
+      "reachable": "via API only"
+    },
+    "supportCurrencies": {
+      "id": "supportCurrencies",
+      "title": "What are the in-game currencies used in Pokemon TCG Live? How are they used?",
+      "url": "https://support.pokemon.com/hc/en-us/articles/6483661185172",
+      "publisher": "The Pokemon Company International",
+      "articleEdited": "2025-10-24",
+      "read": "2026-08-16",
+      "reachable": "via API only"
+    },
+    "supportTradeCredits": {
+      "id": "supportTradeCredits",
+      "title": "How Do I Exchange Trade Credits to Obtain Cards?",
+      "url": "https://support.pokemon.com/hc/en-us/articles/6488739095700",
+      "publisher": "The Pokemon Company International",
+      "articleEdited": "2025-02-25",
+      "read": "2026-08-16",
+      "reachable": "via API only"
+    },
+    "supportLearningLab": {
+      "id": "supportLearningLab",
+      "title": "Pokemon TCG Live Learning Lab FAQ",
+      "url": "https://support.pokemon.com/hc/en-us/articles/45562128423444",
+      "publisher": "The Pokemon Company International",
+      "articleEdited": "2026-01-27",
+      "read": "2026-08-16",
+      "reachable": "via API only"
+    },
+    "supportDeckValid": {
+      "id": "supportDeckValid",
+      "title": "Why can't I use my card or deck in Pokemon TCG Live?",
+      "url": "https://support.pokemon.com/hc/en-us/articles/51315704243476",
+      "publisher": "The Pokemon Company International",
+      "articleEdited": "2026-07-14",
+      "read": "2026-08-16",
+      "reachable": "via API only",
+      "note": "The newest TCG Live support article found. Its date is the freshest official statement in this file about deck building and Expanded support."
+    },
+    "supportVariants": {
+      "id": "supportVariants",
+      "title": "How to View Card Variants in Pokemon TCG Live",
+      "url": "https://support.pokemon.com/hc/en-us/articles/45762566240788",
+      "publisher": "The Pokemon Company International",
+      "articleEdited": "2026-01-29",
+      "read": "2026-08-16",
+      "reachable": "via API only"
+    },
+    "supportTrading": {
+      "id": "supportTrading",
+      "title": "Can players trade cards in Pokemon TCG Live?",
+      "url": "https://support.pokemon.com/hc/en-us/articles/4403847072276",
+      "publisher": "The Pokemon Company International",
+      "articleEdited": "2023-06-01",
+      "read": "2026-08-16",
+      "reachable": "via API only"
+    },
+    "supportChild": {
+      "id": "supportChild",
+      "title": "Pokemon TCG Live Child Account FAQ",
+      "url": "https://support.pokemon.com/hc/en-us/articles/31174463607060",
+      "publisher": "The Pokemon Company International",
+      "articleEdited": "2025-11-11",
+      "read": "2026-08-16",
+      "reachable": "via API only"
+    },
+    "supportTcgoSunset": {
+      "id": "supportTcgoSunset",
+      "title": "Pokemon TCG Online Sunset Information",
+      "url": "https://support.pokemon.com/hc/en-us/articles/4406895467668-Pok%C3%A9mon-TCG-Online-Sunset-Information",
+      "publisher": "The Pokemon Company International",
+      "articleEdited": "2025-11-11",
+      "read": "2026-08-16",
+      "reachable": "via API only",
+      "note": "Source of the launch dates and of the only official statement found that the game is available worldwide."
+    },
+    "supportMigration": {
+      "id": "supportMigration",
+      "title": "Pokemon TCG Live Migration FAQ (from the Pokemon TCG Online)",
+      "url": "https://support.pokemon.com/hc/en-us/articles/6489934466708",
+      "publisher": "The Pokemon Company International",
+      "articleEdited": "2025-11-11",
+      "read": "2026-08-16",
+      "reachable": "via API only"
+    },
+    "supportCardDexSunset": {
+      "id": "supportCardDexSunset",
+      "title": "Pokemon TCG Card Dex Sunset Information",
+      "url": "https://support.pokemon.com/hc/en-us/articles/18773957465748",
+      "publisher": "The Pokemon Company International",
+      "articleEdited": "2023-08-30",
+      "read": "2026-08-16",
+      "reachable": "via API only"
+    },
+    "newsCodeCards2025": {
+      "id": "newsCodeCards2025",
+      "title": "Updates to Pokemon TCG Live Code Cards Included in Certain Pokemon TCG Products",
+      "url": "https://www.pokemon.com/us/pokemon-news/updates-to-pokemon-tcg-live-code-cards-included-in-certain-pokemon-tcg-products",
+      "publisher": "The Pokemon Company International",
+      "published": "2025-07-31",
+      "read": "2026-08-16",
+      "reachable": true,
+      "note": "www.pokemon.com DID answer this time, contrary to the Imperva note carried into this task. Treat that as luck rather than a fixed fact: it has blocked before and the support host still does."
+    },
+    "forumSysReq": {
+      "id": "forumSysReq",
+      "title": "System Requirements Update for iOS and Mac Devices - 04/16/26",
+      "url": "https://community.pokemon.com/en-us/discussion/23663/system-requirements-update-for-ios-and-mac-devices-04-16-26",
+      "publisher": "The Pokemon Company International (official forums)",
+      "posted": "2026-04-16",
+      "read": "2026-08-16",
+      "reachable": true,
+      "note": "Official announcement channel. community.pokemon.com is reachable and is where version-dependent changes get announced first."
+    },
+    "appstore": {
+      "id": "appstore",
+      "title": "Pokemon TCG Live on the App Store (US)",
+      "url": "https://apps.apple.com/us/app/id1557962344",
+      "apiUrl": "https://itunes.apple.com/lookup?id=1557962344&country=us",
+      "publisher": "Apple / The Pokemon Company International",
+      "read": "2026-08-16",
+      "reachable": true,
+      "note": "The iTunes lookup API returns the store record as JSON, which is far more reliable than scraping the store page and is where the version, the release dates and the marketing description came from."
+    },
+    "terms": {
+      "id": "terms",
+      "title": "Pokemon Terms of Use",
+      "url": "https://www.pokemon.com/us/terms-of-use",
+      "publisher": "The Pokemon Company International",
+      "read": "2026-08-16",
+      "reachable": true,
+      "note": "The source for the real-world-value section. This is the document that says digital items are worth nothing outside the game."
+    },
+    "bulbapediaTcgl": {
+      "id": "bulbapediaTcgl",
+      "title": "Pokemon Trading Card Game Live",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Card_Game_Live",
+      "publisher": "Bulbapedia (community wiki)",
+      "read": "2026-08-16",
+      "reachable": true,
+      "note": "SECONDARY. Used only where no official statement could be found, and every such use is flagged in `singleSourced`."
+    },
+    "bulbapediaLadder": {
+      "id": "bulbapediaLadder",
+      "title": "Ladder (TCG Live)",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Ladder_(TCG_Live)",
+      "publisher": "Bulbapedia (community wiki)",
+      "read": "2026-08-16",
+      "reachable": true,
+      "note": "SECONDARY, and the whole ranked section rests on it. Pokemon publishes no ladder documentation that could be found."
+    },
+    "bulbapediaCodeCard": {
+      "id": "bulbapediaCodeCard",
+      "title": "Code card",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Code_card",
+      "publisher": "Bulbapedia (community wiki)",
+      "articleUpdated": "2026-07-05",
+      "read": "2026-08-16",
+      "reachable": true
+    }
+  },
+  "forbidden": {
+    "dropRatePage": {
+      "exists": true,
+      "wasFetched": false,
+      "rule": "DO NOT fetch it, link it, quote it or summarise it, and do not record a single number from it in this file or on the page. The site never states pull rates. Live publishing its own digital drop rates does not create an exception; it creates the exact temptation the rule exists for. CLAUDE.md already bans this link from /how-to-play.html and the ban carries here.",
+      "note": "It is named here so that a future pass does not 'discover' it and think nobody had considered it. It was considered and it is out.",
+      "where": "Linked from the official TCG Live page as 'Card Drop Rate Information'. The url is deliberately NOT recorded in this file so that no builder can emit it by accident."
+    },
+    "promoCodeLists": {
+      "rule": "Do not publish a list of active promotional codes. Several third-party sites do. They are not from Pokemon, they expire in weeks, and a code list is the fastest way to make an evergreen page start lying.",
+      "note": "If the page ever wants to mention that Pokemon runs occasional free code giveaways, say that it happens and point at community.pokemon.com, without naming a single code."
+    },
+    "codeCardResale": {
+      "rule": "Do not link, name or recommend any site that buys or sells code cards, and do not price them. See `realWorldValue.resale`: the Terms of Use say virtual content may not be resold in any manner not explicitly permitted. The site does not need to take a position on the sellers, it just does not send anybody to one."
+    }
+  },
+  "howToGet": {
+    "platforms": {
+      "plain": "It runs on iPhone and iPad, Android, Windows and Mac. There is no browser version: you download an app.",
+      "detail": [
+        {
+          "platform": "iOS / iPadOS",
+          "how": "App Store",
+          "url": "https://apps.apple.com/us/app/id1557962344",
+          "source": "supportInstall",
+          "read": "2026-08-16"
+        },
+        {
+          "platform": "Android",
+          "how": "Google Play",
+          "url": "https://play.google.com/store/apps/details?id=com.pokemon.pokemontcgl",
+          "source": "supportInstall",
+          "read": "2026-08-16"
+        },
+        {
+          "platform": "Windows",
+          "how": "Direct .msi download from the official site",
+          "url": "https://installer.studio-prod.pokemon.com/installer/PokemonTCGLiveInstaller.msi",
+          "source": "tcgl",
+          "read": "2026-08-16"
+        },
+        {
+          "platform": "macOS",
+          "how": "Direct .dmg download from the official site",
+          "url": "https://installer.studio-prod.pokemon.com/installer/PokemonTCGLiveInstaller_Mac.dmg",
+          "source": "tcgl",
+          "read": "2026-08-16"
+        }
+      ],
+      "quote": "If you are in a region where Pokemon TCG Live is available, you can install the game on mobile devices via the Apple App Store and Google Play. For Windows and macOS devices, you can download the app from Pokemon.com/TCGL.",
+      "source": "supportInstall",
+      "read": "2026-08-16",
+      "confidence": "firm, two official sources agree",
+      "note": "The Windows and Mac installers are direct downloads, NOT store apps. Worth saying on the page: a reader expecting the Microsoft Store or the Mac App Store will not find it there."
+    },
+    "noBrowserVersion": {
+      "plain": "There is no play-in-a-browser version. The only thing you do on the web is redeem codes.",
+      "confidence": "established by an exhaustive official list rather than by a denial",
+      "why": "The official install article and the official site both enumerate exactly four ways to install and none of them is a browser. No official source says 'there is no browser version' in as many words. State it as 'you download an app' rather than as a flat denial.",
+      "source": "supportInstall",
+      "read": "2026-08-16"
+    },
+    "free": {
+      "plain": "It is free. There are things you can buy, and they are cosmetics and shortcuts, not a way in.",
+      "quote": "Free",
+      "source": "appstore",
+      "read": "2026-08-16",
+      "supporting": [
+        "tcgl"
+      ],
+      "note": "App Store lists in-app purchases. Do not print a price for any of them; none was read."
+    },
+    "account": {
+      "plain": "You need a free Pokemon account to play, and it is the same account Pokemon uses for everything else.",
+      "accountName": "Pokemon Trainer Central account",
+      "renamedFrom": "Pokemon Trainer Club",
+      "renameEvidence": "Every support article read on 2026-08-16 says 'Pokemon Trainer Central', including ones edited as far back as 2023 (the wiki still says Trainer Club, and the App Store marketing copy still says 'Log in with your Pokemon Trainer Club account'). The support site is the more authoritative and more recently maintained of the three.",
+      "confidence": "firm on the requirement, and the page should use BOTH names once so a reader who sees either is not lost",
+      "quote": "Log in to the account associated with Pokemon TCG Live.",
+      "source": "supportCodeCards",
+      "read": "2026-08-16",
+      "oneAccountRule": {
+        "plain": "One account per person. Pokemon says so and it matters for codes, because a code redeemed to the wrong account cannot be moved.",
+        "quote": "According to the Terms of Use of Pokemon.com and PokemonTCG.com, users are only allowed to maintain one Pokemon Trainer Central account. Unfortunately, we are unable to assist with card/deck transfer between accounts.",
+        "source": "supportCodeCards",
+        "read": "2026-08-16"
+      },
+      "childAccounts": {
+        "plain": "Under the age of digital consent, a parent makes the account and the child gets a version with the ads and the external links stripped out. It ages up on its own.",
+        "quote": "In order for a child to access Pokemon TCG Live, a parent or guardian must first create a Pokemon Trainer Central account and then create a child account.",
+        "source": "supportChild",
+        "read": "2026-08-16",
+        "note": "Worth one line on the page. A pack-opening audience skews young and this is the thing a parent actually needs to know."
+      }
+    },
+    "regions": {
+      "plain": "It is available around the world, though Pokemon words it as 'if you are in a region where it is available', so it is not literally everywhere.",
+      "quote": "Pokemon TCG Live is currently available to players around the world on iOS and Android devices, as well as PCs and Macs.",
+      "source": "supportTcgoSunset",
+      "read": "2026-08-16",
+      "articleEdited": "2025-11-11",
+      "caveats": [
+        "The install article's hedge, 'If you are in a region where Pokemon TCG Live is available', is still live as of 2026-08-16 and is the reason this is not stated as 'everywhere'.",
+        "NO OFFICIAL LIST OF EXCLUDED REGIONS COULD BE FOUND. Do not invent one and do not name a country as excluded.",
+        "The US App Store record lists English as the only language (source: appstore, read 2026-08-16). The official site carries a region selector covering the US, Canada, UK, EU countries, Latin America, Brazil and Australia, so other locales exist; the language list is per store listing, not a global fact."
+      ],
+      "confidence": "firm that it is broadly global; weak on the exact boundary",
+      "recommendation": "One sentence. 'Available in most of the world' plus 'if the app store in your country has it, you can play' is honest and is as far as the sources go."
+    },
+    "systemRequirements": {
+      "asOf": "2026-04-21",
+      "version": "1.37.0",
+      "plain": "The requirements go up over time, so an old phone or an old Mac can stop being supported. The current floors are iOS 15, macOS Monterey 12, Windows 10 and Android 9.",
+      "table": [
+        {
+          "platform": "Windows",
+          "minimum": "Windows 10",
+          "recommended": "Windows 10 64-bit, Intel Core 2 Duo 2.2GHz, 4GB RAM",
+          "source": "tcgl",
+          "read": "2026-08-16"
+        },
+        {
+          "platform": "macOS",
+          "minimum": "macOS Monterey 12",
+          "recommended": "latest macOS, Intel Core i3, 4GB RAM",
+          "source": "tcgl",
+          "read": "2026-08-16"
+        },
+        {
+          "platform": "iOS / iPadOS",
+          "minimum": "iOS 15",
+          "recommended": "iOS 26.1, iPhone 14 or iPad 10th generation",
+          "source": "tcgl",
+          "read": "2026-08-16"
+        },
+        {
+          "platform": "Android",
+          "minimum": "Android 9",
+          "recommended": "Android 10, Galaxy S10 or Tab S7, 4GB RAM, ASTC texture compression",
+          "source": "tcgl",
+          "read": "2026-08-16"
+        }
+      ],
+      "allPlatforms": "Broadband internet connection and about 3GB of free storage.",
+      "confidence": "firm, read from the official site's own table on 2026-08-16",
+      "note": "The iOS and Mac minimums were RAISED with version 1.37.0 on 2026-04-21 (source forumSysReq, read 2026-08-16). Android and Windows were explicitly not changed at that time. This is the single most likely thing on the page to be out of date within a year: see `willGoStale`.",
+      "recommendation": "If the page prints this table at all, print it small, print the date beside it, and say plainly that Pokemon raises these. A shorter option is one sentence naming only the four minimums and no recommended specs."
+    },
+    "history": {
+      "plain": "Live replaced the old Pokemon TCG Online. The old one is gone.",
+      "dates": [
+        {
+          "what": "Beta began, Canada only",
+          "when": "2022-02-22",
+          "source": "bulbapediaTcgl",
+          "read": "2026-08-16",
+          "confidence": "single-sourced to the wiki"
+        },
+        {
+          "what": "Pokemon TCG Online removed from stores and servers shut down",
+          "when": "2023-06-05",
+          "quote": "The Pokemon TCG Online app was removed from the App Store, Google Play, and Pokemon.com and game servers were shut down on June 5, 2023, at 9 a.m. PDT",
+          "source": "supportTcgoSunset",
+          "read": "2026-08-16"
+        },
+        {
+          "what": "Pokemon TCG Live global launch",
+          "when": "2023-06-08",
+          "quote": "Pokemon TCG Live officially launched globally on June 8, 2023.",
+          "source": "supportTcgoSunset",
+          "read": "2026-08-16"
+        },
+        {
+          "what": "Pokemon TCG Card Dex (the collection-tracking app) shut down",
+          "when": "2023-09-20",
+          "source": "supportCardDexSunset",
+          "read": "2026-08-16",
+          "note": "Relevant to section 5: Pokemon's own answer to 'how do I track my collection now' was 'redeem code cards in Live'."
+        }
+      ],
+      "note": "The 'rocky history' in the brief is real but it is mostly beta-era. The launch was rough enough to be notable and the client has been iterated on for three years since. DO NOT write a paragraph relitigating the 2022 beta reception: no official source will support a tone judgement and the page is a how-to, not a review. One sentence of history is the right amount."
+    }
+  },
+  "codeCards": {
+    "_note": "THE SECTION THAT MATTERS. The reader is holding one. Everything here is from the official Code Card Redemption FAQ unless flagged, and that article's own last edit was 2026-01-30 with a site-side update stamp of 2026-02-13.",
+    "whatItIs": {
+      "plain": "The code card is the extra card in the pack that is not a Pokemon card. It has a code on it, and that code turns into a digital pack inside Pokemon TCG Live.",
+      "physicalDetail": "An 11-digit alphanumeric code plus a QR code on the same card.",
+      "source": "bulbapediaCodeCard",
+      "read": "2026-08-16",
+      "confidence": "the 11-digit detail is single-sourced to the wiki; the existence of a QR code is corroborated officially, because the official FAQ tells you to scan it"
+    },
+    "everyBoosterPackHasOne": {
+      "plain": "Every booster pack has one. Pokemon said so again in July 2025 when the rules around code cards changed.",
+      "quote": "all Pokemon TCG booster packs will continue to include both an Energy card and a Pokemon TCG Live code card",
+      "source": "newsCodeCards2025",
+      "published": "2025-07-31",
+      "read": "2026-08-16",
+      "note": "That sentence exists in the announcement specifically to correct wrong text printed on some Mega Evolution packaging. Worth a line: if the wrapper says otherwise, the wrapper is wrong."
+    },
+    "whatABoosterCodeGives": {
+      "plain": "A code from a booster pack gets you one digital booster pack from the same set. It is not the same cards you just pulled: it is its own pack, opened in the app.",
+      "quote": "Code cards found in physical booster packs can be redeemed for a digital booster pack from the same expansion. Note that the digital booster pack will not necessarily contain the same cards as the physical booster pack from which you received the code.",
+      "source": "supportCodeCards",
+      "read": "2026-08-16",
+      "confidence": "firm, official, and quoted verbatim",
+      "note": "THIS IS THE SINGLE MOST USEFUL SENTENCE ON THE WHOLE PAGE for this audience, and it is the misconception to kill: people assume the code mirrors the pack they opened. It does not.",
+      "warning": "The official sentence continues into an offer to go read the drop rates. STOP THE QUOTE WHERE IT IS QUOTED ABOVE. Do not follow that link, do not paraphrase it, do not link it. See `forbidden.dropRatePage`."
+    },
+    "whatOtherProductsGive": {
+      "plain": "Codes from bigger boxes are not all the same. A preconstructed deck code gives you that exact deck. Everything else, Elite Trainer Boxes and collection boxes included, gives some mix of packs, cosmetics, currency or a promo card, and it varies by product.",
+      "preconstructedDecks": {
+        "quote": "Code cards found in physical preconstructed decks can be redeemed for a digital preconstructed deck that contains the same cards.",
+        "source": "supportCodeCards",
+        "read": "2026-08-16",
+        "note": "Note the contrast with boosters, and say it out loud on the page: a DECK code gives you the same cards, a PACK code does not."
+      },
+      "eliteTrainerBoxes": {
+        "plain": "An Elite Trainer Box holds loose booster packs, and each of those packs has its own code card. The box's own code, where it has one, has historically been sleeves, a deck box and a coin rather than cards.",
+        "confidence": "MIXED, AND THIS IS THE WEAKEST PART OF THE SECTION",
+        "why": "No official source read on 2026-08-16 states what an ETB code specifically gives. The 'cosmetics, not cards' characterisation is Bulbapedia's. The official FAQ handles ETBs only under the catch-all 'Other product types'. The July 2025 announcement then changed what non-booster products give, and it says the change is an expansion, which means the wiki line may be describing the old behaviour.",
+        "source": "bulbapediaCodeCard",
+        "read": "2026-08-16",
+        "recommendation": "DO NOT print a definitive 'an ETB code gives you X'. Write it as: the packs inside the box each carry their own code, and the box's own code varies by product, so read what the app tells you before you claim it. That is both true and more useful, because the app names the reward before you confirm."
+      },
+      "changed2025": {
+        "plain": "In July 2025, starting with the Mega Evolution sets, Pokemon changed what non-booster products give. Booster packs stayed the same.",
+        "quotes": [
+          "we are expanding the digital rewards you can receive when redeeming code cards included in select other Pokemon TCG products",
+          "certain products that have historically included a code card for a digital promo card will no longer include those cards. In such cases, fans will receive opportunities to obtain the digital promo cards in Pokemon TCG Live through other means",
+          "expanded rewards will include digital booster packs, digital promo cards, bonus currency, in-game cosmetics, or other promotional items"
+        ],
+        "source": "newsCodeCards2025",
+        "published": "2025-07-31",
+        "read": "2026-08-16",
+        "note": "This is why the page must not print a fixed table of 'product X gives Y'. Pokemon changed it once already and said the contents vary by product."
+      }
+    },
+    "howToRedeem": {
+      "plain": "Two ways, and both work: type or scan the code in the app, or type it into Pokemon's website and log in.",
+      "inApp": {
+        "steps": [
+          "Open the app and go to the Shop.",
+          "Select Redeem.",
+          "Type the code, or scan the QR code with a webcam.",
+          "Check each item, then select Claim Now.",
+          "Some things land straight in your collection. Some, including booster packs, land in the Inbox under the Menu."
+        ],
+        "quote": "Once a code has been submitted and validated. you must check each item and then select Claim Now. Afterward, the item(s) will either be automatically redeemed to your collection, or they will be sent to the Inbox under the Menu. For example, booster packs and coins will be sent to your inbox.",
+        "source": "supportCodeCards",
+        "read": "2026-08-16",
+        "note": "The typo in that quote ('validated.') is Pokemon's. If the page quotes it, fix the punctuation silently or paraphrase; do not reproduce a typo and do not [sic] it."
+      },
+      "platformCaveat": {
+        "plain": "If you cannot find Redeem in the app, use the website. It works from any browser, on any device.",
+        "confidence": "SINGLE-SOURCED AND IT IS AN INFERENCE FROM A HEADING, so word it exactly as recommended below",
+        "evidence": "The official FAQ's own subheading is 'Redeem in the Pokemon TCG Live app (in-game on Android or desktop)'. It names Android and desktop and does not name iOS. The parallel subheading for the website names no platform.",
+        "source": "supportCodeCards",
+        "read": "2026-08-16",
+        "why": "The obvious reading is that in-app redemption is not offered on iOS, which would match how storefront rules usually work. But Pokemon never says that, and searching produced only third-party how-to videos claiming iOS in-app redemption does work. Two possible worlds and no official statement separating them.",
+        "recommendation": "DO NOT WRITE 'you cannot redeem codes in the app on iPhone'. Write the useful version, which is true in both worlds: 'On iPhone the Redeem option may not be there. If it is not, the website does the same job.' That is the sentence the reader needs anyway."
+      },
+      "website": {
+        "url": "https://redeem.tcg.pokemon.com/en-us/",
+        "steps": [
+          "Go to the Pokemon TCG Live site and choose Redeem Code.",
+          "Log in to the Pokemon account you use for TCG Live.",
+          "Enter the code and select Submit Code.",
+          "Select Claim Now."
+        ],
+        "quote": "From the navigation menu, select Redeem Code, which will open the log-in screen for your Pokemon Trainer Central account.",
+        "source": "supportCodeCards",
+        "read": "2026-08-16",
+        "gotcha": {
+          "plain": "Being logged in to pokemon.com is not the same as being logged in here. Check whose account you are in before you type a code.",
+          "quote": "If you are logged in to Pokemon.com, you may be required to log in again on the Pokemon TCG Live site.",
+          "source": "supportCodeCards",
+          "read": "2026-08-16"
+        }
+      },
+      "batching": {
+        "plain": "The website takes codes one after another, which is the thing to use when you have a pile of them.",
+        "confidence": "WEAK. The FAQ says 'Enter your code(s)', plural in parentheses, and nothing more. It is not confirmed that you can paste a batch in one go.",
+        "source": "supportCodeCards",
+        "read": "2026-08-16",
+        "recommendation": "Do not claim bulk entry. Say the website is faster for a stack because you are typing rather than tapping, which needs no source."
+      }
+    },
+    "singleUse": {
+      "plain": "A code works once, ever, on one account. There is no undoing it and no moving it.",
+      "quote": "No, code cards can only be redeemed once, whether that be in the Pokemon TCG Online or in Pokemon TCG Live.",
+      "source": "supportTcgoSunset",
+      "read": "2026-08-16",
+      "corroborated": "bulbapediaCodeCard",
+      "accountBound": {
+        "quote": "Please take precautionary measures to ensure that you are logged in to the correct account before redeeming any codes in-game or on the website.",
+        "source": "supportCodeCards",
+        "read": "2026-08-16",
+        "note": "Combined with the one-account rule and 'we are unable to assist with card/deck transfer between accounts', this is firm: once redeemed, it is on that account permanently."
+      },
+      "consequence": "This is the practical reason a used code card is worth nothing to anybody, and it is what makes the 'do I sell these' question in section 5 answer itself."
+    },
+    "expiry": {
+      "plain": "Pokemon does not print an expiry date on pack code cards, and nothing official says they run out. An old code card is worth trying.",
+      "confidence": "ESTABLISHED BY ABSENCE, NOT BY A STATEMENT, and the page must say it that carefully",
+      "why": "The Code Card Redemption FAQ has a section on how many codes you may redeem and no section on expiry at all. Searching the support site for 'expire' returned articles about Pokemon Sleep, Pokemon GO and TCG Pocket, and nothing about TCG Live product codes. Bulbapedia's code card article notes an expiry only for Twitch drop rewards (31 days from first viewing), which are not pack codes.",
+      "sources": [
+        "supportCodeCards",
+        "bulbapediaCodeCard"
+      ],
+      "read": "2026-08-16",
+      "twoRealLimits": [
+        "A code for a set can only give you something that still exists in the game, and Live has removed old content before. Not verified, so do not assert it.",
+        "Promotional codes handed out in campaigns DO have end dates. Those are not pack codes and the page should keep the two apart."
+      ],
+      "recommendation": "Write: 'Nothing official says pack codes expire, and Pokemon publishes no expiry date for them. If you have a shoebox of old code cards, try them.' Do not write 'codes never expire': that is a promise the sources do not make."
+    },
+    "howManyYouCanRedeem": {
+      "plain": "There is no hard cap. There is a soft one: once you pass a certain number of codes from the same kind of product, extra codes start paying out a little in-game currency instead of the item.",
+      "quote": "Code cards found in physical Pokemon TCG products have a soft redemption limit, based on the product type. Once a product's soft redemption limit has been reached, any additional codes redeemed from that product will grant a small amount of in-game currency instead of the in-game items associated with that product. There is no limit to the number of codes that can be redeemed from a product after its soft redemption limit has been reached.",
+      "source": "supportCodeCards",
+      "read": "2026-08-16",
+      "limits": [
+        {
+          "product": "Booster pack",
+          "limit": "400 per expansion"
+        },
+        {
+          "product": "Build & Battle Box",
+          "limit": "25 per expansion"
+        },
+        {
+          "product": "Preconstructed deck",
+          "limit": "4 per deck"
+        },
+        {
+          "product": "Other product types",
+          "limit": "4 per product if one or more cards would be received, or 1 per product if only deck or avatar customisation items would be received"
+        }
+      ],
+      "limitsCaveat": {
+        "quote": "though note that some products may have slightly different limits based on their contents",
+        "source": "supportCodeCards",
+        "read": "2026-08-16"
+      },
+      "theAppTellsYou": {
+        "plain": "You do not have to count. When you enter a code, the app shows you what you are about to get and how many of that product you have already redeemed.",
+        "quote": "Entering a code in Pokemon TCG Live or on the website will display the name of the in-game item, bundle, or in-game currency that you will receive if you claim that code. Entering the code will also show the total number of codes you have redeemed for that specific product and the product's redemption limit.",
+        "source": "supportCodeCards",
+        "read": "2026-08-16",
+        "note": "This is the answer to almost every 'what does this specific box give me' question, and it is more durable than any table this page could print. Lead with it."
+      },
+      "realityCheck": {
+        "plain": "400 packs of one set is a lot of packs. This is not a limit a normal person hits.",
+        "note": "TRUE, and worth saying, but be careful with the framing on a channel that opens cases on camera. 400 is roughly eleven booster boxes of one set. That is a number some of this audience genuinely reaches. Word it as 'most people will never hit it' rather than 'you will never hit it'."
+      }
+    },
+    "ifSomethingGoesWrong": {
+      "plain": "Keep the physical code card. Pokemon support asks for the code number, your screen name and where you tried it, and says a claim without that information may be dismissed.",
+      "quote": "Retain your code cards and transaction ID numbers for future reference. Without this information, we may not be able to fully address your issue, and your claim may be dismissed.",
+      "source": "supportCodeCards",
+      "read": "2026-08-16",
+      "note": "GOOD PRACTICAL ADVICE FOR THIS EXACT AUDIENCE. Somebody who films openings throws the code cards in a pile. 'Do not bin the card until the code has actually landed' is the takeaway.",
+      "requiredForSupport": [
+        "Screen name of the account the code was redeemed to",
+        "Code number",
+        "Whether you tried in-game or on the website"
+      ]
+    },
+    "noCodeInThePack": {
+      "quote": "Only specially marked Pokemon TCG products contain codes that can be redeemed in Pokemon TCG Live or on the website.",
+      "source": "supportCodeCards",
+      "read": "2026-08-16",
+      "note": "Combine with `everyBoosterPackHasOne`: boosters always have one, other products only if marked. Non-English packs are a known source of confusion and NO SOURCE WAS FOUND on whether, say, a Japanese pack carries a redeemable code. Do not assert either way. The site has intl pages, so this will get asked."
+    }
+  },
+  "howToPlayDigital": {
+    "_note": "SHORT SECTION BY DESIGN. /how-to-play.html already covers setup, the turn and the three ways to win, from the official rulebook. Nothing in this block repeats a rule of the card game. It covers only what is different because it is a computer.",
+    "linkOut": {
+      "plain": "The rules are the same rules. If you have never played at all, read the rules first, then come back.",
+      "internalLink": "/how-to-play.html",
+      "note": "This is the hard boundary of the section. If a sentence would be equally true of two people at a kitchen table, it belongs on the other page and not this one."
+    },
+    "itTeachesYou": {
+      "plain": "You do not have to know the rules before you install it. It has a built-in tutorial area, and it enforces every rule for you as you play, which is the part a book cannot do.",
+      "learningLab": {
+        "name": "Learning Lab",
+        "quote": "The Learning Lab is an area of Pokemon TCG Live for players to learn and practice the Pokemon TCG. The Learning Lab consists of guided lessons against an AI opponent where players can learn or practice certain mechanics.",
+        "where": "The Learn tab on the home screen.",
+        "details": [
+          "Lessons can be done in any order and replayed as often as you like.",
+          "Progress is not saved mid-lesson: lose, quit or concede and you restart that lesson.",
+          "Conceding a Learning Lab lesson does not affect your level or your ranked win streak.",
+          "As of the article's last edit on 2026-01-27, rewards for completing lessons were still 'coming in a future release', and Pokemon said completed lessons would pay out retroactively once they arrive."
+        ],
+        "source": "supportLearningLab",
+        "read": "2026-08-16",
+        "articleEdited": "2026-01-27",
+        "note": "The rewards line is version-dependent and may already be wrong by the time this ships. Either date it explicitly or leave it out."
+      }
+    },
+    "startingDecks": {
+      "plain": "You start with a set of ready-made decks. You do not have to build anything to play your first game.",
+      "count": "eight starter decks",
+      "quote": "Start things off with eight powerful starter decks based around powerful and iconic Pokemon, including Charizard ex, Pikachu ex, and more.",
+      "source": "appstore",
+      "read": "2026-08-16",
+      "appVersion": "1.40.0",
+      "confidence": "single-sourced to the App Store marketing copy, which is first-party but is marketing and is version-dependent",
+      "corroboration": "The official site says players get 'a variety of decks that you can try after logging in' without a number, and Bulbapedia says preconstructed starter decks are provided and that new ones are granted after a rotation.",
+      "recommendation": "Say 'a handful of ready-made decks'. Printing 'eight' commits the page to a number that changes with a patch and is sourced only to store copy."
+    },
+    "deckBuilding": {
+      "plain": "Building a deck in Live is not like building one on a table. You do not need to own the cards first: you spend Trade Credits in the deck editor to make the exact card you want.",
+      "rules": {
+        "plain": "The deck rules are the game's normal rules, checked for you.",
+        "quote": "A valid deck must: Have exactly 60 cards; Include at least 1 Basic Pokemon; Not include banned cards; Not include cards that are illegal for the selected format; Only contain cards you own in Pokemon TCG Live; Follow any additional rules for the selected format or game mode",
+        "source": "supportDeckValid",
+        "read": "2026-08-16",
+        "articleEdited": "2026-07-14",
+        "note": "The first two are on /how-to-play.html already. The interesting one for THIS page is the last two: the client tells you why a deck is invalid and will not let you set it active until you fix it."
+      },
+      "craftingCards": {
+        "quote": "You can exchange Trade Credits for individual cards in both the Card Dex and Deck Editor.",
+        "source": "supportCurrencies",
+        "read": "2026-08-16",
+        "detail": "Exchanging happens only while creating or editing a deck. You pick the card, pick which version of it you want, and confirm. It is final and not refundable.",
+        "detailSource": "supportTradeCredits",
+        "read2": "2026-08-16",
+        "note": "THIS IS THE BIGGEST STRUCTURAL DIFFERENCE FROM PHYSICAL and the one to lead the section with: in Live you can just make the card you need. There is no chase and no luck involved in owning a playable card."
+      },
+      "variants": {
+        "plain": "The same card exists in several finishes, and you pick which one you want. The fancy version plays identically.",
+        "how": "In the deck editor, open a card and use the Available dropdown to see every variant and rarity and how many of each you own.",
+        "source": "supportVariants",
+        "read": "2026-08-16",
+        "note": "Good pairing with /rarity.html: rarity in Live is purely cosmetic, which is a cleaner statement of the site's existing 'rarity is not power' line than the physical game allows."
+      },
+      "formats": {
+        "plain": "Standard is the normal format. Expanded goes back further and never rotates, but Live does not support every Expanded card yet.",
+        "quote": "Pokemon TCG Live does not currently support all Expanded-format cards for active play. Backward compatibility plans are ongoing, and phased support for additional Expanded-format cards is expected to begin in 2026.",
+        "source": "supportDeckValid",
+        "read": "2026-08-16",
+        "articleEdited": "2026-07-14",
+        "note": "DATE THIS ONE ON THE PAGE. 'Expected to begin in 2026' was written in an article last edited 2026-07-14 and read 2026-08-16, and 2026 is nearly over. It will be wrong or obsolete soon in one direction or the other."
+      }
+    },
+    "currencies": {
+      "plain": "Two currencies, and they do different jobs. Trainer Points buy packs and cosmetics. Trade Credits buy specific cards.",
+      "trainerPoints": {
+        "usedFor": "Booster packs, bundles, deck items, deck cosmetics, and unlocking Battle Pass tiers you did not finish.",
+        "earnedBy": "Completing quests and levelling up.",
+        "quote": "You can exchange Trainer Points for booster packs, bundles, and deck items. Trainer Points are earned by completing quests and leveling up.",
+        "source": "supportCurrencies",
+        "read": "2026-08-16"
+      },
+      "tradeCredits": {
+        "usedFor": "Exchanging for one specific card, in the Card Dex or the deck editor.",
+        "earnedBy": [
+          "Levelling up.",
+          "Automatically, from duplicates. Anything past the number you are allowed to own converts itself into Trade Credits."
+        ],
+        "duplicateThresholds": [
+          "A fifth copy of a normal card (you may hold four).",
+          "A second copy of an ACE SPEC, Prism Star or Pokemon Star card.",
+          "A second copy of any part of a Pokemon V-UNION card.",
+          "Past 59 copies of a basic Energy card, excluding non-foil basic Energy without a collector number or expansion icon."
+        ],
+        "source": "supportCurrencies",
+        "read": "2026-08-16",
+        "note": "THE DUPLICATE CONVERSION IS THE POINT AND IT IS THE THING TO EXPLAIN TO THIS AUDIENCE. Opening digital packs is never wasted: the fifth copy of a card is not a dud, it is currency toward the card you actually want. That is the exact opposite of how the physical hobby feels, and it is the most interesting sentence in this whole section."
+      },
+      "coins": {
+        "plain": "A third currency called Coins was retired in December 2024 and converted into Trainer Points.",
+        "source": "bulbapediaTcgl",
+        "read": "2026-08-16",
+        "confidence": "single-sourced to the wiki",
+        "recommendation": "LEAVE IT OFF THE PAGE. It is history, it is single-sourced, and a new player will never encounter it."
+      }
+    },
+    "battlePass": {
+      "plain": "Every new set comes with a Battle Pass. You unlock it by playing, and it pays out packs, decks and cosmetics for free.",
+      "quote": "Each new expansion release introduces a brand-new Battle Pass loaded with two new competitive decks, tons of booster packs, and deck cosmetics like coins, deck boxes, and card sleeves, all at no cost to the player.",
+      "source": "appstore",
+      "read": "2026-08-16",
+      "appVersion": "1.40.0",
+      "supporting": {
+        "quote": "unlocks cosmetics, booster packs, and rewards through quest completion and battle experience",
+        "source": "tcgl",
+        "read": "2026-08-16"
+      },
+      "note": "Both sources are first-party. Bulbapedia adds that Trainer Points can buy Battle Pass tiers you did not reach in time, which the currencies article corroborates officially. Do not state a tier count or a reward list: neither was verified and both change every set.",
+      "confidence": "firm that it exists, is per-expansion and is free; vague on anything specific, deliberately"
+    },
+    "gameModes": {
+      "ranked": {
+        "plain": "Ranked matches on a monthly ladder, in Standard.",
+        "source": "tcgl",
+        "read": "2026-08-16"
+      },
+      "casual": {
+        "plain": "Casual matches with nothing on the line, in Standard or Expanded.",
+        "source": "tcgl",
+        "read": "2026-08-16"
+      },
+      "trainerTrials": {
+        "plain": "Trainer Trials, a rotating mode with its own rules, running limited-time events.",
+        "source": "tcgl",
+        "read": "2026-08-16"
+      },
+      "buildAndBattle": {
+        "plain": "Build and Battle, which simulates opening packs at a prerelease and building from what you get.",
+        "source": "tcgl",
+        "read": "2026-08-16",
+        "note": "The most channel-relevant mode on the list: it is pack opening as a game mode. Worth a line."
+      },
+      "friends": {
+        "plain": "Private matches against a friend.",
+        "source": "tcgl",
+        "read": "2026-08-16"
+      },
+      "solo": {
+        "plain": "Against the computer, there is the Learning Lab, and a Test Deck mode for trying a deck out with no rewards.",
+        "learningLabSource": "supportLearningLab",
+        "testDeckSource": "bulbapediaTcgl",
+        "read": "2026-08-16",
+        "confidence": "Learning Lab is official. TEST DECK IS SINGLE-SOURCED TO THE WIKI.",
+        "note": "There is no full solo campaign against AI. Do not imply one."
+      }
+    },
+    "noChat": {
+      "plain": "There is no chat. You cannot type at your opponent and they cannot type at you. There are a few preset reactions and that is it.",
+      "quote": "Pokemon TCG Live does not have any text or voice chat features. The only communication available to players is through select emoticon reactions anyone can use during gameplay.",
+      "source": "supportChild",
+      "read": "2026-08-16",
+      "note": "Worth one line, especially for a parent reading this. The older article (supportChat, edited 2023-06-01) says the same thing more tersely."
+    }
+  },
+  "tipsForNewPlayers": {
+    "_note": "Everything here is sourced or is a straightforward consequence of something sourced. Where a tip is judgement rather than fact, `basis` says so and the page should phrase it as advice rather than as a rule.",
+    "tips": [
+      {
+        "tip": "Redeem your codes before you spend anything.",
+        "why": "Codes cost nothing and they are the fastest way to a collection. Everything else in the game is earned or bought.",
+        "basis": "consequence of codeCards; no source needed for the advice itself"
+      },
+      {
+        "tip": "Do not scatter codes across accounts. Check whose account you are in first.",
+        "why": "A code redeemed to the wrong account cannot be moved and Pokemon will not move it for you.",
+        "quote": "we are unable to assist with card/deck transfer between accounts",
+        "source": "supportCodeCards",
+        "read": "2026-08-16",
+        "basis": "official"
+      },
+      {
+        "tip": "Play the starter decks first. Do not build anything on day one.",
+        "why": "They are complete, legal decks and they exist so you can play immediately.",
+        "source": "tcgl",
+        "read": "2026-08-16",
+        "basis": "official that they exist and are playable; 'do not build on day one' is judgement"
+      },
+      {
+        "tip": "Spend Trade Credits on the cards a deck actually needs, not on the pretty versions.",
+        "why": "Variants are cosmetic. The fancy print of a card plays exactly the same as the plain one, and exchanging is final and not refundable.",
+        "quote": "Exchanging Trade Credits for cards is final and not refundable. Please be sure to carefully select the card variant you want to obtain.",
+        "source": "supportTradeCredits",
+        "read": "2026-08-16",
+        "basis": "official warning, and the strongest specific tip available"
+      },
+      {
+        "tip": "Duplicates are not waste. They turn into Trade Credits on their own.",
+        "why": "Past four copies of a card, extra copies convert automatically.",
+        "source": "supportCurrencies",
+        "read": "2026-08-16",
+        "basis": "official"
+      },
+      {
+        "tip": "Use the Learning Lab even if you already know the rules.",
+        "why": "It is the cheapest way to learn where the buttons are, and conceding a lesson costs you nothing: not your level, not your ranked streak.",
+        "source": "supportLearningLab",
+        "read": "2026-08-16",
+        "basis": "official"
+      },
+      {
+        "tip": "Play at least five ranked matches in a month if you are going to play ranked at all.",
+        "why": "End-of-season rewards require a minimum of five matches in the period.",
+        "source": "bulbapediaLadder",
+        "read": "2026-08-16",
+        "basis": "SINGLE-SOURCED TO THE WIKI. Phrase as 'the wiki-documented threshold is five' or leave the number out and say 'you need to have played a few'. Do not state it as Pokemon's rule."
+      },
+      {
+        "tip": "Losses do not hurt at the bottom of the ladder.",
+        "why": "In the lower leagues a win is +10 and a loss is 0, so early climbing is one-directional.",
+        "source": "bulbapediaLadder",
+        "read": "2026-08-16",
+        "basis": "SINGLE-SOURCED TO THE WIKI"
+      },
+      {
+        "tip": "Check what a code gives you before you claim it.",
+        "why": "The redemption screen names the reward and shows how many of that product you have already redeemed.",
+        "source": "supportCodeCards",
+        "read": "2026-08-16",
+        "basis": "official"
+      },
+      {
+        "tip": "Do not throw the code card away until the reward has actually landed.",
+        "why": "Support asks for the code number, and says a claim without it may be dismissed.",
+        "source": "supportCodeCards",
+        "read": "2026-08-16",
+        "basis": "official"
+      },
+      {
+        "tip": "If a card you own will not go in a deck, it has probably rotated out of Standard.",
+        "why": "Live tells you why a deck is invalid. A rotated card is still legal in Expanded.",
+        "source": "supportDeckValid",
+        "read": "2026-08-16",
+        "basis": "official",
+        "crossLink": "/how-to-play.html already explains Standard, Expanded and regulation marks. Link, do not repeat."
+      }
+    ],
+    "beginnerMistakes": [
+      {
+        "mistake": "Expecting the code to give you the cards you just pulled.",
+        "reality": "The digital pack is its own pack from the same set.",
+        "source": "supportCodeCards",
+        "read": "2026-08-16",
+        "note": "THE NUMBER ONE MISCONCEPTION FOR THIS AUDIENCE. It belongs high on the page, not in a tips list at the bottom."
+      },
+      {
+        "mistake": "Making a second account.",
+        "reality": "One account per person, and codes cannot move between accounts.",
+        "source": "supportCodeCards",
+        "read": "2026-08-16"
+      },
+      {
+        "mistake": "Crafting the special-rarity version of a card because it looks better.",
+        "reality": "It plays the same, it is not refundable, and those credits could have been another card.",
+        "source": "supportTradeCredits",
+        "read": "2026-08-16"
+      },
+      {
+        "mistake": "Assuming the digital collection is worth something.",
+        "reality": "See the real-world value section. It is not, and Pokemon's terms say so.",
+        "source": "terms",
+        "read": "2026-08-16"
+      }
+    ],
+    "ranked": {
+      "plain": "Ranked play runs in monthly seasons through six leagues, and it resets every month.",
+      "leagues": [
+        "Nest League",
+        "Quick League",
+        "Poke League",
+        "Great League",
+        "Ultra League",
+        "Arceus League"
+      ],
+      "howItWorks": [
+        "Wins earn Rank Points. In the lower leagues a win is +10 and a loss costs nothing; higher up, losses start costing points.",
+        "Consecutive wins are worth +13 instead of +10.",
+        "Rank Points and rewards reset monthly.",
+        "You need at least five matches in the season for end-of-season rewards.",
+        "Rewards are Trainer Points, Trade Credits, booster packs and cosmetics, scaling with the league you reached."
+      ],
+      "arceusLeague": "The top league has used an Elo rating since the December 2024 season: on arrival you are set to 1500.",
+      "rankDrops": "Since July 2025 you drop at most eight tiers at the end of a season rather than falling all the way back.",
+      "source": "bulbapediaLadder",
+      "read": "2026-08-16",
+      "confidence": "ENTIRELY SINGLE-SOURCED TO BULBAPEDIA. No official documentation of the ladder could be found on tcg.pokemon.com or support.pokemon.com. The official site and store listing confirm that ranked play and leagues exist, and that the top one is the Arceus League, and nothing more.",
+      "officialCorroboration": {
+        "quote": "Once you find your footing, test your skills in competitive matches and rise through the Leagues. Aim for the prestigious Arceus League",
+        "source": "appstore",
+        "read": "2026-08-16"
+      },
+      "recommendation": "KEEP THIS SHORT AND SAY WHERE IT COMES FROM. Three sentences: it exists, it resets monthly, the top of it is the Arceus League. The point-by-point numbers are the most likely thing on the page to be quietly out of date, they are wiki-sourced, and a beginner does not need them. If any number is printed, attribute it to the wiki in the page's own source note."
+    }
+  },
+  "relationToPhysical": {
+    "_note": "BE CAREFUL AND FACTUAL. This section is where a page like this usually starts implying that digital cards are an asset. They are not, and Pokemon's own terms are unusually blunt about it.",
+    "theOnlyConnection": {
+      "plain": "The only bridge between your physical cards and your digital ones runs one way, and it is the code card. A code turns a physical purchase into digital content. Nothing goes the other way.",
+      "basis": "Consequence of the code card system plus the absence of any stated mechanism in the other direction. No official source describes any digital-to-physical path, because there is not one.",
+      "confidence": "firm"
+    },
+    "notACollectionTracker": {
+      "plain": "Live is not a way to catalogue the cards you own in real life. Your digital collection only contains what you redeemed or earned inside the game.",
+      "history": "Pokemon did have a collection-tracking app, Pokemon TCG Card Dex. It shut down on 2023-09-20 and its data was not exportable. Pokemon's own answer to 'how do I track my collection now' pointed at the Trading Card Database for looking cards up, and at building a digital collection in Live by redeeming code cards.",
+      "quote": "Pokemon TCG Card Dex data will not be exportable or transferrable in any way.",
+      "source": "supportCardDexSunset",
+      "read": "2026-08-16",
+      "note": "Useful and slightly surprising. A reader who wants a real collection tracker needs something else entirely, and the site does not currently have a page for that."
+    },
+    "noTrading": {
+      "plain": "You cannot trade with other players. The name says Trading Card Game and this one does not trade.",
+      "quote": "Players are not be able to trade cards with other players in Pokemon TCG Live.",
+      "source": "supportTrading",
+      "read": "2026-08-16",
+      "note": "The grammar error is Pokemon's. Paraphrase rather than quote. Bulbapedia adds that this was a deliberate change from TCG Online, which did have trading.",
+      "corroborated": "supportChild"
+    },
+    "noRealWorldValue": {
+      "plain": "Nothing in Live is worth money. Pokemon's terms say digital content has no monetary value, cannot be cashed out, and is licensed to you rather than owned by you.",
+      "quotes": [
+        "Virtual Content does not have monetary value, and may not be redeemed for legal currency, services, or items of value outside of the Services.",
+        "Virtual Content obtained via the Service is provided to you under a limited, personal, revocable, non-transferable, non-sublicenseable license to use within the Service."
+      ],
+      "source": "terms",
+      "read": "2026-08-16",
+      "confidence": "firm, quoted from the governing terms",
+      "note": "STATE THIS PLAINLY AND WITHOUT HEDGING. It is the honest counterweight to a page that has just spent a thousand words telling somebody their code cards are free stuff."
+    },
+    "resale": {
+      "plain": "People do sell unused code cards. The digital side of it is Pokemon's to police, and the terms say virtual content may not be resold in any manner they have not permitted.",
+      "quote": "may not be transferred or resold in any manner not explicitly permitted by us",
+      "source": "terms",
+      "read": "2026-08-16",
+      "confidence": "The QUOTE is firm. The APPLICATION to a physical code card that has not been redeemed yet is NOT settled by anything read, and no official statement about selling unredeemed code cards was found.",
+      "recommendation": "DO NOT tell readers whether selling code cards is allowed. Say what is verifiable: a redeemed code is dead, so the only thing anybody can sell is an unredeemed one; Pokemon's terms restrict transferring virtual content; and the site does not link code sellers. Then stop. This is a legal-shaped question and the page has no business answering it.",
+      "seeAlso": "forbidden.codeCardResale"
+    },
+    "whatItIsActuallyGoodFor": {
+      "plain": "The honest pitch: it is the free way to learn the game the cards are for, a use for the code card in every pack you open, and a place to play a deck you could never afford to build in cardboard.",
+      "basis": "judgement, built on sourced facts (free, teaches and enforces the rules, codes give digital packs, Trade Credits let you make any card)",
+      "note": "This is the paragraph the page should end on, and it is the one that ties back to the channel: the code card is the only thing in the pack that has no collector value at all, and this is what it is for."
+    }
+  },
+  "changedRecently": [
+    {
+      "what": "iOS and Mac minimum system requirements were raised",
+      "when": "2026-04-21, with version 1.37.0",
+      "detail": "Minimums became iOS 15 and macOS Monterey 12. Android and Windows were explicitly not changed at that time.",
+      "source": "forumSysReq",
+      "read": "2026-08-16"
+    },
+    {
+      "what": "What non-booster code cards give was changed",
+      "when": "Announced 2025-07-31, starting with the Mega Evolution expansions",
+      "detail": "Rewards from non-booster products were expanded to include packs, promo cards, currency and cosmetics; some products stopped including a promo-card code entirely. Booster pack codes were unchanged.",
+      "source": "newsCodeCards2025",
+      "read": "2026-08-16"
+    },
+    {
+      "what": "Ranked season rank drops were softened",
+      "when": "July 2025",
+      "detail": "Players drop at most eight tiers at season end instead of being sent back to Quick League.",
+      "source": "bulbapediaLadder",
+      "read": "2026-08-16",
+      "confidence": "single-sourced"
+    },
+    {
+      "what": "Expanded-format backward compatibility",
+      "when": "Article last edited 2026-07-14",
+      "detail": "Pokemon says phased support for more Expanded cards is 'expected to begin in 2026'. Read on 2026-08-16 with the year nearly over and no confirmation found that it started.",
+      "source": "supportDeckValid",
+      "read": "2026-08-16"
+    },
+    {
+      "what": "'Pokemon Trainer Club' is now 'Pokemon Trainer Central' throughout the support site",
+      "when": "Not dated by any source read; every support article read on 2026-08-16 uses the new name, while the App Store copy and Bulbapedia still say Trainer Club",
+      "source": "supportCodeCards",
+      "read": "2026-08-16",
+      "note": "No announcement of the rename was found. Do not date it on the page. Use both names once."
+    },
+    {
+      "what": "Latest iOS release read",
+      "when": "Version 1.40.0, released 2026-07-14, adding support for Mega Evolution—Pitch Black",
+      "source": "appstore",
+      "read": "2026-08-16"
+    }
+  ],
+  "singleSourced": [
+    "The ENTIRE ranked ladder section: leagues, points, resets, the five-match minimum, the Arceus Elo, the eight-tier drop cap. Bulbapedia only. No official ladder documentation exists that could be found.",
+    "Test Deck as a solo practice mode. Bulbapedia only.",
+    "'Eight starter decks'. App Store marketing copy only, and version-dependent.",
+    "The 11-digit code length. Bulbapedia only.",
+    "The characterisation of what an Elite Trainer Box code historically gave (cosmetics rather than cards). Bulbapedia only, and possibly superseded by the July 2025 change.",
+    "Coins being retired in December 2024 at a 4:1 conversion. Bulbapedia only. Recommended for omission.",
+    "The inference that in-app redemption is unavailable on iOS. Inferred from one official heading and contradicted by third-party how-to videos. Must be worded as the recommendation says."
+  ],
+  "couldNotVerify": [
+    {
+      "question": "Do pack code cards expire?",
+      "status": "No official statement either way. Established only by the absence of any expiry section in the redemption FAQ and by a support-site search for 'expire' returning nothing about TCG Live product codes.",
+      "recommendation": "Say Pokemon publishes no expiry for them. Do not say they never expire."
+    },
+    {
+      "question": "Can you redeem codes inside the app on iPhone and iPad?",
+      "status": "Unresolved. The official FAQ's heading names Android and desktop only; no official sentence excludes iOS; third-party videos claim it works.",
+      "recommendation": "Give the reader the website as the fallback and do not adjudicate."
+    },
+    {
+      "question": "Do non-English packs, Japanese ones especially, carry codes that work in the English Live client?",
+      "status": "Nothing found. Not asserted here in either direction.",
+      "note": "The site has international set guides, so this WILL be asked. Leaving it unanswered is correct; guessing is not."
+    },
+    {
+      "question": "Which regions are excluded?",
+      "status": "No list found. Pokemon says 'around the world' in one article and hedges with 'if you are in a region where it is available' in another."
+    },
+    {
+      "question": "Exact Battle Pass structure, tier count, or reward list",
+      "status": "Not verified and deliberately not pursued. It changes every expansion."
+    },
+    {
+      "question": "Google Play listing details (version, update date, install count, content rating)",
+      "status": "The listing did not return usable content to an automated fetch. Android facts here come from the official install article and the official system requirement table instead."
+    },
+    {
+      "question": "Whether selling an unredeemed code card is permitted",
+      "status": "No official statement found. The Terms of Use restrict transferring and reselling virtual content, but do not address the physical card. Not answered on the page."
+    },
+    {
+      "question": "Windows, macOS and Android version numbers",
+      "status": "Only the iOS version (1.40.0) was read from a first-party feed. Do not print a version number as if it were the app's version everywhere."
+    }
+  ],
+  "sourcesReachable": {
+    "reachable": [
+      "tcg.pokemon.com (the official TCG Live site, its system requirement table and its download links)",
+      "community.pokemon.com (the official forums, where version changes are announced)",
+      "support.pokemon.com VIA THE ZENDESK JSON API ONLY: https://support.pokemon.com/api/v2/help_center/en-us/articles/<id>.json , plus a working search endpoint at /api/v2/help_center/articles/search.json?query=...&locale=en-us",
+      "itunes.apple.com lookup API (the App Store record as JSON)",
+      "bulbapedia.bulbagarden.net",
+      "www.pokemon.com (the news article and the Terms of Use both answered on 2026-08-16, contrary to the standing note about Imperva; do not rely on this)"
+    ],
+    "notReachable": [
+      "support.pokemon.com human-facing HTML: every /hc/en-us/articles/... url answered 403 to an automated request. The API workaround above is what made this file possible and is worth keeping in CLAUDE.md.",
+      "redeem.tcg.pokemon.com: returns 200 with an empty JS shell behind a login. Nothing about the redemption screen itself is described from first-hand observation.",
+      "play.google.com listing: returned no usable body."
+    ]
+  },
+  "willGoStale": {
+    "note": "The page must say, in its own words, that this is software and software changes. These are the fields most likely to rot, worst first.",
+    "ranked": "Every number in the ladder block. Wiki-sourced and patched regularly.",
+    "systemRequirements": "Raised twice in eighteen months. Dated 2026-04-21 here.",
+    "expandedSupport": "The 'expected to begin in 2026' line was already near its own deadline when read.",
+    "learningLabRewards": "Recorded as 'coming in a future release' as of 2026-01-27. May already have shipped.",
+    "starterDeckCount": "Version-dependent marketing copy.",
+    "codeCardRewards": "Changed once already, in July 2025, and Pokemon says contents vary by product.",
+    "accountName": "Mid-rename between Trainer Club and Trainer Central across Pokemon's own properties."
+  }
+}

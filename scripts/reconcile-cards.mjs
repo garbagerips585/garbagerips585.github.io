@@ -182,65 +182,15 @@ for (const s of setsDoc.sets || []) {
 await writeFile(setsPath, JSON.stringify(setsDoc, null, 2) + "\n");
 
 // -------------------------------------------------------- chase-tcg.json
-
-const tcgPath = join(ROOT, "data/chase-tcg.json");
-let tcgChanged = 0;
-try {
-  const doc = JSON.parse(await readFile(tcgPath, "utf8"));
-  for (const [slug, entry] of Object.entries(doc.sets || {})) {
-    for (const c of entry.cards || []) {
-      const p = truth.get(`${slug}|${norm(c.number)}`);
-      if (p == null) {
-        orphans.push(`${slug}-${c.number} (${c.name}) [chase-tcg]`);
-        continue;
-      }
-      const a = art.get(`${slug}|${norm(c.number)}`);
-      if (a) {
-        const thumb = `${a}/low.webp`;
-        const large = `${a}/high.webp`;
-        if (c.image !== thumb || c.imageLarge !== large) {
-          c.image = thumb;
-          c.imageLarge = large;
-          artChanged++;
-          tcgChanged++;
-        }
-      }
-      // THE CHECKLIST'S WORD FOR THIS CARD, where it has one.
-      //
-      // This file is a scrape, and TCGplayer's vocabulary is not the
-      // checklist's: it carried MEGA_ATTACK_RARE for two Ascended Heroes cards
-      // the checklist lists as Ultra Rare, so /sets/ascended-heroes.html said
-      // the set holds 21 Ultra Rares and no Mega Attack Rares while two cards
-      // on the same page were labelled Mega Attack Rare. prettyRarity only
-      // made the shouting readable; it did not make it agree.
-      //
-      // Matched on card number, the thing that identifies a printing. Falls
-      // back to prettyRarity for a card the checklist does not list.
-      {
-        const fromChecklist = (bySet.get(slug) || []).find(
-          (x) => norm(x.n) === norm(c.number),
-        )?.rarity;
-        if (fromChecklist) c.rarity = fromChecklist;
-        else if (c.rarity) c.rarity = prettyRarity(c.rarity);
-      }
-      if (typeof c.price === "number" && Math.abs(c.price - p) < 0.005) {
-        unchanged++;
-        continue;
-      }
-      c.price = p;
-      tcgChanged++;
-      changed++;
-    }
-    if (tcgChanged) entry.checked = checked;
-  }
-  if (tcgChanged) doc.checked = checked;
-  // Only claim the source when we actually wrote something from it. Stamped
-  // unconditionally, a file could say TCGdex while holding the old numbers.
-  if (tcgChanged) doc.priceSource = "TCGdex";
-  await writeFile(tcgPath, JSON.stringify(doc, null, 2) + "\n");
-} catch {
-  /* optional: only the four newest sets use it */
-}
+//
+// NOTHING TO RECONCILE HERE ANY MORE. This used to walk every card in
+// chase-tcg.json and overwrite its price, image and rarity with the checklist's,
+// because that file held a second copy of all three and the two disagreed.
+//
+// It is link-only now: a TCGplayer product url per collector number and nothing
+// else. There is no price to correct and no card name to argue with. The
+// nightly job also used to run this whole script a second time, purely to undo
+// what sync-chase.mjs had just written back; that second pass is gone with it.
 
 // ------------------------------------------------- public/data/wanted.json
 //

@@ -18,7 +18,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { APP_JS } from "../shared/chrome.mjs";
-import { esc, shortDate, moneyCompact, noValue, rarityLabel, imgDims } from "../shared/format.mjs";
+import { esc, shortDate, moneyCompact, noValue, rarityLabel, imgDims, cardNumKey } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -164,6 +164,24 @@ function pricecharting(name, setName, number) {
   return null;
 }
 
+// TCGplayer product links, keyed by set then collector number.
+//
+// These used to come out of sets.json's chase array, and the note further down
+// records what that was worth here: zero of fifteen hall cards carried a url,
+// because a hall card is resolved out of data/hits.json and is almost never one
+// of the eight cards a set page happens to feature. The chase array's urls were
+// also prices.pokemontcg.io addresses, which have to be followed through a
+// redirect while the page builds, on a host that has been failing.
+//
+// data/chase-tcg.json is link-only now and covers every card in every
+// checklist, so a hall card can have a real buy link for the first time.
+let chaseLinks = {};
+try {
+  chaseLinks = JSON.parse(await readFile(join(ROOT, "data/chase-tcg.json"), "utf8")).sets || {};
+} catch {
+  /* run: node scripts/sync-chase.mjs */
+}
+
 /** Everything the site knows about one pulled card, from every source. */
 function resolve(c) {
   const key = `${c.set}-${c.number}`;
@@ -204,7 +222,7 @@ function resolve(c) {
     // rarities in data/hits.json already use.
     rarity: rarityLabel(c._rarity || c.rarity || chase?.rarity || null),
     image: c._img || chase?.imageLarge || chase?.image || null,
-    url: chase?.url || null,
+    url: chaseLinks[c.set]?.links?.[cardNumKey(c.number)] || null,
     // Raw from the checklist first, then whatever the price sync recorded.
     // PriceCharting's own ungraded figure is deliberately NOT used: every other
     // page on the site quotes TCGdex for raw, and graded.json says so itself.

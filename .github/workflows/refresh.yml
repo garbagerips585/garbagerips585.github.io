@@ -112,14 +112,13 @@ jobs:
       - name: Preorder prices for upcoming sets
         run: node scripts/sync-preorders.mjs --force
 
-      - name: Chase cards for sets with no API prices
+      # Link-only: a TCGplayer product url per collector number, for every set
+      # with a checklist. It writes no price and no card name, so there is
+      # nothing here for reconcile-cards.mjs to undo afterwards. The second
+      # reconcile pass that used to follow this step existed purely for that and
+      # is gone.
+      - name: TCGplayer product links
         run: node scripts/sync-chase.mjs --force
-
-      # sync-chase rewrites chase-tcg.json from TCGplayer directly, which would
-      # reintroduce a second set of numbers for the four newest sets. Reconcile
-      # again so the last word always belongs to TCGdex.
-      - name: One price and one image per card, again
-        run: node scripts/reconcile-cards.mjs
 
       # 100 credits a day on the free tier and 2 credits per card, so 50 is the
       # daily ceiling. The script resumes rather than restarting, so it works

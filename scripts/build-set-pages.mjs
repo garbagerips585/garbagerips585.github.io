@@ -668,10 +668,17 @@ ${rows}
  * checklist prices the band prints "No market prices yet" and says so.
  *
  * TCGplayer product links are the one thing the checklist does not carry, so
- * they are taken from whichever of the two old lists had one, matched on card
- * number. Verified card by card before this was written: 224 numbers joined,
- * zero landed on a different card. A card with no link simply gets no buy
- * button, which the lightbox already handles.
+ * they come from data/chase-tcg.json, matched on card number. That file is now
+ * link-only and covers every set with a checklist, which is why this no longer
+ * also reads sets.json's `chase` array for a url.
+ *
+ * READING BOTH WAS THE PROBLEM. chase-tcg.json only ever held the handful of
+ * sets api.pokemontcg.io had no prices for, so the other 24 sets fell through
+ * to sets.json's `url`, a prices.pokemontcg.io address that has to be followed
+ * through a redirect while the page is being built. A build that depends on a
+ * third party answering a redirect breaks when they do not, and that host has
+ * been 502ing. One source, no redirect, and a card with no link simply gets no
+ * buy button, which the lightbox already handles.
  *
  * NUMBERS ARE UNPADDED here and padded in the checklist ("20" against "020").
  * That is deliberate: unpadded is what data/psa10.json is keyed on and what
@@ -692,11 +699,8 @@ try {
   /* run: node scripts/sync-chase.mjs */
 }
 for (const st of sets) {
-  const urls = new Map();
-  for (const c of [...(st.chase || []), ...(chaseLinks[st.id]?.cards || [])]) {
-    const n = String(c.number || "").replace(/^0+(?=\d)/, "");
-    if (c.url && n && !urls.has(n)) urls.set(n, c.url);
-  }
+  // Keyed the way cardNumKey writes them, which is how the sync wrote them.
+  const urls = new Map(Object.entries(chaseLinks[st.id]?.links || {}));
 
   const doc = checklists[st.id];
   const priced = (doc?.cards || []).filter((c) => typeof c.price === "number" && c.price > 0);
@@ -714,7 +718,7 @@ for (const st of sets) {
     .sort((a, b) => b.price - a.price)
     .slice(0, 8)
     .map((c) => {
-      const n = String(c.n || "").replace(/^0+(?=\d)/, "");
+      const n = cardNumKey(c.n);
       const base = c.img && !NO_SCAN.has(c.img) ? c.img : null;
       return {
         name: c.name,
