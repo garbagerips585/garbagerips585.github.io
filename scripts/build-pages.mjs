@@ -17,7 +17,7 @@ import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../share
 import { labelFor } from "../shared/taxonomy.mjs";
 import { raritiesIn, rarityChip, RARITY_CSS } from "../shared/rarity.mjs";
 import { ripPath } from "../shared/paths.mjs";
-import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount } from "../shared/format.mjs";
+import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -405,11 +405,24 @@ const desc = (v.blurb || descriptions[v.id] || "")
   <div class="wrap">
     <div class="sec-head">
       <div><h2>What you are <span class="hl">chasing</span></h2></div>
-      <a class="btn btn-ghost btn-sm" href="/sets/${setId}.html">${esc(setLabel)} guide &rarr;</a>
+      ${
+        // THROUGH hasGuide, LIKE EVERY OTHER /sets/ LINK ON THIS PAGE.
+        //
+        // Today this is belt and braces: `chase` is read out of sets.json, so a
+        // set with no guide has no chase list, chaseCards is empty and the whole
+        // block never renders. But that is a fact about a different file, sitting
+        // fourteen lines above an unguarded url, and the Set dropdown now offers
+        // 146 sets that have no /sets/ page at all. The day chase data arrives
+        // from anywhere wider than sets.json, this line is a 404 in the middle of
+        // a rip page and nothing in the build would say so first.
+        hasGuide(setId)
+          ? `<a class="btn btn-ghost btn-sm" href="/sets/${setId}.html">${esc(setLabel)} guide &rarr;</a>`
+          : ""
+      }
     </div>
     <ul class="chaser-list">
       ${chaseCards.map((c) => `<li class="chaser">
-        ${c.image ? `<img src="${esc(c.image)}" alt="${esc(c.name)}, ${esc(rarityLabel(c.rarity) || "card")} from ${esc(setLabel)}" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>` : ""}
+        ${c.image ? avifPicture(`<img src="${esc(c.image)}" alt="${esc(c.name)}, ${esc(rarityLabel(c.rarity) || "card")} from ${esc(setLabel)}" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`) : ""}
         <div>
           <b>${esc(c.name)}</b>
           <span class="chaser-rar">${esc(rarityLabel(c.rarity) || "")}${c.number ? ` &bull; #${esc(c.number)}` : ""}</span>
@@ -623,7 +636,7 @@ ${
         <button class="hitcard-open" type="button" aria-label="See ${esc(h.name)} larger"></button>
         ${
           h.img
-            ? `<img class="hitcard-img" src="${esc(h.img)}" alt="${esc(h.name)}, ${esc(h.setName)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>`
+            ? avifPicture(`<img class="hitcard-img" src="${esc(h.img)}" alt="${esc(h.name)}, ${esc(h.setName)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>`)
             : `<div class="hitcard-img is-none" aria-hidden="true"></div>`
         }
         <div class="hitcard-b">
@@ -729,7 +742,7 @@ addEventListener('DOMContentLoaded',function(){
 <div class="hitlb" id="hitlb" role="dialog" aria-modal="true" aria-labelledby="hitlbName" hidden>
   <div class="hitlb-in">
     <button class="hitlb-x" type="button" id="hitlbX" aria-label="Close">&times;</button>
-    <img id="hitlbImg" alt="">
+    <picture><source id="hitlbAvif" type="image/avif"><img id="hitlbImg" alt=""></picture>
     <div class="hitlb-b">
       <p class="hitlb-n" id="hitlbName"></p>
       <p class="hitlb-s" id="hitlbSet"></p>
@@ -785,6 +798,18 @@ addEventListener('DOMContentLoaded',function(){
   function open(li){
     lastFocus=document.activeElement;
     var img=li.getAttribute('data-img');
+    // The one place this page asks for high.webp, 600x825 and 100-135KB, and
+    // AVIF is about 35% smaller for the same pixels. avifPicture() cannot reach
+    // it because the url only becomes an image url on click, so the <source> is
+    // filled here, applying the SAME host test avifPicture applies: only
+    // assets.tcgdex.net publishes an AVIF beside its WebP, and a <source>
+    // pointing at a 404 paints a broken card rather than falling back.
+    // srcset FIRST, then src, so the webp is never requested and abandoned.
+    // Same shape as #lbAvif on the set guides.
+    var avif=document.getElementById('hitlbAvif');
+    if(img && img.indexOf('https://assets.tcgdex.net/')===0 && img.slice(-5)==='.webp')
+      avif.setAttribute('srcset', img.slice(0,-5)+'.avif');
+    else avif.removeAttribute('srcset');
     if(img){ lbImg.src=img; lbImg.alt=li.getAttribute('data-name')+', '+li.getAttribute('data-set'); lbImg.hidden=false; }
     else lbImg.hidden=true;
     txt('hitlbName', li.getAttribute('data-name'));
@@ -957,6 +982,12 @@ const urls = [
   // asked constantly and the answer does not expire, which makes it the best
   // long-tail target added here since the rarity guide.
   { loc: `${SITE}/how-to-play.html`, freq: "monthly", pri: "0.9" },
+  // The two free official apps, sitting beside the rules page they hang off.
+  // Monthly, and a deliberate half-step down in priority each time: the rules do
+  // not move, Live describes software that does, and Pocket ships a new
+  // expansion every few weeks and moves fastest of the three.
+  { loc: `${SITE}/tcg-live.html`, freq: "monthly", pri: "0.8" },
+  { loc: `${SITE}/tcg-pocket.html`, freq: "monthly", pri: "0.7" },
   { loc: `${SITE}/pokemon/`, freq: "weekly", pri: "0.8" },
   // Real vs fake. Evergreen and the best long-tail target on the site after the
   // rarity guide: "how to spot fake pokemon cards" is asked constantly and the

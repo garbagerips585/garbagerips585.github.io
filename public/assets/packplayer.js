@@ -416,7 +416,61 @@
     if (!track) return;
     var slide = track.querySelector(".vcar-slide");
     var step = slide ? slide.getBoundingClientRect().width + 16 : track.clientWidth;
+    // Ask for the artwork BEFORE the scroll starts, not when the slide lands.
+    // The scroll is smooth and takes a few hundred ms, which is the head start.
+    hydrateSlides(car, step);
     track.scrollBy({ left: btn.hasAttribute("data-vcar-next") ? step : -step, behavior: "smooth" });
+  }
+
+  /* ---------------------------------------------------------------------
+   * Pack art for the slides the track is showing, and for the one either side.
+   *
+   * build-proto.mjs gives slide 0 a real src and hands every later slide its
+   * src, srcset and sizes as data- attributes instead, because loading="lazy"
+   * does not cover this case: it measures distance from the VIEWPORT, and a
+   * slide 407px to the right inside a horizontal scroll track is nowhere near
+   * far enough away for Chrome to hold it back. Measured on the home page at
+   * 390x844 on a DPR 3 phone, that fetched 289.9KB of pack art for slides
+   * behind the right-hand edge of a band that was itself below the fold.
+   *
+   * The test is against the TRACK's own box, so it is right at every width
+   * without knowing any of ui.css's breakpoints: one slide on a phone, 2.35 at
+   * 1000, 3.3 at 1400, exactly 2 in the Hall of Fame band.
+   *
+   * `lead` is how far past each edge of the track to reach. Zero on the first
+   * pass and on resize, so a load only pays for what is on screen. One slide
+   * width on a scroll or an arrow, so the artwork is already on its way before
+   * the slide arrives.
+   */
+  function hydrateSlides(car, lead) {
+    var track = car.querySelector(".vcar-track");
+    if (!track) return;
+    var box = track.getBoundingClientRect();
+    var left = box.left - lead;
+    var right = box.right + lead;
+    var imgs = track.querySelectorAll("img[data-packsrc]");
+    for (var i = 0; i < imgs.length; i++) {
+      var im = imgs[i];
+      var r = im.getBoundingClientRect();
+      // Not laid out yet. Say nothing rather than guess; the scroll and resize
+      // handlers come back to it.
+      if (!r.width) continue;
+      if (r.right <= left || r.left >= right) continue;
+      // sizes, then srcset, then src. Setting src first starts a fetch for the
+      // one url it names, and the srcset arriving on the next line cannot call
+      // that request back.
+      var sz = im.getAttribute("data-packsizes");
+      var ss = im.getAttribute("data-packsrcset");
+      if (sz) im.setAttribute("sizes", sz);
+      if (ss) im.setAttribute("srcset", ss);
+      im.setAttribute("src", im.getAttribute("data-packsrc"));
+      // loading="lazy" is still on the element, so the VERTICAL half of the
+      // decision goes back to the browser from here: a band four screens down
+      // still waits, exactly as it did before.
+      im.removeAttribute("data-packsrc");
+      im.removeAttribute("data-packsrcset");
+      im.removeAttribute("data-packsizes");
+    }
   }
 
   function syncCarousel(car) {
@@ -455,9 +509,20 @@
         if (car.__vcarWired) return;
         car.__vcarWired = true;
         var track = car.querySelector(".vcar-track");
-        if (track) track.addEventListener("scroll", function () { syncCarousel(car); }, { passive: true });
-        window.addEventListener("resize", function () { syncCarousel(car); });
+        if (track) track.addEventListener("scroll", function () {
+          syncCarousel(car);
+          // A swipe or a trackpad flick never touches the arrows, so this is
+          // the only hook that covers them. One slide of lead, measured off the
+          // track rather than assumed, so the next pack is already loading.
+          var s = track.querySelector(".vcar-slide");
+          hydrateSlides(car, s ? s.getBoundingClientRect().width + 16 : track.clientWidth);
+        }, { passive: true });
+        window.addEventListener("resize", function () { syncCarousel(car); hydrateSlides(car, 0); });
         syncCarousel(car);
+        // First pass, no lead: a page load pays for the slides that are
+        // actually on screen and nothing else. Desktop shows two or three, a
+        // phone shows one, and this asks the laid-out track which it is.
+        hydrateSlides(car, 0);
       })(cars[i]);
     }
   }

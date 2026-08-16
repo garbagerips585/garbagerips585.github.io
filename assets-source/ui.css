@@ -1452,6 +1452,18 @@ footer .soc svg{fill:var(--paper)}
 .hero-art{position:relative;display:block;border-radius:calc(var(--r) - 6px);overflow:hidden;
   aspect-ratio:2/3;background:var(--navy-deep)}
 .hero-art img{width:100%;height:100%;object-fit:cover;display:block}
+/* THE JS-OFF COPY OF A DEFERRED SLIDE, LAID OVER THE EMPTY BOX RATHER THAN
+   UNDER IT. Carousel slides past the first carry their pack art in data-
+   attributes and packplayer.js promotes them when the track reaches them,
+   because loading="lazy" only holds an image back VERTICALLY and every slide in
+   a horizontal track reads as next to the viewport. With scripting off nothing
+   promotes them, so build-proto.mjs also emits the real <img> inside a
+   <noscript>, which the parser only builds when scripting is off.
+   It has to be absolute: the deferred <img> is still there, still 100% of the
+   box, so a second image in normal flow would stack under it and make the slide
+   twice as tall inside an aspect-ratio box. .hero-art is already position:
+   relative, so inset:0 lands it exactly where the deferred one sits. */
+.hero-art noscript img{position:absolute;inset:0}
 .hero-art .play{opacity:.95}
 .hero-body{min-width:0}
 .hero-kicker{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;

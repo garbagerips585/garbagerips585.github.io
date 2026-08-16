@@ -371,16 +371,30 @@ if _squash(_css) != _squash(_built):
 # hole no page-level check could see: every one of those pages rendered
 # perfectly, just 30% heavier. cards.html alone was leaving 450KB on the table.
 #
-# SCOPED ON PURPOSE, and the scope is a to-do list rather than a judgement. The
-# rip pages and games/guess-the-set.html still emit bare TCGdex <img>; widen
-# _AVIF_PAGES as each builder is converted, and delete the glob list entirely
-# once the last one is. A guard that fails on pages nobody has converted yet
-# gets commented out on the first red build, which is worse.
+# SCOPED ON PURPOSE, and the scope is a to-do list rather than a judgement.
+# games/guess-the-set.html still emits bare TCGdex <img>; widen _AVIF_PAGES as
+# each builder is converted, and delete the glob list entirely once the last one
+# is. A guard that fails on pages nobody has converted yet gets commented out on
+# the first red build, which is worse.
 #
 # hall.html joined the list on 2026-08-16: build-hall.mjs now wraps its 15
 # plaque scans and fills #lbAvif for the lightbox. Measured at 390x844, the page
 # went from 301.0KB to 246.4KB transferred, images 172.3KB to 117.7KB.
-_AVIF_PAGES = ["public/cards.html", "public/index.html", "public/sets/*.html", "public/hall.html"]
+#
+# THE 313 RIP PAGES joined on 2026-08-16 and they are the big one: 811 bare
+# TCGdex scans across three sites in build-pages.mjs, the .chaser list, the
+# .hitcard grid, plus the #hitlbImg lightbox, which loads high.webp from a
+# data-img attribute and so needs the #hitlbAvif <source> rather than the
+# wrapper.
+#
+# 265 of the 313 pages carry scans at all. Measured by content-length over the
+# 99 distinct urls those pages emit, weighted by how many pages emit each: the
+# scans go from 22.19MB to 15.64MB across the whole rip section, 6.55MB saved,
+# 29.5% off, 25.3KB a page. Driven in headless Chrome at 390x844 with the cache
+# off, /rip/mega-meganium-box-2-where-are-the-hits-blSCuSk5nb0.html, which
+# carries the median three scans, went from 583.5KB to 561.5KB transferred and
+# its TCGdex bytes from 79.3KB to 56.9KB.
+_AVIF_PAGES = ["public/cards.html", "public/index.html", "public/sets/*.html", "public/hall.html", "public/rip/*.html"]
 _pic = _re.compile(r"<picture\b[^>]*>.*?</picture>", _re.S)
 _img_tag = _re.compile(r"<img\b[^>]*>")
 # <script> is blanked first: build-cards.mjs and build-set-pages.mjs both build
@@ -405,12 +419,20 @@ for _pat in _AVIF_PAGES:
         )
         if _n:
             _bare[_p] = _n
-        # The chase-card lightbox loads high.webp from a data-img attribute on
-        # click, so no <img> in the file names it and the loop above is blind to
-        # it. The page script fills #lbAvif; if that element is gone the lightbox
-        # is back to serving WebP at 100-135KB a card.
-        if "data-img=\"https://assets.tcgdex.net" in _h and 'id="lbAvif"' not in _h:
-            fail.append(f"{_p}: chase-card lightbox lost its #lbAvif <source>")
+        # A lightbox loads high.webp from a data-img attribute on click, so no
+        # <img> in the file names it and the loop above is blind to it. The page
+        # script fills a <source>; if that element is gone the lightbox is back
+        # to serving WebP at 100-135KB a card.
+        #
+        # TWO IDS, because they are two lightboxes in two builders: the set
+        # guides' chase-card one is #lbAvif (build-set-pages.mjs) and the rip
+        # pages' hit-card one is #hitlbAvif (build-pages.mjs), which sits in a
+        # dialog whose every id is already prefixed hitlb. Either satisfies this,
+        # because no page has both.
+        if "data-img=\"https://assets.tcgdex.net" in _h and not (
+            'id="lbAvif"' in _h or 'id="hitlbAvif"' in _h
+        ):
+            fail.append(f"{_p}: card lightbox lost its AVIF <source>")
 if _bare:
     fail.append(
         "TCGdex scans rendered without their AVIF <source>, so these pages ship "

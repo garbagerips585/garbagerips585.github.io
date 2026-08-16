@@ -26,7 +26,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=3d2c6c89">
+<link rel="stylesheet" href="/assets/ui.css?v=7ac0d124">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
@@ -242,7 +242,7 @@ Let’s see if the luck finally shows up.</div>
     </div>
     <ul class="chaser-list">
       <li class="chaser">
-        <img src="https://assets.tcgdex.net/en/me/me02.5/284/low.webp" alt="Mega Gengar ex, Special Illustration Rare from Ascended Heroes" loading="lazy" onerror="this.remove()" width="245" height="337">
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/284/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/284/low.webp" alt="Mega Gengar ex, Special Illustration Rare from Ascended Heroes" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div>
           <b>Mega Gengar ex</b>
           <span class="chaser-rar">Special Illustration Rare &bull; #284</span>
@@ -250,7 +250,7 @@ Let’s see if the luck finally shows up.</div>
         </div>
       </li>
       <li class="chaser">
-        <img src="https://assets.tcgdex.net/en/me/me02.5/276/low.webp" alt="Pikachu ex, Special Illustration Rare from Ascended Heroes" loading="lazy" onerror="this.remove()" width="245" height="337">
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/276/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/276/low.webp" alt="Pikachu ex, Special Illustration Rare from Ascended Heroes" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div>
           <b>Pikachu ex</b>
           <span class="chaser-rar">Special Illustration Rare &bull; #276</span>
@@ -258,7 +258,7 @@ Let’s see if the luck finally shows up.</div>
         </div>
       </li>
       <li class="chaser">
-        <img src="https://assets.tcgdex.net/en/me/me02.5/290/low.webp" alt="Mega Dragonite ex, Special Illustration Rare from Ascended Heroes" loading="lazy" onerror="this.remove()" width="245" height="337">
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/290/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/290/low.webp" alt="Mega Dragonite ex, Special Illustration Rare from Ascended Heroes" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div>
           <b>Mega Dragonite ex</b>
           <span class="chaser-rar">Special Illustration Rare &bull; #290</span>
@@ -461,7 +461,7 @@ addEventListener('DOMContentLoaded',function(){
 <div class="hitlb" id="hitlb" role="dialog" aria-modal="true" aria-labelledby="hitlbName" hidden>
   <div class="hitlb-in">
     <button class="hitlb-x" type="button" id="hitlbX" aria-label="Close">&times;</button>
-    <img id="hitlbImg" alt="">
+    <picture><source id="hitlbAvif" type="image/avif"><img id="hitlbImg" alt=""></picture>
     <div class="hitlb-b">
       <p class="hitlb-n" id="hitlbName"></p>
       <p class="hitlb-s" id="hitlbSet"></p>
@@ -517,6 +517,18 @@ addEventListener('DOMContentLoaded',function(){
   function open(li){
     lastFocus=document.activeElement;
     var img=li.getAttribute('data-img');
+    // The one place this page asks for high.webp, 600x825 and 100-135KB, and
+    // AVIF is about 35% smaller for the same pixels. avifPicture() cannot reach
+    // it because the url only becomes an image url on click, so the <source> is
+    // filled here, applying the SAME host test avifPicture applies: only
+    // assets.tcgdex.net publishes an AVIF beside its WebP, and a <source>
+    // pointing at a 404 paints a broken card rather than falling back.
+    // srcset FIRST, then src, so the webp is never requested and abandoned.
+    // Same shape as #lbAvif on the set guides.
+    var avif=document.getElementById('hitlbAvif');
+    if(img && img.indexOf('https://assets.tcgdex.net/')===0 && img.slice(-5)==='.webp')
+      avif.setAttribute('srcset', img.slice(0,-5)+'.avif');
+    else avif.removeAttribute('srcset');
     if(img){ lbImg.src=img; lbImg.alt=li.getAttribute('data-name')+', '+li.getAttribute('data-set'); lbImg.hidden=false; }
     else lbImg.hidden=true;
     txt('hitlbName', li.getAttribute('data-name'));
@@ -548,6 +560,6 @@ addEventListener('DOMContentLoaded',function(){
 })();
 </script>
 <script src="/assets/app.js?v=7f0274cc" defer></script>
-<script src="/assets/packplayer.js?v=5d42bee0" defer></script>
+<script src="/assets/packplayer.js?v=faa2eb26" defer></script>
 </body>
 </html>

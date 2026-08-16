@@ -61,7 +61,21 @@ const rawVideos = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"
 const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"));
 const videos = rawVideos.videos || rawVideos;
 
+// THE SET NAMES THIS PAGE PRINTS, AND sets.json IS NOT ALL OF THEM.
+//
+// Four places below do `setName.get(id) || id`, and the raw id is what lands on
+// a public tile when the map misses: the filter rail chip, the Hall of Fame
+// meta line, the hero kicker and the tile meta. sets.json holds the 28 sets
+// with a guide page, so it missed every non-English set already, and now misses
+// the 146 English sets with no guide that the video log's Set dropdown offers.
+// A tin holding one 2019 pack is enough to put "unbroken-bonds" on the home
+// page in capitals.
+//
+// labelFor() knows every one of them: CARD_SETS for the tagged sets and
+// GUIDELESS_SET_LABELS for the rest. sets.json still wins where it has an
+// entry, because that is the name the guide pages print.
 const setName = new Map(sets.map((s) => [s.id, s.name]));
+const setLabel = (id) => (id ? setName.get(id) || labelFor("sets", id) : "");
 
 // FILTER ON THE SUFFIX, not on ".webp". This took anything webp in the folder
 // and stripped the suffix if it happened to match, so the moment a second size
@@ -276,7 +290,7 @@ function tile(v, { rank = null, showSet = true, dated = false } = {}) {
   // here as though there were a card set called Multi.
   const extra = all.length > 1 ? ` +${all.length - 1}` : "";
   const label = all.length
-    ? `${(setName.get(all[0]) || all[0]).toUpperCase()}${extra}`
+    ? `${setLabel(all[0]).toUpperCase()}${extra}`
     : "GARBAGE RIPS";
   const meta = showSet
     ? `${label} &bull; ${views(v.views)}`
@@ -431,7 +445,7 @@ const railHtml = [
   `    <a class="chip chip-lead" href="/videos.html">Latest <span class="n">${videos.length}</span></a>`,
   `    <a class="chip gold" href="/videos.html?pull=1">Hits only <span class="n">${hitCount}</span></a>`,
   ...topSets.map(([id, n]) =>
-    `    <a class="chip" href="/videos.html?set=${id}">${esc(setName.get(id) || id)} <span class="n">${n}</span></a>`),
+    `    <a class="chip" href="/videos.html?set=${id}">${esc(setLabel(id))} <span class="n">${n}</span></a>`),
   ...topProducts.map(([id, n]) =>
     `    <a class="chip" href="/videos.html?product=${id}">${esc(PRODUCT_LABELS[id] || id)} <span class="n">${n}</span></a>`),
   // COUNTS THE PAGE IT LINKS TO, not the grid below. This read "All 23 sets"
@@ -465,11 +479,26 @@ const hofHtml = hofPick
             //
             // The srcset is the other half: without it a 359px box on a phone
             // was downloading the 810px file.
+            //
+            // THE `sizes` HERE IS MEASURED, NOT GUESSED, and it used to be
+            // neither. It read "(max-width:640px) 92vw, 520px", which claims
+            // 359px on a 390px phone against a box that ui.css caps at 250px,
+            // and 520px on a desktop against a box that measures 464px at its
+            // widest (464 from 641 to 1199 and again past 1400, 404 between).
+            // Both over-declare, which is the direction that costs bytes.
+            //
+            // IT MOVES ZERO BYTES TODAY and that is not a reason to leave it
+            // wrong. There are two candidates, 400w and 810w, so every request
+            // over 400 device pixels lands on the same file whatever the
+            // number says: 250 x 2 and 359 x 2 both ask for 810. The moment a
+            // middle width is added the honest figure is what decides whether
+            // it gets used, so it is recorded now, while the measurement is in
+            // front of somebody.
             const fs = faceSet(hofPick);
             return fs && packs.has(fs)
               ? `<img src="assets/packs/${fs}-garbage-rips-585-booster-pack.webp"
            srcset="assets/packs/${fs}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${fs}-garbage-rips-585-booster-pack.webp 810w"
-           sizes="(max-width:640px) 92vw, 520px" alt="" fetchpriority="high" decoding="async" width="810" height="1440">`
+           sizes="(max-width:640px) 250px, 464px" alt="" fetchpriority="high" decoding="async" width="810" height="1440">`
               : packs.has("default")
                 ? `<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" fetchpriority="high" decoding="async">`
                 : `<b>Garbage Rips</b>`;
@@ -477,7 +506,7 @@ const hofHtml = hofPick
         </span>
         <span class="hofx-b">
           <span class="hofx-t">${esc(ripLabel(hofPick, setName, descriptions[hofPick.id]) || hofPick.siteTitle || hofPick.title)}</span>
-          <span class="hofx-m">${[setName.get(faceSet(hofPick)) || "", viewCount(hofPick.views)]
+          <span class="hofx-m">${[setLabel(faceSet(hofPick)), viewCount(hofPick.views)]
             .filter(Boolean).map(esc).join(" &bull; ")}</span>
           <span class="hofx-cta">Watch the pull <span aria-hidden="true">&rarr;</span></span>
         </span>
@@ -501,13 +530,57 @@ const hallList = hall.filter((v) => !hofPick || v.id !== hofPick.id);
 function heroTile(v, opts) {
   const o = opts || {};
   const set = faceSet(v);
-  const face = set && packs.has(set)
-    ? `<img src="assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp"
-           srcset="assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${set}-garbage-rips-585-booster-pack.webp 810w"
-           sizes="(max-width:640px) 87vw, 440px" alt="" width="400" height="711" loading="lazy" decoding="async">`
-    : `<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" width="400" height="711" loading="lazy" decoding="async">`;
+  const hasArt = set && packs.has(set);
+  const src = hasArt
+    ? `assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp`
+    : `assets/packs/default-garbage-rips-585-booster-pack.webp`;
+  const srcset = hasArt
+    ? `assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${set}-garbage-rips-585-booster-pack.webp 810w`
+    : "";
+  const sizes = hasArt ? "(max-width:640px) 87vw, 440px" : "";
+  const rest = `alt="" width="400" height="711" loading="lazy" decoding="async"`;
+  const live = `<img src="${src}"${
+    srcset ? `\n           srcset="${srcset}"\n           sizes="${sizes}"` : ""
+  } ${rest}>`;
+  // A SLIDE THE TRACK IS NOT SHOWING DOES NOT FETCH ITS PACK, AND
+  // loading="lazy" IS NOT WHAT STOPS IT. Measured on the home page at 390x844
+  // with a DPR 3 phone: five pack WebPs, 124 to 151KB each, all arrived before
+  // first paint and exactly one of them was on screen.
+  //
+  // Lazy loading is a VERTICAL heuristic. A slide parked 407px to the right
+  // inside a horizontal scroll track is, as far as Chrome's distance check
+  // cares, next to the viewport, so every slide in the track fetches whatever
+  // `loading` says. Two of the five were purely horizontal misses: 289.9KB of
+  // the page's 681.6KB of pack art, for artwork behind the right-hand edge of
+  // a band that is itself below the fold. The other three are the two bands'
+  // first slides and the Hall of Fame frame, which lazy prefetches for the
+  // ordinary vertical reason, and those are left alone.
+  //
+  // SLIDE 0 KEEPS A REAL src. It is visible in every layout at every width, and
+  // it is the one image here the preload scanner should find while parsing.
+  // Slides 1 and up carry the same attributes under data-, and packplayer.js
+  // promotes them when the track is about to show them.
+  //
+  // NO MEDIA QUERY IN HERE, deliberately. The visible slide count is 1 on a
+  // phone, 2.35 at 1000, 2.75 at 1200 and 3.3 at 1400, and the Hall of Fame
+  // band overrides all of that with exactly 2 at 1200. A `media` attribute
+  // written in this file would be a second copy of four breakpoints that live
+  // in ui.css, and it would already be wrong for one of the two bands.
+  // Measuring the real track in the browser cannot drift.
+  //
+  // loading="lazy" STAYS on the promoted image, so the vertical half of the
+  // decision is still the browser's. This only takes back the horizontal half.
+  //
+  // The <noscript> copy is what a reader with JS off gets. ui.css lays it over
+  // the empty box rather than under it, because the deferred <img> still
+  // occupies the slide.
+  const face = o.defer
+    ? `<img data-packsrc="${src}"${
+      srcset ? ` data-packsrcset="${srcset}" data-packsizes="${sizes}"` : ""
+    } ${rest}><noscript>${live}</noscript>`
+    : live;
   const all = v.sets || [];
-  const label = all.length ? (setName.get(all[0]) || all[0]).toUpperCase() : "GARBAGE RIPS";
+  const label = all.length ? setLabel(all[0]).toUpperCase() : "GARBAGE RIPS";
   const p = bestPull(v);
   return `      <article class="hero">
         <a class="hero-art" href="/${esc(v.path)}" aria-label="${esc(v.siteTitle || v.title)}">
@@ -568,6 +641,10 @@ ${list
           // of the same information.
           dated: !!o.dated && i === 0,
           rankOf: o.showSet ? () => `#${i + 1} hit` : null,
+          // Everything past the first slide waits for the track to reach it.
+          // See the long note in heroTile for why this is an index and not a
+          // media query.
+          defer: i > 0,
         })}</div>`)
         .join("\n")}
       </div>
