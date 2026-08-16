@@ -561,14 +561,28 @@ for (const [n, r] of rows.slice(1).entries()) {
     if (auto.sets.length) note("sets", [], auto.sets);
     overrides[id] = { ...(overrides[id] || {}), sets: [] };
     counted.notASet = (counted.notASet || 0) + 1;
-  } else if (setIds.length && !sameTags(setIds, auto.sets)) {
-    note("sets", setIds, auto.sets);
+  } else if (setIds.length) {
+    // TIM'S ANSWER IS RECORDED WHETHER OR NOT THE MATCHER AGREES WITH IT.
+    //
+    // This used to retire the override whenever the sheet and the matcher said
+    // the same thing, on the reasoning that agreement means there is nothing to
+    // correct. That was right while the matcher was the source of truth and the
+    // sheet was a way to fix it. It is backwards now that the sheet IS the
+    // source: it threw away the answer and kept the guess, so the system could
+    // not tell "Tim confirmed this" from "Tim never looked at it".
+    //
+    // Measured before this changed: 286 videos carried a set tag and 272 of them
+    // came from the matcher, because agreement was discarded on every one. Tim
+    // asked for only his own entries to drive the tags, and that was impossible
+    // while his agreement was the one answer the importer refused to store.
+    //
+    // The new-override list still only names DISAGREEMENTS, because a list of
+    // every row he filled would be 286 lines and worth nobody's time. The value
+    // of that list is being short enough to read.
+    if (!sameTags(setIds, auto.sets)) note("sets", setIds, auto.sets);
     overrides[id] = { ...(overrides[id] || {}), sets: setIds };
     counted.set++;
     if (setIds.length > 1) counted.multiSet++;
-  } else if (setIds.length) {
-    counted.setAgreed = (counted.setAgreed || 0) + 1;
-    retire("sets");
   }
 
   const opening = get(r, idx.opening);
@@ -576,15 +590,11 @@ for (const [n, r] of rows.slice(1).entries()) {
     const key = opening.toLowerCase();
     if (!(key in PRODUCT_IDS)) unknownOpening.add(opening);
     else if (PRODUCT_IDS[key]) {
-      // Same rule as the sets above: only where it differs from the guess.
-      if (!sameTags([PRODUCT_IDS[key]], auto.products)) {
-        note("products", [PRODUCT_IDS[key]], auto.products);
-        overrides[id] = { ...(overrides[id] || {}), products: [PRODUCT_IDS[key]] };
-        counted.opening++;
-      } else {
-        counted.openingAgreed = (counted.openingAgreed || 0) + 1;
-        retire("products");
-      }
+      // Same rule as the sets above: his answer is stored either way, and only
+      // a disagreement is worth a line in the list he reads afterwards.
+      if (!sameTags([PRODUCT_IDS[key]], auto.products)) note("products", [PRODUCT_IDS[key]], auto.products);
+      overrides[id] = { ...(overrides[id] || {}), products: [PRODUCT_IDS[key]] };
+      counted.opening++;
     }
   }
 

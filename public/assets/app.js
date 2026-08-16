@@ -196,7 +196,64 @@
       "ja-stellar-miracle": "Stellar Miracle (JP)", "ja-violet-ex": "Violet ex (JP)",
       "ko-battle-partners": "Battle Partners (KR)", "ko-clay-burst": "Clay Burst (KR)",
       "ko-crimson-haze": "Crimson Haze (KR)", "ko-mask-of-change": "Mask of Change (KR)",
-      "zh-gem-pack-2": "Gem Pack Vol. 2 (CN)"
+      "zh-gem-pack-2": "Gem Pack Vol. 2 (CN)",
+      // THE 51 SETS THE FALLBACK BELOW GETS WRONG, AND ONLY THOSE 51.
+      //
+      // The video log's Set dropdown offers all 174 English sets, not just the
+      // 28 with a guide page, because a tin can hold a pack from a 2019 set.
+      // Any of them can therefore land on a tile this file renders after a
+      // filter, and there is no guide page to borrow a name from.
+      //
+      // Listing all 146 guideless sets here costs 2.1KB gzipped on a file that
+      // loads on all 426 pages, and 95 of them do not need it: title-casing
+      // "unbroken-bonds" gives "Unbroken Bonds", which is exactly right. These
+      // are the ones where it is not, measured rather than guessed, and they
+      // fail loudly: "Mcdonald S Collection 2011", "Sword And Shield",
+      // "Hgss Black Star Promos", "Breakthrough". 712 bytes gzipped for all 51.
+      //
+      // check-build.py verifies the whole invariant on every build: for every
+      // set id in videos.json, whatever labelOf() would return here has to equal
+      // the name shared/taxonomy.mjs prints on the server. So this staying at 51
+      // is checked, not assumed, and a future edit to the fallback cannot make
+      // this list quietly wrong.
+      "scarlet-violet-energies": "Scarlet & Violet Energies",
+      "scarlet-violet-black-star-promos": "Scarlet & Violet Black Star Promos",
+      "mcdonalds-collection-2022": "McDonald's Collection 2022",
+      "celebrations-classic-collection": "Celebrations: Classic Collection",
+      "mcdonalds-collection-2021": "McDonald's Collection 2021",
+      "champions-path": "Champion's Path",
+      "pokemon-futsal-collection": "Pokémon Futsal Collection",
+      "sword-shield": "Sword & Shield",
+      "swsh-black-star-promos": "SWSH Black Star Promos",
+      "mcdonalds-collection-2019": "McDonald's Collection 2019",
+      "mcdonalds-collection-2018": "McDonald's Collection 2018",
+      "mcdonalds-collection-2017": "McDonald's Collection 2017",
+      "sm-black-star-promos": "SM Black Star Promos", "sun-moon": "Sun & Moon",
+      "mcdonalds-collection-2016": "McDonald's Collection 2016",
+      "breakpoint": "BREAKpoint",
+      "mcdonalds-collection-2015": "McDonald's Collection 2015",
+      "breakthrough": "BREAKthrough",
+      "mcdonalds-collection-2014": "McDonald's Collection 2014", "xy": "XY",
+      "xy-black-star-promos": "XY Black Star Promos",
+      "mcdonalds-collection-2012": "McDonald's Collection 2012",
+      "mcdonalds-collection-2011": "McDonald's Collection 2011",
+      "black-white": "Black & White", "bw-black-star-promos": "BW Black Star Promos",
+      "call-of-legends": "Call of Legends", "hs-triumphant": "HS—Triumphant",
+      "hs-undaunted": "HS—Undaunted", "hs-unleashed": "HS—Unleashed",
+      "heartgold-soulsilver": "HeartGold & SoulSilver",
+      "hgss-black-star-promos": "HGSS Black Star Promos",
+      "pokemon-rumble": "Pokémon Rumble", "pop-series-9": "POP Series 9",
+      "pop-series-8": "POP Series 8", "pop-series-7": "POP Series 7",
+      "pop-series-6": "POP Series 6", "diamond-pearl": "Diamond & Pearl",
+      "dp-black-star-promos": "DP Black Star Promos", "pop-series-5": "POP Series 5",
+      "pop-series-4": "POP Series 4", "pop-series-3": "POP Series 3",
+      "ex-trainer-kit-2-minun": "EX Trainer Kit 2 Minun",
+      "ex-trainer-kit-2-plusle": "EX Trainer Kit 2 Plusle",
+      "pop-series-2": "POP Series 2", "firered-leafgreen": "FireRed & LeafGreen",
+      "pop-series-1": "POP Series 1", "ex-trainer-kit-latias": "EX Trainer Kit Latias",
+      "ex-trainer-kit-latios": "EX Trainer Kit Latios",
+      "team-magma-vs-team-aqua": "Team Magma vs Team Aqua",
+      "ruby-sapphire": "Ruby & Sapphire", "best-of-game": "Best of Game"
     },
     // THE PRODUCT RAIL AND THE TILES UNDER IT DISAGREED. A tile reads "Ascended
     // Heroes ex Box #2" (riplabel.mjs) while the chip above it said "EX Box",
