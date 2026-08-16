@@ -752,6 +752,52 @@ if len(_bad) > 6:
     fail.append(f"...and {len(_bad) - 6} more NaN/undefined in visible text")
 
 
+# ---------------------------------------------------------------------------
+# IMAGE COVERAGE, REPORTED EVERY BUILD.
+#
+# The owner's standard is that this is a visual site and every page that can
+# carry pictures should. That is easy to achieve once and lose quietly, because
+# a page losing its images looks like a page, and nothing errors.
+#
+# So the density is printed rather than asserted, per section, as images plus
+# inline SVG per thousand words of body text. The number that started this was
+# the openings pages at 1.9 against the Pokemon pages at 83.9, which is what a
+# ranking makes obvious and reading never would.
+#
+# It names one thing outright: a page with real body copy and nothing visual at
+# all. Everything else is a judgement call about whether a picture would help,
+# and a build is the wrong place to have that argument.
+#
+# REPORTED RATHER THAN FAILED, FOR NOW. Eight pages are in that state today and
+# several are being worked on as this is written, so failing would block every
+# unrelated push while they land. Once the imagery pass is finished and the list
+# below prints nothing, change `_shout` to `fail.append` and it becomes a real
+# guard. Leaving it as a note permanently would be the worse outcome: a list
+# nobody has to act on is a list nobody reads.
+_shout = note   # swap to fail.append once the list below is empty
+_TEXT_ONLY_OK = {"public/404.html", "public/search.html", "public/palette-preview.html"}
+_cov = {}
+for _f in sorted(glob.glob("public/**/*.html", recursive=True)):
+    _s = open(_f, encoding="utf-8").read()
+    _m = _re.search(r"(?s)<main\b.*?</main>", _s)
+    if not _m:
+        continue
+    _body = _m.group(0)
+    _imgs = len(_re.findall(r"<img\b", _body)) + len(_re.findall(r"<svg\b", _body))
+    _txt = _re.sub(r"(?s)<(script|style)\b.*?</\1>", " ", _body)
+    _words = len(_re.sub(r"(?s)<[^>]+>", " ", _txt).split())
+    _sec = _f.split("/")[1] if _f.count("/") > 1 else "root"
+    _a, _b, _c = _cov.get(_sec, (0, 0, 0))
+    _cov[_sec] = (_a + _imgs, _b + _words, _c + 1)
+    if _words >= 250 and _imgs == 0 and _f not in _TEXT_ONLY_OK:
+        _shout(f"{_f}: {_words} words and nothing visual in <main>. Add an image or an inline diagram.")
+if _cov:
+    note("")
+    note("  image + svg per 1,000 words of body copy")
+    for _sec, (_i, _w, _n) in sorted(_cov.items(), key=lambda kv: -(kv[1][0] * 1000 / max(1, kv[1][1]))):
+        note(f"    {_sec:<12} {_i * 1000 / max(1, _w):>7.1f}   ({_n} pages, {_i} visuals)")
+
+
 if fail:
     print(f"\n{len(fail)} problem(s):", file=sys.stderr)
     for f in fail:
