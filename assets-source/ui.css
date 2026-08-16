@@ -276,8 +276,26 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
    looks lit against near-black. A shelf rather than a grid, so the best pulls
    get the top of the page without pushing the latest rips off the screen.
    -------------------------------------------------------------------------- */
+/* overflow-x:clip BECAUSE THE TROPHY'S GLOW IS SIZED IN PERCENT AND THE BAND IS
+   THE ONLY THING THAT CAN CONTAIN IT. .hofx-art::before is the gold bloom and
+   it sits at inset:-14%, so it bleeds 14% of the ART's width past the art on
+   each side. That was invisible for as long as the phone capped the art at
+   250px inside a 326px box, which left 38px of slack to absorb a 35px bloom.
+   The moment the cap came off, the art took the whole box and the bloom went
+   45px past a frame with 20px of padding and border to give: the document grew
+   to 405px on a 390px screen and the whole PAGE scrolled sideways, at every
+   width from 320 to 639. Nothing in the DOM was past the edge, because the
+   thing past the edge was a pseudo-element, which is why an element sweep finds
+   nothing and the bug reads as impossible.
+   clip, not hidden or auto: those two would make the band a scroll container on
+   BOTH axes and swallow the sticky positioning inside it. clip takes one axis
+   and creates no scrollport. It also fixes the class of bug rather than this
+   instance: any decorative bleed added to this band later is contained by
+   default, and the bloom keeps the exact shape it was drawn with instead of
+   being reshaped to dodge a viewport edge.
+   VERTICAL IS UNTOUCHED, so .hofx-tag still hangs 16px above the frame. */
 .hof{background:var(--chrome-bg);color:var(--chrome-ink);padding:var(--s5) 0 var(--s6);
-  border-bottom:2px solid var(--gold);
+  border-bottom:2px solid var(--gold);overflow-x:clip;
   background-image:radial-gradient(130% 90% at 50% 0%, rgba(201,151,0,.18), transparent 62%)}
 .hof-head{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s4)}
 .hof-head h2{font:400 var(--t-l)/1 var(--display);color:var(--mustard);flex:none}
@@ -2728,10 +2746,76 @@ inherited from the UA default, so the promotion moves nothing on screen. */
      the load never fired and it stayed 0 forever. The Hall of Fame pack, the one
      video the page stops on, simply had no picture on mobile.
      A definite width breaks the circle before the lazy loader is ever consulted. */
-  .hofx-art{width:100%;max-width:250px;margin:0 auto}
+  /* THE 250px CAP IS GONE AND A MEASUREMENT IS WHY, not taste. It made the
+     phone trophy the SMALLEST video in its own band, which is the bug the
+     "featured video was the smallest one on the page" block above records as
+     fixed: 250x444 of pack against the 340x510 the slide right below it gets,
+     in a 366px frame, so 38px of empty gradient sat either side of the one pack
+     the band is showing off. Same "panel wider than the thing in it" failure
+     the two comments above are about, at phone scale.
+     THE PART THAT MAKES IT A BUG RATHER THAN A CHOICE: .hofx .tile-stage is
+     max-width:none, so the PLAYER always took the frame's full 326px while the
+     art was pegged at 250. Clicking the trophy on a phone grew the card from
+     614px to 750px and shoved the rest of the page down 135px, which is exactly
+     what the stage's own comment says its 9:16 ratio exists to prevent. The cap
+     was added after that rule and nobody re-measured the pair.
+     So the card is 750px at rest now instead of jumping to 750px on play, and
+     it costs nothing that was not already being paid the moment anyone used the
+     feature. Verified by clicking it headless: 749.58px before and after.
+     THIS BLOCK STOPS AT 640 BUT THE SHAPE CHANGES AT 425, so the two edges do
+     not line up and that is not a slip. Dropping the cap is right at every
+     width. Keeping 9:16 is only right below 425. The crop and the 425 are
+     argued in the block immediately below this one. */
+  .hofx-art{width:100%;margin:0 auto}
   .hofx-b{align-items:center}
   .hofx-cta{align-self:center}
 }
+
+/* THE TROPHY WAS A 9:16 TILE ON A PAGE OF 2:3 TILES, and that alone is why it
+   was a viewport tall. The pack files are 810x1440, so 9:16, and every other
+   place the site shows one crops it to 2:3 with object-fit:cover: .v .art, the
+   shelf tiles, and .hero-art in the carousel directly beside this. Only .hofx
+   let the file set its own height, so at 1440 the trophy's art was 464x825
+   against a slide's 378x567: 23% wider, which is the rank it should have, and
+   46% TALLER, which is not a rank, it is a different tile shape. The frame came
+   out 1013px, 27% taller than the 795px slides beside it and taller than a
+   laptop viewport, so the one video the band stops on could not be seen whole.
+   CLAUDE.md already settled this shape for the grids ("Grid tiles are 2:3, not
+   9:16 ... a true 9:16 tile is 1.78x tall"). The trophy was the one thing that
+   never got the memo.
+   Cropping, not shrinking, is the fix, and it is the only one that keeps the
+   rank: the art stays 464px wide, wider than any slide's, and loses 128px of
+   height. The 15.6% the crop takes is split top and bottom and is almost
+   entirely the empty margin around the pack in the source file, which is why
+   the slides have looked right doing this all along.
+   425 IS THE CROSSOVER AND IT IS MEASURED, not the 640 the block above uses.
+   Cropping costs height, so on a narrow screen it can make the trophy SMALLER
+   than the slide under it, which is the bug the block above records as fixed
+   and is not one to walk back into. The two arts are
+     trophy = min(100vw - 64, 480)   4px border + 16px padding, in a 520 frame
+     slide  = min(100vw - 26, 360)   1px border + 12px padding, art capped 360
+   so the trophy is the NARROWER of the two until the slide's 360px cap bites,
+   which is at 386px, and only pulls level at 424. Below that a 2:3 trophy loses
+   on area (at 390: 326x489 = 159k against the slide's 340x510 = 173k, 8% down)
+   while the 9:16 one wins it (326x579 = 189k, 9% up). Above it a 2:3 trophy
+   wins on width AND area. So: 9:16 below 425, 2:3 from 425.
+   That is also the point where the shapes stop being a style choice. On a phone
+   the frame CANNOT get wider, so height is the only size the art can have and
+   the whole pack is worth showing. From 425 up the frame has width to spare and
+   the viewport is what runs out, which is the thing the crop answers.
+   THE OLD 641 WAS TESTED AND IS WRONG. It left 545-640 on the 9:16 branch with
+   the frame already at its 520px cap, so the art ran 480x853 and the card 1041,
+   which is the complaint that started this, reappearing on a large phone. At
+   425 that window is 480x720 and 890 instead. */
+@media(min-width:425px){
+  .hofx-art img{aspect-ratio:2/3;object-fit:cover}
+}
+/* THE PLAYER HAS TO FOLLOW THE ART OR THE CARD JUMPS WHEN YOU RIP IT, and the
+   rule that makes it do so is NOT here: it is next to
+   `.hofx .tile-stage{aspect-ratio:9/16}` further down, because that rule is
+   later in the file at equal specificity and beats anything written up here.
+   Written in this block it silently lost, the stage stayed 9:16 against a 2:3
+   art box, and pressing play grew the card 129px. Measured, not reasoned. */
 
 /* ---------- what we pulled from this set ----------
    Sits above the chase list, because the page then reads: here is what actually
@@ -2791,6 +2875,17 @@ inherited from the UA default, so the promotion moves nothing on screen. */
    the card 110px shorter the moment it played. Matching the art it replaces
    keeps the page still. */
 .hofx .tile-stage{aspect-ratio:9/16;max-width:none}
+/* AND FROM 425 THE ART IS 2:3, so the stage is too. Same 425 as the .hofx-art
+   crop, which is where that number is argued; these two must carry the same
+   breakpoint or the card resizes mid-rip, which is the one thing this pair of
+   rules exists to stop.
+   THE OVERRIDE LIVES HERE, welded to the rule it corrects, rather than up
+   beside the crop where it was first written: both selectors are (0,2,0), this
+   one is later in the file, and later wins. Written in the natural place it
+   silently lost the cascade, the stage stayed 9:16 against a 2:3 art box, and
+   pressing play grew the card 129px at 1440. Change one of these two, change
+   the other in the same edit. */
+@media(min-width:425px){.hofx .tile-stage{aspect-ratio:2/3}}
 
 /* A rip playing inside its own tile.
    The tile is a 2:3 facade; the player opens to 9:16 so playback has no bars,
@@ -3044,6 +3139,70 @@ inherited from the UA default, so the promotion moves nothing on screen. */
 .vcar .hero h3 a{color:var(--ink)}
 .vcar .hero-meta,
 .vcar .hero-kicker{color:var(--ink-2)}
+
+/* ...AND FIXING THE TEXT LEFT THE CARD ITSELF WHITE ON NEAR-BLACK.
+   The rule above is still right and stays: it is what stops the title going
+   cream-on-white. But it treated the symptom. --card is #FFFFFF and .hof is
+   #111111, so a Greatest Hits slide is 18.9:1 against its own band, and under
+   the old navy chrome that was softer only because the band was lighter. The
+   palette change did not create this, it finished it off: two pure white
+   rectangles punched out of the black band, each brighter than the pack art
+   they are meant to be presenting.
+   THE SURFACE IS NOT NEW AND IS NOT A NEW TOKEN. This file already answers
+   "what does a card look like on the dark chrome" in six places and always the
+   same way: rgba(255,255,255,.08) over a rgba(255,255,255,.16) hairline. It is
+   the footer's social buttons, .socials, .nav-links, the menu sheet and
+   hall.html's tally boxes. A flat grey token would have been a seventh answer
+   to a settled question, and it would also have been WORSE here: the band
+   paints a gold radial over its black, so an opaque patch would sit ON the band
+   while a translucent one is lit by it. Composited it lands near #242424 at the
+   card's own height, 1.4:1 off the band, which is a plinth rather than a slab.
+   The pack art is untouched and is now the brightest thing in the band, which
+   is the entire claim of the palette.
+   Only .hof is scoped. The Latest rips carousel sits on the light page, where a
+   white card is correct and 1.05:1 off --page.
+   Everything drawn ON the card inverts with it. --lift is three rgba(17,17,17)
+   shadows, invisible on black, so the card's edge is the hairline plus one real
+   drop shadow instead. The CTA keeps its mustard fill and black label (12.6:1)
+   but its 2px --ink border was #111111 on a #242424 card: the button's outline
+   vanished. --gold-deep is what .hofx-cta two hundred lines up already uses for
+   exactly this, on exactly this band.
+   MEASURED, at 390 / 768 / 1280 / 1440, off the PAINTED pixels rather than off
+   computed style, which cannot see the band's gold radial or this card's
+   translucency stacked on it. Worst case at any of the four:
+     slide title      #F5F4F0 on #242424   14.10   needs 4.5 at 22px, 3 at 32
+     slide meta       #A6A6A6 on #242424    6.38   needs 4.5
+     slide kicker     #A6A6A6 on #242424    6.38   needs 4.5
+     "#1 hit" label   #FFFFFF on #6E5000    7.47   needs 4.5
+     CTA label        #111111 on #E8B93A   10.28   needs 4.5
+     CTA fill vs card #E8B93A on #242424    8.25   needs 3 (1.4.11)
+   The card against the band is 1.25:1 and that is the intent, not a miss: a
+   container edge is not a "graphical object needed to understand the content",
+   the hairline is what draws it, and anything approaching 3:1 here would be the
+   white slab again in grey. */
+.hof .vcar .hero{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);
+  box-shadow:0 10px 26px rgba(0,0,0,.38)}
+/* AND THE ART BOX HAD A SECOND WHITE-CARD PROBLEM WEARING BLACK.
+   The pack renders are PNG-style webp with a transparent surround, so what you
+   see around a pack is whatever is behind it. .hero-art fills --navy-deep, so
+   every slide showed its pack inside a pure black 2:3 rectangle. On the white
+   card that read as a frame. On the new dark card it reads as a hole: three
+   packs in the band, and the trophy is the only one NOT in a box, because
+   .hofx-art paints nothing and lets the frame's gradient through.
+   Dropping the fill here is what makes the band one material. The pack floats
+   on the card exactly as the trophy floats on its frame, and since the surround
+   is transparent rather than painted, this removes paint rather than adding it:
+   the art is untouched and the black it was sitting in is gone.
+   Scoped to .hof. Everywhere else the black backdrop is doing its job, and it
+   is NOT redundant even here: .tile-stage keeps its own --navy-deep and its
+   .rip-player keeps #000, so a video that plays in this slot still letterboxes
+   black. Only the still art changes. */
+.hof .vcar .hero-art{background:transparent}
+.hof .vcar .hero h3,
+.hof .vcar .hero h3 a{color:var(--chrome-ink)}
+.hof .vcar .hero-meta,
+.hof .vcar .hero-kicker{color:var(--chrome-dim)}
+.hof .vcar .hero-cta{border-color:var(--gold-deep)}
 
 
 /* NO CREAM STRIPE ABOVE THE FOOTER.

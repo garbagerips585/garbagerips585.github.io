@@ -103,7 +103,7 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 .chip.gold{background:var(--chip-gold-bg);border-color:var(--gold)}
 .chip.gold[aria-current]{background:var(--gold-deep);color:var(--on-alert);border-color:var(--gold-deep)}
 .hof{background:var(--chrome-bg);color:var(--chrome-ink);padding:var(--s5) 0 var(--s6);
-  border-bottom:2px solid var(--gold);
+  border-bottom:2px solid var(--gold);overflow-x:clip;
   background-image:radial-gradient(130% 90% at 50% 0%, rgba(201,151,0,.18), transparent 62%)}
 .hof-head{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s4)}
 .hof-head h2{font:400 var(--t-l)/1 var(--display);color:var(--mustard);flex:none}
@@ -1472,9 +1472,12 @@ span.cq-name{color:var(--ink)}
   .hofx{grid-template-columns:1fr;gap:var(--s4);text-align:center;
     padding:var(--s5) var(--s4) var(--s4);margin-top:var(--s6)}
   .hofx-tag{left:var(--s4);transform:none}
-  .hofx-art{width:100%;max-width:250px;margin:0 auto}
+  .hofx-art{width:100%;margin:0 auto}
   .hofx-b{align-items:center}
   .hofx-cta{align-self:center}
+}
+@media(min-width:425px){
+  .hofx-art img{aspect-ratio:2/3;object-fit:cover}
 }
 .mine-grid{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s4);
   width:100%;min-width:0;
@@ -1513,6 +1516,7 @@ span.cq-name{color:var(--ink)}
 .gloss-fig.is-diagram svg{display:block;width:100%;max-width:132px;height:auto;
   border:1px solid var(--hair);border-radius:6px;background:var(--paper-2)}
 .hofx .tile-stage{aspect-ratio:9/16;max-width:none}
+@media(min-width:425px){.hofx .tile-stage{aspect-ratio:2/3}}
 .tile-stage{position:relative;width:100%;max-width:440px;aspect-ratio:2/3;display:grid;
   place-items:center;background:var(--navy-deep);border-radius:var(--r);overflow:hidden}
 .tile-stage .rip-player{position:relative;height:100%;max-width:100%;aspect-ratio:9/16;
@@ -1580,6 +1584,14 @@ span.cq-name{color:var(--ink)}
 .vcar .hero h3 a{color:var(--ink)}
 .vcar .hero-meta,
 .vcar .hero-kicker{color:var(--ink-2)}
+.hof .vcar .hero{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);
+  box-shadow:0 10px 26px rgba(0,0,0,.38)}
+.hof .vcar .hero-art{background:transparent}
+.hof .vcar .hero h3,
+.hof .vcar .hero h3 a{color:var(--chrome-ink)}
+.hof .vcar .hero-meta,
+.hof .vcar .hero-kicker{color:var(--chrome-dim)}
+.hof .vcar .hero-cta{border-color:var(--gold-deep)}
 main:has(> section:last-child[class*="about"]),
 main:has(> section:last-child.hof),
 main:has(> section:last-child.band),

@@ -487,6 +487,20 @@ const hofHtml = hofPick
             // widest (464 from 641 to 1199 and again past 1400, 404 between).
             // Both over-declare, which is the direction that costs bytes.
             //
+            // RE-MEASURED 16 Aug 2026, because ui.css dropped the phone's 250px
+            // cap and gave the art a 2:3 crop from 425 up, so the old
+            // "(max-width:640px) 250px" now UNDER-declares by up to 230px,
+            // which is the direction that costs pixels rather than bytes.
+            // Swept in headless Chrome, every figure below is a real
+            // getBoundingClientRect on the <img>:
+            //   320 -> 256   390 -> 326   414 -> 350   424 -> 360
+            //   425 -> 361   480 -> 416   544 -> 480   545..640 -> 480
+            //   641..1199 -> 464   1200..1399 -> 404   1400+ -> 464
+            // Below 545 the frame is 100vw - 24 and the art is 40px inside it,
+            // hence 100vw - 64. At 545 .hofx hits its 520px max-width and the
+            // art pins at 480. The crop changes the HEIGHT at 425, not the
+            // width, so 425 needs no stop of its own.
+            //
             // IT MOVES ZERO BYTES TODAY and that is not a reason to leave it
             // wrong. There are two candidates, 400w and 810w, so every request
             // over 400 device pixels lands on the same file whatever the
@@ -498,7 +512,7 @@ const hofHtml = hofPick
             return fs && packs.has(fs)
               ? `<img src="assets/packs/${fs}-garbage-rips-585-booster-pack.webp"
            srcset="assets/packs/${fs}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${fs}-garbage-rips-585-booster-pack.webp 810w"
-           sizes="(max-width:640px) 250px, 464px" alt="" fetchpriority="high" decoding="async" width="810" height="1440">`
+           sizes="(max-width:544px) calc(100vw - 64px), (max-width:640px) 480px, (max-width:1199px) 464px, (max-width:1399px) 404px, 464px" alt="" fetchpriority="high" decoding="async" width="810" height="1440">`
               : packs.has("default")
                 ? `<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" fetchpriority="high" decoding="async">`
                 : `<b>Garbage Rips</b>`;
