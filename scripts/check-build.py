@@ -372,11 +372,15 @@ if _squash(_css) != _squash(_built):
 # perfectly, just 30% heavier. cards.html alone was leaving 450KB on the table.
 #
 # SCOPED ON PURPOSE, and the scope is a to-do list rather than a judgement. The
-# rip pages, hall.html and games/guess-the-set.html still emit bare TCGdex
-# <img>; widen _AVIF_PAGES as each builder is converted, and delete the glob
-# list entirely once the last one is. A guard that fails on pages nobody has
-# converted yet gets commented out on the first red build, which is worse.
-_AVIF_PAGES = ["public/cards.html", "public/index.html", "public/sets/*.html"]
+# rip pages and games/guess-the-set.html still emit bare TCGdex <img>; widen
+# _AVIF_PAGES as each builder is converted, and delete the glob list entirely
+# once the last one is. A guard that fails on pages nobody has converted yet
+# gets commented out on the first red build, which is worse.
+#
+# hall.html joined the list on 2026-08-16: build-hall.mjs now wraps its 15
+# plaque scans and fills #lbAvif for the lightbox. Measured at 390x844, the page
+# went from 301.0KB to 246.4KB transferred, images 172.3KB to 117.7KB.
+_AVIF_PAGES = ["public/cards.html", "public/index.html", "public/sets/*.html", "public/hall.html"]
 _pic = _re.compile(r"<picture\b[^>]*>.*?</picture>", _re.S)
 _img_tag = _re.compile(r"<img\b[^>]*>")
 # <script> is blanked first: build-cards.mjs and build-set-pages.mjs both build

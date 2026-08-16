@@ -167,6 +167,7 @@ main{padding:var(--s4) 0 var(--s8)}
 .v{display:flex;flex-direction:column;gap:var(--s2);min-width:0}
 .v .art{position:relative;display:block;aspect-ratio:2/3;border-radius:var(--r);
   overflow:hidden;background:#E8E4D6;box-shadow:var(--lift);
+  content-visibility:auto;
   transition:transform .15s ease, box-shadow .15s ease}
 .v .art img{width:100%;height:100%;object-fit:cover}
 .art-none{position:absolute;inset:0;display:grid;place-items:center;padding:14%;

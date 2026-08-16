@@ -329,8 +329,30 @@ main{padding:var(--s4) 0 var(--s8)}
 /* The pack is the tile. No frame, no pocket, no border: a rounded crop and one
    shadow, so eighteen different wrappers can sit side by side without the
    layout adding a nineteenth colour. */
+/* content-visibility:auto IS THE ONLY WAY TO MAKE THE PACK ART LAZY, because
+   the pack art is a CSS background and a CSS background cannot be lazy. Same
+   lesson as rarity.html's magnified corners, in the one place left that still
+   had it: /videos.html ships 48 tiles wearing 8 different wrappers, so all 8
+   files, 377.5KB, were fetched at first paint to show the two the first
+   viewport actually contains. There is no `loading` attribute to reach for
+   here, and turning the skins into <img> would undo the reason they are CSS at
+   all (see the note above .v .art .pack).
+
+   Off-screen tiles are skipped, so their background is not fetched until they
+   come near the viewport. Measured at 390x844 with 4x CPU throttling:
+   /videos.html went 515.3KB -> 276.9KB over 21 -> 16 requests, and the 55ms
+   long task at DOMContentLoaded went to nothing. CLS stayed 0.0000 and
+   scrollHeight was 11181 before and after at 390 and 5892 at 1280, which is
+   the check that matters: no contain-intrinsic-size is needed because this box
+   is sized by aspect-ratio from its grid column, never by its content. Screen
+   shots at 390 and 1280 are pixel identical, shadow and hover lift included.
+
+   /videos.html is the only page with server-rendered .v tiles, so this is
+   scoped in practice however broad the selector reads. Scrolling the whole
+   11,181px page was 0% dropped frames after, 0.1% before. */
 .v .art{position:relative;display:block;aspect-ratio:2/3;border-radius:var(--r);
   overflow:hidden;background:#E8E4D6;box-shadow:var(--lift);
+  content-visibility:auto;
   transition:transform .15s ease, box-shadow .15s ease}
 .v .art img{width:100%;height:100%;object-fit:cover}
 /* No wrapper art for this set yet, or the video has no set tag at all. Shows

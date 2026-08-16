@@ -464,7 +464,14 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official."
   }
 
   var t;
-  input.addEventListener('input',function(){ clearTimeout(t); t=setTimeout(run,120); });
+  // 50ms, DOWN FROM 120, AND THE NUMBER WAS THE LATENCY. At 390x844 under 4x
+  // CPU throttling a warm keystroke painted in 120ms, and in 25ms with the
+  // debounce removed entirely, so the timer was nearly all of it. It also pulls
+  // the printings shard forward: parsing a 372KB shard is a 97-106ms task that
+  // used to start after the typist had stopped, and the first keystroke needing
+  // a cold shard went 188ms -> 60ms. Cost: typing "charizard" at 70ms went
+  // 0 -> 2.1% dropped frames, worst frame 35ms. Re-measure before raising it.
+  input.addEventListener('input',function(){ clearTimeout(t); t=setTimeout(run,50); });
   sel.addEventListener('change',run);
   // Warm the index on first focus so the first keystroke feels instant.
   input.addEventListener('focus',function(){ if(!DATA) load(); },{once:true});

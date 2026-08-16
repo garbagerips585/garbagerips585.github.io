@@ -18,7 +18,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { APP_JS } from "../shared/chrome.mjs";
-import { esc, shortDate, moneyCompact, noValue, rarityLabel, imgDims, cardNumKey } from "../shared/format.mjs";
+import { esc, shortDate, moneyCompact, noValue, rarityLabel, imgDims, cardNumKey, avifPicture } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -302,8 +302,13 @@ function plaque(c, i) {
   const rank = i + 1;
   const top = rank <= 3 ? ` chof-top chof-${rank}` : "";
   const art = plaqueArt(c.image);
+  // AVIF in front of the WebP. TCGdex serves the same scan at four extensions
+  // off one path and AVIF is 31.7% smaller than WebP at low.*, measured over the
+  // 15 urls this page emits (all 30 low+high answer 200 as .avif, checked
+  // 2026-08-16). picture{display:contents} in ui.css keeps `.chof-art img` and
+  // the 245/337 aspect-ratio rule reaching the <img> exactly as before.
   const img = c.image
-    ? `<img src="${esc(art.src)}"${art.extra} alt="${[esc(c.name), esc(c.rarity || ""), c.setName ? `from Pokemon ${esc(c.setName)}` : ""].filter(Boolean).join(" ")}" loading="lazy" onerror="this.remove()"${imgDims(art.src)}>`
+    ? avifPicture(`<img src="${esc(art.src)}"${art.extra} alt="${[esc(c.name), esc(c.rarity || ""), c.setName ? `from Pokemon ${esc(c.setName)}` : ""].filter(Boolean).join(" ")}" loading="lazy" onerror="this.remove()"${imgDims(art.src)}>`)
     : `<span class="chof-noart">${esc(c.name)}</span>`;
   return `      <li class="chof${top}">
         <span class="chof-rank">${rank}</span>
@@ -443,7 +448,7 @@ ${ranked.map(plaque).join("\n")}
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card">
   <button class="lb-close" type="button" aria-label="Close">&times;</button>
   <div class="lb-in">
-    <img id="lbImg" src="" alt="">
+    <picture><source id="lbAvif" type="image/avif"><img id="lbImg" src="" alt=""></picture>
     <h2 id="lbNm"></h2>
     <p id="lbRr"></p>
     <p class="lb-pr" id="lbPr"></p>
@@ -457,6 +462,17 @@ ${ranked.map(plaque).join("\n")}
     last=b;
     var src=b.dataset.img;
     if(!src) return;                       // no art, nothing to enlarge
+    // The lightbox is the one place on this page that loads high.webp, 600x825
+    // and 80-136KB, and AVIF is 34-47% smaller at that size. avifPicture()
+    // cannot reach it because the url only becomes an image url on click, so
+    // the <source> is filled here, applying the SAME host test avifPicture
+    // applies: only assets.tcgdex.net publishes an AVIF beside its WebP, and a
+    // <source> pointing at a 404 paints a broken card instead of falling back.
+    // srcset FIRST, then src, so the webp is never requested and abandoned.
+    var avif=document.getElementById('lbAvif');
+    if(src.indexOf('https://assets.tcgdex.net/')===0 && src.slice(-5)==='.webp')
+      avif.setAttribute('srcset', src.slice(0,-5)+'.avif');
+    else avif.removeAttribute('srcset');
     img.src=src; img.alt=b.dataset.name+' '+b.dataset.number;
     document.getElementById('lbNm').textContent=b.dataset.name;
     document.getElementById('lbRr').textContent=[b.dataset.set,b.dataset.rarity,'#'+b.dataset.number].filter(Boolean).join(' \\u2022 ');

@@ -644,9 +644,16 @@
     if (search) {
       search.value = state.q;
       var t;
+      // 50ms, DOWN FROM 160, AND THE NUMBER WAS THE LATENCY. Filtering 312
+      // videos and rebuilding 48 tiles costs 8-17ms, so almost all of the
+      // 154ms input-to-paint measured at 390x844 under 4x CPU throttling was
+      // this timer. At 50 it is 41ms. The cost falls on fast typists only, a
+      // gap wider than the debounce renders per keystroke either way: typing
+      // "charizard" at 70ms went 0 -> 1% dropped frames, worst frame 33ms.
+      // Re-measure both halves before raising it.
       search.addEventListener("input", function () {
         clearTimeout(t);
-        t = setTimeout(function () { applyQuery(search.value); }, 160);
+        t = setTimeout(function () { applyQuery(search.value); }, 50);
       });
       // Escape clears the field, which is what a type=search input does
       // natively in some browsers and in none of the others.
