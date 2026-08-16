@@ -16,7 +16,7 @@
 import { writeFile, readFile, mkdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { rarityLabel, RARITY_ORDER } from "../shared/format.mjs";
+import { rarityLabel, RARITY_ORDER, cardNumKey } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "ptcg");
@@ -221,11 +221,21 @@ for (const [setId, apiId] of Object.entries(SET_MAP)) {
    * does not have. "Rare Rainbow" stays as it is on a set whose checklist has
    * no rainbow tier, which is the honest outcome.
    *
-   * Step 3 is reached only by a card the checklist does not list at all, which
-   * is 14 cards across two sets, all numbered past the checklist's range.
+   * Step 3 is reached only by a card the checklist does not list at all.
+   *
+   * STEP 1 USED TO COMPARE THE NUMBERS AS STRINGS, and the two feeds disagree
+   * about zero padding: TCGdex writes "079" where this API writes "79". So the
+   * exact match could not fire for any card numbered 1 to 99 in the 24 of 28
+   * checklists that pad, and those cards fell through to step 2 or step 3
+   * instead. Mostly the fallback happened to land on the same word, which is why
+   * it went unnoticed; where it did not, Pokemon GO's #79, #80 and #81 kept the
+   * API's "Rare Rainbow" and rendered as "Rainbow Rare" on twelve rip pages
+   * while the set guide, reading the checklist directly, called them Secret
+   * Rare. cardNumKey compares them padding-blind without flattening "TG05",
+   * "SV001" or "079a" onto a plain integer; the reasoning is with the function.
    */
   const chaseRarity = (c, list) => {
-    const exact = (list || []).find((x) => String(x.n) === String(c.number));
+    const exact = (list || []).find((x) => cardNumKey(x.n) === cardNumKey(c.number));
     if (exact?.rarity) return exact.rarity;
     if (!c.rarity) return null;
     const key = (r) => String(r).toLowerCase().split(/\s+/).sort().join(" ");

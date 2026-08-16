@@ -17,7 +17,7 @@ import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../share
 import { labelFor } from "../shared/taxonomy.mjs";
 import { raritiesIn, rarityChip, RARITY_CSS } from "../shared/rarity.mjs";
 import { ripPath } from "../shared/paths.mjs";
-import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, imgDims, viewCount } from "../shared/format.mjs";
+import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -69,6 +69,11 @@ const setData = new Map(
 // build-set-pages.mjs does, for the same reason and matched the same way: on
 // NUMBER, because the names are the thing in dispute, and taking `name` only.
 // Prices, rarities and images are untouched.
+//
+// Through cardNumKey, because the two feeds also disagree about zero padding
+// ("079" against "79") and a string compare therefore never fired on the 24 of
+// 28 checklists that pad. Rebel Clash is one of the four that do not, which is
+// the only reason the two renames above ever happened.
 for (const s of setData.values()) {
   if (!s.chase?.length) continue;
   let list;
@@ -78,7 +83,7 @@ for (const s of setData.values()) {
     continue;
   }
   for (const c of s.chase) {
-    const m = list.find((x) => String(x.n) === String(c.number));
+    const m = list.find((x) => cardNumKey(x.n) === cardNumKey(c.number));
     if (m?.name && m.name !== c.name) c.name = m.name;
   }
 }

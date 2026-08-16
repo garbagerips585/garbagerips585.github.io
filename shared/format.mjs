@@ -180,6 +180,50 @@ export function moneyExact(v) {
 }
 
 /**
+ * ONE CARD NUMBER, COMPARABLE ACROSS FEEDS THAT PAD IT DIFFERENTLY.
+ *
+ * TCGdex writes Pokemon GO's Mewtwo VSTAR as "079" and api.pokemontcg.io writes
+ * the same card as "79", so `String(a) === String(b)` between the two is false
+ * for every card numbered 1 to 99. 24 of the 28 English checklists are padded to
+ * three digits and the API pads none of them, so the join that gives a chase
+ * card the checklist's word for its rarity fired on 2,816 of 5,181 cards and
+ * missed the rest in silence. What a reader saw was three Pokemon GO cards
+ * labelled "Rainbow Rare" on twelve rip pages while /sets/pokemon-go.html, which
+ * reads the checklist directly, called the same three cards "Secret Rare".
+ *
+ * WHY NOT parseInt, AND WHY NOT A BLANKET ZERO STRIP. A card number is not an
+ * integer. Promos and secret rares are printed "TG05", "SV001", "H12" and
+ * "079a", and both shortcuts destroy at least one of those:
+ *
+ *   parseInt("079a")     -> 79, which is a DIFFERENT card in the same set
+ *   parseInt("TG05")     -> NaN, so every TG card collapses onto one key
+ *   "SV001".replace(/^0+/) -> unchanged, because the zeros are not leading
+ *
+ * So the zeros are stripped per digit RUN, in place, and everything around them
+ * is kept: letters stay, suffixes stay, position stays.
+ *
+ *   079 -> 79    79 -> 79     TG05 -> TG5   SV001 -> SV1
+ *   H12 -> H12   079a -> 79A  000 -> 0      "" -> ""
+ *
+ * "079a" keeps its A, so it cannot collide with 79. "TG5" keeps its TG, so it
+ * cannot collide with 5. The lookbehind is what makes it per-run rather than
+ * leading-only: without it "TG05" is untouched because the 0 is not at the
+ * start, which is the case a leading-zero strip quietly gets wrong.
+ *
+ * Upper cased so a suffix letter is not the thing two feeds disagree about.
+ * Checked against the data on 15 August 2026: no two cards in any of the 28
+ * checklists collapse onto one key, and no two in any API set either.
+ *
+ * ONE UPSTREAM COLLISION EXISTS AND IT IS NOT THIS FUNCTION'S DOING.
+ * api.pokemontcg.io ships Black Bolt twice-numbered: zsv10pt5-60 (Escavalier)
+ * and zsv10pt5-80 (Antique Cover Fossil) both carry number "60". Neither is
+ * priced anywhere near the top eight, so neither reaches a chase list today, but
+ * a `find` on that number answers Escavalier for both.
+ */
+export const cardNumKey = (v) =>
+  String(v ?? "").trim().toUpperCase().replace(/(?<![0-9])0+(?=[0-9])/g, "");
+
+/**
  * A rarity written the way the rest of the site writes it, which is Title Case.
  *
  * TCGdex is inconsistent at source and the inconsistency is inside a single

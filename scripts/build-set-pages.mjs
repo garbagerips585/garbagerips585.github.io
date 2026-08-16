@@ -16,7 +16,7 @@ import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { parseHits, rarityLabelOf, rarityMark } from "../shared/rarity.mjs";
-import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY_ORDER, imgDims, avifPicture } from "../shared/format.mjs";
+import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY_ORDER, cardNumKey, imgDims, avifPicture } from "../shared/format.mjs";
 import { ripLabel } from "../shared/riplabel.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -312,12 +312,22 @@ try {
  * images on a chase entry stay exactly where they were: this is a spelling
  * reconciliation and nothing else. Measured at the time of writing it renames
  * two cards site-wide, and both of them are this one.
+ *
+ * THE MATCH IS PADDING-BLIND, and it was not. `chase` numbers come from
+ * api.pokemontcg.io, which never pads; the checklist comes from TCGdex, which
+ * pads to three digits in 24 of the 28 English sets. Comparing them as strings
+ * meant this reconciliation was a no-op for every card numbered 1 to 99 in
+ * those 24 sets, so it only ever ran on the four unpadded ones. It happens to
+ * rename the same two Rebel Clash cards either way today, because Rebel Clash
+ * is one of the unpadded four, but the join was dead everywhere else and would
+ * have stayed dead on the next set that needed it. Same fix, same reasoning,
+ * as the rarity join in sync-sets.mjs.
  */
 for (const s of sets) {
   const doc = checklists[s.id];
   if (!doc || !s.chase) continue;
   for (const c of s.chase) {
-    const m = doc.cards?.find((x) => String(x.n) === String(c.number));
+    const m = doc.cards?.find((x) => cardNumKey(x.n) === cardNumKey(c.number));
     if (m?.name && m.name !== c.name) c.name = m.name;
   }
 }
@@ -885,27 +895,78 @@ function yearsSince(iso) {
 const priceUSD = (n) =>
   `$${Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-// Rarities worth chasing, for highlighting in the ladder and for the "N of the
-// M cards are Ultra Rare or better" line in the quick facts.
-//
-// The three added here are the Sword and Shield and Black Bolt secret tiers,
-// which sit ABOVE Ultra Rare in RARITY_ORDER, so the sentence that counts this
-// set stays true. Every one of them was unhighlighted before only because it
-// was missing from the ladder entirely.
-//
-// FOUR MORE TIERS ARE DELIBERATELY NOT IN HERE and it is a judgement call, so
-// it is written down rather than left to be rediscovered. Shiny Rare, Shiny
-// Ultra Rare, Holo Rare VMAX and Holo Rare VSTAR all out-earn Ultra Rare across
-// the checklists, so there is a real argument for highlighting them. Against
-// it: none of them IS an Ultra Rare, and adding them changes the number in a
-// sentence that says "Ultra Rare or better" into something that sentence no
-// longer describes. Paldean Fates would go from 22 of 245 to 154 of 245, which
-// is a true count of a different thing. Double Rare has always sat outside this
-// set for the same reason. Change the sentence first if you want them in.
+/**
+ * Rarities worth chasing. ONE definition, read off RARITY_ORDER, used by both
+ * the highlight in the rarity breakdown and the count in the quick facts, so
+ * the two halves of the page cannot say different things.
+ *
+ * THIS USED TO BE A HAND-KEPT LIST AND IT WENT STALE THE MOMENT THE LADDER
+ * GREW. It named ten tiers and the sentence above the count read "N of the M
+ * cards are Ultra Rare or better". Four tiers were then added to RARITY_ORDER
+ * and not to this list, so seven guides highlighted Ultra Rare and left four
+ * neighbouring rows unmarked:
+ *
+ *   paldean-fates   Shiny Rare 120 and Shiny Ultra Rare 12, unhighlighted,
+ *                   sitting ABOVE Ultra Rare on the ladder
+ *   crown-zenith, pokemon-go, celebrations, chilling-reign, shining-fates,
+ *   rebel-clash     Holo Rare VSTAR and Holo Rare VMAX, unhighlighted
+ *
+ * BE PRECISE ABOUT WHICH ARGUMENT APPLIES TO WHICH PAIR, because they are not
+ * the same argument and this comment said they were. The Shiny pair sorts above
+ * Ultra Rare in RARITY_ORDER, so leaving it out contradicted the ladder outright.
+ * VSTAR and VMAX sort just BELOW Ultra Rare; what puts them in is the price
+ * evidence recorded in shared/format.mjs, medians of $4.17 and $3.30 across the
+ * six Sword and Shield sets against Ultra Rare's $2.53. That is an average over
+ * sets and it does not hold in every set: on Pokemon GO the guide prints VSTAR
+ * $4.17 and VMAX $7.95 against Ultra Rare $2.35 and the highlight reads
+ * correctly, while on Crown Zenith it prints VSTAR $1.81 and VMAX $3.20 against
+ * Ultra Rare $4.28 and two newly highlighted rows are cheaper than the
+ * highlighted row above them. The highlight is a claim about the TIER, which is
+ * what a ladder is; the money column beside it is per set and is free to
+ * disagree. If that pairing ever needs settling, settle it in RARITY_ORDER,
+ * where the ladder is, rather than by keeping a second opinion here.
+ *
+ * The note that stood here recorded the reason those four were left out and it
+ * was a good one: adding Shiny Rare takes Paldean Fates from 22 of 245 to 154 of
+ * 245, and "154 of the 245 cards are Ultra Rare or better" is a true count of
+ * something the sentence does not describe. So the SENTENCE went first, in
+ * derivedFacts below, and the list follows it.
+ *
+ * THE SHAPE IS A CUT PLUS TWO NAMED EXCEPTIONS, not a list of names, because a
+ * list of names is the thing that just went stale. The cut is everything down
+ * to and including Holo Rare VMAX, so a tier added to the top of the ladder is
+ * chase the day it lands and nobody has to remember this file.
+ *
+ * WHAT THE CUT DELIBERATELY LEAVES OUT, and it is the rung immediately under
+ * it: Holo Rare V, at a $0.99 median, and Double Rare, which replaced it in the
+ * Scarlet and Violet era. Both are the workhorse tier of their era rather than
+ * a chase, and Double Rare has sat outside this set since it existed.
+ *
+ * THE TWO EXCEPTIONS ARE BELOW THE CUT AND ARE NAMED ANYWAY. ACE SPEC Rare and
+ * Radiant Rare sort under Double Rare on price, which is where RARITY_ORDER
+ * puts them, but each is a one-off mechanic printed a handful of times per set
+ * that has it (33 ACE SPEC across 6 sets, 6 Radiant across 2) and both were
+ * already highlighted before this change. Keeping them is the status quo, not a
+ * new claim; they are listed out loud rather than smuggled in by moving the cut
+ * down past Double Rare, which would drag 317 Double Rares in with them.
+ */
+const CHASE_FLOOR = "Holo Rare VMAX";
+const CHASE_EXTRA = ["ACE SPEC Rare", "Radiant Rare"];
+{
+  // Same principle as the orphan check above: a name that is not on the ladder
+  // is a silent miscount here rather than a visible failure, so fail loudly.
+  const missing = [CHASE_FLOOR, ...CHASE_EXTRA].filter((r) => !RARITY_ORDER.includes(r));
+  if (missing.length) {
+    throw new Error(
+      `CHASE names with no rung in RARITY_ORDER: ${missing.join(", ")}. The chase highlight and the ` +
+        `"N of the M cards" count are both derived from RARITY_ORDER, so a renamed tier silently drops ` +
+        `out of both. Fix the name here or in shared/format.mjs.`
+    );
+  }
+}
 const CHASE = new Set([
-  "Black White Rare", "Mega Hyper Rare", "Hyper Rare", "Rainbow Rare", "Secret Rare",
-  "Special Illustration Rare", "Illustration Rare", "Ultra Rare", "ACE SPEC Rare",
-  "Radiant Rare",
+  ...RARITY_ORDER.slice(0, RARITY_ORDER.indexOf(CHASE_FLOOR) + 1),
+  ...CHASE_EXTRA,
 ]);
 
 // Affiliate config. Off by default; flip enabled in data/affiliate.json once
@@ -1213,13 +1274,40 @@ function derivedFacts(s) {
       `The extra ${s.secretCount} are secret rares numbered past the printed count.`
     );
   }
+  /**
+   * THE COUNT AND THE SENTENCE ARE THE SAME CLAIM, so they are written next to
+   * each other. Both come from CHASE, which comes from RARITY_ORDER.
+   *
+   * IT USED TO READ "N of the M cards are Ultra Rare or better", which was true
+   * of the number beside it and not true of the ladder underneath it. Four tiers
+   * had been added to RARITY_ORDER that the count did not include, two of them
+   * (Shiny Rare, Shiny Ultra Rare) sorting ABOVE Ultra Rare and two of them
+   * (Holo Rare VSTAR, Holo Rare VMAX) sorting just below it but out-earning it
+   * on price. Adding them to a sentence phrased that way makes it false: Shiny
+   * Ultra Rare is not "Ultra Rare or better", it is its own tier, and Paldean
+   * Fates would have read "154 of the 245 cards are Ultra Rare or better".
+   *
+   * So the sentence names the thing the page actually highlights, and it says
+   * where to check it. The rarity breakdown is the next band down and every row
+   * this number counts is marked there, so a reader can add them up.
+   *
+   * THE SECOND HALF IS A GUARD, NOT A FLOURISH, and it is the reason 154 of 245
+   * on Paldean Fates now reads as a fact instead of a boast. "Worth pulling"
+   * invited a reader to hear a big number as good odds, which is the one thing
+   * this site never says. A count of how many KINDS of card exist at a rarity is
+   * checklist composition, the same reasoning the Japanese wrapper's 種類 counts
+   * get in shared/rarity.mjs, and it says nothing whatever about what is in a
+   * pack. The sentence now says that out loud rather than relying on the reader
+   * not to make the leap.
+   */
   const chaseCount = Object.entries(rar)
     .filter(([r]) => CHASE.has(rarityLabel(r)))
     .reduce((a, [, n]) => a + n, 0);
   if (chaseCount && total) {
     out.push(
-      `<b>${chaseCount} of the ${total} cards</b> are Ultra Rare or better. ` +
-      `That is the slice of the checklist worth pulling.`
+      `<b>${chaseCount} of the ${total} cards</b> sit at a chase rarity, which is every tier ` +
+      `highlighted in the rarity breakdown below. That is what the checklist holds, not how ` +
+      `often any of it turns up.`
     );
   }
   for (const r of ["Mega Hyper Rare", "Hyper Rare", "Special Illustration Rare"]) {
