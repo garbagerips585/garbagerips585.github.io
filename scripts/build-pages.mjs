@@ -1051,6 +1051,10 @@ const urls = [
   // Pokedex lore. Evergreen, and the only page on the site that is not about
   // buying, opening or valuing anything.
   { loc: `${SITE}/lore.html`, freq: "monthly", pri: "0.8" },
+  // Every official Pokemon video game, in order. Monthly, not weekly: nothing
+  // on it is recomputed from a price feed, so it only moves when a game ships
+  // or a fresh Metascore settles. 0.8 matches the lore page and the games hub.
+  { loc: `${SITE}/video-games.html`, freq: "monthly", pri: "0.8" },
   ...ordered.filter((v) => taggedIds.has(v.id)).map((v) => ({ loc: `${SITE}/${pathFor(v)}`, freq: "monthly", pri: "0.6", mod: v.published })),
 ];
 await writeFile(

@@ -24,17 +24,79 @@
 // translates them and guessing at 35 of them would be exactly the sort of
 // confident error a reference page must not make.
 
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
-import { parseHits, rarityLabelOf, rarityMark } from "../shared/rarity.mjs";
-import { esc, longDate, rarityLabel, imgDims, avifPicture } from "../shared/format.mjs";
+import { parseHits, rarityLabelOf, rarityMark, RARITY_CSS } from "../shared/rarity.mjs";
+import { esc, longDate, rarityLabel, imgDims, avifPicture, moneyCompact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/sets");
+
+/**
+ * THE ENGLISH SET, SHOWN RATHER THAN NAMED.
+ *
+ * These pages exist to answer one question: "I watched the Abyss Eye rips, what
+ * do I buy in a US shop?" They answered it in words and the words are the weak
+ * form of the answer, because the two things a person matches in a shop are
+ * both pictures. The logo is what is printed across the box and the pack. The
+ * symbol is what is printed on the card, and it is the only way to check a
+ * loose single.
+ *
+ * BOTH BELONG TO THE ENGLISH SET AND ARE LABELLED AS THE ENGLISH SET'S. There
+ * is no Japanese or Korean logo on this site and TCGdex publishes none for
+ * these sets (M1 through M5 return no logo, no symbol and no card images at
+ * all), so the native column stays text. An asymmetric panel is the honest
+ * shape here: putting the English artwork on the Japanese side, or captioning
+ * it loosely enough to read as either, is exactly the swap the brief forbids.
+ */
+let LOGO_DIMS = {};
+try {
+  LOGO_DIMS = JSON.parse(await readFile(join(ROOT, "data/logo-dims.json"), "utf8"));
+} catch {
+  /* run: python3 scripts/measure-logos.py */
+}
+const logosOnDisk = new Set(
+  (await readdir(join(ROOT, "public/assets/logos")).catch(() => []))
+    .map((f) => /^(.+)-pokemon-tcg-set-logo\.webp$/.exec(f)?.[1])
+    .filter(Boolean)
+);
+/**
+ * Drawn at 150px wide inside the panel. The masters are normalised by HEIGHT to
+ * 300px and every one is a different width, so the -sm.webp (100px tall, 5-17KB)
+ * is offered first with its own real width descriptor and the master second,
+ * exactly as setCardLogo does in build-set-pages.mjs. Never emitted for a set
+ * with no file: onerror hides a 404 in the browser and still pays for it.
+ */
+const enLogo = (setId, alt) => {
+  if (!logosOnDisk.has(setId)) return "";
+  const base = `/assets/logos/${setId}-pokemon-tcg-set-logo`;
+  const d = LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`];
+  if (!d) return "";
+  const smW = Math.round((d[0] * 100) / d[1]);
+  return `<img class="intl-logo" src="${base}-sm.webp"
+          srcset="${base}-sm.webp ${smW}w, ${base}.webp ${d[0]}w" sizes="150px"
+          width="${smW}" height="100" alt="${esc(alt)}" loading="lazy" decoding="async">`;
+};
+
+let SYMBOL_DIMS = {};
+try {
+  SYMBOL_DIMS = JSON.parse(await readFile(join(ROOT, "data/symbol-dims.json"), "utf8")).symbols || {};
+} catch {
+  /* run: node scripts/sync-symbols.mjs */
+}
+/** 32px box here rather than the 40px the English guides use: it sits in a caption line. */
+const enSymbol = (en) => {
+  const d = SYMBOL_DIMS[en?.apiId];
+  if (!d) return "";
+  const k = Math.min(32 / d[0], 32 / d[1], 1);
+  return `<img class="intl-sym" src="/assets/symbols/${esc(en.apiId)}-pokemon-tcg-set-symbol.webp"
+          width="${Math.round(d[0] * k)}" height="${Math.round(d[1] * k)}"
+          alt="The ${esc(en.name)} set symbol" loading="lazy" decoding="async">`;
+};
 
 const guides = JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8"));
 const { sets: enSets, rarityOrder } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
@@ -112,6 +174,34 @@ const yearsSince = (iso) => {
  * carrying them for the four guides that use them. Same pattern as
  * build-expansions.mjs.
  */
+/**
+ * The rules the pictures need, and they are ALWAYS emitted rather than gated on
+ * a section, because the elements they paint are on every guide that has an
+ * English twin, which is twelve of the thirteen. Same trade as PAGE_CSS below:
+ * inline here rather than in ui.css, which is render blocking on all 426 pages.
+ */
+const ART_CSS = `
+/* The English set logo, in the English half of the twin panel. 150px wide with
+   a FIXED 56px-tall box, because the logos are normalised by height at the
+   source but not all the same width: without the box the two columns of the
+   panel end up different heights and the grid rows jump between guides. */
+.intl-logo{display:block;width:auto;max-width:150px;height:56px;object-fit:contain;
+  object-position:left center;margin:6px 0 10px}
+/* The symbol line under the panel. 32px box, object-fit:contain, same reasoning
+   as .setsym-i on the English guides: the files are not one shape. */
+.intl-spot{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s4);
+  max-width:44em;font-size:var(--t-sm);line-height:1.5}
+.intl-sym{flex:0 0 32px;width:32px;height:32px;object-fit:contain}
+/* The borrowed English chase grid. The heading has to sit apart from the native
+   grid above it or the two read as one list of cards, which is the single thing
+   this block must not do. */
+.intl-enh{margin-top:var(--s6);font-size:var(--t-h3)}
+.intl-ensay{max-width:42em;margin-top:6px;font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
+/* .chase-card is a <button> in ui.css and these are anchors, so the two type
+   rules a button does not inherit are restated. Nothing else changes. */
+.intl-enchase .chase-card{display:block;text-align:left;text-decoration:none;color:inherit;font:inherit}
+`;
+
 const PAGE_CSS = `
 /* Three columns fit 320px without help (1fr plus two 4em numerics), but the
    wrapper scrolls anyway rather than trusting that: a long rarity name is the
@@ -247,6 +337,7 @@ function twinBand(g, cls) {
       <li class="intl is-en">
         <p class="intl-lang">English${en.apiId ? ` &bull; ${esc(String(en.apiId).toUpperCase())}` : ""}</p>
         <h3>${esc(en.name)}</h3>
+        ${enLogo(g.equivalent, `The English ${en.name} set logo`)}
         <p class="intl-meta">${[
           enTotal ? `${enTotal} cards` : null,
           longDate(en.released) || null,
@@ -257,6 +348,9 @@ function twinBand(g, cls) {
         <a class="intl-link" href="/sets/${esc(g.equivalent)}.html">Read the ${esc(en.name)} guide</a>
       </li>
     </ul>
+    ${enSymbol(en) ? `<p class="intl-spot">${enSymbol(en)}<span>That is the symbol on an English ${esc(en.name)} card,
+      printed at the bottom beside the collector number. It is not the mark on the ${esc(g.langName)} cards in these
+      rips: the two printings carry their own.</span></p>` : ""}
     ${g.confidence === "partial"
       ? `<p class="intl-warn">A partial match. ${esc(g.note || "")}</p>`
       : g.note ? `<p class="price-note">${esc(g.note)}</p>` : ""}
@@ -423,8 +517,60 @@ function chaseBand(g, en, cls) {
       databases that carry them at all, and a converted half-filled price table is worse than none. The English
       ${en ? `<a href="/sets/${esc(g.equivalent)}.html">${esc(en.name)} guide</a> carries` : "guides carry"} live USD
       values for the same cards.</p>
-  </div>
+${enChase(g, en)}  </div>
 </section>`;
+}
+
+/**
+ * THE FOUR PRICIEST CARDS IN THE ENGLISH SET, WITH THEIR SCANS.
+ *
+ * TCGdex publishes no card images for the newest Japanese sets, so six of the
+ * thirteen guides render this grid as twelve captioned boxes with nothing in
+ * them: a wall that looks like cards and shows none. Abyss Eye is 1,555 words
+ * with one picture on it, and that picture is the empty lightbox.
+ *
+ * THE ONE THING THAT CANNOT BE DONE IS THE OBVIOUS ONE. Borrowing the English
+ * scan for each Japanese chase card was measured before it was rejected: not a
+ * single one of the sixty chase cards across those five guides resolves to
+ * exactly one English card. Mega Darkrai ex exists in English Pitch Black four
+ * times, at Double Rare, Ultra Rare, Special Illustration Rare and Mega Hyper
+ * Rare, and the Japanese entry carries no rarity at all to choose between them,
+ * because TCGdex leaves it null on every card numbered past the set. Picking one
+ * would put a specific card's artwork under another card's name, which is the
+ * error a reader cannot see.
+ *
+ * WHAT IS SAFE is the English set's OWN chase list, shown as the English set's
+ * own and nothing else. Each row is a card, a number, a rarity and a price that
+ * all come from the same record in public/data/sets.json, and the heading says
+ * whose they are. It is also the paragraph directly above it, made real: that
+ * paragraph says the English guide carries USD values for these cards, and four
+ * priced cards say it better than a sentence pointing somewhere else.
+ *
+ * FOUR, NOT EIGHT. Two rows on a phone. The English guide holds all eight and is
+ * one tap away, and this band is a signpost rather than a second copy of it.
+ */
+function enChase(g, en) {
+  const chase = (en?.chase || []).filter((c) => c.image).slice(0, 4);
+  if (chase.length < 2) return "";
+  return `    <h3 class="intl-enh">The same cards in English</h3>
+    <p class="intl-ensay">The priciest cards in English ${esc(en.name)}, which is the set on the shelf in a US shop.
+      These are that set's own cards, numbers and prices, not the ${esc(g.langName)} ones above.</p>
+    <div class="chase-grid intl-enchase">
+      ${chase
+        .map(
+          (c) => `<a class="chase-card" href="/sets/${esc(g.equivalent)}.html">
+        ${avifPicture(`<img src="${esc(c.image)}" alt="${esc(c.name)} ${esc(c.number)}, English ${esc(en.name)}" loading="lazy" decoding="async" onerror="this.remove()"${imgDims(c.image)}>`)}
+        <div class="nm">${esc(c.name)}</div>
+        <div class="rr">${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(c.number)}</div>
+        <div class="pr">${moneyCompact(c.price)}</div>
+      </a>`
+        )
+        .join("\n      ")}
+    </div>
+    <p class="price-note">English ${esc(en.name)} card scans from TCGdex, TCGplayer market prices${
+      longDate(en.pricesAsOf || en.chasePricesAsOf) ? `, read ${esc(longDate(en.pricesAsOf || en.chasePricesAsOf))}` : ""
+    }. Every one of them links through to the ${esc(en.name)} guide, which prices the whole checklist.</p>
+`;
 }
 
 function rarityBand(g, rarities, maxN, secretCount, cls) {
@@ -432,11 +578,20 @@ function rarityBand(g, rarities, maxN, secretCount, cls) {
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
     <h2>Rarity <span class="hl">breakdown</span></h2>
+    ${/* THE LADDER WAS DRAWING EVERY BAR FULL, on all thirteen guides.
+          ui.css styles `.rar-name`, `.rar-n` and `.rar-bar i`, which is the
+          markup build-set-pages.mjs emits. This file emitted `.rar-n` for the
+          NAME, `.rar-c` for the count and a `<span>` inside the bar, so the fill
+          matched no rule at all: the width was on an unstyled inline element
+          inside an overflow:hidden track, and 38 Commons and 1 Mega Hyper Rare
+          rendered as identical empty full-width pills.
+          A chart cannot be wrong quietly, which is what this was: the numbers
+          beside it were right the whole time, so nothing read as broken. */ ""}
     <div class="rarity-list">
       ${rarities.map(([r, n]) => `<div class="rar">
-        <div class="rar-n">${esc(rarityLabel(r) || r)}</div>
-        <div class="rar-bar"><span style="width:${Math.round((n / maxN) * 100)}%"></span></div>
-        <div class="rar-c">${n}</div>
+        <span class="rar-name">${esc(rarityLabel(r) || r)}</span>
+        <span class="rar-n">${n}</span>
+        <span class="rar-bar"><i style="width:${Math.max(4, Math.round((n / maxN) * 100))}%"></i></span>
       </div>`).join("\n      ")}
     </div>
     ${secretCount ? `<p class="price-note">${secretCount} more cards are numbered past card ${g.cardCount?.official}, which is
@@ -628,7 +783,14 @@ function guidePage(g) {
     title: g.equivalent
       ? `${g.english} (${g.langName}) Set Guide: Cards & English Equivalent | Garbage Rips 585`
       : `${g.english} (${g.langName}) Set Guide | Garbage Rips 585`,
-    desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld, noindex: thin, css: rarityCompare(g, en) ? PAGE_CSS : "",
+    desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld, noindex: thin,
+    // Three blocks, each carried only where its markup exists. ART_CSS is the
+    // pictures, PAGE_CSS is the card-for-card table, and RARITY_CSS is the
+    // shared key's own stylesheet, which these pages were emitting `.rk` markup
+    // without: the SR badge on /sets/ja-cyber-judge.html rendered as bare text
+    // because nothing on the page defined the class.
+    css: [en ? ART_CSS : "", rarityCompare(g, en) ? PAGE_CSS : "", HITS_BY_SET.has(g.id) ? RARITY_CSS : ""]
+      .filter(Boolean).join("\n"),
   }) + `
 <header class="set-hero">
   <div class="wrap">

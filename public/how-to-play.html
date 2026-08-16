@@ -22,7 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=67f732be">
+<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .hp-lede{max-width:44em}
@@ -41,6 +41,15 @@
 .hp-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s4)}
 @media(max-width:760px){.hp-cards{grid-template-columns:1fr}}
 .hp-cards h3{display:flex;align-items:baseline;gap:8px}
+/* The scan floats so the box reads as one paragraph with a picture in it rather
+   than as a card above a caption above a heading. 96px is a third of the widest
+   the box gets and it is what sizes="96px" is measured against. */
+.hp-kf{float:right;width:96px;margin:0 0 var(--s2) var(--s3)}
+.hp-kf img{width:100%;height:auto;display:block;border-radius:6px}
+.hp-kf figcaption{margin-top:4px;font:400 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-align:center}
+/* Clears the float so the next box does not start beside the previous scan when
+   the grid is a single column on a phone. */
+.hp-cards .hp-box{overflow:hidden}
 .hp-cards .hp-t{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
 .hp-sub{list-style:none;margin:var(--s3) 0 0;padding:0}
 .hp-sub li{border-left:3px solid var(--gold);padding-left:var(--s3);margin-bottom:var(--s2)}
@@ -198,6 +207,7 @@
       <p class="menu-h">Play</p>
       <ul>
         <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
       </ul>
     </div>
@@ -248,18 +258,21 @@
         <p>Everything in the game is one of three things.</p>
         <div class="hp-cards">
           <div class="hp-box">
+            <figure class="hp-kf"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/017/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03.5/017/high.avif 600w" sizes="96px"><img src="https://assets.tcgdex.net/en/sv/sv03.5/017/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03.5/017/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03.5/017/high.webp 600w" sizes="96px" alt="Pidgeotto, 151 number 017, a Stage 1 Pokemon card" loading="lazy" decoding="async" onerror="this.closest('figure').remove()" width="245" height="337"></picture><figcaption>Pidgeotto, 151 017</figcaption></figure>
             <h3>Pokemon <span class="hp-t">the fighters</span></h3>
             <p>The stage is in the top left corner, with whatever it evolves from. Basics play straight from your
               hand. A Stage 1 goes on top of the Basic it names and a Stage 2 on top of that, keeping the Energy
               and damage already there.</p>
           </div>
           <div class="hp-box">
+            <figure class="hp-kf"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy1/133/low.avif 245w, https://assets.tcgdex.net/en/xy/xy1/133/high.avif 600w" sizes="96px"><img src="https://assets.tcgdex.net/en/xy/xy1/133/low.webp" srcset="https://assets.tcgdex.net/en/xy/xy1/133/low.webp 245w, https://assets.tcgdex.net/en/xy/xy1/133/high.webp 600w" sizes="96px" alt="Fire Energy, XY number 133, a basic Energy card" loading="lazy" decoding="async" onerror="this.closest('figure').remove()" width="245" height="337"></picture><figcaption>Fire Energy, XY 133</figcaption></figure>
             <h3>Energy <span class="hp-t">the fuel</span></h3>
             <p>Energy is the fuel. You attach one per turn, and an attack only works if the Pokemon already has the Energy its cost shows. Basic Energy does nothing else; a few do more, and those are
               Special Energy. <a href="/types.html">There are 11 types</a>, and they are not the 18 from the
               video games.</p>
           </div>
           <div class="hp-box">
+            <figure class="hp-kf"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/160/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03.5/160/high.avif 600w" sizes="96px"><img src="https://assets.tcgdex.net/en/sv/sv03.5/160/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03.5/160/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03.5/160/high.webp 600w" sizes="96px" alt="Erika's Invitation, 151 number 160, a Supporter Trainer card" loading="lazy" decoding="async" onerror="this.closest('figure').remove()" width="245" height="337"></picture><figcaption>Erika's Invitation, 151 160</figcaption></figure>
             <h3>Trainer <span class="hp-t">everything else</span></h3>
             <p>The subtype is in the top left and its rule is printed along the bottom. Item: as many as you like.
               Supporter: one a turn. Stadium: one a turn, and it stays out for both players. Tool: sticks to a
@@ -484,7 +497,8 @@
         ME05 Pitch Black printing stamped July 2026, read on August 15, 2026 and diffed against the
         March 2026 printing: nothing in setup, the turn, winning, prizes or the printed card numbers had moved.
         The beginner product advice comes from Pokemon's own product guide, the formats from the Play! Pokemon
-        tournament handbook, and the Pidgey scan and its printed values from TCGdex. One claim here rests on a
+        tournament handbook, and every card scan on the page and the printed values read off them from TCGdex.
+        Each scan is the card named under it. One claim here rests on a
         secondary source rather than an official one: the rulebook defines basic Energy and never defines Special
         Energy, so that sentence is Bulbapedia's. Rules and rotations change. This page carries the date it was
         checked so you can see how old the answer is, and if it disagrees with the rulebook, the rulebook is
@@ -538,6 +552,7 @@
       <div class="foot-col">
         <p class="foot-h">Play</p>
         <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
       </div>
       <div class="foot-col">

@@ -56,6 +56,7 @@ import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { esc, longDate } from "../shared/format.mjs";
+import { brandMark, PROT_MARK, BRAND_CREDIT, BRAND_STYLE } from "../shared/brands.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const money = JSON.parse(await readFile(join(ROOT, "data/buying.json"), "utf8"));
@@ -152,6 +153,7 @@ const venueCard = (v) => {
   const costs = Array.isArray(v.costs) ? v.costs : [];
   return `      <article class="by-v" id="${esc(v.id)}">
         <div class="by-vh">
+          ${brandMark(v.id, v.name)}
           <h3>${v.url ? `<a href="${esc(v.url)}" rel="noopener" target="_blank">${esc(v.name)}</a>` : esc(v.name)}</h3>
           <span class="by-st ${st.cls}">${esc(st.label)}</span>
         </div>
@@ -224,7 +226,10 @@ const prot = (p) => {
   }
   const srcs = [p.source, ...(p.alsoRead || [])].filter(Boolean);
   return `      <article class="by-p">
-        <h3>${esc(p.venue)}</h3>
+        <div class="by-vh">
+          ${brandMark(PROT_MARK[p.venue] || "", p.venue)}
+          <h3>${esc(p.venue)}</h3>
+        </div>
         ${p.note ? `<p class="by-nb">${esc(p.note)}</p>` : ""}
         ${parts.join("\n        ")}
         ${srcs.length ? `<p class="by-src">${srcs
@@ -238,6 +243,18 @@ const arith = money.theArithmetic || {};
 const custody = safe.custody || {};
 
 const desc = `Where to buy Pokemon cards online and what each place really costs. Shipping thresholds and buyer fees read off each company's own page, plus what recourse you have when a card arrives wrong.`;
+
+// COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same trade
+// build-css.mjs makes for ui.css and miniCSS makes in build-set-pages.mjs, and
+// the same regex: comments, plus the indentation between rules. Nothing else.
+//
+// It is here because this block is inline in a render blocking <head> and the
+// desktop rules added on 16 August 2026 came with the measurements that justify
+// them written alongside. Measured on this page set, those comments were 17.1KB
+// raw and 7.1KB gzipped across eight pages, up to 13% of one of them. Stripped,
+// every one of these pages is smaller than it was before the rules were added.
+const miniCSS = (css) =>
+  css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
 
 const style = `
 .by-lede{max-width:46em}
@@ -261,12 +278,38 @@ const style = `
 @media(max-width:900px){.by-vs{grid-template-columns:1fr}}
 .by-v,.by-p{border:3px solid var(--navy);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
-.by-vh{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2);margin-bottom:var(--s2)}
+/* align-items moved from baseline to centre. The mark box is 34px tall and a
+   baseline row hung it off the h3's text baseline, which dropped the tile a
+   third of its own height below the heading on every card. Centre is what the
+   status chip wanted anyway. */
+.by-vh{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);margin-bottom:var(--s2)}
 .by-vh h3{font:400 var(--t-m)/1.15 var(--display)}
+/* The four-mark box is the width of the card, so it takes its own line above
+   the heading rather than trying to sit beside it. */
+.by-vh .bmk-multi{flex-basis:100%}
+${BRAND_STYLE}
+/* THE CONFIDENCE LADDER, REBUILT WITHOUT HUE. Three things were wrong with it.
+   THE BOTTOM RUNG WAS INVISIBLE. "COSTS UNVERIFIED" was --card on a white card,
+   1.00:1, carried entirely by a dashed hairline. On /drops.html it was worse
+   than that: "PATTERN ONLY" and "EXPECTED" differed ONLY by border-style dashed
+   against solid, so two confidence levels were one border apart.
+   THE TOP RUNG WAS THE ONLY GREEN ON THE SITE. #1E5B34 with an #EAF6EE label
+   passes contrast at 7.73:1, so this is not a legibility fix; it is that the
+   palette's stated idea is one accent hue and a green pill at the top of every
+   card is a second one. Green as a deliberate semantic exception for "verified"
+   would have been defensible. It was not deliberate, it was left over.
+   SO THE LADDER RANKS BY WEIGHT INSTEAD OF BY COLOUR, which is what a mono
+   palette has to do: solid ink, then a filled chip, then an outline. Those are
+   three genuinely different amounts of ink on the page and they survive at any
+   zoom, in print, and for a reader who cannot tell green from grey.
+   NONE OF IT CARRIES MEANING ALONE. Every chip prints its own state in words
+   next to the weight, which is why the labels are spelled out rather than
+   abbreviated. */
 .by-st{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2)}
-.by-st.ok{background:#1E5B34;color:#EAF6EE;border-color:#1E5B34}
-.by-st.unv{background:var(--card);color:var(--ink-2);border-style:dashed}
+.by-st.ok{background:var(--chrome-bg);color:var(--chrome-ink);border-color:var(--chrome-bg)}
+.by-st.part{background:var(--paper-3);color:var(--ink);border-color:var(--hair)}
+.by-st.unv{background:var(--paper-2);color:var(--ink);border:1.5px dashed var(--ink-2)}
 .by-fmt{color:var(--ink-2);font-size:var(--t-sm);margin-bottom:var(--s2)}
 .by-best,.by-stack,.by-prot,.by-auth,.by-cond,.by-nb,.by-none{font-size:var(--t-sm);line-height:1.5;margin-top:var(--s2)}
 .by-nb,.by-none{color:var(--ink-2)}
@@ -280,7 +323,16 @@ const style = `
 .by-on,.by-nt{display:block;color:var(--ink-2);font-size:var(--t-micro);margin-top:2px}
 .by-p ul{margin:var(--s2) 0 0 var(--s4);font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
 .by-lbl{font-size:var(--t-sm);margin-top:var(--s3)}
-.by-yes b{color:#1E5B34}
+/* "COVERS." AGAINST "DOES NOT COVER." was green text against --ketchup-deep,
+   and after the repaint --ketchup-deep is #6E5000, the palette's own deep gold.
+   So the pair was green versus gold, which is the last hue distinction on
+   either page and the same leftover the status ladder above just lost.
+   BOTH LABELS ALREADY SAY WHAT THEY MEAN IN WORDS, at the start of the line, so
+   the colour was never carrying the meaning: it was emphasis. Ink for the
+   positive and deep gold for the negative keeps the emphasis, keeps them
+   distinguishable by weight and hue-within-the-palette, and adds no sixth
+   colour to a black, white and gold site. */
+.by-yes b{color:var(--ink)}
 .by-no b{color:var(--ketchup-deep)}
 .by-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s3);line-height:1.6}
 .by-s1,.by-rd{font:400 var(--t-micro)/1 var(--mono);white-space:nowrap}
@@ -296,6 +348,92 @@ const style = `
 .by-chain li{border-left:4px solid var(--gold);padding:0 0 0 var(--s3);margin-bottom:var(--s4);line-height:1.55}
 .by-chain b{display:block;font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;
   text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
+
+/* DESKTOP. Every rule below is min-width only, so a phone and a tablet render
+   what they rendered before. Measured identical at 390 before and after.
+
+   This is a 13,705 word page and it was measured rather than eyeballed. At 1440
+   it ran 19,602px with a median reading measure of 86 characters a line against
+   a 65 to 75 target, and at 1920 it was 87.5.
+
+   TWO SEPARATE FAULTS, and only one of them is about width.
+
+   1. THE STANDALONE PROSE IS CAPPED IN em AND THE CAP IS TOO LOOSE. 46em and
+      44em were set against the body face, and em is the FONT size, not the
+      character width, so the same number gives a different count in a different
+      face. Measured, 46em came out at 810px and 96 characters. ch is the width
+      of a "0" in the element's own font, which is the unit that tracks the
+      count. Below 1000px these caps never bind, so they are min-width gated and
+      a phone cannot see them.
+
+      50ch AND NOT 70ch, AND THE NUMBER IS MEASURED RATHER THAN ASSUMED. "1ch is
+      one character" is the folk reading of the unit and it is wrong by nearly
+      half in Outfit: ch is the advance width of a "0", and a digit is one of
+      the widest glyphs in the face, so the average character is about 0.7 of
+      it. Measured on this page, .by-key p at 72ch came out 803px wide and set
+      100 characters a line, which is 1.43 characters per ch. 50ch lands around
+      70. A first pass here used ch as if it were characters and left every cap
+      wider than the em cap it replaced, which is worth knowing before somebody
+      "corrects" 50 back up to 70.
+
+   2. THE BLOCKS THAT ARE NOT PROSE WERE LEFT ALIGNED IN A 1,392px BAND AND JUST
+      STOPPED. The key panel painted its border the full width and then set its
+      text to 44em, leaving about 600px of empty navy on the right of every
+      paragraph. The heading moves beside the text instead, which is the same
+      rail the era sections on /expansions.html use, and the panel is then full
+      of the thing it is a panel for.
+
+   The venue cards in .by-vs are deliberately NOT touched. They are two columns
+   already, they fill the band, and their 86 character measure comes from the
+   type being --t-sm rather than from the column being wide: narrowing them
+   would lengthen a page that is already 19,602px to fix a number that a type
+   size sets. That is a call about the type scale, which belongs to whoever owns
+   ui.css, and it is written up rather than made quietly here. */
+@media(min-width:1000px){
+  .by-lede{max-width:50ch}
+  .by-grp > p{max-width:50ch}
+  .by-key p{max-width:50ch}
+  /* THE WORST MEASURE ON THE PAGE AND IT WAS NOT PROSE, WHICH IS WHY IT WAS
+     MISSED: .by-src is the sourcing line, 11px, and it had no cap at all. Two
+     of them sit directly in the wrap rather than inside a venue card, so they
+     ran the full 1,392px and set 173 characters a line, peaking at 204. That is
+     the highest count measured anywhere in this pass, on the one block of text
+     that is the page's evidence. Capped wider than the prose because it is
+     small type doing reference work rather than something read start to finish,
+     but 90 characters instead of 204. */
+  .by-src{max-width:64ch}
+}
+/* THE VOID THE CAP ABOVE MADE BIGGER, AND THE THING THAT BELONGS IN IT.
+   Capping the ledes to 50ch is right for the reader and made the top of the
+   page LOOK worse on its own: three paragraphs 578px wide, left aligned in a
+   1,392px band, with 814px of nothing beside them. A narrower measure with
+   nothing in the space it frees is half a fix.
+
+   The venue nav goes there. It was directly underneath, thirteen chips over two
+   rows, and it is the page's table of contents on a page 13,705 words long, so
+   beside the introduction is where a desktop reader wants it. The intro column
+   is 620px because the ledes cap at 578 and a track narrower than its content
+   would just move the ragged edge. */
+@media(min-width:1100px){
+  .by-top{display:grid;grid-template-columns:minmax(0,620px) minmax(0,1fr);
+    gap:var(--s5) var(--s6);align-items:start}
+  .by-top .by-jump{margin-top:0}
+  /* Two children, the heading and .by-key-body, so no explicit placement is
+     needed and no row can be taller than the item in it. */
+  .by-key{display:grid;grid-template-columns:300px minmax(0,1fr);
+    gap:var(--s5);align-items:start}
+  .by-key > h2{margin-bottom:0}
+}
+/* The step lists are short items, not paragraphs, so they set in two columns
+   without hurting the measure and take roughly their own height off the page.
+   break-inside:avoid keeps an item whole: a list item split across a column
+   break reads as two items, which on a list of numbered steps is a bug.
+   max-width has to go with it, or the two columns would be capped as if they
+   were one. */
+@media(min-width:1200px){
+  .by-list,.by-chain{columns:2;column-gap:var(--s6);max-width:none}
+  .by-list li,.by-chain li{break-inside:avoid}
+}
 `;
 
 const page = `<!DOCTYPE html>
@@ -321,7 +459,7 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
-<style>${style}</style>
+<style>${miniCSS(style)}</style>
 <script type="application/ld+json">${JSON.stringify({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -340,6 +478,14 @@ ${MENU}
   <section class="tight">
     <div class="wrap">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Where to buy</span></nav>
+      <!-- .by-top and .by-intro are wrappers with no effect until the min-width
+           rule in the style block turns .by-top into a grid, which puts the
+           venue jump nav BESIDE the opening paragraphs instead of under them.
+           They exist as elements because the h1, three ledes and the nav are
+           otherwise flat siblings of everything else in this wrap, and a grid
+           over the wrap would have to place the whole page. -->
+      <div class="by-top">
+      <div class="by-intro">
       <h1>Where to <span class="hl">buy</span> cards online</h1>
       <p class="lede by-lede">${venues.length} places to buy Pokemon cards, and what each one actually costs once
         shipping and buyer fees are counted. Every figure was read off the company's own shipping, help or policy
@@ -353,6 +499,7 @@ ${MENU}
       <p class="lede by-lede">This is <a href="/selling.html">where to sell</a> pointed the other way. Same
         companies, different set of numbers, and the buyer's protection is usually the bigger one. Prices and
         policies move: every figure here carries the date it was read.</p>
+      </div>
 
       <nav class="by-jump" aria-label="Jump to a venue">
 ${GROUPS.map((g) => {
@@ -364,11 +511,21 @@ ${GROUPS.map((g) => {
     : "";
 }).filter(Boolean).join("\n")}
       </nav>
+      </div>
 
       <div class="by-key">
         <h2>The two questions that decide how a purchase can go wrong</h2>
+        <!-- The paragraphs are wrapped so the heading can sit beside ALL of
+             them rather than beside the first one. Left as flat siblings in a
+             two column grid, the heading takes row 1 column 1 and paragraph one
+             takes row 1 column 2, so the row is as tall as the taller of the
+             two and a gap opens under whichever is shorter. Measured, the three
+             line heading left a 40px hole under the first paragraph. One
+             wrapper is one grid item and the problem does not exist. -->
+        <div class="by-key-body">
         <p>${esc(safe.framing.question)} Neither one is answered by how well known the site is.</p>
         ${(safe.framing.why || []).map((w) => `<p>${esc(w)}</p>`).join("\n        ")}
+        </div>
       </div>
 ${(() => {
   // NOTHING ANYWHERE CHECKED THAT EVERY VENUE ACTUALLY REACHED THE PAGE. The
@@ -470,6 +627,7 @@ ${(custody.chain || []).map((c) => `          <li><b>${esc(c.who)}</b> ${esc(c.w
         the failure mechanics read${safe.checked ? ` on ${esc(longDate(safe.checked))}` : ""} from the platforms' own
         policies. Nothing here came from a comparison site or a coupon site. This is not financial advice, policies
         change, and every number on this page is worth ten seconds of checking before you spend anything on it.</p>
+      <p class="by-src">${BRAND_CREDIT}</p>
     </div>
   </section>
 </main>

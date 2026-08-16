@@ -77,7 +77,7 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/assets/ui.css?v=67f732be">
+<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .shops{padding:var(--s7) 0 var(--s8)}
@@ -136,6 +136,14 @@
    because the cost of being wrong is a wasted drive. */
 .shop-play-warn{font:700 var(--t-micro)/1.6 var(--mono);color:var(--plum);
   background:var(--lilac-pale);border-radius:var(--r-sm);padding:8px 10px;margin-top:8px}
+/* The map. Full width of the wrap, capped so it does not become a poster on a
+   desktop, and the SVG scales with the box because it has a viewBox and no
+   width attribute. currentColor throughout, so it is correct on the light page
+   and would still be correct if this block ever moved onto the dark chrome. */
+.shop-map{margin:0 0 var(--s5);color:var(--ink)}
+.shop-map svg{display:block;width:100%;height:auto;max-width:660px}
+.shop-map figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);
+  margin-top:var(--s2);max-width:52em}
 .shops-note{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);max-width:52em}
 </style>
@@ -283,6 +291,7 @@
       <p class="menu-h">Play</p>
       <ul>
         <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
       </ul>
     </div>
@@ -307,6 +316,48 @@
       Rochester, New York, run by people who know the hobby. Round here the counter you buy from and the
       table you play at are usually the same building, so both are on one page. Buy local when you can:
       the shop is why the local scene exists.</p>
+<figure class="shop-map">
+      <svg viewBox="0 0 640 446" role="img"
+        aria-label="Relative positions of the 6 shops listed below. Their addresses are on each card.">
+        <rect x="0" y="0" width="640" height="446" rx="10" fill="var(--paper-3)"/>
+        <g>
+        <circle cx="440.2" cy="250.2" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/>
+        <text x="427.2" y="254.2" text-anchor="end"
+          font-size="15" font-weight="700" fill="currentColor" font-family="var(--body)">Just Games</text>
+      </g><g>
+        <circle cx="240.6" cy="374.0" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/>
+        <text x="253.6" y="378.0" text-anchor="start"
+          font-size="15" font-weight="700" fill="currentColor" font-family="var(--body)">Millennium Games</text>
+      </g><g>
+        <circle cx="123.5" cy="62.7" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/>
+        <text x="136.5" y="66.7" text-anchor="start"
+          font-size="15" font-weight="700" fill="currentColor" font-family="var(--body)">LingSter Games</text>
+      </g><g>
+        <circle cx="516.5" cy="46.0" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/>
+        <text x="503.5" y="50.0" text-anchor="end"
+          font-size="15" font-weight="700" fill="currentColor" font-family="var(--body)">Legacy Games</text>
+      </g><g>
+        <circle cx="261.2" cy="264.5" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/>
+        <text x="274.2" y="285.5" text-anchor="start"
+          font-size="15" font-weight="700" fill="currentColor" font-family="var(--body)">Great Lakes Gaming</text>
+      </g><g>
+        <circle cx="273.5" cy="186.9" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/>
+        <text x="286.5" y="190.9" text-anchor="start"
+          font-size="15" font-weight="700" fill="currentColor" font-family="var(--body)">WeTheHobby</text>
+      </g>
+        <g transform="translate(46 426)">
+          <line x1="0" y1="0" x2="185.1" y2="0" stroke="currentColor" stroke-width="2.5"/>
+          <line x1="0" y1="-5" x2="0" y2="5" stroke="currentColor" stroke-width="2.5"/>
+          <line x1="185.1" y1="-5" x2="185.1" y2="5" stroke="currentColor" stroke-width="2.5"/>
+          <text x="92.5" y="-9" text-anchor="middle" font-size="13" font-weight="700"
+            fill="currentColor" font-family="var(--mono)">5 miles</text>
+        </g>
+      </svg>
+      <figcaption>Where they are relative to each other, drawn from each shop's own street address.
+        North is up and the scale is true in both directions. There are no roads on it because we do not
+        have any to draw: the addresses on the cards below are the exact thing to put in a map app.
+        Positions geocoded from OpenStreetMap.</figcaption>
+    </figure>
     <ul class="shop-list">
       <li class="shop">
         <div class="shop-head">
@@ -511,6 +562,7 @@
       <div class="foot-col">
         <p class="foot-h">Play</p>
         <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
       </div>
       <div class="foot-col">

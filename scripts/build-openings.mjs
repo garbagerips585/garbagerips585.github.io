@@ -66,6 +66,10 @@ const DEAD = new Set(
 
 const SET_NAME = new Map(CARD_SETS.map((s) => [s.id, s.label]));
 
+// The products pinned by hand for their photographs, for the kinds the per-set
+// pull cannot reach. See scripts/sync-extra-products.mjs.
+const EXTRA = JSON.parse(await readFile(join(ROOT, "data/extra-products.json"), "utf8")).products;
+
 // taxonomy id -> the `kind` string products.json uses. Only the ones that
 // genuinely match; a wrong join here would price the wrong box.
 const KIND = {
@@ -94,11 +98,27 @@ const KIND = {
 // The set choices deliberately match /how-many-packs.html's where the two pages
 // show the same kind, so a reader moving between them sees the same box.
 //
-// SIX OF THE THIRTEEN KINDS GET NOTHING, and that is the honest answer rather
-// than a gap to fill later. products.json carries no `kind` matching ex Premium
+// SIX OF THE THIRTEEN KINDS USED TO GET NOTHING, and the reason was real: the
+// per-set pull in products.json carries no `kind` matching ex Premium
 // Collection, Knock Out Collection or Poke Ball Tin, and no Japanese, Korean or
 // Chinese product at all. Substituting a nearby box would caption a photo with a
-// claim that is not true of that file, so those pages stay prose.
+// claim that is not true of that file, so those pages stayed prose.
+//
+// FOUR OF THE SIX ARE FILLED NOW, AND NOT BY RELAXING THAT. They come from
+// data/extra-products.json, where each is a TCGplayer product pinned by id and
+// checked by name, chosen because it IS the object the page describes rather
+// than something near it. The per-set pull could never see them: three are
+// filed under "Miscellaneous Cards & Products" because they belong to no
+// expansion, and the Japanese pack is under TCGplayer's own Japanese product
+// line. Same caption rule, same 88px box.
+//
+// TWO STILL GET NOTHING AND PROBABLY ALWAYS WILL. There is no photograph of a
+// Korean or a Chinese booster pack anywhere this repo can reach: TCGplayer
+// carries no Korean or Chinese Pokemon product under any product line, and
+// TCGdex has no Korean card images (its Korean sets borrow the Japanese scans,
+// which public/data/intl-guides.json records as `borrowed`) and none at all for
+// Simplified Chinese. Those two pages stay prose, and that is a sourcing fact
+// rather than a decision to revisit.
 //
 // [set id, products.json kind, the name we expect to find there]
 const PHOTOS = {
@@ -127,12 +147,19 @@ const PHOTOS = {
  */
 function photoFor(id) {
   const spec = PHOTOS[id];
-  if (!spec) return null;
-  const [sid, kind, expect] = spec;
-  const hit = (prod.sets?.[sid]?.products || []).find((p) => p.kind === kind);
-  if (!hit || !hit.thumb || DEAD.has(hit.thumb)) return null;
-  if (!String(hit.name || "").toLowerCase().startsWith(expect.toLowerCase())) return null;
-  return { src: hit.thumb, large: hit.image, name: hit.name };
+  if (spec) {
+    const [sid, kind, expect] = spec;
+    const hit = (prod.sets?.[sid]?.products || []).find((p) => p.kind === kind);
+    if (!hit || !hit.thumb || DEAD.has(hit.thumb)) return null;
+    if (!String(hit.name || "").toLowerCase().startsWith(expect.toLowerCase())) return null;
+    // perSet: the box is one set's, so the caption can say every set sells its
+    // own. That sentence is FALSE of the pinned products below, which belong to
+    // no expansion at all, so the flag decides the caption rather than a guess.
+    return { src: hit.thumb, large: hit.image, name: hit.name, perSet: true };
+  }
+  const extra = Object.values(EXTRA).find((p) => p.kind === id);
+  if (!extra || !extra.thumb || DEAD.has(extra.thumb)) return null;
+  return { src: extra.thumb, large: extra.image, name: extra.name, perSet: false };
 }
 
 // NO WIDTH OR HEIGHT. imgDims() returns nothing for tcgplayer-cdn on purpose:
@@ -147,9 +174,46 @@ const shot = (e) => {
         <img src="${esc(p.src)}" srcset="${esc(p.src)} 200w, ${esc(p.large)} 1000w"
              sizes="88px" alt="${esc(p.name)}, sealed" loading="lazy" decoding="async"${imgDims(p.src)}
              referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
-        <figcaption>One example: the <b>${esc(p.name)}</b>. Photo TCGplayer's. Every set sells
-          its own, and the art on the box changes with the set.</figcaption>
+        <figcaption>One example: the <b>${esc(p.name)}</b>. Photo TCGplayer's. ${
+          p.perSet
+            ? "Every set sells its own, and the art on the box changes with the set."
+            : "This kind is a general release rather than a set's own product, so the one in the picture is a specific release and the next one looks different."
+        }</figcaption>
       </figure>`;
+};
+
+/**
+ * The 88px thumbnail on an index card, or the hatched box that means there is
+ * no photograph of this on purpose.
+ *
+ * THE INDEX WAS THIRTEEN TEXT CARDS ON A PAGE HEADED "EVERY KIND OF SEALED
+ * PRODUCT", so somebody browsing the kinds saw no product at all. It is the
+ * same complaint the per-page shots answered one level down.
+ *
+ * A CARD IS NOT A FIGURE AND HAS NO FIGCAPTION, so the rule that a caption names
+ * the exact file is kept two other ways: the alt text names the product, and the
+ * card prints "Pictured:" and the product's own name in small type. Without one
+ * of those, a thumbnail on a card headed "Poke Ball Tin" is a picture quietly
+ * claiming to be a category, which is the thing the header comment above is
+ * about.
+ *
+ * The hatch is the same 45 degree one .set-noart uses on /sets/ for a set with
+ * no logo and .hp-noshot uses on /how-many-packs.html. A plain empty box at this
+ * size reads as an image that failed to load, which is the one thing it must not
+ * look like when eleven of its neighbours are real photographs.
+ */
+const cardShot = (e) => {
+  const p = photoFor(e.id);
+  if (!p) return `<span class="op-ci op-cn" aria-hidden="true"></span>`;
+  return `<img class="op-ci" src="${esc(p.src)}" srcset="${esc(p.src)} 200w, ${esc(p.large)} 1000w"
+            sizes="88px" alt="One example of a ${esc(e.label)}: the ${esc(p.name)}, sealed"
+            loading="lazy" decoding="async" referrerpolicy="no-referrer">`;
+};
+
+/** The product actually in that card's picture, or nothing. */
+const cardShotName = (e) => {
+  const p = photoFor(e.id);
+  return p ? `<span class="op-ex">Pictured: ${esc(p.name)}</span>` : "";
 };
 
 // What each kind usually contains, in our own words, stated ONCE and never as
@@ -383,6 +447,18 @@ ${e.prices.map((r) => `            <tr><th scope="row">${
       </div>`;
 };
 
+// COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same trade
+// build-css.mjs makes for ui.css and miniCSS makes in build-set-pages.mjs, and
+// the same regex: comments, plus the indentation between rules. Nothing else.
+//
+// It is here because this block is inline in a render blocking <head> and the
+// desktop rules added on 16 August 2026 came with the measurements that justify
+// them written alongside. Measured on this page set, those comments were 17.1KB
+// raw and 7.1KB gzipped across eight pages, up to 13% of one of them. Stripped,
+// every one of these pages is smaller than it was before the rules were added.
+const miniCSS = (css) =>
+  css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
+
 const STYLE = `
 .op-lede{max-width:46em}
 /* The product shot is a HORIZONTAL strip under the lede, not a column beside it.
@@ -430,7 +506,45 @@ const STYLE = `
 .op-c p{font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
 .op-c .op-n{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-2);display:block;margin-top:var(--s3)}
+/* The card header is a row so the picture and the question sit together. The
+   thumb is the same 88px box as .op-shot, .hp-shot and .prod-shot, which is what
+   sizes="88px" is measured against; do not change one without the others. */
+.op-ch{display:flex;gap:var(--s3);align-items:center;margin-bottom:var(--s3)}
+.op-ch h2,.op-ch h3{margin-bottom:0}
+.op-ci{flex:none;width:88px;height:88px;object-fit:contain;display:block;background:#fff;
+  border:1px solid var(--hair);border-radius:6px}
+/* No photograph of this exists that we can publish. Same hatch as .set-noart. */
+.op-cn{background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
+.op-ex{display:block;margin-top:var(--s3);font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
 .op-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.55;max-width:44em}
+
+/* DESKTOP. min-width only, so a phone and a tablet render what they rendered
+   before: measured identical at 390 before and after.
+
+   MEASURED AT 1440 AND 1920. The card grid stopped growing at three columns at
+   900px and stayed there, so at 1920 the thirteen product cards were 484px wide
+   holding a two line description each. Four columns at 1500 keeps the 88px
+   thumbnail and the heading on the same row, which is what .op-ch needs and the
+   reason this does not go wider still.
+
+   The lede measured 90 characters a line against a 65 to 75 target. 46em is a
+   cap on the font SIZE, not on the character count, and this page sets its lede
+   in the larger --t-lede, so the same 46em buys it more characters than it buys
+   the body text elsewhere. ch is the width of a "0" in the element's own font,
+   which is the unit that tracks the count.
+
+   50ch AND NOT 70ch. This page is where the trap was caught: .op-note was
+   capped at 70ch on a first pass and came out 643px wide setting 101.7
+   characters, WORSE than the 44em it replaced. ch is one DIGIT wide and a digit
+   is one of the widest glyphs in Outfit, so a character averages about 0.7 of a
+   ch. 50ch sets around 70. The full measurement is in build-buying.mjs. */
+@media(min-width:1000px){
+  .op-lede{max-width:50ch}
+  .op-note{max-width:50ch}
+}
+@media(min-width:1500px){
+  .op-grid{grid-template-columns:repeat(4,1fr)}
+}
 `;
 
 const head = (title, desc, path, extraLd = null) => `<!DOCTYPE html>
@@ -456,7 +570,7 @@ const head = (title, desc, path, extraLd = null) => `<!DOCTYPE html>
 <meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
-<style>${STYLE}</style>
+<style>${miniCSS(STYLE)}</style>
 ${extraLd ? `<script type="application/ld+json">${JSON.stringify(extraLd)}</script>` : ""}
 </head>
 <body>
@@ -593,11 +707,15 @@ const idx =
 ${entries
   .map(
     (e) => `        <a class="op-c" href="/openings/${esc(e.id)}.html">
-          <h2>${esc(e.label)}</h2>
+          <div class="op-ch">
+            ${cardShot(e)}
+            <h2>${esc(e.label)}</h2>
+          </div>
           <p>${esc(firstSentence(USUALLY[e.id] || ""))}</p>
           <span class="op-n">${e.vids.length} opened${
             e.packs ? ` &bull; ${e.packs} pack${e.packs === 1 ? "" : "s"} counted in ${e.withPacks} of them` : ""
           }</span>
+          ${cardShotName(e)}
         </a>`
   )
   .join("\n")}
@@ -606,7 +724,10 @@ ${entries
         figure off a box. Where a product's contents are not in our data, the page says so rather than guess.
         The counts printed on the products themselves, biggest box to smallest blister with a source on each,
         are on <a href="/how-many-packs.html">how many packs are in it</a>.
-        Prices come from TCGplayer, read ${esc(longDate(prod.checked))}.
+        Prices come from TCGplayer, read ${esc(longDate(prod.checked))}, and so do the product photos: each
+        one is a specific product standing in for its kind, named on the card and named again on the page.
+        Two kinds have no photograph here, because no picture of a Korean or a Chinese booster pack is
+        available to this site at all.
         Every English booster pack in that count also held a code card, and
         <a href="/tcg-live.html">what the code card gets you</a> counts them.</p>
     </div>

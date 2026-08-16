@@ -1,0 +1,1367 @@
+{
+  "_readme": [
+    "Pokemon video game cover art mirrored locally by scripts/sync-game-covers.mjs.",
+    "",
+    "Keys are the Bulbagarden Archives filenames exactly as data/video-games.json",
+    "records them, so a builder looks a cover up by the string it already holds and",
+    "does not have to reimplement the slug rule. A cover MISSING from this map keeps",
+    "its remote archives.bulbagarden.net url, decided at build time rather than with",
+    "onerror, because onerror never fires for a lazy image below the fold.",
+    "",
+    "w and h are the REAL dimensions of the mirrored file and are almost never",
+    "320x320. The box is a bound, not a shape: aspect ratios across these files run",
+    "0.617 (a Switch keycase) to 2.081 (a wide mobile logo). Builders emit these as",
+    "the width and height attributes so the browser reserves the right space.",
+    "",
+    "Files live at public/assets/game-covers/<slug>-pokemon-game-cover.avif, with a",
+    "WebP of the same name beside it as the <picture> fallback.",
+    "",
+    "The artwork belongs to Nintendo, Game Freak, Creatures and The Pokemon Company.",
+    "Bulbagarden Archives is the host it was read from, not the owner."
+  ],
+  "syncedAt": "2026-08-16",
+  "box": 320,
+  "quality": {
+    "avif": 55,
+    "webp": 82
+  },
+  "covers": {
+    "Cyclone 2 black.jpg": {
+      "slug": "cyclone-2-black",
+      "w": 320,
+      "h": 227,
+      "avif": 7550,
+      "webp": 11732
+    },
+    "Red JP boxart.png": {
+      "slug": "red-jp-boxart",
+      "w": 250,
+      "h": 320,
+      "avif": 23574,
+      "webp": 30646
+    },
+    "Green JP boxart.png": {
+      "slug": "green-jp-boxart",
+      "w": 256,
+      "h": 320,
+      "avif": 20844,
+      "webp": 27128
+    },
+    "Blue JP boxart.png": {
+      "slug": "blue-jp-boxart",
+      "w": 250,
+      "h": 320,
+      "avif": 20017,
+      "webp": 25936
+    },
+    "Pokémon Poké Ball open.jpg": {
+      "slug": "pokemon-poke-ball-open",
+      "w": 275,
+      "h": 320,
+      "avif": 8648,
+      "webp": 12196
+    },
+    "Pocket Pikachu.png": {
+      "slug": "pocket-pikachu",
+      "w": 263,
+      "h": 320,
+      "avif": 7608,
+      "webp": 13572
+    },
+    "Stadium 1 JP boxart.png": {
+      "slug": "stadium-1-jp-boxart",
+      "w": 234,
+      "h": 320,
+      "avif": 21136,
+      "webp": 26630
+    },
+    "Yellow EN boxart.png": {
+      "slug": "yellow-en-boxart",
+      "w": 319,
+      "h": 320,
+      "avif": 19442,
+      "webp": 26470
+    },
+    "Red EN boxart.png": {
+      "slug": "red-en-boxart",
+      "w": 319,
+      "h": 320,
+      "avif": 20720,
+      "webp": 28102
+    },
+    "Blue EN boxart.png": {
+      "slug": "blue-en-boxart",
+      "w": 320,
+      "h": 320,
+      "avif": 22088,
+      "webp": 29856
+    },
+    "Hey You Pikachu EN boxart.png": {
+      "slug": "hey-you-pikachu-en-boxart",
+      "w": 320,
+      "h": 223,
+      "avif": 17026,
+      "webp": 22158
+    },
+    "TCG EN boxart.png": {
+      "slug": "tcg-en-boxart",
+      "w": 320,
+      "h": 320,
+      "avif": 21542,
+      "webp": 29380
+    },
+    "Pokémon Electronic Hand-Held Yahtzee.png": {
+      "slug": "pokemon-electronic-hand-held-yahtzee",
+      "w": 320,
+      "h": 221,
+      "avif": 10371,
+      "webp": 14022
+    },
+    "Play It EN boxart.jpg": {
+      "slug": "play-it-en-boxart",
+      "w": 255,
+      "h": 238,
+      "avif": 10242,
+      "webp": 13546
+    },
+    "Snap EN boxart.png": {
+      "slug": "snap-en-boxart",
+      "w": 320,
+      "h": 223,
+      "avif": 14513,
+      "webp": 18992
+    },
+    "Pinball EN boxart.png": {
+      "slug": "pinball-en-boxart",
+      "w": 315,
+      "h": 320,
+      "avif": 24649,
+      "webp": 31814
+    },
+    "Stadium EN boxart.jpg": {
+      "slug": "stadium-en-boxart",
+      "w": 320,
+      "h": 221,
+      "avif": 17517,
+      "webp": 22814
+    },
+    "Gold EN boxart.png": {
+      "slug": "gold-en-boxart",
+      "w": 320,
+      "h": 320,
+      "avif": 23942,
+      "webp": 30990
+    },
+    "Silver EN boxart.png": {
+      "slug": "silver-en-boxart",
+      "w": 320,
+      "h": 320,
+      "avif": 18237,
+      "webp": 24658
+    },
+    "Pp2gsboxart.png": {
+      "slug": "pp2gsboxart",
+      "w": 202,
+      "h": 220,
+      "avif": 8529,
+      "webp": 10544
+    },
+    "Dance Pikachu machine.jpg": {
+      "slug": "dance-pikachu-machine",
+      "w": 172,
+      "h": 320,
+      "avif": 10627,
+      "webp": 13424
+    },
+    "Pikachu Great Surfing Adventure machine.jpg": {
+      "slug": "pikachu-great-surfing-adventure-machine",
+      "w": 172,
+      "h": 249,
+      "avif": 6581,
+      "webp": 8232
+    },
+    "Pikachu PokéROM.png": {
+      "slug": "pikachu-pokerom",
+      "w": 182,
+      "h": 320,
+      "avif": 14849,
+      "webp": 19170
+    },
+    "Play It Version 2 EN boxart.jpg": {
+      "slug": "play-it-version-2-en-boxart",
+      "w": 320,
+      "h": 309,
+      "avif": 12277,
+      "webp": 17928
+    },
+    "Puzzle Challenge EN boxart.png": {
+      "slug": "puzzle-challenge-en-boxart",
+      "w": 320,
+      "h": 320,
+      "avif": 23152,
+      "webp": 29480
+    },
+    "Puzzle League US boxart.jpg": {
+      "slug": "puzzle-league-us-boxart",
+      "w": 320,
+      "h": 223,
+      "avif": 21457,
+      "webp": 27552
+    },
+    "Crystal EN boxart.png": {
+      "slug": "crystal-en-boxart",
+      "w": 320,
+      "h": 319,
+      "avif": 20238,
+      "webp": 27168
+    },
+    "Stadium 2 EN boxart.jpg": {
+      "slug": "stadium-2-en-boxart",
+      "w": 320,
+      "h": 223,
+      "avif": 20048,
+      "webp": 25074
+    },
+    "Party mini JP boxart.png": {
+      "slug": "party-mini-jp-boxart",
+      "w": 200,
+      "h": 203,
+      "avif": 12433,
+      "webp": 15774
+    },
+    "Pinball mini EN boxart.png": {
+      "slug": "pinball-mini-en-boxart",
+      "w": 150,
+      "h": 149,
+      "avif": 5605,
+      "webp": 6732
+    },
+    "Puzzle Collection EN boxart.png": {
+      "slug": "puzzle-collection-en-boxart",
+      "w": 280,
+      "h": 280,
+      "avif": 15887,
+      "webp": 19488
+    },
+    "Zany Cards EN boxart.png": {
+      "slug": "zany-cards-en-boxart",
+      "w": 280,
+      "h": 280,
+      "avif": 16546,
+      "webp": 20390
+    },
+    "TCG GB2 JP boxart.jpg": {
+      "slug": "tcg-gb2-jp-boxart",
+      "w": 224,
+      "h": 320,
+      "avif": 18454,
+      "webp": 23430
+    },
+    "Pokémon Crayon Kids machine.jpg": {
+      "slug": "pokemon-crayon-kids-machine",
+      "w": 127,
+      "h": 211,
+      "avif": 10610,
+      "webp": 12620
+    },
+    "Tetris EN boxart.png": {
+      "slug": "tetris-en-boxart",
+      "w": 320,
+      "h": 306,
+      "avif": 10295,
+      "webp": 15654
+    },
+    "Puzzle Collection Vol 2 JP boxart.png": {
+      "slug": "puzzle-collection-vol-2-jp-boxart",
+      "w": 260,
+      "h": 258,
+      "avif": 14701,
+      "webp": 19570
+    },
+    "Race JP boxart.png": {
+      "slug": "race-jp-boxart",
+      "w": 260,
+      "h": 259,
+      "avif": 14706,
+      "webp": 19614
+    },
+    "Catch the Numbers JP boxart.jpg": {
+      "slug": "catch-the-numbers-jp-boxart",
+      "w": 320,
+      "h": 309,
+      "avif": 22741,
+      "webp": 29082
+    },
+    "Pichu Bros mini JP boxart.png": {
+      "slug": "pichu-bros-mini-jp-boxart",
+      "w": 275,
+      "h": 272,
+      "avif": 17211,
+      "webp": 22032
+    },
+    "Togepi Great Adventure JP boxart.png": {
+      "slug": "togepi-great-adventure-jp-boxart",
+      "w": 260,
+      "h": 259,
+      "avif": 15467,
+      "webp": 20340
+    },
+    "Ruby EN boxart.png": {
+      "slug": "ruby-en-boxart",
+      "w": 320,
+      "h": 320,
+      "avif": 18267,
+      "webp": 24312
+    },
+    "Sapphire EN boxart.png": {
+      "slug": "sapphire-en-boxart",
+      "w": 320,
+      "h": 320,
+      "avif": 17351,
+      "webp": 23512
+    },
+    "Breeder mini JP boxart.png": {
+      "slug": "breeder-mini-jp-boxart",
+      "w": 260,
+      "h": 259,
+      "avif": 15225,
+      "webp": 20634
+    },
+    "Box RS EN boxart.png": {
+      "slug": "box-rs-en-boxart",
+      "w": 231,
+      "h": 320,
+      "avif": 14297,
+      "webp": 19594
+    },
+    "Channel EN boxart.png": {
+      "slug": "channel-en-boxart",
+      "w": 231,
+      "h": 320,
+      "avif": 12150,
+      "webp": 16770
+    },
+    "Pinball RS EN boxart.png": {
+      "slug": "pinball-rs-en-boxart",
+      "w": 320,
+      "h": 319,
+      "avif": 19310,
+      "webp": 24998
+    },
+    "AG Ive Begun Hiragana and Katakana JP boxart.jpg": {
+      "slug": "ag-ive-begun-hiragana-and-katakana-jp-boxart",
+      "w": 320,
+      "h": 311,
+      "avif": 21933,
+      "webp": 27554
+    },
+    "Colosseum EN boxart.png": {
+      "slug": "colosseum-en-boxart",
+      "w": 229,
+      "h": 320,
+      "avif": 16771,
+      "webp": 21452
+    },
+    "Masters Arena EN boxart.jpg": {
+      "slug": "masters-arena-en-boxart",
+      "w": 160,
+      "h": 230,
+      "avif": 11064,
+      "webp": 14510
+    },
+    "FireRed EN boxart.png": {
+      "slug": "firered-en-boxart",
+      "w": 320,
+      "h": 320,
+      "avif": 17432,
+      "webp": 24494
+    },
+    "LeafGreen EN boxart.png": {
+      "slug": "leafgreen-en-boxart",
+      "w": 320,
+      "h": 320,
+      "avif": 19898,
+      "webp": 26080
+    },
+    "AG Pico for Everyone Pokemon Loud Battle JP boxart.png": {
+      "slug": "ag-pico-for-everyone-pokemon-loud-battle-jp-boxart",
+      "w": 320,
+      "h": 210,
+      "avif": 23185,
+      "webp": 27628
+    },
+    "Emerald EN boxart.jpg": {
+      "slug": "emerald-en-boxart",
+      "w": 320,
+      "h": 320,
+      "avif": 23152,
+      "webp": 26922
+    },
+    "Dash EN boxart.jpg": {
+      "slug": "dash-en-boxart",
+      "w": 320,
+      "h": 285,
+      "avif": 17352,
+      "webp": 22370
+    },
+    "PokéPark Fishing Contest.png": {
+      "slug": "pokepark-fishing-contest",
+      "w": 165,
+      "h": 54,
+      "avif": 3686,
+      "webp": 4074
+    },
+    "Pokémon Fishing Contest DS.png": {
+      "slug": "pokemon-fishing-contest-ds",
+      "w": 212,
+      "h": 68,
+      "avif": 4469,
+      "webp": 5070
+    },
+    "AG Pokemon Super Drill Lets Learn Numbers from 1 to 20 JP boxart.jpg": {
+      "slug": "ag-pokemon-super-drill-lets-learn-numbers-from-1-to-20-jp-boxart",
+      "w": 239,
+      "h": 320,
+      "avif": 12889,
+      "webp": 17092
+    },
+    "XD EN boxart.jpg": {
+      "slug": "xd-en-boxart",
+      "w": 229,
+      "h": 320,
+      "avif": 12021,
+      "webp": 15600
+    },
+    "AG Pokemon Number Battle JP boxart.png": {
+      "slug": "ag-pokemon-number-battle-jp-boxart",
+      "w": 216,
+      "h": 320,
+      "avif": 22504,
+      "webp": 28078
+    },
+    "Trozei US boxart.jpg": {
+      "slug": "trozei-us-boxart",
+      "w": 320,
+      "h": 288,
+      "avif": 29952,
+      "webp": 32500
+    },
+    "Team Turbo EN boxart.png": {
+      "slug": "team-turbo-en-boxart",
+      "w": 224,
+      "h": 320,
+      "avif": 19065,
+      "webp": 24280
+    },
+    "MD Red EN boxart.jpg": {
+      "slug": "md-red-en-boxart",
+      "w": 320,
+      "h": 320,
+      "avif": 18677,
+      "webp": 24192
+    },
+    "MD Blue EN boxart.jpg": {
+      "slug": "md-blue-en-boxart",
+      "w": 320,
+      "h": 286,
+      "avif": 21872,
+      "webp": 26818
+    },
+    "Pokémon Poké Ball Launcher.png": {
+      "slug": "pokemon-poke-ball-launcher",
+      "w": 320,
+      "h": 240,
+      "avif": 14576,
+      "webp": 19986
+    },
+    "Pokémon Seek and Find.png": {
+      "slug": "pokemon-seek-and-find",
+      "w": 320,
+      "h": 242,
+      "avif": 12387,
+      "webp": 17084
+    },
+    "Pokémon Team Rocket Blast Off.png": {
+      "slug": "pokemon-team-rocket-blast-off",
+      "w": 320,
+      "h": 240,
+      "avif": 12317,
+      "webp": 16986
+    },
+    "Wobbuffet Fell Down machine.jpg": {
+      "slug": "wobbuffet-fell-down-machine",
+      "w": 131,
+      "h": 320,
+      "avif": 6011,
+      "webp": 7840
+    },
+    "Ranger EN boxart.jpg": {
+      "slug": "ranger-en-boxart",
+      "w": 320,
+      "h": 287,
+      "avif": 25611,
+      "webp": 31792
+    },
+    "Pokémate logo.png": {
+      "slug": "pokemate-logo",
+      "w": 192,
+      "h": 65,
+      "avif": 4542,
+      "webp": 4820
+    },
+    "PC Master JP boxart.jpg": {
+      "slug": "pc-master-jp-boxart",
+      "w": 320,
+      "h": 318,
+      "avif": 17089,
+      "webp": 22044
+    },
+    "Garden exterior.png": {
+      "slug": "garden-exterior",
+      "w": 320,
+      "h": 207,
+      "avif": 8499,
+      "webp": 11268
+    },
+    "Diamond EN boxart.jpg": {
+      "slug": "diamond-en-boxart",
+      "w": 320,
+      "h": 287,
+      "avif": 17165,
+      "webp": 21516
+    },
+    "Pearl EN boxart.jpg": {
+      "slug": "pearl-en-boxart",
+      "w": 320,
+      "h": 288,
+      "avif": 17835,
+      "webp": 22528
+    },
+    "Intellectual Training Drill Pokemon DP Letter and Number Intelligence Game JP boxart.png": {
+      "slug": "intellectual-training-drill-pokemon-dp-letter-and-number-intelligence-game-jp-boxart",
+      "w": 259,
+      "h": 320,
+      "avif": 26346,
+      "webp": 33054
+    },
+    "Battle Revolution EN boxart.jpg": {
+      "slug": "battle-revolution-en-boxart",
+      "w": 227,
+      "h": 320,
+      "avif": 19225,
+      "webp": 20872
+    },
+    "Battrio machine.png": {
+      "slug": "battrio-machine",
+      "w": 155,
+      "h": 320,
+      "avif": 7318,
+      "webp": 9824
+    },
+    "MD Time EN boxart.jpg": {
+      "slug": "md-time-en-boxart",
+      "w": 320,
+      "h": 287,
+      "avif": 26989,
+      "webp": 30776
+    },
+    "MD Darkness EN boxart.jpg": {
+      "slug": "md-darkness-en-boxart",
+      "w": 320,
+      "h": 287,
+      "avif": 25441,
+      "webp": 28348
+    },
+    "Ranger SoA EN boxart.png": {
+      "slug": "ranger-soa-en-boxart",
+      "w": 320,
+      "h": 287,
+      "avif": 24896,
+      "webp": 31262
+    },
+    "MPR-EN logo.png": {
+      "slug": "mpr-en-logo",
+      "w": 320,
+      "h": 228,
+      "avif": 11656,
+      "webp": 17152
+    },
+    "My Pokémon Ranch Platinum JP logo.png": {
+      "slug": "my-pokemon-ranch-platinum-jp-logo",
+      "w": 320,
+      "h": 89,
+      "avif": 10676,
+      "webp": 15536
+    },
+    "Platinum EN boxart.png": {
+      "slug": "platinum-en-boxart",
+      "w": 320,
+      "h": 287,
+      "avif": 18654,
+      "webp": 24400
+    },
+    "MD Sky EN boxart.jpg": {
+      "slug": "md-sky-en-boxart",
+      "w": 320,
+      "h": 286,
+      "avif": 24326,
+      "webp": 26916
+    },
+    "Pokémon Rumble logo.png": {
+      "slug": "pokemon-rumble-logo",
+      "w": 320,
+      "h": 202,
+      "avif": 12924,
+      "webp": 18338
+    },
+    "PMD KGBAS Japanese.png": {
+      "slug": "pmd-kgbas-japanese",
+      "w": 320,
+      "h": 155,
+      "avif": 13738,
+      "webp": 17662
+    },
+    "PMD LGSAS Japanese.png": {
+      "slug": "pmd-lgsas-japanese",
+      "w": 320,
+      "h": 158,
+      "avif": 14227,
+      "webp": 18696
+    },
+    "DP Search for Pokemon Adventure in the Maze JP boxart.png": {
+      "slug": "dp-search-for-pokemon-adventure-in-the-maze-jp-boxart",
+      "w": 259,
+      "h": 320,
+      "avif": 28135,
+      "webp": 34262
+    },
+    "HeartGold EN boxart.jpg": {
+      "slug": "heartgold-en-boxart",
+      "w": 320,
+      "h": 292,
+      "avif": 24476,
+      "webp": 27048
+    },
+    "SoulSilver EN boxart.jpg": {
+      "slug": "soulsilver-en-boxart",
+      "w": 320,
+      "h": 292,
+      "avif": 21244,
+      "webp": 23846
+    },
+    "Pokemon Card Game Online Logo.png": {
+      "slug": "pokemon-card-game-online-logo",
+      "w": 320,
+      "h": 38,
+      "avif": 4252,
+      "webp": 5088
+    },
+    "PokePark US boxart.png": {
+      "slug": "pokepark-us-boxart",
+      "w": 228,
+      "h": 320,
+      "avif": 17751,
+      "webp": 22316
+    },
+    "Tug of War Tournament machine.png": {
+      "slug": "tug-of-war-tournament-machine",
+      "w": 110,
+      "h": 320,
+      "avif": 8498,
+      "webp": 10968
+    },
+    "Ranger GS EN boxart.png": {
+      "slug": "ranger-gs-en-boxart",
+      "w": 320,
+      "h": 287,
+      "avif": 25714,
+      "webp": 32026
+    },
+    "Pokémon Get Round and Round machine yellow blue.jpg": {
+      "slug": "pokemon-get-round-and-round-machine-yellow-blue",
+      "w": 317,
+      "h": 320,
+      "avif": 27158,
+      "webp": 33962
+    },
+    "Black EN boxart.png": {
+      "slug": "black-en-boxart",
+      "w": 320,
+      "h": 287,
+      "avif": 14663,
+      "webp": 20670
+    },
+    "White EN boxart.png": {
+      "slug": "white-en-boxart",
+      "w": 320,
+      "h": 287,
+      "avif": 12546,
+      "webp": 16832
+    },
+    "BW Intelligence Training Pokemon Big Sports Meet JP boxart.png": {
+      "slug": "bw-intelligence-training-pokemon-big-sports-meet-jp-boxart",
+      "w": 258,
+      "h": 320,
+      "avif": 19542,
+      "webp": 24530
+    },
+    "TCGOlogo.png": {
+      "slug": "tcgologo",
+      "w": 320,
+      "h": 204,
+      "avif": 9486,
+      "webp": 14002
+    },
+    "Typing EN boxart.png": {
+      "slug": "typing-en-boxart",
+      "w": 320,
+      "h": 288,
+      "avif": 17466,
+      "webp": 22284
+    },
+    "Pokémon Say Tap icon.png": {
+      "slug": "pokemon-say-tap-icon",
+      "w": 175,
+      "h": 175,
+      "avif": 4543,
+      "webp": 6238
+    },
+    "TCG HTPDS JP boxart.png": {
+      "slug": "tcg-htpds-jp-boxart",
+      "w": 320,
+      "h": 289,
+      "avif": 19388,
+      "webp": 24760
+    },
+    "Rumble Blast US boxart.png": {
+      "slug": "rumble-blast-us-boxart",
+      "w": 320,
+      "h": 285,
+      "avif": 25009,
+      "webp": 30818
+    },
+    "PokePark 2 EN boxart.png": {
+      "slug": "pokepark-2-en-boxart",
+      "w": 227,
+      "h": 320,
+      "avif": 14653,
+      "webp": 19050
+    },
+    "Medal World machine.png": {
+      "slug": "medal-world-machine",
+      "w": 320,
+      "h": 213,
+      "avif": 13523,
+      "webp": 17742
+    },
+    "Conquest EN boxart.jpg": {
+      "slug": "conquest-en-boxart",
+      "w": 320,
+      "h": 287,
+      "avif": 24885,
+      "webp": 31916
+    },
+    "Black 2 EN boxart.png": {
+      "slug": "black-2-en-boxart",
+      "w": 320,
+      "h": 292,
+      "avif": 18435,
+      "webp": 23902
+    },
+    "White 2 EN boxart.png": {
+      "slug": "white-2-en-boxart",
+      "w": 320,
+      "h": 294,
+      "avif": 17942,
+      "webp": 23144
+    },
+    "Pokémon Dream Radar logo EN.png": {
+      "slug": "pokemon-dream-radar-logo-en",
+      "w": 320,
+      "h": 219,
+      "avif": 13525,
+      "webp": 18074
+    },
+    "Pokémon Tretta logo.png": {
+      "slug": "pokemon-tretta-logo",
+      "w": 320,
+      "h": 159,
+      "avif": 10707,
+      "webp": 14522
+    },
+    "MD GTI EN boxart.png": {
+      "slug": "md-gti-en-boxart",
+      "w": 320,
+      "h": 285,
+      "avif": 19595,
+      "webp": 25798
+    },
+    "Pokémon Rumble U art 2.png": {
+      "slug": "pokemon-rumble-u-art-2",
+      "w": 320,
+      "h": 185,
+      "avif": 17500,
+      "webp": 21118
+    },
+    "X EN boxart.png": {
+      "slug": "x-en-boxart",
+      "w": 320,
+      "h": 292,
+      "avif": 16058,
+      "webp": 21254
+    },
+    "Y EN boxart.png": {
+      "slug": "y-en-boxart",
+      "w": 320,
+      "h": 292,
+      "avif": 17145,
+      "webp": 22102
+    },
+    "Battle Trozei logo.png": {
+      "slug": "battle-trozei-logo",
+      "w": 320,
+      "h": 250,
+      "avif": 12622,
+      "webp": 18464
+    },
+    "The Thieves and the 1000 Pokémon banner.png": {
+      "slug": "the-thieves-and-the-1000-pokemon-banner",
+      "w": 320,
+      "h": 171,
+      "avif": 20025,
+      "webp": 24848
+    },
+    "Art Academy US boxart.png": {
+      "slug": "art-academy-us-boxart",
+      "w": 320,
+      "h": 293,
+      "avif": 18374,
+      "webp": 24136
+    },
+    "Pokémon Card Game Gacha machine.jpg": {
+      "slug": "pokemon-card-game-gacha-machine",
+      "w": 134,
+      "h": 320,
+      "avif": 10141,
+      "webp": 12504
+    },
+    "Battle Nine Machine Front.png": {
+      "slug": "battle-nine-machine-front",
+      "w": 190,
+      "h": 320,
+      "avif": 15087,
+      "webp": 20380
+    },
+    "Camp Pokémon Update 1.3.png": {
+      "slug": "camp-pokemon-update-1-3",
+      "w": 320,
+      "h": 320,
+      "avif": 21870,
+      "webp": 29570
+    },
+    "Omega Ruby EN boxart.png": {
+      "slug": "omega-ruby-en-boxart",
+      "w": 320,
+      "h": 293,
+      "avif": 17890,
+      "webp": 23036
+    },
+    "Alpha Sapphire EN boxart.png": {
+      "slug": "alpha-sapphire-en-boxart",
+      "w": 320,
+      "h": 293,
+      "avif": 16625,
+      "webp": 21916
+    },
+    "Pokémon Shuffle logo.png": {
+      "slug": "pokemon-shuffle-logo",
+      "w": 320,
+      "h": 154,
+      "avif": 9415,
+      "webp": 13562
+    },
+    "Pokémon Shuffle Mobile logo.png": {
+      "slug": "pokemon-shuffle-mobile-logo",
+      "w": 320,
+      "h": 199,
+      "avif": 11505,
+      "webp": 15850
+    },
+    "Rumble World US boxart.png": {
+      "slug": "rumble-world-us-boxart",
+      "w": 320,
+      "h": 284,
+      "avif": 20816,
+      "webp": 26674
+    },
+    "Learn Real English Through Pokémon XY Translation Scope.png": {
+      "slug": "learn-real-english-through-pokemon-xy-translation-scope",
+      "w": 320,
+      "h": 64,
+      "avif": 6094,
+      "webp": 6302
+    },
+    "Dancing Pokémon Band logo.png": {
+      "slug": "dancing-pokemon-band-logo",
+      "w": 320,
+      "h": 211,
+      "avif": 12639,
+      "webp": 19336
+    },
+    "Pokkén Tournament EN boxart.png": {
+      "slug": "pokken-tournament-en-boxart",
+      "w": 224,
+      "h": 320,
+      "avif": 14090,
+      "webp": 18748
+    },
+    "PTDX box art.png": {
+      "slug": "ptdx-box-art",
+      "w": 198,
+      "h": 320,
+      "avif": 18284,
+      "webp": 21990
+    },
+    "Super Mystery Dungeon EN boxart.png": {
+      "slug": "super-mystery-dungeon-en-boxart",
+      "w": 320,
+      "h": 286,
+      "avif": 25575,
+      "webp": 31830
+    },
+    "Get Pokemon Mega! machine.jpg": {
+      "slug": "get-pokemon-mega-machine",
+      "w": 147,
+      "h": 320,
+      "avif": 9216,
+      "webp": 11460
+    },
+    "Pokémon Mega Get! Nagetore Box machine.png": {
+      "slug": "pokemon-mega-get-nagetore-box-machine",
+      "w": 320,
+      "h": 302,
+      "avif": 22975,
+      "webp": 28940
+    },
+    "Pokémon Picross artwork.png": {
+      "slug": "pokemon-picross-artwork",
+      "w": 320,
+      "h": 185,
+      "avif": 17460,
+      "webp": 21980
+    },
+    "Detective Pikachu EN Boxart.png": {
+      "slug": "detective-pikachu-en-boxart",
+      "w": 320,
+      "h": 292,
+      "avif": 11525,
+      "webp": 15654
+    },
+    "Great Detective Pikachu Birth of a New Duo logo.png": {
+      "slug": "great-detective-pikachu-birth-of-a-new-duo-logo",
+      "w": 320,
+      "h": 208,
+      "avif": 10942,
+      "webp": 18524
+    },
+    "Pokémon Photo Booth icon.png": {
+      "slug": "pokemon-photo-booth-icon",
+      "w": 320,
+      "h": 320,
+      "avif": 1975,
+      "webp": 3598
+    },
+    "Pokémon GO logo.png": {
+      "slug": "pokemon-go-logo",
+      "w": 320,
+      "h": 201,
+      "avif": 10465,
+      "webp": 16032
+    },
+    "Pokémon Duel Logo.png": {
+      "slug": "pokemon-duel-logo",
+      "w": 320,
+      "h": 195,
+      "avif": 10687,
+      "webp": 16060
+    },
+    "Pokémon Ga-Olé logo English.png": {
+      "slug": "pokemon-ga-ole-logo-english",
+      "w": 320,
+      "h": 98,
+      "avif": 5003,
+      "webp": 7440
+    },
+    "Sun EN boxart.png": {
+      "slug": "sun-en-boxart",
+      "w": 320,
+      "h": 292,
+      "avif": 17061,
+      "webp": 22616
+    },
+    "Moon EN boxart.png": {
+      "slug": "moon-en-boxart",
+      "w": 320,
+      "h": 292,
+      "avif": 17063,
+      "webp": 22640
+    },
+    "Pokémon Magikarp Jump logo.png": {
+      "slug": "pokemon-magikarp-jump-logo",
+      "w": 320,
+      "h": 183,
+      "avif": 10777,
+      "webp": 13650
+    },
+    "Pokémon Playhouse logo.png": {
+      "slug": "pokemon-playhouse-logo",
+      "w": 320,
+      "h": 280,
+      "avif": 13211,
+      "webp": 22784
+    },
+    "Pikachu Talk logo.png": {
+      "slug": "pikachu-talk-logo",
+      "w": 320,
+      "h": 123,
+      "avif": 5167,
+      "webp": 8384
+    },
+    "Ultra Sun EN boxart.png": {
+      "slug": "ultra-sun-en-boxart",
+      "w": 320,
+      "h": 292,
+      "avif": 18500,
+      "webp": 24190
+    },
+    "Ultra Moon EN boxart.png": {
+      "slug": "ultra-moon-en-boxart",
+      "w": 320,
+      "h": 292,
+      "avif": 18620,
+      "webp": 24000
+    },
+    "Pokémon Quest logo.png": {
+      "slug": "pokemon-quest-logo",
+      "w": 320,
+      "h": 200,
+      "avif": 8598,
+      "webp": 12394
+    },
+    "Lets Go Pikachu EN boxart.png": {
+      "slug": "lets-go-pikachu-en-boxart",
+      "w": 198,
+      "h": 320,
+      "avif": 10896,
+      "webp": 14560
+    },
+    "Lets Go Eevee EN boxart.png": {
+      "slug": "lets-go-eevee-en-boxart",
+      "w": 198,
+      "h": 320,
+      "avif": 11070,
+      "webp": 15182
+    },
+    "Eevee Tamagotchi.png": {
+      "slug": "eevee-tamagotchi",
+      "w": 255,
+      "h": 312,
+      "avif": 8283,
+      "webp": 12888
+    },
+    "Eevee Tamagotchi Colourful.png": {
+      "slug": "eevee-tamagotchi-colourful",
+      "w": 243,
+      "h": 300,
+      "avif": 7132,
+      "webp": 11324
+    },
+    "Pokémon Pass logo.png": {
+      "slug": "pokemon-pass-logo",
+      "w": 320,
+      "h": 157,
+      "avif": 11374,
+      "webp": 16256
+    },
+    "Rumble Rush artwork 2.jpg": {
+      "slug": "rumble-rush-artwork-2",
+      "w": 320,
+      "h": 181,
+      "avif": 15689,
+      "webp": 20298
+    },
+    "Pokémon Masters Logo.png": {
+      "slug": "pokemon-masters-logo",
+      "w": 320,
+      "h": 177,
+      "avif": 11909,
+      "webp": 18024
+    },
+    "Pokémon Masters EX Logo.png": {
+      "slug": "pokemon-masters-ex-logo",
+      "w": 320,
+      "h": 212,
+      "avif": 11996,
+      "webp": 17662
+    },
+    "Pokémon Wave Hello title screen.png": {
+      "slug": "pokemon-wave-hello-title-screen",
+      "w": 160,
+      "h": 320,
+      "avif": 4763,
+      "webp": 7000
+    },
+    "Sword EN boxart.png": {
+      "slug": "sword-en-boxart",
+      "w": 198,
+      "h": 320,
+      "avif": 12448,
+      "webp": 16528
+    },
+    "Shield EN boxart.png": {
+      "slug": "shield-en-boxart",
+      "w": 198,
+      "h": 320,
+      "avif": 12727,
+      "webp": 16868
+    },
+    "Medallion Battle logo.png": {
+      "slug": "medallion-battle-logo",
+      "w": 250,
+      "h": 167,
+      "avif": 10052,
+      "webp": 9612
+    },
+    "Pokémon Tower Battle logo.png": {
+      "slug": "pokemon-tower-battle-logo",
+      "w": 320,
+      "h": 213,
+      "avif": 12168,
+      "webp": 18542
+    },
+    "MD Rescue Team DX EN boxart.png": {
+      "slug": "md-rescue-team-dx-en-boxart",
+      "w": 198,
+      "h": 320,
+      "avif": 17418,
+      "webp": 21794
+    },
+    "Pokémon Smile logo.png": {
+      "slug": "pokemon-smile-logo",
+      "w": 320,
+      "h": 171,
+      "avif": 8112,
+      "webp": 16076
+    },
+    "Pokémon Café Mix logo.png": {
+      "slug": "pokemon-cafe-mix-logo",
+      "w": 320,
+      "h": 181,
+      "avif": 12922,
+      "webp": 17788
+    },
+    "Pokémon Café ReMix logo.png": {
+      "slug": "pokemon-cafe-remix-logo",
+      "w": 320,
+      "h": 314,
+      "avif": 15615,
+      "webp": 22598
+    },
+    "Pokémon Mezastar logo English.png": {
+      "slug": "pokemon-mezastar-logo-english",
+      "w": 320,
+      "h": 81,
+      "avif": 5479,
+      "webp": 7144
+    },
+    "Pokémon Kids Winter Fest logo.png": {
+      "slug": "pokemon-kids-winter-fest-logo",
+      "w": 308,
+      "h": 320,
+      "avif": 9364,
+      "webp": 19798
+    },
+    "New Pokémon Snap EN boxart.png": {
+      "slug": "new-pokemon-snap-en-boxart",
+      "w": 198,
+      "h": 320,
+      "avif": 18304,
+      "webp": 22224
+    },
+    "Pokémon UNITE logo.png": {
+      "slug": "pokemon-unite-logo",
+      "w": 320,
+      "h": 174,
+      "avif": 9940,
+      "webp": 14772
+    },
+    "Brilliant Diamond EN boxart.png": {
+      "slug": "brilliant-diamond-en-boxart",
+      "w": 198,
+      "h": 320,
+      "avif": 10566,
+      "webp": 14718
+    },
+    "Shining Pearl EN boxart.png": {
+      "slug": "shining-pearl-en-boxart",
+      "w": 198,
+      "h": 320,
+      "avif": 10384,
+      "webp": 14322
+    },
+    "Pokémon Place New Year logo.png": {
+      "slug": "pokemon-place-new-year-logo",
+      "w": 308,
+      "h": 320,
+      "avif": 13422,
+      "webp": 26698
+    },
+    "Legends Arceus EN boxart.png": {
+      "slug": "legends-arceus-en-boxart",
+      "w": 198,
+      "h": 320,
+      "avif": 13141,
+      "webp": 16930
+    },
+    "Pokémon Trading Card Game Live logo.png": {
+      "slug": "pokemon-trading-card-game-live-logo",
+      "w": 320,
+      "h": 266,
+      "avif": 10076,
+      "webp": 18124
+    },
+    "Pokémon Corogarena machine.png": {
+      "slug": "pokemon-corogarena-machine",
+      "w": 288,
+      "h": 320,
+      "avif": 22152,
+      "webp": 32688
+    },
+    "Scarlet EN boxart.png": {
+      "slug": "scarlet-en-boxart",
+      "w": 198,
+      "h": 320,
+      "avif": 15003,
+      "webp": 19576
+    },
+    "Violet EN boxart.png": {
+      "slug": "violet-en-boxart",
+      "w": 198,
+      "h": 320,
+      "avif": 12970,
+      "webp": 17122
+    },
+    "Pokémon Sleep logo.png": {
+      "slug": "pokemon-sleep-logo",
+      "w": 320,
+      "h": 192,
+      "avif": 12232,
+      "webp": 17574
+    },
+    "Detective Pikachu Returns EN Boxart.png": {
+      "slug": "detective-pikachu-returns-en-boxart",
+      "w": 198,
+      "h": 320,
+      "avif": 14909,
+      "webp": 18246
+    },
+    "Pokémon Frienda machine.png": {
+      "slug": "pokemon-frienda-machine",
+      "w": 253,
+      "h": 320,
+      "avif": 10761,
+      "webp": 15938
+    },
+    "Pokémon Trading Card Game Pocket logo.png": {
+      "slug": "pokemon-trading-card-game-pocket-logo",
+      "w": 320,
+      "h": 240,
+      "avif": 7933,
+      "webp": 12658
+    },
+    "Pokémon Friends logo.png": {
+      "slug": "pokemon-friends-logo",
+      "w": 320,
+      "h": 181,
+      "avif": 12349,
+      "webp": 20512
+    },
+    "Pokémon Events icon.png": {
+      "slug": "pokemon-events-icon",
+      "w": 320,
+      "h": 320,
+      "avif": 11911,
+      "webp": 18314
+    },
+    "Legends Z-A EN boxart.png": {
+      "slug": "legends-z-a-en-boxart",
+      "w": 198,
+      "h": 320,
+      "avif": 12158,
+      "webp": 15912
+    },
+    "Legends Z-A Nintendo Switch 2 Edition EN boxart.png": {
+      "slug": "legends-z-a-nintendo-switch-2-edition-en-boxart",
+      "w": 198,
+      "h": 320,
+      "avif": 12069,
+      "webp": 15440
+    },
+    "Official PokéPark KANTO App icon.png": {
+      "slug": "official-pokepark-kanto-app-icon",
+      "w": 320,
+      "h": 320,
+      "avif": 4705,
+      "webp": 7126
+    },
+    "Pokémon Goita icon.png": {
+      "slug": "pokemon-goita-icon",
+      "w": 320,
+      "h": 320,
+      "avif": 4495,
+      "webp": 6576
+    },
+    "Pokopia EN boxart.png": {
+      "slug": "pokopia-en-boxart",
+      "w": 198,
+      "h": 320,
+      "avif": 14407,
+      "webp": 17568
+    },
+    "Pokémon Champions eShop.jpg": {
+      "slug": "pokemon-champions-eshop",
+      "w": 320,
+      "h": 180,
+      "avif": 15162,
+      "webp": 19684
+    },
+    "Pokémon Winds eShop.jpg": {
+      "slug": "pokemon-winds-eshop",
+      "w": 320,
+      "h": 180,
+      "avif": 5698,
+      "webp": 8114
+    },
+    "Pokémon Waves eShop.jpg": {
+      "slug": "pokemon-waves-eshop",
+      "w": 320,
+      "h": 180,
+      "avif": 6718,
+      "webp": 9834
+    },
+    "Pokémon Roll Call Rhythm Game logo.png": {
+      "slug": "pokemon-roll-call-rhythm-game-logo",
+      "w": 320,
+      "h": 320,
+      "avif": 16908,
+      "webp": 23624
+    },
+    "Pokémon Spot teaser image.png": {
+      "slug": "pokemon-spot-teaser-image",
+      "w": 320,
+      "h": 57,
+      "avif": 3477,
+      "webp": 4296
+    }
+  }
+}

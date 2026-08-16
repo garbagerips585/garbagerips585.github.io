@@ -23,7 +23,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=67f732be">
+<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>.rar-pr{grid-column:1 / -1;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
 letter-spacing:.02em}
@@ -34,7 +34,53 @@ padding-left:var(--s4);font-size:var(--t-body)}
 .prod-per{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
 letter-spacing:.04em;text-transform:uppercase;margin-top:3px}
 .prod-per b{display:inline-block;background:var(--mustard);color:var(--ink);
-border-radius:var(--r-pill);padding:1px 7px;margin-left:4px;font-weight:700}</style>
+border-radius:var(--r-pill);padding:1px 7px;margin-left:4px;font-weight:700}
+@media(min-width:1200px){
+.facts-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+gap:11px;align-items:start}
+.facts-list li{max-width:none}
+.rarity-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+gap:9px 20px;align-items:start}
+}
+.w34{max-width:34em}
+.w38{max-width:38em}
+.w40{max-width:40em}
+.w42{max-width:42em}
+@media(min-width:1000px){
+.lede,.sv-say,.intl-lede,.w34,.w38,.w40,.w42{max-width:50ch}
+.prod-note,.price-note{max-width:64ch}
+}
+.setsym{display:flex;align-items:center;gap:var(--s4);margin-top:var(--s4);
+padding:var(--s3) var(--s4);border:1px solid var(--hair);border-radius:var(--r);
+background-color:var(--card);box-shadow:var(--lift);max-width:44em}
+.setsym-i{flex:0 0 40px;width:40px;height:40px;object-fit:contain}
+.setsym p{margin:0;font-size:var(--t-sm);line-height:1.5}
+.rar-name .rk{margin-right:5px}
+.svc{margin-top:var(--s5);max-width:42em;display:flex;flex-direction:column;gap:var(--s4)}
+.svc-row{display:grid;gap:4px}
+.svc-bar{display:block;width:100%;height:auto}
+.svc-track{fill:var(--paper-3);stroke:var(--keyline);stroke-width:2}
+.svc-fill{fill:var(--gold)}
+.band-sky .svc-track{fill:#fff;fill-opacity:.55}
+.svc-k{margin:0;font-weight:700;font-size:var(--t-sm)}
+.svc-v{margin:0;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.02em}
+@media(min-width:560px){
+.svc-row{grid-template-columns:11em minmax(0,1fr);align-items:center;gap:2px var(--s4)}
+.svc-k{grid-row:1;grid-column:1}
+.svc-bar{grid-row:1;grid-column:2}
+.svc-v{grid-row:2;grid-column:2}
+}
+.rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
+.rk svg{width:11px;height:11px;display:block}
+.rk-gold svg{fill:var(--gold)}
+.rk-mega svg{fill:var(--mustard);stroke:var(--gold-deep);stroke-width:.8}
+.rk-silver svg{fill:#C6C6C6;stroke:#767676;stroke-width:.8}
+.rk-black svg{fill:var(--navy)}
+.rk-pink svg{fill:#D96BA0}
+.rk-fire svg{fill:var(--ketchup);width:10px;height:12px}
+.rk-jp{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.04em;color:var(--chrome-ink);background:var(--navy);
+border-radius:3px;padding:3px 5px}
+.chip-rk{display:inline-flex;align-items:center}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Paldea Evolved Pokemon TCG Set Guide","description":"Paldea Evolved Pokemon TCG set guide: 279 cards, released June 9, 2023, full rarity breakdown, and the top chase cards with current market values.","image":["https://garbagerips585.github.io/assets/og-image.jpg"],"about":{"@type":"Thing","name":"Paldea Evolved (Pokemon Trading Card Game)"},"url":"https://garbagerips585.github.io/sets/paldea-evolved.html","datePublished":"2026-08-16","dateModified":"2026-08-16","author":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/"},"publisher":{"@type":"Organization","name":"Garbage Rips 585","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Card Sets","item":"https://garbagerips585.github.io/sets/"},{"@type":"ListItem","position":3,"name":"Paldea Evolved"}]}</script>
 </head>
@@ -122,6 +168,7 @@ border-radius:var(--r-pill);padding:1px 7px;margin-left:4px;font-weight:700}</st
       <p class="menu-h">Play</p>
       <ul>
         <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
       </ul>
     </div>
@@ -145,7 +192,7 @@ border-radius:var(--r-pill);padding:1px 7px;margin-left:4px;font-weight:700}</st
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     <img class="logo-big" width="892" height="294" src="/assets/logos/paldea-evolved-pokemon-tcg-set-logo.webp" alt="" onerror="this.remove()">
     <h1>Paldea Evolved</h1>
-    <p class="lede" style="max-width:34em">Everything worth knowing about Paldea Evolved in one screen. Card counts, what is actually rare, and what the chase cards are going for.</p>
+    <p class="lede w34">Everything worth knowing about Paldea Evolved in one screen. Card counts, what is actually rare, and what the chase cards are going for.</p>
   </div>
 </header>
 
@@ -165,6 +212,14 @@ border-radius:var(--r-pill);padding:1px 7px;margin-left:4px;font-weight:700}</st
       
       <div class="fact"><div class="n">$16.03</div><div class="l">Single pack, market price</div></div>
     </div>
+
+    <div class="setsym">
+      <img class="setsym-i" src="/assets/symbols/sv2-pokemon-tcg-set-symbol.webp"
+        width="40" height="40"
+        alt="The Paldea Evolved set symbol" decoding="async">
+      <p>That is the Paldea Evolved set symbol. Every card in the set prints it at the bottom, beside the
+        collector number. <a href="/what-set.html">Holding a card and not sure which set it is?</a></p>
+    </div>
   </div>
 </section>
 
@@ -172,7 +227,7 @@ border-radius:var(--r-pill);padding:1px 7px;margin-left:4px;font-weight:700}</st
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On the channel</p>
     <h2>Every Paldea Evolved <span class="hl">rip</span></h2>
-    <p class="lede" style="max-width:38em">1 video opening this set.</p>
+    <p class="lede w38">1 video opening this set.</p>
     <ul class="riplist">
       <li><a href="/rip/only-garbage-rips-paldea-evolved-blister-pack-pokemonshorts-evnMahizn0I.html">Paldea Evolved Blister</a>
         <span>Feb 7, 2026</span></li>
@@ -301,8 +356,26 @@ border-radius:var(--r-pill);padding:1px 7px;margin-left:4px;font-weight:700}</st
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Where the value sits</p>
     <h2>Where the <span class="hl">money</span> is</h2>
-    <p class="lede" style="max-width:42em">Buy one copy of every card in Paldea Evolved at market price and you would spend
+    <p class="lede w42">Buy one copy of every card in Paldea Evolved at market price and you would spend
       $1,993.06. Half of it sits in 10 cards. The other 269 come to $986.21 between them, which is $3.67 a card.</p>
+    <div class="svc">
+      <div class="svc-row">
+        <p class="svc-k">The 10 priciest cards</p>
+        <svg class="svc-bar" viewBox="0 0 300 16" width="300" height="16" aria-hidden="true" focusable="false">
+          <rect x="0" y="0" width="300" height="16" rx="8" class="svc-track"/>
+          <rect x="0" y="0" width="11" height="16" rx="8" class="svc-fill"/>
+        </svg>
+        <p class="svc-v">4% of the 279 cards with a price</p>
+      </div>
+      <div class="svc-row">
+        <p class="svc-k">What those 10 are worth</p>
+        <svg class="svc-bar" viewBox="0 0 300 16" width="300" height="16" aria-hidden="true" focusable="false">
+          <rect x="0" y="0" width="300" height="16" rx="8" class="svc-track"/>
+          <rect x="0" y="0" width="150" height="16" rx="8" class="svc-fill"/>
+        </svg>
+        <p class="svc-v">half of the $1,993 the whole checklist comes to</p>
+      </div>
+    </div>
     <div class="facts">
       <div class="fact"><div class="n">$1,993</div><div class="l">One of every card</div></div>
       <div class="fact"><div class="n">10</div><div class="l">Cards holding half the value</div></div>
@@ -327,8 +400,8 @@ border-radius:var(--r-pill);padding:1px 7px;margin-left:4px;font-weight:700}</st
       <li><b>Released June 9, 2023</b>, which was 3 years ago.</li>
       <li>The set is <b>193 cards</b> on paper, but there are <b>279</b> in total. The extra 86 are secret rares numbered past the printed count.</li>
       <li><b>86 of the 279 cards</b> sit at a chase rarity, which is every tier highlighted in the rarity breakdown below. That is what the checklist holds, not how often any of it turns up.</li>
-      <li>Only <b>9 Hyper Rares</b> exist in the entire set.</li>
-      <li>The chase card is <b>Magikarp</b> (Illustration Rare), sitting around <b>$389</b> raw.</li>
+      <li>Only <b><span class="rk rk-gold" title="Hyper Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>9 Hyper Rares</b> exist in the entire set.</li>
+      <li>The chase card is <b>Magikarp</b> (<span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare), sitting around <b>$389</b> raw.</li>
       <li>We have ripped <b>1 video</b> worth of this set on the channel.</li>
       
     </ul>
@@ -339,42 +412,42 @@ border-radius:var(--r-pill);padding:1px 7px;margin-left:4px;font-weight:700}</st
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
     <h2>Rarity <span class="hl">breakdown</span></h2>
-    <p class="lede" style="max-width:42em">How many cards sit at each rarity, and what those
+    <p class="lede w42">How many cards sit at each rarity, and what those
       cards are worth. <b>Mid</b> is the middle card at that rarity: half of them cost more than that and half cost
       less, which is a far better guide to what you will actually see than the one famous card at the top.</p>
     <div class="rarity-list">
       <div class="rar chase">
-        <span class="rar-name">Hyper Rare</span>
+        <span class="rar-name"><span class="rk rk-gold" title="Hyper Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Hyper Rare</span>
         <span class="rar-n">9</span>
         <span class="rar-pr">Mid <b>$5.88</b> &bull; top <b>$10.66</b></span>
         <span class="rar-bar"><i style="width:11%"></i></span>
       </div>
       <div class="rar chase">
-        <span class="rar-name">Special Illustration Rare</span>
+        <span class="rar-name"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span>
         <span class="rar-n">15</span>
         <span class="rar-pr">Mid <b>$19.57</b> &bull; top <b>$60.66</b></span>
         <span class="rar-bar"><i style="width:19%"></i></span>
       </div>
       <div class="rar chase">
-        <span class="rar-name">Illustration Rare</span>
+        <span class="rar-name"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span>
         <span class="rar-n">36</span>
         <span class="rar-pr">Mid <b>$20.72</b> &bull; top <b>$389.43</b></span>
         <span class="rar-bar"><i style="width:44%"></i></span>
       </div>
       <div class="rar chase">
-        <span class="rar-name">Ultra Rare</span>
+        <span class="rar-name"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span>
         <span class="rar-n">26</span>
         <span class="rar-pr">Mid <b>$2.68</b> &bull; top <b>$16.17</b></span>
         <span class="rar-bar"><i style="width:32%"></i></span>
       </div>
       <div class="rar">
-        <span class="rar-name">Double Rare</span>
+        <span class="rar-name"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span>
         <span class="rar-n">17</span>
         <span class="rar-pr">Mid <b>$0.78</b> &bull; top <b>$4.01</b></span>
         <span class="rar-bar"><i style="width:21%"></i></span>
       </div>
       <div class="rar">
-        <span class="rar-name">Rare</span>
+        <span class="rar-name"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span>
         <span class="rar-n">25</span>
         <span class="rar-pr">Mid <b>$0.26</b> &bull; top <b>$0.94</b></span>
         <span class="rar-bar"><i style="width:31%"></i></span>
@@ -392,6 +465,10 @@ border-radius:var(--r-pill);padding:1px 7px;margin-left:4px;font-weight:700}</st
         <span class="rar-bar"><i style="width:100%"></i></span>
       </div>
     </div>
+    <p class="price-note">The stars beside a tier are the ones printed on the card, redrawn from the key in the
+      booklet that ships inside a modern set. The colour carries as much of the meaning as the count: two silver
+      stars is Ultra Rare and two black stars is Double Rare. Tiers with no stars are not on that page, so this
+      site does not draw one for them. <a href="/rarity.html">The whole rarity key</a>.</p>
     <p class="price-note">Prices worked out from the Paldea Evolved checklist below, read August 12, 2026. A rarity only gets a figure where every card at that rarity has a price and the checklist agrees with the set's
       own count, so a few tiers show a count and no money rather than a number covering a different set of cards than
       the one beside it.</p>
@@ -1752,6 +1829,7 @@ border-radius:var(--r-pill);padding:1px 7px;margin-left:4px;font-weight:700}</st
       <div class="foot-col">
         <p class="foot-h">Play</p>
         <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
       </div>
       <div class="foot-col">

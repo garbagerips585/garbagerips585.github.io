@@ -1,0 +1,599 @@
+{
+  "_readme": [
+    "Card scans mirrored at thumbnail size by scripts/sync-card-thumbs.mjs.",
+    "",
+    "Written because TCGdex's smallest rendition is 245px wide and there is no",
+    "middle width at any host, so a list drawing 32 cards in 32px boxes paid",
+    "about 550KB for it. These are fitted to a 72px box, which covers 32px at",
+    "DPR2 with room, lossy WebP.",
+    "",
+    "KEYS ARE THE TCGDEX BASE URL, with no extension, exactly as it appears in",
+    "public/data/cards/<set>.json. A builder that already holds the url looks it",
+    "up directly and falls back to <base>/low.webp when it is not here.",
+    "",
+    "`w` and `h` are the file's real decoded size, which is not always 72 wide by",
+    "the same height: the box is a bound and the scans are not one aspect ratio.",
+    "",
+    "DO NOT USE THESE WHERE THE PAGE ARGUES ABOUT WHAT IS PRINTED ON THE CARD.",
+    "They are lossy and 72px wide. /rarity.html, /fake-cards.html, /types.html",
+    "and /how-to-play.html show the full scan on purpose and should keep doing it.",
+    "",
+    "Files live at public/assets/cards/."
+  ],
+  "syncedAt": "2026-08-16",
+  "box": 72,
+  "quality": 82,
+  "source": "assets.tcgdex.net low.webp",
+  "thumbs": {
+    "https://assets.tcgdex.net/en/me/me02.5/276": {
+      "file": "ascended-heroes-276-pikachu-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me02.5/277": {
+      "file": "ascended-heroes-277-pikachu-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me02.5/280": {
+      "file": "ascended-heroes-280-lillie-s-clefairy-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me02.5/281": {
+      "file": "ascended-heroes-281-team-rocket-s-mewtwo-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me02.5/284": {
+      "file": "ascended-heroes-284-mega-gengar-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me02.5/290": {
+      "file": "ascended-heroes-290-mega-dragonite-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me02.5/294": {
+      "file": "ascended-heroes-294-mega-charizard-y-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me02.5/295": {
+      "file": "ascended-heroes-295-mega-dragonite-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10.5b/100": {
+      "file": "black-bolt-100-volcarona-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10.5b/105": {
+      "file": "black-bolt-105-seismitoad-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10.5b/147": {
+      "file": "black-bolt-147-haxorus-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10.5b/165": {
+      "file": "black-bolt-165-kyurem-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10.5b/166": {
+      "file": "black-bolt-166-zekrom-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10.5b/170": {
+      "file": "black-bolt-170-n-s-plan-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10.5b/171": {
+      "file": "black-bolt-171-victini-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10.5b/172": {
+      "file": "black-bolt-172-zekrom-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me04/100": {
+      "file": "chaos-rising-100-mega-greninja-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me04/116": {
+      "file": "chaos-rising-116-mega-greninja-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me04/117": {
+      "file": "chaos-rising-117-mega-floette-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me04/118": {
+      "file": "chaos-rising-118-mega-dragalge-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me04/119": {
+      "file": "chaos-rising-119-cinccino-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me04/120": {
+      "file": "chaos-rising-120-az-s-tranquility-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me04/121": {
+      "file": "chaos-rising-121-roxie-s-performance-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me04/122": {
+      "file": "chaos-rising-122-mega-greninja-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10/193": {
+      "file": "destined-rivals-193-misty-s-psyduck-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10/229": {
+      "file": "destined-rivals-229-team-rocket-s-moltres-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10/230": {
+      "file": "destined-rivals-230-ethan-s-ho-oh-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10/231": {
+      "file": "destined-rivals-231-team-rocket-s-mewtwo-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10/232": {
+      "file": "destined-rivals-232-cynthia-s-garchomp-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10/233": {
+      "file": "destined-rivals-233-team-rocket-s-nidoking-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10/234": {
+      "file": "destined-rivals-234-team-rocket-s-crobat-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10/240": {
+      "file": "destined-rivals-240-team-rocket-s-mewtwo-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv09/161": {
+      "file": "journey-together-161-articuno-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv09/167": {
+      "file": "journey-together-167-n-s-reshiram-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv09/182": {
+      "file": "journey-together-182-volcanion-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv09/183": {
+      "file": "journey-together-183-iono-s-bellibolt-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv09/184": {
+      "file": "journey-together-184-lillie-s-clefairy-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv09/185": {
+      "file": "journey-together-185-n-s-zoroark-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv09/186": {
+      "file": "journey-together-186-hop-s-zacian-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv09/187": {
+      "file": "journey-together-187-salamence-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me01/177": {
+      "file": "mega-evolution-177-mega-venusaur-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me01/178": {
+      "file": "mega-evolution-178-mega-gardevoir-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me01/179": {
+      "file": "mega-evolution-179-mega-lucario-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me01/180": {
+      "file": "mega-evolution-180-mega-absol-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me01/181": {
+      "file": "mega-evolution-181-mega-latias-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me01/182": {
+      "file": "mega-evolution-182-mega-kangaskhan-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me01/184": {
+      "file": "mega-evolution-184-lillie-s-determination-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me01/187": {
+      "file": "mega-evolution-187-mega-gardevoir-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me01/188": {
+      "file": "mega-evolution-188-mega-lucario-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me03/118": {
+      "file": "perfect-order-118-mega-starmie-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me03/119": {
+      "file": "perfect-order-119-mega-clefable-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me03/120": {
+      "file": "perfect-order-120-mega-zygarde-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me03/121": {
+      "file": "perfect-order-121-meowth-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me03/122": {
+      "file": "perfect-order-122-jacinthe-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me03/123": {
+      "file": "perfect-order-123-rosa-s-encouragement-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me03/124": {
+      "file": "perfect-order-124-mega-zygarde-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me02/109": {
+      "file": "phantasmal-flames-109-mega-charizard-x-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me02/125": {
+      "file": "phantasmal-flames-125-mega-charizard-x-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me02/126": {
+      "file": "phantasmal-flames-126-rotom-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me02/127": {
+      "file": "phantasmal-flames-127-mega-sharpedo-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me02/128": {
+      "file": "phantasmal-flames-128-mega-lopunny-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me02/129": {
+      "file": "phantasmal-flames-129-dawn-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me02/130": {
+      "file": "phantasmal-flames-130-mega-charizard-x-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me05/111": {
+      "file": "pitch-black-111-misty-s-vitality-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me05/114": {
+      "file": "pitch-black-114-mega-zeraora-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me05/115": {
+      "file": "pitch-black-115-mega-chandelure-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me05/116": {
+      "file": "pitch-black-116-mega-darkrai-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me05/117": {
+      "file": "pitch-black-117-morpeko-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me05/118": {
+      "file": "pitch-black-118-gladion-s-final-battle-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me05/119": {
+      "file": "pitch-black-119-gwynn-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/me/me05/120": {
+      "file": "pitch-black-120-mega-darkrai-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv08.5/144": {
+      "file": "prismatic-evolutions-144-leafeon-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv08.5/146": {
+      "file": "prismatic-evolutions-146-flareon-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv08.5/149": {
+      "file": "prismatic-evolutions-149-vaporeon-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv08.5/150": {
+      "file": "prismatic-evolutions-150-glaceon-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv08.5/153": {
+      "file": "prismatic-evolutions-153-jolteon-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv08.5/155": {
+      "file": "prismatic-evolutions-155-espeon-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv08.5/156": {
+      "file": "prismatic-evolutions-156-sylveon-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv08.5/161": {
+      "file": "prismatic-evolutions-161-umbreon-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv07/152": {
+      "file": "stellar-crown-152-milcery-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv07/167": {
+      "file": "stellar-crown-167-hydrapple-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv07/168": {
+      "file": "stellar-crown-168-galvantula-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv07/169": {
+      "file": "stellar-crown-169-dachsbun-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv07/170": {
+      "file": "stellar-crown-170-terapagos-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv07/172": {
+      "file": "stellar-crown-172-lacey-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv08/203": {
+      "file": "surging-sparks-203-latios-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv08/236": {
+      "file": "surging-sparks-236-durant-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv08/237": {
+      "file": "surging-sparks-237-milotic-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv08/238": {
+      "file": "surging-sparks-238-pikachu-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv08/239": {
+      "file": "surging-sparks-239-latias-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv08/240": {
+      "file": "surging-sparks-240-hydreigon-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv08/242": {
+      "file": "surging-sparks-242-alolan-exeggutor-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv08/247": {
+      "file": "surging-sparks-247-pikachu-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv05/166": {
+      "file": "temporal-forces-166-sawsbuck-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv05/177": {
+      "file": "temporal-forces-177-gastly-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv05/193": {
+      "file": "temporal-forces-193-gengar-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv05/208": {
+      "file": "temporal-forces-208-raging-bolt-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv05/211": {
+      "file": "temporal-forces-211-morty-s-conviction-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv06/187": {
+      "file": "twilight-masquerade-187-chansey-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv06/188": {
+      "file": "twilight-masquerade-188-eevee-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv06/210": {
+      "file": "twilight-masquerade-210-sinistcha-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv06/214": {
+      "file": "twilight-masquerade-214-greninja-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv06/216": {
+      "file": "twilight-masquerade-216-bloodmoon-ursaluna-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv06/217": {
+      "file": "twilight-masquerade-217-carmine-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv06/219": {
+      "file": "twilight-masquerade-219-lana-s-aid-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv06/220": {
+      "file": "twilight-masquerade-220-perrin-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10.5w/103": {
+      "file": "white-flare-103-chandelure-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10.5w/105": {
+      "file": "white-flare-105-oshawott-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10.5w/143": {
+      "file": "white-flare-143-zoroark-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10.5w/166": {
+      "file": "white-flare-166-reshiram-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10.5w/167": {
+      "file": "white-flare-167-keldeo-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10.5w/169": {
+      "file": "white-flare-169-hydreigon-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10.5w/172": {
+      "file": "white-flare-172-victini-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    },
+    "https://assets.tcgdex.net/en/sv/sv10.5w/173": {
+      "file": "white-flare-173-reshiram-ex-pokemon-card.webp",
+      "w": 72,
+      "h": 99
+    }
+  }
+}

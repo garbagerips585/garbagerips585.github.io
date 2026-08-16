@@ -1,0 +1,123 @@
+{
+  "_readme": [
+    "Artwork from the two official Pokemon app listings on the App Store,",
+    "mirrored locally by scripts/sync-app-shots.mjs at the size the pages draw it.",
+    "",
+    "Every file is the publisher's own: THE POKEMON COMPANY INTERNATIONAL, INC.",
+    "for Pokemon TCG Live and The Pokemon Company for Pokemon TCG Pocket, both",
+    "asserted against the listing on every sync rather than trusted.",
+    "",
+    "`shows` and `brief` both describe THAT file, written after opening it.",
+    "`shows` becomes the alt text and `brief` the visible caption, which is",
+    "shorter because both pages hold a hard word budget. Neither characterises",
+    "the app in general and neither touches odds of any kind.",
+    "",
+    "`w` and `h` are the decoded size of the mirrored file. Builders emit them as",
+    "the width and height attributes and fall back to `remote` for any shot with",
+    "no local file.",
+    "",
+    "Files live at public/assets/apps/."
+  ],
+  "syncedAt": "2026-08-16",
+  "shotBox": 132,
+  "iconBox": 56,
+  "source": "https://itunes.apple.com/lookup (App Store listing artwork)",
+  "apps": {
+    "live": {
+      "name": "Pokemon TCG Live",
+      "listedAs": "Pokémon TCG Live",
+      "seller": "THE POKEMON COMPANY INTERNATIONAL, INC.",
+      "bundle": "com.pokemon.pokemontcgl",
+      "trackId": 1557962344,
+      "version": "1.40.0",
+      "listingUpdated": "2026-07-14",
+      "icon": {
+        "file": "pokemon-tcg-live-app-icon.webp",
+        "remote": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/82/69/c3/8269c3f4-514e-010a-5e8f-ba30ecc9f7b8/AppIcon-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.jpg",
+        "w": 112,
+        "h": 112,
+        "bytes": 5558
+      },
+      "shots": [
+        {
+          "file": "pokemon-tcg-live-app-screenshot-1.webp",
+          "remote": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f3/0a/38/f30a3890-5268-8186-1b17-197e1a0ab0fc/PR00027_AppStoreCTA_EN-US_01_1242x2208.jpg/392x696bb.jpg",
+          "shows": "one card open at full size, with its attack and its printed weakness and retreat",
+          "brief": "one card at full size",
+          "listing": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f3/0a/38/f30a3890-5268-8186-1b17-197e1a0ab0fc/PR00027_AppStoreCTA_EN-US_01_1242x2208.jpg/392x696bb.jpg",
+          "w": 264,
+          "h": 469,
+          "bytes": 23836
+        },
+        {
+          "file": "pokemon-tcg-live-app-screenshot-2.webp",
+          "remote": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/54/0e/33/540e33e4-5910-22c0-3773-4bed00267ca8/PR00027_AppStoreCTA_EN-US_03_1242x2208.jpg/392x696bb.jpg",
+          "shows": "a match in progress, with both players' benches, decks and prize counts on screen",
+          "brief": "a match in progress",
+          "listing": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/54/0e/33/540e33e4-5910-22c0-3773-4bed00267ca8/PR00027_AppStoreCTA_EN-US_03_1242x2208.jpg/392x696bb.jpg",
+          "w": 264,
+          "h": 469,
+          "bytes": 25060
+        },
+        {
+          "file": "pokemon-tcg-live-app-screenshot-3.webp",
+          "remote": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/d0/df/65/d0df6551-be2c-825c-6cdc-6cb558099770/PR00027_AppStoreCTA_EN-US_04_1242x2208.jpg/392x696bb.jpg",
+          "shows": "an attack resolving, with the damage on the defending Pokemon",
+          "brief": "an attack landing",
+          "listing": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/d0/df/65/d0df6551-be2c-825c-6cdc-6cb558099770/PR00027_AppStoreCTA_EN-US_04_1242x2208.jpg/392x696bb.jpg",
+          "w": 264,
+          "h": 469,
+          "bytes": 23226
+        }
+      ]
+    },
+    "pocket": {
+      "name": "Pokemon TCG Pocket",
+      "listedAs": "Pokémon TCG Pocket",
+      "seller": "The Pokemon Company",
+      "bundle": "jp.pokemon.pokemontcgp",
+      "trackId": 6479970832,
+      "version": "1.7.1",
+      "listingUpdated": "2026-08-06",
+      "icon": {
+        "file": "pokemon-tcg-pocket-app-icon.webp",
+        "remote": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ba/31/9d/ba319d21-38d2-318e-e9b5-ae1dce45afb7/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+        "w": 112,
+        "h": 112,
+        "bytes": 5346
+      },
+      "shots": [
+        {
+          "file": "pokemon-tcg-pocket-app-screenshot-1.webp",
+          "remote": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/26/dd/88/26dd8807-504f-bd3b-5c3d-589259576c44/EN_iPhone8_1106.png/392x696bb.png",
+          "shows": "a battle in progress, with both sides' Pokemon on the screen at once",
+          "brief": "a battle in progress",
+          "listing": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/26/dd/88/26dd8807-504f-bd3b-5c3d-589259576c44/EN_iPhone8_1106.png/392x696bb.png",
+          "w": 264,
+          "h": 469,
+          "bytes": 20192
+        },
+        {
+          "file": "pokemon-tcg-pocket-app-screenshot-2.webp",
+          "remote": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/05/fb/0a/05fb0aeb-d7e1-e18b-5aec-dd29abab34f3/EN_iPhone8_5_0925_rm.png/392x696bb.png",
+          "shows": "one card open at full size, its attack taking Energy from an Energy Zone rather than from a card",
+          "brief": "one card at full size",
+          "listing": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/05/fb/0a/05fb0aeb-d7e1-e18b-5aec-dd29abab34f3/EN_iPhone8_5_0925_rm.png/392x696bb.png",
+          "w": 264,
+          "h": 469,
+          "bytes": 20326
+        },
+        {
+          "file": "pokemon-tcg-pocket-app-screenshot-3.webp",
+          "remote": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/ce/a2/ac/cea2ac0c-ce05-c95d-9ae2-282dabaa192a/EN_iPhone8_4_0925_rm.png/392x696bb.png",
+          "shows": "the collection screen, with the cards owned so far laid out in set order",
+          "brief": "the collection screen",
+          "listing": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/ce/a2/ac/cea2ac0c-ce05-c95d-9ae2-282dabaa192a/EN_iPhone8_4_0925_rm.png/392x696bb.png",
+          "w": 264,
+          "h": 469,
+          "bytes": 20220
+        }
+      ]
+    }
+  }
+}

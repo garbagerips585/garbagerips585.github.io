@@ -22,8 +22,34 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=67f732be">
+<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<style>
+/* The card in each verdict row. In this page's own block rather than ui.css:
+   this page is the only user and ui.css is render blocking on all 426 pages.
+   It rides INSIDE .gr-name rather than as a new grid column, because .gr's
+   template and its 560px rearrangement are tuned in ui.css and a fifth column
+   would have to be re-tuned in two places to gain nothing. */
+.gr-name{display:flex;align-items:center;gap:8px;min-width:0}
+.gr-shot{flex:none;width:32px;height:auto;display:block;border-radius:3px;
+  background:var(--paper-3);border:1px solid var(--hair)}
+
+/* PROFIT AND LOSS SEPARATE BY WEIGHT AND LUMINANCE, NOT BY HUE. ui.css paints
+   .gr-net.up a #3B6130 green and .gr-net.down var(--ketchup-deep), which is
+   #6E5000 since the site repainted to one accent hue. Two problems with that
+   after the repaint: the two are 1.05:1 apart in luminance, so the pair was
+   carried almost entirely by hue with only the plus and minus signs behind it,
+   and the LOSS was wearing the brand's own gold, which reads as approval on the
+   one page whose whole job is telling you when not to spend the money.
+   So the gain is --ink at 800 and the loss is --ink-2 at 400: 17.4:1 against
+   6.8:1 on white, a 2.78:1 step between them, plus a weight difference you can
+   see across the room, plus the sign that was already there. No hue at all, and
+   the accent is no longer attached to the answer that means no.
+   Overridden in this page's own block: ui.css is render blocking on all 426
+   pages and this page is the only user. */
+.gr-net.up{color:var(--ink);font-weight:800}
+.gr-net.down{color:var(--ink-2);font-weight:400}
+</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Grading"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does it cost to grade a Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"PSA's cheapest active tier is $80 per card as of August 13, 2026, after it paused its Value and Value Bulk tiers in June 2026. The cheapest of the five is SGC at about $15. Add roughly $15 a card for shipping and insurance."}},{"@type":"Question","name":"Is it worth grading my Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"Only if the gap between the raw price and the PSA 10 price is bigger than the fee, and only if the card is genuinely mint. Of 102 cards we hold both prices for, 82 would clear PSA's current fee and 20 would not. Those figures are all for a 10, and a 9 is worth far less, so treat them as the best case."}}]}</script>
 </head>
@@ -111,6 +137,7 @@
       <p class="menu-h">Play</p>
       <ul>
         <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
       </ul>
     </div>
@@ -258,140 +285,140 @@
     <h3 class="gc-sub">Worth it, best first</h3>
     <ol class="gr-list">
         <li class="gr">
-          <span class="gr-name">Umbreon ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/prismatic-evolutions-161-umbreon-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Umbreon ex</span></span>
           <span class="gr-set">Prismatic Evolutions &bull; 161</span>
           <span class="gr-raw">$1,499.24<em>raw</em></span>
           <span class="gr-psa">$6,149.99<em>PSA 10</em></span>
           <span class="gr-net up">+$4,555.76<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Mega Charizard X ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/phantasmal-flames-130-mega-charizard-x-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Mega Charizard X ex</span></span>
           <span class="gr-set">Phantasmal Flames &bull; 130</span>
           <span class="gr-raw">$303.65<em>raw</em></span>
           <span class="gr-psa">$2,206.57<em>PSA 10</em></span>
           <span class="gr-net up">+$1,807.93<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Seismitoad</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/black-bolt-105-seismitoad-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Seismitoad</span></span>
           <span class="gr-set">Black Bolt &bull; 105</span>
           <span class="gr-raw">$235.15<em>raw</em></span>
           <span class="gr-psa">$2,108.75<em>PSA 10</em></span>
           <span class="gr-net up">+$1,778.61<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Mega Charizard Y ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/ascended-heroes-294-mega-charizard-y-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Mega Charizard Y ex</span></span>
           <span class="gr-set">Ascended Heroes &bull; 294</span>
           <span class="gr-raw">$418.87<em>raw</em></span>
           <span class="gr-psa">$2,160.49<em>PSA 10</em></span>
           <span class="gr-net up">+$1,646.63<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Pikachu ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/ascended-heroes-276-pikachu-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Pikachu ex</span></span>
           <span class="gr-set">Ascended Heroes &bull; 276</span>
           <span class="gr-raw">$1,070.24<em>raw</em></span>
           <span class="gr-psa">$2,378.31<em>PSA 10</em></span>
           <span class="gr-net up">+$1,213.08<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Mega Charizard X ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/phantasmal-flames-125-mega-charizard-x-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Mega Charizard X ex</span></span>
           <span class="gr-set">Phantasmal Flames &bull; 125</span>
           <span class="gr-raw">$694.20<em>raw</em></span>
           <span class="gr-psa">$1,962.00<em>PSA 10</em></span>
           <span class="gr-net up">+$1,172.81<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Mega Gengar ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/ascended-heroes-284-mega-gengar-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Mega Gengar ex</span></span>
           <span class="gr-set">Ascended Heroes &bull; 284</span>
           <span class="gr-raw">$1,088.96<em>raw</em></span>
           <span class="gr-psa">$2,199.99<em>PSA 10</em></span>
           <span class="gr-net up">+$1,016.04<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Sylveon ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/prismatic-evolutions-156-sylveon-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Sylveon ex</span></span>
           <span class="gr-set">Prismatic Evolutions &bull; 156</span>
           <span class="gr-raw">$509.52<em>raw</em></span>
           <span class="gr-psa">$1,525.00<em>PSA 10</em></span>
           <span class="gr-net up">+$920.49<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Mega Dragonite ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/ascended-heroes-295-mega-dragonite-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Mega Dragonite ex</span></span>
           <span class="gr-set">Ascended Heroes &bull; 295</span>
           <span class="gr-raw">$250.67<em>raw</em></span>
           <span class="gr-psa">$1,187.50<em>PSA 10</em></span>
           <span class="gr-net up">+$841.84<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Victini</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/black-bolt-171-victini-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Victini</span></span>
           <span class="gr-set">Black Bolt &bull; 171</span>
           <span class="gr-raw">$603.80<em>raw</em></span>
           <span class="gr-psa">$1,537.00<em>PSA 10</em></span>
           <span class="gr-net up">+$838.21<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Espeon ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/prismatic-evolutions-155-espeon-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Espeon ex</span></span>
           <span class="gr-set">Prismatic Evolutions &bull; 155</span>
           <span class="gr-raw">$318.05<em>raw</em></span>
           <span class="gr-psa">$1,224.50<em>PSA 10</em></span>
           <span class="gr-net up">+$811.46<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Oshawott</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/white-flare-105-oshawott-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Oshawott</span></span>
           <span class="gr-set">White Flare &bull; 105</span>
           <span class="gr-raw">$92.98<em>raw</em></span>
           <span class="gr-psa">$970.00<em>PSA 10</em></span>
           <span class="gr-net up">+$782.03<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Victini</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/white-flare-172-victini-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Victini</span></span>
           <span class="gr-set">White Flare &bull; 172</span>
           <span class="gr-raw">$560.28<em>raw</em></span>
           <span class="gr-psa">$1,377.50<em>PSA 10</em></span>
           <span class="gr-net up">+$722.23<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Zekrom ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/black-bolt-172-zekrom-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Zekrom ex</span></span>
           <span class="gr-set">Black Bolt &bull; 172</span>
           <span class="gr-raw">$605.75<em>raw</em></span>
           <span class="gr-psa">$1,404.99<em>PSA 10</em></span>
           <span class="gr-net up">+$704.25<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Reshiram ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/white-flare-173-reshiram-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Reshiram ex</span></span>
           <span class="gr-set">White Flare &bull; 173</span>
           <span class="gr-raw">$508.70<em>raw</em></span>
           <span class="gr-psa">$1,304.50<em>PSA 10</em></span>
           <span class="gr-net up">+$700.81<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Mega Dragonite ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/ascended-heroes-290-mega-dragonite-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Mega Dragonite ex</span></span>
           <span class="gr-set">Ascended Heroes &bull; 290</span>
           <span class="gr-raw">$698.04<em>raw</em></span>
           <span class="gr-psa">$1,447.50<em>PSA 10</em></span>
           <span class="gr-net up">+$654.47<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Mega Greninja ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/chaos-rising-122-mega-greninja-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Mega Greninja ex</span></span>
           <span class="gr-set">Chaos Rising &bull; 122</span>
           <span class="gr-raw">$176.96<em>raw</em></span>
           <span class="gr-psa">$837.50<em>PSA 10</em></span>
           <span class="gr-net up">+$565.55<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Vaporeon ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/prismatic-evolutions-149-vaporeon-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Vaporeon ex</span></span>
           <span class="gr-set">Prismatic Evolutions &bull; 149</span>
           <span class="gr-raw">$300.41<em>raw</em></span>
           <span class="gr-psa">$957.50<em>PSA 10</em></span>
           <span class="gr-net up">+$562.10<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Pikachu ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/surging-sparks-238-pikachu-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Pikachu ex</span></span>
           <span class="gr-set">Surging Sparks &bull; 238</span>
           <span class="gr-raw">$293.69<em>raw</em></span>
           <span class="gr-psa">$900.50<em>PSA 10</em></span>
           <span class="gr-net up">+$511.82<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Team Rocket's Mewtwo ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/destined-rivals-231-team-rocket-s-mewtwo-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Team Rocket's Mewtwo ex</span></span>
           <span class="gr-set">Destined Rivals &bull; 231</span>
           <span class="gr-raw">$505.49<em>raw</em></span>
           <span class="gr-psa">$1,080.00<em>PSA 10</em></span>
@@ -403,84 +430,84 @@
     <h3 class="gc-sub">Not worth it at PSA's current price</h3>
     <ol class="gr-list">
         <li class="gr">
-          <span class="gr-name">Lana's Aid</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/twilight-masquerade-219-lana-s-aid-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Lana's Aid</span></span>
           <span class="gr-set">Twilight Masquerade &bull; 219</span>
           <span class="gr-raw">$40.26<em>raw</em></span>
           <span class="gr-psa">$67.52<em>PSA 10</em></span>
           <span class="gr-net down">-$67.73<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Lacey</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/stellar-crown-172-lacey-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Lacey</span></span>
           <span class="gr-set">Stellar Crown &bull; 172</span>
           <span class="gr-raw">$17.79<em>raw</em></span>
           <span class="gr-psa">$58.50<em>PSA 10</em></span>
           <span class="gr-net down">-$54.28<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">N's Plan</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/black-bolt-170-n-s-plan-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>N's Plan</span></span>
           <span class="gr-set">Black Bolt &bull; 170</span>
           <span class="gr-raw">$71.86<em>raw</em></span>
           <span class="gr-psa">$113.67<em>PSA 10</em></span>
           <span class="gr-net down">-$53.18<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Mega Lopunny ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/phantasmal-flames-128-mega-lopunny-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Mega Lopunny ex</span></span>
           <span class="gr-set">Phantasmal Flames &bull; 128</span>
           <span class="gr-raw">$16.48<em>raw</em></span>
           <span class="gr-psa">$60.48<em>PSA 10</em></span>
           <span class="gr-net down">-$50.99<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Hydrapple ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/stellar-crown-167-hydrapple-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Hydrapple ex</span></span>
           <span class="gr-set">Stellar Crown &bull; 167</span>
           <span class="gr-raw">$38.80<em>raw</em></span>
           <span class="gr-psa">$85.00<em>PSA 10</em></span>
           <span class="gr-net down">-$48.79<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Rotom ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/phantasmal-flames-126-rotom-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Rotom ex</span></span>
           <span class="gr-set">Phantasmal Flames &bull; 126</span>
           <span class="gr-raw">$18.78<em>raw</em></span>
           <span class="gr-psa">$71.00<em>PSA 10</em></span>
           <span class="gr-net down">-$42.77<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Mega Sharpedo ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/phantasmal-flames-127-mega-sharpedo-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Mega Sharpedo ex</span></span>
           <span class="gr-set">Phantasmal Flames &bull; 127</span>
           <span class="gr-raw">$20.29<em>raw</em></span>
           <span class="gr-psa">$79.00<em>PSA 10</em></span>
           <span class="gr-net down">-$36.28<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Galvantula ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/stellar-crown-168-galvantula-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Galvantula ex</span></span>
           <span class="gr-set">Stellar Crown &bull; 168</span>
           <span class="gr-raw">$20.05<em>raw</em></span>
           <span class="gr-psa">$80.50<em>PSA 10</em></span>
           <span class="gr-net down">-$34.54<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Dawn</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/phantasmal-flames-129-dawn-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Dawn</span></span>
           <span class="gr-set">Phantasmal Flames &bull; 129</span>
           <span class="gr-raw">$22.02<em>raw</em></span>
           <span class="gr-psa">$82.50<em>PSA 10</em></span>
           <span class="gr-net down">-$34.51<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Durant ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/surging-sparks-236-durant-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Durant ex</span></span>
           <span class="gr-set">Surging Sparks &bull; 236</span>
           <span class="gr-raw">$36.86<em>raw</em></span>
           <span class="gr-psa">$99.00<em>PSA 10</em></span>
           <span class="gr-net down">-$32.85<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Hydreigon ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/surging-sparks-240-hydreigon-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Hydreigon ex</span></span>
           <span class="gr-set">Surging Sparks &bull; 240</span>
           <span class="gr-raw">$36.77<em>raw</em></span>
           <span class="gr-psa">$110.00<em>PSA 10</em></span>
           <span class="gr-net down">-$21.76<em>after fees</em></span>
         </li>
         <li class="gr">
-          <span class="gr-name">Iono's Bellibolt ex</span>
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/journey-together-183-iono-s-bellibolt-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Iono's Bellibolt ex</span></span>
           <span class="gr-set">Journey Together &bull; 183</span>
           <span class="gr-raw">$40.78<em>raw</em></span>
           <span class="gr-psa">$114.25<em>PSA 10</em></span>
@@ -595,7 +622,8 @@
       sometimes with two weeks' notice, so click through before you send anything. Card prices are TCGplayer market
       and PSA 10 sale data. Raw prices are TCGplayer market via TCGdex, read August 12, 2026,
       the same figures the rest of this site quotes. PSA 10 prices come from pokemonpricetracker.com, because no free
-      feed carries graded sales; only cards with at least ten recorded sales are used. Both move daily. No affiliate
+      feed carries graded sales; only cards with at least ten recorded sales are used. Both move daily. Card scans
+      are TCGdex's, mirrored here at the size the rows draw them, and each one is the card named beside it. No affiliate
       links and no recommendation: we are not paid by any grading company and which one is right depends on your card
       and your patience. Not financial advice, just subtraction.</p>
   </div>
@@ -647,6 +675,7 @@
       <div class="foot-col">
         <p class="foot-h">Play</p>
         <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
       </div>
       <div class="foot-col">

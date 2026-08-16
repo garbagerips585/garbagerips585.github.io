@@ -22,7 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=67f732be">
+<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .tl-lede{max-width:44em}
@@ -75,6 +75,21 @@
 .tl-out a{font-weight:700}
 .tl-out .tl-off{display:inline-block;font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);margin-left:6px}
 .tl-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
+
+.ap-id{display:flex;gap:var(--s3);align-items:center;margin:var(--s4) 0 0;max-width:44em}
+.ap-id img{flex:none;width:56px;height:56px;border-radius:13px;display:block;
+  border:1px solid var(--hair);background:var(--card)}
+.ap-id span{font-size:var(--t-sm);line-height:1.5;color:var(--ink-2);min-width:0}
+.ap-id b{display:block;color:var(--ink);font-weight:700}
+.ap-strip{margin:var(--s4) 0 0;max-width:44em}
+/* Three columns at every width. The shots are portrait phone captures, so a
+   stack would run a third of a page tall on the device this site is built for
+   first, and the point of a strip is that you take all three in at once. */
+.ap-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-width:420px}
+.ap-row img{width:100%;height:auto;display:block;border:1px solid var(--hair);
+  border-radius:8px;background:var(--card)}
+.ap-strip figcaption{margin-top:var(--s2);font-size:var(--t-micro);color:var(--ink-2);line-height:1.5;
+  max-width:44em}
 
 .cmp-w{overflow-x:auto;margin-top:var(--s4);border:3px solid var(--navy);border-radius:12px;
   background:var(--card);box-shadow:var(--hard-lg);max-width:46em}
@@ -173,6 +188,7 @@
       <p class="menu-h">Play</p>
       <ul>
         <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
       </ul>
     </div>
@@ -320,6 +336,11 @@
         <h2>Getting the <span class="hl">app</span></h2>
         <p>Four platforms: iPhone and iPad, Android, Windows and Mac. There is no play-in-a-browser version, so
           you are downloading an app. The only thing you do on the web is redeem codes.</p>
+        <p class="ap-id">
+          <img src="/assets/apps/pokemon-tcg-live-app-icon.webp" width="112" height="112" alt="The Pokemon TCG Live app icon"
+               loading="lazy" decoding="async">
+          <span><b>Pokémon TCG Live</b> is the one you want, and it is free.</span>
+        </p>
         <p>Two things most guides skip. The Windows and Mac versions are direct downloads from Pokemon's own site
           rather than store apps, so hunting the Microsoft Store or the Mac App Store will not turn them up. And
           you need a free Pokemon account: the support site now calls it a Pokemon Trainer Central account and
@@ -337,6 +358,17 @@
         <p>The rules are the rules. If you have never played at all,
           <a href="/how-to-play.html">read those first</a>. Everything below is only what changes when the game is
           software instead of cardboard.</p>
+        <figure class="ap-strip">
+          <div class="ap-row">
+            <img src="/assets/apps/pokemon-tcg-live-app-screenshot-1.webp" width="264" height="469" alt="Pokémon TCG Live: one card open at full size, with its attack and its printed weakness and retreat"
+              loading="lazy" decoding="async">
+            <img src="/assets/apps/pokemon-tcg-live-app-screenshot-2.webp" width="264" height="469" alt="Pokémon TCG Live: a match in progress, with both players' benches, decks and prize counts on screen"
+              loading="lazy" decoding="async">
+            <img src="/assets/apps/pokemon-tcg-live-app-screenshot-3.webp" width="264" height="469" alt="Pokémon TCG Live: an attack resolving, with the damage on the defending Pokemon"
+              loading="lazy" decoding="async">
+          </div>
+          <figcaption>Pokémon TCG Live's own App Store screenshots. The same game, as software. Left to right: one card at full size, a match in progress, an attack landing.</figcaption>
+        </figure>
         <ul class="tl-go">
           <li><b>It teaches you, then it enforces the rules</b>The Learn tab holds the Learning Lab: guided
             lessons against the computer, replayable in any order. Conceding one costs you nothing, not your level
@@ -472,7 +504,7 @@
         League and no numbers. And nothing official says whether pack codes expire, so the page says Pokemon
         publishes no expiry date rather than saying they never do. This is software and it moves: system
         requirements have been raised twice in eighteen months and what non-booster codes give changed in July
-        2025. If the app disagrees with this page, the app is right.</p>
+        2025. If the app disagrees with this page, the app is right. The app icon and the screenshots on this page are from Pokémon TCG Live's own App Store listing, published by THE POKEMON COMPANY INTERNATIONAL, INC., mirrored here at the size they are drawn.</p>
 
     </div>
   </section>
@@ -522,6 +554,7 @@
       <div class="foot-col">
         <p class="foot-h">Play</p>
         <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
       </div>
       <div class="foot-col">

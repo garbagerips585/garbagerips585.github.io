@@ -22,7 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=67f732be">
+<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .tp-lede{max-width:44em}
@@ -72,6 +72,21 @@
 .tp-out a{font-weight:700}
 .tp-out .tp-off{display:inline-block;font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);margin-left:6px}
 .tp-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
+
+.ap-id{display:flex;gap:var(--s3);align-items:center;margin:var(--s4) 0 0;max-width:44em}
+.ap-id img{flex:none;width:56px;height:56px;border-radius:13px;display:block;
+  border:1px solid var(--hair);background:var(--card)}
+.ap-id span{font-size:var(--t-sm);line-height:1.5;color:var(--ink-2);min-width:0}
+.ap-id b{display:block;color:var(--ink);font-weight:700}
+.ap-strip{margin:var(--s4) 0 0;max-width:44em}
+/* Three columns at every width. The shots are portrait phone captures, so a
+   stack would run a third of a page tall on the device this site is built for
+   first, and the point of a strip is that you take all three in at once. */
+.ap-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-width:420px}
+.ap-row img{width:100%;height:auto;display:block;border:1px solid var(--hair);
+  border-radius:8px;background:var(--card)}
+.ap-strip figcaption{margin-top:var(--s2);font-size:var(--t-micro);color:var(--ink-2);line-height:1.5;
+  max-width:44em}
 
 .cmp-w{overflow-x:auto;margin-top:var(--s4);border:3px solid var(--navy);border-radius:12px;
   background:var(--card);box-shadow:var(--hard-lg);max-width:46em}
@@ -170,6 +185,7 @@
       <p class="menu-h">Play</p>
       <ul>
         <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
       </ul>
     </div>
@@ -231,6 +247,17 @@
           cards. One Active Pokemon facing your opponent's with the rest on the Bench. Drawing a card at the start
           of your turn. Knock Outs. That is the shape of the card game, and it is why watching this thing play
           teaches you something real.</p>
+        <figure class="ap-strip">
+          <div class="ap-row">
+            <img src="/assets/apps/pokemon-tcg-pocket-app-screenshot-1.webp" width="264" height="469" alt="Pokémon TCG Pocket: a battle in progress, with both sides' Pokemon on the screen at once"
+              loading="lazy" decoding="async">
+            <img src="/assets/apps/pokemon-tcg-pocket-app-screenshot-2.webp" width="264" height="469" alt="Pokémon TCG Pocket: one card open at full size, its attack taking Energy from an Energy Zone rather than from a card"
+              loading="lazy" decoding="async">
+            <img src="/assets/apps/pokemon-tcg-pocket-app-screenshot-3.webp" width="264" height="469" alt="Pokémon TCG Pocket: the collection screen, with the cards owned so far laid out in set order"
+              loading="lazy" decoding="async">
+          </div>
+          <figcaption>Pokémon TCG Pocket's own App Store screenshots. The app, on its own terms. Left to right: a battle in progress, one card at full size, the collection screen.</figcaption>
+        </figure>
         <p><b>Then four things that do not carry over</b>, each of which would trip you up at a table.</p>
         <ul class="tp-go tp-diff">
           <li><b>The deck is 20 cards, not 60</b>And at most two copies of a name,
@@ -318,6 +345,11 @@
           and nothing in a browser, which is the row in that table most likely to catch you out. It is free with
           optional in-app purchases and it is about 766 MB to download, so check the phone has
           room.</p>
+        <p class="ap-id">
+          <img src="/assets/apps/pokemon-tcg-pocket-app-icon.webp" width="112" height="112" alt="The Pokemon TCG Pocket app icon"
+               loading="lazy" decoding="async">
+          <span><b>Pokémon TCG Pocket</b> is the one to search for. The other app's icon is a different colour.</span>
+        </p>
         <p>You are not asked for a Pokemon account. You pick a country and region, confirm your age, accept the
           terms and you are in. Link a Nintendo, Google or Apple account on the first day anyway: Pokemon says
           that if you reinstall without linking, you will not be able to recover your save data yourself. Under a
@@ -402,7 +434,7 @@
         battles, the rental decks and the level 3 unlock but not the option that plays your side for you, so that
         one sentence describes how the app behaves rather than repeating a Pokemon page. The app updates roughly
         monthly and several things named here were added after launch, so if you find something missing this page
-        is behind rather than wrong. If the app disagrees with this page, the app is right.</p>
+        is behind rather than wrong. If the app disagrees with this page, the app is right. The app icon and the screenshots on this page are from Pokémon TCG Pocket's own App Store listing, published by The Pokemon Company, mirrored here at the size they are drawn.</p>
 
     </div>
   </section>
@@ -452,6 +484,7 @@
       <div class="foot-col">
         <p class="foot-h">Play</p>
         <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
       </div>
       <div class="foot-col">

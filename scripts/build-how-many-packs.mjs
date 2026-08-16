@@ -129,45 +129,51 @@ const DEAD = new Set(
 // Prismatic Evolutions one. A shot of some sixth Ultra-Premium Collection
 // nobody sourced would be a picture of an unknown number.
 //
-// ELEVEN ROWS HAVE NO PHOTO AND THAT IS THE HONEST ANSWER, not a gap somebody
-// should close later by relaxing the rule above. They split two ways, and the
-// second group is the one worth writing down, because it looks fillable.
+// ELEVEN ROWS HAD NO PHOTO AND TEN OF THEM DO NOW. The paragraph this replaces
+// said the eleven were "the honest answer, not a gap somebody should close later
+// by relaxing the rule above", and then listed exactly how somebody would be
+// tempted to close them wrongly. Both halves were right. They were closed the
+// other way instead, on 16 August 2026.
 //
-// FOUR are simply not in the pull at any price: Stacking Tin, Knock Out
-// Collection, Holiday Calendar and Trick or Trade. They are general-release
-// products that belong to no expansion, so TCGplayer files them outside the 28
-// set names pinned in shared/tcgplayer.mjs and this site has never fetched one.
+// FOUR were simply unreachable: Stacking Tin, Knock Out Collection, Holiday
+// Calendar and Trick or Trade are general-release products that belong to no
+// expansion, so TCGplayer files them outside the 28 set names pinned in
+// shared/tcgplayer.mjs and a per-set pull could never see one.
 //
-// THE OTHER SEVEN DO HAVE LISTINGS in sets we track, and they are left blank
-// anyway, which is the decision most likely to get quietly reversed. In every
-// case the listing is a DIFFERENT PRODUCT from the one the count on that row
-// was read off, so the pictured box's own pack count is not sourced:
-//   ex Box                  TCGplayer has three Ascended Heroes Mega ex Boxes.
-//                           The four is off Mega Latias, Mega Kangaskhan and
-//                           the 30th Celebration boxes. Not the same boxes.
-//   ex Premium Collection   Paldean Fates 2024, against Mega Greninja and Mega
-//                           Zygarde 2026 in the research.
-//   ex Special Collection   Crown Zenith and Pokemon GO Special Collections,
-//                           which are a different line from the Charizard ex
-//                           Special Collection the five came from.
-//   Poke Ball Tin           Pokemon GO Poke Ball Tins, 2022, against the
-//                           December 2025 run.
-//   Standard collector tin  Set-branded tins (Ascended Heroes, Crown Zenith,
-//                           Paldean Fates). None of the six tins sourced.
-//   Collection boxes        A family with a 3 to 6 spread. The Prismatic
-//                           Evolutions Surprise Box is sourced at four AND is
-//                           listed, but sync-products.mjs picks the cheapest
-//                           Collection Box per set and that is the Poster
-//                           Collection, whose count nobody has read.
-//   Battle Deck             Pokemon GO V Battle Decks, against the 30th
-//                           Celebration Battle Deck the zero came from.
-// Any of those would look completely fine on the page. That is the problem.
+// THE OTHER SEVEN were listed in sets we track, and were left blank because in
+// every case the listing was a DIFFERENT PRODUCT from the one the count on that
+// row was read off, so the pictured box's own pack count was not sourced.
+//
+// data/extra-products.json closes both groups the same way: it pins, by
+// TCGplayer product id with the returned name asserted, THE PRODUCT THE COUNT
+// WAS READ OFF. The Mega Greninja ex Premium Collection whose pokemon.com page
+// states the eight. The Mega Latias ex Box that states the four, rather than
+// one of the three Ascended Heroes boxes that do not. The Charizard ex Special
+// Collection rather than the Crown Zenith line. The December 2025 Poke Ball Tin
+// rather than the 2022 Pokemon GO one. The Prismatic Evolutions Surprise Box,
+// which the old paragraph itself noted "is sourced at four AND is listed" and
+// was only missing because sync-products.mjs takes the cheapest per set. So the
+// test at the top of this block still passes on every one of them: the pictured
+// product's own pack count is the number the row states.
+//
+// STACKING TIN IS THE ONE THAT IS STILL BLANK, and it is the reason this file
+// still needs a hatched box at all. pokemon.com sources three packs for the run
+// that launched on 7 March 2025. TCGplayer lists eleven Stacking Tins spread
+// over four years and publishes no release date, so choosing one is a guess and
+// a guess here is a photograph of an unknown number. It would look completely
+// fine on the page. That is the problem.
 //
 // NO WIDTH OR HEIGHT ON THESE. imgDims() returns nothing for tcgplayer-cdn on
 // purpose: those files run 200x268 to 200x417 and a declaration would be wrong
 // by up to 34%. And sizes is 88px, not a viewport unit, because the box is a
 // fixed 88x88; that is a measured fix worth 4x the bytes and it is not a
 // placeholder to be improved.
+// The products pinned by hand for their photographs, because the per-set pull
+// cannot reach them. See scripts/sync-extra-products.mjs, and the note on
+// photoFor below for why they satisfy the rule this file sets rather than
+// bending it. Keyed here by the row's productName.
+const EXTRA = JSON.parse(await readFile(join(ROOT, "data/extra-products.json"), "utf8")).products;
+
 const PHOTOS = {
   "Booster Display Box": ["pitch-black", "Booster Box", "Pitch Black Booster Box"],
   "Elite Trainer Box": ["pitch-black", "Elite Trainer Box", "Pitch Black Elite Trainer Box"],
@@ -199,15 +205,35 @@ const PHOTOS = {
  * kind, so the product behind "prismatic-evolutions / Blister Pack" can change
  * under us; if it does, the caption would name a product that is not in the
  * picture. Better to drop the photo than to caption the wrong box.
+ *
+ * THE SECOND LOOKUP IS THE ONE THAT FILLED TEN OF THE ELEVEN BLANKS, and it did
+ * it by satisfying the rule rather than by loosening it. data/extra-products.json
+ * pins, by TCGplayer id and with the returned name asserted, THE PRODUCT THE
+ * COUNT ON THAT ROW WAS READ OFF: the Mega Greninja ex Premium Collection whose
+ * pokemon.com page states the eight, the January 2025 Knock Out Collection that
+ * states the two, the December 2025 Poke Ball Tin that states the three, and so
+ * on. So the pictured box's own pack count IS the number beside it, which is the
+ * test the header comment sets. Every one of the seven "listed but a different
+ * product" cases above is closed that way, and the four general-release ones are
+ * simply reachable now that the pull is not per-set.
+ *
+ * THE ELEVENTH IS STILL BLANK AND IT SHOULD BE. pokemon.com sources the Stacking
+ * Tin at three packs for the 7 March 2025 run. TCGplayer lists eleven Stacking
+ * Tins across four years and publishes no release date, so picking one is a
+ * guess, and a guessed photo here is a picture of an unknown number.
  */
 function photoFor(name) {
   const spec = PHOTOS[name];
-  if (!spec) return null;
-  const [sid, kind, expect] = spec;
-  const hit = (productsBySet[sid]?.products || []).find((p) => p.kind === kind);
-  if (!hit || !hit.thumb || DEAD.has(hit.thumb)) return null;
-  if (!String(hit.name || "").toLowerCase().startsWith(expect.toLowerCase())) return null;
-  return { src: hit.thumb, large: hit.image, name: hit.name };
+  if (spec) {
+    const [sid, kind, expect] = spec;
+    const hit = (productsBySet[sid]?.products || []).find((p) => p.kind === kind);
+    if (!hit || !hit.thumb || DEAD.has(hit.thumb)) return null;
+    if (!String(hit.name || "").toLowerCase().startsWith(expect.toLowerCase())) return null;
+    return { src: hit.thumb, large: hit.image, name: hit.name };
+  }
+  const extra = Object.values(EXTRA).find((p) => p.row === name);
+  if (!extra || !extra.thumb || DEAD.has(extra.thumb)) return null;
+  return { src: extra.thumb, large: extra.image, name: extra.name };
 }
 
 // ---------------------------------------------------------------- the copy
@@ -821,12 +847,13 @@ const style = `
 .hp-shot img{width:88px;height:88px;object-fit:contain;display:block;background:#fff;
   border:1px solid var(--hair);border-radius:6px}
 .hp-shot figcaption{font:400 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);margin-top:4px}
-/* The ten rows with no photograph. Same 88x88 footprint as .hp-shot so the
+/* The row with no photograph. Same 88x88 footprint as .hp-shot so the
    headings stay on one line down the column, and the same 45 degree hatch
    .set-noart uses on /sets/ for a set with no logo, which is this site's
    existing way of saying "there is no art for this, on purpose". A plain empty
    box at this size reads as an image that failed to load, which is the one
-   thing it must not look like: nine of its neighbours are real photographs. */
+   thing it must not look like: every one of its neighbours is a real
+   photograph now, so it is the only box on the page that is not one. */
 .hp-noshot{flex:none;width:88px;height:88px;display:grid;place-items:center;
   border:1px solid var(--hair);border-radius:6px;
   background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
@@ -877,9 +904,22 @@ const style = `
 .hp-eras p{font-size:var(--t-sm);line-height:1.6}
 .hp-tr{display:inline-block;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
   text-transform:uppercase;padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2)}
-.hp-tr.ok{background:#1E5B34;color:#EAF6EE;border-color:#1E5B34}
-.hp-tr.mid{background:var(--mustard);color:var(--ink);border-color:var(--navy)}
-.hp-tr.low{background:var(--card);color:var(--ink-2);border-style:dashed}
+/* THE THREE RUNGS READ AS A LADDER, BY WEIGHT, AND NO LONGER BY HUE.
+   They used to be a green pill, a mustard pill and a white one, and all three
+   were wrong after the site repainted to one accent. The green was the only
+   green left anywhere and read as a leftover rather than as a decision. Mustard
+   is the site's HIGHLIGHT, so the MIDDLE rung was the loudest chip in the list
+   and pulled the eye past the top one. And .low was --card on a --card
+   background, 1.00:1, carried entirely by a 1px dashed hairline: the bottom of
+   a confidence ladder was invisible.
+   So the ladder now descends by fill weight, which a ladder should: solid ink,
+   then a filled tint, then an outline. That is legible with no colour vision at
+   all, which is the right property for a scale, and it needs no colour outside
+   the palette. If the confirmed state ever wants to be green again, it should
+   be green everywhere it appears on the site and argued once, not here. */
+.hp-tr.ok{background:var(--ink);color:var(--paper-2);border-color:var(--ink)}
+.hp-tr.mid{background:var(--paper-3);color:var(--ink);border-color:var(--ink-2)}
+.hp-tr.low{background:var(--card);color:var(--ink-2);border-style:dashed;border-color:var(--ink-2)}
 .hp-cite{display:flex;flex-wrap:wrap;gap:6px 14px;font:400 var(--t-micro)/1.4 var(--mono);
   color:var(--ink-2);margin-top:8px}
 .hp-cite a{display:inline-block}
@@ -999,16 +1039,30 @@ ${rows.map(card).join("\n")}
     </ul>
     <p class="prod-note">Product photos are TCGplayer's, from the nightly price pull${
       productsChecked ? ` read ${esc(longDate(productsChecked))}` : ""
-    }. We are not a shop and we do not sell any of this. There is no in-house photography, so a photo only exists here
-      where TCGplayer lists that product for one of the sets we track and its own pack count is one of the numbers on
-      the row. ${
-        // Counted, not typed. The photos are derived from the nightly pull, so
-        // one can appear or disappear without anybody editing this sentence.
-        rows.filter((r) => !r.photo).length
-      } of the ${rows.length} rows have a hatched box instead. Most of those are products sold outside any one
-      expansion, like the tins and the calendar, which never appear in a set's listings at all. The rest do have
-      listings, but of a different box from the one the count on that row was read off, and a near neighbour with the
-      wrong number beside it would be worse than no picture.</p>
+    }. We are not a shop and we do not sell any of this. There is no in-house photography, so a photo only exists
+      here where TCGplayer lists the exact product the count on that row was read off, and the pictured box's own
+      pack count is the number beside it. Most come out of the per-set price pull. The ones sold outside any
+      expansion, like the tins and the calendar, and the ones whose set listing is a different box from the one the
+      research read, are each pinned by hand instead.${
+        // Counted and named, not typed. A photo can appear or disappear without
+        // anybody editing this sentence, and naming the row is what stops the
+        // count going stale while still reading as a sentence.
+        (() => {
+          const gaps = rows.filter((r) => !r.photo);
+          if (!gaps.length) return " Every row has one.";
+          const names = gaps.map((r) => r.name);
+          const list =
+            names.length === 1
+              ? names[0]
+              : `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
+          return ` ${gaps.length} of the ${rows.length} rows ${
+            gaps.length === 1 ? "has a hatched box" : "have a hatched box"
+          } instead, ${esc(list)}: TCGplayer lists ${
+            gaps.length === 1 ? "it" : "them"
+          } across several years and publishes no release date, so picking one would put a photograph of an
+          unknown number beside a sourced one.`;
+        })()
+      }</p>
   </div>
 </section>
 

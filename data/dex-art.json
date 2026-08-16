@@ -1,0 +1,162 @@
+{
+ "_readme": [
+  "Written by scripts/sync-dex-art.mjs. Do not hand-edit.",
+  "Official Pokemon artwork mirrored from the PokeAPI sprite repository, at the size /lore.html draws it.",
+  "Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.",
+  "This is a fan site. Nothing is sold here and nothing on it is affiliated with or endorsed by them."
+ ],
+ "checked": "2026-08-16",
+ "source": "PokeAPI/sprites, official-artwork",
+ "art": {
+  "92": {
+   "file": "/assets/dex/92.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "93": {
+   "file": "/assets/dex/93.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "144": {
+   "file": "/assets/dex/144.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "145": {
+   "file": "/assets/dex/145.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "146": {
+   "file": "/assets/dex/146.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "170": {
+   "file": "/assets/dex/170.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "171": {
+   "file": "/assets/dex/171.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "225": {
+   "file": "/assets/dex/225.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "248": {
+   "file": "/assets/dex/248.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "302": {
+   "file": "/assets/dex/302.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "322": {
+   "file": "/assets/dex/322.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "323": {
+   "file": "/assets/dex/323.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "343": {
+   "file": "/assets/dex/343.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "344": {
+   "file": "/assets/dex/344.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "345": {
+   "file": "/assets/dex/345.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "346": {
+   "file": "/assets/dex/346.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "442": {
+   "file": "/assets/dex/442.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "568": {
+   "file": "/assets/dex/568.webp",
+   "w": 320,
+   "h": 320,
+   "box": "md"
+  },
+  "569": {
+   "file": "/assets/dex/569.webp",
+   "w": 320,
+   "h": 320,
+   "box": "md"
+  },
+  "669": {
+   "file": "/assets/dex/669.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "789": {
+   "file": "/assets/dex/789.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "790": {
+   "file": "/assets/dex/790.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "797": {
+   "file": "/assets/dex/797.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "798": {
+   "file": "/assets/dex/798.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  },
+  "890": {
+   "file": "/assets/dex/890.webp",
+   "w": 128,
+   "h": 128,
+   "box": "sm"
+  }
+ }
+}

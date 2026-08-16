@@ -45,13 +45,17 @@ const style = `
    read as one piece of art instead of two stickers side by side. */
 .e404-mascot{width:clamp(104px,29vw,136px);height:auto;margin-bottom:-2%;
   transform:rotate(4deg);position:relative;z-index:2;
-  filter:drop-shadow(0 8px 14px rgba(21,38,58,.26))}
+  filter:drop-shadow(0 8px 14px rgba(17,17,17,.26))}
 @media(max-width:360px){.e404-mascot{display:none}}
 .e404-pack .pack{cursor:default}
 .e404 h1{font:400 clamp(2.2rem,9vw,3.6rem)/1 var(--display);margin-bottom:var(--s3)}
 .e404 p{color:var(--ink-2);font-size:var(--t-lede);margin-bottom:var(--s5)}
+/* Was --plum on --lilac-pale over an rgba(78,47,72) hairline: a purple chip on
+   a site whose palette is black, white and gold, and after the repaint a grey
+   one at 1.08:1 against the page. Ink on --paper-3 with the standard hairline
+   is the palette's chip, and it is the same one .xp-tag and .bmk use. */
 .e404-code{display:inline-block;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.14em;
-  color:var(--plum);background:var(--lilac-pale);border:1px solid rgba(78,47,72,.24);
+  color:var(--ink);background:var(--paper-3);border:1px solid var(--hair);
   padding:7px var(--s3);border-radius:var(--r-pill);margin-bottom:var(--s4)}
 .e404-links{display:flex;gap:var(--s3);flex-wrap:wrap;justify-content:center}
 .e404-links a{display:inline-flex;align-items:center;min-height:48px;padding:0 var(--s5);

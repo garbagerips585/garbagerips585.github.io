@@ -65,11 +65,26 @@
 // pages cannot print different numbers, and it is English packs only for the
 // reason set out in that file's header.
 //
-// NO IMAGERY. The site does not use other people's pictures and there are no
-// in-house screenshots. The one picture worth having is ours: the two boards
+// THIS ENTRY USED TO READ "NO IMAGERY", on the grounds that the site does not
+// use other people's pictures and there are no in-house screenshots. The owner
+// has since said official Pokemon imagery may be used here, which retires the
+// first half, and the second half was never a reason to have none: the
+// publisher ships its own. The page now carries the app icon and three
+// screenshots from the app's own App Store listing, mirrored at the size they
+// are drawn by scripts/sync-app-shots.mjs and credited in the small print.
+//
+// ONE OF POCKET'S OWN SCREENSHOTS IS EXCLUDED AND IT IS THE FIRST ONE. It
+// carries a visible "Offering Rates" button. The forbidden block in
+// data/tcg-pocket.json bans stating, quoting, summarising, paraphrasing OR
+// linking those, and a picture of the control is the same claim at one remove,
+// so the sync pins shot indexes by hand rather than taking the first three. Do
+// not "simplify" that list. Look at a shot before you pin it.
+//
+// The picture that is ours is still the best one on the page: the two boards
 // side by side, below, which carries the whole argument of section two and lets
 // the Bench be drawn as smaller without committing to a number nobody official
-// has published.
+// has published. NOTHING IN A CAPTION OR AN ALT MAY COMMIT TO THAT NUMBER
+// EITHER, which is why the strip's caption describes the file and stops.
 //
 // NO BACKTICKS IN COMMENTS IN THIS FILE. The page is one template literal and a
 // backtick in a comment closes it. That has broken this build three times.
@@ -81,6 +96,7 @@ import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { esc, longDate } from "../shared/format.mjs";
 import { COMPARE_ANSWER, COMPARE_CSS, compareTable } from "../shared/app-compare.mjs";
+import { APP_SHOT_CSS, appCredit, appIcon, appStrip } from "../shared/appshots.mjs";
 import { PACKS } from "../shared/packtally.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -288,6 +304,7 @@ const style = `
 .tp-out a{font-weight:700}
 .tp-out .tp-off{display:inline-block;font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);margin-left:6px}
 .tp-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
+${APP_SHOT_CSS}
 ${COMPARE_CSS}`;
 
 const body = `
@@ -332,6 +349,7 @@ const body = `
           cards. One Active Pokemon facing your opponent's with the rest on the Bench. Drawing a card at the start
           of your turn. Knock Outs. That is the shape of the card game, and it is why watching this thing play
           teaches you something real.</p>
+        ${appStrip("pocket", "The app, on its own terms.")}
         <p><b>Then four things that do not carry over</b>, each of which would trip you up at a table.</p>
         <ul class="tp-go tp-diff">
           <li><b>The deck is ${esc(POCKET_DECK)} cards, not ${esc(DECK)}</b>And at most two copies of a name,
@@ -385,6 +403,7 @@ ${compareTable(esc)}
           and nothing in a browser, which is the row in that table most likely to catch you out. It is free with
           optional in-app purchases and it is about ${esc(downloadSize)} to download, so check the phone has
           room.</p>
+        ${appIcon("pocket", " is the one to search for. The other app's icon is a different colour.")}
         <p>You are not asked for a Pokemon account. You pick a country and region, confirm your age, accept the
           terms and you are in. Link a Nintendo, Google or Apple account on the first day anyway: Pokemon says
           that if you reinstall without linking, you will not be able to recover your save data yourself. Under a
@@ -469,7 +488,7 @@ ${compareTable(esc)}
         battles, the rental decks and the level 3 unlock but not the option that plays your side for you, so that
         one sentence describes how the app behaves rather than repeating a Pokemon page. The app updates roughly
         monthly and several things named here were added after launch, so if you find something missing this page
-        is behind rather than wrong. If the app disagrees with this page, the app is right.</p>
+        is behind rather than wrong. If the app disagrees with this page, the app is right. ${appCredit("pocket")}</p>
 `;
 
 // THE PLAN BUDGETS 1,300 TO 1,600 WORDS, and both ends are checked. Less than
@@ -480,15 +499,34 @@ ${compareTable(esc)}
 // The SVG and the shared comparison TABLE come out before counting: one is a
 // picture, the other is markup this page does not own, and counting either would
 // tempt somebody to cut prose to make room for something that is not prose.
+//
+// FIGCAPTIONS COME OUT TOO, and it is the same argument one step further. A
+// caption exists only because a picture does, so counting it means adding a
+// picture is paid for in paragraphs, which is the pressure the line above is
+// about. The sibling page hit exactly that on the day it gained screenshots.
+// The cap below is what stops it becoming a hole to pour prose into.
+const CAPTION = /<figcaption[^>]*>[\s\S]*?<\/figcaption>/g;
 const prose = (html) =>
   html
     .replace(/<svg[\s\S]*?<\/svg>/g, " ")
     .replace(/<table[\s\S]*?<\/table>/g, " ")
+    .replace(CAPTION, " ")
     .replace(/<(\w+) class="sr-only"[^>]*>[\s\S]*?<\/\1>/g, " ")
     .replace(/<[^>]+>/g, " ")
     .replace(/&[a-z]+;/g, " ")
     .split(/\s+/)
     .filter(Boolean);
+
+for (const cap of body.match(CAPTION) || []) {
+  const capWords = cap.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean);
+  if (capWords.length > 45) {
+    throw new Error(
+      `a figcaption on this page is ${capWords.length} words, over the 45 word cap. ` +
+        "Captions do not count towards the section budgets, so they do not get to hold prose. " +
+        "Move the detail into the alt text.\n  " + capWords.join(" ")
+    );
+  }
+}
 
 const sections = body.match(/<section class="tp-s"[\s\S]*?<\/section>/g) || [];
 if (sections.length !== 7) throw new Error(`expected 7 body sections, found ${sections.length}`);

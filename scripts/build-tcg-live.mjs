@@ -65,10 +65,25 @@
 // NO LIST OF PROMOTIONAL CODES. They rot in weeks, they are not from Pokemon,
 // and a code list turns an evergreen page into one that lies.
 //
-// NO IMAGERY. This site does not use other people's pictures and there are no
-// in-house screenshots of the app. A photograph of a real code card is worse
-// than none: it either burns a live code or publishes a dead one. The one
-// picture worth having is ours, and it is the inline SVG below.
+// NO PHOTOGRAPH OF A CODE CARD, EVER, and that half of the old rule stands: a
+// photo of a real one either burns a live code or publishes a dead one.
+//
+// THE REST OF THIS ENTRY USED TO READ "NO IMAGERY", on the grounds that the
+// site does not use other people's pictures and there are no in-house
+// screenshots of the app. The owner has since said that official Pokemon
+// imagery may be used here, which retires the first half; the second half was
+// never a reason to have no pictures, because the publisher ships its own. So
+// the page now carries the app icon and three screenshots off the app's own App
+// Store listing, mirrored by scripts/sync-app-shots.mjs at the size they are
+// drawn and credited in the small print. That script asserts on every run that
+// the listing is still published by The Pokemon Company International.
+//
+// A SCREENSHOT IS SUBJECT TO THE ODDS BAN LIKE ANY OTHER CLAIM. Alt text and
+// captions are prose, and so is a button caught in a picture: Pocket's first
+// listed screenshot has a visible "Offering Rates" control and is excluded on
+// the sibling page for exactly that reason. Look at a shot before pinning it.
+//
+// The other picture worth having is ours, and it is the inline SVG below.
 //
 // NO BACKTICKS IN COMMENTS IN THIS FILE. The page is one template literal and a
 // backtick in a comment closes it. That has broken this build three times.
@@ -80,6 +95,7 @@ import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { esc, longDate } from "../shared/format.mjs";
 import { COMPARE_ANSWER, COMPARE_CSS, compareTable } from "../shared/app-compare.mjs";
+import { APP_SHOT_CSS, appCredit, appIcon, appStrip } from "../shared/appshots.mjs";
 import { PACKS } from "../shared/packtally.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -285,6 +301,7 @@ const style = `
 .tl-out a{font-weight:700}
 .tl-out .tl-off{display:inline-block;font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);margin-left:6px}
 .tl-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
+${APP_SHOT_CSS}
 ${COMPARE_CSS}`;
 
 const body = `
@@ -417,6 +434,7 @@ const body = `
         <h2>Getting the <span class="hl">app</span></h2>
         <p>Four platforms: iPhone and iPad, Android, Windows and Mac. There is no play-in-a-browser version, so
           you are downloading an app. The only thing you do on the web is redeem codes.</p>
+        ${appIcon("live", " is the one you want, and it is free.")}
         <p>Two things most guides skip. The Windows and Mac versions are direct downloads from Pokemon's own site
           rather than store apps, so hunting the Microsoft Store or the Mac App Store will not turn them up. And
           you need a free Pokemon account: the support site now calls it a Pokemon Trainer Central account and
@@ -434,6 +452,7 @@ const body = `
         <p>The rules are the rules. If you have never played at all,
           <a href="/how-to-play.html">read those first</a>. Everything below is only what changes when the game is
           software instead of cardboard.</p>
+        ${appStrip("live", "The same game, as software.")}
         <ul class="tl-go">
           <li><b>It teaches you, then it enforces the rules</b>The Learn tab holds the Learning Lab: guided
             lessons against the computer, replayable in any order. Conceding one costs you nothing, not your level
@@ -537,7 +556,7 @@ ${compareTable(esc)}
         League and no numbers. And nothing official says whether pack codes expire, so the page says Pokemon
         publishes no expiry date rather than saying they never do. This is software and it moves: system
         requirements have been raised twice in eighteen months and what non-booster codes give changed in July
-        2025. If the app disagrees with this page, the app is right.</p>
+        2025. If the app disagrees with this page, the app is right. ${appCredit("live")}</p>
 `;
 
 // UNDER THE PLAN'S BUDGET, CHECKED RATHER THAN INTENDED, the same guard
@@ -561,15 +580,41 @@ ${compareTable(esc)}
 // picture and the table is shared markup this page does not own, so counting
 // either would tempt somebody to cut prose to make room for something that is
 // not prose.
+//
+// FIGCAPTIONS COME OUT TOO, ADDED 16 AUGUST 2026 WHEN THE PAGE GAINED PICTURES,
+// and it is the same argument one step further rather than a new one. This page
+// was at 1,994 words against a 2,000 ceiling, so the first screenshot strip cost
+// it more than it had: a caption that counts means adding a picture is paid for
+// in paragraphs, which is exactly the pressure the paragraph above identifies. A
+// caption exists only because a picture does.
+//
+// IT IS NOT A HOLE TO POUR PROSE INTO, and that is asserted below rather than
+// trusted, because "put it in a caption" is the obvious way to game this. No
+// single figcaption may run past 45 words, which is enough to name three files
+// and not enough to hold an argument. Alt text was never counted, being an
+// attribute, and it is where the long description belongs anyway.
+const CAPTION = /<figcaption[^>]*>[\s\S]*?<\/figcaption>/g;
 const prose = (html) =>
   html
     .replace(/<svg[\s\S]*?<\/svg>/g, " ")
     .replace(/<table[\s\S]*?<\/table>/g, " ")
+    .replace(CAPTION, " ")
     .replace(/<(\w+) class="sr-only"[^>]*>[\s\S]*?<\/\1>/g, " ")
     .replace(/<[^>]+>/g, " ")
     .replace(/&[a-z]+;/g, " ")
     .split(/\s+/)
     .filter(Boolean);
+
+for (const cap of body.match(CAPTION) || []) {
+  const words = cap.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean);
+  if (words.length > 45) {
+    throw new Error(
+      `a figcaption on this page is ${words.length} words, over the 45 word cap. ` +
+        "Captions do not count towards the section budgets, so they do not get to hold prose. " +
+        "Move the detail into the alt text.\n  " + words.join(" ")
+    );
+  }
+}
 
 const sections = body.match(/<section class="tl-s"[\s\S]*?<\/section>/g) || [];
 if (sections.length !== 9) throw new Error(`expected 9 body sections, found ${sections.length}`);

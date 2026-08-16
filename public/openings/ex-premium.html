@@ -22,57 +22,56 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=67f732be">
+<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
-<style>
-.op-lede{max-width:46em}
-/* The product shot is a HORIZONTAL strip under the lede, not a column beside it.
-   Both alternatives were built and looked wrong. Beside the lede, the caption is
-   stuck in an 88px column and sets as eleven lines of mono running far below a
-   three line paragraph. Above the lede, an 88px box pushes the sentence that
-   answers the h1 down the screen on a phone. As a strip it keeps the question
-   and its answer adjacent and gives the caption a readable measure, and the
-   caption has real work to do here: it names the set the box actually is, which
-   is the condition of using one set's product to illustrate a type at all. */
+<style>.op-lede{max-width:46em}
 .op-shot{display:flex;gap:var(--s4);align-items:center;margin:0 0 var(--s5);
-  max-width:46em;border:3px solid var(--navy);border-radius:12px;background:var(--card);
-  box-shadow:var(--hard-lg);padding:var(--s3) var(--s4)}
-/* Product photography arrives on a white background, so the tile is white
-   rather than the page cream. Same reasoning and the same 88px box as
-   .prod-shot on the set guides and .hp-shot on /how-many-packs.html, because
-   sizes="88px" is measured against exactly this box. */
+max-width:46em;border:3px solid var(--navy);border-radius:12px;background:var(--card);
+box-shadow:var(--hard-lg);padding:var(--s3) var(--s4)}
 .op-shot img{flex:none;width:88px;height:88px;object-fit:contain;display:block;background:#fff;
-  border:1px solid var(--hair);border-radius:6px}
+border:1px solid var(--hair);border-radius:6px}
 .op-shot figcaption{font-size:var(--t-sm);line-height:1.5;color:var(--ink-2);min-width:0}
 .op-shot figcaption b{font-weight:700;color:var(--ink)}
 .op-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);margin:var(--s5) 0}
 @media(max-width:700px){.op-facts{grid-template-columns:1fr}}
 .op-f{border:3px solid var(--navy);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
-  padding:var(--s4);text-align:center}
+padding:var(--s4);text-align:center}
 .op-f .n{font:400 var(--t-xl)/1 var(--display);color:var(--ketchup)}
 .op-f .l{font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;
-  color:var(--ink-2);margin-top:var(--s2);display:block}
+color:var(--ink-2);margin-top:var(--s2);display:block}
 .op-tw{overflow-x:auto;border:3px solid var(--navy);border-radius:12px;box-shadow:var(--hard-lg);
-  background:var(--card);margin:var(--s4) 0}
+background:var(--card);margin:var(--s4) 0}
 .op-t{border-collapse:collapse;width:100%;min-width:520px;font-size:var(--t-sm)}
 .op-t caption{caption-side:top;text-align:left;padding:var(--s3) var(--s4);font:700 var(--t-label)/1.3 var(--body);
-  letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);border-bottom:2px solid var(--hair)}
+letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);border-bottom:2px solid var(--hair)}
 .op-t th,.op-t td{padding:10px var(--s3);text-align:left;border-bottom:1px solid var(--hair)}
 .op-t thead th{font:700 var(--t-label)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
-  background:var(--navy);color:var(--chrome-ink);border-bottom:none}
+background:var(--navy);color:var(--chrome-ink);border-bottom:none}
 .op-t tbody th{font-weight:700}
 .op-no{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);opacity:.7}
 .op-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
 @media(max-width:900px){.op-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.op-grid{grid-template-columns:1fr}}
 .op-c{border:3px solid var(--navy);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
-  padding:var(--s4);display:block;color:inherit;text-decoration:none}
+padding:var(--s4);display:block;color:inherit;text-decoration:none}
 .op-c h2,.op-c h3{font:400 var(--t-m)/1.2 var(--display);margin-bottom:var(--s2)}
 .op-c p{font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
 .op-c .op-n{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
-  color:var(--ink-2);display:block;margin-top:var(--s3)}
+color:var(--ink-2);display:block;margin-top:var(--s3)}
+.op-ch{display:flex;gap:var(--s3);align-items:center;margin-bottom:var(--s3)}
+.op-ch h2,.op-ch h3{margin-bottom:0}
+.op-ci{flex:none;width:88px;height:88px;object-fit:contain;display:block;background:#fff;
+border:1px solid var(--hair);border-radius:6px}
+.op-cn{background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
+.op-ex{display:block;margin-top:var(--s3);font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
 .op-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.55;max-width:44em}
-</style>
+@media(min-width:1000px){
+.op-lede{max-width:50ch}
+.op-note{max-width:50ch}
+}
+@media(min-width:1500px){
+.op-grid{grid-template-columns:repeat(4,1fr)}
+}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Openings","item":"https://garbagerips585.github.io/openings/"},{"@type":"ListItem","position":3,"name":"ex Premium Collection"}]}</script>
 </head>
 <body>
@@ -159,6 +158,7 @@
       <p class="menu-h">Play</p>
       <ul>
         <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
       </ul>
     </div>
@@ -181,7 +181,12 @@
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/openings/">Openings</a> / <span>ex Premium Collection</span></nav>
       <h1>What is in an ex Premium Collection<span class="hl">?</span></h1>
       <p class="lede op-lede">A collection box built around one ex card, with a promo, an oversize card and a few packs.</p>
-
+      <figure class="op-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/690660_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/690660_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/690660_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Mega Greninja ex Premium Collection, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>One example: the <b>Mega Greninja ex Premium Collection</b>. Photo TCGplayer's. This kind is a general release rather than a set's own product, so the one in the picture is a specific release and the next one looks different.</figcaption>
+      </figure>
       <p class="op-note">That is what this kind of box usually holds. It is deliberately not stated per set,
         because the contents have changed between releases and we do not have a per set count we can stand
         behind. What we do have is what came out of the ones opened here, counted below, and
@@ -327,6 +332,7 @@
       <div class="foot-col">
         <p class="foot-h">Play</p>
         <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
       </div>
       <div class="foot-col">

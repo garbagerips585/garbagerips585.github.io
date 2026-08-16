@@ -29,6 +29,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
+import { brandMark, BRAND_CREDIT, BRAND_STYLE } from "../shared/brands.mjs";
 import { esc, longDate } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -84,19 +85,35 @@ for (const d of drops) if (!order.includes(d.retailer)) order.push(d.retailer);
 // worse rather than better, because Target and Costco use the same Pantone.
 // The name identifies. These are the site's own palette describing the site's
 // own categories, so they assert nothing about anybody's brand.
-const KIND_TINT = {
-  "Official store": "var(--gold)",
-  "Big box": "var(--navy)",
-  Grocery: "var(--teal)",
-  Pharmacy: "var(--plum)",
-  Discount: "var(--ketchup)",
-};
+// THE FIVE KIND TINTS ARE GONE AND THE RETAILER'S OWN MARK IS THERE INSTEAD.
+//
+// The tints were a deliberate, well argued idea: the stripe named the KIND of
+// shop in the site's own palette rather than pretending to be anybody's brand
+// colour, which sidestepped the fact that Target and Costco use the same
+// Pantone. The repaint killed it. --navy and --ketchup are both #111111 now, so
+// "Big box" and "Discount" were the identical stripe; --teal is #4A4A4A and
+// --plum is #3A3A3A, which is a 1.13:1 difference nobody can see. Five
+// categories, three visibly distinct stripes, and a key at the bottom of the
+// page explaining a distinction that no longer existed.
+//
+// Reaching for five more tokens does not fix it: this palette is black, white
+// and gold on purpose, so it does not hold five separable hues and should not
+// be made to.
+//
+// What the chip actually needed was the thing a reader scans for, which is the
+// SHOP, and scripts/sync-brands.mjs already mirrors five of these seven for
+// /buying.html. So the chip is the mark, the name and the kind in words. The
+// kind was always carried by the word next to the stripe rather than by the
+// stripe, which is why removing the colour costs the page nothing.
+//
+// TWO RETAILERS HAVE NO MARK. Family Dollar is not on Commons at all, and it
+// gets the site's hatched name tile from shared/brands.mjs, the same one eight
+// venues on /buying.html and /selling.html carry.
 
 const chip = (id) => {
   const r = R[id];
-  const tint = KIND_TINT[r.kind];
-  if (!tint) throw new Error(`drops.json: retailer "${r.name}" has kind "${r.kind}" with no color in KIND_TINT`);
-  return `<span class="rt" style="--rt:${tint}">${esc(r.name)}<i>${esc(r.kind)}</i></span>`;
+  if (!r) throw new Error(`drops.json: a drop names retailer "${id}", which is not in the retailers map`);
+  return `<span class="rt">${brandMark(id, r.name)}<span class="rt-n">${esc(r.name)}<i>${esc(r.kind)}</i></span></span>`;
 };
 
 const card = (d) => {
@@ -164,22 +181,42 @@ const style = `
   box-shadow:var(--hard-lg);padding:var(--s4);display:flex;flex-direction:column;gap:var(--s2)}
 .drop[hidden]{display:none}
 .drop-top{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2)}
-.rt{font:700 var(--t-label)/1.1 var(--body);letter-spacing:.04em;text-transform:uppercase;
-  padding:6px 10px;border-radius:6px;background:var(--card);color:var(--ink);
-  border:1px solid var(--hair);border-left:4px solid var(--rt);
-  display:inline-flex;flex-direction:column;gap:3px}
+.rt{display:inline-flex;align-items:center;gap:var(--s2)}
+.rt-n{font:700 var(--t-label)/1.1 var(--body);letter-spacing:.04em;text-transform:uppercase;
+  color:var(--ink);display:inline-flex;flex-direction:column;gap:3px}
 .rt i{font:400 var(--t-micro)/1 var(--mono);letter-spacing:.06em;color:var(--ink-2);font-style:normal}
+${BRAND_STYLE}
 .drop-ch,.drop-cf{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2)}
-.drop-cf.ok{background:#1E5B34;color:#EAF6EE;border-color:#1E5B34}
-.drop-cf.win{background:var(--mustard);color:#2A2410;border-color:var(--mustard)}
-.drop-cf.pat{background:var(--card);color:var(--ink-2);border-style:dashed}
+/* FOUR RUNGS, RANKED BY WEIGHT OF INK, WITH NO HUE AT ALL. Three faults, and
+   the third is the one that would survive a contrast checker.
+   "PATTERN ONLY" AND "EXPECTED" DIFFERED ONLY BY border-style. Two confidence
+   levels, one border apart, on the page whose entire lede is "check the
+   confidence on each one". The bottom rung was --card on a white card, 1.00:1,
+   so the dashed hairline was carrying the whole distinction on its own.
+   THE TOP RUNG WAS THE SITE'S ONLY GREEN, #1E5B34, which is legible at 7.73:1
+   and is still wrong: the palette's stated idea is one accent hue.
+   MUSTARD MEANT A DIFFERENT RANK ON EVERY PAGE THAT USED IT. Second here, best
+   on /upcoming.html, middle on /how-many-packs.html, and because gold is the
+   site's highlight the mustard chip is the loudest thing in each list. So on one
+   page the middle tier outshouted the top one. Taking the accent out of the
+   ladder entirely is the only fix that does not require three pages to agree
+   about which rank gold means.
+   What is left is four monotonically lighter treatments: solid ink, solid grey,
+   filled chip, then the site's own 45 degree no-art hatch behind a dashed
+   outline. The hatch already means "we do not hold this" everywhere else on the
+   site, which is exactly what "no retailer publishes a restock schedule" is.
+   NONE OF IT IS COLOUR ALONE: every chip prints its own label, and the key
+   below the list spells all four out in words. */
+.drop-cf.ok{background:var(--chrome-bg);color:var(--chrome-ink);border-color:var(--chrome-bg)}
+.drop-cf.win{background:var(--ink-soft);color:var(--paper-2);border-color:var(--ink-soft)}
+.drop-cf.exp{background:var(--paper-3);color:var(--ink);border-color:var(--hair)}
+.drop-cf.pat{color:var(--ink);border:1.5px dashed var(--ink-2);
+  background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
 .drop-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:auto;padding-top:var(--s2)}
 .drop-what{font:600 var(--t-m)/1.35 var(--body)}
 .drop-when,.drop-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.45}
 .dr-empty{color:var(--ink-2);padding:var(--s5) 0}
-.dr-sw{display:inline-block;width:11px;height:11px;border-radius:3px;background:var(--rt);
-  border:1px solid var(--hair);vertical-align:-1px;margin-right:5px}
 .dr-key h2{margin-bottom:var(--s3)}
 .dr-key{margin-top:var(--s5);color:var(--ink-2);font-size:var(--t-sm);line-height:1.5;max-width:44em}
 `;
@@ -270,11 +307,10 @@ ${drops.map(card).join("\n")}
       <div class="dr-key">
         <h2>How to read this page</h2>
         <p><b>What the labels mean.</b> ${Object.values(CONF).map((c) => `<b>${c.label}:</b> ${c.note}`).join(" ")}</p>
-        <p style="margin-top:var(--s3)"><b>What the colors mean.</b> The stripe on each name is the kind of
-          shop, not the shop's own color: ${Object.entries(KIND_TINT)
-            .map(([k, v]) => `<span class="dr-sw" style="--rt:${v}"></span>${esc(k)}`)
-            .join(", ")}. Retailer names here are drawn in this site's own typeface and are the property of
-          their owners. Nothing on this page is endorsed by, affiliated with or supplied by any of them.</p>
+        <p style="margin-top:var(--s3)"><b>Whose logos these are.</b> ${BRAND_CREDIT}
+          The kind of shop is the word under each name: ${[...new Set(Object.values(R).map((x) => x.kind))]
+            .map((k) => esc(k))
+            .join(", ")}.</p>
         <p style="margin-top:var(--s3)">Stock varies store to store and the good stuff goes fast, so this tells you
           where to look rather than what you will find. If you would rather buy without the hunt, the
           <a href="/shops.html">Rochester shops</a> and the <a href="/card-shows.html">card shows</a> have

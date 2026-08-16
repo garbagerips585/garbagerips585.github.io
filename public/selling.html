@@ -22,21 +22,20 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=67f732be">
+<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
-<style>
-.se-lede{max-width:46em}
+<style>.se-lede{max-width:46em}
 .se-jump{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:var(--s5) 0 var(--s4)}
 .se-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
-  border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
-  text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
+border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
+text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
 .se-jump a:hover{border-color:var(--ink);background:var(--mustard)}
 .se-jg{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
-  color:var(--ink-2);margin-left:var(--s2)}
+color:var(--ink-2);margin-left:var(--s2)}
 .se-jg:first-child{margin-left:0}
 .se-v{scroll-margin-top:var(--s5)}
 .se-key{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:var(--chrome-ink);
-  padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
+padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
 .se-key h2{color:var(--chrome-ink);margin-bottom:var(--s3)}
 .se-key p{color:var(--foot-ink);line-height:1.55;max-width:44em}
 .se-key p + p{margin-top:var(--s3)}
@@ -45,13 +44,26 @@
 .se-vs{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
 @media(max-width:900px){.se-vs{grid-template-columns:1fr}}
 .se-v,.se-p{border:3px solid var(--navy);border-radius:12px;background:var(--card);
-  box-shadow:var(--hard-lg);padding:var(--s4)}
-.se-vh{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2);margin-bottom:var(--s2)}
+box-shadow:var(--hard-lg);padding:var(--s4)}
+.se-vh{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);margin-bottom:var(--s2)}
+.bmk{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+height:34px;min-width:56px;max-width:124px;padding:4px 9px;box-sizing:border-box;
+background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r-sm)}
+.bmk img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+.bmk-multi{max-width:100%;flex-wrap:wrap;gap:6px 12px;height:auto;min-height:34px;padding:6px 10px}
+.bmk-multi img{max-height:22px;max-width:74px}
+@media(max-width:420px){.bmk-multi img{max-height:19px;max-width:64px}}
+.bmk-d{color:var(--ink-2)}
+.bmk-n{background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
+.bmk-n b{font:700 var(--t-micro)/1.15 var(--mono);letter-spacing:.01em;color:var(--ink);
+text-align:center;overflow-wrap:anywhere;background:var(--paper-2);
+box-shadow:0 0 0 3px var(--paper-2);border-radius:2px}
 .se-vh h3{font:400 var(--t-m)/1.15 var(--display)}
 .se-st{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
-  padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2)}
-.se-st.ok{background:#1E5B34;color:#EAF6EE;border-color:#1E5B34}
-.se-st.unv{background:var(--card);color:var(--ink-2);border-style:dashed}
+padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2)}
+.se-st.ok{background:var(--chrome-bg);color:var(--chrome-ink);border-color:var(--chrome-bg)}
+.se-st.part{background:var(--paper-3);color:var(--ink);border-color:var(--hair)}
+.se-st.unv{background:var(--paper-2);color:var(--ink);border:1.5px dashed var(--ink-2)}
 .se-fmt{color:var(--ink-2);font-size:var(--t-sm);margin-bottom:var(--s2)}
 .se-best,.se-pay,.se-acc,.se-nb,.se-none{font-size:var(--t-sm);line-height:1.5;margin-top:var(--s2)}
 .se-nb,.se-none{color:var(--ink-2)}
@@ -60,7 +72,7 @@
 .se-on,.se-nt{display:block;color:var(--ink-2);font-size:var(--t-micro);margin-top:2px}
 .se-p ul{margin:var(--s2) 0 0 var(--s4);font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
 .se-lbl{font-size:var(--t-sm);margin-top:var(--s3)}
-.se-yes b{color:#1E5B34}
+.se-yes b{color:var(--ink)}
 .se-no b{color:var(--ketchup-deep)}
 .se-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s3);line-height:1.6}
 .se-prot{font-size:var(--t-sm);line-height:1.5;margin-top:var(--s2)}
@@ -74,7 +86,24 @@
 .se-list{margin:var(--s4) 0 0 var(--s4);max-width:46em;line-height:1.55}
 .se-list li{margin-bottom:var(--s3)}
 .se-list b{color:var(--ink)}
-</style>
+@media(min-width:1000px){
+.se-lede{max-width:50ch}
+.se-grp > p{max-width:50ch}
+.se-key p{max-width:50ch}
+.se-src{max-width:64ch}
+}
+@media(min-width:1100px){
+.se-top{display:grid;grid-template-columns:minmax(0,620px) minmax(0,1fr);
+gap:var(--s5) var(--s6);align-items:start}
+.se-top .se-jump{margin-top:0}
+.se-key{display:grid;grid-template-columns:300px minmax(0,1fr);
+gap:var(--s5);align-items:start}
+.se-key > h2{margin-bottom:0}
+}
+@media(min-width:1200px){
+.se-list{columns:2;column-gap:var(--s6);max-width:none}
+.se-list li{break-inside:avoid}
+}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Where to sell"}]}</script>
 </head>
 <body>
@@ -161,6 +190,7 @@
       <p class="menu-h">Play</p>
       <ul>
         <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
       </ul>
     </div>
@@ -181,6 +211,11 @@
   <section class="tight">
     <div class="wrap">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Where to sell</span></nav>
+      <!-- .se-top and .se-intro are inert wrappers until the min-width rule in
+           the style block makes .se-top a grid and moves the venue nav beside
+           the opening paragraphs. Same shape and reason as /buying.html. -->
+      <div class="se-top">
+      <div class="se-intro">
       <h1>Where to <span class="hl">sell</span> your cards</h1>
       <p class="lede se-lede">Every other page here answers what a card is worth. This one answers where you turn
         that into money, and what each place takes on the way. 14 venues, and the fee figures were
@@ -188,6 +223,7 @@
         say so.</p>
       <p class="lede se-lede">Prices and fees move. Every figure here carries the date it was read, and if you are
         about to sell something expensive, check the company's own page before you count on a number.</p>
+      </div>
 
       <nav class="se-jump" aria-label="Jump to a venue">
         <span class="se-jg">Marketplaces</span>
@@ -209,11 +245,18 @@
         <a href="#local-shop">Local card shop</a>
         <a href="#card-show">Card show</a>
       </nav>
+      </div>
 
       <div class="se-key">
         <h2>The question that decides how much a sale can hurt you</h2>
+        <!-- Wrapped so the heading sits beside ALL the paragraphs rather than
+             beside the first one. Same reason as /buying.html: flat siblings in
+             a two column grid share row 1, and the row is as tall as the taller
+             of the two, which opens a hole under the shorter. -->
+        <div class="se-key-body">
         <p>Who is holding the money when something goes wrong? It is not which site you are on.</p>
         <p>Seller protection and buyer protection are different products, and on every venue read here the seller's version is the smaller one. A marketplace sits in the middle, which is the only reason a dispute exists at all, and every one of them voids that protection the moment payment moves off the platform.</p>
+        </div>
       </div>
 
       <section class="se-grp">
@@ -222,6 +265,7 @@
         <div class="se-vs">
       <article class="se-v" id="ebay">
         <div class="se-vh">
+          <span class="bmk"><img src="/assets/brands/ebay.svg" alt="eBay" width="1000" height="401" loading="lazy" decoding="async"></span>
           <h3><a href="https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822" rel="noopener" target="_blank">eBay</a></h3>
           <span class="se-st ok">Fees sourced</span>
         </div>
@@ -294,6 +338,7 @@
       </article>
       <article class="se-v" id="tcgplayer">
         <div class="se-vh">
+          <span class="bmk"><img src="/assets/brands/tcgplayer.svg" alt="TCGplayer" width="801" height="337" loading="lazy" decoding="async"></span>
           <h3><a href="https://help.tcgplayer.com/hc/en-us/articles/201357836-TCGplayer-Fees" rel="noopener" target="_blank">TCGplayer</a></h3>
           <span class="se-st ok">Fees sourced</span>
         </div>
@@ -341,6 +386,7 @@
       </article>
       <article class="se-v" id="whatnot">
         <div class="se-vh">
+          <span class="bmk"><img src="/assets/brands/whatnot.svg" alt="Whatnot" width="594" height="115" loading="lazy" decoding="async"></span>
           <h3><a href="https://help.whatnot.com/hc/en-us/articles/4847069165965-Whatnot-seller-fees" rel="noopener" target="_blank">Whatnot</a></h3>
           <span class="se-st ok">Fees sourced</span>
         </div>
@@ -383,6 +429,7 @@
       </article>
       <article class="se-v" id="mercari">
         <div class="se-vh">
+          <span class="bmk"><img src="/assets/brands/mercari.svg" alt="Mercari" width="265" height="58" loading="lazy" decoding="async"></span>
           <h3><a href="https://www.mercari.com/us/help_center/article/169/" rel="noopener" target="_blank">Mercari</a></h3>
           <span class="se-st ok">Fees sourced</span>
         </div>
@@ -425,6 +472,7 @@
       </article>
       <article class="se-v" id="sportlots">
         <div class="se-vh">
+          <span class="bmk bmk-n" aria-hidden="true"><b>Sportlots</b></span>
           <h3><a href="https://www.sportlots.com/g/ui/sellers_guide_page2.tpl" rel="noopener" target="_blank">Sportlots</a></h3>
           <span class="se-st ok">Fees sourced</span>
         </div>
@@ -483,6 +531,7 @@
         <div class="se-vs">
       <article class="se-v" id="troll-and-toad">
         <div class="se-vh">
+          <span class="bmk bmk-n" aria-hidden="true"><b>Troll &amp; Toad</b></span>
           <h3><a href="https://buylist.trollandtoad.com/" rel="noopener" target="_blank">Troll and Toad</a></h3>
           <span class="se-st part">Partly sourced</span>
         </div>
@@ -515,6 +564,7 @@
       </article>
       <article class="se-v" id="dave-and-adams">
         <div class="se-vh">
+          <span class="bmk bmk-n" aria-hidden="true"><b>Dave &amp; Adam's</b></span>
           <h3><a href="https://www.dacardworld.com/buying/buy-list/" rel="noopener" target="_blank">Dave and Adam's Card World</a></h3>
           <span class="se-st ok">Fees sourced</span>
         </div>
@@ -557,6 +607,7 @@
       </article>
       <article class="se-v" id="card-cavern">
         <div class="se-vh">
+          <span class="bmk bmk-n" aria-hidden="true"><b>Card Cavern</b></span>
           <h3><a href="https://www.cardcaverntradingcards.com/pages/selling-policies" rel="noopener" target="_blank">Card Cavern</a></h3>
           <span class="se-st part">Partly sourced</span>
         </div>
@@ -605,6 +656,7 @@
         <div class="se-vs">
       <article class="se-v" id="comc">
         <div class="se-vh">
+          <span class="bmk bmk-n" aria-hidden="true"><b>COMC</b></span>
           <h3><a href="https://www.comc.com/fees.aspx" rel="noopener" target="_blank">COMC</a></h3>
           <span class="se-st ok">Fees sourced</span>
         </div>
@@ -672,6 +724,7 @@
       </article>
       <article class="se-v" id="fanatics-collect">
         <div class="se-vh">
+          <span class="bmk"><img src="/assets/brands/fanatics-collect.svg" alt="Fanatics" width="62" height="13" loading="lazy" decoding="async"></span>
           <h3><a href="https://support.fanaticscollect.com/en_us/selling-on-fanatics-collect-Byq2QAQpel" rel="noopener" target="_blank">Fanatics Collect (formerly PWCC)</a></h3>
           <span class="se-st ok">Fees sourced</span>
         </div>
@@ -724,6 +777,7 @@
       </article>
       <article class="se-v" id="goldin">
         <div class="se-vh">
+          <span class="bmk bmk-n" aria-hidden="true"><b>Goldin</b></span>
           <h3><a href="https://goldin.co/faq" rel="noopener" target="_blank">Goldin</a></h3>
           <span class="se-st part">Partly sourced</span>
         </div>
@@ -766,6 +820,7 @@
       </article>
       <article class="se-v" id="heritage">
         <div class="se-vh">
+          <span class="bmk bmk-n" aria-hidden="true"><b>Heritage</b></span>
           <h3><a href="https://sports.ha.com/consign-your-collectibles.s" rel="noopener" target="_blank">Heritage Auctions</a></h3>
           <span class="se-st unv">Fees unverified</span>
         </div>
@@ -788,6 +843,7 @@
         <div class="se-vs">
       <article class="se-v" id="local-shop">
         <div class="se-vh">
+          <span class="bmk bmk-d" role="img" aria-label="A card shop counter"><svg class="bmk-g" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 4.6 4h14.8L21 8.5"/><path d="M4.5 8.5V20h15V8.5"/><path d="M9.5 20v-6h5v6"/><path d="M3 8.5h18"/></svg></span>
           <h3><a href="/shops.html" rel="noopener" target="_blank">Local card shop</a></h3>
           <span class="se-st ok">No platform fee</span>
         </div>
@@ -820,6 +876,7 @@
       </article>
       <article class="se-v" id="card-show">
         <div class="se-vh">
+          <span class="bmk bmk-d" role="img" aria-label="A card show table"><svg class="bmk-g" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 13.5h19"/><path d="M5 13.5 4 20.5"/><path d="M19 13.5l1 7"/><rect x="6.5" y="6" width="4" height="7.5" rx=".6"/><rect x="13.5" y="4.5" width="4" height="9" rx=".6"/></svg></span>
           <h3><a href="/card-shows.html" rel="noopener" target="_blank">Card show</a></h3>
           <span class="se-st ok">No platform fee</span>
         </div>
@@ -859,7 +916,10 @@
           version is the smaller one. This is the part people find out about afterwards.</p>
         <div class="se-ps">
       <article class="se-p">
-        <h3>PayPal Goods and Services</h3>
+        <div class="se-vh">
+          <span class="bmk"><img src="/assets/brands/paypal.svg" alt="PayPal" width="1310" height="440" loading="lazy" decoding="async"></span>
+          <h3>PayPal Goods and Services</h3>
+        </div>
         <p class="se-nb">The clearest example of the asymmetry, which is why it leads.</p>
         <p class="se-lbl se-yes"><b>Covers.</b></p><ul><li>Unauthorized Transaction</li><li>Item Not Received</li></ul>
         <p class="se-lbl se-no"><b>Does not cover.</b></p><ul><li>Significantly Not as Described. Verbatim from the ineligible list: items where the buyer claims the item you sent is not what was ordered.</li><li>Personal payments, including anything sent using friends and family.</li><li>Item Not Received claims the buyer files directly with their card issuer.</li><li>Physical items handed over in person. PayPal's ineligible list names items delivered in person, so taking Goods and Services at a face to face meet is outside seller protection by PayPal's own terms. That matters here because this page ends by saying an in person sale is the safest one: it is safest in CASH.</li></ul>
@@ -867,7 +927,10 @@
         <p class="se-src"><a href="https://www.paypal.com/us/legalhub/paypal/seller-protection" aria-label="PayPal Goods and Services policy, source 1" rel="noopener" target="_blank">Source</a>, <a href="https://www.paypal.com/us/legalhub/paypal/buyer-protection" aria-label="PayPal Goods and Services policy, source 2" rel="noopener" target="_blank">Source 2</a>, read August 15, 2026</p>
       </article>
       <article class="se-p">
-        <h3>eBay</h3>
+        <div class="se-vh">
+          <span class="bmk"><img src="/assets/brands/ebay.svg" alt="eBay" width="1000" height="401" loading="lazy" decoding="async"></span>
+          <h3>eBay</h3>
+        </div>
         
         <p class="se-lbl se-yes"><b>Covers.</b></p><ul><li>Item not received, where tracking shows delivery to the address given at checkout.</li><li>Not as described, but only once the seller has already refunded through eBay or won a Money Back Guarantee case of the same type. Photographs are evidence for the bank, not a protection trigger.</li></ul>
         <p class="se-lbl"><b>Clocks.</b></p><ul><li>5 calendar days to accept or challenge a payment dispute.</li><li>2 business days to report a buyer who returned a different or damaged item.</li><li>Disputed funds may be held up to 90 days.</li></ul>
@@ -877,7 +940,10 @@
         <p class="se-src"><a href="https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210" aria-label="eBay policy, source 1" rel="noopener" target="_blank">Source</a>, <a href="https://www.ebay.com/help/selling/getting-paid/payment-dispute-seller-protections?id=5293" aria-label="eBay policy, source 2" rel="noopener" target="_blank">Source 2</a>, <a href="https://www.ebay.com/help/policies/selling-policies/seller-protections?id=4345" aria-label="eBay policy, source 3" rel="noopener" target="_blank">Source 3</a>, <a href="https://www.ebay.com/help/policies/member-behavior-policies/signature-confirmation-policy?id=5154" aria-label="eBay policy, source 4" rel="noopener" target="_blank">Source 4</a>, read August 15, 2026</p>
       </article>
       <article class="se-p">
-        <h3>eBay Authenticity Guarantee</h3>
+        <div class="se-vh">
+          <span class="bmk"><img src="/assets/brands/ebay.svg" alt="eBay" width="1000" height="401" loading="lazy" decoding="async"></span>
+          <h3>eBay Authenticity Guarantee</h3>
+        </div>
         <p class="se-nb">The only mechanism found anywhere that PREVENTS the card swap rather than paying for it afterwards.</p>
         <p class="se-lbl"><b>How it works.</b></p><ul><li>Eligible cards go to PSA before they reach the buyer, then ship on with a tamper-proof sticker and a QR code.</li><li>A return goes back to the authenticator, not to the seller. If the returned item is not the same item, not in the same condition, or the sticker has been tampered with, the return is denied and the item goes back to the buyer.</li></ul>
         <p class="se-nb"><b>Threshold.</b> $200 and above for ungraded singles, and for autograph, relic and other graded cards. Pokemon singles fall under the collectible card game category.</p>
@@ -886,7 +952,10 @@
         <p class="se-src"><a href="https://www.ebay.com/authenticity-guarantee/tradingcards" aria-label="eBay Authenticity Guarantee policy, source 1" rel="noopener" target="_blank">Source</a>, read August 15, 2026</p>
       </article>
       <article class="se-p">
-        <h3>TCGplayer</h3>
+        <div class="se-vh">
+          <span class="bmk"><img src="/assets/brands/tcgplayer.svg" alt="TCGplayer" width="801" height="337" loading="lazy" decoding="async"></span>
+          <h3>TCGplayer</h3>
+        </div>
         
         <p class="se-lbl se-yes"><b>Covers.</b></p><ul><li>Missing packages, where tracking has moved past label creation and the carrier reports delivered or missing in transit. Stated as covered 100%.</li><li>Payment fraud, which is TCGplayer's problem: a seller is never asked to refund an order because of fraud.</li></ul>
         <p class="se-lbl se-no"><b>The seller carries.</b></p><ul><li>Condition and wrong-card risk directly, with a 30 day buyer window after estimated delivery.</li><li>Sellers cannot require a buyer to send photos of a condition problem before resolving it.</li></ul>
@@ -896,7 +965,10 @@
         <p class="se-src"><a href="https://help.tcgplayer.com/hc/en-us/articles/201642073-What-is-TCGplayer-s-Refund-and-Return-policy" aria-label="TCGplayer policy, source 1" rel="noopener" target="_blank">Source</a>, <a href="https://help.tcgplayer.com/hc/en-us/articles/201637633-TCGplayer-Safeguard" aria-label="TCGplayer policy, source 2" rel="noopener" target="_blank">Source 2</a>, <a href="https://help.tcgplayer.com/hc/en-us/articles/115014053928-TCGplayer-Fraud-Protection-Policy" aria-label="TCGplayer policy, source 3" rel="noopener" target="_blank">Source 3</a>, read August 15, 2026</p>
       </article>
       <article class="se-p">
-        <h3>Whatnot</h3>
+        <div class="se-vh">
+          <span class="bmk"><img src="/assets/brands/whatnot.svg" alt="Whatnot" width="594" height="115" loading="lazy" decoding="async"></span>
+          <h3>Whatnot</h3>
+        </div>
         
         <p class="se-lbl se-yes"><b>Covers.</b></p><ul><li>Chargebacks and payment disputes, handled by Whatnot rather than the seller.</li><li>Carrier delays after a timely drop-off, and packages lost or misdelivered by the carrier.</li><li>Claims involving abusive or fraudulent buyer behavior.</li><li>Where fault cannot be established, Whatnot says it will cover the refund up to a reasonable limit. An explicit shared-responsibility category, which is unusual.</li></ul>
         <p class="se-lbl se-no"><b>The seller is billed back for.</b></p><ul><li>Late or unverified shipment, against a 2 business day drop-off with proof.</li><li>Failure to answer a buyer or support within 2 business days.</li><li>Failure to fulfill high value items.</li></ul>
@@ -907,7 +979,10 @@
         <p class="se-src"><a href="https://help.whatnot.com/hc/en-us/articles/5522583677837-High-Value-Loss-Reimbursement-Policy" aria-label="Whatnot policy, source 1" rel="noopener" target="_blank">Source</a>, <a href="https://help.whatnot.com/hc/en-us/articles/360061195412-Whatnot-Seller-Protection-How-We-Resolve-Order-Issues-Together" aria-label="Whatnot policy, source 2" rel="noopener" target="_blank">Source 2</a>, <a href="https://help.whatnot.com/hc/en-us/articles/360061194552-Whatnot-Buyer-Protection-Policy" aria-label="Whatnot policy, source 3" rel="noopener" target="_blank">Source 3</a>, read August 15, 2026</p>
       </article>
       <article class="se-p">
-        <h3>Mercari</h3>
+        <div class="se-vh">
+          <span class="bmk"><img src="/assets/brands/mercari.svg" alt="Mercari" width="265" height="58" loading="lazy" decoding="async"></span>
+          <h3>Mercari</h3>
+        </div>
         
         <p class="se-lbl se-yes"><b>Covers.</b></p><ul><li>Shipping protection up to $200 on discounted labels.</li><li>Nothing promised to the seller about a not-as-described claim: Mercari adjudicates it.</li></ul>
         <p class="se-nb"><b>How it works.</b> Mercari holds the buyer's money until the buyer rates, or 72 hours after carrier-confirmed delivery, whichever comes first.</p>
@@ -916,7 +991,10 @@
         <p class="se-src"><a href="https://www.mercari.com/us/help_center/topics/returns/policies/refunds-and-returns/" aria-label="Mercari policy, source 1" rel="noopener" target="_blank">Source</a>, <a href="https://www.mercari.com/us/help_center/topics/account/policies/seller-protection/" aria-label="Mercari policy, source 2" rel="noopener" target="_blank">Source 2</a>, read August 15, 2026</p>
       </article>
       <article class="se-p">
-        <h3>Facebook Marketplace</h3>
+        <div class="se-vh">
+          <span class="bmk"><img src="/assets/brands/facebook.svg" alt="Facebook" width="62" height="12" loading="lazy" decoding="async"></span>
+          <h3>Facebook Marketplace</h3>
+        </div>
         <p class="se-nb">Both Facebook pages block plain fetching. These two claims were re-read independently through a second tool before being recorded.</p>
         <p class="se-lbl se-yes"><b>Covers.</b></p><ul><li>Lost, stolen and transit-delayed packages, item-not-as-described claims under conditions, returns of used or damaged items, and unauthorized chargebacks.</li></ul>
         <p class="se-lbl"><b>Only if all of these are true.</b></p><ul><li>Shipped items must use pre-paid shipping labels issued by Meta.</li><li>Sales must be processed through onsite checkout.</li><li>Coverage is limited to items with a sale price of $500 or less.</li><li>US only, and the seller must answer a refund request within 2 days.</li></ul>
@@ -924,7 +1002,10 @@
         <p class="se-src"><a href="https://www.facebook.com/legal/merchant_policies" aria-label="Facebook Marketplace policy, source 1" rel="noopener" target="_blank">Source</a>, <a href="https://www.facebook.com/help/228307904608701" aria-label="Facebook Marketplace policy, source 2" rel="noopener" target="_blank">Source 2</a>, read August 15, 2026</p>
       </article>
       <article class="se-p">
-        <h3>A private cash sale</h3>
+        <div class="se-vh">
+          <span class="bmk bmk-d" role="img" aria-label="Cash across a counter"><svg class="bmk-g" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="8" rx="1.2"/><circle cx="12" cy="10" r="2"/><path d="M4.5 17.5c2.5 1.7 5 2.5 7.5 2.5s5-.8 7.5-2.5"/></svg></span>
+          <h3>A private cash sale</h3>
+        </div>
         <p class="se-nb">There is no policy page to cite, and that is the finding.</p>
         <p class="se-lbl"><b>How it works.</b></p><ul><li>Nobody holds the money, so there is no dispute process, no claim window, no arbiter and no reversal.</li><li>The exposure is symmetric and it ends when both people walk away.</li></ul>
         
@@ -983,6 +1064,7 @@
       <p class="se-src" style="margin-top:var(--s6)">Fees read from each company's own pages on August 15, 2026. Seller protection and scam mechanics read on August 15, 2026 from the
         platforms' own policies and from the FTC. Nothing here came from a comparison site. This is not financial
         advice and fees change, so check before you sell.</p>
+      <p class="se-src">Company names and logos on this page are the trademarks of their owners and are used to identify the companies described. Nothing here is sponsored, affiliated or endorsed. Marks are mirrored from Wikimedia Commons, where each carries a public domain copyright tag; the venues with no mark have their name set in this site's own typeface instead.</p>
     </div>
   </section>
 </main>
@@ -1031,6 +1113,7 @@
       <div class="foot-col">
         <p class="foot-h">Play</p>
         <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
       </div>
       <div class="foot-col">

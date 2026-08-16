@@ -117,6 +117,14 @@ const STEPS = [
   // Weekly retail restock forecasts. Reads data/drops.json, which a human
   // updates, plus videos.json for the clock that decides whether the week has
   // passed.
+  // BEFORE the three pages that paint a company mark: build-drops.mjs,
+  // build-selling.mjs and build-buying.mjs. Same shape as sync-symbols.mjs
+  // above, including the network exception: it does nothing at all once it
+  // holds the files, and the files are committed, so the only run that fetches
+  // anything is the one after a new venue or retailer is added. A venue whose
+  // mark is missing gets the hatched name tile rather than a hole, so running
+  // this late does not break a page.
+  "node scripts/sync-brands.mjs",
   "node scripts/build-drops.mjs",
 "node scripts/build-selling.mjs",
 // The other direction of the same question. It reads data/buying.json,
@@ -132,12 +140,29 @@ const STEPS = [
 "node scripts/build-grade-check.mjs",
 "node scripts/build-openings.mjs",
   "node scripts/build-playlists.mjs",
+  // The timeline of every official Pokemon video game. It reads
+  // data/video-games.json, which a human curates, and data/cover-dims.json,
+  // which scripts/sync-game-covers.mjs writes. That sync is NOT in this list
+  // and that is deliberate: sync-symbols.mjs is here because expansions.json
+  // grows on its own from an API pull, so a new set would otherwise keep a
+  // 500x500 png forever, whereas nothing here grows without somebody editing
+  // the JSON by hand, and the person making that edit is the person who should
+  // run the sync. Its only ordering constraints are the usual two: before
+  // build-search.mjs, which fails the build on an indexable page missing from
+  // its PAGES list, and before check-build.py, which follows the nav link to it
+  // from every page.
+  "node scripts/build-video-games.mjs",
   "node scripts/build-search.mjs",
   // Both read data/pokedex.json, which is written by sync-pokedex.mjs and is
   // NOT part of this run: it is a slow network job against pokeapi and the data
   // does not change unless a generation ships. Run it by hand when it does.
   "node scripts/build-games.mjs",
 "node scripts/build-garbage-run.mjs",
+  // BEFORE build-lore.mjs, which is the only page that paints these. Same two
+  // properties as every other sync step in this list: idempotent, and it never
+  // fails the build. A dex id it does not hold is drawn as the site's no-art
+  // hatch and named in build-lore.mjs's own console output.
+  "node scripts/sync-dex-art.mjs",
   "node scripts/build-lore.mjs",
   "node scripts/sync-chrome.mjs",
   "node scripts/build-locals.mjs",

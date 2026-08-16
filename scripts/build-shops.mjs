@@ -45,6 +45,135 @@ function cleanUrl(raw) {
 const shopsDoc = JSON.parse(await readFile(join(ROOT, "data/shops.json"), "utf8"));
 const { shops } = shopsDoc;
 
+/**
+ * A drawn map of where the shops actually are.
+ *
+ * WHY THIS PAGE NEEDED A PICTURE AND WHAT IT HAD TO BE. Every card here says
+ * something like "Panorama Plaza, Penfield" or "Jefferson Road, Henrietta",
+ * which is precise and useful to somebody who already lives here and means
+ * nothing at all to anybody else. This is the most local-SEO page on the site,
+ * so a good share of its readers are exactly the people those labels fail. Six
+ * dots and a scale bar answer "how far apart are these" in one look, which is
+ * the question a list of addresses cannot answer at any length.
+ *
+ * DRAWN, NOT A MAP TILE, and that is a hard constraint rather than a
+ * preference. A tile from any provider is a network request per tile, an
+ * attribution requirement, a terms-of-use surface and about 200KB; this is a
+ * static site with no keys in it. This is an SVG built from six coordinates,
+ * so it costs nothing, needs no attribution beyond the geocoder credit already
+ * printed below it, and cannot break when somebody's tile server changes.
+ *
+ * IT IS A RELATIVE MAP AND IT SAYS SO. There is no coastline, no road and no
+ * city outline, because this site has no licensed geometry for any of those and
+ * drawing Rochester freehand would be inventing data on a page whose whole
+ * point is that the addresses were checked. What IS true is the relative
+ * position of six points and the distance between them, so that is all it
+ * draws, with a scale bar in miles so the spacing is readable as a distance
+ * rather than as a diagram.
+ *
+ * THE PROJECTION IS THE ONE PART THAT COULD BE QUIETLY WRONG. A degree of
+ * longitude is shorter than a degree of latitude everywhere except the equator,
+ * by cos(latitude), which at Rochester's 43.15 degrees is 0.729. Plotting raw
+ * lon against raw lat stretches the map 37% east to west, so two shops on the
+ * same road would look further apart than two the same distance north of each
+ * other. The x scale below carries that cosine, which is why the scale bar can
+ * be one bar rather than two.
+ *
+ * A SHOP WITH NO COORDINATE IS NOT PLOTTED. data/shops.json carries `at` only
+ * where the geocoder returned the shop's own street address, checked by hand.
+ * The alternative, dropping a pin at the middle of the city, would look exactly
+ * as authoritative as the other six and be a lie about a drive.
+ */
+function shopMap(list) {
+  const pts = list.filter((s) => Array.isArray(s.at) && s.at.length === 2);
+  if (pts.length < 2) return "";
+
+  // H carries 26px of bottom margin the points never use, so the scale bar has
+  // a strip of its own and cannot land on a shop name.
+  const W = 640, H = 446, PAD = 46, FOOT = 26;
+  const lats = pts.map((s) => s.at[0]);
+  const lons = pts.map((s) => s.at[1]);
+  const midLat = (Math.min(...lats) + Math.max(...lats)) / 2;
+  const kx = Math.cos((midLat * Math.PI) / 180);
+
+  // Work in miles from the south-west corner, so the scale bar is exact.
+  const MI_PER_DEG_LAT = 69.0;
+  const x0 = Math.min(...lons), y0 = Math.min(...lats);
+  const mx = (lon) => (lon - x0) * MI_PER_DEG_LAT * kx;
+  const my = (lat) => (lat - y0) * MI_PER_DEG_LAT;
+  const wMi = Math.max(...lons.map(mx)) || 1;
+  const hMi = Math.max(...lats.map(my)) || 1;
+  // One scale for both axes, or the map is not a map.
+  const k = Math.min((W - PAD * 2) / wMi, (H - FOOT - PAD * 2) / hMi);
+  const offX = (W - wMi * k) / 2, offY = FOOT + (H - FOOT - hMi * k) / 2;
+  const px = (lon) => offX + mx(lon) * k;
+  // SVG y grows downward and latitude grows northward, so this flips.
+  const py = (lat) => H - (offY + my(lat) * k);
+
+  // A round number of miles that is between a fifth and a half of the drawing.
+  const nice = [1, 2, 5, 10, 20].find((n) => n * k > (W - PAD * 2) * 0.2) || 1;
+
+  // THE DOTS ARE WHERE THE SHOPS ARE. THE LABELS ARE NOT, AND ONLY THE LABELS
+  // MOVE. Just Games and Great Lakes Gaming are five miles apart east to west
+  // and within 0.006 degrees of latitude, so at this scale their names sat on
+  // the same line and overprinted each other. Nudging a DOT to fix that would
+  // make the picture wrong, which is the one thing this figure cannot be, so
+  // the label is what shifts and a leader is not needed at 16px of travel.
+  //
+  // Greedy, in reading order, and it terminates: each label takes the first free
+  // slot at its own height or within four steps of it, up then down. Six points
+  // is not a case that needs anything cleverer, and something cleverer would be
+  // harder to check by eye than the map it is drawing.
+  const placed = [];
+  const LH = 17;
+  const dots = pts
+    .map((s) => {
+      const x = px(s.at[1]), y = py(s.at[0]);
+      // Labels flip to the left of the dot in the right third, so nothing runs
+      // off the edge of the viewBox on a narrow phone.
+      const left = x > W * 0.62;
+      const w = s.name.length * 8.4 + 16;
+      const x1 = left ? x - 13 - w : x + 13;
+      let ly = y;
+      for (let step = 0; step < 9; step++) {
+        // 0, -1, +1, -2, +2 ... so a label prefers to stay where its dot is.
+        const off = step === 0 ? 0 : (step % 2 ? -1 : 1) * Math.ceil(step / 2) * LH;
+        ly = y + off;
+        const clash = placed.some(
+          (q) => Math.abs(q.y - ly) < LH && x1 < q.x + q.w && q.x < x1 + w
+        );
+        if (!clash) break;
+      }
+      placed.push({ x: x1, y: ly, w });
+      return `<g>
+        <circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="7" fill="var(--gold)" stroke="currentColor" stroke-width="2"/>
+        <text x="${(left ? x - 13 : x + 13).toFixed(1)}" y="${(ly + 4).toFixed(1)}" text-anchor="${left ? "end" : "start"}"
+          font-size="15" font-weight="700" fill="currentColor" font-family="var(--body)">${esc(s.name)}</text>
+      </g>`;
+    })
+    .join("");
+
+  const barW = nice * k;
+  return `<figure class="shop-map">
+      <svg viewBox="0 0 ${W} ${H}" role="img"
+        aria-label="Relative positions of the ${pts.length} shops listed below. Their addresses are on each card.">
+        <rect x="0" y="0" width="${W}" height="${H}" rx="10" fill="var(--paper-3)"/>
+        ${dots}
+        <g transform="translate(${PAD} ${H - 20})">
+          <line x1="0" y1="0" x2="${barW.toFixed(1)}" y2="0" stroke="currentColor" stroke-width="2.5"/>
+          <line x1="0" y1="-5" x2="0" y2="5" stroke="currentColor" stroke-width="2.5"/>
+          <line x1="${barW.toFixed(1)}" y1="-5" x2="${barW.toFixed(1)}" y2="5" stroke="currentColor" stroke-width="2.5"/>
+          <text x="${(barW / 2).toFixed(1)}" y="-9" text-anchor="middle" font-size="13" font-weight="700"
+            fill="currentColor" font-family="var(--mono)">${nice} mile${nice === 1 ? "" : "s"}</text>
+        </g>
+      </svg>
+      <figcaption>Where they are relative to each other, drawn from each shop's own street address.
+        North is up and the scale is true in both directions. There are no roads on it because we do not
+        have any to draw: the addresses on the cards below are the exact thing to put in a map app.
+        Positions geocoded from OpenStreetMap.</figcaption>
+    </figure>`;
+}
+
 const cards = shops
   .map((s) => {
     const url = cleanUrl(s.url);
@@ -161,6 +290,14 @@ const style = `
    because the cost of being wrong is a wasted drive. */
 .shop-play-warn{font:700 var(--t-micro)/1.6 var(--mono);color:var(--plum);
   background:var(--lilac-pale);border-radius:var(--r-sm);padding:8px 10px;margin-top:8px}
+/* The map. Full width of the wrap, capped so it does not become a poster on a
+   desktop, and the SVG scales with the box because it has a viewBox and no
+   width attribute. currentColor throughout, so it is correct on the light page
+   and would still be correct if this block ever moved onto the dark chrome. */
+.shop-map{margin:0 0 var(--s5);color:var(--ink)}
+.shop-map svg{display:block;width:100%;height:auto;max-width:660px}
+.shop-map figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);
+  margin-top:var(--s2);max-width:52em}
 .shops-note{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);max-width:52em}
 `;
@@ -173,6 +310,7 @@ const body = `
       Rochester, New York, run by people who know the hobby. Round here the counter you buy from and the
       table you play at are usually the same building, so both are on one page. Buy local when you can:
       the shop is why the local scene exists.</p>
+${shopMap(shops)}
     <ul class="shop-list">
 ${cards}
     </ul>

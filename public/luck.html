@@ -21,79 +21,83 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=67f732be">
+<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
-<style>
-.luck{padding:var(--s7) 0 var(--s5)}
+<style>.luck{padding:var(--s7) 0 var(--s5)}
 .luck-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:42em;margin-bottom:var(--s5)}
 .luck-head{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);margin-bottom:var(--s5)}
 @media(max-width:700px){.luck-head{grid-template-columns:repeat(2,1fr)}}
 .luck-stat{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
-  padding:var(--s4);box-shadow:var(--lift)}
+padding:var(--s4);box-shadow:var(--lift)}
 .luck-stat b{display:block;font:400 var(--t-xl)/1 var(--display);color:var(--ink);margin-bottom:4px}
 .luck-stat span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
-  letter-spacing:.06em;text-transform:uppercase}
-
-/* How much of the log is actually tagged. Shown at the top rather than buried,
-   because every number under it is only as good as this bar. */
-.luck-cov{background:var(--lilac-pale);border:1px solid rgba(78,47,72,.2);border-radius:var(--r);
-  padding:var(--s4);margin-bottom:var(--s6)}
+letter-spacing:.06em;text-transform:uppercase}
+.luck-cov{background:var(--lilac-pale);border:1px solid var(--hair);border-radius:var(--r);
+padding:var(--s4);margin-bottom:var(--s6)}
 .luck-cov p{font:700 var(--t-micro)/1.6 var(--mono);color:var(--plum);letter-spacing:.04em;
-  text-transform:uppercase;margin-bottom:8px}
-.luck-covbar{height:10px;border-radius:99px;background:rgba(78,47,72,.16);overflow:hidden}
-.luck-covbar i{display:block;height:100%;background:var(--plum);border-radius:99px}
-/* Only rendered when every logged rip is a hit. A 100% headline with nothing
-   next to it reads as a broken number, so the page says why before you ask. */
+text-transform:uppercase;margin-bottom:8px}
+.luck-covbar{height:10px;border-radius:99px;background:var(--paper-3);overflow:hidden;
+border:1px solid var(--hair)}
+.luck-covbar i{display:block;height:100%;background:var(--gold);border-radius:99px}
 .luck-caveat{font:400 var(--t-sm)/1.6 var(--body)!important;color:var(--plum)!important;
-  letter-spacing:0!important;text-transform:none!important;margin:10px 0 0!important;max-width:52em}
-
+letter-spacing:0!important;text-transform:none!important;margin:10px 0 0!important;max-width:52em}
 .luck-sec{padding:var(--s6) 0}
 .luck-sec h2{font:400 var(--t-l)/1.15 var(--display);margin-bottom:var(--s2)}
 .luck-note{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
 .luck-scroll{overflow-x:auto;border:1px solid var(--hair);border-radius:var(--r);background-color:var(--card)}
-/* background-COLOR, not the shorthand: ui.css paints a four layer scroll
-   affordance on this class, and the background shorthand resets
-   background-image, which would silently wipe all four layers. */
-.luck-table{border-collapse:collapse;width:100%;min-width:400px;font-size:var(--t-sm)}
+.luck-table{border-collapse:collapse;width:100%;min-width:460px;font-size:var(--t-sm)}
+.luck-prod{display:flex;align-items:center;gap:var(--s3)}
+.luck-prod img,.luck-noshot{flex:none;width:56px;height:56px;object-fit:contain;display:block;
+background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r-sm)}
+.luck-noshot{background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
+.luck-prodn{display:block;min-width:0}
+.luck-prodn em{display:block;font:400 var(--t-micro)/1.3 var(--body);color:var(--ink-2);
+font-style:normal;margin-top:2px}
 .luck-table th,.luck-table td{text-align:left;padding:10px var(--s3);border-bottom:1px solid var(--hair)}
 .luck-table tbody tr:last-child th,.luck-table tbody tr:last-child td{border-bottom:0}
 .luck-table thead th{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
-  color:var(--ink-2);background:var(--page)}
+color:var(--ink-2);background:var(--page)}
 .luck-table tbody th{font-weight:600}
 .luck-table tbody th a:hover{text-decoration:underline}
 .luck-table .num{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink-2);width:1%}
 .luck-table .rate{width:40%;min-width:120px}
 .luck-table tr.thin{opacity:.62}
 .thin-note{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase}
-/* Number first, bar second. With the bar leading, the percentage was pushed
-   past the right edge of a 375px viewport and the one value the row exists to
-   communicate was the one you had to scroll sideways to see. */
 .lbar{display:flex;align-items:center;gap:8px}
 .lbar b{flex:none;min-width:3.4em;font:700 var(--t-sm)/1 var(--body);font-variant-numeric:tabular-nums}
 .lbar::after{content:"";height:10px;width:var(--w);min-width:3px;max-width:100%;flex:0 1 auto;
-  background:var(--mustard);border:1px solid var(--gold-deep);border-radius:99px}
-
+background:var(--mustard);border:1px solid var(--gold-deep);border-radius:99px}
 .pull-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:var(--s3)}
 .pull{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s4);
-  text-align:center;box-shadow:var(--lift)}
+text-align:center;box-shadow:var(--lift)}
 .pull b{display:block;font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep)}
 .pull span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);letter-spacing:.05em;text-transform:uppercase}
-
 .streaks{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)}
 @media(max-width:640px){.streaks{grid-template-columns:1fr}}
 .streak{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
-  padding:var(--s5);box-shadow:var(--lift)}
+padding:var(--s5);box-shadow:var(--lift)}
 .streak b{display:block;font:400 var(--t-xl)/1 var(--display);margin-bottom:4px}
 .streak .k{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
 .streak p{color:var(--ink-2);font-size:var(--t-sm);margin-top:8px}
 .streak.cold b{color:var(--plum)}
 .streak.hot b{color:var(--ketchup-deep)}
-
 .luck-method{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
-  border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
+border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
 .luck-empty{color:var(--ink-2);background:var(--card);border:1px dashed var(--hair);
-  border-radius:var(--r);padding:var(--s5);text-align:center}
-</style>
+border-radius:var(--r);padding:var(--s5);text-align:center}
+@media(min-width:1200px){
+.luck-rail > .wrap{display:grid;grid-template-columns:320px minmax(0,1fr);
+grid-template-rows:auto auto 1fr;gap:0 var(--s6);align-items:start}
+.luck-rail > .wrap > h2{grid-column:1;grid-row:1;margin-bottom:var(--s2)}
+.luck-rail > .wrap > .luck-note{grid-column:1;grid-row:2;margin-bottom:0}
+.luck-rail > .wrap > .luck-scroll,
+.luck-rail > .wrap > .luck-empty{grid-column:2;grid-row:1 / span 3}
+}
+@media(min-width:1000px){
+.luck-lede{max-width:52ch}
+.luck-note,.luck-caveat{max-width:50ch}
+.luck-method{max-width:72ch}
+}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -195,6 +199,7 @@
       <p class="menu-h">Play</p>
       <ul>
         <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
       </ul>
     </div>
@@ -235,7 +240,7 @@
     </div>
   </section>
 
-  <section class="band luck-sec">
+  <section class="band luck-sec luck-rail">
     <div class="wrap">
       <h2>Which sets have been <span class="hl">kind</span></h2>
       <p class="luck-note">Hit rate is the share of logged rips from that set that produced something
@@ -360,7 +365,7 @@
     </div>
   </section>
 
-  <section class="luck-sec">
+  <section class="luck-sec luck-rail">
     <div class="wrap">
       <h2>Which products have been <span class="hl">worth it</span></h2>
       <p class="luck-note">The same question asked of what was opened rather than what was in it.
@@ -372,67 +377,67 @@
         <thead><tr><th scope="col">Product</th><th scope="col">Rips</th><th scope="col">Hits</th><th scope="col">Hit rate</th></tr></thead>
         <tbody>
         <tr>
-          <th scope="row"><a href="/videos.html?product=ex-premium">ex Premium Collection</a></th>
+          <th scope="row"><span class="luck-prod"><span class="luck-noshot" aria-hidden="true"></span><span class="luck-prodn"><a href="/videos.html?product=ex-premium">ex Premium Collection</a><em>no photo we can publish</em></span></span></th>
           <td class="num">24</td>
           <td class="num">24</td>
           <td class="rate"><span class="lbar" style="--w:100%"><b>100%</b></span></td>
         </tr>
         <tr>
-          <th scope="row"><a href="/videos.html?product=etb">Elite Trainer Box</a></th>
+          <th scope="row"><span class="luck-prod"><img src="https://tcgplayer-cdn.tcgplayer.com/product/692947_200w.jpg" sizes="56px" alt="Pitch Black Elite Trainer Box, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="luck-prodn"><a href="/videos.html?product=etb">Elite Trainer Box</a><em>Pitch Black shown</em></span></span></th>
           <td class="num">15</td>
           <td class="num">15</td>
           <td class="rate"><span class="lbar" style="--w:100%"><b>100%</b></span></td>
         </tr>
         <tr>
-          <th scope="row"><a href="/videos.html?product=single-pack">Single Pack</a></th>
+          <th scope="row"><span class="luck-prod"><img src="https://tcgplayer-cdn.tcgplayer.com/product/692944_200w.jpg" sizes="56px" alt="Pitch Black Booster Pack, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="luck-prodn"><a href="/videos.html?product=single-pack">Single Pack</a><em>Pitch Black shown</em></span></span></th>
           <td class="num">23</td>
           <td class="num">21</td>
           <td class="rate"><span class="lbar" style="--w:91.3%"><b>91.3%</b></span></td>
         </tr>
         <tr class="thin">
-          <th scope="row"><a href="/videos.html?product=bundle">Booster Bundle</a></th>
+          <th scope="row"><span class="luck-prod"><img src="https://tcgplayer-cdn.tcgplayer.com/product/692942_200w.jpg" sizes="56px" alt="Pitch Black Booster Bundle, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="luck-prodn"><a href="/videos.html?product=bundle">Booster Bundle</a><em>Pitch Black shown</em></span></span></th>
           <td class="num">3</td>
           <td class="num">3</td>
           <td class="rate"><span class="thin-note">need 9 more</span></td>
         </tr>
         <tr class="thin">
-          <th scope="row"><a href="/videos.html?product=tin">Tin</a></th>
+          <th scope="row"><span class="luck-prod"><img src="https://tcgplayer-cdn.tcgplayer.com/product/593457_200w.jpg" sizes="56px" alt="Prismatic Evolutions Mini Tin [Flareon], sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="luck-prodn"><a href="/videos.html?product=tin">Tin</a><em>Prismatic Evolutions shown</em></span></span></th>
           <td class="num">3</td>
           <td class="num">3</td>
           <td class="rate"><span class="thin-note">need 9 more</span></td>
         </tr>
         <tr class="thin">
-          <th scope="row"><a href="/videos.html?product=japanese-pack">Japanese Booster Pack</a></th>
+          <th scope="row"><span class="luck-prod"><span class="luck-noshot" aria-hidden="true"></span><span class="luck-prodn"><a href="/videos.html?product=japanese-pack">Japanese Booster Pack</a><em>no photo we can publish</em></span></span></th>
           <td class="num">1</td>
           <td class="num">1</td>
           <td class="rate"><span class="thin-note">need 11 more</span></td>
         </tr>
         <tr class="thin">
-          <th scope="row"><a href="/videos.html?product=upc">UPC</a></th>
+          <th scope="row"><span class="luck-prod"><img src="https://tcgplayer-cdn.tcgplayer.com/product/502005_200w.jpg" sizes="56px" alt="151 Ultra-Premium Collection, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="luck-prodn"><a href="/videos.html?product=upc">UPC</a><em>151 shown</em></span></span></th>
           <td class="num">1</td>
           <td class="num">1</td>
           <td class="rate"><span class="thin-note">need 11 more</span></td>
         </tr>
         <tr class="thin">
-          <th scope="row"><a href="/videos.html?product=blister">Blister</a></th>
+          <th scope="row"><span class="luck-prod"><img src="https://tcgplayer-cdn.tcgplayer.com/product/692955_200w.jpg" sizes="56px" alt="Pitch Black Single Pack Blister [Slowpoke], sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="luck-prodn"><a href="/videos.html?product=blister">Blister</a><em>Pitch Black shown</em></span></span></th>
           <td class="num">6</td>
           <td class="num">5</td>
           <td class="rate"><span class="thin-note">need 6 more</span></td>
         </tr>
         <tr class="thin">
-          <th scope="row"><a href="/videos.html?product=knock-out">Knock Out Collection</a></th>
+          <th scope="row"><span class="luck-prod"><span class="luck-noshot" aria-hidden="true"></span><span class="luck-prodn"><a href="/videos.html?product=knock-out">Knock Out Collection</a><em>no photo we can publish</em></span></span></th>
           <td class="num">2</td>
           <td class="num">1</td>
           <td class="rate"><span class="thin-note">need 10 more</span></td>
         </tr>
         <tr class="thin">
-          <th scope="row"><a href="/videos.html?product=korean-pack">Korean Booster Pack</a></th>
+          <th scope="row"><span class="luck-prod"><span class="luck-noshot" aria-hidden="true"></span><span class="luck-prodn"><a href="/videos.html?product=korean-pack">Korean Booster Pack</a><em>no photo we can publish</em></span></span></th>
           <td class="num">1</td>
           <td class="num">0</td>
           <td class="rate"><span class="thin-note">need 11 more</span></td>
         </tr>
         <tr class="thin">
-          <th scope="row"><a href="/videos.html?product=chinese-pack">Chinese Booster Pack</a></th>
+          <th scope="row"><span class="luck-prod"><span class="luck-noshot" aria-hidden="true"></span><span class="luck-prodn"><a href="/videos.html?product=chinese-pack">Chinese Booster Pack</a><em>no photo we can publish</em></span></span></th>
           <td class="num">1</td>
           <td class="num">0</td>
           <td class="rate"><span class="thin-note">need 11 more</span></td>
@@ -537,6 +542,7 @@
       <div class="foot-col">
         <p class="foot-h">Play</p>
         <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
       </div>
       <div class="foot-col">

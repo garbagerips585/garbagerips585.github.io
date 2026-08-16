@@ -158,6 +158,11 @@ export const NAV = [
   // better than a nav label can.
   ["Play", [
     ["/games/", "Games"],
+    // "Video games" and NOT "Games", which the line above already owns. Two
+    // things called Games in one menu is a navigation problem, and the hub is
+    // the older claim on the word. This is the reference timeline of every
+    // official Pokemon release; that one is the minigames you play here.
+    ["/video-games.html", "Video games"],
     ["/lore.html", "Pokemon lore"],
   ]],
   ["Rochester, NY", [

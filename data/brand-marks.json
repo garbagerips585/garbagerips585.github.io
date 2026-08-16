@@ -1,0 +1,147 @@
+{
+ "_readme": [
+  "Written by scripts/sync-brands.mjs. Do not hand-edit.",
+  "Company marks used to identify the companies /buying.html and /selling.html describe.",
+  "Every file carried a public-domain copyright tag on Commons when it was fetched;",
+  "the trademarks belong to their owners and this site is not affiliated with any of them."
+ ],
+ "checked": "2026-08-16",
+ "source": "Wikimedia Commons",
+ "marks": {
+  "tcgplayer": {
+   "file": "/assets/brands/tcgplayer.svg",
+   "alt": "TCGplayer",
+   "w": 801,
+   "h": 337,
+   "title": "File:TCGplayer Logo.svg",
+   "license": "Public domain",
+   "artist": "TCGplayer"
+  },
+  "ebay": {
+   "file": "/assets/brands/ebay.svg",
+   "alt": "eBay",
+   "w": 1000,
+   "h": 401,
+   "title": "File:EBay logo.svg",
+   "license": "Public domain",
+   "artist": "Lippincott Studio/Adrian Frutiger (typeface)."
+  },
+  "whatnot": {
+   "file": "/assets/brands/whatnot.svg",
+   "alt": "Whatnot",
+   "w": 594,
+   "h": 115,
+   "title": "File:Whatnot Logo 2025.svg",
+   "license": "Public domain",
+   "artist": "Whatnot"
+  },
+  "amazon": {
+   "file": "/assets/brands/amazon.svg",
+   "alt": "Amazon",
+   "w": 603,
+   "h": 182,
+   "title": "File:Amazon logo.svg",
+   "license": "Public domain",
+   "artist": "Amazon.com, Inc."
+  },
+  "target": {
+   "file": "/assets/brands/target.svg",
+   "alt": "Target",
+   "w": 300,
+   "h": 300,
+   "title": "File:Target Corporation logo (vector).svg",
+   "license": "Public domain",
+   "artist": "Target Corporation"
+  },
+  "walmart": {
+   "file": "/assets/brands/walmart.svg",
+   "alt": "Walmart",
+   "w": 1024,
+   "h": 241,
+   "title": "File:Walmart logo.svg",
+   "license": "Public domain",
+   "artist": "Walmart"
+  },
+  "bestbuy": {
+   "file": "/assets/brands/bestbuy.svg",
+   "alt": "Best Buy",
+   "w": 1000,
+   "h": 584,
+   "title": "File:Best Buy logo 2018.svg",
+   "license": "Public domain",
+   "artist": "Best Buy"
+  },
+  "costco": {
+   "file": "/assets/brands/costco.svg",
+   "alt": "Costco Wholesale",
+   "w": 201,
+   "h": 72,
+   "title": "File:Costco Wholesale logo 2010-10-26.svg",
+   "license": "Public domain",
+   "artist": "Costco Wholesale"
+  },
+  "mercari": {
+   "file": "/assets/brands/mercari.svg",
+   "alt": "Mercari",
+   "w": 265,
+   "h": 58,
+   "title": "File:Mercari logo 2018.svg",
+   "license": "Public domain",
+   "artist": "Mercari"
+  },
+  "paypal": {
+   "file": "/assets/brands/paypal.svg",
+   "alt": "PayPal",
+   "w": 1310,
+   "h": 440,
+   "title": "File:PayPal 2024.svg",
+   "license": "Public domain",
+   "artist": "PayPal"
+  },
+  "facebook": {
+   "file": "/assets/brands/facebook.svg",
+   "alt": "Facebook",
+   "w": 62,
+   "h": 12,
+   "title": "File:Facebook Logo (2019).svg",
+   "license": "Public domain",
+   "artist": "Facebook"
+  },
+  "fanatics-collect": {
+   "file": "/assets/brands/fanatics-collect.svg",
+   "alt": "Fanatics",
+   "w": 62,
+   "h": 13,
+   "title": "File:Fanatics company logo.svg",
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author"
+  },
+  "pokemon-center": {
+   "file": "/assets/brands/pokemon-center.svg",
+   "alt": "The Pokémon Company",
+   "w": 269,
+   "h": 25,
+   "title": "File:The Pokemon Company text logo.svg",
+   "license": "Public domain",
+   "artist": "The Pokémon Company"
+  },
+  "aldi": {
+   "file": "/assets/brands/aldi.svg",
+   "alt": "Aldi",
+   "w": 82,
+   "h": 99,
+   "title": "File:Aldi Süd 2017 logo.svg",
+   "license": "Public domain",
+   "artist": "Unknown authorUnknown author"
+  },
+  "walgreens": {
+   "file": "/assets/brands/walgreens.svg",
+   "alt": "Walgreens",
+   "w": 535,
+   "h": 119,
+   "title": "File:Walgreens Logo.svg",
+   "license": "Public domain",
+   "artist": "Walgreens"
+  }
+ }
+}

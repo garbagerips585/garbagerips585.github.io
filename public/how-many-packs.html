@@ -22,7 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=67f732be">
+<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .hp-lede{max-width:44em}
@@ -59,12 +59,13 @@
 .hp-shot img{width:88px;height:88px;object-fit:contain;display:block;background:#fff;
   border:1px solid var(--hair);border-radius:6px}
 .hp-shot figcaption{font:400 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);margin-top:4px}
-/* The ten rows with no photograph. Same 88x88 footprint as .hp-shot so the
+/* The row with no photograph. Same 88x88 footprint as .hp-shot so the
    headings stay on one line down the column, and the same 45 degree hatch
    .set-noart uses on /sets/ for a set with no logo, which is this site's
    existing way of saying "there is no art for this, on purpose". A plain empty
    box at this size reads as an image that failed to load, which is the one
-   thing it must not look like: nine of its neighbours are real photographs. */
+   thing it must not look like: every one of its neighbours is a real
+   photograph now, so it is the only box on the page that is not one. */
 .hp-noshot{flex:none;width:88px;height:88px;display:grid;place-items:center;
   border:1px solid var(--hair);border-radius:6px;
   background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
@@ -115,9 +116,22 @@
 .hp-eras p{font-size:var(--t-sm);line-height:1.6}
 .hp-tr{display:inline-block;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
   text-transform:uppercase;padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2)}
-.hp-tr.ok{background:#1E5B34;color:#EAF6EE;border-color:#1E5B34}
-.hp-tr.mid{background:var(--mustard);color:var(--ink);border-color:var(--navy)}
-.hp-tr.low{background:var(--card);color:var(--ink-2);border-style:dashed}
+/* THE THREE RUNGS READ AS A LADDER, BY WEIGHT, AND NO LONGER BY HUE.
+   They used to be a green pill, a mustard pill and a white one, and all three
+   were wrong after the site repainted to one accent. The green was the only
+   green left anywhere and read as a leftover rather than as a decision. Mustard
+   is the site's HIGHLIGHT, so the MIDDLE rung was the loudest chip in the list
+   and pulled the eye past the top one. And .low was --card on a --card
+   background, 1.00:1, carried entirely by a 1px dashed hairline: the bottom of
+   a confidence ladder was invisible.
+   So the ladder now descends by fill weight, which a ladder should: solid ink,
+   then a filled tint, then an outline. That is legible with no colour vision at
+   all, which is the right property for a scale, and it needs no colour outside
+   the palette. If the confirmed state ever wants to be green again, it should
+   be green everywhere it appears on the site and argued once, not here. */
+.hp-tr.ok{background:var(--ink);color:var(--paper-2);border-color:var(--ink)}
+.hp-tr.mid{background:var(--paper-3);color:var(--ink);border-color:var(--ink-2)}
+.hp-tr.low{background:var(--card);color:var(--ink-2);border-style:dashed;border-color:var(--ink-2)}
 .hp-cite{display:flex;flex-wrap:wrap;gap:6px 14px;font:400 var(--t-micro)/1.4 var(--mono);
   color:var(--ink-2);margin-top:8px}
 .hp-cite a{display:inline-block}
@@ -220,6 +234,7 @@
       <p class="menu-h">Play</p>
       <ul>
         <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
       </ul>
     </div>
@@ -385,7 +400,11 @@
       </div>
     </li>
     <li class="hp-card">
-      <div class="hp-noshot" aria-hidden="true"><span>No photo</span></div>
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/690660_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/690660_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/690660_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Mega Greninja ex Premium Collection, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Mega Greninja ex Premium Collection</figcaption>
+      </figure>
       <div class="hp-body">
         <h3><a href="/openings/ex-premium.html">ex Premium Collection</a></h3>
         <p class="hp-count"><span class="hp-nn">8</span><span class="hp-nu">packs</span></p>
@@ -417,7 +436,11 @@
       </div>
     </li>
     <li class="hp-card">
-      <div class="hp-noshot" aria-hidden="true"><span>No photo</span></div>
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/639828_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/639828_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/639828_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Holiday Calendar 2025, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Holiday Calendar 2025</figcaption>
+      </figure>
       <div class="hp-body">
         <h3>Holiday Calendar</h3>
         <p class="hp-count"><span class="hp-nn">6</span><span class="hp-nu">packs</span></p>
@@ -431,7 +454,11 @@
       </div>
     </li>
     <li class="hp-card" data-varies="1">
-      <div class="hp-noshot" aria-hidden="true"><span>No photo</span></div>
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/593466_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/593466_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/593466_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Prismatic Evolutions Surprise Box, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Prismatic Evolutions Surprise Box</figcaption>
+      </figure>
       <div class="hp-body">
         <h3><a href="/openings/collection-box.html">Collection boxes</a></h3>
         <p class="hp-count"><span class="hp-nn">3 to 6</span><span class="hp-nu">packs</span><span class="hp-var">varies by product</span></p>
@@ -445,7 +472,11 @@
       </div>
     </li>
     <li class="hp-card">
-      <div class="hp-noshot" aria-hidden="true"><span>No photo</span></div>
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/616305_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/616305_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/616305_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Charizard ex Special Collection, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Charizard ex Special Collection</figcaption>
+      </figure>
       <div class="hp-body">
         <h3>ex Special Collection</h3>
         <p class="hp-count"><span class="hp-nn">5</span><span class="hp-nu">packs</span></p>
@@ -459,7 +490,11 @@
       </div>
     </li>
     <li class="hp-card">
-      <div class="hp-noshot" aria-hidden="true"><span>No photo</span></div>
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/671250_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/671250_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/671250_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Mega Charizard Tin (Mega Charizard X), sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Mega Charizard Tin (Mega Charizard X)</figcaption>
+      </figure>
       <div class="hp-body">
         <h3><a href="/openings/tin.html">Standard collector tin</a></h3>
         <p class="hp-count"><span class="hp-nn">4</span><span class="hp-nu">packs</span></p>
@@ -491,7 +526,11 @@
       </div>
     </li>
     <li class="hp-card">
-      <div class="hp-noshot" aria-hidden="true"><span>No photo</span></div>
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/654188_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/654188_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/654188_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Mega Latias ex Box, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Mega Latias ex Box</figcaption>
+      </figure>
       <div class="hp-body">
         <h3><a href="/openings/ex-premium.html">ex Box</a></h3>
         <p class="hp-count"><span class="hp-nn">4</span><span class="hp-nu">packs</span></p>
@@ -505,7 +544,11 @@
       </div>
     </li>
     <li class="hp-card">
-      <div class="hp-noshot" aria-hidden="true"><span>No photo</span></div>
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/688964_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/688964_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/688964_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Pokemon - Poke Ball Tin - Poke Ball (Q4 2025), sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Pokemon - Poke Ball Tin - Poke Ball (Q4 2025)</figcaption>
+      </figure>
       <div class="hp-body">
         <h3><a href="/openings/poke-ball-tin.html">Poke Ball Tin</a></h3>
         <p class="hp-count"><span class="hp-nn">3</span><span class="hp-nu">packs</span></p>
@@ -551,7 +594,11 @@
       </div>
     </li>
     <li class="hp-card">
-      <div class="hp-noshot" aria-hidden="true"><span>No photo</span></div>
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/628494_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/628494_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/628494_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Knock Out Collection [Chien-Pao], sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Knock Out Collection [Chien-Pao]</figcaption>
+      </figure>
       <div class="hp-body">
         <h3><a href="/openings/knock-out.html">Knock Out Collection</a></h3>
         <p class="hp-count"><span class="hp-nn">2</span><span class="hp-nu">packs</span></p>
@@ -637,7 +684,11 @@
       </div>
     </li>
     <li class="hp-card">
-      <div class="hp-noshot" aria-hidden="true"><span>No photo</span></div>
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/704187_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/704187_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/704187_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="30th Celebration Battle Deck [Espeon ex], sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>30th Celebration Battle Deck [Espeon ex]</figcaption>
+      </figure>
       <div class="hp-body">
         <h3>Battle Deck</h3>
         <p class="hp-count"><span class="hp-zero">None</span></p>
@@ -651,7 +702,11 @@
       </div>
     </li>
     <li class="hp-card">
-      <div class="hp-noshot" aria-hidden="true"><span>No photo</span></div>
+      <figure class="hp-shot">
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/558713_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/558713_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/558713_in_1000x1000.jpg 1000w"
+             sizes="88px" alt="Trick or Trade BOOster Bundle 2024 (35 mini packs), sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
+        <figcaption>Trick or Trade BOOster Bundle 2024 (35 mini packs)</figcaption>
+      </figure>
       <div class="hp-body">
         <h3>Trick or Trade BOOster Bundle</h3>
         <p class="hp-count"><span class="hp-zero">None</span></p>
@@ -665,12 +720,12 @@
       </div>
     </li>
     </ul>
-    <p class="prod-note">Product photos are TCGplayer's, from the nightly price pull read August 16, 2026. We are not a shop and we do not sell any of this. There is no in-house photography, so a photo only exists here
-      where TCGplayer lists that product for one of the sets we track and its own pack count is one of the numbers on
-      the row. 11 of the 23 rows have a hatched box instead. Most of those are products sold outside any one
-      expansion, like the tins and the calendar, which never appear in a set's listings at all. The rest do have
-      listings, but of a different box from the one the count on that row was read off, and a near neighbour with the
-      wrong number beside it would be worse than no picture.</p>
+    <p class="prod-note">Product photos are TCGplayer's, from the nightly price pull read August 16, 2026. We are not a shop and we do not sell any of this. There is no in-house photography, so a photo only exists
+      here where TCGplayer lists the exact product the count on that row was read off, and the pictured box's own
+      pack count is the number beside it. Most come out of the per-set price pull. The ones sold outside any
+      expansion, like the tins and the calendar, and the ones whose set listing is a different box from the one the
+      research read, are each pinned by hand instead. 1 of the 23 rows has a hatched box instead, Stacking Tin: TCGplayer lists it across several years and publishes no release date, so picking one would put a photograph of an
+          unknown number beside a sourced one.</p>
   </div>
 </section>
 
@@ -1156,6 +1211,7 @@
       <div class="foot-col">
         <p class="foot-h">Play</p>
         <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
       </div>
       <div class="foot-col">

@@ -23,8 +23,16 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=67f732be">
+<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<style>.intl-logo{display:block;width:auto;max-width:150px;height:56px;object-fit:contain;
+object-position:left center;margin:6px 0 10px}
+.intl-spot{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s4);
+max-width:44em;font-size:var(--t-sm);line-height:1.5}
+.intl-sym{flex:0 0 32px;width:32px;height:32px;object-fit:contain}
+.intl-enh{margin-top:var(--s6);font-size:var(--t-h3)}
+.intl-ensay{max-width:42em;margin-top:6px;font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
+.intl-enchase .chase-card{display:block;text-align:left;text-decoration:none;color:inherit;font:inherit}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Mask of Change Pokemon TCG Set Guide","description":"Mask of Change (변환의 가면) Pokemon TCG set guide: 101 cards, released June 21, 2024, and why it is the same set as English Twilight Masquerade.","image":["https://garbagerips585.github.io/assets/og-image.jpg"],"about":{"@type":"Thing","name":"Mask of Change (Pokemon Trading Card Game, Korean)"},"url":"https://garbagerips585.github.io/sets/ko-mask-of-change.html","datePublished":"2026-08-12","dateModified":"2026-08-16","author":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/"},"publisher":{"@type":"Organization","name":"Garbage Rips 585","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Card Sets","item":"https://garbagerips585.github.io/sets/"},{"@type":"ListItem","position":3,"name":"Mask of Change"}]}</script>
 </head>
@@ -112,6 +120,7 @@
       <p class="menu-h">Play</p>
       <ul>
         <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
       </ul>
     </div>
@@ -177,11 +186,19 @@
       <li class="intl is-en">
         <p class="intl-lang">English &bull; SV6</p>
         <h3>Twilight Masquerade</h3>
+        <img class="intl-logo" src="/assets/logos/twilight-masquerade-pokemon-tcg-set-logo-sm.webp"
+          srcset="/assets/logos/twilight-masquerade-pokemon-tcg-set-logo-sm.webp 234w, /assets/logos/twilight-masquerade-pokemon-tcg-set-logo.webp 703w" sizes="150px"
+          width="234" height="100" alt="The English Twilight Masquerade set logo" loading="lazy" decoding="async">
         <p class="intl-meta">226 cards &bull; May 24, 2024</p>
         <p class="intl-lead">The English release</p>
         <a class="intl-link" href="/sets/twilight-masquerade.html">Read the Twilight Masquerade guide</a>
       </li>
     </ul>
+    <p class="intl-spot"><img class="intl-sym" src="/assets/symbols/sv6-pokemon-tcg-set-symbol.webp"
+          width="32" height="32"
+          alt="The Twilight Masquerade set symbol" loading="lazy" decoding="async"><span>That is the symbol on an English Twilight Masquerade card,
+      printed at the bottom beside the collector number. It is not the mark on the Korean cards in these
+      rips: the two printings carry their own.</span></p>
     <p class="price-note">The Korean printing of the set behind English Twilight Masquerade. Korea got it on June 21, 2024, a month after the English release, which is normal: it follows the Japanese schedule, not the English one.</p>
   </div>
 </section>
@@ -190,26 +207,27 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
     <h2>Rarity <span class="hl">breakdown</span></h2>
+    
     <div class="rarity-list">
       <div class="rar">
-        <div class="rar-n">Common</div>
-        <div class="rar-bar"><span style="width:100%"></span></div>
-        <div class="rar-c">48</div>
+        <span class="rar-name">Common</span>
+        <span class="rar-n">48</span>
+        <span class="rar-bar"><i style="width:100%"></i></span>
       </div>
       <div class="rar">
-        <div class="rar-n">Uncommon</div>
-        <div class="rar-bar"><span style="width:69%"></span></div>
-        <div class="rar-c">33</div>
+        <span class="rar-name">Uncommon</span>
+        <span class="rar-n">33</span>
+        <span class="rar-bar"><i style="width:69%"></i></span>
       </div>
       <div class="rar">
-        <div class="rar-n">Rare</div>
-        <div class="rar-bar"><span style="width:19%"></span></div>
-        <div class="rar-c">9</div>
+        <span class="rar-name">Rare</span>
+        <span class="rar-n">9</span>
+        <span class="rar-bar"><i style="width:19%"></i></span>
       </div>
       <div class="rar">
-        <div class="rar-n">Double Rare</div>
-        <div class="rar-bar"><span style="width:17%"></span></div>
-        <div class="rar-c">8</div>
+        <span class="rar-name">Double Rare</span>
+        <span class="rar-n">8</span>
+        <span class="rar-bar"><i style="width:17%"></i></span>
       </div>
     </div>
     
@@ -725,6 +743,7 @@
       <div class="foot-col">
         <p class="foot-h">Play</p>
         <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
       </div>
       <div class="foot-col">

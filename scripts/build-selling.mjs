@@ -45,6 +45,7 @@ import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { esc, longDate } from "../shared/format.mjs";
+import { brandMark, PROT_MARK, BRAND_CREDIT, BRAND_STYLE } from "../shared/brands.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const money = JSON.parse(await readFile(join(ROOT, "data/selling.json"), "utf8"));
@@ -135,6 +136,7 @@ const venueCard = (v) => {
   const fees = Array.isArray(v.fees) ? v.fees : [];
   return `      <article class="se-v" id="${esc(v.id)}">
         <div class="se-vh">
+          ${brandMark(v.id, v.name)}
           <h3>${v.url ? `<a href="${esc(v.url)}" rel="noopener" target="_blank">${esc(v.name)}</a>` : esc(v.name)}</h3>
           <span class="se-st ${st.cls}">${esc(st.label)}</span>
         </div>
@@ -216,7 +218,10 @@ const prot = (p) => {
   }
   const srcs = [p.source, ...(p.alsoRead || [])].filter(Boolean);
   return `      <article class="se-p">
-        <h3>${esc(p.venue)}</h3>
+        <div class="se-vh">
+          ${brandMark(PROT_MARK[p.venue] || "", p.venue)}
+          <h3>${esc(p.venue)}</h3>
+        </div>
         ${p.note ? `<p class="se-nb">${esc(p.note)}</p>` : ""}
         ${parts.join("\n        ")}
         ${srcs.length ? `<p class="se-src">${srcs
@@ -227,6 +232,18 @@ const prot = (p) => {
 
 const nSourced = venues.filter((v) => v.status === "sourced").length;
 const desc = `Where to sell Pokemon cards and what each place takes. Fees read off each company's own page, plus who protects a seller and who does not.`;
+
+// COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same trade
+// build-css.mjs makes for ui.css and miniCSS makes in build-set-pages.mjs, and
+// the same regex: comments, plus the indentation between rules. Nothing else.
+//
+// It is here because this block is inline in a render blocking <head> and the
+// desktop rules added on 16 August 2026 came with the measurements that justify
+// them written alongside. Measured on this page set, those comments were 17.1KB
+// raw and 7.1KB gzipped across eight pages, up to 13% of one of them. Stripped,
+// every one of these pages is smaller than it was before the rules were added.
+const miniCSS = (css) =>
+  css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
 
 const style = `
 .se-lede{max-width:46em}
@@ -250,12 +267,33 @@ const style = `
 @media(max-width:900px){.se-vs{grid-template-columns:1fr}}
 .se-v,.se-p{border:3px solid var(--navy);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
-.se-vh{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2);margin-bottom:var(--s2)}
+/* Centre, not baseline: the 34px mark box hung a third of its height below the
+   heading on a baseline row. Same change as /buying.html's .by-vh. */
+.se-vh{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);margin-bottom:var(--s2)}
+${BRAND_STYLE}
 .se-vh h3{font:400 var(--t-m)/1.15 var(--display)}
+/* THE CONFIDENCE LADDER, REBUILT WITHOUT HUE. Three things were wrong with it.
+   THE BOTTOM RUNG WAS INVISIBLE. "FEES UNVERIFIED" was --card on a white card,
+   1.00:1, carried entirely by a dashed hairline. On /drops.html it was worse
+   than that: "PATTERN ONLY" and "EXPECTED" differed ONLY by border-style dashed
+   against solid, so two confidence levels were one border apart.
+   THE TOP RUNG WAS THE ONLY GREEN ON THE SITE. #1E5B34 with an #EAF6EE label
+   passes contrast at 7.73:1, so this is not a legibility fix; it is that the
+   palette's stated idea is one accent hue and a green pill at the top of every
+   card is a second one. Green as a deliberate semantic exception for "verified"
+   would have been defensible. It was not deliberate, it was left over.
+   SO THE LADDER RANKS BY WEIGHT INSTEAD OF BY COLOUR, which is what a mono
+   palette has to do: solid ink, then a filled chip, then an outline. Those are
+   three genuinely different amounts of ink on the page and they survive at any
+   zoom, in print, and for a reader who cannot tell green from grey.
+   NONE OF IT CARRIES MEANING ALONE. Every chip prints its own state in words
+   next to the weight, which is why the labels are spelled out rather than
+   abbreviated. */
 .se-st{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2)}
-.se-st.ok{background:#1E5B34;color:#EAF6EE;border-color:#1E5B34}
-.se-st.unv{background:var(--card);color:var(--ink-2);border-style:dashed}
+.se-st.ok{background:var(--chrome-bg);color:var(--chrome-ink);border-color:var(--chrome-bg)}
+.se-st.part{background:var(--paper-3);color:var(--ink);border-color:var(--hair)}
+.se-st.unv{background:var(--paper-2);color:var(--ink);border:1.5px dashed var(--ink-2)}
 .se-fmt{color:var(--ink-2);font-size:var(--t-sm);margin-bottom:var(--s2)}
 .se-best,.se-pay,.se-acc,.se-nb,.se-none{font-size:var(--t-sm);line-height:1.5;margin-top:var(--s2)}
 .se-nb,.se-none{color:var(--ink-2)}
@@ -264,7 +302,16 @@ const style = `
 .se-on,.se-nt{display:block;color:var(--ink-2);font-size:var(--t-micro);margin-top:2px}
 .se-p ul{margin:var(--s2) 0 0 var(--s4);font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
 .se-lbl{font-size:var(--t-sm);margin-top:var(--s3)}
-.se-yes b{color:#1E5B34}
+/* "COVERS." AGAINST "DOES NOT COVER." was green text against --ketchup-deep,
+   and after the repaint --ketchup-deep is #6E5000, the palette's own deep gold.
+   So the pair was green versus gold, which is the last hue distinction on
+   either page and the same leftover the status ladder above just lost.
+   BOTH LABELS ALREADY SAY WHAT THEY MEAN IN WORDS, at the start of the line, so
+   the colour was never carrying the meaning: it was emphasis. Ink for the
+   positive and deep gold for the negative keeps the emphasis, keeps them
+   distinguishable by weight and hue-within-the-palette, and adds no sixth
+   colour to a black, white and gold site. */
+.se-yes b{color:var(--ink)}
 .se-no b{color:var(--ketchup-deep)}
 .se-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s3);line-height:1.6}
 .se-prot{font-size:var(--t-sm);line-height:1.5;margin-top:var(--s2)}
@@ -278,6 +325,55 @@ const style = `
 .se-list{margin:var(--s4) 0 0 var(--s4);max-width:46em;line-height:1.55}
 .se-list li{margin-bottom:var(--s3)}
 .se-list b{color:var(--ink)}
+
+/* DESKTOP, and it is the same block as the one on /buying.html because the two
+   pages are the same page asked in the other direction. The long comment there
+   is the argument; this is the short version.
+
+   min-width only, so a phone and a tablet render what they rendered before.
+   Measured identical at 390 before and after.
+
+   MEASURED AT 1440: 9,899 words, a 15,194px page and a median reading measure
+   of 81.5 characters a line, 83.3 at 1920, against a 65 to 75 target. The em
+   caps are set against the font SIZE rather than the character width, so ch
+   replaces them. The key panel drew its navy border the full 1,392px and then
+   set its text to 44em, so every paragraph in it had about 600px of empty panel
+   beside it; the heading moves into that space.
+
+   .se-vs is deliberately untouched, for the reason written out on
+   /buying.html: its measure is a type-size question, not a column-width one.
+
+   50ch AND NOT 70ch. ch is the advance width of a "0", not of a character, and
+   in Outfit a digit is about 1.43 average characters wide. The measurement and
+   the trap it sets are written out on /buying.html. */
+@media(min-width:1000px){
+  .se-lede{max-width:50ch}
+  .se-grp > p{max-width:50ch}
+  .se-key p{max-width:50ch}
+  /* The sourcing lines, 11px and uncapped, ran the full band. Same fault and
+     the same cap as .by-src on /buying.html. */
+  .se-src{max-width:64ch}
+}
+/* The venue nav moves beside the opening paragraphs. Capping the ledes to 50ch
+   is right for the reader and on its own it made the top of the page look
+   emptier, not fuller: two paragraphs 578px wide with 814px of nothing beside
+   them. The nav was directly underneath and it is this page's table of
+   contents, so beside the introduction is where it belongs on a desktop. Same
+   shape and the same 620px intro column as /buying.html. */
+@media(min-width:1100px){
+  .se-top{display:grid;grid-template-columns:minmax(0,620px) minmax(0,1fr);
+    gap:var(--s5) var(--s6);align-items:start}
+  .se-top .se-jump{margin-top:0}
+  /* Two children, the heading and .se-key-body, so no row can be taller than
+     the item in it and no explicit placement is needed. */
+  .se-key{display:grid;grid-template-columns:300px minmax(0,1fr);
+    gap:var(--s5);align-items:start}
+  .se-key > h2{margin-bottom:0}
+}
+@media(min-width:1200px){
+  .se-list{columns:2;column-gap:var(--s6);max-width:none}
+  .se-list li{break-inside:avoid}
+}
 `;
 
 const page = `<!DOCTYPE html>
@@ -303,7 +399,7 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
-<style>${style}</style>
+<style>${miniCSS(style)}</style>
 <script type="application/ld+json">${JSON.stringify({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -322,6 +418,11 @@ ${MENU}
   <section class="tight">
     <div class="wrap">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Where to sell</span></nav>
+      <!-- .se-top and .se-intro are inert wrappers until the min-width rule in
+           the style block makes .se-top a grid and moves the venue nav beside
+           the opening paragraphs. Same shape and reason as /buying.html. -->
+      <div class="se-top">
+      <div class="se-intro">
       <h1>Where to <span class="hl">sell</span> your cards</h1>
       <p class="lede se-lede">Every other page here answers what a card is worth. This one answers where you turn
         that into money, and what each place takes on the way. ${venues.length} venues, and the fee figures were
@@ -329,6 +430,7 @@ ${MENU}
         say so.</p>
       <p class="lede se-lede">Prices and fees move. Every figure here carries the date it was read, and if you are
         about to sell something expensive, check the company's own page before you count on a number.</p>
+      </div>
 
       <nav class="se-jump" aria-label="Jump to a venue">
 ${GROUPS.map((g) => {
@@ -340,11 +442,18 @@ ${GROUPS.map((g) => {
     : "";
 }).filter(Boolean).join("\n")}
       </nav>
+      </div>
 
       <div class="se-key">
         <h2>The question that decides how much a sale can hurt you</h2>
+        <!-- Wrapped so the heading sits beside ALL the paragraphs rather than
+             beside the first one. Same reason as /buying.html: flat siblings in
+             a two column grid share row 1, and the row is as tall as the taller
+             of the two, which opens a hole under the shorter. -->
+        <div class="se-key-body">
         <p>${esc(safe.framing.question)} It is not which site you are on.</p>
         ${(safe.framing.why || []).map((w) => `<p>${esc(w)}</p>`).join("\n        ")}
+        </div>
       </div>
 ${(() => {
   // NOTHING ANYWHERE CHECKED THAT EVERY VENUE ACTUALLY REACHED THE PAGE. The
@@ -434,6 +543,7 @@ ${(safe.inPerson.whereTheLineIs || []).map((b) => `          <li>${esc(b)}</li>`
       }. Seller protection and scam mechanics read${safe.checked ? ` on ${esc(longDate(safe.checked))}` : ""} from the
         platforms' own policies and from the FTC. Nothing here came from a comparison site. This is not financial
         advice and fees change, so check before you sell.</p>
+      <p class="se-src">${BRAND_CREDIT}</p>
     </div>
   </section>
 </main>

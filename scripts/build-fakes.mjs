@@ -23,17 +23,21 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
-import { esc, longDate } from "../shared/format.mjs";
+import { avifPicture, esc, imgDims, longDate } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/fakes.json"), "utf8"));
 
 // Photographs, when there are any.
 //
-// There are none today and that is on purpose: we do not own a confirmed fake,
-// and a photo of one you cannot verify the provenance of is worth nothing on a
-// page about verifying things. Everything visual here is therefore a DIAGRAM
-// and labeled as one.
+// THERE IS STILL NO PHOTOGRAPH OF A FAKE AND THERE SHOULD NOT BE: we do not own
+// a confirmed counterfeit, and a photo of one whose provenance you cannot verify
+// is worth nothing on a page about verifying things. Every drawing here is
+// therefore a DIAGRAM and labeled as one.
+//
+// THE ONE PHOTOGRAPH ON THE PAGE IS A GENUINE CARD, and it belongs to exactly
+// one test. See scanCard() below. It is not evidence about a fake and nothing
+// about it may be captioned as if it were.
 //
 // The slot exists so real photos can replace a diagram the day there are some.
 // Drop a file in public/assets/fakes/ and name it in data/fakes.json:
@@ -52,6 +56,45 @@ function photoFor(t) {
   return `<figure class="fk-fig fk-photo">
           <img src="/${esc(rel)}" alt="${esc(p.alt || `Real and fake compared: ${t.name}`)}" loading="lazy">
           ${p.caption ? `<figcaption>${esc(p.caption)}</figcaption>` : ""}
+        </figure>`;
+}
+
+/**
+ * The genuine card, for the test that says to go and find one.
+ *
+ * TEST 2 IS "CHECK IT AGAINST A SCAN" AND THE PAGE SHIPPED NO SCAN. Every other
+ * test here is a property you can draw, which is why the rest of the page is
+ * diagrams and why that is the right call. This one is not a property, it is an
+ * instruction to compare, and printing the instruction without an example of the
+ * thing to compare against was the gap.
+ *
+ * IT IS THE ONLY PHOTOGRAPH HERE AND IT IS OF A REAL CARD. The caption says so
+ * in those words, because a scan sitting on a page about counterfeits will be
+ * read as evidence about a counterfeit unless it says otherwise, and it is not:
+ * it is a picture of the ordinary thing, which is the whole point of a test
+ * built on comparison.
+ *
+ * high.webp, 600x825, and that is deliberate rather than lazy. The details this
+ * test is about are the set symbol, the set code, the regulation mark and the
+ * illustrator credit, all of which are a smear in TCGdex's 245px low.webp. There
+ * is no middle width at any host. avifPicture puts the AVIF in front of it and
+ * leaves the WebP underneath, which is 37% off at this width.
+ */
+function scanCard(t) {
+  const c = t.scanCard;
+  if (!c?.img) return "";
+  const high = `${c.img}/high.webp`;
+  return `<figure class="fk-fig fk-photo">${avifPicture(
+    `<img src="${esc(high)}" sizes="280px" alt="A genuine ${esc(c.card)}, ${esc(c.set)} number ${esc(
+      c.number
+    )}, scanned front on" loading="lazy" decoding="async" onerror="this.closest('figure').remove()"${imgDims(
+      high
+    )}>`
+  )}
+          <figcaption>A <b>real</b> ${esc(c.card)}, ${esc(c.set)} ${esc(
+            c.number
+          )}, scanned by TCGdex. This is the genuine article, not a fake: it is what the card in your hand
+          should match down to the set code and the regulation mark along the bottom.</figcaption>
         </figure>`;
 }
 
@@ -327,6 +370,7 @@ const testCard = (t, i) => `      <article class="fk" id="${esc(t.id)}">
         ${t.id === "print" ? rosetteDiagram() : ""}
         ${t.id === "energy" ? registrationDiagram() : ""}
         ${t.id === "back" ? backDiagram() : ""}
+        ${scanCard(t)}
         ${photoFor(t)}
         ${t.why ? `<p class="fk-why"><strong>Why it works.</strong> ${esc(t.why)}</p>` : ""}
         ${t.caveat ? `<p class="fk-caveat"><strong>But.</strong> ${esc(t.caveat)}</p>` : ""}
@@ -388,6 +432,38 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
+<style>
+/* The one photograph on the page, sized here rather than in ui.css because this
+   page is its only user and ui.css is render blocking on all 426 pages.
+   .fk-photo already exists there at max-width:720px, which is right for a
+   side-by-side comparison photo and three times too wide for one card scan: the
+   source is 600px, so 720 would upscale it. 280px is the box, which the 600px
+   file covers at DPR2 with room to spare, and it is what sizes="280px" says. */
+.fk-fig.fk-photo img{max-width:280px;margin-inline:0}
+.fk-fig.fk-photo{max-width:44em}
+.fk-fig.fk-photo figcaption{margin-top:var(--s2);font-size:var(--t-micro);color:var(--ink-2);
+  line-height:1.5;max-width:40em}
+.fk-fig.fk-photo figcaption b{color:var(--ink)}
+
+/* REAL AND FAKE, THE RIGHT WAY ROUND. ui.css paints .fk-real a green tint with
+   a green rule and .fk-fake a pink tint with a rule of var(--ketchup), and
+   --ketchup is #111111 since the site repainted to one accent hue. So on the
+   page about spotting counterfeits the FAKE side had lost its colour and the
+   REAL side had kept one, the two washes were 1.08:1 apart, and the warning was
+   the quieter of the pair. Overridden here rather than in ui.css because this
+   page is the only user of these classes and ui.css is render blocking on all
+   426 pages.
+   The pair now separates by WEIGHT, not by hue, which is what a mono palette
+   has to do and what a reader with no colour vision gets anyway. Real is the
+   baseline: paper, a grey rule, quiet. Fake is inverted: solid ink with a gold
+   rule and a gold label, which is the loudest thing this page can say without
+   inventing a colour. The label words still carry the meaning on their own. */
+.fk-real{background:var(--paper);border-left:6px solid var(--ink-2)}
+.fk-real .fk-vs-h{color:var(--ink-2)}
+.fk-fake{background:var(--ink);color:var(--chrome-ink);border-left:6px solid var(--gold)}
+.fk-fake .fk-vs-h{color:var(--gold)}
+.fk-fake p{color:var(--chrome-ink)}
+</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -483,9 +559,10 @@ ${d.sealed ? `
       (d.sourceLinks || []).length
         ? " Read it yourself: " + d.sourceLinks.map((l) => `<a href="${esc(l.url)}" rel="noopener" target="_blank">${esc(l.name)}</a>`).join(", ") + "."
         : ""
-    } Every picture on this page is a diagram drawn from the property being described, not a photograph of a real
-      counterfeit: we do not own one whose history we can vouch for, and an unverified photo of a fake would be an odd
-      thing to put on a page about verifying things. Last reviewed ${esc(longDate(d.checked) || d.checked)}.
+    } Every drawing on this page is a diagram of the property being described, and not one picture here is a
+      photograph of a real counterfeit: we do not own one whose history we can vouch for, and an unverified photo of
+      a fake would be an odd thing to put on a page about verifying things. The single photograph is a scan of a
+      genuine card, on the test that tells you to compare against one, and it is TCGdex's. Last reviewed ${esc(longDate(d.checked) || d.checked)}.
       Fan made guide, not official, and not a valuation or authentication service. If a card is worth enough for the
       answer to matter, send it to a grading company and let them put their name on it.</p>
   </div>

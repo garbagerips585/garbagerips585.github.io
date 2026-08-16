@@ -15,7 +15,7 @@ import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
-import { parseHits, rarityLabelOf, rarityMark } from "../shared/rarity.mjs";
+import { parseHits, rarityLabelOf, rarityMark, RARITY_CSS } from "../shared/rarity.mjs";
 import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY_ORDER, cardNumKey, imgDims, avifPicture } from "../shared/format.mjs";
 import { ripLabel } from "../shared/riplabel.mjs";
 
@@ -83,6 +83,47 @@ const setCardLogo = (setId, alt) => {
     ? ` srcset="${base}-sm.webp ${Math.round((d[0] * SM_H) / d[1])}w, ${base}.webp ${d[0]}w" sizes="110px"`
     : "";
   return `<img${logoAttrs(setId)} src="${base}${d ? "-sm" : ""}.webp"${srcset} alt="${alt}" loading="lazy" onerror="this.remove()">`;
+};
+
+/**
+ * THE SET SYMBOL, which is the one picture that answers "is this card from this
+ * set?" and which these guides did not carry anywhere.
+ *
+ * A guide names the set, dates it, counts it and prices it, and never showed the
+ * mark a reader has to match against the card in their hand. That is a picture
+ * doing a job prose cannot: the symbols are shapes, and describing one ("a
+ * stylised M with a swoosh") is worse than showing it at any length.
+ *
+ * Mirrored locally by scripts/sync-symbols.mjs, which fits every one inside a
+ * 48px box as lossless WebP and records its REAL shape in data/symbol-dims.json.
+ * The files are not all square (base1 comes out 48x25), so the dimensions come
+ * from the manifest rather than being assumed, exactly as build-expansions.mjs
+ * and build-what-set.mjs already do.
+ *
+ * NO REMOTE FALLBACK HERE, unlike those two pages. They were showing a symbol
+ * already and degrading to the API url preserved that; this element is new, so a
+ * set with no mirrored file simply does not get one rather than reaching for a
+ * 500x500 png to paint a 40px box. All 28 English sets are in the manifest
+ * today, so nothing is currently skipped.
+ */
+let SYMBOL_DIMS = {};
+try {
+  SYMBOL_DIMS = JSON.parse(await readFile(join(ROOT, "data/symbol-dims.json"), "utf8")).symbols || {};
+} catch {
+  /* run: node scripts/sync-symbols.mjs */
+}
+/** Drawn at 40 CSS px, so the 48px master covers it at 1.2x and DPR2 at 0.83x. */
+const SYMBOL_BOX = 40;
+const symbolFor = (s) => {
+  const d = SYMBOL_DIMS[s.apiId];
+  if (!d) return "";
+  // Scale the manifest's real size into the 40px box the CSS paints, so the
+  // attributes reserve the right SHAPE. Declaring 40x40 for base1 would reserve
+  // a square for a file that is nearly 2:1.
+  const k = Math.min(SYMBOL_BOX / d[0], SYMBOL_BOX / d[1], 1);
+  return `<img class="setsym-i" src="/assets/symbols/${esc(s.apiId)}-pokemon-tcg-set-symbol.webp"
+        width="${Math.round(d[0] * k)}" height="${Math.round(d[1] * k)}"
+        alt="The ${esc(s.name)} set symbol" decoding="async">`;
 };
 
 const OUT = join(ROOT, "public/sets");
@@ -418,6 +459,57 @@ function setValue(s) {
  * rarity ladder and the checklist both read differently once you know that four
  * cards hold half the set.
  */
+/**
+ * THE CONCENTRATION, DRAWN. Two bars, one over the other, on one scale.
+ *
+ * The band's whole claim is that a handful of cards carry a set, and it made
+ * that claim in a sentence, four fact tiles and a pull quote: five ways of
+ * saying one thing, none of which you can see. Two bars say it at a glance,
+ * because the point is a COMPARISON of two shares, and the eye does that for
+ * free where the sentence asks a reader to hold 8, 207, $1,084 and $932 in
+ * their head at once.
+ *
+ * DRAWN, NOT FETCHED, so it costs a few hundred bytes of markup and nothing at
+ * all over the wire, which is the whole argument for putting it on 28 pages.
+ *
+ * IT ADDS NO CLAIM. Both numbers are already printed in the paragraph directly
+ * above it and both come out of setValue(), which throws rather than renders
+ * when its arithmetic does not close. It is emphatically not a pull rate: a
+ * share of a checklist's VALUE says nothing whatever about what is in a pack,
+ * and the note under the band already says so out loud.
+ *
+ * REAL ASPECT RATIO, not preserveAspectRatio="none", so the rounded ends stay
+ * round at every width. No text inside the SVG either: type in a scaled SVG
+ * scales with the box and stops matching the rest of the page.
+ */
+function valueChart(v) {
+  const W = 300;
+  const priced = v.half + v.restCount;
+  const cardShare = v.half / priced;
+  const bar = (share) => {
+    // A 2px floor, because on a 245 card set the top 8 are 3% and a rect
+    // rounded to 9px wide with rx=8 draws as a lozenge rather than a bar.
+    const w = Math.max(6, Math.round(share * W));
+    return `<svg class="svc-bar" viewBox="0 0 ${W} 16" width="${W}" height="16" aria-hidden="true" focusable="false">
+          <rect x="0" y="0" width="${W}" height="16" rx="8" class="svc-track"/>
+          <rect x="0" y="0" width="${w}" height="16" rx="8" class="svc-fill"/>
+        </svg>`;
+  };
+  const pct = (x) => (x < 1 ? "under 1%" : `${Math.round(x)}%`);
+  return `<div class="svc">
+      <div class="svc-row">
+        <p class="svc-k">The ${v.half} priciest card${v.half === 1 ? "" : "s"}</p>
+        ${bar(cardShare)}
+        <p class="svc-v">${pct(cardShare * 100)} of the ${priced} cards with a price</p>
+      </div>
+      <div class="svc-row">
+        <p class="svc-k">What those ${v.half} are worth</p>
+        ${bar(0.5)}
+        <p class="svc-v">half of the ${moneyCompact(v.sum)} the whole checklist comes to</p>
+      </div>
+    </div>`;
+}
+
 function valueBand(s, cls) {
   const v = setValue(s);
   if (!v) return "";
@@ -426,7 +518,7 @@ function valueBand(s, cls) {
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Where the value sits</p>
     <h2>Where the <span class="hl">money</span> is</h2>
-    <p class="lede" style="max-width:42em">Buy one copy of ${some} in ${esc(s.name)} at market price and you would spend
+    <p class="lede w42">Buy one copy of ${some} in ${esc(s.name)} at market price and you would spend
       ${moneyExact(v.sum)}. ${
         v.half === 1
           ? `More than half of that is a single card.`
@@ -434,6 +526,7 @@ function valueBand(s, cls) {
       } The other ${v.restCount} come to ${moneyExact(v.rest)} between them${
         v.restEach ? `, which is ${moneyExact(v.restEach)} a card` : ""
       }.</p>
+    ${valueChart(v)}
     <div class="facts">
       <div class="fact"><div class="n">${moneyCompact(v.sum)}</div><div class="l">One of every card</div></div>
       <div class="fact"><div class="n">${v.half}</div><div class="l">Cards holding half the value</div></div>
@@ -981,6 +1074,60 @@ const CHASE = new Set([
   ...CHASE_EXTRA,
 ]);
 
+/**
+ * THE PRINTED STAR ROW FOR A RARITY NAME, and it is a whitelist on purpose.
+ *
+ * The rarity ladder is the band a reader scans to find out what is worth
+ * chasing, and it was a column of words. The stars are what is actually printed
+ * on the card, so drawing them beside the name is the picture that lets somebody
+ * hold a card up to the screen. They are inline SVG out of shared/rarity.mjs, so
+ * they cost a request and a byte of transfer each: nothing.
+ *
+ * WHY A HAND-WRITTEN MAP RATHER THAN raritiesIn(). Two reasons, both of which
+ * produce a wrong mark rather than no mark.
+ *
+ *   - raritiesIn("Common") returns "jp-c" and raritiesIn("Uncommon") returns
+ *     "jp-u", because the English key in shared/rarity.mjs has no rung for
+ *     either. Those two would have painted a JAPANESE letter badge onto every
+ *     English guide, on the two most numerous rows of every ladder.
+ *   - The key is a photograph of ONE booklet, and RARITY_ORDER carries 21 names
+ *     spanning 2020 to 2026. Rainbow Rare, Secret Rare, Shiny Rare, Black White
+ *     Rare, Radiant, Amazing and the whole Holo Rare V family are not on that
+ *     page, and inventing a star count for them is exactly the confident error
+ *     a reference page must not make.
+ *
+ * So eight names get a mark, they are the eight the booklet actually shows, and
+ * every other rung renders as it always did. The caption under the ladder says
+ * as much rather than leaving a reader to wonder why some rows have stars.
+ *
+ * Every id here is checked against RARITY_KEY at build time below, because a
+ * typo would silently drop the mark rather than fail.
+ */
+const BOOKLET_MARK = {
+  "Mega Hyper Rare": "mega-hyper",
+  "Hyper Rare": "gold",
+  "Special Illustration Rare": "sir",
+  "Illustration Rare": "ir",
+  "ACE SPEC Rare": "ace-spec",
+  "Ultra Rare": "ultra",
+  "Double Rare": "double-rare",
+  "Rare": "rare",
+};
+{
+  const bad = [];
+  for (const [name, id] of Object.entries(BOOKLET_MARK)) {
+    if (!RARITY_ORDER.includes(name)) bad.push(`"${name}" is not a rung in RARITY_ORDER`);
+    if (!rarityMark(id)) bad.push(`"${name}" points at mark id "${id}", which RARITY_KEY does not define`);
+  }
+  if (bad.length) {
+    throw new Error(
+      `BOOKLET_MARK does not line up with the rarity key, so a ladder would quietly lose its stars:\n  ` +
+        bad.join("\n  ") +
+        `\nFix the name here, in RARITY_ORDER (shared/format.mjs) or in RARITY_KEY (shared/rarity.mjs).`
+    );
+  }
+}
+
 // Affiliate config. Off by default; flip enabled in data/affiliate.json once
 // the Impact application is approved and every TCGplayer link is rewritten.
 let aff = { tcgplayer: { enabled: false } };
@@ -1322,19 +1469,28 @@ function derivedFacts(s) {
       `often any of it turns up.`
     );
   }
+  // THE MARK GOES IN FRONT OF THE TIER IT NAMES, in the two facts that name one.
+  // Both of these are sentences about a rarity, and the rarity is a printed
+  // symbol before it is a phrase: a reader who has just met the star key in the
+  // ladder below can carry it straight into the prose. Inline SVG out of
+  // shared/rarity.mjs, so it costs nothing over the wire, and BOOKLET_MARK is a
+  // whitelist, so a tier the booklet does not show gets no mark rather than an
+  // invented one.
   for (const r of ["Mega Hyper Rare", "Hyper Rare", "Special Illustration Rare"]) {
     if (rar[r]) {
       const n = rar[r];
       out.push(
-        `Only <b>${n} ${r}${n === 1 ? "" : "s"}</b> ${n === 1 ? "exists" : "exist"} in the entire set.`
+        `Only <b>${BOOKLET_MARK[r] ? rarityMark(BOOKLET_MARK[r]) : ""}${n} ${r}${n === 1 ? "" : "s"}</b> ` +
+        `${n === 1 ? "exists" : "exist"} in the entire set.`
       );
       break;
     }
   }
   if (s.chase?.length) {
     const top = s.chase[0];
+    const topR = rarityLabel(top.rarity);
     out.push(
-      `The chase card is <b>${esc(top.name)}</b>${top.rarity ? ` (${esc(rarityLabel(top.rarity))})` : ""}, ` +
+      `The chase card is <b>${esc(top.name)}</b>${top.rarity ? ` (${BOOKLET_MARK[topR] ? rarityMark(BOOKLET_MARK[topR]) : ""}${esc(topR)})` : ""}, ` +
       `sitting around <b>${moneyCompact(top.price)}</b> raw` +
       (gradedPrice(s.id, top.number)
         ? `, and <b>${moneyCompact(gradedPrice(s.id, top.number))}</b> in a PSA 10.`
@@ -1371,7 +1527,110 @@ const PAGE_CSS = `
   letter-spacing:.04em;text-transform:uppercase;margin-top:3px}
 .prod-per b{display:inline-block;background:var(--mustard);color:var(--ink);
   border-radius:var(--r-pill);padding:1px 7px;margin-left:4px;font-weight:700}
-`;
+
+/* DESKTOP. Every rule below is min-width only, so a phone and a tablet render
+   what they rendered before: measured identical at 390 on /sets/151.html before
+   and after.
+
+   MEASURED AT 1440 ON /sets/151.html. Two long single columns of short items
+   sat inside a 1,392px band and neither of them used it.
+
+   Quick facts. ui.css caps .facts-list li at 64em, and the comment above that
+   cap in ui.css says out loud what it buys: "roughly 100 characters". That is
+   the cap doing its job at the wrong number. Six cards, each 972px wide with
+   100 characters a line, stacked, with 420px of empty band beside every one of
+   them. Two columns fixes both halves at once: the band is full, the page loses
+   about half the height of the section, and the measure drops to roughly 70
+   because the column is 684px instead of 972px. The em cap has to be released
+   for the second column to exist at all, which is why max-width goes to none
+   here and not anywhere narrower.
+
+   Rarity breakdown. .rar is a two column grid, a rarity name on the left and a
+   count on the right, with the bar spanning underneath. At 1,392px the name and
+   its count were most of a metre apart. Two of them per row halves that and
+   halves the section.
+
+   1200 is where two 684px columns still hold the longest item without the
+   measure going the other way and getting too short. */
+@media(min-width:1200px){
+  .facts-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:11px;align-items:start}
+  .facts-list li{max-width:none}
+  .rarity-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px 20px;align-items:start}
+}
+/* Reading measure for the standalone prose. These are capped in em, which is
+   the font SIZE and not the character width, so the same number gives a
+   different count in a different face: .lede at 38em measured 78 characters
+   here, and .intl-lede on /sets/index.html measured 95.7 at 810px, the widest
+   measure on any set page.
+
+   50ch AND NOT 70ch. ch is the advance width of a "0" and a digit is one of the
+   widest glyphs in Outfit, so a character averages about 0.7 of a ch: 50ch sets
+   around 70 and 70ch would set 100. The measurement, and the first pass that
+   used ch as if it meant characters and made a page WORSE, are written out in
+   build-buying.mjs.
+
+   Gated at 1000 because below it the wrap is narrower than any of these caps
+   and none of them bind.
+
+   .wNN ARE THE INLINE style="max-width:38em" ATTRIBUTES, MOVED TO CLASSES. An
+   inline style beats every stylesheet rule that is not !important, so a media
+   query could not reach them. The four declarations below reproduce the inline
+   values exactly, so every width under the breakpoint renders what it rendered
+   before and the media query is the only behaviour change. */
+.w34{max-width:34em}
+.w38{max-width:38em}
+.w40{max-width:40em}
+.w42{max-width:42em}
+@media(min-width:1000px){
+  .lede,.sv-say,.intl-lede,.w34,.w38,.w40,.w42{max-width:50ch}
+  .prod-note,.price-note{max-width:64ch}
+}
+
+/* THE SET SYMBOL STRIP, under the fact tiles in the hero.
+   The BOX is fixed at 40px square with object-fit:contain, and the img carries
+   the file's own scaled shape in its attributes. The two do different jobs: the
+   attributes stop a reflow before the file decodes, the box stops the row
+   changing height between guides. The symbols are not one shape (base1 is
+   48x25, sv1 is 40x40), so a guide-to-guide jump is real without it. */
+.setsym{display:flex;align-items:center;gap:var(--s4);margin-top:var(--s4);
+  padding:var(--s3) var(--s4);border:1px solid var(--hair);border-radius:var(--r);
+  background-color:var(--card);box-shadow:var(--lift);max-width:44em}
+.setsym-i{flex:0 0 40px;width:40px;height:40px;object-fit:contain}
+.setsym p{margin:0;font-size:var(--t-sm);line-height:1.5}
+
+/* THE RARITY LADDER'S STAR ROW. .rar-name holds the tier name and the mark sits
+   inline in front of it, so it rides the text's own baseline. RARITY_CSS below
+   is the shared key's own stylesheet, appended verbatim rather than copied:
+   shared/rarity.mjs keeps the colours next to the shapes precisely so the two
+   cannot drift, and this page was already emitting .rk markup in the hits band
+   with NO stylesheet behind it, which left the one Japanese letter badge on
+   /sets/ja-cyber-judge.html rendering as bare text. */
+.rar-name .rk{margin-right:5px}
+
+/* THE VALUE CONCENTRATION CHART. Label, bar, label, stacked on a phone and one
+   row from 560px up, so the two bars sit on the same left edge and are directly
+   comparable, which is the only reason the chart exists.
+   The SVG is width:100%;height:auto against its own 300x16 viewBox, so it
+   scales as one piece and the rounded ends stay round. display:block matters:
+   an inline SVG sits on the text baseline and leaves a descender gap under it
+   that reads as a misaligned bar. */
+.svc{margin-top:var(--s5);max-width:42em;display:flex;flex-direction:column;gap:var(--s4)}
+.svc-row{display:grid;gap:4px}
+.svc-bar{display:block;width:100%;height:auto}
+.svc-track{fill:var(--paper-3);stroke:var(--keyline);stroke-width:2}
+.svc-fill{fill:var(--gold)}
+.band-sky .svc-track{fill:#fff;fill-opacity:.55}
+.svc-k{margin:0;font-weight:700;font-size:var(--t-sm)}
+.svc-v{margin:0;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.02em}
+@media(min-width:560px){
+  .svc-row{grid-template-columns:11em minmax(0,1fr);align-items:center;gap:2px var(--s4)}
+  .svc-k{grid-row:1;grid-column:1}
+  .svc-bar{grid-row:1;grid-column:2}
+  .svc-v{grid-row:2;grid-column:2}
+}
+${RARITY_CSS}`;
 
 /**
  * The same trade build-css.mjs makes for ui.css, for the same reason: the
@@ -1503,7 +1762,7 @@ function setPage(s) {
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On the channel</p>
     <h2>Every ${esc(s.name)} <span class="hl">rip</span></h2>
-    <p class="lede" style="max-width:38em">${all.length} video${all.length === 1 ? "" : "s"} opening this set${
+    <p class="lede w38">${all.length} video${all.length === 1 ? "" : "s"} opening this set${
         all.length > show.length ? `, newest ${show.length} below` : ""
       }.</p>
     <ul class="riplist">
@@ -1646,7 +1905,7 @@ function setPage(s) {
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
     <h2>What we have <span class="hl">hit</span> from this set</h2>
-    <p class="lede" style="max-width:38em">${priced.length + prose.length} card${priced.length + prose.length === 1 ? "" : "s"} out of our own packs. Every one of them is in a video you can watch.</p>
+    <p class="lede w38">${priced.length + prose.length} card${priced.length + prose.length === 1 ? "" : "s"} out of our own packs. Every one of them is in a video you can watch.</p>
     ${priced.length ? `<ul class="mine-grid">
       ${priced
         .map(
@@ -1738,7 +1997,7 @@ function setPage(s) {
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
     <h2>Rarity <span class="hl">breakdown</span></h2>
-    ${ordered.length ? `${rarPr.size ? `<p class="lede" style="max-width:42em">How many cards sit at each rarity, and what those
+    ${ordered.length ? `${rarPr.size ? `<p class="lede w42">How many cards sit at each rarity, and what those
       cards are worth. <b>Mid</b> is the middle card at that rarity: half of them cost more than that and half cost
       less, which is a far better guide to what you will actually see than the one famous card at the top.</p>` : ""}
     <div class="rarity-list">
@@ -1746,7 +2005,7 @@ function setPage(s) {
         const key = rarityLabel(r) || r;
         const pr = rarPr.get(key);
         return `<div class="rar${CHASE.has(key) ? " chase" : ""}">
-        <span class="rar-name">${esc(key)}</span>
+        <span class="rar-name">${BOOKLET_MARK[key] ? rarityMark(BOOKLET_MARK[key]) : ""}${esc(key)}</span>
         <span class="rar-n">${n}</span>
         ${pr
           ? `<span class="rar-pr">${
@@ -1758,7 +2017,11 @@ function setPage(s) {
         <span class="rar-bar"><i style="width:${Math.max(4, Math.round((n / maxN) * 100))}%"></i></span>
       </div>`;
       }).join("\n      ")}
-    </div>${rarPr.size ? `
+    </div>${ordered.some(([r]) => BOOKLET_MARK[rarityLabel(r) || r]) ? `
+    <p class="price-note">The stars beside a tier are the ones printed on the card, redrawn from the key in the
+      booklet that ships inside a modern set. The colour carries as much of the meaning as the count: two silver
+      stars is Ultra Rare and two black stars is Double Rare. Tiers with no stars are not on that page, so this
+      site does not draw one for them. <a href="/rarity.html">The whole rarity key</a>.</p>` : ""}${rarPr.size ? `
     <p class="price-note">Prices worked out from the ${esc(s.name)} checklist below, read ${esc(
       longDate(checklists[s.id]?.checked) || checklists[s.id]?.checked || ""
     )}. A rarity only gets a figure where every card at that rarity has a price and the checklist agrees with the set's
@@ -1830,7 +2093,7 @@ function setPage(s) {
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     ${hasLogo(s.id) ? `<img class="logo-big"${logoAttrs(s.id)} src="${logo}" alt="" onerror="this.remove()">` : ""}
     <h1>${esc(s.name)}</h1>
-    <p class="lede" style="max-width:34em">Everything worth knowing about ${esc(s.name)} in one screen. Card counts, what is actually rare, and what the chase cards are going for.</p>
+    <p class="lede w34">Everything worth knowing about ${esc(s.name)} in one screen. Card counts, what is actually rare, and what the chase cards are going for.</p>
   </div>
 </header>
 
@@ -1875,6 +2138,12 @@ ${(() => {
       ${packPrice ? `<div class="fact"><div class="n">${esc(packPrice)}</div><div class="l">${esc(packFrom)}</div></div>` : ""}
     </div>`;
 })()}
+${symbolFor(s) ? `
+    <div class="setsym">
+      ${symbolFor(s)}
+      <p>That is the ${esc(s.name)} set symbol. Every card in the set prints it at the bottom, beside the
+        collector number. <a href="/what-set.html">Holding a card and not sure which set it is?</a></p>
+    </div>` : ""}
   </div>
 </section>
 
@@ -1965,7 +2234,12 @@ function indexPage() {
       })),
     },
   ];
-  return head({ title: `Pokemon TCG Set Guides: Cards, Rarities & Chase Values | Garbage Rips 585`, desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld }) + `
+  // PAGE_CSS reaches the index too now. It used to go only to the guides, so
+  // the index was the one page in this builder with no desktop rules on it, and
+  // it held the widest measure of any of them: .intl-lede ran 810px and set
+  // 95.7 characters a line. The rules it does not use, the two column .facts-
+  // list and .rarity-list, match nothing here and cost a few hundred bytes.
+  return head({ title: `Pokemon TCG Set Guides: Cards, Rarities & Chase Values | Garbage Rips 585`, desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld, css: PAGE_CSS }) + `
 <header class="set-hero">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
@@ -1973,7 +2247,7 @@ function indexPage() {
     ${/* "we cover", not "we rip". Eight of the sets listed below have a guide
           and no rip on them, which the "N rips" line on each card says out
           loud, so the lede was contradicted by the grid under it. */ ""}
-    <p class="lede" style="max-width:34em">Every set we cover, boiled down to the facts that matter. Card counts, what is genuinely rare, and what the chase cards cost.</p>
+    <p class="lede w34">Every set we cover, boiled down to the facts that matter. Card counts, what is genuinely rare, and what the chase cards cost.</p>
   </div>
 </header>
 

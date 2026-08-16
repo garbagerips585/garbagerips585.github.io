@@ -239,6 +239,70 @@ const desc = (
   `${priciest.name} the priciest at ${moneyRound(priciest.base)}.`
 ).slice(0, 160);
 
+// The page's own stylesheet. It had none: everything here came from ui.css plus
+// a handful of inline style="max-width:38em" attributes on the ledes. This
+// block exists rather than a change to assets-source/ui.css because these rules
+// are wanted on ONE page and ui.css is render blocking on 426 of them.
+//
+// THE FOUR .wNN CLASSES ARE THE INLINE ATTRIBUTES, MOVED. An inline style beats
+// every stylesheet rule that is not !important, so a media query could not
+// reach them. The values here are the inline values EXACTLY, so every width
+// below the breakpoint renders what it rendered before and the media query is
+// the only behaviour change.
+//
+// WHAT WAS WRONG, MEASURED AT 1440. This page fills its band: .gc-grid is four
+// columns and the five column cost table is dense, and neither is touched. The
+// fault was the reading measure around them. The quick facts cards ran 973px
+// and set 96 characters a line with one at 140.7, the golden-rule callout ran
+// 728px at 14px type for 100.3, and the ledes sat at 82.3 against a 65 to 75
+// target.
+//
+// 50ch AND NOT 70ch. ch is the advance width of a "0", and a digit is one of
+// the widest glyphs in Outfit, so a character averages about 0.7 of a ch: 50ch
+// sets around 70 and 70ch would set 100. The measurement, and the first pass
+// that got it backwards, are written out in build-buying.mjs.
+// COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same trade
+// build-css.mjs makes for ui.css and miniCSS makes in build-set-pages.mjs, and
+// the same regex: comments, plus the indentation between rules. Nothing else.
+//
+// It is here because this block is inline in a render blocking <head> and the
+// desktop rules added on 16 August 2026 came with the measurements that justify
+// them written alongside. Measured on this page set, those comments were 17.1KB
+// raw and 7.1KB gzipped across eight pages, up to 13% of one of them. Stripped,
+// every one of these pages is smaller than it was before the rules were added.
+const miniCSS = (css) =>
+  css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
+
+const style = `
+.w34{max-width:34em}
+.w38{max-width:38em}
+.w40{max-width:40em}
+.w42{max-width:42em}
+@media(min-width:1000px){
+  .w34,.w38,.w40,.w42{max-width:50ch}
+  .fk-golden p{max-width:52ch}
+}
+/* THE QUICK FACTS GO TWO UP RATHER THAN GETTING A NARROWER CAP, and the first
+   attempt did the other thing, which is worth recording because it looked
+   right and measured wrong. Capping .facts-list li to 52ch brought the measure
+   from 96 characters a line down to 62, and made the page 446px TALLER while
+   leaving 873px of empty band beside every card. A cap fixes the measure by
+   throwing the width away.
+
+   Two columns fixes both halves: the band is full, the section loses half its
+   height, and each card is 686px instead of 973px. The measure lands around 86
+   rather than 70, and that is accepted here rather than chased, because these
+   are two line cards rather than sustained prose: a long measure costs a reader
+   when the eye has to find the start of the next line forty times in a row, and
+   these cards are read in twos. Same treatment and same reasoning as the set
+   guides in build-set-pages.mjs. */
+@media(min-width:1200px){
+  .facts-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:11px;align-items:start}
+  .facts-list li{max-width:none}
+}
+`;
+
 const ld = [
   {
     "@context": "https://schema.org",
@@ -311,6 +375,7 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
+<style>${miniCSS(style)}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -329,7 +394,7 @@ ${MENU}
          a feed we do not run. -->
     <span class="kicker">Pokemon TCG &bull; Priced ${esc(longDate(checked) || "recently")}</span>
     <h1>What does it cost to <span class="hl">complete</span> a set?</h1>
-    <p class="lede" style="max-width:38em">Every set we cover, costed three ways, from the commons run to the full
+    <p class="lede w38">Every set we cover, costed three ways, from the commons run to the full
       master set. Every figure is added up from market prices read on
       ${esc(longDate(checked) || "the date at the bottom of this page")}, not a number somebody typed into an
       article two years ago, and they get read again each night.</p>
@@ -363,7 +428,7 @@ ${MENU}
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Three ways to finish</p>
     <h2>What counts as <span class="hl">complete</span>?</h2>
-    <p class="lede" style="max-width:40em">The word means three different things depending who is saying it, and the
+    <p class="lede w40">The word means three different things depending who is saying it, and the
       gap between them is most of the cost. Pick the one you actually want before you start buying.</p>
     <div class="gc-grid">
       <article class="gc">
@@ -395,7 +460,7 @@ ${MENU}
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>All ${rows.length} sets</p>
     <h2>Cheapest to <span class="hl">priciest</span></h2>
-    <p class="lede" style="max-width:40em">Sorted by base set, which is the tier most people are asking about. Every
+    <p class="lede w40">Sorted by base set, which is the tier most people are asking about. Every
       figure buys one copy of each card at its cheapest printing, at market, before shipping.</p>
     <div class="cc-scroll" tabindex="0" role="region" aria-label="Cost to complete each set, scrollable table">
       <table class="cc-table">
@@ -426,7 +491,7 @@ ${MENU}
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The one card problem</p>
     <h2>When the set <span class="hl">is</span> one card</h2>
-    <p class="lede" style="max-width:40em">In ${lopsided.length} of these ${rows.length} sets, a single card is at least
+    <p class="lede w40">In ${lopsided.length} of these ${rows.length} sets, a single card is at least
       a quarter of the entire master-set bill. Completing those sets is not really a grind, it is one purchase with a
       long tail attached, and it is worth seeing that number before you decide the set is out of reach.</p>
     <ul class="cs-ones">
@@ -442,7 +507,7 @@ ${MENU}
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Two different prices</p>
     <h2>The cards are nearly free. The <span class="hl">postage</span> is not.</h2>
-    <p class="lede" style="max-width:40em">Every figure above is market price, meaning what copies have actually been
+    <p class="lede w40">Every figure above is market price, meaning what copies have actually been
       selling for. There is a second number worth knowing: the cheapest copy listed right now. On the cards that make
       up a base set those two are miles apart, and on the cards that make up a master set they are almost the same.</p>
     <div class="facts">
@@ -451,7 +516,7 @@ ${MENU}
       <div class="fact wide"><div class="n">${moneyRound(totalBaseFloor / rows.length)}</div><div class="l">Average base set at cheapest listings, before postage</div></div>
     </div>
 
-    <p style="max-width:40em;margin-top:16px">The reason is that a three cent common's cheapest copy is a penny, while
+    <p class="w40" style="margin-top:16px">The reason is that a three cent common's cheapest copy is a penny, while
       a ${moneyRound(dearestMaster.top.price)} chase card's cheapest copy is close to what it sells for. So the money in
       a base set is not really in the cards, it is in getting ${meanBase} of them into one envelope.
       ${esc(widest.name)} is the extreme case: ${moneyRound(widest.base)} at market against

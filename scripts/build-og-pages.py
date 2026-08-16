@@ -89,6 +89,11 @@ PAGES = {
     # and the shipping arithmetic is the part nobody else prints.
     "buying": ("WHAT IT REALLY COSTS", "Where to buy", "Shipping, buyer fees, and who eats it when it is wrong"),
     "drops": ("NOBODY ANNOUNCES THESE", "Drops this week", "What retailers are expected to have, in store and online"),
+    # The kicker is the count because the count IS the pitch: every other "all
+    # the Pokemon games" list on the web is the two dozen core titles, and the
+    # arcade cabinets, the Pokemon mini library and the dead phone games are
+    # what this one has that they do not. The headline is the page's own H1.
+    "video-games": ("EVERY SINGLE ONE", "Every Pokemon game, in order", "Covers, dates and scores, Red and Green to now"),
 }
 
 

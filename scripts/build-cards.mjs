@@ -164,6 +164,38 @@ const desc =
   `Search ${printings.total.toLocaleString("en-US")} Pokemon card printings across ${printings.sets} sets by name, ` +
   `with rarity and current TCGplayer market price. Updated ${longDate(newest) || newest}.`;
 
+// DESKTOP LAYOUT, and it lives here rather than in assets-source/ui.css on
+// purpose: it is the only page that wants these rules, and ui.css is already
+// render blocking on 426 pages.
+//
+// WHAT WAS WRONG, MEASURED. .cq-list is one column at every width. A result row
+// is a 60px thumbnail, a name, a set label and a price, and nothing else, so at
+// 1440 each row was 1,392px wide with roughly 900px of empty band between the
+// name and the price, 48 of them stacked, and the page ran 8,293px. That is the
+// phone layout served unchanged to a desktop: correct at 390, absurd at 1440.
+//
+// EVERY RULE IS min-width ONLY, so a phone and a tablet render exactly what
+// they rendered before. 1080 is the first width where two rows fit without the
+// name and price colliding (a row needs ~440px before the name starts to wrap),
+// and 1600 is where three do.
+//
+// The reading order is still the DOM order: a CSS grid fills row by row, so a
+// list sorted by price descending still reads left to right, top to bottom.
+//
+// The search form is capped in the same block. It is `1fr 260px`, so at 1440
+// the input was 1,130px wide and the set picker sat 1,160px away from the thing
+// it filters. Nothing is gained by a search box wider than the query anybody
+// types into it.
+const DESKTOP_CSS = `<style>
+@media(min-width:1080px){
+  .cq-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}
+  .cardsearch{max-width:860px}
+}
+@media(min-width:1600px){
+  .cq-list{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+</style>`;
+
 const ld = [
   {
     "@context": "https://schema.org",
@@ -265,6 +297,7 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
+${DESKTOP_CSS}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>

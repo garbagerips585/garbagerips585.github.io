@@ -22,21 +22,20 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=67f732be">
+<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
-<style>
-.by-lede{max-width:46em}
+<style>.by-lede{max-width:46em}
 .by-jump{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:var(--s5) 0 var(--s4)}
 .by-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
-  border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
-  text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
+border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
+text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
 .by-jump a:hover{border-color:var(--ink);background:var(--mustard)}
 .by-jg{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
-  color:var(--ink-2);margin-left:var(--s2)}
+color:var(--ink-2);margin-left:var(--s2)}
 .by-jg:first-child{margin-left:0}
 .by-v{scroll-margin-top:var(--s5)}
 .by-key{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:var(--chrome-ink);
-  padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
+padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
 .by-key h2{color:var(--chrome-ink);margin-bottom:var(--s3)}
 .by-key p{color:var(--foot-ink);line-height:1.55;max-width:44em}
 .by-key p + p{margin-top:var(--s3)}
@@ -45,27 +44,37 @@
 .by-vs{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
 @media(max-width:900px){.by-vs{grid-template-columns:1fr}}
 .by-v,.by-p{border:3px solid var(--navy);border-radius:12px;background:var(--card);
-  box-shadow:var(--hard-lg);padding:var(--s4)}
-.by-vh{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2);margin-bottom:var(--s2)}
+box-shadow:var(--hard-lg);padding:var(--s4)}
+.by-vh{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);margin-bottom:var(--s2)}
 .by-vh h3{font:400 var(--t-m)/1.15 var(--display)}
+.by-vh .bmk-multi{flex-basis:100%}
+.bmk{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+height:34px;min-width:56px;max-width:124px;padding:4px 9px;box-sizing:border-box;
+background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r-sm)}
+.bmk img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+.bmk-multi{max-width:100%;flex-wrap:wrap;gap:6px 12px;height:auto;min-height:34px;padding:6px 10px}
+.bmk-multi img{max-height:22px;max-width:74px}
+@media(max-width:420px){.bmk-multi img{max-height:19px;max-width:64px}}
+.bmk-d{color:var(--ink-2)}
+.bmk-n{background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
+.bmk-n b{font:700 var(--t-micro)/1.15 var(--mono);letter-spacing:.01em;color:var(--ink);
+text-align:center;overflow-wrap:anywhere;background:var(--paper-2);
+box-shadow:0 0 0 3px var(--paper-2);border-radius:2px}
 .by-st{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
-  padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2)}
-.by-st.ok{background:#1E5B34;color:#EAF6EE;border-color:#1E5B34}
-.by-st.unv{background:var(--card);color:var(--ink-2);border-style:dashed}
+padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2)}
+.by-st.ok{background:var(--chrome-bg);color:var(--chrome-ink);border-color:var(--chrome-bg)}
+.by-st.part{background:var(--paper-3);color:var(--ink);border-color:var(--hair)}
+.by-st.unv{background:var(--paper-2);color:var(--ink);border:1.5px dashed var(--ink-2)}
 .by-fmt{color:var(--ink-2);font-size:var(--t-sm);margin-bottom:var(--s2)}
 .by-best,.by-stack,.by-prot,.by-auth,.by-cond,.by-nb,.by-none{font-size:var(--t-sm);line-height:1.5;margin-top:var(--s2)}
 .by-nb,.by-none{color:var(--ink-2)}
 .by-fees{list-style:none;margin:var(--s3) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--s2)}
 .by-fees li{font-size:var(--t-sm);line-height:1.45;padding-left:var(--s3);border-left:3px solid var(--gold)}
-/* The FIRST cost on every venue is its shipping line, which is the number most
-   readers came for, so it gets the ketchup rule instead of the gold one. The
-   colour is not carrying the meaning on its own: the bold label still names it,
-   which is the only reason a colour-only cue is acceptable here at all. */
 .by-fees li:first-child{border-left-color:var(--ketchup)}
 .by-on,.by-nt{display:block;color:var(--ink-2);font-size:var(--t-micro);margin-top:2px}
 .by-p ul{margin:var(--s2) 0 0 var(--s4);font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
 .by-lbl{font-size:var(--t-sm);margin-top:var(--s3)}
-.by-yes b{color:#1E5B34}
+.by-yes b{color:var(--ink)}
 .by-no b{color:var(--ketchup-deep)}
 .by-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s3);line-height:1.6}
 .by-s1,.by-rd{font:400 var(--t-micro)/1 var(--mono);white-space:nowrap}
@@ -80,8 +89,25 @@
 .by-chain{list-style:none;margin:var(--s4) 0 0;padding:0;max-width:46em}
 .by-chain li{border-left:4px solid var(--gold);padding:0 0 0 var(--s3);margin-bottom:var(--s4);line-height:1.55}
 .by-chain b{display:block;font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;
-  text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
-</style>
+text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
+@media(min-width:1000px){
+.by-lede{max-width:50ch}
+.by-grp > p{max-width:50ch}
+.by-key p{max-width:50ch}
+.by-src{max-width:64ch}
+}
+@media(min-width:1100px){
+.by-top{display:grid;grid-template-columns:minmax(0,620px) minmax(0,1fr);
+gap:var(--s5) var(--s6);align-items:start}
+.by-top .by-jump{margin-top:0}
+.by-key{display:grid;grid-template-columns:300px minmax(0,1fr);
+gap:var(--s5);align-items:start}
+.by-key > h2{margin-bottom:0}
+}
+@media(min-width:1200px){
+.by-list,.by-chain{columns:2;column-gap:var(--s6);max-width:none}
+.by-list li,.by-chain li{break-inside:avoid}
+}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Where to buy"}]}</script>
 </head>
 <body>
@@ -168,6 +194,7 @@
       <p class="menu-h">Play</p>
       <ul>
         <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
       </ul>
     </div>
@@ -188,6 +215,14 @@
   <section class="tight">
     <div class="wrap">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Where to buy</span></nav>
+      <!-- .by-top and .by-intro are wrappers with no effect until the min-width
+           rule in the style block turns .by-top into a grid, which puts the
+           venue jump nav BESIDE the opening paragraphs instead of under them.
+           They exist as elements because the h1, three ledes and the nav are
+           otherwise flat siblings of everything else in this wrap, and a grid
+           over the wrap would have to place the whole page. -->
+      <div class="by-top">
+      <div class="by-intro">
       <h1>Where to <span class="hl">buy</span> cards online</h1>
       <p class="lede by-lede">10 places to buy Pokemon cards, and what each one actually costs once
         shipping and buyer fees are counted. Every figure was read off the company's own shipping, help or policy
@@ -201,6 +236,7 @@
       <p class="lede by-lede">This is <a href="/selling.html">where to sell</a> pointed the other way. Same
         companies, different set of numbers, and the buyer's protection is usually the bigger one. Prices and
         policies move: every figure here carries the date it was read.</p>
+      </div>
 
       <nav class="by-jump" aria-label="Jump to a venue">
         <span class="by-jg">Marketplaces</span>
@@ -217,13 +253,23 @@
         <a href="#amazon">Amazon</a>
         <a href="#big-box">Target, Walmart, Best Buy and Costco</a>
       </nav>
+      </div>
 
       <div class="by-key">
         <h2>The two questions that decide how a purchase can go wrong</h2>
+        <!-- The paragraphs are wrapped so the heading can sit beside ALL of
+             them rather than beside the first one. Left as flat siblings in a
+             two column grid, the heading takes row 1 column 1 and paragraph one
+             takes row 1 column 2, so the row is as tall as the taller of the
+             two and a gap opens under whichever is shorter. Measured, the three
+             line heading left a 40px hole under the first paragraph. One
+             wrapper is one grid item and the problem does not exist. -->
+        <div class="by-key-body">
         <p>Who touched the card before you did, and who is holding the money if it turns out to be wrong? Neither one is answered by how well known the site is.</p>
         <p>Those are two questions, not one, and at the same venue they have different answers. A marketplace holds the money on every order it processes, which is the only reason a dispute exists at all. It has almost never held the card. The exceptions are the interesting part of this page: TCGplayer Direct and eBay's Authenticity Guarantee both put a third party physically between the seller and you, and they are the only two mechanisms found here that PREVENT a problem rather than pay for it afterwards.</p>
         <p>Buyer protection is generally the bigger of the two products a venue sells. Sellers get the smaller one, which is what our selling guide records. What varies most is not whether you are covered but how long you have, and trading cards get a shorter clock than almost any other category at the venues that publish a carve-out.</p>
         <p>And every protection listed here is conditional on the payment having gone through the platform. Moving it off does not weaken your protection, it deletes it, and all of these policies say so in their own words.</p>
+        </div>
       </div>
 
       <section class="by-grp">
@@ -232,6 +278,7 @@
         <div class="by-vs">
       <article class="by-v" id="tcgplayer">
         <div class="by-vh">
+          <span class="bmk"><img src="/assets/brands/tcgplayer.svg" alt="TCGplayer" width="801" height="337" loading="lazy" decoding="async"></span>
           <h3><a href="https://help.tcgplayer.com/hc/en-us/articles/201996807-How-is-shipping-applied-to-marketplace-orders" rel="noopener" target="_blank">TCGplayer</a></h3>
           <span class="by-st ok">Costs sourced</span>
         </div>
@@ -290,6 +337,7 @@
       </article>
       <article class="by-v" id="ebay">
         <div class="by-vh">
+          <span class="bmk"><img src="/assets/brands/ebay.svg" alt="eBay" width="1000" height="401" loading="lazy" decoding="async"></span>
           <h3><a href="https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210" rel="noopener" target="_blank">eBay</a></h3>
           <span class="by-st part">Partly sourced</span>
         </div>
@@ -323,6 +371,7 @@
       </article>
       <article class="by-v" id="whatnot">
         <div class="by-vh">
+          <span class="bmk"><img src="/assets/brands/whatnot.svg" alt="Whatnot" width="594" height="115" loading="lazy" decoding="async"></span>
           <h3><a href="https://help.whatnot.com/hc/en-us/articles/16369289657741-Shipping-for-buyers-in-the-US" rel="noopener" target="_blank">Whatnot</a></h3>
           <span class="by-st ok">Costs sourced</span>
         </div>
@@ -372,6 +421,7 @@
         <div class="by-vs">
       <article class="by-v" id="coolstuffinc">
         <div class="by-vh">
+          <span class="bmk bmk-n" aria-hidden="true"><b>CoolStuffInc</b></span>
           <h3><a href="https://www.coolstuffinc.com/page/1100" rel="noopener" target="_blank">CoolStuffInc</a></h3>
           <span class="by-st ok">Costs sourced</span>
         </div>
@@ -415,6 +465,7 @@
       </article>
       <article class="by-v" id="card-cavern">
         <div class="by-vh">
+          <span class="bmk bmk-n" aria-hidden="true"><b>Card Cavern</b></span>
           <h3><a href="https://cardcaverntradingcards.com/policies/shipping-policy" rel="noopener" target="_blank">Card Cavern</a></h3>
           <span class="by-st ok">Costs sourced</span>
         </div>
@@ -458,6 +509,7 @@
       </article>
       <article class="by-v" id="dave-and-adams">
         <div class="by-vh">
+          <span class="bmk bmk-n" aria-hidden="true"><b>Dave &amp; Adam's</b></span>
           <h3><a href="https://help.dacardworld.com/en/articles/880704" rel="noopener" target="_blank">Dave and Adam's Card World</a></h3>
           <span class="by-st ok">Costs sourced</span>
         </div>
@@ -491,6 +543,7 @@
       </article>
       <article class="by-v" id="troll-and-toad">
         <div class="by-vh">
+          <span class="bmk bmk-n" aria-hidden="true"><b>Troll &amp; Toad</b></span>
           <h3><a href="https://trollandtoad.com/" rel="noopener" target="_blank">Troll and Toad</a></h3>
           <span class="by-st unv">Costs unverified</span>
         </div>
@@ -514,6 +567,7 @@
         <div class="by-vs">
       <article class="by-v" id="pokemon-center">
         <div class="by-vh">
+          <span class="bmk"><img src="/assets/brands/pokemon-center.svg" alt="The Pokémon Company" width="269" height="25" loading="lazy" decoding="async"></span>
           <h3><a href="https://www.pokemoncenter.com/shipping" rel="noopener" target="_blank">Pokemon Center</a></h3>
           <span class="by-st ok">Costs sourced</span>
         </div>
@@ -547,6 +601,7 @@
       </article>
       <article class="by-v" id="amazon">
         <div class="by-vh">
+          <span class="bmk"><img src="/assets/brands/amazon.svg" alt="Amazon" width="603" height="182" loading="lazy" decoding="async"></span>
           <h3><a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GZXW7X6AKTHNUP6H" rel="noopener" target="_blank">Amazon</a></h3>
           <span class="by-st part">Partly sourced</span>
         </div>
@@ -590,6 +645,7 @@
       </article>
       <article class="by-v" id="big-box">
         <div class="by-vh">
+          <span class="bmk bmk-multi"><img src="/assets/brands/target.svg" alt="Target" width="300" height="300" loading="lazy" decoding="async"><img src="/assets/brands/walmart.svg" alt="Walmart" width="1024" height="241" loading="lazy" decoding="async"><img src="/assets/brands/bestbuy.svg" alt="Best Buy" width="1000" height="584" loading="lazy" decoding="async"><img src="/assets/brands/costco.svg" alt="Costco Wholesale" width="201" height="72" loading="lazy" decoding="async"></span>
           <h3><a href="https://www.target.com/help/article/000061982" rel="noopener" target="_blank">Target, Walmart, Best Buy and Costco</a></h3>
           <span class="by-st part">Partly sourced</span>
         </div>
@@ -650,7 +706,10 @@
           get a shorter clock than almost anything else at the venues that publish a carve-out.</p>
         <div class="by-ps">
       <article class="by-p">
-        <h3>TCGplayer</h3>
+        <div class="by-vh">
+          <span class="bmk"><img src="/assets/brands/tcgplayer.svg" alt="TCGplayer" width="801" height="337" loading="lazy" decoding="async"></span>
+          <h3>TCGplayer</h3>
+        </div>
         <p class="by-nb">The clearest published clock of any venue here, and the one that runs from an estimate rather than an event.</p>
         <p class="by-lbl by-yes"><b>Covers.</b></p><ul><li>Wrong condition, wrong card, missing card. Singles are otherwise non-returnable, and those three are the whole list.</li><li>Never arrived, once the estimated delivery date has passed.</li><li>Damaged in transit, provided you do not open the package. Open it and the seller may refund only what is actually damaged.</li><li>Counterfeits, at 100%, in TCGplayer's own words.</li></ul>
         <p class="by-lbl"><b>Clocks.</b></p><ul><li>30 calendar days after the ESTIMATED delivery date, for every issue type. Not from actual delivery, and not from the order date.</li><li>The seller has 2 business days to respond before you can escalate. TCGplayer says it monitors the message from the moment you send it, contacts the seller at 24 hours and escalates internally at 72.</li><li>Reported missing on or within 2 business days of the estimated delivery date, the seller may ask you to wait. Later than that, they are expected to refund immediately.</li></ul>
@@ -661,7 +720,10 @@
         <p class="by-src"><a href="https://help.tcgplayer.com/hc/en-us/articles/201642073-What-is-TCGplayer-s-Refund-and-Return-policy" aria-label="TCGplayer policy, source 1" rel="noopener" target="_blank">Source</a>, <a href="https://help.tcgplayer.com/hc/en-us/articles/201637633-TCGplayer-Safeguard" aria-label="TCGplayer policy, source 2" rel="noopener" target="_blank">Source 2</a>, read August 15, 2026</p>
       </article>
       <article class="by-p">
-        <h3>eBay Money Back Guarantee</h3>
+        <div class="by-vh">
+          <span class="bmk"><img src="/assets/brands/ebay.svg" alt="eBay" width="1000" height="401" loading="lazy" decoding="async"></span>
+          <h3>eBay Money Back Guarantee</h3>
+        </div>
         <p class="by-nb">The widest coverage here and the shortest card-specific deadline here, at the same time.</p>
         <p class="by-lbl by-yes"><b>Covers.</b></p><ul><li>The item never arrived, or was not made available for collection.</li><li>The item does not match the listing: wrong item, or broken, damaged or faulty and not described as such.</li><li>The seller does not honour the return policy stated in their own listing.</li></ul>
         <p class="by-nb"><b>Trading cards specifically.</b> For trading cards, bullion, coins and paper money, if the seller does not offer returns the buyer must request a return no later than 3 CALENDAR DAYS after the estimated or actual delivery date. Every other category gets 30. If the seller does offer returns, their stated window applies instead.</p>
@@ -672,7 +734,10 @@
         <p class="by-src"><a href="https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210" aria-label="eBay Money Back Guarantee policy, source 1" rel="noopener" target="_blank">Source</a>, read August 15, 2026</p>
       </article>
       <article class="by-p">
-        <h3>eBay Authenticity Guarantee</h3>
+        <div class="by-vh">
+          <span class="bmk"><img src="/assets/brands/ebay.svg" alt="eBay" width="1000" height="401" loading="lazy" decoding="async"></span>
+          <h3>eBay Authenticity Guarantee</h3>
+        </div>
         <p class="by-nb">The only mechanism found anywhere that inspects a raw card before it reaches the buyer instead of paying out afterwards.</p>
         <p class="by-lbl"><b>How it works.</b></p><ul><li>Eligible listings carry a blue checkmark and go through automatically on purchase. The seller ships to the authentication facility rather than to you.</li><li>PSA runs a multi-point inspection on an ungraded card, checking corners, edges, surface and overall condition against the listing description. On a graded card they inspect the sealed holder for tampering and verify that the case and label are authentic to the grader.</li><li>No grading or regrading is performed, so a raw card does not come back with a number on it.</li><li>The card then ships to you, with signature confirmation required on cards over $1,500.</li></ul>
         <p class="by-nb"><b>Threshold.</b> $200 and above for ungraded singles, and $200 and above for autograph, relic and other graded cards. On an auction it is the price it sells for that decides, not the starting price. Accepted graders are PSA, SGC, CGC Cards and BGS.</p>
@@ -682,7 +747,10 @@
         <p class="by-src"><a href="https://www.ebay.com/authenticity-guarantee/tradingcards" aria-label="eBay Authenticity Guarantee policy, source 1" rel="noopener" target="_blank">Source</a>, read August 15, 2026</p>
       </article>
       <article class="by-p">
-        <h3>Whatnot</h3>
+        <div class="by-vh">
+          <span class="bmk"><img src="/assets/brands/whatnot.svg" alt="Whatnot" width="594" height="115" loading="lazy" decoding="async"></span>
+          <h3>Whatnot</h3>
+        </div>
         
         <p class="by-lbl by-yes"><b>Covers.</b></p><ul><li>Incomplete or incorrect items: something missing or something wrong.</li><li>Not as described or inauthentic: damaged, defective, counterfeit or fake, or not matching the condition description.</li><li>Package not received: lost or delayed in transit, never shipped, misdelivered, or marked delivered and not received.</li></ul>
         <p class="by-nb"><b>Trading cards specifically.</b> Trading Card Games, along with Sports Cards, Coins and Money, Sneakers and Streetwear and Luxury Goods, must be claimed by the earlier of 7 DAYS FROM DELIVERY or 30 days from purchase. The general deadline is the earlier of 30 days from purchase or 14 days from delivery, so cards lose half the delivery-side window.</p>
@@ -692,7 +760,10 @@
         <p class="by-src"><a href="https://help.whatnot.com/hc/en-us/articles/360061194552-Whatnot-Buyer-Protection-Policy" aria-label="Whatnot policy, source 1" rel="noopener" target="_blank">Source</a>, read August 15, 2026</p>
       </article>
       <article class="by-p">
-        <h3>Amazon A-to-z Guarantee</h3>
+        <div class="by-vh">
+          <span class="bmk"><img src="/assets/brands/amazon.svg" alt="Amazon" width="603" height="182" loading="lazy" decoding="async"></span>
+          <h3>Amazon A-to-z Guarantee</h3>
+        </div>
         <p class="by-nb">It exists for the third-party half of Amazon, which is the half most people do not realise they are in.</p>
         <p class="by-lbl by-yes"><b>Covers.</b></p><ul><li>Timely delivery and the condition of items sold and fulfilled by a third-party seller.</li><li>Non-delivery, three days after the latest estimated delivery date, where you contacted the seller more than 48 hours ago.</li><li>Damaged, defective or materially different items where the seller has not authorised a return within 48 hours.</li><li>A return that reached the seller seven days ago with no refund issued.</li></ul>
         <p class="by-lbl"><b>Only if all of these are true.</b></p><ul><li>The order must have been placed with a third-party seller.</li><li>The last possible delivery date must be 90 days ago or less.</li></ul>
@@ -701,7 +772,10 @@
         <p class="by-src"><a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GQ37ZCNECJKTFYQV" aria-label="Amazon A-to-z Guarantee policy, source 1" rel="noopener" target="_blank">Source</a>, <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GKM69DUUYKQWKWX7" aria-label="Amazon A-to-z Guarantee policy, source 2" rel="noopener" target="_blank">Source 2</a>, read August 15, 2026</p>
       </article>
       <article class="by-p">
-        <h3>Buying sealed product at retail</h3>
+        <div class="by-vh">
+          <span class="bmk bmk-d" role="img" aria-label="A sealed carton"><svg class="bmk-g" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 7.5 12 3.5l8.5 4v9L12 20.5l-8.5-4z"/><path d="M12 8.5v12"/><path d="M3.5 7.5 12 11.5l8.5-4"/><path d="M8.5 5.4v4.2"/></svg></span>
+          <h3>Buying sealed product at retail</h3>
+        </div>
         <p class="by-nb">The policy nobody checks until the box arrives dented, and three separate companies say the same thing.</p>
         <p class="by-lbl by-no"><b>Does not cover.</b></p><ul><li>Pokemon Center: final sale items cannot be returned, and final sale items include Pokemon trading cards and products containing Pokemon trading cards. Their damaged-item page closes it explicitly: final sale items cannot be returned for a refund due to box or outer wrap damage.</li><li>Target: trading cards and trading card accessories, naming Pokemon, sport cards and trading card binders, are listed among items that cannot be returned.</li><li>Best Buy: trading cards, including Pokemon cards, are named among items that are nonreturnable once purchased, from Best Buy and from marketplace sellers alike.</li></ul>
         <p class="by-lbl by-yes"><b>Covers.</b></p><ul><li>Walmart publishes no trading card carve-out, so its standard 90 day window governs, and 30 days on marketplace-seller items.</li><li>Costco names no trading cards anywhere in its return exceptions, so its open-ended satisfaction guarantee governs.</li></ul>
@@ -710,7 +784,10 @@
         <p class="by-src"><a href="https://www.pokemoncenter.com/return-policy" aria-label="Buying sealed product at retail policy, source 1" rel="noopener" target="_blank">Source</a>, <a href="https://support.pokemoncenter.com/hc/en-us/articles/23357624683796-What-should-I-do-if-my-item-is-damaged-or-defective" aria-label="Buying sealed product at retail policy, source 2" rel="noopener" target="_blank">Source 2</a>, <a href="https://www.target.com/help/article/000061982" aria-label="Buying sealed product at retail policy, source 3" rel="noopener" target="_blank">Source 3</a>, <a href="https://www.bestbuy.com/site/help-topics/return-exchange-policy/pcmcat260800050014.c?id=pcmcat260800050014" aria-label="Buying sealed product at retail policy, source 4" rel="noopener" target="_blank">Source 4</a>, read August 15, 2026</p>
       </article>
       <article class="by-p">
-        <h3>Buying across a counter</h3>
+        <div class="by-vh">
+          <span class="bmk bmk-d" role="img" aria-label="Cash across a counter"><svg class="bmk-g" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="8" rx="1.2"/><circle cx="12" cy="10" r="2"/><path d="M4.5 17.5c2.5 1.7 5 2.5 7.5 2.5s5-.8 7.5-2.5"/></svg></span>
+          <h3>Buying across a counter</h3>
+        </div>
         <p class="by-nb">There is no policy page to cite, and that is the finding.</p>
         <p class="by-lbl"><b>How it works.</b></p><ul><li>Nobody holds the money, so there is no claim window, no arbiter and no reversal. There is also nothing to ship, so the whole shipping half of this page does not apply.</li><li>You inspect the card before the money moves, which is the one thing no online venue offers at any price. What you give up is selection: a shop has what a shop has.</li></ul>
         
@@ -782,6 +859,7 @@
         the failure mechanics read on August 15, 2026 from the platforms' own
         policies. Nothing here came from a comparison site or a coupon site. This is not financial advice, policies
         change, and every number on this page is worth ten seconds of checking before you spend anything on it.</p>
+      <p class="by-src">Company names and logos on this page are the trademarks of their owners and are used to identify the companies described. Nothing here is sponsored, affiliated or endorsed. Marks are mirrored from Wikimedia Commons, where each carries a public domain copyright tag; the venues with no mark have their name set in this site's own typeface instead.</p>
     </div>
   </section>
 </main>
@@ -830,6 +908,7 @@
       <div class="foot-col">
         <p class="foot-h">Play</p>
         <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
       </div>
       <div class="foot-col">

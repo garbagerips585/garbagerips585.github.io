@@ -22,38 +22,44 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=67f732be">
+<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
-<style>
+<style>.pp-shots{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));
+gap:var(--s3);margin:var(--s4) 0 var(--s2);padding:0}
+.pp-shots li{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px}
+.pp-shots img,.pp-noshot{width:88px;height:88px;object-fit:contain;display:block;
+background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r-sm)}
+.pp-noshot{background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
+.pp-shots b{font:700 var(--t-micro)/1.25 var(--mono);letter-spacing:.03em;text-transform:uppercase;
+color:var(--ink)}
+.pp-shots span{font:400 var(--t-micro)/1.3 var(--body);color:var(--ink-2)}
 .pp-table{min-width:660px}
 .pp-table td.num{font-variant-numeric:tabular-nums}
-/* .cc-table sets white-space:nowrap on .num cells and on every header cell,
-   which is right for a five column table of bare money and wrong for this one.
-   Seven columns, and the two longest strings on the row are words rather than
-   figures: "Build & Battle Box" and "in the build & battle box". Held on one
-   line they alone pushed the table to 949px inside a 360px phone, which is
-   nearly three screens of sideways scrolling for a table whose job is to be
-   compared across. Wrapping the words and keeping the numbers on one line takes
-   it under 700. */
 .cc-table.pp-table thead th{white-space:normal}
 .pp-via,.pp-packs{white-space:normal}
-/* The pack count each column divides by, said once in the header rather than in
-   every cell under it. .cc-table thead is white-space:nowrap, so this has to be
-   a block or the two lines run on and the header row gets wider than the body. */
 .pp-packs{display:block;font-weight:400;text-transform:none;letter-spacing:0;
-  font-size:.62rem;color:var(--sky-lite);margin-top:2px}
-/* The winning cell in each row. A tinted cell rather than a coloured number:
-   .cc-table already tints whole rows on hover and on even rows, and a third
-   colour on the text would be a fourth thing competing in the same cell. */
+font-size:.62rem;color:var(--sky-lite);margin-top:2px}
 .pp-best{background:var(--mustard) !important;font-weight:700}
 .pp-via{display:block;font-family:var(--mono);font-size:.64rem;color:var(--ink);font-weight:400;margin-top:2px}
 .pp-none{color:var(--ink-soft)}
 .pp-rips{display:block;font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);font-weight:400}
 .pp-key{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;
-  font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);margin-top:var(--s3)}
+font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);margin-top:var(--s3)}
 .pp-key i{display:inline-block;width:14px;height:14px;background:var(--mustard);
-  border:1px solid var(--navy);vertical-align:-2px;margin-right:6px;font-style:normal}
-</style>
+border:1px solid var(--navy);vertical-align:-2px;margin-right:6px;font-style:normal}
+.w34{max-width:34em}
+.w38{max-width:38em}
+.w40{max-width:40em}
+.w42{max-width:42em}
+@media(min-width:1000px){
+.w34,.w38,.w40,.w42{max-width:50ch}
+.fk-golden p{max-width:52ch}
+}
+@media(min-width:1200px){
+.facts-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+gap:11px;align-items:start}
+.facts-list li{max-width:none}
+}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Pack prices by set","item":"https://garbagerips585.github.io/pack-prices.html"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much does a Pokemon booster pack cost?","acceptedAnswer":{"@type":"Answer","text":"It depends far more on the set than on where you buy it. Across the 28 sets priced on this page a pack runs from $4.66 for Perfect Order to $40.73 for Celebrations, a spread of 8.74x for the same object. Those are TCGplayer market prices read on August 16, 2026, divided by the pack count printed on the product."}},{"@type":"Question","name":"Is a booster box cheaper per pack than buying single packs?","acceptedAnswer":{"@type":"Answer","text":"Not reliably. A single pack bought on its own is the cheapest pack in 13 of the 28 sets priced here, and a box or bundle is cheaper in 9. It has to be checked set by set rather than assumed: on the 2 priciest the cheapest pack is bought loose."}},{"@type":"Question","name":"Is an Elite Trainer Box worth it?","acceptedAnswer":{"@type":"Answer","text":"Purely as packs, no. Across the 22 sets priced here the Elite Trainer Box is never the cheapest pack in its set, it is the dearest option on the row in 12 of them, and it runs a median of 1.58x the cheapest pack in the same set. It also comes with sleeves, dice, a promo card and the box itself, and we put no price on those, so whether that gap is worth paying is a question about the accessories rather than about the cards."}}]}</script>
 </head>
@@ -141,6 +147,7 @@
       <p class="menu-h">Play</p>
       <ul>
         <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
       </ul>
     </div>
@@ -163,7 +170,7 @@
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Priced August 16, 2026</span>
     <h1>What does a pack <span class="hl">actually</span> cost?</h1>
-    <p class="lede" style="max-width:38em">Every sealed product we track, divided by how many packs are inside it,
+    <p class="lede w38">Every sealed product we track, divided by how many packs are inside it,
       so a booster box and a single pack can finally be compared. Prices are TCGplayer market, read on
       August 16, 2026, and read again each time the product sync runs.
       Where the counts come from, and what they were in other years, is on
@@ -208,13 +215,42 @@
          this table. -->
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>28 English sets</p>
     <h2>Cheapest pack to <span class="hl">priciest</span></h2>
-    <p class="lede" style="max-width:40em">Every English set we can price sealed, sorted by the cheapest pack available
+    <p class="lede w40">Every English set we can price sealed, sorted by the cheapest pack available
       in each one, whatever it is inside. The imported Japanese and Korean sets have guides of their own but no sealed
       listing to divide, so they are not on this table. Every
       figure is that product's market price divided by the number of packs in it, before tax and shipping. The counts
       under the column headings are sourced for the Scarlet &amp; Violet era onward and are not permanent properties of
       those products, so a set from an earlier era gets an empty cell rather than a figure divided by the wrong number.
       <a href="/how-many-packs.html">What each one has held over the years</a> is its own page.</p>
+    <ul class="pp-shots">
+      <li>
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/692939_200w.jpg" sizes="88px" alt="Pitch Black Booster Box, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+        <b>Booster Box</b>
+        <span>36 packs</span>
+      </li>
+      <li>
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/692947_200w.jpg" sizes="88px" alt="Pitch Black Elite Trainer Box, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+        <b>Elite Trainer Box</b>
+        <span>9 packs</span>
+      </li>
+      <li>
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/692942_200w.jpg" sizes="88px" alt="Pitch Black Booster Bundle, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+        <b>Booster Bundle</b>
+        <span>6 packs</span>
+      </li>
+      <li>
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/692946_200w.jpg" sizes="88px" alt="Pitch Black Build &amp; Battle Box, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+        <b>Build &amp; Battle Box</b>
+        <span>4 packs</span>
+      </li>
+      <li>
+        <img src="https://tcgplayer-cdn.tcgplayer.com/product/692944_200w.jpg" sizes="88px" alt="Pitch Black Booster Pack, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+        <b>Single Pack</b>
+        <span>1 pack</span>
+      </li>
+    </ul>
+    <p class="price-note">All five are ME05: Pitch Black, so they are
+      the same set's shelf rather than five sets' worth of lookalikes. Photography is TCGplayer's.</p>
     <div class="cc-scroll" tabindex="0" role="region" aria-label="Pack prices by set, scrollable table">
       <table class="cc-table pp-table">
         <caption class="sr-only">Market price per pack for each sealed product, by set, cheapest set first</caption>
@@ -498,7 +534,7 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The pack that wins</p>
     <h2>Where buying <span class="hl">one pack</span> is the cheap way</h2>
-    <p class="lede" style="max-width:40em">13 of these 28 sets sell a pack more cheaply on its
+    <p class="lede w40">13 of these 28 sets sell a pack more cheaply on its
       own than inside anything bigger, which is the opposite of how sealed product is usually described. We do not hold a
       record of which sets are still being printed, so we are not going to tell you why. The figures are what they are on
       August 16, 2026, and the multiple in each line is what
@@ -551,7 +587,7 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The Elite Trainer Box</p>
     <h2>What the <span class="hl">ETB</span> premium looks like</h2>
-    <p class="lede" style="max-width:40em">All 22 sets on this page sell an Elite Trainer Box, and in not
+    <p class="lede w40">All 22 sets on this page sell an Elite Trainer Box, and in not
       one of them is it the cheapest pack. In 12 of the 22 it is the dearest thing on the
       row. Measured against the cheapest pack in its own set it runs a median of 1.58x.</p>
     <div class="facts">
@@ -560,7 +596,7 @@
       <div class="fact"><div class="n">3.12x</div><div class="l">Furthest apart (Obsidian Flames)</div></div>
       <div class="fact"><div class="n">12 of 22</div><div class="l">Sets where the ETB is the dearest pack on the row</div></div>
     </div>
-    <p style="max-width:40em;margin-top:16px">That gap is not the whole story and this page will not pretend it is. An
+    <p class="w40" style="margin-top:16px">That gap is not the whole story and this page will not pretend it is. An
       Elite Trainer Box also carries sleeves, dice, a promo card, dividers and the box itself, and we have no source for
       what any of that is worth, so we do not subtract a made up number from the price to make the comparison look
       better. If you want the sleeves, the premium may be the cheapest sleeves you will buy. If you want packs, there is
@@ -642,6 +678,7 @@
       <div class="foot-col">
         <p class="foot-h">Play</p>
         <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
       </div>
       <div class="foot-col">

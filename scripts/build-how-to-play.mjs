@@ -92,6 +92,9 @@ const ko = d.knockOut || {};
 const cards = d.cardTypes || {};
 const start = d.gettingStarted || {};
 const lc = d.labelledCard;
+const kc = d.kindCards;
+if (!kc || !kc.pokemon || !kc.energy || !kc.trainer)
+  throw new Error("how-to-play.json: kindCards is missing one of pokemon, energy, trainer");
 if (!lc) throw new Error("how-to-play.json has no labelledCard");
 
 // The once-per-turn split as a TWO COLUMN TABLE, not prose, and read off the
@@ -187,6 +190,41 @@ const cardImg = (() => {
   );
 })();
 
+/**
+ * One real card per kind, for the three boxes in "The three kinds of card".
+ *
+ * THAT SECTION DESCRIBED THREE OBJECTS AND SHOWED NONE OF THEM. A beginner
+ * reading "the subtype is in the top left and its rule is printed along the
+ * bottom" has never seen a Trainer card, and no sentence fixes that. The picks
+ * and the reason for each are in data/how-to-play.json under kindCards; the
+ * short version is that the Pokemon is a Stage 1 so the evolves-from line is
+ * there to see, the Energy is a plain basic one rather than a gold hyper rare,
+ * and the Trainer is a Supporter so both the subtype and the rule are printed.
+ *
+ * Same treatment as the labelled card below it: a real scan, low.webp with
+ * high.webp in the srcset because those are the only two widths TCGdex serves,
+ * imgDims for the attributes, avifPicture for the AVIF with the WebP left
+ * underneath, and loading="lazy" because a background cannot be lazy.
+ *
+ * 96px, which is a third of the widest the box gets, so 245w covers it at DPR2
+ * and the 600w candidate is never chosen on a phone.
+ *
+ * THE CAPTION NAMES THE CARD AND THE SET, which is what makes it checkable
+ * rather than decorative, and it is the same reason the type guide captions
+ * every scan it prints.
+ */
+const kindCard = (k, alt) => {
+  const c = kc[k];
+  if (!c) return "";
+  const low = `${c.img}/low.webp`;
+  const high = `${c.img}/high.webp`;
+  return `<figure class="hp-kf">${avifPicture(
+    `<img src="${esc(low)}" srcset="${esc(low)} 245w, ${esc(high)} 600w" sizes="96px"` +
+      ` alt="${esc(alt)}" loading="lazy" decoding="async" onerror="this.closest('figure').remove()"` +
+      `${imgDims(low)}>`
+  )}<figcaption>${esc(c.card)}, ${esc(c.set)} ${esc(c.number)}</figcaption></figure>`;
+};
+
 const LABELS = [
   ["HP, top right", `${lc.hp}. The damage it takes to knock this one out.`],
   ["Attack cost, left of the attack", `Two Colorless symbols, so any two Energy cards pay it.`],
@@ -255,6 +293,15 @@ const style = `
 .hp-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s4)}
 @media(max-width:760px){.hp-cards{grid-template-columns:1fr}}
 .hp-cards h3{display:flex;align-items:baseline;gap:8px}
+/* The scan floats so the box reads as one paragraph with a picture in it rather
+   than as a card above a caption above a heading. 96px is a third of the widest
+   the box gets and it is what sizes="96px" is measured against. */
+.hp-kf{float:right;width:96px;margin:0 0 var(--s2) var(--s3)}
+.hp-kf img{width:100%;height:auto;display:block;border-radius:6px}
+.hp-kf figcaption{margin-top:4px;font:400 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-align:center}
+/* Clears the float so the next box does not start beside the previous scan when
+   the grid is a single column on a phone. */
+.hp-cards .hp-box{overflow:hidden}
 .hp-cards .hp-t{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
 .hp-sub{list-style:none;margin:var(--s3) 0 0;padding:0}
 .hp-sub li{border-left:3px solid var(--gold);padding-left:var(--s3);margin-bottom:var(--s2)}
@@ -357,18 +404,21 @@ const body = `
         <p>Everything in the game is one of three things.</p>
         <div class="hp-cards">
           <div class="hp-box">
+            ${kindCard("pokemon", `${kc.pokemon.card}, ${kc.pokemon.set} number ${kc.pokemon.number}, a ${kc.pokemon.stage} Pokemon card`)}
             <h3>Pokemon <span class="hp-t">the fighters</span></h3>
             <p>The stage is in the top left corner, with whatever it evolves from. Basics play straight from your
               hand. A Stage 1 goes on top of the Basic it names and a Stage 2 on top of that, keeping the Energy
               and damage already there.</p>
           </div>
           <div class="hp-box">
+            ${kindCard("energy", `${kc.energy.card}, ${kc.energy.set} number ${kc.energy.number}, a basic Energy card`)}
             <h3>Energy <span class="hp-t">the fuel</span></h3>
             <p>${plain("cardTypes.energy.plain")} Basic Energy does nothing else; a few do more, and those are
               Special Energy. <a href="/types.html">There are 11 types</a>, and they are not the 18 from the
               video games.</p>
           </div>
           <div class="hp-box">
+            ${kindCard("trainer", `${kc.trainer.card}, ${kc.trainer.set} number ${kc.trainer.number}, a ${kc.trainer.subtype} Trainer card`)}
             <h3>Trainer <span class="hp-t">everything else</span></h3>
             <p>The subtype is in the top left and its rule is printed along the bottom. Item: as many as you like.
               Supporter: one a turn. Stadium: one a turn, and it stays out for both players. Tool: sticks to a
@@ -574,7 +624,8 @@ ${(win.ways || [])
         ME05 Pitch Black printing stamped July 2026, read on ${esc(longDate(d.checked))} and diffed against the
         March 2026 printing: nothing in setup, the turn, winning, prizes or the printed card numbers had moved.
         The beginner product advice comes from Pokemon's own product guide, the formats from the Play! Pokemon
-        tournament handbook, and the Pidgey scan and its printed values from TCGdex. One claim here rests on a
+        tournament handbook, and every card scan on the page and the printed values read off them from TCGdex.
+        Each scan is the card named under it. One claim here rests on a
         secondary source rather than an official one: the rulebook defines basic Energy and never defines Special
         Energy, so that sentence is Bulbapedia's. Rules and rotations change. This page carries the date it was
         checked so you can see how old the answer is, and if it disagrees with the rulebook, the rulebook is
@@ -591,9 +642,18 @@ ${(win.ways || [])
 // rather than the explanation, and folding them in would either inflate the
 // number or tempt somebody to raise the ceiling. The SVG's own labels come out
 // too, since they are a picture rather than prose.
+//
+// FIGCAPTIONS COME OUT WITH THE SVG, added when the card section gained a scan
+// per kind. The reason is the reason above, one step on: a caption exists only
+// because a picture does, so counting one means a picture is paid for in
+// paragraphs and this page has a hard 1,500. The cap below is what stops the
+// caption becoming somewhere to hide prose; 45 words names a card and a set
+// several times over and holds no argument.
+const CAPTION = /<figcaption[^>]*>[\s\S]*?<\/figcaption>/g;
 const prose = (html) =>
   html
     .replace(/<svg[\s\S]*?<\/svg>/g, " ")
+    .replace(CAPTION, " ")
     // .sr-only text is for a screen reader landing on a table with no visible
     // caption. It is not body copy and counting it would push a page towards
     // dropping the captions to make the budget, which is the wrong trade.
@@ -602,6 +662,17 @@ const prose = (html) =>
     .replace(/&[a-z]+;/g, " ")
     .split(/\s+/)
     .filter(Boolean);
+
+for (const cap of body.match(CAPTION) || []) {
+  const capWords = cap.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean);
+  if (capWords.length > 45) {
+    throw new Error(
+      `a figcaption on this page is ${capWords.length} words, over the 45 word cap. ` +
+        "Captions do not count towards the section budgets, so they do not get to hold prose. " +
+        "Move the detail into the alt text.\n  " + capWords.join(" ")
+    );
+  }
+}
 
 const sections = body.match(/<section class="hp-s"[\s\S]*?<\/section>/g) || [];
 if (sections.length !== 8) throw new Error(`expected 8 body sections, found ${sections.length}`);

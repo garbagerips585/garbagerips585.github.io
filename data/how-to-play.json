@@ -45,9 +45,7 @@
     "See data/how-to-play-PLAN.md for the proposed page, and for the list of",
     "rules deliberately left out."
   ],
-
   "checked": "2026-08-15",
-
   "sources": {
     "rulebook": {
       "id": "rulebook",
@@ -126,7 +124,6 @@
       "note": "Secondary, and the ONLY source found for the Basic vs Special Energy distinction. The official rulebook defines 'Basic Energy card' in its glossary but never defines Special Energy. Flagged in `singleSourced`."
     }
   },
-
   "whatIsTheGame": {
     "_note": "The page has to answer this before any rule. Our readers open packs; most have never seen a game played.",
     "oneLine": "Two players each bring a 60 card deck, put Pokemon down on the table, attach Energy to them, and attack each other's Pokemon until one player has taken all six of their Prize cards.",
@@ -148,7 +145,6 @@
       }
     ]
   },
-
   "setup": {
     "steps": [
       {
@@ -157,7 +153,13 @@
         "quote": "Each player starts with their own deck of 60 cards to play the game.",
         "source": "rulebook",
         "page": 7,
-        "also": [{ "source": "handbook", "page": 8, "quote": "The deck must contain exactly 60 cards." }]
+        "also": [
+          {
+            "source": "handbook",
+            "page": 8,
+            "quote": "The deck must contain exactly 60 cards."
+          }
+        ]
       },
       {
         "id": "coin-flip",
@@ -194,7 +196,13 @@
         "quote": "Put the top 6 cards of your deck off to the side face down as your Prize cards.",
         "source": "rulebook",
         "page": 8,
-        "also": [{ "source": "handbook", "page": 8, "quote": "Matches are played for 6 Prize cards." }]
+        "also": [
+          {
+            "source": "handbook",
+            "page": 8,
+            "quote": "Matches are played for 6 Prize cards."
+          }
+        ]
       },
       {
         "id": "flip-up",
@@ -242,8 +250,15 @@
         "source": "rulebook",
         "page": 13,
         "also": [
-          { "source": "quickstart", "page": 28, "quote": "The player who goes first cannot attack or play a Supporter card on their first turn." },
-          { "source": "bulbapedia_tcg", "quote": "The player who goes first is not allowed to attack or play any Supporter cards on that player's first turn." }
+          {
+            "source": "quickstart",
+            "page": 28,
+            "quote": "The player who goes first cannot attack or play a Supporter card on their first turn."
+          },
+          {
+            "source": "bulbapedia_tcg",
+            "quote": "The player who goes first is not allowed to attack or play any Supporter cards on that player's first turn."
+          }
         ]
       },
       "cannotSupporter": {
@@ -271,7 +286,6 @@
       }
     }
   },
-
   "turn": {
     "_note": "The whole turn fits in three beats: draw, do stuff in any order, attack and stop.",
     "shape": {
@@ -372,7 +386,6 @@
       "confidence": "The full rulebook implies this everywhere but never says it in one sentence. The Quick Start book does, which is why it is cited here."
     }
   },
-
   "howToWin": {
     "_note": "THE THREE WAYS. Get all three, in this order, in the rulebook's own words.",
     "quote": "You can win the game in 3 ways: 1) Take all of your Prize cards. 2) Knock Out all of your opponent's Pokemon in play. 3) If your opponent has no cards in their deck at the beginning of their turn.",
@@ -408,7 +421,6 @@
       }
     ]
   },
-
   "cardTypes": {
     "_note": "Three categories, and the rulebook says so plainly: 'You'll find 3 different types of cards in the Pokemon TCG'. That framing is worth keeping.",
     "quote": "You'll find 3 different types of cards in the Pokemon TCG: Pokemon ... Energy Cards ... Trainer Cards",
@@ -601,7 +613,42 @@
       }
     }
   },
-
+  "kindCards": {
+    "_note": "One real card per kind, for the three boxes in the section that names the three kinds. The section described a Pokemon card, an Energy card and a Trainer card in words and showed none of them, which is the one place on this page a picture does work a sentence cannot: a beginner does not know what a Trainer card looks like. Every one is a scan of the card named, from the same host the rest of the site uses, and the caption names the card and the set so it is checkable. The picks are deliberate rather than the first of each kind. The Pokemon is a STAGE 1, not a Basic, because the box's own text is about the stage in the top left corner and what it evolves from, and a Basic prints no evolves-from line. The Energy is a PLAIN basic Energy rather than one of the gold hyper rares this site's own set data is full of, because the box is about the ordinary card a beginner holds; the only plain ones with scans are older, hence XY. The Trainer is a SUPPORTER because the box names the subtype and the rule along the bottom, and a Supporter prints both.",
+    "pokemon": {
+      "card": "Pidgeotto",
+      "set": "151",
+      "number": "017",
+      "tcgdexId": "sv03.5-017",
+      "img": "https://assets.tcgdex.net/en/sv/sv03.5/017",
+      "stage": "Stage 1",
+      "why": "A Stage 1, so the top left corner prints both the stage and the Basic it evolves from. It is also the middle of the Pidgey line the labelled card below comes from.",
+      "inLocalData": "public/data/cards/151.json",
+      "imagesChecked": "low.webp, low.avif, high.webp and high.avif all answered 200 on 2026-08-16, and the base is not in data/no-scan.json."
+    },
+    "energy": {
+      "card": "Fire Energy",
+      "set": "XY",
+      "number": "133",
+      "tcgdexId": "xy1-133",
+      "img": "https://assets.tcgdex.net/en/xy/xy1/133",
+      "why": "A plain basic Energy card, which is what the box describes. There is no scan of a plain modern one to use: TCGdex publishes no images at all for the Scarlet & Violet Energies set, and every basic Energy in this site's own 28 set files is a gold Ultra Rare or Hyper Rare printing. XY has the plain card and it is the same card the game still uses.",
+      "inLocalData": null,
+      "inLocalDataNote": "XY is not one of the 28 sets this site tracks, the same as the Xerneas example on /types.html.",
+      "imagesChecked": "low.webp, low.avif, high.webp and high.avif all answered 200 on 2026-08-16, and the base is not in data/no-scan.json."
+    },
+    "trainer": {
+      "card": "Erika's Invitation",
+      "set": "151",
+      "number": "160",
+      "tcgdexId": "sv03.5-160",
+      "img": "https://assets.tcgdex.net/en/sv/sv03.5/160",
+      "subtype": "Supporter",
+      "why": "A Supporter, so the card prints the subtype in the top left and the one-a-turn rule along the bottom, which is exactly what the box says to look for.",
+      "inLocalData": "public/data/cards/151.json",
+      "imagesChecked": "low.webp, low.avif, high.webp and high.avif all answered 200 on 2026-08-16, and the base is not in data/no-scan.json."
+    }
+  },
   "labelledCard": {
     "_note": "The card the page points its labels at. It has to be a PLAIN BASIC POKEMON that prints a Resistance, because most cards do not print one and a label pointing at an empty corner teaches the wrong thing. Pidgey also happens to carry every other number the section names: an HP, an attack with a Colorless cost, a damage figure, a Weakness, a Resistance and a Retreat Cost of 1. It is a common out of a set this channel rips constantly, so a reader can hold the exact card.",
     "card": "Pidgey",
@@ -612,7 +659,11 @@
     "stage": "Basic",
     "printedType": "Colorless",
     "hp": 50,
-    "attack": { "name": "Tackle", "cost": "2 Colorless", "damage": 20 },
+    "attack": {
+      "name": "Tackle",
+      "cost": "2 Colorless",
+      "damage": 20
+    },
     "printedWeakness": "Lightning x2",
     "printedResistance": "Fighting -30",
     "retreat": 1,
@@ -620,7 +671,6 @@
     "imagesChecked": "All four extensions fetched on 2026-08-15: low.webp, low.avif, high.webp and high.avif all answered 200. Not present in data/no-scan.json.",
     "inLocalData": "public/data/cards/151.json"
   },
-
   "combat": {
     "weakness": {
       "id": "weakness",
@@ -686,7 +736,6 @@
       "page": 14
     }
   },
-
   "knockOut": {
     "id": "knock-out",
     "plain": "A Pokemon is knocked out when the damage on it reaches its HP. It and everything attached to it go to the discard pile, and the player who knocked it out takes a Prize card.",
@@ -712,18 +761,52 @@
       "source": "rulebook",
       "page": 43,
       "table": [
-        { "kind": "ordinary Pokemon", "prizes": 1, "source": "rulebook", "page": 14 },
-        { "kind": "Pokemon ex", "prizes": 2, "source": "rulebook", "page": 26 },
-        { "kind": "Pokemon V and VSTAR", "prizes": 2, "source": "rulebook", "page": 30 },
-        { "kind": "Pokemon-GX", "prizes": 2, "source": "rulebook", "page": 43 },
-        { "kind": "Mega Evolution Pokemon ex", "prizes": 3, "source": "rulebook", "page": 23 },
-        { "kind": "Pokemon VMAX", "prizes": 3, "source": "rulebook", "page": 30 },
-        { "kind": "TAG TEAM", "prizes": 3, "source": "rulebook", "page": 44 }
+        {
+          "kind": "ordinary Pokemon",
+          "prizes": 1,
+          "source": "rulebook",
+          "page": 14
+        },
+        {
+          "kind": "Pokemon ex",
+          "prizes": 2,
+          "source": "rulebook",
+          "page": 26
+        },
+        {
+          "kind": "Pokemon V and VSTAR",
+          "prizes": 2,
+          "source": "rulebook",
+          "page": 30
+        },
+        {
+          "kind": "Pokemon-GX",
+          "prizes": 2,
+          "source": "rulebook",
+          "page": 43
+        },
+        {
+          "kind": "Mega Evolution Pokemon ex",
+          "prizes": 3,
+          "source": "rulebook",
+          "page": 23
+        },
+        {
+          "kind": "Pokemon VMAX",
+          "prizes": 3,
+          "source": "rulebook",
+          "page": 30
+        },
+        {
+          "kind": "TAG TEAM",
+          "prizes": 3,
+          "source": "rulebook",
+          "page": 44
+        }
       ],
       "why": "This is the trade the whole format runs on: a big card hits harder and survives longer, but losing it hands your opponent half or more of the game in one shot."
     }
   },
-
   "deckBuilding": {
     "_note": "Only the three rules that stop a beginner building an illegal deck. Everything else is strategy.",
     "rules": [
@@ -740,7 +823,13 @@
         "quote": "except for Basic Energy, you can only have 4 cards with the same name in your deck",
         "source": "rulebook",
         "page": 22,
-        "also": [{ "source": "handbook", "page": 8, "quote": "Decks may not contain more than 4 copies of a single card, as defined by the card's English language translation, except for Basic Energy cards." }]
+        "also": [
+          {
+            "source": "handbook",
+            "page": 8,
+            "quote": "Decks may not contain more than 4 copies of a single card, as defined by the card's English language translation, except for Basic Energy cards."
+          }
+        ]
       },
       {
         "id": "one-basic",
@@ -758,7 +847,6 @@
       "note": "Optional. Useful only if the page ends up telling somebody how to build rather than how to play."
     }
   },
-
   "gettingStarted": {
     "_note": "The 'can I actually do this' section. Three honest answers: yes a preconstructed deck is enough, the free digital version exists and teaches you, and local shops run league nights.",
     "isAPreconDeckEnough": {
@@ -830,7 +918,12 @@
       "url": "https://tcg.pokemon.com/en-us/tcgl/",
       "read": "2026-08-15",
       "status": "LIVE and current as of 2026-08-15. The page is being maintained, carries a current Battle Pass, and offers Windows, Mac, iOS and Android downloads.",
-      "platforms": ["Windows", "Mac", "iOS", "Android"],
+      "platforms": [
+        "Windows",
+        "Mac",
+        "iOS",
+        "Android"
+      ],
       "needsAccount": {
         "plain": "You need a free Pokemon Trainer Club account.",
         "quote": "First-time Pokemon TCG Live players can begin by signing up for a Pokemon Trainer Club account.",
@@ -880,13 +973,18 @@
       }
     }
   },
-
   "formats": {
     "_note": "One sentence each. A beginner buying cards hits 'is this legal' immediately, and the honest answer is that it depends on a letter printed on the card.",
     "standard": {
       "plain": "Standard is the normal format, and it only uses cards from the last few years. Which ones is decided by the regulation mark, a single letter printed at the bottom of the card, not by which set it came from.",
-      "legalMarks": ["H", "I", "J"],
-      "rotatedOut": ["G"],
+      "legalMarks": [
+        "H",
+        "I",
+        "J"
+      ],
+      "rotatedOut": [
+        "G"
+      ],
       "table": "The handbook's own table lists G as Expanded only, and H (legal April 5, 2024), I (April 11, 2025) and J (March 6, 2026) as legal in both Standard and Expanded.",
       "source": "handbook",
       "page": 9,
@@ -908,7 +1006,6 @@
       "recommendation": "LEAVE IT OUT of the page. Naming a third thing costs the reader more than it gives them."
     }
   },
-
   "changedRecently": {
     "_note": "Diffed the March 2026 rulebook against the July 2026 one line by line. NOTHING in setup, the turn, the ways to win, prizes, Weakness, Resistance or Retreat Cost changed. These are the only differences that matter, and none of them affect how the game is played.",
     "entries": [
@@ -918,7 +1015,10 @@
         "was": "Pokemon Leagues and Mega Battle Decks ... ask your local store for a Mega Battle Deck ... Ask your hobby store if they have a Pokemon League",
         "now": "Play! Pokemon Stores and League Battle Decks ... ask your local store for a League Battle Deck ... Ask your hobby store if they're a Play! Pokemon Store",
         "between": "March 2026 and July 2026",
-        "sources": ["rulebookMar2026", "rulebook"],
+        "sources": [
+          "rulebookMar2026",
+          "rulebook"
+        ],
         "page": 17,
         "why_it_matters": "The venue is now called a Play! Pokemon Store rather than a Pokemon League in official copy. Use the current name."
       },
@@ -942,7 +1042,6 @@
     ],
     "olderChangesNotVerified": "First-turn rules HAVE changed across eras of this game and a lot of writing online describes an older version. This file records only what the July 2026 rulebook says. No claim is made here about when any of it last changed, because no source read stated one."
   },
-
   "disagreements": [
     {
       "id": "league-battle-deck-for-beginners",
@@ -974,7 +1073,6 @@
       "resolution": "Use the rulebook. The Quick Start phrasing is actively misleading the moment a Pokemon ex is on the table, which is most of the time now."
     }
   ],
-
   "singleSourced": [
     {
       "claim": "Special Energy cards have effects beyond providing Energy and are limited to four per deck.",
@@ -994,7 +1092,6 @@
       "why": "Glossary only. The card-anatomy page did not yield a corner label in extracted text."
     }
   ],
-
   "couldNotVerify": [
     {
       "item": "Official prices for any product.",

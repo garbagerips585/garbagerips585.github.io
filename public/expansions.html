@@ -23,76 +23,74 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <!-- No preconnect to images.pokemontcg.io: every set symbol on this page is
      mirrored locally by scripts/sync-symbols.mjs and served from this origin. -->
-<link rel="stylesheet" href="/assets/ui.css?v=67f732be">
+<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
-<style>
-.xp{padding:var(--s7) 0 var(--s5)}
+<style>.xp{padding:var(--s7) 0 var(--s5)}
 .xp-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:40em;margin-bottom:var(--s5)}
 .xp-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);margin-bottom:var(--s5)}
 @media(max-width:640px){.xp-stats{grid-template-columns:repeat(2,1fr)}}
 .xp-stat{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
-  padding:var(--s4);box-shadow:var(--lift)}
+padding:var(--s4);box-shadow:var(--lift)}
 .xp-stat b{display:block;font:400 var(--t-l)/1 var(--display);margin-bottom:4px}
 .xp-stat span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
-  letter-spacing:.06em;text-transform:uppercase}
+letter-spacing:.06em;text-transform:uppercase}
 .xp-jump{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:var(--s4)}
 .xp-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
-  border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);
-  font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
+border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);
+font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
 .xp-jump a:hover{border-color:var(--ink);background:var(--mustard)}
 .xp-copy{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 var(--s5);
-  border:2px solid var(--ink);border-radius:var(--r-pill);background:var(--mustard);
-  font:700 var(--t-body)/1 var(--body);box-shadow:var(--lift);cursor:pointer}
+border:2px solid var(--ink);border-radius:var(--r-pill);background:var(--mustard);
+font:700 var(--t-body)/1 var(--body);box-shadow:var(--lift);cursor:pointer}
 .xp-copy:hover{transform:translateY(-2px)}
-
 .xp-era{padding:var(--s6) 0}
-/* A PALETTE HID IN A var() FALLBACK. --card-2 is defined nowhere, so what
-   actually painted these 17 tables was the FALLBACK: rgba(21,38,58,.03), the
-   old navy ink at 3%. A token swap cannot reach that, and a grep for the
-   palette will not find it either, because the value is not a palette colour,
-   it is a palette colour with an alpha on it. Neutral now, same 3%. */
 .xp-era:nth-of-type(even){background:var(--card-2,rgba(17,17,17,.03))}
 .xp-era h2{font:400 var(--t-xl)/1.1 var(--display);margin-bottom:var(--s2)}
 .xp-count{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);letter-spacing:.08em;
-  text-transform:uppercase;vertical-align:middle;margin-left:8px}
+text-transform:uppercase;vertical-align:middle;margin-left:8px}
 .xp-note{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
-
-/* The table scrolls inside this, never the page. */
 .xp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;
-  border:1px solid var(--hair);border-radius:var(--r);background-color:var(--card)}
-/* background-COLOR, not the shorthand: ui.css paints a four layer scroll
-   affordance on this class, and the background shorthand resets
-   background-image, which would silently wipe all four layers. */
+border:1px solid var(--hair);border-radius:var(--r);background-color:var(--card)}
 .xp-table{border-collapse:collapse;width:100%;min-width:520px;font-size:var(--t-sm)}
 .xp-table th,.xp-table td{text-align:left;padding:10px var(--s3);border-bottom:1px solid var(--hair);
-  vertical-align:middle}
+vertical-align:middle}
 .xp-table tbody tr:last-child th,.xp-table tbody tr:last-child td{border-bottom:0}
 .xp-table thead th{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;
-  text-transform:uppercase;color:var(--ink-2);background:var(--page);position:sticky;top:0;z-index:1}
-.xp-table tbody tr:hover{background:var(--lilac-pale)}
+text-transform:uppercase;color:var(--chrome-dim);background:var(--chrome-bg);
+position:sticky;top:0;z-index:1}
+.xp-table tbody tr:hover{background:var(--paper-3)}
+.xp-table tbody tr:hover th{box-shadow:inset 3px 0 0 var(--gold)}
 .xp-table tbody th{font-weight:600}
 .xp-name{display:flex;align-items:center;gap:10px}
 .xp-name img{flex:none;width:20px;height:20px;object-fit:contain}
 .xp-nosym{flex:none;width:20px;height:20px;border-radius:4px;background:var(--hair)}
+.xp-table tr.mine th{box-shadow:inset 4px 0 0 var(--gold)}
+.xp-table tr.mine:hover th{box-shadow:inset 4px 0 0 var(--gold)}
 .xp-table tr.mine th a{text-decoration:underline;text-decoration-color:var(--gold);
-  text-underline-offset:3px;text-decoration-thickness:2px}
+text-underline-offset:3px;text-decoration-thickness:2px}
 .xp-tag{font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
-  color:var(--plum);background:var(--lilac-pale);border-radius:var(--r-pill);padding:3px 6px}
+color:var(--ink);background:var(--paper-3);border:1px solid var(--hair);
+border-radius:var(--r-pill);padding:3px 6px}
 .xp-date{white-space:nowrap;color:var(--ink-2);font-variant-numeric:tabular-nums}
 .xp-cards{font-variant-numeric:tabular-nums;white-space:nowrap}
 .xp-cards .sec{color:var(--ink-2);font-size:var(--t-micro)}
 .xp-rips{white-space:nowrap}
 .xp-rips a{font-weight:700;color:var(--ketchup-deep)}
 .xp-rips a:hover{text-decoration:underline}
-/* --steel is not a token this stylesheet defines, so this always fell through
-   to the #9FB0C0 literal: 2.22:1 on the white table, the worst contrast
-   measured anywhere on the site. It is the em dash standing in for "no rips",
-   which is information, not decoration. --ink-2 is the secondary text colour
-   already used two rules up in .xp-cards .sec, and measures 5.27:1 on white. */
 .xp-none{color:var(--ink-2)}
 .xp-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
-  border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
-</style>
+border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
+@media(min-width:1200px){
+.xp-era-in{display:grid;grid-template-columns:300px minmax(0,1fr);
+gap:var(--s6);align-items:start}
+.xp-era-head{position:sticky;top:96px}
+.xp-note{margin-bottom:0}
+}
+@media(min-width:1600px){
+.xp-table thead th:nth-child(2){width:180px}
+.xp-table thead th:nth-child(3){width:140px}
+.xp-table thead th:nth-child(4){width:140px}
+}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -196,6 +194,7 @@
       <p class="menu-h">Play</p>
       <ul>
         <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
       </ul>
     </div>
@@ -257,10 +256,12 @@
   </section>
 
 <section class="xp-era" id="era-base">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>1999 to 2000</p>
     <h2>Base <span class="xp-count">6 sets</span></h2>
     <p class="xp-note">The original Wizards of the Coast run that started it all in English.</p>
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -335,10 +336,12 @@
 </section>
 
 <section class="xp-era" id="era-gym">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2000</p>
     <h2>Gym <span class="xp-count">2 sets</span></h2>
     <p class="xp-note">Kanto gym leaders get their own cards, badges and all.</p>
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -381,10 +384,12 @@
 </section>
 
 <section class="xp-era" id="era-neo">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2000 to 2002</p>
     <h2>Neo <span class="xp-count">4 sets</span></h2>
     <p class="xp-note">Johto arrives, and with it baby Pokemon and the first Shining cards.</p>
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -443,10 +448,12 @@
 </section>
 
 <section class="xp-era" id="era-other">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2001 to 2022</p>
     <h2>Other <span class="xp-count">15 sets</span></h2>
     <p class="xp-note">Promos, tie-ins and box sets that do not sit inside a main series.</p>
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -593,10 +600,12 @@
 </section>
 
 <section class="xp-era" id="era-e-card">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2002 to 2003</p>
     <h2>E-Card <span class="xp-count">3 sets</span></h2>
     <p class="xp-note">Cards printed with dot code strips you could scan with the Nintendo e-Reader.</p>
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -647,10 +656,12 @@
 </section>
 
 <section class="xp-era" id="era-ex">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2003 to 2007</p>
     <h2>EX <span class="xp-count">20 sets</span></h2>
     <p class="xp-note">Nintendo takes over publishing and Pokemon-ex show up, powerful cards that give up two prizes.</p>
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -837,10 +848,12 @@
 </section>
 
 <section class="xp-era" id="era-np">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2003</p>
     <h2>NP <span class="xp-count">1 set</span></h2>
     <p class="xp-note">Nintendo's promo cards, handed out rather than sold in packs.</p>
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -875,10 +888,12 @@
 </section>
 
 <section class="xp-era" id="era-pop">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2004 to 2009</p>
     <h2>POP <span class="xp-count">9 sets</span></h2>
     <p class="xp-note">Organized Play kits from the Play! Pokemon program, earned at events rather than bought.</p>
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -977,10 +992,12 @@
 </section>
 
 <section class="xp-era" id="era-diamond-pearl">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2007 to 2008</p>
     <h2>Diamond &amp; Pearl <span class="xp-count">8 sets</span></h2>
     <p class="xp-note">Sinnoh, and Pokemon LV.X as the new top end.</p>
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -1071,10 +1088,12 @@
 </section>
 
 <section class="xp-era" id="era-platinum">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2009</p>
     <h2>Platinum <span class="xp-count">4 sets</span></h2>
     <p class="xp-note">Pokemon SP, and Arceus closing out the era.</p>
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -1133,10 +1152,12 @@
 </section>
 
 <section class="xp-era" id="era-heartgold-soulsilver">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2010 to 2011</p>
     <h2>HeartGold &amp; SoulSilver <span class="xp-count">6 sets</span></h2>
     <p class="xp-note">A return to Johto, with Pokemon Prime and the two card LEGEND Pokemon.</p>
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -1211,10 +1232,12 @@
 </section>
 
 <section class="xp-era" id="era-black-white">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2011 to 2013</p>
     <h2>Black &amp; White <span class="xp-count">13 sets</span></h2>
     <p class="xp-note">Unova, full art trainers, and the return of Pokemon-EX.</p>
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -1345,10 +1368,12 @@
 </section>
 
 <section class="xp-era" id="era-xy">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2013 to 2016</p>
     <h2>XY <span class="xp-count">16 sets</span></h2>
     <p class="xp-note">Kalos, Mega Evolution on cardboard, and the BREAK mechanic.</p>
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -1503,10 +1528,12 @@
 </section>
 
 <section class="xp-era" id="era-sun-moon">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2017 to 2019</p>
     <h2>Sun &amp; Moon <span class="xp-count">18 sets</span></h2>
     <p class="xp-note">Alola, GX attacks, and Tag Team pairs late in the run.</p>
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -1677,10 +1704,12 @@
 </section>
 
 <section class="xp-era" id="era-sword-shield">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2019 to 2023</p>
     <h2>Sword &amp; Shield <span class="xp-count">25 sets</span></h2>
     <p class="xp-note">Galar, the V, VMAX and VSTAR ladder, and the era the hobby went mainstream again.</p>
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -1907,10 +1936,12 @@
 </section>
 
 <section class="xp-era" id="era-scarlet-violet">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2023 to 2025</p>
     <h2>Scarlet &amp; Violet <span class="xp-count">18 sets</span></h2>
     <p class="xp-note">Paldea, ex returns in lowercase, and illustration rares become the cards everybody chases.</p>
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -2081,10 +2112,12 @@
 </section>
 
 <section class="xp-era" id="era-mega-evolution">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>2025 to 2026</p>
     <h2>Mega Evolution <span class="xp-count">6 sets</span></h2>
     <p class="xp-note">The current era. Mega ex, and the sets we are opening right now.</p>
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -2260,6 +2293,7 @@ document.getElementById("copyAll")?.addEventListener("click", async (e) => {
       <div class="foot-col">
         <p class="foot-h">Play</p>
         <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
       </div>
       <div class="foot-col">

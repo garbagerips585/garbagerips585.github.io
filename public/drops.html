@@ -22,7 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=67f732be">
+<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .dr-head{padding:var(--s6) 0 var(--s4)}
@@ -41,22 +41,63 @@
   box-shadow:var(--hard-lg);padding:var(--s4);display:flex;flex-direction:column;gap:var(--s2)}
 .drop[hidden]{display:none}
 .drop-top{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2)}
-.rt{font:700 var(--t-label)/1.1 var(--body);letter-spacing:.04em;text-transform:uppercase;
-  padding:6px 10px;border-radius:6px;background:var(--card);color:var(--ink);
-  border:1px solid var(--hair);border-left:4px solid var(--rt);
-  display:inline-flex;flex-direction:column;gap:3px}
+.rt{display:inline-flex;align-items:center;gap:var(--s2)}
+.rt-n{font:700 var(--t-label)/1.1 var(--body);letter-spacing:.04em;text-transform:uppercase;
+  color:var(--ink);display:inline-flex;flex-direction:column;gap:3px}
 .rt i{font:400 var(--t-micro)/1 var(--mono);letter-spacing:.06em;color:var(--ink-2);font-style:normal}
+
+.bmk{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  height:34px;min-width:56px;max-width:124px;padding:4px 9px;box-sizing:border-box;
+  background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r-sm)}
+.bmk img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+/* Four marks for one venue entry. Wider box, and each mark gets a share of it.
+   The row wraps to two-by-two under 420px rather than shrinking to illegible. */
+.bmk-multi{max-width:100%;flex-wrap:wrap;gap:6px 12px;height:auto;min-height:34px;padding:6px 10px}
+.bmk-multi img{max-height:22px;max-width:74px}
+@media(max-width:420px){.bmk-multi img{max-height:19px;max-width:64px}}
+/* The drawn glyphs and the name tiles. Same box, deliberately. */
+.bmk-d{color:var(--ink-2)}
+/* THE SITE'S OWN NO-ART HATCH, the same 45 degree one .set-noart uses for a set
+   with no logo and .op-cn uses for a product with no publishable photograph.
+   Reusing it rather than inventing a treatment is the point: a reader who has
+   seen it on /sets/ already knows it means "there is no picture of this", so
+   eight name tiles read as a stated absence instead of as eight bugs. */
+.bmk-n{background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
+.bmk-n b{font:700 var(--t-micro)/1.15 var(--mono);letter-spacing:.01em;color:var(--ink);
+  text-align:center;overflow-wrap:anywhere;background:var(--paper-2);
+  box-shadow:0 0 0 3px var(--paper-2);border-radius:2px}
+
 .drop-ch,.drop-cf{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2)}
-.drop-cf.ok{background:#1E5B34;color:#EAF6EE;border-color:#1E5B34}
-.drop-cf.win{background:var(--mustard);color:#2A2410;border-color:var(--mustard)}
-.drop-cf.pat{background:var(--card);color:var(--ink-2);border-style:dashed}
+/* FOUR RUNGS, RANKED BY WEIGHT OF INK, WITH NO HUE AT ALL. Three faults, and
+   the third is the one that would survive a contrast checker.
+   "PATTERN ONLY" AND "EXPECTED" DIFFERED ONLY BY border-style. Two confidence
+   levels, one border apart, on the page whose entire lede is "check the
+   confidence on each one". The bottom rung was --card on a white card, 1.00:1,
+   so the dashed hairline was carrying the whole distinction on its own.
+   THE TOP RUNG WAS THE SITE'S ONLY GREEN, #1E5B34, which is legible at 7.73:1
+   and is still wrong: the palette's stated idea is one accent hue.
+   MUSTARD MEANT A DIFFERENT RANK ON EVERY PAGE THAT USED IT. Second here, best
+   on /upcoming.html, middle on /how-many-packs.html, and because gold is the
+   site's highlight the mustard chip is the loudest thing in each list. So on one
+   page the middle tier outshouted the top one. Taking the accent out of the
+   ladder entirely is the only fix that does not require three pages to agree
+   about which rank gold means.
+   What is left is four monotonically lighter treatments: solid ink, solid grey,
+   filled chip, then the site's own 45 degree no-art hatch behind a dashed
+   outline. The hatch already means "we do not hold this" everywhere else on the
+   site, which is exactly what "no retailer publishes a restock schedule" is.
+   NONE OF IT IS COLOUR ALONE: every chip prints its own label, and the key
+   below the list spells all four out in words. */
+.drop-cf.ok{background:var(--chrome-bg);color:var(--chrome-ink);border-color:var(--chrome-bg)}
+.drop-cf.win{background:var(--ink-soft);color:var(--paper-2);border-color:var(--ink-soft)}
+.drop-cf.exp{background:var(--paper-3);color:var(--ink);border-color:var(--hair)}
+.drop-cf.pat{color:var(--ink);border:1.5px dashed var(--ink-2);
+  background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
 .drop-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:auto;padding-top:var(--s2)}
 .drop-what{font:600 var(--t-m)/1.35 var(--body)}
 .drop-when,.drop-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.45}
 .dr-empty{color:var(--ink-2);padding:var(--s5) 0}
-.dr-sw{display:inline-block;width:11px;height:11px;border-radius:3px;background:var(--rt);
-  border:1px solid var(--hair);vertical-align:-1px;margin-right:5px}
 .dr-key h2{margin-bottom:var(--s3)}
 .dr-key{margin-top:var(--s5);color:var(--ink-2);font-size:var(--t-sm);line-height:1.5;max-width:44em}
 </style>
@@ -146,6 +187,7 @@
       <p class="menu-h">Play</p>
       <ul>
         <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
       </ul>
     </div>
@@ -197,7 +239,7 @@
       <div class="dr-grid" id="drGrid">
       <article class="drop" data-channel="online" data-retailer="pokemon-center">
         <div class="drop-top">
-          <span class="rt" style="--rt:var(--gold)">Pokemon Center<i>Official store</i></span>
+          <span class="rt"><span class="bmk"><img src="/assets/brands/pokemon-center.svg" alt="The Pokémon Company" width="269" height="25" loading="lazy" decoding="async"></span><span class="rt-n">Pokemon Center<i>Official store</i></span></span>
           <span class="drop-ch">Online</span>
           <span class="drop-cf pat">Pattern only</span>
         </div>
@@ -209,7 +251,7 @@
       </article>
       <article class="drop" data-channel="store" data-retailer="target">
         <div class="drop-top">
-          <span class="rt" style="--rt:var(--navy)">Target<i>Big box</i></span>
+          <span class="rt"><span class="bmk"><img src="/assets/brands/target.svg" alt="Target" width="300" height="300" loading="lazy" decoding="async"></span><span class="rt-n">Target<i>Big box</i></span></span>
           <span class="drop-ch">In store</span>
           <span class="drop-cf exp">Expected</span>
         </div>
@@ -220,7 +262,7 @@
       </article>
       <article class="drop" data-channel="online" data-retailer="target">
         <div class="drop-top">
-          <span class="rt" style="--rt:var(--navy)">Target<i>Big box</i></span>
+          <span class="rt"><span class="bmk"><img src="/assets/brands/target.svg" alt="Target" width="300" height="300" loading="lazy" decoding="async"></span><span class="rt-n">Target<i>Big box</i></span></span>
           <span class="drop-ch">Online</span>
           <span class="drop-cf exp">Expected</span>
         </div>
@@ -231,7 +273,7 @@
       </article>
       <article class="drop" data-channel="store" data-retailer="best-buy">
         <div class="drop-top">
-          <span class="rt" style="--rt:var(--navy)">Best Buy<i>Big box</i></span>
+          <span class="rt"><span class="bmk"><img src="/assets/brands/bestbuy.svg" alt="Best Buy" width="1000" height="584" loading="lazy" decoding="async"></span><span class="rt-n">Best Buy<i>Big box</i></span></span>
           <span class="drop-ch">In store</span>
           <span class="drop-cf exp">Expected</span>
         </div>
@@ -242,7 +284,7 @@
       </article>
       <article class="drop" data-channel="online" data-retailer="walmart">
         <div class="drop-top">
-          <span class="rt" style="--rt:var(--navy)">Walmart<i>Big box</i></span>
+          <span class="rt"><span class="bmk"><img src="/assets/brands/walmart.svg" alt="Walmart" width="1024" height="241" loading="lazy" decoding="async"></span><span class="rt-n">Walmart<i>Big box</i></span></span>
           <span class="drop-ch">Online</span>
           <span class="drop-cf pat">Pattern only</span>
         </div>
@@ -255,7 +297,7 @@
       </article>
       <article class="drop" data-channel="store" data-retailer="aldi">
         <div class="drop-top">
-          <span class="rt" style="--rt:var(--teal)">Aldi<i>Grocery</i></span>
+          <span class="rt"><span class="bmk"><img src="/assets/brands/aldi.svg" alt="Aldi" width="82" height="99" loading="lazy" decoding="async"></span><span class="rt-n">Aldi<i>Grocery</i></span></span>
           <span class="drop-ch">In store</span>
           <span class="drop-cf ok">Confirmed</span>
         </div>
@@ -266,7 +308,7 @@
       </article>
       <article class="drop" data-channel="store" data-retailer="walgreens">
         <div class="drop-top">
-          <span class="rt" style="--rt:var(--plum)">Walgreens<i>Pharmacy</i></span>
+          <span class="rt"><span class="bmk"><img src="/assets/brands/walgreens.svg" alt="Walgreens" width="535" height="119" loading="lazy" decoding="async"></span><span class="rt-n">Walgreens<i>Pharmacy</i></span></span>
           <span class="drop-ch">In store</span>
           <span class="drop-cf exp">Expected</span>
         </div>
@@ -277,7 +319,7 @@
       </article>
       <article class="drop" data-channel="store" data-retailer="family-dollar">
         <div class="drop-top">
-          <span class="rt" style="--rt:var(--ketchup)">Family Dollar<i>Discount</i></span>
+          <span class="rt"><span class="bmk bmk-n" aria-hidden="true"><b>Family Dollar</b></span><span class="rt-n">Family Dollar<i>Discount</i></span></span>
           <span class="drop-ch">In store</span>
           <span class="drop-cf exp">Expected</span>
         </div>
@@ -298,9 +340,8 @@
       <div class="dr-key">
         <h2>How to read this page</h2>
         <p><b>What the labels mean.</b> <b>Confirmed:</b> A date the retailer put on it, or stock already seen on shelves. <b>Usual window:</b> Expected inside a known range. <b>Expected:</b> The community thinks it is coming. No date. <b>Pattern only:</b> A day or time people have noticed. No retailer publishes a restock schedule, so this is the weakest thing on the page.</p>
-        <p style="margin-top:var(--s3)"><b>What the colors mean.</b> The stripe on each name is the kind of
-          shop, not the shop's own color: <span class="dr-sw" style="--rt:var(--gold)"></span>Official store, <span class="dr-sw" style="--rt:var(--navy)"></span>Big box, <span class="dr-sw" style="--rt:var(--teal)"></span>Grocery, <span class="dr-sw" style="--rt:var(--plum)"></span>Pharmacy, <span class="dr-sw" style="--rt:var(--ketchup)"></span>Discount. Retailer names here are drawn in this site's own typeface and are the property of
-          their owners. Nothing on this page is endorsed by, affiliated with or supplied by any of them.</p>
+        <p style="margin-top:var(--s3)"><b>Whose logos these are.</b> Company names and logos on this page are the trademarks of their owners and are used to identify the companies described. Nothing here is sponsored, affiliated or endorsed. Marks are mirrored from Wikimedia Commons, where each carries a public domain copyright tag; the venues with no mark have their name set in this site's own typeface instead.
+          The kind of shop is the word under each name: Official store, Big box, Grocery, Pharmacy, Discount.</p>
         <p style="margin-top:var(--s3)">Stock varies store to store and the good stuff goes fast, so this tells you
           where to look rather than what you will find. If you would rather buy without the hunt, the
           <a href="/shops.html">Rochester shops</a> and the <a href="/card-shows.html">card shows</a> have
@@ -355,6 +396,7 @@
       <div class="foot-col">
         <p class="foot-h">Play</p>
         <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
       </div>
       <div class="foot-col">

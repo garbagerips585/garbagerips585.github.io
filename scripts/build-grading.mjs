@@ -82,6 +82,9 @@ const by = Object.fromEntries(g.companies.map((c) => [c.id, c]));
 // site supplies one, and the page says so.
 const names = new Map();
 const rawPrice = new Map();
+// The TCGdex base for each card, kept for rowShot() below. This used to be read
+// and thrown away, which is why the verdict list had no pictures.
+const imgBase = new Map();
 let cardsChecked = null;
 try {
   const dir = join(ROOT, "public/data/cards");
@@ -93,6 +96,7 @@ try {
     cardsChecked = cardsChecked || doc.checked;
     for (const c of doc.cards) {
       names.set(`${doc.set}-${norm(c.n)}`, c.name);
+      if (c.img) imgBase.set(`${doc.set}-${norm(c.n)}`, c.img);
       if (typeof c.price === "number") rawPrice.set(`${doc.set}-${norm(c.n)}`, c.price);
     }
   }
@@ -100,6 +104,26 @@ try {
   /* run: node scripts/sync-cards.mjs */
 }
 const keyOf = (slug, num) => `${slug}-${String(num ?? "").replace(/^0+(?=\d)/, "")}`;
+
+/**
+ * The card scans, at the size a row draws them.
+ *
+ * THE VERDICT LIST NAMED 32 REAL CARDS AND SHOWED NONE OF THEM. It is the only
+ * part of this page that is about specific objects rather than about fees, and
+ * "Mega Gardevoir ex / Mega Evolution / 178" as three columns of text is the
+ * one thing here a picture fixes outright. The join was already being done: the
+ * loop above walks public/data/cards/*.json for the name and the raw price and
+ * threw the `img` away.
+ *
+ * MIRRORED, NOT HOTLINKED, and that is measured rather than tidy. TCGdex's
+ * smallest rendition is 245px wide and there is no middle width at any host, so
+ * 32 hotlinked scans is about 550KB to fill boxes 32px wide, on the page most
+ * likely to be read on a phone. scripts/sync-card-thumbs.mjs fits each one to a
+ * 72px box, which covers 32px at DPR2 with room, and the row costs about 96KB
+ * instead. A card missing from the manifest keeps its remote low.webp, decided
+ * here rather than with onerror, because onerror never fires for a lazy image.
+ */
+const THUMBS = JSON.parse(await readFile(join(ROOT, "data/card-thumbs.json"), "utf8")).thumbs;
 
 const cheapest = g.companies.slice().sort((a, b) => a.cheapest - b.cheapest)[0];
 // THE RESALE ROW FOR WHOEVER IS CURRENTLY CHEAPEST. The "Cheap to grade is not
@@ -145,6 +169,7 @@ for (const [key, a] of Object.entries(psa.auto || {})) {
   rows.push({
     key,
     name: names.get(keyOf(slug, num)) || key,
+    img: imgBase.get(keyOf(slug, num)) || null,
     set: setName.get(slug) || slug,
     slug,
     num,
@@ -163,8 +188,25 @@ const notWorth = rows.filter((r) => r.netPsa <= 0);
 const feePsa = psaCo.cheapest + SHIP;
 const feeCheap = cheapest.cheapest + SHIP;
 
+/**
+ * The thumbnail for one row, or nothing.
+ *
+ * alt="" on purpose, the same call rarity.html's magnified corners make: the
+ * card's name is the very next thing in the row, so alt text here reads the same
+ * name twice. width and height come from the manifest, which carries the file's
+ * REAL decoded size rather than a flat 72 by something: a blanket assumption
+ * about card scan dimensions once made 173 images on this site wrong.
+ */
+const rowShot = (r) => {
+  if (!r.img) return "";
+  const t = THUMBS[r.img];
+  const src = t ? `/assets/cards/${t.file}` : `${r.img}/low.webp`;
+  const wh = t ? ` width="${t.w}" height="${t.h}"` : "";
+  return `<img class="gr-shot" src="${esc(src)}" alt="" loading="lazy" decoding="async"${wh}>`;
+};
+
 const verdictRow = (r) => `        <li class="gr">
-          <span class="gr-name">${esc(r.name)}</span>
+          <span class="gr-name">${rowShot(r)}<span>${esc(r.name)}</span></span>
           <span class="gr-set">${esc(r.set)} &bull; ${esc(r.num)}</span>
           <span class="gr-raw">${moneyExact(r.raw)}<em>raw</em></span>
           <span class="gr-psa">${moneyExact(r.psa10)}<em>PSA 10</em></span>
@@ -231,6 +273,32 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
+<style>
+/* The card in each verdict row. In this page's own block rather than ui.css:
+   this page is the only user and ui.css is render blocking on all 426 pages.
+   It rides INSIDE .gr-name rather than as a new grid column, because .gr's
+   template and its 560px rearrangement are tuned in ui.css and a fifth column
+   would have to be re-tuned in two places to gain nothing. */
+.gr-name{display:flex;align-items:center;gap:8px;min-width:0}
+.gr-shot{flex:none;width:32px;height:auto;display:block;border-radius:3px;
+  background:var(--paper-3);border:1px solid var(--hair)}
+
+/* PROFIT AND LOSS SEPARATE BY WEIGHT AND LUMINANCE, NOT BY HUE. ui.css paints
+   .gr-net.up a #3B6130 green and .gr-net.down var(--ketchup-deep), which is
+   #6E5000 since the site repainted to one accent hue. Two problems with that
+   after the repaint: the two are 1.05:1 apart in luminance, so the pair was
+   carried almost entirely by hue with only the plus and minus signs behind it,
+   and the LOSS was wearing the brand's own gold, which reads as approval on the
+   one page whose whole job is telling you when not to spend the money.
+   So the gain is --ink at 800 and the loss is --ink-2 at 400: 17.4:1 against
+   6.8:1 on white, a 2.78:1 step between them, plus a weight difference you can
+   see across the room, plus the sign that was already there. No hue at all, and
+   the accent is no longer attached to the answer that means no.
+   Overridden in this page's own block: ui.css is render blocking on all 426
+   pages and this page is the only user. */
+.gr-net.up{color:var(--ink);font-weight:800}
+.gr-net.down{color:var(--ink-2);font-weight:400}
+</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -439,7 +507,8 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
       sometimes with two weeks' notice, so click through before you send anything. Card prices are TCGplayer market
       and PSA 10 sale data. Raw prices are TCGplayer market via TCGdex, read ${esc(longDate(cardsChecked) || cardsChecked || "recently")},
       the same figures the rest of this site quotes. PSA 10 prices come from pokemonpricetracker.com, because no free
-      feed carries graded sales; only cards with at least ten recorded sales are used. Both move daily. No affiliate
+      feed carries graded sales; only cards with at least ten recorded sales are used. Both move daily. Card scans
+      are TCGdex's, mirrored here at the size the rows draw them, and each one is the card named beside it. No affiliate
       links and no recommendation: we are not paid by any grading company and which one is right depends on your card
       and your patience. Not financial advice, just subtraction.</p>
   </div>

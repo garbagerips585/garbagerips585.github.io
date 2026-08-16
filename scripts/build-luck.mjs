@@ -171,11 +171,76 @@ const packsKnown = judged.filter(packsIn).length;
 
 // ---------------------------------------------------------------------------
 
-const row = (r, hrefBase) => {
+// ------------------------------------------------------- product photography
+//
+// THE PRODUCT TABLE NAMES ELEVEN THINGS AND SHOWED NONE OF THEM. "ex Premium
+// Collection", "Knock Out Collection" and "UPC" are trade names for boxes of
+// wildly different size and price, and the whole point of that table is the gap
+// between similar products. A reader who cannot picture two of them cannot see
+// the gap.
+//
+// EVERY PHOTO NAMES THE SET IT IS OF, IN VISIBLE TEXT, not just in the alt.
+// products.json is per SET, never per product type, so each of these is one
+// specific set's box standing in for a kind, and a row that showed it without
+// saying so would be quietly claiming the picture is "an ETB" rather than "Pitch
+// Black's ETB". The set line under each label is the whole licence for using
+// them here. Same rule build-how-many-packs.mjs states at length.
+//
+// THE SETS ARE PINNED AND THE NAME IS CHECKED. sync-products.mjs picks the
+// cheapest variant per kind, so the product behind "pitch-black / Tin" can
+// change under us; if the name that comes back does not still start with the set
+// we expect, the photo is dropped rather than captioned wrong.
+//
+// FOUR ROWS GET NO PHOTO AND THAT IS THE ANSWER, not a gap to close later.
+// Japanese, Korean and Chinese booster packs are not in the TCGplayer pull at
+// all, and the Poke Ball Tin and Knock Out Collection listings that do exist
+// belong to sets we did not open. An English Prismatic Evolutions tin captioned
+// as a Japanese pack is worse than a hatched box.
+const PRODUCT_SHOT = {
+  etb: ["pitch-black", "Elite Trainer Box", "Pitch Black", "Pitch Black Elite Trainer Box"],
+  "single-pack": ["pitch-black", "Single Pack", "Pitch Black", "Pitch Black Booster Pack"],
+  bundle: ["pitch-black", "Booster Bundle", "Pitch Black", "Pitch Black Booster Bundle"],
+  blister: ["pitch-black", "Blister Pack", "Pitch Black", "Pitch Black Single Pack Blister"],
+  tin: ["prismatic-evolutions", "Tin", "Prismatic Evolutions", "Prismatic Evolutions Mini Tin"],
+  "collection-box": ["prismatic-evolutions", "Collection Box", "Prismatic Evolutions", "Prismatic Evolutions Poster Collection"],
+  upc: ["151", "Ultra-Premium Collection", "151", "151 Ultra-Premium Collection"],
+};
+
+let PRODUCTS = {};
+try {
+  PRODUCTS = JSON.parse(await readFile(join(ROOT, "public/data/products.json"), "utf8")).sets || {};
+} catch { /* run: node scripts/sync-products.mjs. The table renders without photos. */ }
+const DEAD_URLS = new Set(
+  await readFile(join(ROOT, "data/no-scan.json"), "utf8")
+    .then((t) => JSON.parse(t).deadUrls || [])
+    .catch(() => [])
+);
+
+const shotFor = (key) => {
+  const spec = PRODUCT_SHOT[key];
+  if (!spec) return null;
+  const [sid, kind, setLabel, expect] = spec;
+  const hit = (PRODUCTS[sid]?.products || []).find((p) => p.kind === kind);
+  if (!hit || !hit.thumb || DEAD_URLS.has(hit.thumb)) return null;
+  if (!String(hit.name || "").toLowerCase().startsWith(expect.toLowerCase())) return null;
+  return { src: hit.thumb, name: hit.name, set: setLabel };
+};
+
+const row = (r, hrefBase, withShot = false) => {
   const enough = r.rips >= MIN_SAMPLE;
+  const shot = withShot ? shotFor(r.key) : null;
+  const name = hrefBase ? `<a href="${hrefBase}${esc(r.key)}">${esc(r.label)}</a>` : esc(r.label);
   return `        <tr${enough ? "" : ' class="thin"'}>
           <th scope="row">${
-            hrefBase ? `<a href="${hrefBase}${esc(r.key)}">${esc(r.label)}</a>` : esc(r.label)
+            withShot
+              ? `<span class="luck-prod">${
+                  shot
+                    ? `<img src="${esc(shot.src)}" sizes="56px" alt="${esc(shot.name)}, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer">`
+                    : `<span class="luck-noshot" aria-hidden="true"></span>`
+                }<span class="luck-prodn">${name}${
+                  shot ? `<em>${esc(shot.set)} shown</em>` : `<em>no photo we can publish</em>`
+                }</span></span>`
+              : name
           }</th>
           <td class="num">${r.rips}</td>
           <td class="num">${r.hits}</td>
@@ -187,18 +252,30 @@ const row = (r, hrefBase) => {
         </tr>`;
 };
 
-const table = (rows, what, hrefBase) =>
+const table = (rows, what, hrefBase, withShot = false) =>
   rows.length
     ? `    <div class="luck-scroll">
       <table class="luck-table">
         <caption class="sr-only">Hit rate by ${what}</caption>
         <thead><tr><th scope="col">${what}</th><th scope="col">Rips</th><th scope="col">Hits</th><th scope="col">Hit rate</th></tr></thead>
         <tbody>
-${rows.map((r) => row(r, hrefBase)).join("\n")}
+${rows.map((r) => row(r, hrefBase, withShot)).join("\n")}
         </tbody>
       </table>
     </div>`
     : `    <p class="luck-empty">Nothing tagged yet. This fills in as the rip log gets marked up.</p>`;
+
+// COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same trade
+// build-css.mjs makes for ui.css and miniCSS makes in build-set-pages.mjs, and
+// the same regex: comments, plus the indentation between rules. Nothing else.
+//
+// It is here because this block is inline in a render blocking <head> and the
+// desktop rules added on 16 August 2026 came with the measurements that justify
+// them written alongside. Measured on this page set, those comments were 17.1KB
+// raw and 7.1KB gzipped across eight pages, up to 13% of one of them. Stripped,
+// every one of these pages is smaller than it was before the rules were added.
+const miniCSS = (css) =>
+  css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
 
 const style = `
 .luck{padding:var(--s7) 0 var(--s5)}
@@ -213,12 +290,17 @@ const style = `
 
 /* How much of the log is actually tagged. Shown at the top rather than buried,
    because every number under it is only as good as this bar. */
-.luck-cov{background:var(--lilac-pale);border:1px solid rgba(78,47,72,.2);border-radius:var(--r);
+.luck-cov{background:var(--lilac-pale);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s4);margin-bottom:var(--s6)}
 .luck-cov p{font:700 var(--t-micro)/1.6 var(--mono);color:var(--plum);letter-spacing:.04em;
   text-transform:uppercase;margin-bottom:8px}
-.luck-covbar{height:10px;border-radius:99px;background:rgba(78,47,72,.16);overflow:hidden}
-.luck-covbar i{display:block;height:100%;background:var(--plum);border-radius:99px}
+/* rgba(78,47,72,...) is a plum left over from the old palette, on a site whose
+   stated palette is black, white and gold. The track is the palette's own
+   --paper-3 and the fill is the accent, which is what every other bar on the
+   site uses. Nothing about the reading changes; it just stops being purple. */
+.luck-covbar{height:10px;border-radius:99px;background:var(--paper-3);overflow:hidden;
+  border:1px solid var(--hair)}
+.luck-covbar i{display:block;height:100%;background:var(--gold);border-radius:99px}
 /* Only rendered when every logged rip is a hit. A 100% headline with nothing
    next to it reads as a broken number, so the page says why before you ask. */
 .luck-caveat{font:400 var(--t-sm)/1.6 var(--body)!important;color:var(--plum)!important;
@@ -231,7 +313,23 @@ const style = `
 /* background-COLOR, not the shorthand: ui.css paints a four layer scroll
    affordance on this class, and the background shorthand resets
    background-image, which would silently wipe all four layers. */
-.luck-table{border-collapse:collapse;width:100%;min-width:400px;font-size:var(--t-sm)}
+/* THE PRODUCT TABLE IS WIDER THAN THE SET TABLE NOW. min-width goes to 460px
+   because the first column carries a 56px photograph plus two lines of label,
+   and at 400px the hit-rate bar was squeezed to nothing. Both tables sit in
+   .luck-scroll, so this widens the scroll rather than the page. */
+.luck-table{border-collapse:collapse;width:100%;min-width:460px;font-size:var(--t-sm)}
+/* Photo, then the product name with the set it is a photo OF underneath. The
+   second line is not decoration: products.json is per set, so without it the
+   picture is claiming to be "an ETB" rather than "Pitch Black's ETB". */
+.luck-prod{display:flex;align-items:center;gap:var(--s3)}
+.luck-prod img,.luck-noshot{flex:none;width:56px;height:56px;object-fit:contain;display:block;
+  background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r-sm)}
+/* No photograph exists that we can publish. The site's 45 degree no-art hatch,
+   at the identical footprint so the column keeps its width. */
+.luck-noshot{background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
+.luck-prodn{display:block;min-width:0}
+.luck-prodn em{display:block;font:400 var(--t-micro)/1.3 var(--body);color:var(--ink-2);
+  font-style:normal;margin-top:2px}
 .luck-table th,.luck-table td{text-align:left;padding:10px var(--s3);border-bottom:1px solid var(--hair)}
 .luck-table tbody tr:last-child th,.luck-table tbody tr:last-child td{border-bottom:0}
 .luck-table thead th{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
@@ -270,6 +368,60 @@ const style = `
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
 .luck-empty{color:var(--ink-2);background:var(--card);border:1px dashed var(--hair);
   border-radius:var(--r);padding:var(--s5);text-align:center}
+
+/* DESKTOP. min-width only, so a phone and a tablet render what they rendered
+   before. Measured identical at 390 before and after.
+
+   WHAT WAS WRONG, MEASURED AT 1440. Both hit-rate tables ran the full 1,392px
+   with four columns in them: a set name, two counts and a bar. The name column
+   took the remainder, 730px, to hold "Pitch Black", and the bar took 480px of
+   the rest, so the two numbers a reader is comparing sat half a screen apart.
+   Prose measured 87 characters a line against a 65 to 75 target.
+
+   The heading and its note move beside the table rather than above it, which
+   narrows the table to about 1,030px and pulls the columns back together, and
+   takes roughly 130px off the page per section.
+
+   The three children are placed by hand rather than left to auto-placement,
+   which fills row major and would put the note next to the heading instead of
+   under it. .luck-empty is placed with .luck-scroll because table() renders one
+   or the other: with nothing logged there is no table, and an unplaced child
+   would auto-flow into the hole the explicit rules leave. */
+@media(min-width:1200px){
+  /* THE THIRD ROW IS A SPACER AND IT IS LOAD BEARING. The table is far taller
+     than the heading and the note put together, and a grid distributes a
+     spanning item's leftover height across the rows it spans. With two rows,
+     row 2 grew to soak up the difference and the note was pushed 380px down the
+     page, marooned in the middle of the rail with a hole above it. A third row
+     at 1fr takes all the slack instead, so rows 1 and 2 stay at their content
+     height and the heading and note sit together at the top where they read. */
+  .luck-rail > .wrap{display:grid;grid-template-columns:320px minmax(0,1fr);
+    grid-template-rows:auto auto 1fr;gap:0 var(--s6);align-items:start}
+  .luck-rail > .wrap > h2{grid-column:1;grid-row:1;margin-bottom:var(--s2)}
+  .luck-rail > .wrap > .luck-note{grid-column:1;grid-row:2;margin-bottom:0}
+  .luck-rail > .wrap > .luck-scroll,
+  .luck-rail > .wrap > .luck-empty{grid-column:2;grid-row:1 / span 3}
+}
+/* Reading measure. The em based caps above were set against the body face and
+   .luck-lede is set in the larger --t-lede, so 42em came out at 748px and 87
+   characters a line. ch is the width of a "0" in the element's OWN font, which
+   is the unit that tracks the count rather than the type size.
+
+   50ch AND NOT 70ch. ch is one DIGIT wide, and a digit is one of the widest
+   glyphs in Outfit: measured across these pages the average character is about
+   0.7 of a ch, so 50ch sets around 70 characters and 70ch would set 100. The
+   full measurement is written out in build-buying.mjs.
+
+   Capped only from 1000px up, because below that the caps never bind. */
+@media(min-width:1000px){
+  .luck-lede{max-width:52ch}
+  .luck-note,.luck-caveat{max-width:50ch}
+  /* The method note was the widest measure left on the page after the rest was
+     capped: 616px of 11px mono setting 87 characters a line, on the paragraph
+     that explains how every number above it was counted. Capped wider than the
+     prose because mono at 11px is reference type, but not left running. */
+  .luck-method{max-width:72ch}
+}
 `;
 
 const headline = judged.length
@@ -308,7 +460,7 @@ ${
     </div>
   </section>
 
-  <section class="band luck-sec">
+  <section class="band luck-sec luck-rail">
     <div class="wrap">
       <h2>Which sets have been <span class="hl">kind</span></h2>
       <p class="luck-note">Hit rate is the share of logged rips from that set that produced something
@@ -318,13 +470,13 @@ ${table(bySet, "Set", "/videos.html?set=")}
     </div>
   </section>
 
-  <section class="luck-sec">
+  <section class="luck-sec luck-rail">
     <div class="wrap">
       <h2>Which products have been <span class="hl">worth it</span></h2>
       <p class="luck-note">The same question asked of what was opened rather than what was in it.
         A booster box holds far more packs than a single blister, so a higher rate here is expected
         rather than surprising: what is worth reading is the gap between similar products.</p>
-${table(byProduct, "Product", "/videos.html?product=")}
+${table(byProduct, "Product", "/videos.html?product=", true)}
     </div>
   </section>
 
@@ -438,7 +590,7 @@ ${judged.length ? "" : '<meta name="robots" content="noindex,follow">\n'}<link r
 <meta name="twitter:card" content="summary_large_image">
 ${FONTS}
 ${STYLES}
-<style>${style}</style>
+<style>${miniCSS(style)}</style>
 ${ld ? `<script type="application/ld+json">
 ${JSON.stringify(ld, null, 2)}
 </script>` : "<!-- No Dataset markup: there are no judged rips yet, so there is nothing to describe. -->"}

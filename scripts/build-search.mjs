@@ -96,6 +96,7 @@ const PAGES = [
   ["/playlists.html", "Playlists", "Rips grouped into playlists"],
   ["/games/", "Games", "Three Pokemon games for the wait in line"],
   ["/lore.html", "Pokemon lore", "Facts computed from the National Pokedex"],
+  ["/video-games.html", "Every Pokemon video game", "Covers, release dates, platforms and Metascores, 1996 to now"],
   ["/creators.html", "Local creators", "Other Rochester card channels worth watching"],
   ["/vendors.html", "Local vendors", "Who sells cards around Rochester"],
   ["/about.html", "About", "Who this is and why"],

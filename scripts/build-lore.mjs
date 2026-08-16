@@ -41,7 +41,46 @@ const dex = JSON.parse(await readFile(join(ROOT, "data/pokedex.json"), "utf8"));
 const P = dex.pokemon;
 const SRC = `pokeapi.co, read ${longDate(dex.checked) || dex.checked}`;
 
+// The mirrored official artwork, written by scripts/sync-dex-art.mjs. Missing is
+// a supported state: every portrait falls back to the site's hatched no-art box
+// in the same footprint, so the page never grows a hole and never substitutes a
+// different Pokemon for one it does not hold.
+let ART = {};
+try {
+  ART = JSON.parse(await readFile(join(ROOT, "data/dex-art.json"), "utf8")).art || {};
+} catch { /* run: node scripts/sync-dex-art.mjs */ }
+const missingArt = new Set();
+
+/**
+ * One Pokemon portrait, or the hatched box.
+ *
+ * LOOKED UP BY DEX ID, NEVER BY POSITION IN A LIST. The facts on this page are
+ * computed, so who "the heaviest" is can change under the mirror; asking for
+ * art by the id of the Pokemon the sentence is about means the worst case is a
+ * hatched box next to a correct sentence, rather than Celesteela's name over
+ * somebody else's picture. The alt is the Pokemon's own name for the same
+ * reason: it is read off the same record the sentence is.
+ */
+const portrait = (p, px = 64) => {
+  const a = ART[String(p.id)];
+  if (!a) {
+    missingArt.add(`${p.id} ${p.name}`);
+    return `<span class="dexart dexart-none" style="--px:${px}px" role="img" aria-label="No artwork held for ${esc(p.name)}"></span>`;
+  }
+  return `<img class="dexart" style="--px:${px}px" src="${esc(a.file)}" width="${a.w}" height="${a.h}"` +
+    ` alt="${esc(p.name)}" loading="lazy" decoding="async">`;
+};
+
+/** A row of portraits with the Pokemon's name under each. */
+const portraits = (arr, px = 64) =>
+  `<div class="dexrow">${arr
+    .map((p) => `<figure class="dexfig">${portrait(p, px)}<figcaption>${esc(p.name)}</figcaption></figure>`)
+    .join("")}</div>`;
+
 const by = (id) => P.find((p) => p.id === id);
+// The combination and solo-type maps hold NAMES, because that is what their
+// sentences print. The portraits need the whole record, so this reads it back.
+const byName = (nm) => P.find((p) => p.name === nm);
 const kg = (p) => p.wHg / 10;
 const m = (p) => p.hDm / 10;
 const cap = (s) => String(s).charAt(0).toUpperCase() + String(s).slice(1);
@@ -98,22 +137,88 @@ const garbodor = by(569);
 const poison = P.filter((p) => p.types.includes("poison"));
 const purePoison = P.filter((p) => p.types.length === 1 && p.types[0] === "poison");
 
+
+/**
+ * An exact height comparison between two Pokemon, drawn rather than photographed.
+ *
+ * The copy above it says Garbodor "triples in height". This is that sentence as
+ * a picture, and it is honest in a way scaling the artwork is not: the bars are
+ * geometry drawn straight from hDm, so the ratio on screen IS the ratio in the
+ * data. A metre rule sits behind them because "one bar is three times another"
+ * means nothing without a unit, and the tallest bar sets the scale so the figure
+ * stays correct if a future dex entry changes either height.
+ *
+ * currentColor and the site's tokens throughout, no fills that assume a light or
+ * a dark ground, and aria-hidden with the numbers already in the prose above:
+ * a screen reader gets the sentence, not a description of a rectangle.
+ */
+function heightBars(a, b) {
+  const H = 132, W = 300, PAD = 26, base = H - 16;
+  const top = Math.max(m(a), m(b));
+  const ceil = Math.ceil(top);                 // whole metres, so the rule is readable
+  const y = (v) => base - (v / ceil) * (base - 10);
+  // EVERY STROKE AND EVERY LABEL IS currentColor, NOT var(--ink). This figure
+  // sits inside .fk-golden, which is the site's dark band, and the first version
+  // drew the two value labels in --ink on near-black: the numbers the whole
+  // picture exists to state were invisible, and the bars still looked fine, so
+  // nothing about the page said it was broken. currentColor inherits from
+  // whatever the figure is dropped into, so moving this block to a light section
+  // later cannot reintroduce it. Only the bar fill is a fixed token, because
+  // gold is legible on both grounds and is the site's accent.
+  const rules = [];
+  for (let i = 1; i <= ceil; i++) {
+    rules.push(
+      `<line x1="${PAD - 6}" y1="${y(i)}" x2="${W}" y2="${y(i)}" stroke="currentColor" stroke-width="1" opacity=".28"/>` +
+      `<text x="0" y="${y(i) + 4}" font-size="10" fill="currentColor" opacity=".75" font-family="var(--mono)">${i}m</text>`
+    );
+  }
+  const bar = (p, x) => {
+    const h = base - y(m(p));
+    return `<rect x="${x}" y="${y(m(p))}" width="66" height="${h}" rx="3" fill="var(--gold)"/>` +
+      `<text x="${x + 33}" y="${y(m(p)) - 7}" text-anchor="middle" font-size="12" font-weight="700"` +
+      ` fill="currentColor" font-family="var(--mono)">${m(p).toFixed(1)}m</text>` +
+      `<text x="${x + 33}" y="${base + 13}" text-anchor="middle" font-size="10"` +
+      ` fill="currentColor" opacity=".75" font-family="var(--mono)">${esc(p.name.toUpperCase())}</text>`;
+  };
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-hidden="true" focusable="false">
+      ${rules.join("")}
+      <line x1="${PAD - 6}" y1="${base}" x2="${W}" y2="${base}" stroke="currentColor" stroke-width="1.5"/>
+      ${bar(a, PAD + 30)}${bar(b, PAD + 130)}
+    </svg>`;
+}
+
 // --- facts ------------------------------------------------------------------
 // [heading, sentence]. Source is printed once per card by the renderer.
+// [heading, sentence, the Pokemon the sentence NAMES].
+//
+// THE THIRD FIELD IS DERIVED FROM THE SAME VARIABLES THE SENTENCE IS, never
+// typed out beside it. That is the only thing stopping a portrait and a name
+// drifting apart: if a new generation makes somebody else the tallest, the
+// sentence and the picture change together because both read `tl.who`.
+//
+// FOUR FACTS NAME NOBODY and get no portrait, which is correct rather than a
+// gap. "Water is the most crowded type with 154" is about a set of 154 Pokemon,
+// and any one of them stood next to that sentence would be an illustration of a
+// different claim. Same for the legendary share, the baby count and the
+// generation sizes. A picture that is only decoration is the thing this pass is
+// supposed to be removing, not adding.
 const FACTS = [
-  ["Type combinations", `Of the ${n(combos.size)} type combinations across the National Pokedex, ${n(soloOfCombo.length)} belong to exactly one Pokemon. ${soloOfCombo[0][1][0]} is the only ${list(soloOfCombo[0][0].split("/").map(cap))} Pokemon there has ever been.`],
+  ["Type combinations", `Of the ${n(combos.size)} type combinations across the National Pokedex, ${n(soloOfCombo.length)} belong to exactly one Pokemon. ${soloOfCombo[0][1][0]} is the only ${list(soloOfCombo[0][0].split("/").map(cap))} Pokemon there has ever been.`, [byName(soloOfCombo[0][1][0])]],
   ["The most common type", `${cap(typeRank[0][0])} is the most crowded type in the dex with ${n(typeRank[0][1])} Pokemon. The rarest is ${cap(typeRank[typeRank.length - 1][0])}, with ${n(typeRank[typeRank.length - 1][1])}.`],
   [
     "Heaviest",
     `${list(hv.who.map((p) => p.name))} ${hv.who.length > 1 ? "are tied as the heaviest in the dex" : "is the heaviest in the dex"} at ${kg(hv.who[0]).toFixed(1)}kg, about ${n(Math.round(hv.best / lt.best))} times the ${kg(lt.who[0]).toFixed(1)}kg shared by the ${lt.who.length === 1 ? "lightest" : `${n(lt.who.length)} lightest`}: ${list(lt.who.map((p) => p.name))}.`,
+    [...hv.who, ...lt.who],
   ],
   [
     "Tallest",
     `${list(tl.who.map((p) => p.name))} ${tl.who.length > 1 ? "stand" : "stands"} ${m(tl.who[0]).toFixed(1)}m. At ${m(sh.who[0]).toFixed(1)}m you would need about ${n(Math.round(tl.best / sh.best))} of ${sh.who.length === 1 ? sh.who[0].name : "the smallest"} stacked up to match that.`,
+    tl.who,
   ],
   [
     "Hardest to catch",
     `${n(hc.who.length)} Pokemon share the lowest capture rate in the dex, ${hc.best} out of 255, ${hc.who.length > 1 ? `including ${list(hc.who.slice(0, 3).map((p) => p.name))}` : hc.who[0].name}. At the other end, ${n(P.filter((p) => p.catch === 255).length)} sit at the maximum of 255.`,
+    hc.who.slice(0, 3),
   ],
   ["Legendaries", `${n(legendary.length)} Pokemon are flagged Legendary and ${n(mythical.length)} Mythical, which is ${((legendary.length + mythical.length) / P.length * 100).toFixed(1)}% of the ${n(P.length)} in the National Pokedex.`],
   ["Babies", `${n(babies.length)} Pokemon are classed as baby Pokemon, a category that did not exist until breeding arrived in Generation 2.`],
@@ -128,9 +233,10 @@ const RARE_COMBOS = [...combos]
 // --- page -------------------------------------------------------------------
 const desc = `Pokemon facts computed from the National Pokedex, not repeated: the rarest type combinations, the heaviest, the hardest to catch, and why Trubbish is ours.`;
 
-const factCard = (heading, body) => `      <div class="lore">
+const factCard = (heading, body, who = []) => `      <div class="lore">
         <h3>${esc(heading)}</h3>
         <p>${esc(body)}</p>
+        ${who.length ? portraits(who) : ""}
         <span class="lore-src">Source: ${esc(SRC)}</span>
       </div>`;
 
@@ -158,6 +264,57 @@ const page = `<!DOCTYPE html>
 ${FONTS}
 ${STYLES}
 <link rel="stylesheet" href="/assets/games.css">
+<style>
+/* THIS PAGE'S OWN IMAGERY. It lives here rather than in assets-source/ui.css
+   because it is used on exactly one page, and rather than in games.css because
+   that file belongs to the games. Same reason the guide builders keep theirs. */
+
+/* One portrait. --px is the DRAWN box and every file is mirrored at twice it by
+   scripts/sync-dex-art.mjs, so nothing here is upscaling. width/height on the
+   tag are the file's real pixels, so the box is reserved before it loads and
+   the fact cards do not reflow underneath the reader. */
+.dexart{display:block;width:var(--px);height:var(--px);object-fit:contain}
+/* No artwork held. The site's 45 degree no-art hatch, the one /sets/ uses for a
+   set with no logo, at the identical footprint so the row keeps its shape. */
+.dexart-none{border-radius:var(--r-sm);border:1px solid var(--hair);
+  background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
+.dexrow{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s3)}
+.dexfig{margin:0;text-align:center}
+.dexfig figcaption{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);margin-top:4px;
+  max-width:76px;overflow-wrap:anywhere}
+
+/* The mascot pair. Portraits at a COMMON size, with the height comparison drawn
+   separately below them as an SVG.
+   THE PORTRAITS ARE DELIBERATELY NOT SCALED TO 0.6m AND 1.9m, and that was the
+   first idea. Official artwork is a posed illustration inset in a square canvas
+   by a different margin for every Pokemon, so scaling the FILES by the ratio of
+   the two heights does not scale the two creatures by it. It would look right
+   and be false, which is the worst kind of picture to put on a page whose whole
+   claim is that every number on it was computed. The drawn bars underneath are
+   exact, because they are drawn from the numbers rather than from the art. */
+/* Two across on a phone, not two down. At 390px the portraits are 132px each,
+   so a row of two plus the gap is 288px and fits with room; letting them wrap
+   one per line pushed the height chart 900px below the sentence it illustrates,
+   which is the same as not having it. */
+.lore-mascots{display:flex;flex-wrap:wrap;gap:var(--s4) var(--s5);align-items:flex-start;margin:var(--s4) 0}
+/* WIDTH PINNED TO THE PORTRAIT, so two fit across a 390px phone. Without it the
+   figure is as wide as its caption, "#569 - TRASH HEAP POKEMON" is about 250px,
+   and the pair wrapped one per row: the height chart the copy is describing
+   ended up 900px below the sentence, which is the same as not drawing it. */
+.lore-mascot{margin:0;text-align:center;flex:none;width:132px}
+.lore-mascot img,.lore-mascot .dexart-none{width:132px;height:132px}
+/* INHERIT, do not name a token. This whole block lives inside .fk-golden, which
+   sets color:var(--paper) on a near-black ground. Naming --ink or --ink-2 here
+   painted the two Pokemon names in black on black: they were simply absent, and
+   the layout looked deliberate. */
+.lore-mascot figcaption{font:700 var(--t-micro)/1.4 var(--mono);color:inherit;opacity:.75;
+  letter-spacing:.04em;text-transform:uppercase;margin-top:6px}
+.lore-mascot b{display:block;font:400 var(--t-m)/1.1 var(--display);color:inherit;opacity:1;
+  text-transform:none;letter-spacing:0;margin-bottom:2px}
+.lore-scale{flex:1 1 260px;min-width:0;align-self:flex-end}
+.lore-scale svg{width:100%;height:auto;max-width:420px;display:block}
+.lore-scale figcaption{font:400 var(--t-micro)/1.5 var(--body);color:inherit;opacity:.72;margin-top:6px}
+</style>
 <script type="application/ld+json">${JSON.stringify({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -195,6 +352,21 @@ ${MENU}
         a walking trash bag. We did not choose ${esc(trubbish.name)} and ${esc(garbodor.name)} because of a joke we
         made up: the Pokedex got there first and files them as the
         <b>${esc(trubbish.genus)} Pokemon</b> and the <b>${esc(garbodor.genus)} Pokemon</b>.</p>
+      <div class="lore-mascots">
+        <figure class="lore-mascot">
+          ${portrait(trubbish, 132)}
+          <figcaption><b>${esc(trubbish.name)}</b>#${trubbish.id} &bull; ${esc(trubbish.genus)} Pokemon</figcaption>
+        </figure>
+        <figure class="lore-mascot">
+          ${portrait(garbodor, 132)}
+          <figcaption><b>${esc(garbodor.name)}</b>#${garbodor.id} &bull; ${esc(garbodor.genus)} Pokemon</figcaption>
+        </figure>
+        <figure class="lore-scale">
+          ${heightBars(trubbish, garbodor)}
+          <figcaption>Drawn from the Pokedex heights, not from the artwork: the bars are to scale, the
+            two pictures beside them are not.</figcaption>
+        </figure>
+      </div>
       <p style="margin-top:12px">${esc(trubbish.name)} is #${trubbish.id}, a Generation ${trubbish.gen} pure
         ${esc(cap(trubbish.types[0]))} type, ${m(trubbish).toFixed(1)}m tall and ${kg(trubbish).toFixed(1)}kg.
         It evolves into ${esc(garbodor.name)}, which triples in height to ${m(garbodor).toFixed(1)}m and puts on
@@ -214,7 +386,7 @@ ${MENU}
 
     <h2>Did you <span class="hl">know</span></h2>
     <div class="lore-list" style="margin-top:var(--s4)">
-${FACTS.map(([h, b]) => factCard(h, b)).join("\n")}
+${FACTS.map(([h, b, who]) => factCard(h, b, who)).join("\n")}
     </div>
 
     <h2 style="margin-top:var(--s7)">One of a <span class="hl">kind</span></h2>
@@ -224,6 +396,7 @@ ${RARE_COMBOS.map(
   ([k, v]) => `      <div class="lore">
         <h3>${esc(k.split("/").map(cap).join(" / "))}</h3>
         <p>Only ${v.length}: ${esc(list(v))}.</p>
+        ${portraits(v.map(byName), 56)}
         <span class="lore-src">Source: ${esc(SRC)}</span>
       </div>`,
 ).join("\n")}
@@ -238,7 +411,9 @@ ${RARE_COMBOS.map(
       ${esc(longDate(dex.checked) || dex.checked)}, covering all ${n(P.length)} species. Counts are over the whole
       Pokedex, not a sample. The Pokedex entry text from the games is copyrighted and is deliberately not reprinted
       here: the categories quoted above are the official one word classifications, and the sentences around them are
-      ours. Pokemon and all Pokemon names are trademarks of The Pokemon Company. Fan content, not affiliated.</p>
+      ours. Official artwork is mirrored from the same PokeAPI project the numbers come from, at the size it is
+      drawn here. Pokemon and all Pokemon names are trademarks of The Pokemon Company. Fan content, not
+      affiliated.</p>
   </div>
 </section>
 
@@ -255,3 +430,8 @@ await writeFile(join(ROOT, "public/lore.html"), page);
 console.log(`Wrote public/lore.html`);
 console.log(`  ${FACTS.length} computed facts, ${RARE_COMBOS.length} rare type combos`);
 console.log(`  over all ${P.length} species, ${combos.size} type combinations`);
+const drawn = Object.keys(ART).length;
+console.log(`  ${drawn} portraits held${
+  missingArt.size ? `, ${missingArt.size} drawn as the no-art hatch: ${[...missingArt].join(", ")}` : ", none missing"
+}`);
+if (missingArt.size) console.log(`  fix with: node scripts/sync-dex-art.mjs`);

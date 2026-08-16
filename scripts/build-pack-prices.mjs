@@ -289,6 +289,40 @@ const endsClause = [
  * would be quietly wrong for some of the rows under it, and that is exactly the
  * class of error this table exists to avoid.
  */
+// --------------------------------------------------------------- photography
+//
+// THE FIVE COLUMN HEADINGS ARE THE ONE THING ON THIS PAGE A BEGINNER CANNOT
+// PICTURE. The table is arithmetic and the arithmetic is explained, but
+// "Build & Battle Box" and "Booster Bundle" are trade names for two cardboard
+// objects that look nothing alike, and a reader who has only ever bought a
+// single pack off a shelf is being asked to compare five things they have not
+// seen. So the strip above the table shows them, once, at the size the column
+// headings are read at.
+//
+// ALL FIVE ARE THE SAME SET AND THAT IS THE POINT. Pitch Black is the only set
+// in products.json that lists every one of the five COLUMNS kinds, so the strip
+// is one set's shelf rather than five sets' worth of near-misses, and the
+// caption can name it once and be true of every picture. If Pitch Black ever
+// drops out of the pull, the strip renders whatever it can find and drops the
+// rest rather than swapping in a lookalike from another set: a photo of a
+// Prismatic Evolutions bundle under a heading sourced from Pitch Black's would
+// be a different object with a different pack count.
+//
+// NO WIDTH OR HEIGHT. imgDims() returns nothing for tcgplayer-cdn on purpose,
+// because those files run 200x268 to 200x417 and a declaration would be wrong
+// by up to 34%. sizes is 88px, not a viewport unit, because the box is a fixed
+// 88x88. Both rules are lifted from build-how-many-packs.mjs, which measured
+// them; do not "improve" either one here without re-reading that file.
+const SHOT_SET = "pitch-black";
+const DEAD = new Set(
+  JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8")).deadUrls || []
+);
+const shotFor = (kind) => {
+  const hit = (products.sets?.[SHOT_SET]?.products || []).find((p) => p.kind === kind);
+  if (!hit || !hit.thumb || DEAD.has(hit.thumb)) return null;
+  return { src: hit.thumb, name: hit.name };
+};
+
 const packsByKind = new Map();
 for (const r of rows) {
   for (const [kind, e] of Object.entries(r.kinds)) {
@@ -386,7 +420,36 @@ const ld = [
  * and the "cheapest" cell wants to be findable at a glance down a column of
  * near-identical dollar figures.
  */
+// COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same trade
+// build-css.mjs makes for ui.css and miniCSS makes in build-set-pages.mjs, and
+// the same regex: comments, plus the indentation between rules. Nothing else.
+//
+// It is here because this block is inline in a render blocking <head> and the
+// desktop rules added on 16 August 2026 came with the measurements that justify
+// them written alongside. Measured on this page set, those comments were 17.1KB
+// raw and 7.1KB gzipped across eight pages, up to 13% of one of them. Stripped,
+// every one of these pages is smaller than it was before the rules were added.
+const miniCSS = (css) =>
+  css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
+
 const style = `
+/* The five product photographs above the table. A row on a phone that wraps to
+   two lines rather than a horizontal track, because five 88px tiles plus their
+   labels is 520px and this page already asks the reader to scroll one table
+   sideways. Two sideways things on one screen is one too many. */
+.pp-shots{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));
+  gap:var(--s3);margin:var(--s4) 0 var(--s2);padding:0}
+.pp-shots li{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px}
+/* Product photography arrives on a white background, so the tile is white and
+   carries a hairline rather than floating. Fixed 88x88 with contain, because
+   sizes="88px" is measured against exactly this box and these files run 200x268
+   to 200x417. */
+.pp-shots img,.pp-noshot{width:88px;height:88px;object-fit:contain;display:block;
+  background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r-sm)}
+.pp-noshot{background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
+.pp-shots b{font:700 var(--t-micro)/1.25 var(--mono);letter-spacing:.03em;text-transform:uppercase;
+  color:var(--ink)}
+.pp-shots span{font:400 var(--t-micro)/1.3 var(--body);color:var(--ink-2)}
 .pp-table{min-width:660px}
 .pp-table td.num{font-variant-numeric:tabular-nums}
 /* .cc-table sets white-space:nowrap on .num cells and on every header cell,
@@ -415,6 +478,47 @@ const style = `
   font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);margin-top:var(--s3)}
 .pp-key i{display:inline-block;width:14px;height:14px;background:var(--mustard);
   border:1px solid var(--navy);vertical-align:-2px;margin-right:6px;font-style:normal}
+
+/* The prose caps that used to be inline style="max-width:38em" attributes on
+   the ledes. They are classes now for one reason: an inline style beats every
+   stylesheet rule that is not !important, so a media query could not reach
+   them, and this page needed to change what they do above 1000px without
+   changing what they do below it. These four declarations reproduce the inline
+   values EXACTLY, so every width under the breakpoint renders what it rendered
+   before, and the media query below is the only behaviour change. */
+.w34{max-width:34em}
+.w38{max-width:38em}
+.w40{max-width:40em}
+.w42{max-width:42em}
+
+/* DESKTOP. min-width only. Measured identical at 390 before and after.
+
+   MEASURED AT 1440. Nothing on this page is short of width: the seven column
+   table is genuinely dense and fills the band properly, which is why the table
+   is untouched. What was wrong was the reading measure around it. The quick
+   facts cards ran 973px and set 99.7 characters a line with one at 114, and the
+   golden-rule callout ran 728px at 14px type for 99.8. The ledes sat at 78.8.
+
+   50ch AND NOT 70ch, because ch is one DIGIT wide and a digit is one of the
+   widest glyphs in Outfit: a character averages about 0.7 of a ch, so 50ch sets
+   around 70 and 70ch would set 100. The full measurement is in
+   build-buying.mjs. */
+@media(min-width:1000px){
+  .w34,.w38,.w40,.w42{max-width:50ch}
+  .fk-golden p{max-width:52ch}
+}
+/* THE QUICK FACTS GO TWO UP RATHER THAN GETTING A NARROWER CAP. A first pass
+   capped .facts-list li to 52ch, which brought the measure from 99.7
+   characters a line to 58 and made the page 631px TALLER while leaving 873px of
+   empty band beside every card: a cap fixes the measure by throwing the width
+   away. Two columns fills the band, halves the section and lands the measure
+   near 86, which is accepted on two line cards rather than chased. The full
+   argument is in build-complete.mjs and the same rule is on the set guides. */
+@media(min-width:1200px){
+  .facts-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:11px;align-items:start}
+  .facts-list li{max-width:none}
+}
 `;
 
 const cell = (r, kind) => {
@@ -468,7 +572,7 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
-<style>${style}</style>
+<style>${miniCSS(style)}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -482,7 +586,7 @@ ${MENU}
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Priced ${esc(longDate(checked) || "recently")}</span>
     <h1>What does a pack <span class="hl">actually</span> cost?</h1>
-    <p class="lede" style="max-width:38em">Every sealed product we track, divided by how many packs are inside it,
+    <p class="lede w38">Every sealed product we track, divided by how many packs are inside it,
       so a booster box and a single pack can finally be compared. Prices are TCGplayer market, read on
       ${esc(longDate(checked) || "the date at the bottom of this page")}, and read again each time the product sync runs.
       Where the counts come from, and what they were in other years, is on
@@ -535,13 +639,31 @@ ${MENU}
          this table. -->
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>${rows.length} English sets</p>
     <h2>Cheapest pack to <span class="hl">priciest</span></h2>
-    <p class="lede" style="max-width:40em">Every English set we can price sealed, sorted by the cheapest pack available
+    <p class="lede w40">Every English set we can price sealed, sorted by the cheapest pack available
       in each one, whatever it is inside. The imported Japanese and Korean sets have guides of their own but no sealed
       listing to divide, so they are not on this table. Every
       figure is that product's market price divided by the number of packs in it, before tax and shipping. The counts
       under the column headings are sourced for the Scarlet &amp; Violet era onward and are not permanent properties of
       those products, so a set from an earlier era gets an empty cell rather than a figure divided by the wrong number.
       <a href="/how-many-packs.html">What each one has held over the years</a> is its own page.</p>
+    <ul class="pp-shots">
+${COLUMNS.map((k) => {
+  const shot = shotFor(k);
+  const n = packsByKind.get(k);
+  return `      <li>
+        ${shot
+          ? `<img src="${esc(shot.src)}" sizes="88px" alt="${esc(shot.name)}, sealed" loading="lazy" decoding="async" referrerpolicy="no-referrer">`
+          // NOT A HOLE AND NOT A SUBSTITUTE. The site's 45 degree no-art hatch,
+          // the same one /sets/ uses for a set with no logo, at the identical
+          // 88px footprint so the row keeps its shape.
+          : `<span class="pp-noshot" aria-hidden="true"></span>`}
+        <b>${esc(k)}</b>
+        <span>${n ? `${n} pack${n === 1 ? "" : "s"}` : "pack count not held"}</span>
+      </li>`;
+}).join("\n")}
+    </ul>
+    <p class="price-note">All five are ${esc(products.sets?.[SHOT_SET]?.tcgSet || SHOT_SET)}, so they are
+      the same set's shelf rather than five sets' worth of lookalikes. Photography is TCGplayer's.</p>
     <div class="cc-scroll" tabindex="0" role="region" aria-label="Pack prices by set, scrollable table">
       <table class="cc-table pp-table">
         <caption class="sr-only">Market price per pack for each sealed product, by set, cheapest set first</caption>
@@ -575,7 +697,7 @@ ${COLUMNS.map(
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The pack that wins</p>
     <h2>Where buying <span class="hl">one pack</span> is the cheap way</h2>
-    <p class="lede" style="max-width:40em">${packWins.length} of these ${rows.length} sets sell a pack more cheaply on its
+    <p class="lede w40">${packWins.length} of these ${rows.length} sets sell a pack more cheaply on its
       own than inside anything bigger, which is the opposite of how sealed product is usually described. We do not hold a
       record of which sets are still being printed, so we are not going to tell you why. The figures are what they are on
       ${esc(longDate(checked) || checked || "the date at the bottom of this page")}, and the multiple in each line is what
@@ -599,7 +721,7 @@ ${COLUMNS.map(
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The Elite Trainer Box</p>
     <h2>What the <span class="hl">ETB</span> premium looks like</h2>
-    <p class="lede" style="max-width:40em">All ${etbSets.length} sets on this page sell an Elite Trainer Box, and in not
+    <p class="lede w40">All ${etbSets.length} sets on this page sell an Elite Trainer Box, and in not
       one of them is it the cheapest pack. In ${etbDearest.length} of the ${etbSets.length} it is the dearest thing on the
       row. Measured against the cheapest pack in its own set it runs a median of ${x(etbMedian)}.</p>
     <div class="facts">
@@ -608,7 +730,7 @@ ${COLUMNS.map(
       <div class="fact"><div class="n">${x(etbWorst.x)}</div><div class="l">Furthest apart (${esc(etbWorst.set.name)})</div></div>
       <div class="fact"><div class="n">${etbDearest.length} of ${etbSets.length}</div><div class="l">Sets where the ETB is the dearest pack on the row</div></div>
     </div>
-    <p style="max-width:40em;margin-top:16px">That gap is not the whole story and this page will not pretend it is. An
+    <p class="w40" style="margin-top:16px">That gap is not the whole story and this page will not pretend it is. An
       Elite Trainer Box also carries sleeves, dice, a promo card, dividers and the box itself, and we have no source for
       what any of that is worth, so we do not subtract a made up number from the price to make the comparison look
       better. If you want the sleeves, the premium may be the cheapest sleeves you will buy. If you want packs, there is

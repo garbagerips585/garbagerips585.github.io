@@ -162,13 +162,22 @@ function eraTable(e) {
     })
     .join("\n");
 
+  // The era heading, its date range and its blurb are wrapped in .xp-era-head
+  // so that a desktop can put them BESIDE the table instead of above it. The
+  // wrapper is inert until the min-width rule in `style` turns .xp-era-in into
+  // a grid, and it exists as an element rather than as three grid-column
+  // assignments because ERA_NOTE is optional: three of the seventeen eras have
+  // no blurb, so a rule that placed each child by hand would have to cope with
+  // a row that is sometimes there and sometimes not.
   return `<section class="xp-era" id="era-${e.id}">
-  <div class="wrap">
+  <div class="wrap xp-era-in">
+    <div class="xp-era-head">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>${
       e.from === e.to ? e.from : `${e.from} to ${e.to}`
     }</p>
     <h2>${esc(e.name)} <span class="xp-count">${e.list.length} set${e.list.length === 1 ? "" : "s"}</span></h2>
     ${ERA_NOTE[e.name] ? `<p class="xp-note">${esc(ERA_NOTE[e.name])}</p>` : ""}
+    </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.
          The table is min-width:520px inside a 366px box on a phone: 156px, about
@@ -195,6 +204,18 @@ ${rows}
   </div>
 </section>`;
 }
+
+// COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same trade
+// build-css.mjs makes for ui.css and miniCSS makes in build-set-pages.mjs, and
+// the same regex: comments, plus the indentation between rules. Nothing else.
+//
+// It is here because this block is inline in a render blocking <head> and the
+// desktop rules added on 16 August 2026 came with the measurements that justify
+// them written alongside. Measured on this page set, those comments were 17.1KB
+// raw and 7.1KB gzipped across eight pages, up to 13% of one of them. Stripped,
+// every one of these pages is smaller than it was before the rules were added.
+const miniCSS = (css) =>
+  css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
 
 const style = `
 .xp{padding:var(--s7) 0 var(--s5)}
@@ -238,17 +259,55 @@ const style = `
 .xp-table th,.xp-table td{text-align:left;padding:10px var(--s3);border-bottom:1px solid var(--hair);
   vertical-align:middle}
 .xp-table tbody tr:last-child th,.xp-table tbody tr:last-child td{border-bottom:0}
+/* THREE STATES ON THIS TABLE ALL COLLAPSED TO INVISIBLE IN THE REPAINT, and
+   none of them looked broken, which is why they are worth a note this long.
+   The palette folded several tokens onto the same value: --card, --paper-2 and
+   --on-alert are all #FFFFFF, and --page, --paper, --sky-lite, --sky-tint and
+   --lilac-pale are within 1.08:1 of each other. Any rule that told two states
+   apart by picking two of those is now a no-op, and reaching for a different
+   one of the five does not help.
+
+   THE STICKY HEADER was --page on a white body, 1.05:1, floating over 68 rows
+   of content with no edge. It is the ink chrome now, which is the palette's own
+   answer to "this bar sits above the content", and it needs no border to hold
+   its shape while it moves. */
 .xp-table thead th{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;
-  text-transform:uppercase;color:var(--ink-2);background:var(--page);position:sticky;top:0;z-index:1}
-.xp-table tbody tr:hover{background:var(--lilac-pale)}
+  text-transform:uppercase;color:var(--chrome-dim);background:var(--chrome-bg);
+  position:sticky;top:0;z-index:1}
+/* HOVER was --lilac-pale on white, 1.13:1. It was a lilac tint on cream before
+   the repaint and is an off-white on white now. --paper-3 is the palette's only
+   ground that is actually distinguishable from the card, at 1.19:1, so the gold
+   rule on the left does the work and the tint only supports it. Hover only, so
+   nothing here is the sole carrier of any meaning. */
+.xp-table tbody tr:hover{background:var(--paper-3)}
+.xp-table tbody tr:hover th{box-shadow:inset 3px 0 0 var(--gold)}
 .xp-table tbody th{font-weight:600}
 .xp-name{display:flex;align-items:center;gap:10px}
 .xp-name img{flex:none;width:20px;height:20px;object-fit:contain}
 .xp-nosym{flex:none;width:20px;height:20px;border-radius:4px;background:var(--hair)}
+/* "WE HAVE OPENED THIS SET" was #FFFFFF on #FFFFFF, 1.00:1, and the gold
+   underline on the link was the entire surviving marker. That underline also
+   reads as an ordinary link style, so the row was saying nothing.
+   A GOLD RULE DOWN THE ROW, not a tint. A tint cannot work here: every ground
+   in this palette that is light enough to keep the text legible is within
+   1.19:1 of the card, and this marker has to survive next to the hover tint
+   rather than be replaced by it. The rule is 4px of the site's accent against
+   the row's own edge, it is visible at any zoom, and it does not move when the
+   row is hovered.
+   THE COLOUR IS NOT ALONE. .xp-rips already prints "12 rips" as a link in that
+   same row and the no-value cell says "None" to a screen reader, so the mark is
+   a second, faster reading of something the row already states in words. */
+.xp-table tr.mine th{box-shadow:inset 4px 0 0 var(--gold)}
+.xp-table tr.mine:hover th{box-shadow:inset 4px 0 0 var(--gold)}
 .xp-table tr.mine th a{text-decoration:underline;text-decoration-color:var(--gold);
   text-underline-offset:3px;text-decoration-thickness:2px}
+/* --plum on --lilac-pale was a purple chip on a cream site and is now a grey
+   chip on an off-white one, 1.08:1 against the card. Ink on --paper-3 with a
+   hairline is the palette's chip and it is the same one .bmk uses on
+   /buying.html, so the two pages agree about what a chip looks like. */
 .xp-tag{font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
-  color:var(--plum);background:var(--lilac-pale);border-radius:var(--r-pill);padding:3px 6px}
+  color:var(--ink);background:var(--paper-3);border:1px solid var(--hair);
+  border-radius:var(--r-pill);padding:3px 6px}
 .xp-date{white-space:nowrap;color:var(--ink-2);font-variant-numeric:tabular-nums}
 .xp-cards{font-variant-numeric:tabular-nums;white-space:nowrap}
 .xp-cards .sec{color:var(--ink-2);font-size:var(--t-micro)}
@@ -263,6 +322,44 @@ const style = `
 .xp-none{color:var(--ink-2)}
 .xp-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
+
+/* DESKTOP. Every rule below is min-width, so nothing a phone or a tablet
+   renders changed: measured identical at 390 before and after.
+
+   WHAT WAS WRONG, MEASURED AT 1440. Seventeen era tables, one under the other,
+   each 1,392px wide and each holding four short columns: a set name, a date, a
+   card count and a rip count. The set column took the whole remainder, 520px,
+   to hold "Neo Genesis", and the page ran 17,574px. Nobody had looked at this
+   above 820px, which is the same diagnosis the home page got on 16 August 2026.
+
+   The fix is not a wider table, it is a shorter page. The era heading, its date
+   range and its blurb move BESIDE the table rather than above it, which is
+   about 110px back per era, and the table stops stretching, which pulls the
+   date, card and rip columns back next to the names they belong to.
+
+   300px for the head column is chosen against the content: the longest era name
+   is "HeartGold & SoulSilver" and it sets on two lines at 300px with the
+   display face at --t-xl. Do not narrow it without re-checking that one. */
+@media(min-width:1200px){
+  .xp-era-in{display:grid;grid-template-columns:300px minmax(0,1fr);
+    gap:var(--s6);align-items:start}
+  /* The head is short and the table is long, so the heading would otherwise sit
+     alone at the top of a 900px tall row. Sticky keeps the era name next to
+     whichever row of it you are reading. top is the sticky nav's height plus a
+     little air; the table's own thead is sticky at top:0 inside its scroller
+     and the two do not interact, because they are in different scroll boxes. */
+  .xp-era-head{position:sticky;top:96px}
+  .xp-note{margin-bottom:0}
+}
+/* At 1600 and beyond the table is wide enough that the set column starts to
+   spread again, so pin the three data columns and let the names keep the rest.
+   These are content widths: "September 22, 2023" is the longest date, "20,460"
+   the longest count, and the rips cell holds "12 rips" at most. */
+@media(min-width:1600px){
+  .xp-table thead th:nth-child(2){width:180px}
+  .xp-table thead th:nth-child(3){width:140px}
+  .xp-table thead th:nth-child(4){width:140px}
+}
 `;
 
 const body = `
@@ -397,7 +494,7 @@ ${
      mirrored locally by scripts/sync-symbols.mjs and served from this origin. -->`
 }
 ${STYLES}
-<style>${style}</style>
+<style>${miniCSS(style)}</style>
 <script type="application/ld+json">
 ${JSON.stringify(
   {
