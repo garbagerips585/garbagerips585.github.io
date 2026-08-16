@@ -16,7 +16,7 @@ import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { parseHits, rarityLabelOf, rarityMark } from "../shared/rarity.mjs";
-import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, imgDims } from "../shared/format.mjs";
+import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, imgDims, avifPicture } from "../shared/format.mjs";
 import { ripLabel } from "../shared/riplabel.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -34,6 +34,28 @@ const logoAttrs = (setId) => {
   const d = LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`];
   return d ? ` width="${d[0]}" height="${d[1]}"` : "";
 };
+
+// Which sets actually have a logo file, the same guard build-pages.mjs already
+// applies for the same reason. This file emitted its two logos unconditionally
+// behind `onerror="this.remove()"`, which held only while every set in
+// sets.json happened to have art sitting next to it. Adding the five Sword &
+// Shield sets broke that assumption immediately and produced five broken links
+// across /sets/index.html and three guide pages.
+//
+// `onerror` hides the gap in a browser and that is the trap: nothing looks
+// wrong while every page load still pays for a request that 404s, which is the
+// case CLAUDE.md already records about the missing card scans. Not emitting the
+// img is the fix, and both places degrade cleanly without it because the set
+// name is already written beside the logo as an <h1> or a .ttl span.
+//
+// Drop artwork named <set-id>.png into assets-source/logos/, run
+// build-logos.py then measure-logos.py, and the logo appears with no edit here.
+const logosOnDisk = new Set(
+  (await readdir(join(ROOT, "public/assets/logos")).catch(() => []))
+    .map((f) => /^(.+)-pokemon-tcg-set-logo\.webp$/.exec(f)?.[1])
+    .filter(Boolean)
+);
+const hasLogo = (setId) => Boolean(setId) && logosOnDisk.has(setId);
 
 /**
  * THE 110px LOGO BOX. `.set-card img` is `height:42px; max-width:110px` and
@@ -54,6 +76,7 @@ const logoAttrs = (setId) => {
  */
 const SM_H = 100;
 const setCardLogo = (setId, alt) => {
+  if (!hasLogo(setId)) return "";
   const base = `/assets/logos/${setId}-pokemon-tcg-set-logo`;
   const d = LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`];
   const srcset = d
@@ -1296,7 +1319,7 @@ function setPage(s) {
       ${priced
         .map(
           (h) => `<li class="mine${h.kind === "promo" ? " is-promo" : ""}">
-        ${h.img ? `<img class="mine-img" src="${esc(h.img)}" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>` : `<div class="mine-img is-none" aria-hidden="true"></div>`}
+        ${h.img ? avifPicture(`<img class="mine-img" src="${esc(h.img)}" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>`) : `<div class="mine-img is-none" aria-hidden="true"></div>`}
         <p class="mine-n">${h.name}</p>
         <p class="mine-r">${h.meta}</p>
         <p class="mine-p">${typeof h.price === "number" ? moneyExact(h.price) : "No market price"}${
@@ -1340,7 +1363,7 @@ function setPage(s) {
         data-psa10="${esc(gradedPrice(s.id, c.number) ? moneyCompact(gradedPrice(s.id, c.number)) : "")}"
         data-url="${esc(c.url ? affLink(c.url) : "")}"
         aria-label="Enlarge ${esc(c.name)}">
-        ${c.image ? `<img src="${c.image}" alt="${esc(c.name)} ${esc(c.number)}, ${esc(rarityLabel(c.rarity) || "card")}" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>` : ""}
+        ${c.image ? avifPicture(`<img src="${c.image}" alt="${esc(c.name)} ${esc(c.number)}, ${esc(rarityLabel(c.rarity) || "card")}" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`) : ""}
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(c.number)}</div>
         <div class="pr">${moneyCompact(c.price)}</div>
@@ -1460,7 +1483,7 @@ function setPage(s) {
 <header class="set-hero">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
-    <img class="logo-big"${logoAttrs(s.id)} src="${logo}" alt="" onerror="this.remove()">
+    ${hasLogo(s.id) ? `<img class="logo-big"${logoAttrs(s.id)} src="${logo}" alt="" onerror="this.remove()">` : ""}
     <h1>${esc(s.name)}</h1>
     <p class="lede" style="max-width:34em">Everything worth knowing about ${esc(s.name)} in one screen. Card counts, what is actually rare, and what the chase cards are going for.</p>
   </div>
@@ -1515,7 +1538,7 @@ ${body}
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card image">
   <div class="lb-inner">
     <button class="lb-close" type="button" aria-label="Close">&times;</button>
-    <img id="lbImg" src="" alt="">
+    <picture><source id="lbAvif" type="image/avif"><img id="lbImg" src="" alt=""></picture>
     <p class="lb-nm" id="lbNm"></p>
     <p class="lb-rr" id="lbRr"></p>
     <p class="lb-pr" id="lbPr"></p>
@@ -1531,7 +1554,18 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Prices are estimates and
   var last=null;
   function open(b){
     last=b;
-    img.src=b.dataset.img; img.alt=b.dataset.name+' '+b.dataset.number;
+    // The lightbox is the one place on this page that loads high.webp, 600x825
+    // and 100-135KB, and AVIF is 37% smaller at that size. avifPicture() cannot
+    // reach it because the url only becomes an image url on click, so the
+    // <source> is filled here, applying the SAME host test avifPicture applies:
+    // only assets.tcgdex.net publishes an AVIF beside its WebP, and a <source>
+    // pointing at a 404 paints a broken card instead of falling back.
+    // srcset FIRST, then src, so the webp is never requested and abandoned.
+    var big=b.dataset.img, avif=document.getElementById('lbAvif');
+    if(big.indexOf('https://assets.tcgdex.net/')===0 && big.slice(-5)==='.webp')
+      avif.setAttribute('srcset', big.slice(0,-5)+'.avif');
+    else avif.removeAttribute('srcset');
+    img.src=big; img.alt=b.dataset.name+' '+b.dataset.number;
     document.getElementById('lbNm').textContent=b.dataset.name;
     document.getElementById('lbRr').textContent=[b.dataset.rarity,b.dataset.number].filter(Boolean).join(' \u2022 ');
     document.getElementById('lbPr').textContent=b.dataset.price

@@ -667,7 +667,7 @@
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card image">
   <div class="lb-inner">
     <button class="lb-close" type="button" aria-label="Close">&times;</button>
-    <img id="lbImg" src="" alt="">
+    <picture><source id="lbAvif" type="image/avif"><img id="lbImg" src="" alt=""></picture>
     <p class="lb-nm" id="lbNm"></p>
     <p class="lb-rr" id="lbRr"></p>
     <p class="lb-pr" id="lbPr"></p>
@@ -743,7 +743,18 @@
   var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), last=null;
   function open(b){
     last=b;
-    img.src=b.dataset.img; img.alt=b.dataset.name+' '+b.dataset.number;
+    // Same AVIF <source> the English guides fill in, and for the same reason:
+    // the lightbox is the only place either page loads high.webp, 600x825, and
+    // AVIF is 37% smaller at that size. avifPicture() cannot reach it because
+    // the url only becomes an image url on click. The host test is the one
+    // avifPicture applies: only assets.tcgdex.net publishes an AVIF beside its
+    // WebP, and a <source> aimed at a 404 paints a broken card in some browsers
+    // rather than falling back. srcset FIRST so the webp is never requested.
+    var big=b.dataset.img, avif=document.getElementById('lbAvif');
+    if(big.indexOf('https://assets.tcgdex.net/')===0 && big.slice(-5)==='.webp')
+      avif.setAttribute('srcset', big.slice(0,-5)+'.avif');
+    else avif.removeAttribute('srcset');
+    img.src=big; img.alt=b.dataset.name+' '+b.dataset.number;
     document.getElementById('lbNm').textContent=b.dataset.name;
     document.getElementById('lbRr').textContent=[b.dataset.rarity,b.dataset.number].filter(Boolean).join(' • ');
     document.getElementById('lbPr').textContent='';

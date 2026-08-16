@@ -49,6 +49,18 @@ const SET_MAP = {
   "paldea-evolved": "sv2",
   "scarlet-violet": "sv1",
   "pokemon-go": "pgo",
+  // Sword & Shield era. Tim rips older packs from shops and shows constantly,
+  // and these five had NO way into the site at all: the Set dropdown in the
+  // workbook is built from this file's output, so ten videos naming a set in
+  // their own title had no cell to record it in and came back untagged every
+  // time. Every one verified against the API on name AND card count before it
+  // was added here (see data/tcgdex-en.json for the same check on the
+  // checklist side); nothing in this map is guessed.
+  "crown-zenith": "swsh12pt5",
+  "celebrations": "cel25",
+  "chilling-reign": "swsh6",
+  "shining-fates": "swsh45",
+  "rebel-clash": "swsh2",
 };
 
 // Rarity buckets, ordered from most to least chase-worthy. The API's rarity

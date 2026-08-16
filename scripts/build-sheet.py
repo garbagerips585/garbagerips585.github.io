@@ -156,6 +156,32 @@ for _v in videos:
     if 6 < len(_head) < 48 and _head.lower().startswith(_set_words) \
        and re.search(r"box|tin|etb|collection|bundle|upc|blister|premium", _head, re.I):
         BOX_NAMES.add(_head)
+
+# SEALED PRODUCTS THAT ARE NOT EXPANSIONS, and this is where their name lives.
+#
+# Three rips open something with a real product name and no set behind it:
+# a Trick or Trade bundle (Halloween mini packs), a Victini Illustration
+# Collection and a Mega Heroes mini tin. Neither api.pokemontcg.io nor TCGdex
+# lists any of the three among their 174 and 218 sets, so they are products,
+# not expansions, and putting them in sets.json would mean inventing a card
+# count and a release date for something that has neither. They stay out.
+#
+# But the question "what did he open" still HAS an answer, and without these
+# three rows the only honest thing Tim could put in the Set column was
+# "Not a set (sealed/other)", which records that there is no expansion and
+# throws away which product it was. This column is where the answer survives:
+# import-sheet.mjs stores it as `box` in data/manual.json and this script reads
+# it straight back, so it round trips like any other typed answer.
+#
+# The derivation above cannot reach them: it only keeps a title that STARTS
+# with a set name or "Mega", and all three of these titles open with "Pokémon"
+# or with the channel's own catchphrase. That filter is right and these are the
+# exception, so they are listed rather than the filter loosened.
+BOX_NAMES.update([
+    "Trick or Trade BOOster Bundle",
+    "Victini Illustration Collection",
+    "Mega Heroes Mini Tin",
+])
 BOX_NAMES = sorted(BOX_NAMES)
 
 # Where a graded price came from. Naming the source is what makes the number
@@ -510,7 +536,17 @@ HEAD_NOTES = {
         "Separate from the Hits playlist: this is the shortlist, that is a\n"
         "YouTube playlist. A video can be in one, both or neither."
     ),
-    "Set": "Start typing and pick from the list. If a set is missing, tell Claude rather than typing it freehand.",
+    "Set": (
+        "Start typing and pick from the list. If a set is missing, tell Claude\n"
+        "rather than typing it freehand: a name that is not on the list maps to\n"
+        "no set id and the import leaves the video untagged.\n"
+        "\n"
+        "SEALED PRODUCTS THAT ARE NOT A SET. A Trick or Trade bundle, a Victini\n"
+        "Illustration Collection, a Mega Heroes mini tin: none of these is an\n"
+        "expansion, so there is no set to pick and no guide page to link to.\n"
+        "Put 'Not a set (sealed/other)' here and put the product's name in the\n"
+        "Box / Series column, which offers all three. Both answers are kept."
+    ),
 }
 
 for i, (head, width, kind) in enumerate(COLUMNS, start=1):

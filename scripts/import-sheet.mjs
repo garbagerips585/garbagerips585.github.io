@@ -529,11 +529,38 @@ for (const [n, r] of rows.slice(1).entries()) {
   // "Not a set" is a stated answer of NO sets, so it needs a real override:
   // leaving it blank would just hand the video back to the matcher's guess,
   // which is the thing being contradicted.
+  // AND IT IS STILL AN ANSWER WHEN THE MATCHER HAPPENS TO AGREE, which is the
+  // half this got wrong. The `else retire("sets")` that used to sit here fired
+  // whenever the matcher ALSO found no set, which is precisely the case for the
+  // videos most likely to be answered this way: a Trick or Trade bundle, a
+  // Victini Illustration Collection, a Mega Heroes mini tin. Nothing in those
+  // titles names an expansion, so the matcher says [] and the human says
+  // "Not a set", the two agree, the override was retired, and the answer was
+  // gone. Proven on those exact three videos before this line changed: all
+  // three answered, zero overrides written, and the summary line that counts
+  // them did not even print because the counter stayed at 0.
+  //
+  // Retiring is right for a normal set tag, where the override only exists to
+  // record a DISAGREEMENT and the matcher can be trusted to reproduce the
+  // answer next time. It is wrong here, because the override is the only place
+  // the answer lives: build-sheet.py reads `overrides[id].sets == []` and
+  // nothing else to decide whether to hand the cell back reading "Not a set
+  // (sealed/other)" or blank, and blank is the sheet's word for "nobody has
+  // said yet". So an answered question came back unanswered every single time.
+  //
+  // Writing it unconditionally does not re-create the stale-prefill problem the
+  // comment above is about. That problem is an override freezing a GUESS, so a
+  // later fix to the tag rules can never reach the video. `[]` is not a guess.
+  // It is a person saying there is no expansion here, which is the one thing a
+  // title matcher can never work out for itself, and it stays retirable: pick a
+  // real set or clear the cell and re-import, and the branches below take over.
   if (notASet && !setIds.length) {
-    if (auto.sets.length) {
-      overrides[id] = { ...(overrides[id] || {}), sets: [] };
-      counted.notASet = (counted.notASet || 0) + 1;
-    } else retire("sets");
+    // Only worth the new-override list when the matcher actually found a set to
+    // contradict. "Both agree there is no set" is not a correction and would
+    // just pad a list whose whole value is being short enough to read.
+    if (auto.sets.length) note("sets", [], auto.sets);
+    overrides[id] = { ...(overrides[id] || {}), sets: [] };
+    counted.notASet = (counted.notASet || 0) + 1;
   } else if (setIds.length && !sameTags(setIds, auto.sets)) {
     note("sets", setIds, auto.sets);
     overrides[id] = { ...(overrides[id] || {}), sets: setIds };

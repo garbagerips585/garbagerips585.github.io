@@ -8,16 +8,25 @@
     "all 218 English sets with per-card rarity, images, and TCGplayer market",
     "prices in USD refreshed daily, which is more than we had from either source.",
     "",
-    "EVERY ENTRY WAS VERIFIED, not guessed: all 23 matched TCGdex on BOTH the set",
+    "EVERY ENTRY WAS VERIFIED, not guessed: all 28 matched TCGdex on BOTH the set",
     "name and the exact total card count, with no near-misses and no ambiguity.",
     "sync-cards.mjs re-checks the count on every run and warns if one drifts, so a",
     "renamed or re-scoped set upstream cannot silently swap a checklist.",
     "",
+    "The five Sword & Shield sets at the bottom were added on 2026-08-15 and were",
+    "checked the same way, against BOTH APIs independently, and the two agree on",
+    "every count: Crown Zenith 160, Celebrations 25, Chilling Reign 233, Shining",
+    "Fates 73, Rebel Clash 209. Each also has a near neighbour on TCGdex that is a",
+    "DIFFERENT set and must not be picked by mistake: swsh12.5gg (Crown Zenith",
+    "Galarian Gallery), cel25cc (Celebrations Classic Collection) and swsh4.5sv",
+    "(Shining Fates Shiny Vault) are subsets sold inside the same product.",
+    "",
     "Ids follow TCGdex's own scheme, which is not pokemontcg.io's: sv08.5 where",
-    "the other API said sv8pt5, me05 where it said me5. Do not derive one from",
-    "the other, they disagree on padding and on the .5 sets."
+    "the other API said sv8pt5, me05 where it said me5, swsh4.5 where it said",
+    "swsh45. Do not derive one from the other, they disagree on padding and on",
+    "the .5 sets."
   ],
-  "checked": "2026-08-12",
+  "checked": "2026-08-15",
   "sets": {
     "pitch-black": "me05",
     "chaos-rising": "me04",
@@ -41,6 +50,11 @@
     "obsidian-flames": "sv03",
     "paldea-evolved": "sv02",
     "scarlet-violet": "sv01",
-    "pokemon-go": "swsh10.5"
+    "pokemon-go": "swsh10.5",
+    "crown-zenith": "swsh12.5",
+    "celebrations": "cel25",
+    "chilling-reign": "swsh6",
+    "shining-fates": "swsh4.5",
+    "rebel-clash": "swsh2"
   }
 }

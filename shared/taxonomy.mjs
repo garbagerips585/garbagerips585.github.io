@@ -144,6 +144,36 @@ export const CARD_SETS = [
       /pok[eé]mon\s+151\b|\b151\b\s+(?:booster|packs?\b|etb\b|elite\s+trainer|bundle|box\b|upc\b|ultra[- ]premium|binder|poster|collection\b|tin\b|blister)/i,
   },
 
+  // Sword & Shield era, the sets Tim buys loose at shops and shows. Added
+  // because ten videos named one of these in their own title and the site had
+  // nowhere to put the answer: the workbook's Set dropdown is generated from
+  // public/data/sets.json, so a set missing there is a set no cell in the sheet
+  // can record. Adding them here as well as to sync-sets.mjs is what keeps
+  // labelFor() from printing the raw id on every tile, chip and breadcrumb.
+  //
+  // Every label below is the API's own name for the set, which is the agreement
+  // this list's header demands.
+  { id: "crown-zenith", label: "Crown Zenith" },
+  // CELEBRATIONS IS A COMMON NOUN AND NEEDS THE 151 TREATMENT.
+  //
+  // The other four here are distinctive two-word proper nouns, so the default
+  // label matcher is safe on them. "Celebrations" is not: this channel says
+  // "Celebrating Pokemon Day 2026" in a description right now, and a bare word
+  // match is one anniversary video away from tagging a set that was never
+  // opened. So the set has to be NAMED: either sitting in front of a product
+  // noun, or introduced by "Pokemon" or "25th Anniversary", which is exactly
+  // how the one real video writes it ("25th Anniversary Celebrations Booster
+  // Pack", and "random Celebrations packs" further down).
+  {
+    id: "celebrations",
+    label: "Celebrations",
+    pattern:
+      /\bcelebrations\s+(?:booster|packs?\b|etb\b|elite\s+trainer|bundle|box\b|upc\b|ultra[- ]premium|binder|collection\b|tin\b|blister)|(?:pok[eé]mon|25th\s+anniversary)\s+celebrations\b/i,
+  },
+  { id: "chilling-reign", label: "Chilling Reign" },
+  { id: "shining-fates", label: "Shining Fates" },
+  { id: "rebel-clash", label: "Rebel Clash" },
+
   // Non-English sets the channel has opened. Kept in the same list so a foreign
   // rip gets a set tag, a real page and a place in the sitemap exactly like an
   // English one; before these existed, 20 rips fell through as untagged and were
