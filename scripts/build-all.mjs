@@ -69,6 +69,12 @@ const STEPS = [
   // passed.
   "node scripts/build-drops.mjs",
 "node scripts/build-selling.mjs",
+// The other direction of the same question. It reads data/buying.json,
+// data/buying-safety.json and data/shops.json, all of which a human writes,
+// so its only ordering constraint is running BEFORE build-search.mjs, which
+// fails the build on an indexable page missing from its PAGES list, and
+// before build-pages.mjs, which puts it in the sitemap.
+"node scripts/build-buying.mjs",
 // The other direction of the same question, and it reads data/shops.json and
 // data/drops.json for its cross-references, both of which are written by hand
 // rather than by an earlier step, so it has no ordering constraint beyond

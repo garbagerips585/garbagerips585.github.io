@@ -23,9 +23,9 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1E3A54">
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=9e0253f2">
-<link rel="stylesheet" href="/assets/packs.css">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
 .rk svg{width:11px;height:11px;display:block}
@@ -113,6 +113,7 @@
         <li><a href="/will-it-grade.html">Will it grade</a></li>
         <li><a href="/grading.html">Grading cost</a></li>
         <li><a href="/selling.html">Where to sell</a></li>
+        <li><a href="/buying.html">Where to buy</a></li>
         <li><a href="/luck.html">Luck, measured</a></li>
       </ul>
     </div>
@@ -143,9 +144,16 @@
     <div class="rip-grid">
       <div class="rip-stage">
         <div class="rip-player pack-player" id="player" data-id="Q26NJsmeVko" data-title="Prismatic Evolutions ETB ✨ | Pack #7 (Running Out Of Chances 😳)">
+          <!-- THIS POSTER IS COMPLETELY COVERED BY THE PACK. ui.css pins
+               .rip-player .pack to inset:0 and the pack is opaque, which is the
+               whole point of it. The image was still marked fetchpriority=high,
+               so every rip page raced to download 154.7KB nobody can see and it
+               became the LCP element at 3,036ms on a throttled phone. It stays
+               in the markup because it is the fallback when the pack scripting
+               does not run, but it loads last now, not first. -->
           <picture>
             <source type="image/webp" srcset="https://i.ytimg.com/vi_webp/Q26NJsmeVko/oardefault.webp">
-            <img src="https://i.ytimg.com/vi/Q26NJsmeVko/oardefault.jpg" alt="" width="720" height="1280" fetchpriority="high" decoding="async"
+            <img src="https://i.ytimg.com/vi/Q26NJsmeVko/oardefault.jpg" alt="" width="720" height="1280" loading="lazy" fetchpriority="low" decoding="async"
                  onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='https://i.ytimg.com/vi/Q26NJsmeVko/maxresdefault.jpg'}else{this.remove()}">
           </picture>
           <button class="pack pack--prismatic-evolutions" id="pack" type="button" aria-label="Rip open: Prismatic Evolutions ETB ✨ | Pack #7 (Running Out Of Chances 😳)">
@@ -400,6 +408,7 @@ or is Umbreon staying hidden? 👀🔥</div>
         <a href="/will-it-grade.html">Will it grade</a>
         <a href="/grading.html">Grading cost</a>
         <a href="/selling.html">Where to sell</a>
+        <a href="/buying.html">Where to buy</a>
         <a href="/luck.html">Luck, measured</a>
       </div>
       <div class="foot-col">
@@ -529,6 +538,6 @@ addEventListener('DOMContentLoaded',function(){
 })();
 </script>
 <script src="/assets/app.js?v=3917fe6a" defer></script>
-<script src="/assets/packplayer.js" defer></script>
+<script src="/assets/packplayer.js?v=44adb501" defer></script>
 </body>
 </html>

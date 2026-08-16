@@ -69,6 +69,7 @@ const PAGES = [
 ["/openings/", "Sealed products", "What is in an ETB, a bundle, a blister, and every one we opened"],
 ["/will-it-grade.html", "Will it grade?", "Centering tolerances, the flaws that cost grades, and how to check a card at home"],
 ["/selling.html", "Where to sell", "eBay, TCGplayer, Whatnot and more: fees, payouts and who protects a seller"],
+["/buying.html", "Where to buy", "TCGplayer Direct, eBay, Pokemon Center and the big boxes: shipping thresholds, buyer fees and recourse"],
   ["/complete-a-set.html", "Cost to complete a set", "What every set costs to finish, priced nightly"],
   ["/drops.html", "Drops this week", "Where stock is expected, in store and online"],
   ["/pack-prices.html", "Pack prices by set", "What one pack costs, box against bundle against loose"],

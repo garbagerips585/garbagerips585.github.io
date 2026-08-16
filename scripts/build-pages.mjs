@@ -481,9 +481,16 @@ ${MENU}
     <div class="rip-grid${v.vertical === false && !(OVERRIDES[v.id] || {}).pillarboxed ? " rip-grid--wide" : ""}">
       <div class="rip-stage">
         <div class="rip-player pack-player${(OVERRIDES[v.id] || {}).pillarboxed ? " rip-player--crop" : v.vertical === false ? " rip-player--wide" : ""}" id="player" data-id="${v.id}" data-title="${esc(title)}">
+          <!-- THIS POSTER IS COMPLETELY COVERED BY THE PACK. ui.css pins
+               .rip-player .pack to inset:0 and the pack is opaque, which is the
+               whole point of it. The image was still marked fetchpriority=high,
+               so every rip page raced to download 154.7KB nobody can see and it
+               became the LCP element at 3,036ms on a throttled phone. It stays
+               in the markup because it is the fallback when the pack scripting
+               does not run, but it loads last now, not first. -->
           <picture>
             <source type="image/webp" srcset="${thumbWebp}">
-            <img src="${thumb}" alt="" width="${v.vertical === false ? 1280 : 720}" height="${v.vertical === false ? 720 : 1280}" fetchpriority="high" decoding="async"
+            <img src="${thumb}" alt="" width="${v.vertical === false ? 1280 : 720}" height="${v.vertical === false ? 720 : 1280}" loading="lazy" fetchpriority="low" decoding="async"
                  onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg'}else{this.remove()}">
           </picture>
           <button class="pack pack--${packSet}" id="pack" type="button" aria-label="Rip open: ${esc(title)}">
@@ -936,6 +943,10 @@ const urls = [
   { loc: `${SITE}/games/garbage-run.html`, freq: "monthly", pri: "0.7" },
   ...openingPages,
   { loc: `${SITE}/selling.html`, freq: "weekly", pri: "0.9" },
+  // Where to buy, and what each venue costs a buyer. Weekly for the same
+  // reason as selling and grading: it is made of other companies' shipping
+  // thresholds and return policies, and those move on their schedule.
+  { loc: `${SITE}/buying.html`, freq: "weekly", pri: "0.9" },
   // Where to buy, and what each venue costs a buyer. Weekly for the same reason
   // as selling and grading: it is made of other companies' shipping thresholds
   // and return policies, and those move on their schedule rather than ours.

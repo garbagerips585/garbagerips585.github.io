@@ -1,0 +1,355 @@
+{
+  "_readme": [
+    "How each venue protects a BUYER, and how the common failures work. Drives the",
+    "safety half of /buying.html. Costs live in data/buying.json.",
+    "",
+    "THE FRAMING, AND IT IS DELIBERATE, AND IT IS THE SAME CHOICE selling-safety",
+    "MADE. The obvious way to write this page is a list of places to avoid. This",
+    "site cannot source that: 'site X is full of scammers' is a character judgment",
+    "with no publishable evidence behind it, and it would age badly. What IS",
+    "sourceable is the mechanism, which is who touched the card, who is holding the",
+    "money, and how many days you have. A reader given the mechanism can judge any",
+    "venue, including ones that do not exist yet.",
+    "",
+    "BUYING NEEDS TWO QUESTIONS WHERE SELLING NEEDED ONE, and that is the real",
+    "structural difference between the two pages. A seller only has to ask who is",
+    "holding the money. A buyer has to ask that AND who handled the card, because",
+    "at the same venue the two have different answers: TCGplayer holds the money on",
+    "every order, but only on Direct has TCGplayer ever had the card in its hands.",
+    "eBay holds the money on every order, but only on an Authenticity Guarantee",
+    "purchase did anybody look at the card before it reached the buyer.",
+    "",
+    "SO THE PAGE NAMES NO VENUE AS BAD. It states each policy and lets the reader",
+    "compare. The things it does say plainly are the two counterintuitive ones,",
+    "both of which are just published policy read carefully:",
+    "  1. THE BUYER'S CLOCK ON TRADING CARDS IS SHORTER THAN ON ALMOST ANYTHING",
+    "     ELSE, at the two venues that publish a carve-out. eBay gives 30 calendar",
+    "     days on a not-as-described claim in general and THREE for trading cards",
+    "     where the seller does not accept returns. Whatnot gives the earlier of 30",
+    "     days from purchase or 14 from delivery in general, and the earlier of 30",
+    "     from purchase or SEVEN FROM DELIVERY for trading card games. Both",
+    "     carve-outs were read verbatim on the companies' own policy pages. This is",
+    "     not a warning about either venue, it is a deadline, and missing a",
+    "     deadline loses a claim more often than losing an argument does.",
+    "  2. BREAKS ARE OUTSIDE ORDINARY BUYER PROTECTION ON BOTH LIVE VENUES. eBay",
+    "     excludes sports trading card case breaks, box breaks and pack breaks sold",
+    "     by pre-approved sellers from the Money Back Guarantee outright. Whatnot",
+    "     covers a break purchase only if an item is missing, delayed, incorrect or",
+    "     damaged. Neither of those is a criticism: a break is a bet on an opening,",
+    "     and no refund policy anywhere can unopen a pack. It is worth printing",
+    "     because people assume buyer protection follows them into a break.",
+    "",
+    "EVERY CLAIM CARRIES THE URL IT CAME FROM AND THE DATE IT WAS READ, the same",
+    "standard as data/grading.json, whose readme records that three of four",
+    "third-party fee figures were wrong when last checked against primary sources.",
+    "Nothing here comes from a blog, a forum or a comparison site.",
+    "",
+    "WHAT IS DELIBERATELY ABSENT:",
+    "  No counterfeit-rate statistic for any venue. None was found from a nameable",
+    "  source, and an unsourced one would be exactly the kind of number this site",
+    "  does not publish.",
+    "  No dollar cap for the Amazon A-to-z Guarantee. The commonly cited figure",
+    "  does not appear anywhere on Amazon's current page, which was read.",
+    "  No claim that any venue's authentication catches resealed sealed product.",
+    "  eBay's Authenticity Guarantee explicitly excludes boxes and packs; TCGplayer",
+    "  describes its Direct check as an accuracy and condition inspection and never",
+    "  uses the word counterfeit about it. Resealed product is a physical",
+    "  inspection problem and it belongs on /fake-cards.html, which already covers",
+    "  it, rather than being half-answered here.",
+    "  No advice about which venue is safest. The mechanisms differ in kind rather",
+    "  than in quality, and the right answer depends on what is being bought."
+  ],
+  "checked": "2026-08-15",
+  "framing": {
+    "question": "Who touched the card before you did, and who is holding the money if it turns out to be wrong?",
+    "why": [
+      "Those are two questions, not one, and at the same venue they have different answers. A marketplace holds the money on every order it processes, which is the only reason a dispute exists at all. It has almost never held the card. The exceptions are the interesting part of this page: TCGplayer Direct and eBay's Authenticity Guarantee both put a third party physically between the seller and you, and they are the only two mechanisms found here that PREVENT a problem rather than pay for it afterwards.",
+      "Buyer protection is generally the bigger of the two products a venue sells. Sellers get the smaller one, which is what /selling.html records. What varies most is not whether you are covered but how long you have, and trading cards get a shorter clock than almost any other category at the venues that publish a carve-out.",
+      "And every protection listed here is conditional on the payment having gone through the platform. Moving it off does not weaken your protection, it deletes it, and all of these policies say so in their own words."
+    ]
+  },
+  "protections": [
+    {
+      "venue": "TCGplayer",
+      "note": "The clearest published clock of any venue here, and the one that runs from an estimate rather than an event.",
+      "covers": [
+        "Wrong condition, wrong card, missing card. Singles are otherwise non-returnable, and those three are the whole list.",
+        "Never arrived, once the estimated delivery date has passed.",
+        "Damaged in transit, provided you do not open the package. Open it and the seller may refund only what is actually damaged.",
+        "Counterfeits, at 100%, in TCGplayer's own words."
+      ],
+      "clocks": [
+        "30 calendar days after the ESTIMATED delivery date, for every issue type. Not from actual delivery, and not from the order date.",
+        "The seller has 2 business days to respond before you can escalate. TCGplayer says it monitors the message from the moment you send it, contacts the seller at 24 hours and escalates internally at 72.",
+        "Reported missing on or within 2 business days of the estimated delivery date, the seller may ask you to wait. Later than that, they are expected to refund immediately."
+      ],
+      "whoInspects": "Nobody, on an ordinary Marketplace order: the card goes from a stranger's box to yours. On a Direct order TCGplayer pulls it from its own authentication centre and checks it, and you deal with TCGplayer support rather than the seller.",
+      "returnShipping": "The seller pays it on a seller-fault return and must send a prepaid label or package. On a counterfeit claim TCGplayer sends the prepaid label itself.",
+      "counterfeits": "Refunded in full, with one hard condition: the card must physically reach TCGplayer before a refund is eligible. There is no photo-based route, no published dollar threshold and no published review turnaround.",
+      "buyerCarries": [
+        "Buyer's remorse, a price that moved after you bought, and a sealed item you opened. None of the three is returnable.",
+        "An address you typed wrong and did not catch before it shipped. Their wording is that no exceptions will be made.",
+        "Bulk lots, which are sold as is and returnable only if they do not match the seller's own photos and description."
+      ],
+      "source": "https://help.tcgplayer.com/hc/en-us/articles/201642073-What-is-TCGplayer-s-Refund-and-Return-policy",
+      "alsoRead": [
+        "https://help.tcgplayer.com/hc/en-us/articles/201637633-TCGplayer-Safeguard"
+      ],
+      "read": "2026-08-15"
+    },
+    {
+      "venue": "eBay Money Back Guarantee",
+      "note": "The widest coverage here and the shortest card-specific deadline here, at the same time.",
+      "covers": [
+        "The item never arrived, or was not made available for collection.",
+        "The item does not match the listing: wrong item, or broken, damaged or faulty and not described as such.",
+        "The seller does not honour the return policy stated in their own listing."
+      ],
+      "cardCarveOut": "For trading cards, bullion, coins and paper money, if the seller does not offer returns the buyer must request a return no later than 3 CALENDAR DAYS after the estimated or actual delivery date. Every other category gets 30. If the seller does offer returns, their stated window applies instead.",
+      "clocks": [
+        "Item not received: report any time after the estimated or actual delivery date and no later than 30 calendar days after it.",
+        "The seller has 3 business days to respond with tracking, an update or a refund.",
+        "Ask eBay to step in from 3 business days after the report and no later than 21 business days after it. eBay may step in unasked where there is no valid tracking.",
+        "Not as described, general: 30 calendar days after estimated or actual delivery, or within the seller's own window."
+      ],
+      "returnShipping": "If an item is being returned as not as described, the seller is responsible for return shipping.",
+      "counterfeits": "Where there are strong indicators the item is counterfeit, the buyer must request a return but may not be required to ship the item back to the seller. That is the opposite of TCGplayer's rule, and it is the more buyer-favourable of the two.",
+      "excluded": "Anything where any part of the payment was completed outside eBay: bank transfer, cash, money orders, escrow. Also sports trading card case breaks, box breaks and pack breaks sold by pre-approved sellers, digital content, classified ads and services.",
+      "source": "https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210",
+      "read": "2026-08-15"
+    },
+    {
+      "venue": "eBay Authenticity Guarantee",
+      "note": "The only mechanism found anywhere that inspects a raw card before it reaches the buyer instead of paying out afterwards.",
+      "how": [
+        "Eligible listings carry a blue checkmark and go through automatically on purchase. The seller ships to the authentication facility rather than to you.",
+        "PSA runs a multi-point inspection on an ungraded card, checking corners, edges, surface and overall condition against the listing description. On a graded card they inspect the sealed holder for tampering and verify that the case and label are authentic to the grader.",
+        "No grading or regrading is performed, so a raw card does not come back with a number on it.",
+        "The card then ships to you, with signature confirmation required on cards over $1,500."
+      ],
+      "threshold": "$200 and above for ungraded singles, and $200 and above for autograph, relic and other graded cards. On an auction it is the price it sells for that decides, not the starting price. Accepted graders are PSA, SGC, CGC Cards and BGS.",
+      "conditions": [
+        "The buyer must be in the US and the seller in the US or Canada. Puerto Rico, the US Virgin Islands and armed forces addresses are not covered.",
+        "Single cards only. Sets, lots, kits, decks, boxes, packs, art cards and raw redemption cards are not eligible, so no sealed product is ever inspected.",
+        "Local pickup only listings, and items shipped to PO boxes, are not eligible.",
+        "A card the seller gifts in free with the order is not covered and may be disposed of."
+      ],
+      "returns": "Check the seller's return policy first: if they do not accept returns the sale is final even here. The one exception is transit damage, where you can open a return on a final sale card within three days of receiving it. Items shipping internationally into the US are ineligible for returns.",
+      "excluded": "The buyer pays nothing. eBay's own answer to whether there is a fee is no, and it says it covers the cost of authentication and the tracked shipping from the facility to you, for a limited time. That last clause is eBay's own and is the part worth re-checking.",
+      "source": "https://www.ebay.com/authenticity-guarantee/tradingcards",
+      "read": "2026-08-15"
+    },
+    {
+      "venue": "Whatnot",
+      "covers": [
+        "Incomplete or incorrect items: something missing or something wrong.",
+        "Not as described or inauthentic: damaged, defective, counterfeit or fake, or not matching the condition description.",
+        "Package not received: lost or delayed in transit, never shipped, misdelivered, or marked delivered and not received."
+      ],
+      "cardCarveOut": "Trading Card Games, along with Sports Cards, Coins and Money, Sneakers and Streetwear and Luxury Goods, must be claimed by the earlier of 7 DAYS FROM DELIVERY or 30 days from purchase. The general deadline is the earlier of 30 days from purchase or 14 days from delivery, so cards lose half the delivery-side window.",
+      "returns": "Whatnot may require the item back before refunding, and it must be in the same condition it arrived. Their own example: opening a product or removing tags may disqualify the order or reduce the refund.",
+      "excluded": "Breaks, except where an item is missing, delayed, incorrect or damaged. Tips, which are non-refundable by their own terms. Refusing delivery, and failing to collect a package held for pickup. Customs fees. Any order already disputed with your bank, so a chargeback closes the platform route. Anything transacted off Whatnot.",
+      "buyerCarries": [
+        "The outcome of a break, which is the nature of a break rather than a gap in the policy.",
+        "Anything opened before claiming, since that can reduce or void the refund."
+      ],
+      "source": "https://help.whatnot.com/hc/en-us/articles/360061194552-Whatnot-Buyer-Protection-Policy",
+      "read": "2026-08-15"
+    },
+    {
+      "venue": "Amazon A-to-z Guarantee",
+      "note": "It exists for the third-party half of Amazon, which is the half most people do not realise they are in.",
+      "covers": [
+        "Timely delivery and the condition of items sold and fulfilled by a third-party seller.",
+        "Non-delivery, three days after the latest estimated delivery date, where you contacted the seller more than 48 hours ago.",
+        "Damaged, defective or materially different items where the seller has not authorised a return within 48 hours.",
+        "A return that reached the seller seven days ago with no refund issued."
+      ],
+      "conditions": [
+        "The order must have been placed with a third-party seller.",
+        "The last possible delivery date must be 90 days ago or less."
+      ],
+      "how": "Refunds cover product cost, original shipping and return shipping where the item was damaged, defective or materially different, and product cost only for any other reason.",
+      "excluded": "No dollar cap is published anywhere on the current page, so none is stated here. The commonly cited figure is not Amazon's published one.",
+      "source": "https://www.amazon.com/gp/help/customer/display.html?nodeId=GQ37ZCNECJKTFYQV",
+      "alsoRead": [
+        "https://www.amazon.com/gp/help/customer/display.html?nodeId=GKM69DUUYKQWKWX7"
+      ],
+      "read": "2026-08-15"
+    },
+    {
+      "venue": "Buying sealed product at retail",
+      "note": "The policy nobody checks until the box arrives dented, and three separate companies say the same thing.",
+      "doesNotCover": [
+        "Pokemon Center: final sale items cannot be returned, and final sale items include Pokemon trading cards and products containing Pokemon trading cards. Their damaged-item page closes it explicitly: final sale items cannot be returned for a refund due to box or outer wrap damage.",
+        "Target: trading cards and trading card accessories, naming Pokemon, sport cards and trading card binders, are listed among items that cannot be returned.",
+        "Best Buy: trading cards, including Pokemon cards, are named among items that are nonreturnable once purchased, from Best Buy and from marketplace sellers alike."
+      ],
+      "covers": [
+        "Walmart publishes no trading card carve-out, so its standard 90 day window governs, and 30 days on marketplace-seller items.",
+        "Costco names no trading cards anywhere in its return exceptions, so its open-ended satisfaction guarantee governs."
+      ],
+      "how": "Pokemon Center will help with a lost package after 15 days without tracking movement in the US, 30 for SmartPost and US territories, and 45 for military addresses. A package returned to sender is refunded automatically in 5 to 10 business days and cannot be re-sent.",
+      "buyerCarries": [
+        "Cosmetic shipping damage on anything final sale. Pokemon Center states that packaging is intended to protect the contents in transit and that it cannot guarantee the packaging arrives undamaged.",
+        "The queue. Pokemon Center runs a virtual queue at busy moments and says plainly that waiting in it does not guarantee product availability, and that support will not help with queue problems at all."
+      ],
+      "source": "https://www.pokemoncenter.com/return-policy",
+      "alsoRead": [
+        "https://support.pokemoncenter.com/hc/en-us/articles/23357624683796-What-should-I-do-if-my-item-is-damaged-or-defective",
+        "https://www.target.com/help/article/000061982",
+        "https://www.bestbuy.com/site/help-topics/return-exchange-policy/pcmcat260800050014.c?id=pcmcat260800050014"
+      ],
+      "read": "2026-08-15",
+      "verifiedTwice": true
+    },
+    {
+      "venue": "Buying across a counter",
+      "note": "There is no policy page to cite, and that is the finding.",
+      "covers": [],
+      "how": [
+        "Nobody holds the money, so there is no claim window, no arbiter and no reversal. There is also nothing to ship, so the whole shipping half of this page does not apply.",
+        "You inspect the card before the money moves, which is the one thing no online venue offers at any price. What you give up is selection: a shop has what a shop has."
+      ],
+      "read": "2026-08-15"
+    }
+  ],
+  "attacks": [
+    {
+      "name": "The shipping stack",
+      "how": "Not a scam and not anybody's fault, which is why it belongs first: it is the most common way a Pokemon order costs more than expected. Marketplace shipping is charged per SELLER, so a cart assembled by picking the cheapest listing for each card pays a separate shipping charge to every one of them.",
+      "note": "TCGplayer's floor for an order under $5 from a seller is $1.49, so a cart of twelve cheap commons from twelve sellers can spend more on postage than on cards. Sorting by price plus shipping rather than by price is the whole fix, and it is what TCGplayer's own default sort control does.",
+      "source": "https://help.tcgplayer.com/hc/en-us/articles/23216633721495-Understanding-Shipping-Rates-in-Different-Situations",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "The clock that ran out while you were at work",
+      "how": "A trading card claim window is measured in days, not weeks, and it starts when the parcel is delivered or when it was estimated to be. eBay gives three calendar days on a not-as-described claim where the seller does not accept returns. Whatnot gives seven from delivery on trading card games.",
+      "why": "Nothing about either venue changes; the deadline simply passes. Open the package the day it lands and check the card against the listing while the claim is still live.",
+      "source": "https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "The condition word that means two different things",
+      "how": "Near Mint is not a standard, it is a word that several companies define separately. TCGplayer scores it as at most 3 points of imperfection with no surface wear and no bends at all. CoolStuffInc runs three tiers where Played absorbs a range TCGplayer would split in two. Card Cavern stocks only Near Mint and Lightly Played and defines both itself. Dave and Adam's prints the words on singles and publishes no definition anywhere.",
+      "note": "So a card described as Lightly Played at one venue is genuinely not the same object as a card described as Lightly Played at another, and the recourse for a condition mismatch is judged against the seller's own published scale rather than a shared one. All four scales, and the absence of the fourth, were read on the companies' own pages.",
+      "source": "https://help.tcgplayer.com/hc/en-us/articles/221430307-Card-Conditioning-Overview",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "The break you cannot un-open",
+      "how": "A break is a bet on an opening, and both live venues carve it out of ordinary buyer protection. eBay excludes case breaks, box breaks and pack breaks sold by pre-approved sellers from the Money Back Guarantee entirely. Whatnot covers a break purchase only if an item is missing, delayed, incorrect or damaged.",
+      "note": "Neither is a criticism of breaks or of the people running them. No refund policy anywhere can put the cards back in the pack, and both companies say so up front rather than in the small print.",
+      "source": "https://help.whatnot.com/hc/en-us/articles/360061194552-Whatnot-Buyer-Protection-Policy",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "The final sale nobody read",
+      "how": "You buy a sealed box at retail, it arrives crushed, and there is no return. Pokemon Center, Target and Best Buy all publish trading cards as final sale or nonreturnable, and Pokemon Center goes further and states that final sale items cannot be returned for box or outer wrap damage specifically.",
+      "note": "The practical consequence is that at those three the condition of the outer box on arrival is entirely your risk, and it is worth deciding before you order whether you are buying it to open or to keep.",
+      "source": "https://www.pokemoncenter.com/return-policy",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "The three sellers wearing one storefront",
+      "how": "On Amazon the same page can be Amazon's own stock, a third-party seller whose goods Amazon holds and posts, or a third party shipping from their own shelf. Which one you are in decides the shipping, the returns route and whether the A-to-z Guarantee applies at all.",
+      "note": "Amazon publishes the tell: read the Sold by and Ships from lines under the buy button. Its own pages also warn that a self-shipping third-party seller charges its own shipping fees even when your order clears the free shipping threshold.",
+      "source": "https://www.amazon.com/gp/help/customer/display.html?nodeId=GEF528GN65XSJ7V8",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "The off-platform payment request",
+      "how": "Moving a deal into a message, a bank transfer or a payment app strips protection at every venue read here, and every one of them says so in its own words. eBay lists items paid for even partly outside eBay among the things the Money Back Guarantee does not cover; Whatnot says transactions occurring off Whatnot are not eligible for a refund.",
+      "note": "It cuts both ways and that is why it gets asked for: a seller asking a buyer to pay off-platform is asking them to give up their refund route in exchange for the seller saving a commission. The request itself is the whole signal.",
+      "source": "https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "The chargeback that closed the door you wanted",
+      "how": "Disputing a card order with your bank feels like the strongest move available and at one venue it removes the option you actually wanted. Whatnot's exclusions state that orders disputed with your financial institution are ineligible for a refund from Whatnot.",
+      "note": "The platform route and the bank route are not additive. Use the platform's own process while its clock is running, and keep the bank as the thing you do after it fails rather than alongside it.",
+      "source": "https://help.whatnot.com/hc/en-us/articles/360061194552-Whatnot-Buyer-Protection-Policy",
+      "read": "2026-08-15"
+    }
+  ],
+  "defences": [
+    {
+      "name": "Pay on the platform's own rail",
+      "why": "Not advice so much as the precondition for everything else on this page. Every protection listed here is conditional on the payment having gone through the venue. Moving it off does not weaken your protection, it deletes it."
+    },
+    {
+      "name": "Open the parcel the day it arrives, and photograph it before you do",
+      "why": "Two of the clocks here are three days and seven days. Nothing else on this page is defeated as often by ordinary life as a deadline that short. TCGplayer adds a specific rule worth knowing in advance: if a package arrives damaged, do NOT open it, because opening it lets the seller refund only the items actually damaged.",
+      "source": "https://help.tcgplayer.com/hc/en-us/articles/201642073-What-is-TCGplayer-s-Refund-and-Return-policy",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "Sort by price plus shipping, and buy from as few sellers as the cards allow",
+      "why": "The single biggest lever on what a marketplace order costs, and it needs no negotiation with anybody. On TCGplayer the Cart Optimizer will rebuild the same cart as a Direct cart, a Verified Sellers cart and an Any Seller cart so the three totals can be compared before you commit.",
+      "source": "https://help.tcgplayer.com/hc/en-us/articles/201769673-How-does-the-Cart-Optimizer-work",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "On an expensive raw card, let somebody look at it first",
+      "thresholds": [
+        "eBay Authenticity Guarantee: $200 and above, ungraded singles and graded cards, US buyers, single cards only.",
+        "The buyer pays nothing for it, and cards over $1,500 arrive with signature confirmation required.",
+        "TCGplayer Direct: no threshold, but the check is described as accuracy and condition rather than authentication, and Direct is free over $50."
+      ],
+      "why": "These are the only two mechanisms found anywhere that put somebody between the seller and you BEFORE the card ships, rather than paying out after it goes wrong. Everything else on this page is a refund process.",
+      "source": "https://www.ebay.com/authenticity-guarantee/tradingcards",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "Read the condition scale of the venue you are on, not the one you know",
+      "why": "Near Mint is defined separately by every company that uses it, and one of the four card shops here defines it nowhere at all while still printing it on listings. TCGplayer publishes the most precise scale in the hobby, down to millimetres of edgewear and a points budget per grade, and it is the standard worth learning first even if you shop elsewhere.",
+      "source": "https://help.tcgplayer.com/hc/en-us/articles/221430307-Card-Conditioning-Overview",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "Check the returns rule before you buy sealed, not after it arrives",
+      "why": "Three of the retailers here publish trading cards as final sale or nonreturnable, and one of them states that final sale covers box damage in transit. This is a thirty second check that cannot be done afterwards.",
+      "source": "https://www.target.com/help/article/000061982",
+      "read": "2026-08-15"
+    },
+    {
+      "name": "Use the platform process before the bank one",
+      "why": "They are not additive. At least one venue here treats an order disputed with your financial institution as ineligible for its own refund, so reaching for the chargeback first can close the route you actually wanted."
+    }
+  ],
+  "custody": {
+    "claim": "Every venue on this page ends with a package, and the useful way to tell them apart is not how big the company is. It is how many pairs of hands the card passed through, and whether any of them belonged to somebody who checked it. This is the same list ordered by chain length rather than by price.",
+    "chain": [
+      {
+        "who": "Pokemon Center",
+        "what": "The Pokemon Company International makes it and ships it. There is no reseller, no marketplace listing and nobody in the middle, which is why no authenticity policy is published: there is nothing for one to protect against. What you trade for the shortest chain is that Pokemon cards are final sale, there is a virtual queue, and purchase limits are set per product."
+      },
+      {
+        "who": "The big-box chains",
+        "what": "Manufacturer to distributor to retailer to you, all of it sealed. The exposure here is not a counterfeit listing, it is whether the box in your hands is still the box that left the factory. That is a physical inspection question and it lives on our fakes page rather than in any return policy."
+      },
+      {
+        "who": "Amazon",
+        "what": "Three chains behind one page. Amazon's own stock, a third party whose goods Amazon holds and posts, and a third party shipping off their own shelf. Amazon's own pages describe commingling, where the unit you receive may come from another seller's inventory with both sellers' consent, so on a Ships from Amazon item the chain is genuinely not the one the listing implies."
+      },
+      {
+        "who": "An online card shop",
+        "what": "One company bought the card, graded it against its own published scale, and packed it. There is exactly one party to argue with, and their scale is the one your condition claim is judged against. Two of the four here publish a scale, one publishes none, and one could not be read at all."
+      },
+      {
+        "who": "TCGplayer Direct",
+        "what": "The card sits in TCGplayer's authentication centre before it ships, gets checked for accuracy and condition, and travels in one package however many sellers it came from. TCGplayer, not the seller, answers for it. Read the wording carefully though: this is an accuracy and condition check, and TCGplayer never calls it a counterfeit check."
+      },
+      {
+        "who": "eBay Authenticity Guarantee",
+        "what": "The longest chain with the strongest link in it. The seller ships to PSA rather than to you, PSA inspects the card or the slab, and only then does it come to you, signature required over $1,500. It is the only mechanism found anywhere that stops a bad card in transit instead of refunding it afterwards, and the buyer pays nothing. Single cards only, $200 and up, so no sealed product ever goes through it."
+      },
+      {
+        "who": "An ordinary marketplace listing",
+        "what": "A stranger's box to yours, with nobody looking at the card in between. This is not a criticism and it is where most cards are bought: it is the cheapest chain and the deepest catalogue, and the whole point of the protections above is that they exist for exactly this case. Just know that they operate after the card arrives, on a clock, and on trading cards that clock is short."
+      }
+    ],
+    "cost": "Selection and price, almost exactly in proportion. The shortest chain sells you one company's own products at list, when it has them. The longest one sells you any card ever printed at whatever the market says today. Nobody sells both.",
+    "note": "None of this ranks the venues. A sealed ETB and a $600 raw vintage card are different purchases with different exposures, and the chain that suits one is wrong for the other."
+  }
+}

@@ -1,0 +1,940 @@
+{
+  "_readme": [
+    "Where a person can actually buy Pokemon cards online, and what each venue",
+    "costs the BUYER. The mirror of data/selling.json, which records what each",
+    "venue takes from a seller.",
+    "",
+    "THE SOURCING RULE, and it is the whole file. A cost figure is in here ONLY if",
+    "it was read on that company's own shipping, help, policy or terms page, in a",
+    "browser, and the exact url it came from is recorded against it in `sources`.",
+    "Not a blog, not a comparison site, not a coupon site, not a forum, not a",
+    "search snippet. Where a number could not be sourced that way it is simply",
+    "ABSENT and the venue carries a link to its own page instead. A venue with no",
+    "shipping threshold recorded is fine. An invented one is not.",
+    "",
+    "TWO FIGURES PROVE WHY, and both were tested on this pass.",
+    "  1. THE $35 AMAZON FREE SHIPPING THRESHOLD DOES NOT APPEAR ON AMAZON'S OWN",
+    "     PAGE. Every comparison site quotes it. Amazon's Free Shipping by Amazon",
+    "     help page says 'the stated minimum threshold of eligible items' six times",
+    "     and never states the number. That was read twice, independently, on",
+    "     amazon.com. So this file records the RULE and not the number.",
+    "  2. Card Kingdom's widely cited $35 traces to a 2022 blog post while the",
+    "     company's current support article says $75 and Magic singles only. Card",
+    "     Kingdom is not a venue here, but the lesson set the rule for the four",
+    "     card shops that are: read the CURRENT policy page, and where two of a",
+    "     company's own pages disagree, record both and say they disagree.",
+    "",
+    "BUYER-SIDE COSTS ARE CONDITIONAL AND THAT IS THE INTERESTING PART. Flattening",
+    "a venue to one free-shipping number is how this page would lie. Four things a",
+    "single number always hides:",
+    "  1. THE THRESHOLD IS OFTEN TWO THRESHOLDS. Card Cavern runs $20 for singles",
+    "     and $100 for anything containing sealed product. CoolStuffInc runs $30",
+    "     for singles-only orders and $150 for everything else. Dave and Adam's",
+    "     runs one $199 line across the board. Putting those three in a column of",
+    "     single numbers would misrepresent all three.",
+    "  2. THE FEE IS PER SELLER, NOT PER ORDER. On TCGplayer's Marketplace the",
+    "     buyer pays one flat shipping fee per STORE, in TCGplayer's own words, so",
+    "     a ten-seller cart pays ten shipping fees. Nothing else on this page",
+    "     works that way except eBay, and TCGplayer Direct exists specifically to",
+    "     undo it.",
+    "  3. THE CHEAPEST LISTING IS NOT THE CHEAPEST ORDER. See `theArithmetic`.",
+    "  4. FREE SHIPPING IS COMPUTED AFTER DISCOUNTS. Target's $35 is 'after all",
+    "     applicable promotions and discounts have been applied, not including",
+    "     tax'. Card Cavern's own page warns that store credit is applied as a",
+    "     discount, so a cart paid in credit shows an order total of $0 and does",
+    "     not qualify for free shipping at all.",
+    "",
+    "THE FINDING THAT SURPRISED THIS PASS: POKEMON CARDS ARE FINAL SALE AT THREE",
+    "OF THE FOUR PLACES A BEGINNER WOULD ACTUALLY WALK INTO. Pokemon Center says",
+    "final sale items include 'Pokemon trading cards and products containing",
+    "Pokemon trading cards'. Target lists 'Trading cards & trading card accessories",
+    "(e.g., Pokemon, Sport cards, trading card binders)' among items that cannot be",
+    "returned. Best Buy lists 'trading cards (including Pokemon cards)' as",
+    "nonreturnable once purchased. Three companies, three separate policy pages,",
+    "the same rule, all read on the same day. That is not a reputation claim about",
+    "anybody, it is three published policies agreeing, and it is the single most",
+    "useful thing on this page for somebody about to buy a dented ETB.",
+    "",
+    "THE OTHER ONE: BREAKS ARE CARVED OUT OF BUYER PROTECTION ON BOTH LIVE VENUES.",
+    "eBay's Money Back Guarantee excludes 'Sports trading card case breaks, box",
+    "breaks, and pack breaks that are sold by pre-approved sellers' outright.",
+    "Whatnot covers a break purchase only 'if an item is missing, delayed,",
+    "incorrect, or damaged'. Both were read on the companies' own policy pages.",
+    "Neither is a warning about breaks; both are the shape of the protection.",
+    "",
+    "NOBODY USES TCGPLAYER'S CONDITION STANDARD EXCEPT TCGPLAYER. This was the",
+    "expected finding and it came out backwards. Card Cavern publishes its own two",
+    "tier scale and references no external standard. CoolStuffInc publishes its own",
+    "three tier scale and references no external standard. Dave and Adam's prints",
+    "'Near Mint' on singles and publishes no definition of it anywhere in its help",
+    "centre. So a card graded Near Mint at one venue is not the same object as a",
+    "card graded Near Mint at another, and the page has to say so.",
+    "",
+    "UNVERIFIED MEANS UNVERIFIED. Troll and Toad's storefront was offline for a",
+    "warehouse move on this check and every policy page served a 'we will be back",
+    "soon' splash, so nothing about buying there could be read. Best Buy's",
+    "membership pricing could not be reached on Best Buy's own pages. Both gaps are",
+    "recorded as gaps and are not filled in from somewhere else.",
+    "",
+    "NO ADVICE AND NO RANKING. This file records what each venue is and what it",
+    "costs a buyer. It does not say which one to use, because that depends on",
+    "whether you want one card or a sealed case, how fast you want it, and whether",
+    "you are buying from a company or from a stranger.",
+    "",
+    "PULL RATES ARE NEVER STATED ANYWHERE IN THIS FILE. Several of these venues",
+    "sell sealed product and two of them run breaks. Nothing here says or implies",
+    "what comes out of a pack, because The Pokemon Company does not publish that",
+    "and this site does not guess at it. See /luck.html.",
+    "",
+    "IF `checked` IS MORE THAN A COUPLE OF MONTHS OLD, treat these as the SHAPE of",
+    "each venue's pricing rather than a quote, and click through. TCGplayer's own",
+    "change log shows its Direct free-shipping threshold was updated on 6 June 2026",
+    "and corrected again on 8 July 2026, and its marketplace minimum shipping fee",
+    "changed on 26 May 2026. That is three moves in three months on one venue.",
+    "",
+    "Prices are US rates in USD. `sources` on every venue lists the exact urls read",
+    "and the date they were read.",
+    "",
+    "GROUP is which section of the page a venue sits in, and it is stated here",
+    "rather than worked out from the prose, because build-selling.mjs tried to",
+    "infer its groups from wording once and filed three marketplaces under",
+    "consignment. The grouping is by WHO OWNS THE CARD, which is what decides every",
+    "other answer:",
+    "  market  thousands of sellers, the venue arbitrates after it arrives",
+    "  shop    one company owns the stock, packs it and answers for it",
+    "  retail  sealed product from the maker or the chains that stock it"
+  ],
+  "checked": "2026-08-15",
+  "theArithmetic": {
+    "claim": "On a marketplace the price you compare is per card and the price you pay is per seller. TCGplayer says it plainly on its own shipping page: you are charged one flat shipping fee per store, no matter how many items you order from them. That sentence is usually read as good news, and it is, right up until your cart holds twelve cards from twelve different stores.",
+    "because": [
+      "Twelve cards from one seller is one shipping fee. Twelve cards from twelve sellers is twelve shipping fees, and TCGplayer's floor for an order under $5 from a seller is $1.49, so a cart of twelve cheap commons can pay more in postage than in cards.",
+      "Crossing $5 with one seller does not make shipping free. It only removes TCGplayer's own minimum, after which the seller's rate applies, and only Level 4 sellers are allowed to set that rate to $0 at all. The listings that do carry a visible badge saying so.",
+      "TCGplayer Direct is the mechanic built to answer this, and it is the most important thing on this page. Direct orders are pulled from TCGplayer's own authentication centre and ship as one package however many sellers are involved, at $3.99, or free over $50. The Cart Optimizer will rebuild your cart as a Direct cart so you can compare the two totals before you buy.",
+      "Direct is not free of trade-offs. Cards under $0.40 are rounded up to $0.40 when TCGplayer fulfils them, so the cheapest commons genuinely cost more through Direct than through the Marketplace, and damaged cards are not eligible for Direct at all.",
+      "eBay stacks the same way and has no equivalent: shipping is set per listing by each seller, so a multi-seller haul pays each of them. Combined shipping only helps within one seller.",
+      "Whatnot bundles automatically, but only within one seller, and its own page says purchases made through different sales channels, such as shows and marketplace, cannot be bundled together. Two wins from the same person in two places are two shipments."
+    ],
+    "note": "None of this is a reason to avoid a marketplace. It is a reason to sort by price plus shipping rather than by price, which is what TCGplayer's own default sort control is labelled, and to fill a cart from as few sellers as the cards allow."
+  },
+  "venues": [
+    {
+      "id": "tcgplayer",
+      "name": "TCGplayer",
+      "url": "https://help.tcgplayer.com/hc/en-us/articles/201996807-How-is-shipping-applied-to-marketplace-orders",
+      "type": "Marketplace for singles, with TCGplayer Direct layered on top",
+      "format": "A catalogue keyed to card and condition, where thousands of independent stores list against the same card. Direct is the same catalogue fulfilled by TCGplayer itself.",
+      "bestFor": "Named singles at every price, including cheap ones, because you arrive searching for a card rather than browsing listings. The deepest Pokemon singles catalogue of anywhere here.",
+      "status": "sourced",
+      "group": "market",
+      "costs": [
+        {
+          "what": "Direct shipping",
+          "rate": "$3.99, or FREE on US Direct orders over $50 before taxes and fees",
+          "appliesTo": "The whole Direct package, however many cards and however many sellers",
+          "note": "TCGplayer's own wording: your entire order ships for free with TCGplayer Direct, no matter how many cards you buy or how many sellers you buy from with the Direct program. Expedited Direct shipping is currently suspended and carries no published price. THE THRESHOLD MOVES: the article's own change log records it updated on 6 June 2026 and corrected on 8 July 2026."
+        },
+        {
+          "what": "Marketplace shipping, per seller",
+          "rate": "$1.49 minimum on an order under $5 from one seller. At $5 or more the minimum does not apply and the seller's own rate does.",
+          "appliesTo": "Each store in your cart, separately",
+          "note": "The widely quoted free shipping over $5 is NOT a platform rule. Crossing $5 only removes TCGplayer's floor. Only Level 4 sellers may set a shipping rate of $0, and those listings carry a visible Free Shipping on Orders Over $5 badge. The minimum itself changed on 26 May 2026 per the page's change log."
+        },
+        {
+          "what": "Typical Marketplace shipping rate",
+          "rate": "Not published",
+          "appliesTo": null,
+          "note": "TCGplayer publishes the $1.49 floor and nothing else. Sellers set their own rate within ranges TCGplayer does not publish, and shipping is priced off the largest item in the order rather than the whole package. The worked examples on their page use hypothetical sellers, so no typical rate is recorded here."
+        },
+        {
+          "what": "Direct minimum card price",
+          "rate": "$0.40",
+          "appliesTo": "Any card fulfilled by TCGplayer Direct whose value is below $0.40",
+          "note": "Automatically rounded up. It does not apply to ordinary Marketplace listings, so the cheapest commons genuinely cost more through Direct. This is the real cost of the single-package convenience."
+        },
+        {
+          "what": "Buyer service or processing fee",
+          "rate": "None published",
+          "appliesTo": null,
+          "note": "TCGplayer's fee article lists commission, Pro, Direct, Sync and transaction fees and every one of them is charged to the SELLER. The only buyer-facing mention of a fee anywhere is one sentence in the Terms of Service noting that a displayed price does not include shipping, taxes or processing fees that may be required, with no amount and no conditions attached. Recorded as published-absent rather than proven-absent: nobody here reached a live checkout total."
+        },
+        {
+          "what": "TCGplayer Subscription",
+          "rate": "$8.99 a month",
+          "appliesTo": "Optional, US only, monthly billing, cancel any time",
+          "note": "Removes the $50 Direct threshold entirely: free tracked shipping on any Direct order with no minimum. It does nothing for Marketplace shipping, where you still pay each seller's rate. Also earns store credit on orders of $35 or more before shipping and tax, at 1% rising to 3% with account age, capped at $50 per qualifying item."
+        },
+        {
+          "what": "Sales tax on shipping",
+          "rate": "Charged",
+          "appliesTo": "The item-level shipping and handling charge as well as the card",
+          "note": "TCGplayer's own wording: the total selling price of an item will generally include item-level shipping and handling charges. The estimate shown at checkout may differ from what is finally charged."
+        },
+        {
+          "what": "International Direct shipping",
+          "rate": "Canada $7.99, United Kingdom $9.99, Japan $11.99",
+          "appliesTo": "Flat rate per shipment, no matter the order size",
+          "note": "Direct ships to those three countries only, international orders are never eligible for free shipping, and customs duties are the buyer's responsibility."
+        }
+      ],
+      "stacking": "One flat shipping fee per STORE, in TCGplayer's own words, no matter how many items you order from that store. So the fee scales with the number of sellers in your cart and not with the number of cards. Direct is the escape hatch: it pulls every Direct-qualified card into one package from TCGplayer's own authentication centre, at one shipping charge. Direct qualified listings carry an icon, a qualifying order appears as Package #1 in the cart with a blue border, and the Cart Optimizer will rebuild the whole cart three ways, Direct against Verified Sellers against Any Seller, so the totals can be compared before checkout. There is also a Shop Direct filter in the search sidebar, which is not documented in any help article.",
+      "recourse": "30 calendar days after the ESTIMATED delivery date, for every issue type, and the clock runs from the estimate rather than from actual delivery. Singles are otherwise non-returnable, with exactly three exceptions: wrong condition, wrong card, missing card. A seller has 2 business days to respond before you can escalate, and TCGplayer says it monitors the message from the moment you send it, contacts the seller at 24 hours and escalates to its own customer service at 72. On a seller-fault return the SELLER pays return postage and must send a prepaid label or package. Two rules worth knowing: a seller cannot require you to send photos of a condition problem before resolving it, and a seller who sent a more expensive card by mistake cannot charge you to keep it. Refunds are anchored to what you paid, so a price move in either direction does not change them. Damaged in transit: do not open the package. On a Direct order you deal with TCGplayer's own support rather than the seller, and Direct orders cannot be cancelled once they enter shipping.",
+      "conditionStandard": "TCGplayer publishes the standard the rest of the hobby quotes, and it is the only venue on this page that quantifies it. Five grades, and Mint and Gem Mint are not sold on the marketplace at all. Every imperfection is scored Slight 1, Minor 2, Moderate 4 or Major 8, and the allowable total is 3 points for Near Mint, 6 for Lightly Played, 12 for Moderately Played, 24 for Heavily Played and anything above 24 for Damaged. There are absolute ceilings per flaw as well: Near Mint allows at most 20mm of edgewear and no surface wear or bends at all, and a card with more than 5mm of curl is Damaged whatever else is true of it. Up to 70/30 centering has no effect on condition. What TCGplayer does NOT publish is a percentage of value per grade; the only value figure anywhere is a recommendation that a partial refund of about 10% per condition step is reasonable, which is a refund guideline and not a price guide.",
+      "conditionGrades": [
+        {
+          "grade": "Near Mint",
+          "definition": "Minimal wear from shuffling, play or handling, a nearly unmarked surface, crisp corners and unblemished edges outside a few slight flaws. May have slight edge wear or a couple of minor scratches but looks nearly unplayed with no major defects."
+        },
+        {
+          "grade": "Lightly Played",
+          "definition": "May have minor edge wear, scuffs or scratches. No significant imperfections and no issue with the structural integrity of the card. Noticeable imperfections are acceptable, but none too severe or at too high a volume."
+        },
+        {
+          "grade": "Moderately Played",
+          "definition": "Edge wear, surface wear, scratching or scuffing, bends with creases, or a combination of moderate examples of these. Bends, peels or liquid exposure can still be Moderately Played as long as the structural integrity of the card is intact."
+        },
+        {
+          "grade": "Heavily Played",
+          "definition": "A major amount of wear: a variety of moderate imperfections along with creasing, whitening and other faults. However many imperfections it has, it must still be authenticatable and must not be structurally damaged."
+        },
+        {
+          "grade": "Damaged",
+          "definition": "Wear or imperfections beyond the standards for every other grade: major border wear, scratching or scuffing, bends, tears, splitting, food or liquid, or other damage that affects the integrity of the card. Damaged cards are not eligible for Direct."
+        }
+      ],
+      "authenticity": "TCGplayer Safeguard promises a full refund for any counterfeit card, in those words, and there is one hard condition attached: the suspected counterfeit must physically REACH TCGplayer before a refund is eligible. They send a prepaid label, so you do not pay the postage, but you carry the delay and there is no photo-based route. No dollar threshold, no minimum card value and no stated review turnaround is published. Read the Direct branding carefully: TCGplayer describes the Direct check as making sure you get exactly what you ordered in the right condition, and never uses the word counterfeit about it, so Direct is an accuracy and condition inspection rather than a per-card authenticity certificate. The counterfeit remedy is the same Safeguard claim on Direct and Marketplace alike. Sellers are banned from hedging: listings may not say things like cannot guarantee authenticity.",
+      "limits": [
+        "Direct ships to the US, Canada, the UK and Japan only.",
+        "Damaged cards, and cards with certain manufacturing defects such as miscuts, are not eligible for Direct at all.",
+        "No minimum order value for Direct eligibility is published anywhere. Four of TCGplayer's own pages were checked and none states one, so none is recorded here."
+      ],
+      "note": "help.tcgplayer.com returns 403 to automated fetching. Every figure here was read in a browser on TCGplayer's own help centre, plus the Card Conditioning Standards PDF that the help centre links to.",
+      "sources": [
+        {
+          "url": "https://help.tcgplayer.com/hc/en-us/articles/201996857-Buying-from-TCGplayer-Direct",
+          "read": "2026-08-15",
+          "what": "Direct free shipping threshold and the $3.99 charge, who ships and who handles disputes, the $0.40 card floor, the Direct icon and Package #1 cart behaviour, the Cart Optimizer. Its change log dates the threshold to 8 July 2026."
+        },
+        {
+          "url": "https://help.tcgplayer.com/hc/en-us/articles/201996807-How-is-shipping-applied-to-marketplace-orders",
+          "read": "2026-08-15",
+          "what": "One flat shipping fee per store, the free shipping badge, and what Shipping: Included means"
+        },
+        {
+          "url": "https://help.tcgplayer.com/hc/en-us/articles/23216633721495-Understanding-Shipping-Rates-in-Different-Situations",
+          "read": "2026-08-15",
+          "what": "The $1.49 minimum under $5, what happens at $5 and above, that only Level 4 sellers may set $0, and that shipping is priced off the largest item. Change log dates the minimum to 26 May 2026."
+        },
+        {
+          "url": "https://help.tcgplayer.com/hc/en-us/articles/201642073-What-is-TCGplayer-s-Refund-and-Return-policy",
+          "read": "2026-08-15",
+          "what": "The 30 day window from estimated delivery, the three singles exceptions, seller-paid return postage, the 2 business day response rule, the no-photos rule, the counterfeit process and its return requirement"
+        },
+        {
+          "url": "https://help.tcgplayer.com/hc/en-us/articles/201637633-TCGplayer-Safeguard",
+          "read": "2026-08-15",
+          "what": "Safeguard scope, the escalation timeline at 24, 48 and 72 hours, and that refunds are anchored to the price paid"
+        },
+        {
+          "url": "https://help.tcgplayer.com/hc/en-us/articles/221430307-Card-Conditioning-Overview",
+          "read": "2026-08-15",
+          "what": "The five grades in TCGplayer's own words, the structure, playability and authentication test, and that Mint and Gem Mint are not sold there"
+        },
+        {
+          "url": "https://mktg-assets.tcgplayer.com/web/seller/guides/Card-Conditioning-Standards.pdf",
+          "read": "2026-08-15",
+          "what": "The point scale, the per-grade point ceilings, the measured limits per flaw type, the 5mm curl rule and the 70/30 centering rule. Stamped Updated March 2025."
+        },
+        {
+          "url": "https://help.tcgplayer.com/hc/en-us/articles/360035393833-TCGplayer-Subscription-FAQ",
+          "read": "2026-08-15",
+          "what": "The $8.99 monthly price, that it removes the Direct minimum and does nothing for Marketplace shipping, and the store credit tiers and caps"
+        },
+        {
+          "url": "https://help.tcgplayer.com/hc/en-us/articles/201357836-TCGplayer-Fees",
+          "read": "2026-08-15",
+          "what": "That every fee TCGplayer enumerates is charged to the seller, which is the basis for recording no buyer fee"
+        },
+        {
+          "url": "https://help.tcgplayer.com/hc/en-us/articles/205004918-Terms-of-Service",
+          "read": "2026-08-15",
+          "what": "The only buyer-facing mention of a processing fee anywhere, with no amount attached"
+        },
+        {
+          "url": "https://help.tcgplayer.com/hc/en-us/articles/34345149616407-Buying-Internationally-from-TCGplayer-Direct",
+          "read": "2026-08-15",
+          "what": "The Canada, UK and Japan flat rates, and that international Direct orders never qualify for free shipping"
+        },
+        {
+          "url": "https://help.tcgplayer.com/hc/en-us/articles/213913788-Why-was-I-charged-sales-tax-on-my-order",
+          "read": "2026-08-15",
+          "what": "That sales tax is charged on item-level shipping and handling"
+        }
+      ]
+    },
+    {
+      "id": "ebay",
+      "name": "eBay",
+      "url": "https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210",
+      "type": "Marketplace",
+      "format": "Fixed price and auction, plus eBay Live for livestream selling and breaks",
+      "bestFor": "Graded slabs, vintage, sealed product and anything with a sale history you can look up. The only venue here that inspects an expensive raw card before it reaches you.",
+      "status": "partial",
+      "group": "market",
+      "costs": [
+        {
+          "what": "Shipping",
+          "rate": "Set by the seller, per listing",
+          "appliesTo": "Each listing, and each seller",
+          "note": "There is no eBay-wide shipping rate or free shipping threshold to state, because eBay does not set one. Many card sellers list free shipping and price it into the card instead, which is why the sort that matters is total cost rather than item price."
+        },
+        {
+          "what": "Authenticity Guarantee",
+          "rate": "$0 to the buyer",
+          "appliesTo": "Eligible cards $200 and above",
+          "note": "eBay's own wording: no, eBay covers the cost of authentication and tracked shipping from the authentication facility to you, for a limited time. That last clause is eBay's, not ours, and it is the part to re-check before relying on it."
+        },
+        {
+          "what": "Buyer fee on US trading card purchases",
+          "rate": "UNVERIFIED",
+          "appliesTo": null,
+          "note": "No eBay page stating a buyer-side fee for US trading card purchases was reached on this check, and no page stating there is none was reached either. Rather than record a zero we could not read, this is left open. The checkout total is the only authority, and it is shown before you commit."
+        }
+      ],
+      "stacking": "Shipping is per listing and per seller, so a multi-seller haul pays every one of them and eBay has no equivalent of TCGplayer Direct. Combined shipping exists but only within a single seller, at that seller's discretion.",
+      "recourse": "The eBay Money Back Guarantee, and the trading card carve-out is the number to know. Item not received: report any time after the estimated or actual delivery date and no later than 30 calendar days after it, the seller has 3 business days to respond with tracking or a refund, and you can ask eBay to step in from 3 business days up to 21 business days after the report. Item not as described: 30 calendar days after estimated or actual delivery, and the SELLER pays return postage. But for trading cards specifically, if the seller does not offer returns you must request one no later than 3 CALENDAR DAYS after the estimated or actual delivery date. Every other category gets 30. On a counterfeit claim eBay says you must request a return but may not be required to ship the item back to the seller, which is the opposite of TCGplayer's requirement that the card reach them first. Anything paid for even partly outside eBay is excluded entirely, and so are case breaks, box breaks and pack breaks sold by pre-approved sellers.",
+      "conditionStandard": "Not established. No eBay page defining card condition grades was reached on this check, and eBay's marketplace carries sellers using several different scales. Treat a condition word in an eBay listing title as that seller's opinion rather than a standard, and read the photographs.",
+      "authenticity": "eBay Authenticity Guarantee is the only mechanism found anywhere that inspects the card BEFORE it reaches the buyer rather than paying out afterwards. Eligible items carry a blue checkmark and go through automatically on purchase: the seller ships to the authentication facility, PSA performs a multi-point inspection of an ungraded card, or inspects the case and label of a graded one for tampering, and the card is then shipped on to you, with signature confirmation required on cards over $1,500. No grading or regrading is performed. In the US it covers individual sports cards, collectible card games, autograph, relic and non-sport cards at $200 and above ungraded, and $200 and above for autograph, relic and other graded cards. Accepted graders are PSA, SGC, CGC Cards and BGS. On an auction it is the final price that decides eligibility, not the starting price.",
+      "limits": [
+        "Sets, lots, kits, decks, boxes, packs, art cards and raw redemption cards are NOT eligible for Authenticity Guarantee. It covers single cards only, so no sealed product is ever inspected.",
+        "The buyer must be in the US and the seller in the US or Canada. Puerto Rico, the US Virgin Islands and armed forces addresses are not covered.",
+        "Local pickup only listings, and items shipped to PO boxes, are not eligible.",
+        "On an Authenticity Guarantee card where the seller does not accept returns the sale is final, except that a card damaged in transit can be returned within three days of receiving it.",
+        "A card the seller throws in free is not covered and may be disposed of."
+      ],
+      "note": "PARTIAL because the buyer fee question could not be closed on eBay's own pages, and because eBay publishes no card condition definitions that were found. Both are recorded as gaps. eBay's fee pages are written for sellers, and /selling.html records those.",
+      "sources": [
+        {
+          "url": "https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210",
+          "read": "2026-08-15",
+          "what": "The 30 day windows and response clocks for both claim types, seller-paid return postage on not-as-described, the verbatim trading card 3 calendar day rule, the counterfeit clause, the eligible payment methods, and the break exclusion"
+        },
+        {
+          "url": "https://www.ebay.com/authenticity-guarantee/tradingcards",
+          "read": "2026-08-15",
+          "what": "The $200 thresholds, that the buyer pays nothing, the PSA inspection process, the $1,500 signature rule, the accepted graders, the eligibility exclusions and the three day transit-damage return"
+        }
+      ]
+    },
+    {
+      "id": "whatnot",
+      "name": "Whatnot",
+      "url": "https://help.whatnot.com/hc/en-us/articles/16369289657741-Shipping-for-buyers-in-the-US",
+      "type": "Live auction marketplace",
+      "format": "Livestream shows with in-stream auctions, Buy It Now and breaks, plus a separate always-on marketplace",
+      "bestFor": "Buying in real time and watching the card come out of the pack. The only venue here where the thing you are buying is often being opened on camera as you bid.",
+      "status": "sourced",
+      "group": "market",
+      "costs": [
+        {
+          "what": "Shipping, USPS Ground Advantage",
+          "rate": "Up to 4oz $4.47. Over 4oz to 8oz $4.85. Over 8oz to 12oz $5.25. Over 12oz to under 1lb $6.75. 1 to 5lb $7.75 flat regardless of distance. Over 5lb priced on weight and distance.",
+          "appliesTo": "Each shipment, and Whatnot picks the service rather than the buyer",
+          "note": "Whatnot is the only venue here that publishes an actual buyer rate card rather than leaving it to sellers. The quoted prices include their fees. You always see the shipping cost before checkout."
+        },
+        {
+          "what": "Shipping, other services",
+          "rate": "First-Class Mail Letter for eligible cards $0.78 to $1.36 by weight plus fees. Flat Rate for eligible 1 to 70lb packages $12.99 per shipment. Priority Mail priced on weight and distance.",
+          "appliesTo": "Whichever service Whatnot selects for the shipment",
+          "note": "Alaska, Hawaii, US territories and military addresses are billed at standard USPS commercial pricing rather than Whatnot's rates. Packages over one cubic foot are priced on dimensional weight."
+        },
+        {
+          "what": "Seller shipping discounts",
+          "rate": "Free or reduced, at the seller's choice",
+          "appliesTo": "Applied automatically at checkout during a show",
+          "note": "Reduced shipping means you pay up to a stated maximum during the show however many items you buy, and the seller covers the rest."
+        },
+        {
+          "what": "Buyer fee",
+          "rate": "None published",
+          "appliesTo": null,
+          "note": "Whatnot's fee article covers commission and payment processing and both are charged to the SELLER. No buyer fee or buyer premium article was found in their help centre. Recorded as published-absent."
+        },
+        {
+          "what": "Tips",
+          "rate": "Whatever you choose",
+          "appliesTo": "Optional, to the seller during a show",
+          "note": "Worth knowing because tips are explicitly non-refundable under their own terms, so a tip is not part of the purchase and cannot be clawed back with it."
+        }
+      ],
+      "stacking": "Smart Bundling combines multiple purchases from the SAME seller into the cheapest shipment it can, and because 1 to 5lb is a flat $7.75, adding more cards to an existing bundle often costs nothing extra. The limits are the important half: orders can only be bundled if they are from the same seller, and purchases made through different sales channels, such as shows and marketplace, cannot be bundled together. So two wins from the same person in two different places are two shipments and two shipping charges.",
+      "recourse": "The Whatnot Buyer Protection Policy covers incomplete or incorrect items, items that are damaged, defective, counterfeit or not matching the condition description, and packages lost, delayed, misdelivered, never shipped or marked delivered and not received. The clock is short and shorter still for cards: the general deadline is the earlier of 30 days from purchase or 14 days from delivery, and for Trading Card Games it is the earlier of 7 DAYS FROM DELIVERY or 30 days from purchase. Whatnot may require the item back before refunding, in the same condition it arrived, so opening a product can reduce or void the refund. Sellers are asked to ship within two business days and most domestic orders arrive in 5 to 14 business days.",
+      "conditionStandard": "Not established from the pages read. Whatnot's buyer protection covers an item that does not match the condition description, which makes the seller's own stated condition the thing you are protected against, but no Whatnot-published grading scale was found.",
+      "authenticity": "Counterfeit and inauthentic items are named in the Buyer Protection Policy as a covered issue, on the same clock as everything else, which for trading cards is 7 days from delivery. Whatnot publishes a separate Counterfeit Policy and Restricted Branded Items Policy governing what sellers may list.",
+      "limits": [
+        "BREAKS ARE PARTLY CARVED OUT, and this is the one to read twice. Whatnot's own wording: any items purchased in a break are only eligible for a refund if an item is missing, delayed, incorrect, or damaged. Being unhappy with what came out is not a covered issue, which is the nature of a break rather than a complaint about Whatnot.",
+        "Refusing delivery does not qualify an order for a refund, and neither does failing to collect a package held for pickup.",
+        "An order disputed with your bank is ineligible for a Whatnot refund, so a chargeback closes the platform route.",
+        "Anything transacted off Whatnot is not eligible for a refund at all."
+      ],
+      "note": "help.whatnot.com returns 403 to automated fetching. Every figure here was read in a browser. The US buyer shipping page was stamped 1 August 2026 and the Buyer Protection Policy 17 June 2026 when read.",
+      "sources": [
+        {
+          "url": "https://help.whatnot.com/hc/en-us/articles/16369289657741-Shipping-for-buyers-in-the-US",
+          "read": "2026-08-15",
+          "what": "The full Ground Advantage rate card, the other USPS options and their prices, Smart Bundling and its same-seller and same-channel limits, seller discounts, delivery times. Page stamped 1 August 2026."
+        },
+        {
+          "url": "https://help.whatnot.com/hc/en-us/articles/360061194552-Whatnot-Buyer-Protection-Policy",
+          "read": "2026-08-15",
+          "what": "What is covered, the general 30-from-purchase or 14-from-delivery deadline, the Trading Card Games 7-day rule, the return-in-same-condition requirement, and the full exclusions list including breaks, chargebacks and off-platform. Page stamped 17 June 2026."
+        }
+      ]
+    },
+    {
+      "id": "coolstuffinc",
+      "name": "CoolStuffInc",
+      "url": "https://www.coolstuffinc.com/page/1100",
+      "type": "Online card shop",
+      "format": "Singles, sealed product and accessories held and shipped by one company, with physical stores behind it",
+      "bestFor": "A singles order you want to arrive in one package from one place, at a shipping threshold low enough that it is often free. The only shop here that publishes both a condition standard and a split shipping rate.",
+      "status": "sourced",
+      "group": "shop",
+      "costs": [
+        {
+          "what": "Shipping, singles-only orders",
+          "rate": "$2.99 flat, and FREE at $30 or more",
+          "appliesTo": "Orders containing only singles, contiguous United States",
+          "note": "This is the lowest free-shipping bar of any venue on this page."
+        },
+        {
+          "what": "Shipping, standard orders",
+          "rate": "$6.99 flat, and FREE at $150 or more",
+          "appliesTo": "Orders containing sealed product or accessories, contiguous United States",
+          "note": "Adding one sealed item to a singles cart moves the whole order onto this track, which raises the free shipping bar from $30 to $150."
+        },
+        {
+          "what": "Minimum order value",
+          "rate": "None published",
+          "appliesTo": null,
+          "note": "No minimum appears on the shipping offers page or the conditions of use."
+        },
+        {
+          "what": "Buyer fees",
+          "rate": "None published",
+          "appliesTo": null,
+          "note": "Checked against the shipping page, the payment options page, the conditions of use and the return policy. Credit and debit, PayPal, cheques, money orders and gift certificates are all listed with no fee or surcharge attached. Gift certificates do not count toward the free shipping threshold."
+        },
+        {
+          "what": "Return postage",
+          "rate": "Paid by the buyer, unless the return is their mistake",
+          "appliesTo": "All returns",
+          "note": "Their own wording: customers are responsible for return shipping charges. If the return results from a CoolStuffInc error they reimburse USPS Ground shipping fees after the return arrives."
+        }
+      ],
+      "recourse": "A split window, which is unusual and worth reading: unsealed products within SEVEN days, sealed products and accessories within THIRTY. Items must come back in the condition they were received, and sealed products must still be sealed with the original packaging intact. You have to request a Return Merchandise Number before sending anything, and include it, or the refund does not happen. No restocking fee is mentioned. Two gaps: they state they are not responsible for returns lost or damaged on the way back to them and recommend insuring the parcel, and their pages say nothing about an OUTBOUND package that never arrives.",
+      "conditionStandard": "Their own, in their own words, with no reference to TCGplayer or anyone else. Note it is a three-tier scale rather than the usual five, so their Played band absorbs a range that TCGplayer would split across Lightly and Moderately Played. Do not read across between venues without adjusting for that.",
+      "conditionGrades": [
+        {
+          "grade": "Near Mint",
+          "definition": "May have minor edge wear, surface scuffing or warped foiling, and no other imperfections."
+        },
+        {
+          "grade": "Played",
+          "definition": "May have noticeable edge wear, surface scuffing, binder ring dents, artist signatures or warped foiling. Includes foils bent into a severe U shape. Still tournament playable in sleeves."
+        },
+        {
+          "grade": "Heavily Played",
+          "definition": "Moderate to severe significant edge wear, surface scuffing, binder ring dents, signatures, warped foiling, tears, creases, water damage, or other damage, wear or stains not specified. Tournament viability is not guaranteed at this tier."
+        }
+      ],
+      "authenticity": "A CONDITION guarantee is published and an AUTHENTICITY guarantee is not, and the difference matters. Their about page says they guarantee that the card condition will meet your expectations or they will take the cards back and refund your money, and describes a strict grading policy plus an in-stock promise that anything listed in stock will actually ship. No counterfeit policy appears on any CoolStuffInc POLICY page. A widely repeated 100% authentic claim traces to their blog and article pages rather than a policy page, one of them dated 2018, so it is not recorded here.",
+      "note": "Their canonical shipping page is /page/1100. Two other plausible shipping urls were checked and neither carries rates, so there is no second page to contradict this one.",
+      "sources": [
+        {
+          "url": "https://www.coolstuffinc.com/page/1100",
+          "read": "2026-08-15",
+          "what": "The $2.99 and $30 singles track, the $6.99 and $150 standard track, the contiguous US limit, in-store pickup, and that gift certificates do not count toward the threshold"
+        },
+        {
+          "url": "https://www.coolstuffinc.com/page/980",
+          "read": "2026-08-15",
+          "what": "The 7 day unsealed and 30 day sealed windows, the Return Merchandise Number requirement, buyer-paid return postage and the USPS Ground reimbursement on their error"
+        },
+        {
+          "url": "https://www.coolstuffinc.com/page/975",
+          "read": "2026-08-15",
+          "what": "The three condition grades in their own words"
+        },
+        {
+          "url": "https://www.coolstuffinc.com/page/976",
+          "read": "2026-08-15",
+          "what": "The condition guarantee and the in-stock promise"
+        },
+        {
+          "url": "https://www.coolstuffinc.com/page/977",
+          "read": "2026-08-15",
+          "what": "Conditions of use, including that a product not matching its description can be returned for a refund or exchange"
+        },
+        {
+          "url": "https://www.coolstuffinc.com/page/974",
+          "read": "2026-08-15",
+          "what": "Payment methods, checked to establish that no buyer fee is attached to any of them"
+        }
+      ]
+    },
+    {
+      "id": "card-cavern",
+      "name": "Card Cavern",
+      "url": "https://cardcaverntradingcards.com/policies/shipping-policy",
+      "type": "Online card shop, Pokemon specialist",
+      "format": "Pokemon singles, sealed product, supplies and a deep catalogue of PTCGL digital codes",
+      "bestFor": "Pokemon singles specifically, from somewhere that sells nothing else, and online codes, which are delivered electronically and never shipped at all.",
+      "status": "sourced",
+      "group": "shop",
+      "costs": [
+        {
+          "what": "Shipping, singles, packs and supplies",
+          "rate": "First-Class Package $3, and FREE if the order total exceeds $20. Priority Mail $8, and FREE if the order total exceeds $100.",
+          "appliesTo": "Orders with no sealed product in them",
+          "note": "Both options include tracking. Priority adds up to $100 of insurance. Plain white envelope shipping has been discontinued for the foreseeable future, which is a buyer-side improvement: an envelope has no tracking and nothing to claim against."
+        },
+        {
+          "what": "Shipping, anything containing sealed product",
+          "rate": "$9.00 up to $99.99, and FREE over $100",
+          "appliesTo": "Sealed product and any mixed order, via USPS Priority Mail",
+          "note": "Includes tracking and $100 insurance. One sealed item moves the whole order onto this track."
+        },
+        {
+          "what": "The store credit trap",
+          "rate": "Free shipping is computed AFTER credit is applied",
+          "appliesTo": "Any order paid with store credit",
+          "note": "Their own warning: store credit is applied as a discount, so the shipping rates displayed will not show free, as the order total will be $0. A $60 cart paid entirely in credit is a $0 order for threshold purposes."
+        },
+        {
+          "what": "Minimum order value",
+          "rate": "None published",
+          "appliesTo": null,
+          "note": "Not stated on the shipping policy, the terms of service or the FAQ."
+        },
+        {
+          "what": "Buyer fees",
+          "rate": "None published",
+          "appliesTo": null,
+          "note": "No fee, surcharge or handling charge appears on the shipping policy or the terms of service."
+        }
+      ],
+      "recourse": "Narrow and specific: no returns or exchanges at all unless you received the wrong product or it arrived in a condition other than what you ordered. Wrong or damaged gets a replacement where possible or a full refund. A condition mismatch gets a replacement where possible or a PARTIAL refund, and their own page says the choice between those is yours, using the example of receiving a Lightly Played card instead of a Near Mint one. Refunds go back to the original payment method after the return is received and inspected, with 24 to 72 hours for the credit to appear. Exchanges need pre-approval by email. Three gaps, all real: no return WINDOW in days is published anywhere, who pays return postage is not stated, and a package that never arrives is not addressed at all.",
+      "conditionStandard": "Their own, and they reference no external standard. Only two tiers exist because they stock only two, and their page says so in as many words: they deal only with Near Mint and Lightly Played at this time, and will update the guide if that changes. There is no Moderately Played, Heavily Played or Damaged.",
+      "conditionGrades": [
+        {
+          "grade": "Near Mint",
+          "definition": "Nearly flawless. There may be minor defects including corner or edge nicks, an almost unnoticeable scratch, or a common print error."
+        },
+        {
+          "grade": "Lightly Played",
+          "definition": "May have a few minor defects that are more noticeable, such as light surface scratches, light corner or edge wear, warping especially on foils, or a noticeable print defect including print lines."
+        }
+      ],
+      "authenticity": "Not established. No authenticity guarantee and no counterfeit statement appears on the condition guide, the returns page, the shipping policy, the terms of service or the FAQ.",
+      "limits": [
+        "They do not ship outside the United States, and offer no local delivery or in-store pickup."
+      ],
+      "note": "THE DOMAIN IS cardcaverntradingcards.com. cardcaverntcg.com does not resolve, so a link to it is a dead link. One freshness warning: the holiday closure calendar on their shipping policy still lists 2024 and 2025 dates, so that section of the page is stale even though the rate table reads as current. The rates and the calendar are quoted here separately for that reason, and only the rates are recorded.",
+      "sources": [
+        {
+          "url": "https://cardcaverntradingcards.com/policies/shipping-policy",
+          "read": "2026-08-15",
+          "what": "The singles and sealed rate tables and both free-shipping thresholds, the discontinued plain white envelope, the store credit warning, and that they do not ship internationally"
+        },
+        {
+          "url": "https://cardcaverntradingcards.com/pages/returns-and-exchanges",
+          "read": "2026-08-15",
+          "what": "The wrong-product and wrong-condition only rule, the partial refund choice on a condition mismatch, the refund timing, and the absence of any stated window"
+        },
+        {
+          "url": "https://www.cardcaverntradingcards.com/pages/card-condition-guide",
+          "read": "2026-08-15",
+          "what": "The two condition definitions in their own words and the statement that they stock only those two"
+        },
+        {
+          "url": "https://cardcaverntradingcards.com/policies/terms-of-service",
+          "read": "2026-08-15",
+          "what": "Checked for a minimum order value and a buyer fee. Neither appears."
+        }
+      ]
+    },
+    {
+      "id": "dave-and-adams",
+      "name": "Dave and Adam's Card World",
+      "url": "https://help.dacardworld.com/en/articles/880704",
+      "type": "Online card shop, sealed and graded",
+      "format": "Sealed boxes and cases, graded slabs, singles, and live group breaks",
+      "bestFor": "Sealed product by the box or the case, and group breaks. An authorised retailer for several manufacturers, which is a real distinction on sealed product.",
+      "status": "sourced",
+      "group": "shop",
+      "costs": [
+        {
+          "what": "Shipping",
+          "rate": "Under $50: $12.95. $50 to $199: $9.95. Over $199: FREE UPS Ground.",
+          "appliesTo": "Contiguous United States",
+          "note": "One threshold across the whole catalogue rather than a split by product type, which makes it the highest free-shipping bar here and the simplest. Their site banner and their help article agree on $199."
+        },
+        {
+          "what": "Group break shipping",
+          "rate": "Free USPS, regardless of order total",
+          "appliesTo": "Group break orders",
+          "note": "The one exception to the $199 line."
+        },
+        {
+          "what": "Buyer fees",
+          "rate": "None published",
+          "appliesTo": null,
+          "note": "No fee or surcharge appears on the shipping article or in their standard terms of sale. International orders may incur customs charges, duties and taxes on top of the quoted rate."
+        }
+      ],
+      "recourse": "This is the restrictive one and the wording is theirs: due to fluctuating market conditions all sales are final. They follow it immediately with a promise to always work with you to rectify a situation, so the practical answer is a conversation rather than a policy. No return window, no returnable-item list and no statement about who pays return postage is published. Two things they DO state: they do not refund products that fail to meet a manufacturer's average insertion ratios or cards damaged by the manufacturer, and direct you to the manufacturer instead; and their terms of sale say receipt of products is an unqualified acceptance and a waiver of the right to make a claim, with the return policy as your sole remedy for a defective product. Nothing is published about an outbound package lost in transit.",
+      "conditionStandard": "None published, and this is a real gap rather than an oversight. Their singles carry a condition LABEL and their help centre carries no definition of it: a live listing shows a Condition row reading Near Mint with no link to any standard, and none of the articles in their help category is a grading or condition guide. They point at nobody else's standard either.",
+      "authenticity": "No counterfeit or authentication policy is published. What they publish instead is authorised-retailer status, which is adjacent and not the same thing: they describe themselves as a long time Upper Deck Authorized Internet Retailer and an Authorized Internet Retailer with Wizards of the Coast, with distribution restrictions attached to both. Their Secure Shopping Guarantee is about payment security, TLS and certificates, and not about whether a card is real, so do not read the word guarantee across.",
+      "limits": [
+        "You must be 18 or over.",
+        "Free shipping is contiguous US only."
+      ],
+      "note": "Their help centre lives on help.dacardworld.com and several dacardworld.com paths 403 or 404. The shipping article itself warns that shipping fees and rates can change without notice.",
+      "sources": [
+        {
+          "url": "https://help.dacardworld.com/en/articles/880704",
+          "read": "2026-08-15",
+          "what": "The $199 free shipping threshold and the $9.95 and $12.95 flat rates, free group break shipping, and the customs note"
+        },
+        {
+          "url": "https://help.dacardworld.com/en/articles/880576",
+          "read": "2026-08-15",
+          "what": "The all sales are final wording and the promise to work with customers"
+        },
+        {
+          "url": "https://help.dacardworld.com/en/articles/880832",
+          "read": "2026-08-15",
+          "what": "That insertion-ratio and manufacturer-damage complaints are directed to the manufacturer"
+        },
+        {
+          "url": "https://help.dacardworld.com/en/articles/882432",
+          "read": "2026-08-15",
+          "what": "Standard terms of sale, including the unqualified acceptance clause and the sole remedy clause"
+        },
+        {
+          "url": "https://help.dacardworld.com/en/articles/881152",
+          "read": "2026-08-15",
+          "what": "Upper Deck authorised internet retailer status and its distribution restrictions"
+        },
+        {
+          "url": "https://help.dacardworld.com/en/categories/226304",
+          "read": "2026-08-15",
+          "what": "The full help category index, enumerated to establish that no condition or grading guide exists there"
+        }
+      ]
+    },
+    {
+      "id": "troll-and-toad",
+      "name": "Troll and Toad",
+      "url": "https://trollandtoad.com/",
+      "type": "Online card shop",
+      "format": "Not establishable on this check",
+      "bestFor": "Not stated here, because nothing about buying from them could be read today.",
+      "status": "unverified",
+      "group": "shop",
+      "costs": [],
+      "recourse": "Not established. Their return policy page served the maintenance splash rather than any policy.",
+      "authenticity": "Not established.",
+      "note": "UNVERIFIED for one specific and temporary reason: the storefront is offline. Their own homepage says they are temporarily shutting down while they move all of their inventory to a new location and that orders are paused, with the buylist staying open. Their shipping information page and their return policy page both serve that same splash instead of policy text, so the shipping cost, the free shipping threshold, the return window and the condition standard could not be read at all. Every figure circulating elsewhere for Troll and Toad is therefore unverifiable today, and none is recorded here. They are listed rather than dropped because the storefront is expected back and a reader looking for them deserves to know why the page has nothing rather than assume it was overlooked.",
+      "sources": [
+        {
+          "url": "https://trollandtoad.com/",
+          "read": "2026-08-15",
+          "what": "The maintenance notice: temporarily shutting down while inventory moves, orders paused, buylist still running"
+        },
+        {
+          "url": "https://www.trollandtoad.com/shippinginfo",
+          "read": "2026-08-15",
+          "what": "Served the maintenance splash rather than shipping rates"
+        },
+        {
+          "url": "https://www.trollandtoad.com/return-policy",
+          "read": "2026-08-15",
+          "what": "Served the maintenance splash rather than a return policy"
+        }
+      ]
+    },
+    {
+      "id": "pokemon-center",
+      "name": "Pokemon Center",
+      "url": "https://www.pokemoncenter.com/shipping",
+      "type": "The Pokemon Company's own store",
+      "format": "Sealed product, exclusives and merchandise, sold directly by the company that makes the cards",
+      "bestFor": "The one place where authenticity is not a question, because there is no chain of custody at all: they make it and they ship it. Also the only source of Pokemon Center exclusives.",
+      "status": "sourced",
+      "group": "retail",
+      "costs": [
+        {
+          "what": "Shipping",
+          "rate": "$4.99 per order plus $0.99 per item. FREE standard shipping at $20 or more.",
+          "appliesTo": "United States, per their own worked example: a 2 item order is $4.99 + ($0.99 x 2) = $6.97",
+          "note": "The per-item charge on top of the per-order charge is unusual and is the part a cart total hides until checkout. The free shipping offer is described on their own page as promotional and subject to change without notice."
+        },
+        {
+          "what": "TCG Sleeved Booster Pack return fee",
+          "rate": "$8",
+          "appliesTo": "US and Canada returns on an order that originally contained a TCG Sleeved Booster Pack, where the return drops the order value below the free shipping threshold",
+          "note": "A very specific rule and it is theirs, not ours. Where the return does NOT drop the order below the threshold you may still see the $8 deducted and then refunded separately over several business days."
+        },
+        {
+          "what": "Colorado retail delivery fee",
+          "rate": "$0.27 per order",
+          "appliesTo": "Colorado residents",
+          "note": "A state requirement rather than a Pokemon Center charge."
+        }
+      ],
+      "recourse": "30 days from delivery for a full refund on eligible items, new and in original condition, and no exchanges of any kind: you return and reorder at the new price. AND THEN THE PART THAT MATTERS MOST HERE: final sale items cannot be returned, and final sale items include Pokemon trading cards and products containing Pokemon trading cards. So the 30 days does not apply to the thing most people are buying. Their damaged-item page closes the loop explicitly: final sale items cannot be returned for a refund due to box or outer wrap damage, and they say packaging is intended to protect the contents in transit rather than to arrive perfect. A lost package has a clock of its own: they will help after 15 days without tracking movement in the US, 30 for SmartPost and US territories, 45 for military addresses. A package returned to sender is refunded automatically in 5 to 10 business days and cannot be re-sent. Refunds take about 2 weeks to process once the return arrives.",
+      "authenticity": "Not a question worth asking here, and that is the whole reason this venue leads the retail section. The Pokemon Company International makes the product and ships it from its own warehouse, so there is no reseller, no marketplace listing and nobody in the middle. No authenticity policy is published because there is nothing for one to protect against.",
+      "limits": [
+        "Purchase limits exist but are set per product, not published as a standing number. Their own troubleshooting guidance tells buyers to adhere to Pokemon Center purchase limits, which are displayed on the product page. So the limit is real, it varies, and the product page is the only place it is stated.",
+        "A VIRTUAL QUEUE controls access to the whole site at busy moments. Their own page: keep the window open, do not refresh, do not open multiple tabs or use alternate links, and expect to wait for extended periods. It says plainly that waiting in line does not guarantee product availability and that being queued does not necessarily mean a product is launching.",
+        "Support will not help with the queue at all: their own wording is that an inquiry about it may be closed without a response.",
+        "Ships to the US, Alaska, Hawaii, Puerto Rico, the US Virgin Islands and minor outlying islands. The UK and Canada have separate sites.",
+        "Preorders hold a card authorisation and charge only at shipment, and mixing preorder and non-preorder items in one cart is listed among the things that cause checkout to fail."
+      ],
+      "note": "pokemoncenter.com returns a bot challenge to automated fetching. Every figure here was read in a browser on Pokemon Center's own shipping, returns and support pages.",
+      "sources": [
+        {
+          "url": "https://www.pokemoncenter.com/shipping",
+          "read": "2026-08-15",
+          "what": "The $20 free shipping threshold, the $4.99 per order and $0.99 per item rates and their worked example, the $8 booster pack return fee, delivery estimates, the Colorado fee and the preorder rules"
+        },
+        {
+          "url": "https://www.pokemoncenter.com/return-policy",
+          "read": "2026-08-15",
+          "what": "The 30 day window, the verbatim final sale rule naming Pokemon trading cards and products containing them, no exchanges, and the two week refund processing time"
+        },
+        {
+          "url": "https://support.pokemoncenter.com/hc/en-us/articles/23357624683796-What-should-I-do-if-my-item-is-damaged-or-defective",
+          "read": "2026-08-15",
+          "what": "That final sale items cannot be returned for box or outer wrap damage, and that packaging is not guaranteed to arrive undamaged"
+        },
+        {
+          "url": "https://support.pokemoncenter.com/hc/en-us/articles/23291912266644-What-should-I-do-if-my-package-is-missing-lost-or-returned-to-sender",
+          "read": "2026-08-15",
+          "what": "The 15, 30 and 45 day lost package clocks and the returned-to-sender refund rule"
+        },
+        {
+          "url": "https://support.pokemoncenter.com/hc/en-us/articles/37286495522452-Pok%C3%A9mon-Center-Virtual-Queue",
+          "read": "2026-08-15",
+          "what": "How the virtual queue works, that support will not assist with it, and that purchase limits are displayed on the product page"
+        }
+      ]
+    },
+    {
+      "id": "amazon",
+      "name": "Amazon",
+      "url": "https://www.amazon.com/gp/help/customer/display.html?nodeId=GZXW7X6AKTHNUP6H",
+      "type": "Marketplace and first-party retailer at once",
+      "format": "Three different transactions wearing one interface: sold by Amazon, sold by a third party and fulfilled by Amazon, and sold and shipped by a third party",
+      "bestFor": "Convenience and speed on sealed product, if you read the Sold by and Ships from lines before you buy. Which of the three you are in decides everything else.",
+      "status": "partial",
+      "group": "retail",
+      "costs": [
+        {
+          "what": "Free shipping threshold",
+          "rate": "NOT PUBLISHED AS A NUMBER, and this is the flagship example on this page",
+          "appliesTo": "Orders of eligible items to eligible destinations",
+          "note": "Every comparison site quotes $35. Amazon's own Free Shipping by Amazon help page says the stated minimum threshold of eligible items, six separate times, and never states it. That page was read twice, independently, on amazon.com. So the rule is recorded and the number is not. The threshold you actually face is the one shown in your own cart."
+        },
+        {
+          "what": "Third-party seller shipping",
+          "rate": "Set by the seller",
+          "appliesTo": "Items a third party fulfils and ships itself",
+          "note": "Amazon's own warning, on the same page: some sellers that fulfill and ship their own inventory charge shipping fees, and these fees apply even if your order is over the minimum threshold. So clearing the threshold does not make a self-shipped third-party item free."
+        },
+        {
+          "what": "Special product, order or handling fee",
+          "rate": "Not published",
+          "appliesTo": "Some orders",
+          "note": "Amazon states such a fee may still apply even over the threshold, on both the free shipping page and the Prime terms, and publishes no amount or condition."
+        },
+        {
+          "what": "Prime",
+          "rate": "$14.99 a month or $139 a year. Prime for Young Adults $7.49 a month or $69 a year. Prime Access, for EBT, Medicaid and SNAP holders, $6.99 a month.",
+          "appliesTo": "Optional membership",
+          "note": "Buys away the threshold on eligible items. The special product, order and handling fees survive it."
+        },
+        {
+          "what": "Shipping rate table",
+          "rate": "Not published",
+          "appliesTo": null,
+          "note": "Amazon's Determine Shipping Rates page publishes no table at all: it says rates depend on speed, weight and size and are shown at checkout."
+        }
+      ],
+      "stacking": "Not per seller in the TCGplayer sense, but the three transaction types behave differently in the same cart and only one of them is Amazon's. Check the Sold by and Ships from lines under the buy button: Ships from Amazon means Amazon holds and posts it whoever sold it, and all standard Amazon shipping rates, policies and returns handling apply. Sold and shipped by the same third-party name means that company sets the shipping and Amazon's threshold does not govern it.",
+      "recourse": "Two layers. Amazon's own returns policy covers most items for 30 days from delivery in original or unused condition, most include at least one free return option, and collectibles and toys are not among the published exceptions so the 30 days governs. Restocking fees can reach 50% of the item price. The second layer is the A-to-z Guarantee, and it exists specifically for third-party purchases: it covers timely delivery and item condition on items sold and fulfilled by a third-party seller. You can claim three days after the latest estimated delivery date if you contacted the seller more than 48 hours ago, or where the item is damaged, defective or materially different and the seller has not authorised a return in 48 hours, or where a return arrived at the seller seven days ago with no refund. The refund covers product cost, original shipping and return shipping where the item was damaged, defective or materially different, and product cost only otherwise. The order must be no more than 90 days old. NO DOLLAR CAP IS PUBLISHED on the current page, so the commonly cited $2,500 is not recorded here.",
+      "authenticity": "Amazon publishes no counterfeit-risk statement about trading cards specifically. What its own pages do describe is INVENTORY COMMINGLING, in one sentence on the Fulfilled by Amazon page: sometimes we will send you the exact product you ordered from the inventory of another seller when it is closer to you, with both sellers' consent. That is the mechanism people are describing when they talk about Amazon and sealed product, stated by Amazon, and it says nothing about counterfeits. Amazon also runs two brand-side anti-counterfeiting programs, Project Zero and Transparency, the latter a serialisation service where a code must accompany every unit and the buyer can scan it to verify authenticity. Neither program page mentions trading cards.",
+      "limits": [
+        "Amazon says it sometimes limits quantities on certain items, that limits may apply across multiple orders sharing an account, card, billing or shipping address, and that it reserves the right to restrict purchases by dealers or resellers. Nothing specific to trading cards is published."
+      ],
+      "note": "PARTIAL, and deliberately so. The one number every reader expects on this page, the free shipping threshold, is the one Amazon does not publish. That absence was verified twice on Amazon's own page rather than assumed, and it is the reason this file's sourcing rule exists.",
+      "sources": [
+        {
+          "url": "https://www.amazon.com/gp/help/customer/display.html?nodeId=GZXW7X6AKTHNUP6H",
+          "read": "2026-08-15",
+          "what": "Free Shipping by Amazon: the stated minimum threshold wording with no number, the self-shipping seller warning, and the special product order and handling fee note. Read twice, independently."
+        },
+        {
+          "url": "https://www.amazon.com/gp/help/customer/display.html?nodeId=G34EUPKVMYFW8N2U",
+          "read": "2026-08-15",
+          "what": "Prime pricing across all tiers"
+        },
+        {
+          "url": "https://www.amazon.com/gp/help/customer/display.html?nodeId=GKM69DUUYKQWKWX7",
+          "read": "2026-08-15",
+          "what": "The 30 day returns window, free return options, restocking fees up to 50%, and the exceptions list that does not include collectibles or toys"
+        },
+        {
+          "url": "https://www.amazon.com/gp/help/customer/display.html?nodeId=GQ37ZCNECJKTFYQV",
+          "read": "2026-08-15",
+          "what": "The A-to-z Guarantee: what it covers, the claim triggers and their clocks, the 90 day limit, the refund table, and the absence of any dollar cap"
+        },
+        {
+          "url": "https://www.amazon.com/gp/help/customer/display.html?nodeId=GEF528GN65XSJ7V8",
+          "read": "2026-08-15",
+          "what": "How to tell the three seller types apart from the Sold by and Ships from lines"
+        },
+        {
+          "url": "https://www.amazon.com/gp/help/customer/display.html?nodeId=G239KSGYPUFUY8TQ",
+          "read": "2026-08-15",
+          "what": "Fulfilled by Amazon: that standard Amazon shipping and returns apply, and the commingling sentence"
+        },
+        {
+          "url": "https://www.amazon.com/gp/help/customer/display.html?nodeId=GVMU4A8KZ54WP4MP",
+          "read": "2026-08-15",
+          "what": "Quantity limits, cross-order enforcement and the reseller restriction"
+        },
+        {
+          "url": "https://sell.amazon.com/brand-registry/transparency",
+          "read": "2026-08-15",
+          "what": "Transparency described as a serialisation and anti-counterfeiting program with buyer-scannable codes"
+        }
+      ]
+    },
+    {
+      "id": "big-box",
+      "name": "Target, Walmart, Best Buy and Costco",
+      "url": "https://www.target.com/help/article/000061982",
+      "type": "The big-box chains, taken as a group",
+      "format": "Sealed product at or near list price, online with in-store pickup, from the chains that get manufacturer allocation",
+      "bestFor": "Paying list price for sealed product instead of a market price. The trade is availability, not money, and WHEN they restock is a separate question this site answers on its own page.",
+      "status": "partial",
+      "group": "retail",
+      "costs": [
+        {
+          "what": "Target shipping",
+          "rate": "$5.99, or FREE at $35 or more, or free with a Target Circle Card, or free with Target Circle 360",
+          "appliesTo": "The $35 is measured after all applicable promotions and discounts and does not include tax. Excludes Alaska, Hawaii and US protectorates.",
+          "note": "Standard shipping is 3 to 5 business days. Circle 360 is $99 a year or $10.99 a month, $49 a year for Circle Card holders, and $4.99 a month for verified students and government assistance recipients."
+        },
+        {
+          "what": "Walmart shipping",
+          "rate": "A below-order-minimum fee of $6.99 under $35, waived for Walmart+ members",
+          "appliesTo": "Online orders. Marketplace items may carry separate shipping charges but still count toward the $35.",
+          "note": "Walmart+ is $98 a year or $12.95 a month and gives free shipping with no order minimum on items sold or shipped by Walmart, but not on marketplace-seller, freight or oversized items. Pickup is free over $35."
+        },
+        {
+          "what": "Best Buy shipping",
+          "rate": "FREE standard shipping on orders of $35 and up, with the minimum waived for My Best Buy, My Best Buy Plus and My Best Buy Total members",
+          "appliesTo": "The $35 is measured after coupons and before taxes",
+          "note": "Free shipping is NOT available for Marketplace Products regardless of order total or membership. Best Buy's own membership pricing could not be reached on their pages on this check and no figure is recorded for it."
+        },
+        {
+          "what": "Costco shipping",
+          "rate": "No order-total threshold exists, because shipping is priced per item",
+          "appliesTo": "Each item",
+          "note": "Their own wording: shipping on most items is included. Where a listing says plus shipping and handling the fee is calculated from your ZIP code. Express costs extra and is quoted at checkout. Membership is $65 a year, or $130 for Executive, which is the $65 fee plus a $65 upgrade."
+        }
+      ],
+      "recourse": "The return windows differ enormously and then trading cards cut across all of them, which is the point of grouping these four. Target: 90 days on most unopened Target-owned items, 30 on Target Plus marketplace items, with an extra 30 days for Circle Card holders and Circle 360 members. Walmart: 90 days on most items, 30 on marketplace-seller items. Best Buy: 15 days standard and 60 for Plus and Total members, with those extensions not applying to marketplace purchases. Costco: an open-ended satisfaction guarantee with no general day limit and a 90 day carve-out for electronics. BUT SEE THE LIMITS BELOW, because two of these four exclude trading cards from all of it.",
+      "authenticity": "Not a marketplace question at the chain level: these are sealed manufacturer cases delivered through normal retail distribution. The risk that exists here is not a counterfeit listing, it is a package that has been opened and resealed somewhere along the way, which is a physical inspection problem rather than a policy one. That is covered on /fake-cards.html rather than repeated here.",
+      "limits": [
+        "TARGET: trading cards are FINAL SALE. Their own return exceptions page lists trading cards and trading card accessories, naming Pokemon, sport cards and trading card binders, among items that cannot be returned.",
+        "BEST BUY: trading cards, including Pokemon cards, are named among the items that are nonreturnable once purchased, from both Best Buy and marketplace sellers.",
+        "WALMART: no trading card carve-out is published. Their standard return policy governs, and their quantity limits page is generic. Who pays return postage is not stated on that article.",
+        "COSTCO: trading cards are not named anywhere in the return exceptions, so the open-ended satisfaction guarantee governs. No trading card purchase limit is published either.",
+        "TARGET PURCHASE LIMITS: no standing trading card limit is published in Target's help centre. What exists is per-drop and lives on their corporate newsroom: for one 2026 Pokemon drop they announced limits of one unit per item per guest, in stores and online. Treat that as a per-event rule, not a policy."
+      ],
+      "note": "PARTIAL because Best Buy's membership pricing could not be read on Best Buy's own pages. WHEN these chains restock is deliberately not answered here: that is /drops.html, which already forecasts it weekly and says plainly that none of these companies publishes a schedule.",
+      "sources": [
+        {
+          "url": "https://www.target.com/help/article/000061982",
+          "read": "2026-08-15",
+          "what": "The verbatim final sale list naming trading cards, trading card accessories, Pokemon and binders, and the extra 30 days for Circle members"
+        },
+        {
+          "url": "https://www.target.com/help/article/000057407",
+          "read": "2026-08-15",
+          "what": "The three routes to free shipping and the after-discounts before-tax definition of the $35"
+        },
+        {
+          "url": "https://www.target.com/help/articles/target-circle/about-target-circle-360",
+          "read": "2026-08-15",
+          "what": "Circle 360 pricing across all tiers"
+        },
+        {
+          "url": "https://www.target.com/help/article/000061980",
+          "read": "2026-08-15",
+          "what": "The 90 day Target and 30 day Target Plus return windows"
+        },
+        {
+          "url": "https://www.bestbuy.com/site/help-topics/free-shipping/pcmcat276800050002.c?id=pcmcat276800050002",
+          "read": "2026-08-15",
+          "what": "Free standard shipping at $35, the member waiver, and that Marketplace Products never qualify"
+        },
+        {
+          "url": "https://www.bestbuy.com/site/help-topics/return-exchange-policy/pcmcat260800050014.c?id=pcmcat260800050014",
+          "read": "2026-08-15",
+          "what": "The 15 and 60 day windows, that member extensions do not apply to marketplace purchases, and the verbatim nonreturnable list naming trading cards including Pokemon cards"
+        },
+        {
+          "url": "https://www.walmart.com/help/article/the-walmart-site-and-app-experience/27f2678cb25a40a7b57a359fec3ca67f",
+          "read": "2026-08-15",
+          "what": "The $6.99 below-minimum fee, the $35 line, and that marketplace items count toward it but may carry separate shipping"
+        },
+        {
+          "url": "https://www.walmart.com/help/article/walmart-standard-return-policy/adc0dfb692954e67a4de206fb8d9e03a",
+          "read": "2026-08-15",
+          "what": "The 90 day standard and 30 day marketplace return windows, and the absence of any trading card carve-out"
+        },
+        {
+          "url": "https://www.walmart.com/help/article/walmart-membership/534c4edc29204a6bb15145a61146bf51",
+          "read": "2026-08-15",
+          "what": "Walmart+ annual and monthly pricing"
+        },
+        {
+          "url": "https://customerservice.costco.com/app/answers/answer_view/a_id/1152/~/what-shipping-methods-are-available-on-costco.com",
+          "read": "2026-08-15",
+          "what": "That shipping on most items is included and priced per item rather than per order, and the express surcharge"
+        },
+        {
+          "url": "https://customerservice.costco.com/app/answers/detail/a_id/1191/~/what-is-costcos-return-policy%3F",
+          "read": "2026-08-15",
+          "what": "The open-ended satisfaction guarantee, the 90 day electronics carve-out, and the full exceptions list, which does not name trading cards"
+        },
+        {
+          "url": "https://customerservice.costco.com/app/answers/answer_view/a_id/857/~/what-is-the-difference-between-each-type-of-membership",
+          "read": "2026-08-15",
+          "what": "Membership tiers and their annual fees"
+        },
+        {
+          "url": "https://corporate.target.com/news-features/article/2026/05/pokemon-x-target-drop-2",
+          "read": "2026-08-15",
+          "what": "The one unit per item per guest limit announced for a specific 2026 Pokemon drop, in store and online"
+        }
+      ]
+    }
+  ]
+}

@@ -118,7 +118,7 @@ const STEPS = [
     // THIS QUESTION ANSWERED ONLY LOCALLY UNTIL NOW, on a site whose selling,
     // grading and drops pages all assume an online answer exists. Somebody
     // reading in order got six questions deep and was told to drive somewhere.
-    also: [["/card-shows.html", "Card show calendar"]],
+    also: [["/buying.html", "Where to buy online"], ["/card-shows.html", "Card show calendar"]],
   },
 ];
 

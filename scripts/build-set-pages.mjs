@@ -897,12 +897,19 @@ function productBand(s, cls) {
   // reserved nothing anyway, because .prod-shot is a fixed 88x88 box with
   // object-fit:contain. Use the helper for every remote image so the site
   // cannot drift back into guessing at somebody else's file.
+  //
+  // SIZES DESCRIBES THE BOX, NOT THE FILE. It said "(max-width:640px) 40vw,
+  // 200px", which claims 156 CSS px on a 390px phone. The box is the 88x88
+  // .prod-shot above. 156 x DPR2 = 312, so Chrome skipped the 200w candidate
+  // and downloaded _in_1000x1000.jpg every time. Measured on one set page,
+  // five products: 450.4KB fetched where 103.9KB was needed. 88px x DPR2 =
+  // 176, which 200w covers, so this is 4x less data at identical pixels.
   const cards = items
     .map(
       (p) => `      <li class="prod">
         <a class="prod-shot" href="${esc(affLink(p.url))}" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
           ${deadImg(p.thumb) ? "" : `<img src="${esc(p.thumb)}" srcset="${esc(p.thumb)} 200w, ${esc(p.image)} 1000w"
-               sizes="(max-width:640px) 40vw, 200px" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(p.thumb)} referrerpolicy="no-referrer">`}
+               sizes="88px" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(p.thumb)} referrerpolicy="no-referrer">`}
         </a>
         <div class="prod-body">
           <h3><a href="${esc(affLink(p.url))}" rel="noopener" target="_blank">${esc(productLabel(p).kind)}</a></h3>

@@ -101,6 +101,7 @@ export const NAV = [
     // a guide rather than a market check. It is also the natural next page
     // after grading: the two together answer "what do I do with this card".
     ["/selling.html", "Where to sell"],
+    ["/buying.html", "Where to buy"],
     // Next to selling because they are one question asked from either end, and
     // the labels have to stay this literal: "Buying guide" and "Selling guide"
     // would read as two halves of one document rather than two destinations.
@@ -190,7 +191,24 @@ export const SKIP = `<a class="skip" href="#main">Skip to content</a>`;
 // time, which is worse than the problem it was meant to solve. fonts.css is a
 // single same-origin stylesheet in the head, so the faces are discovered
 // immediately anyway.
-export const FONTS = `<link rel="stylesheet" href="/assets/fonts.css">`;
+// PRELOAD IS BACK, AND ONLY BECAUSE IT WAS RE-MEASURED. The warning above was
+// real: preload used to fetch Outfit twice, 32KB each, because the preload URL
+// and the @font-face src did not match. The variable-font consolidation in
+// fonts.css made them identical, so the two requests dedupe and the count is
+// verified at 1 per face, not assumed. If fonts.css ever changes a filename,
+// re-measure this before trusting it again.
+//
+// What it buys: fonts.css finished at 328ms but the faces did not start until
+// 575ms, a three-hop chain of HTML -> fonts.css -> woff2. Outfit then landed at
+// 2,381ms on a throttled phone and the swap reflow was the only layout shift
+// left on the site (0.0235 on /cards.html). Seven pages already preloaded and
+// scored a clean 0.0000; this gives the other 461 the same head start.
+//
+// Only Outfit and Titan One. Space Mono is not on every page and preloading a
+// face a page never uses is pure waste on the same pipe.
+export const FONTS = `<link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css">`;
 
 /** Stylesheets, in the order they must load. */
 // CACHE BUST THE STYLESHEET, keyed to its own contents.
