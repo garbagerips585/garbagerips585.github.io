@@ -66,8 +66,34 @@ set_name.update(intl_sets)
 
 # ---------------------------------------------------------------- vocabulary
 
+# EVERY ENGLISH SET EVER PRINTED, not only the ones with a guide page.
+#
+# This used to offer the 28 sets that have a guide. Tim's own reason for wanting
+# more: a box set or a tin holds packs from sets we have no guide for, and until
+# now there was no cell he could fill to record that. He hit it on a Black Bolt
+# pack and had nowhere to put the answer.
+#
+# public/data/expansions.json is the full list from the Pokemon TCG API, 174
+# sets, and their names are unique, so a name is a safe key. Newest first,
+# because the sets being opened on camera are almost always current and a
+# 180-row list is a long scroll to reach this year.
+#
+# THIS DOES NOT TEACH THE MATCHER 146 NEW NAMES. These are options for Tim to
+# pick, not patterns for the automatic tagger to guess from. Widening what the
+# matcher guesses at is what retagged "Pitch Black is SAVAGE Today!" as a 2019
+# McDonald's set, and tags now come from his answers rather than from title
+# matching anyway.
+try:
+    _exp = json.loads((ROOT / "public/data/expansions.json").read_text())["sets"]
+    _guided = {s["name"] for s in sets}
+    _rest = [e["name"] for e in sorted(_exp, key=lambda e: e.get("released") or "", reverse=True)
+             if e.get("name") and e["name"] not in _guided]
+except Exception:
+    _rest = []
+
 SET_NAMES = ([s["name"] for s in sets]
              + sorted(intl_sets.values())
+             + _rest
              + ["Multiple sets", "Not a set (sealed/other)"])
 
 OPENING_TYPES = [
@@ -502,14 +528,6 @@ COLUMNS = [
     # exactly what broke the hits: one typo and one stray comma cost two cards.
     ("Set", 24, "input"),
     ("Packs", 8, "input"),
-    ("Set 2", 24, "input"),
-    ("Packs 2", 8, "input"),
-    ("Set 3", 24, "input"),
-    ("Packs 3", 8, "input"),
-    ("Set 4", 24, "input"),
-    ("Packs 4", 8, "input"),
-    ("Set 5", 24, "input"),
-    ("Packs 5", 8, "input"),
     ("Box / Series", 30, "input"),
     ("Opening Type", 28, "input"),
     # Packs Opened is what makes the luck page rigorous. Without it a rate can
@@ -523,6 +541,27 @@ COLUMNS = [
     ("Has Hit", 9, "input"),
     ("Hit Card", 30, "input"),
     ("Hit Rarity", 34, "input"),
+    # THE FOUR EXTRA SET/PACKS PAIRS LIVE HERE, PAST THE DAILY COLUMNS.
+    #
+    # They used to sit directly after Set and Packs, which put nine columns he
+    # almost never touches between the two halves of his actual work: Set and
+    # Packs on one side, Opening Type through Hit Card on the other. Measured on
+    # his real sheet, that is about 270 characters of width scrolled past on
+    # every one of 313 rows, to reach columns used by 13 rows in total. Set 2 is
+    # filled 12 times, Set 3 twice, Set 4 twice, Set 5 never.
+    #
+    # NOT REMOVED. A UPC spanning five sets genuinely needs somewhere to record
+    # the split, and the argument for having them is untouched by where they
+    # sit. Each Set keeps its Packs beside it. Nothing reads these by position:
+    # import-sheet.mjs looks every column up by header name.
+    ("Set 2", 24, "input"),
+    ("Packs 2", 8, "input"),
+    ("Set 3", 24, "input"),
+    ("Packs 3", 8, "input"),
+    ("Set 4", 24, "input"),
+    ("Packs 4", 8, "input"),
+    ("Set 5", 24, "input"),
+    ("Packs 5", 8, "input"),
     ("Greatest Hits", 14, "hof"),
     ("Greatest Hits Rank", 18, "hof"),
     ("Playlist To Add", 18, "input"),
@@ -660,12 +699,20 @@ for r, v in enumerate(ordered, start=2):
     # A video can hold packs from several sets, so spread them across the three
     # columns in order. The first is what the video is really about and picks
     # the wrapper on the site.
-    # Step by TWO: the columns now interleave Set, Packs, Set 2, Packs 2...
-    # so Set 2 is COL["Set"]+2, not +1. Off by one here would have written every
-    # extra set into a pack-count cell.
+    # BY NAME, NEVER BY OFFSET. This used to write the extra sets at
+    # COL["Set"] + n*2, on the assumption that Set, Packs, Set 2, Packs 2 sit
+    # contiguously. They no longer do: the four extra pairs were moved past the
+    # columns Tim fills on every row, and the moment they moved this loop began
+    # writing Set 2 into whatever now sits two columns after Set. It wrote
+    # nothing at all in practice, so all 12 multi-set rows came back with only
+    # their first set and the second was silently dropped on the next import.
+    #
+    # Looking each column up by header is the same rule import-sheet.mjs already
+    # follows, and it is why THAT side survived the move untouched.
     for n, sid in enumerate(sets_v[:5]):
-        if sid in set_name:
-            wv.cell(r, COL["Set"] + n * 2, set_name[sid]).font = GUESS_TXT
+        _key = "Set" if n == 0 else f"Set {n + 1}"
+        if sid in set_name and _key in COL:
+            wv.cell(r, COL[_key], set_name[sid]).font = GUESS_TXT
     # "NOT A SET" IS AN ANSWER, SO IT HAS TO COME BACK AS ONE. A video whose
     # override says sets:[] has no set on purpose, and reading that back off
     # videos.json gives an empty cell, which is the sheet's word for "nobody has

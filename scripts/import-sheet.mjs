@@ -106,6 +106,28 @@ try {
 } catch {
   console.warn("No public/data/sets.json, so the Set column will be skipped.");
 }
+// EVERY ENGLISH SET, not only the ones with a guide page. The dropdown now
+// offers all 174, because a tin can hold a pack from a set we never wrote a
+// guide for and Tim needs somewhere to record it. Only 28 of them carry a
+// `slug`, since a slug is assigned when a guide is built, so the rest are keyed
+// on a slugified name. Verified collision-free against the guide ids and the
+// international ids at import time rather than assumed.
+try {
+  const { sets: expansions } = JSON.parse(
+    await readFile(join(ROOT, "public/data/expansions.json"), "utf8")
+  );
+  for (const e of expansions || []) {
+    if (!e?.name) continue;
+    const key = e.name.toLowerCase();
+    if (setIdByName.has(key)) continue;            // a guide already owns this name
+    const id = e.slug || e.name.toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    if (id) setIdByName.set(key, id);
+  }
+} catch {
+  /* expansions.json is optional; without it the dropdown is the guided sets */
+}
+
 // The non-English guides, under the same labels build-sheet.py puts in the
 // dropdown ("Abyss Eye (JP)"). Without these the 21 imported rips came back as
 // unknownSet and were silently dropped. Both the label and the bare English

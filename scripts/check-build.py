@@ -473,22 +473,31 @@ if os.path.exists(_refresh):
         )
 
 # ---------------------------------------------------------------------------
-# EVERY SET WE HAVE RIPPED NEEDS A GUIDE.
+# A SET WE HAVE RIPPED AND HAVE NO GUIDE FOR IS A TODO, NOT A BUILD FAILURE.
 #
-# The site's own promise: a rip page for a set links to that set's guide, the
-# set index lists it, and the homepage tile points at it. A set that has been
-# opened on camera but has no guide breaks that quietly. The rip page simply
-# drops its guide link, so nothing looks broken and nobody notices the page was
-# never built.
+# THIS CHECK USED TO FAIL THE BUILD AND THE STANCE WAS WRONG. It was written the
+# day before the Set dropdown grew, in anticipation of it, and it said: a set
+# opened on camera with no guide page breaks the site's own promise, so refuse
+# to publish until somebody writes the guide.
 #
-# This became reachable the day the spreadsheet's Set dropdown grew from the 28
-# sets with guides to every English set ever printed, which is what Tim asked
-# for: a tin can hold a pack from a set we have no guide for, and he needs to be
-# able to record that. The tag is now possible, so the gap is now possible.
+# The whole point of growing the dropdown is that Tim can record a pack from a
+# 2019 set that came out of a 2023 tin. Writing that set's guide means running
+# sync-sets.mjs and sync-cards.mjs, which are network jobs against an API that
+# rate-limits hard and answers 500 rather than 429, and a cold run takes several
+# minutes. Failing the build turns "log the pack you just opened" into "log the
+# pack, then fetch a full checklist before the site can deploy again", which is
+# exactly the wall the non-strict dropdowns exist to avoid. The nightly would
+# have started failing on the first tin.
 #
-# It fails rather than warns because the fix is short and the alternative is
-# shipping a set the site half knows about. The message names the sets and the
-# rip counts so it is actionable without going looking.
+# The worry underneath it was real and is answered somewhere better: nothing may
+# LINK to a guide that does not exist. Every /sets/ url on a rip page now goes
+# through hasGuide() in build-pages.mjs, and check 2 above fails the build on a
+# broken internal link, so a missing guide cannot become a 404. What is left is
+# a page that names its set, filters by it and simply has no guide chip, which
+# is the honest rendering of "we have not written that one yet".
+#
+# So it prints. The list is worth having in front of you, because a set with
+# several rips probably HAS earned a guide, and this is where you would notice.
 _guides = {os.path.basename(p)[:-5] for p in glob.glob("public/sets/*.html")} - {"index"}
 try:
     _vids = json.load(open("public/data/videos.json", encoding="utf-8"))["videos"]
@@ -498,16 +507,86 @@ _ripped = {}
 for _v in _vids:
     for _s in (_v.get("sets") or []):
         _ripped[_s] = _ripped.get(_s, 0) + 1
-_nogUide = sorted(((n, s) for s, n in _ripped.items() if s not in _guides), reverse=True)
-if _nogUide:
-    _list = ", ".join(f"{s} ({n} rip{'' if n == 1 else 's'})" for n, s in _nogUide[:8])
-    _more = "" if len(_nogUide) <= 8 else f" and {len(_nogUide) - 8} more"
-    fail.append(
-        f"{len(_nogUide)} set(s) have been ripped on camera but have no guide page: "
-        f"{_list}{_more}. A rip page for one of these silently drops its guide "
-        f"link, so it looks fine and is not. Add the set to sync-sets.mjs, "
-        f"sync-cards.mjs and shared/taxonomy.mjs, then rebuild."
+_noguide = sorted(((n, s) for s, n in _ripped.items() if s not in _guides), reverse=True)
+if _noguide:
+    note(
+        f"\n  {len(_noguide)} set(s) ripped on camera with no guide page yet. Their rip "
+        f"pages name the set and filter by it, they just carry no guide chip:"
     )
+    for _n, _s in _noguide[:8]:
+        note(f"    {_s:<34} {_n} rip{'' if _n == 1 else 's'}")
+    if len(_noguide) > 8:
+        note(f"    ...and {len(_noguide) - 8} more")
+    note("  To promote one: add it to sync-sets.mjs and sync-cards.mjs, then rebuild.")
+
+# ---------------------------------------------------------------------------
+# app.js AND shared/taxonomy.mjs HAVE TO SPELL EVERY SET THE SAME WAY.
+#
+# app.js renders every tile after a filter and build-proto.mjs renders the first
+# 48 into the HTML from taxonomy.mjs, so the two are drawing the same grid from
+# two tables. They have disagreed twice: "Pokemon GO" against "Pokémon GO", and
+# 21 tiles reading "Ja Abyss Eye" because app.js fell through to its title-case
+# fallback. Both were found by a human diffing grids, which is not a plan.
+#
+# It matters more now. The Set dropdown offers 146 sets with no guide page, so
+# app.js can be handed an id it has never seen, and title-casing gets 51 of them
+# wrong in ways that read as a rendering fault ("Mcdonald S Collection 2011").
+# app.js lists exactly those 51 and leans on the fallback for the other 95, and
+# THAT is the arrangement this check exists to hold: it recomputes labelOf() and
+# compares it against the canonical name for every set id actually in use.
+#
+# Only ids in videos.json are checked, because those are the only ones that can
+# reach a tile, and it fails rather than warns because the fix is one line.
+_labels = {}
+try:
+    _src = open("public/assets/app.js", encoding="utf-8").read()
+    _sets_obj = re.search(r"\bsets:\s*\{(.*?)\n    \},", _src, re.S)
+    for _k, _v in re.findall(r'"([^"]+)":\s*"((?:[^"\\]|\\.)*)"', _sets_obj.group(1)):
+        # Only the two escapes a set name could plausibly carry. NOT
+        # unicode_escape, which would mangle the é in "Pokémon GO" back into
+        # mojibake and report a mismatch that is not there.
+        _labels[_k] = _v.replace('\\"', '"').replace("\\\\", "\\")
+except Exception as e:
+    fail.append(f"could not read LABELS.sets out of public/assets/app.js: {e}")
+
+
+def _title_case(_id):
+    """app.js labelOf()'s fallback, restated."""
+    return " ".join(w[:1].upper() + w[1:] for w in str(_id).split("-"))
+
+
+_canon = {}
+for _f, _key in (("public/data/expansions.json", "sets"), ("public/data/sets.json", "sets")):
+    try:
+        for _s in json.load(open(_f, encoding="utf-8"))[_key]:
+            _canon[_s.get("slug") or _s.get("id") or ""] = _s["name"]
+    except Exception:
+        pass
+_canon.pop("", None)
+try:
+    _LANG = {"ja": "JP", "ko": "KR", "zh-cn": "CN", "zh-tw": "CN"}
+    for _id, _g in json.load(open("public/data/intl-guides.json", encoding="utf-8"))["sets"].items():
+        _canon[_id] = f"{_g['english']} ({_LANG.get(_g.get('lang'), '??')})"
+except Exception:
+    pass
+
+if _labels:
+    _wrong = []
+    for _s in sorted(_ripped):
+        _want = _canon.get(_s)
+        if not _want:
+            continue          # not an English set or an imported guide; nothing to compare
+        _got = _labels.get(_s) or _title_case(_s)
+        if _got != _want:
+            _wrong.append(f'{_s}: app.js renders "{_got}", the site says "{_want}"')
+    if _wrong:
+        fail.append(
+            f"{len(_wrong)} set name(s) spelled differently by public/assets/app.js and the "
+            f"rest of the site, so the same set appears twice over inside one grid: "
+            + "; ".join(_wrong[:6])
+            + (f" and {len(_wrong) - 6} more" if len(_wrong) > 6 else "")
+            + ". Add the id to LABELS.sets in public/assets/app.js."
+        )
 
 if fail:
     print(f"\n{len(fail)} problem(s):")

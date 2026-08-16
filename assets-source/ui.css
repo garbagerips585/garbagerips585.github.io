@@ -85,6 +85,36 @@ img{max-width:100%;height:auto;display:block}
 picture{display:contents}
 source{display:none}
 a{color:inherit;text-decoration:none}
+/* A LINK IN A SENTENCE HAS TO LOOK LIKE ONE. The rule above exists so nav
+   chips, buttons, cards and the pack wrapper do not inherit an underline, and
+   it should stay. But nothing ever put the affordance back for links inside
+   body copy, so a cross-reference in a paragraph rendered in the paragraph's
+   own colour with no underline and no weight change: measured on /tcg-live.html
+   at 390px, six of eight prose links computed to rgb(21,38,58), identical to
+   their parent, decoration none, weight 400. Indistinguishable from the text
+   around them. That is a WCAG 1.4.1 failure and it quietly wasted every
+   internal cross-link the site leans on.
+
+   AN UNDERLINE RATHER THAN A COLOUR, because these paragraphs sit on cream, on
+   the dark chrome and on tinted bands, and one colour cannot clear contrast on
+   all three. An underline is legible on every ground the site has.
+
+   SCOPED TO PARAGRAPHS AND TO UNCLASSED LINKS. Not `main li a`: an /openings/
+   riplist is 55 list items that are each entirely a link, which is a list of
+   links rather than prose containing one, and underlining all of them is noise.
+   `:not([class])` keeps it off anything the site has deliberately styled, which
+   is what .prod-shot on the set guides is, a product photo wrapped in a link.
+   .crumbs is excluded because it already carries an underline and its own
+   colour, and this selector would otherwise outrank it and change it. */
+main p a:not([class]):not(.crumbs a){
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:2px;
+  text-decoration-color:color-mix(in srgb,currentColor 45%,transparent);
+}
+main p a:not([class]):hover,main p a:not([class]):focus-visible{
+  text-decoration-color:currentColor;
+}
 .wrap{max-width:1500px;margin:0 auto;padding:0 var(--s5)}
 @media(max-width:700px){.wrap{padding:0 var(--s3)}}
 :focus-visible{outline:3px solid var(--ketchup-deep);outline-offset:2px;
