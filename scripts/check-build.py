@@ -472,6 +472,43 @@ if os.path.exists(_refresh):
             "pages stale every night."
         )
 
+# ---------------------------------------------------------------------------
+# EVERY SET WE HAVE RIPPED NEEDS A GUIDE.
+#
+# The site's own promise: a rip page for a set links to that set's guide, the
+# set index lists it, and the homepage tile points at it. A set that has been
+# opened on camera but has no guide breaks that quietly. The rip page simply
+# drops its guide link, so nothing looks broken and nobody notices the page was
+# never built.
+#
+# This became reachable the day the spreadsheet's Set dropdown grew from the 28
+# sets with guides to every English set ever printed, which is what Tim asked
+# for: a tin can hold a pack from a set we have no guide for, and he needs to be
+# able to record that. The tag is now possible, so the gap is now possible.
+#
+# It fails rather than warns because the fix is short and the alternative is
+# shipping a set the site half knows about. The message names the sets and the
+# rip counts so it is actionable without going looking.
+_guides = {os.path.basename(p)[:-5] for p in glob.glob("public/sets/*.html")} - {"index"}
+try:
+    _vids = json.load(open("public/data/videos.json", encoding="utf-8"))["videos"]
+except Exception:
+    _vids = []
+_ripped = {}
+for _v in _vids:
+    for _s in (_v.get("sets") or []):
+        _ripped[_s] = _ripped.get(_s, 0) + 1
+_nogUide = sorted(((n, s) for s, n in _ripped.items() if s not in _guides), reverse=True)
+if _nogUide:
+    _list = ", ".join(f"{s} ({n} rip{'' if n == 1 else 's'})" for n, s in _nogUide[:8])
+    _more = "" if len(_nogUide) <= 8 else f" and {len(_nogUide) - 8} more"
+    fail.append(
+        f"{len(_nogUide)} set(s) have been ripped on camera but have no guide page: "
+        f"{_list}{_more}. A rip page for one of these silently drops its guide "
+        f"link, so it looks fine and is not. Add the set to sync-sets.mjs, "
+        f"sync-cards.mjs and shared/taxonomy.mjs, then rebuild."
+    )
+
 if fail:
     print(f"\n{len(fail)} problem(s):")
     for f in fail:
