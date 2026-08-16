@@ -4244,13 +4244,16 @@
       "views": 1428,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "crown-zenith"
+      ],
       "products": [
         "single-pack"
       ],
       "pulls": [],
       "packs": 1,
-      "openingType": "Single Booster Pack"
+      "openingType": "Single Booster Pack",
+      "label": "Crown Zenith Pack #1"
     },
     {
       "id": "VP1UXW3MrGU",
@@ -4377,13 +4380,16 @@
       "views": 1135,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "chilling-reign"
+      ],
       "products": [
         "single-pack"
       ],
       "pulls": [],
       "packs": 1,
-      "openingType": "Single Booster Pack"
+      "openingType": "Single Booster Pack",
+      "label": "Chilling Reign Pack #1"
     },
     {
       "id": "yMTuhasZsZ4",
@@ -4490,13 +4496,16 @@
       "views": 1259,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "rebel-clash"
+      ],
       "products": [
         "single-pack"
       ],
       "pulls": [],
       "packs": 1,
-      "openingType": "Single Booster Pack"
+      "openingType": "Single Booster Pack",
+      "label": "Rebel Clash Pack #2"
     },
     {
       "id": "KGj2ZTDLcrA",
@@ -4507,13 +4516,16 @@
       "views": 1470,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "rebel-clash"
+      ],
       "products": [
         "single-pack"
       ],
       "pulls": [],
       "packs": 1,
-      "openingType": "Single Booster Pack"
+      "openingType": "Single Booster Pack",
+      "label": "Rebel Clash Pack #1"
     },
     {
       "id": "8Nbj7wLBgrc",
@@ -4750,13 +4762,16 @@
       "views": 1380,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "celebrations"
+      ],
       "products": [
         "single-pack"
       ],
       "pulls": [],
       "packs": 1,
-      "openingType": "Single Booster Pack"
+      "openingType": "Single Booster Pack",
+      "label": "Celebrations Pack #1"
     },
     {
       "id": "N3bs0HjmrKY",
@@ -5233,13 +5248,16 @@
       "views": 513,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "shining-fates"
+      ],
       "products": [
         "single-pack"
       ],
       "pulls": [],
       "packs": 1,
-      "openingType": "Single Booster Pack"
+      "openingType": "Single Booster Pack",
+      "label": "Shining Fates Pack #2"
     },
     {
       "id": "juzo0HheF1U",
@@ -5270,13 +5288,16 @@
       "views": 445,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "shining-fates"
+      ],
       "products": [
         "single-pack"
       ],
       "pulls": [],
       "packs": 1,
-      "openingType": "Single Booster Pack"
+      "openingType": "Single Booster Pack",
+      "label": "Shining Fates Pack #1"
     },
     {
       "id": "NmO2vrjJhg0",
@@ -5512,7 +5533,8 @@
       "pulls": [],
       "packs": 1,
       "openingType": "Korean Booster Pack",
-      "label": "Crimson Haze (KR) Pack"
+      "label": "Crimson Haze (KR) Pack",
+      "blurb": "Opening Korean Crimson Haze booster packs, testing international pack luck. Korean print. Full garbage plate energy applied. Garbage rips or overseas heat?"
     },
     {
       "id": "IuEb3qtjflI",

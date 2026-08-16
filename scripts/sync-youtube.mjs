@@ -282,7 +282,13 @@ const videos = uploads
       ...(log.affiliate ? { affiliate: log.affiliate } : {}),
       ...(log.openingType ? { openingType: log.openingType } : {}),
       ...(log.siteTitle ? { siteTitle: log.siteTitle } : {}),
-      ...(log.blurb ? { blurb: log.blurb } : {}),
+      // AN OVERRIDE BEATS THE SHEET HERE TOO. blurb read only from manual.json,
+      // which is spreadsheet-imported, so a correction made by hand was liable
+      // to be cleared the next time that column came back empty. overrides.json
+      // already outranks the sheet for sets, products and vertical, and its own
+      // readme calls it "hand corrections that always beat the automatic
+      // tagging". Blurb was the one field that did not honour that.
+      ...((manual.blurb ?? log.blurb) ? { blurb: manual.blurb ?? log.blurb } : {}),
       ...(log.box ? { box: log.box } : {}),
       ...(log.notes ? { notes: log.notes } : {}),
       ...(log.feature ? { feature: true } : {}),

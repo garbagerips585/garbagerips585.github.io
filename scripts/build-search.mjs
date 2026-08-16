@@ -5,7 +5,7 @@
 //
 // The bar search used to post to /videos.html, so it searched 310 rips and
 // nothing else. That was right when rips were the whole site. It now sits above
-// 4,481 cards, 36 set guides, 30 Pokemon pages and a dozen reference pages, and
+// every card, every set guide, every Pokemon page and a dozen reference pages, and
 // typing "umbreon" into it and getting only videos undersold everything else.
 //
 // TWO INDEXES, LOADED SEPARATELY, ON PURPOSE. The site index (rips, guides,
@@ -74,7 +74,7 @@ const PAGES = [
   ["/drops.html", "Drops this week", "Where stock is expected, in store and online"],
   ["/pack-prices.html", "Pack prices by set", "What one pack costs, box against bundle against loose"],
   ["/what-set.html", "What set is my card from?", "Look up the number printed after the slash"],
-  ["/luck.html", "Luck and pull rates", "What actually comes out of the packs"],
+  ["/luck.html", "How our luck is going", "What actually comes out of the packs"],
   ["/upcoming.html", "Coming next", "Upcoming sets and preorder prices"],
   ["/expansions.html", "Every set ever", "The complete expansion list"],
   ["/hall.html", "Hall of Fame", "The best pulls on the channel"],
@@ -89,6 +89,15 @@ const PAGES = [
   ["/vendors.html", "Local vendors", "Who sells cards around Rochester"],
   ["/about.html", "About", "Who this is and why"],
 ];
+
+// Read from the card index rather than typed in. Written down, it was correct
+// today and guaranteed to be a lie the first time a set is added.
+let nCards = 0;
+try {
+  nCards = (JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8")).cards || []).length;
+} catch {
+  /* run: node scripts/sync-cards.mjs */
+}
 
 // [title, url, sub] for everything except cards.
 const index = {
@@ -113,6 +122,12 @@ const index = {
   ],
   pokemon: pokemon.map((p) => [p.name, `/pokemon/${p.slug}.html`, `${p.cards} cards across ${p.sets} sets`]),
   rips: videos.map((v) => [v.title, `/${v.path}`, v.published]),
+  // THE BROWSER USED TO CARRY ITS OWN COPY OF THIS NUMBER, typed into the
+  // placeholder as "4,481 cards". It was true when it was written and false the
+  // moment a set was added: the page said 5,181 in three places and 4,481 in
+  // the fourth, and no check caught it because both are valid strings. The
+  // count ships with the index now, from the same read that produces it.
+  cardCount: nCards,
 };
 
 await writeFile(join(ROOT, "public/data/site-index.json"), JSON.stringify(index) + "\n");
@@ -120,14 +135,6 @@ await writeFile(join(ROOT, "public/data/site-index.json"), JSON.stringify(index)
 const total =
   index.pages.length + index.sets.length + index.pokemon.length + index.rips.length;
 
-// Read from the card index rather than typed in. Written down, it was correct
-// today and guaranteed to be a lie the first time a set is added.
-let nCards = 0;
-try {
-  nCards = (JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8")).cards || []).length;
-} catch {
-  /* run: node scripts/sync-cards.mjs */
-}
 const nCardsText = nCards.toLocaleString("en-US");
 
 const desc = `Search everything on Garbage Rips 585: ${index.rips.length} pack openings, ${nCardsText} cards, ${index.sets.length} set guides and every reference page.`;
@@ -277,7 +284,7 @@ ${footer()}
     }
 
     if(!CARDS && q.length>=2){
-      html+='<section class="sg"><h2>Cards</h2><p class="price-note">Looking through 4,481 cards...</p></section>';
+      html+='<section class="sg"><h2>Cards</h2><p class="price-note">Looking through '+SITE.cardCount.toLocaleString()+' cards...</p></section>';
     }
 
     var v=hits(SITE.rips,q,10); n+=v.total;
@@ -362,4 +369,4 @@ await writeFile(join(ROOT, "public/search.html"), page);
 
 console.log(`Wrote public/search.html and public/data/site-index.json
   ${index.rips.length} rips, ${index.sets.length} set guides, ${index.pokemon.length} Pokemon, ${index.pages.length} pages
-  ${total} entries in the site index, plus 4,481 cards loaded on demand`);
+  ${total} entries in the site index, plus ${nCardsText} cards loaded on demand`);
