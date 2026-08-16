@@ -98,12 +98,16 @@ const style = `
 .gr-score{font:400 var(--t-l)/1 var(--display);color:var(--ink)}
 .gr-best{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
 .gr-over{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:var(--s3);background:rgba(11,17,8,.86);color:#F4F1E2;text-align:center;padding:var(--s4)}
+  gap:var(--s3);background:rgba(11,17,8,.86);color:var(--chrome-ink);text-align:center;padding:var(--s4)}
 .gr-over[hidden]{display:none}
-.gr-over h2{color:#F4F1E2;font:400 var(--t-xl)/1 var(--display)}
-.gr-over p{color:#DDE6EC;max-width:30em;font-size:var(--t-sm);line-height:1.5}
+.gr-over h2{color:var(--chrome-ink);font:400 var(--t-xl)/1 var(--display)}
+.gr-over p{color:var(--foot-ink);max-width:30em;font-size:var(--t-sm);line-height:1.5}
 .gr-go{min-height:52px;padding:0 var(--s5);border:3px solid var(--gold);border-radius:999px;
-  background:var(--gold);color:#2A2410;font:700 var(--t-m)/1 var(--body);cursor:pointer}
+  /* --on-accent, not the #2A2410 that was here: that is a hand-mixed dark
+     olive-brown for a gold button, i.e. a fifth colour invented in a page
+     builder for a job the palette now has a token for. It measures 7.11:1 on
+     --gold and 10.28:1 on the --mustard the button takes on hover. */
+  background:var(--gold);color:var(--on-accent);font:700 var(--t-m)/1 var(--body);cursor:pointer}
 .gr-go:hover{background:var(--mustard);border-color:var(--mustard)}
 .gr-how{margin-top:var(--s5);color:var(--ink-2);font-size:var(--t-sm);line-height:1.6;max-width:44em}
 .gr-how b{color:var(--ink)}
@@ -131,7 +135,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>

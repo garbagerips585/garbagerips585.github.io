@@ -5,9 +5,11 @@ a read date, and the sources block records which hosts answered and which did
 not. This file is the argument for what to build from it and, as with
 `how-to-play-PLAN.md`, what to leave in the file and off the page.
 
-Nothing has been built. No builder, no nav entry, no sitemap line, no search
-entry, no OG card. The registration checklist is at the bottom and
-`build-search.mjs` fails the build without it.
+**This paragraph used to read "nothing has been built" and stayed that way after
+the page shipped.** It is built: `scripts/build-tcg-live.mjs`, in the nav, the
+sitemap, the search index and with an OG card. The registration checklist is
+still at the bottom and `build-search.mjs` still fails the build without it, so
+it is worth reading before adding another page, not before this one.
 
 ## The brief, and why this page belongs on this site
 
@@ -42,20 +44,34 @@ still findable as "Pokemon TCG Live guide". Something like:
 "You get one in every pack. Here is the free game it opens, and what the code
 actually gets you."
 
-**Budget: 1,400 to 1,800 words of body copy.** Slightly more than
+**Budget: 1,400 to 2,000 words of body copy.** Slightly more than
 `/how-to-play.html`'s 1,500 because this page has a genuine how-to component
 with steps in it, but not much more. Counted the same way that page counts, with
 tags and entities stripped, and enforced in the builder the same way.
+
+**THE CEILING WAS 1,800 AND WAS RAISED ONCE, for section 3 below and for
+nothing else.** The original budget was written when every word on this page was
+a restatement of Pokemon's own material, and a ceiling is there to stop a page
+padding itself with more of the same. Section 3 is the one part of the page that
+nobody else could write, so it is the opposite of padding. Every other section's
+budget is unchanged and the per-section ceilings in the builder still hold them
+exactly where they were. Do not raise it again for a section that is merely
+useful.
 
 ### Order, and why this order
 
 1. What is this thing? (~120 words)
 2. **What the code actually gets you (~350 words)**, the anchor
-3. How to redeem it (~250 words)
-4. How to get the app (~200 words)
-5. It is not the same game as the one on your table (~300 words)
-6. Tips for your first week (~250 words)
-7. Does any of it mean anything? (~200 words)
+3. **How many have come out of our packs? (~210 words)**, the channel's own count
+4. How to redeem it (~250 words)
+5. How to get the app (~200 words)
+6. It is not the same game as the one on your table (~300 words)
+7. Live or Pocket (~120 words, mostly the shared table)
+8. Tips for your first week (~250 words)
+9. Does any of it mean anything? (~200 words)
+
+Section 3 was not in the first version of this plan and is the biggest thing
+that has been added since. It is written up under its own heading below.
 
 **The code section goes SECOND, before the download section, and that is the
 whole structural argument of this plan.** Every other guide to this app on the
@@ -66,11 +82,11 @@ bit of cardboard for" before it earns the right to ask them to download 3GB.
 Section 1 exists only to give them the one-paragraph frame that makes section 2
 parse.
 
-Section 5 is the digital-specific section. It is deliberately framed as a
+Section 6 is the digital-specific section. It is deliberately framed as a
 difference rather than as a tutorial, which is what keeps it from turning into a
 second copy of `/how-to-play.html`.
 
-Section 7 is the real-world value section, and it goes last because it is the
+Section 9 is the real-world value section, and it goes last because it is the
 one that takes something away.
 
 ### What goes in each section
@@ -107,7 +123,7 @@ Then, in order:
   ETB each carry their own code, and the box's own code varies, and **the app
   tells you what you are getting before you claim it**.
 - Single use, one account, forever. Official, and it is the fact that makes the
-  "should I sell these" question answer itself in section 7.
+  "should I sell these" question answer itself in section 9.
 - Expiry. Say Pokemon publishes no expiry date for pack codes, so an old shoebox
   is worth trying. **Do not write "codes never expire."** The research file has
   this as established by absence, not by a statement.
@@ -117,7 +133,49 @@ Then, in order:
   will never hit it", not "you will never hit it", because a channel that opens
   cases has viewers who might.
 
-**3. How to redeem it (~250 words)**
+**3. How many have come out of our packs? (~210 words). THE ONE NOBODY ELSE
+CAN WRITE**
+
+Added after the page first shipped. Everything above and below section 3 is
+Pokemon's material arranged well, which is worth doing and is not a moat. This
+section is the site's own data.
+
+The argument is one line long. Pokemon states that every booster pack contains a
+TCG Live code card. `public/data/videos.json` carries a counted `packs` figure
+per rip, which `/openings/` already publishes totals from. So the number of code
+cards that have come out of this channel's packs is arithmetic on data the repo
+already holds, and no general guide to the app can print it.
+
+**Derived at build time in `shared/packtally.mjs`, never typed into the copy.**
+The catalogue grows nightly, so a hardcoded figure would be wrong within a week.
+That file's header carries the full argument for what is in the count. The three
+decisions that matter:
+
+- **English packs only, and the page says so.** `codeCards.noCodeInThePack` in
+  the research file records that nothing was found in either direction on
+  whether a Japanese, Korean or Chinese pack carries a code the English client
+  takes, and "what to leave out" below already forbids a claim about it. So
+  those rips are held out, the count of them is printed, and the reason is
+  given. The smaller number is the defensible one.
+- **The exclusion is by SET, not by product tag.** One Japanese pack in the
+  catalogue is tagged `single-pack`, so filtering on the `japanese-pack` product
+  type alone would leak it into an English figure. `INTL_SET_IDS` catches both.
+- **It is a floor and it is described as one.** Only rips with a pack count are
+  in it. "Counted", never "total", which is the same word `/openings/` uses.
+
+The one comparison worth making is against the soft redemption limit already
+printed in section 2: the biggest single-expansion pile counted here is still
+under it. **The builder asserts that rather than trusting it**, so if the
+catalogue ever passes the limit the build stops and asks for the sentence to be
+rewritten instead of shipping a claim the data contradicts.
+
+**What this section must not do.** It must not turn a pack count into anything
+about what came out of the packs. This is a count of code cards and nothing
+else: no hit rate, no "how many packs it took", nothing that reads as odds.
+`/luck.html` is where observed results live and it is careful for its own
+reasons.
+
+**4. How to redeem it (~250 words)**
 Two routes, both official, presented as a choice rather than a sequence.
 
 In the app: Shop → Redeem → type it or scan the QR code with a webcam → check
@@ -141,7 +199,7 @@ Three warnings, all sourced, all short:
   channel-relevant tip on the page: somebody filming an opening throws code
   cards in a heap.
 
-**4. How to get the app (~200 words)**
+**5. How to get the app (~200 words)**
 Four platforms: iPhone and iPad, Android, Windows, Mac. **No browser version;
 you download an app.** Say that plainly, because "is there a web version" is the
 obvious question after a section that just sent them to a website to redeem.
@@ -167,7 +225,7 @@ Region: one sentence. Available in most of the world; if your app store has it,
 you can play. The research file explains why it cannot be stated more precisely,
 and there is no list of excluded regions to print.
 
-**5. It is not the same game as the one on your table (~300 words)**
+**6. It is not the same game as the one on your table (~300 words)**
 
 This is the digital-specific section and its job is to be *different from*
 `/how-to-play.html`, not shorter than it. Open by sending people there:
@@ -199,7 +257,7 @@ Then only what changes because it is software:
   or a reward list.
 - **No chat.** One line. Preset reactions only.
 
-**6. Tips for your first week (~250 words)**
+**8. Tips for your first week (~250 words)**
 Six or seven, no more, from the `tips` array. The strongest ones, roughly in
 order: redeem codes before spending anything; check which account you are in;
 play the starter decks first; spend Trade Credits on cards a deck needs rather
@@ -213,7 +271,7 @@ documentation exists. Printing point values and tier-drop caps would be the
 weakest content on the page and the fastest to rot. If any number survives
 editing, the page's source note must attribute it to the wiki.
 
-**7. Does any of it mean anything? (~200 words)**
+**9. Does any of it mean anything? (~200 words)**
 The honest section, and the one this site is better placed to write than anybody
 else, because it already refuses to overstate what cards are worth.
 
@@ -285,11 +343,11 @@ What is legitimately available:
   builds these (`/how-to-play.html`'s board diagram) and they cost nothing, work
   in both themes and are ours. The right subject is **the one-way arrow**:
   physical pack → code card → digital pack in the app, with the return arrow
-  drawn and crossed out. That diagram carries section 7's whole argument in a
+  drawn and crossed out. That diagram carries section 9's whole argument in a
   glance and there is no other page on the site where it would make sense.
 - **A second SVG, optional: the redemption path**, as two labelled routes (app:
   Shop → Redeem → Claim; web: log in → enter → Claim) converging on "it lands in
-  your Inbox". Only build it if section 3 reads long in prose. A two-branch
+  your Inbox". Only build it if section 4 reads long in prose. A two-branch
   flow is one of the few things a diagram genuinely does better than a list.
 - **The pack art the site already owns** is fine as decoration if the page wants
   a header image, since it is commissioned work the site uses everywhere. Credit
@@ -304,7 +362,7 @@ have. **Do not build the page waiting for them.** Ship it with the SVG.
 
 Internal, and this page is unusually well connected:
 
-- **`/how-to-play.html`, from the top of section 5 and again from section 6.**
+- **`/how-to-play.html`, from the top of section 6 and again from section 8.**
   The relationship is a pair, in both directions: that page is "what is the game
   the cards are for", this one is "here is the free way to actually play it".
   **`build-how-to-play.mjs` already recommends TCG Live in its section 8** ("The
@@ -320,12 +378,12 @@ Internal, and this page is unusually well connected:
   already has a paragraph after the six that points at `/how-to-play.html` as
   "one question that is not about a card at all", and this page belongs in that
   same paragraph. **That means editing `scripts/build-start.mjs`.**
-- **`/rarity.html`** from section 5, one line: rarity in Live is cosmetic.
+- **`/rarity.html`** from section 6, one line: rarity in Live is cosmetic.
 - **`/shops.html`** from the end, softly. Live is the free way in; the shops page
   is where you go once you want to play against a person. It is the same
   conversion link `/how-to-play.html` uses and it is the right ending.
 - Not `/cards.html`, not `/buying.html`, not `/selling.html`, and **especially
-  not from section 7**. A section explaining that digital cards are worth
+  not from section 9**. A section explaining that digital cards are worth
   nothing must not be followed by a link to where to sell things.
 
 Outbound, and **CLAUDE.md's fourth exception already covers the shape of this**:
@@ -350,10 +408,10 @@ the same way, with two differences.**
    a "learn more" link, it is a step in an instruction, and burying step three of
    a four-step process 900 words below where the reader is standing is worse for
    them than the outbound rule is good for us. **Proposed: the redeem link may
-   appear inline in section 3**, labelled and aria-labelled as leaving the site
+   appear inline in section 4**, labelled and aria-labelled as leaving the site
    exactly like the others, and both links repeat in the end block. If whoever
    builds this disagrees, put both in the end block only and name the domain in
-   plain text in section 3 so the reader can type it. Either is defensible;
+   plain text in section 4 so the reader can type it. Either is defensible;
    pick one and write down which in CLAUDE.md.
 
 **And update CLAUDE.md's outbound-links section in the same commit.** That file
@@ -447,7 +505,7 @@ copy. The short version:
   claim it works. The page gives the website as the fallback and does not
   adjudicate.
 - **Nothing was learned first-hand about the redemption screen.**
-  `redeem.tcg.pokemon.com` is a login-walled JS shell. Every step in section 3 is
+  `redeem.tcg.pokemon.com` is a login-walled JS shell. Every step in section 4 is
   Pokemon's own written instructions, not observation. **Tim has an account and
   plays this game.** Ten minutes of him walking through a redemption would firm
   up the one section of the page that most needs it, and would settle the iOS

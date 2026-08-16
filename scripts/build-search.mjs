@@ -60,6 +60,14 @@ try {
 const PAGES = [
   ["/start.html", "Start here", "New to Pokemon cards, the six questions in order"],
   ["/how-to-play.html", "How to play", "The card game itself: setup, a turn, and the three ways to win"],
+  // THE TITLES LEAD WITH THE APP NAMES, unlike the nav labels next door, because
+  // search is where somebody types "TCG Live" or "pocket". Both sit inside the
+  // first eight, which is also what /search.html shows as its empty state, so
+  // adding them pushed two cards off the bottom of that grid. That is the right
+  // trade for two pages this useful and it is a deliberate consequence rather
+  // than a side effect nobody looked at.
+  ["/tcg-live.html", "Pokemon TCG Live and code cards", "What the code card in every booster pack gives you, and the free official app it opens"],
+  ["/tcg-pocket.html", "Pokemon TCG Pocket", "The free phone version, what it teaches you, and how its rules differ from real cards"],
   ["/cards.html", "Card search", "Every card by name with current prices"],
   ["/pokemon/", "Browse by Pokemon", "Every card of one Pokemon across every set"],
   ["/sets/", "Set guides", "Card counts, rarities and chase cards per set"],
@@ -163,7 +171,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
 </head>

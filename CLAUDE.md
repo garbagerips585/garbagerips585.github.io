@@ -273,6 +273,39 @@ that checked for a third width correctly concluded there was none and stopped.
 the webp underneath as the fallback. There is no middle width at any host:
 `medium.webp`, `mid.webp` and `600.webp` all 404, and Scrydex ignores `?w=`.
 
+**`loading="lazy"` IS A VERTICAL HEURISTIC AND NOTHING ELSE.** Chrome measures
+how far an image is from the viewport DOWN the page. A slide parked 407px to the
+right inside a horizontal scroll track is, by that measure, right next to you,
+so every slide in a carousel fetches its artwork at first paint whatever
+`loading` says. On the home page that was 289.9KB of pack art for slides behind
+the band's right-hand edge, on a band that was itself below the fold: measured
+at 390x844 with DPR 3, gzipped, cache off, the page was 804.9KB with 681.6KB of
+pack art, and one pack was on screen. This is invisible from the markup, which
+looks correct.
+
+The fix is in `heroTile` in build-proto.mjs and `hydrateSlides` in
+packplayer.js: slide 0 keeps a real `src`, later slides carry theirs as
+`data-packsrc`/`data-packsrcset`/`data-packsizes`, and the script promotes them
+when the TRACK is about to show them, one slide of lead on a swipe or an arrow
+and none on load. It measures the real track rather than repeating ui.css's
+breakpoints, because the visible slide count is 1 / 2.35 / 2.75 / 3.3 by width
+and the Hall of Fame band overrides all of it with exactly 2. `loading="lazy"`
+stays on the promoted image, so the vertical half of the decision is still the
+browser's; this only takes back the horizontal half. Phone went 804.9KB to
+515.1KB, pack art 681.6KB to 391.7KB. Desktop is unchanged by design and
+measured to be: 800.2KB to 800.3KB at 1280, because at 1280 and 1920 those
+slides are genuinely on screen and the hydration lands before first contentful
+paint (70ms against 84ms at 1280). A `<noscript>` copy, laid over the box by
+ui.css, is what a reader with JS off gets.
+
+**Do not "fix" this by adding 560w and 700w renditions.** That was measured
+too, with the files actually generated: it saves 302KB at 1280 and 1920 at DPR
+1, and NOTHING at DPR 2 or 3, because 810w is already the smallest candidate
+that satisfies a 464px box on a retina screen. It is a no-op on every modern
+phone and every retina laptop, for 38 files and 3.43MB. If the 1x desktop win
+is wanted later, 560w ALONE buys all of it (19 files, 1.42MB); 700w was only
+ever picked in one case, a DPR 2 phone.
+
 **A CSS background cannot be lazy.** rarity.html's magnified corners were
 backgrounds, so all 13 full-size scans were fetched at first paint whether or
 not anyone scrolled to that row. They are `<img loading="lazy">` now and the
@@ -335,6 +368,10 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
 - Bands other than Greatest Hits are a scroll-snap carousel with slide buttons,
   not grids. ON A PHONE that is one video at a time and the counter reads
   "1 / 5". On a desktop it is two or three at a time; see below.
+- A slide the track is not showing has NO pack art in its `<img>` yet. See
+  "loading=lazy is a vertical heuristic" under Card images. If you change the
+  carousel markup, keep slide 0's real `src` and keep the data- attributes on
+  the rest, or the home page quietly goes back to 800KB on a phone.
 - The Hall of Fame card keeps its text when the player mounts: the handler
   swaps only the art box, because replacing the whole card lost the title, the
   set and the view count.

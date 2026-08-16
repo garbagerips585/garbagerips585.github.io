@@ -263,16 +263,16 @@ const style = `
 .hp-steps li{counter-increment:hp;position:relative;padding-left:38px;margin-bottom:var(--s3);line-height:1.55}
 .hp-steps li::before{content:counter(hp);position:absolute;left:0;top:0;width:26px;height:26px;
   display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--navy);
-  color:#F4F1E2;font:700 var(--t-micro)/1 var(--mono)}
+  color:var(--chrome-ink);font:700 var(--t-micro)/1 var(--mono)}
 .hp-call{border-left:5px solid var(--ketchup);background:var(--card);border:1px solid var(--hair);
   border-left:5px solid var(--ketchup);border-radius:8px;padding:var(--s3) var(--s4);margin-top:var(--s4);max-width:44em}
 .hp-call b{display:block;font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;
   text-transform:uppercase;color:var(--ketchup-deep);margin-bottom:4px}
 .hp-call p{font-size:var(--t-sm);line-height:1.55}
-.hp-shout{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:#F4F1E2;
+.hp-shout{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:var(--chrome-ink);
   padding:var(--s4) var(--s5);margin:var(--s4) 0;box-shadow:var(--hard-lg);max-width:44em}
-.hp-shout p{font:400 var(--t-m)/1.3 var(--display);color:#F4F1E2}
-.hp-shout span{display:block;margin-top:var(--s2);font-size:var(--t-sm);color:#DDE6EC;line-height:1.5}
+.hp-shout p{font:400 var(--t-m)/1.3 var(--display);color:var(--chrome-ink)}
+.hp-shout span{display:block;margin-top:var(--s2);font-size:var(--t-sm);color:var(--foot-ink);line-height:1.5}
 .hp-tbl-w{overflow-x:auto;margin-top:var(--s4);border:3px solid var(--navy);border-radius:12px;
   background:var(--card);box-shadow:var(--hard-lg);max-width:44em}
 .hp-tbl{width:100%;border-collapse:collapse;font-size:var(--t-sm)}
@@ -512,9 +512,19 @@ ${(win.ways || [])
             box, and the official product guide says so. It files ex Battle Decks and Battle Academy under "start
             here", and a Battle Academy box holds more than one deck, so two people can play without buying twice.
             We print no prices: no official one could be read anywhere that was not a reseller.</li>
+          ${/* THE LINK GOES TO OUR PAGE FIRST and Pokemon's own download page stays
+                in the outbound block at the foot, which is the shape CLAUDE.md's
+                outbound exception argues for. This bullet used to send a beginner
+                straight off the site mid-explanation. Deliberately recommends
+                LIVE ONLY: /tcg-pocket.html exists now and plays by a reduced
+                ruleset, so it is the wrong recommendation for somebody learning
+                the real rules, and two apps in one beginner paragraph is one too
+                many. The replacement is five words SHORTER than the sentence it
+                replaced, because this page sits at its 1,500 word ceiling and the
+                builder rejects a link that costs the page a paragraph. */ ""}
           <li><b>The free way in is Pokemon TCG Live</b>The official digital version, on Windows, Mac, iOS and
-            Android. Its own site says learning on it is the point, and it enforces the rules for you, which is
-            worth more than any written guide, this one included.</li>
+            Android. It enforces the rules for you, and the code card in every pack you open is for it:
+            <a href="/tcg-live.html">what the code gets you</a>.</li>
           <li><b>Then go and play with people</b>Hobby shops run leagues, and the rulebook tells new players to
             find one: ask whether your shop is a Play! Pokemon Store.
             <a href="/shops.html">We list the shops around Rochester</a> and which of them run league nights,
@@ -648,7 +658,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>

@@ -290,24 +290,38 @@ const corner = (card, side, label) => `<figure class="crop">
  */
 const slabDiagram = () => `<figure class="gloss-fig is-diagram">
             <svg viewBox="0 0 220 300" role="img" aria-label="Diagram of a graded card in a sealed holder, showing the grade, the certification number and the sealed edge">
-              <rect x="6" y="6" width="208" height="288" rx="10" fill="#EDE6CB" stroke="#15263A" stroke-width="3"/>
-              <rect x="14" y="14" width="192" height="272" rx="7" fill="none" stroke="#9FB0C0" stroke-width="1.5" stroke-dasharray="4 4"/>
-              <rect x="24" y="26" width="172" height="58" rx="4" fill="#F7F2DE" stroke="#15263A" stroke-width="2"/>
+              <!-- LITERALS, AND THEY HAVE TO BE. These are SVG presentation
+                   attributes, and var() is not honoured in one: a fill of
+                   var(--ink) written as an attribute is not a fallback to
+                   something, it paints nothing. NO BACKTICKS IN HERE EITHER:
+                   this block sits inside a JS template literal and one backtick
+                   ends the string, which is how this comment broke the build
+                   the first time it was written. So the palette
+                   is transcribed here by hand and this block has to be updated by
+                   hand when the palette moves. The values below are ui.css's
+                   --paper-3, --keyline, a mid grey, --paper, --sky-tint,
+                   --sky-deep and --gold-deep, in that order of appearance.
+                   Before "Black / White / Gold" they were #EDE6CB, #15263A,
+                   #9FB0C0, #F7F2DE, #DCF2FB, #0E6E96 and #D9482B. -->
+              <rect x="6" y="6" width="208" height="288" rx="10" fill="#E6E4DD" stroke="#111111" stroke-width="3"/>
+              <rect x="14" y="14" width="192" height="272" rx="7" fill="none" stroke="#767676" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <rect x="24" y="26" width="172" height="58" rx="4" fill="#F4F3EF" stroke="#111111" stroke-width="2"/>
               <!-- All the small type in here was #5A6150, the olive meant for the
                    cream page. On the slab's own fills it measured 2.79:1 (CARD NAME
                    & SET), 3.11:1 (the sealed-edge line) and 4.10:1 (GRADE), all under
-                   the 4.5:1 AA needs. #15263A is the ink already used for MINT 10 in
-                   the same diagram and measures 7.4:1 on the worst of these fills.
+                   the 4.5:1 AA needs. The palette moved to greys since, so the figure below is the old one:
+                   #111111 is the ink already used for MINT 10 in the same diagram
+                   and measures 14.84:1 on the worst of these fills now.
                    The 7px labels also go to 8px: the viewBox is 220 wide and renders
                    at 132px, so 7px in the box is about 4.2 real pixels. -->
-              <text x="34" y="46" font-family="monospace" font-size="9" fill="#15263A">CARD NAME &amp; SET</text>
-              <text x="34" y="72" font-family="monospace" font-size="22" font-weight="bold" fill="#15263A">MINT 10</text>
-              <text x="150" y="72" font-family="monospace" font-size="8" fill="#15263A">GRADE</text>
-              <text x="34" y="83" font-family="monospace" font-size="8" fill="#15263A">CERT 000000000</text>
-              <rect x="34" y="96" width="152" height="176" rx="4" fill="#DCF2FB" stroke="#0E6E96" stroke-width="2"/>
-              <text x="110" y="190" font-family="monospace" font-size="9" fill="#0E6E96" text-anchor="middle">the card, sealed inside</text>
-              <path d="M6 150 L14 150 M206 150 L214 150" stroke="#D9482B" stroke-width="3"/>
-              <text x="110" y="292" font-family="monospace" font-size="8" fill="#15263A" text-anchor="middle">sealed edge: opening it voids the grade</text>
+              <text x="34" y="46" font-family="monospace" font-size="9" fill="#111111">CARD NAME &amp; SET</text>
+              <text x="34" y="72" font-family="monospace" font-size="22" font-weight="bold" fill="#111111">MINT 10</text>
+              <text x="150" y="72" font-family="monospace" font-size="8" fill="#111111">GRADE</text>
+              <text x="34" y="83" font-family="monospace" font-size="8" fill="#111111">CERT 000000000</text>
+              <rect x="34" y="96" width="152" height="176" rx="4" fill="#F1EFE8" stroke="#5B5B5B" stroke-width="2"/>
+              <text x="110" y="190" font-family="monospace" font-size="9" fill="#5B5B5B" text-anchor="middle">the card, sealed inside</text>
+              <path d="M6 150 L14 150 M206 150 L214 150" stroke="#6E5000" stroke-width="3"/>
+              <text x="110" y="292" font-family="monospace" font-size="8" fill="#111111" text-anchor="middle">sealed edge: opening it voids the grade</text>
             </svg>
             <figcaption>A schematic, not a photo of a real slab</figcaption>
           </figure>`;
@@ -794,7 +808,7 @@ const html = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#15263A">
+<meta name="theme-color" content="#111111">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:title" content="Pokemon Card Rarity Symbols, Explained With Real Cards">

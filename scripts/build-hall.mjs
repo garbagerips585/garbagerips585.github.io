@@ -342,11 +342,11 @@ const style = `
    exhibits picked out of it, and because foil reads as foil against near-black
    in a way it never does on cream.
    -------------------------------------------------------------------------- */
-.chofpage{background:var(--ink);color:#F4F1E2;padding:var(--s7) 0 var(--s8);
+.chofpage{background:var(--ink);color:var(--chrome-ink);padding:var(--s7) 0 var(--s8);
   background-image:radial-gradient(120% 70% at 50% 0%, rgba(224,162,31,.16), transparent 60%)}
 .chof-head{text-align:center;max-width:44em;margin:0 auto var(--s6)}
 .chof-head h1{font:400 clamp(2rem,6vw,3.1rem)/1.05 var(--display);color:var(--mustard)}
-.chof-head p{color:#B9C6D2;margin-top:var(--s3)}
+.chof-head p{color:var(--foot-ink);margin-top:var(--s3)}
 .chof-tally{display:flex;justify-content:center;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s5)}
 .chof-tally div{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);
   border-radius:var(--r);padding:var(--s3) var(--s5);min-width:132px}
@@ -397,10 +397,10 @@ const style = `
 .chof-prices dt i{font-style:normal;font-weight:400;color:#ACBBC8}
 .chof-prices dt{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;color:#B3C2CF;
   text-transform:uppercase}
-.chof-prices dd{font:700 var(--t-m)/1.2 var(--body);color:#F4F1E2}
+.chof-prices dd{font:700 var(--t-m)/1.2 var(--body);color:var(--chrome-ink)}
 .chof-prices .psa dd{color:var(--mustard)}
 .chof-pulled{margin-top:var(--s2)}
-.chof-empty{text-align:center;color:#B9C6D2;background:rgba(255,255,255,.05);
+.chof-empty{text-align:center;color:var(--foot-ink);background:rgba(255,255,255,.05);
   border:1px dashed rgba(255,255,255,.2);border-radius:14px;padding:var(--s7) var(--s5)}
 .chof-note{font:700 var(--t-micro)/1.7 var(--mono);color:#B3C2CF;text-align:center;
   margin-top:var(--s7);max-width:52em;margin-inline:auto}
@@ -411,7 +411,7 @@ const style = `
 .lb.on{display:grid}
 .lb-in{max-width:520px;width:100%;text-align:center}
 .lb-in img{width:100%;max-height:76vh;object-fit:contain;border-radius:10px}
-.lb-in h2{font:400 1.4rem/1.2 var(--display);color:#F4F1E2;margin-top:var(--s4)}
+.lb-in h2{font:400 1.4rem/1.2 var(--display);color:var(--chrome-ink);margin-top:var(--s4)}
 .lb-in p{font:700 var(--t-sm)/1.6 var(--mono);color:#B3C2CF}
 .lb-in .lb-pr{color:var(--mustard);font-size:var(--t-m)}
 .lb-close{position:absolute;top:var(--s4);right:var(--s4);width:44px;height:44px;

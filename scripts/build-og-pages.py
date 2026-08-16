@@ -45,6 +45,14 @@ PAGES = {
     # link is handing it to a person who opens packs and has never played, and
     # the headline is the page's own H1 because that is the text being clicked.
     "how-to-play": ("NEVER PLAYED A GAME?", "How do you actually play?", "Setup, a turn, and the three ways to win"),
+    # The two free official apps. Both headlines are the pages' own H1 questions,
+    # per the note above, and both kickers name the reader's situation rather
+    # than the app: somebody sharing the first one is handing it to a person with
+    # a pile of code cards, and the second to a person deciding whether an app
+    # can teach them the game. The app names live in the answer line, which is
+    # where somebody scanning for "TCG Live" or "Pocket" will still find them.
+    "tcg-live": ("EVERY PACK HAS ONE", "What is the code card?", "Pokemon TCG Live, and what the code really gets you"),
+    "tcg-pocket": ("FREE, ON YOUR PHONE", "Can you learn from an app?", "What Pokemon TCG Pocket teaches you, and what it does not"),
     "cards": ("CARD POKEDEX", "Card search", "Every card we cover, and what it is worth today"),
     "pokemon": ("CARD POKEDEX", "By Pokemon", "Every Charizard, every Umbreon, priced"),
     "fake-cards": ("DON'T GET DONE", "Real or fake?", "Eight checks, and how much each one really proves"),

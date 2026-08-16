@@ -788,13 +788,19 @@ const ld = [
 
 const style = `
 .hp-lede{max-width:44em}
-.hp-key{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:#F4F1E2;
+.hp-key{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:var(--chrome-ink);
   padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
-.hp-key h2{color:#F4F1E2;margin-bottom:var(--s3)}
-.hp-key ol{margin:0 0 0 var(--s4);color:#DDE6EC;line-height:1.6;max-width:44em}
+.hp-key h2{color:var(--chrome-ink);margin-bottom:var(--s3)}
+.hp-key ol{margin:0 0 0 var(--s4);color:var(--foot-ink);line-height:1.6;max-width:44em}
 .hp-key li{margin-bottom:var(--s3)}
 .hp-key b{color:var(--mustard)}
 .hp-key a{color:var(--mustard)}
+/* The code card line sits INSIDE the navy box, so it needs its own colour: the
+   box sets #F4F1E2 on itself but the list gets #DDE6EC, and a bare <p> would
+   inherit the brighter one and read as another heading. Separated by a hairline
+   rather than a margin so it is clearly an aside to the four points above it. */
+.hp-code{color:var(--foot-ink);line-height:1.6;max-width:44em;font-size:var(--t-sm);
+  margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid rgba(244,241,226,.22)}
 
 /* The illustrated list. One column on a phone, because the whole point is the
    pack number and the picture sitting on one line where they can be compared
@@ -910,7 +916,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>
@@ -966,6 +972,13 @@ ${MENU}
           Energy. Its pack <em>counts</em> are normal, so cost per pack still works, which is why this page does cost per
           pack and never cost per card.</li>
       </ol>
+      ${/* ONE SENTENCE AND A LINK, not a banner. Everybody reading this page is
+            counting packs, and there is a card in every one of those packs this
+            page never mentions. Deliberately carries NO NUMBER: /tcg-live.html
+            holds the counted figure, and one number in one place is how the two
+            pages stay agreed. */ ""}
+      <p class="hp-code">Every one of those packs holds one more card that is not a Pokemon card, and it is the
+        only one nobody keeps. <a href="/tcg-live.html">What the code card actually gets you.</a></p>
     </div>
   </div>
 </section>

@@ -166,7 +166,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
@@ -213,9 +213,19 @@ ${MENU}
           first. It sits outside the numbered list on purpose, because the list
           is Tim's six in his order and renumbering it to seven would change what
           the page claims about itself. */ ""}
+    ${/* THE TWO APPS GET ONE SENTENCE BETWEEN THEM, not one each. This paragraph
+          is already the overflow for everything the six numbered questions do not
+          cover, and giving Live and Pocket a sentence apiece would turn it into a
+          second list competing with the real one. Named as a pair, in the order
+          somebody meets them, with a link to each page and no argument about
+          which to install: that argument is on both of those pages and it is a
+          table. */ ""}
     <p class="lede" style="max-width:44em;margin-top:var(--s5)">One question that is not on that list, because it
       is not about a card at all: <a href="/how-to-play.html">how do you actually play?</a> Two players, 60 cards
-      each, and three ways to win. The short version, for somebody who has never seen a game.</p>
+      each, and three ways to win. The short version, for somebody who has never seen a game. There are also two
+      free official apps, and they are not the same thing:
+      <a href="/tcg-live.html">Pokemon TCG Live</a>, which is where the code card in every pack goes, and
+      <a href="/tcg-pocket.html">Pokemon TCG Pocket</a>, the quick one on your phone.</p>
   </div>
 </section>
 

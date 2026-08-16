@@ -251,10 +251,10 @@ const style = `
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
   text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
 .tp-jump a:hover{border-color:var(--ink);background:var(--mustard)}
-.tp-shout{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:#F4F1E2;
+.tp-shout{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:var(--chrome-ink);
   padding:var(--s4) var(--s5);margin:var(--s4) 0;box-shadow:var(--hard-lg);max-width:44em}
-.tp-shout p{font:400 var(--t-m)/1.3 var(--display);color:#F4F1E2}
-.tp-shout span{display:block;margin-top:var(--s3);font-size:var(--t-sm);color:#DDE6EC;line-height:1.5}
+.tp-shout p{font:400 var(--t-m)/1.3 var(--display);color:var(--chrome-ink)}
+.tp-shout span{display:block;margin-top:var(--s3);font-size:var(--t-sm);color:var(--foot-ink);line-height:1.5}
 .tp-go{list-style:none;margin:var(--s4) 0 0;padding:0;max-width:44em}
 .tp-go li{border-left:4px solid var(--gold);padding-left:var(--s3);margin-bottom:var(--s4);line-height:1.55}
 .tp-go b{display:block;font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;
@@ -264,7 +264,7 @@ const style = `
 .tp-steps li{counter-increment:tp;position:relative;padding-left:38px;margin-bottom:var(--s3);line-height:1.55}
 .tp-steps li::before{content:counter(tp);position:absolute;left:0;top:0;width:26px;height:26px;
   display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--navy);
-  color:#F4F1E2;font:700 var(--t-micro)/1 var(--mono)}
+  color:var(--chrome-ink);font:700 var(--t-micro)/1 var(--mono)}
 .tp-fig{margin:var(--s4) 0 0;max-width:44em}
 .tp-fig figcaption{margin-top:var(--s2);font-size:var(--t-micro);color:var(--ink-2);line-height:1.5}
 .tb{width:100%;height:auto;display:block;background:var(--paper-2);border-radius:8px;padding:6px 0}
@@ -535,7 +535,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>

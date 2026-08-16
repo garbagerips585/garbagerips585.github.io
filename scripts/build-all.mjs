@@ -99,6 +99,18 @@ const STEPS = [
   // build on an indexable page missing from its PAGES list, and before
   // build-pages.mjs, which puts it in the sitemap.
   "node scripts/build-how-to-play.mjs",
+  // The two free official apps, in the order a beginner meets them: the rules
+  // page above recommends Live, Live is the one that takes the code card out of
+  // every pack, and Pocket is the casual phone one that has nothing to do with
+  // it. Both read their own research file plus shared/app-compare.mjs, which
+  // holds the comparison table they BOTH print, so neither builder owns that
+  // wording and the two pages cannot drift. Pocket also reads
+  // data/how-to-play.json for every physical-game number it quotes, for the same
+  // reason. Ordering constraints are the usual two: before build-search.mjs,
+  // which fails the build on an indexable page missing from its PAGES list, and
+  // before build-pages.mjs, which puts them in the sitemap.
+  "node scripts/build-tcg-live.mjs",
+  "node scripts/build-tcg-pocket.mjs",
   // Before build-search, which indexes these pages, and before build-pages,
   // which puts them in the sitemap. It also stamps `path` onto
   // public/data/playlists.json, which the browser reads.

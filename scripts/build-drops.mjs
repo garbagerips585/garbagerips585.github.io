@@ -157,7 +157,7 @@ const style = `
 .dr-f{flex:none;font:700 var(--t-label)/1 var(--body);letter-spacing:.02em;padding:10px 14px;
   min-height:44px;display:inline-flex;align-items:center;border:2px solid var(--navy);
   border-radius:999px;background:var(--card);color:var(--ink);cursor:pointer}
-.dr-f[aria-pressed="true"]{background:var(--navy);color:#F4F1E2}
+.dr-f[aria-pressed="true"]{background:var(--navy);color:var(--chrome-ink)}
 .dr-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
 @media(max-width:820px){.dr-grid{grid-template-columns:1fr}}
 .drop{border:3px solid var(--navy);border-radius:12px;background:var(--card);
@@ -204,7 +204,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1E3A54">
+<meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>

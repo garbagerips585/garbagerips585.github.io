@@ -22,6 +22,8 @@
 // about what was opened. Callers fall back to the real title, and the 41
 // untagged videos are the same 41 that are already noindex for the same reason.
 
+import { labelFor } from "./taxonomy.mjs";
+
 /** Product tag -> how it is written on a tile.
  *
  * EVERY PRODUCT ID IN shared/taxonomy.mjs NEEDS A ROW HERE. The fallback below
@@ -72,7 +74,20 @@ export function ripLabel(v, setName, desc) {
   const prodId = (v.products || [])[0];
   if (!setId || !prodId) return null;
 
-  const set = (setName && setName.get(setId)) || setId;
+  // THE `|| setId` THAT USED TO BE HERE PUT RAW SLUGS ON PUBLIC TILES, TWICE.
+  //
+  // Every caller hands in a Map built from public/data/sets.json, which is only
+  // the sets with a guide page. The first time that showed was 21 videos going
+  // out as "ja-abyss-eye Japanese Pack #9", fixed by layering the taxonomy under
+  // the map in stamp-labels.mjs and nowhere else. The second time was the day
+  // the video log's Set dropdown grew to all 174 English sets: a rip tagged with
+  // a set that has no guide came out as "unbroken-bonds ETB #7" on /videos.html.
+  //
+  // So the fallback is labelFor(), which knows every set the sheet can produce,
+  // and the raw id is now genuinely the last resort it always claimed to be.
+  // The caller's Map still wins, because sets.json is the name the guide pages
+  // print and nothing should disagree with those.
+  const set = (setName && setName.get(setId)) || labelFor("sets", setId);
   let product = PRODUCT_LABEL[prodId] || prodId;
 
   // DO NOT SAY THE LANGUAGE TWICE. Non-English set names already carry their

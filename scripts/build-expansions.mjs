@@ -217,7 +217,12 @@ const style = `
 .xp-copy:hover{transform:translateY(-2px)}
 
 .xp-era{padding:var(--s6) 0}
-.xp-era:nth-of-type(even){background:var(--card-2,rgba(21,38,58,.03))}
+/* A PALETTE HID IN A var() FALLBACK. --card-2 is defined nowhere, so what
+   actually painted these 17 tables was the FALLBACK: rgba(21,38,58,.03), the
+   old navy ink at 3%. A token swap cannot reach that, and a grep for the
+   palette will not find it either, because the value is not a palette colour,
+   it is a palette colour with an alpha on it. Neutral now, same 3%. */
+.xp-era:nth-of-type(even){background:var(--card-2,rgba(17,17,17,.03))}
 .xp-era h2{font:400 var(--t-xl)/1.1 var(--display);margin-bottom:var(--s2)}
 .xp-count{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);letter-spacing:.08em;
   text-transform:uppercase;vertical-align:middle;margin-left:8px}
@@ -372,7 +377,7 @@ const html = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#15263A">
+<meta name="theme-color" content="#111111">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:title" content="Every Pokemon TCG Set in Order">
