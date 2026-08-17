@@ -231,6 +231,205 @@ const prot = (p) => {
 };
 
 const nSourced = venues.filter((v) => v.status === "sourced").length;
+
+// ============================================================================
+// THE TAKE-HOME CHART, and it exists because the page cannot say the thing it
+// knows.
+//
+// FOURTEEN VENUE CARDS EACH STATE THEIR OWN RATE AND NOTHING PUTS THEM SIDE BY
+// SIDE. A reader who wants to know whether Whatnot's 8% actually beats eBay's
+// 13.25% has to hold four numbers in their head across four screens of scrolling
+// and then do the arithmetic. That is not a job for prose, and the page never
+// even attempts it: no sentence anywhere ranks the venues by what they take.
+//
+// AND THE ANSWER IS NOT THE ONE THE HEADLINE RATES GIVE, which is the whole
+// reason this is worth drawing rather than writing. Ranked by headline
+// commission the order is Whatnot 8, Mercari 10, TCGplayer 10.75, eBay 13.25.
+// Ranked by what actually leaves your hands on a $100 sale it is Mercari,
+// Whatnot, TCGplayer, eBay, and TCGplayer lands within ten cents of eBay
+// because its 2.5% + $0.30 transaction fee sits on top of the commission while
+// eBay's final value fee already includes payment processing. Two of the four
+// change places. A stacked bar shows exactly where the second layer comes from
+// and a paragraph cannot.
+//
+// EVERY NUMBER IS PARSED OUT OF THE FEE LINE IT IS DRAWN FROM, never typed in
+// beside it, and the build throws rather than shipping a chart that disagrees
+// with the card above it. Same discipline as the postage chart on /buying.html.
+// THE ZEROES ARE ASSERTED TOO, not assumed: "eBay charges no separate payment
+// processing" is a claim this chart depends on completely, so if that line ever
+// stops saying so the build stops as well.
+//
+// WHAT THE BARS DELIBERATELY DO NOT COVER is in the caption, because a chart
+// this simple about money is dishonest without the boundary written on it:
+// store subscriptions, insertion fees, dispute fees, payout fees, seller-level
+// discounts and anything charged on shipping or tax are all real and all
+// excluded. The venue cards above carry them.
+const SALE = 100;
+const feeOf = (id, whatRe) => {
+  const v = venues.find((x) => x.id === id);
+  if (!v) throw new Error(`build-selling: the take-home chart needs venue "${id}" and data/selling.json has no such id.`);
+  const f = (v.fees || []).find((x) => whatRe.test(x.what));
+  if (!f) {
+    throw new Error(
+      `build-selling: the take-home chart needs the fee on "${id}" whose label matches ${whatRe}, and no fee ` +
+        `on that venue has one. Labels present: ${(v.fees || []).map((x) => JSON.stringify(x.what)).join(", ")}.`
+    );
+  }
+  return f;
+};
+// Pull one number out of a rate line, or stop the build and say which sentence
+// moved. The message names the venue, the label, the pattern and the text that
+// is there now, because the person reading it is not the person who wrote it.
+const rateNum = (id, whatRe, rateRe, what, group = 1) => {
+  const f = feeOf(id, whatRe);
+  const m = rateRe.exec(f.rate);
+  if (!m) {
+    throw new Error(
+      `build-selling: the take-home chart reads ${what} off "${f.what}" on ${id} in data/selling.json, and that ` +
+        `rate no longer matches ${rateRe}. It now reads: ${JSON.stringify(f.rate)}. Do not ship a chart whose ` +
+        `numbers are not the ones printed beside it: restore the line, or update the regex and the chart together.`
+    );
+  }
+  const n = Number(m[group]);
+  if (!(n >= 0)) throw new Error(`build-selling: ${what} on ${id} parsed to ${m[group]}, which is not a number.`);
+  return n;
+};
+// A zero this chart leans on has to be checked, not believed. Every bar with no
+// processing layer is a bar making a claim.
+const assertRate = (id, whatRe, rateRe, why) => {
+  const f = feeOf(id, whatRe);
+  if (!rateRe.test(f.rate)) {
+    throw new Error(
+      `build-selling: the take-home chart draws no processing layer for ${id} because ${why}, and "${f.what}" ` +
+        `no longer says so. It now reads: ${JSON.stringify(f.rate)}. The bar would be understating what the ` +
+        `venue takes, so the build stops here.`
+    );
+  }
+};
+
+assertRate("ebay", /^Payment processing$/, /^None charged separately/i, "its final value fee already includes payment processing");
+assertRate("mercari", /^Payment processing fee$/, /^None charged to the seller/i, "Mercari charges the seller none");
+assertRate("local-shop", /^Commission, payment processing, listing, shipping, payout fee$/, /^\$0$/, "a shop charges a seller nothing");
+
+const CUTS = [
+  {
+    id: "ebay",
+    name: "eBay",
+    note: "no Store subscription",
+    pct: rateNum("ebay", /^Final value fee, Toys/, /^([\d.]+)% up to \$7,500 per item/, "eBay's final value fee"),
+    // The per order fee is a flat charge rather than a rate, so it is the whole
+    // of the second layer here and is drawn as such.
+    flat: rateNum("ebay", /^Per order fee$/, /\$([\d.]+) on orders over \$10\.00/, "eBay's per order fee"),
+    procPct: 0,
+    layer2: "per order fee",
+  },
+  {
+    id: "tcgplayer",
+    name: "TCGplayer",
+    note: "Marketplace Seller",
+    pct: rateNum("tcgplayer", /^Marketplace commission, Marketplace Seller/, /^([\d.]+)%/, "TCGplayer's marketplace commission"),
+    procPct: rateNum("tcgplayer", /^Transaction fee$/, /^([\d.]+)% \+ \$([\d.]+)/, "TCGplayer's transaction fee rate"),
+    flat: rateNum("tcgplayer", /^Transaction fee$/, /^([\d.]+)% \+ \$([\d.]+)/, "TCGplayer's transaction fee minimum", 2),
+    layer2: "transaction fee",
+  },
+  {
+    id: "whatnot",
+    name: "Whatnot",
+    note: "TCG category, US",
+    pct: rateNum("whatnot", /^Commission, TCG category/, /^([\d.]+)% on the final sale price/, "Whatnot's TCG commission"),
+    procPct: rateNum("whatnot", /^Payment processing fee$/, /^([\d.]+)% \+ \$([\d.]+) per transaction/, "Whatnot's payment processing rate"),
+    flat: rateNum("whatnot", /^Payment processing fee$/, /^([\d.]+)% \+ \$([\d.]+) per transaction/, "Whatnot's per transaction charge", 2),
+    layer2: "payment processing",
+  },
+  {
+    id: "mercari",
+    name: "Mercari",
+    note: "seller side",
+    pct: rateNum("mercari", /^Selling fee$/, /^([\d.]+)%/, "Mercari's selling fee"),
+    procPct: 0,
+    flat: 0,
+    layer2: "",
+  },
+].map((c) => {
+  const a = +((SALE * c.pct) / 100).toFixed(2);
+  const b = +((SALE * (c.procPct || 0)) / 100 + (c.flat || 0)).toFixed(2);
+  return { ...c, a, b, total: +(a + b).toFixed(2) };
+});
+CUTS.sort((x, y) => y.total - x.total);
+
+/**
+ * One $100 sale, four platforms, two layers each.
+ *
+ * HTML ROWS AND NOT AN SVG, so each row can carry the company's own mark in the
+ * same .bmk box the venue cards use. That was the owner's request for these two
+ * pages and a chart of five named companies is where it pays most: a reader
+ * scrolling for the venue they sell on finds a logo faster than a word. Reaching
+ * a mark from inside an SVG means an <image href> per row, which is a request
+ * each, not lazy, and outside the box every other mark on the page sits in.
+ *
+ * THE NUMBER IS TEXT AND THE BAR IS DECORATIVE. Every row prints its own total
+ * next to its own name, so the figure still works with the bars removed and for
+ * a reader who never sees them.
+ *
+ * THE ZERO ROW IS DRAWN AND NOT OMITTED. A bar of length nothing is the page's
+ * own conclusion, which is that the in person sale is the one with no platform
+ * in it, and leaving it out would make the chart argue for whichever
+ * marketplace is shortest. It carries the hatch this site uses everywhere else
+ * for "there is no picture of this", because the cost of selling to a shop is
+ * the price they offer and no shop publishes that.
+ */
+const takeChart = () => {
+  const MAX = Math.max(...CUTS.map((c) => c.total));
+  const usd = (n) => `$${n.toFixed(2)}`;
+  const pc = (v) => +((v / MAX) * 100).toFixed(1);
+  // The name tile is dropped in a chart row and only here: the name is printed
+  // an inch to the right already, so a tile repeating it is the word twice.
+  const mark = (id, label) => {
+    const m = brandMark(id, label);
+    return m.includes("bmk-n") ? "" : m;
+  };
+  const rows = CUTS.map((c) => `          <li>
+            <span class="bch-h">${mark(c.id, c.name)}<span class="bch-n">${esc(c.name)} <span class="bch-s">${esc(c.note)}</span></span><b class="bch-v">${usd(c.total)}</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b tk-a" style="width:${pc(c.a)}%"></span>${
+              c.b ? `<span class="bch-b tk-b" style="width:${pc(c.b)}%"></span>` : ""
+            }</span>
+          </li>`);
+  rows.push(`          <li>
+            <span class="bch-h">${brandMark("local-shop", "A shop or a show")}<span class="bch-n">A shop or a show <span class="bch-s">cash, in person</span></span><b class="bch-v">$0.00</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b tk-z" style="width:14%"></span></span>
+          </li>`);
+  return `      <figure class="pg pg-tk">
+        <ul class="bch">
+${rows.join("\n")}
+        </ul>
+        <figcaption>One $100 card, sold at a fixed price, with no shipping charged to the buyer and no sales tax.
+          The dark part of each bar is the platform's commission and the gold part is what it charges on top:
+          ${CUTS.filter((c) => c.b).map((c) => `${esc(c.name)}'s ${esc(c.layer2)}`).join(", ")}. eBay has no gold layer
+          for processing because its final value fee already includes it, and Mercari charges a seller none. That is
+          why the lowest headline rate is not the cheapest place to sell: Whatnot's ${esc(
+            String(CUTS.find((c) => c.id === "whatnot").pct)
+          )}% ends up above
+          Mercari's ${esc(String(CUTS.find((c) => c.id === "mercari").pct))}%, and TCGplayer's ${esc(
+            String(CUTS.find((c) => c.id === "tcgplayer").pct)
+          )}% lands within
+          ${esc(
+            (() => {
+              const d = Math.abs(CUTS.find((c) => c.id === "ebay").total - CUTS.find((c) => c.id === "tcgplayer").total);
+              return `${Math.round(d * 100)} cents`;
+            })()
+          )} of eBay's ${esc(String(CUTS.find((c) => c.id === "ebay").pct))}%.
+          <b>The hatched bar is not a recommendation.</b> A shop or a show charges a seller no platform fee, which is
+          why there is nothing to draw, and the cost there is the price they offer you instead. No shop publishes
+          that, so it is hatched the way this site hatches everything it has no picture of rather than drawn as a
+          win.
+          <b>What these bars leave out.</b> Store subscriptions, insertion fees, dispute fees, payout and cash-out
+          fees, seller-level discounts, and anything charged on shipping or tax you collect. Every one of those is on
+          the venue's own card below. Figures read from each company's own fee page${
+            money.checked ? ` on ${esc(longDate(money.checked))}` : ""
+          }.</figcaption>
+      </figure>`;
+};
+
 const desc = `Where to sell Pokemon cards and what each place takes. Fees read off each company's own page, plus who protects a seller and who does not.`;
 
 // COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same trade
@@ -247,6 +446,51 @@ const miniCSS = (css) =>
 
 const style = `
 .se-lede{max-width:46em}
+/* THE TAKE-HOME CHART. The svg is capped at 520px rather than filling the
+   panel, because its text is in viewBox units: the viewBox is 340 wide, which
+   is what this panel gets inside a 390px phone, so a 12 unit label is about
+   12px there and grows from that. Uncapped at 1440 the same labels rendered at
+   30px, which reads as a poster rather than as a figure. The rules are a near
+   copy of .pg on /buying.html and that is deliberate: the two pages are one
+   page asked in both directions, and a shared module for twelve declarations
+   would mean editing shared/ while other passes are live in it. */
+.pg{margin:var(--s4) 0 var(--s5);border:3px solid var(--navy);border-radius:12px;background:var(--card);
+  box-shadow:var(--hard-lg);padding:var(--s4)}
+/* THE BAR ROWS. HTML rather than SVG so each row carries the company's own mark
+   in the same .bmk box the venue cards use. THE TRACK IS ON ITS OWN LINE UNDER
+   THE NAME rather than in a column beside it: at 390px a three column row
+   leaves the track about 150px wide next to the mark box, and a difference of
+   $3.65 between two bars is not a picture at that length. Full width tracks
+   also put every bar on the same baseline and the same scale, which is the only
+   thing that makes them comparable. */
+.bch{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s3)}
+.bch li{display:flex;flex-direction:column;gap:5px}
+.bch-h{display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap}
+.bch-n{font:700 var(--t-sm)/1.2 var(--body);color:var(--ink)}
+.bch-s{font:400 var(--t-micro)/1.2 var(--mono);color:var(--ink-2)}
+.bch-v{margin-left:auto;font:700 var(--t-sm)/1 var(--mono);color:var(--ketchup-deep);white-space:nowrap}
+.bch-t{display:flex;height:12px;border-radius:3px;background:var(--paper-2);overflow:hidden;
+  box-shadow:inset 0 0 0 1px var(--hair)}
+.bch-b{display:block;height:100%;min-width:3px}
+/* The mark box shrinks in a chart row: at the venue card's 124px cap a column
+   of five logos reads as a logo wall with a chart hiding behind it. */
+.bch .bmk{height:30px;min-width:52px;max-width:112px;padding:3px 7px}
+/* Two layers, not two hues. The dark block is the commission and the gold block
+   is whatever is charged on top of it, which is the only distinction the chart
+   is making, so it is made with the palette's own ink and gold rather than with
+   a second colour the site does not otherwise use. The caption names both
+   layers in words, so the fill is never carrying the meaning alone. */
+.tk-a{background:var(--ink);border-radius:3px 0 0 3px}
+.tk-b{background:var(--gold)}
+.bch-b:only-child{border-radius:3px}
+/* THE SITE'S OWN NO-ART HATCH, the same 45 degree one .bmk-n uses for a venue
+   with no mark. Here it means the opposite of a missing figure and the same
+   thing mechanically: there is no platform fee to draw, and the real cost is a
+   buy price nobody publishes. */
+.tk-z{background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px);
+  box-shadow:inset 0 0 0 1px var(--ink-2)}
+.pg figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s4);max-width:52ch}
+.pg figcaption b{color:var(--ink);display:block;margin-top:var(--s3)}
 .se-jump{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:var(--s5) 0 var(--s4)}
 .se-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
@@ -351,8 +595,10 @@ ${BRAND_STYLE}
   .se-grp > p{max-width:50ch}
   .se-key p{max-width:50ch}
   /* The sourcing lines, 11px and uncapped, ran the full band. Same fault and
-     the same cap as .by-src on /buying.html. */
-  .se-src{max-width:64ch}
+     the same cap as .by-src on /buying.html, and the same correction: 64ch was
+     measured setting 92 REAL characters, because one ch is about 1.5 of them at
+     this size. 56ch lands on 81. */
+  .se-src{max-width:56ch}
 }
 /* The venue nav moves beside the opening paragraphs. Capping the ledes to 50ch
    is right for the reader and on its own it made the top of the page look
@@ -369,10 +615,43 @@ ${BRAND_STYLE}
   .se-key{display:grid;grid-template-columns:300px minmax(0,1fr);
     gap:var(--s5);align-items:start}
   .se-key > h2{margin-bottom:0}
+  /* The figure goes two column, bars left and caption beside them. Filling the
+     1,392px wrap stretched every track to 1,340px and put the dollar figure
+     1,300px from the name it belongs to, with a 45ch caption underneath and
+     roughly 950px of empty panel next to it. Same fix and the same reasoning as
+     /buying.html, where it is written out. */
+  .pg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);
+    gap:var(--s4) var(--s5);align-items:start}
+  .pg > figcaption{grid-column:2;grid-row:1/-1;margin-top:0}
+  .pg > :not(figcaption){grid-column:1}
+  .pg > figcaption{max-width:45ch}
 }
 @media(min-width:1200px){
   .se-list{columns:2;column-gap:var(--s6);max-width:none}
   .se-list li{break-inside:avoid}
+  /* THE CARD GRIDS GO TO THREE, overturning the note above that .se-vs is a
+     type-size question rather than a column-width one. It is a column-width
+     one: the 81.5 characters that block quotes was not a count of characters,
+     and walking every text node with a Range on 16 August 2026 put the prose
+     inside these cards at 101 to 107 real characters a line at 1440, in a
+     650px column. The argument and the numbers are written out at length on
+     /buying.html. Measured here, 1440x900, median real characters a line:
+     .se-prot 104 to 65, .se-pay 102 to 64, .se-acc 102 to 64, .se-fees li 66
+     with a 140 maximum to 61 with a 92 maximum, and the whole page 92 to 66.
+     Page height 15,781px to 15,380px, which is nearly flat and is the expected
+     trade: three columns make each card taller and the rows fewer. Nothing
+     below 1200 moves, and 390x844 re-measures identical. */
+  /* align-items:start goes with the third column and is caused by it: a row is
+     as tall as its tallest card and a grid item stretches to it, so three a row
+     paints bigger voids than two did. Costs no page height, because the row is
+     the tall card's height either way. Argued at length on /buying.html. */
+  .se-vs,.se-ps{grid-template-columns:repeat(3,1fr);align-items:start}
+  /* The blocks the column count could not reach, same three as /buying.html and
+     the same measurements: .se-list set 86 characters in a 672px column of the
+     full band, .se-src was capped at 64ch and measured 82 REAL characters, and
+     the figure caption was capped at 52ch and measured 84. ch is not a
+     character and at this size one is running about 1.5 of them. */
+  .se-list{max-width:1100px}
 }
 `;
 
@@ -455,6 +734,14 @@ ${GROUPS.map((g) => {
         ${(safe.framing.why || []).map((w) => `<p>${esc(w)}</p>`).join("\n        ")}
         </div>
       </div>
+
+      <section class="se-grp">
+        <h2>What a $100 sale actually <span class="hl">costs</span></h2>
+        <p>Every venue below states its own rate on its own card, and nothing on this page puts them next to each
+          other. Here they are next to each other, on the same sale, so the ranking is visible before you read
+          fourteen of them. The order is not the order the headline percentages give.</p>
+${takeChart()}
+      </section>
 ${(() => {
   // NOTHING ANYWHERE CHECKED THAT EVERY VENUE ACTUALLY REACHED THE PAGE. The
   // section loop filters by group, so a venue in no matching section is simply

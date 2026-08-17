@@ -363,7 +363,12 @@ function idStrip(p, vids) {
           <img class="plid-shot" src="${esc(prod.thumb)}" srcset="${esc(prod.thumb)} 200w, ${esc(prod.image)} 1000w"
                sizes="84px" alt="${esc(prod.name)}" decoding="async"${imgDims(prod.thumb)} referrerpolicy="no-referrer">
           <span>Opened here: the <b>${esc(prod.name)}</b>${
-            prod.blurb ? `, ${esc(prod.blurb)}` : ""
+            // The blurb is written to stand alone on the set guides, where it is
+            // its own line, so it arrives sentence-cased: "One pack", "36 packs".
+            // Here it is a clause, and "the Pitch Black Booster Pack, One pack"
+            // reads like two sentences collided. Lowercased only when the first
+            // word is ordinary capitalised English, so an acronym is left alone.
+            prod.blurb ? `, ${esc(/^[A-Z][a-z]/.test(prod.blurb) ? prod.blurb[0].toLowerCase() + prod.blurb.slice(1) : prod.blurb)}` : ""
           }.<br><small>Photo: TCGplayer.</small></span>
         </div>` : ""}
       </div>`;

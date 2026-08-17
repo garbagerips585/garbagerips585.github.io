@@ -25,14 +25,22 @@
   "in this game' count, so this file does not state one. Only 26 of the 160",
   "have a PokeAPI version group at all; the rest carry pokedex: null.",
   "",
-  "A MISSING METASCORE IS NOT A ZERO. 74 of the 160 titles here have no",
-  "Metacritic entry and 19 more have a page with no aggregate score, and",
+  "A MISSING METASCORE IS NOT A ZERO. 81 of the 160 titles here have no",
+  "Metacritic entry and 11 more have a page with no aggregate score, and",
   "those are two different facts that must not be merged. Pokemon Sapphire",
   "has no score while Pokemon Ruby has 82, from the same release, which is",
   "why scores are stored per VERSION and are never copied across a pair.",
   "Read sources.metacritic.note_expansion before quoting 'no Metacritic",
   "entry' for one of the 81 titles added on 2026-08-16: for those it means",
   "a 404 at every address probed, and the addresses are stored.",
+  "",
+  "THOSE TWO NUMBERS WERE 74 AND 19 AND EIGHT TITLES WERE IN THE WRONG ONE.",
+  "Corrected 2026-08-16, see sources.metacritic.note_correction. Every one",
+  "of the 22 records that said 'no Metascore on page' was re-requested; ten",
+  "of them were wrong and the other twelve were confirmed by a 200 with no",
+  "aggregateRating block. Nine of the ten were Game Boy and Game Boy Colour",
+  "titles that 404 at every address, and the tenth was Pokemon TCG Pocket,",
+  "which is not missing a score at all: it has 75.",
   "",
   "COVER ART IS NOT ONE SHAPE. 191 files across 160 titles, aspect ratios",
   "0.617 (a Switch keycase) to 2.081 (a wide mobile logo). Any layout that",
@@ -79,7 +87,9 @@
    "endpoint": "https://www.metacritic.com/game/<slug>/",
    "read": "2026-08-16",
    "robots": "robots.txt for User-agent: * disallows only /search, /signup, /login, /user, /jl/, /8264/ and /7336/. Game pages are not disallowed. Read 2026-08-16.",
-   "note_expansion": "For the 81 titles added on 2026-08-16, the Metacritic page was requested at the address Metacritic derives from a title (lowercase, non-alphanumerics to hyphens), plus a 'pokemon-' prefixed and a '-version' suffixed variant. A 404 at every variant is recorded as 'no Metacritic entry' and the variants tried are stored in 'probed', so the claim is checkable. That is weaker than a search would be, and Metacritic's robots.txt disallows /search, so a search was not performed."
+   "note_expansion": "For the 81 titles added on 2026-08-16, the Metacritic page was requested at the address Metacritic derives from a title (lowercase, non-alphanumerics to hyphens), plus a 'pokemon-' prefixed and a '-version' suffixed variant. A 404 at every variant is recorded as 'no Metacritic entry' and the variants tried are stored in 'probed', so the claim is checkable. That is weaker than a search would be, and Metacritic's robots.txt disallows /search, so a search was not performed.",
+   "note_correction": "TEN RECORDS WERE RE-READ AND CHANGED ON 2026-08-16, and they were changed because data/video-games-PLAN.md disagreed with this file about them. All 22 records that said 'no Metascore on page' were re-requested at https://www.metacritic.com/game/<slug>/ with the status code and the presence of an aggregateRating block recorded. Twelve came back 200 with no aggregateRating and stand unchanged (Sapphire, Stadium, TCG Live, Sleep, Play It, PokeROM, Masters Arena, Team Turbo, Typing Adventure, Camp Pokemon, Playhouse, Smile). Nine came back 404 at every address tried and are now 'no Metacritic entry' with their probes stored: Red, Blue, Yellow, Gold, Silver, Crystal, Pinball, the Game Boy Trading Card Game and Puzzle Challenge. The PLAN was right about those nine and this file was wrong, so the page had been printing 'No Metascore yet' where it should have said 'Not on Metacritic'. THE TENTH IS THE ONE NEITHER FILE HAD RIGHT: Pokemon TCG Pocket has a Metascore of 75 from 9 critic reviews. It was missed because the slug is the abbreviation, pokemon-tcg-pocket, while pokemon-trading-card-game-pocket 404s, and a 404 is exactly what the PLAN recorded as proof of absence. Metacritic's own games sitemap (games.xml, 290 files, fetched in full the same day) is NOT usable as proof of absence either: it omits pokemon-y, pokemon-stadium and pokemon-tcg-pocket, all of which return 200. Only a direct request settles it.",
+   "recheck": "2026-08-16"
   },
   "pokeapi": {
    "what": "Generation, region, count of species introduced per generation, and regional Pokedex entry counts.",
@@ -483,7 +493,13 @@
     {
      "version": "pokemon-yellow-version",
      "metascore": null,
-     "reason": "no Metascore on page"
+     "reason": "no Metacritic entry",
+     "probed": [
+       "pokemon-yellow-version",
+       "pokemon-yellow",
+       "pokemon-yellow-special-pikachu-edition"
+     ],
+     "checked": "2026-08-16"
     }
    ],
    "_first_release": "1998-09-12"
@@ -548,12 +564,28 @@
     {
      "version": "pokemon-red-version",
      "metascore": null,
-     "reason": "no Metascore on page"
+     "reason": "no Metacritic entry",
+     "probed": [
+       "pokemon-red-version",
+       "pokemon-red",
+       "pokemon-red-and-blue",
+       "pokemon-red-blue",
+       "pokemon-red-version-blue-version"
+     ],
+     "checked": "2026-08-16"
     },
     {
      "version": "pokemon-blue-version",
      "metascore": null,
-     "reason": "no Metascore on page"
+     "reason": "no Metacritic entry",
+     "probed": [
+       "pokemon-blue-version",
+       "pokemon-blue",
+       "pokemon-red-and-blue",
+       "pokemon-red-blue",
+       "pokemon-red-version-blue-version"
+     ],
+     "checked": "2026-08-16"
     }
    ],
    "_first_release": "1998-09-28"
@@ -640,7 +672,13 @@
     {
      "version": "pokemon-trading-card-game",
      "metascore": null,
-     "reason": "no Metascore on page"
+     "reason": "no Metacritic entry",
+     "probed": [
+       "pokemon-trading-card-game",
+       "pokemon-tcg",
+       "pokemon-trading-card-game-gbc"
+     ],
+     "checked": "2026-08-16"
     }
    ],
    "_first_release": "1998-12-18"
@@ -810,7 +848,13 @@
     {
      "version": "pokemon-pinball",
      "metascore": null,
-     "reason": "no Metascore on page"
+     "reason": "no Metacritic entry",
+     "probed": [
+       "pokemon-pinball",
+       "pokemon-pinball-gbc",
+       "pokemon-pinball-version"
+     ],
+     "checked": "2026-08-16"
     }
    ],
    "_first_release": "1999-04-14"
@@ -920,12 +964,26 @@
     {
      "version": "pokemon-gold-version",
      "metascore": null,
-     "reason": "no Metascore on page"
+     "reason": "no Metacritic entry",
+     "probed": [
+       "pokemon-gold-version",
+       "pokemon-gold",
+       "pokemon-gold-and-silver",
+       "pokemon-gold-silver"
+     ],
+     "checked": "2026-08-16"
     },
     {
      "version": "pokemon-silver-version",
      "metascore": null,
-     "reason": "no Metascore on page"
+     "reason": "no Metacritic entry",
+     "probed": [
+       "pokemon-silver-version",
+       "pokemon-silver",
+       "pokemon-gold-and-silver",
+       "pokemon-gold-silver"
+     ],
+     "checked": "2026-08-16"
     }
    ],
    "_first_release": "1999-11-21"
@@ -1178,7 +1236,13 @@
     {
      "version": "pokemon-puzzle-challenge",
      "metascore": null,
-     "reason": "no Metascore on page"
+     "reason": "no Metacritic entry",
+     "probed": [
+       "pokemon-puzzle-challenge",
+       "pokemon-puzzle-challenge-gbc",
+       "pokemon-puzzle-challenge-version"
+     ],
+     "checked": "2026-08-16"
     }
    ],
    "_first_release": "2000-09-21"
@@ -1276,7 +1340,13 @@
     {
      "version": "pokemon-crystal-version",
      "metascore": null,
-     "reason": "no Metascore on page"
+     "reason": "no Metacritic entry",
+     "probed": [
+       "pokemon-crystal-version",
+       "pokemon-crystal",
+       "pokemon-crystal-version-gbc"
+     ],
+     "checked": "2026-08-16"
     }
    ],
    "_first_release": "2000-12-14"
@@ -7601,9 +7671,15 @@
    "pokedex": null,
    "metacritic": [
     {
-     "version": "pokemon-trading-card-game-pocket",
-     "metascore": null,
-     "reason": "no Metascore on page"
+     "version": "pokemon-tcg-pocket",
+     "metascore": 75,
+     "critic_reviews": 9,
+     "platform": [
+       "iOS (iPhone/iPad)"
+     ],
+     "url": "https://www.metacritic.com/game/pokemon-tcg-pocket/",
+     "checked": "2026-08-16",
+     "note": "THE SLUG IS THE ABBREVIATION, NOT THE TITLE. pokemon-trading-card-game-pocket, which is what the title derives, 404s. This record shipped as 'no Metascore on page' until 2026-08-16, which put 'No Metascore yet' on the page for a game that has a Metascore."
     }
    ],
    "_first_release": "2024-10-30"

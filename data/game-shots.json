@@ -1,0 +1,40 @@
+{
+  "_readme": [
+    "Screenshots of the four browser games, for the cards on /games/.",
+    "Written by scripts/sync-game-shots.mjs. Do not hand-edit: `w` and `h` are the",
+    "decoded size of the file and the builder emits them as width/height.",
+    "Rerun the script after any change to a game or these go stale, which nothing",
+    "else in the build can detect for you."
+  ],
+  "checked": "2026-08-16",
+  "shots": {
+    "garbage-run": {
+      "file": "garbage-run-screenshot.webp",
+      "w": 380,
+      "h": 622,
+      "bytes": 3130,
+      "shows": "Garbage Run part way through a run: Trubbish mid-air on a dark street, a curve of rubbish ahead of him, another Pokemon perched on the edge of the lane, and the score counting up towards a hundred"
+    },
+    "whos-that-pokemon": {
+      "file": "whos-that-pokemon-screenshot.webp",
+      "w": 380,
+      "h": 522,
+      "bytes": 6010,
+      "shows": "Who's That Pokemon mid-round: a Pokemon blacked out to a silhouette, with four names to choose from underneath"
+    },
+    "guess-the-set": {
+      "file": "guess-the-set-screenshot.webp",
+      "w": 380,
+      "h": 595,
+      "bytes": 25468,
+      "shows": "Guess the Set mid-round: a full scan of a real Pokemon card, with four set names to choose from underneath"
+    },
+    "pokemon-trivia": {
+      "file": "pokemon-trivia-screenshot.webp",
+      "w": 380,
+      "h": 522,
+      "bytes": 4982,
+      "shows": "Pokemon Trivia mid-round: a question in large type, with four answers to choose from underneath"
+    }
+  }
+}

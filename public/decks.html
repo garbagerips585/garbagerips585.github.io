@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pokemon Deck Builds You Can Download and Paste Into TCG Live | Garbage Rips 585</title>
+<meta name="description" content="The 18 most played Pokemon decks in Standard, each with a free decklist you can download and paste straight into Pokemon TCG Live. Usage measured over 357 tournament decklists.">
+<link rel="canonical" href="https://garbagerips585.github.io/decks.html">
+<meta property="og:title" content="Deck builds you can download">
+<meta property="og:description" content="The 18 most played Pokemon decks in Standard, each with a free decklist you can download and paste straight into Pokemon TCG Live. Usage measured over 357 tournament decklists.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garbagerips585.github.io/decks.html">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-decks.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-decks.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#111111">
+<link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<style>
+.dk-lede b{color:var(--ink)}
+.dk-fmt{border:2px solid var(--keyline);border-radius:var(--r);background:var(--card);
+  padding:var(--s4);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
+.dk-fmt h2{font-size:var(--t-m);margin:0 0 var(--s2)}
+.dk-fmt dl{display:grid;grid-template-columns:1fr;gap:var(--s2) var(--s4);margin:0}
+.dk-fmt dt{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink-2)}
+.dk-fmt dd{margin:0 0 var(--s3);font-size:var(--t-sm);max-width:46em}
+/* MEASURED IN REAL CHARACTERS, NOT IN ch. At 1440 the wrap is 1,392px and the
+   prose here was unconstrained: .dk-prov ran 136 characters a line at 11px and
+   the numbered steps ran 155 at 14px. The caps were set by measuring rendered
+   line boxes and dividing real text length by real line count. "ch" would have
+   been the wrong unit: it is the advance width of a "0", about 1.43 average
+   characters in Outfit, so a 75ch rule buys a 107 character line.
+
+   MEASURED AFTER, at 1440: 93 to 108 on the 11px notes, which is the same 46em
+   the site already uses for a source note elsewhere, and the same trade
+   /top-100-playable.html records. At 390 the same rules measure 67 to 73 and
+   nothing below 1000px moves, because the wrap is already narrower than the
+   cap there. */
+.dk-p{max-width:38em}
+.dk-mark{display:inline-block;font-family:var(--mono);font-weight:700;
+  background:var(--chip-gold-bg);border:1px solid var(--gold-deep);color:var(--gold-deep);
+  border-radius:var(--r-sm);padding:1px 7px;margin-right:4px}
+.dk-asof{font-size:var(--t-micro);color:var(--ink-2);margin:var(--s3) 0 0;line-height:1.6;max-width:46em}
+
+.dk-steps{counter-reset:dkstep;list-style:none;padding:0;margin:var(--s4) 0 0}
+.dk-steps li{counter-increment:dkstep;position:relative;padding-left:2.2em;margin-bottom:var(--s3);max-width:46em;
+  font-size:var(--t-sm);line-height:1.65}
+.dk-steps li::before{content:counter(dkstep);position:absolute;left:0;top:0;
+  width:1.6em;height:1.6em;display:grid;place-items:center;border-radius:50%;
+  background:var(--chrome-bg);color:var(--chrome-ink);font-family:var(--mono);
+  font-size:var(--t-micro);font-weight:700}
+
+.dk-jump{margin:var(--s4) 0 var(--s5)}
+.dk-jump ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:var(--s2)}
+.dk-jump a{display:flex;gap:6px;align-items:baseline;text-decoration:none;color:var(--ink);
+  border:2px solid var(--keyline);border-radius:var(--r-pill);padding:5px var(--s3);
+  font-size:var(--t-sm);background:var(--card)}
+.dk-jump a:hover,.dk-jump a:focus{background:var(--mustard)}
+.dk-jump b{color:var(--gold-deep);font-family:var(--mono)}
+.dk-jump span{font-size:var(--t-micro);color:var(--ink-2)}
+/* The anchor target sits under the sticky bar without this. Same offset the
+   bar's own height token declares, so a taller bar cannot desync it. */
+.dk{scroll-margin-top:calc(var(--bar-h) + var(--s3))}
+.dk{border:2px solid var(--keyline);border-radius:var(--r);background:var(--card);
+  padding:var(--s4);margin:0 0 var(--s5);box-shadow:var(--hard-lg)}
+.dk-head{display:flex;gap:var(--s3);align-items:flex-start}
+.dk-rank{font-family:var(--display);font-size:1.5rem;line-height:1;color:var(--gold-deep);
+  min-width:1.6em}
+.dk-title h3{margin:0;font-size:var(--t-m);line-height:1.2}
+.dk-share{margin:var(--s1) 0 0;font-size:var(--t-sm);color:var(--ink-2)}
+.dk-share b{color:var(--ink)}
+.dk-sep{color:var(--hair)}
+.dk-win{white-space:nowrap}
+/* FOUR EQUAL COLUMNS, NOT A WRAPPING FLEX ROW. At a fixed 88px the four scans
+   measured 376px against 354px of usable width inside the card at 390, so the
+   fourth wrapped onto its own line and the deck's key cards read as "three
+   cards, and one afterthought". A grid divides whatever width there is by four,
+   so the row is always four across and the art scales instead of wrapping.
+   max-width stops them ballooning on a wide desktop where the card is roomy. */
+.dk-faces{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2);
+  margin:var(--s3) 0 0;max-width:480px}
+/* The scans are 245x337 intrinsic; width/height stay on the tag for the aspect
+   ratio and the box is what decides the transfer, not the file. */
+.dk-card{width:100%;height:auto;border-radius:var(--r-sm);display:block}
+.dk-prov{font-size:var(--t-micro);color:var(--ink-2);margin:var(--s3) 0 0;line-height:1.6;max-width:46em}
+
+.dk-cols{display:grid;grid-template-columns:1fr;gap:var(--s4);margin:var(--s4) 0 0}
+.dk-col h4{margin:0 0 var(--s2);font-size:var(--t-label);font-family:var(--mono);
+  text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2);
+  border-bottom:1px solid var(--hair);padding-bottom:var(--s1)}
+.dk-n{float:right;color:var(--ink)}
+.dk-col ul{list-style:none;padding:0;margin:0}
+.dk-col li{font-size:var(--t-sm);line-height:1.55;padding:1px 0}
+.dk-col a{text-decoration:none;color:var(--ink);display:block}
+.dk-col a:hover,.dk-col a:focus{text-decoration:underline}
+.dk-nolink{display:block;color:var(--ink)}
+.dk-q{font-family:var(--mono);font-weight:700;color:var(--gold-deep);margin-right:2px}
+.dk-set{font-family:var(--mono);font-size:var(--t-micro);color:var(--ink-2);white-space:nowrap}
+
+.dk-raw{margin:var(--s4) 0 0;border-top:1px solid var(--hair);padding-top:var(--s3)}
+.dk-raw summary{font-size:var(--t-sm);cursor:pointer;font-weight:600}
+.dk-pre{font-family:var(--mono);font-size:var(--t-micro);line-height:1.55;
+  background:var(--paper-3);border-radius:var(--r-sm);padding:var(--s3);
+  overflow-x:auto;margin:var(--s3) 0 0;white-space:pre}
+.dk-acts{display:flex;gap:var(--s2);flex-wrap:wrap;margin:var(--s3) 0 0}
+.dk-copy,.dk-dl{font:inherit;font-size:var(--t-sm);font-weight:600;cursor:pointer;
+  border:2px solid var(--keyline);border-radius:var(--r-sm);padding:var(--s2) var(--s3);
+  text-decoration:none;display:inline-block}
+.dk-copy{background:var(--mustard);color:var(--on-accent)}
+.dk-dl{background:var(--card);color:var(--ink)}
+
+.dk-more{display:grid;grid-template-columns:1fr;gap:var(--s3);margin:var(--s4) 0 0;
+  list-style:none;padding:0}
+.dk-more a{display:block;border:2px solid var(--keyline);border-radius:var(--r);
+  background:var(--card);padding:var(--s3);text-decoration:none;color:var(--ink);
+  box-shadow:var(--hard-lg)}
+.dk-more b{display:block;font-size:var(--t-sm)}
+.dk-more span{font-size:var(--t-micro);color:var(--ink-2);line-height:1.5;display:block;
+  margin-top:2px}
+.dk-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.7;
+  max-width:46em}
+
+@media(min-width:700px){
+  .dk-fmt dl{grid-template-columns:auto 1fr}
+  .dk-fmt dt{text-align:right;padding-top:2px}
+  .dk-cols{grid-template-columns:1.2fr 1.4fr .8fr}
+  .dk-more{grid-template-columns:1fr 1fr}
+  }
+@media(min-width:1000px){
+  .dk-more{grid-template-columns:repeat(4,1fr)}
+  }
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Pokemon deck builds you can download","description":"The 18 most played Pokemon decks in Standard, each with a free decklist you can download and paste straight into Pokemon TCG Live. Usage measured over 357 tournament decklists.","datePublished":"2026-08-16","dateModified":"2026-08-16","author":{"@type":"Organization","name":"Garbage Rips 585"},"publisher":{"@type":"Organization","name":"Garbage Rips 585"},"mainEntityOfPage":"https://garbagerips585.github.io/decks.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Deck builds","item":"https://garbagerips585.github.io/decks.html"}]}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form class="bar-search" role="search" action="/search.html" method="get">
+      <label class="sr-only" for="navSearch">Search cards, sets, guides and rips</label>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+      <input id="navSearch" name="q" type="search" placeholder="Search cards, sets, rips" aria-label="Search cards, sets, guides and every rip" autocomplete="off">
+    </form>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/cards.html">Card search</a>
+      <a href="/sets/">Set guides</a>
+      <a href="/start.html">Start here</a>
+      <a href="/card-shows.html">Card shows</a>
+    </nav>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span>Menu</span>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="All sections">
+  <div class="menu-inner">
+    <div class="menu-g">
+      <p class="menu-h">Watch</p>
+      <ul>
+        <li><a href="/videos.html">Rips</a></li>
+        <li><a href="/playlists.html">Playlists</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">The binder</p>
+      <ul>
+        <li><a href="/hall.html">Best pulls</a></li>
+        <li><a href="/wanted.html">Most wanted</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Cards</p>
+      <ul>
+        <li><a href="/cards.html">Card search</a></li>
+        <li><a href="/pokemon/">By Pokemon</a></li>
+        <li><a href="/sets/">Set guides</a></li>
+        <li><a href="/expansions.html">Every set ever</a></li>
+        <li><a href="/upcoming.html">Coming next</a></li>
+        <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/pack-prices.html">Pack prices</a></li>
+        <li><a href="/how-many-packs.html">Packs per box</a></li>
+        <li><a href="/openings/">Sealed products</a></li>
+        <li><a href="/drops.html">Drops this week</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Guides</p>
+      <ul>
+        <li><a href="/start.html">Start here</a></li>
+        <li><a href="/how-to-play.html">How to play</a></li>
+        <li><a href="/tcg-live.html">Code cards</a></li>
+        <li><a href="/tcg-pocket.html">Phone version</a></li>
+        <li><a href="/what-set.html">Set finder</a></li>
+        <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/types.html">Card types</a></li>
+        <li><a href="/fake-cards.html">Fakes</a></li>
+        <li><a href="/will-it-grade.html">Will it grade</a></li>
+        <li><a href="/grading.html">Grading cost</a></li>
+        <li><a href="/selling.html">Where to sell</a></li>
+        <li><a href="/buying.html">Where to buy</a></li>
+        <li><a href="/luck.html">Luck, measured</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Play</p>
+      <ul>
+        <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
+        <li><a href="/lore.html">Pokemon lore</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Rochester, NY</p>
+      <ul>
+        <li><a href="/card-shows.html">Card shows</a></li>
+        <li><a href="/shops.html">Card shops</a></li>
+        <li><a href="/vendors.html">Local vendors</a></li>
+        <li><a href="/creators.html">Local creators</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </div>
+  </div>
+  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe on YouTube</a>
+</nav>
+<main id="main">
+  <section class="tight">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Deck builds</span></nav>
+      <h1>Deck builds you can <span class="hl">download</span> and paste into TCG Live</h1>
+      <p class="lede dk-lede">Every deck below comes with the real decklist, in the exact text format
+        <b>Pokemon TCG Live's deck importer takes</b>. Copy it or download the file, hit Import Deck in the
+        client, paste, done. The same 60 cards is a legal deck in the paper game too, because they are
+        the same game.</p>
+
+      <div class="dk-fmt">
+        <h2>The format these decks are legal in</h2>
+        <dl>
+          <dt>Format</dt>
+          <dd><b>Standard</b></dd>
+          <dt>Legal marks</dt>
+          <dd><span class="dk-mark">H</span><span class="dk-mark">I</span><span class="dk-mark">J</span>
+            and any newer ones. Look at the bottom corner of the card.</dd>
+          <dt>Rotated out</dt>
+          <dd><span class="dk-mark">G</span>
+            no longer legal.</dd>
+          <dt>In force since</dt>
+          <dd>March 26, 2026 in Pokemon TCG Live,
+            April 10, 2026 at in-person events. The two dates are genuinely
+            different and the digital one came first.</dd>
+        </dl>
+        <p class="dk-asof">Source: Pokemon.com, 2026 Pokemon TCG Standard Format Rotation Announcement, read August 16, 2026.
+          Rotation is announced by Pokemon and it changes, so treat this as correct as of that date
+          rather than forever. Every list on this page was drawn through Limitless's own Standard
+          filter for this rotation, so the decks are format legal because of where they came from,
+          not because we checked them card by card.</p>
+      </div>
+
+      <h2>How to get one of these into the game</h2>
+      <ol class="dk-steps">
+        <li>Pick a deck below and open <b>Show the raw import text</b>.</li>
+        <li>Hit <b>Copy the list</b>, or download the .txt if you would rather keep it.</li>
+        <li>In Pokemon TCG Live, open the deck manager, choose <b>Create a Deck</b>, then <b>Import Deck</b>.</li>
+        <li>Paste into the import box and confirm. Cards you do not own yet show as missing, and you can
+          craft them or build round them. New to the client? <a href="/tcg-live.html">Start here</a>.</li>
+      </ol>
+      <p class="dk-asof">The .txt files hold the decklist and absolutely nothing else, no header and no
+        credit line, because the importer reads everything you paste and a stray line is how an import
+        fails.</p>
+
+      <h2>What "most played" means here, exactly</h2>
+      <p class="dk-p">These are the <b>most played</b> decks, ordered by <b>share of the recorded field</b>. That is a
+        different claim from "the best decks", which is not something this site can source, so it is not a
+        claim made anywhere on this page. Match win rate is printed next to each deck because leaving it
+        out would be its own distortion, but it never sets the order.</p>
+      <p class="dk-asof">Measured by <b>Limitless TCG</b> across 354
+        tournaments, 25,782 players and
+        58,299 matches, filtered to Standard, 2026 rotation, Pitch Black era, read
+        August 16, 2026.
+        <b>These are online tournaments played in Pokemon TCG Live</b> on Limitless's own play platform,
+        the kind community organisers run for booster-code prizes. They are not Regionals, not
+        Internationals and not the World Championships, and nothing here is a paper result. That is the
+        honest description of the sample, and it happens to be the right sample for this page, because the
+        question is what to build and play in the client.</p>
+
+      <h2>The 18 most played decks</h2>
+      <p class="dk-asof">Each one shows the highest placing list of that deck in the sample, dated and
+        credited to the player who registered it. Lists collected run
+        July 18, 2026 to August 16, 2026. Numbered in order of share.
+        Limitless's own table also carries an "Other" bucket, which would sit eleventh: it is everything
+        too rare to name rather than a deck, so it is left out here and the rest are numbered straight
+        through.</p>
+
+      
+      <nav class="dk-jump" aria-label="Jump to a deck">
+        <ul>
+          <li><a href="#mega-excadrill"><b>1</b> Mega Excadrill
+                  <span>7.75%</span></a></li><li><a href="#dragapult"><b>2</b> Dragapult
+                  <span>6.88%</span></a></li><li><a href="#festival-lead"><b>3</b> Festival Lead
+                  <span>6.8%</span></a></li><li><a href="#dragapult-blaziken"><b>4</b> Dragapult Blaziken
+                  <span>5.92%</span></a></li><li><a href="#dragapult-dusknoir"><b>5</b> Dragapult Dusknoir
+                  <span>5.38%</span></a></li><li><a href="#slowking"><b>6</b> Slowking
+                  <span>5.25%</span></a></li><li><a href="#alakazam-dudunsparce"><b>7</b> Alakazam Dudunsparce
+                  <span>5.18%</span></a></li><li><a href="#ns-zoroark"><b>8</b> N's Zoroark
+                  <span>5.18%</span></a></li><li><a href="#grimmsnarl-froslass"><b>9</b> Grimmsnarl Froslass
+                  <span>4.67%</span></a></li><li><a href="#dhelmise"><b>10</b> Dhelmise
+                  <span>4.13%</span></a></li><li><a href="#toucannon"><b>11</b> Toucannon
+                  <span>3.46%</span></a></li><li><a href="#raging-bolt-ogerpon"><b>12</b> Raging Bolt Ogerpon
+                  <span>1.77%</span></a></li><li><a href="#mega-lucario"><b>13</b> Mega Lucario
+                  <span>1.74%</span></a></li><li><a href="#mega-greninja"><b>14</b> Mega Greninja
+                  <span>1.69%</span></a></li><li><a href="#lucario-hariyama"><b>15</b> Lucario Hariyama
+                  <span>1.61%</span></a></li><li><a href="#basic-box"><b>16</b> Basic Box
+                  <span>1.45%</span></a></li><li><a href="#ogerpon-meganium-hydrapple"><b>17</b> Ogerpon Meganium Hydrapple
+                  <span>1.43%</span></a></li><li><a href="#rockets-honchkrow"><b>18</b> Rocket's Honchkrow
+                  <span>1.39%</span></a></li>
+        </ul>
+      </nav>
+
+      <article class="dk" id="mega-excadrill">
+  <header class="dk-head">
+    <span class="dk-rank">1</span>
+    <div class="dk-title">
+      <h3>Mega Excadrill</h3>
+      <p class="dk-share"><b>7.75%</b> of the field
+        <span class="dk-sep">/</span> 1,997 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">49.7% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/065/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me05/065/low.webp" alt="Mega Excadrill ex, Pitch Black 65" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/055/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me03/055/low.webp" alt="Mega Skarmory ex, Perfect Order 55" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/113/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv05/113/low.webp" alt="Beldum, Temporal Forces 113" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/114/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv05/114/low.webp" alt="Metang, Temporal Forces 114" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>Pedro Eugenio Torres</b>'s, 3rd of 909 at
+    WORLDS OF DOOM! 2026! DAY ONE! on August 15, 2026, 7 - 0 - 1.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">19</span></h4><ul><li><a href="/sets/temporal-forces.html"><span class="dk-q">4</span> Beldum <span class="dk-set">TEF 113</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">4</span> Metang <span class="dk-set">TEF 114</span></a></li><li><a href="/sets/chaos-rising.html"><span class="dk-q">1</span> Metagross <span class="dk-set">CRI 61</span></a></li><li><a href="/sets/pitch-black.html"><span class="dk-q">4</span> Drilbur <span class="dk-set">PBL 46</span></a></li><li><a href="/sets/pitch-black.html"><span class="dk-q">2</span> Mega Excadrill ex <span class="dk-set">PBL 65</span></a></li><li><a href="/sets/black-bolt.html"><span class="dk-q">2</span> Genesect ex <span class="dk-set">BLK 67</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Fezandipiti ex <span class="dk-set">ASC 142</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">1</span> Mega Skarmory ex <span class="dk-set">POR 55</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">23</span></h4><ul><li><a href="/sets/destined-rivals.html"><span class="dk-q">4</span> Team Rocket's Petrel <span class="dk-set">DRI 176</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Lillie's Determination <span class="dk-set">MEG 119</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Boss's Orders <span class="dk-set">MEG 114</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Kieran <span class="dk-set">TWM 154</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">4</span> Buddy-Buddy Poffin <span class="dk-set">TEF 144</span></a></li><li><a href="/sets/phantasmal-flames.html"><span class="dk-q">4</span> Jumbo Ice Cream <span class="dk-set">PFL 91</span></a></li><li><a href="/sets/scarlet-violet.html"><span class="dk-q">2</span> Pokégear 3.0 <span class="dk-set">SVI 186</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Switch <span class="dk-set">MEG 130</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Ultra Ball <span class="dk-set">MEG 131</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">1</span> Hero's Cape <span class="dk-set">TEF 152</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">18</span></h4><ul><li><span class="dk-nolink"><span class="dk-q">18</span> Metal Energy <span class="dk-set">MEE 8</span></span></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-0" class="dk-pre">Pokémon: 19
+4 Beldum TEF 113
+4 Metang TEF 114
+1 Metagross CRI 61
+4 Drilbur PBL 46
+2 Mega Excadrill ex PBL 65
+2 Genesect ex BLK 67
+1 Fezandipiti ex ASC 142
+1 Mega Skarmory ex POR 55
+
+Trainer: 23
+4 Team Rocket's Petrel DRI 176
+4 Lillie's Determination MEG 119
+1 Boss's Orders MEG 114
+1 Kieran TWM 154
+4 Buddy-Buddy Poffin TEF 144
+4 Jumbo Ice Cream PFL 91
+2 Pokégear 3.0 SVI 186
+1 Switch MEG 130
+1 Ultra Ball MEG 131
+1 Hero's Cape TEF 152
+
+Energy: 18
+18 Metal Energy MEE 8</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-0">Copy the list</button>
+    <a class="dk-dl" href="/decks/mega-excadrill.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+<article class="dk" id="dragapult">
+  <header class="dk-head">
+    <span class="dk-rank">2</span>
+    <div class="dk-title">
+      <h3>Dragapult</h3>
+      <p class="dk-share"><b>6.88%</b> of the field
+        <span class="dk-sep">/</span> 1,773 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">54.14% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/130/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/130/low.webp" alt="Dragapult ex, Twilight Masquerade 130" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/128/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/128/low.webp" alt="Dreepy, Twilight Masquerade 128" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/129/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/129/low.webp" alt="Drakloak, Twilight Masquerade 129" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/062/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me03/062/low.webp" alt="Meowth ex, Perfect Order 62" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>MasterLeBui</b>'s, 1st of 261 at
+    🏆Moujii's Dojo🏆 (Late Registration Available!) on August 3, 2026, 12 - 2 - 0.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">17</span></h4><ul><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">4</span> Dreepy <span class="dk-set">TWM 128</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">4</span> Drakloak <span class="dk-set">TWM 129</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">2</span> Dragapult ex <span class="dk-set">TWM 130</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">1</span> Meowth ex <span class="dk-set">POR 62</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Chi-Yu <span class="dk-set">TWM 39</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Munkidori <span class="dk-set">TWM 95</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Fezandipiti ex <span class="dk-set">ASC 142</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Budew <span class="dk-set">ASC 16</span></a></li><li><a href="/sets/phantasmal-flames.html"><span class="dk-q">1</span> Moltres <span class="dk-set">PFL 14</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">1</span> Shaymin <span class="dk-set">DRI 10</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">35</span></h4><ul><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Lillie's Determination <span class="dk-set">MEG 119</span></a></li><li><a href="/sets/stellar-crown.html"><span class="dk-q">3</span> Crispin <span class="dk-set">SCR 133</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Boss's Orders <span class="dk-set">MEG 114</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">1</span> Judge <span class="dk-set">POR 76</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Ultra Ball <span class="dk-set">MEG 131</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">4</span> Poké Pad <span class="dk-set">POR 81</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">4</span> Crushing Hammer <span class="dk-set">POR 71</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">4</span> Buddy-Buddy Poffin <span class="dk-set">TEF 144</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">3</span> Night Stretcher <span class="dk-set">ASC 196</span></a></li><li><a href="/sets/chaos-rising.html"><span class="dk-q">1</span> Special Red Card <span class="dk-set">CRI 82</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Unfair Stamp <span class="dk-set">TWM 165</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Risky Ruins <span class="dk-set">MEG 127</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Jamming Tower <span class="dk-set">TWM 153</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">1</span> Team Rocket's Watchtower <span class="dk-set">DRI 180</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">8</span></h4><ul><li><span class="dk-nolink"><span class="dk-q">3</span> Fire Energy <span class="dk-set">MEE 2</span></span></li><li><span class="dk-nolink"><span class="dk-q">3</span> Psychic Energy <span class="dk-set">MEE 5</span></span></li><li><span class="dk-nolink"><span class="dk-q">2</span> Darkness Energy <span class="dk-set">MEE 7</span></span></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-1" class="dk-pre">Pokémon: 17
+4 Dreepy TWM 128
+4 Drakloak TWM 129
+2 Dragapult ex TWM 130
+1 Meowth ex POR 62
+1 Chi-Yu TWM 39
+1 Munkidori TWM 95
+1 Fezandipiti ex ASC 142
+1 Budew ASC 16
+1 Moltres PFL 14
+1 Shaymin DRI 10
+
+Trainer: 35
+4 Lillie's Determination MEG 119
+3 Crispin SCR 133
+3 Boss's Orders MEG 114
+1 Judge POR 76
+4 Ultra Ball MEG 131
+4 Poké Pad POR 81
+4 Crushing Hammer POR 71
+4 Buddy-Buddy Poffin TEF 144
+3 Night Stretcher ASC 196
+1 Special Red Card CRI 82
+1 Unfair Stamp TWM 165
+1 Risky Ruins MEG 127
+1 Jamming Tower TWM 153
+1 Team Rocket's Watchtower DRI 180
+
+Energy: 8
+3 Fire Energy MEE 2
+3 Psychic Energy MEE 5
+2 Darkness Energy MEE 7</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-1">Copy the list</button>
+    <a class="dk-dl" href="/decks/dragapult.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+<article class="dk" id="festival-lead">
+  <header class="dk-head">
+    <span class="dk-rank">3</span>
+    <div class="dk-title">
+      <h3>Festival Lead</h3>
+      <p class="dk-share"><b>6.8%</b> of the field
+        <span class="dk-sep">/</span> 1,753 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">51.23% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/014/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/014/low.webp" alt="Grookey, Twilight Masquerade 14" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/015/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/015/low.webp" alt="Thwackey, Twilight Masquerade 15" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/012/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv07/012/low.webp" alt="Applin, Stellar Crown 12" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/018/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/018/low.webp" alt="Dipplin, Twilight Masquerade 18" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>Dreamjew</b>'s, 1st of 514 at
+    TOURNAMENT OF DOOM! DRAGAPULT IS.... on August 1, 2026, 12 - 0 - 1.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">20</span></h4><ul><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">4</span> Grookey <span class="dk-set">TWM 14</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">4</span> Thwackey <span class="dk-set">TWM 15</span></a></li><li><a href="/sets/stellar-crown.html"><span class="dk-q">3</span> Applin <span class="dk-set">SCR 12</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">3</span> Dipplin <span class="dk-set">TWM 18</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">2</span> Goldeen <span class="dk-set">TWM 44</span></a></li><li><a href="/sets/prismatic-evolutions.html"><span class="dk-q">2</span> Seaking <span class="dk-set">PRE 21</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">1</span> Rellor <span class="dk-set">TEF 23</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">1</span> Rabsca <span class="dk-set">TEF 24</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">35</span></h4><ul><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Lillie's Determination <span class="dk-set">MEG 119</span></a></li><li><a href="/sets/pitch-black.html"><span class="dk-q">3</span> Gladion's Final Battle <span class="dk-set">PBL 77</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Boss's Orders <span class="dk-set">MEG 114</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Kieran <span class="dk-set">TWM 154</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Lana's Aid <span class="dk-set">TWM 155</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">4</span> Buddy-Buddy Poffin <span class="dk-set">TEF 144</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">4</span> Poké Pad <span class="dk-set">POR 81</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">2</span> Night Stretcher <span class="dk-set">ASC 196</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Ultra Ball <span class="dk-set">MEG 131</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">2</span> Bug Catching Set <span class="dk-set">TWM 143</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Switch <span class="dk-set">MEG 130</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Secret Box <span class="dk-set">TWM 163</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">2</span> Air Balloon <span class="dk-set">ASC 181</span></a></li><li><a href="/sets/white-flare.html"><span class="dk-q">2</span> Brave Bangle <span class="dk-set">WHT 80</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">3</span> Festival Grounds <span class="dk-set">TWM 149</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Forest of Vitality <span class="dk-set">MEG 117</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">5</span></h4><ul><li><span class="dk-nolink"><span class="dk-q">5</span> Grass Energy <span class="dk-set">MEE 1</span></span></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-2" class="dk-pre">Pokémon: 20
+4 Grookey TWM 14
+4 Thwackey TWM 15
+3 Applin SCR 12
+3 Dipplin TWM 18
+2 Goldeen TWM 44
+2 Seaking PRE 21
+1 Rellor TEF 23
+1 Rabsca TEF 24
+
+Trainer: 35
+4 Lillie's Determination MEG 119
+3 Gladion's Final Battle PBL 77
+2 Boss's Orders MEG 114
+1 Kieran TWM 154
+1 Lana's Aid TWM 155
+4 Buddy-Buddy Poffin TEF 144
+4 Poké Pad POR 81
+2 Night Stretcher ASC 196
+2 Ultra Ball MEG 131
+2 Bug Catching Set TWM 143
+1 Switch MEG 130
+1 Secret Box TWM 163
+2 Air Balloon ASC 181
+2 Brave Bangle WHT 80
+3 Festival Grounds TWM 149
+1 Forest of Vitality MEG 117
+
+Energy: 5
+5 Grass Energy MEE 1</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-2">Copy the list</button>
+    <a class="dk-dl" href="/decks/festival-lead.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+<article class="dk" id="dragapult-blaziken">
+  <header class="dk-head">
+    <span class="dk-rank">4</span>
+    <div class="dk-title">
+      <h3>Dragapult Blaziken</h3>
+      <p class="dk-share"><b>5.92%</b> of the field
+        <span class="dk-sep">/</span> 1,527 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">52.71% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/130/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/130/low.webp" alt="Dragapult ex, Twilight Masquerade 130" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/024/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv09/024/low.webp" alt="Blaziken ex, Journey Together 24" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/128/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/128/low.webp" alt="Dreepy, Twilight Masquerade 128" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/129/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/129/low.webp" alt="Drakloak, Twilight Masquerade 129" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>matmendes</b>'s, 1st of 497 at
+    RCC Showdown #36 | $150 USD PRIZE | NO ENTRY FEE on August 10, 2026, 11 - 1 - 1.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">23</span></h4><ul><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">4</span> Dreepy <span class="dk-set">TWM 128</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">4</span> Drakloak <span class="dk-set">TWM 129</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">2</span> Dragapult ex <span class="dk-set">TWM 130</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">2</span> Torchic <span class="dk-set">DRI 40</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">1</span> Combusken <span class="dk-set">DRI 41</span></a></li><li><a href="/sets/journey-together.html"><span class="dk-q">2</span> Blaziken ex <span class="dk-set">JTG 24</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">2</span> Munkidori <span class="dk-set">TWM 95</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">2</span> Budew <span class="dk-set">ASC 16</span></a></li><li><a href="/sets/journey-together.html"><span class="dk-q">1</span> Lillie's Clefairy ex <span class="dk-set">JTG 56</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">1</span> Meowth ex <span class="dk-set">POR 62</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Fezandipiti ex <span class="dk-set">ASC 142</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">1</span> Shaymin <span class="dk-set">DRI 10</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">29</span></h4><ul><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Lillie's Determination <span class="dk-set">MEG 119</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Boss's Orders <span class="dk-set">MEG 114</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">1</span> Judge <span class="dk-set">POR 76</span></a></li><li><a href="/sets/phantasmal-flames.html"><span class="dk-q">1</span> Dawn <span class="dk-set">PFL 87</span></a></li><li><a href="/sets/stellar-crown.html"><span class="dk-q">1</span> Crispin <span class="dk-set">SCR 133</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">4</span> Poké Pad <span class="dk-set">POR 81</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">4</span> Buddy-Buddy Poffin <span class="dk-set">TEF 144</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Ultra Ball <span class="dk-set">MEG 131</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">2</span> Night Stretcher <span class="dk-set">ASC 196</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Rare Candy <span class="dk-set">MEG 125</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Unfair Stamp <span class="dk-set">TWM 165</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">1</span> Team Rocket's Watchtower <span class="dk-set">DRI 180</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Risky Ruins <span class="dk-set">MEG 127</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">8</span></h4><ul><li><span class="dk-nolink"><span class="dk-q">3</span> Psychic Energy <span class="dk-set">MEE 5</span></span></li><li><span class="dk-nolink"><span class="dk-q">3</span> Fire Energy <span class="dk-set">MEE 2</span></span></li><li><span class="dk-nolink"><span class="dk-q">2</span> Darkness Energy <span class="dk-set">MEE 7</span></span></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-3" class="dk-pre">Pokémon: 23
+4 Dreepy TWM 128
+4 Drakloak TWM 129
+2 Dragapult ex TWM 130
+2 Torchic DRI 40
+1 Combusken DRI 41
+2 Blaziken ex JTG 24
+2 Munkidori TWM 95
+2 Budew ASC 16
+1 Lillie's Clefairy ex JTG 56
+1 Meowth ex POR 62
+1 Fezandipiti ex ASC 142
+1 Shaymin DRI 10
+
+Trainer: 29
+4 Lillie's Determination MEG 119
+3 Boss's Orders MEG 114
+1 Judge POR 76
+1 Dawn PFL 87
+1 Crispin SCR 133
+4 Poké Pad POR 81
+4 Buddy-Buddy Poffin TEF 144
+4 Ultra Ball MEG 131
+2 Night Stretcher ASC 196
+2 Rare Candy MEG 125
+1 Unfair Stamp TWM 165
+1 Team Rocket's Watchtower DRI 180
+1 Risky Ruins MEG 127
+
+Energy: 8
+3 Psychic Energy MEE 5
+3 Fire Energy MEE 2
+2 Darkness Energy MEE 7</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-3">Copy the list</button>
+    <a class="dk-dl" href="/decks/dragapult-blaziken.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+<article class="dk" id="dragapult-dusknoir">
+  <header class="dk-head">
+    <span class="dk-rank">5</span>
+    <div class="dk-title">
+      <h3>Dragapult Dusknoir</h3>
+      <p class="dk-share"><b>5.38%</b> of the field
+        <span class="dk-sep">/</span> 1,386 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">50.01% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/130/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/130/low.webp" alt="Dragapult ex, Twilight Masquerade 130" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/037/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv08.5/037/low.webp" alt="Dusknoir, Prismatic Evolutions 37" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/128/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/128/low.webp" alt="Dreepy, Twilight Masquerade 128" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/129/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/129/low.webp" alt="Drakloak, Twilight Masquerade 129" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>Oscar Allan</b>'s, 1st of 909 at
+    WORLDS OF DOOM! 2026! DAY ONE! on August 15, 2026, 8 - 0 - 0.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">20</span></h4><ul><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">4</span> Dreepy <span class="dk-set">TWM 128</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">4</span> Drakloak <span class="dk-set">TWM 129</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">2</span> Dragapult ex <span class="dk-set">TWM 130</span></a></li><li><a href="/sets/prismatic-evolutions.html"><span class="dk-q">2</span> Duskull <span class="dk-set">PRE 35</span></a></li><li><a href="/sets/prismatic-evolutions.html"><span class="dk-q">2</span> Dusclops <span class="dk-set">PRE 36</span></a></li><li><a href="/sets/prismatic-evolutions.html"><span class="dk-q">1</span> Dusknoir <span class="dk-set">PRE 37</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Munkidori <span class="dk-set">TWM 95</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Fezandipiti ex <span class="dk-set">ASC 142</span></a></li><li><a href="/sets/phantasmal-flames.html"><span class="dk-q">1</span> Moltres <span class="dk-set">PFL 14</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">1</span> Meowth ex <span class="dk-set">POR 62</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Budew <span class="dk-set">ASC 16</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">32</span></h4><ul><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Lillie's Determination <span class="dk-set">MEG 119</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Boss's Orders <span class="dk-set">MEG 114</span></a></li><li><a href="/sets/stellar-crown.html"><span class="dk-q">2</span> Crispin <span class="dk-set">SCR 133</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">1</span> Rosa's Encouragement <span class="dk-set">POR 84</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">4</span> Buddy-Buddy Poffin <span class="dk-set">TEF 144</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">4</span> Poké Pad <span class="dk-set">POR 81</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">3</span> Crushing Hammer <span class="dk-set">POR 71</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Ultra Ball <span class="dk-set">MEG 131</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">3</span> Night Stretcher <span class="dk-set">ASC 196</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Unfair Stamp <span class="dk-set">TWM 165</span></a></li><li><a href="/sets/chaos-rising.html"><span class="dk-q">1</span> Special Red Card <span class="dk-set">CRI 82</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Handheld Fan <span class="dk-set">TWM 150</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Risky Ruins <span class="dk-set">MEG 127</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Jamming Tower <span class="dk-set">TWM 153</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">8</span></h4><ul><li><span class="dk-nolink"><span class="dk-q">3</span> Fire Energy <span class="dk-set">MEE 2</span></span></li><li><span class="dk-nolink"><span class="dk-q">3</span> Psychic Energy <span class="dk-set">MEE 5</span></span></li><li><span class="dk-nolink"><span class="dk-q">2</span> Darkness Energy <span class="dk-set">MEE 7</span></span></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-4" class="dk-pre">Pokémon: 20
+4 Dreepy TWM 128
+4 Drakloak TWM 129
+2 Dragapult ex TWM 130
+2 Duskull PRE 35
+2 Dusclops PRE 36
+1 Dusknoir PRE 37
+1 Munkidori TWM 95
+1 Fezandipiti ex ASC 142
+1 Moltres PFL 14
+1 Meowth ex POR 62
+1 Budew ASC 16
+
+Trainer: 32
+4 Lillie's Determination MEG 119
+3 Boss's Orders MEG 114
+2 Crispin SCR 133
+1 Rosa's Encouragement POR 84
+4 Buddy-Buddy Poffin TEF 144
+4 Poké Pad POR 81
+3 Crushing Hammer POR 71
+3 Ultra Ball MEG 131
+3 Night Stretcher ASC 196
+1 Unfair Stamp TWM 165
+1 Special Red Card CRI 82
+1 Handheld Fan TWM 150
+1 Risky Ruins MEG 127
+1 Jamming Tower TWM 153
+
+Energy: 8
+3 Fire Energy MEE 2
+3 Psychic Energy MEE 5
+2 Darkness Energy MEE 7</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-4">Copy the list</button>
+    <a class="dk-dl" href="/decks/dragapult-dusknoir.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+<article class="dk" id="slowking">
+  <header class="dk-head">
+    <span class="dk-rank">6</span>
+    <div class="dk-title">
+      <h3>Slowking</h3>
+      <p class="dk-share"><b>5.25%</b> of the field
+        <span class="dk-sep">/</span> 1,353 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">52.62% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/058/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv07/058/low.webp" alt="Slowking, Stellar Crown 58" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/057/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv07/057/low.webp" alt="Slowpoke, Stellar Crown 57" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/104/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me01/104/low.webp" alt="Mega Kangaskhan ex, Mega Evolution 104" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/076/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv08/076/low.webp" alt="Latias ex, Surging Sparks 76" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>Michael H</b>'s, 1st of 173 at
+    Turn Zero Rising! #6 (100 Codes) on August 2, 2026, 12 - 1 - 1.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">21</span></h4><ul><li><a href="/sets/stellar-crown.html"><span class="dk-q">4</span> Slowpoke <span class="dk-set">SCR 57</span></a></li><li><a href="/sets/stellar-crown.html"><span class="dk-q">3</span> Slowking <span class="dk-set">SCR 58</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Mega Kangaskhan ex <span class="dk-set">MEG 104</span></a></li><li><a href="/sets/surging-sparks.html"><span class="dk-q">2</span> Latias ex <span class="dk-set">SSP 76</span></a></li><li><a href="/sets/shrouded-fable.html"><span class="dk-q">2</span> Kyurem <span class="dk-set">SFA 47</span></a></li><li><a href="/sets/surging-sparks.html"><span class="dk-q">1</span> Annihilape <span class="dk-set">SSP 100</span></a></li><li><a href="/sets/pitch-black.html"><span class="dk-q">1</span> Annihilape <span class="dk-set">PBL 41</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">1</span> Meowth ex <span class="dk-set">POR 62</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Fezandipiti ex <span class="dk-set">ASC 142</span></a></li><li><a href="/sets/journey-together.html"><span class="dk-q">1</span> Lillie's Clefairy ex <span class="dk-set">JTG 56</span></a></li><li><a href="/sets/chaos-rising.html"><span class="dk-q">1</span> Metagross <span class="dk-set">CRI 61</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">1</span> Zeraora <span class="dk-set">DRI 78</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">28</span></h4><ul><li><a href="/sets/temporal-forces.html"><span class="dk-q">4</span> Ciphermaniac's Codebreaking <span class="dk-set">TEF 145</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Lillie's Determination <span class="dk-set">MEG 119</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Ultra Ball <span class="dk-set">MEG 131</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">4</span> Poké Pad <span class="dk-set">POR 81</span></a></li><li><a href="/sets/phantasmal-flames.html"><span class="dk-q">3</span> Wondrous Patch <span class="dk-set">PFL 94</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">2</span> Night Stretcher <span class="dk-set">ASC 196</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Switch <span class="dk-set">MEG 130</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Secret Box <span class="dk-set">TWM 163</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Lucky Helmet <span class="dk-set">TWM 158</span></a></li><li><a href="/sets/shrouded-fable.html"><span class="dk-q">4</span> Academy at Night <span class="dk-set">SFA 54</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">11</span></h4><ul><li><span class="dk-nolink"><span class="dk-q">4</span> Psychic Energy <span class="dk-set">MEE 5</span></span></li><li><a href="/sets/perfect-order.html"><span class="dk-q">4</span> Telepathic Psychic Energy <span class="dk-set">POR 88</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">3</span> Boomerang Energy <span class="dk-set">TWM 166</span></a></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-5" class="dk-pre">Pokémon: 21
+4 Slowpoke SCR 57
+3 Slowking SCR 58
+3 Mega Kangaskhan ex MEG 104
+2 Latias ex SSP 76
+2 Kyurem SFA 47
+1 Annihilape SSP 100
+1 Annihilape PBL 41
+1 Meowth ex POR 62
+1 Fezandipiti ex ASC 142
+1 Lillie's Clefairy ex JTG 56
+1 Metagross CRI 61
+1 Zeraora DRI 78
+
+Trainer: 28
+4 Ciphermaniac's Codebreaking TEF 145
+4 Lillie's Determination MEG 119
+4 Ultra Ball MEG 131
+4 Poké Pad POR 81
+3 Wondrous Patch PFL 94
+2 Night Stretcher ASC 196
+1 Switch MEG 130
+1 Secret Box TWM 163
+1 Lucky Helmet TWM 158
+4 Academy at Night SFA 54
+
+Energy: 11
+4 Psychic Energy MEE 5
+4 Telepathic Psychic Energy POR 88
+3 Boomerang Energy TWM 166</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-5">Copy the list</button>
+    <a class="dk-dl" href="/decks/slowking.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+<article class="dk" id="alakazam-dudunsparce">
+  <header class="dk-head">
+    <span class="dk-rank">7</span>
+    <div class="dk-title">
+      <h3>Alakazam Dudunsparce</h3>
+      <p class="dk-share"><b>5.18%</b> of the field
+        <span class="dk-sep">/</span> 1,336 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">53.46% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/056/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me01/056/low.webp" alt="Alakazam, Mega Evolution 56" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/129/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv05/129/low.webp" alt="Dudunsparce, Temporal Forces 129" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/054/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me01/054/low.webp" alt="Abra, Mega Evolution 54" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/055/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me01/055/low.webp" alt="Kadabra, Mega Evolution 55" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>willoso115</b>'s, 1st of 267 at
+    Rare Candy Club Showdown #33 (PITCH BLACK LEGAL) on July 20, 2026, 10 - 1 - 0.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">24</span></h4><ul><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Abra <span class="dk-set">MEG 54</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Kadabra <span class="dk-set">MEG 55</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Alakazam <span class="dk-set">MEG 56</span></a></li><li><a href="/sets/pitch-black.html"><span class="dk-q">2</span> Pikipek <span class="dk-set">PBL 66</span></a></li><li><a href="/sets/pitch-black.html"><span class="dk-q">1</span> Trumbeak <span class="dk-set">PBL 67</span></a></li><li><a href="/sets/pitch-black.html"><span class="dk-q">2</span> Toucannon <span class="dk-set">PBL 68</span></a></li><li><a href="/sets/journey-together.html"><span class="dk-q">2</span> Dunsparce <span class="dk-set">JTG 120</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">2</span> Dudunsparce <span class="dk-set">TEF 129</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">1</span> Shaymin <span class="dk-set">DRI 10</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Psyduck <span class="dk-set">ASC 39</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Fezandipiti ex <span class="dk-set">ASC 142</span></a></li><li><a href="/sets/shrouded-fable.html"><span class="dk-q">1</span> Genesect <span class="dk-set">SFA 40</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">30</span></h4><ul><li><a href="/sets/phantasmal-flames.html"><span class="dk-q">4</span> Dawn <span class="dk-set">PFL 87</span></a></li><li><a href="/sets/white-flare.html"><span class="dk-q">3</span> Hilda <span class="dk-set">WHT 84</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Boss's Orders <span class="dk-set">MEG 114</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Lana's Aid <span class="dk-set">TWM 155</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">4</span> Buddy-Buddy Poffin <span class="dk-set">TEF 144</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">4</span> Poké Pad <span class="dk-set">POR 81</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Rare Candy <span class="dk-set">MEG 125</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Night Stretcher <span class="dk-set">ASC 196</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">1</span> Sacred Ash <span class="dk-set">DRI 168</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Enhanced Hammer <span class="dk-set">TWM 148</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Handheld Fan <span class="dk-set">TWM 150</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Air Balloon <span class="dk-set">ASC 181</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Lucky Helmet <span class="dk-set">TWM 158</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">2</span> Nighttime Mine <span class="dk-set">ASC 197</span></a></li><li><a href="/sets/phantasmal-flames.html"><span class="dk-q">1</span> Battle Cage <span class="dk-set">PFL 85</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">6</span></h4><ul><li><a href="/sets/perfect-order.html"><span class="dk-q">4</span> Telepathic Psychic Energy <span class="dk-set">POR 88</span></a></li><li><span class="dk-nolink"><span class="dk-q">1</span> Psychic Energy <span class="dk-set">MEE 5</span></span></li><li><a href="/sets/surging-sparks.html"><span class="dk-q">1</span> Enriching Energy <span class="dk-set">SSP 191</span></a></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-6" class="dk-pre">Pokémon: 24
+4 Abra MEG 54
+4 Kadabra MEG 55
+3 Alakazam MEG 56
+2 Pikipek PBL 66
+1 Trumbeak PBL 67
+2 Toucannon PBL 68
+2 Dunsparce JTG 120
+2 Dudunsparce TEF 129
+1 Shaymin DRI 10
+1 Psyduck ASC 39
+1 Fezandipiti ex ASC 142
+1 Genesect SFA 40
+
+Trainer: 30
+4 Dawn PFL 87
+3 Hilda WHT 84
+2 Boss's Orders MEG 114
+1 Lana's Aid TWM 155
+4 Buddy-Buddy Poffin TEF 144
+4 Poké Pad POR 81
+3 Rare Candy MEG 125
+1 Night Stretcher ASC 196
+1 Sacred Ash DRI 168
+1 Enhanced Hammer TWM 148
+1 Handheld Fan TWM 150
+1 Air Balloon ASC 181
+1 Lucky Helmet TWM 158
+2 Nighttime Mine ASC 197
+1 Battle Cage PFL 85
+
+Energy: 6
+4 Telepathic Psychic Energy POR 88
+1 Psychic Energy MEE 5
+1 Enriching Energy SSP 191</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-6">Copy the list</button>
+    <a class="dk-dl" href="/decks/alakazam-dudunsparce.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+<article class="dk" id="ns-zoroark">
+  <header class="dk-head">
+    <span class="dk-rank">8</span>
+    <div class="dk-title">
+      <h3>N's Zoroark</h3>
+      <p class="dk-share"><b>5.18%</b> of the field
+        <span class="dk-sep">/</span> 1,336 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">48.08% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/097/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv09/097/low.webp" alt="N's Zorua, Journey Together 97" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/098/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv09/098/low.webp" alt="N's Zoroark ex, Journey Together 98" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/155/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me02.5/155/low.webp" alt="N's Zekrom, Ascended Heroes 155" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/026/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv09/026/low.webp" alt="N's Darumaka, Journey Together 26" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>MeriKing9090</b>'s, 2nd of 909 at
+    WORLDS OF DOOM! 2026! DAY ONE! on August 15, 2026, 7 - 0 - 1.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">19</span></h4><ul><li><a href="/sets/journey-together.html"><span class="dk-q">4</span> N's Zorua <span class="dk-set">JTG 97</span></a></li><li><a href="/sets/journey-together.html"><span class="dk-q">4</span> N's Zoroark ex <span class="dk-set">JTG 98</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">2</span> Munkidori <span class="dk-set">TWM 95</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">2</span> N's Zekrom <span class="dk-set">ASC 155</span></a></li><li><a href="/sets/journey-together.html"><span class="dk-q">1</span> N's Darumaka <span class="dk-set">JTG 26</span></a></li><li><a href="/sets/journey-together.html"><span class="dk-q">1</span> N's Darmanitan <span class="dk-set">JTG 27</span></a></li><li><a href="/sets/shrouded-fable.html"><span class="dk-q">1</span> Pecharunt ex <span class="dk-set">SFA 39</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Fezandipiti ex <span class="dk-set">ASC 142</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">1</span> Meowth ex <span class="dk-set">POR 62</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Yveltal <span class="dk-set">MEG 88</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Tatsugiri <span class="dk-set">TWM 131</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">33</span></h4><ul><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Lillie's Determination <span class="dk-set">MEG 119</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Boss's Orders <span class="dk-set">MEG 114</span></a></li><li><a href="/sets/surging-sparks.html"><span class="dk-q">2</span> Cyrano <span class="dk-set">SSP 170</span></a></li><li><a href="/sets/journey-together.html"><span class="dk-q">1</span> Black Belt's Training <span class="dk-set">JTG 143</span></a></li><li><a href="/sets/chaos-rising.html"><span class="dk-q">4</span> Transformation Tome <span class="dk-set">CRI 83</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">4</span> Buddy-Buddy Poffin <span class="dk-set">TEF 144</span></a></li><li><a href="/sets/journey-together.html"><span class="dk-q">3</span> N's PP Up <span class="dk-set">JTG 153</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">2</span> Poké Pad <span class="dk-set">POR 81</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Ultra Ball <span class="dk-set">MEG 131</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Secret Box <span class="dk-set">TWM 163</span></a></li><li><a href="/sets/chaos-rising.html"><span class="dk-q">1</span> Special Red Card <span class="dk-set">CRI 82</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Night Stretcher <span class="dk-set">ASC 196</span></a></li><li><a href="/sets/prismatic-evolutions.html"><span class="dk-q">2</span> Binding Mochi <span class="dk-set">PRE 95</span></a></li><li><a href="/sets/surging-sparks.html"><span class="dk-q">1</span> Babiri Berry <span class="dk-set">SSP 163</span></a></li><li><a href="/sets/journey-together.html"><span class="dk-q">2</span> N's Castle <span class="dk-set">JTG 152</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">8</span></h4><ul><li><span class="dk-nolink"><span class="dk-q">8</span> Darkness Energy <span class="dk-set">MEE 7</span></span></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-7" class="dk-pre">Pokémon: 19
+4 N's Zorua JTG 97
+4 N's Zoroark ex JTG 98
+2 Munkidori TWM 95
+2 N's Zekrom ASC 155
+1 N's Darumaka JTG 26
+1 N's Darmanitan JTG 27
+1 Pecharunt ex SFA 39
+1 Fezandipiti ex ASC 142
+1 Meowth ex POR 62
+1 Yveltal MEG 88
+1 Tatsugiri TWM 131
+
+Trainer: 33
+4 Lillie's Determination MEG 119
+3 Boss's Orders MEG 114
+2 Cyrano SSP 170
+1 Black Belt's Training JTG 143
+4 Transformation Tome CRI 83
+4 Buddy-Buddy Poffin TEF 144
+3 N's PP Up JTG 153
+2 Poké Pad POR 81
+2 Ultra Ball MEG 131
+1 Secret Box TWM 163
+1 Special Red Card CRI 82
+1 Night Stretcher ASC 196
+2 Binding Mochi PRE 95
+1 Babiri Berry SSP 163
+2 N's Castle JTG 152
+
+Energy: 8
+8 Darkness Energy MEE 7</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-7">Copy the list</button>
+    <a class="dk-dl" href="/decks/ns-zoroark.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+<article class="dk" id="grimmsnarl-froslass">
+  <header class="dk-head">
+    <span class="dk-rank">9</span>
+    <div class="dk-title">
+      <h3>Grimmsnarl Froslass</h3>
+      <p class="dk-share"><b>4.67%</b> of the field
+        <span class="dk-sep">/</span> 1,204 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">51.47% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/136/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv10/136/low.webp" alt="Marnie's Grimmsnarl ex, Destined Rivals 136" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/053/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/053/low.webp" alt="Froslass, Twilight Masquerade 53" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/134/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv10/134/low.webp" alt="Marnie's Impidimp, Destined Rivals 134" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/095/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/095/low.webp" alt="Munkidori, Twilight Masquerade 95" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>AzulGG</b>'s, 1st of 504 at
+    TOURNAMENT OF DOOM! Have you heard... on July 25, 2026, 13 - 0 - 0.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">23</span></h4><ul><li><a href="/sets/destined-rivals.html"><span class="dk-q">4</span> Marnie's Impidimp <span class="dk-set">DRI 134</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">3</span> Marnie's Morgrem <span class="dk-set">DRI 135</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">3</span> Marnie's Grimmsnarl ex <span class="dk-set">DRI 136</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">4</span> Munkidori <span class="dk-set">TWM 95</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">3</span> Snorunt <span class="dk-set">ASC 46</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">3</span> Froslass <span class="dk-set">TWM 53</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">2</span> Budew <span class="dk-set">ASC 16</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Yveltal <span class="dk-set">MEG 88</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">28</span></h4><ul><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Lillie's Determination <span class="dk-set">MEG 119</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Boss's Orders <span class="dk-set">MEG 114</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">2</span> Team Rocket's Petrel <span class="dk-set">DRI 176</span></a></li><li><a href="/sets/pitch-black.html"><span class="dk-q">2</span> Gwynn <span class="dk-set">PBL 78</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">4</span> Poké Pad <span class="dk-set">POR 81</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">2</span> Buddy-Buddy Poffin <span class="dk-set">TEF 144</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">2</span> Night Stretcher <span class="dk-set">ASC 196</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Rare Candy <span class="dk-set">MEG 125</span></a></li><li><a href="/sets/scarlet-violet.html"><span class="dk-q">1</span> Pokégear 3.0 <span class="dk-set">SVI 186</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Secret Box <span class="dk-set">TWM 163</span></a></li><li><a href="/sets/chaos-rising.html"><span class="dk-q">1</span> Special Red Card <span class="dk-set">CRI 82</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Air Balloon <span class="dk-set">ASC 181</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">4</span> Spikemuth Gym <span class="dk-set">DRI 169</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">9</span></h4><ul><li><span class="dk-nolink"><span class="dk-q">9</span> Darkness Energy <span class="dk-set">MEE 7</span></span></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-8" class="dk-pre">Pokémon: 23
+4 Marnie's Impidimp DRI 134
+3 Marnie's Morgrem DRI 135
+3 Marnie's Grimmsnarl ex DRI 136
+4 Munkidori TWM 95
+3 Snorunt ASC 46
+3 Froslass TWM 53
+2 Budew ASC 16
+1 Yveltal MEG 88
+
+Trainer: 28
+4 Lillie's Determination MEG 119
+3 Boss's Orders MEG 114
+2 Team Rocket's Petrel DRI 176
+2 Gwynn PBL 78
+4 Poké Pad POR 81
+2 Buddy-Buddy Poffin TEF 144
+2 Night Stretcher ASC 196
+1 Rare Candy MEG 125
+1 Pokégear 3.0 SVI 186
+1 Secret Box TWM 163
+1 Special Red Card CRI 82
+1 Air Balloon ASC 181
+4 Spikemuth Gym DRI 169
+
+Energy: 9
+9 Darkness Energy MEE 7</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-8">Copy the list</button>
+    <a class="dk-dl" href="/decks/grimmsnarl-froslass.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+<article class="dk" id="dhelmise">
+  <header class="dk-head">
+    <span class="dk-rank">10</span>
+    <div class="dk-title">
+      <h3>Dhelmise</h3>
+      <p class="dk-share"><b>4.13%</b> of the field
+        <span class="dk-sep">/</span> 1,065 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">47.9% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/039/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me05/039/low.webp" alt="Dhelmise, Pitch Black 39" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/033/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me05/033/low.webp" alt="Shuppet, Pitch Black 33" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/034/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me05/034/low.webp" alt="Banette, Pitch Black 34" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/005/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me05/005/low.webp" alt="Poltchageist, Pitch Black 5" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>Tobias Freitag</b>'s, 1st of 237 at
+    Pumpkaweekly on August 10, 2026, 8 - 0 - 0.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">26</span></h4><ul><li><a href="/sets/pitch-black.html"><span class="dk-q">4</span> Shuppet <span class="dk-set">PBL 33</span></a></li><li><a href="/sets/pitch-black.html"><span class="dk-q">3</span> Banette <span class="dk-set">PBL 34</span></a></li><li><a href="/sets/pitch-black.html"><span class="dk-q">4</span> Dhelmise <span class="dk-set">PBL 39</span></a></li><li><a href="/sets/pitch-black.html"><span class="dk-q">3</span> Poltchageist <span class="dk-set">PBL 5</span></a></li><li><a href="/sets/pitch-black.html"><span class="dk-q">2</span> Sinistcha <span class="dk-set">PBL 6</span></a></li><li><a href="/sets/journey-together.html"><span class="dk-q">3</span> Dunsparce <span class="dk-set">JTG 120</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">3</span> Dudunsparce <span class="dk-set">TEF 129</span></a></li><li><a href="/sets/journey-together.html"><span class="dk-q">1</span> Lillie's Clefairy ex <span class="dk-set">JTG 56</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Bloodmoon Ursaluna ex <span class="dk-set">TWM 141</span></a></li><li><a href="/sets/chaos-rising.html"><span class="dk-q">1</span> Patrat <span class="dk-set">CRI 70</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">1</span> Shaymin <span class="dk-set">DRI 10</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">27</span></h4><ul><li><a href="/sets/pitch-black.html"><span class="dk-q">4</span> Gwynn <span class="dk-set">PBL 78</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Lillie's Determination <span class="dk-set">MEG 119</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Boss's Orders <span class="dk-set">MEG 114</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">4</span> Poké Pad <span class="dk-set">POR 81</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Ultra Ball <span class="dk-set">MEG 131</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">2</span> Buddy-Buddy Poffin <span class="dk-set">TEF 144</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">2</span> Night Stretcher <span class="dk-set">ASC 196</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Switch <span class="dk-set">MEG 130</span></a></li><li><a href="/sets/chaos-rising.html"><span class="dk-q">1</span> Special Red Card <span class="dk-set">CRI 82</span></a></li><li><a href="/sets/chaos-rising.html"><span class="dk-q">3</span> Prism Tower <span class="dk-set">CRI 80</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">7</span></h4><ul><li><a href="/sets/perfect-order.html"><span class="dk-q">4</span> Telepathic Psychic Energy <span class="dk-set">POR 88</span></a></li><li><span class="dk-nolink"><span class="dk-q">2</span> Psychic Energy <span class="dk-set">MEE 5</span></span></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Legacy Energy <span class="dk-set">TWM 167</span></a></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-9" class="dk-pre">Pokémon: 26
+4 Shuppet PBL 33
+3 Banette PBL 34
+4 Dhelmise PBL 39
+3 Poltchageist PBL 5
+2 Sinistcha PBL 6
+3 Dunsparce JTG 120
+3 Dudunsparce TEF 129
+1 Lillie's Clefairy ex JTG 56
+1 Bloodmoon Ursaluna ex TWM 141
+1 Patrat CRI 70
+1 Shaymin DRI 10
+
+Trainer: 27
+4 Gwynn PBL 78
+3 Lillie's Determination MEG 119
+3 Boss's Orders MEG 114
+4 Poké Pad POR 81
+4 Ultra Ball MEG 131
+2 Buddy-Buddy Poffin TEF 144
+2 Night Stretcher ASC 196
+1 Switch MEG 130
+1 Special Red Card CRI 82
+3 Prism Tower CRI 80
+
+Energy: 7
+4 Telepathic Psychic Energy POR 88
+2 Psychic Energy MEE 5
+1 Legacy Energy TWM 167</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-9">Copy the list</button>
+    <a class="dk-dl" href="/decks/dhelmise.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+<article class="dk" id="toucannon">
+  <header class="dk-head">
+    <span class="dk-rank">11</span>
+    <div class="dk-title">
+      <h3>Toucannon</h3>
+      <p class="dk-share"><b>3.46%</b> of the field
+        <span class="dk-sep">/</span> 892 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">47.33% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/068/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me05/068/low.webp" alt="Toucannon, Pitch Black 68" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/066/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me05/066/low.webp" alt="Pikipek, Pitch Black 66" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/114/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv07/114/low.webp" alt="Hoothoot, Stellar Crown 114" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/115/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv07/115/low.webp" alt="Noctowl, Stellar Crown 115" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>Felipe Canales</b>'s, 3rd of 416 at
+    TOURNAMENT OF DOOM! IS THAT THE..... on July 18, 2026, 11 - 1 - 0.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">24</span></h4><ul><li><a href="/sets/pitch-black.html"><span class="dk-q">3</span> Pikipek <span class="dk-set">PBL 66</span></a></li><li><a href="/sets/pitch-black.html"><span class="dk-q">2</span> Trumbeak <span class="dk-set">PBL 67</span></a></li><li><a href="/sets/pitch-black.html"><span class="dk-q">3</span> Toucannon <span class="dk-set">PBL 68</span></a></li><li><a href="/sets/stellar-crown.html"><span class="dk-q">3</span> Hoothoot <span class="dk-set">SCR 114</span></a></li><li><a href="/sets/stellar-crown.html"><span class="dk-q">3</span> Noctowl <span class="dk-set">SCR 115</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">2</span> Teal Mask Ogerpon ex <span class="dk-set">TWM 25</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Fezandipiti ex <span class="dk-set">ASC 142</span></a></li><li><a href="/sets/stellar-crown.html"><span class="dk-q">1</span> Fan Rotom <span class="dk-set">SCR 118</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Wellspring Mask Ogerpon ex <span class="dk-set">TWM 64</span></a></li><li><a href="/sets/journey-together.html"><span class="dk-q">1</span> Lillie's Clefairy ex <span class="dk-set">JTG 56</span></a></li><li><a href="/sets/surging-sparks.html"><span class="dk-q">1</span> Latias ex <span class="dk-set">SSP 76</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">1</span> Iron Leaves ex <span class="dk-set">TEF 25</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">1</span> Meowth ex <span class="dk-set">POR 62</span></a></li><li><a href="/sets/phantasmal-flames.html"><span class="dk-q">1</span> Moltres <span class="dk-set">PFL 14</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">27</span></h4><ul><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Boss's Orders <span class="dk-set">MEG 114</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Lillie's Determination <span class="dk-set">MEG 119</span></a></li><li><a href="/sets/stellar-crown.html"><span class="dk-q">2</span> Crispin <span class="dk-set">SCR 133</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">1</span> Judge <span class="dk-set">POR 76</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Kieran <span class="dk-set">TWM 154</span></a></li><li><a href="/sets/white-flare.html"><span class="dk-q">1</span> Hilda <span class="dk-set">WHT 84</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Ultra Ball <span class="dk-set">MEG 131</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">3</span> Poké Pad <span class="dk-set">POR 81</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">2</span> Night Stretcher <span class="dk-set">ASC 196</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">2</span> Buddy-Buddy Poffin <span class="dk-set">TEF 144</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Rare Candy <span class="dk-set">MEG 125</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Energy Switch <span class="dk-set">MEG 115</span></a></li><li><a href="/sets/stellar-crown.html"><span class="dk-q">3</span> Area Zero Underdepths <span class="dk-set">SCR 131</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">9</span></h4><ul><li><span class="dk-nolink"><span class="dk-q">5</span> Grass Energy <span class="dk-set">MEE 1</span></span></li><li><span class="dk-nolink"><span class="dk-q">1</span> Water Energy <span class="dk-set">MEE 3</span></span></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Legacy Energy <span class="dk-set">TWM 167</span></a></li><li><span class="dk-nolink"><span class="dk-q">1</span> Fire Energy <span class="dk-set">MEE 2</span></span></li><li><span class="dk-nolink"><span class="dk-q">1</span> Psychic Energy <span class="dk-set">MEE 5</span></span></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-10" class="dk-pre">Pokémon: 24
+3 Pikipek PBL 66
+2 Trumbeak PBL 67
+3 Toucannon PBL 68
+3 Hoothoot SCR 114
+3 Noctowl SCR 115
+2 Teal Mask Ogerpon ex TWM 25
+1 Fezandipiti ex ASC 142
+1 Fan Rotom SCR 118
+1 Wellspring Mask Ogerpon ex TWM 64
+1 Lillie's Clefairy ex JTG 56
+1 Latias ex SSP 76
+1 Iron Leaves ex TEF 25
+1 Meowth ex POR 62
+1 Moltres PFL 14
+
+Trainer: 27
+3 Boss's Orders MEG 114
+3 Lillie's Determination MEG 119
+2 Crispin SCR 133
+1 Judge POR 76
+1 Kieran TWM 154
+1 Hilda WHT 84
+4 Ultra Ball MEG 131
+3 Poké Pad POR 81
+2 Night Stretcher ASC 196
+2 Buddy-Buddy Poffin TEF 144
+1 Rare Candy MEG 125
+1 Energy Switch MEG 115
+3 Area Zero Underdepths SCR 131
+
+Energy: 9
+5 Grass Energy MEE 1
+1 Water Energy MEE 3
+1 Legacy Energy TWM 167
+1 Fire Energy MEE 2
+1 Psychic Energy MEE 5</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-10">Copy the list</button>
+    <a class="dk-dl" href="/decks/toucannon.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+<article class="dk" id="raging-bolt-ogerpon">
+  <header class="dk-head">
+    <span class="dk-rank">12</span>
+    <div class="dk-title">
+      <h3>Raging Bolt Ogerpon</h3>
+      <p class="dk-share"><b>1.77%</b> of the field
+        <span class="dk-sep">/</span> 456 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">53.46% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/025/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/025/low.webp" alt="Teal Mask Ogerpon ex, Twilight Masquerade 25" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/123/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv05/123/low.webp" alt="Raging Bolt ex, Temporal Forces 123" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/064/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/064/low.webp" alt="Wellspring Mask Ogerpon ex, Twilight Masquerade 64" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/104/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me01/104/low.webp" alt="Mega Kangaskhan ex, Mega Evolution 104" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>JRobrueda</b>'s, 1st of 220 at
+    Pitch Black Tourney - Last Prize Series #10 on July 28, 2026, 7 - 0 - 0.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">19</span></h4><ul><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Mega Kangaskhan ex <span class="dk-set">MEG 104</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">3</span> Teal Mask Ogerpon ex <span class="dk-set">TWM 25</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">3</span> Meowth ex <span class="dk-set">POR 62</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">2</span> Raging Bolt ex <span class="dk-set">TEF 123</span></a></li><li><a href="/sets/surging-sparks.html"><span class="dk-q">2</span> Latias ex <span class="dk-set">SSP 76</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Wellspring Mask Ogerpon ex <span class="dk-set">TWM 64</span></a></li><li><a href="/sets/surging-sparks.html"><span class="dk-q">1</span> Chien-Pao <span class="dk-set">SSP 56</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Fezandipiti ex <span class="dk-set">ASC 142</span></a></li><li><a href="/sets/journey-together.html"><span class="dk-q">1</span> Lillie's Clefairy ex <span class="dk-set">JTG 56</span></a></li><li><a href="/sets/surging-sparks.html"><span class="dk-q">1</span> Paldean Tauros <span class="dk-set">SSP 18</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">27</span></h4><ul><li><a href="/sets/stellar-crown.html"><span class="dk-q">4</span> Crispin <span class="dk-set">SCR 133</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Boss's Orders <span class="dk-set">MEG 114</span></a></li><li><a href="/sets/surging-sparks.html"><span class="dk-q">2</span> Cyrano <span class="dk-set">SSP 170</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">1</span> Ciphermaniac's Codebreaking <span class="dk-set">TEF 145</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Ultra Ball <span class="dk-set">MEG 131</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Energy Switch <span class="dk-set">MEG 115</span></a></li><li><a href="/sets/stellar-crown.html"><span class="dk-q">2</span> Glass Trumpet <span class="dk-set">SCR 135</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">2</span> Night Stretcher <span class="dk-set">ASC 196</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Unfair Stamp <span class="dk-set">TWM 165</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Switch <span class="dk-set">MEG 130</span></a></li><li><a href="/sets/stellar-crown.html"><span class="dk-q">4</span> Area Zero Underdepths <span class="dk-set">SCR 131</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">14</span></h4><ul><li><span class="dk-nolink"><span class="dk-q">7</span> Grass Energy <span class="dk-set">MEE 1</span></span></li><li><span class="dk-nolink"><span class="dk-q">2</span> Psychic Energy <span class="dk-set">MEE 5</span></span></li><li><span class="dk-nolink"><span class="dk-q">2</span> Lightning Energy <span class="dk-set">MEE 4</span></span></li><li><span class="dk-nolink"><span class="dk-q">1</span> Water Energy <span class="dk-set">MEE 3</span></span></li><li><span class="dk-nolink"><span class="dk-q">1</span> Fighting Energy <span class="dk-set">MEE 6</span></span></li><li><span class="dk-nolink"><span class="dk-q">1</span> Fire Energy <span class="dk-set">MEE 2</span></span></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-11" class="dk-pre">Pokémon: 19
+4 Mega Kangaskhan ex MEG 104
+3 Teal Mask Ogerpon ex TWM 25
+3 Meowth ex POR 62
+2 Raging Bolt ex TEF 123
+2 Latias ex SSP 76
+1 Wellspring Mask Ogerpon ex TWM 64
+1 Chien-Pao SSP 56
+1 Fezandipiti ex ASC 142
+1 Lillie's Clefairy ex JTG 56
+1 Paldean Tauros SSP 18
+
+Trainer: 27
+4 Crispin SCR 133
+2 Boss's Orders MEG 114
+2 Cyrano SSP 170
+1 Ciphermaniac's Codebreaking TEF 145
+4 Ultra Ball MEG 131
+4 Energy Switch MEG 115
+2 Glass Trumpet SCR 135
+2 Night Stretcher ASC 196
+1 Unfair Stamp TWM 165
+1 Switch MEG 130
+4 Area Zero Underdepths SCR 131
+
+Energy: 14
+7 Grass Energy MEE 1
+2 Psychic Energy MEE 5
+2 Lightning Energy MEE 4
+1 Water Energy MEE 3
+1 Fighting Energy MEE 6
+1 Fire Energy MEE 2</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-11">Copy the list</button>
+    <a class="dk-dl" href="/decks/raging-bolt-ogerpon.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+<article class="dk" id="mega-lucario">
+  <header class="dk-head">
+    <span class="dk-rank">13</span>
+    <div class="dk-title">
+      <h3>Mega Lucario</h3>
+      <p class="dk-share"><b>1.74%</b> of the field
+        <span class="dk-sep">/</span> 449 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">50.68% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/077/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me01/077/low.webp" alt="Mega Lucario ex, Mega Evolution 77" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/120/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv09/120/low.webp" alt="Dunsparce, Journey Together 120" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/050/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv08.5/050/low.webp" alt="Riolu, Prismatic Evolutions 50" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/129/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv05/129/low.webp" alt="Dudunsparce, Temporal Forces 129" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>ARC84</b>'s, 1st of 657 at
+    TOURNAMENT OF DOOM! WORLDS LCQ! on August 8, 2026, 11 - 1 - 1.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">17</span></h4><ul><li><a href="/sets/journey-together.html"><span class="dk-q">3</span> Dunsparce <span class="dk-set">JTG 120</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">2</span> Dudunsparce <span class="dk-set">TEF 129</span></a></li><li><a href="/sets/journey-together.html"><span class="dk-q">1</span> Dudunsparce ex <span class="dk-set">JTG 121</span></a></li><li><a href="/sets/prismatic-evolutions.html"><span class="dk-q">3</span> Riolu <span class="dk-set">PRE 50</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Mega Lucario ex <span class="dk-set">MEG 77</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Lunatone <span class="dk-set">MEG 74</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Solrock <span class="dk-set">MEG 75</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">1</span> Shaymin <span class="dk-set">DRI 10</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">33</span></h4><ul><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Lillie's Determination <span class="dk-set">MEG 119</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Boss's Orders <span class="dk-set">MEG 114</span></a></li><li><a href="/sets/white-flare.html"><span class="dk-q">2</span> Hilda <span class="dk-set">WHT 84</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">4</span> Crushing Hammer <span class="dk-set">POR 71</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Fighting Gong <span class="dk-set">MEG 116</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Premium Power Pro <span class="dk-set">MEG 124</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">4</span> Poké Pad <span class="dk-set">POR 81</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">2</span> Buddy-Buddy Poffin <span class="dk-set">TEF 144</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Unfair Stamp <span class="dk-set">TWM 165</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Night Stretcher <span class="dk-set">ASC 196</span></a></li><li><a href="/sets/chaos-rising.html"><span class="dk-q">1</span> Special Red Card <span class="dk-set">CRI 82</span></a></li><li><a href="/sets/surging-sparks.html"><span class="dk-q">2</span> Gravity Mountain <span class="dk-set">SSP 177</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Jamming Tower <span class="dk-set">TWM 153</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">10</span></h4><ul><li><span class="dk-nolink"><span class="dk-q">7</span> Fighting Energy <span class="dk-set">MEE 6</span></span></li><li><a href="/sets/perfect-order.html"><span class="dk-q">3</span> Rocky Fighting Energy <span class="dk-set">POR 87</span></a></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-12" class="dk-pre">Pokémon: 17
+3 Dunsparce JTG 120
+2 Dudunsparce TEF 129
+1 Dudunsparce ex JTG 121
+3 Riolu PRE 50
+3 Mega Lucario ex MEG 77
+2 Lunatone MEG 74
+2 Solrock MEG 75
+1 Shaymin DRI 10
+
+Trainer: 33
+4 Lillie's Determination MEG 119
+3 Boss's Orders MEG 114
+2 Hilda WHT 84
+4 Crushing Hammer POR 71
+4 Fighting Gong MEG 116
+4 Premium Power Pro MEG 124
+4 Poké Pad POR 81
+2 Buddy-Buddy Poffin TEF 144
+1 Unfair Stamp TWM 165
+1 Night Stretcher ASC 196
+1 Special Red Card CRI 82
+2 Gravity Mountain SSP 177
+1 Jamming Tower TWM 153
+
+Energy: 10
+7 Fighting Energy MEE 6
+3 Rocky Fighting Energy POR 87</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-12">Copy the list</button>
+    <a class="dk-dl" href="/decks/mega-lucario.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+<article class="dk" id="mega-greninja">
+  <header class="dk-head">
+    <span class="dk-rank">14</span>
+    <div class="dk-title">
+      <h3>Mega Greninja</h3>
+      <p class="dk-share"><b>1.69%</b> of the field
+        <span class="dk-sep">/</span> 437 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">41.92% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/022/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me04/022/low.webp" alt="Mega Greninja ex, Chaos Rising 22" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/106/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/106/low.webp" alt="Greninja ex, Twilight Masquerade 106" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/020/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me04/020/low.webp" alt="Froakie, Chaos Rising 20" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/128/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/128/low.webp" alt="Dreepy, Twilight Masquerade 128" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>Neotarsis</b>'s, 1st of 59 at
+    Torneo Sidedeck Online Gratis Martes 21 Julio on July 22, 2026, 6 - 0 - 0.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">21</span></h4><ul><li><a href="/sets/chaos-rising.html"><span class="dk-q">3</span> Froakie <span class="dk-set">CRI 20</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Froakie <span class="dk-set">TWM 56</span></a></li><li><a href="/sets/chaos-rising.html"><span class="dk-q">2</span> Frogadier <span class="dk-set">CRI 21</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Frogadier <span class="dk-set">TWM 57</span></a></li><li><a href="/sets/chaos-rising.html"><span class="dk-q">3</span> Mega Greninja ex <span class="dk-set">CRI 22</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Greninja ex <span class="dk-set">TWM 106</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">3</span> Dreepy <span class="dk-set">TWM 128</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">3</span> Drakloak <span class="dk-set">TWM 129</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Dragapult ex <span class="dk-set">TWM 130</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Fezandipiti ex <span class="dk-set">ASC 142</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">1</span> Meowth ex <span class="dk-set">POR 62</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Budew <span class="dk-set">ASC 16</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">31</span></h4><ul><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Lillie's Determination <span class="dk-set">MEG 119</span></a></li><li><a href="/sets/white-flare.html"><span class="dk-q">3</span> Hilda <span class="dk-set">WHT 84</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Boss's Orders <span class="dk-set">MEG 114</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Wally's Compassion <span class="dk-set">MEG 132</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">4</span> Buddy-Buddy Poffin <span class="dk-set">TEF 144</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Rare Candy <span class="dk-set">MEG 125</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">3</span> Poké Pad <span class="dk-set">POR 81</span></a></li><li><a href="/sets/scarlet-violet.html"><span class="dk-q">2</span> Energy Retrieval <span class="dk-set">SVI 171</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">2</span> Night Stretcher <span class="dk-set">ASC 196</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Ultra Ball <span class="dk-set">MEG 131</span></a></li><li><a href="/sets/chaos-rising.html"><span class="dk-q">1</span> Special Red Card <span class="dk-set">CRI 82</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">2</span> Air Balloon <span class="dk-set">ASC 181</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Surfing Beach <span class="dk-set">MEG 129</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">8</span></h4><ul><li><span class="dk-nolink"><span class="dk-q">7</span> Water Energy <span class="dk-set">MEE 3</span></span></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">1</span> Neo Upper Energy <span class="dk-set">TEF 162</span></a></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-13" class="dk-pre">Pokémon: 21
+3 Froakie CRI 20
+1 Froakie TWM 56
+2 Frogadier CRI 21
+1 Frogadier TWM 57
+3 Mega Greninja ex CRI 22
+1 Greninja ex TWM 106
+3 Dreepy TWM 128
+3 Drakloak TWM 129
+1 Dragapult ex TWM 130
+1 Fezandipiti ex ASC 142
+1 Meowth ex POR 62
+1 Budew ASC 16
+
+Trainer: 31
+4 Lillie's Determination MEG 119
+3 Hilda WHT 84
+2 Boss's Orders MEG 114
+1 Wally's Compassion MEG 132
+4 Buddy-Buddy Poffin TEF 144
+3 Rare Candy MEG 125
+3 Poké Pad POR 81
+2 Energy Retrieval SVI 171
+2 Night Stretcher ASC 196
+2 Ultra Ball MEG 131
+1 Special Red Card CRI 82
+2 Air Balloon ASC 181
+2 Surfing Beach MEG 129
+
+Energy: 8
+7 Water Energy MEE 3
+1 Neo Upper Energy TEF 162</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-13">Copy the list</button>
+    <a class="dk-dl" href="/decks/mega-greninja.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+<article class="dk" id="lucario-hariyama">
+  <header class="dk-head">
+    <span class="dk-rank">15</span>
+    <div class="dk-title">
+      <h3>Lucario Hariyama</h3>
+      <p class="dk-share"><b>1.61%</b> of the field
+        <span class="dk-sep">/</span> 416 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">47.87% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/077/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me01/077/low.webp" alt="Mega Lucario ex, Mega Evolution 77" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/073/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me01/073/low.webp" alt="Hariyama, Mega Evolution 73" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/076/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me01/076/low.webp" alt="Riolu, Mega Evolution 76" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/072/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me01/072/low.webp" alt="Makuhita, Mega Evolution 72" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>BuhLockAy</b>'s, 2nd of 228 at
+    The Stache Series 0: Trial Run on August 1, 2026, 7 - 1 - 0.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">16</span></h4><ul><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Riolu <span class="dk-set">MEG 76</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Mega Lucario ex <span class="dk-set">MEG 77</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Makuhita <span class="dk-set">MEG 72</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Hariyama <span class="dk-set">MEG 73</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Lunatone <span class="dk-set">MEG 74</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Solrock <span class="dk-set">MEG 75</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">1</span> Meowth ex <span class="dk-set">POR 62</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">1</span> Mega Zygarde ex <span class="dk-set">POR 47</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">34</span></h4><ul><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Lillie's Determination <span class="dk-set">MEG 119</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">2</span> Judge <span class="dk-set">POR 76</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Boss's Orders <span class="dk-set">MEG 114</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Wally's Compassion <span class="dk-set">MEG 132</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Ultra Ball <span class="dk-set">MEG 131</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Fighting Gong <span class="dk-set">MEG 116</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Premium Power Pro <span class="dk-set">MEG 124</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">3</span> Poké Pad <span class="dk-set">POR 81</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">3</span> Night Stretcher <span class="dk-set">ASC 196</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">1</span> Energy Search <span class="dk-set">POR 72</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Unfair Stamp <span class="dk-set">TWM 165</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Switch <span class="dk-set">MEG 130</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">2</span> Air Balloon <span class="dk-set">ASC 181</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">1</span> Core Memory <span class="dk-set">POR 70</span></a></li><li><a href="/sets/surging-sparks.html"><span class="dk-q">2</span> Gravity Mountain <span class="dk-set">SSP 177</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">10</span></h4><ul><li><span class="dk-nolink"><span class="dk-q">10</span> Fighting Energy <span class="dk-set">MEE 6</span></span></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-14" class="dk-pre">Pokémon: 16
+3 Riolu MEG 76
+3 Mega Lucario ex MEG 77
+2 Makuhita MEG 72
+2 Hariyama MEG 73
+2 Lunatone MEG 74
+2 Solrock MEG 75
+1 Meowth ex POR 62
+1 Mega Zygarde ex POR 47
+
+Trainer: 34
+4 Lillie's Determination MEG 119
+2 Judge POR 76
+1 Boss's Orders MEG 114
+1 Wally's Compassion MEG 132
+4 Ultra Ball MEG 131
+4 Fighting Gong MEG 116
+4 Premium Power Pro MEG 124
+3 Poké Pad POR 81
+3 Night Stretcher ASC 196
+1 Energy Search POR 72
+1 Unfair Stamp TWM 165
+1 Switch MEG 130
+2 Air Balloon ASC 181
+1 Core Memory POR 70
+2 Gravity Mountain SSP 177
+
+Energy: 10
+10 Fighting Energy MEE 6</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-14">Copy the list</button>
+    <a class="dk-dl" href="/decks/lucario-hariyama.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+<article class="dk" id="basic-box">
+  <header class="dk-head">
+    <span class="dk-rank">16</span>
+    <div class="dk-title">
+      <h3>Basic Box</h3>
+      <p class="dk-share"><b>1.45%</b> of the field
+        <span class="dk-sep">/</span> 373 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">53.51% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/025/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/025/low.webp" alt="Teal Mask Ogerpon ex, Twilight Masquerade 25" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/076/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv08/076/low.webp" alt="Latias ex, Surging Sparks 76" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/104/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me01/104/low.webp" alt="Mega Kangaskhan ex, Mega Evolution 104" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/056/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv09/056/low.webp" alt="Lillie's Clefairy ex, Journey Together 56" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>TUNG TUNG TUNG SAHUR</b>'s, 1st of 265 at
+    🏆Moujii's Dojo🏆 (Late Registration Available!) on August 13, 2026, 12 - 2 - 0.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">20</span></h4><ul><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">4</span> Teal Mask Ogerpon ex <span class="dk-set">TWM 25</span></a></li><li><a href="/sets/surging-sparks.html"><span class="dk-q">2</span> Latias ex <span class="dk-set">SSP 76</span></a></li><li><span class="dk-nolink"><span class="dk-q">2</span> Pecharunt <span class="dk-set">PR-SV 149</span></span></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Mega Kangaskhan ex <span class="dk-set">MEG 104</span></a></li><li><a href="/sets/journey-together.html"><span class="dk-q">2</span> Lillie's Clefairy ex <span class="dk-set">JTG 56</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">2</span> Meowth ex <span class="dk-set">POR 62</span></a></li><li><a href="/sets/surging-sparks.html"><span class="dk-q">1</span> Chien-Pao <span class="dk-set">SSP 56</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Munkidori <span class="dk-set">TWM 95</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">1</span> Iron Leaves ex <span class="dk-set">TEF 25</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Wellspring Mask Ogerpon ex <span class="dk-set">TWM 64</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Fezandipiti ex <span class="dk-set">ASC 142</span></a></li><li><a href="/sets/surging-sparks.html"><span class="dk-q">1</span> Paldean Tauros <span class="dk-set">SSP 18</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">26</span></h4><ul><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Lillie's Determination <span class="dk-set">MEG 119</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">3</span> Boss's Orders <span class="dk-set">MEG 114</span></a></li><li><a href="/sets/black-bolt.html"><span class="dk-q">1</span> N's Plan <span class="dk-set">BLK 83</span></a></li><li><a href="/sets/temporal-forces.html"><span class="dk-q">1</span> Ciphermaniac's Codebreaking <span class="dk-set">TEF 145</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">4</span> Bug Catching Set <span class="dk-set">TWM 143</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Ultra Ball <span class="dk-set">MEG 131</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Energy Switch <span class="dk-set">MEG 115</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Unfair Stamp <span class="dk-set">TWM 165</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Night Stretcher <span class="dk-set">ASC 196</span></a></li><li><a href="/sets/stellar-crown.html"><span class="dk-q">3</span> Area Zero Underdepths <span class="dk-set">SCR 131</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">14</span></h4><ul><li><span class="dk-nolink"><span class="dk-q">10</span> Grass Energy <span class="dk-set">MEE 1</span></span></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">4</span> Prism Energy <span class="dk-set">ASC 216</span></a></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-15" class="dk-pre">Pokémon: 20
+4 Teal Mask Ogerpon ex TWM 25
+2 Latias ex SSP 76
+2 Pecharunt PR-SV 149
+2 Mega Kangaskhan ex MEG 104
+2 Lillie's Clefairy ex JTG 56
+2 Meowth ex POR 62
+1 Chien-Pao SSP 56
+1 Munkidori TWM 95
+1 Iron Leaves ex TEF 25
+1 Wellspring Mask Ogerpon ex TWM 64
+1 Fezandipiti ex ASC 142
+1 Paldean Tauros SSP 18
+
+Trainer: 26
+4 Lillie's Determination MEG 119
+3 Boss's Orders MEG 114
+1 N's Plan BLK 83
+1 Ciphermaniac's Codebreaking TEF 145
+4 Bug Catching Set TWM 143
+4 Ultra Ball MEG 131
+4 Energy Switch MEG 115
+1 Unfair Stamp TWM 165
+1 Night Stretcher ASC 196
+3 Area Zero Underdepths SCR 131
+
+Energy: 14
+10 Grass Energy MEE 1
+4 Prism Energy ASC 216</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-15">Copy the list</button>
+    <a class="dk-dl" href="/decks/basic-box.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+<article class="dk" id="ogerpon-meganium-hydrapple">
+  <header class="dk-head">
+    <span class="dk-rank">17</span>
+    <div class="dk-title">
+      <h3>Ogerpon Meganium Hydrapple</h3>
+      <p class="dk-share"><b>1.43%</b> of the field
+        <span class="dk-sep">/</span> 368 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">51.32% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/025/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv06/025/low.webp" alt="Teal Mask Ogerpon ex, Twilight Masquerade 25" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/010/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me01/010/low.webp" alt="Meganium, Mega Evolution 10" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/014/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv07/014/low.webp" alt="Hydrapple ex, Stellar Crown 14" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/008/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me01/008/low.webp" alt="Chikorita, Mega Evolution 8" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>LUIS ALBERTO FACIO PÉREZ</b>'s, 1st of 96 at
+    🏛💫 Card Temple Weekly Battles #69 🥵​🥵​🥵​ on July 28, 2026, 6 - 0 - 0.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">21</span></h4><ul><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">4</span> Teal Mask Ogerpon ex <span class="dk-set">TWM 25</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Chikorita <span class="dk-set">MEG 8</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Bayleef <span class="dk-set">MEG 9</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Meganium <span class="dk-set">MEG 10</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">1</span> Applin <span class="dk-set">DRI 16</span></a></li><li><a href="/sets/stellar-crown.html"><span class="dk-q">1</span> Applin <span class="dk-set">SCR 12</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">2</span> Dipplin <span class="dk-set">TWM 18</span></a></li><li><a href="/sets/stellar-crown.html"><span class="dk-q">2</span> Hydrapple ex <span class="dk-set">SCR 14</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">2</span> Meowth ex <span class="dk-set">POR 62</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Celebi <span class="dk-set">MEG 12</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Fezandipiti ex <span class="dk-set">ASC 142</span></a></li><li><a href="/sets/prismatic-evolutions.html"><span class="dk-q">1</span> Regigigas <span class="dk-set">PRE 86</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">26</span></h4><ul><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Lillie's Determination <span class="dk-set">MEG 119</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">2</span> Boss's Orders <span class="dk-set">MEG 114</span></a></li><li><a href="/sets/stellar-crown.html"><span class="dk-q">1</span> Briar <span class="dk-set">SCR 132</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Lana's Aid <span class="dk-set">TWM 155</span></a></li><li><a href="/sets/phantasmal-flames.html"><span class="dk-q">1</span> Dawn <span class="dk-set">PFL 87</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Ultra Ball <span class="dk-set">MEG 131</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">4</span> Bug Catching Set <span class="dk-set">TWM 143</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">3</span> Poké Pad <span class="dk-set">POR 81</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">1</span> Night Stretcher <span class="dk-set">ASC 196</span></a></li><li><a href="/sets/twilight-masquerade.html"><span class="dk-q">1</span> Unfair Stamp <span class="dk-set">TWM 165</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">4</span> Forest of Vitality <span class="dk-set">MEG 117</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">13</span></h4><ul><li><span class="dk-nolink"><span class="dk-q">13</span> Grass Energy <span class="dk-set">MEE 1</span></span></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-16" class="dk-pre">Pokémon: 21
+4 Teal Mask Ogerpon ex TWM 25
+2 Chikorita MEG 8
+2 Bayleef MEG 9
+2 Meganium MEG 10
+1 Applin DRI 16
+1 Applin SCR 12
+2 Dipplin TWM 18
+2 Hydrapple ex SCR 14
+2 Meowth ex POR 62
+1 Celebi MEG 12
+1 Fezandipiti ex ASC 142
+1 Regigigas PRE 86
+
+Trainer: 26
+4 Lillie's Determination MEG 119
+2 Boss's Orders MEG 114
+1 Briar SCR 132
+1 Lana's Aid TWM 155
+1 Dawn PFL 87
+4 Ultra Ball MEG 131
+4 Bug Catching Set TWM 143
+3 Poké Pad POR 81
+1 Night Stretcher ASC 196
+1 Unfair Stamp TWM 165
+4 Forest of Vitality MEG 117
+
+Energy: 13
+13 Grass Energy MEE 1</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-16">Copy the list</button>
+    <a class="dk-dl" href="/decks/ogerpon-meganium-hydrapple.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+<article class="dk" id="rockets-honchkrow">
+  <header class="dk-head">
+    <span class="dk-rank">18</span>
+    <div class="dk-title">
+      <h3>Rocket's Honchkrow</h3>
+      <p class="dk-share"><b>1.39%</b> of the field
+        <span class="dk-sep">/</span> 358 decks recorded
+        <span class="dk-sep">/</span> <span class="dk-win">49.12% match win rate</span>
+      </p>
+    </div>
+  </header>
+  <div class="dk-faces"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/127/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv10/127/low.webp" alt="Team Rocket's Murkrow, Destined Rivals 127" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/127/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/me/me02.5/127/low.webp" alt="Team Rocket's Honchkrow, Ascended Heroes 127" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/153/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv10/153/low.webp" alt="Team Rocket's Porygon, Destined Rivals 153" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/051/low.avif"><img class="dk-card" src="https://assets.tcgdex.net/en/sv/sv10/051/low.webp" alt="Team Rocket's Articuno, Destined Rivals 51" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></div>
+  <p class="dk-prov">The list below is <b>James C</b>'s, 5th of 504 at
+    TOURNAMENT OF DOOM! Have you heard... on July 25, 2026, 8 - 2 - 1.</p>
+  <div class="dk-cols"><div class="dk-col"><h4>Pokémon <span class="dk-n">12</span></h4><ul><li><a href="/sets/destined-rivals.html"><span class="dk-q">4</span> Team Rocket's Murkrow <span class="dk-set">DRI 127</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">3</span> Team Rocket's Honchkrow <span class="dk-set">ASC 127</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">2</span> Team Rocket's Porygon <span class="dk-set">DRI 153</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">1</span> Team Rocket's Porygon2 <span class="dk-set">DRI 154</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">2</span> Team Rocket's Articuno <span class="dk-set">DRI 51</span></a></li></ul></div><div class="dk-col"><h4>Trainer <span class="dk-n">40</span></h4><ul><li><a href="/sets/destined-rivals.html"><span class="dk-q">4</span> Team Rocket's Ariana <span class="dk-set">DRI 171</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">4</span> Team Rocket's Archer <span class="dk-set">DRI 170</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">4</span> Team Rocket's Giovanni <span class="dk-set">DRI 174</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">4</span> Team Rocket's Proton <span class="dk-set">DRI 177</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">4</span> Team Rocket's Petrel <span class="dk-set">DRI 176</span></a></li><li><a href="/sets/perfect-order.html"><span class="dk-q">4</span> Poké Pad <span class="dk-set">POR 81</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">4</span> Team Rocket's Transceiver <span class="dk-set">DRI 178</span></a></li><li><a href="/sets/prismatic-evolutions.html"><span class="dk-q">4</span> Roto-Stick <span class="dk-set">PRE 127</span></a></li><li><a href="/sets/ascended-heroes.html"><span class="dk-q">2</span> Night Stretcher <span class="dk-set">ASC 196</span></a></li><li><a href="/sets/mega-evolution.html"><span class="dk-q">1</span> Ultra Ball <span class="dk-set">MEG 131</span></a></li><li><a href="/sets/surging-sparks.html"><span class="dk-q">1</span> Miracle Headset <span class="dk-set">SSP 183</span></a></li><li><a href="/sets/destined-rivals.html"><span class="dk-q">4</span> Team Rocket's Factory <span class="dk-set">DRI 173</span></a></li></ul></div><div class="dk-col"><h4>Energy <span class="dk-n">8</span></h4><ul><li><a href="/sets/destined-rivals.html"><span class="dk-q">4</span> Team Rocket's Energy <span class="dk-set">DRI 182</span></a></li><li><a href="/sets/white-flare.html"><span class="dk-q">4</span> Ignition Energy <span class="dk-set">WHT 86</span></a></li></ul></div></div>
+<details class="dk-raw">
+  <summary>Show the raw import text</summary>
+  <pre id="dk-text-17" class="dk-pre">Pokémon: 12
+4 Team Rocket's Murkrow DRI 127
+3 Team Rocket's Honchkrow ASC 127
+2 Team Rocket's Porygon DRI 153
+1 Team Rocket's Porygon2 DRI 154
+2 Team Rocket's Articuno DRI 51
+
+Trainer: 40
+4 Team Rocket's Ariana DRI 171
+4 Team Rocket's Archer DRI 170
+4 Team Rocket's Giovanni DRI 174
+4 Team Rocket's Proton DRI 177
+4 Team Rocket's Petrel DRI 176
+4 Poké Pad POR 81
+4 Team Rocket's Transceiver DRI 178
+4 Roto-Stick PRE 127
+2 Night Stretcher ASC 196
+1 Ultra Ball MEG 131
+1 Miracle Headset SSP 183
+4 Team Rocket's Factory DRI 173
+
+Energy: 8
+4 Team Rocket's Energy DRI 182
+4 Ignition Energy WHT 86</pre>
+  <div class="dk-acts">
+    <button type="button" class="dk-copy" data-target="dk-text-17">Copy the list</button>
+    <a class="dk-dl" href="/decks/rockets-honchkrow.txt" download>Download the .txt</a>
+  </div>
+</details>
+</article>
+
+      <h2>Where to go next</h2>
+      <ul class="dk-more">
+        <li><a href="/top-100-playable.html"><b>The 100 most played cards</b>
+          <span>What actually goes in these decks, counted across all 357 lists</span></a></li>
+        <li><a href="/tcg-live.html"><b>Pokemon TCG Live</b>
+          <span>The free official client, and what the code card in every pack gives you</span></a></li>
+        <li><a href="/how-to-play.html"><b>How to play</b>
+          <span>Setup, a turn, and the three ways to win, if the deck is your first</span></a></li>
+        <li><a href="/tcg-pocket.html"><b>Pokemon TCG Pocket</b>
+          <span>The phone one, which is a different game and does not take these lists</span></a></li>
+      </ul>
+
+      <p class="dk-src">Deck usage, match records and every decklist come from <b>Limitless TCG</b>,
+        read August 16, 2026: online tournaments played in Pokemon TCG Live on Limitless's play platform, filtered to Standard, 2026 rotation, Pitch Black era. Each list is
+        reproduced exactly as its player registered it and is credited above. Regulation marks and both
+        rotation dates come from Pokemon.com, 2026 Pokemon TCG Standard Format Rotation Announcement, read August 16, 2026. Card scans and card
+        data from TCGdex. Card names and pictures were checked against this site's own card records:
+        284 of 295 distinct printings in these decks matched exactly, and the
+        11 that did not are cards from sets this site has no guide for, so they
+        are listed without a picture rather than with the wrong one. This page states no pull rates and no
+        pack odds, because we do not have them.</p>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Footer">
+      <div class="foot-col">
+        <p class="foot-h">Watch</p>
+        <a href="/videos.html">Rips</a>
+        <a href="/playlists.html">Playlists</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">The binder</p>
+        <a href="/hall.html">Best pulls</a>
+        <a href="/wanted.html">Most wanted</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Cards</p>
+        <a href="/cards.html">Card search</a>
+        <a href="/pokemon/">By Pokemon</a>
+        <a href="/sets/">Set guides</a>
+        <a href="/expansions.html">Every set ever</a>
+        <a href="/upcoming.html">Coming next</a>
+        <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/pack-prices.html">Pack prices</a>
+        <a href="/how-many-packs.html">Packs per box</a>
+        <a href="/openings/">Sealed products</a>
+        <a href="/drops.html">Drops this week</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Guides</p>
+        <a href="/start.html">Start here</a>
+        <a href="/how-to-play.html">How to play</a>
+        <a href="/tcg-live.html">Code cards</a>
+        <a href="/tcg-pocket.html">Phone version</a>
+        <a href="/what-set.html">Set finder</a>
+        <a href="/rarity.html">Rarity guide</a>
+        <a href="/types.html">Card types</a>
+        <a href="/fake-cards.html">Fakes</a>
+        <a href="/will-it-grade.html">Will it grade</a>
+        <a href="/grading.html">Grading cost</a>
+        <a href="/selling.html">Where to sell</a>
+        <a href="/buying.html">Where to buy</a>
+        <a href="/luck.html">Luck, measured</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Play</p>
+        <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
+        <a href="/lore.html">Pokemon lore</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Rochester, NY</p>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/vendors.html">Local vendors</a>
+        <a href="/creators.html">Local creators</a>
+        <a href="/about.html">About</a>
+      </div>
+    </nav>
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    Deck data and decklists from Limitless TCG. Card scans from TCGdex.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+<script>
+// Copy the exact text out of the <pre> the reader is looking at. Reading it
+// from the DOM rather than from a second copy in a data- attribute means there
+// is one decklist in the markup and the button cannot drift from the file.
+document.querySelectorAll('.dk-copy').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var el = document.getElementById(b.dataset.target);
+    if (!el) return;
+    navigator.clipboard.writeText(el.textContent).then(function () {
+      var was = b.textContent;
+      b.textContent = 'Copied, now paste it into Live';
+      setTimeout(function () { b.textContent = was; }, 2400);
+    }, function () {
+      b.textContent = 'Press and hold the list to copy';
+    });
+  });
+});
+</script>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
+</body>
+</html>

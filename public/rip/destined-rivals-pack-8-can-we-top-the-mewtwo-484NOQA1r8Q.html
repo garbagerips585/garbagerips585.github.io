@@ -26,7 +26,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
+<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
@@ -169,18 +169,38 @@
     <div class="rip-grid">
       <div class="rip-stage">
         <div class="rip-player pack-player" id="player" data-id="484NOQA1r8Q" data-title="Destined Rivals Pack #8 ⚡ | Can We TOP The Mewtwo?! 😳">
-          <!-- THIS POSTER IS COMPLETELY COVERED BY THE PACK. ui.css pins
-               .rip-player .pack to inset:0 and the pack is opaque, which is the
-               whole point of it. The image was still marked fetchpriority=high,
-               so every rip page raced to download 154.7KB nobody can see and it
-               became the LCP element at 3,036ms on a throttled phone. It stays
-               in the markup because it is the fallback when the pack scripting
-               does not run, but it loads last now, not first. -->
-          <picture>
-            <source type="image/webp" srcset="https://i.ytimg.com/vi_webp/484NOQA1r8Q/oardefault.webp">
-            <img src="https://i.ytimg.com/vi/484NOQA1r8Q/oardefault.jpg" alt="" width="720" height="1280" loading="lazy" fetchpriority="low" decoding="async"
-                 onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='https://i.ytimg.com/vi/484NOQA1r8Q/maxresdefault.jpg'}else{this.remove()}">
-          </picture>
+          <!-- THIS POSTER IS COMPLETELY COVERED BY THE PACK, AND IT IS IN A
+               <noscript> BECAUSE loading="lazy" DID NOT STOP IT DOWNLOADING.
+               ui.css pins .rip-player .pack to inset:0 at z-index 3 and the
+               pack is opaque, which is the whole point of it.
+
+               It was fetchpriority=high once, raced every rip page to download
+               154.7KB nobody can see, and became the LCP element at 3,036ms on
+               a throttled phone. Demoting it to lazy+low fixed the PRIORITY and
+               not the FETCH: lazy is a heuristic about distance DOWN the page,
+               and this sits at the top of it, so all 313 rip pages still paid
+               for it. Measured over the wire on 16 August 2026: 89-242KB per
+               page, mean about 120KB, 13-18% of a 660KB page. It was also the
+               only image anywhere on the site over the 200KB ceiling, and a
+               disk scan could never say so because it is served by YouTube.
+
+               Verified never visible in any state before this changed: the
+               img rect equalled the pack rect exactly, opacity 1, pack on top;
+               and packplayer.js removes the poster outright when it mounts the
+               iframe, so the tear never reveals it either. <noscript> keeps the
+               fallback the original comment intended, for the one case that
+               cannot remove it, and costs a scripted reader nothing.
+
+               packplayer.js's poster lookup is already null-guarded, so it is
+               a no-op now rather than a break. (No backticks in this comment:
+               it lives inside a template literal, and quoting the code here
+               closed the string and failed the build once already.) -->
+          <noscript>
+            <picture>
+              <source type="image/webp" srcset="https://i.ytimg.com/vi_webp/484NOQA1r8Q/oardefault.webp">
+              <img src="https://i.ytimg.com/vi/484NOQA1r8Q/oardefault.jpg" alt="" width="720" height="1280" decoding="async">
+            </picture>
+          </noscript>
           <button class="pack pack--destined-rivals" id="pack" type="button" aria-label="Rip open: Destined Rivals Pack #8 ⚡ | Can We TOP The Mewtwo?! 😳">
             <span class="pack-face pack-l" aria-hidden="true">
               <span class="pack-art"></span>
@@ -575,7 +595,7 @@ addEventListener('DOMContentLoaded',function(){
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !lb.hidden) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=7f0274cc" defer></script>
-<script src="/assets/packplayer.js?v=faa2eb26" defer></script>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
 </body>
 </html>

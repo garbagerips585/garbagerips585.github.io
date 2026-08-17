@@ -81,6 +81,25 @@ const style = `
 .about-roc{display:flex;align-items:center;gap:var(--s4)}
 .about-roc img{width:74px;flex:none}
 .about-roc p{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);letter-spacing:.03em;margin:0}
+
+/* THE ONE PICTURE ON THIS PAGE. It sits with the paragraph about the sealed
+   wrapper because that paragraph describes an object, and the object exists:
+   it is the wrapper drawn for this channel, the one every rip page opens with,
+   and it happens to carry the Rochester joke the two paragraphs above it are
+   making. A page whose whole job is saying whose site this is had one image on
+   it and that image was a badge.
+   170px is the drawn width and the file is 400 wide, which is what
+   scripts/build-packs.py makes the tile for: "a tile is never wider than about
+   200 CSS px, so 400 covers it at 2x". Do not point this at the non-tile file,
+   which is 810x1440 and exists for the rip page player. */
+.about-pack{display:flex;gap:var(--s4);align-items:flex-start;margin:var(--s5) 0}
+.about-pack img{width:170px;height:auto;flex:none;border-radius:6px;
+  filter:drop-shadow(0 10px 18px rgba(17,17,17,.22))}
+.about-pack figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);margin:0}
+@media(max-width:420px){
+  .about-pack{flex-direction:column;align-items:center;text-align:center}
+  .about-pack img{width:min(200px,64vw)}
+}
 `;
 
 const body = `
@@ -126,6 +145,17 @@ const body = `
         <p>One rule everywhere: a thumbnail never shows the pulled card. Every video sits
           behind a sealed wrapper you have to rip open, because the whole point is not
           knowing.</p>
+
+        <figure class="about-pack">
+          <img src="/assets/packs/default-garbage-rips-585-booster-pack-tile.webp"
+               width="400" height="711" loading="lazy" decoding="async"
+               alt="The Garbage Rips 585 booster wrapper: a blue Pokemon pack with Trubbish sitting on top of a loaded Garbage Plate, booster packs propped around the rim, and a plate label reading Rochester, NY.">
+          <figcaption>This is the wrapper. Trubbish on a Garbage Plate, Rochester NY on the
+            plate label, and the channel name across the bottom. Every rip page on this site
+            opens sealed behind one, and the pack that gets torn is the one for that video's
+            set. Tap it and it shakes, tears down the middle and the video is already
+            playing underneath.</figcaption>
+        </figure>
       </div>
 
       <aside class="about-side">

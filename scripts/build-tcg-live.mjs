@@ -495,8 +495,17 @@ ${compareTable(esc)}
             collection you will ever build.</li>
           <li><b>Check which account you are in before you start typing.</b> Scattering codes across two accounts
             is the one mistake nobody can undo for you.</li>
-          <li><b>Play the starter decks first.</b> They are complete, legal decks. Building can wait a week.</li>
-          <li><b>Spend Trade Credits on what a deck needs, not on the pretty version.</b> Pokemon's own warning is
+          ${/* THE TWO LINKS IN THIS LIST ADD NO WORDS, and that is why they are links on existing
+               text rather than a sentence of their own. This page's body copy is capped at 2,000
+               words by data/tcg-live-PLAN.md and it sits within about ten of the ceiling, so the
+               cross-links to the deck pages could not be a new paragraph without either blowing the
+               budget or quietly moving it. Wrapping words that were already here costs nothing and
+               the anchor text is better than a bolt-on sentence would have been: "Building" is
+               exactly what /decks.html is for, and "what a deck needs" is exactly what
+               /top-100-playable.html lists. If a later editor rewrites either tip, keep the link. */ ""}
+          <li><b>Play the starter decks first.</b> They are complete, legal decks.
+            <a href="/decks.html">Building</a> can wait a week.</li>
+          <li><b>Spend Trade Credits on <a href="/top-100-playable.html">what a deck needs</a>, not on the pretty version.</b> Pokemon's own warning is
             that exchanging is final and not refundable, and the special version plays the same.</li>
           <li><b>Let the duplicates pile up.</b> They convert themselves and they are paying for your next
             card.</li>

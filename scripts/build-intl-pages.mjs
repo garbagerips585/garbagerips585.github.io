@@ -91,6 +91,15 @@ const enLogo = (setId, alt) => {
           width="${smW}" height="100" alt="${esc(alt)}" loading="lazy" decoding="async">`;
 };
 
+// The TCGdex bases that answer 404, found by fetching all 4,655 image urls the
+// site emits. Same file the English guides read for the same reason.
+let NO_SCAN = new Set();
+try {
+  NO_SCAN = new Set(JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8")).bases || []);
+} catch {
+  /* optional: a missing base then renders as an img that removes itself */
+}
+
 let SYMBOL_DIMS = {};
 try {
   SYMBOL_DIMS = JSON.parse(await readFile(join(ROOT, "data/symbol-dims.json"), "utf8")).symbols || {};
@@ -559,7 +568,13 @@ ${enChase(g, en)}  </div>
  * one tap away, and this band is a signpost rather than a second copy of it.
  */
 function enChase(g, en) {
-  const chase = (en?.chase || []).filter((c) => c.image).slice(0, 4);
+  // Skip the 101 TCGdex bases that 404, up front. onerror hides the gap in the
+  // browser and the page still pays for the round trip to find out, which is
+  // the reason data/no-scan.json exists. None of the current chase cards is on
+  // that list; this is here so a future set's is not the way it gets noticed.
+  const chase = (en?.chase || [])
+    .filter((c) => c.image && !NO_SCAN.has(String(c.image).replace(/\/(low|high)\.(webp|avif|png|jpg)$/, "")))
+    .slice(0, 4);
   if (chase.length < 2) return "";
   return `    <h3 class="intl-enh">The same cards in English</h3>
     <p class="intl-ensay">The priciest cards in English ${esc(en.name)}, which is the set on the shelf in a US shop.

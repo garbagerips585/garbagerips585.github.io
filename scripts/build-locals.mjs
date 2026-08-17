@@ -21,6 +21,33 @@
 //
 // `vouched` on a vendor is the one editorial signal, and it means Tim has
 // actually bought from them. It is not a star rating and there is no scale.
+//
+// THESE TWO PAGES CARRY NO PICTURES AND THAT HAS NOW BEEN DECIDED TWICE, so
+// here is the reasoning rather than a third agent working it out from scratch.
+// Both sit at 0.0 in check-build.py's image-density table and both are below
+// its 250 word floor, so nothing flags them; the question is whether they
+// should have one anyway, and the answer is no on three counts.
+//
+//   - THE OBVIOUS IMAGE IS SOMEBODY ELSE'S FACE. Every row is a real local
+//     person or a real small business. The site holds no mark for any of them,
+//     and pulling an avatar or a logo off their profile is a different kind of
+//     decision from mirroring a public-domain wordmark or an App Store
+//     screenshot the publisher uploaded. Nobody here has been asked.
+//   - A MAP WAS CONSIDERED AND IT HAS NO SHAPE. /shops.html earns a drawn map
+//     because its rows carry addresses that are spread across the region.
+//     These rows carry an `area`, and today every entry on both pages reads
+//     "Rochester". A map of four pins in one place, one of which (Toak Pulls)
+//     is the same entity appearing on both pages, teaches a reader nothing the
+//     word Rochester has not already told them.
+//   - PLATFORM LOGOS WOULD BE DECORATION. The link row already says YouTube,
+//     Instagram, TikTok in words, which are shorter to read than an icon is to
+//     recognise, and swapping them for marks would add requests and remove the
+//     labels.
+//
+// WHAT WOULD CHANGE THIS: a vendor sending us their own artwork to use, which
+// the "know one we missed" invitation could ask for; or enough entries spread
+// widely enough that a regional map becomes a real picture. Neither is true
+// yet, and an empty-ish page with no picture is better than a padded one.
 
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";

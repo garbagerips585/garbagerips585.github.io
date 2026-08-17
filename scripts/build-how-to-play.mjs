@@ -587,7 +587,10 @@ ${(win.ways || [])
         </ul>
         <p style="margin-top:var(--s4)">A legal deck is exactly 60 cards, at most four with the same name except
           basic Energy, and at least one Basic Pokemon. A preconstructed deck already obeys all three, and older
-          or special cards carry extra rules printed on the card.
+          or special cards carry extra rules printed on the card. When you want to build one instead,
+          <a href="/decks.html">deck builds you can download</a> has the most played Standard decks written out
+          card by card, and <a href="/top-100-playable.html">the 100 most played cards</a> is what to look for
+          first in the packs you already own.
           <a href="/start.html">Start here</a> is the site's other front door: what a card is and what it is
           worth. This page is the one about the game.</p>
       </section>

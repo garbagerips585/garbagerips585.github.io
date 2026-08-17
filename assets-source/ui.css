@@ -3,6 +3,32 @@
    One file, linked by every page. It used to be an inline <style> block copied
    into each generated page, which meant 322 lines duplicated 338 times and no
    way to change the site without regenerating all of it.
+
+   A BROKEN COMMENT IN THIS FILE USED TO FAIL SILENTLY. build-css.mjs NOW
+   CATCHES IT. Editing a comment on 16 August 2026 left a stray close-comment
+   marker mid-block, which ended the comment early, made the prose after it
+   parse as declarations, and swallowed the rule that followed. build-css
+   printed "205.9KB -> 97.3KB (52.7% off)", which is what a good run looks
+   like, and check-build.py passed, because nothing on either side parsed CSS.
+   It reached all 481 pages and was found by driving the page and noticing the
+   control it styled had stopped working. NEVER WRITE THE CLOSE-COMMENT MARKER
+   INSIDE A COMMENT, even in quotes or backticks: this very paragraph was
+   written with one in it and killed the whole FACETS block a second time
+   within the hour.
+
+   Since 16 August 2026 that is a build failure rather than a surprise.
+   lintComments() in build-css.mjs walks this file before stripping anything
+   and exits non-zero, naming the line, when it finds a close marker sitting
+   outside any comment (the fingerprint both incidents left), a comment that is
+   never closed, or a brace that a comment swallowed. Nothing is written to
+   public/ when it fires, so a broken stylesheet cannot reach a page.
+
+   WHAT IT STILL DOES NOT CATCH: the opposite typo, a stray OPENING marker,
+   which quietly absorbs everything down to the next close marker. There is no
+   cheap test for it, because the comments here quote real CSS on purpose and a
+   comment holding braces is normal in this file. If a block of rules vanishes
+   with no error, look for an opening marker above it. If a single rule you
+   just wrote does nothing, look at the comment ABOVE it before the rule.
    ========================================================================== */
 /* ==========================================================================
    PROTOTYPE D — "The Wall"
@@ -271,6 +297,137 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 .chip.gold[aria-current]{background:var(--gold-deep);color:var(--on-alert);border-color:var(--gold-deep)}
 
 /* --------------------------------------------------------------------------
+   FACETS: the two filter rails on /videos.html, and the reason they are not
+   .rail-in any more.
+
+   `.rail-in` above is a one-line scroller with the scrollbar switched off.
+   That is RIGHT for the home page, where the rail is 16 hand-picked chips that
+   end in "All 41 set guides ->" and the overflow is a nudge, and it is right
+   for /card-shows.html, whose four area chips fit at every width. It is wrong
+   for the catalogue page, where there is one chip per tagged set and the
+   taxonomy currently has 35 of them.
+
+   MEASURED ON /videos.html BEFORE THIS BLOCK EXISTED. Set rail scrollWidth vs
+   clientWidth, and the count of chips whose right edge falls outside the track
+   at scrollLeft 0, driven headless over CDP:
+
+     390    5154 / 390    33 of 35 chips out of view
+     768    5178 / 768    30 of 35
+     1280   5178 / 1280   27 of 35
+     1440   5178 / 1440   26 of 35
+     1920   5178 / 1500   26 of 35   (the track caps at max-width:1500)
+
+   The product rail was 1760 wide in the same track, 3 to 11 chips out of view,
+   and its LAST child was "Clear all": the one control that undoes a filter sat
+   260 to 1346px past the right edge.
+
+   THE OVERFLOW WAS NOT THE BUG. The hidden scrollbar was. A touch screen can
+   drag the track and a trackpad can flick it sideways, but a mouse with a
+   vertical wheel has no gesture for a horizontal scroller, and there was no
+   scrollbar, no arrow, no fade and no cut chip at the phone widths to say one
+   existed. So on the most common desktop input the bottom 26 sets were not a
+   long drag, they were unreachable, on the page whose entire job is finding one
+   rip in the catalogue.
+
+   THE SHAPE: the row stays exactly one chip tall, and a button at the end of it
+   opens the rest as a PANEL. The panel is the same <button> elements, moved out
+   of flow rather than cloned, so there is one chip per filter and one place
+   that can hold aria-pressed. Wrapping the chips inline instead was measured
+   and rejected: 35 chips wrap to about 15 rows at 390px, so an always-open
+   group is 700px of filters above a viewport 844px tall, and this rail is
+   STICKY, which would have parked that on screen for the whole page.
+
+   Because the open panel is absolutely positioned it takes no space in flow:
+   nothing below it moves when it opens, so the min-height reservation below is
+   still the whole layout-shift story and CLS is untouched by the disclosure.
+
+   Selected chips get order:-1 from app.js so they sort to the front of the
+   collapsed row. Without it you could filter to Temporal Forces, close the
+   panel, and see no evidence anywhere on the page that a filter was on.
+
+   AFTER, same harness. "peek" is chips fully inside the collapsed row, "panel"
+   is how many of the 35 are in view with it open before any scrolling:
+
+     390    peek 1   panel 16 of 35, panel 390x460, scrolls vertically
+     768    peek 4   panel 34 of 35, panel 752x460, scrolls vertically
+     1280   peek 7   panel 35 of 35, panel 1264x286, no scroll at all
+     1440   peek 8   panel 35 of 35, panel 1424x234, no scroll at all
+     1920   peek 8   panel 35 of 35, panel 1484x234, no scroll at all
+
+   From 1280 up the whole set vocabulary is one click and zero scrolling. The
+   phone peek drops from 2 chips to 1 because the toggle takes 90px of a 390px
+   row, which is the trade: one fewer chip glanced at, 34 more reachable.
+
+   Numbers that did NOT move, and were checked because they are what the rail's
+   own comments are about: libtools 195px at 390 and 236px everywhere above it,
+   main top 255 / 296px, both identical open and closed, and CLS at 1440x900
+   with the cache off is 0.
+   -------------------------------------------------------------------------- */
+.facet{position:relative;display:flex;align-items:center;gap:var(--s2);
+  max-width:1500px;margin:0 auto;padding:var(--s3) var(--s5);min-height:68px}
+/* The slot is a fixed 44px box, not a shrink-wrap, so the row is the same
+   height empty, filled, and with the panel open. Same reservation the
+   min-height comment above is about, and the same two numbers. */
+.facet-slot{flex:1;min-width:0;height:44px}
+/* The fade is the AFFORDANCE, and its absence is half of what was wrong here.
+   A row of chips cut dead at the container edge reads as a row that ends,
+   especially at 1280 and up where the cut lands in the gap between two chips
+   about a third of the time and there is no partial chip to give it away. The
+   28px ramp guarantees the last chip in view is visibly dissolving into the
+   toggle beside it, so "there is more behind this button" is stated by the
+   picture and not only by the word "All". Collapsed only: the open panel is a
+   card with a border and must not fade its own bottom row. */
+.facet-box{display:flex;flex-wrap:nowrap;gap:var(--s2);height:100%;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent);
+  mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent)}
+.facet-more{flex:none;font:700 var(--t-label)/1 var(--body);letter-spacing:.02em;
+  background:var(--chrome-bg);color:var(--chrome-ink);border:1px solid var(--chrome-bg);
+  border-radius:var(--r-pill);padding:0 var(--s4);height:44px;
+  display:inline-flex;align-items:center;gap:8px;white-space:nowrap;cursor:pointer}
+.facet-more .n{font:700 var(--t-micro)/1 var(--mono);color:var(--chrome-dim)}
+/* The caret is drawn rather than typed so it can rotate. A glyph would need a
+   font that has it at the same weight as the label, which none of the three
+   loaded here does. */
+.facet-more::after{content:"";width:8px;height:8px;flex:none;
+  border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+  transform:translateY(-2px) rotate(45deg);transition:transform .16s}
+.facet-more[aria-expanded=true]::after{transform:translateY(2px) rotate(-135deg)}
+.facet-more:hover{background:var(--gold-deep);border-color:var(--gold-deep);color:var(--on-alert)}
+.facet-more:hover .n{color:var(--chip-gold-bg)}
+/* The open panel. top:100% is the bottom of the row, so it hangs under the rail
+   it belongs to and over the grid. z-index beats .rail's own 55 because the
+   product facet's rail is position:static (see the .rail + .rail rule in the
+   QA block near the end of this file) and would otherwise paint beneath the
+   set rail's backdrop-filter.
+   The inset is the row's padding MINUS the panel's own, so the first chip in
+   the panel sits in the same column as the first chip in the row it drops out
+   of. Setting both to var(--s5) put them 16px apart and the panel read as a
+   different control from the rail. */
+.facet.open .facet-box{position:absolute;top:100%;
+  left:calc(var(--s5) - var(--s4));right:calc(var(--s5) - var(--s4));
+  z-index:60;flex-wrap:wrap;height:auto;max-height:min(58vh,460px);
+  overflow-y:auto;overscroll-behavior:contain;
+  background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  box-shadow:var(--lift);padding:var(--s4);
+  -webkit-mask-image:none;mask-image:none}
+/* Clear only exists while something is on, so it is never a dead control and
+   never eats width in the common case. */
+.facet-clear{flex:none}
+.facet-clear[hidden]{display:none}
+@media(max-width:700px){
+  .facet{padding:var(--s2) var(--s3);min-height:60px}
+  /* Flush to the viewport on a phone, which puts the panel's chips in the same
+     column as the row's (both var(--s3) in from the edge) and buys 24px of
+     width back on a track where a set name is already 172px. */
+  .facet.open .facet-box{left:0;right:0;padding:var(--s3);border-radius:0 0 var(--r) var(--r)}
+  /* The toggle is the only control guaranteed to be reachable, so on a phone it
+     gives up its word and keeps its number: "All 35" instead of "All 35 sets".
+     Measured at 390: the long label left 190px of the 390px row for chips,
+     which is one and a bit. The short one leaves 258px. */
+  .facet-more .w{display:none}
+}
+
+/* --------------------------------------------------------------------------
    Hall of Fame. The one dark surface on the site, and it is here because dark
    is what makes foil read as foil: the same wrapper that sits flat on cream
    looks lit against near-black. A shelf rather than a grid, so the best pulls
@@ -328,6 +485,16 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 /* Secondary pages live here: the bar at the top carries only the brand, the
    search and Subscribe, so without this footer row /shops.html and
    /wanted.html would have no route into them at all. */
+/* THIS BLOCK IS DEAD AND SO IS ITS TWIN further down, and neither is dead by
+   the coverage argument this file warns about. Every declaration in both is
+   overridden at EQUAL specificity by the grouped footer block near the end of
+   the file, which is simply later, so a browser never uses one of them: not
+   the flex, not the gap, not the 44em, not the ink-2. They are the flat
+   eighteen-link row the grouping replaced, left behind twice.
+   They are left in place rather than deleted because deleting rules from this
+   file has a history, but do NOT edit them expecting anything to move, and do
+   not restore the flex here: the grouped block has to declare display:block
+   explicitly precisely because these two say flex. */
 .foot-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s2) var(--s5);
   margin:0 auto var(--s5);max-width:44em}
 .foot-nav a{font:700 var(--t-sm)/1 var(--body);color:var(--ink-2);
@@ -745,6 +912,9 @@ footer .wrap{display:flex;flex-direction:column;align-items:center;gap:var(--s4)
 
 .foot-tag{font:400 var(--t-l)/1 var(--display);color:var(--mustard)}
 
+/* The twin of the dead block around line 490, and dead for the same reason:
+   every declaration here is overridden at equal specificity by the grouped
+   footer block near the end of the file. See the note there. */
 .foot-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s1) var(--s5);
   margin:0;max-width:44em}
 .foot-nav a{font:700 var(--t-sm)/1 var(--body);color:var(--foot-ink);
@@ -874,7 +1044,49 @@ footer p{font:400 var(--t-sm)/1.6 var(--body);color:var(--chrome-dim);max-width:
    fitting together. Below it the links collapse into the menu, which already
    holds them, and the search gets the room instead. A search box is worth more
    than five links that are one tap away regardless. */
-@media(min-width:1280px){ .nav-links{display:flex} }
+/* 1280 WAS RIGHT ABOUT THE SEARCH AND WRONG ABOUT THE NUMBER OF LINKS, and the
+   evidence is in the paragraph above: every failure it records is a FIVE link
+   failure. Nothing in it argues that three links do not fit, and three is what
+   the row has room for 140px earlier.
+
+   The bar is a single flex row and the form is its only flexible item, so the
+   arithmetic is fixed and measurable. Widths measured headless on /start.html,
+   Chrome, from 900px up where the brand's Rochester line is showing:
+
+     padding 48   brand 273.6   menu button 88.2   Subscribe 95   gap 16 x5
+     five links 438.4          first three links 246.9
+     so the form gets  vw - 815.7 with three links, vw - 1007.2 with five,
+     capped at max-width:440.
+
+   Which produced this, and the middle of it is the odd part:
+
+     width   links shown   search input
+     1024    0             382.0
+     1152    0             382.0
+     1200    0             382.0
+     1280    5             214.8   <- narrowest input anywhere above 700px
+     1440    5             374.8
+
+   The search field was at its WIDEST on the widths with no navigation and at
+   its NARROWEST the moment navigation appeared, narrower even than a 768px
+   tablet's 267px, on the page-level control that reaches 39,707 printings. The
+   five links did not overflow the row, they ate 167px of the search, which is
+   the same mechanism the comment above describes at 1020 and stops one step
+   short of.
+
+   So: three links from 1140, five from 1340. Both thresholds are the arithmetic
+   plus a floor of roughly 250px of typable input, not a round number.
+
+     1140    3 links, input 265.3     1280    3 links, input 381.0
+     1200    3 links, input 325.3     1340    5 links, input 273.8
+                                      1440    5 links, input 373.8
+
+   Every width from 1140 up gains navigation it did not have, and 1280 gains
+   381px of search where it had 214.8. The two hidden links are Start here and
+   Card shows, which are the two least-used of the five and are both one tap
+   away in the menu, as all five always are. */
+@media(min-width:1140px){ .nav-links{display:flex} }
+@media(max-width:1339px){ .nav-links a:nth-child(n+4){display:none} }
 
 .menu-btn{display:grid}
 
@@ -1498,6 +1710,29 @@ footer .soc svg{fill:var(--paper)}
   margin:var(--s4) var(--s3) var(--s4);border-radius:var(--r-pill);
   background:var(--mustard);color:var(--on-accent);font:700 var(--t-body)/1 var(--body)}
 .menu-sub:hover{background:#fff}
+/* THE LINE ABOVE NEVER SET THE TEXT COLOUR IT SAYS IT SETS, and the failure is
+   pure specificity, not source order. `.menu a` earlier in this file declares
+   color:var(--chrome-ink) at 0-1-1; `.menu-sub` is 0-1-0. Specificity is decided
+   before order, so the cream won and the gold Subscribe pill inside the menu
+   carried CREAM ON GOLD on all 481 pages. Measured on /start.html, headless,
+   compositing every layer up to the root:
+
+     rest            #F5F4F0 on #E8B93A    1.67:1     (AA wants 4.5)
+     :hover          #E8B93A on #FFFFFF    1.84:1     .menu a:hover paints the
+                                                      text gold, .menu-sub:hover
+                                                      paints the pill white
+     :focus-visible  #E8B93A on #E8B93A    1.00:1     the label disappears
+
+   The third one is the worst of the three and it is the keyboard path: below
+   560px the bar's own .sub is display:none, so this pill is the ONLY Subscribe
+   control above the footer, and tabbing onto it erased its label. The focus
+   ring still drew, so the control was findable and unreadable at the same time.
+
+   Raising the selector to 0-2-1 (and 0-3-1 for the two states, which have to
+   outrank `.menu a:hover,.menu a:focus-visible` at 0-2-1) is the whole fix.
+   After: 10.28 / 17.62 / 10.28. Do not "simplify" these back to `.menu-sub`. */
+.menu a.menu-sub{color:var(--on-accent)}
+.menu a.menu-sub:hover,.menu a.menu-sub:focus-visible{background:#fff;color:var(--on-accent)}
 
 /* Say where you are. NN/G calls omitting this the single most common menu
    mistake, and it costs one attribute. */
@@ -2474,17 +2709,95 @@ span.cq-name{color:var(--ink)}
    separate, and that semantic headers matter MOST on mobile where the space to
    imply grouping does not exist. Columns collapse to a single stack at 560px
    rather than squeezing five columns onto a phone. */
-.foot-nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:var(--s5) var(--s4);margin:0 auto var(--s5);max-width:60em;
-  justify-content:center;text-align:left;
-  /* width and min-width are load-bearing, not decoration. The parent .wrap is
-     display:flex, so without them this grid is a flex item sized to MIN-CONTENT:
-     auto-fit never gets a definite width to collapse against, resolves to five
-     rigid 140px columns, and overflows every viewport under about 1016px. */
+/* THE GROUPING WAS RIGHT AND THE GEOMETRY WAS NOT. What replaced it is a
+   multi-column container rather than an auto-fit grid, and the argument is the
+   one already made 700 lines up for .menu-inner: with six groups holding 2, 2,
+   10, 13, 3 and 5 links, a grid gives every group its own column and every
+   column the height of the tallest, so four of the six columns are mostly
+   blank. Multi-column with break-inside:avoid lets the short groups SHARE a
+   column instead, which is the only thing that fills the space, and it keeps
+   each group whole, which is the constraint that matters.
+
+   MEASURED HEADLESS BEFORE THE REWRITE, home page, four widths:
+
+     390    foot-nav 1806.3px tall, footer 2114.3px. One column, 35 links at
+            44px each. That is 27% of the entire 7,757px document, appended to
+            every one of 481 pages, and it is a verbatim copy of the menu panel,
+            which the STICKY bar keeps one tap away from any scroll position.
+            A 366px row carrying one 14px label is 95% empty; there is room for
+            two of them side by side and the target is still 175x44.
+     768    890.8px. Four columns; the first row is 617.4px tall because Guides
+            is in it, so Watch and The binder each show 111.4px of links above
+            506px of nothing.
+     1280   617.4px. Six columns, each stretched to 617.4 to match Guides.
+            Content used 1,866px of 3,704px of column area: 49.6% ink. Half the
+            footer was blank space either side of one long column.
+     1440   617.4px, identical, because max-width:60em caps it well inside the
+            1,392px wrap.
+
+   THERE ARE TWO COLUMN AXES HERE AND ONLY ONE OF THEM IS OBVIOUS. Adding group
+   columns cannot take the footer below the height of its tallest single group,
+   because break-inside:avoid forbids splitting one, and Guides is 13 links, so
+   past a point more columns buy nothing and only narrow each one. The second
+   axis is inside a group: a group is itself a grid, and its LINKS flow into as
+   many sub-columns as fit at 150px. That is the axis that actually pays, and it
+   was worth measuring rather than assuming. Every arrangement below was driven
+   headless on /start.html at 14 widths, reading foot-nav height, the narrowest
+   link box, and whether any label wrapped to a second line:
+
+     group cols only, links one per row (the first attempt)
+       390 1096   561 1030   768 1030   900 722   1280 591
+     links auto-flowing at 150px as well (this)
+       390 1096   561  876   768  634   900 634   1280 414   1440 327
+
+   1030 at 768 was WORSE than the 890.8 it replaced: two group columns of 344px
+   each held one link per row, so the row was mostly empty and Guides still set
+   the height. The same 344px column holds two links side by side, and that one
+   change took 768 from 1030 to 634. No label wraps at any width and the
+   narrowest link box measured anywhere in the sweep is 152px.
+
+   SO THE BREAKPOINTS ARE WHERE THE PACKING CHANGES, not round numbers, and they
+   are chosen so the curve never goes back up: 1 group column to 700, 2 to 1023,
+   3 to 1399, 4 above that. 1400 also widens the cap from 60em to 78em, because
+   at 1440 a 1,020px footer under a 1,392px wrap reads as a narrow column bolted
+   under a full width page. Re-measure the whole sweep before moving any of
+   them: three of the four candidate ladders tried here had a width at which the
+   footer got TALLER as the screen got WIDER, which looks like a bug and is just
+   a column count changing one step before the links can use it. */
+.foot-nav{display:block;columns:1;column-gap:var(--s6);
+  margin:0 auto var(--s5);max-width:60em;text-align:left;
+  /* width and min-width are load-bearing, not decoration, and they still are
+     under columns. The parent .wrap is display:flex, so without them this box
+     is a flex item sized to MIN-CONTENT and the columns resolve against a width
+     that is not the one on screen. The old note here said an auto-fit grid
+     overflowed every viewport under about 1016px; same cause, same fix. */
   width:100%;min-width:0}
-.foot-col{display:flex;flex-direction:column;gap:2px}
-.foot-h{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;
-  color:var(--mustard);margin-bottom:4px}
+/* A group must not be split down a column boundary: the half that lands in the
+   next column arrives with no heading and reads as a different section. Same
+   rule and the same reason as .menu-g. */
+/* THE INNER GRID IS THE HALF THAT PAYS. See the sweep above: a group's links
+   take as many 150px tracks as its column can hold, so a phone gets two across
+   and a 976px three-column footer gets two across inside each of the three.
+   THE TRACK FLOOR AND THE GUTTER ARE ONE NUMBER, not two, and getting that
+   wrong cost the widest layout its whole win. auto-fill fits N tracks only if
+   N*floor + (N-1)*gutter fits, so a 12px gutter with a 150px floor needs 312px
+   for two tracks, and the four-column footer at 1400 gives each group exactly
+   307.5px. It missed by 4.5px, silently fell back to one track, and the footer
+   measured 591px instead of 327px with nothing in the markup or the rule
+   looking wrong. 145 + 8 cleared that, and then failed the same way at the
+   other end: a 320px phone leaves the group 296px and 145+8 wants 298, so the
+   narrowest screen we support was the only one still getting a 1,800px footer.
+   138 + 8 needs 284 and clears BOTH ends, by 12px at 320 and 23.5px at 1400.
+
+   MEASURE BOTH ENDS IF EITHER NUMBER MOVES. This is not a style choice, it is
+   whether the rule above it does anything at all, and it fails silently and
+   plausibly in either direction. The floor has 31px of slack over the longest
+   label on the site: "Cost to complete" renders 107px wide at 14px/600. */
+.foot-col{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(138px,1fr));
+  column-gap:var(--s2);margin-bottom:var(--s5)}
+.foot-h{grid-column:1/-1;font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--mustard);margin-bottom:4px}
 /* 44px, matching .menu-btn, .brand and .sub. An earlier rule in this file set
    44 and this one silently halved it to 32 for all 18 footer links. */
 .foot-nav a{font:600 var(--t-sm)/1.35 var(--body);color:var(--foot-ink);
@@ -2493,9 +2806,13 @@ span.cq-name{color:var(--ink)}
 .foot-collectr{margin:var(--s3) 0 var(--s2)}
 .foot-collectr a{font:700 var(--t-sm)/1.4 var(--body);color:var(--mustard)}
 .foot-collectr a:hover{text-decoration:underline}
-@media(max-width:560px){
-  .foot-nav{grid-template-columns:1fr;gap:var(--s4);max-width:22em}
-}
+/* The group-column ladder. Nothing here touches the ORDER: groups stay in NAV
+   order down and then across, which is what SC 3.2.3 asks of navigation that
+   repeats on 481 pages, and a phone still reads them top to bottom. Only the
+   packing changes. */
+@media(min-width:701px){.foot-nav{columns:2}}
+@media(min-width:1024px){.foot-nav{columns:3}}
+@media(min-width:1400px){.foot-nav{columns:4;max-width:78em}}
 
 /* ---------- rip player, phone sizing ----------
    At 375px the player was 351px wide with a 12px gap each side, so a vertical
@@ -3339,3 +3656,47 @@ main:has(> .set-cta:last-child){padding-bottom:0}
    because this file does not delete rules for being unused (see CLAUDE.md),
    and it is fixed rather than left broken for whoever uses it next. */
 section.band-gold .hl{color:var(--on-accent);text-shadow:3px 3px 0 var(--chip-gold-bg)}
+
+/* ==========================================================================
+   THE FOCUS HALO, PUT BACK ON THREE ELEMENTS THAT WERE DELETING IT.
+
+   The site's focus indicator is TWO things and the second one is the half
+   that works on a dark background:
+
+       :focus-visible{outline:3px solid var(--ketchup-deep);
+                      box-shadow:0 0 0 5px rgba(255,255,255,.95)}
+
+   #6E5000 on near-black measures 2.2 to 2.5:1 on its own. WCAG 2.2 SC 1.4.11
+   needs 3:1 for a focus indicator, so the outline ALONE is a failure and the
+   white ring is what carries it. Any rule that sets box-shadow on a focusable
+   element therefore silently destroys half the indicator, and box-shadow is a
+   single property so there is no way to set a drop shadow without taking the
+   ring with it.
+
+   Measured 16 August 2026 by forcing :focus-visible over CDP and reading the
+   computed value. Three elements had no halo at all:
+
+       footer .soc     <a>, box-shadow:none          2.53:1   every page
+       .hofx           <a>, decorative gold frame    2.53:1   home page
+       .chof-art       <button>, drop shadow         2.22:1   17x on /hall
+
+   .nav-links a was checked as a control and correctly kept its halo.
+
+   This is the same regression the .vcar-nav comment further up documents, and
+   that one is still fixed. These are new instances of it, which is the point:
+   it will happen again every time someone adds a shadow to something you can
+   tab to. If you write box-shadow on a focusable element, write its
+   :focus-visible partner in the same edit.
+
+   THE DECORATIVE VALUES ARE RESTATED BELOW AND THAT COUPLING IS DELIBERATE.
+   box-shadow does not compose, so a focus rule either repeats the artwork or
+   throws it away, and throwing it away makes the card flatten the moment you
+   tab to it. .chof-art is NOT here: its rule is emitted into a page-level
+   <style> by scripts/build-hall.mjs, which lands after this file at equal
+   specificity, so it is fixed there instead.
+   ========================================================================== */
+footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
+.hofx:focus-visible{
+  box-shadow:inset 0 0 0 2px rgba(17,17,17,.6), inset 0 0 0 5px rgba(232,185,58,.5),
+    0 0 34px rgba(232,185,58,.22), 0 16px 44px rgba(17,17,17,.46),
+    0 0 0 5px rgba(255,255,255,.95)}

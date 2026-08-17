@@ -29,6 +29,29 @@ TARGET = (810, 1440)
 # needs 760. Serving 810x1440 into a 197px tile was a 4x linear oversample and
 # put 1.6 MB of pack art on the home page.
 TILE = (400, 711)
+# THE MIDDLE RENDITION, ADDED 16 AUGUST 2026, AND IT EXISTS FOR ONE MEASUREMENT.
+# With only 400 and 810 to choose from, EVERY pack request on the home page took
+# the 810 file at every width and every DPR: logged from the network with cache
+# off, 5 packs at 1280, 1440 and 1920, none of them ever landing on the tile.
+#
+# The home page's carousel art measures 328px at 1280, 373 to 378 at 1440 and
+# 391 to 408 at 1920, and the Hall of Fame frame 404 to 464. On a DPR 1 desktop
+# every one of those boxes is over 400 and under 560, so 400w cannot satisfy it
+# and 810w is the only thing left. 560 is the width that sits in that gap, and
+# it wins at all three desktop widths WITHOUT anybody writing ui.css's
+# 1000/1200/1400 slide-count breakpoints a second time into a `sizes` attribute
+# in build-proto.mjs. See the "NO MEDIA QUERY IN HERE" note in heroTile.
+#
+# IT IS A DPR 1 FIX AND ONLY A DPR 1 FIX, which is the honest way to sell it. At
+# DPR 2 a 402px box needs 804 device pixels and 810w is already the smallest
+# candidate that satisfies it, so a retina laptop and every modern phone fetch
+# exactly what they fetched before, byte for byte. That is also why it is safe:
+# it cannot make the phone worse. Measured: 681.6KB of pack art on the home page
+# becomes 375.5KB at DPR 1, and stays 681.6KB at DPR 2 and DPR 3.
+#
+# 700w WAS DELIBERATELY NOT ADDED. It was measured with the files generated and
+# was picked in exactly one case, a DPR 2 phone, for 19 more files and 2MB.
+MID = (560, 996)
 QUALITY = 78
 BACKDROP = "#161D26"  # shows through the transparent margin around the pack
 
@@ -67,9 +90,15 @@ for m in masters:
     tile_dest = OUT / f"{set_id}-garbage-rips-585-booster-pack-tile.webp"
     tile.save(tile_dest, "WEBP", quality=QUALITY, method=6)
 
+    mid = im.copy()
+    mid.thumbnail(MID, Image.LANCZOS)
+    mid_dest = OUT / f"{set_id}-garbage-rips-585-booster-pack-mid.webp"
+    mid.save(mid_dest, "WEBP", quality=QUALITY, method=6)
+
     kb = dest.stat().st_size / 1024
     tkb = tile_dest.stat().st_size / 1024
-    done.append((set_id, full.size, kb, m.stat().st_size / 1024, tile.size, tkb))
+    mkb = mid_dest.stat().st_size / 1024
+    done.append((set_id, full.size, kb, m.stat().st_size / 1024, tile.size, tkb, mid.size, mkb))
 
     sel = f".pack--{set_id}"
     rules += [
@@ -128,9 +157,10 @@ rules += [
 
 CSS.write_text("\n".join(rules))
 
-print(f"Wrote {len(done)} pack image(s) to {OUT.relative_to(ROOT)}/")
-for set_id, size, kb, src_kb, tsize, tkb in done:
-    print(f"  {set_id:<24} {size[0]}x{size[1]}  {kb:6.1f} KB   (from {src_kb:.0f} KB)")
+print(f"Wrote {len(done)} pack set(s), three renditions each, to {OUT.relative_to(ROOT)}/")
+for set_id, size, kb, src_kb, tsize, tkb, msize, mkb in done:
+    print(f"  {set_id:<24} {size[0]:>4}w {kb:6.1f} KB   "
+          f"{msize[0]:>4}w {mkb:6.1f} KB   {tsize[0]:>4}w {tkb:6.1f} KB   (from {src_kb:.0f} KB)")
 print(f"\nWrote {CSS.relative_to(ROOT)}")
 
 # ---------------------------------------------------------------- packshots

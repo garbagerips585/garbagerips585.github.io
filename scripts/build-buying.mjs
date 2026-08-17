@@ -242,6 +242,362 @@ const nSourced = venues.filter((v) => v.status === "sourced").length;
 const arith = money.theArithmetic || {};
 const custody = safe.custody || {};
 
+// ============================================================================
+// TWO MORE CHARTS, AND THE SAME TEST WAS APPLIED TO BOTH: does the picture say
+// something no sentence on the page says. A figure that repeats the paragraph
+// beside it is weight.
+//
+// THE SHARED MACHINERY. Every number either chart draws is parsed out of the
+// exact string the page prints, and the build throws with the venue, the label,
+// the pattern and the text that is there now when a sentence moves. Zeroes and
+// absences are asserted the same way, because "Amazon does not publish a
+// number" is the flagship claim of this entire page and a chart drawing it as a
+// blank is making that claim in a picture.
+const costOf = (id, whatRe) => {
+  const v = venues.find((x) => x.id === id);
+  if (!v) throw new Error(`build-buying: a chart needs venue "${id}" and data/buying.json has no such id.`);
+  const c = (v.costs || []).find((x) => whatRe.test(x.what));
+  if (!c) {
+    throw new Error(
+      `build-buying: a chart needs the cost on "${id}" whose label matches ${whatRe}, and none has one. ` +
+        `Labels present: ${(v.costs || []).map((x) => JSON.stringify(x.what)).join(", ")}.`
+    );
+  }
+  return c;
+};
+const costNum = (id, whatRe, rateRe, what) => {
+  const c = costOf(id, whatRe);
+  const m = rateRe.exec(c.rate);
+  if (!m) {
+    throw new Error(
+      `build-buying: the free shipping chart reads ${what} off "${c.what}" on ${id} in data/buying.json, and that ` +
+        `line no longer matches ${rateRe}. It now reads: ${JSON.stringify(c.rate)}. Do not ship a chart whose ` +
+        `numbers are not the ones printed beside it: restore the line, or update the regex and the chart together.`
+    );
+  }
+  const n = Number(m[1]);
+  if (!(n > 0)) throw new Error(`build-buying: ${what} on ${id} parsed to ${m[1]}, which is not a threshold.`);
+  return n;
+};
+const assertCost = (id, whatRe, rateRe, why) => {
+  const c = costOf(id, whatRe);
+  if (!rateRe.test(c.rate)) {
+    throw new Error(
+      `build-buying: the free shipping chart draws ${id} as having no threshold because ${why}, and "${c.what}" ` +
+        `no longer says so. It now reads: ${JSON.stringify(c.rate)}. A stated absence that stopped being true is ` +
+        `worse than a missing chart, so the build stops here.`
+    );
+  }
+};
+
+// ============================================================================
+// THE FREE SHIPPING LADDER.
+//
+// WHY THIS IS THE PAGE'S OWN PICTURE AND NOT A GENERIC COMPARISON TABLE. The
+// lede promises two things: that every figure was read off the company's own
+// page, and that where no figure could be read the page says so instead of
+// borrowing one. Ten venue cards each carry their own threshold and nothing
+// anywhere lines them up, so the reader cannot see either promise being kept.
+// Drawn on one axis, the ladder runs from $20 to $199 and the four venues with
+// no rung sit underneath in the site's own no-art hatch with the reason
+// written where the money would be. That second group is the honesty policy as
+// a picture, which is the only reason a chart of eight numbers earns its space
+// on a page this long.
+//
+// THE BIG BOX ROW IS THE ONE FINDING NOBODY WROTE DOWN: Target, Walmart and
+// Best Buy have all landed on exactly $35 and the page never says so, because
+// the three sentences that contain it are three bullets inside one venue card.
+// Three identical bars say it instantly.
+//
+// SINGLES ORDERS ONLY, and the caption says so. Two of these shops charge a
+// different and much higher threshold on anything containing sealed product,
+// which is a real number and a different question; mixing the two would draw
+// Card Cavern at both $20 and $100 in one column and mean neither.
+//
+// AND THE ROWS CARRY THE COMPANY'S MARK, WHICH IS WHY THIS IS HTML AND NOT AN
+// SVG. It was an SVG first and it read fine, but a chart whose rows are twelve
+// named retailers is the exact place the owner asked for their logos: "for the
+// buying and selling pages, lets add in the brands logos though, like best buy,
+// amazon, target". Reaching them from inside an SVG means <image href> per row,
+// which is a request each, not lazy, and outside the mark box every other row on
+// this page uses. In HTML the rows reuse brandMark() unchanged, so the ladder is
+// the same component as the venue cards and a name with no Commons mark gets the
+// same hatched name tile it gets everywhere else. The bars are divs with a width
+// percentage, which also drops the viewBox scaling problem the SVG had.
+//
+// NINE OF THE TWELVE ROWS RESOLVE TO A REAL MARK. Target, Walmart, Best Buy,
+// Costco, TCGplayer, Amazon, eBay, Whatnot and The Pokemon Company all have one;
+// Card Cavern, CoolStuffInc and Dave and Adam's do not exist on Commons and get
+// the name tile, which is the finding rather than a gap. brandMark decides that,
+// not this file, so there is one place to change it.
+const FREE = [
+  { id: "card-cavern", label: "Card Cavern", v: costNum("card-cavern", /^Shipping, singles, packs and supplies$/, /FREE if the order total exceeds \$(\d+)\b/, "Card Cavern's singles threshold") },
+  { id: "pokemon-center", label: "Pokemon Center", v: costNum("pokemon-center", /^Shipping$/, /FREE standard shipping at \$(\d+) or more/, "Pokemon Center's threshold") },
+  { id: "coolstuffinc", label: "CoolStuffInc", v: costNum("coolstuffinc", /^Shipping, singles-only orders$/, /FREE at \$(\d+) or more/, "CoolStuffInc's singles threshold") },
+  { id: "target", label: "Target", v: costNum("big-box", /^Target shipping$/, /FREE at \$(\d+) or more/, "Target's threshold") },
+  { id: "walmart", label: "Walmart", v: costNum("big-box", /^Walmart shipping$/, /below-order-minimum fee of \$6\.99 under \$(\d+)/, "Walmart's order minimum") },
+  { id: "bestbuy", label: "Best Buy", v: costNum("big-box", /^Best Buy shipping$/, /orders of \$(\d+) and up/, "Best Buy's threshold") },
+  { id: "tcgplayer", label: "TCGplayer Direct", v: costNum("tcgplayer", /^Direct shipping$/, /FREE on US Direct orders over \$(\d+)/, "TCGplayer Direct's threshold") },
+  { id: "dave-and-adams", label: "Dave and Adam's", v: costNum("dave-and-adams", /^Shipping$/, /Over \$(\d+): FREE/, "Dave and Adam's threshold") },
+].sort((a, b) => a.v - b.v);
+
+const NOFREE = [
+  { label: "Amazon", why: "not published", id: "amazon" },
+  { label: "Costco", why: "priced per item", id: "costco" },
+  { label: "eBay", why: "set by the seller", id: "ebay" },
+  { label: "Whatnot", why: "priced by weight", id: "whatnot" },
+];
+assertCost("amazon", /^Free shipping threshold$/, /NOT PUBLISHED AS A NUMBER/, "Amazon states a threshold exists and never states the number");
+assertCost("big-box", /^Costco shipping$/, /No order-total threshold exists/, "Costco prices shipping per item instead");
+assertCost("ebay", /^Shipping$/, /^Set by the seller/, "every eBay listing sets its own");
+assertCost("whatnot", /^Shipping, USPS Ground Advantage$/, /^Up to 4oz \$/, "Whatnot prices by weight rather than by order total");
+
+/**
+ * One chart row: the company's mark, its name, a track, and the number.
+ *
+ * THE NUMBER IS TEXT IN THE ROW AND THE BAR IS DECORATIVE. A bar chart whose
+ * value exists only as a length is unreadable to a screen reader and unreadable
+ * to anybody at a glance, so the figure works with the bars removed: every row
+ * prints its own figure next to its own name. That is also why the track sits on
+ * its own line under the name rather than in a column beside it, which is what
+ * lets the marks be marks instead of 20px thumbnails.
+ */
+// THE NAME TILE IS DROPPED IN A CHART ROW, and only here. brandMark falls back
+// to the venue's name set in the site's mono for the nine venues Commons holds
+// nothing for, which is right on a venue card, where the tile is the only thing
+// occupying the slot every other card fills with a logo. In a chart row the
+// name is already printed an inch to the right, so the tile is the word twice
+// and once at a size that broke "CoolStuffInc" over two lines inside a 96px box.
+// A row with no mark simply starts with its name. The bar tracks are full width
+// and start at the same x either way, so nothing goes out of alignment.
+const chartMark = (id, label) => {
+  const m = brandMark(id, label);
+  return m.includes("bmk-n") ? "" : m;
+};
+const chartRow = (id, label, valueHtml, pct, barCls, sub = "") => `          <li>
+            <span class="bch-h">${chartMark(id, label)}<span class="bch-n">${esc(label)}${
+              sub ? ` <span class="bch-s">${esc(sub)}</span>` : ""
+            }</span><b class="bch-v">${valueHtml}</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b ${barCls}" style="width:${pct}%"></span></span>
+          </li>`;
+
+const freeChart = () => {
+  const MAX = Math.max(...FREE.map((r) => r.v));
+  return `      <figure class="pg pg-fs">
+        <ul class="bch">
+${FREE.map((r) => chartRow(r.id, r.label, `$${r.v}`, +((r.v / MAX) * 100).toFixed(1), "fs-b")).join("\n")}
+        </ul>
+        <p class="bch-head">No threshold to draw, and why</p>
+        <ul class="bch bch-z">
+${NOFREE.map((r) => chartRow(r.id, r.label, `<span class="bch-none">${esc(r.why)}</span>`, 14, "fs-z")).join("\n")}
+        </ul>
+        <figcaption>What an order of singles has to reach before shipping stops costing anything, read off each
+          company's own shipping or help page${money.checked ? ` on ${esc(longDate(money.checked))}` : ""}.
+          Three chains have landed on the same ${esc(
+            String(FREE.filter((r) => ["Target", "Walmart", "Best Buy"].includes(r.label))[0].v)
+          )} dollar number and none of them says so out loud.
+          Walmart's is the same threshold stated backwards, as a fee under it rather than free shipping over it, and
+          both Target and Best Buy waive theirs entirely for members. Sealed product is a different and much higher
+          number at two of these shops, on their own cards below.
+          <b>The bottom four are the point of this page.</b> Amazon's own free shipping help page says "the stated
+          minimum threshold of eligible items" six times and never states it, which is why this site sends you to
+          your own cart instead of printing the $35 that every comparison site quotes.</figcaption>
+      </figure>`;
+};
+
+// ============================================================================
+// THE CLOCK.
+//
+// The protections section opens by saying that what varies most is not whether
+// you are covered but how long you have, and that cards get a shorter clock
+// than almost anything else where a carve-out is published. That sentence is
+// the strongest claim on the safety half of the page and it is supported by
+// three numbers buried in three different policy cards, one of which is inside
+// a 290 word paragraph. Two bars per venue and the claim is simply visible:
+// eBay's general window is 30 days and its trading card window is 3, so the
+// card bar is a tenth of the length of the one beside it.
+//
+// THE TCGPLAYER ROW IS DRAWN EVEN THOUGH ITS TWO BARS ARE IDENTICAL, and that
+// is the honest half of the chart rather than a wasted row. A venue with no
+// carve-out is the control: without it the picture reads as "cards are always
+// treated worse" instead of "these two venues treat cards worse and this one
+// does not".
+const protOf = (name) => {
+  const p = (safe.protections || []).find((x) => x.venue === name);
+  if (!p) {
+    throw new Error(
+      `build-buying: the claim window chart needs the protection called ${JSON.stringify(name)} and ` +
+        `data/buying-safety.json has: ${(safe.protections || []).map((x) => JSON.stringify(x.venue)).join(", ")}.`
+    );
+  }
+  return p;
+};
+const days = (name, field, re, what, idx = 0) => {
+  const p = protOf(name);
+  const hay = Array.isArray(p[field]) ? p[field][idx] : p[field];
+  const m = re.exec(hay || "");
+  if (!m) {
+    throw new Error(
+      `build-buying: the claim window chart reads ${what} off ${JSON.stringify(name)}'s ${field} in ` +
+        `data/buying-safety.json, and that sentence no longer matches ${re}. It now reads: ` +
+        `${JSON.stringify(hay || null)}. Restore the sentence, or update the regex and the chart together.`
+    );
+  }
+  const n = Number(m[1]);
+  if (!(n > 0)) throw new Error(`build-buying: ${what} parsed to ${m[1]}, which is not a number of days.`);
+  return n;
+};
+
+const CLOCKS = [
+  {
+    id: "ebay",
+    name: "eBay",
+    general: days("eBay Money Back Guarantee", "cardCarveOut", /Every other category gets (\d+)/, "eBay's general return window"),
+    cards: days("eBay Money Back Guarantee", "cardCarveOut", /no later than (\d+) CALENDAR DAYS after/, "eBay's trading card return window"),
+    note: "if the seller offers no returns",
+  },
+  {
+    id: "whatnot",
+    name: "Whatnot",
+    general: days("Whatnot", "cardCarveOut", /(\d+) days from delivery, so cards lose/, "Whatnot's general delivery-side window"),
+    cards: days("Whatnot", "cardCarveOut", /(\d+) DAYS FROM DELIVERY/, "Whatnot's trading card window"),
+    note: "counted from delivery",
+  },
+  {
+    id: "tcgplayer",
+    name: "TCGplayer",
+    general: days("TCGplayer", "clocks", /^(\d+) calendar days after the ESTIMATED delivery date/, "TCGplayer's claim window"),
+    cards: days("TCGplayer", "clocks", /^(\d+) calendar days after the ESTIMATED delivery date/, "TCGplayer's claim window"),
+    note: "no card carve-out",
+  },
+];
+
+/**
+ * Two bars per venue: what everything else gets, and what a card gets.
+ *
+ * Same HTML rows and the same mark box as the ladder above, for the same reason.
+ * All three venues here have a real Commons mark, so this figure is a logo wall
+ * that happens to be a chart, which is what makes it findable when a reader is
+ * scrolling for the one venue they bought from.
+ */
+const clockChart = () => {
+  const MAX = Math.max(...CLOCKS.flatMap((c) => [c.general, c.cards]));
+  const pc = (d) => +((d / MAX) * 100).toFixed(1);
+  return `      <figure class="pg pg-ck">
+        <ul class="bch bch-2">
+${CLOCKS.map((c) => `          <li>
+            <span class="bch-h">${chartMark(c.id, c.name)}<span class="bch-n">${esc(c.name)} <span class="bch-s">${esc(c.note)}</span></span></span>
+            <span class="bch-r"><span class="bch-t" aria-hidden="true"><span class="bch-b ck-g" style="width:${pc(c.general)}%"></span></span><b class="bch-v ck-gv">${c.general} days, other items</b></span>
+            <span class="bch-r"><span class="bch-t" aria-hidden="true"><span class="bch-b ck-c" style="width:${pc(c.cards)}%"></span></span><b class="bch-v">${c.cards} days, a card</b></span>
+          </li>`).join("\n")}
+        </ul>
+        <figcaption>The delivery-side clock, in days, on the venues that publish one. The dark bar is what a trading
+          card gets and the light bar is what the same venue gives everything else.
+          ${esc(CLOCKS[0].name)}'s card window applies when the seller offers no returns, and it is
+          ${esc(String(Math.round(CLOCKS[0].general / CLOCKS[0].cards)))} times shorter than the window on anything
+          in any other category. ${esc(CLOCKS[2].name)} publishes no card carve-out at all, which is why its two bars
+          are the same length. These are the windows to OPEN a claim, not how long a case then takes. Read from each
+          platform's own policy${safe.checked ? ` on ${esc(longDate(safe.checked))}` : ""}, and the full wording is on
+          the cards below.</figcaption>
+      </figure>`;
+};
+
+// ============================================================================
+// THE POSTAGE CHART, on the one section of a 13,700 word page whose subject is
+// a QUANTITY rather than a rule.
+//
+// "The cheapest card is not the cheapest order" is the page's own headline and
+// the six bullets under it are correct and completely unpicturable, with one
+// exception: they contain a worked example. Twelve cards from twelve stores,
+// TCGplayer's $1.49 floor, and Direct's $3.99 for the whole package. Three
+// numbers that are only an argument once you see them next to each other, and
+// prose can only put them one after another.
+//
+// EVERY NUMBER IS PARSED OUT OF THE SENTENCES IT DRAWS, never typed in beside
+// them, and the build throws rather than shipping a chart that disagrees with
+// the copy above it. Same discipline as the centering diagram in
+// build-grade-check.mjs and for the same reason: this site does not publish a
+// figure it cannot trace, and a picture is a figure.
+//
+// THE MULTIPLICATION IS THE ONLY DERIVED NUMBER and the caption shows its
+// working, "12 x $1.49", so a reader can check it in their head. That is the
+// same standard the set guides' checklist arithmetic is held to. It is not a
+// prediction: TCGplayer publishes the floor and the claim above states the cart.
+//
+// NOT A RECOMMENDATION. The bullets are careful that Direct has real trade-offs
+// (sub-$0.40 cards round up, damaged cards are not eligible) and the chart would
+// be dishonest if it read as "use Direct". The caption says so and points at the
+// bullet rather than repeating it.
+const ARITH_TEXT = [arith.claim, ...(arith.because || [])].join("  ");
+const WORDNUM = { twelve: 12, eleven: 11, ten: 10, nine: 9, eight: 8 };
+const grab = (re, what) => {
+  const m = re.exec(ARITH_TEXT);
+  if (!m) {
+    throw new Error(
+      `build-buying: the postage chart takes ${what} out of theArithmetic in data/buying.json and ` +
+        `that sentence no longer matches ${re}. Do not ship a chart whose numbers are not the ones ` +
+        `printed beside it: either restore the sentence or update the regex and the chart together.`
+    );
+  }
+  return m[1];
+};
+const CART = WORDNUM[grab(/cart of ([a-z]+) cheap commons/i, "the size of the example cart").toLowerCase()];
+const FLOOR = Number(grab(/floor for an order under \$5 from a seller is \$(\d+(?:\.\d{2})?)/i, "TCGplayer's per seller shipping floor"));
+const DIRECT = Number(grab(/ship as one package however many sellers are involved, at \$(\d+\.\d{2})/i, "the TCGplayer Direct shipping rate"));
+if (!CART || !(FLOOR > 0) || !(DIRECT > 0)) {
+  throw new Error(
+    `build-buying: postage chart parsed cart=${CART}, floor=${FLOOR}, direct=${DIRECT}. All three have ` +
+      `to be real numbers or the bars are drawn against nothing.`
+  );
+}
+
+/**
+ * Three bars: the same twelve cards bought three ways.
+ *
+ * REBUILT ON THE SAME .bch ROWS AS THE OTHER TWO CHARTS on 16 August 2026. It
+ * was an inline SVG with its text in viewBox units and it read fine on its own,
+ * but two more figures landed on this page and the three no longer looked like
+ * one set: the SVG drew a 20 unit bar with no track and a 13 unit label, which
+ * at the 328px this panel gets on a phone renders chunkier and larger than the
+ * 12px tracked bars above it. Three charts in three bar styles on one page reads
+ * as three accidents. Nothing about the numbers or their guards changed.
+ *
+ * NO MARK ON THESE ROWS, unlike the other two charts. All three rows are the
+ * same company in three configurations, so the same logo three times would be
+ * decoration rather than a way of telling the rows apart.
+ */
+const postageChart = () => {
+  const rows = [
+    { label: `${CART} cards, ${CART} different sellers`, v: +(CART * FLOOR).toFixed(2), cls: "pg-bad" },
+    { label: `${CART} cards, all from one seller`, v: FLOOR, cls: "pg-ok" },
+    { label: "TCGplayer Direct, one package", v: DIRECT, cls: "pg-good" },
+  ];
+  const MAX = Math.max(...rows.map((r) => r.v));
+  // NOT named `money`: that is the whole of data/buying.json two scopes up, and
+  // shadowing it here is how the caption below lost its source date.
+  const usd = (n) => `$${n.toFixed(2)}`;
+  return `      <figure class="pg">
+        <ul class="bch">
+${rows
+  .map(
+    (r) => `          <li>
+            <span class="bch-h"><span class="bch-n">${esc(r.label)}</span><b class="bch-v">${usd(r.v)}</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b ${r.cls}" style="width:${
+              +((r.v / MAX) * 100).toFixed(1)
+            }%"></span></span>
+          </li>`
+  )
+  .join("\n")}
+        </ul>
+        <figcaption>Postage only, on one order of ${CART} cheap cards. The top bar is
+          ${CART} &times; ${usd(FLOOR)}, TCGplayer's published floor for an order under $5 from a seller,
+          because a flat fee per store is ${CART} fees when the cards come from ${CART} stores. The bottom
+          one is Direct's ${usd(DIRECT)} for the whole package. Both figures are TCGplayer's own, from the
+          shipping page linked in its card above, read ${esc(longDate(money.checked) || "")}. Direct is not
+          free of trade-offs and the list above says which; this only draws the postage.</figcaption>
+      </figure>`;
+};
+
 const desc = `Where to buy Pokemon cards online and what each place really costs. Shipping thresholds and buyer fees read off each company's own page, plus what recourse you have when a card arrives wrong.`;
 
 // COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same trade
@@ -258,6 +614,63 @@ const miniCSS = (css) =>
 
 const style = `
 .by-lede{max-width:46em}
+/* THE FIGURE PANEL, shared by all three charts on this page. */
+.pg{margin:var(--s4) 0 var(--s5);border:3px solid var(--navy);border-radius:12px;background:var(--card);
+  box-shadow:var(--hard-lg);padding:var(--s4)}
+/* Three fills on the postage chart, darkest for the worst outcome. They are
+   tones of the site's own palette rather than a red/green pair: the list under
+   that chart is careful that the cheapest bar has real trade-offs, and a green
+   bar would argue with it. */
+.pg-bad{background:var(--ink)}
+.pg-ok{background:var(--trubbish)}
+.pg-good{background:var(--gold)}
+/* THE BAR ROWS. Used by the free shipping ladder and the claim window chart,
+   which are HTML rather than SVG so that every row can carry the company's own
+   mark in the same .bmk box the venue cards use. The argument is written out
+   above freeChart in this file.
+
+   THE TRACK IS ON ITS OWN LINE UNDER THE NAME, not in a column beside it. A
+   three column row (mark, name, track) at 390px leaves the track about 150px
+   wide with a 124px mark box beside it, and a 20px difference between two bars
+   is not a picture. Full width tracks also mean every bar on the page starts at
+   the same x and is measured against the same length, which is the only thing
+   making them comparable. */
+.bch{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s3)}
+.bch li{display:flex;flex-direction:column;gap:5px}
+.bch-h{display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap}
+.bch-n{font:700 var(--t-sm)/1.2 var(--body);color:var(--ink)}
+.bch-s{font:400 var(--t-micro)/1.2 var(--mono);color:var(--ink-2)}
+.bch-v{margin-left:auto;font:700 var(--t-sm)/1 var(--mono);color:var(--ketchup-deep);white-space:nowrap}
+.bch-none{font-weight:400;color:var(--ink-2)}
+.bch-t{display:block;height:12px;border-radius:3px;background:var(--paper-2);
+  box-shadow:inset 0 0 0 1px var(--hair)}
+.bch-b{display:block;height:100%;border-radius:3px;min-width:3px}
+.bch-head{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-2);margin:var(--s4) 0 var(--s3);padding-top:var(--s3);border-top:1px solid var(--hair)}
+/* The mark box shrinks a little in a chart row: at the venue card's 124px cap a
+   twelve row ladder is a column of logos with a chart hiding behind it. */
+.bch .bmk{height:30px;min-width:52px;max-width:112px;padding:3px 7px}
+.fs-b{background:var(--gold)}
+/* THE SITE'S OWN NO-ART HATCH, the same 45 degree one .bmk-n gives a venue with
+   no mark and .set-noart gives a set with no logo. A reader who has seen it
+   elsewhere already knows it means "there is no picture of this", so four
+   hatched stubs read as a stated absence rather than as four broken bars. */
+.fs-z{background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px);
+  box-shadow:inset 0 0 0 1px var(--ink-2)}
+/* Two tracks per venue on the clock chart, each with its own number. */
+.bch-2 li{gap:6px}
+.bch-r{display:flex;align-items:center;gap:var(--s2)}
+.bch-r .bch-t{flex:1 1 auto}
+.bch-r .bch-v{margin-left:0;flex:none;font-weight:700}
+.ck-gv{color:var(--ink-2);font-weight:400}
+/* Weight, not hue: the card window is solid ink and the general one is the
+   page's paper tone with a hairline, which is the same ranking-by-ink the
+   status chips use. Both bars print their own number in words beside them, so
+   nothing here is carried by fill alone. */
+.ck-g{background:var(--paper-3);box-shadow:inset 0 0 0 1px var(--hair)}
+.ck-c{background:var(--ink)}
+.pg figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s4);max-width:52ch}
+.pg figcaption b{color:var(--ink);display:block;margin-top:var(--s3)}
 .by-jump{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:var(--s5) 0 var(--s4)}
 .by-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
@@ -400,8 +813,10 @@ ${BRAND_STYLE}
      the highest count measured anywhere in this pass, on the one block of text
      that is the page's evidence. Capped wider than the prose because it is
      small type doing reference work rather than something read start to finish,
-     but 90 characters instead of 204. */
-  .by-src{max-width:64ch}
+     but 90 characters instead of 204. MEASURED AGAIN 16 August 2026 by walking
+     the text nodes with a Range: 64ch was setting 93 REAL characters, because
+     one ch is running about 1.5 of them at this size. 56ch lands on 80. */
+  .by-src{max-width:56ch}
 }
 /* THE VOID THE CAP ABOVE MADE BIGGER, AND THE THING THAT BELONGS IN IT.
    Capping the ledes to 50ch is right for the reader and made the top of the
@@ -423,6 +838,20 @@ ${BRAND_STYLE}
   .by-key{display:grid;grid-template-columns:300px minmax(0,1fr);
     gap:var(--s5);align-items:start}
   .by-key > h2{margin-bottom:0}
+  /* THE FIGURES GO TWO COLUMN, bars on the left and the caption beside them.
+     Measured at 1440, a figure filling the 1,392px wrap stretched every bar
+     track to 1,340px and parked its dollar figure 1,300px from the label it
+     belongs to, with the 45ch caption underneath leaving about 950px of empty
+     panel beside it. That is the key panel's old fault in a smaller box, and it
+     has the same answer: put the thing that was underneath beside it. The
+     caption spans every row so it does not stripe against the bar groups, and
+     the ladder's three blocks (bars, rule, absences) all stay in column one. */
+  .pg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);
+    gap:var(--s4) var(--s5);align-items:start}
+  .pg > figcaption{grid-column:2;grid-row:1/-1;margin-top:0}
+  .pg > :not(figcaption){grid-column:1}
+  .pg .bch-head{margin-top:var(--s3)}
+  .pg > figcaption{max-width:45ch}
 }
 /* The step lists are short items, not paragraphs, so they set in two columns
    without hurting the measure and take roughly their own height off the page.
@@ -433,6 +862,56 @@ ${BRAND_STYLE}
 @media(min-width:1200px){
   .by-list,.by-chain{columns:2;column-gap:var(--s6);max-width:none}
   .by-list li,.by-chain li{break-inside:avoid}
+  /* THE CARD GRIDS GO TO THREE, AND THIS OVERTURNS THE PARAGRAPH ABOVE.
+     That block says the venue cards are "deliberately NOT touched" because
+     "their 86 character measure comes from the type being --t-sm rather than
+     from the column being wide". THE 86 WAS NOT A MEASUREMENT OF CHARACTERS.
+     Measured for real on 16 August 2026, by walking every text node with a
+     Range and counting the characters that share a line box, the prose inside
+     these cards sets 102 to 107 characters a line at 1440 and up to 137 in
+     .by-fees. That is the worst measure on the page and the widest block on it
+     is 650px, which is a column-width question after all.
+
+     THREE COLUMNS AND NOT A CAP INSIDE THE CARD. A max-width on .by-v's own
+     paragraphs would leave 200px of empty card to the right of every line
+     inside a 3px navy border, which is the exact fault the comment above this
+     one identifies in the key panel and fixes by filling the space rather than
+     by narrowing the box. The honest fix for a column that is too wide is more
+     columns.
+
+     MEASURED, 1440x900, median REAL characters a line:
+                        2 columns      3 columns
+       .by-prot            103             65
+       .by-auth            103             63
+       .by-nb              102             65
+       .by-cond-l li        98             62
+       .by-grades li        97             62
+       .by-fees li          89             69
+       whole page           95             66
+       page height      20,988px       19,236px
+     Nothing below 1200 moves, and 390x844 was re-measured after: median 50,
+     identical to the pixel. */
+  /* align-items:start GOES WITH THE THIRD COLUMN AND IS CAUSED BY IT. A grid
+     item stretches to its row by default, and a row is as tall as its tallest
+     card, so going from two cards a row to three makes every void bigger: at
+     1440 the TCGplayer card is five times the height of eBay's, and stretched
+     that paints roughly 500px of empty card inside a 3px navy border. Empty
+     bordered space is the same fault the key panel above was fixed for. It
+     costs no page height either way, because the row is the tall card's height
+     regardless; this only stops the short ones drawing a box around nothing. */
+  .by-vs,.by-ps{grid-template-columns:repeat(3,1fr);align-items:start}
+  /* THE THREE BLOCKS THE COLUMN COUNT COULD NOT REACH, all measured in the same
+     pass and all fixed by narrowing rather than by splitting, because none of
+     them is inside a bordered panel and prose with space beside it is just
+     prose.
+       .by-list and .by-chain set 88 characters in a 672px column, because
+         columns:2 divides the full 1,392px band. Capping the whole block at
+         1100px puts them at 70.
+       .by-src, 11px, was capped at 64ch and measured 83 REAL characters. ch is
+         not a character: at this size one ch is running about 1.5 characters,
+         so 56ch is the honest way to ask for 80.
+       The figure captions were capped at 52ch and measured 84. 45ch. */
+  .by-list,.by-chain{max-width:1100px}
 }
 `;
 
@@ -527,6 +1006,14 @@ ${GROUPS.map((g) => {
         ${(safe.framing.why || []).map((w) => `<p>${esc(w)}</p>`).join("\n        ")}
         </div>
       </div>
+
+      <section class="by-grp">
+        <h2>What an order has to reach before shipping is <span class="hl">free</span></h2>
+        <p>Every venue below states its own threshold on its own card, twelve screens apart, and the number is the
+          first thing a buyer wants. Here they are on one axis, with the four that publish no number at all
+          underneath, because that group is the reason this page exists.</p>
+${freeChart()}
+      </section>
 ${(() => {
   // NOTHING ANYWHERE CHECKED THAT EVERY VENUE ACTUALLY REACHED THE PAGE. The
   // section loop filters by group, so a venue in no matching section is simply
@@ -554,6 +1041,7 @@ ${list.map(venueCard).join("\n")}
 ${arith.claim ? `      <section class="by-grp">
         <h2>The cheapest card is not the cheapest <span class="hl">order</span></h2>
         <p class="by-lede">${esc(arith.claim)}</p>
+${postageChart()}
         <ul class="by-list">
 ${(arith.because || []).map((b) => `          <li>${esc(b)}</li>`).join("\n")}
         </ul>
@@ -565,6 +1053,7 @@ ${(arith.because || []).map((b) => `          <li>${esc(b)}</li>`).join("\n")}
         <p>Buyer protection and seller protection are different products, and the buyer's version is generally the
           bigger one. What varies most is not whether you are covered, it is how long you have, and trading cards
           get a shorter clock than almost anything else at the venues that publish a carve-out.</p>
+${clockChart()}
         <div class="by-ps">
 ${(safe.protections || []).map(prot).join("\n")}
         </div>

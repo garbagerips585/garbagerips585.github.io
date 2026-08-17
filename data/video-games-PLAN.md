@@ -303,8 +303,8 @@ score at all** despite shipping the same day.
 merge:**
 
 - **No Metacritic entry at all** (HTTP 404): Red and Blue, Yellow, Gold and
-  Silver, Crystal, Pinball, the GBC Trading Card Game, Puzzle Challenge, TCG
-  Pocket. Every Game Boy core game predates Metacritic's games coverage.
+  Silver, Crystal, Pinball, the GBC Trading Card Game, Puzzle Challenge, ~~TCG
+  Pocket~~. Every Game Boy core game predates Metacritic's games coverage.
 - **A page exists but no aggregate score is published**, meaning too few
   critics: Sapphire, Stadium, TCG Live, Sleep.
 
@@ -312,6 +312,37 @@ Render the first as **"Not on Metacritic"** and the second as **"No Metascore
 yet"**. A dash, a blank cell or a 0 all read as a bad score, and for the six
 best-loved games in the series that would be the single worst thing this page
 could say. Do not sort by score with the missing ones at the bottom either.
+
+**CORRECTED 2026-08-16, AND THE CORRECTION GOES BOTH WAYS.** This section and
+`data/video-games.json` disagreed about eight titles and each was right about
+some of them, which is why both are annotated rather than one being deferred
+to. All 22 records the JSON marked "no Metascore on page" were re-requested at
+`https://www.metacritic.com/game/<slug>/`, status code and presence of an
+`aggregateRating` block recorded.
+
+- **This file was right about nine version records and the JSON was wrong.**
+  Red, Blue, Yellow, Gold, Silver, Crystal, Pinball, the Game Boy Trading Card
+  Game and Puzzle Challenge all 404 at every address tried, so they are "Not on
+  Metacritic". The JSON had them as "No Metascore yet", which is the sentence
+  that implies critics reviewed the game and too few of them did. Fixed in the
+  JSON, with the probed addresses stored.
+- **Neither file was right about TCG Pocket. It has a Metascore of 75**, from 9
+  critic reviews, at `metacritic.com/game/pokemon-tcg-pocket/`. The slug is the
+  ABBREVIATION; `pokemon-trading-card-game-pocket`, which is what the title
+  derives, 404s, and that 404 is what this file recorded as proof of absence.
+  Strike it from the list above.
+- The four in the second list are confirmed: 200 with no `aggregateRating`.
+
+A 404 at a derived slug is evidence, not proof, and TCG Pocket is what that
+distinction costs. The games sitemap does not close the gap either: all 290
+files of `metacritic.com/games.xml` were fetched the same day and it omits
+`pokemon-y`, `pokemon-stadium` and `pokemon-tcg-pocket`, all of which return
+200. Only a direct request settles a title either way.
+
+The counts in this section are the ORIGINAL 79-title scope and are left as
+written, because the file shipped at 160 titles on the same day; the live
+counts are computed from the JSON by build-video-games.mjs and are 68 scored,
+81 with no entry and 11 with a page and no score.
 
 ### Pokemon counts, and the three numbers that are not the same
 

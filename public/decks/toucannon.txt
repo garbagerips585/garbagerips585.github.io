@@ -1,0 +1,37 @@
+Pokémon: 24
+3 Pikipek PBL 66
+2 Trumbeak PBL 67
+3 Toucannon PBL 68
+3 Hoothoot SCR 114
+3 Noctowl SCR 115
+2 Teal Mask Ogerpon ex TWM 25
+1 Fezandipiti ex ASC 142
+1 Fan Rotom SCR 118
+1 Wellspring Mask Ogerpon ex TWM 64
+1 Lillie's Clefairy ex JTG 56
+1 Latias ex SSP 76
+1 Iron Leaves ex TEF 25
+1 Meowth ex POR 62
+1 Moltres PFL 14
+
+Trainer: 27
+3 Boss's Orders MEG 114
+3 Lillie's Determination MEG 119
+2 Crispin SCR 133
+1 Judge POR 76
+1 Kieran TWM 154
+1 Hilda WHT 84
+4 Ultra Ball MEG 131
+3 Poké Pad POR 81
+2 Night Stretcher ASC 196
+2 Buddy-Buddy Poffin TEF 144
+1 Rare Candy MEG 125
+1 Energy Switch MEG 115
+3 Area Zero Underdepths SCR 131
+
+Energy: 9
+5 Grass Energy MEE 1
+1 Water Energy MEE 3
+1 Legacy Energy TWM 167
+1 Fire Energy MEE 2
+1 Psychic Energy MEE 5

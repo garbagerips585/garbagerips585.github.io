@@ -589,8 +589,20 @@
     function syncChips() {
       document.querySelectorAll(".chip[data-group]").forEach(function (b) {
         var g = b.dataset.group, v = b.dataset.value;
-        b.setAttribute("aria-pressed", String(state[g].indexOf(v) > -1));
+        var on = state[g].indexOf(v) > -1;
+        b.setAttribute("aria-pressed", String(on));
+        // ORDER, NOT SORT. The collapsed facet row is one chip tall and shows
+        // the first two to nine of them depending on width, so a filter chosen
+        // from the panel would vanish the moment the panel closed and the page
+        // would carry a live filter with nothing on screen saying so. Flex
+        // order pulls the pressed ones to the front of the row without
+        // touching the DOM, so nothing loses focus mid-click and the panel's
+        // by-count order is intact underneath.
+        b.style.order = on ? "-1" : "";
       });
+      var n = state.sets.length + state.products.length;
+      var clear = document.getElementById("libClear");
+      if (clear) clear.hidden = !n && !state.q;
     }
 
     function buildChips(group, containerId) {
@@ -616,10 +628,93 @@
         });
         box.appendChild(b);
       });
+      // The count in the toggle is the real one. The HTML ships 35 and 13 so
+      // the button has its final width before videos.json lands and so the
+      // page says something true with JS off, but the taxonomy grows every
+      // time Tim rips a new set and a hand-typed number goes stale silently.
+      var more = document.querySelector('.facet[data-facet="' + group + '"] .facet-more .n');
+      if (more) more.textContent = keys.length;
+    }
+
+    /* ---------------------------------------------------------- facets ---- */
+
+    // THE PANEL IS THE SAME CHIPS, MOVED, NOT A SECOND COPY OF THEM. Opening
+    // adds .open to the .facet, which is the whole of the state: ui.css takes
+    // the one-line .facet-box out of flow, wraps it and gives it a card. So
+    // there is one <button> per filter, one aria-pressed per filter, and no
+    // syncing problem between a rail copy and a panel copy.
+    function initFacets() {
+      var facets = [].slice.call(document.querySelectorAll(".facet[data-facet]"));
+      if (!facets.length) return;
+
+      function close(f) {
+        f.classList.remove("open");
+        var btn = f.querySelector(".facet-more");
+        if (btn) btn.setAttribute("aria-expanded", "false");
+        f.dataset.byFocus = "";
+      }
+      function open(f, byFocus) {
+        facets.forEach(function (o) { if (o !== f) close(o); });
+        f.classList.add("open");
+        var btn = f.querySelector(".facet-more");
+        if (btn) btn.setAttribute("aria-expanded", "true");
+        f.dataset.byFocus = byFocus ? "1" : "";
+      }
+
+      facets.forEach(function (f) {
+        var btn = f.querySelector(".facet-more");
+        if (btn) {
+          btn.addEventListener("click", function () {
+            if (f.classList.contains("open")) close(f); else open(f, false);
+          });
+        }
+        // A CLIPPED CHIP IS STILL TABBABLE, and that is the trap in every
+        // collapse-by-overflow. Tab into the row and focus lands on a chip
+        // outside the 44px box: the browser scrolls the hidden overflow to it,
+        // so the focus ring is genuinely invisible and the row silently sits at
+        // a scroll offset. Opening on focusin means focus is always somewhere
+        // the eye can follow, and it is also how a keyboard reaches the panel
+        // without knowing the toggle exists.
+        f.addEventListener("focusin", function (e) {
+          if (f.classList.contains("open")) return;
+          if (e.target.closest(".facet-more")) return;
+          if (!e.target.closest(".facet-box")) return;
+          // :focus-visible IS THE WHOLE FILTER HERE. A mouse click on a chip
+          // that is already visible also fires focusin, and opening the panel
+          // under the pointer every time somebody picks a set would be its own
+          // bug. focus-visible is precisely "focus the browser thinks should
+          // be drawn", which is the keyboard case and not the click case.
+          try { if (!e.target.matches(":focus-visible")) return; } catch (err) { /* older engine: open either way */ }
+          open(f, true);
+        });
+        // Only a panel opened BY focus closes on the way out. One opened by
+        // click is a deliberate choice and tabbing past it should not undo it.
+        f.addEventListener("focusout", function (e) {
+          if (!f.dataset.byFocus) return;
+          if (e.relatedTarget && f.contains(e.relatedTarget)) return;
+          close(f);
+        });
+      });
+
+      // Escape closes and hands focus back to the toggle, which is where the
+      // reader was before the panel took over.
+      document.addEventListener("keydown", function (e) {
+        if (e.key !== "Escape") return;
+        facets.forEach(function (f) {
+          if (!f.classList.contains("open")) return;
+          var btn = f.querySelector(".facet-more");
+          close(f);
+          if (btn && f.contains(document.activeElement)) btn.focus();
+        });
+      });
+      document.addEventListener("pointerdown", function (e) {
+        facets.forEach(function (f) { if (!f.contains(e.target)) close(f); });
+      });
     }
 
     readUrl();
     parsed = parseQuery(state.q);
+    initFacets();
 
     var search = document.getElementById("libSearch");
     var sortSel = document.getElementById("libSort");
@@ -899,11 +994,40 @@
     // than at build time because the same chrome is emitted into 346 pages and
     // one of them is always the current one.
     var here = location.pathname.replace(/index\.html$/, "") || "/";
+
+    // MATCHING IS BY PREFIX AND 334 PAGES HAD NO PREFIX TO MATCH, measured on
+    // 16 August 2026. It works for the sections whose NAV href IS the
+    // directory (/sets/, /pokemon/, /openings/, /games/), and fails completely
+    // for the two whose landing page is a FILE while their contents live in a
+    // directory: no NAV href is a prefix of /rip/<id>.html or of
+    // /playlists/<slug>.html, so 313 rip pages and 21 playlist pages lit
+    // nothing at all, in the bar and in the menu alike.
+    //
+    // Those are not obscure pages. They are the deepest pages on the site, the
+    // ones a search engine sends people to first, and therefore exactly where
+    // a reader is least likely to know where they have landed. WCAG 2.4.8.
+    //
+    // /search.html is deliberately NOT here, though it also lights nothing. It
+    // is the bar search form's action, not a NAV destination, and no NAV href
+    // points at it. There is no nav item it belongs under, so marking one
+    // would be inventing an answer rather than reporting one.
+    var SECTIONS = [
+      [/^\/rip\//, "/videos.html"],
+      [/^\/playlists\//, "/playlists.html"],
+    ];
+    var owner = here;
+    for (var s = 0; s < SECTIONS.length; s++) {
+      if (SECTIONS[s][0].test(here)) { owner = SECTIONS[s][1]; break; }
+    }
+
     document.querySelectorAll(".menu a, .nav-links a").forEach(function (a) {
       var to = a.getAttribute("href");
       if (!to) return;
       var norm = to.replace(/index\.html$/, "");
-      if (norm === here || (norm !== "/" && here.indexOf(norm) === 0)) {
+      // `owner` is compared with === only. A section landing page is an exact
+      // answer, and running it through the prefix test as well would let
+      // "/videos.html".indexOf() surprises back in.
+      if (norm === here || norm === owner || (norm !== "/" && here.indexOf(norm) === 0)) {
         a.setAttribute("aria-current", "page");
       }
     });

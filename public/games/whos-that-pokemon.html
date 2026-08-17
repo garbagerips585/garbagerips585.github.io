@@ -22,9 +22,73 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
+<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
-<link rel="stylesheet" href="/assets/games.css?v=e2ecf384">
+<link rel="stylesheet" href="/assets/games.css?v=8477854e">
+<style>
+.tq-grid{display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  width:100%;min-width:0;margin-top:var(--s4)}
+.tq-card{padding:var(--s4);background:var(--card);border:2px solid var(--ink);border-radius:var(--r)}
+.tq-card h3{font:700 var(--t-sm)/1.3 var(--body);text-transform:uppercase;letter-spacing:.06em;
+  color:var(--ink-2);margin-bottom:6px}
+.tq-card p{font:400 var(--t-body)/1.5 var(--body);color:var(--ink)}
+.tq-eg{display:block;margin-top:8px;font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2)}
+
+/* THE FIGURES CARRY THEIR OWN CAPTION AND THE CAPTION IS THE SOURCE. Every
+   drawing in these blocks is generated from a file in this repo, so the caption
+   says which one. A picture on this site that cannot name where its numbers came
+   from is the thing check-build.py's density table is trying to get rid of, and
+   adding an unsourced one to fix the count would be worse than the empty page. */
+.tq-fig{margin:var(--s4) 0 0;padding:var(--s4);background:var(--paper-2,#F7F2DE);
+  border:2px solid var(--ink);border-radius:var(--r)}
+.tq-fig svg{display:block;width:100%;height:auto;max-width:520px;margin:0 auto}
+.tq-fig figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
+  text-align:center}
+
+/* The era table. A LIST, not a table element: every row is symbol, name, years,
+   counts, and on a 390px phone the years and the counts have to drop under the
+   name rather than squeeze a fourth column to nothing. */
+.tq-eras{display:grid;gap:8px;margin-top:var(--s4);list-style:none;padding:0}
+.tq-era{display:grid;grid-template-columns:34px 1fr auto;gap:var(--s3);align-items:center;
+  padding:8px 10px;background:var(--card);border:1px solid var(--hair);border-radius:10px}
+.tq-era img{width:26px;height:26px;object-fit:contain;display:block;margin:0 auto;
+  background:var(--paper-2,#F7F2DE);border-radius:5px}
+.tq-era .tq-noimg{width:26px;height:26px;display:block;margin:0 auto;border-radius:5px;
+  border:1px dashed var(--hair)}
+.tq-era b{font:700 var(--t-sm)/1.25 var(--body);color:var(--ink);display:block}
+.tq-era span{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
+.tq-era em{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);font-style:normal;
+  text-align:right;white-space:nowrap}
+
+/* Pokemon with their official category. The artwork is the mirrored 128px file
+   /lore.html already ships, not the 475px PokeAPI png the game itself pulls: at
+   72px on a phone the big one is a 6x oversample of a picture nobody is playing
+   with. */
+.tq-dex{display:grid;gap:var(--s3);grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  margin-top:var(--s4);list-style:none;padding:0}
+.tq-dexi{display:flex;gap:var(--s3);align-items:center;padding:8px 10px;background:var(--card);
+  border:1px solid var(--hair);border-radius:10px}
+.tq-dexi img{width:56px;height:56px;object-fit:contain;flex:none}
+.tq-dexi b{display:block;font:700 var(--t-sm)/1.2 var(--body);color:var(--ink)}
+.tq-dexi span{display:block;font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
+
+.tq-links{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s4);padding:0;list-style:none}
+.tq-links a{display:inline-block;padding:9px 14px;background:var(--card);border:2px solid var(--ink);
+  border-radius:var(--r-pill);box-shadow:0 3px 0 var(--ink);text-decoration:none;color:var(--ink);
+  font:700 var(--t-sm)/1.2 var(--body)}
+.tq-links a:hover{background:var(--mustard)}
+
+/* The one file drawn twice. The FIRST of the pair carries the filter, which is
+   the same brightness(0) games.css puts on the live game, written here rather
+   than reused from .gq-sil because that class is the game's and this figure is
+   not the game. */
+.tq-silpair{display:flex;gap:var(--s5);align-items:flex-end;justify-content:center}
+.tq-silpair span{display:block;text-align:center}
+.tq-silpair img{display:block;width:112px;height:112px;object-fit:contain}
+.tq-silpair span:first-child img{filter:brightness(0)}
+.tq-silpair b{display:block;margin-top:6px;font:700 var(--t-micro)/1.4 var(--mono);
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Games","item":"https://garbagerips585.github.io/games/"},{"@type":"ListItem","position":3,"name":"Who's That Pokemon?"}]}</script>
 </head>
 <body>
@@ -160,7 +224,116 @@
     <p class="lede" style="max-width:40em">Four answers, one shape. Get it wrong and the name comes up so you learn it. Your streak is saved on this device.</p>
   </div>
 </section>
+<section class="band tight">
+  <div class="wrap">
+    <h2>What the two buttons actually <span class="hl">change</span></h2>
+    <p class="lede" style="max-width:44em">The original 151 is generation 1, all of it and nothing else. The other
+      button opens the pool to nine generations, and they are not the same size as each other. Generation 5 is the
+      biggest one there has ever been, bigger than the 151 everybody knows, and generation 6 is less than half of it.
+      Turn it on and most of what you are shown will be a shape you have never had to name.</p>
 
+    <figure class="tq-fig">
+      <svg viewBox="0 0 468 218" role="img"
+  aria-label="Bar chart of Pokemon species per generation: generation 1, 151; generation 2, 100; generation 3, 135; generation 4, 107; generation 5, 156; generation 6, 72; generation 7, 88; generation 8, 96; generation 9, 120. Generation 1 is the 151 pool.">
+  <rect x="0" y="29" width="46" height="145" rx="4" fill="#F5A62B" stroke="#1E2419" stroke-width="2"/>
+  <text x="23" y="23" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="13" font-weight="700" fill="#1E2419">151</text>
+  <text x="23" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="12" font-weight="700" fill="#1E2419">1</text>
+  <rect x="52" y="78" width="46" height="96" rx="4" fill="#616A4F" stroke="#1E2419" stroke-width="2"/>
+  <text x="75" y="72" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="13" font-weight="700" fill="#1E2419">100</text>
+  <text x="75" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="12" font-weight="700" fill="#1E2419">2</text>
+  <rect x="104" y="44" width="46" height="130" rx="4" fill="#616A4F" stroke="#1E2419" stroke-width="2"/>
+  <text x="127" y="38" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="13" font-weight="700" fill="#1E2419">135</text>
+  <text x="127" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="12" font-weight="700" fill="#1E2419">3</text>
+  <rect x="156" y="71" width="46" height="103" rx="4" fill="#616A4F" stroke="#1E2419" stroke-width="2"/>
+  <text x="179" y="65" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="13" font-weight="700" fill="#1E2419">107</text>
+  <text x="179" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="12" font-weight="700" fill="#1E2419">4</text>
+  <rect x="208" y="24" width="46" height="150" rx="4" fill="#616A4F" stroke="#1E2419" stroke-width="2"/>
+  <text x="231" y="18" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="13" font-weight="700" fill="#1E2419">156</text>
+  <text x="231" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="12" font-weight="700" fill="#1E2419">5</text>
+  <rect x="260" y="105" width="46" height="69" rx="4" fill="#616A4F" stroke="#1E2419" stroke-width="2"/>
+  <text x="283" y="99" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="13" font-weight="700" fill="#1E2419">72</text>
+  <text x="283" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="12" font-weight="700" fill="#1E2419">6</text>
+  <rect x="312" y="89" width="46" height="85" rx="4" fill="#616A4F" stroke="#1E2419" stroke-width="2"/>
+  <text x="335" y="83" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="13" font-weight="700" fill="#1E2419">88</text>
+  <text x="335" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="12" font-weight="700" fill="#1E2419">7</text>
+  <rect x="364" y="82" width="46" height="92" rx="4" fill="#616A4F" stroke="#1E2419" stroke-width="2"/>
+  <text x="387" y="76" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="13" font-weight="700" fill="#1E2419">96</text>
+  <text x="387" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="12" font-weight="700" fill="#1E2419">8</text>
+  <rect x="416" y="59" width="46" height="115" rx="4" fill="#616A4F" stroke="#1E2419" stroke-width="2"/>
+  <text x="439" y="53" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="13" font-weight="700" fill="#1E2419">120</text>
+  <text x="439" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="12" font-weight="700" fill="#1E2419">9</text>
+  <!-- The axis word sat at x=0 y=196, level with the tick labels, and ran
+       straight through the "2" under the second bar. It gets its own line. -->
+  <text x="231" y="212" text-anchor="middle"
+    font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#4A5140">generation</text>
+</svg>
+      <figcaption>Species per generation, counted from the National Pokedex read
+        August 13, 2026 at pokeapi.co. Gold is the 151 pool.
+        1,025 species in total.</figcaption>
+    </figure>
+
+    <figure class="tq-fig tq-sil">
+      <div class="tq-silpair">
+        <span><img src="/assets/dex/145.webp" width="128" height="128" alt="The same artwork blacked out to a silhouette"
+          loading="lazy" decoding="async"><b>filtered</b></span>
+        <span><img src="/assets/dex/145.webp" width="128" height="128" alt="Official artwork of Zapdos"
+          loading="lazy" decoding="async"><b>as it ships</b></span>
+      </div>
+      <figcaption>Both of those are /assets/dex/145.webp, the same file, requested once. The left one has
+        brightness(0) on it and nothing else.</figcaption>
+    </figure>
+
+    <div class="tq-grid">
+      <div class="tq-card">
+        <h3>How the shape is made</h3>
+        <p>There is no second set of images. The game takes the official artwork, which has a transparent background,
+          and crushes every pixel in it to black while leaving the transparency alone. That is exactly a silhouette,
+          and getting the answer is what lifts it back off.</p>
+        <span class="tq-eg">brightness(0), one CSS filter, one file</span>
+      </div>
+      <div class="tq-card">
+        <h3>Why a card scan would not work</h3>
+        <p>A card is a rectangle with a border, so the silhouette of a card is a rectangle. This is the one game here
+          that cannot use the card corpus the rest of the site runs on, which is why it borrows the Pokedex instead.</p>
+        <span class="tq-eg">artwork from pokeapi.co, credited below the game</span>
+      </div>
+      <div class="tq-card">
+        <h3>What it is training</h3>
+        <p>Outline only: no colour, no pattern, no type. Most of what makes a Pokemon recognisable on a card is thrown
+          away, which is why a shape you would know instantly in colour can take a moment here.</p>
+        <span class="tq-eg">wrong answers show the name, so a miss still teaches you one</span>
+      </div>
+    </div>
+
+    <h2 style="margin-top:var(--s6)">Once you know the <span class="hl">name</span></h2>
+    <p class="lede" style="max-width:44em">Naming it is the easy half. These pages are what the name is worth once
+      a card with that Pokemon on it turns up in a pack.</p>
+    <ul class="tq-links">
+      <li><a href="/pokemon/">The card Pokedex by Pokemon</a></li>
+      <li><a href="/cards.html">Every card the channel has pulled</a></li>
+      <li><a href="/lore.html">Where these Pokemon come from</a></li>
+      <li><a href="/games/pokemon-trivia.html">Trivia, same Pokedex</a></li>
+    </ul>
+  </div>
+</section>
 </main>
 <footer>
   <div class="wrap">
@@ -231,9 +404,9 @@
     Fan made games. Card data and Pokedex data credited on each page.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=7f0274cc" defer></script>
-<script src="/assets/packplayer.js?v=faa2eb26" defer></script>
-<script src="/assets/games.js?v=18706bfc" defer></script>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
+<script src="/assets/games.js?v=40f59b03" defer></script>
 <script>
 (function(){
   var ART='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
@@ -265,7 +438,13 @@
     start();
   }
   function start(){
-    GR.Quiz({key:'gr.whos'+(gen1?'.151':'.all'),mount:document.getElementById('game'),
+    /* TEAR THE OLD ONE DOWN. This called GR.Quiz over the top of the running
+       game, which left the previous one alive: measured over CDP, five presses
+       of these two buttons left five document keydown listeners, and pressing
+       one 40 seconds into a sprint threw the run away with the clock, the score
+       and the interval still running. See destroy() in games.js. */
+    if(quiz) quiz.destroy();
+    quiz=GR.Quiz({key:'gr.whos'+(gen1?'.151':'.all'),mount:document.getElementById('game'),
       next:build, preload:function(q){return q._art;}});
   }
 

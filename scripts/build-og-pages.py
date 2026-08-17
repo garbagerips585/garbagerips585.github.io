@@ -53,6 +53,18 @@ PAGES = {
     # where somebody scanning for "TCG Live" or "Pocket" will still find them.
     "tcg-live": ("EVERY PACK HAS ONE", "What is the code card?", "Pokemon TCG Live, and what the code really gets you"),
     "tcg-pocket": ("FREE, ON YOUR PHONE", "Can you learn from an app?", "What Pokemon TCG Pocket teaches you, and what it does not"),
+    # The two deck pages. Both answer lines carry the measurement rather than a
+    # boast, because "most played" is the only claim either page makes and a
+    # share card is not the place to quietly upgrade it to "best".
+    "decks": ("PASTE IT STRAIGHT IN", "Deck builds you can download", "The most played Standard decks, in TCG Live's own import format"),
+    "top-100-playable": ("NOT THE PRICEY ONES", "The 100 most played cards", "Counted across hundreds of real tournament decklists"),
+    # THE ANSWER LINE NAMES THE MEASUREMENT AND THE SHARE CARD IS WHERE THAT
+    # MATTERS MOST. "The most valuable graded cards" is the phrase everybody
+    # expects and it is the one claim this page refuses to make, because the
+    # auction-record version of the list could not be sourced (PSA and Heritage
+    # answer 403, Goldin serves a JS shell). A preview that overstated it would
+    # undo the whole reason the page is titled the way it is.
+    "top-graded": ("PRICE GUIDE, NOT HAMMER PRICE", "The highest PSA 10 values", "Ranked across 793 sets, every figure read twice"),
     "cards": ("CARD POKEDEX", "Card search", "Every card we cover, and what it is worth today"),
     "pokemon": ("CARD POKEDEX", "By Pokemon", "Every Charizard, every Umbreon, priced"),
     "fake-cards": ("DON'T GET DONE", "Real or fake?", "Eight checks, and how much each one really proves"),
@@ -62,6 +74,12 @@ PAGES = {
     "luck": ("MEASURED, NOT GUESSED", "Luck, measured", "What actually came out of the packs, counted"),
     "upcoming": ("WHAT IS NEXT", "Coming next", "The next sets, with live preorder prices"),
     "expansions": ("THE WHOLE LIST", "Every set ever", "Oldest to newest, all in one place"),
+    # The two ranked price lists. Both kickers carry the honesty the pages are
+    # built around, because the share card is the only part of the page most
+    # people see: "ungraded" and "on TCGplayer" are the two qualifiers that stop
+    # the headline being a claim the data cannot support.
+    "most-valuable-cards": ("UNGRADED, ON TCGPLAYER", "The 100 dearest cards", "Raw market prices, read and dated"),
+    "most-expensive-sealed": ("NOBODY OPENED THESE", "The 100 dearest sealed", "Boxes, cases and 1999 packs, dated"),
     "complete": ("PRICED LAST NIGHT", "Cost to complete a set", "Every set, three tiers, live prices"),
     "pack-prices": ("PRICED NIGHTLY", "What does a pack cost?", "Every set, box against bundle against loose pack"),
     # The other half of that question, and the answer line names the shape of

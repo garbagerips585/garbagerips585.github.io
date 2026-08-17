@@ -286,6 +286,52 @@ export const STYLES = `<link rel="stylesheet" href="/assets/ui.css?v=${CSS_V}">
 <link rel="stylesheet" href="/assets/packs.css">`;
 
 /**
+ * The same two, for a page that has no pack and no rip tile on it.
+ *
+ * ADDITIVE, AND DELIBERATELY OPT-IN. APP_JS and STYLES above are untouched, so
+ * every page that does not ask for these is byte identical. Only
+ * build-video-games.mjs asks so far.
+ *
+ * WHAT THEY COST WHERE THEY ARE NOT USED, measured 16 August 2026 off the live
+ * site's own request log at 1440x900 DPR 2, cache off, which is how GitHub
+ * Pages serves them (gzipped):
+ *
+ *     packplayer.js   27.2KB on disk, 10.3KB transferred, 1 request
+ *     packs.css        10.3KB on disk,  1.4KB transferred, 1 request
+ *
+ * On /video-games.html that was 11.9KB of a 147.0KB on-load total and 2 of the
+ * 10 requests that fire before the load event, for a file that finds nothing to
+ * attach to and a stylesheet none of whose 29 classes appear in the markup.
+ *
+ * DO NOT REACH FOR THESE WITHOUT CHECKING THE PAGE, and the check is not the
+ * obvious one. packplayer.js looks like it only wires `[data-vcar]` and
+ * `img[data-packsrc]`, and a scan for those two says 481 of 487 pages do not
+ * need it. That scan is WRONG. Its real entry point is a delegated click
+ * handler on `document` matching `a[href*="/rip/"]` that contains an `<img>`
+ * OR a `.pack` facade, which is how /videos.html and every set guide play a
+ * tile in place with no data attribute anywhere in the markup. Counted with
+ * that predicate the answer is 294 pages need it and 192 do not, and the two
+ * counts disagree by enough that guessing breaks a page silently: a tile that
+ * no longer plays where it sits still navigates to the rip page, so it looks
+ * like a design decision rather than a missing script.
+ *
+ * The three conditions a page must ALL meet, in full:
+ *   1. no `<a href*="/rip/">` wrapping an `<img>` or a `.pack`
+ *   2. no `[data-vcar]` and no `img[data-packsrc]`
+ *   3. none of packs.css's classes in any `class=` attribute (for NO_PACKS_CSS)
+ * /video-games.html meets all three: 0 rip links, 0 carousels, 0 pack classes.
+ *
+ * The other 191 pages that meet them were NOT converted here. Each one belongs
+ * to a builder another pass owns, and the win is 11.9KB on a page rather than
+ * anything a reader waits for: nothing here is render blocking except
+ * packs.css, and none of it is on the critical path. Worth taking when a
+ * builder is open anyway, not worth a sweep of its own.
+ */
+export const APP_JS_NO_PACKPLAYER = `<script src="/assets/app.js?v=${APP_V}" defer></script>`;
+
+export const STYLES_NO_PACKS_CSS = `<link rel="stylesheet" href="/assets/ui.css?v=${CSS_V}">`;
+
+/**
  * The sticky bar.
  *
  * The search field is hidden below 640px and the magnifier below 480px,

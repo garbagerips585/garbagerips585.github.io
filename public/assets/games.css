@@ -45,10 +45,18 @@
 }
 
 /* Stats. Space Mono so the streak counter does not reflow the row every time it
-   ticks from 9 to 10. */
+   ticks from 9 to 10.
+   WRAPS, because the bar gained a third pill. It carried "streak" and "best"
+   and a clock that only shows in sprint, and it now carries the run tally as
+   well (see games.js, point 1). Three pills plus a clock do not fit 366px on a
+   390px phone, and the failure mode without this is one pill pushed out of the
+   centred row rather than a tidy second line. Gap trimmed from --s3 to --s2 for
+   the same reason: it buys the third pill about 16px. */
 .gq-bar {
   display: flex;
-  gap: var(--s3);
+  flex-wrap: wrap;
+  gap: var(--s2);
+  row-gap: 8px;
   align-items: center;
   justify-content: center;
   margin-bottom: var(--s4);
@@ -194,7 +202,12 @@
   cursor: pointer;
 }
 .gq-btn:active { box-shadow: 0 1px 0 var(--ink); transform: translateY(2px); }
-.gq-btn[disabled] { cursor: default; }
+/* aria-disabled, not :disabled. games.js stopped using the `disabled` property
+   because a disabled button fires no click and bubbles nothing, which made the
+   four biggest targets on the screen the only place a tap-to-continue could not
+   be heard. The selector has to follow or a locked button keeps the text
+   cursor. Nothing else changes: there was never a :disabled rule. */
+.gq-btn[aria-disabled="true"] { cursor: default; }
 .gq-num {
   flex: none;
   width: 22px;
@@ -225,6 +238,22 @@
 .gq-again { grid-column: 1 / -1; justify-content: center; background: var(--mustard); }
 
 .gq-foot { margin-top: var(--s4); text-align: center; }
+/* The skip hint. It appears under the answers on the first three results of a
+   session and then never again, so it must not change the height of the foot
+   when it goes: the mode button would step up 20px under a thumb on its way to
+   it. Absolutely positioned inside a foot that already reserves the room. */
+.gq-foot { position: relative; padding-top: 22px; }
+.gq-skip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  font: 700 var(--t-micro) / 1.4 var(--mono);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.gq-skip[hidden] { display: none; }
 .gq-mode {
   /* 44px tall, because it is a standalone control with no larger equivalent
      anywhere: measured at 122x26.8 it was the only real tap-target failure on

@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 100 Most Expensive Sealed Pokemon Products on TCGplayer | Garbage Rips 585</title>
+<meta name="description" content="The 100 most expensive sealed Pokemon products by TCGplayer market price, read August 16, 2026. Booster boxes, cases, ETBs and vintage packs, with the cheapest live listing beside every market price.">
+<link rel="canonical" href="https://garbagerips585.github.io/most-expensive-sealed.html">
+<meta property="og:title" content="The 100 Most Expensive Sealed Pokemon Products on TCGplayer">
+<meta property="og:description" content="The 100 most expensive sealed Pokemon products by TCGplayer market price, read August 16, 2026. Booster boxes, cases, ETBs and vintage packs, with the cheapest live listing beside every market price.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garbagerips585.github.io/most-expensive-sealed.html">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-most-expensive-sealed.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-most-expensive-sealed.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#111111">
+<link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<style>
+/* This page's own block rather than ui.css. ui.css is render blocking on every
+   page on the site and these rules are used by two of them. */
+
+/* THE ROW IS ONE FLAT GRID AT TWO SHAPES. Phone stacks name, then set, then
+   price, all beside one picture that spans the three; from 760px up the same
+   cells become table columns with a header above them, which is where a hundred
+   row list is actually read. Nothing is nested, which is what lets the picture
+   span rather than push. See the note above row() for why that is worth 3,900px
+   of page height on a phone.
+
+   THE NAME GETS THE FULL WIDTH ON A PHONE, and that is the second attempt.
+   The first gave the price a column of its own and it cost more than it looked
+   like it would. Measured at 390: .wrap leaves 366px for the row, the price
+   column took 116px of it ("$18,750.00" is ten characters of Space Mono at 1rem
+   and cannot wrap), the rank and picture took another 94px, and the name was
+   left with 146px. At .95rem Outfit that is about 20 REAL characters a line, so
+   a two line clamp held about 40. CHECKED IN THE BROWSER RATHER THAN ASSUMED:
+   23 of 100 card names and 72 of 100 sealed names were being cut off, the
+   longest sealed name being 70 characters. Dropping the price under the name
+   gives it 248px, about 34 real characters a line, and the clamp is 3 lines, so
+   nothing in either list truncates on a phone. Re-measured after: 0 of 200.
+
+   REAL CHARACTERS, NOT THE ch UNIT. One ch is the advance width of a "0", and
+   in Outfit a digit is around 1.43 times the average character, so sizing a
+   text column in ch over-promises by about 40%. Every width here was measured
+   against the actual longest string in data/top100.json. */
+.t100{list-style:none;margin:var(--s4) 0 0;padding:0;display:flex;flex-direction:column;gap:5px}
+.t100-li{position:relative;background:var(--card);border:1px solid var(--hair);
+  border-radius:var(--r-sm);
+  display:grid;gap:0 10px;padding:9px 10px;align-items:start;
+  grid-template-columns:26px 52px minmax(0,1fr);
+  grid-template-areas:"rank shot name" "rank shot meta" "rank shot price"}
+.t100-li:hover{border-color:var(--keyline)}
+.t100-set,.t100-tag,.t100-count{display:none}
+
+.t100-rank{grid-area:rank;align-self:center;font-family:var(--mono);font-size:var(--t-sm);
+  color:var(--ink-2);text-align:right;font-variant-numeric:tabular-nums}
+/* WHITE, NOT THE GREY TINT. object-fit:contain letterboxes every photo whose
+   shape is not the box's, and TCGplayer's product photography is shot on white,
+   so a tinted frame drew grey bands above and below every booster box. The grey
+   is kept for the frame with no photo in it at all, where it is the point. */
+.t100-shot{grid-area:shot;align-self:center;display:block;width:52px;height:72px;
+  background:var(--paper-2);border-radius:3px;overflow:hidden}
+.t100-img{display:block;width:100%;height:100%;object-fit:contain}
+/* A product with no photo keeps the tinted frame rather than showing a broken
+   icon, and never fires a request: sync-top100.mjs fetches all 200 urls each run
+   and flags the dead ones, so the markup carries no src at all for those. */
+.t100-img-none{background:var(--paper-3)}
+
+/* The stretched link. ::after covers the whole <li> so the rank, the picture
+   and the set are one tap target, while the anchor's accessible name stays the
+   product name. .t100-price is raised above it so the one outbound link on the
+   row is still clickable. */
+.t100-name{grid-area:name;align-self:end;font-weight:600;line-height:1.25;
+  color:inherit;text-decoration:none;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.t100-name::after{content:"";position:absolute;inset:0;z-index:0}
+.t100-li:hover .t100-name{text-decoration:underline}
+.t100-name:focus-visible::after{outline:2px solid var(--keyline);outline-offset:2px;border-radius:var(--r-sm)}
+.t100-meta{grid-area:meta;align-self:start;font-size:var(--t-label);color:var(--ink-2);
+  line-height:1.35;margin-top:2px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.t100-meta i{font-style:normal;opacity:.5;padding:0 2px}
+/* Where the row goes, for a screen reader. Part of the link's accessible name,
+   never painted: there is no room for it on a phone and it would be noise on a
+   desktop where the set is already its own column. */
+.t100-go{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+  clip-path:inset(50%);white-space:nowrap}
+
+.t100-price{grid-area:price;position:relative;z-index:1;
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:1px 10px;margin-top:4px;min-width:0}
+.t100-price b{font-family:var(--mono);font-size:1rem;font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em;white-space:nowrap}
+.t100-low{font-size:var(--t-micro);color:var(--ink-2);font-family:var(--mono);white-space:nowrap}
+.t100-low-none{opacity:.65}
+.t100-check{font-size:var(--t-micro);color:var(--ink-2);text-decoration:underline;
+  text-underline-offset:2px;white-space:nowrap}
+.t100-check:hover{color:var(--ink)}
+.t100-check::after{content:" \2197"}
+.t100-flag{font-size:var(--t-micro);color:var(--ink);background:var(--chip-gold-bg);
+  border-radius:3px;padding:1px 5px;flex-basis:100%}
+
+/* The header strip only exists in the table layout. */
+.t100-head{display:none}
+
+@media (min-width:760px){
+  /* Seven columns: rank, picture, name, set, rarity or form, listings, price.
+     The name column is twice the set column because it carries the longest
+     strings in the data, 51 characters raw and 70 sealed. */
+  .t100-li,.t100-head{grid-template-columns:32px 60px minmax(0,2fr) minmax(0,1.05fr) 116px 88px 138px}
+  .t100-li{grid-template-areas:"rank shot name set tag count price";align-items:center;
+    gap:0 12px;padding:9px 12px}
+  /* THE PICTURE GROWS ON DESKTOP BECAUSE THE BYTES ARE ALREADY PAID FOR. The
+     smallest rendition this CDN serves is 150px wide; _50w, _100w and _120w all
+     answer 403, checked on five ids. So a 52px box on a phone asks for nearly
+     three times the pixels it paints and there is nothing to be done about it.
+     Desktop has the room, so it takes 60px and then 72px, which at DPR 2 is 120
+     and 144 real pixels against the 150 that arrived: the same download, most of
+     it now actually used. */
+  .t100-shot{width:60px;height:83px}
+  /* The set, the rarity or form and the listing count get their own columns, so
+     the line under the name stops repeating them. */
+  .t100-meta{display:none}
+  .t100-name{align-self:center;-webkit-line-clamp:2}
+  .t100-set,.t100-tag,.t100-count{display:block;font-size:var(--t-sm);color:var(--ink-2);
+    min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .t100-count{font-size:var(--t-label);text-align:right}
+  .t100-price{flex-direction:column;flex-wrap:nowrap;align-items:flex-end;gap:1px;
+    margin-top:0;text-align:right}
+  .t100-price b{font-size:1.05rem}
+  .t100-flag{flex-basis:auto;max-width:100%}
+  .t100-head{display:grid;align-items:end;padding:0 12px 6px;font-family:var(--mono);
+    font-size:var(--t-micro);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+  .t100-head .t100-h-name{grid-column:1/4}
+  .t100-head .t100-h-count,.t100-head .t100-h-price{text-align:right}
+}
+@media (min-width:1080px){
+  .t100-li,.t100-head{grid-template-columns:36px 72px minmax(0,2fr) minmax(0,1.05fr) 122px 94px 142px}
+  .t100-shot{width:72px;height:99px}
+}
+
+/* The filter, sealed page only. Ranks are NOT renumbered when rows hide: the
+   gaps are the point, because a filtered view that renumbers itself is quietly
+   claiming to be a different top 100. */
+.t100-filter{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:var(--s4)}
+.t100-filter button{font:inherit;font-size:var(--t-sm);padding:6px 12px;cursor:pointer;
+  background:var(--card);border:1px solid var(--keyline);border-radius:var(--r-pill);color:var(--ink)}
+.t100-filter button[aria-pressed="true"]{background:var(--keyline);color:var(--chrome-ink)}
+.t100-filter p{margin:0;font-size:var(--t-sm);color:var(--ink-2)}
+.t100.hide-multi .t100-li.is-multi{display:none}
+
+/* ui.css draws .fk-golden full bleed inside the wrap, which is right for the
+   two or three sentences the other pages put in one. This one holds four
+   paragraphs, and at 1440 that ran the text to about 700px inside a 1392px
+   black box, leaving half of it empty and the lines longer than is comfortable
+   to read. Capped to a measure instead. */
+.fk-golden{max-width:58em}
+
+/* The methodology block. Deliberately plain and deliberately long: it is the
+   only reason the numbers above it are allowed on the page. */
+.t100-src{display:grid;gap:10px;margin-top:var(--s4)}
+.t100-src div{background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm);padding:12px 14px}
+.t100-src h3{margin:0 0 4px;font-size:var(--t-body);font-family:var(--body);font-weight:700}
+.t100-src p{margin:0;font-size:var(--t-sm);color:var(--ink-2);max-width:60em}
+.t100-src code{font-family:var(--mono);font-size:.85em;word-break:break-all}
+@media (min-width:900px){.t100-src{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form class="bar-search" role="search" action="/search.html" method="get">
+      <label class="sr-only" for="navSearch">Search cards, sets, guides and rips</label>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+      <input id="navSearch" name="q" type="search" placeholder="Search cards, sets, rips" aria-label="Search cards, sets, guides and every rip" autocomplete="off">
+    </form>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/cards.html">Card search</a>
+      <a href="/sets/">Set guides</a>
+      <a href="/start.html">Start here</a>
+      <a href="/card-shows.html">Card shows</a>
+    </nav>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span>Menu</span>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="All sections">
+  <div class="menu-inner">
+    <div class="menu-g">
+      <p class="menu-h">Watch</p>
+      <ul>
+        <li><a href="/videos.html">Rips</a></li>
+        <li><a href="/playlists.html">Playlists</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">The binder</p>
+      <ul>
+        <li><a href="/hall.html">Best pulls</a></li>
+        <li><a href="/wanted.html">Most wanted</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Cards</p>
+      <ul>
+        <li><a href="/cards.html">Card search</a></li>
+        <li><a href="/pokemon/">By Pokemon</a></li>
+        <li><a href="/sets/">Set guides</a></li>
+        <li><a href="/expansions.html">Every set ever</a></li>
+        <li><a href="/upcoming.html">Coming next</a></li>
+        <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/pack-prices.html">Pack prices</a></li>
+        <li><a href="/how-many-packs.html">Packs per box</a></li>
+        <li><a href="/openings/">Sealed products</a></li>
+        <li><a href="/drops.html">Drops this week</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Guides</p>
+      <ul>
+        <li><a href="/start.html">Start here</a></li>
+        <li><a href="/how-to-play.html">How to play</a></li>
+        <li><a href="/tcg-live.html">Code cards</a></li>
+        <li><a href="/tcg-pocket.html">Phone version</a></li>
+        <li><a href="/what-set.html">Set finder</a></li>
+        <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/types.html">Card types</a></li>
+        <li><a href="/fake-cards.html">Fakes</a></li>
+        <li><a href="/will-it-grade.html">Will it grade</a></li>
+        <li><a href="/grading.html">Grading cost</a></li>
+        <li><a href="/selling.html">Where to sell</a></li>
+        <li><a href="/buying.html">Where to buy</a></li>
+        <li><a href="/luck.html">Luck, measured</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Play</p>
+      <ul>
+        <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
+        <li><a href="/lore.html">Pokemon lore</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Rochester, NY</p>
+      <ul>
+        <li><a href="/card-shows.html">Card shows</a></li>
+        <li><a href="/shops.html">Card shops</a></li>
+        <li><a href="/vendors.html">Local vendors</a></li>
+        <li><a href="/creators.html">Local creators</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </div>
+  </div>
+  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe on YouTube</a>
+</nav>
+<main id="main">
+
+<header class="set-hero">
+  <div class="wrap">
+    <span class="kicker">Pokemon TCG &bull; Boxes, cases and packs nobody opened</span>
+    <h1>The 100 most expensive <span class="hl">sealed</span> Pokemon products</h1>
+    <p class="lede" style="max-width:40em">Booster boxes, elite trainer boxes, single packs from 1999 and a lot of freight cases. Ranked by TCGplayer's own market price for their English Pokemon catalogue, read on the date below.</p>
+  </div>
+</header>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / Most expensive sealed</p>
+
+    <div class="fk-golden">
+      <p class="fk-golden-h">What this list actually is</p>
+      <h2>One marketplace, one number, <span class="hl">one day</span></h2>
+      <p>Every figure here is TCGplayer's own <b>Market Price</b> for that product, read on
+        <b>August 16, 2026</b>. Market Price is their figure, worked out from recent completed sales on their
+        marketplace. It is not the cheapest copy on sale right now, it is not what one sold for last week,
+        and it is not an appraisal. The cheapest live listing is printed next to it on every row so the
+        two cannot be mistaken for each other.</p>
+      <p><b>What this ranking cannot see.</b> Japanese sealed product is not in it, because it is a separate catalogue on the same site. Neither are the sealed cases that change hands at auction houses, which is where most of the really old unopened product actually sells. And a listed price is not a sold price: some of these have one listing and no recent sales at all, which the listing count on every row will tell you.</p>
+      <p><b>The cheapest copy is often dearer than the market price, and that is not a mistake.</b>
+        58 of these 100 have a lowest listing above their market price today.
+        Market Price looks backwards at what actually sold; a listing is what somebody is asking right now.
+        On thin, old or barely traded things, and most of this list is all three, the asking prices sit well
+        above the last sales, and sometimes there is nothing for sale at all.</p>
+      <p>Prices move every day and this page does not. The date above is the date the numbers were read,
+        and if it looks old then the numbers are old.</p>
+    </div>
+
+    <div class="facts" style="margin-top:20px">
+      <div class="fact"><div class="n">$18,750</div><div class="l">Dearest, Legendary Treasures Booster Box</div></div>
+      <div class="fact"><div class="n">$1,800</div><div class="l">What it takes to make the 100</div></div>
+      <div class="fact"><div class="n">324</div><div class="l">Products checked to find them</div></div>
+      <div class="fact wide"><div class="n" style="font-size:1.15rem">August 16, 2026</div><div class="l">Prices read on</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The list</p>
+    <h2>All 100, dearest <span class="hl">first</span></h2>
+    <p class="lede" style="max-width:44em">Ranked by market price, dearest first. The picture and the name take you to our page for it; the small link under each price opens that product on TCGplayer so you can check the figure yourself.</p>
+    <div class="t100-filter">
+      <button type="button" id="t100All" aria-pressed="true" aria-controls="t100list">All 100</button>
+      <button type="button" id="t100Solo" aria-pressed="false" aria-controls="t100list">Hide cases and displays</button>
+      <p id="t100Count">Showing all 100. 69 of them are cases, displays or multi-packs.</p>
+    </div>
+
+    <div class="t100-head" aria-hidden="true">
+      <span class="t100-h-name">Rank and name</span><span>Set</span><span>Form</span><span class="t100-h-count">For sale</span><span class="t100-h-price">Market price</span>
+    </div>
+    <ol class="t100" id="t100list">
+<li class="t100-li">
+  <span class="t100-rank">1</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/98580_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Legendary Treasures Booster Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">Legendary Treasures <i aria-hidden="true">&bull;</i> Booster box</span>
+  <span class="t100-set">Legendary Treasures</span>
+  <span class="t100-tag">Booster box</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$18,750.00</b>
+    <span class="t100-low">low $16,000.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/98580/legendary-treasures-booster-box" rel="noopener nofollow"
+      aria-label="Check Legendary Treasures Booster Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">2</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/138132_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Pokemon Base Set (Shadowless) [1st Edition] Booster Pack<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">Base Set (Shadowless) <i aria-hidden="true">&bull;</i> Booster pack</span>
+  <span class="t100-set">Base Set (Shadowless)</span>
+  <span class="t100-tag">Booster pack</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$15,000.00</b>
+    <span class="t100-low">low $15,000.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/138132/pokemon-base-set-shadowless-1st-edition-booster-pack" rel="noopener nofollow"
+      aria-label="Check Pokemon Base Set (Shadowless) [1st Edition] Booster Pack on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">3</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/226363_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">XY Evolutions Booster Box Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">XY - Evolutions <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">XY - Evolutions</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">3 listings</span>
+  <span class="t100-price">
+    <b>$14,888.88</b>
+    <span class="t100-low">low $17,000.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/226363/xy-evolutions-booster-box-case" rel="noopener nofollow"
+      aria-label="Check XY Evolutions Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">4</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/513409_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/151.html">151 Booster Bundle Display Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV: Scarlet &amp; Violet 151 <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV: Scarlet &amp; Violet 151</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">5 listings</span>
+  <span class="t100-price">
+    <b>$11,900.00</b>
+    <span class="t100-low">low $12,600.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/513409/151-booster-bundle-display-case" rel="noopener nofollow"
+      aria-label="Check 151 Booster Bundle Display Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">5</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/181698_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Team Up Booster Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SM - Team Up <i aria-hidden="true">&bull;</i> Booster box</span>
+  <span class="t100-set">SM - Team Up</span>
+  <span class="t100-tag">Booster box</span>
+  <span class="t100-count">4 listings</span>
+  <span class="t100-price">
+    <b>$11,333.47</b>
+    <span class="t100-low">low $19,999.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/181698/team-up-booster-box" rel="noopener nofollow"
+      aria-label="Check Team Up Booster Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">6</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/208708_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Gym Heroes Booster Box [Unlimited Edition]<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">Gym Heroes <i aria-hidden="true">&bull;</i> Booster box</span>
+  <span class="t100-set">Gym Heroes</span>
+  <span class="t100-tag">Booster box</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$10,000.00</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/208708/gym-heroes-booster-box-unlimited-edition" rel="noopener nofollow"
+      aria-label="Check Gym Heroes Booster Box [Unlimited Edition] on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">7</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/610709_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Southern Islands Collection<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">Southern Islands <i aria-hidden="true">&bull;</i> Collection</span>
+  <span class="t100-set">Southern Islands</span>
+  <span class="t100-tag">Collection</span>
+  <span class="t100-count">3 listings</span>
+  <span class="t100-price">
+    <b>$9,800.00</b>
+    <span class="t100-low">low $7,999.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/610709/southern-islands-collection" rel="noopener nofollow"
+      aria-label="Check Southern Islands Collection on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">8</span>
+  <span class="t100-shot"><span class="t100-img t100-img-none" aria-hidden="true"></span></span>
+  <a class="t100-name" href="/sets/paldean-fates.html">Paldean Fates Booster Bundle Display Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV: Paldean Fates <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV: Paldean Fates</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">4 listings</span>
+  <span class="t100-price">
+    <b>$8,441.24</b>
+    <span class="t100-low">low $10,500.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/635609/paldean-fates-booster-bundle-display-case" rel="noopener nofollow"
+      aria-label="Check Paldean Fates Booster Bundle Display Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">9</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/247655_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Fusion Strike Booster Box Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH08: Fusion Strike <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH08: Fusion Strike</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">12 listings</span>
+  <span class="t100-price">
+    <b>$6,538.79</b>
+    <span class="t100-low">low $5,969.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/247655/fusion-strike-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Fusion Strike Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">10</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/518638_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/celebrations.html">Celebrations Ultra-Premium Collection Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">Celebrations <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">Celebrations</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">3 listings</span>
+  <span class="t100-price">
+    <b>$5,888.88</b>
+    <span class="t100-low">low $7,499.95</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/518638/celebrations-ultra-premium-collection-case" rel="noopener nofollow"
+      aria-label="Check Celebrations Ultra-Premium Collection Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">11</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/506640_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/151.html">151 Elite Trainer Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV: Scarlet &amp; Violet 151 <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV: Scarlet &amp; Violet 151</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">4 listings</span>
+  <span class="t100-price">
+    <b>$5,868.62</b>
+    <span class="t100-low">low $6,699.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/506640/151-elite-trainer-box-case" rel="noopener nofollow"
+      aria-label="Check 151 Elite Trainer Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">12</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/609238_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/crown-zenith.html">Crown Zenith Booster Bundle Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SWSH: Crown Zenith <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH: Crown Zenith</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">3 listings</span>
+  <span class="t100-price">
+    <b>$5,549.00</b>
+    <span class="t100-low">low $5,499.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/609238/crown-zenith-booster-bundle-case" rel="noopener nofollow"
+      aria-label="Check Crown Zenith Booster Bundle Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">13</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/595411_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">TAG TEAM Tin Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SM - Team Up <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SM - Team Up</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$5,399.95</b>
+    <span class="t100-low">low $7,499.95</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/595411/tag-team-tin-case" rel="noopener nofollow"
+      aria-label="Check TAG TEAM Tin Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">14</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/528030_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/151.html">151 Pokemon Center Elite Trainer Box (Exclusive) Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV: Scarlet &amp; Violet 151 <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV: Scarlet &amp; Violet 151</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">16 listings</span>
+  <span class="t100-price">
+    <b>$5,165.80</b>
+    <span class="t100-low">low $5,298.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/528030/151-pokemon-center-elite-trainer-box-exclusive-case" rel="noopener nofollow"
+      aria-label="Check 151 Pokemon Center Elite Trainer Box (Exclusive) Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">15</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/92168_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Furious Fists Booster Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">XY - Furious Fists <i aria-hidden="true">&bull;</i> Booster box</span>
+  <span class="t100-set">XY - Furious Fists</span>
+  <span class="t100-tag">Booster box</span>
+  <span class="t100-count">3 listings</span>
+  <span class="t100-price">
+    <b>$4,717.50</b>
+    <span class="t100-low">low $4,985.01</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/92168/furious-fists-booster-box" rel="noopener nofollow"
+      aria-label="Check Furious Fists Booster Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">16</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/147223_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Super-Premium Collection [Mew &amp; Mewtwo]<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">Generations <i aria-hidden="true">&bull;</i> Collection</span>
+  <span class="t100-set">Generations</span>
+  <span class="t100-tag">Collection</span>
+  <span class="t100-count">3 listings</span>
+  <span class="t100-price">
+    <b>$4,697.97</b>
+    <span class="t100-low">low $350.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/147223/super-premium-collection-mew-and-mewtwo" rel="noopener nofollow"
+      aria-label="Check Super-Premium Collection [Mew &amp; Mewtwo] on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">17</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/278793_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Lost Origin Booster Box Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH11: Lost Origin <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH11: Lost Origin</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">15 listings</span>
+  <span class="t100-price">
+    <b>$4,554.06</b>
+    <span class="t100-low">low $4,500.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/278793/lost-origin-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Lost Origin Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">18</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/530105_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/151.html">151 Booster Bundle Bulk Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV: Scarlet &amp; Violet 151 <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV: Scarlet &amp; Violet 151</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">5 listings</span>
+  <span class="t100-price">
+    <b>$4,510.00</b>
+    <span class="t100-low">low $5,750.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/530105/151-booster-bundle-bulk-case" rel="noopener nofollow"
+      aria-label="Check 151 Booster Bundle Bulk Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">19</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/98026_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">XY Roaring Skies Booster Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">XY - Roaring Skies <i aria-hidden="true">&bull;</i> Booster box</span>
+  <span class="t100-set">XY - Roaring Skies</span>
+  <span class="t100-tag">Booster box</span>
+  <span class="t100-count">10 listings</span>
+  <span class="t100-price">
+    <b>$4,384.73</b>
+    <span class="t100-low">low $4,584.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/98026/xy-roaring-skies-booster-box" rel="noopener nofollow"
+      aria-label="Check XY Roaring Skies Booster Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">20</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/199261_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Cosmic Eclipse Booster Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SM - Cosmic Eclipse <i aria-hidden="true">&bull;</i> Booster box</span>
+  <span class="t100-set">SM - Cosmic Eclipse</span>
+  <span class="t100-tag">Booster box</span>
+  <span class="t100-count">11 listings</span>
+  <span class="t100-price">
+    <b>$4,148.34</b>
+    <span class="t100-low">low $4,999.98</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/199261/cosmic-eclipse-booster-box" rel="noopener nofollow"
+      aria-label="Check Cosmic Eclipse Booster Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">21</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/251895_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/celebrations.html">Celebrations Elite Trainer Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">Celebrations <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">Celebrations</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">17 listings</span>
+  <span class="t100-price">
+    <b>$4,023.60</b>
+    <span class="t100-low">low $4,523.95</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/251895/celebrations-elite-trainer-box-case" rel="noopener nofollow"
+      aria-label="Check Celebrations Elite Trainer Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">22</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/181704_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Team Up Elite Trainer Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SM - Team Up <i aria-hidden="true">&bull;</i> Elite Trainer Box</span>
+  <span class="t100-set">SM - Team Up</span>
+  <span class="t100-tag">Elite Trainer Box</span>
+  <span class="t100-count">4 listings</span>
+  <span class="t100-price">
+    <b>$4,000.00</b>
+    <span class="t100-low">low $5,500.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/181704/team-up-elite-trainer-box" rel="noopener nofollow"
+      aria-label="Check Team Up Elite Trainer Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">23</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/243722_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Evolving Skies Elite Trainer Box Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH07: Evolving Skies <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH07: Evolving Skies</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">3 listings</span>
+  <span class="t100-price">
+    <b>$3,950.00</b>
+    <span class="t100-low">low $5,800.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/243722/evolving-skies-elite-trainer-box-case" rel="noopener nofollow"
+      aria-label="Check Evolving Skies Elite Trainer Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">24</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/256145_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Brilliant Stars Booster Box Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH09: Brilliant Stars <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH09: Brilliant Stars</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">10 listings</span>
+  <span class="t100-price">
+    <b>$3,805.82</b>
+    <span class="t100-low">low $3,809.97</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/256145/brilliant-stars-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Brilliant Stars Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">25</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/97750_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">XY Primal Clash Booster Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">XY - Primal Clash <i aria-hidden="true">&bull;</i> Booster box</span>
+  <span class="t100-set">XY - Primal Clash</span>
+  <span class="t100-tag">Booster box</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$3,799.99</b>
+    <span class="t100-low">low $3,999.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/97750/xy-primal-clash-booster-box" rel="noopener nofollow"
+      aria-label="Check XY Primal Clash Booster Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">26</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/91601_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">XY Booster Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">XY Base Set <i aria-hidden="true">&bull;</i> Booster box</span>
+  <span class="t100-set">XY Base Set</span>
+  <span class="t100-tag">Booster box</span>
+  <span class="t100-count">6 listings</span>
+  <span class="t100-price">
+    <b>$3,728.00</b>
+    <span class="t100-low">low $4,449.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/91601/xy-booster-box" rel="noopener nofollow"
+      aria-label="Check XY Booster Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">27</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/530700_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/paldean-fates.html">Paldean Fates Elite Trainer Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV: Paldean Fates <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV: Paldean Fates</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">13 listings</span>
+  <span class="t100-price">
+    <b>$3,576.66</b>
+    <span class="t100-low">low $5,028.95</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/530700/paldean-fates-elite-trainer-box-case" rel="noopener nofollow"
+      aria-label="Check Paldean Fates Elite Trainer Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">28</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/453471_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/crown-zenith.html">Crown Zenith Elite Trainer Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SWSH: Crown Zenith <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH: Crown Zenith</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">10 listings</span>
+  <span class="t100-price">
+    <b>$3,459.29</b>
+    <span class="t100-low">low $3,475.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/453471/crown-zenith-elite-trainer-box-case" rel="noopener nofollow"
+      aria-label="Check Crown Zenith Elite Trainer Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">29</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/515970_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/151.html">151 Ultra-Premium Collection Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV: Scarlet &amp; Violet 151 <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV: Scarlet &amp; Violet 151</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">9 listings</span>
+  <span class="t100-price">
+    <b>$3,449.81</b>
+    <span class="t100-low">low $3,749.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/515970/151-ultra-premium-collection-case" rel="noopener nofollow"
+      aria-label="Check 151 Ultra-Premium Collection Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">30</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/236259_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/chilling-reign.html">Chilling Reign Booster Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SWSH06: Chilling Reign <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH06: Chilling Reign</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">15 listings</span>
+  <span class="t100-price">
+    <b>$3,438.51</b>
+    <span class="t100-low">low $3,099.92</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/236259/chilling-reign-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Chilling Reign Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">31</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/283391_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Silver Tempest Booster Box Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH12: Silver Tempest <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH12: Silver Tempest</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">18 listings</span>
+  <span class="t100-price">
+    <b>$3,393.31</b>
+    <span class="t100-low">low $3,109.84</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/283391/silver-tempest-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Silver Tempest Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">32</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/624678_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/destined-rivals.html">Destined Rivals Booster Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV10: Destined Rivals <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV10: Destined Rivals</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">37 listings</span>
+  <span class="t100-price">
+    <b>$3,313.25</b>
+    <span class="t100-low">low $2,599.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/624678/destined-rivals-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Destined Rivals Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">33</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/107101_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">XY BREAKthrough Booster Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">XY - BREAKthrough <i aria-hidden="true">&bull;</i> Booster box</span>
+  <span class="t100-set">XY - BREAKthrough</span>
+  <span class="t100-tag">Booster box</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$3,208.55</b>
+    <span class="t100-low">low $3,400.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/107101/xy-breakthrough-booster-box" rel="noopener nofollow"
+      aria-label="Check XY BREAKthrough Booster Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">34</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/256271_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Fusion Strike Elite Trainer Box Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH08: Fusion Strike <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH08: Fusion Strike</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">5 listings</span>
+  <span class="t100-price">
+    <b>$3,189.97</b>
+    <span class="t100-low">low $3,500.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/256271/fusion-strike-elite-trainer-box-case" rel="noopener nofollow"
+      aria-label="Check Fusion Strike Elite Trainer Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">35</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/547703_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Fusion Strike Sleeved Booster Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH08: Fusion Strike <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH08: Fusion Strike</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">7 listings</span>
+  <span class="t100-price">
+    <b>$3,080.82</b>
+    <span class="t100-low">low $3,499.88</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/547703/fusion-strike-sleeved-booster-case" rel="noopener nofollow"
+      aria-label="Check Fusion Strike Sleeved Booster Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">36</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/191882_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Unified Minds Booster Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SM - Unified Minds <i aria-hidden="true">&bull;</i> Booster box</span>
+  <span class="t100-set">SM - Unified Minds</span>
+  <span class="t100-tag">Booster box</span>
+  <span class="t100-count">15 listings</span>
+  <span class="t100-price">
+    <b>$3,008.23</b>
+    <span class="t100-low">low $3,000.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/191882/unified-minds-booster-box" rel="noopener nofollow"
+      aria-label="Check Unified Minds Booster Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">37</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/243052_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Sun &amp; Moon Elite Trainer Box Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SM Base Set <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SM Base Set</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$2,999.99</b>
+    <span class="t100-low">low $4,997.97</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/243052/sun-and-moon-elite-trainer-box-case" rel="noopener nofollow"
+      aria-label="Check Sun &amp; Moon Elite Trainer Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">38</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/123741_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Generations Elite Trainer Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">Generations <i aria-hidden="true">&bull;</i> Elite Trainer Box</span>
+  <span class="t100-set">Generations</span>
+  <span class="t100-tag">Elite Trainer Box</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$2,999.19</b>
+    <span class="t100-low">low $4,500.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/123741/generations-elite-trainer-box" rel="noopener nofollow"
+      aria-label="Check Generations Elite Trainer Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">39</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/496905_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/paldea-evolved.html">Paldea Evolved Booster Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV02: Paldea Evolved <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV02: Paldea Evolved</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">26 listings</span>
+  <span class="t100-price">
+    <b>$2,817.19</b>
+    <span class="t100-low">low $2,899.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/496905/paldea-evolved-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Paldea Evolved Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">40</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/496131_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Lost Origin Sleeved Booster Pack Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH11: Lost Origin <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH11: Lost Origin</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">9 listings</span>
+  <span class="t100-price">
+    <b>$2,813.85</b>
+    <span class="t100-low">low $2,879.74</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/496131/lost-origin-sleeved-booster-pack-case" rel="noopener nofollow"
+      aria-label="Check Lost Origin Sleeved Booster Pack Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">41</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/117478_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">XY Fates Collide Booster Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">XY - Fates Collide <i aria-hidden="true">&bull;</i> Booster box</span>
+  <span class="t100-set">XY - Fates Collide</span>
+  <span class="t100-tag">Booster box</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$2,754.99</b>
+    <span class="t100-low">low $6,989.95</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/117478/xy-fates-collide-booster-box" rel="noopener nofollow"
+      aria-label="Check XY Fates Collide Booster Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">42</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/655281_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/phantasmal-flames.html">Phantasmal Flames Booster Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">ME02: Phantasmal Flames <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">ME02: Phantasmal Flames</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">37 listings</span>
+  <span class="t100-price">
+    <b>$2,704.47</b>
+    <span class="t100-low">low $2,433.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/655281/phantasmal-flames-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Phantasmal Flames Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">43</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/600697_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/prismatic-evolutions.html">Prismatic Evolutions Pokemon Center Elite Trainer Box (Exclusive) Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV: Prismatic Evolutions <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV: Prismatic Evolutions</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">20 listings</span>
+  <span class="t100-price">
+    <b>$2,680.77</b>
+    <span class="t100-low">low $2,599.69</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/600697/prismatic-evolutions-pokemon-center-elite-trainer-box-exclusive-case" rel="noopener nofollow"
+      aria-label="Check Prismatic Evolutions Pokemon Center Elite Trainer Box (Exclusive) Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">44</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/185717_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Unbroken Bonds Booster Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SM - Unbroken Bonds <i aria-hidden="true">&bull;</i> Booster box</span>
+  <span class="t100-set">SM - Unbroken Bonds</span>
+  <span class="t100-tag">Booster box</span>
+  <span class="t100-count">9 listings</span>
+  <span class="t100-price">
+    <b>$2,548.16</b>
+    <span class="t100-low">low $2,799.97</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/185717/unbroken-bonds-booster-box" rel="noopener nofollow"
+      aria-label="Check Unbroken Bonds Booster Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">45</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/630432_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/black-bolt.html">Black Bolt Booster Bundle Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV: Black Bolt <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV: Black Bolt</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$2,514.85</b>
+    <span class="t100-low">low $3,162.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/630432/black-bolt-booster-bundle-case" rel="noopener nofollow"
+      aria-label="Check Black Bolt Booster Bundle Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">46</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/123446_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">XY Evolutions Booster Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">XY - Evolutions <i aria-hidden="true">&bull;</i> Booster box</span>
+  <span class="t100-set">XY - Evolutions</span>
+  <span class="t100-tag">Booster box</span>
+  <span class="t100-count">16 listings</span>
+  <span class="t100-price">
+    <b>$2,509.27</b>
+    <span class="t100-low">low $2,489.75</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/123446/xy-evolutions-booster-box" rel="noopener nofollow"
+      aria-label="Check XY Evolutions Booster Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">47</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/148226_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Premium Trainer's XY Collection<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">Alternate Art Promos <i aria-hidden="true">&bull;</i> Collection</span>
+  <span class="t100-set">Alternate Art Promos</span>
+  <span class="t100-tag">Collection</span>
+  <span class="t100-count">4 listings</span>
+  <span class="t100-price">
+    <b>$2,503.43</b>
+    <span class="t100-low">low $2,750.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/148226/premium-trainers-xy-collection" rel="noopener nofollow"
+      aria-label="Check Premium Trainer's XY Collection on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">48</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/265520_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Astral Radiance Booster Box Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH10: Astral Radiance <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH10: Astral Radiance</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">10 listings</span>
+  <span class="t100-price">
+    <b>$2,488.69</b>
+    <span class="t100-low">low $2,449.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/265520/astral-radiance-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Astral Radiance Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">49</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/170273_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Celestial Storm Booster Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SM - Celestial Storm <i aria-hidden="true">&bull;</i> Booster box</span>
+  <span class="t100-set">SM - Celestial Storm</span>
+  <span class="t100-tag">Booster box</span>
+  <span class="t100-count">5 listings</span>
+  <span class="t100-price">
+    <b>$2,463.87</b>
+    <span class="t100-low">low $2,735.14</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/170273/celestial-storm-booster-box" rel="noopener nofollow"
+      aria-label="Check Celestial Storm Booster Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">50</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/242436_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Evolving Skies Booster Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH07: Evolving Skies <i aria-hidden="true">&bull;</i> Booster box</span>
+  <span class="t100-set">SWSH07: Evolving Skies</span>
+  <span class="t100-tag">Booster box</span>
+  <span class="t100-count">46 listings</span>
+  <span class="t100-price">
+    <b>$2,444.90</b>
+    <span class="t100-low">low $225.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/242436/evolving-skies-booster-box" rel="noopener nofollow"
+      aria-label="Check Evolving Skies Booster Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">51</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/709017_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">30th Celebration Booster Bundle Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">ME: 30th Celebration <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">ME: 30th Celebration</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">6 listings</span>
+  <span class="t100-price">
+    <b>$2,399.95</b>
+    <span class="t100-low">low $2,399.89</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/709017/30th-celebration-booster-bundle-case" rel="noopener nofollow"
+      aria-label="Check 30th Celebration Booster Bundle Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">52</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/454377_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Sword &amp; Shield Ultra-Premium Collection: Charizard Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH11: Lost Origin <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH11: Lost Origin</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">9 listings</span>
+  <span class="t100-price">
+    <b>$2,378.53</b>
+    <span class="t100-low">low $2,399.95</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/454377/sword-and-shield-ultra-premium-collection-charizard-case" rel="noopener nofollow"
+      aria-label="Check Sword &amp; Shield Ultra-Premium Collection: Charizard Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">53</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/501258_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/obsidian-flames.html">Obsidian Flames Booster Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV03: Obsidian Flames <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV03: Obsidian Flames</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">16 listings</span>
+  <span class="t100-price">
+    <b>$2,364.61</b>
+    <span class="t100-low">low $2,593.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/501258/obsidian-flames-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Obsidian Flames Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">54</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/557076_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Fusion Strike Pokemon Center Elite Trainer Box Case (Exclusive)<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH08: Fusion Strike <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH08: Fusion Strike</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">4 listings</span>
+  <span class="t100-price">
+    <b>$2,355.57</b>
+    <span class="t100-low">low $3,400.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/557076/fusion-strike-pokemon-center-elite-trainer-box-case-exclusive" rel="noopener nofollow"
+      aria-label="Check Fusion Strike Pokemon Center Elite Trainer Box Case (Exclusive) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">55</span>
+  <span class="t100-shot"><span class="t100-img t100-img-none" aria-hidden="true"></span></span>
+  <a class="t100-name" href="/sets/prismatic-evolutions.html">Prismatic Evolutions Booster Bundle Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV: Prismatic Evolutions <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV: Prismatic Evolutions</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">18 listings</span>
+  <span class="t100-price">
+    <b>$2,341.91</b>
+    <span class="t100-low">low $2,264.95</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/615027/prismatic-evolutions-booster-bundle-case" rel="noopener nofollow"
+      aria-label="Check Prismatic Evolutions Booster Bundle Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">56</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/501265_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/obsidian-flames.html">Obsidian Flames Elite Trainer Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV03: Obsidian Flames <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV03: Obsidian Flames</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">6 listings</span>
+  <span class="t100-price">
+    <b>$2,313.86</b>
+    <span class="t100-low">low $2,750.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/501265/obsidian-flames-elite-trainer-box-case" rel="noopener nofollow"
+      aria-label="Check Obsidian Flames Elite Trainer Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">57</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/536266_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/paldean-fates.html">Paldean Fates Pokemon Center Elite Trainer Box (Exclusive) Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV: Paldean Fates <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV: Paldean Fates</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">10 listings</span>
+  <span class="t100-price">
+    <b>$2,311.30</b>
+    <span class="t100-low">low $2,700.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/536266/paldean-fates-pokemon-center-elite-trainer-box-exclusive-case" rel="noopener nofollow"
+      aria-label="Check Paldean Fates Pokemon Center Elite Trainer Box (Exclusive) Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">58</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/123432_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Red &amp; Blue Collection [Pikachu EX]<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">Generations <i aria-hidden="true">&bull;</i> Collection</span>
+  <span class="t100-set">Generations</span>
+  <span class="t100-tag">Collection</span>
+  <span class="t100-count">none for sale</span>
+  <span class="t100-price">
+    <b>$2,307.99</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/123432/red-and-blue-collection-pikachu-ex" rel="noopener nofollow"
+      aria-label="Check Red &amp; Blue Collection [Pikachu EX] on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">59</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/454247_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/crown-zenith.html">Crown Zenith Pokemon Center Elite Trainer Box Plus Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SWSH: Crown Zenith <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH: Crown Zenith</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">7 listings</span>
+  <span class="t100-price">
+    <b>$2,295.00</b>
+    <span class="t100-low">low $2,399.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/454247/crown-zenith-pokemon-center-elite-trainer-box-plus-case" rel="noopener nofollow"
+      aria-label="Check Crown Zenith Pokemon Center Elite Trainer Box Plus Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">60</span>
+  <span class="t100-shot"><span class="t100-img t100-img-none" aria-hidden="true"></span></span>
+  <a class="t100-name" href="/sets/151.html">151 Mini Tin Display Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV: Scarlet &amp; Violet 151 <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV: Scarlet &amp; Violet 151</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">5 listings</span>
+  <span class="t100-price">
+    <b>$2,265.93</b>
+    <span class="t100-low">low $2,399.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/668357/151-mini-tin-display-case" rel="noopener nofollow"
+      aria-label="Check 151 Mini Tin Display Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">61</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/692362_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/ascended-heroes.html">Ascended Heroes Booster Bundle Display<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">ME: Ascended Heroes <i aria-hidden="true">&bull;</i> Display</span>
+  <span class="t100-set">ME: Ascended Heroes</span>
+  <span class="t100-tag">Display</span>
+  <span class="t100-count">9 listings</span>
+  <span class="t100-price">
+    <b>$2,254.99</b>
+    <span class="t100-low">low $1,399.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/692362/ascended-heroes-booster-bundle-display" rel="noopener nofollow"
+      aria-label="Check Ascended Heroes Booster Bundle Display on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">62</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/256971_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Darkness Ablaze Booster Box Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH03: Darkness Ablaze <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH03: Darkness Ablaze</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">7 listings</span>
+  <span class="t100-price">
+    <b>$2,249.99</b>
+    <span class="t100-low">low $2,200.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/256971/darkness-ablaze-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Darkness Ablaze Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">63</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/709029_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">30th Celebration Ultra-Premium Collection Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">ME: 30th Celebration <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">ME: 30th Celebration</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">12 listings</span>
+  <span class="t100-price">
+    <b>$2,248.79</b>
+    <span class="t100-low">low $2,162.89</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/709029/30th-celebration-ultra-premium-collection-case" rel="noopener nofollow"
+      aria-label="Check 30th Celebration Ultra-Premium Collection Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">64</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/537417_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/temporal-forces.html">Temporal Forces Booster Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV05: Temporal Forces <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV05: Temporal Forces</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">13 listings</span>
+  <span class="t100-price">
+    <b>$2,216.81</b>
+    <span class="t100-low">low $2,000.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/537417/temporal-forces-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Temporal Forces Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">65</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/185259_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">TAG TEAM Tin [Set of 3]<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SM - Team Up <i aria-hidden="true">&bull;</i> Set of 2</span>
+  <span class="t100-set">SM - Team Up</span>
+  <span class="t100-tag">Set of 2</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$2,199.95</b>
+    <span class="t100-low">low $2,799.95</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/185259/tag-team-tin-set-of-3" rel="noopener nofollow"
+      aria-label="Check TAG TEAM Tin [Set of 3] on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">66</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/245855_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Evolving Skies Pokemon Center Elite Trainer Box [Set of 2] (Exclusive)<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH07: Evolving Skies <i aria-hidden="true">&bull;</i> Set of 2</span>
+  <span class="t100-set">SWSH07: Evolving Skies</span>
+  <span class="t100-tag">Set of 2</span>
+  <span class="t100-count">10 listings</span>
+  <span class="t100-price">
+    <b>$2,196.82</b>
+    <span class="t100-low">low $2,430.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/245855/evolving-skies-pokemon-center-elite-trainer-box-set-of-2-exclusive" rel="noopener nofollow"
+      aria-label="Check Evolving Skies Pokemon Center Elite Trainer Box [Set of 2] (Exclusive) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">67</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/681339_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/ascended-heroes.html">Ascended Heroes Booster Bundle Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">ME: Ascended Heroes <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">ME: Ascended Heroes</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">24 listings</span>
+  <span class="t100-price">
+    <b>$2,186.59</b>
+    <span class="t100-low">low $1,500.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/681339/ascended-heroes-booster-bundle-case" rel="noopener nofollow"
+      aria-label="Check Ascended Heroes Booster Bundle Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">68</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/604240_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Eevee Evolution VMAX Premium Collection Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">Miscellaneous Cards &amp; Products <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">Miscellaneous Cards &amp; Products</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$2,174.50</b>
+    <span class="t100-low">low $2,500.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/604240/eevee-evolution-vmax-premium-collection-case" rel="noopener nofollow"
+      aria-label="Check Eevee Evolution VMAX Premium Collection Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">69</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/544384_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/twilight-masquerade.html">Twilight Masquerade Booster Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV06: Twilight Masquerade <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV06: Twilight Masquerade</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">17 listings</span>
+  <span class="t100-price">
+    <b>$2,161.52</b>
+    <span class="t100-low">low $2,345.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/544384/twilight-masquerade-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Twilight Masquerade Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">70</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/580708_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/surging-sparks.html">Surging Sparks Booster Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV08: Surging Sparks <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV08: Surging Sparks</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">28 listings</span>
+  <span class="t100-price">
+    <b>$2,120.12</b>
+    <span class="t100-low">low $1,925.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/580708/surging-sparks-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Surging Sparks Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">71</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/599964_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Brilliant Stars Sleeved Booster Pack Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH09: Brilliant Stars <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH09: Brilliant Stars</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$2,089.97</b>
+    <span class="t100-low">low $2,479.94</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/599964/brilliant-stars-sleeved-booster-pack-case" rel="noopener nofollow"
+      aria-label="Check Brilliant Stars Sleeved Booster Pack Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">72</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/98533_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Dragon Frontiers Booster Pack<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">EX Dragon Frontiers <i aria-hidden="true">&bull;</i> Booster pack</span>
+  <span class="t100-set">EX Dragon Frontiers</span>
+  <span class="t100-tag">Booster pack</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$1,999.99</b>
+    <span class="t100-low">low $1,999.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/98533/dragon-frontiers-booster-pack" rel="noopener nofollow"
+      aria-label="Check Dragon Frontiers Booster Pack on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">73</span>
+  <span class="t100-shot"><span class="t100-img t100-img-none" aria-hidden="true"></span></span>
+  <a class="t100-name" href="/sets/crown-zenith.html">Crown Zenith Mini Tin Display Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SWSH: Crown Zenith <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH: Crown Zenith</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$1,999.99</b>
+    <span class="t100-low">low $2,975.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/631791/crown-zenith-mini-tin-display-case" rel="noopener nofollow"
+      aria-label="Check Crown Zenith Mini Tin Display Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">74</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/709030_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">30th Celebration Mini Tin Display Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">ME: 30th Celebration <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">ME: 30th Celebration</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$1,999.99</b>
+    <span class="t100-low">low $1,899.90</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/709030/30th-celebration-mini-tin-display-case" rel="noopener nofollow"
+      aria-label="Check 30th Celebration Mini Tin Display Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">75</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/97764_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Double Crisis: Team Magma Blister<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">Double Crisis <i aria-hidden="true">&bull;</i> Blister</span>
+  <span class="t100-set">Double Crisis</span>
+  <span class="t100-tag">Blister</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$1,999.00</b>
+    <span class="t100-low">low $2,399.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/97764/double-crisis-team-magma-blister" rel="noopener nofollow"
+      aria-label="Check Double Crisis: Team Magma Blister on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">76</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/513405_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/151.html">151 Booster Bundle Display<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV: Scarlet &amp; Violet 151 <i aria-hidden="true">&bull;</i> Display</span>
+  <span class="t100-set">SV: Scarlet &amp; Violet 151</span>
+  <span class="t100-tag">Display</span>
+  <span class="t100-count">43 listings</span>
+  <span class="t100-price">
+    <b>$1,999.00</b>
+    <span class="t100-low">low $1,890.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/513405/151-booster-bundle-display" rel="noopener nofollow"
+      aria-label="Check 151 Booster Bundle Display on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">77</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/170277_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Celestial Storm Elite Trainer Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SM - Celestial Storm <i aria-hidden="true">&bull;</i> Elite Trainer Box</span>
+  <span class="t100-set">SM - Celestial Storm</span>
+  <span class="t100-tag">Elite Trainer Box</span>
+  <span class="t100-count">8 listings</span>
+  <span class="t100-price">
+    <b>$1,961.95</b>
+    <span class="t100-low">low $2,350.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/170277/celestial-storm-elite-trainer-box" rel="noopener nofollow"
+      aria-label="Check Celestial Storm Elite Trainer Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">78</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/537418_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/temporal-forces.html">Temporal Forces Elite Trainer Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV05: Temporal Forces <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV05: Temporal Forces</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$1,950.00</b>
+    <span class="t100-low">low $1,779.97</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/537418/temporal-forces-elite-trainer-box-case" rel="noopener nofollow"
+      aria-label="Check Temporal Forces Elite Trainer Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">79</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/609027_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/paldea-evolved.html">Paldea Evolved Sleeved Booster Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV02: Paldea Evolved <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV02: Paldea Evolved</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">3 listings</span>
+  <span class="t100-price">
+    <b>$1,937.36</b>
+    <span class="t100-low">low $2,379.97</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/609027/paldea-evolved-sleeved-booster-case" rel="noopener nofollow"
+      aria-label="Check Paldea Evolved Sleeved Booster Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">80</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/98522_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Holon Phantoms Booster Pack<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">EX Holon Phantoms <i aria-hidden="true">&bull;</i> Booster pack</span>
+  <span class="t100-set">EX Holon Phantoms</span>
+  <span class="t100-tag">Booster pack</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$1,899.99</b>
+    <span class="t100-low">low $2,999.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/98522/holon-phantoms-booster-pack" rel="noopener nofollow"
+      aria-label="Check Holon Phantoms Booster Pack on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">81</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/550837_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Silver Tempest Sleeved Booster Pack Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH12: Silver Tempest <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH12: Silver Tempest</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">7 listings</span>
+  <span class="t100-price">
+    <b>$1,899.24</b>
+    <span class="t100-low">low $2,279.84</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/550837/silver-tempest-sleeved-booster-pack-case" rel="noopener nofollow"
+      aria-label="Check Silver Tempest Sleeved Booster Pack Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">82</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/630697_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/white-flare.html">White Flare Booster Bundle Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV: White Flare <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV: White Flare</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$1,891.77</b>
+    <span class="t100-low">low $2,699.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/630697/white-flare-booster-bundle-case" rel="noopener nofollow"
+      aria-label="Check White Flare Booster Bundle Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">83</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/598487_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/prismatic-evolutions.html">Prismatic Evolutions Elite Trainer Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV: Prismatic Evolutions <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV: Prismatic Evolutions</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">40 listings</span>
+  <span class="t100-price">
+    <b>$1,886.58</b>
+    <span class="t100-low">low $1,750.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/598487/prismatic-evolutions-elite-trainer-box-case" rel="noopener nofollow"
+      aria-label="Check Prismatic Evolutions Elite Trainer Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">84</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/200172_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">TAG TEAM Generations Premium Collection<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">Miscellaneous Cards &amp; Products <i aria-hidden="true">&bull;</i> Collection</span>
+  <span class="t100-set">Miscellaneous Cards &amp; Products</span>
+  <span class="t100-tag">Collection</span>
+  <span class="t100-count">5 listings</span>
+  <span class="t100-price">
+    <b>$1,880.00</b>
+    <span class="t100-low">low $1,850.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/200172/tag-team-generations-premium-collection" rel="noopener nofollow"
+      aria-label="Check TAG TEAM Generations Premium Collection on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">85</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/199308_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Cosmic Eclipse Elite Trainer Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SM - Cosmic Eclipse <i aria-hidden="true">&bull;</i> Elite Trainer Box</span>
+  <span class="t100-set">SM - Cosmic Eclipse</span>
+  <span class="t100-tag">Elite Trainer Box</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$1,874.50</b>
+    <span class="t100-low">low $3,999.96</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/199308/cosmic-eclipse-elite-trainer-box" rel="noopener nofollow"
+      aria-label="Check Cosmic Eclipse Elite Trainer Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">86</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/709036_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">30th Celebration Elite Trainer Box Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">ME: 30th Celebration <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">ME: 30th Celebration</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">11 listings</span>
+  <span class="t100-price">
+    <b>$1,869.33</b>
+    <span class="t100-low">low $1,814.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/709036/30th-celebration-elite-trainer-box-case" rel="noopener nofollow"
+      aria-label="Check 30th Celebration Elite Trainer Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">87</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/278796_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Lost Origin Elite Trainer Box Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH11: Lost Origin <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH11: Lost Origin</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">6 listings</span>
+  <span class="t100-price">
+    <b>$1,863.54</b>
+    <span class="t100-low">low $1,999.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/278796/lost-origin-elite-trainer-box-case" rel="noopener nofollow"
+      aria-label="Check Lost Origin Elite Trainer Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">88</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/512828_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/paradox-rift.html">Paradox Rift Booster Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV04: Paradox Rift <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV04: Paradox Rift</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">26 listings</span>
+  <span class="t100-price">
+    <b>$1,850.80</b>
+    <span class="t100-low">low $1,694.79</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/512828/paradox-rift-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Paradox Rift Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">89</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/646173_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/mega-evolution.html">Mega Evolution Enhanced Booster Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">ME01: Mega Evolution <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">ME01: Mega Evolution</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">27 listings</span>
+  <span class="t100-price">
+    <b>$1,846.36</b>
+    <span class="t100-low">low $1,800.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/646173/mega-evolution-enhanced-booster-case" rel="noopener nofollow"
+      aria-label="Check Mega Evolution Enhanced Booster Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">90</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/628398_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/destined-rivals.html">Destined Rivals Elite Trainer Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV10: Destined Rivals <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV10: Destined Rivals</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">17 listings</span>
+  <span class="t100-price">
+    <b>$1,841.06</b>
+    <span class="t100-low">low $1,299.45</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/628398/destined-rivals-elite-trainer-box-case" rel="noopener nofollow"
+      aria-label="Check Destined Rivals Elite Trainer Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">91</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/628428_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/destined-rivals.html">Destined Rivals Booster Bundle Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV10: Destined Rivals <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV10: Destined Rivals</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">13 listings</span>
+  <span class="t100-price">
+    <b>$1,825.23</b>
+    <span class="t100-low">low $1,650.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/628428/destined-rivals-booster-bundle-case" rel="noopener nofollow"
+      aria-label="Check Destined Rivals Booster Bundle Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">92</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/129888_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Guardians Rising Booster Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SM - Guardians Rising <i aria-hidden="true">&bull;</i> Booster box</span>
+  <span class="t100-set">SM - Guardians Rising</span>
+  <span class="t100-tag">Booster box</span>
+  <span class="t100-count">6 listings</span>
+  <span class="t100-price">
+    <b>$1,824.50</b>
+    <span class="t100-low">low $1,819.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/129888/guardians-rising-booster-box" rel="noopener nofollow"
+      aria-label="Check Guardians Rising Booster Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">93</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/261802_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/celebrations.html">Celebrations Pokemon Center Elite Trainer Box Case (Exclusive)<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">Celebrations <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">Celebrations</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">14 listings</span>
+  <span class="t100-price">
+    <b>$1,820.89</b>
+    <span class="t100-low">low $2,199.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/261802/celebrations-pokemon-center-elite-trainer-box-case-exclusive" rel="noopener nofollow"
+      aria-label="Check Celebrations Pokemon Center Elite Trainer Box Case (Exclusive) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">94</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/644731_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/mega-evolution.html">Mega Evolution Booster Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">ME01: Mega Evolution <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">ME01: Mega Evolution</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">18 listings</span>
+  <span class="t100-price">
+    <b>$1,818.79</b>
+    <span class="t100-low">low $1,949.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/644731/mega-evolution-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Mega Evolution Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">95</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/209533_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">TAG TEAM Powers Collection [Umbreon &amp; Darkrai GX]<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">Miscellaneous Cards &amp; Products <i aria-hidden="true">&bull;</i> Collection</span>
+  <span class="t100-set">Miscellaneous Cards &amp; Products</span>
+  <span class="t100-tag">Collection</span>
+  <span class="t100-count">7 listings</span>
+  <span class="t100-price">
+    <b>$1,812.50</b>
+    <span class="t100-low">low $1,499.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/209533/tag-team-powers-collection-umbreon-and-darkrai-gx" rel="noopener nofollow"
+      aria-label="Check TAG TEAM Powers Collection [Umbreon &amp; Darkrai GX] on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">96</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/243051_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Vivid Voltage Booster Box Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH04: Vivid Voltage <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH04: Vivid Voltage</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">10 listings</span>
+  <span class="t100-price">
+    <b>$1,812.07</b>
+    <span class="t100-low">low $2,095.91</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/243051/vivid-voltage-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Vivid Voltage Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">97</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/679558_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/ascended-heroes.html">Ascended Heroes Elite Trainer Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">ME: Ascended Heroes <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">ME: Ascended Heroes</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">42 listings</span>
+  <span class="t100-price">
+    <b>$1,810.39</b>
+    <span class="t100-low">low $1,249.69</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/679558/ascended-heroes-elite-trainer-box-case" rel="noopener nofollow"
+      aria-label="Check Ascended Heroes Elite Trainer Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">98</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/614449_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/journey-together.html">Journey Together Booster Box Case<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV09: Journey Together <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SV09: Journey Together</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">4 listings</span>
+  <span class="t100-price">
+    <b>$1,808.85</b>
+    <span class="t100-low">low $900.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/614449/journey-together-booster-box-case" rel="noopener nofollow"
+      aria-label="Check Journey Together Booster Box Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">99</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/120697_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Steam Siege Elite Trainer Box<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">XY - Steam Siege <i aria-hidden="true">&bull;</i> Elite Trainer Box</span>
+  <span class="t100-set">XY - Steam Siege</span>
+  <span class="t100-tag">Elite Trainer Box</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$1,800.00</b>
+    <span class="t100-low">low $1,749.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/120697/steam-siege-elite-trainer-box" rel="noopener nofollow"
+      aria-label="Check Steam Siege Elite Trainer Box on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li is-multi">
+  <span class="t100-rank">100</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/562366_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/how-many-packs.html">Silver Tempest Booster Bundle Case<span class="t100-go">, what is inside a sealed product</span></a>
+  <span class="t100-meta">SWSH12: Silver Tempest <i aria-hidden="true">&bull;</i> Case</span>
+  <span class="t100-set">SWSH12: Silver Tempest</span>
+  <span class="t100-tag">Case</span>
+  <span class="t100-count">4 listings</span>
+  <span class="t100-price">
+    <b>$1,799.97</b>
+    <span class="t100-low">low $2,974.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/562366/silver-tempest-booster-bundle-case" rel="noopener nofollow"
+      aria-label="Check Silver Tempest Booster Bundle Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+    </ol>
+
+    <p class="price-note" style="margin-top:var(--s5)">Prices are TCGplayer market prices for their English Pokemon
+      catalogue, read on August 16, 2026 and re-read from a second TCGplayer endpoint the same day. They move daily, so
+      treat them as the shape of the market rather than a quote. Product photography is TCGplayer's, shown at the size
+      these rows draw it and linked back to the product it belongs to. The link under each price leaves this site and
+      opens on TCGplayer; there is no affiliate code in it and we make nothing from it, it is there so you can check the
+      number. 4 of these products have no photo in TCGplayer's catalogue and show an empty frame; that is their listing, not a fault here.
+      Not financial advice, and definitely not a suggestion to buy any of this.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Showing our working</p>
+    <h2>How this list was <span class="hl">made</span></h2>
+    <p class="lede" style="max-width:44em">A hundred prices is a hundred chances to publish something nobody can
+      check. Here is exactly where each one came from and how we know the list is not just the first hundred rows
+      that came back.</p>
+    <div class="t100-src">
+    <div>
+      <h3>Where the numbers come from</h3>
+      <p>TCGplayer's own search service, the one behind their website:
+        <code>https://mp-search-api.tcgplayer.com/v1/search/request?q=&amp;isList=false</code>. It needs no key. Their official developer API has been closed
+        to new applicants for years, so this is the route, and it is the same feed the set guides on this
+        site already use for buy links and box prices. The field is <code>marketPrice</code>, filtered to
+        <code>productLine pokemon (English)</code> and
+        <code>productType Sealed Products</code>.</p>
+    </div>
+    <div>
+      <h3>How we know it is the top 100 and not the first 100 we found</h3>
+      <p>The search will not page past its ten thousandth result, so there is no way to walk all
+        2,896 products and sort them. Instead we set a price floor of
+        <b>$500.00</b>, pulled <b>every one</b> of the 324 products at or
+        above it, and ranked those. Then we checked the answer: a fresh query asking how many products sit at or
+        above $1,799.97, the price of the hundredth row, came back with
+        <b>100</b>. Nothing above the cut was missed, so this really is the top
+        hundred of the 2,896.</p>
+    </div>
+    <div>
+      <h3>Checked twice, on purpose</h3>
+      <p>Every one of the 100 prices was read a second time from a different TCGplayer endpoint, the one their
+        product page itself uses, and <b>100 of 100</b> matched to the cent. The ranking
+        was also re-run through their own server-side sort as a second opinion, and it named
+        <b>100 of 100</b> of the same products. Where two sources
+        disagree about a row, the row says so instead of quietly picking one.</p>
+    </div>
+    <div>
+      <h3>What a row is</h3>
+      <p>A row is a TCGplayer <b>product</b>, which is not always one physical card. Base Set Charizard is a
+        single product whose listings cover both the 1st Edition and the Unlimited printing, and the feed
+        publishes one Market Price for it rather than one per printing. So treat a row as "this product on
+        this marketplace", not as a valuation of a specific copy in a specific condition.</p>
+    </div>
+  </div>
+    <p class="price-note" style="margin-top:var(--s4)">Want the other half of the question? <a href="/grading.html">Is it
+      worth grading?</a> does the subtraction on raw against graded prices, <a href="/pack-prices.html">pack prices by
+      set</a> covers what a pack costs today, and <a href="/complete-a-set.html">cost to complete a set</a> prices the
+      whole checklist. Every card we actually pulled is in the <a href="/cards.html">card search</a>.</p>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Footer">
+      <div class="foot-col">
+        <p class="foot-h">Watch</p>
+        <a href="/videos.html">Rips</a>
+        <a href="/playlists.html">Playlists</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">The binder</p>
+        <a href="/hall.html">Best pulls</a>
+        <a href="/wanted.html">Most wanted</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Cards</p>
+        <a href="/cards.html">Card search</a>
+        <a href="/pokemon/">By Pokemon</a>
+        <a href="/sets/">Set guides</a>
+        <a href="/expansions.html">Every set ever</a>
+        <a href="/upcoming.html">Coming next</a>
+        <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/pack-prices.html">Pack prices</a>
+        <a href="/how-many-packs.html">Packs per box</a>
+        <a href="/openings/">Sealed products</a>
+        <a href="/drops.html">Drops this week</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Guides</p>
+        <a href="/start.html">Start here</a>
+        <a href="/how-to-play.html">How to play</a>
+        <a href="/tcg-live.html">Code cards</a>
+        <a href="/tcg-pocket.html">Phone version</a>
+        <a href="/what-set.html">Set finder</a>
+        <a href="/rarity.html">Rarity guide</a>
+        <a href="/types.html">Card types</a>
+        <a href="/fake-cards.html">Fakes</a>
+        <a href="/will-it-grade.html">Will it grade</a>
+        <a href="/grading.html">Grading cost</a>
+        <a href="/selling.html">Where to sell</a>
+        <a href="/buying.html">Where to buy</a>
+        <a href="/luck.html">Luck, measured</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Play</p>
+        <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
+        <a href="/lore.html">Pokemon lore</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Rochester, NY</p>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/vendors.html">Local vendors</a>
+        <a href="/creators.html">Local creators</a>
+        <a href="/about.html">About</a>
+      </div>
+    </nav>
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    Prices move daily. The date on this page is the date they were read.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+<script>
+(function(){
+  var list=document.getElementById('t100list');
+  var all=document.getElementById('t100All'), solo=document.getElementById('t100Solo');
+  var out=document.getElementById('t100Count');
+  var total=100, multi=69;
+  function set(hide){
+    list.classList.toggle('hide-multi',hide);
+    all.setAttribute('aria-pressed',String(!hide));
+    solo.setAttribute('aria-pressed',String(hide));
+    // The ranks do not change. Say what is hidden rather than renumbering, so
+    // the filtered view cannot be mistaken for a different top 100.
+    out.textContent = hide
+      ? 'Showing '+(total-multi)+' of '+total+'. '+multi+' cases, displays and multi-packs are hidden and the ranks still count them.'
+      : 'Showing all '+total+'. '+multi+' of them are cases, displays or multi-packs.';
+  }
+  all.addEventListener('click',function(){set(false)});
+  solo.addEventListener('click',function(){set(true)});
+})();
+</script>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
+</body>
+</html>

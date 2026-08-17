@@ -139,6 +139,28 @@ It is not. The research files record that those pages were deliberately never
 fetched and that no url leading to them is stored, so there is nothing in the
 tree to emit by accident. Keep it that way.
 
+THERE IS NO SIXTH EXCEPTION AND /decks.html AND /top-100-playable.html ARE THE
+CASE THAT NEARLY MADE ONE. Both are built entirely out of somebody else's
+measurements: deck usage, match records and several hundred decklists, all from
+Limitless TCG. That is exactly the shape of the fourth and fifth exceptions, a
+page that leans on an outside source and looks like it owes that source a link,
+and both pages were built with none.
+
+The reason is that ATTRIBUTION AND A LINK ARE NOT THE SAME OBLIGATION. Limitless
+is named in plain text on both pages, in the body and again in the source note
+at the foot, along with the filter used, the sample size and the date it was
+read. That is the whole of what crediting a source requires. The fourth and
+fifth exceptions exist because a reader NEEDED the destination: you cannot
+follow "download the official app" without the download page. Nobody needs
+limitlesstcg.com to use a decklist we already reproduced in full on the page and
+handed over as a file. The link would be a courtesy to the source rather than a
+service to the reader, and that is the exact trade the rule refuses.
+
+If a later editor wants to add them, that is a real argument and not a silly
+one, but make it here first, in this file, in the same edit. Do not add one
+quietly to the foot of a page: that is precisely how the playlist cards became
+an exception this file did not admit to for months.
+
 A playlist with zero videos does not render at all. Two exist on the channel
 and were showing as cards reading "0 videos" whose only action was a link to
 an empty YouTube playlist. They reappear the moment a video goes in.
@@ -239,6 +261,71 @@ Two constraints that shape these pages:
   and are omitted when blank. Everything else is API fact or checklist
   arithmetic. Never state pull rates: we do not have them.
 
+## Deck pages
+
+Two pages about PLAYING the game rather than collecting it, both built from one
+corpus. Three scripts, and the first is run BY HAND:
+
+    node scripts/sync-decks.mjs      Limitless -> data/decks.json  (network)
+    node scripts/build-decks.mjs     /decks.html + public/decks/*.txt
+    node scripts/build-playable.mjs  /top-100-playable.html
+
+`shared/decks.mjs` is the shared half: it loads the corpus, resolves every card
+against `public/data/card-index.json` for its picture, and ranks the cards. Both
+builders go through it, so the two pages cannot print different numbers for the
+same data or disagree about what format they are describing.
+
+`sync-decks.mjs` is NOT in build-all.mjs and must not be added to it. It makes a
+few hundred requests to Limitless and what it records is a dated measurement of
+a metagame, so refreshing it is a deliberate act by a person who then re-reads
+what the pages claim. Responses cache under `.cache/decks/`, so a re-run is
+free.
+
+**THE .txt FILES ARE THE POINT AND THEY ARE VERBATIM.** Pokemon TCG Live imports
+a decklist by paste, so `public/decks/<deck>.txt` is a real working artifact
+rather than a description of one: it is the export string Limitless's own Copy
+to Clipboard button writes, byte for byte, with a trailing newline and nothing
+else. NEVER PREPEND ANYTHING TO ONE, not a header, not a url, not a credit line.
+The importer reads everything on the clipboard and a decklist that fails to
+import is worse than no decklist. The attribution lives on the page instead. The
+page also shows every list as readable text and offers a copy button, because a
+phone reader wants to read a deck before building it and downloading a text file
+on a phone is the worst part of the job.
+
+Format: `Pokémon:`, `Trainer:` and `Energy:` headers each followed by the TOTAL
+cards in that section rather than the number of lines, then `<qty> <name> <SET>
+<number>` per line, one blank line between sections, no "Total Cards" line.
+`sync-decks.mjs` refuses any list that does not sum to 60. **Set codes can carry
+a hyphen** (`PR-SV 149` for promos) and an expression that stopped at `[A-Z0-9]`
+silently threw away eleven legal decks on the first run.
+
+**WHAT THE RANKING MEASURES, and it is narrower than the obvious phrase.** These
+are the MOST PLAYED decks, ordered by share of the recorded field, in ONLINE
+tournaments played in TCG Live on Limitless's own play platform: things called
+"Sunny's Weekly" and "SEASAC League Challenge", run by community organisers for
+booster-code prizes. THEY ARE NOT PAPER EVENTS. Not Regionals, not
+Internationals, not Worlds, and both pages say so in those words. "Best deck" is
+not a claim this site can source and is never made. Win rate is printed and
+never sets the order. The top-100 ranks by how many of the collected lists play
+a card, never by price: a separate page ranks cards by value and the two must
+not be merged.
+
+Legality is BY CONSTRUCTION. Every list is drawn through Limitless's own
+Standard / 2026 rotation filter, so neither builder adjudicates a card. The
+rotation itself is official (marks H, I and J legal, G rotated out; 26 March
+2026 in Live, 10 April 2026 on paper) and is printed on both pages with the date
+it was read, because "current format" is a claim with an expiry.
+`/how-to-play.html` independently says H, I or J from the tournament handbook,
+which is the cross-check.
+
+`SET_CODES` in shared/decks.mjs maps Limitless's codes to our slugs and is
+VERIFIED ON EVERY BUILD rather than trusted: `checkSetMap` looks up each
+printing and compares the name we hold against the name Limitless wrote. A
+mismatch fails the build, because the failure mode is a card drawn with another
+card's picture, which looks fine. An unresolved code only warns: basic Energy
+from the MEE sheet and one PR-SV promo come from sets this site has no guide
+for, so those rows carry a drawn tile rather than a borrowed scan.
+
 ## Video data
 - `public/data/videos.json` is the whole catalogue, `playlists.json` the
   playlists. Both are written by `scripts/sync-youtube.mjs`.
@@ -298,13 +385,67 @@ slides are genuinely on screen and the hydration lands before first contentful
 paint (70ms against 84ms at 1280). A `<noscript>` copy, laid over the box by
 ui.css, is what a reader with JS off gets.
 
-**Do not "fix" this by adding 560w and 700w renditions.** That was measured
-too, with the files actually generated: it saves 302KB at 1280 and 1920 at DPR
-1, and NOTHING at DPR 2 or 3, because 810w is already the smallest candidate
-that satisfies a 464px box on a retina screen. It is a no-op on every modern
-phone and every retina laptop, for 38 files and 3.43MB. If the 1x desktop win
-is wanted later, 560w ALONE buys all of it (19 files, 1.42MB); 700w was only
-ever picked in one case, a DPR 2 phone.
+**Do not add a 700w rendition.** That was measured with the files actually
+generated: 560w and 700w together save 302KB at 1280 and 1920 at DPR 1, and
+NOTHING at DPR 2 or 3, because 810w is already the smallest candidate that
+satisfies a 464px box on a retina screen. 700w was picked in exactly one case, a
+DPR 2 phone, and 560w ALONE buys the entire 1x desktop win.
+
+**560w WAS ADDED 16 AUGUST 2026 and the paragraphs below are what it cost and
+bought.** `MID` in build-packs.py, 19 files and 1.42MB on disk, a third `w`
+candidate in `heroTile` and in the Hall of Fame frame in build-proto.mjs. The
+existing 400w and 810w files are byte identical after the regeneration, so the
+encoder is deterministic and a re-run is not churn.
+
+**AND THE 1x DESKTOP WIN IS BIGGER THAN THAT ENTRY MAKES IT SOUND, measured on
+the home page 16 August 2026: EVERY pack request on that page takes the 810w
+file, at every width and every DPR, and not one ever lands on the 400w tile.**
+Logged from the network, cache off: 3 packs at 390 (DPR 2 and 3), 5 at 1280,
+1440 and 1920 (DPR 1 and 2), all of them the full file, 125 to 158KB against
+the tile's 40 to 52KB. The phone is right to: 340px at DPR 2 needs 680. The
+DPR 1 desktop is not, and the reason is `sizes`, not the renditions.
+`heroTile` declares `(max-width:640px) 87vw, 440px` while the real box measures
+328px at 1280, 373 to 378 at 1440 and 391 to 408 at 1920, so 440 is over
+declared everywhere above 640 and 440 at DPR 1 always beats the 400w candidate.
+The honest figure would pick the 400w tile at 1440, worth about 380KB of a
+799KB load. `sizes` IS STILL 440px AND WAS DELIBERATELY LEFT THAT WAY: an
+accurate one needs the 1000/1200/1400 slide-count breakpoints written a second
+time in build-proto.mjs (see the "NO MEDIA QUERY IN HERE" note in `heroTile`,
+which is about exactly this) and it goes silently soft the day ui.css's counts
+move. 560w wins at all three desktop widths with no breakpoints at all, which is
+what makes it the right fix rather than the cheap one.
+
+**THE 560w RENDITION FIXED THE DPR 1 HALF OF THAT AND NOTHING ELSE, re-measured
+the same day with one harness, gzipped, cache off, against `.claude/server.js`'s
+tree served with gzip on text.** Every figure below is an on-load number with no
+scroll, and the fully-scrolled pair is beside it because they answer different
+questions:
+
+                          on-load            fully scrolled     pack file
+      1280 DPR 1     807.7 -> 506.2KB    2166.9 -> 1864.4KB     810 -> 560
+      1440 DPR 1     807.7 -> 506.2KB    2165.9 -> 1864.4KB     810 -> 560
+      1920 DPR 1     949.0 -> 647.6KB    2165.9 -> 1864.4KB     810 -> 560
+      1280 DPR 2     807.7 -> 808.6KB    2165.9 -> 2166.8KB     810 -> 810
+      1440 DPR 2     807.7 -> 808.6KB    2165.9 -> 2166.8KB     810 -> 810
+      1920 DPR 2     949.0 -> 950.0KB    2165.9 -> 2166.8KB     810 -> 810
+       390 DPR 2     517.7 -> 518.7KB      986.5 -> 987.5KB     810 -> 810
+       390 DPR 3     517.7 -> 518.7KB      986.5 -> 987.5KB     810 -> 810
+
+VERIFIED FROM THE NETWORK, NOT FROM THE MARKUP: the picked filename was read off
+the request log at every row. The +0.9 to +1.0KB on the DPR 2 and phone rows is
+the third srcset candidate in the gzipped HTML, which is the whole cost of the
+change to a reader it cannot help. Nothing about the phone moved, by design and
+by measurement.
+
+**SO A RETINA DESKTOP IS UNCHANGED, AND THAT IS THE HALF THIS ENTRY KEEPS
+UNDERSELLING.** A 402px box at DPR 2 asks for 804 device pixels and 810w is the
+smallest candidate that satisfies it, so a MacBook at 1440 still pulls 681.6KB of
+pack art. If somebody reports a slow desktop and is on a retina screen, 560w is
+not their fix and pointing at these numbers will mislead them. The measured
+options left for that case are an AVIF rendition of the pack art, which encodes
+15 to 22% smaller than the WebP at equal width (810w: 150.6 -> 126.4KB on
+paradox-rift, 129.6 -> 101.1 on multi) and is the only lever that pays at EVERY
+DPR, or a lower WebP quality than the current 78. Neither was done here.
 
 **A CSS background cannot be lazy.** rarity.html's magnified corners were
 backgrounds, so all 13 full-size scans were fetched at first paint whether or
@@ -313,6 +454,38 @@ page went 2,536KB to 388KB at 390px. If you move a background to an img,
 re-screenshot: doing it here brought the scans into reach of a later rule at
 equal specificity and turned eleven magnified corners into whole shrunken
 cards, which looks almost right.
+
+**THOSE TWO NUMBERS ARE ON-LOAD AND UNGZIPPED, AND THIS ENTRY DID NOT SAY SO
+UNTIL 16 August 2026, by which point the 388 had been quoted back as a reason
+not to look at the page.** Nothing regressed. Both figures are a cold load with
+NO scroll, served by `.claude/server.js`, which sends no Content-Encoding. The
+change was real and it is exactly what the entry claims: it moved 2.1MB off the
+LOAD PATH. It did not remove a byte from the page, because a lazy image is
+deferred, not cancelled.
+
+Rebuilt from the commit that recorded them and re-measured with one harness,
+390x844 DPR 2, cache off, so the four numbers are comparable:
+
+                            on-load    fully scrolled, lazy forced
+    at c58bf3ce, ungzipped    386.9KB    3,167.7KB
+    at c58bf3ce, gzipped      219.7KB    3,000.6KB
+
+So 388 reproduces to within a kilobyte, as an ON-LOAD UNGZIPPED number, and the
+same page was already over 3MB to a reader who scrolled it. QUOTE THE PAIR OR
+QUOTE NEITHER: they answer different questions and only the first is what a
+reader waits for. Serve gzipped for any transfer figure, because the dev server
+inflates HTML, CSS and JS three to five times and none of that is images.
+
+**One card on that page was 1.1MB of the 3.1MB, and it was a PNG.** The Mega
+Hyper Rare ladder row hotlinked `images.scrydex.com/pokemon/me5-120/large`,
+1,100,908 bytes, drawn in a 96px box and a 132px corner crop. It was the only
+image over 200KB on the whole site, checked across 167 pages. TCGdex has the
+same card at `en/me/me05/120` and serves it as 26,529 bytes of AVIF, a 97.6%
+cut, so `data/rarity.json` names the TCGdex url now and the page went 3,151KB
+to 2,105KB fully scrolled. THE LESSON IS THE HOST, NOT THE CARD: every other
+scan on that page is TCGdex and gets `avifPicture` and `imgDims` for free, and
+one Scrydex url quietly opted out of both. Check the host before assuming a
+heavy page needs a new pipeline.
 
 **Some images do not exist and never will.** `data/no-scan.json` records 101
 TCGdex bases that 404 and 4 TCGplayer urls that 403, found by fetching all
@@ -375,6 +548,14 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
 - The Hall of Fame card keeps its text when the player mounts: the handler
   swaps only the art box, because replacing the whole card lost the title, the
   set and the view count.
+- The Hall of Fame trophy carries a play pip and a duration chip like every
+  other artwork on the page, added 16 August 2026 and the last thing here that
+  did not. Both sit INSIDE `.hofx-art`, so playInTile takes them away with the
+  artwork they describe. It matters most on a phone: measured at 390x844 the
+  art box runs 265px to 845px, so the caption, the set, the view count and
+  "Watch the pull" are ALL below the fold and the pip and the clock are the
+  only two marks that fit inside the art itself. Without them the opening
+  screen was a picture of a booster pack with nothing anywhere saying it plays.
 - EVERY RELATIVE DATE ON THE PAGE IS RECOMPUTED IN THE BROWSER. `ago()` in
   build-proto.mjs runs on the build clock and its answer is then frozen into a
   static file, so a deploy that stops moving turns "TODAY" into a lie in the
@@ -420,6 +601,39 @@ a single centred card, which is what the two long comments above them are
 arguing about. Both of those comments are still correct and still about the
 PHONE: one column sized to the video is right when the slide is the whole
 track. The desktop fix is not a wider card, it is more of them.
+
+THERE IS A THIRD LAYOUT AND IT IS THE GAP THE OTHER TWO LEFT, 545px to 999px.
+The desktop rules are all `min-width:1000`, which is what makes them safe, and
+is also why everything below 1000 kept the phone layout at tablet size. Fixed
+16 August 2026, in the `<style>` block generated by `build-proto.mjs` rather
+than in ui.css, because `.vcar` and `.hofx` exist on this page and no other and
+ui.css was being rewritten by another pass at the time. FOLD IT INTO UI.CSS'S
+HOME PAGE BLOCK when that settles; the breakpoints and the argument are already
+written to match. Measured, one slide of the Latest band:
+
+                       BEFORE                        AFTER
+      width   slide   card   art   art/slide     card   art   art/slide
+        768     720    720   360      50%         520   440      61%
+        899     851    851   360      42%         520   440      52%
+        900     852    520   440      52%         349   315      90%
+        999     951    520   440      46%         391   357      91%
+       1000     391    391   357      91%       unchanged
+
+- 545 to 899 was ui.css's own documented failure, still on the page: "a 360px
+  pack marooned in a 720px card with 180px of white either side". Its answer,
+  the `min-width:900` rule, caps the card at 520 and the art at 440, and now
+  runs from 545, which is where the wrap first exceeds that cap. The caption
+  used to be left aligned to an 851px card while the pack was centred in it, so
+  at 768 the title started 180px left of the thing it named. Costs 288px of
+  page height at 768 and buys 22% more artwork.
+- 900 to 999 gets the multi-slide layout instead, at 2.35 slides, the same
+  fraction as at 1000. 2.35 IS CHOSEN SO 999 AND 1000 ARE THE SAME PICTURE:
+  artwork lands on 357px at 999 and the min-width:1000 rule computes 357px at
+  1000, so the old 440 -> 357 cliff at that boundary is gone. Page height at
+  900x900 went 7,628 to 7,339.
+
+Nothing outside 545..999 moves. 390, 414, 500, 544, 1000, 1200, 1280, 1440 and
+1920 were re-measured after and are identical to the pixel.
 
 The banner art is the header, not a mid-page strip. Do not overlay copy on
 it: Trubbish sits dead centre in the source image, so any scrim wide enough
@@ -475,3 +689,21 @@ rehearsed on a throwaway copy of the tree.
   name a ticker, a card tilt and a card flip, none of which exist any more.
   Check the page before writing a rule about it.
 - Keep page weight low; images are pre-compressed in assets/.
+- **THE HOME PAGE HAS NO RUNTIME PROBLEM AND A REPORT OF ONE SHOULD BE MET WITH
+  A MEASUREMENT FIRST.** Chased 16 August 2026 after "lags and loads slowly on
+  desktop", swept at 1280x800, 1440x900 and 1920x1080 at DPR 1 and 2 in headless
+  Chrome: Total Blocking Time 0ms at every width and every DPR, ZERO long tasks
+  unthrottled, and scrolling the full page produced NOT ONE frame over 33.3ms in
+  any run, worst frame 18.7ms. Under 4x CPU throttling there is exactly one long
+  task, 60 to 70ms, and it starts at ~81ms, which is before first contentful
+  paint: it is the initial parse and style pass, so it lands outside the TBT
+  window and ahead of anything a reader can see. LOAD AND LAG ARE DIFFERENT
+  COMPLAINTS and only the first reproduced. The weight was real: 807.7KB
+  on-load, 84% of it pack art. Look at bytes before looking at JavaScript.
+- The date sweep at the bottom of index.html was checked for layout work in a
+  loop and does none: it reads no geometry at all, only `datetime` attributes.
+  `hydrateSlides` in packplayer.js DID interleave a `getBoundingClientRect` with
+  an `src` write, so each measurement after the first forced a re-layout. It
+  reads every slide then writes every slide now. It cost 0ms either way at every
+  width measured; it was separated because the pattern is a trap, not because it
+  showed up.

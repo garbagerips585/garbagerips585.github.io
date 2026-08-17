@@ -22,7 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
+<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>.op-lede{max-width:46em}
 .op-shot{display:flex;gap:var(--s4);align-items:center;margin:0 0 var(--s5);
@@ -48,7 +48,38 @@ letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);border-bottom:2
 .op-t thead th{font:700 var(--t-label)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
 background:var(--navy);color:var(--chrome-ink);border-bottom:none}
 .op-t tbody th{font-weight:700}
+.op-ps{display:flex;gap:var(--s3);align-items:center}
+.op-pt{flex:none;width:48px;height:48px;object-fit:contain;display:block;background:#fff;
+border:1px solid var(--hair);border-radius:5px}
+.op-px{background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
 .op-no{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);opacity:.7}
+.op-sh{font:400 var(--t-m)/1.2 var(--display);margin:var(--s5) 0 var(--s3)}
+.op-sets{list-style:none;margin:var(--s4) 0 var(--s4);padding:0;display:grid;gap:var(--s2);max-width:46em}
+.op-sr>a,.op-sr>div{display:grid;grid-template-columns:116px minmax(0,1fr) auto;
+gap:var(--s3);align-items:center;border:2px solid var(--hair);border-radius:10px;
+background:var(--card);padding:var(--s2) var(--s3);color:inherit;text-decoration:none}
+.op-sr>a:hover,.op-sr>a:focus-visible{border-color:var(--navy)}
+.op-sw{display:flex;align-items:center;justify-content:center;width:116px;height:42px;
+background:#fff;border:1px solid var(--hair);border-radius:5px;flex:none}
+.op-sl{width:100%;height:100%;object-fit:contain;display:block}
+.op-sx{display:block;width:100%;height:100%;border-radius:4px;
+background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
+.op-sm{min-width:0}
+.op-sm b{display:block;font-weight:700;font-size:var(--t-sm);line-height:1.3}
+.op-se{display:block;font:400 var(--t-micro)/1.35 var(--mono);color:var(--ink-2);margin-top:2px}
+.op-sb{display:block;height:8px;margin-top:6px;border-radius:4px;background:var(--paper-3);overflow:hidden}
+.op-sb i{display:block;height:100%;background:var(--gold);border-radius:4px}
+.op-sn{text-align:right;font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);white-space:nowrap}
+.op-sn b{font:400 var(--t-m)/1 var(--display);color:var(--ketchup);margin-right:.3em}
+.op-sn span{display:block}
+@media(max-width:560px){
+.op-sr>a,.op-sr>div{grid-template-columns:88px minmax(0,1fr);gap:var(--s2) var(--s3)}
+.op-sw{width:88px;height:34px;grid-row:span 2;align-self:start}
+.op-sn{text-align:left}
+.op-sn b{font-size:var(--t-sm)}
+.op-sn span{display:inline;margin-left:.4em}
+.op-sn span::before{content:"\2022 ";margin-right:.2em}
+}
 .op-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
 @media(max-width:900px){.op-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.op-grid{grid-template-columns:1fr}}
@@ -68,6 +99,7 @@ border:1px solid var(--hair);border-radius:6px}
 @media(min-width:1000px){
 .op-lede{max-width:50ch}
 .op-note{max-width:50ch}
+.op-sets{max-width:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s3)}
 }
 @media(min-width:1500px){
 .op-grid{grid-template-columns:repeat(4,1fr)}
@@ -198,29 +230,64 @@ border:1px solid var(--hair);border-radius:6px}
         <div class="op-f"><span class="n">5</span><span class="l">Packs counted, across 5 of them</span></div>
         <div class="op-f"><span class="n">2</span><span class="l">Different sets</span></div>
       </div>
+
+      <h3 class="op-sh">Which sets we opened these from</h3>
+      <ul class="op-sets">
+        <li class="op-sr"><a href="/sets/ascended-heroes.html">
+          <span class="op-sw"><img class="op-sl" src="/assets/logos/ascended-heroes-pokemon-tcg-set-logo-sm.webp" srcset="/assets/logos/ascended-heroes-pokemon-tcg-set-logo-sm.webp 197w, /assets/logos/ascended-heroes-pokemon-tcg-set-logo.webp 592w" sizes="83px" width="197" height="100" alt="" loading="lazy" decoding="async"></span>
+          <span class="op-sm">
+            <b>Ascended Heroes</b>
+            <span class="op-sb" aria-hidden="true"><i style="width:100%"></i></span>
+          </span>
+          <span class="op-sn"><b>3</b> openings<span>3 packs</span></span>
+        </a></li>
+        <li class="op-sr"><a href="/sets/prismatic-evolutions.html">
+          <span class="op-sw"><img class="op-sl" src="/assets/logos/prismatic-evolutions-pokemon-tcg-set-logo-sm.webp" srcset="/assets/logos/prismatic-evolutions-pokemon-tcg-set-logo-sm.webp 217w, /assets/logos/prismatic-evolutions-pokemon-tcg-set-logo.webp 651w" sizes="91px" width="217" height="100" alt="" loading="lazy" decoding="async"></span>
+          <span class="op-sm">
+            <b>Prismatic Evolutions</b>
+            <span class="op-sb" aria-hidden="true"><i style="width:67%"></i></span>
+          </span>
+          <span class="op-sn"><b>2</b> openings<span>2 packs</span></span>
+        </a></li>
+      </ul>
+      <p class="op-note">Openings and packs counted here, in our own videos, which is the only place
+        these numbers come from. A rip tagged with two sets is counted under both, so the column adds
+        up to more than the 12 above it. Each row opens that set's guide.</p>
       <div class="op-tw" tabindex="0" role="region" aria-label="What a Collection Box costs, by set. TCGplayer market price, read August 16, 2026, scrollable table">
         <table class="op-t">
           <caption>What a Collection Box costs, by set. TCGplayer market price, read August 16, 2026</caption>
           <thead><tr><th scope="col">Set</th><th scope="col">Market</th><th scope="col">Lowest</th><th scope="col">Listings</th></tr></thead>
           <tbody>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/210566/sword-and-shield-figure-collection" rel="noopener" target="_blank">Rebel Clash</a></th><td>$238.13</td><td>$240.00</td><td>4</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/502001/151-poster-collection" rel="noopener" target="_blank">151</a></th><td>$83.28</td><td>$0.99</td><td>47</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/475618/crown-zenith-pin-collection-inteleon" rel="noopener" target="_blank">Crown Zenith</a></th><td>$80.11</td><td>$92.00</td><td>11</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/242807/celebrations-collection-dragapult-prime" rel="noopener" target="_blank">Celebrations</a></th><td>$78.62</td><td>$93.99</td><td>8</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/528045/paldean-fates-tech-sticker-collection-greavard" rel="noopener" target="_blank">Paldean Fates</a></th><td>$70.28</td><td>$62.88</td><td>19</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/553000/kingambit-illustration-collection" rel="noopener" target="_blank">Shrouded Fable</a></th><td>$51.87</td><td>$9.99</td><td>15</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/270716/pokemon-go-collection-alolan-exeggutor-v" rel="noopener" target="_blank">Pokémon GO</a></th><td>$46.42</td><td>$55.00</td><td>10</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/630612/unova-poster-collection" rel="noopener" target="_blank">Black Bolt</a></th><td>$45.40</td><td>$1.99</td><td>44</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/630700/white-flare-tech-sticker-collection" rel="noopener" target="_blank">White Flare</a></th><td>$44.83</td><td>$40.00</td><td>9</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/228826/shining-fates-mad-party-pin-collection-bunnelby" rel="noopener" target="_blank">Shining Fates</a></th><td>$40.35</td><td>$55.00</td><td>10</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/593359/prismatic-evolutions-poster-collection" rel="noopener" target="_blank">Prismatic Evolutions</a></th><td>$40.29</td><td>$0.12</td><td>116</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/709097/mega-evolution-ascended-heroes-collection-larry-1-tab" rel="noopener" target="_blank">Ascended Heroes</a></th><td>$24.90</td><td>$20.00</td><td>4</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/210566_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/210566_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/210566_in_1000x1000.jpg 1000w" sizes="48px" alt="Sword &amp; Shield Figure Collection, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/210566/sword-and-shield-figure-collection" rel="noopener" target="_blank">Rebel Clash</a></span></th><td>$238.13</td><td>$240.00</td><td>4</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/502001_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/502001_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/502001_in_1000x1000.jpg 1000w" sizes="48px" alt="151 Poster Collection, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/502001/151-poster-collection" rel="noopener" target="_blank">151</a></span></th><td>$83.28</td><td>$0.99</td><td>47</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/475618_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/475618_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/475618_in_1000x1000.jpg 1000w" sizes="48px" alt="Crown Zenith Pin Collection [Inteleon], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/475618/crown-zenith-pin-collection-inteleon" rel="noopener" target="_blank">Crown Zenith</a></span></th><td>$80.11</td><td>$92.00</td><td>11</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/242807_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/242807_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/242807_in_1000x1000.jpg 1000w" sizes="48px" alt="Celebrations Collection [Dragapult Prime], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/242807/celebrations-collection-dragapult-prime" rel="noopener" target="_blank">Celebrations</a></span></th><td>$78.62</td><td>$93.99</td><td>8</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/528045_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/528045_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/528045_in_1000x1000.jpg 1000w" sizes="48px" alt="Paldean Fates Tech Sticker Collection [Greavard], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/528045/paldean-fates-tech-sticker-collection-greavard" rel="noopener" target="_blank">Paldean Fates</a></span></th><td>$70.28</td><td>$62.88</td><td>19</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/553000_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/553000_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/553000_in_1000x1000.jpg 1000w" sizes="48px" alt="Kingambit Illustration Collection, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/553000/kingambit-illustration-collection" rel="noopener" target="_blank">Shrouded Fable</a></span></th><td>$51.87</td><td>$9.99</td><td>15</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/270716_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/270716_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/270716_in_1000x1000.jpg 1000w" sizes="48px" alt="Pokemon GO Collection [Alolan Exeggutor V], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/270716/pokemon-go-collection-alolan-exeggutor-v" rel="noopener" target="_blank">Pokémon GO</a></span></th><td>$46.42</td><td>$55.00</td><td>10</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/630612_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/630612_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/630612_in_1000x1000.jpg 1000w" sizes="48px" alt="Unova Poster Collection, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/630612/unova-poster-collection" rel="noopener" target="_blank">Black Bolt</a></span></th><td>$45.40</td><td>$1.99</td><td>44</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/630700_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/630700_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/630700_in_1000x1000.jpg 1000w" sizes="48px" alt="White Flare Tech Sticker Collection, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/630700/white-flare-tech-sticker-collection" rel="noopener" target="_blank">White Flare</a></span></th><td>$44.83</td><td>$40.00</td><td>9</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/228826_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/228826_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/228826_in_1000x1000.jpg 1000w" sizes="48px" alt="Shining Fates Mad Party Pin Collection [Bunnelby], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/228826/shining-fates-mad-party-pin-collection-bunnelby" rel="noopener" target="_blank">Shining Fates</a></span></th><td>$40.35</td><td>$55.00</td><td>10</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/593359_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/593359_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/593359_in_1000x1000.jpg 1000w" sizes="48px" alt="Prismatic Evolutions Poster Collection, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/593359/prismatic-evolutions-poster-collection" rel="noopener" target="_blank">Prismatic Evolutions</a></span></th><td>$40.29</td><td>$0.12</td><td>116</td></tr>
+            <tr><th scope="row"><span class="op-ps"><span class="op-pt op-px" aria-hidden="true"></span><a href="https://www.tcgplayer.com/product/709097/mega-evolution-ascended-heroes-collection-larry-1-tab" rel="noopener" target="_blank">Ascended Heroes</a></span></th><td>$24.90</td><td>$20.00</td><td>4</td></tr>
           </tbody>
         </table>
       </div>
       <p class="op-note">Prices are TCGplayer market and lowest listing, read August 16, 2026,
         the same figures the rest of this site quotes. They move. <a href="/pack-prices.html">Pack prices</a>
-        works out what that comes to per pack.</p>
+        works out what that comes to per pack. Each photograph is TCGplayer's, and it is that row's own
+        product rather than a stand-in, which is why the art is different in every one of them.</p>
     </div>
   </section>
 
@@ -327,10 +394,10 @@ border:1px solid var(--hair);border-radius:6px}
     </div>
     <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
     <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
-    Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+    Set logos are The Pokemon Company's. Product photos are TCGplayer's. Both are used to identify the sets and the products written about here.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=7f0274cc" defer></script>
-<script src="/assets/packplayer.js?v=faa2eb26" defer></script>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
 </body>
 </html>

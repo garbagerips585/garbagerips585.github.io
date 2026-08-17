@@ -501,22 +501,56 @@ const hofHtml = hofPick
             // art pins at 480. The crop changes the HEIGHT at 425, not the
             // width, so 425 needs no stop of its own.
             //
-            // IT MOVES ZERO BYTES TODAY and that is not a reason to leave it
-            // wrong. There are two candidates, 400w and 810w, so every request
-            // over 400 device pixels lands on the same file whatever the
-            // number says: 250 x 2 and 359 x 2 both ask for 810. The moment a
-            // middle width is added the honest figure is what decides whether
-            // it gets used, so it is recorded now, while the measurement is in
-            // front of somebody.
+            // IT MOVED ZERO BYTES WHEN IT WAS WRITTEN and that was not a reason
+            // to leave it wrong. There were two candidates, 400w and 810w, so
+            // every request over 400 device pixels landed on the same file
+            // whatever the number said: 250 x 2 and 359 x 2 both ask for 810.
+            // The note ended "the moment a middle width is added the honest
+            // figure is what decides whether it gets used, so it is recorded
+            // now, while the measurement is in front of somebody."
+            //
+            // THAT MOMENT ARRIVED THE SAME DAY. 560w exists now (see MID in
+            // build-packs.py), and because the figures below are real
+            // getBoundingClientRects rather than a guess, this frame lands on
+            // it correctly at every DPR 1 desktop width: 404 declared at 1280
+            // and 464 at 1440 and 1920, all of them over 400 and under 560.
+            // Verified from the network, not from the markup. The old
+            // "(max-width:640px) 92vw, 520px" would have declared 520 here and
+            // taken the 810 file at 1440 and 1920 for a 464px box, so the
+            // honest sweep is what turned the new rendition into a saving.
+            // At DPR 2 this box asks for 808 and still takes 810w, unchanged.
             const fs = faceSet(hofPick);
             return fs && packs.has(fs)
               ? `<img src="assets/packs/${fs}-garbage-rips-585-booster-pack.webp"
-           srcset="assets/packs/${fs}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${fs}-garbage-rips-585-booster-pack.webp 810w"
+           srcset="assets/packs/${fs}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${fs}-garbage-rips-585-booster-pack-mid.webp 560w, assets/packs/${fs}-garbage-rips-585-booster-pack.webp 810w"
            sizes="(max-width:544px) calc(100vw - 64px), (max-width:640px) 480px, (max-width:1199px) 464px, (max-width:1399px) 404px, 464px" alt="" fetchpriority="high" decoding="async" width="810" height="1440">`
               : packs.has("default")
                 ? `<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" fetchpriority="high" decoding="async">`
                 : `<b>Garbage Rips</b>`;
           })()}
+          ${
+            // THE TROPHY IS A VIDEO AND WAS THE ONLY ARTWORK ON THE PAGE THAT
+            // NEVER SAID SO. Every other pack here carries a play pip and a
+            // duration: the seven .hero-art slides in the two carousels do, the
+            // grid tiles do, the shelf does. This one, the biggest pack on the
+            // page and its LCP element at every width, carried neither.
+            //
+            // Measured at 390x844: the art box runs 265px to 845px, so on a
+            // phone the first screen ends one pixel before the caption. The
+            // title, the set, the view count and "Watch the pull" are ALL below
+            // the fold, which left the whole opening screen as a picture of a
+            // booster pack with nothing anywhere saying it plays. The pip and
+            // the clock are the two marks that fit inside the art box itself,
+            // so they are the only ones that can say it above the fold.
+            //
+            // Both live INSIDE .hofx-art on purpose. playInTile in
+            // packplayer.js swaps that one box for the player and keeps the
+            // rest of the card, so these two go with the artwork they describe
+            // and nothing has to remember to remove them.
+            hofPick.duration
+              ? `<span class="play"></span><span class="dur">${clock(hofPick.duration)}</span>`
+              : `<span class="play"></span>`
+          }
         </span>
         <span class="hofx-b">
           <span class="hofx-t">${esc(ripLabel(hofPick, setName, descriptions[hofPick.id]) || hofPick.siteTitle || hofPick.title)}</span>
@@ -548,9 +582,31 @@ function heroTile(v, opts) {
   const src = hasArt
     ? `assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp`
     : `assets/packs/default-garbage-rips-585-booster-pack.webp`;
+  // THREE CANDIDATES, NOT TWO, SINCE 16 AUGUST 2026. With only 400 and 810 in
+  // here, every pack request on this page took the 810 file at every width and
+  // every DPR, logged from the network with cache off. The art box measures
+  // 328px at 1280, 373 to 378 at 1440 and 391 to 408 at 1920: all of them over
+  // 400, so the tile could never satisfy one, and all of them under 560, so 810
+  // was the only thing left. 560w is the width that closes that gap.
+  //
+  // IT IS A DPR 1 FIX AND NOTHING ELSE, AND THE `sizes` BELOW IS STILL WRONG.
+  // At DPR 2 a 402px box asks for 804 device pixels, so 810w is already the
+  // smallest candidate that satisfies it and a retina laptop fetches exactly
+  // what it fetched before. Every phone is unchanged byte for byte, which is
+  // the property that makes this safe rather than the property that sells it.
   const srcset = hasArt
-    ? `assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${set}-garbage-rips-585-booster-pack.webp 810w`
+    ? `assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${set}-garbage-rips-585-booster-pack-mid.webp 560w, assets/packs/${set}-garbage-rips-585-booster-pack.webp 810w`
     : "";
+  // 440px OVER-DECLARES AND IS KEPT ANYWAY, WHICH IS A TRADE AND NOT AN
+  // OVERSIGHT. The real box is 328 / 373 / 391, so an honest figure would pick
+  // the 400w tile at 1280 and 1440 and save another ~130KB at DPR 1 on top of
+  // what 560w already saves. Writing it honestly means writing ui.css's
+  // 1000/1200/1400 slide-count breakpoints a SECOND time, right here, which is
+  // exactly what the "NO MEDIA QUERY IN HERE" note below argues against: the
+  // two bands do not even share a count, and the copy goes silently soft the
+  // day ui.css's counts move. 560w wins at all three desktop widths with no
+  // breakpoints at all. If somebody later decides the extra 130KB is worth a
+  // duplicated breakpoint, the measured boxes are in the paragraph above.
   const sizes = hasArt ? "(max-width:640px) 87vw, 440px" : "";
   const rest = `alt="" width="400" height="711" loading="lazy" decoding="async"`;
   const live = `<img src="${src}"${
@@ -969,6 +1025,138 @@ function plTile(p) {
 // A playlist with nothing in it is not content, and app.js drops those too.
 const plHtml = playlists.filter((p) => (p.count || 0) > 0).map(plTile).join("\n");
 
+/* ------------------------------------------------- the home page's own CSS -
+ *
+ * A <style> in index.html's head, generated here so the ARGUMENT can live in
+ * this file and only the RULES ship. Same trade build-css.mjs makes for
+ * ui.css: written out in full, this block was 4.5KB raw and 2.1KB gzipped on
+ * top of an 11.7KB document, render blocking, on the most visited page on the
+ * site. Comments are free here and cost every visitor there.
+ *
+ * WHY IT IS NOT IN ui.css. Every selector below exists on this page and
+ * nowhere else: `.vcar` and `.hofx` are emitted only by this script, into this
+ * one file, checked across public/. So a rule here reaches exactly the page it
+ * is about, and the other 425 pages do not pay for it. When ui.css's home page
+ * block settles, folding these in is a lift and shift; the breakpoints and the
+ * reasoning are already written to match it.
+ */
+
+/* 1. THE PLAY PIP ON THE HALL OF FAME TROPHY.
+ *
+ * `.play` is opacity:0 until :hover in ui.css because it was written for the
+ * grid tiles, and `.hero-art .play` already opts back in at .95. This is the
+ * same opt-in for the one artwork on the page that is not a `.hero-art`. Same
+ * value on purpose, so the trophy's pip matches the seven slide pips beside it
+ * rather than reading as a second, louder mark. Opacity only, so there is
+ * nothing here for prefers-reduced-motion to switch off.
+ */
+
+/* 2. THE CAROUSELS BETWEEN 900 AND 999px.
+ *
+ * The gap ui.css's desktop block left behind, and the only range left on this
+ * page where a band shows one video in a row wide enough for three. Measured
+ * in headless Chrome, one slide of the Latest band:
+ *
+ *     width   slide   artwork   artwork as a share of the slide
+ *       768     720       360        50%
+ *       820     772       360        47%
+ *       900     852       440        52%
+ *       999     951       440        46%
+ *      1000     391       357        91%
+ *
+ * At 999 the band paints 46% artwork and 54% empty, and one pixel later it
+ * paints 91%. That is not a taper, it is a cliff, and everything on the wrong
+ * side of it is a tablet in portrait, a half screen window on a 1440 monitor,
+ * or a small laptop.
+ *
+ * ui.css names this exact failure in its own comment ("a 360px pack marooned
+ * in a 720px card with 180px of white either side") and its min-width:900 rule
+ * answers it by capping the CARD at 520px and centring it. That stops the card
+ * stretching. It does not stop the BAND being half empty, because the slide is
+ * still the whole track.
+ *
+ * So this is the min-width:1000 block run 100px lower, with that block's own
+ * numbers rather than new ones. 2.35 slides, the same fraction, so the next
+ * card is cut by the band's edge and the row reads as continuing.
+ *
+ * 2.35 IS CHOSEN BECAUSE IT MAKES 999 AND 1000 THE SAME PICTURE. Artwork is
+ * (track - 2 gaps) / 2.35, less 34px of card padding and border: 315px at 900
+ * and 357px at 999, against the 357px the min-width:1000 rule computes at
+ * 1000. The old boundary stepped 440 -> 357 in a single pixel. This one does
+ * not step at all.
+ *
+ * IT COSTS ARTWORK AT THE BOTTOM OF THE RANGE and that is the trade, not an
+ * oversight: 360px down to 315px at 900, in exchange for 2.35 videos instead
+ * of one. 2.35 x 315 x 473 against 1 x 440 x 660 is 20% more pack on screen,
+ * from a band that stops being half empty. Page height at 900x900 went
+ * 7,628px to 7,339px.
+ *
+ * NOTHING OUTSIDE 900..999 MOVES. 390, 768, 820, 879, 1000, 1200 and 1440 were
+ * all re-measured and are identical to the pixel.
+ */
+/* 3. THE CARD BETWEEN 545 AND 899px, which is the SAME BUG one layout down.
+ *
+ * ui.css writes it out itself: "Between 768 and 899 it was the other failure,
+ * a 360px pack marooned in a 720px card with 180px of white either side." The
+ * rule that answers it is min-width:900, so from 545 to 899 the failure it
+ * describes is still on the page, exactly as described. Measured card against
+ * artwork, one slide of the Latest band:
+ *
+ *     width   card   artwork   white either side, INSIDE the card
+ *       545    521      360        80px
+ *       641    617      360       128px
+ *       768    720      360       180px
+ *       899    851      360       245px
+ *
+ * And the caption is left aligned to the CARD while the pack is centred in it,
+ * so at 768 the title starts 180px to the left of the thing it names. That is
+ * the part that reads as broken rather than as roomy.
+ *
+ * The fix is ui.css's own min-width:900 rule, run from 545 instead: cap the
+ * card at 520 and centre it, cap the artwork at 440. Nothing new is invented
+ * here, the existing answer is just applied to the whole range it was written
+ * for. 545 is where the wrap first exceeds the 520 cap, so below it the card
+ * is already the width of the band and there is no gutter to close.
+ *
+ * IT MAKES THE PAGE LONGER AND THAT IS THE TRADE. The artwork goes 360 to
+ * 440px, 22% wider, so at 768 each band gains 144px and the page goes 6,776 to
+ * 7,064. On a screen 768px wide that is a fair price for the one thing the
+ * band exists to show being a fifth larger and no longer floating.
+ *
+ * The 545 edge does step the artwork 360 -> 440 in one pixel. Making it fluid
+ * instead means raising the art cap from 414 up, which is phone width, and the
+ * phone layout is measured and settled; a resize across 544 is not a thing
+ * anyone does, and a load either side of it is correct on both sides.
+ */
+const homeCss = `<style>.hofx-art .play{opacity:.95}
+@media(min-width:545px) and (max-width:899px){
+.vcar .hero{max-width:520px;margin:0 auto;padding:var(--s5)}
+.vcar .hero-art,
+.vcar .tile-stage{max-width:440px}
+}
+@media(min-width:900px) and (max-width:999px){
+.vcar-slide{flex:0 0 calc((100% - 2 * var(--s4)) / 2.35);scroll-snap-align:start}
+.vcar .hero{max-width:none;margin:0;padding:var(--s4)}
+.vcar .hero-art,
+.vcar .tile-stage{max-width:none}
+.vcar .vcar-bar{justify-content:flex-start}
+.hof .vcar-slide{flex:0 0 calc((100% - var(--s4)) / 2)}
+}</style>`;
+/* The four rules inside the media query, in the order they appear:
+ * - .vcar .hero drops the 520px cap ui.css gives it in this range and takes
+ *   the slide, so there is no white gutter inside the card either.
+ * - .vcar .tile-stage has to lose the cap WITH the art, because the player
+ *   replaces the art link; ui.css's own note on that line records that without
+ *   it, pressing play shoved the page down 501px at 768.
+ * - .vcar-bar is a control for the row beside it, not a caption under a
+ *   centred card, so it moves to the row's start.
+ * - .hof gets exactly 2, not 2.35. Greatest Hits has two hits left after the
+ *   trophy takes the best one, so a fraction leaves a wedge of empty band and
+ *   gives the arrows a quarter of a card to travel. At 2 they fill the shelf
+ *   edge to edge and packplayer.js hides the bar through .is-static, which is
+ *   the same answer the min-width:1200 block reaches.
+ */
+
 // Regions that live on videos.html / playlists.html and NOT on index.html, so
 // the "index.html carries every marker" check below has to skip them.
 const OWNED_ELSEWHERE = new Set(["LIBGRID", "PLGRID"]);
@@ -976,6 +1164,7 @@ const OWNED_ELSEWHERE = new Set(["LIBGRID", "PLGRID"]);
 const REGIONS = {
   LIBGRID: libHtml,
   PLGRID: plHtml,
+  HOMECSS: homeCss,
   WANTED: wantedHtml,
   RAIL: railHtml,
   HOF: hallHtml,

@@ -68,6 +68,12 @@ const PAGES = [
   // than a side effect nobody looked at.
   ["/tcg-live.html", "Pokemon TCG Live and code cards", "What the code card in every booster pack gives you, and the free official app it opens"],
   ["/tcg-pocket.html", "Pokemon TCG Pocket", "The free phone version, what it teaches you, and how its rules differ from real cards"],
+  // The two deck pages. The first title leads with "Deck builds" because that
+  // is the thing somebody types; the second says "most played" rather than
+  // "best" because that is the only claim either page actually makes, and the
+  // search blurb is not the place to widen it.
+  ["/decks.html", "Deck builds to download", "The most played Standard decks, with lists that paste straight into Pokemon TCG Live"],
+  ["/top-100-playable.html", "Top 100 cards to play", "The cards played most in Standard decks, counted across hundreds of tournament lists"],
   ["/cards.html", "Card search", "Every card by name with current prices"],
   ["/pokemon/", "Browse by Pokemon", "Every card of one Pokemon across every set"],
   ["/sets/", "Set guides", "Card counts, rarities and chase cards per set"],
@@ -75,6 +81,13 @@ const PAGES = [
   ["/types.html", "Card types", "All 11 types, and why there is no type chart in the card game"],
   ["/fake-cards.html", "Real or fake?", "Eight checks for spotting a counterfeit"],
   ["/grading.html", "Worth grading?", "What grading costs and whether it pays"],
+  // THE BLURB SAYS "PSA 10 VALUES", NOT "MOST VALUABLE", and that is the same
+  // discipline the two deck lines above are keeping. "Most valuable graded
+  // Pokemon cards" is what somebody types, and it is a claim the page cannot
+  // make: it ranks one price guide's PSA 10 column, because the auction-record
+  // version could not be sourced. Search copy that promises the list nobody
+  // could build is how the careful title gets undone one blurb at a time.
+  ["/top-graded.html", "Highest PSA 10 values", "The 100 highest PSA 10 price guide values in Pokemon, ranked across 793 sets with the source on every row"],
 ["/games/garbage-run.html", "Garbage Run", "A one thumb arcade game for the restock line, solo or two players on one phone"],
 ["/openings/", "Sealed products", "What is in an ETB, a bundle, a blister, and every one we opened"],
 ["/will-it-grade.html", "Will it grade?", "Centering tolerances, the flaws that cost grades, and how to check a card at home"],
@@ -88,6 +101,11 @@ const PAGES = [
   ["/luck.html", "How our luck is going", "What actually comes out of the packs"],
   ["/upcoming.html", "Coming next", "Upcoming sets and preorder prices"],
   ["/expansions.html", "Every set ever", "The complete expansion list"],
+  // The two ranked price lists. Both are one line each here for the reason the
+  // comment above PAGES gives: four pages once shipped without one and were
+  // unsearchable on a site whose nav search is the main way around it.
+  ["/most-valuable-cards.html", "Most valuable cards", "The 100 dearest ungraded Pokemon cards on TCGplayer, dated"],
+  ["/most-expensive-sealed.html", "Most expensive sealed", "The 100 dearest sealed Pokemon products on TCGplayer, dated"],
   ["/hall.html", "Hall of Fame", "The best pulls on the channel"],
   ["/wanted.html", "Most wanted", "The cards still being chased"],
   ["/card-shows.html", "Card shows", "Shows around Rochester, Buffalo and Syracuse"],

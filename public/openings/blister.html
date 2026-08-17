@@ -22,7 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
+<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>.op-lede{max-width:46em}
 .op-shot{display:flex;gap:var(--s4);align-items:center;margin:0 0 var(--s5);
@@ -48,7 +48,38 @@ letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);border-bottom:2
 .op-t thead th{font:700 var(--t-label)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
 background:var(--navy);color:var(--chrome-ink);border-bottom:none}
 .op-t tbody th{font-weight:700}
+.op-ps{display:flex;gap:var(--s3);align-items:center}
+.op-pt{flex:none;width:48px;height:48px;object-fit:contain;display:block;background:#fff;
+border:1px solid var(--hair);border-radius:5px}
+.op-px{background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
 .op-no{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);opacity:.7}
+.op-sh{font:400 var(--t-m)/1.2 var(--display);margin:var(--s5) 0 var(--s3)}
+.op-sets{list-style:none;margin:var(--s4) 0 var(--s4);padding:0;display:grid;gap:var(--s2);max-width:46em}
+.op-sr>a,.op-sr>div{display:grid;grid-template-columns:116px minmax(0,1fr) auto;
+gap:var(--s3);align-items:center;border:2px solid var(--hair);border-radius:10px;
+background:var(--card);padding:var(--s2) var(--s3);color:inherit;text-decoration:none}
+.op-sr>a:hover,.op-sr>a:focus-visible{border-color:var(--navy)}
+.op-sw{display:flex;align-items:center;justify-content:center;width:116px;height:42px;
+background:#fff;border:1px solid var(--hair);border-radius:5px;flex:none}
+.op-sl{width:100%;height:100%;object-fit:contain;display:block}
+.op-sx{display:block;width:100%;height:100%;border-radius:4px;
+background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
+.op-sm{min-width:0}
+.op-sm b{display:block;font-weight:700;font-size:var(--t-sm);line-height:1.3}
+.op-se{display:block;font:400 var(--t-micro)/1.35 var(--mono);color:var(--ink-2);margin-top:2px}
+.op-sb{display:block;height:8px;margin-top:6px;border-radius:4px;background:var(--paper-3);overflow:hidden}
+.op-sb i{display:block;height:100%;background:var(--gold);border-radius:4px}
+.op-sn{text-align:right;font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);white-space:nowrap}
+.op-sn b{font:400 var(--t-m)/1 var(--display);color:var(--ketchup);margin-right:.3em}
+.op-sn span{display:block}
+@media(max-width:560px){
+.op-sr>a,.op-sr>div{grid-template-columns:88px minmax(0,1fr);gap:var(--s2) var(--s3)}
+.op-sw{width:88px;height:34px;grid-row:span 2;align-self:start}
+.op-sn{text-align:left}
+.op-sn b{font-size:var(--t-sm)}
+.op-sn span{display:inline;margin-left:.4em}
+.op-sn span::before{content:"\2022 ";margin-right:.2em}
+}
 .op-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
 @media(max-width:900px){.op-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.op-grid{grid-template-columns:1fr}}
@@ -68,6 +99,7 @@ border:1px solid var(--hair);border-radius:6px}
 @media(min-width:1000px){
 .op-lede{max-width:50ch}
 .op-note{max-width:50ch}
+.op-sets{max-width:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s3)}
 }
 @media(min-width:1500px){
 .op-grid{grid-template-columns:repeat(4,1fr)}
@@ -198,36 +230,127 @@ border:1px solid var(--hair);border-radius:6px}
         <div class="op-f"><span class="n">34</span><span class="l">Packs counted, across 13 of them</span></div>
         <div class="op-f"><span class="n">8</span><span class="l">Different sets</span></div>
       </div>
+
+      <h3 class="op-sh">Which sets we opened these from</h3>
+      <ul class="op-sets">
+        <li class="op-sr"><a href="/sets/ascended-heroes.html">
+          <span class="op-sw"><img class="op-sl" src="/assets/logos/ascended-heroes-pokemon-tcg-set-logo-sm.webp" srcset="/assets/logos/ascended-heroes-pokemon-tcg-set-logo-sm.webp 197w, /assets/logos/ascended-heroes-pokemon-tcg-set-logo.webp 592w" sizes="83px" width="197" height="100" alt="" loading="lazy" decoding="async"></span>
+          <span class="op-sm">
+            <b>Ascended Heroes</b>
+            <span class="op-sb" aria-hidden="true"><i style="width:100%"></i></span>
+          </span>
+          <span class="op-sn"><b>2</b> openings<span>6 packs</span></span>
+        </a></li>
+        <li class="op-sr"><a href="/sets/journey-together.html">
+          <span class="op-sw"><img class="op-sl" src="/assets/logos/journey-together-pokemon-tcg-set-logo-sm.webp" srcset="/assets/logos/journey-together-pokemon-tcg-set-logo-sm.webp 318w, /assets/logos/journey-together-pokemon-tcg-set-logo.webp 955w" sizes="116px" width="318" height="100" alt="" loading="lazy" decoding="async"></span>
+          <span class="op-sm">
+            <b>Journey Together</b>
+            <span class="op-sb" aria-hidden="true"><i style="width:100%"></i></span>
+          </span>
+          <span class="op-sn"><b>2</b> openings<span>6 packs</span></span>
+        </a></li>
+        <li class="op-sr"><a href="/sets/phantasmal-flames.html">
+          <span class="op-sw"><img class="op-sl" src="/assets/logos/phantasmal-flames-pokemon-tcg-set-logo-sm.webp" srcset="/assets/logos/phantasmal-flames-pokemon-tcg-set-logo-sm.webp 230w, /assets/logos/phantasmal-flames-pokemon-tcg-set-logo.webp 691w" sizes="97px" width="230" height="100" alt="" loading="lazy" decoding="async"></span>
+          <span class="op-sm">
+            <b>Phantasmal Flames</b>
+            <span class="op-sb" aria-hidden="true"><i style="width:100%"></i></span>
+          </span>
+          <span class="op-sn"><b>2</b> openings<span>4 packs</span></span>
+        </a></li>
+        <li class="op-sr"><a href="/sets/perfect-order.html">
+          <span class="op-sw"><img class="op-sl" src="/assets/logos/perfect-order-pokemon-tcg-set-logo-sm.webp" srcset="/assets/logos/perfect-order-pokemon-tcg-set-logo-sm.webp 225w, /assets/logos/perfect-order-pokemon-tcg-set-logo.webp 674w" sizes="94px" width="225" height="100" alt="" loading="lazy" decoding="async"></span>
+          <span class="op-sm">
+            <b>Perfect Order</b>
+            <span class="op-sb" aria-hidden="true"><i style="width:50%"></i></span>
+          </span>
+          <span class="op-sn"><b>1</b> opening<span>3 packs</span></span>
+        </a></li>
+        <li class="op-sr"><a href="/sets/destined-rivals.html">
+          <span class="op-sw"><img class="op-sl" src="/assets/logos/destined-rivals-pokemon-tcg-set-logo-sm.webp" srcset="/assets/logos/destined-rivals-pokemon-tcg-set-logo-sm.webp 269w, /assets/logos/destined-rivals-pokemon-tcg-set-logo.webp 806w" sizes="113px" width="269" height="100" alt="" loading="lazy" decoding="async"></span>
+          <span class="op-sm">
+            <b>Destined Rivals</b>
+            <span class="op-sb" aria-hidden="true"><i style="width:50%"></i></span>
+          </span>
+          <span class="op-sn"><b>1</b> opening<span>3 packs</span></span>
+        </a></li>
+        <li class="op-sr"><a href="/sets/mega-evolution.html">
+          <span class="op-sw"><img class="op-sl" src="/assets/logos/mega-evolution-pokemon-tcg-set-logo-sm.webp" srcset="/assets/logos/mega-evolution-pokemon-tcg-set-logo-sm.webp 496w, /assets/logos/mega-evolution-pokemon-tcg-set-logo.webp 1489w" sizes="116px" width="496" height="100" alt="" loading="lazy" decoding="async"></span>
+          <span class="op-sm">
+            <b>Mega Evolution</b>
+            <span class="op-sb" aria-hidden="true"><i style="width:50%"></i></span>
+          </span>
+          <span class="op-sn"><b>1</b> opening<span>2 packs</span></span>
+        </a></li>
+        <li class="op-sr"><a href="/sets/paradox-rift.html">
+          <span class="op-sw"><img class="op-sl" src="/assets/logos/paradox-rift-pokemon-tcg-set-logo-sm.webp" srcset="/assets/logos/paradox-rift-pokemon-tcg-set-logo-sm.webp 300w, /assets/logos/paradox-rift-pokemon-tcg-set-logo.webp 483w" sizes="116px" width="300" height="100" alt="" loading="lazy" decoding="async"></span>
+          <span class="op-sm">
+            <b>Paradox Rift</b>
+            <span class="op-sb" aria-hidden="true"><i style="width:50%"></i></span>
+          </span>
+          <span class="op-sn"><b>1</b> opening<span>2 packs</span></span>
+        </a></li>
+        <li class="op-sr"><a href="/sets/paldea-evolved.html">
+          <span class="op-sw"><img class="op-sl" src="/assets/logos/paldea-evolved-pokemon-tcg-set-logo-sm.webp" srcset="/assets/logos/paldea-evolved-pokemon-tcg-set-logo-sm.webp 303w, /assets/logos/paldea-evolved-pokemon-tcg-set-logo.webp 892w" sizes="116px" width="303" height="100" alt="" loading="lazy" decoding="async"></span>
+          <span class="op-sm">
+            <b>Paldea Evolved</b>
+            <span class="op-sb" aria-hidden="true"><i style="width:50%"></i></span>
+          </span>
+          <span class="op-sn"><b>1</b> opening<span>1 pack</span></span>
+        </a></li>
+      </ul>
+      <p class="op-note">Openings and packs counted here, in our own videos, which is the only place
+        these numbers come from. A rip tagged with two sets is counted under both, so the column adds
+        up to more than the 13 above it. Each row opens that set's guide.</p>
       <div class="op-tw" tabindex="0" role="region" aria-label="What a Blister costs, by set. TCGplayer market price, read August 16, 2026, scrollable table">
         <table class="op-t">
           <caption>What a Blister costs, by set. TCGplayer market price, read August 16, 2026</caption>
           <thead><tr><th scope="col">Set</th><th scope="col">Market</th><th scope="col">Lowest</th><th scope="col">Listings</th></tr></thead>
           <tbody>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/609716/prismatic-evolutions-2-pack-blister-eevee" rel="noopener" target="_blank">Prismatic Evolutions</a></th><td>$37.39</td><td>$1.50</td><td>15</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/553007/shrouded-fable-3-pack-blister-pecharunt" rel="noopener" target="_blank">Shrouded Fable</a></th><td>$33.78</td><td>$55.00</td><td>1</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/210564/rebel-clash-single-pack-blister-mantine" rel="noopener" target="_blank">Rebel Clash</a></th><td>$17.67</td><td>$75.00</td><td>1</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/493999/paldea-evolved-single-pack-blister-smoliv" rel="noopener" target="_blank">Paldea Evolved</a></th><td>$14.41</td><td>$15.00</td><td>7</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/236278/chilling-reign-premium-checklane-blister-decidueye" rel="noopener" target="_blank">Chilling Reign</a></th><td>$14.33</td><td>$25.00</td><td>2</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/633106/destined-rivals-single-pack-blister-zarude" rel="noopener" target="_blank">Destined Rivals</a></th><td>$13.39</td><td>$12.50</td><td>13</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/654151/phantasmal-flames-single-pack-blister-cottonee" rel="noopener" target="_blank">Phantasmal Flames</a></th><td>$13.14</td><td>$1.50</td><td>23</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/501262/obsidian-flames-single-pack-blister-pawmi" rel="noopener" target="_blank">Obsidian Flames</a></th><td>$13.08</td><td>$15.00</td><td>10</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/644359/mega-evolution-single-pack-blister-drifblim" rel="noopener" target="_blank">Mega Evolution</a></th><td>$12.82</td><td>$11.00</td><td>16</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/557338/stellar-crown-single-pack-blister-horsea" rel="noopener" target="_blank">Stellar Crown</a></th><td>$11.80</td><td>$14.99</td><td>3</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/565637/surging-sparks-single-pack-blister-pachirisu" rel="noopener" target="_blank">Surging Sparks</a></th><td>$11.70</td><td>$11.70</td><td>25</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/478765/scarlet-and-violet-single-pack-blister-spidops" rel="noopener" target="_blank">Scarlet &amp; Violet</a></th><td>$11.20</td><td>$10.99</td><td>7</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/617011/temporal-forces-single-pack-blister-scovillain" rel="noopener" target="_blank">Temporal Forces</a></th><td>$10.00</td><td><span class="op-no">not listed</span></td><td><span class="op-no">not listed</span></td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/546606/paradox-rift-premium-checklane-blister-tinkaton" rel="noopener" target="_blank">Paradox Rift</a></th><td>$10.00</td><td><span class="op-no">not listed</span></td><td><span class="op-no">not listed</span></td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/610949/journey-together-single-pack-blister-scraggy" rel="noopener" target="_blank">Journey Together</a></th><td>$9.90</td><td>$9.54</td><td>12</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/544179/twilight-masquerade-single-pack-blister-toxel" rel="noopener" target="_blank">Twilight Masquerade</a></th><td>$9.49</td><td>$8.50</td><td>9</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/692955/pitch-black-single-pack-blister-slowpoke" rel="noopener" target="_blank">Pitch Black</a></th><td>$8.85</td><td>$1.50</td><td>67</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/672410/perfect-order-single-pack-blister-makuhita" rel="noopener" target="_blank">Perfect Order</a></th><td>$8.00</td><td>$6.95</td><td>76</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/684457/chaos-rising-single-pack-blister-toxel" rel="noopener" target="_blank">Chaos Rising</a></th><td>$7.70</td><td>$5.94</td><td>68</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/609716_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/609716_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/609716_in_1000x1000.jpg 1000w" sizes="48px" alt="Prismatic Evolutions 2-Pack Blister [Eevee], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/609716/prismatic-evolutions-2-pack-blister-eevee" rel="noopener" target="_blank">Prismatic Evolutions</a></span></th><td>$37.39</td><td>$1.50</td><td>15</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/553007_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/553007_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/553007_in_1000x1000.jpg 1000w" sizes="48px" alt="Shrouded Fable 3 Pack Blister [Pecharunt], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/553007/shrouded-fable-3-pack-blister-pecharunt" rel="noopener" target="_blank">Shrouded Fable</a></span></th><td>$33.78</td><td>$55.00</td><td>1</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/210564_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/210564_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/210564_in_1000x1000.jpg 1000w" sizes="48px" alt="Rebel Clash Single Pack Blister [Mantine], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/210564/rebel-clash-single-pack-blister-mantine" rel="noopener" target="_blank">Rebel Clash</a></span></th><td>$17.67</td><td>$75.00</td><td>1</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/493999_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/493999_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/493999_in_1000x1000.jpg 1000w" sizes="48px" alt="Paldea Evolved Single Pack Blister [Smoliv], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/493999/paldea-evolved-single-pack-blister-smoliv" rel="noopener" target="_blank">Paldea Evolved</a></span></th><td>$14.41</td><td>$15.00</td><td>7</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/236278_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/236278_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/236278_in_1000x1000.jpg 1000w" sizes="48px" alt="Chilling Reign Premium Checklane Blister [Decidueye], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/236278/chilling-reign-premium-checklane-blister-decidueye" rel="noopener" target="_blank">Chilling Reign</a></span></th><td>$14.33</td><td>$25.00</td><td>2</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/633106_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/633106_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/633106_in_1000x1000.jpg 1000w" sizes="48px" alt="Destined Rivals Single Pack Blister [Zarude], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/633106/destined-rivals-single-pack-blister-zarude" rel="noopener" target="_blank">Destined Rivals</a></span></th><td>$13.39</td><td>$12.50</td><td>13</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/654151_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/654151_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/654151_in_1000x1000.jpg 1000w" sizes="48px" alt="Phantasmal Flames Single Pack Blister [Cottonee], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/654151/phantasmal-flames-single-pack-blister-cottonee" rel="noopener" target="_blank">Phantasmal Flames</a></span></th><td>$13.14</td><td>$1.50</td><td>23</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/501262_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/501262_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/501262_in_1000x1000.jpg 1000w" sizes="48px" alt="Obsidian Flames Single Pack Blister [Pawmi], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/501262/obsidian-flames-single-pack-blister-pawmi" rel="noopener" target="_blank">Obsidian Flames</a></span></th><td>$13.08</td><td>$15.00</td><td>10</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/644359_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/644359_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/644359_in_1000x1000.jpg 1000w" sizes="48px" alt="Mega Evolution Single Pack Blister [Drifblim, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/644359/mega-evolution-single-pack-blister-drifblim" rel="noopener" target="_blank">Mega Evolution</a></span></th><td>$12.82</td><td>$11.00</td><td>16</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/557338_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/557338_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/557338_in_1000x1000.jpg 1000w" sizes="48px" alt="Stellar Crown Single Pack Blister [Horsea], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/557338/stellar-crown-single-pack-blister-horsea" rel="noopener" target="_blank">Stellar Crown</a></span></th><td>$11.80</td><td>$14.99</td><td>3</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/565637_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/565637_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/565637_in_1000x1000.jpg 1000w" sizes="48px" alt="Surging Sparks Single Pack Blister [Pachirisu], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/565637/surging-sparks-single-pack-blister-pachirisu" rel="noopener" target="_blank">Surging Sparks</a></span></th><td>$11.70</td><td>$11.70</td><td>25</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/478765_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/478765_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/478765_in_1000x1000.jpg 1000w" sizes="48px" alt="Scarlet &amp; Violet Single Pack Blister [Spidops], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/478765/scarlet-and-violet-single-pack-blister-spidops" rel="noopener" target="_blank">Scarlet &amp; Violet</a></span></th><td>$11.20</td><td>$10.99</td><td>7</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/617011_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/617011_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/617011_in_1000x1000.jpg 1000w" sizes="48px" alt="Temporal Forces Single Pack Blister [Scovillain], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/617011/temporal-forces-single-pack-blister-scovillain" rel="noopener" target="_blank">Temporal Forces</a></span></th><td>$10.00</td><td><span class="op-no">not listed</span></td><td><span class="op-no">not listed</span></td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/546606_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/546606_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/546606_in_1000x1000.jpg 1000w" sizes="48px" alt="Paradox Rift Premium Checklane Blister [Tinkaton], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/546606/paradox-rift-premium-checklane-blister-tinkaton" rel="noopener" target="_blank">Paradox Rift</a></span></th><td>$10.00</td><td><span class="op-no">not listed</span></td><td><span class="op-no">not listed</span></td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/610949_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/610949_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/610949_in_1000x1000.jpg 1000w" sizes="48px" alt="Journey Together Single Pack Blister [Scraggy], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/610949/journey-together-single-pack-blister-scraggy" rel="noopener" target="_blank">Journey Together</a></span></th><td>$9.90</td><td>$9.54</td><td>12</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/544179_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/544179_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/544179_in_1000x1000.jpg 1000w" sizes="48px" alt="Twilight Masquerade Single Pack Blister [Toxel], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/544179/twilight-masquerade-single-pack-blister-toxel" rel="noopener" target="_blank">Twilight Masquerade</a></span></th><td>$9.49</td><td>$8.50</td><td>9</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/692955_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/692955_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/692955_in_1000x1000.jpg 1000w" sizes="48px" alt="Pitch Black Single Pack Blister [Slowpoke], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/692955/pitch-black-single-pack-blister-slowpoke" rel="noopener" target="_blank">Pitch Black</a></span></th><td>$8.85</td><td>$1.50</td><td>67</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/672410_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/672410_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/672410_in_1000x1000.jpg 1000w" sizes="48px" alt="Perfect Order Single Pack Blister [Makuhita], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/672410/perfect-order-single-pack-blister-makuhita" rel="noopener" target="_blank">Perfect Order</a></span></th><td>$8.00</td><td>$6.95</td><td>76</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/684457_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/684457_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/684457_in_1000x1000.jpg 1000w" sizes="48px" alt="Chaos Rising Single Pack Blister [Toxel], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/684457/chaos-rising-single-pack-blister-toxel" rel="noopener" target="_blank">Chaos Rising</a></span></th><td>$7.70</td><td>$5.94</td><td>68</td></tr>
           </tbody>
         </table>
       </div>
       <p class="op-note">Prices are TCGplayer market and lowest listing, read August 16, 2026,
         the same figures the rest of this site quotes. They move. <a href="/pack-prices.html">Pack prices</a>
-        works out what that comes to per pack.</p>
+        works out what that comes to per pack. Each photograph is TCGplayer's, and it is that row's own
+        product rather than a stand-in, which is why the art is different in every one of them.</p>
     </div>
   </section>
 
@@ -336,10 +459,10 @@ border:1px solid var(--hair);border-radius:6px}
     </div>
     <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
     <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
-    Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+    Set logos are The Pokemon Company's. Product photos are TCGplayer's. Both are used to identify the sets and the products written about here.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=7f0274cc" defer></script>
-<script src="/assets/packplayer.js?v=faa2eb26" defer></script>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
 </body>
 </html>

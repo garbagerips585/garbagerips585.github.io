@@ -133,6 +133,121 @@ for (const s of upcoming) {
 const next = upcoming[0] || null;
 const pokemonCount = upcoming.filter((s) => s.pokemon).length;
 
+// ---------------------------------------------------------------- the calendar
+//
+// A PAGE CALLED A CALENDAR THAT WAS NOT ONE. This page held 1,081 words and a
+// single decorative flower, and the thing it is for is a question a list
+// answers badly: which Saturdays are free, where the gaps are, and which day has
+// two shows on it. So the months get drawn, from the same `upcoming` array the
+// list below is built from. No new data, no new source, no new claim: it is the
+// list, arranged the way a calendar arranges things.
+//
+// DRAWN, NOT PHOTOGRAPHED, because there is nothing to photograph. The flyer
+// slot in data/shows.json has been empty since the file was written, and a stock
+// picture of some cards on a table would be an illustration of nothing.
+//
+// MONOCHROME BECAUSE THE PALETTE IS. There is exactly one accent on this site
+// and it is gold, so a three-colour key for the three regions is not available
+// and was not faked with three greys nobody could tell apart. Region is handled
+// by the filter chips instead, which already exist and which this now moves
+// with; the marks themselves carry the distinction that matters on a Pokemon
+// channel, which is whether the whole floor is Pokemon.
+const CAL_W = 25; // day column
+const CAL_H = 23; // day row
+const CAL_TOP = 15; // room for the S M T W T F S header
+
+/** Every month from the month we are in to the month of the last show. */
+function calMonths() {
+  if (!upcoming.length) return [];
+  const start = new Date(`${TODAY.slice(0, 7)}-01T12:00:00Z`);
+  const last = new Date(`${upcoming[upcoming.length - 1].date.slice(0, 7)}-01T12:00:00Z`);
+  const out = [];
+  for (let d = start; d <= last; d = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1, 12))) {
+    out.push({ y: d.getUTCFullYear(), m: d.getUTCMonth() });
+  }
+  return out;
+}
+const CAL = calMonths();
+
+const daysIn = (y, m) => new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+const firstDow = (y, m) => new Date(Date.UTC(y, m, 1)).getUTCDay();
+const rowsFor = (y, m) => Math.ceil((firstDow(y, m) + daysIn(y, m)) / 7);
+
+// One height for every month so the row of them does not come out ragged. Five
+// rows covers all five months as this is written, but a month that starts on a
+// Saturday and runs 31 days needs six, so it is computed rather than assumed.
+const CAL_ROWS = CAL.reduce((n, { y, m }) => Math.max(n, rowsFor(y, m)), 0);
+const CAL_VB_H = CAL_TOP + CAL_ROWS * CAL_H;
+
+/** Shows keyed by ISO date, so a day can carry two. */
+const showsOn = new Map();
+for (const s of upcoming) {
+  if (!showsOn.has(s.date)) showsOn.set(s.date, []);
+  showsOn.get(s.date).push(s);
+}
+
+const ordinal = (n) =>
+  n + (n % 100 >= 11 && n % 100 <= 13 ? "th" : ["th", "st", "nd", "rd"][n % 10] || "th");
+
+/**
+ * One month, drawn.
+ *
+ * `role="img"` with a written label, rather than leaving 31 loose numbers for a
+ * screen reader to read out one at a time. Everything in here is also in the
+ * list below, in sentences, so the picture is the redundant copy and the label
+ * only has to say what it shows.
+ */
+function calMonth({ y, m }) {
+  const dim = daysIn(y, m);
+  const off = firstDow(y, m);
+  const label = `${MONTHS_LONG[m]} ${y}`;
+  const cells = [];
+  const hits = [];
+  for (let day = 1; day <= dim; day++) {
+    const i = off + day - 1;
+    const col = i % 7;
+    const row = Math.floor(i / 7);
+    const cx = col * CAL_W + CAL_W / 2;
+    const top = CAL_TOP + row * CAL_H;
+    const iso = `${y}-${String(m + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+    const list = showsOn.get(iso) || [];
+    const past = iso < TODAY;
+    if (list.length) hits.push(list.length > 1 ? `${ordinal(day)} (two)` : ordinal(day));
+    const dots = list
+      .map((s, n) => {
+        const spread = (n - (list.length - 1) / 2) * 7;
+        return `<circle class="cal-dot${s.pokemon ? " pk" : ""}" data-region="${esc(s.region || "")}"
+            data-date="${esc(iso)}" cx="${(cx + spread).toFixed(1)}" cy="${top + 17.5}" r="2.7"></circle>`;
+      })
+      .join("");
+    cells.push(
+      `<g class="cal-d${list.length ? " has" : ""}${
+        list.some((s) => s.featured) ? " feat" : ""
+      }${past ? " is-past" : ""}" data-date="${esc(iso)}">` +
+        (list.length
+          ? `<rect class="cal-pill" x="${cx - 10.5}" y="${top + 1}" width="21" height="20" rx="5"></rect>`
+          : "") +
+        `<text class="cal-n" x="${cx}" y="${top + 10}">${day}</text>${dots}</g>`
+    );
+  }
+  const head = ["S", "M", "T", "W", "T", "F", "S"]
+    .map((d, i) => `<text class="cal-dow" x="${i * CAL_W + CAL_W / 2}" y="7">${d}</text>`)
+    .join("");
+  const aria = hits.length
+    ? `${label}: shows on the ${hits.join(", the ")}.`
+    : `${label}: nothing listed yet.`;
+  return `<figure class="cal-m">
+          <figcaption>${esc(label)}</figcaption>
+          <svg viewBox="0 0 ${CAL_W * 7} ${CAL_VB_H}" role="img" aria-label="${esc(aria)}">
+            ${head}
+            ${cells.join("\n            ")}
+          </svg>
+        </figure>`;
+}
+
+const calDays = showsOn.size;
+const calDouble = [...showsOn.values()].filter((v) => v.length > 1).length;
+
 // ---------------------------------------------------------------- flyer check
 
 // A flyer named in the data but missing on disk would render as a broken box on
@@ -233,6 +348,41 @@ const head = `<!DOCTYPE html>
 <meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
+${/* Inline, not in ui.css: this page is the only user and ui.css is render
+      blocking on all 426 pages. The set guides already work this way. */ ""}
+<style>
+.cal-wrap{margin:var(--s5) 0 0}
+.cal-grid{display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(148px,1fr));
+  align-items:start}
+.cal-m{margin:0}
+.cal-m figcaption{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-2);margin-bottom:6px}
+.cal-m svg{display:block;width:100%;height:auto;overflow:visible}
+.cal-dow{font:700 7px/1 var(--mono);fill:var(--ink-2);text-anchor:middle;letter-spacing:.02em}
+.cal-n{font:400 9.5px/1 var(--mono);fill:var(--ink-2);text-anchor:middle}
+.cal-d.has .cal-n{font-weight:700;fill:var(--ink)}
+.cal-pill{fill:var(--chip-gold-bg)}
+.cal-d.feat .cal-pill{stroke:var(--ink);stroke-width:1.4}
+.cal-dot{fill:var(--ink)}
+.cal-dot.pk{fill:var(--gold);stroke:var(--gold-deep);stroke-width:.8}
+/* Dimmed rather than removed: a month with the first half greyed out is how
+   you see at a glance where in it you are standing. */
+.cal-d.is-past{opacity:.36}
+/* Toggled by the filter below, which drives the calendar and the list together.
+   display:none rather than the hidden attribute, which SVG elements do not
+   reliably honour. */
+.cal-dot.is-off{display:none}
+.cal-d.is-empty .cal-pill{display:none}
+.cal-d.is-empty .cal-n{font-weight:400;fill:var(--ink-2)}
+.cal-key{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);margin-top:var(--s3);
+  font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2)}
+.cal-key span{display:inline-flex;align-items:center;gap:6px}
+.cal-key i{width:9px;height:9px;border-radius:50%;background:var(--ink);flex:none}
+.cal-key i.pk{background:var(--gold);border:1px solid var(--gold-deep)}
+.cal-key i.day{width:16px;height:15px;border-radius:4px;background:var(--chip-gold-bg)}
+.cal-note{margin-top:var(--s2);font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2);
+  max-width:44em}
+</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -325,6 +475,22 @@ ${next ? `
         ${REGIONS.map((r) => `<button class="chip filt" type="button" data-region="${r.id}"${r.id === "all" ? ' aria-current="true"' : ""}>${esc(r.label)}</button>`).join("\n        ")}
       </div>
     </div>
+${CAL.length ? `
+    <div class="cal-wrap">
+      <div class="cal-grid">
+        ${CAL.map(calMonth).join("\n        ")}
+      </div>
+      <p class="cal-key">
+        <span><i class="day"></i>a day with a show</span>
+        <span><i></i>a card show</span>
+        <span><i class="pk"></i>an all Pokemon show</span>
+        <span><i class="day" style="background:none;border:1.4px solid var(--ink)"></i>the big one</span>
+      </p>
+      <p class="cal-note">${upcoming.length} show${upcoming.length === 1 ? "" : "s"} on
+        ${calDays} day${calDays === 1 ? "" : "s"}${
+          calDouble ? `, ${calDouble === 1 ? "one day" : `${calDouble} days`} with two of them` : ""
+        }. Same list as below, drawn. The area buttons above move both.</p>
+    </div>` : ""}
 
     <div id="showList">
 ${byMonth
@@ -406,6 +572,18 @@ ${footer("Show listings are collected by hand and change without notice. Check w
     }
   }
 
+  // The calendar is drawn from the same list, so it gets the same sweep. A mark
+  // for a show that has already happened is the identical bug, just smaller.
+  document.querySelectorAll('.cal-dot').forEach(function(d){
+    if (d.dataset.date < today) d.remove();
+  });
+  document.querySelectorAll('.cal-d').forEach(function(g){
+    // Re-derived rather than trusted: the build stamped is-past against the
+    // build clock, and the whole point of this pass is that the build clock can
+    // be days old.
+    g.classList.toggle('is-past', g.dataset.date < today);
+  });
+
   var empty = document.getElementById('showEmpty');
   function apply(region){
     document.querySelectorAll('.show').forEach(function(el){
@@ -418,6 +596,15 @@ ${footer("Show listings are collected by hand and change without notice. Check w
       if (vis) any = true;
     });
     if (empty) empty.hidden = any;
+    // Same filter, same click, both views. A calendar that kept showing
+    // Syracuse while the list below had been narrowed to Rochester would be
+    // worse than no calendar.
+    document.querySelectorAll('.cal-dot').forEach(function(d){
+      d.classList.toggle('is-off', region !== 'all' && d.dataset.region !== region);
+    });
+    document.querySelectorAll('.cal-d').forEach(function(g){
+      g.classList.toggle('is-empty', !g.querySelector('.cal-dot:not(.is-off)'));
+    });
   }
   document.querySelectorAll('.chip.filt').forEach(function(b){
     b.addEventListener('click', function(){

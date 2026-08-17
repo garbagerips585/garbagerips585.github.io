@@ -1,0 +1,2163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 100 Most Valuable Raw Pokemon Cards on TCGplayer | Garbage Rips 585</title>
+<meta name="description" content="The 100 most valuable ungraded Pokemon cards by TCGplayer market price, read August 16, 2026. English cards only, no graded slabs, no auction sales, with the cheapest live listing beside every market price.">
+<link rel="canonical" href="https://garbagerips585.github.io/most-valuable-cards.html">
+<meta property="og:title" content="The 100 Most Valuable Raw Pokemon Cards on TCGplayer">
+<meta property="og:description" content="The 100 most valuable ungraded Pokemon cards by TCGplayer market price, read August 16, 2026. English cards only, no graded slabs, no auction sales, with the cheapest live listing beside every market price.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garbagerips585.github.io/most-valuable-cards.html">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-most-valuable-cards.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-most-valuable-cards.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#111111">
+<link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<style>
+/* This page's own block rather than ui.css. ui.css is render blocking on every
+   page on the site and these rules are used by two of them. */
+
+/* THE ROW IS ONE FLAT GRID AT TWO SHAPES. Phone stacks name, then set, then
+   price, all beside one picture that spans the three; from 760px up the same
+   cells become table columns with a header above them, which is where a hundred
+   row list is actually read. Nothing is nested, which is what lets the picture
+   span rather than push. See the note above row() for why that is worth 3,900px
+   of page height on a phone.
+
+   THE NAME GETS THE FULL WIDTH ON A PHONE, and that is the second attempt.
+   The first gave the price a column of its own and it cost more than it looked
+   like it would. Measured at 390: .wrap leaves 366px for the row, the price
+   column took 116px of it ("$18,750.00" is ten characters of Space Mono at 1rem
+   and cannot wrap), the rank and picture took another 94px, and the name was
+   left with 146px. At .95rem Outfit that is about 20 REAL characters a line, so
+   a two line clamp held about 40. CHECKED IN THE BROWSER RATHER THAN ASSUMED:
+   23 of 100 card names and 72 of 100 sealed names were being cut off, the
+   longest sealed name being 70 characters. Dropping the price under the name
+   gives it 248px, about 34 real characters a line, and the clamp is 3 lines, so
+   nothing in either list truncates on a phone. Re-measured after: 0 of 200.
+
+   REAL CHARACTERS, NOT THE ch UNIT. One ch is the advance width of a "0", and
+   in Outfit a digit is around 1.43 times the average character, so sizing a
+   text column in ch over-promises by about 40%. Every width here was measured
+   against the actual longest string in data/top100.json. */
+.t100{list-style:none;margin:var(--s4) 0 0;padding:0;display:flex;flex-direction:column;gap:5px}
+.t100-li{position:relative;background:var(--card);border:1px solid var(--hair);
+  border-radius:var(--r-sm);
+  display:grid;gap:0 10px;padding:9px 10px;align-items:start;
+  grid-template-columns:26px 52px minmax(0,1fr);
+  grid-template-areas:"rank shot name" "rank shot meta" "rank shot price"}
+.t100-li:hover{border-color:var(--keyline)}
+.t100-set,.t100-tag,.t100-count{display:none}
+
+.t100-rank{grid-area:rank;align-self:center;font-family:var(--mono);font-size:var(--t-sm);
+  color:var(--ink-2);text-align:right;font-variant-numeric:tabular-nums}
+/* WHITE, NOT THE GREY TINT. object-fit:contain letterboxes every photo whose
+   shape is not the box's, and TCGplayer's product photography is shot on white,
+   so a tinted frame drew grey bands above and below every booster box. The grey
+   is kept for the frame with no photo in it at all, where it is the point. */
+.t100-shot{grid-area:shot;align-self:center;display:block;width:52px;height:72px;
+  background:var(--paper-2);border-radius:3px;overflow:hidden}
+.t100-img{display:block;width:100%;height:100%;object-fit:contain}
+/* A product with no photo keeps the tinted frame rather than showing a broken
+   icon, and never fires a request: sync-top100.mjs fetches all 200 urls each run
+   and flags the dead ones, so the markup carries no src at all for those. */
+.t100-img-none{background:var(--paper-3)}
+
+/* The stretched link. ::after covers the whole <li> so the rank, the picture
+   and the set are one tap target, while the anchor's accessible name stays the
+   product name. .t100-price is raised above it so the one outbound link on the
+   row is still clickable. */
+.t100-name{grid-area:name;align-self:end;font-weight:600;line-height:1.25;
+  color:inherit;text-decoration:none;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.t100-name::after{content:"";position:absolute;inset:0;z-index:0}
+.t100-li:hover .t100-name{text-decoration:underline}
+.t100-name:focus-visible::after{outline:2px solid var(--keyline);outline-offset:2px;border-radius:var(--r-sm)}
+.t100-meta{grid-area:meta;align-self:start;font-size:var(--t-label);color:var(--ink-2);
+  line-height:1.35;margin-top:2px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.t100-meta i{font-style:normal;opacity:.5;padding:0 2px}
+/* Where the row goes, for a screen reader. Part of the link's accessible name,
+   never painted: there is no room for it on a phone and it would be noise on a
+   desktop where the set is already its own column. */
+.t100-go{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+  clip-path:inset(50%);white-space:nowrap}
+
+.t100-price{grid-area:price;position:relative;z-index:1;
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:1px 10px;margin-top:4px;min-width:0}
+.t100-price b{font-family:var(--mono);font-size:1rem;font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em;white-space:nowrap}
+.t100-low{font-size:var(--t-micro);color:var(--ink-2);font-family:var(--mono);white-space:nowrap}
+.t100-low-none{opacity:.65}
+.t100-check{font-size:var(--t-micro);color:var(--ink-2);text-decoration:underline;
+  text-underline-offset:2px;white-space:nowrap}
+.t100-check:hover{color:var(--ink)}
+.t100-check::after{content:" \2197"}
+.t100-flag{font-size:var(--t-micro);color:var(--ink);background:var(--chip-gold-bg);
+  border-radius:3px;padding:1px 5px;flex-basis:100%}
+
+/* The header strip only exists in the table layout. */
+.t100-head{display:none}
+
+@media (min-width:760px){
+  /* Seven columns: rank, picture, name, set, rarity or form, listings, price.
+     The name column is twice the set column because it carries the longest
+     strings in the data, 51 characters raw and 70 sealed. */
+  .t100-li,.t100-head{grid-template-columns:32px 60px minmax(0,2fr) minmax(0,1.05fr) 116px 88px 138px}
+  .t100-li{grid-template-areas:"rank shot name set tag count price";align-items:center;
+    gap:0 12px;padding:9px 12px}
+  /* THE PICTURE GROWS ON DESKTOP BECAUSE THE BYTES ARE ALREADY PAID FOR. The
+     smallest rendition this CDN serves is 150px wide; _50w, _100w and _120w all
+     answer 403, checked on five ids. So a 52px box on a phone asks for nearly
+     three times the pixels it paints and there is nothing to be done about it.
+     Desktop has the room, so it takes 60px and then 72px, which at DPR 2 is 120
+     and 144 real pixels against the 150 that arrived: the same download, most of
+     it now actually used. */
+  .t100-shot{width:60px;height:83px}
+  /* The set, the rarity or form and the listing count get their own columns, so
+     the line under the name stops repeating them. */
+  .t100-meta{display:none}
+  .t100-name{align-self:center;-webkit-line-clamp:2}
+  .t100-set,.t100-tag,.t100-count{display:block;font-size:var(--t-sm);color:var(--ink-2);
+    min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .t100-count{font-size:var(--t-label);text-align:right}
+  .t100-price{flex-direction:column;flex-wrap:nowrap;align-items:flex-end;gap:1px;
+    margin-top:0;text-align:right}
+  .t100-price b{font-size:1.05rem}
+  .t100-flag{flex-basis:auto;max-width:100%}
+  .t100-head{display:grid;align-items:end;padding:0 12px 6px;font-family:var(--mono);
+    font-size:var(--t-micro);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+  .t100-head .t100-h-name{grid-column:1/4}
+  .t100-head .t100-h-count,.t100-head .t100-h-price{text-align:right}
+}
+@media (min-width:1080px){
+  .t100-li,.t100-head{grid-template-columns:36px 72px minmax(0,2fr) minmax(0,1.05fr) 122px 94px 142px}
+  .t100-shot{width:72px;height:99px}
+}
+
+/* The filter, sealed page only. Ranks are NOT renumbered when rows hide: the
+   gaps are the point, because a filtered view that renumbers itself is quietly
+   claiming to be a different top 100. */
+.t100-filter{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:var(--s4)}
+.t100-filter button{font:inherit;font-size:var(--t-sm);padding:6px 12px;cursor:pointer;
+  background:var(--card);border:1px solid var(--keyline);border-radius:var(--r-pill);color:var(--ink)}
+.t100-filter button[aria-pressed="true"]{background:var(--keyline);color:var(--chrome-ink)}
+.t100-filter p{margin:0;font-size:var(--t-sm);color:var(--ink-2)}
+.t100.hide-multi .t100-li.is-multi{display:none}
+
+/* ui.css draws .fk-golden full bleed inside the wrap, which is right for the
+   two or three sentences the other pages put in one. This one holds four
+   paragraphs, and at 1440 that ran the text to about 700px inside a 1392px
+   black box, leaving half of it empty and the lines longer than is comfortable
+   to read. Capped to a measure instead. */
+.fk-golden{max-width:58em}
+
+/* The methodology block. Deliberately plain and deliberately long: it is the
+   only reason the numbers above it are allowed on the page. */
+.t100-src{display:grid;gap:10px;margin-top:var(--s4)}
+.t100-src div{background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm);padding:12px 14px}
+.t100-src h3{margin:0 0 4px;font-size:var(--t-body);font-family:var(--body);font-weight:700}
+.t100-src p{margin:0;font-size:var(--t-sm);color:var(--ink-2);max-width:60em}
+.t100-src code{font-family:var(--mono);font-size:.85em;word-break:break-all}
+@media (min-width:900px){.t100-src{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form class="bar-search" role="search" action="/search.html" method="get">
+      <label class="sr-only" for="navSearch">Search cards, sets, guides and rips</label>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+      <input id="navSearch" name="q" type="search" placeholder="Search cards, sets, rips" aria-label="Search cards, sets, guides and every rip" autocomplete="off">
+    </form>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/cards.html">Card search</a>
+      <a href="/sets/">Set guides</a>
+      <a href="/start.html">Start here</a>
+      <a href="/card-shows.html">Card shows</a>
+    </nav>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span>Menu</span>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="All sections">
+  <div class="menu-inner">
+    <div class="menu-g">
+      <p class="menu-h">Watch</p>
+      <ul>
+        <li><a href="/videos.html">Rips</a></li>
+        <li><a href="/playlists.html">Playlists</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">The binder</p>
+      <ul>
+        <li><a href="/hall.html">Best pulls</a></li>
+        <li><a href="/wanted.html">Most wanted</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Cards</p>
+      <ul>
+        <li><a href="/cards.html">Card search</a></li>
+        <li><a href="/pokemon/">By Pokemon</a></li>
+        <li><a href="/sets/">Set guides</a></li>
+        <li><a href="/expansions.html">Every set ever</a></li>
+        <li><a href="/upcoming.html">Coming next</a></li>
+        <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/pack-prices.html">Pack prices</a></li>
+        <li><a href="/how-many-packs.html">Packs per box</a></li>
+        <li><a href="/openings/">Sealed products</a></li>
+        <li><a href="/drops.html">Drops this week</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Guides</p>
+      <ul>
+        <li><a href="/start.html">Start here</a></li>
+        <li><a href="/how-to-play.html">How to play</a></li>
+        <li><a href="/tcg-live.html">Code cards</a></li>
+        <li><a href="/tcg-pocket.html">Phone version</a></li>
+        <li><a href="/what-set.html">Set finder</a></li>
+        <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/types.html">Card types</a></li>
+        <li><a href="/fake-cards.html">Fakes</a></li>
+        <li><a href="/will-it-grade.html">Will it grade</a></li>
+        <li><a href="/grading.html">Grading cost</a></li>
+        <li><a href="/selling.html">Where to sell</a></li>
+        <li><a href="/buying.html">Where to buy</a></li>
+        <li><a href="/luck.html">Luck, measured</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Play</p>
+      <ul>
+        <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
+        <li><a href="/lore.html">Pokemon lore</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Rochester, NY</p>
+      <ul>
+        <li><a href="/card-shows.html">Card shows</a></li>
+        <li><a href="/shops.html">Card shops</a></li>
+        <li><a href="/vendors.html">Local vendors</a></li>
+        <li><a href="/creators.html">Local creators</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </div>
+  </div>
+  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe on YouTube</a>
+</nav>
+<main id="main">
+
+<header class="set-hero">
+  <div class="wrap">
+    <span class="kicker">Pokemon TCG &bull; Ungraded, English, priced by TCGplayer</span>
+    <h1>The 100 most valuable <span class="hl">raw</span> Pokemon cards</h1>
+    <p class="lede" style="max-width:40em">Every one of these is a loose card, out of a sleeve, ungraded. Ranked by TCGplayer's own market price for their English Pokemon catalogue, read on the date below and checked against a second TCGplayer source.</p>
+  </div>
+</header>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / Most valuable cards</p>
+
+    <div class="fk-golden">
+      <p class="fk-golden-h">What this list actually is</p>
+      <h2>One marketplace, one number, <span class="hl">one day</span></h2>
+      <p>Every figure here is TCGplayer's own <b>Market Price</b> for that product, read on
+        <b>August 16, 2026</b>. Market Price is their figure, worked out from recent completed sales on their
+        marketplace. It is not the cheapest copy on sale right now, it is not what one sold for last week,
+        and it is not an appraisal. The cheapest live listing is printed next to it on every row so the
+        two cannot be mistaken for each other.</p>
+      <p><b>What this ranking cannot see.</b> Graded cards are not in it: a PSA 10 of any of these is a different object at a different price and this feed does not carry one. Japanese cards are not in it either, because they are a separate catalogue on the same site. Nor are the six and seven figure cards people usually mean by most valuable, because those sell at auction houses and private sales that TCGplayer never sees.</p>
+      <p><b>The cheapest copy is often dearer than the market price, and that is not a mistake.</b>
+        26 of these 100 have a lowest listing above their market price today.
+        Market Price looks backwards at what actually sold; a listing is what somebody is asking right now.
+        On thin, old or barely traded things, and most of this list is all three, the asking prices sit well
+        above the last sales, and sometimes there is nothing for sale at all.</p>
+      <p>Prices move every day and this page does not. The date above is the date the numbers were read,
+        and if it looks old then the numbers are old.</p>
+    </div>
+
+    <div class="facts" style="margin-top:20px">
+      <div class="fact"><div class="n">$10,000</div><div class="l">Dearest, Charizard</div></div>
+      <div class="fact"><div class="n">$699</div><div class="l">What it takes to make the 100</div></div>
+      <div class="fact"><div class="n">380</div><div class="l">Products checked to find them</div></div>
+      <div class="fact wide"><div class="n" style="font-size:1.15rem">August 16, 2026</div><div class="l">Prices read on</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The list</p>
+    <h2>All 100, dearest <span class="hl">first</span></h2>
+    <p class="lede" style="max-width:44em">Ranked by market price, dearest first. The picture, the name and the set take you to our page for it; the small link under each price opens that product on TCGplayer so you can check the figure yourself.</p>
+    
+
+    <div class="t100-head" aria-hidden="true">
+      <span class="t100-h-name">Rank and name</span><span>Set</span><span>Rarity</span><span class="t100-h-count">For sale</span><span class="t100-h-price">Market price</span>
+    </div>
+    <ol class="t100" id="t100list">
+<li class="t100-li">
+  <span class="t100-rank">1</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/106999_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/charizard.html">Charizard<span class="t100-go">, every Charizard card we cover</span></a>
+  <span class="t100-meta">Base Set (Shadowless) <i aria-hidden="true">&bull;</i> no. 004/102 <i aria-hidden="true">&bull;</i> Holo Rare</span>
+  <span class="t100-set">Base Set (Shadowless)</span>
+  <span class="t100-tag">Holo Rare</span>
+  <span class="t100-count">33 listings</span>
+  <span class="t100-price">
+    <b>$10,000.00</b>
+    <span class="t100-low">low $599.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/106999/charizard" rel="noopener nofollow"
+      aria-label="Check Charizard on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">2</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/86905_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Lugia">Lugia<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Aquapolis <i aria-hidden="true">&bull;</i> no. 149/147 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">Aquapolis</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">8 listings</span>
+  <span class="t100-price">
+    <b>$4,500.00</b>
+    <span class="t100-low">low $3,199.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/86905/lugia" rel="noopener nofollow"
+      aria-label="Check Lugia on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">3</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/89965_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Torchic%20Star">Torchic Star<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">EX Team Rocket Returns <i aria-hidden="true">&bull;</i> no. 108/109 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Team Rocket Returns</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">3 listings</span>
+  <span class="t100-price">
+    <b>$4,500.00</b>
+    <span class="t100-low">low $1,799.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/89965/torchic-star" rel="noopener nofollow"
+      aria-label="Check Torchic Star on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">4</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/89171_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Shining%20Tyranitar">Shining Tyranitar<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Neo Destiny <i aria-hidden="true">&bull;</i> no. 113/105 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">Neo Destiny</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">19 listings</span>
+  <span class="t100-price">
+    <b>$4,249.99</b>
+    <span class="t100-low">low $408.21</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/89171/shining-tyranitar" rel="noopener nofollow"
+      aria-label="Check Shining Tyranitar on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">5</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/87408_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/mew.html">Mew Star (Delta Species)<span class="t100-go">, every Mew card we cover</span></a>
+  <span class="t100-meta">EX Dragon Frontiers <i aria-hidden="true">&bull;</i> no. 101/101 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Dragon Frontiers</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">none for sale</span>
+  <span class="t100-price">
+    <b>$3,500.00</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/87408/mew-star-delta-species" rel="noopener nofollow"
+      aria-label="Check Mew Star (Delta Species) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">6</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/88111_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/pikachu.html">Pikachu Star<span class="t100-go">, every Pikachu card we cover</span></a>
+  <span class="t100-meta">EX Holon Phantoms <i aria-hidden="true">&bull;</i> no. 104/110 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Holon Phantoms</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$3,216.67</b>
+    <span class="t100-low">low $6,997.84</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/88111/pikachu-star" rel="noopener nofollow"
+      aria-label="Check Pikachu Star on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">7</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/183899_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/latias.html">Latias &amp; Latios GX (Alternate Full Art)<span class="t100-go">, every Latias card we cover</span></a>
+  <span class="t100-meta">SM - Team Up <i aria-hidden="true">&bull;</i> no. 170/181 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">SM - Team Up</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">13 listings</span>
+  <span class="t100-price">
+    <b>$3,157.93</b>
+    <span class="t100-low">low $950.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/183899/latias-and-latios-gx-alternate-full-art" rel="noopener nofollow"
+      aria-label="Check Latias &amp; Latios GX (Alternate Full Art) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">8</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/89167_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Shining%20Mewtwo">Shining Mewtwo<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Neo Destiny <i aria-hidden="true">&bull;</i> no. 109/105 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">Neo Destiny</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">10 listings</span>
+  <span class="t100-price">
+    <b>$3,000.00</b>
+    <span class="t100-low">low $665.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/89167/shining-mewtwo" rel="noopener nofollow"
+      aria-label="Check Shining Mewtwo on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">9</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/90046_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Treecko%20Star">Treecko Star<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">EX Team Rocket Returns <i aria-hidden="true">&bull;</i> no. 109/109 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Team Rocket Returns</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$2,400.00</b>
+    <span class="t100-low">low $2,999.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/90046/treecko-star" rel="noopener nofollow"
+      aria-label="Check Treecko Star on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">10</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/246723_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/umbreon.html">Umbreon VMAX (Alternate Art Secret)<span class="t100-go">, every Umbreon card we cover</span></a>
+  <span class="t100-meta">SWSH07: Evolving Skies <i aria-hidden="true">&bull;</i> no. 215/203 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">SWSH07: Evolving Skies</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">43 listings</span>
+  <span class="t100-price">
+    <b>$2,244.47</b>
+    <span class="t100-low">low $929.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/246723/umbreon-vmax-alternate-art-secret" rel="noopener nofollow"
+      aria-label="Check Umbreon VMAX (Alternate Art Secret) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">11</span>
+  <span class="t100-shot"><span class="t100-img t100-img-none" aria-hidden="true"></span></span>
+  <a class="t100-name" href="/pokemon/gengar.html">Gengar - SWSH241 (Prerelease) (Staff)<span class="t100-go">, every Gengar card we cover</span></a>
+  <span class="t100-meta">SWSH: Sword &amp; Shield Promo Cards <i aria-hidden="true">&bull;</i> no. SWSH241 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">SWSH: Sword &amp; Shield Promo Cards</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$2,199.99</b>
+    <span class="t100-low">low $2,999.95</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/607368/gengar-swsh241-prerelease-staff" rel="noopener nofollow"
+      aria-label="Check Gengar - SWSH241 (Prerelease) (Staff) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">12</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/85503_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/flareon.html">Flareon Star<span class="t100-go">, every Flareon card we cover</span></a>
+  <span class="t100-meta">EX Power Keepers <i aria-hidden="true">&bull;</i> no. 100/108 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Power Keepers</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">6 listings</span>
+  <span class="t100-price">
+    <b>$1,999.95</b>
+    <span class="t100-low">low $1,700.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/85503/flareon-star" rel="noopener nofollow"
+      aria-label="Check Flareon Star on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">13</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/86351_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/jolteon.html">Jolteon Star<span class="t100-go">, every Jolteon card we cover</span></a>
+  <span class="t100-meta">EX Power Keepers <i aria-hidden="true">&bull;</i> no. 101/108 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Power Keepers</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">6 listings</span>
+  <span class="t100-price">
+    <b>$1,999.94</b>
+    <span class="t100-low">low $999.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/86351/jolteon-star" rel="noopener nofollow"
+      aria-label="Check Jolteon Star on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">14</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/89162_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Shining%20Celebi">Shining Celebi<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Neo Destiny <i aria-hidden="true">&bull;</i> no. 106/105 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">Neo Destiny</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">15 listings</span>
+  <span class="t100-price">
+    <b>$1,801.00</b>
+    <span class="t100-low">low $397.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/89162/shining-celebi" rel="noopener nofollow"
+      aria-label="Check Shining Celebi on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">15</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/162271_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Mudkip%20-%204%2F5">Mudkip - 4/5<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Kids WB Promos <i aria-hidden="true">&bull;</i> no. 004/005 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">Kids WB Promos</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">none for sale</span>
+  <span class="t100-price">
+    <b>$1,710.00</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/162271/mudkip-4-5" rel="noopener nofollow"
+      aria-label="Check Mudkip - 4/5 on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">16</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/183830_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/gengar.html">Gengar &amp; Mimikyu GX (Alternate Full Art)<span class="t100-go">, every Gengar card we cover</span></a>
+  <span class="t100-meta">SM - Team Up <i aria-hidden="true">&bull;</i> no. 165/181 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">SM - Team Up</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">15 listings</span>
+  <span class="t100-price">
+    <b>$1,610.07</b>
+    <span class="t100-low">low $899.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/183830/gengar-and-mimikyu-gx-alternate-full-art" rel="noopener nofollow"
+      aria-label="Check Gengar &amp; Mimikyu GX (Alternate Full Art) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">17</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/88537_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Raikou%20Star">Raikou Star<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">EX Unseen Forces <i aria-hidden="true">&bull;</i> no. 114/115 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Unseen Forces</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">5 listings</span>
+  <span class="t100-price">
+    <b>$1,600.00</b>
+    <span class="t100-low">low $950.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/88537/raikou-star" rel="noopener nofollow"
+      aria-label="Check Raikou Star on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">18</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/257103_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/pikachu.html">Pikachu - 227/S-P<span class="t100-go">, every Pikachu card we cover</span></a>
+  <span class="t100-meta">SWSH: Sword &amp; Shield Promo Cards <i aria-hidden="true">&bull;</i> no. 227/S-P <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">SWSH: Sword &amp; Shield Promo Cards</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$1,600.00</b>
+    <span class="t100-low">low $30,000.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/257103/pikachu-227-s-p" rel="noopener nofollow"
+      aria-label="Check Pikachu - 227/S-P on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">19</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/83502_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Alakazam%20Star">Alakazam Star<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">EX Crystal Guardians <i aria-hidden="true">&bull;</i> no. 99/100 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Crystal Guardians</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">8 listings</span>
+  <span class="t100-price">
+    <b>$1,500.00</b>
+    <span class="t100-low">low $1,000.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/83502/alakazam-star" rel="noopener nofollow"
+      aria-label="Check Alakazam Star on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">20</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/86658_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/latias.html">Latias Star<span class="t100-go">, every Latias card we cover</span></a>
+  <span class="t100-meta">EX Deoxys <i aria-hidden="true">&bull;</i> no. 105/107 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Deoxys</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$1,500.00</b>
+    <span class="t100-low">low $14,500.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/86658/latias-star" rel="noopener nofollow"
+      aria-label="Check Latias Star on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">21</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/86672_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Latios%20Star">Latios Star<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">EX Deoxys <i aria-hidden="true">&bull;</i> no. 106/107 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Deoxys</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$1,500.00</b>
+    <span class="t100-low">low $1,599.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/86672/latios-star" rel="noopener nofollow"
+      aria-label="Check Latios Star on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">22</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/87608_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Mudkip%20-%20005%20(POP%20Tournament)">Mudkip - 005 (POP Tournament)<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Nintendo Promos <i aria-hidden="true">&bull;</i> no. 005 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">Nintendo Promos</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$1,500.00</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/87608/mudkip-005-pop-tournament" rel="noopener nofollow"
+      aria-label="Check Mudkip - 005 (POP Tournament) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">23</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/90137_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/umbreon.html">Umbreon (13)<span class="t100-go">, every Umbreon card we cover</span></a>
+  <span class="t100-meta">Neo Discovery <i aria-hidden="true">&bull;</i> no. 13/75 <i aria-hidden="true">&bull;</i> Holo Rare</span>
+  <span class="t100-set">Neo Discovery</span>
+  <span class="t100-tag">Holo Rare</span>
+  <span class="t100-count">29 listings</span>
+  <span class="t100-price">
+    <b>$1,500.00</b>
+    <span class="t100-low">low $224.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/90137/umbreon-13" rel="noopener nofollow"
+      aria-label="Check Umbreon (13) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">24</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/489298_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/gengar.html">Gengar VMAX - 157/264<span class="t100-go">, every Gengar card we cover</span></a>
+  <span class="t100-meta">Prize Pack Series Cards <i aria-hidden="true">&bull;</i> no. 157/264 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">Prize Pack Series Cards</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">none for sale</span>
+  <span class="t100-price">
+    <b>$1,499.99</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/489298/gengar-vmax-157-264" rel="noopener nofollow"
+      aria-label="Check Gengar VMAX - 157/264 on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">25</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/610516_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/prismatic-evolutions.html">Umbreon ex - 161/131<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV: Prismatic Evolutions <i aria-hidden="true">&bull;</i> no. 161/131 <i aria-hidden="true">&bull;</i> Special Illustration Rare</span>
+  <span class="t100-set">SV: Prismatic Evolutions</span>
+  <span class="t100-tag">Special Illustration Rare</span>
+  <span class="t100-count">58 listings</span>
+  <span class="t100-price">
+    <b>$1,499.48</b>
+    <span class="t100-low">low $237.67</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/610516/umbreon-ex-161-131" rel="noopener nofollow"
+      aria-label="Check Umbreon ex - 161/131 on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">26</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/89163_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Shining%20Charizard">Shining Charizard<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Neo Destiny <i aria-hidden="true">&bull;</i> no. 107/105 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">Neo Destiny</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">16 listings</span>
+  <span class="t100-price">
+    <b>$1,495.00</b>
+    <span class="t100-low">low $1,500.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/89163/shining-charizard" rel="noopener nofollow"
+      aria-label="Check Shining Charizard on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">27</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/167080_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Rocket's%20Mewtwo%20-%208%20%5BWinner%5D">Rocket's Mewtwo - 8 [Winner]<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Best of Promos <i aria-hidden="true">&bull;</i> no. 008/009 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">Best of Promos</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">7 listings</span>
+  <span class="t100-price">
+    <b>$1,450.00</b>
+    <span class="t100-low">low $750.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/167080/rockets-mewtwo-8-winner" rel="noopener nofollow"
+      aria-label="Check Rocket's Mewtwo - 8 [Winner] on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">28</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/224857_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/umbreon.html">Umbreon - 60/108 (Regional Championships) [Staff]<span class="t100-go">, every Umbreon card we cover</span></a>
+  <span class="t100-meta">League &amp; Championship Cards <i aria-hidden="true">&bull;</i> no. 060/108 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">League &amp; Championship Cards</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">none for sale</span>
+  <span class="t100-price">
+    <b>$1,450.00</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/224857/umbreon-60-108-regional-championships-staff" rel="noopener nofollow"
+      aria-label="Check Umbreon - 60/108 (Regional Championships) [Staff] on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">29</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/475983_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/charizard.html">Charizard VMAX - 020/189<span class="t100-go">, every Charizard card we cover</span></a>
+  <span class="t100-meta">Prize Pack Series Cards <i aria-hidden="true">&bull;</i> no. 020/189 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">Prize Pack Series Cards</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$1,450.00</b>
+    <span class="t100-low">low $2,999.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/475983/charizard-vmax-020-189" rel="noopener nofollow"
+      aria-label="Check Charizard VMAX - 020/189 on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">30</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/97703_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Tropical%20Tidal%20Wave%20-%20HGSS18%20(Worlds%2010)%20%5BStaff%5D">Tropical Tidal Wave - HGSS18 (Worlds 10) [Staff]<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">HGSS Promos <i aria-hidden="true">&bull;</i> no. HGSS18 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">HGSS Promos</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$1,400.00</b>
+    <span class="t100-low">low $1,000.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/97703/tropical-tidal-wave-hgss18-worlds-10-staff" rel="noopener nofollow"
+      aria-label="Check Tropical Tidal Wave - HGSS18 (Worlds 10) [Staff] on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">31</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/85680_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/gengar.html">Gengar ex<span class="t100-go">, every Gengar card we cover</span></a>
+  <span class="t100-meta">EX FireRed &amp; LeafGreen <i aria-hidden="true">&bull;</i> no. 108/112 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX FireRed &amp; LeafGreen</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">5 listings</span>
+  <span class="t100-price">
+    <b>$1,399.99</b>
+    <span class="t100-low">low $600.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/85680/gengar-ex" rel="noopener nofollow"
+      aria-label="Check Gengar ex on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">32</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/89165_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Shining%20Kabutops">Shining Kabutops<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Neo Destiny <i aria-hidden="true">&bull;</i> no. 108/105 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">Neo Destiny</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">12 listings</span>
+  <span class="t100-price">
+    <b>$1,399.95</b>
+    <span class="t100-low">low $220.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/89165/shining-kabutops" rel="noopener nofollow"
+      aria-label="Check Shining Kabutops on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">33</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/90292_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/vaporeon.html">Vaporeon Star<span class="t100-go">, every Vaporeon card we cover</span></a>
+  <span class="t100-meta">EX Power Keepers <i aria-hidden="true">&bull;</i> no. 102/108 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Power Keepers</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">3 listings</span>
+  <span class="t100-price">
+    <b>$1,399.95</b>
+    <span class="t100-low">low $1,899.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/90292/vaporeon-star" rel="noopener nofollow"
+      aria-label="Check Vaporeon Star on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">34</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/106997_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Blastoise">Blastoise<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Base Set (Shadowless) <i aria-hidden="true">&bull;</i> no. 002/102 <i aria-hidden="true">&bull;</i> Holo Rare</span>
+  <span class="t100-set">Base Set (Shadowless)</span>
+  <span class="t100-tag">Holo Rare</span>
+  <span class="t100-count">33 listings</span>
+  <span class="t100-price">
+    <b>$1,300.00</b>
+    <span class="t100-low">low $213.69</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/106997/blastoise" rel="noopener nofollow"
+      aria-label="Check Blastoise on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">35</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/86903_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Lugia">Lugia<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Neo Genesis <i aria-hidden="true">&bull;</i> no. 009/111 <i aria-hidden="true">&bull;</i> Holo Rare</span>
+  <span class="t100-set">Neo Genesis</span>
+  <span class="t100-tag">Holo Rare</span>
+  <span class="t100-count">42 listings</span>
+  <span class="t100-price">
+    <b>$1,299.96</b>
+    <span class="t100-low">low $200.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/86903/lugia" rel="noopener nofollow"
+      aria-label="Check Lugia on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">36</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/86894_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Lucky%20Stadium">Lucky Stadium<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">WoTC Promo <i aria-hidden="true">&bull;</i> no. 41/53 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">WoTC Promo</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">5 listings</span>
+  <span class="t100-price">
+    <b>$1,283.67</b>
+    <span class="t100-low">low $1,399.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/86894/lucky-stadium" rel="noopener nofollow"
+      aria-label="Check Lucky Stadium on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">37</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/90139_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/umbreon.html">Umbreon (H29)<span class="t100-go">, every Umbreon card we cover</span></a>
+  <span class="t100-meta">Aquapolis <i aria-hidden="true">&bull;</i> no. H29/H32 <i aria-hidden="true">&bull;</i> Holo Rare</span>
+  <span class="t100-set">Aquapolis</span>
+  <span class="t100-tag">Holo Rare</span>
+  <span class="t100-count">14 listings</span>
+  <span class="t100-price">
+    <b>$1,252.62</b>
+    <span class="t100-low">low $675.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/90139/umbreon-h29" rel="noopener nofollow"
+      aria-label="Check Umbreon (H29) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">38</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/88658_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Regice%20Star">Regice Star<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">EX Legend Maker <i aria-hidden="true">&bull;</i> no. 90/92 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Legend Maker</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$1,250.00</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/88658/regice-star" rel="noopener nofollow"
+      aria-label="Check Regice Star on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">39</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/85987_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/gyarados.html">Gyarados (H10)<span class="t100-go">, every Gyarados card we cover</span></a>
+  <span class="t100-meta">Skyridge <i aria-hidden="true">&bull;</i> no. H10/H32 <i aria-hidden="true">&bull;</i> Holo Rare</span>
+  <span class="t100-set">Skyridge</span>
+  <span class="t100-tag">Holo Rare</span>
+  <span class="t100-count">none for sale</span>
+  <span class="t100-price">
+    <b>$1,249.94</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/85987/gyarados-h10" rel="noopener nofollow"
+      aria-label="Check Gyarados (H10) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">40</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/246733_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Rayquaza%20VMAX%20(Alternate%20Art%20Secret)">Rayquaza VMAX (Alternate Art Secret)<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">SWSH07: Evolving Skies <i aria-hidden="true">&bull;</i> no. 218/203 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">SWSH07: Evolving Skies</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">34 listings</span>
+  <span class="t100-price">
+    <b>$1,247.90</b>
+    <span class="t100-low">low $599.88</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/246733/rayquaza-vmax-alternate-art-secret" rel="noopener nofollow"
+      aria-label="Check Rayquaza VMAX (Alternate Art Secret) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">41</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/86003_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/gyarados.html">Gyarados Star (Delta Species)<span class="t100-go">, every Gyarados card we cover</span></a>
+  <span class="t100-meta">EX Holon Phantoms <i aria-hidden="true">&bull;</i> no. 102/110 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Holon Phantoms</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$1,200.00</b>
+    <span class="t100-low">low $2,999.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/86003/gyarados-star-delta-species" rel="noopener nofollow"
+      aria-label="Check Gyarados Star (Delta Species) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">42</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/84193_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/charizard.html">Charizard<span class="t100-go">, every Charizard card we cover</span></a>
+  <span class="t100-meta">Plasma Storm <i aria-hidden="true">&bull;</i> no. 136/135 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">Plasma Storm</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">12 listings</span>
+  <span class="t100-price">
+    <b>$1,150.00</b>
+    <span class="t100-low">low $499.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/84193/charizard" rel="noopener nofollow"
+      aria-label="Check Charizard on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">43</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/88778_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Rocket's%20Mewtwo%20ex">Rocket's Mewtwo ex<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">EX Team Rocket Returns <i aria-hidden="true">&bull;</i> no. 99/109 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Team Rocket Returns</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">7 listings</span>
+  <span class="t100-price">
+    <b>$1,150.00</b>
+    <span class="t100-low">low $399.94</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/88778/rockets-mewtwo-ex" rel="noopener nofollow"
+      aria-label="Check Rocket's Mewtwo ex on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">44</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/88213_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Pokemon%20Center">Pokemon Center<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">WoTC Promo <i aria-hidden="true">&bull;</i> no. 40/53 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">WoTC Promo</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$1,108.00</b>
+    <span class="t100-low">low $2,500.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/88213/pokemon-center" rel="noopener nofollow"
+      aria-label="Check Pokemon Center on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">45</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/89608_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Suicune%20Star">Suicune Star<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">EX Unseen Forces <i aria-hidden="true">&bull;</i> no. 115/115 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Unseen Forces</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">7 listings</span>
+  <span class="t100-price">
+    <b>$1,100.00</b>
+    <span class="t100-low">low $6,599.89</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/89608/suicune-star" rel="noopener nofollow"
+      aria-label="Check Suicune Star on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">46</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/518861_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/pikachu.html">Pikachu with Grey Felt Hat<span class="t100-go">, every Pikachu card we cover</span></a>
+  <span class="t100-meta">SV: Scarlet &amp; Violet Promo Cards <i aria-hidden="true">&bull;</i> no. 085 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">SV: Scarlet &amp; Violet Promo Cards</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">43 listings</span>
+  <span class="t100-price">
+    <b>$1,098.71</b>
+    <span class="t100-low">low $997.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/518861/pikachu-with-grey-felt-hat" rel="noopener nofollow"
+      aria-label="Check Pikachu with Grey Felt Hat on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">47</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/676096_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/ascended-heroes.html">Mega Gengar ex - 284/217<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">ME: Ascended Heroes <i aria-hidden="true">&bull;</i> no. 284/217 <i aria-hidden="true">&bull;</i> Special Illustration Rare</span>
+  <span class="t100-set">ME: Ascended Heroes</span>
+  <span class="t100-tag">Special Illustration Rare</span>
+  <span class="t100-count">96 listings</span>
+  <span class="t100-price">
+    <b>$1,082.56</b>
+    <span class="t100-low">low $875.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/676096/mega-gengar-ex-284-217" rel="noopener nofollow"
+      aria-label="Check Mega Gengar ex - 284/217 on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">48</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/676088_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/ascended-heroes.html">Pikachu ex - 276/217<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">ME: Ascended Heroes <i aria-hidden="true">&bull;</i> no. 276/217 <i aria-hidden="true">&bull;</i> Special Illustration Rare</span>
+  <span class="t100-set">ME: Ascended Heroes</span>
+  <span class="t100-tag">Special Illustration Rare</span>
+  <span class="t100-count">104 listings</span>
+  <span class="t100-price">
+    <b>$1,070.24</b>
+    <span class="t100-low">low $6.70</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/676088/pikachu-ex-276-217" rel="noopener nofollow"
+      aria-label="Check Pikachu ex - 276/217 on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">49</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/101520_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=M%20Rayquaza%20EX%20(Shiny%20Full%20Art)">M Rayquaza EX (Shiny Full Art)<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">XY - Ancient Origins <i aria-hidden="true">&bull;</i> no. 98/98 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">XY - Ancient Origins</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">37 listings</span>
+  <span class="t100-price">
+    <b>$1,069.91</b>
+    <span class="t100-low">low $249.89</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/101520/m-rayquaza-ex-shiny-full-art" rel="noopener nofollow"
+      aria-label="Check M Rayquaza EX (Shiny Full Art) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">50</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/85275_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Entei%20Star">Entei Star<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">EX Unseen Forces <i aria-hidden="true">&bull;</i> no. 113/115 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Unseen Forces</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$1,067.00</b>
+    <span class="t100-low">low $2,469.69</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/85275/entei-star" rel="noopener nofollow"
+      aria-label="Check Entei Star on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">51</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/253266_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/gengar.html">Gengar VMAX (Alternate Art Secret)<span class="t100-go">, every Gengar card we cover</span></a>
+  <span class="t100-meta">SWSH08: Fusion Strike <i aria-hidden="true">&bull;</i> no. 271/264 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">SWSH08: Fusion Strike</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">71 listings</span>
+  <span class="t100-price">
+    <b>$1,048.09</b>
+    <span class="t100-low">low $379.74</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/253266/gengar-vmax-alternate-art-secret" rel="noopener nofollow"
+      aria-label="Check Gengar VMAX (Alternate Art Secret) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">52</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/534919_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/sets/paldean-fates.html">Mew ex - 232/091<span class="t100-go">, our guide to this set</span></a>
+  <span class="t100-meta">SV: Paldean Fates <i aria-hidden="true">&bull;</i> no. 232/091 <i aria-hidden="true">&bull;</i> Special Illustration Rare</span>
+  <span class="t100-set">SV: Paldean Fates</span>
+  <span class="t100-tag">Special Illustration Rare</span>
+  <span class="t100-count">93 listings</span>
+  <span class="t100-price">
+    <b>$1,011.10</b>
+    <span class="t100-low">low $599.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/534919/mew-ex-232-091" rel="noopener nofollow"
+      aria-label="Check Mew ex - 232/091 on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">53</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/85927_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Groudon%20Star">Groudon Star<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">EX Delta Species <i aria-hidden="true">&bull;</i> no. 111/113 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Delta Species</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$1,010.00</b>
+    <span class="t100-low">low $3,499.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/85927/groudon-star" rel="noopener nofollow"
+      aria-label="Check Groudon Star on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">54</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/91246_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=M%20Charizard%20EX%20(X)%20(Secret)">M Charizard EX (X) (Secret)<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">XY - Flashfire <i aria-hidden="true">&bull;</i> no. 108/106 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">XY - Flashfire</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">42 listings</span>
+  <span class="t100-price">
+    <b>$1,000.62</b>
+    <span class="t100-low">low $124.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/91246/m-charizard-ex-x-secret" rel="noopener nofollow"
+      aria-label="Check M Charizard EX (X) (Secret) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">55</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/86200_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/houndoom.html">Houndoom (H11)<span class="t100-go">, every Houndoom card we cover</span></a>
+  <span class="t100-meta">Skyridge <i aria-hidden="true">&bull;</i> no. H11/H32 <i aria-hidden="true">&bull;</i> Holo Rare</span>
+  <span class="t100-set">Skyridge</span>
+  <span class="t100-tag">Holo Rare</span>
+  <span class="t100-count">none for sale</span>
+  <span class="t100-price">
+    <b>$1,000.00</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/86200/houndoom-h11" rel="noopener nofollow"
+      aria-label="Check Houndoom (H11) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">56</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/86396_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Kabutops%20(150)">Kabutops (150)<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Skyridge <i aria-hidden="true">&bull;</i> no. 150/144 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">Skyridge</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$1,000.00</b>
+    <span class="t100-low">low $599.90</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/86396/kabutops-150" rel="noopener nofollow"
+      aria-label="Check Kabutops (150) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">57</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/696687_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/mewtwo.html">Mewtwo ex<span class="t100-go">, every Mewtwo card we cover</span></a>
+  <span class="t100-meta">ME: 30th Celebration <i aria-hidden="true">&bull;</i> no. 157/128 <i aria-hidden="true">&bull;</i> Futuristic Rare</span>
+  <span class="t100-set">ME: 30th Celebration</span>
+  <span class="t100-tag">Futuristic Rare</span>
+  <span class="t100-count">none for sale</span>
+  <span class="t100-price">
+    <b>$1,000.00</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/696687/mewtwo-ex" rel="noopener nofollow"
+      aria-label="Check Mewtwo ex on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">58</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/90049_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Tropical%20Beach%20-%20BW50%20(Worlds%2012)">Tropical Beach - BW50 (Worlds 12)<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Black and White Promos <i aria-hidden="true">&bull;</i> no. BW50 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">Black and White Promos</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">none for sale</span>
+  <span class="t100-price">
+    <b>$999.99</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/90049/tropical-beach-bw50-worlds-12" rel="noopener nofollow"
+      aria-label="Check Tropical Beach - BW50 (Worlds 12) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">59</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/154997_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Clefable%20(Prerelease)">Clefable (Prerelease)<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">WoTC Promo <i aria-hidden="true">&bull;</i> no. 01/64 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">WoTC Promo</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">7 listings</span>
+  <span class="t100-price">
+    <b>$999.95</b>
+    <span class="t100-low">low $499.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/154997/clefable-prerelease" rel="noopener nofollow"
+      aria-label="Check Clefable (Prerelease) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">60</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/88643_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Rayquaza%20ex">Rayquaza ex<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">EX Deoxys <i aria-hidden="true">&bull;</i> no. 102/107 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Deoxys</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">10 listings</span>
+  <span class="t100-price">
+    <b>$999.00</b>
+    <span class="t100-low">low $174.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/88643/rayquaza-ex" rel="noopener nofollow"
+      aria-label="Check Rayquaza ex on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">61</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/185033_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/dragonite.html">Dragonite - 2/146 (National Championships) [Staff]<span class="t100-go">, every Dragonite card we cover</span></a>
+  <span class="t100-meta">League &amp; Championship Cards <i aria-hidden="true">&bull;</i> no. 002/146 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">League &amp; Championship Cards</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$997.00</b>
+    <span class="t100-low">low $1,875.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/185033/dragonite-2-146-national-championships-staff" rel="noopener nofollow"
+      aria-label="Check Dragonite - 2/146 (National Championships) [Staff] on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">62</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/84198_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/charizard.html">Charizard Star (Delta Species)<span class="t100-go">, every Charizard card we cover</span></a>
+  <span class="t100-meta">EX Dragon Frontiers <i aria-hidden="true">&bull;</i> no. 100/101 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Dragon Frontiers</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">6 listings</span>
+  <span class="t100-price">
+    <b>$990.00</b>
+    <span class="t100-low">low $2,800.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/84198/charizard-star-delta-species" rel="noopener nofollow"
+      aria-label="Check Charizard Star (Delta Species) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">63</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/94689_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Dialga%20EX%20(122%20Secret%20Rare)">Dialga EX (122 Secret Rare)<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">XY - Phantom Forces <i aria-hidden="true">&bull;</i> no. 122/119 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">XY - Phantom Forces</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">33 listings</span>
+  <span class="t100-price">
+    <b>$986.98</b>
+    <span class="t100-low">low $196.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/94689/dialga-ex-122-secret-rare" rel="noopener nofollow"
+      aria-label="Check Dialga EX (122 Secret Rare) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">64</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/87345_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Metagross%20Star">Metagross Star<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">EX Delta Species <i aria-hidden="true">&bull;</i> no. 113/113 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Delta Species</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$951.99</b>
+    <span class="t100-low">low $2,500.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/87345/metagross-star" rel="noopener nofollow"
+      aria-label="Check Metagross Star on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">65</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/107010_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Venusaur">Venusaur<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Base Set (Shadowless) <i aria-hidden="true">&bull;</i> no. 015/102 <i aria-hidden="true">&bull;</i> Holo Rare</span>
+  <span class="t100-set">Base Set (Shadowless)</span>
+  <span class="t100-tag">Holo Rare</span>
+  <span class="t100-count">38 listings</span>
+  <span class="t100-price">
+    <b>$918.75</b>
+    <span class="t100-low">low $130.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/107010/venusaur" rel="noopener nofollow"
+      aria-label="Check Venusaur on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">66</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/86912_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Lugia%20ex">Lugia ex<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">EX Unseen Forces <i aria-hidden="true">&bull;</i> no. 105/115 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Unseen Forces</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">8 listings</span>
+  <span class="t100-price">
+    <b>$902.49</b>
+    <span class="t100-low">low $329.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/86912/lugia-ex" rel="noopener nofollow"
+      aria-label="Check Lugia ex on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">67</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/83498_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Alakazam%20(H1)">Alakazam (H1)<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Skyridge <i aria-hidden="true">&bull;</i> no. H01/H32 <i aria-hidden="true">&bull;</i> Holo Rare</span>
+  <span class="t100-set">Skyridge</span>
+  <span class="t100-tag">Holo Rare</span>
+  <span class="t100-count">4 listings</span>
+  <span class="t100-price">
+    <b>$900.00</b>
+    <span class="t100-low">low $429.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/83498/alakazam-h1" rel="noopener nofollow"
+      aria-label="Check Alakazam (H1) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">68</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/268261_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Mega%20Tokyo's%20Pikachu%20-%2098%2FXY-P">Mega Tokyo's Pikachu - 98/XY-P<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">XY Promos <i aria-hidden="true">&bull;</i> no. 98/XY-P <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">XY Promos</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$900.00</b>
+    <span class="t100-low">low $950.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/268261/mega-tokyos-pikachu-98-xy-p" rel="noopener nofollow"
+      aria-label="Check Mega Tokyo's Pikachu - 98/XY-P on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">69</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/88801_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Rocket's%20Zapdos%20ex">Rocket's Zapdos ex<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">EX Team Rocket Returns <i aria-hidden="true">&bull;</i> no. 106/109 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Team Rocket Returns</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">9 listings</span>
+  <span class="t100-price">
+    <b>$899.99</b>
+    <span class="t100-low">low $180.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/88801/rockets-zapdos-ex" rel="noopener nofollow"
+      aria-label="Check Rocket's Zapdos ex on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">70</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/174491_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Blastoise%20-%2014%2F100%20(National%20Championships)%20%5BStaff%5D">Blastoise - 14/100 (National Championships) [Staff]<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">League &amp; Championship Cards <i aria-hidden="true">&bull;</i> no. 014/100 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">League &amp; Championship Cards</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">none for sale</span>
+  <span class="t100-price">
+    <b>$899.95</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/174491/blastoise-14-100-national-championships-staff" rel="noopener nofollow"
+      aria-label="Check Blastoise - 14/100 (National Championships) [Staff] on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">71</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/42382_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/charizard.html">Charizard<span class="t100-go">, every Charizard card we cover</span></a>
+  <span class="t100-meta">Base Set <i aria-hidden="true">&bull;</i> no. 004/102 <i aria-hidden="true">&bull;</i> Holo Rare</span>
+  <span class="t100-set">Base Set</span>
+  <span class="t100-tag">Holo Rare</span>
+  <span class="t100-count">162 listings</span>
+  <span class="t100-price">
+    <b>$852.43</b>
+    <span class="t100-low">low $191.48</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/42382/charizard" rel="noopener nofollow"
+      aria-label="Check Charizard on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">72</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/228494_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/snorlax.html">Snorlax - 33/95 (Prerelease) [Staff]<span class="t100-go">, every Snorlax card we cover</span></a>
+  <span class="t100-meta">Nintendo Promos <i aria-hidden="true">&bull;</i> no. 33/95 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">Nintendo Promos</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">1 listing</span>
+  <span class="t100-price">
+    <b>$850.00</b>
+    <span class="t100-low">low $2,350.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/228494/snorlax-33-95-prerelease-staff" rel="noopener nofollow"
+      aria-label="Check Snorlax - 33/95 (Prerelease) [Staff] on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">73</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/183964_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/magikarp.html">Magikarp &amp; Wailord GX (Alternate Full Art)<span class="t100-go">, every Magikarp card we cover</span></a>
+  <span class="t100-meta">SM - Team Up <i aria-hidden="true">&bull;</i> no. 161/181 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">SM - Team Up</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">32 listings</span>
+  <span class="t100-price">
+    <b>$847.54</b>
+    <span class="t100-low">low $399.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/183964/magikarp-and-wailord-gx-alternate-full-art" rel="noopener nofollow"
+      aria-label="Check Magikarp &amp; Wailord GX (Alternate Full Art) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">74</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/284137_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Giratina%20V%20(Alternate%20Full%20Art)">Giratina V (Alternate Full Art)<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">SWSH11: Lost Origin <i aria-hidden="true">&bull;</i> no. 186/196 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">SWSH11: Lost Origin</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">59 listings</span>
+  <span class="t100-price">
+    <b>$822.39</b>
+    <span class="t100-low">low $369.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/284137/giratina-v-alternate-full-art" rel="noopener nofollow"
+      aria-label="Check Giratina V (Alternate Full Art) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">75</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/86121_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/ho-oh.html">Ho-oh<span class="t100-go">, every Ho-Oh card we cover</span></a>
+  <span class="t100-meta">Skyridge <i aria-hidden="true">&bull;</i> no. 149/144 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">Skyridge</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$800.00</b>
+    <span class="t100-low">low $1,199.69</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/86121/ho-oh" rel="noopener nofollow"
+      aria-label="Check Ho-oh on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">76</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/96874_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Tropical%20Beach%20-%20BW28%20(Worlds%2011)%20%5BStaff%5D">Tropical Beach - BW28 (Worlds 11) [Staff]<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Black and White Promos <i aria-hidden="true">&bull;</i> no. BW28 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">Black and White Promos</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">none for sale</span>
+  <span class="t100-price">
+    <b>$800.00</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/96874/tropical-beach-bw28-worlds-11-staff" rel="noopener nofollow"
+      aria-label="Check Tropical Beach - BW28 (Worlds 11) [Staff] on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">77</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/107008_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/ninetales.html">Ninetales<span class="t100-go">, every Ninetales card we cover</span></a>
+  <span class="t100-meta">Base Set (Shadowless) <i aria-hidden="true">&bull;</i> no. 012/102 <i aria-hidden="true">&bull;</i> Holo Rare</span>
+  <span class="t100-set">Base Set (Shadowless)</span>
+  <span class="t100-tag">Holo Rare</span>
+  <span class="t100-count">80 listings</span>
+  <span class="t100-price">
+    <b>$800.00</b>
+    <span class="t100-low">low $22.25</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/107008/ninetales" rel="noopener nofollow"
+      aria-label="Check Ninetales on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">78</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/268129_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Poncho-wearing%20Pikachu%20-%2037%2FSM-P">Poncho-wearing Pikachu - 37/SM-P<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">SM Promos <i aria-hidden="true">&bull;</i> no. 37/SM-P <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">SM Promos</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">none for sale</span>
+  <span class="t100-price">
+    <b>$800.00</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/268129/poncho-wearing-pikachu-37-sm-p" rel="noopener nofollow"
+      aria-label="Check Poncho-wearing Pikachu - 37/SM-P on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">79</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/84910_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/dragonite.html">Dragonite (9)<span class="t100-go">, every Dragonite card we cover</span></a>
+  <span class="t100-meta">Expedition <i aria-hidden="true">&bull;</i> no. 009/165 <i aria-hidden="true">&bull;</i> Holo Rare</span>
+  <span class="t100-set">Expedition</span>
+  <span class="t100-tag">Holo Rare</span>
+  <span class="t100-count">23 listings</span>
+  <span class="t100-price">
+    <b>$799.69</b>
+    <span class="t100-low">low $250.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/84910/dragonite-9" rel="noopener nofollow"
+      aria-label="Check Dragonite (9) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">80</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/146698_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/mewtwo.html">Mewtwo GX (Secret Shining)<span class="t100-go">, every Mewtwo card we cover</span></a>
+  <span class="t100-meta">Shining Legends <i aria-hidden="true">&bull;</i> no. 78/73 <i aria-hidden="true">&bull;</i> Shiny Holo Rare</span>
+  <span class="t100-set">Shining Legends</span>
+  <span class="t100-tag">Shiny Holo Rare</span>
+  <span class="t100-count">57 listings</span>
+  <span class="t100-price">
+    <b>$794.58</b>
+    <span class="t100-low">low $288.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/146698/mewtwo-gx-secret-shining" rel="noopener nofollow"
+      aria-label="Check Mewtwo GX (Secret Shining) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">81</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/84709_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/darkrai.html">Darkrai EX (107 Full Art)<span class="t100-go">, every Darkrai card we cover</span></a>
+  <span class="t100-meta">Dark Explorers <i aria-hidden="true">&bull;</i> no. 107/108 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">Dark Explorers</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">12 listings</span>
+  <span class="t100-price">
+    <b>$789.99</b>
+    <span class="t100-low">low $260.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/84709/darkrai-ex-107-full-art" rel="noopener nofollow"
+      aria-label="Check Darkrai EX (107 Full Art) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">82</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/197780_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/charizard.html">Charizard GX<span class="t100-go">, every Charizard card we cover</span></a>
+  <span class="t100-meta">Hidden Fates: Shiny Vault <i aria-hidden="true">&bull;</i> no. SV49/SV94 <i aria-hidden="true">&bull;</i> Shiny Holo Rare</span>
+  <span class="t100-set">Hidden Fates: Shiny Vault</span>
+  <span class="t100-tag">Shiny Holo Rare</span>
+  <span class="t100-count">12 listings</span>
+  <span class="t100-price">
+    <b>$761.96</b>
+    <span class="t100-low">low $400.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/197780/charizard-gx" rel="noopener nofollow"
+      aria-label="Check Charizard GX on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">83</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/84195_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/charizard.html">Charizard (Delta Species)<span class="t100-go">, every Charizard card we cover</span></a>
+  <span class="t100-meta">EX Crystal Guardians <i aria-hidden="true">&bull;</i> no. 4/100 <i aria-hidden="true">&bull;</i> Holo Rare</span>
+  <span class="t100-set">EX Crystal Guardians</span>
+  <span class="t100-tag">Holo Rare</span>
+  <span class="t100-count">38 listings</span>
+  <span class="t100-price">
+    <b>$752.60</b>
+    <span class="t100-low">low $169.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/84195/charizard-delta-species" rel="noopener nofollow"
+      aria-label="Check Charizard (Delta Species) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">84</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/84149_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Celebi%20Star">Celebi Star<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">EX Crystal Guardians <i aria-hidden="true">&bull;</i> no. 100/100 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Crystal Guardians</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">4 listings</span>
+  <span class="t100-price">
+    <b>$750.00</b>
+    <span class="t100-low">low $1,500.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/84149/celebi-star" rel="noopener nofollow"
+      aria-label="Check Celebi Star on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">85</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/84298_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Chimecho%20(Delta%20Species)">Chimecho (Delta Species)<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">POP Series 4 <i aria-hidden="true">&bull;</i> no. 001/017 <i aria-hidden="true">&bull;</i> Rare</span>
+  <span class="t100-set">POP Series 4</span>
+  <span class="t100-tag">Rare</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$750.00</b>
+    <span class="t100-low">low $9,999.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/84298/chimecho-delta-species" rel="noopener nofollow"
+      aria-label="Check Chimecho (Delta Species) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">86</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/88096_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/pikachu.html">Pikachu<span class="t100-go">, every Pikachu card we cover</span></a>
+  <span class="t100-meta">Rumble <i aria-hidden="true">&bull;</i> no. 7 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">Rumble</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$750.00</b>
+    <span class="t100-low">low $995.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/88096/pikachu" rel="noopener nofollow"
+      aria-label="Check Pikachu on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">87</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/268131_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Poncho-wearing%20Pikachu%20-%2038%2FSM-P">Poncho-wearing Pikachu - 38/SM-P<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">SM Promos <i aria-hidden="true">&bull;</i> no. 38/SM-P <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">SM Promos</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">none for sale</span>
+  <span class="t100-price">
+    <b>$750.00</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/268131/poncho-wearing-pikachu-38-sm-p" rel="noopener nofollow"
+      aria-label="Check Poncho-wearing Pikachu - 38/SM-P on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">88</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/84599_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Dark%20Gengar">Dark Gengar<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Neo Destiny <i aria-hidden="true">&bull;</i> no. 006/105 <i aria-hidden="true">&bull;</i> Holo Rare</span>
+  <span class="t100-set">Neo Destiny</span>
+  <span class="t100-tag">Holo Rare</span>
+  <span class="t100-count">25 listings</span>
+  <span class="t100-price">
+    <b>$749.99</b>
+    <span class="t100-low">low $260.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/84599/dark-gengar" rel="noopener nofollow"
+      aria-label="Check Dark Gengar on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">89</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/87695_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Nidoking%20(150)">Nidoking (150)<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Aquapolis <i aria-hidden="true">&bull;</i> no. 150/147 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">Aquapolis</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">3 listings</span>
+  <span class="t100-price">
+    <b>$749.99</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/87695/nidoking-150" rel="noopener nofollow"
+      aria-label="Check Nidoking (150) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">90</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/83857_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Black%20Kyurem%20EX%20(145%20Full%20Art)">Black Kyurem EX (145 Full Art)<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Boundaries Crossed <i aria-hidden="true">&bull;</i> no. 145/149 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">Boundaries Crossed</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">39 listings</span>
+  <span class="t100-price">
+    <b>$749.47</b>
+    <span class="t100-low">low $84.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/83857/black-kyurem-ex-145-full-art" rel="noopener nofollow"
+      aria-label="Check Black Kyurem EX (145 Full Art) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">91</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/88673_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Regirock%20Star">Regirock Star<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">EX Legend Maker <i aria-hidden="true">&bull;</i> no. 91/92 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">EX Legend Maker</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">2 listings</span>
+  <span class="t100-price">
+    <b>$747.00</b>
+    <span class="t100-low">low $1,450.99</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/88673/regirock-star" rel="noopener nofollow"
+      aria-label="Check Regirock Star on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">92</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/94683_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/gengar.html">Gengar EX (114 Full Art)<span class="t100-go">, every Gengar card we cover</span></a>
+  <span class="t100-meta">XY - Phantom Forces <i aria-hidden="true">&bull;</i> no. 114/119 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">XY - Phantom Forces</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">40 listings</span>
+  <span class="t100-price">
+    <b>$745.40</b>
+    <span class="t100-low">low $211.66</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/94683/gengar-ex-114-full-art" rel="noopener nofollow"
+      aria-label="Check Gengar EX (114 Full Art) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">93</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/84187_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/charizard.html">Charizard<span class="t100-go">, every Charizard card we cover</span></a>
+  <span class="t100-meta">EX Dragon <i aria-hidden="true">&bull;</i> no. 100/97 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">EX Dragon</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">5 listings</span>
+  <span class="t100-price">
+    <b>$739.97</b>
+    <span class="t100-low">low $300.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/84187/charizard" rel="noopener nofollow"
+      aria-label="Check Charizard on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">94</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/86916_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Lugia%20EX%20(Team%20Plasma)%20(134%20Full%20Art)">Lugia EX (Team Plasma) (134 Full Art)<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Plasma Storm <i aria-hidden="true">&bull;</i> no. 134/135 <i aria-hidden="true">&bull;</i> Ultra Rare</span>
+  <span class="t100-set">Plasma Storm</span>
+  <span class="t100-tag">Ultra Rare</span>
+  <span class="t100-count">16 listings</span>
+  <span class="t100-price">
+    <b>$725.00</b>
+    <span class="t100-low">low $279.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/86916/lugia-ex-team-plasma-134-full-art" rel="noopener nofollow"
+      aria-label="Check Lugia EX (Team Plasma) (134 Full Art) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">95</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/89164_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Shining%20Gyarados">Shining Gyarados<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Neo Revelation <i aria-hidden="true">&bull;</i> no. 65/64 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">Neo Revelation</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">15 listings</span>
+  <span class="t100-price">
+    <b>$718.66</b>
+    <span class="t100-low">low $415.68</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/89164/shining-gyarados" rel="noopener nofollow"
+      aria-label="Check Shining Gyarados on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">96</span>
+  <span class="t100-shot"><span class="t100-img t100-img-none" aria-hidden="true"></span></span>
+  <a class="t100-name" href="/pokemon/jolteon.html">Jolteon - 37/108 (Regional Championships) [Staff]<span class="t100-go">, every Jolteon card we cover</span></a>
+  <span class="t100-meta">League &amp; Championship Cards <i aria-hidden="true">&bull;</i> no. 037/108 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">League &amp; Championship Cards</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">none for sale</span>
+  <span class="t100-price">
+    <b>$700.00</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/211978/jolteon-37-108-regional-championships-staff" rel="noopener nofollow"
+      aria-label="Check Jolteon - 37/108 (Regional Championships) [Staff] on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">97</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/211992_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/pokemon/flareon.html">Flareon - 12/108 (Regional Championships) [Staff]<span class="t100-go">, every Flareon card we cover</span></a>
+  <span class="t100-meta">League &amp; Championship Cards <i aria-hidden="true">&bull;</i> no. 012/108 <i aria-hidden="true">&bull;</i> Promo</span>
+  <span class="t100-set">League &amp; Championship Cards</span>
+  <span class="t100-tag">Promo</span>
+  <span class="t100-count">none for sale</span>
+  <span class="t100-price">
+    <b>$700.00</b>
+    <span class="t100-low t100-low-none">no asking price</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/211992/flareon-12-108-regional-championships-staff" rel="noopener nofollow"
+      aria-label="Check Flareon - 12/108 (Regional Championships) [Staff] on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">98</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/83861_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Blaine's%20Charizard">Blaine's Charizard<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Gym Challenge <i aria-hidden="true">&bull;</i> no. 002/132 <i aria-hidden="true">&bull;</i> Holo Rare</span>
+  <span class="t100-set">Gym Challenge</span>
+  <span class="t100-tag">Holo Rare</span>
+  <span class="t100-count">50 listings</span>
+  <span class="t100-price">
+    <b>$699.99</b>
+    <span class="t100-low">low $180.80</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/83861/blaines-charizard" rel="noopener nofollow"
+      aria-label="Check Blaine's Charizard on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">99</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/90099_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Typhlosion%20(18)">Typhlosion (18)<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Neo Genesis <i aria-hidden="true">&bull;</i> no. 018/111 <i aria-hidden="true">&bull;</i> Holo Rare</span>
+  <span class="t100-set">Neo Genesis</span>
+  <span class="t100-tag">Holo Rare</span>
+  <span class="t100-count">45 listings</span>
+  <span class="t100-price">
+    <b>$699.99</b>
+    <span class="t100-low">low $49.95</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/90099/typhlosion-18" rel="noopener nofollow"
+      aria-label="Check Typhlosion (18) on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+<li class="t100-li">
+  <span class="t100-rank">100</span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/90135_150w.jpg" alt="" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src')"></span>
+  <a class="t100-name" href="/search.html?q=Ultra%20Ball">Ultra Ball<span class="t100-go">, search this site</span></a>
+  <span class="t100-meta">Plasma Freeze <i aria-hidden="true">&bull;</i> no. 122/116 <i aria-hidden="true">&bull;</i> Secret Rare</span>
+  <span class="t100-set">Plasma Freeze</span>
+  <span class="t100-tag">Secret Rare</span>
+  <span class="t100-count">10 listings</span>
+  <span class="t100-price">
+    <b>$698.84</b>
+    <span class="t100-low">low $725.00</span>
+    <a class="t100-check" href="https://www.tcgplayer.com/product/90135/ultra-ball" rel="noopener nofollow"
+      aria-label="Check Ultra Ball on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
+    
+  </span>
+</li>
+    </ol>
+
+    <p class="price-note" style="margin-top:var(--s5)">Prices are TCGplayer market prices for their English Pokemon
+      catalogue, read on August 16, 2026 and re-read from a second TCGplayer endpoint the same day. They move daily, so
+      treat them as the shape of the market rather than a quote. Product photography is TCGplayer's, shown at the size
+      these rows draw it and linked back to the product it belongs to. The link under each price leaves this site and
+      opens on TCGplayer; there is no affiliate code in it and we make nothing from it, it is there so you can check the
+      number. 2 of these products have no photo in TCGplayer's catalogue and show an empty frame; that is their listing, not a fault here.
+      Not financial advice, and definitely not a suggestion to buy any of this.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Showing our working</p>
+    <h2>How this list was <span class="hl">made</span></h2>
+    <p class="lede" style="max-width:44em">A hundred prices is a hundred chances to publish something nobody can
+      check. Here is exactly where each one came from and how we know the list is not just the first hundred rows
+      that came back.</p>
+    <div class="t100-src">
+    <div>
+      <h3>Where the numbers come from</h3>
+      <p>TCGplayer's own search service, the one behind their website:
+        <code>https://mp-search-api.tcgplayer.com/v1/search/request?q=&amp;isList=false</code>. It needs no key. Their official developer API has been closed
+        to new applicants for years, so this is the route, and it is the same feed the set guides on this
+        site already use for buy links and box prices. The field is <code>marketPrice</code>, filtered to
+        <code>productLine pokemon (English)</code> and
+        <code>productType Cards</code>.</p>
+    </div>
+    <div>
+      <h3>How we know it is the top 100 and not the first 100 we found</h3>
+      <p>The search will not page past its ten thousandth result, so there is no way to walk all
+        29,652 products and sort them. Instead we set a price floor of
+        <b>$300.00</b>, pulled <b>every one</b> of the 380 products at or
+        above it, and ranked those. Then we checked the answer: a fresh query asking how many products sit at or
+        above $698.84, the price of the hundredth row, came back with
+        <b>100</b>. Nothing above the cut was missed, so this really is the top
+        hundred of the 29,652.</p>
+    </div>
+    <div>
+      <h3>Checked twice, on purpose</h3>
+      <p>Every one of the 100 prices was read a second time from a different TCGplayer endpoint, the one their
+        product page itself uses, and <b>100 of 100</b> matched to the cent. The ranking
+        was also re-run through their own server-side sort as a second opinion, and it named
+        <b>100 of 100</b> of the same products. Where two sources
+        disagree about a row, the row says so instead of quietly picking one.</p>
+    </div>
+    <div>
+      <h3>What a row is</h3>
+      <p>A row is a TCGplayer <b>product</b>, which is not always one physical card. Base Set Charizard is a
+        single product whose listings cover both the 1st Edition and the Unlimited printing, and the feed
+        publishes one Market Price for it rather than one per printing. So treat a row as "this product on
+        this marketplace", not as a valuation of a specific copy in a specific condition.</p>
+    </div>
+  </div>
+    <p class="price-note" style="margin-top:var(--s4)">Want the other half of the question? <a href="/grading.html">Is it
+      worth grading?</a> does the subtraction on raw against graded prices, <a href="/pack-prices.html">pack prices by
+      set</a> covers what a pack costs today, and <a href="/complete-a-set.html">cost to complete a set</a> prices the
+      whole checklist. Every card we actually pulled is in the <a href="/cards.html">card search</a>.</p>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Footer">
+      <div class="foot-col">
+        <p class="foot-h">Watch</p>
+        <a href="/videos.html">Rips</a>
+        <a href="/playlists.html">Playlists</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">The binder</p>
+        <a href="/hall.html">Best pulls</a>
+        <a href="/wanted.html">Most wanted</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Cards</p>
+        <a href="/cards.html">Card search</a>
+        <a href="/pokemon/">By Pokemon</a>
+        <a href="/sets/">Set guides</a>
+        <a href="/expansions.html">Every set ever</a>
+        <a href="/upcoming.html">Coming next</a>
+        <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/pack-prices.html">Pack prices</a>
+        <a href="/how-many-packs.html">Packs per box</a>
+        <a href="/openings/">Sealed products</a>
+        <a href="/drops.html">Drops this week</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Guides</p>
+        <a href="/start.html">Start here</a>
+        <a href="/how-to-play.html">How to play</a>
+        <a href="/tcg-live.html">Code cards</a>
+        <a href="/tcg-pocket.html">Phone version</a>
+        <a href="/what-set.html">Set finder</a>
+        <a href="/rarity.html">Rarity guide</a>
+        <a href="/types.html">Card types</a>
+        <a href="/fake-cards.html">Fakes</a>
+        <a href="/will-it-grade.html">Will it grade</a>
+        <a href="/grading.html">Grading cost</a>
+        <a href="/selling.html">Where to sell</a>
+        <a href="/buying.html">Where to buy</a>
+        <a href="/luck.html">Luck, measured</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Play</p>
+        <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
+        <a href="/lore.html">Pokemon lore</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Rochester, NY</p>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/vendors.html">Local vendors</a>
+        <a href="/creators.html">Local creators</a>
+        <a href="/about.html">About</a>
+      </div>
+    </nav>
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    Prices move daily. The date on this page is the date they were read.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
+</body>
+</html>

@@ -22,7 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
+<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>.op-lede{max-width:46em}
 .op-shot{display:flex;gap:var(--s4);align-items:center;margin:0 0 var(--s5);
@@ -48,7 +48,38 @@ letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);border-bottom:2
 .op-t thead th{font:700 var(--t-label)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
 background:var(--navy);color:var(--chrome-ink);border-bottom:none}
 .op-t tbody th{font-weight:700}
+.op-ps{display:flex;gap:var(--s3);align-items:center}
+.op-pt{flex:none;width:48px;height:48px;object-fit:contain;display:block;background:#fff;
+border:1px solid var(--hair);border-radius:5px}
+.op-px{background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
 .op-no{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);opacity:.7}
+.op-sh{font:400 var(--t-m)/1.2 var(--display);margin:var(--s5) 0 var(--s3)}
+.op-sets{list-style:none;margin:var(--s4) 0 var(--s4);padding:0;display:grid;gap:var(--s2);max-width:46em}
+.op-sr>a,.op-sr>div{display:grid;grid-template-columns:116px minmax(0,1fr) auto;
+gap:var(--s3);align-items:center;border:2px solid var(--hair);border-radius:10px;
+background:var(--card);padding:var(--s2) var(--s3);color:inherit;text-decoration:none}
+.op-sr>a:hover,.op-sr>a:focus-visible{border-color:var(--navy)}
+.op-sw{display:flex;align-items:center;justify-content:center;width:116px;height:42px;
+background:#fff;border:1px solid var(--hair);border-radius:5px;flex:none}
+.op-sl{width:100%;height:100%;object-fit:contain;display:block}
+.op-sx{display:block;width:100%;height:100%;border-radius:4px;
+background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
+.op-sm{min-width:0}
+.op-sm b{display:block;font-weight:700;font-size:var(--t-sm);line-height:1.3}
+.op-se{display:block;font:400 var(--t-micro)/1.35 var(--mono);color:var(--ink-2);margin-top:2px}
+.op-sb{display:block;height:8px;margin-top:6px;border-radius:4px;background:var(--paper-3);overflow:hidden}
+.op-sb i{display:block;height:100%;background:var(--gold);border-radius:4px}
+.op-sn{text-align:right;font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);white-space:nowrap}
+.op-sn b{font:400 var(--t-m)/1 var(--display);color:var(--ketchup);margin-right:.3em}
+.op-sn span{display:block}
+@media(max-width:560px){
+.op-sr>a,.op-sr>div{grid-template-columns:88px minmax(0,1fr);gap:var(--s2) var(--s3)}
+.op-sw{width:88px;height:34px;grid-row:span 2;align-self:start}
+.op-sn{text-align:left}
+.op-sn b{font-size:var(--t-sm)}
+.op-sn span{display:inline;margin-left:.4em}
+.op-sn span::before{content:"\2022 ";margin-right:.2em}
+}
 .op-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
 @media(max-width:900px){.op-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.op-grid{grid-template-columns:1fr}}
@@ -68,6 +99,7 @@ border:1px solid var(--hair);border-radius:6px}
 @media(min-width:1000px){
 .op-lede{max-width:50ch}
 .op-note{max-width:50ch}
+.op-sets{max-width:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s3)}
 }
 @media(min-width:1500px){
 .op-grid{grid-template-columns:repeat(4,1fr)}
@@ -198,45 +230,121 @@ border:1px solid var(--hair);border-radius:6px}
         <div class="op-f"><span class="n">495</span><span class="l">Packs counted, across 55 of them</span></div>
         <div class="op-f"><span class="n">5</span><span class="l">Different sets</span></div>
       </div>
+
+      <h3 class="op-sh">Which sets we opened these from</h3>
+      <ul class="op-sets">
+        <li class="op-sr"><a href="/sets/chaos-rising.html">
+          <span class="op-sw"><img class="op-sl" src="/assets/logos/chaos-rising-pokemon-tcg-set-logo-sm.webp" srcset="/assets/logos/chaos-rising-pokemon-tcg-set-logo-sm.webp 350w, /assets/logos/chaos-rising-pokemon-tcg-set-logo.webp 1051w" sizes="116px" width="350" height="100" alt="" loading="lazy" decoding="async"></span>
+          <span class="op-sm">
+            <b>Chaos Rising</b>
+            <span class="op-sb" aria-hidden="true"><i style="width:100%"></i></span>
+          </span>
+          <span class="op-sn"><b>20</b> openings<span>180 packs</span></span>
+        </a></li>
+        <li class="op-sr"><a href="/sets/prismatic-evolutions.html">
+          <span class="op-sw"><img class="op-sl" src="/assets/logos/prismatic-evolutions-pokemon-tcg-set-logo-sm.webp" srcset="/assets/logos/prismatic-evolutions-pokemon-tcg-set-logo-sm.webp 217w, /assets/logos/prismatic-evolutions-pokemon-tcg-set-logo.webp 651w" sizes="91px" width="217" height="100" alt="" loading="lazy" decoding="async"></span>
+          <span class="op-sm">
+            <b>Prismatic Evolutions</b>
+            <span class="op-sb" aria-hidden="true"><i style="width:45%"></i></span>
+          </span>
+          <span class="op-sn"><b>9</b> openings<span>81 packs</span></span>
+        </a></li>
+        <li class="op-sr"><a href="/sets/perfect-order.html">
+          <span class="op-sw"><img class="op-sl" src="/assets/logos/perfect-order-pokemon-tcg-set-logo-sm.webp" srcset="/assets/logos/perfect-order-pokemon-tcg-set-logo-sm.webp 225w, /assets/logos/perfect-order-pokemon-tcg-set-logo.webp 674w" sizes="94px" width="225" height="100" alt="" loading="lazy" decoding="async"></span>
+          <span class="op-sm">
+            <b>Perfect Order</b>
+            <span class="op-sb" aria-hidden="true"><i style="width:45%"></i></span>
+          </span>
+          <span class="op-sn"><b>9</b> openings<span>81 packs</span></span>
+        </a></li>
+        <li class="op-sr"><a href="/sets/ascended-heroes.html">
+          <span class="op-sw"><img class="op-sl" src="/assets/logos/ascended-heroes-pokemon-tcg-set-logo-sm.webp" srcset="/assets/logos/ascended-heroes-pokemon-tcg-set-logo-sm.webp 197w, /assets/logos/ascended-heroes-pokemon-tcg-set-logo.webp 592w" sizes="83px" width="197" height="100" alt="" loading="lazy" decoding="async"></span>
+          <span class="op-sm">
+            <b>Ascended Heroes</b>
+            <span class="op-sb" aria-hidden="true"><i style="width:45%"></i></span>
+          </span>
+          <span class="op-sn"><b>9</b> openings<span>81 packs</span></span>
+        </a></li>
+        <li class="op-sr"><a href="/sets/pitch-black.html">
+          <span class="op-sw"><img class="op-sl" src="/assets/logos/pitch-black-pokemon-tcg-set-logo-sm.webp" srcset="/assets/logos/pitch-black-pokemon-tcg-set-logo-sm.webp 364w, /assets/logos/pitch-black-pokemon-tcg-set-logo.webp 1092w" sizes="116px" width="364" height="100" alt="" loading="lazy" decoding="async"></span>
+          <span class="op-sm">
+            <b>Pitch Black</b>
+            <span class="op-sb" aria-hidden="true"><i style="width:40%"></i></span>
+          </span>
+          <span class="op-sn"><b>8</b> openings<span>72 packs</span></span>
+        </a></li>
+      </ul>
+      <p class="op-note">Openings and packs counted here, in our own videos, which is the only place
+        these numbers come from. A rip tagged with two sets is counted under both, so the column adds
+        up to more than the 55 above it. Each row opens that set's guide.</p>
       <div class="op-tw" tabindex="0" role="region" aria-label="What an Elite Trainer Box costs, by set. TCGplayer market price, read August 16, 2026, scrollable table">
         <table class="op-t">
           <caption>What an Elite Trainer Box costs, by set. TCGplayer market price, read August 16, 2026</caption>
           <thead><tr><th scope="col">Set</th><th scope="col">Market</th><th scope="col">Lowest</th><th scope="col">Listings</th></tr></thead>
           <tbody>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/503313/151-elite-trainer-box" rel="noopener" target="_blank">151</a></th><td>$578.70</td><td>$560.00</td><td>67</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/528040/paldean-fates-elite-trainer-box" rel="noopener" target="_blank">Paldean Fates</a></th><td>$463.45</td><td>$59.99</td><td>61</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/242811/celebrations-elite-trainer-box" rel="noopener" target="_blank">Celebrations</a></th><td>$371.36</td><td>$352.41</td><td>84</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/453470/crown-zenith-elite-trainer-box" rel="noopener" target="_blank">Crown Zenith</a></th><td>$330.08</td><td>$314.96</td><td>67</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/210572/rebel-clash-elite-trainer-box" rel="noopener" target="_blank">Rebel Clash</a></th><td>$306.43</td><td>$340.00</td><td>14</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/501264/obsidian-flames-elite-trainer-box" rel="noopener" target="_blank">Obsidian Flames</a></th><td>$286.52</td><td>$42.99</td><td>52</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/493974/paldea-evolved-elite-trainer-box" rel="noopener" target="_blank">Paldea Evolved</a></th><td>$226.75</td><td>$190.00</td><td>42</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/593355/prismatic-evolutions-elite-trainer-box" rel="noopener" target="_blank">Prismatic Evolutions</a></th><td>$169.13</td><td>$1.99</td><td>264</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/630686/black-bolt-elite-trainer-box" rel="noopener" target="_blank">Black Bolt</a></th><td>$168.31</td><td>$78.99</td><td>86</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/668496/ascended-heroes-elite-trainer-box" rel="noopener" target="_blank">Ascended Heroes</a></th><td>$167.62</td><td>$1.00</td><td>225</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/270708/pokemon-go-elite-trainer-box" rel="noopener" target="_blank">Pokémon GO</a></th><td>$164.88</td><td>$168.00</td><td>18</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/557350/stellar-crown-elite-trainer-box" rel="noopener" target="_blank">Stellar Crown</a></th><td>$161.29</td><td>$89.99</td><td>29</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/630689/white-flare-elite-trainer-box" rel="noopener" target="_blank">White Flare</a></th><td>$155.42</td><td>$3.00</td><td>88</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/654136/phantasmal-flames-elite-trainer-box" rel="noopener" target="_blank">Phantasmal Flames</a></th><td>$148.69</td><td>$97.99</td><td>83</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/228821/shining-fates-elite-trainer-box" rel="noopener" target="_blank">Shining Fates</a></th><td>$145.20</td><td>$125.00</td><td>74</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/236260/chilling-reign-elite-trainer-box-ice-rider-calyrex" rel="noopener" target="_blank">Chilling Reign</a></th><td>$144.70</td><td>$129.99</td><td>19</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/478335/scarlet-and-violet-elite-trainer-box-koraidon" rel="noopener" target="_blank">Scarlet &amp; Violet</a></th><td>$137.46</td><td>$130.00</td><td>28</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/512813/paradox-rift-elite-trainer-box-iron-valiant" rel="noopener" target="_blank">Paradox Rift</a></th><td>$137.13</td><td>$132.99</td><td>15</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/532848/temporal-forces-elite-trainer-box-iron-leaves-ex" rel="noopener" target="_blank">Temporal Forces</a></th><td>$129.68</td><td>$79.99</td><td>19</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/610930/journey-together-elite-trainer-box" rel="noopener" target="_blank">Journey Together</a></th><td>$129.37</td><td>$1.99</td><td>48</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/565630/surging-sparks-elite-trainer-box" rel="noopener" target="_blank">Surging Sparks</a></th><td>$126.12</td><td>$115.00</td><td>100</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/624676/destined-rivals-elite-trainer-box" rel="noopener" target="_blank">Destined Rivals</a></th><td>$124.71</td><td>$43.99</td><td>144</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/644279/mega-evolution-elite-trainer-box-mega-gardevoir" rel="noopener" target="_blank">Mega Evolution</a></th><td>$114.34</td><td>$69.99</td><td>87</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/552999/shrouded-fable-elite-trainer-box" rel="noopener" target="_blank">Shrouded Fable</a></th><td>$111.45</td><td>$109.00</td><td>56</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/543845/twilight-masquerade-elite-trainer-box" rel="noopener" target="_blank">Twilight Masquerade</a></th><td>$106.65</td><td>$9.99</td><td>114</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/692947/pitch-black-elite-trainer-box" rel="noopener" target="_blank">Pitch Black</a></th><td>$73.63</td><td>$1.00</td><td>214</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/672401/perfect-order-elite-trainer-box" rel="noopener" target="_blank">Perfect Order</a></th><td>$68.74</td><td>$1.00</td><td>254</td></tr>
-            <tr><th scope="row"><a href="https://www.tcgplayer.com/product/684450/chaos-rising-elite-trainer-box" rel="noopener" target="_blank">Chaos Rising</a></th><td>$67.12</td><td>$1.00</td><td>332</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/503313_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/503313_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/503313_in_1000x1000.jpg 1000w" sizes="48px" alt="151 Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/503313/151-elite-trainer-box" rel="noopener" target="_blank">151</a></span></th><td>$578.70</td><td>$560.00</td><td>67</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/528040_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/528040_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/528040_in_1000x1000.jpg 1000w" sizes="48px" alt="Paldean Fates Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/528040/paldean-fates-elite-trainer-box" rel="noopener" target="_blank">Paldean Fates</a></span></th><td>$463.45</td><td>$59.99</td><td>61</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/242811_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/242811_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/242811_in_1000x1000.jpg 1000w" sizes="48px" alt="Celebrations Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/242811/celebrations-elite-trainer-box" rel="noopener" target="_blank">Celebrations</a></span></th><td>$371.36</td><td>$352.41</td><td>84</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/453470_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/453470_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/453470_in_1000x1000.jpg 1000w" sizes="48px" alt="Crown Zenith Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/453470/crown-zenith-elite-trainer-box" rel="noopener" target="_blank">Crown Zenith</a></span></th><td>$330.08</td><td>$314.96</td><td>67</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/210572_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/210572_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/210572_in_1000x1000.jpg 1000w" sizes="48px" alt="Rebel Clash Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/210572/rebel-clash-elite-trainer-box" rel="noopener" target="_blank">Rebel Clash</a></span></th><td>$306.43</td><td>$340.00</td><td>14</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/501264_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/501264_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/501264_in_1000x1000.jpg 1000w" sizes="48px" alt="Obsidian Flames Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/501264/obsidian-flames-elite-trainer-box" rel="noopener" target="_blank">Obsidian Flames</a></span></th><td>$286.52</td><td>$42.99</td><td>52</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/493974_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/493974_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/493974_in_1000x1000.jpg 1000w" sizes="48px" alt="Paldea Evolved Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/493974/paldea-evolved-elite-trainer-box" rel="noopener" target="_blank">Paldea Evolved</a></span></th><td>$226.75</td><td>$190.00</td><td>42</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/593355_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/593355_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/593355_in_1000x1000.jpg 1000w" sizes="48px" alt="Prismatic Evolutions Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/593355/prismatic-evolutions-elite-trainer-box" rel="noopener" target="_blank">Prismatic Evolutions</a></span></th><td>$169.13</td><td>$1.99</td><td>264</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/630686_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/630686_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/630686_in_1000x1000.jpg 1000w" sizes="48px" alt="Black Bolt Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/630686/black-bolt-elite-trainer-box" rel="noopener" target="_blank">Black Bolt</a></span></th><td>$168.31</td><td>$78.99</td><td>86</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/668496_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/668496_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/668496_in_1000x1000.jpg 1000w" sizes="48px" alt="Ascended Heroes Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/668496/ascended-heroes-elite-trainer-box" rel="noopener" target="_blank">Ascended Heroes</a></span></th><td>$167.62</td><td>$1.00</td><td>225</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/270708_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/270708_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/270708_in_1000x1000.jpg 1000w" sizes="48px" alt="Pokemon GO Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/270708/pokemon-go-elite-trainer-box" rel="noopener" target="_blank">Pokémon GO</a></span></th><td>$164.88</td><td>$168.00</td><td>18</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/557350_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/557350_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/557350_in_1000x1000.jpg 1000w" sizes="48px" alt="Stellar Crown Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/557350/stellar-crown-elite-trainer-box" rel="noopener" target="_blank">Stellar Crown</a></span></th><td>$161.29</td><td>$89.99</td><td>29</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/630689_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/630689_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/630689_in_1000x1000.jpg 1000w" sizes="48px" alt="White Flare Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/630689/white-flare-elite-trainer-box" rel="noopener" target="_blank">White Flare</a></span></th><td>$155.42</td><td>$3.00</td><td>88</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/654136_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/654136_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/654136_in_1000x1000.jpg 1000w" sizes="48px" alt="Phantasmal Flames Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/654136/phantasmal-flames-elite-trainer-box" rel="noopener" target="_blank">Phantasmal Flames</a></span></th><td>$148.69</td><td>$97.99</td><td>83</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/228821_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/228821_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/228821_in_1000x1000.jpg 1000w" sizes="48px" alt="Shining Fates Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/228821/shining-fates-elite-trainer-box" rel="noopener" target="_blank">Shining Fates</a></span></th><td>$145.20</td><td>$125.00</td><td>74</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/236260_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/236260_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/236260_in_1000x1000.jpg 1000w" sizes="48px" alt="Chilling Reign Elite Trainer Box [Ice Rider Calyrex], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/236260/chilling-reign-elite-trainer-box-ice-rider-calyrex" rel="noopener" target="_blank">Chilling Reign</a></span></th><td>$144.70</td><td>$129.99</td><td>19</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/478335_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/478335_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/478335_in_1000x1000.jpg 1000w" sizes="48px" alt="Scarlet &amp; Violet Elite Trainer Box [Koraidon], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/478335/scarlet-and-violet-elite-trainer-box-koraidon" rel="noopener" target="_blank">Scarlet &amp; Violet</a></span></th><td>$137.46</td><td>$130.00</td><td>28</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/512813_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/512813_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/512813_in_1000x1000.jpg 1000w" sizes="48px" alt="Paradox Rift Elite Trainer Box [Iron Valiant], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/512813/paradox-rift-elite-trainer-box-iron-valiant" rel="noopener" target="_blank">Paradox Rift</a></span></th><td>$137.13</td><td>$132.99</td><td>15</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/532848_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/532848_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/532848_in_1000x1000.jpg 1000w" sizes="48px" alt="Temporal Forces Elite Trainer Box [Iron Leaves ex], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/532848/temporal-forces-elite-trainer-box-iron-leaves-ex" rel="noopener" target="_blank">Temporal Forces</a></span></th><td>$129.68</td><td>$79.99</td><td>19</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/610930_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/610930_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/610930_in_1000x1000.jpg 1000w" sizes="48px" alt="Journey Together Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/610930/journey-together-elite-trainer-box" rel="noopener" target="_blank">Journey Together</a></span></th><td>$129.37</td><td>$1.99</td><td>48</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/565630_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/565630_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/565630_in_1000x1000.jpg 1000w" sizes="48px" alt="Surging Sparks Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/565630/surging-sparks-elite-trainer-box" rel="noopener" target="_blank">Surging Sparks</a></span></th><td>$126.12</td><td>$115.00</td><td>100</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/624676_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/624676_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/624676_in_1000x1000.jpg 1000w" sizes="48px" alt="Destined Rivals Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/624676/destined-rivals-elite-trainer-box" rel="noopener" target="_blank">Destined Rivals</a></span></th><td>$124.71</td><td>$43.99</td><td>144</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/644279_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/644279_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/644279_in_1000x1000.jpg 1000w" sizes="48px" alt="Mega Evolution Elite Trainer Box [Mega Gardevoir], sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/644279/mega-evolution-elite-trainer-box-mega-gardevoir" rel="noopener" target="_blank">Mega Evolution</a></span></th><td>$114.34</td><td>$69.99</td><td>87</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/552999_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/552999_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/552999_in_1000x1000.jpg 1000w" sizes="48px" alt="Shrouded Fable Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/552999/shrouded-fable-elite-trainer-box" rel="noopener" target="_blank">Shrouded Fable</a></span></th><td>$111.45</td><td>$109.00</td><td>56</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/543845_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/543845_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/543845_in_1000x1000.jpg 1000w" sizes="48px" alt="Twilight Masquerade Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/543845/twilight-masquerade-elite-trainer-box" rel="noopener" target="_blank">Twilight Masquerade</a></span></th><td>$106.65</td><td>$9.99</td><td>114</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/692947_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/692947_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/692947_in_1000x1000.jpg 1000w" sizes="48px" alt="Pitch Black Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/692947/pitch-black-elite-trainer-box" rel="noopener" target="_blank">Pitch Black</a></span></th><td>$73.63</td><td>$1.00</td><td>214</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/672401_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/672401_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/672401_in_1000x1000.jpg 1000w" sizes="48px" alt="Perfect Order Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/672401/perfect-order-elite-trainer-box" rel="noopener" target="_blank">Perfect Order</a></span></th><td>$68.74</td><td>$1.00</td><td>254</td></tr>
+            <tr><th scope="row"><span class="op-ps"><img class="op-pt" src="https://tcgplayer-cdn.tcgplayer.com/product/684450_150w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/684450_150w.jpg 150w, https://tcgplayer-cdn.tcgplayer.com/product/684450_in_1000x1000.jpg 1000w" sizes="48px" alt="Chaos Rising Elite Trainer Box, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()"><a href="https://www.tcgplayer.com/product/684450/chaos-rising-elite-trainer-box" rel="noopener" target="_blank">Chaos Rising</a></span></th><td>$67.12</td><td>$1.00</td><td>332</td></tr>
           </tbody>
         </table>
       </div>
       <p class="op-note">Prices are TCGplayer market and lowest listing, read August 16, 2026,
         the same figures the rest of this site quotes. They move. <a href="/pack-prices.html">Pack prices</a>
-        works out what that comes to per pack.</p>
+        works out what that comes to per pack. Each photograph is TCGplayer's, and it is that row's own
+        product rather than a stand-in, which is why the art is different in every one of them.</p>
     </div>
   </section>
 
@@ -429,10 +537,10 @@ border:1px solid var(--hair);border-radius:6px}
     </div>
     <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
     <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
-    Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+    Set logos are The Pokemon Company's. Product photos are TCGplayer's. Both are used to identify the sets and the products written about here.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=7f0274cc" defer></script>
-<script src="/assets/packplayer.js?v=faa2eb26" defer></script>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
 </body>
 </html>

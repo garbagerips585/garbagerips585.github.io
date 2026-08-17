@@ -449,13 +449,26 @@
     var left = box.left - lead;
     var right = box.right + lead;
     var imgs = track.querySelectorAll("img[data-packsrc]");
+    // EVERY READ, THEN EVERY WRITE. This used to measure one image and set src
+    // on it before measuring the next, and setting src on an <img> dirties
+    // layout, so each getBoundingClientRect after the first forced a synchronous
+    // re-layout of the track. Four slides meant four forced layouts on the load
+    // path, which is small and was measured to be small: the home page shows
+    // 0ms of Total Blocking Time and no long task at all at any width, before
+    // this change or after it. It is separated because the pattern is a trap
+    // rather than because it was costing anything, and because this loop is one
+    // slide long today and a longer band would not announce the cost.
+    var due = [];
     for (var i = 0; i < imgs.length; i++) {
-      var im = imgs[i];
-      var r = im.getBoundingClientRect();
+      var r = imgs[i].getBoundingClientRect();
       // Not laid out yet. Say nothing rather than guess; the scroll and resize
       // handlers come back to it.
       if (!r.width) continue;
       if (r.right <= left || r.left >= right) continue;
+      due.push(imgs[i]);
+    }
+    for (var j = 0; j < due.length; j++) {
+      var im = due[j];
       // sizes, then srcset, then src. Setting src first starts a fetch for the
       // one url it names, and the srcset arriving on the next line cannot call
       // that request back.

@@ -195,6 +195,64 @@ const widest = rows.slice().sort((a, b) => b.baseSpread - a.baseSpread)[0];
 
 const pct = (x) => `${Math.round(x * 100)}%`;
 
+// ---------------------------------------------------------------------- chart
+//
+// THE PAGE'S OWN ARGUMENT, DRAWN. "The base set is the cheap part. The money is
+// all above that line, in the secret rares" is the first thing this page says
+// and the reason it exists, and it was being made with two numbers in a
+// sentence and then evidenced by a 28 row, 5 column table of more numbers. The
+// shape of that table is the argument, and a table does not have a shape you
+// can see.
+//
+// So: one bar per set, base set solid, the secret rares stacked on in pale
+// gold, sorted by base set exactly as the table below is. Nothing is computed
+// here that the table does not already print; this reads the same `rows` and
+// draws it. If the two ever disagree, this is wrong, not the table.
+//
+// DRAWN, NOT PHOTOGRAPHED, and not a chart library either. It is 28 rects and a
+// text label, inline, so it costs no request, no script, and nothing to
+// measure. The site draws its own rarity marks and its own booster wrappers for
+// the same reason.
+const CH_ROW = 13; // one set
+const CH_LAB = 96; // room for the set name
+const CH_W = 300; // viewBox units; the svg scales to whatever box it lands in
+const CH_TOP = 12;
+const chMax = Math.max(...rows.map((r) => r.master));
+// THE SAME ORDER AS THE TABLE, cheapest first, and not reversed to put the big
+// bar at the top. The caption claims the two agree, so they have to actually
+// agree; a chart that is the table upside down makes a reader who checks one
+// against the other think one of them is wrong.
+const chartRows = rows;
+const costChart = `<figure class="cc-chart">
+      <svg viewBox="0 0 ${CH_W} ${CH_TOP + chartRows.length * CH_ROW + 4}" role="img"
+           aria-label="One bar per set, cheapest base set first. ${esc(cheapest.name)} is the cheapest to complete at ${moneyRound(cheapest.base)} and ${esc(priciest.name)} the priciest at ${moneyRound(priciest.base)}. The longest bar is ${esc(dearestMaster.name)}, whose master set is ${moneyRound(dearestMaster.master)} against a ${moneyRound(dearestMaster.base)} base set.">
+        ${chartRows
+          .map((r, i) => {
+            const y = CH_TOP + i * CH_ROW;
+            const x0 = CH_LAB + 4;
+            const span = CH_W - CH_LAB - 8;
+            const wBase = Math.max(0.6, (r.base / chMax) * span);
+            const wAll = Math.max(wBase, (r.master / chMax) * span);
+            return `<g class="cc-ch-r">
+          <text class="cc-ch-n" x="${CH_LAB}" y="${y + 8}">${esc(r.name)}</text>
+          <rect class="cc-ch-all" x="${x0}" y="${y + 2}" width="${wAll.toFixed(1)}" height="8" rx="1.5"></rect>
+          <rect class="cc-ch-base" x="${x0}" y="${y + 2}" width="${wBase.toFixed(1)}" height="8" rx="1.5"></rect>
+        </g>`;
+          })
+          .join("\n        ")}
+      </svg>
+      <p class="cc-ch-key">
+        <span><i class="base"></i>the base set</span>
+        <span><i class="all"></i>what the secret rares add on top</span>
+      </p>
+      <figcaption>Every set below, drawn, cheapest base set first. The solid bar is the base
+        set; the pale bar running past it is the whole master set, so the gap is what the
+        secret rares cost. ${esc(dearestMaster.name)} is the longest one:
+        ${moneyRound(dearestMaster.base)} of cards you can find in the checklist and
+        ${moneyRound(dearestMaster.master - dearestMaster.base)} of cards numbered past the
+        printed total. Same figures as the table, same order, drawn to the same scale.</figcaption>
+    </figure>`;
+
 /**
  * One row of "when the set IS one card", with the card in it.
  *
@@ -274,6 +332,25 @@ const miniCSS = (css) =>
   css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
 
 const style = `
+/* The drawn cost chart. See the block that builds it for why it exists.
+   Capped at 46em so the bars do not stretch to a metre on a wide screen: past
+   that width the comparison stops getting easier to read and the labels drift
+   miles from their bars. */
+.cc-chart{margin:var(--s5) 0 0;max-width:46em}
+.cc-chart svg{display:block;width:100%;height:auto}
+.cc-ch-n{font:400 6.6px/1 var(--body);fill:var(--ink-2);text-anchor:end}
+/* Pale first, solid over the top, so the two rects read as one bar with a
+   darker head rather than as two bars that happen to touch. */
+.cc-ch-all{fill:var(--chip-gold-bg)}
+.cc-ch-base{fill:var(--ink)}
+.cc-ch-key{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);margin-top:var(--s3);
+  font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2)}
+.cc-ch-key span{display:inline-flex;align-items:center;gap:6px}
+.cc-ch-key i{width:22px;height:9px;border-radius:2px;flex:none}
+.cc-ch-key i.base{background:var(--ink)}
+.cc-ch-key i.all{background:var(--chip-gold-bg)}
+.cc-chart figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.6 var(--body);
+  color:var(--ink-2)}
 .w34{max-width:34em}
 .w38{max-width:38em}
 .w40{max-width:40em}
@@ -462,6 +539,7 @@ ${MENU}
     <h2>Cheapest to <span class="hl">priciest</span></h2>
     <p class="lede w40">Sorted by base set, which is the tier most people are asking about. Every
       figure buys one copy of each card at its cheapest printing, at market, before shipping.</p>
+    ${costChart}
     <div class="cc-scroll" tabindex="0" role="region" aria-label="Cost to complete each set, scrollable table">
       <table class="cc-table">
         <caption class="sr-only">Cost to complete each set at three tiers, with the most expensive single card</caption>

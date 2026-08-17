@@ -183,6 +183,121 @@ function centeringDiagram() {
       </figure>`;
 }
 
+// ============================================================================
+// THE FRONT AND BACK LADDER, and it is the same argument as the diagram above
+// made four grades wide.
+//
+// The two tables print eight PSA numbers: 55/45, 60/40, 65/35 and 70/30 on the
+// front, 75/25 and three 90/10s on the back. The back table's own caption tells
+// the reader to "note how much wider the tolerances are", which is a table
+// asking to be looked at as a picture. So here is the picture: the same card
+// drawn at each of those eight splits, front beside back, one row per grade.
+//
+// WHAT IT ADDS THAT THE TABLE DOES NOT. "90/10" is a pair of digits. Drawn, it
+// is a card whose picture is nearly touching one edge, sitting beside a front at
+// 60/40 that still looks roughly straight, on the SAME grade row. The gap
+// between the front and back standard is the finding of that whole section and
+// it is invisible in a table of numbers because both halves read as numbers.
+//
+// DRAWN, NOT PHOTOGRAPHED, for the reason the diagram above already records: a
+// photograph of a real card would be a claim about that card's grade. A diagram
+// is the published standard rendered, and it makes no claim about any object.
+//
+// PSA ONLY, AND THE CAPTION SAYS SO, because the row has to be one company's or
+// it is a consensus this page spends its opening arguing does not exist. PSA is
+// the one with a published number in every cell of both tables; Beckett is
+// stricter on the front at 9 and CGC stops publishing a TCG number below 10,
+// which is what the tables beside this are for.
+//
+// THE GEOMETRY IS PARSED OUT OF THE DATA, never typed in, exactly as the
+// diagram above parses its example sentence. A picture showing a split the table
+// beside it does not state would be this page inventing a tolerance, so an
+// unparseable or non-summing value throws the build.
+const splitOf = (v) => {
+  const m = /(\d{2})\s*\/\s*(\d{1,2})/.exec(String(v || ""));
+  if (!m) return null;
+  const a = Number(m[1]), b = Number(m[2]);
+  if (a + b !== 100) {
+    throw new Error(
+      `build-grade-check: centering value "${v}" parses as ${a}/${b}, which does not sum to 100. ` +
+        `The front/back ladder draws these as real proportions, so a pair that is not a percentage ` +
+        `split would be a picture of nothing. Fix the data or the parse, not the drawing.`
+    );
+  }
+  return [a, b];
+};
+
+const LADDER = c.front
+  .map((row, i) => {
+    const front = splitOf(row.psa);
+    const back = splitOf(c.back[i]?.psa);
+    return front && back && c.back[i]?.grade === row.grade
+      ? { grade: row.grade, front, back, frontText: row.psa, backText: c.back[i].psa }
+      : null;
+  })
+  .filter(Boolean);
+
+if (!LADDER.length) {
+  throw new Error(
+    "build-grade-check: no grade has a PSA number in BOTH the front and the back centering table, " +
+      "so the front-and-back ladder would render empty. Either the data changed shape or PSA's " +
+      "column emptied out; do not ship the figure with a silent zero rows."
+  );
+}
+
+/**
+ * One small card drawn at a given left/right split.
+ *
+ * 100x140 is the 245x337 proportion every scan on this site uses, halved from
+ * the 200x280 the big diagram uses so the two are the same object at two sizes.
+ * BORDER is the total left-plus-right border; lx = BORDER * left / 100 puts the
+ * window where the number says, and at 50/50 that is exactly half.
+ *
+ * THE TWO BORDER STRIPS ARE SHADED and that is the difference between this
+ * reading and not reading. Drawn as an outline and a window only, a 90/10 card
+ * at this size is a rectangle sitting 19px from one edge and 2px from the
+ * other, and the eye compares it to the card outline rather than to itself: the
+ * first build of this figure was four rows of cards that all looked much the
+ * same. Filling both strips makes it an area comparison, which is read rather
+ * than measured. It is the same fix, and the same `.ct-band`, the big diagram
+ * above already carries; that comment says so and this one repeated the mistake
+ * anyway, which is why it is written down twice now.
+ *
+ * aria-hidden, because the ratio is printed in text directly under every one of
+ * them and the figure has a figcaption. Eight SVG labels announced to a screen
+ * reader would be the same eight numbers a third time.
+ */
+const miniCard = (left) => {
+  const W = 100, H = 140, BX = 24, BY = 30;
+  const lx = (BX * left) / 100;
+  const win = { x: lx, y: BY / 2, w: W - BX, h: H - BY };
+  return `<svg viewBox="0 0 ${W} ${H}" class="lad-svg" aria-hidden="true" focusable="false">
+              <rect x="1" y="1" width="${W - 2}" height="${H - 2}" rx="6" class="ct-card"/>
+              <rect x="2" y="${win.y}" width="${Math.max(0, win.x - 2)}" height="${win.h}" class="ct-band"/>
+              <rect x="${win.x + win.w}" y="${win.y}" width="${Math.max(0, W - 2 - win.x - win.w)}" height="${win.h}" class="ct-band"/>
+              <rect x="${win.x}" y="${win.y}" width="${win.w}" height="${win.h}" rx="2" class="ct-win"/>
+            </svg>`;
+};
+
+const ladder = () => `      <figure class="lad">
+        <div class="lad-grid">
+          <span class="lad-h"></span>
+          <span class="lad-h">Front</span>
+          <span class="lad-h">Back</span>
+${LADDER.map(
+  (r) => `          <span class="lad-g">${esc(r.grade)}</span>
+          <span class="lad-c">${miniCard(r.front[0])}<b>${esc(r.frontText)}</b></span>
+          <span class="lad-c">${miniCard(r.back[0])}<b>${esc(r.backText)}</b></span>`
+).join("\n")}
+        </div>
+        <figcaption>PSA's published centering, drawn to scale, left to right. Every one of these is a
+          card PSA would still give that grade on centering alone. The back column is the same grade as
+          the front beside it: at Mint 9 the front has to be within ${esc(LADDER.find((r) => /9/.test(r.grade))?.frontText || "")}
+          and the back may be ${esc(LADDER.find((r) => /9/.test(r.grade))?.backText || "")}, which is why the
+          section above says almost nobody checks the back. Numbers are PSA's own, from the table above;
+          the drawing adds nothing to them except scale.</figcaption>
+      </figure>`;
+
 const desc =
   "Will your Pokemon card grade a 10? Centering tolerances from PSA, CGC, Beckett, SGC and TAG, the flaws that cost grades, and how to check a card at home.";
 
@@ -224,6 +339,44 @@ const style = `
 .ct-in{fill:var(--ink-2);font:400 11px/1 var(--body);text-anchor:middle}
 .ct-fig figcaption{font-size:var(--t-sm);line-height:1.5;color:var(--ink-2);margin-top:var(--s3)}
 .ct-fig figcaption b{font-family:var(--mono);color:var(--ketchup-deep)}
+/* THE FRONT AND BACK LADDER. Three columns, grade then two cards, so the front
+   and the back of one grade are on one line: the whole point is the comparison
+   ACROSS a row, and any layout that stacks them loses it. The card width is
+   clamped rather than fixed because at 390 the row has about 350px to spend on
+   a label and two cards, and at 1280 the same grid would leave two postage
+   stamps in a 1,232px band. */
+.lad{margin:var(--s5) 0;border:3px solid var(--navy);border-radius:12px;background:var(--card);
+  box-shadow:var(--hard-lg);padding:var(--s4)}
+/* THE LABEL COLUMN IS CAPPED AND THE GRID HUGS THE LEFT. As minmax(0,1fr) it
+   ate every spare pixel: at 1280 the grade names sat in a 1,000px column with
+   the eight cards pushed against the right edge of the panel, half a metre from
+   the label they belong to. The comparison is ACROSS a row, so the row has to
+   stay short however wide the page gets. */
+.lad-grid{display:grid;grid-template-columns:minmax(104px,220px) auto auto;
+  gap:var(--s3) var(--s5);align-items:center;justify-items:center;justify-content:start}
+.lad-h{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.lad-g{justify-self:start;font-weight:700;font-size:var(--t-sm);line-height:1.25}
+.lad-c{display:block;text-align:center}
+.lad-c b{display:block;margin-top:6px;font:700 var(--t-micro)/1 var(--mono);color:var(--ketchup-deep)}
+.lad-svg{display:block;width:clamp(56px,17vw,104px);height:auto}
+/* Desktop puts the caption beside the cards rather than under them. The grid is
+   a fixed ~430px however wide the page is, so stacked it left roughly 800px of
+   empty panel at 1280 with the explanation below the fold of the figure. */
+@media(min-width:1000px){
+  .lad-svg{width:104px}
+  .lad{display:flex;gap:var(--s6);align-items:flex-start}
+  .lad figcaption{margin-top:0;flex:1;min-width:0}
+}
+/* THE BAND AND WINDOW OPACITIES ARE NOT THE BIG DIAGRAM'S AND THAT IS MEASURED.
+   Inherited unchanged (band .15, window .14) the two tones are within one
+   percent of each other, and at a quarter of the size that is one grey block
+   with a faint seam: the second build of this figure was eight cards nobody
+   could tell apart. The big diagram gets away with it at 210px wide with
+   dimension lines and numbers inside it. This one is 56 to 104px with nothing
+   in it but the shape, so the strip has to carry the whole reading. */
+.lad-svg .ct-band{opacity:.5}
+.lad-svg .ct-win{opacity:.09}
+.lad figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s4);max-width:52ch}
 .gc-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
 @media(max-width:880px){.gc-cards{grid-template-columns:1fr}}
 .gc-c{border:3px solid var(--navy);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
@@ -340,6 +493,7 @@ ${centeringDiagram()}
         </div>
 ${table(c.front, "Front centering, as each company publishes it")}
 ${table(c.back, "Back centering. Note how much wider the tolerances are, and how many are simply absent")}
+${ladder()}
         <p class="gc-in"><b>PSA gives itself room, and tells you so.</b> ${esc(c.leeway.text)}
           ${esc(c.leeway.worked)}${src(c.leeway.source, "PSA centering standards and leeway")}</p>
         <div class="gc-cards">

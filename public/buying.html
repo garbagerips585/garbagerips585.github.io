@@ -22,9 +22,39 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
+<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>.by-lede{max-width:46em}
+.pg{margin:var(--s4) 0 var(--s5);border:3px solid var(--navy);border-radius:12px;background:var(--card);
+box-shadow:var(--hard-lg);padding:var(--s4)}
+.pg-bad{background:var(--ink)}
+.pg-ok{background:var(--trubbish)}
+.pg-good{background:var(--gold)}
+.bch{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s3)}
+.bch li{display:flex;flex-direction:column;gap:5px}
+.bch-h{display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap}
+.bch-n{font:700 var(--t-sm)/1.2 var(--body);color:var(--ink)}
+.bch-s{font:400 var(--t-micro)/1.2 var(--mono);color:var(--ink-2)}
+.bch-v{margin-left:auto;font:700 var(--t-sm)/1 var(--mono);color:var(--ketchup-deep);white-space:nowrap}
+.bch-none{font-weight:400;color:var(--ink-2)}
+.bch-t{display:block;height:12px;border-radius:3px;background:var(--paper-2);
+box-shadow:inset 0 0 0 1px var(--hair)}
+.bch-b{display:block;height:100%;border-radius:3px;min-width:3px}
+.bch-head{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+color:var(--ink-2);margin:var(--s4) 0 var(--s3);padding-top:var(--s3);border-top:1px solid var(--hair)}
+.bch .bmk{height:30px;min-width:52px;max-width:112px;padding:3px 7px}
+.fs-b{background:var(--gold)}
+.fs-z{background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px);
+box-shadow:inset 0 0 0 1px var(--ink-2)}
+.bch-2 li{gap:6px}
+.bch-r{display:flex;align-items:center;gap:var(--s2)}
+.bch-r .bch-t{flex:1 1 auto}
+.bch-r .bch-v{margin-left:0;flex:none;font-weight:700}
+.ck-gv{color:var(--ink-2);font-weight:400}
+.ck-g{background:var(--paper-3);box-shadow:inset 0 0 0 1px var(--hair)}
+.ck-c{background:var(--ink)}
+.pg figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s4);max-width:52ch}
+.pg figcaption b{color:var(--ink);display:block;margin-top:var(--s3)}
 .by-jump{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:var(--s5) 0 var(--s4)}
 .by-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
 border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
@@ -94,7 +124,7 @@ text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
 .by-lede{max-width:50ch}
 .by-grp > p{max-width:50ch}
 .by-key p{max-width:50ch}
-.by-src{max-width:64ch}
+.by-src{max-width:56ch}
 }
 @media(min-width:1100px){
 .by-top{display:grid;grid-template-columns:minmax(0,620px) minmax(0,1fr);
@@ -103,10 +133,18 @@ gap:var(--s5) var(--s6);align-items:start}
 .by-key{display:grid;grid-template-columns:300px minmax(0,1fr);
 gap:var(--s5);align-items:start}
 .by-key > h2{margin-bottom:0}
+.pg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);
+gap:var(--s4) var(--s5);align-items:start}
+.pg > figcaption{grid-column:2;grid-row:1/-1;margin-top:0}
+.pg > :not(figcaption){grid-column:1}
+.pg .bch-head{margin-top:var(--s3)}
+.pg > figcaption{max-width:45ch}
 }
 @media(min-width:1200px){
 .by-list,.by-chain{columns:2;column-gap:var(--s6);max-width:none}
 .by-list li,.by-chain li{break-inside:avoid}
+.by-vs,.by-ps{grid-template-columns:repeat(3,1fr);align-items:start}
+.by-list,.by-chain{max-width:1100px}
 }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Where to buy"}]}</script>
 </head>
@@ -271,6 +309,77 @@ gap:var(--s5);align-items:start}
         <p>And every protection listed here is conditional on the payment having gone through the platform. Moving it off does not weaken your protection, it deletes it, and all of these policies say so in their own words.</p>
         </div>
       </div>
+
+      <section class="by-grp">
+        <h2>What an order has to reach before shipping is <span class="hl">free</span></h2>
+        <p>Every venue below states its own threshold on its own card, twelve screens apart, and the number is the
+          first thing a buyer wants. Here they are on one axis, with the four that publish no number at all
+          underneath, because that group is the reason this page exists.</p>
+      <figure class="pg pg-fs">
+        <ul class="bch">
+          <li>
+            <span class="bch-h"><span class="bch-n">Card Cavern</span><b class="bch-v">$20</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b fs-b" style="width:10.1%"></span></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bmk"><img src="/assets/brands/pokemon-center.svg" alt="The Pokémon Company" width="269" height="25" loading="lazy" decoding="async"></span><span class="bch-n">Pokemon Center</span><b class="bch-v">$20</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b fs-b" style="width:10.1%"></span></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bch-n">CoolStuffInc</span><b class="bch-v">$30</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b fs-b" style="width:15.1%"></span></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bmk"><img src="/assets/brands/target.svg" alt="Target" width="300" height="300" loading="lazy" decoding="async"></span><span class="bch-n">Target</span><b class="bch-v">$35</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b fs-b" style="width:17.6%"></span></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bmk"><img src="/assets/brands/walmart.svg" alt="Walmart" width="1024" height="241" loading="lazy" decoding="async"></span><span class="bch-n">Walmart</span><b class="bch-v">$35</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b fs-b" style="width:17.6%"></span></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bmk"><img src="/assets/brands/bestbuy.svg" alt="Best Buy" width="1000" height="584" loading="lazy" decoding="async"></span><span class="bch-n">Best Buy</span><b class="bch-v">$35</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b fs-b" style="width:17.6%"></span></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bmk"><img src="/assets/brands/tcgplayer.svg" alt="TCGplayer" width="801" height="337" loading="lazy" decoding="async"></span><span class="bch-n">TCGplayer Direct</span><b class="bch-v">$50</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b fs-b" style="width:25.1%"></span></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bch-n">Dave and Adam's</span><b class="bch-v">$199</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b fs-b" style="width:100%"></span></span>
+          </li>
+        </ul>
+        <p class="bch-head">No threshold to draw, and why</p>
+        <ul class="bch bch-z">
+          <li>
+            <span class="bch-h"><span class="bmk"><img src="/assets/brands/amazon.svg" alt="Amazon" width="603" height="182" loading="lazy" decoding="async"></span><span class="bch-n">Amazon</span><b class="bch-v"><span class="bch-none">not published</span></b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b fs-z" style="width:14%"></span></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bmk"><img src="/assets/brands/costco.svg" alt="Costco Wholesale" width="201" height="72" loading="lazy" decoding="async"></span><span class="bch-n">Costco</span><b class="bch-v"><span class="bch-none">priced per item</span></b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b fs-z" style="width:14%"></span></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bmk"><img src="/assets/brands/ebay.svg" alt="eBay" width="1000" height="401" loading="lazy" decoding="async"></span><span class="bch-n">eBay</span><b class="bch-v"><span class="bch-none">set by the seller</span></b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b fs-z" style="width:14%"></span></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bmk"><img src="/assets/brands/whatnot.svg" alt="Whatnot" width="594" height="115" loading="lazy" decoding="async"></span><span class="bch-n">Whatnot</span><b class="bch-v"><span class="bch-none">priced by weight</span></b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b fs-z" style="width:14%"></span></span>
+          </li>
+        </ul>
+        <figcaption>What an order of singles has to reach before shipping stops costing anything, read off each
+          company's own shipping or help page on August 15, 2026.
+          Three chains have landed on the same 35 dollar number and none of them says so out loud.
+          Walmart's is the same threshold stated backwards, as a fee under it rather than free shipping over it, and
+          both Target and Best Buy waive theirs entirely for members. Sealed product is a different and much higher
+          number at two of these shops, on their own cards below.
+          <b>The bottom four are the point of this page.</b> Amazon's own free shipping help page says "the stated
+          minimum threshold of eligible items" six times and never states it, which is why this site sends you to
+          your own cart instead of printing the $35 that every comparison site quotes.</figcaption>
+      </figure>
+      </section>
 
       <section class="by-grp">
         <h2>Marketplaces</h2>
@@ -688,6 +797,28 @@ gap:var(--s5);align-items:start}
       <section class="by-grp">
         <h2>The cheapest card is not the cheapest <span class="hl">order</span></h2>
         <p class="by-lede">On a marketplace the price you compare is per card and the price you pay is per seller. TCGplayer says it plainly on its own shipping page: you are charged one flat shipping fee per store, no matter how many items you order from them. That sentence is usually read as good news, and it is, right up until your cart holds twelve cards from twelve different stores.</p>
+      <figure class="pg">
+        <ul class="bch">
+          <li>
+            <span class="bch-h"><span class="bch-n">12 cards, 12 different sellers</span><b class="bch-v">$17.88</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b pg-bad" style="width:100%"></span></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bch-n">12 cards, all from one seller</span><b class="bch-v">$1.49</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b pg-ok" style="width:8.3%"></span></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bch-n">TCGplayer Direct, one package</span><b class="bch-v">$3.99</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b pg-good" style="width:22.3%"></span></span>
+          </li>
+        </ul>
+        <figcaption>Postage only, on one order of 12 cheap cards. The top bar is
+          12 &times; $1.49, TCGplayer's published floor for an order under $5 from a seller,
+          because a flat fee per store is 12 fees when the cards come from 12 stores. The bottom
+          one is Direct's $3.99 for the whole package. Both figures are TCGplayer's own, from the
+          shipping page linked in its card above, read August 15, 2026. Direct is not
+          free of trade-offs and the list above says which; this only draws the postage.</figcaption>
+      </figure>
         <ul class="by-list">
           <li>Twelve cards from one seller is one shipping fee. Twelve cards from twelve sellers is twelve shipping fees, and TCGplayer's floor for an order under $5 from a seller is $1.49, so a cart of twelve cheap commons can pay more in postage than in cards.</li>
           <li>Crossing $5 with one seller does not make shipping free. It only removes TCGplayer's own minimum, after which the seller's rate applies, and only Level 4 sellers are allowed to set that rate to $0 at all. The listings that do carry a visible badge saying so.</li>
@@ -704,6 +835,33 @@ gap:var(--s5);align-items:start}
         <p>Buyer protection and seller protection are different products, and the buyer's version is generally the
           bigger one. What varies most is not whether you are covered, it is how long you have, and trading cards
           get a shorter clock than almost anything else at the venues that publish a carve-out.</p>
+      <figure class="pg pg-ck">
+        <ul class="bch bch-2">
+          <li>
+            <span class="bch-h"><span class="bmk"><img src="/assets/brands/ebay.svg" alt="eBay" width="1000" height="401" loading="lazy" decoding="async"></span><span class="bch-n">eBay <span class="bch-s">if the seller offers no returns</span></span></span>
+            <span class="bch-r"><span class="bch-t" aria-hidden="true"><span class="bch-b ck-g" style="width:100%"></span></span><b class="bch-v ck-gv">30 days, other items</b></span>
+            <span class="bch-r"><span class="bch-t" aria-hidden="true"><span class="bch-b ck-c" style="width:10%"></span></span><b class="bch-v">3 days, a card</b></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bmk"><img src="/assets/brands/whatnot.svg" alt="Whatnot" width="594" height="115" loading="lazy" decoding="async"></span><span class="bch-n">Whatnot <span class="bch-s">counted from delivery</span></span></span>
+            <span class="bch-r"><span class="bch-t" aria-hidden="true"><span class="bch-b ck-g" style="width:46.7%"></span></span><b class="bch-v ck-gv">14 days, other items</b></span>
+            <span class="bch-r"><span class="bch-t" aria-hidden="true"><span class="bch-b ck-c" style="width:23.3%"></span></span><b class="bch-v">7 days, a card</b></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bmk"><img src="/assets/brands/tcgplayer.svg" alt="TCGplayer" width="801" height="337" loading="lazy" decoding="async"></span><span class="bch-n">TCGplayer <span class="bch-s">no card carve-out</span></span></span>
+            <span class="bch-r"><span class="bch-t" aria-hidden="true"><span class="bch-b ck-g" style="width:100%"></span></span><b class="bch-v ck-gv">30 days, other items</b></span>
+            <span class="bch-r"><span class="bch-t" aria-hidden="true"><span class="bch-b ck-c" style="width:100%"></span></span><b class="bch-v">30 days, a card</b></span>
+          </li>
+        </ul>
+        <figcaption>The delivery-side clock, in days, on the venues that publish one. The dark bar is what a trading
+          card gets and the light bar is what the same venue gives everything else.
+          eBay's card window applies when the seller offers no returns, and it is
+          10 times shorter than the window on anything
+          in any other category. TCGplayer publishes no card carve-out at all, which is why its two bars
+          are the same length. These are the windows to OPEN a claim, not how long a case then takes. Read from each
+          platform's own policy on August 15, 2026, and the full wording is on
+          the cards below.</figcaption>
+      </figure>
         <div class="by-ps">
       <article class="by-p">
         <div class="by-vh">
@@ -932,7 +1090,7 @@ gap:var(--s5);align-items:start}
     Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=7f0274cc" defer></script>
-<script src="/assets/packplayer.js?v=faa2eb26" defer></script>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
 </body>
 </html>

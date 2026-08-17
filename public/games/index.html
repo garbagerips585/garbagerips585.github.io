@@ -22,9 +22,27 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
+<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
-<link rel="stylesheet" href="/assets/games.css?v=e2ecf384">
+<link rel="stylesheet" href="/assets/games.css?v=8477854e">
+<style>
+.g-shot{display:block;margin:0;border:2px solid var(--ink);border-radius:10px;
+  overflow:hidden;background:var(--page);line-height:0}
+.g-shot img{display:block;width:100%;height:auto}
+.g-card.has-shot{display:grid;grid-template-columns:min(46%,190px) 1fr;
+  column-gap:var(--s4);align-items:start}
+/* The shot sits beside all three text rows. Named lines would be tidier, but
+   a span survives a fourth line being added to the card and a fixed 1 / 4
+   does not. */
+.g-card.has-shot .g-shot{grid-column:1;grid-row:1 / span 3}
+.g-card.has-shot .g-tag,.g-card.has-shot h2,.g-card.has-shot p{grid-column:2}
+/* A grid item stretches its cell, so the tag pill ran the full width of the
+   text column and stopped reading as a pill. It is inline-block everywhere
+   else on the site and this puts it back. */
+.g-card.has-shot .g-tag{justify-self:start}
+.g-icon{display:block;margin:0 0 12px}
+.g-icon img{display:block;width:56px;height:56px;border-radius:13px;
+  border:1px solid var(--hair);background:var(--card)}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Games","item":"https://garbagerips585.github.io/games/"}]}</script>
 </head>
 <body>
@@ -142,22 +160,30 @@
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / Games</p>
     <div class="g-list">
-      <a class="g-card" href="/games/garbage-run.html">
+      <a class="g-card has-shot" href="/games/garbage-run.html">
+        <span class="g-shot"><img src="/assets/games/garbage-run-screenshot.webp" width="380" height="622"
+          alt="Garbage Run part way through a run: Trubbish mid-air on a dark street, a curve of rubbish ahead of him, another Pokemon perched on the edge of the lane, and the score counting up towards a hundred" decoding="async" fetchpriority="high"></span>
         <span class="g-tag">Arcade</span>
         <h2>Garbage Run</h2>
         <p>One thumb, no rules to read. Flip Trubbish between the floor and the ceiling and eat everything on the street. A hundred pieces of rubbish and he evolves.</p>
       </a>
-      <a class="g-card" href="/games/whos-that-pokemon.html">
+      <a class="g-card has-shot" href="/games/whos-that-pokemon.html">
+        <span class="g-shot"><img src="/assets/games/whos-that-pokemon-screenshot.webp" width="380" height="522"
+          alt="Who's That Pokemon mid-round: a Pokemon blacked out to a silhouette, with four names to choose from underneath" decoding="async" loading="lazy"></span>
         <span class="g-tag">Silhouettes</span>
         <h2>Who's That Pokemon?</h2>
         <p>Name the shape. All 1,025 of them, or just the original 151.</p>
       </a>
-      <a class="g-card" href="/games/guess-the-set.html">
+      <a class="g-card has-shot" href="/games/guess-the-set.html">
+        <span class="g-shot"><img src="/assets/games/guess-the-set-screenshot.webp" width="380" height="595"
+          alt="Guess the Set mid-round: a full scan of a real Pokemon card, with four set names to choose from underneath" decoding="async" loading="lazy"></span>
         <span class="g-tag">Card scans</span>
         <h2>Guess the Set</h2>
         <p>A real card, four sets, one right answer. 131 sets in the pot.</p>
       </a>
-      <a class="g-card" href="/games/pokemon-trivia.html">
+      <a class="g-card has-shot" href="/games/pokemon-trivia.html">
+        <span class="g-shot"><img src="/assets/games/pokemon-trivia-screenshot.webp" width="380" height="522"
+          alt="Pokemon Trivia mid-round: a question in large type, with four answers to choose from underneath" decoding="async" loading="lazy"></span>
         <span class="g-tag">Quiz</span>
         <h2>Pokemon Trivia</h2>
         <p>1,400 questions, all generated from real Pokedex and card data.</p>
@@ -169,19 +195,22 @@
       goes into one of them.</p>
     <div class="g-list">
       <a class="g-card" href="/tcg-live.html">
+        <span class="g-icon"><img src="/assets/apps/pokemon-tcg-live-app-icon.webp" width="112" height="112" alt="The Pokemon TCG Live app icon" loading="lazy" decoding="async"></span>
         <span class="g-tag">Official</span>
         <h2>Pokemon TCG Live</h2>
         <p>The full card game, same rules as the cards in your hand. It is where the code card from a booster pack
           gets redeemed, and what that code actually gives you is not what most people assume.</p>
       </a>
       <a class="g-card" href="/tcg-pocket.html">
+        <span class="g-icon"><img src="/assets/apps/pokemon-tcg-pocket-app-icon.webp" width="112" height="112" alt="The Pokemon TCG Pocket app icon" loading="lazy" decoding="async"></span>
         <span class="g-tag">Official</span>
         <h2>Pokemon TCG Pocket</h2>
         <p>The casual one, and the easier place to learn: shorter matches on a deliberately simplified ruleset, so what
           it teaches you carries over only so far. Your pack codes do not work here.</p>
       </a>
     </div>
-    <p class="price-note" style="margin-top:var(--s5)">Your best scores are saved on this device only. There is no
+    <p class="price-note" style="margin-top:var(--s5)">The four pictures above are screenshots of these games running in a browser at phone width, taken from these
+      pages, not mock ups. The question in each one is whatever came up. The two app icons are from each app's own App Store listing. Your best scores are saved on this device only. There is no
       account and no leaderboard, because the site is a set of static files with nowhere to store one.
       Pokedex data from pokeapi.co, read August 13, 2026. Card scans from TCGdex.
       Pokemon and all Pokemon names are trademarks of The Pokemon Company. This is fan content.</p>
@@ -260,9 +289,9 @@
     Fan made games. Card data and Pokedex data credited on each page.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=7f0274cc" defer></script>
-<script src="/assets/packplayer.js?v=faa2eb26" defer></script>
-<script src="/assets/games.js?v=18706bfc" defer></script>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
+<script src="/assets/games.js?v=40f59b03" defer></script>
 
 </body>
 </html>

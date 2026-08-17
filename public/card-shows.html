@@ -22,8 +22,42 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
+<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+
+<style>
+.cal-wrap{margin:var(--s5) 0 0}
+.cal-grid{display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(148px,1fr));
+  align-items:start}
+.cal-m{margin:0}
+.cal-m figcaption{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-2);margin-bottom:6px}
+.cal-m svg{display:block;width:100%;height:auto;overflow:visible}
+.cal-dow{font:700 7px/1 var(--mono);fill:var(--ink-2);text-anchor:middle;letter-spacing:.02em}
+.cal-n{font:400 9.5px/1 var(--mono);fill:var(--ink-2);text-anchor:middle}
+.cal-d.has .cal-n{font-weight:700;fill:var(--ink)}
+.cal-pill{fill:var(--chip-gold-bg)}
+.cal-d.feat .cal-pill{stroke:var(--ink);stroke-width:1.4}
+.cal-dot{fill:var(--ink)}
+.cal-dot.pk{fill:var(--gold);stroke:var(--gold-deep);stroke-width:.8}
+/* Dimmed rather than removed: a month with the first half greyed out is how
+   you see at a glance where in it you are standing. */
+.cal-d.is-past{opacity:.36}
+/* Toggled by the filter below, which drives the calendar and the list together.
+   display:none rather than the hidden attribute, which SVG elements do not
+   reliably honour. */
+.cal-dot.is-off{display:none}
+.cal-d.is-empty .cal-pill{display:none}
+.cal-d.is-empty .cal-n{font-weight:400;fill:var(--ink-2)}
+.cal-key{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);margin-top:var(--s3);
+  font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2)}
+.cal-key span{display:inline-flex;align-items:center;gap:6px}
+.cal-key i{width:9px;height:9px;border-radius:50%;background:var(--ink);flex:none}
+.cal-key i.pk{background:var(--gold);border:1px solid var(--gold-deep)}
+.cal-key i.day{width:16px;height:15px;border-radius:4px;background:var(--chip-gold-bg)}
+.cal-note{margin-top:var(--s2);font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2);
+  max-width:44em}
+</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Card shows"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Event","name":"PokeKon Fest","startDate":"2026-08-16T10:00:00-04:00","endDate":"2026-08-16T17:00:00-04:00","eventStatus":"https://schema.org/EventScheduled","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","location":{"@type":"Place","name":"Sheraton Niagara Falls Hotel","address":{"@type":"PostalAddress","addressLocality":"Niagara Falls","addressRegion":"NY","addressCountry":"US"}},"url":"https://cardshows.io/events/pokekon-fest-08-16-2026"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Event","name":"CollectorFest Monthly","startDate":"2026-08-30T10:00:00-04:00","endDate":"2026-08-30T14:00:00-04:00","eventStatus":"https://schema.org/EventScheduled","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","location":{"@type":"Place","name":"Louis S. Wolk JCC of Greater Rochester","address":{"@type":"PostalAddress","streetAddress":"1200 Edgewood Ave","addressLocality":"Rochester","addressRegion":"NY","addressCountry":"US"}},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://cardshows.io/events/collectorfest-monthly-sports-and-collectibles-show-08-30-2026"},"url":"https://cardshows.io/events/collectorfest-monthly-sports-and-collectibles-show-08-30-2026"}</script>
@@ -190,6 +224,225 @@
         <button class="chip filt" type="button" data-region="buffalo">Buffalo &amp; Niagara</button>
         <button class="chip filt" type="button" data-region="syracuse">Syracuse</button>
       </div>
+    </div>
+
+    <div class="cal-wrap">
+      <div class="cal-grid">
+        <figure class="cal-m">
+          <figcaption>August 2026</figcaption>
+          <svg viewBox="0 0 175 153" role="img" aria-label="August 2026: shows on the 16th, the 30th.">
+            <text class="cal-dow" x="12.5" y="7">S</text><text class="cal-dow" x="37.5" y="7">M</text><text class="cal-dow" x="62.5" y="7">T</text><text class="cal-dow" x="87.5" y="7">W</text><text class="cal-dow" x="112.5" y="7">T</text><text class="cal-dow" x="137.5" y="7">F</text><text class="cal-dow" x="162.5" y="7">S</text>
+            <g class="cal-d is-past" data-date="2026-08-01"><text class="cal-n" x="162.5" y="25">1</text></g>
+            <g class="cal-d is-past" data-date="2026-08-02"><text class="cal-n" x="12.5" y="48">2</text></g>
+            <g class="cal-d is-past" data-date="2026-08-03"><text class="cal-n" x="37.5" y="48">3</text></g>
+            <g class="cal-d is-past" data-date="2026-08-04"><text class="cal-n" x="62.5" y="48">4</text></g>
+            <g class="cal-d is-past" data-date="2026-08-05"><text class="cal-n" x="87.5" y="48">5</text></g>
+            <g class="cal-d is-past" data-date="2026-08-06"><text class="cal-n" x="112.5" y="48">6</text></g>
+            <g class="cal-d is-past" data-date="2026-08-07"><text class="cal-n" x="137.5" y="48">7</text></g>
+            <g class="cal-d is-past" data-date="2026-08-08"><text class="cal-n" x="162.5" y="48">8</text></g>
+            <g class="cal-d is-past" data-date="2026-08-09"><text class="cal-n" x="12.5" y="71">9</text></g>
+            <g class="cal-d is-past" data-date="2026-08-10"><text class="cal-n" x="37.5" y="71">10</text></g>
+            <g class="cal-d is-past" data-date="2026-08-11"><text class="cal-n" x="62.5" y="71">11</text></g>
+            <g class="cal-d is-past" data-date="2026-08-12"><text class="cal-n" x="87.5" y="71">12</text></g>
+            <g class="cal-d is-past" data-date="2026-08-13"><text class="cal-n" x="112.5" y="71">13</text></g>
+            <g class="cal-d is-past" data-date="2026-08-14"><text class="cal-n" x="137.5" y="71">14</text></g>
+            <g class="cal-d is-past" data-date="2026-08-15"><text class="cal-n" x="162.5" y="71">15</text></g>
+            <g class="cal-d has" data-date="2026-08-16"><rect class="cal-pill" x="2" y="85" width="21" height="20" rx="5"></rect><text class="cal-n" x="12.5" y="94">16</text><circle class="cal-dot pk" data-region="buffalo"
+            data-date="2026-08-16" cx="12.5" cy="101.5" r="2.7"></circle></g>
+            <g class="cal-d" data-date="2026-08-17"><text class="cal-n" x="37.5" y="94">17</text></g>
+            <g class="cal-d" data-date="2026-08-18"><text class="cal-n" x="62.5" y="94">18</text></g>
+            <g class="cal-d" data-date="2026-08-19"><text class="cal-n" x="87.5" y="94">19</text></g>
+            <g class="cal-d" data-date="2026-08-20"><text class="cal-n" x="112.5" y="94">20</text></g>
+            <g class="cal-d" data-date="2026-08-21"><text class="cal-n" x="137.5" y="94">21</text></g>
+            <g class="cal-d" data-date="2026-08-22"><text class="cal-n" x="162.5" y="94">22</text></g>
+            <g class="cal-d" data-date="2026-08-23"><text class="cal-n" x="12.5" y="117">23</text></g>
+            <g class="cal-d" data-date="2026-08-24"><text class="cal-n" x="37.5" y="117">24</text></g>
+            <g class="cal-d" data-date="2026-08-25"><text class="cal-n" x="62.5" y="117">25</text></g>
+            <g class="cal-d" data-date="2026-08-26"><text class="cal-n" x="87.5" y="117">26</text></g>
+            <g class="cal-d" data-date="2026-08-27"><text class="cal-n" x="112.5" y="117">27</text></g>
+            <g class="cal-d" data-date="2026-08-28"><text class="cal-n" x="137.5" y="117">28</text></g>
+            <g class="cal-d" data-date="2026-08-29"><text class="cal-n" x="162.5" y="117">29</text></g>
+            <g class="cal-d has" data-date="2026-08-30"><rect class="cal-pill" x="2" y="131" width="21" height="20" rx="5"></rect><text class="cal-n" x="12.5" y="140">30</text><circle class="cal-dot" data-region="roc"
+            data-date="2026-08-30" cx="12.5" cy="147.5" r="2.7"></circle></g>
+            <g class="cal-d" data-date="2026-08-31"><text class="cal-n" x="37.5" y="140">31</text></g>
+          </svg>
+        </figure>
+        <figure class="cal-m">
+          <figcaption>September 2026</figcaption>
+          <svg viewBox="0 0 175 153" role="img" aria-label="September 2026: shows on the 5th (two), the 12th, the 13th, the 23rd, the 27th.">
+            <text class="cal-dow" x="12.5" y="7">S</text><text class="cal-dow" x="37.5" y="7">M</text><text class="cal-dow" x="62.5" y="7">T</text><text class="cal-dow" x="87.5" y="7">W</text><text class="cal-dow" x="112.5" y="7">T</text><text class="cal-dow" x="137.5" y="7">F</text><text class="cal-dow" x="162.5" y="7">S</text>
+            <g class="cal-d" data-date="2026-09-01"><text class="cal-n" x="62.5" y="25">1</text></g>
+            <g class="cal-d" data-date="2026-09-02"><text class="cal-n" x="87.5" y="25">2</text></g>
+            <g class="cal-d" data-date="2026-09-03"><text class="cal-n" x="112.5" y="25">3</text></g>
+            <g class="cal-d" data-date="2026-09-04"><text class="cal-n" x="137.5" y="25">4</text></g>
+            <g class="cal-d has" data-date="2026-09-05"><rect class="cal-pill" x="152" y="16" width="21" height="20" rx="5"></rect><text class="cal-n" x="162.5" y="25">5</text><circle class="cal-dot" data-region="buffalo"
+            data-date="2026-09-05" cx="159.0" cy="32.5" r="2.7"></circle><circle class="cal-dot" data-region="roc"
+            data-date="2026-09-05" cx="166.0" cy="32.5" r="2.7"></circle></g>
+            <g class="cal-d" data-date="2026-09-06"><text class="cal-n" x="12.5" y="48">6</text></g>
+            <g class="cal-d" data-date="2026-09-07"><text class="cal-n" x="37.5" y="48">7</text></g>
+            <g class="cal-d" data-date="2026-09-08"><text class="cal-n" x="62.5" y="48">8</text></g>
+            <g class="cal-d" data-date="2026-09-09"><text class="cal-n" x="87.5" y="48">9</text></g>
+            <g class="cal-d" data-date="2026-09-10"><text class="cal-n" x="112.5" y="48">10</text></g>
+            <g class="cal-d" data-date="2026-09-11"><text class="cal-n" x="137.5" y="48">11</text></g>
+            <g class="cal-d has" data-date="2026-09-12"><rect class="cal-pill" x="152" y="39" width="21" height="20" rx="5"></rect><text class="cal-n" x="162.5" y="48">12</text><circle class="cal-dot" data-region="buffalo"
+            data-date="2026-09-12" cx="162.5" cy="55.5" r="2.7"></circle></g>
+            <g class="cal-d has" data-date="2026-09-13"><rect class="cal-pill" x="2" y="62" width="21" height="20" rx="5"></rect><text class="cal-n" x="12.5" y="71">13</text><circle class="cal-dot" data-region="syracuse"
+            data-date="2026-09-13" cx="12.5" cy="78.5" r="2.7"></circle></g>
+            <g class="cal-d" data-date="2026-09-14"><text class="cal-n" x="37.5" y="71">14</text></g>
+            <g class="cal-d" data-date="2026-09-15"><text class="cal-n" x="62.5" y="71">15</text></g>
+            <g class="cal-d" data-date="2026-09-16"><text class="cal-n" x="87.5" y="71">16</text></g>
+            <g class="cal-d" data-date="2026-09-17"><text class="cal-n" x="112.5" y="71">17</text></g>
+            <g class="cal-d" data-date="2026-09-18"><text class="cal-n" x="137.5" y="71">18</text></g>
+            <g class="cal-d" data-date="2026-09-19"><text class="cal-n" x="162.5" y="71">19</text></g>
+            <g class="cal-d" data-date="2026-09-20"><text class="cal-n" x="12.5" y="94">20</text></g>
+            <g class="cal-d" data-date="2026-09-21"><text class="cal-n" x="37.5" y="94">21</text></g>
+            <g class="cal-d" data-date="2026-09-22"><text class="cal-n" x="62.5" y="94">22</text></g>
+            <g class="cal-d has" data-date="2026-09-23"><rect class="cal-pill" x="77" y="85" width="21" height="20" rx="5"></rect><text class="cal-n" x="87.5" y="94">23</text><circle class="cal-dot" data-region="roc"
+            data-date="2026-09-23" cx="87.5" cy="101.5" r="2.7"></circle></g>
+            <g class="cal-d" data-date="2026-09-24"><text class="cal-n" x="112.5" y="94">24</text></g>
+            <g class="cal-d" data-date="2026-09-25"><text class="cal-n" x="137.5" y="94">25</text></g>
+            <g class="cal-d" data-date="2026-09-26"><text class="cal-n" x="162.5" y="94">26</text></g>
+            <g class="cal-d has" data-date="2026-09-27"><rect class="cal-pill" x="2" y="108" width="21" height="20" rx="5"></rect><text class="cal-n" x="12.5" y="117">27</text><circle class="cal-dot" data-region="roc"
+            data-date="2026-09-27" cx="12.5" cy="124.5" r="2.7"></circle></g>
+            <g class="cal-d" data-date="2026-09-28"><text class="cal-n" x="37.5" y="117">28</text></g>
+            <g class="cal-d" data-date="2026-09-29"><text class="cal-n" x="62.5" y="117">29</text></g>
+            <g class="cal-d" data-date="2026-09-30"><text class="cal-n" x="87.5" y="117">30</text></g>
+          </svg>
+        </figure>
+        <figure class="cal-m">
+          <figcaption>October 2026</figcaption>
+          <svg viewBox="0 0 175 153" role="img" aria-label="October 2026: shows on the 3rd, the 11th, the 17th, the 18th (two), the 21st, the 31st.">
+            <text class="cal-dow" x="12.5" y="7">S</text><text class="cal-dow" x="37.5" y="7">M</text><text class="cal-dow" x="62.5" y="7">T</text><text class="cal-dow" x="87.5" y="7">W</text><text class="cal-dow" x="112.5" y="7">T</text><text class="cal-dow" x="137.5" y="7">F</text><text class="cal-dow" x="162.5" y="7">S</text>
+            <g class="cal-d" data-date="2026-10-01"><text class="cal-n" x="112.5" y="25">1</text></g>
+            <g class="cal-d" data-date="2026-10-02"><text class="cal-n" x="137.5" y="25">2</text></g>
+            <g class="cal-d has" data-date="2026-10-03"><rect class="cal-pill" x="152" y="16" width="21" height="20" rx="5"></rect><text class="cal-n" x="162.5" y="25">3</text><circle class="cal-dot" data-region="roc"
+            data-date="2026-10-03" cx="162.5" cy="32.5" r="2.7"></circle></g>
+            <g class="cal-d" data-date="2026-10-04"><text class="cal-n" x="12.5" y="48">4</text></g>
+            <g class="cal-d" data-date="2026-10-05"><text class="cal-n" x="37.5" y="48">5</text></g>
+            <g class="cal-d" data-date="2026-10-06"><text class="cal-n" x="62.5" y="48">6</text></g>
+            <g class="cal-d" data-date="2026-10-07"><text class="cal-n" x="87.5" y="48">7</text></g>
+            <g class="cal-d" data-date="2026-10-08"><text class="cal-n" x="112.5" y="48">8</text></g>
+            <g class="cal-d" data-date="2026-10-09"><text class="cal-n" x="137.5" y="48">9</text></g>
+            <g class="cal-d" data-date="2026-10-10"><text class="cal-n" x="162.5" y="48">10</text></g>
+            <g class="cal-d has" data-date="2026-10-11"><rect class="cal-pill" x="2" y="62" width="21" height="20" rx="5"></rect><text class="cal-n" x="12.5" y="71">11</text><circle class="cal-dot pk" data-region="syracuse"
+            data-date="2026-10-11" cx="12.5" cy="78.5" r="2.7"></circle></g>
+            <g class="cal-d" data-date="2026-10-12"><text class="cal-n" x="37.5" y="71">12</text></g>
+            <g class="cal-d" data-date="2026-10-13"><text class="cal-n" x="62.5" y="71">13</text></g>
+            <g class="cal-d" data-date="2026-10-14"><text class="cal-n" x="87.5" y="71">14</text></g>
+            <g class="cal-d" data-date="2026-10-15"><text class="cal-n" x="112.5" y="71">15</text></g>
+            <g class="cal-d" data-date="2026-10-16"><text class="cal-n" x="137.5" y="71">16</text></g>
+            <g class="cal-d has" data-date="2026-10-17"><rect class="cal-pill" x="152" y="62" width="21" height="20" rx="5"></rect><text class="cal-n" x="162.5" y="71">17</text><circle class="cal-dot" data-region="buffalo"
+            data-date="2026-10-17" cx="162.5" cy="78.5" r="2.7"></circle></g>
+            <g class="cal-d has" data-date="2026-10-18"><rect class="cal-pill" x="2" y="85" width="21" height="20" rx="5"></rect><text class="cal-n" x="12.5" y="94">18</text><circle class="cal-dot" data-region="roc"
+            data-date="2026-10-18" cx="9.0" cy="101.5" r="2.7"></circle><circle class="cal-dot" data-region="syracuse"
+            data-date="2026-10-18" cx="16.0" cy="101.5" r="2.7"></circle></g>
+            <g class="cal-d" data-date="2026-10-19"><text class="cal-n" x="37.5" y="94">19</text></g>
+            <g class="cal-d" data-date="2026-10-20"><text class="cal-n" x="62.5" y="94">20</text></g>
+            <g class="cal-d has" data-date="2026-10-21"><rect class="cal-pill" x="77" y="85" width="21" height="20" rx="5"></rect><text class="cal-n" x="87.5" y="94">21</text><circle class="cal-dot" data-region="roc"
+            data-date="2026-10-21" cx="87.5" cy="101.5" r="2.7"></circle></g>
+            <g class="cal-d" data-date="2026-10-22"><text class="cal-n" x="112.5" y="94">22</text></g>
+            <g class="cal-d" data-date="2026-10-23"><text class="cal-n" x="137.5" y="94">23</text></g>
+            <g class="cal-d" data-date="2026-10-24"><text class="cal-n" x="162.5" y="94">24</text></g>
+            <g class="cal-d" data-date="2026-10-25"><text class="cal-n" x="12.5" y="117">25</text></g>
+            <g class="cal-d" data-date="2026-10-26"><text class="cal-n" x="37.5" y="117">26</text></g>
+            <g class="cal-d" data-date="2026-10-27"><text class="cal-n" x="62.5" y="117">27</text></g>
+            <g class="cal-d" data-date="2026-10-28"><text class="cal-n" x="87.5" y="117">28</text></g>
+            <g class="cal-d" data-date="2026-10-29"><text class="cal-n" x="112.5" y="117">29</text></g>
+            <g class="cal-d" data-date="2026-10-30"><text class="cal-n" x="137.5" y="117">30</text></g>
+            <g class="cal-d has feat" data-date="2026-10-31"><rect class="cal-pill" x="152" y="108" width="21" height="20" rx="5"></rect><text class="cal-n" x="162.5" y="117">31</text><circle class="cal-dot pk" data-region="roc"
+            data-date="2026-10-31" cx="162.5" cy="124.5" r="2.7"></circle></g>
+          </svg>
+        </figure>
+        <figure class="cal-m">
+          <figcaption>November 2026</figcaption>
+          <svg viewBox="0 0 175 153" role="img" aria-label="November 2026: shows on the 1st, the 4th, the 7th, the 21st.">
+            <text class="cal-dow" x="12.5" y="7">S</text><text class="cal-dow" x="37.5" y="7">M</text><text class="cal-dow" x="62.5" y="7">T</text><text class="cal-dow" x="87.5" y="7">W</text><text class="cal-dow" x="112.5" y="7">T</text><text class="cal-dow" x="137.5" y="7">F</text><text class="cal-dow" x="162.5" y="7">S</text>
+            <g class="cal-d has" data-date="2026-11-01"><rect class="cal-pill" x="2" y="16" width="21" height="20" rx="5"></rect><text class="cal-n" x="12.5" y="25">1</text><circle class="cal-dot" data-region="syracuse"
+            data-date="2026-11-01" cx="12.5" cy="32.5" r="2.7"></circle></g>
+            <g class="cal-d" data-date="2026-11-02"><text class="cal-n" x="37.5" y="25">2</text></g>
+            <g class="cal-d" data-date="2026-11-03"><text class="cal-n" x="62.5" y="25">3</text></g>
+            <g class="cal-d has" data-date="2026-11-04"><rect class="cal-pill" x="77" y="16" width="21" height="20" rx="5"></rect><text class="cal-n" x="87.5" y="25">4</text><circle class="cal-dot" data-region="roc"
+            data-date="2026-11-04" cx="87.5" cy="32.5" r="2.7"></circle></g>
+            <g class="cal-d" data-date="2026-11-05"><text class="cal-n" x="112.5" y="25">5</text></g>
+            <g class="cal-d" data-date="2026-11-06"><text class="cal-n" x="137.5" y="25">6</text></g>
+            <g class="cal-d has" data-date="2026-11-07"><rect class="cal-pill" x="152" y="16" width="21" height="20" rx="5"></rect><text class="cal-n" x="162.5" y="25">7</text><circle class="cal-dot" data-region="roc"
+            data-date="2026-11-07" cx="162.5" cy="32.5" r="2.7"></circle></g>
+            <g class="cal-d" data-date="2026-11-08"><text class="cal-n" x="12.5" y="48">8</text></g>
+            <g class="cal-d" data-date="2026-11-09"><text class="cal-n" x="37.5" y="48">9</text></g>
+            <g class="cal-d" data-date="2026-11-10"><text class="cal-n" x="62.5" y="48">10</text></g>
+            <g class="cal-d" data-date="2026-11-11"><text class="cal-n" x="87.5" y="48">11</text></g>
+            <g class="cal-d" data-date="2026-11-12"><text class="cal-n" x="112.5" y="48">12</text></g>
+            <g class="cal-d" data-date="2026-11-13"><text class="cal-n" x="137.5" y="48">13</text></g>
+            <g class="cal-d" data-date="2026-11-14"><text class="cal-n" x="162.5" y="48">14</text></g>
+            <g class="cal-d" data-date="2026-11-15"><text class="cal-n" x="12.5" y="71">15</text></g>
+            <g class="cal-d" data-date="2026-11-16"><text class="cal-n" x="37.5" y="71">16</text></g>
+            <g class="cal-d" data-date="2026-11-17"><text class="cal-n" x="62.5" y="71">17</text></g>
+            <g class="cal-d" data-date="2026-11-18"><text class="cal-n" x="87.5" y="71">18</text></g>
+            <g class="cal-d" data-date="2026-11-19"><text class="cal-n" x="112.5" y="71">19</text></g>
+            <g class="cal-d" data-date="2026-11-20"><text class="cal-n" x="137.5" y="71">20</text></g>
+            <g class="cal-d has" data-date="2026-11-21"><rect class="cal-pill" x="152" y="62" width="21" height="20" rx="5"></rect><text class="cal-n" x="162.5" y="71">21</text><circle class="cal-dot" data-region="buffalo"
+            data-date="2026-11-21" cx="162.5" cy="78.5" r="2.7"></circle></g>
+            <g class="cal-d" data-date="2026-11-22"><text class="cal-n" x="12.5" y="94">22</text></g>
+            <g class="cal-d" data-date="2026-11-23"><text class="cal-n" x="37.5" y="94">23</text></g>
+            <g class="cal-d" data-date="2026-11-24"><text class="cal-n" x="62.5" y="94">24</text></g>
+            <g class="cal-d" data-date="2026-11-25"><text class="cal-n" x="87.5" y="94">25</text></g>
+            <g class="cal-d" data-date="2026-11-26"><text class="cal-n" x="112.5" y="94">26</text></g>
+            <g class="cal-d" data-date="2026-11-27"><text class="cal-n" x="137.5" y="94">27</text></g>
+            <g class="cal-d" data-date="2026-11-28"><text class="cal-n" x="162.5" y="94">28</text></g>
+            <g class="cal-d" data-date="2026-11-29"><text class="cal-n" x="12.5" y="117">29</text></g>
+            <g class="cal-d" data-date="2026-11-30"><text class="cal-n" x="37.5" y="117">30</text></g>
+          </svg>
+        </figure>
+        <figure class="cal-m">
+          <figcaption>December 2026</figcaption>
+          <svg viewBox="0 0 175 153" role="img" aria-label="December 2026: shows on the 5th (two), the 16th, the 19th.">
+            <text class="cal-dow" x="12.5" y="7">S</text><text class="cal-dow" x="37.5" y="7">M</text><text class="cal-dow" x="62.5" y="7">T</text><text class="cal-dow" x="87.5" y="7">W</text><text class="cal-dow" x="112.5" y="7">T</text><text class="cal-dow" x="137.5" y="7">F</text><text class="cal-dow" x="162.5" y="7">S</text>
+            <g class="cal-d" data-date="2026-12-01"><text class="cal-n" x="62.5" y="25">1</text></g>
+            <g class="cal-d" data-date="2026-12-02"><text class="cal-n" x="87.5" y="25">2</text></g>
+            <g class="cal-d" data-date="2026-12-03"><text class="cal-n" x="112.5" y="25">3</text></g>
+            <g class="cal-d" data-date="2026-12-04"><text class="cal-n" x="137.5" y="25">4</text></g>
+            <g class="cal-d has" data-date="2026-12-05"><rect class="cal-pill" x="152" y="16" width="21" height="20" rx="5"></rect><text class="cal-n" x="162.5" y="25">5</text><circle class="cal-dot" data-region="roc"
+            data-date="2026-12-05" cx="159.0" cy="32.5" r="2.7"></circle><circle class="cal-dot" data-region="syracuse"
+            data-date="2026-12-05" cx="166.0" cy="32.5" r="2.7"></circle></g>
+            <g class="cal-d" data-date="2026-12-06"><text class="cal-n" x="12.5" y="48">6</text></g>
+            <g class="cal-d" data-date="2026-12-07"><text class="cal-n" x="37.5" y="48">7</text></g>
+            <g class="cal-d" data-date="2026-12-08"><text class="cal-n" x="62.5" y="48">8</text></g>
+            <g class="cal-d" data-date="2026-12-09"><text class="cal-n" x="87.5" y="48">9</text></g>
+            <g class="cal-d" data-date="2026-12-10"><text class="cal-n" x="112.5" y="48">10</text></g>
+            <g class="cal-d" data-date="2026-12-11"><text class="cal-n" x="137.5" y="48">11</text></g>
+            <g class="cal-d" data-date="2026-12-12"><text class="cal-n" x="162.5" y="48">12</text></g>
+            <g class="cal-d" data-date="2026-12-13"><text class="cal-n" x="12.5" y="71">13</text></g>
+            <g class="cal-d" data-date="2026-12-14"><text class="cal-n" x="37.5" y="71">14</text></g>
+            <g class="cal-d" data-date="2026-12-15"><text class="cal-n" x="62.5" y="71">15</text></g>
+            <g class="cal-d has" data-date="2026-12-16"><rect class="cal-pill" x="77" y="62" width="21" height="20" rx="5"></rect><text class="cal-n" x="87.5" y="71">16</text><circle class="cal-dot" data-region="roc"
+            data-date="2026-12-16" cx="87.5" cy="78.5" r="2.7"></circle></g>
+            <g class="cal-d" data-date="2026-12-17"><text class="cal-n" x="112.5" y="71">17</text></g>
+            <g class="cal-d" data-date="2026-12-18"><text class="cal-n" x="137.5" y="71">18</text></g>
+            <g class="cal-d has" data-date="2026-12-19"><rect class="cal-pill" x="152" y="62" width="21" height="20" rx="5"></rect><text class="cal-n" x="162.5" y="71">19</text><circle class="cal-dot" data-region="buffalo"
+            data-date="2026-12-19" cx="162.5" cy="78.5" r="2.7"></circle></g>
+            <g class="cal-d" data-date="2026-12-20"><text class="cal-n" x="12.5" y="94">20</text></g>
+            <g class="cal-d" data-date="2026-12-21"><text class="cal-n" x="37.5" y="94">21</text></g>
+            <g class="cal-d" data-date="2026-12-22"><text class="cal-n" x="62.5" y="94">22</text></g>
+            <g class="cal-d" data-date="2026-12-23"><text class="cal-n" x="87.5" y="94">23</text></g>
+            <g class="cal-d" data-date="2026-12-24"><text class="cal-n" x="112.5" y="94">24</text></g>
+            <g class="cal-d" data-date="2026-12-25"><text class="cal-n" x="137.5" y="94">25</text></g>
+            <g class="cal-d" data-date="2026-12-26"><text class="cal-n" x="162.5" y="94">26</text></g>
+            <g class="cal-d" data-date="2026-12-27"><text class="cal-n" x="12.5" y="117">27</text></g>
+            <g class="cal-d" data-date="2026-12-28"><text class="cal-n" x="37.5" y="117">28</text></g>
+            <g class="cal-d" data-date="2026-12-29"><text class="cal-n" x="62.5" y="117">29</text></g>
+            <g class="cal-d" data-date="2026-12-30"><text class="cal-n" x="87.5" y="117">30</text></g>
+            <g class="cal-d" data-date="2026-12-31"><text class="cal-n" x="112.5" y="117">31</text></g>
+          </svg>
+        </figure>
+      </div>
+      <p class="cal-key">
+        <span><i class="day"></i>a day with a show</span>
+        <span><i></i>a card show</span>
+        <span><i class="pk"></i>an all Pokemon show</span>
+        <span><i class="day" style="background:none;border:1.4px solid var(--ink)"></i>the big one</span>
+      </p>
+      <p class="cal-note">23 shows on
+        20 days, 3 days with two of them. Same list as below, drawn. The area buttons above move both.</p>
     </div>
 
     <div id="showList">
@@ -961,6 +1214,18 @@
     }
   }
 
+  // The calendar is drawn from the same list, so it gets the same sweep. A mark
+  // for a show that has already happened is the identical bug, just smaller.
+  document.querySelectorAll('.cal-dot').forEach(function(d){
+    if (d.dataset.date < today) d.remove();
+  });
+  document.querySelectorAll('.cal-d').forEach(function(g){
+    // Re-derived rather than trusted: the build stamped is-past against the
+    // build clock, and the whole point of this pass is that the build clock can
+    // be days old.
+    g.classList.toggle('is-past', g.dataset.date < today);
+  });
+
   var empty = document.getElementById('showEmpty');
   function apply(region){
     document.querySelectorAll('.show').forEach(function(el){
@@ -973,6 +1238,15 @@
       if (vis) any = true;
     });
     if (empty) empty.hidden = any;
+    // Same filter, same click, both views. A calendar that kept showing
+    // Syracuse while the list below had been narrowed to Rochester would be
+    // worse than no calendar.
+    document.querySelectorAll('.cal-dot').forEach(function(d){
+      d.classList.toggle('is-off', region !== 'all' && d.dataset.region !== region);
+    });
+    document.querySelectorAll('.cal-d').forEach(function(g){
+      g.classList.toggle('is-empty', !g.querySelector('.cal-dot:not(.is-off)'));
+    });
   }
   document.querySelectorAll('.chip.filt').forEach(function(b){
     b.addEventListener('click', function(){
@@ -984,7 +1258,7 @@
   apply('all');
 })();
 </script>
-<script src="/assets/app.js?v=7f0274cc" defer></script>
-<script src="/assets/packplayer.js?v=faa2eb26" defer></script>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
 </body>
 </html>

@@ -43,7 +43,7 @@
 // A page for them would be a price table with the unique half missing, which
 // is the thin category stub this is trying not to build.
 
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
@@ -69,6 +69,83 @@ const SET_NAME = new Map(CARD_SETS.map((s) => [s.id, s.label]));
 // The products pinned by hand for their photographs, for the kinds the per-set
 // pull cannot reach. See scripts/sync-extra-products.mjs.
 const EXTRA = JSON.parse(await readFile(join(ROOT, "data/extra-products.json"), "utf8")).products;
+
+// The Japanese, Korean and Chinese sets, and which English set each one is.
+// Read for one reason: TCGdex publishes no logo or symbol art for ANY
+// non-English set, so a row for "Abyss Eye (JP)" has nothing of its own to
+// show. `equivalent` is what /sets/ja-abyss-eye.html already draws in that
+// spot, labelled as the English set rather than passed off as the Japanese
+// one, and the same labelling is repeated here in visible text.
+const INTL = JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8")).sets;
+
+// ------------------------------------------------------------------ set logos
+//
+// WHAT A SET LOGO IS DOING ON THESE PAGES. The stat row says "5 different
+// sets" and stopped there, so the one genuinely unique thing these pages hold,
+// this channel's own record of what it opened, was three digits. The band below
+// spends those digits: which sets, how many of each, how many packs came out.
+//
+// Dimensions are read off the FILES rather than out of data/logo-dims.json,
+// which is 23 entries against 28 logos on disk. The five it misses are exactly
+// the older sets that turn up on /openings/single-pack.html (Celebrations,
+// Chilling Reign, Crown Zenith, Rebel Clash, Shining Fates), so reading the
+// json would have dropped five logos with no error anywhere. Same webp header
+// parse build-proto.mjs uses.
+const logosOnDisk = new Set(
+  (await readdir(join(ROOT, "public/assets/logos")).catch(() => []))
+    .map((f) => /^(.+)-pokemon-tcg-set-logo\.webp$/.exec(f)?.[1])
+    .filter(Boolean)
+);
+
+function webpSize(buf) {
+  if (buf.toString("ascii", 0, 4) !== "RIFF" || buf.toString("ascii", 8, 12) !== "WEBP") return null;
+  const fourcc = buf.toString("ascii", 12, 16);
+  if (fourcc === "VP8X") return { w: buf.readUIntLE(24, 3) + 1, h: buf.readUIntLE(27, 3) + 1 };
+  if (fourcc === "VP8 ") return { w: buf.readUInt16LE(26) & 0x3fff, h: buf.readUInt16LE(28) & 0x3fff };
+  if (fourcc === "VP8L") {
+    const b = buf.readUInt32LE(21);
+    return { w: (b & 0x3fff) + 1, h: ((b >> 14) & 0x3fff) + 1 };
+  }
+  return null;
+}
+
+const logoSize = async (file) => {
+  try {
+    return webpSize(await readFile(join(ROOT, "public/assets/logos", file)));
+  } catch {
+    return null;
+  }
+};
+
+// Measured once per build, not once per row: Chaos Rising appears on six of
+// these pages and Mega Evolution twice on one of them.
+const LOGO_BOX_W = 116;
+const LOGO_BOX_H = 42;
+const logoCache = new Map();
+async function setLogoTag(setId) {
+  if (!logosOnDisk.has(setId)) return "";
+  if (!logoCache.has(setId)) {
+    const base = `/assets/logos/${setId}-pokemon-tcg-set-logo`;
+    const sm = await logoSize(`${setId}-pokemon-tcg-set-logo-sm.webp`);
+    const big = await logoSize(`${setId}-pokemon-tcg-set-logo.webp`);
+    if (!sm || !big) {
+      logoCache.set(setId, "");
+    } else {
+      // sizes IS THE DRAWN WIDTH, WHICH object-fit:contain DECIDES, NOT THE BOX.
+      // Written flat as "116px" this asks for 232 device px at DPR2, which no
+      // -sm.webp is wide enough to satisfy, and Chrome correctly reaches past it
+      // for the 300px-tall master on every logo. Same arithmetic and the same
+      // trap build-playlists.mjs and build-intl-pages.mjs already record.
+      const drawnW = Math.round(Math.min(LOGO_BOX_W, (LOGO_BOX_H * big.w) / big.h));
+      logoCache.set(
+        setId,
+        `<img class="op-sl" src="${base}-sm.webp" srcset="${base}-sm.webp ${sm.w}w, ${base}.webp ${big.w}w"` +
+          ` sizes="${drawnW}px" width="${sm.w}" height="${sm.h}" alt="" loading="lazy" decoding="async">`
+      );
+    }
+  }
+  return logoCache.get(setId);
+}
 
 // taxonomy id -> the `kind` string products.json uses. Only the ones that
 // genuinely match; a wrong join here would price the wrong box.
@@ -332,10 +409,57 @@ const pricesFor = (id) => {
         sid,
         name: SET_NAME.get(sid) || s.tcgSet || sid,
         market: hit.market, low: hit.low, listings: hit.listings, url: hit.url,
+        // The photo of the exact product this row prices. DEAD is checked here
+        // rather than behind an onerror: 4 TCGplayer urls answer 403 and the
+        // page paid for the round trip to find that out.
+        thumb: hit.thumb && !DEAD.has(hit.thumb) ? hit.thumb : "",
+        large: hit.image || "",
+        product: hit.name || "",
       });
     }
   }
   return rows.sort((a, b) => b.market - a.market);
+};
+
+// Which sets a kind was opened from, and how much of each.
+//
+// A RIP TAGGED WITH TWO SETS COUNTS UNDER BOTH, and the band says so out loud
+// rather than letting a reader add the column up and get more openings than the
+// stat tile above it claims. Eleven rips carry two set tags (a blister holding
+// packs from two sets is the usual reason), so the two numbers genuinely differ
+// and neither is wrong.
+//
+// Packs are summed the same way, and are 0 for whole kinds: nothing in
+// videos.json records a pack count for an ex Premium Collection, so those rows
+// print openings only rather than a zero that reads as "no packs in it".
+const setRowsFor = (vids) => {
+  const by = new Map();
+  for (const v of vids) {
+    for (const sid of v.sets || []) {
+      const row = by.get(sid) || { sid, openings: 0, packs: 0 };
+      row.openings += 1;
+      row.packs += v.packs || 0;
+      by.set(sid, row);
+    }
+  }
+  const rows = [...by.values()].sort((a, b) => b.openings - a.openings || b.packs - a.packs);
+  const top = Math.max(1, ...rows.map((r) => r.openings));
+  return rows.map((r) => {
+    const intl = INTL[r.sid];
+    return {
+      ...r,
+      // The taxonomy label, which is what the rip list on this same page uses,
+      // so the two halves cannot drift. It carries the "(JP)" and "(KR)" tails.
+      name: SET_NAME.get(r.sid) || r.sid,
+      // The set whose LOGO is drawn. For an English set that is itself; for a
+      // Japanese or Korean one it is the English set it corresponds to, because
+      // no non-English set has logo art anywhere this repo can reach.
+      logoSet: intl ? intl.equivalent : r.sid,
+      enName: intl && intl.equivalent ? SET_NAME.get(intl.equivalent) || intl.equivalent : "",
+      exclusive: Boolean(intl && !intl.equivalent),
+      pct: Math.round((r.openings / top) * 100),
+    };
+  });
 };
 
 const entries = [...byProduct.entries()]
@@ -343,7 +467,10 @@ const entries = [...byProduct.entries()]
     const packs = vids.reduce((n, v) => n + (v.packs || 0), 0);
     const withPacks = vids.filter((v) => v.packs).length;
     const sets = new Set(vids.flatMap((v) => v.sets || []));
-    return { id, vids, packs, withPacks, sets, prices: pricesFor(id), label: LABEL.get(id) || id };
+    return {
+      id, vids, packs, withPacks, sets, setRows: setRowsFor(vids),
+      prices: pricesFor(id), label: LABEL.get(id) || id,
+    };
   })
   .filter((e) => e.vids.length)
   .sort((a, b) => b.vids.length - a.vids.length);
@@ -427,6 +554,110 @@ const ripRow = (labels) => (v) => {
   }</li>`;
 };
 
+// Which sets have a guide to link to. Every set tagged on a video has one
+// today, including all thirteen Japanese, Korean and Chinese ones, but a link
+// emitted for a page that is not there is a 404 the check catches late, so it
+// is read rather than assumed. A row with no guide still renders, unlinked.
+const setPages = new Set(
+  (await readdir(join(ROOT, "public/sets")).catch(() => []))
+    .filter((f) => f.endsWith(".html") && f !== "index.html")
+    .map((f) => f.slice(0, -5))
+);
+
+/**
+ * The band that answers "which sets, and how many of each".
+ *
+ * ONE LINK PER ROW, wrapping the logo, the name, the bar and the counts, the
+ * way .op-c does on the index. Two links to one destination in one row is two
+ * tab stops and two announcements of the same thing.
+ *
+ * THE LOGO IS DECORATIVE HERE and carries alt="". It sits inside a link whose
+ * visible text already names the set, so an alt would be the third time a
+ * screen reader says "Chaos Rising" in one row. On a Japanese or Korean row it
+ * is the ENGLISH set's logo, and that is stated in visible text under the name
+ * rather than buried in an alt, because it is a fact about the picture that a
+ * sighted reader needs just as much.
+ *
+ * The bar is aria-hidden: it is the counts beside it, drawn.
+ */
+async function setBand(e) {
+  if (!e.setRows.length) return "";
+  const rows = [];
+  for (const r of e.setRows) {
+    const logo = r.logoSet ? await setLogoTag(r.logoSet) : "";
+    const inner =
+      `<span class="op-sw">${
+        logo || `<span class="op-sx" aria-hidden="true"></span>`
+      }</span>
+          <span class="op-sm">
+            <b>${esc(r.name)}</b>${
+              r.enName
+                ? `<span class="op-se">Logo shown is the English ${esc(r.enName)}</span>`
+                : r.exclusive
+                  ? `<span class="op-se">No English release, and no logo art anywhere we can reach</span>`
+                  : ""
+            }
+            <span class="op-sb" aria-hidden="true"><i style="width:${r.pct}%"></i></span>
+          </span>
+          <span class="op-sn"><b>${r.openings}</b> opening${r.openings === 1 ? "" : "s"}${
+            r.packs ? `<span>${r.packs} pack${r.packs === 1 ? "" : "s"}</span>` : ""
+          }</span>`;
+    rows.push(
+      `        <li class="op-sr">${
+        setPages.has(r.sid)
+          ? `<a href="/sets/${esc(r.sid)}.html">
+          ${inner}
+        </a>`
+          : `<div>
+          ${inner}
+        </div>`
+      }</li>`
+    );
+  }
+  return `      <ul class="op-sets">
+${rows.join("\n")}
+      </ul>
+      <p class="op-note">Openings and packs counted here, in our own videos, which is the only place
+        these numbers come from. A rip tagged with two sets is counted under both, so the column adds
+        up to more than the ${e.vids.length} above it. Each row opens that set's guide.</p>`;
+}
+
+// THE LEDE'S CAPTION MAKES A CLAIM THE PAGE COULD NOT SHOW: "every set sells
+// its own, and the art on the box changes with the set", printed under ONE
+// photograph. The price table below it already lists every set that sells the
+// thing, one row each, so the photo of that row's exact product goes in the row
+// and the sentence becomes checkable instead of asserted.
+//
+// 48px, so 96 device px at DPR2 and 144 at DPR3, and TCGplayer's 150w rendition
+// covers both. THE REST OF THE SITE ASKS FOR 200w AND HERE THAT IS 37% OF THE
+// BYTES WASTED: the shots on the set guides, on /how-many-packs.html and in the
+// lede above sit in an 88px box, which wants 176 device px at DPR2 and genuinely
+// needs the 200. A 48px box does not, and the ETB table draws 28 of them.
+//
+// _150w IS DERIVED FROM _200w BY STRING SWAP AND THAT WAS CHECKED, not assumed.
+// The CDN serves a fixed set of widths and answers 403 for the rest: 50w, 100w
+// and 120w are all 403, so a srcset candidate that does not exist is a broken
+// image and not a fallback, because the browser has already committed to it. On
+// 2026-08-16 all 121 product thumbs these six tables emit were fetched at both
+// widths: 121 of 121 answered 200 at 150w, 2,462.8KB of 200w against 1,550.9KB
+// of 150w. `onerror` still removes the picture if a later product breaks that.
+// The 1000w stays in the srcset for anything denser.
+//
+// No width/height, because tcgplayer-cdn files run 200x268 to 200x417 and
+// imgDims() returns nothing for them on purpose; the 48px box is fixed in CSS
+// so nothing reflows anyway.
+//
+// ALT NAMES THE PRODUCT, NOT THE SET. The row header already says "151"; the
+// picture is of the "151 Elite Trainer Box", which is the thing the alt can add.
+const small = (u) => u.replace(/_200w\.jpg$/, "_150w.jpg");
+const priceShot = (r) =>
+  r.thumb
+    ? `<img class="op-pt" src="${esc(small(r.thumb))}"${
+        r.large ? ` srcset="${esc(small(r.thumb))} 150w, ${esc(r.large)} 1000w"` : ""
+      } sizes="48px" alt="${esc(r.product || r.name)}, sealed" loading="lazy" decoding="async"
+             referrerpolicy="no-referrer" onerror="this.remove()">`
+    : `<span class="op-pt op-px" aria-hidden="true"></span>`;
+
 const priceTable = (e) => {
   if (!e.prices.length) return "";
   const cap = `What ${article(e.id)} ${e.label} costs, by set. TCGplayer market price, read ${longDate(prod.checked)}`;
@@ -437,9 +668,9 @@ const priceTable = (e) => {
           <caption>${esc(cap)}</caption>
           <thead><tr><th scope="col">Set</th><th scope="col">Market</th><th scope="col">Lowest</th><th scope="col">Listings</th></tr></thead>
           <tbody>
-${e.prices.map((r) => `            <tr><th scope="row">${
+${e.prices.map((r) => `            <tr><th scope="row"><span class="op-ps">${priceShot(r)}${
     r.url ? `<a href="${esc(r.url)}" rel="noopener" target="_blank">${esc(r.name)}</a>` : esc(r.name)
-  }</th><td>${esc(moneyExact(r.market))}</td><td>${
+  }</span></th><td>${esc(moneyExact(r.market))}</td><td>${
     typeof r.low === "number" ? esc(moneyExact(r.low)) : "<span class=\"op-no\">not listed</span>"
   }</td><td>${typeof r.listings === "number" ? r.listings : `<span class="op-no">not listed</span>`}</td></tr>`).join("\n")}
           </tbody>
@@ -496,7 +727,54 @@ const STYLE = `
 .op-t thead th{font:700 var(--t-label)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   background:var(--navy);color:var(--chrome-ink);border-bottom:none}
 .op-t tbody th{font-weight:700}
+/* The product photo in the row header. Same 1px hairline and white plate as
+   .op-shot: product photography arrives on white, so a cream tile reads as a
+   halo round the box. flex:none or the picture squashes as the set name wraps. */
+.op-ps{display:flex;gap:var(--s3);align-items:center}
+.op-pt{flex:none;width:48px;height:48px;object-fit:contain;display:block;background:#fff;
+  border:1px solid var(--hair);border-radius:5px}
+/* No usable photo for this row: TCGplayer answers 403 for four of them. Same
+   45 degree hatch as .op-cn, so the gap reads as deliberate rather than as an
+   image that failed, which matters most when 27 of its neighbours are real. */
+.op-px{background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
 .op-no{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);opacity:.7}
+/* WHICH SETS THESE CAME FROM. A row is one link: logo plate, name and bar, then
+   the counts. auto on the last column so "18 openings / 72 packs" sets on one
+   line and the bar takes what is left. */
+.op-sh{font:400 var(--t-m)/1.2 var(--display);margin:var(--s5) 0 var(--s3)}
+.op-sets{list-style:none;margin:var(--s4) 0 var(--s4);padding:0;display:grid;gap:var(--s2);max-width:46em}
+.op-sr>a,.op-sr>div{display:grid;grid-template-columns:${LOGO_BOX_W}px minmax(0,1fr) auto;
+  gap:var(--s3);align-items:center;border:2px solid var(--hair);border-radius:10px;
+  background:var(--card);padding:var(--s2) var(--s3);color:inherit;text-decoration:none}
+.op-sr>a:hover,.op-sr>a:focus-visible{border-color:var(--navy)}
+/* The logo plate is white for the same reason .op-shot is: these are
+   transparent WebPs drawn for a light background. */
+.op-sw{display:flex;align-items:center;justify-content:center;width:${LOGO_BOX_W}px;height:${LOGO_BOX_H}px;
+  background:#fff;border:1px solid var(--hair);border-radius:5px;flex:none}
+.op-sl{width:100%;height:100%;object-fit:contain;display:block}
+.op-sx{display:block;width:100%;height:100%;border-radius:4px;
+  background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
+.op-sm{min-width:0}
+.op-sm b{display:block;font-weight:700;font-size:var(--t-sm);line-height:1.3}
+.op-se{display:block;font:400 var(--t-micro)/1.35 var(--mono);color:var(--ink-2);margin-top:2px}
+.op-sb{display:block;height:8px;margin-top:6px;border-radius:4px;background:var(--paper-3);overflow:hidden}
+.op-sb i{display:block;height:100%;background:var(--gold);border-radius:4px}
+.op-sn{text-align:right;font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);white-space:nowrap}
+/* Inline, not block. As a block the count set as three stacked lines, "20",
+   "openings", "180 packs", which reads as three facts rather than one. */
+.op-sn b{font:400 var(--t-m)/1 var(--display);color:var(--ketchup);margin-right:.3em}
+.op-sn span{display:block}
+/* 390px: the three columns are 116 + bar + counts and the middle one collapses
+   to nothing once a set name like "Prismatic Evolutions" is in it. Drop to two,
+   with the logo spanning both rows and the counts under the name. */
+@media(max-width:560px){
+  .op-sr>a,.op-sr>div{grid-template-columns:88px minmax(0,1fr);gap:var(--s2) var(--s3)}
+  .op-sw{width:88px;height:34px;grid-row:span 2;align-self:start}
+  .op-sn{text-align:left}
+  .op-sn b{font-size:var(--t-sm)}
+  .op-sn span{display:inline;margin-left:.4em}
+  .op-sn span::before{content:"\\2022 ";margin-right:.2em}
+}
 .op-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
 @media(max-width:900px){.op-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.op-grid{grid-template-columns:1fr}}
@@ -541,6 +819,13 @@ const STYLE = `
 @media(min-width:1000px){
   .op-lede{max-width:50ch}
   .op-note{max-width:50ch}
+  /* The 46em cap is a MEASURE cap and it is right for prose. On a row of logos
+     and numbers it is a hole: at 1280 the set band stopped at 790px directly
+     above a price table filling all 1,232 of the wrap, which is the same "the
+     top of the page reads as a different site from the bottom" the home page's
+     desktop pass was about. Two columns instead, so the band ends where the
+     table does. */
+  .op-sets{max-width:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s3)}
 }
 @media(min-width:1500px){
   .op-grid{grid-template-columns:repeat(4,1fr)}
@@ -580,8 +865,15 @@ ${BAR}
 ${MENU}
 <main id="main">`;
 
+// The pictures on these pages are not ours and the footer says whose they are.
+// Set logos are The Pokemon Company's, product photography is TCGplayer's, and
+// both are here to identify a thing this site is writing about rather than to
+// sell it. Nothing on this site is for sale.
 const tail = `</main>
-${footer()}
+${footer(
+  "Set logos are The Pokemon Company's. Product photos are TCGplayer's. Both are used to identify " +
+    "the sets and the products written about here."
+)}
 ${APP_JS}
 </body>
 </html>
@@ -642,11 +934,15 @@ ${shot(e)}
           nSets ? "Different sets" : "Set not tagged"
         }</span></div>
       </div>
+
+      <h3 class="op-sh">Which sets we opened these from</h3>
+${await setBand(e)}
 ${priceTable(e)}
 ${e.prices.length
         ? `      <p class="op-note">Prices are TCGplayer market and lowest listing, read ${esc(longDate(prod.checked))},
         the same figures the rest of this site quotes. They move. <a href="/pack-prices.html">Pack prices</a>
-        works out what that comes to per pack.</p>`
+        works out what that comes to per pack. Each photograph is TCGplayer's, and it is that row's own
+        product rather than a stand-in, which is why the art is different in every one of them.</p>`
         : `      <p class="op-note">No price table here: this product is not one of the kinds we track prices for,
         so there is nothing sourced to show. <a href="/pack-prices.html">Pack prices</a> covers the ones we do.</p>`}
     </div>

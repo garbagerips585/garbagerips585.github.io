@@ -28,7 +28,7 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
+<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 </head>
 <body>
@@ -169,15 +169,38 @@
   </div>
 </div>
 
+<!-- THE FILTER RAILS ARE NOT SCROLLERS ANY MORE. They were .rail-in, a
+     one-line horizontal scroller with the scrollbar switched off, and the set
+     rail measured 5,178px of chips inside a track that never exceeds 1,500px,
+     so 26 of the 35 sets sat off the right edge with no scrollbar, arrow or
+     fade to say so. A mouse with a vertical wheel could not reach them at all.
+     The row is still one chip tall; the button at the end of it opens the rest
+     as a panel. The full reasoning and the numbers at all five widths are in
+     assets-source/ui.css under FACETS. app.js owns the open/close behaviour. -->
 <div class="rail">
-  <div class="rail-in" role="group" aria-label="Filter by set">
-    <span id="setChips" style="display:contents"></span>
+  <div class="facet" data-facet="sets">
+    <div class="facet-slot">
+      <div class="facet-box" id="setBox" role="group" aria-label="Filter by set">
+        <span id="setChips" style="display:contents"></span>
+      </div>
+    </div>
+    <button class="facet-more" type="button" id="setMore" aria-expanded="false" aria-controls="setBox">All <span class="n">35</span> <span class="w">sets</span></button>
   </div>
 </div>
 <div class="rail">
-  <div class="rail-in" role="group" aria-label="Filter by product">
-    <span id="productChips" style="display:contents"></span>
-    <button class="chip" id="libClear" type="button">Clear all</button>
+  <div class="facet" data-facet="products">
+    <div class="facet-slot">
+      <div class="facet-box" id="productBox" role="group" aria-label="Filter by product">
+        <span id="productChips" style="display:contents"></span>
+      </div>
+    </div>
+    <!-- Clear sits BEFORE the toggle so the toggle is the rightmost thing in
+         both rows. It used to be the LAST child of the old product rail, which
+         is why it was 260 to 1346px off the right edge of a scroller with no
+         scrollbar: the one control that undoes a filter was the hardest one on
+         the page to reach. -->
+    <button class="chip facet-clear" id="libClear" type="button" hidden>Clear all</button>
+    <button class="facet-more" type="button" id="productMore" aria-expanded="false" aria-controls="productBox">All <span class="n">13</span> <span class="w">products</span></button>
   </div>
 </div>
 </section>
@@ -330,7 +353,7 @@
   </div>
 </footer>
 
-<script src="/assets/app.js?v=7f0274cc" defer></script>
-<script src="/assets/packplayer.js?v=faa2eb26" defer></script>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
 </body>
 </html>

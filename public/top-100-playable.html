@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 100 Most Played Pokemon Cards in Standard | Garbage Rips 585</title>
+<meta name="description" content="The 100 Pokemon cards played most in the current Standard format, counted across 357 tournament decklists. Ranked by how many decks play them, not by price.">
+<link rel="canonical" href="https://garbagerips585.github.io/top-100-playable.html">
+<meta property="og:title" content="The 100 most played cards in Standard">
+<meta property="og:description" content="The 100 Pokemon cards played most in the current Standard format, counted across 357 tournament decklists. Ranked by how many decks play them, not by price.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garbagerips585.github.io/top-100-playable.html">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-top-100-playable.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-top-100-playable.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#111111">
+<link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
+<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<style>
+.pl-fmt{border:2px solid var(--keyline);border-radius:var(--r);background:var(--card);
+  padding:var(--s4);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
+.pl-fmt h2{font-size:var(--t-m);margin:0 0 var(--s2)}
+.pl-fmt dl{display:grid;grid-template-columns:1fr;gap:var(--s2) var(--s4);margin:0}
+.pl-fmt dt{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink-2)}
+.pl-fmt dd{margin:0 0 var(--s3);font-size:var(--t-sm);max-width:46em}
+/* MEASURED IN REAL CHARACTERS, NOT IN ch. At 1440 the wrap is 1,392px and none
+   of the prose on this page was constrained, so .pl-note ran 293 characters per
+   line at 11px and the plain body paragraph ran 188. Both are two to four times
+   a readable measure. The caps were set by measuring rendered line boxes and
+   dividing real text length by real line count, which is the only way to get
+   this right: "ch" is the advance width of a "0" and about 1.43 average
+   characters in Outfit, so a 75ch rule would have produced a 107 character line.
+
+   MEASURED AFTER, at 1440: .pl-note 83 to 98, .pl-p 75, .lede 67. The 46em on
+   the micro text is the site's existing convention for a source note (.ty-src
+   on /types.html and .dk-src next door both use it) and it lands near 100
+   characters at 11px rather than under 90, which is the trade that comes with
+   matching the neighbours instead of inventing a width for one page. At 390 the
+   same rules measure 67 to 73, because the wrap is narrower than the cap and
+   nothing below 1000px is affected at all. */
+.pl-p{max-width:38em}
+.pl-mark{display:inline-block;font-family:var(--mono);font-weight:700;
+  background:var(--chip-gold-bg);border:1px solid var(--gold-deep);color:var(--gold-deep);
+  border-radius:var(--r-sm);padding:1px 7px;margin-right:4px}
+.pl-note{font-size:var(--t-micro);color:var(--ink-2);margin:var(--s3) 0 0;line-height:1.7;max-width:46em}
+
+.pl-list{list-style:none;padding:0;margin:var(--s5) 0 0;display:grid;
+  grid-template-columns:1fr;gap:var(--s2)}
+.pl{display:grid;grid-template-columns:2.2em 56px 1fr;gap:var(--s3);align-items:center;
+  border:2px solid var(--keyline);border-radius:var(--r);background:var(--card);
+  padding:var(--s2) var(--s3);box-shadow:var(--hard-lg)}
+.pl-rank{font-family:var(--display);font-size:1.05rem;color:var(--gold-deep);
+  text-align:right;line-height:1}
+.pl-pic{display:block}
+/* The scans are 245x337 intrinsic. The box is what decides the transfer. */
+.pl-art{width:56px;height:auto;border-radius:4px;display:block}
+.pl-noart{display:grid;place-items:center;width:56px;height:77px;border-radius:4px;
+  background:var(--paper-3);border:1px dashed var(--hair);font-family:var(--mono);
+  font-size:var(--t-micro);color:var(--ink-2);text-align:center;line-height:1.2;padding:2px}
+.pl-body{min-width:0}
+.pl-name{display:block;font-size:var(--t-sm);line-height:1.25}
+.pl-meta{display:flex;gap:var(--s2);align-items:baseline;flex-wrap:wrap;margin-top:1px}
+.pl-kind{font-family:var(--mono);font-size:var(--t-micro);text-transform:uppercase;
+  letter-spacing:.04em;color:var(--ink-2)}
+.pl-set{font-family:var(--mono);font-size:var(--t-micro);color:var(--ink-2)}
+a.pl-set:hover,a.pl-set:focus{color:var(--ink)}
+.pl-set-plain{opacity:.85}
+.pl-nums{display:block;font-size:var(--t-micro);color:var(--ink-2);margin-top:2px;
+  line-height:1.5}
+.pl-nums b{color:var(--ink)}
+.pl-pctv{white-space:nowrap}
+.pl-sep{color:var(--hair)}
+
+.pl-more{display:grid;grid-template-columns:1fr;gap:var(--s3);margin:var(--s5) 0 0;
+  list-style:none;padding:0}
+.pl-more a{display:block;border:2px solid var(--keyline);border-radius:var(--r);
+  background:var(--card);padding:var(--s3);text-decoration:none;color:var(--ink);
+  box-shadow:var(--hard-lg)}
+.pl-more b{display:block;font-size:var(--t-sm)}
+.pl-more span{font-size:var(--t-micro);color:var(--ink-2);line-height:1.5;display:block;
+  margin-top:2px}
+.pl-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.7;
+  max-width:46em}
+
+@media(min-width:700px){
+  .pl-fmt dl{grid-template-columns:auto 1fr}
+  .pl-fmt dt{text-align:right;padding-top:2px}
+  .pl-list{grid-template-columns:1fr 1fr}
+  .pl-more{grid-template-columns:1fr 1fr}
+}
+@media(min-width:1100px){
+  .pl{grid-template-columns:2.4em 64px 1fr}
+  .pl-art,.pl-noart{width:64px}
+  .pl-noart{height:88px}
+  .pl-more{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"The 100 most played Pokemon cards in Standard","description":"The 100 Pokemon cards played most in the current Standard format, counted across 357 tournament decklists. Ranked by how many decks play them, not by price.","datePublished":"2026-08-16","dateModified":"2026-08-16","author":{"@type":"Organization","name":"Garbage Rips 585"},"publisher":{"@type":"Organization","name":"Garbage Rips 585"},"mainEntityOfPage":"https://garbagerips585.github.io/top-100-playable.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Top 100 playable cards","item":"https://garbagerips585.github.io/top-100-playable.html"}]}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form class="bar-search" role="search" action="/search.html" method="get">
+      <label class="sr-only" for="navSearch">Search cards, sets, guides and rips</label>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+      <input id="navSearch" name="q" type="search" placeholder="Search cards, sets, rips" aria-label="Search cards, sets, guides and every rip" autocomplete="off">
+    </form>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/cards.html">Card search</a>
+      <a href="/sets/">Set guides</a>
+      <a href="/start.html">Start here</a>
+      <a href="/card-shows.html">Card shows</a>
+    </nav>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span>Menu</span>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="All sections">
+  <div class="menu-inner">
+    <div class="menu-g">
+      <p class="menu-h">Watch</p>
+      <ul>
+        <li><a href="/videos.html">Rips</a></li>
+        <li><a href="/playlists.html">Playlists</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">The binder</p>
+      <ul>
+        <li><a href="/hall.html">Best pulls</a></li>
+        <li><a href="/wanted.html">Most wanted</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Cards</p>
+      <ul>
+        <li><a href="/cards.html">Card search</a></li>
+        <li><a href="/pokemon/">By Pokemon</a></li>
+        <li><a href="/sets/">Set guides</a></li>
+        <li><a href="/expansions.html">Every set ever</a></li>
+        <li><a href="/upcoming.html">Coming next</a></li>
+        <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/pack-prices.html">Pack prices</a></li>
+        <li><a href="/how-many-packs.html">Packs per box</a></li>
+        <li><a href="/openings/">Sealed products</a></li>
+        <li><a href="/drops.html">Drops this week</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Guides</p>
+      <ul>
+        <li><a href="/start.html">Start here</a></li>
+        <li><a href="/how-to-play.html">How to play</a></li>
+        <li><a href="/tcg-live.html">Code cards</a></li>
+        <li><a href="/tcg-pocket.html">Phone version</a></li>
+        <li><a href="/what-set.html">Set finder</a></li>
+        <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/types.html">Card types</a></li>
+        <li><a href="/fake-cards.html">Fakes</a></li>
+        <li><a href="/will-it-grade.html">Will it grade</a></li>
+        <li><a href="/grading.html">Grading cost</a></li>
+        <li><a href="/selling.html">Where to sell</a></li>
+        <li><a href="/buying.html">Where to buy</a></li>
+        <li><a href="/luck.html">Luck, measured</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Play</p>
+      <ul>
+        <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
+        <li><a href="/lore.html">Pokemon lore</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Rochester, NY</p>
+      <ul>
+        <li><a href="/card-shows.html">Card shows</a></li>
+        <li><a href="/shops.html">Card shops</a></li>
+        <li><a href="/vendors.html">Local vendors</a></li>
+        <li><a href="/creators.html">Local creators</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </div>
+  </div>
+  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe on YouTube</a>
+</nav>
+<main id="main">
+  <section class="tight">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Top 100 playable cards</span></nav>
+      <h1>The 100 most <span class="hl">played</span> cards in Standard</h1>
+      <p class="lede">Not the most expensive cards. The ones that actually go in decks. Counted one by one
+        across <b>357 tournament decklists</b>, so the order comes from arithmetic you can check rather
+        than from anybody's opinion.</p>
+
+      <div class="pl-fmt">
+        <h2>The format being counted</h2>
+        <dl>
+          <dt>Format</dt>
+          <dd><b>Standard</b></dd>
+          <dt>Legal marks</dt>
+          <dd><span class="pl-mark">H</span><span class="pl-mark">I</span><span class="pl-mark">J</span>
+            and any newer ones. The mark is in the bottom corner of the card.</dd>
+          <dt>Rotated out</dt>
+          <dd><span class="pl-mark">G</span>
+            no longer legal.</dd>
+          <dt>In force since</dt>
+          <dd>March 26, 2026 in Pokemon TCG Live,
+            April 10, 2026 at in-person events.</dd>
+        </dl>
+        <p class="pl-note">Source: Pokemon.com, 2026 Pokemon TCG Standard Format Rotation Announcement, read August 16, 2026. Rotation is
+          announced by Pokemon and it changes, so this is correct as of that date rather than forever.
+          Every card here was played in a list drawn through Limitless's own Standard filter for this
+          rotation, so these cards are format legal because of where the lists came from, not because we
+          checked them one at a time.</p>
+      </div>
+
+      <h2>What is being measured</h2>
+      <p class="pl-p">Cards are ranked by <b>how many of the 357 decklists play at least one copy</b>. Total copies
+        is shown next to it and breaks ties, and so is the number of the 18 different
+        decks a card turns up in. That is the whole method. There is no scoring, no weighting and no
+        judgement in the order. On each row, <b>lists</b> means individual registered decklists and
+        <b>decks</b> means distinct archetypes.</p>
+      <p class="pl-note">The lists are 357 decklists collected from <b>Limitless TCG</b> on
+        August 16, 2026, dated July 18, 2026 to
+        August 16, 2026: up to 20 of the highest placing lists
+        from each of the 18 most played decks.
+        <b>These are online tournaments played in Pokemon TCG Live</b> on Limitless's own play platform,
+        not Regionals and not the World Championships.</p>
+      <p class="pl-note"><b>Two things this count is not.</b> Every deck contributes about the same number
+        of lists whatever its share of the field, which is deliberate, because it stops one popular deck's
+        pet card outranking a real staple. It also means this is not a measure of how often you will run
+        into a card across the whole metagame. And because each deck contributes at most
+        20 lists, a card that is a staple of exactly one deck lands on
+        21: <b>7 cards tie on 21 decks</b>, of which 7 fit inside the
+        hundred. The cut at 100 is arbitrary between those, so read the bottom of this list as a group and
+        not as an order.</p>
+
+      <ol class="pl-list">
+        <li class="pl">
+  <span class="pl-rank">1</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/114/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me01/114/low.webp" alt="Boss's Orders, Mega Evolution 114" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Boss's Orders</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/mega-evolution.html">Mega Evolution 114</a></span>
+    
+    <span class="pl-nums">
+      <b>319</b> of 357 lists <span class="pl-pctv">(89%)</span>
+      <span class="pl-sep">/</span> 810 copies
+      <span class="pl-sep">/</span> 17 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">2</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/196/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me02.5/196/low.webp" alt="Night Stretcher, Ascended Heroes 196" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Night Stretcher</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/ascended-heroes.html">Ascended Heroes 196</a></span>
+    
+    <span class="pl-nums">
+      <b>307</b> of 357 lists <span class="pl-pctv">(86%)</span>
+      <span class="pl-sep">/</span> 568 copies
+      <span class="pl-sep">/</span> 18 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">3</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/119/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me01/119/low.webp" alt="Lillie's Determination, Mega Evolution 119" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Lillie's Determination</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/mega-evolution.html">Mega Evolution 119</a></span>
+    
+    <span class="pl-nums">
+      <b>293</b> of 357 lists <span class="pl-pctv">(82%)</span>
+      <span class="pl-sep">/</span> 1110 copies
+      <span class="pl-sep">/</span> 17 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">4</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/081/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me03/081/low.webp" alt="Poké Pad, Perfect Order 81" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Poké Pad</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/perfect-order.html">Perfect Order 81</a></span>
+    
+    <span class="pl-nums">
+      <b>293</b> of 357 lists <span class="pl-pctv">(82%)</span>
+      <span class="pl-sep">/</span> 1050 copies
+      <span class="pl-sep">/</span> 16 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">5</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/131/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me01/131/low.webp" alt="Ultra Ball, Mega Evolution 131" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Ultra Ball</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/mega-evolution.html">Mega Evolution 131</a></span>
+    
+    <span class="pl-nums">
+      <b>288</b> of 357 lists <span class="pl-pctv">(81%)</span>
+      <span class="pl-sep">/</span> 927 copies
+      <span class="pl-sep">/</span> 17 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">6</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/142/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me02.5/142/low.webp" alt="Fezandipiti ex, Ascended Heroes 142" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Fezandipiti ex</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/ascended-heroes.html">Ascended Heroes 142</a></span>
+    
+    <span class="pl-nums">
+      <b>231</b> of 357 lists <span class="pl-pctv">(65%)</span>
+      <span class="pl-sep">/</span> 232 copies
+      <span class="pl-sep">/</span> 14 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">7</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/144/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv05/144/low.webp" alt="Buddy-Buddy Poffin, Temporal Forces 144" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Buddy-Buddy Poffin</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/temporal-forces.html">Temporal Forces 144</a></span>
+    
+    <span class="pl-nums">
+      <b>226</b> of 357 lists <span class="pl-pctv">(63%)</span>
+      <span class="pl-sep">/</span> 781 copies
+      <span class="pl-sep">/</span> 12 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">8</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/062/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me03/062/low.webp" alt="Meowth ex, Perfect Order 62" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Meowth ex</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/perfect-order.html">Perfect Order 62</a></span>
+    
+    <span class="pl-nums">
+      <b>206</b> of 357 lists <span class="pl-pctv">(58%)</span>
+      <span class="pl-sep">/</span> 284 copies
+      <span class="pl-sep">/</span> 14 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">9</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/082/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me04/082/low.webp" alt="Special Red Card, Chaos Rising 82" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Special Red Card</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/chaos-rising.html">Chaos Rising 82</a></span>
+    
+    <span class="pl-nums">
+      <b>189</b> of 357 lists <span class="pl-pctv">(53%)</span>
+      <span class="pl-sep">/</span> 199 copies
+      <span class="pl-sep">/</span> 16 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">10</span>
+  <span class="pl-pic"><span class="pl-noart" aria-hidden="true">Psychic</span></span>
+  <span class="pl-body">
+    <b class="pl-name">Psychic Energy</b>
+    <span class="pl-meta"><span class="pl-kind">Energy</span><span class="pl-set pl-set-plain">MEE 5</span></span>
+    
+    <span class="pl-nums">
+      <b>154</b> of 357 lists <span class="pl-pctv">(43%)</span>
+      <span class="pl-sep">/</span> 411 copies
+      <span class="pl-sep">/</span> 10 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">11</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/181/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me02.5/181/low.webp" alt="Air Balloon, Ascended Heroes 181" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Air Balloon</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/ascended-heroes.html">Ascended Heroes 181</a></span>
+    
+    <span class="pl-nums">
+      <b>135</b> of 357 lists <span class="pl-pctv">(38%)</span>
+      <span class="pl-sep">/</span> 218 copies
+      <span class="pl-sep">/</span> 12 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">12</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/165/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06/165/low.webp" alt="Unfair Stamp, Twilight Masquerade 165" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Unfair Stamp</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/twilight-masquerade.html">Twilight Masquerade 165</a></span>
+    
+    <span class="pl-nums">
+      <b>134</b> of 357 lists <span class="pl-pctv">(38%)</span>
+      <span class="pl-sep">/</span> 134 copies
+      <span class="pl-sep">/</span> 10 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">13</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/095/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06/095/low.webp" alt="Munkidori, Twilight Masquerade 95" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Munkidori</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/twilight-masquerade.html">Twilight Masquerade 95</a></span>
+    
+    <span class="pl-nums">
+      <b>112</b> of 357 lists <span class="pl-pctv">(31%)</span>
+      <span class="pl-sep">/</span> 227 copies
+      <span class="pl-sep">/</span> 8 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">14</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/125/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me01/125/low.webp" alt="Rare Candy, Mega Evolution 125" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Rare Candy</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/mega-evolution.html">Mega Evolution 125</a></span>
+    
+    <span class="pl-nums">
+      <b>110</b> of 357 lists <span class="pl-pctv">(31%)</span>
+      <span class="pl-sep">/</span> 290 copies
+      <span class="pl-sep">/</span> 7 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">15</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/016/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me02.5/016/low.webp" alt="Budew, Ascended Heroes 16" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Budew</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/ascended-heroes.html">Ascended Heroes 16</a></span>
+    
+    <span class="pl-nums">
+      <b>106</b> of 357 lists <span class="pl-pctv">(30%)</span>
+      <span class="pl-sep">/</span> 125 copies
+      <span class="pl-sep">/</span> 7 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">16</span>
+  <span class="pl-pic"><span class="pl-noart" aria-hidden="true">Darkness</span></span>
+  <span class="pl-body">
+    <b class="pl-name">Darkness Energy</b>
+    <span class="pl-meta"><span class="pl-kind">Energy</span><span class="pl-set pl-set-plain">MEE 7</span></span>
+    
+    <span class="pl-nums">
+      <b>104</b> of 357 lists <span class="pl-pctv">(29%)</span>
+      <span class="pl-sep">/</span> 462 copies
+      <span class="pl-sep">/</span> 8 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">17</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/056/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv09/056/low.webp" alt="Lillie's Clefairy ex, Journey Together 56" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Lillie's Clefairy ex</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/journey-together.html">Journey Together 56</a></span>
+    
+    <span class="pl-nums">
+      <b>102</b> of 357 lists <span class="pl-pctv">(29%)</span>
+      <span class="pl-sep">/</span> 127 copies
+      <span class="pl-sep">/</span> 6 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">18</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/133/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv07/133/low.webp" alt="Crispin, Stellar Crown 133" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Crispin</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/stellar-crown.html">Stellar Crown 133</a></span>
+    
+    <span class="pl-nums">
+      <b>101</b> of 357 lists <span class="pl-pctv">(28%)</span>
+      <span class="pl-sep">/</span> 254 copies
+      <span class="pl-sep">/</span> 9 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">19</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/087/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me02/087/low.webp" alt="Dawn, Phantasmal Flames 87" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Dawn</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/phantasmal-flames.html">Phantasmal Flames 87</a></span>
+    
+    <span class="pl-nums">
+      <b>95</b> of 357 lists <span class="pl-pctv">(27%)</span>
+      <span class="pl-sep">/</span> 187 copies
+      <span class="pl-sep">/</span> 10 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">20</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/163/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06/163/low.webp" alt="Secret Box, Twilight Masquerade 163" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Secret Box</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/twilight-masquerade.html">Twilight Masquerade 163</a></span>
+    
+    <span class="pl-nums">
+      <b>92</b> of 357 lists <span class="pl-pctv">(26%)</span>
+      <span class="pl-sep">/</span> 92 copies
+      <span class="pl-sep">/</span> 10 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">21</span>
+  <span class="pl-pic"><span class="pl-noart" aria-hidden="true">Grass</span></span>
+  <span class="pl-body">
+    <b class="pl-name">Grass Energy</b>
+    <span class="pl-meta"><span class="pl-kind">Energy</span><span class="pl-set pl-set-plain">MEE 1</span></span>
+    
+    <span class="pl-nums">
+      <b>90</b> of 357 lists <span class="pl-pctv">(25%)</span>
+      <span class="pl-sep">/</span> 707 copies
+      <span class="pl-sep">/</span> 5 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">22</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/010/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv10/010/low.webp" alt="Shaymin, Destined Rivals 10" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Shaymin</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/destined-rivals.html">Destined Rivals 10</a></span>
+    
+    <span class="pl-nums">
+      <b>90</b> of 357 lists <span class="pl-pctv">(25%)</span>
+      <span class="pl-sep">/</span> 90 copies
+      <span class="pl-sep">/</span> 13 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">23</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/130/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me01/130/low.webp" alt="Switch, Mega Evolution 130" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Switch</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/mega-evolution.html">Mega Evolution 130</a></span>
+    
+    <span class="pl-nums">
+      <b>80</b> of 357 lists <span class="pl-pctv">(22%)</span>
+      <span class="pl-sep">/</span> 84 copies
+      <span class="pl-sep">/</span> 10 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">24</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/176/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv10/176/low.webp" alt="Team Rocket's Petrel, Destined Rivals 176" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Team Rocket's Petrel</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/destined-rivals.html">Destined Rivals 176</a></span>
+    
+    <span class="pl-nums">
+      <b>79</b> of 357 lists <span class="pl-pctv">(22%)</span>
+      <span class="pl-sep">/</span> 218 copies
+      <span class="pl-sep">/</span> 9 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">25</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/145/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv05/145/low.webp" alt="Ciphermaniac's Codebreaking, Temporal Forces 145" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Ciphermaniac's Codebreaking</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/temporal-forces.html">Temporal Forces 145</a></span>
+    
+    <span class="pl-nums">
+      <b>78</b> of 357 lists <span class="pl-pctv">(22%)</span>
+      <span class="pl-sep">/</span> 130 copies
+      <span class="pl-sep">/</span> 8 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">26</span>
+  <span class="pl-pic"><span class="pl-noart" aria-hidden="true">Fighting</span></span>
+  <span class="pl-body">
+    <b class="pl-name">Fighting Energy</b>
+    <span class="pl-meta"><span class="pl-kind">Energy</span><span class="pl-set pl-set-plain">MEE 6</span></span>
+    
+    <span class="pl-nums">
+      <b>74</b> of 357 lists <span class="pl-pctv">(21%)</span>
+      <span class="pl-sep">/</span> 456 copies
+      <span class="pl-sep">/</span> 5 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">27</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/131/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv07/131/low.webp" alt="Area Zero Underdepths, Stellar Crown 131" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Area Zero Underdepths</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/stellar-crown.html">Stellar Crown 131</a></span>
+    
+    <span class="pl-nums">
+      <b>72</b> of 357 lists <span class="pl-pctv">(20%)</span>
+      <span class="pl-sep">/</span> 207 copies
+      <span class="pl-sep">/</span> 5 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">28</span>
+  <span class="pl-pic"><span class="pl-noart" aria-hidden="true">Fire</span></span>
+  <span class="pl-body">
+    <b class="pl-name">Fire Energy</b>
+    <span class="pl-meta"><span class="pl-kind">Energy</span><span class="pl-set pl-set-plain">MEE 2</span></span>
+    
+    <span class="pl-nums">
+      <b>72</b> of 357 lists <span class="pl-pctv">(20%)</span>
+      <span class="pl-sep">/</span> 199 copies
+      <span class="pl-sep">/</span> 7 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">29</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/120/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv09/120/low.webp" alt="Dunsparce, Journey Together 120" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Dunsparce</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/journey-together.html">Journey Together 120</a></span>
+    
+    <span class="pl-nums">
+      <b>70</b> of 357 lists <span class="pl-pctv">(20%)</span>
+      <span class="pl-sep">/</span> 165 copies
+      <span class="pl-sep">/</span> 6 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">30</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/129/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv05/129/low.webp" alt="Dudunsparce, Temporal Forces 129" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Dudunsparce</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/temporal-forces.html">Temporal Forces 129</a></span>
+    
+    <span class="pl-nums">
+      <b>70</b> of 357 lists <span class="pl-pctv">(20%)</span>
+      <span class="pl-sep">/</span> 144 copies
+      <span class="pl-sep">/</span> 6 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">31</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/076/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv08/076/low.webp" alt="Latias ex, Surging Sparks 76" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Latias ex</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/surging-sparks.html">Surging Sparks 76</a></span>
+    
+    <span class="pl-nums">
+      <b>70</b> of 357 lists <span class="pl-pctv">(20%)</span>
+      <span class="pl-sep">/</span> 130 copies
+      <span class="pl-sep">/</span> 6 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">32</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/129/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06/129/low.webp" alt="Drakloak, Twilight Masquerade 129" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Drakloak</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/twilight-masquerade.html">Twilight Masquerade 129</a></span>
+    
+    <span class="pl-nums">
+      <b>65</b> of 357 lists <span class="pl-pctv">(18%)</span>
+      <span class="pl-sep">/</span> 254 copies
+      <span class="pl-sep">/</span> 6 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">33</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/128/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06/128/low.webp" alt="Dreepy, Twilight Masquerade 128" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Dreepy</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/twilight-masquerade.html">Twilight Masquerade 128</a></span>
+    
+    <span class="pl-nums">
+      <b>65</b> of 357 lists <span class="pl-pctv">(18%)</span>
+      <span class="pl-sep">/</span> 254 copies
+      <span class="pl-sep">/</span> 6 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">34</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/025/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06/025/low.webp" alt="Teal Mask Ogerpon ex, Twilight Masquerade 25" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Teal Mask Ogerpon ex</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/twilight-masquerade.html">Twilight Masquerade 25</a></span>
+    
+    <span class="pl-nums">
+      <b>65</b> of 357 lists <span class="pl-pctv">(18%)</span>
+      <span class="pl-sep">/</span> 221 copies
+      <span class="pl-sep">/</span> 4 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">35</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/130/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06/130/low.webp" alt="Dragapult ex, Twilight Masquerade 130" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Dragapult ex</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/twilight-masquerade.html">Twilight Masquerade 130</a></span>
+    
+    <span class="pl-nums">
+      <b>64</b> of 357 lists <span class="pl-pctv">(18%)</span>
+      <span class="pl-sep">/</span> 158 copies
+      <span class="pl-sep">/</span> 5 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">36</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/084/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv10.5w/084/low.webp" alt="Hilda, White Flare 84" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Hilda</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/white-flare.html">White Flare 84</a></span>
+    
+    <span class="pl-nums">
+      <b>62</b> of 357 lists <span class="pl-pctv">(17%)</span>
+      <span class="pl-sep">/</span> 147 copies
+      <span class="pl-sep">/</span> 6 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">37</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/088/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me03/088/low.webp" alt="Telepathic Psychic Energy, Perfect Order 88" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Telepathic Psychic Energy</b>
+    <span class="pl-meta"><span class="pl-kind">Energy</span><a class="pl-set" href="/sets/perfect-order.html">Perfect Order 88</a></span>
+    
+    <span class="pl-nums">
+      <b>60</b> of 357 lists <span class="pl-pctv">(17%)</span>
+      <span class="pl-sep">/</span> 233 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">38</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/104/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me01/104/low.webp" alt="Mega Kangaskhan ex, Mega Evolution 104" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Mega Kangaskhan ex</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/mega-evolution.html">Mega Evolution 104</a></span>
+    
+    <span class="pl-nums">
+      <b>60</b> of 357 lists <span class="pl-pctv">(17%)</span>
+      <span class="pl-sep">/</span> 180 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">39</span>
+  <span class="pl-pic"><span class="pl-noart" aria-hidden="true">Water</span></span>
+  <span class="pl-body">
+    <b class="pl-name">Water Energy</b>
+    <span class="pl-meta"><span class="pl-kind">Energy</span><span class="pl-set pl-set-plain">MEE 3</span></span>
+    
+    <span class="pl-nums">
+      <b>60</b> of 357 lists <span class="pl-pctv">(17%)</span>
+      <span class="pl-sep">/</span> 175 copies
+      <span class="pl-sep">/</span> 4 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">40</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/154/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06/154/low.webp" alt="Kieran, Twilight Masquerade 154" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Kieran</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/twilight-masquerade.html">Twilight Masquerade 154</a></span>
+    
+    <span class="pl-nums">
+      <b>55</b> of 357 lists <span class="pl-pctv">(15%)</span>
+      <span class="pl-sep">/</span> 65 copies
+      <span class="pl-sep">/</span> 8 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">41</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/143/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06/143/low.webp" alt="Bug Catching Set, Twilight Masquerade 143" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Bug Catching Set</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/twilight-masquerade.html">Twilight Masquerade 143</a></span>
+    
+    <span class="pl-nums">
+      <b>54</b> of 357 lists <span class="pl-pctv">(15%)</span>
+      <span class="pl-sep">/</span> 189 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">42</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/064/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06/064/low.webp" alt="Wellspring Mask Ogerpon ex, Twilight Masquerade 64" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Wellspring Mask Ogerpon ex</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/twilight-masquerade.html">Twilight Masquerade 64</a></span>
+    
+    <span class="pl-nums">
+      <b>51</b> of 357 lists <span class="pl-pctv">(14%)</span>
+      <span class="pl-sep">/</span> 56 copies
+      <span class="pl-sep">/</span> 4 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">43</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/155/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06/155/low.webp" alt="Lana's Aid, Twilight Masquerade 155" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Lana's Aid</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/twilight-masquerade.html">Twilight Masquerade 155</a></span>
+    
+    <span class="pl-nums">
+      <b>51</b> of 357 lists <span class="pl-pctv">(14%)</span>
+      <span class="pl-sep">/</span> 51 copies
+      <span class="pl-sep">/</span> 6 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">44</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/076/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me03/076/low.webp" alt="Judge, Perfect Order 76" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Judge</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/perfect-order.html">Perfect Order 76</a></span>
+    
+    <span class="pl-nums">
+      <b>50</b> of 357 lists <span class="pl-pctv">(14%)</span>
+      <span class="pl-sep">/</span> 73 copies
+      <span class="pl-sep">/</span> 12 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">45</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/115/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me01/115/low.webp" alt="Energy Switch, Mega Evolution 115" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Energy Switch</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/mega-evolution.html">Mega Evolution 115</a></span>
+    
+    <span class="pl-nums">
+      <b>49</b> of 357 lists <span class="pl-pctv">(14%)</span>
+      <span class="pl-sep">/</span> 163 copies
+      <span class="pl-sep">/</span> 6 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">46</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/186/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv01/186/low.webp" alt="Pokégear 3.0, Scarlet &amp; Violet 186" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Pokégear 3.0</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/scarlet-violet.html">Scarlet &amp; Violet 186</a></span>
+    
+    <span class="pl-nums">
+      <b>48</b> of 357 lists <span class="pl-pctv">(13%)</span>
+      <span class="pl-sep">/</span> 89 copies
+      <span class="pl-sep">/</span> 8 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">47</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/177/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv08/177/low.webp" alt="Gravity Mountain, Surging Sparks 177" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Gravity Mountain</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/surging-sparks.html">Surging Sparks 177</a></span>
+    
+    <span class="pl-nums">
+      <b>47</b> of 357 lists <span class="pl-pctv">(13%)</span>
+      <span class="pl-sep">/</span> 90 copies
+      <span class="pl-sep">/</span> 4 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">48</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/170/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv08/170/low.webp" alt="Cyrano, Surging Sparks 170" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Cyrano</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/surging-sparks.html">Surging Sparks 170</a></span>
+    
+    <span class="pl-nums">
+      <b>46</b> of 357 lists <span class="pl-pctv">(13%)</span>
+      <span class="pl-sep">/</span> 88 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">49</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/132/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me01/132/low.webp" alt="Wally's Compassion, Mega Evolution 132" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Wally's Compassion</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/mega-evolution.html">Mega Evolution 132</a></span>
+    
+    <span class="pl-nums">
+      <b>45</b> of 357 lists <span class="pl-pctv">(13%)</span>
+      <span class="pl-sep">/</span> 58 copies
+      <span class="pl-sep">/</span> 4 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">50</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/116/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me01/116/low.webp" alt="Fighting Gong, Mega Evolution 116" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Fighting Gong</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/mega-evolution.html">Mega Evolution 116</a></span>
+    
+    <span class="pl-nums">
+      <b>44</b> of 357 lists <span class="pl-pctv">(12%)</span>
+      <span class="pl-sep">/</span> 174 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">51</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/056/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv08/056/low.webp" alt="Chien-Pao, Surging Sparks 56" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Chien-Pao</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/surging-sparks.html">Surging Sparks 56</a></span>
+    
+    <span class="pl-nums">
+      <b>43</b> of 357 lists <span class="pl-pctv">(12%)</span>
+      <span class="pl-sep">/</span> 43 copies
+      <span class="pl-sep">/</span> 5 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">52</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/168/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv10/168/low.webp" alt="Sacred Ash, Destined Rivals 168" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Sacred Ash</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/destined-rivals.html">Destined Rivals 168</a></span>
+    
+    <span class="pl-nums">
+      <b>42</b> of 357 lists <span class="pl-pctv">(12%)</span>
+      <span class="pl-sep">/</span> 43 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">53</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/080/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv10.5w/080/low.webp" alt="Brave Bangle, White Flare 80" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Brave Bangle</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/white-flare.html">White Flare 80</a></span>
+    
+    <span class="pl-nums">
+      <b>41</b> of 357 lists <span class="pl-pctv">(11%)</span>
+      <span class="pl-sep">/</span> 60 copies
+      <span class="pl-sep">/</span> 4 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">54</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/124/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me01/124/low.webp" alt="Premium Power Pro, Mega Evolution 124" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Premium Power Pro</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/mega-evolution.html">Mega Evolution 124</a></span>
+    
+    <span class="pl-nums">
+      <b>40</b> of 357 lists <span class="pl-pctv">(11%)</span>
+      <span class="pl-sep">/</span> 159 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">55</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/076/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me01/076/low.webp" alt="Riolu, Mega Evolution 76" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Riolu</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/mega-evolution.html">Mega Evolution 76</a></span>
+    
+    <span class="pl-nums">
+      <b>40</b> of 357 lists <span class="pl-pctv">(11%)</span>
+      <span class="pl-sep">/</span> 127 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">56</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/017/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06/017/low.webp" alt="Applin, Twilight Masquerade 17" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Applin</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/twilight-masquerade.html">Twilight Masquerade 17</a></span>
+    
+    <span class="pl-nums">
+      <b>40</b> of 357 lists <span class="pl-pctv">(11%)</span>
+      <span class="pl-sep">/</span> 122 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">57</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/077/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me01/077/low.webp" alt="Mega Lucario ex, Mega Evolution 77" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Mega Lucario ex</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/mega-evolution.html">Mega Evolution 77</a></span>
+    
+    <span class="pl-nums">
+      <b>40</b> of 357 lists <span class="pl-pctv">(11%)</span>
+      <span class="pl-sep">/</span> 121 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">58</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/018/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06/018/low.webp" alt="Dipplin, Twilight Masquerade 18" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Dipplin</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/twilight-masquerade.html">Twilight Masquerade 18</a></span>
+    
+    <span class="pl-nums">
+      <b>40</b> of 357 lists <span class="pl-pctv">(11%)</span>
+      <span class="pl-sep">/</span> 111 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">59</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/078/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me05/078/low.webp" alt="Gwynn, Pitch Black 78" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Gwynn</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/pitch-black.html">Pitch Black 78</a></span>
+    
+    <span class="pl-nums">
+      <b>40</b> of 357 lists <span class="pl-pctv">(11%)</span>
+      <span class="pl-sep">/</span> 108 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">60</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/075/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me01/075/low.webp" alt="Solrock, Mega Evolution 75" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Solrock</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/mega-evolution.html">Mega Evolution 75</a></span>
+    
+    <span class="pl-nums">
+      <b>40</b> of 357 lists <span class="pl-pctv">(11%)</span>
+      <span class="pl-sep">/</span> 97 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">61</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/074/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me01/074/low.webp" alt="Lunatone, Mega Evolution 74" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Lunatone</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/mega-evolution.html">Mega Evolution 74</a></span>
+    
+    <span class="pl-nums">
+      <b>40</b> of 357 lists <span class="pl-pctv">(11%)</span>
+      <span class="pl-sep">/</span> 81 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">62</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/061/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me04/061/low.webp" alt="Metagross, Chaos Rising 61" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Metagross</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/chaos-rising.html">Chaos Rising 61</a></span>
+    
+    <span class="pl-nums">
+      <b>40</b> of 357 lists <span class="pl-pctv">(11%)</span>
+      <span class="pl-sep">/</span> 56 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">63</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/180/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv10/180/low.webp" alt="Team Rocket's Watchtower, Destined Rivals 180" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Team Rocket's Watchtower</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/destined-rivals.html">Destined Rivals 180</a></span>
+    
+    <span class="pl-nums">
+      <b>39</b> of 357 lists <span class="pl-pctv">(11%)</span>
+      <span class="pl-sep">/</span> 46 copies
+      <span class="pl-sep">/</span> 8 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">64</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/066/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me05/066/low.webp" alt="Pikipek, Pitch Black 66" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Pikipek</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/pitch-black.html">Pitch Black 66</a></span>
+    
+    <span class="pl-nums">
+      <b>37</b> of 357 lists <span class="pl-pctv">(10%)</span>
+      <span class="pl-sep">/</span> 106 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">65</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/068/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me05/068/low.webp" alt="Toucannon, Pitch Black 68" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Toucannon</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/pitch-black.html">Pitch Black 68</a></span>
+    
+    <span class="pl-nums">
+      <b>37</b> of 357 lists <span class="pl-pctv">(10%)</span>
+      <span class="pl-sep">/</span> 98 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">66</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/071/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me03/071/low.webp" alt="Crushing Hammer, Perfect Order 71" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Crushing Hammer</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/perfect-order.html">Perfect Order 71</a></span>
+    
+    <span class="pl-nums">
+      <b>36</b> of 357 lists <span class="pl-pctv">(10%)</span>
+      <span class="pl-sep">/</span> 138 copies
+      <span class="pl-sep">/</span> 4 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">67</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/088/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me01/088/low.webp" alt="Yveltal, Mega Evolution 88" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Yveltal</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/mega-evolution.html">Mega Evolution 88</a></span>
+    
+    <span class="pl-nums">
+      <b>36</b> of 357 lists <span class="pl-pctv">(10%)</span>
+      <span class="pl-sep">/</span> 38 copies
+      <span class="pl-sep">/</span> 4 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">68</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/084/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me03/084/low.webp" alt="Rosa's Encouragement, Perfect Order 84" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Rosa's Encouragement</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/perfect-order.html">Perfect Order 84</a></span>
+    
+    <span class="pl-nums">
+      <b>34</b> of 357 lists <span class="pl-pctv">(10%)</span>
+      <span class="pl-sep">/</span> 34 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">69</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/127/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me01/127/low.webp" alt="Risky Ruins, Mega Evolution 127" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Risky Ruins</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/mega-evolution.html">Mega Evolution 127</a></span>
+    
+    <span class="pl-nums">
+      <b>33</b> of 357 lists <span class="pl-pctv">(9%)</span>
+      <span class="pl-sep">/</span> 54 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">70</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/067/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me05/067/low.webp" alt="Trumbeak, Pitch Black 67" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Trumbeak</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/pitch-black.html">Pitch Black 67</a></span>
+    
+    <span class="pl-nums">
+      <b>32</b> of 357 lists <span class="pl-pctv">(9%)</span>
+      <span class="pl-sep">/</span> 51 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">71</span>
+  <span class="pl-pic"><span class="pl-noart" aria-hidden="true">Lightning</span></span>
+  <span class="pl-body">
+    <b class="pl-name">Lightning Energy</b>
+    <span class="pl-meta"><span class="pl-kind">Energy</span><span class="pl-set pl-set-plain">MEE 4</span></span>
+    
+    <span class="pl-nums">
+      <b>30</b> of 357 lists <span class="pl-pctv">(8%)</span>
+      <span class="pl-sep">/</span> 61 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">72</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/178/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv10/178/low.webp" alt="Team Rocket's Transceiver, Destined Rivals 178" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Team Rocket's Transceiver</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/destined-rivals.html">Destined Rivals 178</a></span>
+    
+    <span class="pl-nums">
+      <b>29</b> of 357 lists <span class="pl-pctv">(8%)</span>
+      <span class="pl-sep">/</span> 110 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">73</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/086/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv10.5w/086/low.webp" alt="Ignition Energy, White Flare 86" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Ignition Energy</b>
+    <span class="pl-meta"><span class="pl-kind">Energy</span><a class="pl-set" href="/sets/white-flare.html">White Flare 86</a></span>
+    
+    <span class="pl-nums">
+      <b>29</b> of 357 lists <span class="pl-pctv">(8%)</span>
+      <span class="pl-sep">/</span> 94 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">74</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/118/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv07/118/low.webp" alt="Fan Rotom, Stellar Crown 118" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Fan Rotom</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/stellar-crown.html">Stellar Crown 118</a></span>
+    
+    <span class="pl-nums">
+      <b>29</b> of 357 lists <span class="pl-pctv">(8%)</span>
+      <span class="pl-sep">/</span> 41 copies
+      <span class="pl-sep">/</span> 4 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">75</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/025/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv05/025/low.webp" alt="Iron Leaves ex, Temporal Forces 25" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Iron Leaves ex</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/temporal-forces.html">Temporal Forces 25</a></span>
+    
+    <span class="pl-nums">
+      <b>28</b> of 357 lists <span class="pl-pctv">(8%)</span>
+      <span class="pl-sep">/</span> 28 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">76</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/094/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me02/094/low.webp" alt="Wondrous Patch, Phantasmal Flames 94" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Wondrous Patch</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/phantasmal-flames.html">Phantasmal Flames 94</a></span>
+    
+    <span class="pl-nums">
+      <b>27</b> of 357 lists <span class="pl-pctv">(8%)</span>
+      <span class="pl-sep">/</span> 67 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">77</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv07/135/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv07/135/low.webp" alt="Glass Trumpet, Stellar Crown 135" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Glass Trumpet</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/stellar-crown.html">Stellar Crown 135</a></span>
+    
+    <span class="pl-nums">
+      <b>27</b> of 357 lists <span class="pl-pctv">(8%)</span>
+      <span class="pl-sep">/</span> 44 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">78</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/035/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv08.5/035/low.webp" alt="Duskull, Prismatic Evolutions 35" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Duskull</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/prismatic-evolutions.html">Prismatic Evolutions 35</a></span>
+    
+    <span class="pl-nums">
+      <b>26</b> of 357 lists <span class="pl-pctv">(7%)</span>
+      <span class="pl-sep">/</span> 51 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">79</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/036/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv08.5/036/low.webp" alt="Dusclops, Prismatic Evolutions 36" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Dusclops</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/prismatic-evolutions.html">Prismatic Evolutions 36</a></span>
+    
+    <span class="pl-nums">
+      <b>26</b> of 357 lists <span class="pl-pctv">(7%)</span>
+      <span class="pl-sep">/</span> 43 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">80</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/037/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv08.5/037/low.webp" alt="Dusknoir, Prismatic Evolutions 37" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Dusknoir</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/prismatic-evolutions.html">Prismatic Evolutions 37</a></span>
+    
+    <span class="pl-nums">
+      <b>26</b> of 357 lists <span class="pl-pctv">(7%)</span>
+      <span class="pl-sep">/</span> 28 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">81</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/014/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me02/014/low.webp" alt="Moltres, Phantasmal Flames 14" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Moltres</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/phantasmal-flames.html">Phantasmal Flames 14</a></span>
+    
+    <span class="pl-nums">
+      <b>26</b> of 357 lists <span class="pl-pctv">(7%)</span>
+      <span class="pl-sep">/</span> 26 copies
+      <span class="pl-sep">/</span> 7 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">82</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/046/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me02.5/046/low.webp" alt="Snorunt, Ascended Heroes 46" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Snorunt</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/ascended-heroes.html">Ascended Heroes 46</a></span>
+    
+    <span class="pl-nums">
+      <b>25</b> of 357 lists <span class="pl-pctv">(7%)</span>
+      <span class="pl-sep">/</span> 64 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">83</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/123/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv05/123/low.webp" alt="Raging Bolt ex, Temporal Forces 123" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Raging Bolt ex</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/temporal-forces.html">Temporal Forces 123</a></span>
+    
+    <span class="pl-nums">
+      <b>25</b> of 357 lists <span class="pl-pctv">(7%)</span>
+      <span class="pl-sep">/</span> 45 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">84</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/143/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv09/143/low.webp" alt="Black Belt's Training, Journey Together 143" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Black Belt's Training</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/journey-together.html">Journey Together 143</a></span>
+    
+    <span class="pl-nums">
+      <b>25</b> of 357 lists <span class="pl-pctv">(7%)</span>
+      <span class="pl-sep">/</span> 31 copies
+      <span class="pl-sep">/</span> 4 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">85</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/039/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06/039/low.webp" alt="Chi-Yu, Twilight Masquerade 39" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Chi-Yu</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/twilight-masquerade.html">Twilight Masquerade 39</a></span>
+    
+    <span class="pl-nums">
+      <b>25</b> of 357 lists <span class="pl-pctv">(7%)</span>
+      <span class="pl-sep">/</span> 25 copies
+      <span class="pl-sep">/</span> 4 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">86</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/173/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv10/173/low.webp" alt="Team Rocket's Factory, Destined Rivals 173" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Team Rocket's Factory</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/destined-rivals.html">Destined Rivals 173</a></span>
+    
+    <span class="pl-nums">
+      <b>24</b> of 357 lists <span class="pl-pctv">(7%)</span>
+      <span class="pl-sep">/</span> 67 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">87</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/153/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06/153/low.webp" alt="Jamming Tower, Twilight Masquerade 153" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Jamming Tower</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/twilight-masquerade.html">Twilight Masquerade 153</a></span>
+    
+    <span class="pl-nums">
+      <b>24</b> of 357 lists <span class="pl-pctv">(7%)</span>
+      <span class="pl-sep">/</span> 24 copies
+      <span class="pl-sep">/</span> 5 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">88</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/097/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv09/097/low.webp" alt="N's Zorua, Journey Together 97" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">N's Zorua</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/journey-together.html">Journey Together 97</a></span>
+    
+    <span class="pl-nums">
+      <b>23</b> of 357 lists <span class="pl-pctv">(6%)</span>
+      <span class="pl-sep">/</span> 88 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">89</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/098/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv09/098/low.webp" alt="N's Zoroark ex, Journey Together 98" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">N's Zoroark ex</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/journey-together.html">Journey Together 98</a></span>
+    
+    <span class="pl-nums">
+      <b>23</b> of 357 lists <span class="pl-pctv">(6%)</span>
+      <span class="pl-sep">/</span> 87 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">90</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/149/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06/149/low.webp" alt="Festival Grounds, Twilight Masquerade 149" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Festival Grounds</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/twilight-masquerade.html">Twilight Masquerade 149</a></span>
+    
+    <span class="pl-nums">
+      <b>22</b> of 357 lists <span class="pl-pctv">(6%)</span>
+      <span class="pl-sep">/</span> 80 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">91</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/085/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me02/085/low.webp" alt="Battle Cage, Phantasmal Flames 85" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Battle Cage</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/phantasmal-flames.html">Phantasmal Flames 85</a></span>
+    
+    <span class="pl-nums">
+      <b>22</b> of 357 lists <span class="pl-pctv">(6%)</span>
+      <span class="pl-sep">/</span> 62 copies
+      <span class="pl-sep">/</span> 4 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">92</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/039/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06.5/039/low.webp" alt="Pecharunt ex, Shrouded Fable 39" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Pecharunt ex</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/shrouded-fable.html">Shrouded Fable 39</a></span>
+    
+    <span class="pl-nums">
+      <b>22</b> of 357 lists <span class="pl-pctv">(6%)</span>
+      <span class="pl-sep">/</span> 23 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">93</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/152/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv05/152/low.webp" alt="Hero's Cape, Temporal Forces 152" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Hero's Cape</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/temporal-forces.html">Temporal Forces 152</a></span>
+    
+    <span class="pl-nums">
+      <b>22</b> of 357 lists <span class="pl-pctv">(6%)</span>
+      <span class="pl-sep">/</span> 22 copies
+      <span class="pl-sep">/</span> 6 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">94</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/117/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me01/117/low.webp" alt="Forest of Vitality, Mega Evolution 117" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Forest of Vitality</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/mega-evolution.html">Mega Evolution 117</a></span>
+    
+    <span class="pl-nums">
+      <b>21</b> of 357 lists <span class="pl-pctv">(6%)</span>
+      <span class="pl-sep">/</span> 75 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">95</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/216/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me02.5/216/low.webp" alt="Prism Energy, Ascended Heroes 216" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Prism Energy</b>
+    <span class="pl-meta"><span class="pl-kind">Energy</span><a class="pl-set" href="/sets/ascended-heroes.html">Ascended Heroes 216</a></span>
+    
+    <span class="pl-nums">
+      <b>21</b> of 357 lists <span class="pl-pctv">(6%)</span>
+      <span class="pl-sep">/</span> 65 copies
+      <span class="pl-sep">/</span> 5 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">96</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/053/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv06/053/low.webp" alt="Froslass, Twilight Masquerade 53" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Froslass</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/twilight-masquerade.html">Twilight Masquerade 53</a></span>
+    
+    <span class="pl-nums">
+      <b>21</b> of 357 lists <span class="pl-pctv">(6%)</span>
+      <span class="pl-sep">/</span> 57 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">97</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/087/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/me/me03/087/low.webp" alt="Rocky Fighting Energy, Perfect Order 87" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Rocky Fighting Energy</b>
+    <span class="pl-meta"><span class="pl-kind">Energy</span><a class="pl-set" href="/sets/perfect-order.html">Perfect Order 87</a></span>
+    
+    <span class="pl-nums">
+      <b>21</b> of 357 lists <span class="pl-pctv">(6%)</span>
+      <span class="pl-sep">/</span> 48 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">98</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/171/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv01/171/low.webp" alt="Energy Retrieval, Scarlet &amp; Violet 171" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Energy Retrieval</b>
+    <span class="pl-meta"><span class="pl-kind">Trainer</span><a class="pl-set" href="/sets/scarlet-violet.html">Scarlet &amp; Violet 171</a></span>
+    
+    <span class="pl-nums">
+      <b>21</b> of 357 lists <span class="pl-pctv">(6%)</span>
+      <span class="pl-sep">/</span> 25 copies
+      <span class="pl-sep">/</span> 3 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">99</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/023/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv05/023/low.webp" alt="Rellor, Temporal Forces 23" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Rellor</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/temporal-forces.html">Temporal Forces 23</a></span>
+    
+    <span class="pl-nums">
+      <b>21</b> of 357 lists <span class="pl-pctv">(6%)</span>
+      <span class="pl-sep">/</span> 23 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+<li class="pl">
+  <span class="pl-rank">100</span>
+  <span class="pl-pic"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/024/low.avif"><img class="pl-art" src="https://assets.tcgdex.net/en/sv/sv05/024/low.webp" alt="Rabsca, Temporal Forces 24" loading="lazy" decoding="async" width="245" height="337" onerror="this.remove()"></picture></span>
+  <span class="pl-body">
+    <b class="pl-name">Rabsca</b>
+    <span class="pl-meta"><span class="pl-kind">Pokemon</span><a class="pl-set" href="/sets/temporal-forces.html">Temporal Forces 24</a></span>
+    
+    <span class="pl-nums">
+      <b>21</b> of 357 lists <span class="pl-pctv">(6%)</span>
+      <span class="pl-sep">/</span> 21 copies
+      <span class="pl-sep">/</span> 2 of 18 decks
+    </span>
+  </span>
+</li>
+      </ol>
+
+      <h2>Where to go next</h2>
+      <ul class="pl-more">
+        <li><a href="/decks.html"><b>Deck builds you can download</b>
+          <span>The 18 most played decks, with lists that paste into TCG Live</span></a></li>
+        <li><a href="/tcg-live.html"><b>Pokemon TCG Live</b>
+          <span>The free official client, and the code card in every pack</span></a></li>
+        <li><a href="/how-to-play.html"><b>How to play</b>
+          <span>Setup, a turn, and the three ways to win</span></a></li>
+        <li><a href="/cards.html"><b>Card search</b>
+          <span>Every card we cover, and what it is worth today</span></a></li>
+      </ul>
+
+      <p class="pl-src">Decklists and deck usage come from <b>Limitless TCG</b>, read
+        August 16, 2026: online tournaments played in Pokemon TCG Live on Limitless's play platform, filtered to Standard, 2026 rotation, Pitch Black era. The counts on this
+        page are our own arithmetic over those 357 lists and are reproducible from them. Regulation
+        marks and both rotation dates come from Pokemon.com, 2026 Pokemon TCG Standard Format Rotation Announcement, read August 16, 2026. Card
+        scans and card data from TCGdex. Card names and pictures were checked against this site's own card
+        records: 284 of 295 distinct printings matched exactly, and the
+        11 that did not are basic Energy and a promo from sets this site has no
+        guide for, which is why those rows carry a drawn tile instead of a scan. Where a card has been
+        printed in more than one legal set, the printing shown is the one the most players registered.
+        This page ranks cards by play, never by price, and states no pull rates and no pack odds.</p>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Footer">
+      <div class="foot-col">
+        <p class="foot-h">Watch</p>
+        <a href="/videos.html">Rips</a>
+        <a href="/playlists.html">Playlists</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">The binder</p>
+        <a href="/hall.html">Best pulls</a>
+        <a href="/wanted.html">Most wanted</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Cards</p>
+        <a href="/cards.html">Card search</a>
+        <a href="/pokemon/">By Pokemon</a>
+        <a href="/sets/">Set guides</a>
+        <a href="/expansions.html">Every set ever</a>
+        <a href="/upcoming.html">Coming next</a>
+        <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/pack-prices.html">Pack prices</a>
+        <a href="/how-many-packs.html">Packs per box</a>
+        <a href="/openings/">Sealed products</a>
+        <a href="/drops.html">Drops this week</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Guides</p>
+        <a href="/start.html">Start here</a>
+        <a href="/how-to-play.html">How to play</a>
+        <a href="/tcg-live.html">Code cards</a>
+        <a href="/tcg-pocket.html">Phone version</a>
+        <a href="/what-set.html">Set finder</a>
+        <a href="/rarity.html">Rarity guide</a>
+        <a href="/types.html">Card types</a>
+        <a href="/fake-cards.html">Fakes</a>
+        <a href="/will-it-grade.html">Will it grade</a>
+        <a href="/grading.html">Grading cost</a>
+        <a href="/selling.html">Where to sell</a>
+        <a href="/buying.html">Where to buy</a>
+        <a href="/luck.html">Luck, measured</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Play</p>
+        <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
+        <a href="/lore.html">Pokemon lore</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Rochester, NY</p>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/vendors.html">Local vendors</a>
+        <a href="/creators.html">Local creators</a>
+        <a href="/about.html">About</a>
+      </div>
+    </nav>
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    Deck data from Limitless TCG. Card scans from TCGdex.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
+</body>
+</html>

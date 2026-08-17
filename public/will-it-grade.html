@@ -22,7 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
+<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>
 .gc-lede{max-width:46em}
@@ -62,6 +62,44 @@
 .ct-in{fill:var(--ink-2);font:400 11px/1 var(--body);text-anchor:middle}
 .ct-fig figcaption{font-size:var(--t-sm);line-height:1.5;color:var(--ink-2);margin-top:var(--s3)}
 .ct-fig figcaption b{font-family:var(--mono);color:var(--ketchup-deep)}
+/* THE FRONT AND BACK LADDER. Three columns, grade then two cards, so the front
+   and the back of one grade are on one line: the whole point is the comparison
+   ACROSS a row, and any layout that stacks them loses it. The card width is
+   clamped rather than fixed because at 390 the row has about 350px to spend on
+   a label and two cards, and at 1280 the same grid would leave two postage
+   stamps in a 1,232px band. */
+.lad{margin:var(--s5) 0;border:3px solid var(--navy);border-radius:12px;background:var(--card);
+  box-shadow:var(--hard-lg);padding:var(--s4)}
+/* THE LABEL COLUMN IS CAPPED AND THE GRID HUGS THE LEFT. As minmax(0,1fr) it
+   ate every spare pixel: at 1280 the grade names sat in a 1,000px column with
+   the eight cards pushed against the right edge of the panel, half a metre from
+   the label they belong to. The comparison is ACROSS a row, so the row has to
+   stay short however wide the page gets. */
+.lad-grid{display:grid;grid-template-columns:minmax(104px,220px) auto auto;
+  gap:var(--s3) var(--s5);align-items:center;justify-items:center;justify-content:start}
+.lad-h{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.lad-g{justify-self:start;font-weight:700;font-size:var(--t-sm);line-height:1.25}
+.lad-c{display:block;text-align:center}
+.lad-c b{display:block;margin-top:6px;font:700 var(--t-micro)/1 var(--mono);color:var(--ketchup-deep)}
+.lad-svg{display:block;width:clamp(56px,17vw,104px);height:auto}
+/* Desktop puts the caption beside the cards rather than under them. The grid is
+   a fixed ~430px however wide the page is, so stacked it left roughly 800px of
+   empty panel at 1280 with the explanation below the fold of the figure. */
+@media(min-width:1000px){
+  .lad-svg{width:104px}
+  .lad{display:flex;gap:var(--s6);align-items:flex-start}
+  .lad figcaption{margin-top:0;flex:1;min-width:0}
+}
+/* THE BAND AND WINDOW OPACITIES ARE NOT THE BIG DIAGRAM'S AND THAT IS MEASURED.
+   Inherited unchanged (band .15, window .14) the two tones are within one
+   percent of each other, and at a quarter of the size that is one grey block
+   with a faint seam: the second build of this figure was eight cards nobody
+   could tell apart. The big diagram gets away with it at 210px wide with
+   dimension lines and numbers inside it. This one is 56 to 104px with nothing
+   in it but the shape, so the strip has to carry the whole reading. */
+.lad-svg .ct-band{opacity:.5}
+.lad-svg .ct-win{opacity:.09}
+.lad figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s4);max-width:52ch}
 .gc-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
 @media(max-width:880px){.gc-cards{grid-template-columns:1fr}}
 .gc-c{border:3px solid var(--navy);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
@@ -286,6 +324,71 @@
           </tbody>
         </table>
       </div>
+      <figure class="lad">
+        <div class="lad-grid">
+          <span class="lad-h"></span>
+          <span class="lad-h">Front</span>
+          <span class="lad-h">Back</span>
+          <span class="lad-g">Gem Mint 10</span>
+          <span class="lad-c"><svg viewBox="0 0 100 140" class="lad-svg" aria-hidden="true" focusable="false">
+              <rect x="1" y="1" width="98" height="138" rx="6" class="ct-card"/>
+              <rect x="2" y="15" width="11.2" height="110" class="ct-band"/>
+              <rect x="89.2" y="15" width="8.799999999999997" height="110" class="ct-band"/>
+              <rect x="13.2" y="15" width="76" height="110" rx="2" class="ct-win"/>
+            </svg><b>about 55/45</b></span>
+          <span class="lad-c"><svg viewBox="0 0 100 140" class="lad-svg" aria-hidden="true" focusable="false">
+              <rect x="1" y="1" width="98" height="138" rx="6" class="ct-card"/>
+              <rect x="2" y="15" width="16" height="110" class="ct-band"/>
+              <rect x="94" y="15" width="4" height="110" class="ct-band"/>
+              <rect x="18" y="15" width="76" height="110" rx="2" class="ct-win"/>
+            </svg><b>about 75/25</b></span>
+          <span class="lad-g">Mint 9</span>
+          <span class="lad-c"><svg viewBox="0 0 100 140" class="lad-svg" aria-hidden="true" focusable="false">
+              <rect x="1" y="1" width="98" height="138" rx="6" class="ct-card"/>
+              <rect x="2" y="15" width="12.4" height="110" class="ct-band"/>
+              <rect x="90.4" y="15" width="7.599999999999994" height="110" class="ct-band"/>
+              <rect x="14.4" y="15" width="76" height="110" rx="2" class="ct-win"/>
+            </svg><b>about 60/40</b></span>
+          <span class="lad-c"><svg viewBox="0 0 100 140" class="lad-svg" aria-hidden="true" focusable="false">
+              <rect x="1" y="1" width="98" height="138" rx="6" class="ct-card"/>
+              <rect x="2" y="15" width="19.6" height="110" class="ct-band"/>
+              <rect x="97.6" y="15" width="0.4000000000000057" height="110" class="ct-band"/>
+              <rect x="21.6" y="15" width="76" height="110" rx="2" class="ct-win"/>
+            </svg><b>about 90/10</b></span>
+          <span class="lad-g">Near Mint-Mint 8</span>
+          <span class="lad-c"><svg viewBox="0 0 100 140" class="lad-svg" aria-hidden="true" focusable="false">
+              <rect x="1" y="1" width="98" height="138" rx="6" class="ct-card"/>
+              <rect x="2" y="15" width="13.6" height="110" class="ct-band"/>
+              <rect x="91.6" y="15" width="6.400000000000006" height="110" class="ct-band"/>
+              <rect x="15.6" y="15" width="76" height="110" rx="2" class="ct-win"/>
+            </svg><b>about 65/35</b></span>
+          <span class="lad-c"><svg viewBox="0 0 100 140" class="lad-svg" aria-hidden="true" focusable="false">
+              <rect x="1" y="1" width="98" height="138" rx="6" class="ct-card"/>
+              <rect x="2" y="15" width="19.6" height="110" class="ct-band"/>
+              <rect x="97.6" y="15" width="0.4000000000000057" height="110" class="ct-band"/>
+              <rect x="21.6" y="15" width="76" height="110" rx="2" class="ct-win"/>
+            </svg><b>about 90/10</b></span>
+          <span class="lad-g">Near Mint 7</span>
+          <span class="lad-c"><svg viewBox="0 0 100 140" class="lad-svg" aria-hidden="true" focusable="false">
+              <rect x="1" y="1" width="98" height="138" rx="6" class="ct-card"/>
+              <rect x="2" y="15" width="14.8" height="110" class="ct-band"/>
+              <rect x="92.8" y="15" width="5.200000000000003" height="110" class="ct-band"/>
+              <rect x="16.8" y="15" width="76" height="110" rx="2" class="ct-win"/>
+            </svg><b>about 70/30</b></span>
+          <span class="lad-c"><svg viewBox="0 0 100 140" class="lad-svg" aria-hidden="true" focusable="false">
+              <rect x="1" y="1" width="98" height="138" rx="6" class="ct-card"/>
+              <rect x="2" y="15" width="19.6" height="110" class="ct-band"/>
+              <rect x="97.6" y="15" width="0.4000000000000057" height="110" class="ct-band"/>
+              <rect x="21.6" y="15" width="76" height="110" rx="2" class="ct-win"/>
+            </svg><b>about 90/10</b></span>
+        </div>
+        <figcaption>PSA's published centering, drawn to scale, left to right. Every one of these is a
+          card PSA would still give that grade on centering alone. The back column is the same grade as
+          the front beside it: at Mint 9 the front has to be within about 60/40
+          and the back may be about 90/10, which is why the
+          section above says almost nobody checks the back. Numbers are PSA's own, from the table above;
+          the drawing adds nothing to them except scale.</figcaption>
+      </figure>
         <p class="gc-in"><b>PSA gives itself room, and tells you so.</b> A 5% leeway is given to the front centering minimum standards for cards which grade PSA 7 or better.
           PSA gives its own example: a card meeting every other requirement for a 9 and measuring 60/40 off center on the front automatically meets the front centering standard for a 9. <a class="gc-s" href="https://www.psacard.com/gradingstandards" aria-label="Source: PSA centering standards and leeway" rel="noopener" target="_blank">Source</a></p>
         <div class="gc-cards">
@@ -510,7 +613,7 @@
     Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=7f0274cc" defer></script>
-<script src="/assets/packplayer.js?v=faa2eb26" defer></script>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
 </body>
 </html>

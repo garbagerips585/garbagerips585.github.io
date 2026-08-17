@@ -66,6 +66,13 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const desc =
   "A one thumb arcade game for the restock line. Flip Trubbish between floor and ceiling, eat the rubbish, dodge the Pokemon, and evolve into Garbodor.";
 
+// THE EVOLUTION THRESHOLD, ONCE. It was a `var EVOLVE_AT = 100` inside the page
+// script and the number 100 spelled out in the copy above it, in two places,
+// which is exactly how a game and the paragraph explaining it end up disagreeing
+// after somebody tunes the game. The script now takes it from here too, so there
+// is one number and the prose cannot go stale on its own.
+const EVOLVE_AT = 100;
+
 const style = `
 .gr-wrap{max-width:560px;margin:0 auto}
 
@@ -134,6 +141,26 @@ const style = `
 .gr-go:hover{background:var(--mustard);border-color:var(--mustard)}
 .gr-how{margin-top:var(--s5);color:var(--ink-2);font-size:var(--t-sm);line-height:1.6;max-width:44em}
 .gr-how b{color:var(--ink)}
+
+/* THE EVOLUTION FIGURE. Two sprites and the number between them, on one line at
+   every width: the whole content is "this becomes this", and stacking it would
+   turn a single glance into a scroll. The images are 512px files drawn at 84,
+   which is deliberate rather than sloppy: they are the canvas sprites, already
+   in cache the moment the game has run once, so a second rendition would be a
+   new download to save nothing.
+   The mark between them is a number, not an arrow glyph: an arrow says
+   "becomes" and the number says "when", and when is the part the player is
+   actually working towards. */
+.gr-evo{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;justify-content:flex-start;
+  margin-top:var(--s4);padding:var(--s3) var(--s4);background:var(--card);border:2px solid var(--ink);
+  border-radius:var(--r)}
+.gr-evo img{width:84px;height:84px;object-fit:contain;display:block;flex:none}
+.gr-evo-at{flex:none;display:grid;place-items:center;min-width:46px;height:34px;padding:0 10px;
+  border-radius:999px;background:var(--gold);color:var(--on-accent);
+  font:700 var(--t-sm)/1 var(--mono);letter-spacing:.04em}
+/* The caption takes the whole second row rather than sitting beside the pair,
+   because at 390px there is 342px of board width and three items already in it. */
+.gr-evo figcaption{flex-basis:100%;font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2)}
 .gr-keys{font:700 var(--t-micro)/1 var(--mono);background:var(--card);border:1px solid var(--hair);
   border-radius:5px;padding:3px 6px;white-space:nowrap}
 
@@ -237,11 +264,34 @@ ${MENU}
         <p class="lede gr-lede">One thumb, no rules to read. Tap to flip Trubbish between the floor and the ceiling and
           eat everything on the street. A hundred pieces of rubbish and he evolves.</p>
 
-        <p class="gr-how"><b>How it works.</b> Tap anywhere, or press <span class="gr-keys">space</span>, <span class="gr-keys">W</span>
+        <div class="gr-how">
+          <p><b>How it works.</b> Tap anywhere, or press <span class="gr-keys">space</span>, <span class="gr-keys">W</span>
           or the <span class="gr-keys">arrow keys</span>. Every piece of rubbish you eat is a point. Other Pokemon are out there too and
-          touching one ends the run. Get to 100 and Trubbish evolves into Garbodor for the rest of the game.<br>
+          touching one ends the run. Get to ${EVOLVE_AT} and Trubbish evolves into Garbodor for the rest of the game.<br>
           <b>Nothing is saved anywhere but your own phone</b>, and there is no account and no server. Your best
           score lives in this browser and goes away if you clear it.</p>
+
+          <!-- THE ONLY PICTURE ON THIS PAGE, and it is deliberately not a
+               screenshot. A screenshot of Garbage Run, sitting directly above
+               Garbage Run, playable, is the least useful image this site could
+               carry: the reader can look at the real one, moving, for free. The
+               hub is where a shot of this game earns its place, because there
+               the game is not on the screen.
+               What this shows instead is the thing the sentence above names and
+               cannot show: the score you are playing towards buys you a
+               different Trubbish, and until you get there you have never seen
+               him. Both files are the sprites the canvas itself draws, so the
+               picture cannot describe a game that has moved on without it. -->
+          <figure class="gr-evo">
+            <img src="/assets/trubbish.webp" width="512" height="512" alt="Trubbish, the sprite the game starts you as"
+              loading="lazy" decoding="async">
+            <span class="gr-evo-at">${EVOLVE_AT}</span>
+            <img src="/assets/garbodor.webp" width="512" height="512" alt="Garbodor, what Trubbish becomes"
+              loading="lazy" decoding="async">
+            <figcaption>What ${EVOLVE_AT} pieces of rubbish buys you. Both are the sprites the game draws on the
+              canvas, the same two files the 404 page uses.</figcaption>
+          </figure>
+        </div>
 
         <p class="gr-how gr-other"><a href="/games/">The other games</a> are quicker: a set guesser, a silhouette round and
           a trivia run. This one is for a longer wait.</p>
@@ -298,7 +348,7 @@ ${footer()}
   // What the best was when this run began, so "New best" stays truthful even
   // though bank() may have already stored the score mid-run.
   var startBest = 0;
-  var EVOLVE_AT = 100;
+  var EVOLVE_AT = ${EVOLVE_AT};
 
   // Preload the mascots. The ready flag stays false until the file is actually
   // decodable, and every draw checks it, so nothing is ever drawn from a

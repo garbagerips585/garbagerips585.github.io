@@ -131,33 +131,129 @@ function prices(c) {
  * at every DPR), so it changed nothing today and would have quietly mispriced
  * the first srcset anyone added a third size to.
  *
- * `sizes` is measured, not guessed, and tracks .w-grid's three column counts:
- *   <=760px   2 cols  136-236px  -> 42vw covers the worst case (236/560)
- *   <=1080px  3 cols  203-247px  -> 28vw covers the worst case (247/900)
- *   else      4 cols  225-325px  -> capped by .wrap, so a flat 325px
- * Keep these in step with the .w-grid breakpoints below if either moves.
+ * ==========================================================================
+ * AND THEN IT DID GET A THIRD SIZE, 16 August 2026, BECAUSE THIS IS STILL THE
+ * WORST PAGE ON THE SITE TO WAIT FOR AND THE TWO WIDTHS ABOVE ARE WHY.
+ * ==========================================================================
+ *
+ * Measured at 390x844 DPR2, gzipped, cache off: 983.8KB on load, of which
+ * 874.9KB is card art, AND THE FULLY SCROLLED FIGURE IS THE SAME 983.8KB. Ten
+ * cards in a two column grid all fall inside Chrome's lazy-load lead, so the
+ * `loading="lazy"` below defers exactly nothing on a phone. Every other heavy
+ * page on this site at least makes the reader scroll for its weight; this one
+ * charges the whole thing before first paint. That is what makes it worse to
+ * wait for than /cards.html, whose raw total is larger.
+ *
+ * Every one of the ten fetched the 600w file. It lands in a 151px box.
+ *
+ * THE HOST WAS CHECKED FIRST and there was nothing free left: all ten are
+ * TCGdex, all ten already take the AVIF, and the biggest is 154KB. The fix had
+ * to be a width that does not exist upstream, so scripts/sync-card-thumbs.mjs
+ * now mirrors 310w and 420w renditions of these ten. Its header carries the
+ * encode measurements and the reason 245w was rejected on sight: it is soft,
+ * and the attack text on Seismitoad ex turns to mush at the size this page
+ * paints it.
+ *
+ * `sizes` HAD TO BE FIXED IN THE SAME BREATH OR THE RENDITIONS WOULD BE DEAD
+ * BYTES, and that is the trap in this whole change. The old value declared 42vw
+ * below 760, which is 163.8px at a 390px viewport, or 328 device pixels at
+ * DPR2. The box is 151px, so 302. A browser told 328 skips a 310w candidate and
+ * takes the 600w one, and the mirror would have cost 40 files to save nothing.
+ * The values below are the measured box, driven with CDP at 18 widths:
+ *
+ *      320   116px      761   201px       1081  220px
+ *      390   151px      860   234px       1200  250px
+ *      414   163px     1000   281px       1440  310px
+ *      430   171px     1080   307px       1600+ 325px  (capped by .wrap)
+ *      700   306px
+ *
+ * which is (100vw - 88px)/2, (100vw - 158px)/3 and (100vw - 200px)/4 exactly,
+ * across .w-grid's three column counts. The subtracted constants are .wrap's
+ * padding plus the grid gap, and THEY ARE NOT A SECOND COPY OF SOMEBODY ELSE'S
+ * BREAKPOINTS: the media queries they track are the ones in this file's own
+ * `style` block, sixty lines below. If ui.css moves the wrap padding underneath
+ * us these go soft in the safe direction, because an over-declared size picks a
+ * LARGER candidate, which is exactly what this page shipped for months.
  */
 const LARGE_W = (u) => (/assets\.tcgdex\.net/.test(u) ? 600 : 733);
-function artSrcset(c) {
+const ART_SIZES =
+  "(max-width:760px) calc((100vw - 88px) / 2), " +
+  "(max-width:1080px) calc((100vw - 158px) / 3), " +
+  "(max-width:1499px) calc((100vw - 200px) / 4), 325px";
+
+/**
+ * The mirrored middle widths, keyed by TCGdex base url. A card that is not in
+ * here keeps the two remote widths it has today, which is also what a card
+ * added to the hunt list gets until sync-card-thumbs.mjs is run again.
+ */
+const REND = JSON.parse(await readFile(join(ROOT, "data/card-thumbs.json"), "utf8")).renditions?.wanted || {
+  widths: [],
+  dir: "/assets/cards/",
+  cards: {},
+};
+
+/**
+ * The art for one tile, as a <picture> with an AVIF source over a WebP <img>.
+ *
+ * This is avifPicture()'s shape hand built rather than borrowed, because that
+ * helper only rewrites a srcset that is entirely TCGdex and these mix a local
+ * mirror with remote rungs. Its two rules are kept. The AVIF source only ever
+ * names files that exist: TCGdex encodes all four extensions off one path, and
+ * the local pair is listed only when sync-card-thumbs.mjs saw every file of it
+ * on disk. And the <img> underneath stays untouched WebP, so a Safari 16.0
+ * reader gets a card rather than a hole.
+ *
+ * THE REMOTE RUNGS STAY. 245w is still the right answer for a 320px phone,
+ * which needs 232 device pixels and would otherwise be handed a locally
+ * re-encoded 310w that is bigger AND worse: TCGdex's encoder beats this
+ * pipeline at equal width every time, and the only thing we can do better is
+ * drop pixels nobody can see. 600w is still the right answer at DPR3 and on a
+ * retina desktop. Nothing comes off the ladder; a middle goes into it.
+ */
+function cardArt(c) {
   const small = c.image, large = c.imageLarge;
-  if (!small || !large || small === large) return null;
-  const mid = /images\.scrydex\.com/.test(large) ? large.replace(/\/large$/, "/medium") : null;
-  return [`${small} 245w`, mid ? `${mid} 365w` : null, `${large} ${LARGE_W(large)}w`]
-    .filter(Boolean).join(", ");
+  const one = small || large;
+  if (!one) return "";
+  const alt = `${c.name} ${c.rarity || ""} from Pokemon ${c.setName}`.trim();
+  const base = String(small || "").replace(/\/(low|high)\.(webp|avif|png|jpg)$/, "");
+  const mirror = REND.cards?.[base];
+  const local = (ext) =>
+    mirror ? (REND.widths || []).map((w) => `${REND.dir}${mirror.stem}-${w}.${ext} ${w}w`) : [];
+
+  // Only one url to offer: no srcset, no sizes, exactly as before.
+  if (!small || !large || small === large) {
+    return avifPicture(
+      `<img src="${esc(one)}" alt="${esc(alt)}" loading="lazy" onerror="this.remove()"${imgDims(one)}>`
+    );
+  }
+  const scryMid = /images\.scrydex\.com/.test(large) ? large.replace(/\/large$/, "/medium") : null;
+  const webp = [`${small} 245w`, ...local("webp"), scryMid ? `${scryMid} 365w` : null, `${large} ${LARGE_W(large)}w`]
+    .filter(Boolean)
+    .join(", ");
+  const tag =
+    `<img src="${esc(small)}" srcset="${esc(webp)}" sizes="${esc(ART_SIZES)}" alt="${esc(alt)}"` +
+    ` loading="lazy" onerror="this.remove()"${imgDims(small)}>`;
+  // Every candidate is either ours or TCGdex: offer the whole ladder as AVIF.
+  // Anything else (Scrydex publishes none) goes to the shared helper, which
+  // declines it and emits the plain <img>, which is what shipped before.
+  if (!/https?:\/\/(?!assets\.tcgdex\.net)/.test(webp)) {
+    const avif = [
+      `${small.replace(/\.webp$/, ".avif")} 245w`,
+      ...local("avif"),
+      `${large.replace(/\.webp$/, ".avif")} ${LARGE_W(large)}w`,
+    ].join(", ");
+    return `<picture><source type="image/avif" srcset="${esc(avif)}" sizes="${esc(ART_SIZES)}">${tag}</picture>`;
+  }
+  return avifPicture(tag);
 }
-const ART_SIZES = "(max-width:760px) 42vw, (max-width:1080px) 28vw, 325px";
 
 function cardTile(c, { hunted = true } = {}) {
   // The SMALL file is the src now, so a browser that ignores srcset gets the
   // 68KB one rather than the 1.2MB one.
-  const set = artSrcset(c);
-  const img = (set ? c.image : c.imageLarge) || c.image;
-  const alt = `${c.name} ${c.rarity || ""} from Pokemon ${c.setName}`.trim();
+  const art = cardArt(c);
   const inner = `
         <span class="wc-art">${
-          img
-            ? avifPicture(`<img src="${esc(img)}"${set ? ` srcset="${esc(set)}" sizes="${ART_SIZES}"` : ""} alt="${esc(alt)}" loading="lazy" onerror="this.remove()"${imgDims(img)}>`)
-            : `<span class="wc-none">${esc(c.name)}</span>`
+          art || `<span class="wc-none">${esc(c.name)}</span>`
         }${hunted ? `<span class="wc-flag">Hunting</span>` : `<span class="wc-flag wc-got">Caught</span>`}</span>
         <b class="wc-name">${esc(c.name)}</b>
         <span class="wc-meta">${esc(c.setName)} &bull; #${esc(c.number)}</span>

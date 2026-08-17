@@ -21,6 +21,7 @@ import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { esc } from "../shared/format.mjs";
+import { RARITY_CSS, rarityChip } from "../shared/rarity.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -67,6 +68,31 @@ try {
   /* run: node scripts/sync-all-printings.mjs. Falls back to the priced count. */
 }
 
+// ---------------------------------------------------------------------------
+// THE ONE PICTURE ON THIS PAGE, and it belongs to step 2.
+//
+// This page had 623 words and nothing visual but a decorative flower, on a site
+// whose own build prints an image-density table. It is also the page least
+// suited to a photograph: it owns no facts, it is six questions pointing at the
+// pages that do own them, and a card scan here would be illustrating somebody
+// else's argument.
+//
+// Step 2 is the exception because step 2 asks a question with a literal answer
+// in pictures: "what the little marks in the corner mean". The marks are the
+// answer. So the ladder is DRAWN, out of shared/rarity.mjs, which is the same
+// source /rarity.html and all 42 set guides draw from, so this cannot disagree
+// with them. Inline SVG, so it costs no request and no bytes worth measuring.
+//
+// SIX RUNGS, NOT NINE. The key holds Charizard (a category on this channel, not
+// a rarity), ACE SPEC (a pink mark that only some sets print) and Mega Hyper
+// Rare (one era). A first look at rarity does not need the exceptions, it needs
+// the spine, and /rarity.html is one tap away and holds all nine.
+//
+// THE ORDER IS UP, deliberately. RARITY_KEY is ordered rarest first because
+// that is what a hit list wants; somebody who has just been handed a shoebox
+// reads a ladder from the bottom.
+const LADDER = ["rare", "double-rare", "ultra", "ir", "sir", "gold"];
+
 const STEPS = [
   {
     n: 1,
@@ -82,6 +108,16 @@ const STEPS = [
     href: "/rarity.html",
     cta: "Rarity guide",
     also: [["/sets/", "Set guides"], ["/expansions.html", "Every set ever made"]],
+    // Rendered between the answer and the buttons, and NOT included in the
+    // FAQPage schema below, which quotes `a` only: a rung of drawn stars is not
+    // a sentence and pasting markup into structured data is how a search result
+    // ends up reading "<svg viewBox=".
+    figure: `<figure class="st-fig">
+            <div class="st-ladder">${LADDER.map((id) => rarityChip(id)).join("")}</div>
+            <figcaption>The marks in the bottom corner, drawn, commonest first. Same six
+              you will find on a Scarlet and Violet era card, and the same drawings the
+              <a href="/rarity.html">rarity guide</a> uses. It holds three more.</figcaption>
+          </figure>`,
   },
   {
     n: 3,
@@ -169,6 +205,15 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
+${/* Inline rather than in ui.css: this is the only page outside the rarity
+      guide and the set guides that draws these, and ui.css is render blocking
+      on all 426 pages. RARITY_CSS travels with the key it draws. */ ""}
+<style>${RARITY_CSS}
+.st-fig{margin:var(--s4) 0 0}
+.st-ladder{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.st-fig figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.55 var(--body);
+  color:var(--ink-2);max-width:40em}
+</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -198,6 +243,7 @@ ${MENU}
         <div class="st-body">
           <h2>${esc(s.q)}</h2>
           <p>${esc(s.a)}</p>
+          ${s.figure || ""}
           <p class="st-links">
             <a class="btn btn-sky btn-sm" href="${esc(s.href)}">${esc(s.cta)}</a>
             ${(s.also || []).map(([h, l]) => `<a class="st-also" href="${esc(h)}">${esc(l)}</a>`).join("\n            ")}

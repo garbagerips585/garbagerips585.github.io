@@ -262,11 +262,74 @@ for (const r of rarities) {
   }
 }
 
+/* ---------------------------------------------- the 60 thumbnails ---------
+ *
+ * MEASURED 16 August 2026, 390x844 DPR2, gzipped text, cache off: 367.1KB on
+ * load and 1,251.0KB fully scrolled, of which 1,127.6KB is card art. That made
+ * this the heaviest page on the site to read all the way down. The shape is the
+ * opposite of /wanted.html's: `loading="lazy"` works properly here, 46 of the
+ * 60 rows are genuinely deferred, so the on-load figure is fine and the
+ * scrolled one is the problem. QUOTE THE PAIR OR QUOTE NEITHER.
+ *
+ * .cq-img IS 60px WIDE AT EVERY VIEWPORT FROM 320 TO 1920, driven with CDP and
+ * checked at 18 of them; ui.css pins it at `width:60px;height:82.5px`. So a
+ * phone needs 120 device pixels at DPR2 and 180 at DPR3, and each of these rows
+ * was fetching TCGdex's 245w file, an oversample of 4.2x in area, sixty times.
+ *
+ * THE HOST WAS FINE AND SO WAS THE FORMAT. All 60 are TCGdex and all 60 already
+ * take the AVIF through avifPicture; the largest is 33KB. There is simply no
+ * rendition between 245w and nothing, so sync-card-thumbs.mjs mirrors 120w and
+ * 180w of them, the same trick it already plays for /grading.html's 32px boxes
+ * at BOX=72. Its header carries the encode measurements.
+ *
+ * ONLY THE SERVER RENDERED ROWS. The search below renders from a 39,707 row
+ * corpus and keeps hotlinking low.webp, because mirroring the whole corpus is
+ * four thousand cards times four files and the search is an interaction rather
+ * than a page load. Nothing looks worse for it: the remote 245w file is SHARPER
+ * than the mirror, not softer, so a reader who types sees the same picture or a
+ * better one.
+ *
+ * `sizes` IS A FLAT 60px AND THAT IS NOT A SHORTCUT, it is the measurement
+ * above. Without it the browser assumes 100vw, asks for 780 device pixels and
+ * takes the largest candidate on the list, which would make the mirror worse
+ * than useless. See build-wanted.mjs for the same trap costing 40 files there.
+ */
+const REND = JSON.parse(await readFile(join(ROOT, "data/card-thumbs.json"), "utf8")).renditions?.cards || {
+  widths: [],
+  dir: "/assets/cards/",
+  cards: {},
+};
+const CQ_SIZES = "60px";
+
+/**
+ * The thumbnail for one row: the mirrored 120w and 180w files if we hold them,
+ * with TCGdex's own 245w kept as the top rung so nothing is ever upscaled, and
+ * a bare hotlink if we do not. A card can be missing because the price table
+ * moved it into the top 60 after the last sync, and then this row looks exactly
+ * as it did before any of this existed.
+ */
+const cqImg = (src) => {
+  const base = src.replace(/\/low\.webp$/, "");
+  const m = REND.cards?.[base];
+  if (!m || !/^https:\/\/assets\.tcgdex\.net\//.test(src)) {
+    return avifPicture(
+      `<img class="cq-img" src="${esc(src)}" onerror="this.remove()" alt="" loading="lazy"${imgDims(src)}>`
+    );
+  }
+  const set = (ext) =>
+    [...REND.widths.map((w) => `${REND.dir}${m.stem}-${w}.${ext} ${w}w`), `${base}/low.${ext} 245w`].join(", ");
+  return (
+    `<picture><source type="image/avif" srcset="${esc(set("avif"))}" sizes="${CQ_SIZES}">` +
+    `<img class="cq-img" src="${esc(src)}" srcset="${esc(set("webp"))}" sizes="${CQ_SIZES}"` +
+    ` onerror="this.remove()" alt="" loading="lazy"${imgDims(src)}></picture>`
+  );
+};
+
 const row = (r) => {
   const [name, slug, n, rarity, price] = r;
   const src = thumb(slug, n);
   return `<li class="cq${src ? " has-thumb" : ""}">
-        ${src ? avifPicture(`<img class="cq-img" src="${esc(src)}" onerror="this.remove()" alt="" loading="lazy"${imgDims(src)}>`) : ""}
+        ${src ? cqImg(src) : ""}
         <a class="cq-name" href="/sets/${esc(slug)}.html">${esc(name)}</a>
         <span class="cq-set">${esc(setName[slug] || slug)} &bull; ${esc(n || "")}</span>
         ${rarity ? `<span class="cq-rr">${esc(rarityLabel(rarity))}</span>` : ""}

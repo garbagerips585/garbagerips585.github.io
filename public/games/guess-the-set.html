@@ -22,9 +22,73 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
+<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
-<link rel="stylesheet" href="/assets/games.css?v=e2ecf384">
+<link rel="stylesheet" href="/assets/games.css?v=8477854e">
+<style>
+.tq-grid{display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  width:100%;min-width:0;margin-top:var(--s4)}
+.tq-card{padding:var(--s4);background:var(--card);border:2px solid var(--ink);border-radius:var(--r)}
+.tq-card h3{font:700 var(--t-sm)/1.3 var(--body);text-transform:uppercase;letter-spacing:.06em;
+  color:var(--ink-2);margin-bottom:6px}
+.tq-card p{font:400 var(--t-body)/1.5 var(--body);color:var(--ink)}
+.tq-eg{display:block;margin-top:8px;font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2)}
+
+/* THE FIGURES CARRY THEIR OWN CAPTION AND THE CAPTION IS THE SOURCE. Every
+   drawing in these blocks is generated from a file in this repo, so the caption
+   says which one. A picture on this site that cannot name where its numbers came
+   from is the thing check-build.py's density table is trying to get rid of, and
+   adding an unsourced one to fix the count would be worse than the empty page. */
+.tq-fig{margin:var(--s4) 0 0;padding:var(--s4);background:var(--paper-2,#F7F2DE);
+  border:2px solid var(--ink);border-radius:var(--r)}
+.tq-fig svg{display:block;width:100%;height:auto;max-width:520px;margin:0 auto}
+.tq-fig figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
+  text-align:center}
+
+/* The era table. A LIST, not a table element: every row is symbol, name, years,
+   counts, and on a 390px phone the years and the counts have to drop under the
+   name rather than squeeze a fourth column to nothing. */
+.tq-eras{display:grid;gap:8px;margin-top:var(--s4);list-style:none;padding:0}
+.tq-era{display:grid;grid-template-columns:34px 1fr auto;gap:var(--s3);align-items:center;
+  padding:8px 10px;background:var(--card);border:1px solid var(--hair);border-radius:10px}
+.tq-era img{width:26px;height:26px;object-fit:contain;display:block;margin:0 auto;
+  background:var(--paper-2,#F7F2DE);border-radius:5px}
+.tq-era .tq-noimg{width:26px;height:26px;display:block;margin:0 auto;border-radius:5px;
+  border:1px dashed var(--hair)}
+.tq-era b{font:700 var(--t-sm)/1.25 var(--body);color:var(--ink);display:block}
+.tq-era span{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
+.tq-era em{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);font-style:normal;
+  text-align:right;white-space:nowrap}
+
+/* Pokemon with their official category. The artwork is the mirrored 128px file
+   /lore.html already ships, not the 475px PokeAPI png the game itself pulls: at
+   72px on a phone the big one is a 6x oversample of a picture nobody is playing
+   with. */
+.tq-dex{display:grid;gap:var(--s3);grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  margin-top:var(--s4);list-style:none;padding:0}
+.tq-dexi{display:flex;gap:var(--s3);align-items:center;padding:8px 10px;background:var(--card);
+  border:1px solid var(--hair);border-radius:10px}
+.tq-dexi img{width:56px;height:56px;object-fit:contain;flex:none}
+.tq-dexi b{display:block;font:700 var(--t-sm)/1.2 var(--body);color:var(--ink)}
+.tq-dexi span{display:block;font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
+
+.tq-links{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s4);padding:0;list-style:none}
+.tq-links a{display:inline-block;padding:9px 14px;background:var(--card);border:2px solid var(--ink);
+  border-radius:var(--r-pill);box-shadow:0 3px 0 var(--ink);text-decoration:none;color:var(--ink);
+  font:700 var(--t-sm)/1.2 var(--body)}
+.tq-links a:hover{background:var(--mustard)}
+
+/* The one file drawn twice. The FIRST of the pair carries the filter, which is
+   the same brightness(0) games.css puts on the live game, written here rather
+   than reused from .gq-sil because that class is the game's and this figure is
+   not the game. */
+.tq-silpair{display:flex;gap:var(--s5);align-items:flex-end;justify-content:center}
+.tq-silpair span{display:block;text-align:center}
+.tq-silpair img{display:block;width:112px;height:112px;object-fit:contain}
+.tq-silpair span:first-child img{filter:brightness(0)}
+.tq-silpair b{display:block;margin-top:6px;font:700 var(--t-micro)/1.4 var(--mono);
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Games","item":"https://garbagerips585.github.io/games/"},{"@type":"ListItem","position":3,"name":"Guess the Set"}]}</script>
 </head>
 <body>
@@ -141,6 +205,10 @@
 <section class="tight">
   <div class="wrap">
     <div id="game" class="g-cards"></div>
+    <div class="btn-row" style="justify-content:center;margin-bottom:var(--s5)">
+      <button class="btn btn-sm" type="button" id="mAny" aria-pressed="true">Any era</button>
+      <button class="btn btn-sm" type="button" id="mEra" aria-pressed="false">Same era</button>
+    </div>
     <p class="crumbs"><a href="/">Home</a> / <a href="/games/">Games</a> / Guess the Set</p>
     <p class="price-note" style="margin-top:var(--s5)">3,406 cards from
       131 English sets, sampled across each set's numbering so it is not all commons.
@@ -155,7 +223,146 @@
     <p class="lede" style="max-width:40em">A real card off the shelf. Work it out from the frame, the symbol and the era. This is the skill that makes you quick at sorting a bulk box, and it is the one people are surprised they can learn.</p>
   </div>
 </section>
+<section class="band tight">
+  <div class="wrap">
+    <h2>Where the answer is <span class="hl">printed</span></h2>
+    <p class="lede" style="max-width:44em">Every card tells you its set twice, in two marks the size of a fingernail.
+      One is the number after the slash. The other is the symbol beside it, and that is the one this game is really
+      asking about. Both live along the bottom edge, and the corner they live in changed once.</p>
 
+    <figure class="tq-fig">
+      <!-- PORTRAIT, AND THAT IS NOT A DETAIL. The first draft drew two 180x152
+           boxes, which is a landscape card, in a diagram whose entire subject is
+           where on a card two marks sit. 130x182 is 0.714, against a real card's
+           63x88mm, or 0.716.
+           The two marks: a disc for the symbol and a slash number beside it.
+           THE LEFT CARD IS BOTTOM RIGHT AND THE RIGHT CARD IS BOTTOM LEFT. Both
+           sat inside the left card on the first draft, so the drawing showed one
+           card wearing the mark twice and one wearing it nowhere, which is the
+           exact opposite of what the caption underneath it said. A diagram is
+           worth having only if somebody checks it against its own claim. -->
+      <svg viewBox="0 0 480 232" role="img"
+        aria-label="Two card outlines, both portrait. On the left, a card up to the XY era, with the collector number and the set symbol together in the bottom right corner. On the right, a card from Sun and Moon onward, with the number and symbol moved to the bottom left.">
+        <g fill="none" stroke="#1E2419" stroke-width="3">
+          <rect x="60" y="10" width="130" height="182" rx="8"/>
+          <rect x="290" y="10" width="130" height="182" rx="8"/>
+        </g>
+        <g fill="#1E2419" opacity=".1">
+          <rect x="70" y="20" width="110" height="96" rx="5"/>
+          <rect x="300" y="20" width="110" height="96" rx="5"/>
+        </g>
+        <g fill="#1E2419" opacity=".18">
+          <rect x="70" y="126" width="110" height="7" rx="3.5"/>
+          <rect x="70" y="140" width="86" height="7" rx="3.5"/>
+          <rect x="300" y="126" width="110" height="7" rx="3.5"/>
+          <rect x="300" y="140" width="86" height="7" rx="3.5"/>
+        </g>
+        <g>
+          <circle cx="174" cy="174" r="8" fill="#F5A62B" stroke="#1E2419" stroke-width="2.5"/>
+          <text x="158" y="178" text-anchor="end" font-family="ui-monospace,monospace" font-size="11"
+            font-weight="700" fill="#1E2419">25/198</text>
+          <circle cx="306" cy="174" r="8" fill="#F5A62B" stroke="#1E2419" stroke-width="2.5"/>
+          <text x="322" y="178" font-family="ui-monospace,monospace" font-size="11"
+            font-weight="700" fill="#1E2419">25/198</text>
+        </g>
+        <g font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#1E2419">
+          <text x="125" y="220" text-anchor="middle">up to XY, 2016</text>
+          <text x="355" y="220" text-anchor="middle">Sun &amp; Moon on, 2017</text>
+        </g>
+      </svg>
+      <figcaption>Drawn, not a scan. The corner is the only thing that moved: the number and the symbol have always
+        sat together along the bottom edge. See <a href="/what-set.html">what set is my card from</a> for the full
+        index by number.</figcaption>
+    </figure>
+
+    <h2 style="margin-top:var(--s6)">The 16 eras in the <span class="hl">pot</span></h2>
+    <p class="lede" style="max-width:44em">These are the symbols you are being asked to tell apart, one per era, oldest
+      first. The mark shown is the one the era opened with. Set the game to <b>Same era</b> and all four answers come
+      from the same block below, which takes the card frame out of it and leaves you nothing but the symbol.</p>
+    <ul class="tq-eras">
+      <li class="tq-era"><img src="/assets/symbols/base1-pokemon-tcg-set-symbol.webp" width="48" height="25"
+    alt="The set symbol printed on Base Set cards" loading="lazy" decoding="async">
+        <span><b>Base</b><span>1999 to 2000</span></span>
+        <em>6 sets<br>156 cards</em></li>
+      <li class="tq-era"><img src="/assets/symbols/gym1-pokemon-tcg-set-symbol.webp" width="48" height="29"
+    alt="The set symbol printed on Gym Heroes cards" loading="lazy" decoding="async">
+        <span><b>Gym</b><span>2000</span></span>
+        <em>2 sets<br>52 cards</em></li>
+      <li class="tq-era"><img src="/assets/symbols/neo1-pokemon-tcg-set-symbol.webp" width="48" height="40"
+    alt="The set symbol printed on Neo Genesis cards" loading="lazy" decoding="async">
+        <span><b>Neo</b><span>2000 to 2002</span></span>
+        <em>4 sets<br>104 cards</em></li>
+      <li class="tq-era"><img src="/assets/symbols/ecard1-pokemon-tcg-set-symbol.webp" width="48" height="48"
+    alt="The set symbol printed on Expedition Base Set cards" loading="lazy" decoding="async">
+        <span><b>E-Card</b><span>2002 to 2003</span></span>
+        <em>3 sets<br>78 cards</em></li>
+      <li class="tq-era"><img src="/assets/symbols/base6-pokemon-tcg-set-symbol.webp" width="27" height="48"
+    alt="The set symbol printed on Legendary Collection cards" loading="lazy" decoding="async">
+        <span><b>Legendary Collection</b><span>2002</span></span>
+        <em>1 set<br>26 cards</em></li>
+      <li class="tq-era"><img src="/assets/symbols/ex1-pokemon-tcg-set-symbol.webp" width="48" height="48"
+    alt="The set symbol printed on Ruby &amp; Sapphire cards" loading="lazy" decoding="async">
+        <span><b>EX</b><span>2003 to 2007</span></span>
+        <em>16 sets<br>416 cards</em></li>
+      <li class="tq-era"><img src="/assets/symbols/dp1-pokemon-tcg-set-symbol.webp" width="48" height="46"
+    alt="The set symbol printed on Diamond &amp; Pearl cards" loading="lazy" decoding="async">
+        <span><b>Diamond &amp; Pearl</b><span>2007 to 2008</span></span>
+        <em>8 sets<br>208 cards</em></li>
+      <li class="tq-era"><img src="/assets/symbols/pl1-pokemon-tcg-set-symbol.webp" width="48" height="47"
+    alt="The set symbol printed on Platinum cards" loading="lazy" decoding="async">
+        <span><b>Platinum</b><span>2009</span></span>
+        <em>4 sets<br>104 cards</em></li>
+      <li class="tq-era"><img src="/assets/symbols/hgss1-pokemon-tcg-set-symbol.webp" width="48" height="48"
+    alt="The set symbol printed on HeartGold SoulSilver cards" loading="lazy" decoding="async">
+        <span><b>HeartGold &amp; SoulSilver</b><span>2010</span></span>
+        <em>4 sets<br>104 cards</em></li>
+      <li class="tq-era"><img src="/assets/symbols/bwp-pokemon-tcg-set-symbol.webp" width="48" height="44"
+    alt="The set symbol printed on BW Black Star Promos cards" loading="lazy" decoding="async">
+        <span><b>Black &amp; White</b><span>2011 to 2013</span></span>
+        <em>12 sets<br>312 cards</em></li>
+      <li class="tq-era"><img src="/assets/symbols/col1-pokemon-tcg-set-symbol.webp" width="27" height="48"
+    alt="The set symbol printed on Call of Legends cards" loading="lazy" decoding="async">
+        <span><b>Call of Legends</b><span>2011</span></span>
+        <em>1 set<br>26 cards</em></li>
+      <li class="tq-era"><img src="/assets/symbols/xyp-pokemon-tcg-set-symbol.webp" width="48" height="44"
+    alt="The set symbol printed on XY Black Star Promos cards" loading="lazy" decoding="async">
+        <span><b>XY</b><span>2013 to 2016</span></span>
+        <em>14 sets<br>364 cards</em></li>
+      <li class="tq-era"><img src="/assets/symbols/smp-pokemon-tcg-set-symbol.webp" width="48" height="44"
+    alt="The set symbol printed on SM Black Star Promos cards" loading="lazy" decoding="async">
+        <span><b>Sun &amp; Moon</b><span>2017 to 2019</span></span>
+        <em>15 sets<br>390 cards</em></li>
+      <li class="tq-era"><img src="/assets/symbols/swshp-pokemon-tcg-set-symbol.webp" width="48" height="44"
+    alt="The set symbol printed on SWSH Black Star Promos cards" loading="lazy" decoding="async">
+        <span><b>Sword &amp; Shield</b><span>2019 to 2023</span></span>
+        <em>17 sets<br>442 cards</em></li>
+      <li class="tq-era"><img src="/assets/symbols/svp-pokemon-tcg-set-symbol.webp" width="48" height="44"
+    alt="The set symbol printed on SVP Black Star Promos cards" loading="lazy" decoding="async">
+        <span><b>Scarlet &amp; Violet</b><span>2023 to 2025</span></span>
+        <em>17 sets<br>442 cards</em></li>
+      <li class="tq-era"><img src="/assets/symbols/me1-pokemon-tcg-set-symbol.webp" width="38" height="23"
+    alt="The set symbol printed on Mega Evolution cards" loading="lazy" decoding="async">
+        <span><b>Mega Evolution</b><span>2025 to 2026</span></span>
+        <em>7 sets<br>182 cards</em></li>
+    </ul>
+    <p class="price-note" style="margin-top:var(--s4)">Symbols mirrored from the Pokemon TCG API by
+      scripts/sync-symbols.mjs. Era names, dates and set counts are read from the same expansion list
+      <a href="/expansions.html">/expansions.html</a> is built from, and the card counts are this quiz's own pot. 1 of the 131 sets in the pot is not in that list at all,
+      so it takes its era from the series code in its own
+      image path and carries no year.</p>
+
+    <h2 style="margin-top:var(--s6)">Once you can do <span class="hl">this</span></h2>
+    <p class="lede" style="max-width:44em">Reading a set off a card is the first half of sorting a box. These are the
+      pages that pick it up from there.</p>
+    <ul class="tq-links">
+      <li><a href="/what-set.html">What set is my card from</a></li>
+      <li><a href="/rarity.html">Reading the rarity symbol</a></li>
+      <li><a href="/expansions.html">Every English set in order</a></li>
+      <li><a href="/sets/">The set guides</a></li>
+      <li><a href="/cards.html">The card Pokedex</a></li>
+    </ul>
+  </div>
+</section>
 </main>
 <footer>
   <div class="wrap">
@@ -226,28 +433,61 @@
     Fan made games. Card data and Pokedex data credited on each page.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=7f0274cc" defer></script>
-<script src="/assets/packplayer.js?v=faa2eb26" defer></script>
-<script src="/assets/games.js?v=18706bfc" defer></script>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
+<script src="/assets/games.js?v=40f59b03" defer></script>
 <script>
 (function(){
-  var sets=[], cards=[];
+  var sets=[], cards=[], setEra=[], eras=[], byEra=[], minPool=6, quiz=null, sameEra=false;
+
+  /* THE DISTRACTOR POOL FOR ONE SET IN SAME ERA MODE.
+     Its own era first, widened one era outward at a time until there are at
+     least minPool candidates. Widening is what keeps the two-set and one-set
+     eras playable: without it, Gym could only ever offer its own two sets and
+     the question would have three slots and two answers to fill them with. */
+  function poolFor(a){
+    if(!sameEra) return sets;
+    var at=setEra[a], lo=at, hi=at, out=byEra[at].slice();
+    while(out.length<minPool+1 && (lo>0 || hi<byEra.length-1)){
+      if(lo>0){ lo--; out=out.concat(byEra[lo]); }
+      if(out.length<minPool+1 && hi<byEra.length-1){ hi++; out=out.concat(byEra[hi]); }
+    }
+    return out.map(function(i){return sets[i];});
+  }
+
   function build(){
     var c=GR.pick(cards);
-    var wrong=GR.distractors(sets,3,sets[c[1]],function(x){return x;});
-    var choices=GR.shuffle([sets[c[1]]].concat(wrong)).map(function(s){return {label:s};});
+    var name=sets[c[1]];
+    var wrong=GR.distractors(poolFor(c[1]),3,name,function(x){return x;});
+    var choices=GR.shuffle([name].concat(wrong)).map(function(s){return {label:s};});
     var answer=0;
-    for(var i=0;i<choices.length;i++) if(choices[i].label===sets[c[1]]) answer=i;
+    for(var i=0;i<choices.length;i++) if(choices[i].label===name) answer=i;
     // high.webp, not low: the set symbol is the whole point and it is
     // unreadable at the 245px thumbnail size used elsewhere on the site.
     var src=c[0]+'/high.webp';
     return {stage:'<div class="gq-card"><img src="'+src+'" alt="A Pokemon card. Name its set." width="600" height="825"></div>',
       choices:choices,answer:answer,note:c[2]+'.',_art:src};
   }
+
+  function setMode(era){
+    sameEra=era;
+    document.getElementById('mAny').setAttribute('aria-pressed',String(!era));
+    document.getElementById('mEra').setAttribute('aria-pressed',String(era));
+    // Tear the old game down first. It holds a document keydown listener and,
+    // if a sprint is running, an interval and an unbanked score. See the note
+    // on destroy() in games.js.
+    if(quiz) quiz.destroy();
+    quiz=GR.Quiz({key:'gr.setquiz'+(era?'.era':''),mount:document.getElementById('game'),
+      next:build, preload:function(q){return q._art;}});
+  }
+
   fetch('/data/games/setquiz.json').then(function(r){return r.json();}).then(function(d){
-    sets=d.sets; cards=d.cards;
-    GR.Quiz({key:'gr.setquiz',mount:document.getElementById('game'),next:build,
-      preload:function(q){return q._art;}});
+    sets=d.sets; cards=d.cards; setEra=d.setEra||[]; eras=d.eras||[]; minPool=d.minEraPool||6;
+    byEra=eras.map(function(){return [];});
+    for(var i=0;i<setEra.length;i++) if(byEra[setEra[i]]) byEra[setEra[i]].push(i);
+    document.getElementById('mAny').addEventListener('click',function(){setMode(false);});
+    document.getElementById('mEra').addEventListener('click',function(){setMode(true);});
+    setMode(false);
   }).catch(function(){
     document.getElementById('game').innerHTML='<p class="price-note">Could not load the card list. Check your connection and reload.</p>';
   });

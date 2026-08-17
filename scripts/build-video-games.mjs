@@ -70,7 +70,25 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, APP_JS, footer, FONTS } from "../shared/chrome.mjs";
+// SIX: THIS PAGE SHIPS NEITHER packplayer.js NOR packs.css, AND IT IS THE ONLY
+// PAGE THAT OPTS OUT SO FAR. Both ride along on every other page out of
+// shared/chrome.mjs, and on this one they attach to nothing: 0 links to /rip/,
+// 0 [data-vcar], 0 img[data-packsrc], and none of packs.css's 29 classes in any
+// class attribute here. Measured off the live request log at 1440x900 DPR 2,
+// cache off, gzipped as GitHub Pages serves them, that was 11.9KB of a 147.0KB
+// on-load total and 2 of the 10 requests that fire before the load event.
+//
+// The argument for the swap, the three conditions a page has to meet before it
+// is allowed to make it, and the reason the obvious scan for those conditions
+// gives the wrong answer, are all in shared/chrome.mjs beside the two exports.
+// READ THAT BEFORE ADDING A VIDEO TILE OR A CAROUSEL TO THIS PAGE: putting one
+// here without putting packplayer.js back gives a tile that navigates instead
+// of playing in place, which reads as a design choice rather than a bug.
+import {
+  BAR, MENU, SPRITE, SKIP, footer, FONTS,
+  STYLES_NO_PACKS_CSS as STYLES,
+  APP_JS_NO_PACKPLAYER as APP_JS,
+} from "../shared/chrome.mjs";
 import { esc, longDate, MONTHS_LONG } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");

@@ -523,18 +523,38 @@ ${MENU}
     <div class="rip-grid${v.vertical === false && !(OVERRIDES[v.id] || {}).pillarboxed ? " rip-grid--wide" : ""}">
       <div class="rip-stage">
         <div class="rip-player pack-player${(OVERRIDES[v.id] || {}).pillarboxed ? " rip-player--crop" : v.vertical === false ? " rip-player--wide" : ""}" id="player" data-id="${v.id}" data-title="${esc(title)}">
-          <!-- THIS POSTER IS COMPLETELY COVERED BY THE PACK. ui.css pins
-               .rip-player .pack to inset:0 and the pack is opaque, which is the
-               whole point of it. The image was still marked fetchpriority=high,
-               so every rip page raced to download 154.7KB nobody can see and it
-               became the LCP element at 3,036ms on a throttled phone. It stays
-               in the markup because it is the fallback when the pack scripting
-               does not run, but it loads last now, not first. -->
-          <picture>
-            <source type="image/webp" srcset="${thumbWebp}">
-            <img src="${thumb}" alt="" width="${v.vertical === false ? 1280 : 720}" height="${v.vertical === false ? 720 : 1280}" loading="lazy" fetchpriority="low" decoding="async"
-                 onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg'}else{this.remove()}">
-          </picture>
+          <!-- THIS POSTER IS COMPLETELY COVERED BY THE PACK, AND IT IS IN A
+               <noscript> BECAUSE loading="lazy" DID NOT STOP IT DOWNLOADING.
+               ui.css pins .rip-player .pack to inset:0 at z-index 3 and the
+               pack is opaque, which is the whole point of it.
+
+               It was fetchpriority=high once, raced every rip page to download
+               154.7KB nobody can see, and became the LCP element at 3,036ms on
+               a throttled phone. Demoting it to lazy+low fixed the PRIORITY and
+               not the FETCH: lazy is a heuristic about distance DOWN the page,
+               and this sits at the top of it, so all 313 rip pages still paid
+               for it. Measured over the wire on 16 August 2026: 89-242KB per
+               page, mean about 120KB, 13-18% of a 660KB page. It was also the
+               only image anywhere on the site over the 200KB ceiling, and a
+               disk scan could never say so because it is served by YouTube.
+
+               Verified never visible in any state before this changed: the
+               img rect equalled the pack rect exactly, opacity 1, pack on top;
+               and packplayer.js removes the poster outright when it mounts the
+               iframe, so the tear never reveals it either. <noscript> keeps the
+               fallback the original comment intended, for the one case that
+               cannot remove it, and costs a scripted reader nothing.
+
+               packplayer.js's poster lookup is already null-guarded, so it is
+               a no-op now rather than a break. (No backticks in this comment:
+               it lives inside a template literal, and quoting the code here
+               closed the string and failed the build once already.) -->
+          <noscript>
+            <picture>
+              <source type="image/webp" srcset="${thumbWebp}">
+              <img src="${thumb}" alt="" width="${v.vertical === false ? 1280 : 720}" height="${v.vertical === false ? 720 : 1280}" decoding="async">
+            </picture>
+          </noscript>
           <button class="pack pack--${packSet}" id="pack" type="button" aria-label="Rip open: ${esc(title)}">
             <span class="pack-face pack-l" aria-hidden="true">
               <span class="pack-art"></span>
@@ -988,6 +1008,23 @@ const urls = [
   // expansion every few weeks and moves fastest of the three.
   { loc: `${SITE}/tcg-live.html`, freq: "monthly", pri: "0.8" },
   { loc: `${SITE}/tcg-pocket.html`, freq: "monthly", pri: "0.7" },
+  // The two deck pages. WEEKLY, unlike the three guides above them, and that is
+  // the whole difference: those describe rules and software that barely move,
+  // while these two are a dated measurement of a metagame. They are only ever
+  // as fresh as the last run of scripts/sync-decks.mjs, and both pages print
+  // the date they were measured for exactly that reason. High priority because
+  // "pokemon deck list" and "best pokemon cards to play" are asked constantly
+  // and almost every answer is somebody's opinion rather than a counted one.
+  { loc: `${SITE}/decks.html`, freq: "weekly", pri: "0.9" },
+  { loc: `${SITE}/top-100-playable.html`, freq: "weekly", pri: "0.9" },
+  // The highest PSA 10 values. MONTHLY, and deliberately slower than the deck
+  // pages above even though it is also a dated measurement, because it is not
+  // on any sync schedule at all: the crawl behind it is run by hand and the
+  // page prints the day it was read. Telling a crawler "weekly" would be this
+  // site promising a freshness it has not arranged. High priority anyway, since
+  // "most valuable pokemon cards" is asked constantly and almost every answer
+  // is an unsourced list; this one names its measurement and cites every row.
+  { loc: `${SITE}/top-graded.html`, freq: "monthly", pri: "0.9" },
   { loc: `${SITE}/pokemon/`, freq: "weekly", pri: "0.8" },
   // Real vs fake. Evergreen and the best long-tail target on the site after the
   // rarity guide: "how to spot fake pokemon cards" is asked constantly and the
@@ -1030,6 +1067,11 @@ const urls = [
   // figure on it is recomputed from the product prices the nightly sync pulls,
   // so the page genuinely changes when the market does.
   { loc: `${SITE}/pack-prices.html`, freq: "daily", pri: "0.9" },
+  // The two ranked price lists. DAILY, because the whole page is a price read
+  // on one date and a stale one is the failure mode these pages are built to
+  // avoid; the nightly re-runs sync-top100.mjs and both pages change.
+  { loc: `${SITE}/most-valuable-cards.html`, freq: "daily", pri: "0.8" },
+  { loc: `${SITE}/most-expensive-sealed.html`, freq: "daily", pri: "0.8" },
   // How many packs are in each sealed product. Monthly, not daily: unlike the
   // two lines above it, nothing on it is recomputed from a price feed. It moves
   // when a human re-reads the product pages, which is when a new product line

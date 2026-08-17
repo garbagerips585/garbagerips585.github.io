@@ -70,6 +70,14 @@ const STEPS = [
   "node scripts/build-shows.mjs",
   "node scripts/build-fakes.mjs",
   "node scripts/build-grading.mjs",
+  // The highest PSA 10 values. NO SYNC STEP RUNS BEFORE IT and that is
+  // deliberate, the same way the sealed and deck data works: the crawl behind
+  // it (scripts/sync-graded-top.mjs, then scripts/verify-graded-top.mjs) walks
+  // 793 sets of somebody else's site and is run BY HAND, not on every build.
+  // This step only reads data/top-graded.json. It hard fails if that file has
+  // no verification stamped for its own crawl date, so a stale or unverified
+  // snapshot stops the build rather than quietly reprinting itself.
+  "node scripts/build-top-graded.mjs",
   "node scripts/build-complete.mjs",
   // Both read data written earlier in this list and both must run BEFORE
   // build-search.mjs, which walks public/*.html and fails the build on any
@@ -83,6 +91,18 @@ const STEPS = [
   // fails the build on an indexable page missing from its PAGES list, and
   // before check-build.py, which follows the nav link to it from every page.
   "node scripts/build-how-many-packs.mjs",
+  // The two ranked price lists, from data/top100.json. The SYNC that writes
+  // that file, scripts/sync-top100.mjs, is deliberately NOT in this list: it
+  // is a couple of minutes of network against a third party, which is the same
+  // reason sync-sets.mjs and sync-chase.mjs are not here either. This builder
+  // works from whatever the last sync left on disk and stamps the pages with
+  // the date those prices were actually read, so a build with no network
+  // produces an honestly dated page rather than no page.
+  //
+  // Ordering constraints are the usual two: before build-search.mjs, which
+  // fails the build on an indexable page missing from its PAGES list, and
+  // before build-pages.mjs, which puts them in the sitemap.
+  "node scripts/build-top100.mjs",
   "node scripts/build-what-set.mjs",
   // The third page that reads a card somebody is holding, next to the rarity
   // guide and the set finder. It reads data/types.json, which a human writes,
@@ -111,6 +131,21 @@ const STEPS = [
   // before build-pages.mjs, which puts them in the sitemap.
   "node scripts/build-tcg-live.mjs",
   "node scripts/build-tcg-pocket.mjs",
+  // The two deck pages, next to the app pages because that is where their
+  // reader is standing: /decks.html hands out decklists in the format TCG
+  // Live's importer takes, and the Live guide is the page that explains the
+  // client they go into. Both read data/decks.json, written by
+  // scripts/sync-decks.mjs, which is NOT in this list and must not be: it is a
+  // few hundred requests to Limitless and the metagame it records is a dated
+  // measurement, so refreshing it is a deliberate act by a person who then
+  // re-reads what the pages claim. Same reasoning as sync-pokedex.mjs further
+  // down. build-decks.mjs also clears and rewrites public/decks/, the .txt
+  // decklists, so nothing else may write into that directory.
+  //
+  // ORDER: both must run BEFORE build-search.mjs, which walks public/*.html and
+  // fails the build on any indexable page missing from its own PAGES list.
+  "node scripts/build-decks.mjs",
+  "node scripts/build-playable.mjs",
   // Before build-search, which indexes these pages, and before build-pages,
   // which puts them in the sitemap. It also stamps `path` onto
   // public/data/playlists.json, which the browser reads.

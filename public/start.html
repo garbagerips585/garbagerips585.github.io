@@ -22,8 +22,44 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
+<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+
+<style>
+.rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
+.rk svg{width:11px;height:11px;display:block}
+/* THESE MARKS DEPICT PRINTED FOIL, so they are read as artwork rather than as
+   chrome: the whole point of the key is that a silver star and a black star are
+   DIFFERENT RARITIES, and Ultra Rare and Double Rare are both TWO stars, so the
+   colour is the only thing telling them apart. Darkening silver for contrast
+   would collapse the pair it exists to separate.
+   The golds follow the palette instead of carrying their own literals (they
+   were #E0A21F, #F5D142 and #8A6109, the pre-"Black / White / Gold" values), so
+   the site does not end up with two different golds beside each other. */
+.rk-gold svg{fill:var(--gold)}
+.rk-mega svg{fill:var(--mustard);stroke:var(--gold-deep);stroke-width:.8}
+/* SILVER STAYS LIGHT AND GAINS AN EDGE. --chrome-dim on white is 2.43:1 and the
+   #9FB0C0 it replaced was 2.22:1, so this never cleared 1.4.11 on its own. It
+   cannot be solved by darkening (see above), so it is solved the way .rk-mega
+   already solves it: a hairline stroke, at 4.54:1 on white, draws the shape.
+   The star is aria-hidden and rarityChip always prints the rarity's NAME beside
+   it, so the colour was never the only cue for a reader either way. */
+.rk-silver svg{fill:#C6C6C6;stroke:#767676;stroke-width:.8}
+.rk-black svg{fill:var(--navy)}
+/* The ACE SPEC mark is printed pink and this is the one place the site draws
+   it. Left alone, like the pack art: it is a picture of a symbol on a card, not
+   a piece of site chrome. One 11px glyph, always captioned. */
+.rk-pink svg{fill:#D96BA0}
+.rk-fire svg{fill:var(--ketchup);width:10px;height:12px}
+.rk-jp{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.04em;color:var(--chrome-ink);background:var(--navy);
+  border-radius:3px;padding:3px 5px}
+.chip-rk{display:inline-flex;align-items:center}
+
+.st-fig{margin:var(--s4) 0 0}
+.st-ladder{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.st-fig figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.55 var(--body);
+  color:var(--ink-2);max-width:40em}
+</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Start here"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is it even real?","acceptedAnswer":{"@type":"Answer","text":"Do this before anything else, because every other question depends on the answer. Eight physical checks, how much each one actually proves, and the two that are worth doing first."}},{"@type":"Question","name":"What am I actually looking at?","acceptedAnswer":{"@type":"Answer","text":"Rarity symbols, what the little marks in the corner mean, and why two cards of the same Pokemon can be worth a dollar and a thousand dollars. Then the set itself: 28 English guides with full checklists, plus 13 imported ones."}},{"@type":"Question","name":"What is it worth?","acceptedAnswer":{"@type":"Answer","text":"Search 39,707 printings across 370 sets by name. 5,168 of them carry a current market price, which is nearly every card in the 28 sets we cover. Or browse by Pokemon if you are chasing one in particular."}},{"@type":"Question","name":"Should I get it graded?","acceptedAnswer":{"@type":"Answer","text":"Usually no, and the math says why. What the five companies charge, what the wait is, and the subtraction on real cards: raw price, graded price, fee, what is left."}},{"@type":"Question","name":"What should I open?","acceptedAnswer":{"@type":"Answer","text":"Nobody publishes real pull rates, so the honest answer is what actually came out of the packs we have opened, counted from our own rip log. Plus what is coming next and what it is going for on preorder."}},{"@type":"Question","name":"Where do I buy, and who do I buy from?","acceptedAnswer":{"@type":"Answer","text":"Local shops around Rochester with what each is good for and where you can sit down and play, plus 23 card shows coming up around Rochester, Buffalo and Syracuse. Online, the answer is a different one: what each venue costs once shipping and buyer fees are counted, and what recourse you have when a card arrives wrong."}}]}</script>
 </head>
@@ -149,6 +185,7 @@
         <div class="st-body">
           <h2>Is it even real?</h2>
           <p>Do this before anything else, because every other question depends on the answer. Eight physical checks, how much each one actually proves, and the two that are worth doing first.</p>
+          
           <p class="st-links">
             <a class="btn btn-sky btn-sm" href="/fake-cards.html">Real or fake?</a>
             
@@ -160,6 +197,12 @@
         <div class="st-body">
           <h2>What am I actually looking at?</h2>
           <p>Rarity symbols, what the little marks in the corner mean, and why two cards of the same Pokemon can be worth a dollar and a thousand dollars. Then the set itself: 28 English guides with full checklists, plus 13 imported ones.</p>
+          <figure class="st-fig">
+            <div class="st-ladder"><span class="chip chip-rk"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span><span class="chip chip-rk"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span><span class="chip chip-rk"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span><span class="chip chip-rk"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span><span class="chip chip-rk"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span><span class="chip chip-rk"><span class="rk rk-gold" title="Hyper Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Hyper Rare</span></div>
+            <figcaption>The marks in the bottom corner, drawn, commonest first. Same six
+              you will find on a Scarlet and Violet era card, and the same drawings the
+              <a href="/rarity.html">rarity guide</a> uses. It holds three more.</figcaption>
+          </figure>
           <p class="st-links">
             <a class="btn btn-sky btn-sm" href="/rarity.html">Rarity guide</a>
             <a class="st-also" href="/sets/">Set guides</a>
@@ -172,6 +215,7 @@
         <div class="st-body">
           <h2>What is it worth?</h2>
           <p>Search 39,707 printings across 370 sets by name. 5,168 of them carry a current market price, which is nearly every card in the 28 sets we cover. Or browse by Pokemon if you are chasing one in particular.</p>
+          
           <p class="st-links">
             <a class="btn btn-sky btn-sm" href="/cards.html">Card search</a>
             <a class="st-also" href="/pokemon/">Browse by Pokemon</a>
@@ -183,6 +227,7 @@
         <div class="st-body">
           <h2>Should I get it graded?</h2>
           <p>Usually no, and the math says why. What the five companies charge, what the wait is, and the subtraction on real cards: raw price, graded price, fee, what is left.</p>
+          
           <p class="st-links">
             <a class="btn btn-sky btn-sm" href="/grading.html">Worth grading?</a>
             
@@ -194,6 +239,7 @@
         <div class="st-body">
           <h2>What should I open?</h2>
           <p>Nobody publishes real pull rates, so the honest answer is what actually came out of the packs we have opened, counted from our own rip log. Plus what is coming next and what it is going for on preorder.</p>
+          
           <p class="st-links">
             <a class="btn btn-sky btn-sm" href="/luck.html">Luck, measured</a>
             <a class="st-also" href="/upcoming.html">Coming next</a>
@@ -205,6 +251,7 @@
         <div class="st-body">
           <h2>Where do I buy, and who do I buy from?</h2>
           <p>Local shops around Rochester with what each is good for and where you can sit down and play, plus 23 card shows coming up around Rochester, Buffalo and Syracuse. Online, the answer is a different one: what each venue costs once shipping and buyer fees are counted, and what recourse you have when a card arrives wrong.</p>
+          
           <p class="st-links">
             <a class="btn btn-sky btn-sm" href="/shops.html">Shops and where to play</a>
             <a class="st-also" href="/buying.html">Where to buy online</a>
@@ -326,7 +373,7 @@
     Fan made guides, written by somebody who buys the same packs you do.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=7f0274cc" defer></script>
-<script src="/assets/packplayer.js?v=faa2eb26" defer></script>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
 </body>
 </html>

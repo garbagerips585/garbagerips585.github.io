@@ -22,9 +22,28 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=daf15d7c">
+<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
 <link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
 <style>.se-lede{max-width:46em}
+.pg{margin:var(--s4) 0 var(--s5);border:3px solid var(--navy);border-radius:12px;background:var(--card);
+box-shadow:var(--hard-lg);padding:var(--s4)}
+.bch{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s3)}
+.bch li{display:flex;flex-direction:column;gap:5px}
+.bch-h{display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap}
+.bch-n{font:700 var(--t-sm)/1.2 var(--body);color:var(--ink)}
+.bch-s{font:400 var(--t-micro)/1.2 var(--mono);color:var(--ink-2)}
+.bch-v{margin-left:auto;font:700 var(--t-sm)/1 var(--mono);color:var(--ketchup-deep);white-space:nowrap}
+.bch-t{display:flex;height:12px;border-radius:3px;background:var(--paper-2);overflow:hidden;
+box-shadow:inset 0 0 0 1px var(--hair)}
+.bch-b{display:block;height:100%;min-width:3px}
+.bch .bmk{height:30px;min-width:52px;max-width:112px;padding:3px 7px}
+.tk-a{background:var(--ink);border-radius:3px 0 0 3px}
+.tk-b{background:var(--gold)}
+.bch-b:only-child{border-radius:3px}
+.tk-z{background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px);
+box-shadow:inset 0 0 0 1px var(--ink-2)}
+.pg figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s4);max-width:52ch}
+.pg figcaption b{color:var(--ink);display:block;margin-top:var(--s3)}
 .se-jump{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:var(--s5) 0 var(--s4)}
 .se-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
 border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
@@ -90,7 +109,7 @@ padding:5px 8px;border-radius:5px;border:1px solid var(--hair);color:var(--ink-2
 .se-lede{max-width:50ch}
 .se-grp > p{max-width:50ch}
 .se-key p{max-width:50ch}
-.se-src{max-width:64ch}
+.se-src{max-width:56ch}
 }
 @media(min-width:1100px){
 .se-top{display:grid;grid-template-columns:minmax(0,620px) minmax(0,1fr);
@@ -99,10 +118,17 @@ gap:var(--s5) var(--s6);align-items:start}
 .se-key{display:grid;grid-template-columns:300px minmax(0,1fr);
 gap:var(--s5);align-items:start}
 .se-key > h2{margin-bottom:0}
+.pg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);
+gap:var(--s4) var(--s5);align-items:start}
+.pg > figcaption{grid-column:2;grid-row:1/-1;margin-top:0}
+.pg > :not(figcaption){grid-column:1}
+.pg > figcaption{max-width:45ch}
 }
 @media(min-width:1200px){
 .se-list{columns:2;column-gap:var(--s6);max-width:none}
 .se-list li{break-inside:avoid}
+.se-vs,.se-ps{grid-template-columns:repeat(3,1fr);align-items:start}
+.se-list{max-width:1100px}
 }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Where to sell"}]}</script>
 </head>
@@ -258,6 +284,51 @@ gap:var(--s5);align-items:start}
         <p>Seller protection and buyer protection are different products, and on every venue read here the seller's version is the smaller one. A marketplace sits in the middle, which is the only reason a dispute exists at all, and every one of them voids that protection the moment payment moves off the platform.</p>
         </div>
       </div>
+
+      <section class="se-grp">
+        <h2>What a $100 sale actually <span class="hl">costs</span></h2>
+        <p>Every venue below states its own rate on its own card, and nothing on this page puts them next to each
+          other. Here they are next to each other, on the same sale, so the ranking is visible before you read
+          fourteen of them. The order is not the order the headline percentages give.</p>
+      <figure class="pg pg-tk">
+        <ul class="bch">
+          <li>
+            <span class="bch-h"><span class="bmk"><img src="/assets/brands/ebay.svg" alt="eBay" width="1000" height="401" loading="lazy" decoding="async"></span><span class="bch-n">eBay <span class="bch-s">no Store subscription</span></span><b class="bch-v">$13.65</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b tk-a" style="width:97.1%"></span><span class="bch-b tk-b" style="width:2.9%"></span></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bmk"><img src="/assets/brands/tcgplayer.svg" alt="TCGplayer" width="801" height="337" loading="lazy" decoding="async"></span><span class="bch-n">TCGplayer <span class="bch-s">Marketplace Seller</span></span><b class="bch-v">$13.55</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b tk-a" style="width:78.8%"></span><span class="bch-b tk-b" style="width:20.5%"></span></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bmk"><img src="/assets/brands/whatnot.svg" alt="Whatnot" width="594" height="115" loading="lazy" decoding="async"></span><span class="bch-n">Whatnot <span class="bch-s">TCG category, US</span></span><b class="bch-v">$11.20</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b tk-a" style="width:58.6%"></span><span class="bch-b tk-b" style="width:23.4%"></span></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bmk"><img src="/assets/brands/mercari.svg" alt="Mercari" width="265" height="58" loading="lazy" decoding="async"></span><span class="bch-n">Mercari <span class="bch-s">seller side</span></span><b class="bch-v">$10.00</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b tk-a" style="width:73.3%"></span></span>
+          </li>
+          <li>
+            <span class="bch-h"><span class="bmk bmk-d" role="img" aria-label="A card shop counter"><svg class="bmk-g" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 4.6 4h14.8L21 8.5"/><path d="M4.5 8.5V20h15V8.5"/><path d="M9.5 20v-6h5v6"/><path d="M3 8.5h18"/></svg></span><span class="bch-n">A shop or a show <span class="bch-s">cash, in person</span></span><b class="bch-v">$0.00</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b tk-z" style="width:14%"></span></span>
+          </li>
+        </ul>
+        <figcaption>One $100 card, sold at a fixed price, with no shipping charged to the buyer and no sales tax.
+          The dark part of each bar is the platform's commission and the gold part is what it charges on top:
+          eBay's per order fee, TCGplayer's transaction fee, Whatnot's payment processing. eBay has no gold layer
+          for processing because its final value fee already includes it, and Mercari charges a seller none. That is
+          why the lowest headline rate is not the cheapest place to sell: Whatnot's 8% ends up above
+          Mercari's 10%, and TCGplayer's 10.75% lands within
+          10 cents of eBay's 13.25%.
+          <b>The hatched bar is not a recommendation.</b> A shop or a show charges a seller no platform fee, which is
+          why there is nothing to draw, and the cost there is the price they offer you instead. No shop publishes
+          that, so it is hatched the way this site hatches everything it has no picture of rather than drawn as a
+          win.
+          <b>What these bars leave out.</b> Store subscriptions, insertion fees, dispute fees, payout and cash-out
+          fees, seller-level discounts, and anything charged on shipping or tax you collect. Every one of those is on
+          the venue's own card below. Figures read from each company's own fee page on August 15, 2026.</figcaption>
+      </figure>
+      </section>
 
       <section class="se-grp">
         <h2>Marketplaces</h2>
@@ -1137,7 +1208,7 @@ gap:var(--s5);align-items:start}
     Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=7f0274cc" defer></script>
-<script src="/assets/packplayer.js?v=faa2eb26" defer></script>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
 </body>
 </html>

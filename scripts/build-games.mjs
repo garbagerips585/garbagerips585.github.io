@@ -40,8 +40,79 @@ const DATA = join(ROOT, "public/data/games");
 await mkdir(OUT, { recursive: true });
 await mkdir(DATA, { recursive: true });
 
+// ---------------------------------------------------------------------------
+// PICTURES OF THE GAMES, which took some working out because there is no file
+// in this tree that is one. Every other page here illustrates itself with a
+// card scan, a set logo or a drawn figure; four <canvas> and live-DOM games
+// have nothing to borrow, and the hub was the last page check-build.py named
+// outright: 305 words and nothing visual in <main>.
+//
+// So the hub cards carry a screenshot of the game actually running, captured by
+// scripts/sync-game-shots.mjs, and the two official app cards carry the app
+// icon off that app's own store listing, which sync-app-shots.mjs already
+// mirrors for /tcg-live.html and /tcg-pocket.html.
+//
+// BOTH MANIFESTS ARE OPTIONAL AND THE PAGE IS COMPLETE WITHOUT EITHER. A shot
+// that has not been captured yet simply does not render, rather than emitting a
+// broken box, because sync-game-shots.mjs needs a running preview server and a
+// browser and is therefore NOT in build-all.mjs. A builder that fails when
+// Chrome is missing would make the whole site unbuildable on a machine that
+// only wants to fix a typo.
+let gameShots = {};
+try {
+  gameShots = JSON.parse(await readFile(join(ROOT, "data/game-shots.json"), "utf8")).shots || {};
+} catch {
+  /* run: node scripts/sync-game-shots.mjs */
+}
+let appShots = {};
+try {
+  appShots = JSON.parse(await readFile(join(ROOT, "data/app-shots.json"), "utf8")).apps || {};
+} catch {
+  /* run: node scripts/sync-app-shots.mjs */
+}
+
+/**
+ * One game screenshot, sized from the manifest.
+ *
+ * `eager` is the first card only. It sits about 250px down a 390x844 phone, so
+ * it is on screen at first paint and lazy-loading it just delays it; the other
+ * three are a scroll away and stay lazy. This is a plain vertical list, so
+ * `loading="lazy"` means what it says here, unlike the carousels on the home
+ * page.
+ */
+function gameShot(key, eager) {
+  const s = gameShots[key];
+  if (!s) return "";
+  // The alt comes out of the manifest rather than being written here, so there
+  // is ONE description of each file and it lives next to the assertion that
+  // keeps the file honest. Two copies is how a picture and its description
+  // drift after somebody bumps the seed.
+  return `<span class="g-shot"><img src="/assets/games/${esc(s.file)}" width="${s.w}" height="${s.h}"
+          alt="${esc(s.shows)}" decoding="async"${eager ? ' fetchpriority="high"' : ' loading="lazy"'}></span>`;
+}
+
+/** The app's own store icon. The thing a reader is about to go and look for. */
+function appIconTile(key) {
+  const app = appShots[key];
+  const icon = app && app.icon;
+  if (!icon || !icon.file) return "";
+  return `<span class="g-icon"><img src="/assets/apps/${esc(icon.file)}"${
+    icon.w && icon.h ? ` width="${icon.w}" height="${icon.h}"` : ""
+  } alt="The ${esc(app.name)} app icon" loading="lazy" decoding="async"></span>`;
+}
+
 const dex = JSON.parse(await readFile(join(ROOT, "data/pokedex.json"), "utf8"));
 const pokemon = dex.pokemon;
+// The mirrored official artwork /lore.html uses. OPTIONAL, exactly like the two
+// screenshot manifests above: a page here that wants a picture of Trubbish and
+// cannot find one prints the sentence without it rather than emitting a broken
+// box, because sync-dex-art.mjs is another script that is not in build-all.mjs.
+let dexArt = {};
+try {
+  dexArt = JSON.parse(await readFile(join(ROOT, "data/dex-art.json"), "utf8")).art || {};
+} catch {
+  /* run: node scripts/sync-dex-art.mjs */
+}
 const printings = JSON.parse(await readFile(join(ROOT, "public/data/printings/manifest.json"), "utf8"));
 
 // ---------------------------------------------------------------------------
@@ -81,9 +152,16 @@ const MIN_PER_SET = 40;
 const CAP_PER_SET = 26;
 const setNames = [];
 const quizCards = [];
+// The TCGdex series code, read straight out of the image url the card already
+// carries: https://assets.tcgdex.net/en/<series>/<set>/<number>. Used below as
+// the era key. It is taken from the path rather than matched on a set NAME
+// because it covers all 131 sets with nothing to look up and nothing to guess,
+// where matching names against the site's set list leaves 7 unmatched.
+const setSeriesCode = [];
 for (const [name, list] of [...bySet].sort((a, b) => a[0].localeCompare(b[0]))) {
   if (list.length < MIN_PER_SET) continue;
   const idx = setNames.push(name) - 1;
+  setSeriesCode[idx] = String(list[0].g).split("/")[4] || null;
   // Spread the sample across the set's numbering rather than taking the first
   // 26, so a set is not represented only by its commons.
   const step = Math.max(1, Math.floor(list.length / CAP_PER_SET));
@@ -91,9 +169,126 @@ for (const [name, list] of [...bySet].sort((a, b) => a[0].localeCompare(b[0]))) 
     quizCards.push([list[i].g, idx, list[i].n]);
   }
 }
+
+// ---------------------------------------------------------------------------
+// ERAS, AND WHY THE QUIZ NEEDED THEM.
+//
+// Measured on 16 August 2026 over 20,000 generated questions: with distractors
+// drawn uniformly from all 131 sets, THE CORRECT SET WAS THE ONLY ONE OF THE
+// FOUR FROM ITS OWN ERA 76.4% OF THE TIME, and the mean gap between the oldest
+// and newest of the four options was 16.9 years. So three questions in four
+// could be won without looking at the set symbol at all: a 2024 card against
+// three sets from 1999, 2007 and 2013 is answerable by anyone who can tell a
+// modern card frame from a Base Set one, which takes about five minutes to
+// learn. The page's own pitch is that it teaches you to read the SYMBOL, and it
+// measurably was not asking.
+//
+// The fix is a second mode rather than a change to the only one, because the
+// easy version is the right default for the brief this whole section is built
+// around: somebody in a queue with a couple of minutes who has never sorted a
+// bulk box. Same shape as the 151 / all 1,025 pair on Who's That Pokemon.
+//
+// Same era draws all three distractors from the answer's own series, widening
+// to the neighbouring series only when its own holds fewer than MIN_ERA_POOL
+// sets, which is what keeps Gym (2 sets) and Call of Legends (1) playable.
+// Measured the same way: only-option-from-its-era falls 76.4% -> 4.8% and the
+// mean year span 16.9 -> 1.8. At that spread the frame and the era tell you
+// nothing and the symbol is all that is left, which is the point.
+const EXP_ALIAS = {
+  // The card corpus and the site's set list spell seven sets differently. Six
+  // are one obvious string apart. MEP Black Star Promos has no entry at all,
+  // which costs it a release year and nothing else: its era comes from the `me`
+  // series code in its own image path, and the other Mega Evolution sets date
+  // that era. Nothing is invented for it and no year is printed for it.
+  "Base Set": "Base",
+  "HeartGold SoulSilver": "HeartGold & SoulSilver",
+  Triumphant: "HS—Triumphant",
+  Undaunted: "HS—Undaunted",
+  Unleashed: "HS—Unleashed",
+  "SVP Black Star Promos": "Scarlet & Violet Black Star Promos",
+};
+const expansions = JSON.parse(await readFile(join(ROOT, "public/data/expansions.json"), "utf8"));
+const expByName = new Map(expansions.sets.map((s) => [s.name, s]));
+let SYMBOL_DIMS = {};
+try {
+  SYMBOL_DIMS = JSON.parse(await readFile(join(ROOT, "data/symbol-dims.json"), "utf8")).symbols || {};
+} catch {
+  /* not synced yet: the era table prints without symbols rather than breaking */
+}
+const setMeta = setNames.map((name, i) => {
+  const e = expByName.get(name) || expByName.get(EXP_ALIAS[name]) || null;
+  return {
+    name,
+    code: setSeriesCode[i],
+    apiId: e ? e.apiId : null,
+    series: e ? e.series : null,
+    released: e ? e.released : null,
+    year: e && e.released ? +String(e.released).slice(0, 4) : null,
+  };
+});
+const cardsPerSet = new Array(setNames.length).fill(0);
+for (const c of quizCards) cardsPerSet[c[1]]++;
+
+const eraOf = new Map();
+setMeta.forEach((m, i) => {
+  if (!eraOf.has(m.code)) eraOf.set(m.code, []);
+  eraOf.get(m.code).push(i);
+});
+// Oldest first, by the earliest traceable release inside the era. Ordering is
+// what makes "widen to the neighbouring era" mean the adjacent years rather
+// than an arbitrary alphabetical neighbour.
+const eraCodes = [...eraOf.keys()].sort((a, b) => {
+  const y = (k) => Math.min(...eraOf.get(k).map((i) => setMeta[i].year || 9999));
+  return y(a) - y(b) || String(a).localeCompare(String(b));
+});
+const eras = eraCodes.map((code) => {
+  const members = eraOf.get(code);
+  const years = members.map((i) => setMeta[i].year).filter(Boolean);
+  // The era's name is the one the site's own set list gives its members, by
+  // majority, rather than a label typed here from the two-letter code.
+  // AN ERA OF ONE SET IS CALLED AFTER THAT SET. The site's expansion list files
+  // Legendary Collection under "Other" and Call of Legends under "HeartGold &
+  // SoulSilver", both of which are what the source says and neither of which is
+  // any use in this list: it produced a row labelled "Other" and a second row
+  // labelled "HeartGold & SoulSilver" sitting nine years apart from the first
+  // one. TCGdex gives them their own series code, so they are their own era
+  // here, and the honest name for an era holding one set is that set's name.
+  const names = {};
+  for (const i of members) if (setMeta[i].series) names[setMeta[i].series] = (names[setMeta[i].series] || 0) + 1;
+  const label =
+    members.length === 1
+      ? setMeta[members[0]].name
+      : Object.keys(names).sort((a, b) => names[b] - names[a])[0] || code;
+  // The mark that opens the era: its oldest set that has a mirrored symbol.
+  const withSymbol = members
+    .filter((i) => setMeta[i].apiId && SYMBOL_DIMS[setMeta[i].apiId])
+    .sort((a, b) => String(setMeta[a].released).localeCompare(String(setMeta[b].released)));
+  return {
+    code,
+    label,
+    sets: members.length,
+    cards: members.reduce((n, i) => n + cardsPerSet[i], 0),
+    from: years.length ? Math.min(...years) : null,
+    to: years.length ? Math.max(...years) : null,
+    symbolOf: withSymbol.length ? withSymbol[0] : null,
+  };
+});
+const setEra = setMeta.map((m) => eraCodes.indexOf(m.code));
+const MIN_ERA_POOL = 6;
+
 await writeFile(
   join(DATA, "setquiz.json"),
-  JSON.stringify({ checked: printings.checked, sets: setNames, cards: quizCards }),
+  JSON.stringify({
+    checked: printings.checked,
+    sets: setNames,
+    // Era index per set, and the era order, oldest first. Two small arrays
+    // rather than a field on every one of the 3,406 card rows, for the same
+    // reason the rows are arrays: this file is fetched over a venue's wifi.
+    eras: eraCodes,
+    setEra,
+    minEraPool: MIN_ERA_POOL,
+    cards: quizCards,
+  }),
 );
 
 // ---------------------------------------------------------------------------
@@ -149,6 +344,18 @@ const sample = (pool, n, exclude) => {
 };
 
 const trivia = [];
+// WHICH GENERATOR MADE EACH QUESTION, kept alongside rather than inside the row.
+// The page needs the mix to be able to state it, and the row is a 6 element
+// array replicated 1,400 times in a file fetched over a venue's wifi, so a
+// seventh field costs the reader for something only the builder uses. Tagged at
+// the point of generation rather than recovered afterwards by matching on the
+// question text: two of the five categories produce a single identical stem, so
+// text matching would work today and quietly stop the day a stem is reworded.
+const triviaCat = [];
+const push = (cat, row) => {
+  trivia.push(row);
+  triviaCat.push(cat);
+};
 const named = pokemon.filter((p) => p.genus);
 const allNames = pokemon.map((p) => p.name);
 const allTypes = [...new Set(pokemon.flatMap((p) => p.types))];
@@ -170,7 +377,7 @@ for (const p of named) {
 for (const p of named) {
   const wrong = sample(named.map((x) => x.name), 3, byGenus.get(p.genus));
   if (!wrong) continue;
-  trivia.push([`Which Pokemon is the ${p.genus} Pokemon?`, p.name, ...wrong, `#${p.id}, introduced in Generation ${p.gen}.`]);
+  push("genus", [`Which Pokemon is the ${p.genus} Pokemon?`, p.name, ...wrong, `#${p.id}, introduced in Generation ${p.gen}.`]);
 }
 
 // 2. Type. Single typed only: a dual type has two right answers unless the
@@ -179,7 +386,7 @@ for (const p of named) {
 for (const p of pokemon.filter((x) => x.types.length === 1)) {
   const wrong = sample(allTypes, 3, p.types);
   if (!wrong) continue;
-  trivia.push([`What type is ${p.name}?`, cap(p.types[0]), ...wrong.map(cap), `${p.name} is pure ${cap(p.types[0])}.`]);
+  push("type", [`What type is ${p.name}?`, cap(p.types[0]), ...wrong.map(cap), `${p.name} is pure ${cap(p.types[0])}.`]);
 }
 
 // 3. Evolution, asked backwards. "What does X evolve into" has more than one
@@ -187,7 +394,7 @@ for (const p of pokemon.filter((x) => x.types.length === 1)) {
 for (const p of pokemon.filter((x) => x.evolvesFrom)) {
   const wrong = sample(allNames, 3, [p.name, p.evolvesFrom]);
   if (!wrong) continue;
-  trivia.push([`Which Pokemon evolves into ${p.name}?`, p.evolvesFrom, ...wrong, `${p.evolvesFrom} is #${p.id - 1 > 0 ? "" : ""}${p.id}'s pre-evolution.`]);
+  push("evolution", [`Which Pokemon evolves into ${p.name}?`, p.evolvesFrom, ...wrong, `${p.evolvesFrom} is #${p.id - 1 > 0 ? "" : ""}${p.id}'s pre-evolution.`]);
 }
 
 // 4. Legendary. One real legendary against three ordinary Pokemon.
@@ -196,7 +403,7 @@ const ordinary = pokemon.filter((p) => !p.legendary && !p.mythical).map((p) => p
 for (const name of legends) {
   const wrong = sample(ordinary, 3, [name]);
   if (!wrong) continue;
-  trivia.push([`Which of these is a Legendary Pokemon?`, name, ...wrong, `${name} is flagged Legendary in the National Pokedex.`]);
+  push("legendary", [`Which of these is a Legendary Pokemon?`, name, ...wrong, `${name} is flagged Legendary in the National Pokedex.`]);
 }
 
 // 5. Which is heavier. Four real Pokemon, pick the heaviest, with a wide enough
@@ -207,7 +414,7 @@ for (let i = 0; i < 220; i++) {
   if (!four) continue;
   const sorted = [...four].sort((a, b) => b.wHg - a.wHg);
   if (sorted[0].wHg < sorted[1].wHg * 1.5) continue; // too close to be fair
-  trivia.push([
+  push("weight", [
     "Which of these is the heaviest?",
     sorted[0].name,
     sorted[1].name,
@@ -223,13 +430,88 @@ for (let i = 0; i < 220; i++) {
 // Fisher-Yates, which is an actual shuffle. The old one was
 // `sort(() => Math.random() - 0.5)`: an inconsistent comparator, so the result
 // was neither uniform nor defined across engines. It only ever looked random.
-const shuffled = trivia.slice();
-for (let i = shuffled.length - 1; i > 0; i--) {
+// Shuffle the INDICES, so the category tags follow their questions through the
+// trim. Shuffling the rows on their own left triviaCat pointing at whatever
+// happened to land in that slot, which is worse than having no tags at all: the
+// mix printed on the page would have been wrong rather than missing.
+const order = trivia.map((_, i) => i);
+for (let i = order.length - 1; i > 0; i--) {
   const j = Math.floor(nextRandom() * (i + 1));
-  [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  [order[i], order[j]] = [order[j], order[i]];
 }
-shuffled.length = Math.min(1400, shuffled.length);
+order.length = Math.min(1400, order.length);
+const shuffled = order.map((i) => trivia[i]);
+const shuffledCat = order.map((i) => triviaCat[i]);
 await writeFile(join(DATA, "trivia.json"), JSON.stringify({ checked: dex.checked, q: shuffled }));
+
+// ---------------------------------------------------------------------------
+// WHAT A RUN ACTUALLY FEELS LIKE, counted from the shipped bank rather than from
+// the generators, because the bank is what a player is served and the trim is
+// what decides the mix.
+//
+// It is lopsided, and the page says so. The comment above the shuffle claims the
+// interleave stops "six genus questions in a row"; it does not, and cannot. A
+// shuffle followed by a trim preserves the proportions of the pool exactly, and
+// the engine then picks uniformly at random from what is left, so the mix below
+// IS the mix a run gets. Measured on the shipped bank: genus 45.9%, evolution
+// 22.1%, type 21.8%, weight 6.9%, legendary 3.2%.
+//
+// Printed rather than corrected. Flattening the five to 20% each would mean
+// throwing away most of the genus bank, which is the best category on the page
+// by a distance: the answers are official, they are short, and a third of them
+// are funny. A reader is better served by being told what the mix is than by a
+// mix chosen to look tidy in a table.
+const CAT_LABEL = {
+  genus: "The official category",
+  type: "Type",
+  evolution: "Evolution, backwards",
+  legendary: "Legendary or not",
+  weight: "Which is heaviest",
+};
+/** The field in data/pokedex.json the whole category is generated out of. */
+const CAT_FIELD = {
+  genus: "genus",
+  type: "types",
+  evolution: "evolvesFrom",
+  legendary: "legendary",
+  weight: "wHg",
+};
+const CAT_WHY = {
+  genus:
+    "Every Pokemon has an official one word category and most people have never read one. Anything sharing a category " +
+    "is kept out of the wrong answers, so exactly one of the four on screen can be right.",
+  type: "Single typed Pokemon only. A dual type has two right answers unless the question spells out the order.",
+  evolution:
+    "Asked backwards on purpose. What does this evolve into has more than one answer on the branching lines; what " +
+    "evolves into this has exactly one.",
+  legendary: "One Pokemon flagged Legendary in the National Pokedex against three that are not.",
+  weight:
+    "Four real Pokemon, pick the heaviest, and only when the top two are far enough apart that it is a question " +
+    "rather than a coin flip.",
+};
+const catCount = {};
+for (const c of shuffledCat) catCount[c] = (catCount[c] || 0) + 1;
+/** The first question of each category in the shipped bank, quoted as the example. */
+const catExample = {};
+shuffledCat.forEach((c, i) => {
+  if (!catExample[c]) catExample[c] = shuffled[i];
+});
+const catOrder = Object.keys(catCount).sort((a, b) => catCount[b] - catCount[a]);
+/** The mix, as one bar. Widths are the counts, so the picture cannot disagree. */
+const MIX_TONES = ["#616A4F", "#F5A62B", "#22384F", "#D9482B", "#7C8A5F"];
+const mixBar = (() => {
+  let x = 0;
+  const total = shuffled.length;
+  const segs = catOrder.map((c, i) => {
+    const w = (catCount[c] / total) * 480;
+    const seg = `<rect x="${x.toFixed(1)}" y="0" width="${w.toFixed(1)}" height="34" fill="${MIX_TONES[i % MIX_TONES.length]}"/>`;
+    x += w;
+    return seg;
+  });
+  return `<svg viewBox="0 0 480 34" role="img" aria-label="${esc(
+    catOrder.map((c) => `${CAT_LABEL[c]}, ${((catCount[c] / total) * 100).toFixed(1)} per cent`).join("; "),
+  )}"><g>${segs.join("")}</g><rect x="0" y="0" width="480" height="34" rx="4" fill="none" stroke="#1E2419" stroke-width="3"/></svg>`;
+})();
 
 // ---------------------------------------------------------------------------
 // Pages
@@ -252,7 +534,27 @@ const GAMES_JS = `<script src="/assets/games.js" defer></script>`;
 // pages. Strip the tags first, then escape the text that is left.
 const plain = (html) => String(html).replace(/<[^>]+>/g, "");
 
-function shell({ slug, title, desc, h1, kicker, lede, body, ld = [], extraJs = "", compact = false }) {
+// `extraCss` is an inline block in the head, NOT a rule added to games.css or
+// ui.css. games.css is fetched by all five pages here and ui.css is render
+// blocking on all 426, and the only page that wants these rules is the hub, so
+// putting them anywhere shared would cost every other page in the site to save
+// this one a few hundred bytes it does not save.
+// `extra` is everything a game page says AFTER the game and after the one
+// paragraph about it. It exists because the three quiz pages were 74, 87 and 91
+// words with nothing visual in <main>, on a site whose owner's standard is that
+// every page that can carry pictures should, and the honest reason they had
+// none is harder than it looks: the obvious picture of a game is a screenshot of
+// it, and a screenshot of a game directly above that same game, playable, is the
+// one picture on this site worth least. The hub is where a screenshot earns its
+// place, because there the game is not on the screen.
+//
+// So what goes here is not a picture OF the game, it is the material the game is
+// made of: the set symbols Guess the Set is asking you to tell apart, the shape
+// of the Pokedex Who's That Pokemon draws from, the five Pokedex fields every
+// trivia question is generated out of. All of it is computed from the same JSON
+// the game itself fetches, so a section here cannot describe a game that has
+// moved on without it.
+function shell({ slug, title, desc, h1, kicker, lede, body, extra = "", ld = [], extraJs = "", extraCss = "", compact = false }) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -277,6 +579,7 @@ function shell({ slug, title, desc, h1, kicker, lede, body, ld = [], extraJs = "
 ${FONTS}
 ${STYLES}
 ${GAMES_CSS}
+${extraCss ? `<style>${extraCss}</style>` : ""}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -306,7 +609,7 @@ ${
 </section>`
     : ""
 }
-
+${extra}
 </main>
 ${footer("Fan made games. Card data and Pokedex data credited on each page.")}
 ${APP_JS}
@@ -327,16 +630,206 @@ const crumb = (name) => ({
   ],
 });
 
+// ---------------------------------------------------------------------------
+// THE SHARED STYLES FOR EVERYTHING IN AN `extra` BLOCK.
+//
+// Inline in each page's head, per the note on `extraCss` above, and NOT in
+// games.css: games.css is also fetched by /lore.html, and ui.css is render
+// blocking on all 426 pages. These rules are wanted by three pages, so a shared
+// file would charge 423 pages for them.
+//
+// One string used by all three, so the three teaching sections cannot drift into
+// three different looks. It is emitted verbatim, and it is small enough that the
+// duplication across three pages is cheaper than a fourth request.
+const TEACH_CSS = `
+.tq-grid{display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  width:100%;min-width:0;margin-top:var(--s4)}
+.tq-card{padding:var(--s4);background:var(--card);border:2px solid var(--ink);border-radius:var(--r)}
+.tq-card h3{font:700 var(--t-sm)/1.3 var(--body);text-transform:uppercase;letter-spacing:.06em;
+  color:var(--ink-2);margin-bottom:6px}
+.tq-card p{font:400 var(--t-body)/1.5 var(--body);color:var(--ink)}
+.tq-eg{display:block;margin-top:8px;font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2)}
+
+/* THE FIGURES CARRY THEIR OWN CAPTION AND THE CAPTION IS THE SOURCE. Every
+   drawing in these blocks is generated from a file in this repo, so the caption
+   says which one. A picture on this site that cannot name where its numbers came
+   from is the thing check-build.py's density table is trying to get rid of, and
+   adding an unsourced one to fix the count would be worse than the empty page. */
+.tq-fig{margin:var(--s4) 0 0;padding:var(--s4);background:var(--paper-2,#F7F2DE);
+  border:2px solid var(--ink);border-radius:var(--r)}
+.tq-fig svg{display:block;width:100%;height:auto;max-width:520px;margin:0 auto}
+.tq-fig figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
+  text-align:center}
+
+/* The era table. A LIST, not a table element: every row is symbol, name, years,
+   counts, and on a 390px phone the years and the counts have to drop under the
+   name rather than squeeze a fourth column to nothing. */
+.tq-eras{display:grid;gap:8px;margin-top:var(--s4);list-style:none;padding:0}
+.tq-era{display:grid;grid-template-columns:34px 1fr auto;gap:var(--s3);align-items:center;
+  padding:8px 10px;background:var(--card);border:1px solid var(--hair);border-radius:10px}
+.tq-era img{width:26px;height:26px;object-fit:contain;display:block;margin:0 auto;
+  background:var(--paper-2,#F7F2DE);border-radius:5px}
+.tq-era .tq-noimg{width:26px;height:26px;display:block;margin:0 auto;border-radius:5px;
+  border:1px dashed var(--hair)}
+.tq-era b{font:700 var(--t-sm)/1.25 var(--body);color:var(--ink);display:block}
+.tq-era span{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
+.tq-era em{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);font-style:normal;
+  text-align:right;white-space:nowrap}
+
+/* Pokemon with their official category. The artwork is the mirrored 128px file
+   /lore.html already ships, not the 475px PokeAPI png the game itself pulls: at
+   72px on a phone the big one is a 6x oversample of a picture nobody is playing
+   with. */
+.tq-dex{display:grid;gap:var(--s3);grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  margin-top:var(--s4);list-style:none;padding:0}
+.tq-dexi{display:flex;gap:var(--s3);align-items:center;padding:8px 10px;background:var(--card);
+  border:1px solid var(--hair);border-radius:10px}
+.tq-dexi img{width:56px;height:56px;object-fit:contain;flex:none}
+.tq-dexi b{display:block;font:700 var(--t-sm)/1.2 var(--body);color:var(--ink)}
+.tq-dexi span{display:block;font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
+
+.tq-links{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s4);padding:0;list-style:none}
+.tq-links a{display:inline-block;padding:9px 14px;background:var(--card);border:2px solid var(--ink);
+  border-radius:var(--r-pill);box-shadow:0 3px 0 var(--ink);text-decoration:none;color:var(--ink);
+  font:700 var(--t-sm)/1.2 var(--body)}
+.tq-links a:hover{background:var(--mustard)}
+
+/* The one file drawn twice. The FIRST of the pair carries the filter, which is
+   the same brightness(0) games.css puts on the live game, written here rather
+   than reused from .gq-sil because that class is the game's and this figure is
+   not the game. */
+.tq-silpair{display:flex;gap:var(--s5);align-items:flex-end;justify-content:center}
+.tq-silpair span{display:block;text-align:center}
+.tq-silpair img{display:block;width:112px;height:112px;object-fit:contain}
+.tq-silpair span:first-child img{filter:brightness(0)}
+.tq-silpair b{display:block;margin-top:6px;font:700 var(--t-micro)/1.4 var(--mono);
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+`;
+
+/**
+ * One mirrored set symbol, at its real size. Same manifest and the same
+ * degrade-to-nothing rule as /what-set.html: a set with no local file gets a
+ * dashed placeholder box rather than a hole, so the row keeps its shape and no
+ * request is opened to a host we do not control from a page about a game.
+ */
+function symbolCell(setIndex) {
+  const m = setIndex === null || setIndex === undefined ? null : setMeta[setIndex];
+  const d = m && m.apiId ? SYMBOL_DIMS[m.apiId] : null;
+  if (!d) return `<span class="tq-noimg" aria-hidden="true"></span>`;
+  return `<img src="/assets/symbols/${esc(m.apiId)}-pokemon-tcg-set-symbol.webp" width="${d[0]}" height="${d[1]}"
+    alt="The set symbol printed on ${esc(m.name)} cards" loading="lazy" decoding="async">`;
+}
+
+/**
+ * ONE FILE, DRAWN TWICE, which is the whole claim the sentence beside it makes.
+ *
+ * This is NOT a screenshot of Who's That Pokemon and the difference is the point:
+ * there is no question, no four answers and no score, because a picture of the
+ * game sitting directly above the same game, playable, is the least useful
+ * picture this site could carry. What it shows is the MECHANISM, and the
+ * mechanism is the surprising part. The claim "there is no second set of images"
+ * is not one a reader has any reason to take on trust, and this is the evidence:
+ * the same src twice, with one CSS filter between them.
+ *
+ * The mirrored 128px artwork /lore.html already ships, not the 475px PokeAPI png
+ * the game pulls at runtime, so this costs the page one small local file rather
+ * than a request to a host we do not control.
+ */
+function silhouetteDemo(id) {
+  const p = pokemon.find((x) => x.id === id);
+  const a = dexArt[String(id)];
+  if (!p || !a) return "";
+  return `<figure class="tq-fig tq-sil">
+      <div class="tq-silpair">
+        <span><img src="${esc(a.file)}" width="${a.w}" height="${a.h}" alt="The same artwork blacked out to a silhouette"
+          loading="lazy" decoding="async"><b>filtered</b></span>
+        <span><img src="${esc(a.file)}" width="${a.w}" height="${a.h}" alt="Official artwork of ${esc(p.name)}"
+          loading="lazy" decoding="async"><b>as it ships</b></span>
+      </div>
+      <figcaption>Both of those are ${esc(a.file)}, the same file, requested once. The left one has
+        brightness(0) on it and nothing else.</figcaption>
+    </figure>`;
+}
+
+/** A row of Pokemon with the official category the trivia asks about. */
+function dexRow(ids) {
+  const byId = new Map(pokemon.map((p) => [p.id, p]));
+  return ids
+    .map((id) => {
+      const p = byId.get(id);
+      const a = dexArt[String(id)];
+      if (!p || !a) return "";
+      return `<li class="tq-dexi"><img src="${esc(a.file)}" width="${a.w}" height="${a.h}"
+        alt="Official artwork of ${esc(p.name)}" loading="lazy" decoding="async">
+        <span><b>${esc(p.name)}</b><span>the ${esc(p.genus)} Pokemon</span></span></li>`;
+    })
+    .filter(Boolean)
+    .join("\n      ");
+}
+
 // --- Hub -------------------------------------------------------------------
+// The fifth field is the screenshot key in data/game-shots.json. Its alt text
+// is NOT here: it comes from that manifest, written by the script that took the
+// picture, because a description in one file and a picture in another drift.
+//
+// THAT ALT DESCRIBES THE SHAPE OF THE SCREEN, NOT WHAT IS ON IT, deliberately.
+// "A Pinsir silhouette" is true of today's capture and false the moment anybody
+// reruns the sync with a different seed, and a description that only stays true
+// by luck is exactly what this site's image rule exists to stop. What does not
+// change is that the screen is a picture above four answer buttons, so that is
+// what it says. sync-game-shots.mjs asserts that much before it keeps a file.
 const CARDS = [
   // FIRST ON PURPOSE. The other three are quizzes, which are things you finish.
   // This hub is called "Games for the wait" and the longest wait wants the game
   // you can keep playing and hand to somebody else.
-  ["garbage-run.html", "Arcade", "Garbage Run", "One thumb, no rules to read. Flip Trubbish between the floor and the ceiling and eat everything on the street. A hundred pieces of rubbish and he evolves."],
-  ["whos-that-pokemon.html", "Silhouettes", "Who's That Pokemon?", `Name the shape. All ${whos.length.toLocaleString("en-US")} of them, or just the original 151.`],
-  ["guess-the-set.html", "Card scans", "Guess the Set", `A real card, four sets, one right answer. ${setNames.length} sets in the pot.`],
-  ["pokemon-trivia.html", "Quiz", "Pokemon Trivia", `${shuffled.length.toLocaleString("en-US")} questions, all generated from real Pokedex and card data.`],
+  ["garbage-run.html", "Arcade", "Garbage Run", "One thumb, no rules to read. Flip Trubbish between the floor and the ceiling and eat everything on the street. A hundred pieces of rubbish and he evolves.",
+    "garbage-run"],
+  ["whos-that-pokemon.html", "Silhouettes", "Who's That Pokemon?", `Name the shape. All ${whos.length.toLocaleString("en-US")} of them, or just the original 151.`,
+    "whos-that-pokemon"],
+  ["guess-the-set.html", "Card scans", "Guess the Set", `A real card, four sets, one right answer. ${setNames.length} sets in the pot.`,
+    "guess-the-set"],
+  ["pokemon-trivia.html", "Quiz", "Pokemon Trivia", `${shuffled.length.toLocaleString("en-US")} questions, all generated from real Pokedex and card data.`,
+    "pokemon-trivia"],
 ];
+
+/**
+ * Styles for the hub's pictures only. Inline, per the note on `extraCss`.
+ *
+ * THE SHOTS KEEP THEIR OWN SHAPE rather than being cropped to a common box.
+ * They are between 0.61 and 0.73 wide-to-tall because that is what a game built
+ * for one thumb on a phone looks like, and forcing them all through an
+ * `object-fit: cover` window would cut the answer buttons off three of the four
+ * and turn the picture into a detail shot of the thing you are supposed to be
+ * choosing between. Width and height are on every img, so nothing reflows while
+ * they load even though the four heights differ.
+ */
+// A CARD WITH A SHOT IS TWO COLUMNS, not a picture stacked over the text, and
+// that is a measured decision rather than a taste one. Full width was tried
+// first and it is the better looking of the two: the shot draws 312px on a
+// phone and every one of them is properly legible. It also took the hub from
+// 2,996px tall to 6,383px at 390x844, which is six screens to choose between
+// four games, on the one page whose entire premise is somebody standing in a
+// queue with a couple of minutes. At 143px the shots still say what each game
+// looks like, which is all the reader is here for, and the page comes back to
+// roughly what it was.
+const HUB_CSS = `
+.g-shot{display:block;margin:0;border:2px solid var(--ink);border-radius:10px;
+  overflow:hidden;background:var(--page);line-height:0}
+.g-shot img{display:block;width:100%;height:auto}
+.g-card.has-shot{display:grid;grid-template-columns:min(46%,190px) 1fr;
+  column-gap:var(--s4);align-items:start}
+/* The shot sits beside all three text rows. Named lines would be tidier, but
+   a span survives a fourth line being added to the card and a fixed 1 / 4
+   does not. */
+.g-card.has-shot .g-shot{grid-column:1;grid-row:1 / span 3}
+.g-card.has-shot .g-tag,.g-card.has-shot h2,.g-card.has-shot p{grid-column:2}
+/* A grid item stretches its cell, so the tag pill ran the full width of the
+   text column and stopped reading as a pill. It is inline-block everywhere
+   else on the site and this puts it back. */
+.g-card.has-shot .g-tag{justify-self:start}
+.g-icon{display:block;margin:0 0 12px}
+.g-icon img{display:block;width:56px;height:56px;border-radius:13px;
+  border:1px solid var(--hair);background:var(--card)}`;
 
 const hub = shell({
   slug: "",
@@ -348,6 +841,7 @@ const hub = shell({
     "Built for the twenty minutes you spend waiting to get to the counter. One thumb, no sign up, nothing to install, " +
     "and nothing lost if the line moves and you have to stop.",
   ld: [crumb(null)],
+  extraCss: HUB_CSS,
   body: `<section class="tight">
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / Games</p>
@@ -360,7 +854,10 @@ const hub = shell({
         // with an h2, so the hub was the odd one out.
         // `.g-card h2` in public/assets/games.css carries the same declaration
         // `.g-card h3` did, so this renders identically.
-        ([href, tag, name, blurb]) => `<a class="g-card" href="/games/${href}">
+        ([href, tag, name, blurb, shotKey], i) => `<a class="g-card${
+          gameShots[shotKey] ? " has-shot" : ""
+        }" href="/games/${href}">
+        ${gameShot(shotKey, i === 0)}
         <span class="g-tag">${esc(tag)}</span>
         <h2>${esc(name)}</h2>
         <p>${esc(blurb)}</p>
@@ -373,19 +870,30 @@ const hub = shell({
       goes into one of them.</p>
     <div class="g-list">
       <a class="g-card" href="/tcg-live.html">
+        ${appIconTile("live")}
         <span class="g-tag">Official</span>
         <h2>Pokemon TCG Live</h2>
         <p>The full card game, same rules as the cards in your hand. It is where the code card from a booster pack
           gets redeemed, and what that code actually gives you is not what most people assume.</p>
       </a>
       <a class="g-card" href="/tcg-pocket.html">
+        ${appIconTile("pocket")}
         <span class="g-tag">Official</span>
         <h2>Pokemon TCG Pocket</h2>
         <p>The casual one, and the easier place to learn: shorter matches on a deliberately simplified ruleset, so what
           it teaches you carries over only so far. Your pack codes do not work here.</p>
       </a>
     </div>
-    <p class="price-note" style="margin-top:var(--s5)">Your best scores are saved on this device only. There is no
+    <p class="price-note" style="margin-top:var(--s5)">${
+      Object.keys(gameShots).length
+        ? `The four pictures above are screenshots of these games running in a browser at phone width, taken from these
+      pages, not mock ups. The question in each one is whatever came up. `
+        : ""
+    }${
+      appShots.live && appShots.pocket
+        ? `The two app icons are from each app's own App Store listing. `
+        : ""
+    }Your best scores are saved on this device only. There is no
       account and no leaderboard, because the site is a set of static files with nowhere to store one.
       Pokedex data from pokeapi.co, read ${esc(longDate(dex.checked) || dex.checked)}. Card scans from TCGdex.
       Pokemon and all Pokemon names are trademarks of The Pokemon Company. This is fan content.</p>
@@ -395,6 +903,55 @@ const hub = shell({
 await writeFile(join(OUT, "index.html"), hub);
 
 // --- Who's That Pokemon ----------------------------------------------------
+//
+// THE LADDER IS WHAT THE TWO MODE BUTTONS MEAN. The page offers "the original
+// 151" and "all 1,025" and never says what the difference is beyond the count,
+// which makes the second button a number rather than a decision. Nine
+// generations is the actual answer, and the shape of them is not what most
+// people expect: generation 5 is bigger than generation 1, and generation 6 is
+// less than half of it.
+//
+// Counted here, from the same data/pokedex.json the game itself is built from,
+// so the bars cannot disagree with the pool.
+const genCounts = [];
+for (const p of pokemon) genCounts[p.gen] = (genCounts[p.gen] || 0) + 1;
+const gens = genCounts.map((n, i) => ({ gen: i, n })).filter((g) => g.gen > 0);
+const genMax = Math.max(...gens.map((g) => g.n));
+/**
+ * The ladder, drawn. One bar per generation, labelled with its own count, and
+ * generation 1 marked because it is the other button.
+ *
+ * A viewBox and no width, so it scales to the column: the figure's CSS caps it
+ * at 520px and lets it shrink to a 350px phone without a media query. Every
+ * number in it is `gens`, so nothing here is typed.
+ */
+const BAR_W = 46;
+const BAR_GAP = 6;
+const LADDER_H = 150;
+const genLadder = `<svg viewBox="0 0 ${gens.length * (BAR_W + BAR_GAP)} 218" role="img"
+  aria-label="Bar chart of Pokemon species per generation: ${gens
+    .map((g) => `generation ${g.gen}, ${g.n}`)
+    .join("; ")}. Generation 1 is the 151 pool.">
+  ${gens
+    .map((g, i) => {
+      const h = Math.round((g.n / genMax) * LADDER_H);
+      const x = i * (BAR_W + BAR_GAP);
+      const y = 24 + (LADDER_H - h);
+      return `<rect x="${x}" y="${y}" width="${BAR_W}" height="${h}" rx="4" fill="${
+        g.gen === 1 ? "#F5A62B" : "#616A4F"
+      }" stroke="#1E2419" stroke-width="2"/>
+  <text x="${x + BAR_W / 2}" y="${y - 6}" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="13" font-weight="700" fill="#1E2419">${g.n}</text>
+  <text x="${x + BAR_W / 2}" y="${24 + LADDER_H + 18}" text-anchor="middle" font-family="ui-monospace,monospace"
+    font-size="12" font-weight="700" fill="#1E2419">${g.gen}</text>`;
+    })
+    .join("\n  ")}
+  <!-- The axis word sat at x=0 y=196, level with the tick labels, and ran
+       straight through the "2" under the second bar. It gets its own line. -->
+  <text x="${(gens.length * (BAR_W + BAR_GAP) - BAR_GAP) / 2}" y="212" text-anchor="middle"
+    font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#4A5140">generation</text>
+</svg>`;
+
 const whosPage = shell({
   slug: "whos-that-pokemon.html",
   compact: true,
@@ -404,6 +961,57 @@ const whosPage = shell({
   kicker: "Silhouettes &bull; 151 or all of them",
   lede: "Four answers, one shape. Get it wrong and the name comes up so you learn it. Your streak is saved on this device.",
   ld: [crumb("Who's That Pokemon?")],
+  extraCss: TEACH_CSS,
+  extra: `<section class="band tight">
+  <div class="wrap">
+    <h2>What the two buttons actually <span class="hl">change</span></h2>
+    <p class="lede" style="max-width:44em">The original 151 is generation 1, all of it and nothing else. The other
+      button opens the pool to nine generations, and they are not the same size as each other. Generation 5 is the
+      biggest one there has ever been, bigger than the 151 everybody knows, and generation 6 is less than half of it.
+      Turn it on and most of what you are shown will be a shape you have never had to name.</p>
+
+    <figure class="tq-fig">
+      ${genLadder}
+      <figcaption>Species per generation, counted from the National Pokedex read
+        ${esc(longDate(dex.checked) || dex.checked)} at pokeapi.co. Gold is the 151 pool.
+        ${(dex.count || whos.length).toLocaleString("en-US")} species in total.</figcaption>
+    </figure>
+
+    ${silhouetteDemo(145)}
+
+    <div class="tq-grid">
+      <div class="tq-card">
+        <h3>How the shape is made</h3>
+        <p>There is no second set of images. The game takes the official artwork, which has a transparent background,
+          and crushes every pixel in it to black while leaving the transparency alone. That is exactly a silhouette,
+          and getting the answer is what lifts it back off.</p>
+        <span class="tq-eg">brightness(0), one CSS filter, one file</span>
+      </div>
+      <div class="tq-card">
+        <h3>Why a card scan would not work</h3>
+        <p>A card is a rectangle with a border, so the silhouette of a card is a rectangle. This is the one game here
+          that cannot use the card corpus the rest of the site runs on, which is why it borrows the Pokedex instead.</p>
+        <span class="tq-eg">artwork from pokeapi.co, credited below the game</span>
+      </div>
+      <div class="tq-card">
+        <h3>What it is training</h3>
+        <p>Outline only: no colour, no pattern, no type. Most of what makes a Pokemon recognisable on a card is thrown
+          away, which is why a shape you would know instantly in colour can take a moment here.</p>
+        <span class="tq-eg">wrong answers show the name, so a miss still teaches you one</span>
+      </div>
+    </div>
+
+    <h2 style="margin-top:var(--s6)">Once you know the <span class="hl">name</span></h2>
+    <p class="lede" style="max-width:44em">Naming it is the easy half. These pages are what the name is worth once
+      a card with that Pokemon on it turns up in a pack.</p>
+    <ul class="tq-links">
+      <li><a href="/pokemon/">The card Pokedex by Pokemon</a></li>
+      <li><a href="/cards.html">Every card the channel has pulled</a></li>
+      <li><a href="/lore.html">Where these Pokemon come from</a></li>
+      <li><a href="/games/pokemon-trivia.html">Trivia, same Pokedex</a></li>
+    </ul>
+  </div>
+</section>`,
   body: `<section class="tight">
   <div class="wrap">
     <div id="game"></div>
@@ -450,7 +1058,13 @@ const whosPage = shell({
     start();
   }
   function start(){
-    GR.Quiz({key:'gr.whos'+(gen1?'.151':'.all'),mount:document.getElementById('game'),
+    /* TEAR THE OLD ONE DOWN. This called GR.Quiz over the top of the running
+       game, which left the previous one alive: measured over CDP, five presses
+       of these two buttons left five document keydown listeners, and pressing
+       one 40 seconds into a sprint threw the run away with the clock, the score
+       and the interval still running. See destroy() in games.js. */
+    if(quiz) quiz.destroy();
+    quiz=GR.Quiz({key:'gr.whos'+(gen1?'.151':'.all'),mount:document.getElementById('game'),
       next:build, preload:function(q){return q._art;}});
   }
 
@@ -479,9 +1093,14 @@ const setPage = shell({
     "A real card off the shelf. Work it out from the frame, the symbol and the era. This is the skill that makes you " +
     "quick at sorting a bulk box, and it is the one people are surprised they can learn.",
   ld: [crumb("Guess the Set")],
+  extraCss: TEACH_CSS,
   body: `<section class="tight">
   <div class="wrap">
     <div id="game" class="g-cards"></div>
+    <div class="btn-row" style="justify-content:center;margin-bottom:var(--s5)">
+      <button class="btn btn-sm" type="button" id="mAny" aria-pressed="true">Any era</button>
+      <button class="btn btn-sm" type="button" id="mEra" aria-pressed="false">Same era</button>
+    </div>
     <p class="crumbs"><a href="/">Home</a> / <a href="/games/">Games</a> / Guess the Set</p>
     <p class="price-note" style="margin-top:var(--s5)">${quizCards.length.toLocaleString("en-US")} cards from
       ${setNames.length} English sets, sampled across each set's numbering so it is not all commons.
@@ -489,25 +1108,152 @@ const setPage = shell({
       Fan content, not affiliated with The Pokemon Company.</p>
   </div>
 </section>`,
+  extra: `<section class="band tight">
+  <div class="wrap">
+    <h2>Where the answer is <span class="hl">printed</span></h2>
+    <p class="lede" style="max-width:44em">Every card tells you its set twice, in two marks the size of a fingernail.
+      One is the number after the slash. The other is the symbol beside it, and that is the one this game is really
+      asking about. Both live along the bottom edge, and the corner they live in changed once.</p>
+
+    <figure class="tq-fig">
+      <!-- PORTRAIT, AND THAT IS NOT A DETAIL. The first draft drew two 180x152
+           boxes, which is a landscape card, in a diagram whose entire subject is
+           where on a card two marks sit. 130x182 is 0.714, against a real card's
+           63x88mm, or 0.716.
+           The two marks: a disc for the symbol and a slash number beside it.
+           THE LEFT CARD IS BOTTOM RIGHT AND THE RIGHT CARD IS BOTTOM LEFT. Both
+           sat inside the left card on the first draft, so the drawing showed one
+           card wearing the mark twice and one wearing it nowhere, which is the
+           exact opposite of what the caption underneath it said. A diagram is
+           worth having only if somebody checks it against its own claim. -->
+      <svg viewBox="0 0 480 232" role="img"
+        aria-label="Two card outlines, both portrait. On the left, a card up to the XY era, with the collector number and the set symbol together in the bottom right corner. On the right, a card from Sun and Moon onward, with the number and symbol moved to the bottom left.">
+        <g fill="none" stroke="#1E2419" stroke-width="3">
+          <rect x="60" y="10" width="130" height="182" rx="8"/>
+          <rect x="290" y="10" width="130" height="182" rx="8"/>
+        </g>
+        <g fill="#1E2419" opacity=".1">
+          <rect x="70" y="20" width="110" height="96" rx="5"/>
+          <rect x="300" y="20" width="110" height="96" rx="5"/>
+        </g>
+        <g fill="#1E2419" opacity=".18">
+          <rect x="70" y="126" width="110" height="7" rx="3.5"/>
+          <rect x="70" y="140" width="86" height="7" rx="3.5"/>
+          <rect x="300" y="126" width="110" height="7" rx="3.5"/>
+          <rect x="300" y="140" width="86" height="7" rx="3.5"/>
+        </g>
+        <g>
+          <circle cx="174" cy="174" r="8" fill="#F5A62B" stroke="#1E2419" stroke-width="2.5"/>
+          <text x="158" y="178" text-anchor="end" font-family="ui-monospace,monospace" font-size="11"
+            font-weight="700" fill="#1E2419">25/198</text>
+          <circle cx="306" cy="174" r="8" fill="#F5A62B" stroke="#1E2419" stroke-width="2.5"/>
+          <text x="322" y="178" font-family="ui-monospace,monospace" font-size="11"
+            font-weight="700" fill="#1E2419">25/198</text>
+        </g>
+        <g font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#1E2419">
+          <text x="125" y="220" text-anchor="middle">up to XY, 2016</text>
+          <text x="355" y="220" text-anchor="middle">Sun &amp; Moon on, 2017</text>
+        </g>
+      </svg>
+      <figcaption>Drawn, not a scan. The corner is the only thing that moved: the number and the symbol have always
+        sat together along the bottom edge. See <a href="/what-set.html">what set is my card from</a> for the full
+        index by number.</figcaption>
+    </figure>
+
+    <h2 style="margin-top:var(--s6)">The ${eras.length} eras in the <span class="hl">pot</span></h2>
+    <p class="lede" style="max-width:44em">These are the symbols you are being asked to tell apart, one per era, oldest
+      first. The mark shown is the one the era opened with. Set the game to <b>Same era</b> and all four answers come
+      from the same block below, which takes the card frame out of it and leaves you nothing but the symbol.</p>
+    <ul class="tq-eras">
+      ${eras
+        .map(
+          (e) => `<li class="tq-era">${symbolCell(e.symbolOf)}
+        <span><b>${esc(e.label)}</b><span>${e.from ? (e.from === e.to ? e.from : `${e.from} to ${e.to}`) : "date not in the set list"}</span></span>
+        <em>${e.sets} ${e.sets === 1 ? "set" : "sets"}<br>${e.cards.toLocaleString("en-US")} cards</em></li>`,
+        )
+        .join("\n      ")}
+    </ul>
+    <p class="price-note" style="margin-top:var(--s4)">Symbols mirrored from the Pokemon TCG API by
+      scripts/sync-symbols.mjs. Era names, dates and set counts are read from the same expansion list
+      <a href="/expansions.html">/expansions.html</a> is built from, and the card counts are this quiz's own pot.${
+        eras.some((e) => !e.from)
+          ? " An era with no dates is one the expansion list holds no entry for, so none are printed rather than guessed."
+          : ""
+      }${
+        setMeta.some((m) => !m.year)
+          ? (() => {
+              const n = setMeta.filter((m) => !m.year).length;
+              return ` ${n} of the ${setNames.length} sets in the pot ${n === 1 ? "is" : "are"} not in that list at all,
+      so ${n === 1 ? "it takes its" : "they take their"} era from the series code in ${n === 1 ? "its" : "their"} own
+      image path and carr${n === 1 ? "ies" : "y"} no year.`;
+            })()
+          : ""
+      }</p>
+
+    <h2 style="margin-top:var(--s6)">Once you can do <span class="hl">this</span></h2>
+    <p class="lede" style="max-width:44em">Reading a set off a card is the first half of sorting a box. These are the
+      pages that pick it up from there.</p>
+    <ul class="tq-links">
+      <li><a href="/what-set.html">What set is my card from</a></li>
+      <li><a href="/rarity.html">Reading the rarity symbol</a></li>
+      <li><a href="/expansions.html">Every English set in order</a></li>
+      <li><a href="/sets/">The set guides</a></li>
+      <li><a href="/cards.html">The card Pokedex</a></li>
+    </ul>
+  </div>
+</section>`,
   extraJs: `<script>
 (function(){
-  var sets=[], cards=[];
+  var sets=[], cards=[], setEra=[], eras=[], byEra=[], minPool=6, quiz=null, sameEra=false;
+
+  /* THE DISTRACTOR POOL FOR ONE SET IN SAME ERA MODE.
+     Its own era first, widened one era outward at a time until there are at
+     least minPool candidates. Widening is what keeps the two-set and one-set
+     eras playable: without it, Gym could only ever offer its own two sets and
+     the question would have three slots and two answers to fill them with. */
+  function poolFor(a){
+    if(!sameEra) return sets;
+    var at=setEra[a], lo=at, hi=at, out=byEra[at].slice();
+    while(out.length<minPool+1 && (lo>0 || hi<byEra.length-1)){
+      if(lo>0){ lo--; out=out.concat(byEra[lo]); }
+      if(out.length<minPool+1 && hi<byEra.length-1){ hi++; out=out.concat(byEra[hi]); }
+    }
+    return out.map(function(i){return sets[i];});
+  }
+
   function build(){
     var c=GR.pick(cards);
-    var wrong=GR.distractors(sets,3,sets[c[1]],function(x){return x;});
-    var choices=GR.shuffle([sets[c[1]]].concat(wrong)).map(function(s){return {label:s};});
+    var name=sets[c[1]];
+    var wrong=GR.distractors(poolFor(c[1]),3,name,function(x){return x;});
+    var choices=GR.shuffle([name].concat(wrong)).map(function(s){return {label:s};});
     var answer=0;
-    for(var i=0;i<choices.length;i++) if(choices[i].label===sets[c[1]]) answer=i;
+    for(var i=0;i<choices.length;i++) if(choices[i].label===name) answer=i;
     // high.webp, not low: the set symbol is the whole point and it is
     // unreadable at the 245px thumbnail size used elsewhere on the site.
     var src=c[0]+'/high.webp';
     return {stage:'<div class="gq-card"><img src="'+src+'" alt="A Pokemon card. Name its set." width="600" height="825"></div>',
       choices:choices,answer:answer,note:c[2]+'.',_art:src};
   }
+
+  function setMode(era){
+    sameEra=era;
+    document.getElementById('mAny').setAttribute('aria-pressed',String(!era));
+    document.getElementById('mEra').setAttribute('aria-pressed',String(era));
+    // Tear the old game down first. It holds a document keydown listener and,
+    // if a sprint is running, an interval and an unbanked score. See the note
+    // on destroy() in games.js.
+    if(quiz) quiz.destroy();
+    quiz=GR.Quiz({key:'gr.setquiz'+(era?'.era':''),mount:document.getElementById('game'),
+      next:build, preload:function(q){return q._art;}});
+  }
+
   fetch('/data/games/setquiz.json').then(function(r){return r.json();}).then(function(d){
-    sets=d.sets; cards=d.cards;
-    GR.Quiz({key:'gr.setquiz',mount:document.getElementById('game'),next:build,
-      preload:function(q){return q._art;}});
+    sets=d.sets; cards=d.cards; setEra=d.setEra||[]; eras=d.eras||[]; minPool=d.minEraPool||6;
+    byEra=eras.map(function(){return [];});
+    for(var i=0;i<setEra.length;i++) if(byEra[setEra[i]]) byEra[setEra[i]].push(i);
+    document.getElementById('mAny').addEventListener('click',function(){setMode(false);});
+    document.getElementById('mEra').addEventListener('click',function(){setMode(true);});
+    setMode(false);
   }).catch(function(){
     document.getElementById('game').innerHTML='<p class="price-note">Could not load the card list. Check your connection and reload.</p>';
   });
@@ -535,6 +1281,57 @@ const triviaPage = shell({
     "Types, evolutions, Legendaries and the official categories, which are stranger than you remember. Every question " +
     "is generated from the National Pokedex rather than written from memory, so none of it is somebody's half remembered fact.",
   ld: [crumb("Pokemon Trivia")],
+  extraCss: TEACH_CSS,
+  extra: `<section class="band tight">
+  <div class="wrap">
+    <h2>Where the questions come <span class="hl">from</span></h2>
+    <p class="lede" style="max-width:44em">There are five generators and no typed facts. Each one reads a single field
+      off the National Pokedex and turns every Pokemon that has that field into a question, which is how
+      ${shuffled.length.toLocaleString("en-US")} of them exist without anybody writing any. It also means an answer here
+      is wrong only if the Pokedex is wrong, and you can go and check.</p>
+
+    <figure class="tq-fig">
+      ${mixBar}
+      <figcaption>${catOrder
+        .map((c) => `${esc(CAT_LABEL[c])} ${((catCount[c] / shuffled.length) * 100).toFixed(1)}%`)
+        .join(" &middot; ")}<br>The mix of the ${shuffled.length.toLocaleString("en-US")} questions in the bank, and
+        the mix a run gets: the game picks from it at random.</figcaption>
+    </figure>
+
+    <div class="tq-grid">
+      ${catOrder
+        .map(
+          (c) => `<div class="tq-card">
+        <h3>${esc(CAT_LABEL[c])}</h3>
+        <p>${CAT_WHY[c]}</p>
+        <span class="tq-eg">${catCount[c].toLocaleString("en-US")} questions, from the
+          <b>${esc(CAT_FIELD[c])}</b> field<br>&ldquo;${esc(catExample[c][0])}&rdquo;</span>
+      </div>`,
+        )
+        .join("\n      ")}
+    </div>
+
+    <h2 style="margin-top:var(--s6)">The categories are the <span class="hl">good</span> bit</h2>
+    <p class="lede" style="max-width:44em">Nearly half the bank is the official one word category, because it is the
+      one nobody knows and it is frequently ridiculous. These four are real, and two of them are why this channel is
+      called what it is.</p>
+    <ul class="tq-dex">
+      ${dexRow([568, 569, 225, 442])}
+    </ul>
+    <p class="price-note" style="margin-top:var(--s4)">Categories, types, evolutions, Legendary flags and weights all
+      read from pokeapi.co on ${esc(longDate(dex.checked) || dex.checked)}. Artwork mirrored from the PokeAPI sprite
+      repository. There is nothing here about how rare anything is, because the Pokedex does not say and neither
+      does this site.</p>
+
+    <h2 style="margin-top:var(--s6)">Same data, other <span class="hl">pages</span></h2>
+    <ul class="tq-links">
+      <li><a href="/games/whos-that-pokemon.html">Who's That Pokemon</a></li>
+      <li><a href="/pokemon/">The card Pokedex by Pokemon</a></li>
+      <li><a href="/types.html">Type matchups</a></li>
+      <li><a href="/lore.html">Pokemon lore</a></li>
+    </ul>
+  </div>
+</section>`,
   body: `<section class="tight">
   <div class="wrap">
     <div id="game"></div>
@@ -569,4 +1366,17 @@ await writeFile(join(OUT, "pokemon-trivia.html"), triviaPage);
 console.log(`Wrote public/games/ (4 pages)`);
 console.log(`  Who's That Pokemon: ${whos.length} species, ${whos.filter((w) => w[0] <= 151).length} in the 151 pool`);
 console.log(`  Guess the Set: ${quizCards.length} cards across ${setNames.length} sets (min ${MIN_PER_SET} per set)`);
+// The era table, printed because it is the one thing here nothing else checks.
+// A set whose symbol never mirrored, or an era the expansion list has no dates
+// for, shows up as a gap in this list and nowhere else.
+console.log(`    ${eras.length} eras, oldest first (Same era mode widens to >= ${MIN_ERA_POOL} sets):`);
+for (const e of eras) {
+  console.log(
+    `      ${String(e.code).padEnd(6)} ${String(e.sets).padStart(2)} sets  ${String(e.cards).padStart(4)} cards  ` +
+      `${e.from ? `${e.from}-${e.to}` : "NO DATE".padEnd(9)}  ${e.symbolOf === null ? "NO SYMBOL  " : "           "}${e.label}`,
+  );
+}
 console.log(`  Trivia: ${shuffled.length} questions from ${trivia.length} generated`);
+for (const c of catOrder) {
+  console.log(`      ${c.padEnd(10)} ${String(catCount[c]).padStart(4)}  ${((catCount[c] * 100) / shuffled.length).toFixed(1)}%`);
+}
