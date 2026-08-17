@@ -245,11 +245,18 @@ outbound change is that the Subscribe already in the footer got a NAME and a
 REASON instead of being a bare 44px glyph, which is the first exception being
 done properly rather than a new one being invented.
 
-SO THE COUNT IS STILL FIVE. If a later editor is asked for the same thing again,
-the lever is a MORE RELEVANT VIDEO IN A BETTER PLACE, not another link: a rip of
-a set that prints this card beats a "latest videos" rail, and both beat a
-sticky bar. Page families with nothing to watch are listed under "Current state"
-and that is where the next win is, not in this section.
+SO THE COUNT IS STILL SIX, which is the count the section above this one leaves
+it at, and the commercial goal did not add a seventh. If a later editor is asked
+for the same thing again, the lever is a MORE RELEVANT VIDEO IN A BETTER PLACE,
+not another link: a rip of a set that prints this card beats a "latest videos"
+rail, and both beat a sticky bar. Page families with nothing to watch are listed
+under "Which pages have something to watch" and that is where the next win is,
+not in this section.
+
+THE POINTER ABOVE IS WRITTEN AS A SECTION NAME RATHER THAN A NUMBER ON PURPOSE.
+This paragraph was drafted while the count was five and a second agent added the
+sixth in the same hour, which is exactly how the numbers in this file go stale.
+Name the argument, not its index.
 
 A playlist with zero videos does not render at all. Two exist on the channel
 and were showing as cards reading "0 videos" whose only action was a link to
@@ -959,6 +966,14 @@ rehearsed on a throwaway copy of the tree.
   name a ticker, a card tilt and a card flip, none of which exist any more.
   Check the page before writing a rule about it.
 - Keep page weight low; images are pre-compressed in assets/.
+- **A SINGLE `font-weight` IN NEW CSS CAN COST MORE THAN THE FEATURE IT STYLES.**
+  The drops band's channel label was written `font:400 ... var(--mono)`. Every
+  other Space Mono on the home page is 700, so that one declaration fetched a
+  second weight file, 9.4KB and an extra request above the fold, against 1.3KB
+  for the whole band's markup. Nothing looked wrong: the markup, the CSS and the
+  render were all correct. It was found by diffing the REQUEST LOG against the
+  same page with the band stripped out, which is the only place it appears.
+  Check the weights already on a page before adding a declaration to it.
 - **THE HOME PAGE HAS NO RUNTIME PROBLEM AND A REPORT OF ONE SHOULD BE MET WITH
   A MEASUREMENT FIRST.** Chased 16 August 2026 after "lags and loads slowly on
   desktop", swept at 1280x800, 1440x900 and 1920x1080 at DPR 1 and 2 in headless
