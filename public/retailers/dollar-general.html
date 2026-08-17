@@ -22,7 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=17b9bdb3">
+<link rel="stylesheet" href="/assets/ui.css?v=31305258">
 <style>.rt-lede{max-width:46em}
 .rt-key{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:var(--chrome-ink);
 padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
@@ -70,6 +70,14 @@ line-height:1.5;color:var(--ink-2);max-width:56ch}
 .rt-fig{margin:var(--s4) 0 var(--s5);border:3px solid var(--navy);border-radius:12px;
 background:var(--card);box-shadow:var(--hard-lg);padding:var(--s4)}
 .rt-fig figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s4);max-width:52ch}
+.rt-fmts{list-style:none;margin:0;padding:0;display:grid;
+grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--s3)}
+.rt-fmts li{display:grid;grid-template-columns:75px minmax(0,1fr);gap:12px;align-items:center}
+.rt-shot{grid-row:span 2;width:75px;height:75px;object-fit:contain;border-radius:var(--r-sm);
+background:var(--paper-2);box-shadow:inset 0 0 0 1px var(--hair)}
+.rt-fmt-n{font:700 var(--t-sm)/1.25 var(--body);color:var(--ink);align-self:end}
+.rt-fmt-p{font:400 var(--t-micro)/1.35 var(--mono);color:var(--ink-2);align-self:start;
+overflow-wrap:anywhere}
 .bch{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s3)}
 .bch li{display:flex;flex-direction:column;gap:5px}
 .bch-h{display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap}
@@ -255,6 +263,20 @@ gap:var(--s4) var(--s5);align-items:start}
       <section class="rt-grp">
         <h2>What they <span class="hl">stock</span></h2>
         <p class="rt-note"><b>Small sealed only, so packs, blisters and tins rather than boxes.</b> Small sealed and repackaged formats: single packs, mini tins, three-booster tins, Poke Ball tins, a mini portfolio with a booster in it. Nothing box sized appeared on their site.</p>
+      <figure class="rt-fig rt-fmt">
+        <ul class="rt-fmts">
+          <li>
+            <img class="rt-shot" src="https://tcgplayer-cdn.tcgplayer.com/product/593457_150w.jpg"
+              alt="Prismatic Evolutions Mini Tin [Flareon], sealed" loading="lazy" decoding="async"
+              referrerpolicy="no-referrer" onerror="this.closest('li').remove()">
+            <span class="rt-fmt-n">Mini tin</span>
+            <span class="rt-fmt-p">pictured: Prismatic Evolutions Mini Tin [Flareon]</span>
+          </li>
+        </ul>
+        <figcaption>The sealed formats Dollar General listed a price for on their own site, one photograph of each. The box in a picture is one product of that format and not the one on the shelf in front of you: the
+          artwork changes with every set and the shape does not. What each format is supposed to cost is on
+          <a href="/msrp.html">the MSRP page</a>.</figcaption>
+      </figure>
       </section>
 
       <section class="rt-grp">
@@ -430,7 +452,7 @@ gap:var(--s4) var(--s5);align-items:start}
     </div>
     <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
     <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
-    Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+    Product photos are TCGplayer's, used to identify the sealed formats written about here. Each one is a photograph of the format rather than of the box on a shelf near you.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
 <script src="/assets/app.js?v=4cc7bcef" defer></script>

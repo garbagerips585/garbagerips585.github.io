@@ -22,7 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=17b9bdb3">
+<link rel="stylesheet" href="/assets/ui.css?v=31305258">
 <style>
 .gc-lede{max-width:46em}
 .gc-sec{margin-top:var(--s6)}
@@ -124,6 +124,38 @@
 .lad-svg .ct-band{opacity:.5}
 .lad-svg .ct-win{opacity:.09}
 .lad figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s4);max-width:52ch}
+/* THE SPREAD FIGURE, and it is on the page background rather than inside a
+   panel, so its tokens are the page ones and not the chrome ones .sg uses.
+   Getting that backwards paints --chrome-ink, which is #F5F4F0, onto near
+   white. Read which background a figure lands on before picking a token.
+
+   TYPE IS 9 VIEWBOX UNITS. The figure box is 312px at 390x844 against a 300
+   unit box, so 9 lands at about 9.4 rendered pixels, which is the floor. Do not
+   go below it here: the row labels are the only way to tell a front row from a
+   back one. */
+.sp{margin:var(--s5) 0;border:3px solid var(--navy);border-radius:12px;background:var(--card);
+  box-shadow:var(--hard-lg);padding:var(--s4)}
+.sp-svg{display:block;width:100%;max-width:560px;height:auto}
+.sp-g{font:700 9px var(--mono);fill:var(--ink)}
+.sp-f{font:400 9px var(--mono);fill:var(--ink-2)}
+.sp-h{font:700 8px var(--mono);fill:var(--ink-2);letter-spacing:.04em}
+.sp-a{font:700 9px var(--mono);fill:var(--ink-2)}
+.sp-p{font:700 9px var(--mono);fill:var(--ketchup-deep)}
+.sp-t{stroke:var(--ink);stroke-width:1;opacity:.12}
+/* The row rule runs the full axis whether or not anything is on it, so a row
+   with nothing published is visibly a row with nothing on it rather than a gap
+   in the figure. */
+.sp-r{stroke:var(--hair);stroke-width:1}
+.sp-d{fill:var(--ink)}
+.sp figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s4);max-width:52ch}
+.sp figcaption b{color:var(--ink)}
+/* Caption beside the drawing on desktop, the same move .lad and .sg make and
+   for the same reason: the svg is capped at 560px however wide the page gets. */
+@media(min-width:1000px){
+  .sp{display:flex;gap:var(--s6);align-items:flex-start}
+  .sp-svg{flex:0 0 auto;width:560px}
+  .sp figcaption{margin-top:0;flex:1;min-width:0}
+}
 .gc-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
 @media(max-width:880px){.gc-cards{grid-template-columns:1fr}}
 .gc-c{border:3px solid var(--navy);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
@@ -145,6 +177,38 @@
 .gc-ex li{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:baseline;font-size:var(--t-sm);
   padding:10px var(--s3);background:rgba(255,255,255,.07);border-radius:8px}
 .gc-ex b{font:700 var(--t-m)/1 var(--body);color:var(--mustard)}
+/* THE SUBGRADE FIGURE, and every colour in here is a chrome token because it is
+   the only drawing on this site that sits INSIDE a filled dark panel. .gc-key is
+   background:var(--navy), and --navy resolves to #111111. So do --ketchup,
+   --keyline and --ink. Reaching for any of the four the other figures on this
+   page use, or for --ink-2 at #5B5B5B, paints a mark that is either invisible or
+   nearly so, and nothing errors. The argument is carried by three SHAPES, a
+   filled dot, a dashed rule and a solid rule, so the figure still reads with
+   every fill in this block set to one value. */
+.sg{margin:var(--s4) 0 0}
+.sg-svg{display:block;width:100%;max-width:520px;height:auto}
+.sg-base{stroke:var(--chrome-dim);stroke-width:1;opacity:.6}
+.sg-grid{stroke:var(--chrome-ink);stroke-width:1;opacity:.12}
+.sg-ax{fill:var(--chrome-dim);font:700 10px/1 var(--mono);text-anchor:middle}
+.sg-key{fill:var(--chrome-dim);font:400 10px/1 var(--mono)}
+.sg-dot{fill:var(--chrome-ink)}
+/* The lowest component is a RING rather than a brighter dot. It is the one mark
+   the heading above the panel is about, it has to survive a reader who cannot
+   tell two greys apart, and a ring reads as "this one" at 4px where a tint does
+   not. */
+.sg-worst{fill:none;stroke:var(--chrome-ink);stroke-width:2}
+.sg-mean{stroke:var(--chrome-dim);stroke-width:1.5;stroke-dasharray:5 3}
+.sg-final{stroke:var(--mustard);stroke-width:2.5}
+.sg-num{fill:var(--mustard);font:700 12px/1 var(--mono);text-anchor:middle}
+.sg figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--foot-ink);margin-top:var(--s3);max-width:52ch}
+/* Same move as .lad below: the drawing is a fixed 520px however wide the page
+   gets, so stacked it leaves most of the panel empty with the explanation under
+   the fold of the figure. */
+@media(min-width:1000px){
+  .sg{display:flex;gap:var(--s6);align-items:flex-start}
+  .sg-svg{flex:0 0 auto;width:520px}
+  .sg figcaption{margin-top:0;flex:1;min-width:0}
+}
 .gc-list{margin:0 0 0 var(--s4);max-width:46em;line-height:1.55}
 .gc-list li{margin-bottom:var(--s3)}
 .gc-def{margin:0;max-width:48em}
@@ -324,6 +388,52 @@
           <li>Centering 9.5, Corners 9.5, Edges 8.5, Surface 9 <b>= 9</b></li>
           <li>Centering 10, Corners 6, Edges 10, Surface 10 <b>= 7</b></li>
         </ul>
+        <figure class="sg">
+          <svg viewBox="0 0 300 212" class="sg-svg" role="img"
+               aria-label="The three worked examples on one grade axis. Components 9.5, 9.5, 9, 8, average 9, grade returned 8.5. Components 9.5, 9.5, 8.5, 9, average 9.125, grade returned 9. Components 10, 6, 10, 10, average 9, grade returned 7. In every one the grade sits below the average and beside the lowest component.">
+            
+            <circle cx="5" cy="5.5" r="3.6" class="sg-dot"/>
+            <text x="13" y="9" class="sg-key">One component</text>
+            <line x1="96" y1="0" x2="96" y2="11" class="sg-mean"/>
+            <text x="104" y="9" class="sg-key">The average</text>
+            <line x1="180" y1="0" x2="180" y2="11" class="sg-final"/>
+            <text x="188" y="9" class="sg-key">The grade</text>
+            <line x1="44.0" y1="26" x2="44.0" y2="208" class="sg-grid"/>
+            <text x="44.0" y="22" class="sg-ax">6</text>
+            <line x1="100.0" y1="26" x2="100.0" y2="208" class="sg-grid"/>
+            <text x="100.0" y="22" class="sg-ax">7</text>
+            <line x1="156.0" y1="26" x2="156.0" y2="208" class="sg-grid"/>
+            <text x="156.0" y="22" class="sg-ax">8</text>
+            <line x1="212.0" y1="26" x2="212.0" y2="208" class="sg-grid"/>
+            <text x="212.0" y="22" class="sg-ax">9</text>
+            <line x1="268.0" y1="26" x2="268.0" y2="208" class="sg-grid"/>
+            <text x="268.0" y="22" class="sg-ax">10</text>
+      <line x1="44" y1="68" x2="268" y2="68" class="sg-base"/>
+      <circle cx="240.0" cy="59.0" r="3.6" class="sg-dot"/><circle cx="240.0" cy="50.0" r="3.6" class="sg-dot"/><circle cx="212.0" cy="59.0" r="3.6" class="sg-dot"/><circle cx="156.0" cy="59.0" r="4.6" class="sg-worst"/>
+      <line x1="212.0" y1="36" x2="212.0" y2="72" class="sg-mean"/>
+      <line x1="184.0" y1="36" x2="184.0" y2="77" class="sg-final"/>
+      <text x="184.0" y="89" class="sg-num">8.5</text>
+      <line x1="44" y1="126" x2="268" y2="126" class="sg-base"/>
+      <circle cx="240.0" cy="117.0" r="3.6" class="sg-dot"/><circle cx="240.0" cy="108.0" r="3.6" class="sg-dot"/><circle cx="184.0" cy="117.0" r="4.6" class="sg-worst"/><circle cx="212.0" cy="117.0" r="3.6" class="sg-dot"/>
+      <line x1="219.0" y1="94" x2="219.0" y2="130" class="sg-mean"/>
+      <line x1="212.0" y1="94" x2="212.0" y2="135" class="sg-final"/>
+      <text x="212.0" y="147" class="sg-num">9</text>
+      <line x1="44" y1="184" x2="268" y2="184" class="sg-base"/>
+      <circle cx="268.0" cy="175.0" r="3.6" class="sg-dot"/><circle cx="44.0" cy="175.0" r="4.6" class="sg-worst"/><circle cx="268.0" cy="166.0" r="3.6" class="sg-dot"/><circle cx="268.0" cy="157.0" r="3.6" class="sg-dot"/>
+      <line x1="212.0" y1="152" x2="212.0" y2="188" class="sg-mean"/>
+      <line x1="100.0" y1="152" x2="100.0" y2="193" class="sg-final"/>
+      <text x="100.0" y="205" class="sg-num">7</text>
+          </svg>
+          <figcaption>The three examples above, in the same order, on one axis running 6 to 10. The dashed
+            line is the average of the four components, which is the sum a reader does in their head and is
+            not how the grade is worked out. The solid line is the grade Beckett's own example says comes
+            back. The averages are 9, 9.125, 9, which is
+            nearly the same card three times. The grades are 8.5, 9, 7. In every
+            row the grade sits at or above the ringed dot, which is the lowest of the four, and below the
+            dashed line. The bottom row is the one to look at: three of its four
+            components are a perfect 10 and it still comes back a 7.</figcaption>
+        </figure>
+        
         
         
         <p style="margin-top:var(--s3)">Three perfect attributes and one bad one is a bad card. That third example is a card that is perfect on three of four criteria and comes back a 7. When you are checking your own card, you are not looking for how good it is. You are looking for the worst thing on it, because that is the only number that matters.</p>
@@ -451,6 +561,79 @@
           and the back may be about 90/10, which is why the
           section above says almost nobody checks the back. Numbers are PSA's own, from the table above;
           the drawing adds nothing to them except scale.</figcaption>
+      </figure>
+      <figure class="sp">
+        <svg viewBox="0 0 300 246" class="sp-svg" role="img"
+             aria-label="The five companies' published centering, front and back, at each grade. Pristine 10 front: 50/50 from 3, 51/49 from 1, 4 of 5 publishing. Gem Mint 10 front: 55/45 from 5, 5 of 5 publishing. Mint 9 front: 55/45 from 1, 60/40 from 4, 5 of 5 publishing. Near Mint-Mint 8 front: 60/40 from 1, 65/35 from 4, 5 of 5 publishing. Near Mint 7 front: 65/35 from 1, 70/30 from 4, 5 of 5 publishing. Pristine 10 back: 52/48 from 1, 55/45 from 1, 2 of 5 publishing. Gem Mint 10 back: 60/40 from 1, 65/35 from 1, 75/25 from 2, 4 of 5 publishing. Mint 9 back: 70/30 from 1, 75/25 from 1, 90/10 from 2, 4 of 5 publishing. Near Mint-Mint 8 back: 80/20 from 1, 90/10 from 1, 95/5 from 1, 3 of 5 publishing. Near Mint 7 back: 90/10 from 2, 2 of 5 publishing.">
+          <text class="sp-h" x="118" y="9">off centre, worse to the right</text>
+          <text class="sp-h" x="300" y="9" text-anchor="end">publishing</text>
+          <line class="sp-t" x1="118.0" y1="16" x2="118.0" y2="242"/>
+          <text class="sp-a" x="118.0" y="22" text-anchor="middle">50/50</text>
+          <line class="sp-t" x1="150.0" y1="16" x2="150.0" y2="242"/>
+          <text class="sp-a" x="150.0" y="22" text-anchor="middle">60/40</text>
+          <line class="sp-t" x1="182.0" y1="16" x2="182.0" y2="242"/>
+          <text class="sp-a" x="182.0" y="22" text-anchor="middle">70/30</text>
+          <line class="sp-t" x1="214.0" y1="16" x2="214.0" y2="242"/>
+          <text class="sp-a" x="214.0" y="22" text-anchor="middle">80/20</text>
+          <line class="sp-t" x1="246.0" y1="16" x2="246.0" y2="242"/>
+          <text class="sp-a" x="246.0" y="22" text-anchor="middle">90/10</text>
+            <text class="sp-g" x="0" y="38.5">Pristine 10</text>
+            <text class="sp-f" x="76" y="38.5">front</text>
+            <line class="sp-r" x1="118" y1="35.5" x2="262" y2="35.5"/>
+            <circle cx="118.0" cy="35.5" r="5.2" class="sp-d"/><circle cx="121.2" cy="35.5" r="3.4" class="sp-d"/>
+            <text class="sp-p" x="300" y="38.5" text-anchor="end">4/5</text>
+            
+            <text class="sp-f" x="76" y="57.5">back</text>
+            <line class="sp-r" x1="118" y1="54.5" x2="262" y2="54.5"/>
+            <circle cx="124.4" cy="54.5" r="3.4" class="sp-d"/><circle cx="134.0" cy="54.5" r="3.4" class="sp-d"/>
+            <text class="sp-p" x="300" y="57.5" text-anchor="end">2/5</text>
+            <text class="sp-g" x="0" y="82.5">Gem Mint 10</text>
+            <text class="sp-f" x="76" y="82.5">front</text>
+            <line class="sp-r" x1="118" y1="79.5" x2="262" y2="79.5"/>
+            <circle cx="134.0" cy="79.5" r="7.0" class="sp-d"/>
+            <text class="sp-p" x="300" y="82.5" text-anchor="end">5/5</text>
+            
+            <text class="sp-f" x="76" y="101.5">back</text>
+            <line class="sp-r" x1="118" y1="98.5" x2="262" y2="98.5"/>
+            <circle cx="150.0" cy="98.5" r="3.4" class="sp-d"/><circle cx="166.0" cy="98.5" r="3.4" class="sp-d"/><circle cx="198.0" cy="98.5" r="4.3" class="sp-d"/>
+            <text class="sp-p" x="300" y="101.5" text-anchor="end">4/5</text>
+            <text class="sp-g" x="0" y="126.5">Mint 9</text>
+            <text class="sp-f" x="76" y="126.5">front</text>
+            <line class="sp-r" x1="118" y1="123.5" x2="262" y2="123.5"/>
+            <circle cx="134.0" cy="123.5" r="3.4" class="sp-d"/><circle cx="150.0" cy="123.5" r="6.1" class="sp-d"/>
+            <text class="sp-p" x="300" y="126.5" text-anchor="end">5/5</text>
+            
+            <text class="sp-f" x="76" y="145.5">back</text>
+            <line class="sp-r" x1="118" y1="142.5" x2="262" y2="142.5"/>
+            <circle cx="182.0" cy="142.5" r="3.4" class="sp-d"/><circle cx="198.0" cy="142.5" r="3.4" class="sp-d"/><circle cx="246.0" cy="142.5" r="4.3" class="sp-d"/>
+            <text class="sp-p" x="300" y="145.5" text-anchor="end">4/5</text>
+            <text class="sp-g" x="0" y="170.5">Near Mint-Mint 8</text>
+            <text class="sp-f" x="76" y="170.5">front</text>
+            <line class="sp-r" x1="118" y1="167.5" x2="262" y2="167.5"/>
+            <circle cx="150.0" cy="167.5" r="3.4" class="sp-d"/><circle cx="166.0" cy="167.5" r="6.1" class="sp-d"/>
+            <text class="sp-p" x="300" y="170.5" text-anchor="end">5/5</text>
+            
+            <text class="sp-f" x="76" y="189.5">back</text>
+            <line class="sp-r" x1="118" y1="186.5" x2="262" y2="186.5"/>
+            <circle cx="214.0" cy="186.5" r="3.4" class="sp-d"/><circle cx="246.0" cy="186.5" r="3.4" class="sp-d"/><circle cx="262.0" cy="186.5" r="3.4" class="sp-d"/>
+            <text class="sp-p" x="300" y="189.5" text-anchor="end">3/5</text>
+            <text class="sp-g" x="0" y="214.5">Near Mint 7</text>
+            <text class="sp-f" x="76" y="214.5">front</text>
+            <line class="sp-r" x1="118" y1="211.5" x2="262" y2="211.5"/>
+            <circle cx="166.0" cy="211.5" r="3.4" class="sp-d"/><circle cx="182.0" cy="211.5" r="6.1" class="sp-d"/>
+            <text class="sp-p" x="300" y="214.5" text-anchor="end">5/5</text>
+            
+            <text class="sp-f" x="76" y="233.5">back</text>
+            <line class="sp-r" x1="118" y1="230.5" x2="262" y2="230.5"/>
+            <circle cx="246.0" cy="230.5" r="4.3" class="sp-d"/>
+            <text class="sp-p" x="300" y="233.5" text-anchor="end">2/5</text>
+        </svg>
+        <figcaption>The same 50 cells as the two tables, on one axis, so they can be seen at once. A bigger dot is more
+          companies landing on the same number, and a back row sits to the right of the front row above
+          it because the back standard is looser. On the <b>front</b> they mostly agree: at Gem Mint 10 all
+          5 publish 55/45, the same
+          number. At 3 more grades 4 agree and Beckett (BGS) alone is one step stricter. The <b>back</b> is where they scatter, and the right-hand column is how many published a
+          number at all: 10 of the 25 back cells are not published by anybody.</figcaption>
       </figure>
         <p class="gc-in"><b>PSA gives itself room, and tells you so.</b> A 5% leeway is given to the front centering minimum standards for cards which grade PSA 7 or better.
           PSA gives its own example: a card meeting every other requirement for a 9 and measuring 60/40 off center on the front automatically meets the front centering standard for a 9. <a class="gc-s" href="https://www.psacard.com/gradingstandards" aria-label="Source: PSA centering standards and leeway" rel="noopener" target="_blank">Source</a></p>

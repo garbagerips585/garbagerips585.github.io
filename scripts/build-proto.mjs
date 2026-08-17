@@ -25,6 +25,13 @@ import {
   dropsClock, expiresOn as dropExpiresOn, isPerishable, splitByExpiry, isStale,
   homeBandRows, CONF_LABEL, CLIENT_DAY_JS,
 } from "../shared/drops.mjs";
+// The retailer marks, from the same module and the same mirrored files
+// /drops.html, /buying.html, /selling.html and /retailers.html use. Extending
+// that is the whole point: a second way of drawing a shop's logo is how the
+// home band and the page it links to end up looking like two different
+// features. BRAND_STYLE_MIN rather than BRAND_STYLE because this band can only
+// ever draw one company mark per row; see the note on it in shared/brands.mjs.
+import { brandMark, BRAND_STYLE_MIN } from "../shared/brands.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // The live home page and the prototype share one design and one generator, so
@@ -1069,19 +1076,44 @@ const plHtml = playlists.filter((p) => (p.count || 0) > 0).map(plTile).join("\n"
  * for: at 390x844 the Greatest Hits band alone is 1,656px tall, so anything
  * below it is two screens down and a reader who has to hunt for this week's
  * drops will not come back for them. What that costs is measured rather than
- * waved at: the band is 424px at 390 and 214px at 1440, so the "Greatest Hits"
- * heading moves from 367px to 791px on a phone and stays above the fold, and
- * the trophy artwork loses about two thirds of its first-screen showing. The
+ * waved at: the band is 630px at 390 and 288px at 1440, so the "Greatest Hits"
+ * heading sits at 802px on a phone and stays above the fold, and the trophy
+ * artwork loses about two thirds of its first-screen showing.
+ *
+ * RE-MEASURED 17 August 2026 WHEN THE RETAILER MARKS WENT IN, and the earlier
+ * figures here (424px band, heading at 791) no longer describe the page: the
+ * same harness reads 550 -> 630px and 722 -> 802px across that one change, so
+ * the band was already taller than this paragraph claimed before a mark was
+ * added. THE SECOND NUMBER IS THE LIVE CONSTRAINT: 802 of an 844px screen is
+ * 42px of margin, and the whole case for putting the band first is that the
+ * heading under it survives. Re-measure it after anything is added to a row,
+ * and do not trust the number written here without checking the date on it. The
  * trade is a strip of text against the top of one booster pack photo, on a page
  * that is 7,267px of the channel's own work either way. If a later editor
  * decides the channel must own the whole first screen, moving this below the
  * .hof section is a one line change in index.html; do not instead shrink it by
  * cutting the lede or the credit, which are the two things it must not lose.
  *
- * IT IS TEXT AND IT COSTS NO IMAGE BYTES. The home page is the heaviest on-load
- * page on the site and 84% of that is pack art, so a band that fetched anything
- * would have to justify itself against the artwork it pushed down. This one
- * adds HTML and nothing else.
+ * IT WAS TEXT AND IT COST NO IMAGE BYTES UNTIL 17 August 2026, when the three
+ * rows got the retailers' own marks. That paragraph is kept rather than deleted
+ * because the argument in it is still the one to answer before adding anything
+ * else here: the home page is the heaviest on-load page on the site and 84% of
+ * that is pack art, so a band that fetches anything has to justify itself
+ * against the artwork it pushes down.
+ *
+ * WHAT THE MARKS COST, measured on the built page with one harness, gzipped,
+ * cache off, the same band with and without them, and read off the REQUEST LOG
+ * rather than off the markup. The figures are in the "4. THIS WEEK'S DROPS
+ * BAND" comment beside the CSS below, because that is where somebody deciding
+ * whether to add a fourth thing will be reading. The short version is three SVG
+ * files, all mirrored locally, none of them hotlinked, and the whole set is
+ * smaller than one card scan.
+ *
+ * THEY ARE lazy AND THAT IS NOT A CONTRADICTION ABOVE THE FOLD. Chrome fetches
+ * a lazy image inside or near the viewport anyway, so the attribute costs
+ * nothing here; what it buys is that the marks queue behind the artwork rather
+ * than in front of it on a slow connection, which is the right order for a
+ * picture that only labels a row somebody is already reading.
  *
  * STALENESS IS THE WHOLE RISK AND IT IS WORSE HERE THAN ON /drops.html. "Be
  * ready for a possible drop today" sitting above the fold on the site's front
@@ -1142,8 +1174,19 @@ try {
       // data-expires and data-perish are the same contract /drops.html stamps
       // on its cards, read by the same predicates. A row with no data-perish is
       // never swept, here or there.
+      //
+      // THE MARK COMES FIRST AND THE CONFIDENCE CHIP STILL COMES LAST, WHICH IS
+      // /drops.html's OWN ORDER. Asked for in these words: "can we add the store
+      // logos to these announcements instead of just the box that says pattern
+      // only". The chip is not what was being complained about, it is what the
+      // row had INSTEAD of a logo, and it is the one thing on this band that
+      // must not move: `pattern` is the weakest tier the site has, it exists
+      // because no retailer publishes a restock schedule, and a row carrying a
+      // retailer's own mark looks more official than the same row in plain text.
+      // The logo is exactly the reason the hedge has to be louder, not quieter.
+      // If a layout change ever costs the chip its prominence, move the mark.
       return `        <li class="wdr"${dies ? ` data-expires="${esc(ex)}" data-perish="1"` : ""}>
-          <p class="wdr-top"><b>${esc(r.name)}</b><span class="wdr-ch">${
+          <p class="wdr-top">${brandMark(d.retailer, r.name)}<b>${esc(r.name)}</b><span class="wdr-ch">${
             d.channel === "store" ? "In store" : "Online"
           }</span><span class="wdr-cf">${esc(CONF_LABEL[d.confidence] || CONF_LABEL.expected)}</span></p>
           ${d.when ? `<p class="wdr-when">${esc(d.when)}</p>` : ""}
@@ -1222,7 +1265,7 @@ ${CLIENT_DAY_JS}
     <ul class="wdrop-list">
 ${picked.map(row).join("\n")}
     </ul>
-    <p class="wdrop-src">${credit || "Community restock trackers"}. Not a retailer speaking.</p>
+    <p class="wdrop-src">${credit || "Community restock trackers"}. Not a retailer speaking. Logos are the retailers&rsquo; own trademarks, here to name the shop and nothing more.</p>
   </div>
 </section>
 ${sweep}`;
@@ -1360,14 +1403,29 @@ ${sweep}`;
  */
 /* 4. THIS WEEK'S DROPS BAND.
  *
- * Text on paper with one keyline under it, no fill and no artwork. Three
- * reasons, and the first is the palette: this is black, white and gold on
- * purpose, so a tinted "alert" band is not available and would be the loudest
- * thing above the fold if it were. The second is weight: the home page is the
- * heaviest on-load page on the site and 84% of that is pack art, so a band that
- * asked for a single image would be paying in the one currency this page cannot
- * afford. The third is that the band's own content is a list of hedges, and a
- * shouty frame around a list of hedges is the page disagreeing with itself.
+ * Text on paper with one keyline under it, no fill, and ONE PICTURE PER ROW:
+ * the retailer's own mark. The palette argument still stands and still rules
+ * out a tinted "alert" band, this being black, white and gold on purpose; and
+ * the band's own content is a list of hedges, so a shouty frame around it would
+ * be the page disagreeing with itself. What changed on 17 August 2026 is the
+ * artwork rule, and it was asked for: "can we add the store logos to these
+ * announcements instead of just the box that says pattern only".
+ *
+ * THE MARKS ARE NOT A NEW SYSTEM. shared/brands.mjs and the 21 files
+ * scripts/sync-brands.mjs mirrors from Wikimedia Commons already dress
+ * /buying.html, /selling.html, /retailers.html and, in its retailer chip,
+ * /drops.html itself. The band draws the same box from the same module against
+ * the same manifest, so the front door and the page it links to are one feature
+ * seen twice rather than two features that happen to list the same shops. A
+ * retailer Commons has nothing for gets the site's hatched name tile, which is
+ * what a set with no logo already gets.
+ *
+ * THE CONFIDENCE CHIP DID NOT MOVE AND MUST NOT. Read the ask again: the row
+ * had the chip INSTEAD of a logo, not as well as one. `Pattern only` is the
+ * weakest tier the site has and its own key says no retailer publishes a
+ * restock schedule. A row carrying a retailer's mark reads as more official
+ * than the same row in plain text, so the hedge is worth MORE next to a logo,
+ * not less. If a layout change ever squeezes the chip, move the mark.
  *
  * ONE COLUMN UNDER 900px, THREE ABOVE. The rows are 40 to 130 characters of
  * prose, so a phone gets them stacked and full width; at 900 the wrap is wide
@@ -1375,12 +1433,31 @@ ${sweep}`;
  * than a fourth of the page. 900 rather than 1000 because the rows are text and
  * have none of the artwork-width problem the carousels have at that boundary.
  *
- * MEASURED, gzipped, cache off, against the built page: the band adds 1.4KB to
- * the document at 390 and 1.4KB at 1440, and fetches nothing. Height 424px at
- * 390x844 and 214px at 1440x900.
+ * WHAT THE MARKS COST, and this is the number to argue with before adding a
+ * fourth thing to this band. Measured with one harness, gzipped the way the
+ * host serves, cache off, the same tree with and without them, and the mark
+ * files read off the REQUEST LOG rather than off the markup:
+ *
+ *                          on-load           fully scrolled    band height
+ *      390x844  DPR 2   354.0 -> 360.6KB    934.6 -> 941.1KB    550 -> 630px
+ *      1440x900 DPR 1   439.8 -> 446.4KB   1798.0 -> 1804.6KB   265 -> 288px
+ *
+ * Three requests, at every width: pokemon-center.svg 2,878B, walmart.svg
+ * 2,174B, target.svg 401B over the wire, 5.3KB the set. The document itself
+ * went 15,632 to 16,929 bytes gzipped, which is the markup, this block of CSS
+ * and BRAND_STYLE_MIN together. So +6.6KB on load, 1.9% of a phone's, against
+ * 84% of that page still being pack art.
+ *
+ * THE ONE FIGURE TO WATCH IS NOT THE BYTES, IT IS 802. The "Greatest Hits"
+ * heading sits at y=802 of an 844px phone screen now, where it sat at 722, and
+ * the whole case for putting this band first is that the heading under it stays
+ * above the fold. 42px of margin is what is left. A fourth row, a taller mark
+ * box or one more line of lede spends it. The 96px width cap on .wdr .bmk below
+ * is what keeps a two line row from becoming three.
  *
  * Nothing here transitions, animates or transforms, so there is no
- * prefers-reduced-motion case: the band is the same object at both settings.
+ * prefers-reduced-motion case: the band is the same object at both settings,
+ * verified under an emulated reduce with the marks decoding.
  */
 const homeCss = `<style>.hofx-art .play{opacity:.95}
 /* The heading is ui.css's own .brk, the same object "Latest rips" and "Card
@@ -1396,6 +1473,31 @@ const homeCss = `<style>.hofx-art .play{opacity:.95}
 .wdr{border-left:3px solid var(--keyline);padding-left:var(--s3);min-width:0}
 .wdr-top{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s2)}
 .wdr-top b{font:700 var(--t-label)/1.1 var(--body);letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
+/* THE RETAILER MARK. shared/brands.mjs's box, the same one /drops.html draws in
+   its retailer chip, so the band and the page it links to are visibly one
+   feature rather than two takes on the same list. */
+${BRAND_STYLE_MIN}
+/* A SHORTER BOX THAN THE 34px ONE THE LONG PAGES USE, and it is the only thing
+   about the mark this band changes. A drops card on /drops.html is 3px of
+   keyline around 200px of prose and the chip is its heading; a band row here is
+   four lines of text against a hairline, at a third of the width on a desktop,
+   and 34px of logo is then the tallest thing in the row. 26px keeps the mark
+   the second thing the eye lands on rather than the first, which is the correct
+   order for a row that is somebody's guess about a shop.
+
+   THE WIDTH CAP IS WHAT KEEPS THE CONFIDENCE CHIP WHERE IT IS. At 390 the row
+   has 326px to spend. 96px of mark leaves the retailer name beside it and puts
+   the channel and the chip together on the second line, directly under the
+   logo, at the size they already were. A 124px cap pushes the name onto its own
+   line and strands the chip two lines below the mark it is hedging. */
+.wdr .bmk{height:26px;min-width:44px;max-width:96px;padding:3px 7px;gap:8px}
+/* THE NAME TILE IS THE ONE THING ALLOWED TO BE TALLER, because it holds words
+   rather than a drawing and 26px of fixed height clips the second line of one
+   silently. No retailer in data/drops.json needs it today, every one of the six
+   resolves to a mirrored mark; this is here so that adding a seventh that
+   Commons has nothing for costs the band a slightly uneven row instead of half
+   a word. Clipping is the failure mode that looks intentional. */
+.wdr .bmk-n{height:auto;min-height:26px}
 /* 700, NOT 400, AND IT IS WORTH 9.4KB ABOVE THE FOLD. Every other Space Mono on
    this page is bold, so a single 400 declaration here fetched a second weight
    file, space-mono-Xi4EwQ.woff2, that nothing else on the home page wanted:

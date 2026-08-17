@@ -3565,14 +3565,16 @@ inherited from the UA default, so the promotion moves nothing on screen. */
    .hofx and the carousel are the same object at two sizes, one hit and the
    next few, and stacking them cost 2,105px of band to say that. Side by side
    they say it in one screen and the band finally uses its own width.
-   The trophy keeps the LARGER share (a fixed 460 to 520 against whatever is
-   left) because it being the smallest thing on the page is a bug this file has
-   already fixed once, and a fluid fr would hand it back the moment the window
-   grew. At 1440 that is a 464px pack against 380px ones, which reads as a rank
-   rather than as an accident. .hof-head spans both so the heading still runs
-   the full width. align-items:start, not stretch: the two columns are
-   different heights by design and stretching the trophy would blow its art up
-   to match.
+   THIS PARAGRAPH SAID THE TROPHY KEEPS THE LARGER SHARE, "a fixed 460 to 520
+   against whatever is left", because it being the smallest thing on the page
+   is a bug this file has already fixed once and a fluid fr would hand it back
+   the moment the window grew. It also said "align-items:start, not stretch:
+   the two columns are different heights by design". BOTH OF THOSE ARE WHAT
+   TIM REPORTED AS WONKY ON 17 AUGUST 2026 and both are corrected below, with
+   the measurements, at the rules that replace them. The reasoning is kept here
+   because it is still half right: rank is real and the trophy must not end up
+   the smallest pack in its own band. It is the SIZING that was wrong, not the
+   goal. .hof-head still spans both so the heading runs the full width.
 
    1200 IS THE FLOOR AND IT IS NOT ROUND FOR NOTHING. Below it the right column
    is under 660px, so the two cards in it drop past 300px wide, which is
@@ -3580,16 +3582,132 @@ inherited from the UA default, so the promotion moves nothing on screen. */
    videos by making all three smaller than the phone does is not a better desktop
    layout. Under 1200 the trophy stays stacked above the row exactly as before,
    and only the Latest band's slide count changes. */
+/* THE COLUMN IS DERIVED NOW RATHER THAN PICKED, AND TWO PICKED NUMBERS ARE
+   WHAT MADE THE BAND RAGGED. 460 and 520 were chosen for the trophy's share of
+   the band, and a share is not a size: the trophy's artwork is its column less
+   its own frame, a slide's artwork is HALF of what is left less a different
+   frame, and no pair of fixed numbers makes those two agree. Measured at 1500
+   before this, which is the width Tim was looking at:
+
+       trophy art 464px wide     slide art 408px wide      spread 56px
+       trophy card ends y=1435   slide cards end y=1366.7  spread 68.3px
+       trophy caption y=1290.4   slide captions y=1198.8   spread 91.6px
+
+   Three sizes of pack, three bottom edges, and nothing on a horizontal line.
+   The caption spread is the same fault seen further down: art carries the
+   card's height with it, so a bigger pack pushes its own text lower, and the
+   trophy's title, set, views and CTA ended up at the foot of a tall card while
+   its neighbours' sat directly under their artwork.
+
+   SO SOLVE FOR THE COLUMN INSTEAD OF NAMING IT. Let W be this grid's content
+   width and take every box on the way in from the computed styles rather than
+   from memory:
+
+       column gap  var(--s6)                track gap   var(--s4)
+       trophy      4px border + var(--s5) padding, both sides
+       slide hero  1px border + var(--s4) padding, both sides
+
+       trophy art = L - 2(4px) - 2(var(--s5))
+       slide art  = (W - var(--s6) - L - var(--s4)) / 2 - 2(1px) - 2(var(--s4))
+
+   Setting those equal gives 3L = W - var(--s6) - 5(var(--s4)) + 4(var(--s5))
+   + 12px, which is the calc below written term for term so that moving a
+   spacing token moves the column with it. At today's tokens it lands on
+   (W - 4px) / 3. It is CONTINUOUS, so all three packs are one width at every
+   desktop width rather than at the two the old numbers happened to suit, and
+   the separate min-width:1400 step it replaces is gone.
+
+   WHAT IT COSTS THE TROPHY AND WHAT IT BUYS THE SLIDES, measured:
+
+       viewport    W       trophy art        slide art
+         1280    1232    404 -> 353.3      328 -> 353.3
+         1440    1392    464 -> 406.7      378 -> 406.7
+         1500+   1452    464 -> 426.7      408 -> 426.7
+
+   The trophy gives up 37 to 51px and every slide gains 25 to 27, so the
+   SMALLEST pack in the band grows at every desktop width. That is the test the
+   paragraph above cares about and it passes: equal is not smaller. Rank is
+   carried by the gold frame, the ribbon, the caption and first position, which
+   is where a rank belongs, and the trophy's CARD is still the widest of the
+   three because a framed card holds more furniture than a plain one.
+
+   AND IT IS KINDER AT THE FLOOR, which is the opposite of what "fluid column"
+   sounds like. The 1200 paragraph above worries about the two right-hand cards
+   dropping under the 366px card a 390px phone gets. They already had: at 1200
+   the picked numbers gave a 322px card holding 288px of art. Derived, that
+   same width gives 360.7px and 326.7px. Nothing here moves the 1200 floor. */
 @media(min-width:1200px){
-  .hof .wrap{display:grid;grid-template-columns:minmax(0,460px) minmax(0,1fr);
-    gap:var(--s6);align-items:start}
+  .hof .wrap{display:grid;
+    grid-template-columns:minmax(0,calc((100% - var(--s6) - 5 * var(--s4) + 4 * var(--s5) + 12px) / 3)) minmax(0,1fr);
+    gap:var(--s6);
+    /* stretch, NOT start, and the sentence this replaces is quoted above.
+       "The two columns are different heights by design" IS the complaint: it
+       is what leaves a dark void under the two carousel cards and the trophy
+       hanging below them. What start was really protecting against is real and
+       is handled on .hofx one rule down instead, where it belongs. */
+    align-items:stretch}
   .hof-head{grid-column:1/-1}
   /* max-width goes, margin stops auto-centring: the column is the cap now.
-     The top margin stays because .hofx-tag hangs 16px above the frame. */
-  .hofx{max-width:none;margin:var(--s5) 0 0}
+     The top margin stays because .hofx-tag hangs 16px above the frame.
+     align-content:start IS WHAT MAKES STRETCHING SAFE and it is the answer to
+     the old comment's fear that stretching would blow the artwork up. .hofx is
+     a grid of two auto rows; a stretched grid container hands its spare height
+     to those rows, and with align-items:center that would open a band of air
+     between the pack and its caption. Pinned to start, the rows keep their
+     content size, the caption stays directly under the artwork exactly as the
+     two cards beside it do, and the leftover falls below the CTA as frame. */
+  .hofx{max-width:none;margin:var(--s5) 0 0;align-content:start}
+  /* THE PAGER'S OWN BLOCK, MIRRORED UNDER THE TROPHY. .vcar-bar is a child of
+     .vcar, so the grid row sizes to include it, and without this the two hero
+     cards would finish 56px above the trophy's bottom edge: the same ragged
+     bottom as before, 12px better. 56 is the bar's margin (var(--s3)) plus a
+     .vcar-nav (44px). Reserving the same strip under the trophy puts all three
+     card bottoms on one line and leaves the pager sitting opposite empty band
+     rather than beside a card edge.
+     :has(.vcar:not(.is-static)) because packplayer.js hides the bar when the
+     whole run already fits, and holding 56px for a display:none control would
+     push the trophy 56px ABOVE its neighbours instead: the same fault mirrored.
+     A browser with no :has() support simply drops this line and gets the old
+     behaviour, which is the right way for it to fail. With JS off .is-static
+     never lands and the bar is genuinely there, so that case is the same. */
+  .hof .wrap:has(.vcar:not(.is-static)) .hofx{margin-bottom:calc(44px + var(--s3))}
+  /* THE THREE PACKS START ON ONE LINE. Equal artwork is not enough on its own:
+     the trophy's art begins 52px below the row top (var(--s5) margin, 4px
+     border, var(--s5) padding) and a slide's begins 17px below it (1px border,
+     var(--s4) padding), so the packs were still 35px out of register. The
+     carousel takes that difference as a top margin rather than the trophy
+     giving up its margin, because the margin is what keeps .hofx-tag clear.
+     The frame's own top edge therefore sits 24px above the two plain cards,
+     which is correct: it is a frame with a ribbon hanging off it. */
+  .hof .vcar{margin-top:calc(var(--s5) + 4px + var(--s5) - var(--s4) - 1px);
+    display:flex;flex-direction:column;flex:1 1 auto;min-height:0}
+  /* ...AND THEY END ON ONE LINE TOO. The track fills whatever height the row
+     settles on, the slide fills the track, the card fills the slide. Whichever
+     of the three cards is tallest sets the line and the other two meet it.
+     min-height:0 because .vcar-track is a scroll container: a flex item that
+     refuses to shrink below its content cannot be given a height at all. */
+  .hof .vcar-track{flex:1 1 auto;min-height:0}
+  .hof .vcar-slide{display:flex}
+  /* align-content:start for the same reason .hofx has it, one rule up: .hero
+     is also a two row grid with align-items:center, so a stretched one would
+     float its artwork and its caption apart instead of keeping the caption
+     under the pack. */
+  .hof .vcar .hero{flex:1 1 auto;min-width:0;align-content:start}
   /* .shelf bleeds to the screen edge with negative margins so a full width row
-     reads as continuing. In a column it would just hang into the gap. */
-  .hof .shelf{margin:0;padding-inline:0;min-width:0}
+     reads as continuing. In a column it would just hang into the gap.
+     AND .shelf IS THE GRID ITEM, NOT .vcar, WHICH IS WHERE THE HEIGHT CHAIN
+     BROKE. The carousel is wrapped in one, so stretching the row stretched the
+     shelf and left .vcar sitting at its natural height inside it, 8px shy of
+     the trophy. A column flex hands the height on; .vcar takes it with flex
+     one rule down. Two rules further up the file, .shelf:has(.vcar) sets
+     display:block for exactly this element, and this wins only by being later
+     in the file at equal specificity, which is the same footing .vcar-bar's
+     override two hundred lines down already stands on.
+     THE 8px WAS THE SHELF'S OWN padding-bottom, a gutter under a scrolling row
+     of tiles. .shelf:has(.vcar) already turns overflow off and zeroes the
+     inline padding for a carousel, so the block padding is the leftover of the
+     same idea and it was landing as a straight 8px of ragged bottom. */
+  .hof .shelf{margin:0;padding:0;min-width:0;display:flex;flex-direction:column}
   /* EXACTLY TWO, not a fraction, and this one band is the exception to the
      rule three rules up. The Hall of Fame carousel holds however many graded
      hits are left after the trophy takes the best one, which is TWO today. A
@@ -3601,9 +3719,17 @@ inherited from the UA default, so the promotion moves nothing on screen. */
      comes back on its own. */
   .hof .vcar-slide{flex:0 0 calc((100% - var(--s4)) / 2)}
 }
-@media(min-width:1400px){
-  .hof .wrap{grid-template-columns:minmax(0,520px) minmax(0,1fr)}
-}
+/* THERE WAS A min-width:1400 STEP HERE and it is deliberately gone rather than
+   overlooked. It read .hof .wrap{grid-template-columns:minmax(0,520px)
+   minmax(0,1fr)} and it existed to widen the trophy's fixed share at the top
+   of the range. The derived column above is continuous, so a second fixed
+   number can only fight it: at 1400 the step would have pinned 520px where the
+   formula asks for 450.7px and put the three packs back to three sizes over
+   exactly the widths Tim was looking at. Do not reinstate it.
+   NOTE THAT THIS IS NOT THE CAROUSEL'S 1400 STEP, which is a different rule
+   about a different thing and is untouched. .vcar-slide still goes 2.35 / 2.75
+   / 3.3 at 1000 / 1200 / 1400 to hold the artwork still on the bands that are
+   not this one, and .hof still overrides that with exactly 2. */
 
 /* MOST WANTED FILLS ITS ROW TOO. Six 168px tiles in a 1,392px shelf left 264px
    of trailing nothing and made the six cards the page is actively hunting the

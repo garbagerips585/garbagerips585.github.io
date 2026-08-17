@@ -313,6 +313,428 @@ ${LADDER.map(
           the drawing adds nothing to them except scale.</figcaption>
       </figure>`;
 
+// ============================================================================
+// THE SUBGRADE ARITHMETIC, and it is the one figure on this page that draws an
+// argument rather than a shape.
+//
+// The panel at the top of the page is the most useful thing on it: your WORST
+// component decides the grade, and the final number is not an average. It says
+// that in five rules and then prints three worked examples as text, which is
+// the strongest evidence on the page and the least visible. "Centering 9.5,
+// Corners 9.5, Edges 9, Surface 8 = 8.5" is a sentence a reader has to do
+// arithmetic on to disbelieve their own assumption.
+//
+// WHAT THE PICTURE ADDS, and it is a real finding rather than a restatement.
+// The three examples average 9.000, 9.125 and 9.000. They come back 8.5, 9 and
+// 7. Drawn on one axis the dashed average lines form an almost straight column
+// while the solid grade lines step away to the left, and the third row's grade
+// lands beside its lowest component with three 10s sitting untouched above it.
+// The claim "the overall grade is not an average" stops being something the
+// reader takes on trust and becomes something they can see in one look. Nothing
+// on the page states that the three averages are nearly identical, because it
+// is only visible once somebody works all three out.
+//
+// THE AVERAGE IS DRAWN EVEN THOUGH IT IS THE WRONG METHOD, and that is the
+// point of drawing it. It is the sum every reader does in their head, and a
+// figure that omitted it would be answering a question nobody asked. The
+// caption says in as many words that the dashed line is the guess and the solid
+// line is the answer.
+//
+// EVERY NUMBER IS PARSED OUT OF THE EXAMPLES IT DRAWS. The four component
+// scores come out of `sub`, the grade out of `final`, and the build throws with
+// the row and the text that is there now if either stops parsing. The two
+// derived numbers are the minimum and the mean, both plain arithmetic over the
+// four parsed scores and both shown in the caption so a reader can check them.
+// Same discipline as centeringDiagram above and the postage chart in
+// build-buying.mjs: this site does not publish a figure it cannot trace, and a
+// picture is a figure.
+//
+// THE ASSERTION THAT IS DELIBERATELY NOT MADE. `rules` contains both "the final
+// grade is at most about half a grade above the lowest subgrade" and "it rarely
+// if ever exceeds two levels above the lowest of the four", and the two
+// disagree. The third example is min 6 and final 7, which is a whole grade, so
+// asserting the half-grade rule would fail the build on Beckett's own worked
+// example. Only `final < mean` is asserted, which is the rule the figure is
+// about and the one all three rows keep.
+const CRIT = ["Centering", "Corners", "Edges", "Surface"];
+const SUBS = (d.subgrades.math.examples || []).map((e, i) => {
+  const pairs = [...String(e.sub || "").matchAll(/([A-Za-z]+)\s+(\d+(?:\.\d)?)/g)];
+  if (pairs.length !== CRIT.length) {
+    throw new Error(
+      `build-grade-check: the subgrade figure reads four "name score" pairs off ` +
+        `subgrades.math.examples[${i}].sub and found ${pairs.length}. It now reads: ` +
+        `${JSON.stringify(e.sub)}. Do not ship a picture drawing fewer components than the ` +
+        `sentence beside it lists: restore the sentence, or update the parse and the figure together.`
+    );
+  }
+  const names = pairs.map((p) => p[1]);
+  if (names.join(",") !== CRIT.join(",")) {
+    throw new Error(
+      `build-grade-check: subgrades.math.examples[${i}].sub names ${JSON.stringify(names)} and the ` +
+        `figure draws ${JSON.stringify(CRIT)}, which are the four Beckett publishes. A figure whose ` +
+        `axis is a different set of criteria from the data is not the same claim.`
+    );
+  }
+  const vals = pairs.map((p) => Number(p[2]));
+  const final = Number(e.final);
+  if (!vals.every((v) => v > 0 && v <= 10) || !(final > 0 && final <= 10)) {
+    throw new Error(
+      `build-grade-check: subgrades.math.examples[${i}] parsed to scores ${JSON.stringify(vals)} and ` +
+        `a grade of ${JSON.stringify(e.final)}. Everything here has to land on the 1 to 10 scale the ` +
+        `figure's axis draws.`
+    );
+  }
+  const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
+  const min = Math.min(...vals);
+  if (!(min <= final && final < mean)) {
+    throw new Error(
+      `build-grade-check: subgrades.math.examples[${i}] has a final grade of ${final} against a ` +
+        `lowest component of ${min} and an average of ${mean}. The figure's caption states that every ` +
+        `grade lands at or above the lowest component and below the average, which is rules[0] and ` +
+        `rules[1] together, and this row breaks it. Either the example changed or the rules did; do ` +
+        `not ship a picture making a claim its own rows disprove.`
+    );
+  }
+  return { vals, final, mean, min, text: e.sub };
+});
+if (SUBS.length < 2) {
+  throw new Error(
+    `build-grade-check: the subgrade figure needs at least two worked examples to compare and ` +
+      `subgrades.math.examples has ${SUBS.length}. One row is an anecdote, not a picture.`
+  );
+}
+
+/**
+ * Three examples on one grade axis: the four components, their average, the
+ * grade that came back.
+ *
+ * THE AXIS RUNS 6 TO 10 AND EVERY WHOLE GRADE ON IT IS TICKED AND NUMBERED.
+ * Every value in the data sits in that range, and drawn 1 to 10 the whole figure
+ * crushes into the right-hand third: half a grade, which is the difference the
+ * page is arguing about, becomes 12px. A truncated axis is a distortion only
+ * when the reader cannot see where it starts, so the start is drawn, labelled
+ * and repeated in the caption.
+ *
+ * THE MARKS ARE THREE SHAPES, NOT THREE COLOURS, and that is not a preference.
+ * --ketchup and --navy both resolve to #111111 in ui.css today, and this figure
+ * sits inside .gc-key, which is filled with --navy. A mark distinguished by hue
+ * would be a black mark on a black panel, which is the exact failure recorded at
+ * the top of CLAUDE.md. A stacked dot, a dashed rule and a solid rule with a
+ * flag under it stay legible with every fill in the file set to one value.
+ *
+ * DOTS STACK RATHER THAN OVERPRINT. Two of the three examples hold the same
+ * score twice and the third holds 10 three times, so a single mark per value
+ * would draw the third row as two components instead of four and quietly delete
+ * the "three perfect attributes" the paragraph under it depends on.
+ */
+const sgFig = () => {
+  const W = 300, X0 = 44, X1 = 268, G0 = 6, G1 = 10;
+  const ROW_H = 58, TOP = 34;
+  const H = TOP + SUBS.length * ROW_H + 4;
+  const x = (g) => X0 + ((g - G0) / (G1 - G0)) * (X1 - X0);
+  const ticks = [];
+  for (let g = G0; g <= G1; g++) ticks.push(g);
+  const rows = SUBS.map((s, i) => {
+    const top = TOP + i * ROW_H;
+    const base = top + 34;
+    // One stack per distinct score, in the order the sentence lists them.
+    const seen = new Map();
+    const dots = s.vals
+      .map((v) => {
+        const n = seen.get(v) || 0;
+        seen.set(v, n + 1);
+        const worst = v === s.min;
+        return `<circle cx="${x(v).toFixed(1)}" cy="${(base - 9 - n * 9).toFixed(1)}" r="${
+          worst ? 4.6 : 3.6
+        }" class="${worst ? "sg-worst" : "sg-dot"}"/>`;
+      })
+      .join("");
+    return `
+      <line x1="${X0}" y1="${base}" x2="${X1}" y2="${base}" class="sg-base"/>
+      ${dots}
+      <line x1="${x(s.mean).toFixed(1)}" y1="${top + 2}" x2="${x(s.mean).toFixed(1)}" y2="${base + 4}" class="sg-mean"/>
+      <line x1="${x(s.final).toFixed(1)}" y1="${top + 2}" x2="${x(s.final).toFixed(1)}" y2="${base + 9}" class="sg-final"/>
+      <text x="${x(s.final).toFixed(1)}" y="${base + 21}" class="sg-num">${s.final}</text>`;
+  }).join("");
+  return `        <figure class="sg">
+          <svg viewBox="0 0 ${W} ${H}" class="sg-svg" role="img"
+               aria-label="The three worked examples on one grade axis. ${SUBS.map(
+                 (s) =>
+                   `Components ${s.vals.join(", ")}, average ${(+s.mean.toFixed(3))}, grade returned ${s.final}`
+               ).join(". ")}. In every one the grade sits below the average and beside the lowest component.">
+            ${/* THE KEY IS LAID OUT BY HAND IN VIEWBOX UNITS AND THE NUMBERS
+                  BELOW ARE MEASURED, NOT GUESSED. SVG text neither wraps nor
+                  clips, so a label that outgrows its slot paints straight over
+                  the next marker and nothing errors. Space Mono advances 0.6em,
+                  so at 10px every character is 6.0px: "One component" is 78,
+                  "The average" 66, "The grade" 54, and the three groups end at
+                  85, 173 and 245 inside a 300 unit box. Re-measure if you
+                  reword one. */ ""}
+            <circle cx="5" cy="5.5" r="3.6" class="sg-dot"/>
+            <text x="13" y="9" class="sg-key">One component</text>
+            <line x1="96" y1="0" x2="96" y2="11" class="sg-mean"/>
+            <text x="104" y="9" class="sg-key">The average</text>
+            <line x1="180" y1="0" x2="180" y2="11" class="sg-final"/>
+            <text x="188" y="9" class="sg-key">The grade</text>
+            ${ticks
+              .map(
+                (g) =>
+                  `<line x1="${x(g).toFixed(1)}" y1="26" x2="${x(g).toFixed(1)}" y2="${H - 4}" class="sg-grid"/>
+            <text x="${x(g).toFixed(1)}" y="22" class="sg-ax">${g}</text>`
+              )
+              .join("\n            ")}${rows}
+          </svg>
+          <figcaption>The three examples above, in the same order, on one axis running 6 to 10. The dashed
+            line is the average of the four components, which is the sum a reader does in their head and is
+            not how the grade is worked out. The solid line is the grade Beckett's own example says comes
+            back. The averages are ${SUBS.map((s) => (+s.mean.toFixed(3)).toString()).join(", ")}, which is
+            nearly the same card three times. The grades are ${SUBS.map((s) => s.final).join(", ")}. In every
+            row the grade sits at or above the ringed dot, which is the lowest of the four, and below the
+            dashed line.${
+              /* THE LAST SENTENCE IS CONDITIONAL AND COUNTS ITS OWN TENS rather than asserting
+                 "three are perfect", which was typed in and would have gone quietly wrong the day
+                 the example changed. It is the sentence soWhat makes in prose directly below, so
+                 it is only worth drawing attention to while the row still supports it. */
+              (() => {
+                const last = SUBS[SUBS.length - 1];
+                const tens = last.vals.filter((v) => v === 10).length;
+                return tens >= 2
+                  ? ` The bottom row is the one to look at: ${NUM_WORD[tens] || tens} of its four
+            components are a perfect 10 and it still comes back a ${last.final}.`
+                  : "";
+              })()
+            }</figcaption>
+        </figure>`;
+};
+
+// ============================================================================
+// WHERE THE FIVE COMPANIES ACTUALLY PART COMPANY.
+//
+// The two tables hold fifty cells and a phone shows about half of one row at a
+// time: the comment above `table` records that they are 640px wide inside a
+// 360px box, so 280px of every row is off to the right. Everything a reader
+// could learn by looking at all fifty at once is therefore unavailable to most
+// of the people reading this page, and there are two things to learn.
+//
+// THE FIRST IS THE ONE THE SECTION ALREADY ARGUES. The front and the back are
+// different standards, and drawn on one axis the back rows sit bodily to the
+// right of the front rows above them. findings[0] says almost nobody checks the
+// back; this is why it matters.
+//
+// THE SECOND IS NOT STATED ANYWHERE AND IT IS THE REASON THIS FIGURE EXISTS. On
+// the FRONT these companies mostly agree. At Gem Mint 10 all five publish
+// 55/45, the same number; at the three grades below it four agree and Beckett
+// alone is one step stricter. It is the BACK where they scatter, three different
+// numbers at three grades, and it is the back where six of ten cells below Gem
+// Mint are not published at all. "The companies disagree" is true, and the
+// useful version is that they disagree about the face nobody looks at.
+//
+// SO THE DOT IS SIZED BY HOW MANY COMPANIES SHARE IT rather than stacked one
+// per company, and that choice is the whole figure. Stacked, the Gem Mint front
+// row is a column of five dots 40 units tall and every row has to be that tall.
+// Sized, agreement is ONE BIG MARK and disagreement is a spread of small ones,
+// which is the reading, not a decoration of it.
+//
+// THE ABSENCES ARE COUNTED IN THEIR OWN COLUMN rather than left as a gap,
+// because a row with two dots and a row with five dots that happen to overlap
+// look alike otherwise, and "how many published anything" is half of what this
+// picture is for. Same policy as the "not published" cells in the tables and the
+// no-threshold rows on /buying.html: a stated absence, drawn.
+//
+// EVERY VALUE COMES THROUGH splitOf, the same parse the ladder above uses, so a
+// cell that stops being a percentage split throws instead of drawing wrong.
+const SPREAD = ["front", "back"].flatMap((face) =>
+  c[face].map((row, i) => {
+    const vals = CO.map((co) => splitOf(row[co])).map((s) => (s ? s[0] : null));
+    const counts = new Map();
+    vals.filter((v) => v != null).forEach((v) => counts.set(v, (counts.get(v) || 0) + 1));
+    return {
+      face,
+      i,
+      grade: row.grade,
+      published: vals.filter((v) => v != null).length,
+      groups: [...counts.entries()].map(([v, n]) => ({ v, n })).sort((a, b) => a.v - b.v),
+    };
+  })
+);
+// Front and back are printed as two tables with the same grade rows, and the
+// figure pairs them by INDEX. If the two ever stop lining up, every back row in
+// this drawing is quietly attached to the wrong grade, which is invisible.
+c.front.forEach((row, i) => {
+  if (c.back[i]?.grade !== row.grade) {
+    throw new Error(
+      `build-grade-check: the front table's row ${i} is ${JSON.stringify(row.grade)} and the back ` +
+        `table's is ${JSON.stringify(c.back[i]?.grade)}. The spread figure draws them as one grade with ` +
+        `two faces and would label the back row with the front row's grade. Realign the two tables.`
+    );
+  }
+});
+// THE CAPTION'S TWO CLAIMS ARE COMPUTED, NOT TYPED. The first draft said "all
+// five publish 55/45 at Gem Mint 10, and below it four agree with Beckett one
+// step stricter", which is true today and is exactly the kind of sentence that
+// survives the data changing under it. Both are worked out here, and the
+// sentence is dropped rather than made wrong if the shape stops holding.
+const UNANIMOUS = SPREAD.filter(
+  (r) => r.face === "front" && r.groups.length === 1 && r.groups[0].n === CO.length
+);
+// A row where every company but one lands on the same number. `odd` is the
+// company holding out and `strict` says whether it is the tighter tolerance,
+// which is the only version of this sentence worth printing.
+const ODD_OUT = SPREAD.filter((r) => r.face === "front")
+  .map((r) => {
+    if (r.groups.length !== 2) return null;
+    const big = r.groups.find((g) => g.n === CO.length - 1);
+    const one = r.groups.find((g) => g.n === 1);
+    if (!big || !one) return null;
+    const co = CO.find((k) => (splitOf(c.front[r.i][k]) || [])[0] === one.v);
+    return co ? { co, strict: one.v < big.v } : null;
+  })
+  .filter(Boolean);
+const ODD_CO =
+  ODD_OUT.length >= 2 && ODD_OUT.every((o) => o.co === ODD_OUT[0].co && o.strict === ODD_OUT[0].strict)
+    ? ODD_OUT[0]
+    : null;
+const BACK_MISSING = SPREAD.filter((r) => r.face === "back").reduce(
+  (n, r) => n + (CO.length - r.published),
+  0
+);
+
+const SPREAD_MIN = Math.min(...SPREAD.flatMap((r) => r.groups.map((g) => g.v)));
+const SPREAD_MAX = Math.max(...SPREAD.flatMap((r) => r.groups.map((g) => g.v)));
+if (!(SPREAD_MAX > SPREAD_MIN)) {
+  throw new Error(
+    `build-grade-check: every published centering value is ${SPREAD_MIN}, so the spread figure has no ` +
+      `axis to draw. Either the data collapsed or the parse did.`
+  );
+}
+
+/**
+ * Ten rows, one per grade per face, on one axis of published tolerance.
+ *
+ * THE AXIS IS THE BIGGER HALF OF THE SPLIT, which is the number that gets worse
+ * as you go right: 55/45 is a card PSA calls Gem Mint and 90/10 is a back it
+ * calls Mint 9. It runs from the smallest published value to the largest, both
+ * read out of the data rather than rounded to a tidy 50 and 100, because
+ * rounding to 100 would push every mark on the figure into the left half.
+ *
+ * NOTHING IS CARRIED BY COLOUR. The front row and the back row of a pair are
+ * told apart by the word beside them and by which is above the other, the size
+ * of a dot carries agreement, and a hollow square carries absence. --ink,
+ * --navy, --ketchup and --keyline are all #111111 in ui.css today; this figure
+ * would read identically if the rest went the same way.
+ */
+// SVG TEXT NEITHER WRAPS NOR CLIPS, AND ALL THREE LABEL COLUMNS HERE OVERRAN
+// THEIR SLOTS ON THE FIRST BUILD. "Near Mint-Mint 8" painted straight through
+// the word "front" beside it and the axis heading painted through the word
+// above the count column, and both looked like a rendering fault rather than a
+// layout mistake. Nothing errors when it happens, and it was found by
+// screenshotting, which is the only way it can be found.
+//
+// So the widths are checked instead of eyeballed. Space Mono advances 0.6em, so
+// a label is characters x 0.6 x its size in viewBox units, which is exact for
+// this face and near enough for any monospace. If a grade name grows past its
+// gutter the build stops and names it, rather than shipping two words on top of
+// each other.
+const MONO_ADV = 0.6;
+const monoW = (s, px) => String(s).length * MONO_ADV * px;
+const fits = (s, px, room, what) => {
+  const w = monoW(s, px);
+  if (w > room) {
+    throw new Error(
+      `build-grade-check: the spread figure's ${what} is ${JSON.stringify(s)}, which is ${w.toFixed(
+        1
+      )} viewBox units at ${px} and the slot is ${room}. SVG text does not wrap and does not clip, so ` +
+        `this would paint over the column beside it and nothing would error. Widen the gutter and move ` +
+        `the axis, or shorten the label.`
+    );
+  }
+  return s;
+};
+
+const spreadFig = () => {
+  // GRADE GUTTER 0..86, FACE 90..117, AXIS FROM 126. The grade column is sized
+  // to the longest grade name in the data and checked below, not chosen.
+  const W = 300, GRADE_W = 86, FACE_X = 90, X0 = 126, X1 = 262, TOP = 26, ROW = 19, PAIR = 6;
+  const H = TOP + SPREAD.length * ROW + (c.front.length - 1) * PAIR + 6;
+  const x = (v) => X0 + ((v - SPREAD_MIN) / (SPREAD_MAX - SPREAD_MIN)) * (X1 - X0);
+  const ticks = [];
+  for (let v = Math.ceil(SPREAD_MIN / 10) * 10; v <= SPREAD_MAX; v += 10) ticks.push(v);
+  // Grade order, front row then back row, with a gap between grades so the two
+  // faces of one grade read as a pair rather than as ten unrelated rows.
+  const order = c.front.flatMap((row, i) => [
+    SPREAD.find((r) => r.face === "front" && r.i === i),
+    SPREAD.find((r) => r.face === "back" && r.i === i),
+  ]);
+  let y = TOP;
+  const rows = order
+    .map((r, k) => {
+      if (k && r.face === "front") y += PAIR;
+      const top = y;
+      y += ROW;
+      const mid = top + ROW / 2;
+      const marks = r.groups
+        .map(
+          (g) =>
+            `<circle cx="${x(g.v).toFixed(1)}" cy="${mid}" r="${(2.5 + g.n * 0.9).toFixed(
+              1
+            )}" class="sp-d"/>`
+        )
+        .join("");
+      return `            ${
+        r.face === "front"
+          ? `<text class="sp-g" x="0" y="${mid + 3}">${esc(r.grade)}</text>`
+          : ""
+      }
+            <text class="sp-f" x="76" y="${mid + 3}">${r.face}</text>
+            <line class="sp-r" x1="${X0}" y1="${mid}" x2="${X1}" y2="${mid}"/>
+            ${marks}
+            <text class="sp-p" x="${W}" y="${mid + 3}" text-anchor="end">${r.published}/${CO.length}</text>`;
+    })
+    .join("\n");
+  return `      <figure class="sp">
+        <svg viewBox="0 0 ${W} ${H}" class="sp-svg" role="img"
+             aria-label="The five companies' published centering, front and back, at each grade. ${SPREAD.map(
+               (r) =>
+                 `${r.grade} ${r.face}: ${
+                   r.groups.length
+                     ? r.groups.map((g) => `${g.v}/${100 - g.v} from ${g.n}`).join(", ")
+                     : "nothing published"
+                 }, ${r.published} of ${CO.length} publishing`
+             ).join(". ")}.">
+          <text class="sp-h" x="${X0}" y="9">off centre, worse to the right</text>
+          <text class="sp-h" x="${W}" y="9" text-anchor="end">publishing</text>
+          ${ticks
+            .map(
+              (v) =>
+                `<line class="sp-t" x1="${x(v).toFixed(1)}" y1="16" x2="${x(v).toFixed(1)}" y2="${H - 4}"/>
+          <text class="sp-a" x="${x(v).toFixed(1)}" y="22" text-anchor="middle">${v}/${100 - v}</text>`
+            )
+            .join("\n          ")}
+${rows}
+        </svg>
+        <figcaption>The same ${esc(
+          String((c.front.length + c.back.length) * CO.length)
+        )} cells as the two tables, on one axis, so they can be seen at once. A bigger dot is more
+          companies landing on the same number, and a back row sits to the right of the front row above
+          it because the back standard is looser.${
+            UNANIMOUS.length
+              ? ` On the <b>front</b> they mostly agree: at ${esc(UNANIMOUS[0].grade)} all
+          ${CO.length} publish ${UNANIMOUS[0].groups[0].v}/${100 - UNANIMOUS[0].groups[0].v}, the same
+          number.`
+              : ""
+          }${
+            ODD_CO
+              ? ` At ${esc(String(ODD_OUT.length))} more grades ${CO.length - 1} agree and ${esc(
+                  CO_NAME[ODD_CO.co]
+                )} alone is ${ODD_CO.strict ? "one step stricter" : "one step looser"}.`
+              : ""
+          } The <b>back</b> is where they scatter, and the right-hand column is how many published a
+          number at all: ${esc(String(BACK_MISSING))} of the ${esc(
+            String(c.back.length * CO.length)
+          )} back cells are not published by anybody.</figcaption>
+      </figure>`;
+};
+
 const desc =
   "Will your Pokemon card grade a 10? Centering tolerances from PSA, CGC, Beckett, SGC and TAG, the flaws that cost grades, and how to check a card at home.";
 
@@ -417,6 +839,38 @@ const style = `
 .lad-svg .ct-band{opacity:.5}
 .lad-svg .ct-win{opacity:.09}
 .lad figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s4);max-width:52ch}
+/* THE SPREAD FIGURE, and it is on the page background rather than inside a
+   panel, so its tokens are the page ones and not the chrome ones .sg uses.
+   Getting that backwards paints --chrome-ink, which is #F5F4F0, onto near
+   white. Read which background a figure lands on before picking a token.
+
+   TYPE IS 9 VIEWBOX UNITS. The figure box is 312px at 390x844 against a 300
+   unit box, so 9 lands at about 9.4 rendered pixels, which is the floor. Do not
+   go below it here: the row labels are the only way to tell a front row from a
+   back one. */
+.sp{margin:var(--s5) 0;border:3px solid var(--navy);border-radius:12px;background:var(--card);
+  box-shadow:var(--hard-lg);padding:var(--s4)}
+.sp-svg{display:block;width:100%;max-width:560px;height:auto}
+.sp-g{font:700 9px var(--mono);fill:var(--ink)}
+.sp-f{font:400 9px var(--mono);fill:var(--ink-2)}
+.sp-h{font:700 8px var(--mono);fill:var(--ink-2);letter-spacing:.04em}
+.sp-a{font:700 9px var(--mono);fill:var(--ink-2)}
+.sp-p{font:700 9px var(--mono);fill:var(--ketchup-deep)}
+.sp-t{stroke:var(--ink);stroke-width:1;opacity:.12}
+/* The row rule runs the full axis whether or not anything is on it, so a row
+   with nothing published is visibly a row with nothing on it rather than a gap
+   in the figure. */
+.sp-r{stroke:var(--hair);stroke-width:1}
+.sp-d{fill:var(--ink)}
+.sp figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s4);max-width:52ch}
+.sp figcaption b{color:var(--ink)}
+/* Caption beside the drawing on desktop, the same move .lad and .sg make and
+   for the same reason: the svg is capped at 560px however wide the page gets. */
+@media(min-width:1000px){
+  .sp{display:flex;gap:var(--s6);align-items:flex-start}
+  .sp-svg{flex:0 0 auto;width:560px}
+  .sp figcaption{margin-top:0;flex:1;min-width:0}
+}
 .gc-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
 @media(max-width:880px){.gc-cards{grid-template-columns:1fr}}
 .gc-c{border:3px solid var(--navy);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
@@ -438,6 +892,38 @@ const style = `
 .gc-ex li{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:baseline;font-size:var(--t-sm);
   padding:10px var(--s3);background:rgba(255,255,255,.07);border-radius:8px}
 .gc-ex b{font:700 var(--t-m)/1 var(--body);color:var(--mustard)}
+/* THE SUBGRADE FIGURE, and every colour in here is a chrome token because it is
+   the only drawing on this site that sits INSIDE a filled dark panel. .gc-key is
+   background:var(--navy), and --navy resolves to #111111. So do --ketchup,
+   --keyline and --ink. Reaching for any of the four the other figures on this
+   page use, or for --ink-2 at #5B5B5B, paints a mark that is either invisible or
+   nearly so, and nothing errors. The argument is carried by three SHAPES, a
+   filled dot, a dashed rule and a solid rule, so the figure still reads with
+   every fill in this block set to one value. */
+.sg{margin:var(--s4) 0 0}
+.sg-svg{display:block;width:100%;max-width:520px;height:auto}
+.sg-base{stroke:var(--chrome-dim);stroke-width:1;opacity:.6}
+.sg-grid{stroke:var(--chrome-ink);stroke-width:1;opacity:.12}
+.sg-ax{fill:var(--chrome-dim);font:700 10px/1 var(--mono);text-anchor:middle}
+.sg-key{fill:var(--chrome-dim);font:400 10px/1 var(--mono)}
+.sg-dot{fill:var(--chrome-ink)}
+/* The lowest component is a RING rather than a brighter dot. It is the one mark
+   the heading above the panel is about, it has to survive a reader who cannot
+   tell two greys apart, and a ring reads as "this one" at 4px where a tint does
+   not. */
+.sg-worst{fill:none;stroke:var(--chrome-ink);stroke-width:2}
+.sg-mean{stroke:var(--chrome-dim);stroke-width:1.5;stroke-dasharray:5 3}
+.sg-final{stroke:var(--mustard);stroke-width:2.5}
+.sg-num{fill:var(--mustard);font:700 12px/1 var(--mono);text-anchor:middle}
+.sg figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--foot-ink);margin-top:var(--s3);max-width:52ch}
+/* Same move as .lad below: the drawing is a fixed 520px however wide the page
+   gets, so stacked it leaves most of the panel empty with the explanation under
+   the fold of the figure. */
+@media(min-width:1000px){
+  .sg{display:flex;gap:var(--s6);align-items:flex-start}
+  .sg-svg{flex:0 0 auto;width:520px}
+  .sg figcaption{margin-top:0;flex:1;min-width:0}
+}
 .gc-list{margin:0 0 0 var(--s4);max-width:46em;line-height:1.55}
 .gc-list li{margin-bottom:var(--s3)}
 .gc-def{margin:0;max-width:48em}
@@ -536,6 +1022,13 @@ ${d.subgrades.math.rules.map((r) => `          <li>${esc(r)}</li>`).join("\n")}
         <ul class="gc-ex">
 ${d.subgrades.math.examples.map((e) => `          <li>${esc(e.sub)} <b>= ${esc(e.final)}</b></li>`).join("\n")}
         </ul>
+${sgFig()}
+        ${/* THE FIGURE SITS BETWEEN THE EXAMPLES AND soWhat, which is the only
+              place it can go. It draws those three rows and nothing else, so
+              above the list it would be a picture of numbers the reader has not
+              met; below soWhat it would arrive after the sentence that reads the
+              answer off it. In between, "that third example" in the next
+              paragraph now points at a row the reader can see. */ ""}
         ${/* soWhat GOES AFTER THE EXAMPLES AND HAS TO. Its second sentence is
               "That third example is a card that is perfect on three of four
               criteria and comes back a 7", which pointed at nothing when this
@@ -562,6 +1055,7 @@ ${centeringDiagram()}
 ${table(c.front, "Front centering, as each company publishes it")}
 ${table(c.back, "Back centering. Note how much wider the tolerances are, and how many are simply absent")}
 ${ladder()}
+${spreadFig()}
         <p class="gc-in"><b>PSA gives itself room, and tells you so.</b> ${esc(c.leeway.text)}
           ${esc(c.leeway.worked)}${src(c.leeway.source, "PSA centering standards and leeway")}</p>
         <div class="gc-cards">

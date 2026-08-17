@@ -212,6 +212,91 @@ const ARROW = `<svg class="ow" viewBox="0 0 300 108" role="img"
   <text class="ow-k" x="150" y="99" text-anchor="middle">a digital collection to a card you can hold.</text>
 </svg>`;
 
+// ---------------------------------------------------------------------------
+// THE PILE AGAINST THE LIMIT.
+//
+// The count section's last bullet is the one claim on this page that is a
+// QUANTITY rather than a rule, and it is the one the reader has no way to
+// judge: "the biggest single pile counted here is 264 packs of Chaos Rising,
+// against the 400 above. If a channel that opens this much is not close, you are
+// not close." Two numbers in one sentence, and the whole force of it is the gap
+// between them, which prose can only put one after the other.
+//
+// IT DRAWS THE INVARIANT THE BUILD ALREADY ASSERTS. The guard above this file's
+// body stops the build the day PACKS.top.packs reaches the soft limit, because
+// that sentence would become false while staying grammatical. The figure draws
+// the same comparison, so the prose, the picture and the guard are now one
+// claim with one failure mode instead of three things that could drift.
+//
+// EVERY NUMBER IS BUILD TIME AND OURS. The piles come from shared/packtally.mjs,
+// derived from the pack counts on the channel's own rips, and the limit is the
+// one already parsed out of the researched table into `boosterLimit`. Nothing
+// here is typed in.
+//
+// THE THRESHOLD FOR BEING DRAWN IS A STATED RULE, NOT A TOP N. "The six biggest"
+// is a number somebody picked; "every expansion whose pile has reached a tenth
+// of the limit" is a rule the caption states and a reader can check, and it
+// keeps meaning the same thing as the catalogue grows. The expansions under it
+// are counted in the caption rather than dropped silently.
+//
+// SVG AND NOT THE .bch BAR ROWS THE BUYING PAGE USES, and the reason is the word
+// budget rather than taste. prose() below strips <svg>, <table> and <figcaption>
+// and nothing else, so a dozen HTML rows of set name and number would cost about
+// sixty words against a ceiling this page sits thirteen words under. Inline SVG
+// costs none. It is also what the other diagram here already is.
+//
+// AND THE TEXT IS SIZED IN RENDERED PIXELS RATHER THAN IN VIEWBOX UNITS. The
+// figure box measures 366px at 390x844 against a 300 unit viewBox, so everything
+// here is scaled by 1.22 on the phone this page is mostly read on: 9 units is
+// 11 rendered pixels and 5 units, which is what the diagram above uses for its
+// sub-labels, is 6. Check the scale before picking a size.
+const DRAWN_MIN = Math.round(Number(boosterLimit) / 10);
+const PILES = PACKS.bySet.filter((s) => s.packs >= DRAWN_MIN);
+const REST = PACKS.bySet.filter((s) => s.packs < DRAWN_MIN);
+if (!PILES.length || PILES.length > 9) {
+  throw new Error(
+    `tcg-live: the pile figure draws every expansion at or over ${DRAWN_MIN} counted packs and that is ` +
+      `${PILES.length} of them. Under one there is no picture; over nine the rows stop being legible at ` +
+      `390px. Change the rule and the caption together, not the drawing alone.`
+  );
+}
+const pileFig = () => {
+  const W = 300, X0 = 4, XMAX = 272, ROW = 26, TOP = 20;
+  const LIM = Number(boosterLimit);
+  const H = TOP + PILES.length * ROW + 4;
+  const x = (v) => X0 + (v / LIM) * (XMAX - X0);
+  return `        <figure class="tl-fig">
+          <svg class="pl" viewBox="0 0 ${W} ${H}" role="img"
+            aria-label="Counted packs per expansion against the soft redemption limit of ${esc(
+              boosterLimit
+            )} per expansion. ${PILES.map((s) => `${s.label} ${s.packs}`).join(", ")}. The biggest is ${esc(
+    n(PACKS.top.packs)
+  )}, which is ${Math.round((PACKS.top.packs / LIM) * 100)} percent of the way to the limit.">
+            <text class="pl-cap" x="${XMAX}" y="9" text-anchor="end">${esc(boosterLimit)} per expansion</text>
+            <line class="pl-lim" x1="${XMAX}" y1="12" x2="${XMAX}" y2="${H - 2}"/>
+${PILES.map((s, i) => {
+  const top = TOP + i * ROW;
+  return `            <text class="pl-n" x="${X0}" y="${top + 8}">${esc(s.label)}</text>
+            ${/* Right-aligned SEVEN UNITS INSIDE the limit rule, not on it. Flush
+                  to XMAX the last digit of every number sat under the dashed
+                  line, which read as a rendering fault rather than as a column.
+                  The value stays a column rather than riding the end of its own
+                  bar so that six numbers can be compared without the eye
+                  hunting for them. */ ""}
+            <text class="pl-v" x="${XMAX - 7}" y="${top + 8}" text-anchor="end">${s.packs}</text>
+            <rect class="pl-t" x="${X0}" y="${top + 12}" width="${XMAX - X0}" height="9" rx="2"/>
+            <rect class="pl-b" x="${X0}" y="${top + 12}" width="${(x(s.packs) - X0).toFixed(1)}" height="9" rx="2"/>`;
+}).join("\n")}
+          </svg>
+          <figcaption>Counted packs per expansion against that limit, for every expansion whose pile has
+            reached a tenth of it. The other ${esc(String(REST.length))} sit under ${esc(
+    String(DRAWN_MIN)
+  )} packs each, and ${esc(
+    n(PACKS.unattributed)
+  )} more came out of rips that opened two expansions at once, so no bar can claim them.</figcaption>
+        </figure>`;
+};
+
 const desc =
   "What the code card in every Pokemon booster pack is for, what a code actually gives you, " +
   "and how to redeem it in the free official app.";
@@ -307,6 +392,27 @@ const style = `
 .ow-x{stroke:var(--ketchup);stroke-width:2.4;stroke-linecap:round}
 .ow marker path{fill:var(--ink)}
 .ow-k{font:400 5px var(--mono);fill:var(--ink-2)}
+/* THE PILE FIGURE. Type is 9 and 10 viewBox units because the box measures
+   366px against a 300 unit viewBox at 390x844, so those land at 11 and 12
+   rendered pixels on a phone. The sizes in .ow-b above are 5 and 6 units, which
+   is 6 and 7 rendered pixels, and that is under the readable floor; it is
+   recorded here rather than changed because raising them overruns the 82 unit
+   boxes those sub-labels sit in and that diagram's layout is argued in place.
+
+   THE LIMIT IS A DASHED VERTICAL RULE AND THE PILES ARE FILLED HORIZONTAL BARS,
+   which is the whole reason this reads with no colour at all. --gold is a real
+   hue today, but --ink, --navy, --ketchup and --keyline are all #111111, so a
+   figure separating "the ceiling" from "the pile" by fill alone would be one
+   black shape. Orientation and dash do the work; the gold is a bonus. */
+.pl{width:100%;height:auto;display:block;background:var(--paper-2);border-radius:8px;padding:6px 0}
+.pl-n{font:700 9px var(--mono);fill:var(--ink)}
+.pl-v{font:700 9px var(--mono);fill:var(--ink)}
+.pl-cap{font:700 9px var(--mono);fill:var(--gold-deep);letter-spacing:.04em}
+.pl-lim{stroke:var(--gold-deep);stroke-width:2;stroke-dasharray:5 3}
+/* The track runs the full width to the limit, so the empty part of every row is
+   the argument: it is how much room is left, drawn. */
+.pl-t{fill:var(--paper-3)}
+.pl-b{fill:var(--ink)}
 .tl-out{border:3px dashed var(--navy);border-radius:12px;background:var(--card);padding:var(--s4);
   margin-top:var(--s6);max-width:44em}
 .tl-out h2{margin-bottom:var(--s2)}
@@ -427,6 +533,7 @@ const body = `
             ${esc(boosterLimit)} above. If a channel that opens this much is not close, you are not
             close.</li>
         </ul>
+${pileFig()}
       </section>
 
       <section class="tl-s" id="redeem">

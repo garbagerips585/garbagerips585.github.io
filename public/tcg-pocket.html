@@ -22,7 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=17b9bdb3">
+<link rel="stylesheet" href="/assets/ui.css?v=31305258">
 <style>
 .tp-lede{max-width:44em}
 .tp-chk{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);margin-top:var(--s3)}
@@ -61,6 +61,24 @@
 .tb-h{font:700 6px var(--mono);fill:var(--ink);letter-spacing:.1em}
 .tb-div{stroke:var(--ink);stroke-width:1;stroke-dasharray:4 3;opacity:.5}
 .tb-k{font:400 5px var(--mono);fill:var(--ink-2)}
+/* THE FIRST FORTNIGHT. Type is 9 viewBox units in a 300 unit box, which the
+   figure renders at about 366px on a 390px phone, so those land near 11 real
+   pixels. The board diagram above runs 5 and 6 units, which is 6 and 7, and
+   that is under the readable floor; noted here rather than changed because its
+   boxes are sized to the labels already in them.
+
+   THE MARKS ARE 1.4 UNITS WIDE AND 7 APART at the current numbers. Thinner and
+   the comb greys out into a solid bar at phone scale, which would say
+   "available all the time" instead of "arrives on a clock". If the timer or the
+   unlock ever changes, re-screenshot: this spacing is a consequence of 28 marks
+   across 188 units and nothing enforces it. */
+.ff{width:100%;height:auto;display:block;background:var(--paper-2);border-radius:8px;padding:6px 0}
+.ff-n{font:700 9px var(--mono);fill:var(--ink)}
+.ff-ax{font:700 9px var(--mono);fill:var(--gold-deep);letter-spacing:.04em}
+.ff-t{fill:var(--paper-3)}
+.ff-m{stroke:var(--ink);stroke-width:1.4}
+.ff-lock{font:400 8px var(--mono);fill:var(--ink-2);letter-spacing:.1em;text-transform:uppercase}
+.ff-gate{stroke:var(--gold-deep);stroke-width:2;stroke-dasharray:5 3}
 .tb-f{font-size:5.2px;fill:var(--ink)}
 .tp-out{border:3px dashed var(--navy);border-radius:12px;background:var(--card);padding:var(--s4);
   margin-top:var(--s6);max-width:44em}
@@ -435,6 +453,29 @@
         <p>There is a collecting half as well: a card dex, binders and display boards you arrange and can show
           other players, and cosmetic flair on cards. It runs its own ladder of rarity marks, and they are not the
           ones printed on your cards, which is what <a href="/rarity.html">our rarity guide</a> is about.</p>
+        <figure class="tp-fig">
+          <svg class="ff" viewBox="0 0 300 116" role="img"
+            aria-label="The first 14 days in Pokemon TCG Pocket. Free packs and Wonder Pick run from the day you install it, both on a 12 hour timer. Trading and sharing give you nothing at all until day 14, when both unlock.">
+            <text class="ff-ax" x="76" y="9">day 0</text>
+            <text class="ff-ax" x="264" y="9" text-anchor="end">day 14</text>
+            <line class="ff-gate" x1="264" y1="12" x2="264" y2="114"/>
+            <text class="ff-n" x="0" y="31">Free packs</text>
+            <rect class="ff-t" x="76" y="23" width="188" height="10" rx="2"/>
+            <line class="ff-m" x1="76.0" y1="24" x2="76.0" y2="32"/><line class="ff-m" x1="82.7" y1="24" x2="82.7" y2="32"/><line class="ff-m" x1="89.4" y1="24" x2="89.4" y2="32"/><line class="ff-m" x1="96.1" y1="24" x2="96.1" y2="32"/><line class="ff-m" x1="102.9" y1="24" x2="102.9" y2="32"/><line class="ff-m" x1="109.6" y1="24" x2="109.6" y2="32"/><line class="ff-m" x1="116.3" y1="24" x2="116.3" y2="32"/><line class="ff-m" x1="123.0" y1="24" x2="123.0" y2="32"/><line class="ff-m" x1="129.7" y1="24" x2="129.7" y2="32"/><line class="ff-m" x1="136.4" y1="24" x2="136.4" y2="32"/><line class="ff-m" x1="143.1" y1="24" x2="143.1" y2="32"/><line class="ff-m" x1="149.9" y1="24" x2="149.9" y2="32"/><line class="ff-m" x1="156.6" y1="24" x2="156.6" y2="32"/><line class="ff-m" x1="163.3" y1="24" x2="163.3" y2="32"/><line class="ff-m" x1="170.0" y1="24" x2="170.0" y2="32"/><line class="ff-m" x1="176.7" y1="24" x2="176.7" y2="32"/><line class="ff-m" x1="183.4" y1="24" x2="183.4" y2="32"/><line class="ff-m" x1="190.1" y1="24" x2="190.1" y2="32"/><line class="ff-m" x1="196.9" y1="24" x2="196.9" y2="32"/><line class="ff-m" x1="203.6" y1="24" x2="203.6" y2="32"/><line class="ff-m" x1="210.3" y1="24" x2="210.3" y2="32"/><line class="ff-m" x1="217.0" y1="24" x2="217.0" y2="32"/><line class="ff-m" x1="223.7" y1="24" x2="223.7" y2="32"/><line class="ff-m" x1="230.4" y1="24" x2="230.4" y2="32"/><line class="ff-m" x1="237.1" y1="24" x2="237.1" y2="32"/><line class="ff-m" x1="243.9" y1="24" x2="243.9" y2="32"/><line class="ff-m" x1="250.6" y1="24" x2="250.6" y2="32"/><line class="ff-m" x1="257.3" y1="24" x2="257.3" y2="32"/><line class="ff-m" x1="264.0" y1="24" x2="264.0" y2="32"/>
+            <text class="ff-n" x="0" y="55">Wonder Pick</text>
+            <rect class="ff-t" x="76" y="47" width="188" height="10" rx="2"/>
+            <line class="ff-m" x1="76.0" y1="48" x2="76.0" y2="56"/><line class="ff-m" x1="82.7" y1="48" x2="82.7" y2="56"/><line class="ff-m" x1="89.4" y1="48" x2="89.4" y2="56"/><line class="ff-m" x1="96.1" y1="48" x2="96.1" y2="56"/><line class="ff-m" x1="102.9" y1="48" x2="102.9" y2="56"/><line class="ff-m" x1="109.6" y1="48" x2="109.6" y2="56"/><line class="ff-m" x1="116.3" y1="48" x2="116.3" y2="56"/><line class="ff-m" x1="123.0" y1="48" x2="123.0" y2="56"/><line class="ff-m" x1="129.7" y1="48" x2="129.7" y2="56"/><line class="ff-m" x1="136.4" y1="48" x2="136.4" y2="56"/><line class="ff-m" x1="143.1" y1="48" x2="143.1" y2="56"/><line class="ff-m" x1="149.9" y1="48" x2="149.9" y2="56"/><line class="ff-m" x1="156.6" y1="48" x2="156.6" y2="56"/><line class="ff-m" x1="163.3" y1="48" x2="163.3" y2="56"/><line class="ff-m" x1="170.0" y1="48" x2="170.0" y2="56"/><line class="ff-m" x1="176.7" y1="48" x2="176.7" y2="56"/><line class="ff-m" x1="183.4" y1="48" x2="183.4" y2="56"/><line class="ff-m" x1="190.1" y1="48" x2="190.1" y2="56"/><line class="ff-m" x1="196.9" y1="48" x2="196.9" y2="56"/><line class="ff-m" x1="203.6" y1="48" x2="203.6" y2="56"/><line class="ff-m" x1="210.3" y1="48" x2="210.3" y2="56"/><line class="ff-m" x1="217.0" y1="48" x2="217.0" y2="56"/><line class="ff-m" x1="223.7" y1="48" x2="223.7" y2="56"/><line class="ff-m" x1="230.4" y1="48" x2="230.4" y2="56"/><line class="ff-m" x1="237.1" y1="48" x2="237.1" y2="56"/><line class="ff-m" x1="243.9" y1="48" x2="243.9" y2="56"/><line class="ff-m" x1="250.6" y1="48" x2="250.6" y2="56"/><line class="ff-m" x1="257.3" y1="48" x2="257.3" y2="56"/><line class="ff-m" x1="264.0" y1="48" x2="264.0" y2="56"/>
+            <text class="ff-n" x="0" y="79">Trading</text>
+            <rect class="ff-t" x="76" y="71" width="188" height="10" rx="2"/>
+            <text class="ff-lock" x="170" y="79" text-anchor="middle">locked</text>
+            <text class="ff-n" x="0" y="103">Sharing</text>
+            <rect class="ff-t" x="76" y="95" width="188" height="10" rx="2"/>
+            <text class="ff-lock" x="170" y="103" text-anchor="middle">locked</text>
+          </svg>
+          
+          <figcaption>The first 14 days. Each mark is a 12 hour timer coming round. The collecting half runs from the minute you install it; trading and sharing
+            give you nothing until the dashed line. That is why adding friends early pays.</figcaption>
+        </figure>
       </section>
 
       <section class="tp-s" id="tips">

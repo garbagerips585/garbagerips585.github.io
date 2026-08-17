@@ -22,7 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=17b9bdb3">
+<link rel="stylesheet" href="/assets/ui.css?v=31305258">
 <style>
 .tl-lede{max-width:44em}
 .tl-chk{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);margin-top:var(--s3)}
@@ -65,6 +65,27 @@
 .ow-x{stroke:var(--ketchup);stroke-width:2.4;stroke-linecap:round}
 .ow marker path{fill:var(--ink)}
 .ow-k{font:400 5px var(--mono);fill:var(--ink-2)}
+/* THE PILE FIGURE. Type is 9 and 10 viewBox units because the box measures
+   366px against a 300 unit viewBox at 390x844, so those land at 11 and 12
+   rendered pixels on a phone. The sizes in .ow-b above are 5 and 6 units, which
+   is 6 and 7 rendered pixels, and that is under the readable floor; it is
+   recorded here rather than changed because raising them overruns the 82 unit
+   boxes those sub-labels sit in and that diagram's layout is argued in place.
+
+   THE LIMIT IS A DASHED VERTICAL RULE AND THE PILES ARE FILLED HORIZONTAL BARS,
+   which is the whole reason this reads with no colour at all. --gold is a real
+   hue today, but --ink, --navy, --ketchup and --keyline are all #111111, so a
+   figure separating "the ceiling" from "the pile" by fill alone would be one
+   black shape. Orientation and dash do the work; the gold is a bonus. */
+.pl{width:100%;height:auto;display:block;background:var(--paper-2);border-radius:8px;padding:6px 0}
+.pl-n{font:700 9px var(--mono);fill:var(--ink)}
+.pl-v{font:700 9px var(--mono);fill:var(--ink)}
+.pl-cap{font:700 9px var(--mono);fill:var(--gold-deep);letter-spacing:.04em}
+.pl-lim{stroke:var(--gold-deep);stroke-width:2;stroke-dasharray:5 3}
+/* The track runs the full width to the limit, so the empty part of every row is
+   the argument: it is how much room is left, drawn. */
+.pl-t{fill:var(--paper-3)}
+.pl-b{fill:var(--ink)}
 .tl-out{border:3px dashed var(--navy);border-radius:12px;background:var(--card);padding:var(--s4);
   margin-top:var(--s6);max-width:44em}
 .tl-out h2{margin-bottom:var(--s2)}
@@ -341,6 +362,45 @@
             400 above. If a channel that opens this much is not close, you are not
             close.</li>
         </ul>
+        <figure class="tl-fig">
+          <svg class="pl" viewBox="0 0 300 180" role="img"
+            aria-label="Counted packs per expansion against the soft redemption limit of 400 per expansion. Chaos Rising 264, Ascended Heroes 169, Perfect Order 166, Pitch Black 115, Prismatic Evolutions 84, Journey Together 78. The biggest is 264, which is 66 percent of the way to the limit.">
+            <text class="pl-cap" x="272" y="9" text-anchor="end">400 per expansion</text>
+            <line class="pl-lim" x1="272" y1="12" x2="272" y2="178"/>
+            <text class="pl-n" x="4" y="28">Chaos Rising</text>
+            
+            <text class="pl-v" x="265" y="28" text-anchor="end">264</text>
+            <rect class="pl-t" x="4" y="32" width="268" height="9" rx="2"/>
+            <rect class="pl-b" x="4" y="32" width="176.9" height="9" rx="2"/>
+            <text class="pl-n" x="4" y="54">Ascended Heroes</text>
+            
+            <text class="pl-v" x="265" y="54" text-anchor="end">169</text>
+            <rect class="pl-t" x="4" y="58" width="268" height="9" rx="2"/>
+            <rect class="pl-b" x="4" y="58" width="113.2" height="9" rx="2"/>
+            <text class="pl-n" x="4" y="80">Perfect Order</text>
+            
+            <text class="pl-v" x="265" y="80" text-anchor="end">166</text>
+            <rect class="pl-t" x="4" y="84" width="268" height="9" rx="2"/>
+            <rect class="pl-b" x="4" y="84" width="111.2" height="9" rx="2"/>
+            <text class="pl-n" x="4" y="106">Pitch Black</text>
+            
+            <text class="pl-v" x="265" y="106" text-anchor="end">115</text>
+            <rect class="pl-t" x="4" y="110" width="268" height="9" rx="2"/>
+            <rect class="pl-b" x="4" y="110" width="77.0" height="9" rx="2"/>
+            <text class="pl-n" x="4" y="132">Prismatic Evolutions</text>
+            
+            <text class="pl-v" x="265" y="132" text-anchor="end">84</text>
+            <rect class="pl-t" x="4" y="136" width="268" height="9" rx="2"/>
+            <rect class="pl-b" x="4" y="136" width="56.3" height="9" rx="2"/>
+            <text class="pl-n" x="4" y="158">Journey Together</text>
+            
+            <text class="pl-v" x="265" y="158" text-anchor="end">78</text>
+            <rect class="pl-t" x="4" y="162" width="268" height="9" rx="2"/>
+            <rect class="pl-b" x="4" y="162" width="52.3" height="9" rx="2"/>
+          </svg>
+          <figcaption>Counted packs per expansion against that limit, for every expansion whose pile has
+            reached a tenth of it. The other 15 sit under 40 packs each, and 46 more came out of rips that opened two expansions at once, so no bar can claim them.</figcaption>
+        </figure>
       </section>
 
       <section class="tl-s" id="redeem">

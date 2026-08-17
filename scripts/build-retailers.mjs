@@ -62,6 +62,60 @@
 // retailer marked for a page cannot clear the bar, which makes padding one to
 // reach a quota fail the build rather than ship.
 //
+// ---------------------------------------------------------------------------
+// THE ONE PICTURE THESE PAGES WERE MISSING, added 17 August 2026.
+//
+// A retailer page carried exactly two visuals, the chain's mark and the shared
+// ask-an-employee drawing, on up to 1,106 words, which made this the thinnest
+// page family on the site. Its reader is standing in a shop, which is the most
+// visual situation any reader of this site is ever in.
+//
+// WHAT WAS ADDED IS NOT A PHOTOGRAPH OF THE PRICE ROW, AND THE DIFFERENCE IS THE
+// WHOLE ARGUMENT. Every reading names an exact product, and shared/product-
+// photos.mjs will resolve any of them to a photograph. Twelve of the thirteen
+// resolve to a DIFFERENT SET'S box of the same format, because the pins are per
+// format and the shops listed whatever was on the shelf that week. On /msrp.html
+// that is honest, because the row there IS the format. Here the row is "CVS asked
+// $12.99 for the Ascended Heroes Mini Tin on 17 August", and a Prismatic
+// Evolutions tin printed beside it hands a reader looking at a shelf a picture of
+// a box that is not the one in the sentence. That is the failure the name check
+// in shared/product-photos.mjs exists to stop, one level up: the pin resolves
+// correctly and the page's claim around it does not.
+//
+// SO THE PICTURES ANSWER THE OTHER QUESTION, the one the words genuinely fail.
+// The stock line on these pages is jargon: "packs, blisters and tins rather than
+// boxes", "elite trainer boxes, ex boxes, ultra premium collections, Poke Ball
+// tins". Nobody who has not already bought sealed product can act on that
+// sentence. One photograph per FORMAT, named, turns it into a shopping list, and
+// it says in the caption that the artwork changes with every set and the shape
+// does not, which is the reason the picture is useful and the reason it cannot
+// be mistaken for the box on the shelf.
+//
+// THE FORMATS COME FROM THE SHOP'S OWN READINGS FIRST, so the set is per shop and
+// needs no judgement: a reading already names an exact row in data/msrp.json.
+// Only a shop we hold NO reading from falls back to `alsoFormats` in
+// data/retailers.json, which has to name a format its own `stocks` sentence
+// names, and that sentence is printed directly above the pictures.
+//
+// THE STRIP IS 150w AND CARRIES NO srcset, WHICH IS A DEPARTURE FROM
+// build-msrp.mjs AND IS DELIBERATE. That page offers the 1000x1000 rendition as a
+// second candidate for dense screens. Measured on the two heaviest pins here, the
+// large is 104.7KB and 137.2KB against 5.7KB and 20.6KB for the 150w, so a DPR 3
+// phone would fetch up to 137KB for a 75px tile. This page's reader is on a shop's
+// wifi. The tile is 75px and the CDN's 150w file covers it exactly at DPR 2; at
+// DPR 3 it is soft, and a soft 75px picture still answers "is that a tin or a box",
+// which is the only question the tile is asked. (Note that _1000w.jpg does not
+// exist at all on that CDN and answers 403; the large is _in_1000x1000.jpg.)
+//
+// AND THEREFORE NO `sizes` EITHER. It was written first and it was inert: the
+// attribute only does anything alongside a srcset, so it would have been a line
+// of markup that looks like it is choosing a rendition and is not.
+//
+// NO WIDTH OR HEIGHT ATTRIBUTES, for the reason build-msrp.mjs writes up:
+// imgDims() in shared/format.mjs returns nothing for tcgplayer-cdn on purpose,
+// because those files run 200x268 to 200x417 and a declaration would be wrong by
+// up to a third. The tile is a fixed box in CSS, so nothing reflows.
+//
 // NO BACKTICKS IN COMMENTS IN THIS FILE. The pages below are template literals
 // and a backtick inside a comment closes one. build-buying.mjs has the scar.
 
@@ -81,6 +135,12 @@ import {
 import { esc, longDate, moneyExact } from "../shared/format.mjs";
 import { brandMark, BRAND_CREDIT, BRAND_STYLE } from "../shared/brands.mjs";
 import { loadListings, multStr, readDatePhrase } from "../shared/listings.mjs";
+// The pins, once, shared with /msrp.html and /what-to-buy.html. Read its header
+// before touching a photograph: a pin that no longer resolves to the product it
+// names FAILS THE BUILD rather than dropping the picture, and that property is
+// the only thing standing between this page and one box's photograph under
+// another box's name.
+import { makePhotoFor } from "../shared/product-photos.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const R = JSON.parse(await readFile(join(ROOT, "data/retailers.json"), "utf8"));
@@ -109,6 +169,101 @@ if (!retailers.length) throw new Error("data/retailers.json has no retailers");
 const { listings: readings, readDates: ALL_READ_DATES } = await loadListings();
 
 const readingsFor = (id) => readings.filter((x) => x.retailer.id === id);
+
+// ------------------------------------------------ the sealed formats, pictured
+//
+// See the header. These four files are the same four /msrp.html opens, read the
+// same way, so the two pages cannot pin different photographs to one format.
+const MSRP = JSON.parse(await readFile(join(ROOT, "data/msrp.json"), "utf8"));
+const PRODUCTS = JSON.parse(await readFile(join(ROOT, "public/data/products.json"), "utf8"));
+const EXTRA = JSON.parse(await readFile(join(ROOT, "data/extra-products.json"), "utf8"));
+const DEAD = new Set(
+  JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8")).deadUrls || []
+);
+const photoFor = makePhotoFor({ products: PRODUCTS, extra: EXTRA.products, dead: DEAD });
+
+// A LABEL IS THE JOIN AND rowId IS THE PIN, and the two are different keys on
+// purpose. shared/listings.mjs hands every reading the msrp.json LABEL it was
+// divided by; shared/product-photos.mjs is keyed by that row's rowId, which
+// exists because the taxonomy id is deliberately not unique here (build-msrp.mjs
+// argues that beside its own rows). This is the one lookup between them, and it
+// defaults rowId to id exactly as build-msrp.mjs does, so a row cannot resolve to
+// a photograph on one page and to nothing on the other.
+const ROW_OF_LABEL = new Map();
+for (const row of MSRP.products || []) {
+  if (!ROW_OF_LABEL.has(row.label)) ROW_OF_LABEL.set(row.label, row.rowId || row.id || "");
+}
+
+// 150w, not 200w, and not the large. See the header for the measurement.
+const small = (u) => u.replace(/_200w\.jpg$/, "_150w.jpg");
+
+/**
+ * The sealed formats a retailer page may picture, in order of what the format is
+ * suggested to cost, cheapest first.
+ *
+ * THE ORDER IS THE LADDER A SHOPPER CLIMBS and it is not a ranking of anything.
+ * Nothing on these pages is sorted by the multiple, ever, for the reason
+ * data/over-msrp.json's _readme gives; that rule is about shops and about
+ * markups, and neither is being ordered here. Sorting these by suggested price
+ * puts a booster pack next to a mini tin and a booster box at the end, which is
+ * how the shelf is arranged and how somebody works out what they can afford.
+ */
+const formatsFor = (r) => {
+  const seen = new Map();
+  for (const x of readingsFor(r.id)) {
+    if (!seen.has(x.baseLabel)) seen.set(x.baseLabel, { label: x.baseLabel, base: x.base });
+  }
+
+  // `alsoFormats` is only read where the readings cover nothing, which is what
+  // keeps a hand-written list from quietly outranking a dated reading.
+  for (const label of r.alsoFormats || []) {
+    const rowId = ROW_OF_LABEL.get(label);
+    if (!rowId) {
+      throw new Error(
+        `build-retailers: data/retailers.json gives "${r.name}" the format ${JSON.stringify(label)}\n` +
+          `  and data/msrp.json has no row with that exact label. This is the same discipline\n` +
+          `  data/retailer-prices.json keeps with msrpLabel: name a row that exists, or drop it.\n` +
+          `  Do NOT add a label here to make a page carry more pictures.`
+      );
+    }
+    if (seen.has(label)) {
+      throw new Error(
+        `build-retailers: data/retailers.json lists ${JSON.stringify(label)} under "${r.name}"'s\n` +
+          `  alsoFormats and this site already holds a dated price reading for that format at that\n` +
+          `  shop. The reading is the better evidence and the strip would draw the format twice.\n` +
+          `  Take the label out.`
+      );
+    }
+    if (!photoFor(rowId)) {
+      throw new Error(
+        `build-retailers: data/retailers.json lists ${JSON.stringify(label)} under "${r.name}"'s\n` +
+          `  alsoFormats and shared/product-photos.mjs has no photograph pinned for row\n` +
+          `  ${JSON.stringify(rowId)}, so the tile would be an empty box under a format name. A\n` +
+          `  format with no photograph is left OUT of the strip, never given a nearby product's\n` +
+          `  picture. Drop the label, or pin the row properly in sync-extra-products.mjs.`
+      );
+    }
+    const row = (MSRP.products || []).find((x) => x.label === label);
+    seen.set(label, { label, base: typeof row.price === "number" ? row.price : null });
+  }
+
+  const out = [];
+  for (const f of seen.values()) {
+    const rowId = ROW_OF_LABEL.get(f.label);
+    const p = rowId ? photoFor(rowId) : null;
+    // A format this site has no photograph of is dropped rather than drawn as a
+    // hole. The strip is an extra on this page and an incomplete strip is a
+    // smaller claim than a wrong one; /msrp.html is the page that owes every
+    // format a row, and it draws its own hatch there.
+    if (p) out.push({ ...f, photo: p });
+  }
+  // Nulls last so a format with no suggested figure cannot sort to the front and
+  // read as the cheapest thing on the shelf.
+  return out.sort(
+    (a, b) => (a.base === null) - (b.base === null) || (a.base || 0) - (b.base || 0) ||
+      a.label.localeCompare(b.label)
+  );
+};
 
 // ------------------------------------------------------------- the page bar
 //
@@ -319,6 +474,60 @@ ${rs
         </figure>`;
 };
 
+// ------------------------------------------------------------- the strip
+//
+// ONE PHOTOGRAPH PER FORMAT, AND THE NAME OF THE PRODUCT IN IT UNDER IT.
+//
+// That last part is the contract shared/product-photos.mjs sets and it is not
+// decoration: a photograph of one set's box standing in for a TYPE has to name
+// the box it is actually a photograph of, or it is a picture quietly claiming to
+// be a category. /msrp.html meets it with a "pictured:" clause in its provenance
+// line and this meets it in the tile, where the picture is.
+//
+// THE CAPTION CARRIES THE ONE SENTENCE THAT MAKES THE STRIP SAFE: the artwork
+// changes with every set and the shape does not. Without it a reader standing in
+// CVS is being shown a Prismatic Evolutions tin under CVS's name and may go
+// looking for that exact box. With it, the picture is doing the only job it can
+// honestly do, which is explaining what the words mean.
+//
+// NOT A LINK PER TILE. Every large tap target on these pages is internal or is
+// nothing, and thirteen links reading "MSRP page" would be the fault
+// build-msrp.mjs already wrote up on its own rows. One link, in the caption.
+//
+// THE onerror TAKES THE WHOLE TILE, NOT JUST THE IMAGE, WHICH IS THE ONE PLACE
+// THIS PAGE DIFFERS FROM EVERY OTHER onerror ON THE SITE. Elsewhere a dead scan
+// removing itself leaves a row that still reads correctly. Here the tile's other
+// two lines are "Elite Trainer Box" and "pictured: Pitch Black Elite Trainer
+// Box", and a "pictured:" with nothing pictured is a caption for an absence.
+// data/no-scan.json means this should never fire: photoFor already returns null
+// for a url known to answer 403, so this only catches one that dies later.
+const formatStrip = (r, fmts) => {
+  if (!fmts.length) return "";
+  const read = readingsFor(r.id).length > 0;
+  return `      <figure class="rt-fig rt-fmt">
+        <ul class="rt-fmts">
+${fmts
+  .map(
+    (f) => `          <li>
+            <img class="rt-shot" src="${esc(small(f.photo.src))}"
+              alt="${esc(f.photo.name)}, sealed" loading="lazy" decoding="async"
+              referrerpolicy="no-referrer" onerror="this.closest('li').remove()">
+            <span class="rt-fmt-n">${esc(f.label)}</span>
+            <span class="rt-fmt-p">pictured: ${esc(f.photo.name)}</span>
+          </li>`
+  )
+  .join("\n")}
+        </ul>
+        <figcaption>${
+          read
+            ? `The sealed formats ${esc(r.name)} listed a price for on their own site, one photograph of each.`
+            : `The sealed formats ${esc(r.name)}'s own site names, in the line above, one photograph of each.`
+        } The box in a picture is one product of that format and not the one on the shelf in front of you: the
+          artwork changes with every set and the shape does not. What each format is supposed to cost is on
+          <a href="/msrp.html">the MSRP page</a>.</figcaption>
+      </figure>`;
+};
+
 const TIER = {
   small: "Small sealed only, so packs, blisters and tins rather than boxes",
   boxes: "The bigger sealed formats too, so elite trainer boxes and booster boxes",
@@ -414,6 +623,31 @@ const STYLE = `
 .rt-fig{margin:var(--s4) 0 var(--s5);border:3px solid var(--navy);border-radius:12px;
   background:var(--card);box-shadow:var(--hard-lg);padding:var(--s4)}
 .rt-fig figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s4);max-width:52ch}
+/* THE FORMAT STRIP. Same bordered box as the bar chart, on purpose: a reader who
+   has met one figure on this page recognises the second as the same kind of
+   thing, and the desktop rule below already lays a .rt-fig out as drawing plus
+   caption, so the strip inherits that for free.
+   ONE COLUMN ON A PHONE, AND IT WAS TWO UNTIL IT WAS SCREENSHOTTED. minmax(136px)
+   gave two columns at 390, which is what the arithmetic says fits: the figure's
+   content box is 320px. What it actually looked like is a 63px text column, so
+   "Sleeved booster pack" set on three lines and "pictured: Stellar Crown Sleeved
+   Booster Pack" on five, and the strip ran 1,260px tall to show five pictures. At
+   220 the phone gets one column, the text gets 230px, and the same five formats
+   fit in half the height. The number is a floor rather than a layout, so a
+   desktop still fills the drawing column with four across. */
+.rt-fmts{list-style:none;margin:0;padding:0;display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--s3)}
+.rt-fmts li{display:grid;grid-template-columns:75px minmax(0,1fr);gap:12px;align-items:center}
+/* 75px, NOT 76. The tile has no srcset, so the browser takes the 150w file
+   whatever it is told, and 75 is the width at which a DPR 2 phone renders that
+   file at exactly 1:1. Fixed in CSS because tcgplayer-cdn's renditions are
+   variable height (200x268 to 200x417) and carry no width/height attributes, so
+   the box is the only thing holding the layout still. */
+.rt-shot{grid-row:span 2;width:75px;height:75px;object-fit:contain;border-radius:var(--r-sm);
+  background:var(--paper-2);box-shadow:inset 0 0 0 1px var(--hair)}
+.rt-fmt-n{font:700 var(--t-sm)/1.25 var(--body);color:var(--ink);align-self:end}
+.rt-fmt-p{font:400 var(--t-micro)/1.35 var(--mono);color:var(--ink-2);align-self:start;
+  overflow-wrap:anywhere}
 /* THE .bch ROWS ARE DEFINED IN build-buying.mjs's OWN INLINE BLOCK, not in
    ui.css, so this page carries its own copy of the ones it uses. That is the
    trade shared/brands.mjs's BRAND_STYLE already makes and for the same reason:
@@ -852,8 +1086,11 @@ ${bars(rs)}`;
 };
 
 let written = 0;
+let pictured = 0;
 for (const r of paged) {
   const rs = readingsFor(r.id);
+  const fmts = formatsFor(r);
+  pictured += fmts.length;
   const path = pathOf(r);
   const title = `Does ${r.name} Sell Pokemon Cards? | Garbage Rips 585`;
   const desc = `${r.answer.split(". ")[0]}. What ${r.name} stocks, which department the cards are filed under, and every price we have read on their own site with the date and the address on it.`;
@@ -881,6 +1118,7 @@ ${MENU}
       <section class="rt-grp">
         <h2>What they <span class="hl">stock</span></h2>
         <p class="rt-note"><b>${esc(TIER[r.stocksTier] || TIER.unknown)}.</b> ${esc(r.stocks)}</p>
+${formatStrip(r, fmts)}
       </section>
 
 ${r.whereInStore ? `      <section class="rt-grp">
@@ -942,7 +1180,16 @@ ${siblings(r)
     </div>
   </section>
 </main>
-${footer()}
+${footer(
+  // The same credit /msrp.html and /what-to-buy.html carry, on the pages that
+  // carry the same photographs and only on those. Barnes & Noble has no strip,
+  // because no Pokemon product appeared in their own collection on the day, so
+  // its footer must not claim to be showing anybody's product photography.
+  fmts.length
+    ? "Product photos are TCGplayer's, used to identify the sealed formats written about here. " +
+        "Each one is a photograph of the format rather than of the box on a shelf near you."
+    : ""
+)}
 ${APP_JS}
 </body>
 </html>
@@ -973,6 +1220,9 @@ await writeFile(
 );
 
 console.log(`Wrote public/retailers.html and ${written} retailer pages
+  ${pictured} sealed formats pictured across ${
+    paged.filter((r) => formatsFor(r).length).length
+  } of ${paged.length} pages
   ${retailers.length} retailers confirmed, ${(R.couldNotRead || []).length} could not be confirmed
   ${readings.length} price readings (${readings.filter((x) => x.seller === "first-party").length} first-party, ${
   readings.filter((x) => x.seller === "marketplace").length

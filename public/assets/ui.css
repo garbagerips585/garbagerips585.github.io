@@ -1599,15 +1599,20 @@ span.cq-name{color:var(--ink)}
   .vcar-slide{flex:0 0 calc((100% - 3 * var(--s4)) / 3.3)}
 }
 @media(min-width:1200px){
-  .hof .wrap{display:grid;grid-template-columns:minmax(0,460px) minmax(0,1fr);
-    gap:var(--s6);align-items:start}
+  .hof .wrap{display:grid;
+    grid-template-columns:minmax(0,calc((100% - var(--s6) - 5 * var(--s4) + 4 * var(--s5) + 12px) / 3)) minmax(0,1fr);
+    gap:var(--s6);
+    align-items:stretch}
   .hof-head{grid-column:1/-1}
-  .hofx{max-width:none;margin:var(--s5) 0 0}
-  .hof .shelf{margin:0;padding-inline:0;min-width:0}
+  .hofx{max-width:none;margin:var(--s5) 0 0;align-content:start}
+  .hof .wrap:has(.vcar:not(.is-static)) .hofx{margin-bottom:calc(44px + var(--s3))}
+  .hof .vcar{margin-top:calc(var(--s5) + 4px + var(--s5) - var(--s4) - 1px);
+    display:flex;flex-direction:column;flex:1 1 auto;min-height:0}
+  .hof .vcar-track{flex:1 1 auto;min-height:0}
+  .hof .vcar-slide{display:flex}
+  .hof .vcar .hero{flex:1 1 auto;min-width:0;align-content:start}
+  .hof .shelf{margin:0;padding:0;min-width:0;display:flex;flex-direction:column}
   .hof .vcar-slide{flex:0 0 calc((100% - var(--s4)) / 2)}
-}
-@media(min-width:1400px){
-  .hof .wrap{grid-template-columns:minmax(0,520px) minmax(0,1fr)}
 }
 @media(min-width:1000px){
   .mw{width:auto;flex:1 0 176px;max-width:232px}

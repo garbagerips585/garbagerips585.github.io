@@ -55,6 +55,17 @@ const ALIAS = {
   // does not. One line here rather than renaming a mirrored file that three
   // pages already point at.
   "best-buy": ["bestbuy"],
+  // SAME MISMATCH, AND IT HAD BEEN READING AS A FINDING RATHER THAN AS A TYPO.
+  // data/drops.json keys this retailer `dollar-general`; the mirrored file is
+  // `dollargeneral.svg` and has been on disk since sync-brands.mjs first ran.
+  // With no alias the lookup missed and shared/brands.mjs did exactly what it
+  // promises for a venue Commons has nothing for: it drew the hatched name
+  // tile. That is the right fallback and it is the wrong answer here, because
+  // the mark exists. Nothing errored, the page looked deliberate, and the tile
+  // was being quoted back as "Dollar General has no mark". CHECK THE MANIFEST
+  // BEFORE BELIEVING A NAME TILE: the fallback cannot tell "no file" from "no
+  // alias" apart, and only one of those is a finding.
+  "dollar-general": ["dollargeneral"],
 };
 
 /**
@@ -216,19 +227,23 @@ export const BRAND_CREDIT =
  * height and the wide ones use the full width, and every mark ends up on the
  * same baseline inside the same 34px band, which is what makes the column read.
  */
-export const BRAND_STYLE = `
+const BMK_BOX = `
 .bmk{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;
   height:34px;min-width:56px;max-width:124px;padding:4px 9px;box-sizing:border-box;
   background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r-sm)}
 .bmk img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
-/* Four marks for one venue entry. Wider box, and each mark gets a share of it.
+`;
+
+const BMK_MULTI = `/* Four marks for one venue entry. Wider box, and each mark gets a share of it.
    The row wraps to two-by-two under 420px rather than shrinking to illegible. */
 .bmk-multi{max-width:100%;flex-wrap:wrap;gap:6px 12px;height:auto;min-height:34px;padding:6px 10px}
 .bmk-multi img{max-height:22px;max-width:74px}
 @media(max-width:420px){.bmk-multi img{max-height:19px;max-width:64px}}
 /* The drawn glyphs and the name tiles. Same box, deliberately. */
 .bmk-d{color:var(--ink-2)}
-/* THE SITE'S OWN NO-ART HATCH, the same 45 degree one .set-noart uses for a set
+`;
+
+const BMK_TILE = `/* THE SITE'S OWN NO-ART HATCH, the same 45 degree one .set-noart uses for a set
    with no logo and .op-cn uses for a product with no publishable photograph.
    Reusing it rather than inventing a treatment is the point: a reader who has
    seen it on /sets/ already knows it means "there is no picture of this", so
@@ -238,3 +253,30 @@ export const BRAND_STYLE = `
   text-align:center;overflow-wrap:anywhere;background:var(--paper-2);
   box-shadow:0 0 0 3px var(--paper-2);border-radius:2px}
 `;
+
+// THE THREE PIECES ARE JOINED IN THE ORIGINAL ORDER AND BRAND_STYLE IS BYTE FOR
+// BYTE WHAT IT ALWAYS WAS. That is a requirement, not a nicety: /buying.html,
+// /selling.html and /retailers.html paste this whole string into their own
+// <style>, and reordering it would move `.bmk-multi img` in front of `.bmk img`,
+// which are the SAME specificity (0,1,1), so the four-up row would silently lose
+// its 22px cap. Keep any new rule inside the piece it belongs to.
+export const BRAND_STYLE = BMK_BOX + BMK_MULTI + BMK_TILE;
+
+/**
+ * The same box WITHOUT the rules a page cannot reach.
+ *
+ * FOR THE HOME PAGE, AND THE REASON IS THAT PAGE AND NOT TIDINESS. The drops
+ * band on index.html draws one single company mark per row, so `.bmk-multi`
+ * (four marks for one venue) and `.bmk-d` (the drawn glyphs for the rows that
+ * are situations rather than companies) can never match anything there: no
+ * retailer id in data/drops.json resolves to more than one mark and none of them
+ * is in DRAWN. index.html is the most visited document on the site and its
+ * <style> is in the critical path, so those four dead rules are 475 bytes it
+ * would carry above the fold to no reader's benefit.
+ *
+ * It is a SUBSET of BRAND_STYLE, sharing the same source text rather than
+ * copying it, so a change to the box lands on all four pages at once. If a page
+ * using this ever needs a multi-mark row or a drawn glyph, switch it to
+ * BRAND_STYLE rather than pasting the missing rules in beside this one.
+ */
+export const BRAND_STYLE_MIN = BMK_BOX + BMK_TILE;

@@ -722,20 +722,59 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
   Added 17 August 2026 on Tim's ask: "easy to just land on home page and see
   what upcoming pokemon drops to keep an eye out for this week". Three rows out
   of /drops.html's nine, generated into the `DROPS` region by build-proto.mjs
-  from data/drops.json, linking through. It is text: no artwork, no extra
-  request, +1.3KB gzipped on the document at every width measured, verified from
-  the request log against the same page with the band stripped out.
+  from data/drops.json, linking through.
+
+  **EACH ROW NOW CARRIES THE RETAILER'S OWN MARK, added later the same day on
+  "can we add the store logos to these announcements instead of just the box
+  that says pattern only".** THE ENTRY HERE SAID "it is text: no artwork, no
+  extra request" AND THAT IS NO LONGER TRUE. It draws `brandMark` from
+  shared/brands.mjs against the same mirrored Commons files /buying.html,
+  /selling.html, /retailers.html and /drops.html's own retailer chip use, in a
+  slightly shorter box (26px against 34px, capped at 96px wide). Nothing new was
+  fetched and nothing is hotlinked.
+
+  READ THE ASK THE WAY IT WAS MEANT: the row had the confidence chip INSTEAD of
+  a logo, not as well as one, so THE CHIP STAYED. `Pattern only` is the weakest
+  tier the site has, it exists because no retailer publishes a restock schedule,
+  and a row wearing a retailer's mark reads as more official than the same row
+  in plain text. The hedge is worth more beside a logo, not less. The band's
+  source line also gained one sentence saying the logos are the retailers'
+  trademarks and are there to name the shop; the existing "Not a retailer
+  speaking" is untouched.
+
+  WHAT IT COSTS, one harness, gzipped, cache off, the same tree with and without
+  the marks, mark files read off the REQUEST LOG:
+
+                          on-load           fully scrolled    band height
+       390x844  DPR 2   354.0 -> 360.6KB    934.6 -> 941.1KB   550 -> 630px
+       1440x900 DPR 1   439.8 -> 446.4KB   1798.0 -> 1804.6KB  265 -> 288px
+
+  Three requests at every width, 5.3KB the set (pokemon-center.svg 2,878B,
+  walmart.svg 2,174B, target.svg 401B over the wire), plus the document going
+  15,632 to 16,929 bytes gzipped. So +6.6KB on load, 1.9% of a phone's, on a
+  page that is still 84% pack art. The marks are `loading="lazy"` so they queue
+  behind the artwork rather than in front of it.
 
   IT IS ABOVE GREATEST HITS AND THAT COST WAS MEASURED, NOT WAVED AT. At 390x844
-  the band is 550px and moves the "Greatest Hits" heading from 367px to 722px,
-  so the heading is still above the fold and the trophy artwork mostly is not.
-  At 1440x900 the band is 265px, three columns, and Greatest Hits still shows
-  three packs. The case for the position is that the Greatest Hits band alone is
-  1,656px tall on a phone, so anything under it is two screens down and nobody
-  lands on the page and sees it. If a later editor decides the channel must own
-  the whole first screen, move the two `DROPS` markers in index.html below the
-  `.hof` section; do NOT instead shrink the band by cutting its lede or its
-  credit line, which are the two things it must not lose.
+  the band is 630px and puts the "Greatest Hits" heading at 802px, so the
+  heading is still above the fold and the trophy artwork mostly is not. **802 of
+  844 IS THE NUMBER TO WATCH, not the kilobytes: 42px of margin is all that is
+  left, and a fourth row or a taller mark box spends it.** At 1440x900 the band
+  is 288px, three columns, and Greatest Hits still shows three packs. The case
+  for the position is that the Greatest Hits band alone is 1,656px tall on a
+  phone, so anything under it is two screens down and nobody lands on the page
+  and sees it. If a later editor decides the channel must own the whole first
+  screen, move the two `DROPS` markers in index.html below the `.hof` section;
+  do NOT instead shrink the band by cutting its lede or its credit line, which
+  are the two things it must not lose.
+
+  A RETAILER WITH NO MARK GETS THE HATCHED NAME TILE and that is the documented
+  fallback, not a bug. It is also not proof there is no mark: `dollar-general`
+  in data/drops.json had been drawing a name tile on /drops.html while
+  `dollargeneral.svg` sat on disk, because shared/brands.mjs had no alias for
+  the hyphen. One line in `ALIAS` fixed it and /drops.html gained its ninth
+  mark, +2.2KB and one request on that page. CHECK data/brand-marks.json BEFORE
+  BELIEVING A NAME TILE: the fallback cannot tell "no file" from "no alias".
 
   **THE EXPIRY IS THE WHOLE FEATURE AND IT IS SHARED, NOT COPIED.** A stale drop
   here is far worse than a stale drop on /drops.html, because "be ready for a

@@ -176,6 +176,133 @@ const downloadSize = (() => {
 })();
 
 // ---------------------------------------------------------------------------
+// THE FIRST FORTNIGHT.
+//
+// What is in the app is section six's subject and it has no picture at all, and
+// the thing a person installing this actually gets wrong is the SHAPE of the
+// first two weeks. The page states both halves of it and states them apart:
+// "two free packs a day, on a twelve-hour timer" in one bullet, "unlocked two
+// weeks after you start" in another two, and again in tips two and seven. Drawn
+// on one axis it is a single fact: the collecting half of this app runs from the
+// minute you install it and the social half is a fortnight away.
+//
+// THAT IS THE ONE THING WORTH KNOWING ON DAY ONE, because it is the only part
+// that rewards an action taken early. Tip seven already says "add friends
+// early"; the figure is the reason.
+//
+// THE BATTLE GATE IS DELIBERATELY NOT ON IT. Battles unlock at player level 3,
+// which is a level and not a day, and no official page converts one to the
+// other. Putting it anywhere on a day axis would be this page inventing a
+// number, so it stays where it is, in the bullet and in tip three.
+//
+// EVERY NUMBER IS PULLED BACK OUT OF THE QUOTE THE PAGE ALREADY LEANS ON, the
+// same way DECK, PRIZES, BENCH and COPIES are above. The two unlocks are
+// asserted to be the same number rather than assumed to be: they are published
+// in two separate support articles and the page prints one phrase, "two weeks",
+// for both.
+const TIMER_H = Number(
+  fromQuote(d.whatIsInIt?.freePacks?.quote, /Every (\d+) hours/i, "the free pack timer")
+);
+const WONDER_H = (() => {
+  const line = (d.whatIsInIt?.wonderPick?.detail || []).find((x) => /wonder stamina/i.test(x));
+  const word = fromQuote(line, /every (twelve|\d+) hours/i, "the Wonder Pick timer");
+  return word.toLowerCase() === "twelve" ? 12 : Number(word);
+})();
+const TRADE_D = Number(
+  fromQuote(
+    ((d.whatIsInIt?.trading?.detail || []).find((x) => /trading unlocks/i.test(x.quote || "")) || {}).quote,
+    /trading unlocks (\d+) days after starting/i,
+    "the trading unlock"
+  )
+);
+const SHARE_D = Number(
+  fromQuote(d.whatIsInIt?.sharing?.quote, /unlocked (\d+) days after starting/i, "the sharing unlock")
+);
+if (TRADE_D !== SHARE_D) {
+  throw new Error(
+    `tcg-pocket: trading unlocks at ${TRADE_D} days and sharing at ${SHARE_D}, and the page prints ` +
+      `"two weeks" for both in the What is in it bullets and again in tip seven. The figure draws them ` +
+      `on one gate. Split the copy and the drawing together, or do not ship either.`
+  );
+}
+if (!(TIMER_H === WONDER_H)) {
+  throw new Error(
+    `tcg-pocket: the pack timer is ${TIMER_H} hours and the Wonder Pick timer is ${WONDER_H}. The figure ` +
+      `draws both as the same comb of marks because the page says both run on a twelve-hour timer. Draw ` +
+      `two cadences or fix the data; do not draw one and label it as the other.`
+  );
+}
+if (!(TRADE_D > 1 && TRADE_D < 60) || !(TIMER_H > 0 && TIMER_H < 48)) {
+  throw new Error(`tcg-pocket: first-fortnight figure parsed timer=${TIMER_H}h unlock=${TRADE_D}d.`);
+}
+
+/**
+ * Four rows on one axis of days: two that start full and two that start empty.
+ *
+ * THE ARGUMENT IS EMPTINESS, WHICH IS WHY THE LOCKED ROWS ARE DRAWN AT ALL. The
+ * obvious version lists what you get and omits what you do not, and it makes the
+ * opposite point: an app with four features. Two rows of nothing running the
+ * whole width, ending at a gate, is the fortnight.
+ *
+ * MARKS, NOT A SOLID BAR, on the open rows. A filled track would say "available"
+ * and the thing worth knowing is that it arrives on a clock: a mark every
+ * twelve hours over two weeks is 28 of them, which reads as a rhythm rather than
+ * as a state and matches the "two free packs a day" the bullet above promises.
+ *
+ * NO HUE CARRIES ANYTHING. --ink, --navy, --ketchup and --keyline all resolve to
+ * #111111 in ui.css today, so the open rows and the locked rows are separated by
+ * whether marks are there at all, and the gate is a dashed vertical against
+ * horizontal work. Set every fill in this figure to one value and it still
+ * reads.
+ */
+const FORTNIGHT = () => {
+  const W = 300, X0 = 76, X1 = 264, TOP = 18, ROW = 24;
+  const ROWS = [
+    { label: "Free packs", open: true },
+    { label: "Wonder Pick", open: true },
+    { label: "Trading", open: false },
+    { label: "Sharing", open: false },
+  ];
+  const H = TOP + ROWS.length * ROW + 2;
+  const x = (day) => X0 + (day / TRADE_D) * (X1 - X0);
+  const step = TIMER_H / 24;
+  const marks = [];
+  for (let day = 0; day <= TRADE_D + 1e-9; day += step) marks.push(day);
+  return `        <figure class="tp-fig">
+          <svg class="ff" viewBox="0 0 ${W} ${H}" role="img"
+            aria-label="The first ${TRADE_D} days in Pokemon TCG Pocket. Free packs and Wonder Pick run from the day you install it, both on a ${TIMER_H} hour timer. Trading and sharing give you nothing at all until day ${TRADE_D}, when both unlock.">
+            <text class="ff-ax" x="${X0}" y="9">day 0</text>
+            <text class="ff-ax" x="${X1}" y="9" text-anchor="end">day ${TRADE_D}</text>
+            <line class="ff-gate" x1="${X1}" y1="12" x2="${X1}" y2="${H - 2}"/>
+${ROWS.map((r, i) => {
+  const top = TOP + i * ROW;
+  const mid = top + 10;
+  return `            <text class="ff-n" x="0" y="${mid + 3}">${r.label}</text>
+            <rect class="ff-t" x="${X0}" y="${mid - 5}" width="${X1 - X0}" height="10" rx="2"/>${
+    r.open
+      ? "\n            " +
+        marks
+          .map(
+            (m) =>
+              `<line class="ff-m" x1="${x(m).toFixed(1)}" y1="${mid - 4}" x2="${x(m).toFixed(1)}" y2="${mid + 4}"/>`
+          )
+          .join("")
+      : `\n            <text class="ff-lock" x="${(X0 + X1) / 2}" y="${mid + 3}" text-anchor="middle">locked</text>`
+  }`;
+}).join("\n")}
+          </svg>
+          ${/* FORTY WORDS, AND THE CAP IS 45 AND ENFORCED. The first draft was 47
+                and the build refused it, which is the guard working. Do not
+                spend the remaining five on the level 3 battle gate: it is not a
+                day and it does not belong on a day axis. */ ""}
+          <figcaption>The first ${esc(String(TRADE_D))} days. Each mark is a ${esc(
+    String(TIMER_H)
+  )} hour timer coming round. The collecting half runs from the minute you install it; trading and sharing
+            give you nothing until the dashed line. That is why adding friends early pays.</figcaption>
+        </figure>`;
+};
+
+// ---------------------------------------------------------------------------
 // THE TWO BOARDS, SIDE BY SIDE.
 //
 // The best picture available to either of these pages, and it carries section
@@ -309,6 +436,24 @@ const style = `
 .tb-h{font:700 6px var(--mono);fill:var(--ink);letter-spacing:.1em}
 .tb-div{stroke:var(--ink);stroke-width:1;stroke-dasharray:4 3;opacity:.5}
 .tb-k{font:400 5px var(--mono);fill:var(--ink-2)}
+/* THE FIRST FORTNIGHT. Type is 9 viewBox units in a 300 unit box, which the
+   figure renders at about 366px on a 390px phone, so those land near 11 real
+   pixels. The board diagram above runs 5 and 6 units, which is 6 and 7, and
+   that is under the readable floor; noted here rather than changed because its
+   boxes are sized to the labels already in them.
+
+   THE MARKS ARE 1.4 UNITS WIDE AND 7 APART at the current numbers. Thinner and
+   the comb greys out into a solid bar at phone scale, which would say
+   "available all the time" instead of "arrives on a clock". If the timer or the
+   unlock ever changes, re-screenshot: this spacing is a consequence of 28 marks
+   across 188 units and nothing enforces it. */
+.ff{width:100%;height:auto;display:block;background:var(--paper-2);border-radius:8px;padding:6px 0}
+.ff-n{font:700 9px var(--mono);fill:var(--ink)}
+.ff-ax{font:700 9px var(--mono);fill:var(--gold-deep);letter-spacing:.04em}
+.ff-t{fill:var(--paper-3)}
+.ff-m{stroke:var(--ink);stroke-width:1.4}
+.ff-lock{font:400 8px var(--mono);fill:var(--ink-2);letter-spacing:.1em;text-transform:uppercase}
+.ff-gate{stroke:var(--gold-deep);stroke-width:2;stroke-dasharray:5 3}
 .tb-f{font-size:5.2px;fill:var(--ink)}
 .tp-out{border:3px dashed var(--navy);border-radius:12px;background:var(--card);padding:var(--s4);
   margin-top:var(--s6);max-width:44em}
@@ -477,6 +622,7 @@ ${compareTable(esc)}
         <p>There is a collecting half as well: a card dex, binders and display boards you arrange and can show
           other players, and cosmetic flair on cards. It runs its own ladder of rarity marks, and they are not the
           ones printed on your cards, which is what <a href="/rarity.html">our rarity guide</a> is about.</p>
+${FORTNIGHT()}
       </section>
 
       <section class="tp-s" id="tips">

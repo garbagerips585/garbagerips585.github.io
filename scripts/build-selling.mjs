@@ -445,6 +445,135 @@ ${rows.join("\n")}
       </figure>`;
 };
 
+// ============================================================================
+// THE LADDER THE CHART ABOVE COULD NOT DRAW.
+//
+// The take-home chart puts four marketplaces on one $100 sale. There are FIVE
+// marketplaces on this page, and Sportlots is missing from it because its rate
+// does not depend on the sale at all. The research file says so in as many
+// words: one venue's rate depends on your month rather than your card, and
+// averaging it into a single number destroys it. So the chart above is right to
+// leave it off, and leaving it off is also why the single strangest fee on this
+// page is invisible: a seller who moves under five dollars in a month keeps a
+// quarter of it.
+//
+// THIS IS THE SAME MOVE THE NO-THRESHOLD ROWS MAKE ON /buying.html. A venue that
+// cannot go on the shared axis gets its own picture rather than a silent
+// omission or a fudged average, and the caption says which axis this one is.
+//
+// THE REFERENCE LINE IS COMPUTED FROM THE CHART ABOVE, not typed in. It is the
+// worst total any of those four venues takes out of $100, which is the honest
+// comparator: it already includes the second layer of fees, and drawing the
+// headline percentage instead would flatter this ladder. Every rung is above it,
+// which is the finding, and no sentence anywhere on the page says so because it
+// needs all ten bands and the four totals in one place to be sayable.
+//
+// AND THE BANDS UNDERSTATE WHAT SPORTLOTS TAKES, which the caption has to carry
+// or the picture is dishonest in the venue's favour. Payment processing is
+// charged to the seller here ON TOP of the band, where eBay's final value fee
+// already contains it. That line is asserted rather than remembered.
+// THE LABEL IS THE BAND VERBATIM AND THE FIRST DRAFT GOT THIS WRONG IN A WAY
+// THAT LOOKED FINE. It parsed the lower bound only and printed "$0.00 and up",
+// which reads as "sell anything at all and they take 75%" and is false for
+// every seller past five dollars. The bands are RANGES, the top one is open
+// ended, and the whole point of the figure is which range you are in. So the
+// segment is split off the sentence whole and only the percentage is pulled out
+// of it: whatever Sportlots calls a band is what the row is called.
+const SL_FEE = feeOf("sportlots", /^Fixed-price commission, by TOTAL MONTHLY SALES$/);
+const SL_BANDS = String(SL_FEE.rate)
+  .split(/\.\s+(?=\$)/)
+  .map((seg) => {
+    const m = /^(.+?):\s*([\d.]+)%\.?\s*$/.exec(seg.trim());
+    return m ? { band: m[1].replace(/-/g, " to "), pct: Number(m[2]) } : null;
+  })
+  .filter(Boolean);
+if (SL_BANDS.length < 5) {
+  throw new Error(
+    `build-selling: the monthly ladder reads bands off "${SL_FEE.what}" on sportlots and found ` +
+      `${SL_BANDS.length}. It now reads: ${JSON.stringify(SL_FEE.rate)}. A ladder of four rungs is a ` +
+      `sentence, not a picture: restore the line, or update the parse and the figure together.`
+  );
+}
+// The whole argument is that this ladder DESCENDS as you sell more, which is the
+// opposite of every other rate on the page. If it ever stops descending the
+// picture is making a claim the data does not.
+SL_BANDS.forEach((b, i) => {
+  if (i && !(b.pct < SL_BANDS[i - 1].pct)) {
+    throw new Error(
+      `build-selling: the monthly ladder's band ${i} is ${b.pct}% against ${SL_BANDS[i - 1].pct}% above it, ` +
+        `so the rate no longer falls as you sell more. That direction is the entire figure and the entire ` +
+        `note on the fee line. Do not ship a staircase that does not go one way.`
+    );
+  }
+});
+assertRate(
+  "sportlots",
+  /^Payment processing$/,
+  /^Paid by the seller/i,
+  "the caption says the bands understate what it takes because processing sits on top of them"
+);
+const SL_WORST = CUTS[0];
+
+/**
+ * Ten bands on one axis of percentage taken.
+ *
+ * SAME .bch ROWS AS THE CHART ABOVE, deliberately. Two figures in two bar styles
+ * on one page reads as two accidents, and this one sits directly under the other
+ * so the difference would be at its most visible. Nothing here needs a company
+ * mark, because every row is the same company.
+ *
+ * THE AXIS IS PERCENT TAKEN AND THE BARS RUN TO THE WORST BAND, not to 100.
+ * Scaled to 100 the bottom six rungs are 15 to 27px inside a 296px track and the
+ * staircase stops being one. 75 is a real number in the data rather than a
+ * convenient maximum, and it is printed on its own row.
+ *
+ * THE REFERENCE IS A DASHED RULE INSIDE EVERY TRACK rather than a differently
+ * coloured bar, and that is the colour trap being avoided rather than a style
+ * choice. --ink, --navy, --ketchup and --keyline all resolve to #111111 today,
+ * so a comparison carried by two fills would be one black shape. A vertical dash
+ * across a horizontal bar survives the whole palette collapsing to one value.
+ */
+const monthChart = () => {
+  const MAX = Math.max(...SL_BANDS.map((b) => b.pct));
+  const pc = (v) => +((v / MAX) * 100).toFixed(1);
+  const refPc = pc(SL_WORST.total);
+  return `      <figure class="pg pg-ml">
+        <ul class="bch bch-ml">
+${SL_BANDS.map(
+  (b, i) => `          <li>
+            <span class="bch-h"><span class="bch-n">${esc(b.band)} <span class="bch-s">${
+              i === SL_BANDS.length - 1 ? "the best rate there is" : "sold that month"
+            }</span></span><b class="bch-v">${b.pct}%</b></span>
+            <span class="bch-t" aria-hidden="true"><span class="bch-b ml-b" style="width:${pc(b.pct)}%"></span><span class="ml-ref" style="left:${refPc}%"></span></span>
+          </li>`
+).join("\n")}
+        </ul>
+        <figcaption>Sportlots is the fifth marketplace on this page and it is not in the chart above, because
+          its rate is set by everything you sold that month rather than by the card. A month in the
+          ${esc(SL_BANDS[0].band)} band costs you ${esc(String(SL_BANDS[0].pct))}% of it. A month at
+          ${esc(SL_BANDS[SL_BANDS.length - 1].band)} costs ${esc(
+    String(SL_BANDS[SL_BANDS.length - 1].pct)
+  )}%.
+          Nothing else on this page works this way, and no other rate on it moves at all.
+          <b>The dashed line is the chart above.</b> It sits at $${esc(
+            SL_WORST.total.toFixed(2)
+          )}, which is the most any of those four venues takes out of a $100 sale, including everything they
+          charge on top. Every rung here is past it, so the best month a Sportlots seller can have is still
+          worse than the worst of the four, and ${esc(
+            String((SL_BANDS[0].pct / SL_WORST.total).toFixed(1))
+          )} times worse at the bottom.
+          <b>And the bands understate it.</b> Payment processing is charged to the seller here, on top of the
+          band, where eBay's final value fee already contains it. Listing is free on fixed price and auctions
+          cost ${esc(
+            (() => {
+              const f = feeOf("sportlots", /^Auction listing fee$/);
+              const m = /\$([\d.]+)/.exec(f.rate);
+              return m ? `$${m[1]}` : f.rate;
+            })()
+          )} each. Read from Sportlots' own seller guide${money.checked ? ` on ${esc(longDate(money.checked))}` : ""}.</figcaption>
+      </figure>`;
+};
+
 const desc = `Where to sell Pokemon cards and what each place takes. Fees read off each company's own page, plus who protects a seller and who does not.`;
 
 // COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same trade
@@ -502,6 +631,29 @@ const style = `
    with no mark. Here it means the opposite of a missing figure and the same
    thing mechanically: there is no platform fee to draw, and the real cost is a
    buy price nobody publishes. */
+/* THE MONTHLY LADDER. One fill and one rule, because the second figure on this
+   page must not invent a second bar language. .bch-t is display:flex and
+   overflow:hidden above, which is what lets the take-home chart stack two
+   segments; the reference mark has to be positioned rather than flowed or it
+   would push the bar along, so the track goes relative HERE ONLY and not on
+   .bch-t generally. Scoping it wrong would move nothing visibly and would leave
+   a positioned ancestor under the other chart's segments. */
+.bch-ml .bch-t{position:relative}
+.ml-b{background:var(--ink);border-radius:3px}
+/* 2px and full height, so it reads over a filled bar and over an empty track
+   alike. The bars are ink and the rule is gold, but the reading is vertical
+   against horizontal: set both to one value and the figure still works, which
+   is the requirement on this site's palette. */
+.ml-ref{position:absolute;top:-4px;bottom:-4px;width:2px;margin-left:-1px;background:var(--gold-deep);
+  box-shadow:0 0 0 1px var(--paper-2)}
+/* THE TRACK STOPS CLIPPING, AND ONLY ON THIS CHART. .bch-t sets overflow:hidden
+   so the take-home chart's two stacked segments cannot spill past the rounded
+   ends. Inherited here it cropped the reference rule back to exactly the track
+   height, which at 12px inside a black bar is a gold sliver a reader has to be
+   told to look for. The rule now stands 4px proud top and bottom, which is the
+   difference between a mark on one bar and a line across the chart. This chart
+   has no stacked segments to spill, so nothing else wants the clip back. */
+.bch-ml .bch-t{overflow:visible}
 .tk-z{background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px);
   box-shadow:inset 0 0 0 1px var(--ink-2)}
 .pg figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s4);max-width:52ch}
@@ -756,6 +908,7 @@ ${GROUPS.map((g) => {
           other. Here they are next to each other, on the same sale, so the ranking is visible before you read
           fourteen of them. The order is not the order the headline percentages give.</p>
 ${takeChart()}
+${monthChart()}
       </section>
 ${(() => {
   // NOTHING ANYWHERE CHECKED THAT EVERY VENUE ACTUALLY REACHED THE PAGE. The
