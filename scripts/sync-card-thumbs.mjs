@@ -107,12 +107,23 @@
 // take that trade. q55 was picked over q40 and q50 for margin on smooth
 // gradients, where q40 blocks up slightly on Team Rocket's Mewtwo ex.
 //
-// ALPHA IS PRESERVED HERE AND IS NOT IN THE 72px PATH ABOVE. TCGdex scans are
-// RGBA with genuinely transparent rounded corners (alpha min 0 on all ten), so
-// the `.convert("RGB")` the grading thumbnails use fills those corners with
-// black. At 32px it reads as a faint dark corner and nobody has complained; at
-// 151px it would be an obvious black wedge. The 72px files are left exactly as
-// they are, byte for byte, because /grading.html is not this pass's page.
+// ALPHA IS PRESERVED IN BOTH PATHS NOW. TCGdex scans are RGBA with genuinely
+// transparent rounded corners (alpha extrema 0..255 on every card checked), so
+// a `.convert("RGB")` fills those corners with black.
+//
+// THIS ENTRY USED TO SAY THE 72px PATH WAS DELIBERATELY LEFT FLATTENED, on the
+// reasoning that at 32px it reads as a faint dark corner and nobody had
+// complained. Somebody then complained, which is the answer to "nobody has
+// complained": it means nobody has said so yet, not that it looks right. All
+// 114 grading thumbnails carried it. Measured on the 72px Pikachu ex, the
+// top-left corner pixel was (94,96,95) and the top-right (93,93,93), against a
+// page background those corners are supposed to show.
+//
+// "Tolerable at this size" is a judgement about a rendering nobody had looked
+// at closely; the corner is 4 device pixels of wrong colour on a rounded edge,
+// on a site whose whole subject is what a card looks like. Both loops call
+// .convert("RGBA") and the difference is a handful of kilobytes, recorded in
+// the commit that made the change.
 //
 // WIDTHS ARE CHOSEN FROM THE MEASURED BOXES, NOT ROUND NUMBERS:
 //   wanted 310w  covers 302 device px, the 151px box at 390 and DPR2
@@ -188,17 +199,20 @@ from PIL import Image
 BOX = ${BOX}
 jobs = json.load(sys.stdin)
 for job in jobs.get("encode", []):
-    im = Image.open(job["src"]).convert("RGB")
+    # RGBA, NOT RGB. See the alpha note at the top of this file: a TCGdex scan
+    # has genuinely transparent rounded corners, and .convert("RGB") composites
+    # them onto black. Measured on the 72px Pikachu ex before this changed, the
+    # top-left corner pixel was (94,96,95) and the top-right (93,93,93), where
+    # both should have let the page background through.
+    im = Image.open(job["src"]).convert("RGBA")
     w, h = im.size
     scale = min(BOX / w, 1.0)
     if scale < 1.0:
         im = im.resize((max(1, round(w * scale)), max(1, round(h * scale))), Image.LANCZOS)
     im.save(job["dst"], "WEBP", quality=${QUALITY}, method=6)
 
-# The renditions, which keep their alpha. A TCGdex scan is RGBA with genuinely
-# transparent rounded corners, and flattening those to RGB paints them black.
-# That is what the .convert("RGB") above does to the 72px thumbnails, and it is
-# tolerable at 32px and not at 151px.
+# The renditions. Same RGBA rule as the 72px loop above, which used to be the
+# one place on this site that flattened a card's corners onto black.
 for job in jobs.get("render", []):
     im = Image.open(job["src"]).convert("RGBA")
     w, h = im.size
