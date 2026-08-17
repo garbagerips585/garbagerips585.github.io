@@ -1,0 +1,5146 @@
+{
+ "_readme": [
+  "Written by scripts/sync-species-art.mjs. Do not hand-edit.",
+  "Official Pokemon artwork mirrored from the PokeAPI sprite repository, at the",
+  "size /pokemon/ draws it: 256px, which is the 128px drawn hero box doubled.",
+  "Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc.",
+  "and GAME FREAK inc. This is a fan site. Nothing is sold here and nothing on it",
+  "is affiliated with or endorsed by them.",
+  "",
+  "Keyed by National Pokedex number, which is what data/pokedex.json and the",
+  "printings corpus both join on, so a portrait can never be attached to the",
+  "wrong species by a name that two things spell differently."
+ ],
+ "source": "PokeAPI/sprites, official-artwork",
+ "sourceUrl": "https://github.com/PokeAPI/sprites",
+ "checked": "2026-08-17",
+ "box": 256,
+ "count": 1025,
+ "art": {
+  "1": {
+   "file": "/assets/species/1.webp",
+   "w": 256,
+   "h": 256
+  },
+  "2": {
+   "file": "/assets/species/2.webp",
+   "w": 256,
+   "h": 256
+  },
+  "3": {
+   "file": "/assets/species/3.webp",
+   "w": 256,
+   "h": 256
+  },
+  "4": {
+   "file": "/assets/species/4.webp",
+   "w": 256,
+   "h": 256
+  },
+  "5": {
+   "file": "/assets/species/5.webp",
+   "w": 256,
+   "h": 256
+  },
+  "6": {
+   "file": "/assets/species/6.webp",
+   "w": 256,
+   "h": 256
+  },
+  "7": {
+   "file": "/assets/species/7.webp",
+   "w": 256,
+   "h": 256
+  },
+  "8": {
+   "file": "/assets/species/8.webp",
+   "w": 256,
+   "h": 256
+  },
+  "9": {
+   "file": "/assets/species/9.webp",
+   "w": 256,
+   "h": 256
+  },
+  "10": {
+   "file": "/assets/species/10.webp",
+   "w": 256,
+   "h": 256
+  },
+  "11": {
+   "file": "/assets/species/11.webp",
+   "w": 256,
+   "h": 256
+  },
+  "12": {
+   "file": "/assets/species/12.webp",
+   "w": 256,
+   "h": 256
+  },
+  "13": {
+   "file": "/assets/species/13.webp",
+   "w": 256,
+   "h": 256
+  },
+  "14": {
+   "file": "/assets/species/14.webp",
+   "w": 256,
+   "h": 256
+  },
+  "15": {
+   "file": "/assets/species/15.webp",
+   "w": 256,
+   "h": 256
+  },
+  "16": {
+   "file": "/assets/species/16.webp",
+   "w": 256,
+   "h": 256
+  },
+  "17": {
+   "file": "/assets/species/17.webp",
+   "w": 256,
+   "h": 256
+  },
+  "18": {
+   "file": "/assets/species/18.webp",
+   "w": 256,
+   "h": 256
+  },
+  "19": {
+   "file": "/assets/species/19.webp",
+   "w": 256,
+   "h": 256
+  },
+  "20": {
+   "file": "/assets/species/20.webp",
+   "w": 256,
+   "h": 256
+  },
+  "21": {
+   "file": "/assets/species/21.webp",
+   "w": 256,
+   "h": 256
+  },
+  "22": {
+   "file": "/assets/species/22.webp",
+   "w": 256,
+   "h": 256
+  },
+  "23": {
+   "file": "/assets/species/23.webp",
+   "w": 256,
+   "h": 256
+  },
+  "24": {
+   "file": "/assets/species/24.webp",
+   "w": 256,
+   "h": 256
+  },
+  "25": {
+   "file": "/assets/species/25.webp",
+   "w": 256,
+   "h": 256
+  },
+  "26": {
+   "file": "/assets/species/26.webp",
+   "w": 256,
+   "h": 256
+  },
+  "27": {
+   "file": "/assets/species/27.webp",
+   "w": 256,
+   "h": 256
+  },
+  "28": {
+   "file": "/assets/species/28.webp",
+   "w": 256,
+   "h": 256
+  },
+  "29": {
+   "file": "/assets/species/29.webp",
+   "w": 256,
+   "h": 256
+  },
+  "30": {
+   "file": "/assets/species/30.webp",
+   "w": 256,
+   "h": 256
+  },
+  "31": {
+   "file": "/assets/species/31.webp",
+   "w": 256,
+   "h": 256
+  },
+  "32": {
+   "file": "/assets/species/32.webp",
+   "w": 256,
+   "h": 256
+  },
+  "33": {
+   "file": "/assets/species/33.webp",
+   "w": 256,
+   "h": 256
+  },
+  "34": {
+   "file": "/assets/species/34.webp",
+   "w": 256,
+   "h": 256
+  },
+  "35": {
+   "file": "/assets/species/35.webp",
+   "w": 256,
+   "h": 256
+  },
+  "36": {
+   "file": "/assets/species/36.webp",
+   "w": 256,
+   "h": 256
+  },
+  "37": {
+   "file": "/assets/species/37.webp",
+   "w": 256,
+   "h": 256
+  },
+  "38": {
+   "file": "/assets/species/38.webp",
+   "w": 256,
+   "h": 256
+  },
+  "39": {
+   "file": "/assets/species/39.webp",
+   "w": 256,
+   "h": 256
+  },
+  "40": {
+   "file": "/assets/species/40.webp",
+   "w": 256,
+   "h": 256
+  },
+  "41": {
+   "file": "/assets/species/41.webp",
+   "w": 256,
+   "h": 256
+  },
+  "42": {
+   "file": "/assets/species/42.webp",
+   "w": 256,
+   "h": 256
+  },
+  "43": {
+   "file": "/assets/species/43.webp",
+   "w": 256,
+   "h": 256
+  },
+  "44": {
+   "file": "/assets/species/44.webp",
+   "w": 256,
+   "h": 256
+  },
+  "45": {
+   "file": "/assets/species/45.webp",
+   "w": 256,
+   "h": 256
+  },
+  "46": {
+   "file": "/assets/species/46.webp",
+   "w": 256,
+   "h": 256
+  },
+  "47": {
+   "file": "/assets/species/47.webp",
+   "w": 256,
+   "h": 256
+  },
+  "48": {
+   "file": "/assets/species/48.webp",
+   "w": 256,
+   "h": 256
+  },
+  "49": {
+   "file": "/assets/species/49.webp",
+   "w": 256,
+   "h": 256
+  },
+  "50": {
+   "file": "/assets/species/50.webp",
+   "w": 256,
+   "h": 256
+  },
+  "51": {
+   "file": "/assets/species/51.webp",
+   "w": 256,
+   "h": 256
+  },
+  "52": {
+   "file": "/assets/species/52.webp",
+   "w": 256,
+   "h": 256
+  },
+  "53": {
+   "file": "/assets/species/53.webp",
+   "w": 256,
+   "h": 256
+  },
+  "54": {
+   "file": "/assets/species/54.webp",
+   "w": 256,
+   "h": 256
+  },
+  "55": {
+   "file": "/assets/species/55.webp",
+   "w": 256,
+   "h": 256
+  },
+  "56": {
+   "file": "/assets/species/56.webp",
+   "w": 256,
+   "h": 256
+  },
+  "57": {
+   "file": "/assets/species/57.webp",
+   "w": 256,
+   "h": 256
+  },
+  "58": {
+   "file": "/assets/species/58.webp",
+   "w": 256,
+   "h": 256
+  },
+  "59": {
+   "file": "/assets/species/59.webp",
+   "w": 256,
+   "h": 256
+  },
+  "60": {
+   "file": "/assets/species/60.webp",
+   "w": 256,
+   "h": 256
+  },
+  "61": {
+   "file": "/assets/species/61.webp",
+   "w": 256,
+   "h": 256
+  },
+  "62": {
+   "file": "/assets/species/62.webp",
+   "w": 256,
+   "h": 256
+  },
+  "63": {
+   "file": "/assets/species/63.webp",
+   "w": 256,
+   "h": 256
+  },
+  "64": {
+   "file": "/assets/species/64.webp",
+   "w": 256,
+   "h": 256
+  },
+  "65": {
+   "file": "/assets/species/65.webp",
+   "w": 256,
+   "h": 256
+  },
+  "66": {
+   "file": "/assets/species/66.webp",
+   "w": 256,
+   "h": 256
+  },
+  "67": {
+   "file": "/assets/species/67.webp",
+   "w": 256,
+   "h": 256
+  },
+  "68": {
+   "file": "/assets/species/68.webp",
+   "w": 256,
+   "h": 256
+  },
+  "69": {
+   "file": "/assets/species/69.webp",
+   "w": 256,
+   "h": 256
+  },
+  "70": {
+   "file": "/assets/species/70.webp",
+   "w": 256,
+   "h": 256
+  },
+  "71": {
+   "file": "/assets/species/71.webp",
+   "w": 256,
+   "h": 256
+  },
+  "72": {
+   "file": "/assets/species/72.webp",
+   "w": 256,
+   "h": 256
+  },
+  "73": {
+   "file": "/assets/species/73.webp",
+   "w": 256,
+   "h": 256
+  },
+  "74": {
+   "file": "/assets/species/74.webp",
+   "w": 256,
+   "h": 256
+  },
+  "75": {
+   "file": "/assets/species/75.webp",
+   "w": 256,
+   "h": 256
+  },
+  "76": {
+   "file": "/assets/species/76.webp",
+   "w": 256,
+   "h": 256
+  },
+  "77": {
+   "file": "/assets/species/77.webp",
+   "w": 256,
+   "h": 256
+  },
+  "78": {
+   "file": "/assets/species/78.webp",
+   "w": 256,
+   "h": 256
+  },
+  "79": {
+   "file": "/assets/species/79.webp",
+   "w": 256,
+   "h": 256
+  },
+  "80": {
+   "file": "/assets/species/80.webp",
+   "w": 256,
+   "h": 256
+  },
+  "81": {
+   "file": "/assets/species/81.webp",
+   "w": 256,
+   "h": 256
+  },
+  "82": {
+   "file": "/assets/species/82.webp",
+   "w": 256,
+   "h": 256
+  },
+  "83": {
+   "file": "/assets/species/83.webp",
+   "w": 256,
+   "h": 256
+  },
+  "84": {
+   "file": "/assets/species/84.webp",
+   "w": 256,
+   "h": 256
+  },
+  "85": {
+   "file": "/assets/species/85.webp",
+   "w": 256,
+   "h": 256
+  },
+  "86": {
+   "file": "/assets/species/86.webp",
+   "w": 256,
+   "h": 256
+  },
+  "87": {
+   "file": "/assets/species/87.webp",
+   "w": 256,
+   "h": 256
+  },
+  "88": {
+   "file": "/assets/species/88.webp",
+   "w": 256,
+   "h": 256
+  },
+  "89": {
+   "file": "/assets/species/89.webp",
+   "w": 256,
+   "h": 256
+  },
+  "90": {
+   "file": "/assets/species/90.webp",
+   "w": 256,
+   "h": 256
+  },
+  "91": {
+   "file": "/assets/species/91.webp",
+   "w": 256,
+   "h": 256
+  },
+  "92": {
+   "file": "/assets/species/92.webp",
+   "w": 256,
+   "h": 256
+  },
+  "93": {
+   "file": "/assets/species/93.webp",
+   "w": 256,
+   "h": 256
+  },
+  "94": {
+   "file": "/assets/species/94.webp",
+   "w": 256,
+   "h": 256
+  },
+  "95": {
+   "file": "/assets/species/95.webp",
+   "w": 256,
+   "h": 256
+  },
+  "96": {
+   "file": "/assets/species/96.webp",
+   "w": 256,
+   "h": 256
+  },
+  "97": {
+   "file": "/assets/species/97.webp",
+   "w": 256,
+   "h": 256
+  },
+  "98": {
+   "file": "/assets/species/98.webp",
+   "w": 256,
+   "h": 256
+  },
+  "99": {
+   "file": "/assets/species/99.webp",
+   "w": 256,
+   "h": 256
+  },
+  "100": {
+   "file": "/assets/species/100.webp",
+   "w": 256,
+   "h": 256
+  },
+  "101": {
+   "file": "/assets/species/101.webp",
+   "w": 256,
+   "h": 256
+  },
+  "102": {
+   "file": "/assets/species/102.webp",
+   "w": 256,
+   "h": 256
+  },
+  "103": {
+   "file": "/assets/species/103.webp",
+   "w": 256,
+   "h": 256
+  },
+  "104": {
+   "file": "/assets/species/104.webp",
+   "w": 256,
+   "h": 256
+  },
+  "105": {
+   "file": "/assets/species/105.webp",
+   "w": 256,
+   "h": 256
+  },
+  "106": {
+   "file": "/assets/species/106.webp",
+   "w": 256,
+   "h": 256
+  },
+  "107": {
+   "file": "/assets/species/107.webp",
+   "w": 256,
+   "h": 256
+  },
+  "108": {
+   "file": "/assets/species/108.webp",
+   "w": 256,
+   "h": 256
+  },
+  "109": {
+   "file": "/assets/species/109.webp",
+   "w": 256,
+   "h": 256
+  },
+  "110": {
+   "file": "/assets/species/110.webp",
+   "w": 256,
+   "h": 256
+  },
+  "111": {
+   "file": "/assets/species/111.webp",
+   "w": 256,
+   "h": 256
+  },
+  "112": {
+   "file": "/assets/species/112.webp",
+   "w": 256,
+   "h": 256
+  },
+  "113": {
+   "file": "/assets/species/113.webp",
+   "w": 256,
+   "h": 256
+  },
+  "114": {
+   "file": "/assets/species/114.webp",
+   "w": 256,
+   "h": 256
+  },
+  "115": {
+   "file": "/assets/species/115.webp",
+   "w": 256,
+   "h": 256
+  },
+  "116": {
+   "file": "/assets/species/116.webp",
+   "w": 256,
+   "h": 256
+  },
+  "117": {
+   "file": "/assets/species/117.webp",
+   "w": 256,
+   "h": 256
+  },
+  "118": {
+   "file": "/assets/species/118.webp",
+   "w": 256,
+   "h": 256
+  },
+  "119": {
+   "file": "/assets/species/119.webp",
+   "w": 256,
+   "h": 256
+  },
+  "120": {
+   "file": "/assets/species/120.webp",
+   "w": 256,
+   "h": 256
+  },
+  "121": {
+   "file": "/assets/species/121.webp",
+   "w": 256,
+   "h": 256
+  },
+  "122": {
+   "file": "/assets/species/122.webp",
+   "w": 256,
+   "h": 256
+  },
+  "123": {
+   "file": "/assets/species/123.webp",
+   "w": 256,
+   "h": 256
+  },
+  "124": {
+   "file": "/assets/species/124.webp",
+   "w": 256,
+   "h": 256
+  },
+  "125": {
+   "file": "/assets/species/125.webp",
+   "w": 256,
+   "h": 256
+  },
+  "126": {
+   "file": "/assets/species/126.webp",
+   "w": 256,
+   "h": 256
+  },
+  "127": {
+   "file": "/assets/species/127.webp",
+   "w": 256,
+   "h": 256
+  },
+  "128": {
+   "file": "/assets/species/128.webp",
+   "w": 256,
+   "h": 256
+  },
+  "129": {
+   "file": "/assets/species/129.webp",
+   "w": 256,
+   "h": 256
+  },
+  "130": {
+   "file": "/assets/species/130.webp",
+   "w": 256,
+   "h": 256
+  },
+  "131": {
+   "file": "/assets/species/131.webp",
+   "w": 256,
+   "h": 256
+  },
+  "132": {
+   "file": "/assets/species/132.webp",
+   "w": 256,
+   "h": 256
+  },
+  "133": {
+   "file": "/assets/species/133.webp",
+   "w": 256,
+   "h": 256
+  },
+  "134": {
+   "file": "/assets/species/134.webp",
+   "w": 256,
+   "h": 256
+  },
+  "135": {
+   "file": "/assets/species/135.webp",
+   "w": 256,
+   "h": 256
+  },
+  "136": {
+   "file": "/assets/species/136.webp",
+   "w": 256,
+   "h": 256
+  },
+  "137": {
+   "file": "/assets/species/137.webp",
+   "w": 256,
+   "h": 256
+  },
+  "138": {
+   "file": "/assets/species/138.webp",
+   "w": 256,
+   "h": 256
+  },
+  "139": {
+   "file": "/assets/species/139.webp",
+   "w": 256,
+   "h": 256
+  },
+  "140": {
+   "file": "/assets/species/140.webp",
+   "w": 256,
+   "h": 256
+  },
+  "141": {
+   "file": "/assets/species/141.webp",
+   "w": 256,
+   "h": 256
+  },
+  "142": {
+   "file": "/assets/species/142.webp",
+   "w": 256,
+   "h": 256
+  },
+  "143": {
+   "file": "/assets/species/143.webp",
+   "w": 256,
+   "h": 256
+  },
+  "144": {
+   "file": "/assets/species/144.webp",
+   "w": 256,
+   "h": 256
+  },
+  "145": {
+   "file": "/assets/species/145.webp",
+   "w": 256,
+   "h": 256
+  },
+  "146": {
+   "file": "/assets/species/146.webp",
+   "w": 256,
+   "h": 256
+  },
+  "147": {
+   "file": "/assets/species/147.webp",
+   "w": 256,
+   "h": 256
+  },
+  "148": {
+   "file": "/assets/species/148.webp",
+   "w": 256,
+   "h": 256
+  },
+  "149": {
+   "file": "/assets/species/149.webp",
+   "w": 256,
+   "h": 256
+  },
+  "150": {
+   "file": "/assets/species/150.webp",
+   "w": 256,
+   "h": 256
+  },
+  "151": {
+   "file": "/assets/species/151.webp",
+   "w": 256,
+   "h": 256
+  },
+  "152": {
+   "file": "/assets/species/152.webp",
+   "w": 256,
+   "h": 256
+  },
+  "153": {
+   "file": "/assets/species/153.webp",
+   "w": 256,
+   "h": 256
+  },
+  "154": {
+   "file": "/assets/species/154.webp",
+   "w": 256,
+   "h": 256
+  },
+  "155": {
+   "file": "/assets/species/155.webp",
+   "w": 256,
+   "h": 256
+  },
+  "156": {
+   "file": "/assets/species/156.webp",
+   "w": 256,
+   "h": 256
+  },
+  "157": {
+   "file": "/assets/species/157.webp",
+   "w": 256,
+   "h": 256
+  },
+  "158": {
+   "file": "/assets/species/158.webp",
+   "w": 256,
+   "h": 256
+  },
+  "159": {
+   "file": "/assets/species/159.webp",
+   "w": 256,
+   "h": 256
+  },
+  "160": {
+   "file": "/assets/species/160.webp",
+   "w": 256,
+   "h": 256
+  },
+  "161": {
+   "file": "/assets/species/161.webp",
+   "w": 256,
+   "h": 256
+  },
+  "162": {
+   "file": "/assets/species/162.webp",
+   "w": 256,
+   "h": 256
+  },
+  "163": {
+   "file": "/assets/species/163.webp",
+   "w": 256,
+   "h": 256
+  },
+  "164": {
+   "file": "/assets/species/164.webp",
+   "w": 256,
+   "h": 256
+  },
+  "165": {
+   "file": "/assets/species/165.webp",
+   "w": 256,
+   "h": 256
+  },
+  "166": {
+   "file": "/assets/species/166.webp",
+   "w": 256,
+   "h": 256
+  },
+  "167": {
+   "file": "/assets/species/167.webp",
+   "w": 256,
+   "h": 256
+  },
+  "168": {
+   "file": "/assets/species/168.webp",
+   "w": 256,
+   "h": 256
+  },
+  "169": {
+   "file": "/assets/species/169.webp",
+   "w": 256,
+   "h": 256
+  },
+  "170": {
+   "file": "/assets/species/170.webp",
+   "w": 256,
+   "h": 256
+  },
+  "171": {
+   "file": "/assets/species/171.webp",
+   "w": 256,
+   "h": 256
+  },
+  "172": {
+   "file": "/assets/species/172.webp",
+   "w": 256,
+   "h": 256
+  },
+  "173": {
+   "file": "/assets/species/173.webp",
+   "w": 256,
+   "h": 256
+  },
+  "174": {
+   "file": "/assets/species/174.webp",
+   "w": 256,
+   "h": 256
+  },
+  "175": {
+   "file": "/assets/species/175.webp",
+   "w": 256,
+   "h": 256
+  },
+  "176": {
+   "file": "/assets/species/176.webp",
+   "w": 256,
+   "h": 256
+  },
+  "177": {
+   "file": "/assets/species/177.webp",
+   "w": 256,
+   "h": 256
+  },
+  "178": {
+   "file": "/assets/species/178.webp",
+   "w": 256,
+   "h": 256
+  },
+  "179": {
+   "file": "/assets/species/179.webp",
+   "w": 256,
+   "h": 256
+  },
+  "180": {
+   "file": "/assets/species/180.webp",
+   "w": 256,
+   "h": 256
+  },
+  "181": {
+   "file": "/assets/species/181.webp",
+   "w": 256,
+   "h": 256
+  },
+  "182": {
+   "file": "/assets/species/182.webp",
+   "w": 256,
+   "h": 256
+  },
+  "183": {
+   "file": "/assets/species/183.webp",
+   "w": 256,
+   "h": 256
+  },
+  "184": {
+   "file": "/assets/species/184.webp",
+   "w": 256,
+   "h": 256
+  },
+  "185": {
+   "file": "/assets/species/185.webp",
+   "w": 256,
+   "h": 256
+  },
+  "186": {
+   "file": "/assets/species/186.webp",
+   "w": 256,
+   "h": 256
+  },
+  "187": {
+   "file": "/assets/species/187.webp",
+   "w": 256,
+   "h": 256
+  },
+  "188": {
+   "file": "/assets/species/188.webp",
+   "w": 256,
+   "h": 256
+  },
+  "189": {
+   "file": "/assets/species/189.webp",
+   "w": 256,
+   "h": 256
+  },
+  "190": {
+   "file": "/assets/species/190.webp",
+   "w": 256,
+   "h": 256
+  },
+  "191": {
+   "file": "/assets/species/191.webp",
+   "w": 256,
+   "h": 256
+  },
+  "192": {
+   "file": "/assets/species/192.webp",
+   "w": 256,
+   "h": 256
+  },
+  "193": {
+   "file": "/assets/species/193.webp",
+   "w": 256,
+   "h": 256
+  },
+  "194": {
+   "file": "/assets/species/194.webp",
+   "w": 256,
+   "h": 256
+  },
+  "195": {
+   "file": "/assets/species/195.webp",
+   "w": 256,
+   "h": 256
+  },
+  "196": {
+   "file": "/assets/species/196.webp",
+   "w": 256,
+   "h": 256
+  },
+  "197": {
+   "file": "/assets/species/197.webp",
+   "w": 256,
+   "h": 256
+  },
+  "198": {
+   "file": "/assets/species/198.webp",
+   "w": 256,
+   "h": 256
+  },
+  "199": {
+   "file": "/assets/species/199.webp",
+   "w": 256,
+   "h": 256
+  },
+  "200": {
+   "file": "/assets/species/200.webp",
+   "w": 256,
+   "h": 256
+  },
+  "201": {
+   "file": "/assets/species/201.webp",
+   "w": 256,
+   "h": 256
+  },
+  "202": {
+   "file": "/assets/species/202.webp",
+   "w": 256,
+   "h": 256
+  },
+  "203": {
+   "file": "/assets/species/203.webp",
+   "w": 256,
+   "h": 256
+  },
+  "204": {
+   "file": "/assets/species/204.webp",
+   "w": 256,
+   "h": 256
+  },
+  "205": {
+   "file": "/assets/species/205.webp",
+   "w": 256,
+   "h": 256
+  },
+  "206": {
+   "file": "/assets/species/206.webp",
+   "w": 256,
+   "h": 256
+  },
+  "207": {
+   "file": "/assets/species/207.webp",
+   "w": 256,
+   "h": 256
+  },
+  "208": {
+   "file": "/assets/species/208.webp",
+   "w": 256,
+   "h": 256
+  },
+  "209": {
+   "file": "/assets/species/209.webp",
+   "w": 256,
+   "h": 256
+  },
+  "210": {
+   "file": "/assets/species/210.webp",
+   "w": 256,
+   "h": 256
+  },
+  "211": {
+   "file": "/assets/species/211.webp",
+   "w": 256,
+   "h": 256
+  },
+  "212": {
+   "file": "/assets/species/212.webp",
+   "w": 256,
+   "h": 256
+  },
+  "213": {
+   "file": "/assets/species/213.webp",
+   "w": 256,
+   "h": 256
+  },
+  "214": {
+   "file": "/assets/species/214.webp",
+   "w": 256,
+   "h": 256
+  },
+  "215": {
+   "file": "/assets/species/215.webp",
+   "w": 256,
+   "h": 256
+  },
+  "216": {
+   "file": "/assets/species/216.webp",
+   "w": 256,
+   "h": 256
+  },
+  "217": {
+   "file": "/assets/species/217.webp",
+   "w": 256,
+   "h": 256
+  },
+  "218": {
+   "file": "/assets/species/218.webp",
+   "w": 256,
+   "h": 256
+  },
+  "219": {
+   "file": "/assets/species/219.webp",
+   "w": 256,
+   "h": 256
+  },
+  "220": {
+   "file": "/assets/species/220.webp",
+   "w": 256,
+   "h": 256
+  },
+  "221": {
+   "file": "/assets/species/221.webp",
+   "w": 256,
+   "h": 256
+  },
+  "222": {
+   "file": "/assets/species/222.webp",
+   "w": 256,
+   "h": 256
+  },
+  "223": {
+   "file": "/assets/species/223.webp",
+   "w": 256,
+   "h": 256
+  },
+  "224": {
+   "file": "/assets/species/224.webp",
+   "w": 256,
+   "h": 256
+  },
+  "225": {
+   "file": "/assets/species/225.webp",
+   "w": 256,
+   "h": 256
+  },
+  "226": {
+   "file": "/assets/species/226.webp",
+   "w": 256,
+   "h": 256
+  },
+  "227": {
+   "file": "/assets/species/227.webp",
+   "w": 256,
+   "h": 256
+  },
+  "228": {
+   "file": "/assets/species/228.webp",
+   "w": 256,
+   "h": 256
+  },
+  "229": {
+   "file": "/assets/species/229.webp",
+   "w": 256,
+   "h": 256
+  },
+  "230": {
+   "file": "/assets/species/230.webp",
+   "w": 256,
+   "h": 256
+  },
+  "231": {
+   "file": "/assets/species/231.webp",
+   "w": 256,
+   "h": 256
+  },
+  "232": {
+   "file": "/assets/species/232.webp",
+   "w": 256,
+   "h": 256
+  },
+  "233": {
+   "file": "/assets/species/233.webp",
+   "w": 256,
+   "h": 256
+  },
+  "234": {
+   "file": "/assets/species/234.webp",
+   "w": 256,
+   "h": 256
+  },
+  "235": {
+   "file": "/assets/species/235.webp",
+   "w": 256,
+   "h": 256
+  },
+  "236": {
+   "file": "/assets/species/236.webp",
+   "w": 256,
+   "h": 256
+  },
+  "237": {
+   "file": "/assets/species/237.webp",
+   "w": 256,
+   "h": 256
+  },
+  "238": {
+   "file": "/assets/species/238.webp",
+   "w": 256,
+   "h": 256
+  },
+  "239": {
+   "file": "/assets/species/239.webp",
+   "w": 256,
+   "h": 256
+  },
+  "240": {
+   "file": "/assets/species/240.webp",
+   "w": 256,
+   "h": 256
+  },
+  "241": {
+   "file": "/assets/species/241.webp",
+   "w": 256,
+   "h": 256
+  },
+  "242": {
+   "file": "/assets/species/242.webp",
+   "w": 256,
+   "h": 256
+  },
+  "243": {
+   "file": "/assets/species/243.webp",
+   "w": 256,
+   "h": 256
+  },
+  "244": {
+   "file": "/assets/species/244.webp",
+   "w": 256,
+   "h": 256
+  },
+  "245": {
+   "file": "/assets/species/245.webp",
+   "w": 256,
+   "h": 256
+  },
+  "246": {
+   "file": "/assets/species/246.webp",
+   "w": 256,
+   "h": 256
+  },
+  "247": {
+   "file": "/assets/species/247.webp",
+   "w": 256,
+   "h": 256
+  },
+  "248": {
+   "file": "/assets/species/248.webp",
+   "w": 256,
+   "h": 256
+  },
+  "249": {
+   "file": "/assets/species/249.webp",
+   "w": 256,
+   "h": 256
+  },
+  "250": {
+   "file": "/assets/species/250.webp",
+   "w": 256,
+   "h": 256
+  },
+  "251": {
+   "file": "/assets/species/251.webp",
+   "w": 256,
+   "h": 256
+  },
+  "252": {
+   "file": "/assets/species/252.webp",
+   "w": 256,
+   "h": 256
+  },
+  "253": {
+   "file": "/assets/species/253.webp",
+   "w": 256,
+   "h": 256
+  },
+  "254": {
+   "file": "/assets/species/254.webp",
+   "w": 256,
+   "h": 256
+  },
+  "255": {
+   "file": "/assets/species/255.webp",
+   "w": 256,
+   "h": 256
+  },
+  "256": {
+   "file": "/assets/species/256.webp",
+   "w": 256,
+   "h": 256
+  },
+  "257": {
+   "file": "/assets/species/257.webp",
+   "w": 256,
+   "h": 256
+  },
+  "258": {
+   "file": "/assets/species/258.webp",
+   "w": 256,
+   "h": 256
+  },
+  "259": {
+   "file": "/assets/species/259.webp",
+   "w": 256,
+   "h": 256
+  },
+  "260": {
+   "file": "/assets/species/260.webp",
+   "w": 256,
+   "h": 256
+  },
+  "261": {
+   "file": "/assets/species/261.webp",
+   "w": 256,
+   "h": 256
+  },
+  "262": {
+   "file": "/assets/species/262.webp",
+   "w": 256,
+   "h": 256
+  },
+  "263": {
+   "file": "/assets/species/263.webp",
+   "w": 256,
+   "h": 256
+  },
+  "264": {
+   "file": "/assets/species/264.webp",
+   "w": 256,
+   "h": 256
+  },
+  "265": {
+   "file": "/assets/species/265.webp",
+   "w": 256,
+   "h": 256
+  },
+  "266": {
+   "file": "/assets/species/266.webp",
+   "w": 256,
+   "h": 256
+  },
+  "267": {
+   "file": "/assets/species/267.webp",
+   "w": 256,
+   "h": 256
+  },
+  "268": {
+   "file": "/assets/species/268.webp",
+   "w": 256,
+   "h": 256
+  },
+  "269": {
+   "file": "/assets/species/269.webp",
+   "w": 256,
+   "h": 256
+  },
+  "270": {
+   "file": "/assets/species/270.webp",
+   "w": 256,
+   "h": 256
+  },
+  "271": {
+   "file": "/assets/species/271.webp",
+   "w": 256,
+   "h": 256
+  },
+  "272": {
+   "file": "/assets/species/272.webp",
+   "w": 256,
+   "h": 256
+  },
+  "273": {
+   "file": "/assets/species/273.webp",
+   "w": 256,
+   "h": 256
+  },
+  "274": {
+   "file": "/assets/species/274.webp",
+   "w": 256,
+   "h": 256
+  },
+  "275": {
+   "file": "/assets/species/275.webp",
+   "w": 256,
+   "h": 256
+  },
+  "276": {
+   "file": "/assets/species/276.webp",
+   "w": 256,
+   "h": 256
+  },
+  "277": {
+   "file": "/assets/species/277.webp",
+   "w": 256,
+   "h": 256
+  },
+  "278": {
+   "file": "/assets/species/278.webp",
+   "w": 256,
+   "h": 256
+  },
+  "279": {
+   "file": "/assets/species/279.webp",
+   "w": 256,
+   "h": 256
+  },
+  "280": {
+   "file": "/assets/species/280.webp",
+   "w": 256,
+   "h": 256
+  },
+  "281": {
+   "file": "/assets/species/281.webp",
+   "w": 256,
+   "h": 256
+  },
+  "282": {
+   "file": "/assets/species/282.webp",
+   "w": 256,
+   "h": 256
+  },
+  "283": {
+   "file": "/assets/species/283.webp",
+   "w": 256,
+   "h": 256
+  },
+  "284": {
+   "file": "/assets/species/284.webp",
+   "w": 256,
+   "h": 256
+  },
+  "285": {
+   "file": "/assets/species/285.webp",
+   "w": 256,
+   "h": 256
+  },
+  "286": {
+   "file": "/assets/species/286.webp",
+   "w": 256,
+   "h": 256
+  },
+  "287": {
+   "file": "/assets/species/287.webp",
+   "w": 256,
+   "h": 256
+  },
+  "288": {
+   "file": "/assets/species/288.webp",
+   "w": 256,
+   "h": 256
+  },
+  "289": {
+   "file": "/assets/species/289.webp",
+   "w": 256,
+   "h": 256
+  },
+  "290": {
+   "file": "/assets/species/290.webp",
+   "w": 256,
+   "h": 256
+  },
+  "291": {
+   "file": "/assets/species/291.webp",
+   "w": 256,
+   "h": 256
+  },
+  "292": {
+   "file": "/assets/species/292.webp",
+   "w": 256,
+   "h": 256
+  },
+  "293": {
+   "file": "/assets/species/293.webp",
+   "w": 256,
+   "h": 256
+  },
+  "294": {
+   "file": "/assets/species/294.webp",
+   "w": 256,
+   "h": 256
+  },
+  "295": {
+   "file": "/assets/species/295.webp",
+   "w": 256,
+   "h": 256
+  },
+  "296": {
+   "file": "/assets/species/296.webp",
+   "w": 256,
+   "h": 256
+  },
+  "297": {
+   "file": "/assets/species/297.webp",
+   "w": 256,
+   "h": 256
+  },
+  "298": {
+   "file": "/assets/species/298.webp",
+   "w": 256,
+   "h": 256
+  },
+  "299": {
+   "file": "/assets/species/299.webp",
+   "w": 256,
+   "h": 256
+  },
+  "300": {
+   "file": "/assets/species/300.webp",
+   "w": 256,
+   "h": 256
+  },
+  "301": {
+   "file": "/assets/species/301.webp",
+   "w": 256,
+   "h": 256
+  },
+  "302": {
+   "file": "/assets/species/302.webp",
+   "w": 256,
+   "h": 256
+  },
+  "303": {
+   "file": "/assets/species/303.webp",
+   "w": 256,
+   "h": 256
+  },
+  "304": {
+   "file": "/assets/species/304.webp",
+   "w": 256,
+   "h": 256
+  },
+  "305": {
+   "file": "/assets/species/305.webp",
+   "w": 256,
+   "h": 256
+  },
+  "306": {
+   "file": "/assets/species/306.webp",
+   "w": 256,
+   "h": 256
+  },
+  "307": {
+   "file": "/assets/species/307.webp",
+   "w": 256,
+   "h": 256
+  },
+  "308": {
+   "file": "/assets/species/308.webp",
+   "w": 256,
+   "h": 256
+  },
+  "309": {
+   "file": "/assets/species/309.webp",
+   "w": 256,
+   "h": 256
+  },
+  "310": {
+   "file": "/assets/species/310.webp",
+   "w": 256,
+   "h": 256
+  },
+  "311": {
+   "file": "/assets/species/311.webp",
+   "w": 256,
+   "h": 256
+  },
+  "312": {
+   "file": "/assets/species/312.webp",
+   "w": 256,
+   "h": 256
+  },
+  "313": {
+   "file": "/assets/species/313.webp",
+   "w": 256,
+   "h": 256
+  },
+  "314": {
+   "file": "/assets/species/314.webp",
+   "w": 256,
+   "h": 256
+  },
+  "315": {
+   "file": "/assets/species/315.webp",
+   "w": 256,
+   "h": 256
+  },
+  "316": {
+   "file": "/assets/species/316.webp",
+   "w": 256,
+   "h": 256
+  },
+  "317": {
+   "file": "/assets/species/317.webp",
+   "w": 256,
+   "h": 256
+  },
+  "318": {
+   "file": "/assets/species/318.webp",
+   "w": 256,
+   "h": 256
+  },
+  "319": {
+   "file": "/assets/species/319.webp",
+   "w": 256,
+   "h": 256
+  },
+  "320": {
+   "file": "/assets/species/320.webp",
+   "w": 256,
+   "h": 256
+  },
+  "321": {
+   "file": "/assets/species/321.webp",
+   "w": 256,
+   "h": 256
+  },
+  "322": {
+   "file": "/assets/species/322.webp",
+   "w": 256,
+   "h": 256
+  },
+  "323": {
+   "file": "/assets/species/323.webp",
+   "w": 256,
+   "h": 256
+  },
+  "324": {
+   "file": "/assets/species/324.webp",
+   "w": 256,
+   "h": 256
+  },
+  "325": {
+   "file": "/assets/species/325.webp",
+   "w": 256,
+   "h": 256
+  },
+  "326": {
+   "file": "/assets/species/326.webp",
+   "w": 256,
+   "h": 256
+  },
+  "327": {
+   "file": "/assets/species/327.webp",
+   "w": 256,
+   "h": 256
+  },
+  "328": {
+   "file": "/assets/species/328.webp",
+   "w": 256,
+   "h": 256
+  },
+  "329": {
+   "file": "/assets/species/329.webp",
+   "w": 256,
+   "h": 256
+  },
+  "330": {
+   "file": "/assets/species/330.webp",
+   "w": 256,
+   "h": 256
+  },
+  "331": {
+   "file": "/assets/species/331.webp",
+   "w": 256,
+   "h": 256
+  },
+  "332": {
+   "file": "/assets/species/332.webp",
+   "w": 256,
+   "h": 256
+  },
+  "333": {
+   "file": "/assets/species/333.webp",
+   "w": 256,
+   "h": 256
+  },
+  "334": {
+   "file": "/assets/species/334.webp",
+   "w": 256,
+   "h": 256
+  },
+  "335": {
+   "file": "/assets/species/335.webp",
+   "w": 256,
+   "h": 256
+  },
+  "336": {
+   "file": "/assets/species/336.webp",
+   "w": 256,
+   "h": 256
+  },
+  "337": {
+   "file": "/assets/species/337.webp",
+   "w": 256,
+   "h": 256
+  },
+  "338": {
+   "file": "/assets/species/338.webp",
+   "w": 256,
+   "h": 256
+  },
+  "339": {
+   "file": "/assets/species/339.webp",
+   "w": 256,
+   "h": 256
+  },
+  "340": {
+   "file": "/assets/species/340.webp",
+   "w": 256,
+   "h": 256
+  },
+  "341": {
+   "file": "/assets/species/341.webp",
+   "w": 256,
+   "h": 256
+  },
+  "342": {
+   "file": "/assets/species/342.webp",
+   "w": 256,
+   "h": 256
+  },
+  "343": {
+   "file": "/assets/species/343.webp",
+   "w": 256,
+   "h": 256
+  },
+  "344": {
+   "file": "/assets/species/344.webp",
+   "w": 256,
+   "h": 256
+  },
+  "345": {
+   "file": "/assets/species/345.webp",
+   "w": 256,
+   "h": 256
+  },
+  "346": {
+   "file": "/assets/species/346.webp",
+   "w": 256,
+   "h": 256
+  },
+  "347": {
+   "file": "/assets/species/347.webp",
+   "w": 256,
+   "h": 256
+  },
+  "348": {
+   "file": "/assets/species/348.webp",
+   "w": 256,
+   "h": 256
+  },
+  "349": {
+   "file": "/assets/species/349.webp",
+   "w": 256,
+   "h": 256
+  },
+  "350": {
+   "file": "/assets/species/350.webp",
+   "w": 256,
+   "h": 256
+  },
+  "351": {
+   "file": "/assets/species/351.webp",
+   "w": 256,
+   "h": 256
+  },
+  "352": {
+   "file": "/assets/species/352.webp",
+   "w": 256,
+   "h": 256
+  },
+  "353": {
+   "file": "/assets/species/353.webp",
+   "w": 256,
+   "h": 256
+  },
+  "354": {
+   "file": "/assets/species/354.webp",
+   "w": 256,
+   "h": 256
+  },
+  "355": {
+   "file": "/assets/species/355.webp",
+   "w": 256,
+   "h": 256
+  },
+  "356": {
+   "file": "/assets/species/356.webp",
+   "w": 256,
+   "h": 256
+  },
+  "357": {
+   "file": "/assets/species/357.webp",
+   "w": 256,
+   "h": 256
+  },
+  "358": {
+   "file": "/assets/species/358.webp",
+   "w": 256,
+   "h": 256
+  },
+  "359": {
+   "file": "/assets/species/359.webp",
+   "w": 256,
+   "h": 256
+  },
+  "360": {
+   "file": "/assets/species/360.webp",
+   "w": 256,
+   "h": 256
+  },
+  "361": {
+   "file": "/assets/species/361.webp",
+   "w": 256,
+   "h": 256
+  },
+  "362": {
+   "file": "/assets/species/362.webp",
+   "w": 256,
+   "h": 256
+  },
+  "363": {
+   "file": "/assets/species/363.webp",
+   "w": 256,
+   "h": 256
+  },
+  "364": {
+   "file": "/assets/species/364.webp",
+   "w": 256,
+   "h": 256
+  },
+  "365": {
+   "file": "/assets/species/365.webp",
+   "w": 256,
+   "h": 256
+  },
+  "366": {
+   "file": "/assets/species/366.webp",
+   "w": 256,
+   "h": 256
+  },
+  "367": {
+   "file": "/assets/species/367.webp",
+   "w": 256,
+   "h": 256
+  },
+  "368": {
+   "file": "/assets/species/368.webp",
+   "w": 256,
+   "h": 256
+  },
+  "369": {
+   "file": "/assets/species/369.webp",
+   "w": 256,
+   "h": 256
+  },
+  "370": {
+   "file": "/assets/species/370.webp",
+   "w": 256,
+   "h": 256
+  },
+  "371": {
+   "file": "/assets/species/371.webp",
+   "w": 256,
+   "h": 256
+  },
+  "372": {
+   "file": "/assets/species/372.webp",
+   "w": 256,
+   "h": 256
+  },
+  "373": {
+   "file": "/assets/species/373.webp",
+   "w": 256,
+   "h": 256
+  },
+  "374": {
+   "file": "/assets/species/374.webp",
+   "w": 256,
+   "h": 256
+  },
+  "375": {
+   "file": "/assets/species/375.webp",
+   "w": 256,
+   "h": 256
+  },
+  "376": {
+   "file": "/assets/species/376.webp",
+   "w": 256,
+   "h": 256
+  },
+  "377": {
+   "file": "/assets/species/377.webp",
+   "w": 256,
+   "h": 256
+  },
+  "378": {
+   "file": "/assets/species/378.webp",
+   "w": 256,
+   "h": 256
+  },
+  "379": {
+   "file": "/assets/species/379.webp",
+   "w": 256,
+   "h": 256
+  },
+  "380": {
+   "file": "/assets/species/380.webp",
+   "w": 256,
+   "h": 256
+  },
+  "381": {
+   "file": "/assets/species/381.webp",
+   "w": 256,
+   "h": 256
+  },
+  "382": {
+   "file": "/assets/species/382.webp",
+   "w": 256,
+   "h": 256
+  },
+  "383": {
+   "file": "/assets/species/383.webp",
+   "w": 256,
+   "h": 256
+  },
+  "384": {
+   "file": "/assets/species/384.webp",
+   "w": 256,
+   "h": 256
+  },
+  "385": {
+   "file": "/assets/species/385.webp",
+   "w": 256,
+   "h": 256
+  },
+  "386": {
+   "file": "/assets/species/386.webp",
+   "w": 256,
+   "h": 256
+  },
+  "387": {
+   "file": "/assets/species/387.webp",
+   "w": 256,
+   "h": 256
+  },
+  "388": {
+   "file": "/assets/species/388.webp",
+   "w": 256,
+   "h": 256
+  },
+  "389": {
+   "file": "/assets/species/389.webp",
+   "w": 256,
+   "h": 256
+  },
+  "390": {
+   "file": "/assets/species/390.webp",
+   "w": 256,
+   "h": 256
+  },
+  "391": {
+   "file": "/assets/species/391.webp",
+   "w": 256,
+   "h": 256
+  },
+  "392": {
+   "file": "/assets/species/392.webp",
+   "w": 256,
+   "h": 256
+  },
+  "393": {
+   "file": "/assets/species/393.webp",
+   "w": 256,
+   "h": 256
+  },
+  "394": {
+   "file": "/assets/species/394.webp",
+   "w": 256,
+   "h": 256
+  },
+  "395": {
+   "file": "/assets/species/395.webp",
+   "w": 256,
+   "h": 256
+  },
+  "396": {
+   "file": "/assets/species/396.webp",
+   "w": 256,
+   "h": 256
+  },
+  "397": {
+   "file": "/assets/species/397.webp",
+   "w": 256,
+   "h": 256
+  },
+  "398": {
+   "file": "/assets/species/398.webp",
+   "w": 256,
+   "h": 256
+  },
+  "399": {
+   "file": "/assets/species/399.webp",
+   "w": 256,
+   "h": 256
+  },
+  "400": {
+   "file": "/assets/species/400.webp",
+   "w": 256,
+   "h": 256
+  },
+  "401": {
+   "file": "/assets/species/401.webp",
+   "w": 256,
+   "h": 256
+  },
+  "402": {
+   "file": "/assets/species/402.webp",
+   "w": 256,
+   "h": 256
+  },
+  "403": {
+   "file": "/assets/species/403.webp",
+   "w": 256,
+   "h": 256
+  },
+  "404": {
+   "file": "/assets/species/404.webp",
+   "w": 256,
+   "h": 256
+  },
+  "405": {
+   "file": "/assets/species/405.webp",
+   "w": 256,
+   "h": 256
+  },
+  "406": {
+   "file": "/assets/species/406.webp",
+   "w": 256,
+   "h": 256
+  },
+  "407": {
+   "file": "/assets/species/407.webp",
+   "w": 256,
+   "h": 256
+  },
+  "408": {
+   "file": "/assets/species/408.webp",
+   "w": 256,
+   "h": 256
+  },
+  "409": {
+   "file": "/assets/species/409.webp",
+   "w": 256,
+   "h": 256
+  },
+  "410": {
+   "file": "/assets/species/410.webp",
+   "w": 256,
+   "h": 256
+  },
+  "411": {
+   "file": "/assets/species/411.webp",
+   "w": 256,
+   "h": 256
+  },
+  "412": {
+   "file": "/assets/species/412.webp",
+   "w": 256,
+   "h": 256
+  },
+  "413": {
+   "file": "/assets/species/413.webp",
+   "w": 256,
+   "h": 256
+  },
+  "414": {
+   "file": "/assets/species/414.webp",
+   "w": 256,
+   "h": 256
+  },
+  "415": {
+   "file": "/assets/species/415.webp",
+   "w": 256,
+   "h": 256
+  },
+  "416": {
+   "file": "/assets/species/416.webp",
+   "w": 256,
+   "h": 256
+  },
+  "417": {
+   "file": "/assets/species/417.webp",
+   "w": 256,
+   "h": 256
+  },
+  "418": {
+   "file": "/assets/species/418.webp",
+   "w": 256,
+   "h": 256
+  },
+  "419": {
+   "file": "/assets/species/419.webp",
+   "w": 256,
+   "h": 256
+  },
+  "420": {
+   "file": "/assets/species/420.webp",
+   "w": 256,
+   "h": 256
+  },
+  "421": {
+   "file": "/assets/species/421.webp",
+   "w": 256,
+   "h": 256
+  },
+  "422": {
+   "file": "/assets/species/422.webp",
+   "w": 256,
+   "h": 256
+  },
+  "423": {
+   "file": "/assets/species/423.webp",
+   "w": 256,
+   "h": 256
+  },
+  "424": {
+   "file": "/assets/species/424.webp",
+   "w": 256,
+   "h": 256
+  },
+  "425": {
+   "file": "/assets/species/425.webp",
+   "w": 256,
+   "h": 256
+  },
+  "426": {
+   "file": "/assets/species/426.webp",
+   "w": 256,
+   "h": 256
+  },
+  "427": {
+   "file": "/assets/species/427.webp",
+   "w": 256,
+   "h": 256
+  },
+  "428": {
+   "file": "/assets/species/428.webp",
+   "w": 256,
+   "h": 256
+  },
+  "429": {
+   "file": "/assets/species/429.webp",
+   "w": 256,
+   "h": 256
+  },
+  "430": {
+   "file": "/assets/species/430.webp",
+   "w": 256,
+   "h": 256
+  },
+  "431": {
+   "file": "/assets/species/431.webp",
+   "w": 256,
+   "h": 256
+  },
+  "432": {
+   "file": "/assets/species/432.webp",
+   "w": 256,
+   "h": 256
+  },
+  "433": {
+   "file": "/assets/species/433.webp",
+   "w": 256,
+   "h": 256
+  },
+  "434": {
+   "file": "/assets/species/434.webp",
+   "w": 256,
+   "h": 256
+  },
+  "435": {
+   "file": "/assets/species/435.webp",
+   "w": 256,
+   "h": 256
+  },
+  "436": {
+   "file": "/assets/species/436.webp",
+   "w": 256,
+   "h": 256
+  },
+  "437": {
+   "file": "/assets/species/437.webp",
+   "w": 256,
+   "h": 256
+  },
+  "438": {
+   "file": "/assets/species/438.webp",
+   "w": 256,
+   "h": 256
+  },
+  "439": {
+   "file": "/assets/species/439.webp",
+   "w": 256,
+   "h": 256
+  },
+  "440": {
+   "file": "/assets/species/440.webp",
+   "w": 256,
+   "h": 256
+  },
+  "441": {
+   "file": "/assets/species/441.webp",
+   "w": 256,
+   "h": 256
+  },
+  "442": {
+   "file": "/assets/species/442.webp",
+   "w": 256,
+   "h": 256
+  },
+  "443": {
+   "file": "/assets/species/443.webp",
+   "w": 256,
+   "h": 256
+  },
+  "444": {
+   "file": "/assets/species/444.webp",
+   "w": 256,
+   "h": 256
+  },
+  "445": {
+   "file": "/assets/species/445.webp",
+   "w": 256,
+   "h": 256
+  },
+  "446": {
+   "file": "/assets/species/446.webp",
+   "w": 256,
+   "h": 256
+  },
+  "447": {
+   "file": "/assets/species/447.webp",
+   "w": 256,
+   "h": 256
+  },
+  "448": {
+   "file": "/assets/species/448.webp",
+   "w": 256,
+   "h": 256
+  },
+  "449": {
+   "file": "/assets/species/449.webp",
+   "w": 256,
+   "h": 256
+  },
+  "450": {
+   "file": "/assets/species/450.webp",
+   "w": 256,
+   "h": 256
+  },
+  "451": {
+   "file": "/assets/species/451.webp",
+   "w": 256,
+   "h": 256
+  },
+  "452": {
+   "file": "/assets/species/452.webp",
+   "w": 256,
+   "h": 256
+  },
+  "453": {
+   "file": "/assets/species/453.webp",
+   "w": 256,
+   "h": 256
+  },
+  "454": {
+   "file": "/assets/species/454.webp",
+   "w": 256,
+   "h": 256
+  },
+  "455": {
+   "file": "/assets/species/455.webp",
+   "w": 256,
+   "h": 256
+  },
+  "456": {
+   "file": "/assets/species/456.webp",
+   "w": 256,
+   "h": 256
+  },
+  "457": {
+   "file": "/assets/species/457.webp",
+   "w": 256,
+   "h": 256
+  },
+  "458": {
+   "file": "/assets/species/458.webp",
+   "w": 256,
+   "h": 256
+  },
+  "459": {
+   "file": "/assets/species/459.webp",
+   "w": 256,
+   "h": 256
+  },
+  "460": {
+   "file": "/assets/species/460.webp",
+   "w": 256,
+   "h": 256
+  },
+  "461": {
+   "file": "/assets/species/461.webp",
+   "w": 256,
+   "h": 256
+  },
+  "462": {
+   "file": "/assets/species/462.webp",
+   "w": 256,
+   "h": 256
+  },
+  "463": {
+   "file": "/assets/species/463.webp",
+   "w": 256,
+   "h": 256
+  },
+  "464": {
+   "file": "/assets/species/464.webp",
+   "w": 256,
+   "h": 256
+  },
+  "465": {
+   "file": "/assets/species/465.webp",
+   "w": 256,
+   "h": 256
+  },
+  "466": {
+   "file": "/assets/species/466.webp",
+   "w": 256,
+   "h": 256
+  },
+  "467": {
+   "file": "/assets/species/467.webp",
+   "w": 256,
+   "h": 256
+  },
+  "468": {
+   "file": "/assets/species/468.webp",
+   "w": 256,
+   "h": 256
+  },
+  "469": {
+   "file": "/assets/species/469.webp",
+   "w": 256,
+   "h": 256
+  },
+  "470": {
+   "file": "/assets/species/470.webp",
+   "w": 256,
+   "h": 256
+  },
+  "471": {
+   "file": "/assets/species/471.webp",
+   "w": 256,
+   "h": 256
+  },
+  "472": {
+   "file": "/assets/species/472.webp",
+   "w": 256,
+   "h": 256
+  },
+  "473": {
+   "file": "/assets/species/473.webp",
+   "w": 256,
+   "h": 256
+  },
+  "474": {
+   "file": "/assets/species/474.webp",
+   "w": 256,
+   "h": 256
+  },
+  "475": {
+   "file": "/assets/species/475.webp",
+   "w": 256,
+   "h": 256
+  },
+  "476": {
+   "file": "/assets/species/476.webp",
+   "w": 256,
+   "h": 256
+  },
+  "477": {
+   "file": "/assets/species/477.webp",
+   "w": 256,
+   "h": 256
+  },
+  "478": {
+   "file": "/assets/species/478.webp",
+   "w": 256,
+   "h": 256
+  },
+  "479": {
+   "file": "/assets/species/479.webp",
+   "w": 256,
+   "h": 256
+  },
+  "480": {
+   "file": "/assets/species/480.webp",
+   "w": 256,
+   "h": 256
+  },
+  "481": {
+   "file": "/assets/species/481.webp",
+   "w": 256,
+   "h": 256
+  },
+  "482": {
+   "file": "/assets/species/482.webp",
+   "w": 256,
+   "h": 256
+  },
+  "483": {
+   "file": "/assets/species/483.webp",
+   "w": 256,
+   "h": 256
+  },
+  "484": {
+   "file": "/assets/species/484.webp",
+   "w": 256,
+   "h": 256
+  },
+  "485": {
+   "file": "/assets/species/485.webp",
+   "w": 256,
+   "h": 256
+  },
+  "486": {
+   "file": "/assets/species/486.webp",
+   "w": 256,
+   "h": 256
+  },
+  "487": {
+   "file": "/assets/species/487.webp",
+   "w": 256,
+   "h": 256
+  },
+  "488": {
+   "file": "/assets/species/488.webp",
+   "w": 256,
+   "h": 256
+  },
+  "489": {
+   "file": "/assets/species/489.webp",
+   "w": 256,
+   "h": 256
+  },
+  "490": {
+   "file": "/assets/species/490.webp",
+   "w": 256,
+   "h": 256
+  },
+  "491": {
+   "file": "/assets/species/491.webp",
+   "w": 256,
+   "h": 256
+  },
+  "492": {
+   "file": "/assets/species/492.webp",
+   "w": 256,
+   "h": 256
+  },
+  "493": {
+   "file": "/assets/species/493.webp",
+   "w": 256,
+   "h": 256
+  },
+  "494": {
+   "file": "/assets/species/494.webp",
+   "w": 256,
+   "h": 256
+  },
+  "495": {
+   "file": "/assets/species/495.webp",
+   "w": 256,
+   "h": 256
+  },
+  "496": {
+   "file": "/assets/species/496.webp",
+   "w": 256,
+   "h": 256
+  },
+  "497": {
+   "file": "/assets/species/497.webp",
+   "w": 256,
+   "h": 256
+  },
+  "498": {
+   "file": "/assets/species/498.webp",
+   "w": 256,
+   "h": 256
+  },
+  "499": {
+   "file": "/assets/species/499.webp",
+   "w": 256,
+   "h": 256
+  },
+  "500": {
+   "file": "/assets/species/500.webp",
+   "w": 256,
+   "h": 256
+  },
+  "501": {
+   "file": "/assets/species/501.webp",
+   "w": 256,
+   "h": 256
+  },
+  "502": {
+   "file": "/assets/species/502.webp",
+   "w": 256,
+   "h": 256
+  },
+  "503": {
+   "file": "/assets/species/503.webp",
+   "w": 256,
+   "h": 256
+  },
+  "504": {
+   "file": "/assets/species/504.webp",
+   "w": 256,
+   "h": 256
+  },
+  "505": {
+   "file": "/assets/species/505.webp",
+   "w": 256,
+   "h": 256
+  },
+  "506": {
+   "file": "/assets/species/506.webp",
+   "w": 256,
+   "h": 256
+  },
+  "507": {
+   "file": "/assets/species/507.webp",
+   "w": 256,
+   "h": 256
+  },
+  "508": {
+   "file": "/assets/species/508.webp",
+   "w": 256,
+   "h": 256
+  },
+  "509": {
+   "file": "/assets/species/509.webp",
+   "w": 256,
+   "h": 256
+  },
+  "510": {
+   "file": "/assets/species/510.webp",
+   "w": 256,
+   "h": 256
+  },
+  "511": {
+   "file": "/assets/species/511.webp",
+   "w": 256,
+   "h": 256
+  },
+  "512": {
+   "file": "/assets/species/512.webp",
+   "w": 256,
+   "h": 256
+  },
+  "513": {
+   "file": "/assets/species/513.webp",
+   "w": 256,
+   "h": 256
+  },
+  "514": {
+   "file": "/assets/species/514.webp",
+   "w": 256,
+   "h": 256
+  },
+  "515": {
+   "file": "/assets/species/515.webp",
+   "w": 256,
+   "h": 256
+  },
+  "516": {
+   "file": "/assets/species/516.webp",
+   "w": 256,
+   "h": 256
+  },
+  "517": {
+   "file": "/assets/species/517.webp",
+   "w": 256,
+   "h": 256
+  },
+  "518": {
+   "file": "/assets/species/518.webp",
+   "w": 256,
+   "h": 256
+  },
+  "519": {
+   "file": "/assets/species/519.webp",
+   "w": 256,
+   "h": 256
+  },
+  "520": {
+   "file": "/assets/species/520.webp",
+   "w": 256,
+   "h": 256
+  },
+  "521": {
+   "file": "/assets/species/521.webp",
+   "w": 256,
+   "h": 256
+  },
+  "522": {
+   "file": "/assets/species/522.webp",
+   "w": 256,
+   "h": 256
+  },
+  "523": {
+   "file": "/assets/species/523.webp",
+   "w": 256,
+   "h": 256
+  },
+  "524": {
+   "file": "/assets/species/524.webp",
+   "w": 256,
+   "h": 256
+  },
+  "525": {
+   "file": "/assets/species/525.webp",
+   "w": 256,
+   "h": 256
+  },
+  "526": {
+   "file": "/assets/species/526.webp",
+   "w": 256,
+   "h": 256
+  },
+  "527": {
+   "file": "/assets/species/527.webp",
+   "w": 256,
+   "h": 256
+  },
+  "528": {
+   "file": "/assets/species/528.webp",
+   "w": 256,
+   "h": 256
+  },
+  "529": {
+   "file": "/assets/species/529.webp",
+   "w": 256,
+   "h": 256
+  },
+  "530": {
+   "file": "/assets/species/530.webp",
+   "w": 256,
+   "h": 256
+  },
+  "531": {
+   "file": "/assets/species/531.webp",
+   "w": 256,
+   "h": 256
+  },
+  "532": {
+   "file": "/assets/species/532.webp",
+   "w": 256,
+   "h": 256
+  },
+  "533": {
+   "file": "/assets/species/533.webp",
+   "w": 256,
+   "h": 256
+  },
+  "534": {
+   "file": "/assets/species/534.webp",
+   "w": 256,
+   "h": 256
+  },
+  "535": {
+   "file": "/assets/species/535.webp",
+   "w": 256,
+   "h": 256
+  },
+  "536": {
+   "file": "/assets/species/536.webp",
+   "w": 256,
+   "h": 256
+  },
+  "537": {
+   "file": "/assets/species/537.webp",
+   "w": 256,
+   "h": 256
+  },
+  "538": {
+   "file": "/assets/species/538.webp",
+   "w": 256,
+   "h": 256
+  },
+  "539": {
+   "file": "/assets/species/539.webp",
+   "w": 256,
+   "h": 256
+  },
+  "540": {
+   "file": "/assets/species/540.webp",
+   "w": 256,
+   "h": 256
+  },
+  "541": {
+   "file": "/assets/species/541.webp",
+   "w": 256,
+   "h": 256
+  },
+  "542": {
+   "file": "/assets/species/542.webp",
+   "w": 256,
+   "h": 256
+  },
+  "543": {
+   "file": "/assets/species/543.webp",
+   "w": 256,
+   "h": 256
+  },
+  "544": {
+   "file": "/assets/species/544.webp",
+   "w": 256,
+   "h": 256
+  },
+  "545": {
+   "file": "/assets/species/545.webp",
+   "w": 256,
+   "h": 256
+  },
+  "546": {
+   "file": "/assets/species/546.webp",
+   "w": 256,
+   "h": 256
+  },
+  "547": {
+   "file": "/assets/species/547.webp",
+   "w": 256,
+   "h": 256
+  },
+  "548": {
+   "file": "/assets/species/548.webp",
+   "w": 256,
+   "h": 256
+  },
+  "549": {
+   "file": "/assets/species/549.webp",
+   "w": 256,
+   "h": 256
+  },
+  "550": {
+   "file": "/assets/species/550.webp",
+   "w": 256,
+   "h": 256
+  },
+  "551": {
+   "file": "/assets/species/551.webp",
+   "w": 256,
+   "h": 256
+  },
+  "552": {
+   "file": "/assets/species/552.webp",
+   "w": 256,
+   "h": 256
+  },
+  "553": {
+   "file": "/assets/species/553.webp",
+   "w": 256,
+   "h": 256
+  },
+  "554": {
+   "file": "/assets/species/554.webp",
+   "w": 256,
+   "h": 256
+  },
+  "555": {
+   "file": "/assets/species/555.webp",
+   "w": 256,
+   "h": 256
+  },
+  "556": {
+   "file": "/assets/species/556.webp",
+   "w": 256,
+   "h": 256
+  },
+  "557": {
+   "file": "/assets/species/557.webp",
+   "w": 256,
+   "h": 256
+  },
+  "558": {
+   "file": "/assets/species/558.webp",
+   "w": 256,
+   "h": 256
+  },
+  "559": {
+   "file": "/assets/species/559.webp",
+   "w": 256,
+   "h": 256
+  },
+  "560": {
+   "file": "/assets/species/560.webp",
+   "w": 256,
+   "h": 256
+  },
+  "561": {
+   "file": "/assets/species/561.webp",
+   "w": 256,
+   "h": 256
+  },
+  "562": {
+   "file": "/assets/species/562.webp",
+   "w": 256,
+   "h": 256
+  },
+  "563": {
+   "file": "/assets/species/563.webp",
+   "w": 256,
+   "h": 256
+  },
+  "564": {
+   "file": "/assets/species/564.webp",
+   "w": 256,
+   "h": 256
+  },
+  "565": {
+   "file": "/assets/species/565.webp",
+   "w": 256,
+   "h": 256
+  },
+  "566": {
+   "file": "/assets/species/566.webp",
+   "w": 256,
+   "h": 256
+  },
+  "567": {
+   "file": "/assets/species/567.webp",
+   "w": 256,
+   "h": 256
+  },
+  "568": {
+   "file": "/assets/species/568.webp",
+   "w": 256,
+   "h": 256
+  },
+  "569": {
+   "file": "/assets/species/569.webp",
+   "w": 256,
+   "h": 256
+  },
+  "570": {
+   "file": "/assets/species/570.webp",
+   "w": 256,
+   "h": 256
+  },
+  "571": {
+   "file": "/assets/species/571.webp",
+   "w": 256,
+   "h": 256
+  },
+  "572": {
+   "file": "/assets/species/572.webp",
+   "w": 256,
+   "h": 256
+  },
+  "573": {
+   "file": "/assets/species/573.webp",
+   "w": 256,
+   "h": 256
+  },
+  "574": {
+   "file": "/assets/species/574.webp",
+   "w": 256,
+   "h": 256
+  },
+  "575": {
+   "file": "/assets/species/575.webp",
+   "w": 256,
+   "h": 256
+  },
+  "576": {
+   "file": "/assets/species/576.webp",
+   "w": 256,
+   "h": 256
+  },
+  "577": {
+   "file": "/assets/species/577.webp",
+   "w": 256,
+   "h": 256
+  },
+  "578": {
+   "file": "/assets/species/578.webp",
+   "w": 256,
+   "h": 256
+  },
+  "579": {
+   "file": "/assets/species/579.webp",
+   "w": 256,
+   "h": 256
+  },
+  "580": {
+   "file": "/assets/species/580.webp",
+   "w": 256,
+   "h": 256
+  },
+  "581": {
+   "file": "/assets/species/581.webp",
+   "w": 256,
+   "h": 256
+  },
+  "582": {
+   "file": "/assets/species/582.webp",
+   "w": 256,
+   "h": 256
+  },
+  "583": {
+   "file": "/assets/species/583.webp",
+   "w": 256,
+   "h": 256
+  },
+  "584": {
+   "file": "/assets/species/584.webp",
+   "w": 256,
+   "h": 256
+  },
+  "585": {
+   "file": "/assets/species/585.webp",
+   "w": 256,
+   "h": 256
+  },
+  "586": {
+   "file": "/assets/species/586.webp",
+   "w": 256,
+   "h": 256
+  },
+  "587": {
+   "file": "/assets/species/587.webp",
+   "w": 256,
+   "h": 256
+  },
+  "588": {
+   "file": "/assets/species/588.webp",
+   "w": 256,
+   "h": 256
+  },
+  "589": {
+   "file": "/assets/species/589.webp",
+   "w": 256,
+   "h": 256
+  },
+  "590": {
+   "file": "/assets/species/590.webp",
+   "w": 256,
+   "h": 256
+  },
+  "591": {
+   "file": "/assets/species/591.webp",
+   "w": 256,
+   "h": 256
+  },
+  "592": {
+   "file": "/assets/species/592.webp",
+   "w": 256,
+   "h": 256
+  },
+  "593": {
+   "file": "/assets/species/593.webp",
+   "w": 256,
+   "h": 256
+  },
+  "594": {
+   "file": "/assets/species/594.webp",
+   "w": 256,
+   "h": 256
+  },
+  "595": {
+   "file": "/assets/species/595.webp",
+   "w": 256,
+   "h": 256
+  },
+  "596": {
+   "file": "/assets/species/596.webp",
+   "w": 256,
+   "h": 256
+  },
+  "597": {
+   "file": "/assets/species/597.webp",
+   "w": 256,
+   "h": 256
+  },
+  "598": {
+   "file": "/assets/species/598.webp",
+   "w": 256,
+   "h": 256
+  },
+  "599": {
+   "file": "/assets/species/599.webp",
+   "w": 256,
+   "h": 256
+  },
+  "600": {
+   "file": "/assets/species/600.webp",
+   "w": 256,
+   "h": 256
+  },
+  "601": {
+   "file": "/assets/species/601.webp",
+   "w": 256,
+   "h": 256
+  },
+  "602": {
+   "file": "/assets/species/602.webp",
+   "w": 256,
+   "h": 256
+  },
+  "603": {
+   "file": "/assets/species/603.webp",
+   "w": 256,
+   "h": 256
+  },
+  "604": {
+   "file": "/assets/species/604.webp",
+   "w": 256,
+   "h": 256
+  },
+  "605": {
+   "file": "/assets/species/605.webp",
+   "w": 256,
+   "h": 256
+  },
+  "606": {
+   "file": "/assets/species/606.webp",
+   "w": 256,
+   "h": 256
+  },
+  "607": {
+   "file": "/assets/species/607.webp",
+   "w": 256,
+   "h": 256
+  },
+  "608": {
+   "file": "/assets/species/608.webp",
+   "w": 256,
+   "h": 256
+  },
+  "609": {
+   "file": "/assets/species/609.webp",
+   "w": 256,
+   "h": 256
+  },
+  "610": {
+   "file": "/assets/species/610.webp",
+   "w": 256,
+   "h": 256
+  },
+  "611": {
+   "file": "/assets/species/611.webp",
+   "w": 256,
+   "h": 256
+  },
+  "612": {
+   "file": "/assets/species/612.webp",
+   "w": 256,
+   "h": 256
+  },
+  "613": {
+   "file": "/assets/species/613.webp",
+   "w": 256,
+   "h": 256
+  },
+  "614": {
+   "file": "/assets/species/614.webp",
+   "w": 256,
+   "h": 256
+  },
+  "615": {
+   "file": "/assets/species/615.webp",
+   "w": 256,
+   "h": 256
+  },
+  "616": {
+   "file": "/assets/species/616.webp",
+   "w": 256,
+   "h": 256
+  },
+  "617": {
+   "file": "/assets/species/617.webp",
+   "w": 256,
+   "h": 256
+  },
+  "618": {
+   "file": "/assets/species/618.webp",
+   "w": 256,
+   "h": 256
+  },
+  "619": {
+   "file": "/assets/species/619.webp",
+   "w": 256,
+   "h": 256
+  },
+  "620": {
+   "file": "/assets/species/620.webp",
+   "w": 256,
+   "h": 256
+  },
+  "621": {
+   "file": "/assets/species/621.webp",
+   "w": 256,
+   "h": 256
+  },
+  "622": {
+   "file": "/assets/species/622.webp",
+   "w": 256,
+   "h": 256
+  },
+  "623": {
+   "file": "/assets/species/623.webp",
+   "w": 256,
+   "h": 256
+  },
+  "624": {
+   "file": "/assets/species/624.webp",
+   "w": 256,
+   "h": 256
+  },
+  "625": {
+   "file": "/assets/species/625.webp",
+   "w": 256,
+   "h": 256
+  },
+  "626": {
+   "file": "/assets/species/626.webp",
+   "w": 256,
+   "h": 256
+  },
+  "627": {
+   "file": "/assets/species/627.webp",
+   "w": 256,
+   "h": 256
+  },
+  "628": {
+   "file": "/assets/species/628.webp",
+   "w": 256,
+   "h": 256
+  },
+  "629": {
+   "file": "/assets/species/629.webp",
+   "w": 256,
+   "h": 256
+  },
+  "630": {
+   "file": "/assets/species/630.webp",
+   "w": 256,
+   "h": 256
+  },
+  "631": {
+   "file": "/assets/species/631.webp",
+   "w": 256,
+   "h": 256
+  },
+  "632": {
+   "file": "/assets/species/632.webp",
+   "w": 256,
+   "h": 256
+  },
+  "633": {
+   "file": "/assets/species/633.webp",
+   "w": 256,
+   "h": 256
+  },
+  "634": {
+   "file": "/assets/species/634.webp",
+   "w": 256,
+   "h": 256
+  },
+  "635": {
+   "file": "/assets/species/635.webp",
+   "w": 256,
+   "h": 256
+  },
+  "636": {
+   "file": "/assets/species/636.webp",
+   "w": 256,
+   "h": 256
+  },
+  "637": {
+   "file": "/assets/species/637.webp",
+   "w": 256,
+   "h": 256
+  },
+  "638": {
+   "file": "/assets/species/638.webp",
+   "w": 256,
+   "h": 256
+  },
+  "639": {
+   "file": "/assets/species/639.webp",
+   "w": 256,
+   "h": 256
+  },
+  "640": {
+   "file": "/assets/species/640.webp",
+   "w": 256,
+   "h": 256
+  },
+  "641": {
+   "file": "/assets/species/641.webp",
+   "w": 256,
+   "h": 256
+  },
+  "642": {
+   "file": "/assets/species/642.webp",
+   "w": 256,
+   "h": 256
+  },
+  "643": {
+   "file": "/assets/species/643.webp",
+   "w": 256,
+   "h": 256
+  },
+  "644": {
+   "file": "/assets/species/644.webp",
+   "w": 256,
+   "h": 256
+  },
+  "645": {
+   "file": "/assets/species/645.webp",
+   "w": 256,
+   "h": 256
+  },
+  "646": {
+   "file": "/assets/species/646.webp",
+   "w": 256,
+   "h": 256
+  },
+  "647": {
+   "file": "/assets/species/647.webp",
+   "w": 256,
+   "h": 256
+  },
+  "648": {
+   "file": "/assets/species/648.webp",
+   "w": 256,
+   "h": 256
+  },
+  "649": {
+   "file": "/assets/species/649.webp",
+   "w": 256,
+   "h": 256
+  },
+  "650": {
+   "file": "/assets/species/650.webp",
+   "w": 256,
+   "h": 256
+  },
+  "651": {
+   "file": "/assets/species/651.webp",
+   "w": 256,
+   "h": 256
+  },
+  "652": {
+   "file": "/assets/species/652.webp",
+   "w": 256,
+   "h": 256
+  },
+  "653": {
+   "file": "/assets/species/653.webp",
+   "w": 256,
+   "h": 256
+  },
+  "654": {
+   "file": "/assets/species/654.webp",
+   "w": 256,
+   "h": 256
+  },
+  "655": {
+   "file": "/assets/species/655.webp",
+   "w": 256,
+   "h": 256
+  },
+  "656": {
+   "file": "/assets/species/656.webp",
+   "w": 256,
+   "h": 256
+  },
+  "657": {
+   "file": "/assets/species/657.webp",
+   "w": 256,
+   "h": 256
+  },
+  "658": {
+   "file": "/assets/species/658.webp",
+   "w": 256,
+   "h": 256
+  },
+  "659": {
+   "file": "/assets/species/659.webp",
+   "w": 256,
+   "h": 256
+  },
+  "660": {
+   "file": "/assets/species/660.webp",
+   "w": 256,
+   "h": 256
+  },
+  "661": {
+   "file": "/assets/species/661.webp",
+   "w": 256,
+   "h": 256
+  },
+  "662": {
+   "file": "/assets/species/662.webp",
+   "w": 256,
+   "h": 256
+  },
+  "663": {
+   "file": "/assets/species/663.webp",
+   "w": 256,
+   "h": 256
+  },
+  "664": {
+   "file": "/assets/species/664.webp",
+   "w": 256,
+   "h": 256
+  },
+  "665": {
+   "file": "/assets/species/665.webp",
+   "w": 256,
+   "h": 256
+  },
+  "666": {
+   "file": "/assets/species/666.webp",
+   "w": 256,
+   "h": 256
+  },
+  "667": {
+   "file": "/assets/species/667.webp",
+   "w": 256,
+   "h": 256
+  },
+  "668": {
+   "file": "/assets/species/668.webp",
+   "w": 256,
+   "h": 256
+  },
+  "669": {
+   "file": "/assets/species/669.webp",
+   "w": 256,
+   "h": 256
+  },
+  "670": {
+   "file": "/assets/species/670.webp",
+   "w": 256,
+   "h": 256
+  },
+  "671": {
+   "file": "/assets/species/671.webp",
+   "w": 256,
+   "h": 256
+  },
+  "672": {
+   "file": "/assets/species/672.webp",
+   "w": 256,
+   "h": 256
+  },
+  "673": {
+   "file": "/assets/species/673.webp",
+   "w": 256,
+   "h": 256
+  },
+  "674": {
+   "file": "/assets/species/674.webp",
+   "w": 256,
+   "h": 256
+  },
+  "675": {
+   "file": "/assets/species/675.webp",
+   "w": 256,
+   "h": 256
+  },
+  "676": {
+   "file": "/assets/species/676.webp",
+   "w": 256,
+   "h": 256
+  },
+  "677": {
+   "file": "/assets/species/677.webp",
+   "w": 256,
+   "h": 256
+  },
+  "678": {
+   "file": "/assets/species/678.webp",
+   "w": 256,
+   "h": 256
+  },
+  "679": {
+   "file": "/assets/species/679.webp",
+   "w": 256,
+   "h": 256
+  },
+  "680": {
+   "file": "/assets/species/680.webp",
+   "w": 256,
+   "h": 256
+  },
+  "681": {
+   "file": "/assets/species/681.webp",
+   "w": 256,
+   "h": 256
+  },
+  "682": {
+   "file": "/assets/species/682.webp",
+   "w": 256,
+   "h": 256
+  },
+  "683": {
+   "file": "/assets/species/683.webp",
+   "w": 256,
+   "h": 256
+  },
+  "684": {
+   "file": "/assets/species/684.webp",
+   "w": 256,
+   "h": 256
+  },
+  "685": {
+   "file": "/assets/species/685.webp",
+   "w": 256,
+   "h": 256
+  },
+  "686": {
+   "file": "/assets/species/686.webp",
+   "w": 256,
+   "h": 256
+  },
+  "687": {
+   "file": "/assets/species/687.webp",
+   "w": 256,
+   "h": 256
+  },
+  "688": {
+   "file": "/assets/species/688.webp",
+   "w": 256,
+   "h": 256
+  },
+  "689": {
+   "file": "/assets/species/689.webp",
+   "w": 256,
+   "h": 256
+  },
+  "690": {
+   "file": "/assets/species/690.webp",
+   "w": 256,
+   "h": 256
+  },
+  "691": {
+   "file": "/assets/species/691.webp",
+   "w": 256,
+   "h": 256
+  },
+  "692": {
+   "file": "/assets/species/692.webp",
+   "w": 256,
+   "h": 256
+  },
+  "693": {
+   "file": "/assets/species/693.webp",
+   "w": 256,
+   "h": 256
+  },
+  "694": {
+   "file": "/assets/species/694.webp",
+   "w": 256,
+   "h": 256
+  },
+  "695": {
+   "file": "/assets/species/695.webp",
+   "w": 256,
+   "h": 256
+  },
+  "696": {
+   "file": "/assets/species/696.webp",
+   "w": 256,
+   "h": 256
+  },
+  "697": {
+   "file": "/assets/species/697.webp",
+   "w": 256,
+   "h": 256
+  },
+  "698": {
+   "file": "/assets/species/698.webp",
+   "w": 256,
+   "h": 256
+  },
+  "699": {
+   "file": "/assets/species/699.webp",
+   "w": 256,
+   "h": 256
+  },
+  "700": {
+   "file": "/assets/species/700.webp",
+   "w": 256,
+   "h": 256
+  },
+  "701": {
+   "file": "/assets/species/701.webp",
+   "w": 256,
+   "h": 256
+  },
+  "702": {
+   "file": "/assets/species/702.webp",
+   "w": 256,
+   "h": 256
+  },
+  "703": {
+   "file": "/assets/species/703.webp",
+   "w": 256,
+   "h": 256
+  },
+  "704": {
+   "file": "/assets/species/704.webp",
+   "w": 256,
+   "h": 256
+  },
+  "705": {
+   "file": "/assets/species/705.webp",
+   "w": 256,
+   "h": 256
+  },
+  "706": {
+   "file": "/assets/species/706.webp",
+   "w": 256,
+   "h": 256
+  },
+  "707": {
+   "file": "/assets/species/707.webp",
+   "w": 256,
+   "h": 256
+  },
+  "708": {
+   "file": "/assets/species/708.webp",
+   "w": 256,
+   "h": 256
+  },
+  "709": {
+   "file": "/assets/species/709.webp",
+   "w": 256,
+   "h": 256
+  },
+  "710": {
+   "file": "/assets/species/710.webp",
+   "w": 256,
+   "h": 256
+  },
+  "711": {
+   "file": "/assets/species/711.webp",
+   "w": 256,
+   "h": 256
+  },
+  "712": {
+   "file": "/assets/species/712.webp",
+   "w": 256,
+   "h": 256
+  },
+  "713": {
+   "file": "/assets/species/713.webp",
+   "w": 256,
+   "h": 256
+  },
+  "714": {
+   "file": "/assets/species/714.webp",
+   "w": 256,
+   "h": 256
+  },
+  "715": {
+   "file": "/assets/species/715.webp",
+   "w": 256,
+   "h": 256
+  },
+  "716": {
+   "file": "/assets/species/716.webp",
+   "w": 256,
+   "h": 256
+  },
+  "717": {
+   "file": "/assets/species/717.webp",
+   "w": 256,
+   "h": 256
+  },
+  "718": {
+   "file": "/assets/species/718.webp",
+   "w": 256,
+   "h": 256
+  },
+  "719": {
+   "file": "/assets/species/719.webp",
+   "w": 256,
+   "h": 256
+  },
+  "720": {
+   "file": "/assets/species/720.webp",
+   "w": 256,
+   "h": 256
+  },
+  "721": {
+   "file": "/assets/species/721.webp",
+   "w": 256,
+   "h": 256
+  },
+  "722": {
+   "file": "/assets/species/722.webp",
+   "w": 256,
+   "h": 256
+  },
+  "723": {
+   "file": "/assets/species/723.webp",
+   "w": 256,
+   "h": 256
+  },
+  "724": {
+   "file": "/assets/species/724.webp",
+   "w": 256,
+   "h": 256
+  },
+  "725": {
+   "file": "/assets/species/725.webp",
+   "w": 256,
+   "h": 256
+  },
+  "726": {
+   "file": "/assets/species/726.webp",
+   "w": 256,
+   "h": 256
+  },
+  "727": {
+   "file": "/assets/species/727.webp",
+   "w": 256,
+   "h": 256
+  },
+  "728": {
+   "file": "/assets/species/728.webp",
+   "w": 256,
+   "h": 256
+  },
+  "729": {
+   "file": "/assets/species/729.webp",
+   "w": 256,
+   "h": 256
+  },
+  "730": {
+   "file": "/assets/species/730.webp",
+   "w": 256,
+   "h": 256
+  },
+  "731": {
+   "file": "/assets/species/731.webp",
+   "w": 256,
+   "h": 256
+  },
+  "732": {
+   "file": "/assets/species/732.webp",
+   "w": 256,
+   "h": 256
+  },
+  "733": {
+   "file": "/assets/species/733.webp",
+   "w": 256,
+   "h": 256
+  },
+  "734": {
+   "file": "/assets/species/734.webp",
+   "w": 256,
+   "h": 256
+  },
+  "735": {
+   "file": "/assets/species/735.webp",
+   "w": 256,
+   "h": 256
+  },
+  "736": {
+   "file": "/assets/species/736.webp",
+   "w": 256,
+   "h": 256
+  },
+  "737": {
+   "file": "/assets/species/737.webp",
+   "w": 256,
+   "h": 256
+  },
+  "738": {
+   "file": "/assets/species/738.webp",
+   "w": 256,
+   "h": 256
+  },
+  "739": {
+   "file": "/assets/species/739.webp",
+   "w": 256,
+   "h": 256
+  },
+  "740": {
+   "file": "/assets/species/740.webp",
+   "w": 256,
+   "h": 256
+  },
+  "741": {
+   "file": "/assets/species/741.webp",
+   "w": 256,
+   "h": 256
+  },
+  "742": {
+   "file": "/assets/species/742.webp",
+   "w": 256,
+   "h": 256
+  },
+  "743": {
+   "file": "/assets/species/743.webp",
+   "w": 256,
+   "h": 256
+  },
+  "744": {
+   "file": "/assets/species/744.webp",
+   "w": 256,
+   "h": 256
+  },
+  "745": {
+   "file": "/assets/species/745.webp",
+   "w": 256,
+   "h": 256
+  },
+  "746": {
+   "file": "/assets/species/746.webp",
+   "w": 256,
+   "h": 256
+  },
+  "747": {
+   "file": "/assets/species/747.webp",
+   "w": 256,
+   "h": 256
+  },
+  "748": {
+   "file": "/assets/species/748.webp",
+   "w": 256,
+   "h": 256
+  },
+  "749": {
+   "file": "/assets/species/749.webp",
+   "w": 256,
+   "h": 256
+  },
+  "750": {
+   "file": "/assets/species/750.webp",
+   "w": 256,
+   "h": 256
+  },
+  "751": {
+   "file": "/assets/species/751.webp",
+   "w": 256,
+   "h": 256
+  },
+  "752": {
+   "file": "/assets/species/752.webp",
+   "w": 256,
+   "h": 256
+  },
+  "753": {
+   "file": "/assets/species/753.webp",
+   "w": 256,
+   "h": 256
+  },
+  "754": {
+   "file": "/assets/species/754.webp",
+   "w": 256,
+   "h": 256
+  },
+  "755": {
+   "file": "/assets/species/755.webp",
+   "w": 256,
+   "h": 256
+  },
+  "756": {
+   "file": "/assets/species/756.webp",
+   "w": 256,
+   "h": 256
+  },
+  "757": {
+   "file": "/assets/species/757.webp",
+   "w": 256,
+   "h": 256
+  },
+  "758": {
+   "file": "/assets/species/758.webp",
+   "w": 256,
+   "h": 256
+  },
+  "759": {
+   "file": "/assets/species/759.webp",
+   "w": 256,
+   "h": 256
+  },
+  "760": {
+   "file": "/assets/species/760.webp",
+   "w": 256,
+   "h": 256
+  },
+  "761": {
+   "file": "/assets/species/761.webp",
+   "w": 256,
+   "h": 256
+  },
+  "762": {
+   "file": "/assets/species/762.webp",
+   "w": 256,
+   "h": 256
+  },
+  "763": {
+   "file": "/assets/species/763.webp",
+   "w": 256,
+   "h": 256
+  },
+  "764": {
+   "file": "/assets/species/764.webp",
+   "w": 256,
+   "h": 256
+  },
+  "765": {
+   "file": "/assets/species/765.webp",
+   "w": 256,
+   "h": 256
+  },
+  "766": {
+   "file": "/assets/species/766.webp",
+   "w": 256,
+   "h": 256
+  },
+  "767": {
+   "file": "/assets/species/767.webp",
+   "w": 256,
+   "h": 256
+  },
+  "768": {
+   "file": "/assets/species/768.webp",
+   "w": 256,
+   "h": 256
+  },
+  "769": {
+   "file": "/assets/species/769.webp",
+   "w": 256,
+   "h": 256
+  },
+  "770": {
+   "file": "/assets/species/770.webp",
+   "w": 256,
+   "h": 256
+  },
+  "771": {
+   "file": "/assets/species/771.webp",
+   "w": 256,
+   "h": 256
+  },
+  "772": {
+   "file": "/assets/species/772.webp",
+   "w": 256,
+   "h": 256
+  },
+  "773": {
+   "file": "/assets/species/773.webp",
+   "w": 256,
+   "h": 256
+  },
+  "774": {
+   "file": "/assets/species/774.webp",
+   "w": 256,
+   "h": 256
+  },
+  "775": {
+   "file": "/assets/species/775.webp",
+   "w": 256,
+   "h": 256
+  },
+  "776": {
+   "file": "/assets/species/776.webp",
+   "w": 256,
+   "h": 256
+  },
+  "777": {
+   "file": "/assets/species/777.webp",
+   "w": 256,
+   "h": 256
+  },
+  "778": {
+   "file": "/assets/species/778.webp",
+   "w": 256,
+   "h": 256
+  },
+  "779": {
+   "file": "/assets/species/779.webp",
+   "w": 256,
+   "h": 256
+  },
+  "780": {
+   "file": "/assets/species/780.webp",
+   "w": 256,
+   "h": 256
+  },
+  "781": {
+   "file": "/assets/species/781.webp",
+   "w": 256,
+   "h": 256
+  },
+  "782": {
+   "file": "/assets/species/782.webp",
+   "w": 256,
+   "h": 256
+  },
+  "783": {
+   "file": "/assets/species/783.webp",
+   "w": 256,
+   "h": 256
+  },
+  "784": {
+   "file": "/assets/species/784.webp",
+   "w": 256,
+   "h": 256
+  },
+  "785": {
+   "file": "/assets/species/785.webp",
+   "w": 256,
+   "h": 256
+  },
+  "786": {
+   "file": "/assets/species/786.webp",
+   "w": 256,
+   "h": 256
+  },
+  "787": {
+   "file": "/assets/species/787.webp",
+   "w": 256,
+   "h": 256
+  },
+  "788": {
+   "file": "/assets/species/788.webp",
+   "w": 256,
+   "h": 256
+  },
+  "789": {
+   "file": "/assets/species/789.webp",
+   "w": 256,
+   "h": 256
+  },
+  "790": {
+   "file": "/assets/species/790.webp",
+   "w": 256,
+   "h": 256
+  },
+  "791": {
+   "file": "/assets/species/791.webp",
+   "w": 256,
+   "h": 256
+  },
+  "792": {
+   "file": "/assets/species/792.webp",
+   "w": 256,
+   "h": 256
+  },
+  "793": {
+   "file": "/assets/species/793.webp",
+   "w": 256,
+   "h": 256
+  },
+  "794": {
+   "file": "/assets/species/794.webp",
+   "w": 256,
+   "h": 256
+  },
+  "795": {
+   "file": "/assets/species/795.webp",
+   "w": 256,
+   "h": 256
+  },
+  "796": {
+   "file": "/assets/species/796.webp",
+   "w": 256,
+   "h": 256
+  },
+  "797": {
+   "file": "/assets/species/797.webp",
+   "w": 256,
+   "h": 256
+  },
+  "798": {
+   "file": "/assets/species/798.webp",
+   "w": 256,
+   "h": 256
+  },
+  "799": {
+   "file": "/assets/species/799.webp",
+   "w": 256,
+   "h": 256
+  },
+  "800": {
+   "file": "/assets/species/800.webp",
+   "w": 256,
+   "h": 256
+  },
+  "801": {
+   "file": "/assets/species/801.webp",
+   "w": 256,
+   "h": 256
+  },
+  "802": {
+   "file": "/assets/species/802.webp",
+   "w": 256,
+   "h": 256
+  },
+  "803": {
+   "file": "/assets/species/803.webp",
+   "w": 256,
+   "h": 256
+  },
+  "804": {
+   "file": "/assets/species/804.webp",
+   "w": 256,
+   "h": 256
+  },
+  "805": {
+   "file": "/assets/species/805.webp",
+   "w": 256,
+   "h": 256
+  },
+  "806": {
+   "file": "/assets/species/806.webp",
+   "w": 256,
+   "h": 256
+  },
+  "807": {
+   "file": "/assets/species/807.webp",
+   "w": 256,
+   "h": 256
+  },
+  "808": {
+   "file": "/assets/species/808.webp",
+   "w": 256,
+   "h": 256
+  },
+  "809": {
+   "file": "/assets/species/809.webp",
+   "w": 256,
+   "h": 256
+  },
+  "810": {
+   "file": "/assets/species/810.webp",
+   "w": 256,
+   "h": 256
+  },
+  "811": {
+   "file": "/assets/species/811.webp",
+   "w": 256,
+   "h": 256
+  },
+  "812": {
+   "file": "/assets/species/812.webp",
+   "w": 256,
+   "h": 256
+  },
+  "813": {
+   "file": "/assets/species/813.webp",
+   "w": 256,
+   "h": 256
+  },
+  "814": {
+   "file": "/assets/species/814.webp",
+   "w": 256,
+   "h": 256
+  },
+  "815": {
+   "file": "/assets/species/815.webp",
+   "w": 256,
+   "h": 256
+  },
+  "816": {
+   "file": "/assets/species/816.webp",
+   "w": 256,
+   "h": 256
+  },
+  "817": {
+   "file": "/assets/species/817.webp",
+   "w": 256,
+   "h": 256
+  },
+  "818": {
+   "file": "/assets/species/818.webp",
+   "w": 256,
+   "h": 256
+  },
+  "819": {
+   "file": "/assets/species/819.webp",
+   "w": 256,
+   "h": 256
+  },
+  "820": {
+   "file": "/assets/species/820.webp",
+   "w": 256,
+   "h": 256
+  },
+  "821": {
+   "file": "/assets/species/821.webp",
+   "w": 256,
+   "h": 256
+  },
+  "822": {
+   "file": "/assets/species/822.webp",
+   "w": 256,
+   "h": 256
+  },
+  "823": {
+   "file": "/assets/species/823.webp",
+   "w": 256,
+   "h": 256
+  },
+  "824": {
+   "file": "/assets/species/824.webp",
+   "w": 256,
+   "h": 256
+  },
+  "825": {
+   "file": "/assets/species/825.webp",
+   "w": 256,
+   "h": 256
+  },
+  "826": {
+   "file": "/assets/species/826.webp",
+   "w": 256,
+   "h": 256
+  },
+  "827": {
+   "file": "/assets/species/827.webp",
+   "w": 256,
+   "h": 256
+  },
+  "828": {
+   "file": "/assets/species/828.webp",
+   "w": 256,
+   "h": 256
+  },
+  "829": {
+   "file": "/assets/species/829.webp",
+   "w": 256,
+   "h": 256
+  },
+  "830": {
+   "file": "/assets/species/830.webp",
+   "w": 256,
+   "h": 256
+  },
+  "831": {
+   "file": "/assets/species/831.webp",
+   "w": 256,
+   "h": 256
+  },
+  "832": {
+   "file": "/assets/species/832.webp",
+   "w": 256,
+   "h": 256
+  },
+  "833": {
+   "file": "/assets/species/833.webp",
+   "w": 256,
+   "h": 256
+  },
+  "834": {
+   "file": "/assets/species/834.webp",
+   "w": 256,
+   "h": 256
+  },
+  "835": {
+   "file": "/assets/species/835.webp",
+   "w": 256,
+   "h": 256
+  },
+  "836": {
+   "file": "/assets/species/836.webp",
+   "w": 256,
+   "h": 256
+  },
+  "837": {
+   "file": "/assets/species/837.webp",
+   "w": 256,
+   "h": 256
+  },
+  "838": {
+   "file": "/assets/species/838.webp",
+   "w": 256,
+   "h": 256
+  },
+  "839": {
+   "file": "/assets/species/839.webp",
+   "w": 256,
+   "h": 256
+  },
+  "840": {
+   "file": "/assets/species/840.webp",
+   "w": 256,
+   "h": 256
+  },
+  "841": {
+   "file": "/assets/species/841.webp",
+   "w": 256,
+   "h": 256
+  },
+  "842": {
+   "file": "/assets/species/842.webp",
+   "w": 256,
+   "h": 256
+  },
+  "843": {
+   "file": "/assets/species/843.webp",
+   "w": 256,
+   "h": 256
+  },
+  "844": {
+   "file": "/assets/species/844.webp",
+   "w": 256,
+   "h": 256
+  },
+  "845": {
+   "file": "/assets/species/845.webp",
+   "w": 256,
+   "h": 256
+  },
+  "846": {
+   "file": "/assets/species/846.webp",
+   "w": 256,
+   "h": 256
+  },
+  "847": {
+   "file": "/assets/species/847.webp",
+   "w": 256,
+   "h": 256
+  },
+  "848": {
+   "file": "/assets/species/848.webp",
+   "w": 256,
+   "h": 256
+  },
+  "849": {
+   "file": "/assets/species/849.webp",
+   "w": 256,
+   "h": 256
+  },
+  "850": {
+   "file": "/assets/species/850.webp",
+   "w": 256,
+   "h": 256
+  },
+  "851": {
+   "file": "/assets/species/851.webp",
+   "w": 256,
+   "h": 256
+  },
+  "852": {
+   "file": "/assets/species/852.webp",
+   "w": 256,
+   "h": 256
+  },
+  "853": {
+   "file": "/assets/species/853.webp",
+   "w": 256,
+   "h": 256
+  },
+  "854": {
+   "file": "/assets/species/854.webp",
+   "w": 256,
+   "h": 256
+  },
+  "855": {
+   "file": "/assets/species/855.webp",
+   "w": 256,
+   "h": 256
+  },
+  "856": {
+   "file": "/assets/species/856.webp",
+   "w": 256,
+   "h": 256
+  },
+  "857": {
+   "file": "/assets/species/857.webp",
+   "w": 256,
+   "h": 256
+  },
+  "858": {
+   "file": "/assets/species/858.webp",
+   "w": 256,
+   "h": 256
+  },
+  "859": {
+   "file": "/assets/species/859.webp",
+   "w": 256,
+   "h": 256
+  },
+  "860": {
+   "file": "/assets/species/860.webp",
+   "w": 256,
+   "h": 256
+  },
+  "861": {
+   "file": "/assets/species/861.webp",
+   "w": 256,
+   "h": 256
+  },
+  "862": {
+   "file": "/assets/species/862.webp",
+   "w": 256,
+   "h": 256
+  },
+  "863": {
+   "file": "/assets/species/863.webp",
+   "w": 256,
+   "h": 256
+  },
+  "864": {
+   "file": "/assets/species/864.webp",
+   "w": 256,
+   "h": 256
+  },
+  "865": {
+   "file": "/assets/species/865.webp",
+   "w": 256,
+   "h": 256
+  },
+  "866": {
+   "file": "/assets/species/866.webp",
+   "w": 256,
+   "h": 256
+  },
+  "867": {
+   "file": "/assets/species/867.webp",
+   "w": 256,
+   "h": 256
+  },
+  "868": {
+   "file": "/assets/species/868.webp",
+   "w": 256,
+   "h": 256
+  },
+  "869": {
+   "file": "/assets/species/869.webp",
+   "w": 256,
+   "h": 256
+  },
+  "870": {
+   "file": "/assets/species/870.webp",
+   "w": 256,
+   "h": 256
+  },
+  "871": {
+   "file": "/assets/species/871.webp",
+   "w": 256,
+   "h": 256
+  },
+  "872": {
+   "file": "/assets/species/872.webp",
+   "w": 256,
+   "h": 256
+  },
+  "873": {
+   "file": "/assets/species/873.webp",
+   "w": 256,
+   "h": 256
+  },
+  "874": {
+   "file": "/assets/species/874.webp",
+   "w": 256,
+   "h": 256
+  },
+  "875": {
+   "file": "/assets/species/875.webp",
+   "w": 256,
+   "h": 256
+  },
+  "876": {
+   "file": "/assets/species/876.webp",
+   "w": 256,
+   "h": 256
+  },
+  "877": {
+   "file": "/assets/species/877.webp",
+   "w": 256,
+   "h": 256
+  },
+  "878": {
+   "file": "/assets/species/878.webp",
+   "w": 256,
+   "h": 256
+  },
+  "879": {
+   "file": "/assets/species/879.webp",
+   "w": 256,
+   "h": 256
+  },
+  "880": {
+   "file": "/assets/species/880.webp",
+   "w": 256,
+   "h": 256
+  },
+  "881": {
+   "file": "/assets/species/881.webp",
+   "w": 256,
+   "h": 256
+  },
+  "882": {
+   "file": "/assets/species/882.webp",
+   "w": 256,
+   "h": 256
+  },
+  "883": {
+   "file": "/assets/species/883.webp",
+   "w": 256,
+   "h": 256
+  },
+  "884": {
+   "file": "/assets/species/884.webp",
+   "w": 256,
+   "h": 256
+  },
+  "885": {
+   "file": "/assets/species/885.webp",
+   "w": 256,
+   "h": 256
+  },
+  "886": {
+   "file": "/assets/species/886.webp",
+   "w": 256,
+   "h": 256
+  },
+  "887": {
+   "file": "/assets/species/887.webp",
+   "w": 256,
+   "h": 256
+  },
+  "888": {
+   "file": "/assets/species/888.webp",
+   "w": 256,
+   "h": 256
+  },
+  "889": {
+   "file": "/assets/species/889.webp",
+   "w": 256,
+   "h": 256
+  },
+  "890": {
+   "file": "/assets/species/890.webp",
+   "w": 256,
+   "h": 256
+  },
+  "891": {
+   "file": "/assets/species/891.webp",
+   "w": 256,
+   "h": 256
+  },
+  "892": {
+   "file": "/assets/species/892.webp",
+   "w": 256,
+   "h": 256
+  },
+  "893": {
+   "file": "/assets/species/893.webp",
+   "w": 256,
+   "h": 256
+  },
+  "894": {
+   "file": "/assets/species/894.webp",
+   "w": 256,
+   "h": 256
+  },
+  "895": {
+   "file": "/assets/species/895.webp",
+   "w": 256,
+   "h": 256
+  },
+  "896": {
+   "file": "/assets/species/896.webp",
+   "w": 256,
+   "h": 256
+  },
+  "897": {
+   "file": "/assets/species/897.webp",
+   "w": 256,
+   "h": 256
+  },
+  "898": {
+   "file": "/assets/species/898.webp",
+   "w": 256,
+   "h": 256
+  },
+  "899": {
+   "file": "/assets/species/899.webp",
+   "w": 256,
+   "h": 256
+  },
+  "900": {
+   "file": "/assets/species/900.webp",
+   "w": 256,
+   "h": 256
+  },
+  "901": {
+   "file": "/assets/species/901.webp",
+   "w": 256,
+   "h": 256
+  },
+  "902": {
+   "file": "/assets/species/902.webp",
+   "w": 256,
+   "h": 256
+  },
+  "903": {
+   "file": "/assets/species/903.webp",
+   "w": 256,
+   "h": 256
+  },
+  "904": {
+   "file": "/assets/species/904.webp",
+   "w": 256,
+   "h": 256
+  },
+  "905": {
+   "file": "/assets/species/905.webp",
+   "w": 256,
+   "h": 256
+  },
+  "906": {
+   "file": "/assets/species/906.webp",
+   "w": 256,
+   "h": 256
+  },
+  "907": {
+   "file": "/assets/species/907.webp",
+   "w": 256,
+   "h": 256
+  },
+  "908": {
+   "file": "/assets/species/908.webp",
+   "w": 256,
+   "h": 256
+  },
+  "909": {
+   "file": "/assets/species/909.webp",
+   "w": 256,
+   "h": 256
+  },
+  "910": {
+   "file": "/assets/species/910.webp",
+   "w": 256,
+   "h": 256
+  },
+  "911": {
+   "file": "/assets/species/911.webp",
+   "w": 256,
+   "h": 256
+  },
+  "912": {
+   "file": "/assets/species/912.webp",
+   "w": 256,
+   "h": 256
+  },
+  "913": {
+   "file": "/assets/species/913.webp",
+   "w": 256,
+   "h": 256
+  },
+  "914": {
+   "file": "/assets/species/914.webp",
+   "w": 256,
+   "h": 256
+  },
+  "915": {
+   "file": "/assets/species/915.webp",
+   "w": 256,
+   "h": 256
+  },
+  "916": {
+   "file": "/assets/species/916.webp",
+   "w": 256,
+   "h": 256
+  },
+  "917": {
+   "file": "/assets/species/917.webp",
+   "w": 256,
+   "h": 256
+  },
+  "918": {
+   "file": "/assets/species/918.webp",
+   "w": 256,
+   "h": 256
+  },
+  "919": {
+   "file": "/assets/species/919.webp",
+   "w": 256,
+   "h": 256
+  },
+  "920": {
+   "file": "/assets/species/920.webp",
+   "w": 256,
+   "h": 256
+  },
+  "921": {
+   "file": "/assets/species/921.webp",
+   "w": 256,
+   "h": 256
+  },
+  "922": {
+   "file": "/assets/species/922.webp",
+   "w": 256,
+   "h": 256
+  },
+  "923": {
+   "file": "/assets/species/923.webp",
+   "w": 256,
+   "h": 256
+  },
+  "924": {
+   "file": "/assets/species/924.webp",
+   "w": 256,
+   "h": 256
+  },
+  "925": {
+   "file": "/assets/species/925.webp",
+   "w": 256,
+   "h": 256
+  },
+  "926": {
+   "file": "/assets/species/926.webp",
+   "w": 256,
+   "h": 256
+  },
+  "927": {
+   "file": "/assets/species/927.webp",
+   "w": 256,
+   "h": 256
+  },
+  "928": {
+   "file": "/assets/species/928.webp",
+   "w": 256,
+   "h": 256
+  },
+  "929": {
+   "file": "/assets/species/929.webp",
+   "w": 256,
+   "h": 256
+  },
+  "930": {
+   "file": "/assets/species/930.webp",
+   "w": 256,
+   "h": 256
+  },
+  "931": {
+   "file": "/assets/species/931.webp",
+   "w": 256,
+   "h": 256
+  },
+  "932": {
+   "file": "/assets/species/932.webp",
+   "w": 256,
+   "h": 256
+  },
+  "933": {
+   "file": "/assets/species/933.webp",
+   "w": 256,
+   "h": 256
+  },
+  "934": {
+   "file": "/assets/species/934.webp",
+   "w": 256,
+   "h": 256
+  },
+  "935": {
+   "file": "/assets/species/935.webp",
+   "w": 256,
+   "h": 256
+  },
+  "936": {
+   "file": "/assets/species/936.webp",
+   "w": 256,
+   "h": 256
+  },
+  "937": {
+   "file": "/assets/species/937.webp",
+   "w": 256,
+   "h": 256
+  },
+  "938": {
+   "file": "/assets/species/938.webp",
+   "w": 256,
+   "h": 256
+  },
+  "939": {
+   "file": "/assets/species/939.webp",
+   "w": 256,
+   "h": 256
+  },
+  "940": {
+   "file": "/assets/species/940.webp",
+   "w": 256,
+   "h": 256
+  },
+  "941": {
+   "file": "/assets/species/941.webp",
+   "w": 256,
+   "h": 256
+  },
+  "942": {
+   "file": "/assets/species/942.webp",
+   "w": 256,
+   "h": 256
+  },
+  "943": {
+   "file": "/assets/species/943.webp",
+   "w": 256,
+   "h": 256
+  },
+  "944": {
+   "file": "/assets/species/944.webp",
+   "w": 256,
+   "h": 256
+  },
+  "945": {
+   "file": "/assets/species/945.webp",
+   "w": 256,
+   "h": 256
+  },
+  "946": {
+   "file": "/assets/species/946.webp",
+   "w": 256,
+   "h": 256
+  },
+  "947": {
+   "file": "/assets/species/947.webp",
+   "w": 256,
+   "h": 256
+  },
+  "948": {
+   "file": "/assets/species/948.webp",
+   "w": 256,
+   "h": 256
+  },
+  "949": {
+   "file": "/assets/species/949.webp",
+   "w": 256,
+   "h": 256
+  },
+  "950": {
+   "file": "/assets/species/950.webp",
+   "w": 256,
+   "h": 256
+  },
+  "951": {
+   "file": "/assets/species/951.webp",
+   "w": 256,
+   "h": 256
+  },
+  "952": {
+   "file": "/assets/species/952.webp",
+   "w": 256,
+   "h": 256
+  },
+  "953": {
+   "file": "/assets/species/953.webp",
+   "w": 256,
+   "h": 256
+  },
+  "954": {
+   "file": "/assets/species/954.webp",
+   "w": 256,
+   "h": 256
+  },
+  "955": {
+   "file": "/assets/species/955.webp",
+   "w": 256,
+   "h": 256
+  },
+  "956": {
+   "file": "/assets/species/956.webp",
+   "w": 256,
+   "h": 256
+  },
+  "957": {
+   "file": "/assets/species/957.webp",
+   "w": 256,
+   "h": 256
+  },
+  "958": {
+   "file": "/assets/species/958.webp",
+   "w": 256,
+   "h": 256
+  },
+  "959": {
+   "file": "/assets/species/959.webp",
+   "w": 256,
+   "h": 256
+  },
+  "960": {
+   "file": "/assets/species/960.webp",
+   "w": 256,
+   "h": 256
+  },
+  "961": {
+   "file": "/assets/species/961.webp",
+   "w": 256,
+   "h": 256
+  },
+  "962": {
+   "file": "/assets/species/962.webp",
+   "w": 256,
+   "h": 256
+  },
+  "963": {
+   "file": "/assets/species/963.webp",
+   "w": 256,
+   "h": 256
+  },
+  "964": {
+   "file": "/assets/species/964.webp",
+   "w": 256,
+   "h": 256
+  },
+  "965": {
+   "file": "/assets/species/965.webp",
+   "w": 256,
+   "h": 256
+  },
+  "966": {
+   "file": "/assets/species/966.webp",
+   "w": 256,
+   "h": 256
+  },
+  "967": {
+   "file": "/assets/species/967.webp",
+   "w": 256,
+   "h": 256
+  },
+  "968": {
+   "file": "/assets/species/968.webp",
+   "w": 256,
+   "h": 256
+  },
+  "969": {
+   "file": "/assets/species/969.webp",
+   "w": 256,
+   "h": 256
+  },
+  "970": {
+   "file": "/assets/species/970.webp",
+   "w": 256,
+   "h": 256
+  },
+  "971": {
+   "file": "/assets/species/971.webp",
+   "w": 256,
+   "h": 256
+  },
+  "972": {
+   "file": "/assets/species/972.webp",
+   "w": 256,
+   "h": 256
+  },
+  "973": {
+   "file": "/assets/species/973.webp",
+   "w": 256,
+   "h": 256
+  },
+  "974": {
+   "file": "/assets/species/974.webp",
+   "w": 256,
+   "h": 256
+  },
+  "975": {
+   "file": "/assets/species/975.webp",
+   "w": 256,
+   "h": 256
+  },
+  "976": {
+   "file": "/assets/species/976.webp",
+   "w": 256,
+   "h": 256
+  },
+  "977": {
+   "file": "/assets/species/977.webp",
+   "w": 256,
+   "h": 256
+  },
+  "978": {
+   "file": "/assets/species/978.webp",
+   "w": 256,
+   "h": 256
+  },
+  "979": {
+   "file": "/assets/species/979.webp",
+   "w": 256,
+   "h": 256
+  },
+  "980": {
+   "file": "/assets/species/980.webp",
+   "w": 256,
+   "h": 256
+  },
+  "981": {
+   "file": "/assets/species/981.webp",
+   "w": 256,
+   "h": 256
+  },
+  "982": {
+   "file": "/assets/species/982.webp",
+   "w": 256,
+   "h": 256
+  },
+  "983": {
+   "file": "/assets/species/983.webp",
+   "w": 256,
+   "h": 256
+  },
+  "984": {
+   "file": "/assets/species/984.webp",
+   "w": 256,
+   "h": 256
+  },
+  "985": {
+   "file": "/assets/species/985.webp",
+   "w": 256,
+   "h": 256
+  },
+  "986": {
+   "file": "/assets/species/986.webp",
+   "w": 256,
+   "h": 256
+  },
+  "987": {
+   "file": "/assets/species/987.webp",
+   "w": 256,
+   "h": 256
+  },
+  "988": {
+   "file": "/assets/species/988.webp",
+   "w": 256,
+   "h": 256
+  },
+  "989": {
+   "file": "/assets/species/989.webp",
+   "w": 256,
+   "h": 256
+  },
+  "990": {
+   "file": "/assets/species/990.webp",
+   "w": 256,
+   "h": 256
+  },
+  "991": {
+   "file": "/assets/species/991.webp",
+   "w": 256,
+   "h": 256
+  },
+  "992": {
+   "file": "/assets/species/992.webp",
+   "w": 256,
+   "h": 256
+  },
+  "993": {
+   "file": "/assets/species/993.webp",
+   "w": 256,
+   "h": 256
+  },
+  "994": {
+   "file": "/assets/species/994.webp",
+   "w": 256,
+   "h": 256
+  },
+  "995": {
+   "file": "/assets/species/995.webp",
+   "w": 256,
+   "h": 256
+  },
+  "996": {
+   "file": "/assets/species/996.webp",
+   "w": 256,
+   "h": 256
+  },
+  "997": {
+   "file": "/assets/species/997.webp",
+   "w": 256,
+   "h": 256
+  },
+  "998": {
+   "file": "/assets/species/998.webp",
+   "w": 256,
+   "h": 256
+  },
+  "999": {
+   "file": "/assets/species/999.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1000": {
+   "file": "/assets/species/1000.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1001": {
+   "file": "/assets/species/1001.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1002": {
+   "file": "/assets/species/1002.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1003": {
+   "file": "/assets/species/1003.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1004": {
+   "file": "/assets/species/1004.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1005": {
+   "file": "/assets/species/1005.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1006": {
+   "file": "/assets/species/1006.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1007": {
+   "file": "/assets/species/1007.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1008": {
+   "file": "/assets/species/1008.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1009": {
+   "file": "/assets/species/1009.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1010": {
+   "file": "/assets/species/1010.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1011": {
+   "file": "/assets/species/1011.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1012": {
+   "file": "/assets/species/1012.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1013": {
+   "file": "/assets/species/1013.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1014": {
+   "file": "/assets/species/1014.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1015": {
+   "file": "/assets/species/1015.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1016": {
+   "file": "/assets/species/1016.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1017": {
+   "file": "/assets/species/1017.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1018": {
+   "file": "/assets/species/1018.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1019": {
+   "file": "/assets/species/1019.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1020": {
+   "file": "/assets/species/1020.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1021": {
+   "file": "/assets/species/1021.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1022": {
+   "file": "/assets/species/1022.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1023": {
+   "file": "/assets/species/1023.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1024": {
+   "file": "/assets/species/1024.webp",
+   "w": 256,
+   "h": 256
+  },
+  "1025": {
+   "file": "/assets/species/1025.webp",
+   "w": 256,
+   "h": 256
+  }
+ }
+}

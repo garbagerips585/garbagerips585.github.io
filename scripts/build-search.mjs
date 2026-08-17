@@ -95,6 +95,12 @@ const PAGES = [
   ["/rarity.html", "Rarity guide", "What the symbols mean and what is actually rare"],
   ["/types.html", "Card types", "All 11 types, and why there is no type chart in the card game"],
   ["/fake-cards.html", "Real or fake?", "Eight checks for spotting a counterfeit"],
+  // THE TITLE LEADS WITH THE THREE WORDS SOMEBODY TYPES. "Base Set print runs"
+  // is what the page is about and nobody searches for it; "1st Edition,
+  // Shadowless or Unlimited" is the actual query, three times over. The blurb
+  // names the two marks rather than promising a valuation, because the page
+  // prices exactly one card and says so.
+  ["/base-set.html", "1st Edition, Shadowless or Unlimited?", "Telling the 1999 Base Set print runs apart: the stamp, the drop shadow, and what the gap is worth"],
   ["/grading.html", "Worth grading?", "What grading costs and whether it pays"],
   // THE BLURB SAYS "PSA 10 VALUES", NOT "MOST VALUABLE", and that is the same
   // discipline the two deck lines above are keeping. "Most valuable graded
@@ -110,6 +116,11 @@ const PAGES = [
 ["/buying.html", "Where to buy", "TCGplayer Direct, eBay, Pokemon Center and the big boxes: shipping thresholds, buyer fees and recourse"],
   ["/complete-a-set.html", "Cost to complete a set", "What every set costs to finish, priced nightly"],
   ["/drops.html", "Drops this week", "Where stock is expected, in store and online"],
+  // THE TITLE LEADS WITH "MSRP" because that is the word somebody types, and the
+  // blurb says "should" rather than "does" on purpose: the page next door prices
+  // what things actually sell for, this one is the retail figure to measure that
+  // against. The two are one keystroke apart in this list and must not read alike.
+  ["/msrp.html", "MSRP: what it should cost", "Retail prices for every sealed product, so you can check what a shop is asking"],
   ["/pack-prices.html", "Pack prices by set", "What one pack costs, box against bundle against loose"],
   ["/how-many-packs.html", "How many packs are in it?", "Every sealed product biggest to smallest, and how the counts changed"],
   ["/what-set.html", "What set is my card from?", "Look up the number printed after the slash"],
@@ -129,6 +140,15 @@ const PAGES = [
   ["/playlists.html", "Playlists", "Rips grouped into playlists"],
   ["/games/", "Games", "Three Pokemon games for the wait in line"],
   ["/lore.html", "Pokemon lore", "Facts computed from the National Pokedex"],
+  // THE TITLE LEADS WITH "EVOLUTION" because that is the whole of what somebody
+  // types, and the blurb names the condition rather than the chart: "pokemon
+  // evolution chart" gets you a picture everywhere on the web, and what people
+  // are actually after is what the arrow costs.
+  ["/evolution.html", "Evolution chart", "Every line drawn, with what each step actually takes"],
+  // Its own entry rather than being folded into the line above, because it is
+  // asked as its own question. Nobody searching "how do I get Umbreon" is
+  // browsing a chart.
+  ["/eevee-evolutions.html", "Eevee evolutions", "All eight Eeveelutions, and exactly what each one needs"],
   ["/video-games.html", "Every Pokemon video game", "Covers, release dates, platforms and Metascores, 1996 to now"],
   ["/creators.html", "Local creators", "Other Rochester card channels worth watching"],
   ["/vendors.html", "Local vendors", "Who sells cards around Rochester"],

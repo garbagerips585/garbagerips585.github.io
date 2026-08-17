@@ -1,0 +1,382 @@
+{
+  "_readme": [
+    "The 18 video game types and their damage relations, from pokeapi.co.",
+    "Written by scripts/sync-type-chart.mjs. Do not hand-edit.",
+    "",
+    "THESE ARE NOT THE CARD TYPES. The Pokemon TCG has eleven types and no",
+    "type chart at all; /types.html is the page about those and it says so.",
+    "Every species page that prints a multiplier from this file labels it as",
+    "the video game chart in the same sentence.",
+    "",
+    "Relations are named from the DEFENDER's side: weakTo means an attack of",
+    "that type does double damage TO this type. A dual type multiplies the",
+    "two, which is why the pages compute rather than store the answer.",
+    "",
+    "Current (generation IX) relations only. past_damage_relations is not",
+    "stored: Steel resisted Dark and Ghost until generation VI and a page",
+    "with room for one answer should carry the one the current games use."
+  ],
+  "source": "pokeapi.co",
+  "endpoint": "https://pokeapi.co/api/v2/type/<name>",
+  "license": "PokeAPI data is free to use; Pokemon and Pokemon names are trademarks of The Pokemon Company.",
+  "checked": "2026-08-17",
+  "count": 18,
+  "types": {
+    "normal": {
+      "generation": 1,
+      "weakTo": [
+        "fighting"
+      ],
+      "resists": [],
+      "immuneTo": [
+        "ghost"
+      ],
+      "strongAgainst": []
+    },
+    "fire": {
+      "generation": 1,
+      "weakTo": [
+        "ground",
+        "rock",
+        "water"
+      ],
+      "resists": [
+        "bug",
+        "fairy",
+        "fire",
+        "grass",
+        "ice",
+        "steel"
+      ],
+      "immuneTo": [],
+      "strongAgainst": [
+        "bug",
+        "grass",
+        "ice",
+        "steel"
+      ]
+    },
+    "water": {
+      "generation": 1,
+      "weakTo": [
+        "electric",
+        "grass"
+      ],
+      "resists": [
+        "fire",
+        "ice",
+        "steel",
+        "water"
+      ],
+      "immuneTo": [],
+      "strongAgainst": [
+        "fire",
+        "ground",
+        "rock"
+      ]
+    },
+    "electric": {
+      "generation": 1,
+      "weakTo": [
+        "ground"
+      ],
+      "resists": [
+        "electric",
+        "flying",
+        "steel"
+      ],
+      "immuneTo": [],
+      "strongAgainst": [
+        "flying",
+        "water"
+      ]
+    },
+    "grass": {
+      "generation": 1,
+      "weakTo": [
+        "bug",
+        "fire",
+        "flying",
+        "ice",
+        "poison"
+      ],
+      "resists": [
+        "electric",
+        "grass",
+        "ground",
+        "water"
+      ],
+      "immuneTo": [],
+      "strongAgainst": [
+        "ground",
+        "rock",
+        "water"
+      ]
+    },
+    "ice": {
+      "generation": 1,
+      "weakTo": [
+        "fighting",
+        "fire",
+        "rock",
+        "steel"
+      ],
+      "resists": [
+        "ice"
+      ],
+      "immuneTo": [],
+      "strongAgainst": [
+        "dragon",
+        "flying",
+        "grass",
+        "ground"
+      ]
+    },
+    "fighting": {
+      "generation": 1,
+      "weakTo": [
+        "fairy",
+        "flying",
+        "psychic"
+      ],
+      "resists": [
+        "bug",
+        "dark",
+        "rock"
+      ],
+      "immuneTo": [],
+      "strongAgainst": [
+        "dark",
+        "ice",
+        "normal",
+        "rock",
+        "steel"
+      ]
+    },
+    "poison": {
+      "generation": 1,
+      "weakTo": [
+        "ground",
+        "psychic"
+      ],
+      "resists": [
+        "bug",
+        "fairy",
+        "fighting",
+        "grass",
+        "poison"
+      ],
+      "immuneTo": [],
+      "strongAgainst": [
+        "fairy",
+        "grass"
+      ]
+    },
+    "ground": {
+      "generation": 1,
+      "weakTo": [
+        "grass",
+        "ice",
+        "water"
+      ],
+      "resists": [
+        "poison",
+        "rock"
+      ],
+      "immuneTo": [
+        "electric"
+      ],
+      "strongAgainst": [
+        "electric",
+        "fire",
+        "poison",
+        "rock",
+        "steel"
+      ]
+    },
+    "flying": {
+      "generation": 1,
+      "weakTo": [
+        "electric",
+        "ice",
+        "rock"
+      ],
+      "resists": [
+        "bug",
+        "fighting",
+        "grass"
+      ],
+      "immuneTo": [
+        "ground"
+      ],
+      "strongAgainst": [
+        "bug",
+        "fighting",
+        "grass"
+      ]
+    },
+    "psychic": {
+      "generation": 1,
+      "weakTo": [
+        "bug",
+        "dark",
+        "ghost"
+      ],
+      "resists": [
+        "fighting",
+        "psychic"
+      ],
+      "immuneTo": [],
+      "strongAgainst": [
+        "fighting",
+        "poison"
+      ]
+    },
+    "bug": {
+      "generation": 1,
+      "weakTo": [
+        "fire",
+        "flying",
+        "rock"
+      ],
+      "resists": [
+        "fighting",
+        "grass",
+        "ground"
+      ],
+      "immuneTo": [],
+      "strongAgainst": [
+        "dark",
+        "grass",
+        "psychic"
+      ]
+    },
+    "rock": {
+      "generation": 1,
+      "weakTo": [
+        "fighting",
+        "grass",
+        "ground",
+        "steel",
+        "water"
+      ],
+      "resists": [
+        "fire",
+        "flying",
+        "normal",
+        "poison"
+      ],
+      "immuneTo": [],
+      "strongAgainst": [
+        "bug",
+        "fire",
+        "flying",
+        "ice"
+      ]
+    },
+    "ghost": {
+      "generation": 1,
+      "weakTo": [
+        "dark",
+        "ghost"
+      ],
+      "resists": [
+        "bug",
+        "poison"
+      ],
+      "immuneTo": [
+        "fighting",
+        "normal"
+      ],
+      "strongAgainst": [
+        "ghost",
+        "psychic"
+      ]
+    },
+    "dragon": {
+      "generation": 1,
+      "weakTo": [
+        "dragon",
+        "fairy",
+        "ice"
+      ],
+      "resists": [
+        "electric",
+        "fire",
+        "grass",
+        "water"
+      ],
+      "immuneTo": [],
+      "strongAgainst": [
+        "dragon"
+      ]
+    },
+    "dark": {
+      "generation": 2,
+      "weakTo": [
+        "bug",
+        "fairy",
+        "fighting"
+      ],
+      "resists": [
+        "dark",
+        "ghost"
+      ],
+      "immuneTo": [
+        "psychic"
+      ],
+      "strongAgainst": [
+        "ghost",
+        "psychic"
+      ]
+    },
+    "steel": {
+      "generation": 2,
+      "weakTo": [
+        "fighting",
+        "fire",
+        "ground"
+      ],
+      "resists": [
+        "bug",
+        "dragon",
+        "fairy",
+        "flying",
+        "grass",
+        "ice",
+        "normal",
+        "psychic",
+        "rock",
+        "steel"
+      ],
+      "immuneTo": [
+        "poison"
+      ],
+      "strongAgainst": [
+        "fairy",
+        "ice",
+        "rock"
+      ]
+    },
+    "fairy": {
+      "generation": 6,
+      "weakTo": [
+        "poison",
+        "steel"
+      ],
+      "resists": [
+        "bug",
+        "dark",
+        "fighting"
+      ],
+      "immuneTo": [
+        "dragon"
+      ],
+      "strongAgainst": [
+        "dark",
+        "dragon",
+        "fighting"
+      ]
+    }
+  }
+}

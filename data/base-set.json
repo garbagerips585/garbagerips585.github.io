@@ -1,0 +1,204 @@
+{
+  "_readme": [
+    "Editorial content for /base-set.html: telling the 1999 English Base Set",
+    "print runs apart. Read by scripts/build-base-set.mjs.",
+    "",
+    "NOT SYNCED. The physics of a 27 year old piece of cardboard does not change",
+    "nightly. What DOES change is the money, and none of it is typed here.",
+    "",
+    "NO PRICE MAY BE WRITTEN INTO THIS FILE. Every figure the page prints is read",
+    "out of data/top-graded.json (PriceCharting's PSA 10 price guide, crawled and",
+    "then re-read from a second page by scripts/verify-graded-top.mjs) or out of",
+    "data/top100.json, and the builder refuses to print a row it cannot find. An",
+    "entry names the card with `pcRow: {set, name}` and the builder does the",
+    "lookup, so this page and /top-graded.html cannot quote two different numbers",
+    "for the same card. Same rule and the same reason as `priceOf` in",
+    "data/rarity.json.",
+    "",
+    "ONLY DOUBLE-READ ROWS ARE PUBLISHABLE. verify-graded-top.mjs checks the top",
+    "120 ranks, so a Base Set printing further down that list has been read once",
+    "and this page leaves it out rather than printing it with a caveat. That is",
+    "why Shadowless Blastoise and Shadowless Mewtwo are absent: they exist in the",
+    "file, at ranks 177 and 366, unverified. Do not `slice` them in.",
+    "",
+    "EVERY CLAIM CARRIES ITS SOURCE, in `source`, and the page prints it beside",
+    "the claim rather than in a lump at the bottom. Three kinds:",
+    "  scan       we read it off a card scan ourselves, on the date given",
+    "  bulbapedia the wiki article named, read on the date given",
+    "  data       a file in this repo, named",
+    "A claim with no source does not go on the page. `unverified` is the list of",
+    "things widely repeated that we could not check, and it is PRINTED, because a",
+    "guide that quietly drops what it could not confirm teaches a reader nothing",
+    "about how much to trust the rest.",
+    "",
+    "NO PULL RATES, NO ODDS, NO PRINT-RUN SIZES. The Pokemon Company has never",
+    "published how many 1st Edition Base Set cards were made and neither has",
+    "Wizards of the Coast, so every number in circulation is somebody's estimate.",
+    "The page describes the ORDER of scarcity, which the market prices, and states",
+    "no quantity at all."
+  ],
+  "checked": "2026-08-17",
+
+  "intro": "Somebody hands you a Charizard from 1999 and asks what it is worth. The answer is not one number, it is three, and they are a long way apart. English Base Set was printed more than once, the runs look almost identical, and the thing that separates the two most valuable ones is a shadow that is not there.",
+
+  "goldenRule": {
+    "title": "Two marks, and you check them in this order",
+    "body": "First, look under the left edge of the artwork for a small black stamp reading EDITION 1. If it is there, stop: you have a 1st Edition. If it is not, look at the right edge of the artwork window instead. A grey band running down the outside of that edge means Unlimited. No band, no stamp, and you are holding a Shadowless. Everything else on this page is a second opinion on those two marks."
+  },
+
+  "runs": [
+    {
+      "id": "first",
+      "name": "1st Edition",
+      "order": "First run",
+      "when": "From the English release, 9 January 1999",
+      "stamp": true,
+      "shadow": false,
+      "look": "A black EDITION 1 stamp under the left edge of the artwork, and no drop shadow around the artwork window.",
+      "note": "The stamp is on the cards, on the booster packs and on the boxes. Wizards of the Coast used 1st Edition runs for the English and European releases from the start of the game in the West, on every set except Base Set 2, up to and including Neo Destiny.",
+      "source": "bulbapedia",
+      "pcRow": { "set": "Base Set", "name": "Charizard [1st Edition] #4" }
+    },
+    {
+      "id": "shadowless",
+      "name": "Shadowless",
+      "order": "Second run",
+      "when": "Shortly after the 1st Edition run, 1999",
+      "stamp": false,
+      "shadow": false,
+      "look": "No stamp and still no drop shadow. Otherwise the same card as a 1st Edition, down to the typeface.",
+      "note": "A transitional print: the plates lost the 1st Edition stamp and nothing else. That is why it has no mark of its own to look for, and why the only way to spot one is by what is missing. It happened in English only. Every other language printed its 1st Edition run on the later layout, shadow and all, so there is no French or German Shadowless.",
+      "source": "bulbapedia",
+      "pcRow": { "set": "Base Set", "name": "Charizard [Shadowless] #4" }
+    },
+    {
+      "id": "unlimited",
+      "name": "Unlimited",
+      "order": "Third run",
+      "when": "1999, and the one that kept being printed",
+      "stamp": false,
+      "shadow": true,
+      "look": "A drop shadow down the right side of the artwork window and along its bottom, so the picture sits on the card rather than in it. The HP and the attack text are printed heavier too.",
+      "note": "This is the one almost everybody has. It is the run that stayed in print, which is the whole reason it is called Unlimited, and it is the baseline the other two are worth a multiple of.",
+      "source": "bulbapedia",
+      "pcRow": { "set": "Base Set", "name": "Charizard #4" }
+    },
+    {
+      "id": "fourth",
+      "name": "The 1999-2000 reprint",
+      "order": "Fourth run",
+      "when": "1999 into 2000",
+      "stamp": false,
+      "shadow": true,
+      "look": "An Unlimited card in every visible way except the small print along the bottom, which reads 1999-2000 Wizards where every earlier run reads 1999 Wizards.",
+      "note": "Collectors call it the 4th print. It is not a different card and it is not rarer than Unlimited; it is a separate line in the price guides, which is the only reason it is worth naming here at all.",
+      "source": "scan"
+    }
+  ],
+
+  "tells": [
+    {
+      "id": "stamp",
+      "name": "The 1st Edition stamp",
+      "where": "Under the left edge of the artwork, level with the Pokemon's height and weight bar",
+      "confidence": "Decides it outright",
+      "how": "A small black circle with a 1 in it and the word EDITION curved over the top. It is printed, not stuck on, and it is in the yellow border area rather than inside the picture.",
+      "why": "It is the only mark on the card that is unique to one run. Everything else on this page is a difference between two runs that you have to know to see.",
+      "caveat": "It is not the expansion symbol. Base Set does not have one at all, which is why the bottom right of the card is just the number and a rarity mark with a blank space where later sets print a symbol.",
+      "source": "scan"
+    },
+    {
+      "id": "shadow",
+      "name": "The drop shadow",
+      "where": "The right edge of the artwork window, and along the bottom of it",
+      "confidence": "Decides it outright",
+      "how": "Hold the card square on under a light and look at the outside of the artwork frame on the right. Unlimited prints a soft grey band there, a couple of millimetres wide, so the window looks raised. 1st Edition and Shadowless print nothing: the yellow of the border runs straight up to the frame.",
+      "why": "It is the one difference between Shadowless and Unlimited, and it is the reason Shadowless has a name at all rather than a stamp.",
+      "caveat": "Trainer and Energy cards have no artwork window, so they have no shadow to check either way. On those, the copyright line below is the tell.",
+      "source": "bulbapedia"
+    },
+    {
+      "id": "copyright",
+      "name": "The copyright line",
+      "where": "The bottom edge of the card, to the right of the illustrator credit",
+      "confidence": "Second opinion, and the only one for Trainers",
+      "how": "Two halves, and they answer two different questions. The first half is a list of years: 1st Edition and Shadowless print 1995, 96, 98, 99 and Unlimited drops the 99 to read 1995, 96, 98. The second half is the Wizards line: everything up to and including Unlimited reads 1999 Wizards, and the 4th print reads 1999-2000 Wizards.",
+      "why": "It works on every card in the set, artwork window or not, and it is the only way to pick the 4th print out of a pile of Unlimiteds.",
+      "caveat": "It is a line of six point type on a 27 year old card. Read it in good light, and read the shadow first: the shadow is a centimetre tall and this is a millimetre.",
+      "source": "scan-partial"
+    },
+    {
+      "id": "text",
+      "name": "The weight of the HP and the attack text",
+      "where": "Top right for the HP, the attack block for the rest",
+      "confidence": "Supporting evidence only",
+      "how": "1st Edition and Shadowless print the HP figure and the attack text thinner than Unlimited does.",
+      "why": "It is a whole-card difference rather than a single mark, so it is what makes a Shadowless look subtly off once you have handled a few.",
+      "caveat": "This is the one claim on this page we are repeating rather than checking. It needs two cards side by side at the same scale and the same scan quality, and we do not have a Shadowless and an Unlimited scan good enough to compare honestly. Use the shadow.",
+      "source": "bulbapedia"
+    },
+    {
+      "id": "symbol",
+      "name": "No expansion symbol at all",
+      "where": "Bottom right, beside the card number",
+      "confidence": "Tells you it is Base Set, not which run",
+      "how": "The bottom right of a Base Set card reads 4/102 and then a small rarity mark, with nothing between them. Every set after Base Set prints a little expansion symbol in that gap.",
+      "why": "It is the fastest way to know you are looking at Base Set at all rather than at Base Set 2 or Legendary Collection, both of which reprint the same artwork and both of which do carry a symbol.",
+      "source": "scan"
+    }
+  ],
+
+  "traps": [
+    {
+      "name": "Base Set 2 is not Base Set",
+      "body": "A 130 card set from February 2000 that reprints most of Base Set and Jungle together, artwork and all, including Charizard. It carries an expansion symbol in the bottom right where Base Set has a blank space, its card numbers run to 130 rather than 102, and it never had a 1st Edition run. It is worth a small fraction of the thing it looks like.",
+      "source": "data"
+    },
+    {
+      "name": "The 4th print is not a fourth rarity",
+      "body": "A card reading 1999-2000 along the bottom is a late Unlimited card. It gets its own line in the price guides because the guides list every printing separately, not because it is scarcer. Do not pay a 1st Edition price for a 1999-2000 date because both of them are not the plain 1999 one.",
+      "source": "scan"
+    },
+    {
+      "name": "Shadowless is also what a fake looks like",
+      "body": "A counterfeit printed from a scan of a 1st Edition, with the stamp erased, is shadowless too. Everything on this page is a comparison between real printings and none of it is an authentication check. Run the physical tests first: the black core at the edge, the print pattern under a loupe, the back colour against a card you trust.",
+      "source": "cross-link"
+    },
+    {
+      "name": "Condition decides more of the price than the run does",
+      "body": "The gap between a graded and an ungraded copy of the same card is bigger than the gap between two print runs, and cards this old have spent 27 years in binders, shoeboxes and rubber bands. Before you get excited about a shadow, look at the corners, the surface and the centering.",
+      "source": "cross-link"
+    }
+  ],
+
+  "why": {
+    "title": "Why Shadowless exists at all",
+    "body": [
+      "Shadowless is the odd one out because it is the only run defined by something it does not have. 1st Edition has a stamp. Unlimited has a shadow. Shadowless has neither, and there is nothing printed anywhere on the card that says so.",
+      "That is because it is not a reprint, it is the same run continuing. The 1st Edition plates lost the stamp and kept everything else, so for a while English Base Set was being printed with no stamp and still no shadow. The redesign that added the drop shadow, and the heavier HP and attack text with it, came after that. The shadow is the second change, not the first, and Shadowless is the gap between the two.",
+      "So the scarcity order is the order the runs were printed in, and the market prices it that way: 1st Edition above Shadowless above Unlimited. There is no published figure for how many of any of them were made, and this page does not guess."
+    ],
+    "source": "bulbapedia"
+  },
+
+  "worth": {
+    "title": "What each one is worth",
+    "lede": "One card, three printings, one price guide, read on the same day. This is the clearest number anyone can put on the gap, and it is worth reading the three columns rather than only the big one.",
+    "note": "The PSA 10 column is where the three runs look closest and it is also where the evidence is thinnest, because a card that has not sold recently in that grade has no figure at all. The ungraded and Grade 9 columns are the ones with sales behind them, and that is where the print run actually shows up."
+  },
+
+  "sources": [
+    "Print run order, the layout changes, the Trainer card copyright tell and the fact that Shadowless was English only: Bulbapedia's 1st Edition (TCG) article, read 17 August 2026. Named in plain text rather than linked, which is how this site credits an outside source.",
+    "The EDITION 1 stamp, the missing expansion symbol and the copyright line: read off TCGdex's own scans of Base Set on 17 August 2026. All 16 Base Set Holofoil scans TCGdex serves carry the stamp, so its Base Set is scanned from a 1st Edition copy, which is where the magnified pictures on this page come from.",
+    "The 1999-2000 copyright line: read off PriceCharting's photograph of that printing on 17 August 2026, where it is legible as 1995, 96, 98 Nintendo, Creatures, GAMEFREAK. 1999-2000 Wizards.",
+    "Release dates and card counts: public/data/expansions.json in this repo, from api.pokemontcg.io.",
+    "Prices: data/top-graded.json, PriceCharting's PSA 10 price guide, crawled 16 August 2026 and re-read from each card's own product page before publication. The sealed pack figure is TCGplayer market price from data/top100.json, read 16 August 2026."
+  ],
+
+  "unverified": [
+    "That the yellow border is thinner on Shadowless than on Unlimited. It is repeated everywhere and we could not check it: it needs two cards measured in the hand, and a scan is cropped by whoever made it, so measuring a border off one proves nothing.",
+    "That the HP and attack text are thinner on Shadowless. Bulbapedia says so and it is on the page as Bulbapedia's claim, not as ours: we have no Shadowless and Unlimited pair scanned well enough at the same scale to compare.",
+    "How many of each run were printed. Nobody has published it, so every figure in circulation is an estimate, and this page states none.",
+    "Whether the copyright year list differs on the Unlimited run specifically. Bulbapedia says Unlimited drops the 99. We could read that difference clearly on the 1999-2000 printing and the scan we have of a plain Unlimited is too soft to confirm it, so that half of the tell is Bulbapedia's rather than ours."
+  ]
+}

@@ -204,6 +204,7 @@
         <li><a href="/expansions.html">Every set ever</a></li>
         <li><a href="/upcoming.html">Coming next</a></li>
         <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/msrp.html">MSRP check</a></li>
         <li><a href="/pack-prices.html">Pack prices</a></li>
         <li><a href="/how-many-packs.html">Packs per box</a></li>
         <li><a href="/openings/">Sealed products</a></li>
@@ -224,6 +225,7 @@
         <li><a href="/top-100-playable.html">Most played cards</a></li>
         <li><a href="/what-set.html">Set finder</a></li>
         <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/base-set.html">Base Set prints</a></li>
         <li><a href="/types.html">Card types</a></li>
         <li><a href="/fake-cards.html">Fakes</a></li>
         <li><a href="/will-it-grade.html">Will it grade</a></li>
@@ -239,6 +241,7 @@
         <li><a href="/games/">Games</a></li>
         <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
+        <li><a href="/evolution.html">Evolution chart</a></li>
       </ul>
     </div>
     <div class="menu-g">
@@ -270,7 +273,7 @@
         <div class="gr-board" id="grBoard">
           <div class="gr-stage" id="grStage">
             <canvas id="grCanvas" width="420" height="680" role="img"
-              aria-label="Garbage Run. Trubbish runs along a Rochester street and you tap to flip him between the floor and the ceiling."></canvas>
+              aria-label="Garbage Run. Trubbish runs through downtown Rochester, past the Times Square building, the Xerox tower and High Falls, and you tap to flip him between the floor and the ceiling."></canvas>
             <div class="gr-over" id="grOver">
               <h2 id="grTitle">Garbage Run</h2>
               <p id="grMsg">Tap the screen, or press space, to flip. Eat the rubbish, dodge the Pokemon.</p>
@@ -280,12 +283,19 @@
         </div>
 
         <p class="lede gr-lede">One thumb, no rules to read. Tap to flip Trubbish between the floor and the ceiling and
-          eat everything on the street. A hundred pieces of rubbish and he evolves.</p>
+          eat everything on the street, Garbage Plates included. A hundred pieces of rubbish and he evolves.</p>
 
         <div class="gr-how">
           <p><b>How it works.</b> Tap anywhere, or press <span class="gr-keys">space</span>, <span class="gr-keys">W</span>
           or the <span class="gr-keys">arrow keys</span>. Every piece of rubbish you eat is a point. Other Pokemon are out there too and
           touching one ends the run. Get to 100 and Trubbish evolves into Garbodor for the rest of the game.<br>
+          <b>Some of the rubbish is a Garbage Plate</b>, because of course it is. Home fries, macaroni salad, hot sauce,
+          mustard and onion, exactly like Nick Tahou would hand you at two in the morning. A plate is worth the same one
+          point as everything else on the street. It just tastes better.<br>
+          <b>That is downtown Rochester behind him.</b> The Times Square building and its four wings, the Xerox tower,
+          Kodak, the grain silos, and High Falls with the Pont de Rennes over the top of it. It is drawn on the canvas
+          like everything else here, and it is kept dim on purpose so the things that can kill you stay the brightest
+          objects on the screen.<br>
           <b>Nothing is saved anywhere but your own phone</b>, and there is no account and no server. Your best
           score lives in this browser and goes away if you clear it.</p>
 
@@ -338,6 +348,7 @@
         <a href="/expansions.html">Every set ever</a>
         <a href="/upcoming.html">Coming next</a>
         <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/msrp.html">MSRP check</a>
         <a href="/pack-prices.html">Pack prices</a>
         <a href="/how-many-packs.html">Packs per box</a>
         <a href="/openings/">Sealed products</a>
@@ -356,6 +367,7 @@
         <a href="/top-100-playable.html">Most played cards</a>
         <a href="/what-set.html">Set finder</a>
         <a href="/rarity.html">Rarity guide</a>
+        <a href="/base-set.html">Base Set prints</a>
         <a href="/types.html">Card types</a>
         <a href="/fake-cards.html">Fakes</a>
         <a href="/will-it-grade.html">Will it grade</a>
@@ -369,6 +381,7 @@
         <a href="/games/">Games</a>
         <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
+        <a href="/evolution.html">Evolution chart</a>
       </div>
       <div class="foot-col">
         <p class="foot-h">Rochester, NY</p>
@@ -496,7 +509,13 @@
     };
   }
   var lanes = [];
-  var speed = 0, t = 0;
+  // dist IS NOT t * speed AND THAT IS THE POINT. The old block strip scrolled on
+  // t * speed * 0.28, which is the distance travelled only while speed is
+  // constant: every time the ramp nudged speed the whole strip jumped sideways
+  // by t times the increment. It was invisible on seven identical rectangles and
+  // it would not be on a skyline with a waterfall in it. This accumulates the
+  // real distance instead, one addition per world step.
+  var speed = 0, t = 0, dist = 0;
 
   // SPEED IS CAPPED NOW AND IT WAS NOT. The ramp had no ceiling, so a long run
   // kept accelerating for as long as it lasted: measured 21.8 px per frame after
@@ -512,6 +531,7 @@
   function reset() {
     speed = calm ? 1.9 : 2.4;
     t = 0;
+    dist = 0;
     lanes = [makeLane(0, H)];
     draw();
   }
@@ -690,9 +710,21 @@
         }
         if (kHi < kLo) continue;
         if (yy < kLo) yy = kLo; if (yy > kHi) yy = kHi;
+        // SOME OF THE RUBBISH IS A GARBAGE PLATE, and which ones is decided
+        // WITHOUT DRAWING A NEW RANDOM NUMBER. That is not tidiness, it is the
+        // whole reason this change is provably not a difficulty change: one
+        // extra Math.random() per pickup shifts every draw after it, so the
+        // hazard heights, the pinch rolls and the trail arcs all move and every
+        // measured number in this file is quietly invalidated. The plate rides
+        // on the index that was already drawn for the emoji, so the random
+        // stream is byte for byte what it was. Verified: the camper bot's death
+        // frame and the hash of its whole random stream are identical before and
+        // after, on all ten seeds.
+        // 14 of the 40 indices are plates, so it is roughly one piece in three.
+        var ji = Math.floor(Math.random() * JUNK.length);
         L.packs.push({
           x: pxk, y: yy, got: false,
-          emoji: JUNK[Math.floor(Math.random() * JUNK.length)],
+          emoji: JUNK[ji], plate: ji % 3 === 0,
         });
       }
       // TRAILS WERE TOO FAR APART. At 150 to 240 frames the street went two and a
@@ -746,9 +778,25 @@
         // the thing it is entirely about. A ring, a rising +1 and three sparks,
         // all on the existing draw pass and all gone inside half a second.
         // Every fifth one is bigger, so a trail flown cleanly builds.
+        // A plate gets the bigger ring and the bigger +1. It is worth ONE POINT
+        // like everything else, deliberately: scoring is where a difficulty
+        // change hides, and what Tim asked for is that some of the rubbish IS a
+        // Garbage Plate, not that it is worth more. The reward is the moment.
+        //
+        // AND THE SPARK COUNT IS DELIBERATELY NOT PART OF IT, which cost a whole
+        // measurement pass to learn. The first version was one flag, big =
+        // score % 5 === 0 || p.plate, and every spark draws TWO random numbers
+        // for its velocity, so three extra sparks on a plate meant six extra
+        // draws and the entire random stream shifted from that pickup on. The
+        // camper bot's death frames moved by up to 11,000 frames on the same
+        // seeds and every difficulty number in this file was quietly invalid.
+        // A COSMETIC FLAG THAT FEEDS A LOOP COUNT IS A DIFFICULTY CHANGE. The
+        // spark loop keeps the old flag; only the ring and the number, which
+        // draw nothing, look at the plate.
         var big = L.score % 5 === 0;
-        L.bits.push({ k: "ring", x: p.x, y: p.y, life: big ? 20 : 14, max: big ? 20 : 14, big: big });
-        L.bits.push({ k: "num", x: p.x, y: p.y, life: 26, max: 26, big: big });
+        var pop = big || p.plate;
+        L.bits.push({ k: "ring", x: p.x, y: p.y, life: pop ? 20 : 14, max: pop ? 20 : 14, big: pop });
+        L.bits.push({ k: "num", x: p.x, y: p.y, life: 26, max: 26, big: pop });
         for (var sp = 0; sp < (big ? 6 : 3); sp++) {
           L.bits.push({ k: "spark", x: p.x, y: p.y, life: 16, max: 16,
             vx: -1.6 - Math.random() * 2.4, vy: (Math.random() - 0.5) * 4.6 });
@@ -795,13 +843,413 @@
   // are the only coloured objects on screen because they are pictures.
   var C = {
     skyTop: "#0E0E0E", skyBot: "#1C1C1C",
-    block: "rgba(255,255,255,.055)",
+    // A "block" token used to live here at rgba(255,255,255,.055): the seven
+    // scrolling rectangles that were the background before the skyline. That
+    // number is kept in the skyline's own comment as the brightness ceiling the
+    // new layers must not pass, which is the only job it has left, so the token
+    // itself is gone rather than sitting here unread.
     band: "#242424", bandEdge: "rgba(232,185,58,.34)",
     hazard: "#F5F4F0", near: "#E8B93A",
     gold: "#E8B93A", goldDim: "rgba(232,185,58,.11)",
     ink: "#F5F4F0", inkDim: "rgba(245,244,240,.55)",
     onGold: "#111111", scrim: "rgba(10,10,10,.55)",
   };
+
+  // ---- downtown Rochester ---------------------------------------------
+  // WHAT THE BACKGROUND WAS: seven 44x74 rectangles at rgba(255,255,255,.055),
+  // scrolling along the bottom. It read as "some blocks", which is fair, and it
+  // was the safest thing that could be there. This replaces it with the actual
+  // skyline and the ONLY interesting question is whether the game is still
+  // readable over it, because a reflex game that looks better and plays worse
+  // is a straight loss.
+  //
+  // THE RULE THIS LAYER OBEYS, and it is the whole reason it is safe: NOTHING IN
+  // THE SKYLINE IS BRIGHTER THAN THE STRIP IT REPLACES, which measured #282828
+  // where it crossed the brightest part of the sky gradient. Every piece of
+  // detail inside a building is CUT OUT of the mass with destination-out rather
+  // than drawn over it in a lighter colour, so a fin, a floor band or a truss
+  // member can only ever be darker than the silhouette it sits in. There is not
+  // one lit window anywhere. That leaves the gold hairlines, the white hazard
+  // rings, the gold pickup rings, the sprites and the HUD as the only bright
+  // objects on the canvas, which is exactly the state the board was already in.
+  //
+  // AND THE CEILING IS STRUCTURAL, NOT ARITHMETIC, WHICH IT WAS NOT AT FIRST.
+  // Version one painted both tiles WHITE and blitted each at an alpha worked out
+  // to land under #282828, which is correct for either layer on its own and
+  // wrong for both: source-over composites, so the near layer laid over the far
+  // one added to it and the overlap measured #323232, brighter than the thing it
+  // replaced, and gold over it fell from 8.03:1 to 6.98:1. Nothing about that is
+  // visible while writing it.
+  //
+  // The tiles are painted in SKY_TOP itself now, a flat grey, instead of in
+  // white. Compositing a value V at any alpha over a background B lands between
+  // B and V, so as long as every layer's paint is SKY_TOP and everything behind
+  // it is darker, no stack of them can pass SKY_TOP however many there are. The
+  // far layer's extra dimming is then purely a depth cue and cannot break the
+  // ceiling by being tuned wrong.
+  //
+  // MEASURED, on the frame reset() draws at load, where no obstacle and no
+  // pickup has spawned yet so every pixel outside the two sprites is background
+  // by construction. Brightest background grey anywhere on the board, and the
+  // contrast of the two marks that matter over that worst case:
+  //
+  //                        peak bg      gold on it   hazard white on it
+  //   before, 7 blocks     #282828        8.03:1          13.40:1
+  //   white tiles, v1      #323232        6.98:1          11.65:1
+  //   flat tiles, now      #242424        8.45:1          14.10:1
+  //
+  // At 1440x900 the peak is #252525 and gold is 8.34:1. So the board a player
+  // reads is very slightly CLEANER than it was before the city went in, which is
+  // the only version of this change worth shipping.
+  //
+  // TILES, NOT SHAPES PER FRAME. Both layers are drawn ONCE into an offscreen
+  // canvas and blitted at most twice each, so the per-frame cost is four
+  // drawImage calls whatever the buildings are made of. That is what makes the
+  // detail free: the Xerox tower's fins, the silo tops and the Pont de Rennes
+  // truss cost nothing at runtime because they are already pixels.
+  //
+  // THE FAR TILE IS 840 WIDE, TWICE THE WORLD, so half of it is on screen at
+  // once, which is why there is exactly ONE of each landmark in it. Two sets of
+  // the Times Square wings 420 apart would both be visible and the repeat would
+  // be the first thing anybody noticed. The generic blocks repeat; the
+  // recognisable shapes do not.
+  var FAR_W = 840, FAR_H = 250, NEAR_W = 630, NEAR_H = 130;
+  // The ceiling colour every tile is painted in, and the far layer's dimming.
+  // SKY_TOP is the one number to turn if this ever has to get quieter still:
+  // drop it and the whole skyline, both layers, moves with it and the invariant
+  // above still holds. FAR_A only pushes the far layer further back.
+  //
+  // IT IS #242424 AND NOT THE OLD STRIP'S #282828, FOR ONE REASON. A hazard's
+  // stack column is filled #2B2B2B, so at #282828 the tallest hazards in the
+  // game stood three values out of 255 clear of the city behind them: the
+  // silhouette was carried entirely by the column's gold outline and its
+  // highlight bars, with the fill doing nothing. Four values back puts seven
+  // between them, which is not much and is more than twice as much, and it also
+  // makes "no brighter than the strip it replaces" true with room to spare
+  // rather than true by a single antialiased pixel. Measured cost: the city
+  // steps 12 values above the sky instead of 16 at the bottom of the lane. It
+  // is still plainly a skyline at 342 CSS pixels wide, which was checked by
+  // looking at it and not by looking at this number.
+  var SKY_TOP = "#242424";
+  var FAR_A = 0.55, NEAR_A = 1;
+  // Parallax. The old strip ran at 0.28 of world speed; the near layer keeps
+  // roughly that and the far one crawls, which is the entire depth cue.
+  var FAR_P = 0.10, NEAR_P = 0.26;
+  var SKY = { far: null, near: null, plate: null, px: 0, ppx: 0 };
+
+  function offtile(w, h, px) {
+    var c = document.createElement("canvas");
+    c.width = Math.max(1, Math.round(w * px));
+    c.height = Math.max(1, Math.round(h * px));
+    var g = c.getContext("2d");
+    g.setTransform(px, 0, 0, px, 0, 0);
+    g.fillStyle = SKY_TOP;
+    return { c: c, g: g };
+  }
+  // Detail is subtracted, never added. See the rule above.
+  function cut(g, x, y, w, h, a) {
+    g.save();
+    g.globalCompositeOperation = "destination-out";
+    g.globalAlpha = a;
+    g.fillRect(x, y, w, h);
+    g.restore();
+  }
+  // Atmospheric haze, baked into the tile so it costs nothing per frame. It is
+  // not only for looks: the tall towers are the part of this layer that reaches
+  // up into the band where rubbish flies, and fading their tops is what stops a
+  // 220px tower edge running vertically past a gold pickup ring.
+  function haze(g, w, h, solid, topCut) {
+    g.save();
+    g.globalCompositeOperation = "destination-out";
+    var gr = g.createLinearGradient(0, h - solid, 0, -30);
+    gr.addColorStop(0, "rgba(0,0,0,0)");
+    gr.addColorStop(1, "rgba(0,0,0," + topCut + ")");
+    g.fillStyle = gr;
+    g.fillRect(0, -30, w, h - solid + 30);
+    g.restore();
+  }
+
+  // KODAK TOWER, 343 State Street. A slender shaft with a stepped crown and a
+  // mast on top. The steps are what make it Kodak rather than a rectangle.
+  function bKodak(g, x, y, w, h) {
+    g.fillRect(x, y + 46, w, h - 46);
+    g.fillRect(x + w * 0.11, y + 28, w * 0.78, 19);
+    g.fillRect(x + w * 0.24, y + 15, w * 0.52, 14);
+    g.fillRect(x + w * 0.36, y + 6, w * 0.28, 10);
+    g.fillRect(x + w * 0.46, y - 8, w * 0.08, 15);
+    cut(g, x + w * 0.46, y + 50, w * 0.08, h - 54, 0.5);
+  }
+  // THE TIMES SQUARE BUILDING AND ITS FOUR WINGS OF PROGRESS. Four aluminium
+  // fins, forty two feet each, and the one Rochester roofline somebody would
+  // name from a silhouette alone. If only one shape in this layer survives being
+  // dimmed, it has to be this one, so the wings are drawn tall and separated
+  // rather than accurately proportioned.
+  function bTimes(g, x, y, w, h) {
+    var cx = x + w / 2;
+    g.fillRect(x, y + 44, w, h - 44);
+    g.fillRect(x + w * 0.13, y + 30, w * 0.74, 15);
+    g.fillRect(x + w * 0.27, y + 20, w * 0.46, 11);
+    var lean = [-1, -0.34, 0.34, 1];
+    for (var s = 0; s < 4; s++) {
+      var q = lean[s], tall = Math.abs(q) > 0.5 ? 21 : 30;
+      g.beginPath();
+      g.moveTo(cx - 3 + q * 2, y + 22);
+      g.quadraticCurveTo(cx + q * 12, y + 6, cx + q * 20, y + 22 - tall);
+      g.quadraticCurveTo(cx + q * 8, y + 11, cx + 3 + q * 2, y + 22);
+      g.closePath();
+      g.fill();
+    }
+  }
+  // XEROX TOWER: thirty storeys, flat topped, tallest thing in the city, and
+  // covered top to bottom in vertical concrete fins. The fins are the only
+  // detail it gets and they are cut, not drawn.
+  function bXerox(g, x, y, w, h) {
+    g.fillRect(x, y, w, h);
+    for (var f = 6; f < w - 4; f += 7) cut(g, x + f, y + 5, 1.5, h - 5, 0.42);
+    cut(g, x, y + 3.5, w, 1.5, 0.55);
+  }
+  // Chase Tower: a plain slab with a slightly narrower crown, banded by floor.
+  function bChase(g, x, y, w, h) {
+    g.fillRect(x, y + 9, w, h - 9);
+    g.fillRect(x + w * 0.15, y, w * 0.7, 10);
+    for (var r = 17; r < h - 8; r += 13) cut(g, x + 2, y + r, w - 4, 1.3, 0.4);
+  }
+  // Bausch and Lomb Place: postmodern setbacks, a staircase from one side.
+  function bStep(g, x, y, w, h) {
+    g.fillRect(x, y + 34, w, h - 34);
+    g.fillRect(x, y + 19, w * 0.72, 16);
+    g.fillRect(x, y + 7, w * 0.46, 13);
+    g.fillRect(x, y, w * 0.24, 8);
+    cut(g, x + w * 0.7, y + 38, 1.4, h - 42, 0.45);
+  }
+  // The grain elevator by the river: four tangent cylinders with domed tops.
+  function bSilo(g, x, y, w, h) {
+    var n = 4, cw = w / n;
+    for (var s = 0; s < n; s++) {
+      var sx = x + s * cw;
+      g.beginPath();
+      g.moveTo(sx, y + h);
+      g.lineTo(sx, y + cw * 0.55);
+      g.quadraticCurveTo(sx + cw / 2, y - 2, sx + cw, y + cw * 0.55);
+      g.lineTo(sx + cw, y + h);
+      g.closePath();
+      g.fill();
+      if (s) cut(g, sx - 0.7, y + 3, 1.4, h - 3, 0.42);
+    }
+  }
+  // A church spire. Rochester has a skyline full of them and one narrow pointed
+  // shape does more for "this is a city" at this size than another slab does.
+  function bSpire(g, x, y, w, h) {
+    g.fillRect(x + w * 0.14, y + 34, w * 0.72, h - 34);
+    g.beginPath();
+    g.moveTo(x + w * 0.04, y + 36);
+    g.lineTo(x + w / 2, y + 3);
+    g.lineTo(x + w * 0.96, y + 36);
+    g.closePath();
+    g.fill();
+    g.fillRect(x + w * 0.46, y - 9, w * 0.08, 13);
+    g.fillRect(x + w * 0.34, y - 5, w * 0.32, 1.6);
+  }
+  // Public Market sheds: long, low, sawtooth roofed. THE TEETH WERE HALF THIS
+  // SIZE AND TWICE AS MANY and three sheds' worth of them ran the full width of
+  // the near layer as one continuous zigzag: it read as a picket fence, or as
+  // hills, and not as buildings at all. Fewer and shallower, and only one shed
+  // in the plan instead of three.
+  function bShed(g, x, y, w, h) {
+    g.fillRect(x, y + 7, w, h - 7);
+    var n = Math.max(2, Math.round(w / 27)), sw = w / n;
+    for (var s = 0; s < n; s++) {
+      g.beginPath();
+      g.moveTo(x + s * sw, y + 8);
+      g.lineTo(x + s * sw + sw * 0.62, y);
+      g.lineTo(x + (s + 1) * sw, y + 8);
+      g.closePath();
+      g.fill();
+    }
+  }
+  // A row of low brick warehouses, which is what the near bank of the river
+  // actually is: two or three flat roofs at slightly different heights with a
+  // chimney, and a horizontal course line so the mass is not one flat slab.
+  function bRow(g, x, y, w, h) {
+    var n = 3, sw = w / n, hs = [0, 7, 3];
+    for (var s = 0; s < n; s++) {
+      g.fillRect(x + s * sw, y + hs[s], sw - 1.2, h - hs[s]);
+    }
+    g.fillRect(x + w * 0.2, y - 9, 3, 11);
+    cut(g, x, y + 15, w, 1.4, 0.4);
+    cut(g, x, y + 26, w, 1.4, 0.4);
+  }
+  function bTank(g, x, y, w, h) {
+    g.fillRect(x + w * 0.14, y + 22, 2.4, h - 22);
+    g.fillRect(x + w * 0.72, y + 22, 2.4, h - 22);
+    g.fillRect(x + w * 0.1, y + 31, w * 0.8, 1.8);
+    g.beginPath();
+    g.moveTo(x, y + 23);
+    g.lineTo(x, y + 11);
+    g.quadraticCurveTo(x + w / 2, y - 7, x + w, y + 11);
+    g.lineTo(x + w, y + 23);
+    g.closePath();
+    g.fill();
+    g.fillRect(x + w * 0.45, y - 10, w * 0.1, 8);
+  }
+  // A works with a chimney: the brewery end of the river.
+  function bWorks(g, x, y, w, h) {
+    g.fillRect(x, y + 25, w, h - 25);
+    g.fillRect(x + w * 0.62, y + 1, w * 0.13, 25);
+    g.fillRect(x + w * 0.59, y - 2, w * 0.19, 4);
+    for (var r = 31; r < h; r += 11) cut(g, x + 3, y + r, w - 6, 1.2, 0.4);
+  }
+  // HIGH FALLS AND THE PONT DE RENNES. Ninety six feet of the Genesee dropping
+  // through the middle of downtown with a steel arch footbridge over the top of
+  // it, which is the postcard. It earns its place twice: it is the second most
+  // recognisable thing in the city, and the gorge is the one place the built up
+  // line breaks, so the near layer stops reading as an unbroken wall.
+  function bFalls(g, x, y, w, h) {
+    var gw = w * 0.42, gx = x + (w - gw) / 2, base = y + h;
+    // The cliffs, cut back hard so the water is the lighter thing between them.
+    g.fillRect(x, y + 46, gx - x, h - 46);
+    g.fillRect(gx + gw, y + 46, x + w - (gx + gw), h - 46);
+    cut(g, x, y + 48, gx - x, h - 48, 0.42);
+    cut(g, gx + gw, y + 48, x + w - (gx + gw), h - 48, 0.42);
+    // The sheet of water, streaked vertically.
+    g.fillRect(gx, y + 50, gw, h - 58);
+    for (var s = 3; s < gw - 2; s += 6) cut(g, gx + s, y + 52, 1.6, h - 62, 0.45);
+    // The plume where it lands.
+    var mg = g.createRadialGradient(gx + gw / 2, base - 8, 1, gx + gw / 2, base - 8, gw * 0.8);
+    mg.addColorStop(0, "rgba(36,36,36,.85)");
+    mg.addColorStop(1, "rgba(36,36,36,0)");
+    g.save();
+    g.fillStyle = mg;
+    g.fillRect(gx - gw * 0.6, base - 26, gw * 2.2, 26);
+    g.restore();
+    g.fillStyle = SKY_TOP;
+    // The bridge: a straight deck on a shallow arch, with hangers between them.
+    // Sampled off one quadratic so the hangers land on the arch rather than near
+    // it, which is the difference between a bridge and a comb.
+    var y0 = y + 62, yc = y + 18, deck = y + 30;
+    function arcY(u) { return (1 - u) * (1 - u) * y0 + 2 * (1 - u) * u * yc + u * u * y0; }
+    for (var v = 0.08; v < 0.93; v += 0.085) {
+      var ax = x + 2 + v * (w - 4), ay = arcY(v);
+      if (ay > deck + 3) g.fillRect(ax - 1, deck + 3, 2, ay - deck - 3);
+    }
+    g.beginPath();
+    g.moveTo(x + 2, y0);
+    g.quadraticCurveTo(x + w / 2, yc, x + w - 2, y0);
+    g.lineTo(x + w - 2, y0 + 3.4);
+    g.quadraticCurveTo(x + w / 2, yc + 3.4, x + 2, y0 + 3.4);
+    g.closePath();
+    g.fill();
+    g.fillRect(x, deck, w, 4.5);
+  }
+
+  var FAR_PLAN = [
+    [6, 52, 96, "b"], [62, 30, 178, "kodak"], [96, 58, 74, "b"],
+    [158, 46, 150, "times"], [208, 34, 92, "b"], [246, 64, 220, "xerox"],
+    [314, 40, 126, "step"], [358, 30, 68, "b"], [392, 54, 192, "chase"],
+    [450, 36, 104, "b"], [490, 46, 138, "step"], [540, 28, 76, "b"],
+    [572, 58, 116, "b"], [634, 36, 150, "silo"], [676, 44, 88, "b"],
+    [724, 48, 128, "b"], [778, 26, 168, "spire"], [810, 26, 82, "b"],
+  ];
+  // GAPS ARE PART OF THE PLAN. The first near layer had a building at every x
+  // and read as one continuous wall along the bottom of the lane, which is both
+  // wrong for a river city and the version most likely to sit under a pickup.
+  // The river gorge is the big break and there are two more.
+  var NEAR_PLAN = [
+    [6, 66, 36, "row"], [80, 22, 58, "tank"], [110, 86, 30, "shed"],
+    [214, 156, 100, "falls"],
+    [388, 50, 50, "row"], [446, 30, 38, "b"],
+    [500, 58, 70, "works"], [566, 56, 32, "row"],
+  ];
+  var PAINT = {
+    kodak: bKodak, times: bTimes, xerox: bXerox, chase: bChase, step: bStep,
+    silo: bSilo, spire: bSpire, shed: bShed, tank: bTank, works: bWorks,
+    falls: bFalls, row: bRow,
+  };
+  function skyline(plan, w, h, px, solid, topCut) {
+    var o = offtile(w, h, px);
+    for (var i = 0; i < plan.length; i++) {
+      var b = plan[i], fn = PAINT[b[3]];
+      if (fn) fn(o.g, b[0], h - b[2], b[1], b[2]);
+      else o.g.fillRect(b[0], h - b[2], b[1], b[2]);
+    }
+    haze(o.g, w, h, solid, topCut);
+    return o.c;
+  }
+
+  // THE GARBAGE PLATE, which is what this whole channel is named after. Nick
+  // Tahou Hots: home fries and macaroni salad underneath, two hots or burgers on
+  // top, meat hot sauce over all of it, mustard and raw onion, on a paper plate.
+  //
+  // IT HAS TO READ AT THIRTY PIXELS AND THAT IS THE ENTIRE BRIEF. Every honest
+  // attempt at the real thing is a brown blob at this size, so the drawing is
+  // four statements in the order of what survives shrinking: a pale oval that is
+  // unmistakably a plate, a dark mass sitting on it, one mustard streak, three
+  // white specks of onion. Anything past that disappears and only costs pixels.
+  // It is pre-rendered like the skyline, so a plate is one drawImage.
+  var PLATE_W = 34, PLATE_H = 26;
+  function plateTile(px) {
+    var o = offtile(PLATE_W, PLATE_H, px), g = o.g;
+    var cx = PLATE_W / 2, cy = PLATE_H / 2 + 2;
+    // THE FIRST VERSION READ AS A BOWL OF SOUP and that is the failure mode to
+    // watch for: a dark sauce mass covering most of a pale disc leaves a thin
+    // pale ring, and a thin pale ring around something dark is a bowl. The rim
+    // has to stay WIDE and the food has to sit inside a smaller well, so the
+    // plate is a flat thing seen from above rather than a container.
+    g.fillStyle = "#9C9584";
+    g.beginPath(); g.ellipse(cx, cy + 1.7, 16, 8.6, 0, 0, 7); g.fill();
+    g.fillStyle = "#F7F3E7";
+    g.beginPath(); g.ellipse(cx, cy, 16, 8.6, 0, 0, 7); g.fill();
+    g.fillStyle = "#E2DBC6";
+    g.beginPath(); g.ellipse(cx, cy - 0.2, 12.4, 6.1, 0, 0, 7); g.fill();
+    // Home fries on one side, macaroni salad on the other. They are the bed, so
+    // they are only just separated from the plate.
+    g.fillStyle = "#D3A15C";
+    g.beginPath(); g.ellipse(cx - 4.8, cy + 1.4, 7, 3.3, 0, 0, 7); g.fill();
+    g.fillStyle = "#F0E5BE";
+    g.beginPath(); g.ellipse(cx + 5.2, cy + 1.5, 6, 3, 0, 0, 7); g.fill();
+    // The two hots, then the meat hot sauce ladled over the pair of them. The
+    // sauce is a warm mid brown rather than the near black it was: at this size
+    // a truly dark mass reads as a hole in the plate.
+    g.fillStyle = "#A55E2C";
+    g.beginPath(); g.ellipse(cx - 3.9, cy - 2.7, 5.6, 2.4, -0.12, 0, 7); g.fill();
+    g.beginPath(); g.ellipse(cx + 4.1, cy - 2.3, 5.4, 2.4, 0.1, 0, 7); g.fill();
+    g.fillStyle = "#71401D";
+    g.beginPath();
+    g.moveTo(cx - 9.4, cy - 1.8);
+    g.bezierCurveTo(cx - 6, cy - 6.2, cx + 3, cy - 6.4, cx + 9.4, cy - 2.8);
+    g.bezierCurveTo(cx + 6, cy + 1.2, cx - 5, cy + 1.4, cx - 9.4, cy - 1.8);
+    g.closePath(); g.fill();
+    // Mustard and raw onion. THESE TWO ARE WHY IT IS FOOD. Without them the
+    // middle is one brown shape and the whole thing is a pebble on a saucer;
+    // they are also the only two marks small and bright enough to survive being
+    // drawn at 26 CSS pixels on a phone.
+    g.strokeStyle = "#F2C734"; g.lineWidth = 2; g.lineCap = "round";
+    g.beginPath();
+    g.moveTo(cx - 7.4, cy - 1.6);
+    g.quadraticCurveTo(cx - 2.6, cy - 5, cx + 1.2, cy - 1.6);
+    g.quadraticCurveTo(cx + 4.6, cy + 1.4, cx + 8, cy - 3);
+    g.stroke();
+    g.fillStyle = "#FDFBF4";
+    g.beginPath(); g.arc(cx - 5.6, cy - 3.9, 1.3, 0, 7); g.fill();
+    g.beginPath(); g.arc(cx + 1.2, cy - 4.4, 1.2, 0, 7); g.fill();
+    g.beginPath(); g.arc(cx + 6.4, cy - 1, 1.25, 0, 7); g.fill();
+    return o.c;
+  }
+
+  // Rebuilt only when the device scale moves, from fit(). The skyline tiles are
+  // capped at 2 device pixels per world unit: a desktop board asks for 3.2 and
+  // that would be a 5,400px wide tile for a silhouette nobody is meant to look
+  // at directly. The PLATE is not capped, because it is a gameplay object and
+  // the player is meant to look straight at it.
+  function buildTiles(px) {
+    var sp = Math.min(2, px);
+    if (SKY.px !== sp) {
+      SKY.far = skyline(FAR_PLAN, FAR_W, FAR_H, sp, 100, 0.66);
+      SKY.near = skyline(NEAR_PLAN, NEAR_W, NEAR_H, sp, 74, 0.42);
+      SKY.px = sp;
+    }
+    if (SKY.ppx !== px) { SKY.plate = plateTile(px); SKY.ppx = px; }
+  }
 
   function trubbish(x, y, up, evolved, tilt, land) {
     var SP = evolved ? SP_GARB : SP_TRUB;
@@ -869,12 +1317,25 @@
     g.addColorStop(0, C.skyTop); g.addColorStop(1, C.skyBot);
     ctx.fillStyle = g; ctx.fillRect(-20, L.top - 20, W + 40, L.h + 40);
 
-    if (!calm) {
-      ctx.fillStyle = C.block;
-      for (var k = 0; k < 7; k++) {
-        var bx = (k * 150 - (t * speed * 0.28) % 1050 + 1050) % 1050 - 60;
-        ctx.fillRect(bx, L.top + L.h - 74, 44, 74);
-      }
+    // DOWNTOWN, TWO LAYERS, FOUR drawImage CALLS. Each tile is at most twice as
+    // wide as the world, so a layer needs at most two blits to cover the frame.
+    //
+    // UNDER prefers-reduced-motion THE CITY IS STILL THERE AND IT DOES NOT MOVE.
+    // The old strip was switched off entirely by calm, which threw away
+    // content to remove motion. A skyline is a place, not an animation: the
+    // reduced-motion reading is that the parallax stops, so the offset is pinned
+    // at zero and the same picture is drawn every frame. Same cost, no movement.
+    var sBase = L.top + L.h - 14;
+    if (SKY.far) {
+      var d = calm ? 0 : dist;
+      var fx = -((d * FAR_P) % FAR_W);
+      ctx.save();
+      ctx.globalAlpha = FAR_A;
+      for (; fx < W; fx += FAR_W) ctx.drawImage(SKY.far, fx, sBase - FAR_H, FAR_W, FAR_H);
+      ctx.globalAlpha = NEAR_A;
+      var nx = -((d * NEAR_P) % NEAR_W);
+      for (; nx < W; nx += NEAR_W) ctx.drawImage(SKY.near, nx, sBase - NEAR_H, NEAR_W, NEAR_H);
+      ctx.restore();
     }
     // THE TWO ROWS THAT KILL YOU ARE MARKED NOW. The floor and the ceiling were
     // a flat band the same weight as everything else, so the one rule the game
@@ -917,8 +1378,12 @@
       ctx.beginPath(); ctx.arc(pk.x, pk.y, 16, 0, 7); ctx.fill();
       ctx.strokeStyle = "rgba(232,185,58,.55)"; ctx.lineWidth = 1.5;
       ctx.beginPath(); ctx.arc(pk.x, pk.y, 16.5, 0, 7); ctx.stroke();
-      ctx.font = "24px system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif";
-      ctx.fillText(pk.emoji, pk.x, pk.y);
+      if (pk.plate && SKY.plate) {
+        ctx.drawImage(SKY.plate, pk.x - PLATE_W / 2, pk.y - PLATE_H / 2, PLATE_W, PLATE_H);
+      } else {
+        ctx.font = "24px system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif";
+        ctx.fillText(pk.emoji, pk.x, pk.y);
+      }
     }
     ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
 
@@ -1053,6 +1518,7 @@
         continue;
       }
       t += 1;
+      dist += speed;
       if (speed < SPEED_MAX) speed = Math.min(SPEED_MAX, speed + (calm ? 0.00025 : 0.00045));
       for (var i = 0; i < lanes.length; i++) step(lanes[i]);
     }
@@ -1244,6 +1710,9 @@
     // transform is reinstalled here and nowhere else. Everything above this line
     // draws in 420x680 units and does not know this happened.
     ctx.setTransform(cv.width / W, 0, 0, cv.height / H, 0, 0);
+    // The skyline and the plate are pre-rendered at the device's own pixels, so
+    // they are rebuilt here and only here, for the same reason the transform is.
+    buildTiles(cv.width / W);
     draw();
   }
   window.addEventListener("resize", fit);

@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1st Edition, Shadowless or Unlimited? Base Set, Told Apart | Garbage Rips 585</title>
+<meta name="description" content="1st Edition, Shadowless or Unlimited? The stamp and the drop shadow that tell 1999 Base Set cards apart, drawn and magnified on a real card, with what the gap is actually worth.">
+<link rel="canonical" href="https://garbagerips585.github.io/base-set.html">
+<meta property="og:title" content="1st Edition, Shadowless or Unlimited?">
+<meta property="og:description" content="1st Edition, Shadowless or Unlimited? The stamp and the drop shadow that tell 1999 Base Set cards apart, drawn and magnified on a real card, with what the gap is actually worth.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garbagerips585.github.io/base-set.html">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-image.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#111111">
+<link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=17b9bdb3">
+<style>
+.bs-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:42em}
+.bs-sec{padding:var(--s6) 0}
+.bs-sec h2{font:400 var(--t-l)/1.15 var(--display);margin-bottom:var(--s3)}
+.bs-p2{color:var(--ink-2);max-width:46em;margin-bottom:var(--s4)}
+
+/* The drawn figures. Centred, capped, and the caption is the honest part of
+   every one of them: each says what it is a drawing OF and what has been
+   exaggerated to survive a phone screen. */
+.bs-fig{margin:var(--s5) 0;background:var(--card);border:1px solid var(--hair);
+  border-radius:var(--r);padding:var(--s4);box-shadow:var(--lift)}
+.bs-fig svg{display:block;width:100%;height:auto;max-width:520px;margin-inline:auto}
+.bs-fig figcaption{font-size:var(--t-sm);color:var(--ink-2);line-height:1.5;margin-top:var(--s3)}
+.bs-fig-wide{max-width:620px}
+.bs-hd{font:700 12px/1 var(--mono);letter-spacing:.05em;fill:var(--ink)}
+.bs-cap{font:400 11px/1 var(--mono);fill:var(--ink-2)}
+.bs-lbl{font:700 11px/1 var(--mono);fill:var(--ink)}
+.bs-num{font:700 11px/1 var(--mono);fill:var(--paper-2)}
+
+/* The magnified crops. See zoom() in build-base-set.mjs for the geometry.
+
+   .bz .bz-win img RATHER THAN .bz-win img, AND THAT IS NOT TIDINESS. ui.css
+   sets img{max-width:100%} and this page also sets .bs-card img{max-width:200px},
+   both of which would squeeze the 600px scan back into the window and paint a
+   whole shrunken card where the magnified detail should be. The extra class
+   takes this to (0,2,1) so it beats any single-class img rule here or added
+   later. That exact bug shipped on /rarity.html when its corners moved from a
+   CSS background onto an img, and it looks almost right, which is why it
+   survived: a card in a box, just the wrong picture, under a caption still
+   promising the detail. */
+.bz{border:2px solid var(--ink);border-radius:var(--r);overflow:hidden;background:var(--card);
+  margin:var(--s4) 0}
+.bz-win{position:relative;overflow:hidden;background:var(--card)}
+.bz .bz-win img{position:absolute;max-width:none;border:0;border-radius:0;background:none;display:block}
+/* max-width:none, AND IT IS FIXING A VISIBLE HOLE RATHER THAN A MEASURE.
+   ui.css caps every figcaption in main at var(--measure) from 1000px up. That is
+   right for a caption under a picture and wrong for this one, because this
+   caption is a BAR across the bottom of a bordered window: 36em of 11px mono is
+   396px, the window is 430px, so from 1000px up the caption's fill stopped 34px
+   short of the frame and a white notch appeared in the bottom right corner of
+   the figure. It reads as a rendering fault, not as a measure. The bar can never
+   be too long to track back from anyway, since the box it is inside is capped at
+   the width of the card region it magnifies. */
+.bz figcaption{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.05em;color:var(--ink-2);
+  padding:8px var(--s3);border-top:1px solid var(--hair);background:var(--page);max-width:none}
+
+.bs-card{margin:var(--s4) 0}
+.bs-card img{width:100%;max-width:200px;height:auto;border-radius:6px;border:1px solid var(--hair);
+  background:var(--page)}
+.bs-card figcaption{font-size:var(--t-sm);color:var(--ink-2);line-height:1.5;margin-top:var(--s3)}
+.bs-card figcaption b{color:var(--ink)}
+
+/* Card and crops side by side once there is room for both. Below that they
+   stack, which is right: on a phone the crop IS the figure and the whole card
+   is context you scroll past. */
+.bs-shots{display:grid;gap:var(--s4)}
+/* THE SECOND COLUMN IS 440px AND NOT 1fr, WHICH IS THE WHOLE FIX. Both crops in
+   it are capped at their own source region's width, 280px and 430px, because
+   past that the browser is upscaling a scan that has no more detail in it. A 1fr
+   track therefore grew to 1,130px at 1440 and held a 430px picture with 700px of
+   empty page beside it, which reads as a layout that failed rather than as a
+   figure that is deliberately the size of its evidence. justify-content pins the
+   pair to the left of the wrap instead of centring a half empty row. */
+@media(min-width:760px){.bs-shots{grid-template-columns:220px minmax(0,440px);
+  justify-content:start;align-items:start;gap:var(--s5)}}
+
+/* The three checks, as steps. Same shape as the rarity guide's, deliberately:
+   it is the same reader doing the same thing, holding one card and working
+   through it in a fixed order. */
+.bs-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin:var(--s5) 0}
+@media(max-width:760px){.bs-steps{grid-template-columns:1fr}}
+.bs-step{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);
+  box-shadow:var(--lift)}
+.bs-step b{display:block;font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep);margin-bottom:6px}
+.bs-step h3{font:700 var(--t-body)/1.3 var(--body);margin-bottom:6px}
+.bs-step p{color:var(--ink-2);font-size:var(--t-sm)}
+
+/* The run cards. */
+.bs-runs{list-style:none;display:grid;gap:var(--s4);
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.bs-run{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s4);
+  box-shadow:var(--lift);display:flex;flex-direction:column}
+.bs-run h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:2px}
+.bs-run .bs-when{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink-2);margin-bottom:var(--s3)}
+.bs-run p{color:var(--ink-2);font-size:var(--t-sm);margin-bottom:var(--s2)}
+.bs-marks{display:flex;flex-wrap:wrap;gap:6px;margin:var(--s3) 0 0}
+/* WEIGHT, NOT HUE. The palette is one accent and two greys, so a green yes and
+   a red no would be the same colour twice. Present is solid ink with a gold
+   rule; absent is paper with a grey rule. The words carry it on their own for
+   anybody who cannot see either. */
+.bs-mark{font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 8px;border-radius:var(--r-pill);white-space:nowrap}
+.bs-mark.yes{background:var(--ink);color:var(--chrome-ink);border:1px solid var(--gold)}
+.bs-mark.no{background:var(--page);color:var(--ink-2);border:1px solid var(--hair)}
+
+/* The checks. */
+.bs-t{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);
+  box-shadow:var(--lift);margin-bottom:var(--s4)}
+.bs-t-head{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s2)}
+.bs-t-no{font:400 var(--t-l)/1 var(--display);color:var(--ink-2)}
+.bs-t-head h3{font:400 var(--t-m)/1.2 var(--display)}
+.bs-conf{font:700 9px/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;padding:5px 8px;
+  border-radius:var(--r-pill)}
+.bs-conf.hi{background:var(--ink);color:var(--chrome-ink);border:1px solid var(--gold)}
+.bs-conf.mid{background:var(--chip-gold-bg);color:var(--ink);border:1px solid var(--gold-deep)}
+.bs-conf.lo{background:var(--page);color:var(--ink-2);border:1px solid var(--hair)}
+.bs-where{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.04em;text-transform:uppercase;
+  color:var(--ink-2);margin-bottom:var(--s3)}
+.bs-t p{margin-bottom:var(--s3)}
+.bs-why{background:var(--page);border-left:4px solid var(--ink-2);padding:10px var(--s3);
+  border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:var(--t-sm)}
+.bs-caveat{background:var(--ink);color:var(--chrome-ink);border-left:4px solid var(--gold);
+  padding:10px var(--s3);border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:var(--t-sm)}
+.bs-caveat b{color:var(--gold)}
+.bs-src{font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);margin:0}
+
+/* The copyright line, as TEXT rather than as a picture, which is the whole
+   point of it. It is a string, so a reader can select it, a screen reader can
+   read it and it costs no bytes; a screenshot of a string is a worse version of
+   a string. The magnified crop underneath is the proof that it really says
+   this. .bs-mk is the differing run of characters. */
+.bs-cr{list-style:none;display:flex;flex-direction:column;gap:var(--s3);margin:var(--s4) 0}
+.bs-cr li{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s4)}
+.bs-cr .who{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-2);margin-bottom:6px}
+.bs-cr code{font:400 var(--t-sm)/1.7 var(--mono);color:var(--ink);word-break:break-word;
+  display:block}
+.bs-mk{background:var(--mustard);color:var(--on-accent);padding:1px 4px;border-radius:3px;font-weight:700}
+.bs-gone{color:var(--ink-2);text-decoration:line-through}
+
+/* Prices. */
+.bs-prices{list-style:none;margin:var(--s4) 0 0;padding:0;border-top:1px solid var(--hair)}
+.bs-p{display:grid;grid-template-columns:64px 1fr;gap:var(--s3);align-items:start;
+  padding:14px 0;border-bottom:1px solid var(--hair)}
+.bs-p-art{width:64px;height:90px;display:flex;align-items:center;justify-content:center;
+  background:var(--paper-3);border:1px solid var(--hair);border-radius:3px;overflow:hidden}
+/* NO width/height attribute on these and no AVIF source either. PriceCharting
+   serves a fixed 240 HIGH and a variable width, so a declared width is wrong for
+   most of them, and there is no AVIF at that host, so a source pointing at one
+   would be worse than none. imgDims() and avifPicture() both correctly decline
+   for this host, which is why neither is called on the way in. */
+.bs-p-scan{max-width:100%;max-height:100%;width:auto;height:auto;display:block}
+.bs-p-noscan{font:400 10px/1.3 var(--mono);color:var(--ink-2);text-align:center;padding:4px}
+.bs-p-body{min-width:0}
+.bs-p-name{display:block;font-weight:700;line-height:1.25}
+.bs-p-when{display:block;color:var(--ink-2);font-size:var(--t-sm);margin-top:1px}
+.bs-p-nums{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;align-items:baseline}
+.bs-p-n{color:var(--ink-2);font-size:var(--t-sm);font-variant-numeric:tabular-nums}
+.bs-p-n b{color:var(--ink);font-size:19px}
+.bs-u{font:400 10px/1 var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2)}
+.bs-p-none{display:block;margin-top:8px;font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2)}
+@media(min-width:560px){
+  .bs-p{grid-template-columns:84px 1fr;gap:var(--s4)}
+  .bs-p-art{width:84px;height:118px}
+  .bs-p-name{font-size:18px}
+}
+
+/* Traps and the honesty block. */
+.bs-traps{list-style:none;display:grid;gap:var(--s4);
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.bs-trap{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s4);
+  box-shadow:var(--lift)}
+.bs-trap h3{font:400 var(--t-m)/1.2 var(--display);margin-bottom:6px}
+.bs-trap p{color:var(--ink-2);font-size:var(--t-sm)}
+.bs-out{list-style:none;display:flex;flex-direction:column;gap:var(--s3);margin-top:var(--s4)}
+.bs-out li{border-left:3px solid var(--gold-deep);padding-left:var(--s3);color:var(--ink-2);
+  font-size:var(--t-sm)}
+
+/* MEASURED AT 11 PIXELS OF SPACE MONO RATHER THAN GUESSED IN em. 56em looked
+   like the rarity guide's .rg-foot and is not the same number in this box: at
+   616px it came out at 92 real characters a line at 1440, past the 90 nobody
+   should be asked to track back from. 50em is 550px and lands at about 82, which
+   is where .rg-foot sits. It stays out of the shared var(--measure) below for
+   the reason that file gives: mono buys roughly 1.7 characters an em against
+   Outfit's 2.3, so joining the shared cap would take this to about 55 and make
+   it worse. */
+.bs-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
+  border-left:3px solid var(--hair);padding-left:var(--s3);margin:var(--s6) 0;max-width:50em}
+
+/* DESKTOP READING MEASURE. The em caps above are not character counts: Outfit
+   runs about 2.31 characters to the em on this site, so 46em buys .bs-p2 about
+   106 real characters a line at 1440. ui.css already caps main prose at
+   var(--measure) and these rules only outrank it by landing after the
+   stylesheet. All min-width:1000, which is ui.css's own desktop breakpoint, so
+   the phone and the tablet range keep exactly the rules they had. .bs-foot is
+   deliberately not in here: it is Space Mono, which runs about 1.77 characters
+   to the em, so its 56em box measures in the eighties rather than over ninety
+   and capping it would make it worse. Same exemption, same reason, as .rg-foot
+   on the rarity guide. */
+@media(min-width:1000px){
+.bs-lede,.bs-p2,.bs-out li{max-width:var(--measure)}
+}
+
+/* THE TWO LISTS THAT ARE NOT PROSE AND STILL HAD TO BE CAPPED, and neither is
+   covered by the rule above because neither is a paragraph.
+
+   .bs-cr is three copyright strings that differ by a few characters, and the
+   whole job of the block is that a reader can hold them against each other. At
+   1392px each one sat on a single line 1,358px long with the differing run of
+   characters somewhere out in the middle of it, so the comparison the block
+   exists for was three eye journeys instead of three glances. 640px stacks them
+   near enough to see at once.
+
+   .bs-prices is a grid rather than a paragraph, so it has no measure to speak
+   of, but at 1392px the three figures sat in the left third of the page with
+   900px of nothing beside them. The desktop rule below moves them into their own
+   right-aligned column instead, which is what /top-graded.html does with the
+   same data and what lets an eye run down the money without the printing names
+   in the way. Grid AREAS rather than reordered markup, so the DOM order stays
+   name, run, prices, which is the right reading order on a phone and for a
+   screen reader at every width. */
+@media(min-width:900px){
+  .bs-cr li{max-width:640px}
+  .bs-prices{max-width:820px}
+  .bs-p{grid-template-columns:100px 1fr;align-items:center}
+  .bs-p-art{width:100px;height:140px}
+  .bs-p-body{display:grid;column-gap:24px;grid-template-columns:1fr minmax(230px,auto);
+    grid-template-areas:"name prices" "when prices"}
+  .bs-p-name{grid-area:name}
+  .bs-p-when{grid-area:when}
+  .bs-p-none{grid-area:prices}
+  .bs-p-nums{grid-area:prices;margin-top:0;align-self:center;flex-direction:column;
+    align-items:flex-end;gap:2px;text-align:right}
+}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"How to tell a 1st Edition, Shadowless and Unlimited Base Set Pokemon card apart","description":"1st Edition, Shadowless or Unlimited? The stamp and the drop shadow that tell 1999 Base Set cards apart, drawn and magnified on a real card, with what the gap is actually worth.","totalTime":"PT2M","step":[{"@type":"HowToStep","position":1,"name":"The 1st Edition stamp","text":"Under the left edge of the artwork, level with the Pokemon's height and weight bar. A small black circle with a 1 in it and the word EDITION curved over the top. It is printed, not stuck on, and it is in the yellow border area rather than inside the picture.","url":"https://garbagerips585.github.io/base-set.html#stamp"},{"@type":"HowToStep","position":2,"name":"The drop shadow","text":"The right edge of the artwork window, and along the bottom of it. Hold the card square on under a light and look at the outside of the artwork frame on the right. Unlimited prints a soft grey band there, a couple of millimetres wide, so the window looks raised. 1st Edition and Shadowless print nothing: the yellow of the border runs straight up to the frame.","url":"https://garbagerips585.github.io/base-set.html#shadow"},{"@type":"HowToStep","position":3,"name":"The copyright line","text":"The bottom edge of the card, to the right of the illustrator credit. Two halves, and they answer two different questions. The first half is a list of years: 1st Edition and Shadowless print 1995, 96, 98, 99 and Unlimited drops the 99 to read 1995, 96, 98. The second half is the Wizards line: everything up to and including Unlimited reads 1999 Wizards, and the 4th print reads 1999-2000 Wizards.","url":"https://garbagerips585.github.io/base-set.html#copyright"},{"@type":"HowToStep","position":4,"name":"The weight of the HP and the attack text","text":"Top right for the HP, the attack block for the rest. 1st Edition and Shadowless print the HP figure and the attack text thinner than Unlimited does.","url":"https://garbagerips585.github.io/base-set.html#text"},{"@type":"HowToStep","position":5,"name":"No expansion symbol at all","text":"Bottom right, beside the card number. The bottom right of a Base Set card reads 4/102 and then a small rarity mark, with nothing between them. Every set after Base Set prints a little expansion symbol in that gap.","url":"https://garbagerips585.github.io/base-set.html#symbol"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I know if my Base Set card is 1st Edition?","acceptedAnswer":{"@type":"Answer","text":"Look under the left edge of the artwork for a small black circle with a 1 in it and the word EDITION curved over the top. If it is there the card is 1st Edition. It is not the expansion symbol: Base Set does not have one."}},{"@type":"Question","name":"What does shadowless mean on a Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"It means the artwork window has no drop shadow around it. On an Unlimited Base Set card a soft grey band runs down the right side of the artwork window and along its bottom. On a Shadowless card there is nothing there, and there is no 1st Edition stamp either. Shadowless was the second English print run of Base Set, between the 1st Edition run and Unlimited."}},{"@type":"Question","name":"Is shadowless worth more than unlimited?","acceptedAnswer":{"@type":"Answer","text":"Yes, and the gap is clearest on ungraded copies. PriceCharting's price guide, read Aug 16, 2026, put an ungraded Shadowless Base Set Charizard at $988 against $462 for the Unlimited printing of the same card."}},{"@type":"Question","name":"Are 1st Edition cards shadowless?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every 1st Edition Base Set card is also shadowless, because the shadow was added later. That is why the stamp is checked first: a card with the stamp is 1st Edition, and a card with no stamp and no shadow is what collectors call Shadowless."}},{"@type":"Question","name":"What does the 1999-2000 copyright mean on a Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"It is the fourth Base Set print run, sometimes called the 4th print. It looks like an Unlimited card in every other way. Every earlier run reads 1999 Wizards along the bottom edge; this one reads 1999-2000 Wizards. It is not rarer than Unlimited."}},{"@type":"Question","name":"Does Base Set have a set symbol?","acceptedAnswer":{"@type":"Answer","text":"No. The bottom right of a Base Set card is the card number and a rarity mark with an empty space between them. Every set after it prints an expansion symbol in that gap, which is the quickest way to tell a Base Set card from a Base Set 2 reprint of the same artwork."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Base Set prints"}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form class="bar-search" role="search" action="/search.html" method="get">
+      <label class="sr-only" for="navSearch">Search cards, sets, guides and rips</label>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+      <input id="navSearch" name="q" type="search" placeholder="Search cards, sets, rips" aria-label="Search cards, sets, guides and every rip" autocomplete="off">
+    </form>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/cards.html">Card search</a>
+      <a href="/sets/">Set guides</a>
+      <a href="/start.html">Start here</a>
+      <a href="/card-shows.html">Card shows</a>
+    </nav>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span>Menu</span>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="All sections">
+  <div class="menu-inner">
+    <div class="menu-g">
+      <p class="menu-h">Watch</p>
+      <ul>
+        <li><a href="/videos.html">Rips</a></li>
+        <li><a href="/playlists.html">Playlists</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">The binder</p>
+      <ul>
+        <li><a href="/hall.html">Best pulls</a></li>
+        <li><a href="/wanted.html">Most wanted</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Cards</p>
+      <ul>
+        <li><a href="/cards.html">Card search</a></li>
+        <li><a href="/pokemon/">By Pokemon</a></li>
+        <li><a href="/sets/">Set guides</a></li>
+        <li><a href="/expansions.html">Every set ever</a></li>
+        <li><a href="/upcoming.html">Coming next</a></li>
+        <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/msrp.html">MSRP check</a></li>
+        <li><a href="/pack-prices.html">Pack prices</a></li>
+        <li><a href="/how-many-packs.html">Packs per box</a></li>
+        <li><a href="/openings/">Sealed products</a></li>
+        <li><a href="/drops.html">Drops this week</a></li>
+        <li><a href="/most-valuable-cards.html">Priciest cards</a></li>
+        <li><a href="/most-expensive-sealed.html">Priciest sealed</a></li>
+        <li><a href="/top-graded.html">PSA 10 top 100</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Guides</p>
+      <ul>
+        <li><a href="/start.html">Start here</a></li>
+        <li><a href="/how-to-play.html">How to play</a></li>
+        <li><a href="/tcg-live.html">Code cards</a></li>
+        <li><a href="/tcg-pocket.html">Phone version</a></li>
+        <li><a href="/decks.html">Deck builds</a></li>
+        <li><a href="/top-100-playable.html">Most played cards</a></li>
+        <li><a href="/what-set.html">Set finder</a></li>
+        <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/base-set.html">Base Set prints</a></li>
+        <li><a href="/types.html">Card types</a></li>
+        <li><a href="/fake-cards.html">Fakes</a></li>
+        <li><a href="/will-it-grade.html">Will it grade</a></li>
+        <li><a href="/grading.html">Grading cost</a></li>
+        <li><a href="/selling.html">Where to sell</a></li>
+        <li><a href="/buying.html">Where to buy</a></li>
+        <li><a href="/luck.html">Luck, measured</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Play</p>
+      <ul>
+        <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
+        <li><a href="/lore.html">Pokemon lore</a></li>
+        <li><a href="/evolution.html">Evolution chart</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Rochester, NY</p>
+      <ul>
+        <li><a href="/card-shows.html">Card shows</a></li>
+        <li><a href="/shops.html">Card shops</a></li>
+        <li><a href="/vendors.html">Local vendors</a></li>
+        <li><a href="/creators.html">Local creators</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </div>
+  </div>
+  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe on YouTube</a>
+</nav>
+<main id="main">
+
+<header class="set-hero">
+  <div class="wrap">
+    <span class="kicker">Pokemon TCG &bull; Base Set, 1999</span>
+    <h1>1st Edition, Shadowless or <span class="hl">Unlimited</span>?</h1>
+    
+    <p class="lede" style="max-width:34em">Somebody hands you a Charizard from 1999 and asks what it is worth. The answer is not one number, it is three, and they are a long way apart. English Base Set was printed more than once, the runs look almost identical, and the thing that separates the two most valuable ones is a shadow that is not there.</p>
+  </div>
+</header>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / Base Set prints</p>
+
+    <div class="fk-golden">
+      <p class="fk-golden-h">Start here</p>
+      <h2>Two marks, and you check them in this order</h2>
+      <p>First, look under the left edge of the artwork for a small black stamp reading EDITION 1. If it is there, stop: you have a 1st Edition. If it is not, look at the right edge of the artwork window instead. A grey band running down the outside of that edge means Unlimited. No band, no stamp, and you are holding a Shadowless. Everything else on this page is a second opinion on those two marks.</p>
+    </div>
+
+    <figure class="bs-fig bs-fig-wide">
+  <svg viewBox="0 0 360 226" role="img" aria-label="The three Base Set print runs drawn side by side. The 1st Edition card carries a round stamp below the left of its artwork. The Shadowless card carries neither a stamp nor a shadow. The Unlimited card has a grey band down the right and bottom edges of its artwork window.">
+    <g>
+    <rect x="16" y="34" width="92" height="128.34" rx="4.6000000000000005" fill="#E8B93A" stroke="#111111" stroke-width="1.6"/>
+    <rect x="23.038" y="39.7753" width="47.343199999999996" height="6.417000000000001" rx="1.5" fill="#111111" opacity=".5"/>
+    
+    <rect x="23.82" y="49.400800000000004" width="76.36" height="53.9028" rx="2" fill="#E6E4DD" stroke="#6E5000" stroke-width="1.6"/>
+    <rect x="37.5648" y="65.57164" width="38.18" height="24.795288" rx="6.1088000000000005" fill="#B9B7B0"/>
+    <rect x="32.1" y="107.7955" width="68.08" height="5.7753" rx="1.5" fill="#C9A227" stroke="#6E5000" stroke-width="1"/>
+    <g fill="#111111" opacity=".38">
+      <rect x="23.82" y="118.0627" width="76.36" height="2.31012" rx="1"/>
+      <rect x="23.82" y="123.19630000000001" width="67.1968" height="2.31012" rx="1"/>
+      <rect x="23.82" y="134.1052" width="76.36" height="2.31012" rx="1"/>
+      <rect x="23.82" y="139.2388" width="48.870400000000004" height="2.31012" rx="1"/>
+    </g>
+    <rect x="23.82" y="152.71450000000002" width="54.9792" height="2.05344" rx="1" fill="#111111" opacity=".45"/>
+    <circle cx="20.848399999999998" cy="109.7206" r="4.8484" fill="#111111"/>
+           <circle cx="20.848399999999998" cy="109.7206" r="2.346" fill="none" stroke="#F4F3EF" stroke-width="1"/>
+      <text x="62" y="24" text-anchor="middle" class="bs-hd">1ST EDITION</text>
+      <text x="62" y="182.34" text-anchor="middle" class="bs-cap">stamp</text>
+      <text x="62" y="196.34" text-anchor="middle" class="bs-cap">no shadow</text></g>
+    <g>
+    <rect x="138" y="34" width="92" height="128.34" rx="4.6000000000000005" fill="#E8B93A" stroke="#111111" stroke-width="1.6"/>
+    <rect x="145.038" y="39.7753" width="47.343199999999996" height="6.417000000000001" rx="1.5" fill="#111111" opacity=".5"/>
+    
+    <rect x="145.82" y="49.400800000000004" width="76.36" height="53.9028" rx="2" fill="#E6E4DD" stroke="#6E5000" stroke-width="1.6"/>
+    <rect x="159.5648" y="65.57164" width="38.18" height="24.795288" rx="6.1088000000000005" fill="#B9B7B0"/>
+    <rect x="154.1" y="107.7955" width="68.08" height="5.7753" rx="1.5" fill="#C9A227" stroke="#6E5000" stroke-width="1"/>
+    <g fill="#111111" opacity=".38">
+      <rect x="145.82" y="118.0627" width="76.36" height="2.31012" rx="1"/>
+      <rect x="145.82" y="123.19630000000001" width="67.1968" height="2.31012" rx="1"/>
+      <rect x="145.82" y="134.1052" width="76.36" height="2.31012" rx="1"/>
+      <rect x="145.82" y="139.2388" width="48.870400000000004" height="2.31012" rx="1"/>
+    </g>
+    <rect x="145.82" y="152.71450000000002" width="54.9792" height="2.05344" rx="1" fill="#111111" opacity=".45"/>
+    
+      <text x="184" y="24" text-anchor="middle" class="bs-hd">SHADOWLESS</text>
+      <text x="184" y="182.34" text-anchor="middle" class="bs-cap">no stamp</text>
+      <text x="184" y="196.34" text-anchor="middle" class="bs-cap">no shadow</text></g>
+    <g>
+    <rect x="260" y="34" width="92" height="128.34" rx="4.6000000000000005" fill="#E8B93A" stroke="#111111" stroke-width="1.6"/>
+    <rect x="267.038" y="39.7753" width="47.343199999999996" height="6.417000000000001" rx="1.5" fill="#111111" opacity=".5"/>
+    <rect x="271.96" y="53.540800000000004" width="76.36" height="53.9028" rx="2" fill="#767676"/>
+    <rect x="267.82" y="49.400800000000004" width="76.36" height="53.9028" rx="2" fill="#E6E4DD" stroke="#6E5000" stroke-width="1.6"/>
+    <rect x="281.5648" y="65.57164" width="38.18" height="24.795288" rx="6.1088000000000005" fill="#B9B7B0"/>
+    <rect x="276.09999999999997" y="107.7955" width="68.08" height="5.7753" rx="1.5" fill="#C9A227" stroke="#6E5000" stroke-width="1"/>
+    <g fill="#111111" opacity=".38">
+      <rect x="267.82" y="118.0627" width="76.36" height="2.31012" rx="1"/>
+      <rect x="267.82" y="123.19630000000001" width="67.1968" height="2.31012" rx="1"/>
+      <rect x="267.82" y="134.1052" width="76.36" height="2.31012" rx="1"/>
+      <rect x="267.82" y="139.2388" width="48.870400000000004" height="2.31012" rx="1"/>
+    </g>
+    <rect x="267.82" y="152.71450000000002" width="54.9792" height="2.05344" rx="1" fill="#111111" opacity=".45"/>
+    
+      <text x="306" y="24" text-anchor="middle" class="bs-hd">UNLIMITED</text>
+      <text x="306" y="182.34" text-anchor="middle" class="bs-cap">no stamp</text>
+      <text x="306" y="196.34" text-anchor="middle" class="bs-cap">shadow</text></g>
+    <circle cx="20.848399999999998" cy="109.7206" r="13" fill="none" stroke="#6E5000" stroke-width="2.5"/>
+    <circle cx="347.86" cy="72.50200000000001" r="13" fill="none" stroke="#6E5000" stroke-width="2.5"/>
+  </svg>
+  <figcaption>A schematic, not three real cards. The stamp and the shadow are the only two differences drawn,
+    because they are the only two you can act on. Both are drawn larger than life; the shadow on a real card is
+    about the width of the yellow border stripe next to it.</figcaption>
+</figure>
+
+    <div class="bs-steps">
+      <div class="bs-step"><b>1</b><h3>Is there a stamp?</h3><p>A black circle with a 1 in it, under the left
+        edge of the artwork. Yes means 1st Edition and you can stop.</p></div>
+      <div class="bs-step"><b>2</b><h3>Is there a shadow?</h3><p>A grey band down the outside of the artwork
+        window's right edge. Yes means Unlimited.</p></div>
+      <div class="bs-step"><b>3</b><h3>Neither?</h3><p>No stamp and no shadow is a Shadowless. It is the one
+        with nothing printed on it to say so, which is exactly why people miss it.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band bs-sec">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The four runs</p>
+    <h2>Four printings, <span class="hl">two marks</span></h2>
+    <p class="bs-p2">English Base Set came out on January 9, 1999 with
+      102 cards in it, and it was printed more than once. These are the
+      runs, oldest first, and the market prices them in that order.</p>
+    <ul class="bs-runs">
+<li class="bs-run">
+      <h3>1st Edition</h3>
+      <p class="bs-when">First run &bull; From the English release, 9 January 1999</p>
+      <p>A black EDITION 1 stamp under the left edge of the artwork, and no drop shadow around the artwork window.</p>
+      <p>The stamp is on the cards, on the booster packs and on the boxes. Wizards of the Coast used 1st Edition runs for the English and European releases from the start of the game in the West, on every set except Base Set 2, up to and including Neo Destiny.</p>
+      <div class="bs-marks">
+        <span class="bs-mark yes">Has the stamp</span>
+        <span class="bs-mark no">No shadow</span>
+      </div>
+    </li>
+<li class="bs-run">
+      <h3>Shadowless</h3>
+      <p class="bs-when">Second run &bull; Shortly after the 1st Edition run, 1999</p>
+      <p>No stamp and still no drop shadow. Otherwise the same card as a 1st Edition, down to the typeface.</p>
+      <p>A transitional print: the plates lost the 1st Edition stamp and nothing else. That is why it has no mark of its own to look for, and why the only way to spot one is by what is missing. It happened in English only. Every other language printed its 1st Edition run on the later layout, shadow and all, so there is no French or German Shadowless.</p>
+      <div class="bs-marks">
+        <span class="bs-mark no">No stamp</span>
+        <span class="bs-mark no">No shadow</span>
+      </div>
+    </li>
+<li class="bs-run">
+      <h3>Unlimited</h3>
+      <p class="bs-when">Third run &bull; 1999, and the one that kept being printed</p>
+      <p>A drop shadow down the right side of the artwork window and along its bottom, so the picture sits on the card rather than in it. The HP and the attack text are printed heavier too.</p>
+      <p>This is the one almost everybody has. It is the run that stayed in print, which is the whole reason it is called Unlimited, and it is the baseline the other two are worth a multiple of.</p>
+      <div class="bs-marks">
+        <span class="bs-mark no">No stamp</span>
+        <span class="bs-mark yes">Has the shadow</span>
+      </div>
+    </li>
+<li class="bs-run">
+      <h3>The 1999-2000 reprint</h3>
+      <p class="bs-when">Fourth run &bull; 1999 into 2000</p>
+      <p>An Unlimited card in every visible way except the small print along the bottom, which reads 1999-2000 Wizards where every earlier run reads 1999 Wizards.</p>
+      <p>Collectors call it the 4th print. It is not a different card and it is not rarer than Unlimited; it is a separate line in the price guides, which is the only reason it is worth naming here at all.</p>
+      <div class="bs-marks">
+        <span class="bs-mark no">No stamp</span>
+        <span class="bs-mark yes">Has the shadow</span>
+      </div>
+    </li>
+    </ul>
+  </div>
+</section>
+
+<section class="bs-sec">
+  <div class="wrap">
+    <h2>The shadow, <span class="hl">up close</span></h2>
+    <p class="bs-p2">This is the difference between a card worth a few hundred dollars and the same card worth a
+      few thousand, and it is a band of grey ink about two millimetres wide. It is the tell most people holding a
+      1999 card have never heard of, because nothing on the card names it.</p>
+    <figure class="bs-fig bs-fig-wide">
+  <svg viewBox="0 0 360 236" role="img" aria-label="The right edge of the artwork window, magnified twice. On a 1st Edition or Shadowless card the yellow border runs straight up to the gold frame. On an Unlimited card a grey band sits outside the frame.">
+    <defs>
+      <linearGradient id="bs-shadowfade" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0" stop-color="#4A4A4A" stop-opacity=".95"/>
+        <stop offset="1" stop-color="#4A4A4A" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <g>
+      <text x="87" y="14" text-anchor="middle" class="bs-hd">1ST EDITION</text><text x="87" y="27" text-anchor="middle" class="bs-hd">&amp; SHADOWLESS</text>
+      <rect x="8" y="30" width="158" height="150" rx="4" fill="#E8B93A" stroke="#111111" stroke-width="2"/>
+      <rect x="8" y="30" width="74" height="150" fill="#B9B7B0"/>
+      <rect x="82" y="30" width="11" height="150" fill="#C9A227" stroke="#6E5000" stroke-width="1.4"/>
+      
+      <text x="42" y="108" text-anchor="middle" class="bs-cap">artwork</text>
+      
+      <line x1="100" y1="186" x2="100" y2="172" stroke="#111111" stroke-width="1.6"/>
+      <text x="100" y="200" text-anchor="middle" class="bs-lbl">nothing here</text>
+    </g>
+    <g>
+      <text x="273" y="14" text-anchor="middle" class="bs-hd">UNLIMITED</text>
+      <rect x="194" y="30" width="158" height="150" rx="4" fill="#E8B93A" stroke="#111111" stroke-width="2"/>
+      <rect x="194" y="30" width="74" height="150" fill="#B9B7B0"/>
+      <rect x="268" y="30" width="11" height="150" fill="#C9A227" stroke="#6E5000" stroke-width="1.4"/>
+      <rect x="279" y="30" width="15" height="150" fill="url(#bs-shadowfade)"/>
+      <text x="228" y="108" text-anchor="middle" class="bs-cap">artwork</text>
+      
+      <line x1="286" y1="186" x2="286" y2="172" stroke="#111111" stroke-width="1.6"/>
+      <text x="286" y="200" text-anchor="middle" class="bs-lbl">grey band here</text>
+    </g>
+    <text x="180" y="224" text-anchor="middle" class="bs-cap">the right edge of the artwork window, magnified</text>
+  </svg>
+  <figcaption>Exaggerated so it survives a phone screen. On a real card the band is a couple of millimetres and it
+    runs down the right side of the window and along the bottom, never the top or the left. Tilt the card under a
+    light: a real shadow has a soft outer edge, which is what tells it apart from a scuff.</figcaption>
+</figure>
+    <p class="bs-p2">It is drawn rather than photographed on purpose. We can reach a good scan of a 1st Edition
+      card and we cannot reach one of an Unlimited: the only Unlimited and Shadowless pictures available here are
+      product photographs 325 pixels wide, shot at slightly different crops. Two millimetres read off two
+      photographs that do not line up is a suggestion, not evidence, so the geometry is drawn and the caption says
+      what has been exaggerated.</p>
+  </div>
+</section>
+
+<section class="band bs-sec">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On a real card</p>
+    <h2>The stamp, on an <span class="hl">actual scan</span></h2>
+    
+    <p class="bs-p2">Not a drawing. This is TCGdex's scan of Base Set Charizard, and it happens to be a 1st
+      Edition copy: all 16 Base Set Holofoil scans TCGdex serves carry the stamp, checked one by one on
+      August 17, 2026. Hold your own card next to it.</p>
+    <div class="bs-shots">
+      <figure class="bs-card">
+      <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/4/high.avif" sizes="200px"><img src="https://assets.tcgdex.net/en/base/base1/4/high.webp" sizes="200px" alt="Base Set Charizard, card 4 of 102, scanned front on, with the EDITION 1 stamp visible under the left of the artwork" loading="lazy" decoding="async" onerror="this.closest('figure').remove()" width="600" height="825"></picture>
+      <figcaption>A <b>1st Edition</b> Base Set Charizard, 4/102, scanned by TCGdex. Every magnified picture on
+        this page is a crop of this one file, so you can check any of it against the whole card.</figcaption>
+    </figure>
+      <div>
+        <figure class="bz" style="max-width:280px">
+      <div class="bz-win" style="aspect-ratio:280/250"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/4/high.avif"><img src="https://assets.tcgdex.net/en/base/base1/4/high.webp" alt="The bottom left of the artwork on a 1st Edition Base Set Charizard, magnified, showing a small black circular stamp reading EDITION 1" loading="lazy" decoding="async"
+        onerror="this.closest('figure').remove()" width="600" height="825"
+        style="width:214.286%;left:-2.143%;top:-118.400%"></picture></div>
+      <figcaption>The stamp, magnified. A black circle, a 1, and EDITION curved over the top</figcaption>
+    </figure>
+        <figure class="bz" style="max-width:430px">
+      <div class="bz-win" style="aspect-ratio:430/46"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/4/high.avif"><img src="https://assets.tcgdex.net/en/base/base1/4/high.webp" alt="The bottom edge of a 1st Edition Base Set Charizard, magnified, reading 1995, 96, 98, 99 Nintendo, Creatures, GAMEFREAK, copyright 1999 Wizards, then 4 slash 102 and a star" loading="lazy" decoding="async"
+        onerror="this.closest('figure').remove()" width="600" height="825"
+        style="width:139.535%;left:-39.535%;top:-1686.957%"></picture></div>
+      <figcaption>The bottom edge. Four years, then 1999 Wizards, then 4/102 and a star with no set symbol between them</figcaption>
+    </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bs-sec">
+  <div class="wrap">
+    <h2>Where each check <span class="hl">happens</span></h2>
+    <figure class="bs-fig bs-fig-wide">
+  <svg viewBox="0 0 360 240" role="img" aria-label="A Base Set card with the 5 places to look marked and numbered, matching the list below it: the 1st Edition stamp under the left of the artwork, the drop shadow at the right edge of the artwork window, the copyright line along the bottom, and the card number in the bottom right with no set symbol beside it.">
+    
+    <rect x="128" y="26" width="104" height="145.08" rx="5.2" fill="#E8B93A" stroke="#111111" stroke-width="1.6"/>
+    <rect x="135.956" y="32.5286" width="53.51839999999999" height="7.254000000000001" rx="1.5" fill="#111111" opacity=".5"/>
+    <rect x="141.52" y="48.0896" width="86.32" height="60.933600000000006" rx="2" fill="#767676"/>
+    <rect x="136.84" y="43.4096" width="86.32" height="60.933600000000006" rx="2" fill="#E6E4DD" stroke="#6E5000" stroke-width="1.6"/>
+    <rect x="152.3776" y="61.689679999999996" width="43.16" height="28.029456000000003" rx="6.9056" fill="#B9B7B0"/>
+    <rect x="146.2" y="109.42099999999999" width="76.96" height="6.5286" rx="1.5" fill="#C9A227" stroke="#6E5000" stroke-width="1"/>
+    <g fill="#111111" opacity=".38">
+      <rect x="136.84" y="121.0274" width="86.32" height="2.61144" rx="1"/>
+      <rect x="136.84" y="126.8306" width="75.96159999999999" height="2.61144" rx="1"/>
+      <rect x="136.84" y="139.1624" width="86.32" height="2.61144" rx="1"/>
+      <rect x="136.84" y="144.9656" width="55.2448" height="2.61144" rx="1"/>
+    </g>
+    <rect x="136.84" y="160.199" width="62.15039999999999" height="2.3212800000000002" rx="1" fill="#111111" opacity=".45"/>
+    <circle cx="133.4808" cy="111.5972" r="5.4807999999999995" fill="#111111"/>
+           <circle cx="133.4808" cy="111.5972" r="2.6519999999999997" fill="none" stroke="#F4F3EF" stroke-width="1"/>
+    
+    <line x1="133.72" y1="115.9496" x2="86" y2="115.9496" stroke="#111111" stroke-width="1.4" stroke-dasharray="3 3"/>
+    <circle cx="86" cy="115.9496" r="10" fill="#111111"/>
+    <text x="86" y="119.9496" text-anchor="middle" class="bs-num">1</text>
+    <text x="71" y="119.9496" text-anchor="end" class="bs-lbl">stamp</text>
+    
+    <line x1="227.84" y1="69.524" x2="274" y2="69.524" stroke="#111111" stroke-width="1.4" stroke-dasharray="3 3"/>
+    <circle cx="274" cy="69.524" r="10" fill="#111111"/>
+    <text x="274" y="73.524" text-anchor="middle" class="bs-num">2</text>
+    <text x="289" y="73.524" text-anchor="start" class="bs-lbl">shadow</text>
+    
+    <line x1="169.6" y1="160.92440000000002" x2="86" y2="169.6292" stroke="#111111" stroke-width="1.4" stroke-dasharray="3 3"/>
+    <circle cx="86" cy="169.6292" r="10" fill="#111111"/>
+    <text x="86" y="173.6292" text-anchor="middle" class="bs-num">3</text>
+    <text x="71" y="173.6292" text-anchor="end" class="bs-lbl">copyright</text>
+    
+    <line x1="217.44" y1="160.92440000000002" x2="274" y2="169.6292" stroke="#111111" stroke-width="1.4" stroke-dasharray="3 3"/>
+    <circle cx="274" cy="169.6292" r="10" fill="#111111"/>
+    <text x="274" y="173.6292" text-anchor="middle" class="bs-num">4</text>
+    <text x="289" y="173.6292" text-anchor="start" class="bs-lbl">number</text>
+  </svg>
+  <figcaption>Every check and where it happens. Mark 4 is the card number, and what matters there is the
+    <b>empty space</b> beside it: Base Set prints no expansion symbol. A schematic, not a real card, and it is
+    drawn with the stamp and the shadow both showing so all four marks can be pointed at. No real card carries
+    both.</figcaption>
+</figure>
+      <article class="bs-t" id="stamp">
+        <div class="bs-t-head">
+          <span class="bs-t-no">1</span>
+          <h3>The 1st Edition stamp</h3>
+          <span class="bs-conf hi">Decides it outright</span>
+        </div>
+        <p class="bs-where">Under the left edge of the artwork, level with the Pokemon's height and weight bar</p>
+        <p>A small black circle with a 1 in it and the word EDITION curved over the top. It is printed, not stuck on, and it is in the yellow border area rather than inside the picture.</p>
+        <p class="bs-why"><b>Why it works.</b> It is the only mark on the card that is unique to one run. Everything else on this page is a difference between two runs that you have to know to see.</p>
+        <p class="bs-caveat"><b>But.</b> It is not the expansion symbol. Base Set does not have one at all, which is why the bottom right of the card is just the number and a rarity mark with a blank space where later sets print a symbol.</p>
+        <p class="bs-src">Read off a card scan here, 17 August 2026</p>
+      </article>
+      <article class="bs-t" id="shadow">
+        <div class="bs-t-head">
+          <span class="bs-t-no">2</span>
+          <h3>The drop shadow</h3>
+          <span class="bs-conf hi">Decides it outright</span>
+        </div>
+        <p class="bs-where">The right edge of the artwork window, and along the bottom of it</p>
+        <p>Hold the card square on under a light and look at the outside of the artwork frame on the right. Unlimited prints a soft grey band there, a couple of millimetres wide, so the window looks raised. 1st Edition and Shadowless print nothing: the yellow of the border runs straight up to the frame.</p>
+        <p class="bs-why"><b>Why it works.</b> It is the one difference between Shadowless and Unlimited, and it is the reason Shadowless has a name at all rather than a stamp.</p>
+        <p class="bs-caveat"><b>But.</b> Trainer and Energy cards have no artwork window, so they have no shadow to check either way. On those, the copyright line below is the tell.</p>
+        <p class="bs-src">Bulbapedia, 1st Edition (TCG), read 17 August 2026</p>
+      </article>
+      <article class="bs-t" id="copyright">
+        <div class="bs-t-head">
+          <span class="bs-t-no">3</span>
+          <h3>The copyright line</h3>
+          <span class="bs-conf mid">Second opinion, and the only one for Trainers</span>
+        </div>
+        <p class="bs-where">The bottom edge of the card, to the right of the illustrator credit</p>
+        <p>Two halves, and they answer two different questions. The first half is a list of years: 1st Edition and Shadowless print 1995, 96, 98, 99 and Unlimited drops the 99 to read 1995, 96, 98. The second half is the Wizards line: everything up to and including Unlimited reads 1999 Wizards, and the 4th print reads 1999-2000 Wizards.</p>
+        <p class="bs-why"><b>Why it works.</b> It works on every card in the set, artwork window or not, and it is the only way to pick the 4th print out of a pile of Unlimiteds.</p>
+        <p class="bs-caveat"><b>But.</b> It is a line of six point type on a 27 year old card. Read it in good light, and read the shadow first: the shadow is a centimetre tall and this is a millimetre.</p>
+        <p class="bs-src">Half read off a card scan here, half Bulbapedia's, 17 August 2026</p>
+      </article>
+      <article class="bs-t" id="text">
+        <div class="bs-t-head">
+          <span class="bs-t-no">4</span>
+          <h3>The weight of the HP and the attack text</h3>
+          <span class="bs-conf lo">Supporting evidence only</span>
+        </div>
+        <p class="bs-where">Top right for the HP, the attack block for the rest</p>
+        <p>1st Edition and Shadowless print the HP figure and the attack text thinner than Unlimited does.</p>
+        <p class="bs-why"><b>Why it works.</b> It is a whole-card difference rather than a single mark, so it is what makes a Shadowless look subtly off once you have handled a few.</p>
+        <p class="bs-caveat"><b>But.</b> This is the one claim on this page we are repeating rather than checking. It needs two cards side by side at the same scale and the same scan quality, and we do not have a Shadowless and an Unlimited scan good enough to compare honestly. Use the shadow.</p>
+        <p class="bs-src">Bulbapedia, 1st Edition (TCG), read 17 August 2026</p>
+      </article>
+      <article class="bs-t" id="symbol">
+        <div class="bs-t-head">
+          <span class="bs-t-no">5</span>
+          <h3>No expansion symbol at all</h3>
+          <span class="bs-conf mid">Tells you it is Base Set, not which run</span>
+        </div>
+        <p class="bs-where">Bottom right, beside the card number</p>
+        <p>The bottom right of a Base Set card reads 4/102 and then a small rarity mark, with nothing between them. Every set after Base Set prints a little expansion symbol in that gap.</p>
+        <p class="bs-why"><b>Why it works.</b> It is the fastest way to know you are looking at Base Set at all rather than at Base Set 2 or Legendary Collection, both of which reprint the same artwork and both of which do carry a symbol.</p>
+        
+        <p class="bs-src">Read off a card scan here, 17 August 2026</p>
+      </article>
+  </div>
+</section>
+
+<section class="band bs-sec">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The small print</p>
+    <h2>The copyright line, <span class="hl">character by character</span></h2>
+    <p class="bs-p2">It runs along the very bottom of the card, to the right of the illustrator credit. Two
+      halves, and each half answers a different question. This is the only check that works on Trainer and Energy
+      cards, which have no artwork window and therefore no shadow either way.</p>
+    <ul class="bs-cr">
+      <li>
+        <p class="who">1st Edition and Shadowless</p>
+        <code>&copy; 1995, 96, 98<span class="bs-mk">, 99</span> Nintendo, Creatures, GAMEFREAK.
+          &copy; <span class="bs-mk">1999</span> Wizards.</code>
+      </li>
+      <li>
+        <p class="who">Unlimited</p>
+        <code>&copy; 1995, 96, 98<span class="bs-gone">, 99</span> Nintendo, Creatures, GAMEFREAK.
+          &copy; <span class="bs-mk">1999</span> Wizards.</code>
+      </li>
+      <li>
+        <p class="who">The 1999-2000 reprint, the 4th print</p>
+        <code>&copy; 1995, 96, 98<span class="bs-gone">, 99</span> Nintendo, Creatures, GAMEFREAK.
+          &copy; <span class="bs-mk">1999-2000</span> Wizards.</code>
+      </li>
+    </ul>
+    <p class="bs-p2">The second half is ours: we read <b>1999-2000 Wizards</b> off a photograph of that printing
+      and <b>1999 Wizards</b> off the scan magnified above, on August 17, 2026. The first half, the
+      missing <b>, 99</b> on Unlimited, is Bulbapedia's, because the plain Unlimited scan we can reach is too soft
+      to read it. It is marked here rather than smoothed over.</p>
+  </div>
+</section>
+
+<section class="bs-sec">
+  <div class="wrap">
+    <h2>Why Shadowless exists at all</h2>
+    <p class="bs-p2">Shadowless is the odd one out because it is the only run defined by something it does not have. 1st Edition has a stamp. Unlimited has a shadow. Shadowless has neither, and there is nothing printed anywhere on the card that says so.</p>
+    <p class="bs-p2">That is because it is not a reprint, it is the same run continuing. The 1st Edition plates lost the stamp and kept everything else, so for a while English Base Set was being printed with no stamp and still no shadow. The redesign that added the drop shadow, and the heavier HP and attack text with it, came after that. The shadow is the second change, not the first, and Shadowless is the gap between the two.</p>
+    <p class="bs-p2">So the scarcity order is the order the runs were printed in, and the market prices it that way: 1st Edition above Shadowless above Unlimited. There is no published figure for how many of any of them were made, and this page does not guess.</p>
+    <p class="bs-foot">PRINT RUN ORDER, THE LAYOUT CHANGE AND THE FACT THAT SHADOWLESS WAS ENGLISH ONLY:
+      BULBAPEDIA'S 1ST EDITION (TCG) ARTICLE, READ AUGUST 17, 2026. NAMED IN PLAIN TEXT
+      RATHER THAN LINKED, WHICH IS HOW THIS SITE CREDITS AN OUTSIDE SOURCE.</p>
+  </div>
+</section>
+
+<section class="band bs-sec">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The money</p>
+    <h2>What each one is worth</h2>
+    <p class="bs-p2">One card, three printings, one price guide, read on the same day. This is the clearest number anyone can put on the gap, and it is worth reading the three columns rather than only the big one.</p>
+    <ul class="bs-prices">
+<li class="bs-p">
+      <span class="bs-p-art"><img class="bs-p-scan" src="https://storage.googleapis.com/images.pricecharting.com/gmkd37jg7haprczl/240.jpg" alt="Charizard [1st Edition] #4, Base Set" loading="lazy" decoding="async"></span>
+      <span class="bs-p-body">
+        <span class="bs-p-name">1st Edition</span>
+        <span class="bs-p-when">First run</span>
+        <span class="bs-p-nums">
+          <span class="bs-p-n"><b>$5,500</b> <span class="bs-u">Ungraded</span></span>
+          <span class="bs-p-n">$52,586 <span class="bs-u">Grade 9</span></span>
+          <span class="bs-p-n">$343,098 <span class="bs-u">PSA 10</span></span>
+        </span>
+      </span>
+    </li>
+<li class="bs-p">
+      <span class="bs-p-art"><img class="bs-p-scan" src="https://storage.googleapis.com/images.pricecharting.com/ym4hvnapxhl5iuny/240.jpg" alt="Charizard [Shadowless] #4, Base Set" loading="lazy" decoding="async"></span>
+      <span class="bs-p-body">
+        <span class="bs-p-name">Shadowless</span>
+        <span class="bs-p-when">Second run</span>
+        <span class="bs-p-nums">
+          <span class="bs-p-n"><b>$988</b> <span class="bs-u">Ungraded</span></span>
+          <span class="bs-p-n">$9,900 <span class="bs-u">Grade 9</span></span>
+          <span class="bs-p-n">$30,100 <span class="bs-u">PSA 10</span></span>
+        </span>
+      </span>
+    </li>
+<li class="bs-p">
+      <span class="bs-p-art"><img class="bs-p-scan" src="https://storage.googleapis.com/images.pricecharting.com/hpgpcpsd42huitud/240.jpg" alt="Charizard #4, Base Set" loading="lazy" decoding="async"></span>
+      <span class="bs-p-body">
+        <span class="bs-p-name">Unlimited</span>
+        <span class="bs-p-when">Third run</span>
+        <span class="bs-p-nums">
+          <span class="bs-p-n"><b>$462</b> <span class="bs-u">Ungraded</span></span>
+          <span class="bs-p-n">$3,071 <span class="bs-u">Grade 9</span></span>
+          <span class="bs-p-n">$28,145 <span class="bs-u">PSA 10</span></span>
+        </span>
+      </span>
+    </li>
+<li class="bs-p">
+      <span class="bs-p-art"><span class="bs-p-noscan">No scan<span class="sr-only"> available for this printing</span></span></span>
+      <span class="bs-p-body">
+        <span class="bs-p-name">The 1999-2000 reprint</span>
+        <span class="bs-p-when">Fourth run</span>
+        <span class="bs-p-none">No double-read figure for this printing, so none is printed.</span>
+      </span>
+    </li>
+    </ul>
+    <p class="bs-p2" style="margin-top:var(--s4)">Every figure above is PriceCharting's price guide for
+      <b>Charizard 4/102</b>, one line per printing, read on August 16, 2026 and read a second time from each card's
+      own product page before it was published here. It is a guide value computed from completed sales, not a
+      record of any single sale. Prices move and this page does not.</p>
+    <div class="facts" style="margin-top:20px">
+      <div class="fact"><div class="n">11.9x</div><div class="l">1st Edition over Unlimited, ungraded</div></div>
+      <div class="fact"><div class="n">2.1x</div><div class="l">Shadowless over Unlimited, ungraded</div></div>
+      <div class="fact"><div class="n">12.2x</div><div class="l">1st Edition over Unlimited, PSA 10</div></div>
+      <div class="fact"><div class="n">1.1x</div><div class="l">Shadowless over Unlimited, PSA 10</div></div>
+    </div>
+    <p class="bs-p2" style="margin-top:20px">The PSA 10 column is where the three runs look closest and it is also where the evidence is thinnest, because a card that has not sold recently in that grade has no figure at all. The ungraded and Grade 9 columns are the ones with sales behind them, and that is where the print run actually shows up. Look at those four numbers together rather than
+      at the biggest one: the print run shows up hard in the ungraded column and almost vanishes in PSA 10, where
+      a handful of sales is doing all the work.</p>
+    <p class="bs-p2">And the packs themselves are their own market. TCGplayer's market price for a single
+      sealed <b>Base Set (Shadowless) 1st Edition booster pack</b> was $15,000 when the
+      sealed list was read on Aug 16, 2026, which made it the second
+      dearest sealed Pokemon product on that whole list. Note what TCGplayer calls it: the 1st Edition packs are
+      filed under a set named Base Set (Shadowless), because 1st Edition cards ARE shadowless. The stamp is the
+      extra thing, not a different card.</p>
+  </div>
+</section>
+
+<section class="bs-sec">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Do not get caught</p>
+    <h2>Four ways this <span class="hl">goes wrong</span></h2>
+    <ul class="bs-traps">
+      <li class="bs-trap"><h3>Base Set 2 is not Base Set</h3><p>A 130 card set from February 2000 that reprints most of Base Set and Jungle together, artwork and all, including Charizard. It carries an expansion symbol in the bottom right where Base Set has a blank space, its card numbers run to 130 rather than 102, and it never had a 1st Edition run. It is worth a small fraction of the thing it looks like.</p></li>
+      <li class="bs-trap"><h3>The 4th print is not a fourth rarity</h3><p>A card reading 1999-2000 along the bottom is a late Unlimited card. It gets its own line in the price guides because the guides list every printing separately, not because it is scarcer. Do not pay a 1st Edition price for a 1999-2000 date because both of them are not the plain 1999 one.</p></li>
+      <li class="bs-trap"><h3>Shadowless is also what a fake looks like</h3><p>A counterfeit printed from a scan of a 1st Edition, with the stamp erased, is shadowless too. Everything on this page is a comparison between real printings and none of it is an authentication check. Run the physical tests first: the black core at the edge, the print pattern under a loupe, the back colour against a card you trust.</p></li>
+      <li class="bs-trap"><h3>Condition decides more of the price than the run does</h3><p>The gap between a graded and an ungraded copy of the same card is bigger than the gap between two print runs, and cards this old have spent 27 years in binders, shoeboxes and rubber bands. Before you get excited about a shadow, look at the corners, the surface and the centering.</p></li>
+    </ul>
+    <p class="bs-p2" style="margin-top:var(--s5)">Base Set 2 came out on
+      February 24, 2000 with 130
+      cards, against Base Set's 102. Both counts are from
+      <a href="/expansions.html">the full expansion list</a>, which is where to check any set on this page.</p>
+    <p class="bs-p2">If the question is whether the card is real at all rather than which run it is, that is a
+      different page and a longer one: <a href="/fake-cards.html">the real or fake checks</a> cover the black core
+      at the edge, the print pattern under a loupe and the back colour. If it is real and you want to know what it
+      is worth in the hand, condition decides most of it, so start with
+      <a href="/will-it-grade.html">will it grade</a> and then
+      <a href="/grading.html">what grading costs</a>. For the symbol in the corner of anything newer than this,
+      the <a href="/rarity.html">rarity guide</a> shows every one of them magnified on a real card, and
+      <a href="/what-set.html">the set finder</a> reads the number after the slash.</p>
+  </div>
+</section>
+
+<section class="band bs-sec">
+  <div class="wrap">
+    <h2>Where all of this <span class="hl">came from</span></h2>
+    <ul class="facts-list">
+      <li>Print run order, the layout changes, the Trainer card copyright tell and the fact that Shadowless was English only: Bulbapedia's 1st Edition (TCG) article, read 17 August 2026. Named in plain text rather than linked, which is how this site credits an outside source.</li>
+      <li>The EDITION 1 stamp, the missing expansion symbol and the copyright line: read off TCGdex's own scans of Base Set on 17 August 2026. All 16 Base Set Holofoil scans TCGdex serves carry the stamp, so its Base Set is scanned from a 1st Edition copy, which is where the magnified pictures on this page come from.</li>
+      <li>The 1999-2000 copyright line: read off PriceCharting's photograph of that printing on 17 August 2026, where it is legible as 1995, 96, 98 Nintendo, Creatures, GAMEFREAK. 1999-2000 Wizards.</li>
+      <li>Release dates and card counts: public/data/expansions.json in this repo, from api.pokemontcg.io.</li>
+      <li>Prices: data/top-graded.json, PriceCharting's PSA 10 price guide, crawled 16 August 2026 and re-read from each card's own product page before publication. The sealed pack figure is TCGplayer market price from data/top100.json, read 16 August 2026.</li>
+    </ul>
+
+    <h2 style="margin-top:var(--s6)">What we could not check, <span class="hl">and left in the open</span></h2>
+    <p class="bs-p2">A guide that quietly drops what it could not confirm teaches you nothing about how much to
+      trust the rest of it. So here is the list.</p>
+    <ul class="bs-out">
+      <li>That the yellow border is thinner on Shadowless than on Unlimited. It is repeated everywhere and we could not check it: it needs two cards measured in the hand, and a scan is cropped by whoever made it, so measuring a border off one proves nothing.</li>
+      <li>That the HP and attack text are thinner on Shadowless. Bulbapedia says so and it is on the page as Bulbapedia's claim, not as ours: we have no Shadowless and Unlimited pair scanned well enough at the same scale to compare.</li>
+      <li>How many of each run were printed. Nobody has published it, so every figure in circulation is an estimate, and this page states none.</li>
+      <li>Whether the copyright year list differs on the Unlimited run specifically. Bulbapedia says Unlimited drops the 99. We could read that difference clearly on the 1999-2000 printing and the scan we have of a plain Unlimited is too soft to confirm it, so that half of the tell is Bulbapedia's rather than ours.</li>
+    </ul>
+
+    <p class="bs-foot">NO PULL RATES, NO ODDS AND NO PRINT RUN SIZES ANYWHERE ON THIS PAGE. NOBODY HAS EVER
+      PUBLISHED HOW MANY 1ST EDITION BASE SET CARDS WERE MADE, SO EVERY FIGURE IN CIRCULATION IS SOMEBODY'S
+      ESTIMATE. THIS PAGE DESCRIBES THE ORDER OF SCARCITY, WHICH THE MARKET PRICES, AND STATES NO QUANTITY AT
+      ALL. FAN MADE GUIDE, NOT AN AUTHENTICATION OR VALUATION SERVICE. IF A CARD IS WORTH ENOUGH FOR THE ANSWER TO
+      MATTER, SEND IT TO A GRADING COMPANY AND LET THEM PUT THEIR NAME ON IT. LAST REVIEWED
+      AUGUST 17, 2026.</p>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Footer">
+      <div class="foot-col">
+        <p class="foot-h">Watch</p>
+        <a href="/videos.html">Rips</a>
+        <a href="/playlists.html">Playlists</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">The binder</p>
+        <a href="/hall.html">Best pulls</a>
+        <a href="/wanted.html">Most wanted</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Cards</p>
+        <a href="/cards.html">Card search</a>
+        <a href="/pokemon/">By Pokemon</a>
+        <a href="/sets/">Set guides</a>
+        <a href="/expansions.html">Every set ever</a>
+        <a href="/upcoming.html">Coming next</a>
+        <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/msrp.html">MSRP check</a>
+        <a href="/pack-prices.html">Pack prices</a>
+        <a href="/how-many-packs.html">Packs per box</a>
+        <a href="/openings/">Sealed products</a>
+        <a href="/drops.html">Drops this week</a>
+        <a href="/most-valuable-cards.html">Priciest cards</a>
+        <a href="/most-expensive-sealed.html">Priciest sealed</a>
+        <a href="/top-graded.html">PSA 10 top 100</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Guides</p>
+        <a href="/start.html">Start here</a>
+        <a href="/how-to-play.html">How to play</a>
+        <a href="/tcg-live.html">Code cards</a>
+        <a href="/tcg-pocket.html">Phone version</a>
+        <a href="/decks.html">Deck builds</a>
+        <a href="/top-100-playable.html">Most played cards</a>
+        <a href="/what-set.html">Set finder</a>
+        <a href="/rarity.html">Rarity guide</a>
+        <a href="/base-set.html">Base Set prints</a>
+        <a href="/types.html">Card types</a>
+        <a href="/fake-cards.html">Fakes</a>
+        <a href="/will-it-grade.html">Will it grade</a>
+        <a href="/grading.html">Grading cost</a>
+        <a href="/selling.html">Where to sell</a>
+        <a href="/buying.html">Where to buy</a>
+        <a href="/luck.html">Luck, measured</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Play</p>
+        <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
+        <a href="/lore.html">Pokemon lore</a>
+        <a href="/evolution.html">Evolution chart</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Rochester, NY</p>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/vendors.html">Local vendors</a>
+        <a href="/creators.html">Local creators</a>
+        <a href="/about.html">About</a>
+      </div>
+    </nav>
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    Print run checks are properties of the printed card. Not an authentication service.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+</body>
+</html>

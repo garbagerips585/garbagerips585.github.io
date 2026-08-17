@@ -1,34 +1,87 @@
 #!/usr/bin/env node
-// Generate /pokemon/<name>.html, one page per chase Pokemon, plus an index.
+// Generate /pokemon/<slug>.html, one page per SPECIES, plus a Pokedex index.
 //
-//   node scripts/sync-cards.mjs    (first, writes the card data)
-//   node scripts/build-pokemon.mjs (this)
+//   node scripts/sync-cards.mjs          (prices for the sets we rip)
+//   node scripts/sync-all-printings.mjs  (every printing, every language)
+//   node scripts/sync-pokedex.mjs        (the 1,025 species)
+//   node scripts/sync-type-chart.mjs     (the 18 video game types)
+//   node scripts/sync-species-art.mjs    (the official artwork, mirrored)
+//   node scripts/build-pokemon.mjs       (this)
 //
-// Every card of one Pokemon across all 23 sets, cheapest way in, priciest chase,
-// and the rips that pulled one. Assembly, not new data: it all comes from
-// public/data/cards/*.json.
+// Assembly, not new data. Every number on every page here comes out of a file
+// one of those five wrote, and each band on the page cites the one it came from.
 //
-// THE ROSTER IS PICKED BY THE DATA, NOT BY ME. Hand-picking "the popular ones"
-// is how you end up with a page for something nobody searches and none for the
-// card everyone wants. A Pokemon qualifies on having enough cards across enough
-// sets to fill a page, and the roster is then ranked by its priciest card.
+// ============================================================================
+// THIS WENT FROM 51 PAGES TO 1,025 ON 17 AUGUST 2026, AND THE INTERESTING PART
+// IS THE 187 OF THEM THAT ARE noindex.
+// ============================================================================
 //
-// THE TITLE SAYS "EVERY PRINTING WE PRICE", not "every set", and the
-// difference is the point. These pages cover the 23 English sets the site
-// holds prices for, so Flareon shows 4 cards from 2 sets while the printings
-// corpus knows of far more. Promising every set and delivering two is the kind
-// of over-claim that costs a page its credibility with the one reader who
-// checks.
+// The old header on this file argued the opposite and it was right at the time:
+// "generating all of them would be a thousand near-empty pages, which is the
+// definition of thin content and the fastest way to teach a search engine to
+// ignore the whole site. The cap is 30." That reasoning is kept here rather than
+// deleted, because it is still the reasoning. What changed is the evidence.
 //
-// AND IT IS DELIBERATELY SHORT. There are 457 species that clear the bar and
-// 1,025 in the Pokedex. Generating all of them would be a thousand near-empty
-// pages, which is the definition of thin content and the fastest way to teach
-// a search engine to ignore the whole site. The cap is ${TOP}.
+// WHAT THE DATA ACTUALLY SAYS, counted rather than assumed:
 //
-// Forms are folded into their species: Mega Charizard ex, Charizard ex and
-// Charizard are all Charizard, and a Trainer's Pokemon (Team Rocket's Mewtwo,
-// Iono's Bellibolt) files under the Pokemon, because that is what somebody
-// searching the name is looking for.
+//   every one of the 1,025 species has at least 2 printings in the corpus
+//   967 of them have a card in one of the 23 English sets we hold prices for
+//   the MEDIAN species has 25 printings across 20 sets, 20 of them with a scan
+//
+// So "a thousand near-empty pages" was a guess about the tail and the tail is
+// not empty. A page for Sandshrew is a wall of 30 real card scans with real
+// prices, an evolution line, a type table and a first-printing date. It is not a
+// name and a sprite. THAT is why the cap came off.
+//
+// THE BAR, AND IT IS APPLIED TO INDEXING RATHER THAN TO EXISTENCE.
+// A page is built for all 1,025 so that nothing in the Pokedex index dead-ends
+// and so a reader who types a name into the site search always lands somewhere
+// true. A page is INDEXED only when it clears all three of:
+//
+//   MIN_PRICED     >= 1 card in the sets we price carrying a market price
+//   MIN_EN_SCANS   >= 8 English printings we can actually show a picture of
+//   MIN_SETS       >= 6 distinct sets across the whole corpus
+//
+// The first is the only one that matters and the other two are its guard rails.
+// This site's one genuinely unique asset on a Pokemon page is the PRICE, so a
+// page that cannot put a sourced figure on a single card has nothing to offer a
+// searcher that a hundred better Pokedexes do not already have, and it says
+// "noindex,follow" until it can. The scan and set floors stop a page qualifying
+// on one lonely priced card with nothing around it: eight scans is a card grid
+// that fills a phone screen rather than a stub.
+//
+// This is the same judgement build-pages.mjs already makes about untagged rips,
+// and it is deliberately the same shape: build it, link it, keep it out of the
+// index until it earns its way in. Re-run this after any card sync and pages
+// promote themselves.
+//
+// WHAT WAS DELIBERATELY NOT BUILT is written up in the report and the short
+// version is: no Pokedex flavour text (copyright, see sync-pokedex.mjs), no
+// stats or moves (nothing on this site needs them and they are 1,025 more rows
+// of somebody else's table), no type filter on the index, and no per-form pages.
+//
+// ============================================================================
+// FORMS FOLD INTO THE SPECIES, AND THE JOIN IS THE DEX NUMBER
+// ============================================================================
+//
+// Mega Charizard ex, Charizard ex and Charizard are all Charizard; a Trainer's
+// Pokemon (Team Rocket's Mewtwo, Iono's Bellibolt) files under the Pokemon; and
+// Alolan Vulpix files under Vulpix, because that is what somebody searching the
+// name is looking for.
+//
+// The printings corpus carries a dexId on every card, which is the whole reason
+// it was built with one: a Japanese レックウザ and an English Rayquaza are the
+// same species to PokeAPI, so a dex number gathers every language and every
+// regional form without matching on names at all. Our own priced card data
+// carries NO dex id, so it is joined by name through a map derived from the
+// corpus itself (English name -> the dex id most of its printings carry). That
+// map resolves all 4,325 priced Pokemon cards with nothing left over, checked.
+//
+// THE SLUG COMES FROM data/pokedex.json, NOT FROM slugify(name), and that is
+// not a tidy-up. slugify("Nidoran♀") and slugify("Nidoran♂") are both "nidoran",
+// so two species would have written the same file and one would have silently
+// won. PokeAPI's own slugs are nidoran-f and nidoran-m. Every one of the 51
+// urls this script used to write is unchanged by the switch, checked one by one.
 
 import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
@@ -54,11 +107,51 @@ import { esc, longDate, moneyExact, moneyRound, moneyCompact, rarityLabel, imgDi
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/pokemon");
-const TOP = 30;
-const MIN_CARDS = 4;
-const MIN_SETS = 2;
 
-const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
+// The indexing bar. See the block at the top of this file.
+const MIN_PRICED = 1;
+const MIN_EN_SCANS = 8;
+const MIN_SETS = 6;
+
+// How many get a card picture on the index page's featured band, taken as the
+// union of the most valuable and the most printed, so the band itself comes out
+// at roughly double this. See `featured` below.
+//
+// TWELVE, NOT THIRTY, AND THE REASON IS 216KB OF CARD ART. The band used to BE
+// the page, so its size was the roster size; now it is a header over a 1,025
+// entry index and every tile in it is a card scan the reader may never look at.
+// Measured at 1440x900 DPR 1, gzipped, cache off, on-load with no scroll, the
+// picked file read off the request log: a 33 tile band put 30 scans and 599.4KB
+// of art on the wire for 734.6KB total, and 22 tiles puts 22 and 383.7KB on for
+// 517.8KB. THE PHONE DOES NOT MOVE AT ALL, 350.7KB either way, because at 390px
+// only 12 tiles are ever inside Chrome's lazy window. So this is a desktop-only
+// saving and it is a large one: the index is now 192KB LIGHTER at 1440 than the
+// 51 tile page it replaces, while carrying twenty times the links.
+const FEATURED = 12;
+
+const readJson = async (p, fallback) => {
+  try {
+    return JSON.parse(await readFile(join(ROOT, p), "utf8"));
+  } catch {
+    return fallback;
+  }
+};
+
+const { videos } = await readJson("public/data/videos.json", { videos: [] });
+const dexDoc = await readJson("data/pokedex.json", null);
+if (!dexDoc) throw new Error("data/pokedex.json is missing. Run: node scripts/sync-pokedex.mjs");
+const DEX = dexDoc.pokemon;
+
+// All three of these are OPTIONAL and the page drops the band rather than
+// printing a hole. That is the same contract sync-dex-art.mjs has with
+// build-lore.mjs and it is what lets a fresh clone build before the slow
+// by-hand syncs have been run.
+const typeDoc = await readJson("data/type-chart.json", null);   // sync-type-chart.mjs
+const artDoc = await readJson("data/species-art.json", null);   // sync-species-art.mjs
+const tcgTypes = await readJson("data/types.json", null);       // human, feeds /types.html
+const expansions = (await readJson("public/data/expansions.json", { sets: [] })).sets || [];
+
+/* -------------------------------------------------------------- card prices */
 
 const cards = [];
 let checked = null;
@@ -80,32 +173,8 @@ function speciesOf(name) {
   return n.trim();
 }
 
-const slugify = (s) =>
-  s.toLowerCase().replace(/['.:]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+/* ---------------------------------------------------------------- printings */
 
-// EVERY PRINTING, not just the 23 sets we price.
-//
-// These pages used to show only cards from public/data/cards, which is the 23
-// English sets the site holds prices for. Charizard came out at 21 cards; the
-// printings corpus knows 133 across 71 sets, 107 of them with a verified scan.
-// A page called "every printing" has to mean it.
-//
-// The join is dexId, which is why the corpus was built with it: a Japanese
-// レックウザ and an English Rayquaza are the same species to PokeAPI, so a
-// dex number gathers every language without matching on names at all.
-//
-// Prices still come from public/data/cards where we have them. A printing from
-// a set we do not price shows its picture and no price, which is the truth.
-// Keyed by SPECIES NAME, not by dex number, because our own card data carries
-// no dex id to join on. The corpus already used dexId to turn レックウザ into
-// Rayquaza, so by the time a printing lands here its `n` is the English name
-// and speciesOf() reduces both sides the same way.
-// The corpus carries its own read date, and the band below prints it. Without
-// this the "Everywhere else" band was the one block on the page citing neither
-// a source nor a date, while the priced band above it cited both.
-const pChecked = JSON.parse(
-  await readFile(join(ROOT, "public/data/printings/manifest.json"), "utf8"),
-).checked;
 /**
  * Cards TCGdex has no scan for.
  *
@@ -114,126 +183,342 @@ const pChecked = JSON.parse(
  * Promos, the e-Card series, TCGP P-A, a few Japanese sets. They all carried
  * onerror="this.remove()", so nothing looked broken. The picture simply
  * vanished and left a gap in the tile, and the site paid for a dead round trip
- * to find that out, 101 times across 39 species pages.
+ * to find that out. Builders skip them up front instead.
  *
- * Clearing `g` here is all it takes. The page already sorts printings into
- * those with a scan and those without, and puts the scanless ones in a
- * text-only list precisely because a card with no picture does not belong in a
- * wall of pictures. This just tells the truth about which ones those are.
+ * Clearing `g` here is all it takes. The page already sorts printings into those
+ * with a scan and those without, and puts the scanless ones in a text-only list
+ * precisely because a card with no picture does not belong in a wall of
+ * pictures. This just tells the truth about which ones those are.
  */
-let noScanBases = new Set();
-try {
-  noScanBases = new Set(
-    JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8")).bases || [],
-  );
-} catch {
-  /* optional: without it those cards render an image that 404s, as before */
-}
+const noScanBases = new Set((await readJson("data/no-scan.json", { bases: [] })).bases || []);
 
+const pChecked = (await readJson("public/data/printings/manifest.json", {})).checked;
+
+// dexId -> every printing of that species, and English name -> dexId so our own
+// priced cards can be joined on. The name map is built from the corpus rather
+// than typed, so a name we have never heard of resolves the same way as one we
+// have, and a name two things spell differently cannot silently split a page.
 const printings = new Map();
+const nameToDex = new Map();
+// TCG POCKET IS DIGITAL AND IS NOT A PRINTING, which matters below where the
+// page names the first set a Pokemon appeared in. The set names are DERIVED
+// rather than typed: every TCGdex image url carries its serie in the path, so
+// anything under /tcgp/ is a Pocket card and its set name joins this list. That
+// also catches the handful of Pocket cards with no image, which a url test on
+// its own would miss.
+const pocketSets = new Set();
+const rawPrintings = [];
 for (const f of await readdir(join(ROOT, "public/data/printings"))) {
   if (!f.endsWith(".json") || f === "manifest.json") continue;
   for (const c of JSON.parse(await readFile(join(ROOT, "public/data/printings", f), "utf8"))) {
-    if (c.c !== "Pokemon" || c.u) continue; // skip Trainers, and untranslated names
-    const sp = speciesOf(c.n);
-    if (!sp) continue;
-    if (c.g && noScanBases.has(c.g)) c.g = null;
-    if (!printings.has(sp)) printings.set(sp, []);
-    printings.get(sp).push(c);
+    if (c.c !== "Pokemon") continue;
+    if (c.g && /assets\.tcgdex\.net\/[a-z-]+\/tcgp\//i.test(c.g)) pocketSets.add(c.s);
+    rawPrintings.push(c);
   }
 }
+for (const c of rawPrintings) {
+  if (c.g && noScanBases.has(c.g)) c.g = null;
+  if (!c.d) continue;
+  if (!printings.has(c.d)) printings.set(c.d, []);
+  printings.get(c.d).push(c);
+  if (c.u) continue; // untranslated: the printed name is Japanese, not a species name
+  const sp = speciesOf(c.n);
+  if (!sp) continue;
+  if (!nameToDex.has(sp)) nameToDex.set(sp, new Map());
+  const tally = nameToDex.get(sp);
+  tally.set(c.d, (tally.get(c.d) || 0) + 1);
+}
+const dexIdFor = (speciesName) => {
+  const tally = nameToDex.get(speciesName);
+  if (!tally) return null;
+  return [...tally.entries()].sort((a, b) => b[1] - a[1])[0][0];
+};
 
-const byName = new Map();
+const pricedBy = new Map();
+let unresolved = 0;
 for (const c of cards) {
   if (c.cat !== "Pokemon") continue;
-  const sp = speciesOf(c.name);
-  if (!sp) continue;
-  if (!byName.has(sp)) byName.set(sp, []);
-  byName.get(sp).push(c);
+  const id = dexIdFor(speciesOf(c.name));
+  if (!id) {
+    unresolved += 1;
+    continue;
+  }
+  if (!pricedBy.has(id)) pricedBy.set(id, []);
+  pricedBy.get(id).push(c);
 }
 
-const roster = [...byName.entries()]
-  .map(([name, list]) => {
-    const sets = new Set(list.map((c) => c.set));
-    const priced = list.filter((c) => typeof c.price === "number");
-    const priciest = priced.slice().sort((a, b) => b.price - a.price)[0] || null;
-    const cheapest = priced.slice().sort((a, b) => a.price - b.price)[0] || null;
-    return { name, slug: slugify(name), list, sets, priciest, cheapest, priced };
-  })
-  .filter((p) => p.list.length >= MIN_CARDS && p.sets.size >= MIN_SETS && p.priciest);
+/* ------------------------------------------------------- set release dates */
 
-// MOST VALUABLE **AND** MOST POPULAR, which are not the same list.
+// FIRST ENGLISH PRINTING, and getting this wrong is silent.
 //
-// Ranking by priciest card alone is a value list: it surfaces whatever happens
-// to carry an expensive chase card and misses species that are printed
-// constantly and cheaply. Pikachu has 250 printings across the corpus and Eevee
-// 153; both are obviously "popular Pokemon" and neither is guaranteed a slot by
-// price.
+// The corpus names a set as TCGdex names it and expansions.json names it as the
+// Pokemon TCG API does, and the two disagree about 50 English sets. An unmatched
+// set simply has no date, which does not look like an error: it looks like a
+// LATER set being the earliest one. Charizard came out as "Base Set 2, 2000"
+// because the corpus calls the 1999 original "Base Set" and expansions.json
+// calls it "Base".
 //
-// Printing count is the popularity signal, and it is a real one rather than a
-// guess: it is how often The Pokemon Company has chosen to print that species
-// across 388 sets. The two lists are taken separately and unioned, so the page
-// set is genuinely "the most valuable and the most popular" rather than a
-// blended score that satisfies neither description.
-const printCount = (name) => (printings.get(name) || []).length;
-const byValue = [...roster].sort((a, b) => b.priciest.price - a.priciest.price).slice(0, TOP);
-const byPopularity = [...roster].sort((a, b) => printCount(b.name) - printCount(a.name)).slice(0, TOP);
-const seen = new Set();
-const chosen = [];
-for (const p of [...byValue, ...byPopularity]) {
-  if (seen.has(p.name)) continue;
-  seen.add(p.name);
-  chosen.push(p);
+// The aliases below are the ones that move a date, each checked against
+// expansions.json by hand. The rest of the 50 are Pocket sets (excluded on
+// purpose, they are not printings), trainer kits and McDonald's collections,
+// none of which is ever the earliest thing a Pokemon appeared in.
+const SET_ALIAS = {
+  "Base Set": "Base",
+  "HeartGold SoulSilver": "HeartGold & SoulSilver",
+  Unleashed: "HS—Unleashed",
+  Undaunted: "HS—Undaunted",
+  Triumphant: "HS—Triumphant",
+  "Unseen Forces Unown Collection": "Unseen Forces",
+  "Celebrations Classic Collection": "Celebrations: Classic Collection",
+};
+const setDate = new Map();
+for (const s of expansions) if (s.name && s.released) setDate.set(s.name.toLowerCase(), s);
+const datedSet = (name) => {
+  const key = String(SET_ALIAS[name] || name).toLowerCase();
+  return setDate.get(key) || null;
+};
+
+/* ------------------------------------------------------------ the species */
+
+const byDexName = new Map(DEX.map((p) => [p.name, p]));
+
+/** Everything in one evolution family, from evolvesFrom in data/pokedex.json. */
+const childrenOf = new Map();
+for (const p of DEX) {
+  if (!p.evolvesFrom) continue;
+  if (!childrenOf.has(p.evolvesFrom)) childrenOf.set(p.evolvesFrom, []);
+  childrenOf.get(p.evolvesFrom).push(p);
 }
-roster.length = 0;
-roster.push(...chosen);
-
-// THE MASCOTS ARE PINNED. The roster ranks by priciest card, which is the right
-// default and would never surface either of these: Trubbish and Garbodor are
-// commons worth pennies. They are also the channel's whole identity, the reason
-// the site is called Garbage Rips, and the corpus gives them real pages rather
-// than thin ones: Trubbish is 30 printings across 25 sets with 24 scans,
-// Garbodor 39 across 28 with 33. Ranking by price would drop the two Pokemon
-// the site is named after, which is the wrong answer however defensible the
-// sort is.
-const PINNED = ["Trubbish", "Garbodor"];
-for (const name of PINNED) {
-  if (roster.some((p) => p.name === name)) continue;
-  const list = byName.get(name) || [];
-  const priced = list.filter((c) => typeof c.price === "number");
-  const bySets = new Set(list.map((c) => c.set));
-  // A pinned Pokemon may have few or no cards in the 23 sets we price. That is
-  // fine: the printings corpus carries the page, and the priced band simply
-  // renders empty rather than the page not existing.
-  roster.push({
-    name,
-    slug: slugify(name),
-    list,
-    sets: bySets,
-    priciest: priced.slice().sort((a, b) => b.price - a.price)[0] || null,
-    cheapest: priced.slice().sort((a, b) => a.price - b.price)[0] || null,
-    priced,
-    pinned: true,
-  });
+/**
+ * The line, as stages: [[Charmander],[Charmeleon],[Charizard]], and for a
+ * branching family [[Eevee],[Vaporeon, Jolteon, ... Sylveon]].
+ *
+ * DERIVED HERE FROM data/pokedex.json RATHER THAN FROM data/evolutions.json,
+ * and that is a boundary rather than an oversight. A standalone evolution chart
+ * page is being built alongside this one and it owns the CONDITIONS: which stone,
+ * what level, which version group, all of which genuinely differ between
+ * generations and none of which a species page has room to state honestly. What
+ * a species page needs is the LINE, so it can say what this Pokemon becomes and
+ * link to those pages, and evolvesFrom already carries exactly that. If
+ * shared/evolution.mjs lands, take the conditions from it rather than writing a
+ * second phrasing of them here.
+ */
+function familyOf(p) {
+  let root = p;
+  const guard = new Set();
+  while (root.evolvesFrom && !guard.has(root.name)) {
+    guard.add(root.name);
+    root = byDexName.get(root.evolvesFrom) || root;
+  }
+  const stages = [];
+  let level = [root];
+  while (level.length) {
+    stages.push(level);
+    const next = [];
+    for (const m of level) next.push(...(childrenOf.get(m.name) || []));
+    level = next;
+  }
+  return stages;
 }
 
 /** Rips that name this Pokemon in the title. */
-const ripsFor = (name) => {
-  // Both anchors. With only a leading \\b, /\\bMew/ matched every Mewtwo rip, and
-  // Mew and Mewtwo are both on the roster. The trailing (?![a-z]) allows
+const ripsFor = (() => {
+  // Both anchors. With only a leading \b, /\bMew/ matched every Mewtwo rip, and
+  // Mew and Mewtwo are both in the dex. The trailing (?![a-z]) allows
   // "Charizard's" and "Charizards" while refusing "Mewtwo".
-  const re = new RegExp(`\\b${name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![a-z])`, "i");
-  return videos.filter((v) => re.test(v.title));
+  //
+  // COMPUTED ONCE PER SPECIES, not once per call. At 51 pages calling this twice
+  // each was free; at 1,025 it is 1,025 regexes against every video title, twice.
+  const cache = new Map();
+  return (name) => {
+    if (cache.has(name)) return cache.get(name);
+    const re = new RegExp(`\\b${name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![a-z])`, "i");
+    const hits = videos.filter((v) => re.test(v.title));
+    cache.set(name, hits);
+    return hits;
+  };
+})();
+
+const REGION = {
+  1: "Kanto", 2: "Johto", 3: "Hoenn", 4: "Sinnoh", 5: "Unova",
+  6: "Kalos", 7: "Alola", 8: "Galar", 9: "Paldea",
 };
 
-const head = ({ title, desc, canonical, ld }) => `<!DOCTYPE html>
+// Which of the eleven CARD types a video game type is printed as. Read from
+// data/types.json, which /types.html is built from, so the two pages cannot
+// disagree: that file records the mapping as checked against Bulbapedia's table
+// AND against 628 real cards, matching on 18 of 18 game types. Inverted here
+// rather than restated.
+const gameTypeToCard = new Map();
+for (const t of tcgTypes?.types || []) {
+  for (const g of t.gameTypes || []) gameTypeToCard.set(String(g).toLowerCase(), t.name);
+}
+
+const species = DEX.map((p) => {
+  const list = pricedBy.get(p.id) || [];
+  const prints = printings.get(p.id) || [];
+  const priced = list.filter((c) => typeof c.price === "number");
+  const priciest = priced.slice().sort((a, b) => b.price - a.price)[0] || null;
+  const cheapest = priced.slice().sort((a, b) => a.price - b.price)[0] || null;
+  const enScans = prints.filter((c) => c.l === "en" && c.g).length;
+  const sets = new Set(prints.map((c) => c.s));
+  const pricedSets = new Set(list.map((c) => c.set));
+
+  // The earliest English set we can put a date on, Pocket excluded.
+  let first = null;
+  for (const c of prints) {
+    if (c.l !== "en" || pocketSets.has(c.s)) continue;
+    const s = datedSet(c.s);
+    if (s && (!first || s.released < first.released)) first = s;
+  }
+
+  return {
+    ...p,
+    list,
+    priced,
+    priciest,
+    cheapest,
+    prints,
+    enScans,
+    sets,
+    pricedSets,
+    first,
+    rips: ripsFor(p.name),
+    family: familyOf(p),
+    art: artDoc?.art?.[p.id] || null,
+    // THE BAR. See the header.
+    index: priced.length >= MIN_PRICED && enScans >= MIN_EN_SCANS && sets.size >= MIN_SETS,
+  };
+});
+const byId = new Map(species.map((s) => [s.id, s]));
+
+/* ------------------------------------------------- type effectiveness maths */
+
+const TYPE_ORDER = [
+  "normal", "fire", "water", "electric", "grass", "ice", "fighting", "poison",
+  "ground", "flying", "psychic", "bug", "rock", "ghost", "dragon", "dark",
+  "steel", "fairy",
+];
+const cap = (s) => String(s).charAt(0).toUpperCase() + String(s).slice(1);
+
+/** Defensive multipliers for a type combination, from data/type-chart.json. */
+function matchups(types) {
+  if (!typeDoc || !types?.length) return null;
+  const out = new Map();
+  for (const attack of TYPE_ORDER) {
+    let m = 1;
+    for (const d of types) {
+      const row = typeDoc.types[d];
+      if (!row) return null;
+      if (row.immuneTo.includes(attack)) m = 0;
+      else if (row.weakTo.includes(attack)) m *= 2;
+      else if (row.resists.includes(attack)) m *= 0.5;
+    }
+    if (m !== 1) out.set(attack, m);
+  }
+  const band = (v) => TYPE_ORDER.filter((t) => out.get(t) === v);
+  return {
+    x4: band(4), x2: band(2), half: band(0.5), quarter: band(0.25), zero: band(0),
+  };
+}
+
+/* ------------------------------------------------------------------- output */
+
+const list = (arr) =>
+  arr.length <= 1
+    ? arr.join("")
+    : `${arr.slice(0, -1).join(", ")} and ${arr[arr.length - 1]}`;
+
+const n = (v) => Number(v).toLocaleString("en-US");
+
+// "None" IS NOT A RARITY, it is the corpus saying it holds none for that card,
+// and 1,996 Pokemon printings carry it. Printed as a rarity line it reads as a
+// claim about the card rather than about our data, which is the same mistake
+// "top $0" was on the index page. Show nothing instead.
+const rar = (v) => {
+  const r = rarityLabel(v);
+  return r && r !== "None" ? r : "";
+};
+
+// Feet and inches, and pounds, alongside the metric. PokeAPI ships decimetres
+// and hectograms and data/pokedex.json keeps them in those units precisely so
+// the conversion happens once, here, and nothing rounds twice.
+function height(p) {
+  const m = p.hDm / 10;
+  const inches = Math.round(m * 39.3701);
+  return `${m.toFixed(1)}m (${Math.floor(inches / 12)}ft ${inches % 12}in)`;
+}
+function weight(p) {
+  const kg = p.wHg / 10;
+  const lb = kg * 2.20462;
+  return `${kg.toFixed(1)}kg (${lb < 10 ? lb.toFixed(1) : Math.round(lb)}lb)`;
+}
+
+// PAGE-SCOPED CSS, the same arrangement build-proto.mjs uses for the home page's
+// three-layout fix, and for the same reason: ui.css was being rewritten by
+// another pass while this was written. FOLD IT INTO UI.CSS when that settles.
+// Nothing in here is a colour: every value is a token that already exists, so
+// the block survives a palette change the way the rest of the site does.
+//
+// EVERY DRAWN BOX HERE HAS TO STAY UNDER data/species-art.json's 256px, because
+// a mirrored portrait has exactly one rendition and the browser will happily
+// upscale it. The hero is 128 (exactly 2x at DPR 2) and an evolution stage is 72.
+// If you make either bigger, change BOX in sync-species-art.mjs and re-run it
+// with --force in the same commit, the way the 192 -> 256 change was made.
+//
+// `.dx-evo li` NEEDS ITS OWN flex-wrap AND THE OUTER ONE IS NOT ENOUGH. A stage
+// of an evolution line is a single <li> holding every Pokemon at that stage, and
+// most of them hold one, so wrapping only the outer list looked correct on every
+// page anybody thought to open. Eevee's second stage holds EIGHT, which is 8 x
+// 112px of tile: measured at 390x844 the document was 964px wide against a
+// 390px viewport, with 21 elements past the right edge, and the whole page
+// scrolled sideways. It is the branching families that break this rule, so test
+// one (Eevee, Wurmple, Tyrogue) rather than a straight three-stage line.
+const CSS = `<style>
+.dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
+.dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
+border:1px solid var(--hair);border-radius:var(--r);padding:4px}
+.dx-top .facts-list{margin-top:0;flex:1 1 auto;min-width:0}
+.dx-evo{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);margin-top:var(--s4);list-style:none}
+.dx-evo li{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);max-width:100%}
+.dx-stage{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;
+width:112px;padding:var(--s2);background:var(--card);border:1px solid var(--hair);border-radius:var(--r)}
+.dx-stage img{width:72px;height:72px;object-fit:contain}
+.dx-stage b{font:700 var(--t-sm)/1.2 var(--body)}
+.dx-stage span{font:400 var(--t-micro)/1.2 var(--body);color:var(--ink-2)}
+.dx-stage[aria-current]{border-width:3px;border-color:var(--keyline)}
+.dx-arrow{font:700 1.1rem/1 var(--body);color:var(--ink-2)}
+.dx-eff{display:grid;gap:var(--s2);margin-top:var(--s4);list-style:none}
+.dx-eff li{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:baseline;
+background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r);padding:10px 12px}
+.dx-eff b{font:700 var(--t-sm)/1.4 var(--mono);min-width:3.2em}
+.dx-eff span{font:400 var(--t-sm)/1.4 var(--body)}
+.dx-find{width:100%;height:48px;padding:0 var(--s4);font:400 var(--t-body)/1 var(--body);
+color:var(--ink);background:var(--card);border:2px solid var(--keyline);border-radius:var(--r-pill);margin-top:var(--s4)}
+.dx-chips{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s3)}
+.dx-count{font:400 var(--t-sm)/1.4 var(--body);color:var(--ink-2);margin-top:var(--s3)}
+.dx-gen h3{font:700 var(--t-m)/1.2 var(--body);margin:var(--s5) 0 0}
+.dx-list{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s2);margin-top:var(--s3);list-style:none}
+.dx-item{display:flex;flex-direction:column;gap:1px;background:var(--card);border:1px solid var(--hair);
+border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none}
+.dx-item b{font:700 var(--t-sm)/1.2 var(--body)}
+.dx-item span{font:400 var(--t-micro)/1.2 var(--mono);color:var(--ink-2)}
+.dx-item:hover{border-color:var(--keyline)}
+.is-off{display:none}
+@media(min-width:560px){.dx-top{flex-direction:row}}
+@media(min-width:640px){.dx-list{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.dx-list{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:1100px){.dx-list{grid-template-columns:repeat(5,1fr)}}
+</style>`;
+
+const head = ({ title, desc, canonical, ld, noindex }) => `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
-<link rel="canonical" href="${canonical}">
+${noindex ? `<meta name="robots" content="noindex,follow">\n` : ""}<link rel="canonical" href="${canonical}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:type" content="article">
@@ -250,6 +535,7 @@ const head = ({ title, desc, canonical, ld }) => `<!DOCTYPE html>
 <link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
 ${FONTS}
 ${STYLES}
+${CSS}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -260,17 +546,33 @@ ${MENU}
 <main id="main">
 `;
 
+/** The portrait, or nothing at all. A missing one is never a hole. */
+const portrait = (p, px, eager) =>
+  p.art
+    ? `<img src="${p.art.file}" width="${p.art.w}" height="${p.art.h}" alt="${esc(p.name)}, official artwork"` +
+      (eager ? ` decoding="async"` : ` loading="lazy" decoding="async"`) +
+      (px ? ` class="${px}"` : "") +
+      `>`
+    : "";
+
 function pokePage(p) {
   const url = `${SITE}/pokemon/${p.slug}.html`;
-  const rips = ripsFor(p.name);
   const sorted = p.list
     .slice()
     .sort((a, b) => (b.price ?? -1) - (a.price ?? -1) || String(a.n).localeCompare(String(b.n)));
-  const setCount = p.sets.size;
+  const types = p.types.map(cap);
+  const eff = matchups(p.types);
+  const cardType = [...new Set(p.types.map((t) => gameTypeToCard.get(t)).filter(Boolean))];
 
-  const desc =
-    `Every ${p.name} card across ${setCount} Pokemon TCG sets, ${p.list.length} in total, with current market ` +
-    `prices. The priciest is ${p.priciest.name} in ${p.priciest.setName} at ${moneyExact(p.priciest.price)}.`;
+  // THE DESCRIPTION HAS TO SURVIVE A SPECIES WITH NO PRICE. 58 of them have no
+  // card at all in the sets we hold prices for, and the old one read
+  // `p.priciest.name` unguarded, which is a build that throws rather than a page
+  // that reads badly.
+  const desc = p.priciest
+    ? `Every ${p.name} card: ${n(p.prints.length)} printings across ${n(p.sets.size)} sets, with market prices for the ` +
+      `${n(p.priced.length)} we hold. The priciest is ${p.priciest.name} in ${p.priciest.setName} at ${moneyExact(p.priciest.price)}.`
+    : `Every ${p.name} card we can name: ${n(p.prints.length)} printings across ${n(p.sets.size)} sets, plus ${p.name}'s ` +
+      `evolution line, types and what beats it.`;
 
   const ld = [
     {
@@ -293,33 +595,136 @@ function pokePage(p) {
   // page of their own, and /cards.html?q= is a client-side search, not a page
   // about the card. Add the block back the day a card has its own URL.
 
-  return head({ title: `${p.name} Cards and Prices: Every Printing We Price | Garbage Rips 585`, desc, canonical: url, ld }) + `
-<header class="set-hero">
-  <div class="wrap">
-    <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
-    <h1>${esc(p.name)} <span class="hl">cards</span></h1>
-    <p class="lede" style="max-width:34em">Every ${esc(p.name)} card in the sets we rip, what each one is worth, and
-      the cheapest way to get one.</p>
-  </div>
-</header>
+  /* ------------------------------------------------------------ dex facts */
+  // OUR OWN SENTENCES, NOT THE POKEDEX ENTRY. The flavour text in the games is
+  // copyrighted and data/pokedex.json deliberately does not store it. These are
+  // written from the structured fields, the same discipline /lore.html keeps.
+  const facts = [];
+  if (p.genus) facts.push(`<b>The ${esc(p.genus)} Pokemon.</b> ${esc(p.name)} is #${p.id} in the National Pokedex.`);
+  // ONLY A SINGLE-TYPE POKEMON GETS THE CARD-TYPE SENTENCE, and this is not
+  // caution, it is what the measurement in data/types.json actually covers. That
+  // file's method says in as many words: "for every card whose Pokemon has
+  // exactly ONE video game type". A card carries ONE type, so for a dual type
+  // the mapping cannot say which of the two wins. Charizard rendered as
+  // "printed as Fire and Colorless on a card", which is not a thing any card is.
+  facts.push(
+    `<b>${types.length === 1 ? "Type" : "Types"}.</b> ${esc(list(types))} in the video games` +
+      (types.length === 1 && cardType.length
+        ? `, which is printed as ${esc(cardType[0])} on a card. <a href="/types.html">The eleven card types</a>.`
+        : types.length > 1
+          ? `. A card only ever carries one type, so <a href="/types.html">which one it is printed as</a> depends on the card.`
+          : "."),
+  );
+  facts.push(
+    `<b>Generation ${p.gen}${REGION[p.gen] ? `, ${REGION[p.gen]}` : ""}.</b> ` +
+      (p.legendary
+        ? "Flagged Legendary in the Pokedex."
+        : p.mythical
+          ? "Flagged Mythical in the Pokedex, the event-only category."
+          : p.baby
+            ? "A baby Pokemon, the category breeding brought in with Generation 2."
+            : `One of the ${n(DEX.filter((d) => d.gen === p.gen).length)} species that generation introduced.`),
+  );
+  facts.push(`<b>Size.</b> ${height(p)} and ${weight(p)}.`);
+  facts.push(
+    `<b>Capture rate ${p.catch} of 255.</b> ` +
+      (p.catch <= 10
+        ? "One of the hardest things in the games to catch."
+        : p.catch >= 190
+          ? "About as easy to catch as the games get."
+          : "Middling, as capture rates go."),
+  );
+  if (p.first)
+    facts.push(
+      `<b>First English card.</b> ${esc(p.first.name)}, ${esc(longDate(p.first.released) || p.first.released)}.`,
+    );
 
+  /* ----------------------------------------------------------- evolution */
+  const evoBand = (() => {
+    const stages = p.family;
+    const size = stages.reduce((a, s) => a + s.length, 0);
+    if (size < 2) {
+      return `
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / <a href="/pokemon/">Pokemon</a> / ${esc(p.name)}</p>
-    <div class="facts">
-      <div class="fact"><div class="n">${p.list.length}</div><div class="l">${esc(p.name)} card${p.list.length === 1 ? "" : "s"}</div></div>
-      <div class="fact"><div class="n">${setCount}</div><div class="l">Set${setCount === 1 ? "" : "s"} they appear in</div></div>
-      <div class="fact"><div class="n">${moneyRound(p.priciest.price)}</div><div class="l">Priciest one</div></div>
-      ${p.cheapest ? `<div class="fact"><div class="n">${moneyExact(p.cheapest.price)}</div><div class="l">Cheapest way in</div></div>` : ""}
-      ${rips.length ? `<a class="fact fact-link" href="/videos.html?q=${encodeURIComponent(p.name)}"><div class="n">${rips.length}</div><div class="l">${rips.length === 1 ? "Rip that mentions" : "Rips that mention"} one <span aria-hidden="true">&rarr;</span></div></a>` : ""}
-    </div>
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Evolution</p>
+    <h2>${esc(p.name)} does not <span class="hl">evolve</span></h2>
+    <p class="lede" style="max-width:40em">It has no pre-evolution and nothing it becomes, which puts it with the
+      ${n(DEX.filter((d) => !d.evolvesFrom && !childrenOf.has(d.name)).length - 1)} other species in the Pokedex that
+      stand alone.</p>
+    <p class="price-note">Evolution line from the National Pokedex, pokeapi.co, read ${esc(longDate(dexDoc.checked) || dexDoc.checked)}.</p>
   </div>
-</section>
+</section>`;
+    }
+    const stageHtml = stages
+      .map(
+        (row) =>
+          `<li>${row
+            .map((m) => {
+              const s = byId.get(m.id);
+              const inner =
+                `${portrait(s, "", false)}<b>${esc(m.name)}</b><span>#${m.id} &bull; ${n((s?.prints || []).length)} cards</span>`;
+              return m.id === p.id
+                ? `<span class="dx-stage" aria-current="true">${inner}</span>`
+                : `<a class="dx-stage" href="/pokemon/${esc(m.slug)}.html">${inner}</a>`;
+            })
+            .join("")}</li>`,
+      )
+      .join(`<li class="dx-arrow" aria-hidden="true">&rarr;</li>`);
+    const words = stages
+      .map((row) => list(row.map((m) => m.name)))
+      .join(", which becomes ");
+    return `
+<section class="tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Evolution</p>
+    <h2>The <span class="hl">${esc(stages[0].map((m) => m.name).join(" / "))}</span> line</h2>
+    <p class="lede" style="max-width:44em">${esc(words)}. Each one has its own page and its own cards.</p>
+    <ul class="dx-evo">${stageHtml}</ul>
+    <p class="price-note">Evolution line from the National Pokedex, pokeapi.co, read
+      ${esc(longDate(dexDoc.checked) || dexDoc.checked)}. What each evolution actually takes differs between
+      generations, so it is not stated here. Card counts are every printing we can name, in every language.</p>
+  </div>
+</section>`;
+  })();
 
+  /* ------------------------------------------------------- what beats it */
+  const effBand = (() => {
+    if (!eff) return "";
+    const row = (label, arr, note) =>
+      arr.length
+        ? `<li><b>${label}</b><span>${esc(list(arr.map(cap)))}${note ? ` &mdash; ${note}` : ""}</span></li>`
+        : "";
+    const rows =
+      row("x4", eff.x4, "double weakness") +
+      row("x2", eff.x2) +
+      row("&frac12;x", eff.half) +
+      row("&frac14;x", eff.quarter, "double resistance") +
+      row("0x", eff.zero, "no effect at all");
+    if (!rows) return "";
+    return `
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>In the video games</p>
+    <h2>What beats <span class="hl">${esc(p.name)}</span></h2>
+    <p class="lede" style="max-width:44em">Damage taken by a ${esc(types.join(" / "))} Pokemon, computed from the
+      type chart. Everything not listed does normal damage.</p>
+    <ul class="dx-eff">${rows}</ul>
+    <p class="price-note"><b>This is the video game chart, not the card game.</b> The Pokemon TCG has eleven types and
+      no type chart at all: Weakness and Resistance are printed on each individual card, and two cards of the same
+      Pokemon can print different ones. <a href="/types.html">What the card actually says</a>.
+      Type relations from pokeapi.co, read ${esc(longDate(typeDoc.checked) || typeDoc.checked)}.</p>
+  </div>
+</section>`;
+  })();
+
+  /* ---------------------------------------------------------- priced band */
+  const pricedBand = sorted.length
+    ? `
 <section class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Priciest first</p>
-    <h2>Every <span class="hl">${esc(p.name)}</span></h2>
+    <h2>Every <span class="hl">${esc(p.name)}</span> we price</h2>
     <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
          It was "Enlarge <name>" alone, which on a Pokemon with several
          printings named every button on the page identically: charizard.html
@@ -334,16 +739,16 @@ function pokePage(p) {
         .map(
           (c) => `<button class="chase-card" type="button"
         data-img="${esc(c.img ? c.img + "/high.webp" : "")}"
-        data-name="${esc(c.name)}" data-rarity="${esc(rarityLabel(c.rarity) || "")}"
+        data-name="${esc(c.name)}" data-rarity="${esc(rar(c.rarity))}"
         data-number="${esc(c.n || "")}" data-price="${esc(moneyCompact(c.price))}"
         data-set="${esc(c.setName)}"
         aria-label="Enlarge ${esc(c.name)}, ${esc(c.setName)}${c.n ? " " + esc(c.n) : ""}">
         ${c.img ? avifPicture(`<img src="${esc(c.img)}/low.webp" onerror="this.remove()" alt="${esc(c.name)} ${esc(c.n || "")}, ${esc(c.setName)}" loading="lazy"${imgDims(c.img + "/low.webp")}>`) : ""}
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(c.setName)} &bull; ${esc(c.n || "")}</div>
-        ${c.rarity ? `<div class="rr">${esc(rarityLabel(c.rarity))}</div>` : ""}
+        ${rar(c.rarity) ? `<div class="rr">${esc(rar(c.rarity))}</div>` : ""}
         ${typeof c.price === "number" ? `<div class="pr">${moneyCompact(c.price)}</div>` : ""}
-      </button>`
+      </button>`,
         )
         .join("\n      ")}
     </div>
@@ -351,45 +756,54 @@ function pokePage(p) {
       comes as a normal, holo and reverse holo at different prices, the figure is the priciest of them. Prices move
       daily, so treat these as a ballpark. <a href="/cards.html?q=${encodeURIComponent(p.name)}">Search every card</a>.</p>
   </div>
-</section>
-${(() => {
-  // Printings we do NOT price: every other set the card appears in, English or
-  // Japanese. Deduped against what is already shown above by set and number so
-  // a card we price is never listed twice.
-  //
-  // IT SITS AFTER THE PRICED BAND, AND HAS TO. "Every other Charizard printing"
-  // is defined by subtraction, so it only parses once the reader has seen what
-  // it is other THAN. This block was first on the page for a long while, which
-  // opened every Pokemon page on the cards we know least about, buried the
-  // priced grid the page is actually for, and made the dedupe comment above a
-  // lie about its own output.
-  const have = new Set(sorted.map((c) => `${c.setName}|${String(c.n).replace(/^0+/, "")}`));
-  const extra = (printings.get(p.name) || [])
-    .filter((c) => !have.has(`${c.s}|${String(c.i).replace(/^0+/, "")}`))
-    .sort((a, b) => String(a.s).localeCompare(String(b.s)) || String(a.i).localeCompare(String(b.i)));
-  if (!extra.length) return "";
+</section>`
+    : "";
 
-  // TWO GROUPS, TWO LAYOUTS. A tile in .chase-grid is as tall as the row it
-  // lands in, and that row is sized by a 245x342 card scan. A printing with no
-  // scan carries three short lines and nothing else, so it was being stretched
-  // to the height of the picture beside it: about 300px of empty card at
-  // 1024px, and 447px at 1440px, measured. Splitting them is the fix rather
-  // than shrinking the pictures, because the two rows are different things:
-  // one is a wall of cards, the other is an index of names.
-  const withScan = extra.filter((c) => c.g);
-  const noScan = extra.filter((c) => !c.g);
-  const lang = (c) => (c.l === "en" ? "" : c.l === "ja" ? "Japanese" : "Chinese");
+  /* ------------------------------------------------------ everywhere else */
+  const elsewhereBand = (() => {
+    // Printings we do NOT price: every other set the card appears in, English or
+    // Japanese. Deduped against what is already shown above by set and number so
+    // a card we price is never listed twice.
+    //
+    // IT SITS AFTER THE PRICED BAND, AND HAS TO. "Every other Charizard printing"
+    // is defined by subtraction, so it only parses once the reader has seen what
+    // it is other THAN. This block was first on the page for a long while, which
+    // opened every Pokemon page on the cards we know least about, buried the
+    // priced grid the page is actually for, and made the dedupe comment above a
+    // lie about its own output.
+    const have = new Set(sorted.map((c) => `${c.setName}|${String(c.n).replace(/^0+/, "")}`));
+    const extra = p.prints
+      .filter((c) => !have.has(`${c.s}|${String(c.i).replace(/^0+/, "")}`))
+      .sort((a, b) => String(a.s).localeCompare(String(b.s)) || String(a.i).localeCompare(String(b.i)));
+    if (!extra.length) return "";
 
-  const count =
-    !noScan.length
-      ? `${extra.length} more from sets we do not price, English and Japanese, every one with a scan.`
+    // TWO GROUPS, TWO LAYOUTS. A tile in .chase-grid is as tall as the row it
+    // lands in, and that row is sized by a 245x342 card scan. A printing with no
+    // scan carries three short lines and nothing else, so it was being stretched
+    // to the height of the picture beside it: about 300px of empty card at
+    // 1024px, and 447px at 1440px, measured. Splitting them is the fix rather
+    // than shrinking the pictures, because the two rows are different things:
+    // one is a wall of cards, the other is an index of names.
+    const withScan = extra.filter((c) => c.g);
+    const noScan = extra.filter((c) => !c.g);
+    // TCG POCKET IS LABELLED, because it is not a printing. Those cards only
+    // exist inside a phone app: there is no piece of cardboard to buy, grade or
+    // pull, and a page that quietly mixes them into "every printing" is telling
+    // a collector something false. Same tile, honest label.
+    const tag = (c) =>
+      [pocketSets.has(c.s) ? "TCG Pocket, digital" : "", c.l === "en" ? "" : c.l === "ja" ? "Japanese" : "Chinese"]
+        .filter(Boolean)
+        .join(" &bull; ");
+
+    const count = !noScan.length
+      ? `${n(extra.length)} more from sets we do not price, English and Japanese, every one with a scan.`
       : !withScan.length
-        ? `${extra.length} more from sets we do not price, English and Japanese. No scan for any of them, so this
+        ? `${n(extra.length)} more from sets we do not price, English and Japanese. No scan for any of them, so this
       is a list of names rather than a wall of cards.`
-        : `${extra.length} more from sets we do not price, English and Japanese. ${withScan.length} have a scan and
-      are pictured below. The other ${noScan.length} we can name but not show.`;
+        : `${n(extra.length)} more from sets we do not price, English and Japanese. ${n(withScan.length)} have a scan and
+      are pictured below. The other ${n(noScan.length)} we can name but not show.`;
 
-  return `
+    return `
 <section class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Everywhere else</p>
@@ -403,8 +817,8 @@ ${(() => {
         ${avifPicture(`<img src="${esc(c.g)}/low.webp" onerror="this.remove()" alt="${esc(c.n)} ${esc(c.i)}, ${esc(c.s)}" loading="lazy" decoding="async"${imgDims(c.g + "/low.webp")}>`)}
         <div class="nm">${esc(c.n)}</div>
         <div class="rr">${esc(c.s)} &bull; ${esc(c.i)}</div>
-        ${c.r ? `<div class="rr">${esc(rarityLabel(c.r))}</div>` : ""}
-        ${lang(c) ? `<div class="rr">${lang(c)}</div>` : ""}
+        ${rar(c.r) ? `<div class="rr">${esc(rar(c.r))}</div>` : ""}
+        ${tag(c) ? `<div class="rr">${tag(c)}</div>` : ""}
       </div>`,
         )
         .join("\n      ")}
@@ -416,7 +830,7 @@ ${(() => {
           (c) => `<li class="flat-item">
         <b>${esc(c.n)}</b>
         <span>${esc(c.s)} &bull; ${esc(c.i)}</span>
-        ${[c.r, lang(c)].filter(Boolean).length ? `<span>${[rarityLabel(c.r), lang(c)].filter(Boolean).map(esc).join(" &bull; ")}</span>` : ""}
+        ${[rar(c.r), tag(c)].filter(Boolean).length ? `<span>${[rar(c.r), tag(c)].filter(Boolean).join(" &bull; ")}</span>` : ""}
       </li>`,
         )
         .join("\n      ")}
@@ -425,16 +839,58 @@ ${(() => {
       A snapshot, not a live feed.</p>
   </div>
 </section>`;
-})()}
-${rips.length ? `
+  })();
+
+  return (
+    head({
+      title: `${p.name} Cards and Prices: Every Printing We Could Find | Garbage Rips 585`,
+      desc,
+      canonical: url,
+      ld,
+      noindex: !p.index,
+    }) + `
+<header class="set-hero">
+  <div class="wrap">
+    <span class="kicker">#${p.id} &bull; ${esc(list(types))} &bull; Generation ${p.gen}${REGION[p.gen] ? `, ${REGION[p.gen]}` : ""}</span>
+    <h1>${esc(p.name)} <span class="hl">cards</span></h1>
+    <p class="lede" style="max-width:34em">Every ${esc(p.name)} card we could find, what the ones we price are worth,
+      and everything else worth knowing about ${esc(p.name)}.</p>
+  </div>
+</header>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / <a href="/pokemon/">Pokemon</a> / ${esc(p.name)}</p>
+    <div class="dx-top">
+      ${portrait(p, "dx-art", true)}
+      <ul class="facts-list">
+        ${facts.map((f) => `<li>${f}</li>`).join("\n        ")}
+      </ul>
+    </div>
+    <div class="facts">
+      <div class="fact"><div class="n">${n(p.prints.length)}</div><div class="l">Printing${p.prints.length === 1 ? "" : "s"} we can name</div></div>
+      <div class="fact"><div class="n">${n(p.sets.size)}</div><div class="l">Set${p.sets.size === 1 ? "" : "s"} they appear in</div></div>
+      ${p.priciest ? `<div class="fact"><div class="n">${moneyRound(p.priciest.price)}</div><div class="l">Priciest one we price</div></div>` : ""}
+      ${p.cheapest ? `<div class="fact"><div class="n">${moneyExact(p.cheapest.price)}</div><div class="l">Cheapest way in</div></div>` : ""}
+      ${p.rips.length ? `<a class="fact fact-link" href="/videos.html?q=${encodeURIComponent(p.name)}"><div class="n">${p.rips.length}</div><div class="l">${p.rips.length === 1 ? "Rip that mentions" : "Rips that mention"} one <span aria-hidden="true">&rarr;</span></div></a>` : ""}
+    </div>
+    ${p.art ? `<p class="price-note">Artwork and Pokedex data from pokeapi.co, read ${esc(longDate(dexDoc.checked) || dexDoc.checked)}.
+      Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>` : ""}
+  </div>
+</section>
+${evoBand}
+${pricedBand}
+${elsewhereBand}
+${effBand}
+${p.rips.length ? `
 <section class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
-    <h2>We went hunting <span class="hl">${rips.length}</span> time${rips.length === 1 ? "" : "s"}</h2>
+    <h2>We went hunting <span class="hl">${p.rips.length}</span> time${p.rips.length === 1 ? "" : "s"}</h2>
     <ul class="poke-rips">
-      ${rips.slice(0, 8).map((v) => `<li><a href="/${esc(v.path)}">${esc(v.title)}</a></li>`).join("\n      ")}
+      ${p.rips.slice(0, 8).map((v) => `<li><a href="/${esc(v.path)}">${esc(v.title)}</a></li>`).join("\n      ")}
     </ul>
-    ${rips.length > 8 ? `<p class="price-note"><a href="/videos.html?q=${encodeURIComponent(p.name)}">All ${rips.length} rips mentioning ${esc(p.name)}</a>.</p>` : ""}
+    ${p.rips.length > 8 ? `<p class="price-note"><a href="/videos.html?q=${encodeURIComponent(p.name)}">All ${p.rips.length} rips mentioning ${esc(p.name)}</a>.</p>` : ""}
   </div>
 </section>` : ""}
 
@@ -449,7 +905,7 @@ ${rips.length ? `
 </div>
 
 </main>
-${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official.")}
+${footer("Card data from TCGdex, prices from TCGplayer, Pokedex data and artwork from PokeAPI. Fan made, not official.")}
 <script>
 (function(){
   var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), last=null;
@@ -457,7 +913,7 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official."
     last=b;
     img.src=b.dataset.img; img.alt=b.dataset.name+' '+b.dataset.number;
     document.getElementById('lbNm').textContent=b.dataset.name;
-    document.getElementById('lbRr').textContent=[b.dataset.set,b.dataset.rarity,b.dataset.number].filter(Boolean).join(' \u2022 ');
+    document.getElementById('lbRr').textContent=[b.dataset.set,b.dataset.rarity,b.dataset.number].filter(Boolean).join(' • ');
     document.getElementById('lbPr').textContent=b.dataset.price||'';
     lb.classList.add('on'); document.body.style.overflow='hidden';
     lb.querySelector('.lb-close').focus();
@@ -473,14 +929,52 @@ ${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official."
 ${APP_JS}
 </body>
 </html>
-`;
+`
+  );
+}
+
+/* ------------------------------------------------------------- the index */
+
+// MOST VALUABLE **AND** MOST POPULAR, which are not the same list.
+//
+// Ranking by priciest card alone is a value list: it surfaces whatever happens
+// to carry an expensive chase card and misses species that are printed
+// constantly and cheaply. Pikachu has 250 printings across the corpus and Eevee
+// 153; both are obviously "popular Pokemon" and neither is guaranteed a slot by
+// price. Printing count is the popularity signal and it is a real one rather
+// than a guess: it is how often The Pokemon Company has chosen to print that
+// species. The two lists are taken separately and unioned, so the band is
+// genuinely "the most valuable and the most popular" rather than a blended score
+// that satisfies neither description.
+//
+// THIS IS NOW A FEATURED BAND RATHER THAN THE WHOLE PAGE. It used to BE the
+// roster, which is why the file it writes was capped at 30: the cap was the
+// answer to "which pages exist". Every species has a page now, so this list
+// answers a much smaller question, namely which 33 get a card picture at the top
+// of the index. The Pokedex below it is the real index.
+const eligible = species.filter((p) => p.index && p.priciest);
+const byValue = [...eligible].sort((a, b) => b.priciest.price - a.priciest.price).slice(0, FEATURED);
+const byPopularity = [...eligible].sort((a, b) => b.prints.length - a.prints.length).slice(0, FEATURED);
+// THE MASCOTS ARE PINNED. The band ranks by priciest card, which is the right
+// default and would never surface either of these: Trubbish and Garbodor are
+// commons worth pennies. They are also the channel's whole identity and the
+// reason the site is called Garbage Rips, and the corpus gives them real pages
+// rather than thin ones.
+const PINNED = ["Trubbish", "Garbodor"];
+const featured = [];
+const seen = new Set();
+for (const p of [...byValue, ...byPopularity, ...PINNED.map((nm) => species.find((s) => s.name === nm))]) {
+  if (!p || seen.has(p.id)) continue;
+  seen.add(p.id);
+  featured.push(p);
 }
 
 function indexPage() {
   const url = `${SITE}/pokemon/`;
+  const indexed = species.filter((p) => p.index).length;
   const desc =
-    `Every card for the ${roster.length} most valuable and most printed Pokemon in the modern sets, with current market prices. ` +
-    `Charizard, Umbreon, Pikachu, Eevee and more.`;
+    `Every Pokemon in the National Pokedex, all ${n(DEX.length)} of them, with every card we could find for each one ` +
+    `and what the ones we price are worth. Charizard, Umbreon, Pikachu, Eevee and 1,021 more.`;
   const ld = [
     {
       "@context": "https://schema.org",
@@ -491,21 +985,32 @@ function indexPage() {
       ],
     },
   ];
-  return head({ title: `Pokemon Card Values by Pokemon: Charizard, Umbreon, Pikachu | Garbage Rips 585`, desc, canonical: url, ld }) + `
+
+  const gens = [...new Set(DEX.map((p) => p.gen))].sort((a, b) => a - b);
+
+  return (
+    head({
+      title: `Every Pokemon, Every Card: the ${n(DEX.length)} Species Pokedex | Garbage Rips 585`,
+      desc,
+      canonical: url,
+      ld,
+    }) + `
 <header class="set-hero">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     <h1>By <span class="hl">Pokemon</span></h1>
-    <p class="lede" style="max-width:34em">Chasing one in particular? Every card of it across every set we rip, with
-      what it is worth and the cheapest way to get one.</p>
+    <p class="lede" style="max-width:34em">All ${n(DEX.length)} species, each with every card of it we could find,
+      what the ones we price are worth, its evolution line and what beats it.</p>
   </div>
 </header>
 
 <section class="tight">
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / Pokemon</p>
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Most valuable, most printed</p>
+    <h2>The ones people <span class="hl">chase</span></h2>
     <div class="poke-grid">
-      ${roster
+      ${featured
         .map(
           // THE LCP ELEMENT OF THIS PAGE WAS loading="lazy".
           //
@@ -519,7 +1024,7 @@ function indexPage() {
           //
           // Only the FIRST tile is eager. Everything from the second on stays
           // lazy, which is right: on the narrowest phone only one is above the
-          // fold, and 51 eager images would be a worse bug than the one this
+          // fold, and 33 eager images would be a worse bug than the one this
           // fixes.
           //
           // NO fetchpriority="high". It was tried and measured, and it is the
@@ -537,7 +1042,7 @@ function indexPage() {
           (p, i) => `<a class="poke-card" href="/pokemon/${esc(p.slug)}.html">
         ${p.priciest.img ? avifPicture(`<img src="${esc(p.priciest.img)}/low.webp" onerror="this.remove()" alt="${esc(p.priciest.name)}, the most valuable ${esc(p.name)} card" ${i === 0 ? `decoding="async"` : `loading="lazy"`} width="245" height="337">`) : ""}
         <span class="poke-nm">${esc(p.name)}</span>
-        <span class="poke-meta">${p.list.length} cards &bull; ${p.sets.size} sets</span>
+        <span class="poke-meta">${n(p.prints.length)} cards &bull; ${n(p.sets.size)} sets</span>
         ${
           // NOTHING RATHER THAN A ZERO, which is the rule wanted.html states in
           // its own footnote and which this page was breaking: two entries
@@ -554,49 +1059,165 @@ function indexPage() {
               ? `<span class="poke-pr">top ${moneyExact(p.priciest.price)}</span>`
               : `<span class="poke-pr">top ${moneyRound(p.priciest.price)}</span>`
         }
-      </a>`
+      </a>`,
         )
         .join("\n      ")}
     </div>
-    <p class="price-note">The ${roster.length} with the most valuable cards and the most printings in the sets we cover,
-      ranked from the card data, plus the two the channel is named after. Anything else is on the
-      <a href="/cards.html">card search</a>, which covers all ${cards.length.toLocaleString("en-US")}.</p>
+  </div>
+</section>
+
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>All of them</p>
+    <h2>The whole <span class="hl">Pokedex</span></h2>
+    <!-- A THOUSAND TILES IS A FINDING PROBLEM, NOT A SCROLLING PROBLEM, and the
+         answer is a filter over markup that is already there rather than a
+         paginated list. The whole dex ships as plain text in the HTML, so the
+         page is complete and crawlable with JS off and every one of the 1,025
+         urls is a real link a crawler can follow from here; the box below only
+         HIDES rows. NO PICTURES IN THIS LIST, deliberately: 1,025 portraits at
+         9KB each is 9MB, and even lazy that is a scroll that never stops
+         loading. The pictures live on the pages and in the band above. -->
+    <label class="sr-only" for="dxq">Find a Pokemon by name or Pokedex number</label>
+    <input class="dx-find" id="dxq" type="search" autocomplete="off"
+      placeholder="Find a Pokemon: name or dex number">
+    <div class="dx-chips" role="group" aria-label="Filter by generation">
+      <button class="chip" type="button" data-gen="" aria-pressed="true">All</button>
+      ${gens
+        .map(
+          (g) =>
+            `<button class="chip" type="button" data-gen="${g}" aria-pressed="false">Gen ${g}${REGION[g] ? ` &bull; ${REGION[g]}` : ""}</button>`,
+        )
+        .join("\n      ")}
+    </div>
+    <p class="dx-count" id="dxCount" role="status">All ${n(DEX.length)} Pokemon</p>
+    ${gens
+      .map(
+        (g) => `<div class="dx-gen" data-gen="${g}">
+      <h3>Generation ${g}${REGION[g] ? ` &bull; ${REGION[g]}` : ""}</h3>
+      <ul class="dx-list">
+        ${species
+          .filter((p) => p.gen === g)
+          .map(
+            (p) =>
+              `<li><a class="dx-item" href="/pokemon/${esc(p.slug)}.html"><b>${esc(p.name)}</b><span>#${String(p.id).padStart(4, "0")} &bull; ${n(p.prints.length)} cards</span></a></li>`,
+          )
+          .join("\n        ")}
+      </ul>
+    </div>`,
+      )
+      .join("\n    ")}
+    <p class="price-note">Species list from the National Pokedex, pokeapi.co, read
+      ${esc(longDate(dexDoc.checked) || dexDoc.checked)}. Card counts are every printing we could name for that
+      Pokemon in any language, from the TCGdex card database, read ${esc(longDate(pChecked) || pChecked)}.
+      ${n(indexed)} of the ${n(DEX.length)} pages carry a market price on at least one card and enough scans to be
+      worth a search engine's time; the rest are published but marked noindex until they do.
+      Anything else is on the <a href="/cards.html">card search</a>, which covers all ${n(cards.length)}.</p>
   </div>
 </section>
 
 </main>
-${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official.")}
+${footer("Card data from TCGdex, prices from TCGplayer, Pokedex data from PokeAPI. Fan made, not official.")}
+<script>
+(function(){
+  var q=document.getElementById('dxq'), count=document.getElementById('dxCount');
+  var gens=[].slice.call(document.querySelectorAll('.dx-gen'));
+  var chips=[].slice.call(document.querySelectorAll('.dx-chips .chip'));
+  // THE NAME AND THE DEX NUMBER, NOT THE WHOLE TILE. Matching a.textContent
+  // meant the card count was searchable too, so typing 47 lit up every Pokemon
+  // with 47 printings as well as every dex number containing 47. The tile
+  // carries no data- attribute for this on purpose: 1,025 of them would be real
+  // bytes on the wire and both strings are already in the markup.
+  var items=[].slice.call(document.querySelectorAll('.dx-item')).map(function(a){
+    var nm=a.querySelector('b'), meta=a.querySelector('span');
+    var k=(nm?nm.textContent:'')+' '+(meta?meta.textContent.split('•')[0]:'');
+    return {el:a.parentNode, k:k.toLowerCase().replace(/[^a-z0-9 #]/g,'')};
+  });
+  var gen='';
+  function apply(){
+    var t=(q.value||'').toLowerCase().trim().replace(/[^a-z0-9 #]/g,'');
+    var shown=0;
+    for(var i=0;i<items.length;i++){
+      var hit=!t||items[i].k.indexOf(t)>-1;
+      items[i].el.classList.toggle('is-off',!hit);
+      if(hit) shown++;
+    }
+    for(var g=0;g<gens.length;g++){
+      var offGen=gen&&gens[g].dataset.gen!==gen;
+      var empty=!gens[g].querySelector('li:not(.is-off)');
+      gens[g].classList.toggle('is-off', !!offGen||empty);
+      if(offGen){
+        var hidden=gens[g].querySelectorAll('li:not(.is-off)').length;
+        shown-=hidden;
+      }
+    }
+    count.textContent = shown===${DEX.length} ? 'All ${n(DEX.length)} Pokemon'
+      : shown===0 ? 'Nothing matches that' : shown+(shown===1?' Pokemon':' Pokemon');
+  }
+  q.addEventListener('input',apply);
+  chips.forEach(function(c){
+    c.addEventListener('click',function(){
+      gen=c.dataset.gen||'';
+      chips.forEach(function(o){ o.setAttribute('aria-pressed', o===c ? 'true':'false'); });
+      apply();
+    });
+  });
+})();
+</script>
 ${APP_JS}
 </body>
 </html>
-`;
+`
+  );
 }
+
+/* -------------------------------------------------------------------- write */
 
 await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
-for (const p of roster) await writeFile(join(OUT, `${p.slug}.html`), pokePage(p));
+for (const p of species) await writeFile(join(OUT, `${p.slug}.html`), pokePage(p));
 await writeFile(join(OUT, "index.html"), indexPage());
 
-// The search index the site-wide search reads for these pages.
+// The search index the site-wide search reads for these pages, and the list
+// build-pages.mjs turns into sitemap entries.
+//
+// EVERY SPECIES IS IN HERE AND ONLY SOME OF THEM ARE INDEXABLE. The site's own
+// search should find Bonsly; Google should not be asked to rank a page that
+// cannot put a price on a single card. `index` is what tells the two apart, and
+// build-pages.mjs filters the sitemap on it. Dropping that filter would put
+// noindex pages in the sitemap, which check-build.py fails the build over.
+const indexed = species.filter((p) => p.index);
 await writeFile(
   join(ROOT, "public/data/pokemon-index.json"),
   JSON.stringify({
     checked,
-    pokemon: roster.map((p) => ({
+    count: species.length,
+    indexable: indexed.length,
+    pokemon: species.map((p) => ({
+      id: p.id,
       name: p.name,
       slug: p.slug,
-      cards: p.list.length,
+      cards: p.prints.length,
       sets: p.sets.size,
-      top: p.priciest.price,
+      top: p.priciest ? p.priciest.price : null,
+      index: p.index,
     })),
-  }) + "\n"
+  }) + "\n",
 );
 
-console.log(`Wrote ${roster.length} Pokemon pages + index to public/pokemon/`);
-for (const p of roster.slice(0, 8)) {
+const noArt = species.filter((p) => !p.art).length;
+console.log(`Wrote ${species.length} Pokemon pages + index to public/pokemon/`);
+console.log(
+  `  ${indexed.length} indexable, ${species.length - indexed.length} noindex ` +
+    `(bar: ${MIN_PRICED}+ priced card, ${MIN_EN_SCANS}+ English scans, ${MIN_SETS}+ sets)`,
+);
+if (unresolved) console.log(`  ${unresolved} priced cards could not be resolved to a dex number`);
+if (noArt) console.log(`  ${noArt} have no mirrored artwork: run node scripts/sync-species-art.mjs`);
+if (!typeDoc) console.log(`  no data/type-chart.json, so no page shows a type table: run node scripts/sync-type-chart.mjs`);
+for (const p of indexed.slice().sort((a, b) => b.prints.length - a.prints.length).slice(0, 6)) {
   console.log(
     `  /pokemon/${p.slug}.html`.padEnd(34) +
-      `${String(p.list.length).padStart(3)} cards, ${p.sets.size} sets, top ${moneyRound(p.priciest.price)}, ${ripsFor(p.name).length} rips`
+      `${String(p.prints.length).padStart(4)} printings, ${p.sets.size} sets, ` +
+      `${p.priced.length} priced, top ${moneyRound(p.priciest.price)}, ${p.rips.length} rips`,
   );
 }
-console.log(`  ... and ${roster.length - 8} more`);

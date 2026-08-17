@@ -179,6 +179,12 @@ export const NAV = [
     // other.
     ["/what-set.html", "Set finder"],
     ["/rarity.html", "Rarity guide"],
+    // Joins the "holding one card, asking what it is" cluster: Set finder reads
+    // the number, Rarity guide reads the symbol, Card types reads the corner,
+    // and this reads the print run. "Base Set" is unique in this menu and
+    // front-loads; "prints" says print runs rather than checklist, which /sets/
+    // already owns. It cannot be misread as "Fakes" or "Set finder" at a glance.
+    ["/base-set.html", "Base Set prints"],
     // The third of that cluster. Set finder reads the number after the slash,
     // the rarity guide reads the symbol beside it, and this one reads the type
     // in the top right and the Weakness in the bottom left. All three are the
@@ -226,6 +232,17 @@ export const NAV = [
     // official Pokemon release; that one is the minigames you play here.
     ["/video-games.html", "Video games"],
     ["/lore.html", "Pokemon lore"],
+    // "Evolution" is the distinguishing noun and appears nowhere else in this
+    // menu. It reads as a different destination from "Card types" (the card
+    // game's rules), "By Pokemon" (a card list) and "Pokemon lore" (Pokedex
+    // facts), which is the test this file applies everywhere.
+    //
+    // /eevee-evolutions.html is deliberately NOT here. It is one entry from the
+    // chart given its own address because "how do I get Umbreon" is asked as
+    // its own question, and it is reachable from the chart's fork list and its
+    // own breadcrumb. A menu line would put it in competition with the page it
+    // belongs to.
+    ["/evolution.html", "Evolution chart"],
   ]],
   ["Rochester, NY", [
     // Shops and shows sit next to each other deliberately: they answer the same

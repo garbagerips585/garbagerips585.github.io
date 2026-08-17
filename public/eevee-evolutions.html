@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All 8 Eevee Evolutions and How to Get Each One | Garbage Rips 585</title>
+<meta name="description" content="All eight Eevee evolutions and exactly what each one takes: which stone, which friendship level, which time of day, and where the answer changes by game.">
+<link rel="canonical" href="https://garbagerips585.github.io/eevee-evolutions.html">
+<meta property="og:title" content="How do you get every Eeveelution?">
+<meta property="og:description" content="All eight Eevee evolutions and exactly what each one takes: which stone, which friendship level, which time of day, and where the answer changes by game.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garbagerips585.github.io/eevee-evolutions.html">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-eevee.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-eevee.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#111111">
+<link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=17b9bdb3">
+<style>
+/* THE CHAIN. A COLUMN ON A PHONE and a row from 720px, and that is not a
+   preference: at 390px the content box measures about 326px, and three name
+   boxes plus two arrows do not fit across it at any legible size. Laid out as a
+   row it either pushes the document sideways or shrinks the names to 10px.
+   Vertical, every box is full width and the condition sits beside the arrow. */
+.ev-line{display:flex;flex-direction:column;align-items:stretch;gap:0}
+.ev-node{display:flex;align-items:baseline;gap:8px;padding:9px 12px;border:2px solid var(--keyline);
+  border-radius:9px;background:var(--paper);color:inherit;text-decoration:none;min-height:44px;
+  box-sizing:border-box}
+a.ev-node{background:var(--chip-gold-bg)}
+a.ev-node:hover{background:var(--mustard)}
+.ev-nm{font:700 var(--t-body)/1.3 var(--body)}
+.ev-no{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
+/* The step: the drawn arrow and the condition it carries. ONE symbol in a
+   SQUARE box, turned a quarter turn by CSS on a phone, so the layout box is
+   identical in both directions and nothing jumps when the breakpoint flips.
+   Two separate symbols would have been a second element on every one of the
+   500-odd steps on the chart page. */
+.ev-step{display:flex;align-items:center;gap:10px;padding:4px 0 4px 6px}
+.ev-ar{width:30px;height:30px;flex:0 0 30px;fill:var(--gold);transform:rotate(90deg)}
+.ev-cond{font-size:var(--t-sm);line-height:1.45;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px}
+.ev-cond b{font-weight:700}
+.ev-cond span{color:var(--ink-2)}
+.ev-plus{color:var(--gold-deep) !important;font-weight:700}
+.ev-form{display:block;flex:1 0 100%;font:700 var(--t-micro)/1.4 var(--mono);
+  letter-spacing:.04em;text-transform:uppercase;color:var(--ink) !important}
+.ev-games{display:flex;flex-wrap:wrap;gap:4px;flex:1 0 100%;margin-top:2px}
+.ev-games span{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2) !important;
+  border:1px solid var(--hair);border-radius:var(--r-pill);padding:4px 8px}
+.ev-inc{flex:1 0 100%;font-size:var(--t-micro);line-height:1.5;color:var(--ink-2) !important;margin-top:2px}
+/* MORE THAN ONE ANSWER. This is the block both pages really exist for, so it is
+   fenced rather than run on: a reader has to see at a glance that the answer
+   depends on which game they are holding. */
+.ev-multi{border-left:4px solid var(--gold);padding-left:10px;margin:2px 0}
+.ev-multi-h{display:block;font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink);margin-bottom:4px}
+.ev-cond-alt + .ev-cond-alt{margin-top:6px;padding-top:6px;border-top:1px solid var(--hair)}
+/* THE FORK. One drawn elbow per arm rather than one shared trunk: a trunk has
+   to know the height of the arms it spans, which CSS cannot tell an SVG, and
+   eight stacked elbows read as a fan on their own. */
+.ev-arms{list-style:none;margin:0;padding:0}
+.ev-arm{display:grid;grid-template-columns:24px minmax(0,1fr);gap:6px;align-items:start;margin-top:4px}
+.ev-fk{width:22px;height:34px;fill:var(--gold);color:var(--gold);margin-top:-4px}
+.ev-armbody{min-width:0}
+.ev-armbody .ev-line{margin-top:4px}
+@media(min-width:720px){
+  .ev-line{flex-direction:row;align-items:center;flex-wrap:wrap;gap:2px}
+  .ev-ar{transform:none}
+  .ev-step{padding:4px 6px;max-width:22em}
+  .ev-arm{grid-template-columns:28px minmax(0,1fr)}
+}
+
+.ee-lede{max-width:46em}
+.ee-fan{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
+  box-shadow:var(--hard-lg);padding:var(--s4);margin:var(--s5) 0}
+.ee-jump{display:flex;flex-wrap:wrap;gap:6px;margin:var(--s4) 0 0}
+.ee-jump a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;
+  border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
+  text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
+.ee-jump a:hover{border-color:var(--ink);background:var(--mustard)}
+.ee-list{display:flex;flex-direction:column;gap:var(--s4);margin-top:var(--s4)}
+.ee-t{border:2px solid var(--hair);border-radius:12px;background:var(--card);padding:var(--s4);
+  scroll-margin-top:var(--s5)}
+.ee-th{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2);margin-bottom:var(--s3)}
+.ee-th h3{font:400 var(--t-m)/1.15 var(--display)}
+.ee-no{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
+.ee-badge{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  padding:5px 8px;border-radius:5px;border:1px solid var(--keyline);background:var(--mustard);
+  color:var(--on-accent)}
+.ee-say{font-size:var(--t-sm);line-height:1.55;max-width:44em;margin-top:var(--s3)}
+.ee-note{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
+  box-shadow:var(--hard-lg);padding:var(--s4);margin:var(--s5) 0}
+.ee-note p{font-size:var(--t-sm);line-height:1.55;max-width:46em}
+.ee-note p + p{margin-top:var(--s3)}
+.ee-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
+@media(min-width:1000px){
+  .ee-lede,.ee-src,.ee-note p,.ee-say,.ev-p{max-width:var(--measure)}
+}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Evolution chart","item":"https://garbagerips585.github.io/evolution.html"},{"@type":"ListItem","position":3,"name":"Eevee"}]}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="evoArrow" viewBox="0 0 40 24"><path d="M2 9h21V3l15 9-15 9v-6H2z"/></symbol>
+<symbol id="evoFork" viewBox="0 0 28 44"><path d="M8 0v19c0 6 3 9 9 9" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><path d="M15 22.5L23 28l-8 5.5z"/></symbol>
+</defs></svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <form class="bar-search" role="search" action="/search.html" method="get">
+      <label class="sr-only" for="navSearch">Search cards, sets, guides and rips</label>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+      <input id="navSearch" name="q" type="search" placeholder="Search cards, sets, rips" aria-label="Search cards, sets, guides and every rip" autocomplete="off">
+    </form>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/cards.html">Card search</a>
+      <a href="/sets/">Set guides</a>
+      <a href="/start.html">Start here</a>
+      <a href="/card-shows.html">Card shows</a>
+    </nav>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span>Menu</span>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="All sections">
+  <div class="menu-inner">
+    <div class="menu-g">
+      <p class="menu-h">Watch</p>
+      <ul>
+        <li><a href="/videos.html">Rips</a></li>
+        <li><a href="/playlists.html">Playlists</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">The binder</p>
+      <ul>
+        <li><a href="/hall.html">Best pulls</a></li>
+        <li><a href="/wanted.html">Most wanted</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Cards</p>
+      <ul>
+        <li><a href="/cards.html">Card search</a></li>
+        <li><a href="/pokemon/">By Pokemon</a></li>
+        <li><a href="/sets/">Set guides</a></li>
+        <li><a href="/expansions.html">Every set ever</a></li>
+        <li><a href="/upcoming.html">Coming next</a></li>
+        <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/msrp.html">MSRP check</a></li>
+        <li><a href="/pack-prices.html">Pack prices</a></li>
+        <li><a href="/how-many-packs.html">Packs per box</a></li>
+        <li><a href="/openings/">Sealed products</a></li>
+        <li><a href="/drops.html">Drops this week</a></li>
+        <li><a href="/most-valuable-cards.html">Priciest cards</a></li>
+        <li><a href="/most-expensive-sealed.html">Priciest sealed</a></li>
+        <li><a href="/top-graded.html">PSA 10 top 100</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Guides</p>
+      <ul>
+        <li><a href="/start.html">Start here</a></li>
+        <li><a href="/how-to-play.html">How to play</a></li>
+        <li><a href="/tcg-live.html">Code cards</a></li>
+        <li><a href="/tcg-pocket.html">Phone version</a></li>
+        <li><a href="/decks.html">Deck builds</a></li>
+        <li><a href="/top-100-playable.html">Most played cards</a></li>
+        <li><a href="/what-set.html">Set finder</a></li>
+        <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/base-set.html">Base Set prints</a></li>
+        <li><a href="/types.html">Card types</a></li>
+        <li><a href="/fake-cards.html">Fakes</a></li>
+        <li><a href="/will-it-grade.html">Will it grade</a></li>
+        <li><a href="/grading.html">Grading cost</a></li>
+        <li><a href="/selling.html">Where to sell</a></li>
+        <li><a href="/buying.html">Where to buy</a></li>
+        <li><a href="/luck.html">Luck, measured</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Play</p>
+      <ul>
+        <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
+        <li><a href="/lore.html">Pokemon lore</a></li>
+        <li><a href="/evolution.html">Evolution chart</a></li>
+      </ul>
+    </div>
+    <div class="menu-g">
+      <p class="menu-h">Rochester, NY</p>
+      <ul>
+        <li><a href="/card-shows.html">Card shows</a></li>
+        <li><a href="/shops.html">Card shops</a></li>
+        <li><a href="/vendors.html">Local vendors</a></li>
+        <li><a href="/creators.html">Local creators</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </div>
+  </div>
+  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe on YouTube</a>
+</nav>
+<main id="main">
+  <section class="tight">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> /
+        <a href="/evolution.html">Evolution chart</a> / <span>Eevee</span></nav>
+      <h1>How do you get every <span class="hl">Eeveelution</span>?</h1>
+      <p class="lede ee-lede">Eight of them, and no two work the same way. Three want a stone. Two want friendship
+        and a clock. Two used to want a specific rock in a specific forest and now want a stone instead. One wants
+        a move. <b>Eevee is the only Pokemon whose answer is eight answers</b>, which is why it gets a page.</p>
+      <p class="lede ee-lede">Here is the whole fork first, then each one on its own with what it takes.</p>
+
+      <div class="ee-fan">
+<div class="ev-line"><a class="ev-node" href="/pokemon/eevee.html"><span class="ev-nm">Eevee</span><span class="ev-no">#133</span></a></div><ul class="ev-arms"><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-cond"><b>Use a Water Stone</b></div><div class="ev-line"><a class="ev-node" href="/pokemon/vaporeon.html"><span class="ev-nm">Vaporeon</span><span class="ev-no">#134</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-cond"><b>Use a Thunder Stone</b></div><div class="ev-line"><a class="ev-node" href="/pokemon/jolteon.html"><span class="ev-nm">Jolteon</span><span class="ev-no">#135</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-cond"><b>Use a Fire Stone</b></div><div class="ev-line"><a class="ev-node" href="/pokemon/flareon.html"><span class="ev-nm">Flareon</span><span class="ev-no">#136</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-cond"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with friendship 160 or higher</span><span class="ev-plus" aria-hidden="true">+</span><span>during the day</span></div><div class="ev-line"><a class="ev-node" href="/pokemon/espeon.html"><span class="ev-nm">Espeon</span><span class="ev-no">#196</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-cond"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with friendship 160 or higher</span><span class="ev-plus" aria-hidden="true">+</span><span>at night</span></div><div class="ev-line"><a class="ev-node" href="/pokemon/umbreon.html"><span class="ev-nm">Umbreon</span><span class="ev-no">#197</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-multi"><span class="ev-multi-h">6 different answers, by game</span><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Eterna Forest</span><span class="ev-games"><span>Diamond and Pearl</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Pinwheel Forest</span><span class="ev-games"><span>Black and White</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Petalburg Woods</span><span class="ev-games"><span>Omega Ruby and Alpha Sapphire</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Kalos Route 20</span><span class="ev-games"><span>X and Y</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Lush Jungle</span><span class="ev-games"><span>Sun and Moon</span></span></div><div class="ev-cond ev-cond-alt"><b>Use a Leaf Stone</b><span class="ev-games"><span>Sword and Shield</span></span></div></div><div class="ev-line"><a class="ev-node" href="/pokemon/leafeon.html"><span class="ev-nm">Leafeon</span><span class="ev-no">#470</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-multi"><span class="ev-multi-h">6 different answers, by game</span><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Sinnoh Route 217</span><span class="ev-games"><span>Diamond and Pearl</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Twist Mountain</span><span class="ev-games"><span>Black and White</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Shoal Cave</span><span class="ev-games"><span>Omega Ruby and Alpha Sapphire</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Frost Cavern</span><span class="ev-games"><span>X and Y</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Mount Lanakila</span><span class="ev-games"><span>Sun and Moon</span></span></div><div class="ev-cond ev-cond-alt"><b>Use an Ice Stone</b><span class="ev-games"><span>Sword and Shield</span></span></div></div><div class="ev-line"><a class="ev-node" href="/pokemon/glaceon.html"><span class="ev-nm">Glaceon</span><span class="ev-no">#471</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-multi"><span class="ev-multi-h">2 different answers, by game</span><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with 2 or more affection hearts</span><span class="ev-plus" aria-hidden="true">+</span><span>knowing a Fairy type move</span><span class="ev-games"><span>X and Y</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with friendship 160 or higher</span><span class="ev-plus" aria-hidden="true">+</span><span>knowing a Fairy type move</span><span class="ev-games"><span>Sword and Shield</span></span></div></div><div class="ev-line"><a class="ev-node" href="/pokemon/sylveon.html"><span class="ev-nm">Sylveon</span><span class="ev-no">#700</span></a></div></div></li></ul>
+      </div>
+
+      <nav class="ee-jump" aria-label="Jump to an Eeveelution">
+        <a href="#vaporeon">Vaporeon</a>
+        <a href="#jolteon">Jolteon</a>
+        <a href="#flareon">Flareon</a>
+        <a href="#espeon">Espeon</a>
+        <a href="#umbreon">Umbreon</a>
+        <a href="#leafeon">Leafeon</a>
+        <a href="#glaceon">Glaceon</a>
+        <a href="#sylveon">Sylveon</a>
+      </nav>
+
+      <div class="ee-list">
+        <article class="ee-t" id="vaporeon">
+          <div class="ee-th">
+            <h3>Vaporeon</h3>
+            <span class="ee-no">#134</span>
+            <!-- NO "n answers" BADGE HERE. condsFor already prints that heading
+                 immediately below, so the badge repeated it two lines apart and
+                 read like a stutter. Screenshotted at 390 before removing. -->
+          </div>
+          <div class="ee-body">
+            <div class="ev-cond"><b>Use a Water Stone</b></div>
+            <p class="ee-say">A Water Stone, and nothing else. No level, no friendship, no time of day. The three stone ones are the easy three, and they are easy in exactly the same way.</p>
+          </div>
+        </article>
+        <article class="ee-t" id="jolteon">
+          <div class="ee-th">
+            <h3>Jolteon</h3>
+            <span class="ee-no">#135</span>
+            <!-- NO "n answers" BADGE HERE. condsFor already prints that heading
+                 immediately below, so the badge repeated it two lines apart and
+                 read like a stutter. Screenshotted at 390 before removing. -->
+          </div>
+          <div class="ee-body">
+            <div class="ev-cond"><b>Use a Thunder Stone</b></div>
+            <p class="ee-say">A Thunder Stone. Same shape as Vaporeon, different stone.</p>
+          </div>
+        </article>
+        <article class="ee-t" id="flareon">
+          <div class="ee-th">
+            <h3>Flareon</h3>
+            <span class="ee-no">#136</span>
+            <!-- NO "n answers" BADGE HERE. condsFor already prints that heading
+                 immediately below, so the badge repeated it two lines apart and
+                 read like a stutter. Screenshotted at 390 before removing. -->
+          </div>
+          <div class="ee-body">
+            <div class="ev-cond"><b>Use a Fire Stone</b></div>
+            <p class="ee-say">A Fire Stone. That is the last of the three that are one item and no conditions.</p>
+          </div>
+        </article>
+        <article class="ee-t" id="espeon">
+          <div class="ee-th">
+            <h3>Espeon</h3>
+            <span class="ee-no">#196</span>
+            <!-- NO "n answers" BADGE HERE. condsFor already prints that heading
+                 immediately below, so the badge repeated it two lines apart and
+                 read like a stutter. Screenshotted at 390 before removing. -->
+          </div>
+          <div class="ee-body">
+            <div class="ev-cond"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with friendship 160 or higher</span><span class="ev-plus" aria-hidden="true">+</span><span>during the day</span></div>
+            <p class="ee-say">The first one that is not an item. Friendship 160 or higher, then a level up, and it has to happen in the daytime. Friendship is not a stat you can see on the card, which is what makes this the one people get wrong: it is built up by carrying the Pokemon around rather than bought.</p>
+          </div>
+        </article>
+        <article class="ee-t" id="umbreon">
+          <div class="ee-th">
+            <h3>Umbreon</h3>
+            <span class="ee-no">#197</span>
+            <!-- NO "n answers" BADGE HERE. condsFor already prints that heading
+                 immediately below, so the badge repeated it two lines apart and
+                 read like a stutter. Screenshotted at 390 before removing. -->
+          </div>
+          <div class="ee-body">
+            <div class="ev-cond"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with friendship 160 or higher</span><span class="ev-plus" aria-hidden="true">+</span><span>at night</span></div>
+            <p class="ee-say">Exactly Espeon's condition with the clock moved. Friendship 160 or higher, a level up, at night. The pair is deliberate and it is the reason both are famous: one Eevee, one number, and the only difference is what time you press the button.</p>
+          </div>
+        </article>
+        <article class="ee-t" id="leafeon">
+          <div class="ee-th">
+            <h3>Leafeon</h3>
+            <span class="ee-no">#470</span>
+            <!-- NO "n answers" BADGE HERE. condsFor already prints that heading
+                 immediately below, so the badge repeated it two lines apart and
+                 read like a stutter. Screenshotted at 390 before removing. -->
+          </div>
+          <div class="ee-body">
+            <div class="ev-multi"><span class="ev-multi-h">6 different answers, by game</span><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Eterna Forest</span><span class="ev-games"><span>Diamond and Pearl</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Pinwheel Forest</span><span class="ev-games"><span>Black and White</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Petalburg Woods</span><span class="ev-games"><span>Omega Ruby and Alpha Sapphire</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Kalos Route 20</span><span class="ev-games"><span>X and Y</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Lush Jungle</span><span class="ev-games"><span>Sun and Moon</span></span></div><div class="ev-cond ev-cond-alt"><b>Use a Leaf Stone</b><span class="ev-games"><span>Sword and Shield</span></span></div></div>
+            <p class="ee-say">The one that changed the most. Our source files six different answers for Leafeon, and five of them are a place: a particular rock in a particular forest, in a different forest in every generation. The sixth is a Leaf Stone. Every one of them is listed above with the games it belongs to, because there is no single true answer to give.</p>
+          </div>
+        </article>
+        <article class="ee-t" id="glaceon">
+          <div class="ee-th">
+            <h3>Glaceon</h3>
+            <span class="ee-no">#471</span>
+            <!-- NO "n answers" BADGE HERE. condsFor already prints that heading
+                 immediately below, so the badge repeated it two lines apart and
+                 read like a stutter. Screenshotted at 390 before removing. -->
+          </div>
+          <div class="ee-body">
+            <div class="ev-multi"><span class="ev-multi-h">6 different answers, by game</span><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Sinnoh Route 217</span><span class="ev-games"><span>Diamond and Pearl</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Twist Mountain</span><span class="ev-games"><span>Black and White</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Shoal Cave</span><span class="ev-games"><span>Omega Ruby and Alpha Sapphire</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Frost Cavern</span><span class="ev-games"><span>X and Y</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Mount Lanakila</span><span class="ev-games"><span>Sun and Moon</span></span></div><div class="ev-cond ev-cond-alt"><b>Use an Ice Stone</b><span class="ev-games"><span>Sword and Shield</span></span></div></div>
+            <p class="ee-say">Leafeon's twin, and it changed the same way at the same times. Five different cold places across five sets of games, then an Ice Stone. Both are above with their games.</p>
+          </div>
+        </article>
+        <article class="ee-t" id="sylveon">
+          <div class="ee-th">
+            <h3>Sylveon</h3>
+            <span class="ee-no">#700</span>
+            <!-- NO "n answers" BADGE HERE. condsFor already prints that heading
+                 immediately below, so the badge repeated it two lines apart and
+                 read like a stutter. Screenshotted at 390 before removing. -->
+          </div>
+          <div class="ee-body">
+            <div class="ev-multi"><span class="ev-multi-h">2 different answers, by game</span><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with 2 or more affection hearts</span><span class="ev-plus" aria-hidden="true">+</span><span>knowing a Fairy type move</span><span class="ev-games"><span>X and Y</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with friendship 160 or higher</span><span class="ev-plus" aria-hidden="true">+</span><span>knowing a Fairy type move</span><span class="ev-games"><span>Sword and Shield</span></span></div></div>
+            <p class="ee-say">The only one with a move condition. It wants a Fairy type move known, and the other half of the condition changed: affection in one set of games, friendship in another. Both are printed above.</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="ee-note">
+        <h2>Why three of them have <span class="hl">more than one answer</span></h2>
+        <p>3 of the eight carry more than one condition, and that is not us hedging. The method
+          genuinely changed between games, and every version of it is printed with the games it belongs to. Leafeon
+          and Glaceon are the extreme case at 6 apiece: for five sets of games
+          the answer was a particular rock in a particular place, and the place was different every time.</p>
+        <p>A page that gives you one of those has given most of its readers the wrong instruction. So this one
+          gives you all of them and tells you which games each belongs to.</p>
+        <p>Where a condition carries no game tag at all, our source records only one method for it. That means the
+          source files one answer, not that the answer is guaranteed identical in every game ever made.</p>
+      </div>
+
+      <section>
+        <h2>The rest of the <span class="hl">chart</span></h2>
+        <p class="ev-p">Eevee is the hardest line to draw and far from the only interesting one.
+          <a href="/evolution.html">The full evolution chart</a> has all 541 chains with the
+          condition on every arrow, filterable by what it takes: every trade evolution, every held item, every one
+          that needs a time of day.</p>
+        <p class="ev-p">On the card side, <a href="/types.html">the card types page</a> explains why Sylveon is not a Fairy card
+          and why the card game has no type chart at all. <a href="/pokemon/">Browse by Pokemon</a> has every
+          Umbreon and Vaporeon card we cover, priced.</p>
+      </section>
+
+      <p class="ee-src">Every condition on this page is read from PokeAPI (pokeapi.co) on
+        August 17, 2026, including the item, move and place names and the names of the games. The
+        paragraphs are ours and say nothing the conditions above them do not. Pokemon and Pokemon names are
+        trademarks of Nintendo, Creatures Inc. and GAME FREAK inc. This is a fan site and nothing on it is
+        affiliated with or endorsed by them. The arrows and fork marks are our own drawings.</p>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Footer">
+      <div class="foot-col">
+        <p class="foot-h">Watch</p>
+        <a href="/videos.html">Rips</a>
+        <a href="/playlists.html">Playlists</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">The binder</p>
+        <a href="/hall.html">Best pulls</a>
+        <a href="/wanted.html">Most wanted</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Cards</p>
+        <a href="/cards.html">Card search</a>
+        <a href="/pokemon/">By Pokemon</a>
+        <a href="/sets/">Set guides</a>
+        <a href="/expansions.html">Every set ever</a>
+        <a href="/upcoming.html">Coming next</a>
+        <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/msrp.html">MSRP check</a>
+        <a href="/pack-prices.html">Pack prices</a>
+        <a href="/how-many-packs.html">Packs per box</a>
+        <a href="/openings/">Sealed products</a>
+        <a href="/drops.html">Drops this week</a>
+        <a href="/most-valuable-cards.html">Priciest cards</a>
+        <a href="/most-expensive-sealed.html">Priciest sealed</a>
+        <a href="/top-graded.html">PSA 10 top 100</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Guides</p>
+        <a href="/start.html">Start here</a>
+        <a href="/how-to-play.html">How to play</a>
+        <a href="/tcg-live.html">Code cards</a>
+        <a href="/tcg-pocket.html">Phone version</a>
+        <a href="/decks.html">Deck builds</a>
+        <a href="/top-100-playable.html">Most played cards</a>
+        <a href="/what-set.html">Set finder</a>
+        <a href="/rarity.html">Rarity guide</a>
+        <a href="/base-set.html">Base Set prints</a>
+        <a href="/types.html">Card types</a>
+        <a href="/fake-cards.html">Fakes</a>
+        <a href="/will-it-grade.html">Will it grade</a>
+        <a href="/grading.html">Grading cost</a>
+        <a href="/selling.html">Where to sell</a>
+        <a href="/buying.html">Where to buy</a>
+        <a href="/luck.html">Luck, measured</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Play</p>
+        <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
+        <a href="/lore.html">Pokemon lore</a>
+        <a href="/evolution.html">Evolution chart</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Rochester, NY</p>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/vendors.html">Local vendors</a>
+        <a href="/creators.html">Local creators</a>
+        <a href="/about.html">About</a>
+      </div>
+    </nav>
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    Evolution data from PokeAPI. Arrows drawn by us.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+<script src="/assets/app.js?v=4cc7bcef" defer></script>
+</body>
+</html>

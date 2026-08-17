@@ -908,15 +908,25 @@ try {
   /* run: node scripts/sync-intl-guides.mjs && node scripts/build-intl-pages.mjs */
 }
 
-// The per-Pokemon pages. Thirty of them, each a real page of card data, so they
-// belong in the sitemap; the roster is capped deliberately (see build-pokemon)
-// so this can never balloon into a thousand thin pages.
+// The per-Pokemon pages. ONE PER SPECIES IS WRITTEN AND ONLY THE INDEXABLE ONES
+// GO IN HERE, which is the whole reason `index` exists on those rows.
+//
+// This block used to take every row in the file, and the comment above it said
+// the roster was "capped deliberately so this can never balloon into a thousand
+// thin pages". The cap has gone: build-pokemon.mjs now writes a page for all
+// 1,025 species so that nothing dead-ends, and decides per page whether it has
+// enough sourced card data to be worth a crawl. A page below that bar ships
+// noindex, so listing it here would be the sitemap asking a crawler to fetch a
+// page that tells it to go away, and check-build.py fails the build over exactly
+// that. FILTER, do not map.
 try {
   const pk = JSON.parse(await readFile(join(ROOT, "public/data/pokemon-index.json"), "utf8"));
   setPages = setPages.concat(
-    (pk.pokemon || []).map((p) => ({
-      loc: `${SITE}/pokemon/${p.slug}.html`, freq: "weekly", pri: "0.7", mod: pk.checked,
-    }))
+    (pk.pokemon || [])
+      .filter((p) => p.index !== false)
+      .map((p) => ({
+        loc: `${SITE}/pokemon/${p.slug}.html`, freq: "weekly", pri: "0.7", mod: pk.checked,
+      }))
   );
 } catch {
   /* run: node scripts/build-pokemon.mjs */
@@ -1030,6 +1040,13 @@ const urls = [
   // rarity guide: "how to spot fake pokemon cards" is asked constantly and the
   // answer does not expire.
   { loc: `${SITE}/fake-cards.html`, freq: "monthly", pri: "0.9" },
+  // The 1999 Base Set print runs. MONTHLY and high priority for the same reason
+  // as the rarity guide above it: "is my charizard shadowless" and "what is 1st
+  // edition pokemon" are asked constantly by people who have just found a card
+  // from 1999 in a cupboard, and the answer is a property of a printed card, so
+  // it does not expire. The prices on it are dated and stated as a snapshot,
+  // which is what stops that being a freshness promise this site has not made.
+  { loc: `${SITE}/base-set.html`, freq: "monthly", pri: "0.9" },
   // Grading costs. Weekly rather than monthly because the fee table goes stale
   // fast: PSA paused two tiers in June with two weeks' notice.
   { loc: `${SITE}/grading.html`, freq: "weekly", pri: "0.9" },
@@ -1067,6 +1084,12 @@ const urls = [
   // figure on it is recomputed from the product prices the nightly sync pulls,
   // so the page genuinely changes when the market does.
   { loc: `${SITE}/pack-prices.html`, freq: "daily", pri: "0.9" },
+  // What sealed product SHOULD cost. MONTHLY, and it is the opposite case to the
+  // line above: nothing on it is recomputed from a price feed, because there is
+  // no MSRP feed to recompute from. It moves when a person re-reads the sources
+  // and edits data/msrp.json, which is a handful of times a year. High priority
+  // anyway: "pokemon msrp" is a real search and the page has a sourced answer.
+  { loc: `${SITE}/msrp.html`, freq: "monthly", pri: "0.9" },
   // The two ranked price lists. DAILY, because the whole page is a price read
   // on one date and a stale one is the failure mode these pages are built to
   // avoid; the nightly re-runs sync-top100.mjs and both pages change.
@@ -1097,6 +1120,21 @@ const urls = [
   // on it is recomputed from a price feed, so it only moves when a game ships
   // or a fresh Metascore settles. 0.8 matches the lore page and the games hub.
   { loc: `${SITE}/video-games.html`, freq: "monthly", pri: "0.8" },
+  // The evolution chart and the Eevee page. MONTHLY and not weekly: nothing on
+  // either is recomputed from a feed. They only move when scripts/sync-
+  // evolution.mjs is run by hand, which is when a new generation ships, and
+  // both print the date the data was read for exactly that reason.
+  //
+  // 0.9 rather than the 0.8 the three lines above carry, and the difference is
+  // deliberate. Lore and the video game timeline are pages somebody enjoys once
+  // they are here; "how does X evolve" is a question typed into a search box
+  // several times a day forever and never expires, which is the same profile as
+  // the rarity guide and the types page and the same priority they get.
+  { loc: `${SITE}/evolution.html`, freq: "monthly", pri: "0.9" },
+  // Half a step down, matching the pattern the app pages set: the chart is the
+  // reference, this is one entry in it given its own address because the
+  // question is asked on its own. It must not outrank the page it is part of.
+  { loc: `${SITE}/eevee-evolutions.html`, freq: "monthly", pri: "0.8" },
   ...ordered.filter((v) => taggedIds.has(v.id)).map((v) => ({ loc: `${SITE}/${pathFor(v)}`, freq: "monthly", pri: "0.6", mod: v.published })),
 ];
 await writeFile(

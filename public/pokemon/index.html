@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pokemon Card Values by Pokemon: Charizard, Umbreon, Pikachu | Garbage Rips 585</title>
-<meta name="description" content="Every card for the 50 most valuable and most printed Pokemon in the modern sets, with current market prices. Charizard, Umbreon, Pikachu, Eevee and more.">
+<title>Every Pokemon, Every Card: the 1,025 Species Pokedex | Garbage Rips 585</title>
+<meta name="description" content="Every Pokemon in the National Pokedex, all 1,025 of them, with every card we could find for each one and what the ones we price are worth. Charizard, Umbreon, Pikachu, Eevee and 1,021 more.">
 <link rel="canonical" href="https://garbagerips585.github.io/pokemon/">
-<meta property="og:title" content="Pokemon Card Values by Pokemon: Charizard, Umbreon, Pikachu | Garbage Rips 585">
-<meta property="og:description" content="Every card for the 50 most valuable and most printed Pokemon in the modern sets, with current market prices. Charizard, Umbreon, Pikachu, Eevee and more.">
+<meta property="og:title" content="Every Pokemon, Every Card: the 1,025 Species Pokedex | Garbage Rips 585">
+<meta property="og:description" content="Every Pokemon in the National Pokedex, all 1,025 of them, with every card we could find for each one and what the ones we price are worth. Charizard, Umbreon, Pikachu, Eevee and 1,021 more.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://garbagerips585.github.io/pokemon/">
 <meta property="og:site_name" content="Garbage Rips 585">
@@ -24,6 +24,42 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=17b9bdb3">
+<style>
+.dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
+.dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
+border:1px solid var(--hair);border-radius:var(--r);padding:4px}
+.dx-top .facts-list{margin-top:0;flex:1 1 auto;min-width:0}
+.dx-evo{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);margin-top:var(--s4);list-style:none}
+.dx-evo li{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);max-width:100%}
+.dx-stage{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;
+width:112px;padding:var(--s2);background:var(--card);border:1px solid var(--hair);border-radius:var(--r)}
+.dx-stage img{width:72px;height:72px;object-fit:contain}
+.dx-stage b{font:700 var(--t-sm)/1.2 var(--body)}
+.dx-stage span{font:400 var(--t-micro)/1.2 var(--body);color:var(--ink-2)}
+.dx-stage[aria-current]{border-width:3px;border-color:var(--keyline)}
+.dx-arrow{font:700 1.1rem/1 var(--body);color:var(--ink-2)}
+.dx-eff{display:grid;gap:var(--s2);margin-top:var(--s4);list-style:none}
+.dx-eff li{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:baseline;
+background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r);padding:10px 12px}
+.dx-eff b{font:700 var(--t-sm)/1.4 var(--mono);min-width:3.2em}
+.dx-eff span{font:400 var(--t-sm)/1.4 var(--body)}
+.dx-find{width:100%;height:48px;padding:0 var(--s4);font:400 var(--t-body)/1 var(--body);
+color:var(--ink);background:var(--card);border:2px solid var(--keyline);border-radius:var(--r-pill);margin-top:var(--s4)}
+.dx-chips{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s3)}
+.dx-count{font:400 var(--t-sm)/1.4 var(--body);color:var(--ink-2);margin-top:var(--s3)}
+.dx-gen h3{font:700 var(--t-m)/1.2 var(--body);margin:var(--s5) 0 0}
+.dx-list{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s2);margin-top:var(--s3);list-style:none}
+.dx-item{display:flex;flex-direction:column;gap:1px;background:var(--card);border:1px solid var(--hair);
+border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none}
+.dx-item b{font:700 var(--t-sm)/1.2 var(--body)}
+.dx-item span{font:400 var(--t-micro)/1.2 var(--mono);color:var(--ink-2)}
+.dx-item:hover{border-color:var(--keyline)}
+.is-off{display:none}
+@media(min-width:560px){.dx-top{flex-direction:row}}
+@media(min-width:640px){.dx-list{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.dx-list{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:1100px){.dx-list{grid-template-columns:repeat(5,1fr)}}
+</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Pokemon"}]}</script>
 </head>
 <body>
@@ -82,6 +118,7 @@
         <li><a href="/expansions.html">Every set ever</a></li>
         <li><a href="/upcoming.html">Coming next</a></li>
         <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/msrp.html">MSRP check</a></li>
         <li><a href="/pack-prices.html">Pack prices</a></li>
         <li><a href="/how-many-packs.html">Packs per box</a></li>
         <li><a href="/openings/">Sealed products</a></li>
@@ -102,6 +139,7 @@
         <li><a href="/top-100-playable.html">Most played cards</a></li>
         <li><a href="/what-set.html">Set finder</a></li>
         <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/base-set.html">Base Set prints</a></li>
         <li><a href="/types.html">Card types</a></li>
         <li><a href="/fake-cards.html">Fakes</a></li>
         <li><a href="/will-it-grade.html">Will it grade</a></li>
@@ -117,6 +155,7 @@
         <li><a href="/games/">Games</a></li>
         <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
+        <li><a href="/evolution.html">Evolution chart</a></li>
       </ul>
     </div>
     <div class="menu-g">
@@ -138,319 +177,1257 @@
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     <h1>By <span class="hl">Pokemon</span></h1>
-    <p class="lede" style="max-width:34em">Chasing one in particular? Every card of it across every set we rip, with
-      what it is worth and the cheapest way to get one.</p>
+    <p class="lede" style="max-width:34em">All 1,025 species, each with every card of it we could find,
+      what the ones we price are worth, its evolution line and what beats it.</p>
   </div>
 </header>
 
 <section class="tight">
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / Pokemon</p>
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Most valuable, most printed</p>
+    <h2>The ones people <span class="hl">chase</span></h2>
     <div class="poke-grid">
       <a class="poke-card" href="/pokemon/umbreon.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/161/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/161/low.webp" onerror="this.remove()" alt="Umbreon ex, the most valuable Umbreon card" decoding="async" width="245" height="337"></picture>
         <span class="poke-nm">Umbreon</span>
-        <span class="poke-meta">4 cards &bull; 2 sets</span>
+        <span class="poke-meta">78 cards &bull; 48 sets</span>
         <span class="poke-pr">top $1,499</span>
       </a>
       <a class="poke-card" href="/pokemon/gengar.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/284/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/284/low.webp" onerror="this.remove()" alt="Mega Gengar ex, the most valuable Gengar card" loading="lazy" width="245" height="337"></picture>
         <span class="poke-nm">Gengar</span>
-        <span class="poke-meta">10 cards &bull; 7 sets</span>
+        <span class="poke-meta">87 cards &bull; 58 sets</span>
         <span class="poke-pr">top $1,089</span>
       </a>
       <a class="poke-card" href="/pokemon/pikachu.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/276/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/276/low.webp" onerror="this.remove()" alt="Pikachu ex, the most valuable Pikachu card" loading="lazy" width="245" height="337"></picture>
         <span class="poke-nm">Pikachu</span>
-        <span class="poke-meta">21 cards &bull; 10 sets</span>
+        <span class="poke-meta">285 cards &bull; 136 sets</span>
         <span class="poke-pr">top $1,070</span>
       </a>
       <a class="poke-card" href="/pokemon/mew.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/232/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/232/low.webp" onerror="this.remove()" alt="Mew ex, the most valuable Mew card" loading="lazy" width="245" height="337"></picture>
         <span class="poke-nm">Mew</span>
-        <span class="poke-meta">8 cards &bull; 4 sets</span>
+        <span class="poke-meta">82 cards &bull; 48 sets</span>
         <span class="poke-pr">top $1,014</span>
       </a>
       <a class="poke-card" href="/pokemon/dragonite.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/290/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/290/low.webp" onerror="this.remove()" alt="Mega Dragonite ex, the most valuable Dragonite card" loading="lazy" width="245" height="337"></picture>
         <span class="poke-nm">Dragonite</span>
-        <span class="poke-meta">10 cards &bull; 4 sets</span>
+        <span class="poke-meta">83 cards &bull; 50 sets</span>
         <span class="poke-pr">top $698</span>
+      </a>
+      <a class="poke-card" href="/pokemon/charizard.html">
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/125/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/125/low.webp" onerror="this.remove()" alt="Mega Charizard X ex, the most valuable Charizard card" loading="lazy" width="245" height="337"></picture>
+        <span class="poke-nm">Charizard</span>
+        <span class="poke-meta">165 cards &bull; 78 sets</span>
+        <span class="poke-pr">top $694</span>
       </a>
       <a class="poke-card" href="/pokemon/zekrom.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/172/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/172/low.webp" onerror="this.remove()" alt="Zekrom ex, the most valuable Zekrom card" loading="lazy" width="245" height="337"></picture>
         <span class="poke-nm">Zekrom</span>
-        <span class="poke-meta">7 cards &bull; 4 sets</span>
+        <span class="poke-meta">42 cards &bull; 26 sets</span>
         <span class="poke-pr">top $606</span>
       </a>
       <a class="poke-card" href="/pokemon/victini.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/171/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/171/low.webp" onerror="this.remove()" alt="Victini, the most valuable Victini card" loading="lazy" width="245" height="337"></picture>
         <span class="poke-nm">Victini</span>
-        <span class="poke-meta">6 cards &bull; 5 sets</span>
+        <span class="poke-meta">56 cards &bull; 41 sets</span>
         <span class="poke-pr">top $604</span>
       </a>
       <a class="poke-card" href="/pokemon/sylveon.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/156/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/156/low.webp" onerror="this.remove()" alt="Sylveon ex, the most valuable Sylveon card" loading="lazy" width="245" height="337"></picture>
         <span class="poke-nm">Sylveon</span>
-        <span class="poke-meta">6 cards &bull; 4 sets</span>
+        <span class="poke-meta">53 cards &bull; 30 sets</span>
         <span class="poke-pr">top $510</span>
       </a>
       <a class="poke-card" href="/pokemon/reshiram.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/173/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/173/low.webp" onerror="this.remove()" alt="Reshiram ex, the most valuable Reshiram card" loading="lazy" width="245" height="337"></picture>
         <span class="poke-nm">Reshiram</span>
-        <span class="poke-meta">12 cards &bull; 7 sets</span>
+        <span class="poke-meta">71 cards &bull; 34 sets</span>
         <span class="poke-pr">top $509</span>
       </a>
       <a class="poke-card" href="/pokemon/mewtwo.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/231/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/231/low.webp" onerror="this.remove()" alt="Team Rocket's Mewtwo ex, the most valuable Mewtwo card" loading="lazy" width="245" height="337"></picture>
         <span class="poke-nm">Mewtwo</span>
-        <span class="poke-meta">15 cards &bull; 7 sets</span>
+        <span class="poke-meta">131 cards &bull; 63 sets</span>
         <span class="poke-pr">top $505</span>
       </a>
       <a class="poke-card" href="/pokemon/magikarp.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/203/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/203/low.webp" onerror="this.remove()" alt="Magikarp, the most valuable Magikarp card" loading="lazy" width="245" height="337"></picture>
         <span class="poke-nm">Magikarp</span>
-        <span class="poke-meta">7 cards &bull; 6 sets</span>
+        <span class="poke-meta">78 cards &bull; 64 sets</span>
         <span class="poke-pr">top $389</span>
-      </a>
-      <a class="poke-card" href="/pokemon/blaziken.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/201/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/201/low.webp" onerror="this.remove()" alt="Blaziken VMAX, the most valuable Blaziken card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Blaziken</span>
-        <span class="poke-meta">8 cards &bull; 3 sets</span>
-        <span class="poke-pr">top $384</span>
-      </a>
-      <a class="poke-card" href="/pokemon/greninja.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/214/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/214/low.webp" onerror="this.remove()" alt="Greninja ex, the most valuable Greninja card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Greninja</span>
-        <span class="poke-meta">8 cards &bull; 3 sets</span>
-        <span class="poke-pr">top $374</span>
-      </a>
-      <a class="poke-card" href="/pokemon/charizard.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/199/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/199/low.webp" onerror="this.remove()" alt="Charizard ex, the most valuable Charizard card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Charizard</span>
-        <span class="poke-meta">12 cards &bull; 5 sets</span>
-        <span class="poke-pr">top $372</span>
-      </a>
-      <a class="poke-card" href="/pokemon/leafeon.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/144/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/144/low.webp" onerror="this.remove()" alt="Leafeon ex, the most valuable Leafeon card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Leafeon</span>
-        <span class="poke-meta">6 cards &bull; 3 sets</span>
-        <span class="poke-pr">top $337</span>
-      </a>
-      <a class="poke-card" href="/pokemon/espeon.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/155/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/155/low.webp" onerror="this.remove()" alt="Espeon ex, the most valuable Espeon card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Espeon</span>
-        <span class="poke-meta">4 cards &bull; 2 sets</span>
-        <span class="poke-pr">top $318</span>
-      </a>
-      <a class="poke-card" href="/pokemon/vaporeon.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/149/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/149/low.webp" onerror="this.remove()" alt="Vaporeon ex, the most valuable Vaporeon card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Vaporeon</span>
-        <span class="poke-meta">4 cards &bull; 2 sets</span>
-        <span class="poke-pr">top $300</span>
-      </a>
-      <a class="poke-card" href="/pokemon/glaceon.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/150/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/150/low.webp" onerror="this.remove()" alt="Glaceon ex, the most valuable Glaceon card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Glaceon</span>
-        <span class="poke-meta">5 cards &bull; 3 sets</span>
-        <span class="poke-pr">top $278</span>
-      </a>
-      <a class="poke-card" href="/pokemon/lucario.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/188/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/188/low.webp" onerror="this.remove()" alt="Mega Lucario ex, the most valuable Lucario card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Lucario</span>
-        <span class="poke-meta">9 cards &bull; 6 sets</span>
-        <span class="poke-pr">top $272</span>
-      </a>
-      <a class="poke-card" href="/pokemon/garchomp.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/232/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/232/low.webp" onerror="this.remove()" alt="Cynthia's Garchomp ex, the most valuable Garchomp card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Garchomp</span>
-        <span class="poke-meta">9 cards &bull; 3 sets</span>
-        <span class="poke-pr">top $249</span>
-      </a>
-      <a class="poke-card" href="/pokemon/seismitoad.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5b/105/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5b/105/low.webp" onerror="this.remove()" alt="Seismitoad, the most valuable Seismitoad card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Seismitoad</span>
-        <span class="poke-meta">4 cards &bull; 3 sets</span>
-        <span class="poke-pr">top $235</span>
-      </a>
-      <a class="poke-card" href="/pokemon/flareon.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/146/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/146/low.webp" onerror="this.remove()" alt="Flareon ex, the most valuable Flareon card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Flareon</span>
-        <span class="poke-meta">4 cards &bull; 2 sets</span>
-        <span class="poke-pr">top $225</span>
-      </a>
-      <a class="poke-card" href="/pokemon/darkrai.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/116/low.avif"><img src="https://assets.tcgdex.net/en/me/me05/116/low.webp" onerror="this.remove()" alt="Mega Darkrai ex, the most valuable Darkrai card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Darkrai</span>
-        <span class="poke-meta">5 cards &bull; 2 sets</span>
-        <span class="poke-pr">top $222</span>
-      </a>
-      <a class="poke-card" href="/pokemon/gardevoir.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/187/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/187/low.webp" onerror="this.remove()" alt="Mega Gardevoir ex, the most valuable Gardevoir card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Gardevoir</span>
-        <span class="poke-meta">12 cards &bull; 5 sets</span>
-        <span class="poke-pr">top $208</span>
-      </a>
-      <a class="poke-card" href="/pokemon/jolteon.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/153/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/153/low.webp" onerror="this.remove()" alt="Jolteon ex, the most valuable Jolteon card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Jolteon</span>
-        <span class="poke-meta">4 cards &bull; 2 sets</span>
-        <span class="poke-pr">top $203</span>
       </a>
       <a class="poke-card" href="/pokemon/eevee.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/167/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/167/low.webp" onerror="this.remove()" alt="Eevee ex, the most valuable Eevee card" loading="lazy" width="245" height="337"></picture>
         <span class="poke-nm">Eevee</span>
-        <span class="poke-meta">13 cards &bull; 10 sets</span>
+        <span class="poke-meta">160 cards &bull; 93 sets</span>
         <span class="poke-pr">top $186</span>
-      </a>
-      <a class="poke-card" href="/pokemon/latias.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/239/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08/239/low.webp" onerror="this.remove()" alt="Latias ex, the most valuable Latias card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Latias</span>
-        <span class="poke-meta">7 cards &bull; 3 sets</span>
-        <span class="poke-pr">top $175</span>
-      </a>
-      <a class="poke-card" href="/pokemon/roaring-moon.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/162/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08.5/162/low.webp" onerror="this.remove()" alt="Roaring Moon ex, the most valuable Roaring Moon card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Roaring Moon</span>
-        <span class="poke-meta">7 cards &bull; 3 sets</span>
-        <span class="poke-pr">top $172</span>
-      </a>
-      <a class="poke-card" href="/pokemon/clefairy.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/280/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/280/low.webp" onerror="this.remove()" alt="Lillie's Clefairy ex, the most valuable Clefairy card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Clefairy</span>
-        <span class="poke-meta">12 cards &bull; 7 sets</span>
-        <span class="poke-pr">top $166</span>
-      </a>
-      <a class="poke-card" href="/pokemon/ho-oh.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/230/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/230/low.webp" onerror="this.remove()" alt="Ethan's Ho-Oh ex, the most valuable Ho-Oh card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Ho-Oh</span>
-        <span class="poke-meta">8 cards &bull; 5 sets</span>
-        <span class="poke-pr">top $165</span>
       </a>
       <a class="poke-card" href="/pokemon/raichu.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/211/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/211/low.webp" onerror="this.remove()" alt="Raichu, the most valuable Raichu card" loading="lazy" width="245" height="337"></picture>
         <span class="poke-nm">Raichu</span>
-        <span class="poke-meta">7 cards &bull; 5 sets</span>
+        <span class="poke-meta">120 cards &bull; 86 sets</span>
         <span class="poke-pr">top $99</span>
       </a>
       <a class="poke-card" href="/pokemon/meowth.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/121/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/121/low.webp" onerror="this.remove()" alt="Meowth ex, the most valuable Meowth card" loading="lazy" width="245" height="337"></picture>
         <span class="poke-nm">Meowth</span>
-        <span class="poke-meta">9 cards &bull; 6 sets</span>
+        <span class="poke-meta">108 cards &bull; 84 sets</span>
         <span class="poke-pr">top $129</span>
       </a>
-      <a class="poke-card" href="/pokemon/gyarados.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/225/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/225/low.webp" onerror="this.remove()" alt="Gyarados ex, the most valuable Gyarados card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Gyarados</span>
-        <span class="poke-meta">7 cards &bull; 6 sets</span>
-        <span class="poke-pr">top $9</span>
-      </a>
-      <a class="poke-card" href="/pokemon/magnemite.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/081/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/081/low.webp" onerror="this.remove()" alt="Magnemite, the most valuable Magnemite card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Magnemite</span>
-        <span class="poke-meta">6 cards &bull; 6 sets</span>
-        <span class="poke-pr">top $0.36</span>
-      </a>
-      <a class="poke-card" href="/pokemon/snorlax.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/224/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/224/low.webp" onerror="this.remove()" alt="Snorlax, the most valuable Snorlax card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Snorlax</span>
-        <span class="poke-meta">11 cards &bull; 11 sets</span>
-        <span class="poke-pr">top $139</span>
-      </a>
-      <a class="poke-card" href="/pokemon/magneton.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/082/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/082/low.webp" onerror="this.remove()" alt="Magneton, the most valuable Magneton card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Magneton</span>
-        <span class="poke-meta">5 cards &bull; 5 sets</span>
-        <span class="poke-pr">top $0.37</span>
-      </a>
-      <a class="poke-card" href="/pokemon/lapras.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/194/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/194/low.webp" onerror="this.remove()" alt="Misty's Lapras, the most valuable Lapras card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Lapras</span>
-        <span class="poke-meta">11 cards &bull; 8 sets</span>
-        <span class="poke-pr">top $38</span>
+      <a class="poke-card" href="/pokemon/lucario.html">
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/188/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/188/low.webp" onerror="this.remove()" alt="Mega Lucario ex, the most valuable Lucario card" loading="lazy" width="245" height="337"></picture>
+        <span class="poke-nm">Lucario</span>
+        <span class="poke-meta">100 cards &bull; 59 sets</span>
+        <span class="poke-pr">top $272</span>
       </a>
       <a class="poke-card" href="/pokemon/ninetales.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/199/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/199/low.webp" onerror="this.remove()" alt="Ninetales, the most valuable Ninetales card" loading="lazy" width="245" height="337"></picture>
         <span class="poke-nm">Ninetales</span>
-        <span class="poke-meta">11 cards &bull; 7 sets</span>
+        <span class="poke-meta">95 cards &bull; 69 sets</span>
         <span class="poke-pr">top $44</span>
       </a>
-      <a class="poke-card" href="/pokemon/electrode.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/222/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh6/222/low.webp" onerror="this.remove()" alt="Electrode, the most valuable Electrode card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Electrode</span>
-        <span class="poke-meta">6 cards &bull; 6 sets</span>
-        <span class="poke-pr">top $16</span>
-      </a>
-      <a class="poke-card" href="/pokemon/vulpix.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/138/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/138/low.webp" onerror="this.remove()" alt="Vulpix, the most valuable Vulpix card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Vulpix</span>
-        <span class="poke-meta">8 cards &bull; 7 sets</span>
-        <span class="poke-pr">top $20</span>
-      </a>
-      <a class="poke-card" href="/pokemon/charmander.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/168/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/168/low.webp" onerror="this.remove()" alt="Charmander, the most valuable Charmander card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Charmander</span>
-        <span class="poke-meta">8 cards &bull; 6 sets</span>
-        <span class="poke-pr">top $93</span>
+      <a class="poke-card" href="/pokemon/gyarados.html">
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/225/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/225/low.webp" onerror="this.remove()" alt="Gyarados ex, the most valuable Gyarados card" loading="lazy" width="245" height="337"></picture>
+        <span class="poke-nm">Gyarados</span>
+        <span class="poke-meta">95 cards &bull; 63 sets</span>
+        <span class="poke-pr">top $9</span>
       </a>
       <a class="poke-card" href="/pokemon/rotom.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/126/low.avif"><img src="https://assets.tcgdex.net/en/me/me02/126/low.webp" onerror="this.remove()" alt="Rotom ex, the most valuable Rotom card" loading="lazy" width="245" height="337"></picture>
         <span class="poke-nm">Rotom</span>
-        <span class="poke-meta">12 cards &bull; 7 sets</span>
+        <span class="poke-meta">94 cards &bull; 47 sets</span>
         <span class="poke-pr">top $19</span>
       </a>
-      <a class="poke-card" href="/pokemon/houndoom.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/066/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06.5/066/low.webp" onerror="this.remove()" alt="Houndoom, the most valuable Houndoom card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Houndoom</span>
-        <span class="poke-meta">8 cards &bull; 5 sets</span>
-        <span class="poke-pr">top $58</span>
-      </a>
-      <a class="poke-card" href="/pokemon/voltorb.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/133/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv04.5/133/low.webp" onerror="this.remove()" alt="Voltorb, the most valuable Voltorb card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Voltorb</span>
-        <span class="poke-meta">6 cards &bull; 6 sets</span>
-        <span class="poke-pr">top $5</span>
-      </a>
-      <a class="poke-card" href="/pokemon/tauros.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/096/low.avif"><img src="https://assets.tcgdex.net/en/me/me04/096/low.webp" onerror="this.remove()" alt="Tauros, the most valuable Tauros card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Tauros</span>
-        <span class="poke-meta">7 cards &bull; 6 sets</span>
-        <span class="poke-pr">top $4</span>
-      </a>
-      <a class="poke-card" href="/pokemon/zapdos.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/202/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03.5/202/low.webp" onerror="this.remove()" alt="Zapdos ex, the most valuable Zapdos card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Zapdos</span>
-        <span class="poke-meta">6 cards &bull; 4 sets</span>
-        <span class="poke-pr">top $100</span>
-      </a>
-      <a class="poke-card" href="/pokemon/slowpoke.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/204/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/204/low.webp" onerror="this.remove()" alt="Slowpoke, the most valuable Slowpoke card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Slowpoke</span>
-        <span class="poke-meta">9 cards &bull; 8 sets</span>
-        <span class="poke-pr">top $40</span>
-      </a>
-      <a class="poke-card" href="/pokemon/mawile.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/246/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/246/low.webp" onerror="this.remove()" alt="Mawile, the most valuable Mawile card" loading="lazy" width="245" height="337"></picture>
-        <span class="poke-nm">Mawile</span>
-        <span class="poke-meta">8 cards &bull; 5 sets</span>
-        <span class="poke-pr">top $6</span>
+      <a class="poke-card" href="/pokemon/vulpix.html">
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me01/138/low.avif"><img src="https://assets.tcgdex.net/en/me/me01/138/low.webp" onerror="this.remove()" alt="Vulpix, the most valuable Vulpix card" loading="lazy" width="245" height="337"></picture>
+        <span class="poke-nm">Vulpix</span>
+        <span class="poke-meta">86 cards &bull; 69 sets</span>
+        <span class="poke-pr">top $20</span>
       </a>
       <a class="poke-card" href="/pokemon/trubbish.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/140/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/140/low.webp" onerror="this.remove()" alt="Trubbish, the most valuable Trubbish card" loading="lazy" width="245" height="337"></picture>
         <span class="poke-nm">Trubbish</span>
-        <span class="poke-meta">5 cards &bull; 4 sets</span>
+        <span class="poke-meta">30 cards &bull; 25 sets</span>
         <span class="poke-pr">top $18</span>
       </a>
       <a class="poke-card" href="/pokemon/garbodor.html">
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10.5w/141/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10.5w/141/low.webp" onerror="this.remove()" alt="Garbodor, the most valuable Garbodor card" loading="lazy" width="245" height="337"></picture>
         <span class="poke-nm">Garbodor</span>
-        <span class="poke-meta">6 cards &bull; 4 sets</span>
+        <span class="poke-meta">39 cards &bull; 28 sets</span>
         <span class="poke-pr">top $21</span>
       </a>
     </div>
-    <p class="price-note">The 50 with the most valuable cards and the most printings in the sets we cover,
-      ranked from the card data, plus the two the channel is named after. Anything else is on the
-      <a href="/cards.html">card search</a>, which covers all 5,181.</p>
+  </div>
+</section>
+
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>All of them</p>
+    <h2>The whole <span class="hl">Pokedex</span></h2>
+    <!-- A THOUSAND TILES IS A FINDING PROBLEM, NOT A SCROLLING PROBLEM, and the
+         answer is a filter over markup that is already there rather than a
+         paginated list. The whole dex ships as plain text in the HTML, so the
+         page is complete and crawlable with JS off and every one of the 1,025
+         urls is a real link a crawler can follow from here; the box below only
+         HIDES rows. NO PICTURES IN THIS LIST, deliberately: 1,025 portraits at
+         9KB each is 9MB, and even lazy that is a scroll that never stops
+         loading. The pictures live on the pages and in the band above. -->
+    <label class="sr-only" for="dxq">Find a Pokemon by name or Pokedex number</label>
+    <input class="dx-find" id="dxq" type="search" autocomplete="off"
+      placeholder="Find a Pokemon: name or dex number">
+    <div class="dx-chips" role="group" aria-label="Filter by generation">
+      <button class="chip" type="button" data-gen="" aria-pressed="true">All</button>
+      <button class="chip" type="button" data-gen="1" aria-pressed="false">Gen 1 &bull; Kanto</button>
+      <button class="chip" type="button" data-gen="2" aria-pressed="false">Gen 2 &bull; Johto</button>
+      <button class="chip" type="button" data-gen="3" aria-pressed="false">Gen 3 &bull; Hoenn</button>
+      <button class="chip" type="button" data-gen="4" aria-pressed="false">Gen 4 &bull; Sinnoh</button>
+      <button class="chip" type="button" data-gen="5" aria-pressed="false">Gen 5 &bull; Unova</button>
+      <button class="chip" type="button" data-gen="6" aria-pressed="false">Gen 6 &bull; Kalos</button>
+      <button class="chip" type="button" data-gen="7" aria-pressed="false">Gen 7 &bull; Alola</button>
+      <button class="chip" type="button" data-gen="8" aria-pressed="false">Gen 8 &bull; Galar</button>
+      <button class="chip" type="button" data-gen="9" aria-pressed="false">Gen 9 &bull; Paldea</button>
+    </div>
+    <p class="dx-count" id="dxCount" role="status">All 1,025 Pokemon</p>
+    <div class="dx-gen" data-gen="1">
+      <h3>Generation 1 &bull; Kanto</h3>
+      <ul class="dx-list">
+        <li><a class="dx-item" href="/pokemon/bulbasaur.html"><b>Bulbasaur</b><span>#0001 &bull; 47 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ivysaur.html"><b>Ivysaur</b><span>#0002 &bull; 36 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/venusaur.html"><b>Venusaur</b><span>#0003 &bull; 77 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/charmander.html"><b>Charmander</b><span>#0004 &bull; 73 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/charmeleon.html"><b>Charmeleon</b><span>#0005 &bull; 60 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/charizard.html"><b>Charizard</b><span>#0006 &bull; 165 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/squirtle.html"><b>Squirtle</b><span>#0007 &bull; 46 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wartortle.html"><b>Wartortle</b><span>#0008 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/blastoise.html"><b>Blastoise</b><span>#0009 &bull; 74 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/caterpie.html"><b>Caterpie</b><span>#0010 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/metapod.html"><b>Metapod</b><span>#0011 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/butterfree.html"><b>Butterfree</b><span>#0012 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/weedle.html"><b>Weedle</b><span>#0013 &bull; 41 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kakuna.html"><b>Kakuna</b><span>#0014 &bull; 35 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/beedrill.html"><b>Beedrill</b><span>#0015 &bull; 51 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pidgey.html"><b>Pidgey</b><span>#0016 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pidgeotto.html"><b>Pidgeotto</b><span>#0017 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pidgeot.html"><b>Pidgeot</b><span>#0018 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/rattata.html"><b>Rattata</b><span>#0019 &bull; 44 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/raticate.html"><b>Raticate</b><span>#0020 &bull; 47 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/spearow.html"><b>Spearow</b><span>#0021 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/fearow.html"><b>Fearow</b><span>#0022 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ekans.html"><b>Ekans</b><span>#0023 &bull; 34 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/arbok.html"><b>Arbok</b><span>#0024 &bull; 41 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pikachu.html"><b>Pikachu</b><span>#0025 &bull; 285 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/raichu.html"><b>Raichu</b><span>#0026 &bull; 120 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sandshrew.html"><b>Sandshrew</b><span>#0027 &bull; 44 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sandslash.html"><b>Sandslash</b><span>#0028 &bull; 43 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/nidoran-f.html"><b>Nidoran♀</b><span>#0029 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/nidorina.html"><b>Nidorina</b><span>#0030 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/nidoqueen.html"><b>Nidoqueen</b><span>#0031 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/nidoran-m.html"><b>Nidoran♂</b><span>#0032 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/nidorino.html"><b>Nidorino</b><span>#0033 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/nidoking.html"><b>Nidoking</b><span>#0034 &bull; 39 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/clefairy.html"><b>Clefairy</b><span>#0035 &bull; 63 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/clefable.html"><b>Clefable</b><span>#0036 &bull; 52 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/vulpix.html"><b>Vulpix</b><span>#0037 &bull; 86 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ninetales.html"><b>Ninetales</b><span>#0038 &bull; 95 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/jigglypuff.html"><b>Jigglypuff</b><span>#0039 &bull; 54 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wigglytuff.html"><b>Wigglytuff</b><span>#0040 &bull; 55 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/zubat.html"><b>Zubat</b><span>#0041 &bull; 52 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/golbat.html"><b>Golbat</b><span>#0042 &bull; 49 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/oddish.html"><b>Oddish</b><span>#0043 &bull; 52 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gloom.html"><b>Gloom</b><span>#0044 &bull; 50 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/vileplume.html"><b>Vileplume</b><span>#0045 &bull; 45 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/paras.html"><b>Paras</b><span>#0046 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/parasect.html"><b>Parasect</b><span>#0047 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/venonat.html"><b>Venonat</b><span>#0048 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/venomoth.html"><b>Venomoth</b><span>#0049 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/diglett.html"><b>Diglett</b><span>#0050 &bull; 53 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dugtrio.html"><b>Dugtrio</b><span>#0051 &bull; 58 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/meowth.html"><b>Meowth</b><span>#0052 &bull; 108 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/persian.html"><b>Persian</b><span>#0053 &bull; 67 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/psyduck.html"><b>Psyduck</b><span>#0054 &bull; 61 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/golduck.html"><b>Golduck</b><span>#0055 &bull; 44 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mankey.html"><b>Mankey</b><span>#0056 &bull; 47 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/primeape.html"><b>Primeape</b><span>#0057 &bull; 44 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/growlithe.html"><b>Growlithe</b><span>#0058 &bull; 65 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/arcanine.html"><b>Arcanine</b><span>#0059 &bull; 71 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/poliwag.html"><b>Poliwag</b><span>#0060 &bull; 36 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/poliwhirl.html"><b>Poliwhirl</b><span>#0061 &bull; 35 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/poliwrath.html"><b>Poliwrath</b><span>#0062 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/abra.html"><b>Abra</b><span>#0063 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kadabra.html"><b>Kadabra</b><span>#0064 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/alakazam.html"><b>Alakazam</b><span>#0065 &bull; 51 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/machop.html"><b>Machop</b><span>#0066 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/machoke.html"><b>Machoke</b><span>#0067 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/machamp.html"><b>Machamp</b><span>#0068 &bull; 73 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bellsprout.html"><b>Bellsprout</b><span>#0069 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/weepinbell.html"><b>Weepinbell</b><span>#0070 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/victreebel.html"><b>Victreebel</b><span>#0071 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tentacool.html"><b>Tentacool</b><span>#0072 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tentacruel.html"><b>Tentacruel</b><span>#0073 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/geodude.html"><b>Geodude</b><span>#0074 &bull; 43 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/graveler.html"><b>Graveler</b><span>#0075 &bull; 40 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/golem.html"><b>Golem</b><span>#0076 &bull; 46 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ponyta.html"><b>Ponyta</b><span>#0077 &bull; 51 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/rapidash.html"><b>Rapidash</b><span>#0078 &bull; 61 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/slowpoke.html"><b>Slowpoke</b><span>#0079 &bull; 68 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/slowbro.html"><b>Slowbro</b><span>#0080 &bull; 46 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/magnemite.html"><b>Magnemite</b><span>#0081 &bull; 80 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/magneton.html"><b>Magneton</b><span>#0082 &bull; 80 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/farfetchd.html"><b>Farfetch'd</b><span>#0083 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/doduo.html"><b>Doduo</b><span>#0084 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dodrio.html"><b>Dodrio</b><span>#0085 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/seel.html"><b>Seel</b><span>#0086 &bull; 34 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dewgong.html"><b>Dewgong</b><span>#0087 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/grimer.html"><b>Grimer</b><span>#0088 &bull; 47 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/muk.html"><b>Muk</b><span>#0089 &bull; 63 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/shellder.html"><b>Shellder</b><span>#0090 &bull; 22 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cloyster.html"><b>Cloyster</b><span>#0091 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gastly.html"><b>Gastly</b><span>#0092 &bull; 59 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/haunter.html"><b>Haunter</b><span>#0093 &bull; 55 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gengar.html"><b>Gengar</b><span>#0094 &bull; 87 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/onix.html"><b>Onix</b><span>#0095 &bull; 47 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/drowzee.html"><b>Drowzee</b><span>#0096 &bull; 44 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/hypno.html"><b>Hypno</b><span>#0097 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/krabby.html"><b>Krabby</b><span>#0098 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kingler.html"><b>Kingler</b><span>#0099 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/voltorb.html"><b>Voltorb</b><span>#0100 &bull; 69 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/electrode.html"><b>Electrode</b><span>#0101 &bull; 79 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/exeggcute.html"><b>Exeggcute</b><span>#0102 &bull; 59 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/exeggutor.html"><b>Exeggutor</b><span>#0103 &bull; 83 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cubone.html"><b>Cubone</b><span>#0104 &bull; 39 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/marowak.html"><b>Marowak</b><span>#0105 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/hitmonlee.html"><b>Hitmonlee</b><span>#0106 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/hitmonchan.html"><b>Hitmonchan</b><span>#0107 &bull; 39 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lickitung.html"><b>Lickitung</b><span>#0108 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/koffing.html"><b>Koffing</b><span>#0109 &bull; 47 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/weezing.html"><b>Weezing</b><span>#0110 &bull; 51 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/rhyhorn.html"><b>Rhyhorn</b><span>#0111 &bull; 41 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/rhydon.html"><b>Rhydon</b><span>#0112 &bull; 35 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/chansey.html"><b>Chansey</b><span>#0113 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tangela.html"><b>Tangela</b><span>#0114 &bull; 51 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kangaskhan.html"><b>Kangaskhan</b><span>#0115 &bull; 61 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/horsea.html"><b>Horsea</b><span>#0116 &bull; 50 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/seadra.html"><b>Seadra</b><span>#0117 &bull; 39 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/goldeen.html"><b>Goldeen</b><span>#0118 &bull; 36 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/seaking.html"><b>Seaking</b><span>#0119 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/staryu.html"><b>Staryu</b><span>#0120 &bull; 49 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/starmie.html"><b>Starmie</b><span>#0121 &bull; 59 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mr-mime.html"><b>Mr. Mime</b><span>#0122 &bull; 55 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/scyther.html"><b>Scyther</b><span>#0123 &bull; 54 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/jynx.html"><b>Jynx</b><span>#0124 &bull; 51 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/electabuzz.html"><b>Electabuzz</b><span>#0125 &bull; 55 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/magmar.html"><b>Magmar</b><span>#0126 &bull; 50 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pinsir.html"><b>Pinsir</b><span>#0127 &bull; 47 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tauros.html"><b>Tauros</b><span>#0128 &bull; 78 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/magikarp.html"><b>Magikarp</b><span>#0129 &bull; 78 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gyarados.html"><b>Gyarados</b><span>#0130 &bull; 95 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lapras.html"><b>Lapras</b><span>#0131 &bull; 76 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ditto.html"><b>Ditto</b><span>#0132 &bull; 51 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/eevee.html"><b>Eevee</b><span>#0133 &bull; 160 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/vaporeon.html"><b>Vaporeon</b><span>#0134 &bull; 60 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/jolteon.html"><b>Jolteon</b><span>#0135 &bull; 67 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/flareon.html"><b>Flareon</b><span>#0136 &bull; 65 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/porygon.html"><b>Porygon</b><span>#0137 &bull; 46 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/omanyte.html"><b>Omanyte</b><span>#0138 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/omastar.html"><b>Omastar</b><span>#0139 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kabuto.html"><b>Kabuto</b><span>#0140 &bull; 22 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kabutops.html"><b>Kabutops</b><span>#0141 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/aerodactyl.html"><b>Aerodactyl</b><span>#0142 &bull; 47 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/snorlax.html"><b>Snorlax</b><span>#0143 &bull; 82 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/articuno.html"><b>Articuno</b><span>#0144 &bull; 69 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/zapdos.html"><b>Zapdos</b><span>#0145 &bull; 76 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/moltres.html"><b>Moltres</b><span>#0146 &bull; 76 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dratini.html"><b>Dratini</b><span>#0147 &bull; 50 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dragonair.html"><b>Dragonair</b><span>#0148 &bull; 47 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dragonite.html"><b>Dragonite</b><span>#0149 &bull; 83 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mewtwo.html"><b>Mewtwo</b><span>#0150 &bull; 131 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mew.html"><b>Mew</b><span>#0151 &bull; 82 cards</span></a></li>
+      </ul>
+    </div>
+    <div class="dx-gen" data-gen="2">
+      <h3>Generation 2 &bull; Johto</h3>
+      <ul class="dx-list">
+        <li><a class="dx-item" href="/pokemon/chikorita.html"><b>Chikorita</b><span>#0152 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bayleef.html"><b>Bayleef</b><span>#0153 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/meganium.html"><b>Meganium</b><span>#0154 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cyndaquil.html"><b>Cyndaquil</b><span>#0155 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/quilava.html"><b>Quilava</b><span>#0156 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/typhlosion.html"><b>Typhlosion</b><span>#0157 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/totodile.html"><b>Totodile</b><span>#0158 &bull; 35 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/croconaw.html"><b>Croconaw</b><span>#0159 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/feraligatr.html"><b>Feraligatr</b><span>#0160 &bull; 40 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sentret.html"><b>Sentret</b><span>#0161 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/furret.html"><b>Furret</b><span>#0162 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/hoothoot.html"><b>Hoothoot</b><span>#0163 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/noctowl.html"><b>Noctowl</b><span>#0164 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ledyba.html"><b>Ledyba</b><span>#0165 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ledian.html"><b>Ledian</b><span>#0166 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/spinarak.html"><b>Spinarak</b><span>#0167 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ariados.html"><b>Ariados</b><span>#0168 &bull; 34 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/crobat.html"><b>Crobat</b><span>#0169 &bull; 70 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/chinchou.html"><b>Chinchou</b><span>#0170 &bull; 40 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lanturn.html"><b>Lanturn</b><span>#0171 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pichu.html"><b>Pichu</b><span>#0172 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cleffa.html"><b>Cleffa</b><span>#0173 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/igglybuff.html"><b>Igglybuff</b><span>#0174 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/togepi.html"><b>Togepi</b><span>#0175 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/togetic.html"><b>Togetic</b><span>#0176 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/natu.html"><b>Natu</b><span>#0177 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/xatu.html"><b>Xatu</b><span>#0178 &bull; 37 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mareep.html"><b>Mareep</b><span>#0179 &bull; 50 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/flaaffy.html"><b>Flaaffy</b><span>#0180 &bull; 53 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ampharos.html"><b>Ampharos</b><span>#0181 &bull; 64 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bellossom.html"><b>Bellossom</b><span>#0182 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/marill.html"><b>Marill</b><span>#0183 &bull; 44 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/azumarill.html"><b>Azumarill</b><span>#0184 &bull; 36 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sudowoodo.html"><b>Sudowoodo</b><span>#0185 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/politoed.html"><b>Politoed</b><span>#0186 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/hoppip.html"><b>Hoppip</b><span>#0187 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/skiploom.html"><b>Skiploom</b><span>#0188 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/jumpluff.html"><b>Jumpluff</b><span>#0189 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/aipom.html"><b>Aipom</b><span>#0190 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sunkern.html"><b>Sunkern</b><span>#0191 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sunflora.html"><b>Sunflora</b><span>#0192 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/yanma.html"><b>Yanma</b><span>#0193 &bull; 37 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wooper.html"><b>Wooper</b><span>#0194 &bull; 48 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/quagsire.html"><b>Quagsire</b><span>#0195 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/espeon.html"><b>Espeon</b><span>#0196 &bull; 68 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/umbreon.html"><b>Umbreon</b><span>#0197 &bull; 78 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/murkrow.html"><b>Murkrow</b><span>#0198 &bull; 51 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/slowking.html"><b>Slowking</b><span>#0199 &bull; 37 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/misdreavus.html"><b>Misdreavus</b><span>#0200 &bull; 41 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/unown.html"><b>Unown</b><span>#0201 &bull; 149 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wobbuffet.html"><b>Wobbuffet</b><span>#0202 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/girafarig.html"><b>Girafarig</b><span>#0203 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pineco.html"><b>Pineco</b><span>#0204 &bull; 34 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/forretress.html"><b>Forretress</b><span>#0205 &bull; 36 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dunsparce.html"><b>Dunsparce</b><span>#0206 &bull; 35 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gligar.html"><b>Gligar</b><span>#0207 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/steelix.html"><b>Steelix</b><span>#0208 &bull; 59 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/snubbull.html"><b>Snubbull</b><span>#0209 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/granbull.html"><b>Granbull</b><span>#0210 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/qwilfish.html"><b>Qwilfish</b><span>#0211 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/scizor.html"><b>Scizor</b><span>#0212 &bull; 56 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/shuckle.html"><b>Shuckle</b><span>#0213 &bull; 36 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/heracross.html"><b>Heracross</b><span>#0214 &bull; 47 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sneasel.html"><b>Sneasel</b><span>#0215 &bull; 53 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/teddiursa.html"><b>Teddiursa</b><span>#0216 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ursaring.html"><b>Ursaring</b><span>#0217 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/slugma.html"><b>Slugma</b><span>#0218 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/magcargo.html"><b>Magcargo</b><span>#0219 &bull; 52 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/swinub.html"><b>Swinub</b><span>#0220 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/piloswine.html"><b>Piloswine</b><span>#0221 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/corsola.html"><b>Corsola</b><span>#0222 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/remoraid.html"><b>Remoraid</b><span>#0223 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/octillery.html"><b>Octillery</b><span>#0224 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/delibird.html"><b>Delibird</b><span>#0225 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mantine.html"><b>Mantine</b><span>#0226 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/skarmory.html"><b>Skarmory</b><span>#0227 &bull; 58 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/houndour.html"><b>Houndour</b><span>#0228 &bull; 57 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/houndoom.html"><b>Houndoom</b><span>#0229 &bull; 76 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kingdra.html"><b>Kingdra</b><span>#0230 &bull; 51 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/phanpy.html"><b>Phanpy</b><span>#0231 &bull; 37 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/donphan.html"><b>Donphan</b><span>#0232 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/porygon2.html"><b>Porygon2</b><span>#0233 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/stantler.html"><b>Stantler</b><span>#0234 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/smeargle.html"><b>Smeargle</b><span>#0235 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tyrogue.html"><b>Tyrogue</b><span>#0236 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/hitmontop.html"><b>Hitmontop</b><span>#0237 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/smoochum.html"><b>Smoochum</b><span>#0238 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/elekid.html"><b>Elekid</b><span>#0239 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/magby.html"><b>Magby</b><span>#0240 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/miltank.html"><b>Miltank</b><span>#0241 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/blissey.html"><b>Blissey</b><span>#0242 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/raikou.html"><b>Raikou</b><span>#0243 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/entei.html"><b>Entei</b><span>#0244 &bull; 53 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/suicune.html"><b>Suicune</b><span>#0245 &bull; 51 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/larvitar.html"><b>Larvitar</b><span>#0246 &bull; 46 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pupitar.html"><b>Pupitar</b><span>#0247 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tyranitar.html"><b>Tyranitar</b><span>#0248 &bull; 73 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lugia.html"><b>Lugia</b><span>#0249 &bull; 54 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ho-oh.html"><b>Ho-Oh</b><span>#0250 &bull; 57 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/celebi.html"><b>Celebi</b><span>#0251 &bull; 57 cards</span></a></li>
+      </ul>
+    </div>
+    <div class="dx-gen" data-gen="3">
+      <h3>Generation 3 &bull; Hoenn</h3>
+      <ul class="dx-list">
+        <li><a class="dx-item" href="/pokemon/treecko.html"><b>Treecko</b><span>#0252 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/grovyle.html"><b>Grovyle</b><span>#0253 &bull; 22 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sceptile.html"><b>Sceptile</b><span>#0254 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/torchic.html"><b>Torchic</b><span>#0255 &bull; 41 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/combusken.html"><b>Combusken</b><span>#0256 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/blaziken.html"><b>Blaziken</b><span>#0257 &bull; 48 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mudkip.html"><b>Mudkip</b><span>#0258 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/marshtomp.html"><b>Marshtomp</b><span>#0259 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/swampert.html"><b>Swampert</b><span>#0260 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/poochyena.html"><b>Poochyena</b><span>#0261 &bull; 36 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mightyena.html"><b>Mightyena</b><span>#0262 &bull; 37 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/zigzagoon.html"><b>Zigzagoon</b><span>#0263 &bull; 22 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/linoone.html"><b>Linoone</b><span>#0264 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wurmple.html"><b>Wurmple</b><span>#0265 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/silcoon.html"><b>Silcoon</b><span>#0266 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/beautifly.html"><b>Beautifly</b><span>#0267 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cascoon.html"><b>Cascoon</b><span>#0268 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dustox.html"><b>Dustox</b><span>#0269 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lotad.html"><b>Lotad</b><span>#0270 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lombre.html"><b>Lombre</b><span>#0271 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ludicolo.html"><b>Ludicolo</b><span>#0272 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/seedot.html"><b>Seedot</b><span>#0273 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/nuzleaf.html"><b>Nuzleaf</b><span>#0274 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/shiftry.html"><b>Shiftry</b><span>#0275 &bull; 34 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/taillow.html"><b>Taillow</b><span>#0276 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/swellow.html"><b>Swellow</b><span>#0277 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wingull.html"><b>Wingull</b><span>#0278 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pelipper.html"><b>Pelipper</b><span>#0279 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ralts.html"><b>Ralts</b><span>#0280 &bull; 54 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kirlia.html"><b>Kirlia</b><span>#0281 &bull; 53 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gardevoir.html"><b>Gardevoir</b><span>#0282 &bull; 86 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/surskit.html"><b>Surskit</b><span>#0283 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/masquerain.html"><b>Masquerain</b><span>#0284 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/shroomish.html"><b>Shroomish</b><span>#0285 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/breloom.html"><b>Breloom</b><span>#0286 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/slakoth.html"><b>Slakoth</b><span>#0287 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/vigoroth.html"><b>Vigoroth</b><span>#0288 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/slaking.html"><b>Slaking</b><span>#0289 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/nincada.html"><b>Nincada</b><span>#0290 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ninjask.html"><b>Ninjask</b><span>#0291 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/shedinja.html"><b>Shedinja</b><span>#0292 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/whismur.html"><b>Whismur</b><span>#0293 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/loudred.html"><b>Loudred</b><span>#0294 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/exploud.html"><b>Exploud</b><span>#0295 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/makuhita.html"><b>Makuhita</b><span>#0296 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/hariyama.html"><b>Hariyama</b><span>#0297 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/azurill.html"><b>Azurill</b><span>#0298 &bull; 8 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/nosepass.html"><b>Nosepass</b><span>#0299 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/skitty.html"><b>Skitty</b><span>#0300 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/delcatty.html"><b>Delcatty</b><span>#0301 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sableye.html"><b>Sableye</b><span>#0302 &bull; 51 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mawile.html"><b>Mawile</b><span>#0303 &bull; 66 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/aron.html"><b>Aron</b><span>#0304 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lairon.html"><b>Lairon</b><span>#0305 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/aggron.html"><b>Aggron</b><span>#0306 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/meditite.html"><b>Meditite</b><span>#0307 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/medicham.html"><b>Medicham</b><span>#0308 &bull; 41 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/electrike.html"><b>Electrike</b><span>#0309 &bull; 44 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/manectric.html"><b>Manectric</b><span>#0310 &bull; 48 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/plusle.html"><b>Plusle</b><span>#0311 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/minun.html"><b>Minun</b><span>#0312 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/volbeat.html"><b>Volbeat</b><span>#0313 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/illumise.html"><b>Illumise</b><span>#0314 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/roselia.html"><b>Roselia</b><span>#0315 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gulpin.html"><b>Gulpin</b><span>#0316 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/swalot.html"><b>Swalot</b><span>#0317 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/carvanha.html"><b>Carvanha</b><span>#0318 &bull; 34 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sharpedo.html"><b>Sharpedo</b><span>#0319 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wailmer.html"><b>Wailmer</b><span>#0320 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wailord.html"><b>Wailord</b><span>#0321 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/numel.html"><b>Numel</b><span>#0322 &bull; 34 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/camerupt.html"><b>Camerupt</b><span>#0323 &bull; 36 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/torkoal.html"><b>Torkoal</b><span>#0324 &bull; 35 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/spoink.html"><b>Spoink</b><span>#0325 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/grumpig.html"><b>Grumpig</b><span>#0326 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/spinda.html"><b>Spinda</b><span>#0327 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/trapinch.html"><b>Trapinch</b><span>#0328 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/vibrava.html"><b>Vibrava</b><span>#0329 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/flygon.html"><b>Flygon</b><span>#0330 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cacnea.html"><b>Cacnea</b><span>#0331 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cacturne.html"><b>Cacturne</b><span>#0332 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/swablu.html"><b>Swablu</b><span>#0333 &bull; 45 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/altaria.html"><b>Altaria</b><span>#0334 &bull; 62 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/zangoose.html"><b>Zangoose</b><span>#0335 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/seviper.html"><b>Seviper</b><span>#0336 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lunatone.html"><b>Lunatone</b><span>#0337 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/solrock.html"><b>Solrock</b><span>#0338 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/barboach.html"><b>Barboach</b><span>#0339 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/whiscash.html"><b>Whiscash</b><span>#0340 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/corphish.html"><b>Corphish</b><span>#0341 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/crawdaunt.html"><b>Crawdaunt</b><span>#0342 &bull; 22 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/baltoy.html"><b>Baltoy</b><span>#0343 &bull; 37 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/claydol.html"><b>Claydol</b><span>#0344 &bull; 34 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lileep.html"><b>Lileep</b><span>#0345 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cradily.html"><b>Cradily</b><span>#0346 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/anorith.html"><b>Anorith</b><span>#0347 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/armaldo.html"><b>Armaldo</b><span>#0348 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/feebas.html"><b>Feebas</b><span>#0349 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/milotic.html"><b>Milotic</b><span>#0350 &bull; 41 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/castform.html"><b>Castform</b><span>#0351 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kecleon.html"><b>Kecleon</b><span>#0352 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/shuppet.html"><b>Shuppet</b><span>#0353 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/banette.html"><b>Banette</b><span>#0354 &bull; 39 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/duskull.html"><b>Duskull</b><span>#0355 &bull; 36 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dusclops.html"><b>Dusclops</b><span>#0356 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tropius.html"><b>Tropius</b><span>#0357 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/chimecho.html"><b>Chimecho</b><span>#0358 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/absol.html"><b>Absol</b><span>#0359 &bull; 51 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wynaut.html"><b>Wynaut</b><span>#0360 &bull; 7 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/snorunt.html"><b>Snorunt</b><span>#0361 &bull; 36 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/glalie.html"><b>Glalie</b><span>#0362 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/spheal.html"><b>Spheal</b><span>#0363 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sealeo.html"><b>Sealeo</b><span>#0364 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/walrein.html"><b>Walrein</b><span>#0365 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/clamperl.html"><b>Clamperl</b><span>#0366 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/huntail.html"><b>Huntail</b><span>#0367 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gorebyss.html"><b>Gorebyss</b><span>#0368 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/relicanth.html"><b>Relicanth</b><span>#0369 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/luvdisc.html"><b>Luvdisc</b><span>#0370 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bagon.html"><b>Bagon</b><span>#0371 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/shelgon.html"><b>Shelgon</b><span>#0372 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/salamence.html"><b>Salamence</b><span>#0373 &bull; 39 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/beldum.html"><b>Beldum</b><span>#0374 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/metang.html"><b>Metang</b><span>#0375 &bull; 40 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/metagross.html"><b>Metagross</b><span>#0376 &bull; 50 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/regirock.html"><b>Regirock</b><span>#0377 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/regice.html"><b>Regice</b><span>#0378 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/registeel.html"><b>Registeel</b><span>#0379 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/latias.html"><b>Latias</b><span>#0380 &bull; 61 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/latios.html"><b>Latios</b><span>#0381 &bull; 55 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kyogre.html"><b>Kyogre</b><span>#0382 &bull; 40 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/groudon.html"><b>Groudon</b><span>#0383 &bull; 39 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/rayquaza.html"><b>Rayquaza</b><span>#0384 &bull; 79 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/jirachi.html"><b>Jirachi</b><span>#0385 &bull; 40 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/deoxys.html"><b>Deoxys</b><span>#0386 &bull; 59 cards</span></a></li>
+      </ul>
+    </div>
+    <div class="dx-gen" data-gen="4">
+      <h3>Generation 4 &bull; Sinnoh</h3>
+      <ul class="dx-list">
+        <li><a class="dx-item" href="/pokemon/turtwig.html"><b>Turtwig</b><span>#0387 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/grotle.html"><b>Grotle</b><span>#0388 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/torterra.html"><b>Torterra</b><span>#0389 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/chimchar.html"><b>Chimchar</b><span>#0390 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/monferno.html"><b>Monferno</b><span>#0391 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/infernape.html"><b>Infernape</b><span>#0392 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/piplup.html"><b>Piplup</b><span>#0393 &bull; 35 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/prinplup.html"><b>Prinplup</b><span>#0394 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/empoleon.html"><b>Empoleon</b><span>#0395 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/starly.html"><b>Starly</b><span>#0396 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/staravia.html"><b>Staravia</b><span>#0397 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/staraptor.html"><b>Staraptor</b><span>#0398 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bidoof.html"><b>Bidoof</b><span>#0399 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bibarel.html"><b>Bibarel</b><span>#0400 &bull; 22 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kricketot.html"><b>Kricketot</b><span>#0401 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kricketune.html"><b>Kricketune</b><span>#0402 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/shinx.html"><b>Shinx</b><span>#0403 &bull; 40 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/luxio.html"><b>Luxio</b><span>#0404 &bull; 35 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/luxray.html"><b>Luxray</b><span>#0405 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/budew.html"><b>Budew</b><span>#0406 &bull; 8 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/roserade.html"><b>Roserade</b><span>#0407 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cranidos.html"><b>Cranidos</b><span>#0408 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/rampardos.html"><b>Rampardos</b><span>#0409 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/shieldon.html"><b>Shieldon</b><span>#0410 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bastiodon.html"><b>Bastiodon</b><span>#0411 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/burmy.html"><b>Burmy</b><span>#0412 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wormadam.html"><b>Wormadam</b><span>#0413 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mothim.html"><b>Mothim</b><span>#0414 &bull; 9 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/combee.html"><b>Combee</b><span>#0415 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/vespiquen.html"><b>Vespiquen</b><span>#0416 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pachirisu.html"><b>Pachirisu</b><span>#0417 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/buizel.html"><b>Buizel</b><span>#0418 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/floatzel.html"><b>Floatzel</b><span>#0419 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cherubi.html"><b>Cherubi</b><span>#0420 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cherrim.html"><b>Cherrim</b><span>#0421 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/shellos.html"><b>Shellos</b><span>#0422 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gastrodon.html"><b>Gastrodon</b><span>#0423 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ambipom.html"><b>Ambipom</b><span>#0424 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/drifloon.html"><b>Drifloon</b><span>#0425 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/drifblim.html"><b>Drifblim</b><span>#0426 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/buneary.html"><b>Buneary</b><span>#0427 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lopunny.html"><b>Lopunny</b><span>#0428 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mismagius.html"><b>Mismagius</b><span>#0429 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/honchkrow.html"><b>Honchkrow</b><span>#0430 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/glameow.html"><b>Glameow</b><span>#0431 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/purugly.html"><b>Purugly</b><span>#0432 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/chingling.html"><b>Chingling</b><span>#0433 &bull; 6 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/stunky.html"><b>Stunky</b><span>#0434 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/skuntank.html"><b>Skuntank</b><span>#0435 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bronzor.html"><b>Bronzor</b><span>#0436 &bull; 41 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bronzong.html"><b>Bronzong</b><span>#0437 &bull; 48 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bonsly.html"><b>Bonsly</b><span>#0438 &bull; 3 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mime-jr.html"><b>Mime Jr.</b><span>#0439 &bull; 8 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/happiny.html"><b>Happiny</b><span>#0440 &bull; 5 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/chatot.html"><b>Chatot</b><span>#0441 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/spiritomb.html"><b>Spiritomb</b><span>#0442 &bull; 49 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gible.html"><b>Gible</b><span>#0443 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gabite.html"><b>Gabite</b><span>#0444 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/garchomp.html"><b>Garchomp</b><span>#0445 &bull; 60 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/munchlax.html"><b>Munchlax</b><span>#0446 &bull; 7 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/riolu.html"><b>Riolu</b><span>#0447 &bull; 59 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lucario.html"><b>Lucario</b><span>#0448 &bull; 100 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/hippopotas.html"><b>Hippopotas</b><span>#0449 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/hippowdon.html"><b>Hippowdon</b><span>#0450 &bull; 22 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/skorupi.html"><b>Skorupi</b><span>#0451 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/drapion.html"><b>Drapion</b><span>#0452 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/croagunk.html"><b>Croagunk</b><span>#0453 &bull; 36 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/toxicroak.html"><b>Toxicroak</b><span>#0454 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/carnivine.html"><b>Carnivine</b><span>#0455 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/finneon.html"><b>Finneon</b><span>#0456 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lumineon.html"><b>Lumineon</b><span>#0457 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mantyke.html"><b>Mantyke</b><span>#0458 &bull; 8 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/snover.html"><b>Snover</b><span>#0459 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/abomasnow.html"><b>Abomasnow</b><span>#0460 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/weavile.html"><b>Weavile</b><span>#0461 &bull; 46 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/magnezone.html"><b>Magnezone</b><span>#0462 &bull; 45 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lickilicky.html"><b>Lickilicky</b><span>#0463 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/rhyperior.html"><b>Rhyperior</b><span>#0464 &bull; 22 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tangrowth.html"><b>Tangrowth</b><span>#0465 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/electivire.html"><b>Electivire</b><span>#0466 &bull; 35 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/magmortar.html"><b>Magmortar</b><span>#0467 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/togekiss.html"><b>Togekiss</b><span>#0468 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/yanmega.html"><b>Yanmega</b><span>#0469 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/leafeon.html"><b>Leafeon</b><span>#0470 &bull; 58 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/glaceon.html"><b>Glaceon</b><span>#0471 &bull; 55 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gliscor.html"><b>Gliscor</b><span>#0472 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mamoswine.html"><b>Mamoswine</b><span>#0473 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/porygon-z.html"><b>Porygon-Z</b><span>#0474 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gallade.html"><b>Gallade</b><span>#0475 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/probopass.html"><b>Probopass</b><span>#0476 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dusknoir.html"><b>Dusknoir</b><span>#0477 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/froslass.html"><b>Froslass</b><span>#0478 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/rotom.html"><b>Rotom</b><span>#0479 &bull; 94 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/uxie.html"><b>Uxie</b><span>#0480 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mesprit.html"><b>Mesprit</b><span>#0481 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/azelf.html"><b>Azelf</b><span>#0482 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dialga.html"><b>Dialga</b><span>#0483 &bull; 69 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/palkia.html"><b>Palkia</b><span>#0484 &bull; 59 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/heatran.html"><b>Heatran</b><span>#0485 &bull; 48 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/regigigas.html"><b>Regigigas</b><span>#0486 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/giratina.html"><b>Giratina</b><span>#0487 &bull; 46 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cresselia.html"><b>Cresselia</b><span>#0488 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/phione.html"><b>Phione</b><span>#0489 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/manaphy.html"><b>Manaphy</b><span>#0490 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/darkrai.html"><b>Darkrai</b><span>#0491 &bull; 59 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/shaymin.html"><b>Shaymin</b><span>#0492 &bull; 55 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/arceus.html"><b>Arceus</b><span>#0493 &bull; 48 cards</span></a></li>
+      </ul>
+    </div>
+    <div class="dx-gen" data-gen="5">
+      <h3>Generation 5 &bull; Unova</h3>
+      <ul class="dx-list">
+        <li><a class="dx-item" href="/pokemon/victini.html"><b>Victini</b><span>#0494 &bull; 56 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/snivy.html"><b>Snivy</b><span>#0495 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/servine.html"><b>Servine</b><span>#0496 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/serperior.html"><b>Serperior</b><span>#0497 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tepig.html"><b>Tepig</b><span>#0498 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pignite.html"><b>Pignite</b><span>#0499 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/emboar.html"><b>Emboar</b><span>#0500 &bull; 22 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/oshawott.html"><b>Oshawott</b><span>#0501 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dewott.html"><b>Dewott</b><span>#0502 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/samurott.html"><b>Samurott</b><span>#0503 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/patrat.html"><b>Patrat</b><span>#0504 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/watchog.html"><b>Watchog</b><span>#0505 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lillipup.html"><b>Lillipup</b><span>#0506 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/herdier.html"><b>Herdier</b><span>#0507 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/stoutland.html"><b>Stoutland</b><span>#0508 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/purrloin.html"><b>Purrloin</b><span>#0509 &bull; 36 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/liepard.html"><b>Liepard</b><span>#0510 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pansage.html"><b>Pansage</b><span>#0511 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/simisage.html"><b>Simisage</b><span>#0512 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pansear.html"><b>Pansear</b><span>#0513 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/simisear.html"><b>Simisear</b><span>#0514 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/panpour.html"><b>Panpour</b><span>#0515 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/simipour.html"><b>Simipour</b><span>#0516 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/munna.html"><b>Munna</b><span>#0517 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/musharna.html"><b>Musharna</b><span>#0518 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pidove.html"><b>Pidove</b><span>#0519 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tranquill.html"><b>Tranquill</b><span>#0520 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/unfezant.html"><b>Unfezant</b><span>#0521 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/blitzle.html"><b>Blitzle</b><span>#0522 &bull; 34 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/zebstrika.html"><b>Zebstrika</b><span>#0523 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/roggenrola.html"><b>Roggenrola</b><span>#0524 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/boldore.html"><b>Boldore</b><span>#0525 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gigalith.html"><b>Gigalith</b><span>#0526 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/woobat.html"><b>Woobat</b><span>#0527 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/swoobat.html"><b>Swoobat</b><span>#0528 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/drilbur.html"><b>Drilbur</b><span>#0529 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/excadrill.html"><b>Excadrill</b><span>#0530 &bull; 39 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/audino.html"><b>Audino</b><span>#0531 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/timburr.html"><b>Timburr</b><span>#0532 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gurdurr.html"><b>Gurdurr</b><span>#0533 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/conkeldurr.html"><b>Conkeldurr</b><span>#0534 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tympole.html"><b>Tympole</b><span>#0535 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/palpitoad.html"><b>Palpitoad</b><span>#0536 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/seismitoad.html"><b>Seismitoad</b><span>#0537 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/throh.html"><b>Throh</b><span>#0538 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sawk.html"><b>Sawk</b><span>#0539 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sewaddle.html"><b>Sewaddle</b><span>#0540 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/swadloon.html"><b>Swadloon</b><span>#0541 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/leavanny.html"><b>Leavanny</b><span>#0542 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/venipede.html"><b>Venipede</b><span>#0543 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/whirlipede.html"><b>Whirlipede</b><span>#0544 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/scolipede.html"><b>Scolipede</b><span>#0545 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cottonee.html"><b>Cottonee</b><span>#0546 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/whimsicott.html"><b>Whimsicott</b><span>#0547 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/petilil.html"><b>Petilil</b><span>#0548 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lilligant.html"><b>Lilligant</b><span>#0549 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/basculin.html"><b>Basculin</b><span>#0550 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sandile.html"><b>Sandile</b><span>#0551 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/krokorok.html"><b>Krokorok</b><span>#0552 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/krookodile.html"><b>Krookodile</b><span>#0553 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/darumaka.html"><b>Darumaka</b><span>#0554 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/darmanitan.html"><b>Darmanitan</b><span>#0555 &bull; 35 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/maractus.html"><b>Maractus</b><span>#0556 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dwebble.html"><b>Dwebble</b><span>#0557 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/crustle.html"><b>Crustle</b><span>#0558 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/scraggy.html"><b>Scraggy</b><span>#0559 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/scrafty.html"><b>Scrafty</b><span>#0560 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sigilyph.html"><b>Sigilyph</b><span>#0561 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/yamask.html"><b>Yamask</b><span>#0562 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cofagrigus.html"><b>Cofagrigus</b><span>#0563 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tirtouga.html"><b>Tirtouga</b><span>#0564 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/carracosta.html"><b>Carracosta</b><span>#0565 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/archen.html"><b>Archen</b><span>#0566 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/archeops.html"><b>Archeops</b><span>#0567 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/trubbish.html"><b>Trubbish</b><span>#0568 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/garbodor.html"><b>Garbodor</b><span>#0569 &bull; 39 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/zorua.html"><b>Zorua</b><span>#0570 &bull; 44 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/zoroark.html"><b>Zoroark</b><span>#0571 &bull; 60 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/minccino.html"><b>Minccino</b><span>#0572 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cinccino.html"><b>Cinccino</b><span>#0573 &bull; 34 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gothita.html"><b>Gothita</b><span>#0574 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gothorita.html"><b>Gothorita</b><span>#0575 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gothitelle.html"><b>Gothitelle</b><span>#0576 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/solosis.html"><b>Solosis</b><span>#0577 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/duosion.html"><b>Duosion</b><span>#0578 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/reuniclus.html"><b>Reuniclus</b><span>#0579 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ducklett.html"><b>Ducklett</b><span>#0580 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/swanna.html"><b>Swanna</b><span>#0581 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/vanillite.html"><b>Vanillite</b><span>#0582 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/vanillish.html"><b>Vanillish</b><span>#0583 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/vanilluxe.html"><b>Vanilluxe</b><span>#0584 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/deerling.html"><b>Deerling</b><span>#0585 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sawsbuck.html"><b>Sawsbuck</b><span>#0586 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/emolga.html"><b>Emolga</b><span>#0587 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/karrablast.html"><b>Karrablast</b><span>#0588 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/escavalier.html"><b>Escavalier</b><span>#0589 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/foongus.html"><b>Foongus</b><span>#0590 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/amoonguss.html"><b>Amoonguss</b><span>#0591 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/frillish.html"><b>Frillish</b><span>#0592 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/jellicent.html"><b>Jellicent</b><span>#0593 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/alomomola.html"><b>Alomomola</b><span>#0594 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/joltik.html"><b>Joltik</b><span>#0595 &bull; 34 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/galvantula.html"><b>Galvantula</b><span>#0596 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ferroseed.html"><b>Ferroseed</b><span>#0597 &bull; 22 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ferrothorn.html"><b>Ferrothorn</b><span>#0598 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/klink.html"><b>Klink</b><span>#0599 &bull; 22 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/klang.html"><b>Klang</b><span>#0600 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/klinklang.html"><b>Klinklang</b><span>#0601 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tynamo.html"><b>Tynamo</b><span>#0602 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/eelektrik.html"><b>Eelektrik</b><span>#0603 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/eelektross.html"><b>Eelektross</b><span>#0604 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/elgyem.html"><b>Elgyem</b><span>#0605 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/beheeyem.html"><b>Beheeyem</b><span>#0606 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/litwick.html"><b>Litwick</b><span>#0607 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lampent.html"><b>Lampent</b><span>#0608 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/chandelure.html"><b>Chandelure</b><span>#0609 &bull; 43 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/axew.html"><b>Axew</b><span>#0610 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/fraxure.html"><b>Fraxure</b><span>#0611 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/haxorus.html"><b>Haxorus</b><span>#0612 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cubchoo.html"><b>Cubchoo</b><span>#0613 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/beartic.html"><b>Beartic</b><span>#0614 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cryogonal.html"><b>Cryogonal</b><span>#0615 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/shelmet.html"><b>Shelmet</b><span>#0616 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/accelgor.html"><b>Accelgor</b><span>#0617 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/stunfisk.html"><b>Stunfisk</b><span>#0618 &bull; 46 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mienfoo.html"><b>Mienfoo</b><span>#0619 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mienshao.html"><b>Mienshao</b><span>#0620 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/druddigon.html"><b>Druddigon</b><span>#0621 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/golett.html"><b>Golett</b><span>#0622 &bull; 22 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/golurk.html"><b>Golurk</b><span>#0623 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pawniard.html"><b>Pawniard</b><span>#0624 &bull; 39 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bisharp.html"><b>Bisharp</b><span>#0625 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bouffalant.html"><b>Bouffalant</b><span>#0626 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/rufflet.html"><b>Rufflet</b><span>#0627 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/braviary.html"><b>Braviary</b><span>#0628 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/vullaby.html"><b>Vullaby</b><span>#0629 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mandibuzz.html"><b>Mandibuzz</b><span>#0630 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/heatmor.html"><b>Heatmor</b><span>#0631 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/durant.html"><b>Durant</b><span>#0632 &bull; 34 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/deino.html"><b>Deino</b><span>#0633 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/zweilous.html"><b>Zweilous</b><span>#0634 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/hydreigon.html"><b>Hydreigon</b><span>#0635 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/larvesta.html"><b>Larvesta</b><span>#0636 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/volcarona.html"><b>Volcarona</b><span>#0637 &bull; 35 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cobalion.html"><b>Cobalion</b><span>#0638 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/terrakion.html"><b>Terrakion</b><span>#0639 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/virizion.html"><b>Virizion</b><span>#0640 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tornadus.html"><b>Tornadus</b><span>#0641 &bull; 35 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/thundurus.html"><b>Thundurus</b><span>#0642 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/reshiram.html"><b>Reshiram</b><span>#0643 &bull; 71 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/zekrom.html"><b>Zekrom</b><span>#0644 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/landorus.html"><b>Landorus</b><span>#0645 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kyurem.html"><b>Kyurem</b><span>#0646 &bull; 71 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/keldeo.html"><b>Keldeo</b><span>#0647 &bull; 39 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/meloetta.html"><b>Meloetta</b><span>#0648 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/genesect.html"><b>Genesect</b><span>#0649 &bull; 43 cards</span></a></li>
+      </ul>
+    </div>
+    <div class="dx-gen" data-gen="6">
+      <h3>Generation 6 &bull; Kalos</h3>
+      <ul class="dx-list">
+        <li><a class="dx-item" href="/pokemon/chespin.html"><b>Chespin</b><span>#0650 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/quilladin.html"><b>Quilladin</b><span>#0651 &bull; 6 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/chesnaught.html"><b>Chesnaught</b><span>#0652 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/fennekin.html"><b>Fennekin</b><span>#0653 &bull; 22 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/braixen.html"><b>Braixen</b><span>#0654 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/delphox.html"><b>Delphox</b><span>#0655 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/froakie.html"><b>Froakie</b><span>#0656 &bull; 35 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/frogadier.html"><b>Frogadier</b><span>#0657 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/greninja.html"><b>Greninja</b><span>#0658 &bull; 64 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bunnelby.html"><b>Bunnelby</b><span>#0659 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/diggersby.html"><b>Diggersby</b><span>#0660 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/fletchling.html"><b>Fletchling</b><span>#0661 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/fletchinder.html"><b>Fletchinder</b><span>#0662 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/talonflame.html"><b>Talonflame</b><span>#0663 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/scatterbug.html"><b>Scatterbug</b><span>#0664 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/spewpa.html"><b>Spewpa</b><span>#0665 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/vivillon.html"><b>Vivillon</b><span>#0666 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/litleo.html"><b>Litleo</b><span>#0667 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pyroar.html"><b>Pyroar</b><span>#0668 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/flabebe.html"><b>Flabebe</b><span>#0669 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/floette.html"><b>Floette</b><span>#0670 &bull; 22 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/florges.html"><b>Florges</b><span>#0671 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/skiddo.html"><b>Skiddo</b><span>#0672 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gogoat.html"><b>Gogoat</b><span>#0673 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pancham.html"><b>Pancham</b><span>#0674 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pangoro.html"><b>Pangoro</b><span>#0675 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/furfrou.html"><b>Furfrou</b><span>#0676 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/espurr.html"><b>Espurr</b><span>#0677 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/meowstic.html"><b>Meowstic</b><span>#0678 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/honedge.html"><b>Honedge</b><span>#0679 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/doublade.html"><b>Doublade</b><span>#0680 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/aegislash.html"><b>Aegislash</b><span>#0681 &bull; 35 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/spritzee.html"><b>Spritzee</b><span>#0682 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/aromatisse.html"><b>Aromatisse</b><span>#0683 &bull; 10 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/swirlix.html"><b>Swirlix</b><span>#0684 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/slurpuff.html"><b>Slurpuff</b><span>#0685 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/inkay.html"><b>Inkay</b><span>#0686 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/malamar.html"><b>Malamar</b><span>#0687 &bull; 36 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/binacle.html"><b>Binacle</b><span>#0688 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/barbaracle.html"><b>Barbaracle</b><span>#0689 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/skrelp.html"><b>Skrelp</b><span>#0690 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dragalge.html"><b>Dragalge</b><span>#0691 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/clauncher.html"><b>Clauncher</b><span>#0692 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/clawitzer.html"><b>Clawitzer</b><span>#0693 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/helioptile.html"><b>Helioptile</b><span>#0694 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/heliolisk.html"><b>Heliolisk</b><span>#0695 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tyrunt.html"><b>Tyrunt</b><span>#0696 &bull; 8 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tyrantrum.html"><b>Tyrantrum</b><span>#0697 &bull; 9 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/amaura.html"><b>Amaura</b><span>#0698 &bull; 6 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/aurorus.html"><b>Aurorus</b><span>#0699 &bull; 10 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sylveon.html"><b>Sylveon</b><span>#0700 &bull; 53 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/hawlucha.html"><b>Hawlucha</b><span>#0701 &bull; 39 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dedenne.html"><b>Dedenne</b><span>#0702 &bull; 48 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/carbink.html"><b>Carbink</b><span>#0703 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/goomy.html"><b>Goomy</b><span>#0704 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sliggoo.html"><b>Sliggoo</b><span>#0705 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/goodra.html"><b>Goodra</b><span>#0706 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/klefki.html"><b>Klefki</b><span>#0707 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/phantump.html"><b>Phantump</b><span>#0708 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/trevenant.html"><b>Trevenant</b><span>#0709 &bull; 36 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pumpkaboo.html"><b>Pumpkaboo</b><span>#0710 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gourgeist.html"><b>Gourgeist</b><span>#0711 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bergmite.html"><b>Bergmite</b><span>#0712 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/avalugg.html"><b>Avalugg</b><span>#0713 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/noibat.html"><b>Noibat</b><span>#0714 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/noivern.html"><b>Noivern</b><span>#0715 &bull; 36 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/xerneas.html"><b>Xerneas</b><span>#0716 &bull; 36 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/yveltal.html"><b>Yveltal</b><span>#0717 &bull; 44 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/zygarde.html"><b>Zygarde</b><span>#0718 &bull; 45 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/diancie.html"><b>Diancie</b><span>#0719 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/hoopa.html"><b>Hoopa</b><span>#0720 &bull; 38 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/volcanion.html"><b>Volcanion</b><span>#0721 &bull; 33 cards</span></a></li>
+      </ul>
+    </div>
+    <div class="dx-gen" data-gen="7">
+      <h3>Generation 7 &bull; Alola</h3>
+      <ul class="dx-list">
+        <li><a class="dx-item" href="/pokemon/rowlet.html"><b>Rowlet</b><span>#0722 &bull; 39 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dartrix.html"><b>Dartrix</b><span>#0723 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/decidueye.html"><b>Decidueye</b><span>#0724 &bull; 35 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/litten.html"><b>Litten</b><span>#0725 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/torracat.html"><b>Torracat</b><span>#0726 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/incineroar.html"><b>Incineroar</b><span>#0727 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/popplio.html"><b>Popplio</b><span>#0728 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/brionne.html"><b>Brionne</b><span>#0729 &bull; 9 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/primarina.html"><b>Primarina</b><span>#0730 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pikipek.html"><b>Pikipek</b><span>#0731 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/trumbeak.html"><b>Trumbeak</b><span>#0732 &bull; 10 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/toucannon.html"><b>Toucannon</b><span>#0733 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/yungoos.html"><b>Yungoos</b><span>#0734 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gumshoos.html"><b>Gumshoos</b><span>#0735 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/grubbin.html"><b>Grubbin</b><span>#0736 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/charjabug.html"><b>Charjabug</b><span>#0737 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/vikavolt.html"><b>Vikavolt</b><span>#0738 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/crabrawler.html"><b>Crabrawler</b><span>#0739 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/crabominable.html"><b>Crabominable</b><span>#0740 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/oricorio.html"><b>Oricorio</b><span>#0741 &bull; 58 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cutiefly.html"><b>Cutiefly</b><span>#0742 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ribombee.html"><b>Ribombee</b><span>#0743 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/rockruff.html"><b>Rockruff</b><span>#0744 &bull; 39 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lycanroc.html"><b>Lycanroc</b><span>#0745 &bull; 65 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wishiwashi.html"><b>Wishiwashi</b><span>#0746 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mareanie.html"><b>Mareanie</b><span>#0747 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/toxapex.html"><b>Toxapex</b><span>#0748 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mudbray.html"><b>Mudbray</b><span>#0749 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mudsdale.html"><b>Mudsdale</b><span>#0750 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dewpider.html"><b>Dewpider</b><span>#0751 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/araquanid.html"><b>Araquanid</b><span>#0752 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/fomantis.html"><b>Fomantis</b><span>#0753 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lurantis.html"><b>Lurantis</b><span>#0754 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/morelull.html"><b>Morelull</b><span>#0755 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/shiinotic.html"><b>Shiinotic</b><span>#0756 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/salandit.html"><b>Salandit</b><span>#0757 &bull; 34 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/salazzle.html"><b>Salazzle</b><span>#0758 &bull; 44 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/stufful.html"><b>Stufful</b><span>#0759 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bewear.html"><b>Bewear</b><span>#0760 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bounsweet.html"><b>Bounsweet</b><span>#0761 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/steenee.html"><b>Steenee</b><span>#0762 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tsareena.html"><b>Tsareena</b><span>#0763 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/comfey.html"><b>Comfey</b><span>#0764 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/oranguru.html"><b>Oranguru</b><span>#0765 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/passimian.html"><b>Passimian</b><span>#0766 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wimpod.html"><b>Wimpod</b><span>#0767 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/golisopod.html"><b>Golisopod</b><span>#0768 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sandygast.html"><b>Sandygast</b><span>#0769 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/palossand.html"><b>Palossand</b><span>#0770 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pyukumuku.html"><b>Pyukumuku</b><span>#0771 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/type-null.html"><b>Type: Null</b><span>#0772 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/silvally.html"><b>Silvally</b><span>#0773 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/minior.html"><b>Minior</b><span>#0774 &bull; 10 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/komala.html"><b>Komala</b><span>#0775 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/turtonator.html"><b>Turtonator</b><span>#0776 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/togedemaru.html"><b>Togedemaru</b><span>#0777 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mimikyu.html"><b>Mimikyu</b><span>#0778 &bull; 60 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bruxish.html"><b>Bruxish</b><span>#0779 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/drampa.html"><b>Drampa</b><span>#0780 &bull; 40 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dhelmise.html"><b>Dhelmise</b><span>#0781 &bull; 31 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/jangmo-o.html"><b>Jangmo-o</b><span>#0782 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/hakamo-o.html"><b>Hakamo-o</b><span>#0783 &bull; 9 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kommo-o.html"><b>Kommo-o</b><span>#0784 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tapu-koko.html"><b>Tapu Koko</b><span>#0785 &bull; 49 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tapu-lele.html"><b>Tapu Lele</b><span>#0786 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tapu-bulu.html"><b>Tapu Bulu</b><span>#0787 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tapu-fini.html"><b>Tapu Fini</b><span>#0788 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cosmog.html"><b>Cosmog</b><span>#0789 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cosmoem.html"><b>Cosmoem</b><span>#0790 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/solgaleo.html"><b>Solgaleo</b><span>#0791 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lunala.html"><b>Lunala</b><span>#0792 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/nihilego.html"><b>Nihilego</b><span>#0793 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/buzzwole.html"><b>Buzzwole</b><span>#0794 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pheromosa.html"><b>Pheromosa</b><span>#0795 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/xurkitree.html"><b>Xurkitree</b><span>#0796 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/celesteela.html"><b>Celesteela</b><span>#0797 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kartana.html"><b>Kartana</b><span>#0798 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/guzzlord.html"><b>Guzzlord</b><span>#0799 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/necrozma.html"><b>Necrozma</b><span>#0800 &bull; 55 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/magearna.html"><b>Magearna</b><span>#0801 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/marshadow.html"><b>Marshadow</b><span>#0802 &bull; 37 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/poipole.html"><b>Poipole</b><span>#0803 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/naganadel.html"><b>Naganadel</b><span>#0804 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/stakataka.html"><b>Stakataka</b><span>#0805 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/blacephalon.html"><b>Blacephalon</b><span>#0806 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/zeraora.html"><b>Zeraora</b><span>#0807 &bull; 60 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/meltan.html"><b>Meltan</b><span>#0808 &bull; 22 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/melmetal.html"><b>Melmetal</b><span>#0809 &bull; 29 cards</span></a></li>
+      </ul>
+    </div>
+    <div class="dx-gen" data-gen="8">
+      <h3>Generation 8 &bull; Galar</h3>
+      <ul class="dx-list">
+        <li><a class="dx-item" href="/pokemon/grookey.html"><b>Grookey</b><span>#0810 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/thwackey.html"><b>Thwackey</b><span>#0811 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/rillaboom.html"><b>Rillaboom</b><span>#0812 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/scorbunny.html"><b>Scorbunny</b><span>#0813 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/raboot.html"><b>Raboot</b><span>#0814 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cinderace.html"><b>Cinderace</b><span>#0815 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sobble.html"><b>Sobble</b><span>#0816 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/drizzile.html"><b>Drizzile</b><span>#0817 &bull; 7 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/inteleon.html"><b>Inteleon</b><span>#0818 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/skwovet.html"><b>Skwovet</b><span>#0819 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/greedent.html"><b>Greedent</b><span>#0820 &bull; 32 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/rookidee.html"><b>Rookidee</b><span>#0821 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/corvisquire.html"><b>Corvisquire</b><span>#0822 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/corviknight.html"><b>Corviknight</b><span>#0823 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/blipbug.html"><b>Blipbug</b><span>#0824 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dottler.html"><b>Dottler</b><span>#0825 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/orbeetle.html"><b>Orbeetle</b><span>#0826 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/nickit.html"><b>Nickit</b><span>#0827 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/thievul.html"><b>Thievul</b><span>#0828 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gossifleur.html"><b>Gossifleur</b><span>#0829 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/eldegoss.html"><b>Eldegoss</b><span>#0830 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wooloo.html"><b>Wooloo</b><span>#0831 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dubwool.html"><b>Dubwool</b><span>#0832 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/chewtle.html"><b>Chewtle</b><span>#0833 &bull; 10 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/drednaw.html"><b>Drednaw</b><span>#0834 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/yamper.html"><b>Yamper</b><span>#0835 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/boltund.html"><b>Boltund</b><span>#0836 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/rolycoly.html"><b>Rolycoly</b><span>#0837 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/carkol.html"><b>Carkol</b><span>#0838 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/coalossal.html"><b>Coalossal</b><span>#0839 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/applin.html"><b>Applin</b><span>#0840 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/flapple.html"><b>Flapple</b><span>#0841 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/appletun.html"><b>Appletun</b><span>#0842 &bull; 9 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/silicobra.html"><b>Silicobra</b><span>#0843 &bull; 9 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sandaconda.html"><b>Sandaconda</b><span>#0844 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cramorant.html"><b>Cramorant</b><span>#0845 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/arrokuda.html"><b>Arrokuda</b><span>#0846 &bull; 10 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/barraskewda.html"><b>Barraskewda</b><span>#0847 &bull; 8 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/toxel.html"><b>Toxel</b><span>#0848 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/toxtricity.html"><b>Toxtricity</b><span>#0849 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sizzlipede.html"><b>Sizzlipede</b><span>#0850 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/centiskorch.html"><b>Centiskorch</b><span>#0851 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/clobbopus.html"><b>Clobbopus</b><span>#0852 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/grapploct.html"><b>Grapploct</b><span>#0853 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sinistea.html"><b>Sinistea</b><span>#0854 &bull; 9 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/polteageist.html"><b>Polteageist</b><span>#0855 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/hatenna.html"><b>Hatenna</b><span>#0856 &bull; 8 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/hattrem.html"><b>Hattrem</b><span>#0857 &bull; 5 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/hatterene.html"><b>Hatterene</b><span>#0858 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/impidimp.html"><b>Impidimp</b><span>#0859 &bull; 10 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/morgrem.html"><b>Morgrem</b><span>#0860 &bull; 10 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/grimmsnarl.html"><b>Grimmsnarl</b><span>#0861 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/obstagoon.html"><b>Obstagoon</b><span>#0862 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/perrserker.html"><b>Perrserker</b><span>#0863 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cursola.html"><b>Cursola</b><span>#0864 &bull; 8 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sirfetchd.html"><b>Sirfetch'd</b><span>#0865 &bull; 7 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mr-rime.html"><b>Mr. Rime</b><span>#0866 &bull; 10 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/runerigus.html"><b>Runerigus</b><span>#0867 &bull; 4 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/milcery.html"><b>Milcery</b><span>#0868 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/alcremie.html"><b>Alcremie</b><span>#0869 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/falinks.html"><b>Falinks</b><span>#0870 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pincurchin.html"><b>Pincurchin</b><span>#0871 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/snom.html"><b>Snom</b><span>#0872 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/frosmoth.html"><b>Frosmoth</b><span>#0873 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/stonjourner.html"><b>Stonjourner</b><span>#0874 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/eiscue.html"><b>Eiscue</b><span>#0875 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/indeedee.html"><b>Indeedee</b><span>#0876 &bull; 26 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/morpeko.html"><b>Morpeko</b><span>#0877 &bull; 63 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cufant.html"><b>Cufant</b><span>#0878 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/copperajah.html"><b>Copperajah</b><span>#0879 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dracozolt.html"><b>Dracozolt</b><span>#0880 &bull; 6 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/arctozolt.html"><b>Arctozolt</b><span>#0881 &bull; 5 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dracovish.html"><b>Dracovish</b><span>#0882 &bull; 4 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/arctovish.html"><b>Arctovish</b><span>#0883 &bull; 4 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/duraludon.html"><b>Duraludon</b><span>#0884 &bull; 42 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dreepy.html"><b>Dreepy</b><span>#0885 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/drakloak.html"><b>Drakloak</b><span>#0886 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dragapult.html"><b>Dragapult</b><span>#0887 &bull; 27 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/zacian.html"><b>Zacian</b><span>#0888 &bull; 46 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/zamazenta.html"><b>Zamazenta</b><span>#0889 &bull; 29 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/eternatus.html"><b>Eternatus</b><span>#0890 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kubfu.html"><b>Kubfu</b><span>#0891 &bull; 2 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/urshifu.html"><b>Urshifu</b><span>#0892 &bull; 40 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/zarude.html"><b>Zarude</b><span>#0893 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/regieleki.html"><b>Regieleki</b><span>#0894 &bull; 9 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/regidrago.html"><b>Regidrago</b><span>#0895 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/glastrier.html"><b>Glastrier</b><span>#0896 &bull; 4 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/spectrier.html"><b>Spectrier</b><span>#0897 &bull; 4 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/calyrex.html"><b>Calyrex</b><span>#0898 &bull; 44 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wyrdeer.html"><b>Wyrdeer</b><span>#0899 &bull; 8 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kleavor.html"><b>Kleavor</b><span>#0900 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ursaluna.html"><b>Ursaluna</b><span>#0901 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/basculegion.html"><b>Basculegion</b><span>#0902 &bull; 6 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sneasler.html"><b>Sneasler</b><span>#0903 &bull; 10 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/overqwil.html"><b>Overqwil</b><span>#0904 &bull; 4 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/enamorus.html"><b>Enamorus</b><span>#0905 &bull; 14 cards</span></a></li>
+      </ul>
+    </div>
+    <div class="dx-gen" data-gen="9">
+      <h3>Generation 9 &bull; Paldea</h3>
+      <ul class="dx-list">
+        <li><a class="dx-item" href="/pokemon/sprigatito.html"><b>Sprigatito</b><span>#0906 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/floragato.html"><b>Floragato</b><span>#0907 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/meowscarada.html"><b>Meowscarada</b><span>#0908 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/fuecoco.html"><b>Fuecoco</b><span>#0909 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/crocalor.html"><b>Crocalor</b><span>#0910 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/skeledirge.html"><b>Skeledirge</b><span>#0911 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/quaxly.html"><b>Quaxly</b><span>#0912 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/quaxwell.html"><b>Quaxwell</b><span>#0913 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/quaquaval.html"><b>Quaquaval</b><span>#0914 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lechonk.html"><b>Lechonk</b><span>#0915 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/oinkologne.html"><b>Oinkologne</b><span>#0916 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tarountula.html"><b>Tarountula</b><span>#0917 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/spidops.html"><b>Spidops</b><span>#0918 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/nymble.html"><b>Nymble</b><span>#0919 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/lokix.html"><b>Lokix</b><span>#0920 &bull; 8 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pawmi.html"><b>Pawmi</b><span>#0921 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pawmo.html"><b>Pawmo</b><span>#0922 &bull; 9 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pawmot.html"><b>Pawmot</b><span>#0923 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tandemaus.html"><b>Tandemaus</b><span>#0924 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/maushold.html"><b>Maushold</b><span>#0925 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/fidough.html"><b>Fidough</b><span>#0926 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dachsbun.html"><b>Dachsbun</b><span>#0927 &bull; 10 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/smoliv.html"><b>Smoliv</b><span>#0928 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dolliv.html"><b>Dolliv</b><span>#0929 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/arboliva.html"><b>Arboliva</b><span>#0930 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/squawkabilly.html"><b>Squawkabilly</b><span>#0931 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/nacli.html"><b>Nacli</b><span>#0932 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/naclstack.html"><b>Naclstack</b><span>#0933 &bull; 10 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/garganacl.html"><b>Garganacl</b><span>#0934 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/charcadet.html"><b>Charcadet</b><span>#0935 &bull; 33 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/armarouge.html"><b>Armarouge</b><span>#0936 &bull; 20 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ceruledge.html"><b>Ceruledge</b><span>#0937 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tadbulb.html"><b>Tadbulb</b><span>#0938 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bellibolt.html"><b>Bellibolt</b><span>#0939 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wattrel.html"><b>Wattrel</b><span>#0940 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kilowattrel.html"><b>Kilowattrel</b><span>#0941 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/maschiff.html"><b>Maschiff</b><span>#0942 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/mabosstiff.html"><b>Mabosstiff</b><span>#0943 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/shroodle.html"><b>Shroodle</b><span>#0944 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/grafaiai.html"><b>Grafaiai</b><span>#0945 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bramblin.html"><b>Bramblin</b><span>#0946 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/brambleghast.html"><b>Brambleghast</b><span>#0947 &bull; 8 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/toedscool.html"><b>Toedscool</b><span>#0948 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/toedscruel.html"><b>Toedscruel</b><span>#0949 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/klawf.html"><b>Klawf</b><span>#0950 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/capsakid.html"><b>Capsakid</b><span>#0951 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/scovillain.html"><b>Scovillain</b><span>#0952 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/rellor.html"><b>Rellor</b><span>#0953 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/rabsca.html"><b>Rabsca</b><span>#0954 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/flittle.html"><b>Flittle</b><span>#0955 &bull; 17 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/espathra.html"><b>Espathra</b><span>#0956 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tinkatink.html"><b>Tinkatink</b><span>#0957 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tinkatuff.html"><b>Tinkatuff</b><span>#0958 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tinkaton.html"><b>Tinkaton</b><span>#0959 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wiglett.html"><b>Wiglett</b><span>#0960 &bull; 19 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wugtrio.html"><b>Wugtrio</b><span>#0961 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/bombirdier.html"><b>Bombirdier</b><span>#0962 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/finizen.html"><b>Finizen</b><span>#0963 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/palafin.html"><b>Palafin</b><span>#0964 &bull; 25 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/varoom.html"><b>Varoom</b><span>#0965 &bull; 24 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/revavroom.html"><b>Revavroom</b><span>#0966 &bull; 22 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cyclizar.html"><b>Cyclizar</b><span>#0967 &bull; 21 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/orthworm.html"><b>Orthworm</b><span>#0968 &bull; 9 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/glimmet.html"><b>Glimmet</b><span>#0969 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/glimmora.html"><b>Glimmora</b><span>#0970 &bull; 9 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/greavard.html"><b>Greavard</b><span>#0971 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/houndstone.html"><b>Houndstone</b><span>#0972 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/flamigo.html"><b>Flamigo</b><span>#0973 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cetoddle.html"><b>Cetoddle</b><span>#0974 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/cetitan.html"><b>Cetitan</b><span>#0975 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/veluza.html"><b>Veluza</b><span>#0976 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dondozo.html"><b>Dondozo</b><span>#0977 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/tatsugiri.html"><b>Tatsugiri</b><span>#0978 &bull; 23 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/annihilape.html"><b>Annihilape</b><span>#0979 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/clodsire.html"><b>Clodsire</b><span>#0980 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/farigiraf.html"><b>Farigiraf</b><span>#0981 &bull; 12 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dudunsparce.html"><b>Dudunsparce</b><span>#0982 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/kingambit.html"><b>Kingambit</b><span>#0983 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/great-tusk.html"><b>Great Tusk</b><span>#0984 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/scream-tail.html"><b>Scream Tail</b><span>#0985 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/brute-bonnet.html"><b>Brute Bonnet</b><span>#0986 &bull; 8 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/flutter-mane.html"><b>Flutter Mane</b><span>#0987 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/slither-wing.html"><b>Slither Wing</b><span>#0988 &bull; 8 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sandy-shocks.html"><b>Sandy Shocks</b><span>#0989 &bull; 7 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/iron-treads.html"><b>Iron Treads</b><span>#0990 &bull; 8 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/iron-bundle.html"><b>Iron Bundle</b><span>#0991 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/iron-hands.html"><b>Iron Hands</b><span>#0992 &bull; 7 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/iron-jugulis.html"><b>Iron Jugulis</b><span>#0993 &bull; 7 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/iron-moth.html"><b>Iron Moth</b><span>#0994 &bull; 7 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/iron-thorns.html"><b>Iron Thorns</b><span>#0995 &bull; 10 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/frigibax.html"><b>Frigibax</b><span>#0996 &bull; 10 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/arctibax.html"><b>Arctibax</b><span>#0997 &bull; 9 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/baxcalibur.html"><b>Baxcalibur</b><span>#0998 &bull; 8 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gimmighoul.html"><b>Gimmighoul</b><span>#0999 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gholdengo.html"><b>Gholdengo</b><span>#1000 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/wo-chien.html"><b>Wo-Chien</b><span>#1001 &bull; 9 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/chien-pao.html"><b>Chien-Pao</b><span>#1002 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ting-lu.html"><b>Ting-Lu</b><span>#1003 &bull; 10 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/chi-yu.html"><b>Chi-Yu</b><span>#1004 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/roaring-moon.html"><b>Roaring Moon</b><span>#1005 &bull; 11 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/iron-valiant.html"><b>Iron Valiant</b><span>#1006 &bull; 10 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/koraidon.html"><b>Koraidon</b><span>#1007 &bull; 28 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/miraidon.html"><b>Miraidon</b><span>#1008 &bull; 30 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/walking-wake.html"><b>Walking Wake</b><span>#1009 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/iron-leaves.html"><b>Iron Leaves</b><span>#1010 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/dipplin.html"><b>Dipplin</b><span>#1011 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/poltchageist.html"><b>Poltchageist</b><span>#1012 &bull; 10 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/sinistcha.html"><b>Sinistcha</b><span>#1013 &bull; 9 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/okidogi.html"><b>Okidogi</b><span>#1014 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/munkidori.html"><b>Munkidori</b><span>#1015 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/fezandipiti.html"><b>Fezandipiti</b><span>#1016 &bull; 18 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/ogerpon.html"><b>Ogerpon</b><span>#1017 &bull; 64 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/archaludon.html"><b>Archaludon</b><span>#1018 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/hydrapple.html"><b>Hydrapple</b><span>#1019 &bull; 9 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/gouging-fire.html"><b>Gouging Fire</b><span>#1020 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/raging-bolt.html"><b>Raging Bolt</b><span>#1021 &bull; 13 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/iron-boulder.html"><b>Iron Boulder</b><span>#1022 &bull; 15 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/iron-crown.html"><b>Iron Crown</b><span>#1023 &bull; 14 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/terapagos.html"><b>Terapagos</b><span>#1024 &bull; 16 cards</span></a></li>
+        <li><a class="dx-item" href="/pokemon/pecharunt.html"><b>Pecharunt</b><span>#1025 &bull; 16 cards</span></a></li>
+      </ul>
+    </div>
+    <p class="price-note">Species list from the National Pokedex, pokeapi.co, read
+      August 13, 2026. Card counts are every printing we could name for that
+      Pokemon in any language, from the TCGdex card database, read August 13, 2026.
+      843 of the 1,025 pages carry a market price on at least one card and enough scans to be
+      worth a search engine's time; the rest are published but marked noindex until they do.
+      Anything else is on the <a href="/cards.html">card search</a>, which covers all 5,181.</p>
   </div>
 </section>
 
@@ -476,6 +1453,7 @@
         <a href="/expansions.html">Every set ever</a>
         <a href="/upcoming.html">Coming next</a>
         <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/msrp.html">MSRP check</a>
         <a href="/pack-prices.html">Pack prices</a>
         <a href="/how-many-packs.html">Packs per box</a>
         <a href="/openings/">Sealed products</a>
@@ -494,6 +1472,7 @@
         <a href="/top-100-playable.html">Most played cards</a>
         <a href="/what-set.html">Set finder</a>
         <a href="/rarity.html">Rarity guide</a>
+        <a href="/base-set.html">Base Set prints</a>
         <a href="/types.html">Card types</a>
         <a href="/fake-cards.html">Fakes</a>
         <a href="/will-it-grade.html">Will it grade</a>
@@ -507,6 +1486,7 @@
         <a href="/games/">Games</a>
         <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
+        <a href="/evolution.html">Evolution chart</a>
       </div>
       <div class="foot-col">
         <p class="foot-h">Rochester, NY</p>
@@ -526,9 +1506,55 @@
     </div>
     <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank">See the whole collection on Collectr &rarr;</a></p>
     <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
-    Card data from TCGdex, prices from TCGplayer. Fan made, not official.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+    Card data from TCGdex, prices from TCGplayer, Pokedex data from PokeAPI. Fan made, not official.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
+<script>
+(function(){
+  var q=document.getElementById('dxq'), count=document.getElementById('dxCount');
+  var gens=[].slice.call(document.querySelectorAll('.dx-gen'));
+  var chips=[].slice.call(document.querySelectorAll('.dx-chips .chip'));
+  // THE NAME AND THE DEX NUMBER, NOT THE WHOLE TILE. Matching a.textContent
+  // meant the card count was searchable too, so typing 47 lit up every Pokemon
+  // with 47 printings as well as every dex number containing 47. The tile
+  // carries no data- attribute for this on purpose: 1,025 of them would be real
+  // bytes on the wire and both strings are already in the markup.
+  var items=[].slice.call(document.querySelectorAll('.dx-item')).map(function(a){
+    var nm=a.querySelector('b'), meta=a.querySelector('span');
+    var k=(nm?nm.textContent:'')+' '+(meta?meta.textContent.split('•')[0]:'');
+    return {el:a.parentNode, k:k.toLowerCase().replace(/[^a-z0-9 #]/g,'')};
+  });
+  var gen='';
+  function apply(){
+    var t=(q.value||'').toLowerCase().trim().replace(/[^a-z0-9 #]/g,'');
+    var shown=0;
+    for(var i=0;i<items.length;i++){
+      var hit=!t||items[i].k.indexOf(t)>-1;
+      items[i].el.classList.toggle('is-off',!hit);
+      if(hit) shown++;
+    }
+    for(var g=0;g<gens.length;g++){
+      var offGen=gen&&gens[g].dataset.gen!==gen;
+      var empty=!gens[g].querySelector('li:not(.is-off)');
+      gens[g].classList.toggle('is-off', !!offGen||empty);
+      if(offGen){
+        var hidden=gens[g].querySelectorAll('li:not(.is-off)').length;
+        shown-=hidden;
+      }
+    }
+    count.textContent = shown===1025 ? 'All 1,025 Pokemon'
+      : shown===0 ? 'Nothing matches that' : shown+(shown===1?' Pokemon':' Pokemon');
+  }
+  q.addEventListener('input',apply);
+  chips.forEach(function(c){
+    c.addEventListener('click',function(){
+      gen=c.dataset.gen||'';
+      chips.forEach(function(o){ o.setAttribute('aria-pressed', o===c ? 'true':'false'); });
+      apply();
+    });
+  });
+})();
+</script>
 <script src="/assets/app.js?v=4cc7bcef" defer></script>
 </body>
 </html>

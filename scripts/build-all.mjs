@@ -69,6 +69,22 @@ const STEPS = [
   "node scripts/build-rarity.mjs",
   "node scripts/build-shows.mjs",
   "node scripts/build-fakes.mjs",
+  // The 1999 Base Set print runs. Next to the rarity guide and the fake checks
+  // because it is the same reader doing the same thing: holding one card and
+  // asking what it is. It reads data/base-set.json, which a human writes, plus
+  // data/top-graded.json for every price it prints and public/data/expansions.json
+  // for the dates, so nothing has to run before it. It must run BEFORE
+  // build-search.mjs, which walks public/*.html and fails the build on an
+  // indexable page missing from its PAGES list. build-pages.mjs, which owns the
+  // sitemap, sits ABOVE this line and that is fine: the only thing that has to
+  // be true is that public/base-set.html exists by the time check-build.py runs,
+  // and check-build.py is the last step.
+  //
+  // IT HARD FAILS on a top-graded.json with no verification stamped for its own
+  // crawl, exactly as build-top-graded.mjs does, because every price on it comes
+  // out of that file and a figure nobody read twice is not publishable here
+  // either.
+  "node scripts/build-base-set.mjs",
   "node scripts/build-grading.mjs",
   // The highest PSA 10 values. NO SYNC STEP RUNS BEFORE IT and that is
   // deliberate, the same way the sealed and deck data works: the crawl behind
@@ -174,6 +190,19 @@ const STEPS = [
 // running before build-search.mjs and build-pages.mjs.
 "node scripts/build-grade-check.mjs",
 "node scripts/build-openings.mjs",
+  // AFTER build-openings.mjs, which is a real ordering constraint and not a
+  // filing preference: /msrp.html links a product row to /openings/<id>.html and
+  // reads public/openings/ to find out which of those pages exist, because
+  // build-openings.mjs only writes one for a product this channel has filmed. Run
+  // it first and every one of those links silently disappears for a build.
+  // Otherwise the usual two: before build-search.mjs, which fails the build on an
+  // indexable page missing from its PAGES list, and before build-pages.mjs, which
+  // puts it in the sitemap.
+  //
+  // It reads data/msrp.json, which a human writes and which carries the rule for
+  // what may go in it, plus data/pack-counts-current.json for the pack counts and
+  // the shop listings, so this site states a pack count in exactly one place.
+  "node scripts/build-msrp.mjs",
   "node scripts/build-playlists.mjs",
   // The timeline of every official Pokemon video game. It reads
   // data/video-games.json, which a human curates, and data/cover-dims.json,
@@ -187,6 +216,24 @@ const STEPS = [
   // its PAGES list, and before check-build.py, which follows the nav link to it
   // from every page.
   "node scripts/build-video-games.mjs",
+  // The evolution chart, next to the video game timeline because they are the
+  // same kind of page: general Pokemon reference rather than anything to do
+  // with cards. It reads data/evolutions.json, written by
+  // scripts/sync-evolution.mjs, which is NOT in this list and must not be added
+  // to it: it is 541 chains plus the lookup tables against pokeapi, and what it
+  // records is a dated read, so refreshing it is a deliberate act by a person
+  // who then re-checks what the page claims. Same rule as sync-pokedex.mjs and
+  // sync-decks.mjs.
+  //
+  // AFTER build-pokemon.mjs, which is a real constraint rather than filing: the
+  // chart links a species box to /pokemon/<slug>.html only for the Pokemon that
+  // have a page, and it reads public/data/pokemon-index.json to find out which.
+  // Run it first and 1,025 boxes go link-free for a build. Otherwise the usual
+  // two: before build-search.mjs, which fails the build on an indexable page
+  // missing from its PAGES list, and before build-pages.mjs, which puts it in
+  // the sitemap.
+  "node scripts/build-evolution.mjs",
+  "node scripts/build-eevee.mjs",
   "node scripts/build-search.mjs",
   // Both read data/pokedex.json, which is written by sync-pokedex.mjs and is
   // NOT part of this run: it is a slow network job against pokeapi and the data
