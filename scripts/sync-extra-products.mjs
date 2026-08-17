@@ -4,8 +4,9 @@
 //   node scripts/sync-extra-products.mjs            verify the pins, cached
 //   node scripts/sync-extra-products.mjs --force    re-ask TCGplayer for all
 //
-// Writes data/extra-products.json, read by build-how-many-packs.mjs and
-// build-openings.mjs.
+// Writes data/extra-products.json, read by build-how-many-packs.mjs,
+// build-openings.mjs and, through shared/product-photos.mjs, by build-msrp.mjs
+// and build-what-to-buy.mjs.
 //
 // WHY THIS EXISTS. sync-products.mjs asks TCGplayer for one SET at a time, by
 // set name, and takes the cheapest product of each kind. That is right for the
@@ -29,6 +30,28 @@
 // carries the TCGplayer id of that same product. The photo then IS the box the
 // row is about, and the caption naming it is true of the file. That is the only
 // way to fill these rows without loosening the rule.
+//
+// FOUR PINS ADDED 17 AUGUST 2026 ANSWER TO A PRICE RATHER THAN TO A COUNT, and
+// `sourced` names a different file for them. Battle Academy, My First Battle,
+// the League Battle Deck and the V Battle Deck have no pack count anywhere:
+// nothing in them is a booster pack, which is the entire point of the first two.
+// What they have is a sourced PRICE, read off Pokemon Center and held in
+// data/pokemon-center-prices.json, and a row on /msrp.html and /what-to-buy.html
+// that was standing there with a hatch where the picture goes.
+//
+// THEY MATTER MORE THAN THE REST AND THAT IS WHY THEY WERE CHASED. Battle
+// Academy and My First Battle are the two things /what-to-buy.html recommends to
+// a parent buying a first present, and they were being recommended with no
+// picture of what to look for on a shelf, which is the one thing that page exists
+// to give somebody standing in an aisle.
+//
+// THE RULE IS UNCHANGED FOR THEM: each is pinned to a product that row's OWN
+// price rests on, named in that row's `pcFrom` in data/msrp.json, never to a
+// nearby box of the same type. Where a row's price rests on several boxes at one
+// figure, the pin is one of THOSE, and the caption prints its name, exactly as
+// the mini tin pin does. pokemoncenter.com is not fetched for any of this and
+// its own image urls are not hotlinked: the site serves a bot challenge, and the
+// photograph comes from TCGplayer like every other one here.
 //
 // THE ID IS PINNED AND THE NAME IS ASSERTED, both, and neither is enough alone.
 // TCGplayer's fuzzy search lies (see sync-products.mjs: "Scarlet & Violet"
@@ -73,11 +96,18 @@ const FORCE = process.argv.includes("--force");
  *
  * `id`      TCGplayer product id, hand-picked from a probe run.
  * `expect`  the product name TCGplayer must return for that id.
- * `sourced` the pokemon.com product data/pack-counts-current.json reads the
- *           count off. Where the two names are the same product, the photo is
- *           the box the number is about. Where they differ this field says so.
+ * `sourced` the product the NUMBER on the row was read off: the pokemon.com
+ *           product data/pack-counts-current.json takes the count from, or, for
+ *           the four price-only pins, the Pokemon Center product in
+ *           data/pokemon-center-prices.json the price was read off. Where the
+ *           two names are the same product, the photo is the box the number is
+ *           about. Where they differ this field says so and the note beside the
+ *           pin explains why they are the same box.
  * `rows`    which /how-many-packs.html row (by productName) this fills.
  * `kind`    which /openings/ page (by taxonomy id) this fills.
+ * `msrpRow` which data/msrp.json rowId this fills, for the price-only pins.
+ *           Recorded so a reader of the JSON can find the row without grepping;
+ *           shared/product-photos.mjs owns the pin from the other direction.
  */
 const PINS = [
   {
@@ -161,6 +191,66 @@ const PINS = [
     expect: "Prismatic Evolutions Surprise Box",
     sourced: "Scarlet & Violet-Prismatic Evolutions Surprise Box",
     row: "Collection boxes (a family, not one product)",
+  },
+  // ---- the four price-only pins, 17 August 2026. See the header.
+  {
+    key: "battle-academy",
+    id: 551930,
+    expect: "Pokemon TCG: Battle Academy 2024",
+    // THERE ARE THREE BATTLE ACADEMY BOXES ON TCGPLAYER AND ONLY ONE IS THIS
+    // ROW. /msrp.html prices Battle Academy at $24.99 off ONE Pokemon Center
+    // product, "Battle Academy (Armarouge ex, Pikachu ex & Darkrai ex)", and that
+    // row's own note already says the older Cinderace V edition is still listed
+    // at $19.99 and is a different box. So picking the wrong year here would put
+    // the $19.99 box under the $24.99 price, which is the failure this whole file
+    // exists to avoid.
+    //
+    // CHECKED AGAINST TCGPLAYER'S OWN SET LISTS RATHER THAN ASSUMED, because
+    // "2024" is a year and not a contents list. Their "Battle Academy 2024" set
+    // holds the singles "Armarouge ex (Armarouge 60)", "Pikachu ex (Pikachu 60)"
+    // and "Darkrai ex (Darkrai)", which is exactly the three the Pokemon Center
+    // name lists. Their "Battle Academy 2022" set holds Cinderace V and Eevee V,
+    // which is exactly the older box at the other price. Two independent
+    // catalogues agreeing on which Pokemon are in which box is what makes this a
+    // reading rather than a guess.
+    sourced: "Battle Academy (Armarouge ex, Pikachu ex & Darkrai ex)",
+    msrpRow: "battle-academy",
+  },
+  {
+    key: "my-first-battle",
+    id: 520781,
+    expect: "My First Battle [Pikachu & Bulbasaur]",
+    // Both versions Pokemon Center lists are $9.99 and msrp.json's row rests on
+    // the pair, so either is a product the price is about. This is the same call
+    // the Knock Out pin makes: pin one half, print its name.
+    sourced: "My First Battle (Pikachu & Bulbasaur)",
+    msrpRow: "my-first-battle",
+  },
+  {
+    key: "league-battle-deck",
+    id: 575294,
+    expect: "League Battle Deck [Charizard ex]",
+    // Six decks at $29.99 back that row, spanning the Sword and Shield decks and
+    // the Scarlet and Violet ex decks that replaced them. The pin is the NEWEST
+    // of the six rather than the cheapest, because /what-to-buy.html recommends
+    // this to somebody who already plays and wants to take a finished deck to a
+    // league night, and a picture of the current era is the useful one on a
+    // shelf. It is still one of the six the price rests on, which is the rule.
+    sourced: "Charizard ex League Battle Deck",
+    msrpRow: "league-battle-deck",
+  },
+  {
+    key: "v-battle-deck",
+    id: 245732,
+    expect: "V Battle Deck [Rayquaza V]",
+    // Four decks at $14.99 back that row and this is one of them. NOT the
+    // "V Battle Deck Bundle [Lycanroc V / Corviknight V]", which is two decks in
+    // one box at $29.99 and which msrp.json's note calls out by name as a
+    // different product. TCGplayer writes the Pokemon second and Pokemon Center
+    // writes it first; same box, and the caption prints TCGplayer's name because
+    // that is what is true of the file.
+    sourced: "Rayquaza V Battle Deck",
+    msrpRow: "v-battle-deck",
   },
   {
     key: "japanese-pack",
@@ -289,6 +379,7 @@ for (const pin of PINS) {
   products[pin.key] = {
     kind: pin.kind || null,
     row: pin.row || null,
+    msrpRow: pin.msrpRow || null,
     productId: row.productId,
     name: row.productName,
     setName: row.setName,
@@ -310,15 +401,23 @@ await writeFile(
         "Sealed products pinned by hand for their PHOTOGRAPHS, written by",
         "scripts/sync-extra-products.mjs. The argument for every pin is in that file.",
         "",
-        "These are the products sync-products.mjs cannot reach: four that belong to no",
-        "expansion, six whose per-set listing is a different box from the one the pack",
-        "count was sourced off, and one Japanese pack, which TCGplayer files under its",
-        "own product line.",
+        "These are the products sync-products.mjs cannot reach: the ones that belong to",
+        "no expansion at all, the ones whose per-set listing is a different box from the",
+        "one the pack count was sourced off, and one Japanese pack, which TCGplayer files",
+        "under its own product line.",
         "",
         "`name` is TCGplayer's own name for the product in the photo and it is what the",
-        "caption prints. `sourcedAs` is the pokemon.com product that",
-        "data/pack-counts-current.json reads the count off; where the two differ, the",
-        "note in the sync script says why they are the same box.",
+        "caption prints. `sourcedAs` is the product the row's NUMBER was read off: the",
+        "pokemon.com product in data/pack-counts-current.json for a pack count, or the",
+        "Pokemon Center product in data/pokemon-center-prices.json for the four rows that",
+        "have a price and no packs (Battle Academy, My First Battle, League Battle Deck,",
+        "V Battle Deck). Where that name and `name` differ, the note in the sync script",
+        "says why they are the same box.",
+        "",
+        "`row` names a /how-many-packs.html row, `kind` an /openings/ page and `msrpRow` a",
+        "data/msrp.json rowId. shared/product-photos.mjs is what actually pins a photo to",
+        "an /msrp.html and /what-to-buy.html row; `msrpRow` is here so a reader of this",
+        "file can see which row a pin was chased for.",
         "",
         "Images are hotlinked from TCGplayer's CDN, not copied here, the same as",
         "public/data/products.json.",

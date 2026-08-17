@@ -935,7 +935,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Where to Buy Pokemon Cards Online, and What Each Place Costs | Garbage Rips 585</title>
+<title>Where to Buy Pokemon Cards Online, and What Each Place Costs</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/buying.html">
 <meta property="og:title" content="Where to buy Pokemon cards online">

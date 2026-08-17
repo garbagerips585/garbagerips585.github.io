@@ -429,7 +429,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How to Spot a Fake Pokemon Card: ${d.tests.length} Tests That Work | Garbage Rips 585</title>
+<title>How to Spot a Fake Pokemon Card: ${d.tests.length} Tests That Work</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/fake-cards.html">
 <meta property="og:title" content="How to spot a fake Pokemon card">

@@ -505,7 +505,7 @@ const html = `<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Every Pokemon TCG Set in Order: All ${sets.length} Expansions ${firstYear} to ${lastYear} | Garbage Rips 585</title>
+<title>Every Pokemon TCG Set in Order: All ${sets.length} Expansions ${firstYear} to ${lastYear}</title>
 <meta name="description" content="The complete list of Pokemon TCG sets in release order, ${firstYear} to ${lastYear}. All ${sets.length} English expansions with release dates and card counts, grouped by era.">
 <link rel="canonical" href="${SITE}/expansions.html">
 <link rel="icon" href="/favicon.ico" sizes="any">

@@ -481,7 +481,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Will It Grade? How to Tell a PSA 10 From a 9 Before You Pay | Garbage Rips 585</title>
+<title>Will It Grade? How to Tell a PSA 10 From a 9 Before You Pay</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/will-it-grade.html">
 <meta property="og:title" content="Will it grade? How to read your own card first">

@@ -399,7 +399,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pokemon Deck Builds You Can Download and Paste Into TCG Live | Garbage Rips 585</title>
+<title>Pokemon Deck Builds You Can Download and Paste Into TCG Live</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/decks.html">
 <meta property="og:title" content="Deck builds you can download">

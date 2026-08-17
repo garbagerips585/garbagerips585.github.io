@@ -218,7 +218,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Start Here: A Beginner's Guide to Pokemon Cards | Garbage Rips 585</title>
+<title>Start Here: A Beginner's Guide to Pokemon Cards</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/start.html">
 <meta property="og:title" content="New to Pokemon cards? Start here">

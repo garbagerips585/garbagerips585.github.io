@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pokemon Card Drops and Restocks This Week | Garbage Rips 585</title>
+<title>Pokemon Card Drops and Restocks This Week</title>
 <meta name="description" content="What Pokemon card stock is expected at Target, Walmart and more, in store and online, for August 17, 2026 to August 23, 2026. Nobody announces it.">
 <link rel="canonical" href="https://garbagerips585.github.io/drops.html">
 <meta property="og:title" content="Pokemon card drops and restocks this week">
@@ -235,7 +235,7 @@
       <div class="dr-head">
         <p class="dr-stale" id="drStale" hidden
            data-week-ends="2026-08-23"
-           data-title="Pokemon Card Drops and Restocks: Week of August 17, 2026 | Garbage Rips 585"
+           data-title="Pokemon Card Drops and Restocks: Week of August 17, 2026"
            data-og-title="Pokemon card drops and restocks, week of August 17, 2026"
            data-desc="What Pokemon card stock was expected at Target, Walmart and more for August 17, 2026 to August 23, 2026. Not updated since, so it is a record now.">This list is <b data-dr-age>a few days</b> out of date. It covered August 17, 2026 to August 23, 2026 and has not been updated since. Treat it as a record of what was expected, not as this week's plan.</p>
         <p class="dr-when">August 17, 2026 to August 23, 2026</p>
@@ -531,17 +531,21 @@
   // scripts will see the corrected version.
   var el = document.getElementById("drStale");
   var ends = el && el.getAttribute("data-week-ends");
-  // \d, doubled. This script is inside a template literal in
-  // scripts/build-drops.mjs, so a single backslash never reaches the page and
-  // the pattern would ship as /^d{4}-d{2}-d{2}$/, which matches no date at all.
-  // The guard would then be present, correct looking and permanently asleep.
-  // COMPARE LOCAL MIDNIGHTS, NOT UTC ONES. This read the reader's "today" from
-  // toISOString(), which is the UTC date, while anchoring each published date
-  // at UTC midnight. West of Greenwich those disagree for the last hours of
-  // every evening: at 9pm in Rochester it is already tomorrow in UTC, so every
-  // date on the page aged by a day and the hero said "Yesterday's Rip" over a
-  // video published that morning. Four hours a night, five in winter, in the
-  // owner's own timezone. Both sides are local now.
+  // The four date helpers come from shared/drops.mjs, which the home page band
+  // inlines too. The backslash-doubling trap that used to be described here
+  // (a lone backslash-d written once ships as a bare d, and the guard is then
+  // present, correct looking and permanently asleep) is written up beside them,
+  // and interpolating a string built there cannot reintroduce it.
+  // NOTE FOR THE NEXT EDITOR OF THIS COMMENT: you are inside a template
+  // literal. A backtick here is a syntax error, which is how this line was
+  // written the first time.
+
+  function isIsoDay(s) { return /^\d{4}-\d{2}-\d{2}$/.test(s || ""); }
+  function todayIso() {
+    var n = new Date();
+    var m = n.getMonth() + 1, d = n.getDate();
+    return n.getFullYear() + "-" + (m < 10 ? "0" : "") + m + "-" + (d < 10 ? "0" : "") + d;
+  }
   function localDay(iso) {
     var p = String(iso || "").split("-");
     return new Date(+p[0], +p[1] - 1, +p[2]).getTime();
@@ -550,12 +554,7 @@
     var n = new Date();
     return new Date(n.getFullYear(), n.getMonth(), n.getDate()).getTime();
   }
-  function todayIso() {
-    var n = new Date();
-    var m = n.getMonth() + 1, d = n.getDate();
-    return n.getFullYear() + "-" + (m < 10 ? "0" : "") + m + "-" + (d < 10 ? "0" : "") + d;
-  }
-  if (/^\d{4}-\d{2}-\d{2}$/.test(ends || "")) {
+  if (isIsoDay(ends)) {
     var today = todayIso();
     if (ends < today) {
       var days = Math.round(
@@ -606,7 +605,7 @@
   var swept = 0;
   [].slice.call(document.querySelectorAll(".drop[data-perish]")).forEach(function (c) {
     var ex = c.getAttribute("data-expires");
-    if (/^\d{4}-\d{2}-\d{2}$/.test(ex || "") && ex < todayNow && c.parentNode) {
+    if (isIsoDay(ex) && ex < todayNow && c.parentNode) {
       c.parentNode.removeChild(c);
       swept++;
     }

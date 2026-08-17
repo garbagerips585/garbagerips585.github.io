@@ -357,7 +357,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pokemon Card Search: Every Printing of Every Card | Garbage Rips 585</title>
+<title>Pokemon Card Search: Every Printing of Every Card</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/cards.html">
 <meta property="og:title" content="Search every Pokemon card we cover">

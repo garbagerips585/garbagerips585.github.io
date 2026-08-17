@@ -708,7 +708,7 @@ for (const cfg of PAGES) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(cfg.title)} | Garbage Rips 585</title>
+<title>${esc(cfg.title)}</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${url}">
 <meta property="og:title" content="${esc(cfg.title)}">

@@ -134,15 +134,21 @@ const desc =
 
 // A ROW THAT DID NOT AGREE IS ADMITTED TO RATHER THAN QUIETLY MISSING, which is
 // the same call /base-set.html makes with its list of what it could not check.
-// The sentence is derived rather than typed: the count, the plural and the claim
-// that the row sits below this list are all read off the data, because the one
-// figure a reader never sees is the one that goes stale in silence. `excluded`
-// is checked against the verification by shared/graded-gate.mjs above, so by the
-// time this runs every entry is known to describe a real disagreement.
-// The REASON is the entry's own `public` string rather than a sentence written
-// here, so an exclusion made later for a different reason cannot inherit this
-// one's explanation. No `public` string, no sentence: a vague admission would be
-// worse than the honest count above it, which stands on its own either way.
+// The paragraph above already prints "399 of 400 checked agreed"; this names the
+// one and says what happened to it, so the reader is not left to wonder whether
+// the missing row is in the list they are about to read.
+//
+// ONE SENTENCE PER EXCLUDED ROW, so there is no count and no plural to get
+// wrong, and every part of each sentence comes off the data: the rank, the card
+// and the reason. THE REASON IS THE ENTRY'S OWN `public` STRING rather than a
+// sentence written here, so an exclusion made later for some other reason cannot
+// inherit this one's explanation. No `public` string on any entry, no sentence
+// at all: a vague admission would be worse than the honest count above it, which
+// stands on its own either way.
+//
+// `excluded` has already been matched against the verification by
+// shared/graded-gate.mjs, so by the time this runs every entry is known to
+// describe a row that really did disagree.
 const exc = d.excluded || [];
 const excNote =
   !exc.length || exc.some((e) => !e.public)

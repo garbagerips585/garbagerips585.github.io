@@ -207,6 +207,11 @@
   color:var(--ink-2)}
 .bs-cmp-n{color:var(--ink-2);font-size:var(--t-sm);font-variant-numeric:tabular-nums}
 .bs-cmp-n b{color:var(--ink);font-size:19px}
+/* The printing name needs its own air. A single markup space between a 19px
+   figure and a 10px mono label is about 4px and reads as one token: at 390 the
+   worst pair is "$343,098 1ST EDITION" and the label looked stuck to the
+   comma. Checked in the rendered page, not in the markup, where it looked fine. */
+.bs-cmp-n .bs-u{margin-left:5px}
 /* The gold rule is the only mark that separates the derived number from the two
    read ones. WEIGHT AND POSITION, NOT HUE, exactly like .bs-mark above: the
    palette is one accent and two greys, so a coloured multiple would be the same
@@ -883,13 +888,13 @@
           <span class="bs-cmp-lbl">Ungraded</span>
           <span class="bs-cmp-n"><b>$5,500</b> <span class="bs-u">1st Edition</span></span>
           <span class="bs-cmp-n">$988 <span class="bs-u">Shadowless</span></span>
-          <span class="bs-cmp-x">5.6x<span class="bs-u">the stamp</span></span>
+          <span class="bs-cmp-x">5.6x<span class="bs-u">for the stamp</span></span>
         </span>
         <span class="bs-cmp-cell">
           <span class="bs-cmp-lbl">PSA 10</span>
           <span class="bs-cmp-n"><b>$343,098</b> <span class="bs-u">1st Edition</span></span>
           <span class="bs-cmp-n">$30,100 <span class="bs-u">Shadowless</span></span>
-          <span class="bs-cmp-x">11.4x<span class="bs-u">the stamp</span></span>
+          <span class="bs-cmp-x">11.4x<span class="bs-u">for the stamp</span></span>
         </span>
       </li>
       <li class="bs-cmp-row">
@@ -898,13 +903,13 @@
           <span class="bs-cmp-lbl">Ungraded</span>
           <span class="bs-cmp-n"><b>$1,293</b> <span class="bs-u">1st Edition</span></span>
           <span class="bs-cmp-n">$223 <span class="bs-u">Shadowless</span></span>
-          <span class="bs-cmp-x">5.8x<span class="bs-u">the stamp</span></span>
+          <span class="bs-cmp-x">5.8x<span class="bs-u">for the stamp</span></span>
         </span>
         <span class="bs-cmp-cell">
           <span class="bs-cmp-lbl">PSA 10</span>
           <span class="bs-cmp-n"><b>$73,810</b> <span class="bs-u">1st Edition</span></span>
           <span class="bs-cmp-n">$20,250 <span class="bs-u">Shadowless</span></span>
-          <span class="bs-cmp-x">3.6x<span class="bs-u">the stamp</span></span>
+          <span class="bs-cmp-x">3.6x<span class="bs-u">for the stamp</span></span>
         </span>
       </li>
       <li class="bs-cmp-row">
@@ -913,22 +918,22 @@
           <span class="bs-cmp-lbl">Ungraded</span>
           <span class="bs-cmp-n"><b>$840</b> <span class="bs-u">1st Edition</span></span>
           <span class="bs-cmp-n">$81.80 <span class="bs-u">Shadowless</span></span>
-          <span class="bs-cmp-x">10.3x<span class="bs-u">the stamp</span></span>
+          <span class="bs-cmp-x">10.3x<span class="bs-u">for the stamp</span></span>
         </span>
         <span class="bs-cmp-cell">
           <span class="bs-cmp-lbl">PSA 10</span>
           <span class="bs-cmp-n"><b>$54,070</b> <span class="bs-u">1st Edition</span></span>
           <span class="bs-cmp-n">$12,600 <span class="bs-u">Shadowless</span></span>
-          <span class="bs-cmp-x">4.3x<span class="bs-u">the stamp</span></span>
+          <span class="bs-cmp-x">4.3x<span class="bs-u">for the stamp</span></span>
         </span>
       </li>
     </ul>
     <p class="bs-p2" style="margin-top:var(--s4)">Every figure above is PriceCharting's price guide, read on
       August 16, 2026 and read a second time from each card's own product page before it was published here. Both
-      printings of all 3 cards came back agreeing, which is the only reason they are on the page:
+      printings of all three cards came back agreeing, which is the only reason they are on the page:
       a comparison with one checked side and one unchecked side is worse than no comparison. It is a guide value
       computed from completed sales, not a record of any single sale.</p>
-    <p class="bs-p2">Across 3 cards and both columns the 1st Edition printing runs between
+    <p class="bs-p2">Across three cards and both columns the 1st Edition printing runs between
       <b>3.6x</b> and <b>11.4x</b> the Shadowless one. That is the point of the table: it
       is not one famous card behaving strangely. Read the ungraded column and the PSA 10 column as two separate questions. Ungraded has the most sales behind it and is the one a reader holding a loose card is actually in. PSA 10 is the number everybody quotes and rests on the fewest sales, which is why the multiples in it swing much harder from card to card.</p>
     

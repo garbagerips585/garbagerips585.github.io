@@ -459,7 +459,7 @@ const html = `<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Upcoming Pokemon TCG Sets ${new Date(TODAY).getFullYear()}: Release Dates and Products | Garbage Rips 585</title>
+<title>Upcoming Pokemon TCG Sets ${new Date(TODAY).getFullYear()}: Release Dates and Products</title>
 <meta name="description" content="Every announced English Pokemon TCG set and product with its release date${
   nextUp ? `, next up ${nextUp.name} on ${longDate(nextUp.date)}` : ""
 }. Confirmed dates marked apart.">

@@ -717,7 +717,7 @@ const DIR_DESC =
   "retailer's own site with the date and the address on it.";
 
 const directory = `${head({
-  title: "Which Stores Sell Pokemon Cards? The Shop-by-Shop List | Garbage Rips 585",
+  title: "Which Stores Sell Pokemon Cards? The Shop-by-Shop List",
   desc: DIR_DESC,
   path: "/retailers.html",
   extraLd: [crumbs("", "")],

@@ -978,9 +978,17 @@ function guidePage(g) {
     .join("\n\n");
 
   return head({
+    // No " | Garbage Rips 585". These are the longest titles in /sets/, because
+    // the name carries a language in brackets before the descriptor even starts.
+    // Measured 17 August 2026 at 20px Arial, all 12 ran 702-788px against
+    // Google's ~580px cut, and what the cut ate was "English Equivalent", which
+    // is the whole reason somebody lands on a Japanese or Korean set guide.
+    // Bare they run 523-609px. The sibling English guides in build-set-pages.mjs
+    // KEEP their brand and should: setTitle drops the descriptor instead and 26
+    // of 27 already fit, so there is nothing there for this change to buy.
     title: g.equivalent
-      ? `${g.english} (${g.langName}) Set Guide: Cards & English Equivalent | Garbage Rips 585`
-      : `${g.english} (${g.langName}) Set Guide | Garbage Rips 585`,
+      ? `${g.english} (${g.langName}) Set Guide: Cards & English Equivalent`
+      : `${g.english} (${g.langName}) Set Guide`,
     desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld, noindex: thin,
     // Three blocks, each carried only where its markup exists. ART_CSS is the
     // pictures, PAGE_CSS is the card-for-card table, and RARITY_CSS is the

@@ -522,7 +522,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What Are the Pokemon Card Types? All 11, Explained | Garbage Rips 585</title>
+<title>What Are the Pokemon Card Types? All 11, Explained</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/types.html">
 <meta property="og:title" content="What are the Pokemon card types?">

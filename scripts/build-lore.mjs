@@ -260,7 +260,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pokemon Lore and Pokedex Facts: Did You Know? | Garbage Rips 585</title>
+<title>Pokemon Lore and Pokedex Facts: Did You Know?</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/lore.html">
 <meta property="og:title" content="Pokedex facts, and the case for Trubbish">

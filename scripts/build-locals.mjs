@@ -279,7 +279,7 @@ const C = page({
     "Pokemon YouTubers, rippers, collectors and artists in Rochester, Buffalo and Syracuse. Upstate New York " +
     "creators worth following, with a link to each.",
   slug: "creators.html",
-  title: "Pokemon Creators in Rochester, Buffalo and Syracuse | Garbage Rips 585",
+  title: "Pokemon Creators in Rochester, Buffalo and Syracuse",
   h1: "Local creators",
   kicker: "Upstate NY • Support your scene",
   lede:

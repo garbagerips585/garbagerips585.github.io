@@ -935,7 +935,12 @@ for (const e of entries) {
   ).slice(0, 158);
 
   const page =
-    head(`${ask} Price and ${e.vids.length} Openings | Garbage Rips 585`, desc, path, {
+    // No " | Garbage Rips 585": measured 17 August 2026 at 20px Arial, all 14 of
+    // these ran 610-730px with it against Google's ~580px cut, so the brand only
+    // ever truncated. Without it they are 476-551px. og:site_name still has it.
+    // "Opening" pluralises here the way the sentence above already pluralises
+    // "set": one product had a single video and read "Price and 1 Openings".
+    head(`${ask} Price and ${e.vids.length} Opening${e.vids.length === 1 ? "" : "s"}`, desc, path, {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
@@ -1020,7 +1025,8 @@ const totalPacks = videos.reduce((n, v) => n + (v.packs || 0), 0);
 
 const idx =
   head(
-    "Every Kind of Pokemon Sealed Product, Opened | Garbage Rips 585",
+    // 612px with the brand against the ~580px cut, 433px without it.
+    "Every Kind of Pokemon Sealed Product, Opened",
     `Elite Trainer Boxes, Booster Bundles, blisters, tins and more: what each one holds, what it costs, and ${totalRips} of them opened on camera.`,
     "/openings/",
     {

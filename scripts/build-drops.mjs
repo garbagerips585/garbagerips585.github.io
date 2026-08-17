@@ -46,22 +46,27 @@ import {
 } from "../shared/chrome.mjs";
 import { brandMark, BRAND_CREDIT, BRAND_STYLE } from "../shared/brands.mjs";
 import { esc, longDate } from "../shared/format.mjs";
+// THE EXPIRY MODEL MOVED OUT OF THIS FILE ON 17 AUGUST 2026 and it did not
+// change on the way. The home page now carries a compact band built from the
+// same rows, so "which rows are still true today" is a question two pages ask
+// and neither may own: a row that has expired here and not there is exactly the
+// failure this page was written to avoid, in the more damaging of the two
+// places. shared/drops.mjs holds the predicates and the two client-side date
+// helpers; the arguments for both layers are written up there and in
+// data/drops.json's _readme. Nothing below computes an expiry of its own.
+import {
+  dropsClock, expiresOn as dropExpiresOn, isPerishable, splitByExpiry,
+  isStale, daysStale, CONF_LABEL, CLIENT_DATE_JS,
+} from "../shared/drops.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const doc = JSON.parse(await readFile(join(ROOT, "data/drops.json"), "utf8"));
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 
-const TODAY =
-  [videos.map((v) => v.published).filter(Boolean).sort().pop(), doc.compiled]
-    .filter(Boolean)
-    .sort()
-    .pop()
-    .slice(0, 10);
+const TODAY = dropsClock(doc, videos);
 
-const stale = Boolean(doc.weekEnds && doc.weekEnds < TODAY);
-const daysOld = doc.weekEnds
-  ? Math.round((new Date(TODAY) - new Date(doc.weekEnds)) / 86400000)
-  : 0;
+const stale = isStale(doc, TODAY);
+const daysOld = daysStale(doc, TODAY);
 
 const R = doc.retailers || {};
 const all = doc.drops || [];
@@ -95,10 +100,14 @@ if (known.length !== all.length) {
 // reader's clock, which is the belt-and-braces shape build-shows.mjs uses on
 // shows that have already happened. A row with no `expires` inherits weekEnds,
 // is never perishable, and lives or dies with the week like everything else.
-const expiresOn = (d) => d.expires || doc.weekEnds || "";
-const perishable = (d) => Boolean(doc.weekEnds && d.expires && d.expires < doc.weekEnds);
-const expired = known.filter((d) => perishable(d) && expiresOn(d) < TODAY);
-const drops = known.filter((d) => !expired.includes(d));
+//
+// The three lines below were the definition of all of that and are now two
+// bindings onto shared/drops.mjs, unchanged in behaviour. The home page band
+// reads the same functions, so the two pages cannot disagree about which rows
+// are alive.
+const expiresOn = (d) => dropExpiresOn(doc, d);
+const perishable = (d) => isPerishable(doc, d);
+const { live: drops, expired } = splitByExpiry(doc, known, TODAY);
 
 // PATTERN IS THE WEAKEST TIER AND IT EARNED ITS OWN WORD. The other three all
 // imply something official sits behind them, because that is what they mean on
@@ -107,11 +116,16 @@ const drops = known.filter((d) => !expired.includes(d));
 // so "Walmart Wednesday" is folklore that happens to be well observed. Giving
 // it the same badge as an announced date would have been the page telling a
 // small lie in its own vocabulary.
+// THE FOUR LABELS MOVED TO shared/drops.mjs AND NOTHING ELSE DID. The home page
+// band prints a confidence on each of its rows too, and "Pattern only" rounding
+// itself up to "Expected" on the smaller of the two surfaces is the exact way a
+// hedge gets lost. The class and the note stay here: only this page has room to
+// explain the ladder, and only this page has the ladder's CSS.
 const CONF = {
-  confirmed: { label: "Confirmed", cls: "ok", note: "A date the retailer put on it, or stock already seen on shelves." },
-  window: { label: "Usual window", cls: "win", note: "Expected inside a known range." },
-  expected: { label: "Expected", cls: "exp", note: "The community thinks it is coming. No date." },
-  pattern: { label: "Pattern only", cls: "pat", note: "A day or time people have noticed. No retailer publishes a restock schedule, so this is the weakest thing on the page." },
+  confirmed: { label: CONF_LABEL.confirmed, cls: "ok", note: "A date the retailer put on it, or stock already seen on shelves." },
+  window: { label: CONF_LABEL.window, cls: "win", note: "Expected inside a known range." },
+  expected: { label: CONF_LABEL.expected, cls: "exp", note: "The community thinks it is coming. No date." },
+  pattern: { label: CONF_LABEL.pattern, cls: "pat", note: "A day or time people have noticed. No retailer publishes a restock schedule, so this is the weakest thing on the page." },
 };
 
 const byChannel = (c) => drops.filter((d) => d.channel === c);
@@ -205,8 +219,8 @@ const weekLabel =
 // whether to click. Both have a stale wording now, and both get it two ways:
 // the build applies it when the build clock knows, and the pass at the bottom of
 // the page applies it when the reader's clock knows and the build did not.
-const TITLE_FRESH = "Pokemon Card Drops and Restocks This Week | Garbage Rips 585";
-const TITLE_STALE = `Pokemon Card Drops and Restocks: Week of ${longDate(doc.weekOf)} | Garbage Rips 585`;
+const TITLE_FRESH = "Pokemon Card Drops and Restocks This Week";
+const TITLE_STALE = `Pokemon Card Drops and Restocks: Week of ${longDate(doc.weekOf)}`;
 const OG_FRESH = "Pokemon card drops and restocks this week";
 const OG_STALE = `Pokemon card drops and restocks, week of ${longDate(doc.weekOf)}`;
 // SHORT ENOUGH NOT TO BE CUT. The slice is a backstop, not a plan: the old
@@ -441,31 +455,16 @@ ${footer()}
   // scripts will see the corrected version.
   var el = document.getElementById("drStale");
   var ends = el && el.getAttribute("data-week-ends");
-  // \\d, doubled. This script is inside a template literal in
-  // scripts/build-drops.mjs, so a single backslash never reaches the page and
-  // the pattern would ship as /^d{4}-d{2}-d{2}$/, which matches no date at all.
-  // The guard would then be present, correct looking and permanently asleep.
-  // COMPARE LOCAL MIDNIGHTS, NOT UTC ONES. This read the reader's "today" from
-  // toISOString(), which is the UTC date, while anchoring each published date
-  // at UTC midnight. West of Greenwich those disagree for the last hours of
-  // every evening: at 9pm in Rochester it is already tomorrow in UTC, so every
-  // date on the page aged by a day and the hero said "Yesterday's Rip" over a
-  // video published that morning. Four hours a night, five in winter, in the
-  // owner's own timezone. Both sides are local now.
-  function localDay(iso) {
-    var p = String(iso || "").split("-");
-    return new Date(+p[0], +p[1] - 1, +p[2]).getTime();
-  }
-  function todayLocal() {
-    var n = new Date();
-    return new Date(n.getFullYear(), n.getMonth(), n.getDate()).getTime();
-  }
-  function todayIso() {
-    var n = new Date();
-    var m = n.getMonth() + 1, d = n.getDate();
-    return n.getFullYear() + "-" + (m < 10 ? "0" : "") + m + "-" + (d < 10 ? "0" : "") + d;
-  }
-  if (/^\\d{4}-\\d{2}-\\d{2}$/.test(ends || "")) {
+  // The four date helpers come from shared/drops.mjs, which the home page band
+  // inlines too. The backslash-doubling trap that used to be described here
+  // (a lone backslash-d written once ships as a bare d, and the guard is then
+  // present, correct looking and permanently asleep) is written up beside them,
+  // and interpolating a string built there cannot reintroduce it.
+  // NOTE FOR THE NEXT EDITOR OF THIS COMMENT: you are inside a template
+  // literal. A backtick here is a syntax error, which is how this line was
+  // written the first time.
+${CLIENT_DATE_JS}
+  if (isIsoDay(ends)) {
     var today = todayIso();
     if (ends < today) {
       var days = Math.round(
@@ -516,7 +515,7 @@ ${footer()}
   var swept = 0;
   [].slice.call(document.querySelectorAll(".drop[data-perish]")).forEach(function (c) {
     var ex = c.getAttribute("data-expires");
-    if (/^\\d{4}-\\d{2}-\\d{2}$/.test(ex || "") && ex < todayNow && c.parentNode) {
+    if (isIsoDay(ex) && ex < todayNow && c.parentNode) {
       c.parentNode.removeChild(c);
       swept++;
     }

@@ -116,6 +116,13 @@ a.ev-node:hover{background:var(--mustard)}
 .ee-say{font-size:var(--t-sm);line-height:1.55;max-width:44em;margin-top:var(--s3)}
 .ee-facts{margin-top:var(--s3)}
 .ee-facts li{max-width:44em}
+/* THE LINKS IN A FACT WERE INVISIBLE. .facts-list has no rule for a nested <a>,
+   so "The eleven card types" and "Every Umbreon card, priced" rendered in body
+   ink with no underline and read as ordinary sentence text. Screenshotted at
+   390 before believing it. Nine fact lists on this page carry two links each,
+   which is eighteen links a reader could not see. Underlined here rather than
+   in ui.css, which another pass is rewriting. */
+.ee-facts a{text-decoration:underline;text-underline-offset:2px}
 /* THE VALUE LIST. Rows rather than a table: four columns of numbers inside a
    326px content box is either a horizontal scroller or 9px type, and the third
    line here wraps to its own full-width row instead. */
@@ -137,10 +144,32 @@ a.ev-node:hover{background:var(--mustard)}
   text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
 .ee-links a:hover{border-color:var(--ink);background:var(--mustard)}
 .ee-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s4);line-height:1.6;max-width:46em}
-.ee-src li{margin-top:6px}
-.ee-src ul{padding-left:var(--s4)}
+/* The source list carries .ee-src on the <ul> ITSELF, so a descendant selector
+   for it would never match. This is the rule that spaces its rows. */
+.ee-src li{margin-top:8px}
+/* DESKTOP READING MEASURE, the same block build-evolution.mjs and
+   build-types.mjs both end with. --measure is ui.css's own cap and it has to be
+   named on every loose paragraph class, because nothing else reaches them:
+   .ee-facts li was running to 95 real characters at 1440, measured with a
+   canvas against the actual face rather than guessed from ems, because its 44em
+   cap is 669px at that element's 15.2px. */
 @media(min-width:1000px){
-  .ee-lede,.ee-src,.ee-note p,.ee-say,.ev-p{max-width:var(--measure)}
+  .ee-lede,.ee-src,.ee-note p,.ee-say,.ee-facts li,.ev-p{max-width:var(--measure)}
+  /* AND THE VALUE ROWS STOP GROWING. Left at full width a 1,392px row put the
+     name at the far left and the price at the far right with 1,100px of nothing
+     between them, which is a row you have to track across rather than read. */
+  .ee-val{max-width:38em}
+}
+/* THE CARD BECOMES TWO COLUMNS AT 1100, and it is the failure ui.css already
+   documents for the home page and build-evolution.mjs for the chart: a column
+   of prose in a 1,392px band leaves 550px of empty card beside it, measured at
+   1440. The condition and its paragraph go left, the facts go right, and the
+   nine cards roughly halve in height. 1100 rather than 1000 because the facts
+   need about 480px before they start wrapping every line. */
+@media(min-width:1100px){
+  .ee-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:var(--s4) var(--s5);align-items:start}
+  .ee-facts{margin-top:0}
 }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Evolution chart","item":"https://garbagerips585.github.io/evolution.html"},{"@type":"ListItem","position":3,"name":"Eevee evolutions"}]}</script>
@@ -271,13 +300,16 @@ a.ev-node:hover{background:var(--mustard)}
       <p class="lede ee-lede">Eight of them, and no two work the same way. Three want a stone. Two want friendship
         and a clock. Two used to want a specific rock in a specific forest and now want a stone instead. One wants
         a move. <b>Eevee is the only Pokemon whose answer is eight answers</b>, which is why it gets a page.</p>
-      <p class="lede ee-lede">Here is the whole fork first, then all nine of them one at a time with the artwork,
-        what each one takes, when it was introduced, and what its cards are worth.</p>
+      <p class="lede ee-lede">All nine of them are here, with the artwork, what each one takes, when it was
+        introduced and what its cards are worth. Tap a face to jump straight to it.</p>
 
-      <div class="ee-fan">
-<div class="ev-line"><a class="ev-node" href="/pokemon/eevee.html"><span class="ev-nm">Eevee</span><span class="ev-no">#133</span></a></div><ul class="ev-arms"><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-cond"><b>Use a Water Stone</b></div><div class="ev-line"><a class="ev-node" href="/pokemon/vaporeon.html"><span class="ev-nm">Vaporeon</span><span class="ev-no">#134</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-cond"><b>Use a Thunder Stone</b></div><div class="ev-line"><a class="ev-node" href="/pokemon/jolteon.html"><span class="ev-nm">Jolteon</span><span class="ev-no">#135</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-cond"><b>Use a Fire Stone</b></div><div class="ev-line"><a class="ev-node" href="/pokemon/flareon.html"><span class="ev-nm">Flareon</span><span class="ev-no">#136</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-cond"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with friendship 160 or higher</span><span class="ev-plus" aria-hidden="true">+</span><span>during the day</span></div><div class="ev-line"><a class="ev-node" href="/pokemon/espeon.html"><span class="ev-nm">Espeon</span><span class="ev-no">#196</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-cond"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with friendship 160 or higher</span><span class="ev-plus" aria-hidden="true">+</span><span>at night</span></div><div class="ev-line"><a class="ev-node" href="/pokemon/umbreon.html"><span class="ev-nm">Umbreon</span><span class="ev-no">#197</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-multi"><span class="ev-multi-h">6 different answers, by game</span><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Eterna Forest</span><span class="ev-games"><span>Diamond and Pearl</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Pinwheel Forest</span><span class="ev-games"><span>Black and White</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Petalburg Woods</span><span class="ev-games"><span>Omega Ruby and Alpha Sapphire</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Kalos Route 20</span><span class="ev-games"><span>X and Y</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Lush Jungle</span><span class="ev-games"><span>Sun and Moon</span></span></div><div class="ev-cond ev-cond-alt"><b>Use a Leaf Stone</b><span class="ev-games"><span>Sword and Shield</span></span></div></div><div class="ev-line"><a class="ev-node" href="/pokemon/leafeon.html"><span class="ev-nm">Leafeon</span><span class="ev-no">#470</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-multi"><span class="ev-multi-h">6 different answers, by game</span><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Sinnoh Route 217</span><span class="ev-games"><span>Diamond and Pearl</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Twist Mountain</span><span class="ev-games"><span>Black and White</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Shoal Cave</span><span class="ev-games"><span>Omega Ruby and Alpha Sapphire</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Frost Cavern</span><span class="ev-games"><span>X and Y</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Mount Lanakila</span><span class="ev-games"><span>Sun and Moon</span></span></div><div class="ev-cond ev-cond-alt"><b>Use an Ice Stone</b><span class="ev-games"><span>Sword and Shield</span></span></div></div><div class="ev-line"><a class="ev-node" href="/pokemon/glaceon.html"><span class="ev-nm">Glaceon</span><span class="ev-no">#471</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-multi"><span class="ev-multi-h">2 different answers, by game</span><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with 2 or more affection hearts</span><span class="ev-plus" aria-hidden="true">+</span><span>knowing a Fairy type move</span><span class="ev-games"><span>X and Y</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with friendship 160 or higher</span><span class="ev-plus" aria-hidden="true">+</span><span>knowing a Fairy type move</span><span class="ev-games"><span>Sword and Shield</span></span></div></div><div class="ev-line"><a class="ev-node" href="/pokemon/sylveon.html"><span class="ev-nm">Sylveon</span><span class="ev-no">#700</span></a></div></div></li></ul>
-      </div>
-
+      <!-- THE PICTURES COME BEFORE THE DIAGRAM, and they used to come after it.
+           The drawn chain is 1,806px tall at 390px, so a reader who arrived on
+           "eevee evolutions" had to scroll past nearly two phone screens of it
+           before seeing a single Pokemon. A jump nav that far down the page is
+           also not a jump nav. The chain is still the better answer to "how does
+           this fork" and it keeps its place directly under, where the reader has
+           already seen who the nine are. -->
       <nav aria-label="Jump to an Eeveelution">
         <div class="ee-glance">
         <a class="ee-gt" href="#eevee">
@@ -291,42 +323,46 @@ a.ev-node:hover{background:var(--mustard)}
           <span>Water</span>
         </a>
         <a class="ee-gt" href="#jolteon">
-          <img src="/assets/species/135.webp" width="256" height="256" alt="" decoding="async">
+          <img src="/assets/species/135.webp" width="256" height="256" alt="" loading="lazy" decoding="async">
           <b>Jolteon</b>
           <span>Electric</span>
         </a>
         <a class="ee-gt" href="#flareon">
-          <img src="/assets/species/136.webp" width="256" height="256" alt="" decoding="async">
+          <img src="/assets/species/136.webp" width="256" height="256" alt="" loading="lazy" decoding="async">
           <b>Flareon</b>
           <span>Fire</span>
         </a>
         <a class="ee-gt" href="#espeon">
-          <img src="/assets/species/196.webp" width="256" height="256" alt="" decoding="async">
+          <img src="/assets/species/196.webp" width="256" height="256" alt="" loading="lazy" decoding="async">
           <b>Espeon</b>
           <span>Psychic</span>
         </a>
         <a class="ee-gt" href="#umbreon">
-          <img src="/assets/species/197.webp" width="256" height="256" alt="" decoding="async">
+          <img src="/assets/species/197.webp" width="256" height="256" alt="" loading="lazy" decoding="async">
           <b>Umbreon</b>
           <span>Dark</span>
         </a>
         <a class="ee-gt" href="#leafeon">
-          <img src="/assets/species/470.webp" width="256" height="256" alt="" decoding="async">
+          <img src="/assets/species/470.webp" width="256" height="256" alt="" loading="lazy" decoding="async">
           <b>Leafeon</b>
           <span>Grass</span>
         </a>
         <a class="ee-gt" href="#glaceon">
-          <img src="/assets/species/471.webp" width="256" height="256" alt="" decoding="async">
+          <img src="/assets/species/471.webp" width="256" height="256" alt="" loading="lazy" decoding="async">
           <b>Glaceon</b>
           <span>Ice</span>
         </a>
         <a class="ee-gt" href="#sylveon">
-          <img src="/assets/species/700.webp" width="256" height="256" alt="" decoding="async">
+          <img src="/assets/species/700.webp" width="256" height="256" alt="" loading="lazy" decoding="async">
           <b>Sylveon</b>
           <span>Fairy</span>
         </a>
         </div>
       </nav>
+
+      <div class="ee-fan">
+<div class="ev-line"><a class="ev-node" href="/pokemon/eevee.html"><span class="ev-nm">Eevee</span><span class="ev-no">#133</span></a></div><ul class="ev-arms"><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-cond"><b>Use a Water Stone</b></div><div class="ev-line"><a class="ev-node" href="/pokemon/vaporeon.html"><span class="ev-nm">Vaporeon</span><span class="ev-no">#134</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-cond"><b>Use a Thunder Stone</b></div><div class="ev-line"><a class="ev-node" href="/pokemon/jolteon.html"><span class="ev-nm">Jolteon</span><span class="ev-no">#135</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-cond"><b>Use a Fire Stone</b></div><div class="ev-line"><a class="ev-node" href="/pokemon/flareon.html"><span class="ev-nm">Flareon</span><span class="ev-no">#136</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-cond"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with friendship 160 or higher</span><span class="ev-plus" aria-hidden="true">+</span><span>during the day</span></div><div class="ev-line"><a class="ev-node" href="/pokemon/espeon.html"><span class="ev-nm">Espeon</span><span class="ev-no">#196</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-cond"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with friendship 160 or higher</span><span class="ev-plus" aria-hidden="true">+</span><span>at night</span></div><div class="ev-line"><a class="ev-node" href="/pokemon/umbreon.html"><span class="ev-nm">Umbreon</span><span class="ev-no">#197</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-multi"><span class="ev-multi-h">6 different answers, by game</span><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Eterna Forest</span><span class="ev-games"><span>Diamond and Pearl</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Pinwheel Forest</span><span class="ev-games"><span>Black and White</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Petalburg Woods</span><span class="ev-games"><span>Omega Ruby and Alpha Sapphire</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Kalos Route 20</span><span class="ev-games"><span>X and Y</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Lush Jungle</span><span class="ev-games"><span>Sun and Moon</span></span></div><div class="ev-cond ev-cond-alt"><b>Use a Leaf Stone</b><span class="ev-games"><span>Sword and Shield</span></span></div></div><div class="ev-line"><a class="ev-node" href="/pokemon/leafeon.html"><span class="ev-nm">Leafeon</span><span class="ev-no">#470</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-multi"><span class="ev-multi-h">6 different answers, by game</span><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Sinnoh Route 217</span><span class="ev-games"><span>Diamond and Pearl</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Twist Mountain</span><span class="ev-games"><span>Black and White</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Shoal Cave</span><span class="ev-games"><span>Omega Ruby and Alpha Sapphire</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Frost Cavern</span><span class="ev-games"><span>X and Y</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Mount Lanakila</span><span class="ev-games"><span>Sun and Moon</span></span></div><div class="ev-cond ev-cond-alt"><b>Use an Ice Stone</b><span class="ev-games"><span>Sword and Shield</span></span></div></div><div class="ev-line"><a class="ev-node" href="/pokemon/glaceon.html"><span class="ev-nm">Glaceon</span><span class="ev-no">#471</span></a></div></div></li><li class="ev-arm"><svg class="ev-fk" viewBox="0 0 28 44" aria-hidden="true" focusable="false"><use href="#evoFork"/></svg><div class="ev-armbody"><div class="ev-multi"><span class="ev-multi-h">2 different answers, by game</span><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with 2 or more affection hearts</span><span class="ev-plus" aria-hidden="true">+</span><span>knowing a Fairy type move</span><span class="ev-games"><span>X and Y</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with friendship 160 or higher</span><span class="ev-plus" aria-hidden="true">+</span><span>knowing a Fairy type move</span><span class="ev-games"><span>Sword and Shield</span></span></div></div><div class="ev-line"><a class="ev-node" href="/pokemon/sylveon.html"><span class="ev-nm">Sylveon</span><span class="ev-no">#700</span></a></div></div></li></ul>
+      </div>
 
       <section>
         <h2>Eevee, and the <span class="hl">eight</span> it becomes</h2>
@@ -345,16 +381,18 @@ a.ev-node:hover{background:var(--mustard)}
           </div>
           <div class="ee-row">
             <img class="ee-art" src="/assets/species/133.webp" width="256" height="256"
-              alt="Eevee, official artwork" decoding="async">
+              alt="Eevee, official artwork" loading="lazy" decoding="async">
             <div class="ee-body">
+              <div class="ee-what">
               <p class="ee-lab">Where it comes from</p>
               <div class="ev-cond"><b>Nothing evolves into Eevee</b></div>
               
               <p class="ee-say">Eevee is the one you start with and the only one of the nine with nothing above it. Our source records no route into Eevee at all: nothing evolves into it, so every one of the eight below starts from a plain Eevee and the whole question is what you do next.</p>
               
+              </div>
               <ul class="facts-list ee-facts">
                 <li><b>The Evolution Pokemon.</b> Eevee is #133 in the National Pokedex.</li>
-                <li><b>Normal type.</b> Normal in the video games. There is no Normal type in the card game, so a Eevee is printed as a Colorless card. <a href="/types.html">The eleven card types</a>.</li>
+                <li><b>Normal type.</b> Normal in the video games. There is no Normal type in the card game, so Eevee cards are printed as Colorless. <a href="/types.html">The eleven card types</a>.</li>
                 <li><b>Generation 1, Kanto.</b> One of the 151 species that generation introduced.</li>
                 <li><b>Size.</b> 0.3m (1ft 0in) and 6.5kg (14lb).</li>
                 <li><b>160 printings across 93 sets.</b> The priciest single Eevee card we hold a price for is $186. <a href="/pokemon/eevee.html">Every Eevee card, priced</a>.</li>
@@ -372,13 +410,15 @@ a.ev-node:hover{background:var(--mustard)}
           </div>
           <div class="ee-row">
             <img class="ee-art" src="/assets/species/134.webp" width="256" height="256"
-              alt="Vaporeon, official artwork" decoding="async">
+              alt="Vaporeon, official artwork" loading="lazy" decoding="async">
             <div class="ee-body">
+              <div class="ee-what">
               <p class="ee-lab">What it takes</p>
               <div class="ev-cond"><b>Use a Water Stone</b></div>
               <ul class="ee-tags"><li>Use an item</li></ul>
               <p class="ee-say">A Water Stone, and nothing else. No level, no friendship, no time of day. The three stone ones are the easy three, and they are easy in exactly the same way: hold the stone, use it on the Eevee, done.</p>
               
+              </div>
               <ul class="facts-list ee-facts">
                 <li><b>The Bubble Jet Pokemon.</b> Vaporeon is #134 in the National Pokedex.</li>
                 <li><b>Water type.</b> Water in the video games and Water on a card too. <a href="/types.html">The eleven card types</a>.</li>
@@ -401,14 +441,16 @@ a.ev-node:hover{background:var(--mustard)}
             <img class="ee-art" src="/assets/species/135.webp" width="256" height="256"
               alt="Jolteon, official artwork" loading="lazy" decoding="async">
             <div class="ee-body">
+              <div class="ee-what">
               <p class="ee-lab">What it takes</p>
               <div class="ev-cond"><b>Use a Thunder Stone</b></div>
               <ul class="ee-tags"><li>Use an item</li></ul>
               <p class="ee-say">A Thunder Stone. Same shape as Vaporeon, different stone. Nothing about the Eevee matters, which is why these three are the ones you can plan around.</p>
               
+              </div>
               <ul class="facts-list ee-facts">
                 <li><b>The Lightning Pokemon.</b> Jolteon is #135 in the National Pokedex.</li>
-                <li><b>Electric type.</b> Electric in the video games. There is no Electric type in the card game, so a Jolteon is printed as a Lightning card. <a href="/types.html">The eleven card types</a>.</li>
+                <li><b>Electric type.</b> Electric in the video games. There is no Electric type in the card game, so Jolteon cards are printed as Lightning. <a href="/types.html">The eleven card types</a>.</li>
                 <li><b>Generation 1, Kanto.</b> One of the 151 species that generation introduced.</li>
                 <li><b>Size.</b> 0.8m (2ft 7in) and 24.5kg (54lb).</li>
                 <li><b>67 printings across 51 sets.</b> The priciest single Jolteon card we hold a price for is $203. <a href="/pokemon/jolteon.html">Every Jolteon card, priced</a>.</li>
@@ -428,11 +470,13 @@ a.ev-node:hover{background:var(--mustard)}
             <img class="ee-art" src="/assets/species/136.webp" width="256" height="256"
               alt="Flareon, official artwork" loading="lazy" decoding="async">
             <div class="ee-body">
+              <div class="ee-what">
               <p class="ee-lab">What it takes</p>
               <div class="ev-cond"><b>Use a Fire Stone</b></div>
               <ul class="ee-tags"><li>Use an item</li></ul>
               <p class="ee-say">A Fire Stone. That is the last of the three that are one item and no conditions. Between them, Vaporeon, Jolteon and Flareon are the reason people assume every Eeveelution is a stone, and five of the eight are not.</p>
               
+              </div>
               <ul class="facts-list ee-facts">
                 <li><b>The Flame Pokemon.</b> Flareon is #136 in the National Pokedex.</li>
                 <li><b>Fire type.</b> Fire in the video games and Fire on a card too. <a href="/types.html">The eleven card types</a>.</li>
@@ -455,11 +499,13 @@ a.ev-node:hover{background:var(--mustard)}
             <img class="ee-art" src="/assets/species/196.webp" width="256" height="256"
               alt="Espeon, official artwork" loading="lazy" decoding="async">
             <div class="ee-body">
+              <div class="ee-what">
               <p class="ee-lab">What it takes</p>
               <div class="ev-cond"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with friendship 160 or higher</span><span class="ev-plus" aria-hidden="true">+</span><span>during the day</span></div>
               <ul class="ee-tags"><li>Friendship</li><li>Time of day</li></ul>
               <p class="ee-say">The first one that is not an item. Friendship 160 or higher, then a level up, and it has to happen in the daytime. Friendship is not a stat printed anywhere you can read it, which is what makes this the one people get wrong: it is built up by carrying the Pokemon around rather than bought at a counter.</p>
               
+              </div>
               <ul class="facts-list ee-facts">
                 <li><b>The Sun Pokemon.</b> Espeon is #196 in the National Pokedex.</li>
                 <li><b>Psychic type.</b> Psychic in the video games and Psychic on a card too. <a href="/types.html">The eleven card types</a>.</li>
@@ -482,14 +528,16 @@ a.ev-node:hover{background:var(--mustard)}
             <img class="ee-art" src="/assets/species/197.webp" width="256" height="256"
               alt="Umbreon, official artwork" loading="lazy" decoding="async">
             <div class="ee-body">
+              <div class="ee-what">
               <p class="ee-lab">What it takes</p>
               <div class="ev-cond"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with friendship 160 or higher</span><span class="ev-plus" aria-hidden="true">+</span><span>at night</span></div>
               <ul class="ee-tags"><li>Friendship</li><li>Time of day</li></ul>
               <p class="ee-say">Exactly Espeon's condition with the clock moved. Friendship 160 or higher, a level up, at night. The pair is deliberate and it is the reason both are famous: one Eevee, one number, and the only difference is what time you press the button. Get the hour wrong and you get the other one.</p>
               
+              </div>
               <ul class="facts-list ee-facts">
                 <li><b>The Moonlight Pokemon.</b> Umbreon is #197 in the National Pokedex.</li>
-                <li><b>Dark type.</b> Dark in the video games. There is no Dark type in the card game, so a Umbreon is printed as a Darkness card. <a href="/types.html">The eleven card types</a>.</li>
+                <li><b>Dark type.</b> Dark in the video games. There is no Dark type in the card game, so Umbreon cards are printed as Darkness. <a href="/types.html">The eleven card types</a>.</li>
                 <li><b>Generation 2, Johto.</b> One of the 100 species that generation introduced.</li>
                 <li><b>Size.</b> 1.0m (3ft 3in) and 27.0kg (60lb).</li>
                 <li><b>78 printings across 48 sets.</b> The priciest single Umbreon card we hold a price for is $1,499. <a href="/pokemon/umbreon.html">Every Umbreon card, priced</a>.</li>
@@ -509,11 +557,13 @@ a.ev-node:hover{background:var(--mustard)}
             <img class="ee-art" src="/assets/species/470.webp" width="256" height="256"
               alt="Leafeon, official artwork" loading="lazy" decoding="async">
             <div class="ee-body">
+              <div class="ee-what">
               <p class="ee-lab">What it takes</p>
               <div class="ev-multi"><span class="ev-multi-h">6 different answers, by game</span><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Eterna Forest</span><span class="ev-games"><span>Diamond and Pearl</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Pinwheel Forest</span><span class="ev-games"><span>Black and White</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Petalburg Woods</span><span class="ev-games"><span>Omega Ruby and Alpha Sapphire</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Kalos Route 20</span><span class="ev-games"><span>X and Y</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Lush Jungle</span><span class="ev-games"><span>Sun and Moon</span></span></div><div class="ev-cond ev-cond-alt"><b>Use a Leaf Stone</b><span class="ev-games"><span>Sword and Shield</span></span></div></div>
               <ul class="ee-tags"><li>A place</li><li>Use an item</li></ul>
               <p class="ee-say">The one that changed the most. Our source files six different answers for Leafeon, and five of them are a place: a particular rock in a particular forest, in a different forest in every generation. The sixth is a Leaf Stone. Every one of them is listed above with the games it belongs to, because there is no single true answer to give.</p>
               
+              </div>
               <ul class="facts-list ee-facts">
                 <li><b>The Verdant Pokemon.</b> Leafeon is #470 in the National Pokedex.</li>
                 <li><b>Grass type.</b> Grass in the video games and Grass on a card too. <a href="/types.html">The eleven card types</a>.</li>
@@ -536,14 +586,16 @@ a.ev-node:hover{background:var(--mustard)}
             <img class="ee-art" src="/assets/species/471.webp" width="256" height="256"
               alt="Glaceon, official artwork" loading="lazy" decoding="async">
             <div class="ee-body">
+              <div class="ee-what">
               <p class="ee-lab">What it takes</p>
               <div class="ev-multi"><span class="ev-multi-h">6 different answers, by game</span><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Sinnoh Route 217</span><span class="ev-games"><span>Diamond and Pearl</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Twist Mountain</span><span class="ev-games"><span>Black and White</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Shoal Cave</span><span class="ev-games"><span>Omega Ruby and Alpha Sapphire</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Frost Cavern</span><span class="ev-games"><span>X and Y</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>near the special rock at Mount Lanakila</span><span class="ev-games"><span>Sun and Moon</span></span></div><div class="ev-cond ev-cond-alt"><b>Use an Ice Stone</b><span class="ev-games"><span>Sword and Shield</span></span></div></div>
               <ul class="ee-tags"><li>A place</li><li>Use an item</li></ul>
               <p class="ee-say">Leafeon's twin, and it changed the same way at the same times. Five different cold places across five sets of games, then an Ice Stone. Both are above with their games. If you have been told one answer for Glaceon and it did not work, this is why.</p>
               
+              </div>
               <ul class="facts-list ee-facts">
                 <li><b>The Fresh Snow Pokemon.</b> Glaceon is #471 in the National Pokedex.</li>
-                <li><b>Ice type.</b> Ice in the video games. There is no Ice type in the card game, so a Glaceon is printed as a Water card. <a href="/types.html">The eleven card types</a>.</li>
+                <li><b>Ice type.</b> Ice in the video games. There is no Ice type in the card game, so Glaceon cards are printed as Water. <a href="/types.html">The eleven card types</a>.</li>
                 <li><b>Generation 4, Sinnoh.</b> One of the 107 species that generation introduced.</li>
                 <li><b>Size.</b> 0.8m (2ft 7in) and 25.9kg (57lb).</li>
                 <li><b>55 printings across 32 sets.</b> The priciest single Glaceon card we hold a price for is $278. <a href="/pokemon/glaceon.html">Every Glaceon card, priced</a>.</li>
@@ -563,14 +615,16 @@ a.ev-node:hover{background:var(--mustard)}
             <img class="ee-art" src="/assets/species/700.webp" width="256" height="256"
               alt="Sylveon, official artwork" loading="lazy" decoding="async">
             <div class="ee-body">
+              <div class="ee-what">
               <p class="ee-lab">What it takes</p>
               <div class="ev-multi"><span class="ev-multi-h">2 different answers, by game</span><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with 2 or more affection hearts</span><span class="ev-plus" aria-hidden="true">+</span><span>knowing a Fairy type move</span><span class="ev-games"><span>X and Y</span></span></div><div class="ev-cond ev-cond-alt"><b>Level up</b><span class="ev-plus" aria-hidden="true">+</span><span>with friendship 160 or higher</span><span class="ev-plus" aria-hidden="true">+</span><span>knowing a Fairy type move</span><span class="ev-games"><span>Sword and Shield</span></span></div></div>
               <ul class="ee-tags"><li>Friendship</li><li>A move</li></ul>
               <p class="ee-say">The only one with a move condition. It wants a Fairy type move known, and the other half of the condition changed: affection in one set of games, friendship in another. Both are printed above, and the move requirement is in both of them.</p>
               <p class="ee-say">The card game had a Fairy type of its own from the Kalos Starter Set in 2013 until Sword and Shield in February 2020, then retired it. That is why a Sylveon card from the middle of that window is a Fairy card and a new one is a Psychic card. The old ones are ordinary cards, not fakes and not misprints.</p>
+              </div>
               <ul class="facts-list ee-facts">
                 <li><b>The Intertwining Pokemon.</b> Sylveon is #700 in the National Pokedex.</li>
-                <li><b>Fairy type.</b> Fairy in the video games. There is no Fairy type in the card game, so a Sylveon is printed as a Psychic card. <a href="/types.html">The eleven card types</a>.</li>
+                <li><b>Fairy type.</b> Fairy in the video games. The card game had a Fairy type of its own and retired it, so Sylveon cards are printed as Psychic now. <a href="/types.html">The eleven card types</a>.</li>
                 <li><b>Generation 6, Kalos.</b> One of the 72 species that generation introduced.</li>
                 <li><b>Size.</b> 1.0m (3ft 3in) and 23.5kg (52lb).</li>
                 <li><b>53 printings across 30 sets.</b> The priciest single Sylveon card we hold a price for is $510. <a href="/pokemon/sylveon.html">Every Sylveon card, priced</a>.</li>
@@ -588,10 +642,14 @@ a.ev-node:hover{background:var(--mustard)}
       </section>
 
       <div class="ee-note">
+        <!-- THE COUNT IN THE HEADING IS DERIVED, not typed. It read "Why three
+             of them" beside a paragraph that computed the same number from the
+             data, so a re-sync that moved one would have left the heading
+             lying while the sentence under it told the truth. -->
         <h2>Why three of them have <span class="hl">more than one answer</span></h2>
-        <p>3 of the eight carry more than one condition, and that is not us hedging. The method
-          genuinely changed between games, and every version of it is printed with the games it belongs to. Leafeon
-          and Glaceon are the extreme case at 6 apiece: for five sets of games
+        <p>Three of the eight carry more than one condition, and that is not us hedging. The
+          method genuinely changed between games, and every version of it is printed with the games it belongs to.
+          Leafeon and Glaceon are the extreme case at six apiece: for five sets of games
           the answer was a particular rock in a particular place, and the place was different every time.</p>
         <p>A page that gives you one of those has given most of its readers the wrong instruction. So this one
           gives you all of them and tells you which games each belongs to.</p>

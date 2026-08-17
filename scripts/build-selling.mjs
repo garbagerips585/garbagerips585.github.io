@@ -675,7 +675,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Where to Sell Pokemon Cards, and What Each Place Takes | Garbage Rips 585</title>
+<title>Where to Sell Pokemon Cards, and What Each Place Takes</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/selling.html">
 <meta property="og:title" content="Where to sell Pokemon cards">

@@ -16,8 +16,15 @@ import { SITE, DOMAIN, STAGING, LIVE } from "../shared/site.mjs";
 import { basename, join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkDrift } from "../shared/chrome.mjs";
-import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount, avifPicture } from "../shared/format.mjs";
+import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount, avifPicture, longDate } from "../shared/format.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
+// The drops band's expiry model. NOT reimplemented here: /drops.html and this
+// page print the same rows, so "is this row still true" is answered in one
+// place for both. See shared/drops.mjs.
+import {
+  dropsClock, expiresOn as dropExpiresOn, isPerishable, splitByExpiry, isStale,
+  homeBandRows, CONF_LABEL, CLIENT_DAY_JS,
+} from "../shared/drops.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // The live home page and the prototype share one design and one generator, so
@@ -1050,6 +1057,204 @@ function plTile(p) {
 // A playlist with nothing in it is not content, and app.js drops those too.
 const plHtml = playlists.filter((p) => (p.count || 0) > 0).map(plTile).join("\n");
 
+/* -------------------------------------------- this week's drops, in a band -
+ *
+ * A compact pointer at /drops.html: three rows out of the week's list, high on
+ * the page, linking through. Asked for in these words: "easy to just land on
+ * home page and see what upcoming pokemon drops to keep an eye out for this
+ * week".
+ *
+ * WHERE IT SITS, AND THE COST OF PUTTING IT THERE. First thing inside <main>,
+ * above Greatest Hits. This is the only position that answers what was asked
+ * for: at 390x844 the Greatest Hits band alone is 1,656px tall, so anything
+ * below it is two screens down and a reader who has to hunt for this week's
+ * drops will not come back for them. What that costs is measured rather than
+ * waved at: the band is 424px at 390 and 214px at 1440, so the "Greatest Hits"
+ * heading moves from 367px to 791px on a phone and stays above the fold, and
+ * the trophy artwork loses about two thirds of its first-screen showing. The
+ * trade is a strip of text against the top of one booster pack photo, on a page
+ * that is 7,267px of the channel's own work either way. If a later editor
+ * decides the channel must own the whole first screen, moving this below the
+ * .hof section is a one line change in index.html; do not instead shrink it by
+ * cutting the lede or the credit, which are the two things it must not lose.
+ *
+ * IT IS TEXT AND IT COSTS NO IMAGE BYTES. The home page is the heaviest on-load
+ * page on the site and 84% of that is pack art, so a band that fetched anything
+ * would have to justify itself against the artwork it pushed down. This one
+ * adds HTML and nothing else.
+ *
+ * STALENESS IS THE WHOLE RISK AND IT IS WORSE HERE THAN ON /drops.html. "Be
+ * ready for a possible drop today" sitting above the fold on the site's front
+ * door three days after it was true is the most damaging thing this feature
+ * could do. So the band inherits the expiry model from shared/drops.mjs rather
+ * than reimplementing it, and it is STRICTER than /drops.html in two ways:
+ *
+ *   - /drops.html keeps a passed week behind a banner, because last week's
+ *     expectations are still worth reading as a pattern. THE BAND DELETES
+ *     ITSELF INSTEAD. It is a pointer to what to watch for this week, and last
+ *     week's list is not a worse version of that, it is a different thing. The
+ *     record stays one tap away on the page that is the record.
+ *   - its build clock is the LATER of the drops clock and the real build day.
+ *     /drops.html deliberately uses the reproducible clock (newest upload plus
+ *     the compiled date) so a stale checkout cannot make an old week look
+ *     current. Taking the later of the two can only ever expire MORE rows, so
+ *     it keeps that property and adds one: a rebuild that happens after the
+ *     week has passed drops the band even if nobody has touched drops.json.
+ *
+ * And the build-time filter is only half of it. This site's nightly has failed
+ * three nights running before now, and CLAUDE.md records that a deploy which
+ * stops moving is what turns TODAY into a lie in the largest type above the
+ * fold. So the sweep runs AGAIN in the browser on the reader's own clock, and
+ * if it takes the last row the band removes itself entirely rather than sitting
+ * there as an empty frame. A page nobody rebuilds still tells the truth.
+ */
+let dropsHtml = "";
+const dropsLog = [];
+try {
+  const doc = JSON.parse(await readFile(join(ROOT, "data/drops.json"), "utf8"));
+  const R = doc.retailers || {};
+  // The later of the two clocks. See the note above.
+  const DROPS_TODAY = [dropsClock(doc, videos), BUILT].sort().pop();
+
+  if (isStale(doc, DROPS_TODAY)) {
+    dropsLog.push(`drops band: week ended ${doc.weekEnds}, before ${DROPS_TODAY}. No band.`);
+  } else {
+    const known = (doc.drops || []).filter((d) => R[d.retailer]);
+    const { live, expired } = splitByExpiry(doc, known, DROPS_TODAY);
+    const { picked, skipped } = homeBandRows(doc, live);
+
+    // The credit, once, at the foot of the band. On /drops.html it repeats on
+    // every card, because there a card is the unit somebody screenshots and it
+    // travels without the page's lede. Here the BAND is that unit: it is one
+    // bordered strip about 400px tall with its own heading, and nobody crops a
+    // single row out of it. What must not be lost either way is the claim the
+    // lede makes, so the band carries "community intelligence, not fact" in its
+    // own words rather than pointing at the page for it.
+    const src = doc.source || {};
+    const credit = src.name
+      ? `${esc(src.name)}${src.read ? `, read ${esc(longDate(src.read))}` : ""}`
+      : "";
+
+    const row = (d) => {
+      const r = R[d.retailer];
+      const ex = dropExpiresOn(doc, d);
+      const dies = isPerishable(doc, d);
+      // data-expires and data-perish are the same contract /drops.html stamps
+      // on its cards, read by the same predicates. A row with no data-perish is
+      // never swept, here or there.
+      return `        <li class="wdr"${dies ? ` data-expires="${esc(ex)}" data-perish="1"` : ""}>
+          <p class="wdr-top"><b>${esc(r.name)}</b><span class="wdr-ch">${
+            d.channel === "store" ? "In store" : "Online"
+          }</span><span class="wdr-cf">${esc(CONF_LABEL[d.confidence] || CONF_LABEL.expected)}</span></p>
+          ${d.when ? `<p class="wdr-when">${esc(d.when)}</p>` : ""}
+          <p class="wdr-what">${esc(d.what)}</p>${
+            dies
+              ? `\n          <p class="wdr-exp">Off this page after <time datetime="${esc(ex)}">${esc(longDate(ex))}</time></p>`
+              : ""
+          }
+        </li>`;
+    };
+
+    if (!picked.length) {
+      dropsLog.push("drops band: nothing this week fits the band. No band.");
+    } else {
+      /* THE SWEEP, RUN AGAIN ON THE READER'S CLOCK.
+       *
+       * The build already removed the rows it knew had passed, and that is
+       * sound as far as it goes. What it cannot see is itself: the page is a
+       * static file, so the build's answer is frozen the moment it is written,
+       * and a nightly that stops running leaves "be ready for a possible drop
+       * today" above the fold on the front door for as long as the deploy sits
+       * there. The reader's clock has none of those problems, and this only
+       * ever REMOVES: it cannot resurrect a row and it cannot make the band say
+       * anything the build did not.
+       *
+       * Rows go straight out of the DOM rather than being hidden, the same call
+       * /drops.html and build-shows.mjs make, and for the same reason: there is
+       * nothing to read in a window that has closed.
+       *
+       * THE WEEK IS CHECKED FIRST AND IT TAKES THE WHOLE BAND. This is where
+       * the band parts company with /drops.html: that page bands a passed week
+       * and keeps its rows, because it IS the record. A pointer to what to
+       * watch for this week has nothing left to point at once the week has
+       * gone.
+       *
+       * AN EMPTY BAND IS WORSE THAN NO BAND: a heading, a disclaimer and a link
+       * with nothing between them reads as a broken page and still takes the
+       * space it was arguing for. Rule 4 in homeBandRows keeps at least one row
+       * that runs to the end of the week, so the last line here is the belt to
+       * that braces rather than the expected path.
+       *
+       * INLINE AND IMMEDIATELY AFTER THE BAND, not deferred and not on
+       * DOMContentLoaded, so the band is corrected before it is painted rather
+       * than flashing a dead row and then losing it.
+       *
+       * THE COMMENTS STAY IN THIS FILE AND THE CODE SHIPS BARE, which is the
+       * same trade homeCss makes below and for the same reason: this is the
+       * most visited page on the site and the block is in the critical path.
+       * Written out in full, the argument above cost 1.4KB gzipped of a 13KB
+       * document, which is more than the band's markup.
+       */
+      const sweep = `<script>
+(function () {
+  var band = document.querySelector(".wdrop");
+  if (!band) return;
+${CLIENT_DAY_JS}
+  function drop() { if (band.parentNode) band.parentNode.removeChild(band); }
+  var today = todayIso();
+  var ends = band.getAttribute("data-week-ends");
+  if (isIsoDay(ends) && ends < today) return drop();
+  var rows = [].slice.call(band.querySelectorAll(".wdr[data-perish]"));
+  for (var i = 0; i < rows.length; i++) {
+    var ex = rows[i].getAttribute("data-expires");
+    if (isIsoDay(ex) && ex < today && rows[i].parentNode) rows[i].parentNode.removeChild(rows[i]);
+  }
+  if (!band.querySelectorAll(".wdr").length) drop();
+})();
+</` + `script>`;
+
+      dropsHtml = `<section class="wdrop" aria-labelledby="wdropH" data-week-ends="${esc(doc.weekEnds || "")}">
+  <div class="wrap">
+    <div class="brk"><h2 id="wdropH">Drops to <span class="hl">watch</span> this week</h2><span class="ln"></span><a href="/drops.html">All ${known.length} drops &rarr;</a></div>
+    <p class="wdrop-lede"><b>Week of ${esc(longDate(doc.weekOf))}.</b> Community intelligence, not fact: nobody
+      announces any of this, and <b>these are not our findings.</b> We are passing on what the trackers said,
+      in the words they hedged it with.</p>
+    <ul class="wdrop-list">
+${picked.map(row).join("\n")}
+    </ul>
+    <p class="wdrop-src">${credit ? `${credit}. ` : ""}<a href="/drops.html">Every drop this week, and the notes on each one</a>.</p>
+  </div>
+</section>
+${sweep}`;
+      dropsLog.push(
+        `drops band: ${picked.length} of ${live.length} live row(s), ${
+          picked.filter((d) => isPerishable(doc, d)).length
+        } perishable: ` +
+          picked.map((d) => `${d.retailer}/${d.channel}${d.expires ? ` to ${d.expires}` : ""}`).join(", ")
+      );
+    }
+    if (expired.length) {
+      dropsLog.push(
+        `  ${expired.length} row(s) already past on ${DROPS_TODAY} and never offered to the band`
+      );
+    }
+    // LOUD, BECAUSE THE ALTERNATIVE IS SILENT. A week written in longer prose
+    // than last week's would shrink or empty the band with nothing to show for
+    // it, and the page would simply stop carrying the feature. Rule 2 in
+    // homeBandRows is deliberate, but it should never be invisible.
+    if (skipped.long.length) {
+      dropsLog.push(
+        `  ${skipped.long.length} row(s) too long to print whole, so left off the band (not truncated): ` +
+          skipped.long.map((d) => `${d.retailer}/${d.channel}`).join(", ")
+      );
+    }
+  }
+} catch (e) {
+  // The band is optional. A missing or broken drops.json costs the home page a
+  // band, not a build: this script owns the site's most important page.
+  dropsLog.push(`drops band: skipped (${e.message})`);
+}
+
 /* ------------------------------------------------- the home page's own CSS -
  *
  * A <style> in index.html's head, generated here so the ARGUMENT can live in
@@ -1153,7 +1358,55 @@ const plHtml = playlists.filter((p) => (p.count || 0) > 0).map(plTile).join("\n"
  * phone layout is measured and settled; a resize across 544 is not a thing
  * anyone does, and a load either side of it is correct on both sides.
  */
+/* 4. THIS WEEK'S DROPS BAND.
+ *
+ * Text on paper with one keyline under it, no fill and no artwork. Three
+ * reasons, and the first is the palette: this is black, white and gold on
+ * purpose, so a tinted "alert" band is not available and would be the loudest
+ * thing above the fold if it were. The second is weight: the home page is the
+ * heaviest on-load page on the site and 84% of that is pack art, so a band that
+ * asked for a single image would be paying in the one currency this page cannot
+ * afford. The third is that the band's own content is a list of hedges, and a
+ * shouty frame around a list of hedges is the page disagreeing with itself.
+ *
+ * ONE COLUMN UNDER 900px, THREE ABOVE. The rows are 40 to 130 characters of
+ * prose, so a phone gets them stacked and full width; at 900 the wrap is wide
+ * enough that three side by side keeps the whole band to one screen band rather
+ * than a fourth of the page. 900 rather than 1000 because the rows are text and
+ * have none of the artwork-width problem the carousels have at that boundary.
+ *
+ * MEASURED, gzipped, cache off, against the built page: the band adds 1.4KB to
+ * the document at 390 and 1.4KB at 1440, and fetches nothing. Height 424px at
+ * 390x844 and 214px at 1440x900.
+ *
+ * Nothing here transitions, animates or transforms, so there is no
+ * prefers-reduced-motion case: the band is the same object at both settings.
+ */
 const homeCss = `<style>.hofx-art .play{opacity:.95}
+/* The heading is ui.css's own .brk, the same object "Latest rips" and "Card
+   Pokedex" use further down the page, so the band arrives in the page's own
+   grammar rather than inventing a fifth heading treatment above the fold. It
+   also costs nothing: heading, rule, link, right aligned, already written. The
+   week label went into the lede instead, which is where a reader looking for
+   "is this current" reads next anyway. */
+.wdrop{border-bottom:3px solid var(--keyline);background:var(--paper-2);padding:var(--s4) 0}
+.wdrop-lede{font-size:var(--t-sm);line-height:1.4;color:var(--ink-2);max-width:52em;margin-bottom:var(--s4)}
+.wdrop-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:var(--s3)}
+@media(min-width:900px){.wdrop-list{grid-template-columns:repeat(3,1fr);gap:var(--s5)}}
+.wdr{border-left:3px solid var(--keyline);padding-left:var(--s3);min-width:0}
+.wdr-top{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s2)}
+.wdr-top b{font:700 var(--t-label)/1.1 var(--body);letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
+.wdr-ch{font:400 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+/* The confidence rung, in the hatch /drops.html gives its weakest tier. Every
+   row that reaches this band is 'expected' or weaker, so one treatment is
+   honest here; the four-rung ladder stays on the page that explains it. */
+.wdr-cf{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);
+  padding:3px 7px;border-radius:5px;border:1.5px dashed var(--ink-2);
+  background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
+.wdr-when{font:700 var(--t-sm)/1.3 var(--body);color:var(--ink);margin-top:2px}
+.wdr-what{font-size:var(--t-sm);line-height:1.35;color:var(--ink-2)}
+.wdr-exp{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2)}
+.wdrop-src{font-size:var(--t-micro);line-height:1.45;color:var(--ink-2);margin-top:var(--s3);max-width:52em}
 @media(min-width:545px) and (max-width:899px){
 .vcar .hero{max-width:520px;margin:0 auto;padding:var(--s5)}
 .vcar .hero-art,
@@ -1184,12 +1437,18 @@ const homeCss = `<style>.hofx-art .play{opacity:.95}
 
 // Regions that live on videos.html / playlists.html and NOT on index.html, so
 // the "index.html carries every marker" check below has to skip them.
+// DROPS is deliberately NOT here: index.html owns it and a missing marker there
+// must fail the build, because an empty region and a deleted marker look the
+// same on the page and only one of them is intended.
 const OWNED_ELSEWHERE = new Set(["LIBGRID", "PLGRID"]);
 
 const REGIONS = {
   LIBGRID: libHtml,
   PLGRID: plHtml,
   HOMECSS: homeCss,
+  // Empty when the week has passed or nothing fits, and the markers sit OUTSIDE
+  // the <section>, so an empty region is no band rather than an empty frame.
+  DROPS: dropsHtml,
   WANTED: wantedHtml,
   RAIL: railHtml,
   HOF: hallHtml,
@@ -1282,6 +1541,7 @@ console.log(`index.html rebuilt from real data:
   ${videos.length} videos, ${hitCount} with a graded pull, ${sets.length} sets
   Hall of Fame: ${hall.map((v) => (v.pulls || []).join("/")).slice(0, 3).join(", ")}...
   logos: ${logos.size}/${sets.length}    pack art: ${packs.size} sets`);
+for (const line of dropsLog) console.log(`  ${line}`);
 if (noArt.length) console.log(`  sets ripped but with no pack art: ${noArt.join(", ")}`);
 if (untagged) {
   console.log(

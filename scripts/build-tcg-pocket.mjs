@@ -595,7 +595,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pokemon TCG Pocket: Can You Learn the Card Game From an App? | Garbage Rips 585</title>
+<title>Pokemon TCG Pocket: Can You Learn the Card Game From an App?</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/tcg-pocket.html">
 <meta property="og:title" content="Can you learn the card game from an app?">

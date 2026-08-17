@@ -299,7 +299,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The 100 Most Played Pokemon Cards in Standard | Garbage Rips 585</title>
+<title>The 100 Most Played Pokemon Cards in Standard</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/top-100-playable.html">
 <meta property="og:title" content="The 100 most played cards in Standard">

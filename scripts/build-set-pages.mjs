@@ -2437,7 +2437,11 @@ function indexPage() {
   // it held the widest measure of any of them: .intl-lede ran 810px and set
   // 95.7 characters a line. The rules it does not use, the two column .facts-
   // list and .rarity-list, match nothing here and cost a few hundred bytes.
-  return head({ title: `Pokemon TCG Set Guides: Cards, Rarities & Chase Values | Garbage Rips 585`, desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld, css: PAGE_CSS }) + `
+  // The index carries no brand suffix: with it this ran 706px at 20px Arial
+  // against Google's ~580px cut and lost "& Chase Values", bare it is 527px.
+  // setTitle above is untouched and stays that way; the individual guides drop
+  // their DESCRIPTOR rather than their brand and 26 of 27 already fit the cut.
+  return head({ title: `Pokemon TCG Set Guides: Cards, Rarities & Chase Values`, desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld, css: PAGE_CSS }) + `
 <header class="set-hero">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>

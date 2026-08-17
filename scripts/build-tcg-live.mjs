@@ -698,7 +698,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What Is the Code Card in a Pokemon Pack? Pokemon TCG Live Explained | Garbage Rips 585</title>
+<title>What Is the Code Card in a Pokemon Pack? Pokemon TCG Live</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/tcg-live.html">
 <meta property="og:title" content="What is the code card in the pack?">

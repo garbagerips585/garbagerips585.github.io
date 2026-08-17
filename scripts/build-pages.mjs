@@ -330,6 +330,13 @@ const prodId = v.products[0];
 // better without changing either.
 const title = cleanTitle(v.siteTitle || v.title);
 // Only a repeated title earns the date, so the other 300 stay clean.
+// headTitle goes into <title> with NO " | Garbage Rips 585" after it. Measured
+// 17 August 2026 in headless Chrome at 20px Arial: the suffix is 178.6px and
+// 253 of these 286 titles already ran past Google's ~580px desktop cut with it
+// on, so on 88% of them the brand was never drawn and the 178.6px it ate came
+// out of the pack number and the hook instead. og:title and twitter:title below
+// have always been the bare headTitle, so dropping it also stops <title> and
+// og:title disagreeing. Uniqueness is titleCounts' job, not the suffix's.
 const headTitle =
   titleCounts.get(title) > 1 && v.published
     ? `${title} (${shortDate(v.published)})`
@@ -485,7 +492,7 @@ const resolvedHits = hits.filter((h) => !h.unresolved);
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(headTitle)} | Garbage Rips 585</title>
+<title>${esc(headTitle)}</title>
 <meta name="description" content="${esc(metaDesc)}">${isTagged ? "" : '\n<meta name="robots" content="noindex,follow">'}
 <link rel="canonical" href="${url}">
 <meta property="og:title" content="${esc(headTitle)}">

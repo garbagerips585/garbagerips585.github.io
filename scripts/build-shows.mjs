@@ -554,7 +554,7 @@ const head = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Card Shows Near Rochester NY: Buffalo & Syracuse Calendar | Garbage Rips 585</title>
+<title>Card Shows Near Rochester NY: Buffalo & Syracuse Calendar</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/card-shows.html">
 <meta property="og:title" content="Card shows near Rochester, Buffalo and Syracuse">

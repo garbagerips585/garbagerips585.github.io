@@ -449,7 +449,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What Does It Cost to Complete a Pokemon Set? Priced Nightly | Garbage Rips 585</title>
+<title>What Does It Cost to Complete a Pokemon Set? Priced Nightly</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/complete-a-set.html">
 <meta property="og:title" content="What does it cost to complete a set?">

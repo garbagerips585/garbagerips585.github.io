@@ -552,7 +552,7 @@ function stampTable() {
           <span class="bs-cmp-lbl">${esc(label)}</span>
           <span class="bs-cmp-n"><b>${moneyCompact(a)}</b> <span class="bs-u">1st Edition</span></span>
           <span class="bs-cmp-n">${moneyCompact(b)} <span class="bs-u">Shadowless</span></span>
-          <span class="bs-cmp-x">${m ? `${m.toFixed(1)}x` : ""}<span class="bs-u">the stamp</span></span>
+          <span class="bs-cmp-x">${m ? `${m.toFixed(1)}x` : ""}<span class="bs-u">for the stamp</span></span>
         </span>`;
   };
 
@@ -568,6 +568,11 @@ function stampTable() {
 
   const lo = Math.min(...ratios);
   const hi = Math.max(...ratios);
+  // Spelled out in prose, digits in the table. "Both printings of all 3 cards"
+  // is the kind of sentence that reads like a log line; the count is still
+  // derived, so it cannot drift from the rows above it.
+  const WORDS = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+  const n = WORDS[stampPairs.length] || String(stampPairs.length);
 
   return `<section class="band bs-sec">
   <div class="wrap">
@@ -579,10 +584,10 @@ ${rows}
     </ul>
     <p class="bs-p2" style="margin-top:var(--s4)">Every figure above is PriceCharting's price guide, read on
       ${esc(read)} and read a second time from each card's own product page before it was published here. Both
-      printings of all ${stampPairs.length} cards came back agreeing, which is the only reason they are on the page:
+      printings of all ${n} cards came back agreeing, which is the only reason they are on the page:
       a comparison with one checked side and one unchecked side is worse than no comparison. It is a guide value
       computed from completed sales, not a record of any single sale.</p>
-    <p class="bs-p2">Across ${stampPairs.length} cards and both columns the 1st Edition printing runs between
+    <p class="bs-p2">Across ${n} cards and both columns the 1st Edition printing runs between
       <b>${lo.toFixed(1)}x</b> and <b>${hi.toFixed(1)}x</b> the Shadowless one. That is the point of the table: it
       is not one famous card behaving strangely. ${esc(s.note)}</p>
     ${/* UPPERCASED BEFORE esc(), NEVER AFTER. esc() emits entities, and
@@ -855,6 +860,11 @@ const style = `
   color:var(--ink-2)}
 .bs-cmp-n{color:var(--ink-2);font-size:var(--t-sm);font-variant-numeric:tabular-nums}
 .bs-cmp-n b{color:var(--ink);font-size:19px}
+/* The printing name needs its own air. A single markup space between a 19px
+   figure and a 10px mono label is about 4px and reads as one token: at 390 the
+   worst pair is "$343,098 1ST EDITION" and the label looked stuck to the
+   comma. Checked in the rendered page, not in the markup, where it looked fine. */
+.bs-cmp-n .bs-u{margin-left:5px}
 /* The gold rule is the only mark that separates the derived number from the two
    read ones. WEIGHT AND POSITION, NOT HUE, exactly like .bs-mark above: the
    palette is one accent and two greys, so a coloured multiple would be the same

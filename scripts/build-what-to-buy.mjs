@@ -54,6 +54,66 @@
 // save money" is false, and it is false BY ARITHMETIC rather than by opinion.
 // If those two ever stop matching, printPerPack's verdict changes with them.
 //
+// ============================================================================
+// THE COLLECTOR BAND, ADDED 17 AUGUST 2026, AND IT IS THE ONE BLOCK HERE THAT
+// IS NOT FOR A BEGINNER
+//
+// A GIFT GUIDE WAS BRIEFED AS ITS OWN PAGE AND TIM CUT IT DOWN TO THIS, which is
+// worth recording because the argument for the page was not silly and somebody
+// will make it again. The case was that a gift buyer is a genuinely different
+// reader: they do not know what the recipient owns, they cannot ask without
+// spoiling it, and they work down from a budget they picked first. The case
+// against, which won, is that six of the seven situations on this page ALREADY
+// answer a gift question, two of them explicitly ("The big present", "Under
+// fifteen dollars"), and a second page arranging the same products under the
+// same prices would be a near duplicate. Two near-duplicate pages compete for
+// one query and the search engine picks one of them, which may not be the one
+// you meant.
+//
+// WHAT WAS ACTUALLY MISSING WAS NARROWER AND BETTER. Every situation above
+// assumes the RECIPIENT is new to this. The one reader with nowhere to go was
+// somebody buying for an ESTABLISHED COLLECTOR, and that inverts the problem
+// rather than restating it:
+//
+//   - the risk stops being "is this any good" and becomes "do they already have
+//     it" and "will they think this is junk"
+//   - the buyer cannot ask and has never seen the collection
+//   - a single card, which is what an outsider reaches for because it looks
+//     personal, is the WORST blind gift there is
+//   - a collector holds strong opinions a newcomer cannot guess: sealed against
+//     opened, which era, graded against raw
+//
+// So the band answers one question the rest of the page does not: what is safe
+// when you know nothing? THE THREE TESTS ARE THE DURABLE HALF and are the reason
+// this is not just four more product cards. Can it be a duplicate, do they still
+// get to choose, is it from what is on the shelf now. Those keep working on a
+// product this page has never heard of and in a year when every figure here has
+// moved.
+//
+// IT SITS DIRECTLY AFTER `oneCard` AND MUST STAY THERE. That block tells a
+// reader who knows the card to buy the card rather than packs. This band tells a
+// reader who does NOT know the card that a single card is the worst thing they
+// could pick. Read apart they contradict each other; read together the
+// difference is obvious and it is the whole lesson. Each names the other, and
+// the anchors are #one-card and #no-blind-single.
+//
+// THE WALK-AWAY FIGURE IS THE PART TIM CARED MOST ABOUT and it is computed
+// twice over from files this builder does not own. The multiple comes off
+// data/over-msrp.json's own bands, so it cannot disagree with /msrp.html. The
+// evidence under it is a RANGE across every dated first-party shop listing in
+// this repo, which means BOTH data/pack-counts-current.json (the four
+// /msrp.html prints) and data/retailer-prices.json (the nine /retailers.html
+// prints), because neither file is the whole set and the claim is about the
+// whole set. Only the two ENDS of the range are named. Nothing is ranked, no
+// shop is scored, and the count of listings over the line is counted rather
+// than written. See the block above LISTINGS.
+//
+// ONE THING IT DELIBERATELY DOES NOT DO: it does not restate the mystery-box
+// argument or the marketplace argument, both of which are already on this page
+// at length. It links to them. A band that re-argues what the page below it
+// already argues is how a long page becomes an unfinishable one.
+// ============================================================================
+//
 // ----------------------------------------------------------------- THE RULES
 //
 // NEVER STATE OR IMPLY PULL RATES, and it bites hardest on this page of all of
@@ -106,6 +166,9 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, longDate, moneyExact } from "../shared/format.mjs";
+// The photograph pins, shared with build-msrp.mjs so a pin exists once. This
+// file used to hold a second copy of them. See the photography note below.
+import { makePhotoFor } from "../shared/product-photos.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -113,6 +176,22 @@ const guide = JSON.parse(await readFile(join(ROOT, "data/what-to-buy.json"), "ut
 const msrp = JSON.parse(await readFile(join(ROOT, "data/msrp.json"), "utf8"));
 const counts = JSON.parse(await readFile(join(ROOT, "data/pack-counts-current.json"), "utf8"));
 const buying = JSON.parse(await readFile(join(ROOT, "data/buying.json"), "utf8"));
+// The collector band's three extra reads, all READ AND NEVER WRITTEN.
+//
+//   over-msrp.json      the multiple this site puts the phone down over, and the
+//                       words it uses for that band. Taken from the SAME file
+//                       /msrp.html builds its bands out of, so the two pages
+//                       cannot recommend two different walk-away lines.
+//   retailer-prices.json the nine dated first-party shop listings that
+//                       /retailers.html prints. pack-counts-current.json holds
+//                       the other four that /msrp.html prints. THE COLLECTOR
+//                       BAND USES BOTH, because its claim is a RANGE across
+//                       every listing this repo can source and neither file is
+//                       the whole of them.
+//   retailers.json      display names for those nine, which are stored by id.
+const over = JSON.parse(await readFile(join(ROOT, "data/over-msrp.json"), "utf8"));
+const retailPrices = JSON.parse(await readFile(join(ROOT, "data/retailer-prices.json"), "utf8"));
+const retailers = JSON.parse(await readFile(join(ROOT, "data/retailers.json"), "utf8"));
 const prod = JSON.parse(await readFile(join(ROOT, "public/data/products.json"), "utf8"));
 const EXTRA = JSON.parse(await readFile(join(ROOT, "data/extra-products.json"), "utf8")).products;
 
@@ -216,6 +295,147 @@ const multStr = (n) => n.toFixed(2).replace(/\.?0+$/, "");
 const perPack = (p) =>
   typeof p.price === "number" && p.packs ? p.price / p.packs : null;
 
+// ============================================== the walk-away line, and it is
+// ============================================== READ OUT OF data/over-msrp.json
+//
+// THE COLLECTOR BAND PRINTS A CEILING BESIDE EVERY PRODUCT IT RECOMMENDS and
+// that ceiling is a multiple of a sourced price, never a number typed anywhere.
+// The multiple comes from the SAME `bands` array /msrp.html builds its rule of
+// thumb out of: the top of the last band that has one, which is where that
+// file's final, open-ended band begins. Read it rather than typing 2, so the two
+// pages cannot end up recommending two different walk-away lines, and so that
+// re-drawing the bands moves this band with them.
+//
+// IT IS A RULE OF THUMB AND THE PAGE SAYS SO IN THOSE WORDS, because that is
+// what data/over-msrp.json's own _readme says it is: "The edges are judgement,
+// not measurement". What is NOT judgement is the evidence gathered below it.
+const DOUBLE = (() => {
+  const withTop = (over.bands || []).filter((b) => typeof b.upto === "number");
+  const last = withTop[withTop.length - 1];
+  if (!last) {
+    throw new Error(
+      `build-what-to-buy: the collector band prints a walk-away figure beside every product it\n` +
+        `  recommends, and it takes the multiple off the last closed band in data/over-msrp.json.\n` +
+        `  That file now has no band with a numeric 'upto'. Do NOT fix this by typing a multiple\n` +
+        `  into this builder: /msrp.html draws its bands out of the same array and the two pages\n` +
+        `  would then be free to disagree about when to put a box down. Restore the bands.`
+    );
+  }
+  return last.upto;
+})();
+// The words /msrp.html uses over that band, so both pages call it the same thing.
+const DOUBLE_LABEL = (over.bands || []).find((b) => b.upto == null)?.label || "";
+
+/** What this site would put the phone down over, for one product. */
+const ceilingOf = (p) => (typeof p.price === "number" ? p.price * DOUBLE : null);
+
+// ================================================= every listing this repo holds
+//
+// THIRTEEN OF THEM ACROSS TWO FILES AND THE BAND NEEDS BOTH, which is the one
+// thing that makes its evidence different from either page that already prints
+// them. /msrp.html prints the four in data/pack-counts-current.json.
+// /retailers.html prints the nine in data/retailer-prices.json. Neither is the
+// whole set, and the claim this band makes is a RANGE across the whole set: that
+// every dated shop listing this site can source falls between two multiples, and
+// that only a couple of them are over the walk-away line.
+//
+// NOTHING IS RANKED AND NO SHOP IS SCORED. Same discipline as /msrp.html's band
+// and for the reason data/over-msrp.json's _readme spells out: a listing is one
+// product, at one shop, on one day, at one address, and sorting thirteen of them
+// by the multiple builds a league table out of a handful of readings. What this
+// band prints is the two ENDS of the range, named and dated so they can be
+// checked, plus a count. The two ends happen to be the same chain, which is the
+// whole point rather than an awkwardness, and the copy says so.
+//
+// EVERY ONE JOINS TO A PRICED msrp.json ROW OR THE BUILD STOPS. A listing with
+// nothing to divide by is not evidence about a multiple.
+const listingsFromCounts = (counts.products || [])
+  .map((p) => {
+    const price = p.price;
+    if (!price || price.isMsrp || price.kind !== "retailer listed price") return null;
+    if (typeof price.amount !== "number") return null;
+    const row = (msrp.products || []).find(
+      (r) => r.packsFrom === p.productName && typeof r.price === "number"
+    );
+    if (!row) return null;
+    const s = (p.sources || []).find((x) => (x.supports || []).includes("price"));
+    return {
+      amount: price.amount,
+      retailer: price.retailer || "",
+      product: price.product || p.productName,
+      url: s ? s.url : "",
+      readAt: s ? s.readAt : counts.readAt,
+      label: row.label,
+      base: row.price,
+      from: "data/pack-counts-current.json",
+    };
+  })
+  .filter(Boolean);
+
+const RETAILER_NAME = new Map((retailers.retailers || []).map((r) => [r.id, r.name]));
+
+const listingsFromRetail = (retailPrices.readings || []).map((r) => {
+  const row = BY_LABEL.get(r.msrpLabel);
+  if (!row || typeof row.price !== "number") {
+    throw new Error(
+      `build-what-to-buy: data/retailer-prices.json has a reading of ${JSON.stringify(r.product)}\n` +
+        `  pointing at the data/msrp.json label ${JSON.stringify(r.msrpLabel)}, and that row is\n` +
+        `  ${row ? "carrying no sourced price" : "not in that file at all"}. The collector band divides\n` +
+        `  every listing by its suggested figure, so a reading with nothing to divide by would\n` +
+        `  either print a bare asking price with no context or quietly vanish from a count this\n` +
+        `  page states out loud. Re-point the msrpLabel, or take the reading out.`
+    );
+  }
+  const name = RETAILER_NAME.get(r.retailer);
+  if (!name) {
+    throw new Error(
+      `build-what-to-buy: data/retailer-prices.json records a reading at the retailer id\n` +
+        `  ${JSON.stringify(r.retailer)} and data/retailers.json holds no shop with that id, so this\n` +
+        `  band has no name to print beside the figure. A price under the wrong company's name is\n` +
+        `  the one mistake this file is most careful about. Fix the id.`
+    );
+  }
+  return {
+    amount: r.amount,
+    retailer: name,
+    product: r.product,
+    url: r.url,
+    readAt: r.read,
+    label: row.label,
+    base: row.price,
+    from: "data/retailer-prices.json",
+  };
+});
+
+const LISTINGS = [...listingsFromCounts, ...listingsFromRetail].map((l) => ({
+  ...l,
+  mult: l.amount / l.base,
+}));
+
+if (LISTINGS.length < 4) {
+  throw new Error(
+    `build-what-to-buy: the collector band's advice rests on the dated shop listings this repo\n` +
+      `  holds, and it found ${LISTINGS.length}. A band telling somebody what a fair multiple looks like,\n` +
+      `  with almost nothing underneath it, is an opinion wearing the clothes of evidence. Either\n` +
+      `  the readings were dropped or a join stopped resolving. Do not paste figures in here.`
+  );
+}
+
+// The two ENDS, and nothing between them, which is what keeps this a range
+// rather than a table. Ties break on the cheaper product, so the pair is stable
+// build to build rather than depending on array order.
+const byMult = [...LISTINGS].sort((a, b) => a.mult - b.mult || a.base - b.base);
+const CHEAPEST = byMult[0];
+const DEAREST = byMult[byMult.length - 1];
+const OVER_LINE = LISTINGS.filter((l) => l.mult > DOUBLE).length;
+const UNDER_LINE = LISTINGS.length - OVER_LINE;
+const SHOP_COUNT = new Set(LISTINGS.map((l) => l.retailer)).size;
+const READ_DATES = [...new Set(LISTINGS.map((l) => l.readAt))].sort();
+// The two ends being the same chain is the single most useful thing in the whole
+// band, so it is CHECKED rather than asserted: the sentence about it only prints
+// when it is true, and the copy reads correctly either way.
+const SAME_CHAIN = CHEAPEST.retailer === DEAREST.retailer;
+
 // ------------------------------------------------------------- the sourcing line
 //
 // Every price on this page carries WHAT KIND of number it is, WHO said so and
@@ -240,18 +460,21 @@ const sourceLine = (p) =>
 
 // ================================================================ photography
 //
-// THE SAME PHOTOGRAPHS /openings/, /how-many-packs.html AND /msrp.html USE,
-// pinned to the same sets on purpose, so a reader moving between the four pages
-// sees the same box rather than four boxes of the same type.
+// THE SAME PHOTOGRAPHS /msrp.html USES, out of the same map, which is the whole
+// point of shared/product-photos.mjs. This file used to hold a SECOND COPY of
+// the subset it pictures and said so here: "the honest fix is a shared module".
+// That is what this now is. A pin, and the argument for it, exists once.
 //
-// THIS MAP IS A SECOND COPY OF THE ONE IN build-msrp.mjs AND THAT IS A KNOWN
-// COST. The canonical pins, and the argument for each one, live in that file's
-// PHOTOS block; this holds only the subset this page pictures. It is duplication
-// and the honest fix is a shared module, which is a change to build-msrp.mjs and
-// is out of scope here. What stops the duplication turning into a wrong caption
-// is photoFor()'s NAME CHECK below, which is copied along with the pins: it
-// verifies that the product sitting at that set and kind today is still the one
-// the caption is about, and drops the photograph rather than mislabelling it.
+// THE NAME CHECK CAME WITH THE PINS AND IS LOUDER THERE than it was here. It
+// verifies that the product sitting at a set and kind today is still the one the
+// caption is about; it used to drop the photograph, and it now fails the build,
+// because a drifted pin is a hand-written claim that has stopped being true
+// rather than a picture that happens to be missing. A product with NO pin still
+// returns null and still gets the hatch.
+//
+// KEYED BY msrp.json's rowId, not by label. This page joins to msrp.json by
+// label already, so `product()` above has the row and the rowId comes off it;
+// build-msrp.mjs keys the same map the same way. Two pages, one key, one pin.
 //
 // TCGplayer's shots are the only product photography this repo can reach and
 // they are per SET rather than per TYPE, so the picture on a card is one
@@ -261,60 +484,19 @@ const sourceLine = (p) =>
 //
 // pokemoncenter.com's images are off limits, as is the site itself: see the
 // header of build-msrp.mjs.
-//
-// [set id, products.json kind, the name expected there]  or  ["extra", key]
-const PHOTOS = {
-  "Elite Trainer Box": ["pitch-black", "Elite Trainer Box", "Pitch Black Elite Trainer Box"],
-  "Pokemon Center Elite Trainer Box": [
-    "pitch-black", "Pokemon Center Elite Trainer Box", "Pitch Black Pokemon Center Elite Trainer Box",
-  ],
-  "Booster Bundle": ["pitch-black", "Booster Bundle", "Pitch Black Booster Bundle"],
-  // Only two sets in products.json name a pack as sleeved and Stellar Crown is
-  // one, so the sleeved row gets a picture that is actually of a sleeve. The
-  // difference is load bearing here rather than pedantic: the one shop listing
-  // this page prints for a single pack is a SLEEVED pack.
-  "Sleeved booster pack": ["stellar-crown", "Single Pack", "Stellar Crown Sleeved Booster Pack"],
-  "Loose booster pack": ["pitch-black", "Single Pack", "Pitch Black Booster Pack"],
-  "Booster box": ["pitch-black", "Booster Box", "Pitch Black Booster Box"],
-  // The only 3-pack blister in products.json. Every other set's Blister Pack row
-  // is a 1-pack or a 2-pack, so this cannot follow the others onto Pitch Black
-  // without the caption naming a product that is not in the picture.
-  "Three-pack blister": ["shrouded-fable", "Blister Pack", "Shrouded Fable 3 Pack Blister"],
-  "Mini tin": ["prismatic-evolutions", "Tin", "Prismatic Evolutions Mini Tin"],
-  "Build and Battle Box": ["pitch-black", "Build & Battle Box", "Pitch Black Build & Battle Box"],
-  "Poke Ball Tin": ["extra", "poke-ball-tin"],
-  // NO PIN, AND IT IS THE RIGHT ANSWER RATHER THAN A GAP: Battle Academy,
-  // My First Battle, League Battle Deck and V Battle Deck. products.json is
-  // pulled per EXPANSION by sync-products.mjs and none of those four belongs to
-  // an expansion at all, so it has never seen them. extra-products.json holds
-  // one battle deck and it is the 30th Celebration one, which is a different box
-  // from both decks priced here, so using it would put a photograph of one
-  // product under the price of another. They take the site's hatch instead. The
-  // proper fix is to add them to sync-extra-products.mjs with an argument for
-  // each pin, which is the same route the five extras above took.
-};
+const photoByRow = makePhotoFor({ products: prod, extra: EXTRA, dead: DEAD });
 
 /**
- * The photo for a product, or null.
+ * The photo for a product, by the exact `label` in data/msrp.json, or null.
  *
- * Matched on set AND kind, then CHECKED AGAINST THE NAME expected there.
- * sync-products.mjs picks the cheapest variant per kind, so the product behind
- * "prismatic-evolutions / Tin" can change under us; if it does, the caption
- * would name a product that is not in the picture. Drop the photo instead.
+ * A label this page names that msrp.json does not hold has already failed the
+ * build in `product()` above, so an unresolved label here can only be a product
+ * that is never rendered, and null is the right answer for it.
  */
 function photoFor(label) {
-  const spec = PHOTOS[label];
-  if (!spec) return null;
-  if (spec[0] === "extra") {
-    const e = EXTRA[spec[1]];
-    if (!e || !e.thumb || DEAD.has(e.thumb)) return null;
-    return { src: e.thumb, large: e.image, name: e.name };
-  }
-  const [sid, kind, expect] = spec;
-  const hit = (prod.sets?.[sid]?.products || []).find((p) => p.kind === kind);
-  if (!hit || !hit.thumb || DEAD.has(hit.thumb)) return null;
-  if (!String(hit.name || "").toLowerCase().startsWith(expect.toLowerCase())) return null;
-  return { src: hit.thumb, large: hit.image, name: hit.name };
+  const row = BY_LABEL.get(label);
+  if (!row) return null;
+  return photoByRow(row.rowId || row.id || "");
 }
 
 // 150w and not 200w, checked rather than assumed: the CDN serves a fixed set of
@@ -416,6 +598,17 @@ const avoid = guide.avoid.map((a) => ({
   p: a.product ? product(a.product, { needPrice: true }) : null,
 }));
 const playing = guide.playing.products.map((label) => product(label, { needPrice: true }));
+
+// ------------------------------------------------------- the collector band
+//
+// EVERY SAFE PICK NEEDS A PRICE, and harder than anywhere else on this page:
+// each one also carries a walk-away figure computed off that price, and a
+// ceiling with nothing under it is the single most useless thing this band could
+// print at somebody standing in a shop.
+const collector = {
+  ...guide.collector,
+  safe: guide.collector.safe.map((k) => ({ ...k, p: product(k.product, { needPrice: true }) })),
+};
 
 // ------------------------------------------------------------- the arithmetic
 //
@@ -575,7 +768,12 @@ const glossRow = (g) => `      <li class="wtb-gl">
         }</p>
       </li>`;
 
-const avoidRow = (a) => `      <li class="wtb-no">
+// THE `id` IS EMITTED NOW AND WAS NOT BEFORE. data/what-to-buy.json has carried
+// one on every row here since the file was written and nothing rendered it, so
+// the anchors existed in the data and not in the page. The collector band links
+// to #not-a-mystery-box rather than restating that argument a second time, which
+// only works if the anchor is really there.
+const avoidRow = (a) => `      <li class="wtb-no"${a.id ? ` id="${esc(a.id)}"` : ""}>
         <h3>${esc(a.title)}</h3>
 ${para(a.body)}
 ${a.p ? listingBox(a.p) : ""}
@@ -586,10 +784,110 @@ const playRow = (p) => `        <li><b>${esc(p.label)}</b> <span>${esc(
   moneyExact(p.price)
 )}</span><br>${esc(p.what)}</li>`;
 
+// ==================================================== the collector band's parts
+//
+// THE THREE TESTS ARE THE DURABLE HALF OF THIS BAND and they are deliberately
+// not a product list. Every price here is a dated reading and will be wrong
+// eventually; "can this be a duplicate, do they still get to choose, is it from
+// what is on the shelf now" keeps working on a product this page has never heard
+// of, in a shop this site has never read. Ordered as a reader would apply them.
+const testRow = (t, i) => `        <li class="gft-t">
+          <p class="gft-tq"><b>${i + 1}</b>${esc(t.q)}</p>
+          <p class="gft-ta">${esc(t.a)}</p>
+        </li>`;
+
+/**
+ * One safe pick, with the walk-away figure beside the suggested one.
+ *
+ * THE CEILING IS THE POINT OF THIS CARD AND IT IS COMPUTED, so it moves with the
+ * price above it and with data/over-msrp.json's bands, and it cannot be typed
+ * wrong. The rule behind it is stated ONCE above the list rather than repeated
+ * four times: four copies of the same sentence is roughly a phone screen of
+ * height spent saying nothing new, on a band that already sits a long way down a
+ * long page.
+ *
+ * NO `what` HERE, for the same reason the situation cards give: every one of
+ * these products also has a glossary entry further down, and the `why` is
+ * already a description in the second person.
+ */
+const safeCard = (k) => {
+  const p = k.p;
+  const href = openingHref(p);
+  const name = href ? `<a href="${esc(href)}">${esc(p.label)}</a>` : esc(p.label);
+  return `        <li class="gft-pick">
+          <div class="wtb-top">
+            ${shot(p.label)}
+            <div>
+              <h4>${name}</h4>
+              <p class="wtb-price"><b>${esc(moneyExact(p.price))}</b><span>${sourceLine(p)}</span></p>
+            </div>
+          </div>
+          <p class="gft-cap">Walk away over <b>${esc(moneyExact(ceilingOf(p)))}</b></p>
+          <p class="wtb-why">${esc(k.why)}</p>${
+            shotName(p.label)
+              ? `\n          <p class="wtb-what">Pictured: ${esc(shotName(p.label))}.</p>`
+              : ""
+          }
+        </li>`;
+};
+
+const unsafeRow = (u) => `      <li class="wtb-no"${u.id ? ` id="${esc(u.id)}"` : ""}>
+        <h3>${esc(u.title)}</h3>
+${para(u.body)}
+${links(u.links)}
+      </li>`;
+
+// One listing, named so it can be checked, in the same words /msrp.html uses for
+// the same four readings. THE URL IS NOT IN HERE and is printed at the END of
+// the paragraph instead: written inline it produced "at GameStop, read August 17
+// 2026, at https://..., at exactly the suggested figure", which is three
+// different senses of the word "at" in one clause. Both addresses are still
+// printed in full, PRINTED AND NOT LINKED, which is this site's outbound rule
+// and what the rest of this file already does.
+const listingWords = (l) => `the ${l.product} at ${l.retailer}, read ${longDate(l.readAt)}`;
+
+// THE EVIDENCE UNDER THE RULE OF THUMB, AND EVERY FIGURE IN IT IS COUNTED RATHER
+// THAN WRITTEN. The bands themselves are judgement and the page says so; this
+// paragraph is the part that is not. It states a range across every dated shop
+// listing this repo can source, names only the two ENDS of it, and never orders
+// the ones in between, which is the same refusal to build a scoreboard that
+// data/over-msrp.json's _readme argues for at length.
+const EVIDENCE = `${LISTINGS.length} shop listings sit in this site's own files, across ${SHOP_COUNT} ` +
+  `different shops, ${
+    READ_DATES.length > 1
+      ? `read between ${longDate(READ_DATES[0])} and ${longDate(READ_DATES[READ_DATES.length - 1])}`
+      : `all read ${longDate(READ_DATES[0])}`
+  }. Every one of them falls between ${multStr(CHEAPEST.mult)}x and ${multStr(DEAREST.mult)}x the ` +
+  `suggested price. ${UNDER_LINE} are under the ${multStr(DOUBLE)}x line and ${OVER_LINE} ` +
+  `${OVER_LINE === 1 ? "is" : "are"} over it, so the figure beside each product above is not a ` +
+  `number you will meet every day. It is the one worth having ready.`;
+
+const EVIDENCE_ENDS = `The cheapest of them sits at ${
+  Math.abs(CHEAPEST.mult - 1) < 0.005
+    ? "exactly the suggested figure"
+    : `${multStr(CHEAPEST.mult)}x the suggested figure`
+}: ${listingWords(CHEAPEST)}. The dearest sits at ${multStr(DEAREST.mult)}x: ${listingWords(
+  DEAREST
+)}.${
+  SAME_CHAIN
+    ? ` Both ends of that range are the same chain, on two different products, which is the whole ` +
+      `reason this is not a list of shops to trust and shops to avoid. There is no shop that is ` +
+      `always at the suggested price and none that is always over it. There is only the sum.`
+    : ` Neither of those is a verdict on the shop. Each one is a single product, at a single shop, ` +
+      `on a single day, at an address you can open and check for yourself.`
+}`;
+
+// The two addresses, printed and not linked, so both ends of the range can be
+// checked by somebody who does not believe them.
+const EVIDENCE_URLS = [CHEAPEST, DEAREST]
+  .map((l) => l.url)
+  .filter(Boolean)
+  .filter((u, i, a) => a.indexOf(u) === i);
+
 // =================================================================== the page
 
 const TITLE =
-  "What Pokemon cards should I buy? A guide for parents and beginners | Garbage Rips 585";
+  "What Pokemon cards should I buy? A guide for parents and beginners";
 const DESC =
   `What to actually buy your kid, what it should cost, and what not to buy. Plain English, ` +
   `no jargon, every price sourced from Pokemon's own shop or from agreeing price references.`;
@@ -641,6 +939,21 @@ const FAQ = [
       `sells out, other companies list the same product on the same page at whatever price they ` +
       `choose. Check who the item is sold by and who ships it, and wait for a restock rather than ` +
       `paying it.`,
+  ],
+  [
+    // THE GIFT QUESTION, AND THE ANSWER IS THE VISIBLE BAND SHORTENED rather
+    // than a new claim. The products and both figures are joined and computed
+    // exactly as the cards above are, so this answer cannot drift from the page
+    // it summarises. NO PRODUCT NAMED HERE THAT THE BAND DOES NOT RECOMMEND.
+    "What should I get someone who already collects Pokemon cards?",
+    `Something they cannot already have, from what is on the shelf now, that still leaves the ` +
+      `choosing to them. A Booster Bundle at ${moneyExact(BUNDLE.price)} is packs and nothing ` +
+      `else, and nobody owns an unopened pack twice. An Elite Trainer Box at ${moneyExact(
+        ETB.price
+      )} adds sleeves, dice and a box, which get used whatever they collect. Do not pick one ` +
+      `specific card, a graded card or a mystery box for somebody whose taste you do not know. ` +
+      `And check the price: at more than ${multStr(DOUBLE)} times the suggested figure, put it ` +
+      `down and come back.`,
   ],
   [
     "What should I buy to actually learn to play Pokemon?",
@@ -787,6 +1100,62 @@ const STYLE = `
 .wtb-deck span{font-weight:800}
 
 /* ==========================================================================
+   THE COLLECTOR BAND.
+
+   It reuses .wtb-top, .wtb-price, .wtb-why, .wtb-what and the whole .wtb-no
+   block DELIBERATELY rather than inventing a parallel set. A gift for a
+   collector is the same shape of thing as a gift for a beginner and should look
+   like it; a second visual language on one page reads as two pages stapled
+   together, and it would double the CSS in a <head> that is already inline on a
+   render blocking path.
+
+   Only three things here are genuinely new, and each is new because it carries
+   information nothing else on the page carries.
+   ========================================================================== */
+
+/* THE THREE TESTS. Numbered, because they are applied in order and the order is
+   the argument: rule out a duplicate first, then check who is doing the
+   choosing, then check the era. The number is a big quiet mark rather than a
+   list marker, so it survives the list-style:none the rest of the page uses. */
+.gft-tests{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s4)}
+.gft-t{padding-left:var(--s4);border-left:5px solid var(--keyline)}
+.gft-tq{margin:0;font-size:1.05rem;font-weight:800;line-height:1.3;
+  display:grid;grid-template-columns:1.6em 1fr;gap:var(--s2);align-items:baseline}
+.gft-tq b{font:800 1.5rem/1 var(--mono);color:var(--ink-soft)}
+.gft-ta{margin:var(--s2) 0 0;font-size:.95rem;grid-column:1/-1}
+
+/* THE ONE-LINE RULE ABOVE THE PICKS. It exists so the reader meets the ceiling
+   figure on the first card already knowing what it is. Without it the cards
+   print a dollar amount labelled "walk away over" with no stated basis, which is
+   exactly the kind of unexplained number this page is built to argue against. */
+.gft-rule{margin:var(--s4) 0 0;padding:var(--s3) var(--s4);border:3px solid var(--keyline);
+  border-radius:var(--r);background:var(--paper-3);font-size:.95rem;line-height:1.5;max-width:40em}
+
+.gft-picks{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s3)}
+.gft-pick{border:3px solid var(--keyline);border-radius:var(--r);background:var(--card);
+  padding:var(--s4);box-shadow:var(--hard-lg)}
+.gft-pick h4{margin:0;font-size:1rem;line-height:1.25}
+/* 44px, and the same argument .wtb-top h4 a makes: the anchor is the target, not
+   the heading, so the row still reads as a heading. */
+.gft-pick h4 a{display:inline-flex;align-items:center;min-height:44px}
+
+/* THE CEILING. It is a SEPARATE LINE and not part of the price block on purpose:
+   the two figures answer different questions ("what is this worth" against "when
+   do I stop") and stacking them as one column of numbers at 390px had the reader
+   comparing them as if they were alternatives. Screenshotted both ways. The rule
+   above it is what makes this line legible on its own. */
+.gft-cap{margin:var(--s3) 0 0;padding:var(--s2) var(--s3);border-radius:6px;
+  background:var(--paper-3);font:700 .85rem/1.4 var(--mono);letter-spacing:.02em;
+  text-transform:uppercase;display:flex;flex-wrap:wrap;gap:.4em;align-items:baseline}
+.gft-cap b{font-size:1.15rem;letter-spacing:-.01em}
+
+/* The gaps. Prose rather than a table, because every entry is a sentence about
+   something this site does NOT know, and a table of absences reads as data. */
+.gft-gaps{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s3)}
+.gft-gaps li{padding-left:var(--s4);border-left:3px solid var(--hair);font-size:.9rem;
+  line-height:1.5;max-width:34em;color:var(--ink-soft)}
+
+/* ==========================================================================
    THE READING MEASURE, AND ui.css's OWN CAP IS TOO WIDE FOR THIS PAGE.
 
    ui.css sets --measure:36em on every paragraph in main. At the site's 17px
@@ -798,7 +1167,7 @@ const STYLE = `
    Only the prose is capped. The rows above are layout, not prose, and capping
    those would leave a price stranded in the middle of a wide card at 1440.
    ========================================================================== */
-.wtb-body p,.wtb-why,.wtb-plain,.wtb-sub,.wtb-no p{max-width:31em}
+.wtb-body p,.wtb-why,.wtb-plain,.wtb-sub,.wtb-no p,.gft-ta,.gft-why{max-width:31em}
 
 /* ui.css OPENS WITH A UNIVERSAL margin:0 RESET, so a paragraph has no spacing
    until a page gives it some. NO BACKTICKS ANYWHERE IN THIS BLOCK: it is inside
@@ -853,6 +1222,15 @@ const STYLE = `
 .wtb-deck{grid-template-columns:1fr 1fr;max-width:1000px}
 .wtb-pp{max-width:600px}
 .wtb-no{max-width:46em}
+/* TWO COLUMNS, capped, exactly as .wtb-picks is and for the identical reason
+   recorded there: the fix for a 1,452px wrap is more cards per row, never a
+   wider card. Four safe picks split 2x2 rather than stretching one card across
+   the window with its paragraph capped at 31em and 900px of nothing beside it. */
+.gft-picks{grid-template-columns:1fr 1fr;max-width:1000px}
+/* The tests stay ONE column at every width. Three numbered steps read as a
+   sequence down the page and as three unrelated boxes across it, which is the
+   same call the listings on /msrp.html make. */
+.gft-tests{max-width:46em}
 /* The first heading in the list sits directly under the section lede, and
    .wtb-sit h3 has margin:0 so the gap between list items does not double up. */
 .wtb-sits{margin-top:var(--s5)}
@@ -934,7 +1312,7 @@ ${quick
 ${situations.map(situationCard).join("\n")}
       </ol>
 
-      <div class="wtb-body" style="margin-top:var(--s6)">
+      <div class="wtb-body" style="margin-top:var(--s6)" id="one-card">
         <h3>${esc(guide.oneCard.title)}</h3>
 ${para(guide.oneCard.body)}
       </div>
@@ -942,7 +1320,80 @@ ${links(guide.oneCard.links)}
     </div>
   </section>
 
-  <section class="tight">
+  <section class="tight" id="${esc(collector.id)}">
+    <div class="wrap">
+      <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Gifts for a collector</p>
+      <h2>Buying for somebody who already <span class="hl">collects</span></h2>
+      <p class="lede wtb-lede">${esc(collector.lede)}</p>
+      <div class="wtb-body" style="margin-top:var(--s4)">
+${para(collector.intro)}
+      </div>
+
+      <div class="wtb-body" style="margin-top:var(--s6)">
+        <h3>Three questions that decide it</h3>
+        <p>You cannot judge their taste and you should stop trying. You can judge the product,
+          and these three questions do it without knowing anything about the person.</p>
+      </div>
+      <ol class="gft-tests">
+${collector.tests.map(testRow).join("\n")}
+      </ol>
+
+      <div class="wtb-body" style="margin-top:var(--s6)">
+        <h3>Four things that pass all three</h3>
+        <p>Cheapest first. Every one of these is something they cannot already have, from whatever
+          is on the shelf right now, and every one leaves the last decision with them.</p>
+      </div>
+      <p class="gft-rule">Each card shows what the manufacturer suggests, and beside it the figure to
+        put the box down over: <b>${esc(multStr(DOUBLE))} times the suggestion</b>. That line is this
+        site's rule of thumb rather than a measurement, and the evidence for it is directly below.</p>
+      <ul class="gft-picks">
+${collector.safe.map(safeCard).join("\n")}
+      </ul>
+
+      <div class="wtb-body" style="margin-top:var(--s6)">
+        <h3>${esc(collector.ceiling.title)}</h3>
+${para(collector.ceiling.body)}
+        <p>${esc(EVIDENCE)}</p>
+        <p>${esc(EVIDENCE_ENDS)}</p>
+      </div>${
+        EVIDENCE_URLS.length
+          ? `\n      <p class="wtb-seen">Read at ${EVIDENCE_URLS.map((u) => esc(u)).join(
+              " and at "
+            )}. Every other listing counted above is printed in full, with its own address and the
+        day it was read, on <a href="/msrp.html">the MSRP check</a> and on
+        <a href="/retailers.html">stores that sell cards</a>.</p>`
+          : ""
+      }
+${links([["/msrp.html", "The same sum as a calculator"], ["/retailers.html", "Every listing we have read"]])}
+
+      <div class="wtb-body" style="margin-top:var(--s6)">
+        <h3>${esc(collector.supplies.title)}</h3>
+${para(collector.supplies.body)}
+      </div>
+
+      <div class="wtb-body" style="margin-top:var(--s6)">
+        <h3>Four things not to give blind</h3>
+        <p>Every one of these is somebody making a decision on the collector's behalf that the
+          collector would rather make themselves. None of them is a bad product. They are bad
+          guesses.</p>
+      </div>
+      <ul class="wtb-nos" style="margin-top:var(--s5)">
+${collector.unsafe.map(unsafeRow).join("\n")}
+      </ul>
+
+      <div class="wtb-body" style="margin-top:var(--s6)">
+        <h3>What this page cannot tell you</h3>
+        <p>Worth saying out loud, because a guide that sounds certain about everything is not one
+          to trust in a shop.</p>
+      </div>
+      <ul class="gft-gaps">
+${collector.gaps.map((g) => `        <li>${esc(g)}</li>`).join("\n")}
+      </ul>
+${links(collector.links)}
+    </div>
+  </section>
+
+  <section class="band tight">
     <div class="wrap">
       <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The words</p>
       <h2>What those boxes actually <span class="hl">are</span></h2>
@@ -963,7 +1414,7 @@ ${glossary.map(glossRow).join("\n")}
     </div>
   </section>
 
-  <section class="band tight" id="do-not">
+  <section class="tight" id="do-not">
     <div class="wrap">
       <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Save your money</p>
       <h2>Three things not to buy <span class="hl">first</span></h2>
@@ -992,7 +1443,7 @@ ${PER_PACK.map(perPackRow).join("\n")}
     </div>
   </section>
 
-  <section class="tight" id="reseller">
+  <section class="band tight" id="reseller">
     <div class="wrap">
       <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Read this one</p>
       <h2>${esc(guide.reseller.title)}</h2>
@@ -1022,7 +1473,7 @@ ${MARKET_SOURCES.map(
     </div>
   </section>
 
-  <section class="band tight">
+  <section class="tight">
     <div class="wrap">
       <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>In the shop</p>
       <h2>${esc(guide.counter.title)}</h2>
@@ -1033,7 +1484,7 @@ ${links(guide.counter.links)}
     </div>
   </section>
 
-  <section class="tight">
+  <section class="band tight">
     <div class="wrap">
       <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Playing, not opening</p>
       <h2>${esc(guide.playing.title)}</h2>
@@ -1047,7 +1498,7 @@ ${links(guide.playing.links)}
     </div>
   </section>
 
-  <section class="band tight">
+  <section class="tight">
     <div class="wrap">
       <h2>Where the numbers <span class="hl">came</span> from</h2>
       <div class="wtb-body">
@@ -1064,6 +1515,16 @@ ${links(guide.playing.links)}
           knowing before you walk in. Pack counts come from this site's own product research, one
           sourced count per product, which is what <a href="/how-many-packs.html">packs per box</a> is
           built out of.</p>
+        <p>The walk-away figure beside every gift for a collector is that product's suggested price
+          multiplied by ${esc(multStr(DOUBLE))}, and ${esc(multStr(DOUBLE))} is read out of the same
+          price bands <a href="/msrp.html">the MSRP check</a> prints, not typed in here, so the two
+          pages cannot end up recommending two different lines. The ${
+            LISTINGS.length
+          } shop listings counted beside it are every dated, first-party reading this site holds, each
+          one taken off that shop's own page with the address and the day written down. They are on
+          <a href="/msrp.html">the MSRP check</a> and on
+          <a href="/retailers.html">stores that sell cards</a>, and this page counts them rather than
+          reprinting them.</p>
         <p>Nothing on this page says what is inside a pack or how likely anything is to be in it. This
           site never states pull rates, because The Pokemon Company does not publish them, and a page
           giving a parent advice is the last place that belongs.</p>
@@ -1100,4 +1561,13 @@ console.log(`Wrote public/what-to-buy.html
       .filter((x) => x.p && !photoFor(x.p.label)).length
   } rows on the hatch
   every price joined to data/msrp.json, read ${msrp.readOn}
-  ${MARKET_SOURCES.length} marketplace readings joined from data/buying.json`);
+  ${MARKET_SOURCES.length} marketplace readings joined from data/buying.json
+  collector band: ${collector.safe.length} safe picks, ${collector.tests.length} tests, ${
+    collector.unsafe.length
+  } things not to give blind, ${collector.gaps.length} gaps named
+  walk-away line ${multStr(DOUBLE)}x, read off data/over-msrp.json's bands
+  ${LISTINGS.length} shop listings joined (${listingsFromCounts.length} from pack-counts-current.json, ${
+    listingsFromRetail.length
+  } from retailer-prices.json) across ${SHOP_COUNT} shops, ${multStr(CHEAPEST.mult)}x to ${multStr(
+    DEAREST.mult
+  )}x, ${OVER_LINE} over the line`);

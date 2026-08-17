@@ -282,6 +282,59 @@ dropping it silently.
 Spot-checked a THIRD time against live pages after the build, ranks 1, 6, 50 and
 100: all four matched the published figure to the dollar.
 
+### Verification widened to all 400, 17 August 2026
+
+That run above covered **120 rows and no longer describes the file.**
+`verify-graded-top.mjs --all` re-read every row against the same crawl:
+
+```
+399 agree, 1 disagree, 0 unreadable, 0 missing a scan
+DISAGREE  #175 Omastar [Masaki Promo] #139 (Japanese Vending)
+          listing 20500   product 32530.59   img=13851B
+```
+
+**The one disagreement is a price that moved, not a column read wrongly**, and
+that was established before anything was published rather than assumed from the
+399. Both reads are of the same PriceCharting product record, id 5639952. The
+product page's PSA 10 cell carries a `change` span titled "dollar change from
+last update" reading **+$12,030.59**, and `32,530.59 - 12,030.59 = 20,500.00`
+exactly, which is the listing figure. The other two columns of the same page
+reconcile the same way to the cent: Ungraded `687.00 -> 609.08` on `-77.92`,
+Grade 9 `2,598.14 -> 2,547.80` on `-50.34`.
+
+**The same reconciliation was then run across all 400 rows**, because one card
+moving and the parser breaking look identical from a single row:
+
+| | rows |
+|---|---|
+| product page == listing page, to the cent | 370 |
+| moved, and `product - (their own change) == listing`, to the cent | 30 |
+| neither | 0 |
+
+So the `<th>`-mapped column parse is demonstrably right on all 400 and Trap 4 has
+not come back. Of the 30 that moved, Omastar is the only one outside the 0.15
+tolerance at **+58.69%**; the next largest is `-9.46%` (#212 Gengar #44) and 22
+of the 30 are under 1%. PriceCharting reports this card's PSA 10 volume as **2
+sales per year**, which is what lets one sale move a guide value that far.
+
+**It is still unpublishable and it is published nowhere**: two correct readings
+$12,030 apart give no basis for printing either. So the row is recorded in a new
+top-level `excluded` array in `data/top-graded.json`, carrying rank, name, set,
+both figures, the date decided, a one-line `public` reason the page prints, and
+the full working. `shared/graded-gate.mjs` is the gate both builders now go
+through, and it still throws on a disagreement with no entry, an entry that does
+not match the row's figures exactly, an entry with no reasoning, and an entry
+left parked after the data moved on. **Do not "fix" a disagreement by editing a
+row's `status`.**
+
+What widening bought `/base-set.html`: the 1999-2000 reprint's price (rank 124),
+and the 1st Edition against Shadowless table across Charizard, Blastoise and
+Mewtwo. What it did NOT buy, and no further verification can: Shadowless against
+Unlimited beyond Charizard. This file is ranked BY PSA 10 VALUE with a floor of
+$12,000 at rank 400, so the Unlimited printings of the other Base Set cards are
+not in it at all. **Widening a verification can only ever add the scarce
+printings.** Getting the common one needs a different crawl.
+
 ### The page, measured with headless Chrome over CDP, cache off
 
 | | 390x844 DPR2 | 1440x900 DPR1 |

@@ -375,7 +375,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pokemon Evolution Chart: Every Line, and What Each One Takes | Garbage Rips 585</title>
+<title>Pokemon Evolution Chart: Every Line, and What Each One Takes</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/evolution.html">
 <meta property="og:title" content="How does it evolve?">

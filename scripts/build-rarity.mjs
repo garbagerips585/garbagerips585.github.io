@@ -847,7 +847,7 @@ const html = `<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pokemon Card Rarity Symbols Explained, With Real Cards | Garbage Rips 585</title>
+<title>Pokemon Card Rarity Symbols Explained, With Real Cards</title>
 <meta name="description" content="How to tell what a Pokemon card is by the symbol in its corner, shown magnified on real cards. Every rarity from Common to Mega Hyper Rare, and what changed.">
 <link rel="canonical" href="${SITE}/rarity.html">
 <link rel="icon" href="/favicon.ico" sizes="any">

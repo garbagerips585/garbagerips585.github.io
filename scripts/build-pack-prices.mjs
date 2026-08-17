@@ -728,7 +728,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pokemon Pack Prices by Set: What One Pack Costs | Garbage Rips 585</title>
+<title>Pokemon Pack Prices by Set: What One Pack Costs</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/pack-prices.html">
 <meta property="og:title" content="What does a Pokemon pack actually cost?">

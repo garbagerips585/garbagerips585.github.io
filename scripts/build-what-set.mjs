@@ -350,7 +350,7 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What Set Is My Pokemon Card From? Look Up the Number | Garbage Rips 585</title>
+<title>What Set Is My Pokemon Card From? Look Up the Number</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}/what-set.html">
 <meta property="og:title" content="What set is my Pokemon card from?">

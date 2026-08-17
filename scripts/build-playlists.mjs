@@ -400,11 +400,16 @@ const compactViews = (n) => viewCount(n).toUpperCase();
 // that is how they were typed on YouTube. Appending it again shipped titles
 // reading "... | Garbage Rips 585 | Garbage Rips 585" in the browser tab and in
 // search results.
-const BRAND = "Garbage Rips 585";
-const titleFor = (p) => {
-  const t = String(p.title || "").trim().replace(/\s*\|\s*Garbage\s*Rips\s*585\s*$/i, "").trim();
-  return `${t} | ${BRAND}`;
-};
+// THE STRIP STAYS AND THE APPEND IS GONE, 17 August 2026. Measured in headless
+// Chrome at 20px Arial, 16 of the 21 ran 597-724px with the brand appended,
+// against Google's ~580px desktop cut, so it was drawn on 5 of them and
+// truncated on the rest. Bare they run 285-545px and all 21 render whole.
+// The strip is still doing the job the comment above describes: without it the
+// eight names that already end in the brand would keep it while the other
+// thirteen lost it, which is the inconsistency this rule exists to prevent.
+// og:site_name carries the brand for the search result's site-name line.
+const titleFor = (p) =>
+  String(p.title || "").trim().replace(/\s*\|\s*Garbage\s*Rips\s*585\s*$/i, "").trim();
 
 function labelsFor(vids) {
   const count = new Map();

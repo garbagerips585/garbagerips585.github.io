@@ -104,6 +104,9 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, longDate, moneyExact, moneyRound, moneyCompact, rarityLabel, imgDims, avifPicture } from "../shared/format.mjs";
+// The rip tag vocabulary, so a species' printings can be joined to the rips that
+// opened those sets. See `setRipsFor`.
+import { CARD_SETS } from "../shared/taxonomy.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/pokemon");
@@ -339,6 +342,91 @@ const ripsFor = (() => {
   };
 })();
 
+/* ------------------------------------------------------------ set-matched rips
+ *
+ * THE TITLE MATCH ABOVE FIRES ON 39 OF 1,025 PAGES, which is 3.8% of the largest
+ * page family on the site, and it was the ONLY route from a species to a video.
+ * Measured 17 August 2026 at 390x844 DPR 2: on /pokemon/gible.html the first
+ * thing on the page telling a reader a YouTube channel exists at all was an
+ * unlabelled footer icon at y=10,078 of a 10,363px page. Twelve screens. The
+ * page is a good card page and a stranger could read all of it without learning
+ * there is a channel behind it.
+ *
+ * A title match is the strongest possible signal and stays the top tier, but it
+ * only exists when Tim happened to type the name. The second tier is the SET: a
+ * species has printings, a rip is tagged with the set it opened, and a rip of a
+ * set that prints Gible cards is a genuinely relevant thing to show somebody
+ * reading about Gible. That is a fact out of two files rather than a guess, and
+ * it takes the family from 39 pages to 918 (89.6%).
+ *
+ * THE JOIN IS BY SET NAME AND IT IS LOSSY ON PURPOSE. The printings corpus names
+ * a set as TCGdex names it ("Rising Rivals"); videos.json tags a rip with a slug
+ * from shared/taxonomy.mjs ("ascended-heroes"). Only the sets the channel
+ * actually rips are in that vocabulary, so a printing in a set nobody has opened
+ * simply finds nothing, which is the correct answer. Matching is on a normalised
+ * label rather than punctuation, so "Pokemon GO" and "pokemon-go" meet.
+ *
+ * WHAT THIS BAND MUST NEVER SAY is that a pack is likely to contain the card.
+ * "We ripped sets that print Gible" is a fact; any sentence about how OFTEN one
+ * turns up is a pull rate, which this site does not state. See CLAUDE.md.
+ */
+const slugForSetLabel = (() => {
+  const norm = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "");
+  const m = new Map(CARD_SETS.map((s) => [norm(s.label), s.id]));
+  return (label) => m.get(norm(label)) || null;
+})();
+
+/** slug -> its human label, for the copy, and slug -> the rips tagged with it. */
+const setLabel = new Map(CARD_SETS.map((s) => [s.id, s.label]));
+const ripsBySetSlug = new Map();
+for (const v of videos) {
+  for (const slug of v.sets || []) {
+    if (!ripsBySetSlug.has(slug)) ripsBySetSlug.set(slug, []);
+    ripsBySetSlug.get(slug).push(v);
+  }
+}
+for (const list of ripsBySetSlug.values()) {
+  list.sort((a, b) => String(b.published || "").localeCompare(String(a.published || "")));
+}
+
+/**
+ * Rips of sets this species is printed in, newest first, ONE PER SET before any
+ * set repeats.
+ *
+ * The round-robin matters. Charmeleon is in eight sets we have ripped and 86 of
+ * those rips exist; a straight newest-first slice showed six Ascended Heroes
+ * packs and read as a single-set band. Taking the newest of each set first means
+ * six rows are six different sets, which is both more interesting and a truer
+ * picture of what the channel is.
+ *
+ * `exclude` drops anything the title match already claimed, so the two tiers
+ * never print the same video twice.
+ */
+function setRipsFor(printingSets, exclude) {
+  const slugs = [];
+  for (const name of printingSets) {
+    const slug = slugForSetLabel(name);
+    if (slug && ripsBySetSlug.has(slug) && !slugs.includes(slug)) slugs.push(slug);
+  }
+  // Busiest set first, so the lead row is from the set we have ripped most.
+  slugs.sort((a, b) => ripsBySetSlug.get(b).length - ripsBySetSlug.get(a).length);
+  const seen = new Set(exclude.map((v) => v.id));
+  const out = [];
+  for (let round = 0; out.length < 6 && round < 12; round++) {
+    let added = false;
+    for (const slug of slugs) {
+      const v = (ripsBySetSlug.get(slug) || [])[round];
+      if (!v || seen.has(v.id)) continue;
+      seen.add(v.id);
+      out.push({ ...v, viaSet: slug });
+      added = true;
+      if (out.length >= 6) break;
+    }
+    if (!added) break;
+  }
+  return { rips: out, slugs, total: slugs.reduce((n, s) => n + ripsBySetSlug.get(s).length, 0) };
+}
+
 const REGION = {
   1: "Kanto", 2: "Johto", 3: "Hoenn", 4: "Sinnoh", 5: "Unova",
   6: "Kalos", 7: "Alola", 8: "Galar", 9: "Paldea",
@@ -372,6 +460,8 @@ const species = DEX.map((p) => {
     if (s && (!first || s.released < first.released)) first = s;
   }
 
+  const rips = ripsFor(p.name);
+
   return {
     ...p,
     list,
@@ -383,7 +473,8 @@ const species = DEX.map((p) => {
     sets,
     pricedSets,
     first,
-    rips: ripsFor(p.name),
+    rips,
+    setRips: setRipsFor(sets, rips),
     family: familyOf(p),
     art: artDoc?.art?.[p.id] || null,
     // THE BAR. See the header.
@@ -841,9 +932,102 @@ function pokePage(p) {
 </section>`;
   })();
 
+  /* ------------------------------------------------------------- watch band
+   *
+   * The one band on this page whose job is the channel rather than the cards.
+   *
+   * IT MOVED UP, from dead last to directly after the priced band, and the
+   * placement is the larger half of this change. As the last section it sat at
+   * y=27,195 on charizard.html and at y=10,078-equivalent on a page that had no
+   * band at all: correct content nobody reaches. After the priced grid is where
+   * the page has just delivered what the reader came for (the cards and what
+   * they cost) and before the long tail of untranslated printings and the video
+   * game type table, neither of which is why anybody arrived.
+   *
+   * IT IS TEXT, NOT TILES, AND THAT IS DELIBERATE. See the note beside the
+   * chrome imports at the top of this file: these pages ship without
+   * packplayer.js and packs.css on purpose, so a video tile added here would
+   * NAVIGATE rather than play in place, which reads as a bug. Pack art would
+   * also put 40 to 158KB per tile onto 918 pages to decorate a list whose rows
+   * are already a reason to click. The rows link to the rip page, which is where
+   * the player and the pack wrapper live. Every click stays on the site.
+   *
+   * NO OUTBOUND LINK IN HERE. The CTA goes to /videos.html, filtered. A reader
+   * who wants the channel has Subscribe in the menu and the footer; this band's
+   * job is to prove there is something worth subscribing TO.
+   */
+  const watchBand = (() => {
+    const titled = p.rips;
+    const { rips: viaSet, slugs, total } = p.setRips;
+    if (!titled.length && !viaSet.length) return "";
+
+    // What the channel IS, in one sentence, because this page is somebody's
+    // first contact with it. A search for "gible cards" does not come with any
+    // idea of who wrote the page, and "Rochester pack openings" means nothing
+    // without the word Pokemon in front of it.
+    const whoWeAre = `<p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
+      channel out of Rochester, New York. We film every pack we open, hit or no hit.</p>`;
+
+    const rows = (list, note) => `<ul class="poke-rips">
+      ${list
+        .map(
+          (v) => `<li><a href="/${esc(v.path)}">${esc(v.title)}</a>${
+            note && v.viaSet && setLabel.has(v.viaSet)
+              ? ` <span class="rr">${esc(setLabel.get(v.viaSet))}</span>`
+              : ""
+          }</li>`,
+        )
+        .join("\n      ")}
+    </ul>`;
+
+    // TIER ONE: the rip named this Pokemon. Strongest possible reason to watch,
+    // and it is what this band said before, kept word for word.
+    if (titled.length) {
+      return `
+<section class="band tight" id="watch">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
+    <h2>We went hunting <span class="hl">${titled.length}</span> time${titled.length === 1 ? "" : "s"}</h2>
+    ${whoWeAre}
+    ${rows(titled.slice(0, 8))}
+    ${titled.length > 8 ? `<p class="price-note"><a href="/videos.html?q=${encodeURIComponent(p.name)}">All ${titled.length} rips mentioning ${esc(p.name)}</a>.</p>` : ""}
+    <div class="btn-row" style="margin-top:16px">
+      <a class="btn btn-yt" href="/videos.html?q=${encodeURIComponent(p.name)}">Watch the ${esc(p.name)} rips</a>
+    </div>
+  </div>
+</section>`;
+    }
+
+    // TIER TWO: no rip names it, but we have opened the sets it is printed in.
+    // THE SENTENCE IS ABOUT WHAT WE OPENED, NEVER ABOUT ODDS. "Packs that print
+    // Gible cards" is a fact from two files. "Packs where you might pull one" is
+    // a pull rate wearing a hat, and this site does not state those.
+    const lead = setLabel.get(slugs[0]) || "";
+    return `
+<section class="band tight" id="watch">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
+    <h2>We have ripped <span class="hl">${n(total)}</span> pack${total === 1 ? "" : "s"} from
+      ${slugs.length === 1 ? "the set" : `the ${n(slugs.length)} sets`} that print
+      <span class="hl">${esc(p.name)}</span></h2>
+    ${whoWeAre}
+    ${rows(viaSet, true)}
+    <div class="btn-row" style="margin-top:16px">
+      <a class="btn btn-yt" href="/videos.html?set=${esc(slugs[0])}">Watch every ${esc(lead)} rip</a>
+    </div>
+  </div>
+</section>`;
+  })();
+
   return (
     head({
-      title: `${p.name} Cards and Prices: Every Printing We Could Find | Garbage Rips 585`,
+      // No " | Garbage Rips 585" suffix here, and that is deliberate. Measured
+      // 17 August 2026 in headless Chrome at 20px Arial: with the suffix all 844
+      // of these ran 648-736px against Google's ~580px desktop cut, so the brand
+      // was truncated away on every single one and bought nothing. Without it
+      // they run 468-558px and the whole title renders. og:site_name below still
+      // declares the brand, which is what Google reads for the site-name line.
+      title: `${p.name} Cards and Prices: Every Printing We Could Find`,
       desc,
       canonical: url,
       ld,
@@ -872,7 +1056,19 @@ function pokePage(p) {
       <div class="fact"><div class="n">${n(p.sets.size)}</div><div class="l">Set${p.sets.size === 1 ? "" : "s"} they appear in</div></div>
       ${p.priciest ? `<div class="fact"><div class="n">${moneyRound(p.priciest.price)}</div><div class="l">Priciest one we price</div></div>` : ""}
       ${p.cheapest ? `<div class="fact"><div class="n">${moneyExact(p.cheapest.price)}</div><div class="l">Cheapest way in</div></div>` : ""}
-      ${p.rips.length ? `<a class="fact fact-link" href="/videos.html?q=${encodeURIComponent(p.name)}"><div class="n">${p.rips.length}</div><div class="l">${p.rips.length === 1 ? "Rip that mentions" : "Rips that mention"} one <span aria-hidden="true">&rarr;</span></div></a>` : ""}
+      ${/* THE ONLY MARK ABOVE THE FOLD-ISH THAT SAYS THERE IS A CHANNEL.
+             The facts row lands around y=1,900 at 390x844; the watch band, even
+             after moving up, is thousands of pixels below it. This tile is what
+             carries the fact that far up the page, and it points at the band on
+             THIS page rather than at the library, so one tap shows the rows, the
+             sentence saying what the channel is, and the CTA into the library.
+             It counts rips we can put a name to, so the number is never a
+             promise the band below then fails to keep. */ ""}
+      ${p.rips.length
+        ? `<a class="fact fact-link" href="#watch"><div class="n">${p.rips.length}</div><div class="l">${p.rips.length === 1 ? "Rip that mentions" : "Rips that mention"} one <span aria-hidden="true">&darr;</span></div></a>`
+        : p.setRips.rips.length
+          ? `<a class="fact fact-link" href="#watch"><div class="n">${n(p.setRips.total)}</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>`
+          : ""}
     </div>
     ${p.art ? `<p class="price-note">Artwork and Pokedex data from pokeapi.co, read ${esc(longDate(dexDoc.checked) || dexDoc.checked)}.
       Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc.</p>` : ""}
@@ -880,19 +1076,9 @@ function pokePage(p) {
 </section>
 ${evoBand}
 ${pricedBand}
+${watchBand}
 ${elsewhereBand}
 ${effBand}
-${p.rips.length ? `
-<section class="tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
-    <h2>We went hunting <span class="hl">${p.rips.length}</span> time${p.rips.length === 1 ? "" : "s"}</h2>
-    <ul class="poke-rips">
-      ${p.rips.slice(0, 8).map((v) => `<li><a href="/${esc(v.path)}">${esc(v.title)}</a></li>`).join("\n      ")}
-    </ul>
-    ${p.rips.length > 8 ? `<p class="price-note"><a href="/videos.html?q=${encodeURIComponent(p.name)}">All ${p.rips.length} rips mentioning ${esc(p.name)}</a>.</p>` : ""}
-  </div>
-</section>` : ""}
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card image">
   <div class="lb-inner">
@@ -990,7 +1176,7 @@ function indexPage() {
 
   return (
     head({
-      title: `Every Pokemon, Every Card: the ${n(DEX.length)} Species Pokedex | Garbage Rips 585`,
+      title: `Every Pokemon, Every Card: the ${n(DEX.length)} Species Pokedex`,
       desc,
       canonical: url,
       ld,

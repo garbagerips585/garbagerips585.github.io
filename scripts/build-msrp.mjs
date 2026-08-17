@@ -139,6 +139,9 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, longDate, moneyExact } from "../shared/format.mjs";
+// The photograph pins, shared with build-what-to-buy.mjs so a pin exists once.
+// See the photography note below.
+import { makePhotoFor } from "../shared/product-photos.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -278,102 +281,21 @@ const packsFor = (row) => {
 
 // ---------------------------------------------------------------- photography
 //
-// THE SAME PHOTOGRAPHS /openings/ AND /how-many-packs.html ALREADY USE, pinned
-// the same way and for the same reason. TCGplayer's product shots are the only
-// product photography this repo can reach, they are per SET rather than per
-// TYPE, and pokemoncenter.com is off limits. So the picture on a row is one
-// specific set's product standing in for the type, and the row NAMES the product
-// in the picture in visible text as well as in the alt. Anything looser is a
-// photograph quietly claiming to be a category.
+// THE PINS MOVED TO shared/product-photos.mjs ON 17 AUGUST 2026 AND THIS IS THE
+// ONLY THING IN THIS FILE THAT CHANGED. build-what-to-buy.mjs was carrying a
+// second copy of the subset it pictures and said so in its own comment; two
+// copies of a product-to-photograph mapping drift, and a drift here is one box's
+// photograph under another box's price. The map, the arguments for every pin and
+// for every deliberate NO PIN, and the name check are all in that file now. Read
+// it before touching a photograph on this page.
 //
-// Where a row shows the same kind as /openings/, the set is deliberately the
-// same one, so a reader moving between the two pages sees the same box.
-//
-// [set id, products.json kind, the name expected there]  or  ["extra", key]
-const PHOTOS = {
-  etb: ["pitch-black", "Elite Trainer Box", "Pitch Black Elite Trainer Box"],
-  "etb-pc": ["pitch-black", "Pokemon Center Elite Trainer Box", "Pitch Black Pokemon Center Elite Trainer Box"],
-  bundle: ["pitch-black", "Booster Bundle", "Pitch Black Booster Bundle"],
-  // THE PACK ROW SPLIT IN TWO ON 17 AUGUST 2026 and the pictures had to split
-  // with it, or the page would illustrate "sleeved" and "loose" with one photo
-  // of whichever it happened to be. Pokemon Center prices the SLEEVED pack and
-  // not the loose one, so the difference is now load bearing rather than a
-  // footnote. Only two sets in products.json name a pack as sleeved; Stellar
-  // Crown is one, so the sleeved row gets a picture that is actually of a sleeve.
-  "pack-sleeved": ["stellar-crown", "Single Pack", "Stellar Crown Sleeved Booster Pack"],
-  "pack-loose": ["pitch-black", "Single Pack", "Pitch Black Booster Pack"],
-  "booster-box": ["pitch-black", "Booster Box", "Pitch Black Booster Box"],
-  "blister-1": ["pitch-black", "Blister Pack", "Pitch Black Single Pack Blister"],
-  // The only 3-pack blister in products.json. Every other set's Blister Pack row
-  // is a 1-pack or a 2-pack, so this row cannot follow the others onto
-  // Pitch Black without the caption naming a product that is not in the picture.
-  "blister-3": ["shrouded-fable", "Blister Pack", "Shrouded Fable 3 Pack Blister"],
-  "mini-tin": ["prismatic-evolutions", "Tin", "Prismatic Evolutions Mini Tin"],
-  upc: ["151", "Ultra-Premium Collection", "151 Ultra-Premium Collection"],
-  spc: ["prismatic-evolutions", "Super-Premium Collection", "Prismatic Evolutions Super-Premium Collection"],
-  "poster-collection": ["151", "Collection Box", "151 Poster Collection"],
-  "tech-sticker": ["white-flare", "Collection Box", "White Flare Tech Sticker Collection"],
-  "build-battle": ["pitch-black", "Build & Battle Box", "Pitch Black Build & Battle Box"],
-  // The four the per-set pull cannot reach, pinned by hand in
-  // data/extra-products.json. Three of them belong to no expansion at all, which
-  // is why sync-products.mjs has never seen them.
-  "collector-tin": ["extra", "collector-tin"],
-  "poke-ball-tin": ["extra", "poke-ball-tin"],
-  "knock-out": ["extra", "knock-out"],
-  "ex-premium": ["extra", "ex-premium"],
-  "ex-box": ["extra", "ex-box"],
-  // The ex Box pin is the Mega Latias ex Box, which is ALSO one of the nine
-  // listings that row's $21.99 rests on, so the picture and the price are the
-  // same object for once rather than two boxes of the same type.
-  "holiday-calendar": ["extra", "holiday-calendar"],
-  // NO PIN: binder. There is no Binder Collection anywhere in products.json or
-  // in extra-products.json, so that row gets the hatch rather than a nearby box.
-  //
-  // NO PIN EITHER, and all six arrived with the 17 August 2026 Pokemon Center
-  // reading: build-battle-stadium, league-battle-deck, v-battle-deck,
-  // stacking-tin, pin-collection, tcg-classic. products.json holds eleven kinds
-  // and NONE of them is any of these, because sync-products.mjs pulls per
-  // EXPANSION and a stacking tin, a battle deck and TCG Classic belong to no
-  // expansion. extra-products.json is where those get pinned by hand, and its
-  // one battle deck is the 30th Celebration one, which is a different box from
-  // both decks priced here. So they take the hatch. THAT IS THE CORRECT ANSWER
-  // rather than a gap: the alternative is a photograph of a nearby product
-  // quietly standing in for one nobody has a picture of, which is exactly what
-  // the name check in photoFor() below exists to prevent. To fix it properly,
-  // add them to sync-extra-products.mjs with the argument for each pin, the same
-  // way the five above were done.
-//
-// AND NO PIN FOR THE SEVEN ROWS THE FULL CATEGORY READ ADDED on 17 August 2026:
-// premium-tournament, collector-chest, trainers-toolkit, special-collection,
-// battle-academy, my-first-battle, and poster-collection's sibling rows. Only
-// holiday-calendar had somewhere to point, because extra-products.json already
-// held one. The rest are the same call as the six above and for the same reason:
-// products.json is pulled per expansion and a Trainer's Toolkit, a Collector
-// Chest and a Battle Academy belong to no expansion at all.
-};
-
-/**
- * The photo for a row, or null.
- *
- * Matched on set AND kind, then CHECKED AGAINST THE NAME expected there.
- * sync-products.mjs picks the cheapest variant per kind, so the product behind
- * "prismatic-evolutions / Tin" can change under us; if it does, the caption
- * would name a product that is not in the picture. Drop the photo instead.
- */
-function photoFor(rowId) {
-  const spec = PHOTOS[rowId];
-  if (!spec) return null;
-  if (spec[0] === "extra") {
-    const e = EXTRA[spec[1]];
-    if (!e || !e.thumb || DEAD.has(e.thumb)) return null;
-    return { src: e.thumb, large: e.image, name: e.name };
-  }
-  const [sid, kind, expect] = spec;
-  const hit = (prod.sets?.[sid]?.products || []).find((p) => p.kind === kind);
-  if (!hit || !hit.thumb || DEAD.has(hit.thumb)) return null;
-  if (!String(hit.name || "").toLowerCase().startsWith(expect.toLowerCase())) return null;
-  return { src: hit.thumb, large: hit.image, name: hit.name };
-}
+// THE NAME CHECK SURVIVED AND IS LOUDER: a pin that no longer resolves to the
+// product it names now FAILS THE BUILD instead of silently dropping the picture.
+// A row with NO pin still returns null and still gets the hatch, which is what
+// the unpinned rows on this page rely on and is why the throw is scoped to pins.
+// The line this builder prints at the end counts them, so no count is written
+// here to go stale.
+const photoFor = makePhotoFor({ products: prod, extra: EXTRA, dead: DEAD });
 
 // 150w, not 200w, and it was checked rather than assumed: the CDN serves a fixed
 // set of widths and answers 403 for the rest (50w, 100w and 120w are all 403), so

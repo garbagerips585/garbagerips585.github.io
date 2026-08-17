@@ -160,8 +160,13 @@ for (const t of tcgTypes?.types || []) {
 
 const n = (v) => Number(v).toLocaleString("en-US");
 const cap = (s) => String(s).charAt(0).toUpperCase() + String(s).slice(1);
-const list = (arr) =>
-  arr.length <= 1 ? arr.join("") : `${arr.slice(0, -1).join(", ")} and ${arr[arr.length - 1]}`;
+
+// A SMALL COUNT AT THE HEAD OF A SENTENCE IS SPELLED OUT. The note band opened
+// "3 of the eight carry more than one condition", which reads as a table cell
+// rather than a sentence, and the heading two lines above it already says
+// "three" in words. Screenshotted at 390 before changing.
+const WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+const word = (v) => (Number.isInteger(v) && v >= 0 && v <= 10 ? WORDS[v] : n(v));
 
 const REGION = {
   1: "Kanto", 2: "Johto", 3: "Hoenn", 4: "Sinnoh", 5: "Unova",
@@ -291,13 +296,29 @@ function facts(e) {
   // safe to make on all of them. Where the two names differ, the page says the
   // card game has no such type rather than implying the card is mislabelled.
   const t = e.types[0] || "";
+  // A CARD TYPE OF THE SAME NAME MAY EXIST AND BE RETIRED, and saying "there is
+  // no Fairy type in the card game" under Sylveon flatly contradicted the
+  // paragraph directly above it, which gives that type's dates. Read from
+  // data/types.json's own `status` rather than special-cased on the name, so a
+  // second retirement gets the right sentence without an edit here.
+  const retiredSameName = (tcgTypes?.types || []).some((x) => x.name === t && x.status === "retired");
   if (t && e.cardType) {
     out.push(
       e.cardType === t
         ? `<b>${esc(t)} type.</b> ${esc(t)} in the video games and ${esc(t)} on a card too. ` +
           `<a href="/types.html">The eleven card types</a>.`
-        : `<b>${esc(t)} type.</b> ${esc(t)} in the video games. There is no ${esc(t)} type in the card game, ` +
-          `so a ${esc(e.name)} is printed as a ${esc(e.cardType)} card. <a href="/types.html">The eleven card types</a>.`,
+        : retiredSameName
+          ? `<b>${esc(t)} type.</b> ${esc(t)} in the video games. The card game had a ${esc(t)} type of its own ` +
+            `and retired it, so ${esc(e.name)} cards are printed as ${esc(e.cardType)} now. ` +
+            `<a href="/types.html">The eleven card types</a>.`
+          // NO ARTICLE IN FRONT OF THE NAME HERE. It read "so a Umbreon is
+          // printed as a Darkness card" for two of the four that differ,
+          // because the sentence had a hardcoded "a" and Umbreon, Espeon and
+          // Eevee all start with a vowel. The plural sidesteps the whole problem
+          // and reads better anyway: it is a statement about the cards, not
+          // about one card.
+          : `<b>${esc(t)} type.</b> ${esc(t)} in the video games. There is no ${esc(t)} type in the card game, ` +
+            `so ${esc(e.name)} cards are printed as ${esc(e.cardType)}. <a href="/types.html">The eleven card types</a>.`,
     );
   } else if (t) {
     out.push(`<b>${esc(t)} type.</b> ${esc(t)} in the video games. <a href="/types.html">The eleven card types</a>.`);
@@ -336,7 +357,18 @@ const EXTRA = {
     "and a new one is a Psychic card. The old ones are ordinary cards, not fakes and not misprints.",
 };
 
-const section = (e, i) => {
+// EVERY PICTURE ON THIS PAGE IS LAZY, AND THAT IS MEASURED RATHER THAN
+// CAUTIOUS. build-pokemon.mjs makes the opposite call for the first tile of its
+// featured band and is right to: that tile IS the Largest Contentful Paint
+// element, and telling the browser an element on the first screen is not needed
+// for the first screen costs 100 to 120ms. Nothing here is in that position.
+// At 390x844 the first screen is the bar, the breadcrumb, the h1 and two lede
+// paragraphs, then the drawn chain, which is inline SVG and text and carries no
+// image at all: the chain box alone is 1,806px tall, so the first picture on the
+// page sits about 2,400px down. There is no image above the fold to be the LCP
+// element at any width measured. Marking them eager would put 128KB of portrait
+// on the load path for a reader who has not scrolled past a wall of text.
+const section = (e) => {
   const tags = e.tags
     .map((t) => METHOD_LABELS[t])
     .filter(Boolean)
@@ -356,10 +388,11 @@ const section = (e, i) => {
             ${
               e.art
                 ? `<img class="ee-art" src="${esc(e.art.file)}" width="${e.art.w}" height="${e.art.h}"
-              alt="${esc(e.name)}, official artwork"${i < 2 ? ` decoding="async"` : ` loading="lazy" decoding="async"`}>`
+              alt="${esc(e.name)}, official artwork" loading="lazy" decoding="async">`
                 : ""
             }
             <div class="ee-body">
+              <div class="ee-what">
               ${
                 cond
                   ? `<p class="ee-lab">What it takes</p>
@@ -370,6 +403,7 @@ const section = (e, i) => {
               ${tags ? `<ul class="ee-tags">${tags}</ul>` : ""}
               <p class="ee-say">${esc(e.say)}</p>
               ${EXTRA[e.slug] ? `<p class="ee-say">${esc(EXTRA[e.slug])}</p>` : ""}
+              </div>
               ${f.length ? `<ul class="facts-list ee-facts">\n                ${f.map((x) => `<li>${x}</li>`).join("\n                ")}\n              </ul>` : ""}
             </div>
           </div>
@@ -383,12 +417,32 @@ const sections = all.map(section).join("\n");
 // anchors on this page. IT CARRIES THE PICTURES ON PURPOSE. The ask was to see
 // all of them, and a reader who arrived on "eevee evolutions" wants the set of
 // nine faces before they want any sentence.
+//
+// THE FIRST TWO TILES ARE EAGER AND EVERY OTHER PICTURE ON THE PAGE IS LAZY.
+// The grid sits directly under the lede, so at 390x844 the first row, Eevee and
+// Vaporeon, is inside the first screen and one of the two is the Largest
+// Contentful Paint element. build-pokemon.mjs writes up at length what marking
+// that element lazy costs: it tells the browser an element on the first screen
+// is not needed for the first screen, which is the opposite of true, and it
+// measured at 100 to 120ms there. Two, not nine: on the narrowest phone only
+// the first row is above the fold.
+//
+// THE lazy ON THE OTHER SEVEN BUYS NOTHING AT 390 AND IS KEPT ANYWAY, which is
+// worth writing down rather than discovering again. Measured from the request
+// log, gzipped, cache off: with the grid BELOW the drawn chain the page loaded
+// 126.5KB and grew to 250.2KB fully scrolled; with the grid ABOVE it the page
+// loads 250.5KB and grows by nothing, because the whole grid ends about 1,270px
+// down and Chrome's lazy threshold reaches further than that. So the move cost
+// 124KB on the load path and it is the right trade: the pictures are what the
+// page was asked for and a reader should not scroll 1,806px of diagram to reach
+// the first one. The attribute stays because it is honest markup and it is what
+// keeps a narrower or shorter viewport from paying the same bill.
 const glance = all
   .map(
-    (e) => `        <a class="ee-gt" href="#${esc(e.slug)}">
+    (e, i) => `        <a class="ee-gt" href="#${esc(e.slug)}">
           ${
             e.art
-              ? `<img src="${esc(e.art.file)}" width="${e.art.w}" height="${e.art.h}" alt="" decoding="async">`
+              ? `<img src="${esc(e.art.file)}" width="${e.art.w}" height="${e.art.h}" alt=""${i < 2 ? "" : ` loading="lazy"`} decoding="async">`
               : ""
           }
           <b>${esc(e.name)}</b>
@@ -493,6 +547,13 @@ const style = `
 .ee-say{font-size:var(--t-sm);line-height:1.55;max-width:44em;margin-top:var(--s3)}
 .ee-facts{margin-top:var(--s3)}
 .ee-facts li{max-width:44em}
+/* THE LINKS IN A FACT WERE INVISIBLE. .facts-list has no rule for a nested <a>,
+   so "The eleven card types" and "Every Umbreon card, priced" rendered in body
+   ink with no underline and read as ordinary sentence text. Screenshotted at
+   390 before believing it. Nine fact lists on this page carry two links each,
+   which is eighteen links a reader could not see. Underlined here rather than
+   in ui.css, which another pass is rewriting. */
+.ee-facts a{text-decoration:underline;text-underline-offset:2px}
 /* THE VALUE LIST. Rows rather than a table: four columns of numbers inside a
    326px content box is either a horizontal scroller or 9px type, and the third
    line here wraps to its own full-width row instead. */
@@ -514,10 +575,32 @@ const style = `
   text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
 .ee-links a:hover{border-color:var(--ink);background:var(--mustard)}
 .ee-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s4);line-height:1.6;max-width:46em}
-.ee-src li{margin-top:6px}
-.ee-src ul{padding-left:var(--s4)}
+/* The source list carries .ee-src on the <ul> ITSELF, so a descendant selector
+   for it would never match. This is the rule that spaces its rows. */
+.ee-src li{margin-top:8px}
+/* DESKTOP READING MEASURE, the same block build-evolution.mjs and
+   build-types.mjs both end with. --measure is ui.css's own cap and it has to be
+   named on every loose paragraph class, because nothing else reaches them:
+   .ee-facts li was running to 95 real characters at 1440, measured with a
+   canvas against the actual face rather than guessed from ems, because its 44em
+   cap is 669px at that element's 15.2px. */
 @media(min-width:1000px){
-  .ee-lede,.ee-src,.ee-note p,.ee-say,.ev-p{max-width:var(--measure)}
+  .ee-lede,.ee-src,.ee-note p,.ee-say,.ee-facts li,.ev-p{max-width:var(--measure)}
+  /* AND THE VALUE ROWS STOP GROWING. Left at full width a 1,392px row put the
+     name at the far left and the price at the far right with 1,100px of nothing
+     between them, which is a row you have to track across rather than read. */
+  .ee-val{max-width:38em}
+}
+/* THE CARD BECOMES TWO COLUMNS AT 1100, and it is the failure ui.css already
+   documents for the home page and build-evolution.mjs for the chart: a column
+   of prose in a 1,392px band leaves 550px of empty card beside it, measured at
+   1440. The condition and its paragraph go left, the facts go right, and the
+   nine cards roughly halve in height. 1100 rather than 1000 because the facts
+   need about 480px before they start wrapping every line. */
+@media(min-width:1100px){
+  .ee-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:var(--s4) var(--s5);align-items:start}
+  .ee-facts{margin-top:0}
 }
 `;
 
@@ -562,18 +645,25 @@ ${MENU}
       <p class="lede ee-lede">Eight of them, and no two work the same way. Three want a stone. Two want friendship
         and a clock. Two used to want a specific rock in a specific forest and now want a stone instead. One wants
         a move. <b>Eevee is the only Pokemon whose answer is eight answers</b>, which is why it gets a page.</p>
-      <p class="lede ee-lede">Here is the whole fork first, then all nine of them one at a time with the artwork,
-        what each one takes, when it was introduced, and what its cards are worth.</p>
+      <p class="lede ee-lede">All nine of them are here, with the artwork, what each one takes, when it was
+        introduced and what its cards are worth. Tap a face to jump straight to it.</p>
 
-      <div class="ee-fan">
-${renderChain(eevee, d, hasPage)}
-      </div>
-
+      <!-- THE PICTURES COME BEFORE THE DIAGRAM, and they used to come after it.
+           The drawn chain is 1,806px tall at 390px, so a reader who arrived on
+           "eevee evolutions" had to scroll past nearly two phone screens of it
+           before seeing a single Pokemon. A jump nav that far down the page is
+           also not a jump nav. The chain is still the better answer to "how does
+           this fork" and it keeps its place directly under, where the reader has
+           already seen who the nine are. -->
       <nav aria-label="Jump to an Eeveelution">
         <div class="ee-glance">
 ${glance}
         </div>
       </nav>
+
+      <div class="ee-fan">
+${renderChain(eevee, d, hasPage)}
+      </div>
 
       <section>
         <h2>Eevee, and the <span class="hl">eight</span> it becomes</h2>
@@ -593,10 +683,14 @@ ${sections}
       </section>
 
       <div class="ee-note">
-        <h2>Why three of them have <span class="hl">more than one answer</span></h2>
-        <p>${changed.length} of the eight carry more than one condition, and that is not us hedging. The method
-          genuinely changed between games, and every version of it is printed with the games it belongs to. Leafeon
-          and Glaceon are the extreme case at ${mostAnswers} apiece: for five sets of games
+        <!-- THE COUNT IN THE HEADING IS DERIVED, not typed. It read "Why three
+             of them" beside a paragraph that computed the same number from the
+             data, so a re-sync that moved one would have left the heading
+             lying while the sentence under it told the truth. -->
+        <h2>Why ${word(changed.length)} of them have <span class="hl">more than one answer</span></h2>
+        <p>${cap(word(changed.length))} of the eight carry more than one condition, and that is not us hedging. The
+          method genuinely changed between games, and every version of it is printed with the games it belongs to.
+          Leafeon and Glaceon are the extreme case at ${word(mostAnswers)} apiece: for five sets of games
           the answer was a particular rock in a particular place, and the place was different every time.</p>
         <p>A page that gives you one of those has given most of its readers the wrong instruction. So this one
           gives you all of them and tells you which games each belongs to.</p>
