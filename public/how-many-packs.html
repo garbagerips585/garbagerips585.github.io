@@ -111,8 +111,14 @@
    second hue: with colour removed the shaded era is still a lighter column and
    the step line still carries the whole argument on its own.
    max-width is 520px to match the drawn figures on /base-set.html. */
+/* max-width ON THE FIGURE, not just on the svg, and the first version had only
+   the second. The svg caps at 520 and centres, so inside an uncapped figure a
+   desktop drew a 520px chart marooned in the middle of a 1,180px white box
+   with the caption starting at the far left of it, which is the same "fixed cap
+   inside a full-width wrap" fault ui.css's home page block exists to fix. 620
+   is what .bs-fig-wide already uses for the drawn figures on /base-set.html. */
 .hp-fig{margin:var(--s5) 0 0;background:var(--card);border:1px solid var(--hair);
-  border-radius:10px;padding:var(--s4) var(--s4) var(--s3)}
+  border-radius:10px;padding:var(--s4) var(--s4) var(--s3);max-width:620px}
 .hp-fig svg{display:block;width:100%;height:auto;max-width:520px;margin-inline:auto}
 /* 10 AND 11 UNITS, NOT 9. The svg is 360 units wide and renders at about 326px
    inside the wrap on a 390px phone, so a unit is ~0.9px: 9 units would land at

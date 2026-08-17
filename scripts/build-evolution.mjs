@@ -185,6 +185,112 @@ for (const c of evolving) {
 }
 const methodOrder = ["level", "item", "trade", "held", "friendship", "time", "place", "move", "odd"];
 
+// ---------------------------------------------------------------------------
+// WHAT AN EVOLUTION STEP ACTUALLY TAKES, COUNTED BY STEP, AND DRAWN.
+//
+// THE LEDE MAKES A CLAIM ABOUT PROPORTION AND NOTHING ON THE PAGE SHOWS IT.
+// "Levels are the easy half. The reason anybody looks this up is the other
+// half." That is the argument for the whole page and it is true: of the 483
+// arrows drawn below, most are a number and nothing else, and the rest are the
+// stone, the trade, the friendship at night, the walk. A reader cannot get that
+// from the chart underneath, because seeing it means holding three hundred
+// cards in your head at once. One axis is where a proportion lives.
+//
+// THIS IS COUNTED BY STEP AND THE FILTER CHIPS COUNT LINES, WHICH ARE
+// DELIBERATELY DIFFERENT NUMBERS AND SIT ON THE SAME SCREEN. A chip answers
+// "show me every line with a trade in it somewhere", so a four stage line with
+// one trade in it counts once. A bar here answers "what does an arrow take",
+// which is the question the lede asks. Level up is 259 lines and 340 steps and
+// both are right. The unit is printed on every row and named again in the
+// caption, because two numbers under one word with no unit on either is how a
+// page starts contradicting itself.
+//
+// LEVEL IS EXCLUSIVE AND THE OTHER EIGHT ARE NOT. methodTags in
+// shared/evolution.mjs only tags a step "level" when nothing else applies, so
+// the first bar is "a level and nothing else" and is exact. A step CAN carry
+// two of the other eight, because a trade holding a Metal Coat is both, so
+// those eight add to more than the number of steps they describe. The caption
+// says so and the arithmetic below is asserted rather than hoped for.
+let evSteps = 0;
+let evMultiTag = 0;
+const stepCounts = {};
+for (const c of evolving) {
+  walkChain(c.root, (nd) => {
+    if (!(nd.routes || []).length) return;
+    evSteps++;
+    const tags = new Set();
+    for (const r of nd.routes) for (const m of methodTags(r)) tags.add(m);
+    if (tags.size > 1) evMultiTag++;
+    for (const t of tags) stepCounts[t] = (stepCounts[t] || 0) + 1;
+  });
+}
+
+const EV_PLAIN = stepCounts.level || 0;
+const EV_REST = evSteps - EV_PLAIN;
+const EV_BARS = Object.entries(stepCounts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+
+// The three things the picture asserts, each of which is a RELATIONSHIP rather
+// than a value, and a relationship is what goes quietly false when the source
+// is re-synced. Same discipline as build-grade-check.mjs and build-buying.mjs:
+// a chart drawing an argument its own data stopped supporting is worse than no
+// chart, so the build stops and says which one went.
+if (!evSteps || !EV_BARS.length) {
+  throw new Error(
+    "build-evolution: no evolution step carries a method tag, so the figure would be an empty box " +
+      "under a lede promising the opposite. Run scripts/sync-evolution.mjs, or take the figure out."
+  );
+}
+if (EV_BARS[0][0] !== "level") {
+  throw new Error(
+    "build-evolution: the step figure draws the lede's claim that levels are the easy half and the " +
+      `biggest bar is now ${JSON.stringify(EV_BARS[0][0])} at ${EV_BARS[0][1]} steps, against ` +
+      `${EV_PLAIN} that are a level and nothing else. The picture and the lede above it no longer ` +
+      "agree. Rewrite the lede from the data, or drop the figure."
+  );
+}
+if (EV_PLAIN <= EV_REST) {
+  throw new Error(
+    `build-evolution: ${EV_PLAIN} of ${evSteps} steps are a plain level and ${EV_REST} need something ` +
+      "else, so a level is no longer the majority and the lede's \"levels are the easy half\" is " +
+      "false. Both the sentence and the caption under the figure have to be rewritten from the data."
+  );
+}
+{
+  const tail = EV_BARS.filter(([k]) => k !== "level").reduce((a, [, v]) => a + v, 0);
+  if (tail < EV_REST) {
+    throw new Error(
+      `build-evolution: the eight tail bars add to ${tail} across ${EV_REST} steps that are not a ` +
+        "plain level, which is fewer tags than steps. Every step that is not a plain level carries at " +
+        "least one of those eight by construction, so this means a tag has gone missing from " +
+        "methodTags in shared/evolution.mjs and the figure is under-drawing the tail."
+    );
+  }
+}
+
+// A count is never printed inside a bar, only beside it, so nothing here needs a
+// width check. The label column is real text in the document and wraps.
+const stepRow = ([key, n]) => `          <li>
+            <span class="ev-fn">${esc(METHOD_LABELS[key] || key)}</span><b class="ev-fv">${n}<span> steps</span></b>
+            <span class="ev-ft" aria-hidden="true"><span class="ev-fb" style="width:${(
+              (n / EV_BARS[0][1]) *
+              100
+            ).toFixed(1)}%"></span></span>
+          </li>`;
+
+const stepFig = () => `        <figure class="ev-fig" data-evintro>
+          <h2 class="ev-figh">What a step actually <span class="hl">takes</span></h2>
+          <ul class="ev-figl">
+${EV_BARS.map(stepRow).join("\n")}
+          </ul>
+          <figcaption>Every one of the ${evSteps} arrows drawn below, counted by what it asks for.
+            <b>${EV_PLAIN} of them are a level and nothing else.</b> The other ${EV_REST} are the ones
+            people come here for, and ${evMultiTag} of those want more than one thing at once, a trade
+            while holding an item, a level at a particular time, so the eight small bars add to more
+            than ${EV_REST}. Counted by STEP, one arrow at a time. The filters above count LINES
+            instead, which is why the same words carry smaller numbers up there: a line with four
+            arrows in it is one line however many of them are a level.</figcaption>
+        </figure>`;
+
 const chips = (id, items) =>
   items
     .map(
@@ -243,6 +349,35 @@ const style = `
 .ev-chip[aria-pressed="true"] span{color:var(--on-accent)}
 .ev-count{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.05em;text-transform:uppercase;
   color:var(--ink-2);margin-top:var(--s2)}
+/* THE STEP FIGURE. Same box as .ev-read, which is the card this page already
+   uses for a block that is prose about the chart rather than part of it, so a
+   reader meets one visual language and not two.
+   NOTHING IS CARRIED BY COLOUR. One fill, on the page's own paper tone, with a
+   hairline round the track and the count printed beside every bar. The scale is
+   set by the biggest bar and starts at zero, so the level bar being five times
+   the next one is the real ratio and not a stretched one.
+   THE SMALLEST BAR IS ABOUT 2% OF THE TRACK, roughly 7px at 390px, and that is
+   deliberate rather than an oversight: the whole finding is that eight of the
+   nine are small. No count is drawn INSIDE a bar, so nothing here can become
+   unreadable at that size; the number sits in real text on the line above,
+   where it wraps and where a screen reader gets it. */
+.ev-fig{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
+  box-shadow:var(--hard-lg);padding:var(--s4);margin:var(--s5) 0}
+.ev-figh{margin-bottom:var(--s4)}
+.ev-figl{list-style:none;margin:0;padding:0;display:grid;gap:var(--s3)}
+.ev-figl li{display:grid;grid-template-columns:1fr auto;gap:var(--s2);align-items:baseline;
+  padding-top:var(--s3);border-top:1px solid var(--hair)}
+.ev-figl li:first-child{padding-top:0;border-top:0}
+.ev-fn{font:400 var(--t-sm)/1.35 var(--body);color:var(--ink)}
+.ev-fv{font:700 var(--t-sm)/1 var(--mono);white-space:nowrap}
+.ev-fv span{font-weight:400;color:var(--ink-2)}
+.ev-ft{grid-column:1/-1;display:block;height:14px;margin-top:6px;border-radius:3px;
+  background:var(--paper-2);box-shadow:inset 0 0 0 1px var(--hair)}
+.ev-fb{display:block;height:100%;min-width:3px;border-radius:3px;background:var(--ink)}
+.ev-fig figcaption{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--hair);
+  font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
+.ev-fig figcaption b{color:var(--ink);font-weight:700}
+
 .ev-forks{display:flex;flex-wrap:wrap;gap:8px;margin:var(--s4) 0 0}
 .ev-forks a{display:inline-flex;flex-direction:column;justify-content:center;min-height:48px;
   padding:6px 12px;border:1px solid var(--hair);border-radius:10px;background:var(--card);
@@ -304,6 +439,14 @@ const style = `
    build-types.mjs. */
 @media(min-width:1000px){
   .ev-lede,.ev-src,.ev-read p,.ev-p{max-width:var(--measure)}
+  /* THE FIGURE IS CAPPED AND ITS CAPTION IS CAPPED INSIDE IT. A nine row bar
+     chart stretched across a 1,180px wrap turns the eight small bars into eight
+     slightly different slivers and the level bar into a black stripe, which is
+     the same "a fixed cap does not move" failure the home page's desktop pass
+     was about, one direction along. 46em holds the level bar at about 700px,
+     which is enough for a 2% bar to still be a mark. */
+  .ev-fig{max-width:46em}
+  .ev-fig figcaption{max-width:var(--measure)}
 }
 `;
 
@@ -450,6 +593,8 @@ ${chips("gen", gens.map((g) => [String(g), `Gen ${g}`, genCounts[g]]))}
         <input id="evq" type="search" placeholder="Gible, Eevee, Magikarp..." autocomplete="off" enterkeyhint="search">
         <p class="ev-count" id="evCount"></p>
       </div>
+
+${stepFig()}
 
       <section data-evintro>
         <h2>The ones that <span class="hl">fork</span></h2>

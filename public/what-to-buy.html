@@ -79,6 +79,17 @@ font-size:.85rem;line-height:1.5;overflow-wrap:anywhere}
 padding:var(--s2) 0;border-top:1px solid var(--hair)}
 .wtb-pp b{font-size:1.15rem;font-weight:800}
 .wtb-pp span{font-size:.85rem;color:var(--ink-soft);line-height:1.4}
+.wtb-pp .wtb-tk{grid-column:1/-1;position:relative;display:block;height:14px;margin-top:6px;
+border-radius:3px;background:var(--paper-2);box-shadow:inset 0 0 0 1px var(--hair)}
+.wtb-pp .wtb-br{display:block;height:100%;min-width:3px;border-radius:3px;background:var(--ink)}
+.wtb-pp .wtb-pl{grid-column:1/-1;margin-top:2px}
+.wtb-pp .wtb-dt{position:absolute;top:-6px;width:2px;height:26px;background:var(--gold-deep)}
+.wtb-fig{margin:var(--s4) 0 0;border:3px solid var(--keyline);border-radius:var(--r);
+background:var(--card);padding:var(--s4);box-shadow:var(--hard-lg)}
+.wtb-fig .wtb-pp{margin-top:0}
+.wtb-fig figcaption{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--hair);
+font-size:.85rem;line-height:1.55;color:var(--ink-soft)}
+.wtb-fig figcaption b{color:var(--ink);font-weight:800}
 .wtb-flag{max-width:40em;margin:0 0 var(--s4);padding:var(--s3) var(--s4);
 border:3px solid var(--keyline);border-radius:var(--r);background:var(--paper-3);
 font-size:.95rem;line-height:1.5}
@@ -121,6 +132,8 @@ line-height:1.5;max-width:34em;color:var(--ink-soft)}
 .wtb-gloss{grid-template-columns:1fr 1fr}
 .wtb-deck{grid-template-columns:1fr 1fr;max-width:1000px}
 .wtb-pp{max-width:600px}
+.wtb-fig{max-width:46em}
+.wtb-fig .wtb-pp{max-width:none}
 .wtb-no{max-width:46em}
 .gft-picks{grid-template-columns:1fr 1fr;max-width:1000px}
 .gft-tests{max-width:46em}
@@ -761,14 +774,26 @@ line-height:1.5;max-width:34em;color:var(--ink-soft)}
           above, and it is the useful part, because it still works next year when these numbers have
           moved and it works on a box that is not on this page.</p>
       </div>
-      <ul class="wtb-pp">
-        <li><b>$4.49</b> a pack <span>Sleeved booster pack, $4.49 for 1 pack</span></li>
-        <li><b>$5.00</b> a pack <span>Mini tin, $9.99 for 2 packs</span></li>
-        <li><b>$4.66</b> a pack <span>Three-pack blister, $13.99 for 3 packs</span></li>
-        <li><b>$4.49</b> a pack <span>Booster Bundle, $26.94 for 6 packs</span></li>
-        <li><b>$5.55</b> a pack <span>Elite Trainer Box, $49.99 for 9 packs</span></li>
-        <li><b>$4.49</b> a pack <span>Booster box, $161.64 for 36 packs</span></li>
-      </ul>
+      <figure class="wtb-fig">
+        <ul class="wtb-pp">
+        <li><b>$4.49</b> a pack <span class="wtb-pl">Sleeved booster pack, $4.49 for 1 pack</span>
+          <span class="wtb-tk" aria-hidden="true"><span class="wtb-br" style="width:80.8%"></span><span class="wtb-dt" style="left:80.8%"></span></span></li>
+        <li><b>$5.00</b> a pack <span class="wtb-pl">Mini tin, $9.99 for 2 packs</span>
+          <span class="wtb-tk" aria-hidden="true"><span class="wtb-br" style="width:89.9%"></span><span class="wtb-dt" style="left:80.8%"></span></span></li>
+        <li><b>$4.66</b> a pack <span class="wtb-pl">Three-pack blister, $13.99 for 3 packs</span>
+          <span class="wtb-tk" aria-hidden="true"><span class="wtb-br" style="width:84.0%"></span><span class="wtb-dt" style="left:80.8%"></span></span></li>
+        <li><b>$4.49</b> a pack <span class="wtb-pl">Booster Bundle, $26.94 for 6 packs</span>
+          <span class="wtb-tk" aria-hidden="true"><span class="wtb-br" style="width:80.8%"></span><span class="wtb-dt" style="left:80.8%"></span></span></li>
+        <li><b>$5.55</b> a pack <span class="wtb-pl">Elite Trainer Box, $49.99 for 9 packs</span>
+          <span class="wtb-tk" aria-hidden="true"><span class="wtb-br" style="width:100.0%"></span><span class="wtb-dt" style="left:80.8%"></span></span></li>
+        <li><b>$4.49</b> a pack <span class="wtb-pl">Booster box, $161.64 for 36 packs</span>
+          <span class="wtb-tk" aria-hidden="true"><span class="wtb-br" style="width:80.8%"></span><span class="wtb-dt" style="left:80.8%"></span></span></li>
+        </ul>
+        
+        <figcaption>The same six sums, on one axis, longest bar dearest. Reading down, the price on the
+          shelf goes from $4.49 to $161.64, which is
+          36 times as much money, and 3 of the 6 land on exactly the same $4.49 a pack: the upright mark on every bar is that figure. <b>Buying more packs at once does not make a pack cheaper.</b> The dearest pack here is inside the Elite Trainer Box at $5.55, and the packs are not what you are buying it for.</figcaption>
+      </figure>
       <div class="wtb-body" style="margin-top:var(--s4)">
         <p>Those are the same number. The big box is not a bulk discount, it is the same packs bought all at once. The Elite Trainer Box comes out dearer a pack than either, and that is fine:
           you are paying for the box, the sleeves, the dice and the counters, which is exactly why it

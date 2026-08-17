@@ -62,6 +62,30 @@
   background:var(--mustard);border:1px solid var(--navy);border-radius:var(--r-pill);
   padding:1px 7px;white-space:nowrap}
 .ws-empty{padding:var(--s5) 0;font-size:var(--t-sm);color:var(--ink-soft)}
+/* The secret-rare chart.
+   EVERY FILL IS A LITERAL HEX ON PURPOSE. --navy and --ketchup are both
+   #111111 since the repaint, so a two-part bar written against the tokens is
+   one solid black bar with an invisible join and nothing errors. The two parts
+   are #E6E4DD (the value of --paper-3) and #111111, which is a WEIGHT
+   difference rather than a hue one: the split still reads with colour removed.
+   max-width 520px matches the drawn figures on /base-set.html.
+   NOTHING HERE IS UNDER 10px AND THE VALUE LABELS USED TO BE 9. A 360 unit box
+   renders 332px wide at 390, so a unit is 0.922px and 9px lands at 8.30, under
+   the point a label stops being readable on a phone. It was justified in this
+   comment as "a repeat of the bar beside it", which was wrong twice over: the
+   bar shows the LENGTH and only the label carries the count, and it was the
+   one measured number in the figure that failed its own test. 10px lands at
+   9.22 and every budget still passes with room. */
+.ws-fig{margin:var(--s5) 0 0;background:var(--card);border:1px solid var(--hair);
+  border-radius:10px;padding:var(--s4) var(--s4) var(--s3);max-width:620px}
+.ws-fig svg{display:block;width:100%;height:auto;max-width:520px;margin-inline:auto}
+.ws-fig text{font-family:var(--mono)}
+.ws-cname{font-size:10px;font-weight:400;fill:#111111}
+.ws-cval{font-size:10px;font-weight:700;fill:#5B5B5B}
+.ws-ctick{font-size:10px;font-weight:400;fill:#5B5B5B}
+.ws-cleg{font-size:10px;font-weight:700;fill:#111111}
+.ws-fig figcaption{font-size:var(--t-sm);color:var(--ink-2);line-height:1.5;
+  margin-top:var(--s3);max-width:46em}
 @media(min-width:640px){
   .ws-row{grid-template-columns:120px 1fr;gap:var(--s4);align-items:start}
   .ws-n{justify-content:flex-end;flex-direction:column;align-items:flex-end;gap:2px}
@@ -961,6 +985,106 @@
       <div class="fact"><div class="n">91</div><div class="l">Where Paldean Fates officially stops</div></div>
       <div class="fact"><div class="n">245</div><div class="l">Where it actually stops</div></div>
     </div>
+    <figure class="ws-fig">
+  <svg viewBox="0 0 360 430.5" role="img" aria-label="One bar per set, 27 of them, sorted by how far each runs past its own printed checklist. Each bar is pale up to the set's printed total and solid for every card numbered above it. Paldean Fates is the longest tail, 154 cards past a printed total of 91. Across all 27 sets it is 1,360 cards.">
+    <line x1="130.0" y1="34" x2="130.0" y2="406.5" stroke="#111111" stroke-opacity=".14" stroke-width="1"/>
+    <text x="130.0" y="420.5" text-anchor="middle" class="ws-ctick">0</text><line x1="195.3" y1="34" x2="195.3" y2="406.5" stroke="#111111" stroke-opacity=".14" stroke-width="1"/>
+    <text x="195.3" y="420.5" text-anchor="middle" class="ws-ctick">100</text><line x1="260.7" y1="34" x2="260.7" y2="406.5" stroke="#111111" stroke-opacity=".14" stroke-width="1"/>
+    <text x="260.7" y="420.5" text-anchor="middle" class="ws-ctick">200</text><line x1="326.0" y1="34" x2="326.0" y2="406.5" stroke="#111111" stroke-opacity=".14" stroke-width="1"/>
+    <text x="326.0" y="420.5" text-anchor="middle" class="ws-ctick">300</text>
+    <rect x="130" y="14" width="14" height="9" fill="#E6E4DD"/>
+    <text x="148" y="22" class="ws-cleg">printed checklist</text>
+    <rect x="256" y="14" width="14" height="9" fill="#111111"/>
+    <text x="274" y="22" class="ws-cleg">secret rares</text>
+    <text x="122" y="48.5" text-anchor="end" class="ws-cname">Paldean Fates</text>
+      <rect x="130" y="40.0" width="59.5" height="10" fill="#E6E4DD"/>
+      <rect x="189.5" y="40.0" width="100.6" height="10" fill="#111111"/>
+      <text x="294.1" y="48.5" class="ws-cval">+154</text><text x="122" y="62.0" text-anchor="end" class="ws-cname">White Flare</text>
+      <rect x="130" y="53.5" width="56.2" height="10" fill="#E6E4DD"/>
+      <rect x="186.2" y="53.5" width="56.8" height="10" fill="#111111"/>
+      <text x="247.0" y="62.0" class="ws-cval">+87</text><text x="122" y="75.5" text-anchor="end" class="ws-cname">Black Bolt</text>
+      <rect x="130" y="67.0" width="56.2" height="10" fill="#E6E4DD"/>
+      <rect x="186.2" y="67.0" width="56.2" height="10" fill="#111111"/>
+      <text x="246.4" y="75.5" class="ws-cval">+86</text><text x="122" y="89.0" text-anchor="end" class="ws-cname">Paldea Evolved</text>
+      <rect x="130" y="80.5" width="126.1" height="10" fill="#E6E4DD"/>
+      <rect x="256.1" y="80.5" width="56.2" height="10" fill="#111111"/>
+      <text x="316.3" y="89.0" class="ws-cval">+86</text><text x="122" y="102.5" text-anchor="end" class="ws-cname">Paradox Rift</text>
+      <rect x="130" y="94.0" width="118.9" height="10" fill="#E6E4DD"/>
+      <rect x="248.9" y="94.0" width="54.9" height="10" fill="#111111"/>
+      <text x="307.8" y="102.5" class="ws-cval">+84</text><text x="122" y="116.0" text-anchor="end" class="ws-cname">Ascended Heroes</text>
+      <rect x="130" y="107.5" width="141.8" height="10" fill="#E6E4DD"/>
+      <rect x="271.8" y="107.5" width="51.0" height="10" fill="#111111"/>
+      <text x="326.7" y="116.0" class="ws-cval">+78</text><text x="122" y="129.5" text-anchor="end" class="ws-cname">Destined Rivals</text>
+      <rect x="130" y="121.0" width="118.9" height="10" fill="#E6E4DD"/>
+      <rect x="248.9" y="121.0" width="40.5" height="10" fill="#111111"/>
+      <text x="293.4" y="129.5" class="ws-cval">+62</text><text x="122" y="143.0" text-anchor="end" class="ws-cname">Surging Sparks</text>
+      <rect x="130" y="134.5" width="124.8" height="10" fill="#E6E4DD"/>
+      <rect x="254.8" y="134.5" width="39.9" height="10" fill="#111111"/>
+      <text x="298.6" y="143.0" class="ws-cval">+61</text><text x="122" y="156.5" text-anchor="end" class="ws-cname">Scarlet &amp; Violet</text>
+      <rect x="130" y="148.0" width="129.4" height="10" fill="#E6E4DD"/>
+      <rect x="259.4" y="148.0" width="39.2" height="10" fill="#111111"/>
+      <text x="302.6" y="156.5" class="ws-cval">+60</text><text x="122" y="170.0" text-anchor="end" class="ws-cname">Twilight Masquerade</text>
+      <rect x="130" y="161.5" width="109.1" height="10" fill="#E6E4DD"/>
+      <rect x="239.1" y="161.5" width="38.5" height="10" fill="#111111"/>
+      <text x="281.7" y="170.0" class="ws-cval">+59</text><text x="122" y="183.5" text-anchor="end" class="ws-cname">Mega Evolution</text>
+      <rect x="130" y="175.0" width="86.2" height="10" fill="#E6E4DD"/>
+      <rect x="216.2" y="175.0" width="36.6" height="10" fill="#111111"/>
+      <text x="256.8" y="183.5" class="ws-cval">+56</text><text x="122" y="197.0" text-anchor="end" class="ws-cname">Temporal Forces</text>
+      <rect x="130" y="188.5" width="105.8" height="10" fill="#E6E4DD"/>
+      <rect x="235.8" y="188.5" width="36.6" height="10" fill="#111111"/>
+      <text x="276.4" y="197.0" class="ws-cval">+56</text><text x="122" y="210.5" text-anchor="end" class="ws-cname">Prismatic Evolutions</text>
+      <rect x="130" y="202.0" width="85.6" height="10" fill="#E6E4DD"/>
+      <rect x="215.6" y="202.0" width="32.0" height="10" fill="#111111"/>
+      <text x="251.6" y="210.5" class="ws-cval">+49</text><text x="122" y="224.0" text-anchor="end" class="ws-cname">151</text>
+      <rect x="130" y="215.5" width="107.8" height="10" fill="#E6E4DD"/>
+      <rect x="237.8" y="215.5" width="27.4" height="10" fill="#111111"/>
+      <text x="269.2" y="224.0" class="ws-cval">+42</text><text x="122" y="237.5" text-anchor="end" class="ws-cname">Pitch Black</text>
+      <rect x="130" y="229.0" width="54.9" height="10" fill="#E6E4DD"/>
+      <rect x="184.9" y="229.0" width="23.5" height="10" fill="#111111"/>
+      <text x="212.4" y="237.5" class="ws-cval">+36</text><text x="122" y="251.0" text-anchor="end" class="ws-cname">Chaos Rising</text>
+      <rect x="130" y="242.5" width="56.2" height="10" fill="#E6E4DD"/>
+      <rect x="186.2" y="242.5" width="23.5" height="10" fill="#111111"/>
+      <text x="213.7" y="251.0" class="ws-cval">+36</text><text x="122" y="264.5" text-anchor="end" class="ws-cname">Perfect Order</text>
+      <rect x="130" y="256.0" width="57.5" height="10" fill="#E6E4DD"/>
+      <rect x="187.5" y="256.0" width="23.5" height="10" fill="#111111"/>
+      <text x="215.0" y="264.5" class="ws-cval">+36</text><text x="122" y="278.0" text-anchor="end" class="ws-cname">Phantasmal Flames</text>
+      <rect x="130" y="269.5" width="61.4" height="10" fill="#E6E4DD"/>
+      <rect x="191.4" y="269.5" width="23.5" height="10" fill="#111111"/>
+      <text x="218.9" y="278.0" class="ws-cval">+36</text><text x="122" y="291.5" text-anchor="end" class="ws-cname">Shrouded Fable</text>
+      <rect x="130" y="283.0" width="41.8" height="10" fill="#E6E4DD"/>
+      <rect x="171.8" y="283.0" width="22.9" height="10" fill="#111111"/>
+      <text x="198.7" y="291.5" class="ws-cval">+35</text><text x="122" y="305.0" text-anchor="end" class="ws-cname">Chilling Reign</text>
+      <rect x="130" y="296.5" width="129.4" height="10" fill="#E6E4DD"/>
+      <rect x="259.4" y="296.5" width="22.9" height="10" fill="#111111"/>
+      <text x="286.2" y="305.0" class="ws-cval">+35</text><text x="122" y="318.5" text-anchor="end" class="ws-cname">Stellar Crown</text>
+      <rect x="130" y="310.0" width="92.8" height="10" fill="#E6E4DD"/>
+      <rect x="222.8" y="310.0" width="21.6" height="10" fill="#111111"/>
+      <text x="248.3" y="318.5" class="ws-cval">+33</text><text x="122" y="332.0" text-anchor="end" class="ws-cname">Obsidian Flames</text>
+      <rect x="130" y="323.5" width="128.7" height="10" fill="#E6E4DD"/>
+      <rect x="258.7" y="323.5" width="21.6" height="10" fill="#111111"/>
+      <text x="284.3" y="332.0" class="ws-cval">+33</text><text x="122" y="345.5" text-anchor="end" class="ws-cname">Journey Together</text>
+      <rect x="130" y="337.0" width="103.9" height="10" fill="#E6E4DD"/>
+      <rect x="233.9" y="337.0" width="20.3" height="10" fill="#111111"/>
+      <text x="258.1" y="345.5" class="ws-cval">+31</text><text x="122" y="359.0" text-anchor="end" class="ws-cname">Rebel Clash</text>
+      <rect x="130" y="350.5" width="125.4" height="10" fill="#E6E4DD"/>
+      <rect x="255.4" y="350.5" width="11.1" height="10" fill="#111111"/>
+      <text x="270.5" y="359.0" class="ws-cval">+17</text><text x="122" y="372.5" text-anchor="end" class="ws-cname">Pokémon GO</text>
+      <rect x="130" y="364.0" width="51.0" height="10" fill="#E6E4DD"/>
+      <rect x="181.0" y="364.0" width="6.5" height="10" fill="#111111"/>
+      <text x="191.5" y="372.5" class="ws-cval">+10</text><text x="122" y="386.0" text-anchor="end" class="ws-cname">Crown Zenith</text>
+      <rect x="130" y="377.5" width="103.9" height="10" fill="#E6E4DD"/>
+      <rect x="233.9" y="377.5" width="0.7" height="10" fill="#111111"/>
+      <text x="238.5" y="386.0" class="ws-cval">+1</text><text x="122" y="399.5" text-anchor="end" class="ws-cname">Shining Fates</text>
+      <rect x="130" y="391.0" width="47.0" height="10" fill="#E6E4DD"/>
+      <rect x="177.0" y="391.0" width="0.7" height="10" fill="#111111"/>
+      <text x="181.7" y="399.5" class="ws-cval">+1</text>
+    <line x1="130" y1="406.5" x2="326" y2="406.5" stroke="#111111" stroke-width="1.2"/>
+  </svg>
+  <figcaption>Every set on this page that prints cards past the end of its own checklist, longest tail first. The
+    dark part of each bar is the secret rares, so a card numbered inside it still reads out of the pale part: that is
+    why Paldean Fates cards all say 91 on the right of the slash whatever the left says.
+    One set here does not do it at all.</figcaption>
+</figure>
     <p style="max-width:40em;margin-top:16px">So the number after the slash still identifies the set even on a secret
       rare: Paldean Fates cards all read out of 91 whether they are card 12 or card
       245. Rows in the index above carry a badge saying how far past the printed total each set runs.

@@ -112,6 +112,35 @@ a.ev-node:hover{background:var(--mustard)}
 .ev-chip[aria-pressed="true"] span{color:var(--on-accent)}
 .ev-count{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.05em;text-transform:uppercase;
   color:var(--ink-2);margin-top:var(--s2)}
+/* THE STEP FIGURE. Same box as .ev-read, which is the card this page already
+   uses for a block that is prose about the chart rather than part of it, so a
+   reader meets one visual language and not two.
+   NOTHING IS CARRIED BY COLOUR. One fill, on the page's own paper tone, with a
+   hairline round the track and the count printed beside every bar. The scale is
+   set by the biggest bar and starts at zero, so the level bar being five times
+   the next one is the real ratio and not a stretched one.
+   THE SMALLEST BAR IS ABOUT 2% OF THE TRACK, roughly 7px at 390px, and that is
+   deliberate rather than an oversight: the whole finding is that eight of the
+   nine are small. No count is drawn INSIDE a bar, so nothing here can become
+   unreadable at that size; the number sits in real text on the line above,
+   where it wraps and where a screen reader gets it. */
+.ev-fig{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
+  box-shadow:var(--hard-lg);padding:var(--s4);margin:var(--s5) 0}
+.ev-figh{margin-bottom:var(--s4)}
+.ev-figl{list-style:none;margin:0;padding:0;display:grid;gap:var(--s3)}
+.ev-figl li{display:grid;grid-template-columns:1fr auto;gap:var(--s2);align-items:baseline;
+  padding-top:var(--s3);border-top:1px solid var(--hair)}
+.ev-figl li:first-child{padding-top:0;border-top:0}
+.ev-fn{font:400 var(--t-sm)/1.35 var(--body);color:var(--ink)}
+.ev-fv{font:700 var(--t-sm)/1 var(--mono);white-space:nowrap}
+.ev-fv span{font-weight:400;color:var(--ink-2)}
+.ev-ft{grid-column:1/-1;display:block;height:14px;margin-top:6px;border-radius:3px;
+  background:var(--paper-2);box-shadow:inset 0 0 0 1px var(--hair)}
+.ev-fb{display:block;height:100%;min-width:3px;border-radius:3px;background:var(--ink)}
+.ev-fig figcaption{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--hair);
+  font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
+.ev-fig figcaption b{color:var(--ink);font-weight:700}
+
 .ev-forks{display:flex;flex-wrap:wrap;gap:8px;margin:var(--s4) 0 0}
 .ev-forks a{display:inline-flex;flex-direction:column;justify-content:center;min-height:48px;
   padding:6px 12px;border:1px solid var(--hair);border-radius:10px;background:var(--card);
@@ -173,6 +202,14 @@ a.ev-node:hover{background:var(--mustard)}
    build-types.mjs. */
 @media(min-width:1000px){
   .ev-lede,.ev-src,.ev-read p,.ev-p{max-width:var(--measure)}
+  /* THE FIGURE IS CAPPED AND ITS CAPTION IS CAPPED INSIDE IT. A nine row bar
+     chart stretched across a 1,180px wrap turns the eight small bars into eight
+     slightly different slivers and the level bar into a black stripe, which is
+     the same "a fixed cap does not move" failure the home page's desktop pass
+     was about, one direction along. 46em holds the level bar at about 700px,
+     which is enough for a 2% bar to still be a mark. */
+  .ev-fig{max-width:46em}
+  .ev-fig figcaption{max-width:var(--measure)}
 }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Evolution chart"}]}</script>
@@ -322,6 +359,55 @@ a.ev-node:hover{background:var(--mustard)}
         <input id="evq" type="search" placeholder="Gible, Eevee, Magikarp..." autocomplete="off" enterkeyhint="search">
         <p class="ev-count" id="evCount"></p>
       </div>
+
+        <figure class="ev-fig" data-evintro>
+          <h2 class="ev-figh">What a step actually <span class="hl">takes</span></h2>
+          <ul class="ev-figl">
+          <li>
+            <span class="ev-fn">Level up</span><b class="ev-fv">340<span> steps</span></b>
+            <span class="ev-ft" aria-hidden="true"><span class="ev-fb" style="width:100.0%"></span></span>
+          </li>
+          <li>
+            <span class="ev-fn">Use an item</span><b class="ev-fv">64<span> steps</span></b>
+            <span class="ev-ft" aria-hidden="true"><span class="ev-fb" style="width:18.8%"></span></span>
+          </li>
+          <li>
+            <span class="ev-fn">One of a kind</span><b class="ev-fv">27<span> steps</span></b>
+            <span class="ev-ft" aria-hidden="true"><span class="ev-fb" style="width:7.9%"></span></span>
+          </li>
+          <li>
+            <span class="ev-fn">Trade</span><b class="ev-fv">26<span> steps</span></b>
+            <span class="ev-ft" aria-hidden="true"><span class="ev-fb" style="width:7.6%"></span></span>
+          </li>
+          <li>
+            <span class="ev-fn">Friendship</span><b class="ev-fv">20<span> steps</span></b>
+            <span class="ev-ft" aria-hidden="true"><span class="ev-fb" style="width:5.9%"></span></span>
+          </li>
+          <li>
+            <span class="ev-fn">Held item</span><b class="ev-fv">20<span> steps</span></b>
+            <span class="ev-ft" aria-hidden="true"><span class="ev-fb" style="width:5.9%"></span></span>
+          </li>
+          <li>
+            <span class="ev-fn">Time of day</span><b class="ev-fv">20<span> steps</span></b>
+            <span class="ev-ft" aria-hidden="true"><span class="ev-fb" style="width:5.9%"></span></span>
+          </li>
+          <li>
+            <span class="ev-fn">A move</span><b class="ev-fv">17<span> steps</span></b>
+            <span class="ev-ft" aria-hidden="true"><span class="ev-fb" style="width:5.0%"></span></span>
+          </li>
+          <li>
+            <span class="ev-fn">A place</span><b class="ev-fv">6<span> steps</span></b>
+            <span class="ev-ft" aria-hidden="true"><span class="ev-fb" style="width:1.8%"></span></span>
+          </li>
+          </ul>
+          <figcaption>Every one of the 483 arrows drawn below, counted by what it asks for.
+            <b>340 of them are a level and nothing else.</b> The other 143 are the ones
+            people come here for, and 55 of those want more than one thing at once, a trade
+            while holding an item, a level at a particular time, so the eight small bars add to more
+            than 143. Counted by STEP, one arrow at a time. The filters above count LINES
+            instead, which is why the same words carry smaller numbers up there: a line with four
+            arrows in it is one line however many of them are a level.</figcaption>
+        </figure>
 
       <section data-evintro>
         <h2>The ones that <span class="hl">fork</span></h2>

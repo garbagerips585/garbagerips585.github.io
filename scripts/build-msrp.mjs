@@ -727,6 +727,106 @@ const listingCard = (l) => {
         </li>`;
 };
 
+// ---------------------------------------------------- the thirteen, on one axis
+//
+// WHAT THE PICTURE SAYS THAT THE THIRTEEN CARDS BELOW IT DO NOT. Each card is a
+// worked sum and every one of them is right, and no reader can hold thirteen of
+// them in their head. The band's claim is about the SPREAD: that most shops sell
+// over the suggested price, that how far over runs from nothing to more than
+// double, and that where a listing lands is a fact about that listing rather
+// than about the shop. Thirteen cards, each 200px tall on a phone, cannot show a
+// spread. One axis can, and it is the same axis the reader has just been taught
+// to compute in the calculator two sections up.
+//
+// THE ROWS ARE THE CARDS' OWN ORDER, cheapest product first, and never the
+// multiple. That is the rule this band already keeps and it matters more in a
+// drawing than in a list: bars sorted by length ARE a league table, whatever the
+// caption underneath says. It also happens to make the picture argue better,
+// because the longest bar on it belongs to the cheapest thing on it.
+//
+// THE SHOP IS NOT NAMED ON A BAR. It is on the card below, with the date, the
+// seller and the address. A chart row is four words wide and "GameStop 2.22x" in
+// isolation is exactly the scoreboard this page refuses to be, so a row carries
+// the PRODUCT TYPE, which is the thing the multiple is actually about.
+//
+// ONE FILL AND A DATUM, NOT A TWO TONE BAR. The first draft drew the part over
+// 1x in solid ink and the part under it in the paper tone, which is a stronger
+// picture and is wrong on any listing UNDER the suggested price: the under-1x
+// block is a fixed length, so a 0.9x listing would have drawn a full 1x block
+// and overstated it. There is no such listing today. Drawing it so that there
+// cannot be one is cheaper than a check that has to be remembered.
+const OV_MULT = listings.map((l) => l.amount / l.base);
+const OV_MAX = Math.max(...OV_MULT);
+const OV_MIN = Math.min(...OV_MULT);
+
+// THE SAME PRODUCT TYPE AT TWO MULTIPLES IS THE POINT OF THE WHOLE BAND, so it
+// is computed rather than asserted in prose: which suggested-price rows this set
+// of listings hits more than once, and what the widest gap between two readings
+// of one type is. If a re-read ever leaves every type appearing once, the
+// sentence about it disappears with the fact instead of outliving it.
+const OV_BY_TYPE = new Map();
+for (const l of listings) {
+  if (!OV_BY_TYPE.has(l.baseLabel)) OV_BY_TYPE.set(l.baseLabel, []);
+  OV_BY_TYPE.get(l.baseLabel).push(l.amount / l.base);
+}
+const OV_REPEATS = [...OV_BY_TYPE.entries()]
+  .filter(([, ms]) => ms.length > 1 && Math.max(...ms) - Math.min(...ms) > 0.005)
+  .map(([label, ms]) => ({ label, lo: Math.min(...ms), hi: Math.max(...ms) }))
+  .sort((a, b) => b.hi - b.lo - (a.hi - a.lo));
+
+const OV_OVER = listings.filter((l) => l.amount / l.base > 1.005).length;
+const OV_AT = listings.filter((l) => Math.abs(l.amount / l.base - 1) <= 0.005).length;
+const OV_UNDER = listings.filter((l) => l.amount / l.base < 0.995).length;
+
+if (OV_UNDER) {
+  console.log(
+    `  note: ${OV_UNDER} of the ${listings.length} listings is under the suggested price. The band's\n` +
+      `  heading says most shops sell over it and the figure draws the axis from zero, so both still\n` +
+      `  hold, but the copy around them is worth re-reading before this ships.`
+  );
+}
+
+const ovRow = (l) => {
+  const m = l.amount / l.base;
+  return `          <li>
+            <span class="ov-fn">${esc(l.baseLabel)}</span><b class="ov-fv">${esc(multStr(m))}x</b>
+            <span class="ov-ft" aria-hidden="true"><span class="ov-fb" style="width:${(
+              (m / OV_MAX) *
+              100
+            ).toFixed(1)}%"></span><span class="ov-fd" style="left:${((1 / OV_MAX) * 100).toFixed(
+    1
+  )}%"></span></span>
+          </li>`;
+};
+
+const spreadFig = () => `      <figure class="ms-fig">
+        <ul class="ov-fig">
+${listings.map(ovRow).join("\n")}
+        </ul>
+        ${/* aria-hidden on the tracks only. Every multiple a bar draws is printed
+              as a number on its own row here and worked out in full on the card
+              below, so announcing the bar would read the same thirteen figures a
+              third time. The finding is in the figcaption, in words. */ ""}
+        <figcaption>The same ${listings.length} listings as the cards below, in the same order, cheapest
+          product first. The upright mark is the suggested price: a bar reaching it is a shop asking
+          exactly what the manufacturer does, and everything right of it is the part over.
+          ${
+            OV_AT
+              ? `${OV_AT === 1 ? "One" : OV_AT} of the ${listings.length} lands on the mark. `
+              : ""
+          }${OV_OVER} sit past it, the furthest at ${esc(multStr(OV_MAX))}x.${
+            OV_REPEATS.length
+              ? ` <b>Read across the types, not down the list.</b> ${
+                  OV_REPEATS.length === 1 ? "One product type appears" : `${OV_REPEATS.length} product types appear`
+                } here twice at two different multiples, the ${esc(OV_REPEATS[0].label)} at ${esc(
+                  multStr(OV_REPEATS[0].lo)
+                )}x and ${esc(
+                  multStr(OV_REPEATS[0].hi)
+                )}x, which is why a multiple is a fact about one listing on one afternoon and never a score for a shop.`
+              : ""
+          }</figcaption>
+      </figure>`;
+
 const bandRow = (b, i, all) => {
   const from = i === 0 ? "1x" : `${all[i - 1].upto}x`;
   const to = b.upto ? `${b.upto}x` : "and up";
@@ -919,6 +1019,37 @@ const STYLE = `
 .ov-watch{color:var(--ink-soft)}
 .ov-ksrc{font:.72rem/1.45 var(--mono);color:var(--ink-soft);overflow-wrap:anywhere}
 
+/* ------------------------------------------------ the thirteen on one axis.
+   The same card as .ov-l and .ms-row, for the reason written over the band
+   above: a reader thirty price cards deep should not have to learn a second
+   visual language for a picture.
+   NOTHING IS CARRIED BY COLOUR. The bar is solid ink on the page's own paper
+   tone and the datum is a rule standing proud of the track at both ends, so the
+   figure reads with every hue in the palette collapsed to one value, which is
+   what --ketchup and --navy have already done: both are #111111 today. */
+.ms-fig{margin:var(--s4) 0 var(--s5);border:3px solid var(--keyline);border-radius:var(--r);
+  background:var(--card);padding:var(--s4);box-shadow:var(--hard-lg);max-width:33em}
+.ov-fig{list-style:none;margin:0;padding:0;display:grid;gap:var(--s3)}
+/* The name and the multiple share a line and the track takes the one under it.
+   A three column row puts the track in about 120px at 390px, which is 55px of
+   difference between the shortest bar and the longest and is not a chart. */
+.ov-fig li{display:grid;grid-template-columns:1fr auto;gap:var(--s2);align-items:baseline;
+  padding-top:var(--s3);border-top:1px solid var(--hair)}
+.ov-fig li:first-child{padding-top:0;border-top:0}
+.ov-fn{font-size:.85rem;line-height:1.35;color:var(--ink)}
+.ov-fv{font:800 .95rem/1 var(--mono);letter-spacing:-.01em;white-space:nowrap}
+.ov-ft{grid-column:1/-1;position:relative;display:block;height:14px;margin-top:6px;
+  border-radius:3px;background:var(--paper-2);box-shadow:inset 0 0 0 1px var(--hair)}
+.ov-fb{display:block;height:100%;min-width:3px;border-radius:3px;background:var(--ink)}
+/* 26px against the track's 14, so 6px of the datum stands clear of the fill at
+   each end. Every bar here except one is longer than the datum, so on twelve of
+   the thirteen rows the mark falls INSIDE a solid ink bar and the overhang is
+   the whole of what a reader sees of it. */
+.ov-fd{position:absolute;top:-6px;width:2px;height:26px;background:var(--gold-deep)}
+.ms-fig figcaption{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--hair);
+  font-size:.85rem;line-height:1.55;color:var(--ink-soft)}
+.ms-fig figcaption b{color:var(--ink);font-weight:800}
+
 .ms-src{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s4);
   max-width:46em}
 .ms-src li{padding-left:var(--s4);border-left:3px solid var(--keyline)}
@@ -1110,6 +1241,7 @@ ${over.bands.map(bandRow).join("\n")}
           shop by shop and with the seller named on each, out of the same two research files and divided by
           the same suggested figures printed above. Neither page holds a listing the other does not.</p>
       </div>
+${spreadFig()}
       <ul class="ov-list">
 ${listings.map(listingCard).join("\n")}
       </ul>

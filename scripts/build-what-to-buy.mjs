@@ -688,9 +688,19 @@ const boxVerdict = (() => {
 const perPackRow = (p) => {
   const v = perPack(p);
   if (v == null) return "";
-  return `        <li><b>${esc(moneyExact(v))}</b> a pack <span>${esc(p.label)}, ${
+  // THE BAR IS THE ARGUMENT AND THE NUMBERS BESIDE IT ARE THE WORKING. Bar
+  // length is the per-pack figure on a scale that STARTS AT ZERO, so the six
+  // bars are honestly almost the same length. A scale starting at the cheapest
+  // figure would stretch a 24% spread across the whole track and draw the exact
+  // opposite conclusion from the same six numbers. See PP_MAX below.
+  return `        <li><b>${esc(moneyExact(v))}</b> a pack <span class="wtb-pl">${esc(p.label)}, ${
     esc(moneyExact(p.price))
-  } for ${p.packs} pack${p.packs === 1 ? "" : "s"}</span></li>`;
+  } for ${p.packs} pack${p.packs === 1 ? "" : "s"}</span>
+          <span class="wtb-tk" aria-hidden="true"><span class="wtb-br" style="width:${(
+            (v / PP_MAX) * 100
+          ).toFixed(1)}%"></span><span class="wtb-dt" style="left:${(
+            (PP_MIN / PP_MAX) * 100
+          ).toFixed(1)}%"></span></span></li>`;
 };
 
 // The products whose per-pack sum this page shows. Cheapest product first, never
@@ -711,6 +721,105 @@ const PER_PACK = [
   ETB,
   BOX,
 ].filter((p) => perPack(p) != null);
+
+// ============================================================================
+// THE PACK SUM, DRAWN.
+//
+// WHAT THE PICTURE SAYS THAT THE SIX ROWS BESIDE IT DO NOT. The rows already
+// print every figure. What no reader can do with six numbers in a column is see
+// that the column does not go anywhere: the products run from one pack to
+// thirty six and from $4.49 to $161.64 on the day, a 36 fold range in what you
+// hand over, and the price of a pack inside them barely moves. That is the
+// whole case against a booster box as a first purchase and until now it was one
+// sentence of arithmetic under a list. On one axis it is the shape of the list.
+//
+// EVERY NUMBER IN THE CAPTION IS COMPUTED FROM THE SAME JOINED FIGURES THE ROWS
+// PRINT, so the picture cannot come apart from them. And the two things the
+// picture ASSERTS are checked rather than assumed, because both are claims
+// about a relationship rather than about a value, and a relationship is exactly
+// what goes quietly false when a price is re-read:
+//
+//   1. the rows are ordered cheapest product first, which is what makes a flat
+//      run of bars mean anything at all
+//   2. per-pack is nearly flat while the total is not
+//
+// If a re-read ever makes the second one false, the picture would be drawing an
+// argument the numbers no longer support, which is worse than having no
+// picture. So the build stops and says so instead.
+const PP_VALUES = PER_PACK.map((p) => perPack(p));
+const PP_MAX = Math.max(...PP_VALUES);
+const PP_MIN = Math.min(...PP_VALUES);
+const PP_PRICE_HI = Math.max(...PER_PACK.map((p) => p.price));
+const PP_PRICE_LO = Math.min(...PER_PACK.map((p) => p.price));
+
+if (PER_PACK.length < 4) {
+  throw new Error(
+    `build-what-to-buy: the pack-sum figure draws ${PER_PACK.length} products and a run of bars is not a\n` +
+      `  shape below about four of them. Either restore a product with a sourced price and a sourced pack\n` +
+      `  count, or take the figure out and leave the list.`
+  );
+}
+
+for (let i = 1; i < PER_PACK.length; i++) {
+  if (PER_PACK[i].price < PER_PACK[i - 1].price) {
+    throw new Error(
+      `build-what-to-buy: the pack-sum figure claims its rows run cheapest product first, and\n` +
+        `  ${JSON.stringify(PER_PACK[i].label)} at ${PER_PACK[i].price} sits under ${JSON.stringify(
+          PER_PACK[i - 1].label
+        )} at ${PER_PACK[i - 1].price}.\n` +
+        `  A reader who is told the totals climb and sees them climb is reading the picture; one who is\n` +
+        `  told it and sees otherwise is being misled. Reorder PER_PACK, or rewrite the caption.`
+    );
+  }
+}
+
+const PP_SPREAD = PP_MAX / PP_MIN;
+const PP_PRICE_SPREAD = PP_PRICE_HI / PP_PRICE_LO;
+if (PP_SPREAD > 2) {
+  throw new Error(
+    `build-what-to-buy: the pack-sum figure exists to show that the price of a pack barely moves while\n` +
+      `  the price on the shelf moves ${PP_PRICE_SPREAD.toFixed(
+        1
+      )} fold. The per-pack figures now run ${moneyExact(PP_MIN)} to\n` +
+      `  ${moneyExact(PP_MAX)}, a ${PP_SPREAD.toFixed(
+        2
+      )} fold spread of their own, so the flat run of bars is no longer true of\n` +
+      `  the data underneath it. Do not ship the picture: the sums have changed and the argument on this\n` +
+      `  page has to be rewritten from them, starting with boxVerdict above.`
+  );
+}
+
+// WHICH PRODUCTS LAND ON THE SAME FIGURE TO THE CENT, counted rather than named
+// in the copy, because which ones they are moves with a re-read and the fact
+// that several of them agree is the part that does not.
+const PP_AT_MIN = PER_PACK.filter((p) => Math.abs(perPack(p) - PP_MIN) < 0.005);
+const PP_DEAREST = PER_PACK.find((p) => Math.abs(perPack(p) - PP_MAX) < 0.005);
+
+const packFig = () => `      <figure class="wtb-fig">
+        <ul class="wtb-pp">
+${PER_PACK.map(perPackRow).join("\n")}
+        </ul>
+        ${/* aria-hidden on the bars alone. Every figure the bars draw is printed
+              in the row's own text immediately above it, so announcing the track
+              as well would read the same six numbers out twice, and the finding
+              is in the figcaption where a screen reader gets it in words. Same
+              call the spread figure in build-grade-check.mjs makes. */ ""}
+        <figcaption>The same six sums, on one axis, longest bar dearest. Reading down, the price on the
+          shelf goes from ${esc(moneyExact(PP_PRICE_LO))} to ${esc(moneyExact(PP_PRICE_HI))}, which is
+          ${esc(PP_PRICE_SPREAD.toFixed(0))} times as much money${
+            PP_AT_MIN.length > 1
+              ? `, and ${PP_AT_MIN.length} of the ${PER_PACK.length} land on exactly the same ${esc(
+                  moneyExact(PP_MIN)
+                )} a pack: the upright mark on every bar is that figure`
+              : ""
+          }. <b>Buying more packs at once does not make a pack cheaper.</b>${
+            PP_DEAREST
+              ? ` The dearest pack here is inside the ${esc(PP_DEAREST.label)} at ${esc(
+                  moneyExact(PP_MAX)
+                )}, and the packs are not what you are buying it for.`
+              : ""
+          }</figcaption>
+      </figure>`;
 
 /**
  * One sourced shop listing, with the division shown.
@@ -1159,6 +1268,48 @@ const STYLE = `
 .wtb-pp b{font-size:1.15rem;font-weight:800}
 .wtb-pp span{font-size:.85rem;color:var(--ink-soft);line-height:1.4}
 
+/* THE TRACK SPANS BOTH COLUMNS AND SITS UNDER THE ROW IT BELONGS TO, rather
+   than in a third column beside the label. At 390px a bar column wide enough to
+   read anything off is about 120px, which comes straight out of the 45
+   character label next to it and breaks it over four lines. Full width under
+   the row costs 18px and reads at any width.
+   NOTHING HERE IS CARRIED BY COLOUR. The bar is solid ink on the page's own
+   paper tone with a hairline round it, and the datum is a 2px rule standing
+   proud of the track at top and bottom so it is still a mark when the fill and
+   the rule are the same value. --ink, --keyline, --navy and --ketchup are all
+   #111111 in ui.css today; this figure would read identically if the rest of
+   the palette went the same way. */
+.wtb-pp .wtb-tk{grid-column:1/-1;position:relative;display:block;height:14px;margin-top:6px;
+  border-radius:3px;background:var(--paper-2);box-shadow:inset 0 0 0 1px var(--hair)}
+.wtb-pp .wtb-br{display:block;height:100%;min-width:3px;border-radius:3px;background:var(--ink)}
+/* THE OVERHANG IS WHAT MAKES THE DATUM SURVIVE LOSING COLOUR, and it was
+   screenshotted before it was believed. On five of the six rows the mark stands
+   on white paper and any value reads; on the Elite Trainer Box row the bar is
+   longer than the datum, so the mark falls INSIDE a solid ink fill and gold on
+   near-black is close to nothing in greyscale. 26px against the track's 14
+   leaves 6px of the mark clear of the fill at each end, which is the half a
+   reader actually sees on that row.
+   THE LABEL GETS ITS OWN FULL WIDTH ROW, and that is a fix rather than a new
+   rule. The list has always been a two column grid with the figure in a 5.5em
+   column, and a bare text node in a grid container is its own anonymous item,
+   so the label was landing in that 5.5em column on the row below: at 390px
+   "Sleeved booster pack, $4.49 for 1 pack" wrapped to four lines in 93px and
+   read as a broken layout. Nothing errored and it is invisible above 1000px,
+   where the column is wide enough. Found by screenshotting the figure. */
+.wtb-pp .wtb-pl{grid-column:1/-1;margin-top:2px}
+.wtb-pp .wtb-dt{position:absolute;top:-6px;width:2px;height:26px;background:var(--gold-deep)}
+
+/* The figure box is the same card as .wtb-gl and .wtb-no's neighbours: 3px
+   keyline, hard shadow, one idea inside. A reader who has scrolled this far has
+   seen it a dozen times and does not need a second visual language for a
+   picture. */
+.wtb-fig{margin:var(--s4) 0 0;border:3px solid var(--keyline);border-radius:var(--r);
+  background:var(--card);padding:var(--s4);box-shadow:var(--hard-lg)}
+.wtb-fig .wtb-pp{margin-top:0}
+.wtb-fig figcaption{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--hair);
+  font-size:.85rem;line-height:1.55;color:var(--ink-soft)}
+.wtb-fig figcaption b{color:var(--ink);font-weight:800}
+
 /* -------------------------------------------------------------- the reseller */
 .wtb-flag{max-width:40em;margin:0 0 var(--s4);padding:var(--s3) var(--s4);
   border:3px solid var(--keyline);border-radius:var(--r);background:var(--paper-3);
@@ -1296,7 +1447,15 @@ const STYLE = `
 .wtb-picks{grid-template-columns:1fr 1fr;max-width:1000px}
 .wtb-gloss{grid-template-columns:1fr 1fr}
 .wtb-deck{grid-template-columns:1fr 1fr;max-width:1000px}
+/* THE FIGURE TAKES THE CAP AND THE LIST INSIDE IT GIVES ITS OWN UP. The list
+   was capped at 600 so a price and a label did not end up a window apart; inside
+   a figure the box is what has to stop growing, and a 600px list inside a 736px
+   card leaves the bars ending short of a caption that runs the full width, which
+   reads as a bar chart that failed to fill its frame. 46em is .wtb-no's cap, one
+   band up the page. */
 .wtb-pp{max-width:600px}
+.wtb-fig{max-width:46em}
+.wtb-fig .wtb-pp{max-width:none}
 .wtb-no{max-width:46em}
 /* TWO COLUMNS, capped, exactly as .wtb-picks is and for the identical reason
    recorded there: the fix for a 1,452px wrap is more cards per row, never a
@@ -1509,9 +1668,7 @@ ${avoid.map(avoidRow).join("\n")}
           above, and it is the useful part, because it still works next year when these numbers have
           moved and it works on a box that is not on this page.</p>
       </div>
-      <ul class="wtb-pp">
-${PER_PACK.map(perPackRow).join("\n")}
-      </ul>
+${packFig()}
       <div class="wtb-body" style="margin-top:var(--s4)">
         <p>${boxVerdict} The Elite Trainer Box comes out dearer a pack than either, and that is fine:
           you are paying for the box, the sleeves, the dice and the counters, which is exactly why it

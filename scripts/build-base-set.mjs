@@ -599,7 +599,15 @@ function stampChart(pairs) {
   let body = "";
   for (const g of byCard) {
     fitsBS(g.card, 11, W - 4, "the card name row");
-    body += `<text x="0" y="${y + 11}" class="bs-cname">${esc(g.card)}</text>`;
+    // A KNOCKOUT UNDER THE NAME, AND IT WAS FOUND IN A SCREENSHOT RATHER THAN
+    // IN THE MARKUP. The names start at x=0 and the plot starts at 74, so any
+    // name over 74 units long runs INTO the grid: "Charizard 4/102" is 99 units
+    // and had both the 0x gridline and the dashed 1x line painted through the
+    // "0" of "4/102". The geometry was right, the CSS was right, every label
+    // passed its width budget, and it was only wrong to look at.
+    const nw = g.card.length * 11 * 0.6;
+    body += `<rect x="-2" y="${y - 1}" width="${(nw + 7).toFixed(1)}" height="15" fill="#FFFFFF"/>
+      <text x="0" y="${y + 11}" class="bs-cname">${esc(g.card)}</text>`;
     y += HEAD;
     for (const b of g.bars) {
       const w = x(b.m) - X0;
@@ -637,9 +645,16 @@ function stampChart(pairs) {
     ${body}
     <line x1="${X0}" y1="${AX}" x2="${X1}" y2="${AX}" stroke="#111111" stroke-width="1.2"/>
   </svg>
+  ${/* THE CAPTION USED TO ADD "and no bar is close to the next one either",
+        WHICH THE CHART ITSELF DISPROVES: Blastoise ungraded is 5.8x and
+        Charizard ungraded is 5.6x, two tenths apart and visibly the same
+        length. It was written to sound like the section's argument and was not
+        checked against the six numbers directly above it. The honest version
+        is the SPREAD, which is wide, and both ends of it are derived. */ ""}
   <figcaption>How many times the 1st Edition printing is worth what the Shadowless one is, on the same card, on the
-    same day. The dashed line is where the two printings would be worth the same. No bar is near it, and no bar is
-    close to the next one either, which is why three cards are on the page instead of one.</figcaption>
+    same day. The dashed line is where the two printings would be worth the same. Every bar clears it by a distance,
+    and they spread from ${lo.toFixed(1)}x to ${max.toFixed(1)}x, which is why one card on its own would have been
+    an anecdote.</figcaption>
 </figure>`;
 }
 

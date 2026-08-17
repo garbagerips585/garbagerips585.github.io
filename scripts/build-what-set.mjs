@@ -153,6 +153,114 @@ if (secretTotal < 1 || !mostSecrets) {
   throw new Error("No secret rares found in sets.json, but the page has a section about them.");
 }
 
+/**
+ * The secret rares, drawn, one bar per set.
+ *
+ * WHY THIS SECTION EARNED A PICTURE. It carried four big numbers and 1,536
+ * characters with no figure at all, between a section holding 141 set symbols
+ * and one holding none. But the reason to draw it is that the section's claim
+ * is about a GAP: a card numbered above its set total is normal, and the four
+ * facts state that gap for exactly one set (Paldean Fates, 91 printed, 245
+ * actual) while asserting it holds across 27. A reader has no way to see the
+ * other 26 from the prose.
+ *
+ * THE GAP IS THE SUBJECT, SO THE GAP IS THE INK. Each bar runs to the set's
+ * printed total in a pale fill and then keeps going, in solid ink, for exactly
+ * as many cards as are numbered past it. The dark tail IS the secret rares, so
+ * the thing the section is about is the thing the eye lands on, and the two
+ * halves are separated by fill weight rather than by hue: it reads with colour
+ * removed entirely, which is the property a two-part bar most needs.
+ *
+ * ALL 27 ARE DRAWN AND THAT IS THE ARGUMENT, NOT A COMPLETENESS TIC. Showing a
+ * top ten would illustrate "some sets run past their total"; showing every set
+ * that does it, next to the one that does not, is what shows a reader it is the
+ * normal case. Sorted by how far past each set runs, so the page's headline
+ * example is the top bar rather than something to hunt for.
+ */
+// "secret rares" rather than "numbered past it", and it is shorter AND better:
+// it is the term the section's own lede introduces, so the legend names the
+// thing the paragraph named instead of paraphrasing it.
+const LEG_A = "printed checklist";
+const LEG_B = "secret rares";
+
+function secretChart(rows, noneCount) {
+  if (rows.length < 5) return "";
+  const list = rows.slice().sort((a, b) => b.secretCount - a.secretCount);
+  const maxTotal = Math.max(...list.map((g) => g.total));
+  // A round domain so the ticks are whole hundreds.
+  const dom = Math.ceil(maxTotal / 100) * 100;
+
+  const W = 360, NAMEX = 122, X0 = 130, X1 = 326;
+  const TOP = 40, BH = 10, BG = 3.5;
+  const x = (n) => X0 + (n / dom) * (X1 - X0);
+
+  // SPACE MONO ADVANCES 0.6em. SVG neither wraps nor clips, so a set name
+  // longer than its gutter paints straight over the bars and renders clean.
+  const NAME_PX = 10;
+  const longest = Math.max(...list.map((g) => g.name.length));
+  if (longest * NAME_PX * 0.6 > NAMEX - 2) {
+    throw new Error(
+      `secretChart: "${list.find((g) => g.name.length === longest).name}" is ${(longest * NAME_PX * 0.6).toFixed(1)}px ` +
+        `at ${NAME_PX}px but the name gutter is ${NAMEX - 2}px`,
+    );
+  }
+
+  let y = TOP;
+  let body = "";
+  for (const g of list) {
+    const xp = x(g.printedTotal);
+    const xt = x(g.total);
+    const val = `+${g.secretCount}`;
+    if (val.length * 10 * 0.6 > W - (xt + 4)) {
+      throw new Error(`secretChart: the "${val}" label does not fit past ${g.name}'s bar`);
+    }
+    body += `<text x="${NAMEX}" y="${(y + BH - 1.5).toFixed(1)}" text-anchor="end" class="ws-cname">${esc(g.name)}</text>
+      <rect x="${X0}" y="${y.toFixed(1)}" width="${(xp - X0).toFixed(1)}" height="${BH}" fill="#E6E4DD"/>
+      <rect x="${xp.toFixed(1)}" y="${y.toFixed(1)}" width="${(xt - xp).toFixed(1)}" height="${BH}" fill="#111111"/>
+      <text x="${(xt + 4).toFixed(1)}" y="${(y + BH - 1.5).toFixed(1)}" class="ws-cval">${esc(val)}</text>`;
+    y += BH + BG;
+  }
+
+  const AX = y + 2;
+  let ticks = "";
+  for (let t = 0; t <= dom; t += 100) {
+    ticks += `<line x1="${x(t).toFixed(1)}" y1="${TOP - 6}" x2="${x(t).toFixed(1)}" y2="${AX.toFixed(1)}" stroke="#111111" stroke-opacity=".14" stroke-width="1"/>
+    <text x="${x(t).toFixed(1)}" y="${(AX + 14).toFixed(1)}" text-anchor="middle" class="ws-ctick">${t}</text>`;
+  }
+  const H = AX + 24;
+  const total = list.reduce((n, g) => n + g.secretCount, 0);
+
+  // THE LEGEND NEEDS THE SAME GUARD THE NAMES AND THE VALUES GOT, and it did
+  // not have one. "numbered past it" set at x=274 is 96 units in a 360 unit
+  // box, so it ran to 370 and the last word was simply outside the picture.
+  // The markup was valid, the CSS was right, both other budgets passed, and
+  // the only place it appeared was a screenshot. Hence: everything that lands
+  // a string in this svg goes through a budget, not just the loops.
+  const leg = (label, sx, px) => {
+    if (label.length * px * 0.6 > W - (sx + 18)) {
+      throw new Error(
+        `secretChart: legend "${label}" is ${(label.length * px * 0.6).toFixed(1)}px at x=${sx + 18}, past the ${W} unit box`,
+      );
+    }
+    return `<rect x="${sx}" y="14" width="14" height="9" fill="${label === LEG_A ? "#E6E4DD" : "#111111"}"/>
+    <text x="${sx + 18}" y="22" class="ws-cleg">${esc(label)}</text>`;
+  };
+
+  return `<figure class="ws-fig">
+  <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="One bar per set, ${list.length} of them, sorted by how far each runs past its own printed checklist. Each bar is pale up to the set's printed total and solid for every card numbered above it. ${esc(list[0].name)} is the longest tail, ${list[0].secretCount} cards past a printed total of ${list[0].printedTotal}. Across all ${list.length} sets it is ${total.toLocaleString("en-US")} cards.">
+    ${ticks}
+    ${leg(LEG_A, X0, 10)}
+    ${leg(LEG_B, X0 + 126, 10)}
+    ${body}
+    <line x1="${X0}" y1="${AX.toFixed(1)}" x2="${X1}" y2="${AX.toFixed(1)}" stroke="#111111" stroke-width="1.2"/>
+  </svg>
+  <figcaption>Every set on this page that prints cards past the end of its own checklist, longest tail first. The
+    dark part of each bar is the secret rares, so a card numbered inside it still reads out of the pale part: that is
+    why ${esc(list[0].name)} cards all say ${list[0].printedTotal} on the right of the slash whatever the left says.
+    ${noneCount === 1 ? "One set here does not do it at all." : `${noneCount} sets here do not do it at all.`}</figcaption>
+</figure>`;
+}
+
 const guideFor = new Map(all.filter((s) => s.slug).map((s) => [s.apiId, s.slug]));
 const withGuide = all.filter((s) => s.slug);
 
@@ -272,6 +380,30 @@ const style = `
   background:var(--mustard);border:1px solid var(--navy);border-radius:var(--r-pill);
   padding:1px 7px;white-space:nowrap}
 .ws-empty{padding:var(--s5) 0;font-size:var(--t-sm);color:var(--ink-soft)}
+/* The secret-rare chart.
+   EVERY FILL IS A LITERAL HEX ON PURPOSE. --navy and --ketchup are both
+   #111111 since the repaint, so a two-part bar written against the tokens is
+   one solid black bar with an invisible join and nothing errors. The two parts
+   are #E6E4DD (the value of --paper-3) and #111111, which is a WEIGHT
+   difference rather than a hue one: the split still reads with colour removed.
+   max-width 520px matches the drawn figures on /base-set.html.
+   NOTHING HERE IS UNDER 10px AND THE VALUE LABELS USED TO BE 9. A 360 unit box
+   renders 332px wide at 390, so a unit is 0.922px and 9px lands at 8.30, under
+   the point a label stops being readable on a phone. It was justified in this
+   comment as "a repeat of the bar beside it", which was wrong twice over: the
+   bar shows the LENGTH and only the label carries the count, and it was the
+   one measured number in the figure that failed its own test. 10px lands at
+   9.22 and every budget still passes with room. */
+.ws-fig{margin:var(--s5) 0 0;background:var(--card);border:1px solid var(--hair);
+  border-radius:10px;padding:var(--s4) var(--s4) var(--s3);max-width:620px}
+.ws-fig svg{display:block;width:100%;height:auto;max-width:520px;margin-inline:auto}
+.ws-fig text{font-family:var(--mono)}
+.ws-cname{font-size:10px;font-weight:400;fill:#111111}
+.ws-cval{font-size:10px;font-weight:700;fill:#5B5B5B}
+.ws-ctick{font-size:10px;font-weight:400;fill:#5B5B5B}
+.ws-cleg{font-size:10px;font-weight:700;fill:#111111}
+.ws-fig figcaption{font-size:var(--t-sm);color:var(--ink-2);line-height:1.5;
+  margin-top:var(--s3);max-width:46em}
 @media(min-width:640px){
   .ws-row{grid-template-columns:120px 1fr;gap:var(--s4);align-items:start}
   .ws-n{justify-content:flex-end;flex-direction:column;align-items:flex-end;gap:2px}
@@ -463,6 +595,7 @@ ${indexRows}
       <div class="fact"><div class="n">${mostSecrets.printedTotal}</div><div class="l">Where ${esc(mostSecrets.name)} officially stops</div></div>
       <div class="fact"><div class="n">${mostSecrets.total}</div><div class="l">Where it actually stops</div></div>
     </div>
+    ${secretChart(withSecrets, withGuide.length - withSecrets.length)}
     <p style="max-width:40em;margin-top:16px">So the number after the slash still identifies the set even on a secret
       rare: ${esc(mostSecrets.name)} cards all read out of ${mostSecrets.printedTotal} whether they are card 12 or card
       ${mostSecrets.total}. Rows in the index above carry a badge saying how far past the printed total each set runs.
