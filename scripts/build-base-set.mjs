@@ -78,6 +78,9 @@ import {
 } from "../shared/chrome.mjs";
 import { esc, longDate, shortDate, moneyCompact, imgDims, avifPicture } from "../shared/format.mjs";
 import { gradedGate } from "../shared/graded-gate.mjs";
+// WHY THE OTHER PAGE SAYS $10,000 FOR THE CARD THIS ONE PRICES AT $988. Read the
+// header of that file before touching any figure in the money section here.
+import { loadPriceBasis, basisSentence } from "../shared/price-basis.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/base-set.json"), "utf8"));
@@ -607,6 +610,11 @@ const mult = (a, b) => (a && b ? `${(a / b).toFixed(1)}x` : null);
 const read = longDate(tg.checked);
 const readShort = shortDate(tg.checked);
 
+// The other feed's figure for the same cards. Resolved by TCGplayer productId
+// and by exact PriceCharting row name, never by a fuzzy match on either side.
+const basis = await loadPriceBasis();
+const BASIS_TEXT = basisSentence(basis, "guide");
+
 const desc =
   "1st Edition, Shadowless or Unlimited? The stamp and the drop shadow that tell 1999 Base Set " +
   "cards apart, drawn and magnified on a real card, with what the gap is actually worth.";
@@ -640,11 +648,23 @@ const ld = [
         "What does shadowless mean on a Pokemon card?",
         "It means the artwork window has no drop shadow around it. On an Unlimited Base Set card a soft grey band runs down the right side of the artwork window and along its bottom. On a Shadowless card there is nothing there, and there is no 1st Edition stamp either. Shadowless was the second English print run of Base Set, between the 1st Edition run and Unlimited.",
       ],
+      // THIS ANSWER CARRIES THE OTHER FEED'S FIGURE AND IT IS THE MOST IMPORTANT
+      // PLACE ON THE SITE THAT IT DOES. Google can lift a FAQPage answer and show
+      // it on its own, with no page around it: this one said "an ungraded
+      // Shadowless Base Set Charizard at $988" while /most-valuable-cards.html
+      // ranked the same card at $10,000, and a reader who saw only the snippet had
+      // nothing to tell them the two were measuring different things. The
+      // qualifying clause is inside the answer text for that reason, not beside it.
       [
         "Is shadowless worth more than unlimited?",
         `Yes, and the gap is clearest on ungraded copies. PriceCharting's price guide, read ${readShort}, put an ungraded Shadowless Base Set Charizard at ${moneyCompact(
           shad?.ungraded,
-        )} against ${moneyCompact(unl?.ungraded)} for the Unlimited printing of the same card.`,
+        )} against ${moneyCompact(unl?.ungraded)} for the Unlimited printing of the same card. ` +
+          `Those are price guide values. A marketplace measures something different: TCGplayer's market price for the same ungraded Shadowless Charizard, read ${
+            basis.tcgRead
+          }, was ${
+            basis.both[0] ? `$${basis.both[0].market.toLocaleString("en-US")}` : ""
+          }, because Market Price is what recently sold on that one marketplace while a guide value is computed across the wider set of sales PriceCharting tracks. Neither figure is the other's correction.`,
       ],
       [
         "Are 1st Edition cards shadowless?",
@@ -1164,6 +1184,19 @@ ${d.runs.map(priceCard).join("\n")}
       <b>Charizard 4/102</b>, one line per printing, read on ${esc(read)} and read a second time from each card's
       own product page before it was published here. It is a guide value computed from completed sales, not a
       record of any single sale. Prices move and this page does not.</p>
+    ${/* THE OTHER FEED, NAMED HERE RATHER THAN LEFT TO BE DISCOVERED.
+          /most-valuable-cards.html ranks the same ungraded Shadowless Charizard
+          at ten times the figure printed above, out of TCGplayer rather than out
+          of a price guide. Both numbers are real and they measure different
+          things, and a reader who meets both without being told that concludes
+          one of these pages is simply wrong. The wording comes out of
+          shared/price-basis.mjs so that the other page prints the same facts. */ ""}
+    <p class="bs-p2 bs-basis"><b>Why another page on this site says ${esc(
+      `$${basis.both[0] ? basis.both[0].market.toLocaleString("en-US") : ""}`
+    )} for this card.</b>
+      ${esc(BASIS_TEXT)} The page printing those market prices is
+      <a href="/most-valuable-cards.html">the 100 most valuable raw cards</a>, and it carries this same
+      explanation from the other side.</p>
     ${
       first && unl
         ? `<div class="facts" style="margin-top:20px">

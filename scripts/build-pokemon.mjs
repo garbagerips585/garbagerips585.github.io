@@ -107,6 +107,9 @@ import { esc, longDate, moneyExact, moneyRound, moneyCompact, rarityLabel, imgDi
 // The rip tag vocabulary, so a species' printings can be joined to the rips that
 // opened those sets. See `setRipsFor`.
 import { CARD_SETS } from "../shared/taxonomy.mjs";
+// THE EVOLUTION LINE COMES THROUGH HERE, not straight off data/pokedex.json. See
+// the note above familyOf() for what reading the two files separately cost.
+import { loadEvolutions, walkChain } from "../shared/evolution.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/pokemon");
@@ -284,34 +287,66 @@ const datedSet = (name) => {
 /* ------------------------------------------------------------ the species */
 
 const byDexName = new Map(DEX.map((p) => [p.name, p]));
+const byDexSlug = new Map(DEX.map((p) => [p.slug, p]));
 
-/** Everything in one evolution family, from evolvesFrom in data/pokedex.json. */
+/* ------------------------------------------- the line, from the shared chains
+ *
+ * THIS USED TO READ p.evolvesFrom DIRECTLY AND THE TWO PAGES CONTRADICTED EACH
+ * OTHER FOR IT. The old comment here said the boundary was deliberate:
+ * data/evolutions.json owns the CONDITIONS, data/pokedex.json owns the LINE, and
+ * a species page only needs the second. That reasoning is still right about
+ * which file answers which question, and it was still how /evolution.html came
+ * to list Meltan and Melmetal among the species that never evolve while
+ * /pokemon/meltan.html drew "Meltan, which becomes Melmetal" three clicks away.
+ * Two files, two readers, no check between them.
+ *
+ * shared/evolution.mjs reconciles the two now: it compares every species in both
+ * files, applies the documented decisions for the ones where PokeAPI contradicts
+ * itself, and THROWS on any disagreement it has not been told about. So the line
+ * below is the same line the chart draws, by construction rather than by
+ * coincidence, and the next time the two sources diverge the build stops instead
+ * of publishing both answers.
+ *
+ * The conditions are still not printed here and that half of the old boundary
+ * stands: which stone, what level and which version group genuinely differ
+ * between generations, and the note under the line sends a reader to the chart
+ * for them.
+ */
+const EVO = await loadEvolutions();
+
+/** slug -> parent slug, or null, out of the reconciled chains. */
+const evoParent = new Map();
+for (const c of EVO.chains || []) {
+  walkChain(c.root, (node, parent) => evoParent.set(node.slug, parent ? parent.slug : null));
+}
+
 const childrenOf = new Map();
 for (const p of DEX) {
-  if (!p.evolvesFrom) continue;
-  if (!childrenOf.has(p.evolvesFrom)) childrenOf.set(p.evolvesFrom, []);
-  childrenOf.get(p.evolvesFrom).push(p);
+  const parentSlug = evoParent.get(p.slug);
+  if (!parentSlug) continue;
+  const parent = byDexSlug.get(parentSlug);
+  if (!parent) continue;
+  if (!childrenOf.has(parent.name)) childrenOf.set(parent.name, []);
+  childrenOf.get(parent.name).push(p);
 }
+
+// The species that stand alone, counted once here rather than recomputed inside
+// the band. It is the same number /evolution.html prints over its "these do not
+// evolve" list, because both now count single-species chains off one structure.
+const STANDALONE = DEX.filter((p) => !evoParent.get(p.slug) && !childrenOf.has(p.name)).length;
+
 /**
  * The line, as stages: [[Charmander],[Charmeleon],[Charizard]], and for a
  * branching family [[Eevee],[Vaporeon, Jolteon, ... Sylveon]].
- *
- * DERIVED HERE FROM data/pokedex.json RATHER THAN FROM data/evolutions.json,
- * and that is a boundary rather than an oversight. A standalone evolution chart
- * page is being built alongside this one and it owns the CONDITIONS: which stone,
- * what level, which version group, all of which genuinely differ between
- * generations and none of which a species page has room to state honestly. What
- * a species page needs is the LINE, so it can say what this Pokemon becomes and
- * link to those pages, and evolvesFrom already carries exactly that. If
- * shared/evolution.mjs lands, take the conditions from it rather than writing a
- * second phrasing of them here.
  */
 function familyOf(p) {
   let root = p;
   const guard = new Set();
-  while (root.evolvesFrom && !guard.has(root.name)) {
-    guard.add(root.name);
-    root = byDexName.get(root.evolvesFrom) || root;
+  let up = evoParent.get(root.slug);
+  while (up && !guard.has(root.slug)) {
+    guard.add(root.slug);
+    root = byDexSlug.get(up) || root;
+    up = evoParent.get(root.slug);
   }
   const stages = [];
   let level = [root];
@@ -741,8 +776,8 @@ function pokePage(p) {
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Evolution</p>
     <h2>${esc(p.name)} does not <span class="hl">evolve</span></h2>
     <p class="lede" style="max-width:40em">It has no pre-evolution and nothing it becomes, which puts it with the
-      ${n(DEX.filter((d) => !d.evolvesFrom && !childrenOf.has(d.name)).length - 1)} other species in the Pokedex that
-      stand alone.</p>
+      ${n(STANDALONE - 1)} other species in the Pokedex that
+      stand alone. <a href="/evolution.html">The evolution chart</a> lists every one of them.</p>
     <p class="price-note">Evolution line from the National Pokedex, pokeapi.co, read ${esc(longDate(dexDoc.checked) || dexDoc.checked)}.</p>
   </div>
 </section>`;
@@ -782,9 +817,15 @@ function pokePage(p) {
   /* ------------------------------------------------------- what beats it */
   const effBand = (() => {
     if (!eff) return "";
+    // A COMMA, NOT AN EM DASH, AND IT IS 945 OF THEM. This wrote
+    // "Ice &mdash; double weakness" on every one of the 625 species pages that
+    // has a doubled row, which is a straight breach of CLAUDE.md's no-em-dashes
+    // rule and was invisible to every sweep run for it: the sweeps grepped for
+    // the CHARACTER and the page carries the ENTITY, so the tree read clean
+    // while a reader saw a dash. Search for both spellings when checking this.
     const row = (label, arr, note) =>
       arr.length
-        ? `<li><b>${label}</b><span>${esc(list(arr.map(cap)))}${note ? ` &mdash; ${note}` : ""}</span></li>`
+        ? `<li><b>${label}</b><span>${esc(list(arr.map(cap)))}${note ? `, ${note}` : ""}</span></li>`
         : "";
     const rows =
       row("x4", eff.x4, "double weakness") +

@@ -59,7 +59,7 @@ import {
 import { esc, longDate } from "../shared/format.mjs";
 import {
   loadEvolutions, walkChain, chainNames, methodTags, METHOD_LABELS,
-  EVO_MARKS, EVO_CSS, renderChain,
+  EVO_MARKS, EVO_CSS, renderChain, groupRoutes, gameLabels,
 } from "../shared/evolution.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -90,6 +90,25 @@ try {
 // answers "get me to Gible", not the ordering.
 const evolving = chains.filter((c) => (c.root.to || []).length);
 const still = chains.filter((c) => !(c.root.to || []).length);
+
+// ------------------------------------------- how many game tags this page names
+//
+// COUNTED OFF WHAT RENDERS, NOT OFF THE LOOKUP TABLE. The page said
+// "16 sets of games are named on this page" from Object.keys(d.games).length,
+// which is every version group our source has a LABEL for. A tag is only printed
+// where a node carries more than one condition, because a sole condition must
+// never print its version group (condBlock throws if it tries), so two of those
+// sixteen, The Indigo Disk and Ultra Sun and Ultra Moon, are in the table and on
+// no line of the chart. This walks the chains the same way condsFor does and
+// counts the labels that actually reach a reader.
+const shownGameLabels = new Set();
+for (const c of chains) {
+  walkChain(c.root, (node) => {
+    const groups = groupRoutes(node.routes);
+    if (groups.length < 2) return;
+    for (const g of groups) for (const l of gameLabels(g.games, d.games)) shownGameLabels.add(l);
+  });
+}
 const byDex = (a, b) => (a.root.id ?? 99999) - (b.root.id ?? 99999);
 evolving.sort(byDex);
 still.sort(byDex);
@@ -473,8 +492,10 @@ ${cards}
           from playing the games. ${d.counts.routes} routes across ${d.counts.chains} chains.</p>
         <p>It describes the mainline Pokemon games from Red and Blue to Scarlet and Violet, including Legends:
           Arceus and Legends: Z-A and the Sword and Shield and Scarlet and Violet expansions.
-          ${Object.keys(d.games).length} sets of games are named on this page and every one of them is a game tag
-          our source attached to the condition itself.</p>
+          ${shownGameLabels.size} sets of games are named on this page and every one of them is a game tag
+          our source attached to the condition itself. Our source labels ${Object.keys(d.games).length} version
+          groups in all; the other ${Object.keys(d.games).length - shownGameLabels.size} carry no condition that
+          differs between games, so no line on this page has a reason to print them.</p>
         <p>The phrasing is ours. The names of the items, moves, places and games are the source's own English
           names, and so is the wording of the unusual triggers: "Land three critical hits in a battle" and "Defeat
           three Bisharp that hold a Leader's Crest" are how PokeAPI itself labels them, not our summary of them.</p>
@@ -523,4 +544,5 @@ await writeFile(join(ROOT, "public/evolution.html"), page);
 console.log(`Wrote public/evolution.html
   ${evolving.length} lines drawn, ${still.length} species that do not evolve
   ${branchCount} lines fork, ${forks.length} listed at the top
-  ${d.counts.routes} routes from ${Object.keys(d.games).length} sets of games, read ${d.checked}`);
+  ${d.counts.routes} routes from ${shownGameLabels.size} sets of games named on the page, read ${d.checked}
+  reconciled against data/pokedex.json: ${d.reconciled.length ? d.reconciled.map((m) => `${m.slug} ${m.from || "(none)"} -> ${m.to || "(none)"}`).join(", ") : "nothing moved"}`);

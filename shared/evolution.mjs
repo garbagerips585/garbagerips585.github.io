@@ -38,8 +38,215 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
+// ===========================================================================
+// PokeAPI CONTRADICTS ITSELF ABOUT FOUR SPECIES, AND THIS IS WHERE THAT IS
+// SETTLED SO THAT EVERY PAGE SETTLES IT THE SAME WAY.
+//
+// data/evolutions.json is the evolution-chain endpoint. data/pokedex.json is the
+// pokemon-species endpoint. They are the same project, read on the same day, and
+// on 17 August 2026 they disagreed on exactly 2 of the 1,025 species. Both
+// disagreements are visible on the site, because /evolution.html reads the first
+// file and the species pages under /pokemon/ read the second:
+//
+//   MELMETAL. pokemon-species/809 says evolves_from_species = meltan.
+//             evolution-chain/428 holds meltan alone and evolution-chain/429
+//             holds melmetal alone, as two separate one-species chains. So
+//             /evolution.html listed Meltan AND Melmetal under "these do not
+//             evolve" while /pokemon/meltan.html drew "Meltan, which becomes
+//             Melmetal". Both pages counted 201 species with no evolution and
+//             the two lists of 201 were not the same list.
+//
+//   MANAPHY.  pokemon-species/489 (Phione) and /490 (Manaphy) BOTH say
+//             evolves_from_species = null, and both point at
+//             evolution-chain/250, which draws phione -> manaphy. So the chart
+//             drew an evolution arrow that neither species record supports, and
+//             the species pages, correctly, drew nothing.
+//
+// THE SPECIES RECORD WINS, BOTH TIMES, and the two cases are decided for the
+// same reason rather than for two convenient ones. `evolves_from_species` is one
+// species' statement about its own immediate predecessor. An evolution CHAIN is
+// a FAMILY grouping, and a family is a looser thing: it is what puts Manaphy and
+// Phione in one box, which is a real relationship (Phione hatches from a Manaphy
+// egg) and is not an evolution. Where the two disagree, the narrower field is
+// the one making the claim we are printing.
+//
+// It also lands right against the games in both cases, which is the check that
+// matters more than the argument: Meltan does become Melmetal, with 400 Meltan
+// Candy in Pokemon GO, and the pair has been printed on Pokemon cards. Phione
+// does not become Manaphy in any game; it is bred from one.
+//
+// THE ARROW CARRIES NO CONDITION AND THAT IS DELIBERATE. PokeAPI records no
+// evolution_details for Meltan, because the trade that triggers it is not a
+// mainline game mechanic and its schema has no field for one. This file will not
+// invent one: the step is drawn, `note` says where the step came from and that
+// the source records no condition, and no level, item or trade is stated.
+//
+// ANY OTHER DISAGREEMENT FAILS THE BUILD. reconcile() compares every species in
+// both files and throws on a mismatch it has not been told about. That is the
+// part that makes this a fix rather than a patch: the two pages cannot drift
+// apart again without somebody being told, by name, which species moved.
+const SPECIES_OVERRIDES = {
+  melmetal: {
+    parent: "meltan",
+    note:
+      "Our source's chain data files Meltan and Melmetal as two separate species that do not " +
+      "evolve, while its own species record for Melmetal names Meltan as what it evolves from. " +
+      "The step is drawn from the species record. The same source states no condition for it.",
+  },
+  manaphy: {
+    parent: null,
+    note: null,
+  },
+};
+
+/**
+ * Load the chains, reconciled against the species records, with the counts
+ * recomputed from what the reconciliation actually left behind.
+ *
+ * Returns the same document shape every caller already expects, plus
+ * `reconciled`, which lists what was moved and is printed in the build log.
+ */
 export async function loadEvolutions() {
-  return JSON.parse(await readFile(join(ROOT, "data/evolutions.json"), "utf8"));
+  const d = JSON.parse(await readFile(join(ROOT, "data/evolutions.json"), "utf8"));
+  const dex = JSON.parse(await readFile(join(ROOT, "data/pokedex.json"), "utf8"));
+  d.reconciled = reconcile(d, dex);
+  recount(d);
+  return d;
+}
+
+/** slug -> { node, parent, chain } across every chain in the document. */
+function indexChains(d) {
+  const ix = new Map();
+  for (const c of d.chains || []) {
+    walkChain(c.root, (node, parent) => ix.set(node.slug, { node, parent, chain: c }));
+  }
+  return ix;
+}
+
+function reconcile(d, dex) {
+  const bySlug = new Map((dex.pokemon || []).map((p) => [p.slug, p]));
+  const slugOfName = new Map((dex.pokemon || []).map((p) => [p.name, p.slug]));
+  const moved = [];
+
+  for (const p of dex.pokemon || []) {
+    const ix = indexChains(d);
+    const here = ix.get(p.slug);
+    if (!here) {
+      throw new Error(
+        `shared/evolution.mjs: data/pokedex.json holds "${p.slug}" and data/evolutions.json has no\n` +
+          `  chain containing it. Every species has to be on the chart, as a line or as one of the\n` +
+          `  species that do not evolve. Re-run scripts/sync-evolution.mjs.`
+      );
+    }
+    const want = p.evolvesFrom ? slugOfName.get(p.evolvesFrom) || p.evolvesFrom : null;
+    const have = here.parent ? here.parent.slug : null;
+    if (want === have) continue;
+
+    const fix = SPECIES_OVERRIDES[p.slug];
+    if (!fix || fix.parent !== want) {
+      throw new Error(
+        `shared/evolution.mjs: the two PokeAPI files disagree about "${p.slug}".\n` +
+          `  data/pokedex.json says it evolves from ${JSON.stringify(want)}.\n` +
+          `  data/evolutions.json puts it under ${JSON.stringify(have)}.\n` +
+          `  /evolution.html reads the second and the species pages read the first, so shipping this\n` +
+          `  publishes two contradictory answers to one question. Decide which endpoint is right for\n` +
+          `  this species, write the decision and its evidence into SPECIES_OVERRIDES above, and let\n` +
+          `  both pages take it from here. Do NOT fix it in one builder.`
+      );
+    }
+
+    // Detach. A node with a parent leaves that parent's `to`; a node that is a
+    // chain root takes its whole subtree with it and the chain goes.
+    if (here.parent) {
+      here.parent.to = (here.parent.to || []).filter((n) => n !== here.node);
+    } else {
+      d.chains = (d.chains || []).filter((c) => c !== here.chain);
+    }
+
+    // Attach, and drop any routes it was carrying: they described the step it is
+    // no longer taking.
+    here.node.routes = [];
+    here.node.note = fix.note || null;
+    if (want === null) {
+      d.chains.push({
+        id: here.chain.id,
+        babyTriggerItem: here.chain.babyTriggerItem ?? null,
+        reconciled: true,
+        root: here.node,
+      });
+    } else {
+      const parentEntry = indexChains(d).get(want);
+      if (!parentEntry) {
+        throw new Error(
+          `shared/evolution.mjs: SPECIES_OVERRIDES puts "${p.slug}" under "${want}" and no chain\n` +
+            `  holds "${want}". Name a species that is on the chart.`
+        );
+      }
+      parentEntry.chain.reconciled = true;
+      parentEntry.node.to = parentEntry.node.to || [];
+      parentEntry.node.to.push(here.node);
+    }
+    moved.push({ slug: p.slug, from: have, to: want });
+  }
+
+  // Stages are depth from the chain root and half the layout reads them, so they
+  // are recomputed rather than left describing where a node used to sit.
+  for (const c of d.chains || []) {
+    const stamp = (node, depth) => {
+      node.stage = depth;
+      for (const k of node.to || []) stamp(k, depth + 1);
+    };
+    stamp(c.root, 0);
+  }
+  // Dex order, so a chain that moved lands where a reader expects it.
+  d.chains.sort((a, b) => (a.root.id ?? 99999) - (b.root.id ?? 99999));
+
+  // Every species in the dex is accounted for exactly once, checked after the
+  // moves rather than assumed by them.
+  const after = indexChains(d);
+  for (const p of dex.pokemon || []) {
+    if (!after.has(p.slug)) {
+      throw new Error(`shared/evolution.mjs: reconciling lost "${p.slug}" off the chart.`);
+    }
+  }
+  for (const [slug] of after) {
+    if (!bySlug.has(slug)) {
+      throw new Error(
+        `shared/evolution.mjs: data/evolutions.json holds "${slug}" and data/pokedex.json does not.`
+      );
+    }
+  }
+  return moved;
+}
+
+/**
+ * The counts, recomputed from the chains as they now stand.
+ *
+ * `counts` was written by sync-evolution.mjs against the file BEFORE
+ * reconciliation, and /evolution.html prints two of them in its sourcing note.
+ * A count that survives a restructure unchanged is a count that has stopped
+ * describing the page.
+ */
+function recount(d) {
+  const c = { chains: 0, single: 0, multi: 0, nodes: 0, routes: 0, branching: 0, noGames: 0 };
+  for (const chain of d.chains || []) {
+    c.chains++;
+    let n = 0;
+    let branches = false;
+    walkChain(chain.root, (node) => {
+      n++;
+      for (const r of node.routes || []) {
+        c.routes++;
+        if (!r.games) c.noGames++;
+      }
+      if ((node.to || []).length > 1) branches = true;
+    });
+    c.nodes += n;
+    if (n === 1) c.single++;
+    else c.multi++;
+    if (branches) c.branching++;
+  }
+  d.counts = c;
 }
 
 /** Depth-first walk of a chain, parent passed with each node. */
@@ -389,6 +596,9 @@ a.ev-node:hover{background:var(--mustard)}
 .ev-games span{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2) !important;
   border:1px solid var(--hair);border-radius:var(--r-pill);padding:4px 8px}
 .ev-inc{flex:1 0 100%;font-size:var(--t-micro);line-height:1.5;color:var(--ink-2) !important;margin-top:2px}
+/* A step whose only content is the note about where it came from. The note is
+   already .ev-inc, so this only stops the flex row collapsing it to nothing. */
+.ev-cond-note{display:block}
 /* MORE THAN ONE ANSWER. This is the block both pages really exist for, so it is
    fenced rather than run on: a reader has to see at a glance that the answer
    depends on which game they are holding. */
@@ -447,7 +657,17 @@ export function condBlock(group, data, cls = "ev-cond") {
 /** Every condition into a node. More than one is the case these pages exist for. */
 export function condsFor(node, data) {
   const groups = groupRoutes(node.routes);
-  if (!groups.length) return "";
+  // A STEP WITH NO CONDITION SAYS WHY IT HAS NONE. Reconciliation puts a `note`
+  // on the one step this site draws from the species record rather than from the
+  // chain data, and a bare arrow with nothing beside it would look like a
+  // rendering failure rather than an honest gap. Nothing here states a level, an
+  // item or a trade: the note says where the step came from and that the source
+  // records no condition for it.
+  if (!groups.length) {
+    return node.note
+      ? `<div class="ev-cond ev-cond-note"><span class="ev-inc">${escHtml(node.note)}</span></div>`
+      : "";
+  }
   if (groups.length === 1) return condBlock(groups[0], data);
   return (
     `<div class="ev-multi"><span class="ev-multi-h">${groups.length} different answers, by game</span>` +

@@ -194,10 +194,18 @@ import {
 } from "../shared/chrome.mjs";
 import { TCG_SET } from "../shared/tcgplayer.mjs";
 import { esc, longDate, moneyExact, moneyCompact } from "../shared/format.mjs";
+// WHY /base-set.html PRICES THE #1 CARD ON THIS LIST AT A TENTH OF THIS FIGURE.
+// Read that file's header before changing a word of the honesty block below.
+import { loadPriceBasis, basisSentence } from "../shared/price-basis.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const top = JSON.parse(await readFile(join(ROOT, "data/top100.json"), "utf8"));
+
+// The same cards, priced by the other feed. Resolved by TCGplayer productId and
+// by exact PriceCharting row name, so neither side can land on a wrong printing.
+const BASIS = await loadPriceBasis();
+const BASIS_TEXT = basisSentence(BASIS, "market");
 
 let noScan = { deadUrls: [] };
 try {
@@ -567,8 +575,33 @@ function honesty(cfg, d) {
       <p>Every figure here is TCGplayer's own <b>Market Price</b> for that product, read on
         <b>${esc(when)}</b>. Market Price is their figure, worked out from recent completed sales on their
         marketplace. It is not the cheapest copy on sale right now, it is not what one sold for last week,
-        and it is not an appraisal. The cheapest live listing is printed next to it on every row so the
-        two cannot be mistaken for each other.</p>
+        and it is not an appraisal. The cheapest live listing is printed next to it${
+          // NOT "on every row". It is on every row that HAS one, and the number
+          // that do not is derived here rather than claimed: a product can have
+          // listings and no asking price, or nothing for sale at all, and both
+          // print "no asking price" instead of a figure. The old sentence said
+          // "on every row" over a list where several rows carry no low at all.
+          cfg.noLow
+            ? `, on the ${cfg.withLow} rows that have one, so the two cannot be mistaken for each other.
+        The other ${cfg.noLow} say so instead of showing a figure: nothing is listed for sale, or the
+        listings carry no asking price`
+            : ` on every row so the two cannot be mistaken for each other`
+        }.</p>${
+        // THE OTHER FEED, NAMED ON THE PAGE THAT LEADS WITH THE BIGGEST FIGURE.
+        // Row 1 here is a Shadowless Base Set Charizard at ten times what
+        // /base-set.html prints for the same ungraded card out of a price guide.
+        // Both are correct measurements of different things, and until 17 August
+        // 2026 neither page admitted the other existed. Cards only: the pairs in
+        // shared/price-basis.mjs are single cards, so the sealed page has nothing
+        // to reconcile and says nothing.
+        cfg.key === "cards" && BASIS_TEXT
+          ? `
+      <p><b>Where a price guide disagrees with this list.</b>
+        ${esc(BASIS_TEXT)} The guide figures for those Base Set printings are on
+        <a href="/base-set.html">the Base Set print run guide</a>, which carries the same explanation
+        from the other side.</p>`
+          : ""
+      }
       <p><b>What this ranking cannot see.</b> ${cfg.excludes}</p>
       <p><b>The cheapest copy is often dearer than the market price, and that is not a mistake.</b>
         ${esc(String(cfg.aboveMarket))} of these 100 have a lowest listing above their market price today.
@@ -695,6 +728,10 @@ for (const cfg of PAGES) {
   // Counted from the data rather than typed, because it is the kind of number
   // that is right on the day it is written and wrong every day after.
   cfg.aboveMarket = items.filter((i) => i.low != null && i.low > i.market).length;
+  // Same rule, for the same reason: the honesty block used to promise the lowest
+  // listing "on every row" and several rows carry none. Counted off the items.
+  cfg.withLow = items.filter((i) => i.low != null).length;
+  cfg.noLow = items.length - cfg.withLow;
   const filterBlock = cfg.filter
     ? `<div class="t100-filter">
       <button type="button" id="t100All" aria-pressed="true" aria-controls="t100list">All 100</button>

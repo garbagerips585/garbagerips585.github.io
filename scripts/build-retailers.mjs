@@ -80,157 +80,33 @@ import {
 } from "../shared/chrome.mjs";
 import { esc, longDate, moneyExact } from "../shared/format.mjs";
 import { brandMark, BRAND_CREDIT, BRAND_STYLE } from "../shared/brands.mjs";
+import { loadListings, multStr, readDatePhrase } from "../shared/listings.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const R = JSON.parse(await readFile(join(ROOT, "data/retailers.json"), "utf8"));
-const P = JSON.parse(await readFile(join(ROOT, "data/retailer-prices.json"), "utf8"));
-const msrp = JSON.parse(await readFile(join(ROOT, "data/msrp.json"), "utf8"));
-const counts = JSON.parse(await readFile(join(ROOT, "data/pack-counts-current.json"), "utf8"));
 
 const retailers = R.retailers || [];
 if (!retailers.length) throw new Error("data/retailers.json has no retailers");
 
-const byId = new Map(retailers.map((r) => [r.id, r]));
-
 // ---------------------------------------------------------------- the join
 //
-// THE SUGGESTED FIGURE IS NEVER TYPED INTO EITHER DATA FILE HERE. A reading
-// names a row in data/msrp.json by its exact label and this resolves it, the
-// same way resolvePC in build-msrp.mjs resolves a Pokemon Center reading by
-// exact product name.
+// IT MOVED TO shared/listings.mjs ON 17 AUGUST 2026 AND THE MOVE IS THE FIX.
+// This file used to hold the whole merge, and it was right: 9 readings from
+// data/retailer-prices.json plus the 4 in data/pack-counts-current.json, joined
+// to data/msrp.json by exact label, throwing rather than warning on a miss.
+// /msrp.html held its own half of the same join, read only the pack-counts file,
+// printed 4, and said in those words that they were "every dated, sourced shop
+// listing this site holds". Both counts were derived honestly and one of them
+// was a completeness claim about a set it could not see.
 //
-// IT THROWS RATHER THAN WARNING, and the reason is the one build-msrp.mjs gives
-// for the same decision: a join that misses, or lands on the wrong row, prints a
-// plausible multiple for the wrong pair of objects, and that failure looks
-// completely fine on the page. There is no correct page to ship while a reading
-// names a suggested figure that is not there.
-const MSRP_BY_LABEL = new Map();
-for (const row of msrp.products || []) {
-  if (!MSRP_BY_LABEL.has(row.label)) MSRP_BY_LABEL.set(row.label, []);
-  MSRP_BY_LABEL.get(row.label).push(row);
-}
-
-function suggested(label, who) {
-  const rows = MSRP_BY_LABEL.get(label);
-  if (!rows) {
-    throw new Error(
-      `build-retailers: ${who} names the suggested-price row ${JSON.stringify(label)} and\n` +
-        `  data/msrp.json has no product with that exact label. Do NOT fix this by typing a\n` +
-        `  figure in: name a row that exists, or drop the reading.`
-    );
-  }
-  if (rows.length > 1) {
-    throw new Error(
-      `build-retailers: ${who} names ${JSON.stringify(label)} and data/msrp.json holds ${rows.length}\n` +
-        `  rows with that label, so the name does not identify one figure. Name a different row.`
-    );
-  }
-  const row = rows[0];
-  if (typeof row.price !== "number") {
-    throw new Error(
-      `build-retailers: ${who} divides by ${JSON.stringify(label)} and that row in data/msrp.json\n` +
-        `  carries no price, because the bar for printing one was not cleared. A comparison against\n` +
-        `  a figure this site refuses to state is not a comparison. Drop the reading.`
-    );
-  }
-  return row;
-}
-
-// A multiple printed the way /msrp.html prints one: two decimals with trailing
-// zeros trimmed, so 2.00 reads 2 and 1.20 reads 1.2. Deliberately the same
-// expression as multStr in build-msrp.mjs, because the two pages divide some of
-// the same listings by the same figures and must not disagree by a rounding.
-const multStr = (n) => n.toFixed(2).replace(/\.?0+$/, "");
-
-const SELLERS = new Set(["first-party", "marketplace"]);
-
-/**
- * Every reading, from both files, as one shape.
- *
- * The four listings this repo already held are read OUT OF
- * data/pack-counts-current.json rather than copied into data/retailer-prices.json,
- * so each of those figures is still stated in exactly one place in this repo and
- * /msrp.html and this page cannot show one listing at two prices. What this file
- * adds to them is the seller, which pack-counts does not record and which nothing
- * here may print a price without.
- */
-const readings = [];
-
-for (const x of P.readings || []) {
-  const who = `data/retailer-prices.json reading "${x.product}"`;
-  if (!SELLERS.has(x.seller)) {
-    throw new Error(
-      `build-retailers: ${who} has seller ${JSON.stringify(x.seller || null)}. It must be\n` +
-        `  "first-party" or "marketplace". A price with no seller on it is a claim about\n` +
-        `  whichever company owns the website, and on Target, Walmart, Best Buy and Amazon\n` +
-        `  that company is very often not the seller. Establish it or delete the reading.`
-    );
-  }
-  const r = byId.get(x.retailer);
-  if (!r) {
-    throw new Error(
-      `build-retailers: ${who} is filed under retailer id ${JSON.stringify(x.retailer)} and\n` +
-        `  data/retailers.json has: ${retailers.map((v) => v.id).join(", ")}.`
-    );
-  }
-  const row = suggested(x.msrpLabel, who);
-  readings.push({
-    retailer: r,
-    product: x.product,
-    amount: x.amount,
-    base: row.price,
-    baseLabel: row.label,
-    seller: x.seller,
-    sellerHow: x.sellerHow || "",
-    on: x.on || "",
-    url: x.url || "",
-    read: x.read,
-  });
-}
-
-// The four already in the tree. Same filter build-msrp.mjs uses, so the two
-// pages can never disagree about which listings exist.
-for (const p of counts.products || []) {
-  const price = p.price;
-  if (!price || price.isMsrp || price.kind !== "retailer listed price") continue;
-  if (typeof price.amount !== "number") continue;
-  const name = price.retailer || "";
-  const r = retailers.find((v) => v.name === name);
-  if (!r) continue; // a listing from somewhere this directory does not cover
-  const how = (R.legacySellers || {})[name];
-  if (!how) {
-    throw new Error(
-      `build-retailers: data/pack-counts-current.json holds a listing at ${JSON.stringify(name)}\n` +
-        `  and data/retailers.json's legacySellers has no attribution for it. Nothing here may\n` +
-        `  print a price without saying who was selling. Add the entry, with what on the page\n` +
-        `  establishes it, or this listing stays on /msrp.html only.`
-    );
-  }
-  const row = (msrp.products || []).find(
-    (x) => x.packsFrom === p.productName && typeof x.price === "number"
-  );
-  if (!row) continue; // no suggested figure, so no comparison to draw
-  const s = (p.sources || []).find((x) => (x.supports || []).includes("price"));
-  readings.push({
-    retailer: r,
-    product: price.product || p.productName,
-    amount: price.amount,
-    base: row.price,
-    baseLabel: row.label,
-    seller: "first-party",
-    sellerHow: how,
-    on: "the product page",
-    url: s ? s.url : "",
-    read: s ? s.readAt : counts.readAt,
-  });
-}
-
-// ORDERED BY RETAILER NAME, THEN BY WHAT THE PRODUCT COSTS. Never by the
-// multiple. The comment at the top of this file argues it and data/over-msrp.json
-// argues it again; this line is where it is actually true.
-readings.sort(
-  (a, b) => a.retailer.name.localeCompare(b.retailer.name) || a.base - b.base || a.amount - b.amount
-);
+// So the merge, the seller rule, the label lookup and the legacySellers
+// attribution all live in shared/listings.mjs now and three builders import it.
+// Two behaviours got STRICTER on the way: a pack-counts listing whose shop is
+// not in this directory used to be skipped silently here, and one with no
+// suggested figure used to be skipped silently in build-what-to-buy.mjs. Both
+// throw now, because a silent skip is exactly how two pages come to count the
+// same set differently.
+const { listings: readings, readDates: ALL_READ_DATES } = await loadListings();
 
 const readingsFor = (id) => readings.filter((x) => x.retailer.id === id);
 
@@ -694,10 +570,21 @@ const dirCard = (r) => {
             ${r.marketplaceKind === "mixed" ? `<dt>Shop or marketplace</dt><dd>${esc(r.marketplaceNote)}</dd>` : ""}
             <dt>Prices we have read</dt>
             <dd>${
+              // THE DATE IS THE GROUP'S RANGE, NEVER rs[0]'s.
+              // This printed longDate(rs[0].read) until 17 August 2026, and rs is
+              // sorted by PRICE rather than by date, so the summary took whichever
+              // listing happened to be cheapest and dated the whole group from it.
+              // GameStop is the only shop here holding listings from both source
+              // files, so it is the only one whose rows carry two dates, and it
+              // read "5 listings ... read August 15, 2026" directly above a table
+              // dating three of them August 17. A read date is what makes a price
+              // checkable, so a group either states its range or says nothing.
               rs.length
                 ? `${rs.length} listing${rs.length === 1 ? "" : "s"}, ${rs
                     .map((x) => `${esc(multStr(x.amount / x.base))}x`)
-                    .join(", ")} of the suggested figure, read ${esc(longDate(rs[0].read))}. In the table below.`
+                    .join(", ")} of the suggested figure, read ${esc(
+                    readDatePhrase(rs.map((x) => x.read))
+                  )}. In the table below, each with its own date.`
                 : esc(r.priceNote || "None. Nothing could be read on their own site.")
             }</dd>
           </dl>
@@ -710,6 +597,55 @@ const cnrLabel = {
   gated: "Their site would not let us read it",
   "nothing-found": "We read it and found no Pokemon cards on the day",
 };
+
+// -------------------------------------------- WHY THE EIGHT COULD NOT BE READ
+//
+// COUNTED, NOT ASSERTED, AND THAT IS THE WHOLE OF THE FIX. The lede read "Four
+// served a bot challenge, three served a page with no Pokemon cards on it, and
+// one answered with its own error" while the eight descriptions underneath it
+// described THREE bot challenges, one search page that loaded and never filled
+// in, three with nothing found and one error page. `kind` cannot settle it: it
+// only separates "would not let us read it" from "we read it and found nothing".
+// So data/retailers.json carries `barrier` on every gated row and this counts
+// them. A barrier with no clause here fails the build rather than being dropped
+// out of a sentence that still states a total.
+const BARRIER_CLAUSE = {
+  "bot-challenge": (n, w) => `${w} served a bot challenge instead of a shop`,
+  "never-loaded": (n, w) => `${w} served a search page that loaded and never filled in`,
+  "own-error": (n, w) => `${w} answered with its own error`,
+  "nothing-found": (n, w) => `${w} served a page with no Pokemon cards on it`,
+};
+const CNR_ORDER = ["bot-challenge", "never-loaded", "nothing-found", "own-error"];
+const NUM_WORDS = ["no", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"];
+const lowerWords = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+const numWord = (n, cap) =>
+  (cap ? NUM_WORDS[n] : lowerWords[n]) || String(n);
+
+const cnr = R.couldNotRead || [];
+const cnrTally = new Map();
+for (const c of cnr) {
+  // A gated row is filed by its barrier; a nothing-found row is its own answer.
+  const key = c.kind === "nothing-found" ? "nothing-found" : c.barrier;
+  if (!key || !BARRIER_CLAUSE[key]) {
+    throw new Error(
+      `build-retailers: data/retailers.json couldNotRead "${c.name}" is kind ${JSON.stringify(c.kind)}\n` +
+        `  with barrier ${JSON.stringify(c.barrier || null)}, and this builder has no clause for that.\n` +
+        `  The lede counts these rather than asserting a number, so an uncounted row would leave the\n` +
+        `  sentence stating a total it cannot account for. Add a clause to BARRIER_CLAUSE, or set a\n` +
+        `  barrier of bot-challenge, never-loaded or own-error.`
+    );
+  }
+  cnrTally.set(key, (cnrTally.get(key) || 0) + 1);
+}
+const cnrClauses = CNR_ORDER.filter((k) => cnrTally.get(k)).map((k, i) => {
+  const n = cnrTally.get(k);
+  return BARRIER_CLAUSE[k](n, numWord(n, i === 0));
+});
+const cnrSentence =
+  cnrClauses.length > 1
+    ? `${cnrClauses.slice(0, -1).join(", ")}, and ${cnrClauses[cnrClauses.length - 1]}.`
+    : `${cnrClauses[0] || ""}.`;
+const cnrTotalWord = numWord(cnr.length, false);
 
 const DIR_DESC =
   "Which shops actually sell Pokemon cards, from GameStop and Target to CVS and Dollar General. " +
@@ -735,9 +671,10 @@ ${MENU}
       <p class="lede rt-lede">${retailers.length} shops we could confirm sell Pokemon cards, by reading it on
         that company's own website with our own eyes, on the date printed against each one. What they stock,
         which department they file the cards under, and every price we have actually read.</p>
-      <p class="lede rt-lede">Eight more chains were checked and are not on this list. Four served a bot
-        challenge instead of a shop, three served a page with no Pokemon cards on it, and one answered with its
-        own error. They are named at the bottom with the reason, because "we could not read their site" and
+      <p class="lede rt-lede">${esc(
+        cnrTotalWord.charAt(0).toUpperCase() + cnrTotalWord.slice(1)
+      )} more chains were checked and are not on this list. ${esc(cnrSentence)}
+        They are named at the bottom with the reason, because "we could not read their site" and
         "they do not sell them" are two different sentences and only the first one is ours to write.</p>
 
       <div class="rt-key">
@@ -782,7 +719,7 @@ ${gapList()}
       </section>
 
       <section class="rt-grp">
-        <h2>The eight we could <span class="hl">not</span> confirm</h2>
+        <h2>The ${esc(cnrTotalWord)} we could <span class="hl">not</span> confirm</h2>
         <p class="rt-note">None of this says these shops do not sell Pokemon cards. Most of it is a fact about
           a web server. Where a chain served a bot challenge we recorded that and moved on rather than trying to
           get around it, which is a rule this site keeps everywhere.</p>
@@ -857,12 +794,22 @@ const faq = (r, rs) => {
   if (r.whereInStore) {
     qs.push([`Where in ${r.name} are the Pokemon cards?`, `${r.whereInStore} Layouts differ from shop to shop, and a lot of chains now keep cards behind the counter or in a locked case, so ask a member of staff even if the shelf is empty.`]);
   }
+  // THE ANSWER CARRIES EVERY ROW'S OWN DATE AND THIS IS THE JSON-LD COPY, which
+  // is why it matters more here than anywhere else on the page: Google can quote
+  // one of these answers on its own, with no table underneath it to correct it.
+  // It said "On the listings we read on <rs[0].read>" until 17 August 2026, and
+  // rs is ordered by price, so a shop with listings read on two days was dated
+  // from whichever product was cheapest. Every reading now states its own date
+  // inside the clause that states its price, and the opening clause gives the
+  // range, so no single date is ever put over a group that does not have one.
   qs.push([
     `Does ${r.name} sell Pokemon cards over MSRP?`,
     rs.length
-      ? `On the listings we read on ${longDate(rs[0].read)}, ${rs
-          .map((x) => `the ${x.product} was ${moneyExact(x.amount)} against a suggested ${moneyExact(x.base)}, which is ${multStr(x.amount / x.base)} times it`)
-          .join("; ")}. Those are readings on one day rather than a standing price, and prices move.`
+      ? `On the ${rs.length === 1 ? "listing" : `${rs.length} listings`} we read ${readDatePhrase(
+          rs.map((x) => x.read)
+        )}, ${rs
+          .map((x) => `the ${x.product} was ${moneyExact(x.amount)} on ${longDate(x.read)} against a suggested ${moneyExact(x.base)}, which is ${multStr(x.amount / x.base)} times it`)
+          .join("; ")}. Each of those is a reading on the day named rather than a standing price, and prices move.`
       : r.priceNote || `This site holds no price reading from ${r.name}.`,
   ]);
   return {

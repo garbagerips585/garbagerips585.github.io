@@ -104,14 +104,17 @@
 //
 // NO STORE IS SCORED. "Target charges 2x" is not a claim anything here can
 // source: what CAN be sourced is one listing, of one product, on one date, and
-// four of those are printed as examples with the url and the date on each. They
+// every one this repo holds is printed as an example with the url and the date
+// on it. THIRTEEN, NOT FOUR: this file used to read only
+// data/pack-counts-current.json, printed the 4 in it, and called them every
+// listing the site holds while /retailers.html printed 13. They
 // illustrate the arithmetic. They are not a league table of shops, and the page
 // says so where they appear. The reader is taught to do the division instead,
 // which is the honest version of the same idea.
 //
 // THAT RULE GOT HARDER TO KEEP ON 17 AUGUST 2026, when the page grew a whole
 // band about buying above MSRP, and it is still kept. The band prints the SAME
-// four listings, read out of the same file, ordered by what the product costs
+// listings the other two pages do, out of shared/listings.mjs, ordered by what the product costs
 // and never by the multiple, each one saying its product, its shop, its price,
 // its date and its address. What it adds is the DURABLE half: what a multiple
 // means, and how each KIND of seller arrives at a price, which is the only part
@@ -142,6 +145,10 @@ import { esc, longDate, moneyExact } from "../shared/format.mjs";
 // The photograph pins, shared with build-what-to-buy.mjs so a pin exists once.
 // See the photography note below.
 import { makePhotoFor } from "../shared/product-photos.mjs";
+// EVERY DATED SHOP LISTING THIS REPO HOLDS, from both price files, joined and
+// checked in one place. See the long note above the listings band below for what
+// this page used to do instead and what it cost.
+import { loadListings, multStr, readDatePhrase } from "../shared/listings.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -431,8 +438,10 @@ const kindLabel = (r) =>
 // trailing zeros trimmed, so 2.00 reads "2" and 1.20 reads "1.2". ONE FUNCTION
 // FOR ALL THREE PLACES that do this sum (the row, the markup band, the
 // calculator's own copy in the browser), because two of them drifting apart
-// would show the same listing at two different multiples on one page.
-const multStr = (n) => n.toFixed(2).replace(/\.?0+$/, "");
+// would show the same listing at two different multiples on one page. It is
+// imported from shared/listings.mjs now rather than declared here, so the SAME
+// rounding reaches /retailers.html and /what-to-buy.html, which divide several
+// of these same listings by these same figures.
 
 // The example of a shop over the number, where one is sourced. ONE LISTING, ONE
 // PRODUCT, ONE DATE, and it says all three, because "Target charges 1.2x" is a
@@ -644,85 +653,76 @@ ${spread(r)}${seenLine(r)}${r.note ? `        <p class="ms-note">${esc(r.note)}<
 //
 // -------------------------------------------------------------- THE LISTINGS
 //
-// FOUR OF THEM, AND THEY ARE READ OUT OF data/pack-counts-current.json RATHER
-// THAN TYPED IN HERE. That file already records every shop listing this repo can
-// source, each with the exact url of the page the price was read off and the day
-// it was read, and seenAt() above already prints them one per row. The band
-// gathers the same four and does the division against the same MSRP figures, so
-// the two halves of the page cannot show one listing at two multiples. Four is
+// THIS BAND PRINTED FOUR OF THEM AND SAID, IN THOSE WORDS, THAT THEY WERE
+// "every dated, sourced shop listing this site holds". THIRTEEN EXIST. The four
+// were the ones in data/pack-counts-current.json, which is the only price file
+// this builder used to open, and the sentence around them was a COMPLETENESS
+// claim about a set it could not see. /retailers.html has printed all thirteen
+// since data/retailer-prices.json landed, so the two pages contradicted each
+// other and each one was internally consistent, which is why nothing caught it.
+//
+// THE COMMENT THAT USED TO SIT HERE MADE IT WORSE, not better: it said "Four is
 // the whole of it: a sweep of every other data file in this repo on 17 August
 // 2026 found no other dated, url-sourced price a named shop was asking for a
-// named sealed product.
+// named sealed product." That was written the same day the nine readings in
+// data/retailer-prices.json were gathered, and it got quoted as a reason not to
+// look. A completeness claim in a comment ages exactly as badly as one on a page.
 //
-// THERE IS NO FIFTH ONE TO GO AND FIND WITHOUT DOING THE WORK. Adding a listing
-// means opening the retailer's own product page in a browser, writing the
-// product, the shop, the price, the url and the date into
-// data/pack-counts-current.json under its sourcing rule, and re-running this. A
-// price from a comparison site, a screenshot or a memory is not a listing.
+// SO THE SET IS NOT ASSEMBLED HERE ANY MORE. shared/listings.mjs merges both
+// files, joins every row to a priced data/msrp.json row, refuses any row without
+// a seller, and throws on anything it cannot resolve. /retailers.html and
+// /what-to-buy.html read the same array. The count below is `listings.length`
+// and there is no number typed into the copy, so the sentence cannot come apart
+// from the list under it again.
 //
 // ORDERED BY WHAT THE PRODUCT COSTS, CHEAPEST FIRST, AND NEVER BY THE MULTIPLE.
-// Sorting by the multiple would build a league table out of four data points and
-// would put the biggest number at the top of the band, which is the scoreboard
-// this page refuses to be. Cheapest-product-first also happens to teach the real
-// lesson better: the worst multiple here is on a single pack and the box, the
-// scariest number in dollars, is not the worst deal on the page.
-const listings = (counts.products || [])
-  .map((p) => {
-    const price = p.price;
-    if (!price || price.isMsrp || price.kind !== "retailer listed price") return null;
-    if (typeof price.amount !== "number") return null;
-    // The url and the date come off the SOURCE that supports the price, exactly
-    // as seenAt() does it: these records carry several sources and only one of
-    // them is the page that saw a price.
-    const s = (p.sources || []).find((x) => (x.supports || []).includes("price"));
-    const against = rows.find(
-      (r) => r.packsFrom === p.productName && typeof r.price === "number"
-    );
-    return {
-      amount: price.amount,
-      retailer: price.retailer || "",
-      product: price.product || p.productName,
-      url: s ? s.url : "",
-      readAt: s ? s.readAt : counts.readAt,
-      against: against || null,
-    };
-  })
-  .filter(Boolean)
-  .sort((a, b) => (a.against?.price ?? Infinity) - (b.against?.price ?? Infinity));
+// Sorting by the multiple would build a league table out of thirteen data points
+// and would put the biggest number at the top of the band, which is the
+// scoreboard this page refuses to be. Cheapest-product-first also happens to
+// teach the real lesson better: the worst multiple here is on a single pack and
+// the box, the scariest number in dollars, is not the worst deal on the page.
+const { listings: allListings, readDates: listingDates } = await loadListings();
+const listings = [...allListings].sort((a, b) => a.base - b.base || a.amount - b.amount);
+const listingShops = new Set(listings.map((l) => l.retailerId)).size;
 
 /**
  * One listing, printed as a worked sum.
  *
  * THE URL IS PRINTED AND NOT LINKED, and that is the site's outbound link rule
- * rather than an oversight. These same four listings are already linked once
- * each, in the callout on their own row above, and CLAUDE.md's standing
- * complaint is about outbound links that arrive quietly at the foot of a page.
- * Printing the address in full is what the page already does for the exact
- * product name behind every store price: name it so it can be checked, do not
- * hand the reader a door out of the site twice for the same destination.
+ * rather than an oversight. Four of these are already linked once each, in the
+ * callout on their own row above, and CLAUDE.md's standing complaint is about
+ * outbound links that arrive quietly at the foot of a page. Printing the address
+ * in full is what the page already does for the exact product name behind every
+ * store price: name it so it can be checked, do not hand the reader a door out
+ * of the site twice for the same destination.
  *
  * THE SUM IS SHOWN AS ARITHMETIC, not as a verdict. A reader who can see
  * 9.99 divided by 4.49 can do it again tomorrow on a different sticker, which is
  * the only part of this band with a shelf life longer than a fortnight.
+ *
+ * WHO WAS SELLING IS PRINTED ON EVERY ROW. data/retailer-prices.json will not
+ * hold a price without it, and the reason is in that file's _readme: on Target,
+ * Walmart, Best Buy and Amazon a price on the site may be the chain's or an
+ * independent reseller's, and printing the second as the first reports a named
+ * company as asking a multiple it never asked. Every row here is currently
+ * first-party; the marketplace wording exists so that the day one is not, this
+ * band says so rather than quietly naming the wrong party.
  */
 const listingCard = (l) => {
-  const base = l.against ? l.against.price : null;
-  const m = base ? l.amount / base : null;
+  const m = l.amount / l.base;
   return `        <li class="ov-l">
-          <p class="ov-mult"><b>${m ? esc(multStr(m)) : "&mdash;"}x</b><span>${
-            m ? "the suggested price" : "no suggested figure to divide by"
-          }</span></p>
-          <p class="ov-sum">${esc(moneyExact(l.amount))} asked${
-            base
-              ? `, ${esc(moneyExact(base))} suggested. ${esc(l.amount.toFixed(2))} &divide; ${esc(
-                  base.toFixed(2)
-                )} = ${esc(multStr(m))}.`
-              : `. This page has no sourced figure for that product, so there is no sum to do.`
-          }</p>
-          <p class="ov-what"><b>${esc(l.product)}</b> at ${esc(l.retailer)}, read ${esc(
-            longDate(l.readAt)
+          <p class="ov-mult"><b>${esc(multStr(m))}x</b><span>the suggested price</span></p>
+          <p class="ov-sum">${esc(moneyExact(l.amount))} asked, ${esc(
+            moneyExact(l.base)
+          )} suggested. ${esc(l.amount.toFixed(2))} &divide; ${esc(l.base.toFixed(2))} = ${esc(
+            multStr(m)
           )}.</p>
-          <p class="ov-src">One listing, one product, one day. It is an example of the sum, not a
+          <p class="ov-what"><b>${esc(l.product)}</b> at ${esc(l.retailerName)}, read ${esc(
+            longDate(l.read)
+          )}.</p>
+          <p class="ov-src">One listing, one product, one day, sold by ${
+            l.seller === "first-party" ? "the shop itself" : "an independent seller on their site"
+          }. It is an example of the sum, not a
             score for the shop.${l.url ? ` Read at ${esc(l.url)}` : ""}</p>
         </li>`;
 };
@@ -887,7 +887,7 @@ const STYLE = `
    Three lists in one band and they are deliberately the SAME card as .ms-row:
    3px keyline, hard shadow, one idea per card. A reader who has just scrolled
    thirty price cards should not have to learn a second visual language to read
-   four listings, and the alternative that was considered, a table, fails at
+   a listing, and the alternative that was considered, a table, fails at
    390px for exactly the reason the price rows are not a table either. */
 .ov-h3{margin:var(--s5) 0 var(--s2)}
 .ov-bands,.ov-list,.ov-kinds{list-style:none;margin:var(--s4) 0 0;padding:0;
@@ -1101,10 +1101,14 @@ ${over.bands.map(bandRow).join("\n")}
         Prices move daily, differ between two branches of one chain and differ between two boxes on one peg.
         Check the price in front of you against the figure above and do your own division.</p>
       <div class="ms-body">
-        <p>These are every dated, sourced shop listing this site holds, in full, cheapest product first.
+        <p>These are every dated, sourced shop listing this site holds, in full, cheapest product first:
+          ${listings.length} of them, at ${listingShops} shops, read ${esc(readDatePhrase(listingDates))}.
           They are here as worked examples of the arithmetic. Nothing here ranks one shop against another,
           adds them up, or says anything about why a price was set: one product page on one afternoon
           cannot support any of that.</p>
+        <p>The same ${listings.length} are on <a href="/retailers.html">which stores sell Pokemon cards</a>,
+          shop by shop and with the seller named on each, out of the same two research files and divided by
+          the same suggested figures printed above. Neither page holds a listing the other does not.</p>
       </div>
       <ul class="ov-list">
 ${listings.map(listingCard).join("\n")}
@@ -1278,7 +1282,5 @@ await writeFile(join(ROOT, "public/msrp.html"), page);
 console.log(`Wrote public/msrp.html
   ${priced.length} products with a sourced price, ${blank.length} without
   of those ${blank.length}: ${varies.length} vary by product, ${thin.length} thin on evidence
-  ${nSources} sources, ${listings.length} shop listings, ${
-    listings.filter((l) => l.against).length
-  } with a multiple
+  ${nSources} sources, ${listings.length} shop listings at ${listingShops} shops, all with a multiple
   ${rows.filter((r) => photoFor(r.rowId)).length} of ${rows.length} rows have a photograph`);

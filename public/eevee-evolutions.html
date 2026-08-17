@@ -54,6 +54,9 @@ a.ev-node:hover{background:var(--mustard)}
 .ev-games span{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2) !important;
   border:1px solid var(--hair);border-radius:var(--r-pill);padding:4px 8px}
 .ev-inc{flex:1 0 100%;font-size:var(--t-micro);line-height:1.5;color:var(--ink-2) !important;margin-top:2px}
+/* A step whose only content is the note about where it came from. The note is
+   already .ev-inc, so this only stops the flex row collapsing it to nothing. */
+.ev-cond-note{display:block}
 /* MORE THAN ONE ANSWER. This is the block both pages really exist for, so it is
    fenced rather than run on: a reader has to see at a glance that the answer
    depends on which game they are holding. */

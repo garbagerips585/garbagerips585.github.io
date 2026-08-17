@@ -169,6 +169,9 @@ import { esc, longDate, moneyExact } from "../shared/format.mjs";
 // The photograph pins, shared with build-msrp.mjs so a pin exists once. This
 // file used to hold a second copy of them. See the photography note below.
 import { makePhotoFor } from "../shared/product-photos.mjs";
+// Every dated shop listing this repo holds, merged from both price files and
+// checked in one place. See the block above LISTINGS below.
+import { loadListings, multStr } from "../shared/listings.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -190,7 +193,6 @@ const buying = JSON.parse(await readFile(join(ROOT, "data/buying.json"), "utf8")
 //                       the whole of them.
 //   retailers.json      display names for those nine, which are stored by id.
 const over = JSON.parse(await readFile(join(ROOT, "data/over-msrp.json"), "utf8"));
-const retailPrices = JSON.parse(await readFile(join(ROOT, "data/retailer-prices.json"), "utf8"));
 const retailers = JSON.parse(await readFile(join(ROOT, "data/retailers.json"), "utf8"));
 const prod = JSON.parse(await readFile(join(ROOT, "public/data/products.json"), "utf8"));
 const EXTRA = JSON.parse(await readFile(join(ROOT, "data/extra-products.json"), "utf8")).products;
@@ -288,8 +290,9 @@ function seenAt(src) {
 
 // A multiple, printed the way /msrp.html prints one: two decimals with the
 // trailing zeros trimmed, so 2.00 reads "2" and 1.20 reads "1.2". "2.00x" is
-// the kind of false precision that makes a rough answer look measured.
-const multStr = (n) => n.toFixed(2).replace(/\.?0+$/, "");
+// the kind of false precision that makes a rough answer look measured. Imported
+// from shared/listings.mjs rather than declared here, so the three pages that
+// divide these same listings by these same figures round them identically.
 
 /** Price per pack, or null where either half of the sum is missing. */
 const perPack = (p) =>
@@ -349,68 +352,32 @@ const ceilingOf = (p) => (typeof p.price === "number" ? p.price * DOUBLE : null)
 //
 // EVERY ONE JOINS TO A PRICED msrp.json ROW OR THE BUILD STOPS. A listing with
 // nothing to divide by is not evidence about a multiple.
-const listingsFromCounts = (counts.products || [])
-  .map((p) => {
-    const price = p.price;
-    if (!price || price.isMsrp || price.kind !== "retailer listed price") return null;
-    if (typeof price.amount !== "number") return null;
-    const row = (msrp.products || []).find(
-      (r) => r.packsFrom === p.productName && typeof r.price === "number"
-    );
-    if (!row) return null;
-    const s = (p.sources || []).find((x) => (x.supports || []).includes("price"));
-    return {
-      amount: price.amount,
-      retailer: price.retailer || "",
-      product: price.product || p.productName,
-      url: s ? s.url : "",
-      readAt: s ? s.readAt : counts.readAt,
-      label: row.label,
-      base: row.price,
-      from: "data/pack-counts-current.json",
-    };
-  })
-  .filter(Boolean);
-
-const RETAILER_NAME = new Map((retailers.retailers || []).map((r) => [r.id, r.name]));
-
-const listingsFromRetail = (retailPrices.readings || []).map((r) => {
-  const row = BY_LABEL.get(r.msrpLabel);
-  if (!row || typeof row.price !== "number") {
-    throw new Error(
-      `build-what-to-buy: data/retailer-prices.json has a reading of ${JSON.stringify(r.product)}\n` +
-        `  pointing at the data/msrp.json label ${JSON.stringify(r.msrpLabel)}, and that row is\n` +
-        `  ${row ? "carrying no sourced price" : "not in that file at all"}. The collector band divides\n` +
-        `  every listing by its suggested figure, so a reading with nothing to divide by would\n` +
-        `  either print a bare asking price with no context or quietly vanish from a count this\n` +
-        `  page states out loud. Re-point the msrpLabel, or take the reading out.`
-    );
-  }
-  const name = RETAILER_NAME.get(r.retailer);
-  if (!name) {
-    throw new Error(
-      `build-what-to-buy: data/retailer-prices.json records a reading at the retailer id\n` +
-        `  ${JSON.stringify(r.retailer)} and data/retailers.json holds no shop with that id, so this\n` +
-        `  band has no name to print beside the figure. A price under the wrong company's name is\n` +
-        `  the one mistake this file is most careful about. Fix the id.`
-    );
-  }
-  return {
-    amount: r.amount,
-    retailer: name,
-    product: r.product,
-    url: r.url,
-    readAt: r.read,
-    label: row.label,
-    base: row.price,
-    from: "data/retailer-prices.json",
-  };
-});
-
-const LISTINGS = [...listingsFromCounts, ...listingsFromRetail].map((l) => ({
-  ...l,
-  mult: l.amount / l.base,
+// THE MERGE MOVED TO shared/listings.mjs ON 17 AUGUST 2026 and this file was
+// the reason it had to. Three builders held three copies of the same join, all
+// three honest, and one of them (build-msrp.mjs) opened only one of the two
+// price files and then printed a COMPLETENESS claim about what it found: "every
+// dated, sourced shop listing this site holds", over 4 rows, while this page and
+// /retailers.html both counted 13. A join copied three times is three chances
+// for one of the copies to be looking at less than the others.
+//
+// The seller rule, the exact-label lookup, the legacySellers attribution and
+// every throw that used to be written out here are all in that module, and the
+// two skip-quietly paths are throws now. Nothing about this band's arithmetic
+// changed: the shapes below are the same fields under the module's names.
+const { listings: SHARED_LISTINGS } = await loadListings();
+const LISTINGS = SHARED_LISTINGS.map((l) => ({
+  amount: l.amount,
+  retailer: l.retailerName,
+  product: l.product,
+  url: l.url,
+  readAt: l.read,
+  label: l.baseLabel,
+  base: l.base,
+  from: l.source,
+  mult: l.mult,
 }));
+const listingsFromCounts = LISTINGS.filter((l) => l.from.includes("pack-counts-current"));
+const listingsFromRetail = LISTINGS.filter((l) => l.from.includes("retailer-prices"));
 
 if (LISTINGS.length < 4) {
   throw new Error(
@@ -609,6 +576,79 @@ const collector = {
   ...guide.collector,
   safe: guide.collector.safe.map((k) => ({ ...k, p: product(k.product, { needPrice: true }) })),
 };
+
+// ------------------------------------------- superlatives, checked not trusted
+//
+// "IT IS THE CHEAPEST THING ON THIS PAGE" SAT OVER A $9.99 PRODUCT WITH A $4.49
+// ONE FURTHER DOWN THE SAME PAGE. My First Battle is the right pick for that
+// reader and the sentence around it was still false: the glossary a few screens
+// below prices a loose booster pack, and a superlative written in a data file
+// cannot see what the rest of the page grew.
+//
+// A superlative about "this page" is a claim ABOUT THE PAGE, so the page checks
+// it. Every product this builder prints a price for goes into one list, the
+// cheapest is derived, and any copy string claiming to be the cheapest thing
+// here has to belong to that product or the build stops. Nothing is rewritten
+// automatically: the failure names the row, the file and the actual cheapest, so
+// a person decides whether to move the claim or drop it.
+const PRICED_ON_PAGE = [
+  ...quick,
+  ...situations.flatMap((s) => s.picks),
+  ...collector.safe,
+  ...avoid.filter((a) => a.p),
+  ...glossary.filter((g) => g.p && typeof g.p.price === "number").map((g) => ({ ...g, p: g.p })),
+  ...playing.map((p) => ({ product: p.label, p })),
+]
+  .filter((k) => k.p && typeof k.p.price === "number")
+  .map((k) => ({ label: k.p.label, price: k.p.price }));
+
+const CHEAPEST_ON_PAGE = PRICED_ON_PAGE.reduce(
+  (lo, x) => (lo === null || x.price < lo.price ? x : lo),
+  null
+);
+
+// The second superlative, checked against a narrower list: the ready-to-play
+// boxes are exactly `playing.products` in the same data file, so "the cheapest
+// box here that comes with a game to play" is a checkable claim about a set the
+// file already defines rather than a second opinion about it.
+const CHEAPEST_PLAYABLE = playing
+  .filter((p) => typeof p.price === "number")
+  .reduce((lo, x) => (lo === null || x.price < lo.price ? x : lo), null);
+
+const PLAYABLE_CLAIM = /cheapest box on this page that comes with a game to play/i;
+
+const CHEAPEST_CLAIM = /cheapest thing on this page/i;
+for (const [where, label, copy] of [
+  ...guide.situations.flatMap((s) =>
+    s.picks.map((k) => [`situations."${s.id}".picks."${k.product}".why`, k.product, k.why])
+  ),
+  ...guide.quick.map((q) => [`quick."${q.product}".for`, q.product, q.for]),
+  ...(guide.collector.safe || []).map((k) => [
+    `collector.safe."${k.product}".why`,
+    k.product,
+    k.why || "",
+  ]),
+]) {
+  const text = String(copy || "");
+  if (CHEAPEST_CLAIM.test(text) && (!CHEAPEST_ON_PAGE || label !== CHEAPEST_ON_PAGE.label)) {
+    throw new Error(
+      `build-what-to-buy: data/what-to-buy.json ${where} says "the cheapest thing on this page"\n` +
+        `  about ${JSON.stringify(label)}, and the cheapest priced product this page actually prints is\n` +
+        `  ${JSON.stringify(CHEAPEST_ON_PAGE ? CHEAPEST_ON_PAGE.label : null)} at ` +
+        `${CHEAPEST_ON_PAGE ? moneyExact(CHEAPEST_ON_PAGE.price) : "no price at all"}.\n` +
+        `  A superlative about this page is a claim about the page, so it is checked here rather than\n` +
+        `  trusted. Move the claim, or say what is actually true of that product.`
+    );
+  }
+  if (PLAYABLE_CLAIM.test(text) && (!CHEAPEST_PLAYABLE || label !== CHEAPEST_PLAYABLE.label)) {
+    throw new Error(
+      `build-what-to-buy: data/what-to-buy.json ${where} claims to be the cheapest box here that\n` +
+        `  comes with a game to play, about ${JSON.stringify(label)}, and the cheapest of\n` +
+        `  playing.products is ${JSON.stringify(CHEAPEST_PLAYABLE ? CHEAPEST_PLAYABLE.label : null)}.\n` +
+        `  Move the claim, or take it out.`
+    );
+  }
+}
 
 // ------------------------------------------------------------- the arithmetic
 //

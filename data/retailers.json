@@ -22,12 +22,23 @@
     "a reader who came looking for Walgreens deserves to know we tried and were",
     "turned away rather than assume we forgot.",
     "",
-    "`couldNotRead` IS NOT A CLAIM THAT THEY DO NOT SELL POKEMON CARDS. Four of",
+    "`couldNotRead` IS NOT A CLAIM THAT THEY DO NOT SELL POKEMON CARDS. Three of",
     "the eight served a bot challenge, which is a fact about their web server and",
-    "nothing at all about their shelves. Three served a page with no Pokemon",
-    "trading card product on the day. The wording on the page has to keep that",
-    "distinction, because 'Costco does not sell Pokemon cards' is a claim about a",
-    "company and 'we could not read Costco's site' is a claim about us.",
+    "nothing at all about their shelves. One served a search page that never",
+    "filled in, one answered with its own error, and three served a page with no",
+    "Pokemon trading card product on the day. The wording on the page has to keep",
+    "that distinction, because 'Costco does not sell Pokemon cards' is a claim",
+    "about a company and 'we could not read Costco's site' is a claim about us.",
+    "",
+    "`barrier` IS WHY THOSE COUNTS ARE NOW A FIELD RATHER THAN A SENTENCE. The",
+    "page said 'Four served a bot challenge' while its own four descriptions",
+    "described three challenges, one search page that never finished loading and",
+    "one error page. `kind` is too coarse to count from: it separates 'we could",
+    "not read it' from 'we read it and found nothing' and says nothing about",
+    "which obstacle. So every `gated` row carries `barrier`, one of",
+    "bot-challenge, never-loaded or own-error, and build-retailers.mjs counts",
+    "them instead of the copy asserting a number. Add a value here and the",
+    "builder will refuse to build until it has been given a clause to print.",
     "",
     "-------------------------------------------------- WHO IS SELLING IT TO YOU",
     "",
@@ -440,6 +451,7 @@
     {
       "name": "Walgreens",
       "kind": "gated",
+      "barrier": "bot-challenge",
       "why": "walgreens.com served a Challenge Validation page to the browser instead of the shop. No attempt was made to get around it.",
       "url": "https://www.walgreens.com/search/results.jsp?Ntt=pokemon+trading+cards",
       "read": "2026-08-17"
@@ -447,6 +459,7 @@
     {
       "name": "Ace Hardware",
       "kind": "gated",
+      "barrier": "bot-challenge",
       "why": "acehardware.com served a security verification page saying it protects against malicious bots. No attempt was made to get around it.",
       "url": "https://www.acehardware.com/search?query=pokemon%20cards",
       "read": "2026-08-17"
@@ -454,6 +467,7 @@
     {
       "name": "Lowe's",
       "kind": "gated",
+      "barrier": "bot-challenge",
       "why": "lowes.com served a bot protection page instead of any search results.",
       "url": "https://www.lowes.com/search?searchTerm=pokemon%20trading%20cards",
       "read": "2026-08-17"
@@ -461,6 +475,7 @@
     {
       "name": "Costco",
       "kind": "gated",
+      "barrier": "never-loaded",
       "why": "The Costco search page loaded but never filled in: every result slot still read Loading after repeated reads, so nothing could be confirmed either way.",
       "url": "https://www.costco.com/CatalogSearch?keyword=pokemon+trading+cards",
       "read": "2026-08-17"
@@ -489,6 +504,7 @@
     {
       "name": "Dick's Sporting Goods",
       "kind": "gated",
+      "barrier": "own-error",
       "why": "The search url answered with their own This page is not available error, so nothing could be read.",
       "url": "https://www.dickssportinggoods.com/search?searchTerm=pokemon%20trading%20cards",
       "read": "2026-08-17"
