@@ -250,10 +250,22 @@ const ld = [
     "@type": "Article",
     headline: "Pokemon deck builds you can download",
     description: desc,
+    // image and publisher.logo are what Google's Article documentation asks
+    // for, and this block was missing both, which made the page structurally
+    // ineligible for the rich result no matter how good the content was. The
+    // same omission was found and fixed on the 23 English set guides; this is
+    // the same fix on the two deck pages. Reuse the page's OWN share card
+    // rather than the generic one so the two cannot drift: the og:image
+    // further down this file is the same file.
+    image: [`${SITE}/assets/og-decks.jpg`],
     datePublished: d.checked,
     dateModified: d.checked,
     author: { "@type": "Organization", name: "Garbage Rips 585" },
-    publisher: { "@type": "Organization", name: "Garbage Rips 585" },
+    publisher: {
+      "@type": "Organization",
+      name: "Garbage Rips 585",
+      logo: { "@type": "ImageObject", url: `${SITE}/assets/logo-square.jpg` },
+    },
     mainEntityOfPage: `${SITE}/decks.html`,
   },
   {

@@ -85,6 +85,7 @@ This playlist contains every Pokémon Surging Sparks booster pack...">
         <li><a href="/expansions.html">Every set ever</a></li>
         <li><a href="/upcoming.html">Coming next</a></li>
         <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/msrp.html">MSRP check</a></li>
         <li><a href="/pack-prices.html">Pack prices</a></li>
         <li><a href="/how-many-packs.html">Packs per box</a></li>
         <li><a href="/openings/">Sealed products</a></li>
@@ -98,6 +99,7 @@ This playlist contains every Pokémon Surging Sparks booster pack...">
       <p class="menu-h">Guides</p>
       <ul>
         <li><a href="/start.html">Start here</a></li>
+        <li><a href="/what-to-buy.html">Beginner buys</a></li>
         <li><a href="/how-to-play.html">How to play</a></li>
         <li><a href="/tcg-live.html">Code cards</a></li>
         <li><a href="/tcg-pocket.html">Phone version</a></li>
@@ -105,12 +107,14 @@ This playlist contains every Pokémon Surging Sparks booster pack...">
         <li><a href="/top-100-playable.html">Most played cards</a></li>
         <li><a href="/what-set.html">Set finder</a></li>
         <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/base-set.html">Base Set prints</a></li>
         <li><a href="/types.html">Card types</a></li>
         <li><a href="/fake-cards.html">Fakes</a></li>
         <li><a href="/will-it-grade.html">Will it grade</a></li>
         <li><a href="/grading.html">Grading cost</a></li>
         <li><a href="/selling.html">Where to sell</a></li>
         <li><a href="/buying.html">Where to buy</a></li>
+        <li><a href="/retailers.html">Stores that sell cards</a></li>
         <li><a href="/luck.html">Luck, measured</a></li>
       </ul>
     </div>
@@ -120,6 +124,8 @@ This playlist contains every Pokémon Surging Sparks booster pack...">
         <li><a href="/games/">Games</a></li>
         <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
+        <li><a href="/evolution.html">Evolution chart</a></li>
+        <li><a href="/eevee-evolutions.html">Eevee evolutions</a></li>
       </ul>
     </div>
     <div class="menu-g">
@@ -163,6 +169,20 @@ pokemon tcg opening
 pokemon pack opening series
 pokemon rips</p>
 
+      <!-- THE WALL NEEDED A HEADING AND THIS IS IT. Every tile title in .wall is
+           an h3, and with nothing between it and the page h1 all 21 playlist
+           pages read h1 -> h3. Same defect and same fix as .loc h2 in ui.css
+           and .op-sh in build-openings.mjs, except that the tile heading here
+           CANNOT be promoted instead: .v h3 in ui.css is a tag selector used
+           by every video tile on the site, and ui.css is not this builder's to
+           edit. So the level goes in above the wall rather than under it.
+           The style is inline and copied from .op-sh rather than added to
+           PAGE_CSS because PAGE_CSS is only emitted when the strip is
+           non-empty and this heading is on every playlist page.
+           NOTE FOR THE NEXT EDITOR: this comment is inside a JS template
+           literal. A backtick in here ends the string and the build dies with
+           a syntax error a hundred lines away. That happened writing it. -->
+      <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s5) 0 var(--s3)">In this playlist</h2>
       <p class="pl-stat">5 videos &bull; newest Jul 16, 2026 &bull; click a pack to rip it open here</p>
       <div class="wall">
         <article class="v">
@@ -274,6 +294,7 @@ pokemon rips</p>
         <a href="/expansions.html">Every set ever</a>
         <a href="/upcoming.html">Coming next</a>
         <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/msrp.html">MSRP check</a>
         <a href="/pack-prices.html">Pack prices</a>
         <a href="/how-many-packs.html">Packs per box</a>
         <a href="/openings/">Sealed products</a>
@@ -285,6 +306,7 @@ pokemon rips</p>
       <div class="foot-col">
         <p class="foot-h">Guides</p>
         <a href="/start.html">Start here</a>
+        <a href="/what-to-buy.html">Beginner buys</a>
         <a href="/how-to-play.html">How to play</a>
         <a href="/tcg-live.html">Code cards</a>
         <a href="/tcg-pocket.html">Phone version</a>
@@ -292,12 +314,14 @@ pokemon rips</p>
         <a href="/top-100-playable.html">Most played cards</a>
         <a href="/what-set.html">Set finder</a>
         <a href="/rarity.html">Rarity guide</a>
+        <a href="/base-set.html">Base Set prints</a>
         <a href="/types.html">Card types</a>
         <a href="/fake-cards.html">Fakes</a>
         <a href="/will-it-grade.html">Will it grade</a>
         <a href="/grading.html">Grading cost</a>
         <a href="/selling.html">Where to sell</a>
         <a href="/buying.html">Where to buy</a>
+        <a href="/retailers.html">Stores that sell cards</a>
         <a href="/luck.html">Luck, measured</a>
       </div>
       <div class="foot-col">
@@ -305,6 +329,8 @@ pokemon rips</p>
         <a href="/games/">Games</a>
         <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
+        <a href="/evolution.html">Evolution chart</a>
+        <a href="/eevee-evolutions.html">Eevee evolutions</a>
       </div>
       <div class="foot-col">
         <p class="foot-h">Rochester, NY</p>

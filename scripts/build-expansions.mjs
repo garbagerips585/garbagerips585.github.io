@@ -123,6 +123,24 @@ const ERA_NOTE = {
   Other: "Promos, tie-ins and box sets that do not sit inside a main series.",
 };
 
+/**
+ * An era that has a guide of its own, as [href, label].
+ *
+ * SEPARATE FROM ERA_NOTE BECAUSE ERA_NOTE IS ESCAPED, and it has to stay that
+ * way: those strings are prose and an anchor smuggled into one would be printed
+ * as text on the day somebody adds a set name with an ampersand in it. So the
+ * link is its own field with its own element.
+ *
+ * ONE ENTRY, AND THAT IS THE BAR. This is not a slot for every page that
+ * mentions an era. The Base row lists a set whose three print runs are worth
+ * ten times apart and whose table above says nothing about that at all: a reader
+ * looking up Base Set here is holding a 1999 card and has the wrong question
+ * answered. Nothing else on this page has that problem.
+ */
+const ERA_GUIDE = {
+  Base: ["/base-set.html", "1st Edition, Shadowless or Unlimited? Telling the 1999 Base Set printings apart"],
+};
+
 // Group, keeping the sync's oldest-first order inside each era.
 const byEra = new Map(seriesOrder.map((s) => [s, []]));
 for (const s of sets) byEra.get(s.series)?.push(s);
@@ -192,6 +210,11 @@ function eraTable(e) {
     }</p>
     <h2>${esc(e.name)} <span class="xp-count">${e.list.length} set${e.list.length === 1 ? "" : "s"}</span></h2>
     ${ERA_NOTE[e.name] ? `<p class="xp-note">${esc(ERA_NOTE[e.name])}</p>` : ""}
+    ${
+      ERA_GUIDE[e.name]
+        ? `<p class="xp-note"><a href="${esc(ERA_GUIDE[e.name][0])}">${esc(ERA_GUIDE[e.name][1])}</a></p>`
+        : ""
+    }
     </div>
     <!-- tabindex="0" AND role/aria-label, because an overflowing box a keyboard
          cannot reach is content a keyboard cannot read.

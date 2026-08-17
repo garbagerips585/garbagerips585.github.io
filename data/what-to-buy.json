@@ -1,0 +1,319 @@
+{
+  "_readme": [
+    "What somebody standing in a shop should actually buy, and what it should cost.",
+    "",
+    "THE READER IS A PARENT IN AN AISLE, or somebody who has just decided to get",
+    "into this, holding a phone, looking at a wall of boxes between nine dollars",
+    "and four hundred. They do not know what an ETB is. They do not know why one",
+    "box is $10 and another is $180. They do not know that the $300 booster box on",
+    "a big retailer's website is somebody else's listing rather than the shop's.",
+    "Tim ends up explaining this in shops, out loud, to strangers. This is that",
+    "conversation.",
+    "",
+    "---------------------------------------------------------------- the rule",
+    "",
+    "THIS FILE HOLDS NO PRICES AND MUST NEVER HOLD ONE. Every figure the page",
+    "prints is joined out of data/msrp.json by the exact `label` string, and every",
+    "pack count out of data/pack-counts-current.json through that row's",
+    "`packsFrom`. A label this file names that msrp.json does not carry FAILS THE",
+    "BUILD, and so does a `pick` pointing at a row with no sourced price. That is",
+    "the whole point of naming products instead of describing them: /msrp.html and",
+    "this page cannot print different numbers for the same box, and the day",
+    "somebody re-reads a source and edits msrp.json, this page moves with it or",
+    "stops the build.",
+    "",
+    "IT HOLDS NO PRODUCT DESCRIPTIONS EITHER. The sentence saying what a thing IS",
+    "comes from that row's `what` in msrp.json, for the same reason. What this file",
+    "owns is WHY somebody would buy it, in the second person, which is the only",
+    "part /msrp.html has no business carrying: that page is a price list and this",
+    "one is a recommendation.",
+    "",
+    "NO PULL RATES, NO ODDS, NO INVESTMENT. Site-wide rule and it bites hardest",
+    "here, because a page advising a parent is exactly where 'and it might be worth",
+    "something one day' wants to creep in. Nothing here says what is in a pack, how",
+    "likely anything is, or that any of it is worth buying as anything other than a",
+    "thing to open and play with. Do not add a sentence about holding sealed.",
+    "",
+    "NO GATEKEEPING, AND IT IS THE OPERATIVE WORD. Never write a sentence that",
+    "makes a reader feel stupid for not knowing a word. Every piece of jargon gets",
+    "its plain-English meaning in the same breath, the first time, every time. If a",
+    "sentence would make somebody put their phone away rather than ask, rewrite it.",
+    "",
+    "-------------------------------------------------------------- the fields",
+    "",
+    "situations[]   the six shapes of person who asks. Each has:",
+    "  id           an anchor, kebab case",
+    "  who          the headline, in the reader's own words",
+    "  sub          the situation, so somebody can recognise themselves in it",
+    "  picks[]      { product, why } where `product` is an exact msrp.json label",
+    "               and `why` is one or two sentences of second-person reason.",
+    "               The product must carry a sourced price. First pick is the",
+    "               recommendation, later ones are the alternative.",
+    "  links[]      [href, label] internal cross references, optional",
+    "",
+    "quick[]        the three-line strip at the very top, above everything. Exact",
+    "               msrp.json labels plus a `for` clause of about six words. THESE",
+    "               ARE THE FIRST CONCRETE RECOMMENDATIONS ON THE PAGE AND THEY",
+    "               HAVE TO CLEAR THE FOLD ON A 390px PHONE, which is why they",
+    "               carry no photograph and no more than one clause each. Anything",
+    "               added to a row here comes out of that budget. Measured.",
+    "",
+    "glossary[]     { product, plain } where `plain` is the beginner gloss in this",
+    "               page's voice. The formal description comes from msrp.json's own",
+    "               `what` and is printed under it. Ordered smallest to biggest,",
+    "               deliberately: a shelf reads left to right and a beginner meets",
+    "               the pack before the box.",
+    "",
+    "avoid[]        { title, body[], product? }. `product` names an msrp.json row",
+    "               so the section can print the suggested figure it is arguing",
+    "               about. body is paragraphs; the builder does the arithmetic.",
+    "",
+    "reseller       the marketplace section. `evidence` is NOT written here: the",
+    "               builder reads data/buying.json, which already records each",
+    "               chain's own return and shipping pages with the url and the day",
+    "               they were read, and pulls the marketplace lines out of it. Do",
+    "               not paste a claim about a retailer in here.",
+    "",
+    "counter        the ask-an-employee section. No claim about any named shop.",
+    "playing        which products contain a deck you can actually play with.",
+    "               `products` are msrp.json labels; the page prints them with",
+    "               their prices and links /how-to-play.html.",
+    "",
+    "-------------------------------------------------------------- the voice",
+    "",
+    "No em dashes anywhere in site copy. Second person. Short sentences. It is",
+    "allowed to be funny and it is not allowed to be clever at the reader's",
+    "expense."
+  ],
+  "written": "2026-08-17",
+
+  "quick": [
+    {
+      "product": "Mini tin",
+      "for": "the cheap one that still feels like a present"
+    },
+    {
+      "product": "Booster Bundle",
+      "for": "when the fun is opening packs and nothing else"
+    },
+    {
+      "product": "Elite Trainer Box",
+      "for": "the big birthday box with everything in it"
+    }
+  ],
+
+  "situations": [
+    {
+      "id": "young-kid",
+      "who": "A present for a young kid",
+      "sub": "Five, six, seven. They love Pokemon, they have never opened a pack, and they have definitely never played the game. You want the thing that will not confuse them.",
+      "picks": [
+        {
+          "product": "My First Battle",
+          "why": "This is the one. It is built for somebody who has never played anything, it works straight out of the box with no rules to learn first, and it is the cheapest thing on this page. A grown up can sit down with them and play it in about ten minutes."
+        },
+        {
+          "product": "Mini tin",
+          "why": "If what they actually want is the opening bit, get this instead. Two packs, a promo card, and a tin they will still be keeping pencils in when they are fifteen."
+        }
+      ],
+      "links": [["/how-to-play.html", "How the game works"]]
+    },
+    {
+      "id": "already-opening",
+      "who": "A kid who already collects and just wants to open stuff",
+      "sub": "They know what they are doing. They have a binder. What they want is more packs, and everything you hand them that is not a pack is going in a drawer.",
+      "picks": [
+        {
+          "product": "Booster Bundle",
+          "why": "Packs and nothing else. No dice they will lose, no board they will not use, no sleeves they will not put on. At the suggested prices a pack in here costs exactly what a pack in the giant thirty six pack box costs, so this is the cheap way to buy packs without committing to a whole box."
+        },
+        {
+          "product": "Three-pack blister",
+          "why": "The half sized version of the same idea, and the one that hangs on a peg where you can actually reach it. It has a promo card showing through the front, so there is one card they can see before you buy it."
+        }
+      ],
+      "links": [["/openings/", "See each one opened"]]
+    },
+    {
+      "id": "wants-to-play",
+      "who": "Somebody who wants to actually play the game",
+      "sub": "A kid whose friends play at school, or a grown up who has decided this year is the year. They need two decks and the rules, not a pile of loose cards.",
+      "picks": [
+        {
+          "product": "Battle Academy",
+          "why": "Three finished decks, a board, counters and a rulebook, and not a single booster pack, which is the entire point. You cannot learn this game out of booster packs, and almost everything else on that shelf is booster packs. Two people can open this and be playing in twenty minutes."
+        }
+      ],
+      "links": [["/how-to-play.html", "The rules, short version"], ["/tcg-live.html", "The free official app"]]
+    },
+    {
+      "id": "already-plays",
+      "who": "A kid who already plays and wants a proper deck",
+      "sub": "They have played, they know what a Trainer card does, and the deck they built out of packs is sixty cards of chaos that loses to everything.",
+      "picks": [
+        {
+          "product": "League Battle Deck",
+          "why": "A finished sixty card deck, built to be played, with the sleeves, dice and counters to play it. Open it, shuffle it, take it to a league night. Nothing to build and nothing missing."
+        },
+        {
+          "product": "V Battle Deck",
+          "why": "The cheaper one. Smaller box, one big card at the centre of it, and still a real deck rather than a pile you have to finish yourself."
+        }
+      ],
+      "links": [["/shops.html", "Shops with a league night"], ["/decks.html", "Decks people actually play"]]
+    },
+    {
+      "id": "big-present",
+      "who": "The big present, one box with everything in it",
+      "sub": "Birthday, Christmas, end of a hard term. You want to hand over one box that is obviously A Present and not have to explain what any of it is.",
+      "picks": [
+        {
+          "product": "Elite Trainer Box",
+          "why": "This is the birthday box and it is why everybody keeps saying those three letters at you. Packs to open, a lidded box to keep the cards in afterwards, sleeves so the good ones stop getting bent, dice and counters for when they start playing. It is the only product that covers the opening and the keeping and the playing in one go."
+        },
+        {
+          "product": "Pokemon Center Elite Trainer Box",
+          "why": "Pokemon's own version of the same box: a couple of extra packs and a stamped promo card you cannot get in the shop one. It costs a bit more and it has to be ordered rather than carried home, so it is a plan-ahead present rather than a Saturday one."
+        }
+      ],
+      "links": [["/msrp.html", "What every box should cost"]]
+    },
+    {
+      "id": "tight-budget",
+      "who": "Under fifteen dollars",
+      "sub": "A stocking, a party bag, a reward for a decent report card, or just this is what there is this week. Nobody should feel bad about this bracket. It is where most of the fun is anyway.",
+      "picks": [
+        {
+          "product": "Mini tin",
+          "why": "The best ten dollars on the shelf. Two packs, a promo card and a tin that survives a school bag. It also stacks, which matters more than you would think when there are four of them."
+        },
+        {
+          "product": "Three-pack blister",
+          "why": "A few dollars more buys three packs and a promo card you can see through the front before you pay for it. Per pack it works out a shade above a bundle, and it is the smallest thing on the shelf that still unwraps like a proper present."
+        }
+      ],
+      "links": [["/pack-prices.html", "What a pack costs across every set"]]
+    }
+  ],
+
+  "oneCard": {
+    "title": "They want one specific card",
+    "body": [
+      "Then buy that card. Not packs. Somebody already opened the packs, and the card they want is sitting on a shelf somewhere with a price on it, which is a thing you can do in an afternoon instead of a thing you might do in a year.",
+      "It is one of the most expensive mistakes in the whole hobby and it gets made with the best intentions every single time."
+    ],
+    "links": [["/cards.html", "Look the card up"], ["/pokemon/", "Browse by Pokemon"]]
+  },
+
+  "glossary": [
+    {
+      "product": "Loose booster pack",
+      "plain": "A booster pack. One sealed foil packet of cards. This is the atom: nearly everything else on the shelf is a box with some of these inside it, plus something extra, and the whole game of working out what a box is worth is counting the packs."
+    },
+    {
+      "product": "Three-pack blister",
+      "plain": "A blister. The plastic-fronted card that hangs on a peg, with packs behind it and usually a promo card and sometimes a coin showing through the front. Nobody outside the hobby has ever used the word blister for this and it is not your fault for not knowing it."
+    },
+    {
+      "product": "Mini tin",
+      "plain": "A tin. A small metal one, with packs and a promo inside. Tins come in about four sizes and the small one is the cheap one; the bigger tins hold more and cost more, and they are all just tins."
+    },
+    {
+      "product": "Booster Bundle",
+      "plain": "A bundle. A sleeve of packs, shrink wrapped, and genuinely nothing else in the box. If somebody says the word bundle at you, this is what they mean."
+    },
+    {
+      "product": "Elite Trainer Box",
+      "plain": "An ETB, and here is the thing nobody bothers to tell you: it is a cardboard box with a lid, with packs in it and the bits for looking after cards. Sleeves, dice, counters, a place to put them. That is the whole mystery. Everybody says ETB because saying Elite Trainer Box out loud takes too long."
+    },
+    {
+      "product": "Battle Academy",
+      "plain": "The learn to play box, and the only thing here that is a board game rather than a pile of packs. If the goal is to play rather than to open, this is the shelf you want."
+    },
+    {
+      "product": "Build and Battle Box",
+      "plain": "The prerelease box, which is a shop-event thing that also sells normally. It is the one product that is both: a deck you can play with today and packs to open on the way."
+    },
+    {
+      "product": "Booster box",
+      "plain": "A booster box, sometimes called a display box, because it is the box a shop opens to fill the shelf you are standing at. Thirty six packs. This is the big one and there is a section below about why it is almost never the right first purchase."
+    }
+  ],
+
+  "avoid": [
+    {
+      "id": "not-the-box",
+      "product": "Booster box",
+      "title": "Do not start with a booster box",
+      "body": [
+        "It is the biggest thing on the shelf, so it looks like the serious purchase, and every restock video on the internet is somebody buying one. It is the wrong first buy for almost everybody and the reason is not the one people assume.",
+        "It is not a bulk discount. The arithmetic is below and it is the same price a pack either way, so what the big box actually buys you is thirty six packs at once, opened in one sitting, and then it is over. Two bundles across two months is the same packs and about six weeks more fun.",
+        "Buy one because you want to open thirty six packs on a Friday night. That is a real reason and it is a completely different reason from thinking it is the sensible way to buy."
+      ]
+    },
+    {
+      "id": "not-the-counter-pack",
+      "product": "Sleeved booster pack",
+      "title": "Do not grab one pack off the peg by the till",
+      "body": [
+        "Here is the surprise. The suggested price of one pack is exactly the same as the price of a pack inside a bundle or inside the giant box. On paper the single pack is not a rip off at all.",
+        "What happens in real life is that the markup lands hardest on the smallest thing, because a few dollars on a peg item is the amount nobody argues about. The one shop listing this site has written down for a single pack, below, was more than double the suggested figure, and it is the worst multiple of any listing on this site.",
+        "So the rule is not that packs are bad. It is that the impulse buy at the counter, with a kid pulling on your sleeve, is where you are least likely to check and most likely to pay double. Walk ten feet to the peg with the three-pack blister on it and check both."
+      ]
+    },
+    {
+      "id": "not-a-mystery-box",
+      "title": "Do not buy a mystery box or a repack",
+      "body": [
+        "A mystery box, a mystery pack, a repack, a hundred cards with a guaranteed hit: none of these is a Pokemon product. The Pokemon Company does not make them. Somebody bought cards, chose which ones go in, sealed the bag themselves and priced it.",
+        "That is not automatically a scam and some are made by perfectly honest people. It is just that you are no longer buying a sealed product from the company that printed the cards, you are buying a stranger's judgement about what to put in a bag, and there is no way to check it from the outside.",
+        "The test is easy: if you cannot find the exact product in a shop that sells Pokemon, it is somebody's own creation. Every product on this page is one the manufacturer makes and sells itself."
+      ],
+      "links": [["/fake-cards.html", "Spotting fakes and resealed product"]]
+    }
+  ],
+
+  "reseller": {
+    "title": "The one thing almost nobody knows",
+    "lede": "If you take one thing off this page, take this. It is worth more money to you than everything above it.",
+    "body": [
+      "The big retailers' websites are two things wearing one page. They are the shop, selling the shop's own stock at the shop's own price, and they are also a marketplace, where other companies list their own goods on the same site and set their own prices.",
+      "So when the shop's own stock of a box sells out, the page does not go empty. It fills up with other people's listings of the same box, at whatever they feel like asking. The site looks identical. The logo is the same. The price is not.",
+      "That is why a box can show up at a genuinely shocking number on a website you have used for years, on a page that looks completely normal. The shop has not put its prices up. That is a stranger's price sitting on the shop's website.",
+      "The tell is printed on every listing and almost nobody reads it: look for who it is sold by and who ships it. If either line is a company name you have never heard of, you are buying from that company and not from the shop. The return window is usually shorter too, which is its own warning sign about who is actually on the hook.",
+      "What to do about it is boring and it works. Do not pay it. Stock comes back, usually weekly, and the shop's own price comes back with it. A box that is unavailable this week is still a box, and paying several times the suggested price for one because the page had a familiar logo on it is the most common way somebody new to this loses money."
+    ],
+    "links": [
+      ["/drops.html", "When stock actually lands"],
+      ["/buying.html", "Every venue, and what it costs a buyer"],
+      ["/msrp.html", "What it should have cost"]
+    ]
+  },
+
+  "counter": {
+    "title": "An empty shelf does not mean no stock",
+    "body": [
+      "Cards get stolen, so a lot of shops now keep them behind the counter, in a locked case, or in a back room, and put nothing at all in the aisle where they used to be. Plenty of people walk the empty aisle, decide there is none, and leave.",
+      "Ask somebody who works there. That is the whole trick. Ask if there is any Pokemon behind the counter, ask when the truck comes, ask what day they put it out. Nobody is going to laugh at you and most of them will just tell you.",
+      "The same goes for a proper card shop, where the good stuff is behind glass by definition. Walking in and saying you have no idea what you are doing and it is for a seven year old is a completely normal thing to say in a card shop, and it gets you better advice than any website including this one."
+    ],
+    "links": [["/shops.html", "Card shops around Rochester"], ["/card-shows.html", "Card shows nearby"]]
+  },
+
+  "playing": {
+    "title": "If the point is to play the game",
+    "body": [
+      "Most of the shelf does not contain a deck you can play with. Packs are loose cards, and a pile of loose cards is not a deck any more than a bucket of Lego is a spaceship. If somebody wants to play, you need a product that has finished decks in it, and there are only a few.",
+      "Everything else on this page is for opening and collecting, which is a completely valid thing to want. Just do not buy an Elite Trainer Box for somebody who asked to learn how to play and wonder why they are stuck."
+    ],
+    "products": [
+      "My First Battle",
+      "Battle Academy",
+      "V Battle Deck",
+      "League Battle Deck",
+      "Build and Battle Box"
+    ],
+    "links": [["/how-to-play.html", "How to play, short version"], ["/tcg-live.html", "The free official app"]]
+  }
+}

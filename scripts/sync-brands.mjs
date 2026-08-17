@@ -121,6 +121,29 @@ const MARKS = {
   // Nord one because the title reads simpler would be the wrong company.
   aldi: ["File:Aldi Süd 2017 logo.svg", "Aldi"],
   walgreens: ["File:Walgreens Logo.svg", "Walgreens"],
+  // The physical retailers on /retailers.html and its per-shop pages. Target,
+  // Walmart, Best Buy and Costco are already above, because /buying.html names
+  // them too, and the ids are shared deliberately: one mirrored file per company
+  // however many pages describe it.
+  //
+  // THESE ARE THE ONES A DIRECTORY NEEDS AND A COMPARISON PAGE DOES NOT. A
+  // reader scanning eleven shops for the one they are standing outside finds it
+  // by its mark long before they find it by its name, which is the whole
+  // argument at the top of this file applied to a longer list.
+  //
+  // ANY OF THEM THAT COMMONS HAS NOTHING FOR FALLS BACK TO THE NAME TILE, and
+  // that is not a gap to close later with a favicon: the measurement is in the
+  // block above, favicons come back 16x16 and an upscaled one beside a vector
+  // wordmark looks worse than no mark. Every retailer page also carries an
+  // inline drawn diagram, so a page whose mark misses still has something
+  // visual and still passes check-build.py's rule.
+  gamestop: ["File:GameStop.svg", "GameStop"],
+  cvs: ["File:CVS Health Logo.svg", "CVS Health"],
+  meijer: ["File:Meijer logo.svg", "Meijer"],
+  dollargeneral: ["File:Dollar General logo.svg", "Dollar General"],
+  fivebelow: ["File:Five Below logo.svg", "Five Below"],
+  barnesandnoble: ["File:Barnes & Noble logo.svg", "Barnes & Noble"],
+  staples: ["File:Staples Logo.svg", "Staples"],
 };
 
 const api = async (params) => {
@@ -141,6 +164,30 @@ const api = async (params) => {
  * A ViewBox IS ADDED WHEN ONE IS MISSING, from width/height, because the
  * builder sizes these with CSS inside a fixed box: an SVG with no viewBox and
  * no intrinsic ratio collapses to 300x150 in a contain box and the mark shears.
+ *
+ * -------------------------------------------------------------------------
+ * THE CLEANER SHIPPED A MARK THAT COULD NOT BE PARSED AT ALL, and it did it
+ * silently, which is why there is now a guard under this function as well as
+ * two more replacements inside it. GameStop's Commons file carries an
+ * <inkscape:perspective> ELEMENT inside its <defs>, and the pass below stripped
+ * the xmlns:inkscape DECLARATION off the root while leaving that element behind.
+ * SVG is XML: a prefixed element with no namespace in scope is a parse error, so
+ * the browser threw the whole document away. The file was a valid-looking 11.8KB
+ * on disk, the <img> tag was correct, nothing errored in the build, and the mark
+ * rendered as an empty box. Caught only by reading naturalWidth off the decoded
+ * image in a headless browser: it was 0.
+ *
+ * TWO SEPARATE FAULTS, and both are fixed here rather than by special-casing
+ * one file.
+ *
+ *   1. THE ATTRIBUTE PATTERN COULD NOT MATCH HALF THE ATTRIBUTES IT WAS AIMED
+ *      AT. It read [a-zA-Z-]+, and Inkscape writes inkscape:output_extension,
+ *      which has an underscore in it, so that attribute survived every clean
+ *      this script has ever done. [\w-]+ is what was meant.
+ *   2. NOTHING REMOVED PREFIXED ELEMENTS, only prefixed attributes and the one
+ *      hardcoded <sodipodi:namedview>. The general form has to go, in both the
+ *      self-closing and the paired shape, and BEFORE the xmlns declarations are
+ *      taken off, or step 2 is what creates the parse error step 3 hides.
  */
 function clean(svg) {
   let s = svg
@@ -149,7 +196,13 @@ function clean(svg) {
     .replace(/<!--[\s\S]*?-->/g, "")
     .replace(/<metadata[\s\S]*?<\/metadata>/gi, "")
     .replace(/<sodipodi:namedview[\s\S]*?(\/>|<\/sodipodi:namedview>)/gi, "")
-    .replace(/\s(?:inkscape|sodipodi):[a-zA-Z-]+="[^"]*"/g, "")
+    // Editor-state ELEMENTS, self-closing then paired, and looped because they
+    // nest: <inkscape:perspective> sits inside a <defs> beside real content and
+    // the paired form can contain another one of its own kind.
+    .replace(/<(inkscape|sodipodi|rdf|cc|dc):[\w-]+\b[^>]*\/>/gi, "")
+    .replace(/<(inkscape|sodipodi|rdf|cc|dc):([\w-]+)\b[\s\S]*?<\/\1:\2>/gi, "")
+    .replace(/<(inkscape|sodipodi|rdf|cc|dc):[\w-]+\b[^>]*\/>/gi, "")
+    .replace(/\s(?:inkscape|sodipodi):[\w-]+="[^"]*"/g, "")
     .replace(/\sxmlns:(?:inkscape|sodipodi|rdf|cc|dc|svg)="[^"]*"/g, "")
     // Framework and editor leftovers on the root tag. TCGplayer's file arrives
     // with a Vue scope attribute and a class from the page it was exported off,
@@ -213,6 +266,34 @@ function clean(svg) {
 const VIEWBOX = (svg) => {
   const m = /viewBox="\s*([-\d.]+)[,\s]+([-\d.]+)[,\s]+([-\d.]+)[,\s]+([-\d.]+)\s*"/i.exec(svg);
   return m ? [+m[3], +m[4]] : null;
+};
+
+/**
+ * Would a browser be able to parse this at all?
+ *
+ * ADDED AFTER A MARK SHIPPED THAT COULD NOT BE, and the check is deliberately
+ * the narrow one rather than a real XML parse. SVG is XML, so a namespace prefix
+ * used with no xmlns for it in scope is fatal to the whole document, and that is
+ * exactly the failure the cleaner above can create by stripping a declaration
+ * and leaving a node behind. Everything else Commons ships is well-formed by the
+ * time it is uploaded.
+ *
+ * A FILE THAT FAILS IS NOT WRITTEN, so the venue falls back to the name tile,
+ * which is the same fallback a network error and a changed licence already get.
+ * A blank 34px box on a page is worse than an honest hatched name, and it is
+ * worse than both to have no way of telling the two apart from the build log.
+ */
+const prefixesOk = (svg) => {
+  // "xmlns" IS NOT A PREFIX AND EXCLUDING IT IS NOT A FUDGE. xmlns:xlink="..."
+  // matches the attribute pattern below exactly, so a first version of this
+  // rejected four perfectly good files for declaring a namespace, which is the
+  // one thing that makes a prefix legal. xml and xlink are bound by the spec and
+  // need no declaration.
+  const declared = new Set(["xml", "xlink", "xmlns"]);
+  for (const m of svg.matchAll(/xmlns:([\w-]+)=/g)) declared.add(m[1]);
+  for (const m of svg.matchAll(/<\/?([\w-]+):/g)) if (!declared.has(m[1])) return m[1];
+  for (const m of svg.matchAll(/\s([\w-]+):[\w-]+="/g)) if (!declared.has(m[1])) return m[1];
+  return null;
 };
 
 const exists = (p) => stat(p).then(() => true).catch(() => false);
@@ -290,6 +371,14 @@ for (const id of ids) {
     await writeFile(join(CACHE, `${id}.src.svg`), raw);
     const out = clean(raw);
     if (!/^<svg/i.test(out)) throw new Error("not an svg after cleaning");
+    const bad = prefixesOk(out);
+    if (bad) {
+      throw new Error(
+        `namespace prefix "${bad}:" is used with no xmlns:${bad} in scope, so no browser will ` +
+          `render this file. It is the cleaner's fault, not the upload's: fix clean() rather than ` +
+          `this one file.`
+      );
+    }
     await writeFile(dest, out + "\n");
     const vb = VIEWBOX(out);
     manifest.marks[id] = {

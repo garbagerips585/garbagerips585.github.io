@@ -741,6 +741,19 @@ ${(d.offLadder || []).map(offLadderRow).join("\n")}
             That box is the quickest way to tell it from a 2003 one.</p></div>
       </div>
 
+      ${/* THE 1999 READER, who is a big share of the people this section is
+            written for. Everything on this page reads a symbol printed on the
+            card. Base Set prints no expansion symbol at all and its three print
+            runs carry no rarity difference between them, so a reader who came
+            back after twenty years and works through the ladder above gets no
+            answer for the card they are most likely to be holding. That is a
+            different check and it has its own page. */ ""}
+      <p class="rg-p" style="margin-top:var(--s5)"><b>If what you kept is from 1999, none of the above applies to
+        it.</b> Base Set has no set symbol in the corner, and what decides its value is which of the three print
+        runs it came from: 1st Edition, Shadowless or Unlimited. That is a stamp and a drop shadow rather than a
+        star, and it is on <a href="/base-set.html">its own page</a>, magnified on a real card the same way these
+        corners are.</p>
+
       <h2 style="margin-top:var(--s6)">Everything that came and <span class="hl">went</span></h2>
       <p class="rg-p">If you remember any of these, they are all out of print. None of them are coming
         out of a pack you buy today.</p>

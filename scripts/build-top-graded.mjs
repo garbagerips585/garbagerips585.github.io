@@ -70,38 +70,47 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, longDate, shortDate, moneyCompact, imgDims, avifPicture, noValue } from "../shared/format.mjs";
+import { gradedGate } from "../shared/graded-gate.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/top-graded.json"), "utf8"));
 
 // ---------------------------------------------------------------------------
-// GATES. All three are hard failures rather than warnings, because every one of
-// them is a way this page could publish a number nobody can stand behind.
-if (!d.verify) {
-  throw new Error(
-    "data/top-graded.json has no `verify` block.\n" +
-      "Run: node scripts/verify-graded-top.mjs\n" +
-      "Nothing here is publishable on a single read: see the column mix-up in " +
-      "data/top-graded-PLAN.md, trap 4.",
-  );
-}
-if (d.verify.for !== d.checked) {
-  throw new Error(
-    `verification is stale: it was stamped for a crawl of ${d.verify.for} and ` +
-      `the data is from ${d.checked}. Re-run scripts/verify-graded-top.mjs.`,
-  );
-}
-if (d.verify.disagree > 0) {
-  throw new Error(
-    `${d.verify.disagree} row(s) disagree between the listing page and the ` +
-      `product page. Fix the parse or drop them; do not publish either number.`,
-  );
-}
+// GATES. All hard failures rather than warnings, because every one of them is a
+// way this page could publish a number nobody can stand behind. They live in
+// shared/graded-gate.mjs because /base-set.html prices the same file and the two
+// pages must not be able to disagree about which rows are publishable.
+//
+// THE THIRD GATE USED TO BE `if (d.verify.disagree > 0) throw`, A COUNT. It is
+// now a MATCH, and the difference matters. A count cannot tell an unexplained
+// disagreement from one somebody has looked at and written down, so the only
+// ways past it were to fix the parse, delete the row from the data, or force it
+// to "agree" by hand. The last two are silent, and the first is not available
+// when the parse turns out to be correct.
+//
+// It turned out to be correct. `verify-graded-top.mjs --all` on 17 August 2026
+// re-read all 400 rows rather than the default 120 and returned 399 agree, 1
+// disagree, 0 unreadable, 0 missing a scan. The one disagreement is #175 Omastar
+// [Masaki Promo] #139 (Japanese Vending), listing 20500 against product
+// 32530.59, and PriceCharting's own "dollar change from last update" on that
+// cell is +$12,030.59: 32,530.59 - 12,030.59 = 20,500.00, the listing figure, to
+// the cent. Across all 400 rows, 370 read identical on both page types and the
+// other 30 all reconcile the same way, with none left over. So the row is a
+// price that moved on a card PriceCharting says sells twice a year in that
+// grade, not a column read wrongly, and the full working is in
+// shared/graded-gate.mjs beside the gate.
+//
+// It is still not publishable: two correct readings $12,030 apart give no basis
+// for printing either. So it is excluded BY NAME AND BY BOTH FIGURES in the
+// top-level `excluded` array of data/top-graded.json, and an unexplained
+// disagreement still stops this build exactly as it did before.
+const { verified: okRank } = gradedGate(d);
 
 // Rows that verified, in rank order. A row the verifier could not read is NOT
-// published: an unreadable second source is not a confirmation, and this page's
-// whole argument is that the figure was read twice.
-const okRank = new Map(d.verify.rows.map((r) => [r.rank, r]));
+// published, and neither is one that disagreed: an unreadable or contradicted
+// second source is not a confirmation, and this page's whole argument is that
+// the figure was read twice. The filter below is unchanged by the exclusion
+// mechanism, which decides whether the BUILD proceeds and never what it prints.
 const rows = d.cards
   .filter((c) => okRank.get(c.rank)?.status === "agree")
   .slice(0, 100);
@@ -122,6 +131,29 @@ const pathOf = (c) => c.url.replace(/^https?:\/\/(www\.)?pricecharting\.com/, ""
 const desc =
   `The ${rows.length} highest PSA 10 values in Pokemon, ranked from PriceCharting's ` +
   `price guide and read on ${readShort}. Every row shows the source and the date. Prices move.`;
+
+// A ROW THAT DID NOT AGREE IS ADMITTED TO RATHER THAN QUIETLY MISSING, which is
+// the same call /base-set.html makes with its list of what it could not check.
+// The sentence is derived rather than typed: the count, the plural and the claim
+// that the row sits below this list are all read off the data, because the one
+// figure a reader never sees is the one that goes stale in silence. `excluded`
+// is checked against the verification by shared/graded-gate.mjs above, so by the
+// time this runs every entry is known to describe a real disagreement.
+// The REASON is the entry's own `public` string rather than a sentence written
+// here, so an exclusion made later for a different reason cannot inherit this
+// one's explanation. No `public` string, no sentence: a vague admission would be
+// worse than the honest count above it, which stands on its own either way.
+const exc = d.excluded || [];
+const excNote =
+  !exc.length || exc.some((e) => !e.public)
+    ? ""
+    : " " +
+      exc
+        .map(
+          (e) =>
+            `Number ${e.rank}, ${esc(e.name)}, is printed nowhere on this site: ${esc(e.public)}.`,
+        )
+        .join(" ");
 
 function row(c, i) {
   const v = okRank.get(c.rank);
@@ -315,7 +347,7 @@ ${MENU}
       <b>${d.scanned.consoles}</b> sets, of which
       <b>${d.scanned.productsWithPsa10.toLocaleString("en-US")}</b> had a PSA 10 value at all. Each row was
       read twice, once from the set listing and once from the card's own page, and
-      <b>${d.verify.agree}</b> of ${d.verify.checked} checked agreed. Paths below are all on pricecharting.com.</p>
+      <b>${d.verify.agree}</b> of ${d.verify.checked} checked agreed.${excNote} Paths below are all on pricecharting.com.</p>
 
     ${short ? `<div class="fk-golden" style="margin-top:20px">
       <p class="fk-golden-h">Short list, on purpose</p>

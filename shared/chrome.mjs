@@ -137,6 +137,17 @@ export const NAV = [
   ]],
   ["Guides", [
     ["/start.html", "Start here"],
+    // Straight after Start here because the two are a pair: that page is "I am
+    // holding a card, what now", this one is "I am holding a wallet, what now".
+    // "Beginner" is the distinguishing noun, front-loads, and appears nowhere
+    // else in this menu, so it cannot be confused with "Where to buy" (online
+    // venues), "Stores that sell cards" (the pavement), "MSRP check", "Packs
+    // per box" or "Sealed products".
+    //
+    // The page exists because of something Tim said: he ends up helping people
+    // in shops all the time, because a parent facing a wall of boxes from $10
+    // to $180 has no way to tell which is right or what it should cost.
+    ["/what-to-buy.html", "Beginner buys"],
     // Immediately after Start here, because the two are a pair: that page is
     // "I am holding a card, what now", this one is "what is the game the cards
     // are for". Deliberately NOT added to BAR_LINKS: the bar is five links and
@@ -206,6 +217,16 @@ export const NAV = [
     // after grading: the two together answer "what do I do with this card".
     ["/selling.html", "Where to sell"],
     ["/buying.html", "Where to buy"],
+    // Beside "Where to buy" because they are the same question asked in two
+    // places: that page answers it ONLINE (shipping thresholds, buyer fees,
+    // claim windows) and this one answers it on a pavement. "Stores" is the
+    // distinguishing noun and front-loads; "Where to buy" keeps the online
+    // half, so the pair reads as two destinations rather than one page split.
+    //
+    // It is also the parent of nine per-retailer pages, which are reached from
+    // the directory and deliberately not listed here: a menu line each would be
+    // nine lines competing with the page that already indexes them.
+    ["/retailers.html", "Stores that sell cards"],
     // Next to selling because they are one question asked from either end, and
     // the labels have to stay this literal: "Buying guide" and "Selling guide"
     // would read as two halves of one document rather than two destinations.
@@ -243,6 +264,18 @@ export const NAV = [
     // own breadcrumb. A menu line would put it in competition with the page it
     // belongs to.
     ["/evolution.html", "Evolution chart"],
+    // THIS WAS DELIBERATELY LEFT OUT OF THE NAV AND THAT WAS WRONG. The
+    // argument was that it is one entry from the chart and a menu line would
+    // put it in competition with the page it belongs to. What actually
+    // happened is that nothing on the site linked to it at all: an SEO audit
+    // found 1,849 indexable words sitting in the sitemap and invisible to any
+    // crawler following links.
+    //
+    // It also earns the line on its own. Eight branches from one species, each
+    // with a different trigger, is among the most searched things in Pokemon,
+    // and "how do I get Umbreon" is asked as its own question rather than as a
+    // browse through a chart. "Eevee" is unique in this menu and front-loads.
+    ["/eevee-evolutions.html", "Eevee evolutions"],
   ]],
   ["Rochester, NY", [
     // Shops and shows sit next to each other deliberately: they answer the same

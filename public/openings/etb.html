@@ -170,6 +170,7 @@ border:1px solid var(--hair);border-radius:6px}
         <li><a href="/expansions.html">Every set ever</a></li>
         <li><a href="/upcoming.html">Coming next</a></li>
         <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/msrp.html">MSRP check</a></li>
         <li><a href="/pack-prices.html">Pack prices</a></li>
         <li><a href="/how-many-packs.html">Packs per box</a></li>
         <li><a href="/openings/">Sealed products</a></li>
@@ -183,6 +184,7 @@ border:1px solid var(--hair);border-radius:6px}
       <p class="menu-h">Guides</p>
       <ul>
         <li><a href="/start.html">Start here</a></li>
+        <li><a href="/what-to-buy.html">Beginner buys</a></li>
         <li><a href="/how-to-play.html">How to play</a></li>
         <li><a href="/tcg-live.html">Code cards</a></li>
         <li><a href="/tcg-pocket.html">Phone version</a></li>
@@ -190,12 +192,14 @@ border:1px solid var(--hair);border-radius:6px}
         <li><a href="/top-100-playable.html">Most played cards</a></li>
         <li><a href="/what-set.html">Set finder</a></li>
         <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/base-set.html">Base Set prints</a></li>
         <li><a href="/types.html">Card types</a></li>
         <li><a href="/fake-cards.html">Fakes</a></li>
         <li><a href="/will-it-grade.html">Will it grade</a></li>
         <li><a href="/grading.html">Grading cost</a></li>
         <li><a href="/selling.html">Where to sell</a></li>
         <li><a href="/buying.html">Where to buy</a></li>
+        <li><a href="/retailers.html">Stores that sell cards</a></li>
         <li><a href="/luck.html">Luck, measured</a></li>
       </ul>
     </div>
@@ -205,6 +209,8 @@ border:1px solid var(--hair);border-radius:6px}
         <li><a href="/games/">Games</a></li>
         <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
+        <li><a href="/evolution.html">Evolution chart</a></li>
+        <li><a href="/eevee-evolutions.html">Eevee evolutions</a></li>
       </ul>
     </div>
     <div class="menu-g">
@@ -244,7 +250,14 @@ border:1px solid var(--hair);border-radius:6px}
         <div class="op-f"><span class="n">5</span><span class="l">Different sets</span></div>
       </div>
 
-      <h3 class="op-sh">Which sets we opened these from</h3>
+      <!-- h2, not h3, and the class is what makes that free. This was an h3
+           sitting between the page's h1 and the h2 below it, so all 13 openings
+           pages jumped h1 -> h3 -> h2: the only skipped heading level on the
+           site outside the playlist pages. .op-sh sets font, size, line-height
+           and margin itself and ui.css has no bare h2 or h3 rule, so the tag
+           swap is semantic only and the page renders to the pixel as before.
+           Verified by screenshot rather than assumed. -->
+      <h2 class="op-sh">Which sets we opened these from</h2>
       <ul class="op-sets">
         <li class="op-sr"><a href="/sets/chaos-rising.html">
           <span class="op-sw"><img class="op-sl" src="/assets/logos/chaos-rising-pokemon-tcg-set-logo-sm.webp" srcset="/assets/logos/chaos-rising-pokemon-tcg-set-logo-sm.webp 350w, /assets/logos/chaos-rising-pokemon-tcg-set-logo.webp 1051w" sizes="116px" width="350" height="100" alt="" loading="lazy" decoding="async"></span>
@@ -356,7 +369,8 @@ border:1px solid var(--hair);border-radius:6px}
       </div>
       <p class="op-note">Prices are TCGplayer market and lowest listing, read August 16, 2026,
         the same figures the rest of this site quotes. They move. <a href="/pack-prices.html">Pack prices</a>
-        works out what that comes to per pack. Each photograph is TCGplayer's, and it is that row's own
+        works out what that comes to per pack, and <a href="/msrp.html">what it should cost</a> has the
+        retail figure to measure any of it against. Each photograph is TCGplayer's, and it is that row's own
         product rather than a stand-in, which is why the art is different in every one of them.</p>
     </div>
   </section>
@@ -505,6 +519,7 @@ border:1px solid var(--hair);border-radius:6px}
         <a href="/expansions.html">Every set ever</a>
         <a href="/upcoming.html">Coming next</a>
         <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/msrp.html">MSRP check</a>
         <a href="/pack-prices.html">Pack prices</a>
         <a href="/how-many-packs.html">Packs per box</a>
         <a href="/openings/">Sealed products</a>
@@ -516,6 +531,7 @@ border:1px solid var(--hair);border-radius:6px}
       <div class="foot-col">
         <p class="foot-h">Guides</p>
         <a href="/start.html">Start here</a>
+        <a href="/what-to-buy.html">Beginner buys</a>
         <a href="/how-to-play.html">How to play</a>
         <a href="/tcg-live.html">Code cards</a>
         <a href="/tcg-pocket.html">Phone version</a>
@@ -523,12 +539,14 @@ border:1px solid var(--hair);border-radius:6px}
         <a href="/top-100-playable.html">Most played cards</a>
         <a href="/what-set.html">Set finder</a>
         <a href="/rarity.html">Rarity guide</a>
+        <a href="/base-set.html">Base Set prints</a>
         <a href="/types.html">Card types</a>
         <a href="/fake-cards.html">Fakes</a>
         <a href="/will-it-grade.html">Will it grade</a>
         <a href="/grading.html">Grading cost</a>
         <a href="/selling.html">Where to sell</a>
         <a href="/buying.html">Where to buy</a>
+        <a href="/retailers.html">Stores that sell cards</a>
         <a href="/luck.html">Luck, measured</a>
       </div>
       <div class="foot-col">
@@ -536,6 +554,8 @@ border:1px solid var(--hair);border-radius:6px}
         <a href="/games/">Games</a>
         <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
+        <a href="/evolution.html">Evolution chart</a>
+        <a href="/eevee-evolutions.html">Eevee evolutions</a>
       </div>
       <div class="foot-col">
         <p class="foot-h">Rochester, NY</p>

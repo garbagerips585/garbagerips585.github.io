@@ -38,14 +38,11 @@
     "no quantity at all."
   ],
   "checked": "2026-08-17",
-
   "intro": "Somebody hands you a Charizard from 1999 and asks what it is worth. The answer is not one number, it is three, and they are a long way apart. English Base Set was printed more than once, the runs look almost identical, and the thing that separates the two most valuable ones is a shadow that is not there.",
-
   "goldenRule": {
     "title": "Two marks, and you check them in this order",
     "body": "First, look under the left edge of the artwork for a small black stamp reading EDITION 1. If it is there, stop: you have a 1st Edition. If it is not, look at the right edge of the artwork window instead. A grey band running down the outside of that edge means Unlimited. No band, no stamp, and you are holding a Shadowless. Everything else on this page is a second opinion on those two marks."
   },
-
   "runs": [
     {
       "id": "first",
@@ -57,7 +54,10 @@
       "look": "A black EDITION 1 stamp under the left edge of the artwork, and no drop shadow around the artwork window.",
       "note": "The stamp is on the cards, on the booster packs and on the boxes. Wizards of the Coast used 1st Edition runs for the English and European releases from the start of the game in the West, on every set except Base Set 2, up to and including Neo Destiny.",
       "source": "bulbapedia",
-      "pcRow": { "set": "Base Set", "name": "Charizard [1st Edition] #4" }
+      "pcRow": {
+        "set": "Base Set",
+        "name": "Charizard [1st Edition] #4"
+      }
     },
     {
       "id": "shadowless",
@@ -69,7 +69,10 @@
       "look": "No stamp and still no drop shadow. Otherwise the same card as a 1st Edition, down to the typeface.",
       "note": "A transitional print: the plates lost the 1st Edition stamp and nothing else. That is why it has no mark of its own to look for, and why the only way to spot one is by what is missing. It happened in English only. Every other language printed its 1st Edition run on the later layout, shadow and all, so there is no French or German Shadowless.",
       "source": "bulbapedia",
-      "pcRow": { "set": "Base Set", "name": "Charizard [Shadowless] #4" }
+      "pcRow": {
+        "set": "Base Set",
+        "name": "Charizard [Shadowless] #4"
+      }
     },
     {
       "id": "unlimited",
@@ -81,7 +84,10 @@
       "look": "A drop shadow down the right side of the artwork window and along its bottom, so the picture sits on the card rather than in it. The HP and the attack text are printed heavier too.",
       "note": "This is the one almost everybody has. It is the run that stayed in print, which is the whole reason it is called Unlimited, and it is the baseline the other two are worth a multiple of.",
       "source": "bulbapedia",
-      "pcRow": { "set": "Base Set", "name": "Charizard #4" }
+      "pcRow": {
+        "set": "Base Set",
+        "name": "Charizard #4"
+      }
     },
     {
       "id": "fourth",
@@ -92,10 +98,13 @@
       "shadow": true,
       "look": "An Unlimited card in every visible way except the small print along the bottom, which reads 1999-2000 Wizards where every earlier run reads 1999 Wizards.",
       "note": "Collectors call it the 4th print. It is not a different card and it is not rarer than Unlimited; it is a separate line in the price guides, which is the only reason it is worth naming here at all.",
-      "source": "scan"
+      "source": "scan",
+      "pcRow": {
+        "set": "Base Set",
+        "name": "Charizard [1999-2000] #4"
+      }
     }
   ],
-
   "tells": [
     {
       "id": "stamp",
@@ -147,7 +156,6 @@
       "source": "scan"
     }
   ],
-
   "traps": [
     {
       "name": "Base Set 2 is not Base Set",
@@ -170,7 +178,6 @@
       "source": "cross-link"
     }
   ],
-
   "why": {
     "title": "Why Shadowless exists at all",
     "body": [
@@ -180,13 +187,52 @@
     ],
     "source": "bulbapedia"
   },
-
   "worth": {
     "title": "What each one is worth",
     "lede": "One card, three printings, one price guide, read on the same day. This is the clearest number anyone can put on the gap, and it is worth reading the three columns rather than only the big one.",
     "note": "The PSA 10 column is where the three runs look closest and it is also where the evidence is thinnest, because a card that has not sold recently in that grade has no figure at all. The ungraded and Grade 9 columns are the ones with sales behind them, and that is where the print run actually shows up."
   },
-
+  "stampPairs": {
+    "title": "The same gap, on three cards",
+    "lede": "One card is an anecdote. This is the 1st Edition printing against the Shadowless printing of the same card, on three cards, out of the same price guide read on the same day. The stamp is the only difference between the two printings, so the gap between the columns is what the stamp is worth.",
+    "note": "Read the ungraded column and the PSA 10 column as two separate questions. Ungraded has the most sales behind it and is the one a reader holding a loose card is actually in. PSA 10 is the number everybody quotes and rests on the fewest sales, which is why the multiples in it swing much harder from card to card.",
+    "missing": "Shadowless against Unlimited is the comparison this table would rather make, and it can be made on Charizard alone. data/top-graded.json ranks cards by PSA 10 value and stops at rank 400, which is $12,000, so the plain Unlimited printings of Blastoise 2/102 and Mewtwo 10/102 are not in it at all: they are worth far less than that. Venusaur 15/102 is missing from this table for the same kind of reason, from the other end, since the file holds its 1st Edition and 1999-2000 printings but no Shadowless one. Nothing here was filled in from somewhere else to round the set out.",
+    "cards": [
+      {
+        "card": "Charizard 4/102",
+        "first": {
+          "set": "Base Set",
+          "name": "Charizard [1st Edition] #4"
+        },
+        "shadowless": {
+          "set": "Base Set",
+          "name": "Charizard [Shadowless] #4"
+        }
+      },
+      {
+        "card": "Blastoise 2/102",
+        "first": {
+          "set": "Base Set",
+          "name": "Blastoise [1st Edition] #2"
+        },
+        "shadowless": {
+          "set": "Base Set",
+          "name": "Blastoise [Shadowless] #2"
+        }
+      },
+      {
+        "card": "Mewtwo 10/102",
+        "first": {
+          "set": "Base Set",
+          "name": "Mewtwo [1st Edition] #10"
+        },
+        "shadowless": {
+          "set": "Base Set",
+          "name": "Mewtwo [Shadowless] #10"
+        }
+      }
+    ]
+  },
   "sources": [
     "Print run order, the layout changes, the Trainer card copyright tell and the fact that Shadowless was English only: Bulbapedia's 1st Edition (TCG) article, read 17 August 2026. Named in plain text rather than linked, which is how this site credits an outside source.",
     "The EDITION 1 stamp, the missing expansion symbol and the copyright line: read off TCGdex's own scans of Base Set on 17 August 2026. All 16 Base Set Holofoil scans TCGdex serves carry the stamp, so its Base Set is scanned from a 1st Edition copy, which is where the magnified pictures on this page come from.",
@@ -194,7 +240,6 @@
     "Release dates and card counts: public/data/expansions.json in this repo, from api.pokemontcg.io.",
     "Prices: data/top-graded.json, PriceCharting's PSA 10 price guide, crawled 16 August 2026 and re-read from each card's own product page before publication. The sealed pack figure is TCGplayer market price from data/top100.json, read 16 August 2026."
   ],
-
   "unverified": [
     "That the yellow border is thinner on Shadowless than on Unlimited. It is repeated everywhere and we could not check it: it needs two cards measured in the hand, and a scan is cropped by whoever made it, so measuring a border off one proves nothing.",
     "That the HP and attack text are thinner on Shadowless. Bulbapedia says so and it is on the page as Bulbapedia's claim, not as ours: we have no Shadowless and Unlimited pair scanned well enough at the same scale to compare.",

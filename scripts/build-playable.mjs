@@ -184,10 +184,18 @@ const ld = [
     "@type": "Article",
     headline: "The 100 most played Pokemon cards in Standard",
     description: desc,
+    // Same fix as build-decks.mjs and for the same reason: Article without an
+    // image or a publisher logo cannot produce the rich result. This page's own
+    // share card, not the generic one, so it matches the og:image below.
+    image: [`${SITE}/assets/og-top-100-playable.jpg`],
     datePublished: d.checked,
     dateModified: d.checked,
     author: { "@type": "Organization", name: "Garbage Rips 585" },
-    publisher: { "@type": "Organization", name: "Garbage Rips 585" },
+    publisher: {
+      "@type": "Organization",
+      name: "Garbage Rips 585",
+      logo: { "@type": "ImageObject", url: `${SITE}/assets/logo-square.jpg` },
+    },
     mainEntityOfPage: `${SITE}/top-100-playable.html`,
   },
   {

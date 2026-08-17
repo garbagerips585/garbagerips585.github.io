@@ -899,6 +899,11 @@ function guidePage(g) {
       image: [`${SITE}/assets/og-image.jpg`],
       about: { "@type": "Thing", name: `${g.english} (Pokemon Trading Card Game, ${g.langName})` },
       url,
+      // See the matching note in build-set-pages.mjs: `url` is not a substitute
+      // for mainEntityOfPage, which is the property Google's Article
+      // documentation actually names. Both English and imported guides were
+      // emitting only the first.
+      mainEntityOfPage: { "@type": "WebPage", "@id": url },
       // datePublished is when the guide first appeared and never moves;
       // dateModified is when its data was last re-read. Setting both to the
       // sync date made one false and the other meaningless.

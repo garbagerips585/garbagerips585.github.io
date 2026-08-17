@@ -967,16 +967,25 @@ ${shot(e)}
         }</span></div>
       </div>
 
-      <h3 class="op-sh">Which sets we opened these from</h3>
+      <!-- h2, not h3, and the class is what makes that free. This was an h3
+           sitting between the page's h1 and the h2 below it, so all 13 openings
+           pages jumped h1 -> h3 -> h2: the only skipped heading level on the
+           site outside the playlist pages. .op-sh sets font, size, line-height
+           and margin itself and ui.css has no bare h2 or h3 rule, so the tag
+           swap is semantic only and the page renders to the pixel as before.
+           Verified by screenshot rather than assumed. -->
+      <h2 class="op-sh">Which sets we opened these from</h2>
 ${await setBand(e)}
 ${priceTable(e)}
 ${e.prices.length
         ? `      <p class="op-note">Prices are TCGplayer market and lowest listing, read ${esc(longDate(prod.checked))},
         the same figures the rest of this site quotes. They move. <a href="/pack-prices.html">Pack prices</a>
-        works out what that comes to per pack. Each photograph is TCGplayer's, and it is that row's own
+        works out what that comes to per pack, and <a href="/msrp.html">what it should cost</a> has the
+        retail figure to measure any of it against. Each photograph is TCGplayer's, and it is that row's own
         product rather than a stand-in, which is why the art is different in every one of them.</p>`
         : `      <p class="op-note">No price table here: this product is not one of the kinds we track prices for,
-        so there is nothing sourced to show. <a href="/pack-prices.html">Pack prices</a> covers the ones we do.</p>`}
+        so there is nothing sourced to show. <a href="/pack-prices.html">Pack prices</a> covers the ones we do,
+        and <a href="/msrp.html">what it should cost</a> has the retail figure for the kinds it could source.</p>`}
     </div>
   </section>
 
@@ -1052,6 +1061,8 @@ ${entries
         figure off a box. Where a product's contents are not in our data, the page says so rather than guess.
         The counts printed on the products themselves, biggest box to smallest blister with a source on each,
         are on <a href="/how-many-packs.html">how many packs are in it</a>.
+        What each kind is SUPPOSED to cost, which is a different question from what it sells for, is on
+        <a href="/msrp.html">what sealed product should cost</a>.
         Prices come from TCGplayer, read ${esc(longDate(prod.checked))}, and so do the product photos: each
         one is a specific product standing in for its kind, named on the card and named again on the page.
         Two kinds have no photograph here, because no picture of a Korean or a Chinese booster pack is

@@ -64,6 +64,18 @@ try {
 } catch {
   /* optional */
 }
+// The per-shop pages under /retailers/. Read from what build-retailers.mjs
+// actually wrote rather than hand-listed in PAGES, for the reason the comment
+// over PAGES gives: four pages once shipped with no entry and were invisible to
+// the site's own search for as long as they existed. The guard at the foot of
+// this file only walks the top level, so a subdirectory is exactly where that
+// mistake would happen again unnoticed.
+let retailerPages = [];
+try {
+  retailerPages = JSON.parse(await readFile(join(ROOT, "public/data/retailers-index.json"), "utf8")).pages || [];
+} catch {
+  /* run: node scripts/build-retailers.mjs */
+}
 
 // The reference pages, named here because a page has no other machine-readable
 // title. Kept in one list so a new page is one line rather than a grep.
@@ -74,6 +86,17 @@ try {
 // at the bottom of this file now fails the build instead of trusting that.
 const PAGES = [
   ["/start.html", "Start here", "New to Pokemon cards, the six questions in order"],
+  // SECOND, AND IT COSTS A CARD OFF /search.html's EMPTY STATE, which shows the
+  // first eight of this list. That is a deliberate consequence and not a side
+  // effect nobody looked at, the same trade the two app pages below record
+  // making. The displaced card is "Browse by Pokemon", which is one tap from the
+  // card search directly above it and is in the nav twice over.
+  //
+  // THE TITLE IS THE QUESTION, VERBATIM, because that is what somebody types.
+  // "what should i buy my kid pokemon cards" is a real query with no good answer
+  // anywhere, and the blurb leads with the word a parent is actually anxious
+  // about, which is the price rather than the product.
+  ["/what-to-buy.html", "What should I buy?", "For a parent or a beginner: what to get, what it should cost, and what not to buy first"],
   ["/how-to-play.html", "How to play", "The card game itself: setup, a turn, and the three ways to win"],
   // THE TITLES LEAD WITH THE APP NAMES, unlike the nav labels next door, because
   // search is where somebody types "TCG Live" or "pocket". Both sit inside the
@@ -114,6 +137,12 @@ const PAGES = [
 ["/will-it-grade.html", "Will it grade?", "Centering tolerances, the flaws that cost grades, and how to check a card at home"],
 ["/selling.html", "Where to sell", "eBay, TCGplayer, Whatnot and more: fees, payouts and who protects a seller"],
 ["/buying.html", "Where to buy", "TCGplayer Direct, eBay, Pokemon Center and the big boxes: shipping thresholds, buyer fees and recourse"],
+  // THE TITLE LEADS WITH "STORES" because that is the word in the query. Nobody
+  // types "retailers"; they type "stores that sell pokemon cards" or "does CVS
+  // sell pokemon cards", and the nine per-shop pages that answer the second
+  // shape are appended to this index below rather than listed here, so adding a
+  // shop is a data edit rather than a line in this file.
+  ["/retailers.html", "Stores that sell Pokemon cards", "Which shops stock them, what each one carries, which aisle they file them under, and what we have read them asking"],
   ["/complete-a-set.html", "Cost to complete a set", "What every set costs to finish, priced nightly"],
   ["/drops.html", "Drops this week", "Where stock is expected, in store and online"],
   // THE TITLE LEADS WITH "MSRP" because that is the word somebody types, and the
@@ -176,6 +205,12 @@ const index = {
       `/${p.path}`,
       `Playlist • ${p.count} video${p.count === 1 ? "" : "s"}`,
     ]),
+    // THE SHOP NAME IS THE TITLE AND THE QUESTION IS THE BLURB, not the other
+    // way round. Somebody typing "gamestop" into the bar is looking for a shop,
+    // and nine results all beginning "Does" would be nine near-identical strings
+    // to scan past. The question still earns its place underneath, because it is
+    // what the page answers and it is what was typed into a search engine.
+    ...retailerPages.map((p) => [p.name, p.path, p.sub]),
   ],
   sets: [
     ...sets.map((s) => [s.name, `/sets/${s.id}.html`, `${s.total || "?"} cards${s.released ? ` • ${s.released.slice(0, 4)}` : ""}`]),

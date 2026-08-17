@@ -1833,6 +1833,12 @@ function setPage(s) {
       image: [ogCards.has(s.id) ? `${SITE}/assets/og-${s.id}.jpg` : `${SITE}/assets/og-image.jpg`],
       about: { "@type": "Thing", name: `${s.name} (Pokemon Trading Card Game)` },
       url,
+      // `url` and `mainEntityOfPage` are NOT interchangeable and only the
+      // second is the one Google's Article documentation names. `url` says
+      // where the Article can be read; mainEntityOfPage says that THIS page is
+      // the Article's canonical home rather than a page that merely mentions
+      // it. Every guide carried the first and none carried the second.
+      mainEntityOfPage: { "@type": "WebPage", "@id": url },
       datePublished: syncedAt,
       dateModified: syncedAt,
       author: { "@type": "Organization", name: "Garbage Rips 585", url: SITE + "/" },

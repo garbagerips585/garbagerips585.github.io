@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pokemon Card Drops and Restocks This Week | Garbage Rips 585</title>
-<meta name="description" content="What Pokemon card stock is expected at Target, Walmart and more, in store and online, for August 10, 2026 to August 16, 2026. Nobody announces it.">
+<meta name="description" content="What Pokemon card stock is expected at Target, Walmart and more, in store and online, for August 17, 2026 to August 23, 2026. Nobody announces it.">
 <link rel="canonical" href="https://garbagerips585.github.io/drops.html">
 <meta property="og:title" content="Pokemon card drops and restocks this week">
-<meta property="og:description" content="What Pokemon card stock is expected at Target, Walmart and more, in store and online, for August 10, 2026 to August 16, 2026. Nobody announces it.">
+<meta property="og:description" content="What Pokemon card stock is expected at Target, Walmart and more, in store and online, for August 17, 2026 to August 23, 2026. Nobody announces it.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://garbagerips585.github.io/drops.html">
 <meta property="og:site_name" content="Garbage Rips 585">
@@ -96,6 +96,20 @@
 .drop-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:auto;padding-top:var(--s2)}
 .drop-what{font:600 var(--t-m)/1.35 var(--body)}
 .drop-when,.drop-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.45}
+/* THE PERISHABLE ROW SAYS SO ON ITS OWN FACE. The sweep at the bottom of the
+   page takes these away on the day after, but a reader should not have to trust
+   a script they cannot see to know what they are looking at: the row that is
+   only true for one afternoon prints the date it stops being true, in a <time>,
+   next to the hour it names. Ink weight rather than colour, same as the
+   confidence ladder above, so it survives the palette having one hue. */
+.drop-exp{font:700 var(--t-sm)/1.4 var(--body);color:var(--ink);
+  border-left:3px solid var(--ink-soft);padding:2px 0 2px var(--s3)}
+.drop-exp time{font-family:var(--mono);letter-spacing:.01em}
+/* The note the sweep writes when it has removed something. Hidden until it has,
+   because "nothing has expired" is not news and an empty box is worse. */
+.dr-swept{border:2px dashed var(--ink-2);border-radius:var(--r);padding:var(--s3) var(--s4);
+  margin-bottom:var(--s4);color:var(--ink);font:600 var(--t-sm)/1.45 var(--body)}
+.dr-swept[hidden]{display:none}
 .dr-empty{color:var(--ink-2);padding:var(--s5) 0}
 .dr-key h2{margin-bottom:var(--s3)}
 .dr-key{margin-top:var(--s5);color:var(--ink-2);font-size:var(--t-sm);line-height:1.5;max-width:44em}
@@ -158,6 +172,7 @@
         <li><a href="/expansions.html">Every set ever</a></li>
         <li><a href="/upcoming.html">Coming next</a></li>
         <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/msrp.html">MSRP check</a></li>
         <li><a href="/pack-prices.html">Pack prices</a></li>
         <li><a href="/how-many-packs.html">Packs per box</a></li>
         <li><a href="/openings/">Sealed products</a></li>
@@ -171,6 +186,7 @@
       <p class="menu-h">Guides</p>
       <ul>
         <li><a href="/start.html">Start here</a></li>
+        <li><a href="/what-to-buy.html">Beginner buys</a></li>
         <li><a href="/how-to-play.html">How to play</a></li>
         <li><a href="/tcg-live.html">Code cards</a></li>
         <li><a href="/tcg-pocket.html">Phone version</a></li>
@@ -178,12 +194,14 @@
         <li><a href="/top-100-playable.html">Most played cards</a></li>
         <li><a href="/what-set.html">Set finder</a></li>
         <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/base-set.html">Base Set prints</a></li>
         <li><a href="/types.html">Card types</a></li>
         <li><a href="/fake-cards.html">Fakes</a></li>
         <li><a href="/will-it-grade.html">Will it grade</a></li>
         <li><a href="/grading.html">Grading cost</a></li>
         <li><a href="/selling.html">Where to sell</a></li>
         <li><a href="/buying.html">Where to buy</a></li>
+        <li><a href="/retailers.html">Stores that sell cards</a></li>
         <li><a href="/luck.html">Luck, measured</a></li>
       </ul>
     </div>
@@ -193,6 +211,8 @@
         <li><a href="/games/">Games</a></li>
         <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
+        <li><a href="/evolution.html">Evolution chart</a></li>
+        <li><a href="/eevee-evolutions.html">Eevee evolutions</a></li>
       </ul>
     </div>
     <div class="menu-g">
@@ -214,123 +234,167 @@
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Drops this week</span></nav>
       <div class="dr-head">
         <p class="dr-stale" id="drStale" hidden
-           data-week-ends="2026-08-16"
-           data-title="Pokemon Card Drops and Restocks: Week of August 10, 2026 | Garbage Rips 585"
-           data-og-title="Pokemon card drops and restocks, week of August 10, 2026"
-           data-desc="What Pokemon card stock was expected at Target, Walmart and more for August 10, 2026 to August 16, 2026. Not updated since, so it is a record now.">This list is <b data-dr-age>a few days</b> out of date. It covered August 10, 2026 to August 16, 2026 and has not been updated since. Treat it as a record of what was expected, not as this week's plan.</p>
-        <p class="dr-when">August 10, 2026 to August 16, 2026</p>
-        <h1>What is <span class="hl">dropping</span> this week</h1>
+           data-week-ends="2026-08-23"
+           data-title="Pokemon Card Drops and Restocks: Week of August 17, 2026 | Garbage Rips 585"
+           data-og-title="Pokemon card drops and restocks, week of August 17, 2026"
+           data-desc="What Pokemon card stock was expected at Target, Walmart and more for August 17, 2026 to August 23, 2026. Not updated since, so it is a record now.">This list is <b data-dr-age>a few days</b> out of date. It covered August 17, 2026 to August 23, 2026 and has not been updated since. Treat it as a record of what was expected, not as this week's plan.</p>
+        <p class="dr-when">August 17, 2026 to August 23, 2026</p>
+        <!-- THE HEADLINE GOES STALE TOO, and it was the last thing on the page
+             that did not. The title, the description and both og tags already
+             switch to a past tense when the week has gone, for the reason
+             argued above TITLE_FRESH: a page cannot say "not this week's plan"
+             in a banner and "this week" in the biggest type on the screen and
+             expect to be believed about either. Two spans carrying their own
+             replacement TEXT rather than one element carrying replacement
+             MARKUP, so the swap below never touches innerHTML. -->
+        <h1><span data-s="What was">What is</span> <span class="hl">dropping</span> <span data-s="that week">this week</span></h1>
         <p class="lede" style="max-width:44em">Where Pokemon cards are expected to turn up, in store and online.
-          <b>None of this is announced by anyone.</b> Retailers do not publish restock schedules, so every
-          line here is people watching shelves and backend listings and comparing notes. Treat it as a
-          decent guess, and check the confidence on each one.</p>
-        <p class="lede" style="max-width:44em">5 in store, 3 online, compiled August 15, 2026 from community week-ahead post.</p>
+          <b>This is community intelligence, not fact, and none of it is announced by anyone.</b>
+          Retailers do not publish restock schedules, so every line here is other people watching shelves
+          and backend listings and comparing notes. <b>These are not our findings.</b> We are passing on
+          what the trackers said, in the words they hedged it with. Treat it as a decent guess, and check
+          the confidence on each one.</p>
+        <p class="lede" style="max-width:44em"><b data-n="store">5</b> in store,
+          <b data-n="online">4</b> online. A snapshot compiled August 17, 2026 from community restock trackers, read August 17, 2026. It is what somebody else expected on that date, and it has not been checked since.</p>
       </div>
 
       <div class="dr-filters" role="group" aria-label="Filter drops">
         <button class="dr-f" type="button" data-f="all" aria-pressed="true">Everything</button>
-        <button class="dr-f" type="button" data-f="store" aria-pressed="false">In store (5)</button>
-        <button class="dr-f" type="button" data-f="online" aria-pressed="false">Online (3)</button>
+        <button class="dr-f" type="button" data-f="store" aria-pressed="false">In store (<b data-n="store">5</b>)</button>
+        <button class="dr-f" type="button" data-f="online" aria-pressed="false">Online (<b data-n="online">4</b>)</button>
         <button class="dr-f" type="button" data-r="pokemon-center" aria-pressed="false">Pokemon Center</button>
         <button class="dr-f" type="button" data-r="target" aria-pressed="false">Target</button>
         <button class="dr-f" type="button" data-r="best-buy" aria-pressed="false">Best Buy</button>
         <button class="dr-f" type="button" data-r="walmart" aria-pressed="false">Walmart</button>
-        <button class="dr-f" type="button" data-r="aldi" aria-pressed="false">Aldi</button>
         <button class="dr-f" type="button" data-r="walgreens" aria-pressed="false">Walgreens</button>
-        <button class="dr-f" type="button" data-r="family-dollar" aria-pressed="false">Family Dollar</button>
+        <button class="dr-f" type="button" data-r="dollar-general" aria-pressed="false">Dollar General</button>
       </div>
 
+      <p class="dr-swept" id="drSwept" hidden></p>
+
       <div class="dr-grid" id="drGrid">
-      <article class="drop" data-channel="online" data-retailer="pokemon-center">
+      <article class="drop" data-channel="online" data-retailer="pokemon-center"
+        data-expires="2026-08-19" data-perish="1" data-from="2026-08-17" data-to="2026-08-19">
         <div class="drop-top">
           <span class="rt"><span class="bmk"><img src="/assets/brands/pokemon-center.svg" alt="The Pokémon Company" width="269" height="25" loading="lazy" decoding="async"></span><span class="rt-n">Pokemon Center<i>Official store</i></span></span>
           <span class="drop-ch">Online</span>
           <span class="drop-cf pat">Pattern only</span>
         </div>
-        <p class="drop-what">A drop is expected, with no product list yet.</p>
-        <p class="drop-when"><b>When.</b> Usually Monday to Wednesday, 11am to 2pm Eastern.</p>
-        <p class="drop-note">Monday to Wednesday is a pattern people have noticed rather than a schedule Pokemon Center publishes, and nobody has measured this one.</p>
-        <p class="drop-note">Products showing on the backend do not mean stock exists. Nothing is confirmed until it is buyable.</p>
-        
+        <p class="drop-what">Worth being on alert for a drop at some point this week. No product list.</p>
+        <p class="drop-when"><b>When.</b> The most common drop days are Monday to Wednesday, 11am to 2pm Eastern.</p>
+        <p class="drop-exp">Good until <time datetime="2026-08-19">August 19, 2026</time>, then it comes off this page. A window that has closed is not a forecast.</p>
+        <p class="drop-note">Monday to Wednesday is a pattern people have noticed, not a schedule Pokemon Center publishes, and nobody has measured this one.</p>
+        <p class="drop-note">The trackers say no stock is loaded on the backend for these products, and that claims to the contrary are going round on social media and in other communities. Nothing is confirmed until it is buyable.</p>
+        <p class="drop-note">This row covers the Monday to Wednesday window only. It comes off the page after 19 August rather than sitting here looking current.</p>
+        <p class="drop-src">Community restock trackers, read August 17, 2026</p>
       </article>
-      <article class="drop" data-channel="store" data-retailer="target">
+      <article class="drop" data-channel="online" data-retailer="pokemon-center"
+        data-expires="2026-08-17" data-perish="1" data-from="2026-08-17" data-to="2026-08-17">
+        <div class="drop-top">
+          <span class="rt"><span class="bmk"><img src="/assets/brands/pokemon-center.svg" alt="The Pokémon Company" width="269" height="25" loading="lazy" decoding="async"></span><span class="rt-n">Pokemon Center<i>Official store</i></span></span>
+          <span class="drop-ch">Online</span>
+          <span class="drop-cf pat">Pattern only</span>
+        </div>
+        <p class="drop-what">A same-day update: be ready for a possible drop today. The trackers say plainly that they do not know what products it would be.</p>
+        <p class="drop-when"><b>When.</b> Monday 17 August, between 10am and 2pm Eastern.</p>
+        <p class="drop-exp">Good until <time datetime="2026-08-17">August 17, 2026</time>, then it comes off this page. A window that has closed is not a forecast.</p>
+        <p class="drop-note">Nothing is confirmed. What the trackers report is some movement on Pokemon Center's backend, which is not the same thing as stock.</p>
+        <p class="drop-note">This is the shortest lived thing on the site: one afternoon. It is worthless by tomorrow, so it comes off the page after 17 August.</p>
+        <p class="drop-src">Community restock trackers, read August 17, 2026</p>
+      </article>
+      <article class="drop" data-channel="store" data-retailer="target"
+        data-expires="2026-08-23">
         <div class="drop-top">
           <span class="rt"><span class="bmk"><img src="/assets/brands/target.svg" alt="Target" width="300" height="300" loading="lazy" decoding="async"></span><span class="rt-n">Target<i>Big box</i></span></span>
           <span class="drop-ch">In store</span>
           <span class="drop-cf exp">Expected</span>
         </div>
-        <p class="drop-what">Select Chaos Rising and Pitch Black products.</p>
+        <p class="drop-what">Select Chaos Rising and Pitch Black products, plus First Partner Series 2 and 3 collection boxes.</p>
         <p class="drop-when"><b>When.</b> Through the week, varies by store.</p>
-        <p class="drop-note">Some stores are also still receiving Ascended Heroes booster bundles, Prismatic Evolutions surprise pack collections, and First Partner Series 2 and 3 collection boxes.</p>
         
+        <p class="drop-note">A handful of stores are also still receiving Prismatic Evolutions Super Premium Collections. That is a handful, so treat it as a look-and-see rather than a list to expect.</p>
+        <p class="drop-src">Community restock trackers, read August 17, 2026</p>
       </article>
-      <article class="drop" data-channel="online" data-retailer="target">
+      <article class="drop" data-channel="online" data-retailer="target"
+        data-expires="2026-08-23" data-from="2026-08-18" data-to="2026-08-23">
         <div class="drop-top">
           <span class="rt"><span class="bmk"><img src="/assets/brands/target.svg" alt="Target" width="300" height="300" loading="lazy" decoding="async"></span><span class="rt-n">Target<i>Big box</i></span></span>
           <span class="drop-ch">Online</span>
           <span class="drop-cf exp">Expected</span>
         </div>
-        <p class="drop-what">Prismatic Evolutions surprise pack collections, Pitch Black ETBs, Chaos Rising ETBs and First Partner Series 3.</p>
-        <p class="drop-when"><b>When.</b> No scheduled time. Any night from around 3am Eastern.</p>
-        <p class="drop-note">Loaded on the backend with no date attached, which means nobody knows when it goes live, including the people watching for it.</p>
+        <p class="drop-what">Prismatic Evolutions Super Premium Collections, Pitch Black ETBs, Chaos Rising ETBs and First Partner Series 3 are loaded on Target's backend.</p>
+        <p class="drop-when"><b>When.</b> No date or time is loaded, so nobody knows when they drop. The trackers expect Tuesday around 3am Eastern based on recent patterns, which is a guess rather than a time.</p>
         
+        <p class="drop-note">Loaded on a backend means the listing exists. It does not mean stock exists, and it does not come with a date attached.</p>
+        <p class="drop-note">A second wave of 30th Celebration preorders may also release, going on where previous waves landed. Nothing about that is confirmed and there is no date for it.</p>
+        <p class="drop-src">Community restock trackers, read August 17, 2026</p>
       </article>
-      <article class="drop" data-channel="store" data-retailer="best-buy">
+      <article class="drop" data-channel="store" data-retailer="best-buy"
+        data-expires="2026-08-23">
         <div class="drop-top">
           <span class="rt"><span class="bmk"><img src="/assets/brands/bestbuy.svg" alt="Best Buy" width="1000" height="584" loading="lazy" decoding="async"></span><span class="rt-n">Best Buy<i>Big box</i></span></span>
           <span class="drop-ch">In store</span>
           <span class="drop-cf exp">Expected</span>
         </div>
-        <p class="drop-what">Ascended Heroes booster bundles, Pitch Black booster bundles and 3-pack blisters, First Partner Series 2 and 3 collection boxes.</p>
+        <p class="drop-what">More Pitch Black booster bundles and 3-pack blisters, plus First Partner Series 2 and 3 collection boxes.</p>
         <p class="drop-when"><b>When.</b> Through the week, varies by store.</p>
         
         
+        <p class="drop-src">Community restock trackers, read August 17, 2026</p>
       </article>
-      <article class="drop" data-channel="online" data-retailer="walmart">
+      <article class="drop" data-channel="store" data-retailer="walmart"
+        data-expires="2026-08-23">
+        <div class="drop-top">
+          <span class="rt"><span class="bmk"><img src="/assets/brands/walmart.svg" alt="Walmart" width="1024" height="241" loading="lazy" decoding="async"></span><span class="rt-n">Walmart<i>Big box</i></span></span>
+          <span class="drop-ch">In store</span>
+          <span class="drop-cf exp">Expected</span>
+        </div>
+        <p class="drop-what">Pitch Black and Chaos Rising products, plus First Partner Series 2 and 3 collection boxes.</p>
+        <p class="drop-when"><b>When.</b> Through the week, varies by store.</p>
+        
+        <p class="drop-note">A very small number of stores are still receiving Destined Rivals ETBs. That is a leftover working its way through rather than a restock, so do not plan a drive around it.</p>
+        <p class="drop-src">Community restock trackers, read August 17, 2026</p>
+      </article>
+      <article class="drop" data-channel="online" data-retailer="walmart"
+        data-expires="2026-08-19" data-perish="1" data-from="2026-08-19" data-to="2026-08-19">
         <div class="drop-top">
           <span class="rt"><span class="bmk"><img src="/assets/brands/walmart.svg" alt="Walmart" width="1024" height="241" loading="lazy" decoding="async"></span><span class="rt-n">Walmart<i>Big box</i></span></span>
           <span class="drop-ch">Online</span>
           <span class="drop-cf pat">Pattern only</span>
         </div>
-        <p class="drop-what">Product list not published yet.</p>
-        <p class="drop-when"><b>When.</b> Wednesday evening is the pattern, most often between 9pm and midnight Eastern.</p>
-        <p class="drop-note">Walmart publishes no restock schedule. The closest thing to evidence is a measurement: Restockd, which watches for products coming back in stock, logged 83 Walmart Pokemon detections in the 90 days to August 12, 2026 and found 87 percent landed between 9pm and midnight Eastern, most often on a Wednesday.</p>
+        <p class="drop-what">A Walmart Wednesday is expected again this week. No product list.</p>
+        <p class="drop-when"><b>When.</b> Wednesday 19 August, from 9pm Eastern.</p>
+        <p class="drop-exp">Good until <time datetime="2026-08-19">August 19, 2026</time>, then it comes off this page. A window that has closed is not a forecast.</p>
+        <p class="drop-note">Walmart publishes no restock schedule. The closest thing to evidence is a measurement: Restockd, which watches for products coming back in stock, logged 83 Walmart Pokemon detections in the 90 days to August 12, 2026 and found 87 percent landed between 9pm and midnight Eastern, most often on a Wednesday. Read 15 August 2026.</p>
         <p class="drop-note">Restockd's own caveat matters: a detection is a product returning to stock, not a count of units, and several detections can belong to one release. So 83 is not 83 separate drops.</p>
-        <p class="drop-note">That is a record of what happened, not a promise about what will.</p>
-        <p class="drop-src"><a href="https://restockd.app/blog/when-does-walmart-restock-pokemon-cards" rel="noopener" target="_blank">Restockd 90 day detection analysis</a>, read August 15, 2026</p>
+        <p class="drop-note">That is a record of what happened, not a promise about what will. This row covers Wednesday, so it comes off the page after 19 August.</p>
+        <p class="drop-src">Community restock trackers, read August 17, 2026</p>
       </article>
-      <article class="drop" data-channel="store" data-retailer="aldi">
-        <div class="drop-top">
-          <span class="rt"><span class="bmk"><img src="/assets/brands/aldi.svg" alt="Aldi" width="82" height="99" loading="lazy" decoding="async"></span><span class="rt-n">Aldi<i>Grocery</i></span></span>
-          <span class="drop-ch">In store</span>
-          <span class="drop-cf ok">Confirmed</span>
-        </div>
-        <p class="drop-what">Ascended Heroes Mega ex boxes.</p>
-        <p class="drop-when"><b>When.</b> From August 12, select locations.</p>
-        <p class="drop-note">Aldi stock is a one-off run rather than a restock, so when it is gone it is gone.</p>
-        
-      </article>
-      <article class="drop" data-channel="store" data-retailer="walgreens">
+      <article class="drop" data-channel="store" data-retailer="walgreens"
+        data-expires="2026-08-23">
         <div class="drop-top">
           <span class="rt"><span class="bmk"><img src="/assets/brands/walgreens.svg" alt="Walgreens" width="535" height="119" loading="lazy" decoding="async"></span><span class="rt-n">Walgreens<i>Pharmacy</i></span></span>
           <span class="drop-ch">In store</span>
           <span class="drop-cf exp">Expected</span>
         </div>
-        <p class="drop-what">Ascended Heroes 2-pack blisters.</p>
+        <p class="drop-what">Ascended Heroes 2-pack blisters, plus the Darkrai, Tyranitar and Slaking tins.</p>
         <p class="drop-when"><b>When.</b> Ongoing, select stores.</p>
-        <p class="drop-note">No purchase limit in store, so these tend to go quickly.</p>
         
+        <p class="drop-note">No purchase limit in store, so the trackers expect these to go fast where they turn up.</p>
+        <p class="drop-src">Community restock trackers, read August 17, 2026</p>
       </article>
-      <article class="drop" data-channel="store" data-retailer="family-dollar">
+      <article class="drop" data-channel="store" data-retailer="dollar-general"
+        data-expires="2026-08-23">
         <div class="drop-top">
-          <span class="rt"><span class="bmk bmk-n" aria-hidden="true"><b>Family Dollar</b></span><span class="rt-n">Family Dollar<i>Discount</i></span></span>
+          <span class="rt"><span class="bmk bmk-n" aria-hidden="true"><b>Dollar General</b></span><span class="rt-n">Dollar General<i>Discount</i></span></span>
           <span class="drop-ch">In store</span>
           <span class="drop-cf exp">Expected</span>
         </div>
         <p class="drop-what">Black Bolt and White Flare Unova poster collections.</p>
         <p class="drop-when"><b>When.</b> Ongoing, select stores.</p>
-        <p class="drop-note">Roughly 12 to 24 units per store and no purchase limit.</p>
         
+        <p class="drop-note">Select stores only, and which stores is not something anybody publishes.</p>
+        <p class="drop-src">Community restock trackers, read August 17, 2026</p>
       </article>
       </div>
       <p class="dr-empty" id="drEmpty" hidden>Nothing matches that combination.</p>
@@ -343,9 +407,19 @@
 
       <div class="dr-key">
         <h2>How to read this page</h2>
-        <p><b>What the labels mean.</b> <b>Confirmed:</b> A date the retailer put on it, or stock already seen on shelves. <b>Usual window:</b> Expected inside a known range. <b>Expected:</b> The community thinks it is coming. No date. <b>Pattern only:</b> A day or time people have noticed. No retailer publishes a restock schedule, so this is the weakest thing on the page.</p>
+        <p><b>Where it came from.</b> Community restock trackers, read August 17, 2026. Stock
+          tracking communities that Tim follows, passed on with the hedges they were written with. We do not
+          name them, and there is no link, because several are private or paid and a reader is not served by
+          being pointed at a door they cannot open. None of this is our own reporting and none of it is a
+          retailer speaking.</p>
+        <p style="margin-top:var(--s3)"><b>What the labels mean.</b> <b>Confirmed:</b> A date the retailer put on it, or stock already seen on shelves. <b>Usual window:</b> Expected inside a known range. <b>Expected:</b> The community thinks it is coming. No date. <b>Pattern only:</b> A day or time people have noticed. No retailer publishes a restock schedule, so this is the weakest thing on the page.</p>
+        <p style="margin-top:var(--s3)"><b>When rows disappear.</b> A row that covers one afternoon or one
+          evening prints the date it stops being true, and it is removed from this page the day after,
+          on your clock rather than ours. The rest of the list runs to the end of the week at the top of
+          the page, and once that week has passed the page says so before it says anything else. Nothing
+          here is refreshed automatically, so an old page is an old page and it will tell you it is one.</p>
         <p style="margin-top:var(--s3)"><b>Whose logos these are.</b> Company names and logos on this page are the trademarks of their owners and are used to identify the companies described. Nothing here is sponsored, affiliated or endorsed. Marks are mirrored from Wikimedia Commons, where each carries a public domain copyright tag; the venues with no mark have their name set in this site's own typeface instead.
-          The kind of shop is the word under each name: Official store, Big box, Grocery, Pharmacy, Discount.</p>
+          The kind of shop is the word under each name: Official store, Big box, Pharmacy, Discount.</p>
         <p style="margin-top:var(--s3)">Stock varies store to store and the good stuff goes fast, so this tells you
           where to look rather than what you will find. If you would rather buy without the hunt, the
           <a href="/shops.html">Rochester shops</a> and the <a href="/card-shows.html">card shows</a> have
@@ -376,6 +450,7 @@
         <a href="/expansions.html">Every set ever</a>
         <a href="/upcoming.html">Coming next</a>
         <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/msrp.html">MSRP check</a>
         <a href="/pack-prices.html">Pack prices</a>
         <a href="/how-many-packs.html">Packs per box</a>
         <a href="/openings/">Sealed products</a>
@@ -387,6 +462,7 @@
       <div class="foot-col">
         <p class="foot-h">Guides</p>
         <a href="/start.html">Start here</a>
+        <a href="/what-to-buy.html">Beginner buys</a>
         <a href="/how-to-play.html">How to play</a>
         <a href="/tcg-live.html">Code cards</a>
         <a href="/tcg-pocket.html">Phone version</a>
@@ -394,12 +470,14 @@
         <a href="/top-100-playable.html">Most played cards</a>
         <a href="/what-set.html">Set finder</a>
         <a href="/rarity.html">Rarity guide</a>
+        <a href="/base-set.html">Base Set prints</a>
         <a href="/types.html">Card types</a>
         <a href="/fake-cards.html">Fakes</a>
         <a href="/will-it-grade.html">Will it grade</a>
         <a href="/grading.html">Grading cost</a>
         <a href="/selling.html">Where to sell</a>
         <a href="/buying.html">Where to buy</a>
+        <a href="/retailers.html">Stores that sell cards</a>
         <a href="/luck.html">Luck, measured</a>
       </div>
       <div class="foot-col">
@@ -407,6 +485,8 @@
         <a href="/games/">Games</a>
         <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
+        <a href="/evolution.html">Evolution chart</a>
+        <a href="/eevee-evolutions.html">Eevee evolutions</a>
       </div>
       <div class="foot-col">
         <p class="foot-h">Rochester, NY</p>
@@ -490,10 +570,94 @@
         var n = document.querySelector(sel);
         if (n && val) n.setAttribute(attr, val);
       };
+      // The headline, in the same breath as the head. textContent only, on the
+      // two spans that carry their own past tense, so this can never inject
+      // markup and can never lose the .hl highlight between them.
+      [].slice.call(document.querySelectorAll("h1 [data-s]")).forEach(function (sp) {
+        sp.textContent = sp.getAttribute("data-s");
+      });
       if (el.getAttribute("data-title")) document.title = el.getAttribute("data-title");
       set('meta[name="description"]', "content", el.getAttribute("data-desc"));
       set('meta[property="og:title"]', "content", el.getAttribute("data-og-title"));
       set('meta[property="og:description"]', "content", el.getAttribute("data-desc"));
+    }
+  }
+
+  // THE PER ROW SWEEP, AND IT RUNS WHETHER OR NOT THE WEEK HAS PASSED.
+  //
+  // Same argument as the guard above, one rung finer. The build deletes a
+  // perishable row once its day has gone, but the build clock is the newest
+  // upload plus a hand-edited date, and neither of those moves on a Tuesday
+  // morning. A page built on Monday and served untouched all week would keep
+  // "be ready for a possible drop today between 10am and 2pm" on it until
+  // Saturday, and that row is not stale in the harmless way the banner
+  // describes: it is an instruction to go and refresh a shop page for a window
+  // that shut days ago.
+  //
+  // Straight out of the DOM rather than hidden, the same call build-shows.mjs
+  // makes on a show that has already happened, and for the same reason: there
+  // is nothing to read in a closed window. A row with no data-perish is
+  // untouched, so the week's ordinary rows still stand as a record when the
+  // banner fires.
+  //
+  // This runs BEFORE the filter script below, which caches the cards it finds,
+  // so the two cannot disagree about how many there are.
+  var todayNow = todayIso();
+  var swept = 0;
+  [].slice.call(document.querySelectorAll(".drop[data-perish]")).forEach(function (c) {
+    var ex = c.getAttribute("data-expires");
+    if (/^\d{4}-\d{2}-\d{2}$/.test(ex || "") && ex < todayNow && c.parentNode) {
+      c.parentNode.removeChild(c);
+      swept++;
+    }
+  });
+  if (swept) {
+    // EVERY COUNT ON THE PAGE IS NOW WRONG, and they are baked into the markup:
+    // two in the lede and two inside the filter buttons. A filter reading
+    // "Online (4)" that shows three is a small lie on a page whose whole subject
+    // is not telling small lies.
+    var grid = document.getElementById("drGrid");
+    var live = grid ? [].slice.call(grid.querySelectorAll(".drop")) : [];
+    var count = function (ch) {
+      var k = 0;
+      live.forEach(function (c) { if (c.getAttribute("data-channel") === ch) k++; });
+      return k;
+    };
+    var ns = count("store"), no = count("online");
+    [].slice.call(document.querySelectorAll('[data-n="store"]')).forEach(function (e) { e.textContent = ns; });
+    [].slice.call(document.querySelectorAll('[data-n="online"]')).forEach(function (e) { e.textContent = no; });
+    // A retailer chip with nothing behind it filters to an empty grid, which
+    // reads as a broken page rather than as an expired row.
+    [].slice.call(document.querySelectorAll(".dr-f[data-r]")).forEach(function (b) {
+      var r = b.getAttribute("data-r"), any = false;
+      live.forEach(function (c) { if (c.getAttribute("data-retailer") === r) any = true; });
+      if (!any && b.parentNode) b.parentNode.removeChild(b);
+    });
+    var note = document.getElementById("drSwept");
+    if (note) {
+      // "AND THE REST STILL STANDS" IS A CLAIM, so it is only made when the
+      // page is entitled to make it. Once the week banner is up, everything
+      // below is a record rather than a forecast, and a note underneath the
+      // banner vouching for the remaining rows would be the page arguing with
+      // itself in two consecutive paragraphs.
+      var banner = el && !el.hidden;
+      var head = live.length
+        ? (swept === 1
+            ? "One row on this list covered a window that has since closed, so it has been taken off."
+            : swept + " rows on this list covered windows that have since closed, so they have been taken off.")
+        : "Every row on this list covered a window that has since closed, so there is nothing left to show.";
+      var tail = !live.length
+        ? " Nothing here has been updated since it was compiled."
+        : banner
+          ? " What is left is the rest of that week's list, and the notice above applies to all of it."
+          : " The rest of the list runs to the end of the week.";
+      note.textContent = head + tail;
+      note.hidden = false;
+    }
+    // Filtering an empty grid is a control with no job.
+    if (!live.length) {
+      var f = document.querySelector(".dr-filters");
+      if (f && f.parentNode) f.parentNode.removeChild(f);
     }
   }
 })();

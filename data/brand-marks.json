@@ -142,6 +142,60 @@
    "title": "File:Walgreens Logo.svg",
    "license": "Public domain",
    "artist": "Walgreens"
+  },
+  "gamestop": {
+   "file": "/assets/brands/gamestop.svg",
+   "alt": "GameStop",
+   "w": 530,
+   "h": 100,
+   "title": "File:GameStop.svg",
+   "license": "Public domain",
+   "artist": "GameStop"
+  },
+  "cvs": {
+   "file": "/assets/brands/cvs.svg",
+   "alt": "CVS Health",
+   "w": 305,
+   "h": 37,
+   "title": "File:CVS Health Logo.svg",
+   "license": "Public domain",
+   "artist": "CVS Health"
+  },
+  "meijer": {
+   "file": "/assets/brands/meijer.svg",
+   "alt": "Meijer",
+   "w": 152,
+   "h": 60,
+   "title": "File:Meijer logo.svg",
+   "license": "Public domain",
+   "artist": "Meijer, Inc."
+  },
+  "dollargeneral": {
+   "file": "/assets/brands/dollargeneral.svg",
+   "alt": "Dollar General",
+   "w": 241,
+   "h": 44,
+   "title": "File:Dollar General logo.svg",
+   "license": "Public domain",
+   "artist": "Dollar General"
+  },
+  "fivebelow": {
+   "file": "/assets/brands/fivebelow.svg",
+   "alt": "Five Below",
+   "w": 289,
+   "h": 42,
+   "title": "File:Five Below logo.svg",
+   "license": "Public domain",
+   "artist": "Five Below"
+  },
+  "barnesandnoble": {
+   "file": "/assets/brands/barnesandnoble.svg",
+   "alt": "Barnes & Noble",
+   "w": 307,
+   "h": 47,
+   "title": "File:Barnes & Noble logo.svg",
+   "license": "Public domain",
+   "artist": "Barnes &amp; Noble"
   }
  }
 }

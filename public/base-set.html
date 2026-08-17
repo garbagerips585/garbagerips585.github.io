@@ -181,6 +181,50 @@
   .bs-p-name{font-size:18px}
 }
 
+/* The 1st Edition against Shadowless comparison.
+
+   A LIST OF CARDS, NOT A <table>, and it is the same call .bs-prices and
+   /top-graded.html's .tg-list both made. The natural table here is card by
+   printing by tier, which is six figures on a row: at 390px the widest figure
+   this table prints is "$343,098", eight characters, and six of those plus their
+   labels do not go into 366px of usable width at any font size worth reading.
+   MEASURED IN REAL CHARACTERS rather than in ch, per the note in
+   build-top-graded.mjs: a ch is the advance of a "0" and measures nothing here.
+
+   So the CARD is the row and the two tiers are cells inside it. On a phone the
+   cells stack and each one is four short lines, none over about 22 characters.
+   From 560 the two tiers sit side by side, and from 900 the card name takes its
+   own column so the eye can run down three cards and compare the same tier.
+
+   THE MULTIPLE IS THE LAST LINE OF ITS OWN CELL rather than a column of its own,
+   because it is derived from the two figures directly above it and belongs with
+   them. Given a column it would read as a third independent measurement. */
+.bs-cmp{list-style:none;margin:var(--s4) 0 0;padding:0;border-top:1px solid var(--hair)}
+.bs-cmp-row{display:grid;gap:var(--s3);padding:14px 0;border-bottom:1px solid var(--hair)}
+.bs-cmp-card{font-weight:700;line-height:1.25;font-size:18px}
+.bs-cmp-cell{display:flex;flex-direction:column;gap:3px;min-width:0}
+.bs-cmp-lbl{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-2)}
+.bs-cmp-n{color:var(--ink-2);font-size:var(--t-sm);font-variant-numeric:tabular-nums}
+.bs-cmp-n b{color:var(--ink);font-size:19px}
+/* The gold rule is the only mark that separates the derived number from the two
+   read ones. WEIGHT AND POSITION, NOT HUE, exactly like .bs-mark above: the
+   palette is one accent and two greys, so a coloured multiple would be the same
+   colour as something else on the page and would carry nothing on its own. The
+   label under it says what it is in words either way. */
+.bs-cmp-x{font-weight:700;font-size:var(--t-sm);font-variant-numeric:tabular-nums;
+  border-left:3px solid var(--gold-deep);padding-left:8px;margin-top:4px;
+  display:flex;align-items:baseline;gap:6px}
+@media(min-width:560px){
+  .bs-cmp-row{grid-template-columns:1fr 1fr;column-gap:var(--s4)}
+  .bs-cmp-card{grid-column:1/-1}
+}
+@media(min-width:900px){
+  .bs-cmp{max-width:820px}
+  .bs-cmp-row{grid-template-columns:1fr minmax(150px,auto) minmax(150px,auto);align-items:center}
+  .bs-cmp-card{grid-column:auto}
+}
+
 /* Traps and the honesty block. */
 .bs-traps{list-style:none;display:grid;gap:var(--s4);
   grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
@@ -323,6 +367,7 @@
       <p class="menu-h">Guides</p>
       <ul>
         <li><a href="/start.html">Start here</a></li>
+        <li><a href="/what-to-buy.html">Beginner buys</a></li>
         <li><a href="/how-to-play.html">How to play</a></li>
         <li><a href="/tcg-live.html">Code cards</a></li>
         <li><a href="/tcg-pocket.html">Phone version</a></li>
@@ -337,6 +382,7 @@
         <li><a href="/grading.html">Grading cost</a></li>
         <li><a href="/selling.html">Where to sell</a></li>
         <li><a href="/buying.html">Where to buy</a></li>
+        <li><a href="/retailers.html">Stores that sell cards</a></li>
         <li><a href="/luck.html">Luck, measured</a></li>
       </ul>
     </div>
@@ -347,6 +393,7 @@
         <li><a href="/video-games.html">Video games</a></li>
         <li><a href="/lore.html">Pokemon lore</a></li>
         <li><a href="/evolution.html">Evolution chart</a></li>
+        <li><a href="/eevee-evolutions.html">Eevee evolutions</a></li>
       </ul>
     </div>
     <div class="menu-g">
@@ -789,11 +836,15 @@
       </span>
     </li>
 <li class="bs-p">
-      <span class="bs-p-art"><span class="bs-p-noscan">No scan<span class="sr-only"> available for this printing</span></span></span>
+      <span class="bs-p-art"><img class="bs-p-scan" src="https://storage.googleapis.com/images.pricecharting.com/hehi275inmsjbx34/240.jpg" alt="Charizard [1999-2000] #4, Base Set" loading="lazy" decoding="async"></span>
       <span class="bs-p-body">
         <span class="bs-p-name">The 1999-2000 reprint</span>
         <span class="bs-p-when">Fourth run</span>
-        <span class="bs-p-none">No double-read figure for this printing, so none is printed.</span>
+        <span class="bs-p-nums">
+          <span class="bs-p-n"><b>$565</b> <span class="bs-u">Ungraded</span></span>
+          <span class="bs-p-n">$5,583 <span class="bs-u">Grade 9</span></span>
+          <span class="bs-p-n">$25,102 <span class="bs-u">PSA 10</span></span>
+        </span>
       </span>
     </li>
     </ul>
@@ -816,6 +867,72 @@
       dearest sealed Pokemon product on that whole list. Note what TCGplayer calls it: the 1st Edition packs are
       filed under a set named Base Set (Shadowless), because 1st Edition cards ARE shadowless. The stamp is the
       extra thing, not a different card.</p>
+  </div>
+</section>
+
+
+<section class="band bs-sec">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The stamp, priced</p>
+    <h2>The same gap, on three cards</h2>
+    <p class="bs-p2">One card is an anecdote. This is the 1st Edition printing against the Shadowless printing of the same card, on three cards, out of the same price guide read on the same day. The stamp is the only difference between the two printings, so the gap between the columns is what the stamp is worth.</p>
+    <ul class="bs-cmp">
+      <li class="bs-cmp-row">
+        <span class="bs-cmp-card">Charizard 4/102</span>
+        <span class="bs-cmp-cell">
+          <span class="bs-cmp-lbl">Ungraded</span>
+          <span class="bs-cmp-n"><b>$5,500</b> <span class="bs-u">1st Edition</span></span>
+          <span class="bs-cmp-n">$988 <span class="bs-u">Shadowless</span></span>
+          <span class="bs-cmp-x">5.6x<span class="bs-u">the stamp</span></span>
+        </span>
+        <span class="bs-cmp-cell">
+          <span class="bs-cmp-lbl">PSA 10</span>
+          <span class="bs-cmp-n"><b>$343,098</b> <span class="bs-u">1st Edition</span></span>
+          <span class="bs-cmp-n">$30,100 <span class="bs-u">Shadowless</span></span>
+          <span class="bs-cmp-x">11.4x<span class="bs-u">the stamp</span></span>
+        </span>
+      </li>
+      <li class="bs-cmp-row">
+        <span class="bs-cmp-card">Blastoise 2/102</span>
+        <span class="bs-cmp-cell">
+          <span class="bs-cmp-lbl">Ungraded</span>
+          <span class="bs-cmp-n"><b>$1,293</b> <span class="bs-u">1st Edition</span></span>
+          <span class="bs-cmp-n">$223 <span class="bs-u">Shadowless</span></span>
+          <span class="bs-cmp-x">5.8x<span class="bs-u">the stamp</span></span>
+        </span>
+        <span class="bs-cmp-cell">
+          <span class="bs-cmp-lbl">PSA 10</span>
+          <span class="bs-cmp-n"><b>$73,810</b> <span class="bs-u">1st Edition</span></span>
+          <span class="bs-cmp-n">$20,250 <span class="bs-u">Shadowless</span></span>
+          <span class="bs-cmp-x">3.6x<span class="bs-u">the stamp</span></span>
+        </span>
+      </li>
+      <li class="bs-cmp-row">
+        <span class="bs-cmp-card">Mewtwo 10/102</span>
+        <span class="bs-cmp-cell">
+          <span class="bs-cmp-lbl">Ungraded</span>
+          <span class="bs-cmp-n"><b>$840</b> <span class="bs-u">1st Edition</span></span>
+          <span class="bs-cmp-n">$81.80 <span class="bs-u">Shadowless</span></span>
+          <span class="bs-cmp-x">10.3x<span class="bs-u">the stamp</span></span>
+        </span>
+        <span class="bs-cmp-cell">
+          <span class="bs-cmp-lbl">PSA 10</span>
+          <span class="bs-cmp-n"><b>$54,070</b> <span class="bs-u">1st Edition</span></span>
+          <span class="bs-cmp-n">$12,600 <span class="bs-u">Shadowless</span></span>
+          <span class="bs-cmp-x">4.3x<span class="bs-u">the stamp</span></span>
+        </span>
+      </li>
+    </ul>
+    <p class="bs-p2" style="margin-top:var(--s4)">Every figure above is PriceCharting's price guide, read on
+      August 16, 2026 and read a second time from each card's own product page before it was published here. Both
+      printings of all 3 cards came back agreeing, which is the only reason they are on the page:
+      a comparison with one checked side and one unchecked side is worse than no comparison. It is a guide value
+      computed from completed sales, not a record of any single sale.</p>
+    <p class="bs-p2">Across 3 cards and both columns the 1st Edition printing runs between
+      <b>3.6x</b> and <b>11.4x</b> the Shadowless one. That is the point of the table: it
+      is not one famous card behaving strangely. Read the ungraded column and the PSA 10 column as two separate questions. Ungraded has the most sales behind it and is the one a reader holding a loose card is actually in. PSA 10 is the number everybody quotes and rests on the fewest sales, which is why the multiples in it swing much harder from card to card.</p>
+    
+    <p class="bs-foot">SHADOWLESS AGAINST UNLIMITED IS THE COMPARISON THIS TABLE WOULD RATHER MAKE, AND IT CAN BE MADE ON CHARIZARD ALONE. DATA/TOP-GRADED.JSON RANKS CARDS BY PSA 10 VALUE AND STOPS AT RANK 400, WHICH IS $12,000, SO THE PLAIN UNLIMITED PRINTINGS OF BLASTOISE 2/102 AND MEWTWO 10/102 ARE NOT IN IT AT ALL: THEY ARE WORTH FAR LESS THAN THAT. VENUSAUR 15/102 IS MISSING FROM THIS TABLE FOR THE SAME KIND OF REASON, FROM THE OTHER END, SINCE THE FILE HOLDS ITS 1ST EDITION AND 1999-2000 PRINTINGS BUT NO SHADOWLESS ONE. NOTHING HERE WAS FILLED IN FROM SOMEWHERE ELSE TO ROUND THE SET OUT.</p>
   </div>
 </section>
 
@@ -908,6 +1025,7 @@
       <div class="foot-col">
         <p class="foot-h">Guides</p>
         <a href="/start.html">Start here</a>
+        <a href="/what-to-buy.html">Beginner buys</a>
         <a href="/how-to-play.html">How to play</a>
         <a href="/tcg-live.html">Code cards</a>
         <a href="/tcg-pocket.html">Phone version</a>
@@ -922,6 +1040,7 @@
         <a href="/grading.html">Grading cost</a>
         <a href="/selling.html">Where to sell</a>
         <a href="/buying.html">Where to buy</a>
+        <a href="/retailers.html">Stores that sell cards</a>
         <a href="/luck.html">Luck, measured</a>
       </div>
       <div class="foot-col">
@@ -930,6 +1049,7 @@
         <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
         <a href="/evolution.html">Evolution chart</a>
+        <a href="/eevee-evolutions.html">Eevee evolutions</a>
       </div>
       <div class="foot-col">
         <p class="foot-h">Rochester, NY</p>

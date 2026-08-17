@@ -1199,6 +1199,17 @@ ${over.sellerKinds.map(kindRow).join("\n")}
 
       <div class="ms-body" style="margin-top:var(--s5)">
 ${para(over.closing)}
+        <!-- ONE SENTENCE AND NO NUMBERS, WHICH IS THE WHOLE POINT OF IT.
+             /retailers.html holds the shop-by-shop half of this question: which
+             chains sell Pokemon cards at all, what each one stocks, and every
+             dated price reading this site has taken off a retailer's own product
+             page. It divides those by the SAME figures this page prints, joined
+             out of data/msrp.json at build time, so the two pages cannot show one
+             listing at two multiples. Restating any of its numbers here is what
+             would break that, so this link deliberately carries none. -->
+        <p>Which shops sell them at all, what each one keeps on the shelf and where in the building to look
+          is its own page: <a href="/retailers.html">which stores sell Pokemon cards</a>. It divides its
+          readings by the same suggested figures printed above.</p>
       </div>
     </div>
   </section>

@@ -518,6 +518,17 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
       10 on a holo, and your worst attribute caps the grade no matter how good the rest is.
       <a href="/will-it-grade.html">Will it grade?</a> goes through what each company actually publishes,
       and it is worth ten minutes before you spend the fee.</p>
+    <!-- AND THE OTHER THING THAT DECIDES WHETHER THE FEE CLEARS ON AN OLD CARD,
+         which is not condition at all. On a 1999 Base Set card the break-even
+         moves by a factor of ten depending on which of the three print runs it
+         is, and that is a two mark check anybody can do at the kitchen table
+         before paying anybody anything. Prose link rather than nav only, same as
+         the will-it-grade pair above. -->
+    <p class="price-note"><b>If it is from 1999, check the printing first.</b> A Base Set card can be a 1st
+      Edition, a Shadowless or an Unlimited, the three are worth wildly different amounts, and the difference is
+      a small stamp and a shadow that is either there or is not.
+      <a href="/base-set.html">1st Edition, Shadowless or Unlimited?</a> shows both marks magnified on a real
+      card.</p>
     <p class="price-note">Fees and turnarounds read on ${esc(longDate(g.checked) || g.checked)} and they change often,
       sometimes with two weeks' notice, so click through before you send anything. Card prices are TCGplayer market
       and PSA 10 sale data. Raw prices are TCGplayer market via TCGdex, read ${esc(longDate(cardsChecked) || cardsChecked || "recently")},

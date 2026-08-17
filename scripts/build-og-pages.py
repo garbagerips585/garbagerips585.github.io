@@ -112,6 +112,15 @@ PAGES = {
     # arcade cabinets, the Pokemon mini library and the dead phone games are
     # what this one has that they do not. The headline is the page's own H1.
     "video-games": ("EVERY SINGLE ONE", "Every Pokemon game, in order", "Covers, dates and scores, Red and Green to now"),
+    # The kicker is the correction, the way the types one is. Almost every
+    # evolution chart online prints a single condition per arrow, and the thing
+    # this page has that they do not is that where the games disagree it says so
+    # and prints all of them. The headline is the page's own H1.
+    "evolution": ("THE ARROW, NOT JUST THE CHAIN", "How does it evolve?", "Every line drawn, and what each step really takes"),
+    # Its own card because it is its own question. The answer line is the count,
+    # because "eight, all different" is the entire pitch and it is the thing a
+    # single shared chart card cannot say.
+    "eevee": ("EIGHT, ALL DIFFERENT", "Every Eeveelution", "Which stone, which friendship, which time of day"),
 }
 
 

@@ -13,12 +13,50 @@
     "anyone, and it prints the date it was compiled at the top rather than",
     "burying it.",
     "",
+    "NOT OUR FINDINGS, AND THE PAGE HAS TO SAY SO IN THOSE WORDS. Everything",
+    "here was read somewhere else and passed on. The site's credibility",
+    "everywhere else is that its numbers are sourced; this page's honesty is that",
+    "its forecasts are flagged as somebody else's forecasts. `source` at the top",
+    "of this file is printed in the lede AND again at the foot of every single",
+    "card, because a card is the unit somebody screenshots and a page-level",
+    "credit does not travel with it.",
+    "",
+    "KEEP THE HEDGES THAT CAME WITH THE CLAIM. The posts these rows come from are",
+    "written in hedges: 'expect to see', 'may see', 'nothing confirmed', 'based on",
+    "recent patterns', 'select stores', 'we don't know what products it will be'.",
+    "Copy them across. Turning 'expected Tuesday 3am based on recent patterns'",
+    "into 'drops Tuesday 3am' is the single easiest way to make this page lie, and",
+    "it reads as tidying up.",
+    "",
     "STALENESS IS THE FAILURE MODE. A restock page showing last week is worse",
     "than no restock page, because it sends somebody to a shop for nothing. The",
     "builder compares `weekOf` against the newest video in the catalogue, the",
     "same clock /upcoming.html uses, and when the week has passed the page says",
     "so at the top instead of presenting stale rows as current. It does not hide",
     "them: last week's expectations are still useful for reading a pattern.",
+    "",
+    "AND SOME ROWS DIE BEFORE THE WEEK DOES, WHICH IS THE SECOND MECHANISM.",
+    "`expires` is the last day a row can possibly be true, as a plain ISO date,",
+    "and it defaults to `weekEnds` when it is absent. A row whose `expires` is",
+    "EARLIER than `weekEnds` is PERISHABLE: it is a single afternoon or a single",
+    "evening rather than a week's worth of shelf watching, so once its day has",
+    "gone it is not a record of anything, it is just wrong. Those rows are",
+    "dropped by the builder when the build clock is past them and swept out of",
+    "the page again by the reader's own clock, the same belt-and-braces shape",
+    "scripts/build-shows.mjs uses on past card shows. A perishable row also SAYS",
+    "on its own face which day it covers and that it comes off the page after",
+    "that, so nobody has to trust the sweep to know what they are reading.",
+    "",
+    "The two mechanisms do different jobs and neither replaces the other. The",
+    "week banner covers 'nobody has touched this site in a month'. The per-row",
+    "sweep covers 'it is Wednesday and Monday's one-afternoon alert is still",
+    "sitting there looking current'. Do not add a third.",
+    "",
+    "`window` is optional and is {from, to} in ISO dates, for a row that names a",
+    "specific day or range. It is stamped onto the card as data attributes so the",
+    "claim is machine readable, and it does NOT drive expiry: a product loaded on",
+    "a backend with an expected Tuesday can still turn up on the Friday, so the",
+    "row outlives the day the trackers guessed.",
     "",
     "CONFIDENCE, and it uses the same three words as data/upcoming.json so the",
     "two pages mean the same thing by them:",
@@ -32,6 +70,13 @@
     "             folklore that happens to be well observed, not a timetable.",
     "             A row here should carry a source for the observation or say",
     "             plainly that it is a pattern nobody has measured.",
+    "",
+    "A ROW BUILT ON WATCHING A BACKEND IS `pattern`, NOT `window`. Backend",
+    "movement on a retailer's site is an observation by somebody outside the",
+    "company, so it has no official origin, and `window` and `expected` both",
+    "imply one because that is what they mean on /upcoming.html. This caught the",
+    "two Pokemon Center rows for the week of 17 August 2026: both were tempting to",
+    "file as `window` because both name an hour.",
     "",
     "CHANNEL is `store` or `online`. Several retailers do both and they are",
     "separate rows, because the answer to when and how you get it is different.",
@@ -63,6 +108,18 @@
     "read. If a week's information comes from somewhere else, change it: the page",
     "prints whatever is here, so it can never credit the wrong place.",
     "",
+    "NAME THE KIND OF PLACE, NOT THE PLACE. These posts come out of stock",
+    "tracking communities, several of which are private or paid. Do not put a",
+    "community's name, its channel names or an invite link in here. 'Community",
+    "restock trackers' plus the date it was read is the whole of what this page",
+    "can honestly say and the whole of what a reader needs: the credit is that",
+    "these are not our findings, and no reader is served by being pointed at a",
+    "server they cannot join. Same call /decks.html makes about Limitless, for",
+    "the same reason, and it is written up in CLAUDE.md under the outbound rule.",
+    "`url` stays null. A row may still name a PUBLISHED, PUBLIC measurement in",
+    "its note text, with the date it was read, because that is a number and a",
+    "number has to be traceable.",
+    "",
     "WHY THIS IS PASTED IN BY HAND AND ALWAYS WILL BE. Every retailer surface",
     "that would carry drop information was probed on 2026-08-15 and is either",
     "bot-blocked or robots-disallowed: Pokemon Center disallows the exact",
@@ -81,12 +138,13 @@
     "information does not exist in machine-readable form because it does not",
     "exist in advance at all. Nobody knows, including the retailers."
   ],
-  "weekOf": "2026-08-10",
-  "weekEnds": "2026-08-16",
-  "compiled": "2026-08-15",
+  "weekOf": "2026-08-17",
+  "weekEnds": "2026-08-23",
+  "compiled": "2026-08-17",
   "source": {
-    "name": "Community week-ahead post",
-    "note": "A Pokemon restock community's weekly summary, passed on by Tim. Not an announcement from any retailer.",
+    "name": "Community restock trackers",
+    "read": "2026-08-17",
+    "note": "Stock tracking communities Tim follows, passed on as they were written. Not an announcement from any retailer, and not this site's own findings.",
     "url": null
   },
   "retailers": {
@@ -106,16 +164,12 @@
       "name": "Best Buy",
       "kind": "Big box"
     },
-    "aldi": {
-      "name": "Aldi",
-      "kind": "Grocery"
-    },
     "walgreens": {
       "name": "Walgreens",
       "kind": "Pharmacy"
     },
-    "family-dollar": {
-      "name": "Family Dollar",
+    "dollar-general": {
+      "name": "Dollar General",
       "kind": "Discount"
     }
   },
@@ -124,85 +178,100 @@
       "retailer": "pokemon-center",
       "channel": "online",
       "confidence": "pattern",
-      "what": "A drop is expected, with no product list yet.",
-      "when": "Usually Monday to Wednesday, 11am to 2pm Eastern.",
+      "what": "Worth being on alert for a drop at some point this week. No product list.",
+      "when": "The most common drop days are Monday to Wednesday, 11am to 2pm Eastern.",
+      "window": { "from": "2026-08-17", "to": "2026-08-19" },
+      "expires": "2026-08-19",
       "notes": [
-        "Monday to Wednesday is a pattern people have noticed rather than a schedule Pokemon Center publishes, and nobody has measured this one.",
-        "Products showing on the backend do not mean stock exists. Nothing is confirmed until it is buyable."
+        "Monday to Wednesday is a pattern people have noticed, not a schedule Pokemon Center publishes, and nobody has measured this one.",
+        "The trackers say no stock is loaded on the backend for these products, and that claims to the contrary are going round on social media and in other communities. Nothing is confirmed until it is buyable.",
+        "This row covers the Monday to Wednesday window only. It comes off the page after 19 August rather than sitting here looking current."
+      ]
+    },
+    {
+      "retailer": "pokemon-center",
+      "channel": "online",
+      "confidence": "pattern",
+      "what": "A same-day update: be ready for a possible drop today. The trackers say plainly that they do not know what products it would be.",
+      "when": "Monday 17 August, between 10am and 2pm Eastern.",
+      "window": { "from": "2026-08-17", "to": "2026-08-17" },
+      "expires": "2026-08-17",
+      "notes": [
+        "Nothing is confirmed. What the trackers report is some movement on Pokemon Center's backend, which is not the same thing as stock.",
+        "This is the shortest lived thing on the site: one afternoon. It is worthless by tomorrow, so it comes off the page after 17 August."
       ]
     },
     {
       "retailer": "target",
       "channel": "store",
       "confidence": "expected",
-      "what": "Select Chaos Rising and Pitch Black products.",
+      "what": "Select Chaos Rising and Pitch Black products, plus First Partner Series 2 and 3 collection boxes.",
       "when": "Through the week, varies by store.",
       "notes": [
-        "Some stores are also still receiving Ascended Heroes booster bundles, Prismatic Evolutions surprise pack collections, and First Partner Series 2 and 3 collection boxes."
+        "A handful of stores are also still receiving Prismatic Evolutions Super Premium Collections. That is a handful, so treat it as a look-and-see rather than a list to expect."
       ]
     },
     {
       "retailer": "target",
       "channel": "online",
       "confidence": "expected",
-      "what": "Prismatic Evolutions surprise pack collections, Pitch Black ETBs, Chaos Rising ETBs and First Partner Series 3.",
-      "when": "No scheduled time. Any night from around 3am Eastern.",
+      "what": "Prismatic Evolutions Super Premium Collections, Pitch Black ETBs, Chaos Rising ETBs and First Partner Series 3 are loaded on Target's backend.",
+      "when": "No date or time is loaded, so nobody knows when they drop. The trackers expect Tuesday around 3am Eastern based on recent patterns, which is a guess rather than a time.",
+      "window": { "from": "2026-08-18", "to": "2026-08-23" },
       "notes": [
-        "Loaded on the backend with no date attached, which means nobody knows when it goes live, including the people watching for it."
+        "Loaded on a backend means the listing exists. It does not mean stock exists, and it does not come with a date attached.",
+        "A second wave of 30th Celebration preorders may also release, going on where previous waves landed. Nothing about that is confirmed and there is no date for it."
       ]
     },
     {
       "retailer": "best-buy",
       "channel": "store",
       "confidence": "expected",
-      "what": "Ascended Heroes booster bundles, Pitch Black booster bundles and 3-pack blisters, First Partner Series 2 and 3 collection boxes.",
+      "what": "More Pitch Black booster bundles and 3-pack blisters, plus First Partner Series 2 and 3 collection boxes.",
       "when": "Through the week, varies by store."
+    },
+    {
+      "retailer": "walmart",
+      "channel": "store",
+      "confidence": "expected",
+      "what": "Pitch Black and Chaos Rising products, plus First Partner Series 2 and 3 collection boxes.",
+      "when": "Through the week, varies by store.",
+      "notes": [
+        "A very small number of stores are still receiving Destined Rivals ETBs. That is a leftover working its way through rather than a restock, so do not plan a drive around it."
+      ]
     },
     {
       "retailer": "walmart",
       "channel": "online",
       "confidence": "pattern",
-      "what": "Product list not published yet.",
-      "when": "Wednesday evening is the pattern, most often between 9pm and midnight Eastern.",
+      "what": "A Walmart Wednesday is expected again this week. No product list.",
+      "when": "Wednesday 19 August, from 9pm Eastern.",
+      "window": { "from": "2026-08-19", "to": "2026-08-19" },
+      "expires": "2026-08-19",
       "notes": [
-        "Walmart publishes no restock schedule. The closest thing to evidence is a measurement: Restockd, which watches for products coming back in stock, logged 83 Walmart Pokemon detections in the 90 days to August 12, 2026 and found 87 percent landed between 9pm and midnight Eastern, most often on a Wednesday.",
+        "Walmart publishes no restock schedule. The closest thing to evidence is a measurement: Restockd, which watches for products coming back in stock, logged 83 Walmart Pokemon detections in the 90 days to August 12, 2026 and found 87 percent landed between 9pm and midnight Eastern, most often on a Wednesday. Read 15 August 2026.",
         "Restockd's own caveat matters: a detection is a product returning to stock, not a count of units, and several detections can belong to one release. So 83 is not 83 separate drops.",
-        "That is a record of what happened, not a promise about what will."
-      ],
-      "source": {
-        "name": "Restockd 90 day detection analysis",
-        "url": "https://restockd.app/blog/when-does-walmart-restock-pokemon-cards",
-        "read": "2026-08-15"
-      }
-    },
-    {
-      "retailer": "aldi",
-      "channel": "store",
-      "confidence": "confirmed",
-      "what": "Ascended Heroes Mega ex boxes.",
-      "when": "From August 12, select locations.",
-      "notes": [
-        "Aldi stock is a one-off run rather than a restock, so when it is gone it is gone."
+        "That is a record of what happened, not a promise about what will. This row covers Wednesday, so it comes off the page after 19 August."
       ]
     },
     {
       "retailer": "walgreens",
       "channel": "store",
       "confidence": "expected",
-      "what": "Ascended Heroes 2-pack blisters.",
+      "what": "Ascended Heroes 2-pack blisters, plus the Darkrai, Tyranitar and Slaking tins.",
       "when": "Ongoing, select stores.",
       "notes": [
-        "No purchase limit in store, so these tend to go quickly."
+        "No purchase limit in store, so the trackers expect these to go fast where they turn up."
       ]
     },
     {
-      "retailer": "family-dollar",
+      "retailer": "dollar-general",
       "channel": "store",
       "confidence": "expected",
       "what": "Black Bolt and White Flare Unova poster collections.",
       "when": "Ongoing, select stores.",
       "notes": [
-        "Roughly 12 to 24 units per store and no purchase limit."
+        "Select stores only, and which stores is not something anybody publishes."
       ]
     }
   ]

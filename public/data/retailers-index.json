@@ -1,0 +1,50 @@
+{
+ "checked": "2026-08-17",
+ "pages": [
+  {
+   "name": "Barnes & Noble",
+   "path": "/retailers/barnes-and-noble.html",
+   "sub": "Does Barnes & Noble sell Pokemon cards?"
+  },
+  {
+   "name": "Best Buy",
+   "path": "/retailers/best-buy.html",
+   "sub": "Does Best Buy sell Pokemon cards?"
+  },
+  {
+   "name": "CVS",
+   "path": "/retailers/cvs.html",
+   "sub": "Does CVS sell Pokemon cards?"
+  },
+  {
+   "name": "Dollar General",
+   "path": "/retailers/dollar-general.html",
+   "sub": "Does Dollar General sell Pokemon cards?"
+  },
+  {
+   "name": "Five Below",
+   "path": "/retailers/five-below.html",
+   "sub": "Does Five Below sell Pokemon cards?"
+  },
+  {
+   "name": "GameStop",
+   "path": "/retailers/gamestop.html",
+   "sub": "Does GameStop sell Pokemon cards?"
+  },
+  {
+   "name": "Meijer",
+   "path": "/retailers/meijer.html",
+   "sub": "Does Meijer sell Pokemon cards?"
+  },
+  {
+   "name": "Target",
+   "path": "/retailers/target.html",
+   "sub": "Does Target sell Pokemon cards?"
+  },
+  {
+   "name": "Walmart",
+   "path": "/retailers/walmart.html",
+   "sub": "Does Walmart sell Pokemon cards?"
+  }
+ ]
+}

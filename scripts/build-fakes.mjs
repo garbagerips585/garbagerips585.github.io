@@ -529,6 +529,19 @@ ${MENU}
       <h2>${esc(d.goldenRule.title)}</h2>
       <p>${esc(d.goldenRule.body)}</p>
     </div>
+    ${/* THE OTHER QUESTION PEOPLE ARRIVE HERE ASKING, and it is not the one this
+         page answers. A large share of "is this real" is really "is this the
+         valuable version", because a 1999 Base Set card with no drop shadow looks
+         wrong to somebody who has only handled modern cards, and a Shadowless
+         card and a counterfeit are both shadowless. Sending that reader through
+         eight authentication tests answers a question they did not have. One
+         line, before the tests rather than after them, because the whole cost of
+         getting this wrong is the eight tests. */ ""}
+    <p class="price-note" style="margin-top:var(--s4)"><b>Holding something from 1999?</b> A real Base Set card
+      can have no drop shadow around its artwork and still be perfectly genuine: that is what collectors call
+      Shadowless, and it is worth more than the ordinary printing rather than less.
+      <a href="/base-set.html">1st Edition, Shadowless or Unlimited?</a> tells the three print runs apart. Come
+      back here if the answer is that it is none of them.</p>
   </div>
 </section>
 

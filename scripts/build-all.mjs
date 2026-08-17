@@ -203,6 +203,35 @@ const STEPS = [
   // what may go in it, plus data/pack-counts-current.json for the pack counts and
   // the shop listings, so this site states a pack count in exactly one place.
   "node scripts/build-msrp.mjs",
+  // What a beginner or a parent should actually buy, and what it should cost.
+  // AFTER build-msrp.mjs is not required by anything the two write, but it is
+  // the honest reading order: that page owns every price and this one joins to
+  // the same data/msrp.json by product label, so a figure cannot appear here
+  // that the price list does not carry. The join throws rather than warns.
+  //
+  // AFTER build-openings.mjs IS a real ordering constraint, the same one the
+  // line above records: this page links a recommended product to
+  // /openings/<id>.html and reads public/openings/ to find out which of those
+  // pages exist. Run it first and every one of those links silently disappears
+  // for a build.
+  //
+  // It also reads data/pack-counts-current.json for the pack counts and the two
+  // shop listings it prints, and data/buying.json for the retailers' own
+  // marketplace readings that the reseller section rests on. All three are
+  // read, never written. Otherwise the usual two: before build-search.mjs,
+  // which fails the build on an indexable page missing from its PAGES list, and
+  // before build-pages.mjs, which puts it in the sitemap.
+  "node scripts/build-what-to-buy.mjs",
+  // The physical shop directory and its nine per-retailer pages. AFTER
+  // sync-brands.mjs for the same reason build-buying.mjs is, and it reads
+  // data/msrp.json for the suggested figure behind every comparison plus
+  // data/pack-counts-current.json for the four shop listings this repo already
+  // held, so no price is stated twice anywhere in the tree. Otherwise the usual
+  // two: before build-search.mjs, which fails the build on an indexable page
+  // missing from its PAGES list and which also reads the retailer index this
+  // step writes, and before build-pages.mjs, which puts all ten urls in the
+  // sitemap.
+  "node scripts/build-retailers.mjs",
   "node scripts/build-playlists.mjs",
   // The timeline of every official Pokemon video game. It reads
   // data/video-games.json, which a human curates, and data/cover-dims.json,

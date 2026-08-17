@@ -1255,7 +1255,15 @@ ${OLD.map(
         and is recomputed nightly.</li>
       <li><strong>What is in the box besides packs.</strong> Sleeves, dice, promos, playmats and coins are listed
         where the product page listed them, and nothing on this page puts a value on any of it.</li>
-      <li><strong>Which one to buy.</strong> Cheapest per pack is not best. This is a list of what is inside things,
+      ${/* THIS BULLET NAMED NO PAGE THAT ANSWERS IT UNTIL /what-to-buy.html EXISTED,
+            which made it a refusal rather than a handover: it told a reader the
+            question was reasonable, said this page would not answer it, and left
+            them there. That page answers it by situation, prices every
+            recommendation against data/msrp.json and links back here for the
+            counts, so the two do not overlap. The "cheapest per pack is not
+            best" sentence stays, because it is still the trap. */ ""}
+      <li><strong>Which one to buy.</strong> Cheapest per pack is not best. This is a list of what is inside things.
+        <a href="/what-to-buy.html">What to actually buy</a> answers it by who it is for and what it should cost,
         and <a href="/openings/">every kind of sealed product opened on camera</a> is the closest thing to a second
         opinion we can honestly offer.</li>
     </ul>

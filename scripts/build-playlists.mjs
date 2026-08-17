@@ -545,6 +545,20 @@ ${MENU}
         desc ? esc(desc) : `${vids.length} rip${vids.length === 1 ? "" : "s"}, in playlist order.`
       }</p>
 ${strip}
+      <!-- THE WALL NEEDED A HEADING AND THIS IS IT. Every tile title in .wall is
+           an h3, and with nothing between it and the page h1 all 21 playlist
+           pages read h1 -> h3. Same defect and same fix as .loc h2 in ui.css
+           and .op-sh in build-openings.mjs, except that the tile heading here
+           CANNOT be promoted instead: .v h3 in ui.css is a tag selector used
+           by every video tile on the site, and ui.css is not this builder's to
+           edit. So the level goes in above the wall rather than under it.
+           The style is inline and copied from .op-sh rather than added to
+           PAGE_CSS because PAGE_CSS is only emitted when the strip is
+           non-empty and this heading is on every playlist page.
+           NOTE FOR THE NEXT EDITOR: this comment is inside a JS template
+           literal. A backtick in here ends the string and the build dies with
+           a syntax error a hundred lines away. That happened writing it. -->
+      <h2 style="font:400 var(--t-m)/1.2 var(--display);margin:var(--s5) 0 var(--s3)">In this playlist</h2>
       <p class="pl-stat">${vids.length} video${vids.length === 1 ? "" : "s"}${
         newest ? ` &bull; newest ${esc(shortDate(newest))}` : ""
       } &bull; click a pack to rip it open here</p>

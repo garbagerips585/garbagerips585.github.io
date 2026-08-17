@@ -28,10 +28,38 @@
 // NO PRICE IS TYPED ANYWHERE. See priceRow() below: an entry in data/base-set.json
 // names a card and this reads the figure out of data/top-graded.json, so this page
 // and /top-graded.html cannot disagree. It also refuses any row that PriceCharting
-// was only read ONCE for: verify-graded-top.mjs checks the top 120 ranks against
-// each card's own product page, and a Base Set printing below that has one read
-// behind it. Shadowless Blastoise (rank 177) and Shadowless Mewtwo (rank 366) are
-// in the file and are deliberately not on the page.
+// was only read ONCE for, which is what verify-graded-top.mjs supplies.
+//
+// THAT PARAGRAPH USED TO END "verify-graded-top.mjs checks the top 120 ranks, and
+// a Base Set printing below that has one read behind it. Shadowless Blastoise
+// (rank 177) and Shadowless Mewtwo (rank 366) are in the file and are
+// deliberately not on the page." IT IS NO LONGER TRUE AND THE PAGE HAS CHANGED
+// UNDER IT. `verify-graded-top.mjs --all` was run on 17 August 2026 and re-read
+// ALL 400 rows: 399 agree, 1 disagree, 0 unreadable, 0 missing a scan. Every one
+// of the 22 Base Set and Base Set 2 rows in the file is now double-read, so the
+// 120 ceiling is gone as a reason for leaving a printing off.
+//
+// What that unlocked, and what it did NOT, is worth writing down because the
+// second half is the surprising half:
+//
+//   UNLOCKED  Charizard [1999-2000] #4 (rank 124), which is the fourth print run
+//             and now carries a figure instead of a sentence saying it does not.
+//             Also the whole 1st Edition ladder below rank 120, and the two
+//             Shadowless rows named above, which feed the second price table.
+//
+//   NOT       Shadowless against Unlimited on any card except Charizard, and no
+//             amount of further verification can fix it. This file is ranked by
+//             PSA 10 VALUE and its floor is $12,000 at rank 400. The Unlimited
+//             printings of Blastoise #2, Venusaur #15 and Mewtwo #10 are worth
+//             far less than that, so they are not in data/top-graded.json at all
+//             and were never excluded by verification. Widening the verification
+//             can only ever add the SCARCE printings. Getting the common one
+//             needs a different crawl, not a wider check.
+//
+// So the second table on this page compares 1st Edition against Shadowless,
+// which is the one printing pair that exists on more than one card: Charizard
+// (ranks 6 and 96), Blastoise (27 and 177) and Mewtwo (42 and 366), all six rows
+// double-read. See the comment above stampTable() for the argument.
 
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
@@ -49,6 +77,7 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, longDate, shortDate, moneyCompact, imgDims, avifPicture } from "../shared/format.mjs";
+import { gradedGate } from "../shared/graded-gate.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/base-set.json"), "utf8"));
@@ -58,33 +87,20 @@ const exp = JSON.parse(await readFile(join(ROOT, "public/data/expansions.json"),
 
 /* ---------------------------------------------------------------- prices --
  *
- * THE SAME THREE GATES build-top-graded.mjs USES, and for the same reason: a
- * figure nobody read twice is not publishable, and a page that quietly falls
- * back to one read is worse than a page with no figure. These are hard failures
- * rather than warnings because both of the alternatives are silent.
+ * THE SAME GATES build-top-graded.mjs USES, and for the same reason: a figure
+ * nobody read twice is not publishable, and a page that quietly falls back to
+ * one read is worse than a page with no figure. Hard failures rather than
+ * warnings, because both of the alternatives are silent.
+ *
+ * THEY USED TO BE COPIED INTO THIS FILE AND ARE NOW IMPORTED, which is the
+ * change that matters more than it looks. Three identical throws are safe to
+ * duplicate. A rule with an EXCEPTION in it is not, because the two copies then
+ * have to agree about which rows are excluded and why, and the failure mode is
+ * this page printing a figure /top-graded.html refuses to print. The rule, the
+ * one exclusion currently in force and the evidence behind it are all written
+ * out in shared/graded-gate.mjs.
  */
-if (!tg.verify) {
-  throw new Error(
-    "data/top-graded.json has no `verify` block, so no price here has been read " +
-      "twice.\nRun: node scripts/verify-graded-top.mjs",
-  );
-}
-if (tg.verify.for !== tg.checked) {
-  throw new Error(
-    `data/top-graded.json: the verification is stamped for a crawl of ${tg.verify.for} ` +
-      `and the data is from ${tg.checked}. Re-run scripts/verify-graded-top.mjs.`,
-  );
-}
-if (tg.verify.disagree > 0) {
-  throw new Error(
-    `${tg.verify.disagree} row(s) in data/top-graded.json disagree between the ` +
-      `listing page and the product page. Do not publish either number.`,
-  );
-}
-
-// Rank -> verification result, so a lookup can ask whether THIS row was read
-// twice rather than trusting the file as a whole.
-const verified = new Map(tg.verify.rows.map((r) => [r.rank, r]));
+const { verified } = gradedGate(tg);
 const missingPrice = [];
 
 /**
@@ -113,6 +129,23 @@ function priceRow(ref) {
 }
 
 for (const r of d.runs) r.price = priceRow(r.pcRow);
+
+/* THE SECOND TABLE'S PAIRS, and the rule is stricter than for a single row.
+ *
+ * A COMPARISON WITH ONE VERIFIED SIDE IS WORSE THAN NO COMPARISON, because the
+ * unverified half is not visibly missing: it is a number in a column next to a
+ * number that was read twice, and the multiple printed beside them inherits the
+ * weaker of the two without saying so. So a card is dropped from this table
+ * unless BOTH of its printings came back "agree", and priceRow records why in
+ * `missingPrice` either way, which the build log prints.
+ *
+ * All three currently survive. Charizard is ranks 6 and 96, Blastoise 27 and
+ * 177, Mewtwo 42 and 366, and the 17 August 2026 run of verify-graded-top.mjs
+ * --all double-read every one of them.
+ */
+const stampPairs = (d.stampPairs?.cards || [])
+  .map((p) => ({ ...p, a: priceRow(p.first), b: priceRow(p.shadowless) }))
+  .filter((p) => p.a && p.b);
 
 // The sealed pack, from the other price file. Corroborated against TCGplayer's
 // own pricepoints endpoint on the crawl (see data/top100.json `sealed.method`),
@@ -482,6 +515,84 @@ function priceCard(r) {
     </li>`;
 }
 
+/**
+ * The 1st Edition against Shadowless table, or nothing at all.
+ *
+ * WHY THIS PAIR AND NOT SHADOWLESS AGAINST UNLIMITED, which is the comparison
+ * the money section really wants and the one this table was started as. The
+ * Unlimited printing of every Base Set card except Charizard is missing from
+ * data/top-graded.json, and it is missing for a reason no amount of verifying
+ * will change: that file is ranked BY PSA 10 VALUE and its floor is $12,000 at
+ * rank 400, while an Unlimited Blastoise or Mewtwo is worth a long way under
+ * that. The scarce printings are the ones a value ranking keeps. So the pair
+ * that exists on more than one card is the stamp, and the stamp is what this
+ * table measures. The reader is told all of that in `stampPairs.missing`
+ * rather than left to notice the hole.
+ *
+ * THREE IS THE FLOOR AND IT IS ENFORCED HERE RATHER THAN ASSUMED. The whole
+ * argument for a second table is that one card is an anecdote; two is not much
+ * better. Below three verified pairs this returns "" and the section does not
+ * render, which leaves the page exactly as it was rather than shipping a weaker
+ * version of the claim.
+ *
+ * NO FIGURE IS TYPED AND NEITHER IS THE SUMMARY. The range under the table is
+ * computed from the multiples actually printed above it, so it cannot drift
+ * away from them the way a sentence written once does.
+ */
+const MIN_PAIRS = 3;
+function stampTable() {
+  const s = d.stampPairs;
+  if (!s || stampPairs.length < MIN_PAIRS) return "";
+
+  const ratios = [];
+  const line = (label, a, b) => {
+    const m = a && b ? a / b : null;
+    if (m) ratios.push(m);
+    return `<span class="bs-cmp-cell">
+          <span class="bs-cmp-lbl">${esc(label)}</span>
+          <span class="bs-cmp-n"><b>${moneyCompact(a)}</b> <span class="bs-u">1st Edition</span></span>
+          <span class="bs-cmp-n">${moneyCompact(b)} <span class="bs-u">Shadowless</span></span>
+          <span class="bs-cmp-x">${m ? `${m.toFixed(1)}x` : ""}<span class="bs-u">the stamp</span></span>
+        </span>`;
+  };
+
+  const rows = stampPairs
+    .map(
+      (p) => `      <li class="bs-cmp-row">
+        <span class="bs-cmp-card">${esc(p.card)}</span>
+        ${line("Ungraded", p.a.ungraded, p.b.ungraded)}
+        ${line("PSA 10", p.a.psa10, p.b.psa10)}
+      </li>`,
+    )
+    .join("\n");
+
+  const lo = Math.min(...ratios);
+  const hi = Math.max(...ratios);
+
+  return `<section class="band bs-sec">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The stamp, priced</p>
+    <h2>${esc(s.title)}</h2>
+    <p class="bs-p2">${esc(s.lede)}</p>
+    <ul class="bs-cmp">
+${rows}
+    </ul>
+    <p class="bs-p2" style="margin-top:var(--s4)">Every figure above is PriceCharting's price guide, read on
+      ${esc(read)} and read a second time from each card's own product page before it was published here. Both
+      printings of all ${stampPairs.length} cards came back agreeing, which is the only reason they are on the page:
+      a comparison with one checked side and one unchecked side is worse than no comparison. It is a guide value
+      computed from completed sales, not a record of any single sale.</p>
+    <p class="bs-p2">Across ${stampPairs.length} cards and both columns the 1st Edition printing runs between
+      <b>${lo.toFixed(1)}x</b> and <b>${hi.toFixed(1)}x</b> the Shadowless one. That is the point of the table: it
+      is not one famous card behaving strangely. ${esc(s.note)}</p>
+    ${/* UPPERCASED BEFORE esc(), NEVER AFTER. esc() emits entities, and
+          "&amp;".toUpperCase() is "&AMP;", which browsers do not decode. Same
+          order as the two longDate() footers further down this file. */ ""}
+    <p class="bs-foot">${esc(s.missing.toUpperCase())}</p>
+  </div>
+</section>`;
+}
+
 const priced = d.runs.filter((r) => r.price);
 const first = d.runs.find((r) => r.id === "first")?.price;
 const shad = d.runs.find((r) => r.id === "shadowless")?.price;
@@ -716,6 +827,50 @@ const style = `
   .bs-p{grid-template-columns:84px 1fr;gap:var(--s4)}
   .bs-p-art{width:84px;height:118px}
   .bs-p-name{font-size:18px}
+}
+
+/* The 1st Edition against Shadowless comparison.
+
+   A LIST OF CARDS, NOT A <table>, and it is the same call .bs-prices and
+   /top-graded.html's .tg-list both made. The natural table here is card by
+   printing by tier, which is six figures on a row: at 390px the widest figure
+   this table prints is "$343,098", eight characters, and six of those plus their
+   labels do not go into 366px of usable width at any font size worth reading.
+   MEASURED IN REAL CHARACTERS rather than in ch, per the note in
+   build-top-graded.mjs: a ch is the advance of a "0" and measures nothing here.
+
+   So the CARD is the row and the two tiers are cells inside it. On a phone the
+   cells stack and each one is four short lines, none over about 22 characters.
+   From 560 the two tiers sit side by side, and from 900 the card name takes its
+   own column so the eye can run down three cards and compare the same tier.
+
+   THE MULTIPLE IS THE LAST LINE OF ITS OWN CELL rather than a column of its own,
+   because it is derived from the two figures directly above it and belongs with
+   them. Given a column it would read as a third independent measurement. */
+.bs-cmp{list-style:none;margin:var(--s4) 0 0;padding:0;border-top:1px solid var(--hair)}
+.bs-cmp-row{display:grid;gap:var(--s3);padding:14px 0;border-bottom:1px solid var(--hair)}
+.bs-cmp-card{font-weight:700;line-height:1.25;font-size:18px}
+.bs-cmp-cell{display:flex;flex-direction:column;gap:3px;min-width:0}
+.bs-cmp-lbl{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-2)}
+.bs-cmp-n{color:var(--ink-2);font-size:var(--t-sm);font-variant-numeric:tabular-nums}
+.bs-cmp-n b{color:var(--ink);font-size:19px}
+/* The gold rule is the only mark that separates the derived number from the two
+   read ones. WEIGHT AND POSITION, NOT HUE, exactly like .bs-mark above: the
+   palette is one accent and two greys, so a coloured multiple would be the same
+   colour as something else on the page and would carry nothing on its own. The
+   label under it says what it is in words either way. */
+.bs-cmp-x{font-weight:700;font-size:var(--t-sm);font-variant-numeric:tabular-nums;
+  border-left:3px solid var(--gold-deep);padding-left:8px;margin-top:4px;
+  display:flex;align-items:baseline;gap:6px}
+@media(min-width:560px){
+  .bs-cmp-row{grid-template-columns:1fr 1fr;column-gap:var(--s4)}
+  .bs-cmp-card{grid-column:1/-1}
+}
+@media(min-width:900px){
+  .bs-cmp{max-width:820px}
+  .bs-cmp-row{grid-template-columns:1fr minmax(150px,auto) minmax(150px,auto);align-items:center}
+  .bs-cmp-card{grid-column:auto}
 }
 
 /* Traps and the honesty block. */
@@ -1025,6 +1180,22 @@ ${d.runs.map(priceCard).join("\n")}
   </div>
 </section>
 
+${/* IMMEDIATELY AFTER THE MONEY SECTION AND BEFORE THE TRAPS, because it is the
+      same argument continued: the table above prices four printings of ONE card,
+      and the reader's fair objection at that point is that one card proves
+      nothing. This answers it while the objection is still fresh.
+
+      IT IS A SECOND `band` RUNNING STRAIGHT INTO THE FIRST ONE, which is the one
+      place on this page where two tinted sections touch, and it is deliberate.
+      ui.css gives section.band a 3px rule top AND bottom, so the join paints a
+      6px rule rather than merging: the boundary is if anything louder than the
+      alternating one. The pair shares a tint because it is one topic, the money,
+      and the alternation picks up correctly again at the traps section below.
+      The alternative, an untinted section here, puts two untinted sections
+      against each other instead and those really do merge, since there is no
+      rule between them at all. */ ""}
+${stampTable()}
+
 <section class="bs-sec">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Do not get caught</p>
@@ -1085,6 +1256,9 @@ await writeFile(join(ROOT, "public/base-set.html"), html);
 
 console.log(`Wrote public/base-set.html
   ${d.runs.length} print runs, ${priced.length} with a double-read price
+  ${stampPairs.length} of ${(d.stampPairs?.cards || []).length} stamp pairs double-read on BOTH printings${
+    stampPairs.length < MIN_PAIRS ? `, under the floor of ${MIN_PAIRS}, so that table is NOT on the page` : ""
+  }
   ${d.tells.length} checks, 3 drawn diagrams, 2 magnified crops of one real scan
   ${d.unverified.length} claims listed as unverified
   prices from data/top-graded.json, crawled ${tg.checked}, verified ${tg.verify.ran}`);

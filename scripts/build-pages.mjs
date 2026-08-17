@@ -1090,6 +1090,42 @@ const urls = [
   // and edits data/msrp.json, which is a handful of times a year. High priority
   // anyway: "pokemon msrp" is a real search and the page has a sourced answer.
   { loc: `${SITE}/msrp.html`, freq: "monthly", pri: "0.9" },
+  // What a beginner or a parent should actually buy. MONTHLY for the same reason
+  // as the line above and from the same file: every price on it is joined out of
+  // data/msrp.json, so it moves when a person re-reads a source, not when a feed
+  // ticks. Promising weekly would be this site claiming a freshness it has not
+  // arranged.
+  //
+  // 0.9, THE SAME AS /start.html, and deliberately not lower. "what pokemon
+  // cards should i buy for my kid", "best pokemon cards for beginners" and "what
+  // is an elite trainer box" are asked constantly, by people who are about to
+  // spend money and have no idea what any of it is, and almost every answer
+  // online is an affiliate list. This one names a product per situation and
+  // prices every one of them against the manufacturer's own shop.
+  { loc: `${SITE}/what-to-buy.html`, freq: "monthly", pri: "0.9" },
+  // Which shops actually sell Pokemon cards. MONTHLY on the index and on every
+  // retailer page, and the reason is what these pages are made of: the durable
+  // half is which department a chain files trading cards under and what it
+  // typically stocks, which moves about as often as a shop refits. The dated
+  // price readings on them move faster and say so on their face, and asking a
+  // crawler back weekly for a page whose sourced facts have not changed is the
+  // same overclaim /msrp.html's line above avoids.
+  //
+  // HIGH PRIORITY ON THE INDEX because "stores that sell pokemon cards" is a
+  // real query with no good answer anywhere, and slightly lower on the nine
+  // retailer pages because each answers one narrower question.
+  //
+  // DERIVED FROM THE BUILDER'S OWN OUTPUT, NOT TYPED. build-retailers.mjs writes
+  // public/data/retailers-index.json listing exactly the pages it wrote, so this
+  // cannot list a url that does not exist and cannot miss one that does. That is
+  // the same fix the openings block above records having needed after thirteen
+  // hand-written lines drifted in both directions at once.
+  { loc: `${SITE}/retailers.html`, freq: "monthly", pri: "0.9" },
+  ...(await readFile(join(ROOT, "public/data/retailers-index.json"), "utf8")
+    .then((s) => (JSON.parse(s).pages || []).map((p) => ({
+      loc: `${SITE}${p.path}`, freq: "monthly", pri: "0.7",
+    })))
+    .catch(() => [])),
   // The two ranked price lists. DAILY, because the whole page is a price read
   // on one date and a stale one is the failure mode these pages are built to
   // avoid; the nightly re-runs sync-top100.mjs and both pages change.

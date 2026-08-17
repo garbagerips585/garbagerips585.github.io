@@ -64,13 +64,41 @@ const daysOld = doc.weekEnds
   : 0;
 
 const R = doc.retailers || {};
-const drops = (doc.drops || []).filter((d) => R[d.retailer]);
-if (drops.length !== (doc.drops || []).length) {
+const all = doc.drops || [];
+const known = all.filter((d) => R[d.retailer]);
+if (known.length !== all.length) {
   // A row naming a retailer with no entry would render an unlabelled card, and
-  // the reader would have no idea which shop it meant.
-  const bad = (doc.drops || []).filter((d) => !R[d.retailer]).map((d) => d.retailer);
+  // the reader would have no idea which shop it meant. Checked against the FULL
+  // list rather than the surviving one, so a typo in a row that has already
+  // expired still fails the build instead of going quiet for a week.
+  const bad = all.filter((d) => !R[d.retailer]).map((d) => d.retailer);
   throw new Error(`drops.json names retailers with no entry in "retailers": ${bad.join(", ")}`);
 }
+
+// THE SECOND EXPIRY MECHANISM, AND IT IS NOT A DUPLICATE OF THE FIRST.
+//
+// The week banner below covers one failure: nobody has touched the site in a
+// month and the page still calls its week "this week". It is deliberately a
+// banner rather than a delete, because last week's expectations are still worth
+// reading as a pattern.
+//
+// This covers the other failure, which the banner cannot reach because it
+// happens while the week is still perfectly current. Some rows are not a week's
+// worth of shelf watching, they are ONE AFTERNOON: "be ready for a possible drop
+// today between 10am and 2pm". On Tuesday that row is not a record of anything,
+// it is simply wrong, and it is wrong in the most expensive direction because
+// somebody sits refreshing a shop page for a window that closed yesterday.
+//
+// So a row may carry `expires`, the last day it can be true. When that date is
+// EARLIER than weekEnds the row is PERISHABLE and it is deleted rather than
+// banded: here when the build clock is past it, and again in the browser on the
+// reader's clock, which is the belt-and-braces shape build-shows.mjs uses on
+// shows that have already happened. A row with no `expires` inherits weekEnds,
+// is never perishable, and lives or dies with the week like everything else.
+const expiresOn = (d) => d.expires || doc.weekEnds || "";
+const perishable = (d) => Boolean(doc.weekEnds && d.expires && d.expires < doc.weekEnds);
+const expired = known.filter((d) => perishable(d) && expiresOn(d) < TODAY);
+const drops = known.filter((d) => !expired.includes(d));
 
 // PATTERN IS THE WEAKEST TIER AND IT EARNED ITS OWN WORD. The other three all
 // imply something official sits behind them, because that is what they mean on
@@ -132,9 +160,22 @@ const chip = (id) => {
 };
 
 const card = (d) => {
-  const r = R[d.retailer];
   const c = CONF[d.confidence] || CONF.expected;
-  return `      <article class="drop" data-channel="${esc(d.channel)}" data-retailer="${esc(d.retailer)}">
+  const ex = expiresOn(d);
+  const dies = perishable(d);
+  const w = d.window || {};
+  // ATTRIBUTION IS PER CARD, NOT PER PAGE, and the page-level credit at the top
+  // is not enough on its own. A card is the unit somebody screenshots and pastes
+  // into a group chat, and it travels without the lede that says none of this is
+  // ours. A row may name its own source when it has one; otherwise it inherits
+  // the week's, which is the whole point of putting `source` at the top of
+  // drops.json. Nine identical lines in micro type is the correct amount of
+  // repetition here.
+  const src = d.source || doc.source;
+  return `      <article class="drop" data-channel="${esc(d.channel)}" data-retailer="${esc(d.retailer)}"
+        data-expires="${esc(ex)}"${dies ? ` data-perish="1"` : ""}${
+          w.from ? ` data-from="${esc(w.from)}"` : ""
+        }${w.to ? ` data-to="${esc(w.to)}"` : ""}>
         <div class="drop-top">
           ${chip(d.retailer)}
           <span class="drop-ch">${d.channel === "store" ? "In store" : "Online"}</span>
@@ -142,12 +183,13 @@ const card = (d) => {
         </div>
         <p class="drop-what">${esc(d.what)}</p>
         ${d.when ? `<p class="drop-when"><b>When.</b> ${esc(d.when)}</p>` : ""}
+        ${dies ? `<p class="drop-exp">Good until <time datetime="${esc(ex)}">${esc(longDate(ex))}</time>, then it comes off this page. A window that has closed is not a forecast.</p>` : ""}
         ${(d.notes || []).map((n) => `<p class="drop-note">${esc(n)}</p>`).join("\n        ")}
-        ${d.source ? `<p class="drop-src">${
-          d.source.url
-            ? `<a href="${esc(d.source.url)}" rel="noopener" target="_blank">${esc(d.source.name)}</a>`
-            : esc(d.source.name)
-        }${d.source.read ? `, read ${esc(longDate(d.source.read))}` : ""}</p>` : ""}
+        ${src?.name ? `<p class="drop-src">${
+          src.url
+            ? `<a href="${esc(src.url)}" rel="noopener" target="_blank">${esc(src.name)}</a>`
+            : esc(src.name)
+        }${src.read ? `, read ${esc(longDate(src.read))}` : ""}</p>` : ""}
       </article>`;
 };
 
@@ -231,6 +273,20 @@ ${BRAND_STYLE}
 .drop-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:auto;padding-top:var(--s2)}
 .drop-what{font:600 var(--t-m)/1.35 var(--body)}
 .drop-when,.drop-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.45}
+/* THE PERISHABLE ROW SAYS SO ON ITS OWN FACE. The sweep at the bottom of the
+   page takes these away on the day after, but a reader should not have to trust
+   a script they cannot see to know what they are looking at: the row that is
+   only true for one afternoon prints the date it stops being true, in a <time>,
+   next to the hour it names. Ink weight rather than colour, same as the
+   confidence ladder above, so it survives the palette having one hue. */
+.drop-exp{font:700 var(--t-sm)/1.4 var(--body);color:var(--ink);
+  border-left:3px solid var(--ink-soft);padding:2px 0 2px var(--s3)}
+.drop-exp time{font-family:var(--mono);letter-spacing:.01em}
+/* The note the sweep writes when it has removed something. Hidden until it has,
+   because "nothing has expired" is not news and an empty box is worse. */
+.dr-swept{border:2px dashed var(--ink-2);border-radius:var(--r);padding:var(--s3) var(--s4);
+  margin-bottom:var(--s4);color:var(--ink);font:600 var(--t-sm)/1.45 var(--body)}
+.dr-swept[hidden]{display:none}
 .dr-empty{color:var(--ink-2);padding:var(--s5) 0}
 .dr-key h2{margin-bottom:var(--s3)}
 .dr-key{margin-top:var(--s5);color:var(--ink-2);font-size:var(--t-sm);line-height:1.5;max-width:44em}
@@ -291,22 +347,39 @@ ${MENU}
              stale ? `${daysOld} day${daysOld === 1 ? "" : "s"}` : "a few days"
            }</b> out of date. It covered ${esc(weekLabel)} and has not been updated since. Treat it as a record of what was expected, not as this week's plan.</p>
         <p class="dr-when">${esc(weekLabel)}</p>
-        <h1>What is <span class="hl">dropping</span> this week</h1>
+        <!-- THE HEADLINE GOES STALE TOO, and it was the last thing on the page
+             that did not. The title, the description and both og tags already
+             switch to a past tense when the week has gone, for the reason
+             argued above TITLE_FRESH: a page cannot say "not this week's plan"
+             in a banner and "this week" in the biggest type on the screen and
+             expect to be believed about either. Two spans carrying their own
+             replacement TEXT rather than one element carrying replacement
+             MARKUP, so the swap below never touches innerHTML. -->
+        <h1><span data-s="What was">${stale ? "What was" : "What is"}</span> <span class="hl">dropping</span> <span data-s="that week">${stale ? "that week" : "this week"}</span></h1>
         <p class="lede" style="max-width:44em">Where Pokemon cards are expected to turn up, in store and online.
-          <b>None of this is announced by anyone.</b> Retailers do not publish restock schedules, so every
-          line here is people watching shelves and backend listings and comparing notes. Treat it as a
-          decent guess, and check the confidence on each one.</p>
-        <p class="lede" style="max-width:44em">${nStore} in store, ${nOnline} online, compiled ${esc(longDate(doc.compiled))}${
-          doc.source?.name ? ` from ${esc(doc.source.name).toLowerCase()}` : ""
-        }.</p>
+          <b>This is community intelligence, not fact, and none of it is announced by anyone.</b>
+          Retailers do not publish restock schedules, so every line here is other people watching shelves
+          and backend listings and comparing notes. <b>These are not our findings.</b> We are passing on
+          what the trackers said, in the words they hedged it with. Treat it as a decent guess, and check
+          the confidence on each one.</p>
+        <p class="lede" style="max-width:44em"><b data-n="store">${nStore}</b> in store,
+          <b data-n="online">${nOnline}</b> online. A snapshot compiled ${esc(longDate(doc.compiled))}${
+          doc.source?.name
+            ? ` from ${esc(doc.source.name).toLowerCase()}${
+                doc.source.read ? `, read ${esc(longDate(doc.source.read))}` : ""
+              }`
+            : ""
+        }. It is what somebody else expected on that date, and it has not been checked since.</p>
       </div>
 
       <div class="dr-filters" role="group" aria-label="Filter drops">
         <button class="dr-f" type="button" data-f="all" aria-pressed="true">Everything</button>
-        <button class="dr-f" type="button" data-f="store" aria-pressed="false">In store (${nStore})</button>
-        <button class="dr-f" type="button" data-f="online" aria-pressed="false">Online (${nOnline})</button>
+        <button class="dr-f" type="button" data-f="store" aria-pressed="false">In store (<b data-n="store">${nStore}</b>)</button>
+        <button class="dr-f" type="button" data-f="online" aria-pressed="false">Online (<b data-n="online">${nOnline}</b>)</button>
         ${order.map((id) => `<button class="dr-f" type="button" data-r="${esc(id)}" aria-pressed="false">${esc(R[id].name)}</button>`).join("\n        ")}
       </div>
+
+      <p class="dr-swept" id="drSwept" hidden></p>
 
       <div class="dr-grid" id="drGrid">
 ${drops.map(card).join("\n")}
@@ -321,7 +394,17 @@ ${drops.map(card).join("\n")}
 
       <div class="dr-key">
         <h2>How to read this page</h2>
-        <p><b>What the labels mean.</b> ${Object.values(CONF).map((c) => `<b>${c.label}:</b> ${c.note}`).join(" ")}</p>
+        <p><b>Where it came from.</b> ${doc.source?.name ? `${esc(doc.source.name)}${doc.source.read ? `, read ${esc(longDate(doc.source.read))}` : ""}. ` : ""}Stock
+          tracking communities that Tim follows, passed on with the hedges they were written with. We do not
+          name them, and there is no link, because several are private or paid and a reader is not served by
+          being pointed at a door they cannot open. None of this is our own reporting and none of it is a
+          retailer speaking.</p>
+        <p style="margin-top:var(--s3)"><b>What the labels mean.</b> ${Object.values(CONF).map((c) => `<b>${c.label}:</b> ${c.note}`).join(" ")}</p>
+        <p style="margin-top:var(--s3)"><b>When rows disappear.</b> A row that covers one afternoon or one
+          evening prints the date it stops being true, and it is removed from this page the day after,
+          on your clock rather than ours. The rest of the list runs to the end of the week at the top of
+          the page, and once that week has passed the page says so before it says anything else. Nothing
+          here is refreshed automatically, so an old page is an old page and it will tell you it is one.</p>
         <p style="margin-top:var(--s3)"><b>Whose logos these are.</b> ${BRAND_CREDIT}
           The kind of shop is the word under each name: ${[...new Set(Object.values(R).map((x) => x.kind))]
             .map((k) => esc(k))
@@ -397,10 +480,94 @@ ${footer()}
         var n = document.querySelector(sel);
         if (n && val) n.setAttribute(attr, val);
       };
+      // The headline, in the same breath as the head. textContent only, on the
+      // two spans that carry their own past tense, so this can never inject
+      // markup and can never lose the .hl highlight between them.
+      [].slice.call(document.querySelectorAll("h1 [data-s]")).forEach(function (sp) {
+        sp.textContent = sp.getAttribute("data-s");
+      });
       if (el.getAttribute("data-title")) document.title = el.getAttribute("data-title");
       set('meta[name="description"]', "content", el.getAttribute("data-desc"));
       set('meta[property="og:title"]', "content", el.getAttribute("data-og-title"));
       set('meta[property="og:description"]', "content", el.getAttribute("data-desc"));
+    }
+  }
+
+  // THE PER ROW SWEEP, AND IT RUNS WHETHER OR NOT THE WEEK HAS PASSED.
+  //
+  // Same argument as the guard above, one rung finer. The build deletes a
+  // perishable row once its day has gone, but the build clock is the newest
+  // upload plus a hand-edited date, and neither of those moves on a Tuesday
+  // morning. A page built on Monday and served untouched all week would keep
+  // "be ready for a possible drop today between 10am and 2pm" on it until
+  // Saturday, and that row is not stale in the harmless way the banner
+  // describes: it is an instruction to go and refresh a shop page for a window
+  // that shut days ago.
+  //
+  // Straight out of the DOM rather than hidden, the same call build-shows.mjs
+  // makes on a show that has already happened, and for the same reason: there
+  // is nothing to read in a closed window. A row with no data-perish is
+  // untouched, so the week's ordinary rows still stand as a record when the
+  // banner fires.
+  //
+  // This runs BEFORE the filter script below, which caches the cards it finds,
+  // so the two cannot disagree about how many there are.
+  var todayNow = todayIso();
+  var swept = 0;
+  [].slice.call(document.querySelectorAll(".drop[data-perish]")).forEach(function (c) {
+    var ex = c.getAttribute("data-expires");
+    if (/^\\d{4}-\\d{2}-\\d{2}$/.test(ex || "") && ex < todayNow && c.parentNode) {
+      c.parentNode.removeChild(c);
+      swept++;
+    }
+  });
+  if (swept) {
+    // EVERY COUNT ON THE PAGE IS NOW WRONG, and they are baked into the markup:
+    // two in the lede and two inside the filter buttons. A filter reading
+    // "Online (4)" that shows three is a small lie on a page whose whole subject
+    // is not telling small lies.
+    var grid = document.getElementById("drGrid");
+    var live = grid ? [].slice.call(grid.querySelectorAll(".drop")) : [];
+    var count = function (ch) {
+      var k = 0;
+      live.forEach(function (c) { if (c.getAttribute("data-channel") === ch) k++; });
+      return k;
+    };
+    var ns = count("store"), no = count("online");
+    [].slice.call(document.querySelectorAll('[data-n="store"]')).forEach(function (e) { e.textContent = ns; });
+    [].slice.call(document.querySelectorAll('[data-n="online"]')).forEach(function (e) { e.textContent = no; });
+    // A retailer chip with nothing behind it filters to an empty grid, which
+    // reads as a broken page rather than as an expired row.
+    [].slice.call(document.querySelectorAll(".dr-f[data-r]")).forEach(function (b) {
+      var r = b.getAttribute("data-r"), any = false;
+      live.forEach(function (c) { if (c.getAttribute("data-retailer") === r) any = true; });
+      if (!any && b.parentNode) b.parentNode.removeChild(b);
+    });
+    var note = document.getElementById("drSwept");
+    if (note) {
+      // "AND THE REST STILL STANDS" IS A CLAIM, so it is only made when the
+      // page is entitled to make it. Once the week banner is up, everything
+      // below is a record rather than a forecast, and a note underneath the
+      // banner vouching for the remaining rows would be the page arguing with
+      // itself in two consecutive paragraphs.
+      var banner = el && !el.hidden;
+      var head = live.length
+        ? (swept === 1
+            ? "One row on this list covered a window that has since closed, so it has been taken off."
+            : swept + " rows on this list covered windows that have since closed, so they have been taken off.")
+        : "Every row on this list covered a window that has since closed, so there is nothing left to show.";
+      var tail = !live.length
+        ? " Nothing here has been updated since it was compiled."
+        : banner
+          ? " What is left is the rest of that week's list, and the notice above applies to all of it."
+          : " The rest of the list runs to the end of the week.";
+      note.textContent = head + tail;
+      note.hidden = false;
+    }
+    // Filtering an empty grid is a control with no job.
+    if (!live.length) {
+      var f = document.querySelector(".dr-filters");
+      if (f && f.parentNode) f.parentNode.removeChild(f);
     }
   }
 })();
@@ -457,6 +624,16 @@ ${APP_JS}
 `;
 
 await writeFile(join(ROOT, "public/drops.html"), page);
+const perish = drops.filter(perishable);
 console.log(`Wrote public/drops.html
   ${drops.length} drops across ${order.length} retailers, ${nStore} in store and ${nOnline} online
-  week of ${doc.weekOf} to ${doc.weekEnds}${stale ? `  STALE by ${daysOld} days, the page says so` : ""}`);
+  week of ${doc.weekOf} to ${doc.weekEnds}${stale ? `  STALE by ${daysOld} days, the page says so` : ""}
+  ${perish.length} perishable row(s) still live: ${
+    perish.map((d) => `${d.retailer}/${d.channel} to ${expiresOn(d)}`).join(", ") || "none"
+  }${
+    expired.length
+      ? `\n  ${expired.length} perishable row(s) dropped, already past on ${TODAY}: ${expired
+          .map((d) => `${d.retailer}/${d.channel} expired ${expiresOn(d)}`)
+          .join(", ")}`
+      : ""
+  }`);

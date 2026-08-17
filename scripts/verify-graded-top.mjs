@@ -162,4 +162,20 @@ d.verify = {
 await writeFile(file, JSON.stringify(d, null, 2) + "\n");
 
 console.log(`\n${agree} agree, ${disagree} disagree, ${unreadable} unreadable, ${noImg} missing a scan`);
-if (disagree) console.log("DISAGREEMENTS ARE NOT PUBLISHABLE. Fix the parse or drop the rows.");
+if (disagree) {
+  // NEITHER FIGURE IS PUBLISHABLE EITHER WAY, and the three ways forward are not
+  // equally good. Fixing the parse is the right answer when the parse is wrong,
+  // and a broken parse is the thing this whole script exists to catch, so look
+  // there first: check whether the OTHER rows still agree before concluding it is
+  // about one card. Dropping the row from the data loses the evidence. Recording
+  // it in `excluded` keeps the row, keeps it unpublished and keeps the reason
+  // next to the two numbers it is about. What is not on the list is editing
+  // `status` to "agree", which is the only one of these that is silent.
+  console.log(
+    "DISAGREEMENTS ARE NOT PUBLISHABLE.\n" +
+      "  Fix the parse, or record the row in the top-level `excluded` array of\n" +
+      "  data/top-graded.json with rank, name, set, listing, product, decided,\n" +
+      "  public and why. Either way it stays off both pages. Do not edit a row's\n" +
+      "  status. See shared/graded-gate.mjs.",
+  );
+}

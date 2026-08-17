@@ -660,6 +660,16 @@ ${d.unverified.items.map((i) => `            <li>${esc(i)}</li>`).join("\n")}
           ${GRADING_CO} companies and works the break-even out against each card's own price. If it did not survive,
           it is still a card: <a href="/selling.html">where to sell it raw</a> is next door, and a raw card sells
           fine.</p>
+        <!-- THE 1999 CARDS, WHICH ARE THE ONES MOST LIKELY TO BE SUBMITTED BLIND.
+             Everything above is about condition, and condition is the bigger half
+             of what a Base Set card is worth. The smaller half is which of the
+             three print runs it is, and that is a different check with a different
+             page: sending a card off without knowing whether it is a 1st Edition
+             is how somebody pays a fee they should not have and how somebody else
+             misses one they should. -->
+        <p class="gc-in">And if the card is from 1999, work out <b>which printing</b> before you decide anything.
+          <a href="/base-set.html">1st Edition, Shadowless or Unlimited</a> is a two mark check on the card in
+          front of you, and the three runs are priced a long way apart.</p>
       </section>
 
       <p class="gc-foot">Read from each company's own published standards and error guides on

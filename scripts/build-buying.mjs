@@ -1118,6 +1118,10 @@ ${(custody.chain || []).map((c) => `          <li><b>${esc(c.who)}</b> ${esc(c.w
             shops ? ` This site already publishes <a href="/shops.html">${shops} shops around Rochester</a> and a
             <a href="/card-shows.html">card show calendar</a>.` : ""
           } What it costs is selection, which is the same trade as everything else on this page.</p>
+        <p class="by-lede" style="margin-top:var(--s3)">A counter does not have to be a card shop, either.
+          Which chains sell Pokemon cards, what each one actually keeps on the shelf and which department
+          they file them under is <a href="/retailers.html">the shop list</a>, which covers GameStop, Target,
+          Walmart, CVS and the rest, and names the ones whose sites would not let us read them.</p>
         <p class="by-lede" style="margin-top:var(--s3)">Two companion pages rather than repeats of them here. For
           sealed product the question this page does not answer is <em>when</em> the chains have stock, and that is
           <a href="/drops.html">what is dropping this week</a>. And before you pay for anything raw and expensive

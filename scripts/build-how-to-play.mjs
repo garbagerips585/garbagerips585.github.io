@@ -708,7 +708,20 @@ ${(win.ways || [])
           <li><b>You do not have to build anything</b>A preconstructed deck is a legal 60 card deck out of the
             box, and the official product guide says so. It files ex Battle Decks and Battle Academy under "start
             here", and a Battle Academy box holds more than one deck, so two people can play without buying twice.
-            We print no prices: no official one could be read anywhere that was not a reseller.</li>
+            ${/* THIS SENTENCE USED TO READ "We print no prices: no official one could
+                  be read anywhere that was not a reseller", and it stopped being
+                  true on 17 August 2026. Pokemon Center is The Pokemon Company's
+                  own shop, so what it asks IS the manufacturer's suggestion, and
+                  data/msrp.json now carries a sourced figure for Battle Academy,
+                  both battle decks and My First Battle, every one of them read off
+                  that shop. A page telling a beginner no price exists, next to a
+                  page of this site printing one, is the site contradicting itself
+                  in front of the reader it is least able to afford confusing.
+                  Still no price ON THIS PAGE: the link goes to the page that owns
+                  them. Eight words SHORTER than the sentence it replaces, which
+                  matters because of the 1,500 word ceiling asserted at the foot of
+                  this file. */ ""}<a href="/what-to-buy.html">Which one to buy, and what it should
+            cost</a>.</li>
           ${/* THE LINK GOES TO OUR PAGE FIRST and Pokemon's own download page stays
                 in the outbound block at the foot, which is the shape CLAUDE.md's
                 outbound exception argues for. This bullet used to send a beginner
