@@ -22,14 +22,38 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
-<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<link rel="stylesheet" href="/assets/ui.css?v=17b9bdb3">
 <style>
 .gc-lede{max-width:46em}
 .gc-sec{margin-top:var(--s6)}
 .gc-sec > p.gc-in{color:var(--ink-2);max-width:44em;line-height:1.55;margin-bottom:var(--s4)}
+/* The four column tables are 640px wide inside a 360px box on a phone, so 280px
+   of every one of them is off screen. Measured at 390x844: .gc-tw clientWidth
+   360, scrollWidth 640. At 320x568 it is 350px hidden. The page said nothing
+   about it: the right edge was a hard cut at the container border and even the
+   caption was truncated mid-word ("NOTE HOW MUCH WIDER THE TOLERA").
+
+   This is ui.css's "there is more to the right" trick, the same four layers it
+   already gives .cc-scroll, .xp-scroll and .luck-scroll. The two COVER layers
+   are background-attachment:local so they ride with the content; the two SHADOW
+   layers are scroll so they stay pinned to the box. At scroll 0 the cover hides
+   the shadow, and scrolling slides it away to reveal one. It switches itself off
+   when the table fits, so nothing shows at 1440.
+
+   background-COLOR, not the background shorthand: the shorthand resets
+   background-image and would silently wipe all four layers. That is the exact
+   trap ui.css records for the two builders that hit it before this one. */
 .gc-tw{overflow-x:auto;border:3px solid var(--navy);border-radius:12px;box-shadow:var(--hard-lg);
-  background:var(--card);margin-bottom:var(--s4)}
+  background-color:var(--card);margin-bottom:var(--s4);
+  background-image:
+    linear-gradient(to right,var(--card) 40%,rgba(255,255,255,0)),
+    linear-gradient(to left,var(--card) 40%,rgba(255,255,255,0)),
+    radial-gradient(farthest-side at 0 50%,rgba(17,17,17,.30),rgba(17,17,17,0)),
+    radial-gradient(farthest-side at 100% 50%,rgba(17,17,17,.30),rgba(17,17,17,0));
+  background-position:left center,right center,left center,right center;
+  background-repeat:no-repeat;
+  background-size:44px 100%,44px 100%,15px 100%,15px 100%;
+  background-attachment:local,local,scroll,scroll}
 .gc-t{border-collapse:collapse;width:100%;min-width:640px;font-size:var(--t-sm)}
 .gc-t caption{caption-side:top;text-align:left;padding:var(--s3) var(--s4);font:700 var(--t-label)/1.3 var(--body);
   letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);border-bottom:2px solid var(--hair)}
@@ -129,6 +153,34 @@
 .gc-aka{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em}
 .gc-unv{border:3px dashed var(--hair);border-radius:12px;padding:var(--s4);background:var(--card)}
 .gc-foot{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
+
+/* DESKTOP READING MEASURE. The caps above were written in em as if 1em were
+   one character. It is not: these faces run 2.31 to 2.47 characters per em, so
+   44 to 46em bought 105 to 108 real characters a line at 1440. ui.css already
+   caps main prose at var(--measure) and these rules only outranked it by
+   landing after the stylesheet. All min-width:1000, ui.css's own desktop
+   breakpoint, so the phone and the tablet range keep exactly the rules
+   they had.
+
+   IT IS .gc-key p AND NOT .gc-key li, AND THAT IS THE WHOLE CARE IN THIS
+   BLOCK. The 44em above covers both, but .gc-ex li is a display:flex row of a
+   subgrade line and its total, not a sentence, and .gc-ex sits inside .gc-key.
+   A cap on the li would have rescaled those rows. Paragraphs only; the lists
+   here were read and left alone.
+
+   AND :not(.gc-note) IS THE SECOND HALF OF THAT CARE, CAUGHT BY MEASURING
+   AFTERWARDS RATHER THAN BY READING THE SELECTOR. .gc-note is a p, it sits
+   inside .gc-key, and it is the only Space Mono block on the page. Mono runs
+   about 1.77 characters per em against Outfit's 2.31, so its 44em box was
+   already only about 70 real characters and the shared cap took it to 57,
+   which is too narrow rather than too wide. Same reason .rg-foot in
+   build-rarity.mjs and .up-foot in build-upcoming.mjs are not capped and
+   ui.css keeps .price-note on its own 52em: a mono block does not join the
+   shared number. A pass that only reads class names will re-add it. */
+@media(min-width:1000px){
+.gc-lede,.gc-foot{max-width:var(--measure)}
+.gc-sec > p.gc-in,.gc-in,.gc-key p:not(.gc-note){max-width:var(--measure)}
+}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Will it grade"}]}</script>
 </head>
@@ -624,6 +676,5 @@
   </div>
 </footer>
 <script src="/assets/app.js?v=4cc7bcef" defer></script>
-<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
 </body>
 </html>

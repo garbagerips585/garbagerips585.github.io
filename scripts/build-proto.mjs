@@ -519,13 +519,21 @@ const hofHtml = hofPick
             // taken the 810 file at 1440 and 1920 for a 464px box, so the
             // honest sweep is what turned the new rendition into a saving.
             // At DPR 2 this box asks for 808 and still takes 810w, unchanged.
+            //
+            // AND IT IS SERVED AS AVIF FIRST SINCE 16 AUGUST 2026, which is the
+            // only change to this element that a retina screen can feel. 560w
+            // moved nothing here at DPR 2 because 808 device pixels still need
+            // the 810w file; the codec shrinks that file instead of trying to
+            // avoid it. avifPicture leaves every attribute above on the <img>
+            // and adds one <source>, so the WebP is still what Safari 16.0-16.3
+            // gets and fetchpriority still lands on the LCP element.
             const fs = faceSet(hofPick);
             return fs && packs.has(fs)
-              ? `<img src="assets/packs/${fs}-garbage-rips-585-booster-pack.webp"
+              ? avifPicture(`<img src="assets/packs/${fs}-garbage-rips-585-booster-pack.webp"
            srcset="assets/packs/${fs}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${fs}-garbage-rips-585-booster-pack-mid.webp 560w, assets/packs/${fs}-garbage-rips-585-booster-pack.webp 810w"
-           sizes="(max-width:544px) calc(100vw - 64px), (max-width:640px) 480px, (max-width:1199px) 464px, (max-width:1399px) 404px, 464px" alt="" fetchpriority="high" decoding="async" width="810" height="1440">`
+           sizes="(max-width:544px) calc(100vw - 64px), (max-width:640px) 480px, (max-width:1199px) 464px, (max-width:1399px) 404px, 464px" alt="" fetchpriority="high" decoding="async" width="810" height="1440">`)
               : packs.has("default")
-                ? `<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" fetchpriority="high" decoding="async">`
+                ? avifPicture(`<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" fetchpriority="high" decoding="async">`)
                 : `<b>Garbage Rips</b>`;
           })()}
           ${
@@ -609,9 +617,17 @@ function heroTile(v, opts) {
   // duplicated breakpoint, the measured boxes are in the paragraph above.
   const sizes = hasArt ? "(max-width:640px) 87vw, 440px" : "";
   const rest = `alt="" width="400" height="711" loading="lazy" decoding="async"`;
-  const live = `<img src="${src}"${
+  // AVIF IN FRONT OF THE WEBP, AND IT IS THE ONE LEVER HERE THAT PAYS AT EVERY
+  // DPR. The three widths above only help a screen whose box happens to fall in
+  // a gap between them; a smaller codec shrinks whichever width the browser
+  // picked anyway, so this is the change a retina laptop and a phone can both
+  // feel. Measured on the generated files, avif q60 against webp q78 and at a
+  // higher PSNR than it: 810w 150.6 -> 123.1KB, 560w 82.2 -> 68.0KB, 400w tile
+  // 49.4 -> 41.2KB. avifPicture only rewrites the extension; build-packs.py is
+  // what guarantees the file on the other end exists.
+  const live = avifPicture(`<img src="${src}"${
     srcset ? `\n           srcset="${srcset}"\n           sizes="${sizes}"` : ""
-  } ${rest}>`;
+  } ${rest}>`);
   // A SLIDE THE TRACK IS NOT SHOWING DOES NOT FETCH ITS PACK, AND
   // loading="lazy" IS NOT WHAT STOPS IT. Measured on the home page at 390x844
   // with a DPR 3 phone: five pack WebPs, 124 to 151KB each, all arrived before
@@ -644,10 +660,19 @@ function heroTile(v, opts) {
   // The <noscript> copy is what a reader with JS off gets. ui.css lays it over
   // the empty box rather than under it, because the deferred <img> still
   // occupies the slide.
+  //
+  // THE <source> HAS TO BE DEFERRED WITH THE <img> AND THAT IS NOT OPTIONAL. A
+  // <picture> whose <source> matches loads that source even when the <img>
+  // carries no src at all, so a live `srcset` on the source would fetch every
+  // slide's AVIF at first paint and put the phone straight back to 800KB, in a
+  // new format, with the markup still looking correct. avifPicture({defer:true})
+  // writes the source's candidates under the SAME data- names the img uses, and
+  // hydrateSlides promotes the source first. Verified from the request log: at
+  // 390x844 exactly one pack file arrives on load, and it is an .avif.
   const face = o.defer
-    ? `<img data-packsrc="${src}"${
+    ? avifPicture(`<img data-packsrc="${src}"${
       srcset ? ` data-packsrcset="${srcset}" data-packsizes="${sizes}"` : ""
-    } ${rest}><noscript>${live}</noscript>`
+    } ${rest}>`, { defer: true }) + `<noscript>${live}</noscript>`
     : live;
   const all = v.sets || [];
   const label = all.length ? setLabel(all[0]).toUpperCase() : "GARBAGE RIPS";

@@ -2404,14 +2404,209 @@ footer .soc svg{fill:var(--paper)}
   .fact:last-child:nth-child(4n + 1){grid-column:1 / -1}
 }
 
+/* ==========================================================================
+   THE READING MEASURE. ONE CAP, WRITTEN IN em, AND NEVER IN ch.
+
+   The site had no general measure at all. Individual classes were capped as
+   somebody noticed them, so prose that nobody had noticed ran the full
+   container: measured at 1440x900, 16 August 2026, in REAL characters per
+   line box, worst element per page.
+
+       /types.html        223   p.ty-tend         1188px box, p.ty-note 219
+       /upcoming.html     220   p.po-warn         1342px
+       /video-games.html  199   p                 1392px
+       /rarity.html       172   p.offl-p           986px
+       /will-it-grade.html 164  p.gc-in.ct-txt    1158px
+       /what-set.html     162   li (.facts-list)   973px
+       /start.html        147   li (.facts-list)   973px
+       /fake-cards.html   144   li (.facts-list)   973px
+       /grading.html      142   li (.facts-list)   973px
+       /card-shows.html   141   li (.facts-list)  1284px
+
+   Half of /types.html's prose ran past 157 characters, edge to edge at 14px.
+   The phone was never in this: 390x844 measured 42 to 81 and not one line
+   over 90, because 36em is wider than a phone's content column, so every rule
+   here is inert there by arithmetic before it is inert by media query.
+
+   WHAT THIS BLOCK AND THE TWO BELOW IT ACTUALLY BOUGHT, same harness, same
+   viewport, worst line and median line per page:
+
+       /types.html        223 -> 120    median 93 -> 77
+       /upcoming.html     220 -> 100    median 37 -> 37
+       /video-games.html  199 -> 108    median 16 -> 16
+       /rarity.html       172 -> 122    median 81 -> 78
+       /will-it-grade.html 164 -> 118   median 101 -> 81
+       /what-set.html     162 -> 98     median 141 -> 82
+       /start.html        147 -> 108    median 111 -> 79
+       /fake-cards.html   144 -> 102    median 102 -> 78
+       /grading.html      142 -> 100    median 26 -> 26
+       /card-shows.html   141 -> 108    median 93 -> 77
+
+   The share of lines over 90 characters is the number that moved most:
+   /what-set.html 85% to 24%, /start.html 86% to 19%, /fake-cards.html 60% to
+   3%, /types.html 50% to 23%. The 390x844 run after the change is IDENTICAL
+   to the one before it, every page, every figure, down to the count of line
+   boxes, so not one line on a phone rewrapped.
+
+   THE MAXIMUM IS STUBBORN AND THAT IS EXPECTED. A cap in em fixes the WIDTH,
+   and how many characters land in it depends on which characters they are: the
+   typical line here runs 2.3 to 2.5 characters per em and the longest one 2.7
+   to 3.0, so a 36em box that reads 84 on a normal line reads 96 on a line of
+   narrow letters. Chasing the maximum under 90 would mean about 32em, which
+   makes the typical line 75 and the ledes cramped. The median is the number to
+   watch.
+
+   WHAT IS LEFT IS NOT IN THIS FILE. The pages above still show 98 to 122
+   because their remaining long elements are capped by page-level style blocks
+   in scripts/build-*.mjs, which land after this stylesheet and win: .ty-grp p,
+   .ty-split p, .ty-meas p, .ty-key-blk p, .ty-lede and .ty-src in
+   build-types.mjs, .rg-p, .rg-lede, .rg-foot and .tip p in build-rarity.mjs,
+   .gc-in, .gc-foot, .gc-lede and .gc-key p in build-grade-check.mjs,
+   .up-lede, .up-blurb and .up-foot in build-upcoming.mjs, .cal-note in
+   build-shows.mjs, .st-fig figcaption in build-start.mjs. They are all 40em to
+   56em, the same arithmetic mistake corrected below, and fixing them is a
+   one-line edit per builder that this pass was not allowed to make.
+
+   ch IS NOT A CHARACTER AND IT HAS COST THIS SITE TWO ATTEMPTS. It is the
+   advance width of a "0", which in these fonts is far wider than the average
+   letter. An earlier pass set 70ch and made a page WORSE, 89 characters to
+   101.7. Calibrated here by rendering real text and dividing:
+
+       font                       1ch buys   characters per em
+       Outfit 11 / 14 / 17px      1.51-1.52  2.31
+       the 0.95rem / 1.1rem pair  1.62-1.63  2.47
+       mono 10.88px               1.09       1.77
+
+   So the ch-to-character multiplier is not a constant, it drifts with size
+   and family, and 70ch at 14px is 107 real characters. em is the stable unit:
+   characters per em barely moves across the body sizes, and em resolves
+   against the element's own font-size, so one token caps 11px notes and 17px
+   body text at the same MEASURE rather than the same width. That is the whole
+   argument for the unit.
+
+   36em is 84 characters at 14px, 89 at 15.2px and 83 at 11px and 17px.
+   The target is the site's own: build-set-pages.mjs, build-complete.mjs and
+   build-pack-prices.mjs already put .facts-list into two columns above 1200px
+   and say the measure "lands near 86, which is accepted". 36em lands the rest
+   of the site in the same 83 to 89 band those pages already chose.
+
+   WHY THIS IS ELEMENT-LEVEL AND THEREFORE A FLOOR, NOT AN OVERRIDE. These
+   selectors are 0,0,2 and 0,0,3. Every existing cap is a class, 0,1,0 or
+   higher, and page-level blocks land after this file anyway, so anything
+   already decided still wins: .lede keeps 38em, .price-note keeps its mono
+   52em, and the three builders above keep their two-column max-width:none.
+   This only fills in where nothing was ever set, which is why it is eight
+   pages' worth of fix in two rules instead of eight patches.
+
+   THERE IS NO GENERAL li RULE AND THAT IS THE MAIN THING TO KNOW HERE.
+   One was written, measured, and thrown away, so the next person does not
+   spend the afternoon rediscovering why. It read:
+
+       main li:not(:has(p,ul,ol,dl,div,table,figure,picture,img,svg,section,
+         article,h1,h2,h3,h4,h5,h6,iframe,video,form)){max-width:var(--measure)}
+
+   The idea was that an li holding no block element is a paragraph with a
+   bullet, and an li holding one is a layout row. That is the right DISTINCTION
+   and the selector is a bad TEST of it, because this site builds most of its
+   layout rows out of span and a rather than div. The tag list cannot see a
+   span that CSS has made display:block, so the rule read every one of those
+   rows as prose and capped it. Swept over 57 pages at 1440 by comparing
+   element geometry with the stylesheet swapped underneath the same HTML:
+
+       674  ol.ig-cards.en li     set checklist rows      1392 -> 612px
+       423  ul li (plain)         a link list               ... -> 504
+        81  ul.riplist li         video rows, all link    1392 -> 612
+        51  ul.flat-list li
+        22  ul.tl-go li            7  ol.pl-list li   ranked rows
+         7  ol.t100 li            ranked rows, grid
+         6  ul.bch li             BAR CHART rows, and the bars are the data:
+                                  one bar measured 79px before and 51px after
+
+   The bar chart is the one that makes the case on its own. .bch li is a flex
+   column holding a label and a track, the track holds a span whose WIDTH IS
+   THE VALUE, so capping the row rescaled the chart. Nothing errors, the page
+   still looks like a page, and the numbers it draws are wrong.
+
+   No CSS-expressible test separates these from real prose lists, and the
+   reason is that BOTH SHAPES LOOK THE SAME TO A SELECTOR. .ty-rules li is
+   prose: a b that CSS makes a block label, then a sentence. ul.riplist li is a
+   layout row: an a that CSS makes a flex row. Neither contains a block TAG, so
+   "has a block child" cannot tell them apart, and neither can "is a flex
+   container", because .up-hi li is flex and is only a bullet dot beside a
+   sentence. The distinction is what the children MEAN, which is not a thing
+   CSS can ask about.
+
+   Capping the li was never the only option either: where a layout row contains
+   real prose that prose is a child p, and the p rule above already caps it,
+   which is why /rarity.html's worst element is p.offl-p rather than the
+   ul.offl li that row is built from.
+
+   So lists are capped ONE NAMED LIST AT A TIME, by a class, after somebody
+   looks at it. Two were done here, .facts-list li and .ty-rules li, both
+   below. Three more were read and look like the same shape, a block b label
+   followed by a sentence, and are the obvious next candidates: .tl-go li in
+   build-tcg-live.mjs, .tp-go li in build-tcg-pocket.mjs and .hp-go li and
+   .hp-lbl li in build-how-to-play.mjs. They were left alone only because those
+   pages were outside this pass. Look at each one before capping it; that is
+   the whole lesson of the paragraphs above.
+
+   min-width:1000 matches the breakpoint the home page rules already use, so
+   "desktop" means one thing in this file. It leaves 700 to 999 uncapped and
+   that gap is real: a 900px viewport still reads about 140 characters on the
+   worst pages. It was left alone deliberately rather than missed, because the
+   brief for this pass was 1440 and not regressing anything narrower, and
+   widening the range widens the blast radius. Lower the 1000 when somebody
+   has time to re-measure the tablet range properly.
+   ========================================================================== */
+:root{--measure:36em}
+@media(min-width:1000px){
+  main :is(p,dd,blockquote,figcaption){max-width:var(--measure)}
+}
+
 /* Two body-copy classes had max-width:none and ran the full container: up to
    218 characters a line at 1600 on the imported set guides, where .price-note
    carries four real paragraphs rather than one source line. */
 /* Separate caps: .price-note is 10.88px mono, so the same em width buys it far
    more characters than the 14px body text in .facts-list. 52em lands both at
    roughly 100 characters. */
+/* THE SECOND HALF OF THAT SENTENCE WAS WRONG BY 47 CHARACTERS and it is what
+   sent .facts-list out at 64em. Measured 16 August 2026 by counting REAL
+   characters per line box: .facts-list li is 15.2px, not 14px, and 64em bought
+   it 147 characters on /card-shows, /fake-cards and /grading, not "roughly
+   100". .price-note's 52em is the half that was right: mono at 10.88px lands
+   on 92, which is why it keeps its own number below rather than joining the
+   shared one. Two fonts, two caps, and the em width is not the thing they
+   share. See the measure block above for the arithmetic.
+   64em STAYS ON THIS LINE and is corrected to the shared measure in the
+   min-width:1000 block immediately below, so the tablet range keeps exactly
+   the rule it had while the desktop gets the fix. */
 .price-note{max-width:52em}
 .facts-list li{max-width:64em}
+
+/* THE OVERRIDE HAS TO SIT AFTER THE RULE IT OVERRIDES, and it did not on the
+   first attempt. `.facts-list li` is 0,1,1 here and 0,1,1 in the measure block
+   further up, a media query adds NOTHING to specificity, so the later of the
+   two wins and that was the 64em one. It measured 162 characters on five pages
+   with the fix apparently in place, which reads exactly like the rule not
+   working rather than the rule being outranked by itself.
+   The page-level two-column blocks in build-set-pages.mjs, build-complete.mjs
+   and build-pack-prices.mjs are in a <style> that lands after this whole file,
+   so their max-width:none above 1200px still wins and those pages keep the
+   layout they measured. */
+@media(min-width:1000px){
+  .facts-list li{max-width:var(--measure)}
+  /* THE SECOND NAMED LIST, and it is here rather than in a general li rule for
+     the reason set out in the measure block: capping list items has to be a
+     decision per list. This one was looked at. .ty-rules li on /types.html is
+     a gold left rule, a b that CSS makes a block label, and then a sentence,
+     with no columns, no percentage widths and nothing whose size means
+     anything. It is a paragraph wearing a label, so it takes a paragraph's
+     measure. It ran 165 characters at 1440 in a 1162px box, which was the
+     single worst line left on that page once everything else was capped.
+     .ty-rules is declared in build-types.mjs and sets no max-width there, so
+     this rule is not competing with anything and wins by default. */
+  .ty-rules li{max-width:var(--measure)}
+}
 
 /* A two-column grid holding one item leaves half a row blank. */
 .watch-list:has(li:only-child){grid-template-columns:1fr;max-width:34em}
@@ -3700,3 +3895,50 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
   box-shadow:inset 0 0 0 2px rgba(17,17,17,.6), inset 0 0 0 5px rgba(232,185,58,.5),
     0 0 34px rgba(232,185,58,.22), 0 16px 44px rgba(17,17,17,.46),
     0 0 0 5px rgba(255,255,255,.95)}
+
+/* ==========================================================================
+   THE NAMED PROSE CAPS, BROUGHT ONTO THE SHARED MEASURE.
+
+   These rules were not missing a cap, which is what makes them a separate
+   block from the element rule further up. They each HAD one, between 38em and
+   56em, and a class beats an element selector, so the measure rule cannot
+   reach them. Every one of these numbers was chosen for a single element at a
+   time and they are wrong in the same direction for the same reason: the em
+   width was picked as if it bought about two characters, and in this body font
+   it buys 2.3 on a typical line and 2.7 to 2.8 on the longest one.
+
+   Measured at 1440x900, real characters on the longest line, before this block:
+
+       .fk-see-b            56em   129      .fk-how          52em   107
+       .fk-golden p         52em   129      .show-blurb      46em   106
+       .fk-fig figcaption   52em   122      .intl-lede       46em   106
+       .fk-why              52em   121
+       .st-body p           52em   116      .lede            38em   108
+       .fk-caveat           52em   116
+
+   The lede family is listed together because it is one rule copied five times
+   and not five decisions. .pdex-lede, .prod-lede, .s101-lede, .w-lede and
+   .shops-lede are the same 44em and 46em as .intl-lede with a different class
+   on the front; they are corrected here so the next person does not find four
+   of them fixed and one not.
+
+   WHAT IS DELIBERATELY NOT IN THIS LIST. The mono notes, .price-note,
+   .show-warn, .prod-note and .intl-warn, keep their own 52em and 56em, because
+   mono at 10.88px and 11px buys only 1.77 characters per em and the same
+   number lands them on 92 to 99. That is the argument the .price-note comment
+   already makes, and joining them to the shared measure would cut them to
+   about 64 characters and make them worse. Two fonts, two numbers, on purpose.
+   .fk-see-list span is left alone for a duller reason: it is an inline box, so
+   max-width does nothing to it either way.
+
+   min-width:1000 and the position at the end of the file are both load
+   bearing. The media query keeps the promise that nothing under 1000px moves,
+   and the position is what makes these win at all: they are the same
+   specificity as the rules they correct, so ONLY being later does it. Do not
+   move this block up.
+   ========================================================================== */
+@media(min-width:1000px){
+  .lede,.pdex-lede,.prod-lede,.intl-lede,.s101-lede,.w-lede,.shops-lede,
+  .show-blurb,.fk-golden p,.fk-how,.fk-why,.fk-caveat,.fk-fig figcaption,
+  .fk-no-item p,.fk-see-b,.st-body p,.gcalc-note{max-width:var(--measure)}
+}

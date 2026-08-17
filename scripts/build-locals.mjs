@@ -53,7 +53,22 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, APP_JS, footer, FONTS } from "../shared/chrome.mjs";
+// NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
+// it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
+// script that finds no tile and a stylesheet whose classes never appear.
+// CHECKED BY DRIVING THE PAGE, not by grepping it: packplayer's entry point is
+// a delegated click on an <a> to a rip that WRAPS an <img> or a .pack facade,
+// which no scan for [data-vcar] or img[data-packsrc] can see. The three
+// conditions a page must meet, and why the obvious scan gives the wrong answer,
+// are in shared/chrome.mjs beside the two exports. READ THAT BEFORE ADDING A
+// VIDEO TILE OR A CAROUSEL HERE: a tile added without putting packplayer.js
+// back navigates instead of playing in place, which reads as a design choice
+// rather than as a bug.
+import {
+  BAR, MENU, SPRITE, SKIP, footer, FONTS,
+  STYLES_NO_PACKS_CSS as STYLES,
+  APP_JS_NO_PACKPLAYER as APP_JS,
+} from "../shared/chrome.mjs";
 import { esc, longDate } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");

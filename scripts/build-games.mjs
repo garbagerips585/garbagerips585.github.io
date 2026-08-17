@@ -31,7 +31,22 @@ import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, APP_JS, footer, FONTS } from "../shared/chrome.mjs";
+// NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
+// it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
+// script that finds no tile and a stylesheet whose classes never appear.
+// CHECKED BY DRIVING THE PAGE, not by grepping it: packplayer's entry point is
+// a delegated click on an <a> to a rip that WRAPS an <img> or a .pack facade,
+// which no scan for [data-vcar] or img[data-packsrc] can see. The three
+// conditions a page must meet, and why the obvious scan gives the wrong answer,
+// are in shared/chrome.mjs beside the two exports. READ THAT BEFORE ADDING A
+// VIDEO TILE OR A CAROUSEL HERE: a tile added without putting packplayer.js
+// back navigates instead of playing in place, which reads as a design choice
+// rather than as a bug.
+import {
+  BAR, MENU, SPRITE, SKIP, footer, FONTS,
+  STYLES_NO_PACKS_CSS as STYLES,
+  APP_JS_NO_PACKPLAYER as APP_JS,
+} from "../shared/chrome.mjs";
 import { esc, longDate } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -642,6 +657,20 @@ const crumb = (name) => ({
 // three different looks. It is emitted verbatim, and it is small enough that the
 // duplication across three pages is cheaper than a fourth request.
 const TEACH_CSS = `
+/* THE MODE BUTTONS HAD NO PRESSED STATE AND HAVE NEVER HAD ONE.
+   ui.css styles .chip[aria-pressed=true] in three places and .btn in none, so
+   Who's That Pokemon has shipped since it was written with two identical
+   looking buttons, "The original 151" and "All 1,025", and no way to see which
+   pool you were playing. Screen readers got it right the whole time, which is
+   why it was easy to miss: the state was announced and never drawn.
+   Guess the Set's new Any era / Same era pair is the same control, so this is
+   fixed for both rather than added for one.
+   Scoped to .btn-row so it cannot reach a .btn anywhere else on the site if
+   these rules ever move out of a page's own head. */
+.btn-row .btn[aria-pressed="true"]{background:var(--gold);border-color:var(--ink);
+  color:var(--on-accent);box-shadow:0 3px 0 var(--ink)}
+.btn-row .btn[aria-pressed="false"]{background:var(--card);color:var(--ink-2)}
+
 .tq-grid{display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
   width:100%;min-width:0;margin-top:var(--s4)}
 .tq-card{padding:var(--s4);background:var(--card);border:2px solid var(--ink);border-radius:var(--r)}

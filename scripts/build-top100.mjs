@@ -176,7 +176,22 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
+// NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
+// it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
+// script that finds no tile and a stylesheet whose classes never appear.
+// CHECKED BY DRIVING THE PAGE, not by grepping it: packplayer's entry point is
+// a delegated click on an <a> to a rip that WRAPS an <img> or a .pack facade,
+// which no scan for [data-vcar] or img[data-packsrc] can see. The three
+// conditions a page must meet, and why the obvious scan gives the wrong answer,
+// are in shared/chrome.mjs beside the two exports. READ THAT BEFORE ADDING A
+// VIDEO TILE OR A CAROUSEL HERE: a tile added without putting packplayer.js
+// back navigates instead of playing in place, which reads as a design choice
+// rather than as a bug.
+import {
+  BAR, MENU, SPRITE, SKIP, footer, FONTS,
+  STYLES_NO_PACKS_CSS as STYLES,
+  APP_JS_NO_PACKPLAYER as APP_JS,
+} from "../shared/chrome.mjs";
 import { TCG_SET } from "../shared/tcgplayer.mjs";
 import { esc, longDate, moneyExact, moneyCompact } from "../shared/format.mjs";
 
@@ -441,8 +456,33 @@ const CSS = `
   letter-spacing:-.02em;white-space:nowrap}
 .t100-low{font-size:var(--t-micro);color:var(--ink-2);font-family:var(--mono);white-space:nowrap}
 .t100-low-none{opacity:.65}
+/* THE THUMB TARGET, WITHOUT MOVING A PIXEL OF THE LAYOUT.
+   Measured at 390x844: this link was 108.8 x 17.0, one 11px line box, and there
+   are 100 of them on /most-valuable-cards.html and 100 more on
+   /most-expensive-sealed.html. 17px is under half the 44px WCAG 2.5.5 asks for
+   and it is the only outbound action in the card.
+   The padding grows the hit box to 44 and the equal negative margins give the
+   space straight back, so the flex line, the card and the page are all the
+   height they were. Measured before and after, page height at 390x844:
+   /most-valuable-cards.html 17,491 -> 17,491, /most-expensive-sealed.html
+   18,068 -> 18,068, and at 1440x900 15,573 -> 15,573. The link went 108.8x17.0
+   to 108.8x44.0 at 320, 390 and 1440. Its BORDER BOX top moves up 13px, which
+   is the padding, and the underlined text itself lands within half a pixel of
+   where it was. The 13/14 split is the 27px of growth put back where it came
+   from, the extra pixel downward because the card's own padding is below and
+   only the price line, which is not a target, is above.
+   Not applied to .t100-name: that one is already 21.3 to 42.5px tall and sits
+   directly under the next card's picture, where growing it would overlap a
+   different card's target rather than empty padding.
+   PADDING ONLY, NOT inline-flex WITH align-items:center, and the reason is the
+   arrow. The ::after below is a space followed by U+2197. In an inline-flex box
+   that pseudo element becomes a FLEX ITEM and its leading space is dropped, so
+   the label rendered with the arrow jammed against the r and the link measured
+   106.5 wide instead of 108.8. Left as a block flex item the arrow stays an
+   inline box and keeps its space. */
 .t100-check{font-size:var(--t-micro);color:var(--ink-2);text-decoration:underline;
-  text-underline-offset:2px;white-space:nowrap}
+  text-underline-offset:2px;white-space:nowrap;
+  padding-top:13px;padding-bottom:14px;margin-top:-13px;margin-bottom:-14px}
 .t100-check:hover{color:var(--ink)}
 .t100-check::after{content:" \\2197"}
 .t100-flag{font-size:var(--t-micro);color:var(--ink);background:var(--chip-gold-bg);

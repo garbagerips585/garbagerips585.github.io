@@ -46,7 +46,22 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
+// NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
+// it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
+// script that finds no tile and a stylesheet whose classes never appear.
+// CHECKED BY DRIVING THE PAGE, not by grepping it: packplayer's entry point is
+// a delegated click on an <a> to a rip that WRAPS an <img> or a .pack facade,
+// which no scan for [data-vcar] or img[data-packsrc] can see. The three
+// conditions a page must meet, and why the obvious scan gives the wrong answer,
+// are in shared/chrome.mjs beside the two exports. READ THAT BEFORE ADDING A
+// VIDEO TILE OR A CAROUSEL HERE: a tile added without putting packplayer.js
+// back navigates instead of playing in place, which reads as a design choice
+// rather than as a bug.
+import {
+  BAR, MENU, SPRITE, SKIP, footer, FONTS,
+  STYLES_NO_PACKS_CSS as STYLES,
+  APP_JS_NO_PACKPLAYER as APP_JS,
+} from "../shared/chrome.mjs";
 import { esc, longDate } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -305,8 +320,33 @@ const style = `
 .gc-lede{max-width:46em}
 .gc-sec{margin-top:var(--s6)}
 .gc-sec > p.gc-in{color:var(--ink-2);max-width:44em;line-height:1.55;margin-bottom:var(--s4)}
+/* The four column tables are 640px wide inside a 360px box on a phone, so 280px
+   of every one of them is off screen. Measured at 390x844: .gc-tw clientWidth
+   360, scrollWidth 640. At 320x568 it is 350px hidden. The page said nothing
+   about it: the right edge was a hard cut at the container border and even the
+   caption was truncated mid-word ("NOTE HOW MUCH WIDER THE TOLERA").
+
+   This is ui.css's "there is more to the right" trick, the same four layers it
+   already gives .cc-scroll, .xp-scroll and .luck-scroll. The two COVER layers
+   are background-attachment:local so they ride with the content; the two SHADOW
+   layers are scroll so they stay pinned to the box. At scroll 0 the cover hides
+   the shadow, and scrolling slides it away to reveal one. It switches itself off
+   when the table fits, so nothing shows at 1440.
+
+   background-COLOR, not the background shorthand: the shorthand resets
+   background-image and would silently wipe all four layers. That is the exact
+   trap ui.css records for the two builders that hit it before this one. */
 .gc-tw{overflow-x:auto;border:3px solid var(--navy);border-radius:12px;box-shadow:var(--hard-lg);
-  background:var(--card);margin-bottom:var(--s4)}
+  background-color:var(--card);margin-bottom:var(--s4);
+  background-image:
+    linear-gradient(to right,var(--card) 40%,rgba(255,255,255,0)),
+    linear-gradient(to left,var(--card) 40%,rgba(255,255,255,0)),
+    radial-gradient(farthest-side at 0 50%,rgba(17,17,17,.30),rgba(17,17,17,0)),
+    radial-gradient(farthest-side at 100% 50%,rgba(17,17,17,.30),rgba(17,17,17,0));
+  background-position:left center,right center,left center,right center;
+  background-repeat:no-repeat;
+  background-size:44px 100%,44px 100%,15px 100%,15px 100%;
+  background-attachment:local,local,scroll,scroll}
 .gc-t{border-collapse:collapse;width:100%;min-width:640px;font-size:var(--t-sm)}
 .gc-t caption{caption-side:top;text-align:left;padding:var(--s3) var(--s4);font:700 var(--t-label)/1.3 var(--body);
   letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);border-bottom:2px solid var(--hair)}
@@ -406,6 +446,34 @@ const style = `
 .gc-aka{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em}
 .gc-unv{border:3px dashed var(--hair);border-radius:12px;padding:var(--s4);background:var(--card)}
 .gc-foot{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
+
+/* DESKTOP READING MEASURE. The caps above were written in em as if 1em were
+   one character. It is not: these faces run 2.31 to 2.47 characters per em, so
+   44 to 46em bought 105 to 108 real characters a line at 1440. ui.css already
+   caps main prose at var(--measure) and these rules only outranked it by
+   landing after the stylesheet. All min-width:1000, ui.css's own desktop
+   breakpoint, so the phone and the tablet range keep exactly the rules
+   they had.
+
+   IT IS .gc-key p AND NOT .gc-key li, AND THAT IS THE WHOLE CARE IN THIS
+   BLOCK. The 44em above covers both, but .gc-ex li is a display:flex row of a
+   subgrade line and its total, not a sentence, and .gc-ex sits inside .gc-key.
+   A cap on the li would have rescaled those rows. Paragraphs only; the lists
+   here were read and left alone.
+
+   AND :not(.gc-note) IS THE SECOND HALF OF THAT CARE, CAUGHT BY MEASURING
+   AFTERWARDS RATHER THAN BY READING THE SELECTOR. .gc-note is a p, it sits
+   inside .gc-key, and it is the only Space Mono block on the page. Mono runs
+   about 1.77 characters per em against Outfit's 2.31, so its 44em box was
+   already only about 70 real characters and the shared cap took it to 57,
+   which is too narrow rather than too wide. Same reason .rg-foot in
+   build-rarity.mjs and .up-foot in build-upcoming.mjs are not capped and
+   ui.css keeps .price-note on its own 52em: a mono block does not join the
+   shared number. A pass that only reads class names will re-add it. */
+@media(min-width:1000px){
+.gc-lede,.gc-foot{max-width:var(--measure)}
+.gc-sec > p.gc-in,.gc-in,.gc-key p:not(.gc-note){max-width:var(--measure)}
+}
 `;
 
 const page = `<!DOCTYPE html>

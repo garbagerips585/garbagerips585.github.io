@@ -90,8 +90,20 @@ const SHOTS = [
     // The canvas alone. Everything outside it is site chrome, and the score
     // readout above it is the page, not the game.
     clip: ".gr-stage",
+    // THIS ONE BROKE THE RULE THE HEADER OF THIS FILE SETS OUT, and the
+    // recapture on 17 August 2026 proved it. It read "Trubbish MID-AIR on a
+    // dark street, a curve of rubbish ahead of him, ANOTHER POKEMON PERCHED ON
+    // THE EDGE OF THE LANE", and the new capture has Trubbish on the floor with
+    // no second Pokemon anywhere on screen. Both of those were true of one
+    // frame of one run and neither survives a rerun, which is exactly the drift
+    // the three quiz shots below are written to avoid.
+    //
+    // It is the hardest of the four to describe honestly, because unlike them it
+    // has no fixed furniture: the assert guarantees the run is ALIVE and the
+    // score is at least 8, and that is all that is guaranteed. So the alt says
+    // only that, plus the two things the canvas always draws.
     shows:
-      "Garbage Run part way through a run: Trubbish mid-air on a dark street, a curve of rubbish ahead of him, another Pokemon perched on the edge of the lane, and the score counting up towards a hundred",
+      "Garbage Run part way through a run: Trubbish on a dark street with rubbish laid out ahead of him, the score in the corner and the count of what is left before he evolves",
     assert: `(function(){if(!document.getElementById('grOver').hasAttribute('hidden'))return 'the run ended';` +
       `var s=+document.getElementById('grScore').textContent;` +
       `return s>=${8}?'':('score only reached '+s);})()`,
@@ -134,10 +146,20 @@ const SHOTS = [
         if (over) break;
         score = s;
       }
-      // Stop tapping before the capture so Trubbish is not caught mid-kick on
-      // the frame the shutter lands.
+      // KEEP TAPPING THROUGH THE SHUTTER, which reverses what this did before
+      // and the reason is what the old rule produced. It read "stop tapping
+      // before the capture so Trubbish is not caught mid-kick", and stopping is
+      // exactly how he ends up parked in the bottom corner: nothing tapping
+      // means gravity, and gravity in this game means the floor. The recapture
+      // on 17 August 2026 came out as a black rectangle with a 26px Trubbish in
+      // one corner, which at the 143px the hub draws it is a picture of nothing.
+      //
+      // Mid-kick is not the failure the old comment thought it was. The game is
+      // one mechanic, flipping between the floor and the ceiling, so a frame
+      // with Trubbish off the ground is the frame that shows what the game IS.
+      // The 90ms settle is still there to let the current frame finish drawing.
+      await run.wait(90);
       await run.eval("clearInterval(window.__autopilot)");
-      await run.wait(120);
     },
   },
   {

@@ -106,8 +106,25 @@ ${COMPARE_ROWS.map(
 
 /** Styles for the table above. Both builders paste this into their own style block. */
 export const COMPARE_CSS = `
+/* .cmp is min-width:34em, which is 374px at the 11px the max-width:640 rule
+   below drops it to, so on a phone it does not fit and scrolls. Measured on
+   /tcg-live.html: clientWidth 360, scrollWidth 374 at 390x844 and 84px hidden
+   at 320x568. Small, but the third column is the whole point of a comparison
+   table and there was nothing on the page saying it was there.
+   Same four layer affordance as ui.css's .cc-scroll: covers ride the content,
+   shadows stay on the box, so it disappears the moment the table fits.
+   background-COLOR, not the shorthand, which resets background-image. */
 .cmp-w{overflow-x:auto;margin-top:var(--s4);border:3px solid var(--navy);border-radius:12px;
-  background:var(--card);box-shadow:var(--hard-lg);max-width:46em}
+  background-color:var(--card);box-shadow:var(--hard-lg);max-width:46em;
+  background-image:
+    linear-gradient(to right,var(--card) 40%,rgba(255,255,255,0)),
+    linear-gradient(to left,var(--card) 40%,rgba(255,255,255,0)),
+    radial-gradient(farthest-side at 0 50%,rgba(17,17,17,.30),rgba(17,17,17,0)),
+    radial-gradient(farthest-side at 100% 50%,rgba(17,17,17,.30),rgba(17,17,17,0));
+  background-position:left center,right center,left center,right center;
+  background-repeat:no-repeat;
+  background-size:44px 100%,44px 100%,15px 100%,15px 100%;
+  background-attachment:local,local,scroll,scroll}
 .cmp{width:100%;border-collapse:collapse;font-size:var(--t-sm);min-width:34em}
 .cmp th,.cmp td{text-align:left;padding:10px var(--s3);border-bottom:1px solid var(--hair);vertical-align:top;
   line-height:1.45}

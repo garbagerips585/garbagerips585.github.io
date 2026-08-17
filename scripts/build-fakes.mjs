@@ -22,7 +22,22 @@ import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
+// NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
+// it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
+// script that finds no tile and a stylesheet whose classes never appear.
+// CHECKED BY DRIVING THE PAGE, not by grepping it: packplayer's entry point is
+// a delegated click on an <a> to a rip that WRAPS an <img> or a .pack facade,
+// which no scan for [data-vcar] or img[data-packsrc] can see. The three
+// conditions a page must meet, and why the obvious scan gives the wrong answer,
+// are in shared/chrome.mjs beside the two exports. READ THAT BEFORE ADDING A
+// VIDEO TILE OR A CAROUSEL HERE: a tile added without putting packplayer.js
+// back navigates instead of playing in place, which reads as a design choice
+// rather than as a bug.
+import {
+  BAR, MENU, SPRITE, SKIP, footer, FONTS,
+  STYLES_NO_PACKS_CSS as STYLES,
+  APP_JS_NO_PACKPLAYER as APP_JS,
+} from "../shared/chrome.mjs";
 import { avifPicture, esc, imgDims, longDate } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -463,6 +478,19 @@ ${STYLES}
 .fk-fake{background:var(--ink);color:var(--chrome-ink);border-left:6px solid var(--gold)}
 .fk-fake .fk-vs-h{color:var(--gold)}
 .fk-fake p{color:var(--chrome-ink)}
+
+/* DESKTOP READING MEASURE. 40em was written as if 1em were one character. It
+   is not: Outfit at 11px runs about 2.31 characters per em, so that 440px box
+   measured 94 real characters a line at 1440. ui.css already caps every
+   figcaption in main at var(--measure) and this rule only outranked it by
+   landing after the stylesheet. min-width:1000 is ui.css's own desktop
+   breakpoint, so the phone and the tablet range keep exactly the rule they
+   had. ONLY THE CAPTION. .fk-fig.fk-photo's own 44em is the FIGURE box, which
+   holds a 280px card scan, so capping that would be resizing a picture and
+   not a measure. */
+@media(min-width:1000px){
+.fk-fig.fk-photo figcaption{max-width:var(--measure)}
+}
 </style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>

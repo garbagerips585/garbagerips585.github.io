@@ -24,7 +24,22 @@ import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
+// NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
+// it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
+// script that finds no tile and a stylesheet whose classes never appear.
+// CHECKED BY DRIVING THE PAGE, not by grepping it: packplayer's entry point is
+// a delegated click on an <a> to a rip that WRAPS an <img> or a .pack facade,
+// which no scan for [data-vcar] or img[data-packsrc] can see. The three
+// conditions a page must meet, and why the obvious scan gives the wrong answer,
+// are in shared/chrome.mjs beside the two exports. READ THAT BEFORE ADDING A
+// VIDEO TILE OR A CAROUSEL HERE: a tile added without putting packplayer.js
+// back navigates instead of playing in place, which reads as a design choice
+// rather than as a bug.
+import {
+  BAR, MENU, SPRITE, SKIP, footer, FONTS,
+  STYLES_NO_PACKS_CSS as STYLES,
+  APP_JS_NO_PACKPLAYER as APP_JS,
+} from "../shared/chrome.mjs";
 import { esc, longDate, MONTHS_LONG } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -382,6 +397,18 @@ ${/* Inline, not in ui.css: this page is the only user and ui.css is render
 .cal-key i.day{width:16px;height:15px;border-radius:4px;background:var(--chip-gold-bg)}
 .cal-note{margin-top:var(--s2);font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2);
   max-width:44em}
+
+/* DESKTOP READING MEASURE. 44em was written as if 1em were one character. It
+   is not: Outfit at 11px runs about 2.31 characters per em, so that 484px box
+   measured 95 real characters a line at 1440. ui.css already caps main prose
+   at var(--measure) and this rule only outranked it by landing after the
+   stylesheet. min-width:1000 is ui.css's own desktop breakpoint, so the phone
+   and the tablet range keep exactly the rule they had. Note this is the body
+   face, not the mono one: the same 44em on Space Mono would be about 78
+   characters and would need leaving alone. */
+@media(min-width:1000px){
+.cal-note{max-width:var(--measure)}
+}
 </style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>

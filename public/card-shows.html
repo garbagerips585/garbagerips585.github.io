@@ -22,8 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
-<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<link rel="stylesheet" href="/assets/ui.css?v=17b9bdb3">
 
 <style>
 .cal-wrap{margin:var(--s5) 0 0}
@@ -57,6 +56,18 @@
 .cal-key i.day{width:16px;height:15px;border-radius:4px;background:var(--chip-gold-bg)}
 .cal-note{margin-top:var(--s2);font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2);
   max-width:44em}
+
+/* DESKTOP READING MEASURE. 44em was written as if 1em were one character. It
+   is not: Outfit at 11px runs about 2.31 characters per em, so that 484px box
+   measured 95 real characters a line at 1440. ui.css already caps main prose
+   at var(--measure) and this rule only outranked it by landing after the
+   stylesheet. min-width:1000 is ui.css's own desktop breakpoint, so the phone
+   and the tablet range keep exactly the rule they had. Note this is the body
+   face, not the mono one: the same 44em on Space Mono would be about 78
+   characters and would need leaving alone. */
+@media(min-width:1000px){
+.cal-note{max-width:var(--measure)}
+}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Card shows"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Event","name":"CollectorFest Monthly","startDate":"2026-08-30T10:00:00-04:00","endDate":"2026-08-30T14:00:00-04:00","eventStatus":"https://schema.org/EventScheduled","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","location":{"@type":"Place","name":"Louis S. Wolk JCC of Greater Rochester","address":{"@type":"PostalAddress","streetAddress":"1200 Edgewood Ave","addressLocality":"Rochester","addressRegion":"NY","addressCountry":"US"}},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://cardshows.io/events/collectorfest-monthly-sports-and-collectibles-show-08-30-2026"},"url":"https://cardshows.io/events/collectorfest-monthly-sports-and-collectibles-show-08-30-2026"}</script>
@@ -1241,6 +1252,5 @@
 })();
 </script>
 <script src="/assets/app.js?v=4cc7bcef" defer></script>
-<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
 </body>
 </html>

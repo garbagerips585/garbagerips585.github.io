@@ -483,18 +483,55 @@ export function imgDims(url) {
  * `height:100%` and `width:100%` rule aimed at the img resolves against it
  * instead of against the box that was meant.
  *
+ * OUR OWN PACK ART GOES THROUGH THE SAME HELPER, added 16 August 2026, and it
+ * is the second of exactly two url shapes this function will touch. Everything
+ * above is about a third party's CDN; the packs are files build-packs.py wrote,
+ * and it writes .webp and .avif together for every rendition, so the same
+ * "the AVIF always exists" guarantee holds for a different reason. Measured on
+ * the generated files, AVIF q60 against WebP q78: 810w paradox-rift 150.6 ->
+ * 123.1KB and default 129.6 -> 96.9KB, at a HIGHER PSNR than the WebP, so this
+ * is 18 to 25% off with no sharpness to trade. Unlike the 560w rendition, which
+ * only a DPR 1 desktop can pick, a smaller codec shrinks whichever candidate the
+ * browser was already going to choose, so it pays on a retina laptop and on a
+ * phone too.
+ *
+ * `opts.defer` IS FOR THE CAROUSEL AND IT IS THE HALF THAT IS EASY TO GET
+ * WRONG. Slides past the first carry their art as data-packsrc/data-packsrcset
+ * so a slide parked sideways does not fetch it (loading="lazy" is a vertical
+ * heuristic and cannot see that; see the note in heroTile). A <source> with a
+ * real `srcset` DEFEATS THAT COMPLETELY: a <picture> whose source matches loads
+ * that source even when the <img> has no src at all, so the deferred slide would
+ * fetch its AVIF at first paint and the whole mechanism would be back to
+ * fetching every slide, in a new format. So under `defer` the source's
+ * candidates are deferred with the image's, under the SAME data- names, and
+ * hydrateSlides in packplayer.js promotes the source before the img.
+ *
  * Takes a rendered <img ...> tag and returns it wrapped, or unchanged when
- * there is no TCGdex WebP in it to convert.
+ * there is no convertible WebP in it.
  */
-export function avifPicture(img) {
-  const cand = /\ssrcset="([^"]*)"/.exec(img)?.[1] || /\ssrc="([^"]*)"/.exec(img)?.[1] || "";
-  if (!/assets\.tcgdex\.net/.test(cand) || !/\.webp/.test(cand)) return img;
-  const sizes = /\ssizes="([^"]*)"/.exec(img)?.[1];
+export function avifPicture(img, opts) {
+  const o = opts || {};
+  // Which attributes carry the candidates. Under `defer` both the <img> and the
+  // <source> hold theirs under data- names and neither is live yet.
+  const A = o.defer
+    ? { srcset: "data-packsrcset", src: "data-packsrc", sizes: "data-packsizes" }
+    : { srcset: "srcset", src: "src", sizes: "sizes" };
+  const attr = (n) => new RegExp(`\\s${n}="([^"]*)"`).exec(img)?.[1];
+  const cand = attr(A.srcset) || attr(A.src) || "";
+  if (!/\.webp/.test(cand)) return img;
+  const tcgdex = /assets\.tcgdex\.net/.test(cand);
+  // Our own pack renditions, relative to the page. build-packs.py guarantees the
+  // .avif sibling of every .webp it writes.
+  const packs = /(^|[\s,])assets\/packs\/[^\s,"]+\.webp/.test(cand);
+  if (!tcgdex && !packs) return img;
   // Only TCGdex urls are rewritten. A srcset mixing hosts (Scrydex publishes no
-  // AVIF at all) would otherwise get a source pointing at files that 400.
-  if (/https?:\/\/(?!assets\.tcgdex\.net)/.test(cand)) return img;
+  // AVIF at all) would otherwise get a source pointing at files that 400. A pack
+  // srcset must be entirely local for the same reason.
+  if (tcgdex && /https?:\/\/(?!assets\.tcgdex\.net)/.test(cand)) return img;
+  if (packs && (tcgdex || /https?:\/\//.test(cand))) return img;
+  const sizes = attr(A.sizes);
   const avif = cand.replace(/\.webp/g, ".avif");
-  return `<picture><source type="image/avif" srcset="${avif}"${
-    sizes ? ` sizes="${sizes}"` : ""
+  return `<picture><source type="image/avif" ${A.srcset}="${avif}"${
+    sizes ? ` ${A.sizes}="${sizes}"` : ""
   }>${img}</picture>`;
 }

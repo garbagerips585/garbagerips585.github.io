@@ -28,7 +28,17 @@ import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
+// NO packplayer.js, BUT packs.css STAYS. These pages wear a .pack facade as
+// decoration, so the stylesheet is doing real work; the script is not.
+// THE "On the channel" LIST IS PLAIN TEXT LINKS, which is the whole reason this
+// is safe and is the opposite of what shared/chrome.mjs's note assumed: it says
+// every set guide plays a tile in place. Driven in headless Chrome with a real
+// dispatched click, no set guide ever did. packplayer only claims an <a> to a
+// rip that WRAPS an <img> or a .pack facade, and a bare <li><a>title</a> has
+// neither, so those links navigated before this change and navigate after it.
+// If a set guide ever grows a picture tile, put APP_JS back in the same edit.
+import { BAR, MENU, SPRITE, SKIP, STYLES, footer, FONTS,
+  APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { parseHits, rarityLabelOf, rarityMark, RARITY_CSS } from "../shared/rarity.mjs";
 import { esc, longDate, rarityLabel, imgDims, avifPicture, moneyCompact } from "../shared/format.mjs";

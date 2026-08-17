@@ -1225,8 +1225,16 @@ footer .soc svg{fill:var(--paper)}
   .facts{grid-template-columns:repeat(4,1fr)}
   .fact:last-child:nth-child(4n + 1){grid-column:1 / -1}
 }
+:root{--measure:36em}
+@media(min-width:1000px){
+  main :is(p,dd,blockquote,figcaption){max-width:var(--measure)}
+}
 .price-note{max-width:52em}
 .facts-list li{max-width:64em}
+@media(min-width:1000px){
+  .facts-list li{max-width:var(--measure)}
+  .ty-rules li{max-width:var(--measure)}
+}
 .watch-list:has(li:only-child){grid-template-columns:1fr;max-width:34em}
 .menu{top:var(--bar-h)}
 @media(min-width:641px) and (max-width:899px){
@@ -1662,3 +1670,8 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
   box-shadow:inset 0 0 0 2px rgba(17,17,17,.6), inset 0 0 0 5px rgba(232,185,58,.5),
     0 0 34px rgba(232,185,58,.22), 0 16px 44px rgba(17,17,17,.46),
     0 0 0 5px rgba(255,255,255,.95)}
+@media(min-width:1000px){
+  .lede,.pdex-lede,.prod-lede,.intl-lede,.s101-lede,.w-lede,.shops-lede,
+  .show-blurb,.fk-golden p,.fk-how,.fk-why,.fk-caveat,.fk-fig figcaption,
+  .fk-no-item p,.fk-see-b,.st-body p,.gcalc-note{max-width:var(--measure)}
+}

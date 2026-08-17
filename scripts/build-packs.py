@@ -4,12 +4,18 @@
     python3 scripts/build-packs.py
 
 Drop masters in assets-source/packs/ named by set id (pitch-black.png,
-chaos-rising.png, default.png ...). This writes optimised WebP to
+chaos-rising.png, default.png ...). This writes optimised WebP AND AVIF to
 public/assets/packs/ and generates public/assets/packs.css, which is what
 actually swaps a set's gradient for its artwork. A set with no master keeps
 its colour design, so this is safe to run with one file or twenty.
 
-Needs Pillow: python3 -m pip install --user Pillow
+Every rendition is written in both formats and the pair is what makes the
+<picture> in build-proto.mjs safe; see the note on AVIF_QUALITY below. packs.css
+gets both too, as a plain url() followed by an image-set(), because a background
+image cannot be a <picture> and the pack wrapper on every rip page is one.
+
+Needs Pillow with AVIF support (11.x has it built in):
+    python3 -m pip install --user Pillow
 """
 import os
 from pathlib import Path
@@ -53,6 +59,40 @@ TILE = (400, 711)
 # was picked in exactly one case, a DPR 2 phone, for 19 more files and 2MB.
 MID = (560, 996)
 QUALITY = 78
+# EVERY RENDITION IS ALSO WRITTEN AS AVIF, ADDED 16 AUGUST 2026, AND IT IS THE
+# ONLY LEVER HERE THAT PAYS AT EVERY DEVICE PIXEL RATIO. 560w fixed the DPR 1
+# desktop and, by design, moved nothing at DPR 2 or 3: a 402px box at DPR 2 asks
+# for 804 device pixels and 810w is already the smallest candidate that answers
+# it, so a retina laptop and every modern phone fetched exactly what they always
+# had. A smaller CODEC is orthogonal to that: it shrinks whichever candidate the
+# browser picks, so it lands on the phone and on the MacBook as well as on the
+# 1x desktop.
+#
+# THE QUALITY NUMBER IS NOT A TRADE HERE AND THAT WAS MEASURED RATHER THAN
+# HOPED. AVIF q60 is SMALLER AND CLOSER TO THE SOURCE than WebP q78, against the
+# same LANCZOS-resized master, PSNR over the opaque pixels only (the pack sits in
+# a transparent margin, and scoring the empty corners inflates every figure):
+#
+#     paradox-rift 810w   webp q78 150.6KB 33.03 dB    avif q60 123.1KB 34.21 dB
+#     default      810w   webp q78 129.6KB 33.41 dB    avif q60  96.9KB 34.46 dB
+#
+# So this is -18.2% and -25.3% for +1.2 and +1.1 dB. There is no sharpness cost
+# to report because the AVIF is the LESS lossy of the two files. Do not read that
+# as headroom to drop the number: q55 is another 13 points off and lands BELOW
+# the WebP's fidelity, which is where the trade starts and where the pack art,
+# which is the brand and is commissioned, stops being free to shrink.
+#
+# speed=4 rather than Pillow's default 6, for the same reason WebP gets method=6:
+# this runs by hand when a master changes, so 29s of encoding buys 2.6% off every
+# file for ever. At speed 6 the 810w paradox-rift is 126.4KB instead of 123.1KB.
+#
+# THE AVIF ALWAYS EXISTS BECAUSE THIS LOOP WRITES BOTH, which is what makes the
+# <picture> safe: a <source> pointing at a 404 is worse than no source, since the
+# browser has already committed to it by the time it fails. avifPicture() in
+# shared/format.mjs only rewrites the extension, so the guarantee has to live
+# here. If you ever add a fourth rendition, write both files or write neither.
+AVIF_QUALITY = 60
+AVIF_SPEED = 4
 BACKDROP = "#161D26"  # shows through the transparent margin around the pack
 
 SRC.mkdir(parents=True, exist_ok=True)
@@ -74,37 +114,58 @@ rules = [
     "   colour design in site.css. */",
     "",
 ]
+def render(im, box, dest):
+    """One rendition, written as BOTH formats. Returns (size, webp KB, avif KB).
+
+    The pair is written together on purpose: the <picture> in build-proto.mjs
+    names the AVIF in a <source> and the WebP on the <img>, and a source whose
+    file is missing paints a broken image rather than falling back.
+    """
+    r = im.copy()
+    r.thumbnail(box, Image.LANCZOS)
+    r.save(dest, "WEBP", quality=QUALITY, method=6)
+    avif = dest.with_suffix(".avif")
+    r.save(avif, "AVIF", quality=AVIF_QUALITY, speed=AVIF_SPEED)
+    return r.size, dest.stat().st_size / 1024, avif.stat().st_size / 1024
+
+
 done = []
 for m in masters:
     set_id = m.stem
     im = Image.open(m)
     if im.mode != "RGBA":
         im = im.convert("RGBA")
-    full = im.copy()
-    full.thumbnail(TARGET, Image.LANCZOS)
-    dest = OUT / f"{set_id}-garbage-rips-585-booster-pack.webp"
-    full.save(dest, "WEBP", quality=QUALITY, method=6)
-
-    tile = im.copy()
-    tile.thumbnail(TILE, Image.LANCZOS)
-    tile_dest = OUT / f"{set_id}-garbage-rips-585-booster-pack-tile.webp"
-    tile.save(tile_dest, "WEBP", quality=QUALITY, method=6)
-
-    mid = im.copy()
-    mid.thumbnail(MID, Image.LANCZOS)
-    mid_dest = OUT / f"{set_id}-garbage-rips-585-booster-pack-mid.webp"
-    mid.save(mid_dest, "WEBP", quality=QUALITY, method=6)
-
-    kb = dest.stat().st_size / 1024
-    tkb = tile_dest.stat().st_size / 1024
-    mkb = mid_dest.stat().st_size / 1024
-    done.append((set_id, full.size, kb, m.stat().st_size / 1024, tile.size, tkb, mid.size, mkb))
+    stem = OUT / f"{set_id}-garbage-rips-585-booster-pack"
+    size, kb, akb = render(im, TARGET, stem.with_suffix(".webp"))
+    tsize, tkb, atkb = render(im, TILE, Path(f"{stem}-tile.webp"))
+    msize, mkb, amkb = render(im, MID, Path(f"{stem}-mid.webp"))
+    done.append((set_id, size, kb, akb, m.stat().st_size / 1024,
+                 tsize, tkb, atkb, msize, mkb, amkb))
 
     sel = f".pack--{set_id}"
+    base = f"packs/{set_id}-garbage-rips-585-booster-pack"
     rules += [
         f"{sel} .pack-art{{",
         f"  background-color:{BACKDROP};",
-        f"  background-image:url('packs/{set_id}-garbage-rips-585-booster-pack.webp');",
+        f"  background-image:url('{base}.webp');",
+        # THE SECOND background-image IS NOT A DUPLICATE AND THE PLAIN url()
+        # ABOVE IT IS THE FALLBACK. A background cannot be a <picture>, so the
+        # rip page's pack wrapper and the facade playInTile builds were still
+        # fetching WebP after the <img> tags moved to AVIF. On the home page that
+        # turned a CACHE HIT INTO A DOWNLOAD: the tile fetched
+        # pitch-black-...pack.avif, then clicking it mounted a facade whose
+        # background asked for pitch-black-...pack.webp, 124KB that used to be
+        # free. Logged from the network with the cache ON, before and after the
+        # click, which is the only way that shows up at all.
+        #
+        # image-set() with type() lands in Chrome 113, Safari 17 and Firefox 118.
+        # Older browsers cannot parse the value, drop THIS declaration only, and
+        # keep the url() above, which is the whole reason the two are written as
+        # separate declarations rather than one. Getting that backwards would
+        # leave the pack a flat #161D26 rectangle on those browsers, because
+        # `.pack-art::before` and `.pack-brand` are switched off just below.
+        f"  background-image:image-set(url('{base}.avif') type('image/avif'),"
+        f"url('{base}.webp') type('image/webp'));",
         "  background-size:cover;",
         "  background-position:center;",
         "}",
@@ -115,7 +176,9 @@ for m in masters:
         # A tile is never wider than about 200 CSS px. Pointing it at the 810px
         # file was a 4x oversample, and the library draws 48 of them at once.
         f"{sel}.pack--tile .pack-art{{",
-        f"  background-image:url('packs/{set_id}-garbage-rips-585-booster-pack-tile.webp');",
+        f"  background-image:url('{base}-tile.webp');",
+        f"  background-image:image-set(url('{base}-tile.avif') type('image/avif'),"
+        f"url('{base}-tile.webp') type('image/webp'));",
         "}",
         "",
     ]
@@ -157,10 +220,17 @@ rules += [
 
 CSS.write_text("\n".join(rules))
 
-print(f"Wrote {len(done)} pack set(s), three renditions each, to {OUT.relative_to(ROOT)}/")
-for set_id, size, kb, src_kb, tsize, tkb, msize, mkb in done:
-    print(f"  {set_id:<24} {size[0]:>4}w {kb:6.1f} KB   "
-          f"{msize[0]:>4}w {mkb:6.1f} KB   {tsize[0]:>4}w {tkb:6.1f} KB   (from {src_kb:.0f} KB)")
+print(f"Wrote {len(done)} pack set(s), three renditions each in WebP and AVIF, "
+      f"to {OUT.relative_to(ROOT)}/")
+print(f"  {'set':<24} {'810w webp / avif':>22}  {'560w webp / avif':>22}  {'400w webp / avif':>22}")
+_w = _a = 0.0
+for set_id, size, kb, akb, src_kb, tsize, tkb, atkb, msize, mkb, amkb in done:
+    _w += kb + mkb + tkb
+    _a += akb + amkb + atkb
+    print(f"  {set_id:<24} {kb:8.1f} /{akb:7.1f} KB  {mkb:8.1f} /{amkb:7.1f} KB  "
+          f"{tkb:8.1f} /{atkb:7.1f} KB  (from {src_kb:.0f} KB)")
+print(f"  {'TOTAL ON DISK':<24} {_w:8.1f} KB webp, {_a:.1f} KB avif "
+      f"({100 * (_a - _w) / _w:+.1f}% per rendition, and the browser fetches ONE of them)")
 print(f"\nWrote {CSS.relative_to(ROOT)}")
 
 # ---------------------------------------------------------------- packshots

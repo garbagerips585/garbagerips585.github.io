@@ -175,7 +175,13 @@ export function rankCards(d, resolve) {
             e = {
               name: c.name,
               section,
-              decks: 0,
+              // `lists`, NOT `decks`. It is incremented once per DECKLIST
+              // below, and this field was called `decks` while counting lists.
+              // The page then inferred "a staple of exactly one deck lands on
+              // 21" from a corpus holding 18 archetypes, which is a quantity
+              // that cannot exist. `archetypes` beside it is the real deck
+              // count. Renamed so the name states the unit.
+              lists: 0,
               copies: 0,
               printings: new Map(),
               archetypes: new Set(),
@@ -191,7 +197,7 @@ export function rankCards(d, resolve) {
           inThis.set(key, (inThis.get(key) || 0) + c.qty);
         }
       }
-      for (const key of inThis.keys()) byName.get(key).decks += 1;
+      for (const key of inThis.keys()) byName.get(key).lists += 1;
     }
   }
 
@@ -201,7 +207,7 @@ export function rankCards(d, resolve) {
       return {
         name: e.name,
         section: e.section,
-        decks: e.decks,
+        lists: e.lists,
         copies: e.copies,
         archetypes: e.archetypes.size,
         printingCount: printings.length,
@@ -210,7 +216,7 @@ export function rankCards(d, resolve) {
     })
     .sort(
       (a, b) =>
-        b.decks - a.decks || b.copies - a.copies || a.name.localeCompare(b.name)
+        b.lists - a.lists || b.copies - a.copies || a.name.localeCompare(b.name)
     );
 
   return { ranked, lists };

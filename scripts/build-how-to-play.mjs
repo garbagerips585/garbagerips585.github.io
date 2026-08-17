@@ -67,7 +67,22 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
+// NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
+// it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
+// script that finds no tile and a stylesheet whose classes never appear.
+// CHECKED BY DRIVING THE PAGE, not by grepping it: packplayer's entry point is
+// a delegated click on an <a> to a rip that WRAPS an <img> or a .pack facade,
+// which no scan for [data-vcar] or img[data-packsrc] can see. The three
+// conditions a page must meet, and why the obvious scan gives the wrong answer,
+// are in shared/chrome.mjs beside the two exports. READ THAT BEFORE ADDING A
+// VIDEO TILE OR A CAROUSEL HERE: a tile added without putting packplayer.js
+// back navigates instead of playing in place, which reads as a design choice
+// rather than as a bug.
+import {
+  BAR, MENU, SPRITE, SKIP, footer, FONTS,
+  STYLES_NO_PACKS_CSS as STYLES,
+  APP_JS_NO_PACKPLAYER as APP_JS,
+} from "../shared/chrome.mjs";
 import { esc, longDate, imgDims, avifPicture } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -371,6 +386,30 @@ const style = `
 .hp-out a{font-weight:700}
 .hp-out .hp-off{display:inline-block;font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);margin-left:6px}
 .hp-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
+
+/* DESKTOP READING MEASURE. The 44 to 46em caps above were written as if 1em
+   were one character. It is not: Outfit at 17px runs about 2.47 characters per
+   em, so 44em is a 748px box and it measured 105 real characters a line at
+   1440, with half of every line on the page over 90. ui.css already caps main
+   prose at var(--measure) and these rules only outranked it by landing after
+   the stylesheet, so this block is letting the site-wide decision through
+   rather than making a new one. All min-width:1000, ui.css's own desktop
+   breakpoint, so the phone and the tablet range keep exactly the rules
+   they had.
+
+   .hp-go li IS IN AND .hp-lbl li IS NOT, AND BOTH WERE MEASURED RATHER THAN
+   GUESSED FROM THE SHAPE. They are built the same way, a display-block b label
+   then a sentence, so a pass reading the markup would cap both. .hp-lbl li
+   lives in the .hp-anat figure beside the annotated card, in a column that is
+   already narrow: it measures 31 real characters at its longest at 1440, so a
+   36em cap buys it nothing and would only be a width it might one day hit.
+   .hp-go li measures 98. See the measure block in ui.css for why every list
+   has to be looked at one at a time. Measured, 1440x900, 16 August 2026. */
+@media(min-width:1000px){
+.hp-lede,.hp-src{max-width:var(--measure)}
+.hp-s > p{max-width:var(--measure)}
+.hp-go li{max-width:var(--measure)}
+}
 `;
 
 const body = `

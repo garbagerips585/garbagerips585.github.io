@@ -21,8 +21,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
-<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<link rel="stylesheet" href="/assets/ui.css?v=17b9bdb3">
 <style>
 .up{padding:var(--s7) 0 var(--s5)}
 .up-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:42em;margin-bottom:var(--s5)}
@@ -129,6 +128,26 @@
 .up-none p{color:var(--ink-2);line-height:1.6}
 .up-none p + p{margin-top:var(--s3)}
 .up-none a{text-decoration:underline}
+
+/* DESKTOP READING MEASURE. The caps above were written in em as if 1em were
+   one character. It is not: Outfit runs 2.31 to 2.47 characters per em here,
+   so 42 to 46em bought .up-lede 92 and .up-blurb 95 real characters a line at
+   1440. ui.css already caps main prose at var(--measure) and these rules only
+   outranked it by landing after the stylesheet. All min-width:1000, ui.css's
+   own desktop breakpoint, so the phone and the tablet range keep exactly the
+   rules they had.
+
+   .up-foot IS DELIBERATELY NOT IN HERE AND ITS 56em IS NOT THE SAME MISTAKE.
+   It is Space Mono at 11px, and mono runs about 1.77 characters per em rather
+   than Outfit's 2.31, so its 616px box measures 87 to 89 real characters and
+   not one line over 90. Capping it to 36em would take it to about 57 and make
+   it worse. Same reason ui.css keeps .price-note on its own 52em: the font is
+   what decides how many characters an em width buys. The identical block at
+   the foot of build-rarity.mjs, .rg-foot, was left alone for the same reason.
+   Measured, 1440x900, 16 August 2026. */
+@media(min-width:1000px){
+.up-lede,.up-blurb{max-width:var(--measure)}
+}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Coming next"}]}</script>
 </head>
@@ -797,6 +816,5 @@
 </script>
 
 <script src="/assets/app.js?v=4cc7bcef" defer></script>
-<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
 </body>
 </html>

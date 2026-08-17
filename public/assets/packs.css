@@ -5,6 +5,7 @@
 .pack--151 .pack-art{
   background-color:#161D26;
   background-image:url('packs/151-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/151-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/151-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -12,11 +13,13 @@
 .pack--151 .pack-brand,.pack--151 .pack-mascot{display:none}
 .pack--151.pack--tile .pack-art{
   background-image:url('packs/151-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/151-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/151-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--ascended-heroes .pack-art{
   background-color:#161D26;
   background-image:url('packs/ascended-heroes-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/ascended-heroes-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/ascended-heroes-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -24,11 +27,13 @@
 .pack--ascended-heroes .pack-brand,.pack--ascended-heroes .pack-mascot{display:none}
 .pack--ascended-heroes.pack--tile .pack-art{
   background-image:url('packs/ascended-heroes-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/ascended-heroes-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/ascended-heroes-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--chaos-rising .pack-art{
   background-color:#161D26;
   background-image:url('packs/chaos-rising-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/chaos-rising-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/chaos-rising-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -36,11 +41,13 @@
 .pack--chaos-rising .pack-brand,.pack--chaos-rising .pack-mascot{display:none}
 .pack--chaos-rising.pack--tile .pack-art{
   background-image:url('packs/chaos-rising-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/chaos-rising-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/chaos-rising-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--default .pack-art{
   background-color:#161D26;
   background-image:url('packs/default-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/default-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/default-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -48,11 +55,13 @@
 .pack--default .pack-brand,.pack--default .pack-mascot{display:none}
 .pack--default.pack--tile .pack-art{
   background-image:url('packs/default-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/default-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/default-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--destined-rivals .pack-art{
   background-color:#161D26;
   background-image:url('packs/destined-rivals-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/destined-rivals-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/destined-rivals-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -60,11 +69,13 @@
 .pack--destined-rivals .pack-brand,.pack--destined-rivals .pack-mascot{display:none}
 .pack--destined-rivals.pack--tile .pack-art{
   background-image:url('packs/destined-rivals-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/destined-rivals-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/destined-rivals-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--journey-together .pack-art{
   background-color:#161D26;
   background-image:url('packs/journey-together-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/journey-together-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/journey-together-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -72,11 +83,13 @@
 .pack--journey-together .pack-brand,.pack--journey-together .pack-mascot{display:none}
 .pack--journey-together.pack--tile .pack-art{
   background-image:url('packs/journey-together-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/journey-together-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/journey-together-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--mega-evolution .pack-art{
   background-color:#161D26;
   background-image:url('packs/mega-evolution-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/mega-evolution-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/mega-evolution-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -84,11 +97,13 @@
 .pack--mega-evolution .pack-brand,.pack--mega-evolution .pack-mascot{display:none}
 .pack--mega-evolution.pack--tile .pack-art{
   background-image:url('packs/mega-evolution-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/mega-evolution-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/mega-evolution-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--multi .pack-art{
   background-color:#161D26;
   background-image:url('packs/multi-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/multi-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/multi-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -96,11 +111,13 @@
 .pack--multi .pack-brand,.pack--multi .pack-mascot{display:none}
 .pack--multi.pack--tile .pack-art{
   background-image:url('packs/multi-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/multi-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/multi-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--obsidian-flames .pack-art{
   background-color:#161D26;
   background-image:url('packs/obsidian-flames-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/obsidian-flames-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/obsidian-flames-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -108,11 +125,13 @@
 .pack--obsidian-flames .pack-brand,.pack--obsidian-flames .pack-mascot{display:none}
 .pack--obsidian-flames.pack--tile .pack-art{
   background-image:url('packs/obsidian-flames-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/obsidian-flames-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/obsidian-flames-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--paradox-rift .pack-art{
   background-color:#161D26;
   background-image:url('packs/paradox-rift-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/paradox-rift-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/paradox-rift-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -120,11 +139,13 @@
 .pack--paradox-rift .pack-brand,.pack--paradox-rift .pack-mascot{display:none}
 .pack--paradox-rift.pack--tile .pack-art{
   background-image:url('packs/paradox-rift-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/paradox-rift-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/paradox-rift-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--perfect-order .pack-art{
   background-color:#161D26;
   background-image:url('packs/perfect-order-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/perfect-order-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/perfect-order-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -132,11 +153,13 @@
 .pack--perfect-order .pack-brand,.pack--perfect-order .pack-mascot{display:none}
 .pack--perfect-order.pack--tile .pack-art{
   background-image:url('packs/perfect-order-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/perfect-order-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/perfect-order-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--phantasmal-flames .pack-art{
   background-color:#161D26;
   background-image:url('packs/phantasmal-flames-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/phantasmal-flames-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/phantasmal-flames-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -144,11 +167,13 @@
 .pack--phantasmal-flames .pack-brand,.pack--phantasmal-flames .pack-mascot{display:none}
 .pack--phantasmal-flames.pack--tile .pack-art{
   background-image:url('packs/phantasmal-flames-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/phantasmal-flames-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/phantasmal-flames-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--pitch-black .pack-art{
   background-color:#161D26;
   background-image:url('packs/pitch-black-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/pitch-black-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/pitch-black-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -156,11 +181,13 @@
 .pack--pitch-black .pack-brand,.pack--pitch-black .pack-mascot{display:none}
 .pack--pitch-black.pack--tile .pack-art{
   background-image:url('packs/pitch-black-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/pitch-black-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/pitch-black-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--pokemon-go .pack-art{
   background-color:#161D26;
   background-image:url('packs/pokemon-go-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/pokemon-go-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/pokemon-go-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -168,11 +195,13 @@
 .pack--pokemon-go .pack-brand,.pack--pokemon-go .pack-mascot{display:none}
 .pack--pokemon-go.pack--tile .pack-art{
   background-image:url('packs/pokemon-go-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/pokemon-go-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/pokemon-go-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--prismatic-evolutions .pack-art{
   background-color:#161D26;
   background-image:url('packs/prismatic-evolutions-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/prismatic-evolutions-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/prismatic-evolutions-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -180,11 +209,13 @@
 .pack--prismatic-evolutions .pack-brand,.pack--prismatic-evolutions .pack-mascot{display:none}
 .pack--prismatic-evolutions.pack--tile .pack-art{
   background-image:url('packs/prismatic-evolutions-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/prismatic-evolutions-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/prismatic-evolutions-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--scarlet-violet .pack-art{
   background-color:#161D26;
   background-image:url('packs/scarlet-violet-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/scarlet-violet-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/scarlet-violet-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -192,11 +223,13 @@
 .pack--scarlet-violet .pack-brand,.pack--scarlet-violet .pack-mascot{display:none}
 .pack--scarlet-violet.pack--tile .pack-art{
   background-image:url('packs/scarlet-violet-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/scarlet-violet-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/scarlet-violet-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--surging-sparks .pack-art{
   background-color:#161D26;
   background-image:url('packs/surging-sparks-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/surging-sparks-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/surging-sparks-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -204,11 +237,13 @@
 .pack--surging-sparks .pack-brand,.pack--surging-sparks .pack-mascot{display:none}
 .pack--surging-sparks.pack--tile .pack-art{
   background-image:url('packs/surging-sparks-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/surging-sparks-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/surging-sparks-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--temporal-forces .pack-art{
   background-color:#161D26;
   background-image:url('packs/temporal-forces-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/temporal-forces-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/temporal-forces-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -216,11 +251,13 @@
 .pack--temporal-forces .pack-brand,.pack--temporal-forces .pack-mascot{display:none}
 .pack--temporal-forces.pack--tile .pack-art{
   background-image:url('packs/temporal-forces-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/temporal-forces-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/temporal-forces-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 .pack--twilight-masquerade .pack-art{
   background-color:#161D26;
   background-image:url('packs/twilight-masquerade-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/twilight-masquerade-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/twilight-masquerade-garbage-rips-585-booster-pack.webp') type('image/webp'));
   background-size:cover;
   background-position:center;
 }
@@ -228,6 +265,7 @@
 .pack--twilight-masquerade .pack-brand,.pack--twilight-masquerade .pack-mascot{display:none}
 .pack--twilight-masquerade.pack--tile .pack-art{
   background-image:url('packs/twilight-masquerade-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/twilight-masquerade-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/twilight-masquerade-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
 }
 
 /* Hall of Fame stays gold even for sets that have artwork. The gold is

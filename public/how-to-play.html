@@ -22,8 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
-<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<link rel="stylesheet" href="/assets/ui.css?v=17b9bdb3">
 <style>
 .hp-lede{max-width:44em}
 .hp-s{margin-top:var(--s6);scroll-margin-top:var(--s5)}
@@ -119,6 +118,30 @@
 .hp-out a{font-weight:700}
 .hp-out .hp-off{display:inline-block;font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);margin-left:6px}
 .hp-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
+
+/* DESKTOP READING MEASURE. The 44 to 46em caps above were written as if 1em
+   were one character. It is not: Outfit at 17px runs about 2.47 characters per
+   em, so 44em is a 748px box and it measured 105 real characters a line at
+   1440, with half of every line on the page over 90. ui.css already caps main
+   prose at var(--measure) and these rules only outranked it by landing after
+   the stylesheet, so this block is letting the site-wide decision through
+   rather than making a new one. All min-width:1000, ui.css's own desktop
+   breakpoint, so the phone and the tablet range keep exactly the rules
+   they had.
+
+   .hp-go li IS IN AND .hp-lbl li IS NOT, AND BOTH WERE MEASURED RATHER THAN
+   GUESSED FROM THE SHAPE. They are built the same way, a display-block b label
+   then a sentence, so a pass reading the markup would cap both. .hp-lbl li
+   lives in the .hp-anat figure beside the annotated card, in a column that is
+   already narrow: it measures 31 real characters at its longest at 1440, so a
+   36em cap buys it nothing and would only be a width it might one day hit.
+   .hp-go li measures 98. See the measure block in ui.css for why every list
+   has to be looked at one at a time. Measured, 1440x900, 16 August 2026. */
+@media(min-width:1000px){
+.hp-lede,.hp-src{max-width:var(--measure)}
+.hp-s > p{max-width:var(--measure)}
+.hp-go li{max-width:var(--measure)}
+}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"How to play"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What even is the Pokemon card game?","acceptedAnswer":{"@type":"Answer","text":"Two players each bring a 60 card deck, put Pokemon down on the table, attach Energy to them, and attack each other's Pokemon until one player has taken all six of their Prize cards."}},{"@type":"Question","name":"How do you set up a game of Pokemon cards?","acceptedAnswer":{"@type":"Answer","text":"Flip a coin and the winner chooses who goes first. Shuffle, draw seven, put a Basic Pokemon face down in the Active spot and up to five more on the Bench, then count the top six cards of your deck aside as your Prize cards. Both players turn everything face up and start."}},{"@type":"Question","name":"What happens on a turn?","acceptedAnswer":{"@type":"Answer","text":"Draw a card. Then do as much or as little as you like: attach one Energy, play Trainer cards, put Basics on your Bench, evolve, retreat, use Abilities. Then attack, and your turn is over."}},{"@type":"Question","name":"How do you win a game of Pokemon cards?","acceptedAnswer":{"@type":"Answer","text":"Three ways. Take all six of your own Prize cards, leave your opponent with no Pokemon in play, or have them unable to draw a card at the start of their turn."}},{"@type":"Question","name":"Do I need to build a deck to play?","acceptedAnswer":{"@type":"Answer","text":"No. A preconstructed deck is a legal 60 card deck out of the box. Two people need two decks, or one Battle Academy box."}}]}</script>
@@ -590,6 +613,5 @@
   </div>
 </footer>
 <script src="/assets/app.js?v=4cc7bcef" defer></script>
-<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
 </body>
 </html>

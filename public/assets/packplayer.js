@@ -469,6 +469,35 @@
     }
     for (var j = 0; j < due.length; j++) {
       var im = due[j];
+      // THE <source> FIRST, AND THE ORDER IS THE WHOLE THING.
+      //
+      // Pack art is a <picture> now: an AVIF <source> in front of the WebP
+      // <img> (avifPicture in shared/format.mjs). Both halves are deferred,
+      // because a <picture> whose source matches loads that source even when
+      // the <img> has no src, so a live srcset on the source would fetch every
+      // slide at first paint and undo the deferral entirely.
+      //
+      // Promoting the img first does NOT work and it fails quietly: the source
+      // still has no srcset at that moment, so it does not match, the browser
+      // resolves the img's own WebP srcset and commits to it, and the AVIF
+      // arriving a line later either does nothing or costs a SECOND request for
+      // the same picture. Set the source, then the img, and the img's src is
+      // then only ever the fallback for a browser that skipped the source.
+      //
+      // Same sizes-then-srcset rule as below, for the same reason: srcset
+      // without sizes resolves against a 100vw default and can pick the 810w
+      // file, and the sizes arriving afterwards cannot call that request back.
+      var pic = im.parentNode;
+      if (pic && pic.tagName === "PICTURE") {
+        var so = pic.querySelector("source[data-packsrcset]");
+        if (so) {
+          var ssz = so.getAttribute("data-packsizes");
+          if (ssz) so.setAttribute("sizes", ssz);
+          so.setAttribute("srcset", so.getAttribute("data-packsrcset"));
+          so.removeAttribute("data-packsrcset");
+          so.removeAttribute("data-packsizes");
+        }
+      }
       // sizes, then srcset, then src. Setting src first starts a fetch for the
       // one url it names, and the srcset arriving on the next line cannot call
       // that request back.

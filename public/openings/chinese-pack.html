@@ -22,8 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
-<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<link rel="stylesheet" href="/assets/ui.css?v=17b9bdb3">
 <style>.op-lede{max-width:46em}
 .op-shot{display:flex;gap:var(--s4);align-items:center;margin:0 0 var(--s5);
 max-width:46em;border:3px solid var(--navy);border-radius:12px;background:var(--card);
@@ -40,7 +39,16 @@ padding:var(--s4);text-align:center}
 .op-f .l{font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;
 color:var(--ink-2);margin-top:var(--s2);display:block}
 .op-tw{overflow-x:auto;border:3px solid var(--navy);border-radius:12px;box-shadow:var(--hard-lg);
-background:var(--card);margin:var(--s4) 0}
+background-color:var(--card);margin:var(--s4) 0;
+background-image:
+linear-gradient(to right,var(--card) 40%,rgba(255,255,255,0)),
+linear-gradient(to left,var(--card) 40%,rgba(255,255,255,0)),
+radial-gradient(farthest-side at 0 50%,rgba(17,17,17,.30),rgba(17,17,17,0)),
+radial-gradient(farthest-side at 100% 50%,rgba(17,17,17,.30),rgba(17,17,17,0));
+background-position:left center,right center,left center,right center;
+background-repeat:no-repeat;
+background-size:44px 100%,44px 100%,15px 100%,15px 100%;
+background-attachment:local,local,scroll,scroll}
 .op-t{border-collapse:collapse;width:100%;min-width:520px;font-size:var(--t-sm)}
 .op-t caption{caption-side:top;text-align:left;padding:var(--s3) var(--s4);font:700 var(--t-label)/1.3 var(--body);
 letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);border-bottom:2px solid var(--hair)}
@@ -341,6 +349,5 @@ border:1px solid var(--hair);border-radius:6px}
   </div>
 </footer>
 <script src="/assets/app.js?v=4cc7bcef" defer></script>
-<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
 </body>
 </html>

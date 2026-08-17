@@ -33,7 +33,22 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, FONTS, footer, APP_JS } from "../shared/chrome.mjs";
+// NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
+// it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
+// script that finds no tile and a stylesheet whose classes never appear.
+// CHECKED BY DRIVING THE PAGE, not by grepping it: packplayer's entry point is
+// a delegated click on an <a> to a rip that WRAPS an <img> or a .pack facade,
+// which no scan for [data-vcar] or img[data-packsrc] can see. The three
+// conditions a page must meet, and why the obvious scan gives the wrong answer,
+// are in shared/chrome.mjs beside the two exports. READ THAT BEFORE ADDING A
+// VIDEO TILE OR A CAROUSEL HERE: a tile added without putting packplayer.js
+// back navigates instead of playing in place, which reads as a design choice
+// rather than as a bug.
+import {
+  BAR, MENU, SPRITE, SKIP, footer, FONTS,
+  STYLES_NO_PACKS_CSS as STYLES,
+  APP_JS_NO_PACKPLAYER as APP_JS,
+} from "../shared/chrome.mjs";
 import { esc, longDate, imgDims, avifPicture, moneyCompact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -580,6 +595,24 @@ const style = `
 
 .rg-foot{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
+
+/* DESKTOP READING MEASURE. The caps above were written in em as if 1em were
+   one character. It is not: Outfit runs 2.31 to 2.47 characters per em here,
+   so 46em bought .rg-p 112 real characters a line at 1440. ui.css already caps
+   main prose at var(--measure) and these rules only outranked it by landing
+   after the stylesheet. All min-width:1000, ui.css's own desktop breakpoint,
+   so the phone and the tablet range keep exactly the rules they had.
+
+   .rg-foot IS DELIBERATELY NOT IN HERE AND ITS 56em IS NOT THE SAME MISTAKE.
+   It is Space Mono at 11px, and mono runs about 1.77 characters per em rather
+   than Outfit's 2.31, so its 616px box measures 81 to 87 real characters, not
+   one line over 90. Capping it to 36em would take it to about 55 and make it
+   worse. Same reason ui.css keeps .price-note on its own 52em: the font is
+   what decides how many characters an em width buys, so a mono block does not
+   join the shared number. Measured, 1440x900, 16 August 2026. */
+@media(min-width:1000px){
+.rg-lede,.rg-p,.tip p{max-width:var(--measure)}
+}
 `;
 
 const body = `

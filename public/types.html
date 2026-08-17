@@ -22,8 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=692dbbcf">
-<link rel="stylesheet" href="/assets/packs.css?v=b6de75aa">
+<link rel="stylesheet" href="/assets/ui.css?v=17b9bdb3">
 <style>
 .ty-lede{max-width:46em}
 .ty-key{display:flex;flex-wrap:wrap;gap:8px;margin:var(--s5) 0 var(--s4)}
@@ -141,6 +140,19 @@
 .ty-open{margin:var(--s4) 0 0 var(--s4);font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);max-width:46em}
 .ty-open li{margin-bottom:var(--s2)}
 .ty-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
+
+/* DESKTOP READING MEASURE. The caps above were written in em as if 1em were
+   one character. It is not: these faces run 2.31 to 2.47 characters per em, so
+   44 to 46em bought 100 to 106 real characters a line at 1440. ui.css already
+   caps main prose at var(--measure) and these rules only outranked it by
+   landing after the stylesheet. Everything here is min-width:1000, ui.css's
+   own desktop breakpoint, so the phone and the tablet range keep exactly the
+   rules they had. Each selector below was read on the page first: all six are
+   ordinary paragraphs, no layout rows. */
+@media(min-width:1000px){
+.ty-lede,.ty-src{max-width:var(--measure)}
+.ty-grp > p,.ty-key-blk p,.ty-split p,.ty-meas p{max-width:var(--measure)}
+}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Card types"}]}</script>
 </head>
@@ -959,6 +971,5 @@
   </div>
 </footer>
 <script src="/assets/app.js?v=4cc7bcef" defer></script>
-<script src="/assets/packplayer.js?v=c3ef7e29" defer></script>
 </body>
 </html>

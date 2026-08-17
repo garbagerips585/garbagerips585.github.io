@@ -1,14 +1,36 @@
 /**
- * Writes public/palette-preview.html: the same homepage-and-guide fragment
- * rendered five times, once per candidate palette, so they can be compared
- * like for like.
+ * Writes assets-source/palette-preview.html: the same homepage-and-guide
+ * fragment rendered five times, once per candidate palette, so they can be
+ * compared like for like.
+ *
+ * IT USED TO WRITE INTO public/ AND THAT WAS THE BUG, fixed 16 August 2026.
+ * The three guards below are all about SEARCH ENGINES, and they worked: the
+ * file was noindex, absent from the sitemap and absent from the site search.
+ * None of them stops a 135KB working file being UPLOADED. pages.yml publishes
+ * the whole of public/ on every push, so this was already being served at
+ * /palette-preview.html on the staging address, and the only thing keeping it
+ * quiet was robots.txt disallowing everything while the site is not live.
+ * Going live is one flag, LIVE in shared/site.mjs, and flipping it would have
+ * turned robots.txt into an allow and published this file with it.
+ *
+ * So it writes outside the deploy root now. assets-source/ is the documented
+ * home for things the site is built FROM but does not ship, which is exactly
+ * what a decision aid for the palette is, and it puts the preview next to the
+ * ui.css it argues about. Open it from disk; it does not need a server.
+ *
+ * THE DECISION RECORD IS THIS FILE, NOT ITS OUTPUT. The palette numbers live
+ * in the PALETTES array below, and assets-source/ui.css names that array as
+ * the thing its :root block must not drift from. The generated HTML is
+ * reproducible from here in one command, so it is safe to delete whenever it
+ * is in the way.
  *
  * THIS IS A WORKING FILE, NOT A PAGE OF THE SITE, and three things keep it
  * that way. It is `noindex`, which is also how build-search.mjs decides a top
  * level page does not need a PAGES entry (see the guard at the foot of that
  * file); the sitemap is a hand written list in build-pages.mjs, so a file that
  * is never added to it is never in it; and robots.txt disallows everything
- * while the site is on the staging address anyway.
+ * while the site is on the staging address anyway. All three are now belt and
+ * braces on top of simply not being in the deploy root.
  *
  * DELIBERATELY NOT NAMED build-*.mjs. check-build.py fails the build on any
  * scripts/build-* or scripts/stamp-* file that build-all.mjs does not run, and
@@ -19,14 +41,30 @@
  *
  * NOTHING HERE TOUCHES assets-source/ui.css. Every palette is a scoped copy of
  * the token block on a wrapper element, and the fragment carries its own
- * component CSS inline. Deleting public/palette-preview.html and this file
- * leaves no trace in the shared stylesheet.
+ * component CSS inline. Deleting assets-source/palette-preview.html and this
+ * file leaves no trace in the shared stylesheet.
  */
-import { writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+/* THE FONTS HAVE TO BE INLINED NOW THAT THE OUTPUT LIVES OUTSIDE public/.
+   The page used to link /assets/fonts.css, an absolute path that only resolves
+   when something is serving public/ as the web root. The output is no longer
+   in public/, so nothing serves it and that link would 404 in every case.
+   Linking ../public/assets/fonts.css instead does not work either, and this is
+   the part that is easy to get wrong: the link resolves, but fonts.css names
+   its woff2 files with absolute urls too, so the FACES fail even when the
+   stylesheet loads. The result is a page that renders in a fallback font and
+   looks like nothing is wrong, on a page whose entire job is judging how the
+   type and the colour sit together.
+   So the real fonts.css is read at generate time and its urls are rewritten
+   relative to the output file. One source of truth, no second copy of the font
+   stack to drift, and it works from a plain file:// open with no server. */
+const fontCss = (await readFile(join(ROOT, "public/assets/fonts.css"), "utf8"))
+  .replace(/url\(\/assets\//g, "url(../public/assets/");
 
 /* ==========================================================================
    THE PALETTES
@@ -502,7 +540,13 @@ const html = `<!doctype html>
      noindex page that turns up in the sitemap. -->
 <meta name="robots" content="noindex,nofollow">
 <title>Palette options &mdash; Garbage Rips 585 working file</title>
-<link rel="stylesheet" href="/assets/fonts.css">
+<style>
+/* public/assets/fonts.css, inlined with its urls made relative. See the note
+   beside the fontCss constant in scripts/gen-palette-preview.mjs. NO BACKTICKS
+   IN THIS COMMENT: everything from here to the end of the page is one JS
+   template literal, so a backtick ends the string and the file stops parsing. */
+${fontCss}
+</style>
 <style>
 /* ==========================================================================
    SELF CONTAINED ON PURPOSE. This page does not link /assets/ui.css and adds
@@ -786,8 +830,12 @@ ${sections}
 </html>
 `;
 
-await writeFile(join(ROOT, "public/palette-preview.html"), html);
-console.log("Wrote public/palette-preview.html");
+// OUTSIDE public/ ON PURPOSE. See the note at the top of this file: anything
+// under public/ is uploaded by pages.yml on every push, and a working file
+// does not belong on the site. assets-source/ is the documented home for
+// input the site is built from but does not ship.
+await writeFile(join(ROOT, "assets-source/palette-preview.html"), html);
+console.log("Wrote assets-source/palette-preview.html");
 console.log(`  ${PALETTES.length} palettes, ${PAIRS.length} measured pairs each`);
 for (const p of PALETTES) {
   const rows = score(p.t).filter((r) => r.pass !== null);

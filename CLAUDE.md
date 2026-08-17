@@ -34,7 +34,11 @@ RSS is also available: youtube.com/feeds/videos.xml?channel_id=UC...
 ## Layout
 ```
 public/        deployed static root (index, videos, playlists, assets/, data/)
-assets-source/ the stylesheet source and the pack art originals, not deployed
+assets-source/ the stylesheet source, the pack art originals and the palette
+               preview, none of it deployed. The preview moved here from the
+               deploy root on 16 August 2026: it is a 135KB decision aid that
+               nothing links to, and it would have published itself the moment
+               LIVE flips in shared/site.mjs.
 scripts/       sync-youtube.mjs, local only, needs YT_API_KEY in the environment
 shared/        taxonomy.mjs, the set/product tag rules, imported by both
 ```
@@ -437,15 +441,75 @@ the third srcset candidate in the gzipped HTML, which is the whole cost of the
 change to a reader it cannot help. Nothing about the phone moved, by design and
 by measurement.
 
-**SO A RETINA DESKTOP IS UNCHANGED, AND THAT IS THE HALF THIS ENTRY KEEPS
+**SO A RETINA DESKTOP IS UNCHANGED BY 560w, AND THAT IS THE HALF THAT ENTRY KEPT
 UNDERSELLING.** A 402px box at DPR 2 asks for 804 device pixels and 810w is the
-smallest candidate that satisfies it, so a MacBook at 1440 still pulls 681.6KB of
-pack art. If somebody reports a slow desktop and is on a retina screen, 560w is
-not their fix and pointing at these numbers will mislead them. The measured
-options left for that case are an AVIF rendition of the pack art, which encodes
-15 to 22% smaller than the WebP at equal width (810w: 150.6 -> 126.4KB on
-paradox-rift, 129.6 -> 101.1 on multi) and is the only lever that pays at EVERY
-DPR, or a lower WebP quality than the current 78. Neither was done here.
+smallest candidate that satisfies it, so 560w left a MacBook at 1440 pulling the
+same 681.6KB of pack art it always had. If somebody reports a slow desktop and is
+on a retina screen, 560w is not their fix and pointing at the table above will
+mislead them.
+
+**THE FIX FOR THAT CASE IS AVIF AND IT WENT IN THE SAME DAY, 16 AUGUST 2026.**
+build-packs.py writes every rendition TWICE, .webp and .avif, and the three
+places that emit pack art put the AVIF in front: `heroTile` and the Hall of Fame
+frame in build-proto.mjs both go through `avifPicture()`, and packs.css carries a
+plain `url()` followed by an `image-set()` for the pack wrapper, which is a CSS
+background and cannot be a `<picture>`. 57 new files, 3.9MB on disk, and the
+browser fetches one format or the other, never both.
+
+Unlike a width, a codec shrinks whichever candidate the browser had already
+chosen, so this is the one lever that pays at EVERY DPR. Measured with one
+harness, gzipped, cache off, on-load with no scroll beside fully scrolled, and
+the picked filename read off the REQUEST LOG at every row:
+
+                          on-load            fully scrolled     pack file
+      1280 DPR 1     501.8 -> 430.8KB    1861.1 -> 1790.1KB     560 webp -> avif
+      1440 DPR 1     501.8 -> 430.8KB    1861.1 -> 1790.1KB     560 webp -> avif
+      1920 DPR 1     644.3 -> 573.3KB    1861.1 -> 1790.1KB     560 webp -> avif
+      1280 DPR 2     804.3 -> 662.2KB    2163.6 -> 2021.5KB     810 webp -> avif
+      1440 DPR 2     804.3 -> 662.2KB    2163.6 -> 2021.5KB     810 webp -> avif
+      1920 DPR 2     946.8 -> 804.7KB    2163.6 -> 2021.5KB     810 webp -> avif
+       390 DPR 2     519.1 -> 431.9KB    1277.8 -> 1135.8KB     810 webp -> avif
+       390 DPR 3     514.4 -> 427.2KB    1272.5 -> 1130.5KB     810 webp -> avif
+
+Pack art on-load: 681.6 -> 538.8KB retina, 391.7 -> 303.8KB phone, 379.1 ->
+307.4KB at DPR 1. The `<picture>` markup cost is 183 bytes gzipped on the whole
+home page, so it pays 390 times over on the cheapest row.
+
+**THERE IS NO SHARPNESS TRADE HERE AND THAT WAS MEASURED RATHER THAN ASSERTED.**
+AVIF q60 is both SMALLER AND CLOSER TO THE MASTER than WebP q78, PSNR against the
+same LANCZOS-resized source over the opaque pixels only: paradox-rift 810w
+150.6KB/33.03 dB -> 123.1KB/34.21 dB, default 129.6KB/33.41 dB -> 96.9KB/34.46
+dB. Rendered at 1440 DPR 2 and diffed, before against after, the Hall of Fame
+frame is 39.5 dB and the carousel slide 38.2 dB, and mean absolute Laplacian
+(a crude sharpness proxy) went UP slightly on all three elements screenshotted.
+Do not read that as headroom: q55 drops BELOW the WebP's fidelity, and the pack
+art is commissioned brand artwork.
+
+**THE TRAP THAT COST A CACHE HIT, and it only shows up with the cache ON.** A
+background image cannot be a `<picture>`, so when the `<img>` tags moved to AVIF
+the pack wrapper that `playInTile` mounts on click was still asking packs.css for
+WebP. On the home page that turned a free cache hit into a 124KB download on
+every click: the tile fetched pitch-black-...pack.avif, the click asked for
+pitch-black-...pack.webp. Logged from the network before and after a real
+dispatched click. The `image-set()` in packs.css is what closes it, written as a
+SECOND declaration after the plain `url()` so that a browser too old to parse it
+drops that line and keeps the WebP; inverting those two would leave the pack a
+flat #161D26 rectangle, because `.pack-art::before` and `.pack-brand` are
+switched off in the same block.
+
+**AND THE `<source>` ON A DEFERRED SLIDE HAS TO BE DEFERRED TOO.** A `<picture>`
+whose `<source>` matches loads that source even when the `<img>` carries no src
+at all, so a live `srcset` there would fetch every carousel slide at first paint
+and put the phone back to 800KB in a new format, with the markup still looking
+correct. `avifPicture(img, {defer:true})` writes the source's candidates under
+the same `data-packsrcset`/`data-packsizes` names the img uses, and
+`hydrateSlides` promotes the SOURCE FIRST, sizes before srcset, then the img.
+Promoting the img first fails quietly: the source has no srcset yet, so the
+browser resolves the img's WebP and commits to it. Verified from the request log:
+3 pack files on load at 390 and 5 fully scrolled, all AVIF, none fetched twice.
+
+The other lever named here was a lower WebP quality than 78. It is now moot for
+anything that supports AVIF and was not done.
 
 **A CSS background cannot be lazy.** rarity.html's magnified corners were
 backgrounds, so all 13 full-size scans were fetched at first paint whether or

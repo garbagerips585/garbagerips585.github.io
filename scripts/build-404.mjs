@@ -15,7 +15,15 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { BAR, MENU, SPRITE, SKIP, STYLES, FONTS, footer, APP_JS } from "../shared/chrome.mjs";
+// NO packplayer.js, BUT packs.css STAYS. The torn pack in the middle of this
+// page is a .pack--multi facade, so the stylesheet is doing real work here; the
+// script is not. That pack is decoration and not a link: packplayer only ever
+// claims an <a> to a rip that WRAPS an <img> or a .pack, and this page holds no
+// link to /rip/ at all. Driven in headless Chrome to confirm it, with a real
+// dispatched click rather than a scan. See shared/chrome.mjs beside the two
+// exports for the conditions and for why the obvious scan is wrong.
+import { BAR, MENU, SPRITE, SKIP, STYLES, FONTS, footer,
+  APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 

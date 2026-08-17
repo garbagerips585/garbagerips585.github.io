@@ -6,14 +6,14 @@
     "Rerun the script after any change to a game or these go stale, which nothing",
     "else in the build can detect for you."
   ],
-  "checked": "2026-08-16",
+  "checked": "2026-08-17",
   "shots": {
     "garbage-run": {
       "file": "garbage-run-screenshot.webp",
       "w": 380,
       "h": 622,
-      "bytes": 3130,
-      "shows": "Garbage Run part way through a run: Trubbish mid-air on a dark street, a curve of rubbish ahead of him, another Pokemon perched on the edge of the lane, and the score counting up towards a hundred"
+      "bytes": 3670,
+      "shows": "Garbage Run part way through a run: Trubbish on a dark street with rubbish laid out ahead of him, the score in the corner and the count of what is left before he evolves"
     },
     "whos-that-pokemon": {
       "file": "whos-that-pokemon-screenshot.webp",

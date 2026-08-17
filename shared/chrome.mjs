@@ -342,12 +342,37 @@ export const STYLES = `<link rel="stylesheet" href="/assets/ui.css?v=${CSS_V}">
  * `img[data-packsrc]`, and a scan for those two says 481 of 487 pages do not
  * need it. That scan is WRONG. Its real entry point is a delegated click
  * handler on `document` matching `a[href*="/rip/"]` that contains an `<img>`
- * OR a `.pack` facade, which is how /videos.html and every set guide play a
- * tile in place with no data attribute anywhere in the markup. Counted with
- * that predicate the answer is 294 pages need it and 192 do not, and the two
- * counts disagree by enough that guessing breaks a page silently: a tile that
- * no longer plays where it sits still navigates to the rip page, so it looks
- * like a design decision rather than a missing script.
+ * OR a `.pack` facade, which is how /videos.html plays a tile in place with no
+ * data attribute anywhere in the markup.
+ *
+ * THE COUNT ABOVE USED TO SAY 294 NEED IT AND 192 DO NOT, AND IT NAMED THE SET
+ * GUIDES AS AN EXAMPLE. Both halves were wrong, corrected 16 August 2026 by
+ * driving all 173 non-rip pages and asking the RUNTIME DOM the same question
+ * packplayer.js asks, rather than grepping the markup:
+ *
+ *   313  /rip/ pages       every one carries an inline GRPack.attach(r); that
+ *                          IS the pack wrapper, so 313 is the FLOOR and any
+ *                          answer below it is arithmetically impossible
+ *    23  real tile pages   /index.html, /videos.html, and the 21 /playlists/*
+ *   ---
+ *   336  need it           150 do not, of 486
+ *
+ * Runtime and not markup, because /videos.html builds its 96 tiles from JSON
+ * after load and a static scan sees none of them.
+ *
+ * A SET GUIDE DOES NOT PLAY A TILE IN PLACE and never did. Its "On the
+ * channel" band is `<li><a href="/rip/...">title</a><span>date</span></li>`:
+ * plain text, no <img>, no .pack. packplayer requires artwork inside the
+ * anchor, so it never claimed those links. All 42 confirmed by dispatched
+ * click. What the guides DO carry is a decorative .pack facade with no rip
+ * artwork behind it, which is what made a naive regex read 372: 313 + 23 + 36
+ * decorative facades reconciles exactly.
+ *
+ * Guessing still breaks a page silently, which is why this is worth the
+ * paragraph: a tile that no longer plays where it sits still navigates to the
+ * rip page, so it looks like a design decision rather than a missing script.
+ * Verify by dispatching a real click, with a positive control on a page you
+ * know does play in place. A null result with no control proves nothing.
  *
  * The three conditions a page must ALL meet, in full:
  *   1. no `<a href*="/rip/">` wrapping an `<img>` or a `.pack`

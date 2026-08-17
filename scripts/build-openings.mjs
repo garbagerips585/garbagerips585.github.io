@@ -47,7 +47,22 @@ import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
+// NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
+// it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
+// script that finds no tile and a stylesheet whose classes never appear.
+// CHECKED BY DRIVING THE PAGE, not by grepping it: packplayer's entry point is
+// a delegated click on an <a> to a rip that WRAPS an <img> or a .pack facade,
+// which no scan for [data-vcar] or img[data-packsrc] can see. The three
+// conditions a page must meet, and why the obvious scan gives the wrong answer,
+// are in shared/chrome.mjs beside the two exports. READ THAT BEFORE ADDING A
+// VIDEO TILE OR A CAROUSEL HERE: a tile added without putting packplayer.js
+// back navigates instead of playing in place, which reads as a design choice
+// rather than as a bug.
+import {
+  BAR, MENU, SPRITE, SKIP, footer, FONTS,
+  STYLES_NO_PACKS_CSS as STYLES,
+  APP_JS_NO_PACKPLAYER as APP_JS,
+} from "../shared/chrome.mjs";
 import { esc, longDate, shortDate, moneyExact, imgDims } from "../shared/format.mjs";
 import { PRODUCT_TYPES, CARD_SETS } from "../shared/taxonomy.mjs";
 import { ripLabel } from "../shared/riplabel.mjs";
@@ -718,8 +733,25 @@ const STYLE = `
 .op-f .n{font:400 var(--t-xl)/1 var(--display);color:var(--ketchup)}
 .op-f .l{font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-2);margin-top:var(--s2);display:block}
+/* Same "there is more to the right" affordance ui.css gives .cc-scroll and
+   friends. .op-t is min-width:520px inside a 360px box, so measured at 390x844
+   on /openings/etb.html the wrapper is clientWidth 360, scrollWidth 520: 160px
+   of the table off screen with nothing saying so, and 230px at 320x568.
+   Covers ride the content (attachment:local), shadows stay on the box, so it
+   turns itself off the moment the table fits.
+   background-COLOR, not the shorthand, which would reset background-image and
+   wipe all four layers. */
 .op-tw{overflow-x:auto;border:3px solid var(--navy);border-radius:12px;box-shadow:var(--hard-lg);
-  background:var(--card);margin:var(--s4) 0}
+  background-color:var(--card);margin:var(--s4) 0;
+  background-image:
+    linear-gradient(to right,var(--card) 40%,rgba(255,255,255,0)),
+    linear-gradient(to left,var(--card) 40%,rgba(255,255,255,0)),
+    radial-gradient(farthest-side at 0 50%,rgba(17,17,17,.30),rgba(17,17,17,0)),
+    radial-gradient(farthest-side at 100% 50%,rgba(17,17,17,.30),rgba(17,17,17,0));
+  background-position:left center,right center,left center,right center;
+  background-repeat:no-repeat;
+  background-size:44px 100%,44px 100%,15px 100%,15px 100%;
+  background-attachment:local,local,scroll,scroll}
 .op-t{border-collapse:collapse;width:100%;min-width:520px;font-size:var(--t-sm)}
 .op-t caption{caption-side:top;text-align:left;padding:var(--s3) var(--s4);font:700 var(--t-label)/1.3 var(--body);
   letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);border-bottom:2px solid var(--hair)}
