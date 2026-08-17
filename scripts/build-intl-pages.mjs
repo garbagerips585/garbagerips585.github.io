@@ -763,8 +763,15 @@ function rarityBand(g, rarities, maxN, secretCount, cls) {
           inside an overflow:hidden track, and 38 Commons and 1 Mega Hyper Rare
           rendered as identical empty full-width pills.
           A chart cannot be wrong quietly, which is what this was: the numbers
-          beside it were right the whole time, so nothing read as broken. */ ""}
-    <div class="rarity-list">
+          beside it were right the whole time, so nothing read as broken.
+
+          data-figure marks a figure drawn in markup rather than fetched, so
+          check-build.py's image-coverage report can see it. It selects nothing
+          and matches build-set-pages.mjs, which puts it on the same ladder.
+          Note where this comment sits: a second `${...  ""}` block of its own
+          would have added a blank line and an indent to all thirteen pages,
+          which is a rendered change made by a comment. */ ""}
+    <div class="rarity-list" data-figure="chart">
       ${rarities.map(([r, n]) => `<div class="rar">
         <span class="rar-name">${esc(rarityLabel(r) || r)}</span>
         <span class="rar-n">${n}</span>

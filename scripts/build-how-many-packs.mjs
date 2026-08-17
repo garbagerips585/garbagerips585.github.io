@@ -579,6 +579,186 @@ const ERAS = [
   },
 ];
 
+/**
+ * The cards-per-pack timeline, drawn.
+ *
+ * WHY THIS SECTION EARNED A PICTURE AND THE ONES EITHER SIDE OF IT DID NOT.
+ * The whole argument of this section is a SHAPE: "it did not go from eleven
+ * straight to ten, there is a nine-card era in the middle and it lasted nearly
+ * five years". That is a claim about a dip and about how wide the dip is, and a
+ * list of five paragraphs is the one format that cannot show either. Every
+ * neighbouring section on this page carries product photography; this one was
+ * 2,323 characters of prose with nothing but the section's flower glyph.
+ *
+ * THE STEPS ARE DERIVED, NOT TYPED. It walks ERAS in order and emits a step
+ * only where `cards` actually CHANGES, which is why the five rows above draw
+ * three levels: rows 3, 4 and 5 are all ten, and the page says so in words
+ * ("the game-card count has not moved since"). If somebody adds a sixth era
+ * this figure follows it without being touched, and if they add one that does
+ * not move the number it correctly draws nothing new.
+ *
+ * THE DATES ARE PARSED FROM `when` AND A FAILURE THROWS. The alternative was a
+ * second numeric field beside the prose, which is a number that can drift away
+ * from the sentence next to it while both look right. Parsing the one string
+ * the reader is shown means the picture and the paragraph cannot disagree.
+ */
+const MONTHS = {
+  january: 0, february: 1, march: 2, april: 3, may: 4, june: 5,
+  july: 6, august: 7, september: 8, october: 9, november: 10, december: 11,
+};
+function eraStart(when) {
+  // "September 2002 to 2007" -> 2002.667, "1999 to 2002" -> 1999, "Today" -> null
+  const s = String(when).trim();
+  if (/^today$/i.test(s)) return null;
+  let m = s.match(/^([A-Za-z]+)\s+(\d{4})\b/);
+  if (m) {
+    const mo = MONTHS[m[1].toLowerCase()];
+    if (mo === undefined) throw new Error(`eraStart: unknown month in "${when}"`);
+    return Number(m[2]) + mo / 12;
+  }
+  m = s.match(/^(\d{4})\b/);
+  if (m) return Number(m[1]);
+  throw new Error(`eraStart: cannot read a start date out of "${when}"`);
+}
+
+/**
+ * SPACE MONO ADVANCE, THE SAME GUARD build-grade-check.mjs USES.
+ * SVG neither wraps nor clips, so a label wider than the room it has paints
+ * straight through whatever is beside it and nothing errors. 0.6em is Space
+ * Mono's advance per character. Anything that does not fit throws at build
+ * time rather than shipping a figure that looks fine until you read it.
+ */
+function fits(text, px, budget, what) {
+  const w = String(text).length * px * 0.6;
+  if (w > budget) {
+    throw new Error(
+      `eraChart: "${text}" is ${w.toFixed(1)}px at ${px}px but ${what} only has ${budget.toFixed(1)}px`,
+    );
+  }
+  return text;
+}
+
+function eraChart(builtAt) {
+  // Steps: one per CHANGE in the card count, in era order.
+  const steps = [];
+  for (const e of ERAS) {
+    const n = Number(e.cards);
+    if (!Number.isFinite(n)) throw new Error(`eraChart: era "${e.era}" has a non-numeric card count`);
+    const at = eraStart(e.when);
+    if (at === null) continue; // "Today" adds no change point
+    if (steps.length && steps[steps.length - 1].n === n) continue;
+    steps.push({ n, at, era: e.era, when: e.when });
+  }
+  if (steps.length < 2) return ""; // nothing to draw a shape out of
+
+  const counts = steps.map((s) => s.n);
+  const lo = Math.min(...counts);
+  const hi = Math.max(...counts);
+  const t0 = steps[0].at;
+  // The axis ends on the BUILD clock, so "to today" on the last row and the
+  // right-hand end of the line are the same day rather than a typed year.
+  const t1 = builtAt.getFullYear() + builtAt.getMonth() / 12;
+  if (t1 <= t0) throw new Error("eraChart: the build clock is before the first era");
+
+  const W = 360, H = 190;
+  const L = 30, R = 350, TOP = 26, BASE = 148;
+  const ROW = 40; // px per card, so a one-card step is always the same height
+  const x = (t) => L + ((t - t0) / (t1 - t0)) * (R - L);
+  const y = (v) => BASE - (v - lo) * ROW;
+
+  // Gridlines and the y labels, one rung per whole card in the range.
+  let grid = "";
+  for (let v = lo; v <= hi; v++) {
+    grid += `<line x1="${L}" y1="${y(v).toFixed(1)}" x2="${R}" y2="${y(v).toFixed(1)}" stroke="#111111" stroke-opacity=".14" stroke-width="1"/>
+    <text x="${L - 6}" y="${(y(v) + 4).toFixed(1)}" text-anchor="end" class="hp-fnum">${v}</text>`;
+  }
+
+  // THE DIP IS THE POINT, so the era that sits BELOW its neighbours gets a
+  // shaded column behind it. It is a pale fill rather than a second hue: with
+  // colour removed entirely it is still a lighter column, and the step line on
+  // top carries the argument on its own either way.
+  const dipIdx = counts.indexOf(lo);
+  let dip = "";
+  let note = "";
+  if (dipIdx > 0 && dipIdx < steps.length - 1) {
+    const a = x(steps[dipIdx].at);
+    const b = x(steps[dipIdx + 1].at);
+    dip = `<rect x="${a.toFixed(1)}" y="${TOP}" width="${(b - a).toFixed(1)}" height="${(BASE - TOP).toFixed(1)}" fill="#F5E7BD"/>`;
+    // The annotation sits in the empty room UNDER the last step and to the
+    // RIGHT of the dip, which is the only large clear area in the box. It is
+    // not centred on the column it describes: the column is 54px wide and the
+    // date line is 21 characters, so centring it would paint it through both
+    // neighbours. A leader line does the pointing instead.
+    const nx = b + 24;
+    const budget = R - nx;
+    const l1 = fits(`the ${["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven"][lo] || lo}-card era`, 11, budget, "the annotation");
+    // The era's own window verbatim if it fits, so the label and the paragraph
+    // below say the same thing, and its start alone if it does not.
+    const full = String(steps[dipIdx].when);
+    const l2 = fits(
+      full.length * 11 * 0.6 <= budget ? full : shortWhen(full),
+      11, budget, "the annotation",
+    );
+    note = `${dip}
+    <line x1="${(nx - 6).toFixed(1)}" y1="${(BASE - 16).toFixed(1)}" x2="${(b - 14).toFixed(1)}" y2="${(BASE - 5).toFixed(1)}" stroke="#111111" stroke-width="1.2"/>
+    <text x="${nx.toFixed(1)}" y="${(BASE - 20).toFixed(1)}" class="hp-fnote">${esc(l1)}</text>
+    <text x="${nx.toFixed(1)}" y="${(BASE - 6).toFixed(1)}" class="hp-fdate">${esc(l2)}</text>`;
+  }
+
+  // The step line itself: flat across each era, vertical at each change.
+  let d = `M ${x(steps[0].at).toFixed(1)} ${y(steps[0].n).toFixed(1)}`;
+  for (let i = 1; i < steps.length; i++) {
+    d += ` L ${x(steps[i].at).toFixed(1)} ${y(steps[i - 1].n).toFixed(1)}`;
+    d += ` L ${x(steps[i].at).toFixed(1)} ${y(steps[i].n).toFixed(1)}`;
+  }
+  d += ` L ${R} ${y(steps[steps.length - 1].n).toFixed(1)}`;
+
+  // Year ticks at each change, plus the ends. The LAST one is end-anchored:
+  // centred it would run past the right edge of the viewBox, which an SVG
+  // renders happily and invisibly wrong.
+  let ticks = "";
+  const marks = [{ t: t0, lbl: String(Math.floor(t0)), anchor: "middle" }];
+  for (let i = 1; i < steps.length; i++) {
+    marks.push({ t: steps[i].at, lbl: String(Math.floor(steps[i].at)), anchor: "middle" });
+  }
+  marks.push({ t: t1, lbl: String(builtAt.getFullYear()), anchor: "end" });
+  for (const m of marks) {
+    ticks += `<line x1="${x(m.t).toFixed(1)}" y1="${BASE + 6}" x2="${x(m.t).toFixed(1)}" y2="${BASE + 11}" stroke="#111111" stroke-width="1.2"/>
+    <text x="${x(m.t).toFixed(1)}" y="${BASE + 24}" text-anchor="${m.anchor}" class="hp-ftick">${esc(m.lbl)}</text>`;
+  }
+
+  const spoken = steps
+    .map((s, i) => `${s.n} cards from ${s.when.replace(/ to .*$/, "")}${i === steps.length - 1 ? " to today" : ""}`)
+    .join(", then ");
+
+  return `<figure class="hp-fig">
+  ${/* THE ARIA LABEL CARRIES ONLY WHAT THE DATA SAYS. It read "and it is
+        roughly a fifth of the width of the whole chart" until that fraction
+        was checked: the shaded column is 54.1 of 320 units, which is a sixth.
+        Nothing errored and no sighted reader would ever have seen it, which is
+        what makes a typed figure in an aria-label the worst place to put one.
+        The era's own window is stated instead, and it comes from ERAS. */ ""}
+  <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="A step chart of the game cards in a booster pack over time: ${esc(spoken)}. The ${lo}-card era in the middle, ${esc(steps[dipIdx] ? steps[dipIdx].when : "")}, is drawn as a dip and shaded.">
+    ${grid}
+    ${note}
+    <line x1="${L}" y1="${BASE + 6}" x2="${R}" y2="${BASE + 6}" stroke="#111111" stroke-width="1.4"/>
+    <path d="${d}" fill="none" stroke="#111111" stroke-width="3" stroke-linejoin="miter"/>
+    ${ticks}
+    <text x="${L}" y="${TOP - 10}" class="hp-fnote">game cards in a booster pack</text>
+  </svg>
+  <figcaption>Game cards only. Since Sun &amp; Moon a pack has also held a Basic Energy card and a code card, which
+    is why the same pack gets called ten, eleven or twelve depending on who is counting. The step down is the part
+    worth knowing: a pack from the middle era is a smaller pack, not a tampered one.</figcaption>
+</figure>`;
+}
+
+// "September 2002 to 2007" -> "September 2002". The window's END is the next
+// era's start and is already drawn by the next step, so repeating it in the
+// label spends characters the box does not have.
+function shortWhen(when) {
+  return String(when).replace(/\s+to\s+.*$/i, "").trim();
+}
+
 // The Elite Trainer Box, which is the product the site contradicted itself
 // about and the one this section exists to settle.
 const ETB = [
@@ -907,6 +1087,29 @@ const style = `
 .hp-tvar,.hp-tsell{display:block;font:400 var(--t-micro)/1.3 var(--mono);color:var(--ink-soft);font-weight:400}
 .hp-none{color:var(--ink-soft);font:400 var(--t-micro)/1.3 var(--mono)}
 
+/* The drawn timeline above the history list.
+   EVERY COLOUR IN THE FIGURE IS A LITERAL, WHICH IS DELIBERATE. --ketchup and
+   --navy are both #111111 since the repaint, so a chart written against the
+   tokens draws a black shape on a black shape and nothing errors. The one fill
+   is #F5E7BD, the same value as --chip-gold-bg, and it is a TINT rather than a
+   second hue: with colour removed the shaded era is still a lighter column and
+   the step line still carries the whole argument on its own.
+   max-width is 520px to match the drawn figures on /base-set.html. */
+.hp-fig{margin:var(--s5) 0 0;background:var(--card);border:1px solid var(--hair);
+  border-radius:10px;padding:var(--s4) var(--s4) var(--s3)}
+.hp-fig svg{display:block;width:100%;height:auto;max-width:520px;margin-inline:auto}
+/* 10 AND 11 UNITS, NOT 9. The svg is 360 units wide and renders at about 326px
+   inside the wrap on a 390px phone, so a unit is ~0.9px: 9 units would land at
+   8.2 rendered pixels, which is under the line where a label stops being
+   readable on a phone. These land at 9.0 and 9.9. */
+.hp-fig text{font-family:var(--mono)}
+.hp-fnum{font-size:13px;font-weight:700;fill:#111111}
+.hp-ftick{font-size:11px;font-weight:400;fill:#5B5B5B}
+.hp-fnote{font-size:11px;font-weight:700;fill:#111111}
+.hp-fdate{font-size:11px;font-weight:400;fill:#5B5B5B}
+.hp-fig figcaption{font-size:var(--t-sm);color:var(--ink-2);line-height:1.5;
+  margin-top:var(--s3);max-width:46em}
+
 /* History. A definition-list shape rather than a table: every row here is a
    number, a window of time and a paragraph, and the paragraph is the load
    bearing half. */
@@ -1158,6 +1361,7 @@ ${ETB.map(
     <p class="lede" style="max-width:42em">The single most useful thing on this page if you are holding older sealed
       product, and the one most often got wrong. It did not go from eleven straight to ten. There is a nine-card era
       in the middle and it lasted nearly five years.</p>
+    ${eraChart(new Date())}
     <ul class="hp-eras">
 ${ERAS.map(
   (e) => `      <li>

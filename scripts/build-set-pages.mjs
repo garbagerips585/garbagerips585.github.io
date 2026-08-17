@@ -537,7 +537,12 @@ function valueChart(v) {
         </svg>`;
   };
   const pct = (x) => (x < 1 ? "under 1%" : `${Math.round(x)}%`);
-  return `<div class="svc">
+  // data-figure MARKS A FIGURE DRAWN IN MARKUP RATHER THAN FETCHED, and it is
+  // read by check-build.py's image-coverage report, which counted <img> and
+  // <svg> only and so scored a page's charts at zero. It selects nothing: no
+  // rule in ui.css or in this file's <style> touches it, and no script reads it.
+  // Put it on the OUTER element of a chart, once per chart.
+  return `<div class="svc" data-figure="chart">
       <div class="svc-row">
         <p class="svc-k">The ${v.half} priciest card${v.half === 1 ? "" : "s"}</p>
         ${bar(cardShare)}
@@ -2198,7 +2203,7 @@ function setPage(s) {
     ${ordered.length ? `${rarPr.size ? `<p class="lede w42">How many cards sit at each rarity, and what those
       cards are worth. <b>Mid</b> is the middle card at that rarity: half of them cost more than that and half cost
       less, which is a far better guide to what you will actually see than the one famous card at the top.</p>` : ""}
-    <div class="rarity-list">
+    <div class="rarity-list" data-figure="chart">
       ${ordered.map(([r, n]) => {
         const key = rarityLabel(r) || r;
         const pr = rarPr.get(key);

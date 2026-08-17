@@ -767,10 +767,55 @@ if len(_bad) > 6:
 # carry pictures should. That is easy to achieve once and lose quietly, because
 # a page losing its images looks like a page, and nothing errors.
 #
-# So the density is printed rather than asserted, per section, as images plus
-# inline SVG per thousand words of body text. The number that started this was
-# the openings pages at 1.9 against the Pokemon pages at 83.9, which is what a
-# ranking makes obvious and reading never would.
+# So the density is printed rather than asserted, per section, as visuals per
+# thousand words of body text. The number that started this was the openings
+# pages at 1.9 against the Pokemon pages at 83.9, which is what a ranking makes
+# obvious and reading never would.
+#
+# **IT COUNTED `<img>` AND `<svg>` ONLY UNTIL 17 AUGUST 2026 AND IT STEERED A
+# DAY OF IMAGERY WORK WHILE PARTLY BLIND.** A chart drawn in HTML and CSS scored
+# ZERO. /buying.html's three bar charts are `.bch` rows of divs and spans, so
+# the number that called that page thin was counting 26 brand logos and 2 chrome
+# sprites and none of its three actual arguments. /selling.html's density went
+# DOWN, 2.0 to 1.9, on the day it gained a figure, because its ladder's labels
+# count as words and its bars count as nothing. A page could be flagged as thin
+# while being the most illustrated page on the site, and adding a real chart
+# could lower its score.
+#
+# **WHAT COUNTS NOW, and it is a convention rather than a guess about markup
+# shape**, because "a div with a percentage width" would have swept in the
+# carousel's progress bar on /index.html and the toolbar on /videos.html, both
+# of which are chrome, and a rule that inflates every page using divs would be
+# worse than the undercount it replaced. A FIGURE is:
+#
+#   1. a `<figure>` element. The builders already share this one and it covers
+#      almost everything: /buying.html and /selling.html's charts, `bars()` on
+#      the retailer pages, and the drawn charts on /pack-prices.html,
+#      /complete-a-set.html, /shops.html and /card-shows.html are all inside one
+#      already, so most of this fix cost no page edit at all.
+#   2. any element carrying `data-figure`. Added 17 August 2026 to the two
+#      charts on a set guide, `.rarity-list` and `.svc`, which are the only
+#      figures on the site drawn in markup and NOT wrapped in a `<figure>`.
+#      The attribute selects nothing anywhere and changes no rendering.
+#   3. an `<svg role="img">` that is not already inside one of those. The site
+#      writes `role="img"` with an aria-label on a diagram and `aria-hidden` on
+#      decoration, so this is the builders' own distinction, and it is what
+#      picks up the 19 `rt-fig-svg` shop diagrams and /fake-cards.html's eight.
+#
+# Nested matches count ONCE, so a figure holding six pictures is one figure.
+#
+# THE DENSITY COLUMN ADDS A FIGURE ONLY WHEN IT CONTAINS NO `<img>` AND NO
+# `<svg>`, which is the conservative half: the correction can add at most one
+# per drawn figure and can never double count artwork that already counted
+# itself. So the number can only go UP, which is also why the hard rule below
+# cannot start firing on a page it used to pass.
+#
+# THE SECOND COLUMN IS THE USEFUL ONE and it is why this is not just an
+# arithmetic fix. A raw count scores a decorative divider glyph the same as a
+# 22 bar chart: /evolution.html carries 484 inline SVGs, almost all of them type
+# pips, and reads as one of the best illustrated pages on the site with not one
+# figure on it. The figure count separates "this page has pictures that carry
+# arguments" from "this page has 26 brand logos".
 #
 # It names one thing outright: a page with real body copy and nothing visual at
 # all. Everything else is a judgement call about whether a picture would help,
@@ -799,6 +844,51 @@ _shout = fail.append
 # never did anything. It is gone along with the file, which moved out of the
 # deploy root to assets-source/ in the same edit; see gen-palette-preview.mjs.
 _TEXT_ONLY_OK = {"public/404.html", "public/search.html"}
+
+# The three ways of starting a figure, in the order they are cheapest to test.
+_FIG_STARTS = (
+    _re.compile(r"<figure\b"),
+    _re.compile(r"<[a-zA-Z][\w-]*\b[^>]*\sdata-figure="),
+    _re.compile(r'<svg\b[^>]*\srole="img"'),
+)
+_TAG = _re.compile(r"<(/?)([a-zA-Z][\w-]*)\b")
+
+
+def _el_span(_h, _i):
+    """Span of the element whose opening tag starts at _i, by tag matching.
+
+    Counted rather than matched with a lazy `.*?` regex, because a lazy match
+    stops at the FIRST closing tag and would end a `<figure>` at the `</figure>`
+    of a figure nested inside it, cutting the outer one short. Nothing on the
+    site nests figures today; the point is that the count does not quietly
+    change meaning the day something does.
+    """
+    _name = _TAG.match(_h, _i).group(2).lower()
+    _depth = 0
+    for _m in _TAG.finditer(_h, _i):
+        if _m.group(2).lower() != _name:
+            continue
+        if _m.group(1):
+            _depth -= 1
+            if _depth <= 0:
+                _end = _h.find(">", _m.end())
+                return (_i, len(_h) if _end < 0 else _end + 1)
+        else:
+            _depth += 1
+    return (_i, len(_h))
+
+
+def _figures(_h):
+    """Outermost figure spans in the given markup, in document order."""
+    _starts = sorted({_m.start() for _p in _FIG_STARTS for _m in _p.finditer(_h)})
+    _out = []
+    for _p in _starts:
+        if _out and _p < _out[-1][1]:
+            continue                      # nested inside the figure before it
+        _out.append(_el_span(_h, _p))
+    return _out
+
+
 _cov = {}
 for _f in sorted(glob.glob("public/**/*.html", recursive=True)):
     _s = open(_f, encoding="utf-8").read()
@@ -806,19 +896,29 @@ for _f in sorted(glob.glob("public/**/*.html", recursive=True)):
     if not _m:
         continue
     _body = _m.group(0)
-    _imgs = len(_re.findall(r"<img\b", _body)) + len(_re.findall(r"<svg\b", _body))
+    _art = len(_re.findall(r"<img\b", _body)) + len(_re.findall(r"<svg\b", _body))
+    _figs = _figures(_body)
+    # A figure holding no artwork is drawn in HTML and CSS, so it is the one
+    # this count used to miss entirely. One apiece, never more.
+    _drawn = sum(1 for _a, _b in _figs if not _re.search(r"<(img|svg)\b", _body[_a:_b]))
+    _imgs = _art + _drawn
     _txt = _re.sub(r"(?s)<(script|style)\b.*?</\1>", " ", _body)
     _words = len(_re.sub(r"(?s)<[^>]+>", " ", _txt).split())
     _sec = _f.split("/")[1] if _f.count("/") > 1 else "root"
-    _a, _b, _c = _cov.get(_sec, (0, 0, 0))
-    _cov[_sec] = (_a + _imgs, _b + _words, _c + 1)
+    _a, _b, _c, _d, _e = _cov.get(_sec, (0, 0, 0, 0, 0))
+    _cov[_sec] = (_a + _imgs, _b + _words, _c + 1, _d + len(_figs), _e + (1 if _figs else 0))
     if _words >= 250 and _imgs == 0 and _f not in _TEXT_ONLY_OK:
         _shout(f"{_f}: {_words} words and nothing visual in <main>. Add an image or an inline diagram.")
 if _cov:
     note("")
-    note("  image + svg per 1,000 words of body copy")
-    for _sec, (_i, _w, _n) in sorted(_cov.items(), key=lambda kv: -(kv[1][0] * 1000 / max(1, kv[1][1]))):
-        note(f"    {_sec:<12} {_i * 1000 / max(1, _w):>7.1f}   ({_n} pages, {_i} visuals)")
+    note("  visuals per 1,000 words of body copy, and how many of them are figures")
+    note("  visual: an <img>, an <svg>, or a figure drawn in markup")
+    note("  figure: a <figure>, a [data-figure] or an <svg role=img>, counted once,")
+    note("          so a chart or a captioned picture counts and a loose logo does not")
+    for _sec, (_i, _w, _n, _g, _p) in sorted(_cov.items(), key=lambda kv: -(kv[1][0] * 1000 / max(1, kv[1][1]))):
+        _paren = f"({_n} pages, {_i} visuals)"
+        note(f"    {_sec:<12} {_i * 1000 / max(1, _w):>7.1f}   {_paren:<28}"
+             f"{_g:>6} figures on {_p} of {_n} pages")
 
 
 if fail:

@@ -41,6 +41,15 @@
 .bs-cap{font:400 11px/1 var(--mono);fill:var(--ink-2)}
 .bs-lbl{font:700 11px/1 var(--mono);fill:var(--ink)}
 .bs-num{font:700 11px/1 var(--mono);fill:var(--paper-2)}
+/* The stamp-multiple chart. Same 400/700 Space Mono the figures above already
+   pull, so it adds no font file. 10px and 11px inside a 360 unit box render at
+   9.2 and 10.1 real pixels at 390, which is the floor for a phone; 9px would
+   land at 8.3 and stop being readable. */
+.bs-cname{font:700 11px/1 var(--mono);fill:var(--ink)}
+.bs-ccond{font:400 10px/1 var(--mono);fill:var(--ink-2)}
+.bs-cval{font:700 10px/1 var(--mono);fill:var(--ink)}
+.bs-ctick{font:400 10px/1 var(--mono);fill:var(--ink-2)}
+.bs-cnote{font:400 10px/1 var(--mono);fill:var(--ink-2)}
 
 /* The magnified crops. See zoom() in build-base-set.mjs for the geometry.
 
@@ -886,6 +895,37 @@
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The stamp, priced</p>
     <h2>The same gap, on three cards</h2>
     <p class="bs-p2">One card is an anecdote. This is the 1st Edition printing against the Shadowless printing of the same card, on three cards, out of the same price guide read on the same day. The stamp is the only difference between the two printings, so the gap between the columns is what the stamp is worth.</p>
+    <figure class="bs-fig bs-fig-wide">
+  <svg viewBox="0 0 360 229" role="img" aria-label="A bar chart of 6 multiples: what the 1st Edition printing is worth against the Shadowless printing of the same card, ungraded and in a PSA 10, for 3 cards. Every bar clears 1x, and they run from 3.6 times to 11.4 times.">
+    <line x1="74.0" y1="22" x2="74.0" y2="205" stroke="#111111" stroke-opacity=".12" stroke-width="1"/>
+    <text x="74.0" y="219" text-anchor="middle" class="bs-ctick">0x</text><line x1="111.7" y1="22" x2="111.7" y2="205" stroke="#111111" stroke-opacity=".12" stroke-width="1"/>
+    <text x="111.7" y="219" text-anchor="middle" class="bs-ctick">2x</text><line x1="149.3" y1="22" x2="149.3" y2="205" stroke="#111111" stroke-opacity=".12" stroke-width="1"/>
+    <text x="149.3" y="219" text-anchor="middle" class="bs-ctick">4x</text><line x1="187.0" y1="22" x2="187.0" y2="205" stroke="#111111" stroke-opacity=".12" stroke-width="1"/>
+    <text x="187.0" y="219" text-anchor="middle" class="bs-ctick">6x</text><line x1="224.7" y1="22" x2="224.7" y2="205" stroke="#111111" stroke-opacity=".12" stroke-width="1"/>
+    <text x="224.7" y="219" text-anchor="middle" class="bs-ctick">8x</text><line x1="262.3" y1="22" x2="262.3" y2="205" stroke="#111111" stroke-opacity=".12" stroke-width="1"/>
+    <text x="262.3" y="219" text-anchor="middle" class="bs-ctick">10x</text><line x1="300.0" y1="22" x2="300.0" y2="205" stroke="#111111" stroke-opacity=".12" stroke-width="1"/>
+    <text x="300.0" y="219" text-anchor="middle" class="bs-ctick">12x</text>
+    <line x1="92.8" y1="22" x2="92.8" y2="205" stroke="#111111" stroke-width="1.4" stroke-dasharray="4 3"/>
+    <text x="92.8" y="16" class="bs-cnote">1x, the same price</text>
+    <text x="0" y="37" class="bs-cname">Charizard 4/102</text><text x="66" y="52" text-anchor="end" class="bs-ccond">Ungraded</text>
+      <rect x="74" y="42" width="104.8" height="13" fill="#111111"/>
+      <text x="183.8" y="52" class="bs-cval">5.6x</text><text x="66" y="70" text-anchor="end" class="bs-ccond">PSA 10</text>
+      <rect x="74" y="60" width="214.7" height="13" fill="#111111"/>
+      <text x="293.7" y="70" class="bs-cval">11.4x</text><text x="0" y="96" class="bs-cname">Blastoise 2/102</text><text x="66" y="111" text-anchor="end" class="bs-ccond">Ungraded</text>
+      <rect x="74" y="101" width="109.1" height="13" fill="#111111"/>
+      <text x="188.1" y="111" class="bs-cval">5.8x</text><text x="66" y="129" text-anchor="end" class="bs-ccond">PSA 10</text>
+      <rect x="74" y="119" width="68.6" height="13" fill="#111111"/>
+      <text x="147.6" y="129" class="bs-cval">3.6x</text><text x="0" y="155" class="bs-cname">Mewtwo 10/102</text><text x="66" y="170" text-anchor="end" class="bs-ccond">Ungraded</text>
+      <rect x="74" y="160" width="193.3" height="13" fill="#111111"/>
+      <text x="272.3" y="170" class="bs-cval">10.3x</text><text x="66" y="188" text-anchor="end" class="bs-ccond">PSA 10</text>
+      <rect x="74" y="178" width="80.8" height="13" fill="#111111"/>
+      <text x="159.8" y="188" class="bs-cval">4.3x</text>
+    <line x1="74" y1="205" x2="300" y2="205" stroke="#111111" stroke-width="1.2"/>
+  </svg>
+  <figcaption>How many times the 1st Edition printing is worth what the Shadowless one is, on the same card, on the
+    same day. The dashed line is where the two printings would be worth the same. No bar is near it, and no bar is
+    close to the next one either, which is why three cards are on the page instead of one.</figcaption>
+</figure>
     <ul class="bs-cmp">
       <li class="bs-cmp-row">
         <span class="bs-cmp-card">Charizard 4/102</span>

@@ -542,6 +542,107 @@ function priceCard(r) {
  * computed from the multiples actually printed above it, so it cannot drift
  * away from them the way a sentence written once does.
  */
+/**
+ * The same table, drawn, so the SPREAD is visible.
+ *
+ * WHY THIS SECTION NEEDED A PICTURE. It was 2,259 characters with no figure at
+ * all, sitting between a section carrying three real card scans and one
+ * carrying four. But the reason is not symmetry, it is that the section makes a
+ * claim the numbers alone do not deliver: "it is not one famous card behaving
+ * strangely". A reader proves that by holding six multiples in their head at
+ * once and noticing that all six clear 1x by a distance. Six bars against a 1x
+ * line is that same check, done by the eye in one go.
+ *
+ * IT DRAWS THE MULTIPLE AND NOT THE MONEY, and that is the whole design
+ * decision. The prices run from $81.80 to $343,098, four orders of magnitude,
+ * so a bar chart of them is one enormous Charizard bar and five slivers, which
+ * argues the opposite of what the section says. A log axis would fix the
+ * geometry and lose the reader. The multiple is already the comparable number,
+ * it is what the table's last column prints, and it is dimensionless.
+ *
+ * NOTHING HERE IS TYPED. The bars, the range and the axis all come off the same
+ * `ratios` the table computes, so the picture cannot drift from the rows.
+ */
+function fitsBS(text, px, budget, what) {
+  // Space Mono advances 0.6em a character. SVG neither wraps nor clips, so a
+  // label that does not fit paints through its neighbour and renders clean.
+  const w = String(text).length * px * 0.6;
+  if (w > budget) throw new Error(`stampChart: "${text}" needs ${w.toFixed(1)}px, ${what} has ${budget.toFixed(1)}px`);
+  return text;
+}
+
+function stampChart(pairs) {
+  const rows = [];
+  for (const p of pairs) {
+    if (p.a.ungraded && p.b.ungraded) rows.push({ card: p.card, cond: "Ungraded", m: p.a.ungraded / p.b.ungraded });
+    if (p.a.psa10 && p.b.psa10) rows.push({ card: p.card, cond: "PSA 10", m: p.a.psa10 / p.b.psa10 });
+  }
+  if (rows.length < 4) return ""; // too few bars to read as a spread
+
+  const max = Math.max(...rows.map((r) => r.m));
+  // An even domain so the ticks land on whole even multiples.
+  const dom = Math.max(2, Math.ceil(max / 2) * 2);
+
+  const W = 360, X0 = 74, X1 = 300;
+  const TOP = 26, BH = 13, BG = 5, HEAD = 16, GAP = 12;
+  const x = (m) => X0 + (m / dom) * (X1 - X0);
+
+  // Group the bars back under their card so each name is written once.
+  const byCard = [];
+  for (const r of rows) {
+    let g = byCard.find((c) => c.card === r.card);
+    if (!g) byCard.push((g = { card: r.card, bars: [] }));
+    g.bars.push(r);
+  }
+
+  let y = TOP;
+  let body = "";
+  for (const g of byCard) {
+    fitsBS(g.card, 11, W - 4, "the card name row");
+    body += `<text x="0" y="${y + 11}" class="bs-cname">${esc(g.card)}</text>`;
+    y += HEAD;
+    for (const b of g.bars) {
+      const w = x(b.m) - X0;
+      fitsBS(b.cond, 10, X0 - 8, "the condition gutter");
+      const val = `${b.m.toFixed(1)}x`;
+      fitsBS(val, 10, W - (X0 + w + 5), "the value label");
+      body += `<text x="${X0 - 8}" y="${y + BH - 3}" text-anchor="end" class="bs-ccond">${esc(b.cond)}</text>
+      <rect x="${X0}" y="${y}" width="${w.toFixed(1)}" height="${BH}" fill="#111111"/>
+      <text x="${(X0 + w + 5).toFixed(1)}" y="${y + BH - 3}" class="bs-cval">${esc(val)}</text>`;
+      y += BH + BG;
+    }
+    y += GAP - BG;
+  }
+
+  const AX = y + 2;
+  let ticks = "";
+  for (let t = 0; t <= dom; t += 2) {
+    ticks += `<line x1="${x(t).toFixed(1)}" y1="${TOP - 4}" x2="${x(t).toFixed(1)}" y2="${AX}" stroke="#111111" stroke-opacity=".12" stroke-width="1"/>
+    <text x="${x(t).toFixed(1)}" y="${AX + 14}" text-anchor="middle" class="bs-ctick">${t}x</text>`;
+  }
+  // THE 1x LINE IS THE ONE THAT MATTERS and it is dashed rather than coloured,
+  // so it survives the page being read in greyscale or by somebody who cannot
+  // separate two hues. Everything to the right of it is the stamp being worth
+  // something; a bar landing ON it would mean the stamp was worth nothing.
+  const one = x(1);
+  const lbl = fitsBS("1x, the same price", 10, W - one, "the 1x note");
+  const H = AX + 24;
+
+  const lo = Math.min(...rows.map((r) => r.m));
+  return `<figure class="bs-fig bs-fig-wide">
+  <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="A bar chart of ${rows.length} multiples: what the 1st Edition printing is worth against the Shadowless printing of the same card, ungraded and in a PSA 10, for ${byCard.length} cards. Every bar clears 1x, and they run from ${lo.toFixed(1)} times to ${max.toFixed(1)} times.">
+    ${ticks}
+    <line x1="${one.toFixed(1)}" y1="${TOP - 4}" x2="${one.toFixed(1)}" y2="${AX}" stroke="#111111" stroke-width="1.4" stroke-dasharray="4 3"/>
+    <text x="${one.toFixed(1)}" y="${TOP - 10}" class="bs-cnote">${esc(lbl)}</text>
+    ${body}
+    <line x1="${X0}" y1="${AX}" x2="${X1}" y2="${AX}" stroke="#111111" stroke-width="1.2"/>
+  </svg>
+  <figcaption>How many times the 1st Edition printing is worth what the Shadowless one is, on the same card, on the
+    same day. The dashed line is where the two printings would be worth the same. No bar is near it, and no bar is
+    close to the next one either, which is why three cards are on the page instead of one.</figcaption>
+</figure>`;
+}
+
 const MIN_PAIRS = 3;
 function stampTable() {
   const s = d.stampPairs;
@@ -582,6 +683,7 @@ function stampTable() {
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The stamp, priced</p>
     <h2>${esc(s.title)}</h2>
     <p class="bs-p2">${esc(s.lede)}</p>
+    ${stampChart(stampPairs)}
     <ul class="bs-cmp">
 ${rows}
     </ul>
@@ -714,6 +816,15 @@ const style = `
 .bs-cap{font:400 11px/1 var(--mono);fill:var(--ink-2)}
 .bs-lbl{font:700 11px/1 var(--mono);fill:var(--ink)}
 .bs-num{font:700 11px/1 var(--mono);fill:var(--paper-2)}
+/* The stamp-multiple chart. Same 400/700 Space Mono the figures above already
+   pull, so it adds no font file. 10px and 11px inside a 360 unit box render at
+   9.2 and 10.1 real pixels at 390, which is the floor for a phone; 9px would
+   land at 8.3 and stop being readable. */
+.bs-cname{font:700 11px/1 var(--mono);fill:var(--ink)}
+.bs-ccond{font:400 10px/1 var(--mono);fill:var(--ink-2)}
+.bs-cval{font:700 10px/1 var(--mono);fill:var(--ink)}
+.bs-ctick{font:400 10px/1 var(--mono);fill:var(--ink-2)}
+.bs-cnote{font:400 10px/1 var(--mono);fill:var(--ink-2)}
 
 /* The magnified crops. See zoom() in build-base-set.mjs for the geometry.
 
