@@ -85,6 +85,27 @@ export const NAV = [
     // guides: this one is only useful this week, and it is the only page on the
     // site made of forecasts rather than facts.
     ["/drops.html", "Drops this week"],
+    // THREE LISTS, AND THE FIRST WORD CANNOT BE THE DISTINGUISHING ONE HERE.
+    // They are deliberately parallel, because they are one question asked of
+    // three different markets: what is the most expensive thing you can buy
+    // ungraded, sealed, and in a slab. The file's usual rule is to front-load
+    // the word that tells them apart, and the "Grading"/"Will it grade" note
+    // above warns what happens when labels read as one page. The tie-breaker
+    // is that these three ARE a cluster and should read as one, the way
+    // "Where to sell" and "Where to buy" do; what must not collide is any one
+    // of them with something elsewhere in the menu. "Priciest cards" against
+    // "Card search" and against "Most wanted" in the binder is clear, because
+    // only this one is about price.
+    //
+    // The third label names the MEASUREMENT rather than the subject, and that
+    // is the point of it. The page is PriceCharting's PSA 10 price guide
+    // ranked, not a record of what anything sold for: every auction-record
+    // source is gated, and the guide value for Illustrator Pikachu is $16.5m
+    // against a reported $5.3m sale. A label reading "Priciest graded" would
+    // promise the sales list the page says on its face it is not.
+    ["/most-valuable-cards.html", "Priciest cards"],
+    ["/most-expensive-sealed.html", "Priciest sealed"],
+    ["/top-graded.html", "PSA 10 top 100"],
   ]],
   ["Guides", [
     ["/start.html", "Start here"],
@@ -111,6 +132,19 @@ export const NAV = [
     // "TCG Pocket": both front-load an acronym a beginner does not know.
     ["/tcg-live.html", "Code cards"],
     ["/tcg-pocket.html", "Phone version"],
+    // Straight after the two apps, because the physical game and TCG Live play
+    // the same game and a deck is what you need next once you have the client.
+    // "Deck builds" front-loads the noun; "Downloads" would front-load the
+    // mechanism, and the mechanism is only interesting because of what it
+    // carries. The files really do paste into TCG Live: the export format was
+    // read off a real artifact and verified byte-for-byte, not written from
+    // memory.
+    ["/decks.html", "Deck builds"],
+    // "Most played" and NOT "Best cards", which is a claim the data cannot
+    // support. The ranking is deck-inclusion across published lists from
+    // ONLINE tournaments, and the page says so in those words. Nor "Top 100",
+    // which two labels under Cards would then share.
+    ["/top-100-playable.html", "Most played cards"],
     // Next to the rarity guide on purpose. The two answer the two halves of the
     // same question somebody asks holding one card: what is it, and where is it
     // from. Both are read off the same corner of the card and each links to the
