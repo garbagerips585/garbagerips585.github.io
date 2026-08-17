@@ -70,6 +70,34 @@ export const NAV = [
     // what the packs cost to open. Both are recomputed from the nightly price
     // pull, so both belong under Cards rather than under Guides, which is where
     // the pages that do not move live.
+    // IMMEDIATELY BEFORE PACK PRICES, AND THE PAIR IS THE POINT: what a thing
+    // should cost, then what it does cost. "MSRP" is the distinguishing noun
+    // and appears nowhere else in this menu; "check" says what you do with it,
+    // which is stand in a shop and work out the multiple.
+    //
+    // MSRP is the manufacturer's SUGGESTED retail price, and Pokemon Center is
+    // The Pokemon Company's own shop selling its own product, so the price it
+    // sells at IS the price the manufacturer suggests. That is the whole of
+    // what an MSRP is; there is no separate document to go looking for. Nobody
+    // has to honour a suggestion, which is the entire reason for the page.
+    //
+    // THIS COMMENT TWICE SAID "The Pokemon Company publishes no MSRP list",
+    // which overstated a true but narrower finding: no DOCUMENT TITLED MSRP
+    // exists. pokemon.com's product showcases itemise contents and state no
+    // price, and press.pokemon.com carries none either. That is worth knowing
+    // and it is not the same claim. The full argument lives at the top of
+    // data/msrp.json's _readme and in scripts/build-msrp.mjs's header; those
+    // are the canonical copies and this is a pointer to them.
+    //
+    // NO ROW COUNT HERE ON PURPOSE. This comment has carried one twice and it
+    // has gone stale both times. `node scripts/build-msrp.mjs` prints the
+    // current priced and unpriced split on stdout every run.
+    //
+    // The label promises a check rather than a figure because some rows carry
+    // no price at all: a display box cannot be priced by multiplying a pack,
+    // Pokemon Center itself lists some product types at two prices on the same
+    // day, and a row resting on one reference is not evidence enough to print.
+    ["/msrp.html", "MSRP check"],
     ["/pack-prices.html", "Pack prices"],
     // Between the two on purpose. Pack prices divides a price by a pack count
     // and could only ever do that for the five kinds whose count is in our

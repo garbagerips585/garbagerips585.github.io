@@ -291,6 +291,131 @@ const endsClause = [
   .join(", and ");
 
 /**
+ * THE PAGE'S OWN HEADLINE, DRAWN.
+ *
+ * WHAT THIS SECTION SAID AND COULD NOT SHOW. "The bigger box is not the cheaper
+ * pack. Of the 22 sets that sell a pack both ways, that holds 9 times and fails
+ * 13." That is the most useful sentence on the page and it is a sentence about
+ * a shape, delivered as two numbers. The evidence for it was the table below,
+ * which is 28 rows by 5 columns and, measured at 390px, shows the set name, the
+ * cheapest pack and part of one more column before it runs off the right hand
+ * edge. A reader standing in a shop holding an Elite Trainer Box cannot see the
+ * five prices at once, which is precisely the comparison the whole page exists
+ * to make. So the claim gets a picture and the table stays where it is for the
+ * reader who wants the actual dollars.
+ *
+ * IT PLOTS A RATIO, NOT A PRICE, AND THAT WAS THE SECOND DESIGN. Plotting the
+ * two dollar figures on one axis was tried first and is nearly useless here:
+ * the axis has to run to $30 to hold 151, so Phantasmal Flames' 27 cent gap is
+ * three pixels and 22 sets read as 22 identical dots. The interesting quantity
+ * is not how much a pack costs, which the table already prints, it is how much
+ * the box costs you AGAINST buying loose in the same set. As a multiple of the
+ * loose price that runs 0.6x to 1.34x and every bar is legible.
+ *
+ * ZERO IS AT 1.00 AND THE DIRECTION IS THE WHOLE POINT. A bar to the left is a
+ * set where the bigger box really is cheaper per pack; a bar to the right is a
+ * set where buying one pack at a time beats every box in it. Thirteen bars go
+ * right. The received wisdom is visibly a coin flip, which is a thing a reader
+ * takes in before they have read a word of the paragraph beside it.
+ *
+ * ONLY THE SETS THAT CAN LOSE ARE ON IT, the same filter boxWins and packWins
+ * already use: a set that sells nothing but loose packs has no comparison to
+ * draw and would sit on the line looking like a tie. The count under the chart
+ * is drawn from the chart's own rows rather than restated, so it cannot drift
+ * from the paragraph above it.
+ */
+function boxVsLoose() {
+  const pts = rows
+    .filter((r) => r.kinds["Single Pack"] && Object.keys(r.kinds).length > 1)
+    .map((r) => {
+      const loose = r.kinds["Single Pack"].each;
+      let bigKind = null, big = Infinity;
+      for (const [kind, e] of Object.entries(r.kinds)) {
+        if (kind !== "Single Pack" && e.each < big) { big = e.each; bigKind = kind; }
+      }
+      return { name: r.name, loose, big, bigKind, x: big / loose };
+    });
+  if (pts.length < 5) return "";
+  // The chart is the same claim as the prose, so it is checked against it
+  // rather than trusted to agree: a bar drawn on the wrong side of the line
+  // while the paragraph says the opposite is the failure mode here.
+  const right = pts.filter((p) => p.x > 1).length;
+  if (right !== packWins.length || pts.length - right !== boxWins.length) {
+    throw new Error(
+      `box-vs-loose chart has ${right} sets where loose wins and ${pts.length - right} where a box does, ` +
+        `against ${packWins.length} and ${boxWins.length} in the paragraph above it.`,
+    );
+  }
+
+  // 430 UNITS WIDE AND NOT 660, AND THAT IS ABOUT THE PHONE. This figure sits
+  // inside .fk-golden, which has its own padding inside the wrap's, so at 390px
+  // it renders 318px wide. At a 660 unit viewBox that is a scale of 0.48 and a
+  // 13 unit set name comes out at 6.3px, which is a smudge. Measured, not
+  // guessed: .bv svg is 318px at 390 and 1344 before the max-width caps it. At
+  // 430 the same name is 9.6px on a phone and 17px on a desktop.
+  const W = 430, LBL = 142, ROW = 22, HEAD = 30, FOOT = 26;
+  const H = HEAD + pts.length * ROW + FOOT;
+  const PLOT = W - LBL - 40; // 40 for the multiple printed at the end of a bar
+  const lo = Math.min(0.95, Math.floor(Math.min(...pts.map((p) => p.x)) * 10) / 10);
+  const hi = Math.max(1.05, Math.ceil(Math.max(...pts.map((p) => p.x)) * 10) / 10);
+  const px = (v) => LBL + ((v - lo) / (hi - lo)) * PLOT;
+  const zero = px(1);
+
+  const grid = [];
+  for (let v = Math.ceil(lo * 5) / 5; v <= hi + 1e-9; v += 0.2) {
+    const vr = Math.round(v * 10) / 10;
+    if (Math.abs(vr - 1) < 1e-9) continue;
+    grid.push(`<line class="bv-grid" x1="${px(vr).toFixed(1)}" y1="${HEAD - 6}" x2="${px(vr).toFixed(1)}" y2="${(H - FOOT).toFixed(1)}"/>`);
+    grid.push(`<text class="bv-tick" x="${px(vr).toFixed(1)}" y="${(H - FOOT + 14).toFixed(1)}">${vr.toFixed(1)}x</text>`);
+  }
+
+  // THE MULTIPLE GOES INSIDE THE BAR WHEN THERE IS NO ROOM OUTSIDE IT, and the
+  // set that forced this is Shrouded Fable at 0.60x. That is the longest bar on
+  // the chart, so it reaches the left edge of the plot, and its label, hung off
+  // the bar's outer end, landed on top of the set name. A label printed over
+  // the name of the row it belongs to is the one collision that makes a chart
+  // unreadable rather than untidy. VAL_W is the width of "0.00x" at 12 units,
+  // and the rule is checked at both ends even though only the left one can fire
+  // on today's data: the right end is one price sync away from a 1.5x.
+  const VAL_W = 32;
+  const bars = pts.map((p, i) => {
+    const y = HEAD + i * ROW;
+    const x1 = Math.min(zero, px(p.x)), x2 = Math.max(zero, px(p.x));
+    const right = p.x > 1;
+    const cls = right ? "bv-loose" : "bv-box";
+    let at = right ? x2 + 5 : x1 - 5;
+    let anchor = right ? "start" : "end";
+    let vc = "bv-val";
+    const fitsOut = right ? at + VAL_W <= W : at - VAL_W >= LBL;
+    if (!fitsOut && x2 - x1 >= VAL_W + 10) {
+      at = right ? x2 - 5 : x1 + 5;
+      anchor = right ? "end" : "start";
+      vc = "bv-val bv-val-in"; // dark, because it is now sitting on the bar
+    }
+    return `<g><text class="bv-name" x="${(LBL - 12).toFixed(1)}" y="${(y + 12).toFixed(1)}">${esc(p.name)}</text>` +
+      `<rect class="${cls}" x="${x1.toFixed(1)}" y="${(y + 4).toFixed(1)}" width="${Math.max(1.5, x2 - x1).toFixed(1)}" height="14" rx="2"/>` +
+      `<text class="${vc}" style="text-anchor:${anchor}" x="${at.toFixed(1)}" y="${(y + 13).toFixed(1)}">${p.x.toFixed(2)}x</text></g>`;
+  }).join("");
+
+  return `<figure class="bv">
+      <svg viewBox="0 0 ${W} ${H}" role="img"
+        aria-label="One bar per set showing what the cheapest bigger box costs per pack as a multiple of a single loose pack in the same set. ${
+          pts.length - right
+        } of ${pts.length} sets are cheaper by the box and ${right} are cheaper bought loose. Every figure is in the table below.">
+        ${grid.join("")}
+        <text class="bv-head" style="text-anchor:end" x="${(zero - 8).toFixed(1)}" y="${HEAD - 12}">box wins &larr;</text>
+        <text class="bv-head" style="text-anchor:start" x="${(zero + 8).toFixed(1)}" y="${HEAD - 12}">&rarr; loose wins</text>
+        ${bars}
+        <line class="bv-zero" x1="${zero.toFixed(1)}" y1="${HEAD - 6}" x2="${zero.toFixed(1)}" y2="${(H - FOOT).toFixed(1)}"/>
+        <text class="bv-tick" x="${zero.toFixed(1)}" y="${(H - FOOT + 14).toFixed(1)}">same</text>
+      </svg>
+      <figcaption>Each bar is the cheapest box, bundle or Build &amp; Battle in that set, priced per pack, against
+        one loose pack of the same set. ${right} of the ${pts.length} sets that sell a pack both ways are cheapest
+        bought one pack at a time. The dollars behind every bar are in the table below.</figcaption>
+    </figure>`;
+}
+
+/**
  * How many packs each column divides by, hoisted out of the cells.
  *
  * The count is constant down a column BY CONSTRUCTION: a kind only reaches
@@ -522,6 +647,40 @@ const style = `
   .w34,.w38,.w40,.w42{max-width:50ch}
   .fk-golden p{max-width:52ch}
 }
+/* The box-against-loose chart. IT SITS INSIDE .fk-golden, WHICH IS #111111, so
+   every colour in here is picked against a near-black ground rather than
+   against the page.
+   THE TWO BAR COLOURS ARE GOLD AND PAPER AND THE FIRST PAIR WAS INVISIBLE.
+   CLAUDE.md's palette section still describes the commissioned art's colours,
+   ketchup #D9482B and navy #22384F, and ui.css does not: this stylesheet has
+   been through a black/white/gold pass and BOTH --ketchup and --navy now
+   resolve to #111111. So a bar filled var(--ketchup) drew thirteen black bars on a
+   black box, which is not a missing rule and not a typo, it is a live variable
+   whose meaning moved. Nothing errored and the markup looked right; it was
+   caught by screenshotting. Do not reach for a colour name out of CLAUDE.md
+   without checking what ui.css currently has it resolving to.
+   Gold is the LOOSE-WINS half, which is the surprising majority the section is
+   arguing for, and paper is the other. They also point opposite ways, so the
+   chart still reads with no colour at all.
+   THE max-width IS LOAD BEARING IN BOTH DIRECTIONS. A width:100% svg with a
+   viewBox scales without limit, so the 430 unit box that makes the type legible
+   at 390px would draw 40px set names at 1440. Capped at 560 the same chart is
+   1.3x on a desktop and 0.74x on a phone, which is the whole range it has to
+   survive. The 22 rows are 22 units each, so the figure is 540 units tall and
+   lands at 400px on a phone: shorter than one screen, which is the reason a
+   chart is worth adding to a page that already scrolls 10,000px. */
+.bv{margin:18px 0 0}
+.bv svg{display:block;width:100%;height:auto;max-width:560px}
+.bv figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--foot-ink);margin-top:10px;max-width:60ch}
+.bv-name{font:600 13px var(--body);fill:var(--paper);text-anchor:end}
+.bv-head{font:700 12px var(--mono);fill:var(--gold);letter-spacing:.04em}
+.bv-val{font:700 12px var(--mono);fill:var(--foot-ink)}
+.bv-val-in{fill:#111111}
+.bv-tick{font:400 11px var(--mono);fill:var(--foot-ink);text-anchor:middle;opacity:.8}
+.bv-grid{stroke:var(--paper);stroke-width:1;opacity:.16}
+.bv-zero{stroke:var(--paper);stroke-width:1.6;opacity:.75}
+.bv-box{fill:var(--paper)}
+.bv-loose{fill:var(--gold)}
 /* THE QUICK FACTS GO TWO UP RATHER THAN GETTING A NARROWER CAP. A first pass
    capped .facts-list li to 52ch, which brought the measure from 99.7
    characters a line to 58 and made the page 631px TALLER while leaving 873px of
@@ -637,6 +796,7 @@ ${MENU}
           packWins.length > 2 ? ` and ${packWins.length - 2} more` : ""
         }. It is not a rule that can be applied from the outside${endsClause ? `: ${endsClause}` : ""}. The only way to
         know is to look at the set you are actually buying, and that is what the table below is.</p>
+      ${boxVsLoose()}
     </div>
   </div>
 </section>

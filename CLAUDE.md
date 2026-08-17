@@ -8,9 +8,25 @@ brand entity SEO and funneling visitors to the channel and socials.
 - Voice: fun, chaotic, zero gatekeeping. Rochester references everywhere:
   Garbage Plate, 585 area code, Flower City, High Falls, Public Market,
   Wegmans, lake-effect weather, Trubbish/Garbodor as unofficial city Pokemon.
-- Palette (sampled from commissioned art): sludge bg #1E2419 / #2A331F,
-  trubbish olive #616A4F / #7C8A5F, gold #F5A62B, navy #22384F,
-  ketchup #D9482B, mustard #EFC94C, paper cream #F1EDD2.
+- Palette: "Black / White / Gold" (Option C), chosen 16 August 2026. One accent
+  hue, no tinted bands, everything else a value of grey, so the pack art, the
+  card scans and the set logos are the only colour on a page. The values live in
+  the `:root` block at the top of assets-source/ui.css and are deliberately the
+  same numbers as the `Option C` entry in scripts/gen-palette-preview.mjs.
+
+  **THE OLD NAMES SURVIVED THE REPAINT AND NO LONGER MEAN THEIR COLOURS. THIS
+  ENTRY DESCRIBED THE PRE-REPAINT PALETTE UNTIL 17 August 2026 AND WAS BELIEVED.**
+  It listed sludge #1E2419, trubbish olive #616A4F, gold #F5A62B, navy #22384F,
+  ketchup #D9482B, mustard #EFC94C, paper cream #F1EDD2, sampled from the
+  commissioned art. Today `--ketchup` and `--navy` are BOTH `#111111`, so a
+  chart written as `fill:var(--ketchup)` drew thirteen black bars on a black
+  box. Nothing errored, the markup read correctly, and it was caught only by
+  screenshotting the result.
+
+  So: **never take a colour from this file. Read what ui.css has the token
+  resolving to today.** `--sludge` does not exist at all any more. And prefer a
+  design that survives losing colour entirely, the way that chart now points its
+  bars in opposite directions rather than relying on two hues.
 - Fonts: Titan One (display), Outfit (body), Space Mono (labels/ticker).
 - Copy style: no em dashes in written copy. Natural, human tone.
 - Art credit: card + sticker illustrations by Unableplacebo (commissioned).

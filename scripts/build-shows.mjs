@@ -148,6 +148,134 @@ for (const s of upcoming) {
 const next = upcoming[0] || null;
 const pokemonCount = upcoming.filter((s) => s.pokemon).length;
 
+// ------------------------------------------------------------------- the map
+//
+// THE PAGE ANSWERED WHEN AND NEVER WHERE. The calendar below turned the dates
+// into a picture and left the other half of every listing as a place name:
+// "Quality Inn, Batavia", "American Legion, Sanborn", "Randolph House Hotel,
+// Liverpool". Those are exact and they are meaningless to anybody who does not
+// already know this corner of New York, which on a page written to be opened on
+// a phone in a queue is most of the people reading it. The filter chips say
+// Rochester, Buffalo & Niagara and Syracuse, so the page already knows the
+// answer is spatial; it just never drew it.
+//
+// SAME PICTURE AS /shops.html AND THE SAME REASONS. Drawn from coordinates, not
+// a map tile: no key, no network request, no terms of use, no 200KB. One scale
+// on both axes with the cos(latitude) correction, or it is not a map. No
+// coastline and no roads, because this site holds no licensed geometry for
+// either and drawing them freehand would be inventing data.
+//
+// TOWNS, NOT VENUES, AND THE CAPTION SAYS SO. Five of the eight venues on this
+// page are named places with no street address in our data. Rather than plot
+// three real addresses and five guesses that would look identical, every dot is
+// its town centre, which over a strip 147 miles long is the honest resolution.
+// The venue and the town are printed on every listing below for the map app.
+//
+// THE DOT AREA IS THE NUMBER OF SHOWS, not its radius, so eight shows is eight
+// times the ink and not sixty-four. That is the second thing this picture says
+// and it is not written anywhere else on the page: Batavia has a show almost
+// every month, which is a different fact from where Batavia is.
+//
+// THE MAP IS TALLER THAN THE GEOGRAPHY NEEDS AND THAT IS NOT A SCALE ERROR.
+// These towns sit in a band 147 miles east to west and 21 north to south, a
+// 7:1 strip, so at one honest scale the dots occupy 74 of the 250 units. The
+// extra height is for the LABELS, which is the same trade shopMap makes with
+// its greedy slot placement: the dots are where the towns are and only the
+// names move. Squashing the drawing to fit its own bounding box would put
+// "Niagara Falls", "Sanborn" and "Depew" on one line 35 units apart.
+const townCounts = new Map();
+for (const s of upcoming) townCounts.set(s.city, (townCounts.get(s.city) || 0) + 1);
+const townRegion = new Map();
+for (const s of upcoming) if (!townRegion.has(s.city)) townRegion.set(s.city, s.region);
+
+function showMap() {
+  const towns = data._towns || {};
+  const noCoord = [...townCounts.keys()].filter((c) => !Array.isArray(towns[c]));
+  if (noCoord.length) {
+    console.warn(
+      `  no coordinate for ${noCoord.join(", ")}: left off the map. ` +
+        `Add it to _towns in data/shows.json, see _towns_note there.`
+    );
+  }
+  const pts = [...townCounts.entries()]
+    .filter(([c]) => Array.isArray(towns[c]))
+    .map(([city, n]) => ({ city, n, at: towns[city], region: townRegion.get(city) }));
+  if (pts.length < 2) return "";
+
+  const W = 660, H = 250, PAD = 40, FOOT = 30;
+  const lats = pts.map((p) => p.at[0]);
+  const lons = pts.map((p) => p.at[1]);
+  const midLat = (Math.min(...lats) + Math.max(...lats)) / 2;
+  const kx = Math.cos((midLat * Math.PI) / 180);
+  const MI_PER_DEG_LAT = 69.0;
+  const x0 = Math.min(...lons), y0 = Math.min(...lats);
+  const mx = (lon) => (lon - x0) * MI_PER_DEG_LAT * kx;
+  const my = (lat) => (lat - y0) * MI_PER_DEG_LAT;
+  const wMi = Math.max(...lons.map(mx)) || 1;
+  const hMi = Math.max(...lats.map(my)) || 1;
+  const k = Math.min((W - PAD * 2) / wMi, (H - FOOT - PAD * 2) / hMi);
+  const offX = (W - wMi * k) / 2, offY = FOOT + (H - FOOT - hMi * k) / 2;
+  const px = (lon) => offX + mx(lon) * k;
+  const py = (lat) => H - (offY + my(lat) * k);
+
+  const nice = [1, 2, 5, 10, 20, 50].find((n) => n * k > (W - PAD * 2) * 0.15) || 1;
+  const R = (n) => 5 * Math.sqrt(n);
+
+  // Greedy slot placement, lifted from shopMap for the same reason: Liverpool
+  // and Syracuse are 3.7 miles apart, which is 14 units here, and their names
+  // are 60 units wide. The DOT never moves.
+  const placed = [];
+  const LH = 18;
+  const dots = pts
+    .slice()
+    .sort((a, b) => px(a.at[1]) - px(b.at[1]))
+    .map((p) => {
+      const x = px(p.at[1]), y = py(p.at[0]), r = R(p.n);
+      const left = x > W * 0.62;
+      const text = `${p.city} · ${p.n}`;
+      const w = text.length * 7.6 + 14;
+      const x1 = left ? x - r - 8 - w : x + r + 8;
+      let ly = y;
+      for (let step = 0; step < 15; step++) {
+        const off = step === 0 ? 0 : (step % 2 ? -1 : 1) * Math.ceil(step / 2) * LH;
+        ly = y + off;
+        const clash = placed.some(
+          (q) => Math.abs(q.y - ly) < LH && x1 < q.x + q.w && q.x < x1 + w
+        );
+        if (!clash) break;
+      }
+      placed.push({ x: x1, y: ly, w });
+      return `<g class="map-t" data-region="${esc(p.region || "")}">
+        <circle class="map-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}"/>
+        <text class="map-lbl" x="${(left ? x - r - 8 : x + r + 8).toFixed(1)}" y="${(ly + 4).toFixed(1)}"
+          style="text-anchor:${left ? "end" : "start"}">${esc(text)}</text>
+      </g>`;
+    })
+    .join("");
+
+  const barW = nice * k;
+  return `<figure class="show-map">
+      <svg viewBox="0 0 ${W} ${H}" role="img"
+        aria-label="Where the ${pts.length} towns with a show coming up are relative to each other, with a bigger dot for a town with more shows. Every listing below names its venue and town.">
+        <rect x="0" y="0" width="${W}" height="${H}" rx="10" class="map-bg"/>
+        ${dots}
+        <g transform="translate(${PAD} ${H - 16})">
+          <line class="map-bar" x1="0" y1="0" x2="${barW.toFixed(1)}" y2="0"/>
+          <line class="map-bar" x1="0" y1="-5" x2="0" y2="5"/>
+          <line class="map-bar" x1="${barW.toFixed(1)}" y1="-5" x2="${barW.toFixed(1)}" y2="5"/>
+          <text class="map-bart" x="${(barW / 2).toFixed(1)}" y="-9">${nice} miles</text>
+        </g>
+      </svg>
+      <figcaption>Where the shows are, relative to each other. One dot per town, at the town centre, sized by
+        how many shows it has coming up: ${
+          [...townCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] || ""
+        } has the most. North is up and the scale is true both ways, which is why these sit in a strip: they are
+        strung along one road. There are no roads on it because we do not have any to draw, and no venue pins
+        because most of these venues have no street address in our data. Every listing below names the venue and
+        the town, which is the thing to put in a map app. Town positions geocoded from OpenStreetMap.</figcaption>
+    </figure>`;
+}
+
 // ---------------------------------------------------------------- the calendar
 //
 // A PAGE CALLED A CALENDAR THAT WAS NOT ONE. This page held 1,081 words and a
@@ -340,32 +468,42 @@ const desc =
   `Every upcoming Pokemon and trading card show near Rochester, Buffalo and Syracuse NY. ` +
   `${upcoming.length} shows with dates, venues and admission, checked ${longDate(data.checked) || data.checked}.`;
 
-const head = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Card Shows Near Rochester NY: Buffalo & Syracuse Calendar | Garbage Rips 585</title>
-<meta name="description" content="${esc(desc)}">
-<link rel="canonical" href="${SITE}/card-shows.html">
-<meta property="og:title" content="Card shows near Rochester, Buffalo and Syracuse">
-<meta property="og:description" content="${esc(desc)}">
-<meta property="og:type" content="website">
-<meta property="og:url" content="${SITE}/card-shows.html">
-<meta property="og:site_name" content="Garbage Rips 585">
-<meta property="og:image" content="${SITE}/assets/og-card-shows.jpg?v=2">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="${SITE}/assets/og-card-shows.jpg?v=2">
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
-${FONTS}
-${STYLES}
-${/* Inline, not in ui.css: this page is the only user and ui.css is render
-      blocking on all 426 pages. The set guides already work this way. */ ""}
-<style>
+// COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same regex and
+// the same trade as build-css.mjs makes for ui.css and miniCSS makes in seven
+// other builders including build-pack-prices.mjs, which argues it in full: this
+// block is inline in a render blocking <head>, so every line of reasoning in it
+// is paid for by every reader on shop wifi, and this page is written for a
+// reader standing in a queue.
+//
+// THIS PAGE NEVER ADOPTED IT AND IT SHOWED. Measured on the built file before
+// this line went in: 3950 bytes of inline <style>, 1767 of them comment, which is
+// 44%, the worst ratio of any root page. The comments stay exactly where they
+// are; they simply stop being served.
+const miniCSS = (css) =>
+  css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
+const PAGE_CSS = `/* The map of where the shows are. Same box and the same currentColor-free,
+   variable-only discipline as .shop-map on /shops.html, deliberately, because
+   the two pages are a pair and a reader moves between them.
+   Type is 14 and 12 units in a 660 unit viewBox: measured at 390px, where the
+   figure renders 342px wide and a unit is 0.52, so a town name lands at 7.3px.
+   That is the floor and it is why the label is "Batavia · 8" and not "Batavia,
+   8 shows coming up" -- the sentence goes in the caption, where it is set in
+   real type. */
+.show-map{margin:var(--s5) 0 0;color:var(--ink)}
+.show-map svg{display:block;width:100%;height:auto;max-width:660px}
+.show-map figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);
+  margin-top:var(--s2);max-width:52em}
+.map-bg{fill:var(--paper-3)}
+.map-dot{fill:var(--gold);stroke:var(--ink);stroke-width:2}
+.map-lbl{font:700 14px var(--body);fill:var(--ink)}
+.map-bar{stroke:var(--ink);stroke-width:2.5}
+.map-bart{font:700 12px var(--mono);fill:var(--ink);text-anchor:middle}
+/* Dimmed by the same area filter that drives the calendar and the list. Kept
+   visible rather than removed: a town vanishing off a map moves nothing else on
+   it, so the reader loses the frame of reference that made the map worth having.
+   Faded, it still says "Syracuse is over there and you have filtered it out". */
+.map-t.is-off .map-dot{fill:none;stroke:var(--ink-2);stroke-width:1.4;opacity:.35}
+.map-t.is-off .map-lbl{opacity:.3}
 .cal-wrap{margin:var(--s5) 0 0}
 .cal-grid{display:grid;gap:var(--s4);grid-template-columns:repeat(auto-fit,minmax(148px,1fr));
   align-items:start}
@@ -409,7 +547,34 @@ ${/* Inline, not in ui.css: this page is the only user and ui.css is render
 @media(min-width:1000px){
 .cal-note{max-width:var(--measure)}
 }
-</style>
+`;
+
+const head = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Card Shows Near Rochester NY: Buffalo & Syracuse Calendar | Garbage Rips 585</title>
+<meta name="description" content="${esc(desc)}">
+<link rel="canonical" href="${SITE}/card-shows.html">
+<meta property="og:title" content="Card shows near Rochester, Buffalo and Syracuse">
+<meta property="og:description" content="${esc(desc)}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="${SITE}/card-shows.html">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="${SITE}/assets/og-card-shows.jpg?v=2">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${SITE}/assets/og-card-shows.jpg?v=2">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#111111">
+${FONTS}
+${STYLES}
+${/* Inline, not in ui.css: this page is the only user and ui.css is render
+      blocking on all 426 pages. The set guides already work this way. */ ""}
+<style>${miniCSS(PAGE_CSS)}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>
@@ -462,7 +627,6 @@ function showCard(s) {
         </a>` : ""}
       </article>`;
 }
-
 const page = head + `
 <header class="set-hero">
   <div class="wrap">
@@ -502,6 +666,7 @@ ${next ? `
         ${REGIONS.map((r) => `<button class="chip filt" type="button" data-region="${r.id}"${r.id === "all" ? ' aria-current="true"' : ""}>${esc(r.label)}</button>`).join("\n        ")}
       </div>
     </div>
+${showMap()}
 ${CAL.length ? `
     <div class="cal-wrap">
       <div class="cal-grid">
@@ -631,6 +796,10 @@ ${footer("Show listings are collected by hand and change without notice. Check w
     });
     document.querySelectorAll('.cal-d').forEach(function(g){
       g.classList.toggle('is-empty', !g.querySelector('.cal-dot:not(.is-off)'));
+    });
+    // The map is the third view of the same list and moves with the other two.
+    document.querySelectorAll('.map-t').forEach(function(t){
+      t.classList.toggle('is-off', region !== 'all' && t.dataset.region !== region);
     });
   }
   document.querySelectorAll('.chip.filt').forEach(function(b){

@@ -1,0 +1,146 @@
+{
+  "_readme": [
+    "The guide to buying ABOVE MSRP: how to tell how far over you are being asked",
+    "to go, and what kind of shop you are standing in.",
+    "",
+    "This feeds one band on /msrp.html, built by scripts/build-msrp.mjs. It is a",
+    "band and not a page ON PURPOSE. A reader working out whether a price is fair",
+    "needs the suggested figure and the markup evidence on the same screen, and",
+    "they are usually holding the box while they do it. Splitting the one question",
+    "across two urls doubles the taps and lets the two halves drift apart.",
+    "",
+    "---------------------------------------------------- WHAT THIS FILE MAY HOLD",
+    "",
+    "THE LISTINGS ARE NOT IN HERE AND MUST NOT BE COPIED IN HERE. Every dated",
+    "shop listing this site can source lives in data/pack-counts-current.json,",
+    "with the url and the date on the source that saw the price, and the builder",
+    "reads them straight out of it and joins each to its MSRP row for the",
+    "division. There are FOUR of them, all read 15 August 2026. A number on this",
+    "page is stated in exactly one place in this repo, which is the same rule the",
+    "pack counts and the Pokemon Center prices already keep.",
+    "",
+    "THERE IS NO SCOREBOARD IN HERE AND THERE MUST NEVER BE ONE. 'GameStop",
+    "charges 1.86x' is a claim about a company. What was actually observed is one",
+    "listing, of one product, on one afternoon, at one url. Prices move daily,",
+    "differ between two branches of the same chain, and differ between two SKUs on",
+    "the same peg, and this is a static site that will still be serving this",
+    "sentence next year. So the listings are printed as WORKED EXAMPLES of the",
+    "sum, each naming its product, its shop, its price, its date and its url, and",
+    "nothing on the page ranks shops against each other or totals them up.",
+    "build-msrp.mjs has carried the line 'It is an example of the sum, not a score",
+    "for the shop' since before this file existed. Keep it true.",
+    "",
+    "AND NOTHING HERE SAYS WHY A SHOP PRICED SOMETHING. Motive is not observable",
+    "from a product page. What IS observable is that a suggested price binds",
+    "nobody, and that is the whole mechanism the page needs.",
+    "",
+    "THE DURABLE HALF IS `sellerKinds` AND IT IS THE POINT OF THE BAND. A price is",
+    "stale in a week. How a KIND of seller arrives at a price does not move: a",
+    "marketplace has no single price at all because thousands of strangers each",
+    "set their own, a chain sets one price per product across the country, and the",
+    "manufacturer's own shop is the only one whose price IS the suggestion by",
+    "definition. Every claim in there has to be about the MECHANISM, sourced, and",
+    "true a year from now. If you cannot write it that way, leave it out.",
+    "",
+    "`bands` IS A RULE OF THUMB AND SAYS SO ON THE PAGE. The edges are judgement,",
+    "not measurement, and the page labels them that way. Two of them are anchored",
+    "in fact rather than in taste: 1x is the manufacturer's own asking price, and",
+    "the four listings this site can source land between 1.07x and 2.22x. Do not",
+    "dress the rest up as data.",
+    "",
+    "WE HOLD NO LOCAL SHOP PRICES AND THE PAGE SAYS SO. data/shops.json has six",
+    "Rochester shops in it and not one price, because nobody walked in with a",
+    "notebook. That gap is printed rather than filled with a guess or with an",
+    "impression of what local shops charge.",
+    "",
+    "NEVER STATE OR IMPLY PULL RATES HERE OR ON THE PAGE. Site-wide rule, and it",
+    "bites here: 'the box is worth it because of what is in it' is the same claim",
+    "in a coat.",
+    "",
+    "--------------------------------------------------------------- the fields",
+    "",
+    "  intro       the paragraphs under the band's heading, in order",
+    "  bands       [{upto, label, what}] the rule of thumb. `upto` is the top of",
+    "              the band as a multiple, null on the last one. Ordered.",
+    "  sellerKinds [{id, name, whatDecides, watch, source}] one per KIND of",
+    "              seller. `whatDecides` is the mechanism that sets the price",
+    "              there. `watch` is the thing that catches a reader out. `source`",
+    "              is where the mechanism was read, or '' where it is simply the",
+    "              definition of the thing.",
+    "  closing     the paragraphs under the seller table"
+  ],
+
+  "checked": "2026-08-17",
+
+  "intro": [
+    "Most places selling sealed Pokemon are asking more than Pokemon asks. That is not a scandal and it is not illegal: a suggested price is a suggestion, no shop has to honour it, and the number above is the manufacturer's opinion rather than a rule. It does mean the sticker in front of you is a question rather than an answer, and the useful move is always the same one. Work out the multiple before you pay it.",
+    "The gap tends to open widest on the things that are hardest to get: a set everybody wants in the fortnight after it lands, the calendar in December, the one box left on a shelf that has been empty for a month. It closes again on the same product a few months later. That is why this page prints suggested prices with dates and prints shop prices as dated examples, rather than telling you what any shop charges.",
+    "Every listing below is one product, at one shop, on one day, at an address you can open yourself. None of it is a rating of the shop, and none of it will be current for long. Check the price in front of you against the figure above and do the division. That sum is the part of this page that still works next year."
+  ],
+
+  "bands": [
+    {
+      "upto": 1.15,
+      "label": "About retail",
+      "what": "At or near the suggested price. This is what the manufacturer's own shop charges by definition, and what a chain usually lists a new product at before it sells out."
+    },
+    {
+      "upto": 1.5,
+      "label": "A shop's margin",
+      "what": "Over the suggestion, but the sort of over that pays for a building and somebody standing in it. A local shop with the box actually in stock is often here, and stock in your hands today is worth something."
+    },
+    {
+      "upto": 2,
+      "label": "Scarcity pricing",
+      "what": "You are paying for the fact that it is hard to find rather than for the cardboard. Sometimes that is a fair trade to you. It is worth knowing that is the trade you are making."
+    },
+    {
+      "upto": null,
+      "label": "Double and up",
+      "what": "At twice the suggested price you can buy two of them for what one costs, if you can wait and find them. Reprints and restocks happen. Very little sealed product is genuinely a last chance."
+    }
+  ],
+
+  "sellerKinds": [
+    {
+      "id": "maker",
+      "name": "The manufacturer's own shop",
+      "whatDecides": "Nothing to work out. Pokemon Center is The Pokemon Company selling its own product, so the price it asks IS the suggested retail price. Every figure on this page marked as Pokemon's own shop was read there.",
+      "watch": "It sells ten years of back catalogue beside this month's box, and old stock keeps its old price. A cheaper figure there is often an older set rather than a deal on a current one.",
+      "source": ""
+    },
+    {
+      "id": "chain",
+      "name": "Big box and game chains",
+      "whatDecides": "One price per product, set by the chain and shown on its own product page, the same across the country. That price is the chain's decision and not Pokemon's, which is why it can sit at the suggested figure on one product and well over it on the next.",
+      "watch": "The multiple is not one number even inside one chain. Two of the four listings above are the same retailer, on two different products, read on the same day, and they are nowhere near the same multiple.",
+      "source": "the four listings above, read on retailers' own product pages 15 August 2026"
+    },
+    {
+      "id": "market",
+      "name": "Online marketplaces",
+      "whatDecides": "There is no single price at all. Thousands of separate sellers each set their own, so what you see is one stranger's asking price and the next listing down is a different one. TCGplayer, eBay and Whatnot all work this way.",
+      "watch": "The price you compare is not the price you pay. TCGplayer's own shipping page says the buyer is charged one flat shipping fee per STORE, so a cart from six sellers pays six times. eBay stacks the same way.",
+      "source": "data/buying.json, which records each venue's costs off that company's own shipping and policy pages"
+    },
+    {
+      "id": "shop",
+      "name": "Online card shops",
+      "whatDecides": "One company owns the stock, prices it, packs it and answers for it, so there is one price and one place to complain to. Free shipping thresholds are often two thresholds, with sealed product on the higher one.",
+      "watch": "A shop's own listed price and its shipping rule have to be added together before comparing it with anything. Two of the shops on this site's buying page run a separate, higher free shipping threshold for an order containing sealed product, and a third runs one high line across everything it sells.",
+      "source": "data/buying.json, read on each company's own policy pages 15 August 2026"
+    },
+    {
+      "id": "local",
+      "name": "Your local shop",
+      "whatDecides": "Whatever the owner decides, product by product, and it can move between two visits. There is no listed price to read from here.",
+      "watch": "This site holds no prices from any local shop, so it makes no claim about them. The six Rochester shops on our shops page were visited for hours and events, not for a price list. Do the division in the aisle instead.",
+      "source": "data/shops.json holds six shops and no prices, deliberately"
+    }
+  ],
+
+  "closing": [
+    "None of this says walk out. A shop that has the thing on the shelf, today, in a town where four other places are sold out, has done something for you that a screen has not, and the multiple is the price of that. The reason to do the sum is so that you are the one deciding whether it is worth it.",
+    "The one figure worth remembering is the suggested price for the product type you buy most. Past that, the arithmetic travels: it works on a product this page does not list, and it works next year when every figure here has moved."
+  ]
+}

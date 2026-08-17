@@ -430,5 +430,54 @@
       "url": "https://cardshows.io/events/northtowns-card-and-memorabilia-show-12-19-2026",
       "source": "cardshows.io"
     }
+  ],
+  "_towns": {
+    "Rochester": [
+      43.157285,
+      -77.615214
+    ],
+    "Batavia": [
+      42.998014,
+      -78.187552
+    ],
+    "Sanborn": [
+      43.143738,
+      -78.875063
+    ],
+    "Depew": [
+      42.902205,
+      -78.695672
+    ],
+    "Niagara Falls": [
+      43.08436,
+      -79.061469
+    ],
+    "Syracuse": [
+      43.048122,
+      -76.147424
+    ],
+    "Liverpool": [
+      43.106456,
+      -76.217705
+    ]
+  },
+  "_towns_note": [
+    "TOWN CENTRES, NOT VENUES, and that is deliberate. [lat, lon] geocoded once by",
+    "hand from OpenStreetMap Nominatim on 17 August 2026 and stored here so no",
+    "build touches the network. Only 3 of the 8 venues on this page carry a street",
+    "address at all; the rest are named places like 'Quality Inn, Batavia'. Across a",
+    "map that spans 150 miles from Niagara Falls to Syracuse, a town centre is the",
+    "honest unit and the caption says so. A dot is never dropped for a town that is",
+    "not in here: the builder leaves it off the map and warns instead.",
+    "",
+    "ONE RESULT HAD TO BE RE-QUERIED. 'Niagara Falls, New York' returns the",
+    "WATERFALL from Nominatim, type 'waterfall', not the city. It is only a couple",
+    "of miles out and would have looked entirely correct on a map at this scale,",
+    "which is exactly why it is written down. The coordinate here is the one for",
+    "'City of Niagara Falls, Niagara County', type 'administrative'.",
+    "",
+    "ADDING A TOWN: geocode '<Town>, <County> County, New York, USA', check the",
+    "type comes back administrative or census rather than something on the",
+    "landscape, and put [lat, lon] in here to six places."
   ]
 }

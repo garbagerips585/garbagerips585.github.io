@@ -662,16 +662,71 @@ function checklistBand(s, cls) {
       <summary>Show the full ${esc(s.name)} checklist</summary>
       <ol class="ig-cards en">
         ${doc.cards
-          .map(
-            (c) => `<li><span class="ig-no">${esc(c.n || "")}</span>
+          .map((c) => {
+            /**
+             * THE WALL OF ROWS, GIVEN TWO THINGS TO SCAN BY.
+             *
+             * 207 rows on /sets/151.html is roughly 17,000px of identical
+             * three-line entries on a 390px phone, and a reader scrolling it had
+             * no way to see where the part of the set they came for begins. Both
+             * marks below are drawn, so they cost markup and not one byte over
+             * the wire, which is the whole reason they are affordable on 28
+             * pages and 4,900 rows.
+             *
+             * THE STARS ARE THE SAME WHITELIST THE LADDER USES, and they are not
+             * a repeat of the word beside them. The word is the tier's NAME; the
+             * stars are the mark PRINTED ON THE CARD the reader is holding, and
+             * matching a card to a row is the job this page does in a shop.
+             * BOOKLET_MARK covers the eight tiers the set booklet actually
+             * shows, so Common and Uncommon get nothing rather than an invented
+             * glyph, exactly as the ladder above argues.
+             *
+             * THE GOLD ROWS ARE `CHASE`, the same set of tiers the ladder
+             * highlights and the quick facts count, so the three cannot disagree
+             * about what counts as worth chasing. It adds no claim: every one of
+             * those rows already prints its own rarity and its own price.
+             *
+             * ON PALDEAN FATES THAT IS 154 ROWS OF 245 AND THAT IS NOT A BUG.
+             * Counted across the 28 guides the highlight covers 4 to 154 rows,
+             * and the two extremes are both the set telling the truth about
+             * itself: Celebrations has 4 chase cards, Paldean Fates is a Shiny
+             * set and is 63% chase, which is exactly the sentence its own quick
+             * facts already print. A narrower rule just for this list was the
+             * obvious alternative and was rejected: three parts of one page
+             * quietly disagreeing about the word "chase" is the failure this
+             * codebase has already fixed twice.
+             *
+             * Measured cost of both marks together, gzipped: 0.08KB on
+             * Celebrations, 0.35KB on 151, 0.75KB on Ascended Heroes.
+             */
+            const r = rarityLabel(c.rarity);
+            const chase = Boolean(r) && CHASE.has(r);
+            return `<li${chase ? ` class="is-chase"` : ""}><span class="ig-no">${esc(c.n || "")}</span>
           <span class="ig-nm">${esc(c.name)}</span>
           ${c.price != null ? `<span class="ig-pr">${moneyExact(c.price)}</span>` : ""}
-          ${c.rarity ? `<span class="ig-rr2">${esc(rarityLabel(c.rarity))}</span>` : ""}</li>`
-          )
+          ${c.rarity ? `<span class="ig-rr2">${BOOKLET_MARK[r] ? rarityMark(BOOKLET_MARK[r]) : ""}${esc(r)}</span>` : ""}</li>`;
+          })
           .join("\n        ")}
       </ol>
     </details>
-    <p class="price-note">TCGplayer market prices via TCGdex, read ${esc(longDate(doc.checked) || doc.checked)}.
+    <p class="price-note">${
+      /**
+       * THE TWO CLAUSES ARE GATED SEPARATELY BECAUSE THE TWO MARKS DO NOT ALWAYS
+       * BOTH APPEAR. Pokemon GO prints 24 gold rows and only 8 star rows, because
+       * its rarity vocabulary is its own and BOOKLET_MARK is a whitelist of the
+       * eight tiers the set booklet actually shows. A sentence promising stars on
+       * a page that has almost none is the sort of small wrongness a reference
+       * page cannot afford.
+       */
+      [
+        doc.cards.some((c) => CHASE.has(rarityLabel(c.rarity)))
+          ? `The gold rows are the chase tiers, the same ones the rarity breakdown above highlights.`
+          : "",
+        doc.cards.some((c) => BOOKLET_MARK[rarityLabel(c.rarity)])
+          ? `The stars beside a rarity are the ones printed on that card.`
+          : "",
+      ].filter(Boolean).join(" ")
+    } TCGplayer market prices via TCGdex, read ${esc(longDate(doc.checked) || doc.checked)}.
       Where a card exists as a normal, holo and reverse holo at different prices, the figure shown is the priciest of
       them, because that is the one people mean. ${priced.length} of ${doc.cards.length} cards have a price.
       Looking for one card in particular? <a href="/cards.html?set=${esc(s.id)}">Search every card on the site</a>.</p>
@@ -1641,6 +1696,36 @@ const PAGE_CSS = `
 .setsym-i{flex:0 0 40px;width:40px;height:40px;object-fit:contain}
 .setsym p{margin:0;font-size:var(--t-sm);line-height:1.5}
 
+/* THE CHASE CARD WE CANNOT PICTURE. .flat-list and .flat-item are ui.css's
+   already, written for exactly this case on the Pokemon pages, and the only
+   thing they do not carry is a price, because the rows they were built for have
+   none. ".flat-item .flat-pr" rather than a bare ".flat-pr": ".flat-item span"
+   is 0,1,1 and would win against a bare class, which is what left the price
+   rendering as another line of 0.6rem grey caption on the first attempt.
+   The link gets a 44px tap target because it is the only action on the row and
+   the row exists precisely because the lightbox is not available to it. */
+.flat-item .flat-pr{font:700 var(--t-sm)/1.5 var(--mono);color:var(--ketchup-deep);
+  letter-spacing:0;text-transform:none}
+.flat-item a{display:inline-flex;align-items:center;min-height:44px;
+  font:700 var(--t-micro)/1 var(--body);letter-spacing:.03em;color:var(--ketchup-deep)}
+
+/* THE CHECKLIST'S CHASE ROWS AND ITS STAR MARKS.
+   The tint is the same idiom, and the same rgba of --mustard, that the
+   card-for-card table on the imported guides already uses to mark the rows that
+   matter (.rcmp tr.is-same in build-intl-pages.mjs): gold at 18% leaves the row
+   text at its normal contrast rather than tinting it. The negative inline margin
+   pulls the tint out past the row's own padding so the highlight reads as a band
+   across the row rather than as a box around the middle column; .ig-cards li is
+   padded 6px 0, so there is nothing horizontal to eat into.
+   THE STARS ARE SMALLER HERE THAN IN THE LADDER, 9px against 11px. .ig-rr2 is
+   --t-micro uppercase mono, roughly two thirds the size of the ladder's tier
+   name, and an 11px star beside it sat proud of the cap height and made the
+   rarity column look like it had a bullet in it. */
+.ig-cards li.is-chase{background:rgba(239,201,76,.18);border-radius:6px;
+  padding-left:7px;padding-right:7px;margin-left:-7px;margin-right:-7px}
+.ig-rr2 .rk{margin-right:4px}
+.ig-rr2 .rk svg{width:9px;height:9px}
+
 /* THE RARITY LADDER'S STAR ROW. .rar-name holds the tier name and the mark sits
    inline in front of it, so it rides the text's own baseline. RARITY_CSS below
    is the shared key's own stylesheet, appended verbatim rather than copied:
@@ -1793,6 +1878,109 @@ function setPage(s) {
   // in "pulled on camera", and only some have a foreign twin. The tone has to
   // be assigned after the list of present sections is known.
   const bands = [
+    // ORDER: THE PICTURES AND THE MONEY FIRST, THE CHANNEL SECOND.
+    //
+    // These two bands used to sit third and fourth, under the rip list and the
+    // "pulled on camera" grid, and on a 390x844 phone that put the chase cards
+    // 1,150px down on the shortest guide and 3,971px down on Phantasmal Flames:
+    // 4.7 screens of scrolling before the first card scan on a page whose own
+    // hero lede promises "what the chase cards are going for". Measured on all
+    // 28 English guides, six of them were past 2,800px.
+    //
+    // A reader standing in a shop holding a pack is asking what is in it and
+    // whether it is worth opening, and the chase grid plus the concentration
+    // chart are the two bands that answer that with a picture. The rip list is a
+    // list of text links and "pulled on camera" is our own hits, which is the
+    // best thing on the page and also the thing somebody who came for the set
+    // will happily scroll to. Both keep their sections, one screen lower.
+    //
+    // This is a judgement about who the page is for and it is reversible in one
+    // edit: move these two entries back under the two IIFEs above and nothing
+    // else has to change, because the tone alternation is computed from the pin
+    // rather than written down.
+    (cls) => `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
+    <h2>Top <span class="hl">chase cards</span></h2>
+    ${s.chase?.length ? (() => {
+      /**
+       * A CHASE CARD WITH NO SCAN IS A ROW, NOT AN EMPTY TILE.
+       *
+       * data/no-scan.json holds 101 TCGdex bases that answer 404, and one of
+       * them is the top chase card of an English set: Celebrations #25 Mew,
+       * Secret Rare, $62.22, the priciest card in the set. It rendered as a
+       * `<button class="chase-card">` with no picture in it, sized by the 245x342
+       * scans on either side, carrying `aria-label="Enlarge Mew"` and a lightbox
+       * handler gated on `data-img`, which is empty. So the set's headline card
+       * was a card-shaped hole that announced an action it could not perform, and
+       * the TCGplayer link it does have was unreachable, because the only way to
+       * that link is through the lightbox that never opens.
+       *
+       * Same split, same classes and the same argument as build-pokemon.mjs and
+       * the imported guides: a card with a scan keeps the grid, a card without
+       * one becomes a named row sized by its own text, and it says out loud that
+       * there is no scan rather than leaving a gap that reads as a slow image.
+       * The buy link becomes a real link on the row, which is the one thing this
+       * card gained rather than lost.
+       *
+       * It fires on exactly one card across the 28 English guides today. It is
+       * here so that the next one is not found by somebody wondering why a set's
+       * best card is a blank rectangle.
+       */
+      const withScan = s.chase.filter((c) => c.image);
+      const noScan = s.chase.filter((c) => !c.image);
+      const psa = (c) => gradedPrice(s.id, c.number);
+      return `
+    ${withScan.length ? `<div class="chase-grid">
+      ${withScan.map((c) => `<button class="chase-card" type="button"
+        data-img="${esc(c.imageLarge || c.image || "")}"
+        data-name="${esc(c.name)}" data-rarity="${esc(rarityLabel(c.rarity) || "")}"
+        data-number="${esc(c.number)}" data-price="${esc(moneyCompact(c.price))}"
+        data-psa10="${esc(psa(c) ? moneyCompact(psa(c)) : "")}"
+        data-url="${esc(c.url ? affLink(c.url) : "")}"
+        aria-label="Enlarge ${esc(c.name)}">
+        ${avifPicture(`<img src="${c.image}" alt="${esc(c.name)} ${esc(c.number)}, ${esc(rarityLabel(c.rarity) || "card")}" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}
+        <div class="nm">${esc(c.name)}</div>
+        <div class="rr">${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(c.number)}</div>
+        <div class="pr">${moneyCompact(c.price)}</div>
+        ${psa(c)
+          ? `<div class="pr10">PSA 10 ${moneyCompact(psa(c))}${
+              // longDate, not the raw ISO string the price file stores. Every other date
+              // on this page is long form, including the "last updated" line directly
+              // under this grid, so a bare 2026-08-12 here read as a different site.
+              gradedAsOf(s.id, c.number) ? `<span> &bull; ${esc(longDate(gradedAsOf(s.id, c.number)))}</span>` : ""
+            }</div>`
+          : ""}
+      </button>`).join("\n      ")}
+    </div>` : ""}
+    ${noScan.length ? `${withScan.length ? `<h3 class="flat-h">No scan for ${noScan.length === 1 ? "this one" : "these"}</h3>` : ""}
+    <ul class="flat-list">
+      ${noScan.map((c) => `<li class="flat-item">
+        <b>${esc(c.name)}</b>
+        <span>${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(c.number)}</span>
+        <span class="flat-pr">${moneyCompact(c.price)}${psa(c) ? ` &bull; PSA 10 ${moneyCompact(psa(c))}` : ""}</span>
+        ${c.url ? `<a href="${esc(affLink(c.url))}" rel="nofollow noopener" target="_blank">Check current price</a>` : ""}
+      </li>`).join("\n      ")}
+    </ul>
+    <p class="mine-note">The card database has no scan for ${
+      noScan.length === 1 ? `${esc(noScan[0].name)} ${esc(noScan[0].number)}` : `${noScan.length} of these`
+    }, so ${noScan.length === 1 ? "it is" : "they are"} named and priced here rather than shown as an empty card.</p>` : ""}
+    <p class="price-note">TCGplayer market prices via TCGdex${longDate(s.pricesAsOf || s.chasePricesAsOf) ? `, read ${longDate(s.pricesAsOf || s.chasePricesAsOf)}` : ""}. These are the same eight rows the checklist further down prints, sorted by price, so the two agree by construction. Singles move fast, so treat them as a ballpark rather than a quote.${affOn ? ` ${esc(aff.tcgplayer.disclosure)}` : ""}</p>
+    `;
+    })() : `
+    <div class="no-prices">
+      ${/* "further down", not "above": this band moved to the top of the page and
+            the rarity breakdown it points at is now below it. A section that
+            tells a reader to look the wrong way is worse than one that says
+            nothing, and this one is only ever seen on a set we have no prices
+            for, which is exactly when somebody is hunting for the rest. */ ""}
+      <strong>No market prices yet.</strong> ${esc(s.name)} is recent enough that pricing data has not landed in the card database. The card list and rarity counts further down this page are accurate; the values will fill in as the market settles.
+    </div>`}
+  </div>
+</section>`,
+
+    setValue(s) ? (cls) => valueBand(s, cls) : null,
+
     (() => {
       // Newest twelve. All of them on a 90-rip set would be a wall, and the link at
       // the end covers the rest.
@@ -1981,43 +2169,6 @@ function setPage(s) {
   </div>
 </section>`;
     })(),
-
-    (cls) => `<section class="${cls}">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
-    <h2>Top <span class="hl">chase cards</span></h2>
-    ${s.chase?.length ? `
-    <div class="chase-grid">
-      ${s.chase.map((c) => `<button class="chase-card" type="button"
-        data-img="${esc(c.imageLarge || c.image || "")}"
-        data-name="${esc(c.name)}" data-rarity="${esc(rarityLabel(c.rarity) || "")}"
-        data-number="${esc(c.number)}" data-price="${esc(moneyCompact(c.price))}"
-        data-psa10="${esc(gradedPrice(s.id, c.number) ? moneyCompact(gradedPrice(s.id, c.number)) : "")}"
-        data-url="${esc(c.url ? affLink(c.url) : "")}"
-        aria-label="Enlarge ${esc(c.name)}">
-        ${c.image ? avifPicture(`<img src="${c.image}" alt="${esc(c.name)} ${esc(c.number)}, ${esc(rarityLabel(c.rarity) || "card")}" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`) : ""}
-        <div class="nm">${esc(c.name)}</div>
-        <div class="rr">${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(c.number)}</div>
-        <div class="pr">${moneyCompact(c.price)}</div>
-        ${gradedPrice(s.id, c.number)
-          ? `<div class="pr10">PSA 10 ${moneyCompact(gradedPrice(s.id, c.number))}${
-              // longDate, not the raw ISO string the price file stores. Every other date
-              // on this page is long form, including the "last updated" line directly
-              // under this grid, so a bare 2026-08-12 here read as a different site.
-              gradedAsOf(s.id, c.number) ? `<span> &bull; ${esc(longDate(gradedAsOf(s.id, c.number)))}</span>` : ""
-            }</div>`
-          : ""}
-      </button>`).join("\n      ")}
-    </div>
-    <p class="price-note">TCGplayer market prices via TCGdex${longDate(s.pricesAsOf || s.chasePricesAsOf) ? `, read ${longDate(s.pricesAsOf || s.chasePricesAsOf)}` : ""}. These are the same eight rows the checklist further down prints, sorted by price, so the two agree by construction. Singles move fast, so treat them as a ballpark rather than a quote.${affOn ? ` ${esc(aff.tcgplayer.disclosure)}` : ""}</p>
-    ` : `
-    <div class="no-prices">
-      <strong>No market prices yet.</strong> ${esc(s.name)} is recent enough that pricing data has not landed in the card database. The card list and rarity counts above are accurate; the values will fill in as the market settles.
-    </div>`}
-  </div>
-</section>`,
-
-    setValue(s) ? (cls) => valueBand(s, cls) : null,
 
     // PINNED to the sky gradient, and the tone of everything else is worked out
     // by alternating outward from here. Alternating outward from a fixed point

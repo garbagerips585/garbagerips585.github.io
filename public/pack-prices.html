@@ -54,6 +54,18 @@ border:1px solid var(--navy);vertical-align:-2px;margin-right:6px;font-style:nor
 .w34,.w38,.w40,.w42{max-width:50ch}
 .fk-golden p{max-width:52ch}
 }
+.bv{margin:18px 0 0}
+.bv svg{display:block;width:100%;height:auto;max-width:560px}
+.bv figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--foot-ink);margin-top:10px;max-width:60ch}
+.bv-name{font:600 13px var(--body);fill:var(--paper);text-anchor:end}
+.bv-head{font:700 12px var(--mono);fill:var(--gold);letter-spacing:.04em}
+.bv-val{font:700 12px var(--mono);fill:var(--foot-ink)}
+.bv-val-in{fill:#111111}
+.bv-tick{font:400 11px var(--mono);fill:var(--foot-ink);text-anchor:middle;opacity:.8}
+.bv-grid{stroke:var(--paper);stroke-width:1;opacity:.16}
+.bv-zero{stroke:var(--paper);stroke-width:1.6;opacity:.75}
+.bv-box{fill:var(--paper)}
+.bv-loose{fill:var(--gold)}
 @media(min-width:1200px){
 .facts-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
 gap:11px;align-items:start}
@@ -118,6 +130,7 @@ gap:11px;align-items:start}
         <li><a href="/expansions.html">Every set ever</a></li>
         <li><a href="/upcoming.html">Coming next</a></li>
         <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/msrp.html">MSRP check</a></li>
         <li><a href="/pack-prices.html">Pack prices</a></li>
         <li><a href="/how-many-packs.html">Packs per box</a></li>
         <li><a href="/openings/">Sealed products</a></li>
@@ -202,6 +215,20 @@ gap:11px;align-items:start}
         9 times and fails 13 times: buying single packs one at a time is the cheapest pack
         in Chaos Rising, Journey Together and 11 more. It is not a rule that can be applied from the outside: on the 2 priciest the cheapest pack is bought loose. The only way to
         know is to look at the set you are actually buying, and that is what the table below is.</p>
+      <figure class="bv">
+      <svg viewBox="0 0 430 540" role="img"
+        aria-label="One bar per set showing what the cheapest bigger box costs per pack as a multiple of a single loose pack in the same set. 9 of 22 sets are cheaper by the box and 13 are cheaper bought loose. Every figure is in the table below.">
+        <line class="bv-grid" x1="142.0" y1="24" x2="142.0" y2="514.0"/><text class="bv-tick" x="142.0" y="528.0">0.6x</text><line class="bv-grid" x1="204.0" y1="24" x2="204.0" y2="514.0"/><text class="bv-tick" x="204.0" y="528.0">0.8x</text><line class="bv-grid" x1="328.0" y1="24" x2="328.0" y2="514.0"/><text class="bv-tick" x="328.0" y="528.0">1.2x</text><line class="bv-grid" x1="390.0" y1="24" x2="390.0" y2="514.0"/><text class="bv-tick" x="390.0" y="528.0">1.4x</text>
+        <text class="bv-head" style="text-anchor:end" x="258.0" y="18">box wins &larr;</text>
+        <text class="bv-head" style="text-anchor:start" x="274.0" y="18">&rarr; loose wins</text>
+        <g><text class="bv-name" x="130.0" y="42.0">Perfect Order</text><rect class="bv-box" x="226.0" y="34.0" width="40.0" height="14" rx="2"/><text class="bv-val" style="text-anchor:end" x="221.0" y="43.0">0.87x</text></g><g><text class="bv-name" x="130.0" y="64.0">Chaos Rising</text><rect class="bv-loose" x="266.0" y="56.0" width="7.3" height="14" rx="2"/><text class="bv-val" style="text-anchor:start" x="278.3" y="65.0">1.02x</text></g><g><text class="bv-name" x="130.0" y="86.0">Pitch Black</text><rect class="bv-box" x="229.9" y="78.0" width="36.1" height="14" rx="2"/><text class="bv-val" style="text-anchor:end" x="224.9" y="87.0">0.88x</text></g><g><text class="bv-name" x="130.0" y="108.0">Journey Together</text><rect class="bv-loose" x="266.0" y="100.0" width="80.7" height="14" rx="2"/><text class="bv-val" style="text-anchor:start" x="351.7" y="109.0">1.26x</text></g><g><text class="bv-name" x="130.0" y="130.0">Paradox Rift</text><rect class="bv-box" x="239.3" y="122.0" width="26.7" height="14" rx="2"/><text class="bv-val" style="text-anchor:end" x="234.3" y="131.0">0.91x</text></g><g><text class="bv-name" x="130.0" y="152.0">Surging Sparks</text><rect class="bv-loose" x="266.0" y="144.0" width="77.2" height="14" rx="2"/><text class="bv-val" style="text-anchor:start" x="348.2" y="153.0">1.25x</text></g><g><text class="bv-name" x="130.0" y="174.0">Mega Evolution</text><rect class="bv-loose" x="266.0" y="166.0" width="90.6" height="14" rx="2"/><text class="bv-val" style="text-anchor:start" x="361.6" y="175.0">1.29x</text></g><g><text class="bv-name" x="130.0" y="196.0">Scarlet &amp; Violet</text><rect class="bv-box" x="248.6" y="188.0" width="17.4" height="14" rx="2"/><text class="bv-val" style="text-anchor:end" x="243.6" y="197.0">0.94x</text></g><g><text class="bv-name" x="130.0" y="218.0">Twilight Masquerade</text><rect class="bv-loose" x="266.0" y="210.0" width="106.0" height="14" rx="2"/><text class="bv-val" style="text-anchor:start" x="377.0" y="219.0">1.34x</text></g><g><text class="bv-name" x="130.0" y="240.0">Shrouded Fable</text><rect class="bv-box" x="143.5" y="232.0" width="122.5" height="14" rx="2"/><text class="bv-val bv-val-in" style="text-anchor:start" x="148.5" y="241.0">0.60x</text></g><g><text class="bv-name" x="130.0" y="262.0">Destined Rivals</text><rect class="bv-loose" x="266.0" y="254.0" width="87.9" height="14" rx="2"/><text class="bv-val" style="text-anchor:start" x="358.9" y="263.0">1.28x</text></g><g><text class="bv-name" x="130.0" y="284.0">Obsidian Flames</text><rect class="bv-box" x="222.4" y="276.0" width="43.6" height="14" rx="2"/><text class="bv-val" style="text-anchor:end" x="217.4" y="285.0">0.86x</text></g><g><text class="bv-name" x="130.0" y="306.0">Phantasmal Flames</text><rect class="bv-loose" x="266.0" y="298.0" width="8.0" height="14" rx="2"/><text class="bv-val" style="text-anchor:start" x="279.0" y="307.0">1.03x</text></g><g><text class="bv-name" x="130.0" y="328.0">Stellar Crown</text><rect class="bv-loose" x="266.0" y="320.0" width="56.3" height="14" rx="2"/><text class="bv-val" style="text-anchor:start" x="327.3" y="329.0">1.18x</text></g><g><text class="bv-name" x="130.0" y="350.0">Temporal Forces</text><rect class="bv-box" x="249.4" y="342.0" width="16.6" height="14" rx="2"/><text class="bv-val" style="text-anchor:end" x="244.4" y="351.0">0.95x</text></g><g><text class="bv-name" x="130.0" y="372.0">Ascended Heroes</text><rect class="bv-loose" x="266.0" y="364.0" width="26.3" height="14" rx="2"/><text class="bv-val" style="text-anchor:start" x="297.3" y="373.0">1.08x</text></g><g><text class="bv-name" x="130.0" y="394.0">White Flare</text><rect class="bv-loose" x="266.0" y="386.0" width="3.0" height="14" rx="2"/><text class="bv-val" style="text-anchor:start" x="274.0" y="395.0">1.01x</text></g><g><text class="bv-name" x="130.0" y="416.0">Prismatic Evolutions</text><rect class="bv-box" x="254.9" y="408.0" width="11.1" height="14" rx="2"/><text class="bv-val" style="text-anchor:end" x="249.9" y="417.0">0.96x</text></g><g><text class="bv-name" x="130.0" y="438.0">Black Bolt</text><rect class="bv-loose" x="266.0" y="430.0" width="21.1" height="14" rx="2"/><text class="bv-val" style="text-anchor:start" x="292.1" y="439.0">1.07x</text></g><g><text class="bv-name" x="130.0" y="460.0">Paldea Evolved</text><rect class="bv-box" x="255.3" y="452.0" width="10.7" height="14" rx="2"/><text class="bv-val" style="text-anchor:end" x="250.3" y="461.0">0.97x</text></g><g><text class="bv-name" x="130.0" y="482.0">Paldean Fates</text><rect class="bv-loose" x="266.0" y="474.0" width="66.0" height="14" rx="2"/><text class="bv-val" style="text-anchor:start" x="337.0" y="483.0">1.21x</text></g><g><text class="bv-name" x="130.0" y="504.0">151</text><rect class="bv-loose" x="266.0" y="496.0" width="9.9" height="14" rx="2"/><text class="bv-val" style="text-anchor:start" x="280.9" y="505.0">1.03x</text></g>
+        <line class="bv-zero" x1="266.0" y1="24" x2="266.0" y2="514.0"/>
+        <text class="bv-tick" x="266.0" y="528.0">same</text>
+      </svg>
+      <figcaption>Each bar is the cheapest box, bundle or Build &amp; Battle in that set, priced per pack, against
+        one loose pack of the same set. 13 of the 22 sets that sell a pack both ways are cheapest
+        bought one pack at a time. The dollars behind every bar are in the table below.</figcaption>
+    </figure>
     </div>
   </div>
 </section>
@@ -658,6 +685,7 @@ gap:11px;align-items:start}
         <a href="/expansions.html">Every set ever</a>
         <a href="/upcoming.html">Coming next</a>
         <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/msrp.html">MSRP check</a>
         <a href="/pack-prices.html">Pack prices</a>
         <a href="/how-many-packs.html">Packs per box</a>
         <a href="/openings/">Sealed products</a>

@@ -360,7 +360,13 @@ function twinBand(g, cls) {
           as well, because the checklist is further down THIS page and the
           source line at the foot already credits TCGdex.
         -->
-        <p class="intl-lead">The one on this page, checklist below</p>
+        ${/* AND IT ONLY PROMISES THE CHECKLIST WHERE THERE IS ONE. Two of these
+              guides have no card records at all and render a "No checklist yet"
+              band further down, so this line was sending a reader past the whole
+              page to find something the page says it does not have. Found while
+              re-reading every directional phrase on these guides after the
+              sections moved; it predates that move. */ ""}
+        <p class="intl-lead">The one on this page${g.cards?.length ? `, checklist below` : ""}</p>
       </li>
       <li class="intl is-en">
         <p class="intl-lang">English${en.apiId ? ` &bull; ${esc(String(en.apiId).toUpperCase())}` : ""}</p>
@@ -524,28 +530,146 @@ function compareBand(g, en, cls) {
 // can decide the tones once it knows which sections exist. The markup inside is
 // unchanged from when these were inlined in the page template.
 
+/**
+ * A CARD-SHAPED BUTTON WITH NO CARD IN IT IS THE WORST OF BOTH THINGS, and this
+ * grid was drawing twelve of them on five of the thirteen guides.
+ *
+ * TCGdex publishes no card images for the current Japanese sets, so Abyss Eye,
+ * Ninja Spinner, Nihil Zero, Mega Brave and Mega Symphonia each rendered
+ * `notable` as twelve `<button class="chase-card">` tiles holding three lines of
+ * text apiece. Measured at 390x844 that is 1,786px, more than two full screens,
+ * of a grid whose row height is set by a 245x342 scan that never arrives. Every
+ * one of those buttons also carried `aria-label="Enlarge <card>"` and did
+ * nothing at all when pressed: the lightbox handler is gated on `data-img`,
+ * which is empty on every one of them. A control that announces an action it
+ * cannot perform is a worse failure than a missing picture.
+ *
+ * SPLIT BY WHETHER THERE IS A SCAN, which is exactly what build-pokemon.mjs
+ * already does for the identical problem, down to the `.flat-list` classes: they
+ * are in ui.css already and the argument for them is written above them there.
+ * A card with a scan keeps the grid. A card without one becomes a named row in a
+ * list that is sized by its text, so it says out loud that it is an index of
+ * names rather than pretending to be a wall of cards.
+ *
+ * IT IS NOT A PLACEHOLDER AND MUST NEVER BECOME ONE. The rule these pages work
+ * under is that a row with no scan says so; borrowing the English card's
+ * artwork for a Japanese entry was measured and rejected long before this, for
+ * the reason written above enChase below.
+ */
 function chaseBand(g, en, cls) {
-  return `<section class="${cls}">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
-    <h2>Top <span class="hl">chase cards</span></h2>
-    <div class="chase-grid">
-      ${g.notable.map((c) => `<button class="chase-card" type="button"
+  const withScan = g.notable.filter((c) => c.image);
+  const noScan = g.notable.filter((c) => !c.image);
+  /**
+   * WHERE THE NATIVE SIDE HAS NOT ONE SCAN, THE ENGLISH GRID GOES FIRST.
+   *
+   * Splitting the imageless tiles into a list was the honest fix and it bought
+   * no scrolling at all: measured at 390x844 the band went 1,786px to 1,838px,
+   * because twelve text items sit in two columns whichever element they are, and
+   * the new lede is a paragraph. So on those five guides the four English scans
+   * were still 3,726px down, which is worse than the 3,674px they started at.
+   *
+   * Putting them above the name list moves the only pictures on the page up by
+   * about a screen. It is only done when the native side has NOTHING, because
+   * that is the only case where the section's own cards are not being pushed
+   * under somebody else's: with even one native scan the grid leads, as it
+   * always has.
+   */
+  const enFirst = !withScan.length && Boolean(enChase(g, en));
+  const enBlock = enChase(g, en, { nativeBelow: enFirst });
+  // NO LEDE WHERE THERE IS NOTHING TO EXPLAIN. This band carried none before and
+  // the six guides whose grid is complete still carry none: a sentence counting
+  // the tiles under a heading that already says what they are is the "picture
+  // that repeats the sentence beside it" failure in prose form. `notable` is also
+  // capped at twelve out of however many qualify, so "the 12 cards worth hunting"
+  // would have been a claim about the set that the cap, not the set, decided.
+  const say = !noScan.length
+    ? ""
+    : !withScan.length
+      ? `TCGdex publishes no card scans for ${esc(g.english)}, so this page can name the cards worth hunting but cannot show them.${
+          enBlock ? " What it can show is the same cards in English." : ""
+        }`
+      : `${withScan.length} of these have a scan and are pictured. The other ${noScan.length} we can name but not show.`;
+  // The name list needs a heading of its own wherever something else sits above
+  // it, and the two cases want different words: beside a grid of this set's own
+  // scans it is the remainder, under the English grid it is this set's list.
+  const flatHead = withScan.length
+    ? `<h3 class="flat-h">Named, with no scan to show</h3>`
+    : enFirst
+      ? `<h3 class="flat-h">The ${esc(g.english)} chase list</h3>`
+      : "";
+
+  const tile = (c) => `<button class="chase-card" type="button"
         data-img="${esc(c.imageLarge || c.image || "")}"
         data-name="${esc(cardName(c))}" data-rarity="${esc(rarityLabel(c.rarity) || (c.secret ? "Numbered past the set" : ""))}"
         data-number="${esc(c.localId || "")}" data-price=""
         aria-label="Enlarge ${esc(cardName(c))}">
-        ${c.image ? avifPicture(`<img src="${esc(c.image)}" alt="${esc(cardName(c))} ${esc(c.localId || "")}, ${esc(g.english)}" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`) : ""}
+        ${avifPicture(`<img src="${esc(c.image)}" alt="${esc(cardName(c))} ${esc(c.localId || "")}, ${esc(g.english)}" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}
         <div class="nm">${esc(cardName(c))}</div>
         ${cardSub(c) ? `<div class="ig-native" lang="${esc(g.dataSource?.lang || g.lang)}">${esc(cardSub(c))}</div>` : ""}
         <div class="rr">${esc(rarityLabel(c.rarity) || (c.secret ? "Secret" : kindOf(c) || "Card"))} &bull; ${esc(c.localId || "")}</div>
-      </button>`).join("\n      ")}
-    </div>
+      </button>`;
+
+  const row = (c) => `<li class="flat-item">
+        <b>${esc(cardName(c))}</b>
+        ${cardSub(c) ? `<span lang="${esc(g.dataSource?.lang || g.lang)}">${esc(cardSub(c))}</span>` : ""}
+        <span>${esc(rarityLabel(c.rarity) || (c.secret ? "Secret" : kindOf(c) || "Card"))} &bull; ${esc(c.localId || "")}</span>
+      </li>`;
+
+  return `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
+    <h2>Top <span class="hl">chase cards</span></h2>
+    ${say ? `<p class="lede" style="max-width:42em">${say}</p>` : ""}
+${enFirst ? enBlock : ""}    ${withScan.length ? `<div class="chase-grid">
+      ${withScan.map(tile).join("\n      ")}
+    </div>` : ""}
+    ${noScan.length ? `${flatHead}
+    <ul class="flat-list">
+      ${noScan.map(row).join("\n      ")}
+    </ul>` : ""}
     <p class="price-note">No prices here on purpose. Imported singles are priced in euro or yen by the
       databases that carry them at all, and a converted half-filled price table is worse than none. The English
       ${en ? `<a href="/sets/${esc(g.equivalent)}.html">${esc(en.name)} guide</a> carries` : "guides carry"} live USD
       values for the same cards.</p>
-${enChase(g, en)}  </div>
+${enFirst ? "" : enBlock}  </div>
+</section>`;
+}
+
+/**
+ * THE ENGLISH CHASE GRID WAS TRAPPED INSIDE A BAND THAT DOES NOT ALWAYS RENDER.
+ *
+ * enChase is the one honest picture of a card these pages have, and it was only
+ * ever reached through chaseBand, which the band list gates on `g.notable`.
+ * Two guides carry no notable list at all, so /sets/ja-cyber-judge.html and
+ * /sets/ko-mask-of-change.html showed THREE images each across a 5,198px and a
+ * 5,534px page, with the first one 1,304px down, while the English set they are
+ * both about had eight priced, pictured chase cards sitting in sets.json the
+ * whole time. Nothing was missing from the data; the grid was simply behind a
+ * door that never opened.
+ *
+ * The band says whose cards these are in its own heading and in the paragraph
+ * under it, which is the same guard the in-chaseBand version carries: they are
+ * the English set's cards, numbers and prices, and they are not presented as the
+ * imported printing's.
+ */
+function enOnlyBand(g, en, cls) {
+  // TWO GUIDES REACH THIS AND THEY ARE EMPTY FOR TWO DIFFERENT REASONS, so the
+  // sentence is worked out from the data rather than written once and reused.
+  // ja-cyber-judge has no card records at all. ko-mask-of-change has 101 of
+  // them, none labelled above Double Rare and none numbered past the printed
+  // set, which is the condition sync-intl-guides.mjs already warns about at
+  // build time. Saying "TCGdex has no cards for this set" on the second one
+  // would be plainly false to anybody who scrolled to the checklist.
+  const why = g.cards?.length
+    ? `No card in the ${esc(g.langName)} printing is labelled at a chase rarity, so there is nothing of its own to picture here. Its full checklist is further down.`
+    : `TCGdex has not published a card list for the ${esc(g.langName)} printing yet, so there is nothing of its own to picture here.`;
+  const block = enChase(g, en, { standalone: true, why });
+  if (!block) return "";
+  return `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
+    <h2>What to <span class="hl">chase</span> in English</h2>
+${block}  </div>
 </section>`;
 }
 
@@ -576,8 +700,20 @@ ${enChase(g, en)}  </div>
  *
  * FOUR, NOT EIGHT. Two rows on a phone. The English guide holds all eight and is
  * one tap away, and this band is a signpost rather than a second copy of it.
+ * IT STAYS FOUR EVEN WHERE IT IS THE ONLY PICTURE ON THE PAGE. Raising it to six
+ * or eight on the imageless guides was considered and is exactly the wrong
+ * reason to change an argued number: the four are a signpost wherever they sit,
+ * and adding borrowed scans to lift a density figure is not the same thing as
+ * answering a reader's question.
+ *
+ * `standalone` drops the <h3> and the "not the ones above" clause, for the case
+ * where enOnlyBand carries this block as a section of its own and there is no
+ * native grid above it for the sentence to point at. `why` is the caller's
+ * one-clause statement of what is absent, and it is passed in rather than
+ * written here because the two guides that need it are absent for two different
+ * reasons and a single sentence covering both would be false about one of them.
  */
-function enChase(g, en) {
+function enChase(g, en, { standalone = false, why = "", nativeBelow = false } = {}) {
   // Skip the 101 TCGdex bases that 404, up front. onerror hides the gap in the
   // browser and the page still pays for the round trip to find out, which is
   // the reason data/no-scan.json exists. None of the current chase cards is on
@@ -586,9 +722,16 @@ function enChase(g, en) {
     .filter((c) => c.image && !NO_SCAN.has(String(c.image).replace(/\/(low|high)\.(webp|avif|png|jpg)$/, "")))
     .slice(0, 4);
   if (chase.length < 2) return "";
-  return `    <h3 class="intl-enh">The same cards in English</h3>
-    <p class="intl-ensay">The priciest cards in English ${esc(en.name)}, which is the set on the shelf in a US shop.
-      These are that set's own cards, numbers and prices, not the ${esc(g.langName)} ones above.</p>
+  return `${standalone ? "" : `    <h3 class="intl-enh">The same cards in English</h3>\n`}    <p class="intl-ensay">The priciest cards in English ${esc(en.name)}, which is the set on the shelf in a US shop.
+      These are that set's own cards, numbers and prices${
+        // THE PREPOSITION HAS TO FOLLOW THE LAYOUT. This block sits under the
+        // native grid in the ordinary case, above the native NAME LIST where
+        // that list has no scans, and alone on the two guides with no chase list
+        // at all. "Not the Japanese ones above" printed over the top of a page
+        // whose Japanese cards are below it is a small lie that a reader
+        // scrolling in a shop will notice before anything else on the section.
+        standalone ? `` : nativeBelow ? `, not the ${esc(g.langName)} ones listed below` : `, not the ${esc(g.langName)} ones above`
+      }.${standalone && why ? ` ${why}` : ""}</p>
     <div class="chase-grid intl-enchase">
       ${chase
         .map(
@@ -804,7 +947,12 @@ function guidePage(g) {
   const bands = [
     (cls) => twinBand(g, cls),
     (cls) => compareBand(g, en, cls),
-    g.notable?.length ? (cls) => chaseBand(g, en, cls) : null,
+    // NOT `: null`. A guide with no chase list of its own still has an English
+    // twin whose chase cards are priced and pictured, and hiding the only card
+    // art on the page behind an empty native list is what left two of these
+    // guides with three images apiece. enOnlyBand returns "" where there is
+    // genuinely nothing to show, and the empty-band filter below drops it.
+    g.notable?.length ? (cls) => chaseBand(g, en, cls) : (cls) => enOnlyBand(g, en, cls),
     rarities.length ? { pin: true, html: (cls) => rarityBand(g, rarities, maxN, secretCount, cls) } : null,
     (cls) => checklistBand(g, cls),
     rips.length ? (cls) => ripsBand(g, rips, label, cls) : null,

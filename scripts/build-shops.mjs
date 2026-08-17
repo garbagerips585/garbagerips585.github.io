@@ -179,6 +179,177 @@ function shopMap(list) {
     </figure>`;
 }
 
+/**
+ * WHEN THEY ARE OPEN, AS A PICTURE.
+ *
+ * THE QUESTION THIS PAGE COULD NOT ANSWER. Every card prints its hours as a
+ * sentence: "Wed to Sat 11am to 9:30pm, Sun 11am to 6pm, closed Mon and Tue".
+ * That is complete and it is correct and it is useless to the reader this page
+ * is actually for, who is standing on Ridge Road at seven on a Tuesday evening
+ * with a phone in one hand asking one question: who is open right now. Six
+ * sentences in six different shapes, scattered down 6,000px of page, is six
+ * separate parsing jobs to answer it. The grid answers it by looking: find
+ * today's column, look down it, the filled cells are open and the empty ones
+ * are shut. LingSter's Monday and Tuesday are the two blank cells on the chart
+ * and that is the single most useful fact on this page.
+ *
+ * IT IS THE SAME SENTENCES, NOT A SECOND SOURCE. The bars are parsed out of the
+ * `hours` string that the card below prints verbatim, so the picture and the
+ * text cannot disagree: there is nothing for them to disagree about. No new
+ * field was added to data/shops.json for this and none should be. If the hours
+ * are wrong, they are wrong in one place.
+ *
+ * THE PARSER THROWS RATHER THAN GUESSES, and that is the whole reason it is
+ * safe to draw. A bar in the wrong place is a wasted drive across Rochester,
+ * which is exactly the failure this page's own note about league nights is
+ * written to avoid, so an hours string it cannot read in full fails the build
+ * instead of rendering something plausible. Anything left over after every
+ * clause is consumed is an error too, so a trailing "closed holidays" cannot be
+ * silently dropped.
+ *
+ * A SHOP WITH NO HOURS GETS NO BARS, same rule as the map above and for the
+ * same reason: Great Lakes Gaming publishes none, so its row says so across the
+ * whole width rather than borrowing a neighbour's shape.
+ */
+const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const DAY_IX = Object.fromEntries(DAYS.map((d, i) => [d.toLowerCase(), i]));
+
+// noon and midnight are words on these cards, and 9:30pm has a colon in it.
+function parseClock(raw) {
+  const t = raw.trim().toLowerCase();
+  if (t === "noon") return 12;
+  if (t === "midnight") return 24;
+  const m = /^(\d{1,2})(?::(\d{2}))?(am|pm)$/.exec(t);
+  if (!m) return null;
+  let h = +m[1] % 12;
+  if (m[3] === "pm") h += 12;
+  return h + (m[2] ? +m[2] / 60 : 0);
+}
+
+function parseHours(str, who) {
+  const open = Array(7).fill(null);
+  const closed = Array(7).fill(false);
+  for (const clause of str.split(",").map((c) => c.trim())) {
+    let m = /^closed\s+(.+)$/i.exec(clause);
+    if (m) {
+      for (const d of m[1].split(/\s+and\s+|\s*,\s*/)) {
+        const i = DAY_IX[d.trim().toLowerCase()];
+        if (i === undefined) throw new Error(`${who}: cannot read the day "${d}" in "${clause}"`);
+        closed[i] = true;
+      }
+      continue;
+    }
+    m = /^(.+?)\s+(\S+)\s+to\s+(\S+)$/.exec(clause);
+    if (!m) throw new Error(`${who}: cannot read the hours clause "${clause}"`);
+    const [, dayPart, fromRaw, toRaw] = m;
+    const from = parseClock(fromRaw), to = parseClock(toRaw);
+    if (from === null || to === null || to <= from) {
+      throw new Error(`${who}: cannot read the times in "${clause}"`);
+    }
+    let ix = [];
+    const range = /^(\w+)\s+to\s+(\w+)$/.exec(dayPart);
+    const pair = /^(\w+)\s+and\s+(\w+)$/.exec(dayPart);
+    if (range) {
+      const a = DAY_IX[range[1].toLowerCase()], b = DAY_IX[range[2].toLowerCase()];
+      if (a === undefined || b === undefined || b < a) throw new Error(`${who}: cannot read the day range "${dayPart}"`);
+      for (let i = a; i <= b; i++) ix.push(i);
+    } else if (pair) {
+      ix = [DAY_IX[pair[1].toLowerCase()], DAY_IX[pair[2].toLowerCase()]];
+    } else {
+      ix = [DAY_IX[dayPart.trim().toLowerCase()]];
+    }
+    if (ix.some((i) => i === undefined)) throw new Error(`${who}: cannot read the days "${dayPart}"`);
+    for (const i of ix) open[i] = [from, to];
+  }
+  for (let i = 0; i < 7; i++) {
+    if (!open[i] && !closed[i]) {
+      throw new Error(`${who}: "${str}" says nothing about ${DAYS[i]}, so the chart would have to guess`);
+    }
+  }
+  return open;
+}
+
+function hoursChart(list) {
+  const rows = list.map((s) => ({
+    name: s.name,
+    open: s.hours ? parseHours(s.hours, s.name) : null,
+  }));
+  const spans = rows.flatMap((r) => (r.open || []).filter(Boolean));
+  if (!spans.length) return "";
+
+  // The axis is computed from the data and padded by half an hour, so a shop
+  // that starts opening at nine cannot quietly have its bar clipped at the edge
+  // of a hardcoded 10-to-10 scale.
+  const lo = Math.floor(Math.min(...spans.map((s) => s[0])) - 0.5);
+  const hi = Math.ceil(Math.max(...spans.map((s) => s[1])) + 0.5);
+
+  // EVERY NUMBER IN HERE IS SIZED FOR 390px, NOT FOR THIS VIEWBOX. The svg is
+  // width:100% capped at 660, so on the phone this chart is drawn at 0.59 and a
+  // unit is not a pixel. The first version used a 122 unit name column and 13
+  // unit type, which is 72px and 7.7px on a phone: it fitted and it could not be
+  // read. 178 and 17 put "Millennium Games" in the column at 10px, which is the
+  // floor for something a reader has to identify a shop by.
+  const W = 660, LBL = 178, GAP = 4, ROW = 40, HEAD = 26, FOOT = 26;
+  const H = HEAD + rows.length * ROW + FOOT;
+  const colW = (W - LBL - GAP * 6) / 7;
+  const colX = (d) => LBL + d * (colW + GAP);
+  const INSET = 3;
+  const tx = (h) => INSET + ((h - lo) / (hi - lo)) * (colW - INSET * 2);
+
+  const head = DAYS.map((d, i) =>
+    `<text class="sh-day" x="${(colX(i) + colW / 2).toFixed(1)}" y="17">${d}</text>`
+  ).join("");
+
+  const body = rows.map((r, ri) => {
+    const y = HEAD + ri * ROW;
+    const label = `<text class="sh-name" x="0" y="${(y + 25).toFixed(1)}">${esc(r.name)}</text>`;
+    if (!r.open) {
+      return `<g>${label}<rect class="sh-none" x="${colX(0)}" y="${(y + 8).toFixed(1)}"
+        width="${(W - LBL).toFixed(1)}" height="24" rx="5"/>
+        <text class="sh-nonet" x="${(LBL + (W - LBL) / 2).toFixed(1)}" y="${(y + 25).toFixed(1)}">hours not published</text></g>`;
+    }
+    const cells = r.open.map((span, d) => {
+      const x = colX(d);
+      const cell = `<rect class="sh-cell" x="${x.toFixed(1)}" y="${(y + 8).toFixed(1)}" width="${colW.toFixed(1)}" height="24" rx="5"/>`;
+      if (!span) return cell;
+      const x1 = x + tx(span[0]), x2 = x + tx(span[1]);
+      return cell + `<rect class="sh-bar" x="${x1.toFixed(1)}" y="${(y + 12).toFixed(1)}" width="${(x2 - x1).toFixed(1)}" height="16" rx="4"/>`;
+    }).join("");
+    return `<g>${label}${cells}</g>`;
+  }).join("");
+
+  // THE RULER IS A BAR UNDER MONDAY AND THE WORDS ARE IN THE NAME COLUMN, and
+  // both of the two earlier attempts are why. Three hour labels under one 62px
+  // column at 390px is 100 units of type in 62 units of space and came out an
+  // unreadable smear. Two labels anchored to the ends of the same column is 40px
+  // of type in 37px and printed "9am1pm": better, still overlapping, and the
+  // sort of thing that looks fine in the markup and fine at 1440. So the scale
+  // is drawn as a bar with end serifs, which needs no width at all, and the
+  // range is written once in the 178 units of empty label column beside it. The
+  // exact hours are on every card below; this only has to say which way is
+  // morning.
+  const yF = H - 12;
+  const lab = (h) => (h === 12 ? "noon" : h === 24 ? "midnight" : `${((h + 11) % 12) + 1}${h < 12 ? "am" : "pm"}`);
+  const rx1 = colX(0) + tx(lo), rx2 = colX(0) + tx(hi);
+  const ticks =
+    `<text class="sh-tick" style="text-anchor:end" x="${(LBL - 10).toFixed(1)}" y="${(yF + 4).toFixed(1)}">${lab(lo)} to ${lab(hi)}</text>` +
+    `<line class="sh-axis" x1="${rx1.toFixed(1)}" y1="${yF}" x2="${rx2.toFixed(1)}" y2="${yF}"/>` +
+    `<line class="sh-axis" x1="${rx1.toFixed(1)}" y1="${yF - 4}" x2="${rx1.toFixed(1)}" y2="${yF + 4}"/>` +
+    `<line class="sh-axis" x1="${rx2.toFixed(1)}" y1="${yF - 4}" x2="${rx2.toFixed(1)}" y2="${yF + 4}"/>`;
+
+  return `<figure class="shop-hours">
+      <svg viewBox="0 0 ${W} ${H}" role="img"
+        aria-label="Opening hours for all ${rows.length} shops as a grid, one column per day of the week. Each shop's hours are written out in full on its own card below.">
+        ${head}${body}
+        ${ticks}
+      </svg>
+      <figcaption>Who is open when, read off the same opening hours printed on each card below. A bar is the
+        hours that shop is open that day and an empty cell is closed. Every column runs on the same
+        ${lab(lo)} to ${lab(hi)} scale, ruled under Monday, so a bar that reaches further right closes
+        later. Hours change and holidays are not on here, so call before you drive.</figcaption>
+    </figure>`;
+}
+
 const cards = shops
   .map((s) => {
     const url = cleanUrl(s.url);
@@ -237,6 +408,18 @@ const schema = {
     url: cleanUrl(s.url),
   })),
 };
+
+// COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same regex and
+// the same trade as build-css.mjs makes for ui.css and miniCSS makes in seven
+// other builders including build-pack-prices.mjs, which argues it in full: this
+// block is inline in a render blocking <head>, so every line of reasoning in it
+// is paid for by every reader on shop wifi.
+//
+// THIS PAGE NEVER ADOPTED IT AND IT SHOWED. Measured on the built file before
+// this line went in: 6249 bytes of inline <style>, 1875 of them comment, which is
+// 30%. The comments stay exactly where they are; they simply stop being served.
+const miniCSS = (css) =>
+  css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
 
 const style = `
 .shops{padding:var(--s7) 0 var(--s8)}
@@ -303,6 +486,25 @@ const style = `
 .shop-map svg{display:block;width:100%;height:auto;max-width:660px}
 .shop-map figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);
   margin-top:var(--s2);max-width:52em}
+/* The opening hours grid. Same box as the map so the two read as a pair, and
+   the same currentColor discipline. Font sizes are in the SVG's own 660 unit
+   space, so at 390px on a phone the chart is drawn at 0.59 and a 17 unit shop
+   name renders at 10px. Nothing here is set at a size that does not survive
+   being nearly halved, which is why the chart is capped at 660 and drawn once
+   rather than given a phone layout of its own. Re-measured at 390 after the
+   first pass, where 13 unit type came out at 7.7px and could not be read. */
+.shop-hours{margin:0 0 var(--s5);color:var(--ink)}
+.shop-hours svg{display:block;width:100%;height:auto;max-width:660px}
+.shop-hours figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);
+  margin-top:var(--s2);max-width:52em}
+.sh-day{font:700 17px var(--mono);fill:var(--ink-2);text-anchor:middle;letter-spacing:.04em}
+.sh-name{font:700 17px var(--body);fill:var(--ink)}
+.sh-cell{fill:var(--paper-3)}
+.sh-bar{fill:var(--gold);stroke:var(--gold-deep);stroke-width:1}
+.sh-none{fill:var(--paper-3)}
+.sh-nonet{font:400 15px var(--mono);fill:var(--ink-2);text-anchor:middle}
+.sh-axis{stroke:var(--ink-2);stroke-width:1;opacity:.5}
+.sh-tick{font:400 14px var(--mono);fill:var(--ink-2);text-anchor:middle}
 .shops-note{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);max-width:52em}
 `;
@@ -316,6 +518,7 @@ const body = `
       table you play at are usually the same building, so both are on one page. Buy local when you can:
       the shop is why the local scene exists.</p>
 ${shopMap(shops)}
+${hoursChart(shops)}
     <ul class="shop-list">
 ${cards}
     </ul>
@@ -370,7 +573,7 @@ const swapped = head
 
 const html = `<!DOCTYPE html>
 <html lang="en">
-<head>${swapped}<style>${style}</style>
+<head>${swapped}<style>${miniCSS(style)}</style>
 <script type="application/ld+json">
 ${JSON.stringify(schema, null, 2)}
 </script>

@@ -55,6 +55,14 @@ padding:var(--s3) var(--s4);border:1px solid var(--hair);border-radius:var(--r);
 background-color:var(--card);box-shadow:var(--lift);max-width:44em}
 .setsym-i{flex:0 0 40px;width:40px;height:40px;object-fit:contain}
 .setsym p{margin:0;font-size:var(--t-sm);line-height:1.5}
+.flat-item .flat-pr{font:700 var(--t-sm)/1.5 var(--mono);color:var(--ketchup-deep);
+letter-spacing:0;text-transform:none}
+.flat-item a{display:inline-flex;align-items:center;min-height:44px;
+font:700 var(--t-micro)/1 var(--body);letter-spacing:.03em;color:var(--ketchup-deep)}
+.ig-cards li.is-chase{background:rgba(239,201,76,.18);border-radius:6px;
+padding-left:7px;padding-right:7px;margin-left:-7px;margin-right:-7px}
+.ig-rr2 .rk{margin-right:4px}
+.ig-rr2 .rk svg{width:9px;height:9px}
 .rar-name .rk{margin-right:5px}
 .svc{margin-top:var(--s5);max-width:42em;display:flex;flex-direction:column;gap:var(--s4)}
 .svc-row{display:grid;gap:4px}
@@ -140,6 +148,7 @@ border-radius:3px;padding:3px 5px}
         <li><a href="/expansions.html">Every set ever</a></li>
         <li><a href="/upcoming.html">Coming next</a></li>
         <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/msrp.html">MSRP check</a></li>
         <li><a href="/pack-prices.html">Pack prices</a></li>
         <li><a href="/how-many-packs.html">Packs per box</a></li>
         <li><a href="/openings/">Sealed products</a></li>
@@ -339,6 +348,7 @@ border-radius:3px;padding:3px 5px}
         
       </button>
     </div>
+    
     <p class="price-note">TCGplayer market prices via TCGdex, read August 12, 2026. These are the same eight rows the checklist further down prints, sorted by price, so the two agree by construction. Singles move fast, so treat them as a ballpark rather than a quote.</p>
     
   </div>
@@ -503,7 +513,7 @@ border-radius:3px;padding:3px 5px}
         <li><span class="ig-no">006</span>
           <span class="ig-nm">Tapu Bulu</span>
           <span class="ig-pr">$0.24</span>
-          <span class="ig-rr2">Rare</span></li>
+          <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
         <li><span class="ig-no">007</span>
           <span class="ig-nm">Houndour</span>
           <span class="ig-pr">$0.18</span>
@@ -527,7 +537,7 @@ border-radius:3px;padding:3px 5px}
         <li><span class="ig-no">012</span>
           <span class="ig-nm">Kingdra ex</span>
           <span class="ig-pr">$0.71</span>
-          <span class="ig-rr2">Double Rare</span></li>
+          <span class="ig-rr2"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span></li>
         <li><span class="ig-no">013</span>
           <span class="ig-nm">Sneasel</span>
           <span class="ig-pr">$0.17</span>
@@ -539,7 +549,7 @@ border-radius:3px;padding:3px 5px}
         <li><span class="ig-no">015</span>
           <span class="ig-nm">Revavroom ex</span>
           <span class="ig-pr">$0.67</span>
-          <span class="ig-rr2">Double Rare</span></li>
+          <span class="ig-rr2"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span></li>
         <li><span class="ig-no">016</span>
           <span class="ig-nm">Drowzee</span>
           <span class="ig-pr">$0.23</span>
@@ -559,11 +569,11 @@ border-radius:3px;padding:3px 5px}
         <li><span class="ig-no">020</span>
           <span class="ig-nm">Dusknoir</span>
           <span class="ig-pr">$0.30</span>
-          <span class="ig-rr2">Rare</span></li>
+          <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
         <li><span class="ig-no">021</span>
           <span class="ig-nm">Cresselia</span>
           <span class="ig-pr">$0.19</span>
-          <span class="ig-rr2">Rare</span></li>
+          <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
         <li><span class="ig-no">022</span>
           <span class="ig-nm">Sylveon</span>
           <span class="ig-pr">$0.80</span>
@@ -579,7 +589,7 @@ border-radius:3px;padding:3px 5px}
         <li><span class="ig-no">025</span>
           <span class="ig-nm">Bloodmoon Ursaluna</span>
           <span class="ig-pr">$0.22</span>
-          <span class="ig-rr2">Rare</span></li>
+          <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
         <li><span class="ig-no">026</span>
           <span class="ig-nm">Slither Wing</span>
           <span class="ig-pr">$0.29</span>
@@ -607,7 +617,7 @@ border-radius:3px;padding:3px 5px}
         <li><span class="ig-no">032</span>
           <span class="ig-nm">Zoroark</span>
           <span class="ig-pr">$0.21</span>
-          <span class="ig-rr2">Rare</span></li>
+          <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
         <li><span class="ig-no">033</span>
           <span class="ig-nm">Inkay</span>
           <span class="ig-pr">$0.26</span>
@@ -623,19 +633,19 @@ border-radius:3px;padding:3px 5px}
         <li><span class="ig-no">036</span>
           <span class="ig-nm">Okidogi ex</span>
           <span class="ig-pr">$0.68</span>
-          <span class="ig-rr2">Double Rare</span></li>
+          <span class="ig-rr2"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span></li>
         <li><span class="ig-no">037</span>
           <span class="ig-nm">Munkidori ex</span>
           <span class="ig-pr">$0.63</span>
-          <span class="ig-rr2">Double Rare</span></li>
+          <span class="ig-rr2"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span></li>
         <li><span class="ig-no">038</span>
           <span class="ig-nm">Fezandipiti ex</span>
           <span class="ig-pr">$2.84</span>
-          <span class="ig-rr2">Double Rare</span></li>
+          <span class="ig-rr2"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span></li>
         <li><span class="ig-no">039</span>
           <span class="ig-nm">Pecharunt ex</span>
           <span class="ig-pr">$5.46</span>
-          <span class="ig-rr2">Double Rare</span></li>
+          <span class="ig-rr2"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span></li>
         <li><span class="ig-no">040</span>
           <span class="ig-nm">Genesect</span>
           <span class="ig-pr">$0.27</span>
@@ -647,7 +657,7 @@ border-radius:3px;padding:3px 5px}
         <li><span class="ig-no">042</span>
           <span class="ig-nm">Copperajah</span>
           <span class="ig-pr">$0.16</span>
-          <span class="ig-rr2">Rare</span></li>
+          <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
         <li><span class="ig-no">043</span>
           <span class="ig-nm">Varoom</span>
           <span class="ig-pr">$0.13</span>
@@ -663,7 +673,7 @@ border-radius:3px;padding:3px 5px}
         <li><span class="ig-no">046</span>
           <span class="ig-nm">Haxorus</span>
           <span class="ig-pr">$0.24</span>
-          <span class="ig-rr2">Rare</span></li>
+          <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
         <li><span class="ig-no">047</span>
           <span class="ig-nm">Kyurem</span>
           <span class="ig-pr">$0.29</span>
@@ -708,26 +718,26 @@ border-radius:3px;padding:3px 5px}
           <span class="ig-nm">Colress's Tenacity</span>
           <span class="ig-pr">$0.48</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li><span class="ig-no">058</span>
+        <li class="is-chase"><span class="ig-no">058</span>
           <span class="ig-nm">Dangerous Laser</span>
           <span class="ig-pr">$0.49</span>
-          <span class="ig-rr2">ACE SPEC Rare</span></li>
+          <span class="ig-rr2"><span class="rk rk-pink" title="ACE SPEC Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>ACE SPEC Rare</span></li>
         <li><span class="ig-no">059</span>
           <span class="ig-nm">Janine's Secret Art</span>
           <span class="ig-pr">$0.23</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li><span class="ig-no">060</span>
+        <li class="is-chase"><span class="ig-no">060</span>
           <span class="ig-nm">Neutralization Zone</span>
           <span class="ig-pr">$0.89</span>
-          <span class="ig-rr2">ACE SPEC Rare</span></li>
+          <span class="ig-rr2"><span class="rk rk-pink" title="ACE SPEC Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>ACE SPEC Rare</span></li>
         <li><span class="ig-no">061</span>
           <span class="ig-nm">Night Stretcher</span>
           <span class="ig-pr">$3.23</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li><span class="ig-no">062</span>
+        <li class="is-chase"><span class="ig-no">062</span>
           <span class="ig-nm">Poké Vital A</span>
           <span class="ig-pr">$0.47</span>
-          <span class="ig-rr2">ACE SPEC Rare</span></li>
+          <span class="ig-rr2"><span class="rk rk-pink" title="ACE SPEC Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>ACE SPEC Rare</span></li>
         <li><span class="ig-no">063</span>
           <span class="ig-nm">Powerglass</span>
           <span class="ig-pr">$0.24</span>
@@ -736,149 +746,149 @@ border-radius:3px;padding:3px 5px}
           <span class="ig-nm">Xerosic's Machinations</span>
           <span class="ig-pr">$0.33</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li><span class="ig-no">065</span>
+        <li class="is-chase"><span class="ig-no">065</span>
           <span class="ig-nm">Tapu Bulu</span>
           <span class="ig-pr">$12.80</span>
-          <span class="ig-rr2">Illustration Rare</span></li>
-        <li><span class="ig-no">066</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">066</span>
           <span class="ig-nm">Houndoom</span>
           <span class="ig-pr">$57.66</span>
-          <span class="ig-rr2">Illustration Rare</span></li>
-        <li><span class="ig-no">067</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">067</span>
           <span class="ig-nm">Horsea</span>
           <span class="ig-pr">$49.42</span>
-          <span class="ig-rr2">Illustration Rare</span></li>
-        <li><span class="ig-no">068</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">068</span>
           <span class="ig-nm">Duskull</span>
           <span class="ig-pr">$54.03</span>
-          <span class="ig-rr2">Illustration Rare</span></li>
-        <li><span class="ig-no">069</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">069</span>
           <span class="ig-nm">Dusclops</span>
           <span class="ig-pr">$34.41</span>
-          <span class="ig-rr2">Illustration Rare</span></li>
-        <li><span class="ig-no">070</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">070</span>
           <span class="ig-nm">Dusknoir</span>
           <span class="ig-pr">$31.24</span>
-          <span class="ig-rr2">Illustration Rare</span></li>
-        <li><span class="ig-no">071</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">071</span>
           <span class="ig-nm">Cresselia</span>
           <span class="ig-pr">$28.44</span>
-          <span class="ig-rr2">Illustration Rare</span></li>
-        <li><span class="ig-no">072</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">072</span>
           <span class="ig-nm">Munkidori</span>
           <span class="ig-pr">$33.45</span>
-          <span class="ig-rr2">Illustration Rare</span></li>
-        <li><span class="ig-no">073</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">073</span>
           <span class="ig-nm">Fezandipiti</span>
           <span class="ig-pr">$13.60</span>
-          <span class="ig-rr2">Illustration Rare</span></li>
-        <li><span class="ig-no">074</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">074</span>
           <span class="ig-nm">Okidogi</span>
           <span class="ig-pr">$16.84</span>
-          <span class="ig-rr2">Illustration Rare</span></li>
-        <li><span class="ig-no">075</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">075</span>
           <span class="ig-nm">Zorua</span>
           <span class="ig-pr">$27.80</span>
-          <span class="ig-rr2">Illustration Rare</span></li>
-        <li><span class="ig-no">076</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">076</span>
           <span class="ig-nm">Cufant</span>
           <span class="ig-pr">$15.33</span>
-          <span class="ig-rr2">Illustration Rare</span></li>
-        <li><span class="ig-no">077</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">077</span>
           <span class="ig-nm">Fraxure</span>
           <span class="ig-pr">$18.89</span>
-          <span class="ig-rr2">Illustration Rare</span></li>
-        <li><span class="ig-no">078</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">078</span>
           <span class="ig-nm">Persian</span>
           <span class="ig-pr">$72.98</span>
-          <span class="ig-rr2">Illustration Rare</span></li>
-        <li><span class="ig-no">079</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">079</span>
           <span class="ig-nm">Bewear</span>
           <span class="ig-pr">$27.45</span>
-          <span class="ig-rr2">Illustration Rare</span></li>
-        <li><span class="ig-no">080</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">080</span>
           <span class="ig-nm">Kingdra ex</span>
           <span class="ig-pr">$3.73</span>
-          <span class="ig-rr2">Ultra Rare</span></li>
-        <li><span class="ig-no">081</span>
+          <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
+        <li class="is-chase"><span class="ig-no">081</span>
           <span class="ig-nm">Revavroom ex</span>
           <span class="ig-pr">$1.81</span>
-          <span class="ig-rr2">Ultra Rare</span></li>
-        <li><span class="ig-no">082</span>
+          <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
+        <li class="is-chase"><span class="ig-no">082</span>
           <span class="ig-nm">Okidogi ex</span>
           <span class="ig-pr">$2.40</span>
-          <span class="ig-rr2">Ultra Rare</span></li>
-        <li><span class="ig-no">083</span>
+          <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
+        <li class="is-chase"><span class="ig-no">083</span>
           <span class="ig-nm">Munkidori ex</span>
           <span class="ig-pr">$2.22</span>
-          <span class="ig-rr2">Ultra Rare</span></li>
-        <li><span class="ig-no">084</span>
+          <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
+        <li class="is-chase"><span class="ig-no">084</span>
           <span class="ig-nm">Fezandipiti ex</span>
           <span class="ig-pr">$12.50</span>
-          <span class="ig-rr2">Ultra Rare</span></li>
-        <li><span class="ig-no">085</span>
+          <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
+        <li class="is-chase"><span class="ig-no">085</span>
           <span class="ig-nm">Pecharunt ex</span>
           <span class="ig-pr">$7.73</span>
-          <span class="ig-rr2">Ultra Rare</span></li>
-        <li><span class="ig-no">086</span>
+          <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
+        <li class="is-chase"><span class="ig-no">086</span>
           <span class="ig-nm">Cassiopeia</span>
           <span class="ig-pr">$3.90</span>
-          <span class="ig-rr2">Ultra Rare</span></li>
-        <li><span class="ig-no">087</span>
+          <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
+        <li class="is-chase"><span class="ig-no">087</span>
           <span class="ig-nm">Colress's Tenacity</span>
           <span class="ig-pr">$7.20</span>
-          <span class="ig-rr2">Ultra Rare</span></li>
-        <li><span class="ig-no">088</span>
+          <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
+        <li class="is-chase"><span class="ig-no">088</span>
           <span class="ig-nm">Janine's Secret Art</span>
           <span class="ig-pr">$6.96</span>
-          <span class="ig-rr2">Ultra Rare</span></li>
-        <li><span class="ig-no">089</span>
+          <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
+        <li class="is-chase"><span class="ig-no">089</span>
           <span class="ig-nm">Xerosic's Machinations</span>
           <span class="ig-pr">$7.75</span>
-          <span class="ig-rr2">Ultra Rare</span></li>
-        <li><span class="ig-no">090</span>
+          <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
+        <li class="is-chase"><span class="ig-no">090</span>
           <span class="ig-nm">Okidogi ex</span>
           <span class="ig-pr">$23.58</span>
-          <span class="ig-rr2">Special Illustration Rare</span></li>
-        <li><span class="ig-no">091</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">091</span>
           <span class="ig-nm">Munkidori ex</span>
           <span class="ig-pr">$19.61</span>
-          <span class="ig-rr2">Special Illustration Rare</span></li>
-        <li><span class="ig-no">092</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">092</span>
           <span class="ig-nm">Fezandipiti ex</span>
           <span class="ig-pr">$40.52</span>
-          <span class="ig-rr2">Special Illustration Rare</span></li>
-        <li><span class="ig-no">093</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">093</span>
           <span class="ig-nm">Pecharunt ex</span>
           <span class="ig-pr">$24.56</span>
-          <span class="ig-rr2">Special Illustration Rare</span></li>
-        <li><span class="ig-no">094</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">094</span>
           <span class="ig-nm">Cassiopeia</span>
           <span class="ig-pr">$43.52</span>
-          <span class="ig-rr2">Special Illustration Rare</span></li>
-        <li><span class="ig-no">095</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
+        <li class="is-chase"><span class="ig-no">095</span>
           <span class="ig-nm">Pecharunt ex</span>
           <span class="ig-pr">$22.06</span>
-          <span class="ig-rr2">Hyper Rare</span></li>
-        <li><span class="ig-no">096</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Hyper Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Hyper Rare</span></li>
+        <li class="is-chase"><span class="ig-no">096</span>
           <span class="ig-nm">Earthen Vessel</span>
           <span class="ig-pr">$18.36</span>
-          <span class="ig-rr2">Hyper Rare</span></li>
-        <li><span class="ig-no">097</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Hyper Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Hyper Rare</span></li>
+        <li class="is-chase"><span class="ig-no">097</span>
           <span class="ig-nm">Powerglass</span>
           <span class="ig-pr">$21.17</span>
-          <span class="ig-rr2">Hyper Rare</span></li>
-        <li><span class="ig-no">098</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Hyper Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Hyper Rare</span></li>
+        <li class="is-chase"><span class="ig-no">098</span>
           <span class="ig-nm">Basic Darkness Energy</span>
           <span class="ig-pr">$62.90</span>
-          <span class="ig-rr2">Hyper Rare</span></li>
-        <li><span class="ig-no">099</span>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Hyper Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Hyper Rare</span></li>
+        <li class="is-chase"><span class="ig-no">099</span>
           <span class="ig-nm">Basic Metal Energy</span>
           <span class="ig-pr">$33.89</span>
-          <span class="ig-rr2">Hyper Rare</span></li>
+          <span class="ig-rr2"><span class="rk rk-gold" title="Hyper Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Hyper Rare</span></li>
       </ol>
     </details>
-    <p class="price-note">TCGplayer market prices via TCGdex, read August 12, 2026.
+    <p class="price-note">The gold rows are the chase tiers, the same ones the rarity breakdown above highlights. The stars beside a rarity are the ones printed on that card. TCGplayer market prices via TCGdex, read August 12, 2026.
       Where a card exists as a normal, holo and reverse holo at different prices, the figure shown is the priciest of
       them, because that is the one people mean. 99 of 99 cards have a price.
       Looking for one card in particular? <a href="/cards.html?set=shrouded-fable">Search every card on the site</a>.</p>
@@ -1062,6 +1072,7 @@ border-radius:3px;padding:3px 5px}
         <a href="/expansions.html">Every set ever</a>
         <a href="/upcoming.html">Coming next</a>
         <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/msrp.html">MSRP check</a>
         <a href="/pack-prices.html">Pack prices</a>
         <a href="/how-many-packs.html">Packs per box</a>
         <a href="/openings/">Sealed products</a>

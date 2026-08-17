@@ -199,11 +199,70 @@ const cardImg = (() => {
   const low = `${lc.img}/low.webp`;
   const high = `${lc.img}/high.webp`;
   return avifPicture(
-    `<img src="${esc(low)}" srcset="${esc(low)} 245w, ${esc(high)} 600w" sizes="190px"` +
+    `<img src="${esc(low)}" srcset="${esc(low)} 245w, ${esc(high)} 600w" sizes="(max-width:640px) 92vw, 300px"` +
       ` alt="${esc(lc.card)}, ${esc(lc.set)} number ${esc(lc.number)}, a Basic Pokemon card"` +
       ` loading="lazy" decoding="async" onerror="this.remove()"${imgDims(low)}>`
   );
 })();
+
+/**
+ * THE SIX NUMBERS, RINGED ON THE CARD ITSELF.
+ *
+ * WHAT WAS WRONG WITH IT BEFORE. The list beside the scan already said "HP, top
+ * right", "Weakness, bottom left", "Retreat Cost, bottom right". Every one of
+ * those is a position described in words to somebody who is looking straight at
+ * the position. The reader this page is for is a beginner holding a card in a
+ * shop, and the job "find the retreat cost" is a pointing job, not a reading
+ * job. So the picture now points: a ring round each of the six, a numbered chip
+ * on the ring, and the same number on the matching line of the list. The scan
+ * and the list stop being two things to hold in your head at once.
+ *
+ * IT IS AN OVERLAY, NOT A NEW IMAGE, AND THAT IS THE WHOLE POINT ON THIS SITE.
+ * Six rects and six chips of inline SVG cost about 1.1KB of markup, gzipped to
+ * a few hundred bytes inside the page, against a re-drawn annotated card which
+ * would be a second file to fetch, a second thing to keep in step with the
+ * scan, and a picture we would have to redraw the day the card changes.
+ *
+ * THE COORDINATES ARE IN THE CARD'S OWN 245x337 SPACE and were read off the
+ * scan rendered at 600x825 with a 10% grid over it, not guessed from the
+ * layout. viewBox 0 0 245 337 with the default preserveAspectRatio matches the
+ * <img>'s aspect exactly, so the rings sit on the numbers at every width. They
+ * are HOLES, not covers: each rect is drawn round its value and never over it,
+ * because a callout that hides the thing it is calling out is worse than no
+ * callout. The HP ring stops at x=215 for that reason, since the type symbol
+ * starts at 215 and is not what line 1 is about.
+ *
+ * A DARK STROKE UNDER A GOLD ONE. The card runs from a near white text box to a
+ * dark blue title bar to full colour art, so no single stroke colour survives
+ * all of it. The sludge stroke is 1.6 units wider than the gold one on top, so
+ * the gold always has a dark edge against whatever is behind it.
+ *
+ * ARIA-HIDDEN, deliberately. The overlay carries no information the list does
+ * not: every chip has its number printed in the list item it belongs to, and
+ * the <li> text still names the position in words for anybody who cannot see
+ * the rings at all. A screen reader announcing "1 2 3 4 5 6" over the card
+ * would be noise. The figcaption says the numbers are on the card, which is the
+ * part a sighted reader needs told once.
+ */
+const ANNOT = [
+  // [x, y, w, h, chip cx, chip cy]  in the card's own 245 x 337 units
+  [182, 11, 33, 19, 174, 20],   // 1 HP, top right, stopping short of the type symbol
+  [18, 244, 27, 18, 31, 236],   // 2 attack cost, left of Tackle
+  [212, 244, 17, 18, 220, 236], // 3 damage, right of Tackle
+  [12, 287, 56, 17, 20, 279],   // 4 weakness
+  [72, 287, 71, 17, 80, 279],   // 5 resistance
+  [148, 287, 47, 17, 156, 279], // 6 retreat
+];
+const cardAnnot = `<svg class="hp-annot" viewBox="0 0 245 337" aria-hidden="true" focusable="false">
+${ANNOT.map(([x, y, w, h], i) =>
+  `            <rect class="hp-annot-u" x="${x}" y="${y}" width="${w}" height="${h}" rx="4"/>` +
+  `<rect class="hp-annot-r" x="${x}" y="${y}" width="${w}" height="${h}" rx="4"/>`
+).join("\n")}
+${ANNOT.map(([, , , , cx, cy], i) =>
+  `            <g class="hp-annot-c"><circle cx="${cx}" cy="${cy}" r="8"/>` +
+  `<text x="${cx}" y="${cy + 3.4}">${i + 1}</text></g>`
+).join("\n")}
+          </svg>`;
 
 /**
  * One real card per kind, for the three boxes in "The three kinds of card".
@@ -291,6 +350,18 @@ const ld = [
   },
 ];
 
+// COMMENTS OUT OF THE SHIPPED PAGE, ARGUMENT KEPT IN THIS FILE. Same regex and
+// the same trade as build-css.mjs makes for ui.css and miniCSS makes in seven
+// other builders including build-pack-prices.mjs, which argues it in full: this
+// block is inline in a render blocking <head>, so every line of reasoning in it
+// is paid for by every reader on shop wifi.
+//
+// THIS PAGE NEVER ADOPTED IT AND IT SHOWED. Measured on the built file before
+// this line went in: 10656 bytes of inline <style>, 3268 of them comment, which is
+// 30%. The comments stay exactly where they are; they simply stop being served.
+const miniCSS = (css) =>
+  css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[ \t\n]*/g, "\n").trim();
+
 const style = `
 .hp-lede{max-width:44em}
 .hp-s{margin-top:var(--s6);scroll-margin-top:var(--s5)}
@@ -357,15 +428,48 @@ const style = `
 .bd-net{stroke:var(--ink);stroke-width:1;stroke-dasharray:4 3;opacity:.5}
 .bd-net-t{font:400 4.6px var(--mono);fill:var(--ink-2)}
 .bd-k{font:400 5px var(--mono);fill:var(--ink-2)}
-.hp-anat{display:grid;grid-template-columns:190px 1fr;gap:var(--s4);align-items:start;margin-top:var(--s4)}
+/* 190px WAS TOO NARROW ONCE THE CARD CARRIED CALLOUTS ON IT, and this is the
+   only reason it moved. The chips are drawn in the card's own 245 unit space,
+   so their rendered size is whatever the column is divided by 245: at 190px a
+   chip was an 6.2px circle with a 4.7px numeral in it, which is a dot. At 300px
+   it is 9.8px with a 12px numeral, and on a phone the figure is one column and
+   the card runs the full 368px, where the same chip is 12px with a 15px
+   numeral. The phone was always the readable one and the desktop was the case
+   that needed the width. The labels column loses 110px and measured 31 real
+   characters at its longest before, so it has it to give. */
+.hp-anat{display:grid;grid-template-columns:300px 1fr;gap:var(--s4);align-items:start;margin-top:var(--s4)}
 @media(max-width:640px){.hp-anat{grid-template-columns:1fr}}
 .hp-anat img{width:100%;height:auto;display:block;border-radius:6px}
 .hp-anat figcaption{margin-top:6px;font-size:var(--t-micro);color:var(--ink-2);line-height:1.5}
+/* The overlay is stretched over the picture rather than sized by hand: the
+   <img> sets the height, the svg matches it, and the shared 245x337 aspect is
+   what keeps the rings on the numbers. picture and img are both display:block
+   here so there is no inline baseline gap to knock the two out of register. */
+.hp-card{position:relative;line-height:0}
+.hp-card picture{display:block}
+.hp-annot{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hp-annot-u{fill:none;stroke:#1E2419;stroke-width:3.4;opacity:.75}
+.hp-annot-r{fill:none;stroke:var(--gold);stroke-width:1.8}
+.hp-annot-c circle{fill:#1E2419;stroke:var(--gold);stroke-width:1.6}
+.hp-annot-c text{fill:var(--gold);font:700 9.5px var(--mono);text-anchor:middle}
 .hp-lbl{list-style:none;margin:0;padding:0}
 .hp-lbl li{border-left:4px solid var(--gold);padding-left:var(--s3);margin-bottom:var(--s3);
   font-size:var(--t-sm);line-height:1.5}
 .hp-lbl b{display:block;font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;
   text-transform:uppercase;color:var(--ink-2);margin-bottom:3px}
+/* The chip in the list is drawn to match the chip on the card, same colours and
+   same numeral, because the whole device fails the moment the two stop looking
+   like the same object.
+   IT IS A FLEX ITEM AND NOT A FLOAT, and that was the first version. A float:right
+   chip is fine on a phone, where the li is 350px wide, and absurd at 1440, where
+   .hp-lbl is the 1fr half of a 1392px figure: the chip landed hard against the
+   right edge of the page, a thousand pixels from the words it numbers, and every
+   one of the six lined up in a column of their own that read as a separate list.
+   Caught by screenshotting the desktop, not visible from the markup. */
+.hp-lbl li{display:flex;gap:var(--s2);align-items:flex-start}
+.hp-n{flex:0 0 auto;margin-top:1px;width:22px;height:22px;border-radius:50%;
+  background:#1E2419;border:2px solid var(--gold);color:var(--gold);
+  font:700 12px/18px var(--mono);text-align:center}
 .hp-wins{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s4)}
 @media(max-width:760px){.hp-wins{grid-template-columns:1fr}}
 .hp-win{border:3px solid var(--navy);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
@@ -543,12 +647,16 @@ ${(() => {
         </div>
         <figure class="hp-anat">
           <div>
-            ${cardImg}
+            <div class="hp-card">${cardImg}
+          ${cardAnnot}
+            </div>
             <figcaption>${esc(lc.card)}, ${esc(lc.set)} #${esc(lc.number)}. A plain Basic that prints every number
-              named here, including a Resistance.</figcaption>
+              named here, including a Resistance. The six are ringed on the card and numbered to match the list.</figcaption>
           </div>
           <ul class="hp-lbl">
-${LABELS.map(([where, what]) => `            <li><b>${esc(where)}</b>${esc(what)}</li>`).join("\n")}
+${LABELS.map(([where, what], i) =>
+  `            <li><span class="hp-n">${i + 1}</span><div><b>${esc(where)}</b>${esc(what)}</div></li>`
+).join("\n")}
           </ul>
         </figure>
         <p style="margin-top:var(--s4)">Weakness and Resistance are never applied to a Benched Pokemon. And how
@@ -774,7 +882,7 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#111111">
 ${FONTS}
 ${STYLES}
-<style>${style}</style>
+<style>${miniCSS(style)}</style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
 <body>

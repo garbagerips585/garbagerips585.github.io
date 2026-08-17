@@ -23,31 +23,25 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="stylesheet" href="/assets/ui.css?v=17b9bdb3">
-<style>
-.hp-lede{max-width:44em}
+<style>.hp-lede{max-width:44em}
 .hp-s{margin-top:var(--s6);scroll-margin-top:var(--s5)}
 .hp-s > p{max-width:44em;line-height:1.6}
 .hp-s > p + p{margin-top:var(--s3)}
 .hp-jump{display:flex;flex-wrap:wrap;gap:8px;margin:var(--s5) 0 0}
 .hp-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
-  border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
-  text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
+border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
+text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
 .hp-jump a:hover{border-color:var(--ink);background:var(--mustard)}
 .hp-box{border:3px solid var(--navy);border-radius:12px;background:var(--card);
-  box-shadow:var(--hard-lg);padding:var(--s4);margin-top:var(--s4)}
+box-shadow:var(--hard-lg);padding:var(--s4);margin-top:var(--s4)}
 .hp-box h3{font:400 var(--t-m)/1.2 var(--display);margin-bottom:var(--s2)}
 .hp-box p,.hp-box li{font-size:var(--t-sm);line-height:1.55}
 .hp-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s4)}
 @media(max-width:760px){.hp-cards{grid-template-columns:1fr}}
 .hp-cards h3{display:flex;align-items:baseline;gap:8px}
-/* The scan floats so the box reads as one paragraph with a picture in it rather
-   than as a card above a caption above a heading. 96px is a third of the widest
-   the box gets and it is what sizes="96px" is measured against. */
 .hp-kf{float:right;width:96px;margin:0 0 var(--s2) var(--s3)}
 .hp-kf img{width:100%;height:auto;display:block;border-radius:6px}
 .hp-kf figcaption{margin-top:4px;font:400 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-align:center}
-/* Clears the float so the next box does not start beside the previous scan when
-   the grid is a single column on a phone. */
 .hp-cards .hp-box{overflow:hidden}
 .hp-cards .hp-t{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
 .hp-sub{list-style:none;margin:var(--s3) 0 0;padding:0}
@@ -56,19 +50,19 @@
 .hp-steps{counter-reset:hp;list-style:none;margin:var(--s4) 0 0;padding:0;max-width:44em}
 .hp-steps li{counter-increment:hp;position:relative;padding-left:38px;margin-bottom:var(--s3);line-height:1.55}
 .hp-steps li::before{content:counter(hp);position:absolute;left:0;top:0;width:26px;height:26px;
-  display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--navy);
-  color:var(--chrome-ink);font:700 var(--t-micro)/1 var(--mono)}
+display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--navy);
+color:var(--chrome-ink);font:700 var(--t-micro)/1 var(--mono)}
 .hp-call{border-left:5px solid var(--ketchup);background:var(--card);border:1px solid var(--hair);
-  border-left:5px solid var(--ketchup);border-radius:8px;padding:var(--s3) var(--s4);margin-top:var(--s4);max-width:44em}
+border-left:5px solid var(--ketchup);border-radius:8px;padding:var(--s3) var(--s4);margin-top:var(--s4);max-width:44em}
 .hp-call b{display:block;font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;
-  text-transform:uppercase;color:var(--ketchup-deep);margin-bottom:4px}
+text-transform:uppercase;color:var(--ketchup-deep);margin-bottom:4px}
 .hp-call p{font-size:var(--t-sm);line-height:1.55}
 .hp-shout{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:var(--chrome-ink);
-  padding:var(--s4) var(--s5);margin:var(--s4) 0;box-shadow:var(--hard-lg);max-width:44em}
+padding:var(--s4) var(--s5);margin:var(--s4) 0;box-shadow:var(--hard-lg);max-width:44em}
 .hp-shout p{font:400 var(--t-m)/1.3 var(--display);color:var(--chrome-ink)}
 .hp-shout span{display:block;margin-top:var(--s2);font-size:var(--t-sm);color:var(--foot-ink);line-height:1.5}
 .hp-tbl-w{overflow-x:auto;margin-top:var(--s4);border:3px solid var(--navy);border-radius:12px;
-  background:var(--card);box-shadow:var(--hard-lg);max-width:44em}
+background:var(--card);box-shadow:var(--hard-lg);max-width:44em}
 .hp-tbl{width:100%;border-collapse:collapse;font-size:var(--t-sm)}
 .hp-tbl th,.hp-tbl td{text-align:left;padding:10px var(--s3);border-bottom:1px solid var(--hair);vertical-align:top}
 .hp-tbl thead th{font:700 var(--t-micro)/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
@@ -89,28 +83,39 @@
 .bd-net{stroke:var(--ink);stroke-width:1;stroke-dasharray:4 3;opacity:.5}
 .bd-net-t{font:400 4.6px var(--mono);fill:var(--ink-2)}
 .bd-k{font:400 5px var(--mono);fill:var(--ink-2)}
-.hp-anat{display:grid;grid-template-columns:190px 1fr;gap:var(--s4);align-items:start;margin-top:var(--s4)}
+.hp-anat{display:grid;grid-template-columns:300px 1fr;gap:var(--s4);align-items:start;margin-top:var(--s4)}
 @media(max-width:640px){.hp-anat{grid-template-columns:1fr}}
 .hp-anat img{width:100%;height:auto;display:block;border-radius:6px}
 .hp-anat figcaption{margin-top:6px;font-size:var(--t-micro);color:var(--ink-2);line-height:1.5}
+.hp-card{position:relative;line-height:0}
+.hp-card picture{display:block}
+.hp-annot{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hp-annot-u{fill:none;stroke:#1E2419;stroke-width:3.4;opacity:.75}
+.hp-annot-r{fill:none;stroke:var(--gold);stroke-width:1.8}
+.hp-annot-c circle{fill:#1E2419;stroke:var(--gold);stroke-width:1.6}
+.hp-annot-c text{fill:var(--gold);font:700 9.5px var(--mono);text-anchor:middle}
 .hp-lbl{list-style:none;margin:0;padding:0}
 .hp-lbl li{border-left:4px solid var(--gold);padding-left:var(--s3);margin-bottom:var(--s3);
-  font-size:var(--t-sm);line-height:1.5}
+font-size:var(--t-sm);line-height:1.5}
 .hp-lbl b{display:block;font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;
-  text-transform:uppercase;color:var(--ink-2);margin-bottom:3px}
+text-transform:uppercase;color:var(--ink-2);margin-bottom:3px}
+.hp-lbl li{display:flex;gap:var(--s2);align-items:flex-start}
+.hp-n{flex:0 0 auto;margin-top:1px;width:22px;height:22px;border-radius:50%;
+background:#1E2419;border:2px solid var(--gold);color:var(--gold);
+font:700 12px/18px var(--mono);text-align:center}
 .hp-wins{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s4)}
 @media(max-width:760px){.hp-wins{grid-template-columns:1fr}}
 .hp-win{border:3px solid var(--navy);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
-  padding:var(--s4)}
+padding:var(--s4)}
 .hp-win span{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;color:var(--ink-2)}
 .hp-win h3{font:400 var(--t-m)/1.15 var(--display);margin:6px 0 var(--s2)}
 .hp-win p{font-size:var(--t-sm);line-height:1.5}
 .hp-go{list-style:none;margin:var(--s4) 0 0;padding:0;max-width:44em}
 .hp-go li{border-left:4px solid var(--gold);padding-left:var(--s3);margin-bottom:var(--s4);line-height:1.55}
 .hp-go b{display:block;font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;
-  text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
+text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
 .hp-out{border:3px dashed var(--navy);border-radius:12px;background:var(--card);padding:var(--s4);
-  margin-top:var(--s6);max-width:44em}
+margin-top:var(--s6);max-width:44em}
 .hp-out h2{margin-bottom:var(--s2)}
 .hp-out > p{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
 .hp-out ul{list-style:none;margin:var(--s3) 0 0;padding:0}
@@ -118,31 +123,11 @@
 .hp-out a{font-weight:700}
 .hp-out .hp-off{display:inline-block;font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);margin-left:6px}
 .hp-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s6);line-height:1.6;max-width:46em}
-
-/* DESKTOP READING MEASURE. The 44 to 46em caps above were written as if 1em
-   were one character. It is not: Outfit at 17px runs about 2.47 characters per
-   em, so 44em is a 748px box and it measured 105 real characters a line at
-   1440, with half of every line on the page over 90. ui.css already caps main
-   prose at var(--measure) and these rules only outranked it by landing after
-   the stylesheet, so this block is letting the site-wide decision through
-   rather than making a new one. All min-width:1000, ui.css's own desktop
-   breakpoint, so the phone and the tablet range keep exactly the rules
-   they had.
-
-   .hp-go li IS IN AND .hp-lbl li IS NOT, AND BOTH WERE MEASURED RATHER THAN
-   GUESSED FROM THE SHAPE. They are built the same way, a display-block b label
-   then a sentence, so a pass reading the markup would cap both. .hp-lbl li
-   lives in the .hp-anat figure beside the annotated card, in a column that is
-   already narrow: it measures 31 real characters at its longest at 1440, so a
-   36em cap buys it nothing and would only be a width it might one day hit.
-   .hp-go li measures 98. See the measure block in ui.css for why every list
-   has to be looked at one at a time. Measured, 1440x900, 16 August 2026. */
 @media(min-width:1000px){
 .hp-lede,.hp-src{max-width:var(--measure)}
 .hp-s > p{max-width:var(--measure)}
 .hp-go li{max-width:var(--measure)}
-}
-</style>
+}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"How to play"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What even is the Pokemon card game?","acceptedAnswer":{"@type":"Answer","text":"Two players each bring a 60 card deck, put Pokemon down on the table, attach Energy to them, and attack each other's Pokemon until one player has taken all six of their Prize cards."}},{"@type":"Question","name":"How do you set up a game of Pokemon cards?","acceptedAnswer":{"@type":"Answer","text":"Flip a coin and the winner chooses who goes first. Shuffle, draw seven, put a Basic Pokemon face down in the Active spot and up to five more on the Bench, then count the top six cards of your deck aside as your Prize cards. Both players turn everything face up and start."}},{"@type":"Question","name":"What happens on a turn?","acceptedAnswer":{"@type":"Answer","text":"Draw a card. Then do as much or as little as you like: attach one Energy, play Trainer cards, put Basics on your Bench, evolve, retreat, use Abilities. Then attack, and your turn is over."}},{"@type":"Question","name":"How do you win a game of Pokemon cards?","acceptedAnswer":{"@type":"Answer","text":"Three ways. Take all six of your own Prize cards, leave your opponent with no Pokemon in play, or have them unable to draw a card at the start of their turn."}},{"@type":"Question","name":"Do I need to build a deck to play?","acceptedAnswer":{"@type":"Answer","text":"No. A preconstructed deck is a legal 60 card deck out of the box. Two people need two decks, or one Battle Academy box."}}]}</script>
 </head>
@@ -202,6 +187,7 @@
         <li><a href="/expansions.html">Every set ever</a></li>
         <li><a href="/upcoming.html">Coming next</a></li>
         <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/msrp.html">MSRP check</a></li>
         <li><a href="/pack-prices.html">Pack prices</a></li>
         <li><a href="/how-many-packs.html">Packs per box</a></li>
         <li><a href="/openings/">Sealed products</a></li>
@@ -401,17 +387,32 @@
         </div>
         <figure class="hp-anat">
           <div>
-            <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/016/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03.5/016/high.avif 600w" sizes="190px"><img src="https://assets.tcgdex.net/en/sv/sv03.5/016/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03.5/016/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03.5/016/high.webp 600w" sizes="190px" alt="Pidgey, 151 number 016, a Basic Pokemon card" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+            <div class="hp-card"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/016/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03.5/016/high.avif 600w" sizes="(max-width:640px) 92vw, 300px"><img src="https://assets.tcgdex.net/en/sv/sv03.5/016/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03.5/016/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03.5/016/high.webp 600w" sizes="(max-width:640px) 92vw, 300px" alt="Pidgey, 151 number 016, a Basic Pokemon card" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+          <svg class="hp-annot" viewBox="0 0 245 337" aria-hidden="true" focusable="false">
+            <rect class="hp-annot-u" x="182" y="11" width="33" height="19" rx="4"/><rect class="hp-annot-r" x="182" y="11" width="33" height="19" rx="4"/>
+            <rect class="hp-annot-u" x="18" y="244" width="27" height="18" rx="4"/><rect class="hp-annot-r" x="18" y="244" width="27" height="18" rx="4"/>
+            <rect class="hp-annot-u" x="212" y="244" width="17" height="18" rx="4"/><rect class="hp-annot-r" x="212" y="244" width="17" height="18" rx="4"/>
+            <rect class="hp-annot-u" x="12" y="287" width="56" height="17" rx="4"/><rect class="hp-annot-r" x="12" y="287" width="56" height="17" rx="4"/>
+            <rect class="hp-annot-u" x="72" y="287" width="71" height="17" rx="4"/><rect class="hp-annot-r" x="72" y="287" width="71" height="17" rx="4"/>
+            <rect class="hp-annot-u" x="148" y="287" width="47" height="17" rx="4"/><rect class="hp-annot-r" x="148" y="287" width="47" height="17" rx="4"/>
+            <g class="hp-annot-c"><circle cx="174" cy="20" r="8"/><text x="174" y="23.4">1</text></g>
+            <g class="hp-annot-c"><circle cx="31" cy="236" r="8"/><text x="31" y="239.4">2</text></g>
+            <g class="hp-annot-c"><circle cx="220" cy="236" r="8"/><text x="220" y="239.4">3</text></g>
+            <g class="hp-annot-c"><circle cx="20" cy="279" r="8"/><text x="20" y="282.4">4</text></g>
+            <g class="hp-annot-c"><circle cx="80" cy="279" r="8"/><text x="80" y="282.4">5</text></g>
+            <g class="hp-annot-c"><circle cx="156" cy="279" r="8"/><text x="156" y="282.4">6</text></g>
+          </svg>
+            </div>
             <figcaption>Pidgey, 151 #016. A plain Basic that prints every number
-              named here, including a Resistance.</figcaption>
+              named here, including a Resistance. The six are ringed on the card and numbered to match the list.</figcaption>
           </div>
           <ul class="hp-lbl">
-            <li><b>HP, top right</b>50. The damage it takes to knock this one out.</li>
-            <li><b>Attack cost, left of the attack</b>Two Colorless symbols, so any two Energy cards pay it.</li>
-            <li><b>Damage, right of the attack</b>20, which is 2 counters.</li>
-            <li><b>Weakness, bottom left</b>Lightning x2. A Lightning attacker does double.</li>
-            <li><b>Resistance, next to it</b>Fighting -30. A Fighting attacker does 30 less. Most cards print nothing here.</li>
-            <li><b>Retreat Cost, bottom right</b>1. Discard that much Energy to swap it out.</li>
+            <li><span class="hp-n">1</span><div><b>HP, top right</b>50. The damage it takes to knock this one out.</div></li>
+            <li><span class="hp-n">2</span><div><b>Attack cost, left of the attack</b>Two Colorless symbols, so any two Energy cards pay it.</div></li>
+            <li><span class="hp-n">3</span><div><b>Damage, right of the attack</b>20, which is 2 counters.</div></li>
+            <li><span class="hp-n">4</span><div><b>Weakness, bottom left</b>Lightning x2. A Lightning attacker does double.</div></li>
+            <li><span class="hp-n">5</span><div><b>Resistance, next to it</b>Fighting -30. A Fighting attacker does 30 less. Most cards print nothing here.</div></li>
+            <li><span class="hp-n">6</span><div><b>Retreat Cost, bottom right</b>1. Discard that much Energy to swap it out.</div></li>
           </ul>
         </figure>
         <p style="margin-top:var(--s4)">Weakness and Resistance are never applied to a Benched Pokemon. And how
@@ -559,6 +560,7 @@
         <a href="/expansions.html">Every set ever</a>
         <a href="/upcoming.html">Coming next</a>
         <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/msrp.html">MSRP check</a>
         <a href="/pack-prices.html">Pack prices</a>
         <a href="/how-many-packs.html">Packs per box</a>
         <a href="/openings/">Sealed products</a>

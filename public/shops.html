@@ -103,74 +103,64 @@
 .hof .vcar-slide{flex:0 0 calc((100% - var(--s4)) / 2)}
 }</style>
 <!-- HOMECSS:END -->
-<style>
-.shops{padding:var(--s7) 0 var(--s8)}
+<style>.shops{padding:var(--s7) 0 var(--s8)}
 .shops-lede{color:var(--ink-2);max-width:46em;margin-bottom:var(--s5)}
 .shop-list{list-style:none;display:grid;align-items:start;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
 @media(max-width:980px){.shop-list{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:640px){.shop-list{grid-template-columns:1fr}}
-/* align-items:start on the list above, so a card is as tall as its own content.
-   Stretched to a common height, a shop with less to say grew a hole in the
-   middle: LingSter Games had 280px of blank white between its facts and its
-   website link, Millennium 147px, because something below them is pushed to the
-   bottom of whatever height the tallest card sets. One full card beside two
-   that look broken is worse than three cards of honest, different heights. */
 .shop{display:flex;flex-direction:column;gap:var(--s2);background:var(--card);
-  border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);
-  box-shadow:var(--lift)}
+border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);
+box-shadow:var(--lift)}
 .shop-head{display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap}
 .shop h2{font:400 var(--t-m)/1.15 var(--display)}
 .shop-flag{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
-  background:var(--mustard);color:var(--ink);border:1px solid var(--gold-deep);
-  padding:4px 7px;border-radius:var(--r-pill)}
+background:var(--mustard);color:var(--ink);border:1px solid var(--gold-deep);
+padding:4px 7px;border-radius:var(--r-pill)}
 .shop-area{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.05em;
-  text-transform:uppercase}
+text-transform:uppercase}
 .shop-blurb{color:var(--ink-2);font-size:var(--t-sm)}
 .shop-tags{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:var(--s1)}
 .shop-tags li{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.03em;
-  background:var(--lilac-pale);color:var(--plum);padding:5px 9px;border-radius:var(--r-pill)}
-/* The auto margin moved off .shop-link and onto the wrapper. Left on the link
-   itself it stopped pushing anything anywhere once the links were wrapped in a
-   <p>, and the cards lost their aligned bottom row. */
+background:var(--lilac-pale);color:var(--plum);padding:5px 9px;border-radius:var(--r-pill)}
 .shop-links{margin-top:auto;padding-top:var(--s3);display:flex;flex-wrap:wrap;gap:var(--s4)}
 .shop-link{font:700 var(--t-sm)/1 var(--body);
-  color:var(--ketchup-deep);min-height:44px;display:inline-flex;align-items:center}
+color:var(--ketchup-deep);min-height:44px;display:inline-flex;align-items:center}
 .shop-link:hover{text-decoration:underline}
-
-/* Address, phone and hours. A definition list because that is what it is, and
-   it gives the labels somewhere to live without inventing a class each. */
 .shop-facts{display:grid;grid-template-columns:auto 1fr;gap:2px var(--s3);margin-top:var(--s2);
-  font-size:var(--t-sm)}
+font-size:var(--t-sm)}
 .shop-facts dt{font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.05em;
-  text-transform:uppercase;color:var(--ink-2)}
+text-transform:uppercase;color:var(--ink-2)}
 .shop-facts dd{line-height:1.5}
 .shop-facts a{color:var(--ketchup-deep);font-weight:600}
 .shop-facts a:hover{text-decoration:underline}
-
-/* What you can actually turn up and play. */
 .shop-play{margin-top:var(--s3);padding:var(--s3);background:var(--paper-3);border-radius:var(--r-sm)}
 .shop-play-h{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
-  color:var(--plum);margin-bottom:6px}
+color:var(--plum);margin-bottom:6px}
 .shop-play ul{list-style:none;display:grid;gap:4px}
 .shop-play li{font-size:var(--t-sm);padding-left:14px;position:relative}
 .shop-play li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;
-  border-radius:50%;background:var(--gold-deep)}
+border-radius:50%;background:var(--gold-deep)}
 .shop-play-note{font-size:var(--t-micro);color:var(--ink-2);margin-top:8px;line-height:1.5}
-/* Where the shop's own league page and a secondhand listing disagree. Loud,
-   because the cost of being wrong is a wasted drive. */
 .shop-play-warn{font:700 var(--t-micro)/1.6 var(--mono);color:var(--plum);
-  background:var(--lilac-pale);border-radius:var(--r-sm);padding:8px 10px;margin-top:8px}
-/* The map. Full width of the wrap, capped so it does not become a poster on a
-   desktop, and the SVG scales with the box because it has a viewBox and no
-   width attribute. currentColor throughout, so it is correct on the light page
-   and would still be correct if this block ever moved onto the dark chrome. */
+background:var(--lilac-pale);border-radius:var(--r-sm);padding:8px 10px;margin-top:8px}
 .shop-map{margin:0 0 var(--s5);color:var(--ink)}
 .shop-map svg{display:block;width:100%;height:auto;max-width:660px}
 .shop-map figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);
-  margin-top:var(--s2);max-width:52em}
+margin-top:var(--s2);max-width:52em}
+.shop-hours{margin:0 0 var(--s5);color:var(--ink)}
+.shop-hours svg{display:block;width:100%;height:auto;max-width:660px}
+.shop-hours figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2);
+margin-top:var(--s2);max-width:52em}
+.sh-day{font:700 17px var(--mono);fill:var(--ink-2);text-anchor:middle;letter-spacing:.04em}
+.sh-name{font:700 17px var(--body);fill:var(--ink)}
+.sh-cell{fill:var(--paper-3)}
+.sh-bar{fill:var(--gold);stroke:var(--gold-deep);stroke-width:1}
+.sh-none{fill:var(--paper-3)}
+.sh-nonet{font:400 15px var(--mono);fill:var(--ink-2);text-anchor:middle}
+.sh-axis{stroke:var(--ink-2);stroke-width:1;opacity:.5}
+.sh-tick{font:400 14px var(--mono);fill:var(--ink-2);text-anchor:middle}
 .shops-note{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);
-  border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);max-width:52em}
-</style>
+border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);max-width:52em}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -287,6 +277,7 @@
         <li><a href="/expansions.html">Every set ever</a></li>
         <li><a href="/upcoming.html">Coming next</a></li>
         <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/msrp.html">MSRP check</a></li>
         <li><a href="/pack-prices.html">Pack prices</a></li>
         <li><a href="/how-many-packs.html">Packs per box</a></li>
         <li><a href="/openings/">Sealed products</a></li>
@@ -386,6 +377,19 @@
         North is up and the scale is true in both directions. There are no roads on it because we do not
         have any to draw: the addresses on the cards below are the exact thing to put in a map app.
         Positions geocoded from OpenStreetMap.</figcaption>
+    </figure>
+<figure class="shop-hours">
+      <svg viewBox="0 0 660 292" role="img"
+        aria-label="Opening hours for all 6 shops as a grid, one column per day of the week. Each shop's hours are written out in full on its own card below.">
+        <text class="sh-day" x="210.7" y="17">Mon</text><text class="sh-day" x="280.1" y="17">Tue</text><text class="sh-day" x="349.6" y="17">Wed</text><text class="sh-day" x="419.0" y="17">Thu</text><text class="sh-day" x="488.4" y="17">Fri</text><text class="sh-day" x="557.9" y="17">Sat</text><text class="sh-day" x="627.3" y="17">Sun</text><g><text class="sh-name" x="0" y="51.0">Just Games</text><rect class="sh-cell" x="178.0" y="34.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="193.7" y="38.0" width="38.2" height="16" rx="4"/><rect class="sh-cell" x="247.4" y="34.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="263.2" y="38.0" width="38.2" height="16" rx="4"/><rect class="sh-cell" x="316.9" y="34.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="332.6" y="38.0" width="38.2" height="16" rx="4"/><rect class="sh-cell" x="386.3" y="34.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="402.0" y="38.0" width="38.2" height="16" rx="4"/><rect class="sh-cell" x="455.7" y="34.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="471.4" y="38.0" width="38.2" height="16" rx="4"/><rect class="sh-cell" x="525.1" y="34.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="540.9" y="38.0" width="38.2" height="16" rx="4"/><rect class="sh-cell" x="594.6" y="34.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="610.3" y="38.0" width="25.5" height="16" rx="4"/></g><g><text class="sh-name" x="0" y="91.0">Millennium Games</text><rect class="sh-cell" x="178.0" y="74.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="185.2" y="78.0" width="50.9" height="16" rx="4"/><rect class="sh-cell" x="247.4" y="74.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="254.7" y="78.0" width="50.9" height="16" rx="4"/><rect class="sh-cell" x="316.9" y="74.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="324.1" y="78.0" width="50.9" height="16" rx="4"/><rect class="sh-cell" x="386.3" y="74.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="393.5" y="78.0" width="50.9" height="16" rx="4"/><rect class="sh-cell" x="455.7" y="74.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="463.0" y="78.0" width="50.9" height="16" rx="4"/><rect class="sh-cell" x="525.1" y="74.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="532.4" y="78.0" width="50.9" height="16" rx="4"/><rect class="sh-cell" x="594.6" y="74.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="601.8" y="78.0" width="34.0" height="16" rx="4"/></g><g><text class="sh-name" x="0" y="131.0">LingSter Games</text><rect class="sh-cell" x="178.0" y="114.0" width="65.4" height="24" rx="5"/><rect class="sh-cell" x="247.4" y="114.0" width="65.4" height="24" rx="5"/><rect class="sh-cell" x="316.9" y="114.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="328.3" y="118.0" width="44.6" height="16" rx="4"/><rect class="sh-cell" x="386.3" y="114.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="397.8" y="118.0" width="44.6" height="16" rx="4"/><rect class="sh-cell" x="455.7" y="114.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="467.2" y="118.0" width="44.6" height="16" rx="4"/><rect class="sh-cell" x="525.1" y="114.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="536.6" y="118.0" width="44.6" height="16" rx="4"/><rect class="sh-cell" x="594.6" y="114.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="606.1" y="118.0" width="29.7" height="16" rx="4"/></g><g><text class="sh-name" x="0" y="171.0">Legacy Games</text><rect class="sh-cell" x="178.0" y="154.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="189.5" y="158.0" width="44.6" height="16" rx="4"/><rect class="sh-cell" x="247.4" y="154.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="258.9" y="158.0" width="44.6" height="16" rx="4"/><rect class="sh-cell" x="316.9" y="154.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="328.3" y="158.0" width="44.6" height="16" rx="4"/><rect class="sh-cell" x="386.3" y="154.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="397.8" y="158.0" width="44.6" height="16" rx="4"/><rect class="sh-cell" x="455.7" y="154.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="467.2" y="158.0" width="44.6" height="16" rx="4"/><rect class="sh-cell" x="525.1" y="154.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="536.6" y="158.0" width="44.6" height="16" rx="4"/><rect class="sh-cell" x="594.6" y="154.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="610.3" y="158.0" width="29.7" height="16" rx="4"/></g><g><text class="sh-name" x="0" y="211.0">Great Lakes Gaming</text><rect class="sh-none" x="178" y="194.0"
+        width="482.0" height="24" rx="5"/>
+        <text class="sh-nonet" x="419.0" y="211.0">hours not published</text></g><g><text class="sh-name" x="0" y="251.0">WeTheHobby</text><rect class="sh-cell" x="178.0" y="234.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="193.7" y="238.0" width="25.5" height="16" rx="4"/><rect class="sh-cell" x="247.4" y="234.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="263.2" y="238.0" width="25.5" height="16" rx="4"/><rect class="sh-cell" x="316.9" y="234.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="332.6" y="238.0" width="25.5" height="16" rx="4"/><rect class="sh-cell" x="386.3" y="234.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="402.0" y="238.0" width="34.0" height="16" rx="4"/><rect class="sh-cell" x="455.7" y="234.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="471.4" y="238.0" width="34.0" height="16" rx="4"/><rect class="sh-cell" x="525.1" y="234.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="536.6" y="238.0" width="38.2" height="16" rx="4"/><rect class="sh-cell" x="594.6" y="234.0" width="65.4" height="24" rx="5"/><rect class="sh-bar" x="606.1" y="238.0" width="29.7" height="16" rx="4"/></g>
+        <text class="sh-tick" style="text-anchor:end" x="168.0" y="284.0">9am to 11pm</text><line class="sh-axis" x1="181.0" y1="280" x2="240.4" y2="280"/><line class="sh-axis" x1="181.0" y1="276" x2="181.0" y2="284"/><line class="sh-axis" x1="240.4" y1="276" x2="240.4" y2="284"/>
+      </svg>
+      <figcaption>Who is open when, read off the same opening hours printed on each card below. A bar is the
+        hours that shop is open that day and an empty cell is closed. Every column runs on the same
+        9am to 11pm scale, ruled under Monday, so a bar that reaches further right closes
+        later. Hours change and holidays are not on here, so call before you drive.</figcaption>
     </figure>
     <ul class="shop-list">
       <li class="shop">
@@ -567,6 +571,7 @@
         <a href="/expansions.html">Every set ever</a>
         <a href="/upcoming.html">Coming next</a>
         <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/msrp.html">MSRP check</a>
         <a href="/pack-prices.html">Pack prices</a>
         <a href="/how-many-packs.html">Packs per box</a>
         <a href="/openings/">Sealed products</a>
