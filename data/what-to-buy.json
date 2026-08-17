@@ -257,22 +257,21 @@
     "title": "Buying for somebody who already collects",
     "lede": "Everything above assumes the person opening it is new to this. This part is the opposite: they know far more than you do, and you have no idea what they already own.",
     "intro": [
-      "This is the hardest version of the question and almost nobody writes it down. Somebody in your life is properly into Pokemon cards. You have never seen the collection, you cannot ask without ruining the surprise, and every box in the shop looks equally plausible.",
-      "The good news is that the problem is not the one you think. You are not being asked to pick something good. You are being asked to pick something they do not already have and will not quietly think is a waste. Those are different jobs and the second one is the one you can actually do.",
-      "So stop trying to guess their taste. Guessing is where this goes wrong. Pick something that leaves the choosing to them."
+      "Somebody in your life is properly into Pokemon cards. You have never seen the collection, you cannot ask without ruining the surprise, and every box in the shop looks equally plausible.",
+      "The problem is not the one you think. You are not being asked to pick something good. You are being asked to pick something they do not already have and will not quietly think is a waste, which is a job you can actually do. So stop trying to guess their taste, because guessing is where this goes wrong, and pick something that leaves the choosing to them."
     ],
     "tests": [
       {
         "q": "Could they already have this exact thing?",
-        "a": "A sealed pack cannot be a duplicate. Nobody knows what is inside one until it is opened, so there is no version of it sitting in their binder already. A specific card can be a duplicate, and for anybody who has collected for a while, the obvious cards usually are."
+        "a": "A sealed pack cannot be. Nobody knows what is inside one until it is opened, so there is no version of it already sitting in their binder. A specific card can be, and for anybody who has collected a while, the obvious cards usually are."
       },
       {
         "q": "Do they still get to decide something?",
-        "a": "Sealed product is a choice you are handing over rather than a decision you are making for them. They can open it, keep it shut, trade it or save it for a stream. Anything that arrives already decided is where a gift goes wrong, and the more serious the collector, the stronger their opinions about sealed against opened, this era against that one, graded against raw."
+        "a": "Sealed product hands the choice over instead of making it for them: open it, keep it shut, trade it. The more serious the collector, the stronger their opinions about sealed against opened, this era against that one, graded against raw, and none of those are opinions you can guess."
       },
       {
         "q": "Is it from what is on the shelf right now?",
-        "a": "Something from the current line is what everybody is opening this month, which makes it the least likely thing to land oddly. Older sealed product is a specific taste and a specific bet, and buying one blind means picking an era for somebody who has already picked their own."
+        "a": "The current line is what everybody is opening this month, which makes it the least likely thing to land oddly. Buying something older blind means picking an era for somebody who has already picked their own."
       }
     ],
     "safe": [
@@ -296,17 +295,15 @@
     "ceiling": {
       "title": "What to pay, and when to walk away",
       "body": [
-        "This is the part that is worth real money to you, because somebody buying a present is the most likely person in the shop to be asked too much and not know it. You are in a hurry, it is for somebody else, and you have no idea what any of this normally costs.",
-        "So carry one number instead of a list. Every product above prints what the manufacturer suggests and, beside it, the figure this site would put the phone down over. Work out the multiple before you pay it, not after.",
-        "None of that means walk out on principle. A shop that actually has the thing on the shelf, today, when four other places are sold out, has done something for you, and a bit over the suggested price is what that is worth. The point of the sum is that you are the one deciding."
+        "This is the part worth real money to you, because somebody buying a present is the most likely person in the shop to be asked too much and not know it. You are in a hurry, it is for somebody else, and you have no idea what any of this normally costs. So carry one number instead of a list, and work out the multiple before you pay it rather than after.",
+        "None of which means walk out on principle. A shop that has the thing on the shelf today, when four other places are sold out, has done something for you, and a bit over the suggested price is what that is worth. The point of the sum is that you are the one deciding."
       ]
     },
     "supplies": {
       "title": "The other safe answer is supplies",
       "body": [
-        "Sleeves, toploaders, a deck box, a binder. Every collector uses these up, everybody ends up short of them, and nobody has ever been annoyed to receive more. They also sidestep the whole duplicate problem, because there is no such thing as a card you already own twice in plastic.",
-        "This site holds no sourced price for any of them, so no figure is printed here for a pack of sleeves. They are made by other companies and the price list this page is built on covers sealed Pokemon product only. The Binder Collection above is the one that is both, which is why it is the one with a number beside it.",
-        "If you want the safest version of this: buy the supplies and put a bundle on top. The supplies get used and the packs get opened, and neither one required you to know their taste."
+        "Sleeves, toploaders, a deck box, a binder. Every collector uses these up, everybody ends up short of them, and nobody has ever been annoyed to get more. They sidestep the duplicate problem entirely, because there is no such thing as a card you already own twice in plastic.",
+        "This site holds no sourced price for any of them, so no figure is printed here for a pack of sleeves: they are other companies' goods and the price list this page is built on covers sealed Pokemon product only. The Binder Collection above is the one that is both, which is why it has a number beside it. The safest version of the whole idea is supplies with a bundle on top. The supplies get used, the packs get opened, and neither one needed you to know their taste."
       ]
     },
     "unsafe": [
@@ -314,9 +311,8 @@
         "id": "no-blind-single",
         "title": "Do not pick one specific card for them",
         "body": [
-          "This is the trap, and it is the thing an outsider reaches for first because it looks like the personal option. It is the least safe thing on the shelf.",
-          "You are guessing three things at once: that they want that Pokemon, that they want that version of it, and that they do not already have it. A collector of any standing has the obvious cards. You also cannot judge the condition of a card from a photograph on a screen, and condition is most of what a card is worth to somebody who cares.",
-          "If you actually know which card, that is a completely different situation and it is the one directly above this. Buy it, and buy it from somewhere with a returns policy. It is the guessing that is the problem, not the card."
+          "This is the trap. It is what an outsider reaches for first because it looks like the personal option, and it is the least safe thing on the shelf. You are guessing three things at once: that they want that Pokemon, that they want that version of it, and that they do not already have it. A collector of any standing has the obvious cards. You also cannot judge condition from a photo on a screen, and condition is most of what a card is worth to somebody who cares.",
+          "If you actually know which card, that is a different situation and it is the one directly above this. Buy it, from somewhere with a returns policy. It is the guessing that is the problem, not the card."
         ],
         "links": [["#one-card", "When you do know the card"], ["/fake-cards.html", "Checking a card is real"]]
       },
@@ -324,9 +320,8 @@
         "id": "no-blind-slab",
         "title": "Do not buy a graded card blind",
         "body": [
-          "A graded card is one card sealed inside a plastic case with a company's number on it. It cannot be taken out without destroying the grade, which is the whole point of it.",
-          "So you are choosing the card, the grade and the grading company on their behalf, permanently, for somebody who almost certainly has views on all three. Plenty of collectors want their cards raw, in a binder, where they can look at them.",
-          "It is also the easiest category to overpay in, because a slab has no suggested price at all. There is nothing to divide by."
+          "A graded card is one card sealed in a plastic case with a company's number on it, and it cannot come out without destroying the grade. So you are choosing the card, the grade and the grading company on their behalf, permanently, for somebody who almost certainly has views on all three. Plenty of collectors want their cards raw, in a binder, where they can look at them.",
+          "It is also the easiest thing here to overpay on, because a graded card has no suggested price at all. There is nothing to divide by."
         ],
         "links": [["/grading.html", "What grading costs"], ["/will-it-grade.html", "How grading actually works"]]
       },
@@ -334,8 +329,7 @@
         "id": "no-blind-mystery",
         "title": "Do not buy a mystery box or a repack",
         "body": [
-          "The full argument is further down this page and it applies double here. The short version is that nobody at Pokemon made it: somebody bought cards, chose what went in, sealed the bag themselves and priced it.",
-          "For a collector it is worse than for a beginner, because they will know instantly what it is. Handing somebody who has been doing this for years a stranger's repackaged assortment is the one gift on this page that can actually land badly."
+          "The full argument is further down this page and it applies double here. The short version is that nobody at Pokemon made it: somebody bought cards, chose what went in, sealed the bag and priced it. A collector will know instantly what it is, which makes this the one thing on this page that can actually land badly."
         ],
         "links": [["#not-a-mystery-box", "The full version, further down"]]
       },
@@ -343,18 +337,16 @@
         "id": "no-blind-vintage",
         "title": "Do not buy old sealed product blind",
         "body": [
-          "An unopened box from ten years ago looks like the impressive choice and it is the riskiest thing here. Which era somebody collects is a real preference, and old sealed is exactly the purchase somebody makes for themselves after thinking about it.",
-          "It is also the one category this page cannot help you check. The prices here are what the manufacturer suggests for products it currently sells, and nothing suggests a price for a box that went out of print. What an old box costs is set entirely by how few of them are left, so there is no figure to divide by and no way to tell a fair ask from a silly one in the ten minutes you have.",
-          "There is one more thing worth saying plainly, because it is what sellers of this stuff lean on. Nothing on this page is bought because it might be worth more later. It is a present. Buy it to be opened or to sit on a shelf, and let whatever happens to its value be somebody else's problem."
+          "An unopened box from ten years ago looks like the impressive choice and is the riskiest thing here. Which era somebody collects is a real preference, and old sealed is exactly the purchase people make for themselves after thinking about it. It is also the one thing this page cannot help you check: the figures here are what the manufacturer suggests for what it currently sells, and nothing suggests a price for a box that went out of print. What an old box costs is set entirely by how few are left, so there is nothing to divide by.",
+          "And one thing worth saying plainly, because it is what sellers of this lean on. Nothing on this page is bought because it might be worth more later. It is a present. Buy it to be opened or to sit on a shelf, and let whatever happens to its value be somebody else's problem."
         ],
         "links": [["/most-expensive-sealed.html", "What old sealed actually goes for"]]
       }
     ],
     "gaps": [
-      "This page has no idea what any particular person owns and never will. Everything above reasons from what a product IS rather than from anything measured about your collector, and the three questions are the useful part precisely because they still work on a product this page does not list.",
-      "There is no sourced price here for sleeves, toploaders, deck boxes or a plain binder, so none is printed. Same for anything sold second hand, anything graded, and any sealed product out of print, none of which has a suggested price to check an asking price against.",
-      "This site holds no prices at all from any local card shop, because nobody has walked into one with a notebook. If you are standing in one, do the division yourself against the figures above.",
-      "And nothing here says what is inside a pack or how likely anything is to be in it. That is a site-wide rule, and a page telling you what to buy somebody is the last place it belongs."
+      "It has no idea what any particular person owns and never will. Everything above reasons from what a product IS, not from anything measured about your collector, which is exactly why the three questions still work on a product this page does not list.",
+      "It holds no sourced price for sleeves, toploaders, deck boxes or a plain binder, so none is printed. Same for anything second hand, anything graded and any sealed product out of print, none of which has a suggested price to check an asking price against.",
+      "It holds no prices at all from any local card shop, because nobody has walked into one with a notebook. If you are standing in one, do the division yourself against the figures above."
     ],
     "links": [
       ["/openings/", "See each one opened"],

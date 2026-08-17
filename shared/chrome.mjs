@@ -605,10 +605,50 @@ ${links.map(([href, label]) => `        <a href="${href}">${label}</a>`).join("\
 ).join("\n")}
     </nav>`;
 
+/**
+ * The footer Subscribe block.
+ *
+ * BELOW 560px THE BAR'S OWN .sub IS display:none, so on a phone the only
+ * Subscribe above this point is inside the closed hamburger. Measured 17 August
+ * 2026 at 390x844 DPR 2, driving the real pages: on /pokemon/gible.html the
+ * first VISIBLE control of any kind pointing at the channel was the unlabelled
+ * YouTube circle in .foot-social at y=10,078 of a 10,363px page. On
+ * /evolution.html it was y=94,648 of 94,910. Those icons carry an aria-label and
+ * nothing else, so to a sighted reader who scrolled the whole way the reward was
+ * a 44px glyph with no words on it.
+ *
+ * So the footer gets a NAMED Subscribe with a reason attached, rather than a
+ * bare mark. The reason is the point: "Subscribe" alone asks for something and
+ * offers nothing, and this is the one place on an informational page where a
+ * reader has already read to the end and might say yes.
+ *
+ * NOT A NEW OUTBOUND DESTINATION. youtube.com was already in this footer, four
+ * lines down, as the yt circle. This labels and argues the link the footer
+ * already had. Subscribe is the first of the five exceptions in CLAUDE.md and
+ * this stays inside it; nothing here adds youtube.com to a page that did not
+ * already carry it.
+ *
+ * NO NEW CSS. `.btn`/`.btn-yt` and `footer p` already exist and `footer .wrap`
+ * is a centred flex column, so both elements land centred with the column's own
+ * gap. ui.css was being rewritten by another pass when this went in and a rule
+ * added there would have collided.
+ *
+ * KEEP THE MARKER COMMENTS. sync-chrome.mjs slices this block out by them to
+ * keep the eight hand-maintained pages in step, exactly as it does for the bar,
+ * the menu and the footer nav. The footer nav is the precedent and the warning:
+ * it was the one block NOT guarded, and it is the one that drifted.
+ */
+export const FOOT_SUB = `<!--FOOT_SUB:START-->
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <a class="btn btn-yt" href="${SUBSCRIBE}" rel="noopener" target="_blank"
+      aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>
+    <p>A new rip most days. Every pack we open goes up, hit or no hit.</p>
+    <!--FOOT_SUB:END-->`;
+
 export const footer = (extra = "") => `<footer>
   <div class="wrap">
     ${FOOT_NAV}
-    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    ${FOOT_SUB}
     <div class="foot-social">
 ${SOCIALS.map(
   ([cls, label, href]) =>
@@ -666,6 +706,16 @@ export function checkDrift(indexHtml) {
       "foot-nav",
       slice('<nav class="foot-nav"', "</nav>"),
       FOOT_NAV,
+    ],
+    // The footer Subscribe block. Guarded from the day it was added rather than
+    // after it drifted, which is the one lesson the foot-nav entry above is.
+    // Matched between the footer nav and .foot-social for the same reason
+    // sync-chrome.mjs does, and with the same refusal to cross a </nav>: see the
+    // long note beside that regex for what a plain lazy match destroys here.
+    [
+      "foot-sub",
+      /<\/nav>(?:(?!<\/nav>)[\s\S])*?<div class="foot-social">/.exec(indexHtml)?.[0] ?? null,
+      `</nav>\n    ${FOOT_SUB}\n    <div class="foot-social">`,
     ],
   ];
   for (const [name, found, want] of checks) {

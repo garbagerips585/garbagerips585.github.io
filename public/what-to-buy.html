@@ -33,6 +33,10 @@ border-radius:var(--r);background:var(--card);box-shadow:var(--hard-lg)}
 justify-self:end}
 .wtb-quick .q-for{grid-column:1/-1;margin:0;font-size:.85rem;color:var(--ink-soft);
 line-height:1.35}
+.wtb-jump{margin:var(--s5) 0 0}
+.wtb-jlabel{margin:0 0 var(--s2);font:700 .7rem/1 var(--mono);letter-spacing:.08em;
+text-transform:uppercase;color:var(--ink-soft)}
+.wtb-jump .wtb-links{margin:0}
 .wtb-sits{list-style:none;margin:0;padding:0;display:grid;gap:var(--s6)}
 .wtb-sit h3{margin:0;font-size:1.25rem;line-height:1.2}
 .wtb-sub{margin:var(--s2) 0 0;color:var(--ink-soft);font-size:.95rem}
@@ -266,10 +270,21 @@ line-height:1.5;max-width:34em;color:var(--ink-soft)}
           <p class="q-for">the big birthday box with everything in it</p>
         </li>
       </ul>
+
+      <nav class="wtb-jump" aria-label="Sections of this guide">
+        <p class="wtb-jlabel">Jump to</p>
+        <div class="wtb-links">
+          <a href="#situations">Who it is for</a>
+          <a href="#collector">Gifts for a collector</a>
+          <a href="#the-words">What the boxes are</a>
+          <a href="#do-not">Not to buy first</a>
+          <a href="#reseller">Why a price looks wrong</a>
+        </div>
+      </nav>
     </div>
   </section>
 
-  <section class="band tight">
+  <section class="band tight" id="situations">
     <div class="wrap">
       <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pick your situation</p>
       <h2>Who is it <span class="hl">for</span>?</h2>
@@ -459,9 +474,8 @@ line-height:1.5;max-width:34em;color:var(--ink-soft)}
       <h2>Buying for somebody who already <span class="hl">collects</span></h2>
       <p class="lede wtb-lede">Everything above assumes the person opening it is new to this. This part is the opposite: they know far more than you do, and you have no idea what they already own.</p>
       <div class="wtb-body" style="margin-top:var(--s4)">
-      <p>This is the hardest version of the question and almost nobody writes it down. Somebody in your life is properly into Pokemon cards. You have never seen the collection, you cannot ask without ruining the surprise, and every box in the shop looks equally plausible.</p>
-      <p>The good news is that the problem is not the one you think. You are not being asked to pick something good. You are being asked to pick something they do not already have and will not quietly think is a waste. Those are different jobs and the second one is the one you can actually do.</p>
-      <p>So stop trying to guess their taste. Guessing is where this goes wrong. Pick something that leaves the choosing to them.</p>
+      <p>Somebody in your life is properly into Pokemon cards. You have never seen the collection, you cannot ask without ruining the surprise, and every box in the shop looks equally plausible.</p>
+      <p>The problem is not the one you think. You are not being asked to pick something good. You are being asked to pick something they do not already have and will not quietly think is a waste, which is a job you can actually do. So stop trying to guess their taste, because guessing is where this goes wrong, and pick something that leaves the choosing to them.</p>
       </div>
 
       <div class="wtb-body" style="margin-top:var(--s6)">
@@ -472,26 +486,24 @@ line-height:1.5;max-width:34em;color:var(--ink-soft)}
       <ol class="gft-tests">
         <li class="gft-t">
           <p class="gft-tq"><b>1</b>Could they already have this exact thing?</p>
-          <p class="gft-ta">A sealed pack cannot be a duplicate. Nobody knows what is inside one until it is opened, so there is no version of it sitting in their binder already. A specific card can be a duplicate, and for anybody who has collected for a while, the obvious cards usually are.</p>
+          <p class="gft-ta">A sealed pack cannot be. Nobody knows what is inside one until it is opened, so there is no version of it already sitting in their binder. A specific card can be, and for anybody who has collected a while, the obvious cards usually are.</p>
         </li>
         <li class="gft-t">
           <p class="gft-tq"><b>2</b>Do they still get to decide something?</p>
-          <p class="gft-ta">Sealed product is a choice you are handing over rather than a decision you are making for them. They can open it, keep it shut, trade it or save it for a stream. Anything that arrives already decided is where a gift goes wrong, and the more serious the collector, the stronger their opinions about sealed against opened, this era against that one, graded against raw.</p>
+          <p class="gft-ta">Sealed product hands the choice over instead of making it for them: open it, keep it shut, trade it. The more serious the collector, the stronger their opinions about sealed against opened, this era against that one, graded against raw, and none of those are opinions you can guess.</p>
         </li>
         <li class="gft-t">
           <p class="gft-tq"><b>3</b>Is it from what is on the shelf right now?</p>
-          <p class="gft-ta">Something from the current line is what everybody is opening this month, which makes it the least likely thing to land oddly. Older sealed product is a specific taste and a specific bet, and buying one blind means picking an era for somebody who has already picked their own.</p>
+          <p class="gft-ta">The current line is what everybody is opening this month, which makes it the least likely thing to land oddly. Buying something older blind means picking an era for somebody who has already picked their own.</p>
         </li>
       </ol>
 
       <div class="wtb-body" style="margin-top:var(--s6)">
         <h3>Four things that pass all three</h3>
-        <p>Cheapest first. Every one of these is something they cannot already have, from whatever
-          is on the shelf right now, and every one leaves the last decision with them.</p>
       </div>
-      <p class="gft-rule">Each card shows what the manufacturer suggests, and beside it the figure to
-        put the box down over: <b>2 times the suggestion</b>. That line is this
-        site's rule of thumb rather than a measurement, and the evidence for it is directly below.</p>
+      <p class="gft-rule">Cheapest first. Each one shows what the manufacturer suggests and, beside
+        it, the figure to put the box down over: <b>2 times the suggestion</b>. That line is this site's rule of thumb rather than a
+        measurement, and the evidence for it is directly below.</p>
       <ul class="gft-picks">
         <li class="gft-pick">
           <div class="wtb-top">
@@ -544,73 +556,61 @@ line-height:1.5;max-width:34em;color:var(--ink-soft)}
 
       <div class="wtb-body" style="margin-top:var(--s6)">
         <h3>What to pay, and when to walk away</h3>
-      <p>This is the part that is worth real money to you, because somebody buying a present is the most likely person in the shop to be asked too much and not know it. You are in a hurry, it is for somebody else, and you have no idea what any of this normally costs.</p>
-      <p>So carry one number instead of a list. Every product above prints what the manufacturer suggests and, beside it, the figure this site would put the phone down over. Work out the multiple before you pay it, not after.</p>
-      <p>None of that means walk out on principle. A shop that actually has the thing on the shelf, today, when four other places are sold out, has done something for you, and a bit over the suggested price is what that is worth. The point of the sum is that you are the one deciding.</p>
+      <p>This is the part worth real money to you, because somebody buying a present is the most likely person in the shop to be asked too much and not know it. You are in a hurry, it is for somebody else, and you have no idea what any of this normally costs. So carry one number instead of a list, and work out the multiple before you pay it rather than after.</p>
+      <p>None of which means walk out on principle. A shop that has the thing on the shelf today, when four other places are sold out, has done something for you, and a bit over the suggested price is what that is worth. The point of the sum is that you are the one deciding.</p>
         <p>13 shop listings sit in this site's own files, across 6 different shops, read between August 15, 2026 and August 17, 2026. Every one of them falls between 1x and 2.22x the suggested price. 11 are under the 2x line and 2 are over it, so the figure beside each product above is not a number you will meet every day. It is the one worth having ready.</p>
         <p>The cheapest of them sits at exactly the suggested figure: the Pokemon Trading Card Game: Team Rocket Mewtwo ex League Battle Deck at GameStop, read August 17, 2026. The dearest sits at 2.22x: the Pitch Black Sleeved Booster Pack at GameStop, read August 15, 2026. Both ends of that range are the same chain, on two different products, which is the whole reason this is not a list of shops to trust and shops to avoid. There is no shop that is always at the suggested price and none that is always over it. There is only the sum.</p>
       </div>
-      <p class="wtb-seen">Read at https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-team-rocket-mewtwo-ex-league-battle-deck/430762.html and at https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-pitch-black-sleeved-booster-pack/20034824.html. Every other listing counted above is printed in full, with its own address and the
-        day it was read, on <a href="/msrp.html">the MSRP check</a> and on
+      <p class="wtb-seen">Read at https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-team-rocket-mewtwo-ex-league-battle-deck/430762.html and at https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-pitch-black-sleeved-booster-pack/20034824.html. The rest are printed in full, each with its own address and date, on
+        <a href="/msrp.html">the MSRP check</a> and on
         <a href="/retailers.html">stores that sell cards</a>.</p>
-      <p class="wtb-links"><a href="/msrp.html">The same sum as a calculator</a>
-        <a href="/retailers.html">Every listing we have read</a></p>
 
       <div class="wtb-body" style="margin-top:var(--s6)">
         <h3>The other safe answer is supplies</h3>
-      <p>Sleeves, toploaders, a deck box, a binder. Every collector uses these up, everybody ends up short of them, and nobody has ever been annoyed to receive more. They also sidestep the whole duplicate problem, because there is no such thing as a card you already own twice in plastic.</p>
-      <p>This site holds no sourced price for any of them, so no figure is printed here for a pack of sleeves. They are made by other companies and the price list this page is built on covers sealed Pokemon product only. The Binder Collection above is the one that is both, which is why it is the one with a number beside it.</p>
-      <p>If you want the safest version of this: buy the supplies and put a bundle on top. The supplies get used and the packs get opened, and neither one required you to know their taste.</p>
+      <p>Sleeves, toploaders, a deck box, a binder. Every collector uses these up, everybody ends up short of them, and nobody has ever been annoyed to get more. They sidestep the duplicate problem entirely, because there is no such thing as a card you already own twice in plastic.</p>
+      <p>This site holds no sourced price for any of them, so no figure is printed here for a pack of sleeves: they are other companies' goods and the price list this page is built on covers sealed Pokemon product only. The Binder Collection above is the one that is both, which is why it has a number beside it. The safest version of the whole idea is supplies with a bundle on top. The supplies get used, the packs get opened, and neither one needed you to know their taste.</p>
       </div>
 
       <div class="wtb-body" style="margin-top:var(--s6)">
         <h3>Four things not to give blind</h3>
-        <p>Every one of these is somebody making a decision on the collector's behalf that the
-          collector would rather make themselves. None of them is a bad product. They are bad
-          guesses.</p>
+        <p>Each one makes a decision on the collector's behalf that they would rather make
+          themselves. None of them is a bad product. They are bad guesses.</p>
       </div>
       <ul class="wtb-nos" style="margin-top:var(--s5)">
       <li class="wtb-no" id="no-blind-single">
         <h3>Do not pick one specific card for them</h3>
-      <p>This is the trap, and it is the thing an outsider reaches for first because it looks like the personal option. It is the least safe thing on the shelf.</p>
-      <p>You are guessing three things at once: that they want that Pokemon, that they want that version of it, and that they do not already have it. A collector of any standing has the obvious cards. You also cannot judge the condition of a card from a photograph on a screen, and condition is most of what a card is worth to somebody who cares.</p>
-      <p>If you actually know which card, that is a completely different situation and it is the one directly above this. Buy it, and buy it from somewhere with a returns policy. It is the guessing that is the problem, not the card.</p>
+      <p>This is the trap. It is what an outsider reaches for first because it looks like the personal option, and it is the least safe thing on the shelf. You are guessing three things at once: that they want that Pokemon, that they want that version of it, and that they do not already have it. A collector of any standing has the obvious cards. You also cannot judge condition from a photo on a screen, and condition is most of what a card is worth to somebody who cares.</p>
+      <p>If you actually know which card, that is a different situation and it is the one directly above this. Buy it, from somewhere with a returns policy. It is the guessing that is the problem, not the card.</p>
       <p class="wtb-links"><a href="#one-card">When you do know the card</a>
         <a href="/fake-cards.html">Checking a card is real</a></p>
       </li>
       <li class="wtb-no" id="no-blind-slab">
         <h3>Do not buy a graded card blind</h3>
-      <p>A graded card is one card sealed inside a plastic case with a company's number on it. It cannot be taken out without destroying the grade, which is the whole point of it.</p>
-      <p>So you are choosing the card, the grade and the grading company on their behalf, permanently, for somebody who almost certainly has views on all three. Plenty of collectors want their cards raw, in a binder, where they can look at them.</p>
-      <p>It is also the easiest category to overpay in, because a slab has no suggested price at all. There is nothing to divide by.</p>
+      <p>A graded card is one card sealed in a plastic case with a company's number on it, and it cannot come out without destroying the grade. So you are choosing the card, the grade and the grading company on their behalf, permanently, for somebody who almost certainly has views on all three. Plenty of collectors want their cards raw, in a binder, where they can look at them.</p>
+      <p>It is also the easiest thing here to overpay on, because a graded card has no suggested price at all. There is nothing to divide by.</p>
       <p class="wtb-links"><a href="/grading.html">What grading costs</a>
         <a href="/will-it-grade.html">How grading actually works</a></p>
       </li>
       <li class="wtb-no" id="no-blind-mystery">
         <h3>Do not buy a mystery box or a repack</h3>
-      <p>The full argument is further down this page and it applies double here. The short version is that nobody at Pokemon made it: somebody bought cards, chose what went in, sealed the bag themselves and priced it.</p>
-      <p>For a collector it is worse than for a beginner, because they will know instantly what it is. Handing somebody who has been doing this for years a stranger's repackaged assortment is the one gift on this page that can actually land badly.</p>
+      <p>The full argument is further down this page and it applies double here. The short version is that nobody at Pokemon made it: somebody bought cards, chose what went in, sealed the bag and priced it. A collector will know instantly what it is, which makes this the one thing on this page that can actually land badly.</p>
       <p class="wtb-links"><a href="#not-a-mystery-box">The full version, further down</a></p>
       </li>
       <li class="wtb-no" id="no-blind-vintage">
         <h3>Do not buy old sealed product blind</h3>
-      <p>An unopened box from ten years ago looks like the impressive choice and it is the riskiest thing here. Which era somebody collects is a real preference, and old sealed is exactly the purchase somebody makes for themselves after thinking about it.</p>
-      <p>It is also the one category this page cannot help you check. The prices here are what the manufacturer suggests for products it currently sells, and nothing suggests a price for a box that went out of print. What an old box costs is set entirely by how few of them are left, so there is no figure to divide by and no way to tell a fair ask from a silly one in the ten minutes you have.</p>
-      <p>There is one more thing worth saying plainly, because it is what sellers of this stuff lean on. Nothing on this page is bought because it might be worth more later. It is a present. Buy it to be opened or to sit on a shelf, and let whatever happens to its value be somebody else's problem.</p>
+      <p>An unopened box from ten years ago looks like the impressive choice and is the riskiest thing here. Which era somebody collects is a real preference, and old sealed is exactly the purchase people make for themselves after thinking about it. It is also the one thing this page cannot help you check: the figures here are what the manufacturer suggests for what it currently sells, and nothing suggests a price for a box that went out of print. What an old box costs is set entirely by how few are left, so there is nothing to divide by.</p>
+      <p>And one thing worth saying plainly, because it is what sellers of this lean on. Nothing on this page is bought because it might be worth more later. It is a present. Buy it to be opened or to sit on a shelf, and let whatever happens to its value be somebody else's problem.</p>
       <p class="wtb-links"><a href="/most-expensive-sealed.html">What old sealed actually goes for</a></p>
       </li>
       </ul>
 
       <div class="wtb-body" style="margin-top:var(--s6)">
         <h3>What this page cannot tell you</h3>
-        <p>Worth saying out loud, because a guide that sounds certain about everything is not one
-          to trust in a shop.</p>
       </div>
       <ul class="gft-gaps">
-        <li>This page has no idea what any particular person owns and never will. Everything above reasons from what a product IS rather than from anything measured about your collector, and the three questions are the useful part precisely because they still work on a product this page does not list.</li>
-        <li>There is no sourced price here for sleeves, toploaders, deck boxes or a plain binder, so none is printed. Same for anything sold second hand, anything graded, and any sealed product out of print, none of which has a suggested price to check an asking price against.</li>
-        <li>This site holds no prices at all from any local card shop, because nobody has walked into one with a notebook. If you are standing in one, do the division yourself against the figures above.</li>
-        <li>And nothing here says what is inside a pack or how likely anything is to be in it. That is a site-wide rule, and a page telling you what to buy somebody is the last place it belongs.</li>
+        <li>It has no idea what any particular person owns and never will. Everything above reasons from what a product IS, not from anything measured about your collector, which is exactly why the three questions still work on a product this page does not list.</li>
+        <li>It holds no sourced price for sleeves, toploaders, deck boxes or a plain binder, so none is printed. Same for anything second hand, anything graded and any sealed product out of print, none of which has a suggested price to check an asking price against.</li>
+        <li>It holds no prices at all from any local card shop, because nobody has walked into one with a notebook. If you are standing in one, do the division yourself against the figures above.</li>
       </ul>
       <p class="wtb-links"><a href="/openings/">See each one opened</a>
         <a href="/msrp.html">Check any price against the list</a>
@@ -618,7 +618,7 @@ line-height:1.5;max-width:34em;color:var(--ink-soft)}
     </div>
   </section>
 
-  <section class="band tight">
+  <section class="band tight" id="the-words">
     <div class="wrap">
       <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The words</p>
       <h2>What those boxes actually <span class="hl">are</span></h2>
@@ -953,7 +953,12 @@ line-height:1.5;max-width:34em;color:var(--ink-soft)}
         <a href="/about.html">About</a>
       </div>
     </nav>
+    <!--FOOT_SUB:START-->
     <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <a class="btn btn-yt" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
+      aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>
+    <p>A new rip most days. Every pack we open goes up, hit or no hit.</p>
+    <!--FOOT_SUB:END-->
     <div class="foot-social">
       <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
       <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>

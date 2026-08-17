@@ -968,12 +968,25 @@ function pokePage(p) {
     const whoWeAre = `<p class="lede" style="max-width:40em">Garbage Rips 585 is a Pokemon card pack opening
       channel out of Rochester, New York. We film every pack we open, hit or no hit.</p>`;
 
-    const rows = (list, note) => `<ul class="poke-rips">
+    // THE SET LABEL EARNS ITS LINE: 95 of the 301 set-tagged rips do not name
+    // their set in the title ("8 Packs and NO HITS?!" is Pitch Black), so
+    // without it a third of these rows are a joke with no context.
+    //
+    // `.rip-meta` RATHER THAN `.rr`, and the first attempt used `.rr` and looked
+    // broken. `.rr` is only ever declared as `.chase-card .rr`, so a bare one
+    // inherits body copy: the set name came out LARGER than the title it was
+    // annotating and ran straight on from it. `.rip-meta` is declared on its own
+    // and is mono, .78rem, ink-soft, which is what a caption should be. Its
+    // margin-bottom is inert here because the span stays inline; a <div> would
+    // apply it and open a 20px hole in every row. The <br> is what puts the
+    // label on its own line without any new CSS, which ui.css being off limits
+    // is the reason for.
+    const rows = (list, withSet) => `<ul class="poke-rips">
       ${list
         .map(
           (v) => `<li><a href="/${esc(v.path)}">${esc(v.title)}</a>${
-            note && v.viaSet && setLabel.has(v.viaSet)
-              ? ` <span class="rr">${esc(setLabel.get(v.viaSet))}</span>`
+            withSet && v.viaSet && setLabel.has(v.viaSet)
+              ? `<br><span class="rip-meta">${esc(setLabel.get(v.viaSet))}</span>`
               : ""
           }</li>`,
         )

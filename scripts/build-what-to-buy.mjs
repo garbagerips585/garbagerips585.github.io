@@ -739,6 +739,32 @@ const pickCard = (k, i, sIndex) => {
         </li>`;
 };
 
+// ============================================== the jump strip, and why it exists
+//
+// MEASURED BEFORE IT WAS WRITTEN. At 390x844 this page is 33 phone screens and
+// the collector band added 9 of them. A reader who arrived because they are
+// buying for somebody who already collects would have had to scroll past six
+// beginner situations, a glossary and an entire "what to buy first" argument to
+// reach the one part written for them, and nobody does that. The band being good
+// is worth nothing if it is unreachable.
+//
+// FIVE LINKS, ONE ROW OF PILLS, BELOW THE QUICK STRIP. Below, because the fold
+// budget above it is already spent and argued for in the STYLE block: the first
+// concrete recommendation with a price on it has to be on screen without
+// scrolling, and this must not push it. Re-measured after adding it and the
+// first price is unmoved.
+//
+// The hrefs are anchors into sections of THIS page, so nothing here can 404 in
+// the way an outbound link can, but a mistyped one fails silently. They are
+// checked against the rendered markup below rather than trusted.
+const JUMP = [
+  ["#situations", "Who it is for"],
+  ["#collector", "Gifts for a collector"],
+  ["#the-words", "What the boxes are"],
+  ["#do-not", "Not to buy first"],
+  ["#reseller", "Why a price looks wrong"],
+];
+
 const situationCard = (s, i) => `    <li class="wtb-sit" id="${esc(s.id)}">
       <h3>${esc(s.who)}</h3>
       <p class="wtb-sub">${esc(s.sub)}</p>
@@ -1014,6 +1040,16 @@ const STYLE = `
   justify-self:end}
 .wtb-quick .q-for{grid-column:1/-1;margin:0;font-size:.85rem;color:var(--ink-soft);
   line-height:1.35}
+
+/* THE JUMP STRIP. It reuses .wtb-links for the pills, so the 44px tap target
+   rule and the hover already apply and this adds three declarations rather than
+   a second set of buttons. The label is a quiet mono line rather than a heading:
+   a real heading here would sit between the h1 and the first h2 and read as a
+   section of the page instead of a signpost to one. */
+.wtb-jump{margin:var(--s5) 0 0}
+.wtb-jlabel{margin:0 0 var(--s2);font:700 .7rem/1 var(--mono);letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-soft)}
+.wtb-jump .wtb-links{margin:0}
 
 /* ------------------------------------------------------------- the situations */
 .wtb-sits{list-style:none;margin:0;padding:0;display:grid;gap:var(--s6)}
@@ -1299,10 +1335,17 @@ ${quick
   )
   .join("\n")}
       </ul>
+
+      <nav class="wtb-jump" aria-label="Sections of this guide">
+        <p class="wtb-jlabel">Jump to</p>
+        <div class="wtb-links">
+${JUMP.map(([h, l]) => `          <a href="${esc(h)}">${esc(l)}</a>`).join("\n")}
+        </div>
+      </nav>
     </div>
   </section>
 
-  <section class="band tight">
+  <section class="band tight" id="situations">
     <div class="wrap">
       <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pick your situation</p>
       <h2>Who is it <span class="hl">for</span>?</h2>
@@ -1340,12 +1383,12 @@ ${collector.tests.map(testRow).join("\n")}
 
       <div class="wtb-body" style="margin-top:var(--s6)">
         <h3>Four things that pass all three</h3>
-        <p>Cheapest first. Every one of these is something they cannot already have, from whatever
-          is on the shelf right now, and every one leaves the last decision with them.</p>
       </div>
-      <p class="gft-rule">Each card shows what the manufacturer suggests, and beside it the figure to
-        put the box down over: <b>${esc(multStr(DOUBLE))} times the suggestion</b>. That line is this
-        site's rule of thumb rather than a measurement, and the evidence for it is directly below.</p>
+      <p class="gft-rule">Cheapest first. Each one shows what the manufacturer suggests and, beside
+        it, the figure to put the box down over: <b>${esc(
+          multStr(DOUBLE)
+        )} times the suggestion</b>. That line is this site's rule of thumb rather than a
+        measurement, and the evidence for it is directly below.</p>
       <ul class="gft-picks">
 ${collector.safe.map(safeCard).join("\n")}
       </ul>
@@ -1359,12 +1402,11 @@ ${para(collector.ceiling.body)}
         EVIDENCE_URLS.length
           ? `\n      <p class="wtb-seen">Read at ${EVIDENCE_URLS.map((u) => esc(u)).join(
               " and at "
-            )}. Every other listing counted above is printed in full, with its own address and the
-        day it was read, on <a href="/msrp.html">the MSRP check</a> and on
+            )}. The rest are printed in full, each with its own address and date, on
+        <a href="/msrp.html">the MSRP check</a> and on
         <a href="/retailers.html">stores that sell cards</a>.</p>`
           : ""
       }
-${links([["/msrp.html", "The same sum as a calculator"], ["/retailers.html", "Every listing we have read"]])}
 
       <div class="wtb-body" style="margin-top:var(--s6)">
         <h3>${esc(collector.supplies.title)}</h3>
@@ -1373,9 +1415,8 @@ ${para(collector.supplies.body)}
 
       <div class="wtb-body" style="margin-top:var(--s6)">
         <h3>Four things not to give blind</h3>
-        <p>Every one of these is somebody making a decision on the collector's behalf that the
-          collector would rather make themselves. None of them is a bad product. They are bad
-          guesses.</p>
+        <p>Each one makes a decision on the collector's behalf that they would rather make
+          themselves. None of them is a bad product. They are bad guesses.</p>
       </div>
       <ul class="wtb-nos" style="margin-top:var(--s5)">
 ${collector.unsafe.map(unsafeRow).join("\n")}
@@ -1383,8 +1424,6 @@ ${collector.unsafe.map(unsafeRow).join("\n")}
 
       <div class="wtb-body" style="margin-top:var(--s6)">
         <h3>What this page cannot tell you</h3>
-        <p>Worth saying out loud, because a guide that sounds certain about everything is not one
-          to trust in a shop.</p>
       </div>
       <ul class="gft-gaps">
 ${collector.gaps.map((g) => `        <li>${esc(g)}</li>`).join("\n")}
@@ -1393,7 +1432,7 @@ ${links(collector.links)}
     </div>
   </section>
 
-  <section class="band tight">
+  <section class="band tight" id="the-words">
     <div class="wrap">
       <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The words</p>
       <h2>What those boxes actually <span class="hl">are</span></h2>
@@ -1544,6 +1583,32 @@ ${APP_JS}
 </body>
 </html>
 `;
+
+// EVERY JUMP TARGET REALLY EXISTS, CHECKED AGAINST THE MARKUP THAT IS ABOUT TO
+// BE WRITTEN. A dead in-page anchor is the quietest broken link there is: the
+// browser does nothing at all, no console error, no 404, and check-build.py
+// follows hrefs to pages rather than to fragments. The same shape of guard the
+// nav in shared/chrome.mjs keeps over BAR_LINKS, and it is here because the
+// collector band's two cross references, #one-card and #not-a-mystery-box, are
+// exactly the kind of thing a later edit renames in one place.
+{
+  const anchors = [
+    ...JUMP.map(([h]) => h.slice(1)),
+    "one-card",
+    ...(guide.avoid || []).filter((a) => a.id).map((a) => a.id),
+    ...(guide.collector.unsafe || []).filter((u) => u.id).map((u) => u.id),
+  ];
+  const missing = anchors.filter((id) => !page.includes(` id="${id}"`));
+  if (missing.length) {
+    throw new Error(
+      `build-what-to-buy: these anchors are linked from the page and no element carries them:\n` +
+        `  ${missing.join("\n  ")}\n` +
+        `  An in-page link to a fragment that is not there does nothing at all, silently, and\n` +
+        `  nothing downstream checks fragments. Either the id was renamed or the block that\n` +
+        `  carries it stopped being rendered.`
+    );
+  }
+}
 
 await writeFile(join(ROOT, "public/what-to-buy.html"), page);
 

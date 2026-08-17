@@ -159,7 +159,37 @@ It is not. The research files record that those pages were deliberately never
 fetched and that no url leading to them is stored, so there is nothing in the
 tree to emit by accident. Keep it that way.
 
-THERE IS NO SIXTH EXCEPTION AND /decks.html AND /top-100-playable.html ARE THE
+THERE IS NOW A SIXTH EXCEPTION, /most-valuable-cards.html AND
+/most-expensive-sealed.html, AND IT WAS ADDED WITHOUT BEING ARGUED HERE, WHICH
+IS THE MISTAKE THE PLAYLIST CARDS MADE AND THIS FILE SPENDS FOUR PARAGRAPHS
+COMPLAINING ABOUT. It was approved in conversation on 17 August 2026 and the
+paragraph below still said "there is no sixth exception" while 200 links were
+live on two pages. A QA sweep found it. Writing it down now, late.
+
+Each page carries one "check on TCGplayer" link per row, 100 apiece, no
+affiliate code. THE ARGUMENT FOR IT is the one the fourth and fifth exceptions
+turn on: the reader needs the destination. Those two pages exist to say what
+the most expensive Pokemon cards and sealed products are, ranked by a live
+TCGplayer market price read on a date, and a price like that is only worth
+publishing if a reader can check whether it still holds. Two hundred
+uncheckable numbers is a worse page than two hundred checkable ones, and the
+site's whole claim is that its figures are traceable.
+
+THE SHAPE IS THE MITIGATION, exactly as for the fourth and fifth. Every large
+tap target on a row, the rank, the picture, the name, the whole row, is
+INTERNAL: it goes to that card's set guide, then its Pokemon page, then site
+search. Measured on /most-valuable-cards.html: 105 internal links against the
+100 outbound ones. The outbound link is a small labelled control at the end of
+a row, aria-labelled as leaving the site like every other exception.
+
+NOTE THE CONTRAST WITH THE PARAGRAPH BELOW, which is still correct and still
+the default. /decks.html and /top-100-playable.html ALSO lean on an outside
+source and get no link, because a decklist reproduced in full on the page needs
+no destination. The test is not "does this page owe a source credit", it is
+"does the reader need to go there". A price you are asked to trust says yes; a
+decklist you have already been handed says no.
+
+/decks.html AND /top-100-playable.html ARE THE
 CASE THAT NEARLY MADE ONE. Both are built entirely out of somebody else's
 measurements: deck usage, match records and several hundred decklists, all from
 Limitless TCG. That is exactly the shape of the fourth and fifth exceptions, a
@@ -180,6 +210,46 @@ If a later editor wants to add them, that is a real argument and not a silly
 one, but make it here first, in this file, in the same edit. Do not add one
 quietly to the foot of a page: that is precisely how the playlist cards became
 an exception this file did not admit to for months.
+
+AND THE SEVENTH EXCEPTION THAT WAS ASKED FOR BY NAME AND STILL NOT MADE, 17
+August 2026. Tim stated the site's commercial purpose plainly: YouTube is the
+primary channel and the goal is subscribers and views. That goal is in genuine
+tension with this rule, and the obvious way to serve it is to put a Subscribe
+link or a youtube.com link on all 1,475 pages. THAT IS THE ONE THING THAT WAS
+NOT DONE, and this paragraph exists so nobody has to rediscover why.
+
+THE MEASUREMENT THAT PROMPTED IT, driven on the real pages at 390x844 DPR 2,
+first VISIBLE control of any kind pointing at the channel:
+
+      /pokemon/gible.html      y=10,078 of 10,363    97% down, 12 screens
+      /evolution.html          y=94,648 of 94,910    112 screens
+      /msrp.html               y=30,937 of 31,266
+      /base-set.html           y=19,629 of 19,914
+      /retailers/target.html   y= 6,006 of  6,246
+
+Every one of those was the unlabelled YouTube circle in `.foot-social`, because
+below 560px the bar's own `.sub` is `display:none` and the only other Subscribe
+is inside the closed hamburger. NO informational page contained a single line of
+copy saying what the channel is. A stranger could read all 10,363px of the Gible
+page without learning there was a channel behind it.
+
+The fix went the other way on purpose, and it is the reading that dissolves the
+tension rather than trading one goal off against the other: A CONTENT HUB EARNS
+A SUBSCRIBER BY BEING WORTH SUBSCRIBING TO, so the answer is to show the
+channel's own videos as CONTENT on the informational pages and let the reader
+arrive at the channel wanting it. `build-pokemon.mjs` now joins a species to
+rips by SET as well as by title, which took the largest page family on the site
+from 39 pages carrying a video link to 918, and every one of those links goes to
+a rip page on this site. Nothing outbound was added anywhere. The one genuinely
+outbound change is that the Subscribe already in the footer got a NAME and a
+REASON instead of being a bare 44px glyph, which is the first exception being
+done properly rather than a new one being invented.
+
+SO THE COUNT IS STILL FIVE. If a later editor is asked for the same thing again,
+the lever is a MORE RELEVANT VIDEO IN A BETTER PLACE, not another link: a rip of
+a set that prints this card beats a "latest videos" rail, and both beat a
+sticky bar. Page families with nothing to watch are listed under "Current state"
+and that is where the next win is, not in this section.
 
 A playlist with zero videos does not render at all. Two exist on the channel
 and were showing as cards reading "0 videos" whose only action was a link to
@@ -358,6 +428,35 @@ for, so those rows carry a drawn tile rather than a borrowed scan.
   it directly). GitHub Pages cannot execute a function, so that fetch was a
   guaranteed 404 on every grid page and both it and functions/ are deleted.
   Freshness comes from the nightly refresh workflow instead.
+
+## Which pages have something to watch
+
+Counted from the built tree 17 August 2026, by whether the page links a
+`/rip/` page at all. This is the inventory the "no seventh exception" argument
+points at, and it is the worklist: a family with nothing to watch is a family
+where a reader cannot discover the channel by being interested.
+
+      rip           313 of  313    the video is the page
+      pokemon       918 of 1026    39 before the set join went in
+      openings       13 of   14
+      playlists      21 of   21
+      sets           23 of   42    the 19 without are sets never ripped
+      retailers       0 of    9
+      games           0 of    5
+      root pages      2 of   45    index.html and videos.html
+
+SO THE GAP IS THE ROOT GUIDES AND IT IS THE BIGGEST ONE LEFT: 43 of the 45
+single pages at the root, which is most of what a search engine sends somebody
+to, show a reader nothing to watch. /evolution.html is the extreme case at
+94,910px tall with not one video on it. Each of those is owned by its own
+builder, so the fix is per builder and the pattern to copy is the set guides'
+"See it opened" band or `watchBand` in build-pokemon.mjs.
+
+THE JOIN THAT MADE THE POKEDEX WORK IS REUSABLE and is the interesting half:
+a species has printings, a rip is tagged with the set it opened, so a rip of a
+set that prints this card is relevant WITHOUT anybody hand-tagging anything.
+Any page that can name a set or a card can do the same. Title matching alone
+fired on 3.8% of the Pokedex; the set join fires on 89.6%.
 
 ## Card images (measured, and two things here are counterintuitive)
 
@@ -593,11 +692,11 @@ is safe to go stale in the only direction it can.
   `node scripts/build-untagged.mjs` for the current ones.
 
 ## Current state
-Homepage order: nav, Greatest Hits (the Hall of Fame card, then a carousel),
-Latest rips (carousel), Most wanted, Card Pokedex, Card guides and tools, the
-585 hometown band, footer. The ORDER is the same at every width; the LAYOUT of
-the first two bands is not, and the difference is described under "The home
-page is two layouts" below.
+Homepage order: nav, THIS WEEK'S DROPS, Greatest Hits (the Hall of Fame card,
+then a carousel), Latest rips (carousel), Most wanted, Card Pokedex, Card guides
+and tools, the 585 hometown band, footer. The ORDER is the same at every width;
+the LAYOUT of the first two content bands is not, and the difference is
+described under "The home page is two layouts" below.
 
 **This section described a different page until 14 August 2026 and was
 believed.** It listed a ROC ticker, a Rochester skyline SVG, an "Anatomy of a
@@ -612,6 +711,56 @@ If you change the home page, change this paragraph in the same commit. Stale
 architecture notes are worse than none: they get quoted back as constraints.
 
 WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
+- **THIS WEEK'S DROPS IS THE FIRST THING IN `<main>` AND IT CAN DELETE ITSELF.**
+  Added 17 August 2026 on Tim's ask: "easy to just land on home page and see
+  what upcoming pokemon drops to keep an eye out for this week". Three rows out
+  of /drops.html's nine, generated into the `DROPS` region by build-proto.mjs
+  from data/drops.json, linking through. It is text: no artwork, no extra
+  request, +1.3KB gzipped on the document at every width measured, verified from
+  the request log against the same page with the band stripped out.
+
+  IT IS ABOVE GREATEST HITS AND THAT COST WAS MEASURED, NOT WAVED AT. At 390x844
+  the band is 550px and moves the "Greatest Hits" heading from 367px to 722px,
+  so the heading is still above the fold and the trophy artwork mostly is not.
+  At 1440x900 the band is 265px, three columns, and Greatest Hits still shows
+  three packs. The case for the position is that the Greatest Hits band alone is
+  1,656px tall on a phone, so anything under it is two screens down and nobody
+  lands on the page and sees it. If a later editor decides the channel must own
+  the whole first screen, move the two `DROPS` markers in index.html below the
+  `.hof` section; do NOT instead shrink the band by cutting its lede or its
+  credit line, which are the two things it must not lose.
+
+  **THE EXPIRY IS THE WHOLE FEATURE AND IT IS SHARED, NOT COPIED.** A stale drop
+  here is far worse than a stale drop on /drops.html, because "be ready for a
+  possible drop today" above the fold on the front door is the loudest lie the
+  site can tell. shared/drops.mjs owns the model and BOTH pages import it, so
+  they cannot disagree about which rows are alive. Two layers, exactly as
+  /drops.html has always had:
+    - the BUILD drops rows whose `expires` has passed, on the later of the drops
+      clock and the real build day (later can only ever expire more, never less)
+    - a CLIENT sweep re-runs it on the reader's own clock, so a deploy that has
+      stopped moving still tells the truth
+  The band is STRICTER than /drops.html in one way: past `weekEnds` it removes
+  itself entirely rather than showing a staleness banner. That page is the
+  record and last week's list is worth reading there; a pointer to what to watch
+  for THIS week has nothing to point at. If the sweep takes the last row the
+  band also removes itself, so it can never sit there as an empty frame.
+
+  Driven with the page's clock faked, on the page as built 17 August: 3 rows on
+  the 17th, 2 on the 18th, 1 on the 20th and the 23rd, and NO BAND at all on the
+  24th and the 31st, with `.hof` first in `<main>` again. /drops.html on the same
+  dates still bands the week and turns its h1 past tense, unchanged.
+
+  THE ROWS ARE PICKED BY RULE AND NOTHING IS EVER TRUNCATED (`homeBandRows`).
+  A row goes in whole or not at all, because the hedge is usually the END of the
+  sentence: "the trackers expect Tuesday around 3am Eastern based on recent
+  patterns, WHICH IS A GUESS RATHER THAN A TIME". Shortening that to fit reads
+  as tidying up and is how this band would start lying. So a row too long for a
+  compact card is left off and stays on /drops.html with its notes, and
+  build-proto.mjs SAYS SO in its output when it drops one. One row per retailer,
+  at most two perishable rows so the band cannot empty itself mid-week, soonest
+  first. The confidence word comes from `CONF_LABEL` in shared/drops.mjs, shared
+  with /drops.html so "Pattern only" cannot quietly become "Expected" here.
 - Every video band plays IN PLACE. Clicking a pack mounts the player over the
   tile, runs the rip animation and plays there. It does not navigate. This was
   an explicit request and it is easy to undo by accident, because the tile is

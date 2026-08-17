@@ -20,7 +20,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
-import { BAR, MENU, FOOT_NAV } from "../shared/chrome.mjs";
+import { BAR, MENU, FOOT_NAV, FOOT_SUB } from "../shared/chrome.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CHECK = process.argv.includes("--check");
@@ -48,6 +48,26 @@ const BLOCKS = [
     name: "foot-nav",
     re: /<nav class="foot-nav"[\s\S]*?<\/nav>/,
     want: FOOT_NAV,
+  },
+  // The footer Subscribe block, added 17 August 2026. See FOOT_SUB in
+  // shared/chrome.mjs for what it is and why it carries a reason.
+  //
+  // ANCHORED ON ITS NEIGHBOURS RATHER THAN ON ITSELF, because on the first run
+  // these eight pages do not have it yet: there is nothing of its own to match.
+  // What they all do have is the footer nav directly above and .foot-social
+  // directly below, so the block is defined as everything between the two.
+  //
+  // `(?:(?!<\/nav>)[\s\S])*?` IS THE WHOLE TRICK AND A PLAIN `[\s\S]*?` IS WRONG
+  // HERE. Three navs close before .foot-social does (the bar's Primary, the menu
+  // panel, then the footer's). A lazy any-character run would start at the FIRST
+  // </nav> on the page and swallow the menu and the footer nav with it, which
+  // deletes the entire site navigation from all eight pages and still looks like
+  // a successful sync. Refusing to cross a </nav> forces the match to begin at
+  // the LAST one before .foot-social, which is the footer nav's.
+  {
+    name: "foot-sub",
+    re: /<\/nav>(?:(?!<\/nav>)[\s\S])*?<div class="foot-social">/,
+    want: `</nav>\n    ${FOOT_SUB}\n    <div class="foot-social">`,
   },
 ];
 

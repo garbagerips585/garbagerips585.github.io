@@ -1222,7 +1222,7 @@ ${CLIENT_DAY_JS}
     <ul class="wdrop-list">
 ${picked.map(row).join("\n")}
     </ul>
-    <p class="wdrop-src">${credit ? `${credit}. ` : ""}<a href="/drops.html">Every drop this week, and the notes on each one</a>.</p>
+    <p class="wdrop-src">${credit || "Community restock trackers"}. Not a retailer speaking.</p>
   </div>
 </section>
 ${sweep}`;
@@ -1396,7 +1396,15 @@ const homeCss = `<style>.hofx-art .play{opacity:.95}
 .wdr{border-left:3px solid var(--keyline);padding-left:var(--s3);min-width:0}
 .wdr-top{display:flex;align-items:center;flex-wrap:wrap;gap:var(--s2)}
 .wdr-top b{font:700 var(--t-label)/1.1 var(--body);letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
-.wdr-ch{font:400 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+/* 700, NOT 400, AND IT IS WORTH 9.4KB ABOVE THE FOLD. Every other Space Mono on
+   this page is bold, so a single 400 declaration here fetched a second weight
+   file, space-mono-Xi4EwQ.woff2, that nothing else on the home page wanted:
+   9.4KB and one request, seven times the whole band's 1.3KB of markup. Caught
+   by diffing the request log against the same page with the band stripped out,
+   which is the only way it shows up: the markup, the CSS and the rendering all
+   look correct. The channel reads as secondary through colour instead, which
+   costs nothing. CHECK THE WEIGHT BEFORE ADDING A FONT DECLARATION HERE. */
+.wdr-ch{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
 /* The confidence rung, in the hatch /drops.html gives its weakest tier. Every
    row that reaches this band is 'expected' or weaker, so one treatment is
    honest here; the four-rung ladder stays on the page that explains it. */
