@@ -1,14 +1,50 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
-  "syncedAt": "2026-08-16",
+  "syncedAt": "2026-08-17",
   "videos": [
+    {
+      "id": "DP8HG31X1rg",
+      "title": "Is Pack #13 Actually CURSED? 💀🌑",
+      "path": "rip/is-pack-13-actually-cursed-DP8HG31X1rg.html",
+      "published": "2026-08-17",
+      "duration": 20,
+      "views": 777,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "chaos-rising"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Chaos Rising Pack #13"
+    },
+    {
+      "id": "VZtK6rT7ZTI",
+      "title": "Trubbish Food 🗑️🤘 | Pitch Black Pack #8",
+      "path": "rip/trubbish-food-pitch-black-pack-8-VZtK6rT7ZTI.html",
+      "published": "2026-08-16",
+      "duration": 21,
+      "views": 883,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "pitch-black"
+      ],
+      "products": [
+        "etb"
+      ],
+      "pulls": [],
+      "label": "Pitch Black ETB #8"
+    },
     {
       "id": "E5Wz7X1VMeY",
       "title": "8 Packs and NO HITS?! 🌑💀",
       "path": "rip/8-packs-and-no-hits-E5Wz7X1VMeY.html",
       "published": "2026-08-15",
       "duration": 19,
-      "views": 767,
+      "views": 774,
       "vertical": true,
       "short": true,
       "sets": [
@@ -29,7 +65,7 @@
       "path": "rip/the-chaos-rising-struggle-is-real-T2-UqY2ZSOw.html",
       "published": "2026-08-14",
       "duration": 21,
-      "views": 930,
+      "views": 1005,
       "vertical": true,
       "short": true,
       "sets": [
@@ -49,7 +85,7 @@
       "path": "rip/the-cutest-pull-ever-chaos-rising-O5WscUY7qZI.html",
       "published": "2026-08-13",
       "duration": 20,
-      "views": 724,
+      "views": 728,
       "vertical": true,
       "short": true,
       "sets": [
@@ -70,7 +106,7 @@
       "path": "rip/this-etb-is-breaking-me-IQMn3DNCzik.html",
       "published": "2026-08-12",
       "duration": 20,
-      "views": 662,
+      "views": 666,
       "vertical": true,
       "short": true,
       "sets": [
@@ -254,7 +290,7 @@
       "path": "rip/gold-star-in-a-single-pack-bastion-ir-LmdyCAqDodM.html",
       "published": "2026-08-03",
       "duration": 21,
-      "views": 654,
+      "views": 656,
       "vertical": true,
       "short": true,
       "sets": [
@@ -295,7 +331,7 @@
       "path": "rip/toucannon-illustration-rare-pitch-black-etb-ndzNjhARITQ.html",
       "published": "2026-08-01",
       "duration": 24,
-      "views": 889,
+      "views": 891,
       "vertical": true,
       "short": true,
       "sets": [
@@ -416,7 +452,7 @@
       "path": "rip/the-curse-is-broken-pitch-black-hit-JfHlnrlX6S0.html",
       "published": "2026-07-26",
       "duration": 22,
-      "views": 30,
+      "views": 31,
       "vertical": true,
       "short": true,
       "sets": [
@@ -857,7 +893,7 @@
       "path": "rip/only-garbage-rips-mega-emboar-box-2-finale-xqV7AYXoVJs.html",
       "published": "2026-07-13",
       "duration": 20,
-      "views": 629,
+      "views": 628,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1029,7 +1065,7 @@
       "path": "rip/scorbunny-illustration-rare-mega-meganium-box-2-u9zpVOVsWyg.html",
       "published": "2026-07-09",
       "duration": 24,
-      "views": 535,
+      "views": 536,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3425,7 +3461,7 @@
       "path": "rip/prismatic-evolutions-etb-pack-1-umbreon-hunt-begins-hCI0HSfly1c.html",
       "published": "2026-05-10",
       "duration": 20,
-      "views": 1254,
+      "views": 1256,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5548,8 +5584,8 @@
       "pulls": [],
       "packs": 1,
       "openingType": "Korean Booster Pack",
-      "label": "Crimson Haze (KR) Pack",
-      "blurb": "Opening Korean Crimson Haze booster packs, testing international pack luck. Korean print. Full garbage plate energy applied. Garbage rips or overseas heat?"
+      "blurb": "Opening Korean Crimson Haze booster packs, testing international pack luck. Korean print. Full garbage plate energy applied. Garbage rips or overseas heat?",
+      "label": "Crimson Haze (KR) Pack"
     },
     {
       "id": "IuEb3qtjflI",
@@ -5811,7 +5847,7 @@
       "path": "rip/only-garbage-rips-garbodor-unova-mini-tin-rochesters-pok-mon-Ab81MNFnDLw.html",
       "published": "2026-02-18",
       "duration": 40,
-      "views": 1540,
+      "views": 1541,
       "vertical": true,
       "short": true,
       "sets": [],
@@ -5827,7 +5863,7 @@
       "path": "rip/only-garbage-rips-pok-mon-ascended-heroes-pack-1-3dKWTVbCH3I.html",
       "published": "2026-02-17",
       "duration": 17,
-      "views": 778,
+      "views": 779,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5836,12 +5872,14 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
+      "pulls": [
+        "ultra"
+      ],
+      "hitCard": "Ascended Heroes - Stunfisk ex - Double Silver Star - Ultra Rare",
+      "hasHit": true,
       "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Ascended Heroes Pack #1",
-      "hitCard": "Ascended Heroes - Stunfisk ex - Double Silver Star - Ultra Rare",
-      "hasHit": true
+      "label": "Ascended Heroes Pack #1"
     },
     {
       "id": "wMDMN2emLCM",
@@ -5849,7 +5887,7 @@
       "path": "rip/only-garbage-rips-pok-mon-trick-or-trade-booster-packs-in-fe-wMDMN2emLCM.html",
       "published": "2026-02-16",
       "duration": 20,
-      "views": 340,
+      "views": 342,
       "vertical": true,
       "short": true,
       "sets": [],
@@ -5857,9 +5895,9 @@
         "single-pack"
       ],
       "pulls": [],
+      "hasHit": false,
       "packs": 3,
-      "openingType": "Single Booster Pack",
-      "hasHit": false
+      "openingType": "Single Booster Pack"
     },
     {
       "id": "QADrkuqf9pg",
@@ -5867,7 +5905,7 @@
       "path": "rip/only-garbage-rips-pok-mon-korean-mask-of-change-booster-pack-QADrkuqf9pg.html",
       "published": "2026-02-15",
       "duration": 18,
-      "views": 453,
+      "views": 454,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5877,10 +5915,10 @@
         "korean-pack"
       ],
       "pulls": [],
+      "hasHit": false,
       "packs": 1,
       "openingType": "Korean Booster Pack",
-      "label": "Mask of Change (KR) Pack",
-      "hasHit": false
+      "label": "Mask of Change (KR) Pack"
     },
     {
       "id": "jO7K2zX6Rlg",
@@ -5888,7 +5926,7 @@
       "path": "rip/only-garbage-rips-pok-mon-violet-ex-booster-pack-jO7K2zX6Rlg.html",
       "published": "2026-02-14",
       "duration": 16,
-      "views": 2410,
+      "views": 2411,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5898,10 +5936,10 @@
         "single-pack"
       ],
       "pulls": [],
+      "hasHit": false,
       "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Violet ex (JP) Pack",
-      "hasHit": false
+      "label": "Violet ex (JP) Pack"
     },
     {
       "id": "8jKHh-P7P7M",
@@ -5909,7 +5947,7 @@
       "path": "rip/only-garbage-rips-chinese-gem-pack-vol-2-eeveelutions-8jKHh-P7P7M.html",
       "published": "2026-02-13",
       "duration": 18,
-      "views": 629,
+      "views": 630,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5919,10 +5957,10 @@
         "chinese-pack"
       ],
       "pulls": [],
+      "hasHit": false,
       "packs": 1,
       "openingType": "Chinese Booster Pack",
-      "label": "Gem Pack Vol. 2 (CN) Pack",
-      "hasHit": false
+      "label": "Gem Pack Vol. 2 (CN) Pack"
     },
     {
       "id": "hLr5iThoO2k",
@@ -5930,7 +5968,7 @@
       "path": "rip/only-garbage-rips-journey-together-scrafty-blister-hLr5iThoO2k.html",
       "published": "2026-02-12",
       "duration": 42,
-      "views": 946,
+      "views": 947,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5939,12 +5977,14 @@
       "products": [
         "blister"
       ],
-      "pulls": [],
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Journey Together - Volcanion ex - Double Black Star - Double Rare",
+      "hasHit": true,
       "packs": 3,
       "openingType": "Blister",
-      "label": "Journey Together Blister",
-      "hitCard": "Journey Together - Volcanion ex - Double Black Star - Double Rare",
-      "hasHit": true
+      "label": "Journey Together Blister"
     },
     {
       "id": "cmV6P3ssh2g",
@@ -5952,7 +5992,7 @@
       "path": "rip/only-garbage-rips-raikou-2-pack-blister-cmV6P3ssh2g.html",
       "published": "2026-02-11",
       "duration": 32,
-      "views": 931,
+      "views": 932,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5962,13 +6002,15 @@
       "products": [
         "blister"
       ],
-      "pulls": [],
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Phantasmal Flames - Rotom ex - Double Black Star- Double Rare",
+      "hasHit": true,
       "packs": 2,
       "openingType": "Blister",
       "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets.",
-      "label": "Phantasmal Flames Blister",
-      "hitCard": "Phantasmal Flames - Rotom ex - Double Black Star- Double Rare",
-      "hasHit": true
+      "label": "Phantasmal Flames Blister"
     },
     {
       "id": "SOCAXif6Mzs",
