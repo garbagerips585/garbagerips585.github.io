@@ -138,7 +138,9 @@
 .sp-svg{display:block;width:100%;max-width:560px;height:auto}
 .sp-g{font:700 9px var(--mono);fill:var(--ink)}
 .sp-f{font:400 9px var(--mono);fill:var(--ink-2)}
-.sp-h{font:700 8px var(--mono);fill:var(--ink-2);letter-spacing:.04em}
+/* 9 and not 8. At 8 these two headings rendered 8.7px on a phone, under the
+   floor, and they are the only thing saying which way the axis runs. */
+.sp-h{font:700 9px var(--mono);fill:var(--ink-2)}
 .sp-a{font:700 9px var(--mono);fill:var(--ink-2)}
 .sp-p{font:700 9px var(--mono);fill:var(--ketchup-deep)}
 .sp-t{stroke:var(--ink);stroke-width:1;opacity:.12}
@@ -389,8 +391,8 @@
           <li>Centering 10, Corners 6, Edges 10, Surface 10 <b>= 7</b></li>
         </ul>
         <figure class="sg">
-          <svg viewBox="0 0 300 212" class="sg-svg" role="img"
-               aria-label="The three worked examples on one grade axis. Components 9.5, 9.5, 9, 8, average 9, grade returned 8.5. Components 9.5, 9.5, 8.5, 9, average 9.125, grade returned 9. Components 10, 6, 10, 10, average 9, grade returned 7. In every one the grade sits below the average and beside the lowest component.">
+          
+          <svg viewBox="0 0 300 212" class="sg-svg" aria-hidden="true" focusable="false">
             
             <circle cx="5" cy="5.5" r="3.6" class="sg-dot"/>
             <text x="13" y="9" class="sg-key">One component</text>
@@ -563,69 +565,70 @@
           the drawing adds nothing to them except scale.</figcaption>
       </figure>
       <figure class="sp">
-        <svg viewBox="0 0 300 246" class="sp-svg" role="img"
-             aria-label="The five companies' published centering, front and back, at each grade. Pristine 10 front: 50/50 from 3, 51/49 from 1, 4 of 5 publishing. Gem Mint 10 front: 55/45 from 5, 5 of 5 publishing. Mint 9 front: 55/45 from 1, 60/40 from 4, 5 of 5 publishing. Near Mint-Mint 8 front: 60/40 from 1, 65/35 from 4, 5 of 5 publishing. Near Mint 7 front: 65/35 from 1, 70/30 from 4, 5 of 5 publishing. Pristine 10 back: 52/48 from 1, 55/45 from 1, 2 of 5 publishing. Gem Mint 10 back: 60/40 from 1, 65/35 from 1, 75/25 from 2, 4 of 5 publishing. Mint 9 back: 70/30 from 1, 75/25 from 1, 90/10 from 2, 4 of 5 publishing. Near Mint-Mint 8 back: 80/20 from 1, 90/10 from 1, 95/5 from 1, 3 of 5 publishing. Near Mint 7 back: 90/10 from 2, 2 of 5 publishing.">
-          <text class="sp-h" x="118" y="9">off centre, worse to the right</text>
+        
+        <svg viewBox="0 0 300 246" class="sp-svg" aria-hidden="true" focusable="false">
+          
+          <text class="sp-h" x="126" y="9">worse to the right</text>
           <text class="sp-h" x="300" y="9" text-anchor="end">publishing</text>
-          <line class="sp-t" x1="118.0" y1="16" x2="118.0" y2="242"/>
-          <text class="sp-a" x="118.0" y="22" text-anchor="middle">50/50</text>
-          <line class="sp-t" x1="150.0" y1="16" x2="150.0" y2="242"/>
-          <text class="sp-a" x="150.0" y="22" text-anchor="middle">60/40</text>
-          <line class="sp-t" x1="182.0" y1="16" x2="182.0" y2="242"/>
-          <text class="sp-a" x="182.0" y="22" text-anchor="middle">70/30</text>
-          <line class="sp-t" x1="214.0" y1="16" x2="214.0" y2="242"/>
-          <text class="sp-a" x="214.0" y="22" text-anchor="middle">80/20</text>
-          <line class="sp-t" x1="246.0" y1="16" x2="246.0" y2="242"/>
-          <text class="sp-a" x="246.0" y="22" text-anchor="middle">90/10</text>
+          <line class="sp-t" x1="126.0" y1="16" x2="126.0" y2="242"/>
+          <text class="sp-a" x="126.0" y="22" text-anchor="middle">50/50</text>
+          <line class="sp-t" x1="156.2" y1="16" x2="156.2" y2="242"/>
+          <text class="sp-a" x="156.2" y="22" text-anchor="middle">60/40</text>
+          <line class="sp-t" x1="186.4" y1="16" x2="186.4" y2="242"/>
+          <text class="sp-a" x="186.4" y="22" text-anchor="middle">70/30</text>
+          <line class="sp-t" x1="216.7" y1="16" x2="216.7" y2="242"/>
+          <text class="sp-a" x="216.7" y="22" text-anchor="middle">80/20</text>
+          <line class="sp-t" x1="246.9" y1="16" x2="246.9" y2="242"/>
+          <text class="sp-a" x="246.9" y="22" text-anchor="middle">90/10</text>
             <text class="sp-g" x="0" y="38.5">Pristine 10</text>
-            <text class="sp-f" x="76" y="38.5">front</text>
-            <line class="sp-r" x1="118" y1="35.5" x2="262" y2="35.5"/>
-            <circle cx="118.0" cy="35.5" r="5.2" class="sp-d"/><circle cx="121.2" cy="35.5" r="3.4" class="sp-d"/>
+            <text class="sp-f" x="91" y="38.5">front</text>
+            <line class="sp-r" x1="126" y1="35.5" x2="262" y2="35.5"/>
+            <circle cx="126.0" cy="35.5" r="5.2" class="sp-d"/><circle cx="129.0" cy="35.5" r="3.4" class="sp-d"/>
             <text class="sp-p" x="300" y="38.5" text-anchor="end">4/5</text>
             
-            <text class="sp-f" x="76" y="57.5">back</text>
-            <line class="sp-r" x1="118" y1="54.5" x2="262" y2="54.5"/>
-            <circle cx="124.4" cy="54.5" r="3.4" class="sp-d"/><circle cx="134.0" cy="54.5" r="3.4" class="sp-d"/>
+            <text class="sp-f" x="91" y="57.5">back</text>
+            <line class="sp-r" x1="126" y1="54.5" x2="262" y2="54.5"/>
+            <circle cx="132.0" cy="54.5" r="3.4" class="sp-d"/><circle cx="141.1" cy="54.5" r="3.4" class="sp-d"/>
             <text class="sp-p" x="300" y="57.5" text-anchor="end">2/5</text>
             <text class="sp-g" x="0" y="82.5">Gem Mint 10</text>
-            <text class="sp-f" x="76" y="82.5">front</text>
-            <line class="sp-r" x1="118" y1="79.5" x2="262" y2="79.5"/>
-            <circle cx="134.0" cy="79.5" r="7.0" class="sp-d"/>
+            <text class="sp-f" x="91" y="82.5">front</text>
+            <line class="sp-r" x1="126" y1="79.5" x2="262" y2="79.5"/>
+            <circle cx="141.1" cy="79.5" r="7.0" class="sp-d"/>
             <text class="sp-p" x="300" y="82.5" text-anchor="end">5/5</text>
             
-            <text class="sp-f" x="76" y="101.5">back</text>
-            <line class="sp-r" x1="118" y1="98.5" x2="262" y2="98.5"/>
-            <circle cx="150.0" cy="98.5" r="3.4" class="sp-d"/><circle cx="166.0" cy="98.5" r="3.4" class="sp-d"/><circle cx="198.0" cy="98.5" r="4.3" class="sp-d"/>
+            <text class="sp-f" x="91" y="101.5">back</text>
+            <line class="sp-r" x1="126" y1="98.5" x2="262" y2="98.5"/>
+            <circle cx="156.2" cy="98.5" r="3.4" class="sp-d"/><circle cx="171.3" cy="98.5" r="3.4" class="sp-d"/><circle cx="201.6" cy="98.5" r="4.3" class="sp-d"/>
             <text class="sp-p" x="300" y="101.5" text-anchor="end">4/5</text>
             <text class="sp-g" x="0" y="126.5">Mint 9</text>
-            <text class="sp-f" x="76" y="126.5">front</text>
-            <line class="sp-r" x1="118" y1="123.5" x2="262" y2="123.5"/>
-            <circle cx="134.0" cy="123.5" r="3.4" class="sp-d"/><circle cx="150.0" cy="123.5" r="6.1" class="sp-d"/>
+            <text class="sp-f" x="91" y="126.5">front</text>
+            <line class="sp-r" x1="126" y1="123.5" x2="262" y2="123.5"/>
+            <circle cx="141.1" cy="123.5" r="3.4" class="sp-d"/><circle cx="156.2" cy="123.5" r="6.1" class="sp-d"/>
             <text class="sp-p" x="300" y="126.5" text-anchor="end">5/5</text>
             
-            <text class="sp-f" x="76" y="145.5">back</text>
-            <line class="sp-r" x1="118" y1="142.5" x2="262" y2="142.5"/>
-            <circle cx="182.0" cy="142.5" r="3.4" class="sp-d"/><circle cx="198.0" cy="142.5" r="3.4" class="sp-d"/><circle cx="246.0" cy="142.5" r="4.3" class="sp-d"/>
+            <text class="sp-f" x="91" y="145.5">back</text>
+            <line class="sp-r" x1="126" y1="142.5" x2="262" y2="142.5"/>
+            <circle cx="186.4" cy="142.5" r="3.4" class="sp-d"/><circle cx="201.6" cy="142.5" r="3.4" class="sp-d"/><circle cx="246.9" cy="142.5" r="4.3" class="sp-d"/>
             <text class="sp-p" x="300" y="145.5" text-anchor="end">4/5</text>
             <text class="sp-g" x="0" y="170.5">Near Mint-Mint 8</text>
-            <text class="sp-f" x="76" y="170.5">front</text>
-            <line class="sp-r" x1="118" y1="167.5" x2="262" y2="167.5"/>
-            <circle cx="150.0" cy="167.5" r="3.4" class="sp-d"/><circle cx="166.0" cy="167.5" r="6.1" class="sp-d"/>
+            <text class="sp-f" x="91" y="170.5">front</text>
+            <line class="sp-r" x1="126" y1="167.5" x2="262" y2="167.5"/>
+            <circle cx="156.2" cy="167.5" r="3.4" class="sp-d"/><circle cx="171.3" cy="167.5" r="6.1" class="sp-d"/>
             <text class="sp-p" x="300" y="170.5" text-anchor="end">5/5</text>
             
-            <text class="sp-f" x="76" y="189.5">back</text>
-            <line class="sp-r" x1="118" y1="186.5" x2="262" y2="186.5"/>
-            <circle cx="214.0" cy="186.5" r="3.4" class="sp-d"/><circle cx="246.0" cy="186.5" r="3.4" class="sp-d"/><circle cx="262.0" cy="186.5" r="3.4" class="sp-d"/>
+            <text class="sp-f" x="91" y="189.5">back</text>
+            <line class="sp-r" x1="126" y1="186.5" x2="262" y2="186.5"/>
+            <circle cx="216.7" cy="186.5" r="3.4" class="sp-d"/><circle cx="246.9" cy="186.5" r="3.4" class="sp-d"/><circle cx="262.0" cy="186.5" r="3.4" class="sp-d"/>
             <text class="sp-p" x="300" y="189.5" text-anchor="end">3/5</text>
             <text class="sp-g" x="0" y="214.5">Near Mint 7</text>
-            <text class="sp-f" x="76" y="214.5">front</text>
-            <line class="sp-r" x1="118" y1="211.5" x2="262" y2="211.5"/>
-            <circle cx="166.0" cy="211.5" r="3.4" class="sp-d"/><circle cx="182.0" cy="211.5" r="6.1" class="sp-d"/>
+            <text class="sp-f" x="91" y="214.5">front</text>
+            <line class="sp-r" x1="126" y1="211.5" x2="262" y2="211.5"/>
+            <circle cx="171.3" cy="211.5" r="3.4" class="sp-d"/><circle cx="186.4" cy="211.5" r="6.1" class="sp-d"/>
             <text class="sp-p" x="300" y="214.5" text-anchor="end">5/5</text>
             
-            <text class="sp-f" x="76" y="233.5">back</text>
-            <line class="sp-r" x1="118" y1="230.5" x2="262" y2="230.5"/>
-            <circle cx="246.0" cy="230.5" r="4.3" class="sp-d"/>
+            <text class="sp-f" x="91" y="233.5">back</text>
+            <line class="sp-r" x1="126" y1="230.5" x2="262" y2="230.5"/>
+            <circle cx="246.9" cy="230.5" r="4.3" class="sp-d"/>
             <text class="sp-p" x="300" y="233.5" text-anchor="end">2/5</text>
         </svg>
         <figcaption>The same 50 cells as the two tables, on one axis, so they can be seen at once. A bigger dot is more

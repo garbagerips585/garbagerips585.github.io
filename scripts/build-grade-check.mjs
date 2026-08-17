@@ -457,11 +457,15 @@ const sgFig = () => {
       <text x="${x(s.final).toFixed(1)}" y="${base + 21}" class="sg-num">${s.final}</text>`;
   }).join("");
   return `        <figure class="sg">
-          <svg viewBox="0 0 ${W} ${H}" class="sg-svg" role="img"
-               aria-label="The three worked examples on one grade axis. ${SUBS.map(
-                 (s) =>
-                   `Components ${s.vals.join(", ")}, average ${(+s.mean.toFixed(3))}, grade returned ${s.final}`
-               ).join(". ")}. In every one the grade sits below the average and beside the lowest component.">
+          ${/* aria-hidden, and that is this file's own rule rather than an
+                oversight. The three examples are printed as text in the .gc-ex
+                list directly above, the averages and the minimum are stated in
+                the figcaption below, and the rule is: hide the shape when the
+                caption and the prose already carry the facts, give it a
+                role="img" and a SENTENCE only when the shape is the only place
+                a fact appears. An aria-label enumerating twelve component
+                scores would read the list out a second time. */ ""}
+          <svg viewBox="0 0 ${W} ${H}" class="sg-svg" aria-hidden="true" focusable="false">
             ${/* THE KEY IS LAID OUT BY HAND IN VIEWBOX UNITS AND THE NUMBERS
                   BELOW ARE MEASURED, NOT GUESSED. SVG text neither wraps nor
                   clips, so a label that outgrows its slot paints straight over
@@ -652,9 +656,18 @@ const fits = (s, px, room, what) => {
 };
 
 const spreadFig = () => {
-  // GRADE GUTTER 0..86, FACE 90..117, AXIS FROM 126. The grade column is sized
-  // to the longest grade name in the data and checked below, not chosen.
-  const W = 300, GRADE_W = 86, FACE_X = 90, X0 = 126, X1 = 262, TOP = 26, ROW = 19, PAIR = 6;
+  // THE GUTTERS ARE MEASURED OFF THE DATA, NOT PICKED. Hand-set to 86 units
+  // this threw on "Near Mint-Mint 8", which is 86.4, and moving it to 88 would
+  // just have deferred the same failure to the next grade name Beckett invents.
+  // The grade column is as wide as the longest grade the file holds, the face
+  // column as wide as the longer of the two words, and the axis starts after
+  // both. The guard below is still worth keeping: it is what catches a label
+  // that is not a grade name.
+  const W = 300, X1 = 262, TOP = 26, ROW = 19, PAIR = 6;
+  const GRADE_W = Math.ceil(Math.max(...c.front.map((r) => monoW(r.grade, 9)))) + 4;
+  const FACE_W = Math.ceil(Math.max(monoW("front", 9), monoW("back", 9))) + 4;
+  const FACE_X = GRADE_W;
+  const X0 = FACE_X + FACE_W + 4;
   const H = TOP + SPREAD.length * ROW + (c.front.length - 1) * PAIR + 6;
   const x = (v) => X0 + ((v - SPREAD_MIN) / (SPREAD_MAX - SPREAD_MIN)) * (X1 - X0);
   const ticks = [];
@@ -682,26 +695,39 @@ const spreadFig = () => {
         .join("");
       return `            ${
         r.face === "front"
-          ? `<text class="sp-g" x="0" y="${mid + 3}">${esc(r.grade)}</text>`
+          ? `<text class="sp-g" x="0" y="${mid + 3}">${esc(
+              fits(r.grade, 9, GRADE_W, `grade label on the ${r.grade} row`)
+            )}</text>`
           : ""
       }
-            <text class="sp-f" x="76" y="${mid + 3}">${r.face}</text>
+            <text class="sp-f" x="${FACE_X}" y="${mid + 3}">${fits(
+        r.face,
+        9,
+        X0 - FACE_X - 4,
+        "face label"
+      )}</text>
             <line class="sp-r" x1="${X0}" y1="${mid}" x2="${X1}" y2="${mid}"/>
             ${marks}
             <text class="sp-p" x="${W}" y="${mid + 3}" text-anchor="end">${r.published}/${CO.length}</text>`;
     })
     .join("\n");
   return `      <figure class="sp">
-        <svg viewBox="0 0 ${W} ${H}" class="sp-svg" role="img"
-             aria-label="The five companies' published centering, front and back, at each grade. ${SPREAD.map(
-               (r) =>
-                 `${r.grade} ${r.face}: ${
-                   r.groups.length
-                     ? r.groups.map((g) => `${g.v}/${100 - g.v} from ${g.n}`).join(", ")
-                     : "nothing published"
-                 }, ${r.published} of ${CO.length} publishing`
-             ).join(". ")}.">
-          <text class="sp-h" x="${X0}" y="9">off centre, worse to the right</text>
+        ${/* aria-hidden, and here the rule bites hardest. Every one of these
+              fifty cells is already in the two tables above, which are real
+              <table> markup a screen reader can navigate by row and column, and
+              the finding is in the figcaption. The first draft's aria-label
+              enumerated all fifty as one unbroken sentence, which is the whole
+              dataset read out a second time in the worst available order. */ ""}
+        <svg viewBox="0 0 ${W} ${H}" class="sp-svg" aria-hidden="true" focusable="false">
+          ${/* TWO HEADINGS ON ONE LINE, and the first draft's "off centre, worse to
+                the right" ran 139 units from x=118 into the second at 252. Both
+                are measured against the room they actually have now. */ ""}
+          <text class="sp-h" x="${X0}" y="9">${fits(
+            "worse to the right",
+            9,
+            W - X0 - monoW("publishing", 9) - 8,
+            "axis heading"
+          )}</text>
           <text class="sp-h" x="${W}" y="9" text-anchor="end">publishing</text>
           ${ticks
             .map(
@@ -853,7 +879,9 @@ const style = `
 .sp-svg{display:block;width:100%;max-width:560px;height:auto}
 .sp-g{font:700 9px var(--mono);fill:var(--ink)}
 .sp-f{font:400 9px var(--mono);fill:var(--ink-2)}
-.sp-h{font:700 8px var(--mono);fill:var(--ink-2);letter-spacing:.04em}
+/* 9 and not 8. At 8 these two headings rendered 8.7px on a phone, under the
+   floor, and they are the only thing saying which way the axis runs. */
+.sp-h{font:700 9px var(--mono);fill:var(--ink-2)}
 .sp-a{font:700 9px var(--mono);fill:var(--ink-2)}
 .sp-p{font:700 9px var(--mono);fill:var(--ketchup-deep)}
 .sp-t{stroke:var(--ink);stroke-width:1;opacity:.12}

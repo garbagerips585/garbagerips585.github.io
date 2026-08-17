@@ -866,10 +866,46 @@ ALL `min-width`, so nothing a phone or a tablet renders changed. Three things:
   fractions are deliberate, so the next card is cut by the band's edge and the
   row reads as continuing. The count steps to hold the ARTWORK still: one fixed
   count across the range swings the pack from 359px to 478px wide.
-- Greatest Hits becomes two columns at 1200: the trophy on the left at a fixed
-  460 to 520px, the rest of the hits beside it. That band was 2,105px tall to
-  show one pack and one video and is now 1,187px showing three.
+- Greatest Hits becomes two columns at 1200: the trophy on the left, the rest
+  of the hits beside it. That band was 2,105px tall to show one pack and one
+  video and is now 1,109px at 1500 showing three.
 - Most wanted's tiles grow to fill their row instead of stopping at 168px.
+
+THE TROPHY COLUMN IS NO LONGER "a fixed 460 to 520px" AND THIS BULLET SAID SO
+UNTIL 17 August 2026. Tim: "home page layout on desktop is still wonky for the
+first 3 videos". Those two picked numbers were the cause, because a SHARE is not
+a SIZE: the trophy's artwork is its column less a 4px border and var(--s5)
+padding, a slide's is half of what is left less a 1px border and var(--s4), and
+no pair of fixed numbers makes those two agree. Measured at 1500 before the fix:
+
+      trophy art 464px      slide art 408px      three sizes of pack
+      trophy card ends 1435 slide cards end 1367 ragged bottoms, 68px
+      trophy caption 1290   slide captions 1199  nothing on a line
+
+The column is DERIVED now, in the ui.css block that owns it, from the boxes on
+the way in, so all three packs are one width at every desktop width: 353.3px at
+1280, 406.7 at 1440, 426.7 at 1500 and up. Bottoms and artwork tops line up to
+0.0px at 1280, 1440, 1500, 1600 and 1920. The trophy gives up 37 to 51px of
+artwork and every slide GAINS 25 to 27, so the smallest pack in the band grows
+at every width, which is the test the old numbers were protecting. Rank is
+carried by the gold frame, the ribbon and first position instead, and the
+trophy's card is still the widest of the three.
+
+IT COSTS BAND HEIGHT AND THAT WAS MEASURED, NOT WAVED AT: 968.6 to 999.3px at
+1280, 1058.6 to 1079.3 at 1440, 1058.6 to 1109.3 at 1500 and up. The band buys
+bigger artwork on two of its three cards with it.
+
+ONE DOCUMENTED INVARIANT DID NOT SURVIVE, AND IT IS WRITTEN HERE RATHER THAN
+LEFT TO BE REDISCOVERED. "The trophy is the LCP element at every width" is no
+longer true above 1400: with the three images the same size the trophy's own
+box rounds to 426.66x639.98 against the slides' 426.67x640.00, so a carousel
+slide wins the LCP by FOUR SQUARE PIXELS. Nothing about the load changed and
+that was checked rather than assumed: same `sizes`, same file picked off the
+request log, fetchpriority still on the trophy alone, both LCP entries fire in
+the same millisecond, and median LCP over 5 runs each is 176 to 200ms at 1280,
+184 to 192 at 1500 and 208 to 200 at 1920 (before to after), with on-load weight
+656.6 to 657.0KB. If somebody "fixes" this by making the trophy's artwork bigger
+again they will have undone the whole change to win a rounding error.
 
 Do not "simplify" those fractional counts to whole numbers and do not reinstate
 a single centred card, which is what the two long comments above them are

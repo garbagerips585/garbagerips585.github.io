@@ -521,7 +521,15 @@ ${fmts
         <figcaption>${
           read
             ? `The sealed formats ${esc(r.name)} listed a price for on their own site, one photograph of each.`
-            : `The sealed formats ${esc(r.name)}'s own site names, in the line above, one photograph of each.`
+            : // NOT "in the line above", WHICH IS WHAT IT SAID AND WAS TRUE OF
+              // ONE OF THE TWO SHOPS THIS BRANCH SERVES. Best Buy's stock line
+              // does name "booster bundles, booster boxes" in those words.
+              // Walmart's names "booster boxes and trainer boxes" as CATEGORY
+              // names, so the tile reading "Elite Trainer Box" is not literally
+              // the line above; it is what their own search was read for and
+              // what the source note at the foot of the page records. Pointing at
+              // the sourcing rather than at a specific line is exact for both.
+              `The sealed formats named on ${esc(r.name)}'s own site when it was read, one photograph of each.`
         } The box in a picture is one product of that format and not the one on the shelf in front of you: the
           artwork changes with every set and the shape does not. What each format is supposed to cost is on
           <a href="/msrp.html">the MSRP page</a>.</figcaption>
