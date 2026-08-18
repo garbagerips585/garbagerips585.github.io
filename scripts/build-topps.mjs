@@ -970,7 +970,7 @@ ${MENU}
     <h2>All ${releases.length}, in the order they <span class="hl">came out</span></h2>
     <p class="lede" style="max-width:44em">Set names, dates and card counts are Bulbapedia's, one page per set,
       linked at the foot of this page. Card counts are the BASE set: the chase and insert cards are extra and are
-      described further down. The grey lines under each set are where PriceCharting files those cards, which is
+      described further down. The gray lines under each set are where PriceCharting files those cards, which is
       not the same thing at all, and the next section is about why.</p>
     <ol class="tp-sets">
 ${usSets.map(setCard).join("\n")}
@@ -1004,7 +1004,7 @@ ${releases.filter((r) => r.europeOnly).map(setCard).join("\n")}
       stickers get another, and where two Topps sets shared a card type the two are merged into one bucket.
       "2000 Topps TV Heroes &amp; Villians" is the clearest case. It holds HV1 to HV17, which is series 2's five
       Heroes &amp; Villains cards plus series 3's twelve, and Topps never released a set by that name.</p>
-    <p style="max-width:44em">So on this site the set list above is Topps' own, and the grey lines under each
+    <p style="max-width:44em">So on this site the set list above is Topps' own, and the gray lines under each
       one say which price guide buckets those cards ended up in. ${mappingChecks} of those ${
         releases.reduce((n, r) => n + (r.pcConsoles || []).length, 0)
       } claims are re-checked

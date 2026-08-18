@@ -1074,8 +1074,8 @@ function pokePage(p) {
 <section class="band tight" id="watch">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See these packs opened</p>
-    <h2>We have ripped <span class="hl">${n(total)}</span> pack${total === 1 ? "" : "s"} from
-      ${slugs.length === 1 ? "the set" : `the ${n(slugs.length)} sets`} that print
+    <h2>We have filmed <span class="hl">${n(total)}</span> rip${total === 1 ? "" : "s"} of
+      ${slugs.length === 1 ? "the set" : `the ${n(slugs.length)} sets`} that print${slugs.length === 1 ? "s" : ""}
       <span class="hl">${esc(p.name)}</span></h2>
     ${whoWeAre}
     ${rows(viaSet, true)}
@@ -1134,7 +1134,7 @@ function pokePage(p) {
       ${p.rips.length
         ? `<a class="fact fact-link" href="#watch"><div class="n">${p.rips.length}</div><div class="l">${p.rips.length === 1 ? "Rip that mentions" : "Rips that mention"} one <span aria-hidden="true">&darr;</span></div></a>`
         : p.setRips.rips.length
-          ? `<a class="fact fact-link" href="#watch"><div class="n">${n(p.setRips.total)}</div><div class="l">Rips of the sets they are in <span aria-hidden="true">&darr;</span></div></a>`
+          ? `<a class="fact fact-link" href="#watch"><div class="n">${n(p.setRips.total)}</div><div class="l">${p.setRips.total === 1 ? "Rip" : "Rips"} of the ${p.setRips.slugs && p.setRips.slugs.length === 1 ? "set" : "sets"} they are in <span aria-hidden="true">&darr;</span></div></a>`
           : ""}
     </div>
     ${p.art ? `<p class="price-note">Artwork and Pokedex data from pokeapi.co, read ${esc(longDate(dexDoc.checked) || dexDoc.checked)}.
