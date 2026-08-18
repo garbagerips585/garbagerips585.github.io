@@ -912,7 +912,7 @@ const faq = {
     // the sources for every claim in them are in that file.
     [
       "What is a Black White Rare Pokemon card?",
-      "A rarity introduced with Scarlet and Violet Black Bolt and White Flare in July 2025. The card is a full art printed in a single colour, black or white throughout, and the corner prints two stars: the first filled in and the second an outline. Only those two sets have it.",
+      "A rarity introduced with Scarlet and Violet Black Bolt and White Flare in July 2025. The card is a full art printed in a single color, black or white throughout, and the corner prints two stars: the first filled in and the second an outline. Only those two sets have it.",
     ],
     [
       "What is the difference between a Rare and a Holo Rare?",

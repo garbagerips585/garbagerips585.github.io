@@ -49,13 +49,13 @@
 // THIS FILE USED TO ARGUE THE OPPOSITE OF WHAT IT NOW DOES. The paragraph that
 // stood here said:
 //
-//     JAPANESE CARDS. `productLineName: pokemon` is the English catalogue.
+//     JAPANESE CARDS. `productLineName: pokemon` is the English catalog.
 //     Japanese is a separate product line on the same site and is not ranked
 //     here.
 //
-// That was true of TCGplayer, whose catalogue really is split by language, and
+// That was true of TCGplayer, whose catalog really is split by language, and
 // the page was English-only BECAUSE THE FEED WAS. PriceCharting does not split
-// its Pokemon catalogue at all, so switching sources without deciding this
+// its Pokemon catalog at all, so switching sources without deciding this
 // would have quietly turned an English list into a mostly Japanese one and left
 // the old sentence sitting on the page saying it had not. That is exactly the
 // silent change CLAUDE.md spends four paragraphs complaining about, so here is
@@ -77,7 +77,7 @@
 // the ranking cannot see. Widening the scope widens the list, not the claim.
 //
 // THE CASE FOR IT. Somebody typing "most valuable Pokemon cards" is not asking
-// a question about a marketplace's catalogue structure. The Illustrator Pikachu
+// a question about a marketplace's catalog structure. The Illustrator Pikachu
 // is the answer to that question by any measure anybody outside a price feed
 // would use, and a list that omits it because of how one American marketplace
 // files its inventory is answering an easier question and hoping nobody
@@ -208,7 +208,7 @@
 //     honest description is a footnote pointing at a source.
 //
 // If a later editor disagrees, the fix is to drop the per-row chip and put ONE
-// link at the foot of the page to TCGplayer's Pokemon catalogue, not to spread
+// link at the foot of the page to TCGplayer's Pokemon catalog, not to spread
 // more of them through the rows.
 //
 // ---------------------------------------------------------------------------
@@ -242,7 +242,7 @@
 // League] #151 at $7,760, Voltorb [Professor Program] #100 at $2,300 and Budew
 // [Premier Ball League Judge] #4 at $2,713. /sets/151.html prices Voltorb #100
 // at $0.63, because sync-pricecharting-cards.mjs deliberately prices ONLY the
-// three standard printings a checklist is about: taking the dearest product at
+// three standard printings a checklist is about: taking the priciest product at
 // a collector number made a bulk Bulbasaur $40.30 off a stamped promo, and its
 // header records that. A league promo and the set card share a number and are
 // different products, which is exactly what the bracketed part of the name on
@@ -488,7 +488,7 @@ const DEAD = new Set(
     .filter(Boolean)
 );
 
-// THE CASE STAND-IN INDEX. public/data/products.json is the catalogue
+// THE CASE STAND-IN INDEX. public/data/products.json is the catalog
 // sync-products.mjs pulls per expansion and the same one /msrp.html trusts for
 // product photography. Optional on purpose: a build with no products.json still
 // writes both pages, every case row simply keeps the empty frame it had before
@@ -1036,7 +1036,7 @@ function honestyMarket(cfg, d) {
             : ` on every row so the two cannot be mistaken for each other`
         }.</p>
       <p><b>What this ranking cannot see.</b> ${cfg.excludes}</p>
-      <p><b>The cheapest copy is often dearer than the market price, and that is not a mistake.</b>
+      <p><b>The cheapest copy is often pricier than the market price, and that is not a mistake.</b>
         ${esc(String(cfg.aboveMarket))} of these 100 have a lowest listing above their market price today.
         Market Price looks backwards at what actually sold; a listing is what somebody is asking right now.
         On thin, old or barely traded things, and most of this list is all three, the asking prices sit well
@@ -1107,11 +1107,11 @@ function honestyGuide(cfg, d) {
         ${esc(String(cfg.langJa))} of these hundred are Japanese cards, ${esc(String(cfg.langZh))} are Chinese
         and ${esc(String(cfg.langEn))} are English or carry no language in their set name. That is a change:
         until August 2026 this page was English only, because the marketplace feed behind it kept Japanese in a
-        separate catalogue. PriceCharting does not split its Pokemon catalogue by language, and neither does
+        separate catalog. PriceCharting does not split its Pokemon catalog by language, and neither does
         this page any more. The card at number one is a Japanese promo, and a list of the most valuable Pokemon
         cards that leaves it out is answering an easier question.</p>
       <p><b>${esc(String(cfg.topps))} of them are Topps cards rather than Pokemon TCG cards.</b> Topps printed
-        Pokemon trading cards under licence from 1999 to 2004, chrome and movie cards you cannot play a game
+        Pokemon trading cards under license from 1999 to 2004, chrome and movie cards you cannot play a game
         with, and PriceCharting files and prices them under Pokemon. They are left in, because taking them out
         would be editing the answer to suit the question. Their set names say Topps on every row, and
         <a href="/topps.html">what they are, every set, and how to spot one</a> explains them properly. There is
@@ -1159,7 +1159,7 @@ function methodologyGuide(cfg, d) {
     <div>
       <h3>How we know it is the top 100 and not the first 100 we found</h3>
       <p>There is no all-of-Pokemon listing to sort and their one price sort works a set at a time, so the top
-        of any one set says nothing about the top of the catalogue. Instead every set was pulled and ranked
+        of any one set says nothing about the top of the catalog. Instead every set was pulled and ranked
         here: <b>${esc(String(sc.consoles))}</b> Pokemon sets, <b>${esc(String(sc.products))}</b> products, of
         which <b>${esc(String(sc.productsWithUngraded))}</b> carry an ungraded value. This hundred is the top of
         all ${esc(String(sc.productsWithUngraded))}, not the top of a sample, and the hundredth row is
@@ -1205,7 +1205,7 @@ const PAGES = [
     kicker: "Pokemon cards &bull; Ungraded, every language, priced by PriceCharting",
     lede:
       "Every one of these is a loose card, out of a sleeve, ungraded. Ranked by PriceCharting's ungraded price " +
-      "guide value across their whole Pokemon catalogue, Japanese and English together, read on the date below " +
+      "guide value across their whole Pokemon catalog, Japanese and English together, read on the date below " +
       "and read a second time from each card's own product page.",
     desc:
       "The 100 most valuable ungraded Pokemon cards by PriceCharting's price guide, read %DATE%. Every language, " +
@@ -1217,9 +1217,9 @@ const PAGES = [
       "valuable are single hammer prices at auction houses, and a guide value is a computed estimate across many " +
       "sales, which is a different kind of fact: the card at number one has a widely reported 2022 sale of about " +
       "$5.3 million against the guide value shown here.",
-    searchBlurb: "The dearest ungraded Pokemon cards in PriceCharting's guide, ranked and dated",
+    searchBlurb: "The priciest ungraded Pokemon cards in PriceCharting's guide, ranked and dated",
     listLede:
-      "Ranked by ungraded guide value, dearest first. The picture, the name and the set take you to our page for " +
+      "Ranked by ungraded guide value, priciest first. The picture, the name and the set take you to our page for " +
       "it; the small link under each price opens that card on PriceCharting so you can check the figure yourself.",
     filter: null,
   },
@@ -1234,19 +1234,19 @@ const PAGES = [
     kicker: "Pokemon TCG &bull; Boxes, cases and packs nobody opened",
     lede:
       "Booster boxes, elite trainer boxes, single packs from 1999 and a lot of freight cases. Ranked by " +
-      "TCGplayer's own market price for their English Pokemon catalogue, read on the date below.",
+      "TCGplayer's own market price for their English Pokemon catalog, read on the date below.",
     desc:
       "The 100 most expensive sealed Pokemon products by TCGplayer market price, read %DATE%. Booster boxes, " +
       "cases, ETBs and vintage packs, with the cheapest live listing beside every market price.",
     lineTotal: "2,896",
     excludes:
-      "Japanese sealed product is not in it, because it is a separate catalogue on the same site. Neither are " +
+      "Japanese sealed product is not in it, because it is a separate catalog on the same site. Neither are " +
       "the sealed cases that change hands at auction houses, which is where most of the really old unopened " +
       "product actually sells. And a listed price is not a sold price: some of these have one listing and no " +
       "recent sales at all, which the listing count on every row will tell you.",
-    searchBlurb: "The dearest sealed Pokemon product on TCGplayer, ranked and dated",
+    searchBlurb: "The priciest sealed Pokemon product on TCGplayer, ranked and dated",
     listLede:
-      "Ranked by market price, dearest first. The picture and the name take you to our page for it; the small " +
+      "Ranked by market price, priciest first. The picture and the name take you to our page for it; the small " +
       "link under each price opens that product on TCGplayer so you can check the figure yourself.",
     filter: true,
   },
@@ -1401,13 +1401,13 @@ ${MENU}
     <div class="facts" style="margin-top:20px">${
       cfg.source === "pricecharting"
         ? `
-      <div class="fact"><div class="n">${esc(moneyCompact(items[0].price))}</div><div class="l">Dearest, ${esc(items[0].name)}</div></div>
+      <div class="fact"><div class="n">${esc(moneyCompact(items[0].price))}</div><div class="l">Priciest, ${esc(items[0].name)}</div></div>
       <div class="fact"><div class="n">${esc(moneyCompact(cfg.cut))}</div><div class="l">What it takes to make the 100</div></div>
       <div class="fact"><div class="n">${esc(String(cfg.langJa + cfg.langZh))}</div><div class="l">Japanese or Chinese, of 100</div></div>
       <div class="fact"><div class="n">${esc(d.scanned.productsWithUngraded.toLocaleString("en-US"))}</div><div class="l">Priced cards ranked to find them</div></div>
       <div class="fact wide"><div class="n" style="font-size:1.15rem">${esc(when)}</div><div class="l">Prices read on</div></div>`
         : `
-      <div class="fact"><div class="n">${esc(moneyCompact(items[0].market))}</div><div class="l">Dearest, ${esc(items[0].name)}</div></div>
+      <div class="fact"><div class="n">${esc(moneyCompact(items[0].market))}</div><div class="l">Priciest, ${esc(items[0].name)}</div></div>
       <div class="fact"><div class="n">${esc(moneyCompact(d.cut))}</div><div class="l">What it takes to make the 100</div></div>
       <div class="fact"><div class="n">${esc(String(d.walked))}</div><div class="l">Products checked to find them</div></div>
       <div class="fact wide"><div class="n" style="font-size:1.15rem">${esc(when)}</div><div class="l">Prices read on</div></div>`
@@ -1419,7 +1419,7 @@ ${MENU}
 <section class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The list</p>
-    <h2>All ${items.length}, dearest <span class="hl">first</span></h2>
+    <h2>All ${items.length}, priciest <span class="hl">first</span></h2>
     <p class="lede" style="max-width:44em">${esc(cfg.listLede)}</p>
     ${filterBlock}
 
@@ -1441,9 +1441,9 @@ ${items.map((i) => row(i, cfg.key)).join("\n")}
       the shape of the market rather than a quote. Card scans are PriceCharting's, shown at the size these rows draw
       them and linked back to the record they belong to. The link under each price leaves this site and opens on
       PriceCharting; there is no affiliate code in it and we make nothing from it, it is there so you can check the
-      number. ${dead.length ? `${dead.length} of these cards have no scan in PriceCharting's catalogue and show an empty frame; that is their record, not a fault here.` : ""}`
+      number. ${dead.length ? `${dead.length} of these cards have no scan in PriceCharting's catalog and show an empty frame; that is their record, not a fault here.` : ""}`
         : `Prices are TCGplayer market prices for their English Pokemon
-      catalogue, read on ${esc(when)} and re-read from a second TCGplayer endpoint the same day. They move daily, so
+      catalog, read on ${esc(when)} and re-read from a second TCGplayer endpoint the same day. They move daily, so
       treat them as the shape of the market rather than a quote. Product photography is TCGplayer's, shown at the size
       these rows draw it and linked back to the product it belongs to. The link under each price leaves this site and
       opens on TCGplayer; there is no affiliate code in it and we make nothing from it, it is there so you can check the
@@ -1454,7 +1454,7 @@ ${items.map((i) => row(i, cfg.key)).join("\n")}
       instead, and the line under each names exactly which product is in the picture. The rank, the name and the price
       on those rows are still the case's.`
           : ""
-      } ${blank ? `${blank} of these products have no photo in TCGplayer's catalogue and show an empty frame; that is their listing, not a fault here.` : ""}`
+      } ${blank ? `${blank} of these products have no photo in TCGplayer's catalog and show an empty frame; that is their listing, not a fault here.` : ""}`
     }
       Not financial advice, and definitely not a suggestion to buy any of this.</p>
   </div>

@@ -30,7 +30,7 @@
 // THREE PAGES WOULD ALSO BE WRONG, and that is the less obvious half. The
 // obvious split is a raw top 100 and a graded top 100, mirroring
 // /most-valuable-cards.html and /top-graded.html. It is refused here for a
-// reason those two pages do not have: they rank two DIFFERENT catalogues of
+// reason those two pages do not have: they rank two DIFFERENT catalogs of
 // tens of thousands of cards, and their hundreds barely overlap. These two rank
 // the SAME 2,701 Topps products, and measured on this corpus the two candidate
 // windows share 54 of their rows. Two pages 47% identical, each having to
@@ -120,7 +120,7 @@
 // NO PRINT RUN TOTALS, because no source we could reach publishes one, and "not
 // many were printed" is the exact shape of claim this site does not make.
 //
-// NO NAMED LICENSING COUNTERPARTY. Who Topps signed the Pokemon licence with is
+// NO NAMED LICENSING COUNTERPARTY. Who Topps signed the Pokemon license with is
 // not stated by any source we reached. The page says the cards were licensed
 // and does not guess at the other side of it.
 //
@@ -139,10 +139,10 @@
 //
 // ---------------------------------------------------------------------------
 // NOBODY SAYS "DEAREST". Tim, 18 August 2026, reading the page he had just been
-// handed: "not sure why it says the dearest cards ... not sure what dearest
+// handed: "not sure why it says the priciest cards ... not sure what priciest
 // means". It is British English for "most expensive", it is this file's
 // vocabulary rather than the site's, and it stopped the site's own owner dead.
-// It is also worthless for search: nobody types "dearest Pokemon cards". Both
+// It is also worthless for search: nobody types "priciest Pokemon cards". Both
 // pages now say "most valuable" and "highest PSA 10 values", which is what
 // /most-valuable-cards.html and /top-graded.html already say, so the four
 // value pages read as one cluster. The meta and og descriptions mattered most
@@ -164,7 +164,7 @@
 //   - ONE HERO CARD, eager, the only picture on the page that is not lazy.
 //   - THE TWO FIVE-ROW SUMMARIES carry the card on every row, the same scans
 //     the full lists on the values page use.
-//   - EVERY RELEASE gets a card and, where PriceCharting's catalogue holds a
+//   - EVERY RELEASE gets a card and, where PriceCharting's catalog holds a
 //     photograph of one, its sealed packaging. That is 11 cards and 8 packs,
 //     NOT 33 of anything: PriceCharting's 33 "consoles" are card TYPE buckets
 //     and Topps shipped TWELVE releases, which is what the set list renders. A
@@ -1082,7 +1082,7 @@ ${facts.tells.map((t) => defCard(t.tell, t.detail, t.source)).join("\n")}
       were read.</p>
     <p style="max-width:44em">Elsewhere: <a href="/most-valuable-cards.html">the 100 most valuable raw Pokemon
       cards</a> and <a href="/top-graded.html">the 100 highest PSA 10 values</a> rank everything, Topps included,
-      against the whole catalogue. <a href="/expansions.html">Every English set</a> and
+      against the whole catalog. <a href="/expansions.html">Every English set</a> and
       <a href="/sets/">the set guides</a> cover the actual card game. <a href="/grading.html">Is it worth
       grading?</a> does the subtraction on raw against graded prices, which is the question these two lists
       raise on nearly every row. And <a href="/lore.html">Pokemon lore</a> and
@@ -1098,13 +1098,13 @@ ${facts.tells.map((t) => defCard(t.tell, t.detail, t.source)).join("\n")}
       its own path on that site. The pack and box photographs are theirs as well, and they are the reason this
       page can show you what a 1999 Topps wrapper looked like at all: nothing else we could reach has one.
       ${releases.length - pics.sets.filter((x) => x.pack).length} of the ${releases.length} sets have no
-      packaging photograph in their catalogue, and those show a card and say nothing about packaging rather
+      packaging photograph in their catalog, and those show a card and say nothing about packaging rather
       than borrowing a picture from a set next to them. Every picture on this page was fetched and checked
       before it was published.</p>
     <p style="max-width:44em"><b>The Pokemon TCG card in the comparison:</b> TCGdex
       (assets.tcgdex.net), which is where the card scans on this site's set guides come from.</p>
     <p style="max-width:44em"><b>Not sourced, and therefore not said here:</b> who Topps signed the Pokemon
-      licence with, how many of anything was printed, what a pack cost, and any odds of pulling anything.</p>
+      license with, how many of anything was printed, what a pack cost, and any odds of pulling anything.</p>
     <p style="max-width:44em">Card images are the property of their respective owners and appear here for
       identification. Pokemon and all card artwork are trademarks of The Pokemon Company, Nintendo, Game Freak
       and Creatures Inc. Topps is a trademark of its owner. This is a fan page and none of them are involved
@@ -1168,13 +1168,13 @@ ${MENU}
         excluded. It is an estimate of what a copy is worth right now. It is not a live listing, it is not any
         one sale, and it is not an appraisal.</p>
       <p><b>These are Topps cards, which are not Pokemon TCG cards.</b> They are trading cards of Pokemon:
-        anime and film stills on card stock, made under licence between ${esc(facts.window.from)} and
+        anime and film stills on card stock, made under license between ${esc(facts.window.from)} and
         ${esc(facts.window.to)}, with nothing on them to play a game with. PriceCharting files and prices them
         under Pokemon, which is why they can be ranked here at all.
         <a href="/topps.html">What they are, every set, and how to spot one</a> is the guide.</p>
       <p><b>${esc(String(chromeIn(rawList)))} of the raw hundred and ${esc(String(chromeIn(psaList)))} of the
         PSA 10 hundred are Chrome cards</b>, out of ${releases.length} Topps sets. That is not a thumb on the
-        scale, it is what the data says: the two Chrome sets are a small part of the catalogue and nearly all of
+        scale, it is what the data says: the two Chrome sets are a small part of the catalog and nearly all of
         the top of it.</p>
       <p><b>An empty grade cell is an answer, not a gap.</b> ${esc(String(missing(rawList, "psa10")))} rows of
         the raw hundred carry no PSA 10 figure and ${esc(String(missing(rawList, "g9")))} carry no Grade 9
@@ -1251,7 +1251,7 @@ ${psaList.map((c, i) => row(c, i, "psa10")).join("\n")}
         noScanRows
           ? ` ${noScanRows === 1 ? "One card" : `${noScanRows} cards`} across the two lists ${
               noScanRows === 1 ? "has" : "have"
-            } no scan in PriceCharting's catalogue and ${noScanRows === 1 ? "shows" : "show"} an empty frame
+            } no scan in PriceCharting's catalog and ${noScanRows === 1 ? "shows" : "show"} an empty frame
       saying so; that is their record, not a fault here.`
           : ""
       }
@@ -1316,7 +1316,7 @@ ${psaList.map((c, i) => row(c, i, "psa10")).join("\n")}
       </div>
     </div>
 
-    <p class="price-note" style="margin-top:var(--s4)">Want the whole catalogue rather than just Topps?
+    <p class="price-note" style="margin-top:var(--s4)">Want the whole catalog rather than just Topps?
       <a href="/most-valuable-cards.html">The 100 most valuable raw Pokemon cards</a> and
       <a href="/top-graded.html">the 100 highest PSA 10 values</a> rank every Pokemon card this source prices, in
       every language. <a href="/grading.html">Is it worth grading?</a> does the subtraction between the two
