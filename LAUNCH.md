@@ -89,24 +89,47 @@ already exists.
 
 ## 3. Before flipping it on
 
-- [ ] **DELETE THE TWO PALETTE SAMPLE PAGES. Do this one first.** They are the
+- [ ] **DELETE THE FIVE PALETTE SAMPLE PAGES. Do this one first.** They are the
       only files in the deploy root that are not part of the site:
 
-          rm public/preview-midnight.html public/preview-charcoal.html
+          rm public/preview-midnight.html public/preview-charcoal.html \
+             public/preview-charcoal-a.html public/preview-charcoal-b.html \
+             public/preview-trubbish.html
           rm scripts/gen-palette-samples.mjs
           node scripts/build-all.mjs
 
-      Added 18 August 2026 so Tim could compare Slushie Midnight and Slushie
-      Charcoal on his own phone, which needs a real url and therefore a real
-      deploy. They are two extra copies of the home page. Both are
-      `noindex,nofollow`, neither is in sitemap.xml, and nothing on the site
-      links to them, so they are quiet rather than harmless: a duplicate front
-      door in the tree on launch day is a cost, and the only thing keeping it
-      out of an index is a meta tag. Once Tim has picked, they have no job.
+      Added 18 August 2026 so Tim could compare palettes on his own phone, which
+      needs a real url and therefore a real deploy. **It started as two and grew
+      to five in one day**, which is the reason this item is worth re-reading
+      rather than skimming: Midnight and Charcoal first, then Tim picked
+      Charcoal and asked for two accent variants of it, then asked for a page in
+      the mascot's colours. The list is:
 
-      Nothing else has to change with them. The palette lives in each file's own
-      `<style>` block, so assets-source/ui.css was never touched and deleting
-      the two files removes every trace.
+          preview-midnight.html      A  Slushie Midnight
+          preview-charcoal.html      B  Slushie Charcoal, the baseline
+          preview-charcoal-a.html    C  Charcoal Aqua
+          preview-charcoal-b.html    D  Charcoal Quiet
+          preview-trubbish.html      E  Trubbish
+
+      They are five extra copies of the home page. All are `noindex,nofollow`,
+      none is in sitemap.xml, and nothing on the site links to them: they link
+      to each other in a ring and to nothing else. So they are quiet rather than
+      harmless. A duplicate front door in the tree on launch day is a cost, and
+      the only thing keeping it out of an index is a meta tag. Once Tim has
+      picked, they have no job.
+
+      **THE COUNT IS THE THING THAT GOES STALE HERE.** If another variant is
+      added, add it to the list above in the same edit, or this checklist will
+      confidently delete four of six. `ls public/preview-*.html` is the check
+      that cannot drift.
+
+      Nothing else has to change with them. Each palette lives in that file's
+      own `<style>` block, so assets-source/ui.css was never touched and
+      deleting the five files removes every trace. **Deleting them does NOT
+      apply whichever one Tim picks**: that is a separate edit to
+      assets-source/ui.css, and for C, D or E it is two accent rules plus, for
+      E, a token block. The rules as built are in the header of
+      scripts/gen-palette-samples.mjs, so read that file before deleting it.
 
 - [ ] **Run the build and let it check itself.**
 
