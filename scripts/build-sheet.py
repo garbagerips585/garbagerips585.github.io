@@ -723,9 +723,34 @@ HEAD_NOTES = {
         "COMPUTED. Do not type here.\n"
         "It adds up Packs, Packs 2, Packs 3, Packs 4 and Packs 5.\n"
         "Put the count for each set in that set's own Packs column and this\n"
-        "adds itself up. Typing over it deletes the sum for that row."
+        "adds itself up. Typing over it deletes the sum for that row.\n"
+        "\n"
+        "WHAT THE FILLED COLUMNS BUY, once this sheet comes back:\n"
+        "  Opening Type + Box #  ->  exactly how many ETBs, Booster Bundles\n"
+        "                            and single packs we have opened, per set\n"
+        "                            and overall.\n"
+        "  Set + Packs           ->  exactly how many packs of each set we\n"
+        "                            have opened, including the ones that came\n"
+        "                            out of a mixed box.\n"
+        "  Pack #                ->  which pack of that box the video is, so a\n"
+        "                            label reads 'Chaos Rising ETB 3 - Pack 3'.\n"
+        "Nothing on the site prints any of these until you have typed them."
     ),
-    "Packs": "How many packs from the set in the Set column, not the whole rip.",
+    "Packs": (
+        "HOW MANY PACKS OF THE SET IN THE Set COLUMN you opened in THIS video.\n"
+        "Not how many the box holds. If you opened one pack out of a Chaos\n"
+        "Rising ETB, this is 1, not 9. The 9 belongs to the box, and Box #\n"
+        "and Pack # are where you say which box and which pack.\n"
+        "\n"
+        "A whole box opened in one video IS the full number: if you opened an\n"
+        "entire ETB on camera, put 9 and leave Pack # empty.\n"
+        "\n"
+        "MIXED VIDEOS USE THE EXTRA PAIRS. A UPC holding 6 Journey Together\n"
+        "and 6 Pitch Black packs is Set=Journey Together Packs=6 and\n"
+        "Set 2=Pitch Black Packs 2=6. Packs Opened adds them to 12 for you.\n"
+        "This is what makes 'how many Pitch Black packs have we opened'\n"
+        "answerable at all: a single total cannot be split back apart."
+    ),
     "Box #": (
         "WHICH ONE OF THESE, counting your own openings of that product from\n"
         "that set. Your third Chaos Rising ETB is 3. Your second Journey\n"
@@ -856,8 +881,20 @@ for r, v in enumerate(ordered, start=2):
     # the same row gets filled in three times.
     if not sets_v and overrides_src.get(vid, {}).get("sets") == []:
         wv.cell(r, COL["Set"], "Not a set (sealed/other)").font = BODY
-    if products and products[0] in PRODUCT_TO_OPENING:
-        wv.cell(r, COL["Opening Type"], PRODUCT_TO_OPENING[products[0]]).font = GUESS_TXT
+    # OPENING TYPE IS NO LONGER GUESSED EITHER. Tim, 18 August 2026: "yes make
+    # the execl sheet let me fill in what type of product it is, then what set
+    # type of packs are in it and how many of each of those set type packs are
+    # in the overall video".
+    #
+    # This used to write PRODUCT_TO_OPENING's answer in blue on all 316 rows.
+    # The taxonomy reads a title, and a title cannot tell an ex Premium
+    # Collection from an ex Box: 24 rows were logged as one and came back as the
+    # other, which is recorded a few lines down as the reason the RESTORE for
+    # this column had to be added. The same CSV colour loss applies, so the
+    # guess became the answer on every row nobody corrected.
+    #
+    # He is filling this column himself now, and the three columns that depend
+    # on it, so a blank cell is the question and nothing pre-answers it.
     # NOTHING IS GUESSED INTO THESE THREE COLUMNS ANY MORE.
     #
     # Tim, 18 August 2026: "make sure you aren't tagging any videos with what
@@ -911,8 +948,26 @@ for r, v in enumerate(ordered, start=2):
     # "ex Premium Collection" came back as "ex Box", because the tag rules cannot
     # tell those two apart from a title and a person can. That is the exact
     # failure the note below describes, in the same block, one field over.
-    if man.get("openingType"):
-        wv.cell(r, COL["Opening Type"], man["openingType"]).font = BODY
+    # OPENING TYPE AND PACKS ARE NOT RESTORED EITHER, AND THIS IS THE HARD ONE.
+    #
+    # Everything else in this block is a genuine answer coming back so nobody
+    # types it twice. These two are different: manual.json cannot tell a value
+    # Tim typed from a value this script SUGGESTED and the CSV round trip
+    # laundered into an answer. 316 opening types and 244 pack counts were in
+    # the file, and the great majority of both arrived as blue guesses.
+    #
+    # He asked to fill these himself: "yes make the execl sheet let me fill in
+    # what type of product it is, then what set type of packs are in it and how
+    # many of each of those set type packs are in the overall video". Handing
+    # back a laundered guess in BODY, indistinguishable from his own answer, is
+    # precisely what stops that from being possible.
+    #
+    # NOTHING IS DESTROYED. data/manual.json still holds every stored value; it
+    # is the sheet, the input form, that starts clean for these two columns. A
+    # handful of real corrections he made are in there (a Costco UPC moved from
+    # 16 packs to 18) and will need typing once more. That is the cost of not
+    # being able to tell them apart, and it is smaller than the cost of shipping
+    # 316 machine guesses as his answers a second time.
     # Typed answers, never guessed. There is no rule that could derive which ETB
     # a video opened: the description usually says so in prose and sometimes says
     # it twice with two different numbers ("Pack #2 of our third Chaos Rising
@@ -965,27 +1020,9 @@ for r, v in enumerate(ordered, start=2):
     # So the total lands in the first cell and the note says what to do with it.
     # The SUM is right immediately, and the only thing left open is the
     # distribution, which was always his to give.
-    if man.get("packs"):
-        wv.cell(r, COL["Packs"], man["packs"]).font = BODY
         for _h in ("Packs 2", "Packs 3", "Packs 4", "Packs 5"):
             if _h in COL:
                 wv.cell(r, COL[_h]).value = None
-        # SAY IT ONCE. This appended the message unconditionally, and the note is
-        # imported into manual.json and handed straight back on the next
-        # rebuild, so every build-import-rebuild cycle glued another copy on the
-        # end. It is already doubled on two videos in the live data and tripled
-        # on one, and it grows forever: three cycles of a 300-row backfill would
-        # put three paragraphs of boilerplate in a column meant for a person's
-        # own notes. Only added when it is absent, and only when there is
-        # actually a split to make, because "All 1 packs are on the first set"
-        # is not advice.
-        if len(sets_v) > 1 and man["packs"] > 1 and "Notes" in COL:
-            _prev = wv.cell(r, COL["Notes"]).value
-            _msg = ("All the packs are on the first set. "
-                    "Move some across the Packs columns if they came from different sets.")
-            _base = re.sub(r"\s*All (?:the|\d+) packs are on the first set\..*?different sets\.", "",
-                           str(_prev or ""), flags=re.S).strip()
-            wv.cell(r, COL["Notes"], f"{_base} {_msg}".strip()).font = BODY
 
     for col in range(1, len(COLUMNS) + 1):
         cell = wv.cell(r, col)
