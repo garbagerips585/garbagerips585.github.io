@@ -3,6 +3,10 @@
   "Written by scripts/sync-species-art.mjs. Do not hand-edit.",
   "Official Pokemon artwork mirrored from the PokeAPI sprite repository, at the",
   "size /pokemon/ draws it: 256px, which is the 128px drawn hero box doubled.",
+  "Each entry may also carry lg, the master's own 475px, which exists for one",
+  "caller: the silhouette game draws its artwork at 249 CSS px and 256 would be",
+  "a 1.95x upscale there. Nothing else should reach for it. An entry without lg",
+  "is a species the game leaves out of its pool.",
   "Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc.",
   "and GAME FREAK inc. This is a fan site. Nothing is sold here and nothing on it",
   "is affiliated with or endorsed by them.",
@@ -13,5134 +17,10261 @@
  ],
  "source": "PokeAPI/sprites, official-artwork",
  "sourceUrl": "https://github.com/PokeAPI/sprites",
- "checked": "2026-08-17",
+ "checked": "2026-08-18",
  "box": 256,
+ "lgBox": 475,
  "count": 1025,
+ "lgCount": 1025,
  "art": {
   "1": {
    "file": "/assets/species/1.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "2": {
    "file": "/assets/species/2.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/2.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "3": {
    "file": "/assets/species/3.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/3.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "4": {
    "file": "/assets/species/4.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/4.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "5": {
    "file": "/assets/species/5.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/5.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "6": {
    "file": "/assets/species/6.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/6.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "7": {
    "file": "/assets/species/7.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/7.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "8": {
    "file": "/assets/species/8.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/8.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "9": {
    "file": "/assets/species/9.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/9.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "10": {
    "file": "/assets/species/10.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/10.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "11": {
    "file": "/assets/species/11.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/11.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "12": {
    "file": "/assets/species/12.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/12.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "13": {
    "file": "/assets/species/13.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/13.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "14": {
    "file": "/assets/species/14.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/14.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "15": {
    "file": "/assets/species/15.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/15.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "16": {
    "file": "/assets/species/16.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/16.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "17": {
    "file": "/assets/species/17.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/17.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "18": {
    "file": "/assets/species/18.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/18.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "19": {
    "file": "/assets/species/19.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/19.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "20": {
    "file": "/assets/species/20.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/20.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "21": {
    "file": "/assets/species/21.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/21.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "22": {
    "file": "/assets/species/22.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/22.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "23": {
    "file": "/assets/species/23.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/23.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "24": {
    "file": "/assets/species/24.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/24.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "25": {
    "file": "/assets/species/25.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/25.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "26": {
    "file": "/assets/species/26.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/26.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "27": {
    "file": "/assets/species/27.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/27.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "28": {
    "file": "/assets/species/28.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/28.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "29": {
    "file": "/assets/species/29.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/29.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "30": {
    "file": "/assets/species/30.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/30.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "31": {
    "file": "/assets/species/31.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/31.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "32": {
    "file": "/assets/species/32.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/32.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "33": {
    "file": "/assets/species/33.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/33.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "34": {
    "file": "/assets/species/34.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/34.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "35": {
    "file": "/assets/species/35.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/35.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "36": {
    "file": "/assets/species/36.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/36.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "37": {
    "file": "/assets/species/37.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/37.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "38": {
    "file": "/assets/species/38.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/38.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "39": {
    "file": "/assets/species/39.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/39.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "40": {
    "file": "/assets/species/40.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/40.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "41": {
    "file": "/assets/species/41.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/41.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "42": {
    "file": "/assets/species/42.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/42.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "43": {
    "file": "/assets/species/43.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/43.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "44": {
    "file": "/assets/species/44.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/44.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "45": {
    "file": "/assets/species/45.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/45.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "46": {
    "file": "/assets/species/46.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/46.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "47": {
    "file": "/assets/species/47.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/47.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "48": {
    "file": "/assets/species/48.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/48.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "49": {
    "file": "/assets/species/49.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/49.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "50": {
    "file": "/assets/species/50.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/50.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "51": {
    "file": "/assets/species/51.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/51.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "52": {
    "file": "/assets/species/52.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/52.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "53": {
    "file": "/assets/species/53.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/53.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "54": {
    "file": "/assets/species/54.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/54.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "55": {
    "file": "/assets/species/55.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/55.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "56": {
    "file": "/assets/species/56.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/56.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "57": {
    "file": "/assets/species/57.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/57.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "58": {
    "file": "/assets/species/58.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/58.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "59": {
    "file": "/assets/species/59.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/59.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "60": {
    "file": "/assets/species/60.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/60.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "61": {
    "file": "/assets/species/61.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/61.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "62": {
    "file": "/assets/species/62.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/62.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "63": {
    "file": "/assets/species/63.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/63.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "64": {
    "file": "/assets/species/64.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/64.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "65": {
    "file": "/assets/species/65.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/65.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "66": {
    "file": "/assets/species/66.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/66.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "67": {
    "file": "/assets/species/67.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/67.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "68": {
    "file": "/assets/species/68.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/68.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "69": {
    "file": "/assets/species/69.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/69.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "70": {
    "file": "/assets/species/70.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/70.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "71": {
    "file": "/assets/species/71.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/71.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "72": {
    "file": "/assets/species/72.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/72.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "73": {
    "file": "/assets/species/73.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/73.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "74": {
    "file": "/assets/species/74.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/74.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "75": {
    "file": "/assets/species/75.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/75.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "76": {
    "file": "/assets/species/76.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/76.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "77": {
    "file": "/assets/species/77.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/77.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "78": {
    "file": "/assets/species/78.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/78.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "79": {
    "file": "/assets/species/79.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/79.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "80": {
    "file": "/assets/species/80.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/80.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "81": {
    "file": "/assets/species/81.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/81.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "82": {
    "file": "/assets/species/82.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/82.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "83": {
    "file": "/assets/species/83.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/83.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "84": {
    "file": "/assets/species/84.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/84.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "85": {
    "file": "/assets/species/85.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/85.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "86": {
    "file": "/assets/species/86.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/86.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "87": {
    "file": "/assets/species/87.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/87.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "88": {
    "file": "/assets/species/88.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/88.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "89": {
    "file": "/assets/species/89.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/89.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "90": {
    "file": "/assets/species/90.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/90.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "91": {
    "file": "/assets/species/91.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/91.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "92": {
    "file": "/assets/species/92.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/92.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "93": {
    "file": "/assets/species/93.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/93.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "94": {
    "file": "/assets/species/94.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/94.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "95": {
    "file": "/assets/species/95.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/95.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "96": {
    "file": "/assets/species/96.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/96.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "97": {
    "file": "/assets/species/97.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/97.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "98": {
    "file": "/assets/species/98.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/98.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "99": {
    "file": "/assets/species/99.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/99.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "100": {
    "file": "/assets/species/100.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/100.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "101": {
    "file": "/assets/species/101.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/101.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "102": {
    "file": "/assets/species/102.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/102.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "103": {
    "file": "/assets/species/103.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/103.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "104": {
    "file": "/assets/species/104.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/104.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "105": {
    "file": "/assets/species/105.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/105.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "106": {
    "file": "/assets/species/106.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/106.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "107": {
    "file": "/assets/species/107.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/107.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "108": {
    "file": "/assets/species/108.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/108.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "109": {
    "file": "/assets/species/109.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/109.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "110": {
    "file": "/assets/species/110.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/110.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "111": {
    "file": "/assets/species/111.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/111.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "112": {
    "file": "/assets/species/112.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/112.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "113": {
    "file": "/assets/species/113.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/113.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "114": {
    "file": "/assets/species/114.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/114.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "115": {
    "file": "/assets/species/115.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/115.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "116": {
    "file": "/assets/species/116.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/116.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "117": {
    "file": "/assets/species/117.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/117.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "118": {
    "file": "/assets/species/118.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/118.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "119": {
    "file": "/assets/species/119.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/119.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "120": {
    "file": "/assets/species/120.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/120.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "121": {
    "file": "/assets/species/121.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/121.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "122": {
    "file": "/assets/species/122.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/122.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "123": {
    "file": "/assets/species/123.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/123.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "124": {
    "file": "/assets/species/124.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/124.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "125": {
    "file": "/assets/species/125.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/125.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "126": {
    "file": "/assets/species/126.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/126.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "127": {
    "file": "/assets/species/127.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/127.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "128": {
    "file": "/assets/species/128.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/128.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "129": {
    "file": "/assets/species/129.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/129.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "130": {
    "file": "/assets/species/130.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/130.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "131": {
    "file": "/assets/species/131.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/131.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "132": {
    "file": "/assets/species/132.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/132.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "133": {
    "file": "/assets/species/133.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/133.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "134": {
    "file": "/assets/species/134.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/134.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "135": {
    "file": "/assets/species/135.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/135.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "136": {
    "file": "/assets/species/136.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/136.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "137": {
    "file": "/assets/species/137.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/137.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "138": {
    "file": "/assets/species/138.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/138.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "139": {
    "file": "/assets/species/139.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/139.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "140": {
    "file": "/assets/species/140.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/140.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "141": {
    "file": "/assets/species/141.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/141.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "142": {
    "file": "/assets/species/142.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/142.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "143": {
    "file": "/assets/species/143.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/143.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "144": {
    "file": "/assets/species/144.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/144.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "145": {
    "file": "/assets/species/145.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/145.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "146": {
    "file": "/assets/species/146.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/146.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "147": {
    "file": "/assets/species/147.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/147.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "148": {
    "file": "/assets/species/148.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/148.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "149": {
    "file": "/assets/species/149.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/149.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "150": {
    "file": "/assets/species/150.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/150.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "151": {
    "file": "/assets/species/151.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/151.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "152": {
    "file": "/assets/species/152.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/152.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "153": {
    "file": "/assets/species/153.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/153.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "154": {
    "file": "/assets/species/154.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/154.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "155": {
    "file": "/assets/species/155.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/155.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "156": {
    "file": "/assets/species/156.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/156.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "157": {
    "file": "/assets/species/157.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/157.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "158": {
    "file": "/assets/species/158.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/158.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "159": {
    "file": "/assets/species/159.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/159.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "160": {
    "file": "/assets/species/160.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/160.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "161": {
    "file": "/assets/species/161.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/161.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "162": {
    "file": "/assets/species/162.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/162.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "163": {
    "file": "/assets/species/163.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/163.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "164": {
    "file": "/assets/species/164.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/164.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "165": {
    "file": "/assets/species/165.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/165.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "166": {
    "file": "/assets/species/166.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/166.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "167": {
    "file": "/assets/species/167.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/167.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "168": {
    "file": "/assets/species/168.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/168.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "169": {
    "file": "/assets/species/169.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/169.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "170": {
    "file": "/assets/species/170.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/170.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "171": {
    "file": "/assets/species/171.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/171.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "172": {
    "file": "/assets/species/172.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/172.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "173": {
    "file": "/assets/species/173.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/173.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "174": {
    "file": "/assets/species/174.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/174.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "175": {
    "file": "/assets/species/175.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/175.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "176": {
    "file": "/assets/species/176.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/176.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "177": {
    "file": "/assets/species/177.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/177.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "178": {
    "file": "/assets/species/178.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/178.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "179": {
    "file": "/assets/species/179.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/179.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "180": {
    "file": "/assets/species/180.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/180.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "181": {
    "file": "/assets/species/181.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/181.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "182": {
    "file": "/assets/species/182.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/182.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "183": {
    "file": "/assets/species/183.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/183.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "184": {
    "file": "/assets/species/184.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/184.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "185": {
    "file": "/assets/species/185.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/185.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "186": {
    "file": "/assets/species/186.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/186.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "187": {
    "file": "/assets/species/187.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/187.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "188": {
    "file": "/assets/species/188.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/188.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "189": {
    "file": "/assets/species/189.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/189.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "190": {
    "file": "/assets/species/190.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/190.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "191": {
    "file": "/assets/species/191.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/191.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "192": {
    "file": "/assets/species/192.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/192.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "193": {
    "file": "/assets/species/193.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/193.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "194": {
    "file": "/assets/species/194.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/194.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "195": {
    "file": "/assets/species/195.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/195.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "196": {
    "file": "/assets/species/196.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/196.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "197": {
    "file": "/assets/species/197.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/197.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "198": {
    "file": "/assets/species/198.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/198.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "199": {
    "file": "/assets/species/199.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/199.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "200": {
    "file": "/assets/species/200.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/200.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "201": {
    "file": "/assets/species/201.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/201.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "202": {
    "file": "/assets/species/202.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/202.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "203": {
    "file": "/assets/species/203.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/203.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "204": {
    "file": "/assets/species/204.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/204.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "205": {
    "file": "/assets/species/205.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/205.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "206": {
    "file": "/assets/species/206.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/206.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "207": {
    "file": "/assets/species/207.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/207.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "208": {
    "file": "/assets/species/208.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/208.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "209": {
    "file": "/assets/species/209.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/209.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "210": {
    "file": "/assets/species/210.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/210.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "211": {
    "file": "/assets/species/211.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/211.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "212": {
    "file": "/assets/species/212.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/212.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "213": {
    "file": "/assets/species/213.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/213.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "214": {
    "file": "/assets/species/214.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/214.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "215": {
    "file": "/assets/species/215.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/215.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "216": {
    "file": "/assets/species/216.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/216.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "217": {
    "file": "/assets/species/217.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/217.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "218": {
    "file": "/assets/species/218.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/218.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "219": {
    "file": "/assets/species/219.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/219.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "220": {
    "file": "/assets/species/220.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/220.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "221": {
    "file": "/assets/species/221.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/221.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "222": {
    "file": "/assets/species/222.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/222.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "223": {
    "file": "/assets/species/223.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/223.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "224": {
    "file": "/assets/species/224.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/224.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "225": {
    "file": "/assets/species/225.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/225.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "226": {
    "file": "/assets/species/226.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/226.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "227": {
    "file": "/assets/species/227.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/227.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "228": {
    "file": "/assets/species/228.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/228.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "229": {
    "file": "/assets/species/229.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/229.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "230": {
    "file": "/assets/species/230.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/230.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "231": {
    "file": "/assets/species/231.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/231.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "232": {
    "file": "/assets/species/232.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/232.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "233": {
    "file": "/assets/species/233.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/233.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "234": {
    "file": "/assets/species/234.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/234.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "235": {
    "file": "/assets/species/235.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/235.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "236": {
    "file": "/assets/species/236.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/236.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "237": {
    "file": "/assets/species/237.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/237.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "238": {
    "file": "/assets/species/238.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/238.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "239": {
    "file": "/assets/species/239.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/239.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "240": {
    "file": "/assets/species/240.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/240.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "241": {
    "file": "/assets/species/241.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/241.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "242": {
    "file": "/assets/species/242.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/242.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "243": {
    "file": "/assets/species/243.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/243.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "244": {
    "file": "/assets/species/244.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/244.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "245": {
    "file": "/assets/species/245.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/245.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "246": {
    "file": "/assets/species/246.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/246.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "247": {
    "file": "/assets/species/247.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/247.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "248": {
    "file": "/assets/species/248.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/248.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "249": {
    "file": "/assets/species/249.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/249.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "250": {
    "file": "/assets/species/250.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/250.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "251": {
    "file": "/assets/species/251.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/251.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "252": {
    "file": "/assets/species/252.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/252.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "253": {
    "file": "/assets/species/253.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/253.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "254": {
    "file": "/assets/species/254.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/254.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "255": {
    "file": "/assets/species/255.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/255.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "256": {
    "file": "/assets/species/256.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/256.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "257": {
    "file": "/assets/species/257.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/257.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "258": {
    "file": "/assets/species/258.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/258.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "259": {
    "file": "/assets/species/259.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/259.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "260": {
    "file": "/assets/species/260.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/260.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "261": {
    "file": "/assets/species/261.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/261.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "262": {
    "file": "/assets/species/262.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/262.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "263": {
    "file": "/assets/species/263.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/263.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "264": {
    "file": "/assets/species/264.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/264.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "265": {
    "file": "/assets/species/265.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/265.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "266": {
    "file": "/assets/species/266.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/266.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "267": {
    "file": "/assets/species/267.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/267.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "268": {
    "file": "/assets/species/268.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/268.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "269": {
    "file": "/assets/species/269.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/269.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "270": {
    "file": "/assets/species/270.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/270.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "271": {
    "file": "/assets/species/271.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/271.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "272": {
    "file": "/assets/species/272.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/272.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "273": {
    "file": "/assets/species/273.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/273.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "274": {
    "file": "/assets/species/274.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/274.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "275": {
    "file": "/assets/species/275.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/275.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "276": {
    "file": "/assets/species/276.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/276.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "277": {
    "file": "/assets/species/277.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/277.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "278": {
    "file": "/assets/species/278.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/278.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "279": {
    "file": "/assets/species/279.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/279.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "280": {
    "file": "/assets/species/280.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/280.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "281": {
    "file": "/assets/species/281.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/281.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "282": {
    "file": "/assets/species/282.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/282.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "283": {
    "file": "/assets/species/283.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/283.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "284": {
    "file": "/assets/species/284.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/284.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "285": {
    "file": "/assets/species/285.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/285.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "286": {
    "file": "/assets/species/286.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/286.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "287": {
    "file": "/assets/species/287.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/287.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "288": {
    "file": "/assets/species/288.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/288.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "289": {
    "file": "/assets/species/289.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/289.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "290": {
    "file": "/assets/species/290.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/290.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "291": {
    "file": "/assets/species/291.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/291.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "292": {
    "file": "/assets/species/292.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/292.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "293": {
    "file": "/assets/species/293.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/293.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "294": {
    "file": "/assets/species/294.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/294.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "295": {
    "file": "/assets/species/295.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/295.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "296": {
    "file": "/assets/species/296.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/296.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "297": {
    "file": "/assets/species/297.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/297.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "298": {
    "file": "/assets/species/298.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/298.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "299": {
    "file": "/assets/species/299.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/299.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "300": {
    "file": "/assets/species/300.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/300.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "301": {
    "file": "/assets/species/301.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/301.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "302": {
    "file": "/assets/species/302.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/302.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "303": {
    "file": "/assets/species/303.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/303.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "304": {
    "file": "/assets/species/304.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/304.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "305": {
    "file": "/assets/species/305.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/305.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "306": {
    "file": "/assets/species/306.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/306.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "307": {
    "file": "/assets/species/307.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/307.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "308": {
    "file": "/assets/species/308.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/308.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "309": {
    "file": "/assets/species/309.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/309.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "310": {
    "file": "/assets/species/310.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/310.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "311": {
    "file": "/assets/species/311.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/311.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "312": {
    "file": "/assets/species/312.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/312.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "313": {
    "file": "/assets/species/313.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/313.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "314": {
    "file": "/assets/species/314.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/314.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "315": {
    "file": "/assets/species/315.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/315.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "316": {
    "file": "/assets/species/316.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/316.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "317": {
    "file": "/assets/species/317.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/317.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "318": {
    "file": "/assets/species/318.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/318.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "319": {
    "file": "/assets/species/319.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/319.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "320": {
    "file": "/assets/species/320.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/320.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "321": {
    "file": "/assets/species/321.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/321.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "322": {
    "file": "/assets/species/322.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/322.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "323": {
    "file": "/assets/species/323.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/323.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "324": {
    "file": "/assets/species/324.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/324.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "325": {
    "file": "/assets/species/325.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/325.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "326": {
    "file": "/assets/species/326.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/326.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "327": {
    "file": "/assets/species/327.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/327.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "328": {
    "file": "/assets/species/328.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/328.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "329": {
    "file": "/assets/species/329.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/329.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "330": {
    "file": "/assets/species/330.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/330.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "331": {
    "file": "/assets/species/331.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/331.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "332": {
    "file": "/assets/species/332.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/332.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "333": {
    "file": "/assets/species/333.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/333.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "334": {
    "file": "/assets/species/334.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/334.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "335": {
    "file": "/assets/species/335.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/335.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "336": {
    "file": "/assets/species/336.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/336.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "337": {
    "file": "/assets/species/337.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/337.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "338": {
    "file": "/assets/species/338.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/338.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "339": {
    "file": "/assets/species/339.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/339.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "340": {
    "file": "/assets/species/340.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/340.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "341": {
    "file": "/assets/species/341.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/341.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "342": {
    "file": "/assets/species/342.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/342.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "343": {
    "file": "/assets/species/343.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/343.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "344": {
    "file": "/assets/species/344.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/344.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "345": {
    "file": "/assets/species/345.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/345.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "346": {
    "file": "/assets/species/346.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/346.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "347": {
    "file": "/assets/species/347.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/347.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "348": {
    "file": "/assets/species/348.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/348.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "349": {
    "file": "/assets/species/349.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/349.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "350": {
    "file": "/assets/species/350.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/350.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "351": {
    "file": "/assets/species/351.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/351.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "352": {
    "file": "/assets/species/352.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/352.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "353": {
    "file": "/assets/species/353.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/353.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "354": {
    "file": "/assets/species/354.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/354.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "355": {
    "file": "/assets/species/355.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/355.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "356": {
    "file": "/assets/species/356.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/356.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "357": {
    "file": "/assets/species/357.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/357.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "358": {
    "file": "/assets/species/358.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/358.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "359": {
    "file": "/assets/species/359.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/359.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "360": {
    "file": "/assets/species/360.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/360.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "361": {
    "file": "/assets/species/361.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/361.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "362": {
    "file": "/assets/species/362.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/362.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "363": {
    "file": "/assets/species/363.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/363.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "364": {
    "file": "/assets/species/364.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/364.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "365": {
    "file": "/assets/species/365.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/365.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "366": {
    "file": "/assets/species/366.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/366.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "367": {
    "file": "/assets/species/367.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/367.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "368": {
    "file": "/assets/species/368.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/368.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "369": {
    "file": "/assets/species/369.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/369.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "370": {
    "file": "/assets/species/370.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/370.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "371": {
    "file": "/assets/species/371.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/371.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "372": {
    "file": "/assets/species/372.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/372.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "373": {
    "file": "/assets/species/373.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/373.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "374": {
    "file": "/assets/species/374.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/374.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "375": {
    "file": "/assets/species/375.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/375.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "376": {
    "file": "/assets/species/376.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/376.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "377": {
    "file": "/assets/species/377.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/377.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "378": {
    "file": "/assets/species/378.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/378.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "379": {
    "file": "/assets/species/379.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/379.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "380": {
    "file": "/assets/species/380.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/380.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "381": {
    "file": "/assets/species/381.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/381.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "382": {
    "file": "/assets/species/382.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/382.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "383": {
    "file": "/assets/species/383.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/383.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "384": {
    "file": "/assets/species/384.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/384.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "385": {
    "file": "/assets/species/385.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/385.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "386": {
    "file": "/assets/species/386.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/386.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "387": {
    "file": "/assets/species/387.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/387.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "388": {
    "file": "/assets/species/388.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/388.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "389": {
    "file": "/assets/species/389.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/389.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "390": {
    "file": "/assets/species/390.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/390.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "391": {
    "file": "/assets/species/391.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/391.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "392": {
    "file": "/assets/species/392.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/392.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "393": {
    "file": "/assets/species/393.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/393.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "394": {
    "file": "/assets/species/394.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/394.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "395": {
    "file": "/assets/species/395.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/395.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "396": {
    "file": "/assets/species/396.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/396.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "397": {
    "file": "/assets/species/397.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/397.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "398": {
    "file": "/assets/species/398.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/398.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "399": {
    "file": "/assets/species/399.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/399.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "400": {
    "file": "/assets/species/400.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/400.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "401": {
    "file": "/assets/species/401.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/401.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "402": {
    "file": "/assets/species/402.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/402.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "403": {
    "file": "/assets/species/403.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/403.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "404": {
    "file": "/assets/species/404.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/404.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "405": {
    "file": "/assets/species/405.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/405.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "406": {
    "file": "/assets/species/406.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/406.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "407": {
    "file": "/assets/species/407.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/407.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "408": {
    "file": "/assets/species/408.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/408.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "409": {
    "file": "/assets/species/409.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/409.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "410": {
    "file": "/assets/species/410.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/410.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "411": {
    "file": "/assets/species/411.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/411.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "412": {
    "file": "/assets/species/412.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/412.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "413": {
    "file": "/assets/species/413.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/413.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "414": {
    "file": "/assets/species/414.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/414.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "415": {
    "file": "/assets/species/415.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/415.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "416": {
    "file": "/assets/species/416.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/416.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "417": {
    "file": "/assets/species/417.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/417.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "418": {
    "file": "/assets/species/418.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/418.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "419": {
    "file": "/assets/species/419.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/419.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "420": {
    "file": "/assets/species/420.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/420.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "421": {
    "file": "/assets/species/421.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/421.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "422": {
    "file": "/assets/species/422.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/422.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "423": {
    "file": "/assets/species/423.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/423.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "424": {
    "file": "/assets/species/424.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/424.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "425": {
    "file": "/assets/species/425.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/425.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "426": {
    "file": "/assets/species/426.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/426.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "427": {
    "file": "/assets/species/427.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/427.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "428": {
    "file": "/assets/species/428.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/428.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "429": {
    "file": "/assets/species/429.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/429.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "430": {
    "file": "/assets/species/430.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/430.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "431": {
    "file": "/assets/species/431.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/431.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "432": {
    "file": "/assets/species/432.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/432.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "433": {
    "file": "/assets/species/433.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/433.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "434": {
    "file": "/assets/species/434.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/434.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "435": {
    "file": "/assets/species/435.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/435.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "436": {
    "file": "/assets/species/436.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/436.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "437": {
    "file": "/assets/species/437.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/437.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "438": {
    "file": "/assets/species/438.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/438.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "439": {
    "file": "/assets/species/439.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/439.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "440": {
    "file": "/assets/species/440.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/440.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "441": {
    "file": "/assets/species/441.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/441.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "442": {
    "file": "/assets/species/442.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/442.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "443": {
    "file": "/assets/species/443.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/443.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "444": {
    "file": "/assets/species/444.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/444.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "445": {
    "file": "/assets/species/445.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/445.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "446": {
    "file": "/assets/species/446.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/446.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "447": {
    "file": "/assets/species/447.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/447.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "448": {
    "file": "/assets/species/448.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/448.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "449": {
    "file": "/assets/species/449.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/449.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "450": {
    "file": "/assets/species/450.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/450.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "451": {
    "file": "/assets/species/451.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/451.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "452": {
    "file": "/assets/species/452.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/452.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "453": {
    "file": "/assets/species/453.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/453.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "454": {
    "file": "/assets/species/454.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/454.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "455": {
    "file": "/assets/species/455.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/455.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "456": {
    "file": "/assets/species/456.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/456.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "457": {
    "file": "/assets/species/457.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/457.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "458": {
    "file": "/assets/species/458.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/458.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "459": {
    "file": "/assets/species/459.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/459.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "460": {
    "file": "/assets/species/460.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/460.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "461": {
    "file": "/assets/species/461.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/461.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "462": {
    "file": "/assets/species/462.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/462.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "463": {
    "file": "/assets/species/463.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/463.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "464": {
    "file": "/assets/species/464.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/464.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "465": {
    "file": "/assets/species/465.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/465.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "466": {
    "file": "/assets/species/466.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/466.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "467": {
    "file": "/assets/species/467.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/467.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "468": {
    "file": "/assets/species/468.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/468.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "469": {
    "file": "/assets/species/469.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/469.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "470": {
    "file": "/assets/species/470.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/470.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "471": {
    "file": "/assets/species/471.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/471.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "472": {
    "file": "/assets/species/472.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/472.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "473": {
    "file": "/assets/species/473.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/473.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "474": {
    "file": "/assets/species/474.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/474.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "475": {
    "file": "/assets/species/475.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/475.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "476": {
    "file": "/assets/species/476.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/476.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "477": {
    "file": "/assets/species/477.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/477.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "478": {
    "file": "/assets/species/478.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/478.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "479": {
    "file": "/assets/species/479.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/479.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "480": {
    "file": "/assets/species/480.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/480.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "481": {
    "file": "/assets/species/481.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/481.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "482": {
    "file": "/assets/species/482.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/482.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "483": {
    "file": "/assets/species/483.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/483.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "484": {
    "file": "/assets/species/484.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/484.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "485": {
    "file": "/assets/species/485.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/485.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "486": {
    "file": "/assets/species/486.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/486.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "487": {
    "file": "/assets/species/487.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/487.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "488": {
    "file": "/assets/species/488.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/488.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "489": {
    "file": "/assets/species/489.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/489.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "490": {
    "file": "/assets/species/490.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/490.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "491": {
    "file": "/assets/species/491.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/491.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "492": {
    "file": "/assets/species/492.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/492.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "493": {
    "file": "/assets/species/493.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/493.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "494": {
    "file": "/assets/species/494.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/494.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "495": {
    "file": "/assets/species/495.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/495.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "496": {
    "file": "/assets/species/496.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/496.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "497": {
    "file": "/assets/species/497.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/497.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "498": {
    "file": "/assets/species/498.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/498.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "499": {
    "file": "/assets/species/499.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/499.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "500": {
    "file": "/assets/species/500.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/500.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "501": {
    "file": "/assets/species/501.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/501.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "502": {
    "file": "/assets/species/502.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/502.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "503": {
    "file": "/assets/species/503.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/503.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "504": {
    "file": "/assets/species/504.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/504.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "505": {
    "file": "/assets/species/505.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/505.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "506": {
    "file": "/assets/species/506.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/506.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "507": {
    "file": "/assets/species/507.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/507.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "508": {
    "file": "/assets/species/508.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/508.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "509": {
    "file": "/assets/species/509.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/509.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "510": {
    "file": "/assets/species/510.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/510.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "511": {
    "file": "/assets/species/511.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/511.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "512": {
    "file": "/assets/species/512.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/512.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "513": {
    "file": "/assets/species/513.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/513.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "514": {
    "file": "/assets/species/514.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/514.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "515": {
    "file": "/assets/species/515.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/515.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "516": {
    "file": "/assets/species/516.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/516.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "517": {
    "file": "/assets/species/517.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/517.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "518": {
    "file": "/assets/species/518.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/518.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "519": {
    "file": "/assets/species/519.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/519.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "520": {
    "file": "/assets/species/520.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/520.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "521": {
    "file": "/assets/species/521.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/521.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "522": {
    "file": "/assets/species/522.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/522.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "523": {
    "file": "/assets/species/523.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/523.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "524": {
    "file": "/assets/species/524.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/524.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "525": {
    "file": "/assets/species/525.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/525.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "526": {
    "file": "/assets/species/526.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/526.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "527": {
    "file": "/assets/species/527.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/527.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "528": {
    "file": "/assets/species/528.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/528.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "529": {
    "file": "/assets/species/529.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/529.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "530": {
    "file": "/assets/species/530.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/530.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "531": {
    "file": "/assets/species/531.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/531.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "532": {
    "file": "/assets/species/532.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/532.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "533": {
    "file": "/assets/species/533.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/533.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "534": {
    "file": "/assets/species/534.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/534.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "535": {
    "file": "/assets/species/535.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/535.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "536": {
    "file": "/assets/species/536.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/536.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "537": {
    "file": "/assets/species/537.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/537.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "538": {
    "file": "/assets/species/538.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/538.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "539": {
    "file": "/assets/species/539.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/539.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "540": {
    "file": "/assets/species/540.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/540.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "541": {
    "file": "/assets/species/541.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/541.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "542": {
    "file": "/assets/species/542.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/542.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "543": {
    "file": "/assets/species/543.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/543.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "544": {
    "file": "/assets/species/544.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/544.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "545": {
    "file": "/assets/species/545.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/545.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "546": {
    "file": "/assets/species/546.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/546.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "547": {
    "file": "/assets/species/547.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/547.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "548": {
    "file": "/assets/species/548.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/548.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "549": {
    "file": "/assets/species/549.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/549.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "550": {
    "file": "/assets/species/550.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/550.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "551": {
    "file": "/assets/species/551.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/551.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "552": {
    "file": "/assets/species/552.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/552.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "553": {
    "file": "/assets/species/553.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/553.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "554": {
    "file": "/assets/species/554.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/554.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "555": {
    "file": "/assets/species/555.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/555.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "556": {
    "file": "/assets/species/556.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/556.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "557": {
    "file": "/assets/species/557.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/557.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "558": {
    "file": "/assets/species/558.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/558.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "559": {
    "file": "/assets/species/559.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/559.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "560": {
    "file": "/assets/species/560.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/560.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "561": {
    "file": "/assets/species/561.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/561.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "562": {
    "file": "/assets/species/562.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/562.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "563": {
    "file": "/assets/species/563.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/563.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "564": {
    "file": "/assets/species/564.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/564.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "565": {
    "file": "/assets/species/565.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/565.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "566": {
    "file": "/assets/species/566.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/566.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "567": {
    "file": "/assets/species/567.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/567.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "568": {
    "file": "/assets/species/568.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/568.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "569": {
    "file": "/assets/species/569.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/569.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "570": {
    "file": "/assets/species/570.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/570.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "571": {
    "file": "/assets/species/571.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/571.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "572": {
    "file": "/assets/species/572.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/572.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "573": {
    "file": "/assets/species/573.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/573.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "574": {
    "file": "/assets/species/574.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/574.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "575": {
    "file": "/assets/species/575.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/575.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "576": {
    "file": "/assets/species/576.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/576.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "577": {
    "file": "/assets/species/577.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/577.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "578": {
    "file": "/assets/species/578.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/578.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "579": {
    "file": "/assets/species/579.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/579.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "580": {
    "file": "/assets/species/580.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/580.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "581": {
    "file": "/assets/species/581.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/581.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "582": {
    "file": "/assets/species/582.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/582.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "583": {
    "file": "/assets/species/583.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/583.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "584": {
    "file": "/assets/species/584.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/584.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "585": {
    "file": "/assets/species/585.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/585.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "586": {
    "file": "/assets/species/586.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/586.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "587": {
    "file": "/assets/species/587.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/587.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "588": {
    "file": "/assets/species/588.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/588.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "589": {
    "file": "/assets/species/589.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/589.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "590": {
    "file": "/assets/species/590.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/590.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "591": {
    "file": "/assets/species/591.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/591.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "592": {
    "file": "/assets/species/592.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/592.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "593": {
    "file": "/assets/species/593.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/593.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "594": {
    "file": "/assets/species/594.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/594.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "595": {
    "file": "/assets/species/595.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/595.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "596": {
    "file": "/assets/species/596.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/596.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "597": {
    "file": "/assets/species/597.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/597.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "598": {
    "file": "/assets/species/598.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/598.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "599": {
    "file": "/assets/species/599.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/599.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "600": {
    "file": "/assets/species/600.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/600.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "601": {
    "file": "/assets/species/601.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/601.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "602": {
    "file": "/assets/species/602.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/602.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "603": {
    "file": "/assets/species/603.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/603.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "604": {
    "file": "/assets/species/604.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/604.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "605": {
    "file": "/assets/species/605.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/605.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "606": {
    "file": "/assets/species/606.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/606.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "607": {
    "file": "/assets/species/607.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/607.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "608": {
    "file": "/assets/species/608.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/608.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "609": {
    "file": "/assets/species/609.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/609.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "610": {
    "file": "/assets/species/610.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/610.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "611": {
    "file": "/assets/species/611.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/611.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "612": {
    "file": "/assets/species/612.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/612.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "613": {
    "file": "/assets/species/613.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/613.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "614": {
    "file": "/assets/species/614.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/614.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "615": {
    "file": "/assets/species/615.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/615.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "616": {
    "file": "/assets/species/616.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/616.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "617": {
    "file": "/assets/species/617.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/617.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "618": {
    "file": "/assets/species/618.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/618.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "619": {
    "file": "/assets/species/619.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/619.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "620": {
    "file": "/assets/species/620.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/620.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "621": {
    "file": "/assets/species/621.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/621.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "622": {
    "file": "/assets/species/622.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/622.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "623": {
    "file": "/assets/species/623.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/623.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "624": {
    "file": "/assets/species/624.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/624.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "625": {
    "file": "/assets/species/625.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/625.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "626": {
    "file": "/assets/species/626.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/626.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "627": {
    "file": "/assets/species/627.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/627.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "628": {
    "file": "/assets/species/628.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/628.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "629": {
    "file": "/assets/species/629.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/629.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "630": {
    "file": "/assets/species/630.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/630.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "631": {
    "file": "/assets/species/631.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/631.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "632": {
    "file": "/assets/species/632.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/632.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "633": {
    "file": "/assets/species/633.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/633.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "634": {
    "file": "/assets/species/634.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/634.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "635": {
    "file": "/assets/species/635.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/635.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "636": {
    "file": "/assets/species/636.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/636.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "637": {
    "file": "/assets/species/637.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/637.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "638": {
    "file": "/assets/species/638.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/638.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "639": {
    "file": "/assets/species/639.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/639.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "640": {
    "file": "/assets/species/640.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/640.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "641": {
    "file": "/assets/species/641.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/641.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "642": {
    "file": "/assets/species/642.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/642.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "643": {
    "file": "/assets/species/643.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/643.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "644": {
    "file": "/assets/species/644.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/644.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "645": {
    "file": "/assets/species/645.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/645.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "646": {
    "file": "/assets/species/646.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/646.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "647": {
    "file": "/assets/species/647.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/647.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "648": {
    "file": "/assets/species/648.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/648.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "649": {
    "file": "/assets/species/649.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/649.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "650": {
    "file": "/assets/species/650.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/650.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "651": {
    "file": "/assets/species/651.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/651.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "652": {
    "file": "/assets/species/652.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/652.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "653": {
    "file": "/assets/species/653.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/653.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "654": {
    "file": "/assets/species/654.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/654.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "655": {
    "file": "/assets/species/655.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/655.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "656": {
    "file": "/assets/species/656.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/656.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "657": {
    "file": "/assets/species/657.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/657.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "658": {
    "file": "/assets/species/658.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/658.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "659": {
    "file": "/assets/species/659.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/659.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "660": {
    "file": "/assets/species/660.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/660.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "661": {
    "file": "/assets/species/661.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/661.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "662": {
    "file": "/assets/species/662.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/662.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "663": {
    "file": "/assets/species/663.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/663.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "664": {
    "file": "/assets/species/664.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/664.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "665": {
    "file": "/assets/species/665.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/665.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "666": {
    "file": "/assets/species/666.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/666.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "667": {
    "file": "/assets/species/667.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/667.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "668": {
    "file": "/assets/species/668.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/668.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "669": {
    "file": "/assets/species/669.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/669.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "670": {
    "file": "/assets/species/670.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/670.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "671": {
    "file": "/assets/species/671.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/671.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "672": {
    "file": "/assets/species/672.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/672.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "673": {
    "file": "/assets/species/673.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/673.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "674": {
    "file": "/assets/species/674.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/674.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "675": {
    "file": "/assets/species/675.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/675.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "676": {
    "file": "/assets/species/676.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/676.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "677": {
    "file": "/assets/species/677.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/677.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "678": {
    "file": "/assets/species/678.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/678.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "679": {
    "file": "/assets/species/679.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/679.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "680": {
    "file": "/assets/species/680.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/680.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "681": {
    "file": "/assets/species/681.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/681.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "682": {
    "file": "/assets/species/682.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/682.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "683": {
    "file": "/assets/species/683.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/683.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "684": {
    "file": "/assets/species/684.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/684.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "685": {
    "file": "/assets/species/685.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/685.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "686": {
    "file": "/assets/species/686.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/686.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "687": {
    "file": "/assets/species/687.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/687.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "688": {
    "file": "/assets/species/688.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/688.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "689": {
    "file": "/assets/species/689.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/689.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "690": {
    "file": "/assets/species/690.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/690.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "691": {
    "file": "/assets/species/691.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/691.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "692": {
    "file": "/assets/species/692.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/692.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "693": {
    "file": "/assets/species/693.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/693.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "694": {
    "file": "/assets/species/694.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/694.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "695": {
    "file": "/assets/species/695.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/695.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "696": {
    "file": "/assets/species/696.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/696.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "697": {
    "file": "/assets/species/697.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/697.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "698": {
    "file": "/assets/species/698.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/698.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "699": {
    "file": "/assets/species/699.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/699.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "700": {
    "file": "/assets/species/700.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/700.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "701": {
    "file": "/assets/species/701.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/701.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "702": {
    "file": "/assets/species/702.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/702.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "703": {
    "file": "/assets/species/703.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/703.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "704": {
    "file": "/assets/species/704.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/704.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "705": {
    "file": "/assets/species/705.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/705.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "706": {
    "file": "/assets/species/706.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/706.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "707": {
    "file": "/assets/species/707.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/707.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "708": {
    "file": "/assets/species/708.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/708.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "709": {
    "file": "/assets/species/709.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/709.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "710": {
    "file": "/assets/species/710.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/710.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "711": {
    "file": "/assets/species/711.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/711.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "712": {
    "file": "/assets/species/712.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/712.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "713": {
    "file": "/assets/species/713.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/713.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "714": {
    "file": "/assets/species/714.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/714.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "715": {
    "file": "/assets/species/715.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/715.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "716": {
    "file": "/assets/species/716.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/716.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "717": {
    "file": "/assets/species/717.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/717.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "718": {
    "file": "/assets/species/718.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/718.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "719": {
    "file": "/assets/species/719.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/719.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "720": {
    "file": "/assets/species/720.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/720.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "721": {
    "file": "/assets/species/721.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/721.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "722": {
    "file": "/assets/species/722.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/722.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "723": {
    "file": "/assets/species/723.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/723.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "724": {
    "file": "/assets/species/724.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/724.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "725": {
    "file": "/assets/species/725.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/725.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "726": {
    "file": "/assets/species/726.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/726.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "727": {
    "file": "/assets/species/727.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/727.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "728": {
    "file": "/assets/species/728.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/728.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "729": {
    "file": "/assets/species/729.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/729.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "730": {
    "file": "/assets/species/730.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/730.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "731": {
    "file": "/assets/species/731.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/731.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "732": {
    "file": "/assets/species/732.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/732.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "733": {
    "file": "/assets/species/733.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/733.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "734": {
    "file": "/assets/species/734.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/734.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "735": {
    "file": "/assets/species/735.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/735.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "736": {
    "file": "/assets/species/736.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/736.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "737": {
    "file": "/assets/species/737.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/737.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "738": {
    "file": "/assets/species/738.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/738.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "739": {
    "file": "/assets/species/739.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/739.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "740": {
    "file": "/assets/species/740.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/740.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "741": {
    "file": "/assets/species/741.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/741.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "742": {
    "file": "/assets/species/742.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/742.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "743": {
    "file": "/assets/species/743.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/743.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "744": {
    "file": "/assets/species/744.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/744.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "745": {
    "file": "/assets/species/745.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/745.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "746": {
    "file": "/assets/species/746.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/746.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "747": {
    "file": "/assets/species/747.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/747.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "748": {
    "file": "/assets/species/748.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/748.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "749": {
    "file": "/assets/species/749.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/749.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "750": {
    "file": "/assets/species/750.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/750.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "751": {
    "file": "/assets/species/751.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/751.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "752": {
    "file": "/assets/species/752.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/752.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "753": {
    "file": "/assets/species/753.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/753.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "754": {
    "file": "/assets/species/754.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/754.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "755": {
    "file": "/assets/species/755.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/755.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "756": {
    "file": "/assets/species/756.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/756.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "757": {
    "file": "/assets/species/757.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/757.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "758": {
    "file": "/assets/species/758.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/758.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "759": {
    "file": "/assets/species/759.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/759.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "760": {
    "file": "/assets/species/760.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/760.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "761": {
    "file": "/assets/species/761.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/761.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "762": {
    "file": "/assets/species/762.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/762.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "763": {
    "file": "/assets/species/763.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/763.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "764": {
    "file": "/assets/species/764.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/764.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "765": {
    "file": "/assets/species/765.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/765.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "766": {
    "file": "/assets/species/766.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/766.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "767": {
    "file": "/assets/species/767.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/767.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "768": {
    "file": "/assets/species/768.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/768.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "769": {
    "file": "/assets/species/769.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/769.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "770": {
    "file": "/assets/species/770.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/770.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "771": {
    "file": "/assets/species/771.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/771.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "772": {
    "file": "/assets/species/772.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/772.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "773": {
    "file": "/assets/species/773.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/773.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "774": {
    "file": "/assets/species/774.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/774.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "775": {
    "file": "/assets/species/775.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/775.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "776": {
    "file": "/assets/species/776.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/776.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "777": {
    "file": "/assets/species/777.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/777.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "778": {
    "file": "/assets/species/778.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/778.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "779": {
    "file": "/assets/species/779.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/779.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "780": {
    "file": "/assets/species/780.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/780.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "781": {
    "file": "/assets/species/781.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/781.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "782": {
    "file": "/assets/species/782.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/782.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "783": {
    "file": "/assets/species/783.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/783.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "784": {
    "file": "/assets/species/784.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/784.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "785": {
    "file": "/assets/species/785.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/785.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "786": {
    "file": "/assets/species/786.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/786.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "787": {
    "file": "/assets/species/787.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/787.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "788": {
    "file": "/assets/species/788.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/788.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "789": {
    "file": "/assets/species/789.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/789.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "790": {
    "file": "/assets/species/790.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/790.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "791": {
    "file": "/assets/species/791.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/791.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "792": {
    "file": "/assets/species/792.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/792.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "793": {
    "file": "/assets/species/793.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/793.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "794": {
    "file": "/assets/species/794.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/794.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "795": {
    "file": "/assets/species/795.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/795.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "796": {
    "file": "/assets/species/796.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/796.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "797": {
    "file": "/assets/species/797.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/797.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "798": {
    "file": "/assets/species/798.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/798.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "799": {
    "file": "/assets/species/799.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/799.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "800": {
    "file": "/assets/species/800.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/800.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "801": {
    "file": "/assets/species/801.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/801.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "802": {
    "file": "/assets/species/802.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/802.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "803": {
    "file": "/assets/species/803.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/803.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "804": {
    "file": "/assets/species/804.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/804.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "805": {
    "file": "/assets/species/805.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/805.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "806": {
    "file": "/assets/species/806.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/806.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "807": {
    "file": "/assets/species/807.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/807.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "808": {
    "file": "/assets/species/808.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/808.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "809": {
    "file": "/assets/species/809.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/809.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "810": {
    "file": "/assets/species/810.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/810.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "811": {
    "file": "/assets/species/811.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/811.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "812": {
    "file": "/assets/species/812.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/812.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "813": {
    "file": "/assets/species/813.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/813.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "814": {
    "file": "/assets/species/814.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/814.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "815": {
    "file": "/assets/species/815.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/815.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "816": {
    "file": "/assets/species/816.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/816.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "817": {
    "file": "/assets/species/817.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/817.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "818": {
    "file": "/assets/species/818.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/818.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "819": {
    "file": "/assets/species/819.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/819.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "820": {
    "file": "/assets/species/820.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/820.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "821": {
    "file": "/assets/species/821.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/821.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "822": {
    "file": "/assets/species/822.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/822.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "823": {
    "file": "/assets/species/823.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/823.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "824": {
    "file": "/assets/species/824.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/824.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "825": {
    "file": "/assets/species/825.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/825.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "826": {
    "file": "/assets/species/826.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/826.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "827": {
    "file": "/assets/species/827.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/827.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "828": {
    "file": "/assets/species/828.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/828.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "829": {
    "file": "/assets/species/829.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/829.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "830": {
    "file": "/assets/species/830.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/830.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "831": {
    "file": "/assets/species/831.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/831.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "832": {
    "file": "/assets/species/832.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/832.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "833": {
    "file": "/assets/species/833.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/833.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "834": {
    "file": "/assets/species/834.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/834.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "835": {
    "file": "/assets/species/835.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/835.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "836": {
    "file": "/assets/species/836.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/836.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "837": {
    "file": "/assets/species/837.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/837.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "838": {
    "file": "/assets/species/838.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/838.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "839": {
    "file": "/assets/species/839.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/839.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "840": {
    "file": "/assets/species/840.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/840.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "841": {
    "file": "/assets/species/841.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/841.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "842": {
    "file": "/assets/species/842.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/842.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "843": {
    "file": "/assets/species/843.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/843.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "844": {
    "file": "/assets/species/844.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/844.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "845": {
    "file": "/assets/species/845.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/845.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "846": {
    "file": "/assets/species/846.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/846.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "847": {
    "file": "/assets/species/847.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/847.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "848": {
    "file": "/assets/species/848.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/848.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "849": {
    "file": "/assets/species/849.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/849.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "850": {
    "file": "/assets/species/850.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/850.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "851": {
    "file": "/assets/species/851.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/851.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "852": {
    "file": "/assets/species/852.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/852.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "853": {
    "file": "/assets/species/853.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/853.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "854": {
    "file": "/assets/species/854.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/854.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "855": {
    "file": "/assets/species/855.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/855.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "856": {
    "file": "/assets/species/856.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/856.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "857": {
    "file": "/assets/species/857.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/857.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "858": {
    "file": "/assets/species/858.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/858.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "859": {
    "file": "/assets/species/859.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/859.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "860": {
    "file": "/assets/species/860.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/860.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "861": {
    "file": "/assets/species/861.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/861.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "862": {
    "file": "/assets/species/862.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/862.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "863": {
    "file": "/assets/species/863.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/863.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "864": {
    "file": "/assets/species/864.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/864.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "865": {
    "file": "/assets/species/865.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/865.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "866": {
    "file": "/assets/species/866.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/866.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "867": {
    "file": "/assets/species/867.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/867.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "868": {
    "file": "/assets/species/868.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/868.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "869": {
    "file": "/assets/species/869.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/869.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "870": {
    "file": "/assets/species/870.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/870.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "871": {
    "file": "/assets/species/871.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/871.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "872": {
    "file": "/assets/species/872.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/872.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "873": {
    "file": "/assets/species/873.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/873.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "874": {
    "file": "/assets/species/874.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/874.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "875": {
    "file": "/assets/species/875.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/875.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "876": {
    "file": "/assets/species/876.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/876.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "877": {
    "file": "/assets/species/877.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/877.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "878": {
    "file": "/assets/species/878.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/878.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "879": {
    "file": "/assets/species/879.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/879.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "880": {
    "file": "/assets/species/880.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/880.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "881": {
    "file": "/assets/species/881.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/881.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "882": {
    "file": "/assets/species/882.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/882.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "883": {
    "file": "/assets/species/883.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/883.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "884": {
    "file": "/assets/species/884.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/884.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "885": {
    "file": "/assets/species/885.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/885.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "886": {
    "file": "/assets/species/886.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/886.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "887": {
    "file": "/assets/species/887.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/887.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "888": {
    "file": "/assets/species/888.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/888.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "889": {
    "file": "/assets/species/889.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/889.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "890": {
    "file": "/assets/species/890.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/890.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "891": {
    "file": "/assets/species/891.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/891.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "892": {
    "file": "/assets/species/892.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/892.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "893": {
    "file": "/assets/species/893.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/893.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "894": {
    "file": "/assets/species/894.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/894.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "895": {
    "file": "/assets/species/895.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/895.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "896": {
    "file": "/assets/species/896.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/896.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "897": {
    "file": "/assets/species/897.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/897.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "898": {
    "file": "/assets/species/898.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/898.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "899": {
    "file": "/assets/species/899.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/899.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "900": {
    "file": "/assets/species/900.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/900.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "901": {
    "file": "/assets/species/901.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/901.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "902": {
    "file": "/assets/species/902.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/902.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "903": {
    "file": "/assets/species/903.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/903.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "904": {
    "file": "/assets/species/904.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/904.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "905": {
    "file": "/assets/species/905.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/905.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "906": {
    "file": "/assets/species/906.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/906.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "907": {
    "file": "/assets/species/907.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/907.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "908": {
    "file": "/assets/species/908.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/908.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "909": {
    "file": "/assets/species/909.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/909.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "910": {
    "file": "/assets/species/910.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/910.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "911": {
    "file": "/assets/species/911.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/911.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "912": {
    "file": "/assets/species/912.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/912.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "913": {
    "file": "/assets/species/913.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/913.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "914": {
    "file": "/assets/species/914.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/914.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "915": {
    "file": "/assets/species/915.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/915.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "916": {
    "file": "/assets/species/916.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/916.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "917": {
    "file": "/assets/species/917.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/917.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "918": {
    "file": "/assets/species/918.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/918.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "919": {
    "file": "/assets/species/919.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/919.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "920": {
    "file": "/assets/species/920.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/920.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "921": {
    "file": "/assets/species/921.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/921.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "922": {
    "file": "/assets/species/922.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/922.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "923": {
    "file": "/assets/species/923.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/923.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "924": {
    "file": "/assets/species/924.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/924.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "925": {
    "file": "/assets/species/925.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/925.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "926": {
    "file": "/assets/species/926.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/926.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "927": {
    "file": "/assets/species/927.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/927.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "928": {
    "file": "/assets/species/928.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/928.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "929": {
    "file": "/assets/species/929.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/929.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "930": {
    "file": "/assets/species/930.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/930.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "931": {
    "file": "/assets/species/931.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/931.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "932": {
    "file": "/assets/species/932.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/932.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "933": {
    "file": "/assets/species/933.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/933.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "934": {
    "file": "/assets/species/934.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/934.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "935": {
    "file": "/assets/species/935.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/935.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "936": {
    "file": "/assets/species/936.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/936.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "937": {
    "file": "/assets/species/937.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/937.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "938": {
    "file": "/assets/species/938.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/938.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "939": {
    "file": "/assets/species/939.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/939.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "940": {
    "file": "/assets/species/940.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/940.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "941": {
    "file": "/assets/species/941.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/941.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "942": {
    "file": "/assets/species/942.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/942.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "943": {
    "file": "/assets/species/943.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/943.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "944": {
    "file": "/assets/species/944.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/944.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "945": {
    "file": "/assets/species/945.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/945.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "946": {
    "file": "/assets/species/946.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/946.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "947": {
    "file": "/assets/species/947.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/947.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "948": {
    "file": "/assets/species/948.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/948.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "949": {
    "file": "/assets/species/949.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/949.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "950": {
    "file": "/assets/species/950.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/950.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "951": {
    "file": "/assets/species/951.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/951.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "952": {
    "file": "/assets/species/952.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/952.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "953": {
    "file": "/assets/species/953.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/953.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "954": {
    "file": "/assets/species/954.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/954.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "955": {
    "file": "/assets/species/955.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/955.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "956": {
    "file": "/assets/species/956.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/956.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "957": {
    "file": "/assets/species/957.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/957.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "958": {
    "file": "/assets/species/958.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/958.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "959": {
    "file": "/assets/species/959.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/959.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "960": {
    "file": "/assets/species/960.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/960.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "961": {
    "file": "/assets/species/961.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/961.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "962": {
    "file": "/assets/species/962.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/962.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "963": {
    "file": "/assets/species/963.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/963.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "964": {
    "file": "/assets/species/964.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/964.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "965": {
    "file": "/assets/species/965.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/965.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "966": {
    "file": "/assets/species/966.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/966.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "967": {
    "file": "/assets/species/967.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/967.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "968": {
    "file": "/assets/species/968.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/968.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "969": {
    "file": "/assets/species/969.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/969.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "970": {
    "file": "/assets/species/970.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/970.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "971": {
    "file": "/assets/species/971.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/971.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "972": {
    "file": "/assets/species/972.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/972.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "973": {
    "file": "/assets/species/973.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/973.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "974": {
    "file": "/assets/species/974.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/974.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "975": {
    "file": "/assets/species/975.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/975.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "976": {
    "file": "/assets/species/976.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/976.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "977": {
    "file": "/assets/species/977.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/977.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "978": {
    "file": "/assets/species/978.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/978.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "979": {
    "file": "/assets/species/979.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/979.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "980": {
    "file": "/assets/species/980.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/980.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "981": {
    "file": "/assets/species/981.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/981.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "982": {
    "file": "/assets/species/982.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/982.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "983": {
    "file": "/assets/species/983.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/983.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "984": {
    "file": "/assets/species/984.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/984.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "985": {
    "file": "/assets/species/985.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/985.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "986": {
    "file": "/assets/species/986.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/986.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "987": {
    "file": "/assets/species/987.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/987.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "988": {
    "file": "/assets/species/988.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/988.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "989": {
    "file": "/assets/species/989.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/989.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "990": {
    "file": "/assets/species/990.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/990.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "991": {
    "file": "/assets/species/991.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/991.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "992": {
    "file": "/assets/species/992.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/992.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "993": {
    "file": "/assets/species/993.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/993.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "994": {
    "file": "/assets/species/994.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/994.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "995": {
    "file": "/assets/species/995.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/995.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "996": {
    "file": "/assets/species/996.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/996.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "997": {
    "file": "/assets/species/997.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/997.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "998": {
    "file": "/assets/species/998.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/998.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "999": {
    "file": "/assets/species/999.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/999.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1000": {
    "file": "/assets/species/1000.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1000.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1001": {
    "file": "/assets/species/1001.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1001.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1002": {
    "file": "/assets/species/1002.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1002.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1003": {
    "file": "/assets/species/1003.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1003.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1004": {
    "file": "/assets/species/1004.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1004.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1005": {
    "file": "/assets/species/1005.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1005.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1006": {
    "file": "/assets/species/1006.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1006.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1007": {
    "file": "/assets/species/1007.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1007.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1008": {
    "file": "/assets/species/1008.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1008.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1009": {
    "file": "/assets/species/1009.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1009.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1010": {
    "file": "/assets/species/1010.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1010.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1011": {
    "file": "/assets/species/1011.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1011.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1012": {
    "file": "/assets/species/1012.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1012.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1013": {
    "file": "/assets/species/1013.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1013.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1014": {
    "file": "/assets/species/1014.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1014.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1015": {
    "file": "/assets/species/1015.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1015.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1016": {
    "file": "/assets/species/1016.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1016.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1017": {
    "file": "/assets/species/1017.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1017.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1018": {
    "file": "/assets/species/1018.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1018.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1019": {
    "file": "/assets/species/1019.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1019.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1020": {
    "file": "/assets/species/1020.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1020.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1021": {
    "file": "/assets/species/1021.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1021.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1022": {
    "file": "/assets/species/1022.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1022.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1023": {
    "file": "/assets/species/1023.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1023.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1024": {
    "file": "/assets/species/1024.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1024.webp",
+    "w": 475,
+    "h": 475
+   }
   },
   "1025": {
    "file": "/assets/species/1025.webp",
    "w": 256,
-   "h": 256
+   "h": 256,
+   "lg": {
+    "file": "/assets/species/lg/1025.webp",
+    "w": 475,
+    "h": 475
+   }
   }
  }
 }

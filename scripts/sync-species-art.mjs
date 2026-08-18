@@ -277,6 +277,10 @@ await writeFile(
         "Written by scripts/sync-species-art.mjs. Do not hand-edit.",
         "Official Pokemon artwork mirrored from the PokeAPI sprite repository, at the",
         "size /pokemon/ draws it: 256px, which is the 128px drawn hero box doubled.",
+        "Each entry may also carry lg, the master's own 475px, which exists for one",
+        "caller: the silhouette game draws its artwork at 249 CSS px and 256 would be",
+        "a 1.95x upscale there. Nothing else should reach for it. An entry without lg",
+        "is a species the game leaves out of its pool.",
         "Pokemon and Pokemon character names are trademarks of Nintendo, Creatures Inc.",
         "and GAME FREAK inc. This is a fan site. Nothing is sold here and nothing on it",
         "is affiliated with or endorsed by them.",
@@ -289,7 +293,9 @@ await writeFile(
       sourceUrl: "https://github.com/PokeAPI/sprites",
       checked: new Date().toISOString().slice(0, 10),
       box: BOX,
+      lgBox: BIG,
       count: Object.keys(art).length,
+      lgCount: bigCount,
       art,
     },
     null,
@@ -302,6 +308,9 @@ console.log(
     (failed ? `, ${failed} failed` : ""),
 );
 if (rawBytes) console.log(`  ${(rawBytes / 1024 / 1024).toFixed(1)}MB fetched this run`);
-console.log(`  ${(outBytes / 1024 / 1024).toFixed(1)}MB stored, ${(outBytes / 1024 / Math.max(1, Object.keys(art).length)).toFixed(1)}KB average`);
+console.log(`  ${(outBytes / 1024 / 1024).toFixed(1)}MB stored at ${BOX}px, ${(outBytes / 1024 / Math.max(1, Object.keys(art).length)).toFixed(1)}KB average`);
+console.log(`  ${(bigBytes / 1024 / 1024).toFixed(1)}MB stored at ${BIG}px for ${bigCount} species, ${(bigBytes / 1024 / Math.max(1, bigCount)).toFixed(1)}KB average`);
+if (bigCount < Object.keys(art).length)
+  console.log(`  ${Object.keys(art).length - bigCount} species have no lg file and are OUT of the silhouette pool`);
 if (biggest.id)
   console.log(`  largest: #${biggest.id} ${biggest.name} at ${(biggest.bytes / 1024).toFixed(1)}KB (the site's cap is 200KB)`);

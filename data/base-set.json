@@ -41,7 +41,7 @@
   "intro": "Somebody hands you a Charizard from 1999 and asks what it is worth. The answer is not one number, it is three, and they are a long way apart. English Base Set was printed more than once, the runs look almost identical, and the thing that separates the two most valuable ones is a shadow that is not there.",
   "goldenRule": {
     "title": "Two marks, and you check them in this order",
-    "body": "First, look under the left edge of the artwork for a small black stamp reading EDITION 1. If it is there, stop: you have a 1st Edition. If it is not, look at the right edge of the artwork window instead. A grey band running down the outside of that edge means Unlimited. No band, no stamp, and you are holding a Shadowless. Everything else on this page is a second opinion on those two marks."
+    "body": "First, look under the left edge of the artwork for a small black stamp reading EDITION 1. If it is there, stop: you have a 1st Edition. If it is not, look at the right edge of the artwork window instead. A gray band running down the outside of that edge means Unlimited. No band, no stamp, and you are holding a Shadowless. Everything else on this page is a second opinion on those two marks."
   },
   "runs": [
     {
@@ -121,7 +121,7 @@
       "name": "The drop shadow",
       "where": "The right edge of the artwork window, and along the bottom of it",
       "confidence": "Decides it outright",
-      "how": "Hold the card square on under a light and look at the outside of the artwork frame on the right. Unlimited prints a soft grey band there, a couple of millimetres wide, so the window looks raised. 1st Edition and Shadowless print nothing: the yellow of the border runs straight up to the frame.",
+      "how": "Hold the card square on under a light and look at the outside of the artwork frame on the right. Unlimited prints a soft gray band there, a couple of millimeters wide, so the window looks raised. 1st Edition and Shadowless print nothing: the yellow of the border runs straight up to the frame.",
       "why": "It is the one difference between Shadowless and Unlimited, and it is the reason Shadowless has a name at all rather than a stamp.",
       "caveat": "Trainer and Energy cards have no artwork window, so they have no shadow to check either way. On those, the copyright line below is the tell.",
       "source": "bulbapedia"
@@ -133,7 +133,7 @@
       "confidence": "Second opinion, and the only one for Trainers",
       "how": "Two halves, and they answer two different questions. The first half is a list of years: 1st Edition and Shadowless print 1995, 96, 98, 99 and Unlimited drops the 99 to read 1995, 96, 98. The second half is the Wizards line: everything up to and including Unlimited reads 1999 Wizards, and the 4th print reads 1999-2000 Wizards.",
       "why": "It works on every card in the set, artwork window or not, and it is the only way to pick the 4th print out of a pile of Unlimiteds.",
-      "caveat": "It is a line of six point type on a 27 year old card. Read it in good light, and read the shadow first: the shadow is a centimetre tall and this is a millimetre.",
+      "caveat": "It is a line of six point type on a 27 year old card. Read it in good light, and read the shadow first: the shadow is a centimeter tall and this is a millimeter.",
       "source": "scan-partial"
     },
     {
@@ -169,7 +169,7 @@
     },
     {
       "name": "Shadowless is also what a fake looks like",
-      "body": "A counterfeit printed from a scan of a 1st Edition, with the stamp erased, is shadowless too. Everything on this page is a comparison between real printings and none of it is an authentication check. Run the physical tests first: the black core at the edge, the print pattern under a loupe, the back colour against a card you trust.",
+      "body": "A counterfeit printed from a scan of a 1st Edition, with the stamp erased, is shadowless too. Everything on this page is a comparison between real printings and none of it is an authentication check. Run the physical tests first: the black core at the edge, the print pattern under a loupe, the back color against a card you trust.",
       "source": "cross-link"
     },
     {

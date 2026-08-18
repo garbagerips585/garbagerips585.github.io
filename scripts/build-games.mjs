@@ -28,6 +28,7 @@
 // on every one of 1,025 rows costs more than the rows do.
 
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
@@ -89,13 +90,22 @@ try {
 /**
  * One game screenshot, sized from the manifest.
  *
- * `eager` is the first card only. It sits about 250px down a 390x844 phone, so
- * it is on screen at first paint and lazy-loading it just delays it; the other
- * three are a scroll away and stay lazy. This is a plain vertical list, so
+ * `eager` is the first TWO cards. This is a plain vertical list, so
  * `loading="lazy"` means what it says here, unlike the carousels on the home
- * page.
+ * page, and the cards below the second are genuinely a scroll away.
+ *
+ * IT SAID "THE FIRST CARD ONLY ... ABOUT 250px DOWN" AND BOTH HALVES WERE OUT
+ * OF DATE. Re-measured over CDP at 390x844 DPR 2, reading each img's own border
+ * box at scroll 0: card one starts at y=460 and card two at y=762, so TWO are
+ * inside the 844px viewport. The second was being fetched at first paint anyway,
+ * since lazy is a vertical heuristic and it is not below the fold; what the
+ * attribute cost it was the preload scanner.
+ *
+ * fetchpriority="high" STAYS ON THE FIRST ONE ONLY. It is a ranking against the
+ * other requests on the page and handing it to two elements ranks neither.
  */
-function gameShot(key, eager) {
+const EAGER_GAME_CARDS = 2;
+function gameShot(key, eager, lead = false) {
   const s = gameShots[key];
   if (!s) return "";
   // The alt comes out of the manifest rather than being written here, so there
@@ -103,7 +113,7 @@ function gameShot(key, eager) {
   // keeps the file honest. Two copies is how a picture and its description
   // drift after somebody bumps the seed.
   return `<span class="g-shot"><img src="/assets/games/${esc(s.file)}" width="${s.w}" height="${s.h}"
-          alt="${esc(s.shows)}" decoding="async"${eager ? ' fetchpriority="high"' : ' loading="lazy"'}></span>`;
+          alt="${esc(s.shows)}" decoding="async"${eager ? (lead ? ' fetchpriority="high"' : "") : ' loading="lazy"'}></span>`;
 }
 
 /** The app's own store icon. The thing a reader is about to go and look for. */
@@ -137,6 +147,22 @@ const printings = JSON.parse(await readFile(join(ROOT, "public/data/printings/ma
 // ---------------------------------------------------------------------------
 const whos = pokemon.map((p) => [p.id, p.name, p.gen]);
 await writeFile(join(DATA, "dex.json"), JSON.stringify({ checked: dex.checked, pokemon: whos }));
+
+// EVERY SPECIES IN THAT FILE MUST HAVE A 475px ARTWORK ON DISK, because
+// whos-that-pokemon.html draws one per round out of /assets/species/lg/ and a
+// missing file is a round with no picture in it: the silhouette never appears,
+// the reveal reveals nothing, and nothing errors. Checked here rather than in
+// the browser, and it throws rather than warning, because a game that is broken
+// one round in a thousand is a game nobody can report.
+const missingArt = whos
+  .map(([id]) => id)
+  .filter((id) => !existsSync(join(ROOT, `public/assets/species/lg/${id}.webp`)));
+if (missingArt.length)
+  throw new Error(
+    `${missingArt.length} of ${whos.length} species have no public/assets/species/lg/<id>.webp ` +
+      `(${missingArt.slice(0, 8).join(", ")}${missingArt.length > 8 ? ", ..." : ""}). ` +
+      `Run: node scripts/sync-species-art.mjs`
+  );
 
 // ---------------------------------------------------------------------------
 // Guess the Set: real card scans out of the corpus.
@@ -811,7 +837,7 @@ const CARDS = [
   // FIRST ON PURPOSE. The other three are quizzes, which are things you finish.
   // This hub is called "Games for the wait" and the longest wait wants the game
   // you can keep playing and hand to somebody else.
-  ["garbage-run.html", "Arcade", "Garbage Run", "One thumb, no rules to read. Flip Trubbish between the floor and the ceiling and eat everything on the street. A hundred pieces of rubbish and he evolves.",
+  ["garbage-run.html", "Arcade", "Garbage Run", "One thumb, no rules to read. Flip Trubbish between the floor and the ceiling and eat everything on the street. A hundred pieces of trash and he evolves.",
     "garbage-run"],
   ["whos-that-pokemon.html", "Silhouettes", "Who's That Pokemon?", `Name the shape. All ${whos.length.toLocaleString("en-US")} of them, or just the original 151.`,
     "whos-that-pokemon"],
@@ -886,7 +912,7 @@ const hub = shell({
         ([href, tag, name, blurb, shotKey], i) => `<a class="g-card${
           gameShots[shotKey] ? " has-shot" : ""
         }" href="/games/${href}">
-        ${gameShot(shotKey, i === 0)}
+        ${gameShot(shotKey, i < EAGER_GAME_CARDS, i === 0)}
         <span class="g-tag">${esc(tag)}</span>
         <h2>${esc(name)}</h2>
         <p>${esc(blurb)}</p>
@@ -1024,8 +1050,8 @@ const whosPage = shell({
       </div>
       <div class="tq-card">
         <h3>What it is training</h3>
-        <p>Outline only: no colour, no pattern, no type. Most of what makes a Pokemon recognisable on a card is thrown
-          away, which is why a shape you would know instantly in colour can take a moment here.</p>
+        <p>Outline only: no color, no pattern, no type. Most of what makes a Pokemon recognizable on a card is thrown
+          away, which is why a shape you would know instantly in color can take a moment here.</p>
         <span class="tq-eg">wrong answers show the name, so a miss still teaches you one</span>
       </div>
     </div>
@@ -1056,11 +1082,39 @@ const whosPage = shell({
       The Pokemon Company. Fan content, not affiliated.</p>
   </div>
 </section>`,
+  // THE ARTWORK IS OURS AND IT USED TO BE GITHUB'S.
+  //
+  // The stage read raw.githubusercontent.com/PokeAPI/sprites/.../<id>.png,
+  // which is the same file scripts/sync-species-art.mjs downloads, re-encodes
+  // and stores under /assets/species/. So the game was hotlinking a raw git
+  // object for a picture the site already served, and raw.githubusercontent.com
+  // is a source host with a rate limit rather than a CDN: it has no business in
+  // the critical path of a game that fetches a new picture every round.
+  //
+  // WHAT IT COST, read off the request log at 390x844 DPR 2, cache off: 255 to
+  // 268KB of this page's ~407KB came from that host, 63% of the weight, and it
+  // recurred EVERY ROUND rather than once. #132 Ditto is 129,274 bytes as
+  // PokeAPI's png against 9,718 as our lg webp, a 13.3x cut, and the pixels are
+  // the same 475x475: sync-species-art.mjs never upscales and re-codes at q82.
+  //
+  // WHY lg/ AND NOT /assets/species/<id>.webp. That file is 256px, sized for the
+  // 128px portrait beside a Pokedex h1. This stage draws the artwork at 249 CSS
+  // px, so 256 is a 1.95x upscale at DPR 2 on the one screen where the picture
+  // IS the page. The reasoning and the PSNR figures are in sync-species-art.mjs
+  // beside BIG.
+  //
+  // ALL 1,025 SPECIES IN dex.json HAVE AN lg FILE. Checked below rather than
+  // assumed, and the build throws if that stops being true, because the failure
+  // mode is a round whose sprite silently never arrives. The fix for a miss is
+  // to run sync-species-art.mjs, never to fall back to the remote host.
   extraJs: `<script>
 (function(){
-  var ART='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
+  /* Local artwork, 475px, from /assets/species/lg/. See build-games.mjs for
+     why this is not raw.githubusercontent.com any more and not the 256px file
+     either. */
+  var ART='/assets/species/lg/';
   var all=[], pool=[], quiz=null, gen1=true;
-  var art=function(id){return ART+id+'.png';};
+  var art=function(id){return ART+id+'.webp';};
 
   function build(){
     var p=GR.pick(pool);

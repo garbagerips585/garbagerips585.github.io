@@ -681,7 +681,7 @@ const boxVerdict = (() => {
     );
   }
   return (
-    `The box is actually ${esc(moneyExact(-gap))} a pack DEARER, so there is no saving in it at all.`
+    `The box is actually ${esc(moneyExact(-gap))} a pack MORE EXPENSIVE, so there is no saving in it at all.`
   );
 })();
 
@@ -804,7 +804,7 @@ ${PER_PACK.map(perPackRow).join("\n")}
               as well would read the same six numbers out twice, and the finding
               is in the figcaption where a screen reader gets it in words. Same
               call the spread figure in build-grade-check.mjs makes. */ ""}
-        <figcaption>The same six sums, on one axis, longest bar dearest. Reading down, the price on the
+        <figcaption>The same six sums, on one axis, longest bar priciest. Reading down, the price on the
           shelf goes from ${esc(moneyExact(PP_PRICE_LO))} to ${esc(moneyExact(PP_PRICE_HI))}, which is
           ${esc(PP_PRICE_SPREAD.toFixed(0))} times as much money${
             PP_AT_MIN.length > 1
@@ -814,7 +814,7 @@ ${PER_PACK.map(perPackRow).join("\n")}
               : ""
           }. <b>Buying more packs at once does not make a pack cheaper.</b>${
             PP_DEAREST
-              ? ` The dearest pack here is inside the ${esc(PP_DEAREST.label)} at ${esc(
+              ? ` The priciest pack here is inside the ${esc(PP_DEAREST.label)} at ${esc(
                   moneyExact(PP_MAX)
                 )}, and the packs are not what you are buying it for.`
               : ""
@@ -1041,7 +1041,7 @@ const EVIDENCE_ENDS = `The cheapest of them sits at ${
   Math.abs(CHEAPEST.mult - 1) < 0.005
     ? "exactly the suggested figure"
     : `${multStr(CHEAPEST.mult)}x the suggested figure`
-}: ${listingWords(CHEAPEST)}. The dearest sits at ${multStr(DEAREST.mult)}x: ${listingWords(
+}: ${listingWords(CHEAPEST)}. The priciest sits at ${multStr(DEAREST.mult)}x: ${listingWords(
   DEAREST
 )}.${
   SAME_CHAIN
@@ -1670,7 +1670,7 @@ ${avoid.map(avoidRow).join("\n")}
       </div>
 ${packFig()}
       <div class="wtb-body" style="margin-top:var(--s4)">
-        <p>${boxVerdict} The Elite Trainer Box comes out dearer a pack than either, and that is fine:
+        <p>${boxVerdict} The Elite Trainer Box comes out more per pack than either, and that is fine:
           you are paying for the box, the sleeves, the dice and the counters, which is exactly why it
           makes a better present than a bigger pile of packs.</p>
         <p><a href="/msrp.html">The MSRP check</a> has the same sum as a calculator you can type your
@@ -1690,7 +1690,7 @@ ${para(guide.reseller.body)}
 ${links(guide.reseller.links)}
       <div class="wtb-body" style="margin-top:var(--s5)">
         <h3>How we know that</h3>
-        <p>Not from a rumour. Each of these chains publishes its own rules for marketplace listings and
+        <p>Not from a rumor. Each of these chains publishes its own rules for marketplace listings and
           they are different from the rules for the shop's own stock, which is the split being described
           above. These are the pages this site read, and the day it read them.</p>
       </div>
@@ -1747,7 +1747,7 @@ ${links(guide.playing.links)}
           or more independent price references print identically, which is careful people reading
           listings and agreeing rather than the manufacturer speaking, and the line under each price
           says which kind it is.</p>
-        <p>Suggested is the whole point. No shop has to honour it, which is exactly why it is worth
+        <p>Suggested is the whole point. No shop has to honor it, which is exactly why it is worth
           knowing before you walk in. Pack counts come from this site's own product research, one
           sourced count per product, which is what <a href="/how-many-packs.html">packs per box</a> is
           built out of.</p>

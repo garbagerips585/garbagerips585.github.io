@@ -666,7 +666,7 @@ function enOnlyBand(g, en, cls) {
   // build time. Saying "TCGdex has no cards for this set" on the second one
   // would be plainly false to anybody who scrolled to the checklist.
   const why = g.cards?.length
-    ? `No card in the ${esc(g.langName)} printing is labelled at a chase rarity, so there is nothing of its own to picture here. Its full checklist is further down.`
+    ? `No card in the ${esc(g.langName)} printing is labeled at a chase rarity, so there is nothing of its own to picture here. Its full checklist is further down.`
     : `TCGdex has not published a card list for the ${esc(g.langName)} printing yet, so there is nothing of its own to picture here.`;
   const block = enChase(g, en, { standalone: true, why });
   if (!block) return "";

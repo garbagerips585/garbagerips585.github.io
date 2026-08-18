@@ -94,7 +94,7 @@ const GROUPS = [
   {
     key: "market",
     title: "Marketplaces",
-    blurb: "Thousands of sellers, one catalogue. The best prices and the most moving parts, because the card belongs to a stranger and the venue only arbitrates after it arrives.",
+    blurb: "Thousands of sellers, one catalog. The best prices and the most moving parts, because the card belongs to a stranger and the venue only arbitrates after it arrives.",
   },
   {
     key: "shop",

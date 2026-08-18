@@ -790,7 +790,7 @@ const OLD = [
   { what: "Theme Decks", detail: "Never contained booster packs at all, confirmed on two separate era pages. Sixty cards, damage counters, a coin, a playmat, a deck box and a code card. We could not verify when the line ended or what replaced it, so this page does not say.", trust: "two", ids: ["S14", "S16"] },
   { what: "Trainer Kits", detail: "The Diamond & Pearl era kits included one booster pack. The XY era kits included none. The pack count changed inside one product line, which is the reason this line is worth knowing about. No source was found for when the line ended.", trust: "one", ids: ["S15", "S14"] },
   { what: "Build & Battle Box", detail: "Four packs plus a forty-card deck, unchanged from the Sword & Shield era to the current one. The one product on this page that has not moved at all.", trust: "both", ids: ["S12", "S13"] },
-  { what: "Build & Battle Stadium", detail: "Two Build & Battle Boxes plus three loose packs. Eleven packs in total is arithmetic on the quoted contents rather than a figure anybody printed, and it is labelled that way on purpose.", trust: "one", ids: ["S12"] },
+  { what: "Build & Battle Stadium", detail: "Two Build & Battle Boxes plus three loose packs. Eleven packs in total is arithmetic on the quoted contents rather than a figure anybody printed, and it is labeled that way on purpose.", trust: "one", ids: ["S12"] },
   { what: "Celebrations, 2021", detail: "Four cards a pack, fourteen years after ten became the standard, and no booster box was ever made: it could only be bought inside branded merchandise. The best single illustration of why cards per pack is a per-product question and not only a per-era one.", trust: "one", ids: ["S6"] },
   { what: "Hidden Fates, 2019", detail: "Normal ten-card packs, but again no booster box. Anybody selling you a Hidden Fates booster box is selling something that was never made as a standard product.", trust: "one", ids: ["S5"] },
   { what: "Collection boxes and tins before 2020", detail: "XY Figure Collections and the Legends of Kalos and Legends of Alola tins held four packs. Collector's Albums held one. The Darkrai Premium Box held two, both from the previous generation. V Boxes are described as typically four, and typically is the source's own hedge, so this page does not turn it into a flat number.", trust: "one", ids: ["S13", "S14", "S15", "S16"] },
@@ -1196,13 +1196,13 @@ const KEY_POINTS = `        ${/* THIS BULLET DENIED THAT AN MSRP EXISTS AND /msr
           what the thing is supposed to cost.</li>
         <li><b>Usually a little over, sometimes a lot over, and the gap is the whole thing to watch.</b> Most
           shops sell above the suggested price and that is ordinary rather than a rip-off. A few sell far above
-          it, and the only defence is knowing the suggested figure before you are standing in front of the
+          it, and the only defense is knowing the suggested figure before you are standing in front of the
           shelf.${
             SPREAD
               ? ` Of the ${count(SPREAD.n, "dated shop listing")} this site has written down, at ${count(
                   SPREAD.shops,
                   "shop"
-                )}, the middle one is ${esc(SPREAD.medianStr)}x the suggested price and the dearest is ${esc(
+                )}, the middle one is ${esc(SPREAD.medianStr)}x the suggested price and the highest is ${esc(
                   SPREAD.highStr
                 )}x. That is ${SPREAD.n} readings rather than a survey of American retail, and they are printed in
           full with the seller and the date on each on <a href="/msrp.html">the MSRP page</a>.`

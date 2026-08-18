@@ -390,6 +390,14 @@ function plaqueArt(url) {
   return { src: low, extra: ` srcset="${esc(low)} 245w, ${esc(url)} 600w" sizes="120px"` };
 }
 
+// TWO PLAQUES ARE IN THE FIRST SCREEN AND THEY DO NOT GET loading="lazy".
+// Measured over CDP at 390x844 DPR 2, reading each img's own border box at
+// scroll 0: plaques one and two sit at y=557 and y=746, inside the 844px
+// viewport, and the third does not. `loading="lazy"` is a vertical heuristic, so
+// those two were fetched at first paint anyway; the attribute only cost them the
+// preload scanner, which is the one chance the fetch had to start during the
+// HTML parse rather than after layout. No byte moves onto the load path.
+const EAGER_PLAQUES = 2;
 function plaque(c, i) {
   const rank = i + 1;
   const top = rank <= 3 ? ` chof-top chof-${rank}` : "";
@@ -400,7 +408,7 @@ function plaque(c, i) {
   // 2026-08-16). picture{display:contents} in ui.css keeps `.chof-art img` and
   // the 245/337 aspect-ratio rule reaching the <img> exactly as before.
   const img = c.image
-    ? avifPicture(`<img src="${esc(art.src)}"${art.extra} alt="${[esc(c.name), esc(c.rarity || ""), c.setName ? `from Pokemon ${esc(c.setName)}` : ""].filter(Boolean).join(" ")}" loading="lazy" onerror="this.remove()"${imgDims(art.src)}>`)
+    ? avifPicture(`<img src="${esc(art.src)}"${art.extra} alt="${[esc(c.name), esc(c.rarity || ""), c.setName ? `from Pokemon ${esc(c.setName)}` : ""].filter(Boolean).join(" ")}"${i < EAGER_PLAQUES ? "" : ` loading="lazy"`} onerror="this.remove()"${imgDims(art.src)}>`)
     : `<span class="chof-noart">${esc(c.name)}</span>`;
   return `      <li class="chof${top}">
         <span class="chof-rank">${rank}</span>

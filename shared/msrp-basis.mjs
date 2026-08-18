@@ -105,7 +105,7 @@ export const MSRP_FACTS = [
   {
     id: "free",
     claim: "A retailer can charge whatever it likes, and that is how retail works rather than a scandal.",
-    why: "A suggested price is a suggestion. No law makes a shop honour it. A page that reads as an accusation is wrong about the mechanism and will be ignored.",
+    why: "A suggested price is a suggestion. No law makes a shop honor it. A page that reads as an accusation is wrong about the mechanism and will be ignored.",
   },
   {
     id: "usually",
@@ -114,7 +114,7 @@ export const MSRP_FACTS = [
   },
   {
     id: "sometimes",
-    claim: "Some are far above it, and the only defence is knowing the suggested price before you are standing in the shop.",
+    claim: "Some are far above it, and the only defense is knowing the suggested price before you are standing in the shop.",
     why: "This is the part that helps. People overpay daily without knowing what the number should have been.",
   },
 ];

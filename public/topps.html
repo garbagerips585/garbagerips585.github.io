@@ -155,6 +155,74 @@
 .tp-peek .w small{display:block;font-weight:400;font-size:var(--t-label);color:var(--ink-2)}
 .tp-peek .m{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700}
 
+/* ---------------------------------------------------------------------------
+   THE PICTURES. The guide page had none at all until 18 August 2026.
+
+   EVERY FRAME IS A FIXED BOX AND THE PICTURE IS CENTRED INSIDE IT. PriceCharting
+   serves these files at a fixed 240 HIGH and a VARIABLE width, which is why
+   imgDims() in shared/format.mjs correctly returns "" for this host and why
+   nothing here carries width or height: a declared width would be wrong for most
+   of them, by up to a third. A box the stylesheet owns is what keeps CLS at 0
+   without the markup claiming pixel sizes it does not know. Measured 0.000 at
+   390x844 and 1440x900 with all 32 pictures forced to load. */
+.tp-frame{display:flex;align-items:center;justify-content:center;overflow:hidden;
+  background:var(--paper-3);border:1px solid var(--hair);border-radius:3px}
+.tp-frame img{max-width:100%;max-height:100%;width:auto;height:auto;display:block}
+/* The caption under a picture. It names the exact card or product in VISIBLE
+   text, not only in the alt, which is the rule shared/product-photos.mjs sets
+   out: a photograph with no visible name is quietly claiming to be a category. */
+.tp-cap{display:block;margin-top:5px;font-family:var(--mono);font-size:var(--t-micro);
+  line-height:1.4;color:var(--ink-2)}
+.tp-cap b{color:var(--ink);font-weight:700}
+
+/* THE HERO CARD IS THE ONE PICTURE ON THIS PAGE THAT IS NOT LAZY, on purpose.
+   loading="lazy" is a VERTICAL heuristic and nothing else, so on a phone, where
+   this sits inside the first screen, it buys nothing and delays the only thing
+   the page opens with. 13.2KB. */
+/* CENTRED AND STACKED AT EVERY WIDTH, which is not what this was first written
+   as. ui.css sets .set-hero .wrap to display:flex, flex-direction:column,
+   align-items:center and text-align:center at specificity 0,2,0, so a
+   .tp-hero-grid rule here at 0,1,0 lost silently and the desktop
+   two-column hero simply never rendered: the markup was right, the rule was
+   right, and it was not applying. It could have been won with a longer selector
+   and was not, because a card centred under centred copy is the hero every other
+   guide on this site has and there was no reason for this one to be different.
+   The caption gets a measure of its own so it does not set to the card's width. */
+.tp-hero-fig{margin:18px auto 0;width:min(100%,320px)}
+.tp-hero-fig .tp-frame{width:150px;height:210px;margin:0 auto}
+@media (min-width:820px){
+  .tp-hero-fig{margin:22px auto 0;width:min(100%,420px)}
+  .tp-hero-fig .tp-frame{width:200px;height:280px}
+}
+
+/* One card and, where there is one, one packaging photograph per RELEASE. Two
+   small frames in a row at the top of the set card, so the pictures read as
+   belonging to the set named under them and the paragraph still runs the full
+   width of the card. */
+.tp-set-pics{display:flex;gap:10px;margin:12px 0 2px}
+.tp-pic{margin:0;width:82px;flex:none}
+.tp-pic .tp-frame{width:82px;height:115px}
+
+/* The five-row summaries. Same fixed frame as a full row on the values page,
+   one size down: these are a teaser for a list of 100, not the list. */
+.tp-peek li{align-items:center}
+.tp-peek .p{flex:none}
+.tp-peek .p .tp-frame{width:44px;height:62px}
+
+/* THE SIDE BY SIDE, and it is the one place on this page where a picture is not
+   an illustration but the argument itself. Two frames, same box, same Pokemon,
+   same year: prose can say "one has HP and an attack and the other has a screen
+   still" all day and a reader still has to see it. aspect-ratio rather than a
+   height, because these two hosts serve different intrinsic sizes and the frame
+   has to be the same shape on both sides for the comparison to be fair. */
+.tp-vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:var(--s4);max-width:44em}
+@media (min-width:560px){.tp-vs{gap:24px}}
+.tp-vs figure{margin:0;min-width:0}
+.tp-vs .tp-frame{width:100%;aspect-ratio:5 / 7}
+.tp-vs figcaption{margin-top:9px;font-size:var(--t-sm);line-height:1.45;color:var(--ink-2)}
+.tp-vs figcaption b{display:block;color:var(--ink);font-family:var(--mono);
+  font-size:var(--t-micro);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+
 /* ui.css draws .fk-golden full bleed inside the wrap, which is right for the
    two or three sentences most pages put in one. These hold several paragraphs,
    and at 1440 that ran the text to about 700px inside a 1392px black box.
@@ -288,12 +356,19 @@
 
 <header class="set-hero">
   <div class="wrap">
-    <span class="kicker">Topps trading cards &bull; August 1999 to June 2004</span>
-    <h1>Topps made <span class="hl">Pokemon cards</span> too</h1>
-    <p class="lede" style="max-width:42em">Not Pokemon TCG cards. Trading cards: anime stills and film frames on
-      card stock, 12 sets of them between August 1999 and June 2004, and
-      most people who collect Pokemon have never knowingly held one. Some of them are worth more than the cards
-      everybody does know about.</p>
+    <div>
+      <span class="kicker">Topps trading cards &bull; August 1999 to June 2004</span>
+      <h1>Topps made <span class="hl">Pokemon cards</span> too</h1>
+      <p class="lede" style="max-width:42em">Not Pokemon TCG cards. Trading cards: anime stills and film frames on
+        card stock, 12 sets of them between August 1999 and June 2004, and
+        most people who collect Pokemon have never knowingly held one. Some of them are worth more than the cards
+        everybody does know about.</p>
+    </div>
+    <figure class="tp-hero-fig">
+      <span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/55dd96cee890a816a46cf8af6a52356830423ad8dd67ca865f730d9070dab896/240.jpg" alt="Pikachu #25, a Topps trading card from Pokemon Official Trading Cards, August 1999: a still of Pikachu from the anime printed on card stock" decoding="async"></span>
+      <figcaption class="tp-cap"><b>Pikachu #25</b> from Pokemon Official Trading Cards,
+        August 1999. This is a Topps card, not a Pokemon TCG card.</figcaption>
+    </figure>
   </div>
 </header>
 
@@ -321,8 +396,8 @@
     <div class="facts" style="margin-top:20px">
       <div class="fact"><div class="n">12</div><div class="l">Topps Pokemon sets, 1999 to 2004</div></div>
       <div class="fact"><div class="n">2,701</div><div class="l">Topps cards with a price on them</div></div>
-      <div class="fact"><div class="n">$8,765</div><div class="l">Dearest raw, Dragonite [Tekno] #149</div></div>
-      <div class="fact"><div class="n">$45,388</div><div class="l">Dearest PSA 10, Lapras [Sparkle] #131</div></div>
+      <div class="fact"><div class="n">$8,765</div><div class="l">Top raw value, Dragonite [Tekno] #149</div></div>
+      <div class="fact"><div class="n">$45,388</div><div class="l">Top PSA 10 value, Lapras [Sparkle] #131</div></div>
     </div>
   </div>
 </section>
@@ -344,14 +419,14 @@
       published insert odds for some of these sets and we deliberately did not record them. This site never
       states pull rates for anything.</p>
 
-    <h3 style="margin-top:26px">The five dearest raw, right now</h3>
-    <ol class="tp-peek"><li><span class="n">1</span><span class="w">Dragonite [Tekno] #149<small>2000 Topps Chrome</small></span><span class="m">$8,765</span></li><li><span class="n">2</span><span class="w">Charizard [Sparkle] #6<small>2000 Topps Chrome</small></span><span class="m">$8,600</span></li><li><span class="n">3</span><span class="w">Snorlax [Tekno] #143<small>2000 Topps Chrome</small></span><span class="m">$6,000</span></li><li><span class="n">4</span><span class="w">Articuno [Tekno] #144<small>2000 Topps Chrome</small></span><span class="m">$5,500</span></li><li><span class="n">5</span><span class="w">Vaporeon [Tekno] #134<small>2000 Topps Chrome</small></span><span class="m">$4,269</span></li></ol>
+    <h3 style="margin-top:26px">The five most valuable raw, right now</h3>
+    <ol class="tp-peek"><li><span class="n">1</span><span class="p"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/naaklnczsacixzos/240.jpg" alt="Dragonite [Tekno] #149, 2000 Topps Chrome" loading="lazy" decoding="async"></span></span><span class="w">Dragonite [Tekno] #149<small>2000 Topps Chrome</small></span><span class="m">$8,765</span></li><li><span class="n">2</span><span class="p"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/z6ptwskei6c44oyx/240.jpg" alt="Charizard [Sparkle] #6, 2000 Topps Chrome" loading="lazy" decoding="async"></span></span><span class="w">Charizard [Sparkle] #6<small>2000 Topps Chrome</small></span><span class="m">$8,600</span></li><li><span class="n">3</span><span class="p"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/neqhdtu35aehrwis/240.jpg" alt="Snorlax [Tekno] #143, 2000 Topps Chrome" loading="lazy" decoding="async"></span></span><span class="w">Snorlax [Tekno] #143<small>2000 Topps Chrome</small></span><span class="m">$6,000</span></li><li><span class="n">4</span><span class="p"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/am4zatpfp3v7324q/240.jpg" alt="Articuno [Tekno] #144, 2000 Topps Chrome" loading="lazy" decoding="async"></span></span><span class="w">Articuno [Tekno] #144<small>2000 Topps Chrome</small></span><span class="m">$5,500</span></li><li><span class="n">5</span><span class="p"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/corrq4p7au676ia42a5z/240.jpg" alt="Vaporeon [Tekno] #134, 2000 Topps Chrome" loading="lazy" decoding="async"></span></span><span class="w">Vaporeon [Tekno] #134<small>2000 Topps Chrome</small></span><span class="m">$4,269</span></li></ol>
   <p class="price-note">Ungraded PriceCharting price guide values read August 16, 2026, each read a second time
     from the card's own product page before it was printed. <a href="/topps-card-values.html">All 100, and the
     other hundred ranked the other way</a>.</p>
 
-    <h3 style="margin-top:26px">The five dearest in a PSA 10</h3>
-    <ol class="tp-peek"><li><span class="n">1</span><span class="w">Lapras [Sparkle] #131<small>2000 Topps Chrome</small></span><span class="m">$45,388</span></li><li><span class="n">2</span><span class="w">Gengar [Tekno] #94<small>2000 Topps Chrome</small></span><span class="m">$39,000</span></li><li><span class="n">3</span><span class="w">Lugia<small>2000 Topps Movie First Appearance</small></span><span class="m">$29,353</span></li><li><span class="n">4</span><span class="w">Charizard [Tekno] #6<small>2000 Topps Chrome</small></span><span class="m">$28,981</span></li><li><span class="n">5</span><span class="w">Gengar [Sparkle] #94<small>2000 Topps Chrome</small></span><span class="m">$23,525</span></li></ol>
+    <h3 style="margin-top:26px">The five most valuable in a PSA 10</h3>
+    <ol class="tp-peek"><li><span class="n">1</span><span class="p"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/corrpojcrrp4puhx4aiq/240.jpg" alt="Lapras [Sparkle] #131, 2000 Topps Chrome" loading="lazy" decoding="async"></span></span><span class="w">Lapras [Sparkle] #131<small>2000 Topps Chrome</small></span><span class="m">$45,388</span></li><li><span class="n">2</span><span class="p"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/mxy4tkpxdegh7kag/240.jpg" alt="Gengar [Tekno] #94, 2000 Topps Chrome" loading="lazy" decoding="async"></span></span><span class="w">Gengar [Tekno] #94<small>2000 Topps Chrome</small></span><span class="m">$39,000</span></li><li><span class="n">3</span><span class="p"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/320565db713edacd2293f96ef32ba5af3e37c7d411d99f1b2a7e69d95db9dd81/240.jpg" alt="Lugia, 2000 Topps Movie First Appearance" loading="lazy" decoding="async"></span></span><span class="w">Lugia<small>2000 Topps Movie First Appearance</small></span><span class="m">$29,353</span></li><li><span class="n">4</span><span class="p"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/a1d615f0a56f33efdf1d253747f5dae251968b3563c29105789283dea93ddefa/240.jpg" alt="Charizard [Tekno] #6, 2000 Topps Chrome" loading="lazy" decoding="async"></span></span><span class="w">Charizard [Tekno] #6<small>2000 Topps Chrome</small></span><span class="m">$28,981</span></li><li><span class="n">5</span><span class="p"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/cb73522e0b55b474453837dc57222c4be15c66cf409a63b3bb3a687ac3ffc319/240.jpg" alt="Gengar [Sparkle] #94, 2000 Topps Chrome" loading="lazy" decoding="async"></span></span><span class="w">Gengar [Sparkle] #94<small>2000 Topps Chrome</small></span><span class="m">$23,525</span></li></ol>
   <p class="price-note">PSA 10 PriceCharting price guide values read August 16, 2026, each read a second time
     from the card's own product page before it was printed. <a href="/topps-card-values.html">All 100, and the
     other hundred ranked the other way</a>.</p>
@@ -370,6 +445,7 @@
 <li class="tp-set-card">
   <h3>Pokemon Official Trading Cards</h3>
   <span class="tp-when">August 1999 &bull; <span class="tp-count">90 cards</span> in the base set</span>
+  <div class="tp-set-pics"><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/38b8b026be1065d46a754efa75112013e900f6e115ca7657d3472a34cfa196b4/240.jpg" alt="Bulbasaur #1, a Topps card from Pokemon Official Trading Cards, August 1999" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Bulbasaur #1</b></figcaption></figure><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/6uajy4pv6yerybho/240.jpg" alt="Booster Pack Series 1 Blue Logo: the sealed packaging Pokemon Official Trading Cards was sold in" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Booster Pack Series 1 Blue Logo</b></figcaption></figure></div>
   <p>76 Pokemon cards, 13 character cards and a checklist card. The first 76 Pokemon, and the characters of the early anime.</p>
   <p>Also written as Pokemon Trading Cards series 1.</p>
   
@@ -378,6 +454,7 @@
 <li class="tp-set-card">
   <h3>Pokemon the First Movie Trading Cards</h3>
   <span class="tp-when">November 1999 &bull; <span class="tp-count">72 cards</span> in the base set</span>
+  <div class="tp-set-pics"><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/bqrgho3xl3fbycoc/240.jpg" alt="Mechanical Mewtwo #6, a Topps card from Pokemon the First Movie Trading Cards, November 1999" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Mechanical Mewtwo #6</b></figcaption></figure><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/corrlaqgdbrbb5kwhv7y/240.jpg" alt="First Movie Booster Pack: the sealed packaging Pokemon the First Movie Trading Cards was sold in" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>First Movie Booster Pack</b></figcaption></figure></div>
   <p>41 cards from Mewtwo Strikes Back, 18 from the short Pikachu's Vacation, 12 Evolution cards and a checklist. Pokemon: The First Movie, and the short shown with it.</p>
   
   
@@ -386,6 +463,7 @@
 <li class="tp-set-card">
   <h3>Pokemon Trading Cards series 2</h3>
   <span class="tp-when">June 2000 &bull; <span class="tp-count">72 cards</span> in the base set</span>
+  <div class="tp-set-pics"><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/82f84dba8ed553df7e1d90c0b398954da2a93a6faae339bdb1ac672a54e4c63e/240.jpg" alt="Gengar #94, a Topps card from Pokemon Trading Cards series 2, June 2000" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Gengar #94</b></figcaption></figure><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/g77k3q5e3kmodlpu/240.jpg" alt="Booster Pack [Series 2]: the sealed packaging Pokemon Trading Cards series 2 was sold in" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Booster Pack [Series 2]</b></figcaption></figure></div>
   <p>41 Pokemon cards, 5 Heroes &amp; Villains cards, 25 episode cards and a checklist card. More of the original 151, and episodes of the first anime series.</p>
   
   
@@ -394,6 +472,7 @@
 <li class="tp-set-card">
   <h3>Pokemon Chrome Trading Card Series 1</h3>
   <span class="tp-when">June 2000 &bull; <span class="tp-count">78 cards</span> in the base set</span>
+  <div class="tp-set-pics"><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/8c478471881517ff32d78db70faae4bd093ca55d588b5984e04443f5f577168a/240.jpg" alt="Blastoise #9, a Topps card from Pokemon Chrome Trading Card Series 1, June 2000" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Blastoise #9</b></figcaption></figure><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/gnci2xm2i5wgamey/240.jpg" alt="Booster Box [Series 1]: the sealed packaging Pokemon Chrome Trading Card Series 1 was sold in" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Booster Box [Series 1]</b></figcaption></figure></div>
   <p>78 cards covering the first 78 Pokemon. Pokemon 1 to 78, printed on chromium stock.</p>
   
   
@@ -402,6 +481,7 @@
 <li class="tp-set-card">
   <h3>Pokemon: the Movie 2000 Trading Cards</h3>
   <span class="tp-when">July 2000 &bull; <span class="tp-count">72 cards</span> in the base set</span>
+  <div class="tp-set-pics"><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/ref79d5ee93ed019d012bc14a69b9d39acb8b2b5e5329a013c05544ac74edc44b48/240.jpg" alt="Lugia Rises #64, a Topps card from Pokemon: the Movie 2000 Trading Cards, July 2000" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Lugia Rises #64</b></figcaption></figure><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/b97d96fcec7be55c602961564fa591258d8734d062966bf1ec55a4a639758009/240.jpg" alt="Booster Pack: the sealed packaging Pokemon: the Movie 2000 Trading Cards was sold in" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Booster Pack</b></figcaption></figure></div>
   <p>59 cards from The Power of One, 12 from the short Pikachu's Rescue Adventure and a checklist. Pokemon: The Movie 2000, and the short shown with it.</p>
   
   
@@ -410,6 +490,7 @@
 <li class="tp-set-card">
   <h3>Pokemon Trading Cards series 3</h3>
   <span class="tp-when">December 2000 &bull; <span class="tp-count">72 cards</span> in the base set</span>
+  <div class="tp-set-pics"><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/ovxajry7urjgdcfv/240.jpg" alt="Mew #151, a Topps card from Pokemon Trading Cards series 3, December 2000" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Mew #151</b></figcaption></figure><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/jczd2qarg4mgc4ks/240.jpg" alt="Booster Pack [Series 3]: the sealed packaging Pokemon Trading Cards series 3 was sold in" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Booster Pack [Series 3]</b></figcaption></figure></div>
   <p>34 Pokemon cards, 12 Heroes &amp; Villains cards, 19 episode cards, 6 puzzle cards and a checklist card. Pokemon 118 to 151, and the Orange Islands run of the anime.</p>
   
   
@@ -418,6 +499,7 @@
 <li class="tp-set-card">
   <h3>Pokemon Chrome Trading Card Series 2</h3>
   <span class="tp-when">December 2000 &bull; <span class="tp-count">73 cards</span> in the base set</span>
+  <div class="tp-set-pics"><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/cwey2zi5eyvgy4sa/240.jpg" alt="Mewtwo #150, a Topps card from Pokemon Chrome Trading Card Series 2, December 2000" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Mewtwo #150</b></figcaption></figure><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/5fcqsi5snsrsce4n/240.jpg" alt="Booster Pack: Series 2: the sealed packaging Pokemon Chrome Trading Card Series 2 was sold in" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Booster Pack: Series 2</b></figcaption></figure></div>
   <p>The remaining Generation I Pokemon after Chrome Series 1, numbers 79 to 151. Pokemon 79 to 151, printed on chromium stock.</p>
   
   
@@ -426,6 +508,7 @@
 <li class="tp-set-card">
   <h3>Pokemon Johto Trading Cards series 1</h3>
   <span class="tp-when">February 2001 &bull; <span class="tp-count">90 cards</span> in the base set</span>
+  <div class="tp-set-pics"><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/ref4fda36023caa7dfd2ab777e94b3def3f01eea3ae5aaf1f19708d1a7ebfa56e8f/240.jpg" alt="Chikorita #152, a Topps card from Pokemon Johto Trading Cards series 1, February 2001" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Chikorita #152</b></figcaption></figure><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/gyxcokaiyhiq55cr/240.jpg" alt="Booster Box [Series 1]: the sealed packaging Pokemon Johto Trading Cards series 1 was sold in" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Booster Box [Series 1]</b></figcaption></figure></div>
   <p>62 Pokemon cards, 27 episode cards and a checklist card. The Johto Pokemon and the Johto anime.</p>
   
   
@@ -434,6 +517,7 @@
 <li class="tp-set-card">
   <h3>Pokemon Johto League Champions Trading Cards</h3>
   <span class="tp-when">November 2001 &bull; <span class="tp-count">50 cards</span> in the base set</span>
+  <div class="tp-set-pics"><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/ref486279b0a8926cd18e62761d83c839d0f6323f2f8d2beeaa50a1d8226d90cced/240.jpg" alt="Ho-Oh #250, a Topps card from Pokemon Johto League Champions Trading Cards, November 2001" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Ho-Oh #250</b></figcaption></figure></div>
   <p>37 Pokemon cards, 12 episode cards and a checklist card. Johto, the second Topps run at it.</p>
   
   
@@ -442,6 +526,7 @@
 <li class="tp-set-card">
   <h3>Pokemon Advanced Trading Cards</h3>
   <span class="tp-when">May 2003 &bull; <span class="tp-count">90 cards</span> in the base set</span>
+  <div class="tp-set-pics"><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/ref57fedfcdd68d27fdb7d0517a25e342dcd801ef75cfbcb3c71d8a2cf204f016c0/240.jpg" alt="Blaziken #19, a Topps card from Pokemon Advanced Trading Cards, May 2003" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Blaziken #19</b></figcaption></figure></div>
   <p>81 Pokemon cards, 8 character cards and a checklist card. Generation III and the Hoenn anime.</p>
   
   
@@ -450,6 +535,7 @@
 <li class="tp-set-card">
   <h3>Pokemon Advanced Challenge Trading Cards</h3>
   <span class="tp-when">June 2004 &bull; <span class="tp-count">90 cards</span> in the base set</span>
+  <div class="tp-set-pics"><figure class="tp-pic"><span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/corrcfdlzxub36jumezu/240.jpg" alt="Rayquaza #54, a Topps card from Pokemon Advanced Challenge Trading Cards, June 2004" loading="lazy" decoding="async"></span><figcaption class="tp-cap"><b>Rayquaza #54</b></figcaption></figure></div>
   <p>89 Pokemon cards and a checklist. Pokemon introduced up to and including Generation III. The last Topps Pokemon set.</p>
   
   
@@ -461,6 +547,7 @@
 <li class="tp-set-card">
   <h3>Pokemon Johto Series 3</h3>
   <span class="tp-when">May 2001 &bull; <span class="tp-count">70 cards</span> in the base set</span>
+  
   <p>30 Pokemon cards, 27 snap cards, 6 Heroes &amp; Villains cards, 6 puzzle piece cards and a checklist card. Johto, released in Europe only and printed in English, French, German and Italian.</p>
   
   <span class="tp-chip">Europe only</span>
@@ -607,7 +694,25 @@
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>In your hand</p>
     <h2>How to tell a Topps card from a <span class="hl">real TCG card</span></h2>
-    <p class="lede" style="max-width:44em">Any one of these settles it. The first one settles it fastest.</p>
+    <p class="lede" style="max-width:44em">Here they are next to each other. Same Pokemon, same year, and only
+      one of them is a game card.</p>
+    <div class="tp-vs">
+      <figure>
+        <span class="tp-frame"><img src="https://storage.googleapis.com/images.pricecharting.com/148e67db21ba59bc3c95e2c2f903c780310d61c29d69d2037c555113a6e010fc/240.jpg" alt="Charizard #6, a Topps trading card: a still of Charizard from the anime printed on plain card stock, with no HP, no attack and no energy cost anywhere on it" loading="lazy" decoding="async"></span>
+        <figcaption><b>Topps, 1999</b>Charizard #6, from Pokemon Official Trading Cards. A frame from the
+          cartoon on card stock. No HP, no attack, no energy cost, no retreat cost: nothing on it belongs
+          to a game. Turn it over and the back is a Pokedex entry with the Topps logo under it.</figcaption>
+      </figure>
+      <figure>
+        <span class="tp-frame"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base1/4/high.avif"><img src="https://assets.tcgdex.net/en/base/base1/4/high.webp" alt="Pokemon TCG Base Set Charizard, card 4 of 102: an illustration of Charizard with HP at the top, an attack with an energy cost, a retreat cost and an illustrator credit" loading="lazy" decoding="async" width="600" height="825"></picture></span>
+        <figcaption><b>Pokemon TCG, 1999</b>Base Set Charizard, card 4 of
+          102. Commissioned artwork rather than a screen grab, HP in the top corner, an attack
+          with an energy cost beside it, a retreat cost at the foot and the illustrator's name on it. The
+          back is the blue Poke Ball pattern, the same on every card in the game.</figcaption>
+      </figure>
+    </div>
+    <h3 style="margin-top:30px">Every check, in words</h3>
+    <p style="max-width:44em">Any one of these settles it. The first one settles it fastest.</p>
     <div class="tp-defs">
 <div>
   <h3>The back is a Pokedex entry or an episode summary, not game text</h3>
@@ -668,9 +773,16 @@
     <p style="max-width:44em"><b>Set names, dates, card counts and what each subset is:</b> Bulbapedia, read
       August 18, 2026. One page per set, and each set card above names the one it came
       from. Thanks to them for keeping it.</p>
-    <p style="max-width:44em"><b>Prices and card scans:</b> pricecharting.com, read August 16, 2026, methodology
-      published at their /page/methodology. Every priced row on the values page carries its own path on that
-      site.</p>
+    <p style="max-width:44em"><b>Prices, card scans and the packaging photographs:</b> pricecharting.com, read
+      August 16, 2026, methodology published at their /page/methodology. Every priced row on the values page carries
+      its own path on that site. The pack and box photographs are theirs as well, and they are the reason this
+      page can show you what a 1999 Topps wrapper looked like at all: nothing else we could reach has one.
+      4 of the 12 sets have no
+      packaging photograph in their catalogue, and those show a card and say nothing about packaging rather
+      than borrowing a picture from a set next to them. Every picture on this page was fetched and checked
+      before it was published.</p>
+    <p style="max-width:44em"><b>The Pokemon TCG card in the comparison:</b> TCGdex
+      (assets.tcgdex.net), which is where the card scans on this site's set guides come from.</p>
     <p style="max-width:44em"><b>Not sourced, and therefore not said here:</b> who Topps signed the Pokemon
       licence with, how many of anything was printed, what a pack cost, and any odds of pulling anything.</p>
     <p style="max-width:44em">Card images are the property of their respective owners and appear here for

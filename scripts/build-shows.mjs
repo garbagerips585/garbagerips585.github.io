@@ -266,7 +266,7 @@ function showMap() {
           <text class="map-bart" x="${(barW / 2).toFixed(1)}" y="-9">${nice} miles</text>
         </g>
       </svg>
-      <figcaption>Where the shows are, relative to each other. One dot per town, at the town centre, sized by
+      <figcaption>Where the shows are, relative to each other. One dot per town, at the town center, sized by
         how many shows it has coming up: ${
           [...townCounts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] || ""
         } has the most. North is up and the scale is true both ways, which is why these sit in a strip: they are

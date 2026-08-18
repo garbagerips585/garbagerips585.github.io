@@ -701,7 +701,7 @@ ${scatterFig()}
         ${src.sample.matches.toLocaleString("en-US")} matches, filtered to ${esc(src.filter)}, read
         ${esc(longDate(d.checked))}.
         <b>These are online tournaments played in Pokemon TCG Live</b> on Limitless's own play platform,
-        the kind community organisers run for booster-code prizes. They are not Regionals, not
+        the kind community organizers run for booster-code prizes. They are not Regionals, not
         Internationals and not the World Championships, and nothing here is a paper result. That is the
         honest description of the sample, and it happens to be the right sample for this page, because the
         question is what to build and play in the client.</p>

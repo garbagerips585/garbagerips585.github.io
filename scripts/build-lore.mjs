@@ -76,14 +76,20 @@ const missingArt = new Set();
  * somebody else's picture. The alt is the Pokemon's own name for the same
  * reason: it is read off the same record the sentence is.
  */
-const portrait = (p, px = 64) => {
+// `eager` IS FOR A PORTRAIT IN THE FIRST SCREEN. Measured over CDP at 390x844
+// DPR 2, reading each img's own border box at scroll 0: the Trubbish and
+// Garbodor pair at 132px sit at y=752, inside the 844px viewport, and they are
+// the only two artworks a reader sees without scrolling. `loading="lazy"` is a
+// vertical heuristic, so both were fetched at first paint anyway; the attribute
+// only cost them the preload scanner. Every other portrait on the page keeps it.
+const portrait = (p, px = 64, eager = false) => {
   const a = ART[String(p.id)];
   if (!a) {
     missingArt.add(`${p.id} ${p.name}`);
     return `<span class="dexart dexart-none" style="--px:${px}px" role="img" aria-label="No artwork held for ${esc(p.name)}"></span>`;
   }
   return `<img class="dexart" style="--px:${px}px" src="${esc(a.file)}" width="${a.w}" height="${a.h}"` +
-    ` alt="${esc(p.name)}" loading="lazy" decoding="async">`;
+    ` alt="${esc(p.name)}"${eager ? "" : ` loading="lazy"`} decoding="async">`;
 };
 
 /** A row of portraits with the Pokemon's name under each. */
@@ -369,11 +375,11 @@ ${MENU}
         <b>${esc(trubbish.genus)} Pokemon</b> and the <b>${esc(garbodor.genus)} Pokemon</b>.</p>
       <div class="lore-mascots">
         <figure class="lore-mascot">
-          ${portrait(trubbish, 132)}
+          ${portrait(trubbish, 132, true)}
           <figcaption><b>${esc(trubbish.name)}</b>#${trubbish.id} &bull; ${esc(trubbish.genus)} Pokemon</figcaption>
         </figure>
         <figure class="lore-mascot">
-          ${portrait(garbodor, 132)}
+          ${portrait(garbodor, 132, true)}
           <figcaption><b>${esc(garbodor.name)}</b>#${garbodor.id} &bull; ${esc(garbodor.genus)} Pokemon</figcaption>
         </figure>
         <figure class="lore-scale">

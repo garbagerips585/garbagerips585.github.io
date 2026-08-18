@@ -541,7 +541,7 @@ const ld = [
           "@type": "Answer",
           text:
             `Purely as packs, no. Across the ${etbSets.length} sets priced here the Elite Trainer Box is never the cheapest pack in its ` +
-            `set, it is the dearest option on the row in ${etbDearest.length} of them, and it runs a median of ${x(etbMedian)} the cheapest ` +
+            `set, it is the priciest option on the row in ${etbDearest.length} of them, and it runs a median of ${x(etbMedian)} the cheapest ` +
             `pack in the same set. It also comes with sleeves, dice, a promo card and the box itself, and we put no price on those, so ` +
             `whether that gap is worth paying is a question about the accessories rather than about the cards.`,
         },
@@ -897,13 +897,13 @@ ${COLUMNS.map(
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The Elite Trainer Box</p>
     <h2>What the <span class="hl">ETB</span> premium looks like</h2>
     <p class="lede w40">All ${etbSets.length} sets on this page sell an Elite Trainer Box, and in not
-      one of them is it the cheapest pack. In ${etbDearest.length} of the ${etbSets.length} it is the dearest thing on the
+      one of them is it the cheapest pack. In ${etbDearest.length} of the ${etbSets.length} it is the priciest thing on the
       row. Measured against the cheapest pack in its own set it runs a median of ${x(etbMedian)}.</p>
     <div class="facts">
       <div class="fact"><div class="n">${x(etbMedian)}</div><div class="l">Median ETB pack against the cheapest pack in the same set</div></div>
       <div class="fact"><div class="n">${x(etbBest.x)}</div><div class="l">Closest it gets (${esc(etbBest.set.name)})</div></div>
       <div class="fact"><div class="n">${x(etbWorst.x)}</div><div class="l">Furthest apart (${esc(etbWorst.set.name)})</div></div>
-      <div class="fact"><div class="n">${etbDearest.length} of ${etbSets.length}</div><div class="l">Sets where the ETB is the dearest pack on the row</div></div>
+      <div class="fact"><div class="n">${etbDearest.length} of ${etbSets.length}</div><div class="l">Sets where the ETB is the priciest pack on the row</div></div>
     </div>
     <p class="w40" style="margin-top:16px">That gap is not the whole story and this page will not pretend it is. An
       Elite Trainer Box also carries sleeves, dice, a promo card, dividers and the box itself, and we have no source for

@@ -387,7 +387,7 @@ ${rows.map(row).join("\n")}
       // future crawl that drops them takes the paragraph with it.
       rows.filter((c) => /\bTopps\b/i.test(c.set)).length
         ? `<p><b>${rows.filter((c) => /\bTopps\b/i.test(c.set)).length} of these are Topps cards rather than
-      Pokemon TCG cards.</b> Topps printed Pokemon trading cards under licence from 1999 to 2004, chrome and
+      Pokemon TCG cards.</b> Topps printed Pokemon trading cards under license from 1999 to 2004, chrome and
       movie cards with nothing on them to play a game with, and this source files and prices them under Pokemon.
       They are left in, because taking them out would be editing the answer to suit the question.
       <a href="/topps.html">What they are, every set, and how to spot one</a>, and

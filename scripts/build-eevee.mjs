@@ -425,8 +425,15 @@ const sections = all.map(section).join("\n");
 // Contentful Paint element. build-pokemon.mjs writes up at length what marking
 // that element lazy costs: it tells the browser an element on the first screen
 // is not needed for the first screen, which is the opposite of true, and it
-// measured at 100 to 120ms there. Two, not nine: on the narrowest phone only
-// the first row is above the fold.
+// measured at 100 to 120ms there. Four, not nine.
+//
+// THIS SAID "TWO, NOT NINE: ON THE NARROWEST PHONE ONLY THE FIRST ROW IS ABOVE
+// THE FOLD" AND THE SECOND ROW WAS ALSO ABOVE IT. Re-measured over CDP at
+// 390x844 DPR 2 by reading each img's own border box at scroll 0: row one sits
+// at y=594 and row two at y=750, both inside the 844px viewport. The count was
+// right about the rule and wrong about the geometry, which is the failure this
+// whole family of attributes keeps producing, so it is derived from the two
+// tiles per row rather than typed: EAGER_ROWS rows of the grid go eager.
 //
 // THE lazy ON THE OTHER SEVEN BUYS NOTHING AT 390 AND IS KEPT ANYWAY, which is
 // worth writing down rather than discovering again. Measured from the request
@@ -438,12 +445,15 @@ const sections = all.map(section).join("\n");
 // page was asked for and a reader should not scroll 1,806px of diagram to reach
 // the first one. The attribute stays because it is honest markup and it is what
 // keeps a narrower or shorter viewport from paying the same bill.
+// Two tiles per row at 390, and the first two rows are in the first screen.
+const EAGER_ROWS = 2;
+const GLANCE_PER_ROW = 2;
 const glance = all
   .map(
     (e, i) => `        <a class="ee-gt" href="#${esc(e.slug)}">
           ${
             e.art
-              ? `<img src="${esc(e.art.file)}" width="${e.art.w}" height="${e.art.h}" alt=""${i < 2 ? "" : ` loading="lazy"`} decoding="async">`
+              ? `<img src="${esc(e.art.file)}" width="${e.art.w}" height="${e.art.h}" alt=""${i < EAGER_ROWS * GLANCE_PER_ROW ? "" : ` loading="lazy"`} decoding="async">`
               : ""
           }
           <b>${esc(e.name)}</b>

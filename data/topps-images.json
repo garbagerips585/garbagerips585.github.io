@@ -1,0 +1,522 @@
+{
+  "_readme": [
+    "Pictures for /topps.html, written by scripts/sync-topps-images.mjs.",
+    "",
+    "Every entry is PINNED by PriceCharting's own product id and CHECKED by the",
+    "name we expect on it. A pin whose name has drifted is refused and the",
+    "picture is not published: a wrong card is worse than no card here, because",
+    "these are four Chrome finishes of one collector number and a reader has no",
+    "way to tell they were shown the wrong one.",
+    "",
+    "Cards come from .cache/pricecharting-console/, the crawl that already",
+    "existed. Packaging needed the same console pages fetched WITHOUT",
+    "exclude-hardware=true, which is the parameter that keeps sealed product out",
+    "of the price crawl; those are cached under .cache/pricecharting-topps-sealed.",
+    "",
+    "NO PRICE COMES OFF THE SEALED ROWS AND NONE MAY. They were read once, and",
+    "nothing out of PriceCharting is publishable on this site on a single read.",
+    "Only the product name and the photograph are taken.",
+    "",
+    "`ok` means the url was FETCHED and answered 200 with a real image body on",
+    "the date below. PriceCharting's CDN answers 403, not 404, for a card it has",
+    "no scan of, so a 404 test proves nothing. build-topps.mjs emits no <img> at",
+    "all for anything not ok.",
+    "",
+    "NO WIDTH OR HEIGHT. This host serves a fixed 240 HIGH and a variable width,",
+    "so a declared width is wrong for most of these files. The boxes are pinned",
+    "in CSS instead, which is what keeps CLS at 0."
+  ],
+  "source": "pricecharting.com",
+  "tcgSource": "assets.tcgdex.net",
+  "verified": "2026-08-18",
+  "rendition": "240.jpg",
+  "hero": {
+    "id": "3561028",
+    "name": "Pikachu #25",
+    "console": "/console/pokemon-1999-topps-tv",
+    "set": "1999 Topps TV",
+    "path": "/game/pokemon-1999-topps-tv/pikachu-25",
+    "img": "https://storage.googleapis.com/images.pricecharting.com/55dd96cee890a816a46cf8af6a52356830423ad8dd67ca865f730d9070dab896/240.jpg",
+    "ok": true,
+    "status": 200,
+    "bytes": 13221,
+    "type": "image/jpeg"
+  },
+  "compare": {
+    "topps": {
+      "id": "3560971",
+      "name": "Charizard #6",
+      "console": "/console/pokemon-1999-topps-tv",
+      "set": "1999 Topps TV",
+      "path": "/game/pokemon-1999-topps-tv/charizard-6",
+      "img": "https://storage.googleapis.com/images.pricecharting.com/148e67db21ba59bc3c95e2c2f903c780310d61c29d69d2037c555113a6e010fc/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 13571,
+      "type": "image/jpeg"
+    },
+    "tcg": {
+      "url": "https://assets.tcgdex.net/en/base/base1/4/high.webp",
+      "name": "Charizard",
+      "set": "Base Set",
+      "number": "4",
+      "total": "102",
+      "year": "1999"
+    }
+  },
+  "sets": [
+    {
+      "release": "series-1",
+      "card": {
+        "id": "3560956",
+        "name": "Bulbasaur #1",
+        "console": "/console/pokemon-1999-topps-tv",
+        "set": "1999 Topps TV",
+        "path": "/game/pokemon-1999-topps-tv/bulbasaur-1",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/38b8b026be1065d46a754efa75112013e900f6e115ca7657d3472a34cfa196b4/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 12776,
+        "type": "image/jpeg"
+      },
+      "pack": {
+        "id": "9271217",
+        "name": "Booster Pack Series 1 Blue Logo",
+        "console": "/console/pokemon-1999-topps-tv",
+        "set": "1999 Topps TV",
+        "path": "/game/pokemon-1999-topps-tv/booster-pack-series-1-blue-logo",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/6uajy4pv6yerybho/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 12029,
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "release": "first-movie",
+      "card": {
+        "id": "3560739",
+        "name": "Mechanical Mewtwo #6",
+        "console": "/console/pokemon-1999-topps-movie",
+        "set": "1999 Topps Movie",
+        "path": "/game/pokemon-1999-topps-movie/mechanical-mewtwo-6",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/bqrgho3xl3fbycoc/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 11349,
+        "type": "image/jpeg"
+      },
+      "pack": {
+        "id": "6971307",
+        "name": "First Movie Booster Pack",
+        "console": "/console/pokemon-1999-topps-movie",
+        "set": "1999 Topps Movie",
+        "path": "/game/pokemon-1999-topps-movie/first-movie-booster-pack",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/corrlaqgdbrbb5kwhv7y/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 11670,
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "release": "series-2",
+      "card": {
+        "id": "3975758",
+        "name": "Gengar #94",
+        "console": "/console/pokemon-2000-topps-tv",
+        "set": "2000 Topps TV",
+        "path": "/game/pokemon-2000-topps-tv/gengar-94",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/82f84dba8ed553df7e1d90c0b398954da2a93a6faae339bdb1ac672a54e4c63e/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 12334,
+        "type": "image/jpeg"
+      },
+      "pack": {
+        "id": "7750396",
+        "name": "Booster Pack [Series 2]",
+        "console": "/console/pokemon-1999-topps-tv",
+        "set": "1999 Topps TV",
+        "path": "/game/pokemon-1999-topps-tv/booster-pack-series-2",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/g77k3q5e3kmodlpu/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 13923,
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "release": "chrome-1",
+      "card": {
+        "id": "3561219",
+        "name": "Blastoise #9",
+        "console": "/console/pokemon-2000-topps-chrome",
+        "set": "2000 Topps Chrome",
+        "path": "/game/pokemon-2000-topps-chrome/blastoise-9",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/8c478471881517ff32d78db70faae4bd093ca55d588b5984e04443f5f577168a/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 12150,
+        "type": "image/jpeg"
+      },
+      "pack": {
+        "id": "10332476",
+        "name": "Booster Box [Series 1]",
+        "console": "/console/pokemon-2000-topps-chrome",
+        "set": "2000 Topps Chrome",
+        "path": "/game/pokemon-2000-topps-chrome/booster-box-series-1",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/gnci2xm2i5wgamey/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 9991,
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "release": "movie-2000",
+      "card": {
+        "id": "3561550",
+        "name": "Lugia Rises #64",
+        "console": "/console/pokemon-2000-topps-movie",
+        "set": "2000 Topps Movie",
+        "path": "/game/pokemon-2000-topps-movie/lugia-rises-64",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/ref79d5ee93ed019d012bc14a69b9d39acb8b2b5e5329a013c05544ac74edc44b48/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 10213,
+        "type": "image/jpeg"
+      },
+      "pack": {
+        "id": "4787792",
+        "name": "Booster Pack",
+        "console": "/console/pokemon-2000-topps-movie",
+        "set": "2000 Topps Movie",
+        "path": "/game/pokemon-2000-topps-movie/booster-pack",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/b97d96fcec7be55c602961564fa591258d8734d062966bf1ec55a4a639758009/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 10827,
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "release": "series-3",
+      "card": {
+        "id": "3975933",
+        "name": "Mew #151",
+        "console": "/console/pokemon-2000-topps-tv",
+        "set": "2000 Topps TV",
+        "path": "/game/pokemon-2000-topps-tv/mew-151",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/ovxajry7urjgdcfv/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 11583,
+        "type": "image/jpeg"
+      },
+      "pack": {
+        "id": "7667580",
+        "name": "Booster Pack [Series 3]",
+        "console": "/console/pokemon-2000-topps-tv",
+        "set": "2000 Topps TV",
+        "path": "/game/pokemon-2000-topps-tv/booster-pack-series-3",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/jczd2qarg4mgc4ks/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 13292,
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "release": "chrome-2",
+      "card": {
+        "id": "3725966",
+        "name": "Mewtwo #150",
+        "console": "/console/pokemon-2000-topps-chrome",
+        "set": "2000 Topps Chrome",
+        "path": "/game/pokemon-2000-topps-chrome/mewtwo-150",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/cwey2zi5eyvgy4sa/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 14382,
+        "type": "image/jpeg"
+      },
+      "pack": {
+        "id": "9745134",
+        "name": "Booster Pack: Series 2",
+        "console": "/console/pokemon-2000-topps-chrome",
+        "set": "2000 Topps Chrome",
+        "path": "/game/pokemon-2000-topps-chrome/booster-pack-series-2",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/5fcqsi5snsrsce4n/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 11625,
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "release": "johto-1",
+      "card": {
+        "id": "5705966",
+        "name": "Chikorita #152",
+        "console": "/console/pokemon-2001-topps-johto",
+        "set": "2001 Topps Johto",
+        "path": "/game/pokemon-2001-topps-johto/chikorita-152",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/ref4fda36023caa7dfd2ab777e94b3def3f01eea3ae5aaf1f19708d1a7ebfa56e8f/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 13740,
+        "type": "image/jpeg"
+      },
+      "pack": {
+        "id": "11282671",
+        "name": "Booster Box [Series 1]",
+        "console": "/console/pokemon-2001-topps-johto",
+        "set": "2001 Topps Johto",
+        "path": "/game/pokemon-2001-topps-johto/booster-box-series-1",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/gyxcokaiyhiq55cr/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 14632,
+        "type": "image/jpeg"
+      }
+    },
+    {
+      "release": "johto-series-3",
+      "card": null,
+      "pack": null
+    },
+    {
+      "release": "johto-league-champions",
+      "card": {
+        "id": "5768755",
+        "name": "Ho-Oh #250",
+        "console": "/console/pokemon-2001-topps-johto-champions",
+        "set": "2001 Topps Johto Champions",
+        "path": "/game/pokemon-2001-topps-johto-champions/ho-oh-250",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/ref486279b0a8926cd18e62761d83c839d0f6323f2f8d2beeaa50a1d8226d90cced/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 13138,
+        "type": "image/jpeg"
+      },
+      "pack": null
+    },
+    {
+      "release": "advanced",
+      "card": {
+        "id": "5769494",
+        "name": "Blaziken #19",
+        "console": "/console/pokemon-2003-topps-advanced",
+        "set": "2003 Topps Advanced",
+        "path": "/game/pokemon-2003-topps-advanced/blaziken-19",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/ref57fedfcdd68d27fdb7d0517a25e342dcd801ef75cfbcb3c71d8a2cf204f016c0/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 10253,
+        "type": "image/jpeg"
+      },
+      "pack": null
+    },
+    {
+      "release": "advanced-challenge",
+      "card": {
+        "id": "5769736",
+        "name": "Rayquaza #54",
+        "console": "/console/pokemon-2004-topps-advanced-challenge",
+        "set": "2004 Topps Advanced Challenge",
+        "path": "/game/pokemon-2004-topps-advanced-challenge/rayquaza-54",
+        "img": "https://storage.googleapis.com/images.pricecharting.com/corrcfdlzxub36jumezu/240.jpg",
+        "ok": true,
+        "status": 200,
+        "bytes": 12804,
+        "type": "image/jpeg"
+      },
+      "pack": null
+    }
+  ],
+  "noPackaging": [
+    "johto-series-3",
+    "johto-league-champions",
+    "advanced",
+    "advanced-challenge"
+  ],
+  "checked": [
+    {
+      "what": "series-1 card",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/38b8b026be1065d46a754efa75112013e900f6e115ca7657d3472a34cfa196b4/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 12776,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "series-1 packaging",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/6uajy4pv6yerybho/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 12029,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "first-movie card",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/bqrgho3xl3fbycoc/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 11349,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "first-movie packaging",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/corrlaqgdbrbb5kwhv7y/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 11670,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "series-2 card",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/82f84dba8ed553df7e1d90c0b398954da2a93a6faae339bdb1ac672a54e4c63e/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 12334,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "series-2 packaging",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/g77k3q5e3kmodlpu/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 13923,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "chrome-1 card",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/8c478471881517ff32d78db70faae4bd093ca55d588b5984e04443f5f577168a/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 12150,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "chrome-1 packaging",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/gnci2xm2i5wgamey/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 9991,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "movie-2000 card",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/ref79d5ee93ed019d012bc14a69b9d39acb8b2b5e5329a013c05544ac74edc44b48/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 10213,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "movie-2000 packaging",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/b97d96fcec7be55c602961564fa591258d8734d062966bf1ec55a4a639758009/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 10827,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "series-3 card",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/ovxajry7urjgdcfv/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 11583,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "series-3 packaging",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/jczd2qarg4mgc4ks/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 13292,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "chrome-2 card",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/cwey2zi5eyvgy4sa/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 14382,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "chrome-2 packaging",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/5fcqsi5snsrsce4n/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 11625,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "johto-1 card",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/ref4fda36023caa7dfd2ab777e94b3def3f01eea3ae5aaf1f19708d1a7ebfa56e8f/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 13740,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "johto-1 packaging",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/gyxcokaiyhiq55cr/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 14632,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "johto-league-champions card",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/ref486279b0a8926cd18e62761d83c839d0f6323f2f8d2beeaa50a1d8226d90cced/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 13138,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "advanced card",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/ref57fedfcdd68d27fdb7d0517a25e342dcd801ef75cfbcb3c71d8a2cf204f016c0/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 10253,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "advanced-challenge card",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/corrcfdlzxub36jumezu/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 12804,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "hero card",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/55dd96cee890a816a46cf8af6a52356830423ad8dd67ca865f730d9070dab896/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 13221,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "comparison Topps card",
+      "url": "https://storage.googleapis.com/images.pricecharting.com/148e67db21ba59bc3c95e2c2f903c780310d61c29d69d2037c555113a6e010fc/240.jpg",
+      "ok": true,
+      "status": 200,
+      "bytes": 13571,
+      "type": "image/jpeg"
+    },
+    {
+      "what": "comparison TCG card",
+      "url": "https://assets.tcgdex.net/en/base/base1/4/high.webp",
+      "ok": true,
+      "status": 200,
+      "bytes": 78590,
+      "type": "image/webp"
+    }
+  ]
+}

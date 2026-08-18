@@ -546,7 +546,7 @@ ${eras.map((e) => `        <a href="#era-${e.id}">${esc(e.name)}</a>`).join("\n"
             } it:
         ${openEnded
           .map((s) => `${esc(s.name)}, numbered to ${s.printedTotal} with ${s.printedTotal - s.total} not yet in the API's list`)
-          .join(", and ")}. Those sets are still open, so the numbering runs ahead of the catalogue and the
+          .join(", and ")}. Those sets are still open, so the numbering runs ahead of the catalog and the
         count here follows the numbering.`
           : ""
       }

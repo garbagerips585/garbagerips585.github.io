@@ -42,7 +42,7 @@
 // The junk is EMOJI on purpose: a banana, a pizza slice, a bin, a drinks can.
 // Emoji were the wrong tool for the rarity key, where the tier IS the colour of
 // the star and there is no silver star to be had, and they are the right tool
-// here, where the job is "this is rubbish and it is funny". They also cost no
+// here, where the job is "this is trash and it is funny". They also cost no
 // bytes and need no art pipeline.
 //
 // A SPRITE THAT HAS NOT LOADED MUST NOT BLOCK THE GAME. Both images are drawn
@@ -58,10 +58,10 @@
 //                                run length   score   ever evolved
 //   fly the safe corridor, take     39s        31       9 of 60
 //     what happens to fly into you
-//   go after the rubbish            13s        18       3 of 60
+//   go after the trash            13s        18       3 of 60
 //
 // THE GAME'S OWN OBJECTIVE IS A MISTAKE TO PURSUE, and that is the finding this
-// pass would fix first if it knew how to. Chasing a piece of rubbish costs a
+// pass would fix first if it knew how to. Chasing a piece of trash costs a
 // third of your run and buys nothing: 15 of 15 collector deaths were at the
 // FLOOR OR THE CEILING against a bare 42px hazard, never against the tall
 // stacks or a pinch. The reason is structural rather than tuned. A flip is one
@@ -87,9 +87,9 @@
 //
 // It does exactly what it was meant to, +39% to the collector and nothing to
 // the survivor, AND IT STILL LOSES 36.7 TO 54.5. It buys a real design cost, a
-// predictable rubbish path, for a change that does not flip the decision it was
+// predictable trash path, for a change that does not flip the decision it was
 // aimed at. Not shipped. If somebody attacks this again, attack the excursion
-// (what a tap costs) rather than the target (where the rubbish is).
+// (what a tap costs) rather than the target (where the trash is).
 //
 // TWO THINGS THAT LOOKED LIKE FINDINGS AND DID NOT SURVIVE THEIR OWN RE-CHECK:
 //
@@ -143,7 +143,7 @@ import { strip as miniCSS } from "./build-css.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const desc =
-  "A one thumb arcade game for the restock line. Flip Trubbish between floor and ceiling, eat the rubbish, dodge the Pokemon, and evolve into Garbodor.";
+  "A one thumb arcade game for the restock line. Flip Trubbish between floor and ceiling, eat the trash, dodge the Pokemon, and evolve into Garbodor.";
 
 // THE EVOLUTION THRESHOLD, ONCE. It was a `var EVOLVE_AT = 100` inside the page
 // script and the number 100 spelled out in the copy above it, in two places,
@@ -390,7 +390,7 @@ const GAME_JS = `
   var SP_GARB = sprite("/assets/garbodor.webp");
 
   // What counts as garbage. Kept deliberately food-and-bin heavy: it reads as
-  // rubbish at a glance, which matters more than variety when the thing is
+  // trash at a glance, which matters more than variety when the thing is
   // 26 pixels wide and moving.
   // EVERYTHING A TRUBBISH WOULD EAT. The list is long on purpose: at one item
   // every second or so, a short list starts repeating inside the first run and
@@ -508,7 +508,7 @@ const GAME_JS = `
       foe: FOES[Math.floor(Math.random() * FOES.length)],
     });
   }
-  // The tallest this stack may be without burying rubbish that is already in
+  // The tallest this stack may be without burying trash that is already in
   // flight next to it. Returns 0 when even the short version would.
   // A TRAIL IS UP TO 136px LONG and this window used to be 108, so the tail of a
   // five piece trail was invisible to the stack about to be built through it.
@@ -541,13 +541,13 @@ const GAME_JS = `
     // lethal rows were y < 60 and y > 620 out of 680 and the middle 560px of the
     // lane was permanently safe. Rubbish only ever spawns in that middle band,
     // so there was never a reason to leave it. Measured with a bot that ignored
-    // the hazards and the rubbish completely and did nothing but hold the
+    // the hazards and the trash completely and did nothing but hold the
     // midline: ten runs of ten minutes, ten survivals, no deaths, and a passive
     // score of 242 to 326 collected purely by things flying into it. The
     // hazards were scenery and the difficulty curve was flat forever.
     //
     // A hazard can now be a STACK: the Pokemon perched on top of a column of
-    // rubbish that comes some way into the lane, so the safe corridor moves and
+    // trash that comes some way into the lane, so the safe corridor moves and
     // the player has to fly a line instead of parking on one. Nothing changes in
     // the first thirty seconds, which is the part that was already fair.
     if (L.nextObs <= 0) {
@@ -575,7 +575,7 @@ const GAME_JS = `
       // FAIRNESS IS ARITHMETIC HERE, NOT A HOPE. Everything on screen moves left
       // at the same speed, so the gap between two things is fixed the moment
       // both exist and can simply be checked. If this stack would swallow
-      // rubbish that is already in flight beside it, it gets shorter; if it
+      // trash that is already in flight beside it, it gets shorter; if it
       // cannot get short enough, it is launched further back instead. Rubbish
       // you cannot take without dying is a trap, and a trap you could not see
       // coming is the thing that makes an endless runner feel cheap.
@@ -602,7 +602,7 @@ const GAME_JS = `
       }
       L.nextObs = Math.max(58, 130 - t / 55) + Math.random() * 44;
     }
-    // THE PICKUP is rubbish, which is the entire point of being a Trubbish.
+    // THE PICKUP is trash, which is the entire point of being a Trubbish.
     //
     // RUBBISH COMES IN TRAILS, NOT SINGLES. It used to spawn one piece per
     // second at a uniformly random height, which sounds generous and is not:
@@ -621,7 +621,7 @@ const GAME_JS = `
     if (L.nextPack <= 0) {
       var n = 3 + Math.floor(Math.random() * 3);
       // Stay out of the floor and ceiling rows: that is where hazards sit, and
-      // rubbish you cannot take without dying is not a reward, it is a trap.
+      // trash you cannot take without dying is not a reward, it is a trap.
       var lo = L.top + 70, hi = L.top + L.h - 70;
       var px0 = W + 20;
       // The other half of the fairness arithmetic. A trail launched into the
@@ -647,7 +647,7 @@ const GAME_JS = `
       // whole trail, so it is right about the stacks it looked at and says
       // nothing about a piece whose own x sits beside a different one. Measured
       // with the band check alone: one trail in forty runs came out inside a
-      // column, rubbish drawn in a place you could not reach without dying. A
+      // column, trash drawn in a place you could not reach without dying. A
       // piece with nowhere safe to go is simply not spawned.
       for (var k = 0; k < n; k++) {
         var yy = y0 + dir * 30 * Math.sin((k / (n - 1)) * Math.PI);
@@ -732,7 +732,7 @@ const GAME_JS = `
         // Every fifth one is bigger, so a trail flown cleanly builds.
         // A plate gets the bigger ring and the bigger +1. It is worth ONE POINT
         // like everything else, deliberately: scoring is where a difficulty
-        // change hides, and what Tim asked for is that some of the rubbish IS a
+        // change hides, and what Tim asked for is that some of the trash IS a
         // Garbage Plate, not that it is worth more. The reward is the moment.
         //
         // AND THE SPARK COUNT IS DELIBERATELY NOT PART OF IT, which cost a whole
@@ -767,14 +767,14 @@ const GAME_JS = `
           L.freeze = calm ? 0 : 12; L.shake = calm ? 0 : 10;
         }
         // HOW OFTEN ANYBODY ACTUALLY SEES IT, MEASURED, because the sentence
-        // above used to say "a hundred pieces of rubbish is several minutes of
+        // above used to say "a hundred pieces of trash is several minutes of
         // unbroken play" and that has been wrong since trails went in. It is
         // ~49 SECONDS for a player who never misses, and the reason it still
         // reads as rare is that almost nobody survives 49 seconds:
         //
         //   perfect play, no latency                  evolves at t=2673..3124
         //   human latency, playing it safe             9 runs in 60
-        //   human latency, taking the rubbish          3 runs in 60
+        //   human latency, taking the trash          3 runs in 60
         //
         // So the evolution is roughly a one-in-ten event, and the figure on the
         // page above is the only place most readers will ever see Garbodor. That
@@ -925,7 +925,7 @@ const GAME_JS = `
   }
   // Atmospheric haze, baked into the tile so it costs nothing per frame. It is
   // not only for looks: the tall towers are the part of this layer that reaches
-  // up into the band where rubbish flies, and fading their tops is what stops a
+  // up into the band where trash flies, and fading their tops is what stops a
   // 220px tower edge running vertically past a gold pickup ring.
   function haze(g, w, h, solid, topCut) {
     g.save();
@@ -1260,7 +1260,7 @@ const GAME_JS = `
     ctx.restore();
   }
 
-  // The stack a tall hazard rides in on, drawn as bagged rubbish rather than as
+  // The stack a tall hazard rides in on, drawn as bagged trash rather than as
   // a stretched Pokemon: drawImage over the whole column was the obvious way and
   // it turns a 42px sprite into a 190px smear.
   function stack(x, top, h) {
@@ -1369,7 +1369,7 @@ const GAME_JS = `
     // A RING, NOT A DISC. The glow behind each piece was a flat gold fill at 20
     // per cent, which on the old olive street was a soft halo and on a near
     // black one is a solid brown coin with an emoji sitting on top of it: the
-    // rubbish stopped reading as rubbish and started reading as tokens. A fainter
+    // trash stopped reading as trash and started reading as tokens. A fainter
     // fill with a crisp gold edge says "take this" without painting over it.
     for (var b = 0; b < L.packs.length; b++) {
       var pk = L.packs[b];
@@ -1569,7 +1569,7 @@ const GAME_JS = `
     elTitle.textContent = sc > startBest ? "New best" : "A wild Pokemon got you";
     bank(sc);
     elBest.textContent = "Best " + best;
-    elMsg.textContent = sc + " piece" + (sc === 1 ? "" : "s") + " of rubbish eaten." +
+    elMsg.textContent = sc + " piece" + (sc === 1 ? "" : "s") + " of trash eaten." +
       (lanes[0].evolved ? " You made it to Garbodor." : " " + (EVOLVE_AT - sc) + " more and you would have evolved.");
     elStart.textContent = "Go again";
     elOver.hidden = false;
@@ -1817,20 +1817,20 @@ ${MENU}
               aria-label="Garbage Run. Trubbish runs through downtown Rochester, past the Times Square building, the Xerox tower and High Falls, and you tap to flip him between the floor and the ceiling."></canvas>
             <div class="gr-over" id="grOver">
               <h2 id="grTitle">Garbage Run</h2>
-              <p id="grMsg">Tap the screen, or press space, to flip. Eat the rubbish, dodge the Pokemon.</p>
+              <p id="grMsg">Tap the screen, or press space, to flip. Eat the trash, dodge the Pokemon.</p>
               <button class="gr-go" id="grStart" type="button">Start</button>
             </div>
           </div>
         </div>
 
         <p class="lede gr-lede">One thumb, no rules to read. Tap to flip Trubbish between the floor and the ceiling and
-          eat everything on the street, Garbage Plates included. A hundred pieces of rubbish and he evolves.</p>
+          eat everything on the street, Garbage Plates included. A hundred pieces of trash and he evolves.</p>
 
         <div class="gr-how">
           <p><b>How it works.</b> Tap anywhere, or press <span class="gr-keys">space</span>, <span class="gr-keys">W</span>
-          or the <span class="gr-keys">arrow keys</span>. Every piece of rubbish you eat is a point. Other Pokemon are out there too and
+          or the <span class="gr-keys">arrow keys</span>. Every piece of trash you eat is a point. Other Pokemon are out there too and
           touching one ends the run. Get to ${EVOLVE_AT} and Trubbish evolves into Garbodor for the rest of the game.<br>
-          <b>Some of the rubbish is a Garbage Plate</b>, because of course it is. Home fries, macaroni salad, hot sauce,
+          <b>Some of the trash is a Garbage Plate</b>, because of course it is. Home fries, macaroni salad, hot sauce,
           mustard and onion, exactly like Nick Tahou would hand you at two in the morning. A plate is worth the same one
           point as everything else on the street. It just tastes better.<br>
           <b>That is downtown Rochester behind him.</b> The Times Square building and its four wings, the Xerox tower,
@@ -1857,7 +1857,7 @@ ${MENU}
             <span class="gr-evo-at">${EVOLVE_AT}</span>
             <img src="/assets/garbodor.webp" width="512" height="512" alt="Garbodor, what Trubbish becomes"
               loading="lazy" decoding="async">
-            <figcaption>What ${EVOLVE_AT} pieces of rubbish buys you. Both are the sprites the game draws on the
+            <figcaption>What ${EVOLVE_AT} pieces of trash buys you. Both are the sprites the game draws on the
               canvas, the same two files the 404 page uses.</figcaption>
           </figure>
         </div>

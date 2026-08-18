@@ -474,7 +474,7 @@
       "gameTypes": [],
       "gameTypesNote": "Pokemon that are Fairy in the video games are printed as PSYCHIC cards now.",
       "symbol": "a small flower or star",
-      "blurb": "Retired. Fairy ran from 2013 to 2020 and specialised in blunting the other player's attacks. You will still find Fairy cards in older packs and bulk, and they are not fakes or misprints.",
+      "blurb": "Retired. Fairy ran from 2013 to 2020 and specialized in blunting the other player's attacks. You will still find Fairy cards in older packs and bulk, and they are not fakes or misprints.",
       "blurbSource": "our wording, informed by rulebook_par",
       "weakness": { "top": "Metal x2", "n": null, "note": "NOT MEASURED. None of the ten sampled sets is old enough to contain a Fairy card, so this file has no count for Fairy. The example card below prints Metal x2 and Darkness -20, and that is stated as what that one card says, nothing more. Either measure a few XY-era sets before publishing a tendency here, or publish no tendency." },
       "resistance": { "top": "Darkness -20", "n": null, "note": "same caveat. Note the -20: this is a pre-Sword-&-Shield card, from back when Resistance was -20 rather than -30, which is a second, unforced demonstration that these values are printed and not fixed." },

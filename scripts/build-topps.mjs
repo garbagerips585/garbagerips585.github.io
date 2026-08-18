@@ -138,6 +138,54 @@
 // /top-graded.html change together, in one edit.
 //
 // ---------------------------------------------------------------------------
+// NOBODY SAYS "DEAREST". Tim, 18 August 2026, reading the page he had just been
+// handed: "not sure why it says the dearest cards ... not sure what dearest
+// means". It is British English for "most expensive", it is this file's
+// vocabulary rather than the site's, and it stopped the site's own owner dead.
+// It is also worthless for search: nobody types "dearest Pokemon cards". Both
+// pages now say "most valuable" and "highest PSA 10 values", which is what
+// /most-valuable-cards.html and /top-graded.html already say, so the four
+// value pages read as one cluster. The meta and og descriptions mattered most
+// there, because they are the copy Google shows. Do not put it back.
+//
+// ---------------------------------------------------------------------------
+// THE GUIDE PAGE HAD NO PICTURES AT ALL FOR ITS FIRST DAY
+// ---------------------------------------------------------------------------
+//
+// /topps-card-values.html shipped with 200 card scans and /topps.html shipped
+// with none, off the same data, which is why nobody noticed: the pictures were
+// already in the tree and one of the two builders was not asking for them. A
+// guide whose entire pitch is "most collectors have never knowingly held one of
+// these" cannot work without showing one. Tim: this page should be "loaded with
+// image examples of everything".
+//
+// WHAT IT SHOWS NOW, and the density is the decision rather than the maximum:
+//
+//   - ONE HERO CARD, eager, the only picture on the page that is not lazy.
+//   - THE TWO FIVE-ROW SUMMARIES carry the card on every row, the same scans
+//     the full lists on the values page use.
+//   - EVERY RELEASE gets a card and, where PriceCharting's catalogue holds a
+//     photograph of one, its sealed packaging. That is 11 cards and 8 packs,
+//     NOT 33 of anything: PriceCharting's 33 "consoles" are card TYPE buckets
+//     and Topps shipped TWELVE releases, which is what the set list renders. A
+//     thumbnail per bucket would have put 33 pictures in a two column list of
+//     12 cards and taught the reader the wrong taxonomy in the same stroke.
+//   - THE SIDE BY SIDE in the "in your hand" section, which is the one place on
+//     the page where prose genuinely cannot do the job.
+//
+// FOUR RELEASES HAVE NO PACKAGING PICTURE and they show a card and say nothing
+// about packaging, rather than an empty frame captioned "no photo": Johto
+// Series 3 (Europe only, and PriceCharting files no bucket for it at all, so it
+// has no card either), Johto League Champions, Advanced and Advanced Challenge.
+// Nothing was substituted from a neighbouring set to fill a hole.
+//
+// EVERY ONE OF THOSE URLS WAS FETCHED AND ANSWERED 200 BEFORE IT SHIPPED, by
+// scripts/sync-topps-images.mjs, which writes data/topps-images.json. That check
+// is not optional and 404 is not the test: PriceCharting's CDN answers 403 for a
+// card it holds no scan of. Nothing in this file emits an <img> for a picture
+// whose `ok` is not true.
+//
+// ---------------------------------------------------------------------------
 // IMAGES COME FROM THE SAME PRODUCT RECORD AS THE PRICE
 // ---------------------------------------------------------------------------
 //
@@ -167,7 +215,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, shortDate, moneyCompact, moneyExact, noValue } from "../shared/format.mjs";
+import { esc, longDate, shortDate, moneyCompact, moneyExact, noValue, imgDims, avifPicture } from "../shared/format.mjs";
 // THE PUBLICATION GATE, shared with /top-graded.html, /base-set.html and
 // /most-valuable-cards.html. Nothing out of a PriceCharting file may be printed
 // on a single read: `new_price` means PSA 10 on a listing page and Grade 8 on a
@@ -178,6 +226,19 @@ import { gradedGate } from "../shared/graded-gate.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/topps-top.json"), "utf8"));
 const facts = JSON.parse(await readFile(join(ROOT, "data/topps-sets.json"), "utf8"));
+// The verified pictures. Written by scripts/sync-topps-images.mjs, which fetches
+// every url and records the status; see this file's header. A missing file is a
+// hard stop rather than a page that quietly loses its pictures again.
+const pics = await readFile(join(ROOT, "data/topps-images.json"), "utf8")
+  .then(JSON.parse)
+  .catch(() => {
+    throw new Error(
+      "data/topps-images.json is missing. /topps.html is a guide to cards nobody\n" +
+        "recognises and it must not ship without pictures of them.\n" +
+        "Run: node scripts/sync-topps-images.mjs",
+    );
+  });
+const picBy = new Map((pics.sets || []).map((s) => [s.release, s]));
 
 const { verified: ok } = gradedGate(d, "data/topps-top.json", "scripts/verify-topps-top.mjs");
 
@@ -292,14 +353,12 @@ const pathOf = (c) => c.url.replace(/^https?:\/\/(www\.)?pricecharting\.com/, ""
 
 /** One row of either hundred. `key` is the column that list is ranked by. */
 function row(c, i, key) {
-  const v = ok.get(c.rank);
-  const src = c.pcImg ? c.pcImg.replace(/\/\d+\.jpg$/, "/240.jpg") : null;
+  const src = scanSrc(c);
   // A row whose scan 404s says so in words. There is no placeholder card face:
   // a navy placeholder box on this site once read as a real card.
-  const img =
-    v?.imgOk && src
-      ? `<img class="tp-scan" src="${esc(src)}" alt="${esc(c.name)}, ${esc(c.set)}" loading="lazy" decoding="async">`
-      : `<span class="tp-noscan">No scan<span class="sr-only"> available for this card</span></span>`;
+  const img = src
+    ? `<img class="tp-scan" src="${esc(src)}" alt="${esc(c.name)}, ${esc(c.set)}" loading="lazy" decoding="async">`
+    : `<span class="tp-noscan">No scan<span class="sr-only"> available for this card</span></span>`;
 
   // The ranked figure is the big one and the other two ride under it. Which one
   // is big depends on the list, which is the only difference between the two
@@ -570,6 +629,74 @@ const CSS = `
 .tp-peek .w small{display:block;font-weight:400;font-size:var(--t-label);color:var(--ink-2)}
 .tp-peek .m{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700}
 
+/* ---------------------------------------------------------------------------
+   THE PICTURES. The guide page had none at all until 18 August 2026.
+
+   EVERY FRAME IS A FIXED BOX AND THE PICTURE IS CENTRED INSIDE IT. PriceCharting
+   serves these files at a fixed 240 HIGH and a VARIABLE width, which is why
+   imgDims() in shared/format.mjs correctly returns "" for this host and why
+   nothing here carries width or height: a declared width would be wrong for most
+   of them, by up to a third. A box the stylesheet owns is what keeps CLS at 0
+   without the markup claiming pixel sizes it does not know. Measured 0.000 at
+   390x844 and 1440x900 with all 32 pictures forced to load. */
+.tp-frame{display:flex;align-items:center;justify-content:center;overflow:hidden;
+  background:var(--paper-3);border:1px solid var(--hair);border-radius:3px}
+.tp-frame img{max-width:100%;max-height:100%;width:auto;height:auto;display:block}
+/* The caption under a picture. It names the exact card or product in VISIBLE
+   text, not only in the alt, which is the rule shared/product-photos.mjs sets
+   out: a photograph with no visible name is quietly claiming to be a category. */
+.tp-cap{display:block;margin-top:5px;font-family:var(--mono);font-size:var(--t-micro);
+  line-height:1.4;color:var(--ink-2)}
+.tp-cap b{color:var(--ink);font-weight:700}
+
+/* THE HERO CARD IS THE ONE PICTURE ON THIS PAGE THAT IS NOT LAZY, on purpose.
+   loading="lazy" is a VERTICAL heuristic and nothing else, so on a phone, where
+   this sits inside the first screen, it buys nothing and delays the only thing
+   the page opens with. 13.2KB. */
+/* CENTRED AND STACKED AT EVERY WIDTH, which is not what this was first written
+   as. ui.css sets .set-hero .wrap to display:flex, flex-direction:column,
+   align-items:center and text-align:center at specificity 0,2,0, so a
+   .tp-hero-grid rule here at 0,1,0 lost silently and the desktop
+   two-column hero simply never rendered: the markup was right, the rule was
+   right, and it was not applying. It could have been won with a longer selector
+   and was not, because a card centred under centred copy is the hero every other
+   guide on this site has and there was no reason for this one to be different.
+   The caption gets a measure of its own so it does not set to the card's width. */
+.tp-hero-fig{margin:18px auto 0;width:min(100%,320px)}
+.tp-hero-fig .tp-frame{width:150px;height:210px;margin:0 auto}
+@media (min-width:820px){
+  .tp-hero-fig{margin:22px auto 0;width:min(100%,420px)}
+  .tp-hero-fig .tp-frame{width:200px;height:280px}
+}
+
+/* One card and, where there is one, one packaging photograph per RELEASE. Two
+   small frames in a row at the top of the set card, so the pictures read as
+   belonging to the set named under them and the paragraph still runs the full
+   width of the card. */
+.tp-set-pics{display:flex;gap:10px;margin:12px 0 2px}
+.tp-pic{margin:0;width:82px;flex:none}
+.tp-pic .tp-frame{width:82px;height:115px}
+
+/* The five-row summaries. Same fixed frame as a full row on the values page,
+   one size down: these are a teaser for a list of 100, not the list. */
+.tp-peek li{align-items:center}
+.tp-peek .p{flex:none}
+.tp-peek .p .tp-frame{width:44px;height:62px}
+
+/* THE SIDE BY SIDE, and it is the one place on this page where a picture is not
+   an illustration but the argument itself. Two frames, same box, same Pokemon,
+   same year: prose can say "one has HP and an attack and the other has a screen
+   still" all day and a reader still has to see it. aspect-ratio rather than a
+   height, because these two hosts serve different intrinsic sizes and the frame
+   has to be the same shape on both sides for the comparison to be fair. */
+.tp-vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:var(--s4);max-width:44em}
+@media (min-width:560px){.tp-vs{gap:24px}}
+.tp-vs figure{margin:0;min-width:0}
+.tp-vs .tp-frame{width:100%;aspect-ratio:5 / 7}
+.tp-vs figcaption{margin-top:9px;font-size:var(--t-sm);line-height:1.45;color:var(--ink-2)}
+.tp-vs figcaption b{display:block;color:var(--ink);font-family:var(--mono);
+  font-size:var(--t-micro);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+
 /* ui.css draws .fk-golden full bleed inside the wrap, which is right for the
    two or three sentences most pages put in one. These hold several paragraphs,
    and at 1440 that ran the text to about 700px inside a 1392px black box.
@@ -600,9 +727,56 @@ const bucketLine = (pc) => {
 // remember while writing prose.
 const noDot = (s) => String(s).replace(/[.\s]+$/, "");
 
+// ---------------------------------------------------------------------------
+// THE PICTURE HELPERS. ONE place decides whether a picture may be emitted, so a
+// url that is known to be dead cannot reach the page through a second path.
+// `ok` means sync-topps-images.mjs FETCHED that file and got a 200 with a real
+// image body; `imgOk` is the same promise made by verify-topps-top.mjs for the
+// row scans. Anything else emits NOTHING: no frame, no placeholder, no onerror.
+// A reader should never pay a round trip to discover a picture we already knew
+// was gone, and a grey placeholder box on this site has read as a real card
+// before now.
+
+/** The 240 rendition of a ranked row's scan, or null. Shared by the rows and
+    the five-row summaries so the two cannot disagree about which have one. */
+const scanSrc = (c) => (ok.get(c.rank)?.imgOk && c.pcImg ? c.pcImg.replace(/\/\d+\.jpg$/, "/240.jpg") : null);
+
+const frame = (img) => `<span class="tp-frame">${img}</span>`;
+
+/** A verified PriceCharting picture. NO width or height: see the CSS block. */
+function pcPic(p, alt, { lazy = true } = {}) {
+  if (!p || !p.ok || !p.img) return "";
+  return `<img src="${esc(p.img)}" alt="${esc(alt)}"${lazy ? ' loading="lazy"' : ""} decoding="async">`;
+}
+
+/** Framed picture plus a caption that NAMES what is in it in visible text, not
+    only in the alt. Same rule shared/product-photos.mjs sets out: a photograph
+    with no visible name is quietly claiming to be a whole category. */
+const figureOf = (img, cap, cls) =>
+  img ? `<figure class="${cls}">${frame(img)}<figcaption class="tp-cap">${cap}</figcaption></figure>` : "";
+
+/** The card, and the packaging where PriceCharting holds a photograph of one.
+    A release with neither gets no strip at all rather than an empty frame. */
+function setPics(r) {
+  const p = picBy.get(r.id);
+  if (!p) return "";
+  const card = figureOf(
+    pcPic(p.card, p.card ? `${p.card.name}, a Topps card from ${r.name}, ${r.released}` : ""),
+    p.card ? `<b>${esc(p.card.name)}</b>` : "",
+    "tp-pic",
+  );
+  const pack = figureOf(
+    pcPic(p.pack, p.pack ? `${p.pack.name}: the sealed packaging ${r.name} was sold in` : ""),
+    p.pack ? `<b>${esc(p.pack.name)}</b>` : "",
+    "tp-pic",
+  );
+  return card || pack ? `<div class="tp-set-pics">${card}${pack}</div>` : "";
+}
+
 const setCard = (r) => `<li class="tp-set-card">
   <h3>${esc(r.name)}</h3>
   <span class="tp-when">${esc(r.released)} &bull; <span class="tp-count">${r.base} cards</span> in the base set</span>
+  ${setPics(r)}
   <p>${esc(noDot(r.breakdown))}. ${esc(noDot(r.covers))}.</p>
   ${r.alsoKnown ? `<p>Also written as ${esc(r.alsoKnown)}.</p>` : ""}
   ${r.europeOnly ? `<span class="tp-chip">Europe only</span>` : ""}
@@ -619,18 +793,72 @@ const defCard = (name, what, source) => `<div>
   ${source ? `<span class="tp-cite">${esc(source.replace(/^https?:\/\//, ""))}</span>` : ""}
 </div>`;
 
+// THE SUMMARY ROWS SHOW THE CARD. They used to be five names and five figures,
+// on a page whose whole argument is that nobody would recognise the names.
 const peek = (list, key, label) =>
   `<ol class="tp-peek">${list
     .slice(0, 5)
-    .map(
-      (c, i) => `<li><span class="n">${i + 1}</span><span class="w">${esc(c.name)}<small>${esc(
+    .map((c, i) => {
+      const src = scanSrc(c);
+      const art = src
+        ? `<span class="p">${frame(
+            `<img src="${esc(src)}" alt="${esc(c.name)}, ${esc(c.set)}" loading="lazy" decoding="async">`,
+          )}</span>`
+        : "";
+      return `<li><span class="n">${i + 1}</span>${art}<span class="w">${esc(c.name)}<small>${esc(
         c.set,
-      )}</small></span><span class="m">${moneyCompact(c[key])}</span></li>`,
-    )
+      )}</small></span><span class="m">${moneyCompact(c[key])}</span></li>`;
+    })
     .join("")}</ol>
   <p class="price-note">${esc(label)} PriceCharting price guide values read ${esc(read)}, each read a second time
     from the card's own product page before it was printed. <a href="/topps-card-values.html">All 100, and the
     other hundred ranked the other way</a>.</p>`;
+
+// ---------------------------------------------------------------------------
+// THE SIDE BY SIDE. The one section on this page where a picture is not an
+// illustration of the argument, it IS the argument: "a Topps card has a screen
+// still and no HP, a TCG card has an illustration and a whole game on it" is a
+// sentence a reader has to take on trust until they see the two next to each
+// other.
+//
+// BOTH ARE CHARIZARD AND BOTH ARE 1999, deliberately. Hold the Pokemon and the
+// year still and the only thing left varying is the thing being compared. Base
+// Set Charizard is also the one Pokemon card a complete stranger has heard of,
+// and it is the same TCGdex scan /base-set.html already uses.
+//
+// The TCG half is the only picture on either page that CAN carry width and
+// height, because TCGdex serves a fixed 600x825 and imgDims() knows it. It also
+// gets avifPicture(), which is 37% smaller for identical pixels at this width.
+// The Topps half gets neither, for the reason in the CSS block above.
+const versus = (() => {
+  const t = pics.compare?.topps;
+  const g = pics.compare?.tcg;
+  if (!t?.ok || !g) return "";
+  const toppsImg = pcPic(
+    t,
+    `${t.name}, a Topps trading card: a still of Charizard from the anime printed on plain card ` +
+      `stock, with no HP, no attack and no energy cost anywhere on it`,
+  );
+  const tcgTag =
+    `<img src="${esc(g.url)}" alt="Pokemon TCG ${esc(g.set)} ${esc(g.name)}, card ${esc(g.number)} of ` +
+    `${esc(g.total)}: an illustration of Charizard with HP at the top, an attack with an energy cost, ` +
+    `a retreat cost and an illustrator credit" loading="lazy" decoding="async"${imgDims(g.url)}>`;
+  return `<div class="tp-vs">
+      <figure>
+        ${frame(toppsImg)}
+        <figcaption><b>Topps, 1999</b>${esc(t.name)}, from ${esc(usSets[0].name)}. A frame from the
+          cartoon on card stock. No HP, no attack, no energy cost, no retreat cost: nothing on it belongs
+          to a game. Turn it over and the back is a Pokedex entry with the Topps logo under it.</figcaption>
+      </figure>
+      <figure>
+        ${frame(avifPicture(tcgTag))}
+        <figcaption><b>Pokemon TCG, 1999</b>${esc(g.set)} ${esc(g.name)}, card ${esc(g.number)} of
+          ${esc(g.total)}. Commissioned artwork rather than a screen grab, HP in the top corner, an attack
+          with an energy cost beside it, a retreat cost at the foot and the illustrator's name on it. The
+          back is the blue Poke Ball pattern, the same on every card in the game.</figcaption>
+      </figure>
+    </div>`;
+})();
 
 const guideTitle = "Topps Pokemon Cards: Every Set, and How to Spot One";
 const guideDesc =
@@ -650,12 +878,30 @@ ${MENU}
 
 <header class="set-hero">
   <div class="wrap">
-    <span class="kicker">Topps trading cards &bull; ${esc(facts.window.from)} to ${esc(facts.window.to)}</span>
-    <h1>Topps made <span class="hl">Pokemon cards</span> too</h1>
-    <p class="lede" style="max-width:42em">Not Pokemon TCG cards. Trading cards: anime stills and film frames on
-      card stock, ${releases.length} sets of them between ${esc(facts.window.from)} and ${esc(facts.window.to)}, and
-      most people who collect Pokemon have never knowingly held one. Some of them are worth more than the cards
-      everybody does know about.</p>
+    <div>
+      <span class="kicker">Topps trading cards &bull; ${esc(facts.window.from)} to ${esc(facts.window.to)}</span>
+      <h1>Topps made <span class="hl">Pokemon cards</span> too</h1>
+      <p class="lede" style="max-width:42em">Not Pokemon TCG cards. Trading cards: anime stills and film frames on
+        card stock, ${releases.length} sets of them between ${esc(facts.window.from)} and ${esc(facts.window.to)}, and
+        most people who collect Pokemon have never knowingly held one. Some of them are worth more than the cards
+        everybody does know about.</p>
+    </div>
+    ${
+      pics.hero?.ok
+        ? `<figure class="tp-hero-fig">
+      ${frame(
+        pcPic(
+          pics.hero,
+          `${pics.hero.name}, a Topps trading card from ${usSets[0].name}, ${usSets[0].released}: a still of ` +
+            `Pikachu from the anime printed on card stock`,
+          { lazy: false },
+        ),
+      )}
+      <figcaption class="tp-cap"><b>${esc(pics.hero.name)}</b> from ${esc(usSets[0].name)},
+        ${esc(usSets[0].released)}. This is a Topps card, not a Pokemon TCG card.</figcaption>
+    </figure>`
+        : ""
+    }
   </div>
 </header>
 
@@ -683,8 +929,8 @@ ${MENU}
     <div class="facts" style="margin-top:20px">
       <div class="fact"><div class="n">${releases.length}</div><div class="l">Topps Pokemon sets, ${setYears[0]} to ${setYears[setYears.length - 1]}</div></div>
       <div class="fact"><div class="n">${d.scanned.products.toLocaleString("en-US")}</div><div class="l">Topps cards with a price on them</div></div>
-      <div class="fact"><div class="n">${moneyCompact(rawTop.ungraded)}</div><div class="l">Dearest raw, ${esc(rawTop.name)}</div></div>
-      <div class="fact"><div class="n">${moneyCompact(psaTop.psa10)}</div><div class="l">Dearest PSA 10, ${esc(psaTop.name)}</div></div>
+      <div class="fact"><div class="n">${moneyCompact(rawTop.ungraded)}</div><div class="l">Top raw value, ${esc(rawTop.name)}</div></div>
+      <div class="fact"><div class="n">${moneyCompact(psaTop.psa10)}</div><div class="l">Top PSA 10 value, ${esc(psaTop.name)}</div></div>
     </div>
   </div>
 </section>
@@ -710,10 +956,10 @@ ${MENU}
       published insert odds for some of these sets and we deliberately did not record them. This site never
       states pull rates for anything.</p>
 
-    <h3 style="margin-top:26px">The five dearest raw, right now</h3>
+    <h3 style="margin-top:26px">The five most valuable raw, right now</h3>
     ${peek(rawList, "ungraded", "Ungraded")}
 
-    <h3 style="margin-top:26px">The five dearest in a PSA 10</h3>
+    <h3 style="margin-top:26px">The five most valuable in a PSA 10</h3>
     ${peek(psaList, "psa10", "PSA 10")}
   </div>
 </section>
@@ -808,7 +1054,11 @@ ${facts.printings.map((p) => defCard(p.tag, p.what, p.source)).join("\n")}
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>In your hand</p>
     <h2>How to tell a Topps card from a <span class="hl">real TCG card</span></h2>
-    <p class="lede" style="max-width:44em">Any one of these settles it. The first one settles it fastest.</p>
+    <p class="lede" style="max-width:44em">Here they are next to each other. Same Pokemon, same year, and only
+      one of them is a game card.</p>
+    ${versus}
+    <h3 style="margin-top:30px">Every check, in words</h3>
+    <p style="max-width:44em">Any one of these settles it. The first one settles it fastest.</p>
     <div class="tp-defs">
 ${facts.tells.map((t) => defCard(t.tell, t.detail, t.source)).join("\n")}
     </div>
@@ -842,9 +1092,16 @@ ${facts.tells.map((t) => defCard(t.tell, t.detail, t.source)).join("\n")}
     <p style="max-width:44em"><b>Set names, dates, card counts and what each subset is:</b> Bulbapedia, read
       ${esc(longDate(facts.read) || facts.read)}. One page per set, and each set card above names the one it came
       from. Thanks to them for keeping it.</p>
-    <p style="max-width:44em"><b>Prices and card scans:</b> pricecharting.com, read ${esc(read)}, methodology
-      published at their /page/methodology. Every priced row on the values page carries its own path on that
-      site.</p>
+    <p style="max-width:44em"><b>Prices, card scans and the packaging photographs:</b> pricecharting.com, read
+      ${esc(read)}, methodology published at their /page/methodology. Every priced row on the values page carries
+      its own path on that site. The pack and box photographs are theirs as well, and they are the reason this
+      page can show you what a 1999 Topps wrapper looked like at all: nothing else we could reach has one.
+      ${releases.length - pics.sets.filter((x) => x.pack).length} of the ${releases.length} sets have no
+      packaging photograph in their catalogue, and those show a card and say nothing about packaging rather
+      than borrowing a picture from a set next to them. Every picture on this page was fetched and checked
+      before it was published.</p>
+    <p style="max-width:44em"><b>The Pokemon TCG card in the comparison:</b> TCGdex
+      (assets.tcgdex.net), which is where the card scans on this site's set guides come from.</p>
     <p style="max-width:44em"><b>Not sourced, and therefore not said here:</b> who Topps signed the Pokemon
       licence with, how many of anything was printed, what a pack cost, and any odds of pulling anything.</p>
     <p style="max-width:44em">Card images are the property of their respective owners and appear here for
@@ -866,7 +1123,7 @@ ${APP_JS}
 
 const valuesTitle = `Topps Pokemon Card Values from PriceCharting, Read ${readShort}`;
 const valuesDesc =
-  `The ${rawList.length} dearest Topps Pokemon cards ungraded and the ${psaList.length} dearest in a PSA 10, ` +
+  `The ${rawList.length} most valuable Topps Pokemon cards ungraded and the ${psaList.length} highest PSA 10 values, ` +
   `ranked from PriceCharting's price guide across ${d.scanned.products.toLocaleString("en-US")} Topps products ` +
   `and read on ${readShort}. Every figure read twice. Not auction records, and prices move.`;
 
@@ -890,8 +1147,8 @@ ${MENU}
     <span class="kicker">Topps trading cards &bull; Ungraded and PSA 10, priced by PriceCharting &bull; Read ${esc(read)}</span>
     <h1>Topps Pokemon card values: <span class="hl">two</span> top 100s</h1>
     <p class="lede" style="max-width:42em">The same ${d.scanned.products.toLocaleString("en-US")} Topps cards
-      ranked twice, because raw and graded do not give the same answer and it is not close. The dearest loose
-      Topps card is ${esc(rawTop.name)}; the dearest in a PSA 10 is ${esc(psaTop.name)}, which does not make the
+      ranked twice, because raw and graded do not give the same answer and it is not close. The most valuable loose
+      Topps card is ${esc(rawTop.name)}; the highest PSA 10 value is ${esc(psaTop.name)}, which does not make the
       top ${rawList.length} raw at all. Both read on ${esc(read)}.</p>
   </div>
 </header>
@@ -938,15 +1195,15 @@ ${MENU}
     </div>
 
     <div class="facts" style="margin-top:20px">
-      <div class="fact"><div class="n">${moneyCompact(rawTop.ungraded)}</div><div class="l">Dearest raw</div></div>
-      <div class="fact"><div class="n">${moneyCompact(psaTop.psa10)}</div><div class="l">Dearest PSA 10</div></div>
+      <div class="fact"><div class="n">${moneyCompact(rawTop.ungraded)}</div><div class="l">Top raw value</div></div>
+      <div class="fact"><div class="n">${moneyCompact(psaTop.psa10)}</div><div class="l">Top PSA 10 value</div></div>
       <div class="fact"><div class="n">${d.scanned.products.toLocaleString("en-US")}</div><div class="l">Topps cards ranked</div></div>
       <div class="fact"><div class="n">${d.scanned.consoles}</div><div class="l">Price guide buckets searched</div></div>
       <div class="fact wide"><div class="n" style="font-size:1.15rem">${esc(read)}</div><div class="l">Prices read on</div></div>
     </div>
 
     <p class="lede" style="max-width:44em;margin-top:20px">Two lists, both below:
-      <a href="#raw">the ${rawList.length} dearest ungraded</a> and
+      <a href="#raw">the ${rawList.length} most valuable ungraded</a> and
       <a href="#psa">the ${psaList.length} highest PSA 10 values</a>. ${
         rawList.filter((c) => psaList.some((p) => p.rank === c.rank)).length
       } cards are on both. Paths under each row are all on pricecharting.com.</p>
@@ -957,7 +1214,7 @@ ${MENU}
   <div class="wrap">
 ${listHead(
   "raw",
-  `The ${rawList.length} dearest <span class="hl">ungraded</span>`,
+  `The ${rawList.length} most valuable <span class="hl">ungraded</span>`,
   "Raw",
   `Loose cards, out of a sleeve, ungraded, ranked by PriceCharting's Ungraded column on ${esc(read)}. The PSA 10 ` +
     `and Grade 9 figures from the same record sit under each one, because a raw price on a card this old is only ` +

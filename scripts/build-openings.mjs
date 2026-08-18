@@ -1099,7 +1099,7 @@ ${e.vids
   .join("\n")}
       </ul>
       <p class="op-note" style="margin-top:var(--s4)">Other kinds of sealed product are on the
-        <a href="/openings/">openings index</a>, and the whole catalogue is on
+        <a href="/openings/">openings index</a>, and the whole catalog is on
         <a href="/videos.html">every rip</a>.</p>
     </div>
   </section>

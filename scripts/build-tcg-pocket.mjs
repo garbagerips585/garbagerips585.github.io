@@ -585,7 +585,7 @@ ${compareTable(esc)}
           and nothing in a browser, which is the row in that table most likely to catch you out. It is free with
           optional in-app purchases and it is about ${esc(downloadSize)} to download, so check the phone has
           room.</p>
-        ${appIcon("pocket", " is the one to search for. The other app's icon is a different colour.")}
+        ${appIcon("pocket", " is the one to search for. The other app's icon is a different color.")}
         <p>You are not asked for a Pokemon account. You pick a country and region, confirm your age, accept the
           terms and you are in. Link a Nintendo, Google or Apple account on the first day anyway: Pokemon says
           that if you reinstall without linking, you will not be able to recover your save data yourself. Under a

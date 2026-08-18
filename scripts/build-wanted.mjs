@@ -215,7 +215,23 @@ const REND = JSON.parse(await readFile(join(ROOT, "data/card-thumbs.json"), "utf
  * drop pixels nobody can see. 600w is still the right answer at DPR3 and on a
  * retina desktop. Nothing comes off the ladder; a middle goes into it.
  */
-function cardArt(c) {
+/*
+ * `eager` MARKS THE TILES A READER CAN ALREADY SEE, and it is four of them.
+ *
+ * Measured over CDP at 390x844 DPR 2, reading each img's own border box at
+ * scroll 0: the grid is two columns and rows one and two start at y=306 and
+ * y=680, both inside the 844px viewport. `loading="lazy"` is a VERTICAL
+ * heuristic, so those four were being fetched at once regardless; what the
+ * attribute cost them was the PRELOAD SCANNER, the only chance the fetch had to
+ * begin during the HTML parse rather than after layout. The comment above
+ * already says the lazy on this page "defers exactly nothing on a phone" and
+ * this is the four tiles where that is true no matter how tall the viewport is.
+ *
+ * The other tiles keep it: on a short viewport or a narrow one they really are
+ * off screen, and this page is the heaviest on the site.
+ */
+function cardArt(c, eager = false) {
+  const LAZY = eager ? "" : ' loading="lazy"';
   const small = c.image, large = c.imageLarge;
   const one = small || large;
   if (!one) return "";
@@ -228,7 +244,7 @@ function cardArt(c) {
   // Only one url to offer: no srcset, no sizes, exactly as before.
   if (!small || !large || small === large) {
     return avifPicture(
-      `<img src="${esc(one)}" alt="${esc(alt)}" loading="lazy" onerror="this.remove()"${imgDims(one)}>`
+      `<img src="${esc(one)}" alt="${esc(alt)}"${LAZY} onerror="this.remove()"${imgDims(one)}>`
     );
   }
   const scryMid = /images\.scrydex\.com/.test(large) ? large.replace(/\/large$/, "/medium") : null;
@@ -237,7 +253,7 @@ function cardArt(c) {
     .join(", ");
   const tag =
     `<img src="${esc(small)}" srcset="${esc(webp)}" sizes="${esc(ART_SIZES)}" alt="${esc(alt)}"` +
-    ` loading="lazy" onerror="this.remove()"${imgDims(small)}>`;
+    `${LAZY} onerror="this.remove()"${imgDims(small)}>`;
   // Every candidate is either ours or TCGdex: offer the whole ladder as AVIF.
   // Anything else (Scrydex publishes none) goes to the shared helper, which
   // declines it and emits the plain <img>, which is what shipped before.
@@ -252,10 +268,13 @@ function cardArt(c) {
   return avifPicture(tag);
 }
 
-function cardTile(c, { hunted = true } = {}) {
+// Two columns at 390 and two rows inside an 844px viewport.
+const EAGER_TILES = 4;
+
+function cardTile(c, { hunted = true, eager = false } = {}) {
   // The SMALL file is the src now, so a browser that ignores srcset gets the
   // 68KB one rather than the 1.2MB one.
-  const art = cardArt(c);
+  const art = cardArt(c, eager);
   const inner = `
         <span class="wc-art">${
           art || `<span class="wc-none">${esc(c.name)}</span>`
@@ -340,7 +359,7 @@ const body = `
     <p class="w-lede">The cards I am actually chasing right now. Every pack opened on this
       channel is opened hoping for one of these. Tap a card to see it on TCGplayer.</p>
     <div class="w-grid">
-${hunting.map((c) => cardTile(c)).join("\n")}
+${hunting.map((c, k) => cardTile(c, { eager: k < EAGER_TILES })).join("\n")}
 ${caught.map((c) => cardTile(c, { hunted: false })).join("\n")}
     </div>
     <p class="price-note">RAW PRICES ARE TCGPLAYER MARKET VALUES READ THROUGH TCGDEX${

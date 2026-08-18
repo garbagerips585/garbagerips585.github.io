@@ -835,7 +835,7 @@ ${MENU}
     <p>Scroll it and the hardware changes shape under your thumb. Nothing here is cropped: every cover sits inside
       the same square box at its own proportions, so the squat Game Boy carts, the wide N64 and DS boxes and the
       tall Switch keycases are all the shape they really are. ${n(notBoxCount)} of the ${n(coverCount)} images are
-      not a box at all, because a phone game has no box and an arcade cabinet is furniture, and those are labelled
+      not a box at all, because a phone game has no box and an arcade cabinet is furniture, and those are labeled
       rather than passed off as cover art.</p>
 
     <p style="margin-top:var(--s3)">${n(tcgCount)} of these are card games, marked so you can find them, and they

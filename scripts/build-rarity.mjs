@@ -286,11 +286,28 @@ const CROP = {
   right: { cls: "cr-r", off: `calc(100% - ${SRC_W}px)` },
   left: { cls: "cr-l", off: `calc(8% - ${SRC_W * 0.08}px)` },
 };
-const corner = (card, side, label) => `<figure class="crop">
+/*
+ * `eager` IS FOR THE TWO CROPS IN THE FIRST SCREEN AND FOR NOTHING ELSE, and it
+ * does NOT undo the change argued above.
+ *
+ * Measured over CDP at 390x844 DPR 2, reading each img's own border box at
+ * scroll 0: the two "which corner" figures are the only crops on this page a
+ * reader can see without scrolling. `loading="lazy"` is a VERTICAL heuristic, so
+ * an image already inside the viewport is fetched immediately anyway; what the
+ * attribute actually costs there is the PRELOAD SCANNER, which is the only
+ * chance the fetch had to start during the HTML parse instead of after layout.
+ *
+ * SO THIS MOVES NO BYTES ONTO THE LOAD PATH AND THAT WAS CHECKED RATHER THAN
+ * ASSERTED: the on-load figure for this page is the same before and after,
+ * because those two scans were always in the on-load number. The 2.1MB the
+ * entry in CLAUDE.md is about is the OTHER eleven crops, and every one of them
+ * still carries the attribute.
+ */
+const corner = (card, side, label, { eager = false } = {}) => `<figure class="crop">
         <div class="crop-img ${CROP[side].cls}">${avifPicture(
           // alt="" on purpose: the figcaption right below already names the card
           // and the set, so alt text here would read the same thing twice.
-          `<img src="${esc(card)}" alt="" loading="lazy" decoding="async" onerror="this.remove()"${imgDims(card)}>`,
+          `<img src="${esc(card)}" alt=""${eager ? "" : ` loading="lazy"`} decoding="async" onerror="this.remove()"${imgDims(card)}>`,
         )}</div>
         <figcaption>${esc(label)}</figcaption>
       </figure>`;
@@ -662,14 +679,14 @@ const body = `
         <div class="era-one">
           <h3>Bottom right</h3>
           <p class="who">${esc(d.eras.old.set)} &bull; XY era and older</p>
-          ${corner(d.eras.old.card, "right", `${d.eras.old.name}, bottom right corner`)}
+          ${corner(d.eras.old.card, "right", `${d.eras.old.name}, bottom right corner`, { eager: true })}
           <p class="rg-p" style="margin:0">If the number and symbol are on the right, you are holding
             something from 2016 or earlier.</p>
         </div>
         <div class="era-one">
           <h3>Bottom left</h3>
           <p class="who">${esc(d.eras.new.set)} &bull; Sun and Moon onward</p>
-          ${corner(d.eras.new.card, "left", `${d.eras.new.name}, bottom left corner`)}
+          ${corner(d.eras.new.card, "left", `${d.eras.new.name}, bottom left corner`, { eager: true })}
           <p class="rg-p" style="margin:0">On the left, and it is 2017 or newer. Everything below is
             about these.</p>
         </div>
@@ -704,7 +721,7 @@ const body = `
     <div class="wrap">
       <h2>The whole <span class="hl">ladder</span></h2>
       <p class="rg-p">Lowest to highest, as the modern sets print them. One thing worth knowing
-        straight away: this is not a price order. Illustration Rares usually sell for less than Ultra
+        right away: this is not a price order. Illustration Rares usually sell for less than Ultra
         Rares, and Special Illustration Rares often beat everything except gold. Rarity ladder and
         value ladder are two different things.</p>
       <ul class="ladder">

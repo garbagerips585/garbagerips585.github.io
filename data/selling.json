@@ -134,7 +134,7 @@
         {
           "what": "Store subscription",
           "rate": "Starter $7.95 a month, or $4.95 a month on yearly renewal. Basic $27.95 / $21.95. Premium $74.95 / $59.95. Anchor $349.95 / $299.95. Enterprise $2,999.95, yearly only.",
-          "appliesTo": "Monthly, until cancelled",
+          "appliesTo": "Monthly, until canceled",
           "note": "Starter Store pays the same 13.25% as no Store at all. The lower 12.35% starts at Basic."
         },
         {
@@ -205,7 +205,7 @@
       "name": "TCGplayer",
       "url": "https://help.tcgplayer.com/hc/en-us/articles/201357836-TCGplayer-Fees",
       "type": "Marketplace",
-      "format": "Fixed price singles, with a catalogue keyed to card and condition",
+      "format": "Fixed price singles, with a catalog keyed to card and condition",
       "bestFor": "Raw singles at every price point, including the cheap ones, because buyers arrive searching for a named card rather than browsing.",
       "status": "sourced",
       "access": "A seller account. New sellers start at Level 1 and the level caps how much you can list, not what you pay.",
@@ -369,7 +369,7 @@
       "name": "COMC",
       "url": "https://www.comc.com/fees.aspx",
       "type": "Consignment marketplace",
-      "format": "You mail cards in, COMC images, catalogues, stores and ships them; you set prices and never touch the card again",
+      "format": "You mail cards in, COMC images, catalogs, stores and ships them; you set prices and never touch the card again",
       "bestFor": "Bulk. Hundreds of mid and low value cards you do not want to list, photograph or ship one at a time. Standard and Select cap the list price at $100 a card, so high-value slabs belong on Elite or elsewhere.",
       "status": "sourced",
       "access": "An account, and enough store credit on it to cover the processing fees when the batch is processed, or the items go on hold.",
@@ -468,7 +468,7 @@
       "url": "https://www.mercari.com/us/help_center/article/169/",
       "type": "Marketplace",
       "format": "Fixed price listings, general resale rather than card-specific",
-      "bestFor": "Singles, lots and sealed product aimed at a general audience rather than a card catalogue. No card database, so listings are written by hand.",
+      "bestFor": "Singles, lots and sealed product aimed at a general audience rather than a card catalog. No card database, so listings are written by hand.",
       "status": "sourced",
       "access": "An account. No subscription, no application, free to list.",
       "fees": [
@@ -609,7 +609,7 @@
         {
           "url": "https://support.fanaticscollect.com/en_us/request-a-payout-rkTQCmpxx",
           "read": "2026-08-15",
-          "what": "Wednesday payout schedule, Tuesday midnight ET deadline, free ACH, $50 wire, $50 rush, no cheques"
+          "what": "Wednesday payout schedule, Tuesday midnight ET deadline, free ACH, $50 wire, $50 rush, no checks"
         }
       ],
       "note": "TWO OF ITS OWN PAGES DISAGREE ON THE PREMIER AUCTION MINIMUM. 'Selling on Fanatics Collect' says collectibles sold through the Premier Auction must have an estimated market value of at least $15,000, with lower values needing staff approval. 'How Fanatics Collect works' says the Premier Auction is reserved for collectibles with a market value of at least $10,000. Both were read on the same day. Neither number is treated as settled here. PWCC is not a separate venue any more: pwccmarketplace.com is Fanatics Collect.",
@@ -851,7 +851,7 @@
         {
           "url": "https://www.sportlots.com/g/ui/sellers_guide_page2.tpl",
           "read": "2026-08-15",
-          "what": "The full monthly fee schedule, the $5/$15 discounting rule and its worked example, no listing fees, seller-paid payment processing, the $1.50 buyer minimum value fee, payout method and timing, the 5-day fulfilment rule. Page states it is aligned to the user agreement effective 18 December 2025."
+          "what": "The full monthly fee schedule, the $5/$15 discounting rule and its worked example, no listing fees, seller-paid payment processing, the $1.50 buyer minimum value fee, payout method and timing, the 5-day fulfillment rule. Page states it is aligned to the user agreement effective 18 December 2025."
         },
         {
           "url": "https://www.sportlots.com/guide/guidehelp/sauc.htm",
@@ -930,7 +930,7 @@
       "name": "Heritage Auctions",
       "url": "https://sports.ha.com/consign-your-collectibles.s",
       "type": "Auction house",
-      "format": "Consignment to catalogued live and online auctions, arranged through a consignment director",
+      "format": "Consignment to cataloged live and online auctions, arranged through a consignment director",
       "bestFor": "High-value single items and whole collections, by inquiry rather than self-service. Trading Card Games is one of its listed categories.",
       "status": "unverified",
       "access": "Not self-service. You submit a form describing the items with photographs, or call the consignor hotline, and a specialist responds. Heritage advertises cash advances against consignments.",
@@ -968,7 +968,7 @@
       "url": "/shops.html",
       "type": "In person, outright sale",
       "format": "Walk in with the cards, walk out with money or store credit the same day",
-      "bestFor": "Anything, and the only realistic option for bulk that is not worth listing. Also the fastest route for a collection you want gone rather than optimised.",
+      "bestFor": "Anything, and the only realistic option for bulk that is not worth listing. Also the fastest route for a collection you want gone rather than optimized.",
       "status": "structural",
       "access": "None. No account, no application, no subscription, no listing, no photographs.",
       "fees": [
@@ -1012,7 +1012,7 @@
       "format": "Two different things under one name: sell across the table to the dealers who set up, or rent a table and sell to the public yourself",
       "bestFor": "Selling to dealers works for volume and for anything you want turned into cash in an afternoon. Renting a table suits a large enough inventory to justify a day of standing behind it.",
       "status": "structural",
-      "access": "Selling to dealers needs nothing but admission. Renting a table means booking with the organiser in advance.",
+      "access": "Selling to dealers needs nothing but admission. Renting a table means booking with the organizer in advance.",
       "fees": [
         {
           "what": "Commission on a sale to a dealer",
@@ -1030,7 +1030,7 @@
           "what": "Table rental",
           "rate": "Not recorded",
           "appliesTo": "Setting up as a vendor",
-          "note": "Table prices are set per show by the organiser and are not published on most listings. No figure is recorded. The organiser url on each event in shows.json is where to ask."
+          "note": "Table prices are set per show by the organizer and are not published on most listings. No figure is recorded. The organizer url on each event in shows.json is where to ask."
         }
       ],
       "payout": "Immediately, at the show.",
@@ -1043,7 +1043,7 @@
           "from": "data/shows.json"
         }
       ],
-      "note": "The site's shows file already carries the organiser link for every event, which is the only reliable route to a current table price.",
+      "note": "The site's shows file already carries the organizer link for every event, which is the only reliable route to a current table price.",
       "group": "person"
     }
   ]

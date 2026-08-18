@@ -86,14 +86,31 @@ const hasLogo = (setId) => Boolean(setId) && logosOnDisk.has(setId);
  * and `.rip-setlogo` at up to 197px, and both should keep taking the master.
  */
 const SM_H = 100;
-const setCardLogo = (setId, alt) => {
+// One column at 390, four cards inside an 844px viewport.
+const EAGER_SET_CARDS = 4;
+/*
+ * `eager` IS THE FIRST FOUR CARDS OF THE /sets/ GRID AND NOTHING ELSE.
+ *
+ * Measured over CDP at 390x844 DPR 2, reading each img's own border box at
+ * scroll 0: the index is one column on a phone and cards one to four sit at
+ * y=445, 572, 699 and 826, all inside the 844px viewport. `loading="lazy"` is a
+ * VERTICAL heuristic, so those four were fetched immediately anyway; the
+ * attribute only cost them the preload scanner, which is the one chance the
+ * fetch had to start during the HTML parse instead of after layout. Nothing
+ * moves onto the load path, because those four were always on it.
+ *
+ * Everything past the fourth keeps the attribute, and the "Other sets" grid at
+ * the foot of a set guide is entirely lazy: it is six cards several screens
+ * down and not one of them is ever in the first viewport.
+ */
+const setCardLogo = (setId, alt, { eager = false } = {}) => {
   if (!hasLogo(setId)) return "";
   const base = `/assets/logos/${setId}-pokemon-tcg-set-logo`;
   const d = LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`];
   const srcset = d
     ? ` srcset="${base}-sm.webp ${Math.round((d[0] * SM_H) / d[1])}w, ${base}.webp ${d[0]}w" sizes="110px"`
     : "";
-  return `<img${logoAttrs(setId)} src="${base}${d ? "-sm" : ""}.webp"${srcset} alt="${alt}" loading="lazy" onerror="this.remove()">`;
+  return `<img${logoAttrs(setId)} src="${base}${d ? "-sm" : ""}.webp"${srcset} alt="${alt}"${eager ? "" : ` loading="lazy"`} onerror="this.remove()">`;
 };
 
 /**
@@ -2481,7 +2498,7 @@ function setPage(s) {
       }).join("\n      ")}
     </div>${ordered.some(([r]) => BOOKLET_MARK[rarityLabel(r) || r]) ? `
     <p class="price-note">The stars beside a tier are the ones printed on the card, redrawn from the key in the
-      booklet that ships inside a modern set. The colour carries as much of the meaning as the count: two silver
+      booklet that ships inside a modern set. The color carries as much of the meaning as the count: two silver
       stars is Ultra Rare and two black stars is Double Rare. Tiers with no stars are not on that page, so this
       site does not draw one for them. <a href="/rarity.html">The whole rarity key</a>.</p>` : ""}${rarPr.size ? `
     <p class="price-note">Prices worked out from the ${esc(s.name)} checklist below, read ${esc(
@@ -2737,8 +2754,8 @@ function indexPage() {
   <div class="wrap">
     <p class="crumbs"><a href="/">Home</a> / Set guides</p>
     <div class="set-index">
-      ${sets.map((s) => `<a class="set-card" href="/sets/${s.id}.html">
-        ${setCardLogo(s.id, `${esc(s.name)} logo`)}
+      ${sets.map((s, i) => `<a class="set-card" href="/sets/${s.id}.html">
+        ${setCardLogo(s.id, `${esc(s.name)} logo`, { eager: i < EAGER_SET_CARDS })}
         <span>
           <span class="ttl">${esc(s.name)}</span><br>
           <span class="meta">${s.total ?? "?"} cards${s.released ? ` &bull; ${s.released.slice(0, 4)}` : ""}${ripsBySet[s.id] ? ` &bull; ${ripsBySet[s.id]} rip${ripsBySet[s.id] === 1 ? "" : "s"}` : ""}${(s.chase || [])[0]?.price ? ` &bull; top ${moneyCompact(s.chase[0].price)}${gradedPrice(s.id, s.chase[0].number) ? ` / ${moneyCompact(gradedPrice(s.id, s.chase[0].number))} PSA 10` : ""}` : ""}</span>

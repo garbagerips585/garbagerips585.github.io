@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Topps Pokemon Card Values from PriceCharting, Read Aug 16, 2026</title>
-<meta name="description" content="The 100 dearest Topps Pokemon cards ungraded and the 100 dearest in a PSA 10, ranked from PriceCharting's price guide across 2,701 Topps products and read on Aug 16, 2026. Every figure read twice. Not auction records, and prices move.">
+<meta name="description" content="The 100 most valuable Topps Pokemon cards ungraded and the 100 highest PSA 10 values, ranked from PriceCharting's price guide across 2,701 Topps products and read on Aug 16, 2026. Every figure read twice. Not auction records, and prices move.">
 <link rel="canonical" href="https://garbagerips585.github.io/topps-card-values.html">
 <meta property="og:title" content="Topps Pokemon Card Values from PriceCharting, Read Aug 16, 2026">
-<meta property="og:description" content="The 100 dearest Topps Pokemon cards ungraded and the 100 dearest in a PSA 10, ranked from PriceCharting's price guide across 2,701 Topps products and read on Aug 16, 2026. Every figure read twice. Not auction records, and prices move.">
+<meta property="og:description" content="The 100 most valuable Topps Pokemon cards ungraded and the 100 highest PSA 10 values, ranked from PriceCharting's price guide across 2,701 Topps products and read on Aug 16, 2026. Every figure read twice. Not auction records, and prices move.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://garbagerips585.github.io/topps-card-values.html">
 <meta property="og:site_name" content="Garbage Rips 585">
@@ -155,6 +155,74 @@
 .tp-peek .w small{display:block;font-weight:400;font-size:var(--t-label);color:var(--ink-2)}
 .tp-peek .m{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700}
 
+/* ---------------------------------------------------------------------------
+   THE PICTURES. The guide page had none at all until 18 August 2026.
+
+   EVERY FRAME IS A FIXED BOX AND THE PICTURE IS CENTRED INSIDE IT. PriceCharting
+   serves these files at a fixed 240 HIGH and a VARIABLE width, which is why
+   imgDims() in shared/format.mjs correctly returns "" for this host and why
+   nothing here carries width or height: a declared width would be wrong for most
+   of them, by up to a third. A box the stylesheet owns is what keeps CLS at 0
+   without the markup claiming pixel sizes it does not know. Measured 0.000 at
+   390x844 and 1440x900 with all 32 pictures forced to load. */
+.tp-frame{display:flex;align-items:center;justify-content:center;overflow:hidden;
+  background:var(--paper-3);border:1px solid var(--hair);border-radius:3px}
+.tp-frame img{max-width:100%;max-height:100%;width:auto;height:auto;display:block}
+/* The caption under a picture. It names the exact card or product in VISIBLE
+   text, not only in the alt, which is the rule shared/product-photos.mjs sets
+   out: a photograph with no visible name is quietly claiming to be a category. */
+.tp-cap{display:block;margin-top:5px;font-family:var(--mono);font-size:var(--t-micro);
+  line-height:1.4;color:var(--ink-2)}
+.tp-cap b{color:var(--ink);font-weight:700}
+
+/* THE HERO CARD IS THE ONE PICTURE ON THIS PAGE THAT IS NOT LAZY, on purpose.
+   loading="lazy" is a VERTICAL heuristic and nothing else, so on a phone, where
+   this sits inside the first screen, it buys nothing and delays the only thing
+   the page opens with. 13.2KB. */
+/* CENTRED AND STACKED AT EVERY WIDTH, which is not what this was first written
+   as. ui.css sets .set-hero .wrap to display:flex, flex-direction:column,
+   align-items:center and text-align:center at specificity 0,2,0, so a
+   .tp-hero-grid rule here at 0,1,0 lost silently and the desktop
+   two-column hero simply never rendered: the markup was right, the rule was
+   right, and it was not applying. It could have been won with a longer selector
+   and was not, because a card centred under centred copy is the hero every other
+   guide on this site has and there was no reason for this one to be different.
+   The caption gets a measure of its own so it does not set to the card's width. */
+.tp-hero-fig{margin:18px auto 0;width:min(100%,320px)}
+.tp-hero-fig .tp-frame{width:150px;height:210px;margin:0 auto}
+@media (min-width:820px){
+  .tp-hero-fig{margin:22px auto 0;width:min(100%,420px)}
+  .tp-hero-fig .tp-frame{width:200px;height:280px}
+}
+
+/* One card and, where there is one, one packaging photograph per RELEASE. Two
+   small frames in a row at the top of the set card, so the pictures read as
+   belonging to the set named under them and the paragraph still runs the full
+   width of the card. */
+.tp-set-pics{display:flex;gap:10px;margin:12px 0 2px}
+.tp-pic{margin:0;width:82px;flex:none}
+.tp-pic .tp-frame{width:82px;height:115px}
+
+/* The five-row summaries. Same fixed frame as a full row on the values page,
+   one size down: these are a teaser for a list of 100, not the list. */
+.tp-peek li{align-items:center}
+.tp-peek .p{flex:none}
+.tp-peek .p .tp-frame{width:44px;height:62px}
+
+/* THE SIDE BY SIDE, and it is the one place on this page where a picture is not
+   an illustration but the argument itself. Two frames, same box, same Pokemon,
+   same year: prose can say "one has HP and an attack and the other has a screen
+   still" all day and a reader still has to see it. aspect-ratio rather than a
+   height, because these two hosts serve different intrinsic sizes and the frame
+   has to be the same shape on both sides for the comparison to be fair. */
+.tp-vs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:var(--s4);max-width:44em}
+@media (min-width:560px){.tp-vs{gap:24px}}
+.tp-vs figure{margin:0;min-width:0}
+.tp-vs .tp-frame{width:100%;aspect-ratio:5 / 7}
+.tp-vs figcaption{margin-top:9px;font-size:var(--t-sm);line-height:1.45;color:var(--ink-2)}
+.tp-vs figcaption b{display:block;color:var(--ink);font-family:var(--mono);
+  font-size:var(--t-micro);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+
 /* ui.css draws .fk-golden full bleed inside the wrap, which is right for the
    two or three sentences most pages put in one. These hold several paragraphs,
    and at 1440 that ran the text to about 700px inside a 1392px black box.
@@ -291,8 +359,8 @@
     <span class="kicker">Topps trading cards &bull; Ungraded and PSA 10, priced by PriceCharting &bull; Read August 16, 2026</span>
     <h1>Topps Pokemon card values: <span class="hl">two</span> top 100s</h1>
     <p class="lede" style="max-width:42em">The same 2,701 Topps cards
-      ranked twice, because raw and graded do not give the same answer and it is not close. The dearest loose
-      Topps card is Dragonite [Tekno] #149; the dearest in a PSA 10 is Lapras [Sparkle] #131, which does not make the
+      ranked twice, because raw and graded do not give the same answer and it is not close. The most valuable loose
+      Topps card is Dragonite [Tekno] #149; the highest PSA 10 value is Lapras [Sparkle] #131, which does not make the
       top 100 raw at all. Both read on August 16, 2026.</p>
   </div>
 </header>
@@ -339,15 +407,15 @@
     </div>
 
     <div class="facts" style="margin-top:20px">
-      <div class="fact"><div class="n">$8,765</div><div class="l">Dearest raw</div></div>
-      <div class="fact"><div class="n">$45,388</div><div class="l">Dearest PSA 10</div></div>
+      <div class="fact"><div class="n">$8,765</div><div class="l">Top raw value</div></div>
+      <div class="fact"><div class="n">$45,388</div><div class="l">Top PSA 10 value</div></div>
       <div class="fact"><div class="n">2,701</div><div class="l">Topps cards ranked</div></div>
       <div class="fact"><div class="n">33</div><div class="l">Price guide buckets searched</div></div>
       <div class="fact wide"><div class="n" style="font-size:1.15rem">August 16, 2026</div><div class="l">Prices read on</div></div>
     </div>
 
     <p class="lede" style="max-width:44em;margin-top:20px">Two lists, both below:
-      <a href="#raw">the 100 dearest ungraded</a> and
+      <a href="#raw">the 100 most valuable ungraded</a> and
       <a href="#psa">the 100 highest PSA 10 values</a>. 44 cards are on both. Paths under each row are all on pricecharting.com.</p>
   </div>
 </section>
@@ -356,7 +424,7 @@
   <div class="wrap">
 
     <p class="sec-label" id="raw"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Raw</p>
-    <h2>The 100 dearest <span class="hl">ungraded</span></h2>
+    <h2>The 100 most valuable <span class="hl">ungraded</span></h2>
     <p class="lede" style="max-width:44em">Loose cards, out of a sleeve, ungraded, ranked by PriceCharting's Ungraded column on August 16, 2026. The PSA 10 and Grade 9 figures from the same record sit under each one, because a raw price on a card this old is only half the story. Number one is $8,765 and number 100 is $263.50.</p>
     <ol class="tp-list">
 <li class="tp-row">

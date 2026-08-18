@@ -351,8 +351,8 @@
       </div>
       <div class="tq-card">
         <h3>What it is training</h3>
-        <p>Outline only: no colour, no pattern, no type. Most of what makes a Pokemon recognisable on a card is thrown
-          away, which is why a shape you would know instantly in colour can take a moment here.</p>
+        <p>Outline only: no color, no pattern, no type. Most of what makes a Pokemon recognizable on a card is thrown
+          away, which is why a shape you would know instantly in color can take a moment here.</p>
         <span class="tq-eg">wrong answers show the name, so a miss still teaches you one</span>
       </div>
     </div>
@@ -466,9 +466,12 @@
 <script src="/assets/games.js?v=40f59b03" defer></script>
 <script>
 (function(){
-  var ART='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
+  /* Local artwork, 475px, from /assets/species/lg/. See build-games.mjs for
+     why this is not raw.githubusercontent.com any more and not the 256px file
+     either. */
+  var ART='/assets/species/lg/';
   var all=[], pool=[], quiz=null, gen1=true;
-  var art=function(id){return ART+id+'.png';};
+  var art=function(id){return ART+id+'.webp';};
 
   function build(){
     var p=GR.pick(pool);

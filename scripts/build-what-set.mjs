@@ -86,13 +86,23 @@ let remoteSymbols = 0;
  * ever loses. They are the file's REAL shape, not a flat 48x48: the box is a
  * bound and base1 comes out 48x25.
  */
+// THE FIRST SYMBOL ON THE PAGE IS IN THE FIRST SCREEN. Measured over CDP at
+// 390x844 DPR 2, reading each img's own border box at scroll 0: exactly one of
+// these 24px squares is inside the 844px viewport, at y=816, and every other
+// image on the page is below it. `loading="lazy"` is a vertical heuristic, so
+// that one was fetched at first paint anyway and the attribute only cost it the
+// preload scanner. Counted on emission rather than passed in, because the list
+// is emitted group by group and the caller has no index across the whole page.
+const EAGER_SYMBOLS = 1;
+let symbolsEmitted = 0;
 function symbolImg(s) {
+  const lazy = symbolsEmitted++ < EAGER_SYMBOLS ? "" : ` loading="lazy"`;
   const d = SYMBOL_DIMS[s.apiId];
   if (d) {
-    return `<img src="/assets/symbols/${esc(s.apiId)}-pokemon-tcg-set-symbol.webp" alt="" width="${d[0]}" height="${d[1]}" loading="lazy" decoding="async">`;
+    return `<img src="/assets/symbols/${esc(s.apiId)}-pokemon-tcg-set-symbol.webp" alt="" width="${d[0]}" height="${d[1]}"${lazy} decoding="async">`;
   }
   remoteSymbols += 1;
-  return `<img src="${esc(s.symbol)}" alt="" width="20" height="20" loading="lazy" decoding="async" onerror="this.remove()">`;
+  return `<img src="${esc(s.symbol)}" alt="" width="20" height="20"${lazy} decoding="async" onerror="this.remove()">`;
 }
 
 if (all.length < 150) {

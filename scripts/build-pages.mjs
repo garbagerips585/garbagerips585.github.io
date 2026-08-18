@@ -10,6 +10,7 @@
 // Tag them (see UNTAGGED.md) and re-run to promote them.
 
 import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
+import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, robots, LIVE, DOMAIN } from "../shared/site.mjs";
@@ -224,9 +225,98 @@ try {
 } catch {
   /* run: python3 scripts/measure-logos.py */
 }
-const logoAttrs = (setId) => {
-  const d = LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`];
-  return d ? ` width="${d[0]}" height="${d[1]}"` : "";
+// data/logo-dims.json HOLDS 23 OF THE 28 LOGOS ON DISK, so reading it alone
+// drops Celebrations, Chilling Reign, Crown Zenith, Rebel Clash and Shining
+// Fates with no error anywhere. build-openings.mjs already hit this and parses
+// the webp header instead; same parse, same reason, and it is why the srcset
+// below can be emitted for every set rather than most of them.
+function webpSize(buf) {
+  if (buf.toString("ascii", 0, 4) !== "RIFF" || buf.toString("ascii", 8, 12) !== "WEBP") return null;
+  const fourcc = buf.toString("ascii", 12, 16);
+  if (fourcc === "VP8X") return [buf.readUIntLE(24, 3) + 1, buf.readUIntLE(27, 3) + 1];
+  if (fourcc === "VP8 ") return [buf.readUInt16LE(26) & 0x3fff, buf.readUInt16LE(28) & 0x3fff];
+  if (fourcc === "VP8L") {
+    const b = buf.readUInt32LE(21);
+    return [(b & 0x3fff) + 1, ((b >> 14) & 0x3fff) + 1];
+  }
+  return null;
+}
+const DIM_CACHE = new Map();
+const measure = (file) => {
+  if (!DIM_CACHE.has(file)) {
+    let d = null;
+    try {
+      d = webpSize(readFileSync(join(ROOT, "public/assets/logos", file)));
+    } catch {
+      d = null;
+    }
+    DIM_CACHE.set(file, d);
+  }
+  return DIM_CACHE.get(file);
+};
+const logoDims = (setId) =>
+  LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`] || measure(`${setId}-pokemon-tcg-set-logo.webp`);
+
+/**
+ * THE SET LOGO ON A RIP PAGE WAS THE 300px-TALL MASTER IN A 34px BOX, and it is
+ * the worst intrinsic-to-box ratio left on the site now that /sets/, /openings/
+ * and /playlists/ all take the -sm.webp. Measured at 390x844:
+ * chaos-rising-pokemon-tcg-set-logo.webp is 1051x300 and 70,522 bytes, drawn at
+ * 119x34. The -sm.webp beside it is 350x100 and 17,170 bytes, which covers a
+ * 34px box at DPR 2 with room to spare. 530 <img> across 316 rip pages carried
+ * the bare master, about 53KB a page and 23.5MB over the family, and this was an
+ * INCONSISTENCY rather than a missing asset: the file was already there and
+ * three other page families already reached for it.
+ *
+ * `sizes` IS THE DRAWN WIDTH AND THE DRAWN WIDTH IS A clamp(), which is why this
+ * is three clauses and not one number. ui.css sets
+ *
+ *     .rip-setlogo      height:clamp(34px,5vw,54px)
+ *     .sec-head .setlogo height:clamp(30px,4.4vw,50px)
+ *
+ * and `width:auto`, so the drawn WIDTH is that height times the logo's own
+ * aspect and every logo has a different one. A flat "119px" would be wrong on a
+ * desktop, and a flat "189px" (the widest it ever draws) asks for 378 device
+ * pixels on a phone at DPR 2, which no -sm.webp can satisfy, so Chrome would
+ * correctly reach past it for the master on the one screen that most needs the
+ * small file. Same arithmetic and the same trap build-openings.mjs,
+ * build-playlists.mjs and build-intl-pages.mjs each record separately.
+ *
+ * THE THREE NUMBERS BELOW ARE UI.CSS'S AND ARE WRITTEN TWICE. If that clamp
+ * moves, move these with it: an out-of-date `sizes` goes soft silently, it does
+ * not error. They are named after the rule they mirror so a grep for the class
+ * finds both ends.
+ */
+const LOGO_CLAMP = {
+  // .rip-setlogo: clamp(34px, 5vw, 54px)
+  rip: { min: 34, vw: 5, max: 54 },
+  // .sec-head .setlogo: clamp(30px, 4.4vw, 50px)
+  sec: { min: 30, vw: 4.4, max: 50 },
+};
+const setLogoImg = (setId, { cls, clamp, lazy }) => {
+  if (!hasLogo(setId)) return "";
+  const base = `/assets/logos/${setId}-pokemon-tcg-set-logo`;
+  const d = logoDims(setId);
+  if (!d) {
+    // No dimensions means no honest srcset and no reserved box. Emit what the
+    // page always emitted rather than guessing a width.
+    return `<img class="${cls}" src="${base}.webp" alt=""${lazy ? ` loading="lazy"` : ""} decoding="async" onerror="this.remove()">`;
+  }
+  const ar = d[0] / d[1];
+  // -sm.webp is normalised to 100px tall, so its width is the aspect times 100.
+  const smW = Math.round(ar * 100);
+  const c = LOGO_CLAMP[clamp];
+  const lo = Math.round(c.min * ar);
+  const hi = Math.round(c.max * ar);
+  const sizes =
+    `(max-width:${Math.round(c.min / (c.vw / 100))}px) ${lo}px,` +
+    ` (min-width:${Math.round(c.max / (c.vw / 100))}px) ${hi}px,` +
+    ` ${(c.vw * ar).toFixed(2)}vw`;
+  return (
+    `<img class="${cls}" width="${smW}" height="100" src="${base}-sm.webp"` +
+    ` srcset="${base}-sm.webp ${smW}w, ${base}.webp ${d[0]}w" sizes="${sizes}"` +
+    ` alt=""${lazy ? ` loading="lazy"` : ""} decoding="async" onerror="this.remove()">`
+  );
 };
 
 // Which sets actually have a logo file. A rip page renders the logo of whatever
@@ -623,7 +713,16 @@ ${MENU}
               <a href="https://www.youtube.com/watch?v=${v.id}" rel="noopener" target="_blank">Watch this rip on YouTube</a>
               instead, or turn scripting on and click the pack.</p>
         </noscript>
-        ${hasLogo(setId) ? `<img class="rip-setlogo"${logoAttrs(setId)} src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="" loading="lazy" onerror="this.remove()">` : ""}
+        ${
+          // NOT LAZY, AND THAT IS THE OTHER HALF OF THE SAME BUG. Measured at
+          // 390x844 this logo's box starts at y=709 of an 844px viewport, so it
+          // is IN the first screen, and `loading="lazy"` is a VERTICAL heuristic
+          // and nothing else: an image the browser can already see gains nothing
+          // from being deferred and loses the preload scanner, which is the only
+          // chance it had to start during the HTML parse. It was both oversized
+          // and delayed, so both are fixed here together.
+          setLogoImg(setId, { cls: "rip-setlogo", clamp: "rip", lazy: false })
+        }
         <h1>${esc(title)}</h1>
         <div class="rip-badges">
           ${setId ? `<a class="chip" href="/videos.html?set=${setId}">${esc(setLabel)}</a>` : ""}
@@ -757,7 +856,12 @@ ${related.length ? `<section class="band tight">
   <div class="wrap">
     <div class="sec-head">
       <div>
-        ${hasLogo(setId) ? `<img class="setlogo"${logoAttrs(setId)} src="/assets/logos/${setId}-pokemon-tcg-set-logo.webp" alt="" loading="lazy" onerror="this.remove()">` : ""}
+        ${
+          // This one KEEPS loading="lazy": the "More <set>" band sits several
+          // screens down on every rip page, which is the case the attribute is
+          // actually for.
+          setLogoImg(setId, { cls: "setlogo", clamp: "sec", lazy: true })
+        }
         <h2>More <span class="hl">${esc(setLabel)}</span></h2>
       </div>
       <a class="btn btn-ghost btn-sm" href="/videos.html?set=${setId}">See all &rarr;</a>

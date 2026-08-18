@@ -24,7 +24,7 @@
     "Pokemon Center wins outright and the page says so without hedging.",
     "",
     "AND A SUGGESTION IS ALL IT IS, which is the point of the page rather than a",
-    "caveat on it. No law makes a shop honour it. Retailers set their own prices",
+    "caveat on it. No law makes a shop honor it. Retailers set their own prices",
     "and are free to charge what they like, which is why the same box is $49.99",
     "from Pokemon and several times that somewhere else.",
     "",
@@ -918,7 +918,7 @@
         { "amount": 15.99, "source": "UnownArchives", "url": "https://unownarchives.com/guides/msrp/", "readOn": "2026-08-17", "as": "the line generally" },
         { "amount": 14.99, "source": "Bill's Archive", "url": "https://billsarchive.com/articles/30th-anniversary-english-products-msrp.html", "readOn": "2026-08-17", "as": "the 30th Celebration ones" }
       ],
-      "note": "THIS ROW PRINTED $14.99 AND CALLED UNOWNARCHIVES' $15.99 A DISAGREEMENT IT HAD BEATEN. It had not. It rested on two 30th Celebration boxes, and the fuller reading found five boxes at $14.99 and five at $15.99, all of them Pokemon's own price, all of them current. 30th Celebration is the newest line on the page and is the cheaper one, Ascended Heroes is 2026 and is the dearer one, so there is no old stock story to tell here and no figure to print. Both reference tables were right about the boxes they were each looking at."
+      "note": "THIS ROW PRINTED $14.99 AND CALLED UNOWNARCHIVES' $15.99 A DISAGREEMENT IT HAD BEATEN. It had not. It rested on two 30th Celebration boxes, and the fuller reading found five boxes at $14.99 and five at $15.99, all of them Pokemon's own price, all of them current. 30th Celebration is the newest line on the page and is the cheaper one, Ascended Heroes is 2026 and is the pricier one, so there is no old stock story to tell here and no figure to print. Both reference tables were right about the boxes they were each looking at."
     },
     {
       "id": "ex-premium",
@@ -953,14 +953,14 @@
       "sourceUrl": "",
       "readOn": "",
       "varies": true,
-      "blank": "the price varies by product, and the newest of the three is the dearest",
+      "blank": "the price varies by product, and the newest of the three is the priciest",
       "disagree": [
         { "amount": 14.99, "source": "Pokemon Center", "url": "https://www.pokemoncenter.com/product/10-10024-101/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-poster-collection", "readOn": "2026-08-17", "as": "the Prismatic Evolutions and 151 posters" },
         { "amount": 18.99, "source": "Pokemon Center", "url": "https://www.pokemoncenter.com/product/10-10040-108/pokemon-tcg-unova-poster-collection", "readOn": "2026-08-17", "as": "the Unova poster, the newest of the three" },
         { "amount": 14.99, "source": "bujusjujus", "url": "https://bujusjujus.com/guides/pokemon-tcg-msrp-reference", "readOn": "2026-08-17", "as": "the line generally" },
         { "amount": 14.99, "source": "Bill's Archive", "url": "https://billsarchive.com/articles/30th-anniversary-english-products-msrp.html", "readOn": "2026-08-17", "as": "the line generally" }
       ],
-      "note": "THIS ROW PRINTED $14.99 ON TWO REFERENCES AGREEING and the store reading complicates rather than confirms it. Pokemon Center has two at $14.99 and the newest one, the Unova poster, at $18.99. Three is a thin sample and the dearest of them is the current SKU, which is the wrong way round for an old stock story, so the row waits for a fourth reading rather than printing the figure the tables like. bujusjujus separately names this line as one Target itself lists at $40."
+      "note": "THIS ROW PRINTED $14.99 ON TWO REFERENCES AGREEING and the store reading complicates rather than confirms it. Pokemon Center has two at $14.99 and the newest one, the Unova poster, at $18.99. Three is a thin sample and the priciest of them is the current SKU, which is the wrong way around for an old stock story, so the row waits for a fourth reading rather than printing the figure the tables like. bujusjujus separately names this line as one Target itself lists at $40."
     },
     {
       "id": "upc",
@@ -980,7 +980,7 @@
         { "amount": 119.99, "source": "Wargamer", "url": "https://www.wargamer.com/pokemon-trading-card-game/cards-retail-price", "readOn": "2026-08-17", "as": "the usual UPC" },
         { "amount": 179.99, "source": "Bill's Archive", "url": "https://billsarchive.com/articles/30th-anniversary-english-products-msrp.html", "readOn": "2026-08-17", "as": "the 30th Celebration UPC" }
       ],
-      "note": "A store reading normally settles a row and this one deliberately does not, even now there are two of them. Pokemon's own shop had the Terapagos ex box and the Sword and Shield Charizard box both at $119.99 on 17 August 2026, and the 30th Celebration UPC is $60 dearer, so the type still has no single price to print. bujusjujus gives the whole line as a range, which is the same answer in different words."
+      "note": "A store reading normally settles a row and this one deliberately does not, even now there are two of them. Pokemon's own shop had the Terapagos ex box and the Sword and Shield Charizard box both at $119.99 on 17 August 2026, and the 30th Celebration UPC is $60 more, so the type still has no single price to print. bujusjujus gives the whole line as a range, which is the same answer in different words."
     },
     {
       "id": "blister",

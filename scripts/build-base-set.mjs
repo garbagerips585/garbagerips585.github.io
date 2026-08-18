@@ -332,7 +332,7 @@ function runsDiagram() {
   const ringStamp = `<circle cx="${xs[0] + W * 0.0527}" cy="${34 + H * 0.59}" r="13" fill="none" stroke="#6E5000" stroke-width="2.5"/>`;
   const ringShadow = `<circle cx="${xs[2] + W * 0.955}" cy="${34 + H * 0.3}" r="13" fill="none" stroke="#6E5000" stroke-width="2.5"/>`;
   return `<figure class="bs-fig bs-fig-wide">
-  <svg viewBox="0 0 360 226" role="img" aria-label="The three Base Set print runs drawn side by side. The 1st Edition card carries a round stamp below the left of its artwork. The Shadowless card carries neither a stamp nor a shadow. The Unlimited card has a grey band down the right and bottom edges of its artwork window.">
+  <svg viewBox="0 0 360 226" role="img" aria-label="The three Base Set print runs drawn side by side. The 1st Edition card carries a round stamp below the left of its artwork. The Shadowless card carries neither a stamp nor a shadow. The Unlimited card has a gray band down the right and bottom edges of its artwork window.">
     ${cards}
     ${ringStamp}
     ${ringShadow}
@@ -391,7 +391,7 @@ function shadowDiagram() {
     </g>`;
   };
   return `<figure class="bs-fig bs-fig-wide">
-  <svg viewBox="0 0 360 236" role="img" aria-label="The right edge of the artwork window, magnified twice. On a 1st Edition or Shadowless card the yellow border runs straight up to the gold frame. On an Unlimited card a grey band sits outside the frame.">
+  <svg viewBox="0 0 360 236" role="img" aria-label="The right edge of the artwork window, magnified twice. On a 1st Edition or Shadowless card the yellow border runs straight up to the gold frame. On an Unlimited card a gray band sits outside the frame.">
     <defs>
       <linearGradient id="bs-shadowfade" x1="0" x2="1" y1="0" y2="0">
         <stop offset="0" stop-color="#4A4A4A" stop-opacity=".95"/>
@@ -399,10 +399,10 @@ function shadowDiagram() {
       </linearGradient>
     </defs>
     ${panel(8, false, ["1ST EDITION", "&amp; SHADOWLESS"], "nothing here")}
-    ${panel(194, true, ["UNLIMITED"], "grey band here")}
+    ${panel(194, true, ["UNLIMITED"], "gray band here")}
     <text x="180" y="224" text-anchor="middle" class="bs-cap">the right edge of the artwork window, magnified</text>
   </svg>
-  <figcaption>Exaggerated so it survives a phone screen. On a real card the band is a couple of millimetres and it
+  <figcaption>Exaggerated so it survives a phone screen. On a real card the band is a couple of millimeters and it
     runs down the right side of the window and along the bottom, never the top or the left. Tilt the card under a
     light: a real shadow has a soft outer edge, which is what tells it apart from a scuff.</figcaption>
 </figure>`;
@@ -763,7 +763,7 @@ const ld = [
       ],
       [
         "What does shadowless mean on a Pokemon card?",
-        "It means the artwork window has no drop shadow around it. On an Unlimited Base Set card a soft grey band runs down the right side of the artwork window and along its bottom. On a Shadowless card there is nothing there, and there is no 1st Edition stamp either. Shadowless was the second English print run of Base Set, between the 1st Edition run and Unlimited.",
+        "It means the artwork window has no drop shadow around it. On an Unlimited Base Set card a soft gray band runs down the right side of the artwork window and along its bottom. On a Shadowless card there is nothing there, and there is no 1st Edition stamp either. Shadowless was the second English print run of Base Set, between the 1st Edition run and Unlimited.",
       ],
       // THIS ANSWER CARRIES THE OTHER FEED'S FIGURE AND IT IS THE MOST IMPORTANT
       // PLACE ON THE SITE THAT IT DOES. Google can lift a FAQPage answer and show
@@ -1172,7 +1172,7 @@ ${MENU}
     <div class="bs-steps">
       <div class="bs-step"><b>1</b><h3>Is there a stamp?</h3><p>A black circle with a 1 in it, under the left
         edge of the artwork. Yes means 1st Edition and you can stop.</p></div>
-      <div class="bs-step"><b>2</b><h3>Is there a shadow?</h3><p>A grey band down the outside of the artwork
+      <div class="bs-step"><b>2</b><h3>Is there a shadow?</h3><p>A gray band down the outside of the artwork
         window's right edge. Yes means Unlimited.</p></div>
       <div class="bs-step"><b>3</b><h3>Neither?</h3><p>No stamp and no shadow is a Shadowless. It is the one
         with nothing printed on it to say so, which is exactly why people miss it.</p></div>
@@ -1197,12 +1197,12 @@ ${d.runs.map(runCard).join("\n")}
   <div class="wrap">
     <h2>The shadow, <span class="hl">up close</span></h2>
     <p class="bs-p2">This is the difference between a card worth a few hundred dollars and the same card worth a
-      few thousand, and it is a band of grey ink about two millimetres wide. It is the tell most people holding a
+      few thousand, and it is a band of gray ink about two millimeters wide. It is the tell most people holding a
       1999 card have never heard of, because nothing on the card names it.</p>
     ${shadowDiagram()}
     <p class="bs-p2">It is drawn rather than photographed on purpose. We can reach a good scan of a 1st Edition
       card and we cannot reach one of an Unlimited: the only Unlimited and Shadowless pictures available here are
-      product photographs 325 pixels wide, shot at slightly different crops. Two millimetres read off two
+      product photographs 325 pixels wide, shot at slightly different crops. Two millimeters read off two
       photographs that do not line up is a suggestion, not evidence, so the geometry is drawn and the caption says
       what has been exaggerated.</p>
   </div>
@@ -1346,7 +1346,7 @@ ${d.runs.map(priceCard).join("\n")}
         ? `<p class="bs-p2">And the packs themselves are their own market. TCGplayer's market price for a single
       sealed <b>Base Set (Shadowless) 1st Edition booster pack</b> was ${moneyCompact(sealedPack.market)} when the
       sealed list was read on ${esc(shortDate(t100.sealed?.checked || t100.checked))}, which made it the second
-      dearest sealed Pokemon product on that whole list. Note what TCGplayer calls it: the 1st Edition packs are
+      most expensive sealed Pokemon product on that whole list. Note what TCGplayer calls it: the 1st Edition packs are
       filed under a set named Base Set (Shadowless), because 1st Edition cards ARE shadowless. The stamp is the
       extra thing, not a different card.</p>`
         : ""
@@ -1387,7 +1387,7 @@ ${d.traps
       <a href="/expansions.html">the full expansion list</a>, which is where to check any set on this page.</p>
     <p class="bs-p2">If the question is whether the card is real at all rather than which run it is, that is a
       different page and a longer one: <a href="/fake-cards.html">the real or fake checks</a> cover the black core
-      at the edge, the print pattern under a loupe and the back colour. If it is real and you want to know what it
+      at the edge, the print pattern under a loupe and the back color. If it is real and you want to know what it
       is worth in the hand, condition decides most of it, so start with
       <a href="/will-it-grade.html">will it grade</a> and then
       <a href="/grading.html">what grading costs</a>. For the symbol in the corner of anything newer than this,

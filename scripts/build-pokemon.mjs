@@ -1214,6 +1214,8 @@ const byPopularity = [...eligible].sort((a, b) => b.prints.length - a.prints.len
 // reason the site is called Garbage Rips, and the corpus gives them real pages
 // rather than thin ones.
 const PINNED = ["Trubbish", "Garbodor"];
+// Two columns at 390 and two rows inside an 844px viewport.
+const EAGER_POKE_TILES = 4;
 const featured = [];
 const seen = new Set();
 for (const p of [...byValue, ...byPopularity, ...PINNED.map((nm) => species.find((s) => s.name === nm))]) {
@@ -1275,10 +1277,23 @@ function indexPage() {
           // screen, which is the opposite of true, and it cost 100-120ms:
           // FCP 72-96ms against LCP 188-192ms with nothing else in between.
           //
-          // Only the FIRST tile is eager. Everything from the second on stays
-          // lazy, which is right: on the narrowest phone only one is above the
-          // fold, and 33 eager images would be a worse bug than the one this
-          // fixes.
+          // FOUR TILES ARE EAGER. Everything from the fifth on stays lazy,
+          // and 33 eager images would be a worse bug than the one this fixes.
+          //
+          // THIS SAID "ONLY THE FIRST TILE IS EAGER ... ON THE NARROWEST PHONE
+          // ONLY ONE IS ABOVE THE FOLD" AND THAT WAS NEVER TRUE OF THIS GRID.
+          // Re-measured over CDP at 390x844 DPR 2 by reading each img's own
+          // border box at scroll 0: the grid is TWO columns and rows one and two
+          // start at y=508 and y=822, so four tiles are inside the 844px
+          // viewport, not one. (The 422 in the paragraph above is stale too: the
+          // grid has moved down 86px since it was written. The tile count is
+          // what matters and it is derived below rather than typed.)
+          //
+          // The three lazy ones were being fetched at first paint anyway, since
+          // `loading="lazy"` is a vertical heuristic and they are not below the
+          // fold. What the attribute cost them was the preload scanner, so this
+          // moves no bytes onto the load path and only moves the start of three
+          // fetches earlier.
           //
           // NO fetchpriority="high". It was tried and measured, and it is the
           // WORST of the three at both widths: median LCP over five runs each,
@@ -1293,7 +1308,7 @@ function indexPage() {
           // number: an element the browser is told is not needed for the first
           // screen cannot also be the largest thing on the first screen.
           (p, i) => `<a class="poke-card" href="/pokemon/${esc(p.slug)}.html">
-        ${p.priciest.img ? avifPicture(`<img src="${esc(p.priciest.img)}/low.webp" onerror="this.remove()" alt="${esc(p.priciest.name)}, the most valuable ${esc(p.name)} card" ${i === 0 ? `decoding="async"` : `loading="lazy"`} width="245" height="337">`) : ""}
+        ${p.priciest.img ? avifPicture(`<img src="${esc(p.priciest.img)}/low.webp" onerror="this.remove()" alt="${esc(p.priciest.name)}, the most valuable ${esc(p.name)} card" ${i < EAGER_POKE_TILES ? `decoding="async"` : `loading="lazy"`} width="245" height="337">`) : ""}
         <span class="poke-nm">${esc(p.name)}</span>
         <span class="poke-meta">${n(p.prints.length)} cards &bull; ${n(p.sets.size)} sets</span>
         ${

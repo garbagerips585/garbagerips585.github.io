@@ -83,7 +83,7 @@
         "The seller has 2 business days to respond before you can escalate. TCGplayer says it monitors the message from the moment you send it, contacts the seller at 24 hours and escalates internally at 72.",
         "Reported missing on or within 2 business days of the estimated delivery date, the seller may ask you to wait. Later than that, they are expected to refund immediately."
       ],
-      "whoInspects": "Nobody, on an ordinary Marketplace order: the card goes from a stranger's box to yours. On a Direct order TCGplayer pulls it from its own authentication centre and checks it, and you deal with TCGplayer support rather than the seller.",
+      "whoInspects": "Nobody, on an ordinary Marketplace order: the card goes from a stranger's box to yours. On a Direct order TCGplayer pulls it from its own authentication center and checks it, and you deal with TCGplayer support rather than the seller.",
       "returnShipping": "The seller pays it on a seller-fault return and must send a prepaid label or package. On a counterfeit claim TCGplayer sends the prepaid label itself.",
       "counterfeits": "Refunded in full, with one hard condition: the card must physically reach TCGplayer before a refund is eligible. There is no photo-based route, no published dollar threshold and no published review turnaround.",
       "buyerCarries": [
@@ -103,7 +103,7 @@
       "covers": [
         "The item never arrived, or was not made available for collection.",
         "The item does not match the listing: wrong item, or broken, damaged or faulty and not described as such.",
-        "The seller does not honour the return policy stated in their own listing."
+        "The seller does not honor the return policy stated in their own listing."
       ],
       "cardCarveOut": "For trading cards, bullion, coins and paper money, if the seller does not offer returns the buyer must request a return no later than 3 CALENDAR DAYS after the estimated or actual delivery date. Every other category gets 30. If the seller does offer returns, their stated window applies instead.",
       "clocks": [
@@ -113,7 +113,7 @@
         "Not as described, general: 30 calendar days after estimated or actual delivery, or within the seller's own window."
       ],
       "returnShipping": "If an item is being returned as not as described, the seller is responsible for return shipping.",
-      "counterfeits": "Where there are strong indicators the item is counterfeit, the buyer must request a return but may not be required to ship the item back to the seller. That is the opposite of TCGplayer's rule, and it is the more buyer-favourable of the two.",
+      "counterfeits": "Where there are strong indicators the item is counterfeit, the buyer must request a return but may not be required to ship the item back to the seller. That is the opposite of TCGplayer's rule, and it is the more buyer-favorable of the two.",
       "excluded": "Anything where any part of the payment was completed outside eBay: bank transfer, cash, money orders, escrow. Also sports trading card case breaks, box breaks and pack breaks sold by pre-approved sellers, digital content, classified ads and services.",
       "source": "https://www.ebay.com/help/policies/ebay-money-back-guarantee-policy/ebay-money-back-guarantee-policy?id=4210",
       "read": "2026-08-15"
@@ -158,11 +158,11 @@
     },
     {
       "venue": "Amazon A-to-z Guarantee",
-      "note": "It exists for the third-party half of Amazon, which is the half most people do not realise they are in.",
+      "note": "It exists for the third-party half of Amazon, which is the half most people do not realize they are in.",
       "covers": [
         "Timely delivery and the condition of items sold and fulfilled by a third-party seller.",
         "Non-delivery, three days after the latest estimated delivery date, where you contacted the seller more than 48 hours ago.",
-        "Damaged, defective or materially different items where the seller has not authorised a return within 48 hours.",
+        "Damaged, defective or materially different items where the seller has not authorized a return within 48 hours.",
         "A return that reached the seller seven days ago with no refund issued."
       ],
       "conditions": [
@@ -302,7 +302,7 @@
     },
     {
       "name": "Read the condition scale of the venue you are on, not the one you know",
-      "why": "Near Mint is defined separately by every company that uses it, and one of the four card shops here defines it nowhere at all while still printing it on listings. TCGplayer publishes the most precise scale in the hobby, down to millimetres of edgewear and a points budget per grade, and it is the standard worth learning first even if you shop elsewhere.",
+      "why": "Near Mint is defined separately by every company that uses it, and one of the four card shops here defines it nowhere at all while still printing it on listings. TCGplayer publishes the most precise scale in the hobby, down to millimeters of edgewear and a points budget per grade, and it is the standard worth learning first even if you shop elsewhere.",
       "source": "https://help.tcgplayer.com/hc/en-us/articles/221430307-Card-Conditioning-Overview",
       "read": "2026-08-15"
     },
@@ -338,7 +338,7 @@
       },
       {
         "who": "TCGplayer Direct",
-        "what": "The card sits in TCGplayer's authentication centre before it ships, gets checked for accuracy and condition, and travels in one package however many sellers it came from. TCGplayer, not the seller, answers for it. Read the wording carefully though: this is an accuracy and condition check, and TCGplayer never calls it a counterfeit check."
+        "what": "The card sits in TCGplayer's authentication center before it ships, gets checked for accuracy and condition, and travels in one package however many sellers it came from. TCGplayer, not the seller, answers for it. Read the wording carefully though: this is an accuracy and condition check, and TCGplayer never calls it a counterfeit check."
       },
       {
         "who": "eBay Authenticity Guarantee",
@@ -346,7 +346,7 @@
       },
       {
         "who": "An ordinary marketplace listing",
-        "what": "A stranger's box to yours, with nobody looking at the card in between. This is not a criticism and it is where most cards are bought: it is the cheapest chain and the deepest catalogue, and the whole point of the protections above is that they exist for exactly this case. Just know that they operate after the card arrives, on a clock, and on trading cards that clock is short."
+        "what": "A stranger's box to yours, with nobody looking at the card in between. This is not a criticism and it is where most cards are bought: it is the cheapest chain and the deepest catalog, and the whole point of the protections above is that they exist for exactly this case. Just know that they operate after the card arrives, on a clock, and on trading cards that clock is short."
       }
     ],
     "cost": "Selection and price, almost exactly in proportion. The shortest chain sells you one company's own products at list, when it has them. The longest one sells you any card ever printed at whatever the market says today. Nobody sells both.",

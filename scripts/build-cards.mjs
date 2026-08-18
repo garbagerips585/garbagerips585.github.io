@@ -324,12 +324,23 @@ const CQ_SIZES = "60px";
  * moved it into the top 60 after the last sync, and then this row looks exactly
  * as it did before any of this existed.
  */
-const cqImg = (src) => {
+/*
+ * `eager` IS THE TWO ROWS IN THE FIRST SCREEN. Measured over CDP at 390x844
+ * DPR 2, reading each img's own border box at scroll 0: rows one and two sit at
+ * y=661 and y=768, inside the 844px viewport, and row three does not. Those two
+ * were being fetched at first paint regardless, because `loading="lazy"` is a
+ * vertical heuristic and they are not below the fold; the attribute only cost
+ * them the preload scanner. The other 58 keep it, which is the whole point of
+ * the paragraph above: this page's problem is the scrolled figure, not the
+ * on-load one, and nothing here moves a byte onto the load path.
+ */
+const cqImg = (src, eager = false) => {
+  const LAZY = eager ? "" : ' loading="lazy"';
   const base = src.replace(/\/low\.webp$/, "");
   const m = REND.cards?.[base];
   if (!m || !/^https:\/\/assets\.tcgdex\.net\//.test(src)) {
     return avifPicture(
-      `<img class="cq-img" src="${esc(src)}" onerror="this.remove()" alt="" loading="lazy"${imgDims(src)}>`
+      `<img class="cq-img" src="${esc(src)}" onerror="this.remove()" alt=""${LAZY}${imgDims(src)}>`
     );
   }
   const set = (ext) =>
@@ -337,15 +348,17 @@ const cqImg = (src) => {
   return (
     `<picture><source type="image/avif" srcset="${esc(set("avif"))}" sizes="${CQ_SIZES}">` +
     `<img class="cq-img" src="${esc(src)}" srcset="${esc(set("webp"))}" sizes="${CQ_SIZES}"` +
-    ` onerror="this.remove()" alt="" loading="lazy"${imgDims(src)}></picture>`
+    ` onerror="this.remove()" alt=""${LAZY}${imgDims(src)}></picture>`
   );
 };
 
-const row = (r) => {
+// One row per line at 390, two of them inside an 844px viewport.
+const EAGER_ROWS = 2;
+const row = (r, i) => {
   const [name, slug, n, rarity, price] = r;
   const src = thumb(slug, n);
   return `<li class="cq${src ? " has-thumb" : ""}">
-        ${src ? cqImg(src) : ""}
+        ${src ? cqImg(src, i < EAGER_ROWS) : ""}
         <a class="cq-name" href="/sets/${esc(slug)}.html">${esc(name)}</a>
         <span class="cq-set">${esc(setName[slug] || slug)} &bull; ${esc(n || "")}</span>
         ${rarity ? `<span class="cq-rr">${esc(rarityLabel(rarity))}</span>` : ""}
@@ -414,7 +427,7 @@ ${MENU}
     <p class="cq-status" id="cqStatus" aria-live="polite"></p>
 
     <ol class="cq-list" id="cqList">
-      ${top.map(row).join("\n      ")}
+      ${top.map((r, k) => row(r, k)).join("\n      ")}
     </ol>
     <p class="cq-head" id="cqHead">The 60 most valuable cards across every set we rip. Type above to search all ${nAll} printings.</p>
 

@@ -92,7 +92,7 @@ const SHOTS = [
     clip: ".gr-stage",
     // THIS ONE BROKE THE RULE THE HEADER OF THIS FILE SETS OUT, and the
     // recapture on 17 August 2026 proved it. It read "Trubbish MID-AIR on a
-    // dark street, a curve of rubbish ahead of him, ANOTHER POKEMON PERCHED ON
+    // dark street, a curve of trash ahead of him, ANOTHER POKEMON PERCHED ON
     // THE EDGE OF THE LANE", and the new capture has Trubbish on the floor with
     // no second Pokemon anywhere on screen. Both of those were true of one
     // frame of one run and neither survives a rerun, which is exactly the drift
@@ -103,13 +103,13 @@ const SHOTS = [
     // score is at least 8, and that is all that is guaranteed. So the alt says
     // only that, plus the two things the canvas always draws.
     shows:
-      "Garbage Run part way through a run: Trubbish on a dark street with rubbish laid out ahead of him, the score in the corner and the count of what is left before he evolves",
+      "Garbage Run part way through a run: Trubbish on a dark street with trash laid out ahead of him, the score in the corner and the count of what is left before he evolves",
     assert: `(function(){if(!document.getElementById('grOver').hasAttribute('hidden'))return 'the run ended';` +
       `var s=+document.getElementById('grScore').textContent;` +
       `return s>=${8}?'':('score only reached '+s);})()`,
     // A SCREENSHOT OF THE TITLE CARD WOULD HAVE BEEN A LIE BY OMISSION, so this
     // one plays the game. Starting it and waiting is not enough: Trubbish parks
-    // on the floor when nobody taps, rubbish only ever spawns in the middle
+    // on the floor when nobody taps, trash only ever spawns in the middle
     // band, and the first attempt at this produced a black rectangle with a
     // score of 0. So an autopilot taps on a fixed 180ms cadence, which is the
     // "hold the midline" bot the game's own comments describe, and it is timed

@@ -32,7 +32,7 @@
   "intro": "Nobody sells you a fake with a label on it. These are the checks that actually work, roughly in the order worth doing them, and an honest note on how much each one proves.",
   "goldenRule": {
     "title": "Compare against a card you already trust",
-    "body": "Every test below is easier as a comparison than as a judgement. Pull a card you know is real out of a pack you opened yourself, put it next to the one you are unsure about, and the difference in color, feel and weight is obvious in a way it never is from memory. Keep one common from a recent set in your wallet as a reference. It costs nothing and it is the single most useful thing on this page."
+    "body": "Every test below is easier as a comparison than as a judgment. Pull a card you know is real out of a pack you opened yourself, put it next to the one you are unsure about, and the difference in color, feel and weight is obvious in a way it never is from memory. Keep one common from a recent set in your wallet as a reference. It costs nothing and it is the single most useful thing on this page."
   },
   "tests": [
     {
@@ -87,7 +87,7 @@
       "name": "The edges and the core",
       "tools": "Good light, a loupe or phone macro helps",
       "confidence": "Strong",
-      "how": "Run a finger round the edge, then look at it side on.",
+      "how": "Run a finger around the edge, then look at it side on.",
       "real": "Edges are straight and clean with no fuzz. Seen side on there are three layers: front, a thin dark core, back.",
       "fake": "Rough or furry edges with cardboard residue, and one or two layers with no dark stripe, or a stripe that wanders.",
       "why": "Genuine cards are laminated from separate sheets and cut with sharp industrial dies. Both the core and the clean cut are hard to reproduce.",

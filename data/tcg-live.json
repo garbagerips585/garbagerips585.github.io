@@ -937,7 +937,7 @@
       "confidence": "firm"
     },
     "notACollectionTracker": {
-      "plain": "Live is not a way to catalogue the cards you own in real life. Your digital collection only contains what you redeemed or earned inside the game.",
+      "plain": "Live is not a way to catalog the cards you own in real life. Your digital collection only contains what you redeemed or earned inside the game.",
       "history": "Pokemon did have a collection-tracking app, Pokemon TCG Card Dex. It shut down on 2023-09-20 and its data was not exportable. Pokemon's own answer to 'how do I track my collection now' pointed at the Trading Card Database for looking cards up, and at building a digital collection in Live by redeeming code cards.",
       "quote": "Pokemon TCG Card Dex data will not be exportable or transferrable in any way.",
       "source": "supportCardDexSunset",

@@ -1173,7 +1173,7 @@ ${MENU}
       <p class="lede ms-lede">What each kind of sealed product should cost, so you can work out in the shop
         how far over you are being asked to go.</p>
 
-      <p class="ms-warn"><b>Suggested is the whole point.</b> No shop has to honour a suggested price,
+      <p class="ms-warn"><b>Suggested is the whole point.</b> No shop has to honor a suggested price,
         which is why one can ask triple. <a href="#where">Where these came from</a>.</p>
     </div>
   </section>
@@ -1238,7 +1238,7 @@ ${para(over.intro.slice(1))}
       <h3 class="ov-h3">What a multiple means</h3>
       <div class="ms-body">
         <p>Divide the asking price by the suggested one. These bands are this site's rule of thumb and not a
-          measurement: the edges are a judgement about what is worth paying, and two people can reasonably
+          measurement: the edges are a judgment about what is worth paying, and two people can reasonably
           draw them somewhere else. Only the bottom of the first one is a fact, because 1x is what the
           manufacturer itself asks.</p>
       </div>
@@ -1312,7 +1312,7 @@ ${blank.map(blankRow).join("\n")}
       <h2>What <span class="hl">MSRP</span> actually means here</h2>
       <div class="ms-body">
         <p>MSRP is the manufacturer's suggested retail price: what the company that made a thing thinks a
-          shop should charge for it. Suggested is the operative word. No law makes a shop honour it, and a
+          shop should charge for it. Suggested is the operative word. No law makes a shop honor it, and a
           shop can technically sell a box for whatever it likes. That is why the same Elite Trainer Box can
           sit on a shelf at one price and on a table at a show at double it on the same afternoon, and it
           is the entire reason this page is worth having.</p>

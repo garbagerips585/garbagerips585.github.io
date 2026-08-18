@@ -360,7 +360,7 @@ ${MENU}
       <p class="pl-p">Cards are ranked by <b>how many of the ${lists} decklists play at least one copy</b>. Total copies
         is shown next to it and breaks ties, and so is the number of the ${corpus.archetypes} different
         decks a card turns up in. That is the whole method. There is no scoring, no weighting and no
-        judgement in the order. On each row, <b>lists</b> means individual registered decklists and
+        judgment in the order. On each row, <b>lists</b> means individual registered decklists and
         <b>decks</b> means distinct archetypes.</p>
       <p class="pl-note">The lists are ${corpus.lists} decklists collected from <b>${esc(src.name)}</b> on
         ${esc(longDate(d.checked))}, dated ${esc(longDate(corpus.earliest))} to
