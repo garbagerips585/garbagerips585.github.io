@@ -901,7 +901,20 @@ ${shot(r)}
                 r.price.retailer
               )}${
                 r.packs ? `, which is ${esc(moneyExact(r.price.amount / r.packs))} a pack` : ""
-              }. That is a ${esc(r.price.kind)} rather than an MSRP${
+              }. ${
+                // POKEMON CENTER IS THE MANUFACTURER'S OWN SHOP, SO ITS PRICE IS
+                // THE MSRP. This row used to say "rather than an MSRP" for every
+                // source alike, which put three Pokemon Center figures here in
+                // flat contradiction with /msrp.html, where the SAME two prices
+                // are labelled "$59.99 MSRP, Pokemon's own shop". Tim settled it:
+                // "i just take PokemonCenter.com prices as MSRP as that is what
+                // they sell it for, and then retailers are then able to sell it
+                // for whatever they want". A retailer reading is still a shelf
+                // price and still says so.
+                /pokemon\s*center/i.test(r.price.retailer || "")
+                  ? `That is the manufacturer's suggested price, from Pokemon's own shop`
+                  : `That is a ${esc(r.price.kind)} rather than an MSRP`
+              }${
                 r.price.product ? `, read on ${esc(r.price.product)}` : ""
               }.</p>`
             : r.priceNote
@@ -1383,8 +1396,10 @@ ${rows.map(tableRow).join("\n")}
       </table>
     </div>
     <p class="price-note">Prices read ${esc(longDate(cur.readAt))} from Pokemon Center, Target, GameStop and the
-      official product pages, each named on the card above. They are shelf prices on one day and not an MSRP,
-      because no MSRP exists. What packs are actually selling for right now, per set, is on
+      official product pages, each named on the card above. Where the reading came from Pokemon Center it IS the
+      manufacturer's suggested price, because that is the shop the manufacturer runs. Where it came from a
+      retailer it is that shop's own shelf price on one day, which is usually a little above the suggested price
+      and occasionally a long way above it. What packs are actually selling for right now, per set, is on
       <a href="/pack-prices.html">pack prices</a>, which is recomputed from the market every night.</p>
 
 ${

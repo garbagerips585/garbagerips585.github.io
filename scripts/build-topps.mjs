@@ -928,7 +928,7 @@ ${MENU}
 
     <div class="facts" style="margin-top:20px">
       <div class="fact"><div class="n">${releases.length}</div><div class="l">Topps Pokemon sets, ${setYears[0]} to ${setYears[setYears.length - 1]}</div></div>
-      <div class="fact"><div class="n">${d.scanned.products.toLocaleString("en-US")}</div><div class="l">Topps cards with a price on them</div></div>
+      <div class="fact"><div class="n">${d.scanned.productsWithUngraded.toLocaleString("en-US")}</div><div class="l">Topps listings with a price on them</div></div>
       <div class="fact"><div class="n">${moneyCompact(rawTop.ungraded)}</div><div class="l">Top raw value, ${esc(rawTop.name)}</div></div>
       <div class="fact"><div class="n">${moneyCompact(psaTop.psa10)}</div><div class="l">Top PSA 10 value, ${esc(psaTop.name)}</div></div>
     </div>
@@ -1044,7 +1044,8 @@ ${facts.printings.map((p) => defCard(p.tag, p.what, p.source)).join("\n")}
       written that it is <b>"${esc(facts.printings.find((p) => p.scarcityQuote).scarcityQuote)}"</b> That is hobby
       press rather than a Topps statement, so treat it as somebody's reporting. What is not in doubt is the
       arithmetic on this page: Tekno cards take ${esc(String(rawList.filter((c) => /\[Tekno\]/.test(c.name)).length))}
-      of the ${rawList.length} places on the raw hundred below.</p>`
+      of the ${rawList.length} places on the raw hundred, over on
+      <a href="/topps-card-values.html">the values page</a>.</p>`
         : ""
     }
   </div>
@@ -1197,7 +1198,7 @@ ${MENU}
     <div class="facts" style="margin-top:20px">
       <div class="fact"><div class="n">${moneyCompact(rawTop.ungraded)}</div><div class="l">Top raw value</div></div>
       <div class="fact"><div class="n">${moneyCompact(psaTop.psa10)}</div><div class="l">Top PSA 10 value</div></div>
-      <div class="fact"><div class="n">${d.scanned.products.toLocaleString("en-US")}</div><div class="l">Topps cards ranked</div></div>
+      <div class="fact"><div class="n">${d.scanned.products.toLocaleString("en-US")}</div><div class="l">Topps listings read</div></div>
       <div class="fact"><div class="n">${d.scanned.consoles}</div><div class="l">Price guide buckets searched</div></div>
       <div class="fact wide"><div class="n" style="font-size:1.15rem">${esc(read)}</div><div class="l">Prices read on</div></div>
     </div>
