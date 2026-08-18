@@ -14,7 +14,8 @@ These are typographic rather than illustrated. The set cards earn their artwork
 because a set HAS artwork; "Is it worth grading?" does not, and inventing a
 picture for it would say less than the words do. So each card is the page's own
 question in the site's display face, with a one line answer under it, on the
-site's navy with the gold bloom the rest of the brand uses.
+site's darkest green with the surface bloom the rest of the brand uses. It was
+navy with a gold bloom until 18 August 2026; see the colour block below.
 
 Fonts come from .cache/fonts, which is gitignored: run scripts/fetch-fonts.sh
 first if it is empty. Both faces are SIL Open Font License.
@@ -29,12 +30,17 @@ OUT = ROOT / "public" / "assets"
 
 W, H = 1200, 630
 
-# Straight from ui.css, same as build-og.py.
-INK = (21, 38, 58)
-MUSTARD = (239, 201, 76)
-GOLD = (224, 162, 31)
-CREAM = (244, 241, 226)
-STEEL = (159, 176, 192)
+# SHIPPED TOKEN VALUES, read out of assets-source/ui.css's :root, same block and
+# same reasoning as build-og.py: gold is semantic now and a share card is not one
+# of the three places it survives, so none of these is gold. Keep the two files
+# agreeing; a set card and a guide card sit next to each other in a feed.
+CHROME_BG = (0x19, 0x2D, 0x22)  # --chrome-bg, the deepest of the five steps
+PAPER_3 = (0x40, 0x5D, 0x49)    # --paper-3, the lightest painted surface
+PINK = (0xE8, 0x7E, 0xA1)       # --brand-accent, the wordmark's RIPS
+PINK_SM = (0xEE, 0xA0, 0xB9)    # --ketchup-deep, pink where the type is small
+TEAL = (0x60, 0x9C, 0xBB)       # --gold. READ THE VALUE, NOT THE NAME: teal.
+INK = (0xEE, 0xF1, 0xEF)        # --ink, the off-white
+INK_2 = (0xC9, 0xD1, 0xCC)      # --ink-2, the quieter off-white
 
 # slug -> (kicker, headline, one-line answer)
 # The headline is the page's own H1 question wherever it has one, because that
@@ -68,7 +74,7 @@ PAGES = {
     "cards": ("CARD POKEDEX", "Card search", "Every card we cover, and what it is worth today"),
     "pokemon": ("CARD POKEDEX", "By Pokemon", "Every Charizard, every Umbreon, priced"),
     "fake-cards": ("DON'T GET DONE", "Real or fake?", "Eight checks, and how much each one really proves"),
-    "grading": ("DO THE MATHS FIRST", "Is it worth grading?", "What it costs, and whether the card clears the fee"),
+    "grading": ("DO THE MATH FIRST", "Is it worth grading?", "What it costs, and whether the card clears the fee"),
     "card-shows": ("585 AND NEARBY", "Card shows", "Rochester, Buffalo and Syracuse, dates and tickets"),
     "shops": ("585", "Shops & where to play", "Local counters, league nights and prereleases"),
     "luck": ("MEASURED, NOT GUESSED", "Luck, measured", "What actually came out of the packs, counted"),
@@ -155,22 +161,29 @@ def wrap(draw, text, fnt, max_w):
 
 
 def build(slug, kicker, headline, answer):
-    card = Image.new("RGB", (W, H), INK)
+    card = Image.new("RGB", (W, H), CHROME_BG)
     draw = ImageDraw.Draw(card)
 
-    # The same gold bloom the Greatest Hits band uses, top right so the type
-    # sits on the darker half. Blurred ellipse because Pillow has no gradient
-    # and a blur is closer to how the CSS actually renders.
+    # THE BLOOM IS A SURFACE NOW, NOT AN ACCENT. It was gold, which is the
+    # general-palette use Tim asked to drop; it lifts toward --paper-3 instead,
+    # the same move .hof made in ui.css when its gold bloom went to the card
+    # green. Still top right so the type sits on the darker half, and the
+    # headline can run into it, which is why the measurement below is taken on
+    # the lit ground rather than on the flat one. Blurred ellipse because Pillow
+    # has no gradient and a blur is closer to how the CSS actually renders.
     glow = Image.new("L", (W, H), 0)
     ImageDraw.Draw(glow).ellipse([W * 0.55, -H * 0.45, W * 1.25, H * 0.85], fill=140)
     glow = glow.filter(ImageFilter.GaussianBlur(140))
-    card.paste(Image.new("RGB", (W, H), GOLD), (0, 0), glow)
+    card.paste(Image.new("RGB", (W, H), PAPER_3), (0, 0), glow)
 
     pad = 84
     y = 96
 
+    # The kicker is a flag rather than a route, so it is pink, and it is 26px so
+    # it is the SMALL pink: #E87EA1 measures 3.45:1 on a card and the site holds
+    # it to type over 24px. Same rule as .hl in ui.css.
     f_kick = font("SpaceMono.ttf", 26)
-    draw.text((pad, y), kicker, font=f_kick, fill=MUSTARD)
+    draw.text((pad, y), kicker, font=f_kick, fill=PINK_SM)
     y += 54
 
     # Headline size steps down until it fits two lines. A fixed size either
@@ -180,23 +193,32 @@ def build(slug, kicker, headline, answer):
         lines = wrap(draw, headline, f_head, W - pad * 2)
         if len(lines) <= 2:
             break
+    # The headline is a heading, so per the accent rule it is NEITHER accent: it
+    # stays off-white and lets the pink kicker above it be the only pink.
     for line in lines:
-        draw.text((pad, y), line, font=f_head, fill=CREAM)
+        draw.text((pad, y), line, font=f_head, fill=INK)
         y += int(size * 1.06)
 
     y += 18
     f_ans = font("SpaceMono.ttf", 30)
     for line in wrap(draw, answer, f_ans, W - pad * 2):
-        draw.text((pad, y), line, font=f_ans, fill=STEEL)
+        draw.text((pad, y), line, font=f_ans, fill=INK_2)
         y += 44
 
-    # The brand, bottom left, with the gold rule the site uses above section
-    # breaks so the card is recognisable as ours at thumbnail size.
-    draw.rectangle([pad, H - 128, pad + 96, H - 120], fill=GOLD)
+    # The brand, bottom left, with the rule the site uses above section breaks so
+    # the card is recognisable as ours at thumbnail size. The rule takes --gold,
+    # a teal, exactly as .hof's bottom border does.
+    draw.rectangle([pad, H - 128, pad + 96, H - 120], fill=TEAL)
+    # DRAWN IN THREE PIECES SO RIPS IS PINK, which is what the live bar does
+    # (ui.css:337). It was one cream string, so the one place a reader could
+    # recognise the wordmark on these cards did not match the wordmark.
     f_brand = font("TitanOne.ttf", 38)
-    draw.text((pad, H - 104), "GARBAGE RIPS 585", font=f_brand, fill=CREAM)
+    bx = pad
+    for word, fill in (("GARBAGE ", INK), ("RIPS", PINK), (" 585", INK)):
+        draw.text((bx, H - 104), word, font=f_brand, fill=fill)
+        bx += draw.textlength(word, font=f_brand)
     f_where = font("SpaceMono.ttf", 22)
-    draw.text((pad + 6, H - 56), "ROCHESTER, NY", font=f_where, fill=STEEL)
+    draw.text((pad + 6, H - 56), "ROCHESTER, NY", font=f_where, fill=INK_2)
 
     out = OUT / f"og-{slug}.jpg"
     card.save(out, "JPEG", quality=86, optimize=True)

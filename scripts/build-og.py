@@ -24,13 +24,27 @@ OUT = ROOT / "public" / "assets" / "og-image.jpg"
 
 W, H = 1200, 630
 
-# Straight from ui.css.
-INK = (21, 38, 58)
-INK_DEEP = (14, 27, 42)
-MUSTARD = (239, 201, 76)
-GOLD = (224, 162, 31)
-CREAM = (244, 241, 226)
-STEEL = (159, 176, 192)
+# SHIPPED TOKEN VALUES, read out of assets-source/ui.css's :root on 18 August
+# 2026 rather than re-derived here. Every name below is the token it copies, so
+# a later palette move is a re-read of that block and nothing else. The site was
+# repainted "Trubbish Deep" in d2b31551 and these cards were not, so a link
+# preview was navy while the page it opened was green.
+#
+# GOLD IS GONE FROM THIS FILE AND THAT IS THE POINT OF THE EDIT. Tim: "its cool
+# to keep the hall of fame gold, but just not use that color in the general
+# pallet of the site colors." The old card spent gold three times, on the bloom,
+# on the rule and on the wordmark's RIPS, and all three are exactly the general
+# -palette use he pulled back. Gold now means one thing on this site, "the best
+# card this channel has ever pulled", and it survives only on the Hall of Fame
+# badge, the trophy frame and /hall.html's medallion. A share card is none of
+# those, so it carries none of it.
+CHROME_BG = (0x19, 0x2D, 0x22)  # --chrome-bg, the deepest of the five steps
+PAPER_3 = (0x40, 0x5D, 0x49)    # --paper-3, the lightest painted surface
+PINK = (0xE8, 0x7E, 0xA1)       # --brand-accent, and it is what RIPS wears live
+PINK_SM = (0xEE, 0xA0, 0xB9)    # --ketchup-deep, pink where the type is small
+TEAL = (0x60, 0x9C, 0xBB)       # --gold. READ THE VALUE, NOT THE NAME: teal.
+INK = (0xEE, 0xF1, 0xEF)        # --ink, the off-white
+INK_2 = (0xC9, 0xD1, 0xCC)      # --ink-2, the quieter off-white
 
 
 def font(name, size):
@@ -47,18 +61,23 @@ SETS = ROOT / "public" / "data" / "sets.json"
 
 def build(pack_path, label, out_path):
     """One share card: the wrapper on the left, the brand on the right."""
-    card = Image.new("RGB", (W, H), INK)
+    card = Image.new("RGB", (W, H), CHROME_BG)
     draw = ImageDraw.Draw(card)
 
-    # Gold bloom behind the pack, the same light the Greatest Hits band uses.
-    # Drawn as a blurred ellipse because Pillow has no gradient primitive and a
-    # blur is closer to how the CSS actually renders.
+    # THE BLOOM IS A SURFACE NOW, NOT AN ACCENT, and that is the same fix .hof
+    # took in ui.css: it used to be rgba(201,151,0,.18) gold, which over Tim's
+    # green reads olive, and it is now the CARD colour lifting out of the chrome.
+    # Here it is --paper-3, one step lighter still, because it has to separate a
+    # dark pack wrapper from a dark ground rather than just tint a band. Painting
+    # an accent across a third of the card is decoration, which is the job the
+    # accents no longer do. Drawn as a blurred ellipse because Pillow has no
+    # gradient primitive and a blur is closer to how the CSS actually renders.
     glow = Image.new("L", (W, H), 0)
     ImageDraw.Draw(glow).ellipse([W * 0.02, -H * 0.55, W * 0.62, H * 0.95], fill=150)
     glow = glow.filter(ImageFilter.GaussianBlur(120))
-    card.paste(Image.new("RGB", (W, H), GOLD), (0, 0), glow)
+    card.paste(Image.new("RGB", (W, H), PAPER_3), (0, 0), glow)
 
-    # Faint dot field, so the flat navy has some texture at full size.
+    # Faint dot field, so the flat green has some texture at full size.
     dots = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     dd = ImageDraw.Draw(dots)
     for y in range(0, H, 26):
@@ -94,21 +113,29 @@ def build(pack_path, label, out_path):
         return x
 
     y = 176
-    draw.text((TX, y), "GARBAGE", font=title, fill=CREAM)
+    draw.text((TX, y), "GARBAGE", font=title, fill=INK)
     y += 84
-    draw.text((TX, y), "RIPS", font=title, fill=MUSTARD)
+    # RIPS IS PINK BECAUSE THE LIVE WORDMARK IS PINK. ui.css:337 is
+    # `.brand b i{color:var(--brand-accent)}` and --brand-accent is #E87EA1, so
+    # the bar a reader lands on and the card they clicked now say the same thing.
+    # It was gold here, which is the one use of gold Tim asked to remove.
+    draw.text((TX, y), "RIPS", font=title, fill=PINK)
     rips_w = draw.textlength("RIPS", font=title)
-    draw.text((TX + rips_w + 22, y), "585", font=title, fill=CREAM)
+    draw.text((TX + rips_w + 22, y), "585", font=title, fill=INK)
 
     y += 108
-    draw.line([TX, y, TX + 300, y], fill=GOLD, width=5)
+    # A rule is a keyline, not a heading and not a route, so it takes the same
+    # token .hof's bottom border does: --gold, which resolves to a teal.
+    draw.line([TX, y, TX + 300, y], fill=TEAL, width=5)
 
     y += 32
     # The set name where we have one, so a shared rip page says which set it is
-    # without ever showing the card that came out of the pack.
-    tracked(draw, (TX, y), label.upper()[:26], mono, MUSTARD, 2.5)
+    # without ever showing the card that came out of the pack. Pink because it is
+    # a mark that goes nowhere, and the SMALL pink at 25px: #E87EA1 is 3.45:1 on
+    # a card and the site reserves it for type over 24px.
+    tracked(draw, (TX, y), label.upper()[:26], mono, PINK_SM, 2.5)
     y += 38
-    tracked(draw, (TX, y), "ROCHESTER, NY", mono, STEEL, 2.5)
+    tracked(draw, (TX, y), "ROCHESTER, NY", mono, INK_2, 2.5)
 
     card.save(out_path, "JPEG", quality=88, optimize=True, progressive=True)
     return out_path.stat().st_size / 1024
@@ -132,7 +159,11 @@ made.append(("default", build(src_dir / "multi.png", "Pokemon pack rips", OUT)))
 # one per set that has artwork, so a shared rip page shows its own wrapper
 for master in sorted(src_dir.glob("*.png")):
     sid = master.stem
-    if sid in ("multi",):
+    # default.png is a second copy of the generic wrapper, not a set, so it used
+    # to write an og-default.jpg that no page has ever pointed at. The launch QA
+    # pass (8ee92f88) deleted that file without stopping the script from writing
+    # it again, so the next run quietly put the orphan back. Skipped here now.
+    if sid in ("multi", "default"):
         continue
     dest = ROOT / "public" / "assets" / f"og-{sid}.jpg"
     made.append((sid, build(master, names.get(sid, sid.replace("-", " ")), dest)))

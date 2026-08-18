@@ -62,6 +62,33 @@ brand entity SEO and funneling visitors to the channel and socials.
   the Base Set schematic in build-base-set.mjs stays yellow-bordered for the
   same reason ui.css exempts `.pack-mascot` and the eighteen `.pack` skins.
 
+  **THE 52 SHARE CARDS ARE PAINTED IN PYTHON AND THE REPAINT MISSED THEM BY A
+  DAY.** d2b31551 turned the site green and left `public/assets/og-*.jpg` navy,
+  so for one day every link preview was the old palette with a gold RIPS and a
+  gold kicker: the first thing a stranger ever saw of this site was the one
+  thing on it still breaking the rule above. Tim spotted it from a screenshot of
+  his own link preview. Fixed 18 August 2026 in the two builders that write
+  them, and BOTH have to move together because a set card and a guide card sit
+  side by side in a feed:
+  - `scripts/build-og.py` writes og-image.jpg plus one per set (18). NOT in
+    build-all.mjs, so a palette change here is invisible to the build and has to
+    be run by hand. That is how it was missed.
+  - `scripts/build-og-pages.py` writes the 34 typographic guide cards. It IS in
+    build-all.mjs.
+
+  Each file now carries the ui.css token name beside every colour it copies, so
+  the next palette is a re-read of `:root` rather than a taste decision. The two
+  rules that are easy to get wrong here: the bloom is a SURFACE (`--paper-3`),
+  never an accent, which is the same fix `.hof` took when its gold bloom went to
+  the card green; and the kicker is the SMALL pink `--ketchup-deep`, because
+  25-26px is under the 24px line only in the sense that `#E87EA1` measures
+  3.45:1 and needs the lighter one to clear 4.5:1. The wordmark's RIPS is
+  `--brand-accent` on a card exactly as it is in `.brand b i`.
+
+  **PACK ART, CARD SCANS AND PRODUCT PHOTOS ON THESE CARDS ARE CONTENT.** The
+  wrapper is the brand and the mascot is the point; only the treatment around it
+  is palette. Never tint one to match a repaint.
+
   **TWO TOKENS WERE SPLIT AND NEITHER PALETTE CAN SHIP WITHOUT IT.**
   - `--mustard` was the wordmark accent AND the fill of every CTA. It is the CTA
     fill and nothing else now; the wordmark's RIPS takes `--brand-accent`, a
