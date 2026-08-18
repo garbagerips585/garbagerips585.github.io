@@ -308,10 +308,10 @@
 <div class="rail">
   <div class="rail-in" role="group" aria-label="Filter rips">
 <!-- RAIL:START -->
-    <a class="chip chip-lead" href="/videos.html">Latest <span class="n">315</span></a>
-    <a class="chip gold" href="/videos.html?pull=1">Hits only <span class="n">9</span></a>
+    <a class="chip chip-lead" href="/videos.html">Latest <span class="n">316</span></a>
+    <a class="chip gold" href="/videos.html?pull=1">Hits only <span class="n">10</span></a>
     <a class="chip" href="/videos.html?set=ascended-heroes">Ascended Heroes <span class="n">55</span></a>
-    <a class="chip" href="/videos.html?set=chaos-rising">Chaos Rising <span class="n">53</span></a>
+    <a class="chip" href="/videos.html?set=chaos-rising">Chaos Rising <span class="n">54</span></a>
     <a class="chip" href="/videos.html?set=perfect-order">Perfect Order <span class="n">44</span></a>
     <a class="chip" href="/videos.html?set=pitch-black">Pitch Black <span class="n">22</span></a>
     <a class="chip" href="/videos.html?set=phantasmal-flames">Phantasmal Flames <span class="n">17</span></a>
@@ -319,7 +319,7 @@
     <a class="chip" href="/videos.html?set=journey-together">Journey Together <span class="n">15</span></a>
     <a class="chip" href="/videos.html?set=prismatic-evolutions">Prismatic Evolutions <span class="n">13</span></a>
     <a class="chip" href="/videos.html?product=single-pack">Single Pack <span class="n">90</span></a>
-    <a class="chip" href="/videos.html?product=etb">ETB <span class="n">56</span></a>
+    <a class="chip" href="/videos.html?product=etb">ETB <span class="n">57</span></a>
     <a class="chip" href="/videos.html?product=bundle">Booster Bundle <span class="n">54</span></a>
     <a class="chip" href="/videos.html?product=ex-premium">ex Premium Collection <span class="n">48</span></a>
     <a class="chip" href="/videos.html?product=japanese-pack">Japanese Pack <span class="n">15</span></a>
@@ -339,7 +339,7 @@
 <!-- DROPS:START -->
 <section class="wdrop" aria-labelledby="wdropH" data-week-ends="2026-08-23">
   <div class="wrap">
-    <div class="brk"><h2 id="wdropH">Drops to <span class="hl">watch</span> this week</h2><span class="ln"></span><a href="/drops.html">All 9 drops &rarr;</a></div>
+    <div class="brk"><h2 id="wdropH">Drops to <span class="hl">watch</span> this week</h2><span class="ln"></span><a href="/drops.html" data-dn="9" data-dx="2026-08-19 2026-08-17 2026-08-19">All 9 drops &rarr;</a></div>
     <p class="wdrop-lede"><b>Week of August 17, 2026.</b> Community intelligence, not fact: nobody
       announces any of this, and <b>these are not our findings.</b> We are passing on what the trackers said,
       in the words they hedged it with.</p>
@@ -385,6 +385,13 @@
     var ex = rows[i].getAttribute("data-expires");
     if (isIsoDay(ex) && ex < today && rows[i].parentNode) rows[i].parentNode.removeChild(rows[i]);
   }
+  var lk = band.querySelector("[data-dx]");
+  if (lk) {
+    var n = +lk.getAttribute("data-dn") || 0, xs = lk.getAttribute("data-dx");
+    xs = xs ? xs.split(" ") : [];
+    for (var j = 0; j < xs.length; j++) if (isIsoDay(xs[j]) && xs[j] < today) n--;
+    lk.textContent = (n > 0 ? "All " + n + " drop" + (n === 1 ? "" : "s") : "All drops") + " \u2192";
+  }
   if (!band.querySelectorAll(".wdr").length) drop();
 })();
 </script>
@@ -395,21 +402,21 @@
       <h2>Greatest Hits</h2>
       <span class="sub2">The rips worth watching twice</span>
       <a href="/videos.html?pull=1">All <!-- COUNT_HITS:START -->
-9
+10
 <!-- COUNT_HITS:END --> hits &rarr;</a>
     </div>
     <!-- HOFPICK:START -->
-<a class="hofx" href="/rip/only-garbage-rips-from-the-pok-mon-fall-2025-collector-chest-TN7_ZsuRQSI.html">
+<a class="hofx" href="/rip/i-just-pulled-a-1-000-card-iIgTusrqVtg.html">
         <span class="hofx-tag">Hall of Fame hit</span>
         <span class="hofx-art">
-          <picture><source type="image/avif" srcset="assets/packs/multi-garbage-rips-585-booster-pack-tile.avif 400w, assets/packs/multi-garbage-rips-585-booster-pack-mid.avif 560w, assets/packs/multi-garbage-rips-585-booster-pack.avif 810w" sizes="(max-width:544px) calc(100vw - 64px), (max-width:640px) 480px, (max-width:1199px) 464px, (max-width:1399px) 404px, 464px"><img src="assets/packs/multi-garbage-rips-585-booster-pack.webp"
-           srcset="assets/packs/multi-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/multi-garbage-rips-585-booster-pack-mid.webp 560w, assets/packs/multi-garbage-rips-585-booster-pack.webp 810w"
+          <picture><source type="image/avif" srcset="assets/packs/chaos-rising-garbage-rips-585-booster-pack-tile.avif 400w, assets/packs/chaos-rising-garbage-rips-585-booster-pack-mid.avif 560w, assets/packs/chaos-rising-garbage-rips-585-booster-pack.avif 810w" sizes="(max-width:544px) calc(100vw - 64px), (max-width:640px) 480px, (max-width:1199px) 464px, (max-width:1399px) 404px, 464px"><img src="assets/packs/chaos-rising-garbage-rips-585-booster-pack.webp"
+           srcset="assets/packs/chaos-rising-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/chaos-rising-garbage-rips-585-booster-pack-mid.webp 560w, assets/packs/chaos-rising-garbage-rips-585-booster-pack.webp 810w"
            sizes="(max-width:544px) calc(100vw - 64px), (max-width:640px) 480px, (max-width:1199px) 464px, (max-width:1399px) 404px, 464px" alt="" fetchpriority="high" decoding="async" width="810" height="1440"></picture>
-          <span class="play"></span><span class="dur">2:14</span>
+          <span class="play"></span><span class="dur">0:28</span>
         </span>
         <span class="hofx-b">
-          <span class="hofx-t">Mega Evolution Tin</span>
-          <span class="hofx-m">multi &bull; 1.4K views</span>
+          <span class="hofx-t">Chaos Rising ETB #3</span>
+          <span class="hofx-m">Chaos Rising &bull; 60 views</span>
           <span class="hofx-cta">Watch the pull <span aria-hidden="true">&rarr;</span></span>
         </span>
       </a>
@@ -418,13 +425,26 @@
 <div class="vcar" data-vcar data-built="2026-08-18">
       <div class="vcar-track">
         <div class="vcar-slide">      <article class="hero">
-        <a class="hero-art" href="/rip/only-garbage-rips-journey-together-scrafty-blister-hLr5iThoO2k.html" aria-label="Only Garbage Rips 😬 | Journey Together Scrafty Blister">
-          <picture><source type="image/avif" srcset="assets/packs/journey-together-garbage-rips-585-booster-pack-tile.avif 400w, assets/packs/journey-together-garbage-rips-585-booster-pack-mid.avif 560w, assets/packs/journey-together-garbage-rips-585-booster-pack.avif 810w" sizes="(max-width:640px) 87vw, 440px"><img src="assets/packs/journey-together-garbage-rips-585-booster-pack-tile.webp"
-           srcset="assets/packs/journey-together-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/journey-together-garbage-rips-585-booster-pack-mid.webp 560w, assets/packs/journey-together-garbage-rips-585-booster-pack.webp 810w"
-           sizes="(max-width:640px) 87vw, 440px" alt="" width="400" height="711" loading="lazy" decoding="async"></picture><span class="play"></span><span class="dur">0:42</span>
+        <a class="hero-art" href="/rip/only-garbage-rips-from-the-pok-mon-fall-2025-collector-chest-TN7_ZsuRQSI.html" aria-label="Only Garbage Rips from the Pokémon Fall 2025 Collector Chest">
+          <picture><source type="image/avif" srcset="assets/packs/multi-garbage-rips-585-booster-pack-tile.avif 400w, assets/packs/multi-garbage-rips-585-booster-pack-mid.avif 560w, assets/packs/multi-garbage-rips-585-booster-pack.avif 810w" sizes="(max-width:640px) 87vw, 440px"><img src="assets/packs/multi-garbage-rips-585-booster-pack-tile.webp"
+           srcset="assets/packs/multi-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/multi-garbage-rips-585-booster-pack-mid.webp 560w, assets/packs/multi-garbage-rips-585-booster-pack.webp 810w"
+           sizes="(max-width:640px) 87vw, 440px" alt="" width="400" height="711" loading="lazy" decoding="async"></picture><span class="play"></span><span class="dur">2:14</span>
         </a>
         <div class="hero-body">
-          <p class="hero-kicker"><span class="hero-new">#1 hit</span> <time class="ago" datetime="2026-02-12">6 MONTHS AGO</time></p>
+          <p class="hero-kicker"><span class="hero-new">#1 hit</span> <time class="ago" datetime="2026-02-01">7 MONTHS AGO</time></p>
+          <h3><a href="/rip/only-garbage-rips-from-the-pok-mon-fall-2025-collector-chest-TN7_ZsuRQSI.html">Mega Evolution Tin</a></h3>
+          <p class="hero-meta">MEGA EVOLUTION &bull; &starf; IR &bull; 1.4K VIEWS</p>
+          <span class="hero-cta">Rip it open &rarr;</span>
+        </div>
+      </article></div>
+        <div class="vcar-slide">      <article class="hero">
+        <a class="hero-art" href="/rip/only-garbage-rips-journey-together-scrafty-blister-hLr5iThoO2k.html" aria-label="Only Garbage Rips 😬 | Journey Together Scrafty Blister">
+          <picture><source type="image/avif" data-packsrcset="assets/packs/journey-together-garbage-rips-585-booster-pack-tile.avif 400w, assets/packs/journey-together-garbage-rips-585-booster-pack-mid.avif 560w, assets/packs/journey-together-garbage-rips-585-booster-pack.avif 810w" data-packsizes="(max-width:640px) 87vw, 440px"><img data-packsrc="assets/packs/journey-together-garbage-rips-585-booster-pack-tile.webp" data-packsrcset="assets/packs/journey-together-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/journey-together-garbage-rips-585-booster-pack-mid.webp 560w, assets/packs/journey-together-garbage-rips-585-booster-pack.webp 810w" data-packsizes="(max-width:640px) 87vw, 440px" alt="" width="400" height="711" loading="lazy" decoding="async"></picture><noscript><picture><source type="image/avif" srcset="assets/packs/journey-together-garbage-rips-585-booster-pack-tile.avif 400w, assets/packs/journey-together-garbage-rips-585-booster-pack-mid.avif 560w, assets/packs/journey-together-garbage-rips-585-booster-pack.avif 810w" sizes="(max-width:640px) 87vw, 440px"><img src="assets/packs/journey-together-garbage-rips-585-booster-pack-tile.webp"
+           srcset="assets/packs/journey-together-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/journey-together-garbage-rips-585-booster-pack-mid.webp 560w, assets/packs/journey-together-garbage-rips-585-booster-pack.webp 810w"
+           sizes="(max-width:640px) 87vw, 440px" alt="" width="400" height="711" loading="lazy" decoding="async"></picture></noscript><span class="play"></span><span class="dur">0:42</span>
+        </a>
+        <div class="hero-body">
+          <p class="hero-kicker"><span class="hero-new">#2 hit</span> <time class="ago" datetime="2026-02-12">6 MONTHS AGO</time></p>
           <h3><a href="/rip/only-garbage-rips-journey-together-scrafty-blister-hLr5iThoO2k.html">Journey Together Blister</a></h3>
           <p class="hero-meta">JOURNEY TOGETHER &bull; &starf;&starf; DOUBLE &bull; 947 VIEWS</p>
           <span class="hero-cta">Rip it open &rarr;</span>
@@ -437,7 +457,7 @@
            sizes="(max-width:640px) 87vw, 440px" alt="" width="400" height="711" loading="lazy" decoding="async"></picture></noscript><span class="play"></span><span class="dur">0:44</span>
         </a>
         <div class="hero-body">
-          <p class="hero-kicker"><span class="hero-new">#2 hit</span> <time class="ago" datetime="2026-02-09">6 MONTHS AGO</time></p>
+          <p class="hero-kicker"><span class="hero-new">#3 hit</span> <time class="ago" datetime="2026-02-09">6 MONTHS AGO</time></p>
           <h3><a href="/rip/only-garbage-rips-phantasmal-flames-sleeved-boosters-Prq7KI6j1Vk.html">Phantasmal Flames Pack</a></h3>
           <p class="hero-meta">PHANTASMAL FLAMES &bull; &starf;&starf; DOUBLE &bull; 507 VIEWS</p>
           <span class="hero-cta">Rip it open &rarr;</span>
@@ -450,7 +470,7 @@
            sizes="(max-width:640px) 87vw, 440px" alt="" width="400" height="711" loading="lazy" decoding="async"></picture></noscript><span class="play"></span><span class="dur">1:15</span>
         </a>
         <div class="hero-body">
-          <p class="hero-kicker"><span class="hero-new">#3 hit</span> <time class="ago" datetime="2026-02-03">6 MONTHS AGO</time></p>
+          <p class="hero-kicker"><span class="hero-new">#4 hit</span> <time class="ago" datetime="2026-02-03">6 MONTHS AGO</time></p>
           <h3><a href="/rip/only-garbage-rips-paradox-rift-blister-packs-EOFAhFwJKqw.html">Paradox Rift Blister</a></h3>
           <p class="hero-meta">PARADOX RIFT &bull; &starf;&starf; DOUBLE &bull; 237 VIEWS</p>
           <span class="hero-cta">Rip it open &rarr;</span>
@@ -459,7 +479,7 @@
       </div>
       <div class="vcar-bar">
         <button class="vcar-nav" type="button" data-vcar-prev aria-label="Previous rip">&larr;</button>
-        <p class="vcar-count" aria-live="polite"><span data-vcar-i>1</span> / 3</p>
+        <p class="vcar-count" aria-live="polite"><span data-vcar-i>1</span> / 4</p>
         <button class="vcar-nav" type="button" data-vcar-next aria-label="Next rip">&rarr;</button>
       </div>
     </div>
@@ -473,7 +493,7 @@
     <div class="wall">
 
       <div class="brk"><h2>Latest rips</h2><span class="ln"></span><a href="/videos.html">All <!-- COUNT_ALL:START -->
-315
+316
 <!-- COUNT_ALL:END --> &rarr;</a></div>
 <!-- LATEST:START -->
 <div class="vcar" data-vcar data-built="2026-08-18">
@@ -487,7 +507,7 @@
         <div class="hero-body">
           <p class="hero-kicker"><span class="hero-new" data-newest data-date="2026-08-17">Yesterday's Rip</span></p>
           <h3><a href="/rip/is-pack-13-actually-cursed-DP8HG31X1rg.html">Chaos Rising Pack #13</a></h3>
-          <p class="hero-meta">CHAOS RISING &bull; 777 VIEWS</p>
+          <p class="hero-meta">CHAOS RISING &bull; 793 VIEWS</p>
           <span class="hero-cta">Rip it open &rarr;</span>
         </div>
       </article></div>
@@ -500,7 +520,7 @@
         <div class="hero-body">
           <p class="hero-kicker"><time class="ago" datetime="2026-08-16">2 DAYS AGO</time></p>
           <h3><a href="/rip/trubbish-food-pitch-black-pack-8-VZtK6rT7ZTI.html">Pitch Black ETB #8</a></h3>
-          <p class="hero-meta">PITCH BLACK &bull; 883 VIEWS</p>
+          <p class="hero-meta">PITCH BLACK &bull; 901 VIEWS</p>
           <span class="hero-cta">Rip it open &rarr;</span>
         </div>
       </article></div>
@@ -513,7 +533,7 @@
         <div class="hero-body">
           <p class="hero-kicker"><time class="ago" datetime="2026-08-15">3 DAYS AGO</time></p>
           <h3><a href="/rip/8-packs-and-no-hits-E5Wz7X1VMeY.html">Pitch Black Pack #8</a></h3>
-          <p class="hero-meta">PITCH BLACK &bull; 774 VIEWS</p>
+          <p class="hero-meta">PITCH BLACK &bull; 775 VIEWS</p>
           <span class="hero-cta">Rip it open &rarr;</span>
         </div>
       </article></div>
@@ -539,7 +559,7 @@
         <div class="hero-body">
           <p class="hero-kicker"><time class="ago" datetime="2026-08-13">5 DAYS AGO</time></p>
           <h3><a href="/rip/the-cutest-pull-ever-chaos-rising-O5WscUY7qZI.html">Chaos Rising Pack #12</a></h3>
-          <p class="hero-meta">CHAOS RISING &bull; 728 VIEWS</p>
+          <p class="hero-meta">CHAOS RISING &bull; 727 VIEWS</p>
           <span class="hero-cta">Rip it open &rarr;</span>
         </div>
       </article></div>
@@ -609,7 +629,7 @@
           <b>Chaos Rising</b>
           <span class="set-meta">122 cards · May 2026</span>
           <span class="set-top">Top card $598 <i>PSA 10</i></span>
-          <span class="set-rips">53 rips</span>
+          <span class="set-rips">54 rips</span>
         </a>
         <a class="set" href="/sets/perfect-order.html">
           <span class="set-art"><img width="674" height="300" src="assets/logos/perfect-order-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:47px"></span>
@@ -1059,7 +1079,7 @@
   }
 })();
 </script>
-<script src="/assets/app.js?v=4cc7bcef" defer></script>
+<script src="/assets/app.js?v=1c46a1b4" defer></script>
 <script src="/assets/packplayer.js?v=d3834a60" defer></script>
 </body>
 </html>

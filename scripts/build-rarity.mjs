@@ -33,6 +33,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { priceNote, priceFooter, priceRead } from "../shared/card-prices.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -77,14 +78,32 @@ const d = JSON.parse(await readFile(join(ROOT, "data/rarity.json"), "utf8"));
  * carries `priceOf`, so the ladder and the "came and went" list can use it too.
  */
 const checklists = new Map();
+// THIS PAGE PRINTED A PRICE WITH NO SOURCE AND NO DATE ON IT, which is the one
+// thing the rest of the site never does: the ladder's example cards each carry a
+// figure ("Umbreon ex, Prismatic Evolutions. $1,499") and nothing anywhere said
+// where it came from or when it was read. Found in the 18 August 2026 sourcing
+// sweep. The stamps are collected here, from the same files the figures come
+// from, so the note at the foot cannot drift from the numbers above it.
+let priceDoc = null;
 async function priceFor(ref) {
   if (!ref?.set || !ref?.number) return null;
   if (!checklists.has(ref.set)) {
     try {
-      checklists.set(
-        ref.set,
-        JSON.parse(await readFile(join(ROOT, `public/data/cards/${ref.set}.json`), "utf8")).cards
+      const doc = JSON.parse(
+        await readFile(join(ROOT, `public/data/cards/${ref.set}.json`), "utf8")
       );
+      checklists.set(ref.set, doc.cards);
+      if (!priceDoc)
+        priceDoc = {
+          priceSource: doc.priceSource,
+          pricesChecked: doc.pricesChecked,
+          checked: doc.checked,
+          // Left at zero on purpose: this page prints a handful of named example
+          // cards rather than a whole checklist, and every one of them resolved
+          // through PriceCharting. A fallback count borrowed from the whole file
+          // would be describing cards this page never shows.
+          pricedBy: { pricecharting: 0, tcgdex: 0 },
+        };
     } catch {
       checklists.set(ref.set, null);
     }
@@ -879,6 +898,7 @@ ${body}
 
 ${/* Do not repeat "not affiliated with The Pokemon Company" here: footer()
       appends it, and the two ran together in the same paragraph. */ ""}
+${priceDoc ? `<p class="price-note">${esc(priceNote(priceDoc, { lead: "The example prices" }))} They are the same figures the set guides and the card search print for those cards.</p>` : ""}
 ${footer("Card images from the Pokemon TCG API. Every corner shown is a crop of a real card.")}
 
 ${APP_JS}

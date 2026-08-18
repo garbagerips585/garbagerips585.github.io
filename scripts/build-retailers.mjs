@@ -1050,7 +1050,23 @@ const faq = (r, rs) => {
       ? `On the ${rs.length === 1 ? "listing" : `${rs.length} listings`} we read ${readDatePhrase(
           rs.map((x) => x.read)
         )}, ${rs
-          .map((x) => `the ${x.product} was ${moneyExact(x.amount)} on ${longDate(x.read)} against a suggested ${moneyExact(x.base)}, which is ${multStr(x.amount / x.base)} times it`)
+          // "WHICH IS 1 TIMES IT" IS WHAT A SHOP SELLING AT MSRP USED TO GET,
+          // and this is the one sentence on the site where that matters most:
+          // it is the FAQ answer Google can lift on its own, with no table
+          // beside it. GameStop's Pitch Black Battle Deck was $29.99 against a
+          // suggested $29.99. A multiplier is the right unit for every other
+          // row and the wrong one for that one, so the equal case says so in
+          // words. The near-equal case is kept as a multiplier rather than
+          // called "the same", because it is not: two decimals, so it can never
+          // print a bare "1" again.
+          .map((x) => {
+            const m = x.amount / x.base;
+            const cmp =
+              x.amount === x.base
+                ? "which is the same price"
+                : `which is ${multStr(m) === "1" ? m.toFixed(2) : multStr(m)} times it`;
+            return `the ${x.product} was ${moneyExact(x.amount)} on ${longDate(x.read)} against a suggested ${moneyExact(x.base)}, ${cmp}`;
+          })
           .join("; ")}. Each of those is a reading on the day named rather than a standing price, and prices move.`
       : r.priceNote || `This site holds no price reading from ${r.name}.`,
   ]);

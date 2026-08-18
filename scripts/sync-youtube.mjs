@@ -277,6 +277,13 @@ const videos = uploads
       ...(log.hitRarity ? { hitRarity: log.hitRarity } : {}),
       ...(log.hasHit != null ? { hasHit: log.hasHit } : {}),
       ...(log.packs ? { packs: log.packs } : {}),
+      // WHICH ONE OF THESE, AND WHICH PACK OUT OF IT. Both spread like `packs`
+      // above, so a video with neither carries neither KEY, not a null and not
+      // a zero. Every reader is written as "show it if it is there", and the
+      // absent case is 316 of 316 videos today, so absence has to be the shape
+      // that costs nothing and renders nothing.
+      ...(log.boxNumber ? { boxNumber: log.boxNumber } : {}),
+      ...(log.packNumber ? { packNumber: log.packNumber } : {}),
       ...(log.greatest ? { greatest: true } : {}),
       ...(log.hofRank != null ? { hofRank: log.hofRank } : {}),
       ...(log.affiliate ? { affiliate: log.affiliate } : {}),

@@ -25,6 +25,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { priceNote, priceFooter, priceRead } from "../shared/card-prices.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -97,10 +98,15 @@ const by = Object.fromEntries(g.companies.map((c) => [c.id, c]));
 // site supplies one, and the page says so.
 const names = new Map();
 const rawPrice = new Map();
+const pcPsa10 = new Map();
 // The TCGdex base for each card, kept for rowShot() below. This used to be read
 // and thrown away, which is why the verdict list had no pictures.
 const imgBase = new Map();
 let cardsChecked = null;
+// The sourcing stamps for the raw prices, summed across every set, so the note
+// at the foot of the page describes all 28 checklists rather than the first
+// file the loop happened to open.
+let priceDoc = null;
 try {
   const dir = join(ROOT, "public/data/cards");
   const { readdir } = await import("node:fs/promises");
@@ -109,10 +115,23 @@ try {
     if (!f.endsWith(".json")) continue;
     const doc = JSON.parse(await readFile(join(dir, f), "utf8"));
     cardsChecked = cardsChecked || doc.checked;
+    if (!priceDoc)
+      priceDoc = {
+        priceSource: doc.priceSource,
+        pricesChecked: doc.pricesChecked,
+        checked: doc.checked,
+        pricedBy: { pricecharting: 0, tcgdex: 0 },
+      };
+    priceDoc.pricedBy.pricecharting += doc.pricedBy?.pricecharting || 0;
+    priceDoc.pricedBy.tcgdex += doc.pricedBy?.tcgdex || 0;
     for (const c of doc.cards) {
       names.set(`${doc.set}-${norm(c.n)}`, c.name);
       if (c.img) imgBase.set(`${doc.set}-${norm(c.n)}`, c.img);
       if (typeof c.price === "number") rawPrice.set(`${doc.set}-${norm(c.n)}`, c.price);
+      // PriceCharting's PSA 10 for the SAME printing whose raw price we just
+      // took, off the same row of the same crawl. This is what lets the two
+      // numbers this page subtracts come from one source instead of two.
+      if (typeof c.psa10 === "number") pcPsa10.set(`${doc.set}-${norm(c.n)}`, c.psa10);
     }
   }
 } catch {
@@ -166,15 +185,29 @@ const SHIP = g.assumedShippingPerCard ?? 15;
 // Every card where we hold BOTH a raw and a PSA 10 price. `auto` is synced,
 // `prices` is hand-entered and wins, same rule as everywhere else on the site.
 const rows = [];
+let fromPcPsa = 0;
+let fromTrackerPsa = 0;
 for (const [key, a] of Object.entries(psa.auto || {})) {
   const manual = psa.prices?.[key];
-  const psa10 = (typeof manual === "number" ? manual : manual?.price) ?? a.psa10;
   const mk = /^(.*)-([^-]+)$/.exec(key);
+  const ck = keyOf(mk?.[1] || "", mk?.[2] || "");
+  // A PERSON, THEN PRICECHARTING, THEN THE TRACKER. Same order build-hall.mjs
+  // uses, and it has to be the same or two pages subtract different numbers
+  // from the same raw price. The tracker still decides WHICH cards appear here,
+  // because it is the only feed carrying a sale count and the ten-sale floor
+  // below is what stops this page doing arithmetic on an anecdote.
+  const pcHit = pcPsa10.get(ck);
+  const psa10 =
+    (typeof manual === "number" ? manual : manual?.price) ?? pcHit ?? a.psa10;
   // TCGdex first, the graded feed's own raw as the fallback.
-  const raw = rawPrice.get(keyOf(mk?.[1] || "", mk?.[2] || "")) ?? a.rawNm;
+  const raw = rawPrice.get(ck) ?? a.rawNm;
   if (typeof psa10 !== "number" || typeof raw !== "number" || raw <= 0) continue;
   // Enough recorded sales to mean something. Six sales is an anecdote.
   if (a.psa10Sales != null && a.psa10Sales < 10) continue;
+  if (manual == null) {
+    if (pcHit != null) fromPcPsa += 1;
+    else fromTrackerPsa += 1;
+  }
 
   const m = /^(.*)-([^-]+)$/.exec(key);
   const slug = m?.[1] || "";
@@ -530,10 +563,16 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
       <a href="/base-set.html">1st Edition, Shadowless or Unlimited?</a> shows both marks magnified on a real
       card.</p>
     <p class="price-note">Fees and turnarounds read on ${esc(longDate(g.checked) || g.checked)} and they change often,
-      sometimes with two weeks' notice, so click through before you send anything. Card prices are TCGplayer market
-      and PSA 10 sale data. Raw prices are TCGplayer market via TCGdex, read ${esc(longDate(cardsChecked) || cardsChecked || "recently")},
-      the same figures the rest of this site quotes. PSA 10 prices come from pokemonpricetracker.com, because no free
-      feed carries graded sales; only cards with at least ten recorded sales are used. Both move daily. Card scans
+      sometimes with two weeks' notice, so click through before you send anything.
+      ${esc(priceNote(priceDoc, { lead: "Raw prices" }))}
+      They are the same figures the rest of this site quotes.
+      ${esc(
+        fromTrackerPsa > 0
+          ? `PSA 10 prices come from the same PriceCharting guide for ${fromPcPsa} of the ${fromPcPsa + fromTrackerPsa} cards below, read the same day as the raw figure beside them, so both halves of the subtraction describe one printing out of one source. The other ${fromTrackerPsa} come from pokemonpricetracker.com.`
+          : `PSA 10 prices come from the same PriceCharting guide, read the same day as the raw figure beside them, so both halves of the subtraction describe one printing of one card out of one source.`
+      )}
+      Which cards appear here is still decided by pokemonpricetracker.com's recorded sale counts, because it is the
+      only feed that publishes one, and only cards with at least ten recorded sales are used. Card scans
       are TCGdex's, mirrored here at the size the rows draw them, and each one is the card named beside it. No affiliate
       links and no recommendation: we are not paid by any grading company and which one is right depends on your card
       and your patience. Not financial advice, just subtraction.</p>

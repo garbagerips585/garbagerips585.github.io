@@ -402,6 +402,14 @@ const idx = {
   set5: col("Set 5"),
   moreSets: col("More Sets"), box: col("Box / Series"),
   opening: col("Opening Type"), packs: col("Packs Opened"), hasHit: col("Has Hit"),
+  // WHICH ONE OF THESE, AND WHICH PACK OUT OF IT. Both new, both optional, and
+  // both go through firstCol for the reason the two comments below give: col()
+  // is an exact match, and every column in this file that was ever renamed
+  // returned -1 and took its whole feature down with no error. An export made
+  // before these columns existed has neither header, gets -1 from both, and
+  // imports exactly as it always did.
+  boxNo: firstCol("Box #", "Box Number", "Product #"),
+  packNo: firstCol("Pack #", "Pack Number", "Pack In Box"),
   // THE PER-SET PACK CELLS ARE THE SOURCE, NOT THE TOTAL COLUMN. See below.
   packCells: ["Packs", "Packs 2", "Packs 3", "Packs 4", "Packs 5"].map(col).filter((i) => i >= 0),
   // The header has been "Hit Card", "Hit Cards" and "Hit Card or Hit Cards"
@@ -658,6 +666,37 @@ for (const [n, r] of rows.slice(1).entries()) {
   if (!packs) packs = num(get(r, idx.packs));
   if (packs > 0) { m.packs = packs; counted.packs = (counted.packs || 0) + 1; }
 
+  // WHICH ONE OF THESE, AND WHICH PACK OUT OF IT.
+  //
+  // Same num() as the pack count above, so "#3", "3 of 9" and a spreadsheet's
+  // "3.0" all read as 3 and a stray note cannot multiply the number by a
+  // hundred. A blank cell is skipped like every other blank on this sheet, and
+  // a cell that holds words rather than a number is REPORTED rather than
+  // dropped: this column exists to be counted, so a value that counts as
+  // nothing is worth a line.
+  //
+  // 0 IS NOT AN ANSWER HERE. There is no zeroth ETB and no pack zero, so a 0
+  // reads as a mis-key and is reported with everything else that did not mean
+  // what it looked like.
+  for (const [key, i, what] of [
+    ["boxNumber", idx.boxNo, "Box #"],
+    ["packNumber", idx.packNo, "Pack #"],
+  ]) {
+    const raw = get(r, i);
+    if (!raw) continue;
+    const n = num(raw);
+    if (n > 0) { m[key] = n; counted[key] = (counted[key] || 0) + 1; }
+    else quiet.push(`${id}: ${what} "${raw}" is not a number I can count, so it was skipped.`);
+  }
+  // A PACK NUMBER PAST THE END OF THE BOX IS A TYPO OR A WRONG OPENING TYPE.
+  // Pack 12 of a nine pack ETB is one or the other, and both are worth seeing
+  // while the row is still in front of you. It is only a warning: the row still
+  // imports, because the sheet is the authority on what was opened and a note
+  // is cheaper than a refusal.
+  if (m.packNumber && packs > 0 && m.packNumber > packs) {
+    quiet.push(`${id}: Pack # ${m.packNumber} but the row only counts ${packs} pack(s). Typo, or the wrong Opening Type?`);
+  }
+
   const hasHit = get(r, idx.hasHit);
   if (hasHit) { m.hasHit = isYes(hasHit); counted.hit++; }
   const card = get(r, idx.hitCard);
@@ -730,6 +769,8 @@ Read ${rows.length - 1} rows from ${csvPath}
 
   set tags           ${counted.set}${counted.multiSet ? `  (${counted.multiSet} with more than one set)` : ""}${counted.notASet ? `  (${counted.notASet} answered "not a set")` : ""}
   opening types      ${counted.opening}${counted.retired ? `\n  overrides retired  ${counted.retired}  (the sheet now agrees with the matcher)` : ""}
+  box numbers        ${counted.boxNumber || 0}
+  pack numbers       ${counted.packNumber || 0}
   has-hit answered   ${counted.hit}
   hit cards named    ${counted.card}
   hall of fame       ${counted.greatest}

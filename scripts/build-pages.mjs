@@ -13,6 +13,7 @@ import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, robots, LIVE, DOMAIN } from "../shared/site.mjs";
+import { priceNote, priceFooter, priceRead } from "../shared/card-prices.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { raritiesIn, rarityChip, RARITY_CSS } from "../shared/rarity.mjs";
@@ -116,8 +117,29 @@ const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json
 // printing that matches, because that is the one actually pulled; otherwise the
 // first, and the page claims nothing it cannot support.
 let cardsChecked = null;
+// The sourcing stamps for the raw prices. Read off one set file because every
+// one of them carries the same PriceCharting crawl date, and a rip page prices
+// cards from whichever set it opened. The fallback COUNT is deliberately summed
+// across every set rather than taken from this one, so the sentence describes
+// the price file as a whole rather than claiming Pitch Black's two exceptions
+// are the site's.
+let pricesDoc = null;
 try {
-  cardsChecked = JSON.parse(await readFile(join(ROOT, "public/data/cards/pitch-black.json"), "utf8")).checked;
+  const one = JSON.parse(await readFile(join(ROOT, "public/data/cards/pitch-black.json"), "utf8"));
+  cardsChecked = one.checked;
+  pricesDoc = {
+    priceSource: one.priceSource,
+    pricesChecked: one.pricesChecked,
+    checked: one.checked,
+    pricedBy: { pricecharting: 0, tcgdex: 0 },
+  };
+  const { readdir: _rd } = await import("node:fs/promises");
+  for (const f of await _rd(join(ROOT, "public/data/cards"))) {
+    if (!f.endsWith(".json")) continue;
+    const d = JSON.parse(await readFile(join(ROOT, "public/data/cards", f), "utf8"));
+    pricesDoc.pricedBy.pricecharting += d.pricedBy?.pricecharting || 0;
+    pricesDoc.pricedBy.tcgdex += d.pricedBy?.tcgdex || 0;
+  }
 } catch {}
 const HITS = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
 const psaFor = (setId, n) => {
@@ -680,9 +702,9 @@ ${
         )
         .join("\n      ")}
     </ul>
-    <p class="price-note">Raw prices are TCGplayer market via TCGdex, read ${esc(longDate(cardsChecked) || cardsChecked || "recently")}.
-      PSA 10 prices come from pokemonpricetracker.com and only exist for some cards, so the line is shown where we
-      have one and left off where we do not. Promos are not in that feed at all: where a promo carries a price it was
+    <p class="price-note">${esc(priceNote(pricesDoc, { lead: "Raw prices" }))}
+      PSA 10 prices come from PriceCharting's guide too, read the same day, and only exist for some cards, so the
+      line is shown where we have one and left off where we do not. Promos are not in that feed at all: where a promo carries a price it was
       read by hand from the source named under it, on the date shown, and it does not refresh overnight like the rest. We do not sell cards.</p>
   </div>
 </section>`

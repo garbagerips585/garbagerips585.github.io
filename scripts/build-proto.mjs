@@ -1058,7 +1058,13 @@ function plTile(p) {
     (p.path ? `<span class="pl-out">Open the playlist</span>` : "") +
     `</span>`;
   return p.path
-    ? `<a class="pl" href="/${esc(p.path)}" aria-label="${esc(`${p.title}, ${p.count} videos`)}">${body}</a>`
+    ? `<a class="pl" href="/${esc(p.path)}" aria-label="${esc(
+        // Pluralised, like the visible .pl-count beside it. It was not, and a
+        // one-video playlist read "1 videos" to a screen reader while the same
+        // number two lines up read "1 video". app.js's runtime copy of this
+        // card had the same split.
+        `${p.title}, ${p.count}${p.count === 1 ? " video" : " videos"}`,
+      )}">${body}</a>`
     : `<span class="pl">${body}</span>`;
 }
 // A playlist with nothing in it is not content, and app.js drops those too.
@@ -1237,6 +1243,24 @@ try {
        * most visited page on the site and the block is in the critical path.
        * Written out in full, the argument above cost 1.4KB gzipped of a 13KB
        * document, which is more than the band's markup.
+       *
+       * THE LINK'S OWN NUMBER IS SWEPT TOO, AND IT WAS THE ONE THING ON THIS
+       * BAND THAT WAS NOT. "All 9 drops" names the size of the list it points
+       * at, and /drops.html sweeps that list on the reader's clock exactly as
+       * the loop above sweeps these three rows, so a count frozen at build time
+       * drifts one row at a time and is at its worst the day somebody first
+       * sees the site. Driven on the tree built 17 August, with the page's clock
+       * faked, the link said 9 every day while the destination showed 8 on the
+       * 18th and 6 on the 20th and the 21st.
+       *
+       * `known` is every row in the file, not the three the band shows, so the
+       * band cannot count the destination out of its own DOM. The perishable
+       * rows' dates travel on the link in `data-dx` and the sweep redoes the
+       * subtraction: same predicate, same clock, same answer /drops.html
+       * reaches. 33 bytes of dates and about 190 of script, uncompressed.
+       * Non-perishable rows carry no date and are never subtracted, which is
+       * what /drops.html does with them: it bands a passed week rather than
+       * removing its ordinary rows.
        */
       const sweep = `<script>
 (function () {
@@ -1252,13 +1276,22 @@ ${CLIENT_DAY_JS}
     var ex = rows[i].getAttribute("data-expires");
     if (isIsoDay(ex) && ex < today && rows[i].parentNode) rows[i].parentNode.removeChild(rows[i]);
   }
+  var lk = band.querySelector("[data-dx]");
+  if (lk) {
+    var n = +lk.getAttribute("data-dn") || 0, xs = lk.getAttribute("data-dx");
+    xs = xs ? xs.split(" ") : [];
+    for (var j = 0; j < xs.length; j++) if (isIsoDay(xs[j]) && xs[j] < today) n--;
+    lk.textContent = (n > 0 ? "All " + n + " drop" + (n === 1 ? "" : "s") : "All drops") + " \\u2192";
+  }
   if (!band.querySelectorAll(".wdr").length) drop();
 })();
 </` + `script>`;
 
       dropsHtml = `<section class="wdrop" aria-labelledby="wdropH" data-week-ends="${esc(doc.weekEnds || "")}">
   <div class="wrap">
-    <div class="brk"><h2 id="wdropH">Drops to <span class="hl">watch</span> this week</h2><span class="ln"></span><a href="/drops.html">All ${known.length} drops &rarr;</a></div>
+    <div class="brk"><h2 id="wdropH">Drops to <span class="hl">watch</span> this week</h2><span class="ln"></span><a href="/drops.html" data-dn="${known.length}" data-dx="${esc(
+        known.map((d) => (isPerishable(doc, d) ? dropExpiresOn(doc, d) : "")).filter(Boolean).join(" ")
+      )}">All ${known.length} drops &rarr;</a></div>
     <p class="wdrop-lede"><b>Week of ${esc(longDate(doc.weekOf))}.</b> Community intelligence, not fact: nobody
       announces any of this, and <b>these are not our findings.</b> We are passing on what the trackers said,
       in the words they hedged it with.</p>

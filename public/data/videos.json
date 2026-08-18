@@ -1,14 +1,39 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
-  "syncedAt": "2026-08-17",
+  "syncedAt": "2026-08-18",
   "videos": [
+    {
+      "id": "iIgTusrqVtg",
+      "title": "I Just Pulled a $1,000 Card! 😱🐸",
+      "path": "rip/i-just-pulled-a-1-000-card-iIgTusrqVtg.html",
+      "published": "2026-08-18",
+      "duration": 28,
+      "views": 60,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "chaos-rising"
+      ],
+      "products": [
+        "etb"
+      ],
+      "pulls": [
+        "gold"
+      ],
+      "packs": 9,
+      "boxNumber": 3,
+      "packNumber": 3,
+      "hofRank": 1,
+      "openingType": "ETB (Elite Trainer Box)",
+      "label": "Chaos Rising ETB #3"
+    },
     {
       "id": "DP8HG31X1rg",
       "title": "Is Pack #13 Actually CURSED? 💀🌑",
       "path": "rip/is-pack-13-actually-cursed-DP8HG31X1rg.html",
       "published": "2026-08-17",
       "duration": 20,
-      "views": 777,
+      "views": 793,
       "vertical": true,
       "short": true,
       "sets": [
@@ -18,6 +43,8 @@
         "single-pack"
       ],
       "pulls": [],
+      "packs": 1,
+      "openingType": "Single Booster Pack",
       "label": "Chaos Rising Pack #13"
     },
     {
@@ -26,7 +53,7 @@
       "path": "rip/trubbish-food-pitch-black-pack-8-VZtK6rT7ZTI.html",
       "published": "2026-08-16",
       "duration": 21,
-      "views": 883,
+      "views": 901,
       "vertical": true,
       "short": true,
       "sets": [
@@ -36,6 +63,8 @@
         "etb"
       ],
       "pulls": [],
+      "packs": 9,
+      "openingType": "ETB (Elite Trainer Box)",
       "label": "Pitch Black ETB #8"
     },
     {
@@ -44,7 +73,7 @@
       "path": "rip/8-packs-and-no-hits-E5Wz7X1VMeY.html",
       "published": "2026-08-15",
       "duration": 19,
-      "views": 774,
+      "views": 775,
       "vertical": true,
       "short": true,
       "sets": [
@@ -65,7 +94,7 @@
       "path": "rip/the-chaos-rising-struggle-is-real-T2-UqY2ZSOw.html",
       "published": "2026-08-14",
       "duration": 21,
-      "views": 1005,
+      "views": 1009,
       "vertical": true,
       "short": true,
       "sets": [
@@ -85,7 +114,7 @@
       "path": "rip/the-cutest-pull-ever-chaos-rising-O5WscUY7qZI.html",
       "published": "2026-08-13",
       "duration": 20,
-      "views": 728,
+      "views": 727,
       "vertical": true,
       "short": true,
       "sets": [
@@ -331,7 +360,7 @@
       "path": "rip/toucannon-illustration-rare-pitch-black-etb-ndzNjhARITQ.html",
       "published": "2026-08-01",
       "duration": 24,
-      "views": 891,
+      "views": 893,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5492,7 +5521,7 @@
       "path": "rip/ascended-heroes-2-pack-blister-erikas-tangela-promo-SOQUDUMboVU.html",
       "published": "2026-03-08",
       "duration": 36,
-      "views": 1391,
+      "views": 1392,
       "vertical": true,
       "short": true,
       "sets": [

@@ -49,6 +49,67 @@
 // only once complete; until then the original drawn shapes render instead, so a
 // slow connection gets a playable game rather than an empty rectangle.
 //
+// WHAT THE GAME ACTUALLY PLAYS LIKE, DRIVEN RATHER THAN READ. 18 August 2026,
+// headless Chrome, Math.random seeded and the clock faked so a run is
+// reproducible, and every figure below is the median of 60 runs on 60 seeds.
+// The player model is a person and not a servo: decisions land 133ms late, the
+// aim is loose by +/-24px, and one decision in twenty is simply missed.
+//
+//                                run length   score   ever evolved
+//   fly the safe corridor, take     39s        31       9 of 60
+//     what happens to fly into you
+//   go after the rubbish            13s        18       3 of 60
+//
+// THE GAME'S OWN OBJECTIVE IS A MISTAKE TO PURSUE, and that is the finding this
+// pass would fix first if it knew how to. Chasing a piece of rubbish costs a
+// third of your run and buys nothing: 15 of 15 collector deaths were at the
+// FLOOR OR THE CEILING against a bare 42px hazard, never against the tall
+// stacks or a pinch. The reason is structural rather than tuned. A flip is one
+// fixed 4.6 kick, so any excursion is a commitment, and the place an unattended
+// Trubbish ends up is the floor or the ceiling, which is the only place
+// anything can kill him. Every deviation you do not perfectly arrest ends in
+// the lethal row. Meanwhile a player who never deviates still collects
+// ~40 a minute from trails that fly into them.
+//
+// It inverts above human speed. At zero latency, chasing beats surviving by
+// 5.6x (1346 against 240 over eleven minutes), so the mechanic works; it just
+// works above the reaction time of the person in the queue this was built for.
+//
+// ONE FIX WAS TRIED AND REJECTED, and the numbers are here so nobody tries it
+// twice. Trails pick their height uniformly across the lane, so consecutive
+// trails demand random 400px excursions; making the height a bounded walk from
+// the last trail's (a continuous path to fly, which is what the trail comment
+// further down claims trails already are) was measured over 60 paired seeds:
+//
+//                             collector mean   survivor mean
+//   as shipped                     26.4             55.1
+//   continuous path, step 120      36.7             54.5
+//
+// It does exactly what it was meant to, +39% to the collector and nothing to
+// the survivor, AND IT STILL LOSES 36.7 TO 54.5. It buys a real design cost, a
+// predictable rubbish path, for a change that does not flip the decision it was
+// aimed at. Not shipped. If somebody attacks this again, attack the excursion
+// (what a tap costs) rather than the target (where the rubbish is).
+//
+// TWO THINGS THAT LOOKED LIKE FINDINGS AND DID NOT SURVIVE THEIR OWN RE-CHECK:
+//
+// THE DIFFICULTY CURVE IS COMPLETELY FLAT AFTER 200 SECONDS. Every parameter
+// hits its ceiling and stops: obstacle spacing at t=3960, speed at t=8000, the
+// tall-stack probability at t=6750, the stack cap at t=10392, the pinch chance
+// at t=12000. Nothing whatever changes after that. It is also unreachable: no
+// human-latency policy tested got past t=8877, so the plateau is 35% further
+// out than the longest realistic run. Left alone.
+//
+// A BOT THAT ONLY FLIES THE CORRIDOR IS IMMORTAL: 3 of 3 alive after 120,000
+// frames, 33 minutes, and 10 of 10 at 11 minutes. That reads exactly like the
+// idle-bot finding that made the hazards reach into the lane, and it is not the
+// same thing. It needs decisions every 100ms or better; at 200ms the same
+// policy dies at a median of 115 seconds and at 133ms with a human's aim it
+// dies at 39. The narrowest window the game can build is 260px of a 680px lane
+// against a 36px collision box, which is why a servo lives there forever and a
+// person does not. Do not widen the hazards on the strength of a bot that taps
+// sixty times a second.
+//
 // ACCESSIBILITY, and a game makes this awkward rather than impossible.
 // prefers-reduced-motion cannot mean "no movement" in a game about movement,
 // so it means: nothing moves until you press start, the parallax and the screen
@@ -75,6 +136,9 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc } from "../shared/format.mjs";
+// The stylesheet's own comment stripper, reused rather than re-written: it is a
+// tokenizer, so a /* inside a quoted value or a url() cannot open a comment.
+import { strip as miniCSS } from "./build-css.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -212,117 +276,57 @@ const style = `
 }
 `;
 
-const page = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Garbage Run: a One Thumb Game for the Restock Line | Garbage Rips 585</title>
-<meta name="description" content="${esc(desc)}">
-<link rel="canonical" href="${SITE}/games/garbage-run.html">
-<meta property="og:title" content="Garbage Run">
-<meta property="og:description" content="${esc(desc)}">
-<meta property="og:type" content="article">
-<meta property="og:url" content="${SITE}/games/garbage-run.html">
-<meta property="og:site_name" content="Garbage Rips 585">
-<meta property="og:image" content="${SITE}/assets/og-image.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="${SITE}/assets/og-image.jpg">
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
-${FONTS}
-${STYLES}
-<style>${style}</style>
-<script type="application/ld+json">${JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
-    { "@type": "ListItem", position: 2, name: "Games", item: `${SITE}/games/` },
-    { "@type": "ListItem", position: 3, name: "Garbage Run" },
-  ],
-})}</script>
-</head>
-<body>
-${SPRITE}
-${SKIP}
-${BAR}
-${MENU}
-<main id="main">
-  <section class="tight gr-sec">
-    <div class="wrap gr-wrap">
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/games/">Games</a> / <span>Garbage Run</span></nav>
+// SHIP THE CODE, KEEP THE PROSE. The same trade build-css.mjs makes for the
+// stylesheet, made here for the one page on this site that carries a large
+// inline script. 512 of this script's lines are whole-line comments, 36.8KB of
+// 66.2KB, and every one of them is worth keeping in this file and worth nothing
+// at all to somebody opening the page on mobile data in a restock line.
+//
+// MEASURED on the built page, comments in against comments out, script and
+// inline stylesheet together:
+//
+//     raw      91,650 -> 49,676 bytes
+//     gzip     32,602 -> 15,181     the page more than halves
+//     brotli   27,495 -> 13,060     which is what a static host actually sends
+//
+// That is 14.4KB off the wire, more than the whole skyline feature cost, and
+// the source above is unchanged.
+//
+// IT ONLY DROPS WHOLE-LINE COMMENTS, WHICH IS WHAT MAKES IT SAFE WITHOUT A
+// JAVASCRIPT PARSER. A line whose first non-space characters are // is a
+// comment for the whole of its length, so nothing on it can be code, and
+// deleting it leaves the newline that ended the PREVIOUS line in place, so no
+// two tokens that were on separate lines land on one and no automatic semicolon
+// moves. Blank lines go the same way, for the same reason build-css.mjs drops
+// them: whitespace between statements is never part of one.
+//
+// THE ONE CONSTRUCT THAT WOULD BREAK IT IS A STRING SPANNING LINES, which in
+// JavaScript means a template literal, and a line inside one that begins with
+// // is text rather than a comment. There is not one backtick in the script
+// today; if somebody adds one this THROWS rather than quietly shipping a
+// mangled game, which is the failure mode this file spends most of its comments
+// warning about. Trailing comments after code are left alone: telling one from
+// a // inside a string or a regex literal needs a real tokenizer, and they are
+// 4% of the total.
+function miniJS(js) {
+  if (js.indexOf("\u0060") !== -1) {
+    throw new Error(
+      "build-garbage-run: the game script now contains a backtick, so it may " +
+      "hold a multi-line string and miniJS can no longer prove that a line " +
+      "starting with // is a comment. Use a real tokenizer, or keep the script " +
+      "free of template literals."
+    );
+  }
+  return js
+    .split("\n")
+    .map((line) => line.replace(/[ \t]+$/, ""))
+    .filter((line) => line !== "" && !/^\s*\/\//.test(line))
+    .join("\n");
+}
 
-      <div class="gr-layout">
-        <h1 class="gr-title">Garbage <span class="hl">Run</span></h1>
-
-        <div class="gr-hud">
-          <div class="gr-score" id="grScore">0</div>
-          <div class="gr-best" id="grBest">Best 0</div>
-        </div>
-
-        <div class="gr-board" id="grBoard">
-          <div class="gr-stage" id="grStage">
-            <canvas id="grCanvas" width="420" height="680" role="img"
-              aria-label="Garbage Run. Trubbish runs through downtown Rochester, past the Times Square building, the Xerox tower and High Falls, and you tap to flip him between the floor and the ceiling."></canvas>
-            <div class="gr-over" id="grOver">
-              <h2 id="grTitle">Garbage Run</h2>
-              <p id="grMsg">Tap the screen, or press space, to flip. Eat the rubbish, dodge the Pokemon.</p>
-              <button class="gr-go" id="grStart" type="button">Start</button>
-            </div>
-          </div>
-        </div>
-
-        <p class="lede gr-lede">One thumb, no rules to read. Tap to flip Trubbish between the floor and the ceiling and
-          eat everything on the street, Garbage Plates included. A hundred pieces of rubbish and he evolves.</p>
-
-        <div class="gr-how">
-          <p><b>How it works.</b> Tap anywhere, or press <span class="gr-keys">space</span>, <span class="gr-keys">W</span>
-          or the <span class="gr-keys">arrow keys</span>. Every piece of rubbish you eat is a point. Other Pokemon are out there too and
-          touching one ends the run. Get to ${EVOLVE_AT} and Trubbish evolves into Garbodor for the rest of the game.<br>
-          <b>Some of the rubbish is a Garbage Plate</b>, because of course it is. Home fries, macaroni salad, hot sauce,
-          mustard and onion, exactly like Nick Tahou would hand you at two in the morning. A plate is worth the same one
-          point as everything else on the street. It just tastes better.<br>
-          <b>That is downtown Rochester behind him.</b> The Times Square building and its four wings, the Xerox tower,
-          Kodak, the grain silos, and High Falls with the Pont de Rennes over the top of it. It is drawn on the canvas
-          like everything else here, and it is kept dim on purpose so the things that can kill you stay the brightest
-          objects on the screen.<br>
-          <b>Nothing is saved anywhere but your own phone</b>, and there is no account and no server. Your best
-          score lives in this browser and goes away if you clear it.</p>
-
-          <!-- THE ONLY PICTURE ON THIS PAGE, and it is deliberately not a
-               screenshot. A screenshot of Garbage Run, sitting directly above
-               Garbage Run, playable, is the least useful image this site could
-               carry: the reader can look at the real one, moving, for free. The
-               hub is where a shot of this game earns its place, because there
-               the game is not on the screen.
-               What this shows instead is the thing the sentence above names and
-               cannot show: the score you are playing towards buys you a
-               different Trubbish, and until you get there you have never seen
-               him. Both files are the sprites the canvas itself draws, so the
-               picture cannot describe a game that has moved on without it. -->
-          <figure class="gr-evo">
-            <img src="/assets/trubbish.webp" width="512" height="512" alt="Trubbish, the sprite the game starts you as"
-              loading="lazy" decoding="async">
-            <span class="gr-evo-at">${EVOLVE_AT}</span>
-            <img src="/assets/garbodor.webp" width="512" height="512" alt="Garbodor, what Trubbish becomes"
-              loading="lazy" decoding="async">
-            <figcaption>What ${EVOLVE_AT} pieces of rubbish buys you. Both are the sprites the game draws on the
-              canvas, the same two files the 404 page uses.</figcaption>
-          </figure>
-        </div>
-
-        <p class="gr-how gr-other"><a href="/games/">The other games</a> are quicker: a set guesser, a silhouette round and
-          a trivia run. This one is for a longer wait.</p>
-      </div>
-    </div>
-  </section>
-</main>
-${footer()}
-<script>
+// The game script, kept out of the page template so it can go through miniJS on
+// the way out. It is emitted verbatim apart from the comment strip.
+const GAME_JS = `
 (function () {
   "use strict";
   var cv = document.getElementById("grCanvas");
@@ -434,6 +438,10 @@ ${footer()}
   // it would not be on a skyline with a waterfall in it. This accumulates the
   // real distance instead, one addition per world step.
   var speed = 0, t = 0, dist = 0;
+  // Animation frames since the run began. Not the world clock: this one keeps
+  // counting through the count-in, the evolution freeze and the death hold. The
+  // flip guard above is its only reader.
+  var frameN = 0;
 
   // SPEED IS CAPPED NOW AND IT WAS NOT. The ramp had no ceiling, so a long run
   // kept accelerating for as long as it lasted: measured 21.8 px per frame after
@@ -454,9 +462,35 @@ ${footer()}
     draw();
   }
 
+  // TWO FINGERS AT ONCE USED TO BE NO FLIP AT ALL, and it was found by driving
+  // the board with real touch events rather than with a PointerEvent built in
+  // page script. A two-finger tap is two pointerdowns in the same task, so it
+  // was two flips, so it was a flip and its exact undo: measured at 390x844 on
+  // DPR 3 and DPR 2, flip went 1 -> 1 and Trubbish did not move. The game is
+  // one thumb by design, but a phone handed to somebody else is held in two
+  // hands, and a panicking player slaps at it. A silent no-op is the worst
+  // possible answer there: nothing on the screen says the tap was heard.
+  //
+  // The guard is the ANIMATION FRAME rather than a millisecond window, so there
+  // is no constant to tune and it cannot drift with the frame rate. Two contacts
+  // of the same tap land in the same task, before the next frame, and coalesce
+  // into one flip; two deliberate taps are 236ms apart at the measured human
+  // rate, fourteen frames, and are untouched. Verified inert: 30 bot runs across
+  // three policies are identical to the frame with and without it.
+  //
+  // IT COUNTS ANIMATION FRAMES AND NOT WORLD FRAMES, and the first version
+  // counted world frames, which is wrong in the two places the world stops. t
+  // does not advance during the count-in or during the evolution freeze, so
+  // every tap in the first 750ms of a run and every tap in the 200ms of the
+  // evolution collapsed into one: measured, three separate taps 120ms apart at
+  // the start of a run produced ONE flip. frameN advances whenever tick() does,
+  // which is every frame the game is up, stopped or not.
+  var lastFlipF = -1;
   function flip(i) {
     var L = lanes[i];
     if (!L || !L.alive) return;
+    if (lastFlipF === frameN) return;
+    lastFlipF = frameN;
     L.flip = -L.flip;
     // The kick. Without it a tap only reverses acceleration and the first few
     // frames go nowhere, which reads as lag even though nothing is late.
@@ -723,8 +757,7 @@ ${footer()}
         // run and stays that way: there is no going back, which is the point of
         // an evolution and also the reward for surviving that long.
         //
-        // AND IT NOW LANDS LIKE ONE. A hundred pieces of rubbish is several
-        // minutes of unbroken play and it used to be marked by a gold tint and a
+        // AND IT NOW LANDS LIKE ONE. It used to be marked by a gold tint and a
         // word appearing over a world that never paused to notice. freeze holds
         // the whole simulation for twelve frames, which is the oldest trick in
         // the genre and the cheapest: nothing moves, so the change of sprite is
@@ -733,6 +766,24 @@ ${footer()}
           L.evolved = true; L.evoFlash = 42; L.evoRing = 34;
           L.freeze = calm ? 0 : 12; L.shake = calm ? 0 : 10;
         }
+        // HOW OFTEN ANYBODY ACTUALLY SEES IT, MEASURED, because the sentence
+        // above used to say "a hundred pieces of rubbish is several minutes of
+        // unbroken play" and that has been wrong since trails went in. It is
+        // ~49 SECONDS for a player who never misses, and the reason it still
+        // reads as rare is that almost nobody survives 49 seconds:
+        //
+        //   perfect play, no latency                  evolves at t=2673..3124
+        //   human latency, playing it safe             9 runs in 60
+        //   human latency, taking the rubbish          3 runs in 60
+        //
+        // So the evolution is roughly a one-in-ten event, and the figure on the
+        // page above is the only place most readers will ever see Garbodor. That
+        // is an argument for keeping the figure, not for moving EVOLVE_AT: the
+        // number is round, the copy is built from it, and a reward you reach
+        // every run is not one. If a later pass does want it commoner, change
+        // EVOLVE_AT and re-run the bots, because it moves the freeze, the freeze
+        // moves nothing else, and the whole difficulty question is upstream of
+        // it anyway.
       }
     }
 
@@ -1222,13 +1273,43 @@ ${footer()}
     ctx.strokeRect(x + 5, top + 1, 32, h - 2);
   }
 
+  // THE SHAKE HAS ITS OWN GENERATOR AND THAT IS NOT TIDINESS. It used to call
+  // Math.random() twice per shaking frame, from inside drawLane, and draw() runs
+  // ONCE PER ANIMATION FRAME while step() runs up to FOUR times per animation
+  // frame. So the number of numbers the shake pulled out of the game's stream
+  // depended on the frame rate, which means the hazard sequence after a shake
+  // did too, and tick()'s own comment ("the physics are deterministic, which the
+  // pack counts and the difficulty curve both assume") was not true.
+  //
+  // MEASURED, idle bot, same three seeds, driving the same world at one, two and
+  // three world steps per animation frame. The death frame is identical every
+  // time, which is the physics being right; the stream is not:
+  //
+  //                     seed 1              seed 2              seed 3
+  //   1 step/frame   78 draws, h=2808308947   55, 1716976529   68, 1405947259
+  //   2 steps/frame  64 draws, h=2778097658   41,  161708980   54, 2094265979
+  //   3 steps/frame  60 draws, h=1669787473   37, 3154426850   50, 1406013808
+  //
+  // The gaps are exactly the shake arithmetic: 14 frames of death shake is 14
+  // draw calls at 60Hz and 7 at 30Hz, two numbers each, so 28 draws against 14.
+  // It only bites mid-run at the EVOLUTION, which shakes for 10 frames, and the
+  // consequence is that a phone dropping frames gets a different street after
+  // evolving than one that is not. Same class as the plate-spark bug this file
+  // already records, found the same way and fixed the same way: the cosmetic
+  // thing does not get to touch the stream.
+  var shakeS = 0x2545F491;
+  function wobble(amp) {
+    shakeS = (Math.imul(shakeS, 1664525) + 1013904223) | 0;
+    return ((shakeS >>> 8) / 16777216 - 0.5) * amp;
+  }
+
   function drawLane(L, i) {
     ctx.save();
     ctx.beginPath(); ctx.rect(0, L.top, W, L.h); ctx.clip();
     // The shake. Applied to the world and not to the canvas element, so it costs
     // nothing on the compositor and cannot leave a gap at the frame's edge.
     if (L.shake > 0) {
-      ctx.translate((Math.random() - 0.5) * L.shake, (Math.random() - 0.5) * L.shake);
+      ctx.translate(wobble(L.shake), wobble(L.shake));
     }
 
     var g = ctx.createLinearGradient(0, L.top, 0, L.top + L.h);
@@ -1393,6 +1474,7 @@ ${footer()}
 
   function tick() {
     if (!running) return;
+    frameN += 1;
     // Hold the world still for three quarters of a second so the player can
     // get a thumb back on the screen before anything moves.
     if (countIn > 0) {
@@ -1447,9 +1529,40 @@ ${footer()}
     raf = requestAnimationFrame(tick);
   }
 
+  // THE PANEL WAS THROWN AWAY BY THE TAP YOU WERE ALREADY MAKING, and this is
+  // the same bug as "the death happened off screen" one step further along. That
+  // one was fixed by holding the world for 34 frames so you can see what hit
+  // you. Then the panel comes up, and the panel is the half that tells you the
+  // score, whether it is a new best, and how much more you needed to evolve.
+  //
+  // A player of this game is tapping continuously: measured over 120 runs of the
+  // human-latency bot, 4.2 to 4.4 taps a second, so the next tap is 236ms away
+  // on average and never more than 236ms away. Driven on the real page with a
+  // steady 4.3 taps a second, ten seeds, the panel was visible for a MEDIAN OF
+  // 10 FRAMES, 167ms, before that tap restarted the run: 67ms at the worst seed
+  // and 200ms at the best. Nobody reads a score in 167ms, so every death looked
+  // like the game simply starting again.
+  //
+  // 500ms is chosen against that 236ms cadence: it swallows at most two taps, so
+  // a player who wanted to go again presses once more and it works, and it is
+  // under the delay at which a person decides a control is broken. It gates the
+  // BUTTON too, on purpose. The button is centred in the play area, which is
+  // exactly where a thumb that is mid-rhythm lands, so leaving it live would
+  // leave the commonest accidental restart in place.
+  //
+  // Nothing here can move the game: it draws no random numbers and runs no world
+  // step, and every bot run below is byte-identical before and after.
+  var GO_LOCK = 500;
+  var overAt = -1e9;
+  function nowMs() {
+    return (window.performance && performance.now) ? performance.now() : Date.now();
+  }
+  function goReady() { return nowMs() - overAt >= GO_LOCK; }
+
   function end() {
     running = false;
     cancelAnimationFrame(raf);
+    overAt = nowMs();
     var sc = lanes[0].score;
     // bank() may already have stored this score mid-run, so "is it a new best"
     // is asked against what the run started with rather than against best.
@@ -1488,7 +1601,7 @@ ${footer()}
     e.preventDefault();
     if (running) flip(0);
     else if (paused) resume();
-    else if (!elOver.hidden) start();
+    else if (!elOver.hidden && goReady()) start();
   }, { passive: false });
   document.addEventListener("keydown", function (e) {
     // AUTO-REPEAT WAS AN INVINCIBILITY CHEAT. Holding space fired flip() at the
@@ -1526,11 +1639,16 @@ ${footer()}
         k === "w" || k === "s") {
       if (running) { e.preventDefault(); flip(0); }
       else if (paused) { e.preventDefault(); resume(); }
-      else if (!elOver.hidden) { e.preventDefault(); start(); }
+      // The key is swallowed either way, so a space bar pressed in the lock
+      // window still cannot throw the page down a screen.
+      else if (!elOver.hidden) { e.preventDefault(); if (goReady()) start(); }
     }
   });
 
-  elStart.addEventListener("click", function () { if (paused) resume(); else start(); });
+  elStart.addEventListener("click", function () {
+    if (paused) resume();
+    else if (goReady()) start();
+  });
 
   // Nobody wants to come back to a tab that kept playing without them.
   // PAUSE IS A STATE, NOT A SECOND BUTTON. This used to assign elStart.onclick
@@ -1639,7 +1757,119 @@ ${footer()}
 
   reset();
 })();
-</script>
+`;
+
+const page = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garbage Run: a One Thumb Game for the Restock Line | Garbage Rips 585</title>
+<meta name="description" content="${esc(desc)}">
+<link rel="canonical" href="${SITE}/games/garbage-run.html">
+<meta property="og:title" content="Garbage Run">
+<meta property="og:description" content="${esc(desc)}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="${SITE}/games/garbage-run.html">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="${SITE}/assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${SITE}/assets/og-image.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#111111">
+${FONTS}
+${STYLES}
+<style>${miniCSS(style)}</style>
+<script type="application/ld+json">${JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+    { "@type": "ListItem", position: 2, name: "Games", item: `${SITE}/games/` },
+    { "@type": "ListItem", position: 3, name: "Garbage Run" },
+  ],
+})}</script>
+</head>
+<body>
+${SPRITE}
+${SKIP}
+${BAR}
+${MENU}
+<main id="main">
+  <section class="tight gr-sec">
+    <div class="wrap gr-wrap">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/games/">Games</a> / <span>Garbage Run</span></nav>
+
+      <div class="gr-layout">
+        <h1 class="gr-title">Garbage <span class="hl">Run</span></h1>
+
+        <div class="gr-hud">
+          <div class="gr-score" id="grScore">0</div>
+          <div class="gr-best" id="grBest">Best 0</div>
+        </div>
+
+        <div class="gr-board" id="grBoard">
+          <div class="gr-stage" id="grStage">
+            <canvas id="grCanvas" width="420" height="680" role="img"
+              aria-label="Garbage Run. Trubbish runs through downtown Rochester, past the Times Square building, the Xerox tower and High Falls, and you tap to flip him between the floor and the ceiling."></canvas>
+            <div class="gr-over" id="grOver">
+              <h2 id="grTitle">Garbage Run</h2>
+              <p id="grMsg">Tap the screen, or press space, to flip. Eat the rubbish, dodge the Pokemon.</p>
+              <button class="gr-go" id="grStart" type="button">Start</button>
+            </div>
+          </div>
+        </div>
+
+        <p class="lede gr-lede">One thumb, no rules to read. Tap to flip Trubbish between the floor and the ceiling and
+          eat everything on the street, Garbage Plates included. A hundred pieces of rubbish and he evolves.</p>
+
+        <div class="gr-how">
+          <p><b>How it works.</b> Tap anywhere, or press <span class="gr-keys">space</span>, <span class="gr-keys">W</span>
+          or the <span class="gr-keys">arrow keys</span>. Every piece of rubbish you eat is a point. Other Pokemon are out there too and
+          touching one ends the run. Get to ${EVOLVE_AT} and Trubbish evolves into Garbodor for the rest of the game.<br>
+          <b>Some of the rubbish is a Garbage Plate</b>, because of course it is. Home fries, macaroni salad, hot sauce,
+          mustard and onion, exactly like Nick Tahou would hand you at two in the morning. A plate is worth the same one
+          point as everything else on the street. It just tastes better.<br>
+          <b>That is downtown Rochester behind him.</b> The Times Square building and its four wings, the Xerox tower,
+          Kodak, the grain silos, and High Falls with the Pont de Rennes over the top of it. It is drawn on the canvas
+          like everything else here, and it is kept dim on purpose so the things that can kill you stay the brightest
+          objects on the screen.<br>
+          <b>Nothing is saved anywhere but your own phone</b>, and there is no account and no server. Your best
+          score lives in this browser and goes away if you clear it.</p>
+
+          <!-- THE ONLY PICTURE ON THIS PAGE, and it is deliberately not a
+               screenshot. A screenshot of Garbage Run, sitting directly above
+               Garbage Run, playable, is the least useful image this site could
+               carry: the reader can look at the real one, moving, for free. The
+               hub is where a shot of this game earns its place, because there
+               the game is not on the screen.
+               What this shows instead is the thing the sentence above names and
+               cannot show: the score you are playing towards buys you a
+               different Trubbish, and until you get there you have never seen
+               him. Both files are the sprites the canvas itself draws, so the
+               picture cannot describe a game that has moved on without it. -->
+          <figure class="gr-evo">
+            <img src="/assets/trubbish.webp" width="512" height="512" alt="Trubbish, the sprite the game starts you as"
+              loading="lazy" decoding="async">
+            <span class="gr-evo-at">${EVOLVE_AT}</span>
+            <img src="/assets/garbodor.webp" width="512" height="512" alt="Garbodor, what Trubbish becomes"
+              loading="lazy" decoding="async">
+            <figcaption>What ${EVOLVE_AT} pieces of rubbish buys you. Both are the sprites the game draws on the
+              canvas, the same two files the 404 page uses.</figcaption>
+          </figure>
+        </div>
+
+        <p class="gr-how gr-other"><a href="/games/">The other games</a> are quicker: a set guesser, a silhouette round and
+          a trivia run. This one is for a longer wait.</p>
+      </div>
+    </div>
+  </section>
+</main>
+${footer()}
+<script>${miniJS(GAME_JS)}</script>
 ${APP_JS}
 </body>
 </html>

@@ -13,6 +13,7 @@ import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { priceNote, priceFooter } from "../shared/card-prices.mjs";
 // NO packplayer.js, BUT packs.css STAYS. These pages wear a .pack facade as
 // decoration, so the stylesheet is doing real work; the script is not.
 // THE "On the channel" LIST IS PLAIN TEXT LINKS, which is the whole reason this
@@ -479,7 +480,16 @@ function setValue(s) {
   }
 
   return {
-    checked: doc.checked,
+    // THE VALUE BAND'S DATE IS THE PRICE DATE. It sums 207 dollar figures and
+    // stamps one date under them, so it has to be the day those figures were
+    // read (PriceCharting's crawl) and not the day the checklist was read.
+    checked: doc.pricesChecked || doc.checked,
+    priceStamps: {
+      priceSource: doc.priceSource,
+      pricesChecked: doc.pricesChecked,
+      checked: doc.checked,
+      pricedBy: doc.pricedBy,
+    },
     counted: prices.length,
     total: doc.cards.length,
     sum,
@@ -564,7 +574,7 @@ function valueBand(s, cls) {
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Where the value sits</p>
     <h2>Where the <span class="hl">money</span> is</h2>
-    <p class="lede w42">Buy one copy of ${some} in ${esc(s.name)} at market price and you would spend
+    <p class="lede w42">Buy one copy of ${some} in ${esc(s.name)} at its guide value and you would spend
       ${moneyExact(v.sum)}. ${
         v.half === 1
           ? `More than half of that is a single card.`
@@ -582,8 +592,8 @@ function valueBand(s, cls) {
     <p class="lede sv-say">In plain terms: a handful of cards carry the set and everything else is bulk. That is normal,
       it is true of nearly every modern set, and it is worth knowing before you buy a box hoping to "get your money
       back".</p>
-    <p class="price-note">Added up from the ${v.counted} market prices in the checklist below, read
-      ${esc(longDate(v.checked) || v.checked)}. This is what buying one of each card would cost. It is not what a booster
+    <p class="price-note">Added up from the ${v.counted} prices in the checklist below.
+      ${esc(priceNote(v.priceStamps || {}))} This is what buying one of each card would cost. It is not what a booster
       box is worth, and it is not the chance of pulling anything: nobody outside The Pokemon Company has pull rates, so
       you will not find any on this site.</p>
   </div>
@@ -731,7 +741,7 @@ function checklistBand(s, cls) {
           ? `The stars beside a rarity are the ones printed on that card.`
           : "",
       ].filter(Boolean).join(" ")
-    } TCGplayer market prices via TCGdex, read ${esc(longDate(doc.checked) || doc.checked)}.
+    } ${esc(priceNote(doc))}
       Where a card exists as a normal, holo and reverse holo at different prices, the figure shown is the priciest of
       them, because that is the one people mean. ${priced.length} of ${doc.cards.length} cards have a price.
       Looking for one card in particular? <a href="/cards.html?set=${esc(s.id)}">Search every card on the site</a>.</p>
@@ -859,7 +869,7 @@ ${rows}
  * one-set bug only because the same incomplete fallback happened to pick
  * correctly for the other three. A missing chase card is much better than a
  * wrong one, so an incomplete list is no longer allowed to publish one: with no
- * checklist prices the band prints "No market prices yet" and says so.
+ * checklist prices the band prints "No prices yet" and says so.
  *
  * TCGplayer product links are the one thing the checklist does not carry, so
  * they come from data/chase-tcg.json, matched on card number. That file is now
@@ -932,11 +942,21 @@ for (const st of sets) {
         url: urls.get(n) || null,
       };
     });
-  st.chasePriceSource = "TCGplayer";
+  // PRICECHARTING, AND THE DATE IS THE PRICE DATE. `doc.checked` is the day
+  // TCGdex was read for the CHECKLIST and it moves nightly; `doc.pricesChecked`
+  // is the day PriceCharting was read for the money. Stamping the first one
+  // against a column of dollars claimed a freshness the figures do not have.
+  st.chasePriceSource = "PriceCharting";
+  st.priceStamps = {
+    priceSource: doc.priceSource,
+    pricesChecked: doc.pricesChecked,
+    checked: doc.checked,
+    pricedBy: doc.pricedBy,
+  };
   // Both stamps, because the price note reads pricesAsOf first and that date
   // described a read this list no longer uses.
-  st.chasePricesAsOf = doc.checked;
-  st.pricesAsOf = doc.checked;
+  st.chasePricesAsOf = doc.pricesChecked || doc.checked;
+  st.pricesAsOf = doc.pricesChecked || doc.checked;
 }
 
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
@@ -1271,6 +1291,114 @@ const affLink = (url) =>
 
 const ripsBySet = {};
 for (const v of videos) for (const s of v.sets || []) ripsBySet[s] = (ripsBySet[s] || 0) + 1;
+
+// HOW MUCH SEALED PRODUCT THIS SET HAS COST US, which is a different question
+// from how many videos there are and the guides could not answer it at all.
+//
+// Asked for by name: "we should be able to see I have opened 3 Chaos Rising
+// ETBs ... on the set stats we should show Opened ETB number, Open Booster
+// Bundle Number and Single Booster Pack numbers". The obvious answer, counting
+// videos, is wrong by a factor of nine: 21 Chaos Rising ETB rips came out of
+// THREE ETBs, one pack per video, and every one of those 21 rows says
+// "Packs Opened 9" because that is what an ETB holds. Nothing in the catalogue
+// distinguished the box from the pack until the sheet gained a Box # column.
+//
+// SO A BOX IS COUNTED ONLY WHERE A HUMAN NUMBERED IT. `boxNumber` comes from
+// the sheet and nowhere else; there is no rule that could derive it, because
+// the fact lives in the prose of a description that often carries two different
+// numbers in one sentence ("Pack #2 of our third Chaos Rising ETB"). A set
+// nobody has numbered yet gets NO count rather than a guess or a zero.
+//
+// THE COUNT IS THE HIGHEST NUMBER RECORDED, NOT HOW MANY WERE RECORDED, and
+// that is the one judgement call in here. "Chaos Rising ETB #3" is a statement
+// that there was a first and a second, made by the person who opened them, and
+// a box opened off camera is still a box opened. Publishing "1 ETB" on a page
+// whose own video list says ETB #3 would be the site arguing with itself.
+// The cost is that one mis-key publishes a wrong total, so the gaps are
+// reported at build time below rather than left to be noticed.
+//
+// LOOSE PACKS HAVE NO BOX, so they are counted per video: an id ending in
+// "-pack" is single-pack, japanese-pack, korean-pack or chinese-pack and
+// nothing else in shared/taxonomy.mjs. Derived from the id rather than listed,
+// because every hand-kept product list in this project has gone stale at least
+// once. Where such a row states a pack count and the video opened only one set,
+// that count is used, so a video opening three loose packs counts three.
+const LOOSE_PACK = /-pack$/;
+const openedBySet = new Map();
+for (const v of videos) {
+  const prod = (v.products || [])[0];
+  if (!prod) continue;
+  for (const sid of v.sets || []) {
+    if (!openedBySet.has(sid)) openedBySet.set(sid, new Map());
+    const per = openedBySet.get(sid);
+    if (!per.has(prod)) per.set(prod, { numbered: [], loose: 0 });
+    const rec = per.get(prod);
+    if (v.boxNumber) rec.numbered.push({ n: v.boxNumber, published: v.published });
+    if (LOOSE_PACK.test(prod)) {
+      rec.loose += (v.sets || []).length === 1 && v.packs > 0 ? v.packs : 1;
+    }
+  }
+}
+
+/** The rows a set's "what we have opened" block prints, biggest count first. */
+function openedRows(setId) {
+  const per = openedBySet.get(setId);
+  if (!per) return [];
+  const rows = [];
+  for (const [prod, rec] of per) {
+    const highest = rec.numbered.length ? Math.max(...rec.numbered.map((x) => x.n)) : 0;
+    const n = highest || rec.loose;
+    if (n > 0) rows.push({ prod, n, counted: highest ? "boxes" : "packs" });
+  }
+  // BOXES BEFORE LOOSE PACKS, then biggest first. Sorting on the count alone
+  // put "13 Single Packs" ahead of "3 Elite Trainer Boxes" on Chaos Rising,
+  // which buries the only number on the block that took a human to record
+  // behind the one that did not.
+  return rows.sort(
+    (a, b) =>
+      (b.counted === "boxes") - (a.counted === "boxes") || b.n - a.n || a.prod.localeCompare(b.prod)
+  );
+}
+
+// WHERE THE TYPED NUMBER AND THE LOG DISAGREE, SAY SO AT BUILD TIME.
+//
+// The typed number wins on the page, for the reason argued above, and the price
+// of that is that nothing would ever notice a 33 typed for a 3. So the same
+// numbers are ALSO derived the only way they can be, by counting the distinct
+// boxes the log has actually seen in publish order, and every disagreement is
+// printed. A box numbered 3 that is the first one on record is either a typo or
+// two videos that were never numbered, and both are worth knowing about.
+//
+// It is deliberately NOT printed on the page. A public set guide is not the
+// place for a note about the completeness of a spreadsheet, and the person who
+// can fix it is the person running this build.
+{
+  const gaps = [];
+  for (const [sid, per] of openedBySet) {
+    for (const [prod, rec] of per) {
+      if (!rec.numbered.length) continue;
+      const order = [];
+      for (const x of [...rec.numbered].sort((a, b) => String(a.published).localeCompare(String(b.published)))) {
+        if (!order.includes(x.n)) order.push(x.n);
+      }
+      order.forEach((n, i) => {
+        if (n !== i + 1) {
+          gaps.push(
+            `${sid} / ${prod}: #${n} came ${i + 1} of ${order.length} in the order this log saw them, ` +
+              `so the numbering has a gap. Either the earlier ones were never numbered in the sheet, ` +
+              `or the number is a typo.`
+          );
+        }
+      });
+    }
+  }
+  if (gaps.length) {
+    console.log(`  ${gaps.length} box number(s) do not line up with what the log has seen:`);
+    for (const g of gaps.slice(0, 12)) console.log(`    ${g}`);
+    if (gaps.length > 12) console.log(`    ...and ${gaps.length - 12} more`);
+    console.log(`    The pages print the number you typed, because you are the one who opened them.`);
+  }
+}
 
 // Sealed products and their TCGplayer market prices, from sync-products.mjs.
 // Optional: a set with no entry simply renders no band rather than an empty one.
@@ -1761,6 +1889,32 @@ const PAGE_CSS = `
   .svc-bar{grid-row:1;grid-column:2}
   .svc-v{grid-row:2;grid-column:2}
 }
+
+/* THE "WHAT WE HAVE OPENED" TILE ROW IS .facts WITH ONE RULE TURNED OFF.
+   ui.css ends its .facts block with
+
+       .fact:last-child:nth-child(4n + 1){grid-column:1 / -1}
+
+   which spans a LONE tile across the whole row. That rule is right where it
+   was written: the orphan there is the Pokemon pages' fifth tile, the only
+   tappable thing on the page, and it looked like a mistake sitting in 1,099px
+   of space. This block's orphan is a statistic, and it is not tappable, so the
+   same rule turned "7 SINGLE PACKS" into a 1,392px bar with two words floating
+   in the middle of it. Measured on /sets/pitch-black.html at 1440x900.
+
+   So the tracks are capped at one tile's natural width instead, which leaves a
+   single tile the same size as it would be with three beside it, and the span
+   is switched back off. Four tiles at 1440 are unchanged to the pixel, because
+   4 x 21.2em plus the gaps is the wrap.
+
+   IT LIVES HERE RATHER THAN IN ui.css on purpose, and CLAUDE.md records the
+   same call being made for the home page's 545-999px rules: this is one band on
+   one page family, and another pass owns that stylesheet. Fold it in when both
+   settle. */
+@media(min-width:700px){
+  .facts.opened{grid-template-columns:repeat(4,minmax(0,21.2em));justify-content:start}
+  .facts.opened .fact:last-child:nth-child(4n + 1){grid-column:auto}
+}
 ${RARITY_CSS}`;
 
 /**
@@ -1815,7 +1969,7 @@ function setPage(s) {
   const desc =
     `${s.name} Pokemon TCG set guide: ${s.total || "?"} cards, released ` +
     `${longDate(s.released) || "recently"}, full rarity breakdown` +
-    (s.chase?.length ? `, and the top chase cards with current market values.` : `.`);
+    (s.chase?.length ? `, and the top chase cards with current guide values.` : `.`);
 
   // Keyed through rarityLabel, so a set whose counts came from the API rather
   // than from a checklist sorts by the same names the rest of the page prints.
@@ -1976,7 +2130,7 @@ function setPage(s) {
     <p class="mine-note">The card database has no scan for ${
       noScan.length === 1 ? `${esc(noScan[0].name)} ${esc(noScan[0].number)}` : `${noScan.length} of these`
     }, so ${noScan.length === 1 ? "it is" : "they are"} named and priced here rather than shown as an empty card.</p>` : ""}
-    <p class="price-note">TCGplayer market prices via TCGdex${longDate(s.pricesAsOf || s.chasePricesAsOf) ? `, read ${longDate(s.pricesAsOf || s.chasePricesAsOf)}` : ""}. These are the same eight rows the checklist further down prints, sorted by price, so the two agree by construction. Singles move fast, so treat them as a ballpark rather than a quote.${affOn ? ` ${esc(aff.tcgplayer.disclosure)}` : ""}</p>
+    <p class="price-note">${esc(priceNote(s.priceStamps || { pricesChecked: s.pricesAsOf || s.chasePricesAsOf }))} These are the same eight rows the checklist further down prints, sorted by price, so the two agree by construction. Singles move fast, so treat them as a ballpark rather than a quote.${affOn ? ` ${esc(aff.tcgplayer.disclosure)}` : ""}</p>
     `;
     })() : `
     <div class="no-prices">
@@ -1985,7 +2139,7 @@ function setPage(s) {
             tells a reader to look the wrong way is worse than one that says
             nothing, and this one is only ever seen on a set we have no prices
             for, which is exactly when somebody is hunting for the rest. */ ""}
-      <strong>No market prices yet.</strong> ${esc(s.name)} is recent enough that pricing data has not landed in the card database. The card list and rarity counts further down this page are accurate; the values will fill in as the market settles.
+      <strong>No prices yet.</strong> ${esc(s.name)} is recent enough that pricing data has not landed in the card database. The card list and rarity counts further down this page are accurate; the values will fill in as the market settles.
     </div>`}
   </div>
 </section>`,
@@ -2153,7 +2307,7 @@ function setPage(s) {
         ${h.img ? avifPicture(`<img class="mine-img" src="${esc(h.img)}" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>`) : `<div class="mine-img is-none" aria-hidden="true"></div>`}
         <p class="mine-n">${h.name}</p>
         <p class="mine-r">${h.meta}</p>
-        <p class="mine-p">${typeof h.price === "number" ? moneyExact(h.price) : "No market price"}${
+        <p class="mine-p">${typeof h.price === "number" ? moneyExact(h.price) : "No price"}${
             typeof h.psa10 === "number" ? ` <span class="mine-psa">${moneyExact(h.psa10)} in a 10</span>` : ""
           }</p>
         ${h.rips.map((r) => `<a class="mine-w" href="/${esc(r.path)}">Watch the rip &rarr;</a>`).join("\n        ")}
@@ -2177,6 +2331,90 @@ function setPage(s) {
     </ul>
     <p class="mine-note">Those came out of the rip log as written. They do not have a card number or a
       price against them yet, so they are listed rather than priced.</p>` : ""}
+  </div>
+</section>`;
+    })(),
+
+    (() => {
+      // HOW MUCH SEALED PRODUCT THIS SET HAS COST US. Sits directly under
+      // "pulled on camera", because the two are the same thought in the two
+      // directions a reader cares about: what came out, and what went in.
+      //
+      // IT IS NOT A FIFTH WAY OF SAYING "we have 21 videos". "See it opened"
+      // further down counts VIDEOS and the rip list above counts videos again;
+      // this counts BOXES, and on Chaos Rising those are 21 and 3. That is the
+      // whole reason the block earns its place: nothing else on the page can
+      // tell you how many ETBs a set has taken.
+      //
+      // NO RATE, NO AVERAGE, NO PACKS PER HIT. This block sits two sections
+      // under a grid of the cards we pulled, which makes "3 ETBs" and "6 hits"
+      // one division away from a pull rate the site does not have and never
+      // states. So it counts product and stops. See "Never state pull rates" in
+      // CLAUDE.md and the same refusal on /luck.html.
+      //
+      // A SET WITH NOTHING RECORDED RENDERS NOTHING. 27 of the 28 English
+      // guides are in that state today and the section is simply absent from
+      // them, which is the same rule the pulled-on-camera band above and the
+      // set notes below already follow.
+      const rows = openedRows(s.id);
+      if (!rows.length) return null;
+      // A BAND THAT SAYS "1 SINGLE PACK" SAYS LESS THAN ITS OWN HEADING.
+      //
+      // Measured on the first build: 19 of 28 guides rendered the section and
+      // 17 of those held one tile reading 1 or 2 loose packs, because a single
+      // pack needs no box number and every set with one rip has one. A section
+      // label, a heading, a lede and a source note, to print a 1. That is the
+      // "five ways of saying one thing" failure this file's own band ordering
+      // comment is about.
+      //
+      // So the floor is two rules, both about whether the block is saying
+      // anything the page does not already say, and neither is a magic number:
+      //
+      //   - one product opened once is less than its own heading
+      //   - a single row equal to the set's own rip count is the VIDEO COUNT in
+      //     other words, and that number is already in the facts row at the top
+      //     of the page, in "See it opened" and in the rip list. Four guides
+      //     were doing exactly this: Pokemon GO 12 packs against 12 rips,
+      //     Rebel Clash, Shining Fates and Temporal Forces 2 against 2.
+      //
+      // Both rules are switched off by a box number, because a numbered box is
+      // the one fact here that exists nowhere else on the site, and both heal
+      // themselves: the day a Pokemon GO ETB is logged the block comes back
+      // with something to say.
+      if (
+        rows.length === 1 &&
+        rows[0].counted !== "boxes" &&
+        (rows[0].n === 1 || rows[0].n === (ripsBySet[s.id] || 0))
+      ) {
+        return null;
+      }
+      // Every plural on this block, derived from the label rather than kept in
+      // a list. "Collection Box" needs "es" and "Blister" needs "s", and a
+      // hand-written table of eighteen plurals is one more thing to go stale
+      // the day a product is added to shared/taxonomy.mjs.
+      const plural = (word, n) =>
+        n === 1 ? word : /(s|x|z|ch|sh)$/i.test(word) ? `${word}es` : `${word}s`;
+      const anyBoxes = rows.some((r) => r.counted === "boxes");
+      const anyPacks = rows.some((r) => r.counted === "packs");
+      return (cls) => `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Out of our own pocket</p>
+    <h2>What we have <span class="hl">opened</span> of this set</h2>
+    <p class="lede w38">Sealed product we have been through, counted from the rip log rather than from the video count. A box counts once however many videos it took to get through it.</p>
+    <div class="facts opened">
+      ${rows
+        .map(
+          (r) => `<div class="fact"><div class="n">${r.n}</div><div class="l">${esc(
+            plural(labelFor("products", r.prod), r.n)
+          )}</div></div>`
+        )
+        .join("\n      ")}
+    </div>
+    <p class="price-note">${
+      anyBoxes
+        ? "The box count is the highest number we wrote against a box in the log, so one marked as our third counts as three whether or not the first two were filmed. "
+        : ""
+    }${anyPacks ? "Loose packs are counted one per opening. " : ""}Anything we have not written a number against is not counted here, so these are a floor rather than a total.</p>
   </div>
 </section>`;
     })(),
@@ -2364,7 +2602,7 @@ ${body}
 </div>
 
 </main>
-${footer("Card data from TCGdex, prices from TCGplayer. Prices are estimates and move constantly.")}
+${footer(priceFooter("Prices are estimates and move constantly."))}
 <script>
 (function(){
   var lb=document.getElementById('lb'), img=document.getElementById('lbImg');
@@ -2504,7 +2742,7 @@ ${Object.keys(intlGuides).length ? `
 </section>` : ""}
 
 </main>
-${footer("Card data from TCGdex, prices from TCGplayer. Prices are estimates and move constantly.")}
+${footer(priceFooter("Prices are estimates and move constantly."))}
 ${APP_JS}
 </body>
 </html>

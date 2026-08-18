@@ -37,6 +37,7 @@ import { readFile, readdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { priceNote, priceFooter, priceRead } from "../shared/card-prices.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -93,6 +94,7 @@ function listedFloor(c) {
 
 const rows = [];
 let checked = null;
+let priceDoc = null;
 
 for (const f of (await readdir(join(ROOT, "public/data/cards"))).sort()) {
   if (!f.endsWith(".json")) continue;
@@ -100,6 +102,20 @@ for (const f of (await readdir(join(ROOT, "public/data/cards"))).sort()) {
   const set = meta.get(doc.set);
   if (!set) continue;
   checked = checked || doc.checked;
+  // THE PRICE STAMPS ARE COLLECTED ACROSS EVERY SET, not taken from whichever
+  // file happened to be read first. This page sums 28 checklists into one
+  // total, so its sourcing line has to describe all 28: the read date is one
+  // crawl's, but the count of cards that fell back to TCGdex is a sum.
+  if (!priceDoc) {
+    priceDoc = {
+      priceSource: doc.priceSource,
+      pricesChecked: doc.pricesChecked,
+      checked: doc.checked,
+      pricedBy: { pricecharting: 0, tcgdex: 0 },
+    };
+  }
+  priceDoc.pricedBy.pricecharting += doc.pricedBy?.pricecharting || 0;
+  priceDoc.pricedBy.tcgdex += doc.pricedBy?.tcgdex || 0;
 
   // printedTotal is the number on the card ("131/131"), so anything numbered
   // above it is a secret rare and sits outside the base set by definition.
@@ -642,8 +658,10 @@ ${MENU}
       <li><strong>No pull rates, no pack math.</strong> We have not costed "how many packs to complete this", because
         it would need pull rates we do not have. Anyone quoting you that number is estimating.</li>
     </ul>
-    <p class="price-note">Prices are TCGplayer market via TCGdex, read ${esc(longDate(checked) || checked || "recently")},
-      and refresh on their own overnight. Card counts are the published checklists. Totals are computed from those two
+    <p class="price-note">${esc(priceNote(priceDoc))}
+      The cheapest-listing figures on this page are a different measurement from a different source: they are the
+      lowest live TCGplayer listing via TCGdex, which is one seller's asking price rather than a guide value.
+      Card counts are the published checklists. Totals are computed from those two
       things and nothing else: no estimates, no rounding up to a nicer number. No affiliate links, and nothing here is
       a recommendation to buy anything.</p>
   </div>

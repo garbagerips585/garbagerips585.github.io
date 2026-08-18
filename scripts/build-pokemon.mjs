@@ -87,6 +87,7 @@ import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { priceNote, priceFooter, priceRead } from "../shared/card-prices.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -161,10 +162,22 @@ const expansions = (await readJson("public/data/expansions.json", { sets: [] }))
 
 const cards = [];
 let checked = null;
+// Summed across all 28 sets: a Pokedex page draws printings from many sets at
+// once, so its sourcing line has to describe the whole price file.
+let priceDoc = null;
 for (const f of await readdir(join(ROOT, "public/data/cards"))) {
   if (!f.endsWith(".json")) continue;
   const doc = JSON.parse(await readFile(join(ROOT, "public/data/cards", f), "utf8"));
   checked = checked || doc.checked;
+  if (!priceDoc)
+    priceDoc = {
+      priceSource: doc.priceSource,
+      pricesChecked: doc.pricesChecked,
+      checked: doc.checked,
+      pricedBy: { pricecharting: 0, tcgdex: 0 },
+    };
+  priceDoc.pricedBy.pricecharting += doc.pricedBy?.pricecharting || 0;
+  priceDoc.pricedBy.tcgdex += doc.pricedBy?.tcgdex || 0;
   for (const c of doc.cards) cards.push({ ...c, set: doc.set, setName: doc.name });
 }
 
@@ -884,7 +897,7 @@ function pokePage(p) {
         )
         .join("\n      ")}
     </div>
-    <p class="price-note">TCGplayer market prices via TCGdex, read ${esc(longDate(checked) || checked)}. Where a card
+    <p class="price-note">${esc(priceNote(priceDoc))} Where a card
       comes as a normal, holo and reverse holo at different prices, the figure is the priciest of them. Prices move
       daily, so treat these as a ballpark. <a href="/cards.html?q=${encodeURIComponent(p.name)}">Search every card</a>.</p>
   </div>
@@ -1145,7 +1158,7 @@ ${effBand}
 </div>
 
 </main>
-${footer("Card data from TCGdex, prices from TCGplayer, Pokedex data and artwork from PokeAPI. Fan made, not official.")}
+${footer(priceFooter("Pokedex data and artwork from PokeAPI. Fan made, not official."))}
 <script>
 (function(){
   var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), last=null;
@@ -1350,14 +1363,14 @@ function indexPage() {
     <p class="price-note">Species list from the National Pokedex, pokeapi.co, read
       ${esc(longDate(dexDoc.checked) || dexDoc.checked)}. Card counts are every printing we could name for that
       Pokemon in any language, from the TCGdex card database, read ${esc(longDate(pChecked) || pChecked)}.
-      ${n(indexed)} of the ${n(DEX.length)} pages carry a market price on at least one card and enough scans to be
+      ${n(indexed)} of the ${n(DEX.length)} pages carry a price on at least one card and enough scans to be
       worth a search engine's time; the rest are published but marked noindex until they do.
       Anything else is on the <a href="/cards.html">card search</a>, which covers all ${n(cards.length)}.</p>
   </div>
 </section>
 
 </main>
-${footer("Card data from TCGdex, prices from TCGplayer, Pokedex data from PokeAPI. Fan made, not official.")}
+${footer(priceFooter("Pokedex data from PokeAPI. Fan made, not official."))}
 <script>
 (function(){
   var q=document.getElementById('dxq'), count=document.getElementById('dxCount');
@@ -1431,6 +1444,13 @@ await writeFile(
   join(ROOT, "public/data/pokemon-index.json"),
   JSON.stringify({
     checked,
+    // THE PRICE STAMPS TRAVEL WITH THE PRICES. /eevee.html reads `top` out of
+    // this index rather than the card files, so without these it had no way to
+    // name the source of a figure it prints, and it was crediting TCGplayer.
+    // Passing the whole stamp block means the two pages cannot drift.
+    priceSource: priceDoc?.priceSource || null,
+    pricesChecked: priceDoc?.pricesChecked || null,
+    pricedBy: priceDoc?.pricedBy || null,
     count: species.length,
     indexable: indexed.length,
     pokemon: species.map((p) => ({

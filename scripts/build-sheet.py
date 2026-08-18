@@ -225,6 +225,18 @@ SHOP_GOOD_FOR = ["Sealed product", "Singles", "New releases", "In store",
 
 HOF_RANKS = [str(i) for i in range(1, 21)]
 
+# WHICH ONE OF THESE, AND WHICH PACK OUT OF IT. Two dropdowns of plain numbers.
+#
+# They are lists rather than free cells for the same reason every other column
+# here has one: it makes the column obviously a NUMBER, and picking 3 is one
+# click. Neither is strict, so a fourth Booster Box or the 37th pack of
+# something exotic is typed straight in. The ranges are chosen from what the
+# products actually hold: nothing on the Opening Type list holds more than a
+# booster box's 36 packs, and 30 of one product from one set is far past
+# anything the channel has opened.
+BOX_NUMBERS = [str(i) for i in range(1, 31)]
+PACK_NUMBERS = [str(i) for i in range(1, 37)]
+
 # Every chase card we know about, so Hit Card is a pick rather than a spelling
 # test. Not exhaustive on purpose: the validation is a suggestion, not a rule.
 def _hit_card_list():
@@ -392,6 +404,14 @@ rows = [
                                 "them up for you, so a UPC reads 18 packs AND tells us six were "
                                 "Journey Together. That is what makes a per-set pack count possible.", None),
     (None, None, None),
+    ("Which one, and which pack",
+                  "Box # is which one of that product you are opening, counting your own openings "
+                  "of it from that set: your third Chaos Rising ETB is 3. Pack # is which pack out "
+                  "of it this video opens. Fill both in and the Chaos Rising guide can say how many "
+                  "ETBs, bundles and single packs have been opened from that set, which nothing "
+                  "else in the sheet can work out. Both are optional and blank is the normal case: "
+                  "a set with none recorded shows no counts at all rather than a zero.", None),
+    (None, None, None),
     ("Greatest Hits", "Mark Yes on the RIPS you want in the gold section at the top of the home "
                       "page. Rank orders them, 1 first. Leave Rank blank and the site orders by "
                       "rarity then views. These are videos.", None),
@@ -425,7 +445,12 @@ for col, (head, items) in enumerate(
     [("Sets", SET_NAMES), ("Opening Types", OPENING_TYPES), ("Hit Rarities", RARITIES),
      ("Yes/No", YESNO), ("Playlists", PLAYLISTS), ("Box / Series", BOX_NAMES or ["(none yet)"]),
      ("Hit Cards", HIT_CARDS or ["(none yet)"]), ("PSA 10 Sources", PSA_SOURCES),
-     ("Shop Areas", SHOP_AREAS), ("Shop Good For", SHOP_GOOD_FOR), ("HoF Ranks", HOF_RANKS)],
+     ("Shop Areas", SHOP_AREAS), ("Shop Good For", SHOP_GOOD_FOR), ("HoF Ranks", HOF_RANKS),
+     # APPENDED, NOT INSERTED. named() below addresses these columns by NUMBER,
+     # so putting a new list anywhere but the end shifts every dropdown after it
+     # onto the wrong column. Same trap the Video Log solved by looking columns
+     # up by header; here the fix is simply to only ever add at the end.
+     ("Box Numbers", BOX_NUMBERS), ("Pack Numbers", PACK_NUMBERS)],
     start=1,
 ):
     ws_c = get_column_letter(col)
@@ -475,6 +500,8 @@ DV_PSASRC = named(8, len(PSA_SOURCES))
 DV_AREA = named(9, len(SHOP_AREAS))
 DV_GOODFOR = named(10, len(SHOP_GOOD_FOR))
 DV_RANK = named(11, len(HOF_RANKS))
+DV_BOXNO = named(12, len(BOX_NUMBERS))
+DV_PACKNO = named(13, len(PACK_NUMBERS))
 
 
 def dv(formula, strict=False):
@@ -530,6 +557,26 @@ COLUMNS = [
     ("Packs", 8, "input"),
     ("Box / Series", 30, "input"),
     ("Opening Type", 28, "input"),
+    # WHICH ONE OF THESE, AND WHICH PACK OUT OF IT.
+    #
+    # Asked for by name: "we should be able to see I have opened 3 Chaos Rising
+    # ETBs and this is pack 3 from that ETB". Opening Type says an ETB was
+    # opened and Packs says how many packs the ETB holds. Neither says which ETB
+    # or which pack, and without that the log cannot answer "how many ETBs of
+    # this set have we been through", which is the question.
+    #
+    # THEY SIT IN THE DAILY BLOCK ON PURPOSE, right after the column they
+    # qualify. The four extra Set/Packs pairs were moved PAST these columns
+    # because they are filled 13 times in 313 rows; these two are filled on
+    # every box opening, which is most of the catalogue, so they belong beside
+    # Opening Type where the answer is already in mind.
+    #
+    # BOTH ARE OPTIONAL AND BLANK IS THE NORMAL CASE. 316 rows have neither
+    # today. Everything downstream omits what it does not have rather than
+    # printing a zero, so a blank row reads exactly as it did before these
+    # columns existed.
+    ("Box #", 8, "input"),
+    ("Pack #", 8, "input"),
     # Packs Opened is what makes the luck page rigorous. Without it a rate can
     # only be "per video", which silently treats a 36-pack booster box and a
     # single pack as one trial each. With it the rate is per PACK, which is the
@@ -624,6 +671,36 @@ HEAD_NOTES = {
         "adds itself up. Typing over it deletes the sum for that row."
     ),
     "Packs": "How many packs from the set in the Set column, not the whole rip.",
+    "Box #": (
+        "WHICH ONE OF THESE, counting your own openings of that product from\n"
+        "that set. Your third Chaos Rising ETB is 3. Your second Journey\n"
+        "Together Booster Bundle is 2.\n"
+        "\n"
+        "Counted per SET and per OPENING TYPE, so a Chaos Rising ETB and a\n"
+        "Journey Together ETB have their own separate numbering, and so does a\n"
+        "bundle from the same set. \"Box\" covers whatever the sealed thing is:\n"
+        "an ETB, a bundle, a tin, a collection.\n"
+        "\n"
+        "It counts boxes you OPENED, on camera or not. If number 1 and 2 were\n"
+        "never filmed, this is still 3.\n"
+        "\n"
+        "Leave it blank when you do not know or it does not apply. A single\n"
+        "loose pack has no box, so it stays empty. Blank is normal and nothing\n"
+        "on the site shows a gap where one is missing."
+    ),
+    "Pack #": (
+        "WHICH PACK OUT OF THAT BOX this video opens. Pack 3 of the 9 in an\n"
+        "ETB is 3.\n"
+        "\n"
+        "Use it with Box #: \"Box # 3, Pack # 3\" is pack three of your third\n"
+        "one. That pair is what lets the site tell one ETB from the next.\n"
+        "\n"
+        "This is NOT the same as Packs, next door. Packs is how many packs the\n"
+        "product holds; this is which single one of them you are opening here.\n"
+        "\n"
+        "Leave it blank when a video opens a whole product in one go, or when\n"
+        "you did not keep count."
+    ),
     "Greatest Hits": (
         "The Hall of Fame band on the home page.\n"
         "Separate from the Hits playlist: this is the shortlist, that is a\n"
@@ -761,6 +838,15 @@ for r, v in enumerate(ordered, start=2):
     # failure the note below describes, in the same block, one field over.
     if man.get("openingType"):
         wv.cell(r, COL["Opening Type"], man["openingType"]).font = BODY
+    # Typed answers, never guessed. There is no rule that could derive which ETB
+    # a video opened: the description usually says so in prose and sometimes says
+    # it twice with two different numbers ("Pack #2 of our third Chaos Rising
+    # ETB"), which is exactly the sort of thing a matcher gets confidently wrong.
+    # A blank cell here means nobody has said, and it comes back blank.
+    if man.get("boxNumber"):
+        wv.cell(r, COL["Box #"], man["boxNumber"]).font = BODY
+    if man.get("packNumber"):
+        wv.cell(r, COL["Pack #"], man["packNumber"]).font = BODY
     if man.get("hasHit") is not None:
         wv.cell(r, COL["Has Hit"], "Yes" if man["hasHit"] else "No").font = BODY
     if man.get("hitRarity"):
@@ -846,6 +932,11 @@ for dv_formula, cols in [
     (DV_YESNO, [CI["Has Hit"], CI["Greatest Hits"], CI["Feature"], CI["Hide"]]),
     (DV_PLAYLIST, [CI["Playlist To Add"]]),
     (DV_RANK, [CI["Greatest Hits Rank"]]),
+    # A list of numbers, not strict, so 3 is one click and anything past the end
+    # of the list can still be typed. Own object per column for the reason
+    # spelled out below.
+    (DV_BOXNO, [CI["Box #"]]),
+    (DV_PACKNO, [CI["Pack #"]]),
 ]:
     # ONE VALIDATION OBJECT PER COLUMN, NOT ONE SHARED ACROSS ALL OF THEM.
     #
@@ -962,6 +1053,8 @@ metrics = [
     ("Still missing a pack count",
      f'=COUNTA({L}!{CL("Video ID")}2:{CL("Video ID")}{last})-COUNTA({L}!{CL("Packs")}2:{CL("Packs")}{last})'),
     ("Opening type filled in", f'=COUNTA({L}!{CL("Opening Type")}2:{CL("Opening Type")}{last})'),
+    ("Box number filled in", f'=COUNTA({L}!{CL("Box #")}2:{CL("Box #")}{last})'),
+    ("Pack number filled in", f'=COUNTA({L}!{CL("Pack #")}2:{CL("Pack #")}{last})'),
     ("Marked as a hit", f'=COUNTIF({L}!{CL("Has Hit")}2:{CL("Has Hit")}{last},"Yes")'),
     ("Hit card named", f'=COUNTA({L}!{CL("Hit Card")}2:{CL("Hit Card")}{last})'),
     ("In Greatest Hits", f'=COUNTIF({L}!{CL("Greatest Hits")}2:{CL("Greatest Hits")}{last},"Yes")'),

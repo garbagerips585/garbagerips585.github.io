@@ -27,6 +27,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { priceNote, priceFooter, priceRead } from "../shared/card-prices.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -417,7 +418,7 @@ ${MENU}
     </ol>
     <p class="cq-head" id="cqHead">The 60 most valuable cards across every set we rip. Type above to search all ${nAll} printings.</p>
 
-    <p class="price-note">TCGplayer market prices via TCGdex, read ${esc(longDate(index.checked) || index.checked)}.
+    <p class="price-note">${esc(priceNote(index))}
       Where a card comes as a normal, holo and reverse holo at different prices, the figure is the priciest of them.
       ${n(priced.length)} of the ${n(rows.length)} cards from the sets we rip have a price.
       ${n(unpricedOurs)} do not, and they are English: TCGdex lists them with no TCGplayer entry at all, so they
@@ -431,7 +432,7 @@ ${MENU}
 </section>
 
 </main>
-${footer("Card data from TCGdex, prices from TCGplayer. Fan made, not official.")}
+${footer(priceFooter("Fan made, not official."))}
 <script>
 (function(){
   var input=document.getElementById('cq'), sel=document.getElementById('cset');

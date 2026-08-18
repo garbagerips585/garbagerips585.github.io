@@ -353,6 +353,40 @@ Two constraints that shape these pages:
   Do not reintroduce a second price feed to a page that already has one: 22 of
   28 guides once priced their own chase card twice, and on Ascended Heroes the
   second feed named the wrong card entirely.
+
+  **THE MONEY IN THAT FILE IS PRICECHARTING'S NOW, NOT TCGDEX'S, SINCE 18
+  August 2026.** Tim: "lets use pricecharting as the main numbers for the
+  entire site". `scripts/sync-pricecharting-cards.mjs` reads the crawl
+  `sync-graded-top.mjs` already cached under `.cache/pricecharting-console/`
+  and writes `data/pricecharting-cards.json`; `sync-cards.mjs` overlays it onto
+  the card files in ONE place, which is why ten builders changed source without
+  ten chances to miss one. It makes NO network request and must not be given
+  one. For fresher numbers run `sync-graded-top.mjs --refresh` and re-run it.
+
+  MEASURED BEFORE IT WAS SWAPPED, because the risk was coverage: TCGdex priced
+  5,168 of the 5,181 cards, PriceCharting prices 5,179, and the two that neither
+  covers alone are covered by the other, so check-build went 99.7% to 100.0%.
+  Nothing lost a price. On the cards a guide features ($20+) the two sources sit
+  98.2% within 25% of each other; the wide gaps are all in the sub-dollar tail,
+  where a guide value does not fall to a marketplace's floor. Set totals moved
+  1.00x overall. Celebrations is the outlier at 4.13x and that is real, not a
+  bug: 25 cards, nothing expensive to anchor it, so the bulk floor is the total.
+
+  TWO DATES LIVE IN THAT FILE AND THEY ARE NOT INTERCHANGEABLE. `checked` is
+  when TCGdex was read for the CHECKLIST and moves nightly; `pricesChecked` is
+  when PriceCharting was read for the MONEY. Stamping the first under a column
+  of dollars claims a freshness the figures do not have, which is what every
+  price note did until `shared/card-prices.mjs` took the wording over. Use
+  `priceNote(doc)` rather than writing the sentence again.
+
+  THREE THINGS STAY WHERE THEY WERE AND NONE IS AN OVERSIGHT. `low` is a lowest
+  live listing, which PriceCharting does not publish at all. Pokemon Center
+  stays the source for ALL MSRP, because every multiple on the site divides an
+  asked price by the SUGGESTED price. And the standard-printing allowlist in
+  `sync-pricecharting-cards.mjs` is load bearing: PriceCharting files
+  `[Stamped]`, `[Poke Ball]`, `[Cosmos Holo]` and a dozen more against the same
+  collector number, and taking the dearest of all of them priced a bulk
+  Bulbasaur at $40.30 off a prerelease promo.
 - "Still in print" and pack prices are not in the API and are not guessed.
   They live in `data/set-notes.json` for a human, along with any fun facts,
   and are omitted when blank. Everything else is API fact or checklist

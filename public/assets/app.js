@@ -369,7 +369,19 @@
     var grid = document.getElementById("libGrid");
     if (!grid) return;
 
-    var state = { q: "", sets: [], products: [], sort: "new" };
+    // `pull` IS A FILTER THE URL COULD ASK FOR AND NOTHING IMPLEMENTED. The home
+    // page rail has carried a gold "Hits only 10" chip pointing at
+    // /videos.html?pull=1 for as long as the rail has existed, beside seven
+    // ?set= and ?product= chips that all work. readUrl ignored the parameter and
+    // writeUrl then stripped it from the address bar, so the one chip the page
+    // draws in gold landed on the unfiltered catalogue: 316 rips under a label
+    // promising 10, with the url tidied up on the way so nothing looked wrong.
+    // Found by driving the link rather than by reading it.
+    var state = { q: "", sets: [], products: [], pull: false, sort: "new" };
+
+    // The pull ladder, mirroring PULL_RANK in build-proto.mjs, which is what
+    // counts the "Hits only" chip. Order does not matter here, membership does.
+    var PULL_TIERS = ["gold", "sir", "ir", "double-rare", "charizard"];
     var all = [];
 
     // URL is the source of truth so any filtered view is shareable.
@@ -378,6 +390,7 @@
       state.q = p.get("q") || "";
       state.sets = (p.get("set") || "").split(",").filter(Boolean);
       state.products = (p.get("product") || "").split(",").filter(Boolean);
+      state.pull = p.get("pull") === "1";
       state.sort = p.get("sort") || "new";
     }
     function writeUrl() {
@@ -385,6 +398,7 @@
       if (state.q) p.set("q", state.q);
       if (state.sets.length) p.set("set", state.sets.join(","));
       if (state.products.length) p.set("product", state.products.join(","));
+      if (state.pull) p.set("pull", "1");
       if (state.sort !== "new") p.set("sort", state.sort);
       var qs = p.toString();
       history.replaceState(null, "", qs ? "?" + qs : location.pathname);
@@ -506,6 +520,15 @@
     function matches(v) {
       if (state.sets.length && !state.sets.some(function (s) { return (v.sets || []).indexOf(s) > -1; })) return false;
       if (state.products.length && !state.products.some(function (s) { return (v.products || []).indexOf(s) > -1; })) return false;
+      // THE LADDER, NOT "HAS ANY TAG", AND THE DIFFERENCE IS THREE RIPS.
+      // build-proto.mjs counts the gold chip's number with bestPull(), which
+      // only recognises the five tiers in its PULL_RANK, and PULL_TIERS above
+      // mirrors that list the way LABELS mirrors shared/taxonomy.mjs. Written
+      // as `(v.pulls || []).length` instead, this filter answered 13 to a chip
+      // promising 10: three rips carry `ultra` or `super`, which the taxonomy
+      // assigns and the ladder does not rank. A filter that disagrees with the
+      // control that opened it is the bug this whole parameter was fixing.
+      if (state.pull && !(v.pulls || []).some(function (p) { return PULL_TIERS.indexOf(p) > -1; })) return false;
       if (parsed.terms.length || parsed.neg.length) {
         var hay = haystack(v);
         for (var i = 0; i < parsed.terms.length; i++) if (hay.indexOf(parsed.terms[i]) === -1) return false;
@@ -579,7 +602,13 @@
 
       var c = document.getElementById("libCount");
       if (c) {
+        // NAMED, BECAUSE NOTHING ELSE ON THE PAGE SAYS IT. A set or a product
+        // filter lights its own chip in the rail above the grid, so the reader
+        // can see why they are looking at 22 rips instead of 316. `pull` has no
+        // chip here: it is only ever arrived at from the home page's gold "Hits
+        // only" link, and without this line the grid is a silently short list.
         c.innerHTML = "<b>" + out.length + "</b> of " + all.length + " rips" +
+          (state.pull ? " with a graded pull" : "") +
           (out.length > shown ? " &bull; showing " + shown : "");
       }
       syncChips();
@@ -600,7 +629,7 @@
         // by-count order is intact underneath.
         b.style.order = on ? "-1" : "";
       });
-      var n = state.sets.length + state.products.length;
+      var n = state.sets.length + state.products.length + (state.pull ? 1 : 0);
       var clear = document.getElementById("libClear");
       if (clear) clear.hidden = !n && !state.q;
     }
@@ -803,7 +832,7 @@
     var clear = document.getElementById("libClear");
     if (clear) {
       clear.addEventListener("click", function () {
-        state.sets = []; state.products = [];
+        state.sets = []; state.products = []; state.pull = false;
         if (search) search.value = "";
         // Through applyQuery, so the parsed terms, the sort and the little
         // clear button all reset with it. Setting state.q directly left the
@@ -829,7 +858,13 @@
     // A URL that DOES carry a filter is a different list from the one the
     // server rendered, so that case renders normally.
     var prerendered = grid.children.length;
-    var filtered = !!(state.q || state.sets.length || state.products.length || state.sort !== "new");
+    // `state.pull` BELONGS IN THIS TEST AND WAS MISSING FROM IT. A url carrying
+    // ?pull=1 IS a different list from the one the server rendered, so leaving
+    // it out kept all 48 server tiles on screen under a count line that had
+    // already been recomputed: the page read "13 of 316 rips with a graded
+    // pull" over a grid showing everything. Every filter that can narrow the
+    // list has to be named here.
+    var filtered = !!(state.q || state.sets.length || state.products.length || state.pull || state.sort !== "new");
     var keepDom = prerendered > 0 && !filtered;
     if (keepDom) shown = prerendered;
     if (!prerendered) grid.appendChild(emptyState("Loading the bulk...", ""));
@@ -908,7 +943,10 @@
         var a = el(p.path ? "a" : "span", "pl");
         if (p.path) {
           a.href = "/" + p.path;
-          a.setAttribute("aria-label", p.title + ", " + p.count + " videos");
+          // Pluralised, like the .pl-count below. A one-video playlist read
+          // "1 videos" to a screen reader while the visible count beside it
+          // read "1 video". build-proto.mjs's plTile had the same split.
+          a.setAttribute("aria-label", p.title + ", " + p.count + (p.count === 1 ? " video" : " videos"));
         }
 
         // The playlist's own cover, which Tim sets by hand and which shows the

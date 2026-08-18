@@ -199,6 +199,21 @@ let totalPriced = 0;
 const entries = Object.entries(map.sets || {});
 let refreshedSets = 0;
 let newestChecked = null;
+let totalFromPc = 0;
+
+// PriceCharting's figures for every card in every guide, written by
+// scripts/sync-pricecharting-cards.mjs out of the crawl sync-graded-top.mjs
+// already cached. See that script's header for the coverage measurement that
+// justified the swap. If the file is absent this sync still runs and every card
+// keeps its TCGdex price, which is the honest degraded state rather than a
+// build that fails on a missing overlay.
+let pcCards = { sets: {} };
+try {
+  pcCards = JSON.parse(await readFile(join(ROOT, "data/pricecharting-cards.json"), "utf8"));
+} catch {
+  console.log("  data/pricecharting-cards.json missing: prices stay on TCGdex.");
+  console.log("  run: node scripts/sync-pricecharting-cards.mjs");
+}
 
 for (const [slug, tcgdexId] of entries) {
   const i = entries.findIndex(([k]) => k === slug);
@@ -367,9 +382,56 @@ for (const [slug, tcgdexId] of entries) {
     continue;
   }
 
+  // PRICECHARTING OVERLAYS THE PRICES, HERE, ONCE, ON THE WAY TO DISK.
+  //
+  // This is the single place the swap happens and that is the whole design. Ten
+  // builders read public/data/cards/<set>.json for money and CLAUDE.md's "ONE
+  // SOURCE PER PAGE" rule exists because 22 of 28 guides once priced their own
+  // chase card twice. Changing the source in ten builders would have been ten
+  // chances to leave one of them on the old feed; changing the FILE they all
+  // read cannot desynchronise them.
+  //
+  // It sits before the `priced` count so the count describes what was written,
+  // and inside the successful-write branch only. The failure branches above all
+  // keep the previous file and read their prices back out of it, so they carry
+  // whatever overlay the last good run wrote rather than silently reverting a
+  // set to TCGdex.
+  const pcSet = pcCards.sets?.[slug];
+  let fromPc = 0;
+  for (const c of cards) {
+    const hit = pcSet?.cards?.[c.n];
+    if (hit && typeof hit.price === "number") {
+      c.price = hit.price;
+      c.variant = hit.variant;
+      c.all = hit.all;
+      // The graded columns come off the SAME PriceCharting row as the raw
+      // price, so a page printing both is describing one printing of one card.
+      // Carrying them here is what lets the set guides show a PSA 10 without
+      // introducing a second feed to a page that already has one.
+      if (hit.psa10 != null) c.psa10 = hit.psa10;
+      if (hit.g9 != null) c.g9 = hit.g9;
+      c.pcUrl = hit.url;
+      fromPc += 1;
+    } else if (c.price != null) {
+      // NAMED FALLBACK, NOT A SILENT ONE. PriceCharting covers 5,179 of 5,181,
+      // so this marks a handful of rows, and the mark is what lets a page say
+      // "TCGdex" against that one figure instead of crediting PriceCharting for
+      // a number it did not supply. Stamped only on the exceptions: the file's
+      // `source` says what the other 99.96% are.
+      c.src = "tcgdex";
+    }
+  }
+  // `low` IS DELIBERATELY LEFT ON TCGDEX AND IS NOT A SECOND PRICE FEED.
+  // PriceCharting publishes no lowest-listing figure at all, and `low` is not
+  // the same quantity as `price`: build-complete.mjs's own comment calls it "one
+  // listing, condition unstated, from one seller". It is the same case as the
+  // Pokemon Center MSRP, which also stays where it is. The page that prints it
+  // names TCGplayer for it specifically.
+
   const priced = cards.filter((c) => c.price != null).length;
   totalCards += cards.length;
   totalPriced += priced;
+  totalFromPc += fromPc;
 
   await writeFile(
     join(OUTDIR, `${slug}.json`),
@@ -378,11 +440,31 @@ for (const [slug, tcgdexId] of entries) {
         set: slug,
         name: ours.name,
         tcgdexId,
-        // Only advances when this set's prices were actually re-read.
+        // Only advances when this set's prices were actually re-read. This is
+        // the CHECKLIST's date: the names, numbers, rarities and art come from
+        // TCGdex on this day. It is no longer the date of the prices, which is
+        // `pricesChecked` below, and a page must not print it as one.
         checked: refreshNow || !(await previousChecked(slug)) ? TODAY : await previousChecked(slug),
-        source: "TCGdex, prices from TCGplayer",
+        // TWO SOURCES, TWO DATES, AND THEY ARE SEPARATE FIELDS BECAUSE THEY ARE
+        // SEPARATE FACTS. The checklist is TCGdex's and refreshes nightly; the
+        // prices are PriceCharting's and refresh when somebody runs the crawl.
+        // Collapsing them into one `source` string is how a page ends up
+        // stamping a price with the day a card name was read.
+        source: "Card data from TCGdex. Prices from PriceCharting.",
+        priceSource: pcCards.source || "pricecharting.com",
+        priceMeasurement: pcCards.measurement || null,
+        priceMethodology: pcCards.sourceMethodology || null,
+        pricesChecked: pcCards.checked || null,
+        // The named fallback, so a page can say which figures are not
+        // PriceCharting's without hunting for the `src` marks itself.
+        priceFallback: "TCGdex, prices from TCGplayer",
+        // `low` is a lowest live listing on TCGplayer. PriceCharting publishes
+        // no such figure, so this one stays where it was and is named for what
+        // it is wherever it is printed.
+        lowSource: "TCGplayer lowest listing, via TCGdex",
         total: cards.length,
         priced,
+        pricedBy: { pricecharting: fromPc, tcgdex: priced - fromPc },
         cards,
       },
       null,
@@ -416,6 +498,14 @@ await writeFile(
     // The freshest set, not "today". The index is only as current as its most
     // recently refreshed member.
     checked: newestChecked || TODAY,
+    // THE INDEX CARRIES THE PRICE DATE SEPARATELY FOR THE SAME REASON THE SET
+    // FILES DO. `checked` above is the freshest CHECKLIST date and moves
+    // nightly; the prices in this index are PriceCharting's and were read on
+    // `pricesChecked`. /cards.html prints one of these under a column of dollar
+    // figures, and until they were split it printed the one that moves nightly.
+    priceSource: pcCards.source || "pricecharting.com",
+    pricesChecked: pcCards.checked || null,
+    pricedBy: { pricecharting: totalFromPc, tcgdex: totalPriced - totalFromPc },
     fields: ["name", "set", "number", "rarity", "price"],
     sets: Object.fromEntries(summary.map((s) => [s.slug, s.name])),
     imgBase,

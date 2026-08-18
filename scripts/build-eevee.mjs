@@ -95,6 +95,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { priceNote, priceFooter } from "../shared/card-prices.mjs";
 import {
   BAR, MENU, SPRITE, SKIP, footer, FONTS,
   STYLES_NO_PACKS_CSS as STYLES,
@@ -715,8 +716,8 @@ ${valueRows}
           ${n(mostPrinted.pk.sets)} sets. Tap a name for the whole wall of scans.</p>`
             : ""
         }
-        <p class="price-note">Card counts from the TCGdex card database and market prices from TCGplayer via
-          TCGdex, read ${esc(longDate(pokeIndex?.checked) || pokeIndex?.checked || "an unrecorded date")}, joined to
+        <p class="price-note">Card counts come from the TCGdex card database.
+          ${esc(priceNote(pokeIndex || {}))} They are joined to
           each species by build-pokemon.mjs and read here from its published index so this page and the species
           pages cannot print different numbers. Prices move daily, so treat these as a ballpark rather than a
           quote. Where a card comes as a normal, holo and reverse holo at different prices, the figure is the
