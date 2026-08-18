@@ -99,15 +99,38 @@ export function ripLabel(v, setName, desc) {
   // already said it.
   if (/\((?:JP|KR|CN|TW)\)\s*$/.test(set) && /^(?:japanese|korean|chinese)-pack$/.test(prodId)) product = "Pack";
 
-  // THE PACK NUMBER IS IN THE DESCRIPTION MORE OFTEN THAN THE TITLE, which is
-  // the opposite of what you would guess: 238 videos carry it in the
-  // description against 197 in the title, and 239 in one or the other. The
-  // title is checked first because when it IS there it is the headline fact;
-  // the description is the fallback and it is where most of them live.
-  // It is the one part of the label that is parsed rather than looked up, so it
-  // is dropped silently when absent rather than guessed at.
-  const m = String(v.title || "").match(NUM) || String(desc || "").match(NUM);
-  const n = m ? m[1] || m[2] : null;
+  // WHICH BOX, THEN WHICH PACK OUT OF IT. Asked for by name: "Chaos Rising ETB
+  // 3 - Pack 3, or Pitch Black Booster Bundle 2 Pack 6".
+  //
+  // ---------------------------------------------------------------------------
+  // THE OLD LABEL PUT THE PACK NUMBER WHERE A READER READS A BOX NUMBER
+  // ---------------------------------------------------------------------------
+  //
+  // It printed `${set} ${product} #${n}` with n parsed out of the title or
+  // description, and n is the PACK number. "Chaos Rising ETB #2" therefore did
+  // not mean the second ETB, it meant pack 2, and nothing on the tile said so.
+  // Eight separate Chaos Rising videos carried the identical label "Chaos
+  // Rising ETB #2", and the last pack of the second box read "ETB #9", a box
+  // number that has never existed. A label whose whole job is to say what you
+  // are about to watch was naming the wrong object.
+  //
+  // TYPED BOX AND PACK WIN, AND THEY COME FROM THE SHEET. boxNumber and
+  // packNumber are Tim's own columns, so when both are present the label is
+  // stated rather than parsed and reads the way he asked for it.
+  const box = v.boxNumber;
+  const pack = v.packNumber;
+  if (box && pack) return `${set} ${product} ${box} - Pack ${pack}`;
+  if (box) return `${set} ${product} ${box}`;
 
-  return `${set} ${product}${n ? ` #${n}` : ""}`;
+  // NO TYPED NUMBERS, SO FALL BACK TO WHAT THE COPY SAYS, AND SAY WHAT IT IS.
+  // The parse finds a pack number, so the label now calls it a pack instead of
+  // leaving a bare # to be read as the box. 238 videos carry it in the
+  // description against 197 in the title, and 239 in one or the other, which is
+  // the opposite of what you would guess. The title is checked first because
+  // when it IS there it is the headline fact; the description is where most of
+  // them live. Dropped silently when absent rather than guessed at.
+  const m = String(v.title || "").match(NUM) || String(desc || "").match(NUM);
+  const n = pack || (m ? m[1] || m[2] : null);
+
+  return `${set} ${product}${n ? ` - Pack ${n}` : ""}`;
 }

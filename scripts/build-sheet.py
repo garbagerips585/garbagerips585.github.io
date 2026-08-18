@@ -46,6 +46,61 @@ except Exception:
 
 videos = json.loads((ROOT / "public/data/videos.json").read_text())
 videos = videos.get("videos", videos)
+
+# ---------------------------------------------------------------------------
+# WHAT TIM'S OWN TITLE ALREADY SAID, read back so he does not type it twice.
+# ---------------------------------------------------------------------------
+#
+# Asked for by name: "we should like videos by what they are, example, Chaos
+# Rising ETB 3 - Pack 3, or Pitch Black Booster Bundle 2 Pack 6, so that way we
+# can get the accurate data on how many of each product type we opened overall
+# and for each set, and then also so we know exactly how many packs we have
+# ripped overall for each set and overall."
+#
+# 235 of 316 videos state a pack number and 67 state a box number, most of them
+# in the title, in his own words: "Mega Zygarde Box #2 Pack #5". Handing back a
+# blank cell for a fact the title spells out is 300 rows of retyping.
+#
+# TRANSCRIPTION, NOT INFERENCE, AND THE LINE MATTERS. The comment further down
+# this file explains why a guessed HIT was removed: a colour does not survive
+# export to CSV, so the importer read every blue suggestion back as a typed
+# answer, and 62 of 64 rarities in the log arrived that way. The defence here is
+# not the colour, it is the pattern. These two regexes match ONLY the literal
+# words "Box"/"ETB"/"Bundle" or "Pack" followed by a number. They do not read
+# ordinal prose, so "our third Chaos Rising ETB" is deliberately NOT matched
+# even though a person can see it means 3: that is the sentence the older
+# comment below warns about, because a description can say it twice with two
+# different numbers ("Pack #2 of our third ETB") and a matcher picks wrong
+# confidently. A number Tim typed after the word Box is his answer being read
+# back. A number a rule worked out from prose is the machine's guess, and this
+# file does not put those in the same colour, it does not put them in at all.
+try:
+    _desc = json.loads((ROOT / "data/descriptions.json").read_text())
+except Exception:
+    _desc = {}
+
+# "Box #2", "ETB #3", "Bundle 2". The word first, then the number.
+BOX_RE = re.compile(r"\b(?:box|etb|elite\s+trainer\s+box|booster\s+bundle|bundle|tin|upc)\s*#?\s*(\d{1,2})\b", re.I)
+# "Pack #5", "Pack 5". A bare "#5" is NOT matched: on this channel it is as
+# often a card number or a set number as a pack.
+PACK_RE = re.compile(r"\bpack\s*#?\s*(\d{1,2})\b", re.I)
+
+
+def _stated(v, rx):
+    """The number this video's own title or description states, or None.
+
+    Title first: when it is there it is the headline fact and it is the copy
+    Tim wrote most deliberately. Description second, because that is where most
+    of them actually live.
+    """
+    for s in (v.get("title") or "", _desc.get(v.get("id"), "") or ""):
+        m = rx.search(s)
+        if m:
+            n = int(m.group(1))
+            if 1 <= n <= 40:
+                return n
+    return None
+
 sets = json.loads((ROOT / "public/data/sets.json").read_text())["sets"]
 set_name = {s["id"]: s["name"] for s in sets}
 
@@ -744,6 +799,10 @@ wv.auto_filter.ref = f"A1:{get_column_letter(len(COLUMNS))}{len(videos) + 1}"
 
 COL = {head: i for i, (head, _, _) in enumerate(COLUMNS, start=1)}
 
+# Rows where a stored pack count was the old capacity guess and the video says
+# which pack it was. Printed at the end so the correction is never silent.
+PACK_CORRECTIONS = []
+
 
 def clock(sec):
     if not sec:
@@ -799,10 +858,41 @@ for r, v in enumerate(ordered, start=2):
         wv.cell(r, COL["Set"], "Not a set (sealed/other)").font = BODY
     if products and products[0] in PRODUCT_TO_OPENING:
         wv.cell(r, COL["Opening Type"], PRODUCT_TO_OPENING[products[0]]).font = GUESS_TXT
+    # WHICH BOX AND WHICH PACK, WHERE HIS OWN TITLE SAYS SO.
+    # See the _stated() note near the top: explicit "Box #2" / "Pack #5" only,
+    # never ordinal prose. A typed answer from manual.json overwrites both of
+    # these a few lines below, in BODY, because an answer beats a reading.
+    _box = _stated(v, BOX_RE)
+    _pack = _stated(v, PACK_RE)
+    if _box:
+        wv.cell(r, COL["Box #"], _box).font = GUESS_TXT
+    if _pack:
+        wv.cell(r, COL["Pack #"], _pack).font = GUESS_TXT
     if products and products[0] in PRODUCT_TO_PACKS:
         # Goes on Packs, the first set's own count, because Packs Opened is now
         # a SUM. Writing a literal there would overwrite the formula.
-        wv.cell(r, COL["Packs"], PRODUCT_TO_PACKS[products[0]]).font = GUESS_TXT
+        #
+        # ---------------------------------------------------------------------
+        # THIS PREFILL WAS THE BUG, AND IT HAD ALREADY REACHED A PUBLISHED PAGE.
+        # ---------------------------------------------------------------------
+        #
+        # PRODUCT_TO_PACKS says how many packs a product CONTAINS. This column
+        # asks how many packs THIS VIDEO OPENED. Those are the same number only
+        # when the whole product is opened in one video, and on this channel it
+        # almost never is: the format is one pack per Short.
+        #
+        # So every Chaos Rising ETB rip was handed "9" and the guess was
+        # accepted. 21 of them, each opening a single pack, summing to 189 packs
+        # where 21 were opened. /luck.html published "232 packs counted" off
+        # that total. Nothing lied about odds, the hit rate divides rips rather
+        # than packs, but "packs counted" plainly reads as "packs we opened".
+        #
+        # A STATED PACK NUMBER SETTLES IT. "Pack #5" means one pack came out of
+        # the box in this video, whatever the box holds, so the count is 1 and
+        # the box's capacity belongs to the BOX rather than to the video. Where
+        # no pack number is stated the old guess stands, because a video with no
+        # pack number is the case where the whole product really was opened.
+        wv.cell(r, COL["Packs"], 1 if _pack else PRODUCT_TO_PACKS[products[0]]).font = GUESS_TXT
     # Packs Opened = the five per-set counts, summed. Typed independently it
     # could say 18 while the parts added to 12 and nothing would catch it.
     _pk = [get_column_letter(COL[h]) for h in ("Packs", "Packs 2", "Packs 3", "Packs 4", "Packs 5")]
@@ -891,7 +981,38 @@ for r, v in enumerate(ordered, start=2):
     # The SUM is right immediately, and the only thing left open is the
     # distribution, which was always his to give.
     if man.get("packs"):
-        wv.cell(r, COL["Packs"], man["packs"]).font = BODY
+        # ---------------------------------------------------------------------
+        # THE ONE PLACE THIS FILE OVERRULES A STORED ANSWER, AND THE EVIDENCE.
+        # ---------------------------------------------------------------------
+        #
+        # Normally a stored value beats a guess and that is the whole point of
+        # this block. The exception is narrow and it exists because the stored
+        # value here is provably THIS SCRIPT'S OWN FORMER GUESS rather than
+        # something a person decided.
+        #
+        # Colour does not survive export to CSV, so every blue suggestion came
+        # back through the importer as a typed answer. The old prefill wrote the
+        # product's CAPACITY into a column that asks how many packs the VIDEO
+        # opened, so all 21 Chaos Rising ETB rips were handed 9 and all 21
+        # returned 9. They opened one pack each.
+        #
+        # THE TEST IS DELIBERATELY BOTH HALVES, so nothing a person actually
+        # typed can be caught by it:
+        #   1. the stored number equals PRODUCT_TO_PACKS for this product
+        #      exactly, which is the fingerprint of the old guess, and
+        #   2. the video's own title or description states a pack number, which
+        #      contradicts it, because opening "Pack #5" is opening one pack.
+        # A genuine whole-box rip states no pack number and keeps its 9. A
+        # person who typed 9 against a stated pack number is the one case this
+        # gets wrong, and every instance is printed below so it is reviewable
+        # rather than silent.
+        _cap = PRODUCT_TO_PACKS.get(products[0]) if products else None
+        if _pack and _cap and man["packs"] == _cap and _cap > 1:
+            wv.cell(r, COL["Packs"], 1).font = GUESS_TXT
+            PACK_CORRECTIONS.append((v["id"], set_name.get(sets_v[0], "?") if sets_v else "?",
+                                     products[0], man["packs"], _pack))
+        else:
+            wv.cell(r, COL["Packs"], man["packs"]).font = BODY
         for _h in ("Packs 2", "Packs 3", "Packs 4", "Packs 5"):
             if _h in COL:
                 wv.cell(r, COL[_h]).value = None
@@ -1347,3 +1468,18 @@ print(f"  Set Notes   {len(sets)} rows")
 print(f"  prefilled:  set {sum(1 for v in ordered if len(v.get('sets') or []) >= 1)}, "
       f"opening {sum(1 for v in ordered if (v.get('products') or [''])[0] in PRODUCT_TO_OPENING)}, "
       f"rarity {sum(1 for v in ordered if (manual.get(v['id']) or {}).get('hitRarity'))} (restored answers only, never guessed)")
+
+# LOUD, BECAUSE THE ALTERNATIVE IS SILENT. Each of these rows had a stored pack
+# count equal to the product's full capacity while its own title or description
+# named a single pack, so the sheet now hands back 1 for review. If any line
+# below is actually a whole-box rip, type the real number over the blue.
+if PACK_CORRECTIONS:
+    print(f"  packs corrected: {len(PACK_CORRECTIONS)} row(s) where a stored count was the product's "
+          f"capacity and the video states a pack number")
+    _by_set = {}
+    for _vid, _set, _prod, _was, _pk in PACK_CORRECTIONS:
+        _by_set.setdefault(_set, []).append((_prod, _was, _pk))
+    for _set, _rows in sorted(_by_set.items(), key=lambda kv: -len(kv[1])):
+        _p = _rows[0][0]
+        _w = _rows[0][1]
+        print(f"    {_set}: {len(_rows)} x {_p}, {_w} -> 1")
