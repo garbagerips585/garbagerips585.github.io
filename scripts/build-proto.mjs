@@ -68,9 +68,6 @@ const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), 
 // hasCards gave 34 against the 36 files that page actually lists: the two
 // imported guides with no checklist are published noindex but are still linked
 // there, so a visitor who follows this chip finds 36 of them.
-const setGuideCount = sets.length + Object.keys(
-  JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8")).sets || {},
-).length;
 const rawVideos = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 const descriptions = JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}"));
 const videos = rawVideos.videos || rawVideos;
@@ -389,17 +386,7 @@ for (const v of videos) {
 // chips lands, and the rail is built by labelOf() in app.js. A chip that renames
 // itself the moment it is clicked is its own small bug, so the two tables say
 // the same words. Keep every product id in taxonomy.mjs listed in both.
-const PRODUCT_LABELS = {
-  "single-pack": "Single Pack", etb: "ETB", bundle: "Booster Bundle",
-  "ex-premium": "ex Premium Collection", "ex-box": "ex Box",
-  "poke-ball-tin": "Poke Ball Tin", tin: "Tin", blister: "Blister",
-  "collection-box": "Collection Box", "booster-box": "Booster Box",
-  "japanese-pack": "Japanese Pack", "korean-pack": "Korean Pack",
-  "chinese-pack": "Chinese Pack", upc: "UPC",
-};
 
-const topSets = Object.entries(setCounts).sort((a, b) => b[1] - a[1]).slice(0, 8);
-const topProducts = Object.entries(productCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
 const hitCount = videos.filter((v) => bestPull(v) != null).length;
 
 /* ------------------------------------------------------------------ logos - */
@@ -455,18 +442,6 @@ async function logoAttrs(id) {
 
 /* ----------------------------------------------------------------- regions */
 
-const railHtml = [
-  `    <a class="chip chip-lead" href="/videos.html">Latest <span class="n">${videos.length}</span></a>`,
-  `    <a class="chip gold" href="/videos.html?pull=1">Hits only <span class="n">${hitCount}</span></a>`,
-  ...topSets.map(([id, n]) =>
-    `    <a class="chip" href="/videos.html?set=${id}">${esc(setLabel(id))} <span class="n">${n}</span></a>`),
-  ...topProducts.map(([id, n]) =>
-    `    <a class="chip" href="/videos.html?product=${id}">${esc(PRODUCT_LABELS[id] || id)} <span class="n">${n}</span></a>`),
-  // COUNTS THE PAGE IT LINKS TO, not the grid below. This read "All 23 sets"
-  // while /sets/ lists 36, and the Pokedex band 2,500px down said "All 36
-  // guides" to the same url. Two numbers for one destination on one page.
-  `    <a class="chip" href="/sets/">All ${setGuideCount} set guides &rarr;</a>`,
-].join("\n");
 
 // THE ONE HALL OF FAME HIT, framed. Separate from the Greatest Hits shelf
 // below it: the shelf is a row of six to browse, this is a single card the page
@@ -1024,16 +999,41 @@ const playlists = JSON.parse(
 ).playlists || [];
 const videoById = new Map(videos.map((v) => [v.id, v]));
 
+// HOW MANY COVERS LOAD EAGERLY, and 5 is the width of the FIRST ROW rather than
+// a guess. `.pl-grid` is `auto-fill minmax(240px,1fr)` with a 20px gap inside a
+// `.wrap` capped at 1500px, so the most columns it can ever produce is 5, and at
+// 390 it is 1. Every card in that first row is above the fold at every width.
+//
+// `loading="lazy"` ON A FIRST-ROW IMAGE IS THE BUG CLAUDE.md ALREADY DESCRIBES
+// ONCE, in the other direction: the heuristic is VERTICAL, so it is right about
+// what is below the fold and says nothing useful about what is beside you. Here
+// the whole first row is in the viewport on load, and marking it lazy costs a
+// round trip on the only covers anybody sees immediately. The other 16 keep it.
+const PL_EAGER = 5;
+
 /** app.js initPlaylists(), as HTML. */
-function plTile(p) {
+function plTile(p, i) {
   let thumb;
-  if (p.thumb) {
-    // Same mqdefault swap app.js does, and for the same reason: the cover is
-    // painted 118 CSS px wide and maxresdefault is 1280.
-    const mq = p.thumb.replace(/\/maxresdefault\.(jpg|webp)$/, "/mqdefault.$1");
-    const srcset = mq !== p.thumb ? ` srcset="${esc(mq)} 320w, ${esc(p.thumb)} 1280w" sizes="118px"` : "";
-    const dim = p.thumbW ? ` width="${p.thumbW}" height="${p.thumbH}"` : "";
-    thumb = `<span class="pl-thumb"><img src="${esc(p.thumb)}"${srcset} alt="" loading="lazy"${dim}></span>`;
+  if (p.cover) {
+    // THE COVER IS OURS NOW AND THE YOUTUBE ONE IS GONE. Every card used to
+    // carry `p.thumb`, which is YouTube's playlist cover, which is a frame
+    // grabbed off the first video in the run. An earlier comment here and in
+    // app.js claimed those covers were set by hand and showed the sealed
+    // packaging; they were not and they did not. All twenty-one were the same
+    // dark shot of a hand holding a card against a wall, so the grid told a
+    // reader nothing about which product each run opens.
+    //
+    // What replaces it is a drawn panel: the actual sealed product on paper with
+    // the set logo reversed out on a black band. scripts/sync-playlist-covers.mjs
+    // works out which product, scripts/build-playlist-covers.py draws it, and the
+    // urls, the size and the alt text are STAMPED onto playlists.json, the same
+    // way `path` is, so this and app.js read the answer instead of computing it
+    // twice. A playlist with no cover stamped falls through to the pack wrapper
+    // below rather than back to YouTube.
+    const c = p.cover;
+    thumb = `<span class="pl-thumb"><picture><source type="image/webp" srcset="${esc(c.webp)}">` +
+      `<img src="${esc(c.jpg)}" alt="${esc(c.alt)}" width="${c.w}" height="${c.h}" decoding="async"` +
+      `${i < PL_EAGER ? "" : ' loading="lazy"'}></picture></span>`;
   } else {
     let setId = null;
     for (const id of p.videoIds || []) {
@@ -1068,6 +1068,8 @@ function plTile(p) {
     : `<span class="pl">${body}</span>`;
 }
 // A playlist with nothing in it is not content, and app.js drops those too.
+// The index is passed through because PL_EAGER above counts position in the
+// FILTERED list, which is what the grid actually lays out.
 const plHtml = playlists.filter((p) => (p.count || 0) > 0).map(plTile).join("\n");
 
 /* -------------------------------------------- this week's drops, in a band -
@@ -1642,7 +1644,6 @@ const REGIONS = {
   // the <section>, so an empty region is no band rather than an empty frame.
   DROPS: dropsHtml,
   WANTED: wantedHtml,
-  RAIL: railHtml,
   HOF: hallHtml,
   HOFPICK: hofHtml,
   LATEST: latestHtml,

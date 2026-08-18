@@ -503,6 +503,7 @@ _ONE_OFF = {
     "build-logos.py",     # set logos
     "build-og.py",        # the site share card
     "build-packs.py",     # pack art, from assets-source
+    "build-playlist-covers.py",  # playlist covers, from .cache + the set logos
     "build-sheet.py",     # the Excel workbook, not a web page
 }
 #

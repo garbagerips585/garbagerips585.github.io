@@ -927,7 +927,7 @@
         ));
         return;
       }
-      pls.forEach(function (p) {
+      pls.forEach(function (p, i) {
         // ON THIS SITE, NOT ON YOUTUBE. These cards used to link to
         // youtube.com/playlist, which was the last set of outbound links left
         // outside Subscribe and the social icons. Every playlist now has a page
@@ -949,42 +949,53 @@
           a.setAttribute("aria-label", p.title + ", " + p.count + (p.count === 1 ? " video" : " videos"));
         }
 
-        // The playlist's own cover, which Tim sets by hand and which shows the
-        // sealed packaging rather than a pulled card. That is the exception to
-        // this site's rule about YouTube imagery: a video's poster frame gives
-        // the pull away, a playlist cover does not, and it says more about what
-        // the run contains than any wrapper we could substitute.
+        // OUR OWN COVER, NOT YOUTUBE'S, AND THE COMMENT HERE WAS WRONG ABOUT
+        // YOUTUBE'S FOR MONTHS. It said the playlist cover "shows the sealed
+        // packaging rather than a pulled card" and was an argued exception to
+        // this site's rule about YouTube imagery. It was neither: YouTube had
+        // simply grabbed a frame from the first video in each run, so all
+        // twenty-one covers were the same dark shot of a hand holding a card,
+        // and the grid said nothing about which product each playlist opens.
+        //
+        // `cover` is a drawn panel showing the actual sealed product with the
+        // set logo on a black band. It is STAMPED onto playlists.json by
+        // scripts/sync-playlist-covers.mjs, urls, size and alt text together,
+        // for the same reason `path` is stamped: this markup exists twice, here
+        // and in plTile in scripts/build-proto.mjs, and the two have to emit the
+        // same bytes. Neither side derives a filename. See the region comment in
+        // build-proto.mjs for how that identity is checked.
+        //
+        // 118 CSS px IS STILL THE BOX. .pl-grid is auto-fill minmax(240px,1fr)
+        // and the thumb measures 118px at 360, 390, 560, 768, 900, 1100, 1440
+        // and 1920, so the cover is drawn once at 360x270, just over 3x, and
+        // there is no srcset to keep in step across two renderers.
         var th = el("span", "pl-thumb");
-        if (p.thumb) {
-          var img = new Image();
-          img.src = p.thumb;
-          // A PLAYLIST COVER IS PAINTED 118 CSS px WIDE. It never changes with
-          // the viewport: .pl-grid is auto-fill minmax(240px,1fr) and the thumb
-          // measured 118px at 360, 390, 560, 768, 900, 1100, 1440 and 1920.
-          // sync-youtube stores YouTube's best cover, which is maxresdefault at
-          // 1280x720 and 150-200KB, so 22 playlists pulled 2,974KB of image at
-          // 1440x900 to paint 118px boxes: 10.9x oversized in each direction.
-          //
-          // mqdefault is 320x180 and about 11KB. It is the ONLY other variant
-          // at the true 16:9 shape (hqdefault and sddefault are 480x360 and
-          // 640x480, which letterbox a widescreen cover), so the choice is two
-          // candidates, not four. 320 covers a 118px box at 2x with room to
-          // spare and a 3x screen still gets the 1280.
-          //
-          // Derived rather than synced: the swap is a filename, and re-running
-          // sync-youtube needs an API key that CI does not have.
-          var mq = p.thumb.replace(/\/maxresdefault\.(jpg|webp)$/, "/mqdefault.$1");
-          if (mq !== p.thumb) {
-            img.srcset = mq + " 320w, " + p.thumb + " 1280w";
-            img.sizes = "118px";
-          }
-          img.alt = "";
-          img.loading = "lazy";
-          if (p.thumbW) { img.width = p.thumbW; img.height = p.thumbH; }
-          th.appendChild(img);
+        if (p.cover) {
+          var pic = document.createElement("picture");
+          var src = document.createElement("source");
+          src.setAttribute("type", "image/webp");
+          src.setAttribute("srcset", p.cover.webp);
+          pic.appendChild(src);
+          var img = document.createElement("img");
+          // SET IN THIS ORDER ON PURPOSE. outerHTML serialises attributes in the
+          // order they were set, and the server copy of this card is diffed
+          // against what this builds, so a different order is a false difference
+          // that costs somebody an afternoon.
+          img.setAttribute("src", p.cover.jpg);
+          img.setAttribute("alt", p.cover.alt);
+          img.setAttribute("width", p.cover.w);
+          img.setAttribute("height", p.cover.h);
+          img.setAttribute("decoding", "async");
+          // The first row is above the fold at every width and the grid is at
+          // most 5 columns wide, so the first 5 are eager. Same number and same
+          // argument as PL_EAGER in build-proto.mjs.
+          if (i >= 5) img.setAttribute("loading", "lazy");
+          pic.appendChild(img);
+          th.appendChild(pic);
         } else {
-          // No cover set on YouTube: fall back to the wrapper of the first
-          // tagged set in the playlist.
+          // No cover stamped for this playlist: fall back to the wrapper of the
+          // first tagged set in it, which is drawn art of ours. It does NOT fall
+          // back to YouTube's cover, which is the thing this change removed.
           var setId = null;
           (p.videoIds || []).some(function (id) {
             var v = byId[id];

@@ -1,0 +1,444 @@
+{
+ "_readme": "Written by scripts/sync-playlist-covers.mjs. Which sealed product each playlist opens, and whose photograph it is. Drawn into public/assets/playlist-covers/ by scripts/build-playlist-covers.py. Product photographs are TCGplayer's, set logos are The Pokemon Company's, and /playlists.html credits both.",
+ "syncedAt": "2026-08-18",
+ "source": "TCGplayer, via public/data/products.json",
+ "size": {
+  "w": 360,
+  "h": 270
+ },
+ "covers": {
+  "PLDfJLPTYu5dw": {
+   "art": "product",
+   "file": "pitch-black-etb",
+   "setId": "pitch-black",
+   "setLabel": "Pitch Black",
+   "productType": "etb",
+   "kind": "Elite Trainer Box",
+   "productId": 692947,
+   "productName": "Pitch Black Elite Trainer Box",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/692947_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Pitch Black Elite Trainer Box",
+   "webp": "/assets/playlist-covers/pitch-black-etb.webp",
+   "jpg": "/assets/playlist-covers/pitch-black-etb.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLXMhmkmyX32A": {
+   "art": "product",
+   "file": "pitch-black-single-pack",
+   "setId": "pitch-black",
+   "setLabel": "Pitch Black",
+   "productType": "single-pack",
+   "kind": "Single Pack",
+   "productId": 692944,
+   "productName": "Pitch Black Booster Pack",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/692944_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Pitch Black Booster Pack",
+   "webp": "/assets/playlist-covers/pitch-black-single-pack.webp",
+   "jpg": "/assets/playlist-covers/pitch-black-single-pack.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-1Z-E8zrZEyQ1IT8BXvD5c8": {
+   "art": "product",
+   "file": "chaos-rising-etb",
+   "setId": "chaos-rising",
+   "setLabel": "Chaos Rising",
+   "productType": "etb",
+   "kind": "Elite Trainer Box",
+   "productId": 684450,
+   "productName": "Chaos Rising Elite Trainer Box",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/684450_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Chaos Rising Elite Trainer Box",
+   "webp": "/assets/playlist-covers/chaos-rising-etb.webp",
+   "jpg": "/assets/playlist-covers/chaos-rising-etb.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-2-rjTqQ4fTcg2Ng63t1vKS": {
+   "art": "product",
+   "file": "chaos-rising-bundle",
+   "setId": "chaos-rising",
+   "setLabel": "Chaos Rising",
+   "productType": "bundle",
+   "kind": "Booster Bundle",
+   "productId": 684456,
+   "productName": "Chaos Rising Booster Bundle",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/684456_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Chaos Rising Booster Bundle",
+   "webp": "/assets/playlist-covers/chaos-rising-bundle.webp",
+   "jpg": "/assets/playlist-covers/chaos-rising-bundle.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-1OIVHung4k-CAlzIiYAmng": {
+   "art": "product",
+   "file": "chaos-rising-single-pack",
+   "setId": "chaos-rising",
+   "setLabel": "Chaos Rising",
+   "productType": "single-pack",
+   "kind": "Single Pack",
+   "productId": 684446,
+   "productName": "Chaos Rising Booster Pack",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/684446_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "tags"
+   },
+   "alt": "Sealed Chaos Rising Booster Pack",
+   "webp": "/assets/playlist-covers/chaos-rising-single-pack.webp",
+   "jpg": "/assets/playlist-covers/chaos-rising-single-pack.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-1o0Udv8I1x91caDq5NFNUR": {
+   "art": "product",
+   "file": "prismatic-evolutions-etb",
+   "setId": "prismatic-evolutions",
+   "setLabel": "Prismatic Evolutions",
+   "productType": "etb",
+   "kind": "Elite Trainer Box",
+   "productId": 593355,
+   "productName": "Prismatic Evolutions Elite Trainer Box",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/593355_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Prismatic Evolutions Elite Trainer Box",
+   "webp": "/assets/playlist-covers/prismatic-evolutions-etb.webp",
+   "jpg": "/assets/playlist-covers/prismatic-evolutions-etb.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-1uwv6MIXNT3IlaJU-3N3b0": {
+   "art": "product",
+   "file": "perfect-order-etb",
+   "setId": "perfect-order",
+   "setLabel": "Perfect Order",
+   "productType": "etb",
+   "kind": "Elite Trainer Box",
+   "productId": 672401,
+   "productName": "Perfect Order Elite Trainer Box",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/672401_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Perfect Order Elite Trainer Box",
+   "webp": "/assets/playlist-covers/perfect-order-etb.webp",
+   "jpg": "/assets/playlist-covers/perfect-order-etb.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-1VfIY7CStVVTOljlTccOHq": {
+   "art": "product",
+   "file": "ascended-heroes-bundle",
+   "setId": "ascended-heroes",
+   "setLabel": "Ascended Heroes",
+   "productType": "bundle",
+   "kind": "Booster Bundle",
+   "productId": 668541,
+   "productName": "Ascended Heroes Booster Bundle",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/668541_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Ascended Heroes Booster Bundle",
+   "webp": "/assets/playlist-covers/ascended-heroes-bundle.webp",
+   "jpg": "/assets/playlist-covers/ascended-heroes-bundle.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-3dux5yFkgamGpC67Opaxu_": {
+   "art": "product",
+   "file": "mega-evolution-single-pack",
+   "setId": "mega-evolution",
+   "setLabel": "Mega Evolution",
+   "productType": "single-pack",
+   "kind": "Single Pack",
+   "productId": 644352,
+   "productName": "Mega Evolution Booster Pack",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/644352_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Mega Evolution Booster Pack",
+   "webp": "/assets/playlist-covers/mega-evolution-single-pack.webp",
+   "jpg": "/assets/playlist-covers/mega-evolution-single-pack.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-1q-W0qlw1r_OTmcIBxsNmq": {
+   "art": "product",
+   "file": "journey-together-bundle",
+   "setId": "journey-together",
+   "setLabel": "Journey Together",
+   "productType": "bundle",
+   "kind": "Booster Bundle",
+   "productId": 610953,
+   "productName": "Journey Together Booster Bundle",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/610953_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Journey Together Booster Bundle",
+   "webp": "/assets/playlist-covers/journey-together-bundle.webp",
+   "jpg": "/assets/playlist-covers/journey-together-bundle.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-0oVKfsCbQyPNRhA037ACD0": {
+   "art": "product",
+   "file": "perfect-order-bundle",
+   "setId": "perfect-order",
+   "setLabel": "Perfect Order",
+   "productType": "bundle",
+   "kind": "Booster Bundle",
+   "productId": 672396,
+   "productName": "Perfect Order Booster Bundle",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/672396_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Perfect Order Booster Bundle",
+   "webp": "/assets/playlist-covers/perfect-order-bundle.webp",
+   "jpg": "/assets/playlist-covers/perfect-order-bundle.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-2IBFbLzsyUWWHS4orkwvwm": {
+   "art": "product",
+   "file": "perfect-order-single-pack",
+   "setId": "perfect-order",
+   "setLabel": "Perfect Order",
+   "productType": "single-pack",
+   "kind": "Single Pack",
+   "productId": 672398,
+   "productName": "Perfect Order Booster Pack",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/672398_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "tags"
+   },
+   "alt": "Sealed Perfect Order Booster Pack",
+   "webp": "/assets/playlist-covers/perfect-order-single-pack.webp",
+   "jpg": "/assets/playlist-covers/perfect-order-single-pack.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-3MK6S68mVy82C4ukzsXuhd": {
+   "art": "hits",
+   "file": "hits-only",
+   "label": "HITS ONLY",
+   "products": [
+    {
+     "setId": "chaos-rising",
+     "productType": "etb",
+     "productId": 684450,
+     "productName": "Chaos Rising Elite Trainer Box",
+     "source": "https://tcgplayer-cdn.tcgplayer.com/product/684450_in_1000x1000.jpg"
+    },
+    {
+     "setId": "perfect-order",
+     "productType": "bundle",
+     "productId": 672396,
+     "productName": "Perfect Order Booster Bundle",
+     "source": "https://tcgplayer-cdn.tcgplayer.com/product/672396_in_1000x1000.jpg"
+    },
+    {
+     "setId": "ascended-heroes",
+     "productType": "single-pack",
+     "productId": 672434,
+     "productName": "Ascended Heroes Booster Pack",
+     "source": "https://tcgplayer-cdn.tcgplayer.com/product/672434_in_1000x1000.jpg"
+    }
+   ],
+   "alt": "Sealed Chaos Rising Elite Trainer Box, Perfect Order Booster Bundle and Ascended Heroes Booster Pack, on the Hits Only cover",
+   "webp": "/assets/playlist-covers/hits-only.webp",
+   "jpg": "/assets/playlist-covers/hits-only.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-21gFCezeA9OtOFpOvUHU54": {
+   "art": "product",
+   "file": "pokemon-go-single-pack",
+   "setId": "pokemon-go",
+   "setLabel": "Pokémon GO",
+   "productType": "single-pack",
+   "kind": "Single Pack",
+   "productId": 274421,
+   "productName": "Pokemon GO Booster Pack",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/274421_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Pokemon GO Booster Pack",
+   "webp": "/assets/playlist-covers/pokemon-go-single-pack.webp",
+   "jpg": "/assets/playlist-covers/pokemon-go-single-pack.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-3VoV9L3TKAvhdku5msr-_a": {
+   "art": "product",
+   "file": "surging-sparks-single-pack",
+   "setId": "surging-sparks",
+   "setLabel": "Surging Sparks",
+   "productType": "single-pack",
+   "kind": "Single Pack",
+   "productId": 565604,
+   "productName": "Surging Sparks Booster Pack",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/565604_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Surging Sparks Booster Pack",
+   "webp": "/assets/playlist-covers/surging-sparks-single-pack.webp",
+   "jpg": "/assets/playlist-covers/surging-sparks-single-pack.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-0LlcARhVo2tc2ZcXHBYtC_": {
+   "art": "product",
+   "file": "ascended-heroes-etb",
+   "setId": "ascended-heroes",
+   "setLabel": "Ascended Heroes",
+   "productType": "etb",
+   "kind": "Elite Trainer Box",
+   "productId": 668496,
+   "productName": "Ascended Heroes Elite Trainer Box",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/668496_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Ascended Heroes Elite Trainer Box",
+   "webp": "/assets/playlist-covers/ascended-heroes-etb.webp",
+   "jpg": "/assets/playlist-covers/ascended-heroes-etb.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-17Bz8L8cGDvGTXPINTO-nd": {
+   "art": "product",
+   "file": "destined-rivals-single-pack",
+   "setId": "destined-rivals",
+   "setLabel": "Destined Rivals",
+   "productType": "single-pack",
+   "kind": "Single Pack",
+   "productId": 624683,
+   "productName": "Destined Rivals Booster Pack",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/624683_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Destined Rivals Booster Pack",
+   "webp": "/assets/playlist-covers/destined-rivals-single-pack.webp",
+   "jpg": "/assets/playlist-covers/destined-rivals-single-pack.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-3L-YXSCWoyvmW4rfKSL5fG": {
+   "art": "product",
+   "file": "paradox-rift-single-pack",
+   "setId": "paradox-rift",
+   "setLabel": "Paradox Rift",
+   "productType": "single-pack",
+   "kind": "Single Pack",
+   "productId": 512822,
+   "productName": "Paradox Rift Booster Pack",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/512822_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Paradox Rift Booster Pack",
+   "webp": "/assets/playlist-covers/paradox-rift-single-pack.webp",
+   "jpg": "/assets/playlist-covers/paradox-rift-single-pack.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-0NBWXqK7tdKbO8jR-Xx8U7": {
+   "art": "product",
+   "file": "journey-together-single-pack",
+   "setId": "journey-together",
+   "setLabel": "Journey Together",
+   "productType": "single-pack",
+   "kind": "Single Pack",
+   "productId": 610935,
+   "productName": "Journey Together Booster Pack",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/610935_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Journey Together Booster Pack",
+   "webp": "/assets/playlist-covers/journey-together-single-pack.webp",
+   "jpg": "/assets/playlist-covers/journey-together-single-pack.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-35hvtItZPFfnxWkGY-poRs": {
+   "art": "product",
+   "file": "ascended-heroes-single-pack",
+   "setId": "ascended-heroes",
+   "setLabel": "Ascended Heroes",
+   "productType": "single-pack",
+   "kind": "Single Pack",
+   "productId": 672434,
+   "productName": "Ascended Heroes Booster Pack",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/672434_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Ascended Heroes Booster Pack",
+   "webp": "/assets/playlist-covers/ascended-heroes-single-pack.webp",
+   "jpg": "/assets/playlist-covers/ascended-heroes-single-pack.jpg",
+   "w": 360,
+   "h": 270
+  },
+  "PLn62_rIirK-0GN2cSboCtZ2gbp7CqP0Ev": {
+   "art": "product",
+   "file": "phantasmal-flames-single-pack",
+   "setId": "phantasmal-flames",
+   "setLabel": "Phantasmal Flames",
+   "productType": "single-pack",
+   "kind": "Single Pack",
+   "productId": 654144,
+   "productName": "Phantasmal Flames Booster Pack",
+   "source": "https://tcgplayer-cdn.tcgplayer.com/product/654144_in_1000x1000.jpg",
+   "resolvedFrom": {
+    "set": "title",
+    "product": "title"
+   },
+   "alt": "Sealed Phantasmal Flames Booster Pack",
+   "webp": "/assets/playlist-covers/phantasmal-flames-single-pack.webp",
+   "jpg": "/assets/playlist-covers/phantasmal-flames-single-pack.jpg",
+   "w": 360,
+   "h": 270
+  }
+ }
+}
