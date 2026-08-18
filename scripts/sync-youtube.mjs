@@ -316,6 +316,55 @@ const descriptions = Object.fromEntries(
 await mkdir(join(ROOT, "data"), { recursive: true });
 await writeFile(join(ROOT, "data/descriptions.json"), JSON.stringify(descriptions, null, 0) + "\n");
 
+// ---------------------------------------------------------------------------
+// A BOX IS NOT A COUNT OF PACKS OPENED, AND THE LOG SAID IT WAS
+// ---------------------------------------------------------------------------
+//
+// `packs` reaches manual.json from the sheet's Packs column, which asks how
+// many packs THIS VIDEO opened. build-sheet.py used to prefill it from
+// PRODUCT_TO_PACKS, which says how many packs a product CONTAINS. Those agree
+// only when a whole product is opened in one video, and the format on this
+// channel is one pack per Short. Colour does not survive export to CSV, so the
+// guess came back through the importer indistinguishable from a typed answer:
+// 21 Chaos Rising ETB rips each carrying 9, summing to 189 packs where 21 were
+// opened. /luck.html publishes "232 packs counted" off that total, and its own
+// lede says the page "counts what actually came out of packs opened on camera".
+// Nothing there states odds, the hit rate divides rips rather than packs, but
+// the sentence plainly claims a number of packs and the number was the products'
+// capacity.
+//
+// THE SAME TWO PART TEST build-sheet.py APPLIES, AND IT HAS TO STAY THE SAME.
+// The rule is stated in two files because one is Python and one is JavaScript
+// and they cannot share a module. If you change it here, change it there, and
+// the test is deliberately both halves so nothing a person typed is caught:
+//   1. the stored count equals the product's capacity exactly, which is the
+//      fingerprint of the old prefill, AND
+//   2. the video's own title or description states a pack number, which
+//      contradicts it, because opening "Pack #5" is opening one pack.
+// A genuine whole box rip states no pack number and keeps its full count.
+//
+// THE TYPED COLUMNS OUTRANK THE TEST. Once Tim fills Pack # in the sheet, a row
+// with a pack number is one pack by statement rather than by inference, so the
+// fix stops being a correction and becomes what the log says.
+const PACK_CAPACITY = {
+  "single-pack": 1, "japanese-pack": 1, "korean-pack": 1, "chinese-pack": 1,
+  blister: 3, bundle: 6, etb: 9, "booster-box": 36, upc: 16, spc: 8,
+};
+// "Pack #5", "Pack 5". A bare "#5" is NOT matched: on this channel it is as
+// often a card number or a set number as a pack.
+const STATED_PACK = /\bpack\s*#?\s*(\d{1,2})\b/i;
+let corrected = 0;
+for (const v of videos) {
+  if (v.packNumber) { if (v.packs !== 1) { v.packs = 1; corrected++; } continue; }
+  const cap = PACK_CAPACITY[(v.products || [])[0]];
+  if (!cap || cap <= 1 || v.packs !== cap) continue;
+  const m = STATED_PACK.exec(v.title || "") || STATED_PACK.exec(descriptions[v.id] || "");
+  if (!m) continue;
+  v.packs = 1;
+  corrected++;
+}
+if (corrected) console.log(`  packs: ${corrected} video(s) corrected from product capacity to 1 (a stated pack number beats a box's contents)`);
+
 await mkdir(join(ROOT, "public/data"), { recursive: true });
 await writeFile(
   join(ROOT, "public/data/videos.json"),
