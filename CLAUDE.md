@@ -1586,7 +1586,7 @@ rehearsed on a throwaway copy of the tree.
 1. Greatest Hits playlist. The band ranks by pull tier then views as a
    stand-in; Tim's own playlist would replace it. (The old note here pointed
    at a "HITS ONLY PLAYER" comment in index.html that no longer exists.)
-2. Buy garbagerips585.com, set it in Settings > Pages, then verify in
+2. Buy garbagerips.com, set it in Settings > Pages, then verify in
    Google Search Console and submit sitemap.xml. See DEPLOY.md.
 3. ~~About page~~ done: /about.html is written, linked and in the sitemap.
 4. Blog for actual search traffic: set reviews, "Pokemon card shops

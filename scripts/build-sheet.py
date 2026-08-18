@@ -403,7 +403,7 @@ ws.column_dimensions["B"].width = 104
 rows = [
     ("Garbage Rips 585 master sheet", None, TITLE),
     (None, None, None),
-    ("What this is", "The control surface for garbagerips585.com. Everything the site knows that "
+    ("What this is", "The control surface for garbagerips.com. Everything the site knows that "
                      "cannot be worked out from YouTube or the card database lives here. Fill in "
                      "what you know, export, import, and the site changes.", None),
     (None, None, None),

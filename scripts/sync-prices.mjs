@@ -92,7 +92,7 @@ async function apiGet(path, { tries = 4 } = {}) {
   let last = "";
   for (let i = 0; i < tries; i++) {
     const res = await fetch(`${API}/${path}`, {
-      headers: { Authorization: `Bearer ${KEY}`, "User-Agent": "garbagerips585.com/1.0" },
+      headers: { Authorization: `Bearer ${KEY}`, "User-Agent": "garbagerips.com/1.0" },
     }).catch((e) => ({ ok: false, status: 0, _err: String(e.message || e) }));
 
     if (res.ok) {

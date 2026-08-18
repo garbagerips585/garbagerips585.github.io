@@ -48,7 +48,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 //
 // /videos.html is the "Every Rip" hub and the joint highest-priority entry in
 // the sitemap at 0.9. After launch the sitemap would have said
-// garbagerips585.com/videos.html while the page canonicalised to an abandoned
+// garbagerips.com/videos.html while the page canonicalised to an abandoned
 // host, which is a conflict a search engine usually resolves by dropping the
 // url rather than by picking one.
 const TARGETS = [

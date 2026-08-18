@@ -1,6 +1,6 @@
 # Launch checklist
 
-Everything that has to happen before garbagerips585.com is live, and the things
+Everything that has to happen before garbagerips.com is live, and the things
 worth doing soon after. Nothing here is code: the site builds and runs locally
 today. These are the accounts, the money, and the content only Tim can supply.
 
@@ -21,7 +21,7 @@ already exists.
       private repos, Pages, and Actions minutes well past what the nightly
       refresh uses. Nothing here needs a paid plan.
 
-- [ ] **Domain: garbagerips585.com.** Every canonical, the sitemap and the Open
+- [ ] **Domain: garbagerips.com.** Every canonical, the sitemap and the Open
       Graph tags switch to it from one flag, so nothing resolves until it
       exists. Buy it anywhere. Point the apex at GitHub's four A records and
       `www` at `garbagerips585.github.io`; the records are in DEPLOY.md.
@@ -43,7 +43,7 @@ already exists.
       before launch anyway.
 
 - [ ] **Google Search Console.** Verify the domain, submit
-      `https://garbagerips585.com/sitemap.xml`. Without this the set guides,
+      `https://garbagerips.com/sitemap.xml`. Without this the set guides,
       which are the SEO half of the site, are invisible for months.
 
 ---

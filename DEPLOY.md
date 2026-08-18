@@ -47,7 +47,7 @@ Everything below happens in one commit. Do not do it in pieces.
 
 ### 1. Buy the domain
 
-`garbagerips585.com`. It is set in `shared/site.mjs` as `DOMAIN`; if you buy a
+`garbagerips.com`. It is set in `shared/site.mjs` as `DOMAIN`; if you buy a
 different one, change it there first and nowhere else.
 
 ### 2. Point DNS at GitHub

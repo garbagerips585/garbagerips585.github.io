@@ -2,7 +2,7 @@
 //
 // Every canonical, every og:url, every sitemap entry and the JSON-LD all derive
 // from this. It used to be a `const SITE` repeated in five generators, all
-// pointing at garbagerips585.com, which nobody owns yet. The result was a live
+// pointing at a domain nobody owns yet. The result was a live
 // site on github.io telling search engines its real address was a domain that
 // does not resolve, and telling every social network to fetch its preview image
 // from there too, so sharing a link produced a blank card.
@@ -13,10 +13,19 @@
 //   3. commit and push
 // That regenerates every canonical, the sitemap and robots.txt in one go.
 
-/** Flip to true the day garbagerips585.com is attached to the site. */
+/** Flip to true the day garbagerips.com is attached to the site.
+ *
+ * THE DOMAIN DROPS THE 585 AND THE BRAND KEEPS IT. Tim, 18 August 2026: "im
+ * actually going to buy garbagerips.com as the main domain leave out the 585 so
+ * its shorter and easier for people to remember the domain name". The channel
+ * is still Garbage Rips 585, the wordmark still reads 585, and every page still
+ * says Rochester, NY. Only the address is shorter, because an address is heard
+ * and retyped and a brand is not. Do NOT strip 585 from copy, titles or the
+ * wordmark to "match" the domain: they are different things doing different
+ * jobs. */
 export const LIVE = false;
 
-export const DOMAIN = "https://garbagerips585.com";
+export const DOMAIN = "https://garbagerips.com";
 export const STAGING = "https://garbagerips585.github.io";
 
 /** The base URL every generated absolute link is built from. */

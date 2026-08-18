@@ -80,7 +80,7 @@ async function apiGet(path, { tries = 6 } = {}) {
   for (let i = 0; i < tries; i++) {
     try {
       const res = await fetch(`${API}/${path}`, {
-        headers: { "User-Agent": "garbagerips585.com/1.0" },
+        headers: { "User-Agent": "garbagerips.com/1.0" },
       });
       if (res.ok) return res.json();
       last = `HTTP ${res.status}`;
