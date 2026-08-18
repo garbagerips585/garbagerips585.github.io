@@ -89,6 +89,25 @@ already exists.
 
 ## 3. Before flipping it on
 
+- [ ] **DELETE THE TWO PALETTE SAMPLE PAGES. Do this one first.** They are the
+      only files in the deploy root that are not part of the site:
+
+          rm public/preview-midnight.html public/preview-charcoal.html
+          rm scripts/gen-palette-samples.mjs
+          node scripts/build-all.mjs
+
+      Added 18 August 2026 so Tim could compare Slushie Midnight and Slushie
+      Charcoal on his own phone, which needs a real url and therefore a real
+      deploy. They are two extra copies of the home page. Both are
+      `noindex,nofollow`, neither is in sitemap.xml, and nothing on the site
+      links to them, so they are quiet rather than harmless: a duplicate front
+      door in the tree on launch day is a cost, and the only thing keeping it
+      out of an index is a meta tag. Once Tim has picked, they have no job.
+
+      Nothing else has to change with them. The palette lives in each file's own
+      `<style>` block, so assets-source/ui.css was never touched and deleting
+      the two files removes every trace.
+
 - [ ] **Run the build and let it check itself.**
 
       node scripts/build-all.mjs
