@@ -1,5 +1,5 @@
 /**
- * Writes FIVE copies of the REAL home page under public/, one per palette Tim
+ * Writes SIX copies of the REAL home page under public/, one per palette Tim
  * is choosing between:
  *
  *     public/preview-midnight.html      A  Slushie Midnight
@@ -7,6 +7,7 @@
  *     public/preview-charcoal-a.html    C  Charcoal Aqua
  *     public/preview-charcoal-b.html    D  Charcoal Quiet
  *     public/preview-trubbish.html      E  Trubbish
+ *     public/preview-trubbish-2.html    F  Trubbish Deep             <- current
  *
  *     node scripts/gen-palette-samples.mjs
  *
@@ -29,7 +30,7 @@
  *
  * AND THEN THE MASCOT: "would be interesting to try a sample page in the colors
  * of our mascott pokemon Trubbish, here are his colors to test on one page as
- * well", with five hexes. E is that page. It is the only one of the five with a
+ * well", with five hexes. E is that page. E and F are the only two of the six with a
  * reason to exist beyond taste: the channel is called Garbage Rips, the pack art
  * is a Trubbish on a plate of trash, and the og:image on this very page is
  * described as "Trubbish sitting on a Rochester sidewalk".
@@ -42,7 +43,7 @@
  * and gen-slushie-variants.mjs all state in their headers, and it is bought with
  * the four guards below rather than waved through.
  *
- *   1. All five carry <meta name="robots" content="noindex,nofollow">, and the
+ *   1. All six carry <meta name="robots" content="noindex,nofollow">, and the
  *      canonical, og:url and JSON-LD are STRIPPED rather than left pointing at
  *      the real home page. A duplicate of / claiming to be / is the one way a
  *      throwaway page can cost the real site something.
@@ -52,21 +53,37 @@
  *   3. NOTHING LINKS TO THEM. Not the nav, not the footer, not a built page.
  *      They link to EACH OTHER in a RING and to nothing else, which is the one
  *      link Tim asked for so he can flip between them on the phone without
- *      retyping a url. The ring closes, so five taps from any page returns you
+ *      retyping a url. The ring closes, so six taps from any page returns you
  *      to it and no page is a dead end.
  *   4. assets-source/ui.css is not touched and neither is the built copy. Each
  *      palette is a token block in that page's OWN <style>, appended after the
  *      stylesheet link so it wins on source order at equal specificity. Every
  *      other page on the site is byte identical after this script runs.
  *
+ * AND THEN HE PICKED E AND SAID WHAT WAS STILL WRONG WITH IT: "i like the
+ * trubbish version the best now, fits the theme of the site, however now there
+ * is a lot of yellow text still and yellow ctb buttons with white text on them,
+ * lets lean into the main color of the site being that dark green trubbish
+ * color and then the accents being his other two main colors the pink and teal
+ * colors, can you show a new version that leans more into trubbish's colors".
+ * F is that page. E layered the mascot's greens UNDER the site's gold system
+ * and left the gold running; F takes the gold out of the palette entirely.
+ *
+ * AND THEN, ASKED WHETHER THE HALL OF FAME GOLD SHOULD GO TOO: "yeah its cool
+ * to keep the hall of fame gold, but just not use that color in the general
+ * pallet of the site colors". So on F gold is a SEMANTIC colour with exactly
+ * one meaning, this is the big pull, and it appears in exactly two places: the
+ * HALL OF FAME HIT badge and the 4px frame round the trophy card. Everywhere
+ * else it is gone. See the F block below for the whole argument.
+ *
  * ============================ DELETE THESE BEFORE LAUNCH ====================
- * These are five extra copies of the front door sitting in the deploy root
- * three days before the site goes live. Once Tim has picked, delete all five,
+ * These are six extra copies of the front door sitting in the deploy root
+ * three days before the site goes live. Once Tim has picked, delete all six,
  * delete this script, and re-run the build:
  *
  *     rm public/preview-midnight.html public/preview-charcoal.html \
  *        public/preview-charcoal-a.html public/preview-charcoal-b.html \
- *        public/preview-trubbish.html
+ *        public/preview-trubbish.html public/preview-trubbish-2.html
  *     rm scripts/gen-palette-samples.mjs
  *     node scripts/build-all.mjs
  *
@@ -82,10 +99,10 @@
  * build-all runs, so this file's mtime cannot report the tree as stale either.
  *
  * IT REGENERATES FROM public/index.html EVERY RUN, so it must be run AFTER
- * build-all.mjs. Run it before and you get five previews of the previous build.
+ * build-all.mjs. Run it before and you get six previews of the previous build.
  *
  * THE SLUSHIE TOKEN VALUES ARE READ OUT OF gen-slushie-variants.mjs, NOT COPIED
- * FROM IT. Transcribing 30 hexes five times is how the preview and the sample
+ * FROM IT. Transcribing 30 hexes six times is how the preview and the sample
  * quietly stop being the same colour, and that would make this page a liar
  * about the exact thing it is being used to decide. That file has no exports
  * and writes a file at import time, so importing it would rewrite
@@ -312,6 +329,103 @@ const TRUBBISH = {
 };
 
 /* ==========================================================================
+   F: TRUBBISH DEEP. THE SAME GREENS, WITH THE GOLD SYSTEM TAKEN OUT.
+
+   E kept the gold and said so in the paragraph above: "--mustard and --gold are
+   the same values here as in Charcoal and Midnight, because on this site they
+   are not a palette choice either". Tim looked at the page and disagreed, twice.
+   First: "there is a lot of yellow text still and yellow ctb buttons with white
+   text on them, lets lean into the main color of the site being that dark green
+   trubbish color and then the accents being his other two main colors the pink
+   and teal colors". Then, on the Hall of Fame: "yeah its cool to keep the hall
+   of fame gold, but just not use that color in the general pallet".
+
+   SO GOLD IS NOT A PALETTE COLOUR ON F, IT IS A SEMANTIC ONE. It has one
+   meaning, this is the biggest card this channel has ever pulled, and it is
+   painted in exactly two places: the HALL OF FAME HIT badge and the 4px frame
+   round the trophy. Both are written as LITERALS in TRUB2_CSS below rather than
+   as tokens, which is the whole reason this is safe: every gold TOKEN is a teal
+   here, so no later token edit can leak gold back onto the page, and the two
+   places that keep it say so in their own rule. Reserving a colour to one
+   meaning makes it louder, not quieter: gold already means rare to this
+   audience without a word of explanation, and it is now the only warm thing on
+   a green, pink and teal page.
+
+   THE GREENS DO NOT MOVE. Feet #1F382B is the page, bag #2F4F39 is the card,
+   exactly as E, and the argument is E's argument: taken the other way round
+   there is nothing left to make a card out of that is not lighter than either
+   colour Tim sent. The ladder F actually paints, darkest to lightest, is
+   bar #192D22 < page #1F382B < paper < card #2F4F39 < paper-3, five steps, so a
+   card reads as a card against the page and a hatch reads against the card.
+   That was the whole reason Charcoal beat Midnight and it is unchanged.
+
+   THE ACCENT RULE, AND IT IS ONE SENTENCE BECAUSE A READER HAS TO BE ABLE TO
+   FEEL IT: teal is how you get around and pink is what the site is saying, and
+   a section heading is never either, so the two accents always land on a
+   neutral and never on each other.
+     TEAL  #70B5D9 (#81BEDE where the type is small) is every route: every link,
+           every button fill, every hover, every current-page state and the
+           footer's nav group labels. If tapping it takes you somewhere, it is
+           teal.
+     PINK  #E87EA1 (#EEA0B9 where the type is small) is every mark that goes
+           nowhere: the highlighted word inside a heading, the wordmark's RIPS,
+           the two display headings on the dark bands, the NEW flag, the
+           YESTERDAY'S RIP and #1 HIT flags and the rip-count chip.
+     NEITHER is a section heading. `.mw-head h2` reads "Most wanted" with `.hl`
+     on the second word; if the heading were pink too the highlight would
+     vanish, and if it were teal the highlighted word would sit against a colour
+     one point of luminance away from it, which is exactly the "coloured blur"
+     Tim complained about on Charcoal. Off-white headings are what keeps the two
+     accents legible as two accents.
+   THE NUMBERS AGREE WITH THE MEANING, which is the test of whether a rule is
+   real. Teal has the headroom (4.05:1 on the card to pink's 3.45:1) and the
+   teal role is the one that includes SMALL text, the 4.5:1 gate; the pink role
+   is display type at 3:1 everywhere except two small chips, which get a dark
+   fill under them rather than a lifted pink on a light one.
+
+   THE WORDMARK. --mustard was doing two unrelated jobs, the "RIPS" in the bar
+   and the fill of every CTA on the page, and no non-gold palette can ship until
+   that is split. It is split here and it costs one rule: --mustard is the CTA
+   fill and only that, and `.brand b i` takes --brand-accent, a token the
+   generator has always emitted and ui.css has never used, named for exactly
+   this. The wordmark reads BETTER in pink than it did in gold: gold "RIPS" on a
+   green bar was two warm-ish colours at 4.6:1, pink is 5.51:1 and is the only
+   pink above the fold.
+   ========================================================================== */
+/* the smallest lift toward white, in hue, that carries pink through 4.5:1 on
+   the deepest ground it has to write small type on. Same move liftTo() makes
+   for the card; stated separately because the ground is different. */
+const TRUB2_DEEP = scale(TRUB.feet, 0.62);
+/* --gold is the DEEP END of a CTA gradient and the hover fill under .hofx-cta,
+   so it carries a --on-accent label (4.5:1) and has to hold its own edge
+   against the card (3:1, 1.4.11). Scaled down the same way the bar is, one 2%
+   step at a time, and stopped at the LAST value that clears both: the first
+   guess was 0.72 and the build refused it at 3.90:1 and 2.19:1, which is the
+   self-check doing the only job it has. */
+function deepestFill(c) {
+  let last = null;
+  for (let k = 100; k >= 40; k -= 2) {
+    const v = scale(c, k / 100);
+    if (ratio(v, TRUB.outline) < 4.5 || ratio(v, TRUB.bag) < 3.0) break;
+    last = v;
+  }
+  if (!last) throw new Error(`${c} cannot be a fill with an outline label at all`);
+  return last;
+}
+const TRUBBISH2 = {
+  ...TRUBBISH,
+  /* EVERY GOLD TOKEN BECOMES TEAL. Nothing here is a "gold" any more; the names
+     survive because ui.css spells them, which is the same trap CLAUDE.md
+     records for --ketchup and --navy, so it is written down loudly instead. */
+  mustard: TRUB.blue,                                   // every CTA fill
+  gold: deepestFill(TRUB.blue),                         // the deep end of a CTA gradient, the hover fill, the .hof rule
+  "gold-deep": TRUB_BLUE_SM,                            // borders and small labels on a dark ground
+  "chip-gold-bg": toHex(over(TRUB.blue, TRUB2_DEEP, 0.14)),
+  "gold-band-label": TRUB.outline,
+  "brand-accent": TRUB.pink,                            // the wordmark's RIPS, split off --mustard
+};
+
+/* ==========================================================================
    THE GAP BETWEEN THE TOKEN SETS, AND IT IS THE ONLY PLACE THIS FILE HAS AN
    OPINION ABOUT A COLOUR IT WAS NOT GIVEN.
 
@@ -402,6 +516,125 @@ const accentCss = (o) => `
 .hof-head h2,.foot-tag{color:${o.heading}}
 .hof-head a{color:${o.link}}`;
 
+/* ==========================================================================
+   F'S EXTRA RULES, AND WHY THEY ARE RULES AND NOT TOKENS.
+
+   Taking gold out of the palette is a token edit. Making the page work without
+   it is not: every rule below is a JOB that --mustard, --gold or a hardcoded
+   gold rgba was doing on a page where no gold exists any more, and each one
+   would be wrong if it were solved by moving a token. They are grouped by the
+   reason they exist rather than by selector, so a reader can check the
+   reasoning rather than the CSS.
+
+   SPECIFICITY IS MATCHED TO ui.css'S OWN, NEVER RAISED. Every selector here is
+   the same selector ui.css uses, so these win on SOURCE ORDER from this page's
+   <style> block. Raising one "to be safe" is how the .fk-golden and
+   section.band-gold overrides get silently clobbered; see the note on accentCss.
+   ========================================================================== */
+const TRUB2_CSS = `
+/* ---- 1. THE SPLIT. -------------------------------------------------------
+   --mustard was the wordmark accent AND the fill of every CTA. It is the CTA
+   fill now and nothing else. The wordmark takes --brand-accent, which the
+   generator has always emitted and ui.css has never used. */
+.brand b i{color:var(--brand-accent)}
+
+/* ---- 2. THE BUTTON HE POINTED AT. ----------------------------------------
+   .hero-cta paints var(--mustard) and writes var(--ink) on it. On the LIGHT
+   palette ui.css ships, --ink is #111111 and that measures 10.28:1. On every
+   DARK palette --ink is a near-white, so what Tim actually saw was #EEF1EF on
+   #FFD23F = 1.27:1, nine times on the home page. It is not a Trubbish bug: A,
+   B, C and D all have it too and F is the only one of the six that fixes it.
+   The label takes --on-accent, Tim's own outline colour, which is what every
+   other CTA in ui.css already puts on a filled button.
+   The three rules under it are the same bug in the same shape: a near-white
+   drawn on a filled accent because the fill used to be light. */
+.hero-cta{color:var(--on-accent)}
+.more a:hover{color:var(--on-accent)}
+.menu-btn[aria-expanded="true"] svg{stroke:var(--on-accent)}
+.hof .vcar .hero-cta{border-color:var(--chrome-ink)}
+
+/* ---- 3. TEAL IS EVERY LINK. ----------------------------------------------
+   ui.css draws its in-card links --ketchup-deep, which is the small PINK here.
+   Under the rule those are controls, so they are teal. */
+.mw-head a,.brk a,.tool:hover .tool-t{color:var(--sky-deep)}
+
+/* ---- 3b. AND ONE MORE SURFACE TOKEN USED AS INK. -------------------------
+   footer .soc svg is fill:var(--paper). --paper is the light cream #F4F3EF in
+   the palette ui.css ships, so on the real site the four footer social glyphs
+   are cream on a dark footer. On every DARK palette --paper is a dark surface
+   and the glyphs are #264231 on #35463D, which is 1.28:1: four blank circles.
+   Same shape as .hofx-t and .hero-cta, third instance, found by walking the
+   painted page rather than by reading the file. */
+footer .soc svg{fill:var(--chrome-ink)}
+
+/* ---- 4. PINK EMPHASIS THAT IS NOT A CONTROL. -----------------------------
+   .set-rips is small pink type on --paper-3, the LIGHTEST surface in the
+   palette, where the small pink only reaches 3.0:1. Rather than lift the pink
+   further toward white and lose the hue Tim sent, the chip gets a dark fill
+   under it: same colour on a ground it can actually sit on. */
+.set-rips{background:var(--lilac-pale)}
+
+/* ---- 5. THE HALL OF FAME BAND. -------------------------------------------
+   .hof paints radial-gradient(..., rgba(201,151,0,.18), transparent 62%) over
+   the bar. Over Charcoal's violet that is a warm bloom. Over Tim's green it is
+   OLIVE AND MUDDY, which is the second thing wrong with E and the reason the
+   band could not just keep its gradient once gold went semantic. Same geometry,
+   same 62% stop, same shape: only the colour changes, to Tim's own bag green
+   over the bar, so the band lifts toward the CARD colour instead of warming.
+   That is what lets the gold badge and the gold frame sit ON the band rather
+   than blending INTO it, and it is why gold is now the only warm pixel here.
+   The shelf art's gold hairline goes with it: same literal, same problem. That
+   second rule is DEFENSIVE on this page and paints nothing today, because the
+   home page's shelf holds a .vcar carousel rather than bare .v tiles, so
+   the selector .shelf .v .art does not match. It is written anyway: the
+   hairline is a hardcoded rgba(201,151,0,.35) and the next page that puts
+   tiles back in a shelf would put gold on the page without anybody choosing it. */
+.hof{background-image:radial-gradient(130% 90% at 50% 0%, rgba(47,79,57,.55), transparent 62%)}
+.shelf .v .art{box-shadow:0 2px 4px rgba(0,0,0,.4),0 10px 26px rgba(0,0,0,.45),
+  0 0 0 1px rgba(255,255,255,.20)}
+
+/* ---- 6. GOLD, AND THIS IS ALL OF IT. -------------------------------------
+   Two elements. The badge that says HALL OF FAME HIT and the frame round the
+   trophy card. LITERALS on purpose: every gold token in this palette is a teal,
+   so gold cannot leak back onto the page through a token, and the only gold on
+   the page is the gold somebody typed here on purpose.
+   The inner rings, the corner bloom and the glow behind the card are already
+   rgba(232,185,58,...) literals in ui.css, so they stay gold for free and are
+   not restated. */
+.hofx{border-color:#FFB000}
+.hofx-tag{background:linear-gradient(180deg,#FFD23F,#FFB000);border-color:#FFDF7A;
+  box-shadow:0 3px 0 #FFDF7A,0 8px 18px rgba(17,17,17,.35)}
+/* ...and two things INSIDE the frame that are not the signal and must not be
+   gold. .hofx-t is color:var(--paper) in ui.css, a light cream in the shipped
+   palette and a DARK SURFACE in all five dark samples: the trophy's title is
+   unreadable on A through E and F is the only one that fixes it. .hofx-m is the
+   PSA grade and the price, which is emphasis, so it is pink. */
+.hofx-t{color:var(--chrome-ink)}
+.hofx-m{color:var(--ketchup-deep)}
+.hofx-cta{border-color:var(--chrome-ink)}
+
+/* ---- 7. SUBSCRIBE, AND IT IS THE THINNEST BOUNDARY ON THE SITE. ----------
+   #EE0000 is fixed and white on it is 4.53:1, which is the whole reason the
+   value is not YouTube's own #FF0000. What is NOT fixed is whether you can see
+   the pill at all. Red against green is the one pair where the two hues sit
+   close in luminance: 2.02:1 on the bag green and 2.79:1 on the feet green,
+   both failing the 3:1 a control boundary needs. E bought 3.22:1 by scaling the
+   bar down 80%, and said so: the thinnest margin anywhere on the site.
+   F KEEPS THAT BAR, so 3.22:1 still holds on its own, AND RINGS THE PILL in
+   Tim's own #FFFFFF, the colour he gave to teeth and the colour already on the
+   label. That is the keyline the Yellow Border candidate needed and E declined,
+   and it is available here because gold is gone: there is no second accent left
+   on the bar for a white ring to fight. It costs no layout, box-shadow spread
+   rather than a border, so the 44px target does not move.
+   The chain is now red -> white 4.53:1 -> bar 14.59:1. The worst link is 4.53
+   where it was 3.22, and the bar's own 3.22:1 is a floor underneath it rather
+   than the thing holding the control up.
+   Both Subscribes in the chrome get it. The footer's .btn-sub already has a
+   2px --keyline border from .btn and needs nothing. */
+.sub,.menu a.menu-sub{box-shadow:0 0 0 2px #FFFFFF}
+.sub:hover,.sub:focus-visible,.menu a.menu-sub:hover,.menu a.menu-sub:focus-visible{
+  box-shadow:0 0 0 2px #FFFFFF}`;
+
 const SAMPLES = [
   {
     file: "preview-midnight.html",
@@ -480,6 +713,54 @@ const SAMPLES = [
       heading: "var(--sky)",
       link: "var(--sky)",
     },
+  },
+  {
+    file: "preview-trubbish-2.html",
+    label: "F",
+    name: "Trubbish Deep",
+    note: "the mascot's colours running the whole page. No gold except the Hall of Fame.",
+    t: TRUBBISH2,
+    /* E's roles, one swap and one addition, and both fall out of the rule.
+       SWAPPED: pink takes the display headings on the dark bands as well as the
+       inline highlight, because pink is now "emphasis" rather than "the small
+       one". TEAL takes the link beside the heading, which is the only SMALL
+       item in this group and therefore the 4.5:1 gate, and teal is the colour
+       with the headroom. Same reasoning E used, same answer, stated as a rule
+       instead of as a coincidence.
+       The stamp behind .hl stays Tim's outline #231F20: it is decoration and it
+       is doing its job by being CLOSE to the ground, which is what makes it
+       read as a shadow rather than as the coloured blur he complained about. */
+    accents: {
+      hl: "var(--ketchup)",
+      hlShadow: "2px 2px 0 var(--trubbish)",
+      heading: "var(--ketchup)",
+      link: "var(--sky)",
+    },
+    /* The band's bloom is no longer gold, so the ground the heading and the
+       link are really drawn on is different from every other sample's. */
+    bloom: { c: TRUB.bag, a: 0.55 },
+    extra: TRUB2_CSS,
+    /* The rows only F can pass, because F is the only sample that writes the
+       rules that make them true. See TRUB2_CSS for each one's argument. */
+    extraRows: (t) => [
+      ["hero CTA label on its fill", t["on-accent"], t.mustard, 4.5],
+      ["hero CTA fill on the card", t.mustard, t["paper-2"], 3.0],
+      ["wordmark RIPS on the bar", t["brand-accent"], t["chrome-bg"], 3.0],
+      ["trophy title on the frame", t["chrome-ink"], "#3A3A3A", 3.0],
+      ["trophy meta on the frame", t["ketchup-deep"], "#3A3A3A", 4.5],
+      ["HALL OF FAME HIT label", t["on-accent"], "#FFB000", 4.5],
+      ["gold badge vs the frame", "#FFB000", "#3A3A3A", 3.0],
+      ["gold frame vs the band", "#FFB000", toHex(over(TRUB.bag, t["chrome-bg"], 0.55)), 3.0],
+      ["CTA hover fill label", t["on-accent"], t.gold, 4.5],
+      ["CTA hover fill on the card", t.gold, t["paper-2"], 3.0],
+      ["rip-count chip on its fill", t["ketchup-deep"], t["lilac-pale"], 4.5],
+      ["set top-price on the card", t["gold-deep"], t["paper-2"], 4.5],
+      ["in-card link on the card", t["sky-deep"], t["paper-2"], 4.5],
+      ["footer social glyph on its disc", t["chrome-ink"], toHex(over("#FFFFFF", t["chrome-bg"], 0.12)), 3.0],
+      ["footer group label on the bar", t.mustard, t["chrome-bg"], 4.5],
+      ["Subscribe ring vs the pill", "#FFFFFF", YT["yt-red"], 3.0],
+      ["Subscribe ring vs the bar", "#FFFFFF", t["chrome-bg"], 3.0],
+    ],
   },
 ];
 
@@ -596,6 +877,7 @@ function build(s, next) {
     `   block is scoped to this one file and dies with it. */\n` +
     `:root{\n${vars}\n}\n` +
     (s.accents ? accentCss(s.accents) + "\n" : "") +
+    (s.extra ? s.extra + "\n" : "") +
     `${swapCss}\n</style>\n`;
   h = h.replace(/<\/head>/, `${style}</head>`);
 
@@ -657,7 +939,11 @@ for (const s of SAMPLES) {
   const heading = a ? val(a.heading) : t.mustard;
   const link = a ? val(a.link) : t.mustard;
   const bar = t["chrome-bg"];
-  const bloom = toHex(over(GOLD_BLOOM, bar, BLOOM_A));
+  /* F repaints the bloom, so the ground under its heading is not the gold one.
+     Measured off whatever that sample actually declares, never off the default,
+     which is the failure mode this whole block exists to prevent. */
+  const bl = s.bloom || { c: GOLD_BLOOM, a: BLOOM_A };
+  const bloom = toHex(over(bl.c, bar, bl.a));
   const rows = [
     [".hl word on the card", hl, t["paper-2"], 3.0],
     ...(hlShadow ? [[".hl word vs its own stamp", hl, hlShadow, null]] : []),
@@ -670,6 +956,7 @@ for (const s of SAMPLES) {
     ["body ink on the card", t.ink, t["paper-2"], 4.5],
     ["Subscribe label on #EE0000", YT["on-yt"], YT["yt-red"], 4.5],
     ["Subscribe pill vs the bar", YT["yt-red"], bar, 3.0],
+    ...(s.extraRows ? s.extraRows(t) : []),
   ];
   console.log(`  ${s.label}  ${s.name}`);
   for (const [name, fg, bg, gate] of rows) {
@@ -685,6 +972,44 @@ if (fails.length) {
   throw new Error("CONTRAST FAILURES, nothing was written:\n  " + fails.join("\n  "));
 }
 
+/* ==========================================================================
+   TWO ui.css BUGS THAT ONLY EXIST ON A DARK PALETTE, MEASURED ON ALL SIX.
+
+   Neither is a palette choice and neither is gated here, because gating them
+   would fail the build on A, B, C and D, which are not this task and which Tim
+   has already looked at. They are printed instead, because they are real and
+   because F is the only one of the six that fixes them, which is a thing the
+   comparison should not hide.
+
+     .hero-cta   `background:var(--mustard); color:var(--ink)`. On the LIGHT
+                 palette ui.css ships, --ink is #111111 on gold: 10.28:1, fine.
+                 Flip the palette dark and --ink becomes a near-white sitting on
+                 the same gold fill. There are NINE of these on the home page and
+                 this is the "yellow ctb buttons with white text on them" Tim
+                 named. F writes --on-accent on it instead.
+     .hofx-t     `color:var(--paper)`. Same shape: --paper is a light cream in
+                 the shipped palette and the trophy frame is a dark grey ramp, so
+                 the Hall of Fame title is drawn in a SURFACE colour on a dark
+                 ground on every dark sample. F writes --chrome-ink on it.
+
+   WHICHEVER PALETTE SHIPS, THESE TWO RULES IN assets-source/ui.css HAVE TO
+   CHANGE WITH IT. That is the point of printing them.
+   ========================================================================== */
+console.log("  THREE ui.css RULES THAT BREAK ON A DARK PALETTE. Not gated. Not a palette choice.\n");
+for (const s of SAMPLES) {
+  const t = s.t;
+  const cta = s.extra ? t["on-accent"] : t.ink;
+  const title = s.extra ? t["chrome-ink"] : t.paper;
+  const glyph = s.extra ? t["chrome-ink"] : t.paper;
+  const disc = toHex(over("#FFFFFF", t["chrome-bg"], 0.12));
+  const r1 = ratio(cta, t.mustard), r2 = ratio(title, "#3A3A3A"), r3 = ratio(glyph, disc);
+  console.log(`  ${s.label}  ${s.name.padEnd(18)}` +
+    ` .hero-cta ${cta} on ${t.mustard} ${fmt(r1).padStart(8)} ${(r1 >= 4.5 ? "ok" : "FAIL").padEnd(5)}` +
+    ` .hofx-t ${title} on #3A3A3A ${fmt(r2).padStart(8)} ${(r2 >= 3 ? "ok" : "FAIL").padEnd(5)}` +
+    ` footer .soc svg ${glyph} on ${disc} ${fmt(r3).padStart(8)} ${r3 >= 3 ? "ok" : "FAIL"}`);
+}
+console.log();
+
 for (let i = 0; i < SAMPLES.length; i++) {
   const s = SAMPLES[i];
   const next = SAMPLES[(i + 1) % SAMPLES.length];
@@ -693,4 +1018,4 @@ for (let i = 0; i < SAMPLES.length; i++) {
   console.log(`  wrote public/${s.file.padEnd(28)} ${(out.length / 1024).toFixed(1)}KB  ` +
     `page ${s.t.page}  bar ${s.t["chrome-bg"]}  ink ${s.t.ink}  -> ${next.label}`);
 }
-console.log("\n  TEMPORARY. Delete all five files and this script before launch.");
+console.log("\n  TEMPORARY. Delete all SIX files and this script before launch.");

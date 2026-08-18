@@ -89,39 +89,53 @@ already exists.
 
 ## 3. Before flipping it on
 
-- [ ] **DELETE THE FIVE PALETTE SAMPLE PAGES. Do this one first.** They are the
+- [ ] **DELETE THE SIX PALETTE SAMPLE PAGES. Do this one first.** They are the
       only files in the deploy root that are not part of the site:
 
           rm public/preview-midnight.html public/preview-charcoal.html \
              public/preview-charcoal-a.html public/preview-charcoal-b.html \
-             public/preview-trubbish.html
+             public/preview-trubbish.html public/preview-trubbish-2.html
           rm scripts/gen-palette-samples.mjs
           node scripts/build-all.mjs
 
       Added 18 August 2026 so Tim could compare palettes on his own phone, which
       needs a real url and therefore a real deploy. **It started as two and grew
-      to five in one day**, which is the reason this item is worth re-reading
+      to six in one day**, which is the reason this item is worth re-reading
       rather than skimming: Midnight and Charcoal first, then Tim picked
       Charcoal and asked for two accent variants of it, then asked for a page in
-      the mascot's colours. The list is:
+      the mascot's colours, then picked that one and asked for a version with
+      the gold taken out of it. The list is:
 
           preview-midnight.html      A  Slushie Midnight
           preview-charcoal.html      B  Slushie Charcoal, the baseline
           preview-charcoal-a.html    C  Charcoal Aqua
           preview-charcoal-b.html    D  Charcoal Quiet
           preview-trubbish.html      E  Trubbish
+          preview-trubbish-2.html    F  Trubbish Deep
 
-      They are five extra copies of the home page. All are `noindex,nofollow`,
+      They are six extra copies of the home page. All are `noindex,nofollow`,
       none is in sitemap.xml, and nothing on the site links to them: they link
       to each other in a ring and to nothing else. So they are quiet rather than
       harmless. A duplicate front door in the tree on launch day is a cost, and
       the only thing keeping it out of an index is a meta tag. Once Tim has
       picked, they have no job.
 
-      **THE COUNT IS THE THING THAT GOES STALE HERE.** If another variant is
-      added, add it to the list above in the same edit, or this checklist will
-      confidently delete four of six. `ls public/preview-*.html` is the check
-      that cannot drift.
+      **THE COUNT IS THE THING THAT GOES STALE HERE.** It already has: this item
+      said FIVE while six were on disk, which is exactly the failure it warns
+      about. If another variant is added, add it to the list above in the same
+      edit, or this checklist will confidently delete five of seven.
+      `ls public/preview-*.html` is the check that cannot drift.
+
+      **AND ONE THING THE SAMPLES FOUND THAT OUTLIVES THEM.** Three rules in
+      assets-source/ui.css write a SURFACE token as ink, which is correct on the
+      light palette shipping today and illegible on every dark one:
+      `.hero-cta{color:var(--ink)}` (nine buttons on the home page, 1.11:1 to
+      1.27:1 depending on the palette), `.hofx-t{color:var(--paper)}` (the Hall
+      of Fame trophy title, as low as 1.03:1) and
+      `footer .soc svg{fill:var(--paper)}` (the four footer social glyphs,
+      1.10:1). Sample F overrides all three in its own block. **If a dark
+      palette ships, those three rules have to be fixed in ui.css itself**, or
+      deleting the samples takes the fixes with them.
 
       Nothing else has to change with them. Each palette lives in that file's
       own `<style>` block, so assets-source/ui.css was never touched and

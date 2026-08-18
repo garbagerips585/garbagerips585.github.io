@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
-<title>Palette sample E: Trubbish &mdash; Garbage Rips 585 home page</title>
-<meta name="description" content="Temporary palette sample. The Garbage Rips 585 home page drawn in Trubbish. Not a real page of the site.">
+<title>Palette sample F: Trubbish Deep &mdash; Garbage Rips 585 home page</title>
+<meta name="description" content="Temporary palette sample. The Garbage Rips 585 home page drawn in Trubbish Deep. Not a real page of the site.">
 <meta property="og:title" content="Garbage Rips 585 | Pokemon Pack Rips from the 585">
 <meta property="og:description" content="Pokemon card pack openings fueled by plate grease and good vibes. Watch on YouTube, TikTok, Instagram, and Facebook.">
 <meta property="og:type" content="website">
@@ -147,20 +147,21 @@
 }</style>
 <!-- HOMECSS:END -->
 <style>
-/* ===== PALETTE SAMPLE E: Trubbish. TEMPORARY. =====
-   the mascot's own colours. Green ground, pink highlight, blue headings.
+/* ===== PALETTE SAMPLE F: Trubbish Deep. TEMPORARY. =====
+   the mascot's colours running the whole page. No gold except the Hall of Fame.
    Written by scripts/gen-palette-samples.mjs. ui.css is NOT touched: this
    block is scoped to this one file and dies with it. */
 :root{
-  --brand-accent:#FFD23F;
+  --brand-accent:#E87EA1;
   --card:#2F4F39;
-  --chip-gold-bg:#3A2C08;
+  --chip-gold-bg:#203736;
   --chrome-bg:#192D22;
   --chrome-dim:#C1CAC4;
   --chrome-ink:#F7F8F7;
   --foot-ink:#D1D8D3;
-  --gold:#FFB000;
-  --gold-deep:#FFDF7A;
+  --gold:#609CBB;
+  --gold-band-label:#231F20;
+  --gold-deep:#81BEDE;
   --hair:rgba(238,241,239,.18);
   --ink:#EEF1EF;
   --ink-2:#C9D1CC;
@@ -171,7 +172,7 @@
   --lift:0 1px 2px rgba(0,0,0,.5),0 6px 14px rgba(0,0,0,.45);
   --lilac:#70B5D9;
   --lilac-pale:#353230;
-  --mustard:#FFD23F;
+  --mustard:#70B5D9;
   --navy:#EEF1EF;
   --navy-deep:#13231B;
   --on-accent:#231F20;
@@ -194,8 +195,111 @@
 
 /* THE TWO ACCENTS, and the only thing that differs from sample B. */
 .hl{color:var(--ketchup);text-shadow:2px 2px 0 var(--trubbish)}
-.hof-head h2,.foot-tag{color:var(--sky)}
+.hof-head h2,.foot-tag{color:var(--ketchup)}
 .hof-head a{color:var(--sky)}
+
+/* ---- 1. THE SPLIT. -------------------------------------------------------
+   --mustard was the wordmark accent AND the fill of every CTA. It is the CTA
+   fill now and nothing else. The wordmark takes --brand-accent, which the
+   generator has always emitted and ui.css has never used. */
+.brand b i{color:var(--brand-accent)}
+
+/* ---- 2. THE BUTTON HE POINTED AT. ----------------------------------------
+   .hero-cta paints var(--mustard) and writes var(--ink) on it. On the LIGHT
+   palette ui.css ships, --ink is #111111 and that measures 10.28:1. On every
+   DARK palette --ink is a near-white, so what Tim actually saw was #EEF1EF on
+   #FFD23F = 1.27:1, nine times on the home page. It is not a Trubbish bug: A,
+   B, C and D all have it too and F is the only one of the six that fixes it.
+   The label takes --on-accent, Tim's own outline colour, which is what every
+   other CTA in ui.css already puts on a filled button.
+   The three rules under it are the same bug in the same shape: a near-white
+   drawn on a filled accent because the fill used to be light. */
+.hero-cta{color:var(--on-accent)}
+.more a:hover{color:var(--on-accent)}
+.menu-btn[aria-expanded="true"] svg{stroke:var(--on-accent)}
+.hof .vcar .hero-cta{border-color:var(--chrome-ink)}
+
+/* ---- 3. TEAL IS EVERY LINK. ----------------------------------------------
+   ui.css draws its in-card links --ketchup-deep, which is the small PINK here.
+   Under the rule those are controls, so they are teal. */
+.mw-head a,.brk a,.tool:hover .tool-t{color:var(--sky-deep)}
+
+/* ---- 3b. AND ONE MORE SURFACE TOKEN USED AS INK. -------------------------
+   footer .soc svg is fill:var(--paper). --paper is the light cream #F4F3EF in
+   the palette ui.css ships, so on the real site the four footer social glyphs
+   are cream on a dark footer. On every DARK palette --paper is a dark surface
+   and the glyphs are #264231 on #35463D, which is 1.28:1: four blank circles.
+   Same shape as .hofx-t and .hero-cta, third instance, found by walking the
+   painted page rather than by reading the file. */
+footer .soc svg{fill:var(--chrome-ink)}
+
+/* ---- 4. PINK EMPHASIS THAT IS NOT A CONTROL. -----------------------------
+   .set-rips is small pink type on --paper-3, the LIGHTEST surface in the
+   palette, where the small pink only reaches 3.0:1. Rather than lift the pink
+   further toward white and lose the hue Tim sent, the chip gets a dark fill
+   under it: same colour on a ground it can actually sit on. */
+.set-rips{background:var(--lilac-pale)}
+
+/* ---- 5. THE HALL OF FAME BAND. -------------------------------------------
+   .hof paints radial-gradient(..., rgba(201,151,0,.18), transparent 62%) over
+   the bar. Over Charcoal's violet that is a warm bloom. Over Tim's green it is
+   OLIVE AND MUDDY, which is the second thing wrong with E and the reason the
+   band could not just keep its gradient once gold went semantic. Same geometry,
+   same 62% stop, same shape: only the colour changes, to Tim's own bag green
+   over the bar, so the band lifts toward the CARD colour instead of warming.
+   That is what lets the gold badge and the gold frame sit ON the band rather
+   than blending INTO it, and it is why gold is now the only warm pixel here.
+   The shelf art's gold hairline goes with it: same literal, same problem. That
+   second rule is DEFENSIVE on this page and paints nothing today, because the
+   home page's shelf holds a .vcar carousel rather than bare .v tiles, so
+   the selector .shelf .v .art does not match. It is written anyway: the
+   hairline is a hardcoded rgba(201,151,0,.35) and the next page that puts
+   tiles back in a shelf would put gold on the page without anybody choosing it. */
+.hof{background-image:radial-gradient(130% 90% at 50% 0%, rgba(47,79,57,.55), transparent 62%)}
+.shelf .v .art{box-shadow:0 2px 4px rgba(0,0,0,.4),0 10px 26px rgba(0,0,0,.45),
+  0 0 0 1px rgba(255,255,255,.20)}
+
+/* ---- 6. GOLD, AND THIS IS ALL OF IT. -------------------------------------
+   Two elements. The badge that says HALL OF FAME HIT and the frame round the
+   trophy card. LITERALS on purpose: every gold token in this palette is a teal,
+   so gold cannot leak back onto the page through a token, and the only gold on
+   the page is the gold somebody typed here on purpose.
+   The inner rings, the corner bloom and the glow behind the card are already
+   rgba(232,185,58,...) literals in ui.css, so they stay gold for free and are
+   not restated. */
+.hofx{border-color:#FFB000}
+.hofx-tag{background:linear-gradient(180deg,#FFD23F,#FFB000);border-color:#FFDF7A;
+  box-shadow:0 3px 0 #FFDF7A,0 8px 18px rgba(17,17,17,.35)}
+/* ...and two things INSIDE the frame that are not the signal and must not be
+   gold. .hofx-t is color:var(--paper) in ui.css, a light cream in the shipped
+   palette and a DARK SURFACE in all five dark samples: the trophy's title is
+   unreadable on A through E and F is the only one that fixes it. .hofx-m is the
+   PSA grade and the price, which is emphasis, so it is pink. */
+.hofx-t{color:var(--chrome-ink)}
+.hofx-m{color:var(--ketchup-deep)}
+.hofx-cta{border-color:var(--chrome-ink)}
+
+/* ---- 7. SUBSCRIBE, AND IT IS THE THINNEST BOUNDARY ON THE SITE. ----------
+   #EE0000 is fixed and white on it is 4.53:1, which is the whole reason the
+   value is not YouTube's own #FF0000. What is NOT fixed is whether you can see
+   the pill at all. Red against green is the one pair where the two hues sit
+   close in luminance: 2.02:1 on the bag green and 2.79:1 on the feet green,
+   both failing the 3:1 a control boundary needs. E bought 3.22:1 by scaling the
+   bar down 80%, and said so: the thinnest margin anywhere on the site.
+   F KEEPS THAT BAR, so 3.22:1 still holds on its own, AND RINGS THE PILL in
+   Tim's own #FFFFFF, the colour he gave to teeth and the colour already on the
+   label. That is the keyline the Yellow Border candidate needed and E declined,
+   and it is available here because gold is gone: there is no second accent left
+   on the bar for a white ring to fight. It costs no layout, box-shadow spread
+   rather than a border, so the 44px target does not move.
+   The chain is now red -> white 4.53:1 -> bar 14.59:1. The worst link is 4.53
+   where it was 3.22, and the bar's own 3.22:1 is a floor underneath it rather
+   than the thing holding the control up.
+   Both Subscribes in the chrome get it. The footer's .btn-sub already has a
+   2px --keyline border from .btn and needs nothing. */
+.sub,.menu a.menu-sub{box-shadow:0 0 0 2px #FFFFFF}
+.sub:hover,.sub:focus-visible,.menu a.menu-sub:hover,.menu a.menu-sub:focus-visible{
+  box-shadow:0 0 0 2px #FFFFFF}
 
 /* PREVIEW CHROME. Not part of any palette. Deleted with these files. */
 .pvbar{position:fixed;left:50%;transform:translateX(-50%);bottom:0;z-index:200;
@@ -1130,6 +1234,6 @@ body{padding-bottom:76px}
 </script>
 <script src="/assets/app.js?v=c169645d" defer></script>
 <script src="/assets/packplayer.js?v=d3834a60" defer></script>
-<div class="pvbar" role="group" aria-label="Palette sample switcher"><b>E &middot; Trubbish</b><a href="/preview-trubbish-2.html">Next: F &middot; Trubbish Deep &rarr;</a></div>
+<div class="pvbar" role="group" aria-label="Palette sample switcher"><b>F &middot; Trubbish Deep</b><a href="/preview-midnight.html">Next: A &middot; Slushie Midnight &rarr;</a></div>
 </body>
 </html>
