@@ -858,41 +858,26 @@ for r, v in enumerate(ordered, start=2):
         wv.cell(r, COL["Set"], "Not a set (sealed/other)").font = BODY
     if products and products[0] in PRODUCT_TO_OPENING:
         wv.cell(r, COL["Opening Type"], PRODUCT_TO_OPENING[products[0]]).font = GUESS_TXT
-    # WHICH BOX AND WHICH PACK, WHERE HIS OWN TITLE SAYS SO.
-    # See the _stated() note near the top: explicit "Box #2" / "Pack #5" only,
-    # never ordinal prose. A typed answer from manual.json overwrites both of
-    # these a few lines below, in BODY, because an answer beats a reading.
-    _box = _stated(v, BOX_RE)
-    _pack = _stated(v, PACK_RE)
-    if _box:
-        wv.cell(r, COL["Box #"], _box).font = GUESS_TXT
-    if _pack:
-        wv.cell(r, COL["Pack #"], _pack).font = GUESS_TXT
-    if products and products[0] in PRODUCT_TO_PACKS:
-        # Goes on Packs, the first set's own count, because Packs Opened is now
-        # a SUM. Writing a literal there would overwrite the formula.
-        #
-        # ---------------------------------------------------------------------
-        # THIS PREFILL WAS THE BUG, AND IT HAD ALREADY REACHED A PUBLISHED PAGE.
-        # ---------------------------------------------------------------------
-        #
-        # PRODUCT_TO_PACKS says how many packs a product CONTAINS. This column
-        # asks how many packs THIS VIDEO OPENED. Those are the same number only
-        # when the whole product is opened in one video, and on this channel it
-        # almost never is: the format is one pack per Short.
-        #
-        # So every Chaos Rising ETB rip was handed "9" and the guess was
-        # accepted. 21 of them, each opening a single pack, summing to 189 packs
-        # where 21 were opened. /luck.html published "232 packs counted" off
-        # that total. Nothing lied about odds, the hit rate divides rips rather
-        # than packs, but "packs counted" plainly reads as "packs we opened".
-        #
-        # A STATED PACK NUMBER SETTLES IT. "Pack #5" means one pack came out of
-        # the box in this video, whatever the box holds, so the count is 1 and
-        # the box's capacity belongs to the BOX rather than to the video. Where
-        # no pack number is stated the old guess stands, because a video with no
-        # pack number is the case where the whole product really was opened.
-        wv.cell(r, COL["Packs"], 1 if _pack else PRODUCT_TO_PACKS[products[0]]).font = GUESS_TXT
+    # NOTHING IS GUESSED INTO THESE THREE COLUMNS ANY MORE.
+    #
+    # Tim, 18 August 2026: "make sure you aren't tagging any videos with what
+    # type of product it is and what packs are in the video until you get my
+    # execl sheet thats filled out with all that exact data".
+    #
+    # Box #, Pack # and Packs are now handed back EMPTY unless a person has
+    # answered them. Earlier today this file prefilled Box # and Pack # from
+    # Tim's own titles ("Mega Zygarde Box #2 Pack #5") in blue, and prefilled
+    # Packs from PRODUCT_TO_PACKS. Both were suggestions to confirm, and the
+    # comment further down explains why a suggestion is not safe here: colour
+    # does not survive export to CSV, so the importer reads every blue cell back
+    # as a typed answer. That is how "9 packs" ended up on 21 one-pack rips and
+    # how "232 packs counted" reached /luck.html.
+    #
+    # A BLANK CELL IS THE HONEST STATE and it costs nothing downstream: every
+    # reader is written as "show it if it is there", so a blank renders nothing
+    # rather than a zero. The parse still exists in _stated() and is reported at
+    # the end of the run as a convenience, so Tim can see at a glance which rows
+    # his own copy already answers, without any of it touching a cell.
     # Packs Opened = the five per-set counts, summed. Typed independently it
     # could say 18 while the parts added to 12 and nothing would catch it.
     _pk = [get_column_letter(COL[h]) for h in ("Packs", "Packs 2", "Packs 3", "Packs 4", "Packs 5")]
@@ -981,38 +966,7 @@ for r, v in enumerate(ordered, start=2):
     # The SUM is right immediately, and the only thing left open is the
     # distribution, which was always his to give.
     if man.get("packs"):
-        # ---------------------------------------------------------------------
-        # THE ONE PLACE THIS FILE OVERRULES A STORED ANSWER, AND THE EVIDENCE.
-        # ---------------------------------------------------------------------
-        #
-        # Normally a stored value beats a guess and that is the whole point of
-        # this block. The exception is narrow and it exists because the stored
-        # value here is provably THIS SCRIPT'S OWN FORMER GUESS rather than
-        # something a person decided.
-        #
-        # Colour does not survive export to CSV, so every blue suggestion came
-        # back through the importer as a typed answer. The old prefill wrote the
-        # product's CAPACITY into a column that asks how many packs the VIDEO
-        # opened, so all 21 Chaos Rising ETB rips were handed 9 and all 21
-        # returned 9. They opened one pack each.
-        #
-        # THE TEST IS DELIBERATELY BOTH HALVES, so nothing a person actually
-        # typed can be caught by it:
-        #   1. the stored number equals PRODUCT_TO_PACKS for this product
-        #      exactly, which is the fingerprint of the old guess, and
-        #   2. the video's own title or description states a pack number, which
-        #      contradicts it, because opening "Pack #5" is opening one pack.
-        # A genuine whole-box rip states no pack number and keeps its 9. A
-        # person who typed 9 against a stated pack number is the one case this
-        # gets wrong, and every instance is printed below so it is reviewable
-        # rather than silent.
-        _cap = PRODUCT_TO_PACKS.get(products[0]) if products else None
-        if _pack and _cap and man["packs"] == _cap and _cap > 1:
-            wv.cell(r, COL["Packs"], 1).font = GUESS_TXT
-            PACK_CORRECTIONS.append((v["id"], set_name.get(sets_v[0], "?") if sets_v else "?",
-                                     products[0], man["packs"], _pack))
-        else:
-            wv.cell(r, COL["Packs"], man["packs"]).font = BODY
+        wv.cell(r, COL["Packs"], man["packs"]).font = BODY
         for _h in ("Packs 2", "Packs 3", "Packs 4", "Packs 5"):
             if _h in COL:
                 wv.cell(r, COL[_h]).value = None
@@ -1469,17 +1423,14 @@ print(f"  prefilled:  set {sum(1 for v in ordered if len(v.get('sets') or []) >=
       f"opening {sum(1 for v in ordered if (v.get('products') or [''])[0] in PRODUCT_TO_OPENING)}, "
       f"rarity {sum(1 for v in ordered if (manual.get(v['id']) or {}).get('hitRarity'))} (restored answers only, never guessed)")
 
-# LOUD, BECAUSE THE ALTERNATIVE IS SILENT. Each of these rows had a stored pack
-# count equal to the product's full capacity while its own title or description
-# named a single pack, so the sheet now hands back 1 for review. If any line
-# below is actually a whole-box rip, type the real number over the blue.
-if PACK_CORRECTIONS:
-    print(f"  packs corrected: {len(PACK_CORRECTIONS)} row(s) where a stored count was the product's "
-          f"capacity and the video states a pack number")
-    _by_set = {}
-    for _vid, _set, _prod, _was, _pk in PACK_CORRECTIONS:
-        _by_set.setdefault(_set, []).append((_prod, _was, _pk))
-    for _set, _rows in sorted(_by_set.items(), key=lambda kv: -len(kv[1])):
-        _p = _rows[0][0]
-        _w = _rows[0][1]
-        print(f"    {_set}: {len(_rows)} x {_p}, {_w} -> 1")
+# WHAT TIM'S OWN COPY ALREADY ANSWERS, reported and never written into a cell.
+# The columns go back blank because a blue guess becomes a typed answer the
+# moment the sheet is exported to CSV. This is the same information offered as a
+# progress note instead: how many rows he can fill from his own titles rather
+# than from memory.
+_says_pack = sum(1 for v in ordered if _stated(v, PACK_RE))
+_says_box = sum(1 for v in ordered if _stated(v, BOX_RE))
+print(f"  Box # / Pack #: handed back BLANK on all {len(ordered)} rows, by request, "
+      f"until the filled sheet comes back")
+print(f"    for reference only, your own titles or descriptions already state a "
+      f"pack number on {_says_pack} rows and a box number on {_says_box}")

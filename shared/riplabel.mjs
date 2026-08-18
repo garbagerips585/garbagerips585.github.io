@@ -102,35 +102,27 @@ export function ripLabel(v, setName, desc) {
   // WHICH BOX, THEN WHICH PACK OUT OF IT. Asked for by name: "Chaos Rising ETB
   // 3 - Pack 3, or Pitch Black Booster Bundle 2 Pack 6".
   //
-  // ---------------------------------------------------------------------------
-  // THE OLD LABEL PUT THE PACK NUMBER WHERE A READER READS A BOX NUMBER
-  // ---------------------------------------------------------------------------
+  // TYPED ONLY, AND THAT IS THE WHOLE RULE. Tim, 18 August 2026: "make sure you
+  // aren't tagging any videos with what type of product it is and what packs
+  // are in the video until you get my execl sheet thats filled out with all
+  // that exact data".
   //
-  // It printed `${set} ${product} #${n}` with n parsed out of the title or
-  // description, and n is the PACK number. "Chaos Rising ETB #2" therefore did
-  // not mean the second ETB, it meant pack 2, and nothing on the tile said so.
-  // Eight separate Chaos Rising videos carried the identical label "Chaos
-  // Rising ETB #2", and the last pack of the second box read "ETB #9", a box
-  // number that has never existed. A label whose whole job is to say what you
-  // are about to watch was naming the wrong object.
+  // This function used to parse a pack number out of the title or description
+  // and print it. That is a guess about what happened inside a video, made by a
+  // regex, shown to the public as fact. It is also what produced eight separate
+  // videos labelled "Chaos Rising ETB #2" and one labelled "ETB #9", a box that
+  // has never existed, because the parsed number is the PACK and it was printed
+  // where a reader reads the BOX.
   //
-  // TYPED BOX AND PACK WIN, AND THEY COME FROM THE SHEET. boxNumber and
-  // packNumber are Tim's own columns, so when both are present the label is
-  // stated rather than parsed and reads the way he asked for it.
+  // So a number appears only when Tim typed it in the sheet. Everything else
+  // stops at the product: "Chaos Rising ETB". NUM stays because build-sheet.py
+  // still reports what his own copy says, as a note for him to confirm, never
+  // as something published.
   const box = v.boxNumber;
   const pack = v.packNumber;
   if (box && pack) return `${set} ${product} ${box} - Pack ${pack}`;
   if (box) return `${set} ${product} ${box}`;
+  if (pack) return `${set} ${product} - Pack ${pack}`;
 
-  // NO TYPED NUMBERS, SO FALL BACK TO WHAT THE COPY SAYS, AND SAY WHAT IT IS.
-  // The parse finds a pack number, so the label now calls it a pack instead of
-  // leaving a bare # to be read as the box. 238 videos carry it in the
-  // description against 197 in the title, and 239 in one or the other, which is
-  // the opposite of what you would guess. The title is checked first because
-  // when it IS there it is the headline fact; the description is where most of
-  // them live. Dropped silently when absent rather than guessed at.
-  const m = String(v.title || "").match(NUM) || String(desc || "").match(NUM);
-  const n = pack || (m ? m[1] || m[2] : null);
-
-  return `${set} ${product}${n ? ` - Pack ${n}` : ""}`;
+  return `${set} ${product}`;
 }

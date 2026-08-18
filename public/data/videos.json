@@ -43,9 +43,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Chaos Rising Pack - Pack 13"
+      "label": "Chaos Rising Pack"
     },
     {
       "id": "VZtK6rT7ZTI",
@@ -63,9 +62,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Pitch Black ETB - Pack 8"
+      "label": "Pitch Black ETB"
     },
     {
       "id": "E5Wz7X1VMeY",
@@ -84,9 +82,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pitch Black Pack - Pack 8"
+      "label": "Pitch Black Pack"
     },
     {
       "id": "T2-UqY2ZSOw",
@@ -104,9 +101,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 2"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "O5WscUY7qZI",
@@ -125,9 +121,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Chaos Rising Pack - Pack 12"
+      "label": "Chaos Rising Pack"
     },
     {
       "id": "IQMn3DNCzik",
@@ -145,9 +140,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Pitch Black ETB - Pack 7"
+      "label": "Pitch Black ETB"
     },
     {
       "id": "2XdMKde79M8",
@@ -166,9 +160,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pitch Black Pack - Pack 7"
+      "label": "Pitch Black Pack"
     },
     {
       "id": "RZInASE6x1c",
@@ -186,9 +179,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 3"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "oSPbl9reyIM",
@@ -206,9 +198,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Pitch Black ETB - Pack 6"
+      "label": "Pitch Black ETB"
     },
     {
       "id": "inTMqcQmFhM",
@@ -227,9 +218,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Pitch Black Booster Bundle - Pack 6"
+      "label": "Pitch Black Booster Bundle"
     },
     {
       "id": "b8CfpcK7-h0",
@@ -248,9 +238,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pitch Black Pack - Pack 6"
+      "label": "Pitch Black Pack"
     },
     {
       "id": "aa9jzXRFtrg",
@@ -269,7 +258,7 @@
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Perfect Order ex Premium Collection - Pack 8"
+      "label": "Perfect Order ex Premium Collection"
     },
     {
       "id": "znsnYB6boh4",
@@ -288,9 +277,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Pitch Black ETB - Pack 5"
+      "label": "Pitch Black ETB"
     },
     {
       "id": "16jOkWyE1Cs",
@@ -309,9 +297,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Pitch Black Booster Bundle - Pack 5"
+      "label": "Pitch Black Booster Bundle"
     },
     {
       "id": "LmdyCAqDodM",
@@ -330,9 +317,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pitch Black Pack - Pack 5"
+      "label": "Pitch Black Pack"
     },
     {
       "id": "k6p_6HEntYw",
@@ -352,7 +338,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Perfect Order ex Premium Collection - Pack 7"
+      "label": "Perfect Order ex Premium Collection"
     },
     {
       "id": "ndzNjhARITQ",
@@ -371,9 +357,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Pitch Black ETB - Pack 4"
+      "label": "Pitch Black ETB"
     },
     {
       "id": "fY-u0pxphVo",
@@ -391,9 +376,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Pitch Black Booster Bundle - Pack 4"
+      "label": "Pitch Black Booster Bundle"
     },
     {
       "id": "76ziDoR2YJg",
@@ -412,9 +396,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pitch Black Pack - Pack 4"
+      "label": "Pitch Black Pack"
     },
     {
       "id": "3pUiN-8XkEk",
@@ -454,7 +437,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Chaos Rising ex Premium Collection - Pack 6"
+      "label": "Chaos Rising ex Premium Collection"
     },
     {
       "id": "3dAQ-PS0fpU",
@@ -492,9 +475,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Pitch Black Booster Bundle - Pack 3"
+      "label": "Pitch Black Booster Bundle"
     },
     {
       "id": "vTy3MKGN73k",
@@ -512,9 +494,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Pitch Black ETB - Pack 3"
+      "label": "Pitch Black ETB"
     },
     {
       "id": "1_ivvCs7Gp4",
@@ -533,9 +514,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pitch Black Pack - Pack 3"
+      "label": "Pitch Black Pack"
     },
     {
       "id": "R2VxbNMrlXQ",
@@ -555,7 +535,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Phantasmal Flames ex Premium Collection - Pack 7"
+      "label": "Phantasmal Flames ex Premium Collection"
     },
     {
       "id": "m41IeIUpqRI",
@@ -594,7 +574,7 @@
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Chaos Rising ex Premium Collection - Pack 5"
+      "label": "Chaos Rising ex Premium Collection"
     },
     {
       "id": "SQ-_tTDutFA",
@@ -613,9 +593,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Pitch Black ETB - Pack 2"
+      "label": "Pitch Black ETB"
     },
     {
       "id": "405aRLjbdmM",
@@ -633,9 +612,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Pitch Black ETB - Pack 2"
+      "label": "Pitch Black ETB"
     },
     {
       "id": "yrfwnJKXRgo",
@@ -653,7 +631,6 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 6,
       "openingType": "Booster Bundle",
       "label": "Pitch Black Booster Bundle"
     },
@@ -676,7 +653,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Phantasmal Flames ex Premium Collection - Pack 6"
+      "label": "Phantasmal Flames ex Premium Collection"
     },
     {
       "id": "2S4poqmGKWE",
@@ -714,7 +691,7 @@
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Chaos Rising ex Premium Collection - Pack 4"
+      "label": "Chaos Rising ex Premium Collection"
     },
     {
       "id": "q1WTwiauv3w",
@@ -733,9 +710,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Pitch Black ETB - Pack 1"
+      "label": "Pitch Black ETB"
     },
     {
       "id": "EtFK6nFW6IQ",
@@ -753,7 +729,6 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 6,
       "openingType": "Booster Bundle",
       "label": "Pitch Black Booster Bundle"
     },
@@ -775,7 +750,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Perfect Order ex Premium Collection - Pack 2"
+      "label": "Perfect Order ex Premium Collection"
     },
     {
       "id": "GTC45Mri_gc",
@@ -794,7 +769,6 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
       "label": "Pitch Black Pack"
     },
@@ -816,7 +790,7 @@
       ],
       "pulls": [],
       "openingType": "Poke Ball Tin",
-      "label": "Surging Sparks Poke Ball Tin - Pack 2"
+      "label": "Surging Sparks Poke Ball Tin"
     },
     {
       "id": "rUOMBBOjrXI",
@@ -836,7 +810,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Chaos Rising ex Premium Collection - Pack 3"
+      "label": "Chaos Rising ex Premium Collection"
     },
     {
       "id": "pRkDVGXWufQ",
@@ -856,7 +830,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Chaos Rising ex Premium Collection - Pack 2"
+      "label": "Chaos Rising ex Premium Collection"
     },
     {
       "id": "X0KK70SjzEM",
@@ -875,7 +849,7 @@
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Perfect Order ex Premium Collection - Pack 2"
+      "label": "Perfect Order ex Premium Collection"
     },
     {
       "id": "STMGjXcUAm4",
@@ -895,7 +869,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Perfect Order ex Premium Collection - Pack 3"
+      "label": "Perfect Order ex Premium Collection"
     },
     {
       "id": "O1hNutypTR8",
@@ -933,7 +907,7 @@
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Premium Collection - Pack 2"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "RP08BTumj2U",
@@ -953,7 +927,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Chaos Rising ex Premium Collection - Pack 1"
+      "label": "Chaos Rising ex Premium Collection"
     },
     {
       "id": "nBKJMnw9L2Y",
@@ -972,7 +946,7 @@
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Premium Collection - Pack 2"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "9CpAz0MxnTE",
@@ -1026,7 +1000,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Phantasmal Flames ex Premium Collection - Pack 2"
+      "label": "Phantasmal Flames ex Premium Collection"
     },
     {
       "id": "uTGe-WswoVY",
@@ -1045,7 +1019,7 @@
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Premium Collection - Pack 2"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "xGmQaLcx-c8",
@@ -1064,9 +1038,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 9"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "iV0h672wrGA",
@@ -1084,9 +1057,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 2"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "u9zpVOVsWyg",
@@ -1106,7 +1078,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Premium Collection - Pack 2"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "MCe_0kpYnwE",
@@ -1124,9 +1096,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 7"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "WhfY82RrS4w",
@@ -1145,7 +1116,7 @@
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Premium Collection - Pack 1"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "x3gI4dEKNMs",
@@ -1163,9 +1134,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 2"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "Nqu1vGtbAME",
@@ -1199,9 +1169,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 2"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "blSCuSk5nb0",
@@ -1220,7 +1189,7 @@
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Premium Collection - Pack 2"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "rlJDEb0q1d0",
@@ -1239,9 +1208,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 2"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "UpdeUMc-6ys",
@@ -1260,7 +1228,7 @@
       ],
       "pulls": [],
       "openingType": "Poke Ball Tin",
-      "label": "Twilight Masquerade Poke Ball Tin - Pack 3"
+      "label": "Twilight Masquerade Poke Ball Tin"
     },
     {
       "id": "M7NqqhR8V4M",
@@ -1332,9 +1300,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 2"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "Wwc1wVyI6CQ",
@@ -1352,9 +1319,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 2"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "xNGxOuMpSiw",
@@ -1388,9 +1354,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 2"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "Ec_2Is8DmI8",
@@ -1408,9 +1373,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Chaos Rising Pack - Pack 11"
+      "label": "Chaos Rising Pack"
     },
     {
       "id": "gLlqJvSuAek",
@@ -1428,9 +1392,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Perfect Order Pack - Pack 10"
+      "label": "Perfect Order Pack"
     },
     {
       "id": "I14rr28Qduw",
@@ -1448,9 +1411,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Chaos Rising Pack - Pack 10"
+      "label": "Chaos Rising Pack"
     },
     {
       "id": "NdXTKzUodpQ",
@@ -1468,9 +1430,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Perfect Order Pack - Pack 9"
+      "label": "Perfect Order Pack"
     },
     {
       "id": "EifpW6bQhPE",
@@ -1488,9 +1449,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Chaos Rising Pack - Pack 9"
+      "label": "Chaos Rising Pack"
     },
     {
       "id": "6bMl7VF_ov0",
@@ -1508,9 +1468,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Perfect Order Pack - Pack 8"
+      "label": "Perfect Order Pack"
     },
     {
       "id": "HHjdWa5tfXY",
@@ -1528,9 +1487,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Chaos Rising Pack - Pack 8"
+      "label": "Chaos Rising Pack"
     },
     {
       "id": "JRMvkxmqFhQ",
@@ -1548,9 +1506,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Perfect Order Pack - Pack 7"
+      "label": "Perfect Order Pack"
     },
     {
       "id": "a4iR-qPthjY",
@@ -1568,9 +1525,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Chaos Rising Pack - Pack 7"
+      "label": "Chaos Rising Pack"
     },
     {
       "id": "cz75wI3fz7k",
@@ -1588,7 +1544,6 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 9,
       "openingType": "ETB (Elite Trainer Box)",
       "label": "Chaos Rising ETB"
     },
@@ -1630,7 +1585,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Premium Collection - Pack 3"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "7nGg08wavGM",
@@ -1670,7 +1625,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Premium Collection - Pack 3"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "Mhz1-_ppwJA",
@@ -1688,9 +1643,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 8"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "dqC9lAiWeaE",
@@ -1708,9 +1662,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 7"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "n4iGQVPBtfE",
@@ -1730,7 +1683,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Premium Collection - Pack 2"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "r4WG2IWWyKc",
@@ -1750,7 +1703,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Premium Collection - Pack 1"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "zhE5GzB2Dns",
@@ -1770,7 +1723,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Premium Collection - Pack 2"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "qKiLbaLhdp8",
@@ -1790,7 +1743,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Premium Collection - Pack 1"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "QKYrh9l8BYA",
@@ -1808,9 +1761,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 6"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "_Bu9zCfLI4c",
@@ -1847,9 +1799,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 5"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "hOBpKIl2lX4",
@@ -1868,7 +1819,7 @@
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Premium Collection - Pack 3"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "4gBo585VhEI",
@@ -1886,9 +1837,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 4"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "9DPytuABTf8",
@@ -1907,7 +1857,7 @@
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Premium Collection - Pack 2"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "goGNPoBWQ-g",
@@ -1925,9 +1875,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 3"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "Fgj5afnnXVk",
@@ -1946,7 +1895,7 @@
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Ascended Heroes ex Premium Collection - Pack 1"
+      "label": "Ascended Heroes ex Premium Collection"
     },
     {
       "id": "u7xNNfIBEjg",
@@ -1964,9 +1913,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 2"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "bpm7cSVXNiM",
@@ -1984,9 +1932,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Chaos Rising ETB - Pack 1"
+      "label": "Chaos Rising ETB"
     },
     {
       "id": "urvau7lIwC0",
@@ -2024,9 +1971,8 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Japanese Booster Pack",
-      "label": "Abyss Eye (JP) Pack - Pack 9"
+      "label": "Abyss Eye (JP) Pack"
     },
     {
       "id": "HGlF3-fpycc",
@@ -2047,7 +1993,7 @@
       "pulls": [],
       "hasHit": true,
       "openingType": "ex Premium Collection",
-      "label": "Phantasmal Flames ex Premium Collection - Pack 7"
+      "label": "Phantasmal Flames ex Premium Collection"
     },
     {
       "id": "R4TUGTf0Eb4",
@@ -2065,9 +2011,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 6,
       "openingType": "Booster Bundle",
-      "label": "Chaos Rising Booster Bundle - Pack 2"
+      "label": "Chaos Rising Booster Bundle"
     },
     {
       "id": "sS0fvyss7IM",
@@ -2087,7 +2032,7 @@
       ],
       "pulls": [],
       "openingType": "ex Premium Collection",
-      "label": "Phantasmal Flames ex Premium Collection - Pack 6"
+      "label": "Phantasmal Flames ex Premium Collection"
     },
     {
       "id": "_3gRDHTv1lQ",
@@ -2121,9 +2066,8 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Japanese Booster Pack",
-      "label": "Abyss Eye (JP) Pack - Pack 7"
+      "label": "Abyss Eye (JP) Pack"
     },
     {
       "id": "0vpWimyqJIE",
@@ -2141,9 +2085,8 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Japanese Booster Pack",
-      "label": "Abyss Eye (JP) Pack - Pack 5"
+      "label": "Abyss Eye (JP) Pack"
     },
     {
       "id": "udV4EBssAj0",
@@ -2161,9 +2104,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Chaos Rising Booster Bundle - Pack 2"
+      "label": "Chaos Rising Booster Bundle"
     },
     {
       "id": "xCDigA8yq1Y",
@@ -2181,9 +2123,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Chaos Rising Booster Bundle - Pack 2"
+      "label": "Chaos Rising Booster Bundle"
     },
     {
       "id": "lcxUwIjlqZY",
@@ -2233,9 +2174,8 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Japanese Booster Pack",
-      "label": "Abyss Eye (JP) Pack - Pack 3"
+      "label": "Abyss Eye (JP) Pack"
     },
     {
       "id": "-eQ-tG_cj_0",
@@ -2253,9 +2193,8 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Japanese Booster Pack",
-      "label": "Abyss Eye (JP) Pack - Pack 1"
+      "label": "Abyss Eye (JP) Pack"
     },
     {
       "id": "-5rVYfdxRJw",
@@ -2273,9 +2212,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Chaos Rising Booster Bundle - Pack 2"
+      "label": "Chaos Rising Booster Bundle"
     },
     {
       "id": "1Kd_E966_4k",
@@ -2293,9 +2231,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Chaos Rising Booster Bundle - Pack 2"
+      "label": "Chaos Rising Booster Bundle"
     },
     {
       "id": "RLYq43B1KX0",
@@ -2329,9 +2266,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Chaos Rising Booster Bundle - Pack 2"
+      "label": "Chaos Rising Booster Bundle"
     },
     {
       "id": "POLXPV2ZpXA",
@@ -2365,9 +2301,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Perfect Order Booster Bundle - Pack 2"
+      "label": "Perfect Order Booster Bundle"
     },
     {
       "id": "l_vpvsLXG50",
@@ -2385,9 +2320,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 6,
       "openingType": "Booster Bundle",
-      "label": "Perfect Order Booster Bundle - Pack 2"
+      "label": "Perfect Order Booster Bundle"
     },
     {
       "id": "23RED_g8uOE",
@@ -2405,7 +2339,6 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 6,
       "openingType": "Booster Bundle",
       "label": "Chaos Rising Booster Bundle"
     },
@@ -2425,9 +2358,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Perfect Order Booster Bundle - Pack 2"
+      "label": "Perfect Order Booster Bundle"
     },
     {
       "id": "vW8lkXEx3Ao",
@@ -2445,9 +2377,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 6,
       "openingType": "Booster Bundle",
-      "label": "Ascended Heroes Booster Bundle - Pack 2"
+      "label": "Ascended Heroes Booster Bundle"
     },
     {
       "id": "16GEn7wSyuk",
@@ -2465,9 +2396,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Chaos Rising Booster Bundle - Pack 5"
+      "label": "Chaos Rising Booster Bundle"
     },
     {
       "id": "i_YeXB489EY",
@@ -2485,9 +2415,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Chaos Rising Booster Bundle - Pack 4"
+      "label": "Chaos Rising Booster Bundle"
     },
     {
       "id": "wtUPdMnZ_S8",
@@ -2505,9 +2434,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Perfect Order Booster Bundle - Pack 2"
+      "label": "Perfect Order Booster Bundle"
     },
     {
       "id": "Y6rNMk6_kFs",
@@ -2525,9 +2453,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Perfect Order Booster Bundle - Pack 2"
+      "label": "Perfect Order Booster Bundle"
     },
     {
       "id": "iPxD2pp1zHo",
@@ -2545,9 +2472,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Ascended Heroes Booster Bundle - Pack 2"
+      "label": "Ascended Heroes Booster Bundle"
     },
     {
       "id": "jAkffPVM-JA",
@@ -2565,9 +2491,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Ascended Heroes Booster Bundle - Pack 2"
+      "label": "Ascended Heroes Booster Bundle"
     },
     {
       "id": "c-5u5X8BT_Y",
@@ -2585,9 +2510,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Chaos Rising Booster Bundle - Pack 3"
+      "label": "Chaos Rising Booster Bundle"
     },
     {
       "id": "JPzh3KWw084",
@@ -2605,9 +2529,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Perfect Order Booster Bundle - Pack 2"
+      "label": "Perfect Order Booster Bundle"
     },
     {
       "id": "xJyZLladJ0Q",
@@ -2625,9 +2548,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Chaos Rising Booster Bundle - Pack 2"
+      "label": "Chaos Rising Booster Bundle"
     },
     {
       "id": "APS_RnpORC8",
@@ -2645,9 +2567,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Chaos Rising Booster Bundle - Pack 1"
+      "label": "Chaos Rising Booster Bundle"
     },
     {
       "id": "kcmXPW6_Odo",
@@ -2665,9 +2586,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Ascended Heroes Booster Bundle - Pack 2"
+      "label": "Ascended Heroes Booster Bundle"
     },
     {
       "id": "xrJFDqGZjOs",
@@ -2685,9 +2605,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Ascended Heroes Booster Bundle - Pack 2"
+      "label": "Ascended Heroes Booster Bundle"
     },
     {
       "id": "CT5t8mKeZUw",
@@ -2706,7 +2625,6 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 9,
       "openingType": "ETB (Elite Trainer Box)",
       "label": "Prismatic Evolutions ETB"
     },
@@ -2726,9 +2644,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Ascended Heroes Booster Bundle - Pack 2"
+      "label": "Ascended Heroes Booster Bundle"
     },
     {
       "id": "2wZwMWDlxP0",
@@ -2747,9 +2664,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Prismatic Evolutions ETB - Pack 8"
+      "label": "Prismatic Evolutions ETB"
     },
     {
       "id": "hbUa4l-xono",
@@ -2768,9 +2684,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Destined Rivals Pack - Pack 12"
+      "label": "Destined Rivals Pack"
     },
     {
       "id": "Q26NJsmeVko",
@@ -2789,9 +2704,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Prismatic Evolutions ETB - Pack 7"
+      "label": "Prismatic Evolutions ETB"
     },
     {
       "id": "c7J6-dTu4jo",
@@ -2810,9 +2724,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Prismatic Evolutions ETB - Pack 6"
+      "label": "Prismatic Evolutions ETB"
     },
     {
       "id": "dFIdg1ZRxDM",
@@ -2830,7 +2743,6 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 9,
       "openingType": "ETB (Elite Trainer Box)",
       "label": "Perfect Order ETB"
     },
@@ -2850,9 +2762,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 6,
       "openingType": "Booster Bundle",
-      "label": "Journey Together Booster Bundle - Pack 2"
+      "label": "Journey Together Booster Bundle"
     },
     {
       "id": "25YT9cNRpqk",
@@ -2871,9 +2782,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Destined Rivals Pack - Pack 11"
+      "label": "Destined Rivals Pack"
     },
     {
       "id": "e6vbNj4YRJI",
@@ -2891,9 +2801,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Chaos Rising Pack - Pack 5"
+      "label": "Chaos Rising Pack"
     },
     {
       "id": "HS0sPhhG3jo",
@@ -2911,9 +2820,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Chaos Rising Pack - Pack 6"
+      "label": "Chaos Rising Pack"
     },
     {
       "id": "-jstsp3DQNI",
@@ -2931,9 +2839,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Chaos Rising Pack - Pack 3"
+      "label": "Chaos Rising Pack"
     },
     {
       "id": "cdvEaKdmjeU",
@@ -2951,9 +2858,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Chaos Rising Pack - Pack 4"
+      "label": "Chaos Rising Pack"
     },
     {
       "id": "h1vqc-37k_8",
@@ -2971,9 +2877,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Chaos Rising Pack - Pack 1"
+      "label": "Chaos Rising Pack"
     },
     {
       "id": "JM8wHAH8FEw",
@@ -2991,9 +2896,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Chaos Rising Pack - Pack 2"
+      "label": "Chaos Rising Pack"
     },
     {
       "id": "t_okfWNQ4BQ",
@@ -3012,9 +2916,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Prismatic Evolutions ETB - Pack 5"
+      "label": "Prismatic Evolutions ETB"
     },
     {
       "id": "1dkor9FBy7s",
@@ -3032,9 +2935,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Perfect Order ETB - Pack 8"
+      "label": "Perfect Order ETB"
     },
     {
       "id": "FlMsxjakWcs",
@@ -3052,9 +2954,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Journey Together Booster Bundle - Pack 2"
+      "label": "Journey Together Booster Bundle"
     },
     {
       "id": "1zqH_hRYFvo",
@@ -3073,9 +2974,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Destined Rivals Pack - Pack 10"
+      "label": "Destined Rivals Pack"
     },
     {
       "id": "yJujjKbIVFg",
@@ -3093,7 +2993,6 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Japanese Booster Pack",
       "label": "Stellar Miracle (JP) Pack"
     },
@@ -3113,9 +3012,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Perfect Order ETB - Pack 7"
+      "label": "Perfect Order ETB"
     },
     {
       "id": "lo_VtHulsWc",
@@ -3134,9 +3032,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Destined Rivals Pack - Pack 9"
+      "label": "Destined Rivals Pack"
     },
     {
       "id": "VjhleCTxCDA",
@@ -3155,9 +3052,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Prismatic Evolutions ETB - Pack 4"
+      "label": "Prismatic Evolutions ETB"
     },
     {
       "id": "uIAcSD4quE8",
@@ -3175,9 +3071,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Perfect Order ETB - Pack 6"
+      "label": "Perfect Order ETB"
     },
     {
       "id": "76YEF7mdqvk",
@@ -3195,9 +3090,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Journey Together Booster Bundle - Pack 2"
+      "label": "Journey Together Booster Bundle"
     },
     {
       "id": "5FJZOamuxs8",
@@ -3216,9 +3110,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Prismatic Evolutions ETB - Pack 3"
+      "label": "Prismatic Evolutions ETB"
     },
     {
       "id": "auKzs0g2LL8",
@@ -3236,7 +3129,6 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Japanese Booster Pack",
       "label": "Mega Symphonia (JP) Pack"
     },
@@ -3256,7 +3148,6 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 6,
       "openingType": "Booster Bundle",
       "label": "Ascended Heroes Booster Bundle"
     },
@@ -3277,9 +3168,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Destined Rivals Pack - Pack 8"
+      "label": "Destined Rivals Pack"
     },
     {
       "id": "2OFpV33VzpU",
@@ -3297,9 +3187,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Perfect Order ETB - Pack 5"
+      "label": "Perfect Order ETB"
     },
     {
       "id": "uGRqBM2AOag",
@@ -3317,9 +3206,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Journey Together Booster Bundle - Pack 2"
+      "label": "Journey Together Booster Bundle"
     },
     {
       "id": "LFpa9K2DA6Q",
@@ -3338,9 +3226,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Prismatic Evolutions ETB - Pack 2"
+      "label": "Prismatic Evolutions ETB"
     },
     {
       "id": "bh8OGK_jE2Y",
@@ -3358,7 +3245,6 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Japanese Booster Pack",
       "label": "Stellar Miracle (JP) Pack"
     },
@@ -3378,9 +3264,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Ascended Heroes Booster Bundle - Pack 5"
+      "label": "Ascended Heroes Booster Bundle"
     },
     {
       "id": "gq4wUMrTrB0",
@@ -3399,9 +3284,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Destined Rivals Pack - Pack 7"
+      "label": "Destined Rivals Pack"
     },
     {
       "id": "uyiszkVXiUQ",
@@ -3419,9 +3303,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Perfect Order ETB - Pack 4"
+      "label": "Perfect Order ETB"
     },
     {
       "id": "OMpbKBu38rk",
@@ -3439,7 +3322,6 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Japanese Booster Pack",
       "label": "Mega Symphonia (JP) Pack"
     },
@@ -3459,9 +3341,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Journey Together Booster Bundle - Pack 2"
+      "label": "Journey Together Booster Bundle"
     },
     {
       "id": "GK_IadR7G1g",
@@ -3480,9 +3361,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Destined Rivals Pack - Pack 6"
+      "label": "Destined Rivals Pack"
     },
     {
       "id": "hCI0HSfly1c",
@@ -3501,9 +3381,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Prismatic Evolutions ETB - Pack 1"
+      "label": "Prismatic Evolutions ETB"
     },
     {
       "id": "UqZn1J9vVGc",
@@ -3521,9 +3400,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Ascended Heroes Booster Bundle - Pack 4"
+      "label": "Ascended Heroes Booster Bundle"
     },
     {
       "id": "DMJYnQE8shY",
@@ -3541,9 +3419,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Perfect Order ETB - Pack 3"
+      "label": "Perfect Order ETB"
     },
     {
       "id": "C4IPzbJZlHw",
@@ -3561,9 +3438,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Journey Together Booster Bundle - Pack 2"
+      "label": "Journey Together Booster Bundle"
     },
     {
       "id": "d0ux4nsMixw",
@@ -3581,9 +3457,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Perfect Order Pack - Pack 6"
+      "label": "Perfect Order Pack"
     },
     {
       "id": "Z0s6mRdT_QE",
@@ -3601,9 +3476,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Destined Rivals Pack - Pack 5"
+      "label": "Destined Rivals Pack"
     },
     {
       "id": "A38u-diwmvw",
@@ -3621,9 +3495,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Ascended Heroes Pack - Pack 7"
+      "label": "Ascended Heroes Pack"
     },
     {
       "id": "PvitecaJjAc",
@@ -3641,9 +3514,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Ascended Heroes Booster Bundle - Pack 3"
+      "label": "Ascended Heroes Booster Bundle"
     },
     {
       "id": "Q09fPPjWf8A",
@@ -3661,9 +3533,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Destined Rivals Pack - Pack 4"
+      "label": "Destined Rivals Pack"
     },
     {
       "id": "3gpbmrouFEw",
@@ -3681,9 +3552,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Perfect Order ETB - Pack 2"
+      "label": "Perfect Order ETB"
     },
     {
       "id": "YQ2-iIhbOSY",
@@ -3701,9 +3571,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Ascended Heroes Booster Bundle - Pack 2"
+      "label": "Ascended Heroes Booster Bundle"
     },
     {
       "id": "9UfyaoGCEZ8",
@@ -3722,9 +3591,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Phantasmal Flames Pack - Pack 11"
+      "label": "Phantasmal Flames Pack"
     },
     {
       "id": "Vbqy14CESN4",
@@ -3742,9 +3610,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Destined Rivals Pack - Pack 3"
+      "label": "Destined Rivals Pack"
     },
     {
       "id": "oAdG2xms9Ko",
@@ -3762,9 +3629,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Perfect Order ETB - Pack 1"
+      "label": "Perfect Order ETB"
     },
     {
       "id": "Qf2PmYHL8Xw",
@@ -3782,9 +3648,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Ascended Heroes Booster Bundle - Pack 1"
+      "label": "Ascended Heroes Booster Bundle"
     },
     {
       "id": "4qNvWCkNb9w",
@@ -3803,9 +3668,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Phantasmal Flames Pack - Pack 10"
+      "label": "Phantasmal Flames Pack"
     },
     {
       "id": "Pvi54rMlLfQ",
@@ -3823,9 +3687,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Mega Evolution Pack - Pack 3"
+      "label": "Mega Evolution Pack"
     },
     {
       "id": "tTxItGrPfUw",
@@ -3843,9 +3706,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Perfect Order Pack - Pack 5"
+      "label": "Perfect Order Pack"
     },
     {
       "id": "6cwLQGIVpKU",
@@ -3863,9 +3725,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Destined Rivals Pack - Pack 2"
+      "label": "Destined Rivals Pack"
     },
     {
       "id": "RXKBcjWfqhE",
@@ -3884,9 +3745,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Obsidian Flames Pack - Pack 1"
+      "label": "Obsidian Flames Pack"
     },
     {
       "id": "yeX4naszsoo",
@@ -3905,9 +3765,8 @@
       ],
       "pulls": [],
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Phantasmal Flames Pack - Pack 9"
+      "label": "Phantasmal Flames Pack"
     },
     {
       "id": "GroN9k8XsN0",
@@ -3925,9 +3784,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Ascended Heroes Pack - Pack 6"
+      "label": "Ascended Heroes Pack"
     },
     {
       "id": "rMMOuM8bsqE",
@@ -3946,7 +3804,7 @@
       ],
       "pulls": [],
       "openingType": "Tin",
-      "label": "Ascended Heroes Tin - Pack 4"
+      "label": "Ascended Heroes Tin"
     },
     {
       "id": "EPqUqzrAc30",
@@ -3964,7 +3822,6 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Japanese Booster Pack",
       "label": "Nihil Zero (JP) Pack"
     },
@@ -4000,9 +3857,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pokémon GO Pack - Pack 12"
+      "label": "Pokémon GO Pack"
     },
     {
       "id": "sdZx0lmq2mQ",
@@ -4021,7 +3877,7 @@
       ],
       "pulls": [],
       "openingType": "Tin",
-      "label": "Ascended Heroes Tin - Pack 3"
+      "label": "Ascended Heroes Tin"
     },
     {
       "id": "KEK0q0PgN_I",
@@ -4039,9 +3895,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Phantasmal Flames Pack - Pack 8"
+      "label": "Phantasmal Flames Pack"
     },
     {
       "id": "wBIeB-63sKw",
@@ -4060,7 +3915,7 @@
       ],
       "pulls": [],
       "openingType": "Tin",
-      "label": "Prismatic Evolutions Tin - Pack 1"
+      "label": "Prismatic Evolutions Tin"
     },
     {
       "id": "-la8PgoBkCw",
@@ -4078,9 +3933,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pokémon GO Pack - Pack 11"
+      "label": "Pokémon GO Pack"
     },
     {
       "id": "XjFoToaom6k",
@@ -4114,9 +3968,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 6,
       "openingType": "Booster Bundle",
-      "label": "Journey Together Booster Bundle - Pack 6"
+      "label": "Journey Together Booster Bundle"
     },
     {
       "id": "8SX0B-7WM8A",
@@ -4134,7 +3987,6 @@
         "collection-box"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Collection Box",
       "label": "Prismatic Evolutions Collection Box"
     },
@@ -4171,7 +4023,7 @@
       ],
       "pulls": [],
       "openingType": "Tin",
-      "label": "Ascended Heroes Tin - Pack 2"
+      "label": "Ascended Heroes Tin"
     },
     {
       "id": "NzWUDxXwnPI",
@@ -4189,7 +4041,6 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Japanese Booster Pack",
       "label": "Nihil Zero (JP) Pack"
     },
@@ -4209,9 +4060,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Journey Together Booster Bundle - Pack 5"
+      "label": "Journey Together Booster Bundle"
     },
     {
       "id": "dQaN_4yqS0w",
@@ -4229,9 +4079,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Mega Evolution Pack - Pack 2"
+      "label": "Mega Evolution Pack"
     },
     {
       "id": "7PBrXPgt9kU",
@@ -4249,9 +4098,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 6,
       "openingType": "Booster Bundle",
-      "label": "Perfect Order Booster Bundle - Pack 6"
+      "label": "Perfect Order Booster Bundle"
     },
     {
       "id": "S_2SHhBqlH8",
@@ -4269,9 +4117,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Phantasmal Flames Pack - Pack 7"
+      "label": "Phantasmal Flames Pack"
     },
     {
       "id": "cg0H0ipfB90",
@@ -4287,7 +4134,6 @@
         "blister"
       ],
       "pulls": [],
-      "packs": 3,
       "openingType": "Blister"
     },
     {
@@ -4306,9 +4152,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Mega Evolution Pack - Pack 1"
+      "label": "Mega Evolution Pack"
     },
     {
       "id": "U91JWMsUHAU",
@@ -4326,9 +4171,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Crown Zenith Pack - Pack 1"
+      "label": "Crown Zenith Pack"
     },
     {
       "id": "VP1UXW3MrGU",
@@ -4346,9 +4190,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Journey Together Booster Bundle - Pack 4"
+      "label": "Journey Together Booster Bundle"
     },
     {
       "id": "JjTm-bYLhGE",
@@ -4382,9 +4225,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Perfect Order Booster Bundle - Pack 5"
+      "label": "Perfect Order Booster Bundle"
     },
     {
       "id": "39Rh6NJPK9M",
@@ -4402,9 +4244,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Journey Together Booster Bundle - Pack 3"
+      "label": "Journey Together Booster Bundle"
     },
     {
       "id": "K5RKQlNhvl8",
@@ -4422,7 +4263,6 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Japanese Booster Pack",
       "label": "Mega Brave (JP) Pack"
     },
@@ -4442,9 +4282,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Perfect Order Booster Bundle - Pack 4"
+      "label": "Perfect Order Booster Bundle"
     },
     {
       "id": "J-Gqbe3jPn4",
@@ -4462,9 +4301,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Chilling Reign Pack - Pack 1"
+      "label": "Chilling Reign Pack"
     },
     {
       "id": "yMTuhasZsZ4",
@@ -4482,9 +4320,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Journey Together Booster Bundle - Pack 2"
+      "label": "Journey Together Booster Bundle"
     },
     {
       "id": "4z82NZ7QCJY",
@@ -4518,9 +4355,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Perfect Order Booster Bundle - Pack 3"
+      "label": "Perfect Order Booster Bundle"
     },
     {
       "id": "IuNgQ6IWdVc",
@@ -4538,9 +4374,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Paradox Rift Pack - Pack 4"
+      "label": "Paradox Rift Pack"
     },
     {
       "id": "DljCIsO2zkU",
@@ -4558,9 +4393,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Journey Together Booster Bundle - Pack 1"
+      "label": "Journey Together Booster Bundle"
     },
     {
       "id": "nCIpRxwMMBE",
@@ -4578,9 +4412,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Rebel Clash Pack - Pack 2"
+      "label": "Rebel Clash Pack"
     },
     {
       "id": "KGj2ZTDLcrA",
@@ -4598,9 +4431,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Rebel Clash Pack - Pack 1"
+      "label": "Rebel Clash Pack"
     },
     {
       "id": "8Nbj7wLBgrc",
@@ -4618,9 +4450,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Perfect Order Booster Bundle - Pack 2"
+      "label": "Perfect Order Booster Bundle"
     },
     {
       "id": "OTKn4mNzQ7I",
@@ -4638,9 +4469,8 @@
         "bundle"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Booster Bundle",
-      "label": "Perfect Order Booster Bundle - Pack 1"
+      "label": "Perfect Order Booster Bundle"
     },
     {
       "id": "fZk7D5Wd0Eg",
@@ -4658,7 +4488,6 @@
         "collection-box"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Collection Box",
       "label": "Ascended Heroes Collection Box"
     },
@@ -4694,9 +4523,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pokémon GO Pack - Pack 10"
+      "label": "Pokémon GO Pack"
     },
     {
       "id": "MFBINfOTwZ8",
@@ -4714,9 +4542,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pokémon GO Pack - Pack 9"
+      "label": "Pokémon GO Pack"
     },
     {
       "id": "-fOEh7wMmkE",
@@ -4734,7 +4561,6 @@
         "collection-box"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Collection Box",
       "label": "Ascended Heroes Collection Box"
     },
@@ -4754,7 +4580,6 @@
         "collection-box"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Collection Box",
       "label": "Prismatic Evolutions Collection Box"
     },
@@ -4774,9 +4599,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Perfect Order Pack - Pack 4"
+      "label": "Perfect Order Pack"
     },
     {
       "id": "7culUDeVb5Y",
@@ -4794,9 +4618,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pokémon GO Pack - Pack 8"
+      "label": "Pokémon GO Pack"
     },
     {
       "id": "g9RQqx9da6Q",
@@ -4847,9 +4670,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Celebrations Pack - Pack 1"
+      "label": "Celebrations Pack"
     },
     {
       "id": "N3bs0HjmrKY",
@@ -4867,7 +4689,6 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Japanese Booster Pack",
       "label": "Stellar Miracle (JP) Pack"
     },
@@ -4887,7 +4708,6 @@
         "collection-box"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Collection Box",
       "label": "Ascended Heroes Collection Box"
     },
@@ -4907,9 +4727,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Perfect Order Pack - Pack 3"
+      "label": "Perfect Order Pack"
     },
     {
       "id": "LKSHOUDN-i4",
@@ -4928,7 +4747,7 @@
       ],
       "pulls": [],
       "openingType": "Tin",
-      "label": "Ascended Heroes Tin - Pack 1"
+      "label": "Ascended Heroes Tin"
     },
     {
       "id": "igNbRZX5e_0",
@@ -4946,7 +4765,6 @@
         "blister"
       ],
       "pulls": [],
-      "packs": 3,
       "openingType": "Blister",
       "label": "Perfect Order Blister"
     },
@@ -4966,9 +4784,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pokémon GO Pack - Pack 7"
+      "label": "Pokémon GO Pack"
     },
     {
       "id": "_ccErXVzURs",
@@ -4986,7 +4803,6 @@
         "japanese-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Japanese Booster Pack",
       "label": "Ninja Spinner (JP) Pack"
     },
@@ -5006,9 +4822,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pokémon GO Pack - Pack 6"
+      "label": "Pokémon GO Pack"
     },
     {
       "id": "4yxqzTeZMAo",
@@ -5026,9 +4841,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Perfect Order Pack - Pack 2"
+      "label": "Perfect Order Pack"
     },
     {
       "id": "PnbibBm1E64",
@@ -5046,7 +4860,6 @@
         "korean-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Korean Booster Pack",
       "label": "Clay Burst (KR) Pack"
     },
@@ -5080,7 +4893,6 @@
         "blister"
       ],
       "pulls": [],
-      "packs": 3,
       "openingType": "Blister"
     },
     {
@@ -5099,9 +4911,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Perfect Order Pack - Pack 1"
+      "label": "Perfect Order Pack"
     },
     {
       "id": "JVrd7EVB2_8",
@@ -5135,9 +4946,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pokémon GO Pack - Pack 5"
+      "label": "Pokémon GO Pack"
     },
     {
       "id": "O-vFg-5cx8E",
@@ -5155,7 +4965,6 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 9,
       "openingType": "ETB (Elite Trainer Box)",
       "label": "Ascended Heroes ETB"
     },
@@ -5175,9 +4984,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pokémon GO Pack - Pack 4"
+      "label": "Pokémon GO Pack"
     },
     {
       "id": "9J16fnroBBM",
@@ -5195,9 +5003,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Ascended Heroes ETB - Pack 8"
+      "label": "Ascended Heroes ETB"
     },
     {
       "id": "tKOXv-qSYTo",
@@ -5215,9 +5022,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pokémon GO Pack - Pack 3"
+      "label": "Pokémon GO Pack"
     },
     {
       "id": "h-KAo8SScL8",
@@ -5235,9 +5041,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Ascended Heroes ETB - Pack 7"
+      "label": "Ascended Heroes ETB"
     },
     {
       "id": "lByjKSw3s-U",
@@ -5255,9 +5060,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Temporal Forces Pack - Pack 2"
+      "label": "Temporal Forces Pack"
     },
     {
       "id": "3WxpO0osReg",
@@ -5275,9 +5079,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Ascended Heroes ETB - Pack 6"
+      "label": "Ascended Heroes ETB"
     },
     {
       "id": "mxwjJ0oXyUQ",
@@ -5295,9 +5098,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Temporal Forces Pack - Pack 1"
+      "label": "Temporal Forces Pack"
     },
     {
       "id": "IcQFu0SaoH4",
@@ -5315,9 +5117,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Ascended Heroes ETB - Pack 5"
+      "label": "Ascended Heroes ETB"
     },
     {
       "id": "W-aWk5zDYlw",
@@ -5335,9 +5136,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Shining Fates Pack - Pack 2"
+      "label": "Shining Fates Pack"
     },
     {
       "id": "juzo0HheF1U",
@@ -5355,9 +5155,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Ascended Heroes ETB - Pack 4"
+      "label": "Ascended Heroes ETB"
     },
     {
       "id": "B5--7Dh5OEA",
@@ -5375,9 +5174,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Shining Fates Pack - Pack 1"
+      "label": "Shining Fates Pack"
     },
     {
       "id": "NmO2vrjJhg0",
@@ -5395,9 +5193,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Ascended Heroes ETB - Pack 3"
+      "label": "Ascended Heroes ETB"
     },
     {
       "id": "SJQCui3NGWw",
@@ -5415,9 +5212,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pokémon GO Pack - Pack 2"
+      "label": "Pokémon GO Pack"
     },
     {
       "id": "F9S695pYxZ8",
@@ -5435,9 +5231,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Ascended Heroes ETB - Pack 2"
+      "label": "Ascended Heroes ETB"
     },
     {
       "id": "Jtqb7ZpQXos",
@@ -5455,9 +5250,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Pokémon GO Pack - Pack 1"
+      "label": "Pokémon GO Pack"
     },
     {
       "id": "-e9F0ufKpIQ",
@@ -5475,9 +5269,8 @@
         "etb"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "ETB (Elite Trainer Box)",
-      "label": "Ascended Heroes ETB - Pack 1"
+      "label": "Ascended Heroes ETB"
     },
     {
       "id": "j6O6KdblfeY",
@@ -5511,9 +5304,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Surging Sparks Pack - Pack 4"
+      "label": "Surging Sparks Pack"
     },
     {
       "id": "SOQUDUMboVU",
@@ -5531,7 +5323,6 @@
         "blister"
       ],
       "pulls": [],
-      "packs": 3,
       "openingType": "Blister",
       "label": "Ascended Heroes Blister"
     },
@@ -5551,9 +5342,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Surging Sparks Pack - Pack 3"
+      "label": "Surging Sparks Pack"
     },
     {
       "id": "pof6Ph34E6w",
@@ -5571,7 +5361,6 @@
         "korean-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Korean Booster Pack",
       "label": "Battle Partners (KR) Pack"
     },
@@ -5591,9 +5380,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Surging Sparks Pack - Pack 2"
+      "label": "Surging Sparks Pack"
     },
     {
       "id": "mbzWBfNI-Qs",
@@ -5611,7 +5399,6 @@
         "korean-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Korean Booster Pack",
       "blurb": "Opening Korean Crimson Haze booster packs, testing international pack luck. Korean print. Full garbage plate energy applied. Garbage rips or overseas heat?",
       "label": "Crimson Haze (KR) Pack"
@@ -5632,9 +5419,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Surging Sparks Pack - Pack 1"
+      "label": "Surging Sparks Pack"
     },
     {
       "id": "8xqvY3OzugE",
@@ -5652,7 +5438,6 @@
         "blister"
       ],
       "pulls": [],
-      "packs": 3,
       "openingType": "Blister",
       "label": "Ascended Heroes Blister"
     },
@@ -5689,7 +5474,6 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
       "label": "151 Pack"
     },
@@ -5707,7 +5491,6 @@
         "blister"
       ],
       "pulls": [],
-      "packs": 3,
       "openingType": "Blister"
     },
     {
@@ -5726,7 +5509,6 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
       "label": "Prismatic Evolutions Pack"
     },
@@ -5746,9 +5528,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Ascended Heroes Pack - Pack 5"
+      "label": "Ascended Heroes Pack"
     },
     {
       "id": "SQLDjKwVPk4",
@@ -5766,7 +5547,6 @@
         "blister"
       ],
       "pulls": [],
-      "packs": 3,
       "openingType": "Blister",
       "label": "Destined Rivals Blister"
     },
@@ -5786,9 +5566,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Ascended Heroes Pack - Pack 4"
+      "label": "Ascended Heroes Pack"
     },
     {
       "id": "f9qJ_M3ot3k",
@@ -5806,7 +5585,6 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
       "label": "Paradox Rift Pack"
     },
@@ -5826,9 +5604,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Ascended Heroes Pack - Pack 3"
+      "label": "Ascended Heroes Pack"
     },
     {
       "id": "RMastm9Bosw",
@@ -5846,7 +5623,6 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
       "label": "Phantasmal Flames Pack"
     },
@@ -5866,9 +5642,8 @@
         "single-pack"
       ],
       "pulls": [],
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Ascended Heroes Pack - Pack 2"
+      "label": "Ascended Heroes Pack"
     },
     {
       "id": "Ab81MNFnDLw",
@@ -5906,9 +5681,8 @@
       ],
       "hitCard": "Ascended Heroes - Stunfisk ex - Double Silver Star - Ultra Rare",
       "hasHit": true,
-      "packs": 1,
       "openingType": "Single Booster Pack",
-      "label": "Ascended Heroes Pack - Pack 1"
+      "label": "Ascended Heroes Pack"
     },
     {
       "id": "wMDMN2emLCM",
@@ -5925,7 +5699,6 @@
       ],
       "pulls": [],
       "hasHit": false,
-      "packs": 3,
       "openingType": "Single Booster Pack"
     },
     {
@@ -5945,7 +5718,6 @@
       ],
       "pulls": [],
       "hasHit": false,
-      "packs": 1,
       "openingType": "Korean Booster Pack",
       "label": "Mask of Change (KR) Pack"
     },
@@ -5966,7 +5738,6 @@
       ],
       "pulls": [],
       "hasHit": false,
-      "packs": 1,
       "openingType": "Single Booster Pack",
       "label": "Violet ex (JP) Pack"
     },
@@ -5987,7 +5758,6 @@
       ],
       "pulls": [],
       "hasHit": false,
-      "packs": 1,
       "openingType": "Chinese Booster Pack",
       "label": "Gem Pack Vol. 2 (CN) Pack"
     },
@@ -6011,7 +5781,6 @@
       ],
       "hitCard": "Journey Together - Volcanion ex - Double Black Star - Double Rare",
       "hasHit": true,
-      "packs": 3,
       "openingType": "Blister",
       "label": "Journey Together Blister"
     },
@@ -6036,7 +5805,6 @@
       ],
       "hitCard": "Phantasmal Flames - Rotom ex - Double Black Star- Double Rare",
       "hasHit": true,
-      "packs": 2,
       "openingType": "Blister",
       "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Phantasmal Flames Blister"
@@ -6061,7 +5829,6 @@
       ],
       "hitCard": "Journey Together - Trainer - Ruffian - Double Silver Star - Ultra Rare",
       "hasHit": true,
-      "packs": 3,
       "openingType": "Blister",
       "label": "Journey Together Blister"
     },
@@ -6085,7 +5852,6 @@
       ],
       "hitCard": "Phantasmal Flames - Mismagius ex - Double Black Star - Double Rare",
       "hasHit": true,
-      "packs": 2,
       "openingType": "Single Booster Pack",
       "label": "Phantasmal Flames Pack"
     },
@@ -6109,7 +5875,6 @@
       ],
       "hitCard": "Cyber Judge - Incineroar ex - SR - Super Rare",
       "hasHit": true,
-      "packs": 6,
       "openingType": "Japanese Booster Pack",
       "label": "Cyber Judge (JP) Pack"
     },
@@ -6130,7 +5895,6 @@
       ],
       "pulls": [],
       "hasHit": false,
-      "packs": 1,
       "openingType": "Blister",
       "label": "Paldea Evolved Blister"
     },
@@ -6154,7 +5918,6 @@
       ],
       "hitCard": "Phantasmal Flames - Mega Lopunny ex - Double Black Star - Double Rare",
       "hasHit": true,
-      "packs": 2,
       "openingType": "Blister",
       "label": "Phantasmal Flames Blister"
     },
@@ -6179,7 +5942,6 @@
       ],
       "hitCard": "Surging Sparks - Feebas - Single Gold Star - Illustration Rare",
       "hasHit": true,
-      "packs": 2,
       "openingType": "Knock Out Collection",
       "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Twilight Masquerade Knock Out Collection"
@@ -6202,7 +5964,6 @@
       ],
       "pulls": [],
       "hasHit": false,
-      "packs": 2,
       "openingType": "Knock Out Collection",
       "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Twilight Masquerade Knock Out Collection"
@@ -6227,7 +5988,6 @@
       ],
       "hitCard": "Paradox Rift - Tsareena ex - Double Black Star - Double Rare",
       "hasHit": true,
-      "packs": 2,
       "openingType": "Blister",
       "label": "Paradox Rift Blister"
     },
@@ -6252,7 +6012,6 @@
       ],
       "hitCard": "Mega Kangakhan ex - Black Star Promo , Mega Evolution - Spearow - Single Gold Star - Illustration Rare,",
       "hasHit": true,
-      "packs": 4,
       "openingType": "ex Premium Collection",
       "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Mega Evolution ex Premium Collection"
@@ -6285,7 +6044,6 @@
       "hitCard": "Phantasmal Flames - Trainer - Dawn - Double Silver Star - Ultra Rare, Phantasmal Flames - Mega Gengar ex - Double Black Star - Double Rare , Mega Evolution - Mega Gardevoir ex - Double Silver Star - Ultra Rare , Mega Evolution - Mega Venusaur ex - Double Black Star - Double Rare , Mega Evolution - Marshadow - Single Gold Star - Illustration Rare ,  Destined Rivals - Cetitan ex - Double Black Star , Destined Rivals - Rotom - Single Gold Star - Illustration Rare, Journey Together - Noibat - Single Gold Star - Illustration Rare, Journey Together - Trainer - Brock's Scouting - Double Silver Star - Ultra Rare , Journey Together - Blaziken ex - Double Black Star - Double Rare, Surging Sparks - Trainer - Scramble Switch - Single Pink Star -  ACE SPEC Rare , Surging Sparks - Trainer - Cyrano - Double Silver Star - Ultra Rare, Phantasmal Falmes - Charizard X ex - Black Star Promo Card , Phantasmal Flames - Oricorio ex - Black Star Promo Card",
       "hitRarity": "More than one",
       "hasHit": true,
-      "packs": 18,
       "openingType": "UPC (Ultra Premium Collection)",
       "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets.",
       "label": "Phantasmal Flames UPC"
@@ -6314,7 +6072,6 @@
       "hitCard": "Mega Evolution - Stufful - Single Gold star - Illustration Rare , Destined Rivals - Marnie's Grimmsnarl ex , Double Black Star - Double Rare , Journey Together - Wailord - Single Gold Star - Illustration Rare",
       "hitRarity": "More than one",
       "hasHit": true,
-      "packs": 6,
       "openingType": "Tin",
       "box": "Fall 2025 Collector Chest",
       "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets.",

@@ -253,13 +253,28 @@ const ARROW = `<svg class="ow" viewBox="0 0 300 108" role="img"
 const DRAWN_MIN = Math.round(Number(boosterLimit) / 10);
 const PILES = PACKS.bySet.filter((s) => s.packs >= DRAWN_MIN);
 const REST = PACKS.bySet.filter((s) => s.packs < DRAWN_MIN);
-if (!PILES.length || PILES.length > 9) {
+// ZERO IS NOW A LEGITIMATE STATE AND IT MEANS "NOBODY HAS SAID YET".
+//
+// This used to throw on an empty PILES, on the reasoning that under one pile
+// there is no picture to draw. That was right while every video carried a pack
+// count. Tim, 18 August 2026: "make sure you aren't tagging any videos with
+// what type of product it is and what packs are in the video until you get my
+// execl sheet thats filled out with all that exact data". Those counts were the
+// old prefill rather than his answers, so they are withheld until the filled
+// sheet lands, and PILES is legitimately empty in the meantime.
+//
+// An empty PILES now takes the WHOLE section rather than drawing an empty
+// frame, because every claim in it ("the biggest single pile counted here is N
+// packs") is a pack count and none of them can be made without the data. Over
+// nine still throws: that is a legibility limit at 390px and it is unchanged.
+if (PILES.length > 9) {
   throw new Error(
     `tcg-live: the pile figure draws every expansion at or over ${DRAWN_MIN} counted packs and that is ` +
-      `${PILES.length} of them. Under one there is no picture; over nine the rows stop being legible at ` +
-      `390px. Change the rule and the caption together, not the drawing alone.`
+      `${PILES.length} of them. Over nine the rows stop being legible at 390px. Change the rule and the ` +
+      `caption together, not the drawing alone.`
   );
 }
+const COUNTED = PILES.length > 0 && PACKS.top != null;
 const pileFig = () => {
   const W = 300, X0 = 4, XMAX = 272, ROW = 26, TOP = 20;
   const LIM = Number(boosterLimit);
@@ -513,11 +528,14 @@ const body = `
 
       <section class="tl-s" id="ours">
         <h2>How many have come out of <span class="hl">our</span> packs?</h2>
-        <p>Every rip here gets its packs counted, and a code card comes in every one, so counting packs
+        ${COUNTED ? `<p>Every rip here gets its packs counted, and a code card comes in every one, so counting packs
           counts code cards. The answer is <b>${esc(n(PACKS.english))}</b>, across
           ${esc(n(PACKS.englishRips))} filmed openings. The counting is not for this page: it is where
-          <a href="/openings/">every kind of sealed product we have opened</a> gets its numbers.</p>
-        <ul class="tl-go">
+          <a href="/openings/">every kind of sealed product we have opened</a> gets its numbers.</p>` : `<p>A code card comes in every pack, so counting packs counts code cards. We are not printing a total
+          yet, because the only honest source for it is the opening log and that is still being filled in.
+          The same count is what gives <a href="/openings/">every kind of sealed product we have opened</a>
+          its numbers.</p>`}
+${COUNTED ? `<ul class="tl-go">
           <li><b>English packs only</b>The ${esc(n(PACKS.nonEnglish))} Japanese, Korean and Chinese packs
             opened here are held out. Pokemon says nothing either way about whether a non-English pack
             carries a code the English app takes, and the smaller honest number beats one that quietly
@@ -533,9 +551,12 @@ const body = `
             ${esc(boosterLimit)} above. If a channel that opens this much is not close, you are not
             close.</li>
         </ul>
-${pileFig()}
+${pileFig()}` : `
+        <p class="tl-soon">We are counting this properly rather than quickly. Every pack opened on
+          camera is being logged one video at a time, and the figure will appear here once that log is
+          finished rather than before. What is already true is the part above: a code card is one
+          digital pack, and the soft limit is ${esc(boosterLimit)} per expansion.</p>`}
       </section>
-
       <section class="tl-s" id="redeem">
         <h2>How to <span class="hl">redeem</span> one</h2>
         <p>Two routes, and they do the same job. Use whichever is in front of you.</p>
@@ -771,7 +792,12 @@ for (const cap of body.match(CAPTION) || []) {
 }
 
 const sections = body.match(/<section class="tl-s"[\s\S]*?<\/section>/g) || [];
-if (sections.length !== 9) throw new Error(`expected 9 body sections, found ${sections.length}`);
+// 9 with the counted-packs section, 8 without it. That section is dropped while
+// pack counts are withheld pending Tim's filled sheet (see the COUNTED note
+// above), so both are correct states and only a third number is a bug.
+const WANT_SECTIONS = 9;
+if (sections.length !== WANT_SECTIONS)
+  throw new Error(`expected ${WANT_SECTIONS} body sections, found ${sections.length}`);
 const perSection = sections.map((s) => prose(s).length);
 const words = perSection.reduce((a, b) => a + b, 0);
 if (process.env.WORDS) {
