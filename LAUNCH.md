@@ -89,12 +89,13 @@ already exists.
 
 ## 3. Before flipping it on
 
-- [ ] **DELETE THE SIX PALETTE SAMPLE PAGES. Do this one first.** They are the
+- [ ] **DELETE THE SEVEN PALETTE SAMPLE PAGES. Do this one first.** They are the
       only files in the deploy root that are not part of the site:
 
           rm public/preview-midnight.html public/preview-charcoal.html \
              public/preview-charcoal-a.html public/preview-charcoal-b.html \
-             public/preview-trubbish.html public/preview-trubbish-2.html
+             public/preview-trubbish.html public/preview-trubbish-2.html \
+             public/preview-tan.html
           rm scripts/gen-palette-samples.mjs
           node scripts/build-all.mjs
 
@@ -111,9 +112,30 @@ already exists.
           preview-charcoal-a.html    C  Charcoal Aqua
           preview-charcoal-b.html    D  Charcoal Quiet
           preview-trubbish.html      E  Trubbish
-          preview-trubbish-2.html    F  Trubbish Deep
+          preview-trubbish-2.html    F  Trubbish Deep, the one that shipped
+          preview-tan.html           G  Trubbish Deep with a TAN ink
 
-      They are six extra copies of the home page. All are `noindex,nofollow`,
+      **AND THEN IT GREW TO SEVEN, WHICH IS THE SECOND TIME THIS COUNT HAS GONE
+      STALE.** G was added 18 August 2026 and it is not the same KIND of thing
+      as A to F, which is why it is worth two paragraphs rather than a row.
+      Tim, looking at /msrp.html: "all the white text, can we change it from
+      white to be a light tan or light beige color, that way its not stark
+      bright white on a dark green ... less harsh on the eyes and even more on
+      theme with our masscot". So G is not a candidate palette. It is the
+      palette that ALREADY SHIPPED with one family of tokens moved, and it is a
+      repaint of /msrp.html rather than the home page because that is the page
+      of body copy he was reading when he asked.
+
+      **THE THING THAT MAKES G DIFFERENT AT DELETION TIME.** A to F are dead
+      weight: the palette they were choosing between is in assets-source/ui.css
+      now, so deleting them loses nothing. G's `<style>` block holds EIGHT token
+      values that exist nowhere else. If Tim says yes, those eight go into
+      ui.css's `:root` and the ink change is done in one edit; if he says no,
+      the file just goes. Either way, DECIDE BEFORE DELETING, or the answer is
+      thrown away with the question. The values, and the whole derivation from
+      Trubbish's own sprite, are in the G block of scripts/gen-palette-samples.mjs.
+
+      They are six extra copies of the home page and one of /msrp.html. All are `noindex,nofollow`,
       none is in sitemap.xml, and nothing on the site links to them: they link
       to each other in a ring and to nothing else. So they are quiet rather than
       harmless. A duplicate front door in the tree on launch day is a cost, and
@@ -121,10 +143,12 @@ already exists.
       picked, they have no job.
 
       **THE COUNT IS THE THING THAT GOES STALE HERE.** It already has: this item
-      said FIVE while six were on disk, which is exactly the failure it warns
-      about. If another variant is added, add it to the list above in the same
-      edit, or this checklist will confidently delete five of seven.
-      `ls public/preview-*.html` is the check that cannot drift.
+      said FIVE while six were on disk, and then it said SIX while seven were on
+      disk, which is exactly the failure it warns about, twice. If another
+      variant is added, add it to the list above in the same edit, or this
+      checklist will confidently delete six of eight.
+      `ls public/preview-*.html` is the check that cannot drift, and
+      gen-palette-samples.mjs now prints its own count rather than a typed one.
 
       **AND ONE THING THE SAMPLES FOUND THAT OUTLIVES THEM.** Three rules in
       assets-source/ui.css write a SURFACE token as ink, which is correct on the

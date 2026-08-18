@@ -1,15 +1,23 @@
 /**
- * Writes SIX copies of the REAL home page under public/, one per palette Tim
- * is choosing between:
+ * Writes SEVEN sample pages under public/. SIX are copies of the REAL home page,
+ * one per palette Tim was choosing between. The SEVENTH is a copy of the real
+ * /msrp.html and is not a palette at all: it is the SHIPPING palette with one
+ * family of tokens changed.
  *
  *     public/preview-midnight.html      A  Slushie Midnight
  *     public/preview-charcoal.html      B  Slushie Charcoal          <- baseline
  *     public/preview-charcoal-a.html    C  Charcoal Aqua
  *     public/preview-charcoal-b.html    D  Charcoal Quiet
  *     public/preview-trubbish.html      E  Trubbish
- *     public/preview-trubbish-2.html    F  Trubbish Deep             <- current
+ *     public/preview-trubbish-2.html    F  Trubbish Deep             <- SHIPPED
+ *     public/preview-tan.html           G  Trubbish Deep, tan ink    <- from /msrp.html
  *
  *     node scripts/gen-palette-samples.mjs
+ *
+ * THE COUNT IN THIS HEADER HAS ALREADY BEEN WRONG ONCE, in LAUNCH.md, which
+ * said five while six were on disk. `ls public/preview-*.html` is the check
+ * that cannot drift, and the script now prints SAMPLES.length rather than a
+ * number somebody typed.
  *
  * WHY THIS EXISTS. Tim, 18 August 2026, on Variation A (Slushie Midnight) and
  * Variation B (Slushie Charcoal) from scripts/gen-slushie-variants.mjs: "I like
@@ -77,15 +85,24 @@
  * else it is gone. See the F block below for the whole argument.
  *
  * ============================ DELETE THESE BEFORE LAUNCH ====================
- * These are six extra copies of the front door sitting in the deploy root
- * three days before the site goes live. Once Tim has picked, delete all six,
- * delete this script, and re-run the build:
+ * These are six extra copies of the front door and one of /msrp.html sitting in
+ * the deploy root days before the site goes live. Once Tim has decided, delete
+ * all seven, delete this script, and re-run the build:
  *
  *     rm public/preview-midnight.html public/preview-charcoal.html \
  *        public/preview-charcoal-a.html public/preview-charcoal-b.html \
- *        public/preview-trubbish.html public/preview-trubbish-2.html
+ *        public/preview-trubbish.html public/preview-trubbish-2.html \
+ *        public/preview-tan.html
  *     rm scripts/gen-palette-samples.mjs
  *     node scripts/build-all.mjs
+ *
+ * G IS THE ONE WHOSE ANSWER HAS TO BE WRITTEN DOWN SOMEWHERE ELSE BEFORE IT
+ * GOES. A to F were a choice between palettes and the chosen one is now in
+ * assets-source/ui.css, so deleting them loses nothing. G is a choice about
+ * SEVEN TOKENS inside the palette that already shipped, and if Tim says yes the
+ * eight values in its <style> block are the edit: they go into ui.css's :root
+ * and this file goes in the bin. Deleting G without moving them first throws
+ * away the only place they are written.
  *
  * The reminder is also in LAUNCH.md, under "Before flipping it on", because a
  * comment in a file nobody opens is not a reminder.
@@ -98,8 +115,9 @@
  * permanent. The staleness check in check-build.py only weighs scripts that
  * build-all runs, so this file's mtime cannot report the tree as stale either.
  *
- * IT REGENERATES FROM public/index.html EVERY RUN, so it must be run AFTER
- * build-all.mjs. Run it before and you get six previews of the previous build.
+ * IT REGENERATES FROM public/index.html AND public/msrp.html EVERY RUN, so it
+ * must be run AFTER build-all.mjs. Run it before and you get seven previews of
+ * the previous build.
  *
  * THE SLUSHIE TOKEN VALUES ARE READ OUT OF gen-slushie-variants.mjs, NOT COPIED
  * FROM IT. Transcribing 30 hexes six times is how the preview and the sample
@@ -635,6 +653,161 @@ footer .soc svg{fill:var(--chrome-ink)}
 .sub:hover,.sub:focus-visible,.menu a.menu-sub:hover,.menu a.menu-sub:focus-visible{
   box-shadow:0 0 0 2px #FFFFFF}`;
 
+/* ==========================================================================
+   G: TRUBBISH DEEP, TAN INK. ONE PAGE ONLY, AND IT IS NOT THE HOME PAGE.
+
+   Tim, 18 August 2026, looking at /msrp.html: "one final color pallet update I
+   want to see one page of first to see if we change it everywhere, but all the
+   white text, can we change it from white to be a light tan or light beige
+   color, that way its not stark bright white on a dark green, and that way it
+   incorporates one more color from Trubbish ... want it to be less harsh on the
+   eyes and even more on theme with our masscot".
+
+   SO THIS SAMPLE IS THE ODD ONE OUT IN THREE WAYS, all of them on purpose:
+
+     1. IT IS A REPAINT OF /msrp.html, not of the home page. A through F are six
+        copies of the front door. This one is the page Tim was actually reading
+        when he asked, which is a WALL OF BODY COPY over 31,000px: 26 priced
+        rows, 33 explainer paragraphs and 32 card scans. The home page is
+        headings and pictures and would have hidden the very thing being judged.
+     2. IT WRITES ONLY THE TOKENS THAT CHANGE. A through F each carry a whole
+        30 token palette, because each was a different palette against a ui.css
+        that shipped the old cream one. Trubbish Deep SHIPPED on 18 August; the
+        live /msrp.html already renders in it. So the only honest comparison is
+        one where the ONLY difference between this page and the real one is the
+        ink, and that is what the diff-only block below guarantees. It throws if
+        the diff is empty, which is what catches a derivation that quietly
+        landed back on #EEF1EF.
+     3. IT CHANGES NO ACCENT AND NO SURFACE. Pink, teal, the five painted steps
+        and the semantic gold are byte for byte what ships. The accent rule
+        stands: teal is how you get around, pink is what the site is saying.
+
+   WHERE THE TAN COMES FROM, AND WHAT THE SPRITE ACTUALLY SAYS.
+
+   Trubbish's own art is in the tree four times over (assets/species/568.webp,
+   assets/species/lg/568.webp, assets/dex/568.webp, assets/foes/568.webp) so the
+   colour is a measurement rather than a taste. Every opaque pixel of all four
+   was binned. THE TAN FAMILY IS NOT THE DOMINANT COLOUR OF THE SPRITE: he is a
+   green bag first (#667F70 and #688270 are the two commonest colours on the
+   475px art). The warm pixels, r > g > b with a chroma under 70, are 8,434 of
+   68,765 on the large art and they agree across all four files:
+
+       dominant  #83756A     hue 26.4   HSL sat 0.105   HSL lig 0.465
+       mean      #867A6E     hue 29.2   HSL sat 0.101   HSL lig 0.478
+       highlight #B0A091     hue 29.0   HSL sat 0.164   HSL lig 0.629
+
+   THE ANCHOR IS #A8A090 ANYWAY, WHICH IS TIM'S OWN SAMPLE OF THE ARM CROP, AND
+   THE DISAGREEMENT IS WORTH WRITING DOWN. His cluster (#A8A090 dominant, then
+   #B0A090, #A89888, #A8A088, #A89890, #988878) is every channel a multiple of
+   8, so it is a quantised read, and quantising to 8 swings hue hard at this
+   chroma: his six span hue 20 to 45 and average 32, not the 40-45 he reported.
+   The sprite says the honest centre is hue 28-30. What his crop IS right about
+   is the LIGHT band: #B0A091 and #AFA292 are really in the art, at HSL lig 0.63,
+   and that is the part of Trubbish a reader sees as "tan". His #A8A090 sits one
+   step under it. So the anchor is kept as sent, the hue is 40 rather than 29,
+   and the difference between the two is under a JND at chroma 24. Anybody who
+   wants the sprite's own hue instead changes ONE constant here.
+
+   THE LIFT IS AN OFFSET, NOT A WHITE BLEND, AND THAT IS THE ONE PLACE THIS
+   BLOCK DEPARTS FROM liftTo() ABOVE. liftTo() mixes white in, which is right
+   for pink and teal: #E87EA1 -> #EEA0B9 is 26% white and a saturated hue
+   survives losing a quarter of its chroma. A tan does not. #A8A090's chroma is
+   24 out of 255 to start with; the white blend needed to carry it to 4.5:1 on
+   --paper-3 is 46%, landing on #D0CCC3 with a chroma of 13. That is not a tan
+   any more, it is a warm grey, and it would have answered the second half of
+   Tim's ask (less harsh) by throwing away the first half (one more colour from
+   Trubbish). Adding a constant to all three channels holds the hue EXACTLY, for
+   the same reason: hue depends on the channel DIFFERENCES and an offset does
+   not touch them. It holds the chroma exactly too. So every value below is
+   hue 40, chroma 24, and differs from the anchor only in lightness.
+   ========================================================================== */
+const TAN_ANCHOR = "#A8A090";           // Tim's sample of the arm crop
+const TAN_HUE_FROM_SPRITE = "#867A6E";  // what all four sprite files actually average to
+/* +k on every channel. Clamped so a lift can never wrap a channel round. */
+const tanLift = (k) => toHex(hex(TAN_ANCHOR).map((v) => Math.min(255, v + k)));
+if (Math.max(...hex(TAN_ANCHOR)) - Math.min(...hex(TAN_ANCHOR)) !== 24) {
+  throw new Error("the anchor's chroma moved; every number in the G block is stated against 24");
+}
+
+/* THE FIVE PAINTED STEPS, read back off the tokens rather than typed, so this
+   list cannot drift from the palette it is gating against. */
+const STEPS = (t) => [
+  ["--chrome-bg", t["chrome-bg"]], ["--page", t.page], ["--paper", t.paper],
+  ["--card/--paper-2", t["paper-2"]], ["--paper-3", t["paper-3"]],
+];
+
+/* THE FLOOR OF THE WHOLE FAMILY, AND IT IS SET BY THE LIGHTEST SURFACE.
+   --ink-2 is body copy: 4.5:1 against every one of the five, not just the page.
+   A tan that passes on #1F382B and fails on #405D49 is exactly the bug
+   CLAUDE.md records under "THE LADDER INVERTED AND THAT BITES". */
+function tanFloor(t) {
+  for (let k = 0; k <= 87; k += 4) {
+    const v = tanLift(k);
+    if (STEPS(t).every(([, g]) => ratio(v, g) >= 4.5)) return { k, v };
+  }
+  throw new Error(`${TAN_ANCHOR} cannot clear 4.5:1 on all five surfaces at any lift`);
+}
+/* THE SEPARATION, AND THIS IS THE HONEST COST OF THE WHOLE CHANGE.
+   Today --ink is 1.40x --ink-2 in relative luminance, which is what makes a
+   heading read as a heading and a caption as a caption. Ask for that SAME 1.40x
+   on top of the floor above and the arithmetic hands back #F8F0E0, whose
+   contrast on all five surfaces is identical to today's #EEF1EF to two decimal
+   places: a pure hue rotation with no dimming in it at all. In other words the
+   lightest surface and the existing hierarchy between them consume the entire
+   budget, and you can have the WARMTH for free but not the SOFTNESS. This
+   sample spends the budget on the softness Tim asked for and narrows the
+   hierarchy to 1.15x, which is a real loss and is reported rather than hidden.
+   The way to buy it back is a darker --paper-3, not a lighter ink: at #3A5543
+   the floor drops from #D4CCBC to #C8C0B0 and 1.40x fits again. */
+function tanAbove(floorHex, mult) {
+  for (let k = 0; k <= 87; k += 4) {
+    const v = tanLift(k);
+    if (lum(v) >= lum(floorHex) * mult) return v;
+  }
+  throw new Error(`no lift of ${TAN_ANCHOR} reaches ${mult}x the floor's luminance`);
+}
+
+const TAN_FLOOR = tanFloor(TRUBBISH2);
+const TAN_INK_2 = TAN_FLOOR.v;                    // k=44 #D4CCBC
+const TAN_INK = tanAbove(TAN_INK_2, 1.15);        // k=60 #E4DCCC
+/* The remaining four are LIGHTNESS MATCHED to the values they replace rather
+   than gated, because none of them is the thing Tim complained about: at these
+   lifts each lands within 2.5% of today's relative luminance, so they are a
+   hue swap and nothing else, and the two tokens that actually come DOWN are the
+   two brightest ones on the site. Matched by search, not by hand, so the claim
+   is checked on every run. */
+function tanNear(target) {
+  if (!/^#[0-9A-F]{6}$/i.test(target || "")) {
+    throw new Error(`tanNear() got ${target}: a token it matches against was renamed`);
+  }
+  let best = null, bestD = Infinity;
+  for (let k = 0; k <= 87; k += 4) {
+    const v = tanLift(k), d = Math.abs(lum(v) - lum(target));
+    if (d < bestD) { bestD = d; best = v; }
+  }
+  return best;
+}
+const TAN = {
+  ink: TAN_INK,
+  "ink-2": TAN_INK_2,
+  "ink-soft": tanNear(TRUBBISH2["ink-soft"]),
+  "foot-ink": tanNear(TRUBBISH2["foot-ink"]),
+  "chrome-dim": tanNear(TRUBBISH2["chrome-dim"]),
+  /* --chrome-ink is the BRIGHTEST ink on the site and it lives on the DARKEST
+     surface, which is precisely the pair Tim described: stark white on dark
+     green. It moves with --ink rather than being lightness matched, and keeps
+     its relation of sitting one step above it, exactly as #F7F8F7 sits above
+     #EEF1EF today. */
+  "chrome-ink": tanLift(68),
+  /* --navy IS AN INK AND ONLY AN INK, which ui.css spends a paragraph on. It
+     holds --ink's value there, so it holds it here. Miss this and four rules
+     keep an off-white while everything round them goes tan. */
+  navy: TAN_INK,
+  /* the hairline, which ui.css derives from --ink's channels */
+  hair: `rgba(${hex(TAN_INK).join(",")},.18)`,
+};
+const TRUBBISH_TAN = { ...TRUBBISH2, ...TAN };
+
 const SAMPLES = [
   {
     file: "preview-midnight.html",
@@ -762,6 +935,53 @@ const SAMPLES = [
       ["Subscribe ring vs the bar", "#FFFFFF", t["chrome-bg"], 3.0],
     ],
   },
+  {
+    file: "preview-tan.html",
+    label: "G",
+    name: "Trubbish Deep, tan ink",
+    /* NOT THE HOME PAGE. See the G block above for why, and note that `of`
+       is what stops the title and the description claiming it is one. */
+    src: "public/msrp.html",
+    of: "MSRP page",
+    note:
+      "the SHIPPING palette with one change: every off-white ink becomes a light " +
+      "tan lifted out of Trubbish's own body colour. No accent and no surface moves.",
+    t: TRUBBISH_TAN,
+    /* THE DIFF IS THE POINT. Trubbish Deep already ships, so this page writes
+       ONLY the tokens that differ from it and inherits the other twenty-odd
+       from the real ui.css. That is what makes the comparison between this url
+       and the live /msrp.html mean something. */
+    onlyDiff: TRUBBISH2,
+    /* ui.css already carries every rule F had to write as an override, so this
+       sample needs no `extra` and no `accents` at all. If it ever does, the
+       change belongs in assets-source/ui.css, not here: this file is a colour
+       decision aid and is deleted before launch. */
+    extraRows: (t) => [
+      /* EVERY INK ON EVERY ONE OF THE FIVE PAINTED SURFACES. Not just the page
+         colour: a tan that clears 4.5:1 on #1F382B and fails on #405D49 ships
+         a page that reads fine until it reaches a card, which is the exact
+         shape of the three bugs CLAUDE.md records. 35 rows, all gated. */
+      ...["ink", "ink-2", "ink-soft", "navy", "chrome-ink", "foot-ink", "chrome-dim"]
+        .flatMap((k) => STEPS(t).map(([s, g]) => [`--${k} on ${s}`, t[k], g,
+          /* --chrome-dim is the ONE ink held to a lower bar, and it is held to
+             exactly the bar it already meets: it is chrome-only (five rules,
+             all inside .bar, .shelf or footer) and today's #C1CAC4 measures
+             4.34:1 on --paper-3, so gating it there would fail a page that
+             ships. Its own ground, the bar, is gated at 4.5 like the rest. */
+          k === "chrome-dim" && s === "--paper-3" ? 3.0 : 4.5])),
+      /* WHITE STAYS WHERE IT IS DOING A JOB. Both of these are literals in
+         ui.css and neither is touched by a token edit, which is the reason
+         they are written as literals. Gated anyway, so a later token change
+         cannot quietly take the ring with it. */
+      ["Subscribe label, still #FFFFFF", "#FFFFFF", YT["yt-red"], 4.5],
+      ["Subscribe ring, still #FFFFFF", "#FFFFFF", t["chrome-bg"], 3.0],
+      /* THE ACCENTS DID NOT MOVE, and these three rows prove it rather than
+         asserting it: they are the same numbers F measures. */
+      ["small teal link on the card", t["sky-deep"], t["paper-2"], 4.5],
+      ["small pink on the card", t["ketchup-deep"], t["paper-2"], 4.5],
+      ["wordmark RIPS on the bar", t["brand-accent"], t["chrome-bg"], 3.0],
+    ],
+  },
 ];
 
 /* ==========================================================================
@@ -820,11 +1040,19 @@ const swapHtml = (s, next) =>
    and the footer are the real markup with the real card art in them. All five
    sit at the deploy root exactly like index.html, so every relative asset path
    in it resolves unchanged.
-   ========================================================================== */
-const home = await readFile(join(ROOT, "public/index.html"), "utf8");
 
-function build(s, next) {
-  let h = home;
+   SAMPLE G IS A TRANSFORM OF /msrp.html INSTEAD, and everything below is
+   written against whichever page a sample names in `src`. Nothing in here was
+   ever home-page specific except the title, which now says which page it is.
+   ========================================================================== */
+const SOURCES = new Map();
+async function sourceOf(path) {
+  if (!SOURCES.has(path)) SOURCES.set(path, await readFile(join(ROOT, path), "utf8"));
+  return SOURCES.get(path);
+}
+
+function build(s, next, src) {
+  let h = src;
 
   // 1. Nothing about this page may claim to be the home page. Canonical,
   //    og:url and both JSON-LD blocks come out; robots goes in high in <head>
@@ -847,11 +1075,11 @@ function build(s, next) {
   //    of these cannot be mistaken for the real site.
   h = h.replace(
     /<title>[\s\S]*?<\/title>/,
-    `<title>Palette sample ${s.label}: ${s.name} &mdash; Garbage Rips 585 home page</title>`
+    `<title>Palette sample ${s.label}: ${s.name} &mdash; Garbage Rips 585 ${s.of || "home page"}</title>`
   );
   h = h.replace(
     /<meta name="description" content="[^"]*">/,
-    `<meta name="description" content="Temporary palette sample. The Garbage Rips 585 home page drawn in ${s.name}. Not a real page of the site.">`
+    `<meta name="description" content="Temporary palette sample. The Garbage Rips 585 ${s.of || "home page"} drawn in ${s.name}. Not a real page of the site.">`
   );
 
   const tok = tokensFor(s.t);
@@ -866,7 +1094,19 @@ function build(s, next) {
   // 4. The palette itself, last in <head>. Same specificity as ui.css's :root
   //    and ui.css's second :root, so source order decides and this wins. The
   //    <style> block build-proto.mjs writes into this page is above it too.
-  const vars = Object.entries(tok)
+  /* A SAMPLE MAY DECLARE ONLY WHAT IT CHANGES. A to F each replace a whole
+     palette, because each was a different palette against a ui.css that shipped
+     a different one. G is the SHIPPING palette with one family of tokens moved,
+     so writing the other twenty-five again would only create a second copy of
+     values ui.css already holds, free to drift, on the one page whose entire
+     job is to isolate a single change. It throws on an empty diff, which is
+     what catches a derivation that landed back on the value it started from. */
+  const base = s.onlyDiff ? tokensFor(s.onlyDiff) : null;
+  const changed = Object.entries(tok).filter(([k, v]) => !base || base[k] !== v);
+  if (base && !changed.length) {
+    throw new Error(`${s.label} declares onlyDiff but differs from it in nothing`);
+  }
+  const vars = changed
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([k, v]) => `  --${k}:${v};`)
     .join("\n");
@@ -944,7 +1184,12 @@ for (const s of SAMPLES) {
      which is the failure mode this whole block exists to prevent. */
   const bl = s.bloom || { c: GOLD_BLOOM, a: BLOOM_A };
   const bloom = toHex(over(bl.c, bar, bl.a));
-  const rows = [
+  /* THE DEFAULT ROWS ARE HOME-PAGE ROWS, every one of them named after an
+     element on index.html: the Greatest Hits heading, the "All 10 hits" link,
+     the footer tagline. G is a repaint of /msrp.html and carries none of them,
+     so printing them under G would be measuring pairs that page never paints
+     and reading as though it had. G brings its own rows instead. */
+  const rows = (s.src ? [] : [
     [".hl word on the card", hl, t["paper-2"], 3.0],
     ...(hlShadow ? [[".hl word vs its own stamp", hl, hlShadow, null]] : []),
     ...(hlShadow ? [[".hl stamp on the card", hlShadow, t["paper-2"], null]] : []),
@@ -956,8 +1201,7 @@ for (const s of SAMPLES) {
     ["body ink on the card", t.ink, t["paper-2"], 4.5],
     ["Subscribe label on #EE0000", YT["on-yt"], YT["yt-red"], 4.5],
     ["Subscribe pill vs the bar", YT["yt-red"], bar, 3.0],
-    ...(s.extraRows ? s.extraRows(t) : []),
-  ];
+  ]).concat(s.extraRows ? s.extraRows(t) : []);
   console.log(`  ${s.label}  ${s.name}`);
   for (const [name, fg, bg, gate] of rows) {
     const r = ratio(fg, bg);
@@ -997,6 +1241,12 @@ if (fails.length) {
    ========================================================================== */
 console.log("  THREE ui.css RULES THAT BREAK ON A DARK PALETTE. Not gated. Not a palette choice.\n");
 for (const s of SAMPLES) {
+  /* G IS SKIPPED HERE AND THE REASON IS THAT THIS BLOCK IS HISTORY NOW. These
+     three rules were measured against the CREAM ui.css that shipped when A to F
+     were written; all three were fixed in assets-source/ui.css when Trubbish
+     Deep shipped, so re-deriving them from G's tokens would print a FAIL for a
+     bug that no longer exists on the page G is a copy of. */
+  if (s.src) continue;
   const t = s.t;
   const cta = s.extra ? t["on-accent"] : t.ink;
   const title = s.extra ? t["chrome-ink"] : t.paper;
@@ -1013,9 +1263,11 @@ console.log();
 for (let i = 0; i < SAMPLES.length; i++) {
   const s = SAMPLES[i];
   const next = SAMPLES[(i + 1) % SAMPLES.length];
-  const out = build(s, next);
+  const out = build(s, next, await sourceOf(s.src || "public/index.html"));
   await writeFile(join(ROOT, "public", s.file), out);
   console.log(`  wrote public/${s.file.padEnd(28)} ${(out.length / 1024).toFixed(1)}KB  ` +
+    `from ${(s.src || "public/index.html").padEnd(18)} ` +
     `page ${s.t.page}  bar ${s.t["chrome-bg"]}  ink ${s.t.ink}  -> ${next.label}`);
 }
-console.log("\n  TEMPORARY. Delete all SIX files and this script before launch.");
+console.log(`\n  TEMPORARY. Delete all ${SAMPLES.length} files and this script before launch.`);
+console.log("  ls public/preview-*.html is the check that cannot drift.");
