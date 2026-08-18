@@ -375,8 +375,8 @@ const style = `
 .tl-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
   text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
-.tl-jump a:hover{border-color:var(--ink);background:var(--mustard)}
-.tl-shout{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:var(--chrome-ink);
+.tl-jump a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
+.tl-shout{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
   padding:var(--s4) var(--s5);margin:var(--s4) 0;box-shadow:var(--hard-lg);max-width:44em}
 .tl-shout p{font:400 var(--t-m)/1.3 var(--display);color:var(--chrome-ink)}
 .tl-shout span{display:block;margin-top:var(--s3);font-size:var(--t-sm);color:var(--foot-ink);line-height:1.5}
@@ -386,7 +386,7 @@ const style = `
   text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
 .tl-two{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4);margin-top:var(--s4);max-width:46em}
 @media(max-width:760px){.tl-two{grid-template-columns:1fr}}
-.tl-box{border:3px solid var(--navy);border-radius:12px;background:var(--card);
+.tl-box{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
 .tl-box h3{font:400 var(--t-m)/1.2 var(--display);margin-bottom:var(--s2)}
 .tl-box ol{margin:0 0 0 var(--s4);font-size:var(--t-sm);line-height:1.55}
@@ -394,7 +394,7 @@ const style = `
 .tl-steps{counter-reset:tl;list-style:none;margin:var(--s4) 0 0;padding:0;max-width:44em}
 .tl-steps li{counter-increment:tl;position:relative;padding-left:38px;margin-bottom:var(--s3);line-height:1.55}
 .tl-steps li::before{content:counter(tl);position:absolute;left:0;top:0;width:26px;height:26px;
-  display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--navy);
+  display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--band-bg);
   color:var(--chrome-ink);font:700 var(--t-micro)/1 var(--mono)}
 .tl-fig{margin:var(--s4) 0 0;max-width:44em}
 .tl-fig figcaption{margin-top:var(--s2);font-size:var(--t-micro);color:var(--ink-2);line-height:1.5}
@@ -428,7 +428,7 @@ const style = `
    the argument: it is how much room is left, drawn. */
 .pl-t{fill:var(--paper-3)}
 .pl-b{fill:var(--ink)}
-.tl-out{border:3px dashed var(--navy);border-radius:12px;background:var(--card);padding:var(--s4);
+.tl-out{border:3px dashed var(--keyline);border-radius:12px;background:var(--card);padding:var(--s4);
   margin-top:var(--s6);max-width:44em}
 .tl-out h2{margin-bottom:var(--s2)}
 .tl-out > p{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
@@ -846,7 +846,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>

@@ -114,13 +114,22 @@ export const COMPARE_CSS = `
    Same four layer affordance as ui.css's .cc-scroll: covers ride the content,
    shadows stay on the box, so it disappears the moment the table fits.
    background-COLOR, not the shorthand, which resets background-image. */
-.cmp-w{overflow-x:auto;margin-top:var(--s4);border:3px solid var(--navy);border-radius:12px;
+/* --navy WAS #111111 AND IS AN INK NOW. It used to be the same value as --ink,
+   --keyline and --chrome-bg all at once, which is how one token came to be a
+   3px FRAME, a dark PANEL FILL and an INK in the same stylesheet without
+   anybody noticing. On a dark ground those three want opposite values, so each
+   usage moved to the token that names its job: a frame is --keyline, a panel is
+   --band-bg, and --navy stays an ink. See CLAUDE.md, "Palette". */
+.cmp-w{overflow-x:auto;margin-top:var(--s4);border:3px solid var(--keyline);border-radius:12px;
   background-color:var(--card);box-shadow:var(--hard-lg);max-width:46em;
   background-image:
     linear-gradient(to right,var(--card) 40%,rgba(255,255,255,0)),
     linear-gradient(to left,var(--card) 40%,rgba(255,255,255,0)),
-    radial-gradient(farthest-side at 0 50%,rgba(17,17,17,.30),rgba(17,17,17,0)),
-    radial-gradient(farthest-side at 100% 50%,rgba(17,17,17,.30),rgba(17,17,17,0));
+    /* WAS rgba(17,17,17,.30): a near-black shadow, which is the "there is more
+       to the right" cue and which is invisible on a dark card. Same geometry,
+       opaque black, so the cue survives the repaint. */
+    radial-gradient(farthest-side at 0 50%,rgba(0,0,0,.55),rgba(0,0,0,0)),
+    radial-gradient(farthest-side at 100% 50%,rgba(0,0,0,.55),rgba(0,0,0,0));
   background-position:left center,right center,left center,right center;
   background-repeat:no-repeat;
   background-size:44px 100%,44px 100%,15px 100%,15px 100%;

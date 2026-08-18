@@ -598,7 +598,7 @@ const style = `
    copy of .pg on /buying.html and that is deliberate: the two pages are one
    page asked in both directions, and a shared module for twelve declarations
    would mean editing shared/ while other passes are live in it. */
-.pg{margin:var(--s4) 0 var(--s5);border:3px solid var(--navy);border-radius:12px;background:var(--card);
+.pg{margin:var(--s4) 0 var(--s5);border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
 /* THE BAR ROWS. HTML rather than SVG so each row carries the company's own mark
    in the same .bmk box the venue cards use. THE TRACK IS ON ITS OWN LINE UNDER
@@ -662,12 +662,12 @@ const style = `
 .se-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
   text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
-.se-jump a:hover{border-color:var(--ink);background:var(--mustard)}
+.se-jump a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
 .se-jg{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-2);margin-left:var(--s2)}
 .se-jg:first-child{margin-left:0}
 .se-v{scroll-margin-top:var(--s5)}
-.se-key{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:var(--chrome-ink);
+.se-key{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
   padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
 .se-key h2{color:var(--chrome-ink);margin-bottom:var(--s3)}
 .se-key p{color:var(--foot-ink);line-height:1.55;max-width:44em}
@@ -676,7 +676,7 @@ const style = `
 .se-grp > p{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
 .se-vs{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
 @media(max-width:900px){.se-vs{grid-template-columns:1fr}}
-.se-v,.se-p{border:3px solid var(--navy);border-radius:12px;background:var(--card);
+.se-v,.se-p{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
 /* Centre, not baseline: the 34px mark box hung a third of its height below the
    heading on a baseline row. Same change as /buying.html's .by-vh. */
@@ -842,7 +842,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${miniCSS(style)}</style>

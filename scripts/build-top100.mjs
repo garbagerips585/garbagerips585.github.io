@@ -970,7 +970,7 @@ const CSS = `
 .t100-filter{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:var(--s4)}
 .t100-filter button{font:inherit;font-size:var(--t-sm);padding:6px 12px;cursor:pointer;
   background:var(--card);border:1px solid var(--keyline);border-radius:var(--r-pill);color:var(--ink)}
-.t100-filter button[aria-pressed="true"]{background:var(--keyline);color:var(--chrome-ink)}
+.t100-filter button[aria-pressed="true"]{background:var(--mustard);color:var(--on-accent)}
 .t100-filter p{margin:0;font-size:var(--t-sm);color:var(--ink-2)}
 .t100.hide-multi .t100-li.is-multi{display:none}
 
@@ -1372,7 +1372,7 @@ for (const cfg of PAGES) {
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${CSS}</style>

@@ -252,7 +252,7 @@ const PAGE_CSS = `
 /* Gold marks a tier that holds the same number of cards in both printings,
    which is the thing the table is for. --mustard at 16% keeps the row text at
    its normal contrast rather than tinting it. */
-.rcmp tr.is-same{background:rgba(239,201,76,.18)}
+.rcmp tr.is-same{background:var(--sky-tint)}
 .rcmp tr.is-same th[scope=row]{color:var(--gold-deep)}
 .rcmp tr.is-total th,.rcmp tr.is-total td{border-top:2px solid var(--ink);font-weight:700}
 .rcmp-say{max-width:42em;margin-top:var(--s4);border-left:4px solid var(--gold);
@@ -292,7 +292,7 @@ const head = ({ title, desc, canonical, image, ld, noindex = false, css = "" }) 
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 <link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
 ${FONTS}
 ${STYLES}${css ? `\n<style>${miniCSS(css)}</style>` : ""}

@@ -4,8 +4,8 @@
   "description": "Pokemon card pack rips from Rochester, New York.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FAFAF8",
-  "theme_color": "#111111",
+  "background_color": "#1F382B",
+  "theme_color": "#192D22",
   "icons": [
     { "src": "/favicon-32.png", "sizes": "32x32", "type": "image/png" },
     { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },

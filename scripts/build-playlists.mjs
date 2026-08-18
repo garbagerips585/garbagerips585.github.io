@@ -529,7 +529,7 @@ for (const p of live) {
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}${strip ? `\n<style>${miniCSS(PAGE_CSS)}</style>` : ""}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}

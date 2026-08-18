@@ -10,7 +10,7 @@
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:title" content="Pokemon Card Rarity Symbols, Explained With Real Cards">
@@ -21,7 +21,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=7ada72e4">
+<link rel="stylesheet" href="/assets/ui.css?v=f309a931">
 <style>
 .rg{padding:var(--s7) 0 var(--s5)}
 .rg-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:42em;margin-bottom:var(--s5)}
@@ -84,8 +84,19 @@
 
 .tip{background:var(--mustard);border:2px solid var(--gold-deep);border-radius:var(--r);
   padding:var(--s5);margin:var(--s5) 0}
-.tip h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:6px}
-.tip p{color:var(--ink);max-width:48em}
+/* BOTH LINES BELOW NAME --on-accent AND NEITHER USED TO. .tip is a filled
+   accent panel, and --mustard is a LIGHT teal now, so the heading inherited
+   --ink and the paragraph asked for it outright: #EEF1EF on #70B5D9, 1.99:1,
+   a near-white panel with near-white writing on it. --on-accent is the token
+   ui.css defines for text drawn on the gold and mustard fills and it measures
+   7.22:1 here. The heading needs its own declaration because it inherits from
+   the page rather than from .tip's own colour. */
+.tip h3{font:400 var(--t-m)/1.15 var(--display);color:var(--on-accent);margin-bottom:6px}
+.tip p{color:var(--on-accent);max-width:48em}
+/* The 12% black wash SURVIVED THE REPAINT and was checked rather than assumed:
+   it sat on #E8B93A at 1.29:1 and sits on #70B5D9 at 1.28:1, so the code chip
+   is exactly as distinct from its panel as it ever was, and --on-accent still
+   reads 5.62:1 on the washed patch. Left alone. */
 .tip code{font:700 var(--t-sm)/1 var(--mono);background:rgba(0,0,0,.12);padding:2px 6px;border-radius:4px}
 
 /* The ladder. */
@@ -99,8 +110,11 @@
 .rr-card img{width:100%;height:auto;border-radius:6px;display:block}
 .rr-body h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:4px}
 .rr-chase{font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
-  background:var(--mustard);border:1px solid var(--gold-deep);color:var(--ink);
+  background:var(--mustard);border:1px solid var(--gold-deep);color:var(--on-accent);
   padding:4px 7px;border-radius:var(--r-pill);vertical-align:middle}
+/* --on-accent, not --ink, for the same reason .tip carries it: this is a
+   filled accent pill and --mustard is light. --ink measured 1.99:1 on it,
+   --on-accent measures 7.22:1, and at 9px this is small text needing 4.5. */
 .rr-sym{font:700 var(--t-sm)/1.4 var(--mono);color:var(--plum);margin-bottom:6px;letter-spacing:.03em}
 .rr-look{color:var(--ink-2);font-size:var(--t-sm)}
 .rr-note{font:700 var(--t-micro)/1.6 var(--mono);color:var(--plum);background:var(--lilac-pale);
@@ -931,11 +945,37 @@
                    ends the string, which is how this comment broke the build
                    the first time it was written. So the palette
                    is transcribed here by hand and this block has to be updated by
-                   hand when the palette moves. The values below are ui.css's
-                   --paper-3, --keyline, a mid grey, --paper, --sky-tint,
-                   --sky-deep and --gold-deep, in that order of appearance.
-                   Before "Black / White / Gold" they were #EDE6CB, #15263A,
-                   #9FB0C0, #F7F2DE, #DCF2FB, #0E6E96 and #D9482B. -->
+                   hand when the palette moves.
+
+                   THE SLAB PAINTS ITS OWN LIGHT PLATE AND THAT IS WHY THIS
+                   BLOCK SURVIVED "Trubbish Deep" ALMOST INTACT. Everything in
+                   here is drawn on #E6E4DD or on a panel laid over it, not on
+                   the figure ground, so the dark ink stayed dark. Re-measured
+                   against the plate rather than against the card: the black
+                   type is 14.84:1, the dashed inner rule 3.57:1, the small
+                   grey type on the card window 5.90:1. And the plate itself
+                   reads 7.18:1 against the new #2F4F39 card, so the SILHOUETTE
+                   is now carried by the fill where it used to be carried by
+                   the outline. The outline's outer half does disappear into
+                   the dark ground at 1.22:1 and it was left alone deliberately:
+                   repainting it light would erase the crisp inner edge the plate
+                   still needs, to fix a silhouette that is not broken.
+
+                   ONE MARK DID CHANGE. The sealed-edge ticks were --gold-deep
+                   #6E5000, 5.87:1 on the plate. Gold is out of the palette
+                   entirely and NO teal in it reads on a cream plate: --gold is
+                   2.37:1 there, --mustard 1.77 and --gold-deep 1.59, all under
+                   the 3:1 a graphical mark needs. They are --paper-3 #405D49
+                   now, 5.73:1, which lands within a tenth of what the gold
+                   measured and is still a different hue from the near-black
+                   type beside it, which was the whole reason the tick was not
+                   drawn in ink in the first place.
+
+                   The values below are ui.css's --paper-3, --keyline, a mid
+                   grey, --paper, --sky-tint, --sky-deep and --paper-3 again,
+                   in that order of appearance. Before "Black / White / Gold"
+                   they were #EDE6CB, #15263A, #9FB0C0, #F7F2DE, #DCF2FB,
+                   #0E6E96 and #D9482B. -->
               <rect x="6" y="6" width="208" height="288" rx="10" fill="#E6E4DD" stroke="#111111" stroke-width="3"/>
               <rect x="14" y="14" width="192" height="272" rx="7" fill="none" stroke="#767676" stroke-width="1.5" stroke-dasharray="4 4"/>
               <rect x="24" y="26" width="172" height="58" rx="4" fill="#F4F3EF" stroke="#111111" stroke-width="2"/>
@@ -953,7 +993,7 @@
               <text x="34" y="83" font-family="monospace" font-size="8" fill="#111111">CERT 000000000</text>
               <rect x="34" y="96" width="152" height="176" rx="4" fill="#F1EFE8" stroke="#5B5B5B" stroke-width="2"/>
               <text x="110" y="190" font-family="monospace" font-size="9" fill="#5B5B5B" text-anchor="middle">the card, sealed inside</text>
-              <path d="M6 150 L14 150 M206 150 L214 150" stroke="#6E5000" stroke-width="3"/>
+              <path d="M6 150 L14 150 M206 150 L214 150" stroke="#405D49" stroke-width="3"/>
               <text x="110" y="292" font-family="monospace" font-size="8" fill="#111111" text-anchor="middle">sealed edge: opening it voids the grade</text>
             </svg>
             <figcaption>A schematic, not a photo of a real slab</figcaption>

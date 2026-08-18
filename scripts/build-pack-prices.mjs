@@ -606,18 +606,27 @@ const style = `
    every cell under it. .cc-table thead is white-space:nowrap, so this has to be
    a block or the two lines run on and the header row gets wider than the body. */
 .pp-packs{display:block;font-weight:400;text-transform:none;letter-spacing:0;
-  font-size:.62rem;color:var(--sky-lite);margin-top:2px}
+  font-size:.62rem;color:var(--chrome-dim);margin-top:2px}
 /* The winning cell in each row. A tinted cell rather than a coloured number:
    .cc-table already tints whole rows on hover and on even rows, and a third
    colour on the text would be a fourth thing competing in the same cell. */
-.pp-best{background:var(--mustard) !important;font-weight:700}
+/* THE WHOLE CELL, not just its own text: .pp-via and .pp-rips inside it set
+   their own colours, and a near-white .pp-via on the teal fill was 1.99:1. */
+.pp-best{background:var(--mustard) !important;color:var(--on-accent);font-weight:700}
+/* 0,2,0 ON PURPOSE. .pp-via and .pp-rips are declared BELOW this rule and set
+   their own colour, so a .pp-best descendant rule at 0,1,0 lost to them on
+   source order and the near-white .pp-via stayed at 1.99:1 on the teal fill.
+   NOTE: this CSS lives inside a JS template literal. A BACKTICK in a comment
+   here ends the literal and the build dies with a ReferenceError naming a word
+   out of your prose. Do not quote CSS with backticks in this file. */
+.pp-best .pp-via,.pp-best .pp-rips,.pp-best .pp-none{color:var(--on-accent)}
 .pp-via{display:block;font-family:var(--mono);font-size:.64rem;color:var(--ink);font-weight:400;margin-top:2px}
 .pp-none{color:var(--ink-soft)}
 .pp-rips{display:block;font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);font-weight:400}
 .pp-key{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;
   font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);margin-top:var(--s3)}
 .pp-key i{display:inline-block;width:14px;height:14px;background:var(--mustard);
-  border:1px solid var(--navy);vertical-align:-2px;margin-right:6px;font-style:normal}
+  border:1px solid var(--keyline);vertical-align:-2px;margin-right:6px;font-style:normal}
 
 /* The prose caps that used to be inline style="max-width:38em" attributes on
    the ledes. They are classes now for one reason: an inline style beats every
@@ -672,14 +681,17 @@ const style = `
 .bv{margin:18px 0 0}
 .bv svg{display:block;width:100%;height:auto;max-width:560px}
 .bv figcaption{font:400 var(--t-micro)/1.6 var(--body);color:var(--foot-ink);margin-top:10px;max-width:60ch}
-.bv-name{font:600 13px var(--body);fill:var(--paper);text-anchor:end}
+/* WAS fill:var(--paper). --paper was the light cream and is a dark SURFACE
+   now, so every mark on this chart was about to be drawn in a background
+   colour on a dark ground: the same bug as .hofx-t and footer .soc svg. */
+.bv-name{font:600 13px var(--body);fill:var(--chrome-ink);text-anchor:end}
 .bv-head{font:700 12px var(--mono);fill:var(--gold);letter-spacing:.04em}
 .bv-val{font:700 12px var(--mono);fill:var(--foot-ink)}
-.bv-val-in{fill:#111111}
+.bv-val-in{fill:var(--on-accent)}
 .bv-tick{font:400 11px var(--mono);fill:var(--foot-ink);text-anchor:middle;opacity:.8}
-.bv-grid{stroke:var(--paper);stroke-width:1;opacity:.16}
-.bv-zero{stroke:var(--paper);stroke-width:1.6;opacity:.75}
-.bv-box{fill:var(--paper)}
+.bv-grid{stroke:var(--chrome-ink);stroke-width:1;opacity:.16}
+.bv-zero{stroke:var(--chrome-ink);stroke-width:1.6;opacity:.75}
+.bv-box{fill:var(--chrome-ink)}
 .bv-loose{fill:var(--gold)}
 /* THE QUICK FACTS GO TWO UP RATHER THAN GETTING A NARROWER CAP. A first pass
    capped .facts-list li to 52ch, which brought the measure from 99.7
@@ -743,7 +755,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${miniCSS(style)}</style>

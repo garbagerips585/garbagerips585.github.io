@@ -124,7 +124,50 @@ const CONF_CLASS = {
   "Cheap, not conclusive": "lo",
 };
 
-/** Cross-section through a card, for the light test and the edge test. */
+/* ---------------------------------------------------------------------------
+   WHAT GROUND EACH MARK IS ACTUALLY DRAWN ON, and it is not the page.
+   Read this before repainting anything below.
+
+   ui.css paints `.fk-fig svg` with `background:var(--paper-3)`, so every figure
+   on this page sits on a SLAB OF ITS OWN, not on --page. Under the Trubbish
+   Deep palette (18 August 2026) that slab is #405D49, a mid green.
+
+   The nine figures split into two kinds and the split is the whole job:
+
+   A. FIGURES THAT PAINT THEIR OWN LIGHT PLATE. The cream #F1EDD2 in the layer
+      cross-section, the rosette's full-bleed rect, the registration disc and
+      the sealed-pack bodies is the PAPER OF A CARD, which is the thing being
+      described. Ink drawn inside one of those is drawn on cream, so the old
+      navy #22384F is still RIGHT there and measures 10.18:1 on it. The same is
+      true of the anatomy card, whose plates are its yellow border #F5C518
+      (7.38:1 against the navy), its blue art box #BFD9E8 (8.19:1) and its cream
+      text box. NONE of that navy was repainted and a blanket swap would have
+      wrecked all six figures at once.
+      The plates themselves read against the new slab: cream 6.18:1, the yellow
+      border 4.47:1, the art box 4.97:1, all clear of the 3:1 graphical gate.
+
+   B. MARKS DRAWN STRAIGHT ONTO THE SLAB. The anatomy callouts, the back-colour
+      swatch outlines and the whole texture profile had no plate under them, so
+      navy on #405D49 was 1.65:1 and they were invisible. Those are the only
+      ones repainted, and they went to the page's own inks rather than to a new
+      literal: --ink #EEF1EF is 6.41:1 on the slab and --ink-2 #C9D1CC is 4.68:1.
+      They are set from CLASSES in the <style> block at the foot of this file,
+      never from a `fill=`/`stroke=` presentation attribute, because a custom
+      property in a presentation attribute is not reliable across browsers.
+
+   THE ONE PLACE THE PLATE IS ARGUABLE is the rosette, whose cream rect is the
+   whole 140x140 figure. It stays cream: the subject is what four ink plates do
+   ON WHITE PAPER, the K plate IS the navy at line ~171, and repainting that
+   figure to the card colour would both delete the K ink and illustrate a thing
+   that does not happen. ui.css's own 2px --keyline border around every figure
+   is what stops the cream reading as a hole in the page.
+   --------------------------------------------------------------------------- */
+
+/** Cross-section through a card, for the light test and the edge test.
+ *  Kind A: the three slabs are cream card stock, so their navy outlines and the
+ *  navy core between them are drawn on cream and keep their colour. The
+ *  #F5A62B light rays ARE on the bare slab and measure 3.60:1 there, which
+ *  clears the 3:1 graphical gate, so they were left alone too. */
 function layerDiagram() {
   return `<figure class="fk-fig">
   <svg viewBox="0 0 320 150" role="img" aria-label="Cross-section of a real card showing three layers with a black core, next to a fake with one layer">
@@ -168,6 +211,9 @@ function rosetteDiagram() {
     { a: 15, c: "#00AEEF", o: 0.75 },
     { a: 75, c: "#EC008C", o: 0.75 },
     { a: 0, c: "#FFF200", o: 0.85 },
+    // The K plate. This navy is CONTENT: it is the black ink of the four, and
+    // it is legible because the rect below paints the figure cream first. See
+    // the plate note above layerDiagram() before touching either.
     { a: 45, c: "#22384F", o: 0.6 },
   ];
   const STEP = 13;
@@ -235,16 +281,25 @@ function rosetteDiagram() {
  * first time a ninth test was added to data/fakes.json.
  */
 function anatomyDiagram(nTests) {
+  // THE CALLOUTS ARE THE HALF OF THIS FIGURE WITH NO PLATE UNDER IT. The card
+  // below keeps its navy ink because it is drawn on its own yellow, blue and
+  // cream; the leader line and the numbered disc sit on the bare figure slab,
+  // where navy was 1.65:1. Both take their colour from .fk-call in this page's
+  // <style> block, so they follow the tokens: line --ink-2 at 4.68:1 on the
+  // slab, disc --ink at 6.41:1, and the numeral --on-accent at 14.33:1 on the
+  // disc (ui.css paints .fk-num var(--gold), which is 2.61:1 on a light disc).
   const call = (n, x, y, tx, ty, label) => `
-    <line x1="${x}" y1="${y}" x2="${tx}" y2="${ty}" stroke="#22384F" stroke-width="1.5" stroke-dasharray="3 3"/>
-    <circle cx="${tx}" cy="${ty}" r="10" fill="#22384F"/>
-    <text x="${tx}" y="${ty + 3.5}" text-anchor="middle" class="fk-num">${n}</text>
-    <text x="${tx}" y="${ty + 22}" text-anchor="middle" class="fk-cap">${label}</text>`;
+    <g class="fk-call">
+      <line x1="${x}" y1="${y}" x2="${tx}" y2="${ty}" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <circle cx="${tx}" cy="${ty}" r="10"/>
+      <text x="${tx}" y="${ty + 3.5}" text-anchor="middle" class="fk-num">${n}</text>
+      <text x="${tx}" y="${ty + 22}" text-anchor="middle" class="fk-cap">${label}</text>
+    </g>`;
   return `<figure class="fk-fig fk-fig-wide">
   <svg viewBox="0 0 420 300" role="img" aria-label="Diagram of a card showing where each of the ${nTests} checks is made">
     <rect x="120" y="30" width="180" height="250" rx="10" fill="#F5C518" stroke="#22384F" stroke-width="3"/>
     <rect x="132" y="42" width="156" height="120" rx="4" fill="#BFD9E8" stroke="#22384F" stroke-width="2"/>
-    <text x="210" y="106" text-anchor="middle" class="fk-cap">artwork</text>
+    <text x="210" y="106" text-anchor="middle" class="fk-cap fk-cap-in">artwork</text>
     <rect x="132" y="170" width="156" height="46" rx="3" fill="#F1EDD2" stroke="#22384F" stroke-width="1.5"/>
     <g fill="#22384F">
       <circle cx="144" cy="182" r="5"/><circle cx="157" cy="182" r="5"/>
@@ -272,9 +327,18 @@ function anatomyDiagram(nTests) {
  * beside it are the directions fakes miss in, which is what the test describes.
  */
 function backDiagram() {
+  // THE THREE BLUES ARE THE SUBJECT AND NONE OF THEM MOVED. What moved is the
+  // outline: all three swatches are darker than the figure slab (1.07:1, 1.12:1
+  // and 2.32:1 against #405D49), so the outline is the only thing separating a
+  // card from the ground, and at navy it was 1.65:1 on the slab and under 1.3:1
+  // against two of the three fills. .fk-swatch in this page's <style> block
+  // paints it var(--ink), which is 6.41:1 on the slab and 6.00 / 7.17 / 2.77
+  // against the fills. The washed-out blue is the 2.77 and it is the worst pair
+  // in this figure; the outline still clears 3:1 on its other side, which is
+  // what WCAG 1.4.11 asks of a boundary.
   const swatch = (x, fill, label, sub) => `
-    <g>
-      <rect x="${x}" y="20" width="110" height="150" rx="8" fill="${fill}" stroke="#22384F" stroke-width="3"/>
+    <g class="fk-swatch">
+      <rect x="${x}" y="20" width="110" height="150" rx="8" fill="${fill}"/>
       <circle cx="${x + 55}" cy="95" r="34" fill="none" stroke="#F1EDD2" stroke-width="5" opacity=".9"/>
       <path d="M${x + 21} 95 H${x + 89}" stroke="#F1EDD2" stroke-width="5" opacity=".9"/>
       <circle cx="${x + 55}" cy="95" r="12" fill="#F1EDD2" opacity=".9"/>
@@ -317,20 +381,28 @@ function registrationDiagram() {
 </figure>`;
 }
 
-/** Surface profile: why a textured card sounds different under a fingernail. */
+/** Surface profile: why a textured card sounds different under a fingernail.
+ *  THE ONE FIGURE HERE WITH NO PLATE AT ALL. A profile is a line, not a body,
+ *  so there is no cream anywhere in it and every mark was navy straight onto
+ *  the figure slab: 1.65:1, invisible. All of it is .fk-surf now, which is
+ *  var(--ink) at 6.41:1 on the slab. */
 function textureDiagram() {
   let ridges = "";
   for (let i = 0; i < 14; i++) {
     const x = 20 + i * 18;
-    ridges += `<path d="M${x} 60 Q${x + 9} 34 ${x + 18} 60" fill="none" stroke="#22384F" stroke-width="2.5"/>`;
+    ridges += `<path d="M${x} 60 Q${x + 9} 34 ${x + 18} 60"/>`;
   }
   return `<figure class="fk-fig">
   <svg viewBox="0 0 290 140" role="img" aria-label="Side view of a textured card surface against a flat one">
     <text x="145" y="16" text-anchor="middle" class="fk-lbl">REAL, side on</text>
-    ${ridges}
-    <line x1="20" y1="60" x2="272" y2="60" stroke="#22384F" stroke-width="2"/>
+    <g class="fk-surf">
+      ${ridges}
+      <line x1="20" y1="60" x2="272" y2="60" stroke-width="2"/>
+    </g>
     <text x="145" y="90" text-anchor="middle" class="fk-lbl">FAKE, side on</text>
-    <line x1="20" y1="112" x2="272" y2="112" stroke="#22384F" stroke-width="2.5"/>
+    <g class="fk-surf">
+      <line x1="20" y1="112" x2="272" y2="112" stroke-width="2.5"/>
+    </g>
     <text x="145" y="132" text-anchor="middle" class="fk-cap">nothing to catch a fingernail</text>
   </svg>
   <figcaption>The ridges are physically embossed, not printed, which is why you can hear them as well as feel them.</figcaption>
@@ -351,7 +423,7 @@ function sealedDiagram() {
     <line x1="24" y1="46" x2="256" y2="46" stroke="#22384F" stroke-width="2"/>
     <line x1="24" y1="124" x2="256" y2="124" stroke="#22384F" stroke-width="2"/>
     <rect x="44" y="56" width="192" height="58" rx="3" fill="#BFD9E8" stroke="#22384F" stroke-width="2"/>
-    <text x="140" y="90" text-anchor="middle" class="fk-cap">cards, barely any air</text>
+    <text x="140" y="90" text-anchor="middle" class="fk-cap fk-cap-in">cards, barely any air</text>
     <text x="140" y="158" text-anchor="middle" class="fk-cap">seal straight and flat</text>
 
     <text x="420" y="18" text-anchor="middle" class="fk-lbl">FAKE</text>
@@ -359,7 +431,7 @@ function sealedDiagram() {
     <g transform="translate(280,0)"><path d="${zig(46)}" fill="none" stroke="#22384F" stroke-width="2"/></g>
     <g transform="translate(280,0)"><path d="${zig(124)}" fill="none" stroke="#22384F" stroke-width="2"/></g>
     <rect x="336" y="66" width="150" height="40" rx="3" fill="#BFD9E8" stroke="#22384F" stroke-width="2"/>
-    <text x="420" y="90" text-anchor="middle" class="fk-cap">loose, room to move</text>
+    <text x="420" y="90" text-anchor="middle" class="fk-cap fk-cap-in">loose, room to move</text>
     <text x="420" y="158" text-anchor="middle" class="fk-cap">seal ribbed or wavy</text>
   </svg>
   <figcaption>The seal is the tell you can check without opening anything. A real booster box is wrapped in soft cellophane carrying a Poke Ball logo; hard crackly wrap means it has been off and back on.</figcaption>
@@ -444,7 +516,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>
@@ -460,24 +532,45 @@ ${STYLES}
   line-height:1.5;max-width:40em}
 .fk-fig.fk-photo figcaption b{color:var(--ink)}
 
-/* REAL AND FAKE, THE RIGHT WAY ROUND. ui.css paints .fk-real a green tint with
-   a green rule and .fk-fake a pink tint with a rule of var(--ketchup), and
-   --ketchup is #111111 since the site repainted to one accent hue. So on the
-   page about spotting counterfeits the FAKE side had lost its colour and the
-   REAL side had kept one, the two washes were 1.08:1 apart, and the warning was
-   the quieter of the pair. Overridden here rather than in ui.css because this
-   page is the only user of these classes and ui.css is render blocking on all
-   426 pages.
-   The pair now separates by WEIGHT, not by hue, which is what a mono palette
-   has to do and what a reader with no colour vision gets anyway. Real is the
-   baseline: paper, a grey rule, quiet. Fake is inverted: solid ink with a gold
-   rule and a gold label, which is the loudest thing this page can say without
-   inventing a colour. The label words still carry the meaning on their own. */
-.fk-real{background:var(--paper);border-left:6px solid var(--ink-2)}
-.fk-real .fk-vs-h{color:var(--ink-2)}
-.fk-fake{background:var(--ink);color:var(--chrome-ink);border-left:6px solid var(--gold)}
-.fk-fake .fk-vs-h{color:var(--gold)}
-.fk-fake p{color:var(--chrome-ink)}
+/* REAL AND FAKE, THE RIGHT WAY ROUND, AND THE OVERRIDE THAT DID IT IS GONE.
+   THE HISTORY MATTERS BECAUSE THE BUG COMES BACK IF THE REASON IS DELETED WITH
+   THE RULES. ui.css paints .fk-real a tint with a rule of var(--sky) and
+   .fk-fake a tint with a rule of var(--ketchup). Under the mono "Black / White
+   / Gold" palette --ketchup collapsed onto #111111, so on the page about
+   spotting counterfeits the FAKE side had lost its colour while the REAL side
+   kept one, the two washes sat 1.08:1 apart, and the warning was the quieter of
+   the pair. Five rules were written here to separate the two by WEIGHT instead
+   of by hue, because a one-accent palette has no second hue to spend.
+
+   Trubbish Deep (18 August 2026) gives the hues back: --sky-tint #203736 under
+   --sky-deep #81BEDE for real, --lilac-pale #353230 under --ketchup-deep
+   #EEA0B9 for fake. Measured on the built page: body copy is 11.12:1 on the
+   real tint and 11.19:1 on the fake one, and each label is 6.23:1 / 6.28:1 on
+   its own tint, so both sides clear AA and the pair separates by hue AND by
+   which rule is louder. The override's whole premise was the missing hue, so
+   keeping it would have painted a near-white slab (--ink is #EEF1EF now) and
+   written --chrome-ink #F7F8F7 on it at 1.06:1. It is deleted rather than
+   repainted. If a future palette collapses the two accents again, bring these
+   rules back and re-measure rather than assuming they still hold. */
+
+/* THE TWO FIGURE MARKS THAT LOST THEIR GROUND. Both classes exist because the
+   diagrams in this file are inline SVG and a custom property in a fill= or
+   stroke= presentation attribute is not reliable across browsers, so the ink
+   has to come from a rule. See the plate note above layerDiagram(): everything
+   NOT listed here is drawn on a light plate of its own and kept its navy.
+   .fk-call  the anatomy callouts. Leader --ink-2 4.68:1 on the figure slab,
+             disc --ink 6.41:1, numeral --on-accent 14.33:1 on the disc. The
+             .fk-num override is what stops ui.css's var(--gold) numeral from
+             landing on a light disc at 2.61:1.
+   .fk-surf  the texture profile, which has no plate under it at all: --ink at
+             6.41:1 on the slab, against navy's 1.65:1.
+   .fk-swatch the three card-back outlines. See backDiagram(). */
+.fk-call line{stroke:var(--ink-2)}
+.fk-call circle{fill:var(--ink)}
+.fk-call .fk-num{fill:var(--on-accent)}
+.fk-surf{fill:none;stroke:var(--ink)}
+.fk-surf path{stroke-width:2.5}
+.fk-swatch rect{stroke:var(--ink);stroke-width:3}
 
 /* DESKTOP READING MEASURE. 40em was written as if 1em were one character. It
    is not: Outfit at 11px runs about 2.31 characters per em, so that 440px box

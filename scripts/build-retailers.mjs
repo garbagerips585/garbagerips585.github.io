@@ -558,7 +558,7 @@ const STYLE = `
    this one: an empty peg is not an empty shop. Same heavy panel /buying.html
    gives its key section, so a reader who has seen that page recognises the
    weight as "read this before the list". */
-.rt-key{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:var(--chrome-ink);
+.rt-key{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
   padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
 .rt-key h2{color:var(--chrome-ink);margin-bottom:var(--s3)}
 .rt-key p{color:var(--foot-ink);line-height:1.55;max-width:44em}
@@ -568,7 +568,7 @@ const STYLE = `
 .rt-grp > p{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
 .rt-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
 @media(max-width:900px){.rt-cards{grid-template-columns:1fr}}
-.rt-c{border:3px solid var(--navy);border-radius:12px;background:var(--card);
+.rt-c{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
 .rt-ch{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);margin-bottom:var(--s2)}
 .rt-ch h3{font:400 var(--t-m)/1.15 var(--display)}
@@ -587,7 +587,7 @@ const STYLE = `
   padding:0 var(--s3);border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);
   color:inherit;text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
   text-transform:uppercase}
-.rt-more:hover{border-color:var(--ink);background:var(--mustard)}
+.rt-more:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
 /* THE JUMP NAV AND THE SIBLING LINKS BOTH CLEAR 44px. They are the two places on
    these pages where a row of small pill links would otherwise land at 30-something,
    which on a phone is the difference between tapping the shop you wanted and
@@ -596,7 +596,7 @@ const STYLE = `
 .rt-jump a{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--s3);
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
   text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
-.rt-jump a:hover{border-color:var(--ink);background:var(--mustard)}
+.rt-jump a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
 /* The table reuses .cc-scroll and .cc-table from ui.css. Only the two things
    that are this page's own are set here: the address column, which is printed
    rather than linked, and the caption. */
@@ -628,7 +628,7 @@ const STYLE = `
 .rt-gaps ul{margin:0 0 0 var(--s4);font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
 .rt-gaps li{margin-bottom:var(--s2)}
 .rt-gaps b{color:var(--ink)}
-.rt-fig{margin:var(--s4) 0 var(--s5);border:3px solid var(--navy);border-radius:12px;
+.rt-fig{margin:var(--s4) 0 var(--s5);border:3px solid var(--keyline);border-radius:12px;
   background:var(--card);box-shadow:var(--hard-lg);padding:var(--s4)}
 .rt-fig figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s4);max-width:52ch}
 /* THE FORMAT STRIP. Same bordered box as the bar chart, on purpose: a reader who
@@ -705,7 +705,7 @@ const STYLE = `
 .rt-sib a{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--s3);
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
   text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
-.rt-sib a:hover{border-color:var(--ink);background:var(--mustard)}
+.rt-sib a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
 ${BRAND_STYLE}
 /* DESKTOP. Every rule below is min-width only, so a phone and a tablet render
    exactly what they rendered before it existed. The caps are in ch and the
@@ -771,7 +771,7 @@ const head = ({ title, desc, path, extraLd = [] }) => `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${miniCSS(STYLE)}</style>

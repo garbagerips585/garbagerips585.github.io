@@ -18,12 +18,12 @@
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=7ada72e4">
-<link rel="stylesheet" href="/assets/games.css?v=9de51273">
+<link rel="stylesheet" href="/assets/ui.css?v=f309a931">
+<link rel="stylesheet" href="/assets/games.css?v=812ffdf4">
 <style>
 /* THE MODE BUTTONS HAD NO PRESSED STATE AND HAVE NEVER HAD ONE.
    ui.css styles .chip[aria-pressed=true] in three places and .btn in none, so
@@ -52,9 +52,21 @@
    says which one. A picture on this site that cannot name where its numbers came
    from is the thing check-build.py's density table is trying to get rid of, and
    adding an unsourced one to fix the count would be worse than the empty page. */
-.tq-fig{margin:var(--s4) 0 0;padding:var(--s4);background:var(--paper-2,#F7F2DE);
+.tq-fig{margin:var(--s4) 0 0;padding:var(--s4);background:var(--paper-2,#2F4F39);
   border:2px solid var(--ink);border-radius:var(--r)}
 .tq-fig svg{display:block;width:100%;height:auto;max-width:520px;margin:0 auto}
+/* THE INK OF THE TWO GENERATED DIAGRAMS INSIDE .tq-fig. They are inline SVG, so
+   a fill= attribute cannot hold a custom property reliably and the ink lives
+   here instead. The ground is .tq-fig's own background, var(--paper-2): --ink
+   measures 8.03:1 on it, which clears 4.5:1 for the labels and 3:1 for the
+   outlines. FALLBACK VALUES: the two above were #F7F2DE, a cream sampled from
+   the old palette, and a fallback is exactly where a repaint fails silently,
+   because it only shows up if the token is ever missing. Keep them in step with
+   --paper-2 whenever the palette moves. */
+.tq-d{fill:none;stroke:var(--ink)}
+.tq-df{fill:var(--ink)}
+.tq-dt{fill:var(--ink);font-family:ui-monospace,monospace;font-weight:700}
+.tq-don{stroke:var(--on-accent)}
 .tq-fig figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
   text-align:center}
 
@@ -65,7 +77,7 @@
 .tq-era{display:grid;grid-template-columns:34px 1fr auto;gap:var(--s3);align-items:center;
   padding:8px 10px;background:var(--card);border:1px solid var(--hair);border-radius:10px}
 .tq-era img{width:26px;height:26px;object-fit:contain;display:block;margin:0 auto;
-  background:var(--paper-2,#F7F2DE);border-radius:5px}
+  background:var(--paper-2,#2F4F39);border-radius:5px}
 .tq-era .tq-noimg{width:26px;height:26px;display:block;margin:0 auto;border-radius:5px;
   border:1px dashed var(--hair)}
 .tq-era b{font:700 var(--t-sm)/1.25 var(--body);color:var(--ink);display:block}
@@ -89,7 +101,7 @@
 .tq-links a{display:inline-block;padding:9px 14px;background:var(--card);border:2px solid var(--ink);
   border-radius:var(--r-pill);box-shadow:0 3px 0 var(--ink);text-decoration:none;color:var(--ink);
   font:700 var(--t-sm)/1.2 var(--body)}
-.tq-links a:hover{background:var(--mustard)}
+.tq-links a:hover{background:var(--mustard);color:var(--on-accent)}
 
 /* The one file drawn twice. The FIRST of the pair carries the filter, which is
    the same brightness(0) games.css puts on the live game, written here rather
@@ -269,58 +281,58 @@
     <figure class="tq-fig">
       <svg viewBox="0 0 468 218" role="img"
   aria-label="Bar chart of Pokemon species per generation: generation 1, 151; generation 2, 100; generation 3, 135; generation 4, 107; generation 5, 156; generation 6, 72; generation 7, 88; generation 8, 96; generation 9, 120. Generation 1 is the 151 pool.">
-  <rect x="0" y="29" width="46" height="145" rx="4" fill="#F5A62B" stroke="#1E2419" stroke-width="2"/>
+  <rect x="0" y="29" width="46" height="145" rx="4" fill="#F5A62B" stroke="#EEF1EF" stroke-width="2"/>
   <text x="23" y="23" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="13" font-weight="700" fill="#1E2419">151</text>
+    font-size="13" font-weight="700" fill="#EEF1EF">151</text>
   <text x="23" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="12" font-weight="700" fill="#1E2419">1</text>
-  <rect x="52" y="78" width="46" height="96" rx="4" fill="#616A4F" stroke="#1E2419" stroke-width="2"/>
+    font-size="12" font-weight="700" fill="#EEF1EF">1</text>
+  <rect x="52" y="78" width="46" height="96" rx="4" fill="#929E7C" stroke="#EEF1EF" stroke-width="2"/>
   <text x="75" y="72" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="13" font-weight="700" fill="#1E2419">100</text>
+    font-size="13" font-weight="700" fill="#EEF1EF">100</text>
   <text x="75" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="12" font-weight="700" fill="#1E2419">2</text>
-  <rect x="104" y="44" width="46" height="130" rx="4" fill="#616A4F" stroke="#1E2419" stroke-width="2"/>
+    font-size="12" font-weight="700" fill="#EEF1EF">2</text>
+  <rect x="104" y="44" width="46" height="130" rx="4" fill="#929E7C" stroke="#EEF1EF" stroke-width="2"/>
   <text x="127" y="38" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="13" font-weight="700" fill="#1E2419">135</text>
+    font-size="13" font-weight="700" fill="#EEF1EF">135</text>
   <text x="127" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="12" font-weight="700" fill="#1E2419">3</text>
-  <rect x="156" y="71" width="46" height="103" rx="4" fill="#616A4F" stroke="#1E2419" stroke-width="2"/>
+    font-size="12" font-weight="700" fill="#EEF1EF">3</text>
+  <rect x="156" y="71" width="46" height="103" rx="4" fill="#929E7C" stroke="#EEF1EF" stroke-width="2"/>
   <text x="179" y="65" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="13" font-weight="700" fill="#1E2419">107</text>
+    font-size="13" font-weight="700" fill="#EEF1EF">107</text>
   <text x="179" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="12" font-weight="700" fill="#1E2419">4</text>
-  <rect x="208" y="24" width="46" height="150" rx="4" fill="#616A4F" stroke="#1E2419" stroke-width="2"/>
+    font-size="12" font-weight="700" fill="#EEF1EF">4</text>
+  <rect x="208" y="24" width="46" height="150" rx="4" fill="#929E7C" stroke="#EEF1EF" stroke-width="2"/>
   <text x="231" y="18" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="13" font-weight="700" fill="#1E2419">156</text>
+    font-size="13" font-weight="700" fill="#EEF1EF">156</text>
   <text x="231" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="12" font-weight="700" fill="#1E2419">5</text>
-  <rect x="260" y="105" width="46" height="69" rx="4" fill="#616A4F" stroke="#1E2419" stroke-width="2"/>
+    font-size="12" font-weight="700" fill="#EEF1EF">5</text>
+  <rect x="260" y="105" width="46" height="69" rx="4" fill="#929E7C" stroke="#EEF1EF" stroke-width="2"/>
   <text x="283" y="99" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="13" font-weight="700" fill="#1E2419">72</text>
+    font-size="13" font-weight="700" fill="#EEF1EF">72</text>
   <text x="283" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="12" font-weight="700" fill="#1E2419">6</text>
-  <rect x="312" y="89" width="46" height="85" rx="4" fill="#616A4F" stroke="#1E2419" stroke-width="2"/>
+    font-size="12" font-weight="700" fill="#EEF1EF">6</text>
+  <rect x="312" y="89" width="46" height="85" rx="4" fill="#929E7C" stroke="#EEF1EF" stroke-width="2"/>
   <text x="335" y="83" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="13" font-weight="700" fill="#1E2419">88</text>
+    font-size="13" font-weight="700" fill="#EEF1EF">88</text>
   <text x="335" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="12" font-weight="700" fill="#1E2419">7</text>
-  <rect x="364" y="82" width="46" height="92" rx="4" fill="#616A4F" stroke="#1E2419" stroke-width="2"/>
+    font-size="12" font-weight="700" fill="#EEF1EF">7</text>
+  <rect x="364" y="82" width="46" height="92" rx="4" fill="#929E7C" stroke="#EEF1EF" stroke-width="2"/>
   <text x="387" y="76" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="13" font-weight="700" fill="#1E2419">96</text>
+    font-size="13" font-weight="700" fill="#EEF1EF">96</text>
   <text x="387" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="12" font-weight="700" fill="#1E2419">8</text>
-  <rect x="416" y="59" width="46" height="115" rx="4" fill="#616A4F" stroke="#1E2419" stroke-width="2"/>
+    font-size="12" font-weight="700" fill="#EEF1EF">8</text>
+  <rect x="416" y="59" width="46" height="115" rx="4" fill="#929E7C" stroke="#EEF1EF" stroke-width="2"/>
   <text x="439" y="53" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="13" font-weight="700" fill="#1E2419">120</text>
+    font-size="13" font-weight="700" fill="#EEF1EF">120</text>
   <text x="439" y="192" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="12" font-weight="700" fill="#1E2419">9</text>
+    font-size="12" font-weight="700" fill="#EEF1EF">9</text>
   <!-- The axis word sat at x=0 y=196, level with the tick labels, and ran
        straight through the "2" under the second bar. It gets its own line. -->
   <text x="231" y="212" text-anchor="middle"
-    font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#4A5140">generation</text>
+    font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#C9D1CC">generation</text>
 </svg>
       <figcaption>Species per generation, counted from the National Pokedex read
-        August 13, 2026 at pokeapi.co. Gold is the 151 pool.
+        August 13, 2026 at pokeapi.co. Amber is the 151 pool.
         1,025 species in total.</figcaption>
     </figure>
 

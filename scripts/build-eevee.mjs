@@ -534,7 +534,7 @@ const style = `
 .ee-gt img{width:88px;height:88px;object-fit:contain;max-width:100%}
 .ee-gt b{font:700 var(--t-sm)/1.2 var(--body)}
 .ee-gt span{font:400 var(--t-micro)/1.2 var(--mono);color:var(--ink-2)}
-.ee-gt:hover{border-color:var(--ink);background:var(--mustard)}
+.ee-gt:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
 .ee-gt:hover span{color:var(--on-accent)}
 .ee-list{display:flex;flex-direction:column;gap:var(--s4);margin-top:var(--s4)}
 .ee-t{border:2px solid var(--hair);border-radius:12px;background:var(--card);padding:var(--s4);
@@ -584,7 +584,7 @@ const style = `
 .ee-links a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
   text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
-.ee-links a:hover{border-color:var(--ink);background:var(--mustard)}
+.ee-links a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
 .ee-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:var(--s4);line-height:1.6;max-width:46em}
 /* The source list carries .ee-src on the <ul> ITSELF, so a descendant selector
    for it would never match. This is the rule that spaces its rows. */
@@ -635,7 +635,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${EVO_CSS}${style}</style>

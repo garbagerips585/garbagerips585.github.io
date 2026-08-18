@@ -538,20 +538,47 @@ shuffledCat.forEach((c, i) => {
   if (!catExample[c]) catExample[c] = shuffled[i];
 });
 const catOrder = Object.keys(catCount).sort((a, b) => catCount[b] - catCount[a]);
-/** The mix, as one bar. Widths are the counts, so the picture cannot disagree. */
-const MIX_TONES = ["#616A4F", "#F5A62B", "#22384F", "#D9482B", "#7C8A5F"];
+/** The mix, as one bar. Widths are the counts, so the picture cannot disagree.
+ *
+ * THE GROUND IS #2F4F39, NOT WHITE, SINCE 18 August 2026. This bar lives inside
+ * .tq-fig, which is painted var(--paper-2), and under Trubbish Deep that token
+ * is the card green. Four of the five tones were sampled for a cream figure and
+ * measured 1.60, 1.32, 2.14 and 2.46 against it, all under the 3:1 gate WCAG
+ * 1.4.11 sets for a chart mark; only #F5A62B survived, at 4.51. Each of the four
+ * was raised in HSL with its HUE AND SATURATION HELD, to the lowest lightness
+ * that clears 3.2, so the bar is the same five-colour idea at a legible weight
+ * rather than a new palette:
+ *     #616A4F -> #929E7C  1.60 -> 3.22   olive
+ *     #F5A62B    unchanged       4.51    amber
+ *     #22384F -> #779DC4  1.32 -> 3.22   the old navy
+ *     #D9482B -> #E47C67  2.14 -> 3.21   red
+ *     #7C8A5F -> #919F73  2.46 -> 3.22   sage
+ *
+ * AND LIFTING THEM ALL TO THE SAME GATE MAKES THEM THE SAME LUMINANCE, which is
+ * the trap in doing this by ratio: neighbouring segments came out at 1.00:1
+ * against EACH OTHER, so the bar would have read as one block with hue changes
+ * a colour-blind reader could not see at all. There is no legend to lose (the
+ * caption lists the categories in order, not by colour), so the boundaries are
+ * what carry the picture, and they are drawn rather than implied: every segment
+ * takes a 1.5 unit stroke in the figure's own background colour. Do not remove
+ * that stroke to "clean up" the bar.
+ */
+const MIX_TONES = ["#929E7C", "#F5A62B", "#779DC4", "#E47C67", "#919F73"];
+/** The .tq-fig background, repeated here because an SVG presentation attribute
+ *  cannot take a custom property reliably. Keep in step with --paper-2. */
+const FIG_BG = "#2F4F39";
 const mixBar = (() => {
   let x = 0;
   const total = shuffled.length;
   const segs = catOrder.map((c, i) => {
     const w = (catCount[c] / total) * 480;
-    const seg = `<rect x="${x.toFixed(1)}" y="0" width="${w.toFixed(1)}" height="34" fill="${MIX_TONES[i % MIX_TONES.length]}"/>`;
+    const seg = `<rect x="${x.toFixed(1)}" y="0" width="${w.toFixed(1)}" height="34" fill="${MIX_TONES[i % MIX_TONES.length]}" stroke="${FIG_BG}" stroke-width="1.5"/>`;
     x += w;
     return seg;
   });
   return `<svg viewBox="0 0 480 34" role="img" aria-label="${esc(
     catOrder.map((c) => `${CAT_LABEL[c]}, ${((catCount[c] / total) * 100).toFixed(1)} per cent`).join("; "),
-  )}"><g>${segs.join("")}</g><rect x="0" y="0" width="480" height="34" rx="4" fill="none" stroke="#1E2419" stroke-width="3"/></svg>`;
+  )}"><g>${segs.join("")}</g><rect x="0" y="0" width="480" height="34" rx="4" fill="none" stroke="#EEF1EF" stroke-width="3"/></svg>`;
 })();
 
 // ---------------------------------------------------------------------------
@@ -616,7 +643,7 @@ function shell({ slug, title, desc, h1, kicker, lede, body, extra = "", ld = [],
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 ${GAMES_CSS}
@@ -710,9 +737,21 @@ const TEACH_CSS = `
    says which one. A picture on this site that cannot name where its numbers came
    from is the thing check-build.py's density table is trying to get rid of, and
    adding an unsourced one to fix the count would be worse than the empty page. */
-.tq-fig{margin:var(--s4) 0 0;padding:var(--s4);background:var(--paper-2,#F7F2DE);
+.tq-fig{margin:var(--s4) 0 0;padding:var(--s4);background:var(--paper-2,#2F4F39);
   border:2px solid var(--ink);border-radius:var(--r)}
 .tq-fig svg{display:block;width:100%;height:auto;max-width:520px;margin:0 auto}
+/* THE INK OF THE TWO GENERATED DIAGRAMS INSIDE .tq-fig. They are inline SVG, so
+   a fill= attribute cannot hold a custom property reliably and the ink lives
+   here instead. The ground is .tq-fig's own background, var(--paper-2): --ink
+   measures 8.03:1 on it, which clears 4.5:1 for the labels and 3:1 for the
+   outlines. FALLBACK VALUES: the two above were #F7F2DE, a cream sampled from
+   the old palette, and a fallback is exactly where a repaint fails silently,
+   because it only shows up if the token is ever missing. Keep them in step with
+   --paper-2 whenever the palette moves. */
+.tq-d{fill:none;stroke:var(--ink)}
+.tq-df{fill:var(--ink)}
+.tq-dt{fill:var(--ink);font-family:ui-monospace,monospace;font-weight:700}
+.tq-don{stroke:var(--on-accent)}
 .tq-fig figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
   text-align:center}
 
@@ -723,7 +762,7 @@ const TEACH_CSS = `
 .tq-era{display:grid;grid-template-columns:34px 1fr auto;gap:var(--s3);align-items:center;
   padding:8px 10px;background:var(--card);border:1px solid var(--hair);border-radius:10px}
 .tq-era img{width:26px;height:26px;object-fit:contain;display:block;margin:0 auto;
-  background:var(--paper-2,#F7F2DE);border-radius:5px}
+  background:var(--paper-2,#2F4F39);border-radius:5px}
 .tq-era .tq-noimg{width:26px;height:26px;display:block;margin:0 auto;border-radius:5px;
   border:1px dashed var(--hair)}
 .tq-era b{font:700 var(--t-sm)/1.25 var(--body);color:var(--ink);display:block}
@@ -747,7 +786,7 @@ const TEACH_CSS = `
 .tq-links a{display:inline-block;padding:9px 14px;background:var(--card);border:2px solid var(--ink);
   border-radius:var(--r-pill);box-shadow:0 3px 0 var(--ink);text-decoration:none;color:var(--ink);
   font:700 var(--t-sm)/1.2 var(--body)}
-.tq-links a:hover{background:var(--mustard)}
+.tq-links a:hover{background:var(--mustard);color:var(--on-accent)}
 
 /* The one file drawn twice. The FIRST of the pair carries the filter, which is
    the same brightness(0) games.css puts on the live game, written here rather
@@ -979,6 +1018,17 @@ const genMax = Math.max(...gens.map((g) => g.n));
  * A viewBox and no width, so it scales to the column: the figure's CSS caps it
  * at 520px and lets it shrink to a 350px phone without a media query. Every
  * number in it is `gens`, so nothing here is typed.
+ *
+ * REPAINTED 18 August 2026 FOR THE SAME REASON THE MIX BAR WAS: .tq-fig is
+ * var(--paper-2), which is #2F4F39 now. #1E2419 was the outline AND both label
+ * inks and measured 1.74:1 on it, and the plain bars' #616A4F was 1.60. The
+ * inks go to the page's own: #EEF1EF (--ink) is 8.03:1 for the counts and the
+ * outlines, #C9D1CC (--ink-2) is 5.86:1 for the axis word, which keeps the
+ * strong/muted pair #1E2419 and #4A5140 were drawing. The plain bars take the
+ * mix bar's lifted olive #929E7C at 3.22:1. Gen 1 keeps #F5A62B at 4.51:1: it
+ * is a CHART TONE and not the retired --gold token, and it is the one colour
+ * here that already cleared the gate. Literals rather than var(), because these
+ * are SVG presentation attributes.
  */
 const BAR_W = 46;
 const BAR_GAP = 6;
@@ -993,18 +1043,18 @@ const genLadder = `<svg viewBox="0 0 ${gens.length * (BAR_W + BAR_GAP)} 218" rol
       const x = i * (BAR_W + BAR_GAP);
       const y = 24 + (LADDER_H - h);
       return `<rect x="${x}" y="${y}" width="${BAR_W}" height="${h}" rx="4" fill="${
-        g.gen === 1 ? "#F5A62B" : "#616A4F"
-      }" stroke="#1E2419" stroke-width="2"/>
+        g.gen === 1 ? "#F5A62B" : "#929E7C"
+      }" stroke="#EEF1EF" stroke-width="2"/>
   <text x="${x + BAR_W / 2}" y="${y - 6}" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="13" font-weight="700" fill="#1E2419">${g.n}</text>
+    font-size="13" font-weight="700" fill="#EEF1EF">${g.n}</text>
   <text x="${x + BAR_W / 2}" y="${24 + LADDER_H + 18}" text-anchor="middle" font-family="ui-monospace,monospace"
-    font-size="12" font-weight="700" fill="#1E2419">${g.gen}</text>`;
+    font-size="12" font-weight="700" fill="#EEF1EF">${g.gen}</text>`;
     })
     .join("\n  ")}
   <!-- The axis word sat at x=0 y=196, level with the tick labels, and ran
        straight through the "2" under the second bar. It gets its own line. -->
   <text x="${(gens.length * (BAR_W + BAR_GAP) - BAR_GAP) / 2}" y="212" text-anchor="middle"
-    font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#4A5140">generation</text>
+    font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#C9D1CC">generation</text>
 </svg>`;
 
 const whosPage = shell({
@@ -1028,7 +1078,7 @@ const whosPage = shell({
     <figure class="tq-fig">
       ${genLadder}
       <figcaption>Species per generation, counted from the National Pokedex read
-        ${esc(longDate(dex.checked) || dex.checked)} at pokeapi.co. Gold is the 151 pool.
+        ${esc(longDate(dex.checked) || dex.checked)} at pokeapi.co. Amber is the 151 pool.
         ${(dex.count || whos.length).toLocaleString("en-US")} species in total.</figcaption>
     </figure>
 
@@ -1211,29 +1261,43 @@ const setPage = shell({
            worth having only if somebody checks it against its own claim. -->
       <svg viewBox="0 0 480 232" role="img"
         aria-label="Two card outlines, both portrait. On the left, a card up to the XY era, with the collector number and the set symbol together in the bottom right corner. On the right, a card from Sun and Moon onward, with the number and symbol moved to the bottom left.">
-        <g fill="none" stroke="#1E2419" stroke-width="3">
+        <!-- THE INK IS A CLASS, NOT A fill= ATTRIBUTE, and that is deliberate:
+             this figure sits on .tq-fig, which is var(--paper-2), so its ink has
+             to move with the token rather than be re-sampled by hand the next
+             time the palette moves. It was #1E2419 throughout and that measured
+             1.74:1 on the new #2F4F39, so every mark here was invisible. The
+             classes are in TEACH_CSS below. --ink is 8.03:1 on the figure.
+             THE TWO FAINT GROUPS FLIPPED SENSE and that is the point of them:
+             they are the greeked artwork box and the greeked text lines, drawn
+             at 10% and 18%, and on a light figure that means "slightly darker
+             than the card". On a dark one it has to mean slightly LIGHTER, so
+             they are --ink at the same opacities rather than the old near-black
+             at the same opacities, which would have been no mark at all. -->
+        <g class="tq-d" stroke-width="3">
           <rect x="60" y="10" width="130" height="182" rx="8"/>
           <rect x="290" y="10" width="130" height="182" rx="8"/>
         </g>
-        <g fill="#1E2419" opacity=".1">
+        <g class="tq-df" opacity=".1">
           <rect x="70" y="20" width="110" height="96" rx="5"/>
           <rect x="300" y="20" width="110" height="96" rx="5"/>
         </g>
-        <g fill="#1E2419" opacity=".18">
+        <g class="tq-df" opacity=".18">
           <rect x="70" y="126" width="110" height="7" rx="3.5"/>
           <rect x="70" y="140" width="86" height="7" rx="3.5"/>
           <rect x="300" y="126" width="110" height="7" rx="3.5"/>
           <rect x="300" y="140" width="86" height="7" rx="3.5"/>
         </g>
+        <!-- The set-symbol disc keeps the amber, which is 4.51:1 on the figure,
+             and its ring goes to var(--on-accent) rather than to --ink: a
+             near-white ring on amber is 1.78:1 and would have vanished into the
+             disc it is meant to draw, where the dark ring is 8.05:1 on it. -->
         <g>
-          <circle cx="174" cy="174" r="8" fill="#F5A62B" stroke="#1E2419" stroke-width="2.5"/>
-          <text x="158" y="178" text-anchor="end" font-family="ui-monospace,monospace" font-size="11"
-            font-weight="700" fill="#1E2419">25/198</text>
-          <circle cx="306" cy="174" r="8" fill="#F5A62B" stroke="#1E2419" stroke-width="2.5"/>
-          <text x="322" y="178" font-family="ui-monospace,monospace" font-size="11"
-            font-weight="700" fill="#1E2419">25/198</text>
+          <circle cx="174" cy="174" r="8" fill="#F5A62B" class="tq-don" stroke-width="2.5"/>
+          <text x="158" y="178" text-anchor="end" class="tq-dt" font-size="11">25/198</text>
+          <circle cx="306" cy="174" r="8" fill="#F5A62B" class="tq-don" stroke-width="2.5"/>
+          <text x="322" y="178" class="tq-dt" font-size="11">25/198</text>
         </g>
-        <g font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#1E2419">
+        <g class="tq-dt" font-size="12">
           <text x="125" y="220" text-anchor="middle">up to XY, 2016</text>
           <text x="355" y="220" text-anchor="middle">Sun &amp; Moon on, 2017</text>
         </g>

@@ -217,7 +217,7 @@ const style = `
      builder for a job the palette now has a token for. It measures 7.11:1 on
      --gold and 10.28:1 on the --mustard the button takes on hover. */
   background:var(--gold);color:var(--on-accent);font:700 var(--t-m)/1 var(--body);cursor:pointer}
-.gr-go:hover{background:var(--mustard);border-color:var(--mustard)}
+.gr-go:hover{background:var(--mustard);border-color:var(--mustard);color:var(--on-accent)}
 .gr-how{margin-top:var(--s5);color:var(--ink-2);font-size:var(--t-sm);line-height:1.6;max-width:44em}
 .gr-how b{color:var(--ink)}
 
@@ -1779,7 +1779,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${miniCSS(style)}</style>

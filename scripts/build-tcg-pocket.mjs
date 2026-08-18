@@ -408,8 +408,13 @@ const style = `
 .tp-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
   text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
-.tp-jump a:hover{border-color:var(--ink);background:var(--mustard)}
-.tp-shout{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:var(--chrome-ink);
+.tp-jump a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
+/* THE SLAB, and --navy is no longer allowed to be one. It was frame, fill and
+   ink at once and got away with it while all three were #111111; the 18 August
+   2026 token split made it an INK, so this rule painted #EEF1EF and wrote
+   --chrome-ink #F7F8F7 on it at 1.06:1. --band-bg is where the fill job went:
+   --chrome-ink is 13.70:1 on it, --foot-ink 10.05:1. Frame is --keyline. */
+.tp-shout{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
   padding:var(--s4) var(--s5);margin:var(--s4) 0;box-shadow:var(--hard-lg);max-width:44em}
 .tp-shout p{font:400 var(--t-m)/1.3 var(--display);color:var(--chrome-ink)}
 .tp-shout span{display:block;margin-top:var(--s3);font-size:var(--t-sm);color:var(--foot-ink);line-height:1.5}
@@ -420,18 +425,36 @@ const style = `
 .tp-diff li{border-left-color:var(--ketchup)}
 .tp-steps{counter-reset:tp;list-style:none;margin:var(--s4) 0 0;padding:0;max-width:44em}
 .tp-steps li{counter-increment:tp;position:relative;padding-left:38px;margin-bottom:var(--s3);line-height:1.55}
+/* THE STEP NUMBER IS A CHIP ON THE PAGE, not a slab, so it does not follow
+   .tp-shout above. It was background:var(--band-bg) with color:var(--chrome-ink),
+   a black disc with white on it until --navy became an INK on 18 August 2026:
+   after that, near-white on near-white, 1.06:1, no number. --band-bg is right
+   for the slab and wrong here, because a 26px disc of it is 1.29:1 against
+   --page and has no body. Nothing dark separates from this page, so the chip
+   takes the accent: disc 4.20:1 on the page, numeral 5.41:1 on the disc. Same
+   answer as .hp-steps li::before on /how-to-play.html, deliberately, because
+   the two pages are read as a pair. */
 .tp-steps li::before{content:counter(tp);position:absolute;left:0;top:0;width:26px;height:26px;
-  display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--navy);
-  color:var(--chrome-ink);font:700 var(--t-micro)/1 var(--mono)}
+  display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--gold);
+  color:var(--on-accent);font:700 var(--t-micro)/1 var(--mono)}
 .tp-fig{margin:var(--s4) 0 0;max-width:44em}
 .tp-fig figcaption{margin-top:var(--s2);font-size:var(--t-micro);color:var(--ink-2);line-height:1.5}
 .tb{width:100%;height:auto;display:block;background:var(--paper-2);border-radius:8px;padding:6px 0}
 .tb-s rect{fill:var(--card);stroke:var(--ink);stroke-width:1}
 .tb-s text{font:700 4.6px var(--mono);fill:var(--ink-2);letter-spacing:.03em}
+/* THE TWO FILLED SLOTS TAKE INK MEANT FOR AN ACCENT, WHICH IS NOT --ink. Same
+   pair, same fix and same numbers as .bd-a / .bd-p in build-how-to-play.mjs,
+   which draws the same board: both labels were written when --mustard and
+   --gold were yellows and the page's ink was #111111. Both are teals now
+   (#70B5D9 and #609CBB) and --ink is #EEF1EF, so ACTIVE was 1.99:1 and Prizes
+   was a dark brown #2A2005 surviving at 5.33 by luck rather than by rule.
+   var(--on-accent) is the token for this job: 7.22:1 on --mustard, 5.41:1 on
+   --gold, and it moves with the palette. Both are ~5px type in a 300 unit box,
+   so the 4.5:1 gate is the one that applies. */
 .tb-a rect{fill:var(--mustard);stroke-width:1.6}
-.tb-a text{fill:var(--ink)}
+.tb-a text{fill:var(--on-accent)}
 .tb-p rect{fill:var(--gold);stroke-width:1.6}
-.tb-p text{fill:#2A2005}
+.tb-p text{fill:var(--on-accent)}
 .tb-d rect{stroke-dasharray:3 2}
 .tb-h{font:700 6px var(--mono);fill:var(--ink);letter-spacing:.1em}
 .tb-div{stroke:var(--ink);stroke-width:1;stroke-dasharray:4 3;opacity:.5}
@@ -450,12 +473,18 @@ const style = `
 .ff{width:100%;height:auto;display:block;background:var(--paper-2);border-radius:8px;padding:6px 0}
 .ff-n{font:700 9px var(--mono);fill:var(--ink)}
 .ff-ax{font:700 9px var(--mono);fill:var(--gold-deep);letter-spacing:.04em}
+/* The rail behind each row's marks, and it is MEANT to be almost invisible:
+   1.25:1 against the figure's own --paper-2. CHECKED RATHER THAN FIXED on
+   18 August 2026, because a 1.25 looks like exactly the kind of thing this
+   repaint was hunting. It measured 1.24:1 before the palette moved, when the
+   pair was #E6E4DD on #FFFFFF, so the relationship is unchanged and this is a
+   ground, not a mark. What carries the row is .ff-m, --ink at 8.03:1. */
 .ff-t{fill:var(--paper-3)}
 .ff-m{stroke:var(--ink);stroke-width:1.4}
 .ff-lock{font:400 8px var(--mono);fill:var(--ink-2);letter-spacing:.1em;text-transform:uppercase}
 .ff-gate{stroke:var(--gold-deep);stroke-width:2;stroke-dasharray:5 3}
 .tb-f{font-size:5.2px;fill:var(--ink)}
-.tp-out{border:3px dashed var(--navy);border-radius:12px;background:var(--card);padding:var(--s4);
+.tp-out{border:3px dashed var(--keyline);border-radius:12px;background:var(--card);padding:var(--s4);
   margin-top:var(--s6);max-width:44em}
 .tp-out h2{margin-bottom:var(--s2)}
 .tp-out > p{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
@@ -756,7 +785,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>

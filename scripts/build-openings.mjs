@@ -802,7 +802,7 @@ const STYLE = `
    caption has real work to do here: it names the set the box actually is, which
    is the condition of using one set's product to illustrate a type at all. */
 .op-shot{display:flex;gap:var(--s4);align-items:center;margin:0 0 var(--s5);
-  max-width:46em;border:3px solid var(--navy);border-radius:12px;background:var(--card);
+  max-width:46em;border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s3) var(--s4)}
 /* Product photography arrives on a white background, so the tile is white
    rather than the page cream. Same reasoning and the same 88px box as
@@ -814,7 +814,7 @@ const STYLE = `
 .op-shot figcaption b{font-weight:700;color:var(--ink)}
 .op-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);margin:var(--s5) 0}
 @media(max-width:700px){.op-facts{grid-template-columns:1fr}}
-.op-f{border:3px solid var(--navy);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
+.op-f{border:3px solid var(--keyline);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
   padding:var(--s4);text-align:center}
 .op-f .n{font:400 var(--t-xl)/1 var(--display);color:var(--ketchup)}
 .op-f .l{font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;
@@ -827,13 +827,16 @@ const STYLE = `
    turns itself off the moment the table fits.
    background-COLOR, not the shorthand, which would reset background-image and
    wipe all four layers. */
-.op-tw{overflow-x:auto;border:3px solid var(--navy);border-radius:12px;box-shadow:var(--hard-lg);
+.op-tw{overflow-x:auto;border:3px solid var(--keyline);border-radius:12px;box-shadow:var(--hard-lg);
   background-color:var(--card);margin:var(--s4) 0;
   background-image:
     linear-gradient(to right,var(--card) 40%,rgba(255,255,255,0)),
     linear-gradient(to left,var(--card) 40%,rgba(255,255,255,0)),
-    radial-gradient(farthest-side at 0 50%,rgba(17,17,17,.30),rgba(17,17,17,0)),
-    radial-gradient(farthest-side at 100% 50%,rgba(17,17,17,.30),rgba(17,17,17,0));
+    /* WAS rgba(17,17,17,.30): a near-black shadow, which is the "there is more
+       to the right" cue and which is invisible on a dark card. Same geometry,
+       opaque black, so the cue survives the repaint. */
+    radial-gradient(farthest-side at 0 50%,rgba(0,0,0,.55),rgba(0,0,0,0)),
+    radial-gradient(farthest-side at 100% 50%,rgba(0,0,0,.55),rgba(0,0,0,0));
   background-position:left center,right center,left center,right center;
   background-repeat:no-repeat;
   background-size:44px 100%,44px 100%,15px 100%,15px 100%;
@@ -843,7 +846,7 @@ const STYLE = `
   letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);border-bottom:2px solid var(--hair)}
 .op-t th,.op-t td{padding:10px var(--s3);text-align:left;border-bottom:1px solid var(--hair)}
 .op-t thead th{font:700 var(--t-label)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
-  background:var(--navy);color:var(--chrome-ink);border-bottom:none}
+  background:var(--band-bg);color:var(--chrome-ink);border-bottom:none}
 .op-t tbody th{font-weight:700}
 /* The product photo in the row header. Same 1px hairline and white plate as
    .op-shot: product photography arrives on white, so a cream tile reads as a
@@ -880,7 +883,11 @@ const STYLE = `
 .op-sn{text-align:right;font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);white-space:nowrap}
 /* Inline, not block. As a block the count set as three stacked lines, "20",
    "openings", "180 packs", which reads as three facts rather than one. */
-.op-sn b{font:400 var(--t-m)/1 var(--display);color:var(--ketchup);margin-right:.3em}
+/* --ketchup-deep, not --ketchup. --t-m is 1.15rem = 18.4px at weight 400, so
+   WCAG's large-text threshold (24px, or 18.66px bold) is NOT met and the gate
+   is 4.5. The big pink measures 3.45:1 there; the small pink is the one the
+   palette derived for exactly this gate on exactly this ground. */
+.op-sn b{font:400 var(--t-m)/1 var(--display);color:var(--ketchup-deep);margin-right:.3em}
 .op-sn span{display:block}
 /* 390px: the three columns are 116 + bar + counts and the middle one collapses
    to nothing once a set name like "Prismatic Evolutions" is in it. Drop to two,
@@ -896,7 +903,7 @@ const STYLE = `
 .op-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
 @media(max-width:900px){.op-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.op-grid{grid-template-columns:1fr}}
-.op-c{border:3px solid var(--navy);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
+.op-c{border:3px solid var(--keyline);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
   padding:var(--s4);display:block;color:inherit;text-decoration:none}
 .op-c h2,.op-c h3{font:400 var(--t-m)/1.2 var(--display);margin-bottom:var(--s2)}
 .op-c p{font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
@@ -970,7 +977,7 @@ const head = (title, desc, path, extraLd = null) => `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${miniCSS(STYLE)}</style>

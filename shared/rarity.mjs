@@ -248,7 +248,7 @@ export const RARITY_CSS = `
    a piece of site chrome. One 11px glyph, always captioned. */
 .rk-pink svg{fill:#D96BA0}
 .rk-fire svg{fill:var(--ketchup);width:10px;height:12px}
-.rk-jp{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.04em;color:var(--chrome-ink);background:var(--navy);
+.rk-jp{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.04em;color:var(--chrome-ink);background:var(--band-bg);
   border-radius:3px;padding:3px 5px}
 .chip-rk{display:inline-flex;align-items:center}
 `;

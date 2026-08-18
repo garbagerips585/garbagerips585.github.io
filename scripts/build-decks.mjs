@@ -538,7 +538,7 @@ const style = `
 .dk-jump a{display:flex;gap:6px;align-items:baseline;text-decoration:none;color:var(--ink);
   border:2px solid var(--keyline);border-radius:var(--r-pill);padding:5px var(--s3);
   font-size:var(--t-sm);background:var(--card)}
-.dk-jump a:hover,.dk-jump a:focus{background:var(--mustard)}
+.dk-jump a:hover,.dk-jump a:focus{background:var(--mustard);color:var(--on-accent)}
 .dk-jump b{color:var(--gold-deep);font-family:var(--mono)}
 .dk-jump span{font-size:var(--t-micro);color:var(--ink-2)}
 /* The anchor target sits under the sticky bar without this. Same offset the
@@ -552,7 +552,10 @@ const style = `
 .dk-title h3{margin:0;font-size:var(--t-m);line-height:1.2}
 .dk-share{margin:var(--s1) 0 0;font-size:var(--t-sm);color:var(--ink-2)}
 .dk-share b{color:var(--ink)}
-.dk-sep{color:var(--hair)}
+/* WAS var(--hair), an 18% alpha, which is 1.58:1 on the card and was 1.50:1
+   on the light palette too: this separator has never been legible. It is a
+   character in a line of running text, not a border, so it takes an ink. */
+.dk-sep{color:var(--ink-2)}
 .dk-win{white-space:nowrap}
 /* FOUR EQUAL COLUMNS, NOT A WRAPPING FLEX ROW. At a fixed 88px the four scans
    measured 376px against 354px of usable width inside the card at 390, so the
@@ -634,7 +637,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>

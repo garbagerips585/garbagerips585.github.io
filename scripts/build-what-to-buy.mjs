@@ -1240,7 +1240,7 @@ const STYLE = `
 .wtb-links a{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--s4);
   border:2px solid var(--keyline);border-radius:var(--r-pill);background:var(--paper-2);
   text-decoration:none;font-weight:700;font-size:.85rem}
-.wtb-links a:hover{background:var(--mustard)}
+.wtb-links a:hover{background:var(--mustard);color:var(--on-accent)}
 
 /* -------------------------------------------------------------- the glossary */
 .wtb-gloss{list-style:none;margin:0;padding:0;display:grid;gap:var(--s4)}
@@ -1503,7 +1503,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${miniCSS(STYLE)}</style>

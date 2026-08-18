@@ -230,8 +230,8 @@ const style = `
 
 .up-tag{flex:none;align-self:flex-start;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;
   text-transform:uppercase;padding:6px 9px;border-radius:var(--r-pill);white-space:nowrap}
-.up-tag.ok{background:var(--mustard);color:var(--ink);border:1px solid var(--gold-deep)}
-.up-tag.win{background:var(--lilac-pale);color:var(--plum);border:1px solid rgba(78,47,72,.3)}
+.up-tag.ok{background:var(--mustard);color:var(--on-accent);border:1px solid var(--gold-deep)}
+.up-tag.win{background:var(--lilac-pale);color:var(--plum);border:1px solid rgba(245,197,213,.35)}
 .up-tag.exp{background:var(--page);color:var(--ink-2);border:1px dashed var(--ink-2)}
 .up-tag.sm{padding:3px 7px;margin-left:6px;text-transform:none}
 
@@ -277,7 +277,7 @@ const style = `
   text-transform:uppercase;margin-bottom:var(--s3)}
 /* The point of the whole band. Loud on purpose: it is the one number that
    changes whether somebody should preorder. */
-.po-warn{background:var(--lilac-pale);border:1px solid rgba(78,47,72,.28);border-radius:var(--r);
+.po-warn{background:var(--lilac-pale);border:1px solid rgba(245,197,213,.35);border-radius:var(--r);
   padding:var(--s4);color:var(--plum);font-size:var(--t-sm);line-height:1.6;margin-bottom:var(--s4)}
 .po-h{font:400 var(--t-m)/1.2 var(--display);margin:var(--s4) 0 var(--s3)}
 .po-grid{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--s3)}
@@ -313,7 +313,7 @@ const style = `
    and the countdown is replaced by what is now true. No transition on any of
    this, deliberately: the whole site honours prefers-reduced-motion, and a card
    silently in a different place on load needs no animation to explain it. */
-.up-cd.out{color:var(--plum);background:var(--lilac-pale);border:1px solid rgba(78,47,72,.3);
+.up-cd.out{color:var(--plum);background:var(--lilac-pale);border:1px solid rgba(245,197,213,.35);
   border-radius:var(--r-pill);padding:2px 8px}
 .up-set.is-out,.up-extra.is-out{border-style:dashed}
 
@@ -468,7 +468,7 @@ const html = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:title" content="Upcoming Pokemon TCG Sets and Release Dates">

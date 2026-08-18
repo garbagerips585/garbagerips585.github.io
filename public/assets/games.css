@@ -77,7 +77,7 @@
   text-transform: uppercase;
 }
 .gq-stat {
-  background: var(--paper-2, #F7F2DE);
+  background: var(--paper-2, #2F4F39);
   border: 2px solid var(--ink);
   border-radius: var(--r-pill);
   padding: 8px 14px;
@@ -90,7 +90,7 @@
 }
 .gq-clock {
   background: var(--mustard);
-  color: var(--ink);
+  color: var(--on-accent);
 }
 
 /* The compact header the three game pages use. The standard hero is 319px on a
@@ -116,7 +116,7 @@
   max-height: min(34svh, 330px);
   display: grid;
   place-items: center;
-  background: var(--paper-2, #F7F2DE);
+  background: var(--paper-2, #2F4F39);
   border: 3px solid var(--ink);
   border-radius: var(--r);
   overflow: hidden;
@@ -227,7 +227,7 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: var(--paper-3, #EDE6CB);
+  background: var(--paper-3, #405D49);
   font: 700 var(--t-micro) / 1 var(--mono);
   color: var(--ink-2);
 }
@@ -237,17 +237,20 @@
   background: var(--teal);
   border-color: var(--ink);
   border-width: 4px;
-  color: #fff;
+  /* WAS #fff. The teal is a light accent now, so white on it is 2.10:1. The
+     heavier border still carries the answer without relying on hue, which is
+     what the note above is about. */
+  color: var(--on-accent);
 }
-.gq-btn.is-right .gq-num { background: rgba(255,255,255,.85); color: var(--teal); }
+.gq-btn.is-right .gq-num { background: rgba(255,255,255,.85); color: var(--on-accent); }
 .gq-btn.is-wrong {
   background: var(--ketchup-deep);
   border-color: var(--ink);
-  color: #fff;
+  color: var(--on-accent);
 }
-.gq-btn.is-wrong .gq-num { background: rgba(255,255,255,.85); color: var(--ketchup-deep); }
+.gq-btn.is-wrong .gq-num { background: rgba(255,255,255,.85); color: var(--on-accent); }
 
-.gq-again { grid-column: 1 / -1; justify-content: center; background: var(--mustard); }
+.gq-again { grid-column: 1 / -1; justify-content: center; background: var(--mustard); color: var(--on-accent); }
 
 .gq-foot { margin-top: var(--s4); text-align: center; }
 /* The skip hint. It appears under the answers on the first three results of a
@@ -319,6 +322,9 @@
   padding: 3px 10px;
   border-radius: var(--r-pill);
   background: var(--mustard);
+  /* The pill inherits the card's --ink, which is a near-white on the teal fill:
+     1.99:1. Every other filled control on the site writes --on-accent. */
+  color: var(--on-accent);
   font: 700 var(--t-micro) / 1.6 var(--mono);
   letter-spacing: .08em;
   text-transform: uppercase;

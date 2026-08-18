@@ -267,7 +267,9 @@ a.pl-set:hover,a.pl-set:focus{color:var(--ink)}
   line-height:1.5}
 .pl-nums b{color:var(--ink)}
 .pl-pctv{white-space:nowrap}
-.pl-sep{color:var(--hair)}
+/* var(--hair) is an 18% alpha: 1.58:1, and never legible on either palette.
+   This is a character in running text, not a border. Twin of .dk-sep. */
+.pl-sep{color:var(--ink-2)}
 
 .pl-more{display:grid;grid-template-columns:1fr;gap:var(--s3);margin:var(--s5) 0 0;
   list-style:none;padding:0}
@@ -314,7 +316,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>

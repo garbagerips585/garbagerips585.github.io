@@ -576,7 +576,7 @@ export const EVO_CSS = `
   border-radius:9px;background:var(--paper);color:inherit;text-decoration:none;min-height:44px;
   box-sizing:border-box}
 a.ev-node{background:var(--chip-gold-bg)}
-a.ev-node:hover{background:var(--mustard)}
+a.ev-node:hover{background:var(--mustard);color:var(--on-accent)}
 .ev-nm{font:700 var(--t-body)/1.3 var(--body)}
 .ev-no{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
 /* The step: the drawn arrow and the condition it carries. ONE symbol in a

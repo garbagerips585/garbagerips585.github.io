@@ -954,7 +954,7 @@ const STYLE = `
 .ms-seen a{display:flex;width:fit-content;align-items:center;min-height:44px;padding:0 var(--s3);
   margin-top:var(--s3);border:2px solid var(--keyline);border-radius:var(--r-pill);
   background:var(--paper);text-decoration:none;font-weight:700;font-size:.8rem}
-.ms-seen a:hover{background:var(--mustard)}
+.ms-seen a:hover{background:var(--mustard);color:var(--on-accent)}
 .ms-spread{padding:var(--s3);border-radius:6px;background:var(--paper-3)}
 /* 44px MINIMUM ON EVERY TAPPABLE THING, and on a heading link that has to come
    from the LINK rather than from the heading, or the box a finger has to hit is
@@ -1139,7 +1139,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${miniCSS(STYLE)}</style>

@@ -728,6 +728,19 @@ ${list
           // Everything past the first slide waits for the track to reach it.
           // See the long note in heroTile for why this is an index and not a
           // media query.
+          //
+          // SLIDE 0 KEEPS ITS REAL src EVEN THOUGH THE PHONE NOW HIDES A WHOLE
+          // BAND. The obvious follow-up to the max-width:544px block beside
+          // homeCss is to defer slide 0 as well, so the hidden Greatest Hits
+          // shelf cannot download pack art the phone will not paint. It was
+          // written, measured and taken back out: it saves NOTHING. The saving
+          // is already there because this slide carries loading="lazy" and a
+          // lazy image inside display:none never enters the viewport, so the
+          // load never fires. 390x844 DPR 2, gzipped, cache off, read off the
+          // request log: 389.8KB and 9 image requests either way, with
+          // multi-...-booster-pack.avif absent from both. Deferring it would
+          // have put a desktop's first slide behind JavaScript to buy zero
+          // bytes. Do not add it back without a number.
           defer: i > 0,
         })}</div>`)
         .join("\n")}
@@ -1613,8 +1626,105 @@ ${BRAND_STYLE_MIN}
 .vcar .tile-stage{max-width:none}
 .vcar .vcar-bar{justify-content:flex-start}
 .hof .vcar-slide{flex:0 0 calc((100% - var(--s4)) / 2)}
+}
+@media(max-width:544px){
+.hof .shelf{display:none}
+.vcar-slide:not(:first-child){display:none}
+.vcar-bar{display:none}
 }</style>`;
-/* The four rules inside the media query, in the order they appear:
+/* 3. ONE VIDEO PER BAND ON A PHONE, max-width:544px. LAYOUT ONLY: three
+ * display rules, no colour, no spacing, nothing that changes above 544.
+ *
+ * Tim, 18 August 2026: "only update to the home page on mobile is to only show
+ * 1 video for each section, so show the Hall of fame video, but no other
+ * greatest hits videos, then show the latest rip video but no other videos on
+ * home page for now." So Greatest Hits keeps the trophy and loses the whole
+ * shelf, and Latest rips keeps slide 0 and loses the other four.
+ *
+ * DESKTOP IS UNTOUCHED AND WAS MEASURED TO BE, not assumed, at 1440x900 DPR 1
+ * against the same tree with and without these five lines: 5 tiles in each band
+ * before and after, 381.6 -> 381.7KB on load with 6 image requests either way,
+ * 1,739.8 -> 1,739.9KB fully scrolled with 42 either way, page height 5,673px
+ * identical, and the same LCP element (a Greatest Hits slide's pack art, which
+ * is what the note above about four square pixels is describing). The 0.1KB is
+ * these rules in the gzipped document. index.html's own diff is the media query
+ * and nothing else.
+ *
+ * 544 IS THE SITE'S OWN PHONE LINE, not a new number: it is the breakpoint the
+ * Hall of Fame frame's own `sizes` already turns on ("(max-width:544px)
+ * calc(100vw - 64px)"), the width at which .hofx stops growing with the
+ * viewport and pins at 480, and the top of the range where a carousel shows one
+ * slide anyway. Between 545 and 899 the bands are unchanged, because that range
+ * is a tablet and Tim asked about a phone.
+ *
+ * THE BAR GOES WITH THE SLIDES AND IT HAS TO. `.vcar-bar` reads "1 / 5" off
+ * list.length at build time, so leaving it under a band showing one video would
+ * be a counter describing tiles that are not there, next to two arrows with
+ * nowhere to travel. packplayer.js's own .is-static would hide it a moment
+ * later anyway (syncCarousel toggles it when scrollWidth fits clientWidth, and
+ * with four slides display:none it does), but that is JavaScript arriving after
+ * first paint, and a reader with JS off would keep the counter forever.
+ *
+ * THE COUNT LINKS ARE NOT TOUCHED AND MUST NOT BE. "All 10 hits" and "All 316"
+ * count the DESTINATION pages, /videos.html?pull=1 and /videos.html, not the
+ * tiles in the band. They are the only way onward from a band showing one
+ * video, so they matter MORE here, not less, and both headings and both links
+ * stay at every width.
+ *
+ * THE LCP IS STILL THE TROPHY AND IT IS STILL NOT LAZY, which is the one thing
+ * a band cut to a single tile could quietly break. At 390x844 DPR 2 the LCP is
+ * the .hofx-art image, 326x580 at y=295, the same element and the same file as
+ * before, and it keeps its fetchpriority="high" and no `loading` attribute. The
+ * Latest band's surviving slide DOES keep loading="lazy" and should: that band
+ * now starts at y=1,131 of an 844px screen, so it is still below the fold and
+ * lazy is doing the job it was written for. Nothing above the fold is lazy.
+ *
+ * The boundary is exact, driven at four widths: 544 shows one tile per band and
+ * no pager, 545 and 768 show five and five with both pagers, 1440 the same.
+ * scrollX is 0 after scrollTo(400,0) at every one of them, one h1 throughout,
+ * and with lazy forced every image the phone lays out resolves to pixels.
+ *
+ * THIS IS A CSS CUT AND THE ALTERNATIVE WAS MEASURED BEFORE IT WAS REJECTED.
+ * The case against hiding tiles in CSS is that a phone still downloads every
+ * hidden tile's artwork, which is the opposite of what "show less on mobile" is
+ * for. That case does not hold on this page, and here is the request log that
+ * says so. 390x844 DPR 2, gzipped, cache off, filenames read off the network:
+ *
+ *                      on-load    img reqs   fully scrolled   img reqs
+ *      before          345.5KB        4          814.3KB         16
+ *      after           389.9KB        9          717.3KB         15
+ *
+ * NOT ONE HIDDEN TILE FETCHES ITS PACK ART. The Latest band's slides 1 to 4
+ * were already deferred (`defer: i > 0` in carousel()), so a phone never asked
+ * for them. The Greatest Hits shelf's slide 0 DOES carry a real src, and it is
+ * still not fetched, because heroTile puts `loading="lazy"` on it and a lazy
+ * image inside a display:none container never enters the viewport, so the load
+ * never fires. multi-...-booster-pack.avif, 97KB, is on the before log and on
+ * neither after log. A build-time cut would have removed the same 97KB and
+ * nothing else, at the price of removing the tiles from the desktop too, which
+ * is the one thing this change may not do.
+ *
+ * **THAT SAVING IS LOAD-BEARING ON `loading="lazy"` AND NOWHERE ELSE.** If a
+ * later edit makes the Greatest Hits shelf's first slide eager, or gives its
+ * <source> a live srcset, a phone starts paying 97KB for a band it does not
+ * paint and nothing on the page will look wrong. Re-read the request log after
+ * any change to heroTile's loading attribute.
+ *
+ * THE ON-LOAD NUMBER WENT UP AND IT IS NOT A REGRESSION, BUT IT IS THE HONEST
+ * NUMBER SO IT IS PRINTED FIRST. The page is 804px shorter at 390 (7,638 to
+ * 6,834; the Greatest Hits band alone goes 1,656 to 908 and Latest 741 to 685),
+ * so Most wanted arrives a screen closer to the fold and its six tcgdex card
+ * scans, 142KB the set, fall inside Chrome's lazy window at load instead of on
+ * the way down. Nothing new was added to the page and nothing that was deferred
+ * became eager: the same images arrive, six of them sooner, and one 97KB pack
+ * no longer arrives at all. The number that measures the change rather than the
+ * reflow is the fully scrolled one, 814.3 to 717.3KB, 16 image requests to 15.
+ *
+ * 360x800 DPR 2 is the same page: 345.5 -> 389.9KB on load, 7,639 -> 6,879px.
+ */
+
+/* The four rules inside the min-width:900 media query, in the order they
+ * appear:
  * - .vcar .hero drops the 520px cap ui.css gives it in this range and takes
  *   the slide, so there is no white gutter inside the card either.
  * - .vcar .tile-stage has to lose the cap WITH the art, because the player

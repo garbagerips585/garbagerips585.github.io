@@ -18,12 +18,12 @@
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=7ada72e4">
-<link rel="stylesheet" href="/assets/games.css?v=9de51273">
+<link rel="stylesheet" href="/assets/ui.css?v=f309a931">
+<link rel="stylesheet" href="/assets/games.css?v=812ffdf4">
 <style>
 /* THE MODE BUTTONS HAD NO PRESSED STATE AND HAVE NEVER HAD ONE.
    ui.css styles .chip[aria-pressed=true] in three places and .btn in none, so
@@ -52,9 +52,21 @@
    says which one. A picture on this site that cannot name where its numbers came
    from is the thing check-build.py's density table is trying to get rid of, and
    adding an unsourced one to fix the count would be worse than the empty page. */
-.tq-fig{margin:var(--s4) 0 0;padding:var(--s4);background:var(--paper-2,#F7F2DE);
+.tq-fig{margin:var(--s4) 0 0;padding:var(--s4);background:var(--paper-2,#2F4F39);
   border:2px solid var(--ink);border-radius:var(--r)}
 .tq-fig svg{display:block;width:100%;height:auto;max-width:520px;margin:0 auto}
+/* THE INK OF THE TWO GENERATED DIAGRAMS INSIDE .tq-fig. They are inline SVG, so
+   a fill= attribute cannot hold a custom property reliably and the ink lives
+   here instead. The ground is .tq-fig's own background, var(--paper-2): --ink
+   measures 8.03:1 on it, which clears 4.5:1 for the labels and 3:1 for the
+   outlines. FALLBACK VALUES: the two above were #F7F2DE, a cream sampled from
+   the old palette, and a fallback is exactly where a repaint fails silently,
+   because it only shows up if the token is ever missing. Keep them in step with
+   --paper-2 whenever the palette moves. */
+.tq-d{fill:none;stroke:var(--ink)}
+.tq-df{fill:var(--ink)}
+.tq-dt{fill:var(--ink);font-family:ui-monospace,monospace;font-weight:700}
+.tq-don{stroke:var(--on-accent)}
 .tq-fig figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
   text-align:center}
 
@@ -65,7 +77,7 @@
 .tq-era{display:grid;grid-template-columns:34px 1fr auto;gap:var(--s3);align-items:center;
   padding:8px 10px;background:var(--card);border:1px solid var(--hair);border-radius:10px}
 .tq-era img{width:26px;height:26px;object-fit:contain;display:block;margin:0 auto;
-  background:var(--paper-2,#F7F2DE);border-radius:5px}
+  background:var(--paper-2,#2F4F39);border-radius:5px}
 .tq-era .tq-noimg{width:26px;height:26px;display:block;margin:0 auto;border-radius:5px;
   border:1px dashed var(--hair)}
 .tq-era b{font:700 var(--t-sm)/1.25 var(--body);color:var(--ink);display:block}
@@ -89,7 +101,7 @@
 .tq-links a{display:inline-block;padding:9px 14px;background:var(--card);border:2px solid var(--ink);
   border-radius:var(--r-pill);box-shadow:0 3px 0 var(--ink);text-decoration:none;color:var(--ink);
   font:700 var(--t-sm)/1.2 var(--body)}
-.tq-links a:hover{background:var(--mustard)}
+.tq-links a:hover{background:var(--mustard);color:var(--on-accent)}
 
 /* The one file drawn twice. The FIRST of the pair carries the filter, which is
    the same brightness(0) games.css puts on the live game, written here rather
@@ -262,7 +274,7 @@
       is wrong only if the Pokedex is wrong, and you can go and check.</p>
 
     <figure class="tq-fig">
-      <svg viewBox="0 0 480 34" role="img" aria-label="The official category, 45.9 per cent; Evolution, backwards, 22.1 per cent; Type, 21.8 per cent; Which is heaviest, 6.9 per cent; Legendary or not, 3.2 per cent"><g><rect x="0.0" y="0" width="220.5" height="34" fill="#616A4F"/><rect x="220.5" y="0" width="106.3" height="34" fill="#F5A62B"/><rect x="326.7" y="0" width="104.6" height="34" fill="#22384F"/><rect x="431.3" y="0" width="33.3" height="34" fill="#D9482B"/><rect x="464.6" y="0" width="15.4" height="34" fill="#7C8A5F"/></g><rect x="0" y="0" width="480" height="34" rx="4" fill="none" stroke="#1E2419" stroke-width="3"/></svg>
+      <svg viewBox="0 0 480 34" role="img" aria-label="The official category, 45.9 per cent; Evolution, backwards, 22.1 per cent; Type, 21.8 per cent; Which is heaviest, 6.9 per cent; Legendary or not, 3.2 per cent"><g><rect x="0.0" y="0" width="220.5" height="34" fill="#929E7C" stroke="#2F4F39" stroke-width="1.5"/><rect x="220.5" y="0" width="106.3" height="34" fill="#F5A62B" stroke="#2F4F39" stroke-width="1.5"/><rect x="326.7" y="0" width="104.6" height="34" fill="#779DC4" stroke="#2F4F39" stroke-width="1.5"/><rect x="431.3" y="0" width="33.3" height="34" fill="#E47C67" stroke="#2F4F39" stroke-width="1.5"/><rect x="464.6" y="0" width="15.4" height="34" fill="#919F73" stroke="#2F4F39" stroke-width="1.5"/></g><rect x="0" y="0" width="480" height="34" rx="4" fill="none" stroke="#EEF1EF" stroke-width="3"/></svg>
       <figcaption>The official category 45.9% &middot; Evolution, backwards 22.1% &middot; Type 21.8% &middot; Which is heaviest 6.9% &middot; Legendary or not 3.2%<br>The mix of the 1,400 questions in the bank, and
         the mix a run gets: the game picks from it at random.</figcaption>
     </figure>

@@ -178,7 +178,7 @@ const body = `
 ${SOCIALS.map(
   ([cls, label, href]) =>
     `            <a href="${href}" rel="me"><i style="--pip:${
-      { yt: "#FF0033", ig: "#BC1888", tt: "#111", fb: "#1877F2" }[cls]
+      { yt: "#FF0033", ig: "#BC1888", tt: "#FFFFFF", fb: "#1877F2" }[cls]
     }"></i>${label}</a>`
 ).join("\n")}
           </div>

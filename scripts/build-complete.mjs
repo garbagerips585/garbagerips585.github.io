@@ -372,7 +372,11 @@ const style = `
 .cc-ch-n{font:400 6.6px/1 var(--body);fill:var(--ink-2);text-anchor:end}
 /* Pale first, solid over the top, so the two rects read as one bar with a
    darker head rather than as two bars that happen to touch. */
-.cc-ch-all{fill:var(--chip-gold-bg)}
+/* WAS --chip-gold-bg, a PALE tint chosen to sit under the solid bar on a
+   white ground. That token is a dark teal now, so the pale half was darker
+   than the ground and the bar read as one short bar. Inverted: the dim half is
+   the keyline grey-green, the solid head stays the ink. */
+.cc-ch-all{fill:var(--keyline)}
 .cc-ch-base{fill:var(--ink)}
 .cc-ch-key{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);margin-top:var(--s3);
   font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2)}
@@ -480,7 +484,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${miniCSS(style)}</style>

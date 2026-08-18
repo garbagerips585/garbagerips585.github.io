@@ -365,7 +365,7 @@ const style = `
 .xp-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);
   font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
-.xp-jump a:hover{border-color:var(--ink);background:var(--mustard)}
+.xp-jump a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
 .xp-copy{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 var(--s5);
   border:2px solid var(--ink);border-radius:var(--r-pill);background:var(--mustard);
   font:700 var(--t-body)/1 var(--body);box-shadow:var(--lift);cursor:pointer}
@@ -376,8 +376,10 @@ const style = `
    actually painted these 17 tables was the FALLBACK: rgba(21,38,58,.03), the
    old navy ink at 3%. A token swap cannot reach that, and a grep for the
    palette will not find it either, because the value is not a palette colour,
-   it is a palette colour with an alpha on it. Neutral now, same 3%. */
-.xp-era:nth-of-type(even){background:var(--card-2,rgba(17,17,17,.03))}
+   it is a palette colour with an alpha on it. Neutral now, and INVERTED for
+   the dark palette: 3% black on a dark ground is nothing at all, so the
+   alternating band is a white wash instead. Same 17 tables, same idea. */
+.xp-era:nth-of-type(even){background:var(--card-2,rgba(255,255,255,.05))}
 .xp-era h2{font:400 var(--t-xl)/1.1 var(--display);margin-bottom:var(--s2)}
 .xp-count{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);letter-spacing:.08em;
   text-transform:uppercase;vertical-align:middle;margin-left:8px}
@@ -638,7 +640,7 @@ const html = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Garbage Rips 585">
 <meta property="og:title" content="Every Pokemon TCG Set in Order">

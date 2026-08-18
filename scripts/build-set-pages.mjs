@@ -1776,7 +1776,7 @@ const PAGE_CSS = `
 .rar-pr{grid-column:1 / -1;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
   letter-spacing:.02em}
 .rar-pr b{color:var(--ketchup-deep);font-weight:700}
-.band-sky .rar-pr{color:var(--navy)}
+.band-sky .rar-pr{color:var(--ink)}
 /* The plain-English read of the value band. Same size as a lede, set apart so
    it does not read as a third paragraph of numbers. */
 .sv-say{max-width:42em;margin-top:var(--s5);border-left:4px solid var(--gold);
@@ -1784,7 +1784,7 @@ const PAGE_CSS = `
 /* Cost per pack. Sits directly under the total price it is derived from. */
 .prod-per{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
   letter-spacing:.04em;text-transform:uppercase;margin-top:3px}
-.prod-per b{display:inline-block;background:var(--mustard);color:var(--ink);
+.prod-per b{display:inline-block;background:var(--mustard);color:var(--on-accent);
   border-radius:var(--r-pill);padding:1px 7px;margin-left:4px;font-weight:700}
 
 /* DESKTOP. Every rule below is min-width only, so a phone and a tablet render
@@ -1884,7 +1884,11 @@ const PAGE_CSS = `
    --t-micro uppercase mono, roughly two thirds the size of the ladder's tier
    name, and an 11px star beside it sat proud of the cap height and made the
    rarity column look like it had a bullet in it. */
-.ig-cards li.is-chase{background:rgba(239,201,76,.18);border-radius:6px;
+/* TINTED DOWN, NOT UP. A teal wash at 18% lifted the row to #3B6156 and took
+   the small pink price on it from 4.51:1 to 3.42:1: on a dark palette a
+   highlight that LIGHTENS eats the contrast of everything inside it. The
+   palette's own dark teal tint marks the row and every ink on it improves. */
+.ig-cards li.is-chase{background:var(--sky-tint);border-radius:6px;
   padding-left:7px;padding-right:7px;margin-left:-7px;margin-right:-7px}
 .ig-rr2 .rk{margin-right:4px}
 .ig-rr2 .rk svg{width:9px;height:9px}
@@ -1976,7 +1980,7 @@ const head = ({ title, desc, canonical, image, ld, css = "" }) => `<!DOCTYPE htm
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 <link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>
 ${FONTS}
 ${STYLES}${css ? `\n<style>${miniCSS(css)}</style>` : ""}

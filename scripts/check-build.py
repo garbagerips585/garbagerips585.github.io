@@ -119,7 +119,29 @@ for _f in _srcs:
 # it quiet. It writes to assets-source/ now. Anything that genuinely is a page
 # of the site should be built by build-all, so the right way to use this set is
 # to leave it empty and move the file instead.
-_NOT_BUILT = set()
+# AND IT IS NOT EMPTY ANY MORE, 18 August 2026, for the six palette samples.
+# They are the one case the paragraph above cannot answer, because "move the
+# file" is exactly what they cannot do: scripts/gen-palette-samples.mjs writes
+# six copies of the home page so TIM CAN OPEN THEM ON HIS PHONE, and a phone
+# cannot open a file off assets-source/ on a laptop. They must sit in the
+# deploy root to be reachable at a url, which is argued in that file's header
+# and bought with four guards (noindex, no canonical, not in the sitemap,
+# nothing links to them).
+#
+# They are written by a gen- script that build-all deliberately never runs, so
+# EVERY builder edit reports all six as stale and fails this check on a tree
+# that is completely correct. That happened on the Trubbish repaint: 62 of 62
+# builders ok, one problem, and the problem was six throwaway files.
+#
+# THE ALTERNATIVE WAS WORSE. Re-running the generator to refresh their mtimes
+# would rewrite the six pages Tim is using as a reference, and touching them to
+# silence a verifier is the "edit the expectation until it passes" move this
+# repo warns about everywhere else.
+#
+# DELETE THIS SET WITH THE FILES. LAUNCH.md already schedules that, and the
+# comment above is right that the set should be empty: it is empty again the
+# moment the six previews go.
+_NOT_BUILT = set(glob.glob("public/preview-*.html"))
 _pages = [p for p in glob.glob("public/**/*.html", recursive=True) if p not in _NOT_BUILT]
 _behind = [(os.path.getmtime(_f), _f) for _f in _pages
            if os.path.getmtime(_f) < _newest_src_t - 2]

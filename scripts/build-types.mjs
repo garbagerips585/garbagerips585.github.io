@@ -118,15 +118,47 @@ try {
 // scans", NOT an official name, so the page presents these as our drawings.
 //
 // The COLOURS are ours too and carry no meaning on their own: every mark is
-// accompanied by the type's name in text, everywhere it appears.
+// accompanied by the type's name in text, everywhere it appears, and the span
+// holding it is aria-hidden. That is load bearing for what follows.
+//
+// TWO OF THE ELEVEN WERE RAISED FOR THE TRUBBISH DEEP GROUND, 18 August 2026,
+// AND NINE WERE NOT. These marks sit on var(--card), which is #2F4F39 now
+// instead of #FFFFFF, so a type colour is no longer being read against paper.
+// Measured against #2F4F39, all eleven, because eyeballing this is how the
+// wrong two get picked:
+//     lightning #E0A21F 4.07   colorless #B9B08A 4.19   dragon  #A98B2E 2.79
+//     metal     #7E8C99 2.65   fairy     #C86A9A 2.60   grass   #4C8B3F 2.21
+//     fire      #D9482B 2.14   water     #2E7FB8 2.11   fighting #B0552A 1.82
+//     psychic   #8A5BA6 1.80   darkness  #39394A 1.24
+// DARKNESS AND GRASS ARE THE TWO THAT MOVED. Darkness at 1.24 was not a dim
+// mark, it was no mark: a near-black disc on a dark green card. Grass at 2.21
+// is the one that sits in the card colour's OWN hue, a green icon a few points
+// of luminance off a green background, which reads as a smudge rather than as a
+// leaf. Both were raised in HSL with hue and saturation held, to the lowest
+// lightness clearing 3.2:
+//     grass    #4C8B3F -> #5DAB4D   2.21 -> 3.22
+//     darkness #39394A -> #9797AF   1.24 -> 3.20
+// THE OTHER SEVEN UNDER 3:1 WERE LEFT ALONE ON PURPOSE and this is the part to
+// argue with rather than to quietly "finish". WCAG 1.4.11 exempts a graphical
+// object that is not needed to understand the content, and these are exactly
+// that: decorative, aria-hidden, and never shown without the type's name in
+// text beside them. They are also the types' own recognised colours, which is
+// the only thing they carry, and lifting all eleven to one ratio flattens them
+// to one luminance and turns Fire into salmon. If a later editor wants the full
+// set raised, that is a palette decision for Tim and not a contrast fix: make
+// it once, for all eleven, and re-measure the pair in .ty-key a:hover too.
 const MARK = {
-  grass: ["#4C8B3F", `<path d="M11 1C4.6 1 1 4.4 1 8.2c0 1.2.4 2.2 1 2.9C3.4 8 5.9 5.8 8.9 4.6 6.4 6.3 4.4 8.6 3.4 11.4c.6.4 1.4.6 2.2.6C9.2 12 11 8.6 11 1Z"/>`],
+  grass: ["#5DAB4D", `<path d="M11 1C4.6 1 1 4.4 1 8.2c0 1.2.4 2.2 1 2.9C3.4 8 5.9 5.8 8.9 4.6 6.4 6.3 4.4 8.6 3.4 11.4c.6.4 1.4.6 2.2.6C9.2 12 11 8.6 11 1Z"/>`],
   fire: ["#D9482B", `<path d="M6 0C6 3.4 2.1 4.1 2.1 7.5A3.9 3.9 0 0 0 9.9 7.5C9.9 4.9 7.4 4.5 7.4 2.1 7.4 4 6 3.4 6 0Z"/>`],
   water: ["#2E7FB8", `<path d="M6 .6C6 .6 1.9 5.4 1.9 7.9a4.1 4.1 0 0 0 8.2 0C10.1 5.4 6 .6 6 .6Z"/>`],
   lightning: ["#E0A21F", `<path d="M7.6 0 2.4 6.9h2.9L4.6 12 9.9 4.8H6.6Z"/>`],
   psychic: ["#8A5BA6", `<circle cx="6" cy="6" r="2.6"/><ellipse cx="6" cy="6" rx="5.4" ry="2.2" fill="none" stroke-width="1" stroke="currentColor"/><ellipse cx="6" cy="6" rx="2.2" ry="5.4" fill="none" stroke-width="1" stroke="currentColor"/>`],
   fighting: ["#B0552A", `<path d="M2.2 6.1a1.2 1.2 0 0 1 1.2-1.2h4.3a3.1 3.1 0 0 1 3.1 3.1 3.1 3.1 0 0 1-3.1 3.1H3.4A1.2 1.2 0 0 1 2.2 9.9Z"/><path d="M3.6 4.9V3.3a1 1 0 0 1 2 0v1.6ZM6.2 4.9V2.6a1 1 0 0 1 2 0v2.3Z"/>`],
-  darkness: ["#39394A", `<circle cx="6" cy="6" r="5.4"/><ellipse cx="6" cy="6" rx="3.6" ry="2" fill="#F1EDD2"/><circle cx="6" cy="6" r="1.1" fill="#39394A"/>`],
+  // THE EYE INSIDE IT FLIPPED WITH THE BODY. It was cream, which is the hole in
+  // every mark here, and cream inside the lifted #9797AF is 2.42:1: the drawing
+  // would have gone from a dark disc with a light eye to a light disc with a
+  // slightly lighter one. Dark eye, 5.71:1, and the pupil follows the body.
+  darkness: ["#9797AF", `<circle cx="6" cy="6" r="5.4"/><ellipse cx="6" cy="6" rx="3.6" ry="2" fill="#231F20"/><circle cx="6" cy="6" r="1.1" fill="#9797AF"/>`],
   metal: ["#7E8C99", `<path d="M6 0 7.3 3.1 10.5 1.5 8.9 4.7 12 6 8.9 7.3 10.5 10.5 7.3 8.9 6 12 4.7 8.9 1.5 10.5 3.1 7.3 0 6 3.1 4.7 1.5 1.5 4.7 3.1Z"/>`],
   colorless: ["#B9B08A", `<path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/>`],
   dragon: ["#A98B2E", `<path d="M6 2c3.2 0 5.6 2.6 5.6 4S9.2 10 6 10 .4 7.4 .4 6 2.8 2 6 2Z"/><path d="M6 3.4c.7 0 1.2 1.2 1.2 2.6S6.7 8.6 6 8.6 4.8 7.4 4.8 6 5.3 3.4 6 3.4Z" fill="#F1EDD2"/>`],
@@ -391,16 +423,21 @@ const style = `
 .ty-key a{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 var(--s3);
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
   text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
-.ty-key a:hover{border-color:var(--ink);background:var(--mustard)}
+.ty-key a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
 .ty-m{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;flex:0 0 18px}
 .ty-m svg{width:15px;height:15px;display:block}
-.ty-m-grass svg{fill:#4C8B3F;color:#4C8B3F}
+/* THE SAME ELEVEN COLOURS, A SECOND TIME. They are declared here as well as in
+   MARK above because the marks are inline SVG paths and the CSS is what paints
+   them; MARK's first element is the value the two must agree on. IF YOU CHANGE
+   ONE, CHANGE BOTH: grass and darkness moved on 18 August 2026 and the reasoning
+   and all eleven measured ratios are in the block above MARK. */
+.ty-m-grass svg{fill:#5DAB4D;color:#5DAB4D}
 .ty-m-fire svg{fill:#D9482B;color:#D9482B}
 .ty-m-water svg{fill:#2E7FB8;color:#2E7FB8}
 .ty-m-lightning svg{fill:#E0A21F;color:#E0A21F}
 .ty-m-psychic svg{fill:#8A5BA6;color:#8A5BA6}
 .ty-m-fighting svg{fill:#B0552A;color:#B0552A}
-.ty-m-darkness svg{fill:#39394A;color:#39394A}
+.ty-m-darkness svg{fill:#9797AF;color:#9797AF}
 .ty-m-metal svg{fill:#7E8C99;color:#7E8C99}
 .ty-m-colorless svg{fill:#B9B08A;color:#B9B08A}
 .ty-m-dragon svg{fill:#A98B2E;color:#A98B2E}
@@ -408,25 +445,43 @@ const style = `
 .ty-key .ty-m svg{width:14px;height:14px}
 .ty-grp{margin-top:var(--s6)}
 .ty-grp > p{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
-.ty-key-blk,.ty-t,.ty-meas{border:3px solid var(--navy);border-radius:12px;background:var(--card);
+/* --navy WAS A FRAME, A PANEL FILL AND AN INK AT ONCE, and it got away with it
+   only because all three jobs resolved to #111111. The 18 August 2026 split
+   made it an INK (#EEF1EF), moved the panel fill to --band-bg and the frame to
+   --keyline, so a rule that still said var(--navy) here painted a near-white
+   slab and wrote --chrome-ink #F7F8F7 on it at 1.06:1: the whole "no type
+   chart" block, its four rules and its card caption, gone. Frame is --keyline
+   at 4.19:1 on the page; the slab is --band-bg #192D22, where --chrome-ink is
+   13.70:1 and --foot-ink 10.05:1. */
+.ty-key-blk,.ty-t,.ty-meas{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
-.ty-key-blk{background:var(--navy);color:var(--chrome-ink);padding:var(--s5);margin:var(--s5) 0}
+.ty-key-blk{background:var(--band-bg);color:var(--chrome-ink);padding:var(--s5);margin:var(--s5) 0}
 .ty-key-blk h2{color:var(--chrome-ink);margin-bottom:var(--s3)}
 .ty-key-blk p{color:var(--foot-ink);line-height:1.55;max-width:44em}
 .ty-key-blk p + p{margin-top:var(--s3)}
 .ty-corner{display:grid;grid-template-columns:1fr 160px;gap:var(--s4);align-items:start;margin-top:var(--s4)}
 @media(max-width:640px){.ty-corner{grid-template-columns:1fr}}
 .ty-corner .ty-fig figcaption b,.ty-corner .ty-fig figcaption span{color:var(--foot-ink)}
-/* The set link inside the caption is the one link on the page sitting on navy,
-   so it needs its own colour: ui.css's link colour is the site's dark ink and
-   would be invisible there. */
-.ty-corner .ty-fig figcaption a{color:#EFC94C}
+/* The set link inside the caption is the one link on the page sitting on the
+   dark slab, so it needs its own colour: ui.css's link colour is tuned for a
+   card and this is not one.
+   IT WAS #EFC94C, THE OLD MUSTARD, AND GOLD IS OUT OF THE PALETTE ENTIRELY as
+   of 18 August 2026: it survives on the Hall of Fame HIT badge and the trophy
+   frame and nowhere else. Under the accent rule a LINK is teal, and this one is
+   var(--t-micro), so it takes the small-text teal --gold-deep #81BEDE rather
+   than --gold: 7.19:1 on --band-bg, where --gold would be 4.84. Read the value,
+   never the name: every token with "gold" in it is a teal now. */
+.ty-corner .ty-fig figcaption a{color:var(--gold-deep)}
 .ty-rules{list-style:none;margin:0;padding:0}
 .ty-rules li{border-left:4px solid var(--gold);padding-left:var(--s3);margin-bottom:var(--s3);line-height:1.55}
 .ty-rules b{display:block;font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;
   text-transform:uppercase;margin-bottom:4px}
-.ty-key-blk .ty-rules b{color:#EFC94C}
-.ty-tbl-w{overflow-x:auto;margin-top:var(--s4);border:3px solid var(--navy);border-radius:12px;
+/* Same swap, same reason, and this one is an EMPHASIS rather than a link: it is
+   the label on each rule inside the dark slab, 700 var(--t-micro) mono. It goes
+   to --gold-deep too, 7.19:1 on --band-bg, because at that size the small-text
+   teal is the one that clears 4.5:1 with room. */
+.ty-key-blk .ty-rules b{color:var(--gold-deep)}
+.ty-tbl-w{overflow-x:auto;margin-top:var(--s4);border:3px solid var(--keyline);border-radius:12px;
   background:var(--card);box-shadow:var(--hard-lg)}
 /* NO min-width ON THE TABLE. It had one, and at 390px that turned the highest
    search-value block on the page into a thing you have to drag sideways. Four
@@ -537,7 +592,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>

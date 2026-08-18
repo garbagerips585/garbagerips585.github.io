@@ -233,8 +233,43 @@ const wholeCard = () => `<figure class="bs-card">
  * attributes and var() is not honoured in one: a fill written as
  * fill="var(--ink)" is not a fallback to something, it paints nothing. Same
  * trap, same fix, as the slab diagram in build-rarity.mjs. The values are
- * ui.css's --ink, --ink-2, --paper, --paper-3, --mustard, --gold-deep and a mid
- * grey, and they have to be updated here by hand if the palette moves.
+ * ui.css's --mustard, --on-accent, --paper, --paper-3, --keyline, --gold and a
+ * mid grey, and they have to be updated here by hand if the palette moves.
+ * (The CHART further down is a different case: it already had .bs-c* classes
+ * for its type, so its marks went into classes and carry no hex at all.)
+ *
+ * THE CARD PAINTS ITS OWN PLATE AND THAT IS THE WHOLE KEY TO REPAINTING IT.
+ * When the page was white, the card's body was --mustard at 1.76:1 against it
+ * and the black outline was what separated card from page. On "Trubbish Deep"
+ * the .bs-fig ground is --card #2F4F39 and the body is #70B5D9, which is
+ * 4.05:1 against it: THE FILL CARRIES THE SILHOUETTE NOW AND THE OUTLINE DOES
+ * NOT. So every mark drawn on the card is measured against #70B5D9, which is a
+ * LIGHT plate, and stayed dark; only the marks drawn on the figure ground went
+ * light. Deciding that per mark is the job. A blanket light-for-dark swap
+ * erases the entire card face.
+ *
+ * THE CARD STAYS YELLOW AND THAT IS DELIBERATE. A first pass took it teal on
+ * the reasoning that the palette has no yellow left. THE PALETTE RULE IS ABOUT
+ * THE SITE'S CHROME, NOT ABOUT WHAT A PICTURE OF A THING LOOKS LIKE. Tim's
+ * words were "just not use that color in the general pallet of the site
+ * colors", and ui.css already carves out exactly this case for .pack-mascot and
+ * the eighteen .pack skins: "the pack skins are photographs of real products:
+ * they do not take a palette." A Base Set card's yellow border is the single
+ * most recognisable thing about the object, and this whole page exists to help
+ * somebody identify one they are holding. A teal-bordered card captioned "Base
+ * Set" teaches the reader something false about the card in their hand, which
+ * costs more than a hue does.
+ * IT ALSO MEASURES BETTER. #E8B93A is 5.11:1 against the .bs-fig ground where
+ * the teal was 4.05:1, so the silhouette is stronger, and every interior mark
+ * below clears its gate on the yellow body as well as it did on the teal one:
+ * outline 7.60, drop shadow 4.64, window frame 4.33, art placeholder 5.99.
+ * The two aria-labels naming the PARTS rather than the colours are kept: that
+ * was an improvement on its own terms and is true either way.
+ *
+ * NO TEAL READS ON THE CARD BODY, so the interior marks are not teal. --gold
+ * is 1.57:1 on the yellow, --gold-deep 1.26.
+ * The interior takes --on-accent for ink and --paper / --paper-3 for panels,
+ * which is what ui.css already means by "on the accent fill".
  *
  * AND NO BACKTICK MAY APPEAR IN ANY COMMENT INSIDE THESE FUNCTIONS: the markup
  * is a JS template literal and one backtick ends the string.
@@ -255,27 +290,50 @@ function cardFace(x, y, w, { shadow = false, stamp = false, detail = true } = {}
   const ay = y + h * 0.12;
   const ah = h * 0.42;
   const sh = w * 0.045; // the drop shadow band, exaggerated. See the caption.
+  // EVERY MARK BELOW IS MEASURED AGAINST THE CARD BODY #E8B93A, NOT AGAINST
+  // THE FIGURE GROUND, because the body is painted first and everything else
+  // sits on top of it. Old ratio on #E8B93A, then new ratio on #70B5D9:
+  //   outline        #111111 10.28  ->  #231F20  7.22   --on-accent
+  //   top band .5    #111111  3.04  ->  #231F20  2.55
+  //   drop shadow    #767676  2.47  ->  #4A4A4A  3.92   see below
+  //   art window     #E6E4DD  1.44  ->  #86998C  1.34   --keyline
+  //   window frame   #6E5000  4.07  ->  #405D49  3.23   --paper-3
+  //   art placeholder on the window, #B9B7B0 1.58 -> #264231 3.65
+  //   name bar       #C9A227  1.32  ->  #609CBB  1.33   --gold
+  //   copy lines .38 #111111  2.26  ->  #231F20  1.99
+  //   footer line .45#111111  2.69  ->  #231F20  2.29
+  //   stamp disc     #111111 10.28  ->  #231F20  7.22
+  // THE ONES UNDER 3:1 ARE THE ONES THAT WERE UNDER 3:1 BEFORE, and that is
+  // deliberate rather than a shortfall left lying about: they are the texture
+  // of a card (a tonal art window, a name bar, four rules standing in for body
+  // copy), none of them carries a fact, and drawing them at full contrast
+  // would make an illustration of a card louder than the two marks the figure
+  // exists to point at. Those two DID have to clear the gate and now do: the
+  // stamp at 7.22:1 and the drop shadow at 3.92:1, which is the one mark that
+  // got BETTER, because 2.47:1 was always too quiet for the thing a whole
+  // section is about. It is still a grey, deliberately: it depicts a grey
+  // printing artifact and the aria-label calls it a gray band.
   return `
-    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${w * 0.05}" fill="#E8B93A" stroke="#111111" stroke-width="1.6"/>
-    <rect x="${x + p * 0.9}" y="${y + h * 0.045}" width="${aw * 0.62}" height="${h * 0.05}" rx="1.5" fill="#111111" opacity=".5"/>
-    ${shadow ? `<rect x="${x + p + sh}" y="${ay + sh}" width="${aw}" height="${ah}" rx="2" fill="#767676"/>` : ""}
-    <rect x="${x + p}" y="${ay}" width="${aw}" height="${ah}" rx="2" fill="#E6E4DD" stroke="#6E5000" stroke-width="1.6"/>
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${w * 0.05}" fill="#E8B93A" stroke="#231F20" stroke-width="1.6"/>
+    <rect x="${x + p * 0.9}" y="${y + h * 0.045}" width="${aw * 0.62}" height="${h * 0.05}" rx="1.5" fill="#231F20" opacity=".5"/>
+    ${shadow ? `<rect x="${x + p + sh}" y="${ay + sh}" width="${aw}" height="${ah}" rx="2" fill="#4A4A4A"/>` : ""}
+    <rect x="${x + p}" y="${ay}" width="${aw}" height="${ah}" rx="2" fill="#86998C" stroke="#405D49" stroke-width="1.6"/>
     ${
       detail
-        ? `<rect x="${x + p + aw * 0.18}" y="${ay + ah * 0.3}" width="${aw * 0.5}" height="${ah * 0.46}" rx="${aw * 0.08}" fill="#B9B7B0"/>`
+        ? `<rect x="${x + p + aw * 0.18}" y="${ay + ah * 0.3}" width="${aw * 0.5}" height="${ah * 0.46}" rx="${aw * 0.08}" fill="#264231"/>`
         : ""
     }
-    <rect x="${x + p + w * 0.09}" y="${ay + ah + h * 0.035}" width="${aw - w * 0.09}" height="${h * 0.045}" rx="1.5" fill="#C9A227" stroke="#6E5000" stroke-width="1"/>
-    <g fill="#111111" opacity=".38">
+    <rect x="${x + p + w * 0.09}" y="${ay + ah + h * 0.035}" width="${aw - w * 0.09}" height="${h * 0.045}" rx="1.5" fill="#609CBB" stroke="#405D49" stroke-width="1"/>
+    <g fill="#231F20" opacity=".38">
       <rect x="${x + p}" y="${ay + ah + h * 0.115}" width="${aw}" height="${h * 0.018}" rx="1"/>
       <rect x="${x + p}" y="${ay + ah + h * 0.155}" width="${aw * 0.88}" height="${h * 0.018}" rx="1"/>
       <rect x="${x + p}" y="${ay + ah + h * 0.24}" width="${aw}" height="${h * 0.018}" rx="1"/>
       <rect x="${x + p}" y="${ay + ah + h * 0.28}" width="${aw * 0.64}" height="${h * 0.018}" rx="1"/>
     </g>
-    <rect x="${x + p}" y="${y + h - h * 0.075}" width="${aw * 0.72}" height="${h * 0.016}" rx="1" fill="#111111" opacity=".45"/>
+    <rect x="${x + p}" y="${y + h - h * 0.075}" width="${aw * 0.72}" height="${h * 0.016}" rx="1" fill="#231F20" opacity=".45"/>
     ${
       stamp
-        ? // NO "1" DRAWN INSIDE IT, ON PURPOSE. The stamp sits in the yellow
+        ? // NO "1" DRAWN INSIDE IT, ON PURPOSE. The stamp sits in the card's
           // border strip and is about as wide as that strip is, so at this scale
           // the disc is nine units across and a glyph inside it would be six real
           // pixels on a phone: present in the markup, unreadable on the device the
@@ -284,8 +342,13 @@ function cardFace(x, y, w, { shadow = false, stamp = false, detail = true } = {}
           // real scan further down, which is the right place for it. Here it is a
           // black round mark in the border, which is exactly what you see across a
           // table.
-          `<circle cx="${x + p * 0.62}" cy="${ay + ah + h * 0.05}" r="${p * 0.62}" fill="#111111"/>
-           <circle cx="${x + p * 0.62}" cy="${ay + ah + h * 0.05}" r="${p * 0.3}" fill="none" stroke="#F4F3EF" stroke-width="1"/>`
+          // THE INNER RING IS THE ONE MARK IN THIS FUNCTION DRAWN ON A DARK
+          // GROUND, because the ground it is on is the disc itself. It was
+          // --paper #F4F3EF, which is a DARK green now (#264231) and would
+          // have vanished into the disc it sits inside. --chrome-ink #F7F8F7
+          // is the token for light-on-dark and measures 15.31:1 there.
+          `<circle cx="${x + p * 0.62}" cy="${ay + ah + h * 0.05}" r="${p * 0.62}" fill="#231F20"/>
+           <circle cx="${x + p * 0.62}" cy="${ay + ah + h * 0.05}" r="${p * 0.3}" fill="none" stroke="#F7F8F7" stroke-width="1"/>`
         : ""
     }`;
 }
@@ -329,8 +392,26 @@ function runsDiagram() {
   // words underneath are never the only thing carrying the difference. A reader
   // who cannot see the ring still has the words; a reader who skips the words
   // still has the ring. Neither is load bearing alone.
-  const ringStamp = `<circle cx="${xs[0] + W * 0.0527}" cy="${34 + H * 0.59}" r="13" fill="none" stroke="#6E5000" stroke-width="2.5"/>`;
-  const ringShadow = `<circle cx="${xs[2] + W * 0.955}" cy="${34 + H * 0.3}" r="13" fill="none" stroke="#6E5000" stroke-width="2.5"/>`;
+  // EACH RING IS DRAWN TWICE AND THAT IS NOT A FLOURISH EITHER. A ring is
+  // centred on a mark at the very EDGE of a card, so roughly two thirds of it
+  // crosses the card body and the rest crosses the figure ground, and those
+  // two grounds now sit on opposite sides of the palette: #70B5D9 and #2F4F39.
+  // NO SINGLE COLOUR CLEARS 3:1 AGAINST BOTH, and that is arithmetic rather
+  // than a failure to look hard enough. Clearing the body needs a relative
+  // luminance of at least 1.345, which is off the top of the scale, and
+  // clearing the ground from below needs a negative one. It used to be one
+  // gold stroke because the card was yellow and the page was white, so a
+  // single mid tone sat between them; nothing sits between them any more.
+  // So: a dark casing at 4.5 wide, which reads 7.22:1 where it crosses the
+  // card, and a light core at 2.5 on top of it, which reads 8.03:1 on the
+  // ground. The ring is the same 2.5 wide mark it always was with an edge
+  // around it. The words under each card still carry the difference on their
+  // own, exactly as the note above says.
+  const ring = (cx, cy) =>
+    `<circle cx="${cx}" cy="${cy}" r="13" fill="none" stroke="#231F20" stroke-width="4.5"/>
+    <circle cx="${cx}" cy="${cy}" r="13" fill="none" stroke="#EEF1EF" stroke-width="2.5"/>`;
+  const ringStamp = ring(xs[0] + W * 0.0527, 34 + H * 0.59);
+  const ringShadow = ring(xs[2] + W * 0.955, 34 + H * 0.3);
   return `<figure class="bs-fig bs-fig-wide">
   <svg viewBox="0 0 360 226" role="img" aria-label="The three Base Set print runs drawn side by side. The 1st Edition card carries a round stamp below the left of its artwork. The Shadowless card carries neither a stamp nor a shadow. The Unlimited card has a gray band down the right and bottom edges of its artwork window.">
     ${cards}
@@ -370,29 +451,69 @@ function shadowDiagram() {
             `<text x="${x + W / 2}" y="${14 + i * 13}" text-anchor="middle" class="bs-hd">${line}</text>`,
         )
         .join("")}
-      <rect x="${x}" y="30" width="${W}" height="150" rx="4" fill="#E8B93A" stroke="#111111" stroke-width="2"/>
-      <rect x="${x}" y="30" width="${artW}" height="150" fill="#B9B7B0"/>
-      <rect x="${x + artW}" y="30" width="${frameW}" height="150" fill="#C9A227" stroke="#6E5000" stroke-width="1.4"/>
+      ${/* THE ARTWORK BLOCK IS --keyline AND IT WAS --paper FIRST, WHICH IS THE
+           MISTAKE WORTH RECORDING. --paper #264231 measured 7.07:1 under the
+           label and 4.88:1 against the card body, so on paper it was the better
+           number in both places. Then the page was screenshotted: --paper is
+           1.21:1 against the figure ground #2F4F39, the block covers the LEFT
+           HALF OF THE PANEL, and the left half of both cards had simply
+           dissolved into the page. Every ratio that was checked passed, and the
+           one pairing that mattered was the one nobody had thought to check,
+           because the block is INSIDE the card and it never occurred to anyone
+           that it was also up against the ground.
+           --keyline #86998C is 3.02:1 on the figure ground, so the panel reads
+           as an object again, and 1.34:1 against the body, which is the same
+           whisper of separation the old #B9B7B0 had against the old #E8B93A at
+           1.09:1. It is also the same fill the art window in cardFace takes, so
+           the two drawings agree about what a card's artwork looks like.
+           THE LABEL NEEDED ITS OWN CLASS BECAUSE OF THAT, AND IT FIXES A BUG
+           THAT PREDATES THE REPAINT. The word "artwork" sits on this block in
+           .bs-cap, which is --ink-2: that was #5B5B5B on #B9B7B0, 3.38:1, under
+           the 4.5:1 an 11px label needs, and it had been wrong since the figure
+           was drawn. --ink-2 is light now and would be 2.38:1 here, so it takes
+           .bs-capd and --on-accent instead: 5.40:1, the first time this label
+           has passed.
+           The frame beside it is the same pair of swaps as everywhere else in
+           this file: --gold for the fill at 1.33:1, which is what the old
+           #C9A227 measured on the old body to a hundredth, and --paper-3 for
+           its outline at 3.23:1. */ ""}
+      <rect x="${x}" y="30" width="${W}" height="150" rx="4" fill="#E8B93A" stroke="#231F20" stroke-width="2"/>
+      <rect x="${x}" y="30" width="${artW}" height="150" fill="#86998C"/>
+      <rect x="${x + artW}" y="30" width="${frameW}" height="150" fill="#609CBB" stroke="#405D49" stroke-width="1.4"/>
       ${
         withShadow
           ? `<rect x="${x + artW + frameW}" y="30" width="${bandW}" height="150" fill="url(#bs-shadowfade)"/>`
           : ""
       }
-      <text x="${x + 34}" y="108" text-anchor="middle" class="bs-cap">artwork</text>
+      <text x="${x + 34}" y="108" text-anchor="middle" class="bs-capd">artwork</text>
       ${/* THE POINTER SITS IN THE SAME PLACE IN BOTH PANELS, which is the whole
            argument of the figure: one spot on the card, something in it on the
            right and nothing in it on the left. It used to be drawn at the middle
            of the band, so with no band it collapsed onto the frame's outer edge
            and the left panel appeared to be pointing at the frame rather than at
            the empty strip beside it. The label is centred on the pointer for the
-           same reason. */ ""}
-      <line x1="${x + artW + frameW + 7}" y1="186" x2="${x + artW + frameW + 7}" y2="172" stroke="#111111" stroke-width="1.6"/>
+           same reason. AND IT STRADDLES TWO GROUNDS, so it is cased exactly
+           like the two rings on the runs diagram: the card ends at y=180 and
+           the pointer runs 172 to 186, so 8 of its 14 units are on the card
+           body and 6 are on the figure ground. Dark casing 3.2 wide reading
+           7.22:1 on the body, light core 1.6 wide reading 8.03:1 on the
+           ground. One solid colour cannot do both; the proof is beside the
+           rings. */ ""}
+      <line x1="${x + artW + frameW + 7}" y1="186" x2="${x + artW + frameW + 7}" y2="172" stroke="#231F20" stroke-width="3.2"/>
+      <line x1="${x + artW + frameW + 7}" y1="186" x2="${x + artW + frameW + 7}" y2="172" stroke="#EEF1EF" stroke-width="1.6"/>
       <text x="${x + artW + frameW + 7}" y="200" text-anchor="middle" class="bs-lbl">${note}</text>
     </g>`;
   };
   return `<figure class="bs-fig bs-fig-wide">
-  <svg viewBox="0 0 360 236" role="img" aria-label="The right edge of the artwork window, magnified twice. On a 1st Edition or Shadowless card the yellow border runs straight up to the gold frame. On an Unlimited card a gray band sits outside the frame.">
+  <svg viewBox="0 0 360 236" role="img" aria-label="The right edge of the artwork window, magnified twice. On a 1st Edition or Shadowless card the border runs straight up to the inner frame. On an Unlimited card a gray band sits outside the frame.">
     <defs>
+      ${/* THE ONE COLOUR IN THIS FILE THE REPAINT DID NOT TOUCH, and it was
+           checked rather than skipped. The band depicts a grey printing
+           artifact, it is what the aria-label calls it, and it happens to land
+           in almost the same place against the new card body as against the
+           old one: 4.82:1 on #E8B93A, 3.92:1 on #70B5D9, still past the 3:1 a
+           graphical mark needs. Repainting it would have been repainting the
+           subject of the figure to match the frame around it. */ ""}
       <linearGradient id="bs-shadowfade" x1="0" x2="1" y1="0" y2="0">
         <stop offset="0" stop-color="#4A4A4A" stop-opacity=".95"/>
         <stop offset="1" stop-color="#4A4A4A" stop-opacity="0"/>
@@ -429,9 +550,20 @@ function cardMapDiagram(nTells) {
   // just paints outside itself and the figure looks fine until you read it. The
   // budget is 360 minus the bubble edge, so a right-hand label gets 71 units,
   // which is ten characters. Count before adding a word here.
+  // THE LEADERS ARE CASED, THE BUBBLES ARE NOT, AND THE DIFFERENCE IS WHERE
+  // EACH ONE IS. Both bubbles sit at x=86 and x=274 and the card runs 128 to
+  // 232, so a bubble is entirely on the figure ground: --ink fills it at
+  // 8.03:1 and .bs-num, which is already --paper-2, writes the numeral back on
+  // top at 8.03:1. That pair inverted for free and needed no new colour. The
+  // LEADERS start on the card and end off it, and call 3 is close to an even
+  // split: from x=169.6 to x=86 is 42 units on the card body and 42 on the
+  // ground. So they take the same casing as the rings on the runs diagram,
+  // dark under light, for the same reason and with the same proof: 7.22:1 on
+  // the body from the casing, 8.03:1 on the ground from the core.
   const call = (n, px, py, tx, ty, label, anchor) => `
-    <line x1="${px}" y1="${py}" x2="${tx}" y2="${ty}" stroke="#111111" stroke-width="1.4" stroke-dasharray="3 3"/>
-    <circle cx="${tx}" cy="${ty}" r="10" fill="#111111"/>
+    <line x1="${px}" y1="${py}" x2="${tx}" y2="${ty}" stroke="#231F20" stroke-width="3" stroke-dasharray="3 3"/>
+    <line x1="${px}" y1="${py}" x2="${tx}" y2="${ty}" stroke="#EEF1EF" stroke-width="1.4" stroke-dasharray="3 3"/>
+    <circle cx="${tx}" cy="${ty}" r="10" fill="#EEF1EF"/>
     <text x="${tx}" y="${ty + 4}" text-anchor="middle" class="bs-num">${n}</text>
     <text x="${anchor === "end" ? tx - 15 : tx + 15}" y="${ty + 4}" text-anchor="${anchor}" class="bs-lbl">${label}</text>`;
   return `<figure class="bs-fig bs-fig-wide">
@@ -605,8 +737,17 @@ function stampChart(pairs) {
     // and had both the 0x gridline and the dashed 1x line painted through the
     // "0" of "4/102". The geometry was right, the CSS was right, every label
     // passed its width budget, and it was only wrong to look at.
+    //
+    // IT WAS fill="#FFFFFF" AND THAT WAS THE FIGURE'S BACKGROUND SPELLED OUT
+    // BY HAND, which is exactly the kind of literal that goes wrong the moment
+    // a palette moves: on a #2F4F39 card it would have painted a white bar
+    // under every set name and the knockout would have become the loudest mark
+    // in the chart. It is .bs-cknock now and it takes --card, so it is the
+    // figure's own background by reference and cannot drift from it again. A
+    // knockout has no contrast requirement of its own: its whole job is to be
+    // indistinguishable from what it sits on.
     const nw = g.card.length * 11 * 0.6;
-    body += `<rect x="-2" y="${y - 1}" width="${(nw + 7).toFixed(1)}" height="15" fill="#FFFFFF"/>
+    body += `<rect x="-2" y="${y - 1}" width="${(nw + 7).toFixed(1)}" height="15" class="bs-cknock"/>
       <text x="0" y="${y + 11}" class="bs-cname">${esc(g.card)}</text>`;
     y += HEAD;
     for (const b of g.bars) {
@@ -615,7 +756,7 @@ function stampChart(pairs) {
       const val = `${b.m.toFixed(1)}x`;
       fitsBS(val, 10, W - (X0 + w + 5), "the value label");
       body += `<text x="${X0 - 8}" y="${y + BH - 3}" text-anchor="end" class="bs-ccond">${esc(b.cond)}</text>
-      <rect x="${X0}" y="${y}" width="${w.toFixed(1)}" height="${BH}" fill="#111111"/>
+      <rect x="${X0}" y="${y}" width="${w.toFixed(1)}" height="${BH}" class="bs-cbar"/>
       <text x="${(X0 + w + 5).toFixed(1)}" y="${y + BH - 3}" class="bs-cval">${esc(val)}</text>`;
       y += BH + BG;
     }
@@ -625,7 +766,7 @@ function stampChart(pairs) {
   const AX = y + 2;
   let ticks = "";
   for (let t = 0; t <= dom; t += 2) {
-    ticks += `<line x1="${x(t).toFixed(1)}" y1="${TOP - 4}" x2="${x(t).toFixed(1)}" y2="${AX}" stroke="#111111" stroke-opacity=".12" stroke-width="1"/>
+    ticks += `<line x1="${x(t).toFixed(1)}" y1="${TOP - 4}" x2="${x(t).toFixed(1)}" y2="${AX}" class="bs-cgrid" stroke-width="1"/>
     <text x="${x(t).toFixed(1)}" y="${AX + 14}" text-anchor="middle" class="bs-ctick">${t}x</text>`;
   }
   // THE 1x LINE IS THE ONE THAT MATTERS and it is dashed rather than coloured,
@@ -640,10 +781,10 @@ function stampChart(pairs) {
   return `<figure class="bs-fig bs-fig-wide">
   <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="A bar chart of ${rows.length} multiples: what the 1st Edition printing is worth against the Shadowless printing of the same card, ungraded and in a PSA 10, for ${byCard.length} cards. Every bar clears 1x, and they run from ${lo.toFixed(1)} times to ${max.toFixed(1)} times.">
     ${ticks}
-    <line x1="${one.toFixed(1)}" y1="${TOP - 4}" x2="${one.toFixed(1)}" y2="${AX}" stroke="#111111" stroke-width="1.4" stroke-dasharray="4 3"/>
+    <line x1="${one.toFixed(1)}" y1="${TOP - 4}" x2="${one.toFixed(1)}" y2="${AX}" class="bs-caxis" stroke-width="1.4" stroke-dasharray="4 3"/>
     <text x="${one.toFixed(1)}" y="${TOP - 10}" class="bs-cnote">${esc(lbl)}</text>
     ${body}
-    <line x1="${X0}" y1="${AX}" x2="${X1}" y2="${AX}" stroke="#111111" stroke-width="1.2"/>
+    <line x1="${X0}" y1="${AX}" x2="${X1}" y2="${AX}" class="bs-caxis" stroke-width="1.2"/>
   </svg>
   ${/* THE CAPTION USED TO ADD "and no bar is close to the next one either",
         WHICH THE CHART ITSELF DISPROVES: Blastoise ungraded is 5.8x and
@@ -829,7 +970,19 @@ const style = `
 .bs-fig-wide{max-width:620px}
 .bs-hd{font:700 12px/1 var(--mono);letter-spacing:.05em;fill:var(--ink)}
 .bs-cap{font:400 11px/1 var(--mono);fill:var(--ink-2)}
+/* .bs-cap for a label on the FIGURE GROUND, .bs-capd for one drawn on a card's
+   own plate. Same size, same face, opposite ink, because they are on opposite
+   grounds: 5.86:1 and 5.40:1 respectively. There is exactly one of the second
+   kind, the word "artwork" inside the magnified panels, and the long note in
+   shadowDiagram is why it needed splitting out. */
+.bs-capd{font:400 11px/1 var(--mono);fill:var(--on-accent)}
 .bs-lbl{font:700 11px/1 var(--mono);fill:var(--ink)}
+/* --paper-2 SURVIVED THE REPAINT BY BEING RIGHT FOR THE OPPOSITE REASON. It
+   was #FFFFFF, a white numeral on a black callout bubble; it is #2F4F39 now,
+   a dark numeral on the near-white bubble the same repaint gave the callout.
+   The pair inverted together and it measures 8.03:1 either way round. Do not
+   "fix" this to an ink token: it is the numeral INSIDE a filled disc, so it
+   has to be the disc's opposite, and --paper-2 is the token that tracks it. */
 .bs-num{font:700 11px/1 var(--mono);fill:var(--paper-2)}
 /* The stamp-multiple chart. Same 400/700 Space Mono the figures above already
    pull, so it adds no font file. 10px and 11px inside a 360 unit box render at
@@ -840,6 +993,22 @@ const style = `
 .bs-cval{font:700 10px/1 var(--mono);fill:var(--ink)}
 .bs-ctick{font:400 10px/1 var(--mono);fill:var(--ink-2)}
 .bs-cnote{font:400 10px/1 var(--mono);fill:var(--ink-2)}
+/* THE CHART'S MARKS ARE CLASSES, THE DRAWN FIGURES' MARKS ARE LITERALS, and
+   the split is not inconsistency. A fill: or stroke: declaration in a
+   stylesheet honours var() perfectly well; only a presentation ATTRIBUTE does
+   not, which is what the long note above cardFace is about. This chart's type
+   was already in classes, so its bars, rules and knockout joined them and the
+   svg now carries no colour at all. The illustrations cannot follow, because
+   their marks are per-shape and most of them are drawn on the card's own plate
+   rather than on a token surface.
+   Measured on the .bs-fig ground, --card #2F4F39: bars, the 1x line and the
+   axis 8.03:1, names and values 8.03:1, conditions and ticks 5.86:1. The
+   gridlines are 1.36:1, which is what the same rule measured at 1.30:1 on the
+   white card, and every one of them is labelled underneath. */
+.bs-cbar{fill:var(--ink)}
+.bs-cknock{fill:var(--card)}
+.bs-cgrid{stroke:var(--ink);stroke-opacity:.12}
+.bs-caxis{stroke:var(--ink)}
 
 /* The magnified crops. See zoom() in build-base-set.mjs for the geometry.
 
@@ -910,12 +1079,19 @@ const style = `
 .bs-run p{color:var(--ink-2);font-size:var(--t-sm);margin-bottom:var(--s2)}
 .bs-marks{display:flex;flex-wrap:wrap;gap:6px;margin:var(--s3) 0 0}
 /* WEIGHT, NOT HUE. The palette is one accent and two greys, so a green yes and
-   a red no would be the same colour twice. Present is solid ink with a gold
-   rule; absent is paper with a grey rule. The words carry it on their own for
-   anybody who cannot see either. */
+   a red no would be the same colour twice. Present is the dark slab with an
+   accent rule; absent is the page with a hairline. The words carry it on their
+   own for anybody who cannot see either.
+   THE YES CHIP SAID background:var(--ink) AND HAD TO STOP. --ink is #EEF1EF
+   now, so that rule painted a near-white pill and then wrote --chrome-ink
+   #F7F8F7 across it: 1.06:1, a chip with nothing legible in it, and nothing
+   errored because both halves resolved to real colours. --band-bg #192D22 is
+   the dark slab the chip was always meant to be and --chrome-ink reads
+   13.70:1 on it. The accent rule is 4.84:1 on the chip and 3.03:1 against the
+   card behind it, so the pill's own edge clears the graphical gate too. */
 .bs-mark{font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
   padding:5px 8px;border-radius:var(--r-pill);white-space:nowrap}
-.bs-mark.yes{background:var(--ink);color:var(--chrome-ink);border:1px solid var(--gold)}
+.bs-mark.yes{background:var(--band-bg);color:var(--chrome-ink);border:1px solid var(--gold)}
 .bs-mark.no{background:var(--page);color:var(--ink-2);border:1px solid var(--hair)}
 
 /* The checks. */
@@ -926,7 +1102,11 @@ const style = `
 .bs-t-head h3{font:400 var(--t-m)/1.2 var(--display)}
 .bs-conf{font:700 9px/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;padding:5px 8px;
   border-radius:var(--r-pill)}
-.bs-conf.hi{background:var(--ink);color:var(--chrome-ink);border:1px solid var(--gold)}
+/* --band-bg, not --ink, and the whole argument is beside .bs-mark.yes above:
+   an ink token used as a fill under light text is an invisible chip. 13.70:1
+   now. The mid and lo chips were already surface tokens and measure 11.12:1
+   and 8.12:1 on their own fills, so neither moved. */
+.bs-conf.hi{background:var(--band-bg);color:var(--chrome-ink);border:1px solid var(--gold)}
 .bs-conf.mid{background:var(--chip-gold-bg);color:var(--ink);border:1px solid var(--gold-deep)}
 .bs-conf.lo{background:var(--page);color:var(--ink-2);border:1px solid var(--hair)}
 .bs-where{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.04em;text-transform:uppercase;
@@ -934,7 +1114,9 @@ const style = `
 .bs-t p{margin-bottom:var(--s3)}
 .bs-why{background:var(--page);border-left:4px solid var(--ink-2);padding:10px var(--s3);
   border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:var(--t-sm)}
-.bs-caveat{background:var(--ink);color:var(--chrome-ink);border-left:4px solid var(--gold);
+/* Third instance of the same fault, same fix: --ink is an ink and --band-bg
+   is the panel. 13.70:1 for the body copy, 4.84:1 for the bolded lead-in. */
+.bs-caveat{background:var(--band-bg);color:var(--chrome-ink);border-left:4px solid var(--gold);
   padding:10px var(--s3);border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:var(--t-sm)}
 .bs-caveat b{color:var(--gold)}
 .bs-src{font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);margin:0}
@@ -1131,7 +1313,7 @@ const html = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>

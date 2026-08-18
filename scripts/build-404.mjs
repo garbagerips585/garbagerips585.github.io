@@ -69,7 +69,7 @@ const style = `
 .e404-links a{display:inline-flex;align-items:center;min-height:48px;padding:0 var(--s5);
   border:2px solid var(--ink);border-radius:var(--r-pill);background:var(--card);
   font:700 var(--t-body)/1 var(--body);box-shadow:var(--lift)}
-.e404-links a:first-child{background:var(--mustard)}
+.e404-links a:first-child{background:var(--mustard);color:var(--on-accent)}
 .e404-links a:hover{transform:translateY(-2px)}
 `;
 
@@ -85,7 +85,7 @@ const html = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>

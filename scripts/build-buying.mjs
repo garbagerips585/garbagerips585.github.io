@@ -630,7 +630,7 @@ const miniCSS = (css) =>
 const style = `
 .by-lede{max-width:46em}
 /* THE FIGURE PANEL, shared by all three charts on this page. */
-.pg{margin:var(--s4) 0 var(--s5);border:3px solid var(--navy);border-radius:12px;background:var(--card);
+.pg{margin:var(--s4) 0 var(--s5);border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
 /* Three fills on the postage chart, darkest for the worst outcome. They are
    tones of the site's own palette rather than a red/green pair: the list under
@@ -690,12 +690,12 @@ const style = `
 .by-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
   text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
-.by-jump a:hover{border-color:var(--ink);background:var(--mustard)}
+.by-jump a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
 .by-jg{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-2);margin-left:var(--s2)}
 .by-jg:first-child{margin-left:0}
 .by-v{scroll-margin-top:var(--s5)}
-.by-key{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:var(--chrome-ink);
+.by-key{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
   padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
 .by-key h2{color:var(--chrome-ink);margin-bottom:var(--s3)}
 .by-key p{color:var(--foot-ink);line-height:1.55;max-width:44em}
@@ -704,7 +704,7 @@ const style = `
 .by-grp > p{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
 .by-vs{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
 @media(max-width:900px){.by-vs{grid-template-columns:1fr}}
-.by-v,.by-p{border:3px solid var(--navy);border-radius:12px;background:var(--card);
+.by-v,.by-p{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
 /* align-items moved from baseline to centre. The mark box is 34px tall and a
    baseline row hung it off the h3's text baseline, which dropped the tile a
@@ -950,7 +950,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${miniCSS(style)}</style>

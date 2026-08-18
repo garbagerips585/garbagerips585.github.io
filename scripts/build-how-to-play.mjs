@@ -371,8 +371,8 @@ const style = `
 .hp-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
   text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
-.hp-jump a:hover{border-color:var(--ink);background:var(--mustard)}
-.hp-box{border:3px solid var(--navy);border-radius:12px;background:var(--card);
+.hp-jump a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
+.hp-box{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4);margin-top:var(--s4)}
 .hp-box h3{font:400 var(--t-m)/1.2 var(--display);margin-bottom:var(--s2)}
 .hp-box p,.hp-box li{font-size:var(--t-sm);line-height:1.55}
@@ -394,19 +394,42 @@ const style = `
 .hp-sub b{display:block}
 .hp-steps{counter-reset:hp;list-style:none;margin:var(--s4) 0 0;padding:0;max-width:44em}
 .hp-steps li{counter-increment:hp;position:relative;padding-left:38px;margin-bottom:var(--s3);line-height:1.55}
+/* THE STEP NUMBER IS A CHIP ON THE PAGE, so it is painted like the other chip
+   on this page rather than like the slabs. It was background:var(--band-bg) with
+   color:var(--chrome-ink), which was a black disc with white on it until the
+   18 August 2026 token split made --navy an INK: a near-white disc with
+   near-white on it, 1.06:1, no number visible at all. --band-bg is the token
+   the panel fill moved to and it is right for .hp-shout below, but a 26px disc
+   filled --band-bg is 1.29:1 against --page and has no body: it would read as a
+   bare numeral. Same answer as .hp-n further down, and for the same reason:
+   nothing dark separates from this page, so a chip takes the accent. Disc
+   4.20:1 on the page, numeral 5.41:1 on the disc. */
 .hp-steps li::before{content:counter(hp);position:absolute;left:0;top:0;width:26px;height:26px;
-  display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--navy);
-  color:var(--chrome-ink);font:700 var(--t-micro)/1 var(--mono)}
+  display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--gold);
+  color:var(--on-accent);font:700 var(--t-micro)/1 var(--mono)}
 .hp-call{border-left:5px solid var(--ketchup);background:var(--card);border:1px solid var(--hair);
   border-left:5px solid var(--ketchup);border-radius:8px;padding:var(--s3) var(--s4);margin-top:var(--s4);max-width:44em}
 .hp-call b{display:block;font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;
   text-transform:uppercase;color:var(--ketchup-deep);margin-bottom:4px}
 .hp-call p{font-size:var(--t-sm);line-height:1.55}
-.hp-shout{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:var(--chrome-ink);
+/* THE SLAB, and --navy is no longer allowed to be one. It was the frame, the
+   fill and the ink at once and got away with it while all three were #111111;
+   the 18 August 2026 split made it an ink only, so this rule was painting
+   #EEF1EF and writing #F7F8F7 on it at 1.06:1. --band-bg is the token the fill
+   job moved to: --chrome-ink is 13.70:1 on it and --foot-ink 10.05:1. */
+.hp-shout{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
   padding:var(--s4) var(--s5);margin:var(--s4) 0;box-shadow:var(--hard-lg);max-width:44em}
 .hp-shout p{font:400 var(--t-m)/1.3 var(--display);color:var(--chrome-ink)}
+/* The one link inside the slab. It was written inline on the anchor as
+   color:#EFC94C, the old mustard, and gold left the palette entirely on
+   18 August 2026: it survives on the Hall of Fame HIT badge and the trophy
+   frame and nowhere else. A link is TEAL under the accent rule, and this one is
+   var(--t-sm) inside a span, so it takes the small-text teal --gold-deep:
+   7.19:1 on --band-bg against --gold's 4.84. It is a rule rather than an inline
+   style now so it cannot go stale out of sight of this comment. */
+.hp-shout a{color:var(--gold-deep)}
 .hp-shout span{display:block;margin-top:var(--s2);font-size:var(--t-sm);color:var(--foot-ink);line-height:1.5}
-.hp-tbl-w{overflow-x:auto;margin-top:var(--s4);border:3px solid var(--navy);border-radius:12px;
+.hp-tbl-w{overflow-x:auto;margin-top:var(--s4);border:3px solid var(--keyline);border-radius:12px;
   background:var(--card);box-shadow:var(--hard-lg);max-width:44em}
 .hp-tbl{width:100%;border-collapse:collapse;font-size:var(--t-sm)}
 .hp-tbl th,.hp-tbl td{text-align:left;padding:10px var(--s3);border-bottom:1px solid var(--hair);vertical-align:top}
@@ -419,10 +442,19 @@ const style = `
 .bd{width:100%;height:auto;display:block;background:var(--paper-2);border-radius:8px;padding:6px 0}
 .bd-s rect{fill:var(--card);stroke:var(--ink);stroke-width:1}
 .bd-s text{font:700 5px var(--mono);fill:var(--ink-2);letter-spacing:.04em}
+/* THE TWO FILLED SLOTS TAKE INK MEANT FOR AN ACCENT, WHICH IS NOT --ink. Both
+   labels were written when --mustard and --gold were yellows and the page's ink
+   was #111111. Both tokens are teals now (#70B5D9 and #609CBB) and --ink is
+   #EEF1EF, so ACTIVE was near-white on mid teal at 1.99:1 and Prizes was a dark
+   brown #2A2005 that happened to survive at 5.33 by accident rather than by
+   rule. var(--on-accent) is the token for exactly this job: 7.22:1 on --mustard
+   and 5.41:1 on --gold, and it follows the palette if the accents move again.
+   Both are 5px type in a 300 unit box, which renders near 6px on a phone, so
+   the 4.5:1 gate is the one that applies. */
 .bd-a rect{fill:var(--mustard);stroke-width:1.6}
-.bd-a text{fill:var(--ink)}
+.bd-a text{fill:var(--on-accent)}
 .bd-p rect{fill:var(--gold);stroke-width:1.6}
-.bd-p text{fill:#2A2005}
+.bd-p text{fill:var(--on-accent)}
 .bd-d rect{stroke-dasharray:3 2}
 .bd-h{font:700 6px var(--mono);fill:var(--ink);letter-spacing:.1em}
 .bd-net{stroke:var(--ink);stroke-width:1;stroke-dasharray:4 3;opacity:.5}
@@ -448,10 +480,32 @@ const style = `
 .hp-card{position:relative;line-height:0}
 .hp-card picture{display:block}
 .hp-annot{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.hp-annot-u{fill:none;stroke:#1E2419;stroke-width:3.4;opacity:.75}
+/* THE ANNOTATIONS ARE ON A PHOTOGRAPH AND THE LIST CHIPS ARE ON THE PAGE, and
+   that is the whole of why these two blocks were repainted differently on
+   18 August 2026. Decide the pair together or the device stops working: the
+   chip on the card and the chip in the list beside it have to read as the same
+   object, which is what .hp-n's own comment further down is about.
+
+   .hp-annot-u DID NOT MOVE and that is deliberate. It is not a mark in its own
+   right, it is the dark HALO laid under the teal ring so the ring survives
+   whatever colour of card art it lands on. Its ground is a card scan, never the
+   page, so "dark olive on dark green" never applied to it, and #609CBB on it is
+   5.27:1 where the same ring on a light halo would be 2.61. It takes
+   var(--trubbish) rather than the literal only because that IS the value the
+   literal was reaching for, #231F20, the mascot outline.
+
+   THE CHIPS FLIPPED, BOTH OF THEM, BECAUSE ONE OF THEM HAD TO. .hp-n sits on
+   the page, and a dark disc there is 1.26:1: no chip at all, just a ring with a
+   number in it. Nothing dark separates from --page, so a chip with a body has
+   to be light or accent, and the annotation system on this figure is already
+   teal (the ring, and the rule down the side of every label). So both discs are
+   var(--gold) with a var(--on-accent) numeral: the disc is 4.20:1 on the page,
+   the numeral 5.41:1 on the disc, and on the photograph the same disc keeps a
+   dark ring for the same reason .hp-annot-u exists. */
+.hp-annot-u{fill:none;stroke:var(--trubbish);stroke-width:3.4;opacity:.75}
 .hp-annot-r{fill:none;stroke:var(--gold);stroke-width:1.8}
-.hp-annot-c circle{fill:#1E2419;stroke:var(--gold);stroke-width:1.6}
-.hp-annot-c text{fill:var(--gold);font:700 9.5px var(--mono);text-anchor:middle}
+.hp-annot-c circle{fill:var(--gold);stroke:var(--trubbish);stroke-width:1.6}
+.hp-annot-c text{fill:var(--on-accent);font:700 9.5px var(--mono);text-anchor:middle}
 .hp-lbl{list-style:none;margin:0;padding:0}
 .hp-lbl li{border-left:4px solid var(--gold);padding-left:var(--s3);margin-bottom:var(--s3);
   font-size:var(--t-sm);line-height:1.5}
@@ -468,11 +522,11 @@ const style = `
    Caught by screenshotting the desktop, not visible from the markup. */
 .hp-lbl li{display:flex;gap:var(--s2);align-items:flex-start}
 .hp-n{flex:0 0 auto;margin-top:1px;width:22px;height:22px;border-radius:50%;
-  background:#1E2419;border:2px solid var(--gold);color:var(--gold);
+  background:var(--gold);border:2px solid var(--trubbish);color:var(--on-accent);
   font:700 12px/18px var(--mono);text-align:center}
 .hp-wins{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s4)}
 @media(max-width:760px){.hp-wins{grid-template-columns:1fr}}
-.hp-win{border:3px solid var(--navy);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
+.hp-win{border:3px solid var(--keyline);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
   padding:var(--s4)}
 .hp-win span{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;color:var(--ink-2)}
 .hp-win h3{font:400 var(--t-m)/1.15 var(--display);margin:6px 0 var(--s2)}
@@ -481,7 +535,7 @@ const style = `
 .hp-go li{border-left:4px solid var(--gold);padding-left:var(--s3);margin-bottom:var(--s4);line-height:1.55}
 .hp-go b{display:block;font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em;
   text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
-.hp-out{border:3px dashed var(--navy);border-radius:12px;background:var(--card);padding:var(--s4);
+.hp-out{border:3px dashed var(--keyline);border-radius:12px;background:var(--card);padding:var(--s4);
   margin-top:var(--s6);max-width:44em}
 .hp-out h2{margin-bottom:var(--s2)}
 .hp-out > p{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
@@ -643,7 +697,7 @@ ${(() => {
           <p>There is no type chart in this game.</p>
           <span>Weakness, Resistance and Retreat Cost are printed on each individual card. What that card says is
             the answer for that card, and the same Pokemon in a different set can say something else.
-            <a href="/types.html" style="color:#EFC94C">All 11 types, and what their cards print</a>.</span>
+            <a href="/types.html">All 11 types, and what their cards print</a>.</span>
         </div>
         <figure class="hp-anat">
           <div>
@@ -892,7 +946,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${miniCSS(style)}</style>

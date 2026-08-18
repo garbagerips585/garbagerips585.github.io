@@ -659,7 +659,7 @@ const STYLE = `<style>
 .vg-noart{width:100%;height:100%;
   background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
 .vg-kind{position:absolute;left:0;bottom:0;font:700 9px/1 var(--mono);letter-spacing:.08em;
-  text-transform:uppercase;background:var(--keyline);color:var(--paper-2);padding:4px 5px;
+  text-transform:uppercase;background:var(--keyline);color:var(--on-accent);padding:4px 5px;
   border-top-right-radius:5px}
 
 .vg-title{font:600 var(--t-body)/1.25 var(--body);margin:0 0 4px}
@@ -687,7 +687,7 @@ const STYLE = `<style>
 .vg-no{background:var(--paper-3);color:var(--ink-2);font-weight:400}
 .vg-dex{background:var(--paper-2);font-weight:400}
 .vg-dex i{font-style:normal;color:var(--gold-deep)}
-.vg-tcg{background:var(--keyline);color:var(--paper-2)}
+.vg-tcg{background:var(--keyline);color:var(--on-accent)}
 .vg-dead{background:var(--paper-2);color:var(--ink-2);font-weight:400;border-style:dashed}
 
 /* Native details, so a row expands with no script at all and keeps working
@@ -790,7 +790,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 ${STYLE}

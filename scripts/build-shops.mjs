@@ -439,7 +439,7 @@ const style = `
 .shop-head{display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap}
 .shop h2{font:400 var(--t-m)/1.15 var(--display)}
 .shop-flag{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
-  background:var(--mustard);color:var(--ink);border:1px solid var(--gold-deep);
+  background:var(--mustard);color:var(--on-accent);border:1px solid var(--gold-deep);
   padding:4px 7px;border-radius:var(--r-pill)}
 .shop-area{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.05em;
   text-transform:uppercase}

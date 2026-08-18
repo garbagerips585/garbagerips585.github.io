@@ -18,11 +18,11 @@
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=7ada72e4">
+<link rel="stylesheet" href="/assets/ui.css?v=f309a931">
 <style>
 .bs-lede{font-size:var(--t-lede);color:var(--ink-2);max-width:42em}
 .bs-sec{padding:var(--s6) 0}
@@ -39,7 +39,19 @@
 .bs-fig-wide{max-width:620px}
 .bs-hd{font:700 12px/1 var(--mono);letter-spacing:.05em;fill:var(--ink)}
 .bs-cap{font:400 11px/1 var(--mono);fill:var(--ink-2)}
+/* .bs-cap for a label on the FIGURE GROUND, .bs-capd for one drawn on a card's
+   own plate. Same size, same face, opposite ink, because they are on opposite
+   grounds: 5.86:1 and 5.40:1 respectively. There is exactly one of the second
+   kind, the word "artwork" inside the magnified panels, and the long note in
+   shadowDiagram is why it needed splitting out. */
+.bs-capd{font:400 11px/1 var(--mono);fill:var(--on-accent)}
 .bs-lbl{font:700 11px/1 var(--mono);fill:var(--ink)}
+/* --paper-2 SURVIVED THE REPAINT BY BEING RIGHT FOR THE OPPOSITE REASON. It
+   was #FFFFFF, a white numeral on a black callout bubble; it is #2F4F39 now,
+   a dark numeral on the near-white bubble the same repaint gave the callout.
+   The pair inverted together and it measures 8.03:1 either way round. Do not
+   "fix" this to an ink token: it is the numeral INSIDE a filled disc, so it
+   has to be the disc's opposite, and --paper-2 is the token that tracks it. */
 .bs-num{font:700 11px/1 var(--mono);fill:var(--paper-2)}
 /* The stamp-multiple chart. Same 400/700 Space Mono the figures above already
    pull, so it adds no font file. 10px and 11px inside a 360 unit box render at
@@ -50,6 +62,22 @@
 .bs-cval{font:700 10px/1 var(--mono);fill:var(--ink)}
 .bs-ctick{font:400 10px/1 var(--mono);fill:var(--ink-2)}
 .bs-cnote{font:400 10px/1 var(--mono);fill:var(--ink-2)}
+/* THE CHART'S MARKS ARE CLASSES, THE DRAWN FIGURES' MARKS ARE LITERALS, and
+   the split is not inconsistency. A fill: or stroke: declaration in a
+   stylesheet honours var() perfectly well; only a presentation ATTRIBUTE does
+   not, which is what the long note above cardFace is about. This chart's type
+   was already in classes, so its bars, rules and knockout joined them and the
+   svg now carries no colour at all. The illustrations cannot follow, because
+   their marks are per-shape and most of them are drawn on the card's own plate
+   rather than on a token surface.
+   Measured on the .bs-fig ground, --card #2F4F39: bars, the 1x line and the
+   axis 8.03:1, names and values 8.03:1, conditions and ticks 5.86:1. The
+   gridlines are 1.36:1, which is what the same rule measured at 1.30:1 on the
+   white card, and every one of them is labelled underneath. */
+.bs-cbar{fill:var(--ink)}
+.bs-cknock{fill:var(--card)}
+.bs-cgrid{stroke:var(--ink);stroke-opacity:.12}
+.bs-caxis{stroke:var(--ink)}
 
 /* The magnified crops. See zoom() in build-base-set.mjs for the geometry.
 
@@ -120,12 +148,19 @@
 .bs-run p{color:var(--ink-2);font-size:var(--t-sm);margin-bottom:var(--s2)}
 .bs-marks{display:flex;flex-wrap:wrap;gap:6px;margin:var(--s3) 0 0}
 /* WEIGHT, NOT HUE. The palette is one accent and two greys, so a green yes and
-   a red no would be the same colour twice. Present is solid ink with a gold
-   rule; absent is paper with a grey rule. The words carry it on their own for
-   anybody who cannot see either. */
+   a red no would be the same colour twice. Present is the dark slab with an
+   accent rule; absent is the page with a hairline. The words carry it on their
+   own for anybody who cannot see either.
+   THE YES CHIP SAID background:var(--ink) AND HAD TO STOP. --ink is #EEF1EF
+   now, so that rule painted a near-white pill and then wrote --chrome-ink
+   #F7F8F7 across it: 1.06:1, a chip with nothing legible in it, and nothing
+   errored because both halves resolved to real colours. --band-bg #192D22 is
+   the dark slab the chip was always meant to be and --chrome-ink reads
+   13.70:1 on it. The accent rule is 4.84:1 on the chip and 3.03:1 against the
+   card behind it, so the pill's own edge clears the graphical gate too. */
 .bs-mark{font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
   padding:5px 8px;border-radius:var(--r-pill);white-space:nowrap}
-.bs-mark.yes{background:var(--ink);color:var(--chrome-ink);border:1px solid var(--gold)}
+.bs-mark.yes{background:var(--band-bg);color:var(--chrome-ink);border:1px solid var(--gold)}
 .bs-mark.no{background:var(--page);color:var(--ink-2);border:1px solid var(--hair)}
 
 /* The checks. */
@@ -136,7 +171,11 @@
 .bs-t-head h3{font:400 var(--t-m)/1.2 var(--display)}
 .bs-conf{font:700 9px/1 var(--mono);letter-spacing:.07em;text-transform:uppercase;padding:5px 8px;
   border-radius:var(--r-pill)}
-.bs-conf.hi{background:var(--ink);color:var(--chrome-ink);border:1px solid var(--gold)}
+/* --band-bg, not --ink, and the whole argument is beside .bs-mark.yes above:
+   an ink token used as a fill under light text is an invisible chip. 13.70:1
+   now. The mid and lo chips were already surface tokens and measure 11.12:1
+   and 8.12:1 on their own fills, so neither moved. */
+.bs-conf.hi{background:var(--band-bg);color:var(--chrome-ink);border:1px solid var(--gold)}
 .bs-conf.mid{background:var(--chip-gold-bg);color:var(--ink);border:1px solid var(--gold-deep)}
 .bs-conf.lo{background:var(--page);color:var(--ink-2);border:1px solid var(--hair)}
 .bs-where{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.04em;text-transform:uppercase;
@@ -144,7 +183,9 @@
 .bs-t p{margin-bottom:var(--s3)}
 .bs-why{background:var(--page);border-left:4px solid var(--ink-2);padding:10px var(--s3);
   border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:var(--t-sm)}
-.bs-caveat{background:var(--ink);color:var(--chrome-ink);border-left:4px solid var(--gold);
+/* Third instance of the same fault, same fix: --ink is an ink and --band-bg
+   is the panel. 13.70:1 for the body copy, 4.84:1 for the bolded lead-in. */
+.bs-caveat{background:var(--band-bg);color:var(--chrome-ink);border-left:4px solid var(--gold);
   padding:10px var(--s3);border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:var(--t-sm)}
 .bs-caveat b{color:var(--gold)}
 .bs-src{font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);margin:0}
@@ -457,62 +498,64 @@
     <figure class="bs-fig bs-fig-wide">
   <svg viewBox="0 0 360 226" role="img" aria-label="The three Base Set print runs drawn side by side. The 1st Edition card carries a round stamp below the left of its artwork. The Shadowless card carries neither a stamp nor a shadow. The Unlimited card has a gray band down the right and bottom edges of its artwork window.">
     <g>
-    <rect x="16" y="34" width="92" height="128.34" rx="4.6000000000000005" fill="#E8B93A" stroke="#111111" stroke-width="1.6"/>
-    <rect x="23.038" y="39.7753" width="47.343199999999996" height="6.417000000000001" rx="1.5" fill="#111111" opacity=".5"/>
+    <rect x="16" y="34" width="92" height="128.34" rx="4.6000000000000005" fill="#E8B93A" stroke="#231F20" stroke-width="1.6"/>
+    <rect x="23.038" y="39.7753" width="47.343199999999996" height="6.417000000000001" rx="1.5" fill="#231F20" opacity=".5"/>
     
-    <rect x="23.82" y="49.400800000000004" width="76.36" height="53.9028" rx="2" fill="#E6E4DD" stroke="#6E5000" stroke-width="1.6"/>
-    <rect x="37.5648" y="65.57164" width="38.18" height="24.795288" rx="6.1088000000000005" fill="#B9B7B0"/>
-    <rect x="32.1" y="107.7955" width="68.08" height="5.7753" rx="1.5" fill="#C9A227" stroke="#6E5000" stroke-width="1"/>
-    <g fill="#111111" opacity=".38">
+    <rect x="23.82" y="49.400800000000004" width="76.36" height="53.9028" rx="2" fill="#86998C" stroke="#405D49" stroke-width="1.6"/>
+    <rect x="37.5648" y="65.57164" width="38.18" height="24.795288" rx="6.1088000000000005" fill="#264231"/>
+    <rect x="32.1" y="107.7955" width="68.08" height="5.7753" rx="1.5" fill="#609CBB" stroke="#405D49" stroke-width="1"/>
+    <g fill="#231F20" opacity=".38">
       <rect x="23.82" y="118.0627" width="76.36" height="2.31012" rx="1"/>
       <rect x="23.82" y="123.19630000000001" width="67.1968" height="2.31012" rx="1"/>
       <rect x="23.82" y="134.1052" width="76.36" height="2.31012" rx="1"/>
       <rect x="23.82" y="139.2388" width="48.870400000000004" height="2.31012" rx="1"/>
     </g>
-    <rect x="23.82" y="152.71450000000002" width="54.9792" height="2.05344" rx="1" fill="#111111" opacity=".45"/>
-    <circle cx="20.848399999999998" cy="109.7206" r="4.8484" fill="#111111"/>
-           <circle cx="20.848399999999998" cy="109.7206" r="2.346" fill="none" stroke="#F4F3EF" stroke-width="1"/>
+    <rect x="23.82" y="152.71450000000002" width="54.9792" height="2.05344" rx="1" fill="#231F20" opacity=".45"/>
+    <circle cx="20.848399999999998" cy="109.7206" r="4.8484" fill="#231F20"/>
+           <circle cx="20.848399999999998" cy="109.7206" r="2.346" fill="none" stroke="#F7F8F7" stroke-width="1"/>
       <text x="62" y="24" text-anchor="middle" class="bs-hd">1ST EDITION</text>
       <text x="62" y="182.34" text-anchor="middle" class="bs-cap">stamp</text>
       <text x="62" y="196.34" text-anchor="middle" class="bs-cap">no shadow</text></g>
     <g>
-    <rect x="138" y="34" width="92" height="128.34" rx="4.6000000000000005" fill="#E8B93A" stroke="#111111" stroke-width="1.6"/>
-    <rect x="145.038" y="39.7753" width="47.343199999999996" height="6.417000000000001" rx="1.5" fill="#111111" opacity=".5"/>
+    <rect x="138" y="34" width="92" height="128.34" rx="4.6000000000000005" fill="#E8B93A" stroke="#231F20" stroke-width="1.6"/>
+    <rect x="145.038" y="39.7753" width="47.343199999999996" height="6.417000000000001" rx="1.5" fill="#231F20" opacity=".5"/>
     
-    <rect x="145.82" y="49.400800000000004" width="76.36" height="53.9028" rx="2" fill="#E6E4DD" stroke="#6E5000" stroke-width="1.6"/>
-    <rect x="159.5648" y="65.57164" width="38.18" height="24.795288" rx="6.1088000000000005" fill="#B9B7B0"/>
-    <rect x="154.1" y="107.7955" width="68.08" height="5.7753" rx="1.5" fill="#C9A227" stroke="#6E5000" stroke-width="1"/>
-    <g fill="#111111" opacity=".38">
+    <rect x="145.82" y="49.400800000000004" width="76.36" height="53.9028" rx="2" fill="#86998C" stroke="#405D49" stroke-width="1.6"/>
+    <rect x="159.5648" y="65.57164" width="38.18" height="24.795288" rx="6.1088000000000005" fill="#264231"/>
+    <rect x="154.1" y="107.7955" width="68.08" height="5.7753" rx="1.5" fill="#609CBB" stroke="#405D49" stroke-width="1"/>
+    <g fill="#231F20" opacity=".38">
       <rect x="145.82" y="118.0627" width="76.36" height="2.31012" rx="1"/>
       <rect x="145.82" y="123.19630000000001" width="67.1968" height="2.31012" rx="1"/>
       <rect x="145.82" y="134.1052" width="76.36" height="2.31012" rx="1"/>
       <rect x="145.82" y="139.2388" width="48.870400000000004" height="2.31012" rx="1"/>
     </g>
-    <rect x="145.82" y="152.71450000000002" width="54.9792" height="2.05344" rx="1" fill="#111111" opacity=".45"/>
+    <rect x="145.82" y="152.71450000000002" width="54.9792" height="2.05344" rx="1" fill="#231F20" opacity=".45"/>
     
       <text x="184" y="24" text-anchor="middle" class="bs-hd">SHADOWLESS</text>
       <text x="184" y="182.34" text-anchor="middle" class="bs-cap">no stamp</text>
       <text x="184" y="196.34" text-anchor="middle" class="bs-cap">no shadow</text></g>
     <g>
-    <rect x="260" y="34" width="92" height="128.34" rx="4.6000000000000005" fill="#E8B93A" stroke="#111111" stroke-width="1.6"/>
-    <rect x="267.038" y="39.7753" width="47.343199999999996" height="6.417000000000001" rx="1.5" fill="#111111" opacity=".5"/>
-    <rect x="271.96" y="53.540800000000004" width="76.36" height="53.9028" rx="2" fill="#767676"/>
-    <rect x="267.82" y="49.400800000000004" width="76.36" height="53.9028" rx="2" fill="#E6E4DD" stroke="#6E5000" stroke-width="1.6"/>
-    <rect x="281.5648" y="65.57164" width="38.18" height="24.795288" rx="6.1088000000000005" fill="#B9B7B0"/>
-    <rect x="276.09999999999997" y="107.7955" width="68.08" height="5.7753" rx="1.5" fill="#C9A227" stroke="#6E5000" stroke-width="1"/>
-    <g fill="#111111" opacity=".38">
+    <rect x="260" y="34" width="92" height="128.34" rx="4.6000000000000005" fill="#E8B93A" stroke="#231F20" stroke-width="1.6"/>
+    <rect x="267.038" y="39.7753" width="47.343199999999996" height="6.417000000000001" rx="1.5" fill="#231F20" opacity=".5"/>
+    <rect x="271.96" y="53.540800000000004" width="76.36" height="53.9028" rx="2" fill="#4A4A4A"/>
+    <rect x="267.82" y="49.400800000000004" width="76.36" height="53.9028" rx="2" fill="#86998C" stroke="#405D49" stroke-width="1.6"/>
+    <rect x="281.5648" y="65.57164" width="38.18" height="24.795288" rx="6.1088000000000005" fill="#264231"/>
+    <rect x="276.09999999999997" y="107.7955" width="68.08" height="5.7753" rx="1.5" fill="#609CBB" stroke="#405D49" stroke-width="1"/>
+    <g fill="#231F20" opacity=".38">
       <rect x="267.82" y="118.0627" width="76.36" height="2.31012" rx="1"/>
       <rect x="267.82" y="123.19630000000001" width="67.1968" height="2.31012" rx="1"/>
       <rect x="267.82" y="134.1052" width="76.36" height="2.31012" rx="1"/>
       <rect x="267.82" y="139.2388" width="48.870400000000004" height="2.31012" rx="1"/>
     </g>
-    <rect x="267.82" y="152.71450000000002" width="54.9792" height="2.05344" rx="1" fill="#111111" opacity=".45"/>
+    <rect x="267.82" y="152.71450000000002" width="54.9792" height="2.05344" rx="1" fill="#231F20" opacity=".45"/>
     
       <text x="306" y="24" text-anchor="middle" class="bs-hd">UNLIMITED</text>
       <text x="306" y="182.34" text-anchor="middle" class="bs-cap">no stamp</text>
       <text x="306" y="196.34" text-anchor="middle" class="bs-cap">shadow</text></g>
-    <circle cx="20.848399999999998" cy="109.7206" r="13" fill="none" stroke="#6E5000" stroke-width="2.5"/>
-    <circle cx="347.86" cy="72.50200000000001" r="13" fill="none" stroke="#6E5000" stroke-width="2.5"/>
+    <circle cx="20.848399999999998" cy="109.7206" r="13" fill="none" stroke="#231F20" stroke-width="4.5"/>
+    <circle cx="20.848399999999998" cy="109.7206" r="13" fill="none" stroke="#EEF1EF" stroke-width="2.5"/>
+    <circle cx="347.86" cy="72.50200000000001" r="13" fill="none" stroke="#231F20" stroke-width="4.5"/>
+    <circle cx="347.86" cy="72.50200000000001" r="13" fill="none" stroke="#EEF1EF" stroke-width="2.5"/>
   </svg>
   <figcaption>A schematic, not three real cards. The stamp and the shadow are the only two differences drawn,
     because they are the only two you can act on. Both are drawn larger than life; the shadow on a real card is
@@ -589,8 +632,9 @@
       few thousand, and it is a band of gray ink about two millimeters wide. It is the tell most people holding a
       1999 card have never heard of, because nothing on the card names it.</p>
     <figure class="bs-fig bs-fig-wide">
-  <svg viewBox="0 0 360 236" role="img" aria-label="The right edge of the artwork window, magnified twice. On a 1st Edition or Shadowless card the yellow border runs straight up to the gold frame. On an Unlimited card a gray band sits outside the frame.">
+  <svg viewBox="0 0 360 236" role="img" aria-label="The right edge of the artwork window, magnified twice. On a 1st Edition or Shadowless card the border runs straight up to the inner frame. On an Unlimited card a gray band sits outside the frame.">
     <defs>
+      
       <linearGradient id="bs-shadowfade" x1="0" x2="1" y1="0" y2="0">
         <stop offset="0" stop-color="#4A4A4A" stop-opacity=".95"/>
         <stop offset="1" stop-color="#4A4A4A" stop-opacity="0"/>
@@ -598,24 +642,28 @@
     </defs>
     <g>
       <text x="87" y="14" text-anchor="middle" class="bs-hd">1ST EDITION</text><text x="87" y="27" text-anchor="middle" class="bs-hd">&amp; SHADOWLESS</text>
-      <rect x="8" y="30" width="158" height="150" rx="4" fill="#E8B93A" stroke="#111111" stroke-width="2"/>
-      <rect x="8" y="30" width="74" height="150" fill="#B9B7B0"/>
-      <rect x="82" y="30" width="11" height="150" fill="#C9A227" stroke="#6E5000" stroke-width="1.4"/>
       
-      <text x="42" y="108" text-anchor="middle" class="bs-cap">artwork</text>
+      <rect x="8" y="30" width="158" height="150" rx="4" fill="#E8B93A" stroke="#231F20" stroke-width="2"/>
+      <rect x="8" y="30" width="74" height="150" fill="#86998C"/>
+      <rect x="82" y="30" width="11" height="150" fill="#609CBB" stroke="#405D49" stroke-width="1.4"/>
       
-      <line x1="100" y1="186" x2="100" y2="172" stroke="#111111" stroke-width="1.6"/>
+      <text x="42" y="108" text-anchor="middle" class="bs-capd">artwork</text>
+      
+      <line x1="100" y1="186" x2="100" y2="172" stroke="#231F20" stroke-width="3.2"/>
+      <line x1="100" y1="186" x2="100" y2="172" stroke="#EEF1EF" stroke-width="1.6"/>
       <text x="100" y="200" text-anchor="middle" class="bs-lbl">nothing here</text>
     </g>
     <g>
       <text x="273" y="14" text-anchor="middle" class="bs-hd">UNLIMITED</text>
-      <rect x="194" y="30" width="158" height="150" rx="4" fill="#E8B93A" stroke="#111111" stroke-width="2"/>
-      <rect x="194" y="30" width="74" height="150" fill="#B9B7B0"/>
-      <rect x="268" y="30" width="11" height="150" fill="#C9A227" stroke="#6E5000" stroke-width="1.4"/>
-      <rect x="279" y="30" width="15" height="150" fill="url(#bs-shadowfade)"/>
-      <text x="228" y="108" text-anchor="middle" class="bs-cap">artwork</text>
       
-      <line x1="286" y1="186" x2="286" y2="172" stroke="#111111" stroke-width="1.6"/>
+      <rect x="194" y="30" width="158" height="150" rx="4" fill="#E8B93A" stroke="#231F20" stroke-width="2"/>
+      <rect x="194" y="30" width="74" height="150" fill="#86998C"/>
+      <rect x="268" y="30" width="11" height="150" fill="#609CBB" stroke="#405D49" stroke-width="1.4"/>
+      <rect x="279" y="30" width="15" height="150" fill="url(#bs-shadowfade)"/>
+      <text x="228" y="108" text-anchor="middle" class="bs-capd">artwork</text>
+      
+      <line x1="286" y1="186" x2="286" y2="172" stroke="#231F20" stroke-width="3.2"/>
+      <line x1="286" y1="186" x2="286" y2="172" stroke="#EEF1EF" stroke-width="1.6"/>
       <text x="286" y="200" text-anchor="middle" class="bs-lbl">gray band here</text>
     </g>
     <text x="180" y="224" text-anchor="middle" class="bs-cap">the right edge of the artwork window, magnified</text>
@@ -670,39 +718,43 @@
     <figure class="bs-fig bs-fig-wide">
   <svg viewBox="0 0 360 240" role="img" aria-label="A Base Set card with the 5 places to look marked and numbered, matching the list below it: the 1st Edition stamp under the left of the artwork, the drop shadow at the right edge of the artwork window, the copyright line along the bottom, and the card number in the bottom right with no set symbol beside it.">
     
-    <rect x="128" y="26" width="104" height="145.08" rx="5.2" fill="#E8B93A" stroke="#111111" stroke-width="1.6"/>
-    <rect x="135.956" y="32.5286" width="53.51839999999999" height="7.254000000000001" rx="1.5" fill="#111111" opacity=".5"/>
-    <rect x="141.52" y="48.0896" width="86.32" height="60.933600000000006" rx="2" fill="#767676"/>
-    <rect x="136.84" y="43.4096" width="86.32" height="60.933600000000006" rx="2" fill="#E6E4DD" stroke="#6E5000" stroke-width="1.6"/>
-    <rect x="152.3776" y="61.689679999999996" width="43.16" height="28.029456000000003" rx="6.9056" fill="#B9B7B0"/>
-    <rect x="146.2" y="109.42099999999999" width="76.96" height="6.5286" rx="1.5" fill="#C9A227" stroke="#6E5000" stroke-width="1"/>
-    <g fill="#111111" opacity=".38">
+    <rect x="128" y="26" width="104" height="145.08" rx="5.2" fill="#E8B93A" stroke="#231F20" stroke-width="1.6"/>
+    <rect x="135.956" y="32.5286" width="53.51839999999999" height="7.254000000000001" rx="1.5" fill="#231F20" opacity=".5"/>
+    <rect x="141.52" y="48.0896" width="86.32" height="60.933600000000006" rx="2" fill="#4A4A4A"/>
+    <rect x="136.84" y="43.4096" width="86.32" height="60.933600000000006" rx="2" fill="#86998C" stroke="#405D49" stroke-width="1.6"/>
+    <rect x="152.3776" y="61.689679999999996" width="43.16" height="28.029456000000003" rx="6.9056" fill="#264231"/>
+    <rect x="146.2" y="109.42099999999999" width="76.96" height="6.5286" rx="1.5" fill="#609CBB" stroke="#405D49" stroke-width="1"/>
+    <g fill="#231F20" opacity=".38">
       <rect x="136.84" y="121.0274" width="86.32" height="2.61144" rx="1"/>
       <rect x="136.84" y="126.8306" width="75.96159999999999" height="2.61144" rx="1"/>
       <rect x="136.84" y="139.1624" width="86.32" height="2.61144" rx="1"/>
       <rect x="136.84" y="144.9656" width="55.2448" height="2.61144" rx="1"/>
     </g>
-    <rect x="136.84" y="160.199" width="62.15039999999999" height="2.3212800000000002" rx="1" fill="#111111" opacity=".45"/>
-    <circle cx="133.4808" cy="111.5972" r="5.4807999999999995" fill="#111111"/>
-           <circle cx="133.4808" cy="111.5972" r="2.6519999999999997" fill="none" stroke="#F4F3EF" stroke-width="1"/>
+    <rect x="136.84" y="160.199" width="62.15039999999999" height="2.3212800000000002" rx="1" fill="#231F20" opacity=".45"/>
+    <circle cx="133.4808" cy="111.5972" r="5.4807999999999995" fill="#231F20"/>
+           <circle cx="133.4808" cy="111.5972" r="2.6519999999999997" fill="none" stroke="#F7F8F7" stroke-width="1"/>
     
-    <line x1="133.72" y1="115.9496" x2="86" y2="115.9496" stroke="#111111" stroke-width="1.4" stroke-dasharray="3 3"/>
-    <circle cx="86" cy="115.9496" r="10" fill="#111111"/>
+    <line x1="133.72" y1="115.9496" x2="86" y2="115.9496" stroke="#231F20" stroke-width="3" stroke-dasharray="3 3"/>
+    <line x1="133.72" y1="115.9496" x2="86" y2="115.9496" stroke="#EEF1EF" stroke-width="1.4" stroke-dasharray="3 3"/>
+    <circle cx="86" cy="115.9496" r="10" fill="#EEF1EF"/>
     <text x="86" y="119.9496" text-anchor="middle" class="bs-num">1</text>
     <text x="71" y="119.9496" text-anchor="end" class="bs-lbl">stamp</text>
     
-    <line x1="227.84" y1="69.524" x2="274" y2="69.524" stroke="#111111" stroke-width="1.4" stroke-dasharray="3 3"/>
-    <circle cx="274" cy="69.524" r="10" fill="#111111"/>
+    <line x1="227.84" y1="69.524" x2="274" y2="69.524" stroke="#231F20" stroke-width="3" stroke-dasharray="3 3"/>
+    <line x1="227.84" y1="69.524" x2="274" y2="69.524" stroke="#EEF1EF" stroke-width="1.4" stroke-dasharray="3 3"/>
+    <circle cx="274" cy="69.524" r="10" fill="#EEF1EF"/>
     <text x="274" y="73.524" text-anchor="middle" class="bs-num">2</text>
     <text x="289" y="73.524" text-anchor="start" class="bs-lbl">shadow</text>
     
-    <line x1="169.6" y1="160.92440000000002" x2="86" y2="169.6292" stroke="#111111" stroke-width="1.4" stroke-dasharray="3 3"/>
-    <circle cx="86" cy="169.6292" r="10" fill="#111111"/>
+    <line x1="169.6" y1="160.92440000000002" x2="86" y2="169.6292" stroke="#231F20" stroke-width="3" stroke-dasharray="3 3"/>
+    <line x1="169.6" y1="160.92440000000002" x2="86" y2="169.6292" stroke="#EEF1EF" stroke-width="1.4" stroke-dasharray="3 3"/>
+    <circle cx="86" cy="169.6292" r="10" fill="#EEF1EF"/>
     <text x="86" y="173.6292" text-anchor="middle" class="bs-num">3</text>
     <text x="71" y="173.6292" text-anchor="end" class="bs-lbl">copyright</text>
     
-    <line x1="217.44" y1="160.92440000000002" x2="274" y2="169.6292" stroke="#111111" stroke-width="1.4" stroke-dasharray="3 3"/>
-    <circle cx="274" cy="169.6292" r="10" fill="#111111"/>
+    <line x1="217.44" y1="160.92440000000002" x2="274" y2="169.6292" stroke="#231F20" stroke-width="3" stroke-dasharray="3 3"/>
+    <line x1="217.44" y1="160.92440000000002" x2="274" y2="169.6292" stroke="#EEF1EF" stroke-width="1.4" stroke-dasharray="3 3"/>
+    <circle cx="274" cy="169.6292" r="10" fill="#EEF1EF"/>
     <text x="274" y="173.6292" text-anchor="middle" class="bs-num">4</text>
     <text x="289" y="173.6292" text-anchor="start" class="bs-lbl">number</text>
   </svg>
@@ -907,33 +959,33 @@
     <p class="bs-p2">One card is an anecdote. This is the 1st Edition printing against the Shadowless printing of the same card, on three cards, out of the same price guide read on the same day. The stamp is the only difference between the two printings, so the gap between the columns is what the stamp is worth.</p>
     <figure class="bs-fig bs-fig-wide">
   <svg viewBox="0 0 360 229" role="img" aria-label="A bar chart of 6 multiples: what the 1st Edition printing is worth against the Shadowless printing of the same card, ungraded and in a PSA 10, for 3 cards. Every bar clears 1x, and they run from 3.6 times to 11.4 times.">
-    <line x1="74.0" y1="22" x2="74.0" y2="205" stroke="#111111" stroke-opacity=".12" stroke-width="1"/>
-    <text x="74.0" y="219" text-anchor="middle" class="bs-ctick">0x</text><line x1="111.7" y1="22" x2="111.7" y2="205" stroke="#111111" stroke-opacity=".12" stroke-width="1"/>
-    <text x="111.7" y="219" text-anchor="middle" class="bs-ctick">2x</text><line x1="149.3" y1="22" x2="149.3" y2="205" stroke="#111111" stroke-opacity=".12" stroke-width="1"/>
-    <text x="149.3" y="219" text-anchor="middle" class="bs-ctick">4x</text><line x1="187.0" y1="22" x2="187.0" y2="205" stroke="#111111" stroke-opacity=".12" stroke-width="1"/>
-    <text x="187.0" y="219" text-anchor="middle" class="bs-ctick">6x</text><line x1="224.7" y1="22" x2="224.7" y2="205" stroke="#111111" stroke-opacity=".12" stroke-width="1"/>
-    <text x="224.7" y="219" text-anchor="middle" class="bs-ctick">8x</text><line x1="262.3" y1="22" x2="262.3" y2="205" stroke="#111111" stroke-opacity=".12" stroke-width="1"/>
-    <text x="262.3" y="219" text-anchor="middle" class="bs-ctick">10x</text><line x1="300.0" y1="22" x2="300.0" y2="205" stroke="#111111" stroke-opacity=".12" stroke-width="1"/>
+    <line x1="74.0" y1="22" x2="74.0" y2="205" class="bs-cgrid" stroke-width="1"/>
+    <text x="74.0" y="219" text-anchor="middle" class="bs-ctick">0x</text><line x1="111.7" y1="22" x2="111.7" y2="205" class="bs-cgrid" stroke-width="1"/>
+    <text x="111.7" y="219" text-anchor="middle" class="bs-ctick">2x</text><line x1="149.3" y1="22" x2="149.3" y2="205" class="bs-cgrid" stroke-width="1"/>
+    <text x="149.3" y="219" text-anchor="middle" class="bs-ctick">4x</text><line x1="187.0" y1="22" x2="187.0" y2="205" class="bs-cgrid" stroke-width="1"/>
+    <text x="187.0" y="219" text-anchor="middle" class="bs-ctick">6x</text><line x1="224.7" y1="22" x2="224.7" y2="205" class="bs-cgrid" stroke-width="1"/>
+    <text x="224.7" y="219" text-anchor="middle" class="bs-ctick">8x</text><line x1="262.3" y1="22" x2="262.3" y2="205" class="bs-cgrid" stroke-width="1"/>
+    <text x="262.3" y="219" text-anchor="middle" class="bs-ctick">10x</text><line x1="300.0" y1="22" x2="300.0" y2="205" class="bs-cgrid" stroke-width="1"/>
     <text x="300.0" y="219" text-anchor="middle" class="bs-ctick">12x</text>
-    <line x1="92.8" y1="22" x2="92.8" y2="205" stroke="#111111" stroke-width="1.4" stroke-dasharray="4 3"/>
+    <line x1="92.8" y1="22" x2="92.8" y2="205" class="bs-caxis" stroke-width="1.4" stroke-dasharray="4 3"/>
     <text x="92.8" y="16" class="bs-cnote">1x, the same price</text>
-    <rect x="-2" y="25" width="106.0" height="15" fill="#FFFFFF"/>
+    <rect x="-2" y="25" width="106.0" height="15" class="bs-cknock"/>
       <text x="0" y="37" class="bs-cname">Charizard 4/102</text><text x="66" y="52" text-anchor="end" class="bs-ccond">Ungraded</text>
-      <rect x="74" y="42" width="104.8" height="13" fill="#111111"/>
+      <rect x="74" y="42" width="104.8" height="13" class="bs-cbar"/>
       <text x="183.8" y="52" class="bs-cval">5.6x</text><text x="66" y="70" text-anchor="end" class="bs-ccond">PSA 10</text>
-      <rect x="74" y="60" width="214.7" height="13" fill="#111111"/>
-      <text x="293.7" y="70" class="bs-cval">11.4x</text><rect x="-2" y="84" width="106.0" height="15" fill="#FFFFFF"/>
+      <rect x="74" y="60" width="214.7" height="13" class="bs-cbar"/>
+      <text x="293.7" y="70" class="bs-cval">11.4x</text><rect x="-2" y="84" width="106.0" height="15" class="bs-cknock"/>
       <text x="0" y="96" class="bs-cname">Blastoise 2/102</text><text x="66" y="111" text-anchor="end" class="bs-ccond">Ungraded</text>
-      <rect x="74" y="101" width="109.1" height="13" fill="#111111"/>
+      <rect x="74" y="101" width="109.1" height="13" class="bs-cbar"/>
       <text x="188.1" y="111" class="bs-cval">5.8x</text><text x="66" y="129" text-anchor="end" class="bs-ccond">PSA 10</text>
-      <rect x="74" y="119" width="68.6" height="13" fill="#111111"/>
-      <text x="147.6" y="129" class="bs-cval">3.6x</text><rect x="-2" y="143" width="92.8" height="15" fill="#FFFFFF"/>
+      <rect x="74" y="119" width="68.6" height="13" class="bs-cbar"/>
+      <text x="147.6" y="129" class="bs-cval">3.6x</text><rect x="-2" y="143" width="92.8" height="15" class="bs-cknock"/>
       <text x="0" y="155" class="bs-cname">Mewtwo 10/102</text><text x="66" y="170" text-anchor="end" class="bs-ccond">Ungraded</text>
-      <rect x="74" y="160" width="193.3" height="13" fill="#111111"/>
+      <rect x="74" y="160" width="193.3" height="13" class="bs-cbar"/>
       <text x="272.3" y="170" class="bs-cval">10.3x</text><text x="66" y="188" text-anchor="end" class="bs-ccond">PSA 10</text>
-      <rect x="74" y="178" width="80.8" height="13" fill="#111111"/>
+      <rect x="74" y="178" width="80.8" height="13" class="bs-cbar"/>
       <text x="159.8" y="188" class="bs-cval">4.3x</text>
-    <line x1="74" y1="205" x2="300" y2="205" stroke="#111111" stroke-width="1.2"/>
+    <line x1="74" y1="205" x2="300" y2="205" class="bs-caxis" stroke-width="1.2"/>
   </svg>
   
   <figcaption>How many times the 1st Edition printing is worth what the Shadowless one is, on the same card, on the

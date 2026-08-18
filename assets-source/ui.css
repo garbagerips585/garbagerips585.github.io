@@ -43,14 +43,42 @@
 :root{
 
   /* ==========================================================================
-     PALETTE: "Black / White / Gold" (Option C), chosen 16 August 2026.
+     PALETTE: "Trubbish Deep", chosen 18 August 2026, and it replaced the mono
+     "Black / White / Gold" palette that this block described until then.
 
-     One accent hue. No tinted bands. Everything else is a value of grey, so
-     the pack art, the card scans and the set logos are the only colour on the
-     page. The values below are the SAME NUMBERS as the `Option C` entry in
-     scripts/gen-palette-preview.mjs, deliberately, so the live site and the
-     decision aid that chose it cannot drift apart. If you change one, change
-     the other in the same commit or delete the preview.
+     Tim: "i love this new color pallet for the trubbish look and feel". The
+     channel is called Garbage Rips, the pack art is a Trubbish on a plate of
+     trash, and these are the mascot's own five colours, sent by Tim: bag green
+     #2F4F39, feet green #1F382B, pink #E87EA1, light blue #70B5D9, and
+     #FFFFFF / #231F20 for the mouth and the outline. Every other value in this
+     block is DERIVED from one of those five by a stated move, in the F block of
+     scripts/gen-palette-samples.mjs, which is where the arithmetic lives and
+     which self-checks every pair before it writes anything. Do not re-derive a
+     number here; read it from there.
+
+     THE ACCENT RULE, one sentence because a reader has to be able to feel it:
+     TEAL IS HOW YOU GET AROUND, PINK IS WHAT THE SITE IS SAYING, AND A SECTION
+     HEADING IS NEVER EITHER, so the two accents always land on a neutral and
+     never on each other.
+       TEAL #70B5D9 (#81BEDE where the type is small) is every route: every
+         link, every button fill, every hover, every current-page state.
+       PINK #E87EA1 (#EEA0B9 small) is every mark that goes nowhere: the
+         highlighted word, the wordmark's RIPS, the display headings on the dark
+         bands, the NEW and #1 HIT flags, the rip-count chip, every price.
+       NEITHER is a body section heading. Those stay off-white, and that is
+         LOAD BEARING: `.mw-head h2` reads "Most wanted" with `.hl` on the
+         second word, so a pink heading would swallow its own highlight and a
+         teal one would sit a point of luminance from it, which is exactly the
+         "coloured blur" Tim complained about on the charcoal sample.
+     THE NUMBERS AGREE WITH THE MEANING, which is the test of whether a rule is
+     real: teal has the headroom (4.05:1 on the card to pink's 3.45:1) and the
+     teal role is the one that includes SMALL text at the 4.5:1 gate.
+
+     THE FIVE PAINTED STEPS, darkest to lightest, so a card reads as a card:
+       --chrome-bg #192D22  <  --page #1F382B  <  --paper #264231
+         <  --card / --paper-2 #2F4F39  <  --paper-3 #405D49
+     The bar is the page green scaled to 80%, which is arithmetic rather than
+     taste: see the Subscribe note further down this file.
 
      THE SITE WORE "Diner Plate" BEFORE THIS: cream paper #F7F5EC, navy chrome
      #15263A, mustard, ketchup, and a sky-blue band system carried over from
@@ -86,35 +114,61 @@
      rules, so every ported card lost its background, border and shadow at once
      and the pages rendered as unstyled text on cream. */
   --hard-lg:5px 5px 0 var(--keyline);
-  --ink-soft:#5B5B5B;
-  --navy:#111111;
+  --ink-soft:#D5DCD7;
+  /* --navy IS AN INK NOW AND ONLY AN INK. It was #111111, the same value as
+     --ink, --keyline AND --chrome-bg, which is exactly why nobody noticed it
+     was doing two opposite jobs: an ink in .cc-table a / .loc-soc / .mine-w /
+     .hitlb-x, and a BACKGROUND in .next-show, .show-when, .fk-golden, .fk-no,
+     .st-n, .cc-table thead th and .mine-x, all with color:var(--paper) on top.
+     One value cannot do both on a dark ground. The background job moved to
+     --band-bg below. See CLAUDE.md, "Palette". */
+  --navy:#EEF1EF;
+  /* the dark slab the six band components paint themselves with. Same value as
+     --chrome-bg today so a slab reads as a piece of the site's own chrome, but
+     a separate token because the two can move apart. Ink on it is --chrome-ink,
+     never --paper: --paper is a SURFACE. */
+  --band-bg:#192D22;
   --line:var(--keyline);   /* alias: some ported rules name the keyline this way */
-  --navy-deep:#000000;
-  --paper:#F4F3EF;
-  --paper-2:#FFFFFF;
-  --paper-3:#E6E4DD;
-  --sky-deep:#5B5B5B;
-  --sky-lite:#F0EEE7;
-  --sky-tint:#F1EFE8;
-  --trubbish:#8A8A8A;
+  --navy-deep:#13231B;
+  --paper:#264231;
+  --paper-2:#2F4F39;
+  --paper-3:#405D49;
+  --sky-deep:#81BEDE;
+  --sky-lite:#203736;
+  --sky-tint:#203736;
+  --trubbish:#231F20;
   --wrap:1180px;
-  --page:#FAFAF8; --card:#FFFFFF;
-  --ink:#111111; --ink-2:#5B5B5B; --hair:rgba(17,17,17,.18);
+  --page:#1F382B; --card:#2F4F39;
+  --ink:#EEF1EF; --ink-2:#C9D1CC; --hair:rgba(238,241,239,.18);
 
   /* The four that were one token. See the block at the top of :root. */
-  --keyline:#111111;
-  --chrome-bg:#111111;
-  --on-accent:#111111;
-  --on-alert:#FFFFFF;
+  --keyline:#86998C;
+  --chrome-bg:#192D22;
+  --on-accent:#231F20;
+  --on-alert:#231F20;
 
   /* The five that were literals in rules. */
-  --chrome-ink:#F5F4F0;      /* body text on the dark chrome */
-  --chrome-dim:#A6A6A6;      /* secondary labels on the dark chrome */
-  --foot-ink:#BDBDBD;        /* footer body copy */
-  --chip-gold-bg:#F5E7BD;    /* the gold chip's fill */
-  --gold-band-label:#332500; /* the kicker on a full gold band */
+  --chrome-ink:#F7F8F7;      /* body text on the dark chrome */
+  --chrome-dim:#C1CAC4;      /* secondary labels on the dark chrome */
+  --foot-ink:#D1D8D3;        /* footer body copy */
+  --chip-gold-bg:#203736;    /* NOT GOLD. See the gold note below. */
+  --gold-band-label:#231F20; /* the kicker on a full gold band */
 
-  --mustard:#E8B93A; --gold:#C99700; --gold-deep:#6E5000;
+  /* EVERY TOKEN WITH "GOLD" OR "MUSTARD" IN ITS NAME IS A TEAL. The names
+     survive because 44 + 21 rules spell them and renaming those is churn with
+     no pixel behind it, so this is written down loudly instead: it is the same
+     trap --ketchup and --navy set for two months. READ THE VALUE, NEVER THE
+     NAME. Gold is now SEMANTIC and appears in exactly two places on the whole
+     site, the HALL OF FAME HIT badge and the 4px trophy frame, both as LITERAL
+     hexes so no token edit can leak it back. Tim, 18 August 2026: "its cool to
+     keep the hall of fame gold, but just not use that color in the general
+     pallet of the site colors". */
+  --mustard:#70B5D9; --gold:#609CBB; --gold-deep:#81BEDE;
+  /* THE OTHER HALF OF THE --mustard SPLIT. It was the wordmark accent AND the
+     fill of every CTA, and no non-gold palette can ship until those part.
+     --mustard is the CTA fill and nothing else now; the wordmark's RIPS takes
+     this. The generator has always emitted it and ui.css never used it. */
+  --brand-accent:#E87EA1;
   /* --ketchup WAS A RED and the note here read "--ketchup is a FILL, never
      text: 4.16 on cream and 3.69 on the sky bands, both under AA." Under this
      palette it is not a red at all: the accent count is one, and the accent is
@@ -122,8 +176,8 @@
      the deep gold. The FILL/TEXT split is kept because the rules still lean on
      it, and it still measures: white on --ketchup-deep is 7.47:1, which is the
      fix for the two chip failures recorded further down this file. */
-  --ketchup:#111111; --ketchup-deep:#6E5000; --teal:#4A4A4A;
-  --sky:#D9D6CC; --lilac:#D9D6CC; --lilac-pale:#F2F1EC; --plum:#3A3A3A;
+  --ketchup:#E87EA1; --ketchup-deep:#EEA0B9; --teal:#70B5D9;
+  --sky:#70B5D9; --lilac:#70B5D9; --lilac-pale:#353230; --plum:#F5C5D5;
 
   /* ==========================================================================
      THE ONE COLOUR THAT IS NOT IN THE PALETTE. READ THE FENCE BEFORE REUSING IT.
@@ -194,8 +248,10 @@
      blue, which is invisible as a shadow on cream and is a faint blue cast on
      an off-white page under a palette whose whole claim is that the art is the
      only colour. Same opacities, same offsets, so nothing moves. */
-  --lift:0 1px 1px rgba(17,17,17,.07), 0 2px 3px rgba(17,17,17,.07),
-         0 6px 10px rgba(17,17,17,.07), 0 14px 20px rgba(17,17,17,.06);
+  /* THE DARK RECIPE. The old one was four near-transparent near-black layers,
+     which is a shadow you can only see on a light page: on this ground it was
+     literally nothing, and every card lost its lift at once. */
+  --lift:0 1px 2px rgba(0,0,0,.5),0 6px 14px rgba(0,0,0,.45);
 
   --t-xl:clamp(1.75rem,5vw,2.75rem);--t-l:clamp(1.4rem,4vw,2rem);--t-lede:clamp(1.05rem,2.4vw,1.25rem); --t-m:1.15rem; --t-body:1rem;
   --t-sm:.875rem; --t-label:.75rem; --t-micro:.6875rem;
@@ -278,7 +334,7 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 .brand{display:flex;align-items:baseline;gap:var(--s2);flex:none;min-height:44px;
   align-content:center;flex-wrap:wrap}
 .brand b{font:400 1.05rem/1 var(--display);letter-spacing:.01em}
-.brand b i{font-style:normal;color:var(--mustard)}
+.brand b i{font-style:normal;color:var(--brand-accent)}
 .brand span{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;color:var(--chrome-dim);
   text-transform:uppercase}
 @media(max-width:900px){.brand span{display:none}}
@@ -350,8 +406,8 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
   color:var(--ink);white-space:nowrap}
 .chip .n{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
 .chip:hover{border-color:var(--ink)}
-.chip[aria-current]{background:var(--chrome-bg);color:var(--chrome-ink);border-color:var(--chrome-bg)}
-.chip[aria-current] .n{color:var(--chrome-dim)}
+.chip[aria-current]{background:var(--mustard);color:var(--on-accent);border-color:var(--mustard)}
+.chip[aria-current] .n{color:var(--on-accent);opacity:.72}
 .chip.gold{background:var(--chip-gold-bg);border-color:var(--gold)}
 .chip.gold[aria-current]{background:var(--gold-deep);color:var(--on-alert);border-color:var(--gold-deep)}
 
@@ -452,7 +508,7 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
   transform:translateY(-2px) rotate(45deg);transition:transform .16s}
 .facet-more[aria-expanded=true]::after{transform:translateY(2px) rotate(-135deg)}
 .facet-more:hover{background:var(--gold-deep);border-color:var(--gold-deep);color:var(--on-alert)}
-.facet-more:hover .n{color:var(--chip-gold-bg)}
+.facet-more:hover .n{color:var(--on-alert);opacity:.72}
 /* The open panel. top:100% is the bottom of the row, so it hangs under the rail
    it belongs to and over the grid. z-index beats .rail's own 55 because the
    product facet's rail is position:static (see the .rail + .rail rule in the
@@ -512,13 +568,17 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
    VERTICAL IS UNTOUCHED, so .hofx-tag still hangs 16px above the frame. */
 .hof{background:var(--chrome-bg);color:var(--chrome-ink);padding:var(--s5) 0 var(--s6);
   border-bottom:2px solid var(--gold);overflow-x:clip;
-  background-image:radial-gradient(130% 90% at 50% 0%, rgba(201,151,0,.18), transparent 62%)}
+  /* WAS rgba(201,151,0,.18), a gold bloom. Over Tim's green that reads olive and
+     muddy, and it is what let the gold badge and the gold frame blend INTO the
+     band instead of sitting on it. Same geometry, same 62% stop: the band now
+     lifts toward the CARD colour, so gold is the only warm pixel on it. */
+  background-image:radial-gradient(130% 90% at 50% 0%, rgba(47,79,57,.55), transparent 62%)}
 .hof-head{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s4)}
-.hof-head h2{font:400 var(--t-l)/1 var(--display);color:var(--mustard);flex:none}
+.hof-head h2{font:400 var(--t-l)/1 var(--display);color:var(--ketchup);flex:none}
 .hof-head .sub2{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.09em;color:var(--chrome-dim);
   text-transform:uppercase}
 @media(max-width:560px){.hof-head .sub2{display:none}}
-.hof-head a{margin-left:auto;flex:none;font:700 var(--t-sm)/1 var(--body);color:var(--mustard);
+.hof-head a{margin-left:auto;flex:none;font:700 var(--t-sm)/1 var(--body);color:var(--sky-deep);
   min-height:44px;display:inline-flex;align-items:center}
 .hof-head a:hover{text-decoration:underline}
 .shelf{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x mandatory;
@@ -530,15 +590,15 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
   scroll-padding-left:var(--s3)}}
 .shelf .v{flex:none;width:clamp(146px,42vw,196px);scroll-snap-align:start}
 .shelf .v .art{box-shadow:0 2px 4px rgba(0,0,0,.4), 0 10px 26px rgba(0,0,0,.45),
-  0 0 0 1px rgba(201,151,0,.35)}
+  0 0 0 1px rgba(255,255,255,.20)}
 .shelf .v h3{color:var(--chrome-ink)}
 /* The shelf carries the set name where the wall carries a date, and the long
    ones ("Prismatic Evolutions") overrun a 196px tile. Dropping a step and
    losing the tracking buys 40px, which clears every set name we have. */
 .shelf .v p{color:var(--chrome-dim);font-size:.625rem;letter-spacing:0}
 .rank{position:absolute;left:8px;top:8px;z-index:4;width:30px;height:30px;border-radius:50%;
-  display:grid;place-items:center;font:400 1rem/1 var(--display);color:var(--ink);
-  background:linear-gradient(180deg,#FBE08A,var(--gold));
+  display:grid;place-items:center;font:400 1rem/1 var(--display);color:var(--on-accent);
+  background:linear-gradient(180deg,var(--gold-deep),var(--gold));
   box-shadow:0 2px 5px rgba(0,0,0,.4)}
 
 /* Secondary pages live here: the bar at the top carries only the brand, the
@@ -570,7 +630,7 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 .mw-head .sub2{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.09em;color:var(--ink-2);
   text-transform:uppercase}
 @media(max-width:560px){.mw-head .sub2{display:none}}
-.mw-head a{margin-left:auto;flex:none;font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep);
+.mw-head a{margin-left:auto;flex:none;font:700 var(--t-sm)/1 var(--body);color:var(--sky-deep);
   min-height:44px;display:inline-flex;align-items:center}
 .mw-shelf{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x mandatory;
   scrollbar-width:none;padding-bottom:var(--s2);
@@ -634,8 +694,8 @@ main{padding:var(--s4) 0 var(--s8)}
 .brk h1,.brk h2{font-family:var(--display);font-size:var(--t-l);font-weight:400;line-height:1;
   flex:0 1 auto;min-width:0}
 .brk .ln{flex:1 1 24px;min-width:16px;height:3px;border-radius:2px;background:var(--hair)}
-.brk .ln.gold{background:linear-gradient(90deg,var(--gold),rgba(201,151,0,0))}
-.brk a{flex:none;font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep);
+.brk .ln.gold{background:linear-gradient(90deg,var(--gold),rgba(96,156,187,0))}
+.brk a{flex:none;font:700 var(--t-sm)/1 var(--body);color:var(--sky-deep);
   min-height:44px;display:inline-flex;align-items:center}
 .brk a:hover{text-decoration:underline}
 
@@ -702,7 +762,7 @@ main{padding:var(--s4) 0 var(--s8)}
 /* a hit is the only thing that earns a flag */
 .hit{position:absolute;left:0;top:10px;z-index:4;
   font:700 var(--t-micro)/1 var(--mono);letter-spacing:.04em;
-  background:var(--mustard);color:var(--on-accent);border:1px solid var(--gold-deep);border-left:0;
+  background:var(--ketchup-deep);color:var(--on-accent);border:1px solid var(--ketchup);border-left:0;
   padding:5px 7px;border-radius:0 5px 5px 0;box-shadow:1px 1px 3px rgba(17,17,17,.25)}
 /* Both caption lines are fixed: two for the title, one for the meta. Without
    the min-height a one-line title shortens its tile and the row of packs below
@@ -715,7 +775,7 @@ main{padding:var(--s4) 0 var(--s8)}
 .more a{font:700 var(--t-body)/1 var(--body);background:var(--card);border:2px solid var(--ink);
   border-radius:var(--r-pill);padding:0 var(--s6);height:52px;display:inline-flex;
   align-items:center;box-shadow:var(--lift)}
-.more a:hover{background:var(--mustard)}
+.more a:hover{background:var(--mustard);color:var(--on-accent)}
 
 /* --------------------------------------------------------------------------
    Card Pokedex. The reading half of the site, after the watching half. Each tile is
@@ -759,7 +819,11 @@ main{padding:var(--s4) 0 var(--s8)}
   margin-top:2px}
 .set-top i{font-style:normal;color:var(--gold-deep)}
 .set-rips{font:700 var(--t-micro)/1 var(--mono);color:var(--ketchup-deep);
-  background:var(--paper-3);border-radius:var(--r-pill);padding:4px 9px;margin-top:var(--s1)}
+  /* WAS --paper-3, the LIGHTEST surface in the palette, where the small pink
+     measured 3.60:1 against a 4.5 gate. Rather than lift the pink further
+     toward white and lose the hue Tim sent, the chip takes a dark fill: same
+     colour on a ground it can actually sit on. Measured 8.02:1. */
+  background:var(--lilac-pale);border-radius:var(--r-pill);padding:4px 9px;margin-top:var(--s1)}
 
 /* --------------------------------------------------------------------------
    Who this is. At the bottom, where it belongs on a hub whose visitors came
@@ -939,7 +1003,7 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
 /* The tile already carries .vid-play, so the seal would be a second play
    affordance sitting on top of the first. */
 .pack--tile .pack-seal{display:none}
-.pack:hover .pack-hint{background:var(--sky)}
+.pack:hover .pack-hint{background:var(--sky);color:var(--on-accent)}
 .pack:hover .pack-face{transform:scale(1.012)}
 .pack-face{transition:transform .18s ease}
 
@@ -969,7 +1033,7 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
 footer{background:var(--chrome-bg);color:var(--foot-ink);padding:var(--s7) 0 var(--s6);text-align:center}
 footer .wrap{display:flex;flex-direction:column;align-items:center;gap:var(--s4)}
 
-.foot-tag{font:400 var(--t-l)/1 var(--display);color:var(--mustard)}
+.foot-tag{font:400 var(--t-l)/1 var(--display);color:var(--ketchup)}
 
 /* The twin of the dead block around line 490, and dead for the same reason:
    every declaration here is overridden at equal specificity by the grouped
@@ -991,7 +1055,7 @@ footer .wrap{display:flex;flex-direction:column;align-items:center;gap:var(--s4)
 .foot-social a.yt:hover{background:#FF0033;border-color:#FF0033}
 .foot-social a.ig:hover{background:#BC1888;border-color:#BC1888}
 .foot-social a.tt:hover{background:var(--chrome-ink);border-color:var(--chrome-ink)}
-.foot-social a.tt:hover svg{fill:var(--ink)}
+.foot-social a.tt:hover svg{fill:var(--on-accent)}
 .foot-social a.fb:hover{background:#1877F2;border-color:#1877F2}
 
 footer p{font:400 var(--t-sm)/1.6 var(--body);color:var(--chrome-dim);max-width:46em;letter-spacing:0}
@@ -1021,7 +1085,7 @@ footer p{font:400 var(--t-sm)/1.6 var(--body);color:var(--chrome-dim);max-width:
 .menu-btn svg{width:20px;height:20px;fill:none;stroke:var(--chrome-ink);stroke-width:2.2;
   stroke-linecap:round}
 .menu-btn[aria-expanded="true"]{background:var(--mustard);border-color:var(--mustard)}
-.menu-btn[aria-expanded="true"] svg{stroke:var(--ink)}
+.menu-btn[aria-expanded="true"] svg{stroke:var(--on-accent)}
 
 /* THE MENU IS FIXED TO THE VIEWPORT, NOT PLACED IN THE DOCUMENT.
    It sits after </header> as a sibling of .bar, so in normal flow it lives at
@@ -1282,7 +1346,7 @@ footer p{font:400 var(--t-sm)/1.6 var(--body);color:var(--chrome-dim);max-width:
 .pl-title{font:600 var(--t-sm)/1.3 var(--body);color:var(--ink);
   display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .pl-count{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.04em}
-.pl-out{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ketchup-deep);letter-spacing:.04em;
+.pl-out{font:700 var(--t-micro)/1.4 var(--mono);color:var(--sky-deep);letter-spacing:.04em;
   margin-top:var(--s1)}
 
 
@@ -1291,7 +1355,7 @@ footer p{font:400 var(--t-sm)/1.6 var(--body);color:var(--chrome-dim);max-width:
    Only the rules those 332 pages actually reference, and only where ui.css
    did not already define the class: the chrome and the tiles come from above.
    -------------------------------------------------------------------------- */
-.hl{color:var(--ketchup-deep);text-shadow:2px 2px 0 var(--mustard)}
+.hl{color:var(--ketchup-deep);text-shadow:2px 2px 0 var(--trubbish)}
 .sec-label{
   display:flex;align-items:center;gap:8px;
   font-family:var(--mono);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;
@@ -1303,11 +1367,23 @@ section.tight{padding:48px 0}
 /* sky-tinted band */
 section.band{background:var(--sky-tint);border-top:3px solid var(--sky);border-bottom:3px solid var(--sky)}
 /* full sky */
+/* THE BAND INVERTED WITH THE PALETTE AND HAD TO BE TURNED OVER WITH IT, which
+   is the one structural thing in this file the token swap could not do by
+   itself. It ran --sky to --sky-lite, two LIGHT greys, with --on-accent written
+   across the whole band. Under Trubbish --sky is the bright teal and --sky-lite
+   is a DARK teal tint, so the gradient reversed direction: --on-accent measured
+   6.80:1 at the top of the band and 1.29:1 at the bottom, and every heading,
+   lede and price note inside it went with it. Nine failures on /grading.html
+   alone, all from this one rule.
+   It is a DARK tinted band now, which is the shape .hof and section.band
+   already have, and the teal survives as the EDGE so the band still reads as
+   the sky band rather than as another dark slab. --chrome-ink on the darker
+   stop measures 13.12:1 and on the lighter stop 11.21:1. */
 section.band-sky{
-  background:linear-gradient(180deg,var(--sky) 0%,var(--sky-lite) 100%);
-  border-top:3px solid var(--keyline);border-bottom:3px solid var(--keyline);color:var(--on-accent);
+  background:linear-gradient(180deg,var(--sky-tint) 0%,var(--navy-deep) 100%);
+  border-top:3px solid var(--sky);border-bottom:3px solid var(--sky);color:var(--chrome-ink);
 }
-section.band-sky .sec-label{color:var(--on-accent)}section.band-navy .sec-label{color:var(--mustard)}.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+section.band-sky .sec-label{color:var(--sky)}section.band-navy .sec-label{color:var(--mustard)}.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:26px}
 /* ---------- buttons ---------- */
 .btn{
   display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-weight:700;
@@ -1325,12 +1401,29 @@ section.band-sky .sec-label{color:var(--on-accent)}section.band-navy .sec-label{
    in the chrome, the footer's and the one under the player on a rip page, get
    their own class and share the bar and menu pills' colour. Same geometry as
    .btn-yt otherwise, so nothing moves. See the --yt-red fence in :root. */
+/* ==========================================================================
+   THE SUBSCRIBE RING. #EE0000 is fixed and white on it is 4.53:1, which is why
+   the value is not YouTube's #FF0000. What is NOT fixed is whether you can see
+   the pill at all: red against green is the one pair whose two hues sit close
+   in luminance, 2.02:1 on the card green and 2.79:1 on the page green, both
+   under the 3:1 WCAG 1.4.11 asks of a control's own boundary. The bar is the
+   page green scaled to 80% for exactly this, which buys 3.22:1, and the pill is
+   then RINGED in Tim's own #FFFFFF, the colour he gave to teeth and the colour
+   already on the label. The chain is red -> white 4.53:1 -> bar 14.59:1, so the
+   worst link is the label rather than the boundary. box-shadow spread, not a
+   border, so the 44px target does not move. The footer's .btn-sub already has a
+   2px --keyline border from .btn and needs nothing.
+   ========================================================================== */
+.sub,.menu a.menu-sub,
+.sub:hover,.sub:focus-visible,.menu a.menu-sub:hover,.menu a.menu-sub:focus-visible{
+  box-shadow:0 0 0 2px #FFFFFF}
+
 .btn-sub{background:var(--yt-red);color:var(--on-yt);box-shadow:4px 4px 0 var(--keyline)}
 .btn-sub:hover,.btn-sub:focus-visible{background:var(--yt-red-deep);color:var(--on-yt);box-shadow:6px 6px 0 var(--keyline)}
 .btn-sky{background:var(--sky);color:var(--on-accent);box-shadow:4px 4px 0 var(--keyline)}
 .btn-sky:hover{box-shadow:6px 6px 0 var(--keyline)}
 .btn-ghost{background:var(--paper-2);color:var(--ink);box-shadow:4px 4px 0 var(--trubbish)}
-.btn-ghost:hover{background:#fff;box-shadow:6px 6px 0 var(--trubbish)}.btn-sm{padding:9px 16px;font-size:.85rem;min-height:44px}
+.btn-ghost:hover{background:var(--paper-3);box-shadow:6px 6px 0 var(--trubbish)}.btn-sm{padding:9px 16px;font-size:.85rem;min-height:44px}
 @media(max-width:900px){}
 /* ---------- search ---------- */
 .search{position:relative;flex:1;max-width:330px}
@@ -1340,10 +1433,10 @@ section.band-sky .sec-label{color:var(--on-accent)}section.band-navy .sec-label{
   border-radius:999px;padding:9px 16px 9px 38px;
 }
 .search input::placeholder{color:var(--ink-soft)}
-.search input:focus{border-color:var(--mustard);outline:none;box-shadow:0 0 0 3px rgba(232,185,58,.4)}
+.search input:focus{border-color:var(--mustard);outline:none;box-shadow:0 0 0 3px rgba(112,181,217,.4)}
 .search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:15px;height:15px;fill:var(--ink-soft);pointer-events:none}
 @media(max-width:900px){.search{max-width:none;order:3;flex-basis:100%}}.hero-art .lede{color:var(--ink)}
-h1 .rip{color:var(--ketchup-deep);text-shadow:var(--hard-lg)}.btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+h1 .rip{color:var(--ketchup);text-shadow:5px 5px 0 var(--trubbish)}.btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .soc{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;
   background:var(--paper-2);border:2px solid var(--keyline);box-shadow:2px 2px 0 var(--keyline);transition:transform .12s}
 .soc svg{width:18px;height:18px;fill:var(--navy)}
@@ -1357,7 +1450,7 @@ h1 .rip{color:var(--ketchup-deep);text-shadow:var(--hard-lg)}.btn-row{display:fl
 .soc.fb:hover{background:#1877F2}
 .soc.fb:hover svg{fill:#fff}
 footer .soc{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);box-shadow:none}
-footer .soc svg{fill:var(--paper)}
+footer .soc svg{fill:var(--chrome-ink)}
 /* ==========================================================================
    VIDEO CARDS — framed like a card face: gold border, white bevel, the tile
    sitting on the diner paper. Thumbnails come from oardefault (true vertical);
@@ -1372,9 +1465,9 @@ footer .soc svg{fill:var(--paper)}
 .vid-title{font-size:.88rem;font-weight:600;line-height:1.32;color:var(--ink);
   display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .vid-title a{text-decoration:none}
-.vid-title a:hover{color:var(--ketchup-deep)}
+.vid-title a:hover{color:var(--sky-deep)}
 .vid-meta{font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);letter-spacing:.04em}.band-navy .vid-title a:hover{color:var(--mustard)}.vid-grid.dense{grid-template-columns:repeat(auto-fill,minmax(168px,1fr))}
-@media(max-width:520px){}section.band-gold .sec-label{color:var(--gold-band-label)}section.band-gold .hl{color:var(--paper-2);text-shadow:3px 3px 0 var(--gold-deep)}section.band-gold .vid-title a:hover{color:var(--ketchup-deep)}.chip.prod[aria-pressed=true]{background:var(--mustard)}
+@media(max-width:520px){}section.band-gold .sec-label{color:var(--gold-band-label)}section.band-gold .hl{color:var(--on-accent);text-shadow:3px 3px 0 var(--chip-gold-bg)}section.band-gold .vid-title a:hover{color:var(--sky-deep)}.chip.prod[aria-pressed=true]{background:var(--mustard);color:var(--on-accent)}
 .band-sky .chip{box-shadow:2px 2px 0 var(--keyline)}
 /* ==========================================================================
    PER-VIDEO PAGE
@@ -1435,8 +1528,8 @@ footer .soc svg{fill:var(--paper)}
 .fact-link{display:block;text-decoration:none;color:inherit;
   transition:transform .12s ease,box-shadow .12s ease}
 .fact-link:hover,.fact-link:focus-visible{transform:translateY(-2px);
-  box-shadow:0 7px 0 var(--trubbish);border-color:var(--ketchup-deep)}
-.fact-link:hover .l,.fact-link:focus-visible .l{color:var(--ketchup-deep)}
+  box-shadow:0 7px 0 var(--trubbish);border-color:var(--sky-deep)}
+.fact-link:hover .l,.fact-link:focus-visible .l{color:var(--sky-deep)}
 .fact .n{font-family:var(--display);font-size:clamp(1.3rem,5.5vw,1.9rem);color:var(--ketchup-deep);line-height:1.05}
 .fact .l{
   font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
@@ -1530,7 +1623,7 @@ footer .soc svg{fill:var(--paper)}
 .lb-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
 .lb-close{
   position:absolute;top:-16px;right:-16px;width:44px;height:44px;border-radius:50%;
-  background:var(--ketchup);color:var(--paper-2);border:3px solid var(--keyline);
+  background:var(--ketchup);color:var(--on-accent);border:3px solid var(--keyline);
   font-size:1.4rem;line-height:1;display:grid;place-items:center;box-shadow:0 4px 0 var(--keyline);
 }
 @media(max-width:520px){.lb{padding:14px}.lb-close{top:-12px;right:-6px}}
@@ -1561,7 +1654,7 @@ footer .soc svg{fill:var(--paper)}
    its container and covered the viewport. This pass compares whole selectors.
    -------------------------------------------------------------------------- */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.hl{color:var(--ketchup-deep);text-shadow:2px 2px 0 var(--mustard)}
+.hl{color:var(--ketchup-deep);text-shadow:2px 2px 0 var(--trubbish)}
 .vid-shell{
   position:relative;aspect-ratio:2/3;width:100%;border-radius:10px;overflow:hidden;
   background:var(--navy-deep);
@@ -1609,7 +1702,7 @@ footer .soc svg{fill:var(--paper)}
   box-shadow:0 4px 12px rgba(0,0,0,.45);transition:transform .14s,background .14s;
 }
 .vid-shell:hover .vid-play{background:var(--sky);transform:translate(-50%,-50%) scale(1.12)}
-.vid-play svg{width:18px;height:18px;fill:var(--paper-2);margin-left:3px}.hall .vid-shell:hover{border-color:#fff;box-shadow:0 10px 0 var(--gold-deep),0 20px 34px rgba(17,17,17,.5)}.hits .vid-shell:hover{border-color:var(--teal);box-shadow:0 10px 0 var(--teal),0 18px 30px rgba(17,17,17,.34)}
+.vid-play svg{width:18px;height:18px;fill:var(--on-accent);margin-left:3px}.hall .vid-shell:hover{border-color:#fff;box-shadow:0 10px 0 var(--gold-deep),0 20px 34px rgba(17,17,17,.5)}.hits .vid-shell:hover{border-color:var(--teal);box-shadow:0 10px 0 var(--teal),0 18px 30px rgba(17,17,17,.34)}
 .chip[aria-pressed=true]{background:var(--sky);color:var(--on-accent)}.chip.clear:hover{background:var(--ketchup);color:var(--on-alert)}
 .lib-count b{color:var(--ketchup-deep)}
 /* ---------- playlist cards ---------- */
@@ -2019,8 +2112,8 @@ footer .soc svg{fill:var(--paper)}
 
 /* The lead chip keeps the filled look it had from aria-current, which was
    doing double duty as styling and as a (false) accessibility claim. */
-.chip-lead{background:var(--chrome-bg);color:var(--chrome-ink);border-color:var(--chrome-bg)}
-.chip-lead .n{color:var(--mustard)}
+.chip-lead{background:var(--mustard);color:var(--on-accent);border-color:var(--mustard)}
+.chip-lead .n{color:var(--on-accent);opacity:.72}
 
 /* --------------------------------------------------------------------------
    The set directory, as a shelf rather than a wall.
@@ -2094,7 +2187,14 @@ footer .soc svg{fill:var(--paper)}
   text-transform:uppercase;margin-bottom:var(--s3)}
 .hero-cta{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--s4);
   border:2px solid var(--ink);border-radius:var(--r-pill);background:var(--mustard);
-  font:700 var(--t-sm)/1 var(--body);color:var(--ink);box-shadow:var(--lift)}
+  /* --on-accent, NOT --ink. This is bug one of three of the same shape: a token
+     from the SURFACE half of the palette written where a foreground belongs.
+     On the light palette --ink was #111111 on gold, 10.28:1, correct. On any
+     dark palette --ink is a near-white on the same filled accent: measured
+     1.27:1, nine times on the home page alone. Tim saw it as "yellow ctb
+     buttons with white text on them". Every other filled control in this file
+     already writes --on-accent. */
+  font:700 var(--t-sm)/1 var(--body);color:var(--on-accent);box-shadow:var(--lift)}
 .hero:hover .hero-cta{transform:translateY(-2px)}
 
 /* The chip sits opposite the hit flag so the two never collide. */
@@ -2127,7 +2227,7 @@ footer .soc svg{fill:var(--paper)}
 .intl-lead{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ketchup-deep);letter-spacing:.04em;
   text-transform:uppercase}
 .intl-link{margin-top:auto;padding-top:var(--s3);min-height:44px;display:inline-flex;
-  align-items:center;font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep)}
+  align-items:center;font:700 var(--t-sm)/1 var(--body);color:var(--sky-deep)}
 .intl-link:hover{text-decoration:underline}
 .intl-warn{font:700 var(--t-micro)/1.7 var(--mono);color:var(--plum);background:var(--lilac-pale);
   border-radius:var(--r);padding:var(--s3);margin-top:var(--s4);max-width:56em}
@@ -2205,7 +2305,7 @@ footer .soc svg{fill:var(--paper)}
    colours for this band, and because the next palette may put a dark ground
    back under them; the measurements are kept because they say why the rules
    exist at all. Do not quote them as current. */
-.band-sky .lede,.band-sky .price-note{color:var(--on-accent)}
+.band-sky .lede,.band-sky .price-note{color:var(--chrome-dim)}
 .band-sky .rar-n{color:var(--plum)}
 
 
@@ -2257,7 +2357,7 @@ footer .soc svg{fill:var(--paper)}
   background:var(--card);box-shadow:var(--lift)}
 .ig-list > summary{
   cursor:pointer;padding:var(--s4) var(--s5);min-height:44px;display:flex;align-items:center;
-  font:700 var(--t-sm)/1.2 var(--body);color:var(--ketchup-deep);
+  font:700 var(--t-sm)/1.2 var(--body);color:var(--sky-deep);
 }
 .ig-list > summary:hover{text-decoration:underline}
 .ig-list[open] > summary{border-bottom:1px solid var(--hair)}
@@ -2292,7 +2392,7 @@ footer .soc svg{fill:var(--paper)}
 /* The set-guide chip on a rip page. Distinct from the filter chips beside it
    because it leaves the video list rather than narrowing it. */
 .chip.guide{background:var(--gold);border-color:var(--keyline);color:var(--on-accent);font-weight:700}
-.chip.guide:hover{background:var(--mustard)}
+.chip.guide:hover{background:var(--mustard);color:var(--on-accent)}
 
 
 /* --------------------------------------------------------------------------
@@ -2304,10 +2404,10 @@ footer .soc svg{fill:var(--paper)}
 /* The next show, given its own slab at the top. On a calendar the single most
    asked question is "when is the next one", so it is answered before any list. */
 .next-show{
-  display:block;background:var(--navy);color:var(--paper);border-radius:var(--r);
+  display:block;background:var(--band-bg);color:var(--chrome-ink);border-radius:var(--r);
   padding:var(--s5);box-shadow:0 4px 0 var(--gold-deep),var(--lift);
 }
-.next-show:hover{background:color-mix(in srgb,var(--navy) 84%,var(--page))}
+.next-show:hover{background:color-mix(in srgb,var(--band-bg) 84%,var(--page))}
 .next-label{display:block;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;
   text-transform:uppercase;color:var(--gold)}
 .next-name{display:block;font:400 var(--t-l)/1.15 var(--display);margin:8px 0 6px}
@@ -2326,7 +2426,7 @@ footer .soc svg{fill:var(--paper)}
 .show[hidden]{display:none}
 .show-when{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  min-width:58px;padding:8px 10px;background:var(--navy);color:var(--paper);
+  min-width:58px;padding:8px 10px;background:var(--band-bg);color:var(--chrome-ink);
   border-radius:var(--r-sm);
 }
 .show-mon{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
@@ -2343,7 +2443,7 @@ footer .soc svg{fill:var(--paper)}
    The paragraph gains matching margin so two neighbouring links cannot end up
    overlapping each other's targets. */
 .show-where{font-size:var(--t-sm);margin-top:12px;margin-bottom:8px}
-.show-where a{color:var(--ketchup-deep);font-weight:600;padding:13px 0}
+.show-where a{color:var(--sky-deep);font-weight:600;padding:13px 0}
 .show-where a:hover{text-decoration:underline}
 .show-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .chip.pk{background:var(--gold);border-color:var(--keyline);color:var(--on-accent)}
@@ -2355,7 +2455,7 @@ footer .soc svg{fill:var(--paper)}
   background:var(--lilac-pale);border-radius:var(--r-sm);padding:var(--s3);
   margin-top:10px;max-width:52em}
 .show-links{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:10px}
-.show-links a{font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep);
+.show-links a{font:700 var(--t-sm)/1 var(--body);color:var(--sky-deep);
   min-height:44px;display:inline-flex;align-items:center}
 .show-links a:hover{text-decoration:underline}
 
@@ -2394,7 +2494,13 @@ footer .soc svg{fill:var(--paper)}
    the whole row wraps on a narrow screen rather than squashing the note. */
 .tiers{list-style:none;margin-top:12px;display:grid;gap:6px}
 .tiers li{display:grid;grid-template-columns:auto 1fr;gap:2px var(--s3);align-items:baseline;
-  padding:8px 10px;background:var(--paper-3);border-radius:var(--r-sm)}
+  /* WAS --paper-3. THE LADDER INVERTED WITH THE PALETTE: on the light one
+     --paper-3 was a step DARKER than the card and read as an inset well; on
+     this one it is the LIGHTEST surface there is, and the small pink price on
+     it measured 3.60:1 against a 4.5 gate. --paper is the step BELOW the card,
+     so the row is a well again and the price reads at 6.06:1. If you find
+     another small accent on --paper-3, this is the same bug. */
+  padding:8px 10px;background:var(--paper);border-radius:var(--r-sm)}
 .tier-price{font:400 1.05rem/1 var(--display);color:var(--ketchup-deep)}
 .tier-name{font-weight:600;font-size:var(--t-sm)}
 .tier-from{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;
@@ -2403,7 +2509,7 @@ footer .soc svg{fill:var(--paper)}
 
 .show-links a.tickets{background:var(--gold);color:var(--on-accent);border:2px solid var(--keyline);
   border-radius:999px;padding:0 16px;box-shadow:0 3px 0 var(--gold-deep)}
-.show-links a.tickets:hover{background:var(--mustard);text-decoration:none}
+.show-links a.tickets:hover{background:var(--mustard);color:var(--on-accent);text-decoration:none}
 
 /* English set checklists carry a price, which the imported ones do not. Rarity
    drops to its own row under the name rather than fighting the price for the
@@ -2437,7 +2543,7 @@ footer .soc svg{fill:var(--paper)}
 .cq{display:grid;grid-template-columns:1fr auto;gap:2px var(--s3);align-items:baseline;
   padding:10px 12px;background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm)}
 .cq-name{grid-row:1;grid-column:1;font-weight:700;font-size:var(--t-sm);color:var(--ink)}
-.cq-name:hover{color:var(--ketchup-deep);text-decoration:underline}
+.cq-name:hover{color:var(--sky-deep);text-decoration:underline}
 .cq-pr{grid-row:1;grid-column:2;font:700 var(--t-sm)/1.4 var(--mono);color:var(--ketchup-deep);
   text-align:right;white-space:nowrap}
 .cq-set{grid-row:2;grid-column:1;font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
@@ -2452,7 +2558,7 @@ footer .soc svg{fill:var(--paper)}
 /* --------------------------------------------------------------------------
    Real vs fake guide (/fake-cards.html), written by scripts/build-fakes.mjs.
    -------------------------------------------------------------------------- */
-.fk-golden{background:var(--navy);color:var(--paper);border-radius:var(--r);
+.fk-golden{background:var(--band-bg);color:var(--chrome-ink);border-radius:var(--r);
   padding:var(--s5);box-shadow:0 4px 0 var(--gold-deep),var(--lift);margin-top:var(--s4)}
 .fk-golden-h{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
   color:var(--gold)}
@@ -2463,7 +2569,7 @@ footer .soc svg{fill:var(--paper)}
   padding:var(--s5);box-shadow:var(--lift);margin-top:var(--s4)}
 .fk-head{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap}
 .fk-no{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;
-  border-radius:50%;background:var(--navy);color:var(--gold);font:700 .9rem/1 var(--mono);flex:none}
+  border-radius:50%;background:var(--band-bg);color:var(--gold-deep);font:700 .9rem/1 var(--mono);flex:none}
 .fk-head h2{font:400 var(--t-m)/1.15 var(--display);flex:1 1 auto;min-width:0}
 /* How much the test actually proves, said out loud. The light test was gospel
    for years and is now a first pass, and a guide that hides that is worse than
@@ -2479,11 +2585,14 @@ footer .soc svg{fill:var(--paper)}
 
 .fk-vs{display:grid;gap:var(--s3);margin-top:var(--s4)}
 .fk-vs > div{padding:var(--s3);border-radius:var(--r-sm);font-size:var(--t-sm);line-height:1.6}
-.fk-real{background:#EAF3E4;border-left:4px solid #4C7A3A}
-.fk-fake{background:#F7E4E0;border-left:4px solid var(--ketchup)}
+/* WERE #EAF3E4 AND #F7E4E0, two LIGHT panels with the page's ink on top. On
+   this ground that is near-white on near-white. The pair keeps its meaning
+   using only palette values: the teal tint and the pink tint. */
+.fk-real{background:var(--sky-tint);border-left:4px solid var(--sky-deep)}
+.fk-fake{background:var(--lilac-pale);border-left:4px solid var(--ketchup)}
 .fk-vs-h{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
   margin-bottom:6px}
-.fk-real .fk-vs-h{color:#3B6130}
+.fk-real .fk-vs-h{color:var(--sky-deep)}
 .fk-fake .fk-vs-h{color:var(--ketchup-deep)}
 
 .fk-why{font-size:var(--t-sm);color:var(--ink-2);margin-top:var(--s3);line-height:1.7;max-width:52em}
@@ -2501,6 +2610,12 @@ footer .soc svg{fill:var(--paper)}
   color:var(--ink-2);text-align:center;margin-top:6px}
 .fk-note{font:400 8px/1 var(--mono);fill:var(--ink-2)}
 .fk-cap{font:700 9px/1 var(--mono);fill:var(--ink-2)}
+/* A CAPTION SITTING ON ONE OF THE FIGURE'S OWN LIGHT PLATES. Most .fk-cap
+   labels are on the dark figure ground and take --ink-2, but the anatomy
+   diagram draws a real card: a #F5C518 yellow body with a #BFD9E8 art window,
+   both of them CONTENT rather than palette, exactly like the pack skins. A
+   light ink on the pale blue window measured 1.06:1. 12.06:1 now. */
+.fk-cap-in{fill:var(--on-accent)}
 
 /* --------------------------------------------------------------------------
    Grading guide (/grading.html), written by scripts/build-grading.mjs.
@@ -2528,7 +2643,7 @@ footer .soc svg{fill:var(--paper)}
   border-radius:var(--r);box-shadow:var(--lift)}
 .gcalc-hint{color:var(--ink-2);font-size:var(--t-sm)}
 .gcalc-verdict{font:400 var(--t-l)/1.1 var(--display)}
-.gcalc-verdict.up{color:#3B6130}
+.gcalc-verdict.up{color:var(--sky-deep)}
 .gcalc-verdict.down{color:var(--ketchup-deep)}
 .gcalc-sum{font-size:var(--t-sm);margin-top:8px;line-height:1.7}
 .gcalc-note{font-size:var(--t-micro);color:var(--ink-2);margin-top:10px;line-height:1.7;max-width:52em}
@@ -2547,7 +2662,7 @@ footer .soc svg{fill:var(--paper)}
 .gr-raw{grid-row:1 / span 2;grid-column:2;color:var(--ink-2)}
 .gr-psa{grid-row:1 / span 2;grid-column:3;color:var(--ink)}
 .gr-net{grid-row:1 / span 2;grid-column:4;font-size:var(--t-m)}
-.gr-net.up{color:#3B6130}
+.gr-net.up{color:var(--sky-deep)}
 .gr-net.down{color:var(--ketchup-deep)}
 @media(max-width:560px){
   .gr{grid-template-columns:1fr 1fr 1fr}
@@ -2567,7 +2682,7 @@ footer .soc svg{fill:var(--paper)}
 .poke-rips li{padding:10px 12px;background:var(--card);border:1px solid var(--hair);
   border-radius:var(--r-sm)}
 .poke-rips a{font-weight:600;font-size:var(--t-sm);color:var(--ink)}
-.poke-rips a:hover{color:var(--ketchup-deep);text-decoration:underline}
+.poke-rips a:hover{color:var(--sky-deep);text-decoration:underline}
 
 /* --------------------------------------------------------------------------
    Start here (/start.html), written by scripts/build-start.mjs.
@@ -2577,11 +2692,11 @@ footer .soc svg{fill:var(--paper)}
   background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s5);box-shadow:var(--lift)}
 .st-n{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;
-  border-radius:50%;background:var(--navy);color:var(--gold);font:400 1.3rem/1 var(--display);flex:none}
+  border-radius:50%;background:var(--band-bg);color:var(--gold-deep);font:400 1.3rem/1 var(--display);flex:none}
 .st-body h2{font:400 var(--t-m)/1.2 var(--display)}
 .st-body p{font-size:var(--t-sm);color:var(--ink-2);line-height:1.7;margin-top:8px;max-width:52em}
 .st-links{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;margin-top:var(--s3)}
-.st-also{font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep);min-height:44px;
+.st-also{font:700 var(--t-sm)/1 var(--body);color:var(--sky-deep);min-height:44px;
   display:inline-flex;align-items:center}
 .st-also:hover{text-decoration:underline}
 
@@ -2595,7 +2710,7 @@ footer .soc svg{fill:var(--paper)}
   padding:var(--s4);box-shadow:var(--lift);min-height:44px}
 .tool:hover{border-color:var(--keyline);transform:translateY(-2px)}
 .tool-t{display:block;font:400 var(--t-m)/1.15 var(--display);color:var(--ink)}
-.tool:hover .tool-t{color:var(--ketchup-deep)}
+.tool:hover .tool-t{color:var(--sky-deep)}
 .tool-d{display:block;font-size:var(--t-sm);color:var(--ink-2);line-height:1.5;margin-top:6px}
 @media(min-width:560px){ .tool-grid{grid-template-columns:repeat(2,1fr)} }
 @media(min-width:900px){ .tool-grid{grid-template-columns:repeat(3,1fr)} }
@@ -2931,13 +3046,18 @@ footer .soc svg{fill:var(--paper)}
 
 /* "Want to see real photographs?" Sits above the tests, because somebody who
    came here to SEE a fake wants that before they read eight tests. */
-.fk-see{background:var(--paper-3);border:2px dashed var(--keyline);border-radius:var(--r);
+/* --paper, NOT --paper-3. THIRD TIME: a small accent on the LIGHTEST surface
+   fails. The teal link in this block measured 3.60:1 on --paper-3 and 6.06:1 on
+   --paper, and --paper is a step BELOW the card so the block reads as an inset
+   well, which is what it was on the light palette too. See .set-rips and
+   .tiers for the other two, and the --paper-3 note in :root. */
+.fk-see{background:var(--paper);border:2px dashed var(--keyline);border-radius:var(--r);
   padding:var(--s5);margin-top:var(--s4)}
 .fk-see-h{font:400 var(--t-m)/1.2 var(--display)}
 .fk-see-b{font-size:var(--t-sm);color:var(--ink-2);line-height:1.7;margin-top:8px;max-width:56em}
 .fk-see-list{list-style:none;display:grid;gap:var(--s3);margin-top:var(--s4)}
 .fk-see-list li{display:grid;gap:2px}
-.fk-see-list a{font:700 var(--t-sm)/1.4 var(--body);color:var(--ketchup-deep);
+.fk-see-list a{font:700 var(--t-sm)/1.4 var(--body);color:var(--sky-deep);
   min-height:44px;display:inline-flex;align-items:center}
 .fk-see-list a:hover{text-decoration:underline}
 .fk-see-list span{font-size:var(--t-micro);color:var(--ink-2);line-height:1.6;max-width:56em}
@@ -2951,7 +3071,7 @@ footer .soc svg{fill:var(--paper)}
 .poke-card:hover{border-color:var(--keyline)}
 .poke-card img{width:100%;height:auto;border-radius:var(--r-sm);display:block;margin-bottom:6px}
 .poke-nm{font:400 var(--t-m)/1.15 var(--display);color:var(--ink)}
-.poke-card:hover .poke-nm{color:var(--ketchup-deep)}
+.poke-card:hover .poke-nm{color:var(--sky-deep)}
 .poke-meta{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);text-transform:uppercase;
   letter-spacing:.03em}
 .poke-pr{font:700 var(--t-sm)/1.4 var(--mono);color:var(--ketchup-deep)}
@@ -2985,7 +3105,7 @@ footer .soc svg{fill:var(--paper)}
    the word "dearer" was effectively invisible. Gold on that block is 7.11:1
    under the current palette (7.34:1 against the navy it was written for), and it
    is the accent the rest of the dark surfaces already use. */
-.fk-golden .hl{color:var(--gold)}
+.fk-golden .hl{color:var(--ketchup)}
 
 /* A SECOND :root, DECLARED 2,200 LINES AFTER THE FIRST, AND IT WINS.
    This is the single most dangerous line in the file for anyone changing the
@@ -2999,13 +3119,13 @@ footer .soc svg{fill:var(--paper)}
    test at 5.34:1 on --paper-3, 6.79:1 on white and 6.50:1 on the page.
    If you change --ink-2 at the top of this file, change it here too, or delete
    this rule and fold the value up there. */
-:root{--ink-2:#5B5B5B}
+:root{--ink-2:#C9D1CC}
 
 /* White text on --ketchup was 4.28:1 when --ketchup was the red #D9482B. This
    file already carried a note that --ketchup "is a FILL, never text"; the
    inverse, text ON it, was never covered. --ketchup-deep as the fill takes
    white to 6.66:1 on the old palette and 7.47:1 on this one. */
-.chip.soon,.show.is-featured .show-when,.hero-new{background:var(--ketchup-deep)}
+.chip.soon,.show.is-featured .show-when,.hero-new{background:var(--ketchup-deep);color:var(--on-accent)}
 .lb-close{background:var(--ketchup-deep)}
 
 /* The PSA 10 gold was hardcoded #A8760B, 3.88:1 on the card cream, then
@@ -3080,7 +3200,7 @@ footer .soc svg{fill:var(--paper)}
 }
 .cc-table thead th{
   font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;
-  background:var(--navy);color:var(--paper);border-bottom:none;position:sticky;top:0;
+  background:var(--band-bg);color:var(--chrome-ink);border-bottom:none;position:sticky;top:0;
   white-space:nowrap;
 }
 .cc-table tbody th{
@@ -3097,12 +3217,12 @@ footer .soc svg{fill:var(--paper)}
 /* The heading over the pinned column has to pin too, or the column keeps its
    rows and loses its label the moment you scroll right. Higher z-index because
    this one cell is in both sticky contexts at once. */
-.cc-table thead th:first-child{left:0;z-index:2;box-shadow:2px 0 0 var(--paper)}
+.cc-table thead th:first-child{left:0;z-index:2;box-shadow:2px 0 0 var(--keyline)}
 .cc-table tbody tr:nth-child(even) th,
 .cc-table tbody tr:nth-child(even) td{background:var(--paper-2)}
 .cc-table tbody tr:hover th,
 .cc-table tbody tr:hover td{background:var(--sky-tint)}
-.cc-table a{color:var(--navy);text-decoration:underline;text-underline-offset:2px}
+.cc-table a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px}
 .cc-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .cc-table thead .num{text-align:right}
 .cc-yr{display:block;font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);font-weight:400}
@@ -3276,7 +3396,7 @@ span.cq-name{color:var(--ink)}
    44 and this one silently halved it to 32 for all 18 footer links. */
 .foot-nav a{font:600 var(--t-sm)/1.35 var(--body);color:var(--foot-ink);
   min-height:44px;display:inline-flex;align-items:center}
-.foot-nav a:hover{color:var(--paper);text-decoration:underline}
+.foot-nav a:hover{color:var(--chrome-ink);text-decoration:underline}
 .foot-collectr{margin:var(--s3) 0 var(--s2)}
 /* This is the ONE outbound link on nearly every page of the site, and it used
    to be an 18px line of text sitting beside four 44px social buttons: the
@@ -3399,7 +3519,7 @@ inherited from the UA default, so the promotion moves nothing on screen. */
 .loc-soc{font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;letter-spacing:.05em;
   color:var(--navy);background:var(--paper-3);border-radius:var(--r-pill);
   padding:0 12px;min-height:44px;display:inline-flex;align-items:center}
-.loc-soc:hover{background:var(--mustard)}
+.loc-soc:hover{background:var(--mustard);color:var(--on-accent)}
 /* Where a hand-read price came from. Only promos carry this: everything else
    refreshes nightly from one source the section note already names. */
 .hitcard-src{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-soft);margin-top:2px}
@@ -3451,7 +3571,7 @@ inherited from the UA default, so the promotion moves nothing on screen. */
 .hitlb-x{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:50%;
   border:2px solid var(--keyline);background:var(--paper);font:700 1.5rem/1 var(--body);
   color:var(--navy);cursor:pointer;z-index:1}
-.hitlb-x:hover{background:var(--mustard)}
+.hitlb-x:hover{background:var(--mustard);color:var(--on-accent)}
 .hitlb-b{margin-top:var(--s4);display:flex;flex-direction:column;gap:4px}
 .hitlb-n{font:400 var(--t-l)/1.1 var(--display)}
 .hitlb-s{font:700 var(--t-micro)/1.4 var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--ink-2)}
@@ -3488,7 +3608,12 @@ inherited from the UA default, so the promotion moves nothing on screen. */
        lightness, neutral. The gold border, the gold bloom and the sheen are
        untouched: gold IS the accent here. */
     linear-gradient(135deg,#3A3A3A 0%,#212121 55%,#121212 100%);
-  border:4px solid var(--gold);border-radius:16px;
+  /* LITERAL, NOT var(--gold): every gold-named token in this palette is a
+     TEAL, so the only gold left on the site is the gold typed here on purpose.
+     This frame and the badge below are the two places it survives, and it
+     means one thing: this is the biggest card the channel has ever pulled.
+     Tim: "its cool to keep the hall of fame gold". */
+  border:4px solid #FFB000;border-radius:16px;
   /* Double rule: an inner hairline inside the gold border reads as a frame
      rather than a box with a coloured edge. */
   box-shadow:inset 0 0 0 2px rgba(17,17,17,.6), inset 0 0 0 5px rgba(232,185,58,.5),
@@ -3509,24 +3634,25 @@ inherited from the UA default, so the promotion moves nothing on screen. */
 @media(prefers-reduced-motion:reduce){.hofx::before{animation:none;background:none}}
 .hofx-tag{position:absolute;top:-16px;left:var(--s5);z-index:1;
   font:700 var(--t-micro)/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
-  color:var(--on-accent);background:linear-gradient(180deg,var(--mustard),var(--gold));
-  border:2px solid var(--gold-deep);border-radius:var(--r-pill);padding:8px 16px;
-  box-shadow:0 3px 0 var(--gold-deep),0 8px 18px rgba(17,17,17,.35)}
+  /* LITERALS, for the reason on .hofx above. The HALL OF FAME HIT badge. */
+  color:var(--on-accent);background:linear-gradient(180deg,#FFD23F,#FFB000);
+  border:2px solid #FFDF7A;border-radius:var(--r-pill);padding:8px 16px;
+  box-shadow:0 3px 0 #FFDF7A,0 8px 18px rgba(17,17,17,.35)}
 .hofx-art{position:relative}
 .hofx-art::before{content:"";position:absolute;inset:-14%;border-radius:50%;
   background:radial-gradient(circle,rgba(232,185,58,.42) 0%,rgba(232,185,58,0) 70%)}
 .hofx-art img{position:relative;display:block;width:100%;height:auto;border-radius:10px;
   box-shadow:0 8px 22px rgba(0,0,0,.45)}
 .hofx-b{display:flex;flex-direction:column;gap:8px;min-width:0}
-.hofx-t{font:400 var(--t-l)/1.1 var(--display);color:var(--paper);
+.hofx-t{font:400 var(--t-l)/1.1 var(--display);color:var(--chrome-ink);
   text-shadow:0 2px 0 rgba(0,0,0,.35)}
 .hofx-m{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;
-  color:var(--mustard)}
+  color:var(--ketchup-deep)}
 .hofx-cta{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;margin-top:6px;
   font:700 var(--t-sm)/1 var(--body);color:var(--on-accent);
-  background:var(--mustard);border:2px solid var(--gold-deep);border-radius:var(--r-pill);
+  background:var(--mustard);border:2px solid var(--chrome-ink);border-radius:var(--r-pill);
   padding:11px 18px;min-height:44px}
-.hofx:hover .hofx-cta{background:var(--gold)}
+.hofx:hover .hofx-cta{background:var(--gold);color:var(--on-accent)}
 @media(max-width:640px){
   .hofx{grid-template-columns:1fr;gap:var(--s4);text-align:center;
     padding:var(--s5) var(--s4) var(--s4);margin-top:var(--s6)}
@@ -3629,10 +3755,10 @@ inherited from the UA default, so the promotion moves nothing on screen. */
 .mine-n{font:700 var(--t-sm)/1.3 var(--body);color:var(--ink);margin-top:6px}
 .mine-r{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-soft)}
 .mine-p{font:700 var(--t-sm)/1.4 var(--mono);color:var(--ketchup-deep);font-variant-numeric:tabular-nums}
-.mine-w{font:600 var(--t-micro)/1.4 var(--body);color:var(--navy);margin-top:auto;padding-top:6px;
+.mine-w{font:600 var(--t-micro)/1.4 var(--body);color:var(--sky-deep);margin-top:auto;padding-top:6px;
   min-height:44px;display:inline-flex;align-items:center;text-decoration:underline;
   text-underline-offset:2px}
-.mine-w:hover{color:var(--ketchup-deep)}
+.mine-w:hover{color:var(--sky-deep)}
 @media(max-width:520px){.mine-grid{grid-template-columns:repeat(2,1fr);gap:var(--s3)}}
 
 /* ---------- every rip of this set ---------- */
@@ -3642,7 +3768,7 @@ inherited from the UA default, so the promotion moves nothing on screen. */
   padding:10px 12px;background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm)}
 .riplist a{font-weight:600;font-size:var(--t-sm);color:var(--ink);
   min-height:44px;display:inline-flex;align-items:center}
-.riplist a:hover{color:var(--ketchup-deep);text-decoration:underline}
+.riplist a:hover{color:var(--sky-deep);text-decoration:underline}
 .riplist span{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);white-space:nowrap}
 /* A printing we do not price: same card shape, no button, since there is no
    lightbox detail to open and nothing to click through to. */
@@ -4125,7 +4251,7 @@ inherited from the UA default, so the promotion moves nothing on screen. */
 .hof .vcar .hero h3 a{color:var(--chrome-ink)}
 .hof .vcar .hero-meta,
 .hof .vcar .hero-kicker{color:var(--chrome-dim)}
-.hof .vcar .hero-cta{border-color:var(--gold-deep)}
+.hof .vcar .hero-cta{border-color:var(--chrome-ink)}
 
 
 /* NO CREAM STRIPE ABOVE THE FOOTER.
@@ -4152,7 +4278,7 @@ main:has(> .set-cta:last-child){padding-bottom:0}
 .mine-list{list-style:none;margin:var(--s4) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--s2)}
 .mine-list li{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2);
   padding:10px var(--s3);border-left:3px solid var(--gold);background:var(--card);border-radius:0 8px 8px 0}
-.mine-x{font:700 var(--t-micro)/1 var(--mono);background:var(--navy);color:var(--chrome-ink);
+.mine-x{font:700 var(--t-micro)/1 var(--mono);background:var(--band-bg);color:var(--chrome-ink);
   border-radius:4px;padding:3px 6px}
 .mine-rk{display:inline-flex;align-items:center;font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
 /* "Watch the rip" as a real button on the text rows. The link used to be the
@@ -4161,7 +4287,7 @@ main:has(> .set-cta:last-child){padding-bottom:0}
 .mine-btn{display:inline-flex;align-items:center;min-height:36px;padding:0 var(--s3);
   border:2px solid var(--keyline);border-radius:999px;background:var(--card);color:var(--ink);
   text-decoration:none;font:700 var(--t-micro)/1 var(--body);letter-spacing:.03em;white-space:nowrap}
-.mine-btn:hover{background:var(--mustard)}
+.mine-btn:hover{background:var(--mustard);color:var(--on-accent)}
 .mine-note{margin-top:var(--s3);font-size:var(--t-micro);color:var(--ink-2);max-width:40em}
 
 /* The English name of a foreign set, in the "same set, other language" heading.
@@ -4213,7 +4339,7 @@ main:has(> .set-cta:last-child){padding-bottom:0}
    Hovering now goes GOLD rather than grey, which is what the accent is for,
    and the glyph flips to --on-accent: 7.11:1, and the state change is a hue
    change rather than a barely-there lightening. */
-.vid-shell:hover .vid-play{background:var(--gold)}
+.vid-shell:hover .vid-play{background:var(--gold);color:var(--on-accent)}
 .vid-shell:hover .vid-play svg{fill:var(--on-accent)}
 
 /* 3. .btn-ghost's HOVER FILL BECAME A NO-OP. The rule is

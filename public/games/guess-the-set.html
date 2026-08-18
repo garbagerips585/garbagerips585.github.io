@@ -18,12 +18,12 @@
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=7ada72e4">
-<link rel="stylesheet" href="/assets/games.css?v=9de51273">
+<link rel="stylesheet" href="/assets/ui.css?v=f309a931">
+<link rel="stylesheet" href="/assets/games.css?v=812ffdf4">
 <style>
 /* THE MODE BUTTONS HAD NO PRESSED STATE AND HAVE NEVER HAD ONE.
    ui.css styles .chip[aria-pressed=true] in three places and .btn in none, so
@@ -52,9 +52,21 @@
    says which one. A picture on this site that cannot name where its numbers came
    from is the thing check-build.py's density table is trying to get rid of, and
    adding an unsourced one to fix the count would be worse than the empty page. */
-.tq-fig{margin:var(--s4) 0 0;padding:var(--s4);background:var(--paper-2,#F7F2DE);
+.tq-fig{margin:var(--s4) 0 0;padding:var(--s4);background:var(--paper-2,#2F4F39);
   border:2px solid var(--ink);border-radius:var(--r)}
 .tq-fig svg{display:block;width:100%;height:auto;max-width:520px;margin:0 auto}
+/* THE INK OF THE TWO GENERATED DIAGRAMS INSIDE .tq-fig. They are inline SVG, so
+   a fill= attribute cannot hold a custom property reliably and the ink lives
+   here instead. The ground is .tq-fig's own background, var(--paper-2): --ink
+   measures 8.03:1 on it, which clears 4.5:1 for the labels and 3:1 for the
+   outlines. FALLBACK VALUES: the two above were #F7F2DE, a cream sampled from
+   the old palette, and a fallback is exactly where a repaint fails silently,
+   because it only shows up if the token is ever missing. Keep them in step with
+   --paper-2 whenever the palette moves. */
+.tq-d{fill:none;stroke:var(--ink)}
+.tq-df{fill:var(--ink)}
+.tq-dt{fill:var(--ink);font-family:ui-monospace,monospace;font-weight:700}
+.tq-don{stroke:var(--on-accent)}
 .tq-fig figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
   text-align:center}
 
@@ -65,7 +77,7 @@
 .tq-era{display:grid;grid-template-columns:34px 1fr auto;gap:var(--s3);align-items:center;
   padding:8px 10px;background:var(--card);border:1px solid var(--hair);border-radius:10px}
 .tq-era img{width:26px;height:26px;object-fit:contain;display:block;margin:0 auto;
-  background:var(--paper-2,#F7F2DE);border-radius:5px}
+  background:var(--paper-2,#2F4F39);border-radius:5px}
 .tq-era .tq-noimg{width:26px;height:26px;display:block;margin:0 auto;border-radius:5px;
   border:1px dashed var(--hair)}
 .tq-era b{font:700 var(--t-sm)/1.25 var(--body);color:var(--ink);display:block}
@@ -89,7 +101,7 @@
 .tq-links a{display:inline-block;padding:9px 14px;background:var(--card);border:2px solid var(--ink);
   border-radius:var(--r-pill);box-shadow:0 3px 0 var(--ink);text-decoration:none;color:var(--ink);
   font:700 var(--t-sm)/1.2 var(--body)}
-.tq-links a:hover{background:var(--mustard)}
+.tq-links a:hover{background:var(--mustard);color:var(--on-accent)}
 
 /* The one file drawn twice. The FIRST of the pair carries the filter, which is
    the same brightness(0) games.css puts on the live game, written here rather
@@ -277,29 +289,43 @@
            worth having only if somebody checks it against its own claim. -->
       <svg viewBox="0 0 480 232" role="img"
         aria-label="Two card outlines, both portrait. On the left, a card up to the XY era, with the collector number and the set symbol together in the bottom right corner. On the right, a card from Sun and Moon onward, with the number and symbol moved to the bottom left.">
-        <g fill="none" stroke="#1E2419" stroke-width="3">
+        <!-- THE INK IS A CLASS, NOT A fill= ATTRIBUTE, and that is deliberate:
+             this figure sits on .tq-fig, which is var(--paper-2), so its ink has
+             to move with the token rather than be re-sampled by hand the next
+             time the palette moves. It was #1E2419 throughout and that measured
+             1.74:1 on the new #2F4F39, so every mark here was invisible. The
+             classes are in TEACH_CSS below. --ink is 8.03:1 on the figure.
+             THE TWO FAINT GROUPS FLIPPED SENSE and that is the point of them:
+             they are the greeked artwork box and the greeked text lines, drawn
+             at 10% and 18%, and on a light figure that means "slightly darker
+             than the card". On a dark one it has to mean slightly LIGHTER, so
+             they are --ink at the same opacities rather than the old near-black
+             at the same opacities, which would have been no mark at all. -->
+        <g class="tq-d" stroke-width="3">
           <rect x="60" y="10" width="130" height="182" rx="8"/>
           <rect x="290" y="10" width="130" height="182" rx="8"/>
         </g>
-        <g fill="#1E2419" opacity=".1">
+        <g class="tq-df" opacity=".1">
           <rect x="70" y="20" width="110" height="96" rx="5"/>
           <rect x="300" y="20" width="110" height="96" rx="5"/>
         </g>
-        <g fill="#1E2419" opacity=".18">
+        <g class="tq-df" opacity=".18">
           <rect x="70" y="126" width="110" height="7" rx="3.5"/>
           <rect x="70" y="140" width="86" height="7" rx="3.5"/>
           <rect x="300" y="126" width="110" height="7" rx="3.5"/>
           <rect x="300" y="140" width="86" height="7" rx="3.5"/>
         </g>
+        <!-- The set-symbol disc keeps the amber, which is 4.51:1 on the figure,
+             and its ring goes to var(--on-accent) rather than to --ink: a
+             near-white ring on amber is 1.78:1 and would have vanished into the
+             disc it is meant to draw, where the dark ring is 8.05:1 on it. -->
         <g>
-          <circle cx="174" cy="174" r="8" fill="#F5A62B" stroke="#1E2419" stroke-width="2.5"/>
-          <text x="158" y="178" text-anchor="end" font-family="ui-monospace,monospace" font-size="11"
-            font-weight="700" fill="#1E2419">25/198</text>
-          <circle cx="306" cy="174" r="8" fill="#F5A62B" stroke="#1E2419" stroke-width="2.5"/>
-          <text x="322" y="178" font-family="ui-monospace,monospace" font-size="11"
-            font-weight="700" fill="#1E2419">25/198</text>
+          <circle cx="174" cy="174" r="8" fill="#F5A62B" class="tq-don" stroke-width="2.5"/>
+          <text x="158" y="178" text-anchor="end" class="tq-dt" font-size="11">25/198</text>
+          <circle cx="306" cy="174" r="8" fill="#F5A62B" class="tq-don" stroke-width="2.5"/>
+          <text x="322" y="178" class="tq-dt" font-size="11">25/198</text>
         </g>
-        <g font-family="ui-monospace,monospace" font-size="12" font-weight="700" fill="#1E2419">
+        <g class="tq-dt" font-size="12">
           <text x="125" y="220" text-anchor="middle">up to XY, 2016</text>
           <text x="355" y="220" text-anchor="middle">Sun &amp; Moon on, 2017</text>
         </g>

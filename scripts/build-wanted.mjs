@@ -328,14 +328,17 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
 /* The card art keeps the real 245:342 proportion of a Pokemon card, so it is
    never stretched, and reserves its height before the image loads. */
 .wc-art{position:relative;display:block;aspect-ratio:245/342;border-radius:6px;
-  overflow:hidden;background:#E8E4D6;margin-bottom:var(--s2)}
+  overflow:hidden;background:var(--paper-3);margin-bottom:var(--s2)}
 .wc-art img{width:100%;height:100%;object-fit:contain}
 .wc-none{position:absolute;inset:0;display:grid;place-items:center;padding:12%;
   font:400 .9rem/1.25 var(--display);color:var(--ink-2);text-align:center}
 .wc-flag{position:absolute;left:0;bottom:10px;z-index:2;
   font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;
-  background:var(--ketchup-deep);color:#fff;padding:5px 7px;border-radius:0 4px 4px 0}
-.wc-flag.wc-got{background:#2F7A4A}
+  background:var(--ketchup-deep);color:var(--on-accent);padding:5px 7px;border-radius:0 4px 4px 0}
+/* WAS #2F7A4A, which is two points off the new card green #2F4F39: the GOT IT
+   flag would have vanished into the card it sits on. Want is pink and got is
+   teal now, which is the site's own pair and needs no third hue. */
+.wc-flag.wc-got{background:var(--sky-deep)}
 .wc-name{font:600 var(--t-sm)/1.3 var(--body)}
 .wc-meta{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.03em}
 .wc-rar{font:700 var(--t-micro)/1.4 var(--mono);color:var(--plum)}

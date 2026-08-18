@@ -225,8 +225,8 @@ function secretChart(rows, noneCount) {
       throw new Error(`secretChart: the "${val}" label does not fit past ${g.name}'s bar`);
     }
     body += `<text x="${NAMEX}" y="${(y + BH - 1.5).toFixed(1)}" text-anchor="end" class="ws-cname">${esc(g.name)}</text>
-      <rect x="${X0}" y="${y.toFixed(1)}" width="${(xp - X0).toFixed(1)}" height="${BH}" fill="#E6E4DD"/>
-      <rect x="${xp.toFixed(1)}" y="${y.toFixed(1)}" width="${(xt - xp).toFixed(1)}" height="${BH}" fill="#111111"/>
+      <rect x="${X0}" y="${y.toFixed(1)}" width="${(xp - X0).toFixed(1)}" height="${BH}" class="ws-bar-a"/>
+      <rect x="${xp.toFixed(1)}" y="${y.toFixed(1)}" width="${(xt - xp).toFixed(1)}" height="${BH}" class="ws-bar-b"/>
       <text x="${(xt + 4).toFixed(1)}" y="${(y + BH - 1.5).toFixed(1)}" class="ws-cval">${esc(val)}</text>`;
     y += BH + BG;
   }
@@ -234,7 +234,7 @@ function secretChart(rows, noneCount) {
   const AX = y + 2;
   let ticks = "";
   for (let t = 0; t <= dom; t += 100) {
-    ticks += `<line x1="${x(t).toFixed(1)}" y1="${TOP - 6}" x2="${x(t).toFixed(1)}" y2="${AX.toFixed(1)}" stroke="#111111" stroke-opacity=".14" stroke-width="1"/>
+    ticks += `<line x1="${x(t).toFixed(1)}" y1="${TOP - 6}" x2="${x(t).toFixed(1)}" y2="${AX.toFixed(1)}" class="ws-cgrid" stroke-width="1"/>
     <text x="${x(t).toFixed(1)}" y="${(AX + 14).toFixed(1)}" text-anchor="middle" class="ws-ctick">${t}</text>`;
   }
   const H = AX + 24;
@@ -252,7 +252,7 @@ function secretChart(rows, noneCount) {
         `secretChart: legend "${label}" is ${(label.length * px * 0.6).toFixed(1)}px at x=${sx + 18}, past the ${W} unit box`,
       );
     }
-    return `<rect x="${sx}" y="14" width="14" height="9" fill="${label === LEG_A ? "#E6E4DD" : "#111111"}"/>
+    return `<rect x="${sx}" y="14" width="14" height="9" class="${label === LEG_A ? "ws-bar-a" : "ws-bar-b"}"/>
     <text x="${sx + 18}" y="22" class="ws-cleg">${esc(label)}</text>`;
   };
 
@@ -262,7 +262,7 @@ function secretChart(rows, noneCount) {
     ${leg(LEG_A, X0, 10)}
     ${leg(LEG_B, X0 + 126, 10)}
     ${body}
-    <line x1="${X0}" y1="${AX.toFixed(1)}" x2="${X1}" y2="${AX.toFixed(1)}" stroke="#111111" stroke-width="1.2"/>
+    <line x1="${X0}" y1="${AX.toFixed(1)}" x2="${X1}" y2="${AX.toFixed(1)}" class="ws-caxis" stroke-width="1.2"/>
   </svg>
   <figcaption>Every set on this page that prints cards past the end of its own checklist, longest tail first. The
     dark part of each bar is the secret rares, so a card numbered inside it still reads out of the pale part: that is
@@ -354,12 +354,12 @@ const ld = [
  * are near-black line art and vanish against the navy the site uses for keylines.
  */
 const style = `
-.ws-tool{background:var(--card);border:2px solid var(--navy);border-radius:var(--r);
+.ws-tool{background:var(--card);border:2px solid var(--keyline);border-radius:var(--r);
   padding:var(--s5);box-shadow:var(--hard-lg);margin-top:var(--s5)}
 .ws-tool label{display:block;font:700 var(--t-label)/1 var(--mono);letter-spacing:.08em;
   text-transform:uppercase;color:var(--ink-soft);margin-bottom:var(--s2)}
 .ws-tool input{width:100%;box-sizing:border-box;min-height:52px;padding:0 var(--s4);
-  border:2px solid var(--navy);border-radius:var(--r);background:var(--paper-2);
+  border:2px solid var(--keyline);border-radius:var(--r);background:var(--paper-2);
   font:700 1.25rem/1 var(--mono);color:var(--ink)}
 .ws-tool input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .ws-hint{font:400 var(--t-sm)/1.5 var(--body);color:var(--ink-soft);margin:var(--s3) 0 0}
@@ -384,18 +384,44 @@ const style = `
 .ws-set a,.ws-set>span{min-width:0}
 .ws-set img{width:24px;height:24px;object-fit:contain;flex:0 0 24px;
   background:var(--paper-3);border-radius:4px;padding:2px;box-sizing:border-box}
-.ws-set a{color:var(--navy);text-decoration:underline;text-underline-offset:2px;font-weight:700}
+/* --sky-deep, not --navy. --navy is an INK now (#EEF1EF) and an ink-coloured
+   link inside ink-coloured prose is not a link, it is underlined text. The
+   accent reads 6.24:1 on the page and 4.50:1 on a card, both past AA. */
+.ws-set a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px;font-weight:700}
 .ws-yr{font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);white-space:nowrap}
 .ws-badge{font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;
-  background:var(--mustard);border:1px solid var(--navy);border-radius:var(--r-pill);
+  background:var(--mustard);color:var(--on-accent);border:1px solid var(--keyline);border-radius:var(--r-pill);
   padding:1px 7px;white-space:nowrap}
+/* THE COLOUR ON THAT LINE IS NOT DECORATION. --mustard is a light teal fill
+   now, so the inherited --ink wrote #EEF1EF on #70B5D9 at 1.99:1 and the badge
+   read as an empty pill. --on-accent is the token for exactly this and
+   measures 7.22:1 on the same fill. */
 .ws-empty{padding:var(--s5) 0;font-size:var(--t-sm);color:var(--ink-soft)}
 /* The secret-rare chart.
-   EVERY FILL IS A LITERAL HEX ON PURPOSE. --navy and --ketchup are both
-   #111111 since the repaint, so a two-part bar written against the tokens is
-   one solid black bar with an invisible join and nothing errors. The two parts
-   are #E6E4DD (the value of --paper-3) and #111111, which is a WEIGHT
-   difference rather than a hue one: the split still reads with colour removed.
+   IT USED TO SAY "EVERY FILL IS A LITERAL HEX ON PURPOSE", and the reason was
+   sound: --navy and --ketchup were both #111111, so a two-part bar written
+   against the tokens was one solid black bar with an invisible join and
+   nothing errored. THE FILLS ARE CLASSES NOW, WHICH KEEPS THAT GUARANTEE AND
+   ALSO SURVIVES A PALETTE MOVE. The trap was writing var() into a
+   presentation ATTRIBUTE, which paints nothing; a fill: declaration in a
+   stylesheet honours var() perfectly well, so the two bar parts get .ws-bar-a
+   and .ws-bar-b here and the svg carries no colour at all. Two named tokens
+   that cannot collide is the same protection the literals bought.
+
+   THE SPLIT IS STILL A WEIGHT DIFFERENCE AND IT IS NOW THE OTHER WAY UP. On
+   the white card the pale part was --paper-3 #E6E4DD and the solid part was
+   #111111. The card is #2F4F39 now, so the pale part is the one nearer the
+   ground: --keyline #86998C at 3.02:1 on the card, and the solid part is
+   --ink #EEF1EF at 8.03:1. Colour removed, it is still light-vs-lighter.
+
+   THE JOIN IS 2.66:1 AND THAT IS THE BEST ANY TWO-TONE SPLIT CAN DO HERE, not
+   a value somebody eyeballed. A middle tone has to clear the card ground on
+   one side and the solid part on the other, and the two demands pull opposite
+   ways: solving for the tone that balances them gives 2.83:1 in both
+   directions and nothing beats it, so 3:1 at the join AND 3:1 against the
+   ground is arithmetically impossible while the solid part is --ink. The join
+   is not the only carrier: every bar prints its own +N beside it and the
+   legend names both parts.
    max-width 520px matches the drawn figures on /base-set.html.
    NOTHING HERE IS UNDER 10px AND THE VALUE LABELS USED TO BE 9. A 360 unit box
    renders 332px wide at 390, so a unit is 0.922px and 9px lands at 8.30, under
@@ -408,10 +434,19 @@ const style = `
   border-radius:10px;padding:var(--s4) var(--s4) var(--s3);max-width:620px}
 .ws-fig svg{display:block;width:100%;height:auto;max-width:520px;margin-inline:auto}
 .ws-fig text{font-family:var(--mono)}
-.ws-cname{font-size:10px;font-weight:400;fill:#111111}
-.ws-cval{font-size:10px;font-weight:700;fill:#5B5B5B}
-.ws-ctick{font-size:10px;font-weight:400;fill:#5B5B5B}
-.ws-cleg{font-size:10px;font-weight:700;fill:#111111}
+/* Measured on the .ws-fig ground, --card #2F4F39: the names and the legend
+   8.03:1, the values and the ticks 5.86:1, all past the 4.5:1 AA needs at
+   10px. The grid rungs are 1.44:1 and stay that way on purpose, exactly as
+   they were 1.35:1 on the white card: they are a ruled ground for the bars
+   and every one of them carries its own number underneath. */
+.ws-cname{font-size:10px;font-weight:400;fill:var(--ink)}
+.ws-cval{font-size:10px;font-weight:700;fill:var(--ink-2)}
+.ws-ctick{font-size:10px;font-weight:400;fill:var(--ink-2)}
+.ws-cleg{font-size:10px;font-weight:700;fill:var(--ink)}
+.ws-bar-a{fill:var(--keyline)}
+.ws-bar-b{fill:var(--ink)}
+.ws-cgrid{stroke:var(--ink);stroke-opacity:.14}
+.ws-caxis{stroke:var(--ink)}
 .ws-fig figcaption{font-size:var(--t-sm);color:var(--ink-2);line-height:1.5;
   margin-top:var(--s3);max-width:46em}
 @media(min-width:640px){
@@ -507,7 +542,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${
   remoteSymbols
     ? `<!-- ${remoteSymbols} set symbol(s) still come from the API host because

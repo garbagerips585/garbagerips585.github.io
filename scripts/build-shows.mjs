@@ -514,7 +514,7 @@ const PAGE_CSS = `/* The map of where the shows are. Same box and the same curre
 .cal-dow{font:700 7px/1 var(--mono);fill:var(--ink-2);text-anchor:middle;letter-spacing:.02em}
 .cal-n{font:400 9.5px/1 var(--mono);fill:var(--ink-2);text-anchor:middle}
 .cal-d.has .cal-n{font-weight:700;fill:var(--ink)}
-.cal-pill{fill:var(--chip-gold-bg)}
+.cal-pill{fill:var(--paper-3)}
 .cal-d.feat .cal-pill{stroke:var(--ink);stroke-width:1.4}
 .cal-dot{fill:var(--ink)}
 .cal-dot.pk{fill:var(--gold);stroke:var(--gold-deep);stroke-width:.8}
@@ -569,7 +569,7 @@ const head = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 ${/* Inline, not in ui.css: this page is the only user and ui.css is render

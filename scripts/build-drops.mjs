@@ -237,18 +237,18 @@ const DESC = stale ? DESC_STALE : desc;
 
 const style = `
 .dr-head{padding:var(--s6) 0 var(--s4)}
-.dr-stale{background:var(--ketchup);color:#fff;border-radius:var(--r);padding:var(--s3) var(--s4);
+.dr-stale{background:var(--ketchup);color:var(--on-accent);border-radius:var(--r);padding:var(--s3) var(--s4);
   margin-bottom:var(--s4);font:700 var(--t-sm)/1.4 var(--body)}
 .dr-when{font:700 var(--t-label)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
   color:var(--ink-2);margin-bottom:var(--s2)}
 .dr-filters{display:flex;flex-wrap:wrap;gap:var(--s2);margin:var(--s4) 0 var(--s5)}
 .dr-f{flex:none;font:700 var(--t-label)/1 var(--body);letter-spacing:.02em;padding:10px 14px;
-  min-height:44px;display:inline-flex;align-items:center;border:2px solid var(--navy);
+  min-height:44px;display:inline-flex;align-items:center;border:2px solid var(--keyline);
   border-radius:999px;background:var(--card);color:var(--ink);cursor:pointer}
-.dr-f[aria-pressed="true"]{background:var(--navy);color:var(--chrome-ink)}
+.dr-f[aria-pressed="true"]{background:var(--mustard);color:var(--on-accent)}
 .dr-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
 @media(max-width:820px){.dr-grid{grid-template-columns:1fr}}
-.drop{border:3px solid var(--navy);border-radius:12px;background:var(--card);
+.drop{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4);display:flex;flex-direction:column;gap:var(--s2)}
 .drop[hidden]{display:none}
 .drop-top{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2)}
@@ -326,7 +326,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>

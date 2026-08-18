@@ -382,7 +382,7 @@ const style = `
 .ev-forks a{display:inline-flex;flex-direction:column;justify-content:center;min-height:48px;
   padding:6px 12px;border:1px solid var(--hair);border-radius:10px;background:var(--card);
   color:inherit;text-decoration:none}
-.ev-forks a:hover{border-color:var(--ink);background:var(--mustard)}
+.ev-forks a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}
 .ev-forks b{font:700 var(--t-sm)/1.2 var(--body)}
 .ev-forks span{font:400 var(--t-micro)/1.2 var(--mono);color:var(--ink-2)}
 .ev-forks a:hover span{color:var(--on-accent)}
@@ -552,7 +552,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${EVO_CSS}${style}</style>

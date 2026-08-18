@@ -670,21 +670,37 @@ function eraChart(builtAt) {
   // Gridlines and the y labels, one rung per whole card in the range.
   let grid = "";
   for (let v = lo; v <= hi; v++) {
-    grid += `<line x1="${L}" y1="${y(v).toFixed(1)}" x2="${R}" y2="${y(v).toFixed(1)}" stroke="#111111" stroke-opacity=".14" stroke-width="1"/>
+    grid += `<line x1="${L}" y1="${y(v).toFixed(1)}" x2="${R}" y2="${y(v).toFixed(1)}" class="hp-fgrid" stroke-width="1"/>
     <text x="${L - 6}" y="${(y(v) + 4).toFixed(1)}" text-anchor="end" class="hp-fnum">${v}</text>`;
   }
 
   // THE DIP IS THE POINT, so the era that sits BELOW its neighbours gets a
-  // shaded column behind it. It is a pale fill rather than a second hue: with
-  // colour removed entirely it is still a lighter column, and the step line on
-  // top carries the argument on its own either way.
+  // shaded column behind it. It is a TONE rather than a second hue: with
+  // colour removed entirely it is still a column at a different value from the
+  // ground, and the step line on top carries the argument on its own either way.
+  //
+  // IT USED TO SAY "a LIGHTER column" AND THE WORD HAD TO GO WITH THE PAINT.
+  // On the white card the fill was #F5E7BD and read 1.23:1 lighter than the
+  // ground. The card is #2F4F39 now, so the same job is done by going DARKER:
+  // --chip-gold-bg #203736 measures 1.38:1 against it. Almost exactly the same
+  // whisper of separation, pointing the other way, which is the only direction
+  // available on a dark card. The step line crossing it reads 11.12:1.
+  //
+  // ON SCREEN IT READS STRONGER THAN 1.38:1 SOUNDS, and the reason is worth
+  // knowing before somebody "fixes" it in either direction: the tint was a
+  // warmer version of white, so its 1.23:1 was all it had, while #203736 is a
+  // BLUER green than the #2F4F39 card. The luminance separation is what is
+  // quoted above and it is what survives the page being read in greyscale; the
+  // hue shift is extra and is not counted on. Do not deepen the column to make
+  // it easier to see in colour, which would spend the greyscale reading it
+  // already has for a difference only some readers get.
   const dipIdx = counts.indexOf(lo);
   let dip = "";
   let note = "";
   if (dipIdx > 0 && dipIdx < steps.length - 1) {
     const a = x(steps[dipIdx].at);
     const b = x(steps[dipIdx + 1].at);
-    dip = `<rect x="${a.toFixed(1)}" y="${TOP}" width="${(b - a).toFixed(1)}" height="${(BASE - TOP).toFixed(1)}" fill="#F5E7BD"/>`;
+    dip = `<rect x="${a.toFixed(1)}" y="${TOP}" width="${(b - a).toFixed(1)}" height="${(BASE - TOP).toFixed(1)}" class="hp-fdip"/>`;
     // The annotation sits in the empty room UNDER the last step and to the
     // RIGHT of the dip, which is the only large clear area in the box. It is
     // not centred on the column it describes: the column is 54px wide and the
@@ -701,7 +717,7 @@ function eraChart(builtAt) {
       11, budget, "the annotation",
     );
     note = `${dip}
-    <line x1="${(nx - 6).toFixed(1)}" y1="${(BASE - 16).toFixed(1)}" x2="${(b - 14).toFixed(1)}" y2="${(BASE - 5).toFixed(1)}" stroke="#111111" stroke-width="1.2"/>
+    <line x1="${(nx - 6).toFixed(1)}" y1="${(BASE - 16).toFixed(1)}" x2="${(b - 14).toFixed(1)}" y2="${(BASE - 5).toFixed(1)}" class="hp-fmark" stroke-width="1.2"/>
     <text x="${nx.toFixed(1)}" y="${(BASE - 20).toFixed(1)}" class="hp-fnote">${esc(l1)}</text>
     <text x="${nx.toFixed(1)}" y="${(BASE - 6).toFixed(1)}" class="hp-fdate">${esc(l2)}</text>`;
   }
@@ -724,7 +740,7 @@ function eraChart(builtAt) {
   }
   marks.push({ t: t1, lbl: String(builtAt.getFullYear()), anchor: "end" });
   for (const m of marks) {
-    ticks += `<line x1="${x(m.t).toFixed(1)}" y1="${BASE + 6}" x2="${x(m.t).toFixed(1)}" y2="${BASE + 11}" stroke="#111111" stroke-width="1.2"/>
+    ticks += `<line x1="${x(m.t).toFixed(1)}" y1="${BASE + 6}" x2="${x(m.t).toFixed(1)}" y2="${BASE + 11}" class="hp-fmark" stroke-width="1.2"/>
     <text x="${x(m.t).toFixed(1)}" y="${BASE + 24}" text-anchor="${m.anchor}" class="hp-ftick">${esc(m.lbl)}</text>`;
   }
 
@@ -742,8 +758,8 @@ function eraChart(builtAt) {
   <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="A step chart of the game cards in a booster pack over time: ${esc(spoken)}. The ${lo}-card era in the middle, ${esc(steps[dipIdx] ? steps[dipIdx].when : "")}, is drawn as a dip and shaded.">
     ${grid}
     ${note}
-    <line x1="${L}" y1="${BASE + 6}" x2="${R}" y2="${BASE + 6}" stroke="#111111" stroke-width="1.4"/>
-    <path d="${d}" fill="none" stroke="#111111" stroke-width="3" stroke-linejoin="miter"/>
+    <line x1="${L}" y1="${BASE + 6}" x2="${R}" y2="${BASE + 6}" class="hp-fmark" stroke-width="1.4"/>
+    <path d="${d}" fill="none" class="hp-fstep" stroke-width="3" stroke-linejoin="miter"/>
     ${ticks}
     <text x="${L}" y="${TOP - 10}" class="hp-fnote">game cards in a booster pack</text>
   </svg>
@@ -1023,16 +1039,26 @@ const ld = [
 
 const style = `
 .hp-lede{max-width:44em}
-.hp-key{border:3px solid var(--navy);border-radius:12px;background:var(--navy);color:var(--chrome-ink);
+/* --band-bg FOR THE FILL AND --keyline FOR THE FRAME, and this line used to
+   name --navy for both. --navy is an INK now (#EEF1EF), so the same rule
+   painted a near-white slab and then wrote --chrome-ink #F7F8F7 on it: 1.06:1,
+   an invisible panel that nothing errored on. --band-bg #192D22 is the dark
+   slab this box has always been and --chrome-ink reads 13.70:1 on it. A frame
+   is a keyline rather than an ink, hence the border. */
+.hp-key{border:3px solid var(--keyline);border-radius:12px;background:var(--band-bg);color:var(--chrome-ink);
   padding:var(--s5);margin:var(--s5) 0;box-shadow:var(--hard-lg)}
 .hp-key h2{color:var(--chrome-ink);margin-bottom:var(--s3)}
 .hp-key ol{margin:0 0 0 var(--s4);color:var(--foot-ink);line-height:1.6;max-width:44em}
 .hp-key li{margin-bottom:var(--s3)}
 .hp-key b{color:var(--mustard)}
 .hp-key a{color:var(--mustard)}
-/* The code card line sits INSIDE the navy box, so it needs its own colour: the
-   box sets #F4F1E2 on itself but the list gets #DDE6EC, and a bare <p> would
-   inherit the brighter one and read as another heading. Separated by a hairline
+/* The code card line sits INSIDE the dark box, so it needs its own colour: the
+   box sets --chrome-ink on itself and the list gets --foot-ink, and a bare <p>
+   would inherit the brighter one and read as another heading. THE TWO HEXES
+   THAT USED TO BE WRITTEN HERE, #F4F1E2 and #DDE6EC, WERE BOTH STALE: those
+   tokens are #F7F8F7 and #D1D8D3 today, 13.70:1 and 10.05:1 on --band-bg. The
+   token names are the durable half, so they are what the comment names now.
+   Separated by a hairline
    rather than a margin so it is clearly an aside to the four points above it. */
 .hp-code{color:var(--foot-ink);line-height:1.6;max-width:44em;font-size:var(--t-sm);
   margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid rgba(244,241,226,.22)}
@@ -1048,10 +1074,17 @@ const style = `
   grid-template-columns:repeat(2,1fr);gap:var(--s4);align-items:start}
 @media(max-width:900px){.hp-list{grid-template-columns:1fr}}
 .hp-card{display:flex;gap:var(--s4);align-items:flex-start;background:var(--card);
-  border:3px solid var(--navy);border-radius:12px;padding:var(--s4);box-shadow:var(--hard-lg)}
+  border:3px solid var(--keyline);border-radius:12px;padding:var(--s4);box-shadow:var(--hard-lg)}
 /* Product photography arrives on a white background, so the tile is white
-   rather than the page cream. Same reasoning as .prod-shot on the set guides,
-   and the same 88px box, because sizes="88px" is measured against it. */
+   rather than the page ground. Same reasoning as .prod-shot on the set guides,
+   and the same 88px box, because sizes="88px" is measured against it.
+   IT SAID "rather than the page cream" AND THE PAGE IS NOT CREAM ANY MORE, but
+   the #fff below is right for the SAME reason it always was and did not move
+   with the palette. These are cut-out product shots on white. Painting the
+   plate --card would not darken the photograph, it would draw a dark green
+   frame around a white rectangle, which is the one outcome worse than a white
+   tile on a dark page. The white is the photograph's own background continued
+   to the edge of the box. */
 .hp-shot{flex:none;width:88px;margin:0}
 .hp-shot img{width:88px;height:88px;object-fit:contain;display:block;background:#fff;
   border:1px solid var(--hair);border-radius:6px}
@@ -1080,7 +1113,7 @@ const style = `
 .hp-price b{color:var(--ink)}
 .hp-by{list-style:none;margin:var(--s2) 0 0;padding:0;font-size:var(--t-sm);line-height:1.45}
 .hp-by li{padding-left:var(--s3);border-left:3px solid var(--gold);margin-bottom:var(--s2)}
-.hp-by b{font:400 var(--t-m)/1 var(--display);color:var(--ketchup);margin-right:4px}
+.hp-by b{font:400 var(--t-m)/1 var(--display);color:var(--ketchup-deep);margin-right:4px}
 .hp-by span{display:block;color:var(--ink-2);font:400 var(--t-micro)/1.4 var(--mono)}
 .hp-bn{display:block;color:var(--ink-2);font-size:var(--t-micro);margin-top:2px}
 .hp-src{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:flex-end;
@@ -1097,17 +1130,29 @@ const style = `
    values do fit in less. */
 .hp-table{min-width:560px}
 .cc-table.hp-table thead th{white-space:normal}
-.hp-table td.num b{font:400 var(--t-m)/1 var(--display);color:var(--ketchup)}
+.hp-table td.num b{font:400 var(--t-m)/1 var(--display);color:var(--ketchup-deep)}
 .hp-tvar,.hp-tsell{display:block;font:400 var(--t-micro)/1.3 var(--mono);color:var(--ink-soft);font-weight:400}
 .hp-none{color:var(--ink-soft);font:400 var(--t-micro)/1.3 var(--mono)}
 
 /* The drawn timeline above the history list.
-   EVERY COLOUR IN THE FIGURE IS A LITERAL, WHICH IS DELIBERATE. --ketchup and
-   --navy are both #111111 since the repaint, so a chart written against the
-   tokens draws a black shape on a black shape and nothing errors. The one fill
-   is #F5E7BD, the same value as --chip-gold-bg, and it is a TINT rather than a
-   second hue: with colour removed the shaded era is still a lighter column and
-   the step line still carries the whole argument on its own.
+   IT USED TO SAY "EVERY COLOUR IN THE FIGURE IS A LITERAL, WHICH IS
+   DELIBERATE", and the reason was real: --ketchup and --navy were both
+   #111111, so a chart written against the tokens drew a black shape on a black
+   shape and nothing errored. THE FIGURE CARRIES NO COLOUR AT ALL NOW. Every
+   mark in the svg is a class and the classes are below, which keeps that
+   guarantee (two named tokens cannot collide the way two aliases of #111111
+   did) and survives the next palette move without a hand edit. The trap the
+   old comment was really about is narrower than it sounded: var() in a
+   presentation ATTRIBUTE paints nothing, but a fill: or stroke: declaration in
+   a stylesheet honours it perfectly well.
+
+   MEASURED ON THE .hp-fig GROUND, --card #2F4F39, after the move to
+   "Trubbish Deep": the step line, the axis, the year ticks and the annotation
+   leader are --ink at 8.03:1, the y numbers 8.03:1 and the small grey type
+   5.86:1, all past what they need. The shaded era is --chip-gold-bg at 1.38:1
+   and is meant to be that quiet; see the note on the dip in eraChart.
+   The grid rungs are 1.44:1, the same whisper they were at 1.35:1 on the white
+   card, and every rung prints its own number in the gutter.
    max-width is 520px to match the drawn figures on /base-set.html. */
 /* max-width ON THE FIGURE, not just on the svg, and the first version had only
    the second. The svg caps at 520 and centres, so inside an uncapped figure a
@@ -1123,10 +1168,14 @@ const style = `
    8.2 rendered pixels, which is under the line where a label stops being
    readable on a phone. These land at 9.0 and 9.9. */
 .hp-fig text{font-family:var(--mono)}
-.hp-fnum{font-size:13px;font-weight:700;fill:#111111}
-.hp-ftick{font-size:11px;font-weight:400;fill:#5B5B5B}
-.hp-fnote{font-size:11px;font-weight:700;fill:#111111}
-.hp-fdate{font-size:11px;font-weight:400;fill:#5B5B5B}
+.hp-fnum{font-size:13px;font-weight:700;fill:var(--ink)}
+.hp-ftick{font-size:11px;font-weight:400;fill:var(--ink-2)}
+.hp-fnote{font-size:11px;font-weight:700;fill:var(--ink)}
+.hp-fdate{font-size:11px;font-weight:400;fill:var(--ink-2)}
+.hp-fstep{stroke:var(--ink)}
+.hp-fmark{stroke:var(--ink)}
+.hp-fgrid{stroke:var(--ink);stroke-opacity:.14}
+.hp-fdip{fill:var(--chip-gold-bg)}
 .hp-fig figcaption{font-size:var(--t-sm);color:var(--ink-2);line-height:1.5;
   margin-top:var(--s3);max-width:46em}
 
@@ -1136,7 +1185,10 @@ const style = `
 .hp-eras{list-style:none;margin:var(--s5) 0 0;padding:0;max-width:52em}
 .hp-eras li{border-left:4px solid var(--gold);padding:0 0 0 var(--s4);margin-bottom:var(--s5)}
 .hp-eh{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
-.hp-eh b{font:400 var(--t-l)/1 var(--display);color:var(--ketchup)}
+/* --ketchup-deep, not --ketchup. --t-l is 22.4px at 390 and the weight is
+   400, so WCAG's large-text threshold (24px, or 18.66px bold) is NOT met and
+   the gate is 4.5. The big pink is 3.45:1 there. Same call as .hl. */
+.hp-eh b{font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep)}
 .hp-eh strong{font:400 var(--t-m)/1.2 var(--display);font-weight:400}
 .hp-ew{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
 .hp-eras p{font-size:var(--t-sm);line-height:1.6}
@@ -1164,7 +1216,7 @@ const style = `
 .hp-cite a span{display:block;color:var(--ink-soft);text-decoration:none}
 .hp-two{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4);margin-top:var(--s5)}
 @media(max-width:820px){.hp-two{grid-template-columns:1fr}}
-.hp-box{border:3px solid var(--navy);border-radius:12px;background:var(--card);
+.hp-box{border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s4)}
 .hp-box h3{font:400 var(--t-m)/1.2 var(--display);margin-bottom:6px}
 .hp-box p{font-size:var(--t-sm);line-height:1.55}
@@ -1258,7 +1310,7 @@ const page = `<!DOCTYPE html>
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
 <style>${style}</style>
