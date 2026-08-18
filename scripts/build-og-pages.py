@@ -79,6 +79,13 @@ PAGES = {
     # people see: "ungraded" and "on TCGplayer" are the two qualifiers that stop
     # the headline being a claim the data cannot support.
     "most-valuable-cards": ("UNGRADED, EVERY LANGUAGE", "The 100 dearest cards", "PriceCharting guide values, read and dated"),
+    # The two Topps pages. The kicker on the first is the whole pitch: somebody
+    # sharing it is handing it to a collector who does not know these exist, and
+    # the headline is the page's own H1. The second names the measurement rather
+    # than the superlative, exactly as top-graded does above, because two price
+    # guide columns read on one day is what it holds.
+    "topps": ("NOT POKEMON TCG CARDS", "Topps made Pokemon cards too", "Eleven sets, 1999 to 2004, and some are worth thousands"),
+    "topps-card-values": ("PRICE GUIDE, NOT HAMMER PRICE", "Topps card values", "Two top 100s, raw and PSA 10, every figure read twice"),
     "most-expensive-sealed": ("NOBODY OPENED THESE", "The 100 dearest sealed", "Boxes, cases and 1999 packs, dated"),
     "complete": ("PRICED LAST NIGHT", "Cost to complete a set", "Every set, three tiers, live prices"),
     "pack-prices": ("PRICED NIGHTLY", "What does a pack cost?", "Every set, box against bundle against loose pack"),

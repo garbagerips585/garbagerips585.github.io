@@ -113,6 +113,44 @@ export const viewCount = (n) =>
   Number(n) > 0 ? `${compactCount(n)} view${Number(n) === 1 ? "" : "s"}` : "";
 
 /**
+ * A noun that agrees with the number in front of it.
+ *
+ * `viewCount` above fixed exactly one instance of this bug in five copies. The
+ * bug itself is not about views: it is about every count on this site that is
+ * DERIVED, because a derived count sits at 1 exactly as easily as it sits at 57,
+ * and nobody previews the page on the day it does. A QA sweep of the live site on
+ * 18 August 2026 found five more, all in stat tiles, and all on pages whose PROSE
+ * was already correct because a human wrote the prose and a template wrote the
+ * tile:
+ *
+ *     /openings/                  "13 kinds, 316 openings, 1 packs counted"
+ *     /openings/etb.html          "1 Packs counted, across 1 of them"
+ *     /openings/chinese-pack.html "1 Different sets"
+ *     /sets/celebrations.html     "What those 1 are worth", "Cards holding half
+ *     /sets/phantasmal-flames.html  the value" over a 1
+ *
+ * THE PACK COUNTS ARE WHY THEY ALL APPEARED AT ONCE. 244 inferred pack counts
+ * were withheld on 18 August 2026 pending Tim's filled sheet, so a site-wide
+ * total that had been in the hundreds became 1 overnight and four tiles started
+ * reading as broken. Nothing about those tiles changed. Assume every count you
+ * print can be 1 tomorrow.
+ *
+ * `plural(1, "pack")` -> "pack". `plural(0, "pack")` -> "packs", because zero
+ * takes the plural in English and "0 pack" is the same bug pointing the other
+ * way. Irregulars pass their own plural: `plural(n, "is", "are")`.
+ *
+ * It returns the NOUN ONLY and never the number, so a caller can put the count in
+ * its own element, which is exactly what a stat tile does: the count is in `.n`
+ * and the label is in `.l`, and a helper that returned "1 pack" could not be used
+ * by any of the five callers that needed it. `count()` below is for the callers
+ * that do want both words in one string.
+ */
+export const plural = (n, one, many) => (Number(n) === 1 ? one : many ?? `${one}s`);
+
+/** The number and its noun, agreeing: "1 pack", "9 packs", "0 packs". */
+export const count = (n, one, many) => `${n} ${plural(n, one, many)}`;
+
+/**
  * The site's "this cell has no value" placeholder.
  *
  * A bare em dash is fine to LOOK at and useless to LISTEN to. VoiceOver and NVDA

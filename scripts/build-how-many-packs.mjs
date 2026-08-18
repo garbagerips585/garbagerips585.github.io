@@ -97,7 +97,8 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, imgDims, moneyExact } from "../shared/format.mjs";
+import { esc, longDate, imgDims, moneyExact, count } from "../shared/format.mjs";
+import { spread } from "../shared/msrp-basis.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -1160,6 +1161,70 @@ const style = `
 .hp-gap b{color:var(--ink)}
 `;
 
+// WHAT THIS SITE'S OWN SHOP LISTINGS ACTUALLY CAME TO, against the suggested
+// price for the same product. Counted at build time out of shared/listings.mjs
+// through shared/msrp-basis.mjs, which is where the argument for printing a
+// distribution this small lives, and where Tim's four part model is written
+// down. Never type a threshold in here: read that file first.
+const SPREAD = await spread();
+
+// The five points at the top of the page, lifted out of the template so the
+// heading can COUNT them instead of asserting a number beside them. It said
+// "Four things" and gained a fifth in the edit that fixed the MSRP bullet.
+const KEY_POINTS = `        ${/* THIS BULLET DENIED THAT AN MSRP EXISTS AND /msrp.html, ONE LINK AWAY
+              IN THE SAME NAV, IS BUILT ENTIRELY OUT OF ONE. It read "There is no
+              manufacturer price. The Pokemon Company does not publish an MSRP,
+              so every price on this page is one shop's or one retailer's price on
+              one day. Anybody quoting you 'the MSRP' is quoting a shelf price."
+
+              The true half is the middle: the prices on THIS page really are
+              retailer and shop prices read on a day, and not Pokemon Center's.
+              That is why the caution is rewritten rather than deleted. What had
+              to go is the first and last sentences, which are the retired
+              over-hedge data/msrp.json's own _readme corrected on 17 August 2026
+              and this file was never updated for.
+
+              The four claims below are Tim's own model, in his order, and
+              shared/msrp-basis.mjs holds them so the five pages that touch this
+              cannot drift apart again. The numbers are counted off this site's
+              own listings at build time. Read that file before editing this. */ ""}<li><b>There
+          is a manufacturer price, and it is not on this page.</b> Pokemon Center is The Pokemon Company's own
+          shop selling its own product, so what it asks there is the manufacturer's suggested price: that is the
+          whole of what MSRP means, and <a href="/msrp.html">what sealed product should cost</a> is built out of
+          those readings. Every price on THIS page is a retailer's or a shop's own price on one day, and it says
+          which. Shops set their own prices and are free to, so a figure here is what somebody was asking, not
+          what the thing is supposed to cost.</li>
+        <li><b>Usually a little over, sometimes a lot over, and the gap is the whole thing to watch.</b> Most
+          shops sell above the suggested price and that is ordinary rather than a rip-off. A few sell far above
+          it, and the only defence is knowing the suggested figure before you are standing in front of the
+          shelf.${
+            SPREAD
+              ? ` Of the ${count(SPREAD.n, "dated shop listing")} this site has written down, at ${count(
+                  SPREAD.shops,
+                  "shop"
+                )}, the middle one is ${esc(SPREAD.medianStr)}x the suggested price and the dearest is ${esc(
+                  SPREAD.highStr
+                )}x. That is ${SPREAD.n} readings rather than a survey of American retail, and they are printed in
+          full with the seller and the date on each on <a href="/msrp.html">the MSRP page</a>.`
+              : ""
+          }</li>
+        <li><b>The name on the box is not the size of the box.</b> An ex Premium Collection holds eight packs and an
+          ex Box holds four. A Mini Tin holds two, a Stacking Tin three and a standard tin four. Read the actual
+          product name, not the family.</li>
+        <li><b>Cards per pack has moved twice, and one of the moves was down.</b> Eleven cards, then nine, then ten.
+          The nine-card era ran from September 2002 to 2007, so an EX-era pack is a smaller pack rather than a
+          short-packed one. <a href="#history">The whole timeline is below.</a></li>
+        <li><b>A 30th Celebration pack is not a ten-card pack.</b> It holds five foil cards plus one foil Basic
+          Energy. Its pack <em>counts</em> are normal, so cost per pack still works, which is why this page does cost per
+          pack and never cost per card.</li>
+`;
+
+// NUMBER_WORD only has to reach as far as this list can plausibly grow; past
+// that the heading falls back to the digit rather than inventing a word.
+const NUMBER_WORD = ["No", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
+const KEY_N = (KEY_POINTS.match(/<li\b/g) || []).length;
+const KEY_WORD = NUMBER_WORD[KEY_N] || String(KEY_N);
+
 const page = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1221,21 +1286,15 @@ ${MENU}
     </div>
 
     <div class="hp-key">
-      <h2>Four things to know before you compare anything</h2>
+      ${/* THE COUNT IN THE HEADING IS DERIVED. It said "Four things" and the
+            list gained a fifth in the same edit that fixed the MSRP bullet, which
+            is exactly how a heading comes to contradict the list under it on a
+            site that keeps finding headline numbers disagreeing with their own
+            columns. `keyPoints` is the list; KEY_WORD counts its items. */ ""}<h2>${
+        KEY_WORD
+      } things to know before you compare anything</h2>
       <ol>
-        <li><b>There is no manufacturer price.</b> The Pokemon Company does not publish an MSRP, so every price on
-          this page is one shop's or one retailer's price on one day, and it says which. Anybody quoting you "the
-          MSRP" is quoting a shelf price.</li>
-        <li><b>The name on the box is not the size of the box.</b> An ex Premium Collection holds eight packs and an
-          ex Box holds four. A Mini Tin holds two, a Stacking Tin three and a standard tin four. Read the actual
-          product name, not the family.</li>
-        <li><b>Cards per pack has moved twice, and one of the moves was down.</b> Eleven cards, then nine, then ten.
-          The nine-card era ran from September 2002 to 2007, so an EX-era pack is a smaller pack rather than a
-          short-packed one. <a href="#history">The whole timeline is below.</a></li>
-        <li><b>A 30th Celebration pack is not a ten-card pack.</b> It holds five foil cards plus one foil Basic
-          Energy. Its pack <em>counts</em> are normal, so cost per pack still works, which is why this page does cost per
-          pack and never cost per card.</li>
-      </ol>
+${KEY_POINTS}      </ol>
       ${/* ONE SENTENCE AND A LINK, not a banner. Everybody reading this page is
             counting packs, and there is a card in every one of those packs this
             page never mentions. Deliberately carries NO NUMBER: /tcg-live.html
@@ -1254,10 +1313,20 @@ ${MENU}
     <p class="lede" style="max-width:42em">${rows.length} products, ordered by how many packs are inside. Where a
       product line has shipped different counts, the row gives the range and then names each one, because there is
       no single honest number for those. Photos are of a specific set's product and the caption says which.</p>
-    <p class="lede" style="max-width:42em">Most rows say "no sourced price". That is not a gap in the research, it is
-      the finding: The Pokemon Company publishes no MSRP, and the ${rows.filter((r) => r.price).length} products below
-      with a price are the ones a seller actually listed a figure for on the day this was read. A number lifted off a
-      comparison site would be a guess about your money, so the rest are left blank.</p>
+    ${/* THE SECOND COPY OF THE SAME OVER-HEDGE, and it was doing real damage
+          here rather than just being wrong: it explained the blank cells with
+          "The Pokemon Company publishes no MSRP", which invited a reader to
+          conclude the suggested price does not exist for ANY of these products.
+          It does, for 26 of them, on the page this sentence sits one link from.
+          The blanks on THIS page are a different and narrower fact: nobody had a
+          dated SHOP listing for that product on the day it was read. Both counts
+          are derived rather than typed. */ ""}<p class="lede" style="max-width:42em">Most rows say
+      "no sourced price". That is not a gap in the research, it is the finding: the
+      ${rows.filter((r) => r.price).length} products below with a price are the ones a seller actually listed a
+      figure for on the day this was read, and nobody listed one for the rest. A number lifted off a comparison
+      site would be a guess about your money, so those are left blank. This is not the same question as what a
+      product is supposed to cost: Pokemon's own shop answers that one, and
+      <a href="/msrp.html">what sealed product should cost</a> has it for every kind it could source.</p>
     <ul class="hp-list">
 ${rows.map(card).join("\n")}
     </ul>

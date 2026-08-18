@@ -611,6 +611,69 @@ if _noguide:
     note("  To promote one: add it to sync-sets.mjs and sync-cards.mjs, then rebuild.")
 
 # ---------------------------------------------------------------------------
+# NO LAUNDERED PACK COUNT MAY REACH public/data/videos.json.
+#
+# data/manual.json holds 244 `packs` values that nobody typed. build-sheet.py
+# prefilled the sheet's Packs column from PRODUCT_TO_PACKS, which is how many
+# packs a product CONTAINS, while the column asks how many the VIDEO opened.
+# The prefill was blue text and colour does not survive export to CSV, so
+# import-sheet.mjs read every suggestion back as an answer. It shipped once:
+# 21 Chaos Rising ETB rips carrying 9 each, and /luck.html printing
+# "232 packs counted" where 21 packs were opened.
+#
+# The suppression lives entirely in nine lines at the end of sync-youtube.mjs.
+# Reverting one of them republishes all 244, and NOTHING WOULD LOOK WRONG: the
+# data file is untouched, the JSON is valid, every page renders, and the numbers
+# are individually plausible. That is one line of one script standing between
+# this site and the exact figure it has already had to retract.
+#
+# THE SIGNATURE IS A CONTRADICTION THE DATA STATES ABOUT ITSELF, which is why
+# this can be checked rather than merely commented. A video with a Pack # is a
+# video about ONE pack out of a box: Tim's own sheet says so. A video whose
+# `packs` equals the whole product's capacity did not open one pack out of it.
+# Both claims cannot be true, and the prefill is the only thing that produces
+# the pair. The single legitimately published count today, iIgTusrqVtg, is an
+# ETB carrying packs=1 against a capacity of 9, so it passes.
+#
+# Capacity is READ OUT OF build-sheet.py rather than retyped here. That table is
+# the thing that caused the bug and a second copy of it in the verifier is how a
+# verifier comes to agree with a bug. If the parse stops finding it, that is a
+# failure and not a skip: a guard that quietly checks nothing is worse than none.
+_cap = {}
+try:
+    _src = open("scripts/build-sheet.py", encoding="utf-8").read()
+    _blk = re.search(r"^PRODUCT_TO_PACKS = \{(.*?)^\}", _src, re.S | re.M).group(1)
+    _cap = {k: int(v) for k, v in re.findall(r'"([^"]+)"\s*:\s*(\d+)', _blk)}
+    if not _cap:
+        raise ValueError("PRODUCT_TO_PACKS parsed to an empty table")
+except Exception as _e:
+    fail.append(f"could not read PRODUCT_TO_PACKS out of scripts/build-sheet.py ({_e}), "
+                f"so the laundered-pack-count guard below has no capacities and "
+                f"would pass every video by checking nothing")
+
+if _cap:
+    _laundered = []
+    for _v in _vids:
+        _p = _v.get("packs")
+        if _p is None or not _v.get("packNumber"):
+            continue
+        for _prod in (_v.get("products") or []):
+            # Capacity 1 is exempt: a single booster pack whose row says Pack #1
+            # legitimately opened 1 of 1, so the contradiction does not exist.
+            if _cap.get(_prod, 0) > 1 and _p == _cap[_prod]:
+                _laundered.append((_v.get("id"), _prod, _p, _v.get("packNumber")))
+    for _id, _prod, _p, _pn in _laundered:
+        fail.append(
+            f"videos.json {_id}: packs={_p} is the whole capacity of a '{_prod}' and the "
+            f"video also states Pack #{_pn}, so it opened one pack out of the box. That is the "
+            f"signature of the PRODUCT_TO_PACKS prefill in data/manual.json, not a counted "
+            f"figure. See the suppression block at the end of scripts/sync-youtube.mjs and the "
+            f"_WARNING at the top of data/manual.json"
+        )
+    note(f"  {len(_vids)} videos checked for laundered pack counts, "
+         f"{sum(1 for _v in _vids if _v.get('packs') is not None)} carry one")
+
+# ---------------------------------------------------------------------------
 # app.js AND shared/taxonomy.mjs HAVE TO SPELL EVERY SET THE SAME WAY.
 #
 # app.js renders every tile after a filter and build-proto.mjs renders the first

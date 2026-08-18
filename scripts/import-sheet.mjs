@@ -438,7 +438,48 @@ const isYes = (s) => /^y(es)?$/i.test(s);
 
 let overrides = {};
 try { overrides = JSON.parse(await readFile(join(ROOT, "data/overrides.json"), "utf8")); } catch {}
-const manual = {};
+// THE FILE CARRIES ITS OWN WARNING, because JSON cannot carry a comment and the
+// 244 `packs` values in it are the most dangerous data in this repo: they are
+// PREFILL, not answers, and the only thing keeping them off the site is nine
+// lines near the end of sync-youtube.mjs. Somebody opening data/manual.json cold
+// sees 244 plausible integers and no sign of any of that. `_WARNING` is a key no
+// video id can collide with and every reader here looks up by id, so it is inert
+// to the pipeline and loud to a person. Written FIRST so it is the top of the
+// file, and written by the importer as well as sitting in the file, so a
+// re-import does not quietly delete it.
+//
+// DELETE IT IN THE SAME EDIT THAT DELETES THE SUPPRESSION BLOCK, once Tim's
+// filled sheet has landed and every Packs cell is his own answer.
+const MANUAL_WARNING = [
+  "READ THIS BEFORE TRUSTING ANY `packs` VALUE IN THIS FILE.",
+  "",
+  "The `packs` numbers here are NOT answers. build-sheet.py prefilled the sheet's",
+  "Packs column from PRODUCT_TO_PACKS, which is how many packs a product CONTAINS,",
+  "and the column asks how many packs the VIDEO opened. Those are different",
+  "questions and the format is one pack per Short. The prefill was blue text, and",
+  "colour does not survive export to CSV, so every suggestion came back through",
+  "import-sheet.mjs indistinguishable from something Tim typed.",
+  "",
+  "It has already been published once: 21 Chaos Rising ETB rips each carrying 9,",
+  "summing to 189 where 21 packs were opened, and /luck.html printed",
+  "'232 packs counted' off that total.",
+  "",
+  "Tim, 18 August 2026: 'make sure you aren't tagging any videos with what type of",
+  "product it is and what packs are in the video until you get my execl sheet thats",
+  "filled out with all that exact data'.",
+  "",
+  "So NOTHING here reaches the site unless the sheet states a Pack # for that video.",
+  "The suppression is at the end of scripts/sync-youtube.mjs, under the banner",
+  "'NO PACK COUNT IS PUBLISHED UNTIL TIM'S SHEET SAYS ONE', and check-build.py",
+  "fails the build if a published `packs` equals its product's capacity on a video",
+  "that also states a pack number, which is the exact signature of this prefill.",
+  "",
+  "DO NOT DELETE THE VALUES. Tim's filled sheet overwrites them. Do not 'restore'",
+  "them to the site either: reverting one line in sync-youtube.mjs republishes all",
+  "244 and nothing about the file would look wrong.",
+];
+
+const manual = { _WARNING: MANUAL_WARNING };
 const unknownOpening = new Set();
 let counted = { set: 0, multiSet: 0, opening: 0, hit: 0, card: 0, greatest: 0, affiliate: 0, copy: 0, hidden: 0 };
 const unknownSet = new Set();
@@ -779,7 +820,12 @@ Read ${rows.length - 1} rows from ${csvPath}
   hidden             ${counted.hidden}
 
 Wrote data/overrides.json  (${Object.keys(overrides).length} videos)
-Wrote data/manual.json     (${Object.keys(manual).length} videos)
+${/* EXACT KEY, NOT A PREFIX TEST. Three real YouTube ids in this file start with
+      an underscore, so filtering on `startsWith("_")` silently reports three
+      fewer videos than it wrote. A YouTube id is always 11 characters and
+      "_WARNING" is 8, so the key cannot collide with one. */ ""}Wrote data/manual.json     (${
+  Object.keys(manual).filter((k) => k !== "_WARNING").length
+} videos, plus the _WARNING header)
 `);
 
 if (unknownSet.size) {

@@ -27,7 +27,7 @@ import { BAR, MENU, SPRITE, SKIP, STYLES, footer, FONTS,
   APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { parseHits, rarityLabelOf, rarityMark, RARITY_CSS } from "../shared/rarity.mjs";
-import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY_ORDER, cardNumKey, imgDims, avifPicture } from "../shared/format.mjs";
+import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY_ORDER, cardNumKey, imgDims, avifPicture, plural, count } from "../shared/format.mjs";
 import { ripLabel } from "../shared/riplabel.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -553,13 +553,23 @@ function valueChart(v) {
   // rule in ui.css or in this file's <style> touches it, and no script reads it.
   // Put it on the OUTER element of a chart, once per chart.
   return `<div class="svc" data-figure="chart">
+      ${/* ONE IS A REAL VALUE HERE AND THESE LABELS DID NOT SURVIVE IT.
+            `v.half` is how many cards hold half the set's value, so on a small
+            or flat set it is legitimately 1: Celebrations (25 cards) and
+            Phantasmal Flames both sit there. The chart then read "The 1 priciest
+            card", "What those 1 ARE worth" and, in the tile below, "1 / Cards
+            holding half the value". The PROSE in the lede above was already
+            correct, because it carries a hand-written `v.half === 1` branch, so
+            the page contradicted itself between the paragraph and the picture.
+            Bare numerals also read badly at 1 in a label: "The priciest card"
+            beats "The 1 priciest card" even where the digit is not wrong. */ ""}
       <div class="svc-row">
-        <p class="svc-k">The ${v.half} priciest card${v.half === 1 ? "" : "s"}</p>
+        <p class="svc-k">${v.half === 1 ? "The priciest card" : `The ${v.half} priciest cards`}</p>
         ${bar(cardShare)}
         <p class="svc-v">${pct(cardShare * 100)} of the ${priced} cards with a price</p>
       </div>
       <div class="svc-row">
-        <p class="svc-k">What those ${v.half} are worth</p>
+        <p class="svc-k">${v.half === 1 ? "What that one is worth" : `What those ${v.half} are worth`}</p>
         ${bar(0.5)}
         <p class="svc-v">half of the ${moneyCompact(v.sum)} the whole checklist comes to</p>
       </div>
@@ -585,7 +595,10 @@ function valueBand(s, cls) {
     ${valueChart(v)}
     <div class="facts">
       <div class="fact"><div class="n">${moneyCompact(v.sum)}</div><div class="l">One of every card</div></div>
-      <div class="fact"><div class="n">${v.half}</div><div class="l">Cards holding half the value</div></div>
+      <div class="fact"><div class="n">${v.half}</div><div class="l">${plural(
+        v.half,
+        "Card"
+      )} holding half the value</div></div>
       <div class="fact"><div class="n">${v.topShare}%</div><div class="l">Held by the ${v.topN} priciest</div></div>
       <div class="fact"><div class="n">${moneyExact(v.median)}</div><div class="l">The middle card</div></div>
     </div>
@@ -2553,7 +2566,17 @@ function setPage(s) {
     <div class="facts">
       <div class="fact"><div class="n">${s.total ?? "?"}</div><div class="l">Cards total</div></div>
       <div class="fact"><div class="n">${s.printedTotal ?? "?"}</div><div class="l">In the printed set</div></div>
-      <div class="fact"><div class="n">${s.secretCount ?? "?"}</div><div class="l">Secret rares</div></div>
+      ${/* A SIXTH INSTANCE OF THE STAT-TILE PLURAL BUG, found by sweeping all
+            1,480 built pages for a lone "1" against a plural label rather than
+            by fixing the five that were reported. Crown Zenith and Shining Fates
+            both have exactly one secret rare, so both read "1 / Secret rares".
+            Zero keeps the plural, which is why this is not `secretCount === 1`
+            inverted: plural() gets that right and a hand-written ternary is how
+            the other five happened. */ ""}<div class="fact"><div class="n">${
+        s.secretCount ?? "?"
+      }</div><div class="l">Secret ${
+        typeof s.secretCount === "number" ? plural(s.secretCount, "rare") : "rares"
+      }</div></div>
       ${rips
         ? `<a class="fact fact-link" href="/videos.html?set=${s.id}"><div class="n">${rips}</div><div class="l">Rip${rips === 1 ? "" : "s"} on this channel <span aria-hidden="true">&rarr;</span></div></a>`
         : `<div class="fact"><div class="n">-</div><div class="l">Rips on this channel</div></div>`}

@@ -160,6 +160,14 @@ const PAGES = [
   // comment above PAGES gives: four pages once shipped without one and were
   // unsearchable on a site whose nav search is the main way around it.
   ["/most-valuable-cards.html", "Most valuable cards", "The 100 dearest ungraded Pokemon cards in PriceCharting's guide, dated"],
+  // THE TITLE LEADS WITH "TOPPS" because that is the whole of what somebody
+  // types, and the blurb leads with what the cards are rather than what they are
+  // worth: the commonest way to arrive at this page is holding one and not
+  // knowing what it is. The values page says "top 100s" rather than "most
+  // valuable", the same discipline the top-graded line above keeps: it ranks two
+  // price guide columns read on one day and the blurb must not upgrade that.
+  ["/topps.html", "Topps Pokemon cards", "The trading cards Topps made from 1999 to 2004, every set, and how to tell one from a real TCG card"],
+  ["/topps-card-values.html", "Topps card values", "Two top 100s of Topps Pokemon cards, ranked raw and by PSA 10 from PriceCharting's guide, dated"],
   ["/most-expensive-sealed.html", "Most expensive sealed", "The 100 dearest sealed Pokemon products on TCGplayer, dated"],
   ["/hall.html", "Hall of Fame", "The best pulls on the channel"],
   ["/wanted.html", "Most wanted", "The cards still being chased"],

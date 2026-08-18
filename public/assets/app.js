@@ -1076,6 +1076,19 @@
       // Everything else that looked at risk turned out fine, because its NAV
       // href IS the directory: /sets/, /pokemon/, /openings/, /games/.
       [/^\/retailers\//, "/retailers.html"],
+      // THE FOURTH FAMILY, AND THE FIRST THAT IS NOT A DIRECTORY. The three
+      // above are all "/thing/x.html hangs off /thing.html", so no NAV href is a
+      // prefix of them. This one is a SIBLING FILE: /topps-card-values.html is
+      // the price half of /topps.html, which is the nav entry, and nothing else
+      // on the site is called topps. The prefix test cannot help either, because
+      // "/topps-card-values.html".indexOf("/topps.html") is -1.
+      //
+      // WHY IT IS WORTH A LINE. Both Topps pages link to each other in the body,
+      // so a reader is not lost, but the values page is the one somebody lands on
+      // from a search for "topps pokemon card values" and it is where they most
+      // need the nav to say which part of the site they are standing in. Without
+      // this the menu lights nothing at all on a 200 row page.
+      [/^\/topps-card-values\.html$/, "/topps.html"],
     ];
     var owner = here;
     for (var s = 0; s < SECTIONS.length; s++) {

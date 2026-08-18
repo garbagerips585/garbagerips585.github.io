@@ -440,6 +440,18 @@ ${MENU}
       card could not be matched to a Pokedex number we show the name as printed and say so, because we do not
       invent translations.
       Singles move fast, so treat these as a ballpark and not a quote. We do not sell cards.</p>
+
+    ${/* THE INDEX BEHIND THIS BOX HOLDS POKEMON TCG CARDS AND NOTHING ELSE, and
+          the paragraph above already spends six sentences on which cards are and
+          are not in it. This is the one category that is missing for a different
+          reason: a Topps card is not a Pokemon TCG card at all, so it will never
+          be in this index however many sets get added, and somebody who types
+          "Charizard" while holding one gets a page of results none of which is
+          the thing in their hand. Nothing else on this page tells them why. */ ""}
+    <p class="price-note"><b>Searching for a card that is not here at all?</b> Topps printed its own Pokemon
+      cards from 1999 to 2004, trading cards rather than game cards, and they are in no set this box searches
+      because they are not Pokemon TCG cards. <a href="/topps.html">What they are and how to spot one</a>, and
+      <a href="/topps-card-values.html">what they are worth</a>.</p>
   </div>
 </section>
 

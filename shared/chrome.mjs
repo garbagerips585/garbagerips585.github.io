@@ -159,6 +159,41 @@ export const NAV = [
     ["/expansions.html", "All English sets"],
     ["/upcoming.html", "Coming next"],
     ["/complete-a-set.html", "Cost to complete"],
+    // "Topps cards" (11), added 18 August 2026. It is a family of eleven sets
+    // from 1999 to 2004 that are NOT Pokemon TCG sets, so it does not belong
+    // beside the set guides on any reading of the word except the one that
+    // matters here: a set is the thing a reader arrives holding a question
+    // about, and "what set is this from" is exactly the question a Topps card
+    // provokes.
+    //
+    // IT WANTED TO GO IN "Cards", NEXT TO "Base Set prints", and that is the
+    // better fit by subject: both are pages about telling a specific vintage
+    // card apart in your hand. That group is already at eight, which is the
+    // largest any group here is, and this one is at four. Adding a ninth link
+    // to the tallest group to save a fifth in the shortest one is the wrong way
+    // round for a panel laid out in four columns. RE-MEASURED after adding it,
+    // menu open, driven headless over CDP rather than eyeballed:
+    //
+    //     1440x900   panel 818px, scrollHeight == clientHeight, does not scroll
+    //     1280x900   panel 818px, does not scroll
+    //      390x900   panel 545px, does not scroll
+    //
+    // The table above recorded 816px at 1440 and 544px at 390 for eight groups,
+    // so a 49th link cost 2px and 1px. It is nearly free because the desktop
+    // panel is four CSS columns and this row went into a short one rather than
+    // the tall one. All 49 links measure exactly 48px high at 1440 and 44px at
+    // 390, so nothing wraps to a second line; "Topps cards" is 154.5px wide in a
+    // column that gives about 157.
+    //
+    // The LABEL is not "Topps" alone, which names a company and could be about
+    // anything, and not "Topps sets", which would read as more set guides of the
+    // kind /sets/ holds. The page's own h1 is "Topps made Pokemon cards too" and
+    // its title leads "Topps Pokemon Cards", so "Topps cards" is the shared
+    // word pair. The VALUES page is deliberately not in the nav: it is one tap
+    // from the guide, in the site search, and linked from the three ranked price
+    // pages, and a second Topps line would spend a nav slot on the second half
+    // of one subject.
+    ["/topps.html", "Topps cards"],
   ]],
 
   // What a thing costs and what it is worth. Recomputed from the nightly price

@@ -63,7 +63,7 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, shortDate, moneyExact, imgDims } from "../shared/format.mjs";
+import { esc, longDate, shortDate, moneyExact, imgDims, plural, count } from "../shared/format.mjs";
 import { PRODUCT_TYPES, CARD_SETS } from "../shared/taxonomy.mjs";
 import { ripLabel } from "../shared/riplabel.mjs";
 
@@ -372,10 +372,19 @@ const LABEL = new Map(PRODUCT_TYPES.map((p) => [p.id, p.label]));
 // pack carries a code the English client takes, so the three foreign pack pages
 // get nothing rather than a hedge. The index says "English booster pack" out
 // loud for the same reason, because its total covers all of them.
+//
+// IT AGREES WITH ITS OWN PACK COUNT. Written as a fixed string it read "Every
+// one of THOSE PACKS had a code card in it as well" on /openings/etb.html, above
+// a lede saying one pack was counted. A count that is derived can be 1, and the
+// day the 244 inferred pack counts were withheld it became 1 on every page that
+// still had one.
 const FOREIGN_PACKS = new Set(["japanese-pack", "korean-pack", "chinese-pack"]);
-const CODE_LINE =
-  ' Every one of those packs had a code card in it as well: <a href="/tcg-live.html">what the code' +
-  " card actually gets you</a>.";
+const codeLine = (packs) =>
+  packs === 1
+    ? ' That pack had a code card in it as well: <a href="/tcg-live.html">what the code' +
+      " card actually gets you</a>."
+    : ' Every one of those packs had a code card in it as well: <a href="/tcg-live.html">what the code' +
+      " card actually gets you</a>.";
 
 // Splitting on ". " returns the WHOLE string when there is only one sentence,
 // full stop included, so appending another gave ten cards a doubled period.
@@ -446,11 +455,14 @@ const pricesFor = (id) => {
 
 // Which sets a kind was opened from, and how much of each.
 //
-// A RIP TAGGED WITH TWO SETS COUNTS UNDER BOTH, and the band says so out loud
-// rather than letting a reader add the column up and get more openings than the
-// stat tile above it claims. Eleven rips carry two set tags (a blister holding
-// packs from two sets is the usual reason), so the two numbers genuinely differ
-// and neither is wrong.
+// A RIP TAGGED WITH TWO SETS COUNTS UNDER BOTH, and a rip tagged with NO set is
+// in the opening count and in none of these rows. Both are why the column and
+// the stat tile above it differ, in opposite directions, and which one wins is
+// different on every product. setBandSum() below derives the sentence that says
+// so; do not replace it with a fixed one, and read its comment before touching
+// either. THIS COMMENT USED TO NAME ONLY THE FIRST EFFECT and the band's copy
+// was written off it, which is how ten of thirteen pages came to assert that
+// their own column adds up to more than it does.
 //
 // Packs are summed the same way, and are 0 for whole kinds: nothing in
 // videos.json records a pack count for an ex Premium Collection, so those rows
@@ -622,8 +634,8 @@ async function setBand(e) {
             }
             <span class="op-sb" aria-hidden="true"><i style="width:${r.pct}%"></i></span>
           </span>
-          <span class="op-sn"><b>${r.openings}</b> opening${r.openings === 1 ? "" : "s"}${
-            r.packs ? `<span>${r.packs} pack${r.packs === 1 ? "" : "s"}</span>` : ""
+          <span class="op-sn"><b>${r.openings}</b> ${plural(r.openings, "opening")}${
+            r.packs ? `<span>${count(r.packs, "pack")}</span>` : ""
           }</span>`;
     rows.push(
       `        <li class="op-sr">${
@@ -641,8 +653,74 @@ async function setBand(e) {
 ${rows.join("\n")}
       </ul>
       <p class="op-note">Openings and packs counted here, in our own videos, which is the only place
-        these numbers come from. A rip tagged with two sets is counted under both, so the column adds
-        up to more than the ${e.vids.length} above it. Each row opens that set's guide.</p>`;
+        these numbers come from. ${setBandSum(e)} Each row opens that set's guide.</p>`;
+}
+
+/**
+ * WHY THIS IS DERIVED PER PAGE AND NOT ONE SENTENCE REUSED THIRTEEN TIMES.
+ *
+ * It used to read, on every product page: "A rip tagged with two sets is counted
+ * under both, so the column adds up to MORE THAN the N above it." Ten of the
+ * thirteen pages disproved their own sentence, in a table the reader could add
+ * up on the same screen. Measured 18 August 2026, openings against the column:
+ *
+ *     collection-box 12 -> 5     ex-premium 48 -> 42    blister 13 -> 11
+ *     tin            13 -> 11    single-pack 90 -> 89
+ *     bundle, etb, japanese-pack, korean-pack, chinese-pack   EQUAL
+ *     knock-out, poke-ball-tin, upc                           genuinely MORE
+ *
+ * THE STATED CAUSE WAS ALSO THE WRONG ONE, and backwards. Multi-set tags do push
+ * the column up, but the dominant term is the opposite: a rip carrying NO set tag
+ * is in the opening count above and in no row below, so it pulls the column down.
+ * ex Premium Collections have 11 of those against 5 multi-tagged rips, which is
+ * how 48 openings become 42 rows. The old sentence named the smaller effect and
+ * hid the larger one, so a reader who did the arithmetic concluded the page was
+ * broken rather than that seven collection boxes are untagged.
+ *
+ * So the sentence states BOTH terms, only when each is non-zero, and then says
+ * what the column actually comes to and whether that is more, fewer or the same.
+ * Every number in it is counted off the same arrays the rows are drawn from, so
+ * it cannot go stale when the tagging changes. UNTAGGED.md is the worklist for
+ * closing the remainder; the page's job until then is to name it.
+ */
+function setBandSum(e) {
+  const rips = e.vids.length;
+  const pairs = e.setRows.reduce((n, r) => n + r.openings, 0);
+  const untagged = e.vids.filter((v) => !(v.sets || []).length).length;
+  const multi = e.vids.filter((v) => (v.sets || []).length > 1).length;
+
+  // One opening gets its own phrasing throughout: "Of the 1 openings above" is
+  // the same bug this whole fix is about, one level down.
+  const solo = rips === 1;
+  const lead = solo ? "The single opening above" : `Of the ${rips} openings above,`;
+
+  if (!untagged && !multi) {
+    return solo
+      ? `${lead} carries one set tag, so the column adds up to ${pairs}.`
+      : `${lead} every one carries exactly one set tag, so the column adds up to the same ${pairs}.`;
+  }
+
+  const clauses = [];
+  if (multi) {
+    clauses.push(
+      solo
+        ? "is tagged with more than one set and is counted under each of them"
+        : `${multi} ${multi === 1 ? "is" : "are"} tagged with more than one set and ${
+            multi === 1 ? "is" : "are"
+          } counted under each of them`
+    );
+  }
+  if (untagged) {
+    clauses.push(
+      solo
+        ? "carries no set tag at all, so it appears in no row below"
+        : `${untagged} carr${untagged === 1 ? "ies" : "y"} no set tag at all, so ${
+            untagged === 1 ? "it appears" : "they appear"
+          } in no row below`
+    );
+  }
+  const rel = pairs > rips ? `, more than the ${rips}` : pairs < rips ? `, fewer than the ${rips}` : "";
+  return `${lead} ${clauses.join(", and ")}. The column therefore adds up to ${pairs}${rel}.`;
 }
 
 // THE LEDE'S CAPTION MAKES A CLAIM THE PAGE COULD NOT SHOW: "every set sells
@@ -973,10 +1051,12 @@ ${shot(e)}
       <div class="op-facts">
         <div class="op-f"><span class="n">${e.vids.length}</span><span class="l">Opened on camera</span></div>
         <div class="op-f"><span class="n">${e.packs || "&mdash;"}</span><span class="l">${
-          e.packs ? `Packs counted, across ${e.withPacks} of them` : "Pack count not in our data"
+          e.packs
+            ? `${plural(e.packs, "Pack", "Packs")} counted, across ${count(e.withPacks, "opening")}`
+            : "Pack count not in our data"
         }</span></div>
         <div class="op-f"><span class="n">${nSets || "&mdash;"}</span><span class="l">${
-          nSets ? "Different sets" : "Set not tagged"
+          nSets ? `Different ${plural(nSets, "set")}` : "Set not tagged"
         }</span></div>
       </div>
 
@@ -1007,8 +1087,10 @@ ${e.prices.length
       <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On the channel</p>
       <h2>Every ${esc(e.label)} <span class="hl">opened</span> here</h2>
       <p class="lede" style="max-width:38em">${e.vids.length} of them${
-        e.packs ? `, ${e.packs} pack${e.packs === 1 ? "" : "s"} counted` : ""
-      }. Each one plays on its own page.${e.packs && !FOREIGN_PACKS.has(e.id) ? CODE_LINE : ""}</p>
+        e.packs ? `, ${count(e.packs, "pack")} counted` : ""
+      }. Each one plays on its own page.${
+        e.packs && !FOREIGN_PACKS.has(e.id) ? codeLine(e.packs) : ""
+      }</p>
       <ul class="riplist">
 ${e.vids
   .slice()
@@ -1052,8 +1134,10 @@ const idx =
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Openings</span></nav>
       <h1>Every kind of <span class="hl">sealed</span> product</h1>
       <p class="lede op-lede">What is actually inside each kind of box, what it costs across the sets that
-        sell it, and every one of them opened on this channel. ${entries.length} kinds, ${totalRips} openings,
-        ${totalPacks} packs counted.</p>
+        sell it, and every one of them opened on this channel. ${count(entries.length, "kind")}, ${count(
+    totalRips,
+    "opening"
+  )}, ${count(totalPacks, "pack")} counted.</p>
       <div class="op-grid">
 ${entries
   .map(
@@ -1069,7 +1153,7 @@ ${entries
           </div>
           <p>${esc(firstSentence(USUALLY[e.id] || ""))}</p>
           <span class="op-n">${e.vids.length} opened${
-            e.packs ? ` &bull; ${e.packs} pack${e.packs === 1 ? "" : "s"} counted in ${e.withPacks} of them` : ""
+            e.packs ? ` &bull; ${count(e.packs, "pack")} counted in ${e.withPacks} of them` : ""
           }</span>
           ${cardShotName(e)}
         </a>`
@@ -1086,8 +1170,24 @@ ${entries
         one is a specific product standing in for its kind, named on the card and named again on the page.
         Two kinds have no photograph here, because no picture of a Korean or a Chinese booster pack is
         available to this site at all.
-        Every English booster pack in that count also held a code card, and
-        <a href="/tcg-live.html">what the code card gets you</a> counts them.</p>
+        ${/* THIS SENTENCE PROMISED A NUMBER THE PAGE IT LINKS TO REFUSES TO PRINT.
+              It read "Every English booster pack in that count also held a code
+              card, and what the code card gets you COUNTS THEM". /tcg-live.html
+              stopped printing a code card total on 18 August 2026: its `COUNTED`
+              gate is false while the pack counts are withheld pending Tim's
+              filled sheet, so that section now says "we are not printing a total
+              yet". A reader sent there for a figure was told there is not one.
+
+              Code cards are one per pack, so this was the withheld figure
+              promised at one remove, which is worse than not mentioning it.
+
+              THE FIX IS THE SHAPE build-how-many-packs.mjs ALREADY USES and says
+              so in its own comment: one sentence, one link, NO NUMBER and no
+              promise of one. It is then correct in both states, so nobody has to
+              remember to come back here when the sheet lands. */ ""}Every English
+        booster pack also holds one more card that nobody keeps, and it is the only
+        thing in the wrapper these pages never mention.
+        <a href="/tcg-live.html">What the code card actually gets you.</a></p>
     </div>
   </section>
 ` +

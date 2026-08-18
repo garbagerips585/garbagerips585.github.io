@@ -1926,6 +1926,52 @@ footer .soc svg{fill:var(--paper)}
   .brand b{font-size:.82rem}
 }
 
+/* THE SUBSCRIBE PILL WAS CLIPPED MID-WORD BELOW 356px AND THE MAGNIFIER IS WHAT
+   PAID FOR IT. Regression from 18 August 2026: `.bar .sub` used to be
+   display:none below 560, so nothing occupied that slot at the small end. Making
+   it visible pushed the row past the viewport.
+
+   MEASURED OVER CDP AT DPR 3, /expansions.html, right edge of .sub against
+   documentElement.clientWidth. Every item in .bar-in is flex:none, so the
+   overflow lands on the last one and the pill is simply cut off:
+
+        width   sub right   margin      after this rule
+          320       343.5    -23.5   the label renders "Subscrib"     ->  +12.0
+          344       343.5      +0.5   fits, with the padding eaten     ->  +12.0
+          360       348.0     +12.0   unchanged
+          375       363.0     +12.0   unchanged
+          390       378.0     +12.0   unchanged
+          414       402.0     +12.0   unchanged
+
+   The bar's min-content is 355.5px: brand 128 + magnifier 44 + Menu 44 +
+   Subscribe 91.5 + 24 padding + three 8px gaps. So 356 is the first width that
+   holds it with both 12px paddings intact, which is where this query stops.
+
+   IT HIDES THE MAGNIFIER RATHER THAN THE PILL, AND THAT IS THE WHOLE ARGUMENT.
+   Three options were on the table. Hiding .sub again (simplest) re-creates at
+   320 exactly the problem the pill was added to solve: a phone with no
+   Subscribe above the footer. Shrinking .sub to a 44px icon keeps the control
+   but throws away the word, and this repo's own notes call an unlabelled
+   YouTube glyph in the footer the thing that made the channel invisible. The
+   magnifier is the cheapest thing in the row: 44px plus its 8px gap is 52, more
+   than the 23.5 that was overflowing, and /search.html is ALSO in the menu
+   panel as "Search the site", one tap away, at the same url. Nothing becomes
+   unreachable. The @media(max-width:480px) block above already argued for
+   exactly this and then only wrote the margin rule, so the intent was recorded
+   and never implemented.
+
+   DO NOT "SIMPLIFY" THIS BY REMOVING .bar-in's flex-wrap BELOW. The query is in
+   px and text zoom is not, so a 360px phone at large text still outgrows the
+   row and no breakpoint can catch that. flex-wrap is the failure mode rather
+   than the fix: past the line the pill drops to a second row, whole and
+   tappable, instead of being sliced. min-height on .bar-in keeps the bar
+   identical at every width and zoom where the row fits, which was checked at
+   320 through 1920 before and after. */
+@media(max-width:355px){
+  .bar-find{display:none}
+}
+.bar-in{flex-wrap:wrap}
+
 /* Grouped panel. */
 .menu-h{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
   color:var(--mustard);padding:var(--s4) var(--s3) 8px}

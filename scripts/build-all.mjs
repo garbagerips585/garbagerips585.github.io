@@ -94,6 +94,27 @@ const STEPS = [
   // no verification stamped for its own crawl date, so a stale or unverified
   // snapshot stops the build rather than quietly reprinting itself.
   "node scripts/build-top-graded.mjs",
+  // The two Topps pages, next to build-top-graded.mjs because they are the same
+  // shape of job: a page of PriceCharting figures out of a crawl that is run BY
+  // HAND. NEITHER SYNC RUNS HERE. scripts/sync-topps-top.mjs makes no network
+  // request at all and could, but scripts/verify-topps-top.mjs is 176 requests
+  // against somebody else's server, and a step in a scheduled build must not
+  // depend on one that is not. This reads data/topps-top.json and
+  // data/topps-sets.json only.
+  //
+  // IT HARD FAILS on three things rather than warning: a topps-top.json with no
+  // verification stamped for its own crawl, a disagreeing row with no recorded
+  // reason (both through shared/graded-gate.mjs), and a claim in
+  // data/topps-sets.json about which Topps release a PriceCharting bucket holds
+  // that no longer matches the card numbers in the crawl. The last one is this
+  // page's own risk and is argued in the builder's header: PriceCharting's
+  // buckets are card TYPE buckets rather than Topps releases, and a page that
+  // gets that mapping wrong describes the wrong set confidently.
+  //
+  // Ordering constraints are the usual two: before build-search.mjs, which walks
+  // public/*.html and fails the build on an indexable page missing from its
+  // PAGES list, and before build-pages.mjs, which puts both urls in the sitemap.
+  "node scripts/build-topps.mjs",
   "node scripts/build-complete.mjs",
   // Both read data written earlier in this list and both must run BEFORE
   // build-search.mjs, which walks public/*.html and fails the build on any

@@ -141,6 +141,86 @@ const ERA_GUIDE = {
   Base: ["/base-set.html", "1st Edition, Shadowless or Unlimited? Telling the 1999 Base Set printings apart"],
 };
 
+/**
+ * HOW MANY CARDS ONE ROW IS SAYING, AND WHY IT IS A FUNCTION.
+ *
+ * The headline tile read 20,460 while its own 174 rows added up to 20,482, a
+ * gap of 22 that a reader could find with a calculator on the same screen.
+ * The cause was two different sums of two different fields: the tile summed
+ * `total` and the rows printed `printedTotal` with a "+N" secret tail bolted
+ * on only when `total > printedTotal`. Both are now this one function, called
+ * once for the number and once for the markup, so they cannot diverge again.
+ *
+ * THE 22 IS TWO ROWS AND IT IS DATA RATHER THAN A PARSE BUG. Both come
+ * straight off api.pokemontcg.io in sync-expansions.mjs, unmodified:
+ *
+ *     SWSH Black Star Promos              total 304   printedTotal 307   +3
+ *     Scarlet & Violet Black Star Promos  total 196   printedTotal 215   +19
+ *
+ * Everywhere else on this page `total` is the larger number, because a set
+ * prints secret rares numbered past the count on the card, so 82/81 is one
+ * printed total of 81 and a total of 82. These two invert it, and the reason is
+ * that a Black Star Promos set is OPEN ENDED. It has no print run and no end:
+ * cards are added to it for years, numbered SWSH001 upward, so `printedTotal`
+ * is the highest number issued so far and `total` is how many card records the
+ * API actually holds. The API is behind its own numbering by 3 and 19. That is
+ * a gap in one catalogue's coverage of an unfinished set, not a set with
+ * negative secret rares, and it will move again next time either side updates.
+ *
+ * SO THE PRINTED NUMBER WINS AND THE ROW SAYS WHY. `printedTotal` is what is
+ * on the cards, which is the thing a reader holding one can check; `total` is
+ * one API's record count. Taking the larger of the two would silently pick a
+ * different field per row, and dropping the two rows would delete 500 real
+ * cards from a page that calls itself complete. So the count is the printed
+ * one, the two promo rows carry a visible marker saying the catalogue lists
+ * fewer than the numbering reaches, and the tile sums exactly what the column
+ * shows. That is why the tile now reads 20,482 rather than 20,460: the old
+ * figure was 22 cards short of the page's own rows.
+ *
+ * Returns { n, html }: `n` is what the tile adds up, `html` is the cell.
+ */
+function cardCount(s) {
+  const total = s.total || 0;
+  const printed = s.printedTotal || 0;
+
+  // No printed total at all: the API's record count is the only figure there is.
+  if (!printed) return { n: total, html: total ? String(total) : "" };
+
+  // The ordinary case, 155 of the 174 rows: secret rares numbered past the
+  // printed total, so the row reads "82 +1" and counts 83.
+  if (total > printed) {
+    const secret = total - printed;
+    return {
+      n: total,
+      html: `${printed} <span class="sec">+${secret}</span><span class="sr-only">, plus ${secret} secret ${
+        secret === 1 ? "card" : "cards"
+      } numbered past the printed total</span>`,
+    };
+  }
+
+  // The two open-ended promo sets. The numbering has run past what the API
+  // lists, so the count is the numbering and the shortfall is named.
+  if (total && total < printed) {
+    const gap = printed - total;
+    return {
+      n: printed,
+      // "3 unlisted" AND NOT "-3", WHICH WAS THE FIRST ATTEMPT AND WAS WORSE
+      // THAN THE BUG. The "+N" beside every other row is an ADDEND: a reader
+      // adding the column reads "82 +1" as 83, which is what the tile counts. A
+      // minus sign in the same column reads the same way and subtracts, so
+      // "307 -3" made the rendered column total 20,460, which is exactly the
+      // wrong figure this whole fix exists to retire. The gap is not an operand
+      // on 307, it is a note ABOUT 307, so it is worded as one. Checked by
+      // summing the rendered column both ways off the built DOM.
+      html: `${printed} <span class="sec">${gap} unlisted</span><span class="sr-only">, of which ${gap} ${
+        gap === 1 ? "is" : "are"
+      } numbered but not yet in the Pokemon TCG API's card list, because this set is still open</span>`,
+    };
+  }
+
+  return { n: printed, html: String(printed) };
+}
+
 // Group, keeping the sync's oldest-first order inside each era.
 const byEra = new Map(seriesOrder.map((s) => [s, []]));
 for (const s of sets) byEra.get(s.series)?.push(s);
@@ -155,12 +235,26 @@ const eras = seriesOrder
       list,
       from: year(list[0]?.released),
       to: year(list.at(-1)?.released),
-      cards: list.reduce((n, s) => n + (s.total || 0), 0),
+      cards: list.reduce((n, s) => n + cardCount(s).n, 0),
     };
   })
   .filter((e) => e.list.length);
 
-const totalCards = sets.reduce((n, s) => n + (s.total || 0), 0);
+// SUMMED THROUGH cardCount() SO THE TILE CANNOT DISAGREE WITH THE COLUMN. It
+// summed `total` while the rows printed `printedTotal (+secret)`, and the two
+// promo rows described in cardCount() made that a visible 22 card gap: tile
+// 20,460, rows 20,482. The assertion below is not decoration. It is the only
+// thing standing between this page and the same bug the next time somebody
+// changes what a cell shows without changing what the tile adds.
+const totalCards = sets.reduce((n, s) => n + cardCount(s).n, 0);
+const openEnded = sets.filter((s) => s.total && s.printedTotal && s.printedTotal > s.total);
+const eraSum = eras.reduce((n, e) => n + e.cards, 0);
+if (eraSum !== totalCards) {
+  throw new Error(
+    `expansions: the era subtotals add up to ${eraSum} and the headline tile says ${totalCards}. ` +
+      `Both go through cardCount(), so one of them is no longer summing every row.`
+  );
+}
 const ripped = sets.filter((s) => s.slug);
 const firstYear = year(sets[0].released);
 const lastYear = year(sets.at(-1).released);
@@ -169,10 +263,7 @@ const lastYear = year(sets.at(-1).released);
 function eraTable(e) {
   const rows = e.list
     .map((s) => {
-      const secret = s.total && s.printedTotal && s.total > s.printedTotal ? s.total - s.printedTotal : 0;
-      const cards = s.printedTotal
-        ? `${s.printedTotal}${secret ? ` <span class="sec">+${secret}</span>` : ""}`
-        : s.total || "";
+      const cc = cardCount(s);
       const name = s.slug
         ? `<a href="/sets/${s.slug}.html">${esc(s.name)}</a>`
         : esc(s.name);
@@ -185,7 +276,12 @@ function eraTable(e) {
             }${name}${s.promo ? ` <span class="xp-tag">promo</span>` : ""}</span>
           </th>
           <td class="xp-date"><time datetime="${esc(s.released || "")}">${shortDate(s.released)}</time></td>
-          <td class="xp-cards">${cards}</td>
+          ${/* data-cards CARRIES THE PLAIN NUMBER FOR THE COPY BUTTON. That
+                script reads textContent, so the .sr-only explanation added to
+                this cell would otherwise paste a sentence into a spreadsheet
+                column of integers. The attribute is written from the same
+                cardCount() the tile sums, so a copied list, the column and the
+                headline are one number in three places. */ ""}<td class="xp-cards" data-cards="${cc.n}">${cc.html}</td>
           <td class="xp-rips">${
             s.slug && ripsBySet[s.slug]
               ? `<a href="/videos.html?set=${s.slug}">${ripsBySet[s.slug]} rip${ripsBySet[s.slug] === 1 ? "" : "s"}</a>`
@@ -391,8 +487,12 @@ const style = `
 }
 /* At 1600 and beyond the table is wide enough that the set column starts to
    spread again, so pin the three data columns and let the names keep the rest.
-   These are content widths: "September 22, 2023" is the longest date, "20,460"
-   the longest count, and the rips cell holds "12 rips" at most. */
+   These are content widths: "September 22, 2023" is the longest date and the
+   rips cell holds "12 rips" at most. The longest COUNT used to be "20,460",
+   which was the headline tile rather than anything in this column; the widest
+   cell is now "307 3 unlisted" on the two open-ended promo rows, and 140px
+   holds it because the note sets at --t-micro. Re-check that cell, not the
+   tile, before narrowing this. */
 @media(min-width:1600px){
   .xp-table thead th:nth-child(2){width:180px}
   .xp-table thead th:nth-child(3){width:140px}
@@ -434,10 +534,36 @@ ${eras.map((e) => `        <a href="#era-${e.id}">${esc(e.name)}</a>`).join("\n"
 
       <button class="xp-copy" type="button" id="copyAll">Copy the whole list</button>
       <p class="xp-foot">Set names, release dates and card counts are from the Pokemon TCG API.
-        Card counts show the printed set size, with secret rares beyond it listed separately.
+        Card counts show the printed set size, with secret rares beyond it listed separately as a plus.
+        ${/* NAMED AND COUNTED FROM THE DATA, not typed, so this sentence disappears
+              on its own the day the API catches up with the numbering. Without it
+              the two minus signs are the only unexplained mark on the page, and
+              the 22 cards they account for are the difference between the tile
+              and the column that a reader can add up. */ ""}${
+        openEnded.length
+          ? `An "unlisted" note is the opposite case and only ${
+              openEnded.length === 1 ? "one set carries" : `${openEnded.length} sets carry`
+            } it:
+        ${openEnded
+          .map((s) => `${esc(s.name)}, numbered to ${s.printedTotal} with ${s.printedTotal - s.total} not yet in the API's list`)
+          .join(", and ")}. Those sets are still open, so the numbering runs ahead of the catalogue and the
+        count here follows the numbering.`
+          : ""
+      }
         Underlined sets have a full guide on this site. The site also holds guides for Japanese and
-        Korean sets, which are not English releases and so are on no row here. Fan made reference.
-        Not affiliated with The Pokemon Company or Nintendo.</p>
+        Korean sets, which are not English releases and so are on no row here.
+        ${/* THE TOPPS LINE SITS HERE AND NOWHERE ELSE ON THIS PAGE, and the
+              placement is the argument. This is the complete index of English
+              Pokemon TCG sets, and Topps' own Pokemon sets are not Pokemon TCG
+              sets at all, so putting them in a row or an era would be wrong in
+              exactly the way this page exists to avoid. But a reader who has just
+              failed to find their 1999 card in a list titled "every set" is
+              standing at the one sentence that says what is deliberately absent,
+              and that is where they are owed the pointer. Same shape as the
+              Japanese and Korean clause it follows. */ ""}Topps made its own
+        Pokemon cards from 1999 to 2004, trading cards rather than game cards, and those are on no row
+        here either: <a href="/topps.html">the Topps guide</a> covers every one of them. Fan made
+        reference. Not affiliated with The Pokemon Company or Nintendo.</p>
     </div>
   </section>
 
@@ -466,7 +592,7 @@ document.getElementById("copyAll")?.addEventListener("click", async (e) => {
         name,
         tag ? "Promo" : "Expansion",
         clean(tr.querySelector(".xp-date")),
-        clean(tr.querySelector(".xp-cards")),
+        tr.querySelector(".xp-cards")?.dataset.cards || clean(tr.querySelector(".xp-cards")),
         rips === "\\u2014" ? "" : rips,
       ].join("\\t"));
     }

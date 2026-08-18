@@ -542,6 +542,21 @@ ${MENU}
       Shadowless, and it is worth more than the ordinary printing rather than less.
       <a href="/base-set.html">1st Edition, Shadowless or Unlimited?</a> tells the three print runs apart. Come
       back here if the answer is that it is none of them.</p>
+    ${/* THE SECOND QUESTION THIS PAGE GETS ASKED THAT IT DOES NOT ANSWER, and it
+         is the same shape as the one above: a card that looks wrong to somebody
+         who has only handled Pokemon TCG cards, and is not wrong. Every test
+         below assumes the card is trying to be a Pokemon TCG card. A Topps card
+         is not: no HP, no attack, no energy cost, a photograph on the front and
+         an episode summary on the back. It fails nearly every test on this page
+         while being a completely genuine card, which is the worst possible
+         outcome for an authentication guide. So the line goes BEFORE the tests
+         for the same reason the Shadowless one does: the cost of getting it
+         wrong is all eight of them, plus somebody throwing away a real card. */ ""}
+    <p class="price-note" style="margin-top:var(--s4)"><b>No HP, no attack, a photo on the front?</b> Then it is
+      probably not a fake, it is probably not a Pokemon TCG card at all. Topps made its own Pokemon cards from
+      1999 to 2004: real, licensed trading cards with an episode summary on the back instead of game text. They
+      fail almost every test on this page while being completely genuine.
+      <a href="/topps.html">How to spot a Topps card</a>, and why some of them are worth thousands.</p>
   </div>
 </section>
 

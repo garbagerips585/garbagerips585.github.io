@@ -376,7 +376,26 @@ ${rows.map(row).join("\n")}
       are gates, and going around a gate is not something this site does. So the honest move was to change
       the question to one that could be answered and say so in the title.</p>
 
-    <p><b>Some of the rarest cards in Pokemon are missing, and their absence is the data working.</b>
+    ${
+      // THE TOPPS ROWS ARE EXPLAINED WHERE THEY APPEAR, and the count is read
+      // off the published list rather than typed, because it is exactly the kind
+      // of number that is right today and wrong after the next crawl. Without
+      // this a reader meets "2000 Topps Chrome" at number one of a list of
+      // Pokemon cards and has no way to find out what that is: it is not a set
+      // in the nav, not in /expansions.html, and not in the card search, all for
+      // the same correct reason. Empty string when the count is zero, so a
+      // future crawl that drops them takes the paragraph with it.
+      rows.filter((c) => /\bTopps\b/i.test(c.set)).length
+        ? `<p><b>${rows.filter((c) => /\bTopps\b/i.test(c.set)).length} of these are Topps cards rather than
+      Pokemon TCG cards.</b> Topps printed Pokemon trading cards under licence from 1999 to 2004, chrome and
+      movie cards with nothing on them to play a game with, and this source files and prices them under Pokemon.
+      They are left in, because taking them out would be editing the answer to suit the question.
+      <a href="/topps.html">What they are, every set, and how to spot one</a>, and
+      <a href="/topps-card-values.html">a Topps top 100 of its own</a>, ranked raw and by PSA 10.</p>
+
+    `
+        : ""
+    }<p><b>Some of the rarest cards in Pokemon are missing, and their absence is the data working.</b>
       PriceCharting prices from completed sales, so a card that has not sold in a PSA 10 recently has no
       value in that column and cannot be ranked by it. The Trophy Pikachu golds, No. 1 Trainer: Champion
       Road and Master's Key all sit in that state. They are not oversights and they were not quietly filled

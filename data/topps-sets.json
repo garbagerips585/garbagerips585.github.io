@@ -1,0 +1,733 @@
+{
+  "_readme": [
+    "THE TOPPS POKEMON RELEASES, WRITTEN BY A HUMAN, WITH A CITATION ON EVERY",
+    "FACT. Read by scripts/build-topps.mjs. Nothing here comes from a price feed",
+    "and nothing here may be guessed.",
+    "",
+    "WHY THIS FILE EXISTS AT ALL. data/topps-top.json is written from",
+    "PriceCharting's crawl and knows exactly one thing: what a product record is",
+    "worth. It does not know what year Topps shipped a set, how many cards were",
+    "in it, or which film a movie set is about. Those are facts about a print run",
+    "from 1999 to 2004 and a price guide is not a source for them. So they live",
+    "here, each with the url they were read from, and /topps.html prints nothing",
+    "in this shape that this file does not carry.",
+    "",
+    "THE TWO TAXONOMIES DO NOT LINE UP, AND THAT IS THE MOST IMPORTANT THING IN",
+    "THIS FILE. Topps shipped TWELVE sets, eleven in the States and one in",
+    "Europe only. PriceCharting files THIRTY-THREE",
+    "'consoles' under names like '2000 Topps TV Die Cut', and those are card TYPE",
+    "buckets, not Topps releases: a set's die-cut chase cards are split off into",
+    "their own bucket, and two Topps sets that shared a card type are merged into",
+    "one. '2000 Topps TV Heroes & Villians' holds HV1 to HV17, which is Series",
+    "2's five Heroes & Villains cards AND Series 3's twelve, in one bucket that",
+    "was never a Topps product. A page that prints PriceCharting's set names as",
+    "if they were Topps' set names is telling a reader that Topps released a set",
+    "called Heroes & Villains. It did not.",
+    "",
+    "SO EVERY `pcConsoles` ENTRY BELOW IS A CLAIM AND MOST OF THEM CARRY THEIR",
+    "EVIDENCE. An `expect` block is a shape our own cached crawl must have if",
+    "the mapping is right, and it was written by comparing that shape against",
+    "the count Bulbapedia states for the subset: 19 OR-prefixed numbers where",
+    "Bulbapedia says series 3 had 19 Orange Islands episode cards, 62 numbers",
+    "running 152 to 249 where it says Johto series 1 had 62 Pokemon cards. Run",
+    "`node scripts/build-topps.mjs` and it recomputes every one of them from",
+    "data/topps-top.json and FAILS THE BUILD on a mismatch, so the mapping is",
+    "checked on every build rather than asserted once and left. An entry with no",
+    "`expect` is one where the two counts did not line up exactly; those are",
+    "mapped on the bucket name alone and the page does not print a count for",
+    "them. See that script's header.",
+    "",
+    "WHAT IS DELIBERATELY ABSENT. No pull rates and no pack odds, for Topps or",
+    "anything else, which is a hard site rule. Bulbapedia states insert odds for",
+    "some of these sets; they were read and not recorded, and they must not be",
+    "added here later. No print-run totals, because no source we could reach",
+    "publishes one. No card stock or thickness comparison against Pokemon TCG",
+    "cards, because nothing sourceable says one. And no licensing counterparty:",
+    "who Topps signed the Pokemon licence with is not stated by any source we",
+    "could reach, so the page says the licence existed and does not name the",
+    "other side of it."
+  ],
+  "read": "2026-08-18",
+  "sources": {
+    "bulbapedia": {
+      "name": "Bulbapedia",
+      "hub": "https://bulbapedia.bulbagarden.net/wiki/Topps",
+      "note": "The Topps hub page and one page per set. Used for every set name, date and card count below."
+    },
+    "pricecharting": {
+      "name": "PriceCharting",
+      "hub": "https://www.pricecharting.com/",
+      "note": "Prices and card scans only. Never used for a date, a name or a card count."
+    }
+  },
+  "window": {
+    "from": "August 1999",
+    "to": "June 2004",
+    "why": "First Topps Pokemon set August 1999, last June 2004.",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Topps"
+  },
+  "notTcg": {
+    "quote": "Topps does not manufacture any cards for use with the official Pokémon Trading Card Game.",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Topps",
+    "note": [
+      "This is the load-bearing fact on the whole page and it is a direct quote",
+      "rather than a summary, because everything else about what these cards are",
+      "follows from it. What does NOT follow, and is written as a consequence",
+      "rather than as a sourced fact: that a Topps card carries no HP, no",
+      "attacks, no energy cost, no weakness, no resistance and no retreat cost.",
+      "No source we reached spells that list out. The page states it as what",
+      "follows from a card not being made for the game, which is what it is."
+    ]
+  },
+  "releases": [
+    {
+      "id": "series-1",
+      "name": "Pokemon Official Trading Cards",
+      "alsoKnown": "Pokemon Trading Cards series 1",
+      "released": "August 1999",
+      "year": 1999,
+      "base": 90,
+      "breakdown": "76 Pokemon cards, 13 character cards and a checklist card",
+      "covers": "The first 76 Pokemon, and the characters of the early anime",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_1",
+      "pcConsoles": [
+        {
+          "console": "/console/pokemon-1999-topps-tv",
+          "is": "the base set",
+          "expect": {
+            "numeric": {
+              "count": 76,
+              "min": 1,
+              "max": 76
+            },
+            "prefixes": {
+              "TV": 13
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "first-movie",
+      "name": "Pokemon the First Movie Trading Cards",
+      "released": "November 1999",
+      "year": 1999,
+      "base": 72,
+      "breakdown": "41 cards from Mewtwo Strikes Back, 18 from the short Pikachu's Vacation, 12 Evolution cards and a checklist",
+      "covers": "Pokemon: The First Movie, and the short shown with it",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_the_First_Movie_Trading_Cards",
+      "pcConsoles": [
+        {
+          "console": "/console/pokemon-1999-topps-movie",
+          "is": "the film and short cards"
+        },
+        {
+          "console": "/console/pokemon-1999-topps-movie-evolution",
+          "is": "the 12 Evolution cards",
+          "expect": {
+            "numbers": 12,
+            "prefixes": {
+              "E": 12
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-1999-topps-movie-die-cut",
+          "is": "the 12 die cut embossed Evolution chase cards",
+          "expect": {
+            "numeric": {
+              "count": 12,
+              "min": 1,
+              "max": 12
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-1999-topps-movie-sticker",
+          "is": "the 18 sticker chase cards",
+          "expect": {
+            "numeric": {
+              "count": 18,
+              "min": 1,
+              "max": 18
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "series-2",
+      "name": "Pokemon Trading Cards series 2",
+      "released": "June 2000",
+      "year": 2000,
+      "base": 72,
+      "breakdown": "41 Pokemon cards, 5 Heroes & Villains cards, 25 episode cards and a checklist card",
+      "covers": "More of the original 151, and episodes of the first anime series",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_2",
+      "pcConsoles": [
+        {
+          "console": "/console/pokemon-2000-topps-tv",
+          "is": "the base set, merged with series 3",
+          "shared": true
+        },
+        {
+          "console": "/console/pokemon-2000-topps-tv-heroes-&-villians",
+          "is": "its 5 Heroes & Villains cards, merged with series 3's 12",
+          "shared": true,
+          "expect": {
+            "numbers": 17,
+            "prefixes": {
+              "HV": 17
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-2000-topps-tv-clear",
+          "is": "its 5 clear cards, merged with series 3's 5",
+          "shared": true,
+          "expect": {
+            "numbers": 10,
+            "prefixes": {
+              "PC": 10
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-2000-topps-tv-die-cut",
+          "is": "its 12 die cut embossed cards, merged with series 3's 12",
+          "shared": true,
+          "expect": {
+            "prefixes": {
+              "EV": 12,
+              "EVO": 12
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "chrome-1",
+      "name": "Pokemon Chrome Trading Card Series 1",
+      "released": "June 2000",
+      "year": 2000,
+      "base": 78,
+      "breakdown": "78 cards covering the first 78 Pokemon",
+      "covers": "Pokemon 1 to 78, printed on chromium stock",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Chrome_Trading_Cards_Series_1",
+      "pcConsoles": [
+        {
+          "console": "/console/pokemon-2000-topps-chrome",
+          "is": "numbers 1 to 78 of it, merged with Chrome Series 2",
+          "shared": true,
+          "expect": {
+            "numeric": {
+              "count": 151,
+              "min": 1,
+              "max": 151
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "movie-2000",
+      "name": "Pokemon: the Movie 2000 Trading Cards",
+      "released": "July 2000",
+      "year": 2000,
+      "base": 72,
+      "breakdown": "59 cards from The Power of One, 12 from the short Pikachu's Rescue Adventure and a checklist",
+      "covers": "Pokemon: The Movie 2000, and the short shown with it",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_the_Movie_2000_Trading_Cards",
+      "pcConsoles": [
+        {
+          "console": "/console/pokemon-2000-topps-movie",
+          "is": "the base set",
+          "expect": {
+            "numeric": {
+              "count": 71,
+              "min": 1,
+              "max": 71
+            },
+            "unnumbered": 4
+          }
+        },
+        {
+          "console": "/console/pokemon-2000-topps-movie-sticker",
+          "is": "the 10 Animation Stick-on cards",
+          "expect": {
+            "numeric": {
+              "count": 10,
+              "min": 1,
+              "max": 10
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-2000-topps-movie-first-appearance",
+          "is": "the 6 Pokemon First Appearance hologram cards",
+          "expect": {
+            "rows": 6,
+            "numbers": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "series-3",
+      "name": "Pokemon Trading Cards series 3",
+      "released": "December 2000",
+      "year": 2000,
+      "base": 72,
+      "breakdown": "34 Pokemon cards, 12 Heroes & Villains cards, 19 episode cards, 6 puzzle cards and a checklist card",
+      "covers": "Pokemon 118 to 151, and the Orange Islands run of the anime",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_3",
+      "pcConsoles": [
+        {
+          "console": "/console/pokemon-2000-topps-tv",
+          "is": "the base set, merged with series 2",
+          "shared": true
+        },
+        {
+          "console": "/console/pokemon-2000-topps-tv-episode",
+          "is": "its 19 episode cards",
+          "expect": {
+            "numbers": 19,
+            "prefixes": {
+              "OR": 19
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-2000-topps-tv-puzzle",
+          "is": "its 6 puzzle cards",
+          "expect": {
+            "numbers": 6,
+            "prefixes": {
+              "P": 6
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-2000-topps-tv-pop-up",
+          "is": "its 10 pop-up chase cards",
+          "expect": {
+            "numeric": {
+              "count": 10,
+              "min": 1,
+              "max": 10
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-2000-topps-tv-heroes-&-villians",
+          "is": "its 12 Heroes & Villains cards, merged with series 2's 5",
+          "shared": true,
+          "expect": {
+            "numbers": 17,
+            "prefixes": {
+              "HV": 17
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-2000-topps-tv-clear",
+          "is": "its 5 clear cards, merged with series 2's 5",
+          "shared": true,
+          "expect": {
+            "numbers": 10,
+            "prefixes": {
+              "PC": 10
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-2000-topps-tv-die-cut",
+          "is": "its die cut Evolution cards, merged with series 2's die cuts",
+          "shared": true,
+          "expect": {
+            "prefixes": {
+              "EV": 12,
+              "EVO": 12
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "chrome-2",
+      "name": "Pokemon Chrome Trading Card Series 2",
+      "released": "December 2000",
+      "year": 2000,
+      "base": 73,
+      "breakdown": "The remaining Generation I Pokemon after Chrome Series 1, numbers 79 to 151",
+      "covers": "Pokemon 79 to 151, printed on chromium stock",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Chrome_Trading_Cards_Series_2",
+      "pcConsoles": [
+        {
+          "console": "/console/pokemon-2000-topps-chrome",
+          "is": "numbers 79 to 151 of it, merged with Chrome Series 1",
+          "shared": true,
+          "expect": {
+            "numeric": {
+              "count": 151,
+              "min": 1,
+              "max": 151
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "johto-1",
+      "name": "Pokemon Johto Trading Cards series 1",
+      "released": "February 2001",
+      "year": 2001,
+      "base": 90,
+      "breakdown": "62 Pokemon cards, 27 episode cards and a checklist card",
+      "covers": "The Johto Pokemon and the Johto anime",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Johto_Trading_Cards_series_1",
+      "pcConsoles": [
+        {
+          "console": "/console/pokemon-2001-topps-johto",
+          "is": "the 62 Pokemon cards and the checklist",
+          "expect": {
+            "numeric": {
+              "count": 62,
+              "min": 152,
+              "max": 249
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-2001-topps-johto-episode",
+          "is": "its episode cards"
+        },
+        {
+          "console": "/console/pokemon-2001-topps-johto-sticker",
+          "is": "its 62 sticker chase cards",
+          "expect": {
+            "numeric": {
+              "count": 62,
+              "min": 1,
+              "max": 62
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-2001-topps-johto-die-cut",
+          "is": "its 15 die cut embossed chase cards",
+          "expect": {
+            "numeric": {
+              "count": 15,
+              "min": 1,
+              "max": 15
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-2001-topps-johto-pop-up",
+          "is": "its 10 pop-up chase cards",
+          "expect": {
+            "numeric": {
+              "count": 10,
+              "min": 1,
+              "max": 10
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-2001-topps-johto-hologram",
+          "is": "its hologram chase cards"
+        }
+      ]
+    },
+    {
+      "id": "johto-series-3",
+      "name": "Pokemon Johto Series 3",
+      "released": "May 2001",
+      "year": 2001,
+      "base": 70,
+      "breakdown": "30 Pokemon cards, 27 snap cards, 6 Heroes & Villains cards, 6 puzzle piece cards and a checklist card",
+      "covers": "Johto, released in Europe only and printed in English, French, German and Italian",
+      "europeOnly": true,
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Johto_Series_3",
+      "pcConsoles": []
+    },
+    {
+      "id": "johto-league-champions",
+      "name": "Pokemon Johto League Champions Trading Cards",
+      "released": "November 2001",
+      "year": 2001,
+      "base": 50,
+      "breakdown": "37 Pokemon cards, 12 episode cards and a checklist card",
+      "covers": "Johto, the second Topps run at it",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Johto_League_Champions_Trading_Cards",
+      "pcConsoles": [
+        {
+          "console": "/console/pokemon-2001-topps-johto-champions",
+          "is": "the 37 Pokemon cards and the checklist",
+          "expect": {
+            "numeric": {
+              "count": 37,
+              "min": 169,
+              "max": 250
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-2001-topps-johto-champions-episode",
+          "is": "its episode cards"
+        },
+        {
+          "console": "/console/pokemon-2001-topps-johto-champions-sticker",
+          "is": "its 37 sticker chase cards",
+          "expect": {
+            "numeric": {
+              "count": 37,
+              "min": 1,
+              "max": 37
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-2001-topps-johto-champions-die-cut",
+          "is": "its 18 die cut embossed chase cards",
+          "expect": {
+            "numeric": {
+              "count": 18,
+              "min": 1,
+              "max": 18
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "name": "Pokemon Advanced Trading Cards",
+      "released": "May 2003",
+      "year": 2003,
+      "base": 90,
+      "breakdown": "81 Pokemon cards, 8 character cards and a checklist card",
+      "covers": "Generation III and the Hoenn anime",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Advanced_Trading_Cards",
+      "pcConsoles": [
+        {
+          "console": "/console/pokemon-2003-topps-advanced",
+          "is": "the base set",
+          "expect": {
+            "numeric": {
+              "count": 89,
+              "min": 1,
+              "max": 89
+            },
+            "unnumbered": 2
+          }
+        },
+        {
+          "console": "/console/pokemon-2003-topps-advanced-die-cut",
+          "is": "its 18 embossed Evolution chase cards",
+          "expect": {
+            "numeric": {
+              "count": 18,
+              "min": 1,
+              "max": 18
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-2003-topps-advanced-pop-up",
+          "is": "its pop-up chase cards"
+        }
+      ]
+    },
+    {
+      "id": "advanced-challenge",
+      "name": "Pokemon Advanced Challenge Trading Cards",
+      "released": "June 2004",
+      "year": 2004,
+      "base": 90,
+      "breakdown": "89 Pokemon cards and a checklist",
+      "covers": "Pokemon introduced up to and including Generation III. The last Topps Pokemon set.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Advanced_Challenge_Trading_Cards",
+      "pcConsoles": [
+        {
+          "console": "/console/pokemon-2004-topps-advanced-challenge",
+          "is": "the base set",
+          "expect": {
+            "numeric": {
+              "count": 89
+            },
+            "unnumbered": 2
+          }
+        },
+        {
+          "console": "/console/pokemon-2004-topps-advanced-challenge-die-cut",
+          "is": "its 18 die cut embossed chase cards",
+          "expect": {
+            "numeric": {
+              "count": 18,
+              "min": 1,
+              "max": 18
+            }
+          }
+        },
+        {
+          "console": "/console/pokemon-2004-topps-advanced-challenge-pop-up",
+          "is": "its 10 pop-up chase cards",
+          "expect": {
+            "numeric": {
+              "count": 10,
+              "min": 1,
+              "max": 10
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "neverReleased": {
+    "name": "Pokemon Top 10 Collector Cards",
+    "what": "A Topps set planned for Pokemon's 10th anniversary in 2006 and never released. It is not part of the run above and is easy to meet in a checklist and mistake for one.",
+    "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Top_10_Collector_Cards"
+  },
+  "printings": [
+    {
+      "tag": "Foil",
+      "what": "A silver foil parallel of a base card. Series 1 printed a silver foil and a rainbow foil version of all 90 of its cards alongside the plain one.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_1"
+    },
+    {
+      "tag": "Rainbow Foil",
+      "what": "The second foil parallel, with a chromatic shine across it rather than a flat silver one.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_1"
+    },
+    {
+      "tag": "Sparkle",
+      "what": "Sparkle-Chrome, one of the three insert parallels sitting above a plain Chrome card. Chrome Series 1 and 2 both printed every number in Chrome, Spectra-Chrome, Sparkle-Chrome and Tekno-Chrome.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Chrome_Trading_Cards_Series_1"
+    },
+    {
+      "tag": "Spectra",
+      "what": "Spectra-Chrome, the second of the three Chrome insert parallels.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Chrome_Trading_Cards_Series_1"
+    },
+    {
+      "tag": "Tekno",
+      "what": "Tekno-Chrome, the third Chrome insert parallel and the hardest of the four Chrome finishes to find. It is the finish on the most expensive raw Topps card in this whole ranking.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Chrome_Trading_Cards_Series_1",
+      "scarcitySource": "https://comicbook.com/collectibles/news/topps-pokemon-card-beats-official-pokemon-tcg-to-become-most-valuable-version-of-kanto-favorite/",
+      "scarcityQuote": "The Jigglypuff card in question is of the Tekno rarity, making it one of the least common cards in the Topps Chrome Series 1 set."
+    },
+    {
+      "tag": "Holo",
+      "what": "A hologram parallel or a hologram chase card, depending on the set.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Johto_Trading_Cards_series_1"
+    },
+    {
+      "tag": "Tin Topper",
+      "what": "PriceCharting's own label on eleven rows across the 1999 and 2000 TV sets. We could not source what Topps itself called them, so this guide says what the label is attached to and no more.",
+      "source": ""
+    }
+  ],
+  "types": [
+    {
+      "id": "chrome",
+      "name": "Chrome",
+      "what": "A separate line of sets rather than an insert. Chrome cards are printed on chromium stock, are heavily embossed and very thick, and carry the Topps Chrome logo on the front and the back. The artwork matches the regular Trading Cards series.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Chrome_Trading_Cards_Series_1"
+    },
+    {
+      "id": "die-cut",
+      "name": "Die cut",
+      "what": "Chase cards cut to the shape of the Pokemon rather than to a rectangle, with raised embossing. Most Topps sets printed a run of them.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_2"
+    },
+    {
+      "id": "evolution",
+      "name": "Evolution",
+      "what": "Cards showing a Pokemon's evolutionary line. In the First Movie set the 12 Evolution cards are part of the base set and there are 12 die cut embossed versions of them as chase; in Advanced the 18 embossed Evolution cards cover six three-stage lines.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Advanced_Trading_Cards"
+    },
+    {
+      "id": "sticker",
+      "name": "Sticker",
+      "what": "Cards carrying a peelable Pokemon sticker, with puzzle pieces printed on the back that assemble into one image across the run.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_2"
+    },
+    {
+      "id": "puzzle",
+      "name": "Puzzle",
+      "what": "Cards whose backs carry pieces of a picture. Series 1 put them on the backs of its 13 character cards, completing an image on the checklist card; series 3 printed 6 puzzle cards of their own.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_1"
+    },
+    {
+      "id": "heroes-villains",
+      "name": "Heroes & Villains",
+      "what": "Character cards for the people in the anime rather than the Pokemon, describing who they are and what they want. They were part of the base set in series 2, series 3 and the Europe-only Johto Series 3. Topps never released a set called Heroes & Villains.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_3"
+    },
+    {
+      "id": "pop-up",
+      "name": "Pop-up",
+      "what": "Cards with a punch-out Pokemon that props up off the card face.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Advanced_Trading_Cards"
+    },
+    {
+      "id": "clear",
+      "name": "Clear",
+      "what": "Transparent cards with an image printed on both sides. Series 2 and series 3 printed five each.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_2"
+    },
+    {
+      "id": "first-appearance",
+      "name": "First Appearance hologram",
+      "what": "Six hologram cards in the Movie 2000 set for Pokemon making their first screen appearance in that film.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_the_Movie_2000_Trading_Cards"
+    },
+    {
+      "id": "film-frame",
+      "name": "Authentic Film Frame",
+      "what": "A card carrying a real 35mm frame cut from a print of the film. Topps said a full reel was cut into individual frames, one to a card, so no two of these cards hold the same frame.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_the_Movie_2000_Trading_Cards"
+    }
+  ],
+  "tells": [
+    {
+      "tell": "The back is a Pokedex entry or an episode summary, not game text",
+      "detail": "A Topps card back carries a description of the Pokemon or a summary of the episode the picture is from. A Pokemon TCG card back is the blue Poke Ball pattern, identical on every card in the game.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_2"
+    },
+    {
+      "tell": "The Topps logo is on the back, under the Pokedex entry",
+      "detail": "Card number at the top, Topps logo under the entry, copyright along the bottom. There is a Nintendo seal on the back too, circular on the UK first printing and oval on the North American one.",
+      "source": "https://www.elitefourum.com/t/topps-collecting-guide/13374"
+    },
+    {
+      "tell": "The picture is a still from the show or the film",
+      "detail": "Topps printed screen images. A Pokemon TCG card carries commissioned illustration with an artist credit on it.",
+      "source": "https://billsarchive.com/topps.html"
+    },
+    {
+      "tell": "There is no HP, no attack, no energy cost and no retreat cost",
+      "detail": "This one follows from the card not being made for the game rather than being quoted from a source, and it is the fastest check there is: turn the card over, and if there is nothing to play with, it is not a Pokemon TCG card.",
+      "derived": true,
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Topps"
+    },
+    {
+      "tell": "On Series 1, the colour of the Topps logo dates the printing",
+      "detail": "Blue on the first printing, black on the second, green on the third and red on the fourth, the last two on non-foil cards only. The foil debossing changes with it: smooth on the first, then rays, then flames, then Poke Balls.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_1"
+    },
+    {
+      "tell": "A Chrome card feels wrong in the hand before you look at it",
+      "detail": "Heavily embossed, noticeably thick, with the Topps Chrome logo on both faces. The glossy coating also makes them stick to each other.",
+      "source": "https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Chrome_Trading_Cards_Series_1"
+    }
+  ],
+  "notATell": {
+    "tell": "Reaching for a ruler",
+    "detail": "Measuring the card is the first thing people try and this guide cannot back it up. We found no source stating a size or a card stock difference between a Topps Pokemon card and a Pokemon TCG card, so no check here rests on one. Turn the card over instead: the back settles it in a second and every tell above is on that side.",
+    "source": ""
+  }
+}

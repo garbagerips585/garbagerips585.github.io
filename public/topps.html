@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Topps Pokemon Cards: Every Set, and How to Spot One</title>
+<meta name="description" content="Topps printed Pokemon trading cards from August 1999 to June 2004: 12 sets, the two movie sets, and the Chrome cards that now sell for thousands. What they are, why they are not Pokemon TCG cards, every set with its year and card count, and how to tell one in your hand.">
+<link rel="canonical" href="https://garbagerips585.github.io/topps.html">
+<meta property="og:title" content="Topps Pokemon Cards: Every Set, and How to Spot One">
+<meta property="og:description" content="Topps printed Pokemon trading cards from August 1999 to June 2004: 12 sets, the two movie sets, and the Chrome cards that now sell for thousands. What they are, why they are not Pokemon TCG cards, every set with its year and card count, and how to tell one in your hand.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://garbagerips585.github.io/topps.html">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="https://garbagerips585.github.io/assets/og-topps.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://garbagerips585.github.io/assets/og-topps.jpg">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#111111">
+<link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
+<link rel="stylesheet" href="/assets/ui.css?v=7ada72e4">
+<style>
+/* These two pages' own block rather than ui.css. ui.css is render blocking on
+   every page on the site and these rules are used by two of them. */
+
+/* THE PRICE ROW IS A GRID, NOT A TABLE, the same shape /top-graded.html uses
+   and for the same reason: one card per row with four facts, where a real
+   <table> would force three price columns that are empty on most rows and
+   unreadable at 390px. Rank and scan are fixed columns; everything else is one
+   flexible column that wraps inside itself. */
+.tp-list{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--hair)}
+.tp-row{display:grid;grid-template-columns:2.4em 64px 1fr;gap:12px;align-items:start;
+  padding:14px 0;border-bottom:1px solid var(--hair)}
+.tp-rank{font-family:var(--mono);font-size:15px;font-weight:700;
+  color:var(--ink-2);text-align:right;padding-top:2px;font-variant-numeric:tabular-nums}
+.tp-art{width:64px;height:90px;display:flex;align-items:center;justify-content:center;
+  background:var(--paper-3);border:1px solid var(--hair);border-radius:3px;overflow:hidden}
+/* Fixed box, object-fit, and NO width/height on the img. These scans are a
+   fixed 240 HIGH and a variable width, so a declared width is wrong for most of
+   them. Same treatment tcgplayer-cdn already gets in shared/format.mjs. */
+.tp-scan{max-width:100%;max-height:100%;width:auto;height:auto;display:block}
+.tp-noscan{font-family:var(--mono);font-size:10px;color:var(--ink-2);
+  text-align:center;line-height:1.3;padding:4px}
+.tp-body{min-width:0}
+.tp-name{display:block;font-weight:700;line-height:1.25}
+.tp-set{display:block;color:var(--ink-2);font-size:var(--t-sm);margin-top:1px}
+.tp-prices{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:7px;align-items:baseline}
+.tp-lead b{font-size:19px;font-variant-numeric:tabular-nums}
+.tp-other{color:var(--ink-2);font-size:var(--t-sm);font-variant-numeric:tabular-nums}
+/* The unit label. Small, muted, and never the same weight as the figure: the
+   number is the fact and the grade is the caption. */
+.tp-t{font-family:var(--mono);font-size:10px;text-transform:uppercase;
+  letter-spacing:.04em;color:var(--ink-2)}
+.tp-na{color:var(--ink-2)}
+/* THE PROVENANCE LINE. Plain text, never a link, which is the call
+   /top-graded.html makes and the one this page follows; the argument and the
+   open question behind it are in this file's header. The path is enough to find
+   the record and it is per row rather than per page, because that is what makes
+   an individual figure checkable. word-break because the longest of these runs
+   past a phone's width. */
+.tp-src{display:block;margin-top:6px;font-family:var(--mono);
+  font-size:11px;line-height:1.45;color:var(--ink-2);word-break:break-word}
+
+@media (min-width:560px){
+  .tp-row{grid-template-columns:3em 84px 1fr;gap:16px;padding:16px 0}
+  .tp-art{width:84px;height:118px}
+  .tp-rank{font-size:17px}
+  .tp-name{font-size:18px}
+}
+/* Desktop puts the prices in their own column instead of under the name, so the
+   eye can run down the ranked figures without the set names in the way. Grid
+   AREAS rather than reordered markup, so the DOM order is untouched: name, set,
+   prices, source is the right reading order on a phone and the right order for
+   a screen reader at every width, and only the painting changes. */
+@media (min-width:900px){
+  .tp-row{grid-template-columns:3em 100px 1fr;align-items:center}
+  .tp-art{width:100px;height:140px}
+  .tp-body{display:grid;column-gap:24px;
+    grid-template-columns:1fr minmax(190px,auto);
+    grid-template-areas:"name prices" "set prices" "src prices"}
+  .tp-name{grid-area:name}
+  .tp-set{grid-area:set}
+  .tp-src{grid-area:src;align-self:end}
+  .tp-prices{grid-area:prices;margin-top:0;align-self:center;
+    flex-direction:column;align-items:flex-end;gap:2px;text-align:right}
+  .tp-lead b{font-size:22px}
+}
+
+/* ---------------------------------------------------------------------------
+   THE GUIDE PAGE. */
+
+/* One release per card. NOT a table: the widest thing on a release is a
+   sentence of breakdown, and a table would either clip it or set five columns
+   of ragged text at 390px. */
+.tp-sets{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:10px}
+@media (min-width:820px){.tp-sets{grid-template-columns:1fr 1fr}}
+.tp-set-card{background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm);
+  padding:14px 16px}
+.tp-set-card h3{margin:0;font-size:var(--t-body);font-family:var(--body);font-weight:700;line-height:1.25}
+.tp-when{display:block;font-family:var(--mono);font-size:var(--t-micro);
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin-top:4px}
+.tp-set-card p{margin:8px 0 0;font-size:var(--t-sm);color:var(--ink-2);line-height:1.5}
+.tp-count{font-weight:700;color:var(--ink)}
+/* The chip that says a set was Europe only, or that it is the last one. Same
+   weight as the date line above it: it is a label, not a headline. */
+.tp-chip{display:inline-block;font-family:var(--mono);font-size:var(--t-micro);
+  letter-spacing:.04em;text-transform:uppercase;background:var(--chip-gold-bg);
+  color:var(--ink);border-radius:var(--r-pill);padding:2px 8px;margin-top:8px}
+/* Where PriceCharting files this set's cards. Small, monospaced, and it wraps:
+   one release can be six buckets. */
+.tp-buckets{margin:10px 0 0;padding:0;list-style:none;font-family:var(--mono);
+  font-size:var(--t-micro);color:var(--ink-2);line-height:1.6}
+.tp-buckets li{word-break:break-word}
+
+/* The explainer grids: printings, card types, and the tells. One shape for all
+   three because they are the same object, a short name and a paragraph. */
+.tp-defs{display:grid;gap:10px;margin-top:var(--s4)}
+@media (min-width:760px){.tp-defs{grid-template-columns:1fr 1fr}}
+/* min-width:0 IS LOAD BEARING AND IT WAS MISSING. A grid item's default minimum
+   is its MIN-CONTENT width, so one unbreakable string inside a card widens the
+   whole track and then the whole page. Measured at 390x844 before this line:
+   documentElement.scrollWidth 434 against a clientWidth of 390, caused by the
+   45 character methodology url in the <code> below, which at 0.85em min-contents
+   to 387.7px inside a 366px wrap. Every heading and paragraph in the section
+   inherited the blown track and measured 391.8 wide.
+   THE PAGE STILL DID NOT SCROLL SIDEWAYS, which is why this needed looking for
+   rather than reporting itself: scrollTo(400,0) left scrollX at 0 both before
+   and after. scrollWidth alone is not proof of a horizontal scroll and is not
+   treated as such anywhere on this site, but 44px of content hanging off the
+   right edge is a real fault whether or not the document scrolls to meet it. */
+.tp-defs>div{background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm);
+  padding:12px 14px;min-width:0}
+.tp-defs h3{margin:0 0 4px;font-size:var(--t-body);font-family:var(--body);font-weight:700}
+.tp-defs p{margin:0;font-size:var(--t-sm);color:var(--ink-2);line-height:1.5}
+/* break-all rather than break-word, the same rule .t100-src code keeps: a url
+   has no spaces to break at, so break-word finds nowhere to go and leaves the
+   string whole. */
+.tp-defs code{font-family:var(--mono);font-size:.85em;word-break:break-all}
+.tp-defs .tp-cite{display:block;margin-top:6px;font-family:var(--mono);font-size:var(--t-micro);
+  color:var(--ink-2);word-break:break-word}
+
+/* The five-row teaser on the guide page. A list, not the full table: the point
+   is to show what the ceiling looks like and send the reader to the page that
+   holds the working. */
+.tp-peek{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:6px}
+.tp-peek li{display:flex;gap:10px;align-items:baseline;background:var(--card);
+  border:1px solid var(--hair);border-radius:var(--r-sm);padding:9px 12px}
+.tp-peek .n{font-family:var(--mono);font-size:var(--t-sm);color:var(--ink-2);
+  font-variant-numeric:tabular-nums;min-width:1.6em}
+.tp-peek .w{flex:1;min-width:0;font-weight:600;line-height:1.3}
+.tp-peek .w small{display:block;font-weight:400;font-size:var(--t-label);color:var(--ink-2)}
+.tp-peek .m{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700}
+
+/* ui.css draws .fk-golden full bleed inside the wrap, which is right for the
+   two or three sentences most pages put in one. These hold several paragraphs,
+   and at 1440 that ran the text to about 700px inside a 1392px black box.
+   Capped to a measure instead, exactly as build-top100.mjs caps its own. */
+.fk-golden{max-width:58em}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
+  <symbol id="i-yt" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.5a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.5a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.8 15.4V8.6l5.8 3.4z"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm8.4-11.2a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.1v13.2a2.6 2.6 0 1 1-2.2-2.6V9.4a5.9 5.9 0 1 0 5.3 5.9V8.7a7 7 0 0 0 4.1 1.3V6.9a3.9 3.9 0 0 1-4.1-3.9z"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></symbol>
+</svg>
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
+    <a class="bar-find" href="/search.html" aria-label="Search cards, sets, guides and rips"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/videos.html">Rips</a>
+      <a href="/cards.html">Card search</a>
+      <a href="/sets/">Set guides</a>
+      <a href="/start.html">Start here</a>
+      <a href="/card-shows.html">Card shows</a>
+    </nav>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span>Menu</span>
+    </button>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
+      aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube."><span>Subscribe</span></a>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="All sections">
+  <div class="menu-inner">
+    <details class="menu-g" open>
+      <summary class="menu-h">The channel<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/videos.html">Rips</a></li>
+        <li><a href="/playlists.html">Playlists</a></li>
+        <li><a href="/hall.html">Best pulls</a></li>
+        <li><a href="/wanted.html">Most wanted</a></li>
+        <li><a href="/luck.html">Rip results</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Cards<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/cards.html">Card search</a></li>
+        <li><a href="/search.html">Search the site</a></li>
+        <li><a href="/pokemon/">By Pokemon</a></li>
+        <li><a href="/what-set.html">What set is it</a></li>
+        <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/types.html">Card types</a></li>
+        <li><a href="/base-set.html">Base Set prints</a></li>
+        <li><a href="/fake-cards.html">Fakes</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Sets<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/sets/">Set guides</a></li>
+        <li><a href="/expansions.html">All English sets</a></li>
+        <li><a href="/upcoming.html">Coming next</a></li>
+        <li><a href="/complete-a-set.html">Cost to complete</a></li>
+        <li><a href="/topps.html">Topps cards</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Prices<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/msrp.html">MSRP check</a></li>
+        <li><a href="/pack-prices.html">Pack prices</a></li>
+        <li><a href="/how-many-packs.html">Packs per box</a></li>
+        <li><a href="/openings/">Sealed products</a></li>
+        <li><a href="/most-valuable-cards.html">Raw top 100</a></li>
+        <li><a href="/most-expensive-sealed.html">Sealed top 100</a></li>
+        <li><a href="/top-graded.html">PSA 10 top 100</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Buy, sell, grade<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/start.html">Start here</a></li>
+        <li><a href="/what-to-buy.html">Beginner buys</a></li>
+        <li><a href="/buying.html">Where to buy</a></li>
+        <li><a href="/retailers.html">Chain stores</a></li>
+        <li><a href="/drops.html">Restocks</a></li>
+        <li><a href="/selling.html">Where to sell</a></li>
+        <li><a href="/will-it-grade.html">Will it grade</a></li>
+        <li><a href="/grading.html">Grading cost</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Playing<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/how-to-play.html">How to play</a></li>
+        <li><a href="/tcg-live.html">Code cards</a></li>
+        <li><a href="/tcg-pocket.html">TCG Pocket app</a></li>
+        <li><a href="/decks.html">Deck builds</a></li>
+        <li><a href="/top-100-playable.html">Most played</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Just for fun<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/games/">Games</a></li>
+        <li><a href="/video-games.html">Video games</a></li>
+        <li><a href="/lore.html">Pokemon lore</a></li>
+        <li><a href="/evolution.html">Evolution chart</a></li>
+        <li><a href="/eevee-evolutions.html">Eevee evolutions</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Rochester, NY<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/card-shows.html">Card shows</a></li>
+        <li><a href="/shops.html">Card shops</a></li>
+        <li><a href="/vendors.html">Local vendors</a></li>
+        <li><a href="/creators.html">Local creators</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+    </details>
+  </div>
+  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
+    aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>
+</nav>
+<main id="main">
+
+<header class="set-hero">
+  <div class="wrap">
+    <span class="kicker">Topps trading cards &bull; August 1999 to June 2004</span>
+    <h1>Topps made <span class="hl">Pokemon cards</span> too</h1>
+    <p class="lede" style="max-width:42em">Not Pokemon TCG cards. Trading cards: anime stills and film frames on
+      card stock, 12 sets of them between August 1999 and June 2004, and
+      most people who collect Pokemon have never knowingly held one. Some of them are worth more than the cards
+      everybody does know about.</p>
+  </div>
+</header>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / Topps Pokemon cards</p>
+
+    <div class="fk-golden">
+      <p class="fk-golden-h">First, the thing that trips everybody up</p>
+      <h2>These are trading cards, <span class="hl">not</span> game cards</h2>
+      <p>Bulbapedia puts it in one line: <b>"Topps does not manufacture any cards for use with the official Pokémon Trading Card Game."</b> Topps is a trading card company. It
+        made cards <em>of</em> Pokemon, licensed, for people to collect and swap. It never made a card you could
+        put on a table and play with.</p>
+      <p>Which is why the fastest check is to turn one over. A Pokemon TCG card back is the blue Poke Ball
+        pattern, the same on every card in the game, and the front carries HP, an attack, an energy cost and a
+        retreat cost. A Topps card back carries a Pokedex entry or a summary of the episode the picture came
+        from, with the Topps logo under it. There is nothing on it to play with. That last part follows from the
+        line above rather than being quoted from anywhere, and it is written that way on purpose: no source we
+        found spells the list out, but a card that was never made for the game was never going to carry it.</p>
+      <p>The confusion is understandable and it is worth naming. Both came out at the same time, both are
+        Pokemon, both were sold in packs in the same shops in 1999, and both are the standard trading card
+        shape. Only one of them is a game.</p>
+    </div>
+
+    <div class="facts" style="margin-top:20px">
+      <div class="fact"><div class="n">12</div><div class="l">Topps Pokemon sets, 1999 to 2004</div></div>
+      <div class="fact"><div class="n">2,701</div><div class="l">Topps cards with a price on them</div></div>
+      <div class="fact"><div class="n">$8,765</div><div class="l">Dearest raw, Dragonite [Tekno] #149</div></div>
+      <div class="fact"><div class="n">$45,388</div><div class="l">Dearest PSA 10, Lapras [Sparkle] #131</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Why this page exists</p>
+    <h2>Nobody talks about them and <span class="hl">some are worth thousands</span></h2>
+    <p class="lede" style="max-width:44em">This is not a hunch and it is checkable on this site in about ten
+      seconds. Our list of <a href="/most-valuable-cards.html">the 100 most valuable raw Pokemon cards</a> ranks
+      every Pokemon card PriceCharting prices, in every language, and <b>13 of those hundred rows
+      are Topps cards</b>. Anybody who has read that page has already scrolled past 13 of them.</p>
+    <p style="max-width:44em">The reason is roughly this. Topps' cards were treated as the cheap ones at the
+      time, because the game cards were the ones with a game attached, so far fewer were kept in sleeves and far
+      fewer have ever been graded. The Chrome sets are the extreme case: chromium stock, heavily embossed, thick,
+      four different finishes of every card, and a coating that makes them stick together in a pack. That is a
+      card which was hard to pull out of a pack undamaged in 2000 and is hard to find in a high grade now.</p>
+    <p style="max-width:44em">What this page will not tell you is how hard any of them were to pull. Topps
+      published insert odds for some of these sets and we deliberately did not record them. This site never
+      states pull rates for anything.</p>
+
+    <h3 style="margin-top:26px">The five dearest raw, right now</h3>
+    <ol class="tp-peek"><li><span class="n">1</span><span class="w">Dragonite [Tekno] #149<small>2000 Topps Chrome</small></span><span class="m">$8,765</span></li><li><span class="n">2</span><span class="w">Charizard [Sparkle] #6<small>2000 Topps Chrome</small></span><span class="m">$8,600</span></li><li><span class="n">3</span><span class="w">Snorlax [Tekno] #143<small>2000 Topps Chrome</small></span><span class="m">$6,000</span></li><li><span class="n">4</span><span class="w">Articuno [Tekno] #144<small>2000 Topps Chrome</small></span><span class="m">$5,500</span></li><li><span class="n">5</span><span class="w">Vaporeon [Tekno] #134<small>2000 Topps Chrome</small></span><span class="m">$4,269</span></li></ol>
+  <p class="price-note">Ungraded PriceCharting price guide values read August 16, 2026, each read a second time
+    from the card's own product page before it was printed. <a href="/topps-card-values.html">All 100, and the
+    other hundred ranked the other way</a>.</p>
+
+    <h3 style="margin-top:26px">The five dearest in a PSA 10</h3>
+    <ol class="tp-peek"><li><span class="n">1</span><span class="w">Lapras [Sparkle] #131<small>2000 Topps Chrome</small></span><span class="m">$45,388</span></li><li><span class="n">2</span><span class="w">Gengar [Tekno] #94<small>2000 Topps Chrome</small></span><span class="m">$39,000</span></li><li><span class="n">3</span><span class="w">Lugia<small>2000 Topps Movie First Appearance</small></span><span class="m">$29,353</span></li><li><span class="n">4</span><span class="w">Charizard [Tekno] #6<small>2000 Topps Chrome</small></span><span class="m">$28,981</span></li><li><span class="n">5</span><span class="w">Gengar [Sparkle] #94<small>2000 Topps Chrome</small></span><span class="m">$23,525</span></li></ol>
+  <p class="price-note">PSA 10 PriceCharting price guide values read August 16, 2026, each read a second time
+    from the card's own product page before it was printed. <a href="/topps-card-values.html">All 100, and the
+    other hundred ranked the other way</a>.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The sets</p>
+    <h2>All 12, in the order they <span class="hl">came out</span></h2>
+    <p class="lede" style="max-width:44em">Set names, dates and card counts are Bulbapedia's, one page per set,
+      linked at the foot of this page. Card counts are the BASE set: the chase and insert cards are extra and are
+      described further down. The grey lines under each set are where PriceCharting files those cards, which is
+      not the same thing at all, and the next section is about why.</p>
+    <ol class="tp-sets">
+<li class="tp-set-card">
+  <h3>Pokemon Official Trading Cards</h3>
+  <span class="tp-when">August 1999 &bull; <span class="tp-count">90 cards</span> in the base set</span>
+  <p>76 Pokemon cards, 13 character cards and a checklist card. The first 76 Pokemon, and the characters of the early anime.</p>
+  <p>Also written as Pokemon Trading Cards series 1.</p>
+  
+  <ul class="tp-buckets"><li>1999-topps-tv: <span style="opacity:.7">the base set, 288 priced rows</span></li></ul>
+</li>
+<li class="tp-set-card">
+  <h3>Pokemon the First Movie Trading Cards</h3>
+  <span class="tp-when">November 1999 &bull; <span class="tp-count">72 cards</span> in the base set</span>
+  <p>41 cards from Mewtwo Strikes Back, 18 from the short Pikachu's Vacation, 12 Evolution cards and a checklist. Pokemon: The First Movie, and the short shown with it.</p>
+  
+  
+  <ul class="tp-buckets"><li>1999-topps-movie: <span style="opacity:.7">the film and short cards, 198 priced rows</span></li><li>1999-topps-movie-evolution: <span style="opacity:.7">the 12 Evolution cards, 37 priced rows</span></li><li>1999-topps-movie-die-cut: <span style="opacity:.7">the 12 die cut embossed Evolution chase cards, 12 priced rows</span></li><li>1999-topps-movie-sticker: <span style="opacity:.7">the 18 sticker chase cards, 19 priced rows</span></li></ul>
+</li>
+<li class="tp-set-card">
+  <h3>Pokemon Trading Cards series 2</h3>
+  <span class="tp-when">June 2000 &bull; <span class="tp-count">72 cards</span> in the base set</span>
+  <p>41 Pokemon cards, 5 Heroes &amp; Villains cards, 25 episode cards and a checklist card. More of the original 151, and episodes of the first anime series.</p>
+  
+  
+  <ul class="tp-buckets"><li>2000-topps-tv: <span style="opacity:.7">the base set, merged with series 3, 317 priced rows</span></li><li>2000-topps-tv-heroes-&amp;-villians: <span style="opacity:.7">its 5 Heroes &amp; Villains cards, merged with series 3's 12, 51 priced rows</span></li><li>2000-topps-tv-clear: <span style="opacity:.7">its 5 clear cards, merged with series 3's 5, 10 priced rows</span></li><li>2000-topps-tv-die-cut: <span style="opacity:.7">its 12 die cut embossed cards, merged with series 3's 12, 25 priced rows</span></li></ul>
+</li>
+<li class="tp-set-card">
+  <h3>Pokemon Chrome Trading Card Series 1</h3>
+  <span class="tp-when">June 2000 &bull; <span class="tp-count">78 cards</span> in the base set</span>
+  <p>78 cards covering the first 78 Pokemon. Pokemon 1 to 78, printed on chromium stock.</p>
+  
+  
+  <ul class="tp-buckets"><li>2000-topps-chrome: <span style="opacity:.7">numbers 1 to 78 of it, merged with Chrome Series 2, 604 priced rows</span></li></ul>
+</li>
+<li class="tp-set-card">
+  <h3>Pokemon: the Movie 2000 Trading Cards</h3>
+  <span class="tp-when">July 2000 &bull; <span class="tp-count">72 cards</span> in the base set</span>
+  <p>59 cards from The Power of One, 12 from the short Pikachu's Rescue Adventure and a checklist. Pokemon: The Movie 2000, and the short shown with it.</p>
+  
+  
+  <ul class="tp-buckets"><li>2000-topps-movie: <span style="opacity:.7">the base set, 217 priced rows</span></li><li>2000-topps-movie-sticker: <span style="opacity:.7">the 10 Animation Stick-on cards, 10 priced rows</span></li><li>2000-topps-movie-first-appearance: <span style="opacity:.7">the 6 Pokemon First Appearance hologram cards, 6 priced rows</span></li></ul>
+</li>
+<li class="tp-set-card">
+  <h3>Pokemon Trading Cards series 3</h3>
+  <span class="tp-when">December 2000 &bull; <span class="tp-count">72 cards</span> in the base set</span>
+  <p>34 Pokemon cards, 12 Heroes &amp; Villains cards, 19 episode cards, 6 puzzle cards and a checklist card. Pokemon 118 to 151, and the Orange Islands run of the anime.</p>
+  
+  
+  <ul class="tp-buckets"><li>2000-topps-tv: <span style="opacity:.7">the base set, merged with series 2, 317 priced rows</span></li><li>2000-topps-tv-episode: <span style="opacity:.7">its 19 episode cards, 57 priced rows</span></li><li>2000-topps-tv-puzzle: <span style="opacity:.7">its 6 puzzle cards, 18 priced rows</span></li><li>2000-topps-tv-pop-up: <span style="opacity:.7">its 10 pop-up chase cards, 10 priced rows</span></li><li>2000-topps-tv-heroes-&amp;-villians: <span style="opacity:.7">its 12 Heroes &amp; Villains cards, merged with series 2's 5, 51 priced rows</span></li><li>2000-topps-tv-clear: <span style="opacity:.7">its 5 clear cards, merged with series 2's 5, 10 priced rows</span></li><li>2000-topps-tv-die-cut: <span style="opacity:.7">its die cut Evolution cards, merged with series 2's die cuts, 25 priced rows</span></li></ul>
+</li>
+<li class="tp-set-card">
+  <h3>Pokemon Chrome Trading Card Series 2</h3>
+  <span class="tp-when">December 2000 &bull; <span class="tp-count">73 cards</span> in the base set</span>
+  <p>The remaining Generation I Pokemon after Chrome Series 1, numbers 79 to 151. Pokemon 79 to 151, printed on chromium stock.</p>
+  
+  
+  <ul class="tp-buckets"><li>2000-topps-chrome: <span style="opacity:.7">numbers 79 to 151 of it, merged with Chrome Series 1, 604 priced rows</span></li></ul>
+</li>
+<li class="tp-set-card">
+  <h3>Pokemon Johto Trading Cards series 1</h3>
+  <span class="tp-when">February 2001 &bull; <span class="tp-count">90 cards</span> in the base set</span>
+  <p>62 Pokemon cards, 27 episode cards and a checklist card. The Johto Pokemon and the Johto anime.</p>
+  
+  
+  <ul class="tp-buckets"><li>2001-topps-johto: <span style="opacity:.7">the 62 Pokemon cards and the checklist, 129 priced rows</span></li><li>2001-topps-johto-episode: <span style="opacity:.7">its episode cards, 28 priced rows</span></li><li>2001-topps-johto-sticker: <span style="opacity:.7">its 62 sticker chase cards, 62 priced rows</span></li><li>2001-topps-johto-die-cut: <span style="opacity:.7">its 15 die cut embossed chase cards, 15 priced rows</span></li><li>2001-topps-johto-pop-up: <span style="opacity:.7">its 10 pop-up chase cards, 10 priced rows</span></li><li>2001-topps-johto-hologram: <span style="opacity:.7">its hologram chase cards, 12 priced rows</span></li></ul>
+</li>
+<li class="tp-set-card">
+  <h3>Pokemon Johto League Champions Trading Cards</h3>
+  <span class="tp-when">November 2001 &bull; <span class="tp-count">50 cards</span> in the base set</span>
+  <p>37 Pokemon cards, 12 episode cards and a checklist card. Johto, the second Topps run at it.</p>
+  
+  
+  <ul class="tp-buckets"><li>2001-topps-johto-champions: <span style="opacity:.7">the 37 Pokemon cards and the checklist, 76 priced rows</span></li><li>2001-topps-johto-champions-episode: <span style="opacity:.7">its episode cards, 13 priced rows</span></li><li>2001-topps-johto-champions-sticker: <span style="opacity:.7">its 37 sticker chase cards, 37 priced rows</span></li><li>2001-topps-johto-champions-die-cut: <span style="opacity:.7">its 18 die cut embossed chase cards, 18 priced rows</span></li></ul>
+</li>
+<li class="tp-set-card">
+  <h3>Pokemon Advanced Trading Cards</h3>
+  <span class="tp-when">May 2003 &bull; <span class="tp-count">90 cards</span> in the base set</span>
+  <p>81 Pokemon cards, 8 character cards and a checklist card. Generation III and the Hoenn anime.</p>
+  
+  
+  <ul class="tp-buckets"><li>2003-topps-advanced: <span style="opacity:.7">the base set, 180 priced rows</span></li><li>2003-topps-advanced-die-cut: <span style="opacity:.7">its 18 embossed Evolution chase cards, 18 priced rows</span></li><li>2003-topps-advanced-pop-up: <span style="opacity:.7">its pop-up chase cards, 9 priced rows</span></li></ul>
+</li>
+<li class="tp-set-card">
+  <h3>Pokemon Advanced Challenge Trading Cards</h3>
+  <span class="tp-when">June 2004 &bull; <span class="tp-count">90 cards</span> in the base set</span>
+  <p>89 Pokemon cards and a checklist. Pokemon introduced up to and including Generation III. The last Topps Pokemon set.</p>
+  
+  
+  <ul class="tp-buckets"><li>2004-topps-advanced-challenge: <span style="opacity:.7">the base set, 177 priced rows</span></li><li>2004-topps-advanced-challenge-die-cut: <span style="opacity:.7">its 18 die cut embossed chase cards, 18 priced rows</span></li><li>2004-topps-advanced-challenge-pop-up: <span style="opacity:.7">its 10 pop-up chase cards, 10 priced rows</span></li></ul>
+</li>
+    </ol>
+    <h3 style="margin-top:26px">And one that never came to the States</h3>
+    <ol class="tp-sets">
+<li class="tp-set-card">
+  <h3>Pokemon Johto Series 3</h3>
+  <span class="tp-when">May 2001 &bull; <span class="tp-count">70 cards</span> in the base set</span>
+  <p>30 Pokemon cards, 27 snap cards, 6 Heroes &amp; Villains cards, 6 puzzle piece cards and a checklist card. Johto, released in Europe only and printed in English, French, German and Italian.</p>
+  
+  <span class="tp-chip">Europe only</span>
+  <p>PriceCharting holds no bucket for this one, so none of its cards are priced on this site.</p>
+</li>
+    </ol>
+    <p class="price-note" style="margin-top:var(--s4)"><b>Pokemon Top 10 Collector Cards is not on that list
+      and should not be on anybody's.</b> A Topps set planned for Pokemon's 10th anniversary in 2006 and never released. It is not part of the run above and is easy to meet in a checklist and mistake for one.</p>
+  </div>
+</section>
+
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>A trap worth knowing</p>
+    <h2>Topps shipped 12 sets. Price guides list <span class="hl">33</span></h2>
+    <p class="lede" style="max-width:44em">If you look these cards up anywhere that prices them, you will meet
+      set names Topps never used. That is not an error, it is a different way of filing the same cards, and
+      knowing which one you are reading saves a lot of confusion.</p>
+    <p style="max-width:44em">Topps filed by RELEASE: one set, shipped on one date, containing its base cards
+      and its chase cards. PriceCharting files by CARD TYPE: a set's die cut chase run gets its own bucket, its
+      stickers get another, and where two Topps sets shared a card type the two are merged into one bucket.
+      "2000 Topps TV Heroes &amp; Villians" is the clearest case. It holds HV1 to HV17, which is series 2's five
+      Heroes &amp; Villains cards plus series 3's twelve, and Topps never released a set by that name.</p>
+    <p style="max-width:44em">So on this site the set list above is Topps' own, and the grey lines under each
+      one say which price guide buckets those cards ended up in. 30 of those 37 claims are re-checked
+      every time this page is built, against the card numbers in our own copy of the crawl: the build stops if,
+      say, the Orange Islands bucket stops holding exactly 19 OR-numbered cards, or the Chrome bucket stops
+      holding exactly 151 numbers. The ones with no check next to them are the ones where our count and
+      Bulbapedia's did not line up exactly, and no check was invented to make them agree.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What the subsets are</p>
+    <h2>Chrome, die cut, stickers and the <span class="hl">film frames</span></h2>
+    <p class="lede" style="max-width:44em">Most Topps sets are a base run plus several kinds of chase card, and
+      the chase cards are where nearly all the money is. These are the ones you will meet.</p>
+    <div class="tp-defs">
+<div>
+  <h3>Chrome</h3>
+  <p>A separate line of sets rather than an insert. Chrome cards are printed on chromium stock, are heavily embossed and very thick, and carry the Topps Chrome logo on the front and the back. The artwork matches the regular Trading Cards series.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Chrome_Trading_Cards_Series_1</span>
+</div>
+<div>
+  <h3>Die cut</h3>
+  <p>Chase cards cut to the shape of the Pokemon rather than to a rectangle, with raised embossing. Most Topps sets printed a run of them.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_2</span>
+</div>
+<div>
+  <h3>Evolution</h3>
+  <p>Cards showing a Pokemon's evolutionary line. In the First Movie set the 12 Evolution cards are part of the base set and there are 12 die cut embossed versions of them as chase; in Advanced the 18 embossed Evolution cards cover six three-stage lines.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Advanced_Trading_Cards</span>
+</div>
+<div>
+  <h3>Sticker</h3>
+  <p>Cards carrying a peelable Pokemon sticker, with puzzle pieces printed on the back that assemble into one image across the run.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_2</span>
+</div>
+<div>
+  <h3>Puzzle</h3>
+  <p>Cards whose backs carry pieces of a picture. Series 1 put them on the backs of its 13 character cards, completing an image on the checklist card; series 3 printed 6 puzzle cards of their own.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_1</span>
+</div>
+<div>
+  <h3>Heroes &amp; Villains</h3>
+  <p>Character cards for the people in the anime rather than the Pokemon, describing who they are and what they want. They were part of the base set in series 2, series 3 and the Europe-only Johto Series 3. Topps never released a set called Heroes &amp; Villains.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_3</span>
+</div>
+<div>
+  <h3>Pop-up</h3>
+  <p>Cards with a punch-out Pokemon that props up off the card face.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Advanced_Trading_Cards</span>
+</div>
+<div>
+  <h3>Clear</h3>
+  <p>Transparent cards with an image printed on both sides. Series 2 and series 3 printed five each.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_2</span>
+</div>
+<div>
+  <h3>First Appearance hologram</h3>
+  <p>Six hologram cards in the Movie 2000 set for Pokemon making their first screen appearance in that film.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_the_Movie_2000_Trading_Cards</span>
+</div>
+<div>
+  <h3>Authentic Film Frame</h3>
+  <p>A card carrying a real 35mm frame cut from a print of the film. Topps said a full reel was cut into individual frames, one to a card, so no two of these cards hold the same frame.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_the_Movie_2000_Trading_Cards</span>
+</div>
+    </div>
+
+    <h3 style="margin-top:30px">And the parallels, which are the same card printed a different way</h3>
+    <p style="max-width:44em">A parallel is not a different card, it is the same card number with a different
+      finish, and it is why one set can hold four rows for one Pokemon. The Chrome bucket is the extreme: <b>151 card numbers</b> and
+      <b>604 priced rows</b>, because every number exists as a plain Chrome card and as
+      Sparkle, Tekno, Spectra. 151 times four is exactly
+      604. The word in square brackets in a card's name on a price guide is the finish.</p>
+    <div class="tp-defs">
+<div>
+  <h3>Foil</h3>
+  <p>A silver foil parallel of a base card. Series 1 printed a silver foil and a rainbow foil version of all 90 of its cards alongside the plain one.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_1</span>
+</div>
+<div>
+  <h3>Rainbow Foil</h3>
+  <p>The second foil parallel, with a chromatic shine across it rather than a flat silver one.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_1</span>
+</div>
+<div>
+  <h3>Sparkle</h3>
+  <p>Sparkle-Chrome, one of the three insert parallels sitting above a plain Chrome card. Chrome Series 1 and 2 both printed every number in Chrome, Spectra-Chrome, Sparkle-Chrome and Tekno-Chrome.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Chrome_Trading_Cards_Series_1</span>
+</div>
+<div>
+  <h3>Spectra</h3>
+  <p>Spectra-Chrome, the second of the three Chrome insert parallels.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Chrome_Trading_Cards_Series_1</span>
+</div>
+<div>
+  <h3>Tekno</h3>
+  <p>Tekno-Chrome, the third Chrome insert parallel and the hardest of the four Chrome finishes to find. It is the finish on the most expensive raw Topps card in this whole ranking.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Chrome_Trading_Cards_Series_1</span>
+</div>
+<div>
+  <h3>Holo</h3>
+  <p>A hologram parallel or a hologram chase card, depending on the set.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Johto_Trading_Cards_series_1</span>
+</div>
+<div>
+  <h3>Tin Topper</h3>
+  <p>PriceCharting's own label on eleven rows across the 1999 and 2000 TV sets. We could not source what Topps itself called them, so this guide says what the label is attached to and no more.</p>
+  
+</div>
+    </div>
+    <p class="price-note" style="margin-top:var(--s4)">On Tekno specifically, the collectibles press has
+      written that it is <b>"The Jigglypuff card in question is of the Tekno rarity, making it one of the least common cards in the Topps Chrome Series 1 set."</b> That is hobby
+      press rather than a Topps statement, so treat it as somebody's reporting. What is not in doubt is the
+      arithmetic on this page: Tekno cards take 39
+      of the 100 places on the raw hundred below.</p>
+  </div>
+</section>
+
+<section class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>In your hand</p>
+    <h2>How to tell a Topps card from a <span class="hl">real TCG card</span></h2>
+    <p class="lede" style="max-width:44em">Any one of these settles it. The first one settles it fastest.</p>
+    <div class="tp-defs">
+<div>
+  <h3>The back is a Pokedex entry or an episode summary, not game text</h3>
+  <p>A Topps card back carries a description of the Pokemon or a summary of the episode the picture is from. A Pokemon TCG card back is the blue Poke Ball pattern, identical on every card in the game.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_2</span>
+</div>
+<div>
+  <h3>The Topps logo is on the back, under the Pokedex entry</h3>
+  <p>Card number at the top, Topps logo under the entry, copyright along the bottom. There is a Nintendo seal on the back too, circular on the UK first printing and oval on the North American one.</p>
+  <span class="tp-cite">www.elitefourum.com/t/topps-collecting-guide/13374</span>
+</div>
+<div>
+  <h3>The picture is a still from the show or the film</h3>
+  <p>Topps printed screen images. A Pokemon TCG card carries commissioned illustration with an artist credit on it.</p>
+  <span class="tp-cite">billsarchive.com/topps.html</span>
+</div>
+<div>
+  <h3>There is no HP, no attack, no energy cost and no retreat cost</h3>
+  <p>This one follows from the card not being made for the game rather than being quoted from a source, and it is the fastest check there is: turn the card over, and if there is nothing to play with, it is not a Pokemon TCG card.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Topps</span>
+</div>
+<div>
+  <h3>On Series 1, the colour of the Topps logo dates the printing</h3>
+  <p>Blue on the first printing, black on the second, green on the third and red on the fourth, the last two on non-foil cards only. The foil debossing changes with it: smooth on the first, then rays, then flames, then Poke Balls.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trading_Cards_series_1</span>
+</div>
+<div>
+  <h3>A Chrome card feels wrong in the hand before you look at it</h3>
+  <p>Heavily embossed, noticeably thick, with the Topps Chrome logo on both faces. The glossy coating also makes them stick to each other.</p>
+  <span class="tp-cite">bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Chrome_Trading_Cards_Series_1</span>
+</div>
+    </div>
+    <p class="price-note" style="margin-top:var(--s4)"><b>One thing that does not work: reaching for a ruler.</b> Measuring the card is the first thing people try and this guide cannot back it up. We found no source stating a size or a card stock difference between a Topps Pokemon card and a Pokemon TCG card, so no check here rests on one. Turn the card over instead: the back settles it in a second and every tell above is on that side.</p>
+    <p style="max-width:44em;margin-top:var(--s4)">If what you are actually asking is whether a card is real at
+      all, that is a different question and it has its own page: <a href="/fake-cards.html">eight checks for
+      spotting a counterfeit</a>. A genuine Topps card is not a fake Pokemon card. It is a real card of a
+      different kind.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Where to go next</p>
+    <h2>The prices, and the rest of the <span class="hl">site</span></h2>
+    <p class="lede" style="max-width:44em"><a href="/topps-card-values.html">Topps card values</a> holds both
+      hundreds in full, ranked raw and ranked by PSA 10, with the source path on every row and the date they
+      were read.</p>
+    <p style="max-width:44em">Elsewhere: <a href="/most-valuable-cards.html">the 100 most valuable raw Pokemon
+      cards</a> and <a href="/top-graded.html">the 100 highest PSA 10 values</a> rank everything, Topps included,
+      against the whole catalogue. <a href="/expansions.html">Every English set</a> and
+      <a href="/sets/">the set guides</a> cover the actual card game. <a href="/grading.html">Is it worth
+      grading?</a> does the subtraction on raw against graded prices, which is the question these two lists
+      raise on nearly every row. And <a href="/lore.html">Pokemon lore</a> and
+      <a href="/video-games.html">every Pokemon video game</a> are the other two pages here that are about
+      Pokemon rather than about cards.</p>
+
+    <h2 style="margin-top:30px">Where all of this came from</h2>
+    <p style="max-width:44em"><b>Set names, dates, card counts and what each subset is:</b> Bulbapedia, read
+      August 18, 2026. One page per set, and each set card above names the one it came
+      from. Thanks to them for keeping it.</p>
+    <p style="max-width:44em"><b>Prices and card scans:</b> pricecharting.com, read August 16, 2026, methodology
+      published at their /page/methodology. Every priced row on the values page carries its own path on that
+      site.</p>
+    <p style="max-width:44em"><b>Not sourced, and therefore not said here:</b> who Topps signed the Pokemon
+      licence with, how many of anything was printed, what a pack cost, and any odds of pulling anything.</p>
+    <p style="max-width:44em">Card images are the property of their respective owners and appear here for
+      identification. Pokemon and all card artwork are trademarks of The Pokemon Company, Nintendo, Game Freak
+      and Creatures Inc. Topps is a trademark of its owner. This is a fan page and none of them are involved
+      in it.</p>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="wrap">
+    <nav class="foot-nav" aria-label="Footer">
+      <div class="foot-col">
+        <p class="foot-h">The channel</p>
+        <a href="/videos.html">Rips</a>
+        <a href="/playlists.html">Playlists</a>
+        <a href="/hall.html">Best pulls</a>
+        <a href="/wanted.html">Most wanted</a>
+        <a href="/luck.html">Rip results</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Cards</p>
+        <a href="/cards.html">Card search</a>
+        <a href="/search.html">Search the site</a>
+        <a href="/pokemon/">By Pokemon</a>
+        <a href="/what-set.html">What set is it</a>
+        <a href="/rarity.html">Rarity guide</a>
+        <a href="/types.html">Card types</a>
+        <a href="/base-set.html">Base Set prints</a>
+        <a href="/fake-cards.html">Fakes</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Sets</p>
+        <a href="/sets/">Set guides</a>
+        <a href="/expansions.html">All English sets</a>
+        <a href="/upcoming.html">Coming next</a>
+        <a href="/complete-a-set.html">Cost to complete</a>
+        <a href="/topps.html">Topps cards</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Prices</p>
+        <a href="/msrp.html">MSRP check</a>
+        <a href="/pack-prices.html">Pack prices</a>
+        <a href="/how-many-packs.html">Packs per box</a>
+        <a href="/openings/">Sealed products</a>
+        <a href="/most-valuable-cards.html">Raw top 100</a>
+        <a href="/most-expensive-sealed.html">Sealed top 100</a>
+        <a href="/top-graded.html">PSA 10 top 100</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Buy, sell, grade</p>
+        <a href="/start.html">Start here</a>
+        <a href="/what-to-buy.html">Beginner buys</a>
+        <a href="/buying.html">Where to buy</a>
+        <a href="/retailers.html">Chain stores</a>
+        <a href="/drops.html">Restocks</a>
+        <a href="/selling.html">Where to sell</a>
+        <a href="/will-it-grade.html">Will it grade</a>
+        <a href="/grading.html">Grading cost</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Playing</p>
+        <a href="/how-to-play.html">How to play</a>
+        <a href="/tcg-live.html">Code cards</a>
+        <a href="/tcg-pocket.html">TCG Pocket app</a>
+        <a href="/decks.html">Deck builds</a>
+        <a href="/top-100-playable.html">Most played</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Just for fun</p>
+        <a href="/games/">Games</a>
+        <a href="/video-games.html">Video games</a>
+        <a href="/lore.html">Pokemon lore</a>
+        <a href="/evolution.html">Evolution chart</a>
+        <a href="/eevee-evolutions.html">Eevee evolutions</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Rochester, NY</p>
+        <a href="/card-shows.html">Card shows</a>
+        <a href="/shops.html">Card shops</a>
+        <a href="/vendors.html">Local vendors</a>
+        <a href="/creators.html">Local creators</a>
+        <a href="/about.html">About</a>
+      </div>
+    </nav>
+    <!--FOOT_SUB:START-->
+    <p class="foot-tag">Grab a fork. Let's rip.</p>
+    <a class="btn btn-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
+      aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>
+    <p>A new rip most days. Every pack we open goes up, hit or no hit.</p>
+    <!--FOOT_SUB:END-->
+    <div class="foot-social">
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+    </div>
+    <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank" aria-label="See the whole collection on Collectr, opens on their site">See the whole collection on Collectr &rarr;</a></p>
+    <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY<br>
+    Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
+  </div>
+</footer>
+<script src="/assets/app.js?v=c169645d" defer></script>
+</body>
+</html>

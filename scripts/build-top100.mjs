@@ -1023,9 +1023,11 @@ function honestyGuide(cfg, d) {
         this page any more. The card at number one is a Japanese promo, and a list of the most valuable Pokemon
         cards that leaves it out is answering an easier question.</p>
       <p><b>${esc(String(cfg.topps))} of them are Topps cards rather than Pokemon TCG cards.</b> Topps printed
-        Pokemon trading cards in 2000, chrome and movie cards you cannot play a game with, and PriceCharting
-        files and prices them under Pokemon. They are left in, because taking them out would be editing the
-        answer to suit the question. Their set names say Topps on every row.</p>
+        Pokemon trading cards under licence from 1999 to 2004, chrome and movie cards you cannot play a game
+        with, and PriceCharting files and prices them under Pokemon. They are left in, because taking them out
+        would be editing the answer to suit the question. Their set names say Topps on every row, and
+        <a href="/topps.html">what they are, every set, and how to spot one</a> explains them properly. There is
+        also <a href="/topps-card-values.html">a Topps top 100 of its own</a>, raw and PSA 10.</p>
       <p><b>Sealed product was taken out by hand, and here is what went.</b> The crawl behind these figures
         excludes sealed boxes, and ${esc(String(cfg.sealedTotal))} slipped through it anyway.
         ${esc(String(removed))} of those were dear enough to have made this hundred:

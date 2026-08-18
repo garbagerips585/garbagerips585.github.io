@@ -1081,6 +1081,17 @@ const urls = [
   // "most valuable pokemon cards" is asked constantly and almost every answer
   // is an unsourced list; this one names its measurement and cites every row.
   { loc: `${SITE}/top-graded.html`, freq: "monthly", pri: "0.9" },
+  // The two Topps pages. The GUIDE is monthly and high priority because what it
+  // holds is a print run from 1999 to 2004: set names, dates, card counts and
+  // how to tell a Topps card from a TCG card do not expire, and "topps pokemon
+  // cards" is asked by people who have just found one in a box and cannot work
+  // out what it is. The VALUES page is monthly for the same reason
+  // /top-graded.html is, and NOT weekly: it is a dated measurement on no sync
+  // schedule at all, so promising a crawler more would be promising a freshness
+  // this site has not arranged. It steps down a notch because it is the second
+  // page a reader reaches rather than the one they land on.
+  { loc: `${SITE}/topps.html`, freq: "monthly", pri: "0.9" },
+  { loc: `${SITE}/topps-card-values.html`, freq: "monthly", pri: "0.8" },
   { loc: `${SITE}/pokemon/`, freq: "weekly", pri: "0.8" },
   // Real vs fake. Evergreen and the best long-tail target on the site after the
   // rarity guide: "how to spot fake pokemon cards" is asked constantly and the

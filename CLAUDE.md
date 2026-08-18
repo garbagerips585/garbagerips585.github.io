@@ -198,6 +198,17 @@ both things with the same source, which is a real inconsistency rather than a
 subtlety: either that page gains links or these two lose them. It is Tim's
 call, and it is recorded here rather than settled quietly in one file.
 
+THAT OPEN CALL WAS THE REASON /topps-card-values.html HAS NO ROW LINKS, added
+18 August 2026 with 200 PriceCharting rows on it. It follows /top-graded.html:
+the product path is printed on every row as plain text and linked nowhere. The
+argument is in scripts/build-topps.mjs's header and it is short. Two hundred
+more outbound links would be the largest single addition of them the site has
+ever made, and making it would settle a question this file explicitly parks with
+Tim, in one builder, quietly, which is the exact mistake the four paragraphs
+above are about. The figures stay checkable because the path is on the row. If
+Tim settles it the other way, that page and /top-graded.html change in one edit,
+together, and this paragraph goes with them.
+
 THE SHAPE IS THE MITIGATION, exactly as for the fourth and fifth. Every large
 tap target on a row, the rank, the picture, the name, the whole row, is
 INTERNAL: it goes to that card's set guide, then its Pokemon page, then site
@@ -572,6 +583,103 @@ mismatch fails the build, because the failure mode is a card drawn with another
 card's picture, which looks fine. An unresolved code only warns: basic Energy
 from the MEE sheet and one PR-SV promo come from sets this site has no guide
 for, so those rows carry a drawn tile rather than a borrowed scan.
+
+## The Topps pages
+
+Two pages about the cards Topps made, added 18 August 2026 on Tim's ask: "the
+company Topps made their own sets of Pokemon cards back in the day ... not many
+collectors know about the Topps cards, and most don't realize how valuable they
+are as well". Three scripts, and the middle one is run BY HAND:
+
+    node scripts/sync-topps-top.mjs     cached crawl -> data/topps-top.json (NO network)
+    node scripts/verify-topps-top.mjs   176 product pages, one a second (network)
+    node scripts/build-topps.mjs        /topps.html + /topps-card-values.html
+
+Only the third is in build-all.mjs, the same arrangement /top-graded.html has.
+The first makes no request at all and could be, but the second is 176 requests
+against somebody else's server and a scheduled build must not depend on a step
+that is not scheduled.
+
+**WHAT THESE CARDS ARE, because it is the whole page and it is easy to get
+wrong.** Topps printed Pokemon TRADING cards under licence: anime and film
+stills on card stock, no HP, no attacks, nothing to play with. They are not
+Pokemon TCG cards. Bulbapedia states it in one line and /topps.html quotes it
+rather than paraphrasing. PriceCharting files and prices them under Pokemon
+anyway, which is why 13 of /most-valuable-cards.html's hundred and 3 of
+/top-graded.html's are Topps rows, and why both those pages now explain them and
+link here.
+
+**THE COUNT IS TWELVE SETS AND IT IS ELEVEN IN THE STATES.** Johto Series 3 was
+Europe only. An early draft of build-topps.mjs said eleven in four comments,
+because eleven is the length of the US list the page renders first and the
+twelfth sits under its own heading below it. Every count either page PRINTS
+comes off `releases.length`, which is why the pages were right while the
+comments were wrong. Count before writing a number here.
+
+**THE TAXONOMY TRAP, AND IT IS THE THING MOST LIKELY TO BE WRONG ON THESE
+PAGES.** Topps shipped 12 sets. PriceCharting files 33 Pokemon "consoles" with
+Topps in the name, and those are card TYPE buckets rather than releases: a set's
+die-cut chase run gets its own bucket, and where two sets shared a card type the
+two are merged into one. `2000 Topps TV Heroes & Villians` holds HV1 to HV17,
+which is series 2's five Heroes & Villains cards and series 3's twelve, and
+Topps never released a set by that name. A page that prints those bucket names
+as set names tells a reader Topps released a set called Heroes & Villains.
+
+So `data/topps-sets.json` maps each bucket to the release it came out of, a
+human wrote it with a Bulbapedia url on every fact, and most of those claims
+carry an `expect` block: the shape our own crawl must have if the mapping is
+right. `checkMapping()` in build-topps.mjs recomputes all 30 on every build and
+THROWS on a mismatch, same call build-decks.mjs makes on its set-code map.
+19 OR-prefixed numbers where Bulbapedia says series 3 had 19 Orange Islands
+episode cards; 151 numbers from 1 to 151 where Chrome Series 1's 78 plus Series
+2's 73 is 151; 62 numbers from 152 to 249 for Johto series 1's 62 Pokemon cards.
+**Do not edit an `expect` block to make a failing build pass.** Six buckets
+deliberately carry no check, because our count and Bulbapedia's did not line up
+exactly and no check was invented to make them; those print no count at all.
+
+**ROWS PER SET IS PRODUCT RECORDS, NOT CARDS,** and this is the easiest number
+to publish wrongly here. 2000 Topps Chrome is 604 rows and 151 numbered cards,
+because the plain card and its Sparkle, Tekno and Spectra parallels are four
+products against one collector number. 151 x 4 = 604 exactly. Both numbers are
+computed and both are labelled as what they are, and neither is a print-run
+fact: nothing sourceable publishes one, so the page states none.
+
+**TWO RANKING COLUMNS, WHICH NO OTHER FILE ON THIS SITE HAS.** /most-valuable
+-cards.html ranks by Ungraded and /top-graded.html by PSA 10; this file feeds
+both lists off one corpus, so both are ranking columns and Grade 9 is the only
+decorative one. verify-topps-top.mjs sets a row's `status` to "disagree" when
+EITHER ranking column disagrees, so both stop the build through
+shared/graded-gate.mjs; a Grade 9 disagreement suppresses that one figure and
+the row says so. build-topps.mjs then gates each list on ITS OWN column, so a
+card whose raw price confirmed and whose PSA 10 did not appears on one list and
+not the other. `rank` in that file is an IDENTIFIER, the row's position in the
+union of the two candidate windows, and nothing may sort by it.
+
+**BOTH HUNDREDS ARE ON ONE PAGE AND THAT WAS THE DECISION.** They rank the same
+2,701 products and the two windows share 54 rows, so two pages would be 47%
+identical, each having to explain the other. Both lists are server rendered one
+after the other, NOT behind a JavaScript toggle: a list hidden behind a button
+is a list a reader with no script never sees. It costs page height, 45,688px at
+390x844, and 200 lazy card scans: 459.6KB on load against 2,472.6KB fully
+scrolled. Quote the pair or quote neither.
+
+**Verification, 18 August 2026:** 170 of 176 agree, 6 disagree, 0 unreadable, 1
+missing a scan and it is below both cuts. All six reconcile exactly against
+PriceCharting's own reported change and are recorded in `excluded` with the
+working. Across all 176 rows and all three columns, 409 readings are identical
+and the other 47 all reconcile, with NONE left over, so the column mapping is
+demonstrably right on every row.
+
+**Two bugs found here that apply everywhere.** PriceCharting says "no scan" by
+serving a RELATIVE placeholder, `/images/no-image-available.png`, and
+`fetch()` throws ERR_INVALID_URL on it: the first verify run died 154 rows into
+176. sync-topps-top.mjs nulls anything that is not absolute and the verifier
+guards it again. And a grid item's default minimum is its MIN-CONTENT width, so
+one 45 character url in a `<code>` widened a `.tp-defs` track and then the whole
+page to a scrollWidth of 434 at a clientWidth of 390. **The page still did not
+scroll sideways**, so the site's own overflow test passed it; `min-width:0` plus
+`word-break:break-all` is the fix and 44px of content hanging off the right edge
+is a real fault whether or not the document scrolls to meet it.
 
 ## Video data
 - `public/data/videos.json` is the whole catalogue, `playlists.json` the

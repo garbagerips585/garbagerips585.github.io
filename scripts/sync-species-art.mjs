@@ -26,6 +26,29 @@
 // the deliberate trade: two renditions would be 2,050 files to save a few KB on
 // a picture that is already 12.
 //
+// THAT SENTENCE STOPPED BEING TRUE ON 18 AUGUST 2026 AND THE SECOND RENDITION IS
+// UNDER lg/. It exists for exactly one caller, Who's That Pokemon, and the
+// reason is that the game does NOT draw a 128px box: measured at 390x844 DPR 2
+// the silhouette stage draws the artwork at 249 CSS pixels, which asks for 498
+// device pixels. Handing it the 256 file is a 1.95x upscale, and the reveal is
+// the moment the whole game is for. PSNR against the master resampled to 498,
+// four species: the 256 file scores 20.6 to 31.6 dB, the lg file 32.5 to 44.3.
+// That is not a rounding difference, it is visible blur.
+//
+// SO WHY NOT JUST RAISE BOX TO 475 FOR EVERYTHING. Because /pokemon/ draws up to
+// nine portraits a page in 128 and 72px boxes across 1,026 pages, and 475 costs
+// 21.7KB against 12.1. That is roughly +85KB on every Pokedex page to sharpen a
+// picture nobody is looking at closely, which is the trade this file already
+// refused once at 192 -> 256. The game is the only place a species portrait is
+// the subject rather than a thumbnail, so the game gets the second rendition and
+// nothing else does. If a second caller ever wants lg/, ask first whether its box
+// is really over 128, because most of them are not.
+//
+// lg IS THE SOURCE'S OWN 475px AND NOT A NUMBER SOMEBODY PICKED. Every original
+// is 475x475 and the encoder never upscales, so lg/ is "the master, re-coded":
+// identical pixels to the png the game used to hotlink, at 21.7KB against 121.
+// 384 was tried and is a dead middle, 21.4KB for 8 dB less.
+//
 // IT WAS 192 FOR AN AFTERNOON AND THAT WAS THE WRONG ROUNDING. 192 is the double
 // of a 96px hero, and a 96px hero on a 390px phone is a stamp rather than a
 // picture of the thing the page is about. Sizing the file to the drawn box is
@@ -59,6 +82,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/assets/species");
+const BIG_OUT = join(OUT, "lg");
 const CACHE = join(ROOT, ".cache/species-art");
 const MANIFEST = join(ROOT, "data/species-art.json");
 const FORCE = process.argv.includes("--force");
@@ -68,24 +92,34 @@ const LIMIT = Number((process.argv.find((a) => a.startsWith("--limit")) || "").s
 const ART =
   "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
 const BOX = 256;
+// The masters are 475x475 and the encoder never upscales, so this is "as big as
+// the source goes" rather than a chosen width. See the note above.
+const BIG = 475;
 const CONC = 6;
 
 const exists = (p) => stat(p).then(() => true).catch(() => false);
 
 await mkdir(OUT, { recursive: true });
+await mkdir(BIG_OUT, { recursive: true });
 await mkdir(CACHE, { recursive: true });
 
 const dex = JSON.parse(await readFile(join(ROOT, "data/pokedex.json"), "utf8")).pokemon;
-console.log(`Official artwork for ${dex.length} species, ${BOX}px, webp q82`);
+console.log(`Official artwork for ${dex.length} species, ${BOX}px and ${BIG}px, webp q82`);
 
 // FETCH FIRST, ENCODE ONCE. Pillow's startup is most of the wall clock of a
 // small run, so the whole batch goes through one python process at the end the
 // way sync-dex-art.mjs does. Downloads are pooled at 6, which is what
 // sync-pokedex.mjs settled on against the same project's servers.
+// A SPECIES IS "TODO" IF EITHER RENDITION IS MISSING, not if the 256 one is.
+// Written that way so adding lg/ to a tree that already holds all 1,025 small
+// files does the right thing on a plain re-run: the old condition short
+// circuited on the 256 file and would have produced an empty job list and a
+// manifest claiming nothing was missing.
 const todo = [];
 for (const p of dex) {
-  const dest = join(OUT, `${p.id}.webp`);
-  if (!FORCE && (await exists(dest))) continue;
+  const have256 = await exists(join(OUT, `${p.id}.webp`));
+  const haveBig = await exists(join(BIG_OUT, `${p.id}.webp`));
+  if (!FORCE && have256 && haveBig) continue;
   todo.push(p);
   if (todo.length >= LIMIT) break;
 }
@@ -101,6 +135,7 @@ await Promise.all(
       const p = todo[i++];
       const raw = join(CACHE, `${p.id}.png`);
       const dest = join(OUT, `${p.id}.webp`);
+      const bigDest = join(BIG_OUT, `${p.id}.webp`);
       try {
         if (!(await exists(raw))) {
           const r = await fetch(`${ART}${p.id}.png`);
@@ -108,7 +143,11 @@ await Promise.all(
           await writeFile(raw, Buffer.from(await r.arrayBuffer()));
         }
         rawBytes += (await stat(raw)).size;
-        jobs.push([raw, dest, BOX]);
+        // ONE DOWNLOAD, TWO ENCODES. Both renditions come off the same cached
+        // png, so filling in lg/ for a tree that already has every 256 file
+        // makes no network request at all.
+        if (FORCE || !(await exists(dest))) jobs.push([raw, dest, BOX]);
+        if (FORCE || !(await exists(bigDest))) jobs.push([raw, bigDest, BIG]);
       } catch (e) {
         failed += 1;
         console.log(`  FAIL ${p.id} ${p.name}: ${e.message}`);
@@ -158,8 +197,14 @@ if (jobs.length) {
 // Read the size of everything HELD, not only what was just written: the builder
 // puts width and height on every tag, so a re-run that fetched nothing still has
 // to produce a complete manifest.
+// readdir is not recursive, so lg/ comes back as a directory entry and is
+// filtered out by the .webp test; it is scanned separately and joined in.
 const held = (await readdir(OUT)).filter((f) => f.endsWith(".webp"));
-const need = held.map((f) => join(OUT, f)).filter((p) => !dims[p]);
+const heldBig = (await readdir(BIG_OUT).catch(() => [])).filter((f) => f.endsWith(".webp"));
+const need = [
+  ...held.map((f) => join(OUT, f)),
+  ...heldBig.map((f) => join(BIG_OUT, f)),
+].filter((p) => !dims[p]);
 if (need.length) {
   // A FILE IT CANNOT READ IS DELETED RATHER THAN SKIPPED, so an interrupted run
 // heals itself. Killing this script mid-encode leaves one truncated .webp on
@@ -198,6 +243,8 @@ print(json.dumps(out))
 
 const art = {};
 let outBytes = 0;
+let bigBytes = 0;
+let bigCount = 0;
 let biggest = { id: null, bytes: 0 };
 for (const p of dex) {
   const dest = join(OUT, `${p.id}.webp`);
@@ -207,6 +254,19 @@ for (const p of dex) {
   outBytes += bytes;
   if (bytes > biggest.bytes) biggest = { id: p.id, name: p.name, bytes };
   art[p.id] = { file: `/assets/species/${p.id}.webp`, w: wh[0], h: wh[1] };
+  // THE lg ENTRY IS OPTIONAL AND ITS ABSENCE IS THE SIGNAL. build-games.mjs
+  // keeps a species out of the silhouette pool when there is no lg file, so an
+  // interrupted run costs the game a few species rather than shipping a round
+  // whose picture 404s. Never fall back to the 256 file here: that would put a
+  // 1.95x upscale on screen and nothing would report it.
+  const bigDest = join(BIG_OUT, `${p.id}.webp`);
+  const bwh = dims[bigDest];
+  if (!bwh) continue;
+  const bb = (await stat(bigDest)).size;
+  bigBytes += bb;
+  bigCount += 1;
+  if (bb > biggest.bytes) biggest = { id: p.id, name: p.name, bytes: bb };
+  art[p.id].lg = { file: `/assets/species/lg/${p.id}.webp`, w: bwh[0], h: bwh[1] };
 }
 
 await writeFile(

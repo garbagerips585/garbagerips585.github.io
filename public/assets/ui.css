@@ -856,6 +856,10 @@ footer .soc svg{fill:var(--paper)}
 @media(max-width:400px){
   .brand b{font-size:.82rem}
 }
+@media(max-width:355px){
+  .bar-find{display:none}
+}
+.bar-in{flex-wrap:wrap}
 .menu-h{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
   color:var(--mustard);padding:var(--s4) var(--s3) 8px}
 .menu ul{padding:0 var(--s3)}

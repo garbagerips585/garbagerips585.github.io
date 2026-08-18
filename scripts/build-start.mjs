@@ -122,7 +122,18 @@ const STEPS = [
     a: `Rarity symbols, what the little marks in the corner mean, and why two cards of the same Pokemon can be worth a dollar and a thousand dollars. Then the set itself: ${sets.length} English guides with full checklists${nIntl ? `, plus ${nIntl} imported ones` : ""}.`,
     href: "/rarity.html",
     cta: "Rarity guide",
-    also: [["/sets/", "Set guides"], ["/expansions.html", "Every set ever made"]],
+    // THE THIRD ONE IS FOR THE CARD THAT IS NOT A TCG CARD AT ALL. This rung is
+    // where somebody holding something they cannot identify is standing, and the
+    // two links beside it both assume the answer is a Pokemon TCG set. A Topps
+    // card from 1999 to 2004 is not in any of them, and its owner will read the
+    // rarity guide, fail to find a symbol in the corner, check the set guides,
+    // fail again, and conclude the card is fake. It is not: it is a real card of
+    // a different kind, and that page says so in its first paragraph.
+    also: [
+      ["/sets/", "Set guides"],
+      ["/expansions.html", "Every set ever made"],
+      ["/topps.html", "Topps cards"],
+    ],
     // Rendered between the answer and the buttons, and NOT included in the
     // FAQPage schema below, which quotes `a` only: a rung of drawn stars is not
     // a sentence and pasting markup into structured data is how a search result
