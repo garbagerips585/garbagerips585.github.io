@@ -468,6 +468,20 @@ ${rows.map(row).join("\n")}
     <p>Card images are the property of their respective owners and appear here for identification.
       Pokemon and all card artwork are trademarks of The Pokemon Company, Nintendo, Game Freak and
       Creatures Inc.</p>
+
+    ${/* THE SIBLING LIST WAS NAMED IN THIS FILE'S COMMENTS AND NOWHERE ON THE
+          PAGE. This file argues in three places that /most-valuable-cards.html
+          is "the list ranked the other way", which is exactly the sentence a
+          reader wants and a crawler needs, and it lived only in the source. The
+          page carried ZERO in-body links to either raw list, so the four value
+          pages were a cluster in the head of whoever built them and a set of
+          unconnected pages to everyone else. Prose, not a link farm, which is
+          the idiom the rest of the site uses. */ ""}
+    <p class="price-note" style="margin-top:var(--s4)">The same catalog ranked the other way is
+      <a href="/most-valuable-cards.html">the 100 most valuable raw cards</a>, ungraded and out of the sleeve.
+      Nothing anybody opened is in <a href="/most-expensive-sealed.html">the 100 most expensive sealed
+      products</a>. And <a href="/grading.html">is it worth grading?</a> does the subtraction between a raw
+      price and a graded one on real cards.</p>
   </div>
 </section>
 

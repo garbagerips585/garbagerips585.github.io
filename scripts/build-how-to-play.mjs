@@ -378,7 +378,18 @@ const style = `
 .hp-box p,.hp-box li{font-size:var(--t-sm);line-height:1.55}
 .hp-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s4)}
 @media(max-width:760px){.hp-cards{grid-template-columns:1fr}}
-.hp-cards h3{display:flex;align-items:baseline;gap:8px}
+/* flex-wrap IS THE 320px FIX AND WITHOUT IT THE LABEL WAS CLIPPED AWAY.
+   This h3 is a flex container, so it establishes its own formatting context and
+   SHRINKS beside the .hp-kf float rather than flowing under it: at 320 the box
+   is 296px, the float takes 96 + 12 of margin, the padding and border take 38,
+   and the heading is left 150px. "Pokemon" in the display face plus 8px of gap
+   plus the min-content of "THE FIGHTERS" wants 159, and .hp-cards .hp-box is
+   overflow:hidden (it clears the float), so the last 9px of the label was cut
+   off the right of the card with nothing looking broken. Measured 18 August
+   2026: 159 into 150 on the Pokemon card and 158 into 150 on the Trainer one;
+   Energy fits. Wrapping puts the mono label on its own line on those two rows
+   at 320 only, and 360 up is untouched because there the heading gets 190px. */
+.hp-cards h3{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 /* The scan floats so the box reads as one paragraph with a picture in it rather
    than as a card above a caption above a heading. 96px is a third of the widest
    the box gets and it is what sizes="96px" is measured against. */

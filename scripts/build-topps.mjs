@@ -473,7 +473,56 @@ const noScanRows = new Set(noScan.map((c) => c.rank)).size;
 // ---------------------------------------------------------------------------
 // Shared page furniture.
 
-const head = (title, desc, slug, ogSlug) => `<!DOCTYPE html>
+/* STRUCTURED DATA, ADDED 18 AUGUST 2026, BECAUSE BOTH THESE PAGES SHIPPED WITH
+ * NONE AT ALL. Not even a BreadcrumbList, which every other page on the site
+ * carries and which is what turns the grey line above a search result from a
+ * raw url into a named path. /topps.html is the page whose whole pitch is that
+ * a reader has never heard of these cards, so it is the one most likely to be
+ * landed on cold from a search, and it was the one telling a crawler least.
+ *
+ * The pair is Article + BreadcrumbList, exactly what /top-graded.html emits, so
+ * the four value pages describe themselves the same way. The DATE on both is
+ * `d.checked`, the PriceCharting read date, which is the date both pages print
+ * beside their figures. It is not the build date and must not become one.
+ *
+ * NO ItemList, NO Product, NO Offer, and that is the same refusal
+ * build-top-graded.mjs argues: a price guide's reading on a stated day is not a
+ * live offer, and an Offer node would claim it is. Nothing below encodes a
+ * figure the visible page does not print.
+ */
+const ldFor = (kind, title, desc, slug) => {
+  const url = `${SITE}/${slug}.html`;
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: title,
+      description: desc,
+      // Article with no image and no publisher logo cannot produce the rich
+      // result, so this is the page's own share card, matching its og:image.
+      image: [`${SITE}/assets/og-${slug}.jpg`],
+      datePublished: d.checked,
+      dateModified: d.checked,
+      author: { "@type": "Organization", name: "Garbage Rips 585" },
+      publisher: {
+        "@type": "Organization",
+        name: "Garbage Rips 585",
+        logo: { "@type": "ImageObject", url: `${SITE}/assets/logo-square.jpg` },
+      },
+      mainEntityOfPage: url,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+        { "@type": "ListItem", position: 2, name: kind, item: url },
+      ],
+    },
+  ];
+};
+
+const head = (title, desc, slug, ogSlug, ld = []) => `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -494,6 +543,7 @@ const head = (title, desc, slug, ogSlug) => `<!DOCTYPE html>
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#192D22">
+${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 ${FONTS}
 ${STYLES}`;
 
@@ -866,7 +916,7 @@ const guideDesc =
   `the two movie sets, and the Chrome cards that now sell for thousands. What they are, why they are not ` +
   `Pokemon TCG cards, every set with its year and card count, and how to tell one in your hand.`;
 
-const guide = `${head(guideTitle, guideDesc, "topps", "topps")}
+const guide = `${head(guideTitle, guideDesc, "topps", "topps", ldFor("Topps Pokemon cards", guideTitle, guideDesc, "topps"))}
 <style>${CSS}</style>
 </head>
 <body>
@@ -1133,7 +1183,7 @@ const listHead = (id, title, kicker, lede) => `
     <h2>${title}</h2>
     <p class="lede" style="max-width:44em">${lede}</p>`;
 
-const values = `${head(valuesTitle, valuesDesc, "topps-card-values", "topps-card-values")}
+const values = `${head(valuesTitle, valuesDesc, "topps-card-values", "topps-card-values", ldFor("Topps card values", valuesTitle, valuesDesc, "topps-card-values"))}
 <style>${CSS}</style>
 </head>
 <body>

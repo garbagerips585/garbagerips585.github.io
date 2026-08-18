@@ -1318,6 +1318,21 @@ const STYLE = `
 .wtb-src{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s3)}
 .wtb-src li{font:.75rem/1.5 var(--mono);color:var(--ink-soft);overflow-wrap:anywhere}
 .wtb-src b{color:var(--ink)}
+/* THE SITE'S MEASURE BLOCK CANNOT REACH THIS AND THAT IS WHY IT WAS THE WORST
+   LINE LENGTH ON THE SITE. Above 1000px ui.css caps prose with a rule whose
+   selector is main :is(p,dd,blockquote,figcaption), and NOTE THE BACKTICKS THAT
+   ARE NOT AROUND IT: this whole block is a JS template literal, so quoting a
+   selector the usual way ends the string and the builder stops parsing.
+   That selector has no li in it, so this list ran the whole .wrap:
+   measured 18 August 2026 at 158 characters a line on 1,392px at 1440 and
+   1,452px at 1920 and 2560, against the 92 to 99 the file's own comment says a
+   mono note should land on. It is the same font job as .price-note, so it takes
+   the same treatment the mono notes take: their own em number rather than the
+   shared 36em, because mono at this size buys about 1.77 characters per em and
+   36em would cut these to roughly 64 and make them worse.
+   56em lands 12px mono on about 99. min-width:1000 keeps ui.css's promise that
+   nothing under 1000px moves; at 768 this list is already inside 56em anyway. */
+@media(min-width:1000px){ .wtb-src li{max-width:56em} }
 
 /* ---------------------------------------------------------------- the decks */
 .wtb-deck{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s3)}

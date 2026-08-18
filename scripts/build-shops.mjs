@@ -526,6 +526,16 @@ ${cards}
     <p class="shops-lede">Looking for a one off rather than a weekly night? The
       <a href="/card-shows.html">card show calendar</a> has every show coming up around Rochester, Buffalo
       and Syracuse.</p>
+    ${/* THE LOCAL CLUSTER WAS THREE PAGES AND ONE EDGE. /vendors.html and
+          /creators.html had ZERO in-body inbound links from anywhere on the
+          site on 18 August 2026, reachable only from the hamburger, and this is
+          the page whose reader is looking for exactly what they hold. The three
+          are the same subject cut three ways, which is the case for linking
+          them and also the reason a reader who finds one wants the others. */ ""}
+    <p class="shops-lede">Not everyone selling cards around here has a shopfront.
+      <a href="/vendors.html">Local vendors</a> are the breakers and sellers we buy from without one, and
+      <a href="/creators.html">local creators</a> is who else is filming Pokemon in Rochester, Buffalo and
+      Syracuse.</p>
     <p class="shops-lede">Addresses, phone numbers and opening hours were last checked on
       ${esc(longDate(shopsDoc.updated) || "an unrecorded date")}. Shops move and change their hours, so call ahead if you are
       making a trip of it.</p>

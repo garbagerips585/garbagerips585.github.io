@@ -707,9 +707,41 @@ function pokePage(p) {
   // card at all in the sets we hold prices for, and the old one read
   // `p.priciest.name` unguarded, which is a build that throws rather than a page
   // that reads badly.
+  //
+  // THE PRICE CLAUSE LEADS, AND THAT WAS THE ONE RECORDED CTR IDEA IN CLAUDE.md.
+  // It used to close the description: "Every Abomasnow card: 30 printings across
+  // 27 sets, with market prices for the 7 we hold. The priciest is ..." put the
+  // one fact a searcher is actually chasing at a MEASURED 544px median (Arial
+  // 14px, the face and size Google renders a desktop snippet in) into a line
+  // Google cuts around 920px on desktop and far earlier on a phone. 131 of the
+  // 839 priced pages ran past the desktop cut outright and NONE of them fit a
+  // phone. Leading with it moves the money to 0px on all 839.
+  //
+  // THE SCOPE HAD TO TRAVEL WITH THE CLAIM AND THAT IS THE WHOLE CARE HERE.
+  // `priciest` is the dearest of the printings we hold a PRICE for, not the
+  // dearest printing that exists: the median species has 25 printings and a
+  // price on far fewer. The old order got that for free, because "market prices
+  // for the 7 we hold" was read before "the priciest is". Front-loading it bare
+  // would have turned a scoped reading into "the priciest Abomasnow card is
+  // $2.94", which is a claim this data cannot support. So the qualifier is IN
+  // the clause, in the page's own words: the fact tile beside it already reads
+  // "Priciest one we price". Do not shorten it back out.
+  const priciestClause = p.priciest
+    ? `The priciest ${p.name} card we price is ` +
+      (p.priciest.name === p.name
+        ? // Same string twice reads as a typo: "the priciest Abomasnow card we
+          // price is Abomasnow in Paldean Fates". A base-form printing is named
+          // by its set instead.
+          `the ${p.priciest.setName} one`
+        : `${p.priciest.name} in ${p.priciest.setName}`) +
+      ` at ${moneyExact(p.priciest.price)}.`
+    : "";
   const desc = p.priciest
-    ? `Every ${p.name} card: ${n(p.prints.length)} printings across ${n(p.sets.size)} sets, with market prices for the ` +
-      `${n(p.priced.length)} we hold. The priciest is ${p.priciest.name} in ${p.priciest.setName} at ${moneyExact(p.priciest.price)}.`
+    ? // The species name is already in the clause above, twice on most pages, so
+      // the second sentence drops it. That is 55px of a line Google cuts, spent
+      // on a word the reader has just read.
+      `${priciestClause} Every printing we can name: ${n(p.prints.length)} across ` +
+      `${n(p.sets.size)} sets, ${n(p.priced.length)} with a market price.`
     : `Every ${p.name} card we can name: ${n(p.prints.length)} printings across ${n(p.sets.size)} sets, plus ${p.name}'s ` +
       `evolution line, types and what beats it.`;
 
@@ -813,12 +845,31 @@ function pokePage(p) {
     const words = stages
       .map((row) => list(row.map((m) => m.name)))
       .join(", which becomes ");
+    /* THE CHART WAS LINKED FROM THE WRONG HALF OF THIS FUNCTION AND ONLY THAT
+     * HALF. The "does not evolve" branch a dozen lines up sends the reader to
+     * /evolution.html; this branch, which is the one that fires on every
+     * species that HAS a line, sent them nowhere. Measured on the built tree 18
+     * August 2026: /evolution.html had 202 in-body inbound links, and all of
+     * them were standalone species. The ~800 pages actually about an evolution
+     * line linked the site's evolution chart not once, which is the reverse of
+     * the relevance you would design on purpose.
+     *
+     * THE EEVEE CLAUSE IS NARROW ON PURPOSE. /eevee-evolutions.html had ZERO
+     * in-body inbound links from anywhere on the site, and the nine pages of
+     * the Eevee line are the only nine where naming it is the obviously right
+     * next link rather than a nudge. Nothing else gets it. */
+    const eeveeLine = stages.some((row) => row.some((m) => m.id === 133));
     return `
 <section class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Evolution</p>
     <h2>The <span class="hl">${esc(stages[0].map((m) => m.name).join(" / "))}</span> line</h2>
-    <p class="lede" style="max-width:44em">${esc(words)}. Each one has its own page and its own cards.</p>
+    <p class="lede" style="max-width:44em">${esc(words)}. Each one has its own page and its own cards.
+      <a href="/evolution.html">The evolution chart</a> draws every line in the Pokedex${
+        eeveeLine
+          ? `, and <a href="/eevee-evolutions.html">all eight Eevee evolutions</a> have a page of their own`
+          : ""
+      }.</p>
     <ul class="dx-evo">${stageHtml}</ul>
     <p class="price-note">Evolution line from the National Pokedex, pokeapi.co, read
       ${esc(longDate(dexDoc.checked) || dexDoc.checked)}. What each evolution actually takes differs between

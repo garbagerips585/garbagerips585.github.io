@@ -668,6 +668,20 @@ ${MENU}
       Card counts are the published checklists. Totals are computed from those two
       things and nothing else: no estimates, no rounding up to a nicer number. No affiliate links, and nothing here is
       a recommendation to buy anything.</p>
+
+    ${/* THIS PAGE LINKED NOT ONE OF ITS SEVEN SIBLINGS. Measured across the
+          built tree on 18 August 2026: every in-body link on /complete-a-set
+          .html went to a set guide, so the whole value cluster reached it and it
+          reached none of them back, and a reader who worked out what a set costs
+          had nowhere to go with that. The four pages named here are the ones the
+          same question leads to next, in the order it leads to them: what one
+          pack costs, what the set is worth at retail, what the dear cards in it
+          go for, and whether grading changes any of that. */ ""}
+    <p class="price-note" style="margin-top:var(--s4)">Buying the set one pack at a time instead?
+      <a href="/pack-prices.html">Pack prices by set</a> is what a single pack costs today and
+      <a href="/msrp.html">Pokemon MSRP</a> is what it is supposed to cost. The cards doing most of the damage to
+      these totals are in <a href="/most-valuable-cards.html">the 100 most valuable raw cards</a>, and
+      <a href="/grading.html">is it worth grading?</a> covers what happens to a chase card after you own it.</p>
   </div>
 </section>
 

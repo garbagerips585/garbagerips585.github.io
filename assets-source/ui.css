@@ -3151,9 +3151,27 @@ footer .soc svg{fill:var(--chrome-ink)}
 /* At 320px a .gr row rendered 317px inside the viewport but its 3 numeric
    columns pushed the document 9px wider. Letting the numbers wrap costs a few
    pixels of height and removes the only horizontal scroll left on the site. */
+/* THAT FIX NEVER WORKED AND THE MEASUREMENT IS WHY, re-taken 18 August 2026 at
+   320x844 in headless Chrome. white-space:normal buys a money column NOTHING:
+   "+$5,017.06" holds no break opportunity, so its min-content is still the
+   whole figure and a grid track cannot go under min-content. Measured across
+   all 32 rows the three tracks want 88 + 88 + 113 = 289px, the row has
+   296 - 24 padding - 2 border - 16 gap = 254px, and .gr rendered 309px wide
+   inside a 296px .gr-list: the card's right border sat at x=321 on a 320px
+   screen, i.e. off it. The rule above measured 9px of overflow, the data has
+   since made it 13, and neither number was ever going to reach zero this way.
+   THREE MONEY COLUMNS DO NOT FIT A 320px PHONE, so below 360 the net takes its
+   own row. It is the number the page is about (raw + fee against PSA 10), the
+   other two are its inputs, and 254px comfortably holds the two inputs side by
+   side at 88px each. Costs one line of height per row and nothing else.
+   The white-space:normal is kept because it is harmless and is the thing that
+   lets a longer figure than today's soft-wrap rather than overflow again. */
 @media(max-width:360px){
   .gr-raw,.gr-psa,.gr-net{white-space:normal}
-  .gr{gap:2px 8px}
+  .gr{grid-template-columns:1fr 1fr;gap:2px 8px}
+  .gr-raw{grid-row:3;grid-column:1;text-align:left}
+  .gr-psa{grid-row:3;grid-column:2;text-align:left}
+  .gr-net{grid-row:4;grid-column:1 / -1;text-align:left}
 }
 
 /* ---------- cost to complete a set (/complete-a-set.html) ----------
@@ -3776,9 +3794,23 @@ inherited from the UA default, so the promotion moves nothing on screen. */
 .mine-w:hover{color:var(--sky-deep)}
 @media(max-width:520px){.mine-grid{grid-template-columns:repeat(2,1fr);gap:var(--s3)}}
 
-/* ---------- every rip of this set ---------- */
+/* ---------- every rip of this set ----------
+   THE TRACK FLOOR IS min(300px,100%) AND NOT 300px, which is the same failure
+   the .foot-col comment further up spends twenty lines on, caught here on
+   18 August 2026 by measuring instead of reading. A 320px phone leaves .wrap
+   296px, a bare 300px floor cannot be satisfied, and a grid track that cannot
+   meet its floor does not fall back: it renders at the floor and overflows its
+   parent. So every row was 300px wide starting at x=12, ending at x=312 on a
+   320px screen, an 8px right-hand gutter against the 12px one on the left, with
+   the card's right border and rounded corner off the edge of the phone. THE
+   PAGE STILL DID NOT SCROLL SIDEWAYS, because the overflow is only 4px and the
+   root absorbs it, so the site's own overflow test passed it: exactly the trap
+   build-topps.mjs's header records for .tp-defs.
+   min() keeps the two-column behaviour identical everywhere it was already
+   reachable (600px+ of container) and only binds below 300. It is on
+   /sets/*.html and /openings/*.html, 56 pages. */
 .riplist{list-style:none;display:grid;gap:2px;margin-top:var(--s4);
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));width:100%;min-width:0}
+  grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));width:100%;min-width:0}
 .riplist li{display:flex;align-items:baseline;gap:var(--s3);justify-content:space-between;
   padding:10px 12px;background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm)}
 .riplist a{font-weight:600;font-size:var(--t-sm);color:var(--ink);

@@ -593,6 +593,15 @@ ${ranked.map(plaque).join("\n")}
       A DASH MEANS NO PRICE WE ARE WILLING TO STAND BEHIND YET, NOT A CARD WORTH NOTHING.
       RAW NEAR MINT IS PRICECHARTING'S UNGRADED PRICE GUIDE VALUE, THE SAME FIGURE EVERY SET GUIDE
       AND THE CARD SEARCH PRINT FOR THESE CARDS.${psaNote}</p>
+
+    ${/* WHOSE PULLS THESE ARE. /about.html carried ZERO in-body inbound links
+          from anywhere on the site, and this is the page most obviously making
+          a first-person claim: "our best pulls" with no link to who "our" is.
+          The rip library link is the same fix in the other direction, since
+          every card here came out of a video that has its own page. */ ""}
+    <p class="chof-note"><a href="/about.html">WHO PULLED ALL OF THIS</a>, AND
+      <a href="/videos.html">EVERY RIP THEY CAME OUT OF</a>. THE ONES STILL BEING CHASED ARE ON
+      <a href="/wanted.html">MOST WANTED</a>.</p>
   </div>
 </main>
 

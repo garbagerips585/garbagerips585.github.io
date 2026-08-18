@@ -727,6 +727,15 @@ ${(data.watchFor || []).length ? `
       <li>We are not the organizer of any of these and we do not take a cut. It is just a list.</li>
       <li>Shows in the Southern Tier are left off on purpose. They show up in the same feeds but they are closer to Binghamton than to any of these three cities.</li>
     </ul>
+    ${/* THE LOCAL CLUSTER. This page held no in-body link to any of the other
+          three Rochester pages, and /vendors.html and /creators.html had no
+          in-body inbound link from anywhere at all. A reader who has just
+          decided not to drive to a show is the exact reader for the shops and
+          the vendors, so this is a service rather than a link drop. */ ""}
+    <p class="price-note" style="margin-top:var(--s4)">Nothing on for a while? The
+      <a href="/shops.html">card shops around Rochester</a> are open the rest of the time and run league nights,
+      <a href="/vendors.html">local vendors</a> are the sellers and breakers without a shopfront, and
+      <a href="/creators.html">local creators</a> is everyone else filming Pokemon up here.</p>
   </div>
 </section>
 

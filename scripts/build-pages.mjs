@@ -504,15 +504,50 @@ const desc = (v.blurb || descriptions[v.id] || "")
   const descTail = isTagged
     ? `: a ${prodLabel} rip from ${setLabel}, opened on Garbage Rips 585 in Rochester, NY.`
     : `: a Pokemon pack rip from Garbage Rips 585 in Rochester, NY.`;
-  // YouTube descriptions often already trail off in an ellipsis, so strip any
-  // trailing dots before adding ours or the page reads "and......".
-  const clip = (s, n) =>
-    s.length <= n
-      ? s
-      : s
-          .slice(0, n - 3)
-          .replace(/\s\S*$/, "")
-          .replace(/[.…\s]+$/, "") + "...";
+  /* CUT AT A SENTENCE, NOT AT A WORD, AND ONLY FALL BACK TO THE WORD.
+   *
+   * 269 of the 289 indexable rip pages had a meta description ending "..."
+   * mid-thought, because this only ever cut at the last space inside 158
+   * characters. That is the snippet Google draws under the title on the pages
+   * closest to the channel, and a snippet that stops mid-sentence reads as a
+   * broken page rather than a teaser: the reader has to guess whether the
+   * sentence mattered. Counted off the built tree before and after: 269 rip
+   * pages ended in an ellipsis, 119 still do, so 150 of them now end on a
+   * finished sentence and the rest are byte for byte what they were. A first
+   * estimate said 221 and it was made against the HTML-escaped strings, where
+   * `&quot;` counts as six characters instead of one and moves the cut; the
+   * number above is the one the build actually produced. Re-count, do not
+   * inherit.
+   *
+   * THE EMOJI TRAVELS WITH THE FULL STOP. Tim writes "...a certified Garbage
+   * Rip. 🗑️ The goth", where the emoji belongs to the sentence it follows, so
+   * cutting at the bare "." would strand it at the head of the next one. The
+   * expression allows a closing quote and any run of pictographs after the
+   * terminator before it calls the sentence finished.
+   *
+   * THE 60% FLOOR IS WHAT STOPS THIS BACKFIRING. Without it a blurb whose only
+   * full stop is at character 12 would publish a twelve character description.
+   * Below that mark the old behaviour is better and is what still runs.
+   *
+   * YouTube descriptions often already trail off in an ellipsis, so the word
+   * fallback strips trailing dots before adding its own or the page reads
+   * "and......".
+   */
+  const SENTENCE_END = /[.!?…][)"'’”]?(?:\s*\p{Extended_Pictographic}️?)*(?=\s|$)/gu;
+  const clip = (s, n) => {
+    if (s.length <= n) return s;
+    const window = s.slice(0, n);
+    let end = -1;
+    SENTENCE_END.lastIndex = 0;
+    for (let m; (m = SENTENCE_END.exec(window)) !== null; ) end = m.index + m[0].length;
+    if (end >= n * 0.6) return window.slice(0, end).trim();
+    return (
+      s
+        .slice(0, n - 3)
+        .replace(/\s\S*$/, "")
+        .replace(/[.…\s]+$/, "") + "..."
+    );
+  };
   // The title is cut at a word boundary with no ellipsis, because the tail that
   // follows already reads as a continuation.
   const titleRoom = Math.max(24, 160 - descTail.length);
@@ -658,6 +693,28 @@ const resolvedHits = hits.filter((h) => !h.unresolved);
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#192D22">
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+<!-- THE PACK IS THIS PAGE'S LCP ELEMENT AND THE PRELOAD SCANNER CANNOT SEE IT.
+     Measured on the live site at 390x844 DPR 2, Slow 4G with a 4x CPU
+     slowdown: LCP 3652ms, the worst of any page family on the site, and the
+     element is .pack-art, whose artwork is a background-image in packs.css.
+     A background cannot be a <picture> (the note in CLAUDE.md about the
+     image-set is about exactly this element), so the url only exists once
+     packs.css has arrived AND been parsed: HTML, then the stylesheet, then
+     the 100KB pack. Three serialised round trips before the biggest thing on
+     the page starts downloading, where every <img> on the site gets to start
+     during the HTML parse.
+
+     type="image/avif" is what makes this safe rather than a gamble. A browser
+     that cannot decode AVIF drops the preload on the floor and loads the WebP
+     from packs.css exactly as before, which is the same fallback the
+     image-set() already relies on; a browser that can decode it was going to
+     fetch this precise file anyway, because image-set names AVIF first. So
+     this cannot cause a double download, and that was verified from the
+     request log rather than assumed.
+
+     packSet is never a set without artwork: it resolves to "multi" or
+     "default" otherwise, and both ship a pack. -->
+<link rel="preload" as="image" href="/assets/packs/${packSet}-garbage-rips-585-booster-pack.avif" type="image/avif" fetchpriority="high">
 ${FONTS}
 ${STYLES}
 <style>${RARITY_CSS}</style>

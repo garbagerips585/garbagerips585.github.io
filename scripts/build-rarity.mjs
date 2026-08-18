@@ -962,7 +962,19 @@ ${body}
 
 ${/* Do not repeat "not affiliated with The Pokemon Company" here: footer()
       appends it, and the two ran together in the same paragraph. */ ""}
-${priceDoc ? `<p class="price-note">${esc(priceNote(priceDoc, { lead: "The example prices" }))} They are the same figures the set guides and the card search print for those cards.</p>` : ""}
+${/* THE .wrap IS LOAD BEARING AND THIS PARAGRAPH SHIPPED WITHOUT IT. Every
+      other .price-note on the site sits inside a section's .wrap and inherits
+      the site gutter from it; this one is a direct child of <body>, between
+      </main> and <footer>, so it had NO gutter at all. Measured 18 August 2026
+      at 320, 360, 375, 390 and 414: left edge 0, right edge exactly the
+      viewport width, so four lines of 10.9px mono ran into both screen edges
+      and the 4px border-left that names it as a note was painted off-screen.
+      It is wrong at desktop widths too, where the block starts at x=0 while
+      everything above it starts at 24. A bare .wrap is the fix rather than
+      moving it inside <main>: it is a footnote about the page, its position
+      after </main> is deliberate, and .wrap carries both the gutter and the
+      1500px cap the rest of the page has. */ ""}
+${priceDoc ? `<div class="wrap"><p class="price-note">${esc(priceNote(priceDoc, { lead: "The example prices" }))} They are the same figures the set guides and the card search print for those cards.</p></div>` : ""}
 ${footer("Card images from the Pokemon TCG API. Every corner shown is a crop of a real card.")}
 
 ${APP_JS}

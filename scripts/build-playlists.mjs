@@ -256,9 +256,28 @@ const cleanDesc = (s) => {
   return t.replace(/[ \t]{2,}/g, " ").replace(/\s+$/, "").replace(/[\s\u2022|,;:-]+$/, "").trim();
 };
 
-/** First sentence or so, for the meta description. */
-const clip = (s, n) =>
-  s.length <= n ? s : s.slice(0, n - 3).replace(/\s\S*$/, "").replace(/[.,;:\s]+$/, "") + "...";
+/** First sentence or so, for the meta description.
+ *
+ * CUT AT A SENTENCE, NOT AT A WORD. All 21 of these descriptions ended "..."
+ * mid-thought, which is the snippet Google draws under the title; 6 of them end
+ * on a finished sentence now and the other 15 are unchanged, because a playlist
+ * blurb opens with one long "Welcome to the ..." line and there is often no
+ * full stop inside 158 characters to cut at. Same helper and same 60% floor as
+ * build-pages.mjs; the long note is there. The emoji is
+ * allowed to travel with the full stop it follows, because Tim writes
+ * "One classic character promo. 🌿 Full garbage plate" and cutting at the bare
+ * "." strands the emoji at the head of a sentence nobody will read.
+ */
+const SENTENCE_END = /[.!?…][)"'’”]?(?:\s*\p{Extended_Pictographic}️?)*(?=\s|$)/gu;
+const clip = (s, n) => {
+  if (s.length <= n) return s;
+  const window = s.slice(0, n);
+  let end = -1;
+  SENTENCE_END.lastIndex = 0;
+  for (let m; (m = SENTENCE_END.exec(window)) !== null; ) end = m.index + m[0].length;
+  if (end >= n * 0.6) return window.slice(0, end).trim();
+  return s.slice(0, n - 3).replace(/\s\S*$/, "").replace(/[.,;:\s]+$/, "") + "...";
+};
 
 /**
  * Which pack skin a tile wears. Identical to the rule in app.js makeCard: a
@@ -476,8 +495,17 @@ for (const p of live) {
   const strip = idStrip(p, vids);
   const url = `${SITE}/playlists/${slug}.html`;
   const newest = vids.map((v) => v.published).filter(Boolean).sort().pop();
+  // THE NEWLINES COME OUT HERE AND NOWHERE ELSE. cleanDesc deliberately keeps
+  // blank lines, because they are what give the blurb its paragraphs in the
+  // body of the page. A meta description is an ATTRIBUTE value, where a newline
+  // is not collapsed and does ship: 19 of these 21 pages had a literal line
+  // break inside <meta name="description">. build-pages.mjs already did this
+  // for the same reason and this file did not. `desc` below is untouched, so
+  // the page still reads in paragraphs.
   const metaDesc = clip(
-    desc || `${vids.length} rip${vids.length === 1 ? "" : "s"} from Garbage Rips 585, in the order they were opened.`,
+    (desc || `${vids.length} rip${vids.length === 1 ? "" : "s"} from Garbage Rips 585, in the order they were opened.`)
+      .replace(/\s+/g, " ")
+      .trim(),
     158,
   );
 

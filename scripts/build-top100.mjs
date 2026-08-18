@@ -1344,6 +1344,52 @@ for (const cfg of PAGES) {
     cfg.withLow = items.filter((i) => i.low != null).length;
     cfg.noLow = items.length - cfg.withLow;
   }
+  /* STRUCTURED DATA, ADDED 18 AUGUST 2026. Both these pages shipped with NONE:
+   * no Article and, more to the point, no BreadcrumbList, while every other
+   * page on the site carries one. A breadcrumb is what turns the grey line
+   * above a result from a raw url into "Garbage Rips 585 > Most valuable
+   * cards", and these are two of the pages most likely to be landed on cold.
+   *
+   * It is the same pair /top-graded.html emits, deliberately, so the four value
+   * pages describe themselves the same way to a crawler as they do to a reader.
+   * `datePublished` is the read date the kicker and the lede already print, not
+   * the build date: the page is a reading taken on a day.
+   *
+   * NO ItemList OF THE HUNDRED ROWS, and the argument is build-top-graded.mjs's
+   * word for word. An ItemList carrying prices claims each figure as a live
+   * offer; these are a price guide's readings on a stated day, which is a
+   * different claim and the one the visible page is careful to make. Nothing
+   * here encodes a number the page does not print.
+   */
+  const ld = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: cfg.h1.join(""),
+      description: desc,
+      // Article with no image and no publisher logo cannot produce the rich
+      // result. This page's own share card, so it matches the og:image.
+      image: [`${SITE}/assets/og-${cfg.og}.jpg`],
+      datePublished: d.checked,
+      dateModified: d.checked,
+      author: { "@type": "Organization", name: "Garbage Rips 585" },
+      publisher: {
+        "@type": "Organization",
+        name: "Garbage Rips 585",
+        logo: { "@type": "ImageObject", url: `${SITE}/assets/logo-square.jpg` },
+      },
+      mainEntityOfPage: url,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+        { "@type": "ListItem", position: 2, name: cfg.navTitle, item: url },
+      ],
+    },
+  ];
+
   const filterBlock = cfg.filter
     ? `<div class="t100-filter">
       <button type="button" id="t100All" aria-pressed="true" aria-controls="t100list">All 100</button>
@@ -1373,6 +1419,7 @@ for (const cfg of PAGES) {
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#192D22">
+${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 ${FONTS}
 ${STYLES}
 <style>${CSS}</style>
@@ -1468,7 +1515,20 @@ ${items.map((i) => row(i, cfg.key)).join("\n")}
       check. Here is exactly where each one came from and how we know the list is not just the first hundred rows
       that came back.</p>
     ${methodology(cfg, d)}
-    <p class="price-note" style="margin-top:var(--s4)">Want the other half of the question? <a href="/grading.html">Is it
+    ${/* THE FOUR VALUE PAGES NOW NAME EACH OTHER HERE, which they did not.
+          /most-expensive-sealed.html linked NEITHER ranked card list and this
+          page linked the graded one nowhere, so a reader who landed on one of
+          the four had no way to reach the other three except the hamburger. The
+          sentence is different per page because the relationship is: the raw
+          list's opposite is the graded one, the sealed list's opposite is
+          anything anybody opened. */ ""}
+    <p class="price-note" style="margin-top:var(--s4)">${
+      cfg.key === "cards"
+        ? `The same catalog ranked in a slab instead is <a href="/top-graded.html">the 100 highest PSA 10 values</a>, and
+      nothing anybody opened is in <a href="/most-expensive-sealed.html">the 100 most expensive sealed products</a>.`
+        : `Loose cards rather than boxes are <a href="/most-valuable-cards.html">the 100 most valuable raw cards</a>,
+      and the same cards graded are <a href="/top-graded.html">the 100 highest PSA 10 values</a>.`
+    } Want the other half of the question? <a href="/grading.html">Is it
       worth grading?</a> does the subtraction on raw against graded prices, <a href="/pack-prices.html">pack prices by
       set</a> covers what a pack costs today, and <a href="/complete-a-set.html">cost to complete a set</a> prices the
       whole checklist. Every card we actually pulled is in the <a href="/cards.html">card search</a>.</p>

@@ -557,6 +557,16 @@ ${tally
         from one person opening packs on camera, not official pull rates: The Pokemon Company does not
         publish those, and anyone who tells you they know them is guessing. Small samples are labeled
         rather than rounded into confidence. Numbers move as more rips are logged.</p>
+      ${/* WHO "ONE PERSON OPENING PACKS ON CAMERA" IS. This page's whole claim
+            rests on first-hand observation, and it named no observer: /about
+            .html had ZERO in-body inbound links from anywhere on the site on 18
+            August 2026, so the page that says the strongest first-party thing
+            on the site had no link to the page that says who is saying it. That
+            is a plain provenance gap before it is an SEO one. */ ""}
+      <p class="luck-method" style="margin-top:var(--s4)">THE PERSON DOING THE OPENING, AND WHY THERE
+        IS A LOG OF IT AT ALL, IS ON <a href="/about.html">THE ABOUT PAGE</a>. EVERY RIP COUNTED HERE
+        HAS ITS OWN PAGE IN <a href="/videos.html">THE FULL LIBRARY</a>, AND THE CARDS THAT CAME OUT
+        OF THEM ARE IN <a href="/hall.html">THE HALL OF FAME</a>.</p>
     </div>
   </section>
 </main>`;

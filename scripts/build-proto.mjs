@@ -430,11 +430,43 @@ async function logoHeight(id) {
  * logoHeight() above already reads the real dimensions to compute the display
  * height; they were just never emitted as attributes, so 23 lazy logos on the
  * home page had no reserved box and the section reflowed as they landed.
+ *
+ * AND IT ALSO EMITS THE srcset NOW, 18 August 2026, because the home page was
+ * the LAST family still handing a reader the full size logo. /sets/,
+ * /openings/, /playlists/ and the 316 rip pages all moved to the `-sm`
+ * rendition months apart; this one kept a bare `src` on the master and nobody
+ * noticed because the markup looks correct either way. Measured at 390x844
+ * DPR 2 off the request log: chaos-rising is 1051x300 and 68KB, painted 133css
+ * wide. That is the 4x case the rip pages were fixed for, on the page every
+ * reader from a Short lands on first, 28 times.
+ *
+ * `sizes` IS THE REAL BOX AND NOT A GUESS: logoHeight() above already computes
+ * the painted height off the file's own aspect, so width is height x ratio and
+ * no breakpoint has to be repeated here. That matters because the two
+ * candidates are 3x apart, so a DPR 3 phone still resolves to the master and a
+ * DPR 2 one does not, which is the honest split rather than a blanket
+ * downgrade. Do not replace this with a flat `sizes`: the 28 logos have 28
+ * different aspects and one number would over declare most of them.
  */
-async function logoAttrs(id) {
+async function logoAttrs(id, dispH) {
   try {
-    const size = webpSize(await readFile(join(ROOT, `public/assets/logos/${id}-pokemon-tcg-set-logo.webp`)));
-    return size?.w ? ` width="${size.w}" height="${size.h}"` : "";
+    const base = `assets/logos/${id}-pokemon-tcg-set-logo`;
+    const size = webpSize(await readFile(join(ROOT, `public/${base}.webp`)));
+    if (!size?.w) return "";
+    const attrs = ` width="${size.w}" height="${size.h}"`;
+    let small = null;
+    try {
+      small = webpSize(await readFile(join(ROOT, `public/${base}-sm.webp`)));
+    } catch {
+      // No small rendition on disk: keep the master and change nothing.
+    }
+    // src carries the SMALL file when there is one, matching setLogoImg in
+    // build-pages.mjs. A browser old enough to ignore srcset is old enough to
+    // be on a 1x screen, where the small file is already the right pick.
+    if (!small?.w || !dispH) return `${attrs} src="${base}.webp"`;
+    const boxW = Math.round(dispH * (size.w / size.h));
+    return `${attrs} src="${base}-sm.webp"` +
+      ` srcset="${base}-sm.webp ${small.w}w, ${base}.webp ${size.w}w" sizes="${boxW}px"`;
   } catch {
     return "";
   }
@@ -782,7 +814,7 @@ const setsHtml = (
       // let the name below carry the tile. aria-hidden because it says nothing
       // the <b> does not already say.
       const face = h
-        ? `<img${await logoAttrs(s.id)} src="assets/logos/${s.id}-pokemon-tcg-set-logo.webp" alt="" loading="lazy" style="--lh:${h}px">`
+        ? `<img${await logoAttrs(s.id, h)} alt="" loading="lazy" style="--lh:${h}px">`
         : `<span class="set-noart" aria-hidden="true"></span>`;
       // What the best card in this set is worth. PSA 10 where we have one,
       // raw otherwise, and nothing at all when we have neither.

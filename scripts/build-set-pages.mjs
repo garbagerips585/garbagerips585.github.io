@@ -76,6 +76,30 @@ const hasLogo = (setId) => Boolean(setId) && logosOnDisk.has(setId);
  * boxes 110 CSS px wide. That was the worst intrinsic-to-box ratio measured
  * anywhere on the site, between 7x and 13.5x.
  *
+ * **110 IS THE CAP, NOT THE WIDTH, AND WRITING IT AS A FLAT `sizes` COST A
+ * RETINA PHONE MOST OF THE WIN ABOVE.** The rule is `height:42px` with
+ * `width:auto`, so a card's real width is 42 x its own aspect and only the
+ * WIDE logos ever reach the 110px cap. Measured over CDP at 390x844 DPR 2,
+ * reading each img's own border box: pitch-black, chaos-rising, stellar-crown
+ * and six others do sit at exactly 110, but 151 paints 55.3, black-bolt 67.19,
+ * pokemon-go 67.05, white-flare 69, paldean-fates 76.86 and ascended-heroes
+ * 82.88. Declaring 110 for those over-states the box by up to 1.99x.
+ *
+ * That is not a rounding detail, it changes WHICH FILE IS FETCHED. `sizes`
+ * times DPR is what the browser compares the `w` descriptors against, so a
+ * declared 110 asks a DPR 2 phone for 220px, every `-sm` here is 132 to 197px
+ * wide, and six logos therefore skipped the small file and pulled the master:
+ * 151 took 18KB instead of 5KB, paldean-fates 39KB instead of 9KB. Roughly
+ * 130KB on /sets/ alone, and this rail is on all 29 set pages.
+ *
+ * So the declaration is now computed per logo, and it is the SAME arithmetic
+ * the layout does rather than a second guess at it: 42 x aspect, capped at the
+ * 110 the CSS caps at. Verified against the measured boxes above, exactly, to
+ * two decimal places on all 22 that had loaded. This is the same fix, and the
+ * same reasoning, as `logoAttrs` in build-proto.mjs: one flat number cannot
+ * describe 28 different aspect ratios, which is what CLAUDE.md means by two
+ * individually correct declarations making one regression.
+ *
  * build-logos.py now writes a -sm.webp beside each master at 100px tall
  * (5-17KB), which covers the 42px box at 2.4x, and this offers both so a denser
  * screen can still take the big one. The width descriptors are the real widths
@@ -86,6 +110,9 @@ const hasLogo = (setId) => Boolean(setId) && logosOnDisk.has(setId);
  * and `.rip-setlogo` at up to 197px, and both should keep taking the master.
  */
 const SM_H = 100;
+// `.set-card img{height:42px;width:auto;max-width:110px}` in assets-source/ui.css.
+// Both numbers are read from there; if that rule moves, these move with it.
+const CARD_H = 42, CARD_MAX_W = 110;
 // One column at 390, four cards inside an 844px viewport.
 const EAGER_SET_CARDS = 4;
 /*
@@ -107,8 +134,11 @@ const setCardLogo = (setId, alt, { eager = false } = {}) => {
   if (!hasLogo(setId)) return "";
   const base = `/assets/logos/${setId}-pokemon-tcg-set-logo`;
   const d = LOGO_DIMS[`${setId}-pokemon-tcg-set-logo.webp`];
+  // 42 x aspect, capped at the CSS cap. See the note above: this is the box the
+  // layout actually paints, not the 110px cap that only the widest logos reach.
+  const boxW = d ? Math.min(CARD_MAX_W, Math.round(CARD_H * (d[0] / d[1]))) : CARD_MAX_W;
   const srcset = d
-    ? ` srcset="${base}-sm.webp ${Math.round((d[0] * SM_H) / d[1])}w, ${base}.webp ${d[0]}w" sizes="110px"`
+    ? ` srcset="${base}-sm.webp ${Math.round((d[0] * SM_H) / d[1])}w, ${base}.webp ${d[0]}w" sizes="${boxW}px"`
     : "";
   return `<img${logoAttrs(setId)} src="${base}${d ? "-sm" : ""}.webp"${srcset} alt="${alt}"${eager ? "" : ` loading="lazy"`} onerror="this.remove()">`;
 };
@@ -2813,8 +2843,35 @@ ${APP_JS}
 // order and they are deleted immediately after being built.
 await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
-for (const s of sets) await writeFile(join(OUT, `${s.id}.html`), setPage(s));
-await writeFile(join(OUT, "index.html"), indexPage());
+
+/**
+ * Drop the images.pokemontcg.io preconnect from any page that never asks that
+ * host for anything.
+ *
+ * head() emits it unconditionally, and it has been dead on EVERY page it
+ * reaches since sync-symbols.mjs mirrored the set symbols: measured 18 August
+ * 2026 off the request log on /sets/ and /sets/ascended-heroes.html at 390x844
+ * DPR 2, the hosts actually contacted are this origin, assets.tcgdex.net and
+ * tcgplayer-cdn.tcgplayer.com. Not one request goes to images.pokemontcg.io,
+ * and grep agrees: zero of the built set pages contain a url on that host.
+ *
+ * A preconnect is not free and an unused one is pure loss. It spends a DNS
+ * lookup, a TCP handshake and a TLS negotiation, and it spends them in the
+ * one window where the stylesheet and the fonts are competing for the same
+ * link. build-expansions.mjs and build-what-set.mjs already gate theirs on
+ * exactly this and say so in a comment; this file was the one that did not.
+ *
+ * The test is the url form, not the bare host: every real reference carries a
+ * path, so the trailing slash distinguishes an image from the hint itself and
+ * the hint comes back on its own the day a page starts using one.
+ */
+const dropUnusedPreconnect = (html) =>
+  html.includes("images.pokemontcg.io/")
+    ? html
+    : html.replace('<link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>\n', "");
+
+for (const s of sets) await writeFile(join(OUT, `${s.id}.html`), dropUnusedPreconnect(setPage(s)));
+await writeFile(join(OUT, "index.html"), dropUnusedPreconnect(indexPage()));
 
 console.log(`
 Wrote ${sets.length} set pages + index to public/sets/
