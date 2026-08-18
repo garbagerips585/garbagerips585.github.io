@@ -1281,24 +1281,62 @@ ${CLIENT_DAY_JS}
     var n = +lk.getAttribute("data-dn") || 0, xs = lk.getAttribute("data-dx");
     xs = xs ? xs.split(" ") : [];
     for (var j = 0; j < xs.length; j++) if (isIsoDay(xs[j]) && xs[j] < today) n--;
-    lk.textContent = (n > 0 ? "All " + n + " drop" + (n === 1 ? "" : "s") : "All drops") + " \\u2192";
+    lk.textContent = n > 0 ? n + " drop" + (n === 1 ? "" : "s") : "Drops";
+    var mr = band.querySelector(".wdrop-more a");
+    if (mr) mr.textContent = (n > 0 ? "All " + n + " drop" + (n === 1 ? "" : "s") : "All drops") + " \\u2192";
   }
   if (!band.querySelectorAll(".wdr").length) drop();
 })();
 </` + `script>`;
 
+      /* COLLAPSED BY DEFAULT, 18 August 2026. This band sits directly under the
+       * filter rail and above the Hall of Fame, and open it ran about 900px on
+       * a phone: a heading, a four line disclaimer and three rows of week-of
+       * August prose before the first video thumbnail. The most valuable thing
+       * on the home page is the top hit, and a reader landing on the site was
+       * scrolling past a week's restock rumours to reach it. Now one row until
+       * somebody asks for it.
+       *
+       * NATIVE <details>, NOT A JS TOGGLE. It works with the script blocked, it
+       * is keyboard operable and announced as expanded or collapsed for free,
+       * and this is the most visited page on the site so the cheapest correct
+       * thing wins. The summary keeps the h2 so the document outline is
+       * unchanged and aria-labelledby still resolves.
+       *
+       * NO HEIGHT ANIMATION. A <details> cannot animate to auto without JS
+       * measuring the panel first, and the usual fake, a max-height guess, is
+       * either too small and clips the third row or too large and eases at the
+       * wrong speed. An honest instant open beats a transition that jumps.
+       *
+       * THE COUNT MOVES TO THE SUMMARY AND THE LINK STAYS IN THE BODY. A link
+       * inside a <summary> is nested interactive content: the tap toggles and
+       * navigates and browsers disagree about which wins. The number is the
+       * part a reader needs before deciding to open it, so the number is what
+       * the summary carries, and it is swept on the reader's clock exactly as
+       * the link was.
+       */
       dropsHtml = `<section class="wdrop" aria-labelledby="wdropH" data-week-ends="${esc(doc.weekEnds || "")}">
   <div class="wrap">
-    <div class="brk"><h2 id="wdropH">Drops to <span class="hl">watch</span> this week</h2><span class="ln"></span><a href="/drops.html" data-dn="${known.length}" data-dx="${esc(
+    <details class="wdrop-d">
+      <summary class="brk wdrop-sum">
+        <h2 id="wdropH">Drops to <span class="hl">watch</span> this week</h2>
+        <span class="wdrop-n" data-dn="${known.length}" data-dx="${esc(
         known.map((d) => (isPerishable(doc, d) ? dropExpiresOn(doc, d) : "")).filter(Boolean).join(" ")
-      )}">All ${known.length} drops &rarr;</a></div>
-    <p class="wdrop-lede"><b>Week of ${esc(longDate(doc.weekOf))}.</b> Community intelligence, not fact: nobody
-      announces any of this, and <b>these are not our findings.</b> We are passing on what the trackers said,
-      in the words they hedged it with.</p>
-    <ul class="wdrop-list">
+      )}">${known.length} drops</span>
+        <span class="ln" aria-hidden="true"></span>
+        <span class="wdrop-chev" aria-hidden="true"></span>
+      </summary>
+      <div class="wdrop-body">
+        <p class="wdrop-lede"><b>Week of ${esc(longDate(doc.weekOf))}.</b> Community intelligence, not fact: nobody
+          announces any of this, and <b>these are not our findings.</b> We are passing on what the trackers said,
+          in the words they hedged it with.</p>
+        <ul class="wdrop-list">
 ${picked.map(row).join("\n")}
-    </ul>
-    <p class="wdrop-src">${credit || "Community restock trackers"}. Not a retailer speaking. Logos are the retailers&rsquo; own trademarks, here to name the shop and nothing more.</p>
+        </ul>
+        <p class="wdrop-more"><a href="/drops.html">All ${known.length} drops &rarr;</a></p>
+        <p class="wdrop-src">${credit || "Community restock trackers"}. Not a retailer speaking. Logos are the retailers&rsquo; own trademarks, here to name the shop and nothing more.</p>
+      </div>
+    </details>
   </div>
 </section>
 ${sweep}`;
@@ -1500,6 +1538,17 @@ const homeCss = `<style>.hofx-art .play{opacity:.95}
    week label went into the lede instead, which is where a reader looking for
    "is this current" reads next anyway. */
 .wdrop{border-bottom:3px solid var(--keyline);background:var(--paper-2);padding:var(--s4) 0}
+.wdrop-d{margin:0}
+.wdrop-sum{min-height:56px;margin:0;cursor:pointer;list-style:none;-webkit-tap-highlight-color:transparent}
+.wdrop-sum::-webkit-details-marker{display:none}
+.wdrop-sum::marker{content:""}
+.wdrop-n{flex:none;font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase}
+.wdrop-chev{flex:none;width:11px;height:11px;margin-bottom:5px;border-right:3px solid var(--ketchup-deep);border-bottom:3px solid var(--ketchup-deep);transform:rotate(45deg)}
+.wdrop-d[open] .wdrop-chev{margin:5px 0 0;transform:rotate(-135deg)}
+.wdrop-body{padding-top:var(--s4)}
+.wdrop-more{margin-top:var(--s4)}
+.wdrop-more a{display:inline-flex;align-items:center;min-height:44px;font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep)}
+.wdrop-more a:hover{text-decoration:underline}
 .wdrop-lede{font-size:var(--t-sm);line-height:1.4;color:var(--ink-2);max-width:52em;margin-bottom:var(--s4)}
 .wdrop-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:var(--s3)}
 @media(min-width:900px){.wdrop-list{grid-template-columns:repeat(3,1fr);gap:var(--s5)}}

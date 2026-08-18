@@ -96,6 +96,17 @@
    week label went into the lede instead, which is where a reader looking for
    "is this current" reads next anyway. */
 .wdrop{border-bottom:3px solid var(--keyline);background:var(--paper-2);padding:var(--s4) 0}
+.wdrop-d{margin:0}
+.wdrop-sum{min-height:56px;margin:0;cursor:pointer;list-style:none;-webkit-tap-highlight-color:transparent}
+.wdrop-sum::-webkit-details-marker{display:none}
+.wdrop-sum::marker{content:""}
+.wdrop-n{flex:none;font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase}
+.wdrop-chev{flex:none;width:11px;height:11px;margin-bottom:5px;border-right:3px solid var(--ketchup-deep);border-bottom:3px solid var(--ketchup-deep);transform:rotate(45deg)}
+.wdrop-d[open] .wdrop-chev{margin:5px 0 0;transform:rotate(-135deg)}
+.wdrop-body{padding-top:var(--s4)}
+.wdrop-more{margin-top:var(--s4)}
+.wdrop-more a{display:inline-flex;align-items:center;min-height:44px;font:700 var(--t-sm)/1 var(--body);color:var(--ketchup-deep)}
+.wdrop-more a:hover{text-decoration:underline}
 .wdrop-lede{font-size:var(--t-sm);line-height:1.4;color:var(--ink-2);max-width:52em;margin-bottom:var(--s4)}
 .wdrop-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:var(--s3)}
 @media(min-width:900px){.wdrop-list{grid-template-columns:repeat(3,1fr);gap:var(--s5)}}
