@@ -24,6 +24,22 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#111111">
+<!-- STRUCTURED DATA, WRITTEN BY HAND BECAUSE THIS PAGE IS.
+     index.html, videos.html and playlists.html are the site's three
+     hand-maintained pages (see the TARGETS list in scripts/build-proto.mjs);
+     every other page's JSON-LD comes out of its builder. build-proto.mjs
+     rewrites the whole file's absolute host when LIVE flips in shared/site.mjs,
+     so the urls below move with the canonical above and must stay written
+     against the same host as it.
+
+     NOTHING HERE STATES A NUMBER AND NOTHING HERE LISTS THE PLAYLISTS. The cards
+     on this page are generated into a marked region by build-proto.mjs and a
+     playlist with no videos in it does not render at all, so a hand-written
+     ItemList would be claiming a set of items this file cannot see. Name,
+     description and the trail, which are exactly what the page says about
+     itself. -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Playlists","description":"Every Garbage Rips 585 playlist: hits only, full box openings, single packs and more. Pick a run and watch it end to end.","url":"https://garbagerips585.github.io/playlists.html","isPartOf":{"@type":"WebSite","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/"},"about":{"@type":"Thing","name":"Pokemon Trading Card Game pack openings"},"publisher":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Playlists","item":"https://garbagerips585.github.io/playlists.html"}]}</script>
 <!-- No preconnect to i.ytimg.com here any more. It was the right hint while
      every card carried a YouTube playlist cover; the covers are ours now, drawn
      into /assets/playlist-covers/, and this page makes no request to that host

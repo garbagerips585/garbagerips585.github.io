@@ -268,8 +268,32 @@ for (let i = 0; i < probes.length; i += 12) {
     }),
   );
 }
+// AND THE PER-SET PROBE IS NOT ENOUGH, WHICH IS THE SAME MISTAKE ONE LEVEL UP.
+// One probe per set proves the set has scans; it proves nothing about the other
+// four hundred cards in it, and TCGdex is missing individual promos all over
+// sets that are otherwise complete. data/no-scan.json is the per-card answer,
+// filled by scripts/sweep-scans.mjs, which fetches every base the built tree
+// emits. Swept 2026-08-18: 629 bases 404, and 594 of them were in these shards,
+// which are read by the card search on /cards.html and by every /pokemon/ page's
+// printings list, all of them rendering an <img onerror="this.remove()"> in the
+// browser. So nothing looked broken and every one cost a dead round trip.
+//
+// THAT IS WHY THIS FILE IS WHERE THE FILTER GOES rather than a page builder:
+// build-cards.mjs argues at length that a page builder must not rewrite this
+// script's output, because the next sync silently undoes it. This is the sync.
+const noScan = new Set(
+  JSON.parse(await readFile(join(ROOT, "data/no-scan.json"), "utf8")).bases || []
+);
+let perCardDrops = 0;
+for (const c of cards) {
+  if (c.g && noScan.has(c.g)) {
+    delete c.g;
+    perCardDrops += 1;
+  }
+}
 const withImg = cards.filter((c) => c.g).length;
 console.log(`  ${liveSets} of ${bySet.size} sets have images, ${withImg} cards keep one`);
+console.log(`  ${perCardDrops} cards dropped an image base that data/no-scan.json records as a 404`);
 
 /* -------------------------------------------------------------- the shards */
 

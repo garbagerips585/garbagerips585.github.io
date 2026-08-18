@@ -24,6 +24,21 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#111111">
+<!-- STRUCTURED DATA, WRITTEN BY HAND BECAUSE THIS PAGE IS.
+     index.html, videos.html and playlists.html are the site's three
+     hand-maintained pages (see the TARGETS list in scripts/build-proto.mjs);
+     every other page's JSON-LD comes out of its builder. build-proto.mjs
+     rewrites the whole file's absolute host when LIVE flips in shared/site.mjs,
+     so the urls below move with the canonical above and must stay written
+     against the same host as it.
+
+     NOTHING HERE STATES A NUMBER. This page is a filterable grid whose visible
+     count changes with the filters, so a count in the schema would be a figure
+     the page does not print, and a structured-data block is lifted and shown
+     with no page beside it. Name, description and the trail, which are exactly
+     what the page says about itself. -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Every Rip","description":"Every Pokemon pack rip from Garbage Rips 585, filterable by card set and by product: single packs, booster bundles, ETBs, UPCs, ex boxes and booster boxes.","url":"https://garbagerips585.github.io/videos.html","isPartOf":{"@type":"WebSite","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/"},"about":{"@type":"Thing","name":"Pokemon Trading Card Game pack openings"},"publisher":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Every Rip","item":"https://garbagerips585.github.io/videos.html"}]}</script>
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>

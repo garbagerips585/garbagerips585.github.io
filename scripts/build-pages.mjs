@@ -293,6 +293,36 @@ const LOGO_CLAMP = {
   // .sec-head .setlogo: clamp(30px, 4.4vw, 50px)
   sec: { min: 30, vw: 4.4, max: 50 },
 };
+
+/*
+ * BOTH LOGOS ON A RIP PAGE DECLARE THE RIP-SETLOGO BOX, AND THE SMALLER ONE
+ * DOING SO IS THE POINT RATHER THAN A BUG.
+ *
+ * This page shows the SAME logo twice: `.rip-setlogo` under the pack at up to
+ * 197px wide, and `.setlogo` in the "More <set>" heading at up to 182px. Give
+ * each its own honest `sizes` and they resolve to DIFFERENT candidates on a
+ * retina desktop, which costs the page BOTH FILES. Measured over CDP at 1440x900
+ * DPR 2 with each element's currentSrc read off the DOM: the hero took the 1092w
+ * master (52,472 bytes) and the heading took the 364w -sm (13,678), 66.2KB
+ * against the 52.5KB the page paid when both pointed at the same master and the
+ * second was a cache hit. A 13.7KB REGRESSION on exactly the reader CLAUDE.md
+ * warns about, arrived at by making each element individually correct.
+ *
+ * So the smaller element is sized by the LARGER one. It can only ever be handed
+ * a file the page has already fetched, which is free, and the alternative is a
+ * second file that is smaller than the one already in cache. Re-measured after,
+ * per width, both elements' currentSrc:
+ *
+ *     390x844   DPR 2   both -sm       13.7KB   (was 52.5, one master)
+ *     390x844   DPR 3   both master    52.5KB   (unchanged)
+ *     1440x900  DPR 1   both -sm       13.7KB   (was 52.5)
+ *     1440x900  DPR 2   both master    52.5KB   (unchanged)
+ *
+ * Never worse than before at any width, and 38.8KB better on a phone at DPR 2
+ * and on a 1x desktop. If a later editor gives `.setlogo` its own `sizes` back
+ * because it looks wrong here, they will reintroduce the second file.
+ */
+const SIZED_BY = { rip: "rip", sec: "rip" };
 const setLogoImg = (setId, { cls, clamp, lazy }) => {
   if (!hasLogo(setId)) return "";
   const base = `/assets/logos/${setId}-pokemon-tcg-set-logo`;
@@ -305,7 +335,7 @@ const setLogoImg = (setId, { cls, clamp, lazy }) => {
   const ar = d[0] / d[1];
   // -sm.webp is normalised to 100px tall, so its width is the aspect times 100.
   const smW = Math.round(ar * 100);
-  const c = LOGO_CLAMP[clamp];
+  const c = LOGO_CLAMP[SIZED_BY[clamp]];
   const lo = Math.round(c.min * ar);
   const hi = Math.round(c.max * ar);
   const sizes =

@@ -1,5 +1,5 @@
 {
-  "checked": "2026-08-13",
+  "checked": "2026-08-18",
   "total": 39707,
   "shards": {
     "0": 6287,
@@ -36,7 +36,7 @@
     "noUsableLang": 53,
     "total": 1987
   },
-  "withImage": 30563,
+  "withImage": 29934,
   "translated": 33385,
   "untranslated": 6322
 }

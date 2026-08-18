@@ -1042,12 +1042,84 @@ scan on that page is TCGdex and gets `avifPicture` and `imgDims` for free, and
 one Scrydex url quietly opted out of both. Check the host before assuming a
 heavy page needs a new pipeline.
 
-**Some images do not exist and never will.** `data/no-scan.json` records 101
-TCGdex bases that 404 and 4 TCGplayer urls that 403, found by fetching all
-4,655 image urls the site emits. They all carried `onerror="this.remove()"`,
-so nothing looked broken: the picture silently vanished and the site paid for
-a dead round trip to find out. Builders skip them up front instead. The file
-is safe to go stale in the only direction it can.
+**Some images do not exist and never will.** `data/no-scan.json` records the
+TCGdex bases that 404 and 4 TCGplayer urls that 403. They all carried
+`onerror="this.remove()"`, so nothing looked broken: the picture silently
+vanished and the site paid for a dead round trip to find out. Builders skip
+them up front instead. The file is safe to go stale in the only direction it
+can.
+
+**THAT ENTRY SAID 101 BASES "FOUND BY FETCHING ALL 4,655 IMAGE URLS THE SITE
+EMITS" AND THE SECOND HALF WAS THE PROBLEM.** 4,655 was a list of pages
+somebody had in front of them on 14 August 2026, not a rule, so it went stale
+the moment the tree grew and nobody could tell. Re-swept from `public/` itself
+on 18 August: 24,237 distinct card bases in the HTML, seven times that surface,
+plus 6,326 more that appear only in the JSON under `public/data`. 528 of the
+30,563 answer 404, so the 101 were 19% of it. The file holds 629 now.
+
+`scripts/sweep-scans.mjs` IS THE SWEEP AND ITS INPUT IS THE BUILT TREE, which
+is what stops it going stale again: `public/` IS what a reader gets. It is not
+in build-all.mjs and must not be added to it, same arrangement and same reason
+as sync-decks.mjs. `--recheck` re-tests what is on file; the default only ever
+adds.
+
+**AND NONE OF THEM WERE EVER IN THE HTML, which is worth knowing before anybody
+goes looking for a broken `<img>` on a page.** A QA sweep reported 371 dead
+scans "across 239 /pokemon/ pages". Substring-searched across all 1,480 built
+HTML files: zero hits. Every one lives in `public/data/printings/*.json` and
+`public/data/games/setquiz.json`, which the card search on /cards.html fetches
+and turns into `<img onerror="this.remove()">` IN THE BROWSER. Real, and worse
+than a server-rendered one because no build check can see it.
+
+The cause was one level up: `sync-all-printings.mjs` proves an image path by
+probing ONE CARD PER SET, which proves the set has scans and nothing about the
+other four hundred cards in it. It applies `no-scan.json` per card now, in that
+file rather than in a page builder, for the reason build-cards.mjs argues at
+length: a page builder rewriting a sync's output is undone by the next sync.
+629 cards dropped a base; the built tree emits zero dead ones, HTML and JSON.
+
+**THE RIP PAGES WERE THE LAST FAMILY TAKING THE FULL SIZE SET LOGO,** 530
+`<img>` across 268 of the 316, while /sets/, /openings/ and /playlists/ had all
+moved to the `-sm.webp` months ago. This was an inconsistency, not a missing
+asset: the small file was already on disk. Measured at 390x844 DPR 2 off the
+request log, one page 383.0 -> 344.3KB, logo 52,472 -> 13,678 bytes, and 8.85MB
+across the family. The same image was also above the fold at y=709 of 844 and
+carried `loading="lazy"`, so it was oversized AND deferred; both are fixed in
+`setLogoImg` in build-pages.mjs.
+
+**AND THE OBVIOUS FIX MADE A RETINA DESKTOP WORSE BEFORE IT MADE IT BETTER.**
+The page shows the SAME logo twice at two sizes, and giving each element its own
+honest `sizes` made them resolve to DIFFERENT candidates at 1440x900 DPR 2: the
+hero took the master and the heading took the -sm, so the page fetched BOTH,
+66.2KB against the 52.5KB it paid when the second was a cache hit. Two
+individually correct declarations, one regression. The smaller element declares
+the LARGER one's box now, so it can only ever be handed a file already fetched.
+Read both elements' `currentSrc` off the DOM before believing a `sizes` change
+on a page that shows one picture twice.
+
+**WHO'S THAT POKEMON WAS HOTLINKING raw.githubusercontent.com** for artwork the
+site already hosts, 63% of that page's weight, re-fetched every round from a
+rate-limited source host that is not a CDN. `/assets/species/lg/` is the same
+475x475 pixels re-coded: 126.5MB of PNG becomes 19.5MB of WebP over the 1,025
+species, #132 Ditto 129,274 -> 9,718 bytes. Page 421.3 -> 188.7KB median on
+load, no request leaves the origin, and build-games.mjs now THROWS if any dex id
+lacks an `lg` file, because a missing sprite is a round with no picture in it and
+nothing errors.
+
+**`loading="lazy"` IN THE FIRST VIEWPORT IS A TIMING BUG, NOT A WEIGHT ONE, and
+that is why it kept getting written.** 22 images across 11 page families were
+lazy and inside the first screen at 390x844. Removing the attribute moved page
+weight by between -17 and +5 bytes, because a lazy image the browser can already
+see is fetched immediately anyway; what it costs is the PRELOAD SCANNER, the one
+chance the fetch had to start during the HTML parse instead of after layout. So
+nothing here moved onto the load path and /rarity.html's 2.1MB is still off it.
+
+THREE BUILDERS' COMMENTS WERE WRONG ABOUT THEIR OWN GEOMETRY and had been quoted
+as reasons: build-pokemon.mjs said "on the narrowest phone only one is above the
+fold" of a TWO COLUMN grid whose second row starts at y=822, build-eevee.mjs said
+the same of its own two-column grid, and build-games.mjs said its first card sits
+"about 250px down" when it is 460. MEASURE THE FOLD BY READING EACH IMG'S OWN
+BORDER BOX AT SCROLL 0. Counting rows by eye is what produced all three.
 
 ## Video display rules (these were measured, do not "fix" them)
 - Thumbnails come from `i.ytimg.com/vi_webp/<id>/oardefault.webp`, falling

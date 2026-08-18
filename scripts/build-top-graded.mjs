@@ -200,6 +200,58 @@ function row(c, i) {
 </li>`;
 }
 
+/* ---------------------------------------------------------- structured data --
+ *
+ * THIS PAGE CARRIED NONE, and it was one of five indexable pages on the site
+ * with no JSON-LD at all while every comparable list page (/wanted.html,
+ * /pack-prices.html, /top-100-playable.html, /hall.html) carried two blocks.
+ * The shape here is /top-100-playable.html's, because these two pages are the
+ * same kind of thing: a ranked hundred, read on a date, from one named source.
+ *
+ * NOTHING IN HERE IS A FIGURE THE VISIBLE PAGE DOES NOT PRINT. Google lifts a
+ * structured-data block and shows it with no page beside it, so the honesty rule
+ * that governs the copy governs this exactly as hard. `headline` and
+ * `description` are the h1 and the meta description this file already builds,
+ * `datePublished` is the same read date the kicker and the lede print, and the
+ * count comes off rows.length like every other count on the page. NO ItemList
+ * of the hundred rows: an ItemList carrying prices claims each figure as a live
+ * offer, and these are a price guide's readings on a stated day, which is a
+ * different claim and the one the page is careful to make.
+ */
+const ld = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: `The ${rows.length} highest PSA 10 values in Pokemon`,
+    description: desc,
+    // Article with no image and no publisher logo cannot produce the rich
+    // result. This page's own share card, so it matches the og:image below.
+    image: [`${SITE}/assets/og-top-graded.jpg`],
+    datePublished: d.checked,
+    dateModified: d.checked,
+    author: { "@type": "Organization", name: "Garbage Rips 585" },
+    publisher: {
+      "@type": "Organization",
+      name: "Garbage Rips 585",
+      logo: { "@type": "ImageObject", url: `${SITE}/assets/logo-square.jpg` },
+    },
+    mainEntityOfPage: `${SITE}/top-graded.html`,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: `The ${rows.length} highest PSA 10 values in Pokemon`,
+        item: `${SITE}/top-graded.html`,
+      },
+    ],
+  },
+];
+
 const page = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -221,6 +273,7 @@ const page = `<!DOCTYPE html>
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#111111">
+${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 ${FONTS}
 ${STYLES}
 <style>
