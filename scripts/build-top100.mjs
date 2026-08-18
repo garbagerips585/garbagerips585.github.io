@@ -384,6 +384,13 @@ import { esc, longDate, moneyExact, moneyCompact, noValue } from "../shared/form
 // file before relaxing anything here.
 import { gradedGate } from "../shared/graded-gate.mjs";
 import { PC_CONSOLES } from "../shared/pricecharting.mjs";
+// THE CASE STAND-IN RULE. TCGplayer photographs what a collector buys, so it
+// carries no picture of a CASE at all, and every unphotographed row on the
+// sealed page is one. That module reads the inner product out of the row's own
+// name and hands back its photograph; this file is where the caption naming it
+// gets written, because a stand-in nobody labels is a photograph claiming to be
+// something it is not. Read its header before touching either half.
+import { caseStandIn, standInIndex } from "../shared/case-standin.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -480,6 +487,29 @@ const DEAD = new Set(
     .map((u) => /tcgplayer-cdn\.tcgplayer\.com\/product\/(\d+)/.exec(String(u))?.[1])
     .filter(Boolean)
 );
+
+// THE CASE STAND-IN INDEX. public/data/products.json is the catalogue
+// sync-products.mjs pulls per expansion and the same one /msrp.html trusts for
+// product photography. Optional on purpose: a build with no products.json still
+// writes both pages, every case row simply keeps the empty frame it had before
+// this rule existed. See shared/case-standin.mjs for what happens to a case
+// nobody has seen yet, which is the case this whole arrangement is for.
+let productsDoc = {};
+try {
+  productsDoc = JSON.parse(await readFile(join(ROOT, "public/data/products.json"), "utf8"));
+} catch {
+  /* optional; every case row falls back to the empty frame */
+}
+const STAND_INDEX = standInIndex(productsDoc);
+// Memoised per productId because row() is called once per row and the honesty
+// block counts the same rows again to say how many carry a stand-in. The two
+// must not be able to disagree about which rows those are.
+const standCache = new Map();
+function standInFor(item) {
+  const key = String(item.productId ?? item.name);
+  if (!standCache.has(key)) standCache.set(key, caseStandIn(item, STAND_INDEX, DEAD));
+  return standCache.get(key);
+}
 
 let pokemonPages = [];
 try {
@@ -583,11 +613,46 @@ function row(item, kind) {
     kind === "cards"
       ? item.noImg === true
       : item.noImg === true || DEAD.has(String(item.productId));
-  const shot = dead || !item.img
-    ? `<span class="t100-img t100-img-none" aria-hidden="true"></span>`
-    : // No width/height: BOTH hosts vary on one axis. See the header.
-      `<img class="t100-img" src="${esc(item.img)}" alt="" loading="lazy" decoding="async"
+  // THE STAND-IN, AND IT ONLY EVER FILLS A FRAME THAT WOULD OTHERWISE BE EMPTY.
+  // Sealed only, and only where the product's own photograph is known dead.
+  // Every unphotographed row on that page is a CASE, because TCGplayer
+  // photographs what a collector buys and a case is a carton a distributor
+  // buys; shared/case-standin.mjs reads the inner product out of the row's own
+  // name and returns its picture, or null, in which case nothing below changes.
+  //
+  // THE CAPTION IS NOT OPTIONAL AND IS NOT A tooltip, A title OR AN alt ON ITS
+  // OWN. A reader has to be unable to think the photograph IS the case, so the
+  // product in the picture is named in visible text on the row, the same way
+  // /msrp.html prints "pictured: <name>" under a pinned photograph. If the
+  // caption ever cannot be painted, drop the picture rather than the caption:
+  // an empty frame is honest and an unlabelled stand-in is not.
+  //
+  // THE ROW ITSELF DOES NOT MOVE. Its rank, its name, its form label and its
+  // price still describe the CASE, which is what the reader is being shown the
+  // price of. Only the picture and the line under it describe one unit.
+  const stand = kind === "sealed" && dead ? standInFor(item) : null;
+  const shot = stand
+    ? // No width/height: BOTH hosts vary on one axis. See the header.
+      // alt names WHAT IS IN THE PICTURE rather than what the row is about,
+      // which is the opposite of every other row here, where alt is empty
+      // because the name beside it already says it.
+      `<img class="t100-img" src="${esc(stand.img)}" alt="${esc(stand.name)}" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src');this.removeAttribute('alt')">`
+    : dead || !item.img
+      ? `<span class="t100-img t100-img-none" aria-hidden="true"></span>`
+      : `<img class="t100-img" src="${esc(item.img)}" alt="" loading="lazy" decoding="async"
         onerror="this.classList.add('t100-img-none');this.removeAttribute('src')">`;
+
+  // The visible caption. Full row width on a phone and full row width in the
+  // table layout, because at 52px the picture's own column cannot hold a legible
+  // line and a caption that has to be squinted at is not a caption.
+  // The form label is lowercased into the sentence so a Display row does not
+  // read "no photograph of this case".
+  const pictured = stand
+    ? `<span class="t100-pic">pictured: ${esc(stand.name)}, one unit from inside. TCGplayer has no photograph of this ${esc(
+        form.label.toLowerCase(),
+      )}.</span>`
+    : "";
 
   // The phone line under the name. The set, and on the cards page nothing else:
   // the graded figures ride in the price cell instead, where they sit under the
@@ -678,7 +743,7 @@ function row(item, kind) {
   // The known cost of a stretched link is that dragging to select text inside
   // the row starts a drag on the link instead, which is a fair trade on a browse
   // list and would not be on a page you quote from.
-  return `<li class="t100-li${form && form.multi ? " is-multi" : ""}">
+  return `<li class="t100-li${form && form.multi ? " is-multi" : ""}${pictured ? " has-pic" : ""}">
   <span class="t100-rank">${item.rank}</span>
   <span class="t100-shot">${shot}</span>
   <a class="t100-name" href="${esc(link.href)}">${esc(item.name)}<span class="t100-go">, ${esc(link.why)}</span></a>
@@ -695,7 +760,7 @@ function row(item, kind) {
     }
     ${check}
     ${flag}
-  </span>
+  </span>${pictured ? `\n  ${pictured}` : ""}
 </li>`;
 }
 
@@ -738,6 +803,25 @@ const CSS = `
   grid-template-areas:"rank shot name" "rank shot meta" "rank shot price"}
 .t100-li:hover{border-color:var(--keyline)}
 .t100-set,.t100-tag,.t100-count{display:none}
+
+/* THE CASE CAPTION GETS A ROW OF ITS OWN, THE FULL WIDTH OF THE CARD, AT BOTH
+   SHAPES. It cannot go under the picture: that column is 52px on a phone and
+   72px at its widest, and CLAUDE.md's rule for this site is that an illegible
+   label is worse than no picture, so a caption that will not fit means the
+   frame stays empty instead. Full width is the only place on this row where a
+   sentence naming a product fits without being clamped away.
+
+   Note the areas: rank and shot are named on the first three phone rows and on
+   the single desktop row only, so the picture keeps centring against the name,
+   the set and the price rather than drifting down beside the caption. The
+   caption is the ONLY thing on the extra row.
+
+   THE ROW GROWS AND NOTHING SHIFTS. This is static markup with the class
+   already on it, so the taller card is the card's first and only height; the
+   page's CLS is 0 before and after. */
+.t100-li.has-pic{grid-template-areas:"rank shot name" "rank shot meta" "rank shot price" "pic pic pic"}
+.t100-pic{grid-area:pic;font-size:var(--t-micro);line-height:1.4;color:var(--ink-2);
+  margin-top:7px;padding-top:6px;border-top:1px dashed var(--hair)}
 
 .t100-rank{grid-area:rank;align-self:center;font-family:var(--mono);font-size:var(--t-sm);
   color:var(--ink-2);text-align:right;font-variant-numeric:tabular-nums}
@@ -837,6 +921,10 @@ const CSS = `
   .t100-li,.t100-head{grid-template-columns:32px 60px minmax(0,2fr) minmax(0,1.05fr) 116px 88px 138px}
   .t100-li{grid-template-areas:"rank shot name set tag count price";align-items:center;
     gap:0 12px;padding:9px 12px}
+  /* Same idea in the table layout: the seven columns keep their row and the
+     caption spans all seven underneath, so the picture still centres against
+     the columns and the sentence gets the whole card width to be read in. */
+  .t100-li.has-pic{grid-template-areas:"rank shot name set tag count price" "pic pic pic pic pic pic pic"}
   /* THE PICTURE GROWS ON DESKTOP BECAUSE THE BYTES ARE ALREADY PAID FOR. The
      smallest rendition this CDN serves is 150px wide; _50w, _100w and _120w all
      answer 403, checked on five ids. So a 52px box on a phone asks for nearly
@@ -1185,6 +1273,12 @@ for (const cfg of PAGES) {
   const dead = items.filter((i) =>
     cfg.source === "pricecharting" ? i.noImg === true : i.noImg === true || DEAD.has(String(i.productId)),
   );
+  // Of those, the ones a captioned stand-in fills, and the ones still empty.
+  // Counted through the SAME standInFor() the rows go through, so the sentence
+  // under the list cannot claim a different number of pictures from the number
+  // the list actually draws.
+  const stood = cfg.source === "pricecharting" ? [] : dead.filter((i) => standInFor(i));
+  const blank = dead.length - stood.length;
 
   const multi = cfg.filter ? items.filter((i) => formOf(i.name).multi).length : 0;
   // EVERY NUMBER IN THE PROSE IS COUNTED OFF THE DATA RATHER THAN TYPED,
@@ -1353,7 +1447,14 @@ ${items.map((i) => row(i, cfg.key)).join("\n")}
       treat them as the shape of the market rather than a quote. Product photography is TCGplayer's, shown at the size
       these rows draw it and linked back to the product it belongs to. The link under each price leaves this site and
       opens on TCGplayer; there is no affiliate code in it and we make nothing from it, it is there so you can check the
-      number. ${dead.length ? `${dead.length} of these products have no photo in TCGplayer's catalogue and show an empty frame; that is their listing, not a fault here.` : ""}`
+      number. ${
+        stood.length
+          ? `${stood.length} of these products are cases, and TCGplayer photographs what a collector buys rather than the
+      carton a shop receives, so it holds no picture of them at all. Those rows show one unit from inside the case
+      instead, and the line under each names exactly which product is in the picture. The rank, the name and the price
+      on those rows are still the case's.`
+          : ""
+      } ${blank ? `${blank} of these products have no photo in TCGplayer's catalogue and show an empty frame; that is their listing, not a fault here.` : ""}`
     }
       Not financial advice, and definitely not a suggestion to buy any of this.</p>
   </div>
@@ -1406,7 +1507,7 @@ ${APP_JS}
 `;
 
   await writeFile(join(ROOT, `public/${cfg.slug}.html`), page);
-  built.push({ cfg, d, items, dead, multi });
+  built.push({ cfg, d, items, dead, stood, blank, multi });
 }
 
 for (const b of built) {
@@ -1434,6 +1535,11 @@ for (const b of built) {
       `  walked ${b.d.walked} products at ${moneyExact(b.d.floor)}+, ` +
       `${b.d.method.corroborated}/100 price-confirmed, ${b.d.method.sortAgreed}/${b.d.method.sortOf} agreed with their own sort\n` +
       `  ${b.items.length - b.dead.length} product photos, ${b.dead.length} skipped as known dead` +
+      (b.stood.length
+        ? `\n  ${b.stood.length} of those are cases with a captioned stand-in (` +
+          b.stood.map((i) => `#${i.rank} ${i.name}`).join("; ") +
+          `), ${b.blank} still blank`
+        : "") +
       (b.cfg.filter ? `, ${b.multi} rows are cases or displays` : "")
   );
 }

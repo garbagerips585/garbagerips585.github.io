@@ -161,10 +161,28 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+// THE CASE STAND-IN RULE, shared with scripts/build-top100.mjs. Every sealed
+// row that comes back unphotographed is a CASE, so the builder draws one unit
+// from inside it with a caption naming that unit. This file resolves the same
+// stand-in and FETCHES IT, so a stand-in photograph that dies is caught by the
+// run that checks every other image rather than by a reader getting a 403.
+import { caseStandIn, standInIndex } from "../shared/case-standin.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache", "tcg-top100");
 const OUT = join(ROOT, "data/top100.json");
+
+// The catalogue the case stand-in is resolved out of, read once. Optional: with
+// no products.json every case row simply keeps its empty frame, which is where
+// this page was before the rule existed.
+let STAND_INDEX = null;
+try {
+  STAND_INDEX = standInIndex(
+    JSON.parse(await readFile(join(ROOT, "public/data/products.json"), "utf8")),
+  );
+} catch {
+  /* optional */
+}
 
 const argv = process.argv.slice(2);
 const FORCE = argv.includes("--force");
@@ -609,8 +627,9 @@ async function corroborate(rows, label) {
  * unphotographed is not a reason to drop it from a ranking it genuinely earned;
  * it is a reason to draw an empty frame and not request anything.
  */
-async function checkImages(rows, label) {
+async function checkImages(rows, label, standIndex = null) {
   let dead = 0;
+  const stands = [];
   for (const r of rows) {
     let ok = null;
     for (let a = 1; a <= 3 && ok === null; a++) {
@@ -626,12 +645,38 @@ async function checkImages(rows, label) {
     if (ok === false) {
       r.noImg = true;
       dead++;
+      // THE STAND-IN GETS THE SAME FETCH THE ROW GOT, and its result is stored
+      // as a NEGATIVE flag. The builder resolves the stand-in itself from
+      // public/data/products.json and only declines one that is flagged here,
+      // which is the same trust model /msrp.html's pinned photographs run on:
+      // a picture is used unless something has recorded that it is gone. A
+      // positive flag would mean a case row stayed blank until the next network
+      // sync, which is the wrong default for a builder that is offline by
+      // design.
+      const stand = standIndex ? caseStandIn(r, standIndex) : null;
+      if (stand) {
+        let sOk = null;
+        for (let a = 1; a <= 3 && sOk === null; a++) {
+          try {
+            const res = await fetch(stand.img, { method: "GET", headers: HEADERS });
+            if (res.status === 403 || res.status === 404) sOk = false;
+            else if (res.ok) sOk = true;
+            else await sleep(a * 1000);
+          } catch {
+            await sleep(a * 1000);
+          }
+        }
+        if (sOk === false) r.standInDead = true;
+        else delete r.standInDead;
+        stands.push({ rank: r.rank, name: r.name, stand: stand.name, id: stand.productId, ok: sOk });
+        await sleep(120);
+      }
     }
     process.stdout.write(`\r  ${label}: image check, ${dead} dead of ${rows.indexOf(r) + 1}   `);
     await sleep(120);
   }
   process.stdout.write("\n");
-  return dead;
+  return { dead, stands };
 }
 
 /** TCGplayer's own url shape: lowercase, ampersands spelled out, hyphens. */
@@ -771,12 +816,26 @@ for (const list of targets) {
     for (const o of off.slice(0, 6)) console.log(`    ${o.name}: ${JSON.stringify(o)}`);
   }
 
-  const deadImgs = await checkImages(kept, list.label);
+  // Sealed only. A raw single has no "inside" to photograph, so the stand-in
+  // rule is not offered one to resolve.
+  const { dead: deadImgs, stands } = await checkImages(
+    kept,
+    list.label,
+    list.key === "sealed" ? STAND_INDEX : null,
+  );
   if (deadImgs) {
     console.log(
       `  ${deadImgs} row(s) have no product photo on TCGplayer's CDN, flagged so the page never requests one:`
     );
     for (const r of kept.filter((x) => x.noImg)) console.log(`    #${r.rank} ${r.name} (${r.productId})`);
+  }
+  if (stands.length) {
+    console.log(
+      `  ${stands.filter((x) => x.ok !== false).length} of those resolve to a captioned stand-in from inside the case:`
+    );
+    for (const x of stands) {
+      console.log(`    #${x.rank} ${x.name} -> ${x.stand} (${x.id}) ${x.ok === false ? "IMAGE DEAD, row stays blank" : "image 200"}`);
+    }
   }
 
   doc[list.key] = {

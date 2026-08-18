@@ -59,6 +59,25 @@
 .t100-li:hover{border-color:var(--keyline)}
 .t100-set,.t100-tag,.t100-count{display:none}
 
+/* THE CASE CAPTION GETS A ROW OF ITS OWN, THE FULL WIDTH OF THE CARD, AT BOTH
+   SHAPES. It cannot go under the picture: that column is 52px on a phone and
+   72px at its widest, and CLAUDE.md's rule for this site is that an illegible
+   label is worse than no picture, so a caption that will not fit means the
+   frame stays empty instead. Full width is the only place on this row where a
+   sentence naming a product fits without being clamped away.
+
+   Note the areas: rank and shot are named on the first three phone rows and on
+   the single desktop row only, so the picture keeps centring against the name,
+   the set and the price rather than drifting down beside the caption. The
+   caption is the ONLY thing on the extra row.
+
+   THE ROW GROWS AND NOTHING SHIFTS. This is static markup with the class
+   already on it, so the taller card is the card's first and only height; the
+   page's CLS is 0 before and after. */
+.t100-li.has-pic{grid-template-areas:"rank shot name" "rank shot meta" "rank shot price" "pic pic pic"}
+.t100-pic{grid-area:pic;font-size:var(--t-micro);line-height:1.4;color:var(--ink-2);
+  margin-top:7px;padding-top:6px;border-top:1px dashed var(--hair)}
+
 .t100-rank{grid-area:rank;align-self:center;font-family:var(--mono);font-size:var(--t-sm);
   color:var(--ink-2);text-align:right;font-variant-numeric:tabular-nums}
 /* WHITE, NOT THE GREY TINT. object-fit:contain letterboxes every photo whose
@@ -157,6 +176,10 @@
   .t100-li,.t100-head{grid-template-columns:32px 60px minmax(0,2fr) minmax(0,1.05fr) 116px 88px 138px}
   .t100-li{grid-template-areas:"rank shot name set tag count price";align-items:center;
     gap:0 12px;padding:9px 12px}
+  /* Same idea in the table layout: the seven columns keep their row and the
+     caption spans all seven underneath, so the picture still centres against
+     the columns and the sentence gets the whole card width to be read in. */
+  .t100-li.has-pic{grid-template-areas:"rank shot name set tag count price" "pic pic pic pic pic pic pic"}
   /* THE PICTURE GROWS ON DESKTOP BECAUSE THE BYTES ARE ALREADY PAID FOR. The
      smallest rendition this CDN serves is 150px wide; _50w, _100w and _120w all
      answer 403, checked on five ids. So a 52px box on a phone asks for nearly

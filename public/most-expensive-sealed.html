@@ -59,6 +59,25 @@
 .t100-li:hover{border-color:var(--keyline)}
 .t100-set,.t100-tag,.t100-count{display:none}
 
+/* THE CASE CAPTION GETS A ROW OF ITS OWN, THE FULL WIDTH OF THE CARD, AT BOTH
+   SHAPES. It cannot go under the picture: that column is 52px on a phone and
+   72px at its widest, and CLAUDE.md's rule for this site is that an illegible
+   label is worse than no picture, so a caption that will not fit means the
+   frame stays empty instead. Full width is the only place on this row where a
+   sentence naming a product fits without being clamped away.
+
+   Note the areas: rank and shot are named on the first three phone rows and on
+   the single desktop row only, so the picture keeps centring against the name,
+   the set and the price rather than drifting down beside the caption. The
+   caption is the ONLY thing on the extra row.
+
+   THE ROW GROWS AND NOTHING SHIFTS. This is static markup with the class
+   already on it, so the taller card is the card's first and only height; the
+   page's CLS is 0 before and after. */
+.t100-li.has-pic{grid-template-areas:"rank shot name" "rank shot meta" "rank shot price" "pic pic pic"}
+.t100-pic{grid-area:pic;font-size:var(--t-micro);line-height:1.4;color:var(--ink-2);
+  margin-top:7px;padding-top:6px;border-top:1px dashed var(--hair)}
+
 .t100-rank{grid-area:rank;align-self:center;font-family:var(--mono);font-size:var(--t-sm);
   color:var(--ink-2);text-align:right;font-variant-numeric:tabular-nums}
 /* WHITE, NOT THE GREY TINT. object-fit:contain letterboxes every photo whose
@@ -157,6 +176,10 @@
   .t100-li,.t100-head{grid-template-columns:32px 60px minmax(0,2fr) minmax(0,1.05fr) 116px 88px 138px}
   .t100-li{grid-template-areas:"rank shot name set tag count price";align-items:center;
     gap:0 12px;padding:9px 12px}
+  /* Same idea in the table layout: the seven columns keep their row and the
+     caption spans all seven underneath, so the picture still centres against
+     the columns and the sentence gets the whole card width to be read in. */
+  .t100-li.has-pic{grid-template-areas:"rank shot name set tag count price" "pic pic pic pic pic pic pic"}
   /* THE PICTURE GROWS ON DESKTOP BECAUSE THE BYTES ARE ALREADY PAID FOR. The
      smallest rendition this CDN serves is 150px wide; _50w, _100w and _120w all
      answer 403, checked on five ids. So a 52px box on a phone asks for nearly
@@ -521,9 +544,10 @@
     
   </span>
 </li>
-<li class="t100-li is-multi">
+<li class="t100-li is-multi has-pic">
   <span class="t100-rank">8</span>
-  <span class="t100-shot"><span class="t100-img t100-img-none" aria-hidden="true"></span></span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/528771_150w.jpg" alt="Paldean Fates Booster Bundle" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src');this.removeAttribute('alt')"></span>
   <a class="t100-name" href="/sets/paldean-fates.html">Paldean Fates Booster Bundle Display Case<span class="t100-go">, our guide to this set</span></a>
   <span class="t100-meta">SV: Paldean Fates <i aria-hidden="true">&bull;</i> Case</span>
   <span class="t100-set">SV: Paldean Fates</span>
@@ -536,6 +560,7 @@
       aria-label="Check Paldean Fates Booster Bundle Display Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
     
   </span>
+  <span class="t100-pic">pictured: Paldean Fates Booster Bundle, one unit from inside. TCGplayer has no photograph of this case.</span>
 </li>
 <li class="t100-li is-multi">
   <span class="t100-rank">9</span>
@@ -1319,9 +1344,10 @@
     
   </span>
 </li>
-<li class="t100-li is-multi">
+<li class="t100-li is-multi has-pic">
   <span class="t100-rank">55</span>
-  <span class="t100-shot"><span class="t100-img t100-img-none" aria-hidden="true"></span></span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/600518_150w.jpg" alt="Prismatic Evolutions Booster Bundle" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src');this.removeAttribute('alt')"></span>
   <a class="t100-name" href="/sets/prismatic-evolutions.html">Prismatic Evolutions Booster Bundle Case<span class="t100-go">, our guide to this set</span></a>
   <span class="t100-meta">SV: Prismatic Evolutions <i aria-hidden="true">&bull;</i> Case</span>
   <span class="t100-set">SV: Prismatic Evolutions</span>
@@ -1334,6 +1360,7 @@
       aria-label="Check Prismatic Evolutions Booster Bundle Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
     
   </span>
+  <span class="t100-pic">pictured: Prismatic Evolutions Booster Bundle, one unit from inside. TCGplayer has no photograph of this case.</span>
 </li>
 <li class="t100-li is-multi">
   <span class="t100-rank">56</span>
@@ -1403,9 +1430,10 @@
     
   </span>
 </li>
-<li class="t100-li is-multi">
+<li class="t100-li is-multi has-pic">
   <span class="t100-rank">60</span>
-  <span class="t100-shot"><span class="t100-img t100-img-none" aria-hidden="true"></span></span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/522705_150w.jpg" alt="151 Mini Tin [Magneton &amp; Ekans]" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src');this.removeAttribute('alt')"></span>
   <a class="t100-name" href="/sets/151.html">151 Mini Tin Display Case<span class="t100-go">, our guide to this set</span></a>
   <span class="t100-meta">SV: Scarlet &amp; Violet 151 <i aria-hidden="true">&bull;</i> Case</span>
   <span class="t100-set">SV: Scarlet &amp; Violet 151</span>
@@ -1418,6 +1446,7 @@
       aria-label="Check 151 Mini Tin Display Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
     
   </span>
+  <span class="t100-pic">pictured: 151 Mini Tin [Magneton &amp; Ekans], one unit from inside. TCGplayer has no photograph of this case.</span>
 </li>
 <li class="t100-li is-multi">
   <span class="t100-rank">61</span>
@@ -1623,9 +1652,10 @@
     
   </span>
 </li>
-<li class="t100-li is-multi">
+<li class="t100-li is-multi has-pic">
   <span class="t100-rank">73</span>
-  <span class="t100-shot"><span class="t100-img t100-img-none" aria-hidden="true"></span></span>
+  <span class="t100-shot"><img class="t100-img" src="https://tcgplayer-cdn.tcgplayer.com/product/453490_150w.jpg" alt="Crown Zenith Mini Tin [Hop &amp; Wooloo]" loading="lazy" decoding="async"
+        onerror="this.classList.add('t100-img-none');this.removeAttribute('src');this.removeAttribute('alt')"></span>
   <a class="t100-name" href="/sets/crown-zenith.html">Crown Zenith Mini Tin Display Case<span class="t100-go">, our guide to this set</span></a>
   <span class="t100-meta">SWSH: Crown Zenith <i aria-hidden="true">&bull;</i> Case</span>
   <span class="t100-set">SWSH: Crown Zenith</span>
@@ -1638,6 +1668,7 @@
       aria-label="Check Crown Zenith Mini Tin Display Case on TCGplayer (opens TCGplayer)">check on TCGplayer</a>
     
   </span>
+  <span class="t100-pic">pictured: Crown Zenith Mini Tin [Hop &amp; Wooloo], one unit from inside. TCGplayer has no photograph of this case.</span>
 </li>
 <li class="t100-li is-multi">
   <span class="t100-rank">74</span>
@@ -2105,7 +2136,10 @@
       treat them as the shape of the market rather than a quote. Product photography is TCGplayer's, shown at the size
       these rows draw it and linked back to the product it belongs to. The link under each price leaves this site and
       opens on TCGplayer; there is no affiliate code in it and we make nothing from it, it is there so you can check the
-      number. 4 of these products have no photo in TCGplayer's catalogue and show an empty frame; that is their listing, not a fault here.
+      number. 4 of these products are cases, and TCGplayer photographs what a collector buys rather than the
+      carton a shop receives, so it holds no picture of them at all. Those rows show one unit from inside the case
+      instead, and the line under each names exactly which product is in the picture. The rank, the name and the price
+      on those rows are still the case's. 
       Not financial advice, and definitely not a suggestion to buy any of this.</p>
   </div>
 </section>
