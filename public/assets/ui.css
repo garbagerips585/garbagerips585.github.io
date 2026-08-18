@@ -1377,7 +1377,7 @@ span.cq-name{color:var(--ink)}
   min-height:44px;display:inline-flex;align-items:center}
 .foot-nav a:hover{color:var(--paper);text-decoration:underline}
 .foot-collectr{margin:var(--s3) 0 var(--s2)}
-.foot-collectr a{font:700 var(--t-sm)/1.4 var(--body);color:var(--mustard)}
+.foot-collectr a{display:inline-flex;align-items:center;min-height:44px;font:700 var(--t-sm)/1.4 var(--body);color:var(--mustard)}
 .foot-collectr a:hover{text-decoration:underline}
 @media(min-width:701px){.foot-nav{columns:2}}
 @media(min-width:1024px){.foot-nav{columns:3}}

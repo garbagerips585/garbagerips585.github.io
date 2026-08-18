@@ -171,8 +171,13 @@ function hitsBand(g, cls) {
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
     <h2>What we have <span class="hl">hit</span> from this set</h2>
-    <p class="lede" style="max-width:38em">${hits.length} card${hits.length === 1 ? "" : "s"} out of our own packs.
-      Every one of them is in a video you can watch.</p>
+    ${/* The second sentence agrees as well as the first. An imported guide that
+          has hit exactly one card read "1 card out of our own packs. Every one
+          of them is in a video you can watch." build-set-pages.mjs carries the
+          same lede and got the same fix. */ ""}<p class="lede" style="max-width:38em">${hits.length} card${
+      hits.length === 1 ? "" : "s"
+    } out of our own packs.
+      ${hits.length === 1 ? "It is" : "Every one of them is"} in a video you can watch.</p>
     <ul class="mine-list">
       ${hits
         .map(

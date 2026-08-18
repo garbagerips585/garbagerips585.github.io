@@ -93,6 +93,9 @@ never to youtube.com. The embed lives on that page.
 
 The deliberate outbound links are Subscribe, the social icons, every card
 on /playlists.html, and one block of four at the foot of /how-to-play.html.
+THAT SENTENCE IS AN UNDERCOUNT AND HAS BEEN FOR MONTHS: see "THE COUNTING WAS
+WRONG THE WHOLE TIME" below for what is actually in the tree, and for the test
+that replaces the count.
 THE THIRD ONE IS AN EXCEPTION THIS FILE DID NOT ADMIT TO
 until 14 August 2026, when it read "the only deliberate outbound links are
 Subscribe and the social icons" while 22 cards on that page sent people to
@@ -210,6 +213,71 @@ If a later editor wants to add them, that is a real argument and not a silly
 one, but make it here first, in this file, in the same edit. Do not add one
 quietly to the foot of a page: that is precisely how the playlist cards became
 an exception this file did not admit to for months.
+
+THE COUNTING WAS WRONG THE WHOLE TIME AND THE NUMBER IS NOT SIX. Measured on
+18 August 2026 across every built page, socials and youtube.com excluded:
+1,473 of the site's 1,478 pages carry a non-social outbound link. The rule and
+the tree have disagreed for months, in the same way and for the same reason as
+the playlist cards, and this file has been the one telling the story about how
+bad that is.
+
+WHAT IS ACTUALLY OUT THERE, by host, so the next person can check the claim
+instead of trusting it:
+
+- app.getcollectr.com, 1,471 pages. THE FOOTER. (Seven pages do not carry it:
+  index, about, videos, hall, playlists, shops and wanted all pass their own
+  footer extra and take a variant. That was not deliberate, it is just how the
+  helper is called, and it means the home page is one of the few pages where
+  the claim in the heading above is literally true.) This is the big one and it was
+  never an "exception" in anybody's head because it is chrome rather than
+  content, which is exactly how it went uncounted. It IS argued, but in
+  shared/chrome.mjs beside the constant, not here, and an argument written
+  where nobody looks for the rule is the failure mode this section exists to
+  describe. The case for it is good and stands: it is Tim's own collection,
+  the alternative was building a collection page out of Collectr's API that
+  nobody comes here for, and one named text link at the foot of the page beats
+  a fake page competing with the real ones.
+- tcgplayer.com, 727. The sixth exception (200) plus set guides, /openings/
+  and /upcoming.html, which the sixth-exception paragraph above did not count
+  either.
+- bulbapedia.bulbagarden.net 200 and metacritic.com 93, nearly all on
+  /video-games.html, which carries 257 by itself and is the densest page on
+  the site.
+- pokemon.com 45, google.com 28 (map links on /card-shows.html),
+  help.tcgplayer.com 27, cardshows.io 24, then a long tail of graders,
+  marketplaces and individual show organisers.
+
+THE RULE IS NOT A COUNT AND SHOULD NEVER HAVE BEEN WRITTEN AS ONE. A count
+goes stale the first time somebody adds a page, and then the file lies without
+anybody editing it. The test is the one the fourth, fifth and sixth exceptions
+all actually turn on, stated plainly:
+
+  Does the READER need the destination, or does the SOURCE deserve a credit?
+  The first earns a link. The second earns a name in plain text and nothing
+  more.
+
+Every host in the list above passes that test on its own page. A page listing
+card shows is useless without the show's own page and a map. A page about
+where to sell needs each venue's fee schedule, because the fees are the whole
+decision and they change. A grading page needs the graders. /video-games.html
+is a catalogue of 174 games and Bulbapedia is where a reader goes next; the
+alternative is transcribing Bulbapedia onto our own pages, which is worse for
+everyone including Bulbapedia. And /decks.html still gets none, for the reason
+argued above: the decklist is already on the page.
+
+THE SHAPE REQUIREMENT SURVIVES AND IT IS THE PART THAT ACTUALLY MATTERS.
+Outbound links sit at the end of a row or the end of a page, never mid
+explanation; they are small labelled controls next to large internal ones; and
+every one carries an aria-label saying it leaves the site. That is checkable,
+it does not go stale, and it is what a reader experiences. THE FOOTER LINK
+FAILED BOTH HALVES OF IT until this edit: no aria-label, and an 18px line of
+text sitting beside four 44px social buttons, so the smallest target in the
+footer was the only one that left the site. Fixed in shared/chrome.mjs and
+assets-source/ui.css on 18 August 2026.
+
+DO NOT REPLACE THE NUMBER WITH A BIGGER NUMBER. If you add an outbound link,
+apply the test above, meet the shape, and if the answer is arguable write the
+argument HERE. The rule is the test plus the shape, not a tally.
 
 AND THE SEVENTH EXCEPTION THAT WAS ASKED FOR BY NAME AND STILL NOT MADE, 17
 August 2026. Tim stated the site's commercial purpose plainly: YouTube is the

@@ -236,6 +236,11 @@ const total =
   index.pages.length + index.sets.length + index.pokemon.length + index.rips.length;
 
 const nCardsText = nCards.toLocaleString("en-US");
+// THE POKEMON COUNT IS FOUR DIGITS TOO AND WAS THE ONLY ONE PRINTED BARE. The
+// same sentence read "5,181 cards ... 1025 Pokemon", and /lore.html writes the
+// same figure "1,025". Every four-digit number on the site is grouped, so this
+// one read as a typo sitting between two that were not.
+const nDexText = index.pokemon.length.toLocaleString("en-US");
 
 const desc = `Search everything on Garbage Rips 585: ${index.rips.length} pack openings, ${nCardsText} cards, ${index.sets.length} set guides and every reference page.`;
 
@@ -283,7 +288,7 @@ ${MENU}
     <div id="sqOut"></div>
     <div id="sqEmpty">
       <p class="cq-head">Searches ${index.rips.length} pack openings, ${nCardsText} cards, ${index.sets.length} set guides,
-        ${index.pokemon.length} Pokemon and every guide on the site.</p>
+        ${nDexText} Pokemon and every guide on the site.</p>
       <div class="set-index" style="margin-top:var(--s5)">
         ${PAGES.slice(0, 8)
           .map(

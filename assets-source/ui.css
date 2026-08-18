@@ -2999,7 +2999,13 @@ span.cq-name{color:var(--ink)}
   min-height:44px;display:inline-flex;align-items:center}
 .foot-nav a:hover{color:var(--paper);text-decoration:underline}
 .foot-collectr{margin:var(--s3) 0 var(--s2)}
-.foot-collectr a{font:700 var(--t-sm)/1.4 var(--body);color:var(--mustard)}
+/* This is the ONE outbound link on nearly every page of the site, and it used
+   to be an 18px line of text sitting beside four 44px social buttons: the
+   smallest target in the footer was the only one that left the site. Sized to
+   44 like its neighbours. inline-flex rather than a block so the target is the
+   width of the words and not the width of the footer, which would swallow taps
+   aimed at the copyright line below it. */
+.foot-collectr a{display:inline-flex;align-items:center;min-height:44px;font:700 var(--t-sm)/1.4 var(--body);color:var(--mustard)}
 .foot-collectr a:hover{text-decoration:underline}
 /* The group-column ladder. Nothing here touches the ORDER: groups stay in NAV
    order down and then across, which is what SC 3.2.3 asks of navigation that

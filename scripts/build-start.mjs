@@ -256,6 +256,33 @@ ${/* Inline rather than in ui.css: this is the only page outside the rarity
 @media(min-width:1000px){
 .st-fig figcaption{max-width:var(--measure)}
 }
+
+/* THE LADDER SET THE WIDTH OF EVERY CARD ON THIS PAGE AT 320, and only at 320.
+   ui.css gives .st grid-template-columns:auto 1fr, and a 1fr track carries an
+   implicit min-width:auto, so it can never be narrower than its own
+   min-content. Here that is the widest rarity chip, "Special Illustration
+   Rare", one nowrap chip 205.1px wide against the 190px the column gets at 320.
+   Measured on the real page: all four step cards rendered 311.1px wide inside a
+   296px list, 3.1px past the right edge of the viewport, so every card showed
+   its left border and rounded corner and had its right one cut off. It is
+   invisible from the markup and from 360px up, which is why it survived.
+
+   THE CHIP IS STILL 205.1px AND THAT IS THE DELIBERATE HALF. A companion rule
+   letting it wrap was written, measured and removed: .chip is flex:none with a
+   fixed height:44px, so white-space:normal on it is inert, and the rules that
+   would make it work (flex:0 1 auto, height:auto, its own vertical padding)
+   restyle a shared control on one page to save 15px. What minmax(0,1fr) buys
+   is that the overflow now lands in the card's own 24px of right padding
+   instead of past the edge of the screen: the chip ends at 298.1 with the
+   card's border at 308, so nothing is clipped and nothing scrolls sideways.
+   Screenshotted at 320 unzoomed, the ladder reads correctly.
+
+   Bounded at 359 so nothing a normally sized phone renders can move. Card
+   widths re-measured after at 320, 360, 390, 414, 768 and 1440: 296 / 336 /
+   366 / 390 / 720 / 1392, and only the 320 figure moved (from 311.1). */
+@media(max-width:359px){
+.st{grid-template-columns:auto minmax(0,1fr)}
+}
 </style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>

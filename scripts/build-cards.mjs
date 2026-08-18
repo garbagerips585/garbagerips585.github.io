@@ -420,9 +420,21 @@ ${MENU}
 
     <p class="price-note">${esc(priceNote(index))}
       Where a card comes as a normal, holo and reverse holo at different prices, the figure is the priciest of them.
-      ${n(priced.length)} of the ${n(rows.length)} cards from the sets we rip have a price.
+      ${/* THE GAP CLOSED AND THE SENTENCE ABOUT IT DID NOT. PriceCharting took
+            this from a shortfall to 5,181 of 5,181, and the clause explaining
+            the shortfall stayed behind, so the page read "0 do not, and they
+            are English: TCGdex lists them with no TCGplayer entry at all" and
+            then explained at length why an empty set of cards shows no price.
+            It is written as a branch rather than deleted because the shortfall
+            can come back on any sync, and the reason it gives is the site's
+            actual policy on euro prices, which is worth keeping the moment
+            there is a card it applies to. */ ""}${
+        unpricedOurs
+          ? `${n(priced.length)} of the ${n(rows.length)} cards from the sets we rip have a price.
       ${n(unpricedOurs)} do not, and they are English: TCGdex lists them with no TCGplayer entry at all, so they
-      show nothing rather than a euro price converted into a guess. The remaining ${n(outside)} printings sit
+      show nothing rather than a euro price converted into a guess.`
+          : `Every one of the ${n(rows.length)} cards from the sets we rip has a price.`
+      } The remaining ${n(outside)} printings sit
       outside the ${Object.keys(setName).length} sets we price. ${n(foreign)} of those are Japanese or Chinese, which have no US market
       price to quote in the first place, and ${n(otherEnglish)} are English cards from sets we do not rip. Where a Japanese
       card could not be matched to a Pokedex number we show the name as printed and say so, because we do not

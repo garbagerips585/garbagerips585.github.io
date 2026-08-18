@@ -2299,7 +2299,15 @@ function setPage(s) {
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
     <h2>What we have <span class="hl">hit</span> from this set</h2>
-    <p class="lede w38">${priced.length + prose.length} card${priced.length + prose.length === 1 ? "" : "s"} out of our own packs. Every one of them is in a video you can watch.</p>
+    ${/* The SECOND sentence has to agree too, and only the first one did. Four
+          guides today have hit exactly one card from a set, and they read
+          "1 card out of our own packs. Every one of them is in a video you can
+          watch." Same fix in build-intl-pages.mjs, which carries this lede
+          word for word. */ ""}<p class="lede w38">${priced.length + prose.length} card${
+      priced.length + prose.length === 1 ? "" : "s"
+    } out of our own packs. ${
+      priced.length + prose.length === 1 ? "It is" : "Every one of them is"
+    } in a video you can watch.</p>
     ${priced.length ? `<ul class="mine-grid">
       ${priced
         .map(
