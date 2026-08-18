@@ -28,8 +28,16 @@
 // scroll track.
 //
 // TWO: THE COVER BOX IS A SQUARE WITH object-fit:contain, AND THE WIDTH AND
-// HEIGHT ARE REAL. The 191 mirrored files run 0.617 to 2.081 in aspect ratio
-// and the families are eras of hardware: square Game Boy carts, wide N64 and
+// HEIGHT ARE REAL. THIS COMMENT SAID "0.617 to 2.081" UNTIL 17 August 2026 AND
+// THAT RANGE WAS NARROWER THAN THE FILES. Recomputed off data/cover-dims.json,
+// which is the manifest this builder actually declares its dimensions from, the
+// 191 mirrored files run 0.344 to 8.421: the flattest is the Pokemon Card Game
+// Online logo at 320x38 and the tallest is a Tug of War Tournament arcade
+// cabinet at 110x320, and TWENTY of the 191 sit outside the old pair. Nothing
+// on the page printed the range, so this only ever misled a later editor, which
+// is the whole reason a measured number in a comment carries its own date.
+// The argument it supports is stronger at the true range, not weaker.
+// The families are eras of hardware: square Game Boy carts, wide N64 and
 // DS boxes, tall Switch keycases, wide phone logos. Any fixed-aspect tile
 // crops or stretches somebody's artwork. This is the same call .prod-shot and
 // the mirrored set symbols already made. Declaring 320x320 on every image

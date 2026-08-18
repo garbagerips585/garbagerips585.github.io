@@ -278,6 +278,183 @@ const ld = [
   },
 ];
 
+// ===========================================================================
+// SHARE AGAINST WIN RATE, DRAWN, AND IT IS THE ONE THING THIS PAGE ARGUES THAT
+// NOTHING ON IT SHOWS.
+//
+// The page says, in these words, that "most played" is a different claim from
+// "the best decks", that win rate is printed but never sets the order, and that
+// the order is share of the field and nothing else. Every deck carries both
+// figures on its own card. What no reader can do with eighteen cards spread
+// over twenty six thousand pixels is see whether the two agree, and the answer,
+// which the page asserts and cannot currently demonstrate, is that they do not.
+//
+// SO THE PICTURE IS THE PAGE'S OWN REFUSAL, MADE CHECKABLE. Two axes, eighteen
+// dots, a rule across the middle at an even match record. The most played deck
+// in the sample is under that rule. The best record belongs to a deck that is
+// not the most played. Seven of the eighteen most played decks lose more than
+// they win. None of that is a ranking and the caption does not build one: the
+// vertical spread is twelve points across a month of online tournaments and the
+// horizontal one is who turned up with what.
+//
+// WHAT IT MUST NOT BECOME. A trend line, a correlation coefficient, or any
+// sentence with the word "best" in it. Eighteen points is not a sample that can
+// carry a claim about a relationship, only about the absence of an obvious one,
+// and "the highest dot" is exactly the league table the whole page is written
+// to avoid. The dots are drawn identically for that reason: nothing is
+// emphasised, nothing is ranked, and the only labelled points are the two the
+// caption names in words.
+//
+// THE THREE FACTS IN THE CAPTION ARE ASSERTED, not written down. A re-sync of
+// data/decks.json is a new month of a moving metagame and any of them can stop
+// being true; if one does, the build stops rather than shipping a picture with
+// a sentence under it that its own dots contradict.
+const SC = decks.filter((k) => typeof k.share === "number" && typeof k.winPct === "number");
+if (SC.length < 8) {
+  throw new Error(
+    "build-decks: the share-against-win-rate figure has " + SC.length + " decks carrying both " +
+      "figures and a scatter of fewer than about eight points is a handful of dots rather than a " +
+      "shape. Either the corpus lost its win rates, or the figure should come out."
+  );
+}
+const SC_TOP_SHARE = SC.reduce((a, b) => (b.share > a.share ? b : a));
+const SC_TOP_WIN = SC.reduce((a, b) => (b.winPct > a.winPct ? b : a));
+const SC_LOSING = SC.filter((k) => k.winPct < 50);
+if (SC_TOP_SHARE === SC_TOP_WIN) {
+  throw new Error(
+    "build-decks: the figure exists to show that the most played deck and the best match record are " +
+      "not the same deck, and this month they are both " + JSON.stringify(SC_TOP_SHARE.name) + ". " +
+      "The picture would now be arguing the opposite of what its caption says. Rewrite the caption " +
+      "from the data, or drop the figure until the field moves."
+  );
+}
+if (!SC_LOSING.length) {
+  throw new Error(
+    "build-decks: the figure's caption says some of the most played decks lose more than they win, " +
+      "and every one of the " + SC.length + " is now at or above an even record. Rewrite the caption " +
+      "from the data rather than shipping a sentence the dots contradict."
+  );
+}
+
+// SVG TEXT NEITHER WRAPS NOR CLIPS AND THIS FIGURE CARRIES SIX LABELS, two of
+// them deck names that come out of a data file and can be any length at all.
+// Space Mono advances 0.6em, so a label is characters times 0.6 times its size
+// in viewBox units. Same guard, same arithmetic and the same reason as the
+// spread figure in build-grade-check.mjs: a name that outgrows its room paints
+// straight through the axis beside it, nothing errors, and it is visible only
+// in a screenshot.
+const SC_ADV = 0.6;
+const scW = (s, px) => String(s).length * SC_ADV * px;
+const scFits = (s, px, room, what) => {
+  if (scW(s, px) > room) {
+    throw new Error(
+      "build-decks: the scatter's " + what + " is " + JSON.stringify(s) + ", which is " +
+        scW(s, px).toFixed(1) + " viewBox units at " + px + " and the room it has is " +
+        room.toFixed(1) + ". SVG text does not wrap and does not clip, so this would paint over the " +
+        "axis beside it and nothing would error. Shorten the label, or move the point it belongs to."
+    );
+  }
+  return s;
+};
+
+const scatterFig = () => {
+  const W = 320, H = 226;
+  const L = 34, R = 8, T = 16, B = 30;
+  const x0 = L, x1 = W - R, y0 = T, y1 = H - B;
+  // BOTH AXES START WHERE THE DATA DOES AND NOT AT ZERO, and that is the one
+  // place a truncated axis is the honest choice: an even match record is 50 and
+  // the whole spread is twelve points either side of it, so a y axis from zero
+  // would stack every dot into a band four pixels tall and hide the only thing
+  // the figure is about. The rule AT 50 is what stops a truncated axis
+  // exaggerating: the reader is given the fixed post rather than a range.
+  const shareHi = Math.ceil(Math.max(...SC.map((k) => k.share)));
+  const winLo = Math.floor(Math.min(...SC.map((k) => k.winPct)) - 1);
+  const winHi = Math.ceil(Math.max(...SC.map((k) => k.winPct)) + 1);
+  const px = (v) => x0 + (v / shareHi) * (x1 - x0);
+  const py = (v) => y1 - ((v - winLo) / (winHi - winLo)) * (y1 - y0);
+  const y50 = py(50);
+
+  const dots = SC.map(
+    (k) => '<circle cx="' + px(k.share).toFixed(1) + '" cy="' + py(k.winPct).toFixed(1) +
+      '" r="4" class="sc-d"/>'
+  ).join("\n            ");
+
+  // NO DECK NAME IS DRAWN INSIDE THE SVG AND THAT IS THE THIRD ANSWER TO THE
+  // SAME PROBLEM. Three drafts were screenshotted, each fixing the last one's
+  // fault and finding a new one, and none of the three faults was visible in
+  // the markup, the CSS or the geometry:
+  //
+  //   1. the name beside its dot painted along the dashed even-record rule and
+  //      read as the rule's own caption
+  //   2. dropped under the dot instead, it landed directly beneath a DIFFERENT
+  //      dot that happens to sit on the rule, so it named the wrong deck
+  //   3. set at a size a phone can actually read, 8 units to 9, the same name
+  //      grew 8 units wider and its first letter came down on a third dot
+  //
+  // That is a label competing with the data for the same square inch, and every
+  // fix for it is another position that a re-sync of a moving metagame can
+  // invalidate. The names move OUT of the drawing: the two points wear a SHAPE,
+  // a ring and a square, and a key underneath names them in real HTML text that
+  // wraps, sets at the page's own size and can be read by a screen reader. What
+  // is left inside the SVG is four axis labels in reserved gutters, which is
+  // what scFits above still guards.
+  //
+  // TWO SHAPES AND NOT TWO COLOURS, for the reason the palette note in this
+  // file's style block gives: a ring and a square are still a ring and a square
+  // with every hue on the page collapsed to one value.
+  const mark = (k, kind) => {
+    const cx = px(k.share), cy = py(k.winPct);
+    return kind === "ring"
+      ? '<circle class="sc-ring" cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="8"/>'
+      : '<rect class="sc-ring" x="' + (cx - 7.5).toFixed(1) + '" y="' + (cy - 7.5).toFixed(1) +
+        '" width="15" height="15"/>';
+  };
+
+  const xticks = [];
+  for (let v = 0; v <= shareHi; v += 2) xticks.push(v);
+
+  return '      <figure class="dk-fig">\n' +
+    '        <svg viewBox="0 0 ' + W + " " + H + '" class="sc-svg" aria-hidden="true" focusable="false">\n' +
+    '          <line class="sc-ax" x1="' + x0 + '" y1="' + y1 + '" x2="' + x1 + '" y2="' + y1 + '"/>\n' +
+    '          <line class="sc-50" x1="' + x0 + '" y1="' + y50.toFixed(1) + '" x2="' + x1 +
+      '" y2="' + y50.toFixed(1) + '"/>\n' +
+    '          <text class="sc-a" x="' + (x0 - 4) + '" y="' + (y50 + 3).toFixed(1) +
+      '" text-anchor="end">' + scFits("50%", 9, L - 4, "even record label") + "</text>\n" +
+    '          <text class="sc-a" x="' + (x0 - 4) + '" y="' + (y0 + 6) +
+      '" text-anchor="end">' + scFits(winHi + "%", 9, L - 4, "top win rate label") + "</text>\n" +
+    '          <text class="sc-a" x="' + (x0 - 4) + '" y="' + (y1 - 1) +
+      '" text-anchor="end">' + scFits(winLo + "%", 9, L - 4, "bottom win rate label") + "</text>\n" +
+    xticks
+      .map(
+        (v) =>
+          '          <text class="sc-a" x="' + px(v).toFixed(1) + '" y="' + (y1 + 12) +
+          '" text-anchor="middle">' + v + "%</text>"
+      )
+      .join("\n") + "\n" +
+    '          <text class="sc-a" x="' + x1 + '" y="' + (y1 + 24) + '" text-anchor="end">' +
+      scFits("share of the field", 9, x1 - x0, "x axis heading") + "</text>\n" +
+    "            " + dots + "\n" +
+    "          " + mark(SC_TOP_SHARE, "ring") + "\n" +
+    "          " + mark(SC_TOP_WIN, "square") + "\n" +
+    "        </svg>\n" +
+    '        <ul class="sc-key">\n' +
+    '          <li><span class="sc-km sc-km-r" aria-hidden="true"></span><b>Most played.</b> ' +
+      esc(SC_TOP_SHARE.name) + ", " + esc(String(SC_TOP_SHARE.share)) + "% of the field, wins " +
+      esc(String(SC_TOP_SHARE.winPct)) + "% of its matches.</li>\n" +
+    '          <li><span class="sc-km sc-km-s" aria-hidden="true"></span><b>Best record.</b> ' +
+      esc(SC_TOP_WIN.name) + ", " + esc(String(SC_TOP_WIN.winPct)) + "% of its matches, on " +
+      esc(String(SC_TOP_WIN.share)) + "% of the field.</li>\n" +
+    "        </ul>\n" +
+    "        <figcaption>Every deck below, its share of the recorded field across and its match win rate " +
+      "up. The rule is an even record. <b>The most played deck in the sample loses more than it " +
+      "wins, and the best record belongs to a deck that is not the most played.</b> " +
+      SC_LOSING.length + " of the " + SC.length + " are under the rule. That is why the list is " +
+      "ordered by share and says so: how many people bring a deck and how often it wins are two " +
+      "measurements, and this is what they look like side by side. Neither axis is a ranking of how " +
+      "good a deck is, which is not something this site can source.</figcaption>\n" +
+    "      </figure>";
+};
+
 const style = `
 .dk-lede b{color:var(--ink)}
 .dk-fmt{border:2px solid var(--keyline);border-radius:var(--r);background:var(--card);
@@ -304,6 +481,49 @@ const style = `
   background:var(--chip-gold-bg);border:1px solid var(--gold-deep);color:var(--gold-deep);
   border-radius:var(--r-sm);padding:1px 7px;margin-right:4px}
 .dk-asof{font-size:var(--t-micro);color:var(--ink-2);margin:var(--s3) 0 0;line-height:1.6;max-width:46em}
+
+/* THE SCATTER. Same card as .dk-fmt and .dk, which is what this page already
+   uses for a block of its own.
+   NOTHING IS CARRIED BY COLOUR AND NOTHING IS CARRIED BY SIZE. Eighteen
+   identical dots in one value on the page's own paper, one rule at an even
+   record, and the two named points are told apart by the word beside them and
+   by nothing else. --ink, --navy, --ketchup and --keyline are all #111111 in
+   ui.css today; this figure reads the same if the rest of the palette follows
+   them.
+   THE SVG SCALES AND THE TEXT INSIDE IT SCALES WITH IT, which is why the label
+   sizes are checked in the builder rather than trusted: at 390px the viewBox is
+   about 1.06 device pixels per unit, so an 8 unit label renders at roughly 8.5
+   CSS pixels, and anything smaller than that stops being readable on a phone. */
+.dk-fig{border:2px solid var(--keyline);border-radius:var(--r);background:var(--card);
+  padding:var(--s4);margin:var(--s4) 0 var(--s5);box-shadow:var(--hard-lg);max-width:46em}
+.sc-svg{display:block;width:100%;height:auto;overflow:visible}
+.sc-d{fill:var(--ink)}
+.sc-ax{stroke:var(--ink);stroke-width:1}
+/* Dashed, so the even-record rule is not mistaken for an axis, and standing in
+   the deep gold rather than the ink for the same reason. It reads as a rule
+   either way at this weight if the hue goes. */
+.sc-50{stroke:var(--gold-deep);stroke-width:1.5;stroke-dasharray:4 3}
+.sc-a{fill:var(--ink-2);font:400 9px var(--mono)}
+.sc-ring{fill:none;stroke:var(--ink);stroke-width:1.5}
+/* THE KEY IS HTML AND NOT SVG, which is the whole point of it. See the note
+   over mark() in the builder: three drafts put the deck names inside the
+   drawing and each one landed on a dot. Out here the names wrap, set at the
+   page's own size, and cannot collide with anything. The two swatches are drawn
+   in CSS from a border and a radius, so the key needs no artwork either. */
+/* THE SWATCH IS TAKEN OUT OF THE FLOW, not laid beside the text in a flex row.
+   As a flex row the bold lead-in was its own flex item, so "Most played." got a
+   column of its own and broke over two lines with the rest of the sentence
+   beside it, which reads as a two column table that has gone wrong. Screenshot
+   again, markup again correct. One indented paragraph per item instead. */
+.sc-key{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s2)}
+.sc-key li{position:relative;padding-left:22px;font-size:var(--t-sm);
+  line-height:1.5;color:var(--ink-2)}
+.sc-key b{color:var(--ink)}
+.sc-km{position:absolute;left:0;top:5px;width:13px;height:13px;border:2px solid var(--ink)}
+.sc-km-r{border-radius:50%}
+.dk-fig figcaption{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--hair);
+  font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
+.dk-fig figcaption b{color:var(--ink);font-weight:700}
 
 .dk-steps{counter-reset:dkstep;list-style:none;padding:0;margin:var(--s4) 0 0}
 .dk-steps li{counter-increment:dkstep;position:relative;padding-left:2.2em;margin-bottom:var(--s3);max-width:46em;
@@ -475,6 +695,7 @@ ${MENU}
         different claim from "the best decks", which is not something this site can source, so it is not a
         claim made anywhere on this page. Match win rate is printed next to each deck because leaving it
         out would be its own distortion, but it never sets the order.</p>
+${scatterFig()}
       <p class="dk-asof">Measured by <b>${esc(src.name)}</b> across ${src.sample.tournaments.toLocaleString("en-US")}
         tournaments, ${src.sample.players.toLocaleString("en-US")} players and
         ${src.sample.matches.toLocaleString("en-US")} matches, filtered to ${esc(src.filter)}, read

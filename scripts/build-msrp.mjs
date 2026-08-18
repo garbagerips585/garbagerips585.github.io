@@ -1037,7 +1037,13 @@ const STYLE = `
   padding-top:var(--s3);border-top:1px solid var(--hair)}
 .ov-fig li:first-child{padding-top:0;border-top:0}
 .ov-fn{font-size:.85rem;line-height:1.35;color:var(--ink)}
-.ov-fv{font:800 .95rem/1 var(--mono);letter-spacing:-.01em;white-space:nowrap}
+/* 700 AND NOT 800, AND THAT IS THE FONT WEIGHT TRAP IN CLAUDE.md ONE STEP ALONG.
+   Space Mono ships here at 400 and 700 and nothing else, so an 800 fetches no
+   new file, which is the half of the trap that costs kilobytes, but it does get
+   synthetically emboldened by the browser: the same glyphs smeared, beside real
+   700 mono elsewhere on the page. Both weights are already on this page, so
+   this declaration costs nothing at 700 and looks right. */
+.ov-fv{font:700 .95rem/1 var(--mono);letter-spacing:-.01em;white-space:nowrap}
 .ov-ft{grid-column:1/-1;position:relative;display:block;height:14px;margin-top:6px;
   border-radius:3px;background:var(--paper-2);box-shadow:inset 0 0 0 1px var(--hair)}
 .ov-fb{display:block;height:100%;min-width:3px;border-radius:3px;background:var(--ink)}

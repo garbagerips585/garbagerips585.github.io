@@ -50,6 +50,49 @@
   border-radius:var(--r-sm);padding:1px 7px;margin-right:4px}
 .dk-asof{font-size:var(--t-micro);color:var(--ink-2);margin:var(--s3) 0 0;line-height:1.6;max-width:46em}
 
+/* THE SCATTER. Same card as .dk-fmt and .dk, which is what this page already
+   uses for a block of its own.
+   NOTHING IS CARRIED BY COLOUR AND NOTHING IS CARRIED BY SIZE. Eighteen
+   identical dots in one value on the page's own paper, one rule at an even
+   record, and the two named points are told apart by the word beside them and
+   by nothing else. --ink, --navy, --ketchup and --keyline are all #111111 in
+   ui.css today; this figure reads the same if the rest of the palette follows
+   them.
+   THE SVG SCALES AND THE TEXT INSIDE IT SCALES WITH IT, which is why the label
+   sizes are checked in the builder rather than trusted: at 390px the viewBox is
+   about 1.06 device pixels per unit, so an 8 unit label renders at roughly 8.5
+   CSS pixels, and anything smaller than that stops being readable on a phone. */
+.dk-fig{border:2px solid var(--keyline);border-radius:var(--r);background:var(--card);
+  padding:var(--s4);margin:var(--s4) 0 var(--s5);box-shadow:var(--hard-lg);max-width:46em}
+.sc-svg{display:block;width:100%;height:auto;overflow:visible}
+.sc-d{fill:var(--ink)}
+.sc-ax{stroke:var(--ink);stroke-width:1}
+/* Dashed, so the even-record rule is not mistaken for an axis, and standing in
+   the deep gold rather than the ink for the same reason. It reads as a rule
+   either way at this weight if the hue goes. */
+.sc-50{stroke:var(--gold-deep);stroke-width:1.5;stroke-dasharray:4 3}
+.sc-a{fill:var(--ink-2);font:400 9px var(--mono)}
+.sc-ring{fill:none;stroke:var(--ink);stroke-width:1.5}
+/* THE KEY IS HTML AND NOT SVG, which is the whole point of it. See the note
+   over mark() in the builder: three drafts put the deck names inside the
+   drawing and each one landed on a dot. Out here the names wrap, set at the
+   page's own size, and cannot collide with anything. The two swatches are drawn
+   in CSS from a border and a radius, so the key needs no artwork either. */
+/* THE SWATCH IS TAKEN OUT OF THE FLOW, not laid beside the text in a flex row.
+   As a flex row the bold lead-in was its own flex item, so "Most played." got a
+   column of its own and broke over two lines with the rest of the sentence
+   beside it, which reads as a two column table that has gone wrong. Screenshot
+   again, markup again correct. One indented paragraph per item instead. */
+.sc-key{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s2)}
+.sc-key li{position:relative;padding-left:22px;font-size:var(--t-sm);
+  line-height:1.5;color:var(--ink-2)}
+.sc-key b{color:var(--ink)}
+.sc-km{position:absolute;left:0;top:5px;width:13px;height:13px;border:2px solid var(--ink)}
+.sc-km-r{border-radius:50%}
+.dk-fig figcaption{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--hair);
+  font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
+.dk-fig figcaption b{color:var(--ink);font-weight:700}
+
 .dk-steps{counter-reset:dkstep;list-style:none;padding:0;margin:var(--s4) 0 0}
 .dk-steps li{counter-increment:dkstep;position:relative;padding-left:2.2em;margin-bottom:var(--s3);max-width:46em;
   font-size:var(--t-sm);line-height:1.65}
@@ -303,6 +346,46 @@
         different claim from "the best decks", which is not something this site can source, so it is not a
         claim made anywhere on this page. Match win rate is printed next to each deck because leaving it
         out would be its own distortion, but it never sets the order.</p>
+      <figure class="dk-fig">
+        <svg viewBox="0 0 320 226" class="sc-svg" aria-hidden="true" focusable="false">
+          <line class="sc-ax" x1="34" y1="196" x2="312" y2="196"/>
+          <line class="sc-50" x1="34" y1="83.5" x2="312" y2="83.5"/>
+          <text class="sc-a" x="30" y="86.5" text-anchor="end">50%</text>
+          <text class="sc-a" x="30" y="22" text-anchor="end">56%</text>
+          <text class="sc-a" x="30" y="195" text-anchor="end">40%</text>
+          <text class="sc-a" x="34.0" y="208" text-anchor="middle">0%</text>
+          <text class="sc-a" x="103.5" y="208" text-anchor="middle">2%</text>
+          <text class="sc-a" x="173.0" y="208" text-anchor="middle">4%</text>
+          <text class="sc-a" x="242.5" y="208" text-anchor="middle">6%</text>
+          <text class="sc-a" x="312.0" y="208" text-anchor="middle">8%</text>
+          <text class="sc-a" x="312" y="220" text-anchor="end">share of the field</text>
+            <circle cx="303.3" cy="86.9" r="4" class="sc-d"/>
+            <circle cx="273.1" cy="36.9" r="4" class="sc-d"/>
+            <circle cx="270.3" cy="69.7" r="4" class="sc-d"/>
+            <circle cx="239.7" cy="53.0" r="4" class="sc-d"/>
+            <circle cx="221.0" cy="83.4" r="4" class="sc-d"/>
+            <circle cx="216.4" cy="54.0" r="4" class="sc-d"/>
+            <circle cx="214.0" cy="44.6" r="4" class="sc-d"/>
+            <circle cx="214.0" cy="105.1" r="4" class="sc-d"/>
+            <circle cx="196.3" cy="67.0" r="4" class="sc-d"/>
+            <circle cx="177.5" cy="107.1" r="4" class="sc-d"/>
+            <circle cx="154.2" cy="113.5" r="4" class="sc-d"/>
+            <circle cx="95.5" cy="44.6" r="4" class="sc-d"/>
+            <circle cx="94.5" cy="75.9" r="4" class="sc-d"/>
+            <circle cx="92.7" cy="174.4" r="4" class="sc-d"/>
+            <circle cx="89.9" cy="107.5" r="4" class="sc-d"/>
+            <circle cx="84.4" cy="44.0" r="4" class="sc-d"/>
+            <circle cx="83.7" cy="68.6" r="4" class="sc-d"/>
+            <circle cx="82.3" cy="93.4" r="4" class="sc-d"/>
+          <circle class="sc-ring" cx="303.3" cy="86.9" r="8"/>
+          <rect class="sc-ring" x="265.6" y="29.4" width="15" height="15"/>
+        </svg>
+        <ul class="sc-key">
+          <li><span class="sc-km sc-km-r" aria-hidden="true"></span><b>Most played.</b> Mega Excadrill, 7.75% of the field, wins 49.7% of its matches.</li>
+          <li><span class="sc-km sc-km-s" aria-hidden="true"></span><b>Best record.</b> Dragapult, 54.14% of its matches, on 6.88% of the field.</li>
+        </ul>
+        <figcaption>Every deck below, its share of the recorded field across and its match win rate up. The rule is an even record. <b>The most played deck in the sample loses more than it wins, and the best record belongs to a deck that is not the most played.</b> 7 of the 18 are under the rule. That is why the list is ordered by share and says so: how many people bring a deck and how often it wins are two measurements, and this is what they look like side by side. Neither axis is a ranking of how good a deck is, which is not something this site can source.</figcaption>
+      </figure>
       <p class="dk-asof">Measured by <b>Limitless TCG</b> across 354
         tournaments, 25,782 players and
         58,299 matches, filtered to Standard, 2026 rotation, Pitch Black era, read
