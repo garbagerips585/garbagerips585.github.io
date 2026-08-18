@@ -26,7 +26,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=74ea871b">
+<link rel="stylesheet" href="/assets/ui.css?v=43e86a3a">
 <link rel="stylesheet" href="/assets/packs.css?v=e32b0800">
 <style>
 .rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
@@ -73,11 +73,7 @@
 <header class="bar">
   <div class="bar-in">
     <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
-    <form class="bar-search" role="search" action="/search.html" method="get">
-      <label class="sr-only" for="navSearch">Search cards, sets, guides and rips</label>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
-      <input id="navSearch" name="q" type="search" placeholder="Search cards, sets, rips" aria-label="Search cards, sets, guides and every rip" autocomplete="off">
-    </form>
+    <a class="bar-find" href="/search.html" aria-label="Search cards, sets, guides and rips"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg></a>
     <nav class="nav-links" aria-label="Primary">
       <a href="/videos.html">Rips</a>
       <a href="/cards.html">Card search</a>
@@ -89,69 +85,81 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       <span>Menu</span>
     </button>
-    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
+      aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube."><span>Subscribe</span></a>
   </div>
 </header>
 <nav class="menu" id="menu" aria-label="All sections">
   <div class="menu-inner">
-    <div class="menu-g">
-      <p class="menu-h">Watch</p>
+    <details class="menu-g" open>
+      <summary class="menu-h">The channel<span class="menu-x" aria-hidden="true"></span></summary>
       <ul>
         <li><a href="/videos.html">Rips</a></li>
         <li><a href="/playlists.html">Playlists</a></li>
-      </ul>
-    </div>
-    <div class="menu-g">
-      <p class="menu-h">The binder</p>
-      <ul>
         <li><a href="/hall.html">Best pulls</a></li>
         <li><a href="/wanted.html">Most wanted</a></li>
+        <li><a href="/luck.html">Rip results</a></li>
       </ul>
-    </div>
-    <div class="menu-g">
-      <p class="menu-h">Cards</p>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Cards<span class="menu-x" aria-hidden="true"></span></summary>
       <ul>
         <li><a href="/cards.html">Card search</a></li>
+        <li><a href="/search.html">Search the site</a></li>
         <li><a href="/pokemon/">By Pokemon</a></li>
+        <li><a href="/what-set.html">What set is it</a></li>
+        <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/types.html">Card types</a></li>
+        <li><a href="/base-set.html">Base Set prints</a></li>
+        <li><a href="/fake-cards.html">Fakes</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Sets<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
         <li><a href="/sets/">Set guides</a></li>
-        <li><a href="/expansions.html">Every set ever</a></li>
+        <li><a href="/expansions.html">All English sets</a></li>
         <li><a href="/upcoming.html">Coming next</a></li>
         <li><a href="/complete-a-set.html">Cost to complete</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Prices<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
         <li><a href="/msrp.html">MSRP check</a></li>
         <li><a href="/pack-prices.html">Pack prices</a></li>
         <li><a href="/how-many-packs.html">Packs per box</a></li>
         <li><a href="/openings/">Sealed products</a></li>
-        <li><a href="/drops.html">Drops this week</a></li>
-        <li><a href="/most-valuable-cards.html">Priciest cards</a></li>
-        <li><a href="/most-expensive-sealed.html">Priciest sealed</a></li>
+        <li><a href="/most-valuable-cards.html">Raw top 100</a></li>
+        <li><a href="/most-expensive-sealed.html">Sealed top 100</a></li>
         <li><a href="/top-graded.html">PSA 10 top 100</a></li>
       </ul>
-    </div>
-    <div class="menu-g">
-      <p class="menu-h">Guides</p>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Buy, sell, grade<span class="menu-x" aria-hidden="true"></span></summary>
       <ul>
         <li><a href="/start.html">Start here</a></li>
         <li><a href="/what-to-buy.html">Beginner buys</a></li>
-        <li><a href="/how-to-play.html">How to play</a></li>
-        <li><a href="/tcg-live.html">Code cards</a></li>
-        <li><a href="/tcg-pocket.html">Phone version</a></li>
-        <li><a href="/decks.html">Deck builds</a></li>
-        <li><a href="/top-100-playable.html">Most played cards</a></li>
-        <li><a href="/what-set.html">Set finder</a></li>
-        <li><a href="/rarity.html">Rarity guide</a></li>
-        <li><a href="/base-set.html">Base Set prints</a></li>
-        <li><a href="/types.html">Card types</a></li>
-        <li><a href="/fake-cards.html">Fakes</a></li>
+        <li><a href="/buying.html">Where to buy</a></li>
+        <li><a href="/retailers.html">Chain stores</a></li>
+        <li><a href="/drops.html">Restocks</a></li>
+        <li><a href="/selling.html">Where to sell</a></li>
         <li><a href="/will-it-grade.html">Will it grade</a></li>
         <li><a href="/grading.html">Grading cost</a></li>
-        <li><a href="/selling.html">Where to sell</a></li>
-        <li><a href="/buying.html">Where to buy</a></li>
-        <li><a href="/retailers.html">Stores that sell cards</a></li>
-        <li><a href="/luck.html">Luck, measured</a></li>
       </ul>
-    </div>
-    <div class="menu-g">
-      <p class="menu-h">Play</p>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Playing<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/how-to-play.html">How to play</a></li>
+        <li><a href="/tcg-live.html">Code cards</a></li>
+        <li><a href="/tcg-pocket.html">TCG Pocket app</a></li>
+        <li><a href="/decks.html">Deck builds</a></li>
+        <li><a href="/top-100-playable.html">Most played</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Just for fun<span class="menu-x" aria-hidden="true"></span></summary>
       <ul>
         <li><a href="/games/">Games</a></li>
         <li><a href="/video-games.html">Video games</a></li>
@@ -159,9 +167,9 @@
         <li><a href="/evolution.html">Evolution chart</a></li>
         <li><a href="/eevee-evolutions.html">Eevee evolutions</a></li>
       </ul>
-    </div>
-    <div class="menu-g">
-      <p class="menu-h">Rochester, NY</p>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Rochester, NY<span class="menu-x" aria-hidden="true"></span></summary>
       <ul>
         <li><a href="/card-shows.html">Card shows</a></li>
         <li><a href="/shops.html">Card shops</a></li>
@@ -169,9 +177,10 @@
         <li><a href="/creators.html">Local creators</a></li>
         <li><a href="/about.html">About</a></li>
       </ul>
-    </div>
+    </details>
   </div>
-  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe on YouTube</a>
+  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
+    aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>
 </nav>
 
 <main id="main" class="rip tight">
@@ -272,7 +281,9 @@ or was this pure Chaos Rising chaos from the beginning? 😭
 
 LAST PACK MAGIC?! 👀🔥</div>
         <div class="rip-nav">
-          <a class="btn btn-yt btn-sm" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe</a>
+        
+          <a class="btn btn-sub btn-sm" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
+            aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe</a>
           
           <a class="btn btn-ghost btn-sm" href="/rip/chaos-rising-booster-bundle-pack-5-we-need-a-hit-16GEn7wSyuk.html">&larr; Previous rip</a>
           <a class="btn btn-ghost btn-sm" href="/rip/perfect-order-booster-bundle-2-pack-4-we-need-a-hit-qUzKnP4zmjM.html">Next rip &rarr;</a>
@@ -434,55 +445,62 @@ LAST PACK MAGIC?! 👀🔥</div>
   <div class="wrap">
     <nav class="foot-nav" aria-label="Footer">
       <div class="foot-col">
-        <p class="foot-h">Watch</p>
+        <p class="foot-h">The channel</p>
         <a href="/videos.html">Rips</a>
         <a href="/playlists.html">Playlists</a>
-      </div>
-      <div class="foot-col">
-        <p class="foot-h">The binder</p>
         <a href="/hall.html">Best pulls</a>
         <a href="/wanted.html">Most wanted</a>
+        <a href="/luck.html">Rip results</a>
       </div>
       <div class="foot-col">
         <p class="foot-h">Cards</p>
         <a href="/cards.html">Card search</a>
+        <a href="/search.html">Search the site</a>
         <a href="/pokemon/">By Pokemon</a>
+        <a href="/what-set.html">What set is it</a>
+        <a href="/rarity.html">Rarity guide</a>
+        <a href="/types.html">Card types</a>
+        <a href="/base-set.html">Base Set prints</a>
+        <a href="/fake-cards.html">Fakes</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Sets</p>
         <a href="/sets/">Set guides</a>
-        <a href="/expansions.html">Every set ever</a>
+        <a href="/expansions.html">All English sets</a>
         <a href="/upcoming.html">Coming next</a>
         <a href="/complete-a-set.html">Cost to complete</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Prices</p>
         <a href="/msrp.html">MSRP check</a>
         <a href="/pack-prices.html">Pack prices</a>
         <a href="/how-many-packs.html">Packs per box</a>
         <a href="/openings/">Sealed products</a>
-        <a href="/drops.html">Drops this week</a>
-        <a href="/most-valuable-cards.html">Priciest cards</a>
-        <a href="/most-expensive-sealed.html">Priciest sealed</a>
+        <a href="/most-valuable-cards.html">Raw top 100</a>
+        <a href="/most-expensive-sealed.html">Sealed top 100</a>
         <a href="/top-graded.html">PSA 10 top 100</a>
       </div>
       <div class="foot-col">
-        <p class="foot-h">Guides</p>
+        <p class="foot-h">Buy, sell, grade</p>
         <a href="/start.html">Start here</a>
         <a href="/what-to-buy.html">Beginner buys</a>
-        <a href="/how-to-play.html">How to play</a>
-        <a href="/tcg-live.html">Code cards</a>
-        <a href="/tcg-pocket.html">Phone version</a>
-        <a href="/decks.html">Deck builds</a>
-        <a href="/top-100-playable.html">Most played cards</a>
-        <a href="/what-set.html">Set finder</a>
-        <a href="/rarity.html">Rarity guide</a>
-        <a href="/base-set.html">Base Set prints</a>
-        <a href="/types.html">Card types</a>
-        <a href="/fake-cards.html">Fakes</a>
+        <a href="/buying.html">Where to buy</a>
+        <a href="/retailers.html">Chain stores</a>
+        <a href="/drops.html">Restocks</a>
+        <a href="/selling.html">Where to sell</a>
         <a href="/will-it-grade.html">Will it grade</a>
         <a href="/grading.html">Grading cost</a>
-        <a href="/selling.html">Where to sell</a>
-        <a href="/buying.html">Where to buy</a>
-        <a href="/retailers.html">Stores that sell cards</a>
-        <a href="/luck.html">Luck, measured</a>
       </div>
       <div class="foot-col">
-        <p class="foot-h">Play</p>
+        <p class="foot-h">Playing</p>
+        <a href="/how-to-play.html">How to play</a>
+        <a href="/tcg-live.html">Code cards</a>
+        <a href="/tcg-pocket.html">TCG Pocket app</a>
+        <a href="/decks.html">Deck builds</a>
+        <a href="/top-100-playable.html">Most played</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Just for fun</p>
         <a href="/games/">Games</a>
         <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
@@ -500,7 +518,7 @@ LAST PACK MAGIC?! 👀🔥</div>
     </nav>
     <!--FOOT_SUB:START-->
     <p class="foot-tag">Grab a fork. Let's rip.</p>
-    <a class="btn btn-yt" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
+    <a class="btn btn-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
       aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>
     <p>A new rip most days. Every pack we open goes up, hit or no hit.</p>
     <!--FOOT_SUB:END-->
@@ -627,7 +645,7 @@ addEventListener('DOMContentLoaded',function(){
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && !lb.hidden) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=77f96176" defer></script>
+<script src="/assets/app.js?v=9bff8ca5" defer></script>
 <script src="/assets/packplayer.js?v=d3834a60" defer></script>
 </body>
 </html>

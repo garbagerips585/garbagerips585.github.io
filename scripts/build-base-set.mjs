@@ -730,7 +730,7 @@ const readShort = shortDate(tg.checked);
 // The other feed's figure for the same cards. Resolved by TCGplayer productId
 // and by exact PriceCharting row name, never by a fuzzy match on either side.
 const basis = await loadPriceBasis();
-const BASIS_TEXT = basisSentence(basis, "guide");
+const BASIS_TEXT = basisSentence(basis);
 
 const desc =
   "1st Edition, Shadowless or Unlimited? The stamp and the drop shadow that tell 1999 Base Set " +
@@ -1310,19 +1310,24 @@ ${d.runs.map(priceCard).join("\n")}
       <b>Charizard 4/102</b>, one line per printing, read on ${esc(read)} and read a second time from each card's
       own product page before it was published here. It is a guide value computed from completed sales, not a
       record of any single sale. Prices move and this page does not.</p>
-    ${/* THE OTHER FEED, NAMED HERE RATHER THAN LEFT TO BE DISCOVERED.
-          /most-valuable-cards.html ranks the same ungraded Shadowless Charizard
-          at ten times the figure printed above, out of TCGplayer rather than out
-          of a price guide. Both numbers are real and they measure different
-          things, and a reader who meets both without being told that concludes
-          one of these pages is simply wrong. The wording comes out of
-          shared/price-basis.mjs so that the other page prints the same facts. */ ""}
-    <p class="bs-p2 bs-basis"><b>Why another page on this site says ${esc(
+    ${/* THE OTHER MEASUREMENT, NAMED HERE RATHER THAN LEFT TO BE DISCOVERED.
+          A marketplace prices the same ungraded Shadowless Charizard at ten
+          times the figure printed above. Both numbers are real and they measure
+          different things, and a reader who checks ours against the shop they
+          are about to buy from, without being told that, concludes this page is
+          simply wrong.
+          THIS USED TO SAY "another page on this site" AND POINT AT
+          /most-valuable-cards.html, which ranked by TCGplayer market price until
+          18 August 2026. That page now reads the same price guide as this one,
+          so there is no longer a page here to send anybody to and the sentence
+          would have been false. The wording still comes out of
+          shared/price-basis.mjs, which is where the figures are resolved. */ ""}
+    <p class="bs-p2 bs-basis"><b>Why a marketplace says ${esc(
       `$${basis.both[0] ? basis.both[0].market.toLocaleString("en-US") : ""}`
     )} for this card.</b>
-      ${esc(BASIS_TEXT)} The page printing those market prices is
-      <a href="/most-valuable-cards.html">the 100 most valuable raw cards</a>, and it carries this same
-      explanation from the other side.</p>
+      ${esc(BASIS_TEXT)} Every raw price on this site is the guide value, including
+      <a href="/most-valuable-cards.html">the 100 most valuable raw cards</a>, so the two never disagree
+      from one of our pages to the next.</p>
     ${
       first && unl
         ? `<div class="facts" style="margin-top:20px">

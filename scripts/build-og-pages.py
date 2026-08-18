@@ -78,7 +78,7 @@ PAGES = {
     # built around, because the share card is the only part of the page most
     # people see: "ungraded" and "on TCGplayer" are the two qualifiers that stop
     # the headline being a claim the data cannot support.
-    "most-valuable-cards": ("UNGRADED, ON TCGPLAYER", "The 100 dearest cards", "Raw market prices, read and dated"),
+    "most-valuable-cards": ("UNGRADED, EVERY LANGUAGE", "The 100 dearest cards", "PriceCharting guide values, read and dated"),
     "most-expensive-sealed": ("NOBODY OPENED THESE", "The 100 dearest sealed", "Boxes, cases and 1999 packs, dated"),
     "complete": ("PRICED LAST NIGHT", "Cost to complete a set", "Every set, three tiers, live prices"),
     "pack-prices": ("PRICED NIGHTLY", "What does a pack cost?", "Every set, box against bundle against loose pack"),

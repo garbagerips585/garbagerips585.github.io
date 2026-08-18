@@ -41,6 +41,13 @@ import { createHash } from "node:crypto";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { gunzipSync } from "node:zlib";
+// The product-page column reader, shared with the raw ranking behind
+// /most-valuable-cards.html. It maps every price column by its <th> label and
+// refuses a table it cannot line up, which is the whole defence described
+// below. Checked against the 400 product figures already stored in this
+// file's own verify block, re-read from cache with no network: all 400 come
+// back identical, so moving the parser did not move a number.
+import { productColumns } from "../shared/pricecharting.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache/pricecharting-product");
@@ -49,17 +56,6 @@ const REFRESH = process.argv.includes("--refresh");
 const ALL = process.argv.includes("--all");
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const unent = (s) =>
-  String(s)
-    .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&nbsp;/g, " ");
-// Decode BEFORE trimming. See sync-graded-top.mjs: the other order silently
-// turned "&nbsp;" into an untrimmed space and skipped all 793 consoles.
-const text = (s) => unent(s).replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
-const money = (s) => {
-  const n = Number(String(s ?? "").replace(/[^0-9.]/g, ""));
-  return Number.isFinite(n) && n > 0 ? n : null;
-};
 
 async function get(url, bin = false) {
   await mkdir(CACHE, { recursive: true });
@@ -85,22 +81,19 @@ async function get(url, bin = false) {
 
 /**
  * The PSA 10 price from a product page, mapped by HEADER not by id.
- * Returns {psa10, headers} or {error}.
+ * Returns {psa10, headers, id} or {error}.
+ *
+ * A page with a readable price table and no "PSA 10" column in it is an ERROR
+ * here rather than a null price, and that distinction is load bearing: this
+ * script's only job is to say whether a published figure was confirmed, and
+ * "the column was not there" is not a confirmation.
  */
 function psa10From(html) {
-  if (/^__HTTP_(\d+)__$/.test(html)) return { error: `http ${/\d+/.exec(html)[0]}` };
-  let seen = null;
-  for (const m of html.matchAll(/<thead>(.*?)<\/thead>\s*<tbody>(.*?)<\/tbody>/gs)) {
-    const heads = [...m[1].matchAll(/<th[^>]*>(.*?)<\/th>/gs)].map((x) => text(x[1])).filter(Boolean);
-    const cells = [...m[2].matchAll(/<td id="([a-z_]+price)"[^>]*>(.*?)<\/td>/gs)];
-    if (!heads.length || heads.length !== cells.length) continue;
-    seen = heads;
-    const i = heads.indexOf("PSA 10");
-    if (i < 0) continue;
-    const v = /<span class="price js-price"[^>]*>(.*?)<\/span>/s.exec(cells[i][2]);
-    return { psa10: money(text(v ? v[1] : cells[i][2])), headers: heads, id: cells[i][1] };
-  }
-  return { error: seen ? `no PSA 10 column (saw ${seen.join("|")})` : "no price table" };
+  const got = productColumns(html);
+  if (got.error) return { error: got.error };
+  if (!("PSA 10" in got.cols))
+    return { error: `no PSA 10 column (saw ${got.headers.join("|")})` };
+  return { psa10: got.cols["PSA 10"], headers: got.headers, id: got.ids["PSA 10"] };
 }
 
 const file = join(ROOT, "data/top-graded.json");

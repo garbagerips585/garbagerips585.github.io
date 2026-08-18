@@ -638,7 +638,14 @@ const body = `
 <main id="main">
   <section class="rg">
     <div class="wrap">
-      <div class="brk"><h1>What have I <span class="hl">actually got</span></h1><span class="ln"></span></div>
+      ${/* THE H1 CARRIED NO TOPIC WORD AT ALL. "What have I actually got" names
+          neither rarity nor cards nor Pokemon, so the biggest heading on the
+          page was the one place a reader arriving from "pokemon card rarity
+          symbols" could not confirm they had landed right, and the nav label
+          ("Rarity guide") echoed nothing on the page it led to. The question
+          voice is kept, the noun is put back in it, and the highlight moves
+          onto the word that matters. The title is unchanged. */ ""}
+      <div class="brk"><h1>What <span class="hl">rarity</span> have I got?</h1><span class="ln"></span></div>
       <p class="rg-lede">Every Pokemon card tells you how rare it is, in one corner, with one small
         symbol. Once you know where to look it takes about a second. Here is the corner, magnified,
         on real cards.</p>

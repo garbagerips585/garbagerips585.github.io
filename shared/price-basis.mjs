@@ -1,10 +1,20 @@
 // TWO PRICE FEEDS PRICE THE SAME CARDS AND THEY DO NOT AGREE. THIS IS WHERE THE
-// SITE SAYS SO, ONCE, SO THAT BOTH PAGES SAY IT THE SAME WAY.
+// SITE SAYS SO.
 //
-// /most-valuable-cards.html ranks by TCGplayer MARKET PRICE, out of
-// data/top100.json. /base-set.html prices printings from PriceCharting's PRICE
-// GUIDE, out of data/top-graded.json. On the Shadowless Base Set Charizard, read
-// on the same day, they said $10,000 and $988. Blastoise said $1,300 and $223.
+// IT USED TO BE A DISAGREEMENT BETWEEN TWO PAGES OF THIS SITE AND IT NO LONGER
+// IS. /most-valuable-cards.html ranked by TCGplayer MARKET PRICE until 18
+// August 2026, when it moved to PriceCharting's guide like everything else that
+// prices a raw card here, so the two pages cannot contradict each other any
+// more. What is left is still worth printing and is why this file survived the
+// change: a reader who trusts the guide value on /base-set.html and then clicks
+// through to buy meets a MARKETPLACE, where the number is different. Explaining
+// that on the page they leave from is the whole job.
+//
+// /base-set.html prices printings from PriceCharting's PRICE GUIDE, out of
+// data/top-graded.json. TCGplayer's market price for the same cards is in
+// data/top100.json, still written nightly by sync-top100.mjs for the sealed
+// list. On the Shadowless Base Set Charizard, read on the same day, they said
+// $988 and $10,000. Blastoise said $223 and $1,300.
 //
 // NEITHER NUMBER IS WRONG. They measure different things:
 //
@@ -15,12 +25,12 @@
 //   A PRICE GUIDE VALUE is PriceCharting's computed figure across the sales it
 //   tracks, which is a different and wider set of venues.
 //
-// AND THAT IS EXACTLY WHY THE PAGES HAD TO BE MADE TO ACKNOWLEDGE EACH OTHER.
-// Each page named its own source correctly and neither admitted the other
-// existed, so a reader who met both concluded one of them was simply wrong,
-// which is worse for a site whose whole claim is that its numbers are sourced.
-// The $988 is also inside /base-set.html's FAQPage JSON-LD, where Google can
-// surface it as a standalone answer with no page around it to qualify it.
+// AND THAT IS EXACTLY WHY THE PAGE HAS TO ACKNOWLEDGE THE OTHER MEASUREMENT.
+// The $988 is inside /base-set.html's FAQPage JSON-LD, where Google can surface
+// it as a standalone answer with no page around it to qualify it, and anybody
+// checking it against the marketplace the same page links to for buying will
+// find a figure ten times larger. A site whose whole claim is that its numbers
+// are sourced cannot leave that to be discovered.
 //
 // DELETING ONE OF THEM WAS NOT AN OPTION AND NEITHER WAS AVERAGING THEM. An
 // average of two measurements of different things is a measurement of nothing,
@@ -144,15 +154,17 @@ export async function loadPriceBasis() {
 }
 
 /**
- * The one paragraph both pages print, in the words each page already uses for
+ * The paragraph /base-set.html prints, in the words that page already uses for
  * its own sourcing.
  *
- * `voice` is which page is speaking: "market" for the TCGplayer ranking, "guide"
- * for the price-guide page. The FACTS are identical in both and come out of the
- * same resolved pairs; only the order of the two clauses changes, so that each
- * page leads with its own number and names the other rather than the reverse.
+ * THERE USED TO BE TWO VOICES, "market" and "guide", because two pages printed
+ * this from opposite sides. The market voice was deleted on 18 August 2026 when
+ * /most-valuable-cards.html moved onto the guide: a branch no page calls is a
+ * branch nobody maintains, and the next person would have had to work out which
+ * of the two the site actually used. The facts are unchanged and still come out
+ * of the same resolved pairs.
  */
-export function basisSentence(basis, voice) {
+export function basisSentence(basis) {
   const lead = basis.both[0];
   if (!lead) return "";
   const money = (n) =>
@@ -169,16 +181,6 @@ export function basisSentence(basis, voice) {
         .join(", ")}, because the guide file is ranked by PSA 10 value and stops before it.`
     : "";
 
-  if (voice === "market") {
-    return (
-      `A price guide will tell you something different, and both figures are real. ` +
-      `PriceCharting's guide, read ${basis.pcRead}, puts the same ungraded ${lead.card} at ` +
-      `${money(lead.guide)} against the ${money(lead.market)} market price above.${alsoList}` +
-      `${gap} Market Price is what recently sold on THIS marketplace; a guide value is computed ` +
-      `across the sales that guide tracks, which is a wider and different set of venues. Neither ` +
-      `is the other's correction.`
-    );
-  }
   return (
     `A marketplace will tell you something different, and both figures are real. ` +
     `TCGplayer's market price for the same ungraded ${lead.card}, read ${basis.tcgRead}, is ` +

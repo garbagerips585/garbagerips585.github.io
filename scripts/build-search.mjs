@@ -159,7 +159,7 @@ const PAGES = [
   // The two ranked price lists. Both are one line each here for the reason the
   // comment above PAGES gives: four pages once shipped without one and were
   // unsearchable on a site whose nav search is the main way around it.
-  ["/most-valuable-cards.html", "Most valuable cards", "The 100 dearest ungraded Pokemon cards on TCGplayer, dated"],
+  ["/most-valuable-cards.html", "Most valuable cards", "The 100 dearest ungraded Pokemon cards in PriceCharting's guide, dated"],
   ["/most-expensive-sealed.html", "Most expensive sealed", "The 100 dearest sealed Pokemon products on TCGplayer, dated"],
   ["/hall.html", "Hall of Fame", "The best pulls on the channel"],
   ["/wanted.html", "Most wanted", "The cards still being chased"],

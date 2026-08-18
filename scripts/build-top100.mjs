@@ -3,11 +3,129 @@
 //
 //   node scripts/build-top100.mjs
 //
-// Reads data/top100.json, written by scripts/sync-top100.mjs. That sync is a
-// network job of a couple of minutes and is NOT in build-all.mjs, the same
+// THE TWO PAGES NOW READ DIFFERENT SOURCES, which is the first thing to know
+// before editing anything below:
+//
+//   cards   data/top-raw.json, PriceCharting's UNGRADED price guide value,
+//           written by scripts/sync-raw-top.mjs off the cached crawl and
+//           stamped by scripts/verify-raw-top.mjs.
+//   sealed  data/top100.json, TCGplayer's MARKET PRICE, written by
+//           scripts/sync-top100.mjs.
+//
+// Both syncs are network jobs and neither is in build-all.mjs, the same
 // arrangement sync-sets.mjs and sync-chase.mjs have. This builder is, and it
 // works from whatever the last sync left on disk, so a build with no network
 // reprints the last lists with the date they were actually read on them.
+//
+// ---------------------------------------------------------------------------
+// WHY THE CARDS PAGE MOVED TO PRICECHARTING, 18 AUGUST 2026
+// ---------------------------------------------------------------------------
+//
+// Tim: "lets get all raw prices and all graded prices from pricecharting across
+// the site all pages", and then, asked what to do about sealed: "use price
+// charting for everything if they have data for everything, if they dont have
+// data for sealed just use tcg player for that, but pricecharting seems to be
+// most trusted pricing online".
+//
+// The set guides, the Pokedex pages and the checklists moved first, in
+// scripts/sync-pricecharting-cards.mjs. This page was the last raw price on the
+// site still coming from TCGplayer, and leaving it there meant the site's most
+// prominent list of card values disagreed with every set guide it linked to.
+//
+// SEALED STAYS ON TCGPLAYER AND IT IS NOT A HALF MEASURE. The crawl behind the
+// PriceCharting figures ran with `exclude-hardware=true`, which is how that site
+// drops sealed product, so the cache holds essentially no boxes: 144
+// sealed-looking rows across 89,910, most of them mis-hits on card names like
+// "Iron Bundle". There is no top 100 of sealed product in it to publish, and
+// re-crawling 793 consoles without that filter to chase one is not a trade
+// worth making against somebody else's bandwidth. So the sealed page keeps
+// TCGplayer, says so in its own title, and this is the arrangement Tim asked
+// for in as many words.
+//
+// ---------------------------------------------------------------------------
+// THE PAGE CHANGED WHAT IT IS, AND THAT IS AN EDITORIAL DECISION, NOT A SWAP
+// ---------------------------------------------------------------------------
+//
+// THIS FILE USED TO ARGUE THE OPPOSITE OF WHAT IT NOW DOES. The paragraph that
+// stood here said:
+//
+//     JAPANESE CARDS. `productLineName: pokemon` is the English catalogue.
+//     Japanese is a separate product line on the same site and is not ranked
+//     here.
+//
+// That was true of TCGplayer, whose catalogue really is split by language, and
+// the page was English-only BECAUSE THE FEED WAS. PriceCharting does not split
+// its Pokemon catalogue at all, so switching sources without deciding this
+// would have quietly turned an English list into a mostly Japanese one and left
+// the old sentence sitting on the page saying it had not. That is exactly the
+// silent change CLAUDE.md spends four paragraphs complaining about, so here is
+// the decision and the argument, made in the same edit as the change.
+//
+// THE PAGE NOW RANKS EVERY LANGUAGE, AND THAT IS TIM'S DECISION RATHER THAN
+// THIS FILE'S. Asked the question directly on 18 August 2026, in conversation,
+// he answered: "yes lets add in all forgein cards into the top value cards so
+// its an all incusive list". The argument below is recorded because the file
+// argued the opposite at length and a reversal with no reasoning behind it is
+// worth nothing to the next person, but the call was made by the person whose
+// site it is. Measured on the published hundred: 50 rows are Japanese, 2 are
+// Chinese and 48 are English or unmarked.
+//
+// "ALL INCLUSIVE" IS ABOUT LANGUAGE AND NOTHING ELSE. It does not license the
+// title people search for. These are still one price guide's ungraded values,
+// read on one day, and they still cannot see auction or private sales, so the
+// page is titled for what the data is and the honesty block still lists what
+// the ranking cannot see. Widening the scope widens the list, not the claim.
+//
+// THE CASE FOR IT. Somebody typing "most valuable Pokemon cards" is not asking
+// a question about a marketplace's catalogue structure. The Illustrator Pikachu
+// is the answer to that question by any measure anybody outside a price feed
+// would use, and a list that omits it because of how one American marketplace
+// files its inventory is answering an easier question and hoping nobody
+// notices. This site already publishes an all-language PriceCharting ranking at
+// /top-graded.html, whose number one is the same card, so an English-only raw
+// list would have contradicted the graded list one nav item away.
+//
+// THE CASE AGAINST, because it is real. Half this list is cards a viewer in
+// Rochester will never see in a local shop and cannot buy without an importer,
+// and the rest of this site is about English product: what to open, what a pack
+// costs, which set to chase. A reader who came from /pack-prices.html now meets
+// a list where the top three are Japanese promos. The mitigation is that the
+// page SAYS SO, in the kicker, in the honesty block and in a fact tile, rather
+// than letting somebody work it out.
+//
+// AND IT SAYS SO ROW BY ROW TOO, without a new chip or badge, because
+// PriceCharting's own set names carry the region: every one of the 52
+// non-English rows sits in a set called "Japanese Promo", "Chinese 151
+// Collect", "Korean Promo" and so on. CHECKED RATHER THAN ASSUMED: the count
+// of rows whose set name begins with a language is exactly the count of
+// non-English rows, so no row is foreign without saying it. The set is painted
+// on every row at every width, under the name on a phone and in its own column
+// from 760px up, so a reader meeting Illustrator Pikachu at number one is told
+// it is a Japanese promo in the same glance. A separate language flag would be
+// a second copy of a fact already on the row.
+//
+// IF A LATER EDITOR WANTS THE ENGLISH-ONLY LIST BACK, that is a real argument
+// and not a silly one. The way to do it is a filter on the console name in
+// sync-raw-top.mjs, with the count of what it removes printed on the page, and
+// this paragraph rewritten to say which way it went and why. What is not on the
+// table is filtering quietly and leaving these paragraphs in place.
+//
+// TOPPS IS THE OTHER SURPRISE AND IT IS KEPT FOR THE SAME REASON. Thirteen of
+// the hundred are Topps' 2000 Pokemon chrome and movie cards, which are trading
+// cards of Pokemon rather than Pokemon TCG cards you could play with.
+// PriceCharting files them under Pokemon and prices them there. They are kept,
+// and the honesty block names them, because dropping them would be editing the
+// answer to suit the question. The kicker says "Pokemon cards" rather than
+// "Pokemon TCG" for exactly that reason.
+//
+// SEALED PRODUCT IS THE ONE THING REMOVED BY HAND, and it is removed because
+// the page's own title says "cards". `exclude-hardware=true` let twelve sealed
+// products through inside the ranking window and eight of them were dear enough
+// to make the hundred, including a $26,347 Japanese Special Box at what would
+// have been number four. The verdicts are one by one, by product id, in
+// sync-raw-top.mjs, the dropped rows are kept in the data, and the page names
+// them and says how many. See that file's header for why the list is written by
+// hand rather than by regex alone.
 //
 // ---------------------------------------------------------------------------
 // THE TITLE IS THE HONEST ONE, NOT THE ONE PEOPLE SEARCH FOR
@@ -15,26 +133,29 @@
 //
 // "The 100 most valuable Pokemon cards ever" is the phrase with the traffic and
 // it is a claim this data cannot support, so it is not written anywhere on
-// either page. What we hold is one marketplace's own Market Price for its
-// English Pokemon catalogue, read on one day. So the pages say that:
+// either page. What we hold is one price guide's ungraded value and one
+// marketplace's Market Price, each read on one day. So the pages say that:
 //
-//   The 100 most valuable RAW Pokemon cards on TCGplayer
+//   The 100 most valuable RAW Pokemon cards in PriceCharting's price guide
 //   The 100 most expensive SEALED Pokemon products on TCGplayer
 //
 // with the date in the subtitle and in a fact tile, and a block near the top
-// that lists what the number is not. Four separate things are excluded and each
-// one would change the ranking:
+// that lists what the number is not. What the RAW page excludes, and each one
+// would change the ranking:
 //
-//   GRADED CARDS. A PSA 10 Base Set Charizard is a different object at a
-//   different price and this feed does not carry it. The raw page says so.
-//   JAPANESE CARDS. `productLineName: pokemon` is the English catalogue.
-//   Japanese is a separate product line on the same site and is not ranked here.
-//   AUCTION AND PRIVATE SALES. The million dollar cards people mean by "most
-//   valuable" sell at Heritage and PWCC, not on TCGplayer, and nothing here
-//   sees them.
-//   THE LOWEST LISTING AND THE LAST SALE. Both are different numbers from
-//   Market Price. The lowest listing is printed beside it on every row that has
-//   one, precisely so the two cannot be confused.
+//   GRADED CARDS ARE NOT WHAT IS RANKED. The Grade 9 and PSA 10 values sit
+//   beside every raw price on the page, because they come off the same row of
+//   the same source and hiding them would be pretending the raw price is the
+//   whole story. The ORDER is the ungraded column and nothing else, and
+//   /top-graded.html is the list ranked the other way.
+//   AUCTION AND PRIVATE SALES. The million dollar figures people mean by "most
+//   valuable" are single hammer prices at Heritage, Goldin and PWCC. A guide
+//   value is a computed estimate across many sales and it is a different kind
+//   of fact. The Illustrator Pikachu at number one has a widely reported 2022
+//   sale of about $5.3m against the guide value printed here.
+//   SEALED PRODUCT. Removed by hand, named on the page, argued above.
+//   JAPANESE CARDS ARE NO LONGER EXCLUDED, and the block says so out loud
+//   rather than leaving the old sentence to rot.
 //
 // ---------------------------------------------------------------------------
 // THE ONE OUTBOUND LINK PER ROW, ARGUED HERE RATHER THAN ADDED QUIETLY
@@ -45,15 +166,30 @@
 // quietly rather than argued. So: these pages add a SIXTH, and this is the
 // argument.
 //
-// Each row carries one small link to that product's own TCGplayer page, in the
-// price cell, reading "check on TCGplayer" with an aria-label saying it opens
-// there. The case for it is not commercial and there is no affiliate code in
-// it. It is that these two pages consist of two hundred numbers, and the whole
-// reason they are allowed to exist is that every one of those numbers can be
-// traced to a source. A page that boasts about checkability and then gives the
-// reader no way to check is worse than one that never made the claim. The link
-// IS the citation. Removing it does not keep anybody on the site, it just makes
-// two hundred figures unverifiable.
+// Each row carries one small link to that product's own page at the source the
+// row is priced from, in the price cell, reading "check on PriceCharting" or
+// "check on TCGplayer" with an aria-label saying it opens there. THE LINK
+// FOLLOWS THE PRICE and that is the condition of the exception, not a detail:
+// the argument for it is that the number is checkable, so a row priced by
+// PriceCharting pointing at TCGplayer would be a citation to a page that does
+// not hold the figure printed beside it. Which is worse than no link at all.
+//
+// The case for it is not commercial and there is no affiliate code in it. It is
+// that these two pages consist of two hundred numbers, and the whole reason
+// they are allowed to exist is that every one of those numbers can be traced to
+// a source. A page that boasts about checkability and then gives the reader no
+// way to check is worse than one that never made the claim. The link IS the
+// citation. Removing it does not keep anybody on the site, it just makes two
+// hundred figures unverifiable.
+//
+// NOTE THE DISAGREEMENT WITH /top-graded.html, which prints the PriceCharting
+// PATH on every row as plain text and links nothing, and says in
+// build-top-graded.mjs that 100 outbound links would be the largest exception
+// on the site. That was written before this pair of pages existed and the count
+// it worried about is now live and documented in CLAUDE.md. The two pages are
+// therefore inconsistent with each other, deliberately noted here rather than
+// tidied away in passing: either that page gains links or these lose them, and
+// it is a call for Tim rather than for whoever is next in this file.
 //
 // The case against is the count: two hundred outbound links is more than the
 // whole rest of the site holds, and that is a real objection rather than a
@@ -80,18 +216,39 @@
 // ---------------------------------------------------------------------------
 //
 // The site's rule is that clicks stay here, so every row needs somewhere here
-// to go. Measured against the real data on 16 Aug 2026:
+// to go. Measured against the real data on 18 Aug 2026, after the cards page
+// moved to PriceCharting:
 //
-//   raw cards    4 of 100 belong to a set this site has a guide for. The rest
-//                are vintage: Base Set, Neo Destiny, the EX era, Worlds promos.
-//                45 of 100 name a Pokemon that has a page under /pokemon/.
-//                The remaining 51 fall through to /search.html?q=<name>, which
+//   raw cards    4 of 100 belong to a set this site has a guide for, matched on
+//                the PriceCharting CONSOLE in the row's own url rather than on
+//                the set name, because "Scarlet & Violet" and "Scarlet & Violet
+//                151" are two consoles a name match would confuse. The rest are
+//                vintage, Japanese promo or Topps.
+//                64 of 100 name a Pokemon that has a page under /pokemon/.
+//                The remaining 32 fall through to /search.html?q=<name>, which
 //                is the site's own search and finds the card, the set or the
-//                rip that pulled one.
+//                rip that pulled one. The Pokemon share went UP with the source
+//                change, from 45 to 64, because PriceCharting titles lead with
+//                the Pokemon far more often than TCGplayer's do.
 //   sealed       42 of 100 map to a set guide. The rest go to
 //                /how-many-packs.html, which is the page about what is inside a
 //                sealed product and how many packs it holds, and is the actual
 //                next question somebody asks about an $11,900 display case.
+//
+// ALL FOUR OF THE SET GUIDE ROWS ARE SPECIAL PRINTINGS, AND THE GUIDE PRICES
+// THE SET CARD AT A FRACTION OF WHAT THIS PAGE SAYS. That is not a
+// contradiction and it is worth knowing before somebody "fixes" it. The rows
+// are Voltorb [Cosmos Professor Program] #100 at $8,500, Mew Ex [Ultra Ball
+// League] #151 at $7,760, Voltorb [Professor Program] #100 at $2,300 and Budew
+// [Premier Ball League Judge] #4 at $2,713. /sets/151.html prices Voltorb #100
+// at $0.63, because sync-pricecharting-cards.mjs deliberately prices ONLY the
+// three standard printings a checklist is about: taking the dearest product at
+// a collector number made a bulk Bulbasaur $40.30 off a stamped promo, and its
+// header records that. A league promo and the set card share a number and are
+// different products, which is exactly what the bracketed part of the name on
+// this page says. The row still goes to the set guide because that is the page
+// about where the card comes from, and the name it is labelled with is the
+// printing, not the checklist row.
 //
 // The Pokemon match is a WORD BOUNDARY match against the longest name first, so
 // "Mewtwo" cannot be swallowed by "Mew" and "Rocket's Mewtwo ex" still lands on
@@ -108,27 +265,40 @@
 // 26,529. So both were measured for this box rather than assumed, and the
 // answer here is the opposite of the set guides':
 //
-//   tcgplayer-cdn  _150w.jpg   150x206..214, 12.0 to 19.3KB   <- used
+//   tcgplayer-cdn  _150w.jpg   150x206..214, 12.0 to 19.3KB   <- sealed page
 //   tcgplayer-cdn  _200w.jpg   200x274..286, 19.1 to 30.8KB
 //   assets.tcgdex  low.avif    245x337, around 20KB, and only for cards
+//   pricecharting  /240.jpg    240 high, variable wide, 8.0 to 17.6KB
+//                                                        <- cards page
 //
-// The TCGplayer rendition is smaller than the TCGdex one at the size these rows
-// draw, and it is CORRECT BY CONSTRUCTION: the image is addressed by the same
-// productId the price came from, so a row cannot show one card's picture beside
-// another card's price. Reaching TCGdex would need a hand-built mapping from 52
-// vintage TCGplayer set names to TCGdex set ids, and a wrong picture is a worse
-// failure than a slightly heavier one. TCGdex also has no photography at all
-// for sealed product, so the sealed page could not use it either way.
+// EACH PAGE TAKES ITS PICTURE FROM THE SOURCE THAT PRICED IT, and that is the
+// same rule as the outbound link rather than a coincidence. The image is
+// addressed by the same product record the price came from, so a row cannot
+// show one card's picture beside another card's price. Reaching TCGdex for the
+// cards page would need a hand-built mapping from vintage and Japanese set
+// names to TCGdex set ids, and data/graded.json already records what name-only
+// lookups cost here: 4 of 12 landed on a different printing of the right card.
+// Half this list is 1st Edition, Gold Star and Japanese promo printings, which
+// is precisely where that goes wrong, and a picture of the wrong printing
+// beside a $585,600 figure is a worse page than a plainer scan.
 //
-// THE SMALLER RENDITIONS DO NOT EXIST. _50w, _100w and _120w all answer 403,
-// checked against five product ids across both lists. _150w is the floor.
+// THE PRICECHARTING RENDITION IS THE ONE /top-graded.html ALREADY USES, /240.jpg,
+// and its existence is CHECKED rather than assumed: verify-raw-top.mjs HEADs
+// every one of them on every run and reports any that 404. On the published
+// hundred, 0 missing, 12.8KB average, 17.6KB largest.
 //
-// NO WIDTH OR HEIGHT ATTRIBUTES, and that is deliberate rather than an
-// oversight: this CDN's renditions are a fixed width and a VARIABLE height,
-// 206 to 214px at 150w across the ids measured, which is why imgDims() in
-// shared/format.mjs returns "" for this host. The box reserves the space in CSS
-// instead. avifPicture() also declines this host, correctly: there is no AVIF
-// at tcgplayer-cdn to offer.
+// THE SMALLER TCGPLAYER RENDITIONS DO NOT EXIST. _50w, _100w and _120w all
+// answer 403, checked against five product ids. _150w is the floor. The
+// PriceCharting listing thumbnail is /60.jpg, which is 60 pixels HIGH and far
+// too small for a box that paints 99px tall at DPR 2.
+//
+// NO WIDTH OR HEIGHT ATTRIBUTES ON EITHER HOST, and that is deliberate rather
+// than an oversight: tcgplayer-cdn's renditions are a fixed width and a
+// VARIABLE height, 206 to 214px at 150w, and PriceCharting's are a fixed height
+// and a variable width, 169 to 174px at 240. Which is why imgDims() in
+// shared/format.mjs returns "" for both hosts. The box reserves the space in
+// CSS instead. avifPicture() also declines both, correctly: there is no AVIF at
+// either to offer.
 //
 // LAZY IS RIGHT HERE AND THE CAROUSEL TRAP DOES NOT APPLY. `loading="lazy"` is
 // a VERTICAL heuristic, which is why it fails on the home page's horizontal
@@ -139,35 +309,48 @@
 // hundred pictures. That is the honest figure for a list page.
 //
 // data/no-scan.json records two dead TCGplayer product ids. They are skipped
-// up front rather than fetched to find out, and neither is in either list
-// today, which is checked rather than assumed. SIX OTHER IDS IN THESE LISTS ARE
-// DEAD and are found by sync-top100.mjs, which fetches all 200 image urls on
-// every run. A flagged row emits no <img> at all rather than an <img> plus an
-// onerror, so the page never spends the round trip.
+// up front rather than fetched to find out, and neither is in the sealed list
+// today, which is checked rather than assumed. OTHER IDS IN THAT LIST ARE DEAD
+// and are found by sync-top100.mjs, which fetches every image url on each run.
+// A flagged row emits no <img> at all rather than an <img> plus an onerror, so
+// the page never spends the round trip. The cards page gets the same treatment
+// from a different file: verify-raw-top.mjs records `imgOk` per row and a row
+// without one emits the empty frame instead.
 //
 // ---------------------------------------------------------------------------
-// WEIGHT, MEASURED 16 Aug 2026, BOTH NUMBERS RATHER THAN THE FLATTERING ONE
+// WEIGHT, RE-MEASURED 18 Aug 2026 AFTER THE SOURCE CHANGE, BOTH NUMBERS RATHER
+// THAN THE FLATTERING ONE
 // ---------------------------------------------------------------------------
 //
-// Headless Chrome over CDP, cache off, scrolled to the bottom with lazy loading
-// allowed to run. .claude/server.js sends no Content-Encoding, so the gzipped
-// column re-totals every local html, css and js at gzip -9 and leaves the images
-// and woff2 alone, which is what GitHub Pages actually serves.
+// Headless Chrome over CDP, cache off, the viewport override applied and then
+// ASSERTED before anything is believed, scrolled to the bottom with lazy
+// loading allowed to run. .claude/server.js sends no Content-Encoding, so the
+// gzipped column re-totals every local html, css and js at gzip -9 and leaves
+// the images and woff2 alone, which is what GitHub Pages actually serves.
 //
 //                              on-load                fully scrolled
 //                          raw        gzip          raw        gzip
-//   cards   390x844 DPR2   409.8KB    155.9KB     1,933.0KB   1,679.1KB
-//   cards  1440x900 DPR2   506.4KB    252.5KB     1,933.9KB   1,680.0KB
-//   sealed  390x844 DPR2   413.4KB    157.7KB     1,227.6KB     971.9KB
-//   sealed 1440x900 DPR2   496.8KB    241.1KB     1,227.7KB     972.0KB
+//   cards   390x844 DPR2   393.3KB    137.4KB     1,653.7KB   1,397.8KB
+//   cards  1440x900 DPR2   393.3KB    137.4KB     1,654.6KB   1,398.7KB
+//   sealed  390x844 DPR2   368.1KB    132.2KB     1,199.3KB     963.4KB
+//   sealed 1440x900 DPR2   434.7KB    198.7KB     1,199.5KB     963.5KB
+//
+// THE CARDS PAGE GOT LIGHTER AND TALLER. Lighter because PriceCharting's scans
+// average 12.8KB against TCGplayer's 15.7KB: 1,679.1KB gzipped fully scrolled
+// before, 1,397.8KB now. Taller because every row gained a line of graded
+// figures on a phone: 17,491px to 20,742px at 390x844, which is 3,251px of
+// extra scrolling for two more facts per row. That is the trade and it is
+// stated rather than buried. Desktop is 16,748px, where the same two figures
+// cost nothing at all because they went into columns that were already there.
 //
 // QUOTE THE PAIR OR QUOTE NEITHER, the same rule CLAUDE.md sets for
 // rarity.html. The first is what a reader waits for and it is fine. The second
 // is what a hundred pictures cost somebody who reaches row 100, and there is no
-// version of this page that shows 100 cards and does not pay it: 98 scans at
-// 15.7KB average is 1.5MB of the 1.68. The desktop on-load figure is higher
-// than the phone's because a 900px viewport with 119px rows has more rows above
-// the fold, which is lazy loading working rather than failing.
+// version of this page that shows 100 cards and does not pay it. The cards
+// page's two on-load figures are the same because the same 16 or so scans fall
+// inside Chrome's lazy-loading distance at both widths, one page being taller
+// per row and the other wider; the sealed page, whose rows are a different
+// height again, does show the usual desktop-loads-more pattern.
 //
 // No single image is over 200KB, which is a site-wide invariant: the largest on
 // either page is 24.4KB.
@@ -193,19 +376,96 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { TCG_SET } from "../shared/tcgplayer.mjs";
-import { esc, longDate, moneyExact, moneyCompact } from "../shared/format.mjs";
-// WHY /base-set.html PRICES THE #1 CARD ON THIS LIST AT A TENTH OF THIS FIGURE.
-// Read that file's header before changing a word of the honesty block below.
-import { loadPriceBasis, basisSentence } from "../shared/price-basis.mjs";
+import { esc, longDate, moneyExact, moneyCompact, noValue } from "../shared/format.mjs";
+// THE PUBLICATION GATE ON THE PRICECHARTING FILE, shared with /top-graded.html
+// and /base-set.html. Nothing out of that file may be printed on a single read:
+// `new_price` means PSA 10 on a listing page and Grade 8 on a product page, a
+// 21x error on Base Set Charizard that looks like a reasonable price. Read that
+// file before relaxing anything here.
+import { gradedGate } from "../shared/graded-gate.mjs";
+import { PC_CONSOLES } from "../shared/pricecharting.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
+// SEALED, from TCGplayer. Cards no longer come out of this file; its `cards`
+// half is still written by sync-top100.mjs and is still what shared/price-basis
+// .mjs reads to explain the gap between a market price and a guide value on
+// /base-set.html.
 const top = JSON.parse(await readFile(join(ROOT, "data/top100.json"), "utf8"));
 
-// The same cards, priced by the other feed. Resolved by TCGplayer productId and
-// by exact PriceCharting row name, so neither side can land on a wrong printing.
-const BASIS = await loadPriceBasis();
-const BASIS_TEXT = basisSentence(BASIS, "market");
+// CARDS, from PriceCharting. Gated: no verify block, or a verify block stamped
+// for a different crawl, or a disagreeing row with no recorded reason, and this
+// build stops rather than printing a figure that was only read once.
+const rawFile = JSON.parse(await readFile(join(ROOT, "data/top-raw.json"), "utf8"));
+const { verified: rawOk } = gradedGate(
+  rawFile,
+  "data/top-raw.json",
+  "scripts/verify-raw-top.mjs",
+);
+
+// ---------------------------------------------------------------------------
+// THE PUBLISHED HUNDRED, ASSEMBLED HERE RATHER THAN IN THE PAGE LOOP
+// ---------------------------------------------------------------------------
+//
+// A row is published only if its RANKING column was read twice and agreed. A
+// row that failed is not printed and not renumbered around: the ranks are the
+// positions in the published list, 1 to 100 with no gaps, and how many
+// candidates were dropped and why is said in words above the list. That is the
+// same call /top-graded.html makes, and the alternative, printing the source
+// file's own rank with visible gaps, would claim to be a top 100 of something
+// while showing 96 rows.
+//
+// THE TWO GRADED FIGURES ARE GATED SEPARATELY from the row itself. A card whose
+// ungraded figure was confirmed and whose PSA 10 figure was not is still a row
+// worth printing; what it must not do is print the PSA 10. So each carries its
+// own reason string and the row prints the reason instead of the figure.
+const rawSay = {
+  none: (label) => `No ${label} value recorded for this card`,
+  onesided: (label) =>
+    `Only one of our two reads found a ${label} value for this card, so none is published`,
+  disagree: (label) => `Our two reads of this card's ${label} value did not agree, so neither is published`,
+  unreadable: (label) => `We could not read a ${label} value for this card a second time, so none is published`,
+};
+const rawCol = (c, key, label) => {
+  const v = rawOk.get(c.rank)?.cols?.[key];
+  const status = v?.status || "unreadable";
+  return status === "agree"
+    ? { value: c[key], why: "" }
+    : { value: null, why: (rawSay[status] || rawSay.unreadable)(label) };
+};
+
+const rawPublished = rawFile.cards.filter((c) => rawOk.get(c.rank)?.status === "agree").slice(0, 100);
+const RAW = {
+  checked: rawFile.checked,
+  scanned: rawFile.scanned,
+  sourceMethodology: rawFile.sourceMethodology,
+  verify: rawFile.verify,
+  excluded: rawFile.excluded,
+  notCards: rawFile.notCards,
+  items: rawPublished.map((c, i) => {
+    const g9 = rawCol(c, "g9", "Grade 9");
+    const psa10 = rawCol(c, "psa10", "PSA 10");
+    return {
+      rank: i + 1,
+      name: c.name,
+      setName: c.set,
+      price: c.ungraded,
+      g9: g9.value,
+      g9Why: g9.why,
+      psa10: psa10.value,
+      psa10Why: psa10.why,
+      url: c.url,
+      // The listing thumbnail is 60 pixels high. This is the same file at the
+      // size the box actually paints, which is the rendition /top-graded.html
+      // uses and the one verify-raw-top.mjs HEADs on every run.
+      img: c.pcImg ? c.pcImg.replace(/\/\d+\.jpg$/, "/240.jpg") : null,
+      noImg: rawOk.get(c.rank)?.imgOk !== true,
+      // Where it sat before the rows that failed their second read were taken
+      // out. Not printed; kept so the log can say when the two differ.
+      sourceRank: c.rank,
+    };
+  }),
+};
 
 let noScan = { deadUrls: [] };
 try {
@@ -241,11 +501,27 @@ const POKEMON = pokemonPages
 // guessed, so reversing it is safe.
 const GUIDE = Object.fromEntries(Object.entries(TCG_SET).map(([slug, name]) => [name, slug]));
 
+// PriceCharting console path -> our set guide slug, the same map
+// sync-pricecharting-cards.mjs prices the guides from, reversed. Every entry in
+// it was read off the crawled console list and checked against the card count
+// the guide expects, so reversing it is safe in the same way GUIDE is. A row on
+// the cards page carries no set slug of its own: its url is
+// /game/pokemon-<console>/<product>, so the console is read back off the url
+// rather than matched by set name, which would have to guess between "Scarlet &
+// Violet" and "Scarlet & Violet 151".
+const PC_GUIDE = Object.fromEntries(
+  Object.entries(PC_CONSOLES).map(([slug, path]) => [path.replace("/console/", ""), slug]),
+);
+const pcConsoleOf = (url) => /\/game\/([^/]+)\//.exec(url)?.[1] || "";
+
 const rx = (s) => String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 /** Where a row's big tap target goes. Always somewhere on this site. */
 function internalLink(item, kind) {
-  const guide = GUIDE[item.setName];
+  const guide =
+    kind === "cards"
+      ? PC_GUIDE[decodeURIComponent(pcConsoleOf(item.url))]
+      : GUIDE[item.setName];
   if (guide) return { href: `/sets/${guide}.html`, why: "our guide to this set" };
   if (kind === "sealed") {
     return { href: "/how-many-packs.html", why: "what is inside a sealed product" };
@@ -299,13 +575,24 @@ function row(item, kind) {
   // top, so the page never spends a request finding out what we already know.
   // The onerror stays on the rest, for a photo that dies between the sync and
   // the reader.
-  const dead = item.noImg === true || DEAD.has(String(item.productId));
-  const shot = dead
+  // On the cards page the flag comes from verify-raw-top.mjs, which HEADs every
+  // scan on every run; on the sealed page from sync-top100.mjs plus the dead
+  // TCGplayer ids in data/no-scan.json. Either way it is known before the page
+  // is written, so no reader ever spends the round trip.
+  const dead =
+    kind === "cards"
+      ? item.noImg === true
+      : item.noImg === true || DEAD.has(String(item.productId));
+  const shot = dead || !item.img
     ? `<span class="t100-img t100-img-none" aria-hidden="true"></span>`
-    : // No width/height: this CDN's height varies by product. See the header.
+    : // No width/height: BOTH hosts vary on one axis. See the header.
       `<img class="t100-img" src="${esc(item.img)}" alt="" loading="lazy" decoding="async"
         onerror="this.classList.add('t100-img-none');this.removeAttribute('src')">`;
 
+  // The phone line under the name. The set, and on the cards page nothing else:
+  // the graded figures ride in the price cell instead, where they sit under the
+  // raw price they are being compared with. From 760px up both are columns of
+  // their own and this line is not painted at all.
   const meta = [
     esc(item.setName),
     kind === "cards" && item.number ? `no. ${esc(item.number)}` : "",
@@ -332,11 +619,35 @@ function row(item, kind) {
       ? `${item.listings} listing${item.listings === 1 ? "" : "s"}`
       : `none for sale`;
 
-  // The one outbound link on the row. Argued in the header above. Labelled in
-  // text and in the aria-label, no affiliate tag, and it is not the row's main
-  // tap target.
+  // THE TWO GRADED FIGURES ON A CARDS ROW, AND THE THREE THINGS THEY CAN SAY.
+  // A figure is printed only where BOTH reads of it agreed. Where neither page
+  // carried one, the row says so in words, because an empty PSA 10 cell is an
+  // ANSWER on this source and not a gap: PriceCharting prices from completed
+  // sales, and a card with no recent sale in that grade has no value to report.
+  // Where the two reads did not agree, or only one of them had a figure, the
+  // row says THAT instead, which is a different fact and must not be dressed up
+  // as the first one.
+  // THE GRADE LABEL STAYS ON A ROW WITH NO FIGURE. Printed without it, a card
+  // with neither graded value showed a phone line reading nothing but two
+  // dashes, which says less than saying nothing. The dash carries the reason
+  // for a screen reader and the label says which grade is missing.
+  const graded = (value, label, why) =>
+    `${value != null ? esc(moneyCompact(value)) : noValue(why, "t100-na")} ` +
+    `<span class="t100-gt">${esc(label)}</span>`;
+  const gradedCell = (key, label) =>
+    graded(
+      item[key],
+      label,
+      item[`${key}Why`] || `No ${label} value recorded for this card`,
+    );
+
+  // The one outbound link on the row, argued in the header above: it points at
+  // whichever source the figure beside it came from, is labelled in visible
+  // text and in an aria-label, carries no affiliate tag, and is not the row's
+  // main tap target.
+  const where = kind === "cards" ? "PriceCharting" : "TCGplayer";
   const check = `<a class="t100-check" href="${esc(item.url)}" rel="noopener nofollow"
-      aria-label="Check ${esc(item.name)} on TCGplayer (opens TCGplayer)">check on TCGplayer</a>`;
+      aria-label="Check ${esc(item.name)} on ${where} (opens ${where})">check on ${where}</a>`;
 
   const flag =
     item.confirmed === false
@@ -373,11 +684,15 @@ function row(item, kind) {
   <a class="t100-name" href="${esc(link.href)}">${esc(item.name)}<span class="t100-go">, ${esc(link.why)}</span></a>
   <span class="t100-meta">${meta.join(' <i aria-hidden="true">&bull;</i> ')}</span>
   <span class="t100-set">${esc(item.setName)}</span>
-  <span class="t100-tag">${esc(kind === "sealed" ? form.label : item.rarity || "")}</span>
-  <span class="t100-count">${esc(listings)}</span>
+  <span class="t100-tag">${kind === "cards" ? gradedCell("g9", "Grade 9") : esc(form.label)}</span>
+  <span class="t100-count">${kind === "cards" ? gradedCell("psa10", "PSA 10") : esc(listings)}</span>
   <span class="t100-price">
-    <b>${esc(money(item.market))}</b>
-    ${low}
+    <b>${esc(money(kind === "cards" ? item.price : item.market))}</b>
+    ${
+      kind === "cards"
+        ? `<span class="t100-grades">${gradedCell("psa10", "PSA 10")} ${gradedCell("g9", "Grade 9")}</span>`
+        : low
+    }
     ${check}
     ${flag}
   </span>
@@ -464,10 +779,26 @@ const CSS = `
   letter-spacing:-.02em;white-space:nowrap}
 .t100-low{font-size:var(--t-micro);color:var(--ink-2);font-family:var(--mono);white-space:nowrap}
 .t100-low-none{opacity:.65}
+/* THE TWO GRADED FIGURES, PHONE ONLY. From 760px up they are columns of their
+   own and this line is not painted, exactly like .t100-meta: printing both
+   would put the same two numbers on one row twice. Same size and colour as
+   .t100-low, because they play the same part, a smaller fact beside the figure
+   the list is ordered by. */
+.t100-grades{display:flex;flex-wrap:wrap;gap:1px 10px;font-family:var(--mono);
+  font-size:var(--t-micro);color:var(--ink-2);white-space:nowrap}
+/* The unit label. Never the same weight as the figure: the number is the fact
+   and the grade is the caption. */
+.t100-gt{letter-spacing:.04em;text-transform:uppercase;opacity:.75}
+.t100-na{opacity:.65}
 /* THE THUMB TARGET, WITHOUT MOVING A PIXEL OF THE LAYOUT.
    Measured at 390x844: this link was 108.8 x 17.0, one 11px line box, and there
    are 100 of them on /most-valuable-cards.html and 100 more on
-   /most-expensive-sealed.html. 17px is under half the 44px WCAG 2.5.5 asks for
+   /most-expensive-sealed.html. RE-MEASURED 18 Aug 2026 after the cards page's
+   label became "check on PriceCharting": 123.7 x 44.0 there and 108.8 x 44.0 on
+   the sealed page, at both 390 and 1440. The longer word costs 14.9px of width
+   and nothing at all in height, and both pages still have no horizontal
+   overflow: scrollTo(400, 0) leaves scrollX at 0 and document.scrollWidth
+   equals the viewport at 390 and at 1440. 17px is under half the 44px WCAG 2.5.5 asks for
    and it is the only outbound action in the card.
    The padding grows the hit box to 44 and the equal negative margins give the
    space straight back, so the flex line, the card and the page are all the
@@ -514,13 +845,23 @@ const CSS = `
      and 144 real pixels against the 150 that arrived: the same download, most of
      it now actually used. */
   .t100-shot{width:60px;height:83px}
-  /* The set, the rarity or form and the listing count get their own columns, so
-     the line under the name stops repeating them. */
+  /* The set, the two graded figures or the form, and the listing count get their
+     own columns, so the lines under the name stop repeating them. */
   .t100-meta{display:none}
+  .t100-grades{display:none}
   .t100-name{align-self:center;-webkit-line-clamp:2}
   .t100-set,.t100-tag,.t100-count{display:block;font-size:var(--t-sm);color:var(--ink-2);
     min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .t100-count{font-size:var(--t-label);text-align:right}
+  /* THE GRADE LABEL GOES QUIET IN THE TABLE LAYOUT, WITHOUT LEAVING THE PAGE.
+     Each of these cells sits under a column header that already says "Grade 9"
+     or "PSA 10", so painting the label again put the same words on the screen
+     a hundred times each. It is hidden the sr-only way rather than with
+     display:none, because .t100-head is aria-hidden and the phone line that
+     carries the same labels is not painted here either: display:none would
+     leave a screen reader with a hundred rows of unlabelled money. */
+  .t100-tag .t100-gt,.t100-count .t100-gt{position:absolute;width:1px;height:1px;
+    overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
   .t100-price{flex-direction:column;flex-wrap:nowrap;align-items:flex-end;gap:1px;
     margin-top:0;text-align:right}
   .t100-price b{font-size:1.05rem}
@@ -566,8 +907,27 @@ const CSS = `
  * The block that says what the number is and what it is not, at the top of the
  * page rather than in a footnote. If a reader only reads one thing above the
  * list, this is the thing that stops the list being misleading.
+ *
+ * TWO OF THEM NOW, ONE PER SOURCE, rather than one block with conditionals
+ * running through it. The market version below belongs to the SEALED page and
+ * talks about Market Price, lowest listings and listing counts, none of which a
+ * price guide publishes; the guide version talks about languages, grades and a
+ * computed value, none of which the marketplace feed carries. One block saying
+ * both would be vague on both pages, which is the opposite of what it is for.
+ * The last paragraph, about prices moving and this page not, is deliberately
+ * the same sentence in both.
+ *
+ * THE PARAGRAPH THAT USED TO SIT HERE NAMING THE OTHER FEED IS GONE, and its
+ * absence is the point rather than an oversight: it existed because this page
+ * ranked a Shadowless Base Set Charizard at $10,000 out of TCGplayer while
+ * /base-set.html printed $988 for the same ungraded card out of PriceCharting,
+ * and a reader who met both concluded one page was wrong. Both pages now read
+ * the same guide, so there is nothing left to reconcile. shared/price-basis.mjs
+ * still holds the explanation and /base-set.html still prints it, because the
+ * gap between a guide value and a marketplace price is still real and a reader
+ * who clicks through to buy still meets it.
  */
-function honesty(cfg, d) {
+function honestyMarket(cfg, d) {
   const when = longDate(d.checked) || d.checked;
   return `<div class="fk-golden">
       <p class="fk-golden-h">What this list actually is</p>
@@ -586,22 +946,7 @@ function honesty(cfg, d) {
         The other ${cfg.noLow} say so instead of showing a figure: nothing is listed for sale, or the
         listings carry no asking price`
             : ` on every row so the two cannot be mistaken for each other`
-        }.</p>${
-        // THE OTHER FEED, NAMED ON THE PAGE THAT LEADS WITH THE BIGGEST FIGURE.
-        // Row 1 here is a Shadowless Base Set Charizard at ten times what
-        // /base-set.html prints for the same ungraded card out of a price guide.
-        // Both are correct measurements of different things, and until 17 August
-        // 2026 neither page admitted the other existed. Cards only: the pairs in
-        // shared/price-basis.mjs are single cards, so the sealed page has nothing
-        // to reconcile and says nothing.
-        cfg.key === "cards" && BASIS_TEXT
-          ? `
-      <p><b>Where a price guide disagrees with this list.</b>
-        ${esc(BASIS_TEXT)} The guide figures for those Base Set printings are on
-        <a href="/base-set.html">the Base Set print run guide</a>, which carries the same explanation
-        from the other side.</p>`
-          : ""
-      }
+        }.</p>
       <p><b>What this ranking cannot see.</b> ${cfg.excludes}</p>
       <p><b>The cheapest copy is often dearer than the market price, and that is not a mistake.</b>
         ${esc(String(cfg.aboveMarket))} of these 100 have a lowest listing above their market price today.
@@ -613,7 +958,7 @@ function honesty(cfg, d) {
     </div>`;
 }
 
-function methodology(cfg, d) {
+function methodologyMarket(cfg, d) {
   const m = d.method || {};
   return `<div class="t100-src">
     <div>
@@ -653,35 +998,144 @@ function methodology(cfg, d) {
   </div>`;
 }
 
+/**
+ * The same block for the PRICE GUIDE page. See the note above honestyMarket()
+ * for why this is a second block rather than a conditional.
+ */
+function honestyGuide(cfg, d) {
+  const when = longDate(d.checked) || d.checked;
+  const v = d.verify || {};
+  const removed = cfg.sealedAboveCut;
+  return `<div class="fk-golden">
+      <p class="fk-golden-h">What this list actually is</p>
+      <h2>One price guide, one number, <span class="hl">one day</span></h2>
+      <p>Every figure here is PriceCharting's <b>Ungraded</b> price guide value for that exact printing, read
+        on <b>${esc(when)}</b>. Their published method computes it from completed eBay sales and their own
+        marketplace, blending the most recent sale, the median, the average and an age weighted average, with
+        outliers and sale dates taken into account. It is an estimate of what a loose, ungraded copy is worth
+        right now. It is not a live listing, it is not any one sale, and it is not an appraisal. The Grade 9
+        and PSA 10 values from the same row sit beside it, so the raw price is never the only number on a row.</p>
+      <p><b>Every language is in this ranking, and half of it is Japanese.</b>
+        ${esc(String(cfg.langJa))} of these hundred are Japanese cards, ${esc(String(cfg.langZh))} are Chinese
+        and ${esc(String(cfg.langEn))} are English or carry no language in their set name. That is a change:
+        until August 2026 this page was English only, because the marketplace feed behind it kept Japanese in a
+        separate catalogue. PriceCharting does not split its Pokemon catalogue by language, and neither does
+        this page any more. The card at number one is a Japanese promo, and a list of the most valuable Pokemon
+        cards that leaves it out is answering an easier question.</p>
+      <p><b>${esc(String(cfg.topps))} of them are Topps cards rather than Pokemon TCG cards.</b> Topps printed
+        Pokemon trading cards in 2000, chrome and movie cards you cannot play a game with, and PriceCharting
+        files and prices them under Pokemon. They are left in, because taking them out would be editing the
+        answer to suit the question. Their set names say Topps on every row.</p>
+      <p><b>Sealed product was taken out by hand, and here is what went.</b> The crawl behind these figures
+        excludes sealed boxes, and ${esc(String(cfg.sealedTotal))} slipped through it anyway.
+        ${esc(String(removed))} of those were dear enough to have made this hundred:
+        ${esc(cfg.sealedNames)}. They are boxes and blisters, not cards, and a page
+        titled cards should not rank one at number four. Unopened product has its own list, priced by a
+        marketplace instead: <a href="/most-expensive-sealed.html">the 100 most expensive sealed Pokemon
+        products</a>.</p>
+      <p><b>An empty grade cell is an answer, and a raw price above a graded one is not a mistake.</b>
+        ${esc(String(cfg.noPsa))} of these hundred carry no PSA 10 value and ${esc(String(cfg.noG9))} carry no
+        Grade 9 value, because this guide prices from completed sales and a card nobody has sold in that grade
+        recently has no value to report. On ${esc(String(cfg.rawOverPsa))} rows the ungraded figure is higher
+        than the PSA 10 figure next to it. That is what thin data looks like rather than an error: these are
+        cards that trade a handful of times a year, so one raw sale and one graded sale years apart can leave
+        the two columns in an order that looks backwards.</p>
+      <p><b>What this ranking cannot see.</b> ${cfg.excludes}</p>
+      <p><b>Every figure was read twice before it went on this page.</b> The ranking comes off PriceCharting's
+        set listings; each row was then re-read from that card's own product page, which is a different page
+        with different columns, and the two readings compared. ${esc(String(v.agree))} of the
+        ${esc(String(v.checked))} candidates agreed. ${esc(String(v.disagree))} did not and are printed nowhere
+        on this site, all of them below the hundredth place.${esc(cfg.excNote || "")} A figure that was read once
+        is not published here, because the column names on those two pages do not mean the same thing and a
+        single read cannot tell.</p>
+      <p>Prices move every day and this page does not. The date above is the date the numbers were read,
+        and if it looks old then the numbers are old.</p>
+    </div>`;
+}
+
+function methodologyGuide(cfg, d) {
+  const sc = d.scanned || {};
+  const v = d.verify || {};
+  return `<div class="t100-src">
+    <div>
+      <h3>Where the numbers come from</h3>
+      <p>PriceCharting's own price guide, the <b>Ungraded</b> column of their Pokemon set pages:
+        <code>pricecharting.com</code>. Their method is published at
+        <code>${esc(d.sourceMethodology || "")}</code> and every row on this page carries a link to the exact
+        product record its figures came from. It is the same source the set guides, the Pokedex pages and the
+        checklists on this site are priced from, so a card here and the same card on its set page cannot
+        disagree.</p>
+    </div>
+    <div>
+      <h3>How we know it is the top 100 and not the first 100 we found</h3>
+      <p>There is no all-of-Pokemon listing to sort and their one price sort works a set at a time, so the top
+        of any one set says nothing about the top of the catalogue. Instead every set was pulled and ranked
+        here: <b>${esc(String(sc.consoles))}</b> Pokemon sets, <b>${esc(String(sc.products))}</b> products, of
+        which <b>${esc(String(sc.productsWithUngraded))}</b> carry an ungraded value. This hundred is the top of
+        all ${esc(String(sc.productsWithUngraded))}, not the top of a sample, and the hundredth row is
+        ${esc(moneyExact(cfg.cut))}.</p>
+    </div>
+    <div>
+      <h3>Checked twice, on purpose</h3>
+      <p>Every candidate was read again from its own product page, a different template with different columns,
+        and <b>${esc(String(v.agree))} of ${esc(String(v.checked))}</b> agreed. Across all three price columns,
+        ${esc(String(cfg.identical))} readings came back identical to the cent and the other
+        ${esc(String(cfg.moved))} all reconcile exactly against the change PriceCharting itself reports for that
+        card, with none left over. That is the check that catches a column read off the wrong header, which on
+        one card is a 21 times error that still looks like a reasonable price.</p>
+    </div>
+    <div>
+      <h3>What a row is</h3>
+      <p>A row is one PriceCharting <b>product</b>, which is one printing of one card: "Charizard #4",
+        "Charizard [Shadowless] #4" and "Charizard [1st Edition] #4" are three rows, not one, and the part in
+        brackets is the printing. A guide value is computed across the sales that guide tracks rather than
+        quoted from one of them, so treat a row as "what a loose copy of this printing is worth", not as a
+        quote for a specific card in a specific condition.</p>
+    </div>
+  </div>`;
+}
+
+/** Which pair of blocks a page gets. */
+const honesty = (cfg, d) => (cfg.source === "pricecharting" ? honestyGuide(cfg, d) : honestyMarket(cfg, d));
+const methodology = (cfg, d) =>
+  cfg.source === "pricecharting" ? methodologyGuide(cfg, d) : methodologyMarket(cfg, d);
+
 const PAGES = [
   {
     key: "cards",
+    source: "pricecharting",
     slug: "most-valuable-cards",
     og: "most-valuable-cards",
     navTitle: "Most valuable cards",
-    title: "The 100 Most Valuable Raw Pokemon Cards on TCGplayer",
+    title: "The 100 Most Valuable Raw Pokemon Cards in PriceCharting's Price Guide",
     h1: ["The 100 most valuable ", "raw", " Pokemon cards"],
-    kicker: "Pokemon TCG &bull; Ungraded, English, priced by TCGplayer",
+    // "Pokemon cards", not "Pokemon TCG": thirteen of the hundred are Topps
+    // cards, and "every language" is the change this page made in August 2026
+    // and the first thing a reader should know about the list.
+    kicker: "Pokemon cards &bull; Ungraded, every language, priced by PriceCharting",
     lede:
-      "Every one of these is a loose card, out of a sleeve, ungraded. Ranked by TCGplayer's own market price for " +
-      "their English Pokemon catalogue, read on the date below and checked against a second TCGplayer source.",
+      "Every one of these is a loose card, out of a sleeve, ungraded. Ranked by PriceCharting's ungraded price " +
+      "guide value across their whole Pokemon catalogue, Japanese and English together, read on the date below " +
+      "and read a second time from each card's own product page.",
     desc:
-      "The 100 most valuable ungraded Pokemon cards by TCGplayer market price, read %DATE%. English cards only, " +
-      "no graded slabs, no auction sales, with the cheapest live listing beside every market price.",
-    lineTotal: "29,652",
+      "The 100 most valuable ungraded Pokemon cards by PriceCharting's price guide, read %DATE%. Every language, " +
+      "no sealed product, no auction records, with the Grade 9 and PSA 10 value beside every raw price.",
     excludes:
-      "Graded cards are not in it: a PSA 10 of any of these is a different object at a different price and this " +
-      "feed does not carry one. Japanese cards are not in it either, because they are a separate catalogue on the " +
-      "same site. Nor are the six and seven figure cards people usually mean by most valuable, because those sell " +
-      "at auction houses and private sales that TCGplayer never sees.",
-    searchBlurb: "The dearest ungraded singles on TCGplayer, ranked and dated",
+      "Graded slabs are not what it ranks: the PSA 10 and Grade 9 values are printed on every row, but the order " +
+      "is the ungraded column and nothing else, and the list ranked the other way is our PSA 10 top 100. Auction " +
+      "and private sales are not in it either. The six and seven figure numbers people usually mean by most " +
+      "valuable are single hammer prices at auction houses, and a guide value is a computed estimate across many " +
+      "sales, which is a different kind of fact: the card at number one has a widely reported 2022 sale of about " +
+      "$5.3 million against the guide value shown here.",
+    searchBlurb: "The dearest ungraded Pokemon cards in PriceCharting's guide, ranked and dated",
     listLede:
-      "Ranked by market price, dearest first. The picture, the name and the set take you to our page for it; " +
-      "the small link under each price opens that product on TCGplayer so you can check the figure yourself.",
+      "Ranked by ungraded guide value, dearest first. The picture, the name and the set take you to our page for " +
+      "it; the small link under each price opens that card on PriceCharting so you can check the figure yourself.",
     filter: null,
   },
   {
     key: "sealed",
+    source: "tcgplayer",
     slug: "most-expensive-sealed",
     og: "most-expensive-sealed",
     navTitle: "Most expensive sealed",
@@ -711,9 +1165,13 @@ const PAGES = [
 const built = [];
 
 for (const cfg of PAGES) {
-  const d = top[cfg.key];
+  const d = cfg.source === "pricecharting" ? RAW : top[cfg.key];
   if (!d?.items?.length) {
-    console.log(`  ${cfg.slug}: nothing in data/top100.json under "${cfg.key}", skipped. Run sync-top100.mjs.`);
+    console.log(
+      `  ${cfg.slug}: nothing to build from ${
+        cfg.source === "pricecharting" ? "data/top-raw.json" : `data/top100.json under "${cfg.key}"`
+      }, skipped. Run ${cfg.source === "pricecharting" ? "sync-raw-top.mjs then verify-raw-top.mjs" : "sync-top100.mjs"}.`,
+    );
     continue;
   }
   const items = d.items;
@@ -722,16 +1180,74 @@ for (const cfg of PAGES) {
   const url = `${SITE}/${cfg.slug}.html`;
 
   // Any dead scan actually in this list, named rather than assumed away.
-  const dead = items.filter((i) => i.noImg === true || DEAD.has(String(i.productId)));
+  const dead = items.filter((i) =>
+    cfg.source === "pricecharting" ? i.noImg === true : i.noImg === true || DEAD.has(String(i.productId)),
+  );
 
   const multi = cfg.filter ? items.filter((i) => formOf(i.name).multi).length : 0;
-  // Counted from the data rather than typed, because it is the kind of number
-  // that is right on the day it is written and wrong every day after.
-  cfg.aboveMarket = items.filter((i) => i.low != null && i.low > i.market).length;
-  // Same rule, for the same reason: the honesty block used to promise the lowest
-  // listing "on every row" and several rows carry none. Counted off the items.
-  cfg.withLow = items.filter((i) => i.low != null).length;
-  cfg.noLow = items.length - cfg.withLow;
+  // EVERY NUMBER IN THE PROSE IS COUNTED OFF THE DATA RATHER THAN TYPED,
+  // because it is the kind of number that is right on the day it is written and
+  // wrong every day after.
+  if (cfg.source === "pricecharting") {
+    // Language is read off the set name, which is where PriceCharting puts it:
+    // "Japanese Promo", "Chinese 151 Collect", "Korean Promo". A set with no
+    // language in its name is English or unmarked, and the copy says both
+    // rather than claiming all 48 are English.
+    const lang = (i) => /^(Japanese|Chinese|Korean)\b/.exec(i.setName)?.[1] || "";
+    cfg.langJa = items.filter((i) => lang(i) === "Japanese").length;
+    cfg.langZh = items.filter((i) => lang(i) === "Chinese").length;
+    cfg.langEn = items.length - cfg.langJa - cfg.langZh;
+    cfg.topps = items.filter((i) => /\bTopps\b/i.test(i.setName)).length;
+    cfg.cut = items[items.length - 1].price;
+    // The sealed rows that were dear enough to have made this hundred. Only
+    // those: naming the ones that fell below the cut anyway would inflate what
+    // the removal actually did.
+    const above = (d.notCards || []).filter((n) => n.ungraded >= cfg.cut);
+    cfg.sealedAboveCut = above.length;
+    cfg.sealedTotal = (d.notCards || []).length;
+    // SEMICOLONS, NOT COMMAS, because every item in this list carries a money
+    // figure with a comma in it. Joining on commas produced one long string a
+    // reader could not parse into items, and an "and the last one" regex over
+    // it matched inside "$26,347.39" instead of between two products.
+    const list = above.map((n) => `${n.name} at ${moneyExact(n.ungraded)}`);
+    cfg.sealedNames =
+      list.length > 1 ? `${list.slice(0, -1).join("; ")} and ${list[list.length - 1]}` : list[0] || "";
+    // The two classes every reading of every column fell into. The claim the
+    // methodology block makes is that there is no third class, so both are
+    // counted here rather than asserted.
+    // The three shapes a reader will notice and wonder about, counted rather
+    // than described vaguely: an empty grade cell, and a raw price sitting
+    // above the PSA 10 price beside it.
+    cfg.noPsa = items.filter((i) => i.psa10 == null).length;
+    cfg.noG9 = items.filter((i) => i.g9 == null).length;
+    cfg.rawOverPsa = items.filter((i) => i.psa10 != null && i.price > i.psa10).length;
+    const readings = (d.verify?.rows || []).flatMap((r) => Object.values(r.cols || {}));
+    cfg.identical = readings.filter((c) => c.listing != null && c.listing === c.product).length;
+    cfg.moved = readings.filter((c) => c.reconciles === true).length;
+    // ONE SENTENCE PER EXCLUDED ROW, each reason coming off the entry's own
+    // `public` string rather than a sentence written here, so an exclusion made
+    // later for some other reason cannot inherit this one's explanation. Same
+    // rule build-top-graded.mjs keeps. No `public` on any entry, no sentence.
+    const exc = d.excluded || [];
+    const oneReason = exc.length && exc.every((e) => e.public === exc[0].public);
+    cfg.excNote = !exc.length || exc.some((e) => !e.public)
+      ? ""
+      : oneReason
+        ? // All of them for the same reason, said once. Five sentences with the
+          // same clause in each reads as boilerplate and buries the names.
+          ` They are ${
+            exc.length > 1
+              ? `${exc.slice(0, -1).map((e) => e.name).join("; ")} and ${exc[exc.length - 1].name}`
+              : exc[0].name
+          }, in every case because ${exc[0].public}.`
+        : " " + exc.map((e) => `${e.name} was dropped because ${e.public}.`).join(" ");
+  } else {
+    cfg.aboveMarket = items.filter((i) => i.low != null && i.low > i.market).length;
+    // Same rule, for the same reason: the honesty block used to promise the
+    // lowest listing "on every row" and several rows carry none.
+    cfg.withLow = items.filter((i) => i.low != null).length;
+    cfg.noLow = items.length - cfg.withLow;
+  }
   const filterBlock = cfg.filter
     ? `<div class="t100-filter">
       <button type="button" id="t100All" aria-pressed="true" aria-controls="t100list">All 100</button>
@@ -786,11 +1302,20 @@ ${MENU}
 
     ${honesty(cfg, d)}
 
-    <div class="facts" style="margin-top:20px">
+    <div class="facts" style="margin-top:20px">${
+      cfg.source === "pricecharting"
+        ? `
+      <div class="fact"><div class="n">${esc(moneyCompact(items[0].price))}</div><div class="l">Dearest, ${esc(items[0].name)}</div></div>
+      <div class="fact"><div class="n">${esc(moneyCompact(cfg.cut))}</div><div class="l">What it takes to make the 100</div></div>
+      <div class="fact"><div class="n">${esc(String(cfg.langJa + cfg.langZh))}</div><div class="l">Japanese or Chinese, of 100</div></div>
+      <div class="fact"><div class="n">${esc(d.scanned.productsWithUngraded.toLocaleString("en-US"))}</div><div class="l">Priced cards ranked to find them</div></div>
+      <div class="fact wide"><div class="n" style="font-size:1.15rem">${esc(when)}</div><div class="l">Prices read on</div></div>`
+        : `
       <div class="fact"><div class="n">${esc(moneyCompact(items[0].market))}</div><div class="l">Dearest, ${esc(items[0].name)}</div></div>
       <div class="fact"><div class="n">${esc(moneyCompact(d.cut))}</div><div class="l">What it takes to make the 100</div></div>
       <div class="fact"><div class="n">${esc(String(d.walked))}</div><div class="l">Products checked to find them</div></div>
-      <div class="fact wide"><div class="n" style="font-size:1.15rem">${esc(when)}</div><div class="l">Prices read on</div></div>
+      <div class="fact wide"><div class="n" style="font-size:1.15rem">${esc(when)}</div><div class="l">Prices read on</div></div>`
+    }
     </div>
   </div>
 </section>
@@ -803,18 +1328,31 @@ ${MENU}
     ${filterBlock}
 
     <div class="t100-head" aria-hidden="true">
-      <span class="t100-h-name">Rank and name</span><span>Set</span><span>${cfg.key === "sealed" ? "Form" : "Rarity"}</span><span class="t100-h-count">For sale</span><span class="t100-h-price">Market price</span>
+      <span class="t100-h-name">Rank and name</span><span>Set</span><span>${
+        cfg.key === "sealed" ? "Form" : "Grade 9"
+      }</span><span class="t100-h-count">${cfg.key === "sealed" ? "For sale" : "PSA 10"}</span><span class="t100-h-price">${
+        cfg.key === "sealed" ? "Market price" : "Ungraded"
+      }</span>
     </div>
     <ol class="t100" id="t100list">
 ${items.map((i) => row(i, cfg.key)).join("\n")}
     </ol>
 
-    <p class="price-note" style="margin-top:var(--s5)">Prices are TCGplayer market prices for their English Pokemon
+    <p class="price-note" style="margin-top:var(--s5)">${
+      cfg.source === "pricecharting"
+        ? `Prices are PriceCharting price guide values for a loose, ungraded copy of that exact printing, read on
+      ${esc(when)} and re-read from each card's own product page before publication. They move daily, so treat them as
+      the shape of the market rather than a quote. Card scans are PriceCharting's, shown at the size these rows draw
+      them and linked back to the record they belong to. The link under each price leaves this site and opens on
+      PriceCharting; there is no affiliate code in it and we make nothing from it, it is there so you can check the
+      number. ${dead.length ? `${dead.length} of these cards have no scan in PriceCharting's catalogue and show an empty frame; that is their record, not a fault here.` : ""}`
+        : `Prices are TCGplayer market prices for their English Pokemon
       catalogue, read on ${esc(when)} and re-read from a second TCGplayer endpoint the same day. They move daily, so
       treat them as the shape of the market rather than a quote. Product photography is TCGplayer's, shown at the size
       these rows draw it and linked back to the product it belongs to. The link under each price leaves this site and
       opens on TCGplayer; there is no affiliate code in it and we make nothing from it, it is there so you can check the
-      number. ${dead.length ? `${dead.length} of these products have no photo in TCGplayer's catalogue and show an empty frame; that is their listing, not a fault here.` : ""}
+      number. ${dead.length ? `${dead.length} of these products have no photo in TCGplayer's catalogue and show an empty frame; that is their listing, not a fault here.` : ""}`
+    }
       Not financial advice, and definitely not a suggestion to buy any of this.</p>
   </div>
 </section>
@@ -870,6 +1408,24 @@ ${APP_JS}
 }
 
 for (const b of built) {
+  if (b.cfg.source === "pricecharting") {
+    const v = b.d.verify || {};
+    console.log(
+      `Wrote public/${b.cfg.slug}.html\n` +
+        `  ${b.items.length} rows, ${moneyExact(b.items[0].price)} down to ${moneyExact(b.cfg.cut)}, ` +
+        `read ${b.d.checked} (PriceCharting ungraded)\n` +
+        `  ranked from ${b.d.scanned.productsWithUngraded} priced products across ${b.d.scanned.consoles} sets; ` +
+        `${v.agree}/${v.checked} candidates confirmed on a second read, ${v.disagree} excluded\n` +
+        `  ${b.cfg.langJa} Japanese, ${b.cfg.langZh} Chinese, ${b.cfg.langEn} English or unmarked, ` +
+        `${b.cfg.topps} Topps; ${b.cfg.sealedAboveCut} sealed products removed from above the cut\n` +
+        `  ${b.items.length - b.dead.length} card scans, ${b.dead.length} skipped as known dead` +
+        (b.items[b.items.length - 1].sourceRank !== b.items.length
+          ? `\n  NOTE: the hundredth published row is candidate ${b.items[b.items.length - 1].sourceRank}, ` +
+            `so ${b.items[b.items.length - 1].sourceRank - b.items.length} candidate(s) above it did not survive the second read`
+          : ""),
+    );
+    continue;
+  }
   console.log(
     `Wrote public/${b.cfg.slug}.html\n` +
       `  ${b.items.length} rows, ${moneyExact(b.items[0].market)} down to ${moneyExact(b.d.cut)}, read ${b.d.checked}\n` +
@@ -880,6 +1436,6 @@ for (const b of built) {
   );
 }
 if (!built.length) {
-  console.log("Nothing built. Run: node scripts/sync-top100.mjs");
+  console.log("Nothing built. Run: node scripts/sync-raw-top.mjs and node scripts/sync-top100.mjs");
   process.exit(1);
 }

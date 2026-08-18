@@ -1162,7 +1162,14 @@ ${MENU}
   <section class="tight">
     <div class="wrap">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <span>Sealed product prices</span></nav>
-      <h1>Pokemon sealed <span class="hl">MSRP</span> list</h1>
+      ${/* "list" WAS THE ONE WORD THIS PAGE MUST NOT PROMISE. The nav says "MSRP
+          check" precisely because some rows carry no price: a display box
+          cannot be priced by multiplying a pack, and Pokemon Center lists some
+          product types at two prices on the same day. An h1 offering a list
+          and a nav offering a check are two different promises about the same
+          page, and the weaker one is the true one. MSRP stays first and stays
+          highlighted; only the promise changes. */ ""}
+      <h1>Pokemon sealed <span class="hl">MSRP</span>: what it should cost</h1>
       <p class="lede ms-lede">What each kind of sealed product should cost, so you can work out in the shop
         how far over you are being asked to go.</p>
 

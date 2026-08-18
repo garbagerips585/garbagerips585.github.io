@@ -1030,12 +1030,15 @@
     // form.search[data-route], a selector no page has ever carried: it matched
     // nothing on all 342 pages and the native submit was doing the work.
     //
-    // What it does need is to show the query it is displaying results for,
-    // otherwise arriving at /videos.html?q=charizard shows an empty box.
-    var navQ = document.getElementById("navSearch");
-    if (navQ && !navQ.value) {
-      navQ.value = new URLSearchParams(location.search).get("q") || "";
-    }
+    // THE BAR HAS NO FIELD ANY MORE, so the block that used to sit here is
+    // gone with it. It read #navSearch and echoed ?q= back into it, so that
+    // arriving at /videos.html?q=charizard did not show an empty box. There is
+    // no #navSearch on any page now: the bar carries a 44px magnifier linking
+    // to /search.html, which has its own field and fills it itself. Removed
+    // rather than left guarded by `if (navQ)`, which is how this function came
+    // to hold two dead selectors ("nav.site", ".nav-toggle") that matched
+    // nothing on 342 pages and had to be proved dead before anything nearby
+    // could be touched.
     // Mobile menu. The bar has room for a brand, a search affordance and
     // Subscribe, and nothing else, so on a phone every other page used to be a
     // 7,000px scroll away in the footer.
@@ -1056,13 +1059,23 @@
     // ones a search engine sends people to first, and therefore exactly where
     // a reader is least likely to know where they have landed. WCAG 2.4.8.
     //
-    // /search.html is deliberately NOT here, though it also lights nothing. It
-    // is the bar search form's action, not a NAV destination, and no NAV href
-    // points at it. There is no nav item it belongs under, so marking one
-    // would be inventing an answer rather than reporting one.
+    // /search.html USED TO BE THE EXCEPTION HERE, on the grounds that it was
+    // the bar form's action rather than a NAV destination, so there was no nav
+    // item it belonged under and marking one would have been inventing an
+    // answer. It is a NAV href now, under Cards, so it needs no entry in this
+    // table at all: the exact match below resolves it like any other page.
+    // Left as a note because the reasoning is still right for anything else
+    // that is only a form target.
     var SECTIONS = [
       [/^\/rip\//, "/videos.html"],
       [/^\/playlists\//, "/playlists.html"],
+      // The third family with the same shape, found by driving one page from
+      // every directory on the site and asking which lit nothing: the nine
+      // per-retailer pages under /retailers/ hang off /retailers.html, a FILE,
+      // so no NAV href is a prefix of them either. Same bug as /rip/, same fix.
+      // Everything else that looked at risk turned out fine, because its NAV
+      // href IS the directory: /sets/, /pokemon/, /openings/, /games/.
+      [/^\/retailers\//, "/retailers.html"],
     ];
     var owner = here;
     for (var s = 0; s < SECTIONS.length; s++) {
@@ -1083,6 +1096,7 @@
 
     var mb = document.getElementById("menuBtn");
     var panel = document.getElementById("menu");
+
     if (mb && panel) {
       var setOpen = function (open) {
         mb.setAttribute("aria-expanded", String(open));
@@ -1112,6 +1126,53 @@
         if (panel.contains(e.target) || mb.contains(e.target)) return;
         setOpen(false);
       });
+    }
+
+    /* COLLAPSE THE MENU SECTIONS ON A PHONE, and this is the only place it can
+     * be done.
+     *
+     * Each group in the panel is a native <details> that ships `open` (see
+     * shared/chrome.mjs). A closed <details> cannot be forced open from CSS in
+     * every browser, so the media query has to run the other way: the markup is
+     * expanded, which is the state that is correct with no script and correct
+     * on a desktop, and this closes it where the screen is small.
+     *
+     * WHAT IT BUYS, measured into the real panel on /start.html at 390x844:
+     * 1,449px of content in an 812px window with 16 of 46 links unreachable,
+     * against 544px with every one of the eight headings on screen and nothing
+     * scrolling. The eighteen-link "Guides" group alone was an 827px block that
+     * break-inside: avoid could not split.
+     *
+     * ONCE, ON LOAD, AND NOT ON RESIZE. Re-running this when the window changes
+     * would shut a section the reader had just opened, which is worse than a
+     * stale layout after a rotation that almost nobody performs with the menu
+     * held open. matchMedia is read rather than an innerWidth compare so the
+     * breakpoint is the same string the stylesheet uses.
+     *
+     * `menu-acc` is what switches ui.css to one column. It goes on in the same
+     * breath as the collapse so the two can never disagree.
+     *
+     * IT RUNS LAST, AFTER THE BUTTON IS WIRED, AND THE ORDER IS THE POINT. If
+     * this ever throws, the toggle above it is already listening and the reader
+     * gets an expanded panel, which is a worse layout and a working menu. The
+     * other way round is a menu that is shut and cannot be opened.
+     *
+     * WHAT "NO SCRIPT" ACTUALLY MEANS HERE, checked with script execution
+     * disabled rather than assumed: `.menu` is display:none until app.js adds
+     * `.on`, so with JavaScript off the panel does not open AT ALL, and that was
+     * as true before this change as after it. The degradation this default
+     * protects is the partial one, and a crawler's: the markup ships with all
+     * eight sections open and two columns, so a page fetched without running
+     * this file contains every nav link in its expanded state. The reader's
+     * fallback is and always was the footer, which carries the same 47 links
+     * with no script at all.
+     */
+    if (panel && window.matchMedia && window.matchMedia("(max-width:820px)").matches) {
+      var groups = panel.querySelectorAll("details.menu-g");
+      if (groups.length) {
+        panel.classList.add("menu-acc");
+        for (var g = 0; g < groups.length; g++) groups[g].removeAttribute("open");
+      }
     }
 
     var yr = document.getElementById("year");
@@ -1153,9 +1214,36 @@
     return null;
   }
 
+  /* `summary` IS IN HERE AND IT HAS TO BE. A <summary> is focusable by default
+     with no tabindex attribute, so none of the other clauses match it. The menu
+     panel's eight section headings are summaries, and leaving them out of this
+     list means the trap steps straight past every one of them: on a phone,
+     where the sections ship collapsed, that is a keyboard user reaching the
+     Subscribe pill and nothing else in the entire navigation. */
   var FOCUSABLE =
     'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),' +
-    'textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+    'textarea:not([disabled]),summary,[tabindex]:not([tabindex="-1"])';
+
+  /* IS THIS THING ACTUALLY ON SCREEN, and `offsetParent !== null` no longer
+     answers it. Chrome renders a closed <details> by skipping its contents with
+     content-visibility rather than display:none, and a skipped subtree still
+     reports a non-null offsetParent AND a stale non-zero getBoundingClientRect.
+     Measured: a link inside a shut section reported {y:108, width:147} and
+     offsetParent "yes" while the panel around it measured 55px tall.
+
+     So the trap has to ask the <details> instead. Without this the Tab loop
+     walks into links the reader cannot see, focus lands nowhere visible, and
+     the ring is drawn off in a subtree the browser is not painting.
+     checkVisibility is the standard answer and is used where it exists;
+     the closest() test is the fallback and the one that actually carries
+     Safari, so both run. */
+  function onScreen(el) {
+    if (el.tagName !== "SUMMARY" && el.closest("details:not([open])")) return false;
+    if (typeof el.checkVisibility === "function") {
+      return el.checkVisibility({ checkVisibilityCSS: true });
+    }
+    return el.offsetParent !== null;
+  }
 
   document.addEventListener("keydown", function (e) {
     if (e.key !== "Tab") return;
@@ -1168,7 +1256,7 @@
       Array.prototype.push.apply(items, r.querySelectorAll(FOCUSABLE));
     });
     items = items.filter(function (el) {
-      return el.offsetParent !== null || el === document.activeElement;
+      return onScreen(el) || el === document.activeElement;
     });
     if (!items.length) return;
     var first = items[0];

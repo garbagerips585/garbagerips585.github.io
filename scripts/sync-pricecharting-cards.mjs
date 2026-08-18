@@ -73,50 +73,16 @@ import { readdir, readFile, writeFile } from "node:fs/promises";
 import { stat } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { PC_CONSOLES } from "../shared/pricecharting.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache/pricecharting-console");
 const OUT = join(ROOT, "data/pricecharting-cards.json");
 const REPORT = process.argv.includes("--report");
 
-// OUR SET ID -> PRICECHARTING CONSOLE PATH, BY HAND AND ON PURPOSE.
-//
-// Not fuzzy matched. PriceCharting has 792 Pokemon consoles and several pairs
-// differ by one word ("Scarlet & Violet" against "Scarlet & Violet 151", "Black
-// Bolt" against "White Flare"), so a name matcher that is right 26 times out of
-// 28 prices two whole guides off the wrong set and nothing about the page looks
-// broken. Every line here was read off the crawled console list and checked
-// against the card count the guide expects.
-const CONSOLES = {
-  "151": "/console/pokemon-scarlet-&-violet-151",
-  "ascended-heroes": "/console/pokemon-ascended-heroes",
-  "black-bolt": "/console/pokemon-black-bolt",
-  "celebrations": "/console/pokemon-celebrations",
-  "chaos-rising": "/console/pokemon-chaos-rising",
-  "chilling-reign": "/console/pokemon-chilling-reign",
-  "crown-zenith": "/console/pokemon-crown-zenith",
-  "destined-rivals": "/console/pokemon-destined-rivals",
-  "journey-together": "/console/pokemon-journey-together",
-  "mega-evolution": "/console/pokemon-mega-evolution",
-  "obsidian-flames": "/console/pokemon-obsidian-flames",
-  "paldea-evolved": "/console/pokemon-paldea-evolved",
-  "paldean-fates": "/console/pokemon-paldean-fates",
-  "paradox-rift": "/console/pokemon-paradox-rift",
-  "perfect-order": "/console/pokemon-perfect-order",
-  "phantasmal-flames": "/console/pokemon-phantasmal-flames",
-  "pitch-black": "/console/pokemon-pitch-black",
-  "pokemon-go": "/console/pokemon-go",
-  "prismatic-evolutions": "/console/pokemon-prismatic-evolutions",
-  "rebel-clash": "/console/pokemon-rebel-clash",
-  "scarlet-violet": "/console/pokemon-scarlet-&-violet",
-  "shining-fates": "/console/pokemon-shining-fates",
-  "shrouded-fable": "/console/pokemon-shrouded-fable",
-  "stellar-crown": "/console/pokemon-stellar-crown",
-  "surging-sparks": "/console/pokemon-surging-sparks",
-  "temporal-forces": "/console/pokemon-temporal-forces",
-  "twilight-masquerade": "/console/pokemon-twilight-masquerade",
-  "white-flare": "/console/pokemon-white-flare",
-};
+// The set guide -> console map moved to shared/pricecharting.mjs when
+// build-top100.mjs started needing it too. Nothing about it changed.
+const CONSOLES = PC_CONSOLES;
 
 // The same header contract sync-graded-top.mjs enforces, for the same reason:
 // the td classes are video-game legacy names and only the <th> row says which

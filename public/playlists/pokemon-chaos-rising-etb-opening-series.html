@@ -24,7 +24,7 @@ In this playlist, we’re opening multiple Chaos Rising Elite Trainer Boxes, one
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=c2b680ad">
+<link rel="stylesheet" href="/assets/ui.css?v=43e86a3a">
 <link rel="stylesheet" href="/assets/packs.css?v=e32b0800">
 <style>.plid{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:var(--s4);max-width:46em}
 .plid-set,.plid-prod{display:flex;align-items:center;gap:var(--s4);flex:1 1 15em;
@@ -51,11 +51,7 @@ font-size:var(--t-sm);line-height:1.5}
 <header class="bar">
   <div class="bar-in">
     <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
-    <form class="bar-search" role="search" action="/search.html" method="get">
-      <label class="sr-only" for="navSearch">Search cards, sets, guides and rips</label>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
-      <input id="navSearch" name="q" type="search" placeholder="Search cards, sets, rips" aria-label="Search cards, sets, guides and every rip" autocomplete="off">
-    </form>
+    <a class="bar-find" href="/search.html" aria-label="Search cards, sets, guides and rips"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg></a>
     <nav class="nav-links" aria-label="Primary">
       <a href="/videos.html">Rips</a>
       <a href="/cards.html">Card search</a>
@@ -67,69 +63,81 @@ font-size:var(--t-sm);line-height:1.5}
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       <span>Menu</span>
     </button>
-    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"><span>Subscribe</span></a>
+    <a class="sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
+      aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube."><span>Subscribe</span></a>
   </div>
 </header>
 <nav class="menu" id="menu" aria-label="All sections">
   <div class="menu-inner">
-    <div class="menu-g">
-      <p class="menu-h">Watch</p>
+    <details class="menu-g" open>
+      <summary class="menu-h">The channel<span class="menu-x" aria-hidden="true"></span></summary>
       <ul>
         <li><a href="/videos.html">Rips</a></li>
         <li><a href="/playlists.html">Playlists</a></li>
-      </ul>
-    </div>
-    <div class="menu-g">
-      <p class="menu-h">The binder</p>
-      <ul>
         <li><a href="/hall.html">Best pulls</a></li>
         <li><a href="/wanted.html">Most wanted</a></li>
+        <li><a href="/luck.html">Rip results</a></li>
       </ul>
-    </div>
-    <div class="menu-g">
-      <p class="menu-h">Cards</p>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Cards<span class="menu-x" aria-hidden="true"></span></summary>
       <ul>
         <li><a href="/cards.html">Card search</a></li>
+        <li><a href="/search.html">Search the site</a></li>
         <li><a href="/pokemon/">By Pokemon</a></li>
+        <li><a href="/what-set.html">What set is it</a></li>
+        <li><a href="/rarity.html">Rarity guide</a></li>
+        <li><a href="/types.html">Card types</a></li>
+        <li><a href="/base-set.html">Base Set prints</a></li>
+        <li><a href="/fake-cards.html">Fakes</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Sets<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
         <li><a href="/sets/">Set guides</a></li>
-        <li><a href="/expansions.html">Every set ever</a></li>
+        <li><a href="/expansions.html">All English sets</a></li>
         <li><a href="/upcoming.html">Coming next</a></li>
         <li><a href="/complete-a-set.html">Cost to complete</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Prices<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
         <li><a href="/msrp.html">MSRP check</a></li>
         <li><a href="/pack-prices.html">Pack prices</a></li>
         <li><a href="/how-many-packs.html">Packs per box</a></li>
         <li><a href="/openings/">Sealed products</a></li>
-        <li><a href="/drops.html">Drops this week</a></li>
-        <li><a href="/most-valuable-cards.html">Priciest cards</a></li>
-        <li><a href="/most-expensive-sealed.html">Priciest sealed</a></li>
+        <li><a href="/most-valuable-cards.html">Raw top 100</a></li>
+        <li><a href="/most-expensive-sealed.html">Sealed top 100</a></li>
         <li><a href="/top-graded.html">PSA 10 top 100</a></li>
       </ul>
-    </div>
-    <div class="menu-g">
-      <p class="menu-h">Guides</p>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Buy, sell, grade<span class="menu-x" aria-hidden="true"></span></summary>
       <ul>
         <li><a href="/start.html">Start here</a></li>
         <li><a href="/what-to-buy.html">Beginner buys</a></li>
-        <li><a href="/how-to-play.html">How to play</a></li>
-        <li><a href="/tcg-live.html">Code cards</a></li>
-        <li><a href="/tcg-pocket.html">Phone version</a></li>
-        <li><a href="/decks.html">Deck builds</a></li>
-        <li><a href="/top-100-playable.html">Most played cards</a></li>
-        <li><a href="/what-set.html">Set finder</a></li>
-        <li><a href="/rarity.html">Rarity guide</a></li>
-        <li><a href="/base-set.html">Base Set prints</a></li>
-        <li><a href="/types.html">Card types</a></li>
-        <li><a href="/fake-cards.html">Fakes</a></li>
+        <li><a href="/buying.html">Where to buy</a></li>
+        <li><a href="/retailers.html">Chain stores</a></li>
+        <li><a href="/drops.html">Restocks</a></li>
+        <li><a href="/selling.html">Where to sell</a></li>
         <li><a href="/will-it-grade.html">Will it grade</a></li>
         <li><a href="/grading.html">Grading cost</a></li>
-        <li><a href="/selling.html">Where to sell</a></li>
-        <li><a href="/buying.html">Where to buy</a></li>
-        <li><a href="/retailers.html">Stores that sell cards</a></li>
-        <li><a href="/luck.html">Luck, measured</a></li>
       </ul>
-    </div>
-    <div class="menu-g">
-      <p class="menu-h">Play</p>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Playing<span class="menu-x" aria-hidden="true"></span></summary>
+      <ul>
+        <li><a href="/how-to-play.html">How to play</a></li>
+        <li><a href="/tcg-live.html">Code cards</a></li>
+        <li><a href="/tcg-pocket.html">TCG Pocket app</a></li>
+        <li><a href="/decks.html">Deck builds</a></li>
+        <li><a href="/top-100-playable.html">Most played</a></li>
+      </ul>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Just for fun<span class="menu-x" aria-hidden="true"></span></summary>
       <ul>
         <li><a href="/games/">Games</a></li>
         <li><a href="/video-games.html">Video games</a></li>
@@ -137,9 +145,9 @@ font-size:var(--t-sm);line-height:1.5}
         <li><a href="/evolution.html">Evolution chart</a></li>
         <li><a href="/eevee-evolutions.html">Eevee evolutions</a></li>
       </ul>
-    </div>
-    <div class="menu-g">
-      <p class="menu-h">Rochester, NY</p>
+    </details>
+    <details class="menu-g" open>
+      <summary class="menu-h">Rochester, NY<span class="menu-x" aria-hidden="true"></span></summary>
       <ul>
         <li><a href="/card-shows.html">Card shows</a></li>
         <li><a href="/shops.html">Card shops</a></li>
@@ -147,9 +155,10 @@ font-size:var(--t-sm);line-height:1.5}
         <li><a href="/creators.html">Local creators</a></li>
         <li><a href="/about.html">About</a></li>
       </ul>
-    </div>
+    </details>
   </div>
-  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe on YouTube</a>
+  <a class="menu-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
+    aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>
 </nav>
 <main id="main">
   <section class="tight">
@@ -211,7 +220,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:21</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/only-garbage-rips-chaos-rising-etb-pack-5-vqp2qrq1hls.html">Chaos Rising ETB - Pack 5</a></h3>
+          <h3><a href="/rip/only-garbage-rips-chaos-rising-etb-pack-5-vqp2qrq1hls.html">Chaos Rising ETB (Jun 20, 2026)</a></h3>
           <p>CHAOS RISING  •  70 VIEWS</p>
         </article>
         <article class="v">
@@ -227,7 +236,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:22</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/chaos-rising-etb-pack-4-heating-up-4gBo585VhEI.html">Chaos Rising ETB - Pack 4</a></h3>
+          <h3><a href="/rip/chaos-rising-etb-pack-4-heating-up-4gBo585VhEI.html">Chaos Rising ETB (Jun 19, 2026)</a></h3>
           <p>CHAOS RISING  •  35 VIEWS</p>
         </article>
         <article class="v">
@@ -243,7 +252,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:21</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/chaos-rising-etb-pack-3-is-this-etb-loaded-goGNPoBWQ-g.html">Chaos Rising ETB - Pack 3 (Jun 18, 2026)</a></h3>
+          <h3><a href="/rip/chaos-rising-etb-pack-3-is-this-etb-loaded-goGNPoBWQ-g.html">Chaos Rising ETB (Jun 18, 2026)</a></h3>
           <p>CHAOS RISING  •  903 VIEWS</p>
         </article>
         <article class="v">
@@ -259,7 +268,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:19</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/chaos-rising-etb-pack-2-back-to-back-hits-u7xNNfIBEjg.html">Chaos Rising ETB - Pack 2 (Jun 17, 2026)</a></h3>
+          <h3><a href="/rip/chaos-rising-etb-pack-2-back-to-back-hits-u7xNNfIBEjg.html">Chaos Rising ETB (Jun 17, 2026)</a></h3>
           <p>CHAOS RISING  •  1K VIEWS</p>
         </article>
         <article class="v">
@@ -275,7 +284,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:21</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/pokemon-chaos-rising-etb-pack-1-first-pack-magic-bpm7cSVXNiM.html">Chaos Rising ETB - Pack 1</a></h3>
+          <h3><a href="/rip/pokemon-chaos-rising-etb-pack-1-first-pack-magic-bpm7cSVXNiM.html">Chaos Rising ETB (Jun 16, 2026)</a></h3>
           <p>CHAOS RISING  •  1K VIEWS</p>
         </article>
         <article class="v">
@@ -291,7 +300,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:22</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/chaos-rising-etb-pack-6-we-need-a-hit-QKYrh9l8BYA.html">Chaos Rising ETB - Pack 6</a></h3>
+          <h3><a href="/rip/chaos-rising-etb-pack-6-we-need-a-hit-QKYrh9l8BYA.html">Chaos Rising ETB (Jun 21, 2026)</a></h3>
           <p>CHAOS RISING  •  46 VIEWS</p>
         </article>
         <article class="v">
@@ -307,7 +316,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:18</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/chaos-rising-etb-pack-7-pressure-mode-dqC9lAiWeaE.html">Chaos Rising ETB - Pack 7 (Jun 23, 2026)</a></h3>
+          <h3><a href="/rip/chaos-rising-etb-pack-7-pressure-mode-dqC9lAiWeaE.html">Chaos Rising ETB (Jun 23, 2026)</a></h3>
           <p>CHAOS RISING  •  32 VIEWS</p>
         </article>
         <article class="v">
@@ -323,7 +332,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:21</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/chaos-rising-etb-pack-8-only-one-pack-left-Mhz1-_ppwJA.html">Chaos Rising ETB - Pack 8</a></h3>
+          <h3><a href="/rip/chaos-rising-etb-pack-8-only-one-pack-left-Mhz1-_ppwJA.html">Chaos Rising ETB (Jun 24, 2026)</a></h3>
           <p>CHAOS RISING  •  17 VIEWS</p>
         </article>
         <article class="v">
@@ -339,7 +348,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:21</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/final-chaos-rising-etb-pack-last-pack-magic-cz75wI3fz7k.html">Chaos Rising ETB</a></h3>
+          <h3><a href="/rip/final-chaos-rising-etb-pack-last-pack-magic-cz75wI3fz7k.html">Chaos Rising ETB (Jun 26, 2026)</a></h3>
           <p>CHAOS RISING  •  39 VIEWS</p>
         </article>
         <article class="v">
@@ -355,7 +364,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:23</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/pokemon-chaos-rising-etb-2-pack-1-first-pack-magic-CbwSuTI8QKU.html">Chaos Rising ETB - Pack 2 (Jul 1, 2026)</a></h3>
+          <h3><a href="/rip/pokemon-chaos-rising-etb-2-pack-1-first-pack-magic-CbwSuTI8QKU.html">Chaos Rising ETB (Jul 1, 2026)</a></h3>
           <p>CHAOS RISING  •  23 VIEWS</p>
         </article>
         <article class="v">
@@ -371,7 +380,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:21</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/is-this-etb-actually-loaded-Wwc1wVyI6CQ.html">Chaos Rising ETB - Pack 2 (Jul 2, 2026)</a></h3>
+          <h3><a href="/rip/is-this-etb-actually-loaded-Wwc1wVyI6CQ.html">Chaos Rising ETB (Jul 2, 2026)</a></h3>
           <p>CHAOS RISING  •  873 VIEWS</p>
         </article>
         <article class="v">
@@ -387,7 +396,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:25</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/finally-a-hit-in-chaos-rising-etb-2-msETNgFSWD0.html">Chaos Rising ETB - Pack 2 (Jul 3, 2026)</a></h3>
+          <h3><a href="/rip/finally-a-hit-in-chaos-rising-etb-2-msETNgFSWD0.html">Chaos Rising ETB (Jul 3, 2026)</a></h3>
           <p>CHAOS RISING  •  1.2K VIEWS</p>
         </article>
         <article class="v">
@@ -403,7 +412,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:23</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/i-pulled-this-card-again-chaos-rising-etb-2-rlJDEb0q1d0.html">Chaos Rising ETB - Pack 2 (Jul 5, 2026)</a></h3>
+          <h3><a href="/rip/i-pulled-this-card-again-chaos-rising-etb-2-rlJDEb0q1d0.html">Chaos Rising ETB (Jul 5, 2026)</a></h3>
           <p>CHAOS RISING  •  1.1K VIEWS</p>
         </article>
         <article class="v">
@@ -419,7 +428,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:22</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/the-hit-streak-is-over-chaos-rising-etb-2-LvWz0hfaQVE.html">Chaos Rising ETB - Pack 2 (Jul 6, 2026)</a></h3>
+          <h3><a href="/rip/the-hit-streak-is-over-chaos-rising-etb-2-LvWz0hfaQVE.html">Chaos Rising ETB (Jul 6, 2026)</a></h3>
           <p>CHAOS RISING  •  760 VIEWS</p>
         </article>
         <article class="v">
@@ -435,7 +444,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:21</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/only-garbage-rips-chaos-rising-etb-2-pack-6-x3gI4dEKNMs.html">Chaos Rising ETB - Pack 2 (Jul 7, 2026)</a></h3>
+          <h3><a href="/rip/only-garbage-rips-chaos-rising-etb-2-pack-6-x3gI4dEKNMs.html">Chaos Rising ETB (Jul 7, 2026)</a></h3>
           <p>CHAOS RISING  •  735 VIEWS</p>
         </article>
         <article class="v">
@@ -451,7 +460,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:20</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/pack-7-is-this-etb-a-dud-MCe_0kpYnwE.html">Chaos Rising ETB - Pack 7 (Jul 8, 2026)</a></h3>
+          <h3><a href="/rip/pack-7-is-this-etb-a-dud-MCe_0kpYnwE.html">Chaos Rising ETB (Jul 8, 2026)</a></h3>
           <p>CHAOS RISING  •  775 VIEWS</p>
         </article>
         <article class="v">
@@ -467,7 +476,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:22</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/only-garbage-rips-chaos-rising-etb-2-pack-8-iV0h672wrGA.html">Chaos Rising ETB - Pack 2 (Jul 9, 2026)</a></h3>
+          <h3><a href="/rip/only-garbage-rips-chaos-rising-etb-2-pack-8-iV0h672wrGA.html">Chaos Rising ETB (Jul 9, 2026)</a></h3>
           <p>CHAOS RISING  •  754 VIEWS</p>
         </article>
         <article class="v">
@@ -483,7 +492,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:23</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/the-final-verdict-was-this-etb-a-dud-xGmQaLcx-c8.html">Chaos Rising ETB - Pack 9</a></h3>
+          <h3><a href="/rip/the-final-verdict-was-this-etb-a-dud-xGmQaLcx-c8.html">Chaos Rising ETB (Jul 10, 2026)</a></h3>
           <p>CHAOS RISING  •  783 VIEWS</p>
         </article>
         <article class="v">
@@ -499,7 +508,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:21</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/chaos-rising-etb-3-the-first-pack-reality-RZInASE6x1c.html">Chaos Rising ETB - Pack 3 (Aug 10, 2026)</a></h3>
+          <h3><a href="/rip/chaos-rising-etb-3-the-first-pack-reality-RZInASE6x1c.html">Chaos Rising ETB (Aug 10, 2026)</a></h3>
           <p>CHAOS RISING  •  1.1K VIEWS</p>
         </article>
         <article class="v">
@@ -515,7 +524,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
             <span class="dur">0:21</span>
             <span class="play"></span>
           </a>
-          <h3><a href="/rip/the-chaos-rising-struggle-is-real-T2-UqY2ZSOw.html">Chaos Rising ETB - Pack 2 (Aug 14, 2026)</a></h3>
+          <h3><a href="/rip/the-chaos-rising-struggle-is-real-T2-UqY2ZSOw.html">Chaos Rising ETB (Aug 14, 2026)</a></h3>
           <p>CHAOS RISING  •  1K VIEWS</p>
         </article>
         <article class="v">
@@ -546,55 +555,62 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
   <div class="wrap">
     <nav class="foot-nav" aria-label="Footer">
       <div class="foot-col">
-        <p class="foot-h">Watch</p>
+        <p class="foot-h">The channel</p>
         <a href="/videos.html">Rips</a>
         <a href="/playlists.html">Playlists</a>
-      </div>
-      <div class="foot-col">
-        <p class="foot-h">The binder</p>
         <a href="/hall.html">Best pulls</a>
         <a href="/wanted.html">Most wanted</a>
+        <a href="/luck.html">Rip results</a>
       </div>
       <div class="foot-col">
         <p class="foot-h">Cards</p>
         <a href="/cards.html">Card search</a>
+        <a href="/search.html">Search the site</a>
         <a href="/pokemon/">By Pokemon</a>
+        <a href="/what-set.html">What set is it</a>
+        <a href="/rarity.html">Rarity guide</a>
+        <a href="/types.html">Card types</a>
+        <a href="/base-set.html">Base Set prints</a>
+        <a href="/fake-cards.html">Fakes</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Sets</p>
         <a href="/sets/">Set guides</a>
-        <a href="/expansions.html">Every set ever</a>
+        <a href="/expansions.html">All English sets</a>
         <a href="/upcoming.html">Coming next</a>
         <a href="/complete-a-set.html">Cost to complete</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Prices</p>
         <a href="/msrp.html">MSRP check</a>
         <a href="/pack-prices.html">Pack prices</a>
         <a href="/how-many-packs.html">Packs per box</a>
         <a href="/openings/">Sealed products</a>
-        <a href="/drops.html">Drops this week</a>
-        <a href="/most-valuable-cards.html">Priciest cards</a>
-        <a href="/most-expensive-sealed.html">Priciest sealed</a>
+        <a href="/most-valuable-cards.html">Raw top 100</a>
+        <a href="/most-expensive-sealed.html">Sealed top 100</a>
         <a href="/top-graded.html">PSA 10 top 100</a>
       </div>
       <div class="foot-col">
-        <p class="foot-h">Guides</p>
+        <p class="foot-h">Buy, sell, grade</p>
         <a href="/start.html">Start here</a>
         <a href="/what-to-buy.html">Beginner buys</a>
-        <a href="/how-to-play.html">How to play</a>
-        <a href="/tcg-live.html">Code cards</a>
-        <a href="/tcg-pocket.html">Phone version</a>
-        <a href="/decks.html">Deck builds</a>
-        <a href="/top-100-playable.html">Most played cards</a>
-        <a href="/what-set.html">Set finder</a>
-        <a href="/rarity.html">Rarity guide</a>
-        <a href="/base-set.html">Base Set prints</a>
-        <a href="/types.html">Card types</a>
-        <a href="/fake-cards.html">Fakes</a>
+        <a href="/buying.html">Where to buy</a>
+        <a href="/retailers.html">Chain stores</a>
+        <a href="/drops.html">Restocks</a>
+        <a href="/selling.html">Where to sell</a>
         <a href="/will-it-grade.html">Will it grade</a>
         <a href="/grading.html">Grading cost</a>
-        <a href="/selling.html">Where to sell</a>
-        <a href="/buying.html">Where to buy</a>
-        <a href="/retailers.html">Stores that sell cards</a>
-        <a href="/luck.html">Luck, measured</a>
       </div>
       <div class="foot-col">
-        <p class="foot-h">Play</p>
+        <p class="foot-h">Playing</p>
+        <a href="/how-to-play.html">How to play</a>
+        <a href="/tcg-live.html">Code cards</a>
+        <a href="/tcg-pocket.html">TCG Pocket app</a>
+        <a href="/decks.html">Deck builds</a>
+        <a href="/top-100-playable.html">Most played</a>
+      </div>
+      <div class="foot-col">
+        <p class="foot-h">Just for fun</p>
         <a href="/games/">Games</a>
         <a href="/video-games.html">Video games</a>
         <a href="/lore.html">Pokemon lore</a>
@@ -612,7 +628,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
     </nav>
     <!--FOOT_SUB:START-->
     <p class="foot-tag">Grab a fork. Let's rip.</p>
-    <a class="btn btn-yt" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
+    <a class="btn btn-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
       aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>
     <p>A new rip most days. Every pack we open goes up, hit or no hit.</p>
     <!--FOOT_SUB:END-->
@@ -627,7 +643,7 @@ Follow the entire journey as we rip through multiple Chaos Rising ETBs and chase
     Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=1c46a1b4" defer></script>
+<script src="/assets/app.js?v=9bff8ca5" defer></script>
 <script src="/assets/packplayer.js?v=d3834a60" defer></script>
 </body>
 </html>

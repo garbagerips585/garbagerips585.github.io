@@ -169,20 +169,42 @@ COMPLAINING ABOUT. It was approved in conversation on 17 August 2026 and the
 paragraph below still said "there is no sixth exception" while 200 links were
 live on two pages. A QA sweep found it. Writing it down now, late.
 
-Each page carries one "check on TCGplayer" link per row, 100 apiece, no
+Each page carries one "check on <source>" link per row, 100 apiece, no
 affiliate code. THE ARGUMENT FOR IT is the one the fourth and fifth exceptions
 turn on: the reader needs the destination. Those two pages exist to say what
-the most expensive Pokemon cards and sealed products are, ranked by a live
-TCGplayer market price read on a date, and a price like that is only worth
-publishing if a reader can check whether it still holds. Two hundred
-uncheckable numbers is a worse page than two hundred checkable ones, and the
-site's whole claim is that its figures are traceable.
+the most expensive Pokemon cards and sealed products are, ranked by a price
+read on a date, and a price like that is only worth publishing if a reader can
+check whether it still holds. Two hundred uncheckable numbers is a worse page
+than two hundred checkable ones, and the site's whole claim is that its figures
+are traceable.
+
+THE LINK FOLLOWS THE PRICE, AND SINCE 18 AUGUST 2026 THE TWO PAGES POINT AT
+DIFFERENT HOSTS. /most-valuable-cards.html moved onto PriceCharting's ungraded
+price guide, like every other raw price on this site, so its hundred links go
+to pricecharting.com; /most-expensive-sealed.html is still TCGplayer's market
+price, because the PriceCharting crawl runs with `exclude-hardware=true` and
+holds essentially no sealed product, so its hundred still go to tcgplayer.com.
+That is not a detail, it is the condition of the exception: a row priced by one
+source with a link to the other is a citation to a page that does not hold the
+figure printed beside it, which is worse than no link at all. If a page's
+source changes again, the link changes in the same edit.
+
+NOTE THE PAGE THAT DOES THE OPPOSITE. /top-graded.html prints the same host's
+product PATH on all 100 of its rows as PLAIN TEXT and links none of it, arguing
+in build-top-graded.mjs that 100 outbound links would be the largest exception
+on the site. That argument was written before these two pages existed and the
+count it feared is now live and written down here. So the site currently does
+both things with the same source, which is a real inconsistency rather than a
+subtlety: either that page gains links or these two lose them. It is Tim's
+call, and it is recorded here rather than settled quietly in one file.
 
 THE SHAPE IS THE MITIGATION, exactly as for the fourth and fifth. Every large
 tap target on a row, the rank, the picture, the name, the whole row, is
 INTERNAL: it goes to that card's set guide, then its Pokemon page, then site
-search. Measured on /most-valuable-cards.html: 105 internal links against the
-100 outbound ones. The outbound link is a small labelled control at the end of
+search. Re-measured on /most-valuable-cards.html on 18 August 2026, after the
+source change: 106 internal links inside <main> against the 100 outbound ones,
+204 against 108 counting the chrome, and the
+outbound one is 123.7 x 44.0 at 390x844 against a whole-row internal target. The outbound link is a small labelled control at the end of
 a row, aria-labelled as leaving the site like every other exception.
 
 NOTE THE CONTRAST WITH THE PARAGRAPH BELOW, which is still correct and still
@@ -237,9 +259,15 @@ instead of trusting it:
   the alternative was building a collection page out of Collectr's API that
   nobody comes here for, and one named text link at the foot of the page beats
   a fake page competing with the real ones.
-- tcgplayer.com, 727. The sixth exception (200) plus set guides, /openings/
-  and /upcoming.html, which the sixth-exception paragraph above did not count
-  either.
+- tcgplayer.com, 727 when this was counted, 627 after 18 August 2026: the
+  hundred rows of /most-valuable-cards.html moved to pricecharting.com with
+  the prices they cite. The rest is the sealed page (100) plus set guides,
+  /openings/ and /upcoming.html, which the sixth-exception paragraph above did
+  not count either.
+- pricecharting.com, 100, all of them on /most-valuable-cards.html and all of
+  them added on 18 August 2026 in the same edit that moved that page's prices
+  there. /top-graded.html and /base-set.html print figures from the same source
+  and link none of it; see the note in the sixth exception above.
 - bulbapedia.bulbagarden.net 200 and metacritic.com 93, nearly all on
   /video-games.html, which carries 257 by itself and is the densest page on
   the site.
@@ -446,6 +474,26 @@ Two constraints that shape these pages:
   of dollars claims a freshness the figures do not have, which is what every
   price note did until `shared/card-prices.mjs` took the wording over. Use
   `priceNote(doc)` rather than writing the sentence again.
+
+  **THE RANKED RAW LIST MOVED THE SAME WAY, ALSO 18 August 2026.**
+  /most-valuable-cards.html is built from `data/top-raw.json`, written by
+  `scripts/sync-raw-top.mjs` off the SAME cached crawl with no network and
+  stamped by `scripts/verify-raw-top.mjs`, which re-reads all three price
+  columns from each card's own product page. It is gated by
+  `shared/graded-gate.mjs`, the same gate /top-graded.html and /base-set.html
+  are held to, so a figure read once cannot be published. The two listing and
+  product parsers now live in `shared/pricecharting.mjs` rather than in five
+  copies; they are still two different readers of two different templates,
+  which is the whole point of the second read.
+
+  THAT PAGE IS NO LONGER ENGLISH ONLY AND THAT WAS AN EDITORIAL DECISION, NOT
+  A SIDE EFFECT. TCGplayer files Japanese as a separate catalogue and
+  PriceCharting does not, so the swap changes what the list IS: 50 of the
+  hundred are Japanese, 2 Chinese, 13 are Topps rather than TCG cards, and the
+  number one is the Illustrator Pikachu. The full argument, both ways, is in
+  the header of `scripts/build-top100.mjs` and the page says all of it out
+  loud. /most-expensive-sealed.html stays on TCGplayer because the crawl
+  excludes sealed product; Tim authorised that split in as many words.
 
   THREE THINGS STAY WHERE THEY WERE AND NONE IS AN OVERSIGHT. `low` is a lowest
   live listing, which PriceCharting does not publish at all. Pokemon Center

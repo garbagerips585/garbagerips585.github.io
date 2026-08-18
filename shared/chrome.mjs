@@ -42,210 +42,253 @@ import { readFile } from "node:fs/promises";
  * "Grading" put the load-bearing word first. The pages keep their question
  * headlines, where the search-matching value actually is.
  *
+ * EVERY LABEL REPEATS A CONTENT WORD FROM ITS OWN PAGE'S h1 OR title, and that
+ * is a rule rather than a preference. Seventeen of the old forty-six did not,
+ * so a reader who clicked "Every set ever" landed on a page that says "All 174
+ * English sets", and one who clicked "Phone version" landed on "Pokemon TCG
+ * Pocket". A label the destination does not echo reads as the wrong page.
+ *
+ * AND THE HONESTY RULE OUTRANKS THE SEO ONE. Three renames were refused here
+ * rather than shipped, each of them the phrase with more traffic in it:
+ * "Fair price check" for /msrp.html, "What's in each box" for /openings/, and
+ * "Pull rates" for /luck.html, which this file has had to refuse twice. Every
+ * one of them promises something its page says on its face it does not have.
+ * The nav label is not where ranking is won anyway; the <title> and the <h1>
+ * are, and those are on the pages.
+ *
+ * LABELS FIT IN 20 CHARACTERS, and the binding constraint is the FOOTER, not
+ * the menu. The footer's group grid is repeat(auto-fill,minmax(138px,1fr)) and
+ * 138px is about twenty characters at 14px/600, so "Stores that sell cards"
+ * (22) wrapped there. The mobile menu is now one column and gives roughly
+ * 330px, so it is no longer the tightest surface.
+ *
  * Each entry is [group title, [[href, label], ...]].
  */
 export const NAV = [
-  ["Watch", [
+  // EIGHT GROUPS, AND THE NUMBER WAS MEASURED RATHER THAN CHOSEN. See the long
+  // note above for what changed: an accordion moves the cost of a heading from
+  // a scarce budget to a spare one on a phone, and smaller blocks pack better
+  // into the desktop panel's four CSS columns. Rendered into the real panel,
+  // menu closed at 390x844 and open at 1440x900:
+  //
+  //     groups   390 panel   scrolls?   1440 panel   scrolls?
+  //     6        432px       no         912 / 838    YES
+  //     7        488px       no         956 / 838    YES
+  //     8        544px       no         816 / 838    no
+  //
+  // Eight is the only count measured NOT to scroll at either end. Going back to
+  // six is two array edits and costs the desktop panel its fit, not the phone.
+  //
+  // THE OLD SIX WERE 2 / 2 / 14 / 18 / 5 / 5 and "Guides" was not a category,
+  // it was the leftovers: eighteen links in one unbreakable block, 827px tall,
+  // which blew the second column out and pushed Play and Rochester ENTIRELY
+  // below the fold. 16 of 46 links were unreachable without scrolling and every
+  // Rochester page was one of them. No group here is larger than eight.
+
+  // The channel, which is what the site is for. Rips, the playlists that sort
+  // them, the best of what came out, what is still being hunted, and how the
+  // luck actually ran. "The binder" used to be a separate two-link group for
+  // the middle two; two links is not a category either, and these five are one
+  // continuous story about the same shoebox.
+  ["The channel", [
     ["/videos.html", "Rips"],
     ["/playlists.html", "Playlists"],
-  ]],
-  // Tim's own cards in three states: pulled, owned, wanted. This is NOT "watch"
-  // material, which is where two of these used to sit. It is also the thing no
-  // competitor has: the nav audit found no Pokemon creator site that publishes
-  // what they actually pulled and what it is worth. The owned half now lives on
-  // his real Collectr profile, linked from the footer, rather than a page of
-  // ours competing with the pages meant to earn traffic.
-  ["The binder", [
     ["/hall.html", "Best pulls"],
     ["/wanted.html", "Most wanted"],
+    // "Rip results" and NOT "Luck, measured". The old label front-loaded a
+    // mood, spent its two words on a comma, and named the MEASUREMENT rather
+    // than the thing measured. "Rips" is the brand word and is in this page's
+    // own title ("What Actually Came Out of 80 Rips"); "results" is the exact
+    // word the page's body uses, and it is the honest one: these are observed
+    // results and not pull rates, which The Pokemon Company does not publish
+    // and this site never states. Do not retitle this "Pull rates".
+    ["/luck.html", "Rip results"],
   ]],
+
+  // Everything you do while holding a card, or looking for one.
   ["Cards", [
     ["/cards.html", "Card search"],
+    // /search.html WAS IN NEITHER THE MENU NOR THE FOOTER, on a site where it
+    // indexes all 46 nav destinations, 1,025 Pokemon, 5,181 cards, 316 pack
+    // openings and 41 set guides. The argument for leaving it out was that the
+    // bar's search form is its action, so it needs no nav line.
+    //
+    // MEASURED, THE BAR FORM DOES NOT EXIST ON A PHONE. Driving /start.html
+    // headless, the width of #navSearch:
+    //
+    //     390   0.0px      560   118.3px      640   190.5px      1440  370.3px
+    //
+    // Zero. The field is squeezed out of the flex row below about 600px.
+    // `.bar-find`, added the same day by another pass, does put a 44px
+    // magnifier there pointing at this page, so the phone is not stranded any
+    // more. THAT IS AN ICON AND THIS IS A NAME, and the difference is the whole
+    // reason to keep both: the icon is a glyph a reader has to guess at, and
+    // this is a labelled line sitting beside "Card search", which is the only
+    // place the two searches are told apart in words.
+    //
+    // "Search the site" is the page's own h2, verbatim, so the label and the
+    // destination say the same words. It sits under "Card search" rather than
+    // above it because the card index is what most people actually want, and
+    // the two read as a pair: one searches cards, one searches everything.
+    ["/search.html", "Search the site"],
     ["/pokemon/", "By Pokemon"],
-    ["/sets/", "Set guides"],
-    ["/expansions.html", "Every set ever"],
-    ["/upcoming.html", "Coming next"],
-    ["/complete-a-set.html", "Cost to complete"],
-    // The two money questions sit together: what the cards cost to buy, and
-    // what the packs cost to open. Both are recomputed from the nightly price
-    // pull, so both belong under Cards rather than under Guides, which is where
-    // the pages that do not move live.
-    // IMMEDIATELY BEFORE PACK PRICES, AND THE PAIR IS THE POINT: what a thing
-    // should cost, then what it does cost. "MSRP" is the distinguishing noun
-    // and appears nowhere else in this menu; "check" says what you do with it,
-    // which is stand in a shop and work out the multiple.
-    //
-    // MSRP is the manufacturer's SUGGESTED retail price, and Pokemon Center is
-    // The Pokemon Company's own shop selling its own product, so the price it
-    // sells at IS the price the manufacturer suggests. That is the whole of
-    // what an MSRP is; there is no separate document to go looking for. Nobody
-    // has to honour a suggestion, which is the entire reason for the page.
-    //
-    // THIS COMMENT TWICE SAID "The Pokemon Company publishes no MSRP list",
-    // which overstated a true but narrower finding: no DOCUMENT TITLED MSRP
-    // exists. pokemon.com's product showcases itemise contents and state no
-    // price, and press.pokemon.com carries none either. That is worth knowing
-    // and it is not the same claim. The full argument lives at the top of
-    // data/msrp.json's _readme and in scripts/build-msrp.mjs's header; those
-    // are the canonical copies and this is a pointer to them.
-    //
-    // NO ROW COUNT HERE ON PURPOSE. This comment has carried one twice and it
-    // has gone stale both times. `node scripts/build-msrp.mjs` prints the
-    // current priced and unpriced split on stdout every run.
-    //
-    // The label promises a check rather than a figure because some rows carry
-    // no price at all: a display box cannot be priced by multiplying a pack,
-    // Pokemon Center itself lists some product types at two prices on the same
-    // day, and a row resting on one reference is not evidence enough to print.
-    ["/msrp.html", "MSRP check"],
-    ["/pack-prices.html", "Pack prices"],
-    // Between the two on purpose. Pack prices divides a price by a pack count
-    // and could only ever do that for the five kinds whose count is in our
-    // data; this is the page that holds the counts themselves, sourced, for
-    // every product including the ones that page leaves blank. "Packs per box"
-    // front-loads the noun the way the labels above it do.
-    ["/how-many-packs.html", "Packs per box"],
-    // Sits with pack prices because it answers the other half of the same
-    // question. Pack prices says what a box costs; this says what is in it and
-    // shows it being opened. One is a number, one is the evidence.
-    ["/openings/", "Sealed products"],
-    // TIME SENSITIVE, so it sits with the money questions rather than with the
-    // guides: this one is only useful this week, and it is the only page on the
-    // site made of forecasts rather than facts.
-    ["/drops.html", "Drops this week"],
-    // THREE LISTS, AND THE FIRST WORD CANNOT BE THE DISTINGUISHING ONE HERE.
-    // They are deliberately parallel, because they are one question asked of
-    // three different markets: what is the most expensive thing you can buy
-    // ungraded, sealed, and in a slab. The file's usual rule is to front-load
-    // the word that tells them apart, and the "Grading"/"Will it grade" note
-    // above warns what happens when labels read as one page. The tie-breaker
-    // is that these three ARE a cluster and should read as one, the way
-    // "Where to sell" and "Where to buy" do; what must not collide is any one
-    // of them with something elsewhere in the menu. "Priciest cards" against
-    // "Card search" and against "Most wanted" in the binder is clear, because
-    // only this one is about price.
-    //
-    // The third label names the MEASUREMENT rather than the subject, and that
-    // is the point of it. The page is PriceCharting's PSA 10 price guide
-    // ranked, not a record of what anything sold for: every auction-record
-    // source is gated, and the guide value for Illustrator Pikachu is $16.5m
-    // against a reported $5.3m sale. A label reading "Priciest graded" would
-    // promise the sales list the page says on its face it is not.
-    ["/most-valuable-cards.html", "Priciest cards"],
-    ["/most-expensive-sealed.html", "Priciest sealed"],
-    ["/top-graded.html", "PSA 10 top 100"],
-  ]],
-  ["Guides", [
-    ["/start.html", "Start here"],
-    // Straight after Start here because the two are a pair: that page is "I am
-    // holding a card, what now", this one is "I am holding a wallet, what now".
-    // "Beginner" is the distinguishing noun, front-loads, and appears nowhere
-    // else in this menu, so it cannot be confused with "Where to buy" (online
-    // venues), "Stores that sell cards" (the pavement), "MSRP check", "Packs
-    // per box" or "Sealed products".
-    //
-    // The page exists because of something Tim said: he ends up helping people
-    // in shops all the time, because a parent facing a wall of boxes from $10
-    // to $180 has no way to tell which is right or what it should cost.
-    ["/what-to-buy.html", "Beginner buys"],
-    // Immediately after Start here, because the two are a pair: that page is
-    // "I am holding a card, what now", this one is "what is the game the cards
-    // are for". Deliberately NOT added to BAR_LINKS: the bar is five links and
-    // the comment above that array argues the number from published research.
-    ["/how-to-play.html", "How to play"],
-    // The two free official apps, under the rules page because that is the order
-    // somebody meets them: learn the game, then the digital version of it, then
-    // the casual phone one. Also NOT in BAR_LINKS, for the same reason as above.
-    //
-    // THE LABELS HAVE TO READ AS TWO DIFFERENT THINGS AT A GLANCE, which is the
-    // failure this file already warns about with "Grading" and "Will it grade".
-    // The plans proposed "Play it free" and "Phone version". "Play it free"
-    // spends its two words on the same verb as the entry directly above it, so
-    // the pair reads as "How to play" and "Play it...", and the front-loaded
-    // noun rule is what breaks the tie: "Code cards" is the noun the reader is
-    // physically holding, it is that page's own H1 and its first section, and no
-    // other label on the site starts with either word. "Phone version" front
-    // loads the one thing that actually distinguishes the other app. The search
-    // entry and the share card carry the app names, which is where somebody
-    // typing "TCG Live" or "pocket" is looking anyway. Do not ship "TCG Live" or
-    // "TCG Pocket": both front-load an acronym a beginner does not know.
-    ["/tcg-live.html", "Code cards"],
-    ["/tcg-pocket.html", "Phone version"],
-    // Straight after the two apps, because the physical game and TCG Live play
-    // the same game and a deck is what you need next once you have the client.
-    // "Deck builds" front-loads the noun; "Downloads" would front-load the
-    // mechanism, and the mechanism is only interesting because of what it
-    // carries. The files really do paste into TCG Live: the export format was
-    // read off a real artifact and verified byte-for-byte, not written from
-    // memory.
-    ["/decks.html", "Deck builds"],
-    // "Most played" and NOT "Best cards", which is a claim the data cannot
-    // support. The ranking is deck-inclusion across published lists from
-    // ONLINE tournaments, and the page says so in those words. Nor "Top 100",
-    // which two labels under Cards would then share.
-    ["/top-100-playable.html", "Most played cards"],
-    // Next to the rarity guide on purpose. The two answer the two halves of the
-    // same question somebody asks holding one card: what is it, and where is it
-    // from. Both are read off the same corner of the card and each links to the
-    // other.
-    ["/what-set.html", "Set finder"],
+    // "What set is it" and NOT "Set finder". A finder is a thing this site
+    // does not have; the page is a guide to reading the number after the
+    // slash, its h1 is "What set is my card from?", and the label should be
+    // the reader's question rather than a product name for a tool.
+    ["/what-set.html", "What set is it"],
     ["/rarity.html", "Rarity guide"],
-    // Joins the "holding one card, asking what it is" cluster: Set finder reads
-    // the number, Rarity guide reads the symbol, Card types reads the corner,
-    // and this reads the print run. "Base Set" is unique in this menu and
-    // front-loads; "prints" says print runs rather than checklist, which /sets/
-    // already owns. It cannot be misread as "Fakes" or "Set finder" at a glance.
-    ["/base-set.html", "Base Set prints"],
-    // The third of that cluster. Set finder reads the number after the slash,
-    // the rarity guide reads the symbol beside it, and this one reads the type
-    // in the top right and the Weakness in the bottom left. All three are the
-    // same person holding the same card asking a different question about it.
     // "Card types" and not "Types", which is too thin to scan, and not "Energy
     // types", which is the game's word rather than a beginner's.
     ["/types.html", "Card types"],
+    ["/base-set.html", "Base Set prints"],
     ["/fake-cards.html", "Fakes"],
+  ]],
+
+  // Its own group and no longer four links buried at the top of a fourteen
+  // link "Cards" pile. A set is the other thing a reader arrives holding a
+  // question about, and all four of these answer it at a different scale:
+  // one set, every set, the next set, the whole set's bill.
+  ["Sets", [
+    ["/sets/", "Set guides"],
+    // "All English sets" and NOT "Every set ever", which the page contradicts
+    // on its face: it says "All 174 English sets from 1999 to 2026" and then
+    // "The site also holds guides for Japanese and Korean sets, which are not
+    // English releases and so are on no row here". A label that promises every
+    // set ever is a label the page spends a sentence retracting.
+    ["/expansions.html", "All English sets"],
+    ["/upcoming.html", "Coming next"],
+    ["/complete-a-set.html", "Cost to complete"],
+  ]],
+
+  // What a thing costs and what it is worth. Recomputed from the nightly price
+  // pull, which is what separates this group from the guides below it.
+  ["Prices", [
+    // MSRP is the manufacturer's SUGGESTED retail price, and Pokemon Center is
+    // The Pokemon Company's own shop selling its own product, so the price it
+    // sells at IS the price the manufacturer suggests. Nobody has to honour a
+    // suggestion, which is the entire reason for the page.
+    //
+    // "MSRP check" SURVIVED A PROPOSED RENAME TO "Fair price check" and the
+    // refusal is the point. "Fair" is a judgement this page refuses to make:
+    // some rows carry no price at all, a display box cannot be priced by
+    // multiplying a pack, and Pokemon Center itself lists some product types at
+    // two prices on the same day. MSRP is also the page's own h1 word and the
+    // one noun in this menu that appears nowhere else. The label promises a
+    // check rather than a figure for exactly that reason.
+    ["/msrp.html", "MSRP check"],
+    ["/pack-prices.html", "Pack prices"],
+    // Pack prices divides a price by a pack count and could only ever do that
+    // for the kinds whose count is in our data; this is the page that holds the
+    // counts themselves, sourced, for every product including the ones that
+    // page leaves blank.
+    ["/how-many-packs.html", "Packs per box"],
+    // "Sealed products" KEPT, against a proposed "What's in each box". Five of
+    // the product types this hub covers are not boxes: blister, bundle, and the
+    // Chinese, Japanese and Korean single packs. A label promising a box for a
+    // page about a blister pack is the same fault as "Every set ever".
+    ["/openings/", "Sealed products"],
+    // THREE PARALLEL LISTS, and the labels now say so. They are one question
+    // asked of three markets: what is the priciest thing you can buy ungraded,
+    // sealed, and in a slab. "Priciest cards" and "Priciest sealed" front
+    // loaded a superlative and buried the fact that each is a HUNDRED-row list;
+    // "Raw top 100" and "Sealed top 100" front-load the market and share the
+    // shape of "PSA 10 top 100", which already worked.
+    //
+    // The third names the MEASUREMENT rather than the subject deliberately. The
+    // page is PriceCharting's PSA 10 price guide ranked, not a record of what
+    // anything sold for: every auction-record source is gated, and the guide
+    // value for Illustrator Pikachu is $16.5m against a reported $5.3m sale. A
+    // label reading "Priciest graded" would promise a sales list.
+    //
+    // "Top 100" is now shared by three labels and by nothing else in the menu:
+    // /top-100-playable.html is "Most played" precisely so it does not join them.
+    ["/most-valuable-cards.html", "Raw top 100"],
+    ["/most-expensive-sealed.html", "Sealed top 100"],
+    ["/top-graded.html", "PSA 10 top 100"],
+  ]],
+
+  // The three things you do with money and a card, in the order you do them.
+  // Grading used to sit under "Guides" on the argument that it is policy rather
+  // than market data. That is true and it is not a category: a reader who has
+  // just read "Where to sell" is one question away from "will it grade first",
+  // and the two pages already link to each other.
+  ["Buy, sell, grade", [
+    ["/start.html", "Start here"],
+    // "I am holding a wallet, what now", against Start here's "I am holding a
+    // card, what now". The page exists because of something Tim said: he ends
+    // up helping people in shops all the time, because a parent facing a wall
+    // of boxes from $10 to $180 has no way to tell which is right.
+    ["/what-to-buy.html", "Beginner buys"],
+    ["/buying.html", "Where to buy"],
+    // "Chain stores" and NOT "Stores that sell cards", which was 22 characters
+    // against a 16 character column and wrapped to two lines in both the menu
+    // and the footer. "Chain" is the page's own word, used sixteen times on it
+    // ("Eight more chains were checked and are not on this list"), and it is
+    // what tells this page apart from its two neighbours: /buying.html is
+    // online, /shops.html is the local card shop, this is Target and Walmart
+    // and GameStop. It is also the parent of nine per-retailer pages, which are
+    // reached from the directory and deliberately not listed here.
+    ["/retailers.html", "Chain stores"],
+    // "Restocks" and NOT "Drops this week". "Drop" is community jargon that
+    // also means a price drop and a thing falling; "restock" is the word the
+    // trackers themselves use and it is in this page's own title. It sits here
+    // rather than under Prices because it is a where-and-when-to-buy page, and
+    // it is the only page on the site made of forecasts rather than facts.
+    //
+    // THE TIME WORDS ARE GONE ON PURPOSE, TWICE OVER. "Restocks this week" was
+    // written first and measured at 18 characters: it wrapped to two lines in
+    // the desktop menu, whose four columns give a label about 157px, which is
+    // roughly 16 characters. It is also a claim with a clock in it, printed
+    // into the chrome of 1,478 pages. /drops.html has an expiry model for
+    // exactly that reason (see shared/drops.mjs), and a nav label promising
+    // "this week" keeps promising it until somebody rebuilds. "Restocks" is
+    // true on any day the site is up.
+    ["/drops.html", "Restocks"],
+    ["/selling.html", "Where to sell"],
     // A PAIR, and the labels have to say so. These answer the two halves of the
     // question somebody asks holding one card: will it grade, and does grading
     // it pay. Labelled "Grading" and "Will it grade" they read as two links to
-    // the same page, which is the failure this file warns about elsewhere.
+    // the same page.
     ["/will-it-grade.html", "Will it grade"],
     ["/grading.html", "Grading cost"],
-    // Under Guides and not with the money pages, even though it is about money.
-    // Pack prices and drops move every week; this one is a set of policies and
-    // fee tables that change on the companies' own schedule, and it reads like
-    // a guide rather than a market check. It is also the natural next page
-    // after grading: the two together answer "what do I do with this card".
-    ["/selling.html", "Where to sell"],
-    ["/buying.html", "Where to buy"],
-    // Beside "Where to buy" because they are the same question asked in two
-    // places: that page answers it ONLINE (shipping thresholds, buyer fees,
-    // claim windows) and this one answers it on a pavement. "Stores" is the
-    // distinguishing noun and front-loads; "Where to buy" keeps the online
-    // half, so the pair reads as two destinations rather than one page split.
-    //
-    // It is also the parent of nine per-retailer pages, which are reached from
-    // the directory and deliberately not listed here: a menu line each would be
-    // nine lines competing with the page that already indexes them.
-    ["/retailers.html", "Stores that sell cards"],
-    // Next to selling because they are one question asked from either end, and
-    // the labels have to stay this literal: "Buying guide" and "Selling guide"
-    // would read as two halves of one document rather than two destinations.
-    // Matches the page's own H1 and title. It was "Pull rates", which is what
-  // people search for but not what the page has: the body says in as many words
-  // that these are observed results and not official pull rates, because The
-  // Pokemon Company does not publish those. A nav label promising a number the
-  // page refuses to state is the one place the site contradicted its own rule.
-  ["/luck.html", "Luck, measured"],
   ]],
-  // Its own group rather than an item under Guides, because it answers a
-  // different question: everything else here helps you buy, open or value a
-  // card, and this is the only part of the site that is just for fun. Filed
-  // under "Play" and not "Games" so the lore page is not the odd one out.
-  // TWO LINKS, NOT FIVE. This shipped listing all three games AND the hub that
-  // exists to list them, which is the nav doing the hub's job and paying for it
-  // in every other group's visibility. The hub is one tap away and names them
-  // better than a nav label can.
-  ["Play", [
+
+  // The card game itself: the rules, the two official apps, and what to build.
+  // This was tangled with the Pokedex and minigame pages under one heading and
+  // they are not the same errand.
+  ["Playing", [
+    ["/how-to-play.html", "How to play"],
+    // The two free official apps, under the rules page because that is the
+    // order somebody meets them: learn the game, then the digital version.
+    // "Code cards" is the noun the reader is physically holding, it is that
+    // page's own h1 and its first section, and no other label starts with
+    // either word.
+    ["/tcg-live.html", "Code cards"],
+    // "TCG Pocket app" REPLACES "Phone version", and this reverses an argument
+    // this file used to make. The old rule was: never front-load an acronym a
+    // beginner does not know. What that produced was a label whose words appear
+    // NOWHERE on the page it leads to, in a navigation menu, where "Phone
+    // version" reads as the mobile version of this website. TCG Pocket is the
+    // product's actual name, it is the page's title and h1, and it is what
+    // somebody who has heard of it types. "app" carries the beginner.
+    ["/tcg-pocket.html", "TCG Pocket app"],
+    // The files really do paste into TCG Live: the export format was read off a
+    // real artifact and verified byte-for-byte, not written from memory.
+    ["/decks.html", "Deck builds"],
+    // "Most played" and NOT "Best cards", which is a claim the data cannot
+    // support: the ranking is deck-inclusion across published lists from ONLINE
+    // tournaments, and the page says so in those words. Shortened from "Most
+    // played cards" because "cards" is the noun every label in this menu could
+    // carry and therefore the one that distinguishes nothing.
+    ["/top-100-playable.html", "Most played"],
+  ]],
+
+  // Pokemon rather than Pokemon cards: the minigames, the console timeline, the
+  // Pokedex facts and the evolution lines. Nothing here helps anybody buy,
+  // open or value a card, which is exactly why it is not filed with the pages
+  // that do.
+  ["Just for fun", [
     ["/games/", "Games"],
     // "Video games" and NOT "Games", which the line above already owns. Two
     // things called Games in one menu is a navigation problem, and the hub is
@@ -253,30 +296,19 @@ export const NAV = [
     // official Pokemon release; that one is the minigames you play here.
     ["/video-games.html", "Video games"],
     ["/lore.html", "Pokemon lore"],
-    // "Evolution" is the distinguishing noun and appears nowhere else in this
-    // menu. It reads as a different destination from "Card types" (the card
-    // game's rules), "By Pokemon" (a card list) and "Pokemon lore" (Pokedex
-    // facts), which is the test this file applies everywhere.
-    //
-    // /eevee-evolutions.html is deliberately NOT here. It is one entry from the
-    // chart given its own address because "how do I get Umbreon" is asked as
-    // its own question, and it is reachable from the chart's fork list and its
-    // own breadcrumb. A menu line would put it in competition with the page it
-    // belongs to.
     ["/evolution.html", "Evolution chart"],
-    // THIS WAS DELIBERATELY LEFT OUT OF THE NAV AND THAT WAS WRONG. The
-    // argument was that it is one entry from the chart and a menu line would
-    // put it in competition with the page it belongs to. What actually
-    // happened is that nothing on the site linked to it at all: an SEO audit
-    // found 1,849 indexable words sitting in the sitemap and invisible to any
-    // crawler following links.
-    //
-    // It also earns the line on its own. Eight branches from one species, each
-    // with a different trigger, is among the most searched things in Pokemon,
-    // and "how do I get Umbreon" is asked as its own question rather than as a
-    // browse through a chart. "Eevee" is unique in this menu and front-loads.
+    // /eevee-evolutions.html WAS LEFT OUT OF THE NAV ONCE AND THAT WAS THE BUG.
+    // The argument was that it is one entry from the chart. What happened is
+    // that nothing on the site linked to it at all: 1,849 indexable words in
+    // the sitemap and invisible to any crawler following links. It also earns
+    // the line: eight branches from one species, each with a different trigger,
+    // and "how do I get Umbreon" is asked as its own question.
     ["/eevee-evolutions.html", "Eevee evolutions"],
   ]],
+
+  // The local angle, kept as its own heading because it is the one thing no
+  // other Pokemon site has and the one query family this site can realistically
+  // rank first for.
   ["Rochester, NY", [
     // Shops and shows sit next to each other deliberately: they answer the same
     // question a week apart. Keep the labels distinct, the urls are one letter
@@ -471,24 +503,44 @@ export const STYLES_NO_PACKS_CSS = `<link rel="stylesheet" href="/assets/ui.css?
 /**
  * The sticky bar.
  *
- * The search field is hidden below 640px and the magnifier below 480px,
- * because at 375px the brand, the icon, the menu button and Subscribe add up
- * to more than the row is wide and none of them can shrink.
+ * THE COMMENT HERE WAS WRONG BY TWO REWRITES. It said the search field is
+ * hidden below 640px and the magnifier below 480px. Neither was true: the field
+ * was visible all the way down and the magnifier had been deleted from the
+ * markup entirely. It described the bar of two passes ago.
  *
- * It posts to /search.html, not /videos.html. It searched only the 310 rips
- * for as long as rips were the whole site; it now sits above 4,481 cards, 36
- * set guides and 30 Pokemon pages, and returning videos alone for "umbreon"
- * hid most of what the site knows. /videos.html?q= still works and is still
- * what the library's own filter uses.
+ * THERE IS NO SEARCH FIELD IN THE BAR AT ANY WIDTH, AND THAT IS TIM'S CALL,
+ * 18 August 2026, in his words: "we can get rid of the search bar, don't think
+ * we need search bar". THE REASON MATTERS MORE THAN THE RULE, because the
+ * reason is what a later pass will weigh. It is not that the field did not
+ * fit. It did not fit on a PHONE, which is a measurement and is written out
+ * beside the 560px block in assets-source/ui.css; on a 1440px desktop it fitted
+ * with 370px of typable room. It is gone at every width because the owner of
+ * the site does not want it there. Do not "restore it on desktop where there
+ * is space": the space is not the argument.
+ *
+ * WHAT REPLACES IT IS A ROUTE, NOT NOTHING, and this is the part that must not
+ * be dropped. /search.html indexes all 47 nav destinations, 1,025 Pokemon,
+ * 5,181 cards, 41 set guides and 316 pack openings, and until today it was in
+ * NEITHER the menu nor the footer. It is now reachable three ways: `.bar-find`,
+ * a 44px magnifier in this bar at every width; a named "Search the site" line
+ * in the Cards group of the menu; and the same line in the footer. Removing any
+ * two of those is survivable. Removing all three strands the largest index on
+ * the site behind a URL nobody is told about.
+ *
+ * `.bar-find` IS A LINK, NOT A DISCLOSURE. /search.html is a full page of field
+ * plus results, so one tap gets a reader somewhere better than a popover would.
+ * It carries the accessible name that the deleted <label> used to.
+ *
+ * WHAT THE ROW GAINED. 178px at every width above 560px, which went to the nav
+ * links: they used to need 1,140px before three of them appeared and 1,340px
+ * before all five did, because the form was the only flexible item in the row
+ * and five links ate 167px of it. Those thresholds moved down. The arithmetic
+ * and the measured sweep are beside `.nav-links` in assets-source/ui.css.
  */
 export const BAR = `<header class="bar">
   <div class="bar-in">
     <a class="brand" href="/"><b>GARBAGE <i>RIPS</i> 585</b><span>Rochester, NY</span></a>
-    <form class="bar-search" role="search" action="/search.html" method="get">
-      <label class="sr-only" for="navSearch">Search cards, sets, guides and rips</label>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
-      <input id="navSearch" name="q" type="search" placeholder="Search cards, sets, rips" aria-label="Search cards, sets, guides and every rip" autocomplete="off">
-    </form>
+    <a class="bar-find" href="/search.html" aria-label="Search cards, sets, guides and rips"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg></a>
     <nav class="nav-links" aria-label="Primary">
 ${BAR_LINKS.map((h) => `      <a href="${h}">${labelFor(h)}</a>`).join("\n")}
     </nav>
@@ -496,7 +548,8 @@ ${BAR_LINKS.map((h) => `      <a href="${h}">${labelFor(h)}</a>`).join("\n")}
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       <span>Menu</span>
     </button>
-    <a class="sub" href="${SUBSCRIBE}"><span>Subscribe</span></a>
+    <a class="sub" href="${SUBSCRIBE}" rel="noopener" target="_blank"
+      aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube."><span>Subscribe</span></a>
   </div>
 </header>`;
 
@@ -528,9 +581,18 @@ ${BAR_LINKS.map((h) => `      <a href="${h}">${labelFor(h)}</a>`).join("\n")}
  * show what the site contains. Columns fix it without hiding anything behind a
  * second tap.
  *
- * NO NESTED <nav>. sync-chrome.mjs slices this block with a non-greedy match up
- * to the first </nav>, so a nav inside a nav would have it write a truncated
- * menu into all eight hand-maintained pages and mean it. Divs are safe.
+ * COLUMNS WERE NOT ENOUGH AND THE NUMBERS SAY SO. With 46 links in six groups
+ * the two-column phone panel held 1,449px of content in an 812px window: 16
+ * links unreachable without scrolling, all five Rochester pages among them,
+ * because one 18-link group is an 827px block that break-inside: avoid will not
+ * split. Each group is now a native <details>, shipped open and closed by
+ * app.js below 821px. See the block above the template for the whole argument,
+ * including why it cannot be done from CSS.
+ *
+ * EACH GROUP IS A <details>, SO IT IS ALSO A LANDMARK-FREE DISCLOSURE. No
+ * nested <nav>: sync-chrome.mjs slices this block with a non-greedy match up to
+ * the first </nav>, so a nav inside a nav would have it write a truncated menu
+ * into all eight hand-maintained pages and mean it. <details> is safe.
  */
 /* THE NAME HAS TO BE UNIQUE, not just present. This panel and the footer nav
    were both aria-label="Site", and a third <nav aria-label="Primary"> sits in
@@ -539,18 +601,54 @@ ${BAR_LINKS.map((h) => `      <a href="${h}">${labelFor(h)}</a>`).join("\n")}
    biggest ones on the page. ARIA11/H97 is explicit that repeated landmarks of
    the same role need labels that tell them apart. Named for where each one is,
    which is how a reader would ask for it. */
+/**
+ * EACH GROUP IS A NATIVE <details>, AND IT SHIPS `open`.
+ *
+ * NATIVE, NOT A JS TOGGLE, and the precedent is the home page drops band in
+ * scripts/build-proto.mjs: it works with the script blocked, it is keyboard
+ * operable, and it is announced as expanded or collapsed for free. There is NO
+ * height animation, for the reason recorded there: a <details> cannot animate
+ * to auto without JS measuring the panel first, and a max-height guess either
+ * clips the last link or eases at the wrong speed. Nothing interactive goes
+ * inside the <summary> either, because a link in there is nested interactive
+ * content and browsers disagree about whether the tap toggles or navigates.
+ * The chevron is an empty aria-hidden span, drawn in CSS.
+ *
+ * IT SHIPS OPEN AND app.js REMOVES `open` BELOW 821px, WHICH IS THE ONLY ORDER
+ * THAT WORKS. A closed <details> cannot be reliably forced open from CSS across
+ * browsers, so "collapsed on a phone, expanded on a desktop" cannot be a media
+ * query. Open is therefore the default, and it is also the right default: the
+ * served HTML then contains all 47 links in their expanded state for anything
+ * that reads the markup without running the script, and if the collapse ever
+ * throws the reader gets a worse layout rather than a menu that will not open.
+ *
+ * DO NOT WRITE THAT THIS "DEGRADES TO TODAY'S BEHAVIOUR WITH JS BLOCKED". It
+ * was checked with script execution disabled and it does not: `.menu` is
+ * display:none until app.js adds `.on`, so with JavaScript off this panel has
+ * never opened, before this change or after it. The reader's no-script
+ * navigation is the footer, which carries the same 47 links in the same order.
+ *
+ * app.js also puts `menu-acc` on the panel when it closes them, and that class
+ * is what switches ui.css from two columns to one. Same reason: with no class
+ * the panel is the old layout exactly.
+ *
+ * `.menu-h` moved from a <p> to the <summary> and kept its class, so the type
+ * treatment did not move. `.menu-g` moved from a <div> onto the <details>, so
+ * break-inside: avoid still applies to the whole group.
+ */
 export const MENU = `<nav class="menu" id="menu" aria-label="All sections">
   <div class="menu-inner">
 ${NAV.map(
-  ([title, links]) => `    <div class="menu-g">
-      <p class="menu-h">${title}</p>
+  ([title, links]) => `    <details class="menu-g" open>
+      <summary class="menu-h">${title}<span class="menu-x" aria-hidden="true"></span></summary>
       <ul>
 ${links.map(([href, label]) => `        <li><a href="${href}">${label}</a></li>`).join("\n")}
       </ul>
-    </div>`
+    </details>`
 ).join("\n")}
   </div>
-  <a class="menu-sub" href="${SUBSCRIBE}">Subscribe on YouTube</a>
+  <a class="menu-sub" href="${SUBSCRIBE}" rel="noopener" target="_blank"
+    aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>
 </nav>`;
 
 /**
@@ -592,6 +690,40 @@ export const COLLECTR = "https://app.getcollectr.com/showcase/profile/563e3401-e
  * place users go when users they're lost." Optimise it for finding a known
  * thing, not for link count.
  *
+ * IT CARRIES EXACTLY WHAT THE MENU CARRIES, ALL 47, AND THAT IS THE DECISION
+ * RATHER THAN THE DEFAULT. The brief for this pass called the footer "the one
+ * place a long tail can live without costing every reader a scroll", so the
+ * obvious move was to hang extra links here that the menu does not show: the
+ * nine per-retailer pages, the fourteen sealed product pages, the five games.
+ * That was checked and refused. Every one of those is already one tap from a
+ * hub that IS in this footer, so they would not be a long tail, they would be
+ * a second copy of a page that already indexes them, printed onto 1,471 pages.
+ * The thing that genuinely was missing was /search.html, which sat in neither
+ * the menu nor this footer while indexing all 47 nav destinations, 1,025
+ * Pokemon, 5,181 cards, 41 set guides and 316 openings. It is in NAV now, so it
+ * is in both, and that is the whole of the long tail worth adding.
+ *
+ * WHAT THE REGROUP COST THIS SURFACE, measured on /start.html, headless, the
+ * old six-group 46-link footer injected into the same page for the before:
+ *
+ *     360    1,316.3  ->  1,491.1     +174.8
+ *     390    1,316.3  ->  1,491.1     +174.8
+ *     768      766.2  ->    745.6      -20.6
+ *     1024     502.2  ->    502.2       0.0
+ *     1280     502.2  ->    502.2       0.0
+ *     1440     415.4  ->    372.8      -42.6
+ *
+ * So it is TALLER ON A PHONE ONLY, by two headings and by the half-rows that
+ * odd-sized groups waste in a two-track grid, and it is the same or shorter
+ * everywhere else. The ladder of column counts below was left exactly where the
+ * sweep in ui.css put it: three of the four candidate ladders tried there had a
+ * width at which the footer got taller as the screen got wider, and none of
+ * these numbers is close enough to a breakpoint to justify reopening that.
+ *
+ * NO LABEL WRAPS AT ANY WIDTH FROM 320 UP, checked by counting client rects
+ * rather than by eye. "Stores that sell cards" did, at 22 characters against a
+ * 138px track; it is "Chain stores" now.
+ *
  * `extra` takes a line of page-specific small print, which the set guides use
  * to say where their card data and prices come from.
  */
@@ -628,10 +760,14 @@ ${links.map(([href, label]) => `        <a href="${href}">${label}</a>`).join("\
  * this stays inside it; nothing here adds youtube.com to a page that did not
  * already carry it.
  *
- * NO NEW CSS. `.btn`/`.btn-yt` and `footer p` already exist and `footer .wrap`
- * is a centred flex column, so both elements land centred with the column's own
- * gap. ui.css was being rewritten by another pass when this went in and a rule
- * added there would have collided.
+ * IT IS `.btn-sub` NOW, NOT `.btn-yt`, since 18 August 2026. All four Subscribe
+ * controls on the site read as one control: the bar pill, the menu pill, this,
+ * and the one under the player on a rip page. They share YouTube red, a white
+ * label and a hover that darkens rather than inverts. `.btn-yt` could not carry
+ * that because it is a gold CTA eight builders point at INTERNAL pages, so
+ * recolouring it would have spread red across roughly 1,400 pages. The fence
+ * around that colour is written out in the `--yt-red` block in
+ * assets-source/ui.css and it names every place the red is allowed.
  *
  * KEEP THE MARKER COMMENTS. sync-chrome.mjs slices this block out by them to
  * keep the eight hand-maintained pages in step, exactly as it does for the bar,
@@ -640,7 +776,7 @@ ${links.map(([href, label]) => `        <a href="${href}">${label}</a>`).join("\
  */
 export const FOOT_SUB = `<!--FOOT_SUB:START-->
     <p class="foot-tag">Grab a fork. Let's rip.</p>
-    <a class="btn btn-yt" href="${SUBSCRIBE}" rel="noopener" target="_blank"
+    <a class="btn btn-sub" href="${SUBSCRIBE}" rel="noopener" target="_blank"
       aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe on YouTube</a>
     <p>A new rip most days. Every pack we open goes up, hit or no hit.</p>
     <!--FOOT_SUB:END-->`;

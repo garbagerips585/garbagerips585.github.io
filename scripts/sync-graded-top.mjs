@@ -74,6 +74,11 @@ import { createHash } from "node:crypto";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { gunzipSync } from "node:zlib";
+// The listing parser, shared with the raw ranking behind /most-valuable-cards.html
+// and with the verifier that re-reads every figure from a product page. Read the
+// header of that file before touching a column: `new_price` means PSA 10 here
+// and Grade 8 there, and only a second read through a different parser sees it.
+import { CONSOLE_HEADERS, parsePage, text, unent } from "../shared/pricecharting.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache/pricecharting-console");
@@ -85,24 +90,12 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // page disagrees it is RECORDED AND SKIPPED rather than read positionally
 // anyway: the td classes are video-game legacy names (used_price, cib_price,
 // new_price) and mean nothing about which grade they hold, so the <th> row is
-// the only thing that says what column three actually is.
-const WANT_HEADERS = ["", "Card", "Ungraded", "Grade 9", "PSA 10", ""];
-
-const money = (s) => {
-  const n = Number(String(s ?? "").replace(/[^0-9.]/g, ""));
-  return Number.isFinite(n) && n > 0 ? n : null;
-};
-const unent = (s) =>
-  s
-    .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&nbsp;/g, " ");
-// ENTITIES ARE DECODED BEFORE THE TRIM, NOT AFTER, and the order is the whole
-// point. The blank column headers are "&nbsp;", so trimming first leaves a
-// literal "&nbsp;" which only becomes a space once decoded, and the space
-// never gets trimmed. That made every header compare as " " against "" and
-// this script skipped all 793 consoles as "unexpected columns" while fetching
-// every one of them: 50 pages, 0 products, and a log that looked like progress.
-const text = (s) => unent(String(s)).replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+// the only thing that says what column three actually is. The list itself, the
+// row parser and the entity handling all live in shared/pricecharting.mjs now,
+// imported above: three scripts were carrying copies of this parser and the
+// second read that catches the column trap is worthless if it is a copy of the
+// first. Nothing about what this file does changed with the move.
+const WANT_HEADERS = CONSOLE_HEADERS;
 
 // A console path is a PATH, and 46 of the 793 carry a "&" or a "'".
 // encodeURI leaves "&" alone, so "/console/pokemon-black-&-white?cursor=0"
@@ -139,33 +132,6 @@ async function consoles() {
     paths.add(decodeURIComponent(new URL(u).pathname));
   }
   return [...paths].sort();
-}
-
-/** One page of a console listing. Returns {rows, next, headers} or null. */
-function parsePage(html) {
-  const headers = [...html.matchAll(/<th[^>]*>(.*?)<\/th>/gs)].map((m) => text(m[1]));
-  const rows = [];
-  for (const m of html.matchAll(/<tr[^>]*id="product-(\d+)"[^>]*>(.*?)<\/tr>/gs)) {
-    const tr = m[2];
-    const a = /<td class="title"[^>]*>\s*<a href="([^"]+)"[^>]*>(.*?)<\/a>/s.exec(tr);
-    if (!a) continue;
-    const prices = [...tr.matchAll(/<td class="price[^"]*"[^>]*>(.*?)<\/td>/gs)].map((p) => {
-      const v = /<span class="js-price"[^>]*>(.*?)<\/span>/s.exec(p[1]);
-      return v ? money(text(v[1])) : null;
-    });
-    const img = /<img class="photo"[^>]*src="([^"]+)"/.exec(tr);
-    rows.push({
-      id: m[1],
-      path: unent(a[1]),
-      name: text(a[2]),
-      img: img ? unent(img[1]) : null,
-      ungraded: prices[0] ?? null,
-      g9: prices[1] ?? null,
-      psa10: prices[2] ?? null,
-    });
-  }
-  const next = /name="cursor" value="(\d+)"/.exec(html);
-  return { rows, next: next ? Number(next[1]) : null, headers };
 }
 
 const list = await consoles();

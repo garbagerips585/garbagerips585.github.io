@@ -1,5 +1,7 @@
-// The publication gate on data/top-graded.json, shared by the two pages that
-// print figures out of it: /top-graded.html and /base-set.html.
+// The publication gate on the two ranked PriceCharting files, shared by the
+// three pages that print figures out of them: /top-graded.html and
+// /base-set.html read data/top-graded.json, and /most-valuable-cards.html reads
+// data/top-raw.json. Same shape, same gate, one implementation.
 //
 // IT IS SHARED RATHER THAN COPIED, AND IT USED TO BE COPIED. Both builders
 // carried the same three throws, and build-base-set.mjs said so in as many
@@ -13,9 +15,13 @@
 // ---------------------------------------------------------------------------
 // WHAT THE GATE IS PROTECTING, which is narrower than "the numbers are right".
 //
-// Every figure on both pages is read twice: once from a console LISTING page by
-// sync-graded-top.mjs, once from the card's own PRODUCT page by
-// verify-graded-top.mjs, through a different parser on a different template.
+// Every figure on those pages is read twice: once from a console LISTING page
+// by sync-graded-top.mjs or sync-raw-top.mjs, once from the card's own PRODUCT
+// page by the matching verifier, through a different parser on a different
+// template. Both parsers now live in shared/pricecharting.mjs, which does not
+// weaken the check: they are still two different readers of two different
+// templates, and keeping them in one file is what stops a fix to one silently
+// being applied to both.
 // The trap that buys is Trap 4 in data/top-graded-PLAN.md: the td ids are
 // video-game legacy names and `new_price` means PSA 10 on a listing page and
 // Grade 8 on a product page. On Base Set Charizard #4 that is $28,144.52
@@ -101,26 +107,35 @@
 // the exclusion decides is whether the build is allowed to continue at all.
 
 /**
- * Check data/top-graded.json is publishable and return the two lookups both
- * builders need. Throws on anything that would put an unbacked figure on a page.
+ * Check a ranked PriceCharting file is publishable and return the two lookups
+ * its builders need. Throws on anything that would put an unbacked figure on a
+ * page.
  *
- * @param {object} d parsed data/top-graded.json
+ * THE FILE NAMES ARE ARGUMENTS RATHER THAN LITERALS because there are two files
+ * now and a gate that names the wrong one in its error message sends the next
+ * person to re-run the wrong script. Nothing else about the rule is per-file:
+ * both are ranked, both are double-read, and both may exempt a row only by
+ * writing down which two readings it is about.
+ *
+ * @param {object} d parsed data/top-graded.json or data/top-raw.json
+ * @param {string} file which of those, for the error messages
+ * @param {string} verifier the script that would earn the verification back
  * @returns {{verified: Map<number, object>, excluded: Map<number, object>}}
  */
-export function gradedGate(d) {
+export function gradedGate(d, file = "data/top-graded.json", verifier = "scripts/verify-graded-top.mjs") {
   if (!d.verify) {
     throw new Error(
-      "data/top-graded.json has no `verify` block, so nothing in it has been " +
-        "read twice.\nRun: node scripts/verify-graded-top.mjs\n" +
+      `${file} has no \`verify\` block, so nothing in it has been ` +
+        `read twice.\nRun: node ${verifier}\n` +
         "Nothing here is publishable on a single read: see the column mix-up " +
         "in data/top-graded-PLAN.md, trap 4.",
     );
   }
   if (d.verify.for !== d.checked) {
     throw new Error(
-      `data/top-graded.json: the verification is stamped for a crawl of ` +
+      `${file}: the verification is stamped for a crawl of ` +
         `${d.verify.for} and the data is from ${d.checked}. ` +
-        `Re-run scripts/verify-graded-top.mjs.`,
+        `Re-run ${verifier}.`,
     );
   }
 
@@ -145,7 +160,7 @@ export function gradedGate(d) {
   );
   if (unexplained.length) {
     throw new Error(
-      `${unexplained.length} row(s) in data/top-graded.json disagree between ` +
+      `${unexplained.length} row(s) in ${file} disagree between ` +
         `the listing page and the product page with no recorded reason:\n` +
         unexplained
           .map(
@@ -157,7 +172,7 @@ export function gradedGate(d) {
         `first: a disagreement can mean the parse is broken everywhere, which ` +
         `is what this gate is really guarding against. If it turns out to be ` +
         `about that one card, add an entry to the top-level \`excluded\` array ` +
-        `in data/top-graded.json carrying rank, name, set, listing, product, ` +
+        `in ${file} carrying rank, name, set, listing, product, ` +
         `decided and why. The row stays unpublished either way.`,
     );
   }
@@ -165,7 +180,7 @@ export function gradedGate(d) {
   const stale = entries.filter((e) => !disagreeing.some((r) => describes(e, r)));
   if (stale.length) {
     throw new Error(
-      `${stale.length} entr(y/ies) in data/top-graded.json \`excluded\` no ` +
+      `${stale.length} entr(y/ies) in ${file} \`excluded\` no ` +
         `longer describe a disagreeing row:\n` +
         stale.map((e) => `  #${e.rank} ${e.name} (${e.set})`).join("\n") +
         `\nThe data moved on and the exemption did not. Delete the entry, or ` +

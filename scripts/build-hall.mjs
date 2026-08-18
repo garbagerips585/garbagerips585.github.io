@@ -539,7 +539,16 @@ const body = `
 <main id="main" class="chofpage">
   <div class="wrap">
     <div class="chof-head">
-      <h1>Card Hall of Fame</h1>
+      ${/* "Best pulls" IS WHAT THE REST OF THE SITE CALLS THIS PAGE. All 1,478
+        pages link to it as "Best pulls" in the nav and the footer, and it
+        answered to "Card Hall of Fame" in its own h1, which is the same drift
+        this page has already been the example of once: it was "Hits" in the
+        bar, "Best pulls" in the menu and "Card Hall of Fame" in the footer.
+        The hall of fame name is not lost, it is where it earns its keep: the
+        <title> is still "Card Hall of Fame: Our Best Pokemon Pulls", so the
+        phrase is in the search result and the h1 agrees with the link that got
+        you here. */ ""}
+      <h1>Our best Pokemon <span class="hl">pulls</span></h1>
       <p>Every card that has come out of a pack on this channel, ranked by what it is worth. Tap a card to see it full size.${derivedFromHits ? " Nothing here was hand picked: this is the whole list of what was pulled on camera, in value order." : ""}</p>
       ${ranked.length ? `<div class="chof-tally">
         <div><b>${ranked.length}</b><span>${derivedFromHits ? "Cards pulled" : "Cards inducted"}</span></div>

@@ -14,7 +14,11 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, robots, LIVE, DOMAIN } from "../shared/site.mjs";
 import { priceNote, priceFooter, priceRead } from "../shared/card-prices.mjs";
-import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
+// SUBSCRIBE is imported rather than retyped. The channel URL and its
+// ?sub_confirmation=1 were hard coded here as a literal, which is one place for
+// the ID to be wrong and never noticed; shared/chrome.mjs is where the other
+// three Subscribe controls get it.
+import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS, SUBSCRIBE } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { raritiesIn, rarityChip, RARITY_CSS } from "../shared/rarity.mjs";
 import { ripPath } from "../shared/paths.mjs";
@@ -660,7 +664,20 @@ ${MENU}
         </div>` : v.hasHit === false ? `<p class="hit-none">No hit in this one. Certified Garbage Rip.</p>` : ""}
         ${desc ? `<div class="rip-desc">${esc(desc)}</div>` : ""}
         <div class="rip-nav">
-          <a class="btn btn-yt btn-sm" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1">Subscribe</a>
+        ${/* .btn-sub, not .btn-yt. This is the fourth of the four Subscribe
+             controls on the site and it has to match the bar pill, the menu
+             pill and the footer button, all three of which a reader on this
+             page can see above and below it. The class, the colour and the
+             fence around that colour are in the --yt-red block in
+             assets-source/ui.css. It carries an aria-label for the same reason
+             the footer's does: it leaves the site.
+
+             AS A JS COMMENT, NOT AN HTML ONE. An HTML comment here shipped into
+             310 rip pages, and the backticks in it closed the template literal
+             and broke the parse, which check-build caught as
+             "build-pages.mjs does not parse". */ ""}
+          <a class="btn btn-sub btn-sm" href="${SUBSCRIBE}" rel="noopener" target="_blank"
+            aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe</a>
           ${v.affiliate ? `<a class="btn btn-sky btn-sm" href="${esc(v.affiliate)}" rel="nofollow sponsored noopener">Rip one yourself</a>` : ""}
           ${prev ? `<a class="btn btn-ghost btn-sm" href="/${pathFor(prev)}">&larr; Previous rip</a>` : ""}
           ${next ? `<a class="btn btn-ghost btn-sm" href="/${pathFor(next)}">Next rip &rarr;</a>` : ""}

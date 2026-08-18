@@ -933,7 +933,7 @@ function guidePage(g) {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" },
-        { "@type": "ListItem", position: 2, name: "Card Sets", item: `${SITE}/sets/` },
+        { "@type": "ListItem", position: 2, name: "Set guides", item: `${SITE}/sets/` },
         { "@type": "ListItem", position: 3, name: g.english },
       ],
     },
@@ -1026,7 +1026,7 @@ function guidePage(g) {
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / <a href="/sets/">Card sets</a> / ${esc(g.english)}</p>
+    <p class="crumbs"><a href="/">Home</a> / <a href="/sets/">Set guides</a> / ${esc(g.english)}</p>
 
     <div class="facts">
       <div class="fact"><div class="n">${total ?? "?"}</div><div class="l">Cards total</div></div>

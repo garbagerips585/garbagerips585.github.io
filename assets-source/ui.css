@@ -125,6 +125,57 @@
   --ketchup:#111111; --ketchup-deep:#6E5000; --teal:#4A4A4A;
   --sky:#D9D6CC; --lilac:#D9D6CC; --lilac-pale:#F2F1EC; --plum:#3A3A3A;
 
+  /* ==========================================================================
+     THE ONE COLOUR THAT IS NOT IN THE PALETTE. READ THE FENCE BEFORE REUSING IT.
+
+     The palette above is Black / White / Gold on purpose: one accent hue, so
+     the pack art and the card scans are the only colour on a page. This is not
+     a second accent. It is a BRAND MARK borrowed from another company, and it
+     is here because Tim asked for it by name on 18 August 2026: "maybe make it
+     youtube red and white". YouTube is the site's primary channel and the whole
+     commercial point of the hub, so its own button is allowed to look like
+     itself. Nothing else is.
+
+     WHERE IT IS ALLOWED, exhaustively, and all four are Subscribe controls
+     pointing at SUBSCRIBE in shared/chrome.mjs:
+       .sub        the pill in the sticky bar
+       .menu-sub   the pill pinned to the bottom of the hamburger panel
+       .btn-sub    the named button in the footer, and the one under the
+                   player on a rip page (scripts/build-pages.mjs)
+
+     WHERE IT IS NOT ALLOWED: everywhere else, and in particular NOT on .btn-yt.
+     .btn-yt is a gold CTA that eight builders use for INTERNAL links ("Watch
+     the rips" -> /videos.html, "Test yourself on the games" -> /games/). It was
+     named after YouTube and stopped being about YouTube years of edits ago.
+     Recolouring it is the obvious-looking one-line change that would paint red
+     across roughly 1,400 pages, which is why the footer Subscribe was moved off
+     it onto .btn-sub rather than .btn-yt being tinted. If you are about to type
+     var(--yt-red) into a rule that is not one of the three above, the answer is
+     no: use --mustard.
+
+     THE VALUE IS NOT #FF0000 AND THAT IS DELIBERATE. YouTube's brand red is
+     #FF0000, and white on #FF0000 measures 4.00:1, which fails WCAG AA for
+     normal text (4.5) and only clears the large-text threshold (3.0, meaning
+     18.66px bold or 24px regular). The bar pill's label is 15px, and it cannot
+     grow: at 390px the whole row is 366px wide and a large-text label does not
+     fit beside the wordmark and the menu button. So the red is darkened by one
+     channel step instead, to the lightest red that clears 4.5:
+
+       #FFFFFF on #FF0000   4.00:1   fails AA normal text
+       #FFFFFF on #EF0000   4.50:1   on the line, no margin
+       #FFFFFF on #EE0000   4.53:1   SHIPPED
+       #FFFFFF on #C00000   6.48:1   SHIPPED as the hover/focus state
+
+     #EE0000 against the near-black bar is 4.17:1 and against the page 4.33:1,
+     both over the 3:1 that WCAG 1.4.11 asks of a control's own boundary, so the
+     pill is findable as well as readable. For what it costs: the mustard pill
+     this replaced was 10.28:1. Red is a real contrast loss and it still passes.
+
+     NOT IN scripts/gen-palette-preview.mjs, on purpose. That file and the :root
+     above are kept in step because they are the same DECISION; this is not part
+     of that decision and adding it there would offer it as a palette choice. */
+  --yt-red:#EE0000; --yt-red-deep:#C00000; --on-yt:#FFFFFF;
+
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:72px;
   --r:10px; --r-pill:999px;
   /* --r-sm WAS USED FIFTEEN TIMES AND DEFINED NOWHERE. An undefined custom
@@ -231,17 +282,25 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 .brand span{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;color:var(--chrome-dim);
   text-transform:uppercase}
 @media(max-width:900px){.brand span{display:none}}
-.bar form{flex:1;display:flex;align-items:center;gap:var(--s2);min-width:0;
-  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
-  border-radius:var(--r-pill);padding:0 var(--s4);height:44px;max-width:440px;margin:0 auto}
-/* Fill the pill. The input was 17.5px tall inside a 42px control, so tapping
-   anywhere but the text strip did nothing. */
-.bar form input{align-self:stretch}
-.bar input{flex:1;min-width:0;background:none;border:0;color:var(--chrome-ink);font:400 var(--t-sm)/1 var(--body)}
-.bar input::placeholder{color:var(--chrome-dim)}
-.bar input:focus{outline:none}
-.sub{flex:none;background:var(--mustard);color:var(--on-accent);font:700 var(--t-sm)/1 var(--body);
-  border-radius:var(--r-pill);padding:0 var(--s4);height:44px;display:inline-flex;align-items:center}
+/* THE BAR HAS NO FORM IN IT ANY MORE. Nine rules lived here and 300 lines
+   down for `.bar form`, `.bar input` and `.bar-search`, and all of them are
+   deleted rather than left behind, because the markup they styled is gone from
+   shared/chrome.mjs: a rule for an element no page emits is a rule the next
+   reader has to prove is dead before touching anything near it. This file
+   already carries two blocks kept "in place rather than deleted" around
+   .foot-nav, and the note there says plainly that a browser never uses one of
+   them. Deleted, 18 August 2026, with the search field itself. `.bar form`
+   also outranked `.bar-search` at 0-1-1 to 0-1-0 and was the trap that shipped
+   two magnifiers side by side; nothing is left to spring it. */
+/* The bar's Subscribe. See the --yt-red fence in :root for why this one control
+   is allowed a colour the palette does not contain, and for the measured
+   ratios. 15px rather than the 14px it was, because Tim's complaint was that it
+   was hard to see, and 44px minimum rather than a fixed 44px height so a
+   wrapped label cannot crush the target below the threshold. */
+.sub{flex:none;background:var(--yt-red);color:var(--on-yt);font:700 15px/1 var(--body);
+  border-radius:var(--r-pill);padding:0 var(--s4);min-height:44px;display:inline-flex;
+  align-items:center;justify-content:center;white-space:nowrap}
+.sub:hover,.sub:focus-visible{background:var(--yt-red-deep);color:var(--on-yt)}
 /* Below 640 there is not enough bar left for a usable field: the brand and the
    subscribe button squeeze it to about 80px. Swap it for an icon that opens
    the library, where the real search box lives, rather than shipping a text
@@ -993,6 +1052,52 @@ footer p{font:400 var(--t-sm)/1.6 var(--body);color:var(--chrome-dim);max-width:
    next column arrives with no heading and reads as a different section. */
 .menu-g{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
   margin-bottom:var(--s2)}
+
+/* THE ACCORDION. Each .menu-g is a <details> that ships `open`; app.js closes
+   them and adds .menu-acc to the panel below 821px. See shared/chrome.mjs for
+   why that order and not a media query.
+
+   ONE COLUMN, AND ONLY WHILE THE ACCORDION IS ON. Two columns of closed
+   summaries reads as a grid of unrelated words, and opening one then reflows
+   the other column for no reason a reader can see. With .menu-acc absent (any
+   width from 821px up) the panel is the two- and four-column layout it has
+   always been, unchanged. It is absent with no JavaScript too, but nothing sees
+   that: `.menu` is display:none until app.js adds `.on`, so with the script off
+   this panel does not open at all and never has.
+
+   Measured into the real panel, /start.html, menu open, before and after:
+
+     360, 375, 390   1,449px scrolling, 16 of 46 links unreachable
+                ->     544px no scroll, 8 of 8 headings on screen
+     768             1,449px scrolling, 9 links unreachable
+                ->     544px no scroll
+     1440x900        1,011px content in 838px, scrolling
+                ->     818px content in 818px, fits
+
+   The chevron is an empty aria-hidden span; <summary> already announces
+   expanded/collapsed, so nothing here needs a label. NO TRANSITION on it: the
+   panel itself does not animate (a <details> cannot animate to auto without JS
+   measuring it first), and a chevron that eases while the list snaps looks
+   like the list is broken. */
+.menu-h{display:flex;align-items:center;justify-content:space-between;gap:var(--s2);
+  cursor:pointer;list-style:none;-webkit-tap-highlight-color:transparent}
+.menu-h::-webkit-details-marker{display:none}
+.menu-h::marker{content:""}
+.menu-x{flex:none;width:9px;height:9px;margin-bottom:4px;
+  border-right:2.5px solid currentColor;border-bottom:2.5px solid currentColor;
+  transform:rotate(45deg)}
+.menu-g[open]>.menu-h .menu-x{margin:4px 0 0;transform:rotate(-135deg)}
+.menu-acc .menu-inner{columns:1}
+/* 48px on the summary, not the 44 the links get. A heading that opens a section
+   is the control every reader touches first and it has nothing above or below
+   it to aim between. */
+.menu-acc .menu-h{min-height:48px;padding:0 var(--s3)}
+/* Say which section you are inside, on the one surface where aria-current is
+   invisible: on a phone the group holding the current page is shut, so the gold
+   pill on its link is behind a tap. :has() is progressive here, and a browser
+   without it simply shows no band. */
+.menu-g:has(a[aria-current=page])>.menu-h{background:rgba(255,255,255,.07)}
+
 /* 44px, which is the touch target floor rather than a comfortable size, and it
    is deliberate: at 48px the panel still hid 70px including the Subscribe link,
    and a link you cannot see is worth less than two pixels of padding. Desktop
@@ -1085,8 +1190,34 @@ footer p{font:400 var(--t-sm)/1.6 var(--body);color:var(--chrome-dim);max-width:
    381px of search where it had 214.8. The two hidden links are Start here and
    Card shows, which are the two least-used of the five and are both one tap
    away in the menu, as all five always are. */
-@media(min-width:1140px){ .nav-links{display:flex} }
-@media(max-width:1339px){ .nav-links a:nth-child(n+4){display:none} }
+/* EVERY NUMBER ABOVE IS NOW HISTORY, AND THE REASON IS THAT THE THING THEY WERE
+   PROTECTING IS GONE. Both thresholds were set by a search field: it was the
+   only flexible item in the row, so links did not overflow, they ATE the input,
+   and 1140 and 1340 were the widths at which roughly 250px of typable box
+   survived. The field was removed at Tim's request on 18 August 2026. Keep the
+   paragraphs above anyway: they are the record of WHY the row behaves the way
+   it does, and if a field ever comes back they are the arithmetic to redo.
+
+   WITHOUT IT NOTHING IN THE ROW IS FLEXIBLE, so the failure mode changes from a
+   squeezed input to a sideways scrollbar, and the only question is whether the
+   pieces fit. Measured headless on /start.html, summing the visible children of
+   .bar-in, plus 48px of .bar-in padding and 16px per gap:
+
+     brand 273.6 + find 44 + menu 88.2 + Subscribe 99.5      = 505.3, 4 gaps
+     three links 246.9  ->  752.2 + 48 + 64  =  864.2
+     five links  438.4  ->  943.7 + 48 + 80  = 1071.7
+
+   So three fit from about 865 and five from about 1072. Set at 900 and 1100,
+   which are those numbers plus a margin, and verified by sweeping 880 to 1200
+   in the browser: document.scrollWidth equals innerWidth at every step, the
+   Subscribe pill is fully inside the viewport at every step, and no label
+   wraps. 900 is also where .brand span (the "Rochester, NY" line) stops being
+   hidden, so the widest the wordmark ever gets is inside the measurement.
+
+   WHAT IT BUYS: every width from 900 to 1139 gains three links it did not have,
+   and 1100 to 1339 gains the other two. That is most of the laptop range. */
+@media(min-width:900px){ .nav-links{display:flex} }
+@media(max-width:1099px){ .nav-links a:nth-child(n+4){display:none} }
 
 .menu-btn{display:grid}
 
@@ -1105,6 +1236,18 @@ footer p{font:400 var(--t-sm)/1.6 var(--body);color:var(--chrome-dim);max-width:
      Cards into column one and left Rochester alone in column three: 55px of the
      panel, including Subscribe, fell off the bottom of a screen with room to
      spare. Four columns lets the tallest single group set the height instead. */
+  /* AND THE GROUP COUNT IS THE OTHER HALF OF THAT, which was not understood
+     when the rule above was written. Four columns cannot balance six blocks any
+     better than three could; it can only balance more, smaller ones. Same panel,
+     same four columns, 1440x900, all groups open:
+
+       6 groups (max 12 links)   912px content in 838px   SCROLLS
+       7 groups (max 12 links)   956px                    SCROLLS
+       8 groups (max  8 links)   816px                    fits
+
+     So the fix for a desktop panel that scrolls is a smaller largest group, not
+     a fifth column: at 820px wide a fifth column is 164px and the labels wrap.
+     Re-measure this if NAV ever grows a group past eight links. */
   .menu-inner{columns:4;padding:var(--s4)}
 }
 
@@ -1175,6 +1318,15 @@ section.band-sky .sec-label{color:var(--on-accent)}section.band-navy .sec-label{
 .btn:hover{transform:translate(-2px,-2px)}
 .btn-yt{background:linear-gradient(180deg,var(--mustard),var(--gold));color:var(--on-accent);box-shadow:4px 4px 0 var(--keyline)}
 .btn-yt:hover{box-shadow:6px 6px 0 var(--keyline)}
+/* THE SUBSCRIBE BUTTON, AND WHY IT IS NOT .btn-yt.
+   .btn-yt is named after YouTube and is not about YouTube: eight builders use
+   it for internal CTAs ("Watch the rips" -> /videos.html). Tinting it red would
+   have painted roughly 1,400 pages. So the two Subscribe buttons that are not
+   in the chrome, the footer's and the one under the player on a rip page, get
+   their own class and share the bar and menu pills' colour. Same geometry as
+   .btn-yt otherwise, so nothing moves. See the --yt-red fence in :root. */
+.btn-sub{background:var(--yt-red);color:var(--on-yt);box-shadow:4px 4px 0 var(--keyline)}
+.btn-sub:hover,.btn-sub:focus-visible{background:var(--yt-red-deep);color:var(--on-yt);box-shadow:6px 6px 0 var(--keyline)}
 .btn-sky{background:var(--sky);color:var(--on-accent);box-shadow:4px 4px 0 var(--keyline)}
 .btn-sky:hover{box-shadow:6px 6px 0 var(--keyline)}
 .btn-ghost{background:var(--paper-2);color:var(--ink);box-shadow:4px 4px 0 var(--trubbish)}
@@ -1676,18 +1828,8 @@ footer .soc svg{fill:var(--paper)}
    room, because on a 351px row something has to and a wordmark is the one
    element that still reads when it is smaller.
    -------------------------------------------------------------------------- */
-.bar-search{min-width:200px;display:flex;align-items:center;gap:6px;flex:1 1 auto;min-width:0;
-  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
-  border-radius:var(--r-pill);padding:0 10px;height:38px}
-.bar-search:focus-within{background:rgba(255,255,255,.2);border-color:var(--mustard)}
-.bar-search svg{flex:none;width:16px;height:16px;fill:none;stroke:color-mix(in srgb,var(--chrome-ink) 80%,transparent);
-  stroke-width:2.2;stroke-linecap:round}
-.bar-search input{flex:1 1 auto;min-width:0;background:none;border:0;color:var(--chrome-ink);
-  /* 16px exactly: anything smaller and iOS zooms the page in on focus and
-     never zooms back out. */
-  font:400 16px/1 var(--body);min-height:44px}
-.bar-search input::placeholder{color:color-mix(in srgb,var(--chrome-ink) 60%,transparent)}
-.bar-search input:focus{outline:none}
+/* `.bar-search` WAS HERE AND IS DELETED. See the note where `.bar form` used to
+   sit, 1,500 lines up, for why the rules went rather than being left dead. */
 
 /* The button carries the word. Of the three tested variants, adding the label
    to the icon is the one that measured a gain; icon-only is the one that did
@@ -1698,11 +1840,85 @@ footer .soc svg{fill:var(--paper)}
 .menu-btn span{font:700 var(--t-sm)/1 var(--body);color:var(--chrome-ink)}
 .menu-btn[aria-expanded="true"] span{color:var(--ink)}
 
-/* Where the room comes from on a phone. */
+/* THE ROUTE TO SEARCH, AT EVERY WIDTH NOW. This started as the phone-only
+   stand-in for a field that would not fit below 560px. The field is gone at all
+   widths (Tim's call, 18 August 2026 - see the block below and the note in
+   shared/chrome.mjs), so this is the whole of search in the bar and it is
+   `display:flex` unconditionally. It is a LINK to /search.html rather than a JS
+   disclosure, because /search.html is a full page of field plus results and one
+   tap gets you there. It is not the only route: "Search the site" is a named
+   line in the menu's Cards group and in the footer. */
+.bar-find{flex:none;display:flex;width:44px;height:44px;border-radius:50%;
+  align-items:center;justify-content:center;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2)}
+.bar-find svg{width:19px;height:19px;fill:none;stroke:var(--chrome-ink);
+  stroke-width:2.2;stroke-linecap:round}
+.bar-find:hover,.bar-find:focus-visible{background:rgba(255,255,255,.24)}
+
+/* WHERE THE ROOM COMES FROM ON A PHONE, AND WHAT IT COST.
+
+   The bar has four jobs and 366px to do them in at 390px: 390 less the 12px
+   padding each side. Measured 18 August 2026, headless at 390x844 DPR 2:
+
+     wordmark      128px   (already at its smallest, .82rem below 400px)
+     search field  178px   of which the input itself is 120px
+     menu button    44px
+     gaps           16px
+                   ----
+                   366px   exactly full, with Subscribe display:none
+
+   So a NAMED Subscribe and a TYPEABLE search field cannot both be in this row.
+   The pill measures 91.5px; adding it to the row above leaves the input at
+   about 30px, which is not a field, it is a rectangle. There is no third thing
+   to cut: the wordmark is the identity and is already at its floor, the menu
+   button is the whole nav, and both are 44px or below.
+
+   THE FIELD IS NOW GONE AT EVERY WIDTH, NOT JUST HERE, AND THE REASON CHANGED.
+   Everything below this paragraph was written to justify dropping it BELOW
+   560px, where it genuinely did not fit, and the arithmetic is kept because it
+   is still the arithmetic of this row. It is no longer the reason. Tim asked
+   for the field to go, in his words "we can get rid of the search bar, don't
+   think we need search bar", 18 August 2026. At 1440 it fitted with 370px of
+   typable room, so nobody should read the sums below and conclude the field can
+   come back on a desktop: it can, and it is not wanted.
+
+   THE TRADE IS THE FIELD FOR A MAGNIFIER, and it is a trade, not a free win.
+   A previous pass removed the phone field and a later one put it back, with the
+   note "left a phone with no way to search 310 videos at all" and Wikimedia's
+   +28.9% search sessions behind it. That note was right about hiding search and
+   wrong about this: .bar-find is a visible 44px control that lands on
+   /search.html, where the field is full width and the results are underneath.
+   What is genuinely lost is typing your query without a page load. What is
+   gained is that the site's primary commercial control exists at all on a
+   phone, which it did not: before this edit the first visible Subscribe on the
+   home page was at y=7,115 of a 7,420px page, and on a rip page the header had
+   none.
+
+   The 120px input was not doing well anyway. At 390px its own placeholder,
+   "Search cards, sets, rips", rendered as "Search cards, s".
+
+   IF THIS IS EVER REVERSED, the thing to check is the arithmetic above, not the
+   principle. A shorter wordmark or a narrower menu button changes the answer.
+
+   MEASURED AFTER, same rig, and it is the same row at 390, 375 and 360:
+
+     brand 128 + find 44 + menu 44 + sub 91.5 + 3 gaps 24 = 331.5 of 366
+
+   34.5px spare at 390, 19.5px at 375, 4.5px at 360, and scrollTo(400,0) leaves
+   scrollX at 0 on all three. Below 360 the wordmark is the next thing to give,
+   which is what the 400px block under this one already does. */
 @media(max-width:560px){
   .brand b{font-size:.95rem}
   .brand span{display:none}
-  .sub{display:none}          /* Subscribe lives in the menu and the footer */
+  /* `.bar form.bar-search{display:none}` AND `.bar-find{display:flex}` STOOD
+     HERE and are both gone, because there is no field to hide any more and the
+     magnifier is now shown unconditionally where it is declared. The trap the
+     first of them documented is worth keeping written down even though the
+     selector is not: `.bar form` was 0-1-1 and declared display:flex, so a
+     plain `.bar-search{display:none}` LOST to it, media query or not, and the
+     build shipped two magnifiers side by side with a 0px input between them and
+     nothing errored. Specificity is decided before source order. The same trap
+     is live in this file for `.menu a.menu-sub`, a few hundred lines down. */
   .menu-btn span{display:none}
   .menu-btn{padding:0;width:44px}
 }
@@ -1717,8 +1933,8 @@ footer .soc svg{fill:var(--paper)}
 .menu li a{border-bottom:1px solid rgba(255,255,255,.08)}
 .menu-sub{display:flex;align-items:center;justify-content:center;min-height:48px;
   margin:var(--s4) var(--s3) var(--s4);border-radius:var(--r-pill);
-  background:var(--mustard);color:var(--on-accent);font:700 var(--t-body)/1 var(--body)}
-.menu-sub:hover{background:#fff}
+  background:var(--yt-red);color:var(--on-yt);font:700 var(--t-body)/1 var(--body)}
+.menu-sub:hover{background:var(--yt-red-deep)}
 /* THE LINE ABOVE NEVER SET THE TEXT COLOUR IT SAYS IT SETS, and the failure is
    pure specificity, not source order. `.menu a` earlier in this file declares
    color:var(--chrome-ink) at 0-1-1; `.menu-sub` is 0-1-0. Specificity is decided
@@ -1739,9 +1955,17 @@ footer .soc svg{fill:var(--paper)}
 
    Raising the selector to 0-2-1 (and 0-3-1 for the two states, which have to
    outrank `.menu a:hover,.menu a:focus-visible` at 0-2-1) is the whole fix.
-   After: 10.28 / 17.62 / 10.28. Do not "simplify" these back to `.menu-sub`. */
-.menu a.menu-sub{color:var(--on-accent)}
-.menu a.menu-sub:hover,.menu a.menu-sub:focus-visible{background:#fff;color:var(--on-accent)}
+   After: 10.28 / 17.62 / 10.28. Do not "simplify" these back to `.menu-sub`.
+
+   THE SELECTORS STAY, THE VALUES CHANGED, 18 August 2026. The pill is YouTube
+   red now (see the --yt-red fence in :root) and the same trap is still open:
+   drop these to `.menu-sub` and `.menu a`'s cream wins again, which on red
+   measures 1.60:1 instead of the 4.53 below. The hover no longer flips the pill
+   to white either, because a white pill with a red label reads as a different
+   control mid-tap; it darkens instead, which is what the bar's pill does.
+   After: 4.53 / 6.48 / 6.48. */
+.menu a.menu-sub{color:var(--on-yt)}
+.menu a.menu-sub:hover,.menu a.menu-sub:focus-visible{background:var(--yt-red-deep);color:var(--on-yt)}
 
 /* Say where you are. NN/G calls omitting this the single most common menu
    mistake, and it costs one attribute. */

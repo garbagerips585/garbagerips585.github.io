@@ -2012,7 +2012,7 @@ function setPage(s) {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" },
-        { "@type": "ListItem", position: 2, name: "Card Sets", item: `${SITE}/sets/` },
+        { "@type": "ListItem", position: 2, name: "Set guides", item: `${SITE}/sets/` },
         { "@type": "ListItem", position: 3, name: s.name },
       ],
     },
@@ -2548,7 +2548,7 @@ function setPage(s) {
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / <a href="/sets/">Card sets</a> / ${esc(s.name)}</p>
+    <p class="crumbs"><a href="/">Home</a> / <a href="/sets/">Set guides</a> / ${esc(s.name)}</p>
 
     <div class="facts">
       <div class="fact"><div class="n">${s.total ?? "?"}</div><div class="l">Cards total</div></div>
@@ -2668,7 +2668,7 @@ function indexPage() {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" },
-        { "@type": "ListItem", position: 2, name: "Card Sets" },
+        { "@type": "ListItem", position: 2, name: "Set guides" },
       ],
     },
     {
@@ -2696,7 +2696,13 @@ function indexPage() {
 <header class="set-hero">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
-    <h1>Card <span class="hl">sets</span></h1>
+    ${/* "Set guides", which is what the nav, the footer and this page's own
+          <title> ("Pokemon TCG Set Guides") all call it. "Card sets" was a
+          fourth name for the same destination and named the content type
+          rather than what is on the page, which is 42 written guides. The
+          breadcrumb on every set guide was changed with it; four names for one
+          page is how this site's nav drifted the first time. */ ""}
+    <h1>Pokemon <span class="hl">set guides</span></h1>
     ${/* "we cover", not "we rip". Eight of the sets listed below have a guide
           and no rip on them, which the "N rips" line on each card says out
           loud, so the lede was contradicted by the grid under it. */ ""}
@@ -2706,7 +2712,7 @@ function indexPage() {
 
 <section class="tight">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / Card sets</p>
+    <p class="crumbs"><a href="/">Home</a> / Set guides</p>
     <div class="set-index">
       ${sets.map((s) => `<a class="set-card" href="/sets/${s.id}.html">
         ${setCardLogo(s.id, `${esc(s.name)} logo`)}
