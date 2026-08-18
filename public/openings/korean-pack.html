@@ -104,6 +104,10 @@ border:1px solid var(--hair);border-radius:6px}
 .op-cn{background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
 .op-ex{display:block;margin-top:var(--s3);font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
 .op-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.55;max-width:44em}
+THE ANCHOR KEEPS ui.css's 44px min-height. It is the tap target and stacking
+the row is no reason to shrink it. */
+.op-kindrips li{flex-direction:column;align-items:flex-start;gap:0}
+.op-kindrips span{white-space:normal;min-width:0}
 @media(min-width:1000px){
 .op-lede{max-width:50ch}
 .op-note{max-width:50ch}

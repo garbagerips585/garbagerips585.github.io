@@ -80,6 +80,14 @@ padding:var(--s5);box-shadow:var(--lift)}
 .streak p{color:var(--ink-2);font-size:var(--t-sm);margin-top:8px}
 .streak.cold b{color:var(--plum)}
 .streak.hot b{color:var(--ketchup-deep)}
+.streak-rips{list-style:none;margin-top:var(--s4);padding:0;
+border-top:1px dashed var(--hair);display:grid;gap:2px}
+.streak-rips li{padding-top:var(--s3)}
+.streak-rips a{display:block;min-height:44px;font:600 var(--t-sm)/1.35 var(--body);color:var(--sky-deep)}
+.streak-rips a:hover,.streak-rips a:focus-visible{text-decoration:underline}
+.streak-rips a span{display:block;font:700 var(--t-micro)/1.5 var(--mono);
+letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.streak-open{padding-top:var(--s3);color:var(--ink-2);font-size:var(--t-sm)}
 .luck-method{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
 border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
 .luck-empty{color:var(--ink-2);background:var(--card);border:1px dashed var(--hair);
@@ -266,7 +274,7 @@ grid-template-rows:auto auto 1fr;gap:0 var(--s6);align-items:start}
       <p class="luck-note">Hit rate is the share of logged rips from that set that produced something
         worth keeping. Sets with fewer than 12 logged rips do not get a number: at that
         size it would be noise dressed up as a fact.</p>
-    <div class="luck-scroll">
+    <div class="luck-scroll" tabindex="0" role="region" aria-label="Hit rate by Set, scrollable table">
       <table class="luck-table">
         <caption class="sr-only">Hit rate by Set</caption>
         <thead><tr><th scope="col">Set</th><th scope="col">Rips</th><th scope="col">Hits</th><th scope="col">Hit rate</th></tr></thead>
@@ -391,7 +399,7 @@ grid-template-rows:auto auto 1fr;gap:0 var(--s6);align-items:start}
       <p class="luck-note">The same question asked of what was opened rather than what was in it.
         A booster box holds far more packs than a single blister, so a higher rate here is expected
         rather than surprising: what is worth reading is the gap between similar products.</p>
-    <div class="luck-scroll">
+    <div class="luck-scroll" tabindex="0" role="region" aria-label="Hit rate by Product, scrollable table">
       <table class="luck-table">
         <caption class="sr-only">Hit rate by Product</caption>
         <thead><tr><th scope="col">Product</th><th scope="col">Rips</th><th scope="col">Hits</th><th scope="col">Hit rate</th></tr></thead>
@@ -496,11 +504,21 @@ grid-template-rows:auto auto 1fr;gap:0 var(--s6);align-items:start}
           <span class="k">Longest drought</span>
           <b>4 rips</b>
           <p>Feb 13, 2026 to Feb 16, 2026, nothing worth keeping.</p>
+          
+          <ul class="streak-rips">
+            <li><a href="/rip/only-garbage-rips-chinese-gem-pack-vol-2-eeveelutions-8jKHh-P7P7M.html"><span>Where it started</span>Only Garbage Rips 😬 | Chinese Gem Pack Vol 2 (Eeveelutions)</a></li>
+            <li><a href="/rip/only-garbage-rips-pok-mon-trick-or-trade-booster-packs-in-fe-wMDMN2emLCM.html"><span>Where it ended</span>Only Garbage Rips 😬 | Pokémon Trick or Trade BOOster Packs… In February</a></li>
+            <li><a href="/rip/only-garbage-rips-pok-mon-ascended-heroes-pack-1-3dKWTVbCH3I.html"><span>The rip that broke it</span>Only Garbage Rips 😬 | Pokémon Ascended Heroes Pack #1</a></li>
+          </ul>
         </div>
         <div class="streak hot">
           <span class="k">Best run</span>
           <b>63 rips</b>
           <p>Feb 17, 2026 to Aug 15, 2026, a hit every time.</p>
+          <ul class="streak-rips">
+            <li><a href="/rip/only-garbage-rips-pok-mon-ascended-heroes-pack-1-3dKWTVbCH3I.html"><span>Where it started</span>Only Garbage Rips 😬 | Pokémon Ascended Heroes Pack #1</a></li>
+            <li><a href="/rip/8-packs-and-no-hits-E5Wz7X1VMeY.html"><span>Where it ended</span>8 Packs and NO HITS?! 🌑💀</a></li>
+          </ul>
         </div>
       </div>
     </div>

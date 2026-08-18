@@ -515,6 +515,34 @@ const OPENINGS = new Set(
 
 const openingHref = (p) => (p.id && OPENINGS.has(p.id) ? `/openings/${p.id}.html` : null);
 
+/* ------------------------------------------- see it opened before you buy it
+ *
+ * THIS PAGE TELLS SOMEBODY WHAT TO SPEND MONEY ON AND SHOWED THEM NONE OF IT
+ * BEING OPENED. It named a product, priced it, and offered a link to that
+ * product's own page; the videos of the channel opening that exact kind of box
+ * were two taps away and never mentioned. For a page whose reader is standing
+ * in a shop deciding, "here is what comes out of one" is the most useful thing
+ * this site owns.
+ *
+ * THE KINDS ARE THE ONES THIS PAGE ACTUALLY RECOMMENDS, taken off the
+ * situations list rather than from the product taxonomy, so the band cannot
+ * quietly become a catalogue of everything the channel has ever filmed. A kind
+ * this page does not recommend does not appear, and a kind with no rip does not
+ * appear either: no substitutions.
+ *
+ * ONE PER KIND, NEWEST FIRST, which is setRipsFor's round robin in
+ * build-pokemon.mjs and for its reason. Ninety of the 316 videos are single
+ * packs, so a straight newest-first slice off the pool would be a band about
+ * one product on a page about choosing between six.
+ *
+ * NOTHING HERE SAYS WHAT IS IN A PACK. The page's own sourcing note promises
+ * that in as many words, and a row saying "watch one opened" keeps the promise
+ * where "see what you could pull" would break it.
+ */
+const { videos: allVideos } = JSON.parse(
+  await readFile(join(ROOT, "public/data/videos.json"), "utf8")
+);
+
 // ===================================================== the marketplace evidence
 //
 // PULLED OUT OF data/buying.json, NEVER WRITTEN HERE. That file is this repo's
@@ -557,6 +585,28 @@ const situations = guide.situations.map((s) => ({
   ...s,
   picks: s.picks.map((k) => ({ ...k, p: product(k.product, { needPrice: true }) })),
 }));
+/* The recommended kinds, in the order this page recommends them, each with the
+   newest rip of that kind. See the note beside openingHref for the rules. */
+const buyRips = (() => {
+  const wanted = [];
+  for (const sit of situations) {
+    for (const k of sit.picks) {
+      const id = k.p?.id;
+      if (id && OPENINGS.has(id) && !wanted.some((w) => w.id === id)) {
+        wanted.push({ id, label: k.p.name || k.product });
+      }
+    }
+  }
+  return wanted
+    .map((w) => {
+      const v = allVideos
+        .filter((x) => x.path && (x.products || []).includes(w.id))
+        .sort((a, b) => String(b.published || "").localeCompare(String(a.published || "")))[0];
+      return v ? { ...w, v } : null;
+    })
+    .filter(Boolean);
+})();
+
 // The glossary does NOT require a price: it is explaining what a thing is, and
 // seven rows in msrp.json legitimately carry no figure at all.
 const glossary = guide.glossary.map((g) => ({ ...g, p: product(g.product) }));
@@ -1180,6 +1230,30 @@ const STYLE = `
    ========================================================================== */
 .wtb-lede{max-width:34em}
 
+/* ONE RIP PER RECOMMENDED KIND. See buyRips for which kinds and why.
+   TEAL for the title because teal is how you get around, and --sky-deep rather
+   than --sky because the type is small: 4.50:1 on --card #2F4F39 where --sky
+   is 4.05:1 and fails. The product name above it is --ink-2 at 5.73:1, a
+   caption and not a route, so the two accents never land on each other.
+   NOT .riplist. ui.css gives that list's caption white-space:nowrap, which is
+   correct for a set guide's "18 Aug 2026 &bull; 3 packs" and wrong for a
+   product name: measured elsewhere on this site a nowrap caption in that list
+   ran 505px wide and hung 204px off a 390px viewport with the document
+   refusing to scroll to it, which the site's own overflow test passes.
+   44px minimum on the anchor and the whole two-line row is the target. */
+.wtb-watch{margin-top:var(--s6)}
+.wtb-watch h3{font:400 var(--t-m)/1.2 var(--display);margin-bottom:var(--s2)}
+.wtb-watch p{color:var(--ink-2);max-width:34em;font-size:var(--t-sm);line-height:1.55}
+.wtb-riplist{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s2);
+  grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))}
+.wtb-riplist li{background:var(--card);border:1px solid var(--hair);
+  border-radius:var(--r-sm);padding:10px 12px;min-width:0}
+.wtb-riplist a{display:block;min-height:44px;font:600 var(--t-sm)/1.35 var(--body);
+  color:var(--sky-deep)}
+.wtb-riplist a:hover,.wtb-riplist a:focus-visible{text-decoration:underline}
+.wtb-riplist a span{display:block;font:700 var(--t-micro)/1.5 var(--mono);
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);white-space:normal}
+
 .wtb-quick{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s3)}
 .wtb-quick li{display:grid;grid-template-columns:1fr auto;gap:var(--s2) var(--s3);
   align-items:baseline;padding:var(--s3) var(--s4);border:3px solid var(--keyline);
@@ -1568,6 +1642,19 @@ ${JUMP.map(([h, l]) => `          <a href="${esc(h)}">${esc(l)}</a>`).join("\n")
       <ol class="wtb-sits">
 ${situations.map(situationCard).join("\n")}
       </ol>
+
+      ${buyRips.length ? `<div class="wtb-watch">
+        <h3>Watch one opened before you buy it</h3>
+        <p>One video per kind of box named above, newest first, filmed on this channel. It is what
+          comes out of that box on one day, not a claim about what is in any other one.</p>
+        <ul class="wtb-riplist">
+${buyRips
+  .map(
+    (r) => `          <li><a href="/${esc(r.v.path)}"><span>${esc(r.label)}</span>${esc(r.v.siteTitle || r.v.title)}</a></li>`,
+  )
+  .join("\n")}
+        </ul>
+      </div>` : ""}
 
       <div class="wtb-body" style="margin-top:var(--s6)" id="one-card">
         <h3>${esc(guide.oneCard.title)}</h3>

@@ -104,6 +104,10 @@ border:1px solid var(--hair);border-radius:6px}
 .op-cn{background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
 .op-ex{display:block;margin-top:var(--s3);font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
 .op-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.55;max-width:44em}
+THE ANCHOR KEEPS ui.css's 44px min-height. It is the tap target and stacking
+the row is no reason to shrink it. */
+.op-kindrips li{flex-direction:column;align-items:flex-start;gap:0}
+.op-kindrips span{white-space:normal;min-width:0}
 @media(min-width:1000px){
 .op-lede{max-width:50ch}
 .op-note{max-width:50ch}
@@ -387,6 +391,45 @@ border:1px solid var(--hair);border-radius:6px}
         booster pack also holds one more card that nobody keeps, and it is the only
         thing in the wrapper these pages never mention.
         <a href="/tcg-live.html">What the code card actually gets you.</a></p>
+    </div>
+  </section>
+
+  <section class="band tight">
+    <div class="wrap">
+      <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On the channel</p>
+      <h2>The newest of <span class="hl">each kind</span>, opened</h2>
+      <p class="lede" style="max-width:38em">One video per kind of sealed product, newest first, so every row
+        is a different thing coming open. Each one plays on its own page.</p>
+      <ul class="riplist op-kindrips">
+        <li><a href="/rip/i-just-pulled-a-1-000-card-iIgTusrqVtg.html">Elite Trainer Box</a>
+          <span>I Just Pulled a $1,000 Card! 😱🐸 &bull; Aug 18, 2026</span></li>
+        <li><a href="/rip/is-pack-13-actually-cursed-DP8HG31X1rg.html">Single Pack</a>
+          <span>Is Pack #13 Actually CURSED? 💀🌑 &bull; Aug 17, 2026</span></li>
+        <li><a href="/rip/did-this-bundle-have-any-hits-inTMqcQmFhM.html">Booster Bundle</a>
+          <span>Did this Bundle have ANY hits?! 📉💀 &bull; Aug 8, 2026</span></li>
+        <li><a href="/rip/the-box-ends-with-a-garbage-rip-aa9jzXRFtrg.html">ex Premium Collection</a>
+          <span>The Box Ends with a Garbage Rip... 🗑️ &bull; Aug 6, 2026</span></li>
+        <li><a href="/rip/chaos-rising-lived-up-to-its-name-3dAQ-PS0fpU.html">Tin</a>
+          <span>Chaos Rising Lived Up To Its Name... 🗑️ &bull; Jul 27, 2026</span></li>
+        <li><a href="/rip/the-tin-luck-finally-ran-out-2S4poqmGKWE.html">Poke Ball Tin</a>
+          <span>The Tin Luck Finally Ran Out! ❌ &bull; Jul 19, 2026</span></li>
+        <li><a href="/rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html">Collection Box</a>
+          <span>6 BOXES... and STILL No OG Starters?! 😭 &bull; Jul 4, 2026</span></li>
+        <li><a href="/rip/last-japanese-abyss-eye-packs-sr-or-better-tuX1t8p29Ik.html">Japanese Booster Pack</a>
+          <span>LAST Japanese Abyss Eye Packs 👁️🔥 | SR Or Better?! 😳 &bull; Jun 15, 2026</span></li>
+        <li><a href="/rip/random-2-pack-blister-armarouge-revavroom-houndstone-cg0H0ipfB90.html">Blister</a>
+          <span>Random 2-Pack Blister 😬 | Armarouge, Revavroom &amp; Houndstone &bull; Apr 19, 2026</span></li>
+        <li><a href="/rip/korean-clay-burst-booster-packs-2-pack-test-PnbibBm1E64.html">Korean Booster Pack</a>
+          <span>Korean Clay Burst Booster Packs 🇰🇷🔥 | 2 Pack Test &bull; Mar 31, 2026</span></li>
+        <li><a href="/rip/only-garbage-rips-chinese-gem-pack-vol-2-eeveelutions-8jKHh-P7P7M.html">Chinese Booster Pack</a>
+          <span>Only Garbage Rips 😬 | Chinese Gem Pack Vol 2 (Eeveelutions) &bull; Feb 13, 2026</span></li>
+        <li><a href="/rip/only-garbage-rips-kyogre-knock-out-collection-m9K7hpyjn04.html">Knock Out Collection</a>
+          <span>Only Garbage Rips 😬 | Kyogre Knock Out Collection &bull; Feb 5, 2026</span></li>
+        <li><a href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html">UPC</a>
+          <span>Only Garbage Rips from the Latest Costco Charizard UPC Drop &bull; Feb 1, 2026</span></li>
+      </ul>
+      <p class="op-note" style="margin-top:var(--s4)">Every rip of one kind is on that kind's own page above, and
+        the whole catalog is on <a href="/videos.html">every rip</a>.</p>
     </div>
   </section>
 </main>

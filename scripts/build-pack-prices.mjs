@@ -94,6 +94,29 @@ for (const v of allVideos) {
   for (const sid of v.sets || []) if (ripsFor.has(sid)) ripsFor.set(sid, ripsFor.get(sid) + 1);
 }
 
+/* ------------------------------------------------- "N rips" WAS NOT A LINK
+ *
+ * Every row on this page prices one pack of one set and then said, in plain
+ * unlinked text, that the channel has opened it N times. That is the single
+ * most relevant thing this site can offer somebody looking at a pack price,
+ * and it was a caption. A price tracker can print the number; only this site
+ * can show the pack coming open.
+ *
+ * WHERE IT GOES DEPENDS ON WHAT THE TEXT SAYS, which is the same rule
+ * build-expansions.mjs applies to the same sentence. "54 rips" goes to
+ * /videos.html filtered by the set, because a plural asks for a list. "1 rip"
+ * goes STRAIGHT TO THAT RIP, because sending somebody to an index holding a
+ * single tile is a tap spent on nothing. Two or more never resolves to one
+ * video: picking one would be choosing a favourite and hiding the rest, and
+ * there is no honest label for that.
+ */
+const soleRipFor = new Map();
+for (const [sid, n] of ripsFor) {
+  if (n !== 1) continue;
+  const v = allVideos.find((x) => (x.sets || []).includes(sid));
+  if (v?.path) soleRipFor.set(sid, v);
+}
+
 /**
  * The product kinds this page will divide, in the order the table shows them.
  *
@@ -623,6 +646,17 @@ const style = `
 .pp-via{display:block;font-family:var(--mono);font-size:.64rem;color:var(--ink);font-weight:400;margin-top:2px}
 .pp-none{color:var(--ink-soft)}
 .pp-rips{display:block;font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);font-weight:400}
+/* THE RIP COUNT IS A ROUTE NOW, so it takes the route colour. --sky-deep and
+   not --sky because .64rem is about as small as type on this site gets:
+   --sky-deep measures 4.50:1 on --card #2F4F39 where --sky is 4.05:1 and
+   fails. UNDERLINED as well as coloured, because this sits inside a row header
+   directly under another link (the set name) that the table already styles,
+   and a bare colour change on 10px mono is not a strong enough signal that
+   this second thing is clickable. min-height is NOT set here: it is a caption
+   line inside a table row whose own tap target is the set-name link above it,
+   and forcing 44px onto it would open a hole in every one of 28 rows. */
+.pp-rips a{color:var(--sky-deep);text-decoration:underline}
+.pp-best .pp-rips a{color:var(--on-accent)}
 .pp-key{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;
   font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);margin-top:var(--s3)}
 .pp-key i{display:inline-block;width:14px;height:14px;background:var(--mustard);
@@ -728,7 +762,9 @@ const cell = (r, kind) => {
 const row = (r) => `<tr>
   <th scope="row"><a href="/sets/${esc(r.id)}.html">${esc(r.name)}</a><span class="cc-yr">${esc(
     String(r.released).slice(0, 4),
-  )}</span>${r.rips ? `<span class="pp-rips">${r.rips} rip${r.rips === 1 ? "" : "s"} on the channel</span>` : ""}</th>
+  )}</span>${r.rips ? `<span class="pp-rips"><a href="${
+    soleRipFor.has(r.id) ? `/${esc(soleRipFor.get(r.id).path)}` : `/videos.html?set=${esc(r.id)}`
+  }">${r.rips} rip${r.rips === 1 ? "" : "s"} on the channel</a></span>` : ""}</th>
   <td class="num"><strong>${price(r.best.each)}</strong><span class="pp-via">${
     r.best.kind === "Single Pack" ? "bought loose" : `in the ${esc(r.best.kind.toLowerCase())}`
   }</span></td>

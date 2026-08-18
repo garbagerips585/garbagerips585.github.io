@@ -55,6 +55,57 @@ import { esc, longDate, imgDims, avifPicture, moneyCompact } from "../shared/for
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/rarity.json"), "utf8"));
 
+/* ------------------------------------------------- a real one, out of a pack
+ *
+ * WHAT THIS PAGE COULD SAY THAT NO OTHER RARITY GUIDE CAN. Every site explains
+ * the star symbols. This one is written by somebody who opens the packs, and
+ * until now the page never said so: ten rungs of explanation, a magnified
+ * corner on each, and not one link to a video of one of these actually coming
+ * out of a wrapper.
+ *
+ * THE SOURCE IS data/hits.json, NOT THE `pulls` TAGS, and the difference
+ * matters. `pulls` is DERIVED FROM VIDEO TITLES by shared/taxonomy.mjs, and
+ * build-luck.mjs spells out why that is unsafe: a title is not a record of
+ * what came out, and the Ultra Rare pattern matches a title that says there
+ * was no Ultra Rare in it. hits.json is Tim's own per-card log, keyed by video
+ * id, with the rarity written by hand. It is the same file the Hall of Fame is
+ * built from and it cannot claim a card the channel did not pull.
+ *
+ * FIVE OF THE TEN RUNGS HAVE ONE TODAY, and the other five render nothing at
+ * all rather than borrowing a neighbouring tier's card. The rarity strings in
+ * hits.json are already the ladder's own names, so this is an exact match on a
+ * label and not a fuzzy one; a rung with no hit is simply a rung the channel
+ * has not pulled yet.
+ *
+ * TEXT, NOT A TILE. See the note beside the chrome imports above: this page
+ * ships without packplayer.js, so a video tile here would navigate rather than
+ * play in place, which reads as a bug. The line links the rip page, where the
+ * pack wrapper and the player live.
+ */
+const pulledAt = await (async () => {
+  const hits = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
+  const byId = new Map(
+    (JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8")).videos || [])
+      .map((v) => [v.id, v]),
+  );
+  const out = new Map();
+  for (const [vid, list] of Object.entries(hits)) {
+    const v = byId.get(vid);
+    if (!v?.path) continue;
+    for (const h of list) {
+      if (!h.rarity) continue;
+      const prev = out.get(h.rarity);
+      // NEWEST RIP WINS, so the page tracks the channel rather than freezing on
+      // whichever hit happens to be first in the file. Four of the five tiers
+      // resolve to one Costco UPC video today, which is honest: that is where
+      // the cards came from.
+      if (prev && String(prev.v.published || "") >= String(v.published || "")) continue;
+      out.set(h.rarity, { card: h.card, set: h.setName || null, v });
+    }
+  }
+  return out;
+})();
+
 /* ------------------------------------------------- prices, not price WORDS --
  *
  * NO PRICE ON THIS PAGE IS TYPED INTO data/rarity.json ANY MORE.
@@ -433,6 +484,12 @@ const ladderRow = (r, i) => `      <li class="rr${r.chase ? " is-chase" : ""}">
           <p class="rr-look">${esc(r.look)}</p>
           ${r.note ? `<p class="rr-note">${esc(r.note)}</p>` : ""}
           <p class="rr-eg">${esc(r.example)}</p>
+          ${pulledAt.has(r.name)
+            ? `<p class="rr-pulled"><a href="/${esc(pulledAt.get(r.name).v.path)}">We pulled one on camera:
+                <b>${esc(pulledAt.get(r.name).card)}</b>${
+                  pulledAt.get(r.name).set ? `, ${esc(pulledAt.get(r.name).set)}` : ""
+                }</a></p>`
+            : ""}
         </div>
         <div class="rr-zoom">
           ${corner(r.card, "left", "the corner, magnified")}
@@ -578,6 +635,18 @@ const style = `
   border-radius:calc(var(--r) - 8px);padding:8px var(--s3);margin-top:8px}
 .rr-eg{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.04em;
   text-transform:uppercase;margin-top:8px}
+/* THE ONE ON THIS PAGE THAT CAME OUT OF A PACK. See pulledAt at the top of
+   this file for where it comes from and why it is not the pull tags.
+   TEAL because it is a route, --sky-deep and not --sky because the type is
+   small: 4.50:1 on --card #2F4F39 where --sky is 4.05:1 and fails. The card
+   name inside it is --ink at 6.70:1 rather than a second accent, so the row
+   still reads as one link with an emphasis in it rather than two colours
+   arguing. 44px minimum because it is a tap target on a phone and the rest of
+   this row is prose. */
+.rr-pulled{margin-top:10px;font:400 var(--t-sm)/1.4 var(--body)}
+.rr-pulled a{display:block;min-height:44px;color:var(--sky-deep)}
+.rr-pulled a:hover,.rr-pulled a:focus-visible{text-decoration:underline}
+.rr-pulled b{color:var(--ink);font-weight:600}
 .rr-zoom{grid-column:1/-1}
 @media(min-width:820px){.rr-zoom{grid-column:auto}}
 

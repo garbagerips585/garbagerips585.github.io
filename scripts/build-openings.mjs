@@ -921,6 +921,25 @@ const STYLE = `
 .op-ex{display:block;margin-top:var(--s3);font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
 .op-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.55;max-width:44em}
 
+/* THE ONE-RIP-PER-KIND LIST ON THE INDEX, AND THE OVERRIDE IS NOT COSMETIC.
+   ui.css gives .riplist span white-space:nowrap, which is right on a product
+   page where the caption is "18 Aug 2026 &bull; 3 packs" and wrong here, where
+   it is a whole video title: measured at 390x844 DPR2 before this rule, one
+   caption ran 505px wide and pushed documentElement.scrollWidth to 594 against
+   a clientWidth of 390. The document still did not scroll sideways and scrollX
+   was 0, which is exactly the false pass the Topps note in CLAUDE.md warns
+   about, so the fault was 204px of title hanging off the right edge with
+   nothing to scroll to it.
+
+   The row also stacks, because a kind and a title on one baseline row would
+   squeeze the title into a 100px column on a phone. Column, no gap, so the
+   title sits directly under the kind the way every other two-line row on this
+   site does. */
+   THE ANCHOR KEEPS ui.css's 44px min-height. It is the tap target and stacking
+   the row is no reason to shrink it. */
+.op-kindrips li{flex-direction:column;align-items:flex-start;gap:0}
+.op-kindrips span{white-space:normal;min-width:0}
+
 /* DESKTOP. min-width only, so a phone and a tablet render what they rendered
    before: measured identical at 390 before and after.
 
@@ -1120,6 +1139,36 @@ ${e.vids
 const totalRips = new Set(entries.flatMap((e) => e.vids.map((v) => v.id))).size;
 const totalPacks = videos.reduce((n, v) => n + (v.packs || 0), 0);
 
+/* ------------------------------------------------------- one rip per kind
+ *
+ * ALL THIRTEEN PRODUCT PAGES CARRY A RIP LIST AND THE INDEX ABOVE THEM CARRIED
+ * NONE. A reader landing on /openings/ from a search for "what is in a Pokemon
+ * Elite Trainer Box" saw thirteen cards saying "54 opened" and no way to watch
+ * one without a second tap, on a hub whose whole subject is products this
+ * channel has opened on camera.
+ *
+ * ONE PER KIND, NEWEST FIRST, WHICH IS `setRipsFor`'s ROUND ROBIN IN
+ * build-pokemon.mjs AND FOR ITS REASON. A straight newest-first slice off the
+ * pooled list would be six single packs and a bundle, because single packs are
+ * 90 of the 316 videos: a band on a page about the VARIETY of sealed product
+ * that shows one kind of it, over and over. Taking the newest of each kind
+ * makes every row a different product, which is both a truer picture of the
+ * channel and the thing this page is actually about.
+ *
+ * THE KIND IS THE LINK TEXT AND THE TITLE IS THE CAPTION, which is the reverse
+ * of the product pages. There the kind is the h2 and does not need repeating on
+ * every row; here it is the only thing distinguishing one row from the next.
+ */
+const kindRips = entries
+  .map((e) => {
+    const newest = e.vids
+      .slice()
+      .sort((a, b) => String(b.published || "").localeCompare(String(a.published || "")))[0];
+    return newest ? { e, v: newest } : null;
+  })
+  .filter(Boolean)
+  .sort((a, b) => String(b.v.published || "").localeCompare(String(a.v.published || "")));
+
 const idx =
   head(
     // 612px with the brand against the ~580px cut, 433px without it.
@@ -1197,7 +1246,35 @@ ${entries
         <a href="/tcg-live.html">What the code card actually gets you.</a></p>
     </div>
   </section>
-` +
+${
+  kindRips.length
+    ? `
+  <section class="band tight">
+    <div class="wrap">
+      <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On the channel</p>
+      <h2>The newest of <span class="hl">each kind</span>, opened</h2>
+      <p class="lede" style="max-width:38em">One video per kind of sealed product, newest first, so every row
+        is a different thing coming open. Each one plays on its own page.</p>
+      <ul class="riplist op-kindrips">
+${kindRips
+  .map(
+    ({ e, v }) => `        <li><a href="/${esc(v.path)}">${esc(e.label)}</a>
+          <span>${[
+            esc(v.title),
+            v.published ? esc(shortDate(v.published)) : "",
+          ]
+            .filter(Boolean)
+            .join(" &bull; ")}</span></li>`,
+  )
+  .join("\n")}
+      </ul>
+      <p class="op-note" style="margin-top:var(--s4)">Every rip of one kind is on that kind's own page above, and
+        the whole catalog is on <a href="/videos.html">every rip</a>.</p>
+    </div>
+  </section>
+`
+    : ""
+}` +
   tail;
 
 await writeFile(join(OUT, "index.html"), idx);

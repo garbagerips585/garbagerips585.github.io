@@ -55,6 +55,33 @@ const { videos: allVideos } = JSON.parse(
 const ripsBySet = {};
 for (const v of allVideos) for (const sid of v.sets || []) ripsBySet[sid] = (ripsBySet[sid] || 0) + 1;
 
+/* ---------------------------------------------------- the single-rip shortcut
+ *
+ * WHERE A SET HAS EXACTLY ONE RIP, THE CELL LINKS THE RIP.
+ *
+ * The rips cell has always read "N rips" and pointed at /videos.html filtered
+ * by that set, which is the right destination for a number: a reader asked for
+ * fifty-four Chaos Rising rips wants the list. It is the WRONG destination for
+ * ONE. "1 rip" led to an index page holding a single tile, so the shortest
+ * route from this table to the only video it is describing was two taps
+ * through a page whose entire content was that video's thumbnail.
+ *
+ * Fifteen of the thirty-five sets tagged on a video have exactly one, and they
+ * are the imported Japanese, Korean and Chinese sets plus the old English ones
+ * opened once, which is to say the rows a curious reader is most likely to
+ * stop on. Nothing else about the cell changes and no row gains a link that
+ * did not have one.
+ *
+ * NOT EXTENDED TO TWO. "2 rips" pointing at one of them would be picking a
+ * favourite and hiding the other, and there is no honest label for that.
+ */
+const soleRipBySet = {};
+for (const [sid, n] of Object.entries(ripsBySet)) {
+  if (n !== 1) continue;
+  const v = allVideos.find((x) => (x.sets || []).includes(sid));
+  if (v?.path) soleRipBySet[sid] = v;
+}
+
 // THE SET SYMBOLS ARE MIRRORED LOCALLY. Measured over CDP at 390x844 DPR2 with
 // the cache disabled and every lazy image forced to load, this page transferred
 // 2,604.9 KB of images and 2,183 KB of that was 174 symbol pngs painted into a
@@ -283,7 +310,9 @@ function eraTable(e) {
                 cardCount() the tile sums, so a copied list, the column and the
                 headline are one number in three places. */ ""}<td class="xp-cards" data-cards="${cc.n}">${cc.html}</td>
           <td class="xp-rips">${
-            s.slug && ripsBySet[s.slug]
+            s.slug && soleRipBySet[s.slug]
+              ? `<a href="/${esc(soleRipBySet[s.slug].path)}">1 rip</a>`
+              : s.slug && ripsBySet[s.slug]
               ? `<a href="/videos.html?set=${s.slug}">${ripsBySet[s.slug]} rip${ripsBySet[s.slug] === 1 ? "" : "s"}</a>`
               : noValue("None", "xp-none")
           }</td>

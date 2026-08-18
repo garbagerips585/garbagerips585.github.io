@@ -53,7 +53,16 @@ if (!hall.length) {
   const hits = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
   const seen = new Set();
   const out = [];
-  for (const list of Object.values(hits)) {
+  // `Object.entries`, NOT `Object.values`, AND THAT ONE WORD IS THE WHOLE
+  // "see it pulled" LINK. data/hits.json is keyed BY YOUTUBE VIDEO ID, so every
+  // card in this hall already knew which rip it came out of and this loop threw
+  // the key away on the first line. The page then carried one link to the whole
+  // rip library and none to the video the card is actually in, on the most
+  // shareable page on the site: every plaque here is a card that came out of a
+  // specific opening, which is the single most relevant reason to watch one.
+  // Checked before it was built: 18 of 18 hit entries and 3 of 3 video ids
+  // resolve against public/data/videos.json, so the join is total.
+  for (const [vid, list] of Object.entries(hits)) {
     for (const h of list) {
       // A PROMO HAS NO SET CHECKLIST, AND THAT IS NOT A REASON TO DROP IT.
       // This used to skip anything without a set, on the reasoning that it
@@ -78,6 +87,7 @@ if (!hall.length) {
         // thumbnail and the 600w enlargement exactly like every other card.
         out.push({
           set: null, number: h.number || null, name: h.card,
+          _vid: vid,
           _img: h.img ? `${h.img}/high.webp` : null,
           _raw: typeof h.price === "number" ? h.price : null,
           _rarity: h.rarity || "Black Star Promo",
@@ -113,6 +123,7 @@ if (!hall.length) {
       // in it: the page rendered with no images and no prices at all.
       out.push({
         set: h.set, number: m.n, name: m.name,
+        _vid: vid,
         _img: m.img ? `${m.img}/high.webp` : null,
         _raw: typeof m.price === "number" ? m.price : null,
         _rarity: m.rarity || h.rarity || null,
@@ -125,6 +136,26 @@ if (!hall.length) {
   }
 }
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
+
+/* --------------------------------------------------------- the rip behind it
+ *
+ * THE PLAQUE'S OWN VIDEO, which this page did not link and had the id for all
+ * along. See the `Object.entries` note above for how it was thrown away.
+ *
+ * ONE LOOKUP, NO MATCHING. `_vid` is a YouTube id and videos.json is keyed by
+ * the same id, so there is no title fuzz to get wrong here and no chance of
+ * putting the wrong video under a card. A card with no id, which is any card a
+ * human inducts by hand in data/hall.json, resolves to null and RENDERS
+ * NOTHING: the standing pattern everywhere on this site for data we do not
+ * have. Do not fall back to /videos.html per plaque. The page already carries
+ * one link to the whole library at the foot, and a row-level control that goes
+ * somewhere generic teaches a reader the control is not worth tapping.
+ */
+const ripById = new Map(
+  (JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8")).videos || [])
+    .map((v) => [v.id, v]),
+);
+
 let graded = {};
 try {
   graded = JSON.parse(await readFile(join(ROOT, "data/psa10.json"), "utf8"));
@@ -284,9 +315,18 @@ function resolve(c) {
   const psa10 = won.v;
   const psaFrom = won.from;
 
+  const rip = c._vid ? ripById.get(c._vid) || null : null;
+
   return {
     ...c,
     setName,
+    // THE HUMAN TITLE, NOT `label`. `label` is the dry shelf tag the video log
+    // writes ("Phantasmal Flames UPC"); `title` is what Tim called the video
+    // ("Only Garbage Rips from the Latest Costco Charizard UPC Drop"), which is
+    // the thing that makes somebody want to watch it. `siteTitle` is checked
+    // first only because the rest of the site checks it; nothing writes one
+    // today, on 0 of 316 videos.
+    rip: rip ? { path: rip.path, title: rip.siteTitle || rip.title } : null,
     // ONE CASING FOR RARITY. TCGdex ships "Ultra Rare" and "Double rare" in the
     // same checklist, so this list carried both shapes at once. Title Case is
     // what the rarity guide, the ladder in sync-sets.mjs and the sheet's own
@@ -432,6 +472,20 @@ function plaque(c, i) {
                 c.pulledIn ? ` &bull; ${esc(c.pulledIn)}` : ""
               }</span>`
             : ""}
+          ${/* THE REASON THIS PAGE EXISTS, made tappable. Every plaque here is a
+                card that came out of a specific opening and the video id was in
+                data/hits.json the whole time. INTERNAL: it goes to that rip's
+                own page under /rip/, where the pack wrapper and the player
+                live, never to youtube.com. Every click stays on the site.
+
+                THE TITLE IS PART OF THE LINK rather than sitting beside it, so
+                the accessible name says which video without an aria-label
+                repeating text that is already on screen. It is the same shape
+                the species pages use in `watchBand`: the row IS the title, and
+                the label above it says what tapping does. */ ""}
+          ${c.rip
+            ? `<a class="chof-see" href="/${esc(c.rip.path)}"><span>See it pulled</span>${esc(c.rip.title)}</a>`
+            : ""}
         </div>
       </li>`;
 }
@@ -541,6 +595,25 @@ const style = `
 .chof-prices dd{font:700 var(--t-m)/1.2 var(--body);color:var(--chrome-ink)}
 .chof-prices .psa dd{color:var(--ketchup-deep)}
 .chof-pulled{margin-top:var(--s2)}
+/* "See it pulled", the route from a plaque to the rip it came out of.
+   TEAL, because teal is how you get around and this is the only route out of a
+   plaque. Composited rather than guessed: the plaque ground is
+   rgba(255,255,255,.05) over --band-bg #192D22, which is #25382D, and the top
+   three are rgba(224,162,31,.09) over the same, #2B3822. --sky measures 5.53:1
+   and 5.50:1 on those two, clear of AA at any size. The label is --chrome-dim,
+   7.51:1 and 7.47:1, and it is a caption rather than a route, which is why it
+   is not the second accent.
+   ui.css declares a{color:inherit} globally, so an unstyled link here would
+   have come out the same grey as the set name beside it and read as nothing.
+   BLOCK, not inline: it makes the whole two-line run the tap target rather
+   than a 90px phrase, which is the shape requirement every link on this site
+   is held to. min-height 44px for the same reason, and it is only ever reached
+   after the prices, so nothing above it moves. */
+.chof-see{display:block;margin-top:var(--s3);min-height:44px;
+  font:600 var(--t-sm)/1.35 var(--body);color:var(--sky)}
+.chof-see span{display:block;font:700 var(--t-micro)/1.5 var(--mono);
+  letter-spacing:.06em;text-transform:uppercase;color:var(--chrome-dim)}
+.chof-see:hover,.chof-see:focus-visible{text-decoration:underline}
 .chof-empty{text-align:center;color:var(--foot-ink);background:rgba(255,255,255,.05);
   border:1px dashed rgba(255,255,255,.2);border-radius:14px;padding:var(--s7) var(--s5)}
 .chof-note{font:700 var(--t-micro)/1.7 var(--mono);color:var(--chrome-dim);text-align:center;

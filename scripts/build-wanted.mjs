@@ -82,6 +82,63 @@ for (const c of cards) {
 const hunting = cards.filter((c) => !c.got);
 const caught = cards.filter((c) => c.got);
 
+/* ------------------------------------------- the packs the hunt happens in
+ *
+ * THIS PAGE'S OWN LEDE SAID "EVERY PACK OPENED ON THIS CHANNEL IS OPENED
+ * HOPING FOR ONE OF THESE" AND THEN LINKED NO PACK BEING OPENED. The only
+ * destinations on it were TCGplayer, one per card, and the set index. A reader
+ * who believes that sentence has exactly one next question and the page had no
+ * answer to it.
+ *
+ * THE JOIN IS BY SET, which is the second tier build-pokemon.mjs uses and it
+ * is a fact out of two files rather than a guess: a wanted card is printed in
+ * a set, a rip is tagged with the set it opened, so a rip of that set is a
+ * video of somebody looking for this card. Seven of the ten wanted cards sit
+ * in six sets we have opened, 210 rips between them; the other three are in
+ * White Flare and Black Bolt, which this channel has never opened, and they
+ * contribute NOTHING here rather than borrowing another set's video.
+ *
+ * WHAT THIS MUST NEVER SAY is that opening those packs is likely to produce
+ * the card. "We are opening the set that prints it" is a fact. Anything about
+ * the chances is a pull rate, and this site does not state those. See CLAUDE.md.
+ *
+ * ONE ROW PER SET, NEWEST FIRST, not six rows off one busy set: the same
+ * round-robin reasoning as setRipsFor in build-pokemon.mjs, where a straight
+ * newest-first slice turned a band about eight sets into a band about one.
+ */
+const { videos: allVideos } = JSON.parse(
+  await readFile(join(ROOT, "public/data/videos.json"), "utf8")
+);
+const setNameById = new Map(sets.map((s) => [s.id, s.name]));
+const huntRips = (() => {
+  const bySet = new Map();
+  for (const v of allVideos) {
+    if (!v.path) continue;
+    for (const sid of v.sets || []) {
+      if (!bySet.has(sid)) bySet.set(sid, []);
+      bySet.get(sid).push(v);
+    }
+  }
+  const wantedSets = [...new Set(hunting.map((c) => c.set).filter(Boolean))];
+  return wantedSets
+    .map((sid) => {
+      const list = (bySet.get(sid) || [])
+        .slice()
+        .sort((a, b) => String(b.published || "").localeCompare(String(a.published || "")));
+      if (!list.length) return null;
+      return {
+        set: sid,
+        name: setNameById.get(sid) || sid,
+        total: list.length,
+        v: list[0],
+        cards: hunting.filter((c) => c.set === sid).map((c) => c.name),
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.total - a.total);
+})();
+const huntRipTotal = huntRips.reduce((n, r) => n + r.total, 0);
+
 /** The two price rows under a card. Each disappears entirely when unknown. */
 function prices(c) {
   const rows = [];
@@ -352,6 +409,30 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
 .pr-psa .pr-v{color:var(--gold-deep)}
 .price-note{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);max-width:52em}
+
+/* WHERE THE HUNT IS ACTUALLY HAPPENING. See huntRips for what picks these.
+   NOT .riplist: ui.css gives its caption white-space:nowrap, which is right for
+   a set guide's "18 Aug 2026 &bull; 3 packs" and wrong the moment a caption is
+   a set name plus a count on a 390px phone. Measured elsewhere on this site, a
+   nowrap caption in that list ran 505px and hung 204px off the viewport with
+   the document refusing to scroll to it, which the overflow test passes.
+   TEAL for the title because teal is how you get around, --sky-deep and not
+   --sky because the type is small: 4.50:1 on --card #2F4F39 against --sky's
+   4.05:1, which fails. The set-and-count line above it is --ink-2 at 5.73:1, a
+   caption and not a route. 44px minimum on the anchor, and it is the whole
+   two-line row rather than the title's text run. */
+.w-watch{margin-top:var(--s7)}
+.w-watch h2{font:400 var(--t-l)/1.15 var(--display);margin-bottom:var(--s3)}
+.w-watchlede{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
+.w-riplist{list-style:none;margin:0;padding:0;display:grid;gap:var(--s2);
+  grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))}
+.w-riplist li{background:var(--card);border:1px solid var(--hair);
+  border-radius:var(--r-sm);padding:10px 12px;min-width:0}
+.w-riplist a{display:block;min-height:44px;font:600 var(--t-sm)/1.35 var(--body);
+  color:var(--sky-deep)}
+.w-riplist a:hover,.w-riplist a:focus-visible{text-decoration:underline}
+.w-riplist a span{display:block;font:700 var(--t-micro)/1.5 var(--mono);
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);white-space:normal}
 `;
 
 const body = `
@@ -365,6 +446,22 @@ const body = `
 ${hunting.map((c, k) => cardTile(c, { eager: k < EAGER_TILES })).join("\n")}
 ${caught.map((c) => cardTile(c, { hunted: false })).join("\n")}
     </div>
+    ${huntRips.length ? `<section class="w-watch">
+      <h2>The packs we are opening <span class="hl">looking for them</span></h2>
+      <p class="w-watchlede">${huntRipTotal} rips of the ${
+        huntRips.length === 1 ? "set" : `${huntRips.length} sets`
+      } these cards are printed in, newest of each below. No promises about what is in a pack:
+        this is just where the hunt is happening.</p>
+      <ul class="w-riplist">
+${huntRips
+  .map(
+    (r) => `        <li><a href="/${esc(r.v.path)}"><span>${esc(r.name)} &bull; ${r.total} rip${
+      r.total === 1 ? "" : "s"
+    }</span>${esc(r.v.siteTitle || r.v.title)}</a></li>`,
+  )
+  .join("\n")}
+      </ul>
+    </section>` : ""}
     <p class="price-note">RAW PRICES ARE TCGPLAYER MARKET VALUES READ THROUGH TCGDEX${
       rawAsOf ? `, LAST CHECKED ${shortDate(rawAsOf).toUpperCase()}` : ""
     }. THEY ARE THE SAME FIGURES THE SET GUIDES AND THE CHECKLISTS PRINT, AND THEY MOVE ON THEIR OWN.${

@@ -181,6 +181,30 @@ for (const v of chrono) {
   } else run = 0;
 }
 
+/**
+ * THE RIP THAT ENDED THE DROUGHT, which is a fact this page already had and
+ * would not name.
+ *
+ * `worst.to` is the LAST rip of the cold streak, so it is still a miss. The
+ * one that broke it is whatever judged rip comes next in upload order, and it
+ * only exists if the streak ended rather than running to the newest video.
+ * Where it does not exist the page says the drought is still open, which is
+ * the truth and a better sentence than an omission.
+ *
+ * WHY THIS PAGE GETS LINKS AT ALL, since the test is relevance and not volume.
+ * Every number on /luck.html is counted out of the channel's own videos, and
+ * the two streaks are the only figures on it that are ABOUT four specific
+ * rips rather than about a rate. A reader who has just been told the longest
+ * drought ran N rips has exactly one next question, and it is "which ones".
+ * Nothing else on the page has an answer that is a single video, which is why
+ * nothing else on it gets a link.
+ */
+const droughtBreaker = (() => {
+  if (!worst.len || !worst.to) return null;
+  const i = chrono.indexOf(worst.to);
+  return i >= 0 ? chrono[i + 1] || null : null;
+})();
+
 const totalPacks = judged.reduce((n, v) => n + (packsIn(v) || 0), 0);
 const packsKnown = judged.filter(packsIn).length;
 
@@ -267,9 +291,26 @@ const row = (r, hrefBase, withShot = false) => {
         </tr>`;
 };
 
+// tabindex="0" AND role/aria-label, the same affordance .xp-scroll, .cc-scroll,
+// .gc-tw and .op-tw already carry, and for the reason written out in full in
+// scripts/build-expansions.mjs: an overflowing box a keyboard cannot reach is
+// content a keyboard cannot read.
+//
+// MEASURED HERE RATHER THAN ASSUMED, because this table is NOT the easy case
+// build-expansions describes. Its rows do contain links (18 in the first table,
+// 11 in the second), so Chrome, Firefox and Safari all let you tab INTO it and
+// the box scrolls as focus moves. That is not the same thing as being able to
+// read it. At 390x844 the table is 96px wider than its box, and the column that
+// falls off the right is "Hit rate" -- the one number the whole page exists to
+// report. Reading it by tabbing means moving focus through set links you did not
+// want to follow, and a reader who only wants to LOOK has no way to scroll at
+// all. The other four scrollers on this site take the affordance whether or not
+// they have focusable children (.cc-scroll has 28 and still carries it), so the
+// convention is already "every table scroller", and this was the one that missed.
+// 166px hidden at 320.
 const table = (rows, what, hrefBase, withShot = false) =>
   rows.length
-    ? `    <div class="luck-scroll">
+    ? `    <div class="luck-scroll" tabindex="0" role="region" aria-label="Hit rate by ${what}, scrollable table">
       <table class="luck-table">
         <caption class="sr-only">Hit rate by ${what}</caption>
         <thead><tr><th scope="col">${what}</th><th scope="col">Rips</th><th scope="col">Hits</th><th scope="col">Hit rate</th></tr></thead>
@@ -378,6 +419,25 @@ const style = `
 .streak p{color:var(--ink-2);font-size:var(--t-sm);margin-top:8px}
 .streak.cold b{color:var(--plum)}
 .streak.hot b{color:var(--ketchup-deep)}
+/* The streak's own rips. TEAL, because teal is how you get around, and
+   --sky-deep #81BEDE rather than --sky, because this type is small: it measures
+   4.50:1 on --card #2F4F39, exactly the AA line and the same deliberate pairing
+   CLAUDE.md records as one of the two tightest on the site. --sky is 4.05:1 on
+   the same ground and would fail. Read both values from ui.css, do not re-pick
+   one. The kicker above each title is --ink-2 at 5.73:1, a caption and not a
+   route, so the two accents never sit on each other.
+   BLOCK anchors with a 44px minimum, so the tap target is the whole two-line
+   row rather than the title's text run: same shape rule as every other link on
+   the site. The list sits at the FOOT of the card, after the sentence that
+   explains what the streak was, so nothing sends a reader away mid figure. */
+.streak-rips{list-style:none;margin-top:var(--s4);padding:0;
+  border-top:1px dashed var(--hair);display:grid;gap:2px}
+.streak-rips li{padding-top:var(--s3)}
+.streak-rips a{display:block;min-height:44px;font:600 var(--t-sm)/1.35 var(--body);color:var(--sky-deep)}
+.streak-rips a:hover,.streak-rips a:focus-visible{text-decoration:underline}
+.streak-rips a span{display:block;font:700 var(--t-micro)/1.5 var(--mono);
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.streak-open{padding-top:var(--s3);color:var(--ink-2);font-size:var(--t-sm)}
 
 .luck-method{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin:var(--s6) 0;max-width:56em}
@@ -537,11 +597,28 @@ ${tally
                 ? `${shortDate(worst.from.published)} to ${shortDate(worst.to.published)}, nothing worth keeping.`
                 : ""
           }</p>
+          ${/* THE STREAK'S OWN VIDEOS. See `droughtBreaker` above for why these
+                four links and no others. Both ends of the run, then the rip
+                that broke it, in the order somebody would watch them.
+                `worst.from === worst.to` on a one-rip drought, so the second
+                row is dropped rather than printing the same video twice under
+                two different labels. */ ""}
+          ${worst.from ? `<ul class="streak-rips">
+            <li><a href="/${esc(worst.from.path)}"><span>Where it started</span>${esc(worst.from.siteTitle || worst.from.title)}</a></li>
+            ${worst.to && worst.to !== worst.from ? `<li><a href="/${esc(worst.to.path)}"><span>Where it ended</span>${esc(worst.to.siteTitle || worst.to.title)}</a></li>` : ""}
+            ${droughtBreaker
+              ? `<li><a href="/${esc(droughtBreaker.path)}"><span>The rip that broke it</span>${esc(droughtBreaker.siteTitle || droughtBreaker.title)}</a></li>`
+              : `<li class="streak-open">Still open: nothing logged after it yet.</li>`}
+          </ul>` : ""}
         </div>
         <div class="streak hot">
           <span class="k">Best run</span>
           <b>${bestRun.len} rip${bestRun.len === 1 ? "" : "s"}</b>
           <p>${bestRun.from ? `${shortDate(bestRun.from.published)} to ${shortDate(bestRun.to.published)}, a hit every time.` : ""}</p>
+          ${bestRun.from ? `<ul class="streak-rips">
+            <li><a href="/${esc(bestRun.from.path)}"><span>Where it started</span>${esc(bestRun.from.siteTitle || bestRun.from.title)}</a></li>
+            ${bestRun.to && bestRun.to !== bestRun.from ? `<li><a href="/${esc(bestRun.to.path)}"><span>Where it ended</span>${esc(bestRun.to.siteTitle || bestRun.to.title)}</a></li>` : ""}
+          </ul>` : ""}
         </div>
       </div>
     </div>

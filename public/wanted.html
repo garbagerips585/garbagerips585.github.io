@@ -247,6 +247,30 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
 .pr-psa .pr-v{color:var(--gold-deep)}
 .price-note{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);max-width:52em}
+
+/* WHERE THE HUNT IS ACTUALLY HAPPENING. See huntRips for what picks these.
+   NOT .riplist: ui.css gives its caption white-space:nowrap, which is right for
+   a set guide's "18 Aug 2026 &bull; 3 packs" and wrong the moment a caption is
+   a set name plus a count on a 390px phone. Measured elsewhere on this site, a
+   nowrap caption in that list ran 505px and hung 204px off the viewport with
+   the document refusing to scroll to it, which the overflow test passes.
+   TEAL for the title because teal is how you get around, --sky-deep and not
+   --sky because the type is small: 4.50:1 on --card #2F4F39 against --sky's
+   4.05:1, which fails. The set-and-count line above it is --ink-2 at 5.73:1, a
+   caption and not a route. 44px minimum on the anchor, and it is the whole
+   two-line row rather than the title's text run. */
+.w-watch{margin-top:var(--s7)}
+.w-watch h2{font:400 var(--t-l)/1.15 var(--display);margin-bottom:var(--s3)}
+.w-watchlede{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
+.w-riplist{list-style:none;margin:0;padding:0;display:grid;gap:var(--s2);
+  grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))}
+.w-riplist li{background:var(--card);border:1px solid var(--hair);
+  border-radius:var(--r-sm);padding:10px 12px;min-width:0}
+.w-riplist a{display:block;min-height:44px;font:600 var(--t-sm)/1.35 var(--body);
+  color:var(--sky-deep)}
+.w-riplist a:hover,.w-riplist a:focus-visible{text-decoration:underline}
+.w-riplist a span{display:block;font:700 var(--t-micro)/1.5 var(--mono);
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);white-space:normal}
 </style>
 </head>
 <body>
@@ -464,6 +488,20 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
       </a>
 
     </div>
+    <section class="w-watch">
+      <h2>The packs we are opening <span class="hl">looking for them</span></h2>
+      <p class="w-watchlede">214 rips of the 7 sets these cards are printed in, newest of each below. No promises about what is in a pack:
+        this is just where the hunt is happening.</p>
+      <ul class="w-riplist">
+        <li><a href="/rip/only-garbage-rips-mega-emboar-box-2-finale-xqV7AYXoVJs.html"><span>Ascended Heroes &bull; 55 rips</span>Only Garbage Rips? 😬 | Mega Emboar Box #2 FINALE</a></li>
+        <li><a href="/rip/i-just-pulled-a-1-000-card-iIgTusrqVtg.html"><span>Chaos Rising &bull; 54 rips</span>I Just Pulled a $1,000 Card! 😱🐸</a></li>
+        <li><a href="/rip/the-box-ends-with-a-garbage-rip-aa9jzXRFtrg.html"><span>Perfect Order &bull; 44 rips</span>The Box Ends with a Garbage Rip... 🗑️</a></li>
+        <li><a href="/rip/trubbish-food-pitch-black-pack-8-VZtK6rT7ZTI.html"><span>Pitch Black &bull; 22 rips</span>Trubbish Food 🗑️🤘 | Pitch Black Pack #8</a></li>
+        <li><a href="/rip/did-we-get-the-zard-final-pack-3pUiN-8XkEk.html"><span>Phantasmal Flames &bull; 17 rips</span>DID WE GET THE ZARD?! 🐉🔥 (Final Pack)</a></li>
+        <li><a href="/rip/destined-rivals-pack-12-can-we-top-the-mewtwo-hbUa4l-xono.html"><span>Destined Rivals &bull; 15 rips</span>Destined Rivals Pack #12 ⚡ | Can We TOP The Mewtwo?! 😳</a></li>
+        <li><a href="/rip/only-garbage-rips-mega-evolution-pack-3-Pvi54rMlLfQ.html"><span>Mega Evolution &bull; 7 rips</span>Only Garbage Rips? 😬 | Mega Evolution Pack #3</a></li>
+      </ul>
+    </section>
     <p class="price-note">RAW PRICES ARE TCGPLAYER MARKET VALUES READ THROUGH TCGDEX, LAST CHECKED AUG 12, 2026. THEY ARE THE SAME FIGURES THE SET GUIDES AND THE CHECKLISTS PRINT, AND THEY MOVE ON THEIR OWN.<br>PSA 10 PRICES COME FROM GRADED SALES DATA, LAST CHECKED AUG 11, 2026, AND ARE NOT PART OF THE TCGPLAYER FEED.</p>
   </div>
 </main>

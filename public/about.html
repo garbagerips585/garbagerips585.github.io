@@ -218,6 +218,23 @@
   padding:var(--s3) 0;border-bottom:1px dashed var(--hair)}
 .stat-row:last-child{border-bottom:0}
 .stat-row b{font:400 var(--t-l)/1 var(--display);color:var(--ink)}
+/* THREE ROUTES OUT OF THIS PAGE TOWARDS AN ACTUAL VIDEO. See startHere above.
+   TEAL for the title, because teal is how you get around, and --sky-deep
+   rather than --sky because the type is small: 4.50:1 on --card #2F4F39
+   against --sky's 4.05:1, which fails. The role above it ("Most watched") is
+   --ink-2 at 5.73:1, a caption and not a route. Block anchors with the 44px
+   minimum every tap target on this site is held to, so the whole two-line row
+   is the target rather than the title's text run. */
+.about-rips{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.about-rips li{border-bottom:1px solid var(--hair)}
+.about-rips li:last-child{border-bottom:0}
+.about-rips a{display:block;min-height:44px;padding:10px 0;
+  font:600 var(--t-sm)/1.35 var(--body);color:var(--sky-deep)}
+.about-rips a:hover,.about-rips a:focus-visible{text-decoration:underline}
+.about-rips a span{display:block;font:700 var(--t-micro)/1.5 var(--mono);
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.about-ripnote{margin-top:var(--s3);font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2)}
+.about-ripnote a{color:var(--sky-deep);text-decoration:underline}
 .stat-row span{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.05em;
   text-transform:uppercase;text-align:right}
 .about-socials{display:flex;flex-direction:column;gap:var(--s2)}
@@ -487,6 +504,17 @@
           <div class="stat-row"><b>35</b><span>sets opened</span></div>
           <div class="stat-row"><b>41</b><span>set guides</span></div>
           <div class="stat-row"><b>Feb 2026</b><span>first rip</span></div>
+        </div>
+
+        <div class="about-card">
+          <h3>Start with these</h3>
+          <ul class="about-rips">
+            <li><a href="/rip/i-just-pulled-a-1-000-card-iIgTusrqVtg.html"><span>The biggest pull</span>I Just Pulled a $1,000 Card! 😱🐸</a></li>
+            <li><a href="/rip/pok-mon-go-pack-12-still-no-ditto-or-mewtwo-QXS1W_L2qbs.html"><span>Most watched</span>Pokémon GO Pack #12 ⚡ | STILL No Ditto or Mewtwo?! 😬</a></li>
+            <li><a href="/rip/is-pack-13-actually-cursed-DP8HG31X1rg.html"><span>Newest rip</span>Is Pack #13 Actually CURSED? 💀🌑</a></li>
+          </ul>
+          <p class="about-ripnote">Every one plays on its own page, behind the wrapper.
+            <a href="/videos.html">All 316 rips</a>.</p>
         </div>
 
         <div class="about-card">

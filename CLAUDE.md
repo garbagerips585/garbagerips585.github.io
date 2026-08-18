@@ -909,32 +909,86 @@ longer selector before rewriting the markup.
 
 ## Which pages have something to watch
 
-Counted from the built tree 17 August 2026, by whether the page links a
+Counted from the built tree 18 August 2026, by whether the page links a
 `/rip/` page at all. This is the inventory the "no seventh exception" argument
 points at, and it is the worklist: a family with nothing to watch is a family
 where a reader cannot discover the channel by being interested.
 
-      rip           313 of  313    the video is the page
+      rip           316 of  316    the video is the page
       pokemon       918 of 1026    39 before the set join went in
-      openings       13 of   14
+      openings       14 of   14    the INDEX was the 14th, and had none
       playlists      21 of   21
-      sets           23 of   42    the 19 without are sets never ripped
-      retailers       0 of    9
-      games           0 of    5
-      root pages      2 of   45    index.html and videos.html
+      sets           35 of   42    was 23; see below
+      retailers       0 of    9    deliberate, see below
+      games           0 of    5    deliberate, see below
+      root pages     11 of   45    was 2, index.html and videos.html
 
-SO THE GAP IS THE ROOT GUIDES AND IT IS THE BIGGEST ONE LEFT: 43 of the 45
-single pages at the root, which is most of what a search engine sends somebody
-to, show a reader nothing to watch. /evolution.html is the extreme case at
-94,910px tall with not one video on it. Each of those is owned by its own
-builder, so the fix is per builder and the pattern to copy is the set guides'
-"See it opened" band or `watchBand` in build-pokemon.mjs.
+THE 12 SET GUIDES THAT GAINED ONE WERE NOT A JOIN FAILURE. They are the
+Japanese, Korean and Chinese guides, and every one of them had its rips tagged
+and joined correctly the whole time: `ripsBand` in build-intl-pages.mjs printed
+"We ripped 5 of these" and a button to /videos.html filtered by the set, and
+never listed a single video. The English guides had listed theirs since they
+were built. So the fix was a missing LIST, not a missing join, which is worth
+saying because the obvious diagnosis was the join and it was wrong. The 7 with
+none are the 6 English sets nobody has opened plus /sets/index.html.
+
+THE ROOT GUIDES WENT 2 TO 11 AND EACH ONE USED A KEY THAT PAGE ALREADY HELD.
+/about.html, /start.html and /luck.html by video id; /rarity.html by the
+rarity NAME in data/hits.json; /wanted.html, /pack-prices.html and
+/expansions.html by set slug; /what-to-buy.html and /openings/index.html by
+product kind. No new tagging, no title matching, nothing hand-listed.
+
+TWO RULES CAME OUT OF DOING IT AND BOTH ARE REUSABLE.
+  - **"N rips" AND "1 rip" WANT DIFFERENT DESTINATIONS.** A plural asks for a
+    list, so it goes to /videos.html filtered by the set. A singular pointed at
+    an index page holding one tile, which is a tap spent on nothing, so it now
+    goes straight to that rip. Two or more never resolves to one video: picking
+    one is choosing a favourite and hiding the rest, and there is no honest
+    label for that. /expansions.html and /pack-prices.html both do this.
+  - **ONE PER KIND BEFORE ANY KIND REPEATS.** Same round robin as `setRipsFor`
+    in build-pokemon.mjs and for the same reason. Single packs are 90 of the
+    316 videos, so a newest-first slice off the pool turns a band about the
+    VARIETY of sealed product into a band about single packs.
+
+THE FAMILIES AT ZERO ARE STAYING THERE, and this is a decision rather than a
+gap. A retailer page is about WHERE TO BUY and a minigame is a toy; neither has
+a rip that illustrates it, and bolting a video onto one would be the "vaguely
+related" failure the whole rule is against. The same call was made on six root
+guides: /base-set.html (the channel has never opened 1999 Base Set),
+/fake-cards.html and /will-it-grade.html (their subject is a card in your hand,
+not a pack coming open), /eevee-evolutions.html (its only key is a Pokemon
+slug, which videos.json does not carry), /drops.html (a retailer restock
+forecast), /complete-a-set.html (a cost table whose whole argument is to buy
+singles rather than open packs) and /what-set.html (identification, where a rip
+would be decoration). If a later editor disagrees, argue it here first.
 
 THE JOIN THAT MADE THE POKEDEX WORK IS REUSABLE and is the interesting half:
 a species has printings, a rip is tagged with the set it opened, so a rip of a
 set that prints this card is relevant WITHOUT anybody hand-tagging anything.
 Any page that can name a set or a card can do the same. Title matching alone
 fired on 3.8% of the Pokedex; the set join fires on 89.6%.
+
+**THE HALL OF FAME KNEW WHICH VIDEO EVERY PLAQUE CAME OUT OF AND THREW IT AWAY
+ON ONE LINE.** data/hits.json is keyed BY YOUTUBE VIDEO ID and the fallback
+loop in build-hall.mjs read it with `Object.values`, so the site's most
+shareable page carried one link to the whole rip library and none to the
+opening any of its cards actually came out of. `Object.entries` plus a lookup
+in videos.json is the entire fix; the join is total, 18 of 18 hit entries and
+3 of 3 video ids resolve. A card inducted by hand in data/hall.json carries no
+video id and renders no link, which is the standing pattern for absent data.
+
+**DO NOT MEASURE THIS WITH `window.innerWidth`.** /pack-prices.html reports
+592 and /expansions.html 488 at a 390px device, and both are correct pages: the
+table sits in a `div.cc-scroll` with `overflow-x:auto` and scrolls inside it.
+`documentElement.scrollWidth` says the same wrong thing. The test that means
+something is an element whose right edge is past `documentElement.clientWidth`
+with NO clipping ancestor between it and the root, so nothing can ever scroll
+to it. That is what caught a real fault added in this pass: `.riplist span` is
+`white-space:nowrap` in ui.css, which is right for "18 Aug 2026 &bull; 3 packs"
+on a set guide and wrong for a video title, and one caption ran 505px wide and
+hung 204px off the right edge of /openings/index.html while `scrollX` stayed 0
+and the site's own overflow test passed it. Same shape as the Topps `<code>`
+bug recorded above.
 
 ## Card images (measured, and two things here are counterintuitive)
 

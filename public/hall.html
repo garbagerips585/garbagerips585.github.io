@@ -315,6 +315,25 @@
 .chof-prices dd{font:700 var(--t-m)/1.2 var(--body);color:var(--chrome-ink)}
 .chof-prices .psa dd{color:var(--ketchup-deep)}
 .chof-pulled{margin-top:var(--s2)}
+/* "See it pulled", the route from a plaque to the rip it came out of.
+   TEAL, because teal is how you get around and this is the only route out of a
+   plaque. Composited rather than guessed: the plaque ground is
+   rgba(255,255,255,.05) over --band-bg #192D22, which is #25382D, and the top
+   three are rgba(224,162,31,.09) over the same, #2B3822. --sky measures 5.53:1
+   and 5.50:1 on those two, clear of AA at any size. The label is --chrome-dim,
+   7.51:1 and 7.47:1, and it is a caption rather than a route, which is why it
+   is not the second accent.
+   ui.css declares a{color:inherit} globally, so an unstyled link here would
+   have come out the same grey as the set name beside it and read as nothing.
+   BLOCK, not inline: it makes the whole two-line run the tap target rather
+   than a 90px phrase, which is the shape requirement every link on this site
+   is held to. min-height 44px for the same reason, and it is only ever reached
+   after the prices, so nothing above it moves. */
+.chof-see{display:block;margin-top:var(--s3);min-height:44px;
+  font:600 var(--t-sm)/1.35 var(--body);color:var(--sky)}
+.chof-see span{display:block;font:700 var(--t-micro)/1.5 var(--mono);
+  letter-spacing:.06em;text-transform:uppercase;color:var(--chrome-dim)}
+.chof-see:hover,.chof-see:focus-visible{text-decoration:underline}
 .chof-empty{text-align:center;color:var(--foot-ink);background:rgba(255,255,255,.05);
   border:1px dashed rgba(255,255,255,.2);border-radius:14px;padding:var(--s7) var(--s5)}
 .chof-note{font:700 var(--t-micro)/1.7 var(--mono);color:var(--chrome-dim);text-align:center;
@@ -502,6 +521,8 @@
             <div class="psa"><dt>PSA 10 <i>Aug 13, 2026</i></dt><dd>$906</dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/i-just-pulled-a-1-000-card-iIgTusrqVtg.html"><span>See it pulled</span>I Just Pulled a $1,000 Card! 😱🐸</a>
         </div>
       </li>
       <li class="chof chof-top chof-2">
@@ -522,6 +543,8 @@
             <div class="psa"><dt>PSA 10 <i>Aug 13, 2026</i></dt><dd>$185</dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/only-garbage-rips-from-the-pok-mon-fall-2025-collector-chest-TN7_ZsuRQSI.html"><span>See it pulled</span>Only Garbage Rips from the Pokémon Fall 2025 Collector Chest</a>
         </div>
       </li>
       <li class="chof chof-top chof-3">
@@ -542,6 +565,8 @@
             <div class="psa"><dt>PSA 10 <i>Aug 13, 2026</i></dt><dd>$177</dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
       <li class="chof">
@@ -562,6 +587,8 @@
             <div class="psa"><dt>PSA 10 <i>Aug 13, 2026</i></dt><dd>$103</dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
       <li class="chof">
@@ -582,6 +609,8 @@
             <div class="psa"><dt>PSA 10 <i>Aug 13, 2026</i></dt><dd>$99.78</dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
       <li class="chof">
@@ -602,6 +631,8 @@
             <div class="psa"><dt>PSA 10 <i>Aug 13, 2026</i></dt><dd>$91.00</dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
       <li class="chof">
@@ -622,6 +653,8 @@
             <div class="psa"><dt>PSA 10 <i>Aug 13, 2026</i></dt><dd>$75.45</dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
       <li class="chof">
@@ -642,6 +675,8 @@
             <div class="psa"><dt>PSA 10 <i>Aug 13, 2026</i></dt><dd>$53.55</dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/only-garbage-rips-from-the-pok-mon-fall-2025-collector-chest-TN7_ZsuRQSI.html"><span>See it pulled</span>Only Garbage Rips from the Pokémon Fall 2025 Collector Chest</a>
         </div>
       </li>
       <li class="chof">
@@ -662,6 +697,8 @@
             <div class="psa"><dt>PSA 10 <i>Aug 13, 2026</i></dt><dd>$46.50</dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
       <li class="chof">
@@ -682,6 +719,8 @@
             <div class="psa"><dt>PSA 10 <i>Aug 13, 2026</i></dt><dd>$31.90</dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
       <li class="chof">
@@ -702,6 +741,8 @@
             <div class="psa"><dt>PSA 10 <i>Aug 13, 2026</i></dt><dd>$25.00</dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
       <li class="chof">
@@ -722,6 +763,8 @@
             <div class="psa"><dt>PSA 10</dt><dd><span class="none" aria-hidden="true">&mdash;</span><span class="sr-only">No PSA 10 price for this printing</span></dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
       <li class="chof">
@@ -742,6 +785,8 @@
             <div class="psa"><dt>PSA 10</dt><dd><span class="none" aria-hidden="true">&mdash;</span><span class="sr-only">No PSA 10 price for this printing</span></dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
       <li class="chof">
@@ -762,6 +807,8 @@
             <div class="psa"><dt>PSA 10</dt><dd><span class="none" aria-hidden="true">&mdash;</span><span class="sr-only">No PSA 10 price for this printing</span></dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
       <li class="chof">
@@ -782,6 +829,8 @@
             <div class="psa"><dt>PSA 10</dt><dd><span class="none" aria-hidden="true">&mdash;</span><span class="sr-only">No PSA 10 price for this printing</span></dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
       <li class="chof">
@@ -802,6 +851,8 @@
             <div class="psa"><dt>PSA 10</dt><dd><span class="none" aria-hidden="true">&mdash;</span><span class="sr-only">No PSA 10 price for this printing</span></dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/only-garbage-rips-from-the-pok-mon-fall-2025-collector-chest-TN7_ZsuRQSI.html"><span>See it pulled</span>Only Garbage Rips from the Pokémon Fall 2025 Collector Chest</a>
         </div>
       </li>
       <li class="chof">
@@ -822,6 +873,8 @@
             <div class="psa"><dt>PSA 10</dt><dd><span class="none" aria-hidden="true">&mdash;</span><span class="sr-only">No PSA 10 price for this printing</span></dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
       <li class="chof">
@@ -842,6 +895,8 @@
             <div class="psa"><dt>PSA 10</dt><dd><span class="none" aria-hidden="true">&mdash;</span><span class="sr-only">No PSA 10 price for this printing</span></dd></div>
           </dl>
           
+          
+          <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
     </ol>

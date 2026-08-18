@@ -41,7 +41,7 @@ import { BAR, MENU, SPRITE, SKIP, STYLES, footer, FONTS,
   APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { parseHits, rarityLabelOf, rarityMark, RARITY_CSS } from "../shared/rarity.mjs";
-import { esc, longDate, rarityLabel, imgDims, avifPicture, moneyCompact } from "../shared/format.mjs";
+import { esc, longDate, shortDate, rarityLabel, imgDims, avifPicture, moneyCompact } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/sets");
@@ -853,6 +853,35 @@ function ripsBand(g, rips, label, cls) {
         </div>
       </div>
     </div>
+    ${/* THE SENTENCE ABOVE PROMISED "one tap away" AND CHARGED TWO.
+          Twelve of these pages had the rips tagged and joined correctly and
+          still linked no rip: the band printed a count and a button to
+          /videos.html filtered by this set, so watching the video the page is
+          about meant landing on a filtered index first. The join was never
+          broken, the list was simply never written. Same `.riplist` shape as
+          build-set-pages.mjs's English "Every <set> rip" band, same twelve-row
+          cap and same "all N" fallback, so a reader who has seen one set guide
+          has seen this one.
+
+          THE CAP IS INERT TODAY AND STAYS ANYWAY. The busiest imported set is
+          Abyss Eye at 5, so nothing is currently truncated; the day one of
+          these gets ripped forty times, a wall of rows should not be the way
+          anybody finds out. */ ""}
+    <ul class="riplist">
+${rips
+  .slice()
+  .sort((a, b) => String(b.published || "").localeCompare(String(a.published || "")))
+  .slice(0, 12)
+  .map(
+    (v) => `      <li><a href="/${esc(v.path)}">${esc(v.siteTitle || v.title)}</a>${
+      v.published ? `\n        <span>${esc(shortDate(v.published))}</span>` : ""
+    }</li>`,
+  )
+  .join("\n")}
+    </ul>
+    ${rips.length > 12
+      ? `<p style="margin-top:var(--s3)"><a class="btn btn-ghost btn-sm" href="/videos.html?set=${esc(g.id)}">All ${rips.length} ${esc(label)} rips</a></p>`
+      : ""}
   </div>
 </section>`;
 }

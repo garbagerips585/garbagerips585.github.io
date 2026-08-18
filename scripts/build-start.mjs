@@ -43,6 +43,39 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // Live counts, so the page never claims a number the site has outgrown.
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
+
+/* ------------------------------------------------- what the cheap ones look like
+ *
+ * THIS PAGE ENDED WITH "or just watch someone else do it" AND TWO BUTTONS TO
+ * INDEX PAGES. A beginner who has just read six answers about a card they are
+ * holding was offered a library and a hall of fame, and no video.
+ *
+ * THE THREE ARE THE THREE CHEAPEST WAYS IN, in the order somebody meets them:
+ * a single pack, a booster bundle, an Elite Trainer Box. That is the choice
+ * this page's readers are actually making, and one rip of each is a straight
+ * answer to "what do you get for that money" that no amount of prose is. The
+ * axis is PRICE, not spectacle: three slots off the biggest-pull ranking would
+ * be a start-here page arguing that packs are full of money, which is the exact
+ * thing the five facts further down exist to correct. One of the three happens
+ * to be a big pull today, because it is the newest of its kind; that is the
+ * rule doing its job rather than an exception to it, and every row is labelled
+ * by the BOX it came out of, which is what a reader is being asked to compare.
+ *
+ * NEWEST OF EACH KIND, so the rows track the channel without anybody choosing.
+ * A kind with no rip renders nothing rather than being replaced by another
+ * kind's video, because the label is a promise about what is in the video.
+ */
+const START_KINDS = [
+  ["single-pack", "A single pack"],
+  ["bundle", "A booster bundle"],
+  ["etb", "An Elite Trainer Box"],
+];
+const startRips = START_KINDS.map(([kind, label]) => {
+  const v = videos
+    .filter((x) => x.path && (x.products || []).includes(kind))
+    .sort((a, b) => String(b.published || "").localeCompare(String(a.published || "")))[0];
+  return v ? { label, v } : null;
+}).filter(Boolean);
 const cardIndex = JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8"));
 let shows = 0;
 try {
@@ -294,6 +327,25 @@ ${/* Inline rather than in ui.css: this is the only page outside the rarity
 @media(max-width:359px){
 .st{grid-template-columns:auto minmax(0,1fr)}
 }
+
+/* THE THREE ENTRY-PRICE RIPS. See startRips above for which three and why.
+   TEAL for the title because teal is how you get around, and --sky-deep rather
+   than --sky because the type is small: 4.50:1 on --card #2F4F39 where --sky
+   is 4.05:1 and fails. The kind above it is --ink-2 at 5.73:1, a caption and
+   not a route, so the two accents never land on each other.
+   NOT .riplist, which ui.css gives white-space:nowrap on its caption: that is
+   right for "18 Aug 2026 &bull; 3 packs" on a set guide and wrong for a whole
+   video title, which measured 505px wide and hung 204px off a 390px viewport
+   the one time it was tried on /openings/index.html. */
+.st-rips{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s2);
+  max-width:44em}
+.st-rips li{background:var(--card);border:1px solid var(--hair);
+  border-radius:var(--r-sm);padding:10px 12px}
+.st-rips a{display:block;min-height:44px;font:600 var(--t-sm)/1.35 var(--body);
+  color:var(--sky-deep)}
+.st-rips a:hover,.st-rips a:focus-visible{text-decoration:underline}
+.st-rips a span{display:block;font:700 var(--t-micro)/1.5 var(--mono);
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
 </style>
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
 </head>
@@ -381,6 +433,14 @@ ${MENU}
     <h2>Or just watch someone <span class="hl">else</span> do it</h2>
     <p class="lede" style="max-width:44em">${videos.length} pack openings from Rochester, New York, mostly ending in
       garbage. That is the name.</p>
+    ${startRips.length ? `<ul class="st-rips">
+${startRips
+  .map(({ label, v }) => `      <li><a href="/${esc(v.path)}"><span>${esc(label)}</span>${esc(v.siteTitle || v.title)}</a></li>`)
+  .join("\n")}
+    </ul>
+    <p class="lede" style="max-width:44em;font-size:var(--t-sm);margin-top:var(--s3)">One of each of the three
+      cheapest ways in, so you can see what the money actually buys before you spend any.
+      <a href="/openings/">Every other kind of sealed product</a> has its own page.</p>` : ""}
     <div class="btn-row">
       <a class="btn btn-yt" href="/videos.html">Watch the rips</a>
       <a class="btn btn-ghost" href="/hall.html">The good pulls</a>

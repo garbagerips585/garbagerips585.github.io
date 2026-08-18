@@ -24,7 +24,7 @@ import { SITE } from "../shared/site.mjs";
 // take their <head> by slicing index.html, so their stylesheet links are the
 // home page's. See shared/chrome.mjs beside the two exports.
 import { SOCIALS, SUBSCRIBE, APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
-import { MONTHS_LONG as MONTHS } from "../shared/format.mjs";
+import { MONTHS_LONG as MONTHS, esc } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -45,6 +45,48 @@ const videos = raw.videos || raw;
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
 
 const setsRipped = new Set(videos.flatMap((v) => v.sets || [])).size;
+
+/* ------------------------------------------------------------ three to start
+ *
+ * THIS PAGE SAID "EVERY RIP HAS ITS OWN PAGE HERE" AND LINKED NOT ONE OF THEM.
+ * It is the page a stranger reads to decide whether the channel is worth their
+ * time, it counts the rips in the sidebar, and the only way out of it towards
+ * an actual video was the footer.
+ *
+ * THREE, NOT A RAIL, and each one is a different REASON to watch rather than
+ * three slots off one sort. A "latest videos" strip is what every channel page
+ * has and it answers a question nobody asked; "the biggest thing that ever came
+ * out of a pack here" is an argument for the channel. The roles are fixed and
+ * the picks are computed, so this cannot drift into an editor's favourites.
+ *
+ * DEDUPED BY FALLING THROUGH, because the roles genuinely collide: the Hall of
+ * Fame hit is currently also the newest upload, so "newest" takes the newest
+ * video that is not already listed rather than printing the same row twice.
+ *
+ * `hofRank` IS THE SPREADSHEET'S OWN JUDGEMENT and it is the only one of the
+ * three that is not arithmetic. Exactly one video carries it today. If nobody
+ * has ranked one, that row is absent and the card shows two: the standing
+ * pattern here for data we do not have.
+ */
+const startHere = (() => {
+  const taken = new Set();
+  const out = [];
+  // `where` is the ROLE's own precondition and it runs before anything is
+  // claimed. Sorting first and filtering afterwards would mark a video taken
+  // for a role it does not qualify for and then hide it from the next role.
+  const pick = (label, where, sort) => {
+    const v = videos
+      .filter((x) => x.path && !taken.has(x.id) && where(x))
+      .sort(sort)[0];
+    if (!v) return;
+    taken.add(v.id);
+    out.push({ label, v });
+  };
+  pick("The biggest pull", (x) => Boolean(x.hofRank), (a, b) => a.hofRank - b.hofRank);
+  pick("Most watched", (x) => (x.views || 0) > 0, (a, b) => (b.views || 0) - (a.views || 0));
+  pick("Newest rip", (x) => Boolean(x.published), (a, b) => String(b.published).localeCompare(String(a.published)));
+  return out;
+})();
 const oldest = videos.map((v) => v.published).filter(Boolean).sort()[0] || null;
 const since = oldest ? `${MONTHS[Number(oldest.slice(5, 7)) - 1]} ${oldest.slice(0, 4)}` : null;
 
@@ -75,6 +117,23 @@ const style = `
   padding:var(--s3) 0;border-bottom:1px dashed var(--hair)}
 .stat-row:last-child{border-bottom:0}
 .stat-row b{font:400 var(--t-l)/1 var(--display);color:var(--ink)}
+/* THREE ROUTES OUT OF THIS PAGE TOWARDS AN ACTUAL VIDEO. See startHere above.
+   TEAL for the title, because teal is how you get around, and --sky-deep
+   rather than --sky because the type is small: 4.50:1 on --card #2F4F39
+   against --sky's 4.05:1, which fails. The role above it ("Most watched") is
+   --ink-2 at 5.73:1, a caption and not a route. Block anchors with the 44px
+   minimum every tap target on this site is held to, so the whole two-line row
+   is the target rather than the title's text run. */
+.about-rips{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.about-rips li{border-bottom:1px solid var(--hair)}
+.about-rips li:last-child{border-bottom:0}
+.about-rips a{display:block;min-height:44px;padding:10px 0;
+  font:600 var(--t-sm)/1.35 var(--body);color:var(--sky-deep)}
+.about-rips a:hover,.about-rips a:focus-visible{text-decoration:underline}
+.about-rips a span{display:block;font:700 var(--t-micro)/1.5 var(--mono);
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.about-ripnote{margin-top:var(--s3);font:400 var(--t-micro)/1.6 var(--body);color:var(--ink-2)}
+.about-ripnote a{color:var(--sky-deep);text-decoration:underline}
 .stat-row span{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.05em;
   text-transform:uppercase;text-align:right}
 .about-socials{display:flex;flex-direction:column;gap:var(--s2)}
@@ -171,6 +230,19 @@ const body = `
           <div class="stat-row"><b>${sets.length + intlCount}</b><span>set guides</span></div>
           ${since ? `<div class="stat-row"><b>${since.split(" ")[0].slice(0, 3)} ${since.split(" ")[1]}</b><span>first rip</span></div>` : ""}
         </div>
+
+        ${startHere.length ? `<div class="about-card">
+          <h3>Start with these</h3>
+          <ul class="about-rips">
+${startHere
+  .map(
+    ({ label, v }) => `            <li><a href="/${esc(v.path)}"><span>${esc(label)}</span>${esc(v.siteTitle || v.title)}</a></li>`,
+  )
+  .join("\n")}
+          </ul>
+          <p class="about-ripnote">Every one plays on its own page, behind the wrapper.
+            <a href="/videos.html">All ${videos.length} rips</a>.</p>
+        </div>` : ""}
 
         <div class="about-card">
           <h3>Find us</h3>
