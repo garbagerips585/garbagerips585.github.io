@@ -317,12 +317,18 @@ const photoFor = makePhotoFor({ products: prod, extra: EXTRA, dead: DEAD });
 // up to 34%. The box is a fixed 64x64 in CSS, so nothing reflows.
 const small = (u) => u.replace(/_200w\.jpg$/, "_150w.jpg");
 
-const shot = (row) => {
+// `eager` IS FOR THE FIRST ROW'S PHOTOGRAPH ONLY, and it is the same call
+// build-what-to-buy.mjs's `shot()` already makes for the first card on that
+// page. Measured on the built page at 390x844 DPR2: the first priced row's
+// picture sits at y=620, inside the fold, so `loading="lazy"` was deferring an
+// image the reader can already see. An image in the viewport at first paint
+// gains nothing from lazy and can lose a little. Everything below it stays lazy.
+const shot = (row, { eager = false } = {}) => {
   const p = photoFor(row.rowId);
   if (!p) return `<span class="ms-pic ms-nopic" aria-hidden="true"></span>`;
   return `<img class="ms-pic" src="${esc(small(p.src))}"${
     p.large ? ` srcset="${esc(small(p.src))} 150w, ${esc(p.large)} 1000w"` : ""
-  } sizes="64px" alt="${esc(p.name)}, sealed" loading="lazy" decoding="async"
+  } sizes="64px" alt="${esc(p.name)}, sealed"${eager ? "" : ' loading="lazy"'} decoding="async"
         referrerpolicy="no-referrer" onerror="this.remove()">`;
 };
 
@@ -556,9 +562,9 @@ const conflictLine = (r) => {
   return `        <p class="ms-spread"><b>Not everybody agrees.</b> ${who}. ${why}</p>`;
 };
 
-const pricedRow = (r) => `      <li class="ms-row">
+const pricedRow = (r, i) => `      <li class="ms-row">
         <div class="ms-head">
-          ${shot(r)}
+          ${shot(r, { eager: i === 0 })}
           <div class="ms-id">
             ${nameCell(r)}
             <p class="ms-what">${esc(r.what)}</p>
@@ -1169,7 +1175,7 @@ ${MENU}
     <div class="wrap">
       <h2 class="ms-h2">${priced.length} with a <span class="hl">sourced</span> price</h2>
       <ul class="ms-list">
-${priced.map(pricedRow).join("\n")}
+${priced.map((r, i) => pricedRow(r, i)).join("\n")}
       </ul>
       <p class="ms-body" style="margin-top:var(--s5)">${priced.length} products with a price this site will
         stand behind, ${store.length} of them straight from Pokemon's own shop. ${blank.length} more are

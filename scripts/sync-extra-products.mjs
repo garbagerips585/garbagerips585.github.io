@@ -65,6 +65,22 @@
 // at the source is the honest way to use it, and the 200w file is 10KB into an
 // 88px box.
 //
+// SEVEN MORE PRICE-ONLY PINS WENT IN ON 18 AUGUST 2026 for the same reason and
+// under the same rule, and between them they take /msrp.html from eight hatched
+// boxes to none. Build and Battle Stadium, Binder Collection, Pin Collection,
+// Premium Tournament Collection, Collector Chest, Trainer's Toolkit and Pokemon
+// TCG Classic. The eighth row, Special Collection, needed no new pin: its price
+// rests on the Charizard ex Special Collection, which was already pinned here
+// for /how-many-packs.html, so it gained an `msrpRow` and nothing else.
+//
+// EVERY ONE OF THOSE SEVEN IS A PRODUCT LINE THAT HAS RUN AT TWO OR THREE
+// PRICES, which is what makes them worth reading the notes on. msrp.json's row
+// for each names the boxes at the OTHER figure: the 151 binder at $24.99, the
+// Shining Legends pin at $15.99, the pre-2023 chests at $24.99, the 2021 and
+// 2022 toolkits at $29.99. TCGplayer lists all of those under nearly the same
+// name as the ones that back the price, so picking by name alone would put one
+// year's photograph under another year's figure. Each pin below says which.
+//
 // WHAT IS STILL MISSING, AND IT IS THREE THINGS:
 //
 //   STACKING TIN. pokemon.com sources the 7 March 2025 run at 3 packs.
@@ -131,6 +147,13 @@ const PINS = [
     expect: "Charizard ex Special Collection",
     sourced: "Charizard ex Special Collection",
     row: "ex Special Collection",
+    // ALSO THE PIN FOR /msrp.html's "Special Collection" ROW, 18 August 2026,
+    // and it needed no new probe. That row's $29.99 rests on seven boxes and
+    // "Charizard ex Special Collection" is the first name in its `pcFrom`, so
+    // this product is one of the ones the price was read off. Pinning the row to
+    // an entry that already existed is better than adding a second entry for the
+    // same box: one photograph, one name, one thing to re-check when it moves.
+    msrpRow: "special-collection",
   },
   {
     key: "collector-tin",
@@ -251,6 +274,115 @@ const PINS = [
     // that is what is true of the file.
     sourced: "Rayquaza V Battle Deck",
     msrpRow: "v-battle-deck",
+  },
+  // ---- SEVEN MORE PRICE-ONLY PINS, 18 AUGUST 2026, and they close the last of
+  // the hatched boxes on /msrp.html. Every one follows the same rule as the four
+  // above and none of them relaxes it: the pin is a product named in that row's
+  // OWN `pcFrom` in data/msrp.json, so the photograph is one of the boxes the
+  // price was read off rather than a nearby box of the same type. Where a row
+  // rests on several boxes at one figure the pin is the NEWEST of them, because
+  // the reader is standing in a shop looking at what is on the shelf today.
+  //
+  // TCGplayer AND POKEMON CENTER WRITE THE SAME BOX DIFFERENT WAYS, constantly,
+  // and each note below says which way. The caption prints TCGplayer's name,
+  // because that is what is true of the file.
+  //
+  // THE WRONG-YEAR TRAP IS THE ONE TO WATCH ON ALL SEVEN. Collector Chest,
+  // Trainer's Toolkit, Binder Collection and Pin Collection are all product
+  // LINES that have run for years at two or three different prices, and
+  // msrp.json's note on each row names the ones at the other figure. Picking a
+  // box by name alone would put a $24.99 chest under a $29.99 price.
+  {
+    key: "build-battle-stadium",
+    id: 514070,
+    expect: "Paradox Rift Build & Battle Stadium",
+    // Eight stadiums back that row at $59.99 and not one is at another figure,
+    // which msrp.json's note calls the rare unanimous row. Paradox Rift is the
+    // NEWEST of the eight, and TCGplayer names it identically to Pokemon Center.
+    // NOT the "Paradox Rift Build & Battle Stadium Case", which is a sealed case
+    // of them at a case price.
+    sourced: "Paradox Rift Build & Battle Stadium",
+    msrpRow: "build-battle-stadium",
+  },
+  {
+    key: "binder",
+    id: 630430,
+    expect: "Black Bolt Binder Collection",
+    // THREE BINDERS BACK THE $29.99 AND TWO OTHERS MUST NOT BE PICKED. The row
+    // rests on the Black Bolt, White Flare and Prismatic Evolutions binders;
+    // its own note says the 151 binder from 2023 is still listed at $24.99, and
+    // its `disagreesWith` records Bill's Archive pricing the 30th Celebration
+    // binder at $31.99. TCGplayer lists all five, so the name alone would pick
+    // one of the wrong two about half the time. Black Bolt is the newest of the
+    // three that actually back the figure. Pokemon Center writes the set prefix
+    // in full as "Scarlet & Violet-Black Bolt"; same box.
+    sourced: "Scarlet & Violet-Black Bolt Binder Collection",
+    msrpRow: "binder",
+  },
+  {
+    key: "pin-collection",
+    id: 475618,
+    expect: "Crown Zenith Pin Collection [Inteleon]",
+    // Ten pin boxes back the $14.99, across six promotions and six years, and
+    // Crown Zenith is the newest of the ten. TCGplayer brackets the Pokemon
+    // where Pokemon Center parenthesises it. TWO NEARBY BOXES ARE EXCLUDED BY
+    // THE ROW ITSELF and both are on TCGplayer: the 2017 Shining Legends Zoroark
+    // pin at $15.99, and the Ascended Heroes First Partners DELUXE Pin
+    // Collection at $24.99, which is a bigger box.
+    sourced: "Crown Zenith Pin Collection (Inteleon)",
+    msrpRow: "pin-collection",
+  },
+  {
+    key: "premium-tournament",
+    id: 626605,
+    expect: "Lillie Premium Tournament Collection Box",
+    // Four back the $39.99 and the row's note names Lillie as the current SKU,
+    // so the newest of the four is also the one on a shelf now. TCGplayer
+    // appends "Box" to the name Pokemon Center prints, the same way it appends
+    // it to the Marnie and Cyrus listings; same box. NOT the "Display" or the
+    // "Box Case", which are multipacks, and NOT the "Cyrus/Klara ... [Set of 2]".
+    sourced: "Lillie Premium Tournament Collection",
+    msrpRow: "premium-tournament",
+  },
+  {
+    key: "collector-chest",
+    id: 575706,
+    expect: "Fall 2024 Collector Chest",
+    // THE ROW SPLITS AT 2023 AND THE PIN HAS TO LAND ON THE RIGHT SIDE OF IT.
+    // Three chests back the $29.99, Fall 2024, Fall 2023 and Back to School
+    // 2024, and the row's note says the three older ones, back to 2016, are
+    // $24.99. TCGplayer lists chests from 2014 to 2025 under nearly the same
+    // name. Fall 2024 is the newest of the three the price actually rests on.
+    // NOT "Fall 2025 Collector Chest", which exists on TCGplayer and is NOT in
+    // this row's `pcFrom`: no price for it was read, so it is not evidence.
+    // Pokemon Center writes the season in brackets after the name; same box.
+    sourced: "Collector Chest (Fall 2024)",
+    msrpRow: "collector-chest",
+  },
+  {
+    key: "trainers-toolkit",
+    id: 653203,
+    expect: "Pokemon TCG: Trainer's Toolkit (2025)",
+    // Dated by the box rather than by the shelf: the 2023, 2024 and 2025
+    // toolkits are all $34.99 and the 2021 and 2022 ones are $29.99, and
+    // TCGplayer lists all six years including a 2020. 2025 is the newest of the
+    // three that back the figure. TCGplayer prefixes "Pokemon TCG:"; same box.
+    sourced: "Trainer's Toolkit (2025)",
+    msrpRow: "trainers-toolkit",
+  },
+  {
+    key: "tcg-classic",
+    id: 518886,
+    expect: "Pokemon Trading Card Game Classic",
+    // THE ONE ROW WHERE THE PICTURE AND THE PRICE ARE THE SAME OBJECT WITH NO
+    // CHOOSING AT ALL. That row is one specific product rather than a type, its
+    // `pcFrom` holds exactly one name, and TCGplayer holds exactly one listing,
+    // in a product set of its own. TCGplayer spells "Trading Card Game" where
+    // Pokemon Center abbreviates it to TCG. NOT the "30th Celebration Classic
+    // Collection Pack", which the same search returns and which is a different
+    // product entirely.
+    sourced: "Pokemon TCG Classic",
+    msrpRow: "tcg-classic",
   },
   {
     key: "japanese-pack",

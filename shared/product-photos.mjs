@@ -106,19 +106,43 @@ export const PRODUCT_PHOTOS = {
   "my-first-battle": ["extra", "my-first-battle"],
   "league-battle-deck": ["extra", "league-battle-deck"],
   "v-battle-deck": ["extra", "v-battle-deck"],
-  // NO PIN: binder. There is no Binder Collection anywhere in products.json or
-  // in extra-products.json, so that row gets the hatch rather than a nearby box.
+  // THE LAST EIGHT HATCHED BOXES ON /msrp.html WERE FILLED ON 18 AUGUST 2026,
+  // the same way the four above were and not by loosening anything. The entry
+  // that used to sit here said these rows had no pin because products.json holds
+  // eleven kinds and none of them is any of these, which was true and is still
+  // true: sync-products.mjs pulls per EXPANSION and none of these belongs to
+  // one. It also said the hatch was the CORRECT answer rather than a gap, and
+  // that the way to fix one properly was to add it to sync-extra-products.mjs
+  // with the argument for the pin. That is exactly what was done, seven times.
   //
-  // NO PIN EITHER, and all of these arrived with the 17 August 2026 Pokemon
-  // Center reading: build-battle-stadium, stacking-tin, pin-collection,
-  // tcg-classic, premium-tournament, collector-chest, trainers-toolkit,
-  // special-collection. products.json holds eleven kinds and none of them is any
-  // of these, because sync-products.mjs pulls per EXPANSION. THE HATCH IS THE
-  // CORRECT ANSWER rather than a gap: the alternative is a photograph of a
-  // nearby product quietly standing in for one nobody has a picture of, which is
-  // exactly what the name check below exists to prevent. To fix one properly,
-  // add it to sync-extra-products.mjs with the argument for the pin, the same
-  // way the four above were done.
+  // EACH IS PINNED TO A PRODUCT NAMED IN THAT ROW'S OWN `pcFrom` in
+  // data/msrp.json, so the photograph is one of the boxes the price was read
+  // off, never a nearby box of the same type. Where a row rests on several at
+  // one figure the pin is the newest of them. The argument for every one, and
+  // the wrong-year box each row's note excludes, is in sync-extra-products.mjs.
+  "build-battle-stadium": ["extra", "build-battle-stadium"],
+  binder: ["extra", "binder"],
+  "pin-collection": ["extra", "pin-collection"],
+  "premium-tournament": ["extra", "premium-tournament"],
+  "collector-chest": ["extra", "collector-chest"],
+  "trainers-toolkit": ["extra", "trainers-toolkit"],
+  "tcg-classic": ["extra", "tcg-classic"],
+  // THE EIGHTH ROW NEEDED NO NEW PRODUCT. Special Collection's $29.99 rests on
+  // seven boxes and the first name in its `pcFrom` is the Charizard ex Special
+  // Collection, which was already pinned in extra-products.json for
+  // /how-many-packs.html's "ex Special Collection" row. So this row points at
+  // the entry that already exists rather than a second copy of the same box:
+  // one photograph, one name, one thing to re-check when TCGplayer moves it.
+  "special-collection": ["extra", "ex-special"],
+  // NO PIN, STILL, AND IT IS THE ONE ROW ON THE PAGE THAT KEEPS THE HATCH:
+  // stacking-tin. It is not an oversight and it is not the same case as the
+  // seven above. That row prints NO price at all, because Pokemon's own shop
+  // runs seven stacking tins at two different figures by energy type, and
+  // pokemon.com sources the 7 March 2025 run at 3 packs while TCGplayer lists
+  // eleven Stacking Tins across four years with no release date published. So
+  // there is no single product the row is about to photograph, and picking one
+  // would be a guess wearing a caption. See sync-extra-products.mjs, which has
+  // said so since the file was written.
 };
 
 /**

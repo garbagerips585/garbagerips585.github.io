@@ -24,7 +24,7 @@
     "Images are hotlinked from TCGplayer's CDN, not copied here, the same as",
     "public/data/products.json."
   ],
-  "checked": "2026-08-17",
+  "checked": "2026-08-18",
   "source": "TCGplayer",
   "products": {
     "ex-premium": {
@@ -36,7 +36,7 @@
       "setName": "Miscellaneous Cards & Products",
       "productLine": "Pokemon",
       "sourcedAs": "Mega Greninja ex Premium Collection",
-      "market": 49.28,
+      "market": 49.59,
       "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/690660_200w.jpg",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/690660_in_1000x1000.jpg",
       "url": "https://www.tcgplayer.com/product/690660/mega-greninja-ex-premium-collection"
@@ -58,13 +58,13 @@
     "ex-special": {
       "kind": null,
       "row": "ex Special Collection",
-      "msrpRow": null,
+      "msrpRow": "special-collection",
       "productId": 616305,
       "name": "Charizard ex Special Collection",
       "setName": "Miscellaneous Cards & Products",
       "productLine": "Pokemon",
       "sourcedAs": "Charizard ex Special Collection",
-      "market": 62.17,
+      "market": 61.64,
       "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/616305_200w.jpg",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/616305_in_1000x1000.jpg",
       "url": "https://www.tcgplayer.com/product/616305/charizard-ex-special-collection"
@@ -78,7 +78,7 @@
       "setName": "Miscellaneous Cards & Products",
       "productLine": "Pokemon",
       "sourcedAs": "Mega Charizard Tin",
-      "market": 45.13,
+      "market": 44.85,
       "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/671250_200w.jpg",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/671250_in_1000x1000.jpg",
       "url": "https://www.tcgplayer.com/product/671250/mega-charizard-tin-mega-charizard-x"
@@ -120,7 +120,7 @@
       "setName": "Miscellaneous Cards & Products",
       "productLine": "Pokemon",
       "sourcedAs": "Pokemon TCG: Holiday Calendar 2025",
-      "market": 70.44,
+      "market": 71.6,
       "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/639828_200w.jpg",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/639828_in_1000x1000.jpg",
       "url": "https://www.tcgplayer.com/product/639828/holiday-calendar-2025"
@@ -148,7 +148,7 @@
       "setName": "ME: 30th Celebration",
       "productLine": "Pokemon",
       "sourcedAs": "30th Celebration Battle Deck, Espeon ex and Umbreon ex",
-      "market": 41.88,
+      "market": 41.74,
       "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/704187_200w.jpg",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/704187_in_1000x1000.jpg",
       "url": "https://www.tcgplayer.com/product/704187/30th-celebration-battle-deck-espeon-ex"
@@ -162,7 +162,7 @@
       "setName": "SV: Prismatic Evolutions",
       "productLine": "Pokemon",
       "sourcedAs": "Scarlet & Violet-Prismatic Evolutions Surprise Box",
-      "market": 68.53,
+      "market": 68.42,
       "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/593466_200w.jpg",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/593466_in_1000x1000.jpg",
       "url": "https://www.tcgplayer.com/product/593466/prismatic-evolutions-surprise-box"
@@ -204,7 +204,7 @@
       "setName": "Miscellaneous Cards & Products",
       "productLine": "Pokemon",
       "sourcedAs": "Charizard ex League Battle Deck",
-      "market": 116.78,
+      "market": 118.6,
       "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/575294_200w.jpg",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/575294_in_1000x1000.jpg",
       "url": "https://www.tcgplayer.com/product/575294/league-battle-deck-charizard-ex"
@@ -223,6 +223,104 @@
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/245732_in_1000x1000.jpg",
       "url": "https://www.tcgplayer.com/product/245732/v-battle-deck-rayquaza-v"
     },
+    "build-battle-stadium": {
+      "kind": null,
+      "row": null,
+      "msrpRow": "build-battle-stadium",
+      "productId": 514070,
+      "name": "Paradox Rift Build & Battle Stadium",
+      "setName": "SV04: Paradox Rift",
+      "productLine": "Pokemon",
+      "sourcedAs": "Paradox Rift Build & Battle Stadium",
+      "market": 93.89,
+      "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/514070_200w.jpg",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/514070_in_1000x1000.jpg",
+      "url": "https://www.tcgplayer.com/product/514070/paradox-rift-build-and-battle-stadium"
+    },
+    "binder": {
+      "kind": null,
+      "row": null,
+      "msrpRow": "binder",
+      "productId": 630430,
+      "name": "Black Bolt Binder Collection",
+      "setName": "SV: Black Bolt",
+      "productLine": "Pokemon",
+      "sourcedAs": "Scarlet & Violet-Black Bolt Binder Collection",
+      "market": 79.44,
+      "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/630430_200w.jpg",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/630430_in_1000x1000.jpg",
+      "url": "https://www.tcgplayer.com/product/630430/black-bolt-binder-collection"
+    },
+    "pin-collection": {
+      "kind": null,
+      "row": null,
+      "msrpRow": "pin-collection",
+      "productId": 475618,
+      "name": "Crown Zenith Pin Collection [Inteleon]",
+      "setName": "SWSH: Crown Zenith",
+      "productLine": "Pokemon",
+      "sourcedAs": "Crown Zenith Pin Collection (Inteleon)",
+      "market": 80.11,
+      "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/475618_200w.jpg",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/475618_in_1000x1000.jpg",
+      "url": "https://www.tcgplayer.com/product/475618/crown-zenith-pin-collection-inteleon"
+    },
+    "premium-tournament": {
+      "kind": null,
+      "row": null,
+      "msrpRow": "premium-tournament",
+      "productId": 626605,
+      "name": "Lillie Premium Tournament Collection Box",
+      "setName": "Miscellaneous Cards & Products",
+      "productLine": "Pokemon",
+      "sourcedAs": "Lillie Premium Tournament Collection",
+      "market": 76.59,
+      "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/626605_200w.jpg",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/626605_in_1000x1000.jpg",
+      "url": "https://www.tcgplayer.com/product/626605/lillie-premium-tournament-collection-box"
+    },
+    "collector-chest": {
+      "kind": null,
+      "row": null,
+      "msrpRow": "collector-chest",
+      "productId": 575706,
+      "name": "Fall 2024 Collector Chest",
+      "setName": "Miscellaneous Cards & Products",
+      "productLine": "Pokemon",
+      "sourcedAs": "Collector Chest (Fall 2024)",
+      "market": 68.58,
+      "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/575706_200w.jpg",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/575706_in_1000x1000.jpg",
+      "url": "https://www.tcgplayer.com/product/575706/fall-2024-collector-chest"
+    },
+    "trainers-toolkit": {
+      "kind": null,
+      "row": null,
+      "msrpRow": "trainers-toolkit",
+      "productId": 653203,
+      "name": "Pokemon TCG: Trainer's Toolkit (2025)",
+      "setName": "Miscellaneous Cards & Products",
+      "productLine": "Pokemon",
+      "sourcedAs": "Trainer's Toolkit (2025)",
+      "market": 41.44,
+      "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/653203_200w.jpg",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/653203_in_1000x1000.jpg",
+      "url": "https://www.tcgplayer.com/product/653203/pokemon-tcg-trainer-s-toolkit-2025"
+    },
+    "tcg-classic": {
+      "kind": null,
+      "row": null,
+      "msrpRow": "tcg-classic",
+      "productId": 518886,
+      "name": "Pokemon Trading Card Game Classic",
+      "setName": "Trading Card Game Classic",
+      "productLine": "Pokemon",
+      "sourcedAs": "Pokemon TCG Classic",
+      "market": 543.41,
+      "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/518886_200w.jpg",
+      "image": "https://tcgplayer-cdn.tcgplayer.com/product/518886_in_1000x1000.jpg",
+      "url": "https://www.tcgplayer.com/product/518886/pokemon-trading-card-game-classic"
+    },
     "japanese-pack": {
       "kind": "japanese-pack",
       "row": null,
@@ -232,7 +330,7 @@
       "setName": "M6: Storm Emeralda",
       "productLine": "Pokemon Japan",
       "sourcedAs": null,
-      "market": 3.8,
+      "market": 3.92,
       "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/709111_200w.jpg",
       "image": "https://tcgplayer-cdn.tcgplayer.com/product/709111_in_1000x1000.jpg",
       "url": "https://www.tcgplayer.com/product/709111/storm-emeralda-booster-pack"

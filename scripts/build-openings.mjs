@@ -259,12 +259,19 @@ function photoFor(id) {
 // 34%. sizes is 88px, not a viewport unit, because .op-shot is a fixed 88x88
 // box; that is a measured fix worth 4x the bytes on the set guides and it is
 // not a placeholder to be improved.
+// NOT LAZY, AND THAT IS MEASURED RATHER THAN ASSUMED. There is exactly one of
+// these per page and it sits under the lede: driven at 390x844 DPR2 on all
+// twelve pages that carry one, it lands between y=335 and y=446, so it is ON
+// SCREEN at first paint on every one of them. `loading="lazy"` was deferring
+// the page's own subject. An image already in the viewport gains nothing from
+// lazy and can lose a little. Same call build-what-to-buy.mjs makes for the
+// first card on that page. The index cards below are a separate decision.
 const shot = (e) => {
   const p = photoFor(e.id);
   if (!p) return "";
   return `      <figure class="op-shot">
         <img src="${esc(p.src)}" srcset="${esc(p.src)} 200w, ${esc(p.large)} 1000w"
-             sizes="88px" alt="${esc(p.name)}, sealed" loading="lazy" decoding="async"${imgDims(p.src)}
+             sizes="88px" alt="${esc(p.name)}, sealed" decoding="async"${imgDims(p.src)}
              referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">
         <figcaption>One example: the <b>${esc(p.name)}</b>. Photo TCGplayer's. ${
           p.perSet
@@ -294,12 +301,13 @@ const shot = (e) => {
  * size reads as an image that failed to load, which is the one thing it must not
  * look like when eleven of its neighbours are real photographs.
  */
-const cardShot = (e) => {
+const cardShot = (e, { eager = false } = {}) => {
   const p = photoFor(e.id);
   if (!p) return `<span class="op-ci op-cn" aria-hidden="true"></span>`;
   return `<img class="op-ci" src="${esc(p.src)}" srcset="${esc(p.src)} 200w, ${esc(p.large)} 1000w"
-            sizes="88px" alt="One example of a ${esc(e.label)}: the ${esc(p.name)}, sealed"
-            loading="lazy" decoding="async" referrerpolicy="no-referrer">`;
+            sizes="88px" alt="One example of a ${esc(e.label)}: the ${esc(p.name)}, sealed"${
+              eager ? "" : ' loading="lazy"'
+            } decoding="async" referrerpolicy="no-referrer">`;
 };
 
 /** The product actually in that card's picture, or nothing. */
@@ -1049,9 +1057,14 @@ const idx =
       <div class="op-grid">
 ${entries
   .map(
-    (e) => `        <a class="op-c" href="/openings/${esc(e.id)}.html">
+    // THE FIRST TWO CARDS ARE EAGER. Measured on the built index at 390x844
+    // DPR2: card 1's thumbnail is at y=393 and card 2's at y=619, both inside
+    // the 844px fold, and everything from card 3 down is off screen. Two is the
+    // count the measurement gives; do not raise it without re-measuring, and
+    // note the grid is wider on a desktop, where more of them are visible.
+    (e, i) => `        <a class="op-c" href="/openings/${esc(e.id)}.html">
           <div class="op-ch">
-            ${cardShot(e)}
+            ${cardShot(e, { eager: i < 2 })}
             <h2>${esc(e.label)}</h2>
           </div>
           <p>${esc(firstSentence(USUALLY[e.id] || ""))}</p>
