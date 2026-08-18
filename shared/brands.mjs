@@ -185,7 +185,11 @@ export function brandMark(id, label = "") {
       .join("");
     // A four-up row gets a wider box rather than four boxes: they are one
     // venue entry on the page and four separate chips would read as four.
-    return `<span class="bmk${real.length > 1 ? " bmk-multi" : ""}">${imgs}</span>`;
+    // ON A DARK PLATE ONLY IF EVERY MARK IN THE BOX NEEDS ONE. A mixed box would
+    // sacrifice one mark either way, and today no box mixes them: target is the
+    // only white-on-transparent file in the set.
+    const onDark = real.every((m) => WHITE_INK.has(m.file.split("/").pop()));
+    return `<span class="bmk${real.length > 1 ? " bmk-multi" : ""}${onDark ? " bmk-onDark" : ""}">${imgs}</span>`;
   }
 
   const drawn = DRAWN[id];
@@ -227,10 +231,36 @@ export const BRAND_CREDIT =
  * height and the wide ones use the full width, and every mark ends up on the
  * same baseline inside the same 34px band, which is what makes the column read.
  */
+/* Marks drawn as white on transparent, which need the dark plate rather than
+   the white one. Derived by reading every fill in every file in
+   public/assets/brands/, not by eye. Add a filename here if a new mark is
+   white-only; leave it out if the mark has any dark or saturated ink at all. */
+const WHITE_INK = new Set(["target.svg"]);
+
 const BMK_BOX = `
 .bmk{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;
   height:34px;min-width:56px;max-width:124px;padding:4px 9px;box-sizing:border-box;
-  background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r-sm)}
+  /* THE PLATE STAYS LIGHT AND THAT IS THE WHOLE POINT OF IT.
+     The comment at the top of this file predicted this exact failure: these are
+     third-party marks drawn as dark ink on transparent, with no light variant
+     in the file, and it said "both pages are light, so this is fine today".
+     The 18 August 2026 repaint made every page dark, --paper-2 went from
+     #FFFFFF to #2F4F39, the token NAME did not change so nothing flagged it,
+     and 21 logos across 14 pages dropped to between 1.68:1 and 2.30:1 at their
+     STRONGEST pixel. The Pokemon Company's mark rendered near-black on green.
+     A brand mark is somebody else's artwork and we do not get to recolour it,
+     so the plate it sits on has to stay the colour it was drawn for. This is
+     now a literal rather than a token, because the whole bug was a token whose
+     value moved out from under content that could not move with it. */
+  background:#FFFFFF;border:1px solid var(--hair);border-radius:var(--r-sm)}
+/* ONE MARK IS DRAWN THE OTHER WAY ROUND. target.svg fills with #FFF and nothing
+   else, so it is the single mark in the set that would vanish on the white
+   plate the other twenty need. Checked by reading every fill in every file
+   rather than by eye: tcgplayer is five saturated colours, costco is blue, red
+   and white, pokemon-center is #231916 with a white counter, and all three read
+   on white. Only target is white-on-transparent. Its plate stays dark, which is
+   also what Target's own brand guidance asks for. */
+.bmk-onDark{background:var(--chrome-bg)}
 .bmk img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
 `;
 

@@ -114,7 +114,7 @@
      rules, so every ported card lost its background, border and shadow at once
      and the pages rendered as unstyled text on cream. */
   --hard-lg:5px 5px 0 var(--keyline);
-  --ink-soft:#D5DCD7;
+  --ink-soft:#E0D8C8;
   /* --navy IS AN INK NOW AND ONLY AN INK. It was #111111, the same value as
      --ink, --keyline AND --chrome-bg, which is exactly why nobody noticed it
      was doing two opposite jobs: an ink in .cc-table a / .loc-soc / .mine-w /
@@ -122,7 +122,7 @@
      .st-n, .cc-table thead th and .mine-x, all with color:var(--paper) on top.
      One value cannot do both on a dark ground. The background job moved to
      --band-bg below. See CLAUDE.md, "Palette". */
-  --navy:#EEF1EF;
+  --navy:#E4DCCC;
   /* the dark slab the six band components paint themselves with. Same value as
      --chrome-bg today so a slab reads as a piece of the site's own chrome, but
      a separate token because the two can move apart. Ink on it is --chrome-ink,
@@ -139,7 +139,22 @@
   --trubbish:#231F20;
   --wrap:1180px;
   --page:#1F382B; --card:#2F4F39;
-  --ink:#EEF1EF; --ink-2:#C9D1CC; --hair:rgba(238,241,239,.18);
+  /* THE INK IS TRUBBISH'S OWN BODY TAN, not an off-white. Tim: "all the white
+     text, can we change it from white to be a light tan or light beige color,
+     that way its not stark bright white on a dark green, and that way it
+     incorporates one more color from Trubbish". Anchored on #A8A090 sampled
+     from his sprite and lifted +60 on every channel: an OFFSET, not a white
+     blend, because this tan starts with a chroma of 24/255 and the blend needed
+     to stay readable lands on a warm grey instead. An offset holds hue and
+     chroma exactly, since both are channel DIFFERENCES.
+     THE COST IS HIERARCHY, NOT CONTRAST. --ink used to be 1.40x --ink-2 in
+     luminance, which is what made a heading read as a heading; the lightest
+     surface sets a hard floor for body copy, and buying that 1.40x back on top
+     of it returns a value identical in contrast to the old off-white. So the
+     warmth is free and the softness is not, and this spends it on the softness.
+     If the hierarchy ever reads flat, DARKEN --paper-3 rather than lightening
+     the ink, which just undoes the change. */
+  --ink:#E4DCCC; --ink-2:#D4CCBC; --hair:rgba(228,220,204,.18);
 
   /* The four that were one token. See the block at the top of :root. */
   --keyline:#86998C;
@@ -148,9 +163,9 @@
   --on-alert:#231F20;
 
   /* The five that were literals in rules. */
-  --chrome-ink:#F7F8F7;      /* body text on the dark chrome */
-  --chrome-dim:#C1CAC4;      /* secondary labels on the dark chrome */
-  --foot-ink:#D1D8D3;        /* footer body copy */
+  --chrome-ink:#ECE4D4;      /* body text on the dark chrome */
+  --chrome-dim:#D0C8B8;      /* secondary labels on the dark chrome */
+  --foot-ink:#DCD4C4;        /* footer body copy */
   --chip-gold-bg:#203736;    /* NOT GOLD. See the gold note below. */
   --gold-band-label:#231F20; /* the kicker on a full gold band */
 

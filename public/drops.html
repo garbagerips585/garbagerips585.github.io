@@ -22,7 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=f309a931">
+<link rel="stylesheet" href="/assets/ui.css?v=4015efd9">
 <style>
 .dr-head{padding:var(--s6) 0 var(--s4)}
 .dr-stale{background:var(--ketchup);color:var(--on-accent);border-radius:var(--r);padding:var(--s3) var(--s4);
@@ -47,7 +47,27 @@
 
 .bmk{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;
   height:34px;min-width:56px;max-width:124px;padding:4px 9px;box-sizing:border-box;
-  background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r-sm)}
+  /* THE PLATE STAYS LIGHT AND THAT IS THE WHOLE POINT OF IT.
+     The comment at the top of this file predicted this exact failure: these are
+     third-party marks drawn as dark ink on transparent, with no light variant
+     in the file, and it said "both pages are light, so this is fine today".
+     The 18 August 2026 repaint made every page dark, --paper-2 went from
+     #FFFFFF to #2F4F39, the token NAME did not change so nothing flagged it,
+     and 21 logos across 14 pages dropped to between 1.68:1 and 2.30:1 at their
+     STRONGEST pixel. The Pokemon Company's mark rendered near-black on green.
+     A brand mark is somebody else's artwork and we do not get to recolour it,
+     so the plate it sits on has to stay the colour it was drawn for. This is
+     now a literal rather than a token, because the whole bug was a token whose
+     value moved out from under content that could not move with it. */
+  background:#FFFFFF;border:1px solid var(--hair);border-radius:var(--r-sm)}
+/* ONE MARK IS DRAWN THE OTHER WAY ROUND. target.svg fills with #FFF and nothing
+   else, so it is the single mark in the set that would vanish on the white
+   plate the other twenty need. Checked by reading every fill in every file
+   rather than by eye: tcgplayer is five saturated colours, costco is blue, red
+   and white, pokemon-center is #231916 with a white counter, and all three read
+   on white. Only target is white-on-transparent. Its plate stays dark, which is
+   also what Target's own brand guidance asks for. */
+.bmk-onDark{background:var(--chrome-bg)}
 .bmk img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
 /* Four marks for one venue entry. Wider box, and each mark gets a share of it.
    The row wraps to two-by-two under 420px rather than shrinking to illegible. */
@@ -301,7 +321,7 @@
       <article class="drop" data-channel="store" data-retailer="target"
         data-expires="2026-08-23">
         <div class="drop-top">
-          <span class="rt"><span class="bmk"><img src="/assets/brands/target.svg" alt="Target" width="300" height="300" loading="lazy" decoding="async"></span><span class="rt-n">Target<i>Big box</i></span></span>
+          <span class="rt"><span class="bmk bmk-onDark"><img src="/assets/brands/target.svg" alt="Target" width="300" height="300" loading="lazy" decoding="async"></span><span class="rt-n">Target<i>Big box</i></span></span>
           <span class="drop-ch">In store</span>
           <span class="drop-cf exp">Expected</span>
         </div>
@@ -314,7 +334,7 @@
       <article class="drop" data-channel="online" data-retailer="target"
         data-expires="2026-08-23" data-from="2026-08-18" data-to="2026-08-23">
         <div class="drop-top">
-          <span class="rt"><span class="bmk"><img src="/assets/brands/target.svg" alt="Target" width="300" height="300" loading="lazy" decoding="async"></span><span class="rt-n">Target<i>Big box</i></span></span>
+          <span class="rt"><span class="bmk bmk-onDark"><img src="/assets/brands/target.svg" alt="Target" width="300" height="300" loading="lazy" decoding="async"></span><span class="rt-n">Target<i>Big box</i></span></span>
           <span class="drop-ch">Online</span>
           <span class="drop-cf exp">Expected</span>
         </div>

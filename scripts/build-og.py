@@ -43,8 +43,8 @@ PAPER_3 = (0x40, 0x5D, 0x49)    # --paper-3, the lightest painted surface
 PINK = (0xE8, 0x7E, 0xA1)       # --brand-accent, and it is what RIPS wears live
 PINK_SM = (0xEE, 0xA0, 0xB9)    # --ketchup-deep, pink where the type is small
 TEAL = (0x60, 0x9C, 0xBB)       # --gold. READ THE VALUE, NOT THE NAME: teal.
-INK = (0xEE, 0xF1, 0xEF)        # --ink, the off-white
-INK_2 = (0xC9, 0xD1, 0xCC)      # --ink-2, the quieter off-white
+INK = (0xE4, 0xDC, 0xCC)        # --ink, Trubbish body tan (was off-white)
+INK_2 = (0xD4, 0xCC, 0xBC)      # --ink-2, the quieter off-white
 
 
 def font(name, size):

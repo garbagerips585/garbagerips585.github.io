@@ -3,8 +3,8 @@
     with the comments stripped; the commented original is the source. */
 :root{
   --hard-lg:5px 5px 0 var(--keyline);
-  --ink-soft:#D5DCD7;
-  --navy:#EEF1EF;
+  --ink-soft:#E0D8C8;
+  --navy:#E4DCCC;
   --band-bg:#192D22;
   --line:var(--keyline);
   --navy-deep:#13231B;
@@ -17,14 +17,14 @@
   --trubbish:#231F20;
   --wrap:1180px;
   --page:#1F382B; --card:#2F4F39;
-  --ink:#EEF1EF; --ink-2:#C9D1CC; --hair:rgba(238,241,239,.18);
+  --ink:#E4DCCC; --ink-2:#D4CCBC; --hair:rgba(228,220,204,.18);
   --keyline:#86998C;
   --chrome-bg:#192D22;
   --on-accent:#231F20;
   --on-alert:#231F20;
-  --chrome-ink:#F7F8F7;
-  --chrome-dim:#C1CAC4;
-  --foot-ink:#D1D8D3;
+  --chrome-ink:#ECE4D4;
+  --chrome-dim:#D0C8B8;
+  --foot-ink:#DCD4C4;
   --chip-gold-bg:#203736;
   --gold-band-label:#231F20;
   --mustard:#70B5D9; --gold:#609CBB; --gold-deep:#81BEDE;
