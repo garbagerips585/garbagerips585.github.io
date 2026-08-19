@@ -76,9 +76,9 @@ videos = videos.get("videos", videos)
 # back. A number a rule worked out from prose is the machine's guess, and this
 # file does not put those in the same colour, it does not put them in at all.
 try:
-    _desc = json.loads((ROOT / "data/descriptions.json").read_text())
+    _descriptions = json.loads((ROOT / "data/descriptions.json").read_text())
 except Exception:
-    _desc = {}
+    _descriptions = {}
 
 # "Box #2", "ETB #3", "Bundle 2". The word first, then the number.
 BOX_RE = re.compile(r"\b(?:box|etb|elite\s+trainer\s+box|booster\s+bundle|bundle|tin|upc)\s*#?\s*(\d{1,2})\b", re.I)
@@ -94,7 +94,7 @@ def _stated(v, rx):
     Tim wrote most deliberately. Description second, because that is where most
     of them actually live.
     """
-    for s in (v.get("title") or "", _desc.get(v.get("id"), "") or ""):
+    for s in (v.get("title") or "", _descriptions.get(v.get("id"), "") or ""):
         m = rx.search(s)
         if m:
             n = int(m.group(1))
@@ -667,6 +667,27 @@ COLUMNS = [
     # is off the critical path rather than removed: a multi-set video is still
     # recordable today, and the column can be redesigned later without touching
     # the four that carry 300 rows.
+    # WHAT HIS OWN TITLE ALREADY SAYS, GREY AND NEVER IMPORTED.
+    #
+    # Tim, 19 August 2026, on being asked whether I could watch the videos and
+    # fill this in: "thats a good idea to do the grayed out column, so I can see
+    # what my titles or descriptions say but i still enter it in so its
+    # confirmed by real person".
+    #
+    # THAT SENTENCE IS THE WHOLE DESIGN. I cannot watch video, and a thumbnail
+    # is one frame chosen for clicks rather than the pull, so anything I claimed
+    # about what came out of a pack would be a guess dressed as data. This
+    # project has spent two days removing exactly that. But his own titles and
+    # descriptions are not a guess: they are his words, and 221 of them state a
+    # pack number and 55 state a box number.
+    #
+    # So this column TRANSCRIBES and never asserts. It sits immediately left of
+    # the cells he fills, inside the frozen pane, so the glance costs nothing.
+    # It is locked and grey, it is not in the importer's header map, and a
+    # column the importer has never heard of cannot leak into the data no matter
+    # what it says. That is the structural difference between this and the blue
+    # prefills that had to be torn out: those lived IN the answer columns.
+    ("From Your Title", 34, "locked"),
     ("Product", 34, "input"),
     ("Pack #", 8, "input"),
     ("Hit", 7, "input"),
@@ -939,6 +960,40 @@ for r, v in enumerate(ordered, start=2):
     wv.cell(r, COL["Views"], v.get("views", 0)).font = LOCKED_TXT
     wv.cell(r, COL["Length"], clock(v.get("duration"))).font = LOCKED_TXT
     w = wv.cell(r, COL["Watch"], f'=HYPERLINK("https://youtu.be/{vid}","watch")')
+    # THE HINT. Read off his own title first, then his description, and labelled
+    # with which one it came from so he knows how much to trust it without
+    # opening the video. Nothing here is inferred about the FOOTAGE: every part
+    # is a substring of something he wrote.
+    _hint = []
+    _title = v.get("title") or ""
+    _desc = _descriptions.get(v["id"], "") or ""
+    for _label, _src in (("title", _title), ("desc", _desc)):
+        _b = BOX_RE.search(_src)
+        _p = PACK_RE.search(_src)
+        if _b or _p:
+            _bits = []
+            if _b: _bits.append(f"#{_b.group(1)}")
+            if _p: _bits.append(f"pack {_p.group(1)}")
+            _hint.append(f"{_label}: {' '.join(_bits)}")
+            break
+    # The product words, matched against the same table the Lists tab offers, so
+    # what he reads here is spelled the way the sheet wants it back.
+    _low = (_title + " " + _desc).lower()
+    # WORD BOUNDARIES, because a bare substring match put "Tin" on rows whose
+    # only "tin" was inside "getting". A hint that is wrong is worse than no
+    # hint: he would read it, type it, and the error would arrive wearing his
+    # own confirmation.
+    _kind = next((k for k in sorted(PRODUCT_TO_OPENING.values(), key=len, reverse=True)
+                  if re.search(r"\b" + re.escape(k.lower()) + r"\b", _low)), None)
+    if _kind: _hint.append(_kind)
+    _set = next((s for s in sorted(SET_NAMES, key=len, reverse=True)
+                 if s and re.search(r"\b" + re.escape(s.lower()) + r"\b", _low)), None)
+    if _set: _hint.append(_set)
+    if _hint:
+        c = wv.cell(r, COL["From Your Title"], "  ".join(_hint))
+        c.font = LOCKED_TXT
+        c.alignment = Alignment(vertical="center", wrap_text=False)
+
     w.font = Font(name="Arial", size=10, color="0563C1", underline="single")
 
     # Prefilled guesses in blue: correcting beats typing.
