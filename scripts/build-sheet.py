@@ -597,9 +597,27 @@ def dv(formula, strict=False):
     not recognise rather than swallowing it.
 
     The Lists tab stays the authoritative list and is the thing to read when the
-    dropdown looks short. Nothing here can stop Sheets rewriting it."""
-    return DataValidation(type="list", formula1=formula, allow_blank=True,
-                          showDropDown=False, showErrorMessage=strict)
+    dropdown looks short. Nothing here can stop Sheets rewriting it.
+
+    SHOW THE WARNING, DO NOT SUPPRESS IT, and that inversion is the fix for the
+    thing Tim hit on 19 August: "Invalid: Input must fall within specified
+    range", on a validation whose xlsx already said showErrorMessage="0".
+
+    Suppressing the message is not the same as allowing the value, and Sheets
+    reads them differently. showErrorMessage="0" says "do not talk to me about
+    it", and Sheets fills the silence with its own default, which is REJECT. The
+    attribute that actually means "warn and then accept" is errorStyle, and it
+    only has any effect when the error IS shown. So a permissive dropdown has to
+    turn the message ON and set its severity to warning, which reads backwards
+    and is why it was written the other way round.
+
+    A strict column, if one is ever wanted again, is errorStyle="stop"."""
+    return DataValidation(
+        type="list", formula1=formula, allow_blank=True, showDropDown=False,
+        showErrorMessage=True, errorStyle="stop" if strict else "warning",
+        error=None if strict else "Not on the list. Keep it if that is what you mean.",
+        errorTitle=None if strict else "Not on the list",
+    )
 
 # ========================================================= 3. Video Log =====
 
@@ -1502,7 +1520,14 @@ HIT_ROWS = 400          # room to grow; blank rows are ignored on import
 dv_vid = DataValidation(
     type="list",
     formula1=f"='Video Log'!$A$2:$A${len(ordered) + 1}",
+    # WARNING, NOT STOP, like every other dropdown in this workbook. A video id
+    # typed by hand is the one field where a typo is genuinely costly, since the
+    # join is on that string, but the answer to that is the importer reporting
+    # an id it cannot find, which it already does. Locking the cell instead
+    # stops him recording a card the moment the list is even slightly stale.
     allow_blank=True, showDropDown=False, showErrorMessage=True,
+    errorStyle="warning", errorTitle="No such video id",
+    error="That id is not in the Video Log. Keep it if you are sure.",
 )
 wh.add_data_validation(dv_vid)
 dv_vid.add(f"A2:A{HIT_ROWS}")
@@ -1510,7 +1535,13 @@ dv_vid.add(f"A2:A{HIT_ROWS}")
 for formula, head, strict in [
     (DV_SET, "Set", False),
     (DV_RARITY, "Rarity", False),
-    (DV_YESNO, "Hall of Fame", True),
+    # NOTHING IN THIS WORKBOOK REJECTS A TYPED VALUE ANY MORE. Tim, 19 August
+    # 2026: "I just want to be able to add in anything I want into any cells I
+    # want, not have it say you cant touch these". This was the last strict one,
+    # a Yes/No column, and even there the reasoning was thin: the importer reads
+    # yes/y/true and reports anything else, so a locked cell only ever cost him
+    # the ability to write "maybe" while he thinks about it.
+    (DV_YESNO, "Hall of Fame", False),
 ]:
     d = dv(formula, strict)
     wh.add_data_validation(d)
