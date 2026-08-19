@@ -1128,6 +1128,12 @@ for r, v in enumerate(ordered, start=2):
         wv.cell(r, COL["Product"], man["openingType"]).font = BODY
     if man.get("boxNumber"):
         wv.cell(r, COL["Product #"], man["boxNumber"]).font = BODY
+    # EVERY COLUMN HE TYPES IS HANDED BACK. Tim found cells emptied between
+    # rebuilds: Sets & Packs was being imported and never restored, so 39 rows
+    # of his work would have vanished on the next build. A column the sheet asks
+    # for and does not return is a trap, and this is the last one.
+    if man.get("setsPacks"):
+        wv.cell(r, COL["Sets & Packs"], man["setsPacks"]).font = BODY
     if man.get("packNumber"):
         wv.cell(r, COL["Pack #"], man["packNumber"]).font = BODY
     if man.get("hasHit") is not None:

@@ -28,6 +28,15 @@
     "244 and nothing about the file would look wrong."
   ],
   "_RuAmy2dGL8": {
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
     "openingType": "Sleeved Booster Pack",
     "packNumber": 9,
     "hasHit": false
@@ -37,18 +46,21 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 3
+        "packs": 1
       }
     ],
-    "packsOpened": 3,
+    "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
     "openingType": "ETB",
+    "boxNumber": 3,
     "packNumber": 3,
     "hasHit": true,
     "hitCard": "Mega Greninja ex - Hyper Rare - Gold Card",
     "hits": [
       {
         "card": "Mega Greninja ex",
-        "rarity": "Hyper Rare"
+        "rarity": "Hyper Rare",
+        "set": "chaos-rising"
       }
     ],
     "greatest": true,
@@ -63,6 +75,7 @@
       }
     ],
     "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
     "openingType": "Single Booster Pack",
     "packNumber": 13,
     "hasHit": false
@@ -76,7 +89,9 @@
       }
     ],
     "packsOpened": 1,
+    "setsPacks": "Pitch Black",
     "openingType": "ETB",
+    "boxNumber": 1,
     "packNumber": 8,
     "hasHit": false
   },
@@ -89,6 +104,7 @@
       }
     ],
     "packsOpened": 1,
+    "setsPacks": "Pitch Black",
     "openingType": "Sleeved Booster Pack",
     "packNumber": 8,
     "hasHit": false
@@ -98,11 +114,13 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 3
+        "packs": 1
       }
     ],
-    "packsOpened": 3,
+    "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
     "openingType": "ETB",
+    "boxNumber": 3,
     "packNumber": 2,
     "hasHit": false
   },
@@ -115,6 +133,7 @@
       }
     ],
     "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
     "openingType": "Single Booster Pack",
     "packNumber": 12,
     "hasHit": true,
@@ -122,7 +141,8 @@
     "hits": [
       {
         "card": "Cinccino ex",
-        "rarity": "Double Rare"
+        "rarity": "Double Rare",
+        "set": "chaos-rising"
       }
     ]
   },
@@ -135,7 +155,9 @@
       }
     ],
     "packsOpened": 1,
+    "setsPacks": "Pitch Black",
     "openingType": "ETB",
+    "boxNumber": 1,
     "packNumber": 7,
     "hasHit": false
   },
@@ -148,6 +170,7 @@
       }
     ],
     "packsOpened": 1,
+    "setsPacks": "Pitch Black",
     "openingType": "Single Booster Pack",
     "packNumber": 7,
     "hasHit": false
@@ -157,64 +180,538 @@
       {
         "set": "chaos-rising",
         "name": "chaos rising",
-        "packs": 3
+        "packs": 1
       }
     ],
-    "packsOpened": 3,
+    "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
     "openingType": "ETB",
+    "boxNumber": 3,
     "packNumber": 1,
     "hasHit": false
   },
+  "oSPbl9reyIM": {
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "ETB",
+    "boxNumber": 1,
+    "packNumber": 6,
+    "hasHit": true,
+    "hitCard": "Rampardos ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Rampardos ex",
+        "rarity": "Double Rare",
+        "set": "pitch-black"
+      }
+    ]
+  },
   "inTMqcQmFhM": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "Booster Bundle",
+    "boxNumber": 1,
+    "packNumber": 6,
+    "hasHit": false
   },
   "b8CfpcK7-h0": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "Single Booster Pack",
+    "packNumber": 6,
+    "hasHit": false
+  },
+  "aa9jzXRFtrg": {
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Perfect Order",
+    "openingType": "ex Premium Collection Box",
+    "boxNumber": 1,
+    "packNumber": 8,
+    "hasHit": false
   },
   "znsnYB6boh4": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "ETB",
+    "boxNumber": 1,
+    "packNumber": 5,
+    "hasHit": false
   },
   "16jOkWyE1Cs": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "Booster Bundle",
+    "boxNumber": 1,
+    "packNumber": 5,
+    "hasHit": false
   },
   "LmdyCAqDodM": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "Single Booster Pack",
+    "packNumber": 5,
+    "hasHit": true,
+    "hitCard": "Bastiodon - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Bastiodon",
+        "rarity": "Illustration Rare",
+        "set": "pitch-black"
+      }
+    ]
   },
   "k6p_6HEntYw": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Perfect Order",
+    "openingType": "ex Premium Collection Box",
+    "boxNumber": 1,
+    "packNumber": 7,
+    "hasHit": true,
+    "hitCard": "Mega Skarmory ex - Double Silver Star - Ultra Rare",
+    "hits": [
+      {
+        "card": "Mega Skarmory ex",
+        "rarity": "Ultra Rare",
+        "set": "perfect-order"
+      }
+    ]
   },
   "ndzNjhARITQ": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "ETB",
+    "boxNumber": 1,
+    "packNumber": 4,
+    "hasHit": true,
+    "hitCard": "Toucannon - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Toucannon",
+        "rarity": "Illustration Rare",
+        "set": "pitch-black"
+      }
+    ]
+  },
+  "fY-u0pxphVo": {
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "Booster Bundle",
+    "boxNumber": 1,
+    "packNumber": 4,
+    "hasHit": false
   },
   "76ziDoR2YJg": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "Single Booster Pack",
+    "packNumber": 4,
+    "hasHit": false
   },
   "3pUiN-8XkEk": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Phantasmal Flames",
+    "openingType": "ex Premium Collection Box",
+    "boxNumber": 2,
+    "packNumber": 8,
+    "hasHit": true,
+    "hitCard": "Trainer - Dawn - Double Silver Star - Ultra Rare",
+    "hits": [
+      {
+        "card": "Trainer Dawn",
+        "rarity": "Ultra Rare",
+        "set": "phantasmal-flames"
+      }
+    ]
   },
   "019sIQP5PwA": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ex Premium Collection Box",
+    "boxNumber": 1,
+    "packNumber": 6,
+    "hasHit": true,
+    "hitCard": "Mega Floette ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Mega Floette ex",
+        "rarity": "Double Rare",
+        "set": "chaos-rising"
+      }
+    ]
+  },
+  "3dAQ-PS0fpU": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
+    "openingType": "Mini Tin",
+    "packNumber": 2,
+    "hasHit": false
   },
   "JfHlnrlX6S0": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "Booster Bundle",
+    "boxNumber": 1,
+    "packNumber": 3,
+    "hasHit": true,
+    "hitCard": "Rampardos ex - Double Silver Star - Ultra Rare",
+    "hits": [
+      {
+        "card": "Rampardos ex",
+        "rarity": "Ultra Rare",
+        "set": "pitch-black"
+      }
+    ]
+  },
+  "vTy3MKGN73k": {
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "ETB",
+    "boxNumber": 1,
+    "packNumber": 3,
+    "hasHit": false
   },
   "1_ivvCs7Gp4": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "Single Booster Pack",
+    "packNumber": 3,
+    "hasHit": false
   },
   "R2VxbNMrlXQ": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Phantasmal Flames",
+    "openingType": "ex Premium Collection Box",
+    "boxNumber": 2,
+    "packNumber": 7,
+    "hasHit": true,
+    "hitCard": "Trainer - Dawn - Double Gold Star - Special Illustration Rare",
+    "hits": [
+      {
+        "card": "Trainer Dawn Double Gold Star",
+        "rarity": "Special Illustration Rare",
+        "set": "phantasmal-flames"
+      }
+    ]
+  },
+  "m41IeIUpqRI": {
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Perfect Order",
+    "openingType": "Mini Tin",
+    "packNumber": 1,
+    "hasHit": true,
+    "hitCard": "Mega Starmie ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Mega Starmie ex",
+        "rarity": "Double Rare",
+        "set": "perfect-order"
+      }
+    ]
+  },
+  "LGGJhVyJwDc": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ex Premium Collection Box",
+    "boxNumber": 1,
+    "packNumber": 5,
+    "hasHit": false
   },
   "SQ-_tTDutFA": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "Sleeved Booster Pack",
+    "packNumber": 2,
+    "hasHit": false
+  },
+  "405aRLjbdmM": {
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "ETB",
+    "boxNumber": 1,
+    "packNumber": 2,
+    "hasHit": false
+  },
+  "yrfwnJKXRgo": {
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "Booster Bundle",
+    "boxNumber": 1,
+    "packNumber": 2,
+    "hasHit": false
   },
   "92-pjMEGpDI": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Perfect Order",
+    "openingType": "ex Premium Collection Box",
+    "boxNumber": 2,
+    "packNumber": 6,
+    "hasHit": false
+  },
+  "2S4poqmGKWE": {
+    "setPacks": [
+      {
+        "set": "twilight-masquerade",
+        "name": "twilight masquerade",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Twilight Masquerade",
+    "openingType": "Poke Ball Tin",
+    "packNumber": 3,
+    "hasHit": false
+  },
+  "XxYqEIFgWvg": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ex Premium Collection Box",
+    "boxNumber": 1,
+    "packNumber": 4,
+    "hasHit": false
   },
   "q1WTwiauv3w": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "ETB",
+    "boxNumber": 1,
+    "packNumber": 1,
+    "hasHit": true,
+    "hitCard": "Mega Chandelure ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Mega Chandelure ex",
+        "rarity": "Double Rare",
+        "set": "pitch-black"
+      }
+    ]
+  },
+  "EtFK6nFW6IQ": {
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "Booster Bundle",
+    "boxNumber": 1,
+    "packNumber": 1,
+    "hasHit": true,
+    "hitCard": "Mega Excadrill ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Mega Excadrill ex",
+        "rarity": "Double Rare",
+        "set": "pitch-black"
+      }
+    ]
   },
   "z9fpigSEZ3Y": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Perfect Order",
+    "openingType": "ex Premium Collection Box",
+    "boxNumber": 2,
+    "packNumber": 5,
+    "hasHit": true,
+    "hitCard": "Salazzle ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Salazzle ex",
+        "rarity": "Double Rare",
+        "set": "perfect-order"
+      }
+    ]
   },
   "GTC45Mri_gc": {
     "hasHit": true
@@ -598,10 +1095,6 @@
         "card": "Marnie's Grimmsnarl ex",
         "set": "destined-rivals",
         "setName": "destined rivals"
-      },
-      {
-        "card": "-",
-        "rarity": "Double Rare"
       },
       {
         "card": "Wailord",

@@ -521,6 +521,20 @@ const manual = { _WARNING: MANUAL_WARNING };
 const unknownOpening = new Set();
 let counted = { set: 0, multiSet: 0, opening: 0, hit: 0, card: 0, greatest: 0, affiliate: 0, copy: 0, hidden: 0 };
 const unknownSet = new Set();
+// HITS PARSED OUT OF THE VIDEO LOG'S Hit Info COLUMN.
+//
+// data/hits.json is what /hall.html, the rarity pages and the set guides read,
+// and until now it was filled ONLY from the My Hits tab. Tim fills Hit Info on
+// the Video Log instead, one line per video, so 23 of his 26 hit rows were
+// landing in manual.json and reaching no page at all: the hall showed 19
+// pictures against 42 plaques and he asked why.
+//
+// Same shape as the My Hits rows so both feed one writer and neither can drift.
+const logHits = [];
+// id -> display name, module scope, because the row loop needs it and the only
+// other copy lives inside the My Hits function.
+const SET_NAME_BY_ID = new Map();
+for (const [label, sid] of setIdByName) if (!SET_NAME_BY_ID.has(sid)) SET_NAME_BY_ID.set(sid, label);
 // What the site currently believes, used only to spot the stale-prefill trap
 // described where the overrides are written.
 let live = {};
@@ -739,6 +753,14 @@ for (const [n, r] of rows.slice(1).entries()) {
     m.setPacks = setPacks;
     m.packsOpened = setPacks.reduce((n, s) => n + s.packs, 0);
   }
+  // KEEP THE RAW CELL, ALWAYS, EVEN WHEN THE PARSE SUCCEEDED. Tim: "keep all my
+  // info in there forever as its real data from me watching the videos its
+  // accurate". A parsed structure is a DERIVATIVE of what he wrote; the string
+  // is the record. Storing only the parse means a later change to the parser
+  // silently rewrites history, and a fragment it could not place is gone for
+  // good. This is also what build-sheet.py hands back, so the column round
+  // trips instead of emptying itself on the next rebuild.
+  if (spRaw) m.setsPacks = String(spRaw).trim();
   // TAKE THE PRODUCT PHRASE APART. "Pitch Black ETB #3" yields the set, the
   // product type and the product number; a bare "ETB" still yields just the
   // type, so an older sheet keeps working.
@@ -954,7 +976,11 @@ for (const [n, r] of rows.slice(1).entries()) {
         name = rest.replace(/\s+/g, " ").trim();
       }
 
-      if (!name) { unparsed.push(frag); continue; }
+      // A FRAGMENT THAT IS ONLY PUNCTUATION IS NOT A CARD. Tim's Collector
+      // Chest line ends "... Double Rare , Journey Together - Wailord ...", and
+      // a stray separator produced a hit whose card name was "-". It reached
+      // data/hits.json and would have shown as a plaque with a dash on it.
+      if (!name || !/[a-z0-9]/i.test(name)) { unparsed.push(frag); continue; }
 
       // The star wins nothing alone, but it FILLS a missing rarity and FLAGS a
       // disagreement. Neither is a guess: both readings are his.
@@ -969,7 +995,45 @@ for (const [n, r] of rows.slice(1).entries()) {
       });
     }
 
+    // A HIT WITH NO SET TAKES THE VIDEO'S, BUT ONLY WHEN THERE IS EXACTLY ONE.
+    //
+    // Tim writes the set on some rows and not others: "Chaos Rising - Mega
+    // Greninja ex - Hyper Rare" on the older ones, "Mega Greninja ex - Hyper
+    // Rare" on the newer. Without a set the card cannot be matched to a scan,
+    // so 17 hits had no picture on the hall.
+    //
+    // THIS IS NOT A GUESS ABOUT THE CARD. If the video opened one set's packs,
+    // a card that came out of those packs is from that set: the inference is
+    // about the PACK, which the video already states, not about the footage.
+    //
+    // A video tagged with two or more sets is left alone, because there the
+    // question really is which pack it fell out of and nothing here can answer
+    // it. Those keep no set and simply show no picture, which is the site's
+    // standing behaviour for absent data.
+    if (setIds.length === 1) {
+      for (const h of hits) if (!h.set) h.set = setIds[0];
+    }
     if (hits.length) m.hits = hits;
+    // Into the file the public pages actually read. `video` is what the writer
+    // keys on; everything else matches a My Hits row field for field.
+    for (const h of hits) {
+      if (!h.card) continue;
+      logHits.push({
+        video: id,
+        card: h.card,
+        // NEVER WRITE undefined INTO A FIELD A PAGE PRINTS. A spread of
+        // `{ setName: undefined }` still creates the key, and JSON.stringify
+        // drops it while an in-memory read does not, so a builder that reads
+        // this object before it round trips renders the string "undefined".
+        // That is exactly what shipped to three rip pages. Resolve first, then
+        // include the key only if there is something in it.
+        ...(h.set ? { set: h.set } : {}),
+        ...(h.set && (h.setName || SET_NAME_BY_ID.get(h.set))
+          ? { setName: h.setName || SET_NAME_BY_ID.get(h.set) }
+          : {}),
+        ...(h.rarity ? { rarity: h.rarity } : {}),
+      });
+    }
     if (unparsed.length) (counted.hitUnparsed ||= []).push({ id: m.id || "", unparsed });
     if (mismatched.length) (counted.hitMismatch ||= []).push({ id: m.id || "", mismatched });
   }
@@ -1078,6 +1142,32 @@ for (const [n, r] of rows.slice(1).entries()) {
   // manual.json and then dropped on the floor by sync-youtube, which is the
   // definition of quiet.
   if (Object.keys(live).length && !live[id]) quiet.push(`${id}: no such video in the catalogue (row ${rowNo}). The whole row will be ignored by the site.`);
+}
+
+// FOLD THE VIDEO LOG'S OWN HITS INTO data/hits.json, which is what /hall.html,
+// the rarity pages and the set guides read.
+//
+// This runs HERE, at the end, rather than in the My Hits block above, because
+// that block executes before the Video Log rows are parsed and logHits would
+// still be empty. The symptom was 23 of Tim's 26 hit rows reaching no page:
+// the hall showed 19 pictures against 42 plaques.
+//
+// MERGED, NOT REPLACED, and keyed on video plus card name exactly as the My
+// Hits merge is, so filling the same card on both tabs converges instead of
+// duplicating, and a card already carrying a scan or a price keeps them.
+if (logHits.length) {
+  let hf = { videos: {} };
+  try { hf = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")); } catch { /* first run */ }
+  const byVid = { ...(hf.videos || {}) };
+  let added = 0, updated = 0;
+  for (const { video, ...card } of logHits) {
+    const prev = (byVid[video] || []).find((c) => c.card === card.card);
+    if (prev) updated++; else added++;
+    byVid[video] = (byVid[video] || []).filter((c) => c.card !== card.card).concat({ ...(prev || {}), ...card });
+  }
+  hf.videos = byVid;
+  await writeFile(join(ROOT, "data/hits.json"), JSON.stringify(hf, null, 2) + "\n");
+  console.log(`\nWrote data/hits.json  ${added} card(s) added, ${updated} updated, from the Video Log's Hit Info`);
 }
 
 await mkdir(join(ROOT, "data"), { recursive: true });

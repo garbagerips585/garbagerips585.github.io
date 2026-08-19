@@ -884,16 +884,22 @@ ${
     <ul class="hitcards" id="hitcards">
       ${hits
         .map(
-          (h, hi) => `<li class="hitcard" style="--i:${hi}" data-name="${esc(h.name)}" data-set="${esc(h.setName)}" data-n="${esc(h.n || "")}" data-rarity="${esc(rarityLabel(h.rarity) || "")}" data-img="${esc(h.img ? h.img.replace("low.webp", "high.webp") : "")}" data-price="${typeof h.price === "number" ? moneyExact(h.price) : ""}" data-psa="${h.psa10 ? moneyRound(h.psa10) : ""}" data-src="${esc(h.priceSource || "")}">
+          (h, hi) => `<li class="hitcard" style="--i:${hi}" data-name="${esc(h.name)}" data-set="${esc(h.setName || "")}" data-n="${esc(h.n || "")}" data-rarity="${esc(rarityLabel(h.rarity) || "")}" data-img="${esc(h.img ? h.img.replace("low.webp", "high.webp") : "")}" data-price="${typeof h.price === "number" ? moneyExact(h.price) : ""}" data-psa="${h.psa10 ? moneyRound(h.psa10) : ""}" data-src="${esc(h.priceSource || "")}">
         <button class="hitcard-open" type="button" aria-label="See ${esc(h.name)} larger"></button>
         ${
           h.img
-            ? avifPicture(`<img class="hitcard-img" src="${esc(h.img)}" alt="${esc(h.name)}, ${esc(h.setName)}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>`)
+            ? avifPicture(`<img class="hitcard-img" src="${esc(h.img)}" alt="${esc(h.name)}${h.setName ? `, ${esc(h.setName)}` : ""}" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>`)
             : `<div class="hitcard-img is-none" aria-hidden="true"></div>`
         }
         <div class="hitcard-b">
           <p class="hitcard-n">${esc(h.name)}</p>
-          <p class="hitcard-s">${esc(h.setName)}${h.n ? ` &bull; #${esc(h.n)}` : ""}</p>
+          <!-- A HIT CAN LEGITIMATELY HAVE NO SET. Tim writes the set on most hit
+               lines and leaves it off some, and on a video that opened packs
+               from several sets nothing can honestly say which one a card came
+               from. esc(undefined) rendered the literal string "undefined" on
+               three rip pages. Absent means print nothing, which is what the
+               rest of this file does with missing data. -->
+          ${h.setName ? `<p class="hitcard-s">${esc(h.setName)}${h.n ? ` &bull; #${esc(h.n)}` : ""}</p>` : h.n ? `<p class="hitcard-s">#${esc(h.n)}</p>` : ""}
           ${h.rarity ? `<p class="hitcard-r">${esc(rarityLabel(h.rarity))}</p>` : ""}
           <p class="hitcard-p">${
             typeof h.price === "number" ? `<b>${moneyExact(h.price)}</b> <span>raw NM</span>` : `<span class="hitcard-nop">No market price</span>`

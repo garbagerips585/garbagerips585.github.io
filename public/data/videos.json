@@ -8,7 +8,7 @@
       "path": "rip/is-rampardos-ex-a-real-hit-_RuAmy2dGL8.html",
       "published": "2026-08-19",
       "duration": 20,
-      "views": 488,
+      "views": 586,
       "vertical": true,
       "short": true,
       "sets": [
@@ -30,7 +30,7 @@
       "path": "rip/i-just-pulled-a-1-000-card-iIgTusrqVtg.html",
       "published": "2026-08-18",
       "duration": 28,
-      "views": 1127,
+      "views": 1141,
       "vertical": true,
       "short": true,
       "sets": [
@@ -44,12 +44,13 @@
       ],
       "hitCard": "Mega Greninja ex - Hyper Rare - Gold Card",
       "hasHit": true,
+      "boxNumber": 3,
       "packNumber": 3,
       "greatest": true,
       "hofRank": 1,
       "openingType": "ETB",
       "packs": 1,
-      "label": "Chaos Rising ETB - Pack 3"
+      "label": "Chaos Rising ETB 3 - Pack 3"
     },
     {
       "id": "DP8HG31X1rg",
@@ -79,7 +80,7 @@
       "path": "rip/trubbish-food-pitch-black-pack-8-VZtK6rT7ZTI.html",
       "published": "2026-08-16",
       "duration": 21,
-      "views": 918,
+      "views": 921,
       "vertical": true,
       "short": true,
       "sets": [
@@ -90,10 +91,11 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "boxNumber": 1,
       "packNumber": 8,
       "openingType": "ETB",
       "packs": 1,
-      "label": "Pitch Black ETB - Pack 8"
+      "label": "Pitch Black ETB 1 - Pack 8"
     },
     {
       "id": "E5Wz7X1VMeY",
@@ -101,7 +103,7 @@
       "path": "rip/8-packs-and-no-hits-E5Wz7X1VMeY.html",
       "published": "2026-08-15",
       "duration": 19,
-      "views": 791,
+      "views": 792,
       "vertical": true,
       "short": true,
       "sets": [
@@ -123,7 +125,7 @@
       "path": "rip/the-chaos-rising-struggle-is-real-T2-UqY2ZSOw.html",
       "published": "2026-08-14",
       "duration": 21,
-      "views": 1010,
+      "views": 1011,
       "vertical": true,
       "short": true,
       "sets": [
@@ -134,10 +136,11 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "boxNumber": 3,
       "packNumber": 2,
       "openingType": "ETB",
       "packs": 1,
-      "label": "Chaos Rising ETB - Pack 2"
+      "label": "Chaos Rising ETB 3 - Pack 2"
     },
     {
       "id": "O5WscUY7qZI",
@@ -170,7 +173,7 @@
       "path": "rip/this-etb-is-breaking-me-IQMn3DNCzik.html",
       "published": "2026-08-12",
       "duration": 20,
-      "views": 667,
+      "views": 668,
       "vertical": true,
       "short": true,
       "sets": [
@@ -181,10 +184,11 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "boxNumber": 1,
       "packNumber": 7,
       "openingType": "ETB",
       "packs": 1,
-      "label": "Pitch Black ETB - Pack 7"
+      "label": "Pitch Black ETB 1 - Pack 7"
     },
     {
       "id": "2XdMKde79M8",
@@ -225,10 +229,11 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "boxNumber": 3,
       "packNumber": 1,
       "openingType": "ETB",
       "packs": 1,
-      "label": "Chaos Rising ETB - Pack 1"
+      "label": "Chaos Rising ETB 3 - Pack 1"
     },
     {
       "id": "oSPbl9reyIM",
@@ -245,8 +250,16 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
-      "label": "Pitch Black ETB"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Rampardos ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "boxNumber": 1,
+      "packNumber": 6,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Pitch Black ETB 1 - Pack 6"
     },
     {
       "id": "inTMqcQmFhM",
@@ -264,8 +277,12 @@
         "bundle"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Pitch Black Booster Bundle"
+      "hasHit": false,
+      "boxNumber": 1,
+      "packNumber": 6,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Pitch Black Booster Bundle 1 - Pack 6"
     },
     {
       "id": "b8CfpcK7-h0",
@@ -283,8 +300,11 @@
         "single-pack"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Pitch Black Pack"
+      "hasHit": false,
+      "packNumber": 6,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Pitch Black Pack - Pack 6"
     },
     {
       "id": "aa9jzXRFtrg",
@@ -302,7 +322,12 @@
         "ex-premium"
       ],
       "pulls": [],
-      "label": "Perfect Order ex Premium Collection"
+      "hasHit": false,
+      "boxNumber": 1,
+      "packNumber": 8,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Perfect Order ex Premium Collection 1 - Pack 8"
     },
     {
       "id": "znsnYB6boh4",
@@ -320,8 +345,12 @@
         "etb"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Pitch Black ETB"
+      "hasHit": false,
+      "boxNumber": 1,
+      "packNumber": 5,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Pitch Black ETB 1 - Pack 5"
     },
     {
       "id": "16jOkWyE1Cs",
@@ -339,8 +368,12 @@
         "bundle"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Pitch Black Booster Bundle"
+      "hasHit": false,
+      "boxNumber": 1,
+      "packNumber": 5,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Pitch Black Booster Bundle 1 - Pack 5"
     },
     {
       "id": "LmdyCAqDodM",
@@ -357,9 +390,15 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Bastiodon - Single Gold Star - Illustration Rare",
       "hasHit": true,
-      "label": "Pitch Black Pack"
+      "packNumber": 5,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Pitch Black Pack - Pack 5"
     },
     {
       "id": "k6p_6HEntYw",
@@ -376,9 +415,16 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
+      "pulls": [
+        "ultra"
+      ],
+      "hitCard": "Mega Skarmory ex - Double Silver Star - Ultra Rare",
       "hasHit": true,
-      "label": "Perfect Order ex Premium Collection"
+      "boxNumber": 1,
+      "packNumber": 7,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Perfect Order ex Premium Collection 1 - Pack 7"
     },
     {
       "id": "ndzNjhARITQ",
@@ -395,9 +441,16 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Toucannon - Single Gold Star - Illustration Rare",
       "hasHit": true,
-      "label": "Pitch Black ETB"
+      "boxNumber": 1,
+      "packNumber": 4,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Pitch Black ETB 1 - Pack 4"
     },
     {
       "id": "fY-u0pxphVo",
@@ -415,7 +468,12 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Pitch Black Booster Bundle"
+      "hasHit": false,
+      "boxNumber": 1,
+      "packNumber": 4,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Pitch Black Booster Bundle 1 - Pack 4"
     },
     {
       "id": "76ziDoR2YJg",
@@ -433,8 +491,11 @@
         "single-pack"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Pitch Black Pack"
+      "hasHit": false,
+      "packNumber": 4,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Pitch Black Pack - Pack 4"
     },
     {
       "id": "3pUiN-8XkEk",
@@ -451,9 +512,16 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
+      "pulls": [
+        "ultra"
+      ],
+      "hitCard": "Trainer - Dawn - Double Silver Star - Ultra Rare",
       "hasHit": true,
-      "label": "Phantasmal Flames ex Premium Collection"
+      "boxNumber": 2,
+      "packNumber": 8,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Phantasmal Flames ex Premium Collection 2 - Pack 8"
     },
     {
       "id": "019sIQP5PwA",
@@ -470,9 +538,16 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Floette ex - Double Black Star - Double Rare",
       "hasHit": true,
-      "label": "Chaos Rising ex Premium Collection"
+      "boxNumber": 1,
+      "packNumber": 6,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Chaos Rising ex Premium Collection 1 - Pack 6"
     },
     {
       "id": "3dAQ-PS0fpU",
@@ -490,7 +565,11 @@
         "tin"
       ],
       "pulls": [],
-      "label": "Chaos Rising Tin"
+      "hasHit": false,
+      "packNumber": 2,
+      "openingType": "Mini Tin",
+      "packs": 1,
+      "label": "Chaos Rising Tin - Pack 2"
     },
     {
       "id": "JfHlnrlX6S0",
@@ -507,9 +586,16 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
+      "pulls": [
+        "ultra"
+      ],
+      "hitCard": "Rampardos ex - Double Silver Star - Ultra Rare",
       "hasHit": true,
-      "label": "Pitch Black Booster Bundle"
+      "boxNumber": 1,
+      "packNumber": 3,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Pitch Black Booster Bundle 1 - Pack 3"
     },
     {
       "id": "vTy3MKGN73k",
@@ -527,7 +613,12 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Pitch Black ETB"
+      "hasHit": false,
+      "boxNumber": 1,
+      "packNumber": 3,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Pitch Black ETB 1 - Pack 3"
     },
     {
       "id": "1_ivvCs7Gp4",
@@ -545,8 +636,11 @@
         "single-pack"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Pitch Black Pack"
+      "hasHit": false,
+      "packNumber": 3,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Pitch Black Pack - Pack 3"
     },
     {
       "id": "R2VxbNMrlXQ",
@@ -563,9 +657,16 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
+      "pulls": [
+        "sir"
+      ],
+      "hitCard": "Trainer - Dawn - Double Gold Star - Special Illustration Rare",
       "hasHit": true,
-      "label": "Phantasmal Flames ex Premium Collection"
+      "boxNumber": 2,
+      "packNumber": 7,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Phantasmal Flames ex Premium Collection 2 - Pack 7"
     },
     {
       "id": "m41IeIUpqRI",
@@ -577,14 +678,20 @@
       "vertical": true,
       "short": true,
       "sets": [
-        "perfect-order",
-        "chaos-rising"
+        "perfect-order"
       ],
       "products": [
         "tin"
       ],
-      "pulls": [],
-      "label": "Perfect Order Tin"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Starmie ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "packNumber": 1,
+      "openingType": "Mini Tin",
+      "packs": 1,
+      "label": "Perfect Order Tin - Pack 1"
     },
     {
       "id": "LGGJhVyJwDc",
@@ -602,7 +709,12 @@
         "ex-premium"
       ],
       "pulls": [],
-      "label": "Chaos Rising ex Premium Collection"
+      "hasHit": false,
+      "boxNumber": 1,
+      "packNumber": 5,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Chaos Rising ex Premium Collection 1 - Pack 5"
     },
     {
       "id": "SQ-_tTDutFA",
@@ -617,11 +729,14 @@
         "pitch-black"
       ],
       "products": [
-        "etb"
+        "single-pack"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Pitch Black ETB"
+      "hasHit": false,
+      "packNumber": 2,
+      "openingType": "Sleeved Booster Pack",
+      "packs": 1,
+      "label": "Pitch Black Pack - Pack 2"
     },
     {
       "id": "405aRLjbdmM",
@@ -639,7 +754,12 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Pitch Black ETB"
+      "hasHit": false,
+      "boxNumber": 1,
+      "packNumber": 2,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Pitch Black ETB 1 - Pack 2"
     },
     {
       "id": "yrfwnJKXRgo",
@@ -657,7 +777,12 @@
         "bundle"
       ],
       "pulls": [],
-      "label": "Pitch Black Booster Bundle"
+      "hasHit": false,
+      "boxNumber": 1,
+      "packNumber": 2,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Pitch Black Booster Bundle 1 - Pack 2"
     },
     {
       "id": "92-pjMEGpDI",
@@ -669,15 +794,18 @@
       "vertical": true,
       "short": true,
       "sets": [
-        "phantasmal-flames",
         "perfect-order"
       ],
       "products": [
         "ex-premium"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Phantasmal Flames ex Premium Collection"
+      "hasHit": false,
+      "boxNumber": 2,
+      "packNumber": 6,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Perfect Order ex Premium Collection 2 - Pack 6"
     },
     {
       "id": "2S4poqmGKWE",
@@ -695,7 +823,11 @@
         "poke-ball-tin"
       ],
       "pulls": [],
-      "label": "Twilight Masquerade Poke Ball Tin"
+      "hasHit": false,
+      "packNumber": 3,
+      "openingType": "Poke Ball Tin",
+      "packs": 1,
+      "label": "Twilight Masquerade Poke Ball Tin - Pack 3"
     },
     {
       "id": "XxYqEIFgWvg",
@@ -713,7 +845,12 @@
         "ex-premium"
       ],
       "pulls": [],
-      "label": "Chaos Rising ex Premium Collection"
+      "hasHit": false,
+      "boxNumber": 1,
+      "packNumber": 4,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Chaos Rising ex Premium Collection 1 - Pack 4"
     },
     {
       "id": "q1WTwiauv3w",
@@ -730,9 +867,16 @@
       "products": [
         "etb"
       ],
-      "pulls": [],
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Chandelure ex - Double Black Star - Double Rare",
       "hasHit": true,
-      "label": "Pitch Black ETB"
+      "boxNumber": 1,
+      "packNumber": 1,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Pitch Black ETB 1 - Pack 1"
     },
     {
       "id": "EtFK6nFW6IQ",
@@ -749,8 +893,16 @@
       "products": [
         "bundle"
       ],
-      "pulls": [],
-      "label": "Pitch Black Booster Bundle"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Excadrill ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "boxNumber": 1,
+      "packNumber": 1,
+      "openingType": "Booster Bundle",
+      "packs": 1,
+      "label": "Pitch Black Booster Bundle 1 - Pack 1"
     },
     {
       "id": "z9fpigSEZ3Y",
@@ -767,9 +919,16 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Salazzle ex - Double Black Star - Double Rare",
       "hasHit": true,
-      "label": "Perfect Order ex Premium Collection"
+      "boxNumber": 2,
+      "packNumber": 5,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Perfect Order ex Premium Collection 2 - Pack 5"
     },
     {
       "id": "GTC45Mri_gc",
