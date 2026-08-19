@@ -627,16 +627,35 @@ COLUMNS = [
     #
     # This replaces "More Sets", which was free text. Free text in one cell is
     # exactly what broke the hits: one typo and one stray comma cost two cards.
-    # ORDER FOLLOWS THE ORDER A PERSON ANSWERS THE QUESTIONS, which is not the
-    # order the data model lists them in. Watching a rip you know WHAT WAS
-    # OPENED before you know which sets were inside it: Opening Type is read off
-    # the box in the first two seconds, and the set is often only certain once a
-    # pack is out. Opening Type also drives what Box # and Pack # even mean, so
-    # asking for it first means the next three columns arrive already framed.
-    ("Opening Type", 28, "input"),
+    # SEVEN COLUMNS IN THE ORDER TIM DICTATED THEM, 19 August 2026:
+    #
+    #   Product Type - ETB
+    #   Total Number of packs in the product - 9
+    #   Product Type # - 3  (as in our third Pitch Black ETB we are opening)
+    #   Set - Pitch Black
+    #   Pack # of the set - #3
+    #   Hit: yes or no
+    #   Hit info: Pitch Black - Mega Darkrai ex - Gold Card - Hyper Rare
+    #
+    # THIS SPLITS THE ONE FIELD THAT HAS CAUSED EVERY PACK-COUNT BUG ON THIS
+    # PROJECT. "Packs" used to mean how many packs the VIDEO opened, while the
+    # prefill wrote how many the PRODUCT HOLDS, and the two are only the same
+    # number when a whole box is opened in one sitting. That single conflation
+    # put 9 on 21 one-pack rips, summed to 189 packs where 21 were opened, and
+    # published "232 packs counted" on /luck.html.
+    #
+    # Tim's layout ends it by asking for BOTH, separately and unambiguously:
+    # "Packs in Product" is a fact about the product (an ETB holds 9, always),
+    # and "Pack #" identifies which one of those this video opened. A row with a
+    # Pack # opened exactly one pack. No inference, no fingerprint test, no
+    # override: the sheet just asks the two questions it was always conflating.
+    ("Product Type", 26, "input"),
+    ("Packs in Product", 11, "input"),
+    ("Product #", 10, "input"),
     ("Set", 24, "input"),
-    ("Packs", 8, "input"),
-    ("Box / Series", 46, "input"),
+    ("Pack #", 8, "input"),
+    ("Hit", 7, "input"),
+    ("Hit Info", 52, "input"),
     # WHICH ONE OF THESE, AND WHICH PACK OUT OF IT.
     #
     # Asked for by name: "we should be able to see I have opened 3 Chaos Rising
@@ -655,8 +674,6 @@ COLUMNS = [
     # today. Everything downstream omits what it does not have rather than
     # printing a zero, so a blank row reads exactly as it did before these
     # columns existed.
-    ("Box #", 8, "input"),
-    ("Pack #", 8, "input"),
     # Packs Opened is what makes the luck page rigorous. Without it a rate can
     # only be "per video", which silently treats a 36-pack booster box and a
     # single pack as one trial each. With it the rate is per PACK, which is the
@@ -665,8 +682,6 @@ COLUMNS = [
     # independently, so a row could say 18 packs while its per-set cells added
     # to 12 and nothing would notice. Grey because it is computed.
     ("Packs Opened", 13, "locked"),
-    ("Has Hit", 9, "input"),
-    ("Hit Card", 30, "input"),
     ("Hit Rarity", 34, "input"),
     # THE FOUR EXTRA SET/PACKS PAIRS LIVE HERE, PAST THE DAILY COLUMNS.
     #
@@ -872,7 +887,7 @@ for i, (head, width, kind) in enumerate(COLUMNS, start=1):
 # link off screen: he was filling a row he could no longer identify and could no
 # longer open. Everything left of the first input column is now pinned.
 _HEADS = [h for h, _, _ in COLUMNS]
-wv.freeze_panes = f"{get_column_letter(_HEADS.index('Opening Type') + 1)}2"
+wv.freeze_panes = f"{get_column_letter(_HEADS.index('Product Type') + 1)}2"
 wv.row_dimensions[1].height = 30
 
 # AUTOFILTER, AND IT IS THE BIGGEST USABILITY FIX IN THIS FILE.
@@ -908,10 +923,10 @@ wv.auto_filter.ref = f"A1:{get_column_letter(len(COLUMNS))}{len(videos) + 1}"
 # unlike the blue "this is a guess" font colour, which is why that convention
 # was removed from this file rather than relied on.
 _ix = lambda h: _HEADS.index(h) + 1
-_first = get_column_letter(min(_ix(h) for h in ("Opening Type", "Set", "Packs", "Has Hit")))
-_last = get_column_letter(max(_ix(h) for h in ("Opening Type", "Set", "Packs", "Has Hit")))
+_first = get_column_letter(min(_ix(h) for h in ("Product Type", "Set", "Packs in Product", "Hit")))
+_last = get_column_letter(max(_ix(h) for h in ("Product Type", "Set", "Packs in Product", "Hit")))
 _need = "OR({})".format(",".join(
-    f'${get_column_letter(_ix(h))}2=""' for h in ("Opening Type", "Set", "Packs", "Has Hit")))
+    f'${get_column_letter(_ix(h))}2=""' for h in ("Product Type", "Set", "Packs in Product", "Hit")))
 wv.conditional_formatting.add(
     f"{_first}2:{_last}{len(videos) + 1}",
     FormulaRule(formula=[_need], fill=PatternFill("solid", fgColor="FFF3D6"), stopIfTrue=False),
@@ -921,8 +936,8 @@ wv.conditional_formatting.add(
 # that IS an error rather than an absence: /luck.html counts it as a hit while
 # the hall of fame and the rarity pages have nothing to show. Rose, and only on
 # the two cells involved, so it reads as different from "not answered yet".
-_hh = get_column_letter(_ix("Has Hit"))
-_hc = get_column_letter(_ix("Hit Card"))
+_hh = get_column_letter(_ix("Hit"))
+_hc = get_column_letter(_ix("Hit Info"))
 wv.conditional_formatting.add(
     f"{_hh}2:{_hc}{len(videos) + 1}",
     FormulaRule(formula=[f'AND(${_hh}2="Yes",${_hc}2="")'],
@@ -1022,10 +1037,25 @@ for r, v in enumerate(ordered, start=2):
     # rather than a zero. The parse still exists in _stated() and is reported at
     # the end of the run as a convenience, so Tim can see at a glance which rows
     # his own copy already answers, without any of it touching a cell.
-    # Packs Opened = the five per-set counts, summed. Typed independently it
-    # could say 18 while the parts added to 12 and nothing would catch it.
-    _pk = [get_column_letter(COL[h]) for h in ("Packs", "Packs 2", "Packs 3", "Packs 4", "Packs 5")]
-    wv.cell(r, COL["Packs Opened"], "=SUM(" + ",".join(f"{c}{r}" for c in _pk) + ")")
+    # PACKS OPENED IS NOW DERIVABLE INSTEAD OF GUESSABLE, and this is the whole
+    # payoff of Tim's column split.
+    #
+    # A PACK NUMBER MEANS ONE PACK. "Pack #3 of our third Pitch Black ETB" is a
+    # single pack out of a nine-pack box: the box holds 9, the video opened 1.
+    # Every pack-count bug on this project came from those two numbers sharing a
+    # column. They no longer do, so this needs no fingerprint test, no override
+    # and no inference: if Pack # is filled the answer is 1, and if it is not,
+    # the whole product was opened and the answer is its capacity.
+    #
+    # The per-set pairs still add in for the mixed case, a UPC holding 18 packs
+    # across five sets, which is the reason those columns exist at all.
+    _cap = [get_column_letter(COL[h]) for h in ("Packs in Product", "Packs 2", "Packs 3", "Packs 4", "Packs 5")]
+    _pn = get_column_letter(COL["Pack #"])
+    wv.cell(
+        r,
+        COL["Packs Opened"],
+        f'=IF({_pn}{r}<>"",1,SUM(' + ",".join(f"{c}{r}" for c in _cap) + "))",
+    )
     # DO NOT PREFILL A HIT. This used to write "Yes" and a rarity, guessed from
     # words in the title and description, in blue to mean "confirm this". The
     # export to CSV throws the colour away, so the importer read every guess
@@ -1074,15 +1104,15 @@ for r, v in enumerate(ordered, start=2):
     # The guard that keeps this safe is upstream rather than here: this file
     # prefills NOTHING into these columns, so anything present is an answer.
     if man.get("openingType"):
-        wv.cell(r, COL["Opening Type"], man["openingType"]).font = BODY
+        wv.cell(r, COL["Product Type"], man["openingType"]).font = BODY
     if man.get("packs"):
-        wv.cell(r, COL["Packs"], man["packs"]).font = BODY
+        wv.cell(r, COL["Packs in Product"], man["packs"]).font = BODY
     if man.get("boxNumber"):
-        wv.cell(r, COL["Box #"], man["boxNumber"]).font = BODY
+        wv.cell(r, COL["Product #"], man["boxNumber"]).font = BODY
     if man.get("packNumber"):
         wv.cell(r, COL["Pack #"], man["packNumber"]).font = BODY
     if man.get("hasHit") is not None:
-        wv.cell(r, COL["Has Hit"], "Yes" if man["hasHit"] else "No").font = BODY
+        wv.cell(r, COL["Hit"], "Yes" if man["hasHit"] else "No").font = BODY
     if man.get("hitRarity"):
         wv.cell(r, COL["Hit Rarity"], man["hitRarity"]).font = BODY
     if man.get("greatest"):
@@ -1098,10 +1128,11 @@ for r, v in enumerate(ordered, start=2):
         wv.cell(r, COL["Greatest Hits Rank"], man["hofRank"]).font = BODY
     if man.get("playlistToAdd"):
         wv.cell(r, COL["Playlist To Add"], man["playlistToAdd"]).font = BODY
-    if man.get("box"):
-        wv.cell(r, COL["Box / Series"], man["box"]).font = BODY
+    # Box / Series is retired: Product Type, Product # and Set now carry what it
+    # was holding, each in its own column and each answerable without prose. Any
+    # value already in manual.json stays there and is simply not offered back.
     if man.get("hitCard"):
-        wv.cell(r, COL["Hit Card"], man["hitCard"]).font = BODY
+        wv.cell(r, COL["Hit Info"], man["hitCard"]).font = BODY
     for _k, _c in (("affiliate", "Affiliate Link"), ("siteTitle", "Site Title"),
                    ("blurb", "Short Description"), ("notes", "Notes")):
         if man.get(_k) and _c in COL:
@@ -1142,6 +1173,12 @@ last = len(ordered) + 1
 # the wrong column without anything appearing to break.
 CI = {head: i for i, (head, _, _) in enumerate(COLUMNS, start=1)}
 for dv_formula, cols in [
+    # TWO DROPDOWNS, exactly the two Tim asked to keep: "only one for dropdowns
+    # would be the set types, we can keep those dropdown so i dont have to type
+    # every time, and the product type can be dropdown". Both are closed
+    # vocabularies where a near miss silently misfiles a row; every other column
+    # is a number or a name only he can supply.
+    (DV_OPEN, [CI["Product Type"]]),
     (DV_SET_PRIMARY, [CI["Set"]]),
     (DV_SET, [CI["Set 2"], CI["Set 3"], CI["Set 4"], CI["Set 5"]]),
     # DROPDOWNS ARE NOW ON THE SET COLUMNS AND NOWHERE ELSE. Tim, 19 August
@@ -1293,15 +1330,14 @@ metrics = [
     # The rarity column is the one with the most left to do and it was the one
     # the progress tab never counted, so the summary read as further along than
     # the work actually was.
-    ("Hit rarity filled in", f'=COUNTA({L}!{CL("Hit Rarity")}2:{CL("Hit Rarity")}{last})'),
-    ("Pack count filled in", f'=COUNTA({L}!{CL("Packs")}2:{CL("Packs")}{last})'),
+    ("Packs in product filled in", f'=COUNTA({L}!{CL("Packs in Product")}2:{CL("Packs in Product")}{last})'),
     ("Still missing a pack count",
-     f'=COUNTA({L}!{CL("Video ID")}2:{CL("Video ID")}{last})-COUNTA({L}!{CL("Packs")}2:{CL("Packs")}{last})'),
-    ("Opening type filled in", f'=COUNTA({L}!{CL("Opening Type")}2:{CL("Opening Type")}{last})'),
-    ("Box number filled in", f'=COUNTA({L}!{CL("Box #")}2:{CL("Box #")}{last})'),
+     f'=COUNTA({L}!{CL("Video ID")}2:{CL("Video ID")}{last})-COUNTA({L}!{CL("Packs in Product")}2:{CL("Packs in Product")}{last})'),
+    ("Product type filled in", f'=COUNTA({L}!{CL("Product Type")}2:{CL("Product Type")}{last})'),
+    ("Product number filled in", f'=COUNTA({L}!{CL("Product #")}2:{CL("Product #")}{last})'),
     ("Pack number filled in", f'=COUNTA({L}!{CL("Pack #")}2:{CL("Pack #")}{last})'),
-    ("Marked as a hit", f'=COUNTIF({L}!{CL("Has Hit")}2:{CL("Has Hit")}{last},"Yes")'),
-    ("Hit card named", f'=COUNTA({L}!{CL("Hit Card")}2:{CL("Hit Card")}{last})'),
+    ("Marked as a hit", f'=COUNTIF({L}!{CL("Hit")}2:{CL("Hit")}{last},"Yes")'),
+    ("Hit card named", f'=COUNTA({L}!{CL("Hit Info")}2:{CL("Hit Info")}{last})'),
     ("In Greatest Hits", f'=COUNTIF({L}!{CL("Greatest Hits")}2:{CL("Greatest Hits")}{last},"Yes")'),
     ("Given a rank", f'=COUNTA({L}!{CL("Greatest Hits Rank")}2:{CL("Greatest Hits Rank")}{last})'),
     ("Affiliate links added", f'=COUNTA({L}!{CL("Affiliate Link")}2:{CL("Affiliate Link")}{last})'),

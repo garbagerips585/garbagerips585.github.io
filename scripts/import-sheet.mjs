@@ -422,21 +422,21 @@ const idx = {
   set: col("Set"), set2: col("Set 2"), set3: col("Set 3"), set4: col("Set 4"),
   set5: col("Set 5"),
   moreSets: col("More Sets"), box: col("Box / Series"),
-  opening: col("Opening Type"), packs: col("Packs Opened"), hasHit: col("Has Hit"),
+  opening: firstCol("Product Type", "Opening Type"), packs: col("Packs Opened"), hasHit: firstCol("Hit", "Has Hit"),
   // WHICH ONE OF THESE, AND WHICH PACK OUT OF IT. Both new, both optional, and
   // both go through firstCol for the reason the two comments below give: col()
   // is an exact match, and every column in this file that was ever renamed
   // returned -1 and took its whole feature down with no error. An export made
   // before these columns existed has neither header, gets -1 from both, and
   // imports exactly as it always did.
-  boxNo: firstCol("Box #", "Box Number", "Product #"),
+  boxNo: firstCol("Product #", "Box #", "Box Number"),
   packNo: firstCol("Pack #", "Pack Number", "Pack In Box"),
   // THE PER-SET PACK CELLS ARE THE SOURCE, NOT THE TOTAL COLUMN. See below.
   packCells: ["Packs", "Packs 2", "Packs 3", "Packs 4", "Packs 5"].map(col).filter((i) => i >= 0),
   // The header has been "Hit Card", "Hit Cards" and "Hit Card or Hit Cards"
   // across revisions, and col() is an exact match, so a stale name here reads as
   // an empty column and the whole feature goes quiet with no error.
-  hitCard: firstCol("Hit Card", "Hit Cards", "Hit Card or Hit Cards"),
+  hitCard: firstCol("Hit Info", "Hit Card", "Hit Cards", "Hit Card or Hit Cards"),
   rarity: col("Hit Rarity"),
   // The column has been called three things across three revisions of the
   // sheet. indexOf is exact, so a stale name here silently returns -1, every
