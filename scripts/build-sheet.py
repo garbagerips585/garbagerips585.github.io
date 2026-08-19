@@ -645,55 +645,33 @@ COLUMNS = [
     #
     # This replaces "More Sets", which was free text. Free text in one cell is
     # exactly what broke the hits: one typo and one stray comma cost two cards.
-    # SIX COLUMNS, ALL ADJACENT, ONE ROW PER VIDEO. Tim, 19 August 2026: "this
-    # execl document is still hard and confusing to fill in for products that
-    # have multiple cards set packs in them... rethink how the document is set
-    # up, so i can quickly watch the videos and just type in the info".
+    # FOUR COLUMNS. Tim, 19 August 2026: "I need it like this. Pitch Black ETB
+    # #3 , Pack 3 , Hit yes or no, Hit info and thats it. Most of the videos are
+    # only 1 pack being opened in the video so this format will work."
     #
-    # WHAT WAS ACTUALLY SLOW. A multi-set product needed TEN columns: Set and
-    # Packs, then Set 2 through Set 5 and Packs 2 through Packs 5, and the four
-    # extra pairs sat PAST a dozen other columns because they are filled on 13
-    # rows in 317. So the rare case was the one that made him scroll, and his
-    # oldest videos are all multi-set. His UPC spans five sets and his Collector
-    # Chest four; both were a horizontal expedition.
+    # ONE CELL FOR THE PRODUCT, WRITTEN AS HE SAYS IT. "Pitch Black ETB #3"
+    # carries the set, the product type and which one of that product, because
+    # that is how a person names the thing they are holding. Three columns asked
+    # him to take one sentence apart before typing it; this asks for the
+    # sentence. The importer takes it apart afterwards, which is the correct
+    # place for that work.
     #
-    # SETS AND PACKS IS NOW ONE CELL, written the way he already writes hits:
+    # PACK # IS THE ONLY NUMBER. One pack per video is the format on this
+    # channel, so a pack number means one pack opened and the site needs nothing
+    # else to count packs per set.
     #
-    #   Pitch Black 9
-    #   Phantasmal Flames 6, Mega Evolution 4, Destined Rivals 4, Journey Together 4
-    #
-    # Set name then a number, comma between sets. Ten columns become one, the
-    # rare case costs no more than the common one, and it is the same grammar as
-    # the Hit Info column two cells to the right rather than a second thing to
-    # remember.
-    #
-    # IT IS WHAT CAME OUT IN THIS VIDEO, not what the product holds, so Packs
-    # Opened is a plain sum of the numbers in it. That kills the last of the
-    # capacity-versus-opened ambiguity: there is no longer a column that could
-    # mean either.
-    #
-    # Capacity is not asked for at all any more. It is a property of the product
-    # type, the site already holds it in PRODUCT_TO_PACKS, and asking a person
-    # to retype "9" on every ETB row is asking them to do a lookup by hand.
-    ("Product", 26, "input"),
-    ("Product #", 10, "input"),
+    # SETS & PACKS SURVIVES AS AN OPTIONAL FIFTH COLUMN, blank on the vast
+    # majority. Tim: "I should start with all the videos with only one set and
+    # one pack, I can get those done quick, and then I can go back in and do the
+    # videos with multiple set and packs once we figure out the best way". So it
+    # is off the critical path rather than removed: a multi-set video is still
+    # recordable today, and the column can be redesigned later without touching
+    # the four that carry 300 rows.
+    ("Product", 34, "input"),
     ("Pack #", 8, "input"),
-    ("Sets & Packs", 54, "input"),
     ("Hit", 7, "input"),
     ("Hit Info", 54, "input"),
-    # THE FOUR EXTRA SET/PACKS PAIRS LIVE HERE, PAST THE DAILY COLUMNS.
-    #
-    # They used to sit directly after Set and Packs, which put nine columns he
-    # almost never touches between the two halves of his actual work: Set and
-    # Packs on one side, Opening Type through Hit Card on the other. Measured on
-    # his real sheet, that is about 270 characters of width scrolled past on
-    # every one of 313 rows, to reach columns used by 13 rows in total. Set 2 is
-    # filled 12 times, Set 3 twice, Set 4 twice, Set 5 never.
-    #
-    # NOT REMOVED. A UPC spanning five sets genuinely needs somewhere to record
-    # the split, and the argument for having them is untouched by where they
-    # sit. Each Set keeps its Packs beside it. Nothing reads these by position:
-    # import-sheet.mjs looks every column up by header name.
+    ("Sets & Packs", 44, "input"),
     ("Greatest Hits", 14, "hof"),
     ("Greatest Hits Rank", 18, "hof"),
     ("Playlist To Add", 18, "input"),
@@ -766,24 +744,31 @@ HEAD_NOTES = {
         "                            label reads 'Chaos Rising ETB 3 - Pack 3'.\n"
         "Nothing on the site prints any of these until you have typed them."
     ),
+    "Product": (
+        "WRITE IT THE WAY YOU SAY IT, all in this one cell:\n"
+        "\n"
+        "   Pitch Black ETB #3\n"
+        "   Journey Together Booster Bundle #2\n"
+        "   Paradox Rift Blister Pack\n"
+        "\n"
+        "Set, product, and which one of that product. Three columns used to ask\n"
+        "you to take that sentence apart before typing it. Now you type the\n"
+        "sentence and the import takes it apart.\n"
+        "\n"
+        "The Lists tab has every set name and product type if you want to copy\n"
+        "one exactly. Anything not recognised is reported back, never guessed."
+    ),
     "Sets & Packs": (
-        "WHAT CAME OUT OF THIS VIDEO. Set name, then how many packs of it.\n"
-        "Comma between sets. Same grammar as Hit Info.\n"
+        "LEAVE THIS BLANK unless the video opened packs from MORE THAN ONE SET.\n"
         "\n"
-        "ONE PACK:   Pitch Black 1\n"
-        "WHOLE ETB:  Pitch Black 9\n"
-        "MULTI SET:  Phantasmal Flames 6, Mega Evolution 4, Destined Rivals 4\n"
+        "Nearly every video is one pack from one set, and for those the Product\n"
+        "and Pack # cells already say everything. Do those first.\n"
         "\n"
-        "This replaces Set, Packs and the four Set 2-5 pairs. A UPC across five\n"
-        "sets used to need ten columns spread across the sheet. Now it is one\n"
-        "cell, and the rare case costs no more than the common one.\n"
+        "For a UPC or a chest that spans sets, write set and count:\n"
         "\n"
-        "It is what THIS VIDEO opened, not what the box holds. One pack out of\n"
-        "a nine-pack ETB is 1, not 9. Nothing else on the row asks for a pack\n"
-        "count, so there is no second number to disagree with this one.\n"
+        "   Phantasmal Flames 6, Mega Evolution 4, Destined Rivals 4\n"
         "\n"
-        "The Lists tab has all 174 set names to copy from. Anything not\n"
-        "recognised is reported back rather than silently dropped."
+        "We can rework this column once the single-set rows are done."
     ),
 
     "Packs": (
@@ -901,10 +886,10 @@ wv.auto_filter.ref = f"A1:{get_column_letter(len(COLUMNS))}{len(videos) + 1}"
 # unlike the blue "this is a guess" font colour, which is why that convention
 # was removed from this file rather than relied on.
 _ix = lambda h: _HEADS.index(h) + 1
-_first = get_column_letter(min(_ix(h) for h in ("Product", "Sets & Packs", "Hit")))
-_last = get_column_letter(max(_ix(h) for h in ("Product", "Sets & Packs", "Hit")))
+_first = get_column_letter(min(_ix(h) for h in ("Product", "Hit")))
+_last = get_column_letter(max(_ix(h) for h in ("Product", "Hit")))
 _need = "OR({})".format(",".join(
-    f'${get_column_letter(_ix(h))}2=""' for h in ("Product", "Sets & Packs", "Hit")))
+    f'${get_column_letter(_ix(h))}2=""' for h in ("Product", "Hit")))
 wv.conditional_formatting.add(
     f"{_first}2:{_last}{len(videos) + 1}",
     FormulaRule(formula=[_need], fill=PatternFill("solid", fgColor="FFF3D6"), stopIfTrue=False),
@@ -1071,8 +1056,6 @@ for r, v in enumerate(ordered, start=2):
     # prefills NOTHING into these columns, so anything present is an answer.
     if man.get("openingType"):
         wv.cell(r, COL["Product"], man["openingType"]).font = BODY
-    if man.get("boxNumber"):
-        wv.cell(r, COL["Product #"], man["boxNumber"]).font = BODY
     if man.get("packNumber"):
         wv.cell(r, COL["Pack #"], man["packNumber"]).font = BODY
     if man.get("hasHit") is not None:
@@ -1147,7 +1130,11 @@ for dv_formula, cols in [
     # control can express: the same reason Hit Info has never had one. The Lists
     # tab still carries all 174 set names to copy from, and the importer matches
     # what he types against them and reports anything it cannot place.
-    (DV_OPEN, [CI["Product"]]),
+    # NO DROPDOWN LEFT ON THE VIDEO LOG. Product is now one written phrase,
+    # "Pitch Black ETB #3", carrying a set AND a type AND a number, which no
+    # single-select control can offer. The Lists tab still holds every set name
+    # and every product type to copy from, and the importer matches what he
+    # writes against both and reports anything it cannot place.
     # DROPDOWNS ARE NOW ON THE SET COLUMNS AND NOWHERE ELSE. Tim, 19 August
     # 2026: "only really need the dropdown for what cardsets are in the video,
     # the rest I can fill in myself will be easier".
@@ -1299,7 +1286,6 @@ metrics = [
     ("Sets & Packs filled in", f'=COUNTA({L}!{CL("Sets & Packs")}2:{CL("Sets & Packs")}{last})'),
     ("Still missing Sets & Packs",
      f'=COUNTA({L}!{CL("Video ID")}2:{CL("Video ID")}{last})-COUNTA({L}!{CL("Sets & Packs")}2:{CL("Sets & Packs")}{last})'),
-    ("Product number filled in", f'=COUNTA({L}!{CL("Product #")}2:{CL("Product #")}{last})'),
     ("Pack number filled in", f'=COUNTA({L}!{CL("Pack #")}2:{CL("Pack #")}{last})'),
     ("Marked as a hit", f'=COUNTIF({L}!{CL("Hit")}2:{CL("Hit")}{last},"Yes")'),
     ("Hit info written", f'=COUNTA({L}!{CL("Hit Info")}2:{CL("Hit Info")}{last})'),

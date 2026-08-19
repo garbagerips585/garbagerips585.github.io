@@ -422,6 +422,11 @@ const idx = {
   set: col("Set"), set2: col("Set 2"), set3: col("Set 3"), set4: col("Set 4"),
   set5: col("Set 5"),
   moreSets: col("More Sets"), box: col("Box / Series"),
+  // ONE WRITTEN PHRASE: "Pitch Black ETB #3". Set, product type and which one
+  // of that product, in the order a person says them. It replaces three
+  // columns, because asking him to take his own sentence apart before typing it
+  // was the slow part; taking it apart afterwards is this script's job.
+  product: firstCol("Product", "Product Type", "Opening Type"),
   opening: firstCol("Product", "Product Type", "Opening Type"),
   packs: col("Packs Opened"), hasHit: firstCol("Hit", "Has Hit"),
   // ONE CELL CARRYING EVERY SET AND ITS PACK COUNT: "Phantasmal Flames 6, Mega
@@ -712,7 +717,39 @@ for (const [n, r] of rows.slice(1).entries()) {
     if (setIds.length > 1) counted.multiSet++;
   }
 
-  const opening = get(r, idx.opening);
+  // TAKE THE PRODUCT PHRASE APART. "Pitch Black ETB #3" yields the set, the
+  // product type and the product number; a bare "ETB" still yields just the
+  // type, so an older sheet keeps working.
+  //
+  // Matched against the real lists, longest name first, so "Mega Evolution
+  // Pitch Black" beats "Pitch Black" and "Elite Trainer Box" beats "Box". The
+  // trailing number is the WHICH-ONE, taken only when it follows the product
+  // words, so a set with a digit in its name cannot be read as a count.
+  const productPhrase = get(r, idx.product);
+  if (productPhrase) {
+    const low = productPhrase.toLowerCase();
+    const NAMES = [...setIdByName.keys()].sort((a, b) => b.length - a.length);
+    const setHit = NAMES.find((n) => low.includes(n));
+    if (setHit && !setIds.length) {
+      setIds.push(setIdByName.get(setHit));
+      overrides[id] = { ...(overrides[id] || {}), sets: setIds };
+      counted.set++;
+    }
+    const PROSE = {
+      "elite trainer box": "etb (elite trainer box)", etb: "etb (elite trainer box)",
+      "booster bundle": "booster bundle", bundle: "booster bundle",
+      "booster box": "booster box", "blister pack": "blister pack",
+      "collector chest": "collector chest", "mini tin": "mini tin",
+      upc: "upc", spc: "spc", "single pack": "single pack",
+    };
+    const keys = [...Object.keys(PRODUCT_IDS), ...Object.keys(PROSE)].sort((a, b) => b.length - a.length);
+    const kind = keys.find((k) => low.includes(k));
+    if (kind) m.openingType = PROSE[kind] || kind;
+    const num = /(?:etb|box|bundle|tin|upc|spc|blister|chest|collection|pack)\s*#?\s*(\d{1,2})\b/i.exec(productPhrase);
+    if (num && m.boxNumber == null) m.boxNumber = Number(num[1]);
+  }
+
+  const opening = m.openingType || get(r, idx.opening);
   if (opening) {
     const key = opening.toLowerCase();
     if (!(key in PRODUCT_IDS)) unknownOpening.add(opening);
