@@ -968,7 +968,18 @@ const CSS = `
    gaps are the point, because a filtered view that renumbers itself is quietly
    claiming to be a different top 100. */
 .t100-filter{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:var(--s4)}
+/* 44px, up from a measured 35.7. These two buttons are the only control on the
+   page: they are what a reader uses to take the cases and displays out of a
+   hundred-row table, and at 35.7 they were the smallest primary control on the
+   site. 35.7 cleared 2.5.8's 24px AA floor, so this is the 2.5.5 AAA target,
+   taken because the page is read one-handed on a phone.
+   min-height rather than more padding, so the horizontal padding and therefore
+   the pill's width and the wrap point are all unchanged; only the height moves.
+   The parent's gap:8px is row and column gap both, so the 8px between the two
+   buttons and between them and the count paragraph survives. Re-measured after:
+   68.1x44 and 171.3x44, still 8px apart. */
 .t100-filter button{font:inherit;font-size:var(--t-sm);padding:6px 12px;cursor:pointer;
+  min-height:44px;
   background:var(--card);border:1px solid var(--keyline);border-radius:var(--r-pill);color:var(--ink)}
 .t100-filter button[aria-pressed="true"]{background:var(--mustard);color:var(--on-accent)}
 .t100-filter p{margin:0;font-size:var(--t-sm);color:var(--ink-2)}

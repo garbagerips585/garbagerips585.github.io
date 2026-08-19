@@ -425,6 +425,87 @@ if _squash(_css) != _squash(_built):
         "edit the generated public/assets/ui.css by hand)."
     )
 
+# ---------------------------------------------------------------------------
+# EVERY ASSET LINK IN THE BUILT TREE CARRIES A ?v=, AND IT MATCHES THE BYTES
+# BEING SERVED.
+#
+# The cache-busting story has always had a hole in the middle of it and nothing
+# looked at it. shared/chrome.mjs stamped ui.css and app.js and emitted
+# fonts.css, packs.css and packplayer.js bare; scripts/stamp-assets.mjs swept
+# public/ at the END of build-all.mjs and added the rest. That is airtight for a
+# full build and open for every other kind. Run one builder by hand, which is
+# the ordinary way to work on one page family, and every page it just wrote
+# ships a bare /assets/fonts.css. A browser holding an older copy keeps using
+# it, which is invisible for a font and is the exact failure the hits-grid bug
+# was: markup shipped, rules not. The next full build repairs it silently, so
+# the window opens and closes without ever being visible.
+#
+# chrome.mjs emits all five stamped now. THIS IS THE OTHER HALF, and it is the
+# half that does not go stale: it does not care which file forgot, or whether a
+# new builder writes its own head, or whether somebody hand-edits one of the
+# three hand-maintained pages. It asks the only question that matters about the
+# built tree, which is what a reader is actually served.
+#
+# IT CHECKS THE HASH, NOT JUST THE PRESENCE OF A ?v=. A stamp that does not
+# match the file is worse than none: it looks correct in every review and pins
+# a browser to a stale copy for as long as the wrong hash keeps being emitted.
+# The value is stamp-assets.mjs's own: sha1 of the served bytes, first 8 hex.
+import hashlib
+
+_ASSET_RE = _re.compile(r'(?:href|src)="(/assets/[^"?]+\.(?:css|js))(\?v=([a-f0-9]+))?"')
+_asset_hash: dict = {}
+
+
+def _hash_of(rel):
+    if rel not in _asset_hash:
+        p = os.path.join(ROOT, "public", rel.lstrip("/"))
+        try:
+            with open(p, "rb") as fh:
+                _asset_hash[rel] = hashlib.sha1(fh.read()).hexdigest()[:8]
+        except OSError:
+            _asset_hash[rel] = None
+    return _asset_hash[rel]
+
+
+_bare, _wrong, _missing_asset = [], [], []
+for _f in pages:
+    _html = open(_f, encoding="utf-8").read()
+    for _m in _ASSET_RE.finditer(_html):
+        _rel, _stamp = _m.group(1), _m.group(3)
+        _want = _hash_of(_rel)
+        if _want is None:
+            _missing_asset.append((_f, _rel))
+        elif _stamp is None:
+            _bare.append((_f, _rel))
+        elif _stamp != _want:
+            _wrong.append((_f, _rel, _stamp, _want))
+
+
+def _some(rows, n=3):
+    return "; ".join(r[0] + " -> " + r[1] for r in rows[:n]) + (f" (+{len(rows) - n} more)" if len(rows) > n else "")
+
+
+if _bare:
+    fail.append(
+        f"{len(_bare)} asset link(s) across the built tree carry no ?v= cache buster: "
+        f"{_some(_bare)}. Run node scripts/stamp-assets.mjs (it runs LAST in "
+        "build-all.mjs, so anything that regenerated a page afterwards undid it)."
+    )
+if _wrong:
+    fail.append(
+        f"{len(_wrong)} asset link(s) carry a ?v= that is NOT the sha1 of the file being "
+        "served, which pins browsers to a stale copy: "
+        + "; ".join(f"{r[0]} -> {r[1]}?v={r[2]} but the file hashes to {r[3]}" for r in _wrong[:3])
+        + (f" (+{len(_wrong) - 3} more)" if len(_wrong) > 3 else "")
+        + ". Re-run node scripts/stamp-assets.mjs."
+    )
+if _missing_asset:
+    fail.append(
+        f"{len(_missing_asset)} page(s) link an asset that is not in public/assets/: {_some(_missing_asset)}"
+    )
+if not (_bare or _wrong or _missing_asset):
+    note(f"  every asset link stamped, {len([h for h in _asset_hash.values() if h])} distinct asset(s)")
+
 # TCGdex scans must keep their AVIF <source>, ON THE PAGES THAT ALREADY HAVE IT.
 #
 # TCGdex serves the same scan at four extensions off one path and AVIF is 29.7%

@@ -40,10 +40,21 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Every Rip","description":"Every Pokemon pack rip from Garbage Rips 585, filterable by card set and by product: single packs, booster bundles, ETBs, UPCs, ex boxes and booster boxes.","url":"https://garbagerips585.github.io/videos.html","isPartOf":{"@type":"WebSite","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/"},"about":{"@type":"Thing","name":"Pokemon Trading Card Game pack openings"},"publisher":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips585.github.io/","logo":{"@type":"ImageObject","url":"https://garbagerips585.github.io/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips585.github.io/"},{"@type":"ListItem","position":2,"name":"Every Rip","item":"https://garbagerips585.github.io/videos.html"}]}</script>
 <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
+<!-- THE PACK ART FOR THE FIRST TILES, GENERATED WITH THE GRID ITSELF.
+     This is the only marked region on the site that sits in a <head>, and it
+     is here rather than typed out because the packs it names are the first
+     entries of LIBGRID below: publish a rip for a different set and the grid
+     changes without this line, which is how a preload turns into a wasted
+     round trip that nobody notices. build-proto.mjs derives both from the same
+     sorted list. Reasoning and the before/after measurement are in the note
+     beside libPreloadHtml there. Do not hand-edit between the markers. -->
+<!-- LIBPRELOAD:START -->
+<link rel="preload" as="image" href="/assets/packs/chaos-rising-garbage-rips-585-booster-pack-tile.avif" type="image/avif" fetchpriority="high">
+<!-- LIBPRELOAD:END -->
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/ui.css?v=e5bbaf81">
+<link rel="stylesheet" href="/assets/ui.css?v=b92402d7">
 <link rel="stylesheet" href="/assets/packs.css?v=e32b0800">
 </head>
 <body>
@@ -315,7 +326,23 @@
 <!-- LIBGRID:END --></div>
 
     <div class="more">
-      <a href="#" id="libMore" hidden>Load more</a>
+      <!-- A BUTTON, NOT AN ANCHOR. This was <a href="#" id="libMore">, which is a
+       button wearing a link's clothes: app.js binds a click handler that pages
+       the grid and nothing here ever navigates. Three things followed from the
+       wrong element and only the third is cosmetic.
+       It announced as "Load 48 more (268 left), link", telling a screen reader
+       user they were about to leave the page when they were about to extend it.
+       Space did not work: a button activates on Space and Enter, an anchor only
+       on Enter, so a keyboard user reaching for the obvious key scrolled the
+       page instead. And href="#" is a jump to the top for anyone whose script
+       has not arrived.
+       THE JS-OFF CASE WAS ALREADY SAFE and that is why this was not urgent: it
+       ships `hidden` and only app.js reveals it, so a reader with no script
+       never sees it at all. type="button" is explicit so it can never submit
+       anything if this markup is ever moved inside a form.
+       ui.css's .more rule names both elements, so the two render identically;
+       verified by screenshotting the revealed control before and after. -->
+  <button type="button" id="libMore" hidden>Load more</button>
     </div>
   </div>
 </main>

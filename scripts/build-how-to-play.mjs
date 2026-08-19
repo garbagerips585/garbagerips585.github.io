@@ -368,7 +368,16 @@ const style = `
 .hp-s > p{max-width:44em;line-height:1.6}
 .hp-s > p + p{margin-top:var(--s3)}
 .hp-jump{display:flex;flex-wrap:wrap;gap:8px;margin:var(--s5) 0 0}
-.hp-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
+/* min-height 44, not 40. WCAG 2.5.5 asks for 44x44 and these chips are the
+   page's primary navigation on a phone: they are the only way to reach a
+   section without scrolling the whole article. Measured 40px before this, so
+   they already cleared 2.5.8's 24px AA floor -- this is the AAA target, taken
+   because a one-handed reader thumbing down the page hits these first.
+   THE GAP IS UNTOUCHED AND HAS TO STAY THAT WAY: the parent sets gap:8px,
+   which is row AND column gap, so growing the box does not close the 8px
+   between two chips or between two wrapped rows. Re-measured after: 44px tall,
+   still 8px apart in both axes. */
+.hp-jump a{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--s3);
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
   text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
 .hp-jump a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}

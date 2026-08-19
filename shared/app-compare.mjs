@@ -88,8 +88,23 @@ export const COMPARE_ROWS = [
  * that overflows its wrapper makes the whole PAGE scroll sideways, which is the
  * one layout failure that is obvious to every reader and invisible in a desktop
  * screenshot. .cmp-w is overflow-x:auto for exactly that reason.
+ *
+ * AND THEREFORE tabindex="0" + role="region" + aria-label, the same affordance
+ * .xp-scroll, .cc-scroll, .gc-tw and .op-tw carry, for the reason set out at
+ * length in scripts/build-expansions.mjs: a box that scrolls sideways and that a
+ * keyboard cannot focus is content a keyboard cannot read.
+ *
+ * THIS IS THE WORST CASE OF THE FOUR AND IT WAS THE ONE LEFT OUT. Every cell in
+ * this table is plain text: there is not one link, button or input inside it, so
+ * there is nothing to tab to and no way to move it. Chrome 127 grants implicit
+ * focus to a scroller with no focusable children and hides the failure; Firefox
+ * and Safari do not, and on those the third column was simply unreachable
+ * without a mouse. Measured at 390x844: scrollWidth 374 against clientWidth 360,
+ * so 14px hidden -- and 84px at 320x568, which is most of the "Pokemon TCG
+ * Pocket" column heading. A comparison table missing one of the two things it
+ * compares is not a small loss.
  */
-export const compareTable = (esc) => `        <div class="cmp-w">
+export const compareTable = (esc) => `        <div class="cmp-w" tabindex="0" role="region" aria-label="Pokemon TCG Live compared with Pokemon TCG Pocket, scrollable table">
           <table class="cmp">
             <caption class="sr-only">Pokemon TCG Live compared with Pokemon TCG Pocket, row by row.</caption>
             <thead>

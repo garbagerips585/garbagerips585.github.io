@@ -22,7 +22,7 @@
 <link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=86ef14e3">
-<link rel="stylesheet" href="/assets/ui.css?v=e5bbaf81">
+<link rel="stylesheet" href="/assets/ui.css?v=b92402d7">
 <style>
 /* ---------------------------------------------------------------------------
    This page carries its own rules rather than adding to assets-source/ui.css,
@@ -45,8 +45,24 @@
 .vg-rail-in{display:flex;gap:var(--s2);overflow-x:auto;overflow-y:hidden;
   scrollbar-width:thin;padding:var(--s2) var(--s4);max-width:var(--wrap);margin:0 auto;
   -webkit-overflow-scrolling:touch}
+/* min-height 44, not 40. WCAG 2.5.5 asks for 44x44 and the paragraph above is
+   the argument for why these are primary controls rather than decoration: on a
+   thirteen-thousand-pixel page this rail is the only way back to a generation.
+   40px cleared 2.5.8's 24px AA floor already; 44 is the AAA target, taken
+   because a one-handed reader thumbing down this page hits these first.
+   Spacing is unaffected -- .vg-rail-in sets gap:var(--s2), which is 8px, and
+   this row scrolls rather than wraps, so there is one axis to keep clear and
+   the gap is not derived from the chip height. Re-measured: 44px tall, 8px apart.
+
+   IT MAKES THE STICKY RAIL 4px TALLER AND THAT NUMBER IS SPENT SOMEWHERE ELSE.
+   .vg-era below reserves calc(var(--bar-h) + 64px) of scroll-margin so an
+   anchor jump does not park a heading underneath the rail. The rail is
+   44 + 2*var(--s2) + 2px of border = 62px, against 58px before, so the 64px
+   reserve still covers it with 2px to spare instead of 6. Verified by jumping
+   to an era anchor and reading the heading's top against the rail's bottom.
+   If this chip ever grows again, that 64 has to grow with it. */
 .vg-rail a{flex:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;
-  text-transform:uppercase;padding:10px 12px;min-height:40px;display:flex;align-items:center;
+  text-transform:uppercase;padding:10px 12px;min-height:44px;display:flex;align-items:center;
   border:2px solid var(--keyline);border-radius:var(--r-pill);color:var(--ink);
   text-decoration:none;background:var(--paper-2);white-space:nowrap}
 .vg-rail a:hover,.vg-rail a:focus-visible{background:var(--mustard);color:var(--on-accent)}

@@ -787,10 +787,18 @@ main{padding:var(--s4) 0 var(--s8)}
 .v p{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.03em;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .more{grid-column:1/-1;display:flex;justify-content:center;margin-top:var(--s5)}
-.more a{font:700 var(--t-body)/1 var(--body);background:var(--card);border:2px solid var(--ink);
+/* BOTH ELEMENTS, because /videos.html's "Load 48 more" is a <button> now and
+   the two have to be indistinguishable. It was an <a href="#"> with a click
+   handler; the argument is in videos.html beside the markup. A button does not
+   inherit colour or cursor from an anchor rule, so those two are added here and
+   are the whole difference: `font:` already restates the family and size, and
+   background, border, radius, padding, height and shadow were always set
+   explicitly. Screenshotted revealed-and-focused before and after to confirm
+   the pill is the same pixels. */
+.more a,.more button{font:700 var(--t-body)/1 var(--body);background:var(--card);border:2px solid var(--ink);
   border-radius:var(--r-pill);padding:0 var(--s6);height:52px;display:inline-flex;
-  align-items:center;box-shadow:var(--lift)}
-.more a:hover{background:var(--mustard);color:var(--on-accent)}
+  align-items:center;box-shadow:var(--lift);color:var(--ink);cursor:pointer}
+.more a:hover,.more button:hover{background:var(--mustard);color:var(--on-accent)}
 
 /* --------------------------------------------------------------------------
    Card Pokedex. The reading half of the site, after the watching half. Each tile is
@@ -1448,7 +1456,19 @@ section.band-sky .sec-label{color:var(--sky)}section.band-navy .sec-label{color:
   border-radius:999px;padding:9px 16px 9px 38px;
 }
 .search input::placeholder{color:var(--ink-soft)}
-.search input:focus{border-color:var(--mustard);outline:none;box-shadow:0 0 0 3px rgba(112,181,217,.4)}
+/* NO PAGE IN public/ CARRIES .search. It is kept because this file does not
+   delete rules for being unused (see CLAUDE.md), and it is fixed rather than
+   left broken for whoever uses it next -- the same treatment section.band-gold
+   gets further down.
+   It was `outline:none` plus `box-shadow:0 0 0 3px rgba(112,181,217,.4)`: the
+   site's ring deleted, and replaced by a hard-coded raw --sky at 40% alpha,
+   which is a value that predates the repaint and would not track it. A 40%
+   teal wash is also the only focus indicator on the site that is not a solid
+   edge. Brought onto the shared ring so that the day somebody puts a .search
+   field on a page it does not arrive with a private focus state. */
+.search input:focus-visible{border-color:var(--mustard);
+  outline:3px solid var(--ketchup-deep);outline-offset:2px;
+  box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 .search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:15px;height:15px;fill:var(--ink-soft);pointer-events:none}
 @media(max-width:900px){.search{max-width:none;order:3;flex-basis:100%}}.hero-art .lede{color:var(--ink)}
 h1 .rip{color:var(--ketchup);text-shadow:5px 5px 0 var(--trubbish)}.btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
@@ -1511,6 +1531,40 @@ footer .soc svg{fill:var(--chrome-ink)}
    Matching colours is precisely why it has to stay. */
 .crumbs a{color:var(--sky-deep);text-decoration:underline;
   text-decoration-thickness:1px;text-underline-offset:2px}
+/* THE HIT AREA GROWS TO 44px AND THE VISUAL BOX DOES NOT MOVE ONE PIXEL.
+   A crumb measures 28.2x17 on 20 pages (70.5x17 for the longer ones on set
+   pages). That clears WCAG 2.5.8's 24px AA floor on the long axis but not the
+   short one, and it is nowhere near the 44px 2.5.5 asks for.
+
+   IT IS NOT MADE 44px TALL, AND THAT IS THE POINT. A breadcrumb is a small
+   secondary control sitting inside a line of text: .crumbs is an 11.52px mono
+   line with a 17.856px line box, and a 44px link in it would either treble the
+   line's height or overlap the type above and below. 2.5.5's own note allows
+   for exactly this by talking about the target, not the visible control, so the
+   fix is an overlay that is 44px tall and invisible.
+
+   AN ::after OVERLAY RATHER THAN VERTICAL PADDING, which is the other textbook
+   answer. Padding on an inline element does grow the hit area without touching
+   the line box, so the layout would be identical either way -- but `outline`
+   follows the padding box, so a focused crumb would draw the site's 3px pink
+   ring 44px tall around a 17px word, overlapping the line above. That is a
+   visible change to a focus state, and this pass is not allowed to make those.
+   The overlay grows the target and leaves the ring on the word.
+
+   CLEARANCE WAS MEASURED BEFORE IT WAS WIDENED, not after. The overlay reaches
+   13.5px above and below the crumb. The nearest focusable above is 72px away
+   (the nav bar, on /buying.html and /search.html, the tightest of the five
+   pages checked) and the nearest below is 95.5px, so the closest any two
+   targets come is 58.5px. Sideways nothing moves at all: no horizontal padding
+   is added, so the 21.2px between "Home" and the next crumb is untouched and
+   the " / " separators are still plain text that nothing can tap.
+   This assumes .crumbs stays on ONE line, which it does at 390px -- the widest
+   crumb measured is 70.5px in a 366px wrap. A wrapping trail would give the
+   absolutely positioned overlay the whole bounding box and it would need a
+   different fix. */
+.crumbs a{position:relative}
+.crumbs a::after{content:"";position:absolute;left:0;right:0;top:50%;
+  height:44px;transform:translateY(-50%)}
 .rip-nav{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
 
 /* ---------- set logo on a video page ---------- */
@@ -2125,6 +2179,95 @@ footer .soc svg{fill:var(--chrome-ink)}
    mistake, and it costs one attribute. */
 .menu a[aria-current=page],.nav-links a[aria-current=page]{background:var(--mustard);color:var(--on-accent)}
 
+/* MAKING THE DESKTOP PANEL FIT A 13 INCH LAPTOP, 18 August 2026.
+   THIS BLOCK IS DOWN HERE ON PURPOSE AND MOVING IT UP SILENTLY BREAKS IT. The
+   desktop panel is declared in the `min-width:821` block ~800 lines above, but
+   `.menu-h`, `.menu-sub` and `.menu ul` are re-declared BELOW that block at
+   equal specificity, so a padding written up there loses to source order and
+   does nothing. Same trap the Topps hero hit with `.set-hero .wrap`. It has to
+   sit after the last single-class `.menu-*` rule, which is the one above.
+
+   THE FAULT. `.menu-inner` content was 818px against a panel box of 738px at
+   1280x800 and 638px at 1440x700, so the panel needed about 878px of viewport
+   to show itself. Measured in headless Chrome over CDP on /start.html, menu
+   opened with a real click on #menuBtn, innerWidth asserted equal to the width
+   set on every single row before the numbers were believed. A link counts as
+   unreachable if it is outside the panel's scroll box at scroll top OR if
+   document.elementFromPoint at its own centre returns something else, which is
+   what catches a link sitting under the sticky Subscribe pill:
+
+                        BEFORE                        AFTER
+       1280x800    818/738  scrolls 80   2 hidden    666/666  FITS   0 hidden
+       1440x900    818/818  fits         0 hidden    666/666  FITS   0 hidden
+       1440x700    818/638  scrolls 180  8 hidden    666/638  sc 28  0 hidden
+       1920x1080   818/818  fits         0 hidden    666/666  FITS   0 hidden
+
+   THE OBVIOUS FIX IS A FIFTH COLUMN AND IT MEASURES AS EXACTLY NOTHING. The
+   note in the `min-width:821` block reads as "four columns beat three", so the
+   next move looks like five. Built and measured: `columns:5` at the panel's
+   820px leaves the content at 818px, byte for byte the same height, and only
+   narrows the columns from 203px to 162px. CSS multicol fills IN SOURCE ORDER
+   and `break-inside:avoid` will not split a group, so the height is set by the
+   greedy fill, and with these eight blocks the smallest height that fits in
+   five columns is the same one that fits in four. More columns cannot help a
+   packing problem that is really a tallest-block problem. Do not try it again.
+
+   WHAT THE HEIGHT ACTUALLY IS, so the ceiling is arithmetic rather than taste:
+
+       panel content = 2 x .menu-inner padding + tallest column + Subscribe block
+
+   The tallest column is always two groups, because eight groups over four
+   columns is two each, and the best possible pairing of the current group
+   sizes (5 8 5 7 8 5 5 5 links) puts an 8 with a 5 twice. So:
+
+       tallest column = 2 headings + 13 rows + 2 group margins
+
+   At the old 48px row that is 706px and the panel is 818px, which no pairing
+   and no column count can get under 738. THE ROW HEIGHT IS THE ONLY LEVER THE
+   PACKING LEAVES. 44px alone reaches 762 and still scrolls; 44px plus the
+   chrome trimmed here reaches 718, which fits 1280x800 but still leaves 2 links
+   under the pill at 1440x700. (That 718 was measured with the row rule written
+   as `.menu a`, so it had the pill at 44 too and is 4px optimistic; the point
+   stands either way.) 40px plus the trim is the only variant measured with ZERO
+   unreachable links at all four viewports, so that is what this is.
+
+   40px IS BELOW THE 44px FLOOR THIS FILE ARGUES FOR ELSEWHERE AND THAT IS
+   DELIBERATE, NOT AN OVERSIGHT. That floor is a TOUCH floor and it is stated as
+   one ("44px, which is the touch target floor"); it is untouched on the phone,
+   where `max-width:820` still sets 44 and the accordion still sets 48 on a
+   summary. Everything in here is `min-width:821`, which is a pointer surface,
+   and 40 x 189px is well past WCAG 2.5.8's 24 x 24. A link you cannot see is
+   worth less than four pixels of padding, which is the same trade the phone
+   rule already made in the other direction.
+
+   1440x700 STILL SCROLLS 28px AND THAT IS THE HONEST RESULT. Every one of the
+   48 links is on screen and hit-testable there; what falls below the fold is
+   28px of the pill's own margin, and the pill is sticky so it is on screen and
+   clickable anyway. Fitting 638px would need a 34px row, which is smaller than
+   this design should go for one very short window.
+
+   RE-MEASURE THIS IF NAV GROWS. The budget at 1280x800 is 738px and the panel
+   is 666px, so there are 72px of headroom, which is ONE more link in the
+   tallest column and nothing else. A ninth group does not help by itself: it
+   helps only if it takes links out of one of the two eight-link groups.
+
+   THE ROW RULE IS SCOPED TO .menu-inner AND NOT TO .menu, WHICH IS THE THIRD
+   TIME THIS FILE HAS LOST TO THE SAME PAIR. `.menu a` is 0-1-1 and `.menu-sub`
+   is 0-1-0, so a
+   min-height written as `.menu a` outranks the pill's own 48px exactly the way
+   it outranks the pill's own colour a hundred lines up, and the Subscribe
+   control quietly shrank to 40px with it. Measured at 821x900: pill 48 -> 40
+   before this selector was narrowed, 48 after. The pill is a SIBLING of
+   .menu-inner, so scoping the rule to the columns cannot reach it at all,
+   which is a fence rather than a bigger number. */
+@media(min-width:821px){
+  .menu-inner{padding:var(--s3)}
+  .menu-h{padding:var(--s2) var(--s3) 6px}
+  .menu-g{margin-bottom:var(--s1)}
+  .menu-inner a{min-height:40px}
+  .menu-sub{margin:var(--s2) var(--s3)}
+}
+
 /* The lead chip keeps the filled look it had from aria-current, which was
    doing double duty as styling and as a (false) accessibility claim. */
 .chip-lead{background:var(--mustard);color:var(--on-accent);border-color:var(--mustard)}
@@ -2545,7 +2688,28 @@ footer .soc svg{fill:var(--chrome-ink)}
   color:var(--ink);background:var(--card);border:2px solid var(--keyline);
   border-radius:999px;box-shadow:var(--lift);appearance:none;
 }
-.cardsearch input:focus,.cardsearch select:focus{outline:3px solid var(--gold);outline-offset:2px}
+/* THIS WAS THE ONE CONTROL ON THE SITE NOT USING THE SITE'S FOCUS RING, and it
+   is the search box. It read `outline:3px solid var(--gold)` with no halo, and
+   --gold is #609CBB in this palette: against the field's own --card fill that
+   is 3.03:1, which passes WCAG 1.4.11 by three hundredths and is the weakest
+   focus indicator measured anywhere in the tree. Every other focusable was
+   swept the same way -- 54 distinct ones across 18 pages, forcing
+   :focus-visible over CDP -- and the lowest of the other 53 is 4.51:1.
+   --ketchup-deep is 4.51:1 on --card and 6.25:1 on --page.
+
+   THE HALO HAS TO BE RESTATED WITH --lift OR THE FIELD GOES FLAT ON FOCUS.
+   box-shadow does not compose: the base :focus-visible rule's white ring would
+   replace --lift outright, so the field would lose its drop shadow the moment
+   you tabbed to it. Both are listed, lift first.
+
+   :focus-visible RATHER THAN :focus, to match the rest of the file. No
+   indicator is lost by the change: browsers always match :focus-visible on a
+   text input and on a select, however it was focused, because you are about to
+   type into it. Verified on both by forcing neither pseudo-class and clicking
+   the field with a real mouse event. */
+.cardsearch input:focus-visible,.cardsearch select:focus-visible{
+  outline:3px solid var(--ketchup-deep);outline-offset:2px;
+  box-shadow:var(--lift),0 0 0 5px rgba(255,255,255,.95)}
 .cardsearch select{background-image:none}
 .cq-status{font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.04em;text-transform:uppercase;
   color:var(--ink-2);margin-top:var(--s3);min-height:1.4em}
@@ -4451,6 +4615,23 @@ section.band-gold .hl{color:var(--on-accent);text-shadow:3px 3px 0 var(--chip-go
    element therefore silently destroys half the indicator, and box-shadow is a
    single property so there is no way to set a drop shadow without taking the
    ring with it.
+
+   THE PARAGRAPH ABOVE IS KEPT BECAUSE IT EXPLAINS THESE RULES, AND ITS FIRST
+   SENTENCE IS NO LONGER TRUE. #6E5000 was the ring before the Trubbish Deep
+   repaint. --ketchup-deep is #EEA0B9 now, and it measures 4.51:1 against
+   --card and 6.25:1 against --page, so the outline alone clears 1.4.11 on both
+   of the site's grounds. Re-measured 18 August 2026 the same way as the
+   original: :focus-visible forced over CDP on 54 distinct focusables across 18
+   pages, contrast computed against the first opaque background behind each.
+   NOT ONE is below 3:1 and the lowest is 4.51.
+
+   SO DO NOT READ THIS BLOCK AS "SEVENTEEN ELEMENTS ARE FAILING". Seventeen
+   focusables do have a box-shadow of their own and therefore no white ring,
+   and every one of them passes on the outline alone. They were counted and
+   left. What the halo still buys is the case the ratio above cannot promise:
+   a ring that lands over ARTWORK rather than over a flat token, where there is
+   no single background colour to have measured. That is why the rule below
+   stays and why the advice in the next paragraph stays with it.
 
    Measured 16 August 2026 by forcing :focus-visible over CDP and reading the
    computed value. Three elements had no halo at all:

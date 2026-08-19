@@ -1033,10 +1033,79 @@ function libCard(v) {
 const LIB_TILES = 48;
 // app.js's default sort: newest first, and it compares the ISO strings rather
 // than parsing them. Same comparison here so the two orders cannot differ.
-const libHtml = [...videos]
-  .sort((a, b) => (a.published < b.published ? 1 : -1))
-  .slice(0, LIB_TILES)
-  .map(libCard)
+const libVideos = [...videos].sort((a, b) => (a.published < b.published ? 1 : -1)).slice(0, LIB_TILES);
+const libHtml = libVideos.map(libCard).join("\n");
+
+/*
+ * THE PACK IS /videos.html's LCP ELEMENT AND THE PRELOAD SCANNER CANNOT SEE IT.
+ *
+ * The identical problem the rip pages had, and this is the identical fix; see
+ * the long note beside the preload in scripts/build-pages.mjs for the reasoning
+ * and for why type="image/avif" is what makes it safe rather than a gamble.
+ *
+ * TILE, NOT THE FULL PACK. The rip page preloads
+ * `<set>-garbage-rips-585-booster-pack.avif` because its pack is a big hero.
+ * Every wrapper on this page carries .pack--tile, and packs.css overrides the
+ * background on `.pack--<set>.pack--tile .pack-art` to the `-tile` variant, a
+ * different file at ~39KB against ~110KB. Preloading the hero file here would
+ * fetch 110KB nothing on the page ever uses AND leave the tile still
+ * undiscovered until packs.css parsed: strictly worse than doing nothing.
+ *
+ * MEASURED, headless Chrome over CDP against a frozen snapshot of public/, so
+ * the only thing varying between the rows is this block. 390x844 DPR 2, Slow
+ * 4G, 4x CPU slowdown, cache off, 5 runs each, innerWidth asserted at 390 on
+ * every run. MEDIANS:
+ *
+ *      preloads      LCP        FCP     LCP element fetch starts at
+ *          0        3920ms     2728ms          +2678ms
+ *          1        2932ms     2932ms           +597ms
+ *          2        3140ms     3140ms           +597ms
+ *
+ * ONE. NOT TWO, AND TWO IS THE ANSWER THE REQUEST LOG TALKS YOU INTO: at 390
+ * the wall is two columns and Chrome fetches exactly two pack backgrounds in
+ * the first wave (chaos-rising, pitch-black), the other six distinct wrappers
+ * deferred to +6854ms. So preloading both looks like preloading "the first
+ * screen". It measured 208ms of LCP WORSE than preloading one. The second pack
+ * is 35.8KB on a 184KB/s pipe that ui.css is still using, and only the first
+ * one is ever the LCP element. Preload the LCP element, not the viewport.
+ *
+ * THE FCP COST IS REAL, IS THE SAME 39.5KB OF CONTENTION, AND IS THE TRADE.
+ * First paint goes 2728 -> 2932ms because ui.css now shares the pipe; largest
+ * paint goes 3920 -> 2932ms. Both land in the same frame afterwards, which is
+ * why the two columns are identical below row 0: the pack is now IN the first
+ * paint rather than a second paint 1.2s later. Quote the pair or quote neither.
+ *
+ * fetchpriority="high" WAS MEASURED AND CHANGES NOTHING HERE, 2932 against
+ * 2944ms median with it dropped. The pipe is bandwidth bound rather than
+ * priority bound at this profile, so it cannot buy back the FCP either. It
+ * stays only because it matches the rip pages, where the same attribute is on
+ * the same kind of link, and a reader comparing the two heads should not have
+ * to wonder what the difference means.
+ *
+ * Guarded on the tile file actually existing, not on `packs`, because `packs`
+ * is keyed off the full-size .webp: a set could in principle ship a hero and no
+ * tile, and a preload pointing at a 404 costs a request and buys nothing.
+ */
+const packTiles = await dirSet("packs", /-garbage-rips-585-booster-pack-tile\.avif$/);
+const LIB_PRELOAD = 1;
+const libPreloadHtml = [
+  ...new Set(
+    libVideos.map((v) => {
+      // The SAME wrapper choice as libCard above, and it has to stay that way:
+      // preloading a file the tile does not reference is a wasted round trip on
+      // the one connection that matters.
+      const all = v.sets || [];
+      if (all.length > 1) return "multi";
+      return all[0] || "default";
+    }),
+  ),
+]
+  .filter((s) => packTiles.has(s))
+  .slice(0, LIB_PRELOAD)
+  .map(
+    (s) =>
+      `<link rel="preload" as="image" href="/assets/packs/${s}-garbage-rips-585-booster-pack-tile.avif" type="image/avif" fetchpriority="high">`,
+  )
   .join("\n");
 
 const playlists = JSON.parse(
@@ -1776,10 +1845,15 @@ ${BRAND_STYLE_MIN}
 // DROPS is deliberately NOT here: index.html owns it and a missing marker there
 // must fail the build, because an empty region and a deleted marker look the
 // same on the page and only one of them is intended.
-const OWNED_ELSEWHERE = new Set(["LIBGRID", "PLGRID"]);
+// LIBPRELOAD is the first region this script writes into a <head>, and it is on
+// videos.html only: the packs it names are the first tiles of LIBGRID, so the
+// two have to be generated together or the preload drifts off the grid it was
+// derived from the next time a rip is published.
+const OWNED_ELSEWHERE = new Set(["LIBGRID", "LIBPRELOAD", "PLGRID"]);
 
 const REGIONS = {
   LIBGRID: libHtml,
+  LIBPRELOAD: libPreloadHtml,
   PLGRID: plHtml,
   HOMECSS: homeCss,
   // Empty when the week has passed or nothing fits, and the markers sit OUTSIDE

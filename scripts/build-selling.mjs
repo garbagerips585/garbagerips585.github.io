@@ -659,7 +659,16 @@ const style = `
 .pg figcaption{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);margin-top:var(--s4);max-width:52ch}
 .pg figcaption b{color:var(--ink);display:block;margin-top:var(--s3)}
 .se-jump{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:var(--s5) 0 var(--s4)}
-.se-jump a{display:inline-flex;align-items:center;min-height:40px;padding:0 var(--s3);
+/* min-height 44, not 40. WCAG 2.5.5 asks for 44x44 and these chips are the
+   page's primary navigation on a phone: they are the only way to reach a
+   section without scrolling the whole article. Measured 40px before this, so
+   they already cleared 2.5.8's 24px AA floor -- this is the AAA target, taken
+   because a one-handed reader thumbing down the page hits these first.
+   THE GAP IS UNTOUCHED AND HAS TO STAY THAT WAY: the parent sets gap:8px,
+   which is row AND column gap, so growing the box does not close the 8px
+   between two chips or between two wrapped rows. Re-measured after: 44px tall,
+   still 8px apart in both axes. */
+.se-jump a{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--s3);
   border:1px solid var(--hair);border-radius:var(--r-pill);background:var(--card);color:inherit;
   text-decoration:none;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;text-transform:uppercase}
 .se-jump a:hover{border-color:var(--ink);background:var(--mustard);color:var(--on-accent)}

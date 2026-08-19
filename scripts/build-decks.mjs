@@ -198,10 +198,23 @@ function listBlock(deck, i) {
     return `<div class="dk-col"><h4>${esc(sec)} <span class="dk-n">${total}</span></h4><ul>${rows}</ul></div>`;
   }).join("");
 
+  // tabindex="0" + role/aria-label on the <pre>, the same affordance the site's
+  // table scrollers carry (see scripts/build-expansions.mjs for the argument).
+  // .dk-pre is overflow-x:auto with white-space:pre and nothing focusable in it.
+  //
+  // THIS IS THE MARGINAL ONE OF THE FOUR AND THE NUMBERS SAY SO: it does not
+  // overflow at 390, only at 320, and only by 13px. It is fixed anyway because
+  // the cost is one attribute and the alternative is a rule that says "every
+  // scroller except this one". It adds NO tab stop to the page as loaded: all 18
+  // of these sit inside a closed <details>, and display:none content is not in
+  // the tab order, so only the block a reader has actually opened becomes
+  // focusable. The list is also rendered as structured columns directly above
+  // with a Copy button beside it, so nothing here was ever the only route to the
+  // content -- which is why this is the one to drop first if it ever gets in the way.
   return `<div class="dk-cols">${cols}</div>
 <details class="dk-raw">
   <summary>Show the raw import text</summary>
-  <pre id="dk-text-${i}" class="dk-pre">${esc(deck.list.text)}</pre>
+  <pre id="dk-text-${i}" class="dk-pre" tabindex="0" role="region" aria-label="${esc(deck.name)} raw import text, scrollable">${esc(deck.list.text)}</pre>
   <div class="dk-acts">
     <button type="button" class="dk-copy" data-target="dk-text-${i}">Copy the list</button>
     <a class="dk-dl" href="${deck.file}" download>Download the .txt</a>

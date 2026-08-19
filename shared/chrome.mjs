@@ -426,9 +426,47 @@ export const SKIP = `<a class="skip" href="#main">Skip to content</a>`;
 //
 // Only Outfit and Titan One. Space Mono is not on every page and preloading a
 // face a page never uses is pure waste on the same pipe.
+
+/**
+ * The cache-buster, for every asset this file links.
+ *
+ * WHY THIS EXISTS AS ONE HELPER RATHER THAN THREE MORE COPIES OF THE HASH.
+ * ui.css and app.js were stamped here from the day the stale-stylesheet bug was
+ * found, and fonts.css, packs.css and packplayer.js were left bare on the
+ * reasoning that scripts/stamp-assets.mjs sweeps public/ at the end of the
+ * build and adds them. It does, and that is exactly the hole: THE GUARANTEE
+ * ONLY HOLDS FOR A FULL BUILD. Run one builder by hand, which is the normal way
+ * to work on one page family, and every page it wrote ships with a bare
+ * /assets/fonts.css. Nothing errors, nothing looks wrong locally with a warm
+ * cache, and the next full build silently repairs it, so the window is invisible
+ * from both ends. On launch day a partial build is the likeliest kind there is.
+ *
+ * So the rule is now: THIS FILE EMITS EVERY ASSET LINK ALREADY STAMPED, and
+ * stamp-assets.mjs stays as the sweep that covers the pages this file does not
+ * write. Two independent passes agreeing is the point, not duplication: they
+ * compute the same sha1 of the same bytes, so a page stamped here is left alone
+ * there, and check-build.py now fails the build if either one missed something.
+ *
+ * SAFE TO HASH AT IMPORT TIME, which is the one thing to check before adding an
+ * asset to this list. Nothing in build-all.mjs rewrites fonts.css, packs.css or
+ * packplayer.js: fonts.css is hand maintained and committed, packs.css comes
+ * from build-packs.py which is deliberately not in the build, and packplayer.js
+ * is source. ui.css is the exception that proves it, and build-all.mjs runs
+ * build-css.mjs FIRST for exactly this reason. If you ever add a generated
+ * asset here, its generator has to run before any page builder or every page
+ * carries the hash of a file it is not serving.
+ */
+const assetV = async (rel) =>
+  createHash("sha1")
+    .update(await readFile(new URL(`../public/assets/${rel}`, import.meta.url)))
+    .digest("hex")
+    .slice(0, 8);
+
+const FONTS_V = await assetV("fonts.css");
+
 export const FONTS = `<link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css">`;
+<link rel="stylesheet" href="/assets/fonts.css?v=${FONTS_V}">`;
 
 /** Stylesheets, in the order they must load. */
 // CACHE BUST THE STYLESHEET, keyed to its own contents.
@@ -446,23 +484,19 @@ export const FONTS = `<link rel="preload" href="/assets/fonts/outfit-UYLknw.woff
 // Same treatment for the script. A stale app.js is worse than stale CSS: the
 // card search, the pack tear and the hits reveal all live in it, so a cached
 // copy silently disables features whose markup already shipped.
-export const APP_V = createHash("sha1")
-  .update(await readFile(new URL("../public/assets/app.js", import.meta.url)))
-  .digest("hex")
-  .slice(0, 8);
+export const APP_V = await assetV("app.js");
+const PACKPLAYER_V = await assetV("packplayer.js");
 // packplayer.js rides along on every page, not just rip pages: it is what makes
 // a tile play where it sits, and tiles are on the homepage, the set guides and
 // /videos.html. ~8KB, and it mounts nothing until something is clicked.
 export const APP_JS = `<script src="/assets/app.js?v=${APP_V}" defer></script>
-<script src="/assets/packplayer.js" defer></script>`;
+<script src="/assets/packplayer.js?v=${PACKPLAYER_V}" defer></script>`;
 
-const CSS_V = createHash("sha1")
-  .update(await readFile(new URL("../public/assets/ui.css", import.meta.url)))
-  .digest("hex")
-  .slice(0, 8);
+const CSS_V = await assetV("ui.css");
+const PACKS_V = await assetV("packs.css");
 
 export const STYLES = `<link rel="stylesheet" href="/assets/ui.css?v=${CSS_V}">
-<link rel="stylesheet" href="/assets/packs.css">`;
+<link rel="stylesheet" href="/assets/packs.css?v=${PACKS_V}">`;
 
 /**
  * The same two, for a page that has no pack and no rip tile on it.
