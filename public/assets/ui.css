@@ -925,10 +925,6 @@ footer .soc svg{fill:var(--chrome-ink)}
 .hero-body h3 a{display:block}
 .hero-meta{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.05em;color:var(--ink-2);
   text-transform:uppercase;margin-bottom:0}
-.v .when{position:absolute;left:8px;bottom:50px;z-index:3;
-  font:700 9px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
-  background:rgba(17,17,17,.86);color:var(--chrome-ink);border-radius:var(--r-pill);padding:5px 8px;
-  backdrop-filter:blur(3px)}
 .intl-lede{max-width:46em;margin-bottom:var(--s5)}
 .intl-grid{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
   gap:var(--s4)}

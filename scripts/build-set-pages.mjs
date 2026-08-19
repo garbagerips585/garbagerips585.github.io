@@ -2237,7 +2237,7 @@ function setPage(s) {
     })(),
 
     (() => {
-      const mine = (hitsBySet.get(s.id) || [])
+      const mineRaw = (hitsBySet.get(s.id) || [])
         .map((h) => {
           const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
           const same = ((checklists[s.id] || {}).cards || []).filter((c) => norm(c.name) === norm(h.card));
@@ -2255,6 +2255,32 @@ function setPage(s) {
           };
         })
         .sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
+      // THE SAME CARD PULLED TWICE IS ONE CARD AND A COUNT, NOT TWO TILES.
+      //
+      // Tim: "when we hit the same card more than once, don't show it twice on
+      // the pages where we show hits, just show the card and then make a new
+      // badge for showing 2x or 3x or however many we have". Chespin appeared
+      // twice on the Chaos Rising guide, identical scan, identical price,
+      // identical everything, which reads as a rendering fault rather than as
+      // a fact about the pulls.
+      //
+      // GROUPED ON THE RESOLVED CARD, not the typed string, so "Trainer Dawn"
+      // and "Dawn" collapse the way they already do for the text-only rows: the
+      // catalogue number is the identity when there is one, and the normalised
+      // name when there is not.
+      //
+      // Every rip is kept, not just the first, because "we hit this twice" is
+      // only interesting if you can watch both. The badge is hidden at one, per
+      // his instruction: "if its only 1 dont show any number".
+      const seenCard = new Map();
+      for (const h of mineRaw) {
+        const k = h.n ? `n:${h.n}` : `x:${String(h.name).toLowerCase().replace(/[^a-z0-9]/g, "")}`;
+        const prev = seenCard.get(k);
+        if (!prev) { seenCard.set(k, { ...h, count: 1, rips: h.path ? [{ path: h.path, label: h.label }] : [] }); continue; }
+        prev.count += 1;
+        if (h.path && !prev.rips.some((r) => r.path === h.path)) prev.rips.push({ path: h.path, label: h.label });
+      }
+      const mine = [...seenCard.values()];
       // Hits that only ever got a sentence in the log, minus any card the My
       // Hits tab already covers properly, so a card with a scan and a price is
       // not also listed as bare text underneath it.
@@ -2334,7 +2360,13 @@ function setPage(s) {
           kind: "mine", img: h.img, name: esc(h.name),
           meta: `${esc(rarityLabel(h.rarity) || "")}${h.n ? ` &bull; #${esc(h.n)}` : ""}`,
           price: typeof h.price === "number" ? h.price : null, psa10: null,
-          rips: h.path ? [{ path: h.path, label: h.label }] : [],
+          // COUNT AND RIPS BOTH COME FROM THE GROUPING ABOVE. This rebuild used
+          // to derive rips from a single h.path, which was right when every row
+          // was one pull; now a row can be several, and dropping count here was
+          // why the first attempt deduplicated Chespin correctly and then
+          // rendered it with no badge.
+          count: h.count || 1,
+          rips: h.rips && h.rips.length ? h.rips : h.path ? [{ path: h.path, label: h.label }] : [],
         })),
         ...promoHits.map((h) => ({
           kind: "promo", img: h.img ? `${h.img}/low.webp` : null, name: esc(h.card),
@@ -2377,7 +2409,11 @@ function setPage(s) {
         .map(
           (h) => `<li class="mine${h.kind === "promo" ? " is-promo" : ""}">
         ${h.img ? avifPicture(`<img class="mine-img" src="${esc(h.img)}" alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(h.img)}>`) : `<div class="mine-img is-none" aria-hidden="true"></div>`}
-        <p class="mine-n">${h.name}</p>
+        <!-- The count rides on the name, not on the picture, because the
+             picture is the card and the count is a fact about our pulls.
+             Hidden at one: a "x1" badge on every other card would make the
+             ordinary case look annotated. -->
+        <p class="mine-n">${h.name}${h.count > 1 ? ` <span class="mine-x">&times;${h.count}</span>` : ""}</p>
         <p class="mine-r">${h.meta}</p>
         <p class="mine-p">${typeof h.price === "number" ? moneyExact(h.price) : "No price"}${
             typeof h.psa10 === "number" ? ` <span class="mine-psa">${moneyExact(h.psa10)} in a 10</span>` : ""

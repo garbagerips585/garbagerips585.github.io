@@ -1452,9 +1452,14 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
 - **ONE CONTROL ON EVERY VIDEO ARTWORK ON THE SITE, AND IT IS THE RIP PAGE'S
   OWN BANNER.** Since 19 August 2026 every pack, everywhere, carries
   `.pack-hint` reading CLICK TO RIP THE PACK across the foot of the artwork:
-  the grid tile, the carousel slide, the Hall of Fame trophy, the 22 playlist
-  pages, and /videos.html both server-rendered AND client-rendered, as well as
-  the rip page it came from. Tim: "I do like the 'Click To Open Pack' banner on
+  the carousel slide, the Hall of Fame trophy, the 22 playlist pages, and
+  /videos.html both server-rendered AND client-rendered, as well as the rip page
+  it came from. SIX EMITTERS, NOT SEVEN, since 19 August: build-proto.mjs's
+  tile() was on the list, returned the `<article class="v">` grid tile, and had
+  no callers anywhere in the repo. It was edited in step with this change
+  because the list said to, and its date chip was even moved to clear a banner
+  it could never have collided with. Deleted. An emitter list is a maintenance
+  contract, so an entry that renders nothing costs more than a missing one. Tim: "I do like the 'Click To Open Pack' banner on
   the video pages themselves, can we carry that accross to the home page, and
   remove the 'Rip it open' ctas all together not needed just that one banner
   acorss the bottom". The markup is `RIP_BANNER` in shared/format.mjs, imported

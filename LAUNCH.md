@@ -189,16 +189,24 @@ already exists.
       write `<span class="play"></span>` write the banner instead. `.play` and
       `.hero-cta` no longer exist anywhere in the tree.
 
-      **THE SEVEN, for the next person who has to change this element.** The
-      count was right and is worth keeping written down:
+      **THE SIX, for the next person who has to change this element.** It was
+      seven until 19 August 2026, and the seventh is the lesson:
 
-          scripts/build-proto.mjs     tile()      the grid tile
           scripts/build-proto.mjs     the Hall of Fame trophy, with a duration
           scripts/build-proto.mjs     the Hall of Fame trophy, without one
           scripts/build-proto.mjs     heroTile, every carousel slide
           scripts/build-proto.mjs     libCard, /videos.html's server render
           scripts/build-playlists.mjs tile(),     the 22 playlist pages
           public/assets/app.js        makeCard(), /videos.html, in the browser
+
+      **build-proto.mjs's own tile() was on this list and had no callers.** It
+      returned the `<article class="v">` grid tile, nothing in the repo invoked
+      it, and no built page has ever contained its markup. It was edited in step
+      during the rip-banner change anyway, because this list said to, and its
+      `.v .when` chip was even repositioned to clear a banner it could never
+      have collided with. Deleted, along with that rule. A list of emitters is
+      a maintenance contract, so an entry that renders nothing is worse than no
+      entry: it recruits work forever and looks correct while doing it.
 
       The last one is still the one that gets missed, because it is the only
       emitter that is not a builder: /videos.html renders its grid from JSON

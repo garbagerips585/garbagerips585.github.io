@@ -194,6 +194,11 @@ export const NAV = [
     // pages, and a second Topps line would spend a nav slot on the second half
     // of one subject.
     ["/topps.html", "Topps cards"],
+    // A GUIDE TO ONE PRODUCT LINE, WHICH IS WHAT "Topps cards" ABOVE IS TOO, so
+    // it belongs beside it rather than in Prices: a reader looking for it is
+    // looking for what the thing IS, and the price is one section of that.
+    // 14 characters, inside the 16 the menu column measures.
+    ["/first-partner-illustration-collection.html", "First Partners"],
   ]],
 
   // What a thing costs and what it is worth. Recomputed from the nightly price

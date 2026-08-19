@@ -2471,12 +2471,14 @@ footer .soc svg{fill:var(--chrome-ink)}
    --on-accent for that reason and must keep doing so. */
 
 /* The chip sits opposite the hit flag so the two never collide. */
-/* 50px, not 8px, for the same reason .dur moved: the 44px rip banner is fused
-   to the bottom edge of every art box and this chip sat under it. */
-.v .when{position:absolute;left:8px;bottom:50px;z-index:3;
-  font:700 9px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
-  background:rgba(17,17,17,.86);color:var(--chrome-ink);border-radius:var(--r-pill);padding:5px 8px;
-  backdrop-filter:blur(3px)}
+/* .v .when WENT WITH tile() ON 19 AUGUST 2026. It styled the relative-date chip
+   that only build-proto.mjs's tile() emitted, and that function had no callers,
+   so this rule had never applied to a pixel on any built page.
+   Its own previous comment is the evidence: it read "50px, not 8px, for the
+   same reason .dur moved: the 44px rip banner is fused to the bottom edge of
+   every art box and this chip sat under it." The chip was carefully moved out
+   from under a banner it could never have collided with, hours earlier the same
+   day, because nothing in the tree said it was dead. */
 
 /* --------------------------------------------------------------------------
    "Same set, other language". The English release and the Japanese set it came

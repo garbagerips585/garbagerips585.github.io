@@ -261,61 +261,27 @@ function newestLabel(iso) {
   return "Latest Rip";
 }
 
-function tile(v, { rank = null, showSet = true, dated = false } = {}) {
-  const all = v.sets || [];
-  const set = faceSet(v);
-  const hasPack = set && packs.has(set);
-  // A tile is at most ~200 CSS px, so the 400px file covers it at 2x. srcset
-  // lets a desktop browser take the big one if it ever needs it, and sizes
-  // tells it how wide the tile actually is, which it cannot work out from the
-  // markup alone.
-  const face = hasPack
-    ? `<img src="assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp"
-        srcset="assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${set}-garbage-rips-585-booster-pack.webp 810w"
-        sizes="(max-width: 640px) 45vw, 200px" alt="" loading="lazy" width="400" height="711">`
-    : packs.has("default")
-      ? `<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" loading="lazy">`
-      : `<span class="art-none">${
-        set && logos.has(set)
-          ? `<img src="assets/logos/${set}-pokemon-tcg-set-logo.webp" alt="" loading="lazy">`
-          : `<b>Garbage Rips</b>`
-      }</span>`;
+/* tile() LIVED HERE AND WAS DELETED ON 19 AUGUST 2026 BECAUSE NOTHING CALLED IT.
+ *
+ * It returned the <article class="v"> grid tile and had no callers anywhere in
+ * the repo: every other `tile(` in the tree is build-playlists.mjs's own
+ * function, heroTile, a -tile.webp filename or .tile-stage.
+ *
+ * DEAD CODE THAT LOOKS LIVE COSTS MORE THAN DEAD CODE THAT LOOKS DEAD. This
+ * function was the ONLY emitter of <span class="when">, the relative-date chip,
+ * and both LAUNCH.md and CLAUDE.md listed it as one of the seven places that
+ * emit the artwork's control. So it was faithfully kept in step during the
+ * rip-banner change earlier the same day: markup edited, reasoning written, and
+ * not one byte of it ever rendered. Two documents pointed at it, which is how a
+ * dead branch keeps recruiting maintenance.
+ *
+ * The .v .when rules went with it, being its only consumer. The helpers it used
+ * did NOT: agoTag, PULL_RANK, bestPull and faceSet all have live callers.
+ *
+ * If a band ever wants a grid tile again, git history has this, and rebuilding
+ * it against the current banner is less work than keeping a copy that renders
+ * nowhere honest. */
 
-  const p = bestPull(v);
-  const flag = p != null && rank == null ? `<span class="hit">${PULL_RANK[p][1]}</span>` : "";
-  const badge = rank != null ? `<span class="rank">${rank}</span>` : "";
-  // A relative date on the artwork. The Latest block is six tiles of which
-  // five are usually the same wrapper, because tiles show the SET's pack
-  // rather than a thumbnail that would give the pull away. That is the
-  // anti-spoiler rule working, but it left a column of identical rectangles
-  // separated only by two clipped lines of title. The chip differentiates them
-  // with the one fact this block is about: how new it is.
-  const stamp = dated ? agoTag(v.published, "when ago") : "";
-
-  // The meta line is one line, so it has to earn every character. In the wall
-  // the wrapper already names the set, so the useful pair is popularity and
-  // recency. On the Hall of Fame shelf the date is irrelevant, so the set
-  // takes its place.
-  // Label from the real sets, never from the face. Once the generic wrapper
-  // exists faceSet returns "multi", which is an artwork choice and would read
-  // here as though there were a card set called Multi.
-  const extra = all.length > 1 ? ` +${all.length - 1}` : "";
-  const label = all.length
-    ? `${setLabel(all[0]).toUpperCase()}${extra}`
-    : "GARBAGE RIPS";
-  const meta = showSet
-    ? `${label} &bull; ${views(v.views)}`
-    : `${views(v.views)} &bull; ${shortDate(v.published).toUpperCase()}`;
-
-  // The anchor holds only artwork, a rank pip and a duration, so without a
-  // label its accessible name was the duration: a screen reader read twenty
-  // links on the home page as "link, 0 colon 22". The visible title was also
-  // not clickable, only the thumbnail was.
-  return `      <article class="v"><a class="art" href="/${esc(v.path)}" aria-label="${esc(v.siteTitle || v.title)}">${badge}${flag}${stamp}${face}${RIP_BANNER}${
-    v.duration ? `<span class="dur">${clock(v.duration)}</span>` : ""
-  }</a>
-        <h3><a href="/${esc(v.path)}">${esc(ripLabel(v, setName, descriptions[v.id]) || v.siteTitle || v.title)}</a></h3><p>${meta}</p></article>`;
-}
 
 /* ------------------------------------------------------------- selections - */
 
