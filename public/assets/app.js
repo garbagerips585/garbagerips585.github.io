@@ -126,7 +126,21 @@
     if (pull) art.appendChild(el("span", "hit", labelOf("pulls", pull)));
 
     if (v.duration) art.appendChild(el("span", "dur", clock(v.duration)));
-    art.appendChild(el("span", "play"));
+
+    // THE BROWSER COPY of RIP_BANNER in shared/format.mjs, and it is the copy
+    // that gets missed. This grid is drawn here on load and redrawn on every
+    // filter change, so /videos.html, the page with more tiles on it than any
+    // other, is the one surface a change made in the builders alone cannot
+    // reach: the server render in build-proto.mjs's libCard would say one thing
+    // and the first filter tap would replace it with another. The two markups
+    // have to match element for element, class for class, word for word.
+    //
+    // aria-hidden for the reason that constant gives: the anchor above already
+    // carries the video's full title as its accessible name, and this is the
+    // affordance, not the name.
+    var hint = el("span", "pack-hint", "CLICK TO RIP THE PACK");
+    hint.setAttribute("aria-hidden", "true");
+    art.appendChild(hint);
 
     art.addEventListener("pointerenter", warmPlayer, { passive: true });
     card.appendChild(art);

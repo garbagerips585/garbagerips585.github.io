@@ -16,7 +16,7 @@ import { SITE, DOMAIN, STAGING, LIVE } from "../shared/site.mjs";
 import { basename, join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkDrift } from "../shared/chrome.mjs";
-import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount, avifPicture, longDate } from "../shared/format.mjs";
+import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount, avifPicture, longDate, RIP_BANNER } from "../shared/format.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 // The drops band's expiry model. NOT reimplemented here: /drops.html and this
 // page print the same rows, so "is this row still true" is answered in one
@@ -311,7 +311,7 @@ function tile(v, { rank = null, showSet = true, dated = false } = {}) {
   // label its accessible name was the duration: a screen reader read twenty
   // links on the home page as "link, 0 colon 22". The visible title was also
   // not clickable, only the thumbnail was.
-  return `      <article class="v"><a class="art" href="/${esc(v.path)}" aria-label="${esc(v.siteTitle || v.title)}">${badge}${flag}${stamp}${face}<span class="play"></span>${
+  return `      <article class="v"><a class="art" href="/${esc(v.path)}" aria-label="${esc(v.siteTitle || v.title)}">${badge}${flag}${stamp}${face}${RIP_BANNER}${
     v.duration ? `<span class="dur">${clock(v.duration)}</span>` : ""
   }</a>
         <h3><a href="/${esc(v.path)}">${esc(ripLabel(v, setName, descriptions[v.id]) || v.siteTitle || v.title)}</a></h3><p>${meta}</p></article>`;
@@ -577,8 +577,8 @@ const hofHtml = hofPick
             // rest of the card, so these two go with the artwork they describe
             // and nothing has to remember to remove them.
             hofPick.duration
-              ? `<span class="play"></span><span class="dur">${clock(hofPick.duration)}</span>`
-              : `<span class="play"></span>`
+              ? `${RIP_BANNER}<span class="dur">${clock(hofPick.duration)}</span>`
+              : RIP_BANNER
           }
         </span>
         <span class="hofx-b">
@@ -700,7 +700,7 @@ function heroTile(v, opts) {
   const p = bestPull(v);
   return `      <article class="hero">
         <a class="hero-art" href="/${esc(v.path)}" aria-label="${esc(v.siteTitle || v.title)}">
-          ${face}<span class="play"></span>${v.duration ? `<span class="dur">${clock(v.duration)}</span>` : ""}
+          ${face}${RIP_BANNER}${v.duration ? `<span class="dur">${clock(v.duration)}</span>` : ""}
         </a>
         <div class="hero-body">
           <p class="hero-kicker">${
@@ -716,7 +716,6 @@ function heroTile(v, opts) {
           }</p>
           <h3><a href="/${esc(v.path)}">${esc(ripLabel(v, setName, descriptions[v.id]) || v.siteTitle || v.title)}</a></h3>
           <p class="hero-meta">${label}${p != null ? ` &bull; ${PULL_RANK[p][1]}` : ""} &bull; ${views(v.views)}</p>
-          <span class="hero-cta">Rip it open &rarr;</span>
         </div>
       </article>`;
 }
@@ -974,7 +973,7 @@ function libCard(v) {
     packFacade(set) +
     (pull ? `<span class="hit">${esc(labelOf("pulls", pull))}</span>` : "") +
     (v.duration ? `<span class="dur">${clock(v.duration)}</span>` : "") +
-    `<span class="play"></span></a>` +
+    RIP_BANNER + `</a>` +
     `<h3><a href="${esc(href)}">${esc(v.label || v.siteTitle || v.title)}</a></h3>` +
     `<p>${esc(bits.join("  •  "))}</p></article>`;
 }

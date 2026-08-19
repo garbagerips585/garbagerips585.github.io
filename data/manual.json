@@ -999,11 +999,226 @@
     "packNumber": 9,
     "hasHit": false
   },
+  "iV0h672wrGA": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 2,
+    "packNumber": 8,
+    "hasHit": false
+  },
   "u9zpVOVsWyg": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 2,
+    "packNumber": 3,
+    "hasHit": true,
+    "hitCard": "Scorbunny - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Scorbunny",
+        "rarity": "Illustration Rare",
+        "set": "ascended-heroes"
+      }
+    ]
+  },
+  "MCe_0kpYnwE": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 2,
+    "packNumber": 7,
+    "hasHit": false
+  },
+  "WhfY82RrS4w": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 2,
+    "packNumber": 1,
+    "hasHit": false
+  },
+  "x3gI4dEKNMs": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 2,
+    "packNumber": 6,
+    "hasHit": true,
+    "hitCard": "Beedrill ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Beedrill ex",
+        "rarity": "Double Rare",
+        "set": "chaos-rising"
+      }
+    ]
+  },
+  "Nqu1vGtbAME": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 2,
+    "packNumber": 2,
+    "hasHit": true,
+    "hitCard": "Mega Scrafty ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Mega Scrafty ex",
+        "rarity": "Double Rare",
+        "set": "ascended-heroes"
+      }
+    ]
+  },
+  "LvWz0hfaQVE": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 2,
+    "packNumber": 5,
+    "hasHit": false
+  },
+  "blSCuSk5nb0": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 2,
+    "packNumber": 1,
+    "hasHit": false
   },
   "rlJDEb0q1d0": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 2,
+    "packNumber": 4,
+    "hasHit": true,
+    "hitCard": "Chespin - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Chespin",
+        "rarity": "Illustration Rare",
+        "set": "chaos-rising"
+      }
+    ]
+  },
+  "UpdeUMc-6ys": {
+    "setPacks": [
+      {
+        "set": "twilight-masquerade",
+        "name": "twilight masquerade",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Twilight Masquerade",
+    "openingType": "Poke Ball Tin",
+    "packNumber": 3,
+    "hasHit": false
+  },
+  "M7NqqhR8V4M": {
+    "setPacks": [
+      {
+        "set": null,
+        "name": "First Partner Illustration Collection (Series 1)",
+        "packs": 1
+      },
+      {
+        "set": "phantasmal-flames",
+        "name": "phantasmal flames",
+        "packs": 1
+      },
+      {
+        "set": "mega-evolution",
+        "name": "mega evolution",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 3,
+    "setsPacks": "First Partner Illustration Collection (Series 1) , Phantasmal Flames, Mega Evolution",
+    "openingType": "First Partner Illustration Collection (Series 1)",
+    "boxNumber": 6,
+    "packNumber": 3,
+    "hasHit": true,
+    "hitCard": "First Partner Illustration Collection (Series 1) Alola Region Promo : Rowlet, Litten, Popplio",
+    "hits": [
+      {
+        "card": "Rowlet",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+      },
+      {
+        "card": "Litten",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+      },
+      {
+        "card": "Popplio",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+      }
+    ]
   },
   "czBVJAWDB8U": {
     "hasHit": true

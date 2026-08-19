@@ -169,62 +169,64 @@ already exists.
       E, a token block. The rules as built are in the header of
       scripts/gen-palette-samples.mjs, so read that file before deleting it.
 
-- [ ] **DELETE THE THREE RIP BUTTON SAMPLE PAGES.** Same shape as the seven
-      above, added 19 August 2026, and the count above does NOT include them:
+- [x] **THE THREE RIP BUTTON SAMPLE PAGES ARE DELETED AND THE ANSWER IS
+      SHIPPED.** Done 19 August 2026, so `ls public/preview-*.html` returns
+      SEVEN again and the item above is the whole list once more.
 
-          rm public/preview-rip-a.html public/preview-rip-b.html \
-             public/preview-rip-c.html
-          rm scripts/gen-rip-samples.mjs
-          node scripts/build-all.mjs
+      Tim asked for the play buttons to be re-thought "as a click to rip pack
+      button", was shown A (Rip strip), B (Pull tab) and C (Open bar), and
+      picked none of them: "I dont really like any of the verisons you did for
+      the play button change, but I do like the 'Click To Open Pack' banner on
+      the video pages themselves, can we carry that accross to the home page,
+      and remove the 'Rip it open' ctas all together not needed just that one
+      banner acorss the bottom".
 
-      Tim: "Need you to re-think the play buttons on all the pages for all the
-      videos, right now they kind of get lost, and i think we rethink them as a
-      click to rip pack button". Each is a copy of the home page with one
-      candidate in place of the play disc on all eleven video artworks:
+      So the control on every video artwork on this site is now the banner the
+      RIP PAGES ALREADY HAD, `.pack-hint`, reading CLICK TO RIP THE PACK. It is
+      the same class and the same string re-used rather than a fourth design:
+      `RIP_BANNER` in shared/format.mjs holds the markup, `.pack-hint` in
+      assets-source/ui.css holds the rules, and all seven emitters that used to
+      write `<span class="play"></span>` write the banner instead. `.play` and
+      `.hero-cta` no longer exist anywhere in the tree.
 
-          preview-rip-a.html    A  Rip strip, a tear band across the pack
-          preview-rip-b.html    B  Pull tab, a seam with a pull that opens
-          preview-rip-c.html    C  Open bar, nothing on the photograph at all
+      **THE SEVEN, for the next person who has to change this element.** The
+      count was right and is worth keeping written down:
 
-      Same four guards as the palette samples: `noindex,nofollow`, no canonical,
-      not in sitemap.xml, and nothing on the site links to them. They ring to
-      each other plus one link back to the real home page, which is deliberate:
-      the complaint is that the current control gets lost, so the current
-      control has to be one tap away or there is nothing to compare against.
-      `ls public/preview-*.html` is still the check that cannot drift, and it
-      now returns TEN.
+          scripts/build-proto.mjs     tile()      the grid tile
+          scripts/build-proto.mjs     the Hall of Fame trophy, with a duration
+          scripts/build-proto.mjs     the Hall of Fame trophy, without one
+          scripts/build-proto.mjs     heroTile, every carousel slide
+          scripts/build-proto.mjs     libCard, /videos.html's server render
+          scripts/build-playlists.mjs tile(),     the 22 playlist pages
+          public/assets/app.js        makeCard(), /videos.html, in the browser
 
-      **DECIDE BEFORE DELETING, EXACTLY LIKE G.** The palette samples could be
-      binned because the answer had already gone into assets-source/ui.css.
-      These have not been applied anywhere: the winning rule set lives ONLY in
-      the CANDIDATES block of scripts/gen-rip-samples.mjs. Applying one is a
-      rule set into assets-source/ui.css plus a one-line markup change in the
-      SEVEN places that emit `<span class="play"></span>`, which is a count
-      worth grepping rather than trusting:
+      The last one is still the one that gets missed, because it is the only
+      emitter that is not a builder: /videos.html renders its grid from JSON
+      after load and re-renders on every filter change. Six of the seven now
+      import one constant; the seventh cannot and carries a comment saying so.
+      Verified after the change by filtering /videos.html in headless Chrome and
+      diffing the re-rendered tile against the server-rendered one: same
+      children, same classes, same words, 48 banners, 0 discs.
 
-          scripts/build-proto.mjs   314  videoTile
-          scripts/build-proto.mjs   580  Hall of Fame trophy, with a duration
-          scripts/build-proto.mjs   581  Hall of Fame trophy, without one
-          scripts/build-proto.mjs   703  heroTile, every carousel slide
-          scripts/build-proto.mjs   977  libCard, /videos.html's server render
-          scripts/build-playlists.mjs 475  the 22 playlist pages
-          public/assets/app.js      129  /videos.html's tiles, in the browser
+      **AND ONE THING THESE FOUND THAT OUTLIVED THEM.** Measured against all
+      nineteen pack wrappers at every real art width on the site: the play disc
+      was one edge colour, white, so at its worst point on its own perimeter it
+      cleared **1.00:1** against the artwork under it, and up to 48% of that
+      perimeter sat under 3:1. The banner replaces that with two edge colours, a
+      near-white 2px ring outside a near-black 3px keyline, which are 14.6x
+      apart in luminance, so whatever pixel they land on the better of the two
+      clears **3.82:1** and the floor stops depending on the artwork at all.
+      The label is 7.22:1 at rest and 8.04:1 on hover, everywhere, because the
+      bar is opaque. The rip pages' own banner gained the ring in the same edit
+      and went 2.50:1 to 3.35:1 at its worst (ascended-heroes); nothing else
+      about it moved.
 
-      The last one is the one that gets missed, because it is the only emitter
-      that is not a builder: /videos.html renders its grid from JSON after load
-      and re-renders on every filter change, so a change made in the builders
-      alone leaves the page with the most tiles on the site still showing
-      discs. Delete this file without doing all seven and the decision goes in
-      the bin with the question.
-
-      **AND ONE THING THESE FOUND THAT OUTLIVES THEM, whichever one wins.**
-      Measured against all eighteen pack wrappers at the real tile size: the
-      play disc today is one edge colour, white, so at its worst point on its
-      own perimeter it clears **1.15:1** against the artwork under it and
-      between 12% and 14% of that perimeter is under 3:1 on EVERY skin. That is
-      "it gets lost" as a number, and it is why every candidate here carries two
-      edge colours instead of one, which floors at 3.46:1 on all eighteen. If
-      none of the three is picked, the disc still wants a second edge.
+      **THE SEVEN PAGES ABOVE ARE NOW STALE SNAPSHOTS** and that is worth one
+      line before somebody opens one to judge a palette. gen-palette-samples.mjs
+      transforms the BUILT home page, and the copies on disk were written before
+      this change, so all seven still show white play discs and "Rip it open"
+      pills on a home page that has neither. Re-run that script if anyone needs
+      to look at one again; nothing else depends on them.
 
 - [ ] **Run the build and let it check itself.**
 

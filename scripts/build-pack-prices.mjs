@@ -985,7 +985,10 @@ ${COLUMNS.map(
       figure on this page is one of those prices divided by one of those counts, computed when the page was built. No affiliate links, and nothing here is a
       recommendation to buy anything. Set guides for all ${rows.length} of these are under <a href="/sets/">set guides</a>,
       and what it costs to buy the cards instead of the packs is on
-      <a href="/complete-a-set.html">cost to complete a set</a>.</p>
+      <a href="/complete-a-set.html">cost to complete a set</a>. The same sum for one small 2026
+      product, singles against boxes, is on the
+      <a href="/first-partner-illustration-collection.html">First Partner Illustration Collection</a>
+      guide, which also has the suggested price beside the shelf price.</p>
   </div>
 </section>
 

@@ -763,15 +763,31 @@ main{padding:var(--s4) 0 var(--s8)}
   background:linear-gradient(180deg,transparent 62%,rgba(17,17,17,.62));opacity:0;
   transition:opacity .15s}
 .v:hover .art::after{opacity:1}
-/* the play affordance, only on hover, low and to the right of the mascot */
-.play{position:absolute;left:50%;top:50%;translate:-50% -50%;z-index:3;
-  width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.94);
-  display:grid;place-items:center;opacity:0;scale:.86;
-  transition:opacity .15s, scale .15s;box-shadow:0 4px 14px rgba(17,17,17,.35)}
-.v:hover .play{opacity:1;scale:1}
-.play::before{content:"";width:0;height:0;margin-left:4px;
-  border-left:16px solid var(--ink);border-top:10px solid transparent;border-bottom:10px solid transparent}
-.dur{position:absolute;right:6px;bottom:6px;z-index:3;
+/* THE WHITE PLAY DISC IS GONE, 19 August 2026, AND `.play` NO LONGER EXISTS IN
+   THE TREE. Tim: "I dont really like any of the verisons you did for the play
+   button change, but I do like the 'Click To Open Pack' banner on the video
+   pages themselves, can we carry that accross to the home page, and remove the
+   'Rip it open' ctas all together not needed just that one banner acorss the
+   bottom". So the rip page's own `.pack-hint` is the control on every video
+   artwork now; its rules are in the pack wrapper block above, and the tile
+   sizing of it is in the block that follows `.pack:hover .pack-hint` there.
+
+   WHY THE DISC HAD TO GO, as a number rather than a taste: it was one edge
+   colour, white, so measured against all nineteen wrappers at the real tile
+   size it cleared 1.15:1 at its worst point and 12-14% of its own perimeter sat
+   under 3:1 on EVERY skin. A single-colour outline cannot survive artwork that
+   contains both near-black and near-white pixels. Six emitters carried it and
+   the seventh, public/assets/app.js, draws /videos.html's grid in the browser.
+
+   DO NOT PUT IT BACK. If a second affordance is ever wanted, it has to carry
+   two edge colours (see the banner's keyline-plus-ring below) or it will get
+   lost in exactly the way this one did.
+
+   THE DURATION CHIP MOVED UP 44px IN THE SAME EDIT and that is not cosmetic:
+   the banner is a 44px bar fused to the bottom of every art box, and the chip
+   sat at 6px, i.e. underneath it. Every element that emits a `.dur` also emits
+   a banner now, so this is the one rule rather than three overrides. */
+.dur{position:absolute;right:6px;bottom:50px;z-index:3;
   font:700 var(--t-micro)/1 var(--mono);color:#fff;background:rgba(17,17,17,.82);
   padding:4px 6px;border-radius:5px}
 /* a hit is the only thing that earns a flag */
@@ -1006,6 +1022,17 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
   font-family:var(--mono);font-weight:700;font-size:.66rem;letter-spacing:.1em;
   color:var(--on-accent);background:var(--mustard);
   padding:8px 0;border-top:3px solid var(--pk-edge);border-bottom:3px solid var(--pk-edge);
+  /* THE 2px CREAM RULE EITHER SIDE IS THE SECOND EDGE COLOUR AND IT IS NOT
+     DECORATION. --pk-edge is derived from the DARK end of each skin, so on the
+     dark half of its own wrapper the keyline is the wrapper: measured against
+     all nineteen pack files, the bar's fill and its keyline together floored at
+     2.62:1 on ascended-heroes and 3.09:1 on obsidian-flames, both under the 3:1
+     a non-text control wants. With a near-white ring outside the near-black
+     keyline the floor stops depending on the artwork at all: the ring and the
+     keyline are 14.6x apart in luminance, so whatever the pixel under them is,
+     the better of the two clears sqrt(14.6) = 3.82:1. That is the same
+     construction the tile banner uses and the same number it measures. */
+  box-shadow:0 -2px 0 var(--chrome-ink),0 2px 0 var(--chrome-ink);
   transition:background .14s;
 }
 /* ---------- tile variant ----------
@@ -1023,12 +1050,89 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
 .pack--tile .pack-art::before{background:
   repeating-linear-gradient(90deg,rgba(0,0,0,.3) 0 3px,transparent 3px 7px) top/100% 15px no-repeat,
   repeating-linear-gradient(90deg,rgba(0,0,0,.3) 0 3px,transparent 3px 7px) bottom/100% 15px no-repeat}
-/* The tile already carries .vid-play, so the seal would be a second play
-   affordance sitting on top of the first. */
+/* The tile already carries the rip banner, so the seal would be a second play
+   affordance sitting on top of the first. (This comment named `.vid-play`
+   until 19 August 2026, a class that has not existed on this site for months;
+   the element it meant was `.play`, which is now gone too.) */
 .pack--tile .pack-seal{display:none}
-.pack:hover .pack-hint{background:var(--sky);color:var(--on-accent)}
+/* --gold-deep, NOT --sky, AND THAT IS A BUG FIX RATHER THAN A RESTYLE. This
+   rule said `background:var(--sky)`, and on the Trubbish palette --sky and
+   --mustard are BOTH #70B5D9, so the hover state of the one control on a rip
+   page painted the colour it already was. Nothing moved on any of 316 pages.
+   --gold-deep is the small teal, #81BEDE, one step lighter, and it keeps the
+   label at 8.04:1. The tile surfaces are on the same rule rather than a second
+   one, so the banner cannot come to have two hover states. */
+.pack:hover .pack-hint,
+.v .art:hover .pack-hint,.v .art:focus-visible .pack-hint,
+.hero-art:hover .pack-hint,.hero-art:focus-visible .pack-hint,
+.hofx:hover .pack-hint,.hofx:focus-visible .pack-hint{
+  background:var(--gold-deep);color:var(--on-accent)}
 .pack:hover .pack-face{transform:scale(1.012)}
 .pack-face{transition:transform .18s ease}
+
+/* ---------- the same banner, on every other surface that shows a video -------
+   Tim, 19 August 2026: "I do like the 'Click To Open Pack' banner on the video
+   pages themselves, can we carry that accross to the home page ... just that one
+   banner acorss the bottom". So this is the RIP PAGE'S OWN `.pack-hint`, the
+   same element with the same words, re-used on the grid tile, the carousel
+   slide and the Hall of Fame trophy. It replaced `<span class="play">` in all
+   six emitters that drew one; there is nothing else on the artwork now.
+
+   IT IS THE SAME CLASS ON PURPOSE. A second class reading the same words is how
+   the two would drift, and they have drifted before: the server render of
+   /videos.html lives in build-proto.mjs and the client render lives in
+   public/assets/app.js, so the same tile is written twice in this codebase.
+
+   THE ONLY DIFFERENCE FROM THE RIP PAGE IS WHERE IT SITS, and both positions are
+   argued. There it is at bottom:2.5%, on the wrapper's bottom crimp, in a box
+   580px tall where 2.5% is 14px of deliberate margin. Here 2.5% would be 5px on
+   a 213px tile, which reads as a misalignment rather than a margin, and the art
+   box has a 10px corner radius and overflow:hidden, so a bar floating 5px up
+   gets its bottom corners bitten off by the curve. Fused to the edge instead,
+   the container's own radius rounds the bar with it and there is nothing to
+   line up wrong.
+
+   WHY IT BEATS THE DISC IT REPLACED, and this is the whole point of the change
+   rather than a nicety. The disc was a white circle laid ON the photograph, so
+   its contrast was whatever the pack happened to be underneath: 1.15:1 at its
+   worst point, with 12-14% of its perimeter under 3:1 on every one of the
+   nineteen wrappers. The banner is opaque and full width, so its LABEL's
+   contrast is a constant (--on-accent on --mustard) and cannot be argued per
+   skin at all, and the only pack pixels it ever meets are along one horizontal
+   line at its top edge.
+
+   THAT ONE LINE CARRIES TWO EDGE COLOURS, NOT ONE, which is the property the
+   disc had in one direction only. A near-black keyline (--pk-edge where a pack
+   skin declares one, the literal otherwise) with a near-white 2px ring outside
+   it: on a light wrapper the keyline does the work, on a dark one the ring does,
+   and the two are 15.5:1 apart, so one of them always clears. The floor is
+   arithmetic rather than luck. Sampled against the real bottom edge of all
+   nineteen tile files, worst pixel on any skin, the better of the two edges
+   clears 4.05:1; the label clears 8.55:1 everywhere.
+
+   ONE LINE OF TYPE AT EVERY SIZE, without a media query. The label is sized in
+   cqi against the art box itself, because the box is 142px on a 320px phone and
+   407px on the Hall of Fame trophy at 1440 and the tile count per row is a grid
+   decision this file should not restate. min-height keeps the bar 44px whatever
+   the type does, so if a browser ever wraps the label to two lines the geometry
+   does not move and .dur's 50px offset stays correct. */
+.v .art,.hero-art,.hofx-art{container-type:inline-size}
+.v .art .pack-hint,.hero-art .pack-hint,.hofx-art .pack-hint{
+  box-sizing:border-box;bottom:0;min-height:44px;
+  display:flex;align-items:center;justify-content:center;
+  padding:6px 8px;line-height:1.2;text-wrap:balance;
+  font-size:clamp(.5rem,4.6cqi,.72rem);
+  border-bottom:0;border-top:3px solid var(--pk-edge,#141416);
+  box-shadow:0 -2px 0 var(--chrome-ink);
+}
+/* The trophy's art box is not overflow:hidden (its gold bloom has to escape it),
+   so the bar is rounded to match the image under it by hand. .hofx-art img is
+   border-radius:10px. */
+.hofx-art .pack-hint{border-radius:0 0 10px 10px}
+/* The hover and focus state for all four surfaces is ONE rule and it lives with
+   `.pack:hover .pack-hint` above, not here, so the banner cannot come to have
+   two of them. Focus is in it because a tile is a link and a keyboard reader
+   never gets a hover. */
 
 /* The library's search is the page's primary control, so it gets its own
    full-width row rather than a slot in the bar. The bar's field is hidden
@@ -2299,9 +2403,12 @@ footer .soc svg{fill:var(--chrome-ink)}
 
 /* The play badge was opacity:0 until :hover, so on every phone, on every tile,
    it never appeared at all: the tiles read as flat pictures of booster packs
-   with no sign they are videos. Hover is a pointer idea. */
+   with no sign they are videos. Hover is a pointer idea.
+   THE BADGE IS GONE (see the note where `.play` used to be defined) and the
+   banner that replaced it is never hover-gated, so only the scrim rule is left
+   here. It is still worth having: the darkened foot of the artwork is what the
+   banner's near-white ring reads against on a light wrapper. */
 @media(hover:none){
-  .v .play{opacity:.92}
   .v .art::after{opacity:.35}
 }
 
@@ -2333,7 +2440,6 @@ footer .soc svg{fill:var(--chrome-ink)}
    twice as tall inside an aspect-ratio box. .hero-art is already position:
    relative, so inset:0 lands it exactly where the deferred one sits. */
 .hero-art noscript img{position:absolute;inset:0}
-.hero-art .play{opacity:.95}
 .hero-body{min-width:0}
 .hero-kicker{font:700 var(--t-micro)/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   color:var(--ink-2);margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -2341,22 +2447,33 @@ footer .soc svg{fill:var(--chrome-ink)}
   letter-spacing:.08em}
 .hero-body h3{font:400 var(--t-l)/1.1 var(--display);margin-bottom:8px}
 .hero-body h3 a{display:block}
+/* margin-bottom was var(--s3) and it was the gap above the "Rip it open" pill.
+   The pill is gone and this is the last line in the body, so the margin is now
+   ragged space inside a card whose grid is align-items:center: it pushed the
+   whole caption block up by half of it against the artwork beside it. */
 .hero-meta{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.05em;color:var(--ink-2);
-  text-transform:uppercase;margin-bottom:var(--s3)}
-.hero-cta{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--s4);
-  border:2px solid var(--ink);border-radius:var(--r-pill);background:var(--mustard);
-  /* --on-accent, NOT --ink. This is bug one of three of the same shape: a token
-     from the SURFACE half of the palette written where a foreground belongs.
-     On the light palette --ink was #111111 on gold, 10.28:1, correct. On any
-     dark palette --ink is a near-white on the same filled accent: measured
-     1.27:1, nine times on the home page alone. Tim saw it as "yellow ctb
-     buttons with white text on them". Every other filled control in this file
-     already writes --on-accent. */
-  font:700 var(--t-sm)/1 var(--body);color:var(--on-accent);box-shadow:var(--lift)}
-.hero:hover .hero-cta{transform:translateY(-2px)}
+  text-transform:uppercase;margin-bottom:0}
+/* `.hero-cta` IS GONE, 19 August 2026. It was the "Rip it open ->" pill under
+   every carousel slide, ten of them on the home page and nowhere else. Tim:
+   "remove the 'Rip it open' ctas all together not needed just that one banner
+   acorss the bottom". The banner on the artwork above it says the same thing in
+   the same words the rip page uses, and printing an instruction twice inside one
+   card is what candidate C's own notes flagged as its cost.
+
+   THE HALL OF FAME'S "Watch the pull ->" (`.hofx-cta`) IS A DIFFERENT CONTROL
+   AND STAYS. It is not a duplicate of the banner: the trophy is the one card on
+   the site whose subject is the CARD that came out, not the pack, and that is
+   what its label says. Do not sweep it up with a grep for the word "cta".
+
+   The bug this rule carried is recorded where the other two of its shape are,
+   in the .hofx-t note: a SURFACE token (--ink) written where a foreground
+   belongs measured 1.27:1 on nine home page buttons. .hofx-cta still writes
+   --on-accent for that reason and must keep doing so. */
 
 /* The chip sits opposite the hit flag so the two never collide. */
-.v .when{position:absolute;left:8px;bottom:8px;z-index:3;
+/* 50px, not 8px, for the same reason .dur moved: the 44px rip banner is fused
+   to the bottom edge of every art box and this chip sat under it. */
+.v .when{position:absolute;left:8px;bottom:50px;z-index:3;
   font:700 9px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
   background:rgba(17,17,17,.86);color:var(--chrome-ink);border-radius:var(--r-pill);padding:5px 8px;
   backdrop-filter:blur(3px)}
@@ -4044,7 +4161,9 @@ inherited from the UA default, so the promotion moves nothing on screen. */
 .tile-stage .rip-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .tile-stage .pack{position:absolute;inset:0;width:100%;height:100%}
 .tile-stage .sound-on{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);z-index:3}
-/* The hint is the tile's own play badge, so the pack does not repeat it. */
+/* Belt and braces: playInTile builds the stage's pack WITHOUT a hint, and the
+   banner that was on the tile went with the artwork the stage replaced. A pack
+   already being ripped must never invite you to rip it. */
 .tile-stage .pack-hint{display:none}
 
 /* --------------------------------------------------------------------------
@@ -4462,7 +4581,10 @@ inherited from the UA default, so the promotion moves nothing on screen. */
 .hof .vcar .hero h3 a{color:var(--chrome-ink)}
 .hof .vcar .hero-meta,
 .hof .vcar .hero-kicker{color:var(--chrome-dim)}
-.hof .vcar .hero-cta{border-color:var(--chrome-ink)}
+/* `.hof .vcar .hero-cta{border-color:var(--chrome-ink)}` went with the CTA
+   itself; see the note where .hero-cta was defined. The banner needs no
+   equivalent, because it sits on the artwork rather than on this band's dark
+   ground and carries its own two-colour edge wherever it lands. */
 
 
 /* NO CREAM STRIPE ABOVE THE FOOTER.

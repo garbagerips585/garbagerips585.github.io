@@ -31,7 +31,7 @@ import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 import { slugify } from "../shared/paths.mjs";
-import { esc, longDate, shortDate, viewCount, imgDims } from "../shared/format.mjs";
+import { esc, longDate, shortDate, viewCount, imgDims, RIP_BANNER } from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/playlists");
@@ -472,7 +472,7 @@ function tile(v, labels) {
             ${packMarkup(faceSet(v))}
             ${pull ? `<span class="hit">${esc(labelFor("pulls", pull))}</span>` : ""}
             ${v.duration ? `<span class="dur">${clock(v.duration)}</span>` : ""}
-            <span class="play"></span>
+            ${RIP_BANNER}
           </a>
           <h3><a href="/${esc(v.path)}">${esc((labels && labels.get(v.id)) || v.label || v.siteTitle || v.title)}</a></h3>
           ${meta.length ? `<p>${esc(meta.join("  \u2022  "))}</p>` : ""}

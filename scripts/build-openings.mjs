@@ -1222,6 +1222,9 @@ ${entries
         are on <a href="/how-many-packs.html">how many packs are in it</a>.
         What each kind is SUPPOSED to cost, which is a different question from what it sells for, is on
         <a href="/msrp.html">what sealed product should cost</a>.
+        One product has a guide of its own, because almost nothing is written about it anywhere:
+        the 2026 <a href="/first-partner-illustration-collection.html">First Partner Illustration
+        Collection</a>, all 27 promos with a price on each.
         Prices come from TCGplayer, read ${esc(longDate(prod.checked))}, and so do the product photos: each
         one is a specific product standing in for its kind, named on the card and named again on the page.
         Two kinds have no photograph here, because no picture of a Korean or a Chinese booster pack is

@@ -459,6 +459,61 @@
         "setName": "ascended heroes",
         "rarity": "Ultra Rare"
       }
+    ],
+    "u9zpVOVsWyg": [
+      {
+        "card": "Scorbunny",
+        "set": "ascended-heroes",
+        "setName": "ascended heroes",
+        "rarity": "Illustration Rare"
+      }
+    ],
+    "x3gI4dEKNMs": [
+      {
+        "card": "Beedrill ex",
+        "set": "chaos-rising",
+        "setName": "chaos rising",
+        "rarity": "Double Rare"
+      }
+    ],
+    "Nqu1vGtbAME": [
+      {
+        "card": "Mega Scrafty ex",
+        "set": "ascended-heroes",
+        "setName": "ascended heroes",
+        "rarity": "Double Rare"
+      }
+    ],
+    "rlJDEb0q1d0": [
+      {
+        "card": "Chespin",
+        "set": "chaos-rising",
+        "setName": "chaos rising",
+        "rarity": "Illustration Rare"
+      }
+    ],
+    "M7NqqhR8V4M": [
+      {
+        "card": "First Partner Illustration Collection (Series 1) Alola Region Promo : Rowlet"
+      },
+      {
+        "card": "First Partner Illustration Collection (Series 1) Alola Region Promo Rowlet"
+      },
+      {
+        "card": "First Partner Illustration Collection (Series 1) Alola Region Promo Litten"
+      },
+      {
+        "card": "First Partner Illustration Collection (Series 1) Alola Region Promo Popplio"
+      },
+      {
+        "card": "Rowlet"
+      },
+      {
+        "card": "Litten"
+      },
+      {
+        "card": "Popplio"
+      }
     ]
   }
 }

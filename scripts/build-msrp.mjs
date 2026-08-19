@@ -1358,6 +1358,11 @@ ${blank.map(blankRow).join("\n")}
           per product, is on <a href="/how-many-packs.html">packs per box</a>. What each kind of product
           is, and dozens of each opened on camera, is on <a href="/openings/">sealed products</a>. Where to
           buy without paying a premium is on <a href="/buying.html">where to buy</a>.</p>
+        <p>For one product worked all the way through, the 2026
+          <a href="/first-partner-illustration-collection.html">First Partner Illustration
+          Collection</a> is the clearest example on the site of the gap this page is about: $14.99
+          at Pokemon's own shop against $17.99 on a Best Buy or Target shelf, which is 1.2x, and
+          that page shows what all 27 cards in it are worth as well.</p>
       </div>
     </div>
   </section>

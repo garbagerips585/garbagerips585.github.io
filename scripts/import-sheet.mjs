@@ -619,7 +619,23 @@ for (const [n, r] of rows.slice(1).entries()) {
       const low = frag.toLowerCase();
       let hit = NAMES.find((n) => low.startsWith(n)) || NAMES.find((n) => low.includes(n));
       if (!hit) hit = nearestSet(frag.replace(/\s*\d+\s*$/, ""), NAMES);
-      if (!hit) { unknownSet.add(frag); continue; }
+      if (!hit) {
+        // A PACK THAT IS NOT A NUMBERED SET IS STILL A PACK. The First Partner
+        // Illustration Collection holds a promo pack alongside two set packs,
+        // and the promo cards belong to no expansion, so the set list cannot
+        // contain it. Dropping the fragment made a three-pack box count as two.
+        //
+        // Counted toward packsOpened and named, but given NO set id, because it
+        // genuinely has none: a promo is not a card in an expansion. Anything
+        // else unrecognised is still reported rather than silently counted.
+        const num = /(\d{1,3})\s*$/.exec(frag);
+        if (/promo|first partner|illustration collection/i.test(frag)) {
+          setPacks.push({ set: null, name: frag.replace(/\s*\d+\s*$/, "").trim(), packs: num ? Number(num[1]) : 1 });
+        } else {
+          unknownSet.add(frag);
+        }
+        continue;
+      }
       const num = /(\d{1,3})\s*$/.exec(frag);
       setPacks.push({ set: setIdByName.get(hit), name: hit, packs: num ? Number(num[1]) : 1 });
     }
@@ -979,7 +995,31 @@ for (const [n, r] of rows.slice(1).entries()) {
     const unparsed = [];
     const mismatched = [];
 
-    for (const raw of card.split(",")) {
+    // "A : B, C, D" MEANS THREE CARDS THAT SHARE A CONTEXT, not one long name.
+    //
+    // Tim's First Partner Illustration Collection line reads "First Partner
+    // Illustration Collection (Series 1) Alola Region Promo : Rowlet, Litten,
+    // Popplio": one promo pack, three cards, and the words before the colon
+    // describe all three. Split on commas alone and the first card swallows the
+    // whole prefix while the other two arrive naked.
+    //
+    // So a colon splits CONTEXT from LIST, and the context is prepended to each
+    // item. That is his own sentence structure being read, not a guess: a colon
+    // in English introduces a list of the thing just named. The nine regions in
+    // this product line will all arrive this way.
+    let cardText = card;
+    let listContext = null;
+    const colon = /^([^:]{4,}?)\s*:\s*(.+)$/s.exec(card);
+    if (colon && colon[2].includes(",")) {
+      // THE CONTEXT IS KEPT BESIDE THE CARD, NOT GLUED ONTO ITS NAME. Prepending
+      // it produced "First Partner Illustration Collection (Series 1) Alola
+      // Region Promo Rowlet", which is not what the card is called and matches
+      // no catalogue entry. The card is Rowlet; the rest says which printing.
+      listContext = colon[1].trim();
+      cardText = colon[2];
+    }
+
+    for (const raw of cardText.split(",")) {
       const frag = raw.replace(/\s+/g, " ").trim();
       if (!frag) continue;
 
@@ -1036,6 +1076,7 @@ for (const [n, r] of rows.slice(1).entries()) {
 
       hits.push({
         card: name,
+        ...(listContext ? { printing: listContext } : {}),
         ...(finalRarity ? { rarity: finalRarity } : {}),
         ...(setName ? { set: setIdByName.get(setName), setName } : {}),
       });

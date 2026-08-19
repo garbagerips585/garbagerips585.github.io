@@ -66,6 +66,24 @@ const STEPS = [
   "node scripts/build-about.mjs",
   "node scripts/build-luck.mjs",
   "node scripts/build-upcoming.mjs",
+  // One product guide, the 2026 First Partner Illustration Collection. Next to
+  // build-upcoming.mjs because it is the same reader at the next moment: that
+  // page says what is coming, this one is what to know about a thing already on
+  // the shelf. It reads data/first-partner.json, written by
+  // scripts/sync-first-partner.mjs, which is NOT in this list and must not be:
+  // it is a few hundred requests to PriceCharting and pokemon.com and what it
+  // records is a dated measurement. Same arrangement and same reason as
+  // sync-decks.mjs, sweep-scans.mjs and the two Topps syncs. It also reads
+  // data/hits.json and public/data/videos.json to join Tim's own pulls, so it
+  // must run after build-pages.mjs has stamped `path` onto the videos.
+  //
+  // ORDER: the usual two. Before build-search.mjs, which walks public/*.html and
+  // fails the build on an indexable page missing from its PAGES list, and before
+  // build-pages.mjs puts it in the sitemap. build-pages.mjs sits ABOVE this
+  // line, which is fine for the same reason build-base-set.mjs records: the
+  // sitemap entry is a constant in that file, and all that has to be true is
+  // that the page exists on disk by the time check-build.py runs.
+  "node scripts/build-first-partner.mjs",
   "node scripts/build-rarity.mjs",
   "node scripts/build-shows.mjs",
   "node scripts/build-fakes.mjs",

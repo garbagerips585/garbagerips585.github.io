@@ -172,6 +172,36 @@ export const noValue = (reason, cls = "none") =>
   `<span class="${cls}" aria-hidden="true">&mdash;</span>` +
   `<span class="sr-only">${esc(reason)}</span>`;
 
+/**
+ * THE CONTROL ON EVERY VIDEO ARTWORK ON THIS SITE, in one string.
+ *
+ * It is the banner the rip pages have always carried across the foot of the
+ * sealed pack, and since 19 August 2026 it is the only affordance any video
+ * artwork gets: Tim asked for "just that one banner acorss the bottom" and for
+ * the "Rip it open" pills under the carousel slides to go entirely. The rules
+ * are `.pack-hint` in assets-source/ui.css, written once for the rip page and
+ * re-used here rather than reimplemented.
+ *
+ * THE WORDS ARE NOT A CHOICE MADE HERE. They are what build-pages.mjs already
+ * prints on 316 rip pages, and they are what Tim pointed at. If they ever
+ * change they change in both places, which is most of the reason this constant
+ * exists rather than four literals in two builders.
+ *
+ * aria-hidden BECAUSE THE LINK ALREADY HAS A NAME. Every tile is one anchor
+ * whose accessible name is the video's full title; the Hall of Fame trophy has
+ * no aria-label and takes its name from its contents, so an unhidden banner
+ * there would prepend "CLICK TO RIP THE PACK" to the name of the card the
+ * page is about. Hidden, the accessible name of every video link on the site is
+ * byte for byte what it was before this change.
+ *
+ * THE SEVENTH COPY IS NOT HERE AND CANNOT BE. public/assets/app.js draws
+ * /videos.html's grid in the browser and is a plain script with no imports, so
+ * it builds the same element by hand. It is the emitter that gets missed; if
+ * you edit this string, edit that one in the same commit.
+ */
+export const RIP_BANNER =
+  `<span class="pack-hint" aria-hidden="true">CLICK TO RIP THE PACK</span>`;
+
 /** Sleep, for the rate-limited sync scripts. */
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 

@@ -102,7 +102,9 @@ brand entity SEO and funneling visitors to the channel and socials.
 
   **THREE BUGS FIXED IN ui.css, ALL THE SAME SHAPE: A SURFACE TOKEN WRITTEN
   WHERE INK BELONGS.** Correct on a light palette, illegible on any dark one.
-  `.hero-cta{color:var(--ink)}` measured 1.27:1 on nine home-page buttons;
+  `.hero-cta{color:var(--ink)}` measured 1.27:1 on nine home-page buttons (that
+  rule and its element were deleted on 19 August 2026, see the home page entry;
+  the class of bug is the point and the other two are still live);
   `.hofx-t{color:var(--paper)}` at 1.03:1 made the Hall of Fame TROPHY TITLE
   INVISIBLE; `footer .soc svg{fill:var(--paper)}` at 1.10:1 was four blank
   circles. **THE CLASS IS THE POINT, NOT THE THREE.** Sweeping for it found a
@@ -1447,14 +1449,35 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
 - The Hall of Fame card keeps its text when the player mounts: the handler
   swaps only the art box, because replacing the whole card lost the title, the
   set and the view count.
-- The Hall of Fame trophy carries a play pip and a duration chip like every
-  other artwork on the page, added 16 August 2026 and the last thing here that
-  did not. Both sit INSIDE `.hofx-art`, so playInTile takes them away with the
-  artwork they describe. It matters most on a phone: measured at 390x844 the
-  art box runs 265px to 845px, so the caption, the set, the view count and
-  "Watch the pull" are ALL below the fold and the pip and the clock are the
-  only two marks that fit inside the art itself. Without them the opening
-  screen was a picture of a booster pack with nothing anywhere saying it plays.
+- **ONE CONTROL ON EVERY VIDEO ARTWORK ON THE SITE, AND IT IS THE RIP PAGE'S
+  OWN BANNER.** Since 19 August 2026 every pack, everywhere, carries
+  `.pack-hint` reading CLICK TO RIP THE PACK across the foot of the artwork:
+  the grid tile, the carousel slide, the Hall of Fame trophy, the 22 playlist
+  pages, and /videos.html both server-rendered AND client-rendered, as well as
+  the rip page it came from. Tim: "I do like the 'Click To Open Pack' banner on
+  the video pages themselves, can we carry that accross to the home page, and
+  remove the 'Rip it open' ctas all together not needed just that one banner
+  acorss the bottom". The markup is `RIP_BANNER` in shared/format.mjs, imported
+  by both builders; public/assets/app.js cannot import and restates it with a
+  comment saying so. `<span class="play">`, the white disc, and `.hero-cta`,
+  the "Rip it open ->" pill under every carousel slide, are both GONE from the
+  tree. Do not reintroduce either: the disc measured 1.00:1 at its worst point
+  against the nineteen wrappers with up to 48% of its perimeter under 3:1,
+  while the banner floors at 3.82:1 on every skin because it is opaque and
+  carries a near-white ring outside a near-black keyline, which are 14.6x apart
+  in luminance so one of them always reads. `.hofx-cta`, "Watch the pull ->",
+  is a DIFFERENT control and stays: it is about the card that came out, not
+  about the pack.
+- The trophy's duration chip and its banner both sit INSIDE `.hofx-art`, so
+  playInTile takes them away with the artwork they describe. THE FOLD IS WHAT
+  THE BANNER COSTS AND IT WAS MEASURED RATHER THAN WAVED AT: the disc sat at
+  the CENTRE of the artwork and the banner sits at its foot, so at 390x844 with
+  the drops band up, the trophy's art box runs 295px to 874px and only the top
+  14px of the bar is above the fold; at 1440x900 the bar is at y=901 and the
+  duration chip at 885 is the last thing visible. Both clear the fold once the
+  drops band expires, which it does at the end of its own week. The clock is
+  therefore what says "this is a video" above the fold in the worst case, which
+  is the job it was added for on 16 August 2026.
 - EVERY RELATIVE DATE ON THE PAGE IS RECOMPUTED IN THE BROWSER. `ago()` in
   build-proto.mjs runs on the build clock and its answer is then frozen into a
   static file, so a deploy that stops moving turns "TODAY" into a lie in the

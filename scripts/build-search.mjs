@@ -155,6 +155,15 @@ const PAGES = [
   ["/what-set.html", "What set is my card from?", "Look up the number printed after the slash"],
   ["/luck.html", "How our luck is going", "What actually comes out of the packs"],
   ["/upcoming.html", "Coming next", "Upcoming sets and preorder prices"],
+  // THE TITLE IS THE PRODUCT'S FULL NAME because that name IS the query. This
+  // is the one page on the site built for a search almost nobody else has
+  // answered: the product is 2026, the coverage is a news post and a forum
+  // thread, and nowhere else lists all 27 cards with a price on each.
+  [
+    "/first-partner-illustration-collection.html",
+    "First Partner Illustration Collection",
+    "All 27 promos with prices, what is in the box, and the panorama artwork",
+  ],
   ["/expansions.html", "Every set ever", "The complete expansion list"],
   // The two ranked price lists. Both are one line each here for the reason the
   // comment above PAGES gives: four pages once shipped without one and were

@@ -1229,6 +1229,10 @@ const urls = [
   // Release dates. High priority and frequent: this is the page people search
   // for by name in the weeks before a set drops.
   { loc: `${SITE}/upcoming.html`, freq: "weekly", pri: "0.9" },
+  // One product, in depth, and the best untaken search on the site. Weekly
+  // rather than monthly because the card prices on it are dated and Series 3
+  // only came out on 7 August 2026, so its PSA 10 column is still filling in.
+  { loc: `${SITE}/first-partner-illustration-collection.html`, freq: "weekly", pri: "0.9" },
   // The beginner guide. Evergreen and the best long-tail search target on the
   // site: "pokemon card rarity symbols" is asked constantly and never expires.
   { loc: `${SITE}/rarity.html`, freq: "monthly", pri: "0.9" },
