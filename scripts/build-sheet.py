@@ -758,6 +758,23 @@ HEAD_NOTES = {
         "offer products already in the log, so it could never contain the one\n"
         "you were recording for the first time."
     ),
+    "Hit Card": (
+        "FREE TEXT. Type it the way you say it: set, card, rarity.\n"
+        "\n"
+        "  Chaos Rising Mega Greninja ex Hyper Rare\n"
+        "\n"
+        "MORE THAN ONE HIT? Separate them with a comma:\n"
+        "\n"
+        "  Chaos Rising Mega Greninja ex Hyper Rare,\n"
+        "  Pitch Black Umbreon ex Special Illustration Rare\n"
+        "\n"
+        "The comma separates HITS, not the parts of one hit.\n"
+        "\n"
+        "The set and the rarity are matched against the real lists, so what is\n"
+        "left over is the card name. Leave the rarity off if you do not know it\n"
+        "and the card is still recorded. Nothing you type is ever discarded:\n"
+        "the whole line is kept exactly as written whatever gets recognised."
+    ),
     "Packs": (
         "HOW MANY PACKS OF THE SET IN THE Set COLUMN you opened in THIS video.\n"
         "Not how many the box holds. If you opened one pack out of a Chaos\n"
@@ -1111,16 +1128,25 @@ last = len(ordered) + 1
 CI = {head: i for i, (head, _, _) in enumerate(COLUMNS, start=1)}
 for dv_formula, cols in [
     (DV_SET, [CI["Set"], CI["Set 2"], CI["Set 3"], CI["Set 4"], CI["Set 5"]]),
-    (DV_OPEN, [CI["Opening Type"]]),
-    (DV_RARITY, [CI["Hit Rarity"]]),
-    (DV_YESNO, [CI["Has Hit"], CI["Greatest Hits"], CI["Feature"], CI["Hide"]]),
-    (DV_PLAYLIST, [CI["Playlist To Add"]]),
-    (DV_RANK, [CI["Greatest Hits Rank"]]),
-    # A list of numbers, not strict, so 3 is one click and anything past the end
-    # of the list can still be typed. Own object per column for the reason
-    # spelled out below.
-    (DV_BOXNO, [CI["Box #"]]),
-    (DV_PACKNO, [CI["Pack #"]]),
+    # DROPDOWNS ARE NOW ON THE SET COLUMNS AND NOWHERE ELSE. Tim, 19 August
+    # 2026: "only really need the dropdown for what cardsets are in the video,
+    # the rest I can fill in myself will be easier".
+    #
+    # THE SET COLUMNS KEEP THEIRS FOR A REASON THAT DOES NOT APPLY TO THE
+    # OTHERS. A set name is several words, some of them shared between sets
+    # (Pitch Black against Mega Evolution Pitch Black), and a near miss does not
+    # fail loudly: it silently files a whole video's packs under a different
+    # set, which is the exact class of error the pack-count work spent a day
+    # undoing. Every other field is either a short word he knows, a number, or a
+    # card name only he can supply, and for all of those a list is friction
+    # rather than protection.
+    #
+    # THE COST IS PAID IN import-sheet.mjs, NOT HERE. A free-text column means
+    # the importer can no longer assume the exact dropdown string, so it
+    # normalises what it reads: yes/y/true for Has Hit, the product aliases
+    # people actually write for Opening Type, and rarity spelled loosely. That
+    # is transcription of his own answer, not inference about a video, which is
+    # the line this project holds everywhere else.
 ]:
     # ONE VALIDATION OBJECT PER COLUMN, NOT ONE SHARED ACROSS ALL OF THEM.
     #

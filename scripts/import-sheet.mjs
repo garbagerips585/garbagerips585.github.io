@@ -742,6 +742,70 @@ for (const [n, r] of rows.slice(1).entries()) {
   if (hasHit) { m.hasHit = isYes(hasHit); counted.hit++; }
   const card = get(r, idx.hitCard);
   if (card) { m.hitCard = card; counted.card++; }
+
+  // ONE CELL, WRITTEN THE WAY TIM SAYS IT, AND A COMMA BETWEEN HITS.
+  // 19 August 2026: "I will just keep typing them out how I have, the set name,
+  // the card name, and rariety type all in one cell, and will just use coma if
+  // there is more than one hit per video."
+  //
+  // So: commas separate HITS, not the fields inside one hit. "Chaos Rising Mega
+  // Greninja ex Hyper Rare" is one hit; adding ", Pitch Black Umbreon ex
+  // Special Illustration Rare" makes it two.
+  //
+  // THE RAW STRING IS ALWAYS KEPT, whatever the parse does. m.hitCard above
+  // holds it untouched, so nothing he types can be lost by a rule that failed
+  // to understand it. Everything below only ADDS structure.
+  //
+  // MATCHED AGAINST KNOWN VOCABULARIES, NOT GUESSED AT. Set names come from
+  // sets.json and rarities from the same list build-sheet.py offers, so a
+  // fragment either IS a real set and a real rarity or it is not recognised.
+  // That is the difference between reading his answer back and inventing one:
+  // there is no scoring, no nearest match, no confidence threshold. Longest
+  // name first so "Mega Evolution Pitch Black" beats "Pitch Black" and "Special
+  // Illustration Rare" beats "Rare".
+  //
+  // WHAT IS LEFT OVER IS THE CARD NAME, which is the one part no list can hold.
+  // If a fragment yields no rarity, it is still recorded with its card name and
+  // no rarity rather than dropped, because "which card" is worth more than
+  // "how rare" and the rarity can be added later.
+  //
+  // A FRAGMENT THAT RESOLVES TO NOTHING PUBLISHES NOTHING. It stays in the raw
+  // string, it is reported at the end of the run so he can see it, and no
+  // structured claim is made from it. Silence beats a wrong card on the hall of
+  // fame page.
+  if (card) {
+    const RARITY_WORDS = [
+      "Mega Hyper Rare", "Special Illustration Rare", "Illustration Rare",
+      "ACE SPEC Rare", "Hyper Rare", "Ultra Rare", "Double Rare", "Super Rare",
+      "Shiny Rare", "Secret Rare", "Rare",
+    ].sort((a, b) => b.length - a.length);
+    const SET_NAMES = [...setIdByName.keys()].sort((a, b) => b.length - a.length);
+
+    const hits = [];
+    const unparsed = [];
+    for (const raw of card.split(",")) {
+      let frag = raw.trim();
+      if (!frag) continue;
+      const low = frag.toLowerCase();
+
+      const setName = SET_NAMES.find((s) => low.includes(s));
+      const rarity = RARITY_WORDS.find((w) => low.includes(w.toLowerCase()));
+
+      let name = frag;
+      if (setName) name = name.replace(new RegExp(setName, "i"), " ");
+      if (rarity) name = name.replace(new RegExp(rarity, "i"), " ");
+      name = name.replace(/\s+/g, " ").trim();
+
+      if (!name) { unparsed.push(frag); continue; }
+      hits.push({
+        card: name,
+        ...(rarity ? { rarity } : {}),
+        ...(setName ? { set: setIdByName.get(setName), setName } : {}),
+      });
+    }
+    if (hits.length) m.hits = hits;
+    if (unparsed.length) (counted.hitUnparsed ||= []).push({ id: m.id || "", unparsed });
+  }
   const rarity = get(r, idx.rarity);
   // The dropdown reads "Special Illustration Rare (2 gold stars)"; the
   // parenthetical is a hint for whoever is filling the sheet in, not something
