@@ -22,6 +22,7 @@ from pathlib import Path
 from openpyxl import Workbook
 from openpyxl.comments import Comment
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
+from openpyxl.formatting.rule import FormulaRule
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 
@@ -608,10 +609,16 @@ COLUMNS = [
     #
     # This replaces "More Sets", which was free text. Free text in one cell is
     # exactly what broke the hits: one typo and one stray comma cost two cards.
+    # ORDER FOLLOWS THE ORDER A PERSON ANSWERS THE QUESTIONS, which is not the
+    # order the data model lists them in. Watching a rip you know WHAT WAS
+    # OPENED before you know which sets were inside it: Opening Type is read off
+    # the box in the first two seconds, and the set is often only certain once a
+    # pack is out. Opening Type also drives what Box # and Pack # even mean, so
+    # asking for it first means the next three columns arrive already framed.
+    ("Opening Type", 28, "input"),
     ("Set", 24, "input"),
     ("Packs", 8, "input"),
     ("Box / Series", 30, "input"),
-    ("Opening Type", 28, "input"),
     # WHICH ONE OF THESE, AND WHICH PACK OUT OF IT.
     #
     # Asked for by name: "we should be able to see I have opened 3 Chaos Rising
@@ -810,7 +817,12 @@ for i, (head, width, kind) in enumerate(COLUMNS, start=1):
         cm.width, cm.height = 320, 190
         c.comment = cm
     wv.column_dimensions[get_column_letter(i)].width = width
-wv.freeze_panes = "B2"
+# FREEZE THROUGH Watch, NOT JUST THE ID. At B2 only the video id stayed put, so
+# scrolling right to the columns he actually fills took the TITLE and the WATCH
+# link off screen: he was filling a row he could no longer identify and could no
+# longer open. Everything left of the first input column is now pinned.
+_HEADS = [h for h, _, _ in COLUMNS]
+wv.freeze_panes = f"{get_column_letter(_HEADS.index('Opening Type') + 1)}2"
 wv.row_dimensions[1].height = 30
 
 # AUTOFILTER, AND IT IS THE BIGGEST USABILITY FIX IN THIS FILE.
@@ -821,6 +833,51 @@ wv.row_dimensions[1].height = 30
 # column to Blanks to see exactly what is left.
 # Survives the trip into Google Sheets as its standard filter.
 wv.auto_filter.ref = f"A1:{get_column_letter(len(COLUMNS))}{len(videos) + 1}"
+
+# ---------------------------------------------------------------------------
+# SHOW WHAT IS STILL MISSING, so a 317 row job can be reviewed at a glance
+# ---------------------------------------------------------------------------
+#
+# Tim, 18 August 2026: "I just dont want to run into anything that slows me
+# down". The thing that slows a long log down is not typing, it is FINDING the
+# row you have not done yet, and re-checking rows you already finished.
+#
+# One rule, on the four columns that must be answered for the stats he asked for
+# to come out right: a row is unfinished while Opening Type, Set, Packs or Has
+# Hit is empty. Amber fill, not red: nothing here is wrong, it is just not
+# answered yet, and 317 red rows on the first open would read as 317 errors.
+#
+# WHY A FORMULA RULE RATHER THAN openpyxl's blanks operator: the blanks operator
+# colours a cell when THAT cell is empty, so a finished row with an empty Packs
+# still shows three white cells and one amber, which reads as "nearly done"
+# rather than "not done". This colours the WHOLE input block while any of the
+# four is missing, so an unfinished row is a stripe you cannot miss when
+# scrolling, and it clears the moment the row is complete.
+#
+# GOOGLE SHEETS KEEPS THIS. Conditional formatting survives an .xlsx import,
+# unlike the blue "this is a guess" font colour, which is why that convention
+# was removed from this file rather than relied on.
+_ix = lambda h: _HEADS.index(h) + 1
+_first = get_column_letter(min(_ix(h) for h in ("Opening Type", "Set", "Packs", "Has Hit")))
+_last = get_column_letter(max(_ix(h) for h in ("Opening Type", "Set", "Packs", "Has Hit")))
+_need = "OR({})".format(",".join(
+    f'${get_column_letter(_ix(h))}2=""' for h in ("Opening Type", "Set", "Packs", "Has Hit")))
+wv.conditional_formatting.add(
+    f"{_first}2:{_last}{len(videos) + 1}",
+    FormulaRule(formula=[_need], fill=PatternFill("solid", fgColor="FFF3D6"), stopIfTrue=False),
+)
+
+# A ROW THAT SAYS THERE WAS A HIT AND DOES NOT NAME THE CARD is the one case
+# that IS an error rather than an absence: /luck.html counts it as a hit while
+# the hall of fame and the rarity pages have nothing to show. Rose, and only on
+# the two cells involved, so it reads as different from "not answered yet".
+_hh = get_column_letter(_ix("Has Hit"))
+_hc = get_column_letter(_ix("Hit Card"))
+wv.conditional_formatting.add(
+    f"{_hh}2:{_hc}{len(videos) + 1}",
+    FormulaRule(formula=[f'AND(${_hh}2="Yes",${_hc}2="")'],
+                fill=PatternFill("solid", fgColor="FADADD"), stopIfTrue=False),
+)
 
 COL = {head: i for i, (head, _, _) in enumerate(COLUMNS, start=1)}
 
