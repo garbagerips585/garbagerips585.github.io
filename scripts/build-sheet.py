@@ -546,6 +546,24 @@ def named(col_idx, count):
     return label
 
 DV_SET = named(1, len(SET_NAMES))
+# THE SET COLUMN GETS ITS OWN NAME OVER THE SAME LIST, and this is the fix for
+# a bug Tim hit mid-fill: "im not seeing the card set field, its only shows set
+# 2 and set 3 and set 4, but not the first set".
+#
+# WHAT ACTUALLY HAPPENED. This file already knew that Google Sheets mishandles
+# one DataValidation attached to several ranges, and the comment further down
+# says so. So all five Set columns were given their own DataValidation OBJECT.
+# That was necessary and not sufficient: the five objects still shared one
+# FORMULA, gr_list_A, and on the round trip Google DEDUPED THEM BACK INTO ONE
+# multi-range rule. Read out of Tim's returned file: a single validation with
+# sqref "H2:H318 Q2:Q318 S2:S318 U2:U318 W2:W318", and the first range is the
+# one that stopped working.
+#
+# Two objects sharing a formula can be merged. Two objects with DIFFERENT
+# formulas cannot. gr_list_AA points at the identical cells, so the dropdown
+# offers exactly the same 174 sets, but it is a different name and survives.
+DV_SET_PRIMARY = "gr_list_AA"
+DEFINED[DV_SET_PRIMARY] = DEFINED[DV_SET]
 DV_OPEN = named(2, len(OPENING_TYPES))
 DV_RARITY = named(3, len(RARITIES))
 DV_YESNO = named(4, len(YESNO))
@@ -1037,31 +1055,28 @@ for r, v in enumerate(ordered, start=2):
     # "ex Premium Collection" came back as "ex Box", because the tag rules cannot
     # tell those two apart from a title and a person can. That is the exact
     # failure the note below describes, in the same block, one field over.
-    # OPENING TYPE AND PACKS ARE NOT RESTORED EITHER, AND THIS IS THE HARD ONE.
+    # THEY ARE RESTORED AGAIN NOW, AND THE REASON THEY WERE NOT IS SPENT.
     #
-    # Everything else in this block is a genuine answer coming back so nobody
-    # types it twice. These two are different: manual.json cannot tell a value
-    # Tim typed from a value this script SUGGESTED and the CSV round trip
-    # laundered into an answer. 316 opening types and 244 pack counts were in
-    # the file, and the great majority of both arrived as blue guesses.
+    # These two were handed back blank on 18 August because manual.json could
+    # not tell a value TIM TYPED from one this script SUGGESTED in blue that the
+    # CSV round trip laundered into an answer: 316 opening types and 244 pack
+    # counts were in the file and the great majority of both were machine
+    # guesses. Blanking the form was the only way to be sure what came back was
+    # his.
     #
-    # He asked to fill these himself: "yes make the execl sheet let me fill in
-    # what type of product it is, then what set type of packs are in it and how
-    # many of each of those set type packs are in the overall video". Handing
-    # back a laundered guess in BODY, indistinguishable from his own answer, is
-    # precisely what stops that from being possible.
+    # That worked. The file now holds 4 opening types and 1 pack count, and
+    # every one of them arrived from his own first pass on 19 August through
+    # free-text columns this script does not prefill. There is nothing left in
+    # here for a restore to launder, and NOT restoring now does the opposite
+    # harm: it throws away answers he typed twenty minutes ago and makes him
+    # type them twice, which is exactly what he asked not to happen.
     #
-    # NOTHING IS DESTROYED. data/manual.json still holds every stored value; it
-    # is the sheet, the input form, that starts clean for these two columns. A
-    # handful of real corrections he made are in there (a Costco UPC moved from
-    # 16 packs to 18) and will need typing once more. That is the cost of not
-    # being able to tell them apart, and it is smaller than the cost of shipping
-    # 316 machine guesses as his answers a second time.
-    # Typed answers, never guessed. There is no rule that could derive which ETB
-    # a video opened: the description usually says so in prose and sometimes says
-    # it twice with two different numbers ("Pack #2 of our third Chaos Rising
-    # ETB"), which is exactly the sort of thing a matcher gets confidently wrong.
-    # A blank cell here means nobody has said, and it comes back blank.
+    # The guard that keeps this safe is upstream rather than here: this file
+    # prefills NOTHING into these columns, so anything present is an answer.
+    if man.get("openingType"):
+        wv.cell(r, COL["Opening Type"], man["openingType"]).font = BODY
+    if man.get("packs"):
+        wv.cell(r, COL["Packs"], man["packs"]).font = BODY
     if man.get("boxNumber"):
         wv.cell(r, COL["Box #"], man["boxNumber"]).font = BODY
     if man.get("packNumber"):
@@ -1127,7 +1142,8 @@ last = len(ordered) + 1
 # the wrong column without anything appearing to break.
 CI = {head: i for i, (head, _, _) in enumerate(COLUMNS, start=1)}
 for dv_formula, cols in [
-    (DV_SET, [CI["Set"], CI["Set 2"], CI["Set 3"], CI["Set 4"], CI["Set 5"]]),
+    (DV_SET_PRIMARY, [CI["Set"]]),
+    (DV_SET, [CI["Set 2"], CI["Set 3"], CI["Set 4"], CI["Set 5"]]),
     # DROPDOWNS ARE NOW ON THE SET COLUMNS AND NOWHERE ELSE. Tim, 19 August
     # 2026: "only really need the dropdown for what cardsets are in the video,
     # the rest I can fill in myself will be easier".

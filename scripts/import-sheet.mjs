@@ -94,6 +94,27 @@ const PRODUCT_IDS = {
   "collection box": "collection-box",
   "knock out collection": "knock-out",
   "other": null,
+
+  // THE WAY TIM ACTUALLY WRITES THEM, now these columns are free text. Every
+  // one came out of his own first pass on 19 August 2026 and was reported by
+  // this script as unrecognised, which is the dropped dropdown working as
+  // intended: it did not guess, it said so. The keys above are the old dropdown
+  // LABELS, which nobody types by hand; these are the words a person writes.
+  "blister pack": "blister",
+  "upc": "upc",
+  "ultra premium collection": "upc",
+  "collector chest": "collection-box",
+  "elite trainer box": "etb",
+  "etb": "etb",
+  "spc": "spc",
+  "super premium collection": "spc",
+  "mini tin": "tin",
+  "single pack": "single-pack",
+  "booster pack": "single-pack",
+  "bundle": "bundle",
+  "japanese pack": "japanese-pack",
+  "korean pack": "korean-pack",
+  "chinese pack": "chinese-pack",
 };
 
 // The sheet offers set NAMES because nobody wants to pick "sv3pt5" from a
@@ -774,37 +795,97 @@ for (const [n, r] of rows.slice(1).entries()) {
   // structured claim is made from it. Silence beats a wrong card on the hall of
   // fame page.
   if (card) {
+    // HIS FORMAT, READ OFF HIS OWN FIRST PASS rather than assumed:
+    //
+    //   Set Name - Card Name - Star Symbol - Rarity
+    //
+    // and a comma between hits. I had guessed he would write running prose and
+    // built a substring matcher; he writes it DELIMITED, which is better data
+    // than I expected. This reads the delimiters and keeps the substring pass
+    // as the fallback for a fragment that has none.
+    //
+    // THE STAR SYMBOL IS A FREE CROSS-CHECK AND THAT IS WHY IT IS PARSED. One
+    // gold star is Illustration Rare, two silver is Ultra Rare, two black is
+    // Double Rare, one pink is ACE SPEC Rare. So every hit carries its rarity
+    // TWICE: once as a symbol he read off the card, once as a name he wrote.
+    // When the two disagree one of them is a slip, and this reports it rather
+    // than silently picking a side.
+    //
+    // REAL SLOPPINESS THAT MUST NOT COST A HIT, all from his own rows: "Double
+    // Black Star- Double Rare" with no space, "Single Gold star" lowercase,
+    // trailing commas, doubled spaces, and a hit whose rarity IS the star
+    // ("Black Star Promo" with no rarity word after it).
+    const STAR_RARITY = {
+      "single gold star": "Illustration Rare",
+      "double silver star": "Ultra Rare",
+      "double black star": "Double Rare",
+      "single pink star": "ACE SPEC Rare",
+    };
     const RARITY_WORDS = [
       "Mega Hyper Rare", "Special Illustration Rare", "Illustration Rare",
       "ACE SPEC Rare", "Hyper Rare", "Ultra Rare", "Double Rare", "Super Rare",
-      "Shiny Rare", "Secret Rare", "Rare",
+      "Shiny Rare", "Secret Rare", "Black Star Promo", "Rare",
     ].sort((a, b) => b.length - a.length);
     const SET_NAMES = [...setIdByName.keys()].sort((a, b) => b.length - a.length);
+    const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
     const hits = [];
     const unparsed = [];
+    const mismatched = [];
+
     for (const raw of card.split(",")) {
-      let frag = raw.trim();
+      const frag = raw.replace(/\s+/g, " ").trim();
       if (!frag) continue;
-      const low = frag.toLowerCase();
 
-      const setName = SET_NAMES.find((s) => low.includes(s));
-      const rarity = RARITY_WORDS.find((w) => low.includes(w.toLowerCase()));
+      // A dash used as a DELIMITER has a space on at least one side. A hyphen
+      // inside a card name (Ho-Oh, Porygon-Z, Jangmo-o) has none, so it lives.
+      const parts = frag.split(/\s-\s*|\s*-\s/).map((x) => x.trim()).filter(Boolean);
 
-      let name = frag;
-      if (setName) name = name.replace(new RegExp(setName, "i"), " ");
-      if (rarity) name = name.replace(new RegExp(rarity, "i"), " ");
-      name = name.replace(/\s+/g, " ").trim();
+      let setName = null, rarity = null, star = null, name = null;
+
+      if (parts.length >= 2) {
+        const lows = parts.map((x) => x.toLowerCase());
+        const si = lows.findIndex((x) => setIdByName.has(x));
+        if (si !== -1) setName = lows[si];
+        const ri = lows.findIndex((x) => RARITY_WORDS.some((w) => x === w.toLowerCase()));
+        if (ri !== -1) rarity = RARITY_WORDS.find((w) => lows[ri] === w.toLowerCase());
+        const ki = lows.findIndex((x) => STAR_RARITY[x]);
+        if (ki !== -1) star = lows[ki];
+        // What is left, in order, is the card. "Trainer - Dawn" stays joined:
+        // Trainer is part of how he names it and dropping it loses which Dawn.
+        name = parts.filter((_, i) => i !== si && i !== ri && i !== ki).join(" ").trim();
+      }
+
+      if (!name) {
+        const low = frag.toLowerCase();
+        setName = SET_NAMES.find((s2) => low.includes(s2)) || null;
+        rarity = RARITY_WORDS.find((w) => low.includes(w.toLowerCase())) || null;
+        star = Object.keys(STAR_RARITY).find((k) => low.includes(k)) || null;
+        let rest = frag;
+        for (const piece of [setName, rarity, star]) {
+          if (piece) rest = rest.replace(new RegExp(esc(piece), "i"), " ");
+        }
+        name = rest.replace(/\s+/g, " ").trim();
+      }
 
       if (!name) { unparsed.push(frag); continue; }
+
+      // The star wins nothing alone, but it FILLS a missing rarity and FLAGS a
+      // disagreement. Neither is a guess: both readings are his.
+      const fromStar = star ? STAR_RARITY[star] : null;
+      if (fromStar && rarity && fromStar !== rarity) mismatched.push({ frag, star: fromStar, written: rarity });
+      const finalRarity = rarity || fromStar || null;
+
       hits.push({
         card: name,
-        ...(rarity ? { rarity } : {}),
+        ...(finalRarity ? { rarity: finalRarity } : {}),
         ...(setName ? { set: setIdByName.get(setName), setName } : {}),
       });
     }
+
     if (hits.length) m.hits = hits;
     if (unparsed.length) (counted.hitUnparsed ||= []).push({ id: m.id || "", unparsed });
+    if (mismatched.length) (counted.hitMismatch ||= []).push({ id: m.id || "", mismatched });
   }
   const rarity = get(r, idx.rarity);
   // The dropdown reads "Special Illustration Rare (2 gold stars)"; the
