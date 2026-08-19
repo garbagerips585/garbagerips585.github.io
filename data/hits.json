@@ -95,6 +95,9 @@
         "forSet": "phantasmal-flames"
       },
       {
+        "card": "Phantasmal Falmes Charizard X ex Black Star Promo Card"
+      },
+      {
         "card": "Trainer Dawn",
         "set": "phantasmal-flames",
         "setName": "phantasmal flames",
@@ -167,7 +170,9 @@
         "rarity": "Ultra Rare"
       },
       {
-        "card": "Phantasmal Falmes Charizard X ex Black Star Promo Card"
+        "card": "Charizard X ex Black Star Promo Card",
+        "set": "phantasmal-flames",
+        "setName": "phantasmal flames"
       },
       {
         "card": "Oricorio ex Black Star Promo Card",
@@ -389,6 +394,70 @@
         "set": "mega-evolution",
         "setName": "mega evolution",
         "rarity": "Illustration Rare"
+      }
+    ],
+    "GTC45Mri_gc": [
+      {
+        "card": "Thievul",
+        "set": "pitch-black",
+        "setName": "pitch black",
+        "rarity": "Illustration Rare"
+      }
+    ],
+    "pRkDVGXWufQ": [
+      {
+        "card": "Chespin",
+        "set": "chaos-rising",
+        "setName": "chaos rising",
+        "rarity": "Illustration Rare"
+      }
+    ],
+    "X0KK70SjzEM": [
+      {
+        "card": "Trainer Sacred Ash",
+        "set": "perfect-order",
+        "setName": "perfect order",
+        "rarity": "Ultra Rare"
+      }
+    ],
+    "O1hNutypTR8": [
+      {
+        "card": "Trainer Lumiose City",
+        "set": "perfect-order",
+        "setName": "perfect order",
+        "rarity": "Ultra Rare"
+      }
+    ],
+    "RP08BTumj2U": [
+      {
+        "card": "Ampharos",
+        "set": "chaos-rising",
+        "setName": "chaos rising",
+        "rarity": "Illustration Rare"
+      }
+    ],
+    "nBKJMnw9L2Y": [
+      {
+        "card": "Mega Scrafty ex",
+        "set": "ascended-heroes",
+        "setName": "ascended heroes",
+        "rarity": "Double Rare"
+      }
+    ],
+    "9CpAz0MxnTE": [
+      {
+        "card": "Trainer Energy Recycler",
+        "set": "perfect-order",
+        "setName": "perfect order",
+        "rarity": "Ultra Rare"
+      }
+    ],
+    "gFZ_jiV7DEY": [
+      {
+        "card": "Trainer Team Rocket's Transceiver",
+        "set": "ascended-heroes",
+        "setName": "ascended heroes",
+        "rarity": "Ultra Rare"
       }
     ]
   }

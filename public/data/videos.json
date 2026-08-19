@@ -8,7 +8,7 @@
       "path": "rip/is-rampardos-ex-a-real-hit-_RuAmy2dGL8.html",
       "published": "2026-08-19",
       "duration": 20,
-      "views": 586,
+      "views": 671,
       "vertical": true,
       "short": true,
       "sets": [
@@ -945,9 +945,15 @@
       "products": [
         "single-pack"
       ],
-      "pulls": [],
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Thievul - Single Gold Star - Illustration Rare",
       "hasHit": true,
-      "label": "Pitch Black Pack"
+      "packNumber": 1,
+      "openingType": "Single Booster Pack",
+      "packs": 1,
+      "label": "Pitch Black Pack - Pack 1"
     },
     {
       "id": "RtJn1UOi2S8",
@@ -959,14 +965,17 @@
       "vertical": true,
       "short": true,
       "sets": [
-        "surging-sparks",
-        "twilight-masquerade"
+        "surging-sparks"
       ],
       "products": [
         "poke-ball-tin"
       ],
       "pulls": [],
-      "label": "Surging Sparks Poke Ball Tin"
+      "hasHit": false,
+      "packNumber": 2,
+      "openingType": "Poke Ball Tin",
+      "packs": 1,
+      "label": "Surging Sparks Poke Ball Tin - Pack 2"
     },
     {
       "id": "rUOMBBOjrXI",
@@ -984,8 +993,12 @@
         "ex-premium"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Chaos Rising ex Premium Collection"
+      "hasHit": false,
+      "boxNumber": 1,
+      "packNumber": 3,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Chaos Rising ex Premium Collection 1 - Pack 3"
     },
     {
       "id": "pRkDVGXWufQ",
@@ -1002,9 +1015,16 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Chespin - Single Gold Star - Illustration Rare",
       "hasHit": true,
-      "label": "Chaos Rising ex Premium Collection"
+      "boxNumber": 1,
+      "packNumber": 2,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Chaos Rising ex Premium Collection 1 - Pack 2"
     },
     {
       "id": "X0KK70SjzEM",
@@ -1021,8 +1041,16 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
-      "label": "Perfect Order ex Premium Collection"
+      "pulls": [
+        "ultra"
+      ],
+      "hitCard": "Trainer - Sacred Ash - Double Silver Star - Ultra Rare",
+      "hasHit": true,
+      "boxNumber": 2,
+      "packNumber": 4,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Perfect Order ex Premium Collection 2 - Pack 4"
     },
     {
       "id": "STMGjXcUAm4",
@@ -1040,8 +1068,12 @@
         "ex-premium"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Perfect Order ex Premium Collection"
+      "hasHit": false,
+      "boxNumber": 2,
+      "packNumber": 3,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Perfect Order ex Premium Collection 2 - Pack 3"
     },
     {
       "id": "O1hNutypTR8",
@@ -1058,8 +1090,15 @@
       "products": [
         "poke-ball-tin"
       ],
-      "pulls": [],
-      "label": "Perfect Order Poke Ball Tin"
+      "pulls": [
+        "ultra"
+      ],
+      "hitCard": "Trainer - Lumiose City - Double Silver Star - Ultra Rare",
+      "hasHit": true,
+      "packNumber": 1,
+      "openingType": "Poke Ball Tin",
+      "packs": 1,
+      "label": "Perfect Order Poke Ball Tin - Pack 1"
     },
     {
       "id": "xqV7AYXoVJs",
@@ -1077,7 +1116,12 @@
         "ex-premium"
       ],
       "pulls": [],
-      "label": "Ascended Heroes ex Premium Collection"
+      "hasHit": false,
+      "boxNumber": 2,
+      "packNumber": 4,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 2 - Pack 4"
     },
     {
       "id": "RP08BTumj2U",
@@ -1094,9 +1138,16 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
+      "pulls": [
+        "ir"
+      ],
+      "hitCard": "Ampharos - Single Gold Star - Illustration Rare",
       "hasHit": true,
-      "label": "Chaos Rising ex Premium Collection"
+      "boxNumber": 1,
+      "packNumber": 1,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Chaos Rising ex Premium Collection 1 - Pack 1"
     },
     {
       "id": "nBKJMnw9L2Y",
@@ -1113,8 +1164,16 @@
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
-      "label": "Ascended Heroes ex Premium Collection"
+      "pulls": [
+        "double-rare"
+      ],
+      "hitCard": "Mega Scrafty ex - Double Black Star - Double Rare",
+      "hasHit": true,
+      "boxNumber": 2,
+      "packNumber": 3,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 2 - Pack 3"
     },
     {
       "id": "9CpAz0MxnTE",
@@ -1125,12 +1184,22 @@
       "views": 714,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "perfect-order"
+      ],
       "products": [
         "ex-premium"
       ],
-      "pulls": [],
-      "hasHit": true
+      "pulls": [
+        "ultra"
+      ],
+      "hitCard": "Trainer - Energy Recycler - Double Silver Star - Ultra Rare",
+      "hasHit": true,
+      "boxNumber": 2,
+      "packNumber": 2,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Perfect Order ex Premium Collection 2 - Pack 2"
     },
     {
       "id": "gFZ_jiV7DEY",
@@ -1141,11 +1210,22 @@
       "views": 1646,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "ascended-heroes"
+      ],
       "products": [
         "ex-premium"
       ],
-      "pulls": []
+      "pulls": [
+        "ultra"
+      ],
+      "hitCard": "Trainer - Team Rocket's Transceiver - Double Silver Star - Ultra Rare",
+      "hasHit": true,
+      "boxNumber": 2,
+      "packNumber": 4,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 2 - Pack 4"
     },
     {
       "id": "DTBxGFtTOc8",
@@ -1157,15 +1237,18 @@
       "vertical": true,
       "short": true,
       "sets": [
-        "phantasmal-flames",
         "perfect-order"
       ],
       "products": [
         "ex-premium"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Phantasmal Flames ex Premium Collection"
+      "hasHit": false,
+      "boxNumber": 2,
+      "packNumber": 1,
+      "openingType": "ex Premium Collection Box",
+      "packs": 1,
+      "label": "Perfect Order ex Premium Collection 2 - Pack 1"
     },
     {
       "id": "uTGe-WswoVY",
@@ -1183,7 +1266,12 @@
         "ex-premium"
       ],
       "pulls": [],
-      "label": "Ascended Heroes ex Premium Collection"
+      "hasHit": false,
+      "boxNumber": 2,
+      "packNumber": 2,
+      "openingType": "ex Box",
+      "packs": 1,
+      "label": "Ascended Heroes ex Premium Collection 2 - Pack 2"
     },
     {
       "id": "xGmQaLcx-c8",
@@ -1201,8 +1289,12 @@
         "etb"
       ],
       "pulls": [],
-      "hasHit": true,
-      "label": "Chaos Rising ETB"
+      "hasHit": false,
+      "boxNumber": 2,
+      "packNumber": 9,
+      "openingType": "ETB",
+      "packs": 1,
+      "label": "Chaos Rising ETB 2 - Pack 9"
     },
     {
       "id": "iV0h672wrGA",
@@ -5959,7 +6051,7 @@
       "path": "rip/only-garbage-rips-from-the-pok-mon-fall-2025-collector-chest-TN7_ZsuRQSI.html",
       "published": "2026-02-01",
       "duration": 134,
-      "views": 1406,
+      "views": 1407,
       "vertical": true,
       "short": false,
       "sets": [

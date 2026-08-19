@@ -533,6 +533,43 @@ const unknownSet = new Set();
 const logHits = [];
 // id -> display name, module scope, because the row loop needs it and the only
 // other copy lives inside the My Hits function.
+// A SET NAME WITH A TYPO IS STILL A SET NAME, and this is safe in a way that
+// guessing never is: it picks from a CLOSED LIST of 174 real set names rather
+// than inventing one. "Phantasmal Falmes" is not a judgement call about what
+// Tim meant, it is one transposition away from exactly one entry on that list
+// and nothing else is close.
+//
+// Deliberately tight. Only tried when an exact match fails, only on fragments
+// of 6 characters or more, and only when the best candidate is within a
+// distance of 2 AND no other candidate is within 3, so an ambiguous near-miss
+// resolves to nothing rather than to the first thing sorted. Set names overlap
+// hard on this site ("Pitch Black" against "Mega Evolution Pitch Black"), and a
+// wrong set silently misfiles a whole video's packs.
+function nearestSet(text, names) {
+  const s = text.toLowerCase().trim();
+  if (s.length < 6) return null;
+  const dist = (a, b) => {
+    const m = a.length, n = b.length;
+    if (Math.abs(m - n) > 3) return 99;
+    let prev = Array.from({ length: n + 1 }, (_, j) => j);
+    for (let i = 1; i <= m; i++) {
+      const cur = [i];
+      for (let j = 1; j <= n; j++) {
+        cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      }
+      prev = cur;
+    }
+    return prev[n];
+  };
+  let best = null, bestD = 99, secondD = 99;
+  for (const n of names) {
+    const d = dist(s, n);
+    if (d < bestD) { secondD = bestD; bestD = d; best = n; }
+    else if (d < secondD) secondD = d;
+  }
+  return bestD <= 2 && secondD > 3 ? best : null;
+}
+
 const SET_NAME_BY_ID = new Map();
 for (const [label, sid] of setIdByName) if (!SET_NAME_BY_ID.has(sid)) SET_NAME_BY_ID.set(sid, label);
 // What the site currently believes, used only to spot the stale-prefill trap
@@ -580,7 +617,8 @@ for (const [n, r] of rows.slice(1).entries()) {
       const frag = piece.replace(/\s+/g, " ").trim();
       if (!frag) continue;
       const low = frag.toLowerCase();
-      const hit = NAMES.find((n) => low.startsWith(n)) || NAMES.find((n) => low.includes(n));
+      let hit = NAMES.find((n) => low.startsWith(n)) || NAMES.find((n) => low.includes(n));
+      if (!hit) hit = nearestSet(frag.replace(/\s*\d+\s*$/, ""), NAMES);
       if (!hit) { unknownSet.add(frag); continue; }
       const num = /(\d{1,3})\s*$/.exec(frag);
       setPacks.push({ set: setIdByName.get(hit), name: hit, packs: num ? Number(num[1]) : 1 });
@@ -953,8 +991,16 @@ for (const [n, r] of rows.slice(1).entries()) {
 
       if (parts.length >= 2) {
         const lows = parts.map((x) => x.toLowerCase());
-        const si = lows.findIndex((x) => setIdByName.has(x));
+        let si = lows.findIndex((x) => setIdByName.has(x));
         if (si !== -1) setName = lows[si];
+        else {
+          // Exact match failed on every part. Try the nearest real set name,
+          // which rescues "Phantasmal Falmes" without inventing anything.
+          for (let k = 0; k < lows.length; k++) {
+            const near = nearestSet(lows[k], [...setIdByName.keys()]);
+            if (near) { setName = near; si = k; break; }
+          }
+        }
         const ri = lows.findIndex((x) => RARITY_WORDS.some((w) => x === w.toLowerCase()));
         if (ri !== -1) rarity = RARITY_WORDS.find((w) => lows[ri] === w.toLowerCase());
         const ki = lows.findIndex((x) => STAR_RARITY[x]);

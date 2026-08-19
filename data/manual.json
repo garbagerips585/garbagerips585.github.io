@@ -714,28 +714,290 @@
     ]
   },
   "GTC45Mri_gc": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Pitch Black",
+    "openingType": "Single Booster Pack",
+    "packNumber": 1,
+    "hasHit": true,
+    "hitCard": "Thievul - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Thievul",
+        "rarity": "Illustration Rare",
+        "set": "pitch-black"
+      }
+    ]
+  },
+  "RtJn1UOi2S8": {
+    "setPacks": [
+      {
+        "set": "surging-sparks",
+        "name": "surging sparks",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Surging Sparks",
+    "openingType": "Poke Ball Tin",
+    "packNumber": 2,
+    "hasHit": false
   },
   "rUOMBBOjrXI": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ex Premium Collection Box",
+    "boxNumber": 1,
+    "packNumber": 3,
+    "hasHit": false
   },
   "pRkDVGXWufQ": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ex Premium Collection Box",
+    "boxNumber": 1,
+    "packNumber": 2,
+    "hasHit": true,
+    "hitCard": "Chespin - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Chespin",
+        "rarity": "Illustration Rare",
+        "set": "chaos-rising"
+      }
+    ]
+  },
+  "X0KK70SjzEM": {
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Perfect Order",
+    "openingType": "ex Premium Collection Box",
+    "boxNumber": 2,
+    "packNumber": 4,
+    "hasHit": true,
+    "hitCard": "Trainer - Sacred Ash - Double Silver Star - Ultra Rare",
+    "hits": [
+      {
+        "card": "Trainer Sacred Ash",
+        "rarity": "Ultra Rare",
+        "set": "perfect-order"
+      }
+    ]
   },
   "STMGjXcUAm4": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Perfect Order",
+    "openingType": "ex Premium Collection Box",
+    "boxNumber": 2,
+    "packNumber": 3,
+    "hasHit": false
+  },
+  "O1hNutypTR8": {
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Perfect Order",
+    "openingType": "Poke Ball Tin",
+    "packNumber": 1,
+    "hasHit": true,
+    "hitCard": "Trainer - Lumiose City - Double Silver Star - Ultra Rare",
+    "hits": [
+      {
+        "card": "Trainer Lumiose City",
+        "rarity": "Ultra Rare",
+        "set": "perfect-order"
+      }
+    ]
+  },
+  "xqV7AYXoVJs": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 2,
+    "packNumber": 4,
+    "hasHit": false
   },
   "RP08BTumj2U": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ex Premium Collection Box",
+    "boxNumber": 1,
+    "packNumber": 1,
+    "hasHit": true,
+    "hitCard": "Ampharos - Single Gold Star - Illustration Rare",
+    "hits": [
+      {
+        "card": "Ampharos",
+        "rarity": "Illustration Rare",
+        "set": "chaos-rising"
+      }
+    ]
+  },
+  "nBKJMnw9L2Y": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 2,
+    "packNumber": 3,
+    "hasHit": true,
+    "hitCard": "Mega Scrafty ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Mega Scrafty ex",
+        "rarity": "Double Rare",
+        "set": "ascended-heroes"
+      }
+    ]
   },
   "9CpAz0MxnTE": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Perfect Order",
+    "openingType": "ex Premium Collection Box",
+    "boxNumber": 2,
+    "packNumber": 2,
+    "hasHit": true,
+    "hitCard": "Trainer - Energy Recycler - Double Silver Star - Ultra Rare",
+    "hits": [
+      {
+        "card": "Trainer Energy Recycler",
+        "rarity": "Ultra Rare",
+        "set": "perfect-order"
+      }
+    ]
+  },
+  "gFZ_jiV7DEY": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 2,
+    "packNumber": 4,
+    "hasHit": true,
+    "hitCard": "Trainer - Team Rocket's Transceiver - Double Silver Star - Ultra Rare",
+    "hits": [
+      {
+        "card": "Trainer Team Rocket's Transceiver",
+        "rarity": "Ultra Rare",
+        "set": "ascended-heroes"
+      }
+    ]
   },
   "DTBxGFtTOc8": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "perfect-order",
+        "name": "perfect order",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Perfect Order",
+    "openingType": "ex Premium Collection Box",
+    "boxNumber": 2,
+    "packNumber": 1,
+    "hasHit": false
+  },
+  "uTGe-WswoVY": {
+    "setPacks": [
+      {
+        "set": "ascended-heroes",
+        "name": "ascended heroes",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Ascended Heroes",
+    "openingType": "ex Box",
+    "boxNumber": 2,
+    "packNumber": 2,
+    "hasHit": false
   },
   "xGmQaLcx-c8": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "setsPacks": "Chaos Rising",
+    "openingType": "ETB",
+    "boxNumber": 2,
+    "packNumber": 9,
+    "hasHit": false
   },
   "u9zpVOVsWyg": {
     "hasHit": true
@@ -1069,7 +1331,9 @@
         "setName": "surging sparks"
       },
       {
-        "card": "Phantasmal Falmes Charizard X ex Black Star Promo Card"
+        "card": "Charizard X ex Black Star Promo Card",
+        "set": "phantasmal-flames",
+        "setName": "phantasmal flames"
       },
       {
         "card": "Oricorio ex Black Star Promo Card",
