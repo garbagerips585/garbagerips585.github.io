@@ -50,6 +50,12 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    # Same reasoning as the timeout in pages.yml, and it matters more here:
+    # this workflow is what TRIGGERS the deploy, so a run wedged in this
+    # concurrency group stops publishing just as completely as a wedged deploy
+    # does, and just as quietly. Generous, because the job talks to the
+    # YouTube and PriceCharting APIs and then rebuilds ~1,480 pages.
+    timeout-minutes: 45
     # Job level, not step level: a step's own env: block is NOT in scope for
     # that step's own if:, so the skip-when-absent guards below would never
     # fire and the steps would run keyless and fail.

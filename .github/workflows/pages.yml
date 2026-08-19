@@ -53,6 +53,16 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    # A TIMEOUT IS WHAT KEEPS `cancel-in-progress: false` FROM BECOMING A
+    # PERMANENT OUTAGE. On 2026-08-06 a transient GitHub Actions incident left
+    # one deploy wedged in `waiting` on a sibling project. Because the
+    # concurrency group refuses to cancel a running deploy, that one run held
+    # the group forever: 29 later runs queued behind it and were dropped as
+    # intermediates, and the site served a 12-day-old build. Nothing failed.
+    # No red X, no email; Pages simply kept serving the last good copy while
+    # every push after it silently went nowhere.
+    # With a timeout the wedged run dies on its own and the queue drains.
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5

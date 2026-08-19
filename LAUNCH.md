@@ -89,85 +89,37 @@ already exists.
 
 ## 3. Before flipping it on
 
-- [ ] **DELETE THE SEVEN PALETTE SAMPLE PAGES. Do this one first.** They are the
-      only files in the deploy root that are not part of the site:
+- [x] **THE SEVEN PALETTE SAMPLE PAGES ARE DELETED.** Done 19 August 2026,
+      along with `scripts/gen-palette-samples.mjs` that generated them.
+      `ls public/preview-*.html` now returns nothing, and that is the check
+      that cannot drift: this item said FIVE while six were on disk, then SIX
+      while seven were, so the deletion was driven off `ls` rather than off the
+      typed list.
 
-          rm public/preview-midnight.html public/preview-charcoal.html \
-             public/preview-charcoal-a.html public/preview-charcoal-b.html \
-             public/preview-trubbish.html public/preview-trubbish-2.html \
-             public/preview-tan.html
-          rm scripts/gen-palette-samples.mjs
-          node scripts/build-all.mjs
+      They were six extra copies of the home page and one of /msrp.html, added
+      18 and 19 August so Tim could compare palettes on his own phone, which
+      needs a real url and therefore a real deploy. Trubbish Deep with tan ink
+      won. Nothing linked to them, none was in sitemap.xml, and all were
+      `noindex` -- but a duplicate front door in the deploy root on launch day
+      is a cost whose only defence is a meta tag.
 
-      Added 18 August 2026 so Tim could compare palettes on his own phone, which
-      needs a real url and therefore a real deploy. **It started as two and grew
-      to six in one day**, which is the reason this item is worth re-reading
-      rather than skimming: Midnight and Charcoal first, then Tim picked
-      Charcoal and asked for two accent variants of it, then asked for a page in
-      the mascot's colours, then picked that one and asked for a version with
-      the gold taken out of it. The list is:
+      **WHAT WAS CHECKED BEFORE DELETING, because the old version of this item
+      warned that deleting could throw away the answer along with the question.**
+      Sample G's `<style>` block held eight ink tokens that existed nowhere
+      else. They are in `assets-source/ui.css` now -- `--ink:#E4DCCC`,
+      `--ink-2:#D4CCBC`, `--ink-soft:#E0D8C8` and the rest, with the whole
+      derivation from the `#A8A090` sampled off Trubbish's sprite preserved in
+      the comment above them. Nothing was lost.
 
-          preview-midnight.html      A  Slushie Midnight
-          preview-charcoal.html      B  Slushie Charcoal, the baseline
-          preview-charcoal-a.html    C  Charcoal Aqua
-          preview-charcoal-b.html    D  Charcoal Quiet
-          preview-trubbish.html      E  Trubbish
-          preview-trubbish-2.html    F  Trubbish Deep, the one that shipped
-          preview-tan.html           G  Trubbish Deep with a TAN ink
-
-      **AND THEN IT GREW TO SEVEN, WHICH IS THE SECOND TIME THIS COUNT HAS GONE
-      STALE.** G was added 18 August 2026 and it is not the same KIND of thing
-      as A to F, which is why it is worth two paragraphs rather than a row.
-      Tim, looking at /msrp.html: "all the white text, can we change it from
-      white to be a light tan or light beige color, that way its not stark
-      bright white on a dark green ... less harsh on the eyes and even more on
-      theme with our masscot". So G is not a candidate palette. It is the
-      palette that ALREADY SHIPPED with one family of tokens moved, and it is a
-      repaint of /msrp.html rather than the home page because that is the page
-      of body copy he was reading when he asked.
-
-      **THE THING THAT MAKES G DIFFERENT AT DELETION TIME.** A to F are dead
-      weight: the palette they were choosing between is in assets-source/ui.css
-      now, so deleting them loses nothing. G's `<style>` block holds EIGHT token
-      values that exist nowhere else. If Tim says yes, those eight go into
-      ui.css's `:root` and the ink change is done in one edit; if he says no,
-      the file just goes. Either way, DECIDE BEFORE DELETING, or the answer is
-      thrown away with the question. The values, and the whole derivation from
-      Trubbish's own sprite, are in the G block of scripts/gen-palette-samples.mjs.
-
-      They are six extra copies of the home page and one of /msrp.html. All are `noindex,nofollow`,
-      none is in sitemap.xml, and nothing on the site links to them: they link
-      to each other in a ring and to nothing else. So they are quiet rather than
-      harmless. A duplicate front door in the tree on launch day is a cost, and
-      the only thing keeping it out of an index is a meta tag. Once Tim has
-      picked, they have no job.
-
-      **THE COUNT IS THE THING THAT GOES STALE HERE.** It already has: this item
-      said FIVE while six were on disk, and then it said SIX while seven were on
-      disk, which is exactly the failure it warns about, twice. If another
-      variant is added, add it to the list above in the same edit, or this
-      checklist will confidently delete six of eight.
-      `ls public/preview-*.html` is the check that cannot drift, and
-      gen-palette-samples.mjs now prints its own count rather than a typed one.
-
-      **AND ONE THING THE SAMPLES FOUND THAT OUTLIVES THEM.** Three rules in
-      assets-source/ui.css write a SURFACE token as ink, which is correct on the
-      light palette shipping today and illegible on every dark one:
-      `.hero-cta{color:var(--ink)}` (nine buttons on the home page, 1.11:1 to
-      1.27:1 depending on the palette), `.hofx-t{color:var(--paper)}` (the Hall
-      of Fame trophy title, as low as 1.03:1) and
-      `footer .soc svg{fill:var(--paper)}` (the four footer social glyphs,
-      1.10:1). Sample F overrides all three in its own block. **If a dark
-      palette ships, those three rules have to be fixed in ui.css itself**, or
-      deleting the samples takes the fixes with them.
-
-      Nothing else has to change with them. Each palette lives in that file's
-      own `<style>` block, so assets-source/ui.css was never touched and
-      deleting the five files removes every trace. **Deleting them does NOT
-      apply whichever one Tim picks**: that is a separate edit to
-      assets-source/ui.css, and for C, D or E it is two accent rules plus, for
-      E, a token block. The rules as built are in the header of
-      scripts/gen-palette-samples.mjs, so read that file before deleting it.
+      **AND THE THREE CONTRAST RULES THE SAMPLES FOUND, WHICH WERE THE REAL
+      REASON NOT TO DELETE CARELESSLY.** Three rules wrote a SURFACE token
+      where a foreground belonged: fine on the light palette shipping at the
+      time, illegible on every dark one, from 1.03:1 to 1.27:1. A dark palette
+      then DID ship, so all three were live bugs waiting to happen. All three
+      are fixed in ui.css itself rather than in a sample that was about to be
+      deleted: `.hofx-t` and `footer .soc svg` now take `var(--chrome-ink)`,
+      and `.hero-cta` went away entirely with the "Rip it open" CTA. Verified
+      before deletion, 19 August 2026.
 
 - [x] **THE THREE RIP BUTTON SAMPLE PAGES ARE DELETED AND THE ANSWER IS
       SHIPPED.** Done 19 August 2026, so `ls public/preview-*.html` returns
@@ -254,12 +206,22 @@ already exists.
 
       grep -rl "github.io" public/ | grep -v assets    # must return nothing
 
-      **This has been rehearsed.** On 14 August 2026 a throwaway copy of the
-      tree was flipped and fully rebuilt: every builder green, check-build clean,
-      zero github.io references anywhere in public/, 1,696 urls on the real
-      domain, 379 sitemap entries, robots.txt open, CNAME written. So the flip
-      is known to work end to end, but run the greps anyway: they are what
-      proves it on the day.
+      **This has been rehearsed twice, and the second one is the one that
+      counts.** The 14 August rehearsal was against a DIFFERENT domain string,
+      because the domain was still garbagerips585.com then; it proved the
+      mechanism but not the address. So it was run again on 19 August 2026, from
+      `git archive HEAD` rather than from the working tree, so no half-written
+      file could make a failure ambiguous. Flipped, fully rebuilt: build-all
+      exit 0, check-build exit 0, `public/CNAME` -> `garbagerips.com`,
+      robots.txt open with the sitemap line, 1,268 sitemap entries every one on
+      the real domain, zero on github.io, and the canonical correct on all three
+      hand-maintained pages. The `grep -rl github.io` proof returns nothing --
+      it did NOT before the palette samples were deleted, which is the whole
+      reason they went first.
+
+      Run the greps anyway on the day: they are what proves it, and a rehearsal
+      is not the thing itself. The sitemap count moves as videos are tagged, so
+      treat 1,268 as a floor and not as a target to match.
 
 - [ ] **Check the pages nobody generates.** index.html, videos.html and
       playlists.html are hand maintained. They are in build-proto.mjs's rewrite
