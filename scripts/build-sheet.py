@@ -618,7 +618,7 @@ COLUMNS = [
     ("Opening Type", 28, "input"),
     ("Set", 24, "input"),
     ("Packs", 8, "input"),
-    ("Box / Series", 30, "input"),
+    ("Box / Series", 46, "input"),
     # WHICH ONE OF THESE, AND WHICH PACK OUT OF IT.
     #
     # Asked for by name: "we should be able to see I have opened 3 Chaos Rising
@@ -742,6 +742,21 @@ HEAD_NOTES = {
         "  Pack #                ->  which pack of that box the video is, so a\n"
         "                            label reads 'Chaos Rising ETB 3 - Pack 3'.\n"
         "Nothing on the site prints any of these until you have typed them."
+    ),
+    "Box / Series": (
+        "FREE TEXT. Type it however you say it out loud.\n"
+        "\n"
+        "  Pitch Black Booster Bundle #3 Pack#5\n"
+        "  Chaos Rising ETB 3 - pack 3\n"
+        "  Journey Together Booster Bundle 2, pack 6\n"
+        "\n"
+        "This one cell can fill Opening Type, Set, Box # and Pack # for you, so\n"
+        "if you write it here you do not have to fill those four as well.\n"
+        "Anything you DO type in those columns wins over what is read here.\n"
+        "\n"
+        "There is no dropdown any more, on purpose: the old list could only\n"
+        "offer products already in the log, so it could never contain the one\n"
+        "you were recording for the first time."
     ),
     "Packs": (
         "HOW MANY PACKS OF THE SET IN THE Set COLUMN you opened in THIS video.\n"
@@ -1149,11 +1164,30 @@ for dv_formula, cols in [
 # fills it.
 #
 # Free text. The My Hits tab is where a card gets picked one at a time.
-for dv_formula, head in [(DV_BOX, "Box / Series")]:
-    d = dv(dv_formula, strict=False)
-    wv.add_data_validation(d)
-    c = get_column_letter(CI[head])
-    d.add(f"{c}2:{c}{last}")
+# BOX / SERIES IS FREE TEXT AND THE DROPDOWN IS GONE, at Tim's request on 19
+# August 2026: "the box series column is wrong, the drop down isn't showing
+# everything it could be. Can you actually just leave that blank not a drop
+# down and I will just type in what set or box it is in there, I will just type
+# in Pitch Black Booster Bundle #3 Pack#5, that way you know exactly what it is".
+#
+# HE IS RIGHT THAT THE LIST WAS INCOMPLETE. BOX_NAMES is built from box names
+# already SEEN in the log, so it can only ever offer products he has already
+# recorded and never the one he is recording for the first time. A dropdown that
+# cannot contain the answer is worse than no dropdown: it makes a person hunt a
+# list, fail, and then fight the control to type past it.
+#
+# WHAT HE TYPES THERE IS AN ANSWER, NOT A GUESS, which is the whole reason this
+# is safe to read back. The rule this file has been enforcing all day is that a
+# number a REGEX worked out from prose is inference and must not be published,
+# while a number TIM TYPED after the word Box is his own statement being read
+# back. "Pitch Black Booster Bundle #3 Pack#5" is the second kind. So one cell
+# he writes once can fill Opening Type, Set, Box # and Pack #, and doing it that
+# way is four times less typing on 317 rows.
+#
+# The parse belongs in import-sheet.mjs, NOT here, and it must never overwrite a
+# cell he filled in himself: a typed column always outranks anything read out of
+# this one.
+_dv_box_removed = True
 
 # =========================================================== 4. Set Notes ===
 

@@ -777,6 +777,54 @@ for (const [n, r] of rows.slice(1).entries()) {
   if (addTo && !/^none/i.test(addTo)) m.playlistToAdd = addTo;
   const box = get(r, idx.box);
   if (box) m.box = box;
+
+  // READ Box / Series BACK INTO THE STRUCTURED COLUMNS, because Tim writes the
+  // whole thing in one cell: "Pitch Black Booster Bundle #3 Pack#5". He asked
+  // for the dropdown to go, correctly, since it could only ever offer products
+  // already in the log and never the one being recorded for the first time.
+  //
+  // THIS IS TRANSCRIPTION, NOT INFERENCE, and that distinction is the only
+  // reason it is allowed. Everything this project refused to publish today was
+  // a number a REGEX worked out from prose somebody else wrote. This is Tim's
+  // own sentence, written into a column that exists to be read, and reading
+  // "#3" back out of it is no more a guess than reading a cell called Box #.
+  //
+  // A TYPED COLUMN ALWAYS WINS. Every assignment below is guarded on the field
+  // being absent, so if he fills Box # himself and writes something different
+  // here, his column stands and this does nothing. Same order of precedence the
+  // rest of this file uses.
+  //
+  // DELIBERATELY NOT PARSED: the SET. A set name is many words, several of them
+  // shared between sets ("Pitch Black" and "Mega Evolution Pitch Black"), and
+  // getting it wrong silently misfiles a whole video's packs under another set,
+  // which is exactly the class of error the pack-count work spent today
+  // undoing. The Set column is a dropdown of real set names and stays the
+  // source of truth for that one field.
+  if (box) {
+    // "#3", "3", "no. 3" after the product words, but ONLY when the word Box or
+    // a product name precedes it, so a set with a number in its name cannot be
+    // read as a box number.
+    const bx = /(?:box|etb|bundle|tin|upc|blister|collection|display|case)\s*#?\s*(\d{1,2})\b/i.exec(box);
+    // "Pack#5", "pack 5", "- pack 5". Requires the literal word pack.
+    const pk = /\bpack\s*#?\s*(\d{1,2})\b/i.exec(box);
+    if (bx && m.boxNumber == null) m.boxNumber = Number(bx[1]);
+    if (pk && m.packNumber == null) m.packNumber = Number(pk[1]);
+
+    // The product kind, matched against the SAME table the Opening Type
+    // dropdown is built from, so the two can never disagree about what an "ex
+    // Box" is. Longest label first: "Elite Trainer Box" must beat "Box".
+    if (!m.openingType) {
+      const hay = box.toLowerCase();
+      // Match on the KEYS of PRODUCT_IDS, which are the dropdown's own labels,
+      // so openingType comes out in exactly the form a typed cell would carry.
+      // "etb (elite trainer box)" will not appear in prose, so the bare words
+      // are tried too and mapped back to the label that owns them.
+      const PROSE = { "elite trainer box": "etb (elite trainer box)", etb: "etb (elite trainer box)" };
+      const keys = [...Object.keys(PRODUCT_IDS), ...Object.keys(PROSE)].sort((a, b) => b.length - a.length);
+      const hit = keys.find((k) => hay.includes(k));
+      if (hit) m.openingType = PROSE[hit] || hit;
+    }
+  }
   const notes = get(r, idx.notes);
   if (notes) m.notes = notes;
 
