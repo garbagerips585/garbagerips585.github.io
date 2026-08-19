@@ -1470,14 +1470,22 @@ WHAT THE HOME PAGE ACTUALLY DOES NOW, and what not to break:
   about the pack.
 - The trophy's duration chip and its banner both sit INSIDE `.hofx-art`, so
   playInTile takes them away with the artwork they describe. THE FOLD IS WHAT
-  THE BANNER COSTS AND IT WAS MEASURED RATHER THAN WAVED AT: the disc sat at
-  the CENTRE of the artwork and the banner sits at its foot, so at 390x844 with
-  the drops band up, the trophy's art box runs 295px to 874px and only the top
-  14px of the bar is above the fold; at 1440x900 the bar is at y=901 and the
-  duration chip at 885 is the last thing visible. Both clear the fold once the
-  drops band expires, which it does at the end of its own week. The clock is
-  therefore what says "this is a video" above the fold in the worst case, which
-  is the job it was added for on 16 August 2026.
+  THE BANNER COSTS AND IT WAS MEASURED RATHER THAN WAVED AT, because the disc
+  sat at the CENTRE of the artwork and the banner sits at its foot. With the
+  drops band up, the trophy's bar runs:
+
+        320x800    722.8 to 766.8    whole bar above the fold
+        390x844    830.5 to 874.5    top 13.5px above it, clock ends at 824.5
+        768x900    947.0 to 991.0    below it, clock ends at 941.0
+       1440x900    901.0 to 945.0    below it, clock ends at 895.0
+
+  So on a 390 phone and a 320 phone the reader sees it without scrolling, and
+  on the two wider screens the DURATION CHIP is the mark that says "this is a
+  video" above the fold, which is the job it was added for on 16 August 2026.
+  All four clear the fold once the drops band expires, which it does at the end
+  of its own week. If somebody wants the bar higher, the lever is the band
+  ORDER, not the bar: moving the two DROPS markers below `.hof` is the move
+  this file already describes.
 - EVERY RELATIVE DATE ON THE PAGE IS RECOMPUTED IN THE BROWSER. `ago()` in
   build-proto.mjs runs on the build clock and its answer is then frozen into a
   static file, so a deploy that stops moving turns "TODAY" into a lie in the
