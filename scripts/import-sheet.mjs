@@ -422,7 +422,14 @@ const idx = {
   set: col("Set"), set2: col("Set 2"), set3: col("Set 3"), set4: col("Set 4"),
   set5: col("Set 5"),
   moreSets: col("More Sets"), box: col("Box / Series"),
-  opening: firstCol("Product Type", "Opening Type"), packs: col("Packs Opened"), hasHit: firstCol("Hit", "Has Hit"),
+  opening: firstCol("Product", "Product Type", "Opening Type"),
+  packs: col("Packs Opened"), hasHit: firstCol("Hit", "Has Hit"),
+  // ONE CELL CARRYING EVERY SET AND ITS PACK COUNT: "Phantasmal Flames 6, Mega
+  // Evolution 4, Destined Rivals 4". It replaces Set, Packs and the four
+  // Set 2-5 pairs, which is ten columns collapsed into one, and it is read the
+  // same way Hit Info is: split on commas, match each fragment against the real
+  // set list, take the number off the end.
+  setsPacks: firstCol("Sets & Packs", "Sets and Packs"),
   // WHICH ONE OF THESE, AND WHICH PACK OUT OF IT. Both new, both optional, and
   // both go through firstCol for the reason the two comments below give: col()
   // is an exact match, and every column in this file that was ever renamed
@@ -532,7 +539,35 @@ for (const [n, r] of rows.slice(1).entries()) {
   // and picks the wrapper, the rest still match the set filters. Writing a
   // single-element array here, as this did before, silently dropped the extra
   // sets off any video that already had them.
-  const setIds = [];
+  // SETS & PACKS IS NOW THE SOURCE, and it carries the per-set pack counts the
+  // old columns never could hold together. "Phantasmal Flames 6, Mega Evolution
+  // 4" is two sets and two counts in one cell.
+  //
+  // The set name is matched against the real list, longest first, so "Mega
+  // Evolution Pitch Black" beats "Pitch Black". Whatever trails it is the
+  // count. A fragment with a set and no number counts as 1, because writing
+  // "Pitch Black" alone plainly means one pack of it; a fragment with a number
+  // and no recognisable set is reported rather than guessed at.
+  const setPacks = [];
+  const spRaw = get(r, idx.setsPacks);
+  if (spRaw) {
+    const NAMES = [...setIdByName.keys()].sort((a, b) => b.length - a.length);
+    for (const piece of String(spRaw).split(",")) {
+      const frag = piece.replace(/\s+/g, " ").trim();
+      if (!frag) continue;
+      const low = frag.toLowerCase();
+      const hit = NAMES.find((n) => low.startsWith(n)) || NAMES.find((n) => low.includes(n));
+      if (!hit) { unknownSet.add(frag); continue; }
+      const num = /(\d{1,3})\s*$/.exec(frag);
+      setPacks.push({ set: setIdByName.get(hit), name: hit, packs: num ? Number(num[1]) : 1 });
+    }
+    if (setPacks.length) {
+      m.setPacks = setPacks;
+      m.packsOpened = setPacks.reduce((n, s) => n + s.packs, 0);
+    }
+  }
+
+  const setIds = setPacks.map((s) => s.set);
   // Four dropdowns cover the real cases, and More Sets is a comma-separated
   // escape hatch for the rare box that spans more than four.
   // Split every set cell on commas, not just More Sets. Four columns is how a

@@ -645,62 +645,42 @@ COLUMNS = [
     #
     # This replaces "More Sets", which was free text. Free text in one cell is
     # exactly what broke the hits: one typo and one stray comma cost two cards.
-    # SEVEN COLUMNS IN THE ORDER TIM DICTATED THEM, 19 August 2026:
+    # SIX COLUMNS, ALL ADJACENT, ONE ROW PER VIDEO. Tim, 19 August 2026: "this
+    # execl document is still hard and confusing to fill in for products that
+    # have multiple cards set packs in them... rethink how the document is set
+    # up, so i can quickly watch the videos and just type in the info".
     #
-    #   Product Type - ETB
-    #   Total Number of packs in the product - 9
-    #   Product Type # - 3  (as in our third Pitch Black ETB we are opening)
-    #   Set - Pitch Black
-    #   Pack # of the set - #3
-    #   Hit: yes or no
-    #   Hit info: Pitch Black - Mega Darkrai ex - Gold Card - Hyper Rare
+    # WHAT WAS ACTUALLY SLOW. A multi-set product needed TEN columns: Set and
+    # Packs, then Set 2 through Set 5 and Packs 2 through Packs 5, and the four
+    # extra pairs sat PAST a dozen other columns because they are filled on 13
+    # rows in 317. So the rare case was the one that made him scroll, and his
+    # oldest videos are all multi-set. His UPC spans five sets and his Collector
+    # Chest four; both were a horizontal expedition.
     #
-    # THIS SPLITS THE ONE FIELD THAT HAS CAUSED EVERY PACK-COUNT BUG ON THIS
-    # PROJECT. "Packs" used to mean how many packs the VIDEO opened, while the
-    # prefill wrote how many the PRODUCT HOLDS, and the two are only the same
-    # number when a whole box is opened in one sitting. That single conflation
-    # put 9 on 21 one-pack rips, summed to 189 packs where 21 were opened, and
-    # published "232 packs counted" on /luck.html.
+    # SETS AND PACKS IS NOW ONE CELL, written the way he already writes hits:
     #
-    # Tim's layout ends it by asking for BOTH, separately and unambiguously:
-    # "Packs in Product" is a fact about the product (an ETB holds 9, always),
-    # and "Pack #" identifies which one of those this video opened. A row with a
-    # Pack # opened exactly one pack. No inference, no fingerprint test, no
-    # override: the sheet just asks the two questions it was always conflating.
-    ("Product Type", 26, "input"),
-    ("Packs in Product", 11, "input"),
+    #   Pitch Black 9
+    #   Phantasmal Flames 6, Mega Evolution 4, Destined Rivals 4, Journey Together 4
+    #
+    # Set name then a number, comma between sets. Ten columns become one, the
+    # rare case costs no more than the common one, and it is the same grammar as
+    # the Hit Info column two cells to the right rather than a second thing to
+    # remember.
+    #
+    # IT IS WHAT CAME OUT IN THIS VIDEO, not what the product holds, so Packs
+    # Opened is a plain sum of the numbers in it. That kills the last of the
+    # capacity-versus-opened ambiguity: there is no longer a column that could
+    # mean either.
+    #
+    # Capacity is not asked for at all any more. It is a property of the product
+    # type, the site already holds it in PRODUCT_TO_PACKS, and asking a person
+    # to retype "9" on every ETB row is asking them to do a lookup by hand.
+    ("Product", 26, "input"),
     ("Product #", 10, "input"),
-    ("Set", 24, "input"),
     ("Pack #", 8, "input"),
+    ("Sets & Packs", 54, "input"),
     ("Hit", 7, "input"),
-    ("Hit Info", 52, "input"),
-    # WHICH ONE OF THESE, AND WHICH PACK OUT OF IT.
-    #
-    # Asked for by name: "we should be able to see I have opened 3 Chaos Rising
-    # ETBs and this is pack 3 from that ETB". Opening Type says an ETB was
-    # opened and Packs says how many packs the ETB holds. Neither says which ETB
-    # or which pack, and without that the log cannot answer "how many ETBs of
-    # this set have we been through", which is the question.
-    #
-    # THEY SIT IN THE DAILY BLOCK ON PURPOSE, right after the column they
-    # qualify. The four extra Set/Packs pairs were moved PAST these columns
-    # because they are filled 13 times in 313 rows; these two are filled on
-    # every box opening, which is most of the catalogue, so they belong beside
-    # Opening Type where the answer is already in mind.
-    #
-    # BOTH ARE OPTIONAL AND BLANK IS THE NORMAL CASE. 316 rows have neither
-    # today. Everything downstream omits what it does not have rather than
-    # printing a zero, so a blank row reads exactly as it did before these
-    # columns existed.
-    # Packs Opened is what makes the luck page rigorous. Without it a rate can
-    # only be "per video", which silently treats a 36-pack booster box and a
-    # single pack as one trial each. With it the rate is per PACK, which is the
-    # number anyone actually means by "how often do you hit".
-    # Now a SUM of the five pack cells, not a typed number. It used to be typed
-    # independently, so a row could say 18 packs while its per-set cells added
-    # to 12 and nothing would notice. Grey because it is computed.
-    ("Packs Opened", 13, "locked"),
-    ("Hit Rarity", 34, "input"),
+    ("Hit Info", 54, "input"),
     # THE FOUR EXTRA SET/PACKS PAIRS LIVE HERE, PAST THE DAILY COLUMNS.
     #
     # They used to sit directly after Set and Packs, which put nine columns he
@@ -714,14 +694,6 @@ COLUMNS = [
     # the split, and the argument for having them is untouched by where they
     # sit. Each Set keeps its Packs beside it. Nothing reads these by position:
     # import-sheet.mjs looks every column up by header name.
-    ("Set 2", 24, "input"),
-    ("Packs 2", 8, "input"),
-    ("Set 3", 24, "input"),
-    ("Packs 3", 8, "input"),
-    ("Set 4", 24, "input"),
-    ("Packs 4", 8, "input"),
-    ("Set 5", 24, "input"),
-    ("Packs 5", 8, "input"),
     ("Greatest Hits", 14, "hof"),
     ("Greatest Hits Rank", 18, "hof"),
     ("Playlist To Add", 18, "input"),
@@ -752,7 +724,7 @@ HEAD_NOTES = {
         "in on its own does nothing. Use it as a quick label if you like.\n"
         "\n" + RARITY_HINT
     ),
-    "Hit Card": (
+    "Hit Info": (
         "THIS IS THE COLUMN THAT DRIVES THE SITE. Nothing else claims a hit.\n"
         "\n"
         "FREE TEXT. There is no dropdown on this column and there should not be\n"
@@ -794,38 +766,26 @@ HEAD_NOTES = {
         "                            label reads 'Chaos Rising ETB 3 - Pack 3'.\n"
         "Nothing on the site prints any of these until you have typed them."
     ),
-    "Box / Series": (
-        "FREE TEXT. Type it however you say it out loud.\n"
+    "Sets & Packs": (
+        "WHAT CAME OUT OF THIS VIDEO. Set name, then how many packs of it.\n"
+        "Comma between sets. Same grammar as Hit Info.\n"
         "\n"
-        "  Pitch Black Booster Bundle #3 Pack#5\n"
-        "  Chaos Rising ETB 3 - pack 3\n"
-        "  Journey Together Booster Bundle 2, pack 6\n"
+        "ONE PACK:   Pitch Black 1\n"
+        "WHOLE ETB:  Pitch Black 9\n"
+        "MULTI SET:  Phantasmal Flames 6, Mega Evolution 4, Destined Rivals 4\n"
         "\n"
-        "This one cell can fill Opening Type, Set, Box # and Pack # for you, so\n"
-        "if you write it here you do not have to fill those four as well.\n"
-        "Anything you DO type in those columns wins over what is read here.\n"
+        "This replaces Set, Packs and the four Set 2-5 pairs. A UPC across five\n"
+        "sets used to need ten columns spread across the sheet. Now it is one\n"
+        "cell, and the rare case costs no more than the common one.\n"
         "\n"
-        "There is no dropdown any more, on purpose: the old list could only\n"
-        "offer products already in the log, so it could never contain the one\n"
-        "you were recording for the first time."
+        "It is what THIS VIDEO opened, not what the box holds. One pack out of\n"
+        "a nine-pack ETB is 1, not 9. Nothing else on the row asks for a pack\n"
+        "count, so there is no second number to disagree with this one.\n"
+        "\n"
+        "The Lists tab has all 174 set names to copy from. Anything not\n"
+        "recognised is reported back rather than silently dropped."
     ),
-    "Hit Card": (
-        "FREE TEXT. Type it the way you say it: set, card, rarity.\n"
-        "\n"
-        "  Chaos Rising Mega Greninja ex Hyper Rare\n"
-        "\n"
-        "MORE THAN ONE HIT? Separate them with a comma:\n"
-        "\n"
-        "  Chaos Rising Mega Greninja ex Hyper Rare,\n"
-        "  Pitch Black Umbreon ex Special Illustration Rare\n"
-        "\n"
-        "The comma separates HITS, not the parts of one hit.\n"
-        "\n"
-        "The set and the rarity are matched against the real lists, so what is\n"
-        "left over is the card name. Leave the rarity off if you do not know it\n"
-        "and the card is still recorded. Nothing you type is ever discarded:\n"
-        "the whole line is kept exactly as written whatever gets recognised."
-    ),
+
     "Packs": (
         "HOW MANY PACKS OF THE SET IN THE Set COLUMN you opened in THIS video.\n"
         "Not how many the box holds. If you opened one pack out of a Chaos\n"
@@ -905,7 +865,7 @@ for i, (head, width, kind) in enumerate(COLUMNS, start=1):
 # link off screen: he was filling a row he could no longer identify and could no
 # longer open. Everything left of the first input column is now pinned.
 _HEADS = [h for h, _, _ in COLUMNS]
-wv.freeze_panes = f"{get_column_letter(_HEADS.index('Product Type') + 1)}2"
+wv.freeze_panes = f"{get_column_letter(_HEADS.index('Product') + 1)}2"
 wv.row_dimensions[1].height = 30
 
 # AUTOFILTER, AND IT IS THE BIGGEST USABILITY FIX IN THIS FILE.
@@ -941,10 +901,10 @@ wv.auto_filter.ref = f"A1:{get_column_letter(len(COLUMNS))}{len(videos) + 1}"
 # unlike the blue "this is a guess" font colour, which is why that convention
 # was removed from this file rather than relied on.
 _ix = lambda h: _HEADS.index(h) + 1
-_first = get_column_letter(min(_ix(h) for h in ("Product Type", "Set", "Packs in Product", "Hit")))
-_last = get_column_letter(max(_ix(h) for h in ("Product Type", "Set", "Packs in Product", "Hit")))
+_first = get_column_letter(min(_ix(h) for h in ("Product", "Sets & Packs", "Hit")))
+_last = get_column_letter(max(_ix(h) for h in ("Product", "Sets & Packs", "Hit")))
 _need = "OR({})".format(",".join(
-    f'${get_column_letter(_ix(h))}2=""' for h in ("Product Type", "Set", "Packs in Product", "Hit")))
+    f'${get_column_letter(_ix(h))}2=""' for h in ("Product", "Sets & Packs", "Hit")))
 wv.conditional_formatting.add(
     f"{_first}2:{_last}{len(videos) + 1}",
     FormulaRule(formula=[_need], fill=PatternFill("solid", fgColor="FFF3D6"), stopIfTrue=False),
@@ -1055,25 +1015,13 @@ for r, v in enumerate(ordered, start=2):
     # rather than a zero. The parse still exists in _stated() and is reported at
     # the end of the run as a convenience, so Tim can see at a glance which rows
     # his own copy already answers, without any of it touching a cell.
-    # PACKS OPENED IS NOW DERIVABLE INSTEAD OF GUESSABLE, and this is the whole
-    # payoff of Tim's column split.
-    #
-    # A PACK NUMBER MEANS ONE PACK. "Pack #3 of our third Pitch Black ETB" is a
-    # single pack out of a nine-pack box: the box holds 9, the video opened 1.
-    # Every pack-count bug on this project came from those two numbers sharing a
-    # column. They no longer do, so this needs no fingerprint test, no override
-    # and no inference: if Pack # is filled the answer is 1, and if it is not,
-    # the whole product was opened and the answer is its capacity.
-    #
-    # The per-set pairs still add in for the mixed case, a UPC holding 18 packs
-    # across five sets, which is the reason those columns exist at all.
-    _cap = [get_column_letter(COL[h]) for h in ("Packs in Product", "Packs 2", "Packs 3", "Packs 4", "Packs 5")]
-    _pn = get_column_letter(COL["Pack #"])
-    wv.cell(
-        r,
-        COL["Packs Opened"],
-        f'=IF({_pn}{r}<>"",1,SUM(' + ",".join(f"{c}{r}" for c in _cap) + "))",
-    )
+    # NO PACKS OPENED COLUMN. It was a formula summing the typed numbers, and
+    # the honest version needed SEQUENCE and TEXTAFTER, which are new functions
+    # whose survival through an xlsx round trip into Sheets and back is exactly
+    # the kind of thing this project has been bitten by twice today. A total he
+    # does not need while typing is not worth a formula that might come back
+    # broken. The importer sums Sets & Packs, which is where the number is
+    # actually used.
     # DO NOT PREFILL A HIT. This used to write "Yes" and a rarity, guessed from
     # words in the title and description, in blue to mean "confirm this". The
     # export to CSV throws the colour away, so the importer read every guess
@@ -1122,17 +1070,13 @@ for r, v in enumerate(ordered, start=2):
     # The guard that keeps this safe is upstream rather than here: this file
     # prefills NOTHING into these columns, so anything present is an answer.
     if man.get("openingType"):
-        wv.cell(r, COL["Product Type"], man["openingType"]).font = BODY
-    if man.get("packs"):
-        wv.cell(r, COL["Packs in Product"], man["packs"]).font = BODY
+        wv.cell(r, COL["Product"], man["openingType"]).font = BODY
     if man.get("boxNumber"):
         wv.cell(r, COL["Product #"], man["boxNumber"]).font = BODY
     if man.get("packNumber"):
         wv.cell(r, COL["Pack #"], man["packNumber"]).font = BODY
     if man.get("hasHit") is not None:
         wv.cell(r, COL["Hit"], "Yes" if man["hasHit"] else "No").font = BODY
-    if man.get("hitRarity"):
-        wv.cell(r, COL["Hit Rarity"], man["hitRarity"]).font = BODY
     if man.get("greatest"):
         wv.cell(r, COL["Greatest Hits"], "Yes").font = BODY
     # hofRank, NOT greatestRank. import-sheet.mjs writes `hofRank` and
@@ -1196,9 +1140,14 @@ for dv_formula, cols in [
     # every time, and the product type can be dropdown". Both are closed
     # vocabularies where a near miss silently misfiles a row; every other column
     # is a number or a name only he can supply.
-    (DV_OPEN, [CI["Product Type"]]),
-    (DV_SET_PRIMARY, [CI["Set"]]),
-    (DV_SET, [CI["Set 2"], CI["Set 3"], CI["Set 4"], CI["Set 5"]]),
+    # ONE DROPDOWN NOW, on Product, and it warns rather than rejects.
+    #
+    # THE SET DROPDOWN IS GONE BECAUSE ITS COLUMN IS GONE. Sets & Packs holds a
+    # set name AND a number, and often several of each, which no single-select
+    # control can express: the same reason Hit Info has never had one. The Lists
+    # tab still carries all 174 set names to copy from, and the importer matches
+    # what he types against them and reports anything it cannot place.
+    (DV_OPEN, [CI["Product"]]),
     # DROPDOWNS ARE NOW ON THE SET COLUMNS AND NOWHERE ELSE. Tim, 19 August
     # 2026: "only really need the dropdown for what cardsets are in the video,
     # the rest I can fill in myself will be easier".
@@ -1340,27 +1289,24 @@ def CL(head):
     return get_column_letter(COL[head])
 metrics = [
     ("Videos in the log", f'=COUNTA({L}!{CL("Video ID")}2:{CL("Video ID")}{last})'),
-    ("Set filled in", f'=COUNTA({L}!{CL("Set")}2:{CL("Set")}{last})'),
-    ("Still missing a set",
-     f'=COUNTA({L}!{CL("Video ID")}2:{CL("Video ID")}{last})-COUNTA({L}!{CL("Set")}2:{CL("Set")}{last})'),
-    ("Videos with 2+ sets", f'=COUNTA({L}!{CL("Set 2")}2:{CL("Set 2")}{last})'),
-    ("Videos with 4 sets", f'=COUNTA({L}!{CL("Set 4")}2:{CL("Set 4")}{last})'),
-    # The rarity column is the one with the most left to do and it was the one
-    # the progress tab never counted, so the summary read as further along than
-    # the work actually was.
-    ("Packs in product filled in", f'=COUNTA({L}!{CL("Packs in Product")}2:{CL("Packs in Product")}{last})'),
-    ("Still missing a pack count",
-     f'=COUNTA({L}!{CL("Video ID")}2:{CL("Video ID")}{last})-COUNTA({L}!{CL("Packs in Product")}2:{CL("Packs in Product")}{last})'),
-    ("Product type filled in", f'=COUNTA({L}!{CL("Product Type")}2:{CL("Product Type")}{last})'),
+    ("Product filled in", f'=COUNTA({L}!{CL("Product")}2:{CL("Product")}{last})'),
+    ("Still missing a product",
+     f'=COUNTA({L}!{CL("Video ID")}2:{CL("Video ID")}{last})-COUNTA({L}!{CL("Product")}2:{CL("Product")}{last})'),
+    # SETS AND PACKS IS THE ONE THAT MATTERS. It carries the set names AND the
+    # per-set pack counts in one cell, so it is the single field the per-set and
+    # per-product statistics are built from. A row without it contributes
+    # nothing to either, whatever else is filled in.
+    ("Sets & Packs filled in", f'=COUNTA({L}!{CL("Sets & Packs")}2:{CL("Sets & Packs")}{last})'),
+    ("Still missing Sets & Packs",
+     f'=COUNTA({L}!{CL("Video ID")}2:{CL("Video ID")}{last})-COUNTA({L}!{CL("Sets & Packs")}2:{CL("Sets & Packs")}{last})'),
     ("Product number filled in", f'=COUNTA({L}!{CL("Product #")}2:{CL("Product #")}{last})'),
     ("Pack number filled in", f'=COUNTA({L}!{CL("Pack #")}2:{CL("Pack #")}{last})'),
     ("Marked as a hit", f'=COUNTIF({L}!{CL("Hit")}2:{CL("Hit")}{last},"Yes")'),
-    ("Hit card named", f'=COUNTA({L}!{CL("Hit Info")}2:{CL("Hit Info")}{last})'),
+    ("Hit info written", f'=COUNTA({L}!{CL("Hit Info")}2:{CL("Hit Info")}{last})'),
     ("In Greatest Hits", f'=COUNTIF({L}!{CL("Greatest Hits")}2:{CL("Greatest Hits")}{last},"Yes")'),
     ("Given a rank", f'=COUNTA({L}!{CL("Greatest Hits Rank")}2:{CL("Greatest Hits Rank")}{last})'),
-    ("Affiliate links added", f'=COUNTA({L}!{CL("Affiliate Link")}2:{CL("Affiliate Link")}{last})'),
-    ("Hidden from the site", f'=COUNTIF({L}!{CL("Hide")}2:{CL("Hide")}{last},"Yes")'),
 ]
+
 for i, (label, formula) in enumerate(metrics, start=3):
     wsum.cell(i, 1, label).font = BODY
     c = wsum.cell(i, 2, formula)
@@ -1496,7 +1442,11 @@ wh = wb.create_sheet("My Hits")
 HIT_COLS = [
     ("Video ID", 14, "input"),
     ("Card", 30, "input"),
-    ("Set", 24, "input"),
+    # RESTORED. A blanket removal of the Set column, meant for the Video Log
+    # where Sets & Packs replaced it, took this one with it. My Hits is one card
+    # per row and a card belongs to exactly one set, so a single-select Set
+    # column is right here even though it is wrong over there.
+    ("Set", 24, "locked"),
     ("Number", 9, "locked"),
     ("Rarity", 32, "locked"),
     ("Raw NM USD", 12, "locked"),
