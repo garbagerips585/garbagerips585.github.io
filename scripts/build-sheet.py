@@ -688,7 +688,22 @@ COLUMNS = [
     # what it says. That is the structural difference between this and the blue
     # prefills that had to be torn out: those lived IN the answer columns.
     ("From Your Title", 34, "locked"),
-    ("Product", 34, "input"),
+    ("Product", 26, "input"),
+    # WHICH ONE OF THAT PRODUCT, and it needed its own column after all.
+    #
+    # Tim asked the right question: "the only thing I want to make sure is ok is
+    # where i'm putting that an ETB is the third ETB we have opened... want to
+    # make sure I have that in the correct spot". The answer was that there was
+    # no correct spot. I had folded it into a written phrase, "Pitch Black ETB
+    # #3", on the theory that people name a product in one breath. His first
+    # real pass says otherwise: he wrote "ETB", "Single Booster Pack", "Sleeved
+    # Booster Pack", the TYPE alone, every time. The set he leaves to the tags
+    # and the number had nowhere to go.
+    #
+    # So it is a column again, right beside the product it counts. "3" here
+    # means the third Chaos Rising ETB, and it is the number the set guides
+    # print as "3 Elite Trainer Boxes".
+    ("Product #", 10, "input"),
     ("Pack #", 8, "input"),
     ("Hit", 7, "input"),
     ("Hit Info", 54, "input"),
@@ -1111,6 +1126,8 @@ for r, v in enumerate(ordered, start=2):
     # prefills NOTHING into these columns, so anything present is an answer.
     if man.get("openingType"):
         wv.cell(r, COL["Product"], man["openingType"]).font = BODY
+    if man.get("boxNumber"):
+        wv.cell(r, COL["Product #"], man["boxNumber"]).font = BODY
     if man.get("packNumber"):
         wv.cell(r, COL["Pack #"], man["packNumber"]).font = BODY
     if man.get("hasHit") is not None:

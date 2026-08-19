@@ -27,19 +27,143 @@
     "them to the site either: reverting one line in sync-youtube.mjs republishes all",
     "244 and nothing about the file would look wrong."
   ],
+  "_RuAmy2dGL8": {
+    "openingType": "Sleeved Booster Pack",
+    "packNumber": 9,
+    "hasHit": false
+  },
   "iIgTusrqVtg": {
-    "boxNumber": 3,
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 3
+      }
+    ],
+    "packsOpened": 3,
+    "openingType": "ETB",
     "packNumber": 3,
+    "hasHit": true,
+    "hitCard": "Mega Greninja ex - Hyper Rare - Gold Card",
+    "hits": [
+      {
+        "card": "Mega Greninja ex",
+        "rarity": "Hyper Rare"
+      }
+    ],
+    "greatest": true,
     "hofRank": 1
   },
+  "DP8HG31X1rg": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "openingType": "Single Booster Pack",
+    "packNumber": 13,
+    "hasHit": false
+  },
+  "VZtK6rT7ZTI": {
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "openingType": "ETB",
+    "packNumber": 8,
+    "hasHit": false
+  },
   "E5Wz7X1VMeY": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "openingType": "Sleeved Booster Pack",
+    "packNumber": 8,
+    "hasHit": false
+  },
+  "T2-UqY2ZSOw": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 3
+      }
+    ],
+    "packsOpened": 3,
+    "openingType": "ETB",
+    "packNumber": 2,
+    "hasHit": false
   },
   "O5WscUY7qZI": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "openingType": "Single Booster Pack",
+    "packNumber": 12,
+    "hasHit": true,
+    "hitCard": "Cinccino ex - Double Black Star - Double Rare",
+    "hits": [
+      {
+        "card": "Cinccino ex",
+        "rarity": "Double Rare"
+      }
+    ]
+  },
+  "IQMn3DNCzik": {
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "openingType": "ETB",
+    "packNumber": 7,
+    "hasHit": false
   },
   "2XdMKde79M8": {
-    "hasHit": true
+    "setPacks": [
+      {
+        "set": "pitch-black",
+        "name": "pitch black",
+        "packs": 1
+      }
+    ],
+    "packsOpened": 1,
+    "openingType": "Single Booster Pack",
+    "packNumber": 7,
+    "hasHit": false
+  },
+  "RZInASE6x1c": {
+    "setPacks": [
+      {
+        "set": "chaos-rising",
+        "name": "chaos rising",
+        "packs": 3
+      }
+    ],
+    "packsOpened": 3,
+    "openingType": "ETB",
+    "packNumber": 1,
+    "hasHit": false
   },
   "inTMqcQmFhM": {
     "hasHit": true
@@ -339,8 +463,6 @@
   },
   "EOFAhFwJKqw": {
     "openingType": "Blister Pack",
-    "packs": 2,
-    "boxNumber": 1,
     "packNumber": 1,
     "hasHit": true,
     "hitCard": "Paradox Rift - Tsareena ex - Double Black Star - Double Rare",
@@ -351,12 +473,10 @@
         "set": "paradox-rift",
         "setName": "paradox rift"
       }
-    ],
-    "box": "Paradox Rift Blister Pack"
+    ]
   },
   "l6RPdGNs7uE": {
     "openingType": "ex Box",
-    "boxNumber": 1,
     "hasHit": true,
     "hitCard": "Mega Kangakhan ex - Black Star Promo , Mega Evolution - Spearow - Single Gold Star - Illustration Rare,",
     "hits": [
@@ -372,12 +492,10 @@
       }
     ],
     "playlistToAdd": "Hits",
-    "box": "Mega Kangaskhan ex Box",
     "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets."
   },
   "kj7532tb0_I": {
     "openingType": "UPC",
-    "boxNumber": 1,
     "hasHit": true,
     "hitCard": "Phantasmal Flames - Trainer - Dawn - Double Silver Star - Ultra Rare, Phantasmal Flames - Mega Gengar ex - Double Black Star - Double Rare , Mega Evolution - Mega Gardevoir ex - Double Silver Star - Ultra Rare , Mega Evolution - Mega Venusaur ex - Double Black Star - Double Rare , Mega Evolution - Marshadow - Single Gold Star - Illustration Rare ,  Destined Rivals - Cetitan ex - Double Black Star , Destined Rivals - Rotom - Single Gold Star - Illustration Rare, Journey Together - Noibat - Single Gold Star - Illustration Rare, Journey Together - Trainer - Brock's Scouting - Double Silver Star - Ultra Rare , Journey Together - Blaziken ex - Double Black Star - Double Rare, Surging Sparks - Trainer - Scramble Switch - Single Pink Star -  ACE SPEC Rare , Surging Sparks - Trainer - Cyrano - Double Silver Star - Ultra Rare, Phantasmal Falmes - Charizard X ex - Black Star Promo Card , Phantasmal Flames - Oricorio ex - Black Star Promo Card",
     "hits": [
@@ -462,14 +580,11 @@
         "setName": "phantasmal flames"
       }
     ],
-    "hitRarity": "More than one",
     "playlistToAdd": "Hits",
-    "box": "Mega Charizard X ex Ultra Premium Collection",
     "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets."
   },
   "TN7_ZsuRQSI": {
     "openingType": "Collector Chest",
-    "boxNumber": 1,
     "hasHit": true,
     "hitCard": "Mega Evolution - Stufful - Single Gold star - Illustration Rare , Destined Rivals - Marnie's Grimmsnarl ex , Double Black Star - Double Rare , Journey Together - Wailord - Single Gold Star - Illustration Rare",
     "hits": [
@@ -495,9 +610,7 @@
         "setName": "journey together"
       }
     ],
-    "hitRarity": "More than one",
     "playlistToAdd": "Hits",
-    "box": "Fall 2025 Collector Chest",
     "notes": "All the packs are on the first set. Move some across the Packs columns if they came from different sets."
   }
 }

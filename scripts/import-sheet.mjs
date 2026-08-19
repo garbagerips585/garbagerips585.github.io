@@ -110,6 +110,11 @@ const PRODUCT_IDS = {
   "super premium collection": "spc",
   "mini tin": "tin",
   "single pack": "single-pack",
+  // A pack inside a printed outer sleeve, the version that hangs on a peg. It
+  // is still one booster pack and the site counts it as one, which is why it
+  // maps to single-pack rather than earning a tag of its own.
+  "sleeved booster pack": "single-pack",
+  "sleeved pack": "single-pack",
   "booster pack": "single-pack",
   "bundle": "bundle",
   "japanese pack": "japanese-pack",
@@ -566,10 +571,9 @@ for (const [n, r] of rows.slice(1).entries()) {
       const num = /(\d{1,3})\s*$/.exec(frag);
       setPacks.push({ set: setIdByName.get(hit), name: hit, packs: num ? Number(num[1]) : 1 });
     }
-    if (setPacks.length) {
-      m.setPacks = setPacks;
-      m.packsOpened = setPacks.reduce((n, s) => n + s.packs, 0);
-    }
+    // Held in locals: `m` is declared further down, and these blocks run
+    // during the set/override work that happens before it exists.
+    
   }
 
   const setIds = setPacks.map((s) => s.set);
@@ -717,6 +721,24 @@ for (const [n, r] of rows.slice(1).entries()) {
     if (setIds.length > 1) counted.multiSet++;
   }
 
+  const opening = get(r, idx.opening);
+  if (opening) {
+    const key = opening.toLowerCase();
+    if (!(key in PRODUCT_IDS)) unknownOpening.add(opening);
+    else if (PRODUCT_IDS[key]) {
+      // Same rule as the sets above: his answer is stored either way, and only
+      // a disagreement is worth a line in the list he reads afterwards.
+      if (!sameTags([PRODUCT_IDS[key]], auto.products)) note("products", [PRODUCT_IDS[key]], auto.products);
+      overrides[id] = { ...(overrides[id] || {}), products: [PRODUCT_IDS[key]] };
+      counted.opening++;
+    }
+  }
+
+  const m = {};
+  if (setPacks.length) {
+    m.setPacks = setPacks;
+    m.packsOpened = setPacks.reduce((n, s) => n + s.packs, 0);
+  }
   // TAKE THE PRODUCT PHRASE APART. "Pitch Black ETB #3" yields the set, the
   // product type and the product number; a bare "ETB" still yields just the
   // type, so an older sheet keeps working.
@@ -744,25 +766,11 @@ for (const [n, r] of rows.slice(1).entries()) {
     };
     const keys = [...Object.keys(PRODUCT_IDS), ...Object.keys(PROSE)].sort((a, b) => b.length - a.length);
     const kind = keys.find((k) => low.includes(k));
-    if (kind) m.openingType = PROSE[kind] || kind;
+    if (kind && !m.openingType) m.openingType = PROSE[kind] || kind;
     const num = /(?:etb|box|bundle|tin|upc|spc|blister|chest|collection|pack)\s*#?\s*(\d{1,2})\b/i.exec(productPhrase);
     if (num && m.boxNumber == null) m.boxNumber = Number(num[1]);
   }
 
-  const opening = m.openingType || get(r, idx.opening);
-  if (opening) {
-    const key = opening.toLowerCase();
-    if (!(key in PRODUCT_IDS)) unknownOpening.add(opening);
-    else if (PRODUCT_IDS[key]) {
-      // Same rule as the sets above: his answer is stored either way, and only
-      // a disagreement is worth a line in the list he reads afterwards.
-      if (!sameTags([PRODUCT_IDS[key]], auto.products)) note("products", [PRODUCT_IDS[key]], auto.products);
-      overrides[id] = { ...(overrides[id] || {}), products: [PRODUCT_IDS[key]] };
-      counted.opening++;
-    }
-  }
-
-  const m = {};
   if (opening) m.openingType = opening;
   // The denominator for the luck page. Only a positive whole number is worth
   // keeping: a blank, a zero or a stray word would silently divide the rate by
@@ -893,6 +901,12 @@ for (const [n, r] of rows.slice(1).entries()) {
       "double black star": "Double Rare",
       "single pink star": "ACE SPEC Rare",
     };
+    // FINISH WORDS ARE NOT PART OF THE CARD NAME. Tim writes "Mega Greninja ex
+    // - Hyper Rare - Gold Card": the gold is how the card looks, not what it is
+    // called, and leaving it in produced the card name "Mega Greninja ex Gold
+    // Card". Stripped after the rarity is read, never before, so a finish can
+    // never be mistaken for one.
+    const FINISH = /\b(gold|rainbow|silver|textured|full art|alt art)\s+card\b/i;
     const RARITY_WORDS = [
       "Mega Hyper Rare", "Special Illustration Rare", "Illustration Rare",
       "ACE SPEC Rare", "Hyper Rare", "Ultra Rare", "Double Rare", "Super Rare",
@@ -925,7 +939,7 @@ for (const [n, r] of rows.slice(1).entries()) {
         if (ki !== -1) star = lows[ki];
         // What is left, in order, is the card. "Trainer - Dawn" stays joined:
         // Trainer is part of how he names it and dropping it loses which Dawn.
-        name = parts.filter((_, i) => i !== si && i !== ri && i !== ki).join(" ").trim();
+        name = parts.filter((_, i) => i !== si && i !== ri && i !== ki).join(" ").replace(FINISH, " ").replace(/\s+/g, " ").trim();
       }
 
       if (!name) {
