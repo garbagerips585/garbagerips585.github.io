@@ -1344,115 +1344,135 @@ for (const [n, r] of rows.slice(1).entries()) {
     // item. That is his own sentence structure being read, not a guess: a colon
     // in English introduces a list of the thing just named. The nine regions in
     // this product line will all arrive this way.
-    let cardText = card;
-    let listContext = null;
-    const colon = /^([^:]{4,}?)\s*:\s*(.+)$/s.exec(card);
-    if (colon && colon[2].includes(",")) {
-      // THE CONTEXT IS KEPT BESIDE THE CARD, NOT GLUED ONTO ITS NAME. Prepending
-      // it produced "First Partner Illustration Collection (Series 1) Alola
-      // Region Promo Rowlet", which is not what the card is called and matches
-      // no catalogue entry. The card is Rowlet; the rest says which printing.
-      listContext = colon[1].trim();
-      cardText = colon[2];
-    }
-
-    for (const raw of cardText.split(",")) {
-      const frag = raw.replace(/\s+/g, " ").trim();
-      if (!frag) continue;
-
-      // A dash used as a DELIMITER has a space on at least one side. A hyphen
-      // inside a card name (Ho-Oh, Porygon-Z, Jangmo-o) has none, so it lives.
-      const parts = frag.split(/\s-\s*|\s*-\s/).map((x) => x.trim()).filter(Boolean);
-
-      let setName = null, rarity = null, star = null, code = null, name = null, cardType = null;
-
-      if (parts.length >= 2) {
-        const lows = parts.map((x) => x.toLowerCase());
-        let si = lows.findIndex((x) => setIdByName.has(x));
-        if (si !== -1) setName = lows[si];
-        else {
-          // Exact match failed on every part. Try the nearest real set name,
-          // which rescues "Phantasmal Falmes" without inventing anything.
-          for (let k = 0; k < lows.length; k++) {
-            const near = nearestSet(lows[k], [...setIdByName.keys()]);
-            if (near) { setName = near; si = k; break; }
-          }
-        }
-        // "BLACK STAR PROMO CARD" IS A RARITY WITH A NOUN ON THE END OF IT.
-        //
-        // This test was an exact equality against the rarity list, so Tim's
-        // "Phantasmal Falmes - Charizard X ex - Black Star Promo Card" matched
-        // nothing, the whole trailing part fell into the card name, and two
-        // rips published cards called "Charizard X ex Black Star Promo Card"
-        // and "Oricorio ex Black Star Promo Card". He writes the word Card
-        // after a rarity the way anybody says it out loud. Only a TRAILING
-        // "card" is tolerated, and the match is still an equality against the
-        // closed list, so nothing new can be recognised as a rarity.
-        const deCard = (x) => x.replace(/\s+card$/, "");
-        const ri = lows.findIndex((x) => RARITY_WORDS.some((w) => deCard(x) === w.toLowerCase()));
-        if (ri !== -1) rarity = RARITY_WORDS.find((w) => deCard(lows[ri]) === w.toLowerCase());
-        const ki = lows.findIndex((x) => STAR_RARITY[x]);
-        if (ki !== -1) star = lows[ki];
-        // The letter code, matched against the RAW part rather than the
-        // lowercased one: "SR" is a rarity mark and "Sr" is a name suffix.
-        const ci = parts.findIndex((x) => Object.hasOwn(CODE_RARITY, x));
-        if (ci !== -1) code = parts[ci];
-        // What is left, in order, is the card.
-        name = parts.filter((_, i) => i !== si && i !== ri && i !== ki && i !== ci).join(" ").replace(FINISH, " ").replace(/\s+/g, " ").trim();
-        // "Trainer - Dawn" is a card TYPE and a card. Whether the type word
-        // belongs in the name is decided later, against the set's checklist,
-        // because on most of these rows the set is not in the fragment at all
-        // and only arrives from the video's own tags further down. The shorter
-        // reading is carried alongside the glued one until then.
-        if (parts.length >= 3) {
-          const ti = parts.findIndex((p, i) => i !== si && i !== ri && i !== ki && i !== ci && TYPE_WORD.test(p));
-          if (ti !== -1) {
-            const shorter = parts.filter((_, i) => i !== si && i !== ri && i !== ki && i !== ci && i !== ti)
-              .join(" ").replace(FINISH, " ").replace(/\s+/g, " ").trim();
-            if (shorter) cardType = shorter;
-          }
-        }
+    // A SEMICOLON SEPARATES PACKS, because one video can hit in more than one.
+    //
+    // Until 20 August 2026 no cell in this sheet had ever recorded hits from
+    // two different packs -- all 54 named a single printing -- so the parse
+    // below had no reason to look for a second one. First Partner boxes changed
+    // that: they hold three packs, Tim opens all three on camera, and Box #5 hit
+    // in two of them. He wrote both into one cell and the colon-and-comma rule
+    // read it as three cards from one pack, producing a card called
+    // 'Popplio Trainer Punk Helmet' that does not exist and shipped to two
+    // pages. That is not a typo in his data; it is a shape his format could not
+    // express.
+    //
+    // Tim picked the semicolon (20 August 2026) from the separators that were
+    // free: neither ';' nor '|' appeared in any of the 54 hit cells, so nothing
+    // already written changes meaning. Each block is parsed exactly as a whole
+    // cell was before -- its own colon context, its own comma list -- so a cell
+    // with no semicolon takes precisely the path it always took.
+    for (const block of card.split(";")) {
+      let cardText = block.trim();
+      if (!cardText) continue;
+      let listContext = null;
+      const colon = /^([^:]{4,}?)\s*:\s*(.+)$/s.exec(cardText);
+      if (colon && colon[2].includes(",")) {
+        // THE CONTEXT IS KEPT BESIDE THE CARD, NOT GLUED ONTO ITS NAME. Prepending
+        // it produced "First Partner Illustration Collection (Series 1) Alola
+        // Region Promo Rowlet", which is not what the card is called and matches
+        // no catalogue entry. The card is Rowlet; the rest says which printing.
+        listContext = colon[1].trim();
+        cardText = colon[2];
       }
 
-      if (!name) {
-        const low = frag.toLowerCase();
-        setName = SET_NAMES.find((s2) => low.includes(s2)) || null;
-        rarity = RARITY_WORDS.find((w) => low.includes(w.toLowerCase())) || null;
-        star = Object.keys(STAR_RARITY).find((k) => low.includes(k)) || null;
-        let rest = frag;
-        for (const piece of [setName, rarity, star]) {
-          if (piece) rest = rest.replace(new RegExp(esc(piece), "i"), " ");
+      for (const raw of cardText.split(",")) {
+        const frag = raw.replace(/\s+/g, " ").trim();
+        if (!frag) continue;
+
+        // A dash used as a DELIMITER has a space on at least one side. A hyphen
+        // inside a card name (Ho-Oh, Porygon-Z, Jangmo-o) has none, so it lives.
+        const parts = frag.split(/\s-\s*|\s*-\s/).map((x) => x.trim()).filter(Boolean);
+
+        let setName = null, rarity = null, star = null, code = null, name = null, cardType = null;
+
+        if (parts.length >= 2) {
+          const lows = parts.map((x) => x.toLowerCase());
+          let si = lows.findIndex((x) => setIdByName.has(x));
+          if (si !== -1) setName = lows[si];
+          else {
+            // Exact match failed on every part. Try the nearest real set name,
+            // which rescues "Phantasmal Falmes" without inventing anything.
+            for (let k = 0; k < lows.length; k++) {
+              const near = nearestSet(lows[k], [...setIdByName.keys()]);
+              if (near) { setName = near; si = k; break; }
+            }
+          }
+          // "BLACK STAR PROMO CARD" IS A RARITY WITH A NOUN ON THE END OF IT.
+          //
+          // This test was an exact equality against the rarity list, so Tim's
+          // "Phantasmal Falmes - Charizard X ex - Black Star Promo Card" matched
+          // nothing, the whole trailing part fell into the card name, and two
+          // rips published cards called "Charizard X ex Black Star Promo Card"
+          // and "Oricorio ex Black Star Promo Card". He writes the word Card
+          // after a rarity the way anybody says it out loud. Only a TRAILING
+          // "card" is tolerated, and the match is still an equality against the
+          // closed list, so nothing new can be recognised as a rarity.
+          const deCard = (x) => x.replace(/\s+card$/, "");
+          const ri = lows.findIndex((x) => RARITY_WORDS.some((w) => deCard(x) === w.toLowerCase()));
+          if (ri !== -1) rarity = RARITY_WORDS.find((w) => deCard(lows[ri]) === w.toLowerCase());
+          const ki = lows.findIndex((x) => STAR_RARITY[x]);
+          if (ki !== -1) star = lows[ki];
+          // The letter code, matched against the RAW part rather than the
+          // lowercased one: "SR" is a rarity mark and "Sr" is a name suffix.
+          const ci = parts.findIndex((x) => Object.hasOwn(CODE_RARITY, x));
+          if (ci !== -1) code = parts[ci];
+          // What is left, in order, is the card.
+          name = parts.filter((_, i) => i !== si && i !== ri && i !== ki && i !== ci).join(" ").replace(FINISH, " ").replace(/\s+/g, " ").trim();
+          // "Trainer - Dawn" is a card TYPE and a card. Whether the type word
+          // belongs in the name is decided later, against the set's checklist,
+          // because on most of these rows the set is not in the fragment at all
+          // and only arrives from the video's own tags further down. The shorter
+          // reading is carried alongside the glued one until then.
+          if (parts.length >= 3) {
+            const ti = parts.findIndex((p, i) => i !== si && i !== ri && i !== ki && i !== ci && TYPE_WORD.test(p));
+            if (ti !== -1) {
+              const shorter = parts.filter((_, i) => i !== si && i !== ri && i !== ki && i !== ci && i !== ti)
+                .join(" ").replace(FINISH, " ").replace(/\s+/g, " ").trim();
+              if (shorter) cardType = shorter;
+            }
+          }
         }
-        name = rest.replace(/\s+/g, " ").trim();
+
+        if (!name) {
+          const low = frag.toLowerCase();
+          setName = SET_NAMES.find((s2) => low.includes(s2)) || null;
+          rarity = RARITY_WORDS.find((w) => low.includes(w.toLowerCase())) || null;
+          star = Object.keys(STAR_RARITY).find((k) => low.includes(k)) || null;
+          let rest = frag;
+          for (const piece of [setName, rarity, star]) {
+            if (piece) rest = rest.replace(new RegExp(esc(piece), "i"), " ");
+          }
+          name = rest.replace(/\s+/g, " ").trim();
+        }
+
+        // A FRAGMENT THAT IS ONLY PUNCTUATION IS NOT A CARD. Tim's Collector
+        // Chest line ends "... Double Rare , Journey Together - Wailord ...", and
+        // a stray separator produced a hit whose card name was "-". It reached
+        // data/hits.json and would have shown as a plaque with a dash on it.
+        if (!name || !/[a-z0-9]/i.test(name)) { unparsed.push(frag); continue; }
+
+        // The star wins nothing alone, but it FILLS a missing rarity and FLAGS a
+        // disagreement. Neither is a guess: both readings are his.
+        // The letter code is the Japanese and Korean half of the same mark and is
+        // treated identically, so a fragment can carry a mark in either notation.
+        const fromStar = star ? STAR_RARITY[star] : code ? CODE_RARITY[code] : null;
+        if (fromStar && rarity && fromStar !== rarity) mismatched.push({ frag, star: fromStar, written: rarity });
+        const finalRarity = rarity || fromStar || null;
+
+        const setId = setName ? setIdByName.get(setName) : null;
+        hits.push({
+          card: name,
+          // The same fragment read with the card-type word taken out, settled
+          // against the set's checklist below and deleted either way.
+          ...(cardType && cardType !== name ? { _noType: cardType } : {}),
+          ...(listContext ? { printing: listContext } : {}),
+          ...(finalRarity ? { rarity: finalRarity } : {}),
+          // setDisplayName, not the matched key: the key is lowercased so a typed
+          // cell can be looked up, and printing it published eleven captions
+          // reading "mega evolution" on one rip page. See the map's own comment.
+          ...(setId ? { set: setId, setName: setDisplayName.get(setId) || setName } : {}),
+        });
       }
-
-      // A FRAGMENT THAT IS ONLY PUNCTUATION IS NOT A CARD. Tim's Collector
-      // Chest line ends "... Double Rare , Journey Together - Wailord ...", and
-      // a stray separator produced a hit whose card name was "-". It reached
-      // data/hits.json and would have shown as a plaque with a dash on it.
-      if (!name || !/[a-z0-9]/i.test(name)) { unparsed.push(frag); continue; }
-
-      // The star wins nothing alone, but it FILLS a missing rarity and FLAGS a
-      // disagreement. Neither is a guess: both readings are his.
-      // The letter code is the Japanese and Korean half of the same mark and is
-      // treated identically, so a fragment can carry a mark in either notation.
-      const fromStar = star ? STAR_RARITY[star] : code ? CODE_RARITY[code] : null;
-      if (fromStar && rarity && fromStar !== rarity) mismatched.push({ frag, star: fromStar, written: rarity });
-      const finalRarity = rarity || fromStar || null;
-
-      const setId = setName ? setIdByName.get(setName) : null;
-      hits.push({
-        card: name,
-        // The same fragment read with the card-type word taken out, settled
-        // against the set's checklist below and deleted either way.
-        ...(cardType && cardType !== name ? { _noType: cardType } : {}),
-        ...(listContext ? { printing: listContext } : {}),
-        ...(finalRarity ? { rarity: finalRarity } : {}),
-        // setDisplayName, not the matched key: the key is lowercased so a typed
-        // cell can be looked up, and printing it published eleven captions
-        // reading "mega evolution" on one rip page. See the map's own comment.
-        ...(setId ? { set: setId, setName: setDisplayName.get(setId) || setName } : {}),
-      });
     }
 
     // A HIT WITH NO SET TAKES THE VIDEO'S, BUT ONLY WHEN THERE IS EXACTLY ONE.

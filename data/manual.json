@@ -1499,7 +1499,7 @@
     "boxNumber": 5,
     "packNumber": 1,
     "hasHit": true,
-    "hitCard": "First Partner Illustration Collection (Series 1) Alola Region Promo : Rowlet, Litten, Popplio  - Phantasmal Flames - Trainer - Punk Helmet - Double Silver Star - Ultra Rare",
+    "hitCard": "First Partner Illustration Collection (Series 1) Alola Region Promo : Rowlet, Litten, Popplio ; Phantasmal Flames - Trainer - Punk Helmet - Double Silver Star - Ultra Rare",
     "hits": [
       {
         "card": "Rowlet",
@@ -1510,8 +1510,11 @@
         "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
       },
       {
-        "card": "Popplio Trainer Punk Helmet",
-        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo",
+        "card": "Popplio",
+        "printing": "First Partner Illustration Collection (Series 1) Alola Region Promo"
+      },
+      {
+        "card": "Punk Helmet",
         "rarity": "Ultra Rare",
         "set": "phantasmal-flames",
         "setName": "Phantasmal Flames"
